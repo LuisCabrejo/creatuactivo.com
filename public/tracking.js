@@ -159,7 +159,7 @@
             window.FrameworkIAA = {
                 fingerprint: fallbackFingerprint,
                 prospect: null,
-                error: error.message
+                error: error instanceof Error ? error.message : String(error)
             };
 
             console.log('⚠️ FrameworkIAA fallback creado:', window.FrameworkIAA);

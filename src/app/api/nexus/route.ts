@@ -1023,7 +1023,7 @@ export async function GET() {
       status: 'unhealthy',
       version: API_VERSION,
       arquitectura: 'híbrida + catálogo fix',
-      error: error.message
+      error: error instanceof Error ? error.message : String(error)
     }), {
       status: 503,
       headers: { 'Content-Type': 'application/json' }

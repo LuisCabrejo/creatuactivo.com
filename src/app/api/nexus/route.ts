@@ -903,7 +903,7 @@ ${context}INSTRUCCIONES ARQUITECTURA HÍBRIDA:
     });
 
     // Stream optimizado para arquitectura híbrida
-    const stream = AnthropicStream(response, {
+    const stream = AnthropicStream(response as any, {
       onFinal: async (completion) => {
         const totalTime = Date.now() - startTime;
         console.log(`NEXUS híbrido completado en ${totalTime}ms - Método: ${searchMethod}`);

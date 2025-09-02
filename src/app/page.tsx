@@ -46,12 +46,12 @@ const HeroSection = () => {
               textDecoration: 'none'
             }}
             onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-3px)';
-              e.target.style.boxShadow = '0 12px 35px rgba(30, 64, 175, 0.5)';
+              (e.target as HTMLElement).style.transform = 'translateY(-3px)';
+              (e.target as HTMLElement).style.boxShadow = '0 12px 35px rgba(30, 64, 175, 0.5)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0px)';
-              e.target.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4)';
+              (e.target as HTMLElement).style.transform = 'translateY(0px)';
+              (e.target as HTMLElement).style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4)';
             }}
           >
             Descubre el Sistema

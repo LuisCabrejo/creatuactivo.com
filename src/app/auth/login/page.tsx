@@ -61,7 +61,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         // Aquí iría la lógica de autenticación con Supabase
         console.log("Iniciando sesión con:", { email, password });

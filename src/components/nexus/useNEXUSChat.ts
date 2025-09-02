@@ -73,15 +73,17 @@ const sendMessage = useCallback(async (content: string) => {
     const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos timeout
 
     // 🔧 FIX CRÍTICO: Obtener datos del tracking.js para NEXUS API
-    const fingerprint = window.FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || undefined;
-    const sessionId = window.nexusProspect?.id || `session_${Date.now()}`;
+    // ✅ CORREGIDO: Casting de window para TypeScript
+    const fingerprint = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || undefined;
+    const sessionId = (window as any).nexusProspect?.id || `session_${Date.now()}`;
 
     // 🔍 DEBUG: Log para verificar datos del tracking
     console.log('🔧 NEXUS Frontend - Enviando datos:', {
       fingerprint: fingerprint ? fingerprint.substring(0, 16) + '...' : 'undefined',
       sessionId: sessionId,
-      hasFrameworkIAA: !!window.FrameworkIAA,
-      hasNexusProspect: !!window.nexusProspect
+      // ✅ CORREGIDO: Casting de window para TypeScript
+      hasFrameworkIAA: !!(window as any).FrameworkIAA,
+      hasNexusProspect: !!(window as any).nexusProspect
     });
 
     const response = await fetch('/api/nexus', {

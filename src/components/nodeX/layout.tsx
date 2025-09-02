@@ -1,18 +1,13 @@
-import NodexSidebar from '@/components/navigation/NodexSidebar'
+import NodeXSidebar from '@/components/NodeXSidebar'
 
-export default function NodexLayout({
-  children,
+export default function NodeXLayout({
+  children
 }: {
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen bg-slate-900">
-      <NodexSidebar />
-      <div className="flex-1 lg:ml-64 w-full">
-        <main className="p-6">
-          {children}
-        </main>
-      </div>
+    <div className="flex">
+      <NodeXSidebar>{children}</NodeXSidebar>
     </div>
   )
 }

@@ -61,7 +61,7 @@ export default function RecuperarContrasenaPage() {
     const [email, setEmail] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handlePasswordReset = (e) => {
+    const handlePasswordReset = (e: React.FormEvent) => {
         e.preventDefault();
         // Aquí iría la lógica de Supabase para enviar el email de recuperación
         console.log("Solicitando reseteo para:", email);

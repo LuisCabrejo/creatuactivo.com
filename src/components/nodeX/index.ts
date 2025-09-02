@@ -5,7 +5,7 @@
 export { default as NodeXMetrics } from './Metrics';
 
 // Dashboard (será recreado)
-export { default as Dashboard } from './Dashboard';
+export { default as NodeXLayout } from './layout'
 
 // Types y interfaces NodeX
 export interface NodeXData {

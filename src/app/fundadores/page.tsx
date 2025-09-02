@@ -168,18 +168,23 @@ const GlobalStyles = () => (
 );
 
 // --- Componente Reutilizable para Tarjetas de Beneficios ---
-const BenefitCard = ({ icon, title, description, colorScheme }) => {
-  const iconColors = {
+const BenefitCard = ({ icon, title, description, colorScheme }: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  colorScheme: string;
+}) => {
+  const iconColors: Record<string, string> = {
     blue: 'text-blue-400',
     purple: 'text-purple-400',
     green: 'text-green-400',
-    orange: 'text-orange-400',
+    orange: 'text-orange-400'
   };
 
   return (
     <div className="creatuactivo-ecosystem-card p-8 h-full">
       <div className="mb-6">
-        <div className={`inline-block ${iconColors[colorScheme]}`}>
+        <div className={`inline-block ${iconColors[colorScheme] || iconColors.blue}`}>
           {icon}
         </div>
       </div>
@@ -205,7 +210,8 @@ export default function FundadoresPage() {
     }
     // Si han pasado días completos desde el miércoles
     else if (now > startDate) {
-      const daysPassed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+      // ✅ CORREGIDO: .getTime() para operación matemática correcta
+      const daysPassed = Math.floor((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
       const hoursPassedToday = currentHour >= 10 ? currentHour - 10 : 0;
       spotsLeft = 150 - (daysPassed * 15) - hoursPassedToday;
     }
@@ -236,7 +242,8 @@ export default function FundadoresPage() {
         spotsLeft = 150 - hoursPassedToday;
       }
       else if (now > startDate) {
-        const daysPassed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+        // ✅ CORREGIDO: .getTime() para operación matemática correcta
+        const daysPassed = Math.floor((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
         const hoursPassedToday = currentHour >= 10 ? currentHour - 10 : 0;
         spotsLeft = 150 - (daysPassed * 15) - hoursPassedToday;
       }
@@ -247,7 +254,8 @@ export default function FundadoresPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleFormSubmit = (e) => {
+  // ✅ CORREGIDO: Event handler tipado
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formStep < 3) {
       setFormStep(formStep + 1);
@@ -259,7 +267,11 @@ export default function FundadoresPage() {
   };
 
   const scrollToForm = () => {
-    document.getElementById('formulario-fundador').scrollIntoView({behavior: 'smooth'});
+    // ✅ CORREGIDO: Verificación de null para getElementById
+    const element = document.getElementById('formulario-fundador');
+    if (element) {
+      element.scrollIntoView({behavior: 'smooth'});
+    }
   };
 
   return (

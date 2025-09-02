@@ -65,7 +65,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Ruta de Aprendizaje ---
-const LearningPathCard = ({ level, title, description, modules, icon, color }) => (
+const LearningPathCard = ({ level, title, description, modules, icon, color }: any) => (
     <div className="creatuactivo-component-card p-8 h-full">
         <div className="flex items-center gap-4 mb-4">
             <div className={`inline-block bg-${color}-500/10 p-3 rounded-xl`}>

@@ -145,13 +145,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
             {/* Mensaje de bienvenida optimizado para progresión */}
             {messages.length === 0 && (
-              <div className="flex items-start gap-2">
-                <div className="w-7 h-7 bg-slate-700 rounded-full flex-shrink-0 flex items-center justify-center">
+              <div className="flex items-start">
+                <div className="w-7 h-7 bg-slate-700 rounded-full flex-shrink-0 flex items-center justify-center mr-2">
                   <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </div>
-                <div className="flex-1 max-w-[85%] p-3 rounded-lg text-sm bg-slate-800/80 text-slate-200 backdrop-blur-sm">
+                <div className="flex-1 max-w-[95%] p-3 rounded-lg text-sm bg-slate-800/80 text-slate-200 backdrop-blur-sm">
                   <p className="font-semibold text-white mb-2">Hola, soy NEXUS 👋</p>
                   <p className="mb-3">Tu copiloto estratégico del ecosistema <span className="text-amber-400 font-semibold">CreaTuActivo.com</span></p>
 
@@ -176,19 +176,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {/* Messages */}
+            {/* Messages - ✅ OPTIMIZADOS PARA MÁXIMO APROVECHAMIENTO ESPACIAL */}
             {messages.map((message) => (
-              <div key={message.id} className={`flex items-start gap-2 ${message.role === 'user' ? 'justify-end' : ''}`}>
-                {message.role === 'assistant' && (
-                  <div className="w-7 h-7 bg-slate-700 rounded-full flex-shrink-0 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                  </div>
-                )}
+              <div key={message.id} className={`flex items-start ${message.role === 'user' ? 'justify-end' : ''}`}>
+                {/* ✅ ÍCONOS LATERALES ELIMINADOS - GANANCIA DE ~80-100px */}
 
                 <div
-                  className={`${isExpanded ? 'max-w-[80%]' : 'max-w-[85%]'} p-3 rounded-lg text-sm ${
+                  className={`${isExpanded ? 'max-w-[90%]' : 'max-w-[100%]'} p-3 rounded-lg text-sm ${
                     message.role === 'user'
                       ? 'text-white'
                       : 'bg-slate-800/80 text-slate-200 backdrop-blur-sm'
@@ -209,34 +203,26 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   </ReactMarkdown>
                 </div>
 
-                {message.role === 'user' && (
-                  <div className="w-7 h-7 bg-slate-600 rounded-full flex-shrink-0 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                  </div>
-                )}
+                {/* ✅ ÍCONOS LATERALES ELIMINADOS - SIN ÍCONOS DE PERSONA */}
               </div>
             ))}
 
-            {/* Typing indicator */}
+            {/* Typing indicator - ✅ MINIMALISTA SIN FONDO */}
             {isLoading && (
-              <div className="flex items-start gap-2">
-                <div className="w-7 h-7 bg-slate-700 rounded-full flex-shrink-0 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-6 h-6 bg-slate-700/60 rounded-full flex items-center justify-center">
+                  <svg className="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </div>
-                <div className="max-w-[85%] p-3 rounded-lg text-sm bg-slate-800/80 backdrop-blur-sm">
-                  <div className="flex items-center gap-1">
-                    {[...Array(3)].map((_, i) => (
-                      <span
-                        key={i}
-                        className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"
-                        style={{ animationDelay: `${i * 0.2}s` }}
-                      />
-                    ))}
-                  </div>
+                <div className="flex items-center gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <span
+                      key={i}
+                      className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    />
+                  ))}
                 </div>
               </div>
             )}

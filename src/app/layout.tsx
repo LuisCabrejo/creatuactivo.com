@@ -163,6 +163,265 @@ export default function RootLayout({
 
         {/* NEXUS Floating Button */}
         <NEXUSFloatingButton />
+
+        {/* MOBILE MENU FIX - VANILLA JS SOLUTION */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('DOMContentLoaded', function() {
+                console.log('🔧 Mobile Menu Fix loading...');
+
+                let isMenuOpen = false;
+                const menuButton = document.querySelector('[aria-label="Toggle menu"]');
+                const body = document.body;
+
+                if (!menuButton) {
+                  console.warn('❌ Menu button not found');
+                  return;
+                }
+
+                console.log('✅ Menu button found, initializing mobile menu...');
+
+                // Crear menú móvil HTML completo
+                const mobileMenuHTML = \`
+                  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden md:hidden">
+                    <div class="fixed top-20 left-0 right-0 bottom-0 z-50">
+                      <div class="bg-slate-900/98 backdrop-blur-xl border-t border-white/10 h-full overflow-y-auto">
+                        <div class="px-4 py-6 space-y-4">
+
+                          <!-- El Sistema -->
+                          <div class="py-2">
+                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">El Sistema</h3>
+                            <div class="space-y-1">
+                              <a href="/sistema/framework-iaa" class="mobile-menu-link">
+                                <span class="mr-3">⚡</span>
+                                <div>
+                                  <div class="font-medium">Framework (IAA)</div>
+                                  <div class="text-xs text-slate-500 mt-1">Metodología propietaria construcción activos</div>
+                                </div>
+                              </a>
+                              <a href="/sistema/tecnologia" class="mobile-menu-link">
+                                <span class="mr-3">🧠</span>
+                                <div>
+                                  <div class="font-medium">Tecnología</div>
+                                  <div class="text-xs text-slate-500 mt-1">NEXUS IA y NodeX: ventaja competitiva</div>
+                                </div>
+                              </a>
+                              <a href="/sistema/productos" class="mobile-menu-link">
+                                <span class="mr-3">📦</span>
+                                <div>
+                                  <div class="font-medium">Productos</div>
+                                  <div class="text-xs text-slate-500 mt-1">Motor único con patente mundial</div>
+                                </div>
+                              </a>
+                              <a href="/sistema/socio-corporativo" class="mobile-menu-link">
+                                <span class="mr-3">🛡️</span>
+                                <div>
+                                  <div class="font-medium">Socio Corporativo</div>
+                                  <div class="text-xs text-slate-500 mt-1">Gano Excel: credibilidad y trayectoria</div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Soluciones -->
+                          <div class="py-2">
+                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">Soluciones</h3>
+                            <div class="space-y-1">
+                              <a href="/soluciones/profesional-con-vision" class="mobile-menu-link">
+                                <span class="mr-3">💼</span>
+                                <div>
+                                  <div class="font-medium">Profesional con Visión</div>
+                                  <div class="text-xs text-slate-500 mt-1">Construir activo, no solo carrera</div>
+                                </div>
+                              </a>
+                              <a href="/soluciones/emprendedor-negocio" class="mobile-menu-link">
+                                <span class="mr-3">📱</span>
+                                <div>
+                                  <div class="font-medium">Emprendedor y Dueño</div>
+                                  <div class="text-xs text-slate-500 mt-1">Escalar con sistema, no tareas</div>
+                                </div>
+                              </a>
+                              <a href="/soluciones/independiente-freelancer" class="mobile-menu-link">
+                                <span class="mr-3">💡</span>
+                                <div>
+                                  <div class="font-medium">Independiente</div>
+                                  <div class="text-xs text-slate-500 mt-1">Talento a activo escalable</div>
+                                </div>
+                              </a>
+                              <a href="/soluciones/lider-del-hogar" class="mobile-menu-link">
+                                <span class="mr-3">🏠</span>
+                                <div>
+                                  <div class="font-medium">Líder del Hogar</div>
+                                  <div class="text-xs text-slate-500 mt-1">Flexibilidad y propósito</div>
+                                </div>
+                              </a>
+                              <a href="/soluciones/lider-comunidad" class="mobile-menu-link">
+                                <span class="mr-3">👥</span>
+                                <div>
+                                  <div class="font-medium">Líder Comunidad</div>
+                                  <div class="text-xs text-slate-500 mt-1">Influencia a legado tangible</div>
+                                </div>
+                              </a>
+                              <a href="/soluciones/joven-con-ambicion" class="mobile-menu-link">
+                                <span class="mr-3">🎓</span>
+                                <div>
+                                  <div class="font-medium">Joven con Ambición</div>
+                                  <div class="text-xs text-slate-500 mt-1">Activo antes que carrera</div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Presentación -->
+                          <div class="py-2">
+                            <a href="/presentacion-empresarial" class="mobile-menu-link">
+                              <span class="mr-3">📊</span>
+                              <div class="font-medium">Presentación Empresarial</div>
+                            </a>
+                          </div>
+
+                          <!-- El Ecosistema -->
+                          <div class="py-2">
+                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">El Ecosistema</h3>
+                            <div class="space-y-1">
+                              <a href="/ecosistema/comunidad" class="mobile-menu-link">
+                                <span class="mr-3">👥</span>
+                                <div>
+                                  <div class="font-medium">La Comunidad</div>
+                                  <div class="text-xs text-slate-500 mt-1">Historias éxito y pulso humano</div>
+                                </div>
+                              </a>
+                              <a href="/ecosistema/academia" class="mobile-menu-link">
+                                <span class="mr-3">🎓</span>
+                                <div>
+                                  <div class="font-medium">La Academia</div>
+                                  <div class="text-xs text-slate-500 mt-1">Rutas maestros constructores</div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Botón Sé Fundador -->
+                          <div class="mt-8 pt-6 border-t border-white/10">
+                            <a href="/fundadores" class="w-full block text-center py-4 px-6 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);">
+                              <span class="mr-2">👑</span>
+                              Sé Fundador
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                \`;
+
+                // CSS para los enlaces del menú móvil
+                const mobileMenuStyles = document.createElement('style');
+                mobileMenuStyles.textContent = \`
+                  .mobile-menu-link {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    padding: 12px 16px;
+                    color: rgb(203 213 225);
+                    border-radius: 8px;
+                    transition: all 0.2s ease;
+                    text-decoration: none;
+                    margin: 2px 0;
+                  }
+                  .mobile-menu-link:hover {
+                    background-color: rgba(51, 65, 85, 0.5);
+                    color: white;
+                    transform: translateX(4px);
+                  }
+                  .mobile-menu-link:active {
+                    background-color: rgba(51, 65, 85, 0.7);
+                  }
+                \`;
+                document.head.appendChild(mobileMenuStyles);
+
+                // Insertar menú en el DOM
+                body.insertAdjacentHTML('beforeend', mobileMenuHTML);
+                const mobileMenu = document.getElementById('mobile-menu-overlay');
+
+                if (!mobileMenu) {
+                  console.error('❌ Failed to create mobile menu');
+                  return;
+                }
+
+                // Función para alternar menú
+                function toggleMenu() {
+                  console.log('🍔 Toggling menu, current state:', isMenuOpen);
+
+                  isMenuOpen = !isMenuOpen;
+
+                  if (isMenuOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    body.style.overflow = 'hidden';
+                    console.log('✅ Menu opened');
+
+                    // Cambiar icono a X
+                    const icon = menuButton.querySelector('svg');
+                    if (icon) {
+                      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+                    }
+                  } else {
+                    mobileMenu.classList.add('hidden');
+                    body.style.overflow = 'auto';
+                    console.log('✅ Menu closed');
+
+                    // Cambiar icono a hamburguesa
+                    const icon = menuButton.querySelector('svg');
+                    if (icon) {
+                      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />';
+                    }
+                  }
+                }
+
+                // Event listeners para el botón
+                menuButton.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleMenu();
+                });
+
+                menuButton.addEventListener('touchstart', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleMenu();
+                });
+
+                // Cerrar al hacer click en overlay
+                mobileMenu.addEventListener('click', function(e) {
+                  if (e.target === mobileMenu) {
+                    console.log('🎯 Overlay clicked, closing menu');
+                    if (isMenuOpen) toggleMenu();
+                  }
+                });
+
+                // Cerrar al hacer click en enlaces del menú
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                  link.addEventListener('click', function() {
+                    console.log('🔗 Link clicked, closing menu');
+                    setTimeout(() => {
+                      if (isMenuOpen) toggleMenu();
+                    }, 150);
+                  });
+                });
+
+                // Cerrar menú al redimensionar ventana (desktop)
+                window.addEventListener('resize', function() {
+                  if (window.innerWidth >= 768 && isMenuOpen) {
+                    console.log('📱 Resize to desktop, closing menu');
+                    toggleMenu();
+                  }
+                });
+
+                console.log('🎉 Mobile menu fix initialized successfully!');
+              });
+            `
+          }}
+        />
       </body>
     </html>
   );

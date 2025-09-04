@@ -64,7 +64,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     handleSendMessage(inputMessage);
   };
 
-  // 🔧 TEXTOS OPTIMIZADOS - Quick Replies Iniciales Actualizados
+  // 🔧 QUICK REPLIES INICIALES SOLO PARA SALUDO - Sin superposición
   const quickReplies = [
     { text: 'Explícame el sistema, paso a paso', icon: '🏗️' },
     { text: '¿Cuál es el punto de entrada a la arquitectura?', icon: '💎' },
@@ -124,7 +124,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 onClick={() => setIsExpanded(!isExpanded)}
                 title={isExpanded ? "Contraer ventana" : "Expandir ventana"}
               >
-                {/* ✅ ICONOS ESTÁNDAR DE VENTANA - MÁXIMAMENTE INTUITIVOS */}
                 {isExpanded ? (
                   // Estado EXPANDIDO → Mostrar icono RESTAURAR (dos cuadrados)
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,8 +203,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             {/* Messages - ✅ OPTIMIZADOS PARA MÁXIMO APROVECHAMIENTO ESPACIAL */}
             {messages.map((message) => (
               <div key={message.id} className="flex">
-                {/* ✅ ÍCONOS LATERALES ELIMINADOS - GANANCIA DE ~80-100px */}
-
                 <div
                   className={`p-3 rounded-lg text-sm ${
                     message.role === 'user'
@@ -227,8 +224,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     {message.content}
                   </ReactMarkdown>
                 </div>
-
-                {/* ✅ ÍCONOS LATERALES ELIMINADOS - SIN ÍCONOS DE PERSONA */}
               </div>
             ))}
 
@@ -252,29 +247,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {/* 🔧 FIX CRÍTICO: Espacio reservado para Quick Replies */}
-            {isLoading && !streamingComplete && (
-              <div style={{ minHeight: '120px', opacity: 0 }}>
-                {/* Espacio invisible reservado para evitar layout shift */}
-              </div>
-            )}
-
             <div ref={messagesEndRef} />
           </div>
 
-          {/* 🔧 FIX: Quick Replies con transición suave */}
-          {(messages.length === 0 || (streamingComplete && !isLoading && progressiveReplies.length > 0)) && (
-            <div
-              className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'} transition-all duration-300 ease-in-out`}
-              style={{
-                opacity: streamingComplete || messages.length === 0 ? 1 : 0,
-                transform: streamingComplete || messages.length === 0 ? 'translateY(0)' : 'translateY(10px)'
-              }}
-            >
+          {/* 🔧 FIX CRÍTICO: Solo Quick Replies iniciales, NO los automáticos */}
+          {messages.length === 0 && (
+            <div className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}>
               <div className={`space-y-2 mb-3 ${isExpanded ? 'grid grid-cols-2 gap-3 space-y-0' : ''}`}>
-                {(messages.length === 0 ? quickReplies : progressiveReplies.map(text => ({ text, icon: '⚡' }))).map((reply, index) => (
+                {quickReplies.map((reply, index) => (
                   <button
-                    key={`${messages.length}-${index}`} // Key único para re-render
+                    key={index}
                     className={`w-full text-left p-2.5 rounded-lg font-medium flex items-center gap-2 transition-all duration-300 hover:scale-105 ${
                       isExpanded ? 'text-sm' : 'text-xs'
                     }`}
@@ -303,6 +285,12 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
           )}
+
+          {/* 🔧 ELIMINADO: Sección de Quick Replies automáticos que causaba superposición */}
+          {/*
+          La sección que renderizaba progressiveReplies se ha eliminado completamente
+          para evitar superposición con las opciones A, B, C que aparecen en el texto de NEXUS
+          */}
 
           {/* 🔧 INPUT OPTIMIZADO - Placeholder Actualizado */}
           <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-3'}`}>

@@ -1,5 +1,5 @@
 // src/components/nexus/useNEXUSChat.ts
-// 🔧 ACTUALIZACIÓN: Textos Optimizados + Parser Quick Replies para Flujo 3 Niveles
+// 🔧 FIX: Eliminar quick replies automáticos para evitar superposición con opciones A, B, C texto
 'use client';
 import { useState, useCallback } from 'react';
 
@@ -14,90 +14,32 @@ export const useNEXUSChat = () => {
 const [messages, setMessages] = useState<Message[]>([]);
 const [isLoading, setIsLoading] = useState(false);
 const [isStreaming, setIsStreaming] = useState(false);
+// 🔧 FIX: Desactivar progressiveReplies para eliminar botones superpuestos
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
 const [streamingComplete, setStreamingComplete] = useState(false);
 
 const generateId = () => Math.random().toString(36).substring(7);
 
-// 🔧 FUNCIÓN ACTUALIZADA: Parser Quick Replies para Flujo 3 Niveles
+// 🔧 FIX CRÍTICO: Función parseQuickReplies DESACTIVADA
+// El system prompt v11.5 ya maneja las opciones A, B, C en formato texto
+// No necesitamos generar botones automáticos que se superponen
 const parseQuickReplies = (content: string) => {
-  console.log('🔍 Parsing quick replies from content:', content.substring(0, 200) + '...');
+  console.log('🔧 parseQuickReplies DESACTIVADO - usando solo formato texto A, B, C');
 
-  const replies: string[] = [];
+  // NO parsear quick replies automáticos
+  // Las opciones A, B, C aparecen en formato texto según system prompt v11.5
+  setProgressiveReplies([]); // Mantener array vacío
 
-  // 🎯 PATRÓN 1: Quick Replies del Flujo 3 Niveles (Nuevo formato)
-  const flujoPatternsRegex = /🎯 "(.*?)"/g;
-  let match;
-
-  while ((match = flujoPatternsRegex.exec(content)) !== null) {
-    const reply = match[1];
-    if (reply && reply.trim().length > 0) {
-      replies.push(reply.trim());
-      console.log('✅ Quick reply encontrado (flujo 3 niveles):', reply.trim());
-    }
-  }
-
-  // 🔧 PATRÓN 2: Formato bullet points (respaldo)
-  if (replies.length === 0) {
-    const bulletPatterns = [
-      /• (¿[^•\n]+\?)/g,  // • ¿Pregunta?
-      /• ([^•\n]+\?)/g,   // • Texto con pregunta?
-      /• ([^•\n]{10,})/g  // • Texto largo (mín 10 chars)
-    ];
-
-    bulletPatterns.forEach(pattern => {
-      let bulletMatch;
-      while ((bulletMatch = pattern.exec(content)) !== null) {
-        const reply = bulletMatch[1];
-        if (reply && reply.trim().length > 0 && !replies.includes(reply.trim())) {
-          replies.push(reply.trim());
-          console.log('✅ Quick reply encontrado (bullet):', reply.trim());
-        }
-      }
-    });
-  }
-
-  // 🔧 PATRÓN 3: Patrones legacy (compatibilidad hacia atrás)
-  if (replies.length === 0) {
-    const legacyPatterns = [
-      /🏭 "(.*?)"/g,
-      /⚡ "(.*?)"/g,
-      /💡 "(.*?)"/g,
-      /■ "(.*?)"/g
-    ];
-
-    legacyPatterns.forEach(pattern => {
-      let legacyMatch;
-      while ((legacyMatch = pattern.exec(content)) !== null) {
-        const reply = legacyMatch[1];
-        if (reply && reply.trim().length > 0 && !replies.includes(reply.trim())) {
-          replies.push(reply.trim());
-          console.log('✅ Quick reply encontrado (legacy):', reply.trim());
-        }
-      }
-    });
-  }
-
-  // 🎯 FILTROS Y OPTIMIZACIONES
-  const filteredReplies = replies
-    .filter(reply => reply.length > 5) // Mínimo 5 caracteres
-    .filter(reply => reply.length < 100) // Máximo 100 caracteres
-    .slice(0, 3); // Máximo 3 quick replies
-
-  console.log(`🎯 Quick replies procesados: ${filteredReplies.length} de ${replies.length} encontrados`);
-
-  setProgressiveReplies(filteredReplies);
-
-  // Return para debugging
-  return filteredReplies;
+  return []; // No retornar quick replies
 };
 
 // Función para limpiar contenido de elementos técnicos
 const cleanMessageContent = (content: string) => {
   return content
     .replace(/QUICK REPLIES:/gi, '')
-    .replace(/🎯 ".*?"/g, '') // Limpiar quick replies del flujo 3 niveles
-    .replace(/🏭 ".*?"|⚡ ".*?"|💡 ".*?"|■ ".*?"/g, '') // Legacy patterns
+    // 🔧 MANTENER los patrones 🎯 en el texto - son parte del contenido
+    // .replace(/🎯 ".*?"/g, '') // COMENTADO - no limpiar estos patrones
+    .replace(/🏭 ".*?"|⚡ ".*?"|💡 ".*?"|■ ".*?"/g, '') // Solo legacy patterns
     .trim();
 };
 
@@ -113,7 +55,8 @@ const sendMessage = useCallback(async (content: string) => {
   setIsLoading(true);
   setIsStreaming(true);
   setStreamingComplete(false);
-  setProgressiveReplies([]); // Limpiar quick replies anteriores
+  // 🔧 FIX: No limpiar quick replies - mantener vacío
+  setProgressiveReplies([]); // Mantener vacío siempre
 
   // Crear mensaje asistente temporal para streaming
   const assistantMessageId = generateId();
@@ -203,9 +146,8 @@ const sendMessage = useCallback(async (content: string) => {
         );
       }
 
-      // 🎯 PARSEAR QUICK REPLIES DEL CONTENIDO FINAL (MEJORADO)
-      console.log('🔍 Contenido final para parsing:', accumulatedContent.substring(accumulatedContent.length - 300));
-      parseQuickReplies(accumulatedContent);
+      // 🔧 FIX: NO parsear quick replies - solo marcar como completo
+      console.log('🔧 Streaming completado - NO generando quick replies automáticos');
       setStreamingComplete(true);
 
     } else {
@@ -231,7 +173,7 @@ const sendMessage = useCallback(async (content: string) => {
               : msg
           )
         );
-        parseQuickReplies(data.response);
+        // 🔧 FIX: NO parsear quick replies automáticos
         setStreamingComplete(true);
       } else {
         throw new Error('Respuesta inválida del servidor');
@@ -297,11 +239,11 @@ const resetChat = useCallback(() => {
   setMessages([]);
   setIsLoading(false);
   setIsStreaming(false);
-  setProgressiveReplies([]);
+  setProgressiveReplies([]); // Mantener vacío
   setStreamingComplete(false);
  }, []);
 
-// Funciones auxiliares para quick replies
+// Funciones auxiliares para quick replies - DESACTIVADAS
 const handleQuickReply = useCallback((reply: string) => {
   console.log('🎯 Enviando quick reply:', reply);
   sendMessage(reply);
@@ -343,7 +285,7 @@ return {
   isLoading,
   isStreaming,
   streamingComplete,
-  progressiveReplies,
+  progressiveReplies, // Siempre array vacío
   sendMessage,
   resetChat,
   handleQuickReply,

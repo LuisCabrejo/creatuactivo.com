@@ -50,11 +50,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     return () => clearTimeout(scrollTimer);
   }, [messages.length]);
 
-  // 🎨 FUNCIONALIDAD CLAUDE: Envío con animación suave
+  // 🎨 FUNCIONALIDAD CLAUDE: Envío con scroll inmediato
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
       setInputMessage(''); // Limpiar input inmediatamente
-      await sendMessage(message); // Esto agregará el mensaje del usuario instantáneamente
+
+      // Esto agregará el mensaje del usuario y activará el scroll inmediato
+      await sendMessage(message);
     }
   };
 

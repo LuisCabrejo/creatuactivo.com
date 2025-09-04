@@ -22,13 +22,35 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // 🔧 FIX PRINCIPAL: Scroll optimizado para evitar layout shift
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesEndRef.current) {
+      // Solo hacer scroll si el usuario no está leyendo arriba
+      const container = messagesEndRef.current.parentElement;
+      if (container) {
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+
+        if (isNearBottom || messages.length === 1) {
+          // Scroll más suave y específico
+          messagesEndRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest', // En lugar de 'end' - más conservador
+            inline: 'nearest'
+          });
+        }
+      }
+    }
   };
 
+  // 🔧 FIX: useEffect optimizado - Solo scroll cuando sea realmente necesario
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Delay mínimo para evitar interrumpir lectura
+    const scrollTimer = setTimeout(() => {
+      scrollToBottom();
+    }, 50); // 50ms delay para estabilidad
+
+    return () => clearTimeout(scrollTimer);
+  }, [messages.length]); // Solo cuando cambia el número de mensajes, no el contenido
 
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
@@ -42,10 +64,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     handleSendMessage(inputMessage);
   };
 
+  // 🔧 TEXTOS OPTIMIZADOS - Quick Replies Iniciales Actualizados
   const quickReplies = [
-    { text: '¿Cómo funciona la arquitectura completa?', icon: '🏗️' },
-    { text: 'Ver los paquetes de inversión', icon: '💎' },
-    { text: '¿Qué productos únicos tienen?', icon: '🌿' }
+    { text: 'Explícame el sistema, paso a paso', icon: '🏗️' },
+    { text: '¿Cuál es el punto de entrada a la arquitectura?', icon: '💎' },
+    { text: 'Háblame del motor de valor', icon: '🌿' }
   ];
 
   if (!isOpen) return null;
@@ -53,7 +76,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   // Clases responsive optimizadas
   const containerClasses = isExpanded
     ? "w-full max-w-4xl h-[95vh]" // Expandido
-    : "w-full max-w-sm md:max-w-md lg:max-w-lg h-[90vh] md:h-[85vh] lg:h-[80vh]"; // Responsive normal
+    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98vh] md:h-[85vh] lg:h-[80vh]"; // Responsive normal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-4 bg-black/20 backdrop-blur-sm">
@@ -143,7 +166,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           <div className={`flex-1 overflow-y-auto space-y-4 ${isExpanded ? 'p-6' : 'p-4'}`}
                style={{ scrollbarWidth: 'thin' }}>
 
-            {/* Mensaje de bienvenida optimizado para progresión */}
+            {/* 🔧 SALUDO INICIAL OPTIMIZADO - Textos Actualizados */}
             {messages.length === 0 && (
               <div className="flex items-start">
                 <div className="w-7 h-7 bg-slate-700 rounded-full flex-shrink-0 flex items-center justify-center mr-2">
@@ -151,41 +174,43 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </div>
-                <div className="flex-1 max-w-[95%] p-3 rounded-lg text-sm bg-slate-800/80 text-slate-200 backdrop-blur-sm">
-                  <p className="font-semibold text-white mb-2">Hola, soy NEXUS 👋</p>
-                  <p className="mb-3">Tu copiloto estratégico del ecosistema <span className="text-amber-400 font-semibold">CreaTuActivo.com</span></p>
+                <div className="flex-1 p-3 rounded-lg text-sm bg-slate-800/80 text-slate-200 backdrop-blur-sm">
+                  {/* 🔧 TEXTOS ACTUALIZADOS */}
+                  <p className="font-semibold text-white mb-2">Hola, soy NEXUS 🤖</p>
+                  <p className="mb-3">Tu copiloto estratégico. Estoy aquí para mostrarte la arquitectura que usan los constructores inteligentes para crear activos que les <span className="text-amber-400 font-semibold">compran su tiempo de vuelta</span>.</p>
 
-                  {/* Mini Component Display - Responsivo */}
-                  <div className={`grid grid-cols-3 gap-1 my-3 ${isExpanded ? 'gap-2' : ''}`}>
-                    <div className="text-center p-1.5 rounded text-xs border border-amber-600/30" style={{ background: 'linear-gradient(135deg, rgba(146, 64, 14, 0.15) 0%, rgba(116, 66, 16, 0.1) 100%)', color: '#f59e0b' }}>
+                  {/* 🔧 COMPONENTES ACTUALIZADOS - Textos de Botones Optimizados */}
+                  <div className={`grid grid-cols-1 gap-2 my-3 ${isExpanded ? 'gap-2' : ''}`}>
+                    <div className="text-center p-2 rounded text-xs border border-amber-600/30" style={{ background: 'linear-gradient(135deg, rgba(146, 64, 14, 0.15) 0%, rgba(116, 66, 16, 0.1) 100%)', color: '#f59e0b' }}>
                       <div className="text-sm">🏭</div>
-                      <div className="text-xs font-medium">MOTOR</div>
+                      <div className="text-xs font-medium">El Motor de Valor</div>
                     </div>
-                    <div className="text-center p-1.5 rounded text-xs border border-green-600/30" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%)', color: '#10b981' }}>
+                    <div className="text-center p-2 rounded text-xs border border-green-600/30" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%)', color: '#10b981' }}>
                       <div className="text-sm">📋</div>
-                      <div className="text-xs font-medium">PLANO</div>
+                      <div className="text-xs font-medium">El Plano Estratégico</div>
                     </div>
-                    <div className="text-center p-1.5 rounded text-xs border border-blue-600/30" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%)', color: '#3b82f6' }}>
+                    <div className="text-center p-2 rounded text-xs border border-blue-600/30" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%)', color: '#3b82f6' }}>
                       <div className="text-sm">⚡</div>
-                      <div className="text-xs font-medium">MAQUINARIA</div>
+                      <div className="text-xs font-medium">La Maquinaria Tecnológica</div>
                     </div>
                   </div>
 
-                  <p>Te guío paso a paso en la arquitectura completa.</p>
+                  {/* 🔧 PREGUNTA GUÍA ACTUALIZADA */}
+                  <p>¿Qué pieza de la arquitectura te genera más curiosidad?</p>
                 </div>
               </div>
             )}
 
             {/* Messages - ✅ OPTIMIZADOS PARA MÁXIMO APROVECHAMIENTO ESPACIAL */}
             {messages.map((message) => (
-              <div key={message.id} className={`flex items-start ${message.role === 'user' ? 'justify-end' : ''}`}>
+              <div key={message.id} className="flex">
                 {/* ✅ ÍCONOS LATERALES ELIMINADOS - GANANCIA DE ~80-100px */}
 
                 <div
-                  className={`${isExpanded ? 'max-w-[90%]' : 'max-w-[100%]'} p-3 rounded-lg text-sm ${
+                  className={`p-3 rounded-lg text-sm ${
                     message.role === 'user'
-                      ? 'text-white'
-                      : 'bg-slate-800/80 text-slate-200 backdrop-blur-sm'
+                      ? 'text-white max-w-[75%] ml-auto'
+                      : 'bg-slate-800/80 text-slate-200 backdrop-blur-sm flex-1'
                   }`}
                   style={message.role === 'user' ? {
                     background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)'
@@ -207,9 +232,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             ))}
 
-            {/* Typing indicator - ✅ MINIMALISTA SIN FONDO */}
+            {/* 🔧 FIX CRÍTICO: Typing indicator con altura reservada */}
             {isLoading && (
-              <div className="flex items-center gap-2 px-1">
+              <div className="flex items-center gap-2 px-1" style={{ minHeight: '32px' }}>
                 <div className="w-6 h-6 bg-slate-700/60 rounded-full flex items-center justify-center">
                   <svg className="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -227,12 +252,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
+            {/* 🔧 FIX CRÍTICO: Espacio reservado para Quick Replies */}
+            {isLoading && !streamingComplete && (
+              <div style={{ minHeight: '120px', opacity: 0 }}>
+                {/* Espacio invisible reservado para evitar layout shift */}
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Replies Dinámicos */}
+          {/* 🔧 FIX: Quick Replies con transición suave */}
           {(messages.length === 0 || (streamingComplete && !isLoading && progressiveReplies.length > 0)) && (
-            <div className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}>
+            <div
+              className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'} transition-all duration-300 ease-in-out`}
+              style={{
+                opacity: streamingComplete || messages.length === 0 ? 1 : 0,
+                transform: streamingComplete || messages.length === 0 ? 'translateY(0)' : 'translateY(10px)'
+              }}
+            >
               <div className={`space-y-2 mb-3 ${isExpanded ? 'grid grid-cols-2 gap-3 space-y-0' : ''}`}>
                 {(messages.length === 0 ? quickReplies : progressiveReplies.map(text => ({ text, icon: '⚡' }))).map((reply, index) => (
                   <button
@@ -266,14 +304,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* Input optimizado para responsive */}
-          <div className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}>
-            <form className="flex items-center gap-2" onSubmit={handleSubmit}>
+          {/* 🔧 INPUT OPTIMIZADO - Placeholder Actualizado */}
+          <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-3'}`}>
+            <form className="flex items-center gap-1" onSubmit={handleSubmit}>
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Escribe tu pregunta sobre el ecosistema..."
+                placeholder="Pregúntame sobre la arquitectura de tu activo..."
                 className={`flex-1 bg-slate-800/80 backdrop-blur-sm text-white px-3 py-2.5 rounded-lg border border-slate-700/50 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500/50 transition-all ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}
@@ -294,20 +332,20 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </form>
           </div>
 
-          {/* Footer Controls - Responsivo */}
+          {/* 🔧 FOOTER CONTROLS - Textos Actualizados */}
           <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
             <div className="flex justify-center gap-4">
               <button
                 className="text-xs text-slate-500 hover:text-slate-300 px-2 py-1 rounded transition-colors"
                 onClick={resetChat}
               >
-                🔄 Reiniciar
+                🔄 Limpiar Pizarra
               </button>
               <button
                 className="text-xs text-slate-500 hover:text-slate-300 px-2 py-1 rounded transition-colors"
                 onClick={() => handleSendMessage('Quiero hablar con Liliana Moreno')}
               >
-                👤 Hablar con Liliana
+                👤 Consultoría Estratégica
               </button>
             </div>
           </div>

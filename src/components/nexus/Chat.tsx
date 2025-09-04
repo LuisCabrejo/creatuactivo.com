@@ -22,7 +22,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        content: '¡Hola! Soy NEXUS, tu copiloto IA del ecosistema CreaTuActivo.com. Te guío para entender cómo nuestra arquitectura completa transforma operadores en Arquitectos Inteligentes que construyen activos patrimoniales. ¿Qué te gustaría conocer sobre el ecosistema?'
+        // 🔧 MENSAJE INICIAL OPTIMIZADO - Consistente con NEXUSWidget
+        content: 'Hola, soy NEXUS 🤖\n\nTu copiloto estratégico. Estoy aquí para mostrarte la arquitectura que usan los constructores inteligentes para crear activos que les compran su tiempo de vuelta.\n\n¿Qué pieza de la arquitectura te genera más curiosidad?'
       }
     ]
   });
@@ -157,7 +158,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
           <input
             value={input}
             onChange={handleInputChange}
-            placeholder="Pregúntale a NEXUS sobre el ecosistema..."
+            // 🔧 PLACEHOLDER OPTIMIZADO
+            placeholder="Pregúntame sobre la arquitectura de tu activo..."
             className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white text-gray-900"
             disabled={isLoading}
           />

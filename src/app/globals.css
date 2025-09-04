@@ -193,8 +193,6 @@
   animation: nexus-typing 1.4s infinite;
 }
 
-/* Agregar al final de tu globals.css existente */
-
 /* Animaciones para la homepage */
 @keyframes fade-in-up {
   from {

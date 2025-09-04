@@ -201,15 +201,13 @@ async function captureProspectData(
   return data;
 }
 
-// ========================================
-// ARQUITECTURA HÍBRIDA - CONSULTA SEMÁNTICA ESCALABLE CORREGIDA
-// ========================================
+// FUNCIÓN ACTUALIZADA: clasificarDocumentoHibrido() con EXPANSIÓN SEMÁNTICA COMPLETA
+// Para reconocer TODAS las variaciones de "¿Cómo funciona el negocio?"
 
-// CORRECCIÓN: Clasificador de documentos inteligente con separación productos/paquetes
 function clasificarDocumentoHibrido(userMessage: string): string | null {
   const messageLower = userMessage.toLowerCase();
 
-  // 🔧 NUEVA CLASIFICACIÓN ROBUSTA: PRODUCTOS INDIVIDUALES (CATÁLOGO)
+  // 🔧 NUEVA CLASIFICACIÓN ROBUSTA: PRODUCTOS INDIVIDUALES (CATÁLOGO) - SIN CAMBIOS
   const patrones_productos = [
     // ===== CÁPSULAS CORDYGOLD (PROBLEMA ESPECÍFICO) =====
     /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:cordy gold|cordygold|cordy|gano cordyceps)/i,
@@ -294,7 +292,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /esp.*paquete/i
   ];
 
-  // 🔧 PRIORIDAD 1: PRODUCTOS INDIVIDUALES (AHORA MÁS ROBUSTO)
+  // 🔧 PRIORIDAD 1: PRODUCTOS INDIVIDUALES (SIN CAMBIOS)
   if (patrones_productos.some(patron => patron.test(messageLower))) {
     console.log('🛒 Clasificación: PRODUCTOS (catálogo)');
     return 'catalogo_productos';
@@ -306,10 +304,95 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'arsenal_inicial';
   }
 
-  // Resto de clasificaciones originales (arsenal_inicial, arsenal_manejo, arsenal_cierre) - SIN CAMBIOS
+  // 🎯 PRIORIDAD 3: FLUJO 3 NIVELES - EXPANSIÓN SEMÁNTICA CRÍTICA
+  // ===============================================================
+  const patrones_flujo_3_niveles = [
+    // ===== VARIACIONES DIRECTAS "¿CÓMO FUNCIONA?" =====
+    /^cómo funciona$/i,                    // "¿Cómo funciona?" (exacto)
+    /^cómo funciona\?$/i,                  // "¿Cómo funciona?" (con interrogación)
+    /^¿cómo funciona$/i,                   // "¿Cómo funciona" (sin cierre)
+    /^¿cómo funciona\?$/i,                 // "¿Cómo funciona?" (completo)
+
+    // ===== VARIACIONES CON OBJETOS GENÉRICOS =====
+    /cómo funciona esto/i,                 // "¿Cómo funciona esto?"
+    /cómo funciona eso/i,                  // "¿Cómo funciona eso?"
+    /cómo funciona aquí/i,                 // "¿Cómo funciona aquí?"
+    /cómo funciona todo/i,                 // "¿Cómo funciona todo?"
+
+    // ===== VARIACIONES CON TÉRMINOS ESPECÍFICOS =====
+    /cómo funciona.*negocio/i,             // "¿Cómo funciona el negocio?" (original)
+    /cómo funciona.*oportunidad/i,         // "¿Cómo funciona la oportunidad?"
+    /cómo funciona.*sistema/i,             // "¿Cómo funciona el sistema?"
+    /cómo funciona.*modelo/i,              // "¿Cómo funciona el modelo?"
+    /cómo funciona.*ecosistema/i,          // "¿Cómo funciona el ecosistema?"
+    /cómo funciona.*plataforma/i,          // "¿Cómo funciona la plataforma?"
+    /cómo funciona.*proceso/i,             // "¿Cómo funciona el proceso?"
+    /cómo funciona.*método/i,              // "¿Cómo funciona el método?"
+    /cómo funciona.*framework/i,           // "¿Cómo funciona el framework?"
+
+    // ===== VARIACIONES ALTERNATIVAS SEMÁNTICAS =====
+    /^en qué consiste$/i,                  // "¿En qué consiste?"
+    /en qué consiste esto/i,               // "¿En qué consiste esto?"
+    /en qué consiste.*negocio/i,           // "¿En qué consiste el negocio?"
+    /en qué consiste.*oportunidad/i,       // "¿En qué consiste la oportunidad?"
+    /en qué consiste.*sistema/i,           // "¿En qué consiste el sistema?"
+
+    /explícame.*sistema/i,                 // "Explícame el sistema"
+    /explícame.*negocio/i,                 // "Explícame el negocio"
+    /explícame.*oportunidad/i,             // "Explícame la oportunidad"
+    /explícame.*modelo/i,                  // "Explícame el modelo"
+    /explícame.*proceso/i,                 // "Explícame el proceso"
+    /explícame.*método/i,                  // "Explícame el método"
+    /explícame cómo/i,                     // "Explícame cómo..."
+
+    /cuál es.*modelo/i,                    // "¿Cuál es el modelo?"
+    /cuál es.*sistema/i,                   // "¿Cuál es el sistema?"
+    /cuál es.*método/i,                    // "¿Cuál es el método?"
+    /cuál es.*proceso/i,                   // "¿Cuál es el proceso?"
+    /cuál es.*negocio/i,                   // "¿Cuál es el negocio?"
+
+    /de qué se trata/i,                    // "¿De qué se trata?"
+    /de qué va esto/i,                     // "¿De qué va esto?"
+    /de qué va.*negocio/i,                 // "¿De qué va el negocio?"
+    /qué es lo que hacen/i,                // "¿Qué es lo que hacen?"
+    /qué es lo que ofertan/i,              // "¿Qué es lo que ofertan?"
+
+    // ===== VARIACIONES OPERACIONALES =====
+    /cómo opera/i,                         // "¿Cómo opera?"
+    /cómo opera esto/i,                    // "¿Cómo opera esto?"
+    /cómo se maneja/i,                     // "¿Cómo se maneja?"
+    /cómo se desarrolla/i,                 // "¿Cómo se desarrolla?"
+    /cómo se ejecuta/i,                    // "¿Cómo se ejecuta?"
+
+    // ===== CONTEXTO INICIO DE CONVERSACIÓN =====
+    // Patrones que son más probables al inicio del chat
+    /^háblame.*negocio$/i,                 // "Háblame del negocio"
+    /^háblame.*oportunidad$/i,             // "Háblame de la oportunidad"
+    /^háblame.*sistema$/i,                 // "Háblame del sistema"
+    /^cuéntame.*negocio$/i,                // "Cuéntame del negocio"
+    /^cuéntame.*oportunidad$/i,            // "Cuéntame de la oportunidad"
+    /^cuéntame.*sistema$/i,                // "Cuéntame del sistema"
+
+    // ===== VARIACIONES INFORMALES =====
+    /cómo va.*negocio/i,                   // "¿Cómo va el negocio?"
+    /cómo va.*sistema/i,                   // "¿Cómo va el sistema?"
+    /cómo está.*negocio/i,                 // "¿Cómo está el negocio?"
+    /qué tal.*negocio/i,                   // "¿Qué tal el negocio?"
+    /qué tal.*oportunidad/i,               // "¿Qué tal la oportunidad?"
+  ];
+
+  // ✅ VERIFICAR PATRONES FLUJO 3 NIVELES
+  const esFluo3Niveles = patrones_flujo_3_niveles.some(patron => patron.test(messageLower));
+
+  if (esFluo3Niveles) {
+    console.log('🎯 Clasificación: FLUJO 3 NIVELES (arsenal_inicial con flujo especial)');
+    console.log('🎯 Mensaje detectado para flujo:', messageLower);
+    return 'arsenal_inicial'; // Retorna arsenal_inicial pero se activará el flujo 3 niveles
+  }
+
+  // Resto de clasificaciones originales - PATRONES ACTUALIZADOS
   const patrones_inicial = [
     /qué es.*creatuactivo/i,
-    /cómo funciona.*negocio/i,
     /retorno.*activo/i,
     /es.*heredable/i,
     /qué.*fundador/i,
@@ -317,7 +400,14 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /es.*confiable/i,
     /realmente.*funciona/i,
     /tiempo.*operando/i,
-    /es.*legítimo/i
+    /es.*legítimo/i,
+
+    // NUEVOS PATRONES GENERALES INICIALES
+    /^qué es esto$/i,                      // "¿Qué es esto?"
+    /qué es.*ecosistema/i,                 // "¿Qué es el ecosistema?"
+    /qué es.*plataforma/i,                 // "¿Qué es la plataforma?"
+    /información.*básica/i,                // "Información básica"
+    /información.*general/i,               // "Información general"
   ];
 
   const patrones_manejo = [
@@ -356,10 +446,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   const esManejo = patrones_manejo.some(patron => patron.test(messageLower));
   const esCierre = patrones_cierre.some(patron => patron.test(messageLower));
 
-  console.log('Clasificación híbrida:', {
+  console.log('Clasificación híbrida expandida:', {
     inicial: esInicial,
     manejo: esManejo,
     cierre: esCierre,
+    flujo3Niveles: esFluo3Niveles,
     query: messageLower.substring(0, 50)
   });
 

@@ -1,5 +1,5 @@
 // src/components/nexus/useNEXUSChat.ts
-// 🔧 FIX APLICADO: Integración con tracking.js para envío de fingerprint a NEXUS API
+// 🔧 ACTUALIZACIÓN: Textos Optimizados + Parser Quick Replies para Flujo 3 Niveles
 'use client';
 import { useState, useCallback } from 'react';
 
@@ -19,27 +19,85 @@ const [streamingComplete, setStreamingComplete] = useState(false);
 
 const generateId = () => Math.random().toString(36).substring(7);
 
-// Función para parsear quick replies del contenido
+// 🔧 FUNCIÓN ACTUALIZADA: Parser Quick Replies para Flujo 3 Niveles
 const parseQuickReplies = (content: string) => {
-  const quickRepliesRegex = /🏭 "(.*?)"|⚡ "(.*?)"|🎯 "(.*?)"|■ "(.*?)"/g;
+  console.log('🔍 Parsing quick replies from content:', content.substring(0, 200) + '...');
+
   const replies: string[] = [];
+
+  // 🎯 PATRÓN 1: Quick Replies del Flujo 3 Niveles (Nuevo formato)
+  const flujoPatternsRegex = /🎯 "(.*?)"/g;
   let match;
 
-  while ((match = quickRepliesRegex.exec(content)) !== null) {
-    const reply = match[1] || match[2] || match[3] || match[4];
-    if (reply) {
-      replies.push(reply);
+  while ((match = flujoPatternsRegex.exec(content)) !== null) {
+    const reply = match[1];
+    if (reply && reply.trim().length > 0) {
+      replies.push(reply.trim());
+      console.log('✅ Quick reply encontrado (flujo 3 niveles):', reply.trim());
     }
   }
 
-  setProgressiveReplies(replies.slice(0, 3)); // Máximo 3 quick replies
+  // 🔧 PATRÓN 2: Formato bullet points (respaldo)
+  if (replies.length === 0) {
+    const bulletPatterns = [
+      /• (¿[^•\n]+\?)/g,  // • ¿Pregunta?
+      /• ([^•\n]+\?)/g,   // • Texto con pregunta?
+      /• ([^•\n]{10,})/g  // • Texto largo (mín 10 chars)
+    ];
+
+    bulletPatterns.forEach(pattern => {
+      let bulletMatch;
+      while ((bulletMatch = pattern.exec(content)) !== null) {
+        const reply = bulletMatch[1];
+        if (reply && reply.trim().length > 0 && !replies.includes(reply.trim())) {
+          replies.push(reply.trim());
+          console.log('✅ Quick reply encontrado (bullet):', reply.trim());
+        }
+      }
+    });
+  }
+
+  // 🔧 PATRÓN 3: Patrones legacy (compatibilidad hacia atrás)
+  if (replies.length === 0) {
+    const legacyPatterns = [
+      /🏭 "(.*?)"/g,
+      /⚡ "(.*?)"/g,
+      /💡 "(.*?)"/g,
+      /■ "(.*?)"/g
+    ];
+
+    legacyPatterns.forEach(pattern => {
+      let legacyMatch;
+      while ((legacyMatch = pattern.exec(content)) !== null) {
+        const reply = legacyMatch[1];
+        if (reply && reply.trim().length > 0 && !replies.includes(reply.trim())) {
+          replies.push(reply.trim());
+          console.log('✅ Quick reply encontrado (legacy):', reply.trim());
+        }
+      }
+    });
+  }
+
+  // 🎯 FILTROS Y OPTIMIZACIONES
+  const filteredReplies = replies
+    .filter(reply => reply.length > 5) // Mínimo 5 caracteres
+    .filter(reply => reply.length < 100) // Máximo 100 caracteres
+    .slice(0, 3); // Máximo 3 quick replies
+
+  console.log(`🎯 Quick replies procesados: ${filteredReplies.length} de ${replies.length} encontrados`);
+
+  setProgressiveReplies(filteredReplies);
+
+  // Return para debugging
+  return filteredReplies;
 };
 
 // Función para limpiar contenido de elementos técnicos
 const cleanMessageContent = (content: string) => {
   return content
     .replace(/QUICK REPLIES:/gi, '')
-    .replace(/🏭 ".*?"|⚡ ".*?"|🎯 ".*?"|■ ".*?"/g, '')
+    .replace(/🎯 ".*?"/g, '') // Limpiar quick replies del flujo 3 niveles
+    .replace(/🏭 ".*?"|⚡ ".*?"|💡 ".*?"|■ ".*?"/g, '') // Legacy patterns
     .trim();
 };
 
@@ -73,7 +131,6 @@ const sendMessage = useCallback(async (content: string) => {
     const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos timeout
 
     // 🔧 FIX CRÍTICO: Obtener datos del tracking.js para NEXUS API
-    // ✅ CORREGIDO: Casting de window para TypeScript
     const fingerprint = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || undefined;
     const sessionId = (window as any).nexusProspect?.id || `session_${Date.now()}`;
 
@@ -81,7 +138,6 @@ const sendMessage = useCallback(async (content: string) => {
     console.log('🔧 NEXUS Frontend - Enviando datos:', {
       fingerprint: fingerprint ? fingerprint.substring(0, 16) + '...' : 'undefined',
       sessionId: sessionId,
-      // ✅ CORREGIDO: Casting de window para TypeScript
       hasFrameworkIAA: !!(window as any).FrameworkIAA,
       hasNexusProspect: !!(window as any).nexusProspect
     });
@@ -147,7 +203,8 @@ const sendMessage = useCallback(async (content: string) => {
         );
       }
 
-      // Parsear quick replies del contenido final
+      // 🎯 PARSEAR QUICK REPLIES DEL CONTENIDO FINAL (MEJORADO)
+      console.log('🔍 Contenido final para parsing:', accumulatedContent.substring(accumulatedContent.length - 300));
       parseQuickReplies(accumulatedContent);
       setStreamingComplete(true);
 
@@ -187,37 +244,38 @@ const sendMessage = useCallback(async (content: string) => {
     let errorMessage = '';
 
     if (error.name === 'AbortError') {
-      errorMessage = `⏱️ La respuesta está tomando más tiempo del esperado.
+      errorMessage = `⏱️ La arquitectura está procesando tu consulta más tiempo del esperado.
 
-**Contacto directo disponible:**
-Liliana Moreno - Consultora Senior
+**Consultoría estratégica inmediata:**
+Liliana Moreno - Arquitecta Senior
 WhatsApp: +573102066593
 Horario: 8:00 AM - 8:00 PM (GMT-5)
 
-¿Hay algo específico sobre CreaTuActivo.com que pueda ayudarte mientras tanto?`;
+¿Hay algo específico sobre la arquitectura de CreaTuActivo.com que pueda ayudarte mientras tanto?`;
 
     } else if (error.message?.includes('500') || error.message?.includes('servidor')) {
       errorMessage = error.message; // Ya viene formateado del servidor
 
     } else if (error.message?.includes('fetch')) {
-      errorMessage = `🔧 Problema de conexión temporalmente.
+      errorMessage = `🔧 Conexión temporalmente interrumpida.
 
-**Información básica disponible:**
-• **EMPRENDEDOR:** $200 USD - Acceso completo al ecosistema
-• **EMPRESARIAL:** $500 USD - Más popular, inventario sólido
-• **VISIONARIO:** $1,000 USD - Premium con consultoría VIP
+**Información básica de la arquitectura:**
+• **PUNTO DE ENTRADA FUNDADOR:** $200 USD - Acceso completo al ecosistema
+• **PUNTO DE ENTRADA EMPRESARIAL:** $500 USD - Más popular, inventario sólido
+• **PUNTO DE ENTRADA VISIONARIO:** $1,000 USD - Premium con consultoría VIP
 
-**Contacto:** Liliana Moreno +573102066593`;
+**Consultoría:** Liliana Moreno +573102066593`;
 
     } else {
-      errorMessage = `🤖 Estoy experimentando dificultades técnicas.
+      errorMessage = `🤖 Estoy experimentando dificultades en mi arquitectura de procesamiento.
 
-**Opciones mientras resolvemos:**
-1. **Arquitectura** - Cómo funciona el ecosistema Motor+Plano+Maquinaria
-2. **Paquetes** - EMPRENDEDOR, EMPRESARIAL, VISIONARIO
-3. **Contacto directo** - Liliana Moreno +573102066593
+**Opciones mientras optimizamos:**
+1. **El Motor de Valor** - Los productos únicos con patente mundial
+2. **El Plano Estratégico** - Framework IAA y metodología
+3. **La Maquinaria Tecnológica** - NodeX y automatización
+4. **Consultoría Estratégica** - Liliana Moreno +573102066593
 
-¿Qué te interesa más saber?`;
+¿Qué pieza de la arquitectura te interesa más?`;
     }
 
     // Actualizar mensaje con error formateado
@@ -245,27 +303,35 @@ const resetChat = useCallback(() => {
 
 // Funciones auxiliares para quick replies
 const handleQuickReply = useCallback((reply: string) => {
+  console.log('🎯 Enviando quick reply:', reply);
   sendMessage(reply);
 }, [sendMessage]);
 
+// ✅ FUNCIÓN OPTIMIZADA: Consultoría Estratégica (antes contactLiliana)
 const contactLiliana = useCallback(() => {
   const contactMessage: Message = {
     id: generateId(),
     role: 'assistant',
-    content: `📞 **Contacto Directo - Liliana Moreno**
+    content: `🏗️ **Consultoría Estratégica Disponible**
 
+**Liliana Moreno - Arquitecta Senior**
 **WhatsApp:** +573102066593
 **Horario:** 8:00 AM - 8:00 PM (GMT-5)
-**Experiencia:** 9 años consecutivos líder
-**Especialidad:** Consultoría estratégica CreaTuActivo.com
+**Experiencia:** 9 años consecutivos líder en arquitectura de activos
 
-Liliana puede ayudarte con:
-• La arquitectura completa del ecosistema
-• Cuál paquete fundador es mejor para tu situación
-• El proceso paso a paso personalizado
-• Responder todas tus preguntas específicas
+**Especialidades de la consultoría:**
+• Diseño completo de la arquitectura personalizada para tu perfil
+• Análisis de cuál punto de entrada optimiza tu situación específica
+• Implementación paso a paso del Framework IAA
+• Mentoring estratégico para construcción de activo patrimonial
 
-**¿Prefieres que te prepare algunas preguntas clave antes de contactarla?**`,
+**Tu consultoría estratégica incluye:**
+✓ Evaluación de tu situación actual y objetivos
+✓ Diseño de arquitectura personalizada Motor+Plano+Maquinaria
+✓ Plan de implementación con cronograma específico
+✓ Soporte continuo durante la construcción de tu activo
+
+**¿Te gustaría que prepare algunos puntos estratégicos antes de tu consultoría?**`,
     timestamp: new Date(),
   };
 

@@ -1,5 +1,5 @@
 // src/components/nexus/useNEXUSChat.ts
-// 🔧 FIX: Eliminar quick replies automáticos para evitar superposición con opciones A, B, C texto
+// 🔧 ERRORES DE SINTAXIS CORREGIDOS
 'use client';
 import { useState, useCallback } from 'react';
 
@@ -8,42 +8,40 @@ interface Message {
  role: 'user' | 'assistant';
  content: string;
  timestamp: Date;
+ isStreaming?: boolean;
 }
 
 export const useNEXUSChat = () => {
 const [messages, setMessages] = useState<Message[]>([]);
 const [isLoading, setIsLoading] = useState(false);
 const [isStreaming, setIsStreaming] = useState(false);
-// 🔧 FIX: Desactivar progressiveReplies para eliminar botones superpuestos
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
 const [streamingComplete, setStreamingComplete] = useState(false);
+const [onNewMessage, setOnNewMessage] = useState<(() => void) | null>(null);
 
 const generateId = () => Math.random().toString(36).substring(7);
 
-// 🔧 FIX CRÍTICO: Función parseQuickReplies DESACTIVADA
-// El system prompt v11.5 ya maneja las opciones A, B, C en formato texto
-// No necesitamos generar botones automáticos que se superponen
+// Función parseQuickReplies desactivada
 const parseQuickReplies = (content: string) => {
   console.log('🔧 parseQuickReplies DESACTIVADO - usando solo formato texto A, B, C');
-
-  // NO parsear quick replies automáticos
-  // Las opciones A, B, C aparecen en formato texto según system prompt v11.5
-  setProgressiveReplies([]); // Mantener array vacío
-
-  return []; // No retornar quick replies
+  setProgressiveReplies([]);
+  return [];
 };
 
-// Función para limpiar contenido de elementos técnicos
 const cleanMessageContent = (content: string) => {
   return content
     .replace(/QUICK REPLIES:/gi, '')
-    // 🔧 MANTENER los patrones 🎯 en el texto - son parte del contenido
-    // .replace(/🎯 ".*?"/g, '') // COMENTADO - no limpiar estos patrones
-    .replace(/🏭 ".*?"|⚡ ".*?"|💡 ".*?"|■ ".*?"/g, '') // Solo legacy patterns
+    .replace(/🏭 ".*?"|⚡ ".*?"|💡 ".*?"|■ ".*?"/g, '')
     .trim();
 };
 
+// Función para registrar callback de scroll
+const registerScrollCallback = useCallback((callback: () => void) => {
+  setOnNewMessage(() => callback);
+}, []);
+
 const sendMessage = useCallback(async (content: string) => {
+  // Agregar mensaje del usuario
   const userMessage: Message = {
     id: generateId(),
     role: 'user',
@@ -51,39 +49,47 @@ const sendMessage = useCallback(async (content: string) => {
     timestamp: new Date(),
   };
 
-  setMessages(prev => [...prev, userMessage]);
+  // Agregar mensaje del usuario y trigger scroll
+  setMessages(prev => {
+    const newMessages = [...prev, userMessage];
+
+    // Trigger scroll inmediato para mensaje del usuario
+    setTimeout(() => {
+      if (onNewMessage) {
+        onNewMessage();
+      }
+    }, 10);
+
+    return newMessages;
+  });
+
+  // Preparar respuesta en streaming
   setIsLoading(true);
   setIsStreaming(true);
   setStreamingComplete(false);
-  // 🔧 FIX: No limpiar quick replies - mantener vacío
-  setProgressiveReplies([]); // Mantener vacío siempre
+  setProgressiveReplies([]);
 
-  // Crear mensaje asistente temporal para streaming
+  // Crear mensaje asistente vacío
   const assistantMessageId = generateId();
   const initialAssistantMessage: Message = {
     id: assistantMessageId,
     role: 'assistant',
     content: '',
     timestamp: new Date(),
+    isStreaming: true
   };
 
-  setMessages(prev => [...prev, initialAssistantMessage]);
+  // Agregar mensaje asistente vacío después de delay
+  setTimeout(() => {
+    setMessages(prev => [...prev, initialAssistantMessage]);
+  }, 200);
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos timeout
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    // 🔧 FIX CRÍTICO: Obtener datos del tracking.js para NEXUS API
     const fingerprint = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || undefined;
     const sessionId = (window as any).nexusProspect?.id || `session_${Date.now()}`;
-
-    // 🔍 DEBUG: Log para verificar datos del tracking
-    console.log('🔧 NEXUS Frontend - Enviando datos:', {
-      fingerprint: fingerprint ? fingerprint.substring(0, 16) + '...' : 'undefined',
-      sessionId: sessionId,
-      hasFrameworkIAA: !!(window as any).FrameworkIAA,
-      hasNexusProspect: !!(window as any).nexusProspect
-    });
 
     const response = await fetch('/api/nexus', {
       method: 'POST',
@@ -95,7 +101,6 @@ const sendMessage = useCallback(async (content: string) => {
           role: msg.role,
           content: msg.content
         })),
-        // 🔧 CRÍTICO: Incluir datos del tracking para Framework IAA
         fingerprint: fingerprint,
         sessionId: sessionId
       }),
@@ -105,7 +110,6 @@ const sendMessage = useCallback(async (content: string) => {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      // Manejar errores HTTP
       if (response.status === 500) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error del servidor');
@@ -113,11 +117,10 @@ const sendMessage = useCallback(async (content: string) => {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
 
-    // Verificar si la respuesta es streaming o JSON
     const contentType = response.headers.get('content-type');
 
     if (contentType?.includes('text/plain') || contentType?.includes('text/stream')) {
-      // Manejar streaming response
+      // Streaming progresivo
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -126,6 +129,8 @@ const sendMessage = useCallback(async (content: string) => {
       }
 
       let accumulatedContent = '';
+      let lastUpdateTime = Date.now();
+      const minUpdateInterval = 50;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -135,46 +140,96 @@ const sendMessage = useCallback(async (content: string) => {
         const chunk = decoder.decode(value, { stream: true });
         accumulatedContent += chunk;
 
-        // Actualizar mensaje en tiempo real con contenido limpio
-        const cleanContent = cleanMessageContent(accumulatedContent);
-        setMessages(prev =>
-          prev.map(msg =>
-            msg.id === assistantMessageId
-              ? { ...msg, content: cleanContent }
-              : msg
-          )
-        );
+        // Control de velocidad de streaming
+        const now = Date.now();
+        if (now - lastUpdateTime >= minUpdateInterval) {
+          const cleanContent = cleanMessageContent(accumulatedContent);
+
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantMessageId
+                ? {
+                    ...msg,
+                    content: cleanContent,
+                    isStreaming: true
+                  }
+                : msg
+            )
+          );
+
+          lastUpdateTime = now;
+        }
       }
 
-      // 🔧 FIX: NO parsear quick replies - solo marcar como completo
-      console.log('🔧 Streaming completado - NO generando quick replies automáticos');
+      // Finalizar streaming
+      const finalCleanContent = cleanMessageContent(accumulatedContent);
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantMessageId
+            ? {
+                ...msg,
+                content: finalCleanContent,
+                isStreaming: false
+              }
+            : msg
+        )
+      );
+
       setStreamingComplete(true);
 
     } else {
-      // Manejar respuesta JSON (fallback o error)
+      // Manejar respuesta JSON con simulación de streaming
       const data = await response.json();
 
       if (data.error) {
-        // Error con mensaje formateado
         setMessages(prev =>
           prev.map(msg =>
             msg.id === assistantMessageId
-              ? { ...msg, content: data.error }
+              ? {
+                  ...msg,
+                  content: data.error,
+                  isStreaming: false
+                }
               : msg
           )
         );
       } else if (data.response) {
-        // Respuesta normal JSON
         const cleanContent = cleanMessageContent(data.response);
-        setMessages(prev =>
-          prev.map(msg =>
-            msg.id === assistantMessageId
-              ? { ...msg, content: cleanContent }
-              : msg
-          )
-        );
-        // 🔧 FIX: NO parsear quick replies automáticos
-        setStreamingComplete(true);
+
+        // Simular streaming para respuesta JSON
+        let currentIndex = 0;
+        const fullText = cleanContent;
+        const streamInterval = setInterval(() => {
+          currentIndex += Math.floor(Math.random() * 5) + 1;
+
+          if (currentIndex >= fullText.length) {
+            clearInterval(streamInterval);
+            setMessages(prev =>
+              prev.map(msg =>
+                msg.id === assistantMessageId
+                  ? {
+                      ...msg,
+                      content: fullText,
+                      isStreaming: false
+                    }
+                  : msg
+              )
+            );
+            setStreamingComplete(true);
+          } else {
+            setMessages(prev =>
+              prev.map(msg =>
+                msg.id === assistantMessageId
+                  ? {
+                      ...msg,
+                      content: fullText.substring(0, currentIndex),
+                      isStreaming: true
+                    }
+                  : msg
+              )
+            );
+          }
+        }, 50);
       } else {
         throw new Error('Respuesta inválida del servidor');
       }
@@ -196,7 +251,7 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
 ¿Hay algo específico sobre la arquitectura de CreaTuActivo.com que pueda ayudarte mientras tanto?`;
 
     } else if (error.message?.includes('500') || error.message?.includes('servidor')) {
-      errorMessage = error.message; // Ya viene formateado del servidor
+      errorMessage = error.message;
 
     } else if (error.message?.includes('fetch')) {
       errorMessage = `🔧 Conexión temporalmente interrumpida.
@@ -220,11 +275,14 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
 ¿Qué pieza de la arquitectura te interesa más?`;
     }
 
-    // Actualizar mensaje con error formateado
     setMessages(prev =>
       prev.map(msg =>
         msg.id === assistantMessageId
-          ? { ...msg, content: errorMessage }
+          ? {
+              ...msg,
+              content: errorMessage,
+              isStreaming: false
+            }
           : msg
       )
     );
@@ -233,23 +291,21 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
     setIsLoading(false);
     setIsStreaming(false);
   }
- }, [messages]);
+ }, [messages, onNewMessage]);
 
 const resetChat = useCallback(() => {
   setMessages([]);
   setIsLoading(false);
   setIsStreaming(false);
-  setProgressiveReplies([]); // Mantener vacío
+  setProgressiveReplies([]);
   setStreamingComplete(false);
  }, []);
 
-// Funciones auxiliares para quick replies - DESACTIVADAS
 const handleQuickReply = useCallback((reply: string) => {
   console.log('🎯 Enviando quick reply:', reply);
   sendMessage(reply);
 }, [sendMessage]);
 
-// ✅ FUNCIÓN OPTIMIZADA: Consultoría Estratégica (antes contactLiliana)
 const contactLiliana = useCallback(() => {
   const contactMessage: Message = {
     id: generateId(),
@@ -275,6 +331,7 @@ const contactLiliana = useCallback(() => {
 
 **¿Te gustaría que prepare algunos puntos estratégicos antes de tu consultoría?**`,
     timestamp: new Date(),
+    isStreaming: false
   };
 
   setMessages(prev => [...prev, contactMessage]);
@@ -285,10 +342,11 @@ return {
   isLoading,
   isStreaming,
   streamingComplete,
-  progressiveReplies, // Siempre array vacío
+  progressiveReplies,
   sendMessage,
   resetChat,
   handleQuickReply,
   contactLiliana,
+  registerScrollCallback,
  };
 };

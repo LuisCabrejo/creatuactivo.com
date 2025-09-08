@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   ChevronDown,
   X,
@@ -21,7 +22,6 @@ import {
   Heart,
   Presentation
 } from 'lucide-react'
-import CreaTuActivoLogo from './CreaTuActivoLogo'
 
 export default function StrategicNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -157,10 +157,39 @@ export default function StrategicNavigation() {
     <header className="navigation-container sticky top-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* NUEVO LOGO COMPONENT */}
-          <div className="flex-shrink-0">
-            <CreaTuActivoLogo size="md" />
-          </div>
+          {/* LOGO CON SVG + TEXTO HTML/CSS */}
+          <Link href="/" className="flex-shrink-0">
+            <div className="flex items-center gap-3 group cursor-pointer">
+              {/* Logo SVG - Usando diferentes tamaños según viewport */}
+              <div className="relative">
+                {/* Desktop: logo más grande */}
+                <Image
+                  src="/logo-icon-80x80-sm.svg"
+                  alt="CreaTuActivo"
+                  width={40}
+                  height={40}
+                  className="hidden md:block transition-transform duration-300 group-hover:scale-110"
+                  priority
+                />
+                {/* Mobile: logo más pequeño */}
+                <Image
+                  src="/favicon-40x40.svg"
+                  alt="CreaTuActivo"
+                  width={32}
+                  height={32}
+                  className="md:hidden transition-transform duration-300 group-hover:scale-110"
+                  priority
+                />
+                {/* Efecto glow opcional en hover */}
+                <div className="absolute inset-0 bg-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </div>
+
+              {/* Texto con gradient CSS - Colores corporativos correctos */}
+              <span className="text-2xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-amber-500 bg-clip-text text-transparent transition-all duration-300 group-hover:from-blue-500 group-hover:via-purple-500 group-hover:to-amber-400">
+                CreaTuActivo
+              </span>
+            </div>
+          </Link>
 
           {/* MENU DESKTOP CON HOVER MEJORADO */}
           <div className="hidden md:flex md:items-center md:space-x-8">

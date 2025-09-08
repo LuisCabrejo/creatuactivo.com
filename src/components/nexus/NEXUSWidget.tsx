@@ -9,7 +9,6 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
-  isStreaming?: boolean;
 }
 
 interface NEXUSWidgetProps {
@@ -21,17 +20,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const { messages, isLoading, streamingComplete, progressiveReplies, sendMessage, resetChat } = useNEXUSChat();
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // 🎨 SCROLL INTELIGENTE COMO CLAUDE: Solo cuando es natural
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       const container = messagesEndRef.current.parentElement;
       if (container) {
-        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 150;
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
 
-        // Scroll más conservador: solo si está cerca del final o es el primer mensaje
-        if (isNearBottom || messages.length <= 2) {
+        if (isNearBottom || messages.length === 1) {
           container.scrollTo({
             top: container.scrollHeight,
             behavior: 'smooth'
@@ -41,7 +39,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  // Scroll suave cuando aparecen nuevos mensajes
   useEffect(() => {
     const scrollTimer = setTimeout(() => {
       scrollToBottom();
@@ -50,12 +47,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     return () => clearTimeout(scrollTimer);
   }, [messages.length]);
 
-  // 🎨 FUNCIONALIDAD CLAUDE: Envío con scroll inmediato
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
-      setInputMessage(''); // Limpiar input inmediatamente
+      setInputMessage('');
+      setMessageAppearing('user');
 
-      // Esto agregará el mensaje del usuario y activará el scroll inmediato
+      setTimeout(() => setMessageAppearing(null), 400);
+
       await sendMessage(message);
     }
   };
@@ -65,7 +63,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     handleSendMessage(inputMessage);
   };
 
-  // Quick replies iniciales
   const quickReplies = [
     { text: 'Explícame el sistema, paso a paso', icon: '🏗️' },
     { text: '¿Cuál es el punto de entrada a la arquitectura?', icon: '💎' },
@@ -81,26 +78,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-4 bg-black/20 backdrop-blur-sm">
       <div
-        className={`${containerClasses} z-50 transition-all duration-500 ease-out`}
+        className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
         style={{
           animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
         }}
       >
         <div
-          className="h-full flex flex-col shadow-2xl shadow-purple-500/20 rounded-2xl overflow-hidden"
+          className="h-full flex flex-col shadow-2xl shadow-purple-500/20 rounded-2xl overflow-hidden relative"
           style={{
             background: 'rgba(15, 23, 42, 0.90)',
             backdropFilter: 'blur(32px)',
             border: '1px solid rgba(124, 58, 237, 0.3)'
           }}
         >
-          {/* Header */}
-          <div
-            className="flex-shrink-0 p-4 flex justify-between items-center border-b border-white/10 rounded-t-2xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.5) 0%, rgba(124, 58, 237, 0.5) 100%)'
-            }}
-          >
+
+          {/* 🎯 HEADER FANTASMA - Solo visible en Desktop */}
+          <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b border-white/10 rounded-t-2xl"
+               style={{
+                 background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.5) 0%, rgba(124, 58, 237, 0.5) 100%)'
+               }}>
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
@@ -123,7 +119,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
             <div className="flex items-center gap-2">
               <button
-                className="hidden md:block text-slate-400 hover:text-white p-2 transition-all duration-200 rounded-lg hover:bg-white/10"
+                className="text-slate-400 hover:text-white p-2 transition-all duration-200 rounded-lg hover:bg-white/10"
                 onClick={() => setIsExpanded(!isExpanded)}
                 title={isExpanded ? "Contraer ventana" : "Expandir ventana"}
               >
@@ -151,14 +147,27 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Status Bar Dinámico como Claude */}
-          <div className="px-4 py-3 bg-slate-800/40 border-b border-white/5">
+          {/* 🎯 BOTÓN CERRAR FLOTANTE - Solo visible en Mobile */}
+          <button
+            className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-sm text-slate-400 hover:text-white transition-all duration-200 hover:bg-slate-700/80"
+            onClick={onClose}
+            style={{
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
+            }}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+
+          {/* 🎯 STATUS BAR - Solo Desktop, eliminado en Mobile */}
+          <div className="hidden md:block px-4 py-3 bg-slate-800/40 border-b border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-xs text-slate-300 transition-all duration-300">
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span>💭 NEXUS está escribiendo</span>
+                    <span>💭 Procesando consulta</span>
                     <span className="animate-pulse">...</span>
                   </span>
                 ) : (
@@ -171,16 +180,20 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎨 MESSAGES CONTAINER ESTILO CLAUDE */}
+          {/* 🎯 MESSAGES CONTAINER - Más espacio en Mobile */}
           <div
-            className={`flex-1 overflow-y-auto space-y-4 ${isExpanded ? 'p-6' : 'p-4'}`}
+            className={`flex-1 overflow-y-auto space-y-4 ${
+              isExpanded
+                ? 'p-6'
+                : 'p-4 md:p-4 pt-12 md:pt-4' // Extra padding-top en mobile para botón flotante
+            }`}
             style={{
               scrollbarWidth: 'thin',
               scrollBehavior: 'smooth'
             }}
           >
 
-            {/* Saludo inicial */}
+            {/* SALUDO INICIAL */}
             {messages.length === 0 && (
               <div
                 className="flex items-start animate-fadeIn"
@@ -229,15 +242,15 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {/* 🎨 MESSAGES COMO CLAUDE: Pregunta arriba, lectura progresiva */}
+            {/* MESSAGES CON ANIMACIONES ELEGANTES */}
             {messages.map((message, index) => (
               <div
                 key={message.id}
                 className="flex"
                 style={{
-                  animation: index === messages.length - 1 ?
-                    'messageSlideIn 300ms cubic-bezier(0.25, 0.8, 0.25, 1)' :
-                    'none'
+                  animation: messageAppearing === message.role ?
+                    'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)' :
+                    'fadeInUp 300ms ease-out'
                 }}
               >
                 <div
@@ -251,35 +264,22 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
                   } : {}}
                 >
-                  {/* 🎨 CONTENIDO CON CURSOR DE ESCRITURA SI ESTÁ STREAMING */}
-                  <div className="relative">
-                    <ReactMarkdown
-                      components={{
-                        strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
-                        p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
-                        ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                        li: ({children}) => <li className="mb-1">{children}</li>
-                      }}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
-
-                    {/* 🎨 CURSOR DE ESCRITURA COMO CLAUDE */}
-                    {message.isStreaming && (
-                      <span
-                        className="inline-block w-2 h-4 bg-slate-400 ml-1 animate-pulse"
-                        style={{
-                          animation: 'blink 1s infinite'
-                        }}
-                      />
-                    )}
-                  </div>
+                  <ReactMarkdown
+                    components={{
+                      strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
+                      p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
+                      ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                      li: ({children}) => <li className="mb-1">{children}</li>
+                    }}
+                  >
+                    {message.content}
+                  </ReactMarkdown>
                 </div>
               </div>
             ))}
 
-            {/* 🎨 TYPING INDICATOR SOLO CUANDO NO HAY MENSAJE STREAMING */}
-            {isLoading && !messages.some(m => m.isStreaming) && (
+            {/* TYPING INDICATOR REFINADO */}
+            {isLoading && (
               <div
                 className="flex items-center gap-3 px-1 transition-all duration-300"
                 style={{
@@ -304,14 +304,15 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     />
                   ))}
                 </div>
-                <span className="text-xs text-slate-400 animate-pulse">Preparando respuesta...</span>
+                {/* Solo mostrar texto en desktop */}
+                <span className="hidden md:inline text-xs text-slate-400 animate-pulse">NEXUS está analizando...</span>
               </div>
             )}
 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick replies iniciales */}
+          {/* QUICK REPLIES INICIALES */}
           {messages.length === 0 && (
             <div
               className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}
@@ -354,7 +355,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* 🎨 INPUT CON ANIMACIÓN DE ENVÍO COMO CLAUDE */}
+          {/* INPUT REFINADO */}
           <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-3'}`}>
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
@@ -394,7 +395,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </form>
           </div>
 
-          {/* Footer */}
+          {/* FOOTER REFINADO */}
           <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
             <div className="flex justify-center gap-6">
               <button
@@ -414,7 +415,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* 🎨 CSS PERSONALIZADO PARA EFECTOS COMO CLAUDE */}
+      {/* CSS PERSONALIZADO PARA ANIMACIONES */}
       <style jsx>{`
         @keyframes fadeInUp {
           from {
@@ -456,11 +457,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           to {
             opacity: 1;
           }
-        }
-
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
         }
       `}</style>
     </div>

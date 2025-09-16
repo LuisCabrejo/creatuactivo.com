@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, HelpCircle, ChevronDown, Crown } from 'lucide-react'
+import { ArrowRight, CheckCircle, HelpCircle, ChevronDown, Crown, Zap, Rocket } from 'lucide-react' // NUEVO: Se añaden Zap y Rocket
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -14,7 +14,6 @@ const GlobalStyles = () => (
       --creatuactivo-purple: #7C3AED;
       --creatuactivo-gold: #F59E0B;
     }
-
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
@@ -23,7 +22,6 @@ const GlobalStyles = () => (
       line-height: 1.1;
       letter-spacing: -0.03em;
     }
-
     .creatuactivo-package-card {
       background: linear-gradient(135deg,
         rgba(30, 64, 175, 0.1) 0%,
@@ -33,20 +31,13 @@ const GlobalStyles = () => (
       border-radius: 20px;
       transition: all 0.4s ease;
       position: relative;
-      /* overflow: hidden; <-- CORRECCIÓN: Se eliminó esta línea que causaba el problema de superposición. */
     }
-
     .creatuactivo-package-card:hover {
       transform: translateY(-8px);
       border-color: rgba(245, 158, 11, 0.4);
       box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
     }
-
-    .creatuactivo-package-card-recommended {
-        border-color: var(--creatuactivo-gold);
-        box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
-    }
-
+    // AJUSTE: Se elimina la clase .creatuactivo-package-card-recommended ya que no se usará
     .creatuactivo-cta-ecosystem {
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
       border-radius: 16px;
@@ -56,7 +47,6 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
     }
-
     .creatuactivo-cta-ecosystem:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
@@ -65,21 +55,31 @@ const GlobalStyles = () => (
 );
 
 
-// --- Componente de Tarjeta de Paquete (Branding v4.2) ---
-const PackageCard = ({ title, priceUSD, priceCOP, features, recommended = false, ctaText = "Seleccionar Plan" }) => (
-    <div className={`creatuactivo-package-card h-full flex flex-col ${recommended ? 'creatuactivo-package-card-recommended' : ''}`}>
-        {recommended && (
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--creatuactivo-gold)] text-slate-900 text-xs font-bold uppercase px-4 py-1 rounded-full z-10">
-                Más Popular
-            </div>
-        )}
+// --- Componente de Tarjeta de Paquete (Branding v4.2 - ACTUALIZADO) ---
+// AJUSTE: Se elimina 'recommended' y se añaden props para el bono tecnológico
+const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPlan, bonusIcon, ctaText = "Seleccionar Plan" }) => (
+    <div className="creatuactivo-package-card h-full flex flex-col">
         <div className="p-8 flex-grow flex flex-col">
-            <h3 className="text-2xl font-bold text-white mb-2 pt-4">{title}</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
             <div className="mb-6">
                 <span className="text-4xl font-extrabold text-white">${priceUSD}</span>
                 <span className="text-slate-400"> USD</span>
                 <p className="text-sm text-slate-500">~ ${priceCOP} COP</p>
             </div>
+
+            {/* NUEVO: Sección del Bono Tecnológico */}
+            <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="text-yellow-400">{bonusIcon}</div>
+                <div>
+                  <p className="font-bold text-white">Bono Tecnológico Incluido</p>
+                  <p className="text-sm text-slate-300">
+                    <span className="font-semibold">{bonusMonths} Meses de Cortesía</span> del <span className="font-semibold">{bonusPlan}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <ul className="space-y-3 text-slate-300 flex-grow mb-8">
                 {features.map((feature, index) => (
                     <li key={index} className="flex items-start">
@@ -88,14 +88,14 @@ const PackageCard = ({ title, priceUSD, priceCOP, features, recommended = false,
                     </li>
                 ))}
             </ul>
-            <Link href="/fundadores" className={`w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto ${recommended ? 'bg-[var(--creatuactivo-purple)] text-white hover:bg-purple-500' : 'bg-slate-700/70 text-white hover:bg-slate-700'}`}>
+            <Link href="/fundadores" className="w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto bg-slate-700/70 text-white hover:bg-slate-700">
                 {ctaText}
             </Link>
         </div>
     </div>
 );
 
-// --- Componente para Preguntas Frecuentes (FAQ) ---
+// --- Componente para Preguntas Frecuentes (FAQ - Sin cambios) ---
 const FaqItem = ({ question, answer }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
@@ -123,8 +123,8 @@ const FaqItem = ({ question, answer }) => {
 };
 
 
-// --- Componente Principal de la Página de Modelo de Valor (Branding v4.2) ---
-export default function ModeloValorPageV2() {
+// --- Componente Principal de la Página de Paquetes (ACTUALIZADO) ---
+export default function PaquetesPage() { // AJUSTE: Nombre del componente para mayor claridad
     return (
         <>
             <GlobalStyles />
@@ -154,45 +154,65 @@ export default function ModeloValorPageV2() {
 
                     <section className="py-12 px-4">
                         <div className="max-w-7xl mx-auto">
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"> {/* NUEVO: items-stretch */}
                                 <PackageCard
-                                    title="Emprendedor"
+                                    title="Constructor Inicial"
                                     priceUSD="200"
                                     priceCOP="900.000"
+                                    // NUEVO: Se añade el bono
+                                    bonusMonths={2}
+                                    bonusPlan="Plan Cimiento"
+                                    bonusIcon={<Zap size={24}/>}
                                     features={[
                                         "Acceso completo al ecosistema",
                                         "Framework IAA completo",
                                         "Inventario inicial de validación",
                                         "Tecnología NodeX incluida"
                                     ]}
+                                    ctaText="Activar como Inicial"
                                 />
                                  <PackageCard
-                                    title="Empresarial"
+                                    title="Constructor Empresarial"
                                     priceUSD="500"
                                     priceCOP="2.250.000"
+                                    // NUEVO: Se añade el bono
+                                    bonusMonths={4}
+                                    bonusPlan="Plan Estructura"
+                                    bonusIcon={<Rocket size={24}/>}
                                     features={[
-                                        "Todo lo del plan Emprendedor +",
+                                        "Todo lo del plan Inicial +",
                                         "Inventario para operación profesional",
                                         "Consultoría estratégica prioritaria",
                                         "Optimización de primeros flujos"
                                     ]}
-                                    recommended={true}
-                                    ctaText="Activar Plan Empresarial"
+                                    // AJUSTE: Se elimina 'recommended'
+                                    ctaText="Activar como Empresarial"
                                 />
                                  <PackageCard
-                                    title="Visionario"
+                                    title="Constructor Visionario"
                                     priceUSD="1,000"
                                     priceCOP="4.500.000"
+                                    // NUEVO: Se añade el bono
+                                    bonusMonths={6}
+                                    bonusPlan="Plan Rascacielos"
+                                    bonusIcon={<Crown size={24}/>}
                                     features={[
                                         "Todo lo del plan Empresarial +",
                                         "Inventario premium de máximo potencial",
                                         "Consultoría estratégica VIP",
                                         "Construcción acelerada desde día 1"
                                     ]}
+                                    ctaText="Activar como Visionario"
                                 />
                             </div>
                             <div className="text-center mt-12 text-slate-400">
                                 <p>Todos los paquetes incluyen el acceso total a la plataforma CreaTuActivo.com y al Framework IAA.</p>
+                                {/* NUEVO: Enlace a la nueva página de planes */}
+                                <p className="mt-2">Como Fundador, tu paquete desbloquea meses de cortesía de nuestra maquinaria tecnológica.
+                                  <Link href="/planes" className="font-semibold text-blue-400 hover:text-blue-300 transition-colors ml-2">
+                                      Conoce los detalles de los planes aquí
+                                  </Link>
+                                </p>
                             </div>
                         </div>
                     </section>

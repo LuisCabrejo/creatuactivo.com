@@ -1,269 +1,378 @@
-# ARSENAL INICIAL - 19 RESPUESTAS PARA PRIMERAS INTERACCIONES
+-- ========================================================
+-- ACTUALIZACIÓN ARSENAL CONVERSACIONAL v8.5 - SUPABASE
+-- ========================================================
+-- Proyecto: CreaTuActivo.com
+-- Fecha: 15 Septiembre 2025
+-- Registro Target: nexus_documents.id = 15
+-- CRÍTICO: Ejecutar paso a paso, no todo junto
+-- ========================================================
 
-**Propósito:** Respuestas para establecer credibilidad y manejar primeras preguntas
-**Categorías:** FREQ (10) + CRED (9) = 19 respuestas totales
-**Flujo:** primeras_interacciones
-**Versión:** 1.0
+-- PASO 1: BACKUP DEL CONTENIDO ACTUAL (EJECUTAR PRIMERO)
+-- ========================================================
+-- Ejecuta esto PRIMERO para hacer backup
+SELECT
+  id,
+  title,
+  document_type,
+  LENGTH(content) as content_length,
+  LEFT(content, 100) as content_preview,
+  created_at,
+  updated_at
+FROM nexus_documents
+WHERE id = 15;
 
----
+-- Copia el resultado completo del content antes de continuar
+SELECT content FROM nexus_documents WHERE id = 15;
 
-## 🎯 PREGUNTAS MÁS FRECUENTES (10 respuestas)
+-- ========================================================
+-- PASO 2: ACTUALIZACIÓN CON ARSENAL v8.5 (EJECUTAR DESPUÉS DEL BACKUP)
+-- ========================================================
 
-### FREQ_01: "¿Qué es CreaTuActivo.com?"
-**[Frecuencia: #1 - Definición fundamental]**
+UPDATE nexus_documents
+SET
+  content = '# Arsenal Conversacional: Respuestas Fundamentales v8.5
 
-CreaTuActivo.com es un ecosistema tecnológico que te permite construir tu propio activo de distribución inteligente. Combinamos productos únicos con patente mundial (Gano Excel), tecnología de automatización (NodeX), y un copiloto de IA (yo, NEXUS) para que puedas construir un canal de valor sin las complejidades tradicionales. Es como tener todas las herramientas de una empresa tech, pero para construcción de activos.
-
-**Pregunta de seguimiento:** ¿Te interesa más el aspecto tecnológico o los productos únicos que distribuimos?
-
----
-
-### FREQ_02: "¿Cómo funciona exactamente el negocio?"
-**[Frecuencia: #2 - La Respuesta Maestra]**
-
-Esa es la pregunta correcta, y la respuesta redefine el juego. Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros uno por uno. Él construyó Amazon, el sistema de distribución. Nosotros aplicamos esa misma filosofía. No te enseñamos a vender un producto; te entregamos la arquitectura de tu propio sistema de distribución inteligente.
-
-Así es como funciona:
-
-**EL MOTOR:** Tienes un producto único con patente mundial que la gente quiere y consume.
-
-**EL CHASIS:** Te entregamos nuestro Ecosistema Tecnológico (NodeX y yo, NEXUS) que automatiza el 80% del trabajo.
-
-**EL PILOTO (TÚ):** Tu rol se vuelve 100% estratégico. Usas nuestro Framework IAA para enfocarte en las 3 únicas acciones que multiplican tu activo: INICIAR, ACOGER y ACTIVAR.
-
-En resumen: te entregamos una arquitectura de negocio "llave en mano", impulsada por un producto exclusivo y automatizada por tecnología de punta. Tú dejas de ser el operador y te conviertes en el arquitecto que dirige el crecimiento.
-
-**Pregunta de seguimiento:** ¿Te gustaría que te muestre cómo se ve en acción el primer paso, INICIAR?
-
----
-
-### FREQ_03: "¿Cuál es la inversión para empezar a construir?"
-**[Frecuencia: #3 - Inversión inicial]**
-
-Hemos diseñado tres niveles de inversión, cada uno pensado para una ambición de construcción diferente. No son "costos", son la inversión inicial en tu activo.
-
-**Paquete EMPRENDEDOR ($900,000 COP):** La inversión inteligente para validar la arquitectura del modelo y obtener acceso completo al ecosistema.
-
-**Paquete EMPRESARIAL ($2,250,000 COP):** El punto de equilibrio ideal. Es el más elegido por los constructores que buscan un arranque sólido.
-
-**Paquete VISIONARIO ($4,500,000 COP):** Para el máximo apalancamiento y una construcción acelerada desde el día uno.
-
-La única inversión recurrente es de 50 PV (aproximadamente $450,000 COP o USD 88) mensuales, que recibes íntegramente en productos con patente mundial.
-
-**Pregunta de seguimiento:** ¿Cuál de estos niveles de construcción se alinea mejor con tu visión inicial?
+**Propósito:** La base de conocimiento inicial para NEXUS, diseñada para establecer la credibilidad de nuestra nueva categoría y manejar las primeras interacciones con la maestría de un arquitecto.
 
 ---
 
-### FREQ_04: "¿Cuándo empiezo a ver el retorno de mi activo?"
-**[Frecuencia: #4 - Expectativas de retorno]**
+## 🎯 **PREGUNTAS MÁS FRECUENTES (11 respuestas)**
 
-Esa es la pregunta de un verdadero constructor. La respuesta no está en el tiempo, sino en los hitos de construcción de tu activo. Con 5-7 horas estratégicas a la semana, esta es la arquitectura de crecimiento:
+### **FREQ_01: "¿Qué es CreaTuActivo.com?"**
+No es un negocio. Es el plano y la maquinaria para construir tu propio activo patrimonial.
 
-**Hito 1 (Mes 1):** Validación. Generas tus primeros flujos de valor. Es la prueba tangible de que la arquitectura funciona.
+Piénsalo así: te entregamos un ecosistema tecnológico de nivel corporativo, donde cada pieza ha sido diseñada para trabajar en perfecta sinergia. Tienes el motor (un producto único con patente mundial), la inteligencia (NEXUS IA) y el centro de comando (NodeX) en una sola arquitectura.
 
-**Hito 2 (Primer Semestre):** Cimiento. Tu activo adquiere una base sólida y comienza a generar flujos residuales consistentes.
+En lugar de intercambiar tu tiempo por un ingreso, te damos las herramientas para que te conviertas en el arquitecto de un sistema que genera valor por sí mismo.
 
-**Hito 3 (Año 1+):** Expansión. Tu activo entra en una fase de crecimiento apalancado y se expande de forma autónoma.
+**Pregunta de seguimiento:** ¿Qué pieza de la arquitectura te genera más curiosidad: el motor, la inteligencia o el centro de comando?
 
-Esto no es "dinero rápido", es la construcción inteligente de patrimonio.
+---
+
+### **FREQ_02: "¿Cómo funciona el negocio?" (Flujo Conversacional)**
+
+**(NIVEL 1 - LA VISIÓN)**
+Esa es la pregunta correcta, y la respuesta redefine el juego. Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.
+
+Nosotros aplicamos esa misma filosofía. Ayudamos a personas con mentalidad de constructor a crear su propio sistema de distribución, por donde fluyen cientos de productos únicos de Gano Excel y Gano Itouch todos los días.
+
+**Preguntas por defecto:**
+➡️ ¿Quieres saber cómo lo hacemos posible?
+⚙️ ¿Qué es un "sistema de distribución"?
+📦 ¿Qué productos son?
+
+**(NIVEL 2 - LA ARQUITECTURA)**
+Lo hacemos posible entregándote una arquitectura donde tú te enfocas en el 20% del trabajo que es puramente estratégico, mientras la maquinaria tecnológica de NodeX y NEXUS se encarga del 80% del trabajo pesado y operativo. Es un modelo de apalancamiento real.
+
+**Preguntas por defecto:**
+➡️ Explícame el 80% que hace la tecnología.
+🧠 ¿Cuál es mi 20% estratégico?
+💡 ¿Cómo se ve eso en la práctica?
+
+**(NIVEL 3 - LA METODOLOGÍA)**
+Tu 20% estratégico se simplifica a nuestro Framework IAA:
+
+**INICIAR:** Eres la chispa que conecta a las personas con el ecosistema.
+**ACOGER:** Eres el consultor que aporta la confianza en el momento clave.
+**ACTIVAR:** Eres el mentor que entrega la arquitectura a un nuevo constructor.
+
+Dejas de ser el operador y te conviertes en el director de orquesta.
+
+**Preguntas por defecto:**
+➡️ ¿Qué herramientas tengo para INICIAR?
+🤝 ¿Cómo sé cuándo ACOGER?
+🚀 ¿Cómo es el proceso de ACTIVAR?
+
+---
+
+### **FREQ_03: "¿Cuál es la inversión para empezar a construir?"**
+Esta no es una simple compra; es la elección de tu punto de entrada a la arquitectura del ecosistema. Hemos diseñado tres niveles, cada uno pensado para una visión de construcción diferente:
+
+**Constructor Inicial ($900,000 COP):** La inversión inteligente para validar la arquitectura y obtener acceso completo al ecosistema.
+
+**Constructor Empresarial ($2,250,000 COP):** ⭐ El más elegido. El punto de equilibrio perfecto entre un arranque sólido y un potencial de crecimiento acelerado.
+
+**Constructor Visionario ($4,500,000 COP):** Para el máximo apalancamiento y una construcción a gran escala desde el día uno.
+
+La única inversión recurrente es de 50 PV (aprox. $450,000 COP), que recibes íntegramente en productos. No es un costo de plataforma, es el combustible que mueve tu activo.
+
+**Pregunta de seguimiento:** ¿Cuál de estos puntos de entrada resuena más con tu visión de construcción actual?
+
+---
+
+### **FREQ_04: "¿Cuándo empiezo a ver el retorno de mi activo?"**
+Esa es la pregunta de un verdadero arquitecto. La respuesta no está en el tiempo, sino en los hitos de construcción de tu activo. Con 5-7 horas estratégicas a la semana, esta es la arquitectura de crecimiento:
+
+**Hito 1 (Mes 1): VALIDACIÓN.** Generas tus primeros flujos de valor. Es la prueba tangible de que la arquitectura funciona.
+
+**Hito 2 (Primer Semestre): CIMIENTO.** Tu activo adquiere una base sólida y comienza a generar flujos residuales consistentes.
+
+**Hito 3 (Año 1+): EXPANSIÓN.** Tu activo entra en una fase de crecimiento apalancado y se expande de forma autónoma.
+
+Esto no es "dinero rápido". Es la construcción inteligente de patrimonio.
 
 **Pregunta de seguimiento:** ¿Esta arquitectura de crecimiento se alinea con tu visión?
 
 ---
 
-### FREQ_05: "¿Es un activo heredable?"
-**[Frecuencia: #5 - Legado patrimonial]**
+### **FREQ_05: "¿Es un activo heredable?"**
+Sí, y esa es la diferencia fundamental con un empleo. Aquí construyes un activo empresarial real, una propiedad que trasciende tu tiempo de trabajo. El sistema que construyes en nuestro ecosistema puede ser transferido, heredado y seguir generando flujos de valor para tu familia por generaciones. Estás construyendo un legado.
 
-Sí, y esa es la diferencia fundamental con un empleo. Aquí construyes un activo empresarial real, una propiedad que trasciende tu tiempo de trabajo. El sistema de distribución que construyes en nuestro ecosistema puede ser transferido, heredado y seguir generando flujos de valor para tu familia por generaciones. Estás construyendo un legado.
-
-**Pregunta de seguimiento:** ¿La idea de construir patrimonio heredable resuena con tus metas familiares?
+**Pregunta de seguimiento:** ¿La idea de construir un patrimonio heredable es importante para tus metas a largo plazo?
 
 ---
 
-### FREQ_06: "¿Qué significa ser Fundador?"
-**[Frecuencia: #6 - Programa Fundadores]**
-
-Significa asegurar tu posición en la arquitectura fundacional de nuestro ecosistema antes del lanzamiento público. Piénsalo así: es la diferencia entre obtener una de las primeras franquicias de McDonald's o la número mil. Como uno de los 150 Fundadores iniciales, te posicionas en el cimiento absoluto. Todo el crecimiento futuro del ecosistema en América se construye a partir de tu activo. Obtienes una ventaja de pionero, aplicando nuestro Framework "INICIAR, ACOGER, ACTIVAR" antes que el mercado masivo.
+### **FREQ_06: "¿Qué significa ser Fundador?"**
+Significa asegurar tu posición en la arquitectura fundacional de nuestro ecosistema. Piénsalo así: es la diferencia entre obtener una de las primeras franquicias de McDonald''s o la número mil. Como uno de los 150 Fundadores iniciales, te posicionas en el cimiento. Todo el crecimiento futuro del ecosistema en América se construye a partir de tu activo. Es una ventaja de pionero que no se volverá a repetir.
 
 **Pregunta de seguimiento:** ¿Te gustaría que te muestre la arquitectura de esta ventaja estratégica?
 
 ---
 
-### FREQ_07: "¿Puedes darme un ejemplo práctico del método?"
-**[Frecuencia: #7 - Ejemplo del Framework IAA]**
-
-Claro. La mejor forma de entender el Framework es ver cómo transforma tu rol de operador a estratega.
+### **FREQ_07: "¿Puedes darme un ejemplo práctico del método?"**
+Claro. El Framework IAA transforma tu rol de operador a estratega.
 
 **El Operador (Viejo Mundo):** Su día se consume en tareas de bajo apalancamiento: explicar, perseguir, manejar objeciones. Su crecimiento es lineal.
 
 **El Arquitecto (Nuestro Nuevo Mundo):**
 
 **INICIAR:** Es la chispa. Usa las herramientas para conectar. La tecnología educa.
-
 **ACOGER:** Es el consultor. Aporta el toque humano y la confianza cuando el sistema lo indica.
-
 **ACTIVAR:** Es el mentor. Entrega las llaves del ecosistema y enseña el primer paso.
 
 El crecimiento del Arquitecto es exponencial, apalancado en un sistema que trabaja para él.
 
-**Pregunta de seguimiento:** ¿Te ves más como operador actual o como arquitecto futuro?
+**Pregunta de seguimiento:** ¿Te ves más como un operador en tu situación actual o como el arquitecto que podrías llegar a ser?
 
 ---
 
-### FREQ_08: "¿A uno lo ayudan, le enseñan? ¿Qué tipo de formación hay?"
-**[Frecuencia: #8 - Formación y Academia]**
+### **FREQ_08: "¿A uno lo ayudan, le enseñan? ¿Qué tipo de formación hay?"**
+Esa es la pregunta más importante, porque en nuestro ecosistema, no solo te entregamos herramientas; forjamos arquitectos.
 
-Esa es la pregunta más importante, porque en nuestro ecosistema, no solo te entregamos herramientas; **forjamos arquitectos**.
+No tenemos "capacitaciones" sueltas. Tenemos La Academia, un pilar fundamental diseñado como una ruta de aprendizaje que te lleva desde los fundamentos hasta la maestría. Tu crecimiento no es opcional, es el centro de nuestra estrategia. Desde el Módulo 1, donde dominas el sistema, hasta el Nivel 3, donde aprendes a construir tu marca como líder, cada paso está diseñado para que te conviertas en la persona capaz de construir el activo que deseas.
 
-No tenemos "capacitaciones" sueltas. Tenemos **La Academia**, un pilar fundamental de CreaTuActivo.com diseñado como una ruta de aprendizaje que te lleva desde los fundamentos hasta la maestría. Tu crecimiento no es opcional, es el centro de nuestra estrategia.
-
-Desde el Módulo 1, donde dominas el sistema, hasta el Nivel 3, donde aprendes a construir tu marca como líder, cada paso está diseñado para que te conviertas en la persona capaz de construir el activo que deseas. Aquí, el negocio crece al ritmo que creces tú.
-
-**Pregunta de seguimiento:** ¿Qué aspecto del crecimiento personal te emociona más: dominar la tecnología, desarrollar liderazgo, o construir tu marca?
+**Pregunta de seguimiento:** ¿Qué aspecto del crecimiento personal te emociona más: dominar la tecnología, desarrollar tu liderazgo o construir tu marca?
 
 ---
 
-### FREQ_09: "¿Hay costos ocultos de plataforma o herramientas?"
-**[Frecuencia: #9 - Transparencia financiera]**
+### **FREQ_09: "¿Hay costos ocultos de plataforma o herramientas?"**
+Transparencia total: hay dos componentes de inversión claramente definidos, sin sorpresas.
 
-Cero. La transparencia es un pilar de nuestra arquitectura. Tu paquete inicial incluye acceso vitalicio y completo a todo el ecosistema tecnológico. Los 50 PV mensuales son un intercambio de valor, no un costo: recibes productos únicos por el mismo monto (aproximadamente $450,000 COP o USD 88 dependiendo de los productos que selecciones). No hay sorpresas. No hay tarifas de membresía, hosting o actualizaciones. La plataforma está incluida.
+**PRIMERO - ECOSISTEMA GANO EXCEL:** Tu paquete inicial incluye acceso vitalicio y completo al ecosistema de productos con patente mundial. Los 50 PV mensuales son un intercambio de valor, no un costo: recibes productos únicos por el mismo monto (aproximadamente $450,000 COP o USD 88 dependiendo de los productos que selecciones).
 
-**Pregunta de seguimiento:** ¿Qué otros aspectos de transparencia financiera valorarías?
+**SEGUNDO - TECNOLOGÍAS NODEX Y NEXUS:** Estas herramientas de automatización inteligente tienen tres niveles de acceso: Constructor Inicial ($25 USD/mes), Constructor Empresarial ($49 USD/mes), y Constructor Visionario ($99 USD/mes).
+
+**AQUÍ ESTÁ LO INTERESANTE:** Como fundador, recibes entre 2 y 6 meses completamente gratis según tu nivel. Además, lanzamos concursos e incentivos mensuales donde puedes ganar acceso gratuito adicional. La realidad es que esta tecnología es tan rentable que prácticamente se paga sola, y nuestra estrategia es que termines accediendo sin costo a través de estos beneficios.
+
+No hay tarifas ocultas de hosting, actualizaciones o membresías. Todo está incluido en lo que ves.
+
+**Pregunta de seguimiento:** ¿Te interesa conocer más sobre los incentivos y concursos que te pueden dar acceso gratuito a la tecnología?
 
 ---
 
-### FREQ_10: "¿Los productos son realmente una ventaja?"
-**[Frecuencia: #10 - Ventaja competitiva]**
-
+### **FREQ_10: "¿Los productos son realmente una ventaja?"**
 No son solo una ventaja, son nuestro foso competitivo. No compiten en el mercado tradicional; operan en su propia categoría gracias a la patente mundial. Es como si Tesla fuera el único que pudiera fabricar motores eléctricos. Esa ventaja tecnológica fundamental es la que hace que construir un sistema de distribución a su alrededor sea una decisión de negocio tan inteligente.
 
-**Pregunta de seguimiento:** ¿Te gustaría conocer más detalles técnicos sobre la patente mundial?
+**Pregunta de seguimiento:** ¿Te gustaría conocer los detalles técnicos que hacen esta patente tan poderosa?
 
-## 📊 VALIDACIÓN Y CREDIBILIDAD (9 respuestas)
+---
 
-### CRED_01: "¿Quién está detrás de CreaTuActivo.com?"
-**[Credibilidad y liderazgo]**
+### **FREQ_11: "¿Cómo se gana en el negocio?"**
+En nuestro ecosistema, no "ganas dinero", construyes flujos de valor. La arquitectura financiera recompensa la construcción de un activo real en tres fases:
 
-CreaTuActivo.com está liderado por Luis Cabrejo y Liliana Moreno, una power couple con credibilidad comprobada:
+**A Corto Plazo (Capitalización):** A través de los Bonos de Inicio Rápido al activar a tus primeros constructores.
 
-**LUIS CABREJO:**
-- 11 años de experiencia en construcción de activos
-- 9 años consecutivos en rango de liderazgo Diamante
-- Arquitecto del ecosistema tecnológico actual
+**A Mediano Plazo (Expansión):** Con las Comisiones de Equipo (Binario), participas del volumen total de productos que se mueven en tu canal.
 
-**LILIANA MORENO:**
-- También líder Diamante por 9 años consecutivos
-- Especialista en mentoría y desarrollo de constructores
-- Contacto directo para escalación: +573102066593
+**A Largo Plazo (Legado):** Desbloqueas los Bonos de Liderazgo y otros incentivos por desarrollar a otros arquitectos.
 
-**RESPALDO CORPORATIVO:**
-- Gano Excel: 30+ años de operación global
-- Presencia en 15+ países de América
-- Patentes mundiales verificadas
+**Pregunta de seguimiento:** ¿Cuál de estas tres fases resuena más con tu visión de construcción?
+
+---
+
+## 📊 **VALIDACIÓN Y CREDIBILIDAD (9 respuestas)**
+
+### **CRED_01: "¿Quién está detrás de CreaTuActivo.com?"**
+CreaTuActivo.com fue fundado por Luis Cabrejo y Liliana Moreno, dos arquitectos de negocios con 9 años consecutivos de éxito probado en el rango de liderazgo más alto de la industria.
+
+Ellos no son teóricos; son constructores. Crearon este ecosistema como la solución a los problemas que ellos mismos enfrentaron, combinando su experiencia en el campo con una visión tecnológica de vanguardia. Todo esto, respaldado por la solidez de Gano Excel, nuestro socio corporativo con más de 30 años de trayectoria global.
 
 **Pregunta de seguimiento:** ¿Te gustaría agendar una consultoría directa con Liliana para validar tu ajuste al ecosistema?
 
 ---
 
-### CRED_02: "¿Qué hace único al producto Gano Excel?"
-**[Ventaja competitiva del motor]**
+### **CRED_02: "¿Qué hace único al producto Gano Excel?"**
+Su exclusividad patentada. El corazón de los productos es el extracto de Ganoderma Lucidum, y Gano Excel posee la patente mundial sobre su proceso de extracción. Esto significa que ningún competidor en el mundo puede replicar la calidad y la biodisponibilidad de sus más de 200 fitonutrientes. No compites en precio, porque operas en una categoría donde no tienes competencia.
 
-Ganoderma Lucidum - el ingrediente activo - tiene 4,000 años de historia documentada y 300+ compuestos bioactivos. La patente mundial de Gano Excel protege su proceso de extracción único. Es café y té que la gente ya consume, pero enriquecido. No compites en precio porque nadie más puede ofrecer lo mismo. Los consumidores lo recompran mensualmente por sus beneficios, no por el negocio.
-
-**Pregunta de seguimiento:** ¿Te gustaría probar el producto antes de decidir?
+**Pregunta de seguimiento:** ¿Te gustaría que te comparta un documento con el respaldo científico de la patente?
 
 ---
 
-### CRED_03: "¿Esto realmente funciona?"
-**[Validación de efectividad]**
+### **CRED_03: "¿Esto realmente funciona?"**
+La pregunta correcta no es si funciona, es si funciona para personas como tú. Y la respuesta es un rotundo sí.
 
-La pregunta correcta no es si funciona - es si funciona para personas como tú. Y la respuesta es un rotundo sí.
+La evidencia es la arquitectura misma:
+- **La Metodología (Framework IAA):** Perfeccionada durante 11 años de resultados en el campo.
+- **La Tecnología (NodeX + NEXUS):** Construida para automatizar las tareas que hacen que el 90% de las personas fallen.
+- **Los Fundadores:** 9 años consecutivos de éxito demuestran que el sistema es replicable.
 
-**EVIDENCIA TANGIBLE:**
-- Luis y Liliana: 9 años consecutivos de resultados
-- Cientos de constructores activos en 15 países
-- Sistema replicado y verificado durante 11 años
-- Tecnología NodeX operando 24/7 sin fallas
+No vendemos promesas. Entregamos un sistema probado.
 
-**FILOSOFÍA:** No promulgamos el éxito - construimos la arquitectura que lo hace posible. La diferencia está en la metodología (Framework IAA) y la tecnología (NodeX + NEXUS).
-
-**PREGUNTA MEJOR:** No es "¿funciona?" sino "¿tengo la mentalidad de constructor para hacer que funcione?"
-
-**Pregunta de seguimiento:** ¿Qué evidencia específica necesitarías para validar completamente la efectividad?
+**Pregunta de seguimiento:** ¿Qué evidencia específica necesitarías para validar que esto puede funcionar para ti?
 
 ---
 
-### CRED_04: "¿Cuánto tiempo llevan operando?"
-**[Trayectoria y estabilidad]**
+### **CRED_04: "¿Cuánto tiempo llevan operando?"**
+El sistema tiene dos capas de trayectoria:
 
-Luis y Liliana han estado construyendo activos por 11 años consecutivos, 9 de ellos en el rango de liderazgo más alto (Diamante). Gano Excel, la empresa madre, tiene más de 30 años de operación global. CreaTuActivo.com es la evolución tecnológica de un sistema probado durante más de una década. No somos un startup experimental; somos la versión 2.0 mejorada de algo que ya funciona.
+**La Base:** Nuestro socio corporativo, Gano Excel, tiene más de 30 años de operación global.
 
-**Pregunta de seguimiento:** ¿Qué otros indicadores de estabilidad valorarías en un ecosistema como este?
+**La Arquitectura:** La metodología detrás de CreaTuActivo.com ha sido probada y refinada por los fundadores durante 11 años de construcción activa.
 
----
+No somos un startup experimental; somos la evolución tecnológica de un modelo de éxito probado.
 
-### CRED_05: "¿Puedo verificar los resultados de otros constructores?"
-**[Evidencia social]**
-
-Por confidencialidad, no podemos compartir datos financieros específicos de otros constructores sin su autorización. Sin embargo, puedes ver testimonios verificados en nuestras plataformas, conectarte con otros constructores en eventos del ecosistema, y durante tu consultoría con Liliana, ella puede ponerte en contacto con arquitectos que voluntariamente comparten su experiencia. La transparencia es importante, pero siempre respetando la privacidad de nuestros constructores.
-
-**Pregunta de seguimiento:** ¿Te gustaría participar en uno de nuestros eventos mensuales donde conoces a otros constructores directamente?
+**Pregunta de seguimiento:** ¿Qué otros indicadores de estabilidad son importantes para ti?
 
 ---
 
-### CRED_06: "¿Cuánto tiempo toma ver resultados concretos?"
-**[Resultados tangibles]**
+### **CRED_05: "¿Puedo verificar los resultados de otros constructores?"**
+Absolutamente. La transparencia es clave. Aunque no compartimos datos financieros privados, te ofrecemos tres vías de validación:
 
-Esa es la pregunta de un verdadero constructor. La respuesta no está en el tiempo, sino en los hitos de construcción de tu activo. Con 5-7 horas estratégicas a la semana, esta es la arquitectura de crecimiento:
+- **Testimonios Verificados:** En nuestra página de La Comunidad.
+- **Eventos del Ecosistema:** Donde puedes conectar directamente con otros arquitectos.
+- **Conexión Directa:** Durante tu consultoría, podemos conectarte con constructores que voluntariamente comparten su experiencia.
 
-**Hito 1 (Mes 1):** Validación. Generas tus primeros flujos de valor. Es la prueba tangible de que la arquitectura funciona.
+**Pregunta de seguimiento:** ¿Qué vía de validación te parece más valiosa?
 
-**Hito 2 (Primer Semestre):** Cimiento. Tu activo adquiere una base sólida y comienza a generar flujos residuales consistentes.
+---
 
-**Hito 3 (Año 1+):** Expansión. Tu activo entra en una fase de crecimiento apalancado y se expande de forma autónoma.
+### **CRED_06: "¿Cuánto tiempo toma ver resultados concretos?"**
+La construcción inteligente de activos sigue hitos predecibles:
+
+**Hito 1 (Mes 1): VALIDACIÓN.** Generas tus primeros flujos de valor.
+
+**Hito 2 (Primer Semestre): CIMIENTO.** Tu activo adquiere una base sólida y genera flujos residuales consistentes.
+
+**Hito 3 (Año 1+): EXPANSIÓN.** Tu activo entra en una fase de crecimiento apalancado y autónomo.
 
 Con el tiempo, tu activo trabaja 24/7 mientras tú eliges conscientemente cómo usar tu tiempo recuperado.
 
-**Pregunta de seguimiento:** ¿Esta arquitectura de crecimiento se alinea con tu visión?
+**Pregunta de seguimiento:** ¿Esta arquitectura de crecimiento se alinea con tu visión a largo plazo?
 
 ---
 
-### CRED_07: "¿Qué garantías tengo de que esto funcionará?"
-**[Garantías de funcionamiento]**
+### **CRED_07: "¿Qué garantías tengo de que esto funcionará?"**
+Las mismas garantías que tiene cualquier negocio real: depende de tu ejecución del sistema probado. La diferencia es que aquí no dependes solo de tu talento. Tienes:
 
-Las mismas garantías que tiene cualquier negocio real: depende de tu ejecución del sistema probado. La diferencia es que aquí no dependes solo de talento individual. Tienes:
+- Un proceso metodológico (Framework IAA) probado durante 11 años.
+- Una maquinaria tecnológica (NodeX y NEXUS) que automatiza el 80% del trabajo.
+- Mentoría constante y una comunidad de apoyo.
 
-- Un proceso metodológico (Framework IAA) probado durante 11 años
-- Tecnología de apoyo (NodeX y NEXUS) que automatiza el 80% del trabajo
-- Mentoría constante y una comunidad de apoyo
-- Un sistema que nivela el campo de juego
+Tu éxito depende de tu compromiso con la ejecución consistente, no de ser un "vendedor nato".
 
-Tu éxito depende de tu compromiso con la ejecución consistente, no de ser un "vendedor nato" o tener habilidades especiales.
-
-**Pregunta de seguimiento:** ¿Qué tipo de garantía o apoyo valorarías más durante tu proceso de construcción?
+**Pregunta de seguimiento:** ¿Qué tipo de apoyo valorarías más durante tu proceso de construcción?
 
 ---
 
-### CRED_08: "¿Es esto como otros productos de Gano Excel?"
-**[Diferenciación interna]**
+### **CRED_08: "¿Esto está regulado legalmente?"**
+Sí, y con los más altos estándares. Operamos bajo las regulaciones de múltiples países con el respaldo de una empresa de 30 años. Nuestro modelo es legalmente sólido porque el 100% de los ingresos provienen de la venta de productos reales a consumidores finales, no del reclutamiento.
 
-No. Los otros productos de Gano Excel te dan acceso a los productos y al plan de compensación tradicional. CreaTuActivo.com te entrega la arquitectura tecnológica completa: NodeX (tu centro de comando), NEXUS (tu copiloto de IA), el Framework IAA (tu metodología), y la Academia (tu formación). Es la diferencia entre tener un producto y tener un ecosistema tecnológico completo para construir tu activo.
-
-**Pregunta de seguimiento:** ¿Valoras más tener solo acceso a productos o tener la arquitectura completa para construir?
+**Pregunta de seguimiento:** ¿Te gustaría que te comparta la documentación de cumplimiento específica para tu país?
 
 ---
 
-### CRED_09: "¿Esto está regulado legalmente?"
-**[Regulación legal]**
+### **CRED_09: "¿Por qué debería unirme con ustedes y no con otro distribuidor de Gano Excel?"**
+Esa es la pregunta clave. La diferencia es acceso exclusivo a tecnología que nadie más tiene.
 
-Sí. Operamos bajo regulaciones estrictas de múltiples países con el respaldo de una empresa de 30 años de trayectoria. Nuestro modelo cumple con todas las normativas de venta directa y distribución legítima.
+Cualquier distribuidor te puede vender productos Gano Excel. Solo **nuestro equipo** te entrega el ecosistema tecnológico completo: NodeX (tu centro de comando), NEXUS (tu copiloto de IA), el Framework IAA (tu metodología) y La Academia CreaTuActivo.com.
 
-El 70% de tus ingresos provienen de productos que vendes a consumidores finales reales - no de reclutamiento. Solo el 30% proviene de construcción de equipo. Esto nos coloca dentro del marco legal de todos los países donde operamos.
+Es la diferencia entre construir manualmente con herramientas básicas versus tener la maquinaria automatizada más avanzada trabajando para ti 24/7. Otros distribuidores te dan acceso a los productos. Nosotros te damos **el sistema completo para construir un activo escalable**.
 
-**Pregunta de seguimiento:** ¿Te gustaría revisar la documentación legal específica de tu país?
+Esta tecnología es **exclusiva de nuestro equipo** - no la encontrarás en ningún otro lugar dentro de la red de Gano Excel.
+
+**Pregunta de seguimiento:** ¿Prefieres construir con las herramientas que todos tienen, o con tecnología que te da una ventaja competitiva única?
 
 ---
 
-**FIN DEL ARSENAL INICIAL**
-**Total de respuestas:** 19 (FREQ: 10 + CRED: 9)
-**Estado:** Listo para implementación NEXUS
+## 🔧 **MANEJO DE OBJECIONES (3 respuestas)**
+
+### **OBJ_01: "No tengo experiencia en ventas"**
+No solo no la necesitas, podría ser contraproducente. Nuestro ecosistema está diseñado para que no vendas. La tecnología (NodeX y NEXUS) maneja la educación y la cualificación. Tu rol se eleva al de un arquitecto estratégico, enfocándote en las tres acciones del Framework IAA: INICIAR, ACOGER y ACTIVAR.
+
+**Pregunta de seguimiento:** ¿Cuál de estas tres acciones estratégicas te parece más natural para tu personalidad?
+
+---
+
+### **OBJ_02: "No tengo tiempo suficiente"**
+Esa objeción revela exactamente por qué necesitas este ecosistema. Si no tienes tiempo, es porque estás intercambiando tiempo por dinero en lugar de construir un activo que trabaje para ti. Nuestro sistema automatiza el 80% del trabajo. Tu inversión es de 5-7 horas estratégicas semanales para construir el activo que, eventualmente, te compre tu tiempo de vuelta.
+
+**Pregunta de seguimiento:** ¿Prefieres seguir sin tiempo o invertir 5-7 horas semanales para recuperarlo?
+
+---
+
+### **OBJ_03: "Es mucho dinero / No puedo pagarlo"**
+Entiendo tu perspectiva. Es una decisión de inversión importante, no un gasto. Por eso hemos diseñado los paquetes no como un costo, sino como la inversión inicial para construir un activo. La regla de oro es simple: empieza con el paquete que puedas pagar hoy sin comprometer tu estabilidad. El paquete Constructor Inicial ($900,000 COP) te da acceso completo al ecosistema para que puedas empezar a construir.
+
+**Pregunta de seguimiento:** ¿Cuál sería un nivel de inversión inicial cómodo para tu situación?
+
+---
+
+**Documento actualizado:** v8.5 con ajustes en FREQ_09, mantenimiento de CRED_08 y adición de CRED_09
+**Última actualización:** Integración de estructura de pricing de tecnologías Nodex y Nexus
+**Enfoque especial:** Transparencia total en costos y diferenciación competitiva exclusiva',
+  updated_at = NOW()
+WHERE id = 15;
+
+-- ========================================================
+-- PASO 3: VERIFICACIÓN POST-ACTUALIZACIÓN (EJECUTAR DESPUÉS DEL UPDATE)
+-- ========================================================
+
+-- Verificar que el update se ejecutó correctamente
+SELECT
+  id,
+  title,
+  document_type,
+  LENGTH(content) as new_content_length,
+  LEFT(content, 200) as new_content_preview,
+  updated_at
+FROM nexus_documents
+WHERE id = 15;
+
+-- Verificar que contiene las nuevas respuestas clave
+SELECT content
+FROM nexus_documents
+WHERE id = 15
+  AND content LIKE '%FREQ_09%'
+  AND content LIKE '%CRED_09%'
+  AND content LIKE '%v8.5%';
+
+-- Contar total de secciones para validar estructura
+SELECT
+  id,
+  (LENGTH(content) - LENGTH(REPLACE(content, '###', ''))) / 3 as total_sections
+FROM nexus_documents
+WHERE id = 15;
+
+-- ========================================================
+-- ROLLBACK DE EMERGENCIA (SOLO SI HAY PROBLEMAS)
+-- ========================================================
+-- Si algo sale mal, ejecuta esto con el contenido del backup:
+
+/*
+UPDATE nexus_documents
+SET
+  content = 'PEGAR_AQUÍ_EL_CONTENIDO_DEL_BACKUP',
+  updated_at = NOW()
+WHERE id = 15;
+*/
+
+-- ========================================================
+-- NOTAS IMPORTANTES:
+-- ========================================================
+-- 1. Ejecutar PASO A PASO, no todo junto
+-- 2. Hacer backup OBLIGATORIO antes del update
+-- 3. Verificar que el registro target es ID = 15
+-- 4. El contenido tiene caracteres especiales (comillas) escapados
+-- 5. Tener el rollback preparado por si hay problemas
+-- 6. Testing inmediato en NEXUS después del cambio
+-- ========================================================

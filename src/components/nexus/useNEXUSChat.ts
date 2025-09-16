@@ -1,7 +1,7 @@
 // src/components/nexus/useNEXUSChat.ts
-// 🔧 ERRORES DE SINTAXIS CORREGIDOS
+// 🔧 FIX DEFINITIVO - SCROLL DUAL SYSTEM
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 interface Message {
  id: string;
@@ -17,11 +17,13 @@ const [isLoading, setIsLoading] = useState(false);
 const [isStreaming, setIsStreaming] = useState(false);
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
 const [streamingComplete, setStreamingComplete] = useState(false);
-const [onNewMessage, setOnNewMessage] = useState<(() => void) | null>(null);
+
+// ✅ NUEVO SISTEMA DE SCROLL DUAL
+const [scrollTrigger, setScrollTrigger] = useState(0);
+const [forceScrollTrigger, setForceScrollTrigger] = useState(0);
 
 const generateId = () => Math.random().toString(36).substring(7);
 
-// Función parseQuickReplies desactivada
 const parseQuickReplies = (content: string) => {
   console.log('🔧 parseQuickReplies DESACTIVADO - usando solo formato texto A, B, C');
   setProgressiveReplies([]);
@@ -35,9 +37,15 @@ const cleanMessageContent = (content: string) => {
     .trim();
 };
 
-// Función para registrar callback de scroll
-const registerScrollCallback = useCallback((callback: () => void) => {
-  setOnNewMessage(() => callback);
+// ✅ FIX: SISTEMA DUAL - Scroll inmediato + Scroll condicional
+const triggerImmediateScroll = useCallback(() => {
+  console.log('🚀 IMMEDIATE SCROLL - Al enviar mensaje (SIEMPRE)');
+  setForceScrollTrigger(prev => prev + 1);
+}, []);
+
+const triggerConditionalScroll = useCallback(() => {
+  console.log('📜 CONDITIONAL SCROLL - Durante streaming (solo si en bottom)');
+  setScrollTrigger(prev => prev + 1);
 }, []);
 
 const sendMessage = useCallback(async (content: string) => {
@@ -49,19 +57,11 @@ const sendMessage = useCallback(async (content: string) => {
     timestamp: new Date(),
   };
 
-  // Agregar mensaje del usuario y trigger scroll
-  setMessages(prev => {
-    const newMessages = [...prev, userMessage];
+  // ✅ AGREGAR MENSAJE
+  setMessages(prev => [...prev, userMessage]);
 
-    // Trigger scroll inmediato para mensaje del usuario
-    setTimeout(() => {
-      if (onNewMessage) {
-        onNewMessage();
-      }
-    }, 10);
-
-    return newMessages;
-  });
+  // ✅ SCROLL INMEDIATO AL ENVIAR - SIN RESTRICCIONES
+  triggerImmediateScroll();
 
   // Preparar respuesta en streaming
   setIsLoading(true);
@@ -82,6 +82,8 @@ const sendMessage = useCallback(async (content: string) => {
   // Agregar mensaje asistente vacío después de delay
   setTimeout(() => {
     setMessages(prev => [...prev, initialAssistantMessage]);
+    // ✅ SCROLL CONDICIONAL AL APARECER RESPUESTA
+    triggerConditionalScroll();
   }, 200);
 
   try {
@@ -120,7 +122,7 @@ const sendMessage = useCallback(async (content: string) => {
     const contentType = response.headers.get('content-type');
 
     if (contentType?.includes('text/plain') || contentType?.includes('text/stream')) {
-      // Streaming progresivo
+      // ✅ STREAMING SIN SCROLL TRIGGERS AUTOMÁTICOS
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -145,6 +147,7 @@ const sendMessage = useCallback(async (content: string) => {
         if (now - lastUpdateTime >= minUpdateInterval) {
           const cleanContent = cleanMessageContent(accumulatedContent);
 
+          // ✅ SOLO UPDATE CONTENT - NO SCROLL AUTOMÁTICO DURANTE STREAMING
           setMessages(prev =>
             prev.map(msg =>
               msg.id === assistantMessageId
@@ -161,7 +164,7 @@ const sendMessage = useCallback(async (content: string) => {
         }
       }
 
-      // Finalizar streaming
+      // ✅ FINALIZAR STREAMING
       const finalCleanContent = cleanMessageContent(accumulatedContent);
       setMessages(prev =>
         prev.map(msg =>
@@ -178,7 +181,7 @@ const sendMessage = useCallback(async (content: string) => {
       setStreamingComplete(true);
 
     } else {
-      // Manejar respuesta JSON con simulación de streaming
+      // ✅ MANEJAR RESPUESTA JSON
       const data = await response.json();
 
       if (data.error) {
@@ -196,7 +199,7 @@ const sendMessage = useCallback(async (content: string) => {
       } else if (data.response) {
         const cleanContent = cleanMessageContent(data.response);
 
-        // Simular streaming para respuesta JSON
+        // ✅ SIMULAR STREAMING SIN SCROLL AUTOMÁTICO
         let currentIndex = 0;
         const fullText = cleanContent;
         const streamInterval = setInterval(() => {
@@ -291,7 +294,7 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
     setIsLoading(false);
     setIsStreaming(false);
   }
- }, [messages, onNewMessage]);
+ }, [messages, triggerImmediateScroll, triggerConditionalScroll]);
 
 const resetChat = useCallback(() => {
   setMessages([]);
@@ -347,6 +350,7 @@ return {
   resetChat,
   handleQuickReply,
   contactLiliana,
-  registerScrollCallback,
+  scrollTrigger,        // ✅ Scroll condicional durante streaming
+  forceScrollTrigger,   // ✅ Scroll forzado al enviar mensaje
  };
 };

@@ -17,35 +17,53 @@ interface NEXUSWidgetProps {
 }
 
 const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
-  const { messages, isLoading, streamingComplete, progressiveReplies, sendMessage, resetChat } = useNEXUSChat();
+  const {
+    messages,
+    isLoading,
+    streamingComplete,
+    progressiveReplies,
+    sendMessage,
+    resetChat,
+  } = useNEXUSChat();
+
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const lastUserMessageRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      const container = messagesEndRef.current.parentElement;
-      if (container) {
-        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+  // ✅ SCROLL INMEDIATO: Solo al enviar nueva pregunta, NO durante streaming
+  useEffect(() => {
+    if (messages.length > 0 && lastUserMessageRef.current && scrollAreaRef.current) {
+      const lastMessage = messages[messages.length - 1];
 
-        if (isNearBottom || messages.length === 1) {
-          container.scrollTo({
-            top: container.scrollHeight,
-            behavior: 'smooth'
-          });
-        }
+      // Solo si el último mensaje es del usuario (nueva pregunta)
+      if (lastMessage.role === 'user') {
+        // Delay mínimo para asegurar renderizado
+        setTimeout(() => {
+          if (lastUserMessageRef.current && scrollAreaRef.current) {
+            const container = scrollAreaRef.current;
+            const userMessage = lastUserMessageRef.current;
+
+            // Calcular posición para poner la pregunta en la parte superior
+            const containerTop = container.getBoundingClientRect().top;
+            const messageTop = userMessage.getBoundingClientRect().top;
+            const currentScroll = container.scrollTop;
+
+            // Scroll inmediato para posicionar nueva pregunta arriba
+            const targetScroll = currentScroll + (messageTop - containerTop) - 20;
+
+            // CRÍTICO: Scroll INMEDIATO sin animación suave para que sea instantáneo
+            container.scrollTop = Math.max(0, targetScroll);
+
+            console.log('🎯 Nueva pregunta posicionada INMEDIATAMENTE - conversaciones anteriores fuera de vista');
+          }
+        }, 50);
       }
     }
-  };
+  }, [messages]);
 
-  useEffect(() => {
-    const scrollTimer = setTimeout(() => {
-      scrollToBottom();
-    }, 100);
-
-    return () => clearTimeout(scrollTimer);
-  }, [messages.length]);
+  // ❌ ELIMINADO: NO scroll durante streaming para evitar movimiento de texto
 
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
@@ -53,7 +71,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
       setMessageAppearing('user');
 
       setTimeout(() => setMessageAppearing(null), 400);
-
       await sendMessage(message);
     }
   };
@@ -64,9 +81,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   };
 
   const quickReplies = [
-    { text: 'Explícame el sistema, paso a paso', icon: '🏗️' },
-    { text: '¿Cuál es el punto de entrada a la arquitectura?', icon: '💎' },
-    { text: 'Háblame del motor de valor', icon: '🌿' }
+    { text: '¿Cómo funciona exactamente el negocio?', icon: '🏗️' },
+    { text: '¿Cómo funciona el sistema de distribución?', icon: '⚙️' },
+    { text: '¿Qué es CreaTuActivo.com?', icon: '💎' }
   ];
 
   if (!isOpen) return null;
@@ -92,7 +109,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           }}
         >
 
-          {/* 🎯 HEADER FANTASMA - Solo visible en Desktop */}
+          {/* HEADER */}
           <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b border-white/10 rounded-t-2xl"
                style={{
                  background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.5) 0%, rgba(124, 58, 237, 0.5) 100%)'
@@ -147,7 +164,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎯 BOTÓN CERRAR FLOTANTE - Solo visible en Mobile */}
+          {/* BOTÓN CERRAR MOBILE */}
           <button
             className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-sm text-slate-400 hover:text-white transition-all duration-200 hover:bg-slate-700/80"
             onClick={onClose}
@@ -160,7 +177,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </svg>
           </button>
 
-          {/* 🎯 STATUS BAR - Solo Desktop, eliminado en Mobile */}
+          {/* STATUS BAR */}
           <div className="hidden md:block px-4 py-3 bg-slate-800/40 border-b border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
@@ -180,12 +197,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎯 MESSAGES CONTAINER - Más espacio en Mobile */}
+          {/* 🎯 MESSAGES CONTAINER SIMPLE */}
           <div
+            ref={scrollAreaRef}
             className={`flex-1 overflow-y-auto space-y-4 ${
               isExpanded
                 ? 'p-6'
-                : 'p-4 md:p-4 pt-12 md:pt-4' // Extra padding-top en mobile para botón flotante
+                : 'p-4 md:p-4 pt-12 md:pt-4'
             }`}
             style={{
               scrollbarWidth: 'thin',
@@ -207,78 +225,57 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   </svg>
                 </div>
                 <div className="flex-1 p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
-                  <p className="font-semibold text-white mb-2">Hola, soy NEXUS 🤖</p>
-                  <p className="mb-3">Tu copiloto estratégico. Estoy aquí para mostrarte la arquitectura que usan los constructores inteligentes para crear activos que les <span className="text-amber-400 font-semibold">compran su tiempo de vuelta</span>.</p>
-
-                  <div className={`grid grid-cols-1 gap-2 my-3 ${isExpanded ? 'gap-2' : ''}`}>
-                    {[
-                      { icon: '🏭', text: 'El Motor de Valor', color: 'amber' },
-                      { icon: '📋', text: 'El Plano Estratégico', color: 'green' },
-                      { icon: '⚡', text: 'La Maquinaria Tecnológica', color: 'blue' }
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className={`text-center p-2 rounded text-xs border transition-all duration-300 hover:scale-105 cursor-pointer`}
-                        style={{
-                          background: item.color === 'amber' ?
-                            'linear-gradient(135deg, rgba(146, 64, 14, 0.15) 0%, rgba(116, 66, 16, 0.1) 100%)' :
-                            item.color === 'green' ?
-                            'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%)' :
-                            'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%)',
-                          color: item.color === 'amber' ? '#f59e0b' : item.color === 'green' ? '#10b981' : '#3b82f6',
-                          borderColor: item.color === 'amber' ? 'rgba(245, 158, 11, 0.3)' :
-                                     item.color === 'green' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(59, 130, 246, 0.3)',
-                          animation: `fadeInUp 400ms cubic-bezier(0.25, 0.8, 0.25, 1) ${400 + index * 100}ms both`
-                        }}
-                      >
-                        <div className="text-sm">{item.icon}</div>
-                        <div className="text-xs font-medium">{item.text}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <p>¿Qué pieza de la arquitectura te genera más curiosidad?</p>
+                  <p className="font-semibold text-white mb-2">Hola, soy NEXUS</p>
+                  <p className="mb-3">Estoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un <span className="text-amber-400 font-semibold">activo patrimonial real</span>, donde la tecnología trabaja para ti 24/7.</p>
+                  <p>¿Qué aspecto del sistema te interesa conocer?</p>
                 </div>
               </div>
             )}
 
-            {/* MESSAGES CON ANIMACIONES ELEGANTES */}
-            {messages.map((message, index) => (
-              <div
-                key={message.id}
-                className="flex"
-                style={{
-                  animation: messageAppearing === message.role ?
-                    'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)' :
-                    'fadeInUp 300ms ease-out'
-                }}
-              >
-                <div
-                  className={`p-3 rounded-lg text-sm transition-all duration-200 ${
-                    message.role === 'user'
-                      ? 'text-white max-w-[75%] ml-auto shadow-lg'
-                      : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
-                  }`}
-                  style={message.role === 'user' ? {
-                    background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
-                    boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
-                  } : {}}
-                >
-                  <ReactMarkdown
-                    components={{
-                      strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
-                      p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
-                      ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                      li: ({children}) => <li className="mb-1">{children}</li>
-                    }}
-                  >
-                    {message.content}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            ))}
+            {/* ✅ MESSAGES - Comportamiento chat estándar simple */}
+            {messages.map((message, index) => {
+              // Identificar si es la última pregunta del usuario
+              const isLastUserMessage = message.role === 'user' &&
+                index === messages.findLastIndex(msg => msg.role === 'user');
 
-            {/* TYPING INDICATOR REFINADO */}
+              return (
+                <div
+                  key={message.id}
+                  ref={isLastUserMessage ? lastUserMessageRef : null}
+                  className="flex"
+                  style={{
+                    animation: messageAppearing === message.role ?
+                      'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)' :
+                      'fadeInUp 300ms ease-out'
+                  }}
+                >
+                  <div
+                    className={`p-3 rounded-lg text-sm transition-all duration-200 ${
+                      message.role === 'user'
+                        ? 'text-white max-w-[75%] ml-auto shadow-lg'
+                        : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
+                    }`}
+                    style={message.role === 'user' ? {
+                      background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
+                      boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
+                    } : {}}
+                  >
+                    <ReactMarkdown
+                      components={{
+                        strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
+                        p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
+                        ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                        li: ({children}) => <li className="mb-1">{children}</li>
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* TYPING INDICATOR */}
             {isLoading && (
               <div
                 className="flex items-center gap-3 px-1 transition-all duration-300"
@@ -304,15 +301,12 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     />
                   ))}
                 </div>
-                {/* Solo mostrar texto en desktop */}
                 <span className="hidden md:inline text-xs text-slate-400 animate-pulse">NEXUS está analizando...</span>
               </div>
             )}
-
-            <div ref={messagesEndRef} />
           </div>
 
-          {/* QUICK REPLIES INICIALES */}
+          {/* QUICK REPLIES */}
           {messages.length === 0 && (
             <div
               className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}
@@ -320,7 +314,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 animation: 'fadeInUp 800ms cubic-bezier(0.25, 0.8, 0.25, 1) 600ms both'
               }}
             >
-              <div className={`space-y-2 mb-3 ${isExpanded ? 'grid grid-cols-2 gap-3 space-y-0' : ''}`}>
+              <div className={`space-y-2 mb-3 ${isExpanded ? 'grid grid-cols-1 gap-3 space-y-0' : ''}`}>
                 {quickReplies.map((reply, index) => (
                   <button
                     key={index}
@@ -355,7 +349,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* INPUT REFINADO */}
+          {/* INPUT */}
           <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-3'}`}>
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
@@ -379,14 +373,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
                   boxShadow: '0 4px 15px rgba(30, 64, 175, 0.4)'
                 }}
-                onMouseEnter={(e) => {
-                  if (!isLoading && inputMessage.trim()) {
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.5)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(30, 64, 175, 0.4)';
-                }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -395,7 +381,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </form>
           </div>
 
-          {/* FOOTER REFINADO */}
+          {/* FOOTER */}
           <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
             <div className="flex justify-center gap-6">
               <button
@@ -415,7 +401,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* CSS PERSONALIZADO PARA ANIMACIONES */}
+      {/* CSS ANIMATIONS */}
       <style jsx>{`
         @keyframes fadeInUp {
           from {

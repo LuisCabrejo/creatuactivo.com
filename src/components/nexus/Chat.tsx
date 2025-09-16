@@ -1,7 +1,7 @@
 'use client';
 
 // src/components/nexus/Chat.tsx
-// Componente Chat NEXUS MVP - IMPORTACIÓN AI SDK CORREGIDA
+// Componente Chat NEXUS MVP - VOCABULARIO SIMPLIFICADO "LECHE PRIMERO"
 
 import { useChat } from 'ai/react'; // Importación clásica para ai@2.2.37
 import { useState, useRef, useEffect } from 'react';
@@ -22,8 +22,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL OPTIMIZADO - Consistente con NEXUSWidget
-        content: 'Hola, soy NEXUS 🤖\n\nTu copiloto estratégico. Estoy aquí para mostrarte la arquitectura que usan los constructores inteligentes para crear activos que les compran su tiempo de vuelta.\n\n¿Qué pieza de la arquitectura te genera más curiosidad?'
+        // 🔧 MENSAJE INICIAL SIMPLIFICADO - Coordinado con NEXUSWidget
+        content: 'Hola, soy NEXUS\n\nEstoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un activo patrimonial real, donde la tecnología trabaja para ti 24/7.\n\n¿Qué aspecto del sistema te interesa conocer?'
       }
     ]
   });
@@ -59,7 +59,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
           </div>
           <div>
             <h3 className="font-semibold">NEXUS</h3>
-            <p className="text-xs opacity-90">Copiloto IA CreaTuActivo.com</p>
+            <p className="text-xs opacity-90">Especialista en sistemas de distribución</p>
           </div>
         </div>
 
@@ -143,7 +143,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <span className="text-sm ml-2">NEXUS está pensando...</span>
+                <span className="text-sm ml-2">NEXUS está analizando...</span>
               </div>
             </div>
           </div>
@@ -158,8 +158,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
           <input
             value={input}
             onChange={handleInputChange}
-            // 🔧 PLACEHOLDER OPTIMIZADO
-            placeholder="Pregúntame sobre la arquitectura de tu activo..."
+            // 🔧 PLACEHOLDER SIMPLIFICADO
+            placeholder="Pregúntame sobre el sistema de distribución..."
             className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white text-gray-900"
             disabled={isLoading}
           />
@@ -175,7 +175,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
 
         {/* Footer info */}
         <div className="mt-2 text-xs text-gray-500 text-center">
-          NEXUS • Arquitecto IA del ecosistema CreaTuActivo.com
+          NEXUS • Especialista en sistemas inteligentes CreaTuActivo.com
         </div>
       </div>
     </div>

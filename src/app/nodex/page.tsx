@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, CheckCircle, Copy, Crown, Link as LinkIcon, Rocket, Users, BarChart3, Edit, X, Zap, UserCheck, Construction, Package } from 'lucide-react'
+import { ArrowRight, CheckCircle, Copy, Crown, Rocket, Users, BarChart3, Edit, X, Zap, UserCheck, Construction } from 'lucide-react'
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
@@ -81,7 +81,12 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Métrica del Dashboard ---
-const MetricCard = ({ title, value, icon, color }) => (
+const MetricCard = ({ title, value, icon, color }: {
+  title: string;
+  value: string;
+  icon: React.ReactNode;
+  color: string;
+}) => (
     <div className="creatuactivo-ecosystem-card p-6">
         <div className="flex items-center justify-between">
             <p className={`font-semibold text-sm ${color}`}>{title}</p>
@@ -92,10 +97,15 @@ const MetricCard = ({ title, value, icon, color }) => (
 );
 
 // --- Componente Modal para Editar Perfil ---
-const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }) => {
+const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }: {
+  isOpen: boolean;
+  onClose: () => void;
+  constructorData: any;
+  setConstructorData: (data: any) => void;
+}) => {
     const [localData, setLocalData] = useState(constructorData);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setLocalData(constructorData);
     }, [constructorData]);
 
@@ -153,7 +163,6 @@ const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }) 
     );
 };
 
-
 // --- Componente Principal de la Página de NodeX ---
 export default function NodeXPage() {
     const [constructorData, setConstructorData] = useState({
@@ -162,10 +171,10 @@ export default function NodeXPage() {
         affiliationLink: "https://ganoexcel.com/afiliacion/carlosperez123",
         whatsapp: "+573001234567"
     });
-    const [copiedLink, setCopiedLink] = useState(null);
+    const [copiedLink, setCopiedLink] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleCopy = (linkType) => {
+    const handleCopy = (linkType: string) => {
         let linkToCopy = '';
         if (linkType === 'affiliation') {
             linkToCopy = constructorData.affiliationLink;
@@ -180,147 +189,146 @@ export default function NodeXPage() {
     return (
         <>
             <GlobalStyles />
-            {/* LAYOUT NODEX CON SIDEBAR - Arquitectura dual establecida */}
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
 
-                {/* CONTENIDO PRINCIPAL - Sin pt-20 porque sidebar no es header fijo */}
-                <main className="flex-1 p-6 text-white">
+            {/* ✅ ARQUITECTURA CORREGIDA: Sidebar wrapper sin double layout */}
+            <NodeXSidebar>
+                {/* ✅ CONTENIDO DIRECTO - Sin wrapper adicional de layout */}
+                <div className="p-6 text-white relative">
                     {/* Background Effects */}
                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                         <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
                         <div className="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-[var(--creatuactivo-purple)] opacity-10 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="relative z-10"
-                    >
-                        {/* Header Welcome */}
-                        <div className="mb-12">
-                            <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-5xl">
-                                Bienvenido, {constructorData.name}.
-                            </h1>
-                            <p className="text-slate-300 text-lg mt-2">Este es NodeX, tu centro de comando.</p>
-                        </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative z-10"
+                >
+                    {/* Header Welcome */}
+                    <div className="mb-12">
+                        <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-5xl">
+                            Bienvenido, {constructorData.name}.
+                        </h1>
+                        <p className="text-slate-300 text-lg mt-2">Este es NodeX, tu centro de comando.</p>
+                    </div>
 
-                        <div className="grid lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-2 space-y-8">
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-8">
 
-                                {/* Perfil de Arquitecto */}
-                                <div className="creatuactivo-ecosystem-card p-8">
-                                    <h2 className="text-2xl font-bold text-white mb-4">Tu Perfil de Arquitecto</h2>
-                                    <p className="text-slate-400 mb-6">Este es el primer paso. Asegúrate de que tus datos y enlaces estén correctos. Esta información se usará para personalizar tus herramientas.</p>
-                                    <div className="bg-slate-900/50 p-4 rounded-lg text-sm text-slate-300 space-y-2">
-                                        <p><strong>ID de Constructor:</strong> {constructorData.id}</p>
-                                        <p><strong>WhatsApp de Contacto:</strong> {constructorData.whatsapp}</p>
-                                    </div>
-                                    <button onClick={() => setIsModalOpen(true)} className="w-full md:w-auto mt-4 bg-slate-700/70 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
-                                        <Edit className="w-4 h-4" /> Editar Perfil y Enlaces
-                                    </button>
+                            {/* Perfil de Arquitecto */}
+                            <div className="creatuactivo-ecosystem-card p-8">
+                                <h2 className="text-2xl font-bold text-white mb-4">Tu Perfil de Arquitecto</h2>
+                                <p className="text-slate-400 mb-6">Este es el primer paso. Asegúrate de que tus datos y enlaces estén correctos. Esta información se usará para personalizar tus herramientas.</p>
+                                <div className="bg-slate-900/50 p-4 rounded-lg text-sm text-slate-300 space-y-2">
+                                    <p><strong>ID de Constructor:</strong> {constructorData.id}</p>
+                                    <p><strong>WhatsApp de Contacto:</strong> {constructorData.whatsapp}</p>
                                 </div>
+                                <button onClick={() => setIsModalOpen(true)} className="w-full md:w-auto mt-4 bg-slate-700/70 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
+                                    <Edit className="w-4 h-4" /> Editar Perfil y Enlaces
+                                </button>
+                            </div>
 
-                                {/* Arsenal de Enlaces */}
-                                <div className="creatuactivo-ecosystem-card p-8">
-                                    <h2 className="text-2xl font-bold text-white mb-4">Tu Arsenal de Enlaces</h2>
-                                    <p className="text-slate-400 mb-6">Estas son tus herramientas para expandir el ecosistema. Cada enlace es único para ti.</p>
-                                    <div className="space-y-4">
-                                        <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
-                                            <div>
-                                                <p className="font-semibold text-white">Enlace de Presentación</p>
-                                                <p className="text-xs text-slate-500">Para nuevos constructores potenciales</p>
-                                            </div>
-                                            <button onClick={() => handleCopy('presentacion-empresarial')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
-                                                {copiedLink === 'presentacion-empresarial' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
-                                                {copiedLink === 'presentacion-empresarial' ? 'Copiado' : 'Copiar'}
-                                            </button>
-                                        </div>
-                                        <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
-                                            <div>
-                                                <p className="font-semibold text-white">Enlace a Fundadores</p>
-                                                <p className="text-xs text-slate-500">Para la invitación exclusiva (tiempo limitado)</p>
-                                            </div>
-                                            <button onClick={() => handleCopy('fundadores')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
-                                                {copiedLink === 'fundadores' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
-                                                {copiedLink === 'fundadores' ? 'Copiado' : 'Copiar'}
-                                            </button>
-                                        </div>
-                                        <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
-                                            <div>
-                                                <p className="font-semibold text-white">Enlace al Catálogo de Productos</p>
-                                                <p className="text-xs text-slate-500">Para interesados en el motor de valor</p>
-                                            </div>
-                                            <button onClick={() => handleCopy('sistema/productos')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
-                                                {copiedLink === 'sistema/productos' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
-                                                {copiedLink === 'sistema/productos' ? 'Copiado' : 'Copiar'}
-                                            </button>
-                                        </div>
-                                        <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between border-2 border-transparent border-dashed hover:border-[var(--creatuactivo-gold)] transition-all">
-                                            <div>
-                                                <p className="font-semibold text-white flex items-center gap-2">Enlace de Activación Directa <span className="text-xs bg-[var(--creatuactivo-gold)]/20 text-[var(--creatuactivo-gold)] px-2 py-0.5 rounded-full">¡PODEROSO!</span></p>
-                                                <p className="text-xs text-slate-500">Para el que te dice: "¡Estoy listo! ¿Dónde pago?"</p>
-                                            </div>
-                                            <button onClick={() => handleCopy('affiliation')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
-                                                {copiedLink === 'affiliation' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
-                                                {copiedLink === 'affiliation' ? 'Copiado' : 'Copiar'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Próxima Misión */}
-                                <div className="creatuactivo-ecosystem-card p-8 bg-gradient-to-br from-[var(--creatuactivo-blue)]/20 to-[var(--creatuactivo-purple)]/20">
-                                    <div className="flex items-start gap-4">
-                                        <div className="bg-yellow-500/20 p-3 rounded-full mt-1"><Rocket className="w-6 h-6 text-[var(--creatuactivo-gold)]" /></div>
+                            {/* Arsenal de Enlaces */}
+                            <div className="creatuactivo-ecosystem-card p-8">
+                                <h2 className="text-2xl font-bold text-white mb-4">Tu Arsenal de Enlaces</h2>
+                                <p className="text-slate-400 mb-6">Estas son tus herramientas para expandir el ecosistema. Cada enlace es único para ti.</p>
+                                <div className="space-y-4">
+                                    <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
                                         <div>
-                                            <h2 className="text-2xl font-bold text-white mb-2">Tu Próxima Misión: Ejecuta tu Primer INICIAR</h2>
-                                            <p className="text-slate-300 mb-4">Ahora que tus herramientas están listas, es momento de poner el sistema a trabajar. Ve al Centro de Inteligencia para generar tu primer mensaje personalizado.</p>
-                                            <Link href="/nodex/inteligencia" className="font-bold text-blue-400 hover:text-blue-300 transition-colors">
-                                                Ir al Centro de Inteligencia <ArrowRight className="inline w-4 h-4" />
-                                            </Link>
+                                            <p className="font-semibold text-white">Enlace de Presentación</p>
+                                            <p className="text-xs text-slate-500">Para nuevos constructores potenciales</p>
                                         </div>
+                                        <button onClick={() => handleCopy('presentacion-empresarial')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
+                                            {copiedLink === 'presentacion-empresarial' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
+                                            {copiedLink === 'presentacion-empresarial' ? 'Copiado' : 'Copiar'}
+                                        </button>
                                     </div>
-                                </div>
-
-                                {/* Informes de Inteligencia */}
-                                <div className="creatuactivo-ecosystem-card p-8">
-                                    <h2 className="text-2xl font-bold text-white mb-4">Tus Informes de Inteligencia</h2>
-                                    <p className="text-slate-400 mb-6">Aquí aparecerán los análisis de los constructores potenciales que exploren tus enlaces.</p>
-                                    <div className="text-center py-10 bg-slate-900/50 rounded-lg border border-dashed border-white/10">
-                                        <p className="text-slate-500">Aún no hay informes. ¡Ejecuta tu primer INICIAR!</p>
+                                    <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
+                                        <div>
+                                            <p className="font-semibold text-white">Enlace a Fundadores</p>
+                                            <p className="text-xs text-slate-500">Para la invitación exclusiva (tiempo limitado)</p>
+                                        </div>
+                                        <button onClick={() => handleCopy('fundadores')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
+                                            {copiedLink === 'fundadores' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
+                                            {copiedLink === 'fundadores' ? 'Copiado' : 'Copiar'}
+                                        </button>
+                                    </div>
+                                    <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between">
+                                        <div>
+                                            <p className="font-semibold text-white">Enlace al Catálogo de Productos</p>
+                                            <p className="text-xs text-slate-500">Para interesados en el motor de valor</p>
+                                        </div>
+                                        <button onClick={() => handleCopy('sistema/productos')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
+                                            {copiedLink === 'sistema/productos' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
+                                            {copiedLink === 'sistema/productos' ? 'Copiado' : 'Copiar'}
+                                        </button>
+                                    </div>
+                                    <div className="bg-slate-900/50 p-4 rounded-lg flex items-center justify-between border-2 border-transparent border-dashed hover:border-[var(--creatuactivo-gold)] transition-all">
+                                        <div>
+                                            <p className="font-semibold text-white flex items-center gap-2">Enlace de Activación Directa <span className="text-xs bg-[var(--creatuactivo-gold)]/20 text-[var(--creatuactivo-gold)] px-2 py-0.5 rounded-full">¡PODEROSO!</span></p>
+                                            <p className="text-xs text-slate-500">Para el que te dice: "¡Estoy listo! ¿Dónde pago?"</p>
+                                        </div>
+                                        <button onClick={() => handleCopy('affiliation')} className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2">
+                                            {copiedLink === 'affiliation' ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
+                                            {copiedLink === 'affiliation' ? 'Copiado' : 'Copiar'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Sidebar Derecho - Pipeline Métricas */}
-                            <div className="space-y-8">
-                                <h3 className="text-xl font-bold text-white pt-4">Pipeline de tu Activo</h3>
-                                <MetricCard title="En INICIAR" value="0" icon={<Zap />} color="text-blue-400" />
-                                <MetricCard title="En ACOGER" value="0" icon={<Users />} color="text-purple-400" />
-                                <MetricCard title="ACTIVADOS" value="0" icon={<UserCheck />} color="text-green-400" />
-
-                                <div className="opacity-50">
-                                    <h3 className="text-xl font-bold text-white pt-4 flex items-center gap-2"><Construction size={20}/> En Construcción</h3>
-                                    <div className="space-y-8 mt-4 pointer-events-none">
-                                        <MetricCard title="Volumen del Canal (CV)" value="-" icon={<BarChart3 />} />
-                                        <MetricCard title="Ingreso Proyectado (Mes)" value="-" icon={<Crown />} />
+                            {/* Próxima Misión */}
+                            <div className="creatuactivo-ecosystem-card p-8 bg-gradient-to-br from-[var(--creatuactivo-blue)]/20 to-[var(--creatuactivo-purple)]/20">
+                                <div className="flex items-start gap-4">
+                                    <div className="bg-yellow-500/20 p-3 rounded-full mt-1"><Rocket className="w-6 h-6 text-[var(--creatuactivo-gold)]" /></div>
+                                    <div>
+                                        <h2 className="text-2xl font-bold text-white mb-2">Tu Próxima Misión: Ejecuta tu Primer INICIAR</h2>
+                                        <p className="text-slate-300 mb-4">Ahora que tus herramientas están listas, es momento de poner el sistema a trabajar. Ve al Centro de Inteligencia para generar tu primer mensaje personalizado.</p>
+                                        <Link href="/nodex/inteligencia" className="font-bold text-blue-400 hover:text-blue-300 transition-colors">
+                                            Ir al Centro de Inteligencia <ArrowRight className="inline w-4 h-4" />
+                                        </Link>
                                     </div>
+                                </div>
+                            </div>
+
+                            {/* Informes de Inteligencia */}
+                            <div className="creatuactivo-ecosystem-card p-8">
+                                <h2 className="text-2xl font-bold text-white mb-4">Tus Informes de Inteligencia</h2>
+                                <p className="text-slate-400 mb-6">Aquí aparecerán los análisis de los constructores potenciales que exploren tus enlaces.</p>
+                                <div className="text-center py-10 bg-slate-900/50 rounded-lg border border-dashed border-white/10">
+                                    <p className="text-slate-500">Aún no hay informes. ¡Ejecuta tu primer INICIAR!</p>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
-                </main>
 
-                {/* Modal Editar Perfil */}
-                <ProfileModal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    constructorData={constructorData}
-                    setConstructorData={setConstructorData}
-                />
-            </div>
+                        {/* Sidebar Derecho - Pipeline Métricas */}
+                        <div className="space-y-8">
+                            <h3 className="text-xl font-bold text-white pt-4">Pipeline de tu Activo</h3>
+                            <MetricCard title="En INICIAR" value="0" icon={<Zap />} color="text-blue-400" />
+                            <MetricCard title="En ACOGER" value="0" icon={<Users />} color="text-purple-400" />
+                            <MetricCard title="ACTIVADOS" value="0" icon={<UserCheck />} color="text-green-400" />
+
+                            <div className="opacity-50">
+                                <h3 className="text-xl font-bold text-white pt-4 flex items-center gap-2"><Construction size={20}/> En Construcción</h3>
+                                <div className="space-y-8 mt-4 pointer-events-none">
+                                    <MetricCard title="Volumen del Canal (CV)" value="-" icon={<BarChart3 />} />
+                                    <MetricCard title="Ingreso Proyectado (Mes)" value="-" icon={<Crown />} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                    {/* Modal Editar Perfil */}
+                    <ProfileModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        constructorData={constructorData}
+                        setConstructorData={setConstructorData}
+                    />
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

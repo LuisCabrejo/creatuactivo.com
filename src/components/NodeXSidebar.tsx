@@ -15,7 +15,61 @@ import {
   ChevronLeft
 } from 'lucide-react'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// ✅ ANTI-FOUC: Estilos críticos inline para carga inmediata
+const CRITICAL_STYLES = `
+  /* PREVENIR FOUC - ESTILOS CRÍTICOS INLINE */
+  .nodex-sidebar-critical {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    height: 100vh;
+    width: 16rem; /* 256px */
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(24px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: none; /* Sin transición durante hidratación */
+  }
+
+  @media (min-width: 1024px) {
+    .nodex-sidebar-critical {
+      transform: translateX(0);
+    }
+  }
+
+  .nodex-content-critical {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  @media (min-width: 1024px) {
+    .nodex-content-critical {
+      padding-left: 16rem; /* 256px */
+    }
+  }
+
+  /* MOBILE HEADER CRÍTICO */
+  .nodex-mobile-header-critical {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 30;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .nodex-mobile-header-critical {
+      display: none;
+    }
+  }
+`
+
+// ✅ ESTILOS AVANZADOS: Se cargan después sin FOUC
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -33,7 +87,7 @@ const GlobalStyles = () => (
       align-items: center;
       gap: 12px;
       font-weight: 500;
-      color: #94A3B8; /* slate-400 */
+      color: #94A3B8;
       text-decoration: none;
       border: 1px solid transparent;
     }
@@ -57,7 +111,7 @@ const GlobalStyles = () => (
 
     .creatuactivo-sidebar-item.logout:hover {
       background-color: rgba(239, 68, 68, 0.1);
-      color: #F87171; /* red-400 */
+      color: #F87171;
       border-color: rgba(239, 68, 68, 0.2);
     }
 
@@ -72,12 +126,27 @@ const GlobalStyles = () => (
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(8px);
     }
+
+    /* HABILITACIÓN DE TRANSICIONES DESPUÉS DE HIDRATACIÓN */
+    .nodex-sidebar-enhanced {
+      transition: transform 0.3s ease-in-out !important;
+    }
+
+    .nodex-sidebar-enhanced.mobile-open {
+      transform: translateX(0) !important;
+    }
   `}</style>
 )
 
-export default function NodeXLayout({ children }) {
+export default function NodeXSidebar({ children }: { children: React.ReactNode }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
   const pathname = usePathname()
+
+  // ✅ ANTI-FOUC: Habilitar transiciones solo después de hidratación
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
 
   const menuItems = [
     { name: 'Dashboard', href: '/nodex', icon: LayoutDashboard },
@@ -87,7 +156,7 @@ export default function NodeXLayout({ children }) {
     { name: 'Mi Perfil', href: '/nodex/perfil', icon: User }
   ]
 
-  const isActive = (href) => {
+  const isActive = (href: string) => {
     if (href === '/nodex') return pathname === '/nodex'
     return pathname.startsWith(href)
   }
@@ -158,8 +227,12 @@ export default function NodeXLayout({ children }) {
 
   return (
     <>
+      {/* ✅ ESTILOS CRÍTICOS INLINE - PREVIENEN FOUC */}
+      <style dangerouslySetInnerHTML={{ __html: CRITICAL_STYLES }} />
       <GlobalStyles />
-      <div className="lg:flex">
+
+      <div className="lg:flex min-h-screen bg-slate-900">
+        {/* Mobile overlay */}
         {isMobileOpen && (
           <div
             className="lg:hidden fixed inset-0 z-40 creatuactivo-sidebar-overlay"
@@ -167,32 +240,43 @@ export default function NodeXLayout({ children }) {
           />
         )}
 
+        {/* ✅ SIDEBAR ANTI-FOUC: Estilos críticos + transiciones habilitadas post-hidratación */}
         <aside className={`
-          fixed top-0 left-0 z-50 h-full w-64 bg-slate-900/90 backdrop-blur-xl border-r border-white/10
-          flex flex-col
-          transform transition-transform duration-300 ease-in-out
-          lg:translate-x-0
-          ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
+          nodex-sidebar-critical
+          ${isHydrated ? 'nodex-sidebar-enhanced' : ''}
+          ${isMobileOpen && isHydrated ? 'mobile-open' : ''}
         `}>
           <SidebarContent />
         </aside>
 
-        <div className="lg:pl-64 w-full">
-            <header className="lg:hidden sticky top-0 bg-slate-900/80 backdrop-blur-md z-30">
-                <div className="p-4 flex items-center justify-between">
-                    <button
-                        onClick={() => setIsMobileOpen(true)}
-                        className="text-white p-2"
-                        aria-label="Abrir menú"
-                    >
-                        <Menu className="w-6 h-6" />
-                    </button>
-                    {/* Puedes agregar un logo o título aquí si lo deseas */}
+        {/* ✅ CONTENT AREA ANTI-FOUC */}
+        <div className="nodex-content-critical">
+          {/* ✅ MOBILE HEADER ANTI-FOUC */}
+          <header className="nodex-mobile-header-critical">
+            <div className="p-4 flex items-center justify-between">
+              <button
+                onClick={() => setIsMobileOpen(true)}
+                className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+                aria-label="Abrir menú NodeX"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-[var(--creatuactivo-blue)] to-[var(--creatuactivo-purple)] rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">N</span>
                 </div>
-            </header>
-            <main>
-                {children}
-            </main>
+                <span className="text-white font-bold">NodeX</span>
+              </div>
+
+              <div className="w-10"></div>
+            </div>
+          </header>
+
+          {/* ✅ MAIN CONTENT - ZERO FOUC */}
+          <main className="min-h-screen">
+            {children}
+          </main>
         </div>
       </div>
     </>

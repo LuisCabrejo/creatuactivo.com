@@ -1,7 +1,7 @@
 // src/components/nexus/useNEXUSChat.ts
-// 🔧 FIX DEFINITIVO - SCROLL DUAL SYSTEM
+// 🎯 SIMPLIFICADO - Sin lógica de scroll (movida al componente)
 'use client';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 
 interface Message {
  id: string;
@@ -18,10 +18,6 @@ const [isStreaming, setIsStreaming] = useState(false);
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
 const [streamingComplete, setStreamingComplete] = useState(false);
 
-// ✅ NUEVO SISTEMA DE SCROLL DUAL
-const [scrollTrigger, setScrollTrigger] = useState(0);
-const [forceScrollTrigger, setForceScrollTrigger] = useState(0);
-
 const generateId = () => Math.random().toString(36).substring(7);
 
 const parseQuickReplies = (content: string) => {
@@ -37,17 +33,6 @@ const cleanMessageContent = (content: string) => {
     .trim();
 };
 
-// ✅ FIX: SISTEMA DUAL - Scroll inmediato + Scroll condicional
-const triggerImmediateScroll = useCallback(() => {
-  console.log('🚀 IMMEDIATE SCROLL - Al enviar mensaje (SIEMPRE)');
-  setForceScrollTrigger(prev => prev + 1);
-}, []);
-
-const triggerConditionalScroll = useCallback(() => {
-  console.log('📜 CONDITIONAL SCROLL - Durante streaming (solo si en bottom)');
-  setScrollTrigger(prev => prev + 1);
-}, []);
-
 const sendMessage = useCallback(async (content: string) => {
   // Agregar mensaje del usuario
   const userMessage: Message = {
@@ -57,11 +42,8 @@ const sendMessage = useCallback(async (content: string) => {
     timestamp: new Date(),
   };
 
-  // ✅ AGREGAR MENSAJE
+  // 🎯 SIMPLE: Solo agregar mensaje, el scroll lo maneja el componente
   setMessages(prev => [...prev, userMessage]);
-
-  // ✅ SCROLL INMEDIATO AL ENVIAR - SIN RESTRICCIONES
-  triggerImmediateScroll();
 
   // Preparar respuesta en streaming
   setIsLoading(true);
@@ -82,8 +64,6 @@ const sendMessage = useCallback(async (content: string) => {
   // Agregar mensaje asistente vacío después de delay
   setTimeout(() => {
     setMessages(prev => [...prev, initialAssistantMessage]);
-    // ✅ SCROLL CONDICIONAL AL APARECER RESPUESTA
-    triggerConditionalScroll();
   }, 200);
 
   try {
@@ -122,7 +102,7 @@ const sendMessage = useCallback(async (content: string) => {
     const contentType = response.headers.get('content-type');
 
     if (contentType?.includes('text/plain') || contentType?.includes('text/stream')) {
-      // ✅ STREAMING SIN SCROLL TRIGGERS AUTOMÁTICOS
+      // 🎯 STREAMING SIMPLE - Sin triggers de scroll
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -147,7 +127,7 @@ const sendMessage = useCallback(async (content: string) => {
         if (now - lastUpdateTime >= minUpdateInterval) {
           const cleanContent = cleanMessageContent(accumulatedContent);
 
-          // ✅ SOLO UPDATE CONTENT - NO SCROLL AUTOMÁTICO DURANTE STREAMING
+          // 🎯 SOLO UPDATE CONTENT - Scroll automático lo maneja el componente
           setMessages(prev =>
             prev.map(msg =>
               msg.id === assistantMessageId
@@ -164,7 +144,7 @@ const sendMessage = useCallback(async (content: string) => {
         }
       }
 
-      // ✅ FINALIZAR STREAMING
+      // 🎯 FINALIZAR STREAMING
       const finalCleanContent = cleanMessageContent(accumulatedContent);
       setMessages(prev =>
         prev.map(msg =>
@@ -181,7 +161,7 @@ const sendMessage = useCallback(async (content: string) => {
       setStreamingComplete(true);
 
     } else {
-      // ✅ MANEJAR RESPUESTA JSON
+      // 🎯 MANEJAR RESPUESTA JSON
       const data = await response.json();
 
       if (data.error) {
@@ -199,7 +179,7 @@ const sendMessage = useCallback(async (content: string) => {
       } else if (data.response) {
         const cleanContent = cleanMessageContent(data.response);
 
-        // ✅ SIMULAR STREAMING SIN SCROLL AUTOMÁTICO
+        // 🎯 SIMULAR STREAMING SIMPLE
         let currentIndex = 0;
         const fullText = cleanContent;
         const streamInterval = setInterval(() => {
@@ -294,7 +274,7 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
     setIsLoading(false);
     setIsStreaming(false);
   }
- }, [messages, triggerImmediateScroll, triggerConditionalScroll]);
+ }, [messages]);
 
 const resetChat = useCallback(() => {
   setMessages([]);
@@ -349,8 +329,6 @@ return {
   sendMessage,
   resetChat,
   handleQuickReply,
-  contactLiliana,
-  scrollTrigger,        // ✅ Scroll condicional durante streaming
-  forceScrollTrigger,   // ✅ Scroll forzado al enviar mensaje
+  contactLiliana
  };
 };

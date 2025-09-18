@@ -19,15 +19,561 @@ import {
   Lightbulb,
   Home,
   Crown,
-  Heart,
-  Presentation
+  Menu
 } from 'lucide-react'
 
+// ✅ ZERO FOUC: CSS crítico inline que renderiza instantáneamente
+const CRITICAL_NAVIGATION_CSS = `
+  /* ANTI-FOUC CRÍTICO - FONT PRELOADING Y LAYOUT FIJO */
+  .strategic-nav-critical * {
+    font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  }
+
+  .strategic-nav-critical {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+  }
+
+  .strategic-nav-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 640px) {
+    .strategic-nav-container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .strategic-nav-container {
+      padding: 0 2rem;
+    }
+  }
+
+  .strategic-nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    width: 100%;
+    position: relative;
+  }
+
+  /* LOGO SECTION - DIMENSIONES FIJAS ANTI-SHIFT */
+  .strategic-logo-container {
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .strategic-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    width: auto;
+    min-width: 0;
+  }
+
+  .strategic-logo-image-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-logo-image-container {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .strategic-logo-desktop {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    display: none;
+    object-fit: cover;
+  }
+
+  .strategic-logo-mobile {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-logo-desktop {
+      display: block;
+    }
+
+    .strategic-logo-mobile {
+      display: none;
+    }
+  }
+
+  /* TEXTO BRAND - DIMENSIONES FIJAS ANTI-FOUC */
+  .strategic-brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+    min-width: 180px;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-brand-text {
+      min-width: 200px;
+    }
+  }
+
+  /* DESKTOP MENU - LAYOUT FIJO */
+  .strategic-desktop-menu {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-desktop-menu {
+      display: flex;
+    }
+  }
+
+  .strategic-menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #cbd5e1;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    white-space: nowrap;
+  }
+
+  .strategic-menu-item:hover {
+    color: #ffffff;
+  }
+
+  .strategic-menu-button {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  .strategic-menu-button:hover {
+    color: #ffffff;
+  }
+
+  .strategic-chevron {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .strategic-menu-button:hover .strategic-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* DROPDOWN - RENDERIZADO PERFECTO */
+  .strategic-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .strategic-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .strategic-dropdown-content {
+    width: 20rem;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(16px);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+  }
+
+  .strategic-dropdown-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background-color 0.2s ease;
+  }
+
+  .strategic-dropdown-item:hover {
+    background-color: rgba(51, 65, 85, 0.5);
+  }
+
+  .strategic-dropdown-icon {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    margin-right: 1rem;
+  }
+
+  .strategic-dropdown-text h4 {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s ease;
+    font-size: 0.875rem;
+    line-height: 1.25;
+  }
+
+  .strategic-dropdown-item:hover h4 {
+    color: #60a5fa;
+  }
+
+  .strategic-dropdown-text p {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* BUTTONS SECTION - POSICIÓN FIJA */
+  .strategic-buttons-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .strategic-cta-button {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    min-width: 140px;
+    justify-content: center;
+  }
+
+  .strategic-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .strategic-cta-button {
+      display: flex;
+    }
+  }
+
+  .strategic-mobile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .strategic-mobile-button:hover {
+    color: #ffffff;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-mobile-button {
+      display: none;
+    }
+  }
+
+  /* MOBILE MENU - OVERLAY COMPLETO */
+  .strategic-mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .strategic-mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .strategic-mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 28rem;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(24px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .strategic-mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .strategic-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .strategic-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .strategic-mobile-brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+  }
+
+  .strategic-close-button {
+    color: #94a3b8;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .strategic-close-button:hover {
+    color: #ffffff;
+  }
+
+  .strategic-mobile-content {
+    padding: 1.5rem;
+  }
+
+  .strategic-mobile-section {
+    margin-bottom: 2rem;
+  }
+
+  .strategic-mobile-section h3 {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+  }
+
+  .strategic-mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.25rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .strategic-mobile-link:hover {
+    background-color: rgba(51, 65, 85, 0.5);
+    color: #ffffff;
+  }
+
+  .strategic-mobile-link-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .strategic-mobile-link-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .strategic-mobile-link-desc {
+    font-size: 0.75rem;
+    color: #64748b;
+    line-height: 1.3;
+  }
+
+  .strategic-mobile-cta {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .strategic-mobile-cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .strategic-mobile-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.5);
+  }
+
+  /* HABILITACIÓN DE TRANSICIONES POST-HIDRATACIÓN */
+  .strategic-nav-enhanced .strategic-logo-wrapper {
+    transition: transform 0.3s ease;
+  }
+
+  .strategic-nav-enhanced .strategic-logo-wrapper:hover {
+    transform: scale(1.05);
+  }
+
+  .strategic-nav-enhanced .strategic-logo-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(124, 58, 237, 0.2);
+    border-radius: inherit;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .strategic-nav-enhanced .strategic-logo-wrapper:hover .strategic-logo-image-container::after {
+    opacity: 1;
+  }
+
+  .strategic-nav-enhanced .strategic-brand-text {
+    transition: background 0.3s ease;
+  }
+
+  .strategic-nav-enhanced .strategic-logo-wrapper:hover .strategic-brand-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+`
+
 export default function StrategicNavigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [isTransitionsEnabled, setIsTransitionsEnabled] = useState(false)
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null)
   const pathname = usePathname()
+
+  // ✅ ANTI-FOUC: Habilitar transiciones solo después de hidratación
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTransitionsEnabled(true)
+    }, 150)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // ✅ CONTROL BODY SCROLL
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isMobileOpen])
+
+  // ✅ CLEANUP TIMEOUTS
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout)
+      }
+    }
+  }, [hoverTimeout])
 
   const menuItems = [
     {
@@ -60,55 +606,23 @@ export default function StrategicNavigation() {
     }
   ]
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) setIsMenuOpen(false)
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [isMenuOpen])
-
   const handleLinkClick = () => {
-    setIsMenuOpen(false)
+    setIsMobileOpen(false)
     setOpenDropdown(null)
   }
 
-  // MEJORADO: Toggle con mejor handling para móvil
-  const handleMobileMenuToggle = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsMenuOpen(prev => !prev)
-    setOpenDropdown(null) // Cerrar dropdowns desktop si están abiertos
-  }
-
-  // HOVER MEJORADO CON DELAY (Solo desktop)
   const handleMouseEnter = (itemName: string) => {
-    if (window.innerWidth >= 768) { // Solo en desktop
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout)
-      }
-      setOpenDropdown(itemName)
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout)
     }
+    setOpenDropdown(itemName)
   }
 
   const handleMouseLeave = () => {
-    if (window.innerWidth >= 768) { // Solo en desktop
-      const timeout = setTimeout(() => {
-        setOpenDropdown(null)
-      }, 150)
-      setHoverTimeout(timeout)
-    }
+    const timeout = setTimeout(() => {
+      setOpenDropdown(null)
+    }, 150)
+    setHoverTimeout(timeout)
   }
 
   const handleDropdownMouseEnter = () => {
@@ -125,164 +639,226 @@ export default function StrategicNavigation() {
     setHoverTimeout(timeout)
   }
 
-  useEffect(() => {
-    return () => {
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout)
-      }
-    }
-  }, [hoverTimeout])
-
-  // MEJORADO: Cerrar menú móvil si se hace click fuera
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (isMenuOpen && !target.closest('.navigation-container')) {
-        setIsMenuOpen(false)
-      }
-    }
-
-    if (isMenuOpen) {
-      document.addEventListener('click', handleClickOutside)
-      document.addEventListener('touchstart', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-      document.removeEventListener('touchstart', handleClickOutside)
-    }
-  }, [isMenuOpen])
-
   return (
-    <header className="navigation-container sticky top-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* LOGO CON SVG + TEXTO HTML/CSS */}
-          <Link href="/" className="flex-shrink-0">
-            <div className="flex items-center gap-3 group cursor-pointer">
-              {/* Logo SVG - Usando diferentes tamaños según viewport */}
-              <div className="relative">
-                {/* Desktop: logo más grande */}
-                <Image
-                  src="/logo-icon-80x80-sm.svg"
-                  alt="CreaTuActivo"
-                  width={40}
-                  height={40}
-                  className="hidden md:block transition-transform duration-300 group-hover:scale-110"
-                  priority
-                />
-                {/* Mobile: logo más pequeño */}
-                <Image
-                  src="/favicon-40x40.svg"
-                  alt="CreaTuActivo"
-                  width={32}
-                  height={32}
-                  className="md:hidden transition-transform duration-300 group-hover:scale-110"
-                  priority
-                />
-                {/* Efecto glow opcional en hover */}
-                <div className="absolute inset-0 bg-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              </div>
+    <>
+      {/* ✅ CSS CRÍTICO INLINE - PREVIENE TODO FOUC */}
+      <style dangerouslySetInnerHTML={{ __html: CRITICAL_NAVIGATION_CSS }} />
 
-              {/* Texto con gradient CSS - Colores corporativos correctos */}
-              <span className="text-2xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-amber-500 bg-clip-text text-transparent transition-all duration-300 group-hover:from-blue-500 group-hover:via-purple-500 group-hover:to-amber-400">
-                CreaTuActivo
-              </span>
+      <header className={`strategic-nav-critical ${isTransitionsEnabled ? 'strategic-nav-enhanced' : ''}`}>
+        <nav className="strategic-nav-container">
+          <div className="strategic-nav-content">
+
+            {/* ✅ LOGO SECTION - RENDERIZADO PERFECTO */}
+            <div className="strategic-logo-container">
+              <Link href="/" className="strategic-logo-wrapper">
+                <div className="strategic-logo-image-container">
+                  <Image
+                    src="/logo-icon-80x80-sm.svg"
+                    alt="CreaTuActivo"
+                    width={40}
+                    height={40}
+                    className="strategic-logo-desktop"
+                    priority
+                  />
+                  <Image
+                    src="/favicon-40x40.svg"
+                    alt="CreaTuActivo"
+                    width={32}
+                    height={32}
+                    className="strategic-logo-mobile"
+                    priority
+                  />
+                </div>
+                <span className="strategic-brand-text">CreaTuActivo</span>
+              </Link>
             </div>
-          </Link>
 
-          {/* MENU DESKTOP CON HOVER MEJORADO */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {menuItems.map((item) => (
-              item.dropdown ? (
-                <div
-                  key={item.name}
-                  className="relative group"
-                  onMouseEnter={() => handleMouseEnter(item.name)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <button className="text-slate-300 hover:text-white transition-colors duration-300 flex items-center group">
-                    {item.name}
-                    <ChevronDown className="w-4 h-4 ml-1 group-hover:rotate-180 transition-transform" />
-                  </button>
+            {/* ✅ DESKTOP MENU - LAYOUT INMEDIATO */}
+            <div className="strategic-desktop-menu">
+              {menuItems.map((item) => (
+                item.dropdown ? (
+                  <div
+                    key={item.name}
+                    className="strategic-menu-item"
+                    onMouseEnter={() => handleMouseEnter(item.name)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <button className="strategic-menu-button">
+                      {item.name}
+                      <ChevronDown className="strategic-chevron" />
+                    </button>
 
-                  {/* DROPDOWN CON ZONA DE HOVER EXTENDIDA */}
-                  {openDropdown === item.name && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                      {/* ZONA INVISIBLE PARA CONECTAR HOVER */}
+                    {/* DROPDOWN */}
+                    <div className={`strategic-dropdown ${openDropdown === item.name ? 'active' : ''}`}>
                       <div className="absolute top-0 left-0 w-full h-2 bg-transparent" />
-
                       <div
-                        className="w-80 bg-slate-800/95 backdrop-blur-lg rounded-xl border border-white/10 shadow-2xl opacity-100 transition-all duration-200"
+                        className="strategic-dropdown-content"
                         onMouseEnter={handleDropdownMouseEnter}
                         onMouseLeave={handleDropdownMouseLeave}
                       >
-                        <div className="p-2">
-                          {item.dropdown.map((subItem) => (
-                            <Link
-                              key={subItem.name}
-                              href={subItem.href}
-                              onClick={handleLinkClick}
-                              className="w-full flex items-start p-4 rounded-lg hover:bg-slate-700/50 transition-colors duration-200 text-left group/item"
-                            >
-                              <div className="flex-shrink-0 mt-1">{subItem.icon}</div>
-                              <div className="ml-4">
-                                <h4 className="text-white font-semibold group-hover/item:text-blue-400 transition-colors">
-                                  {subItem.name}
-                                </h4>
-                                <p className="text-slate-400 text-sm mt-1">{subItem.description}</p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            onClick={handleLinkClick}
+                            className="strategic-dropdown-item"
+                          >
+                            <div className="strategic-dropdown-icon">{subItem.icon}</div>
+                            <div className="strategic-dropdown-text">
+                              <h4>{subItem.name}</h4>
+                              <p>{subItem.description}</p>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                     </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={handleLinkClick}
-                  className="text-slate-300 hover:text-white transition-colors duration-300"
-                >
-                  {item.name}
-                </Link>
-              )
-            ))}
-          </div>
+                  </div>
+                ) : (
+                  <Link
+                    key={item.name}
+                    href={item.href!}
+                    onClick={handleLinkClick}
+                    className="strategic-menu-item"
+                  >
+                    {item.name}
+                  </Link>
+                )
+              ))}
+            </div>
 
-          {/* BOTONES DERECHA */}
-          <div className="flex items-center gap-4">
-            <div className="hidden md:block">
-              <Link href="/fundadores" className="creatuactivo-cta-ecosystem flex items-center gap-2">
+            {/* ✅ BUTTONS SECTION */}
+            <div className="strategic-buttons-section">
+              <Link href="/fundadores" className="strategic-cta-button">
                 <Crown className="w-4 h-4" />
                 Sé Fundador
               </Link>
-            </div>
-            <div className="md:hidden">
+
               <button
-                onClick={handleMobileMenuToggle}
-                onTouchStart={(e) => e.stopPropagation()} // Prevenir problemas de touch
-                className="text-slate-300 hover:text-white p-2 -m-2 touch-manipulation"
-                aria-label="Toggle menu"
-                aria-expanded={isMenuOpen}
+                onClick={() => setIsMobileOpen(true)}
+                className="strategic-mobile-button"
+                aria-label="Abrir menú"
               >
-                {isMenuOpen ? (
-                  <X size={24} className="transition-transform duration-200" />
-                ) : (
-                  <svg className="w-6 h-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                  </svg>
-                )}
+                <Menu className="w-6 h-6" />
               </button>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* MENÚ MÓVIL - USANDO VANILLA JS (NO TOCAR) */}
-      {/* El menú móvil funciona con el script vanilla JS del layout.tsx */}
-    </header>
+        {/* ✅ MOBILE MENU AUTOCONTENIDO */}
+        <div
+          className={`strategic-mobile-overlay ${isMobileOpen ? 'active' : ''}`}
+          onClick={() => setIsMobileOpen(false)}
+        >
+          <div
+            className={`strategic-mobile-menu ${isMobileOpen ? 'active' : ''}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Mobile Header */}
+            <div className="strategic-mobile-header">
+              <div className="strategic-mobile-brand">
+                <Image
+                  src="/favicon-40x40.svg"
+                  alt="CreaTuActivo"
+                  width={28}
+                  height={28}
+                />
+                <span className="strategic-mobile-brand-text">CreaTuActivo</span>
+              </div>
+              <button
+                onClick={() => setIsMobileOpen(false)}
+                className="strategic-close-button"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Mobile Content */}
+            <div className="strategic-mobile-content">
+              {/* El Sistema */}
+              <div className="strategic-mobile-section">
+                <h3>El Sistema</h3>
+                {menuItems[0].dropdown?.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className="strategic-mobile-link"
+                  >
+                    <div>{item.icon}</div>
+                    <div className="strategic-mobile-link-content">
+                      <div className="strategic-mobile-link-title">{item.name}</div>
+                      <div className="strategic-mobile-link-desc">{item.description}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Soluciones */}
+              <div className="strategic-mobile-section">
+                <h3>Soluciones</h3>
+                {menuItems[1].dropdown?.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className="strategic-mobile-link"
+                  >
+                    <div>{item.icon}</div>
+                    <div className="strategic-mobile-link-content">
+                      <div className="strategic-mobile-link-title">{item.name}</div>
+                      <div className="strategic-mobile-link-desc">{item.description}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Presentación */}
+              <div className="strategic-mobile-section">
+                <Link
+                  href="/presentacion-empresarial"
+                  onClick={handleLinkClick}
+                  className="strategic-mobile-link"
+                >
+                  <div className="strategic-mobile-link-content">
+                    <div className="strategic-mobile-link-title">Presentación Empresarial</div>
+                  </div>
+                </Link>
+              </div>
+
+              {/* El Ecosistema */}
+              <div className="strategic-mobile-section">
+                <h3>El Ecosistema</h3>
+                {menuItems[3].dropdown?.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className="strategic-mobile-link"
+                  >
+                    <div>{item.icon}</div>
+                    <div className="strategic-mobile-link-content">
+                      <div className="strategic-mobile-link-title">{item.name}</div>
+                      <div className="strategic-mobile-link-desc">{item.description}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <div className="strategic-mobile-cta">
+                <Link
+                  href="/fundadores"
+                  onClick={handleLinkClick}
+                  className="strategic-mobile-cta-button"
+                >
+                  <Crown className="w-5 h-5" />
+                  Sé Fundador
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
   )
 }

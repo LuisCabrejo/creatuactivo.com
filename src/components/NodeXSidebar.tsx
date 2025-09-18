@@ -193,6 +193,62 @@ const CRITICAL_INLINE_CSS = `
     font-size: 0.75rem;
   }
 
+  /* LOGO ANTI-FLASH */
+  .nodex-logo-container {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .nodex-logo-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  }
+
+  .nodex-logo-container.mobile {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+  }
+
+  .nodex-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  /* FALLBACK SOLO SI IMAGEN FALLA - REMOVIDA LÓGICA TEMPORAL */
+  .nodex-logo-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nodex-logo-fallback.mobile {
+    font-size: 1rem;
+  }
+
+  /* MOSTRAR FALLBACK SOLO SI IMAGEN NO CARGA */
+  .nodex-logo-container img[src="/logo-icon-80x80-sm.svg"] ~ .nodex-logo-fallback {
+    opacity: 0;
+  }
+
   /* MOBILE BRAND */
   .nodex-mobile-brand {
     display: flex;
@@ -270,18 +326,19 @@ export default function NodeXSidebar({ children }: { children: React.ReactNode }
         </button>
 
         <div className="nodex-brand-container">
-          <div className="w-10 h-10 relative">
+          <Link href="/nodex" className="nodex-logo-container">
             <Image
-              src="https://creatuactivo.com/logo-icon-80x80-sm.svg"
+              src="/logo-icon-80x80-sm.svg"
               alt="CreaTuActivo Logo"
               width={40}
               height={40}
-              className="rounded-xl"
               priority
             />
-          </div>
+          </Link>
           <div>
-            <h1 className="nodex-brand-text">NodeX</h1>
+            <Link href="/nodex">
+              <h1 className="nodex-brand-text cursor-pointer hover:opacity-80 transition-opacity">NodeX</h1>
+            </Link>
             <p className="nodex-brand-subtitle">Centro de Comando</p>
           </div>
         </div>
@@ -361,18 +418,17 @@ export default function NodeXSidebar({ children }: { children: React.ReactNode }
               <Menu className="w-6 h-6" />
             </button>
 
-            <div className="nodex-mobile-brand">
-              <div className="w-8 h-8 relative">
+            <Link href="/nodex" className="nodex-mobile-brand">
+              <div className="nodex-logo-container mobile">
                 <Image
-                  src="https://creatuactivo.com/logo-icon-80x80-sm.svg"
+                  src="/logo-icon-80x80-sm.svg"
                   alt="CreaTuActivo"
                   width={32}
                   height={32}
-                  className="rounded-lg"
                 />
               </div>
               <span className="nodex-mobile-brand-text">NodeX</span>
-            </div>
+            </Link>
 
             <div className="w-10"></div> {/* Spacer for centering */}
           </header>

@@ -6,7 +6,7 @@ import { Zap, BrainCircuit, Users, Target, ArrowRight, CheckCircle } from 'lucid
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -59,7 +59,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Módulo ---
+// --- Componente de Tarjeta de Módulo (Sin cambios) ---
 const ModuleCard = ({ icon, title, description, status, href }) => (
     <Link href={href} className="block h-full">
         <div className="creatuactivo-component-card p-8 h-full group">
@@ -84,14 +84,14 @@ const ModuleCard = ({ icon, title, description, status, href }) => (
     </Link>
 );
 
-// --- Componente Principal de la Página de Fundamentos ---
+// --- Componente Principal de la Página de Fundamentos (ACTUALIZADO) ---
 export default function FundamentosPage() {
     return (
         <>
             <GlobalStyles />
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-                <main className="flex-1 p-6">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 relative">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <div className="mb-12">
                             <Link href="/nodex/academia" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">&larr; Volver a la Academia</Link>
@@ -155,8 +155,8 @@ export default function FundamentosPage() {
                             </div>
                         </div>
                     </motion.div>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

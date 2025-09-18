@@ -6,7 +6,7 @@ import { User, Lock, Bell, Link as LinkIcon, Save } from 'lucide-react'
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -59,7 +59,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Configuración ---
+// --- Componente de Tarjeta de Configuración (Sin cambios) ---
 const SettingsCard = ({ icon, title, children }) => (
     <div className="creatuactivo-component-card">
         <div className="p-8">
@@ -76,7 +76,7 @@ const SettingsCard = ({ icon, title, children }) => (
     </div>
 );
 
-// --- Componente Principal de la Página de Perfil ---
+// --- Componente Principal de la Página de Perfil (ACTUALIZADO) ---
 export default function PerfilPage() {
     const [profileData, setProfileData] = useState({
         name: "Carlos Pérez",
@@ -93,9 +93,9 @@ export default function PerfilPage() {
     return (
         <>
             <GlobalStyles />
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-                <main className="flex-1 p-6">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 relative">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <div className="mb-12">
                             <h1 className="creatuactivo-h2-component text-4xl md:text-5xl font-bold">Mi Perfil de Arquitecto</h1>
@@ -142,8 +142,8 @@ export default function PerfilPage() {
                             </div>
                         </div>
                     </motion.div>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

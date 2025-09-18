@@ -6,7 +6,7 @@ import { BrainCircuit, Briefcase, MonitorSmartphone, Users, Home, School, Gradua
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -53,7 +53,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Arquetipo ---
+// --- Componente de Tarjeta de Arquetipo (Sin cambios) ---
 const ArchetypeCard = ({ icon, title, painPoint, aspiration }) => (
     <div className="creatuactivo-component-card p-6 h-full">
         <div className="flex items-center gap-3 mb-4">
@@ -69,7 +69,7 @@ const ArchetypeCard = ({ icon, title, painPoint, aspiration }) => (
     </div>
 );
 
-// --- Componente Principal de la Página de Psicología del Constructor ---
+// --- Componente Principal de la Página de Psicología del Constructor (ACTUALIZADO) ---
 export default function PsicologiaConstructorPage() {
     const archetypes = [
         { icon: <Briefcase className="w-6 h-6 text-cyan-400"/>, title: "Profesional Corporativo", painPoint: "Atrapado en la 'jaula de oro', intercambiando tiempo por un buen salario.", aspiration: "Construir un activo propio que le dé verdadera libertad y control." },
@@ -83,9 +83,9 @@ export default function PsicologiaConstructorPage() {
     return (
         <>
             <GlobalStyles />
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-                <main className="flex-1 p-6">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 relative">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <div className="mb-12">
                             <Link href="/nodex/academia/fundamentos" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">&larr; Volver a Fundamentos</Link>
@@ -127,8 +127,8 @@ export default function PsicologiaConstructorPage() {
                         </section>
 
                     </motion.div>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

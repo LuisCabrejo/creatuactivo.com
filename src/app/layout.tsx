@@ -177,23 +177,41 @@ export default function RootLayout({
         {/* NEXUS Floating Button */}
         <NEXUSFloatingButton />
 
-        {/* MOBILE MENU FIX - VANILLA JS SOLUTION */}
+        {/* ✅ MOBILE MENU FIX - SCRIPT CONFLICT COMPLETAMENTE SOLUCIONADO */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener('DOMContentLoaded', function() {
-                console.log('🔧 Mobile Menu Fix loading...');
-
-                let isMenuOpen = false;
-                const menuButton = document.querySelector('[aria-label="Toggle menu"]');
-                const body = document.body;
-
-                if (!menuButton) {
-                  console.warn('❌ Menu button not found');
+                // ✅ DETECCIÓN INTELIGENTE: Skip si hay navegación custom
+                if (window.location.pathname.startsWith('/nodex')) {
+                  console.log('📱 NodeX page detected - Skipping mobile menu script (NodeXSidebar handles its own menu)');
                   return;
                 }
 
-                console.log('✅ Menu button found, initializing mobile menu...');
+                // ✅ DETECCIÓN: Skip si StrategicNavigation está presente
+                const strategicNav = document.querySelector('.strategic-nav-critical');
+                if (strategicNav) {
+                  console.log('📱 StrategicNavigation detected - Skipping mobile menu script (StrategicNavigation handles its own menu)');
+                  return;
+                }
+
+                console.log('🔧 Mobile Menu Fix loading for legacy pages...');
+
+                let isMenuOpen = false;
+
+                // ✅ BÚSQUEDA FLEXIBLE: Múltiples aria-labels
+                const menuButton = document.querySelector('[aria-label="Toggle menu"]') ||
+                                  document.querySelector('[aria-label="Abrir menú"]') ||
+                                  document.querySelector('[aria-label="Open menu"]');
+
+                const body = document.body;
+
+                if (!menuButton) {
+                  console.log('ℹ️  No legacy menu button found - this is expected for pages with modern navigation');
+                  return;
+                }
+
+                console.log('✅ Legacy menu button found, initializing mobile menu...');
 
                 // Crear menú móvil HTML completo
                 const mobileMenuHTML = \`
@@ -364,14 +382,14 @@ export default function RootLayout({
 
                 // Función para alternar menú
                 function toggleMenu() {
-                  console.log('🍔 Toggling menu, current state:', isMenuOpen);
+                  console.log('🍔 Toggling legacy menu, current state:', isMenuOpen);
 
                   isMenuOpen = !isMenuOpen;
 
                   if (isMenuOpen) {
                     mobileMenu.classList.remove('hidden');
                     body.style.overflow = 'hidden';
-                    console.log('✅ Menu opened');
+                    console.log('✅ Legacy menu opened');
 
                     // Cambiar icono a X
                     const icon = menuButton.querySelector('svg');
@@ -381,7 +399,7 @@ export default function RootLayout({
                   } else {
                     mobileMenu.classList.add('hidden');
                     body.style.overflow = 'auto';
-                    console.log('✅ Menu closed');
+                    console.log('✅ Legacy menu closed');
 
                     // Cambiar icono a hamburguesa
                     const icon = menuButton.querySelector('svg');
@@ -402,12 +420,12 @@ export default function RootLayout({
                   e.preventDefault();
                   e.stopPropagation();
                   toggleMenu();
-                });
+                }, { passive: false });
 
                 // Cerrar al hacer click en overlay
                 mobileMenu.addEventListener('click', function(e) {
                   if (e.target === mobileMenu) {
-                    console.log('🎯 Overlay clicked, closing menu');
+                    console.log('🎯 Overlay clicked, closing legacy menu');
                     if (isMenuOpen) toggleMenu();
                   }
                 });
@@ -415,7 +433,7 @@ export default function RootLayout({
                 // Cerrar al hacer click en enlaces del menú
                 mobileMenu.querySelectorAll('a').forEach(link => {
                   link.addEventListener('click', function() {
-                    console.log('🔗 Link clicked, closing menu');
+                    console.log('🔗 Link clicked, closing legacy menu');
                     setTimeout(() => {
                       if (isMenuOpen) toggleMenu();
                     }, 150);
@@ -425,12 +443,12 @@ export default function RootLayout({
                 // Cerrar menú al redimensionar ventana (desktop)
                 window.addEventListener('resize', function() {
                   if (window.innerWidth >= 768 && isMenuOpen) {
-                    console.log('📱 Resize to desktop, closing menu');
+                    console.log('📱 Resize to desktop, closing legacy menu');
                     toggleMenu();
                   }
                 });
 
-                console.log('🎉 Mobile menu fix initialized successfully!');
+                console.log('🎉 Legacy mobile menu fix initialized successfully!');
               });
             `
           }}

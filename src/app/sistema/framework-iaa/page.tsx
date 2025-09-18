@@ -6,7 +6,7 @@ import { Zap, Users, Target, ArrowRight, Check, X } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -64,7 +64,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Pestaña para el Framework ---
+// --- Componente de Pestaña para el Framework (Sin cambios) ---
 const FrameworkTab = ({ phase, title, icon, color, isActive, onClick }) => (
     <button
         onClick={onClick}
@@ -79,7 +79,7 @@ const FrameworkTab = ({ phase, title, icon, color, isActive, onClick }) => (
     </button>
 );
 
-// --- Componente Principal de la Página del Framework IAA ---
+// --- Componente Principal de la Página del Framework IAA (ACTUALIZADO) ---
 export default function FrameworkIAAPage() {
     const [activeTab, setActiveTab] = useState('iniciar');
 
@@ -130,8 +130,9 @@ export default function FrameworkIAAPage() {
                             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
                                 El Framework IAA.
                             </h1>
+                            {/* AJUSTE ESTRATÉGICO: Se actualiza el subtítulo con la nueva narrativa. */}
                             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-                                La metodología propietaria que transforma el trabajo manual en apalancamiento estratégico. Este es el sistema operativo de tu nuevo activo.
+                                No te vendemos un "qué", te entregamos un "cómo". Esta es la arquitectura probada que te permite construir un canal de distribución alrededor de un producto de clase mundial.
                             </p>
                         </motion.div>
                     </section>

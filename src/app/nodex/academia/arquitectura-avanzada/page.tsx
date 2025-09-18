@@ -6,7 +6,7 @@ import { Users, GitBranch, BarChart3, Presentation, ArrowRight, CheckCircle } fr
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -14,7 +14,6 @@ const GlobalStyles = () => (
       --creatuactivo-purple: #7C3AED;
       --creatuactivo-gold: #F59E0B;
     }
-
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
@@ -23,14 +22,12 @@ const GlobalStyles = () => (
       line-height: 1.1;
       letter-spacing: -0.03em;
     }
-
     .creatuactivo-h2-component {
         font-weight: 700;
         background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-
     .creatuactivo-component-card {
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
       backdrop-filter: blur(24px);
@@ -40,13 +37,11 @@ const GlobalStyles = () => (
       position: relative;
       overflow: hidden;
     }
-
     .creatuactivo-component-card:hover {
       transform: translateY(-8px);
       border-color: rgba(245, 158, 11, 0.4);
       box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
     }
-
     .creatuactivo-cta-ecosystem {
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
       border-radius: 16px;
@@ -59,7 +54,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Módulo ---
+// --- Componente de Tarjeta de Módulo (Sin cambios) ---
 const ModuleCard = ({ icon, title, description, status, href }) => (
     <Link href={href} className="block h-full">
         <div className="creatuactivo-component-card p-8 h-full group">
@@ -84,14 +79,14 @@ const ModuleCard = ({ icon, title, description, status, href }) => (
     </Link>
 );
 
-// --- Componente Principal de la Página de Arquitectura Avanzada ---
+// --- Componente Principal de la Página de Arquitectura Avanzada (ACTUALIZADO) ---
 export default function ArquitecturaAvanzadaPage() {
     return (
         <>
             <GlobalStyles />
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-                <main className="flex-1 p-6">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 relative">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <div className="mb-12">
                             <Link href="/nodex/academia" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">&larr; Volver a la Academia</Link>
@@ -155,8 +150,8 @@ export default function ArquitecturaAvanzadaPage() {
                             </div>
                         </div>
                     </motion.div>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

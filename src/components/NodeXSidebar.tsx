@@ -174,11 +174,24 @@ const CRITICAL_INLINE_CSS = `
     transition: all 0.2s ease-in-out;
   }
 
-  /* BRAND LOGO CONTAINER */
+  /* ✅ BRAND LOGO CONTAINER - CON EFECTOS HOVER MEJORADOS */
   .nodex-brand-container {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .nodex-brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .nodex-brand-link:hover {
+    transform: scale(1.02);
   }
 
   .nodex-brand-text {
@@ -186,6 +199,11 @@ const CRITICAL_INLINE_CSS = `
     font-size: 1.5rem;
     line-height: 1.2;
     color: white;
+    transition: opacity 0.2s ease;
+  }
+
+  .nodex-brand-text:hover {
+    opacity: 0.8;
   }
 
   .nodex-brand-subtitle {
@@ -193,67 +211,44 @@ const CRITICAL_INLINE_CSS = `
     font-size: 0.75rem;
   }
 
-  /* LOGO ANTI-FLASH */
+  /* LOGO HEXAGONAL NATURAL - IGUAL A LA HOME */
   .nodex-logo-container {
+    position: relative;
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
-    border-radius: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
   }
 
   .nodex-logo-container:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
   }
 
   .nodex-logo-container.mobile {
     width: 32px;
     height: 32px;
-    border-radius: 0.5rem;
   }
 
   .nodex-logo-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
+    object-fit: contain;
   }
 
-  /* FALLBACK SOLO SI IMAGEN FALLA - REMOVIDA LÓGICA TEMPORAL */
-  .nodex-logo-fallback {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 1.25rem;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .nodex-logo-fallback.mobile {
-    font-size: 1rem;
-  }
-
-  /* MOSTRAR FALLBACK SOLO SI IMAGEN NO CARGA */
-  .nodex-logo-container img[src="/logo-icon-80x80-sm.svg"] ~ .nodex-logo-fallback {
-    opacity: 0;
-  }
-
-  /* MOBILE BRAND */
+  /* MOBILE BRAND - CON HOVER MEJORADO */
   .nodex-mobile-brand {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .nodex-mobile-brand:hover {
+    transform: scale(1.02);
   }
 
   .nodex-mobile-brand-text {
@@ -262,7 +257,11 @@ const CRITICAL_INLINE_CSS = `
   }
 `
 
-export default function NodeXSidebar({ children }: { children: React.ReactNode }) {
+interface NodeXSidebarProps {
+  children: React.ReactNode;
+}
+
+export default function NodeXSidebar({ children }: NodeXSidebarProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isTransitionsEnabled, setIsTransitionsEnabled] = useState(false)
   const pathname = usePathname()
@@ -325,8 +324,8 @@ export default function NodeXSidebar({ children }: { children: React.ReactNode }
           <X className="w-5 h-5" />
         </button>
 
-        <div className="nodex-brand-container">
-          <Link href="/nodex" className="nodex-logo-container">
+        <Link href="/nodex" className="nodex-brand-link">
+          <div className="nodex-logo-container">
             <Image
               src="/logo-icon-80x80-sm.svg"
               alt="CreaTuActivo Logo"
@@ -334,14 +333,12 @@ export default function NodeXSidebar({ children }: { children: React.ReactNode }
               height={40}
               priority
             />
-          </Link>
+          </div>
           <div>
-            <Link href="/nodex">
-              <h1 className="nodex-brand-text cursor-pointer hover:opacity-80 transition-opacity">NodeX</h1>
-            </Link>
+            <h1 className="nodex-brand-text">NodeX</h1>
             <p className="nodex-brand-subtitle">Centro de Comando</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* NAVIGATION ITEMS */}
@@ -425,6 +422,7 @@ export default function NodeXSidebar({ children }: { children: React.ReactNode }
                   alt="CreaTuActivo"
                   width={32}
                   height={32}
+                  priority
                 />
               </div>
               <span className="nodex-mobile-brand-text">NodeX</span>

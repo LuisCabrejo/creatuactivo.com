@@ -6,7 +6,7 @@ import { GraduationCap, Zap, Users, BarChart3, BookOpen, Video, ArrowRight } fro
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -14,7 +14,6 @@ const GlobalStyles = () => (
       --creatuactivo-purple: #7C3AED;
       --creatuactivo-gold: #F59E0B;
     }
-
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
@@ -23,14 +22,12 @@ const GlobalStyles = () => (
       line-height: 1.1;
       letter-spacing: -0.03em;
     }
-
     .creatuactivo-h2-component {
         font-weight: 700;
         background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-
     .creatuactivo-ecosystem-card {
       background: linear-gradient(135deg,
         rgba(30, 64, 175, 0.15) 0%,
@@ -43,12 +40,10 @@ const GlobalStyles = () => (
       position: relative;
       overflow: hidden;
     }
-
     .creatuactivo-ecosystem-card:hover {
       border-color: rgba(245, 158, 11, 0.5);
       transform: translateY(-4px) scale(1.02);
     }
-
     .creatuactivo-component-card {
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
       backdrop-filter: blur(24px);
@@ -58,13 +53,11 @@ const GlobalStyles = () => (
       position: relative;
       overflow: hidden;
     }
-
     .creatuactivo-component-card:hover {
       transform: translateY(-8px);
       border-color: rgba(245, 158, 11, 0.4);
       box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
     }
-
     .creatuactivo-cta-ecosystem {
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
       border-radius: 16px;
@@ -74,7 +67,6 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
     }
-
     .creatuactivo-cta-ecosystem:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
@@ -82,7 +74,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Ruta de Aprendizaje ---
+// --- Componente de Tarjeta de Ruta de Aprendizaje (Sin cambios) ---
 const LearningPathCard = ({ level, title, description, icon, color, href }) => (
     <Link href={href} className="block h-full">
         <div className="creatuactivo-component-card p-8 h-full group">
@@ -103,17 +95,14 @@ const LearningPathCard = ({ level, title, description, icon, color, href }) => (
     </Link>
 );
 
-// --- Componente Principal de la Página de la Academia en NodeX ---
+// --- Componente Principal de la Página de la Academia en NodeX (ACTUALIZADO) ---
 export default function AcademiaNodeXPage() {
     return (
         <>
             <GlobalStyles />
-            {/* LAYOUT NODEX CON SIDEBAR - Arquitectura dual establecida */}
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-
-                {/* CONTENIDO PRINCIPAL - Sin pt-20 porque sidebar no es header fijo */}
-                <main className="flex-1 p-6 text-white">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 text-white relative">
                     {/* Background Effects */}
                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                         <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
@@ -212,8 +201,8 @@ export default function AcademiaNodeXPage() {
                         </div>
 
                     </motion.div>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

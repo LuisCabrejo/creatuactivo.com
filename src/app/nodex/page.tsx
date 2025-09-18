@@ -80,13 +80,30 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente de Tarjeta de Métrica del Dashboard ---
-const MetricCard = ({ title, value, icon, color }: {
+// ✅ INTERFACES TYPESCRIPT EXPLÍCITAS - ERRORES SOLUCIONADOS
+interface MetricCardProps {
   title: string;
   value: string;
   icon: React.ReactNode;
   color: string;
-}) => (
+}
+
+interface ConstructorData {
+  name: string;
+  id: string;
+  affiliationLink: string;
+  whatsapp: string;
+}
+
+interface ProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  constructorData: ConstructorData;
+  setConstructorData: (data: ConstructorData) => void;
+}
+
+// --- Componente de Tarjeta de Métrica del Dashboard ---
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon, color }) => (
     <div className="creatuactivo-ecosystem-card p-6">
         <div className="flex items-center justify-between">
             <p className={`font-semibold text-sm ${color}`}>{title}</p>
@@ -97,13 +114,8 @@ const MetricCard = ({ title, value, icon, color }: {
 );
 
 // --- Componente Modal para Editar Perfil ---
-const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }: {
-  isOpen: boolean;
-  onClose: () => void;
-  constructorData: any;
-  setConstructorData: (data: any) => void;
-}) => {
-    const [localData, setLocalData] = useState(constructorData);
+const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, constructorData, setConstructorData }) => {
+    const [localData, setLocalData] = useState<ConstructorData>(constructorData);
 
     React.useEffect(() => {
         setLocalData(constructorData);
@@ -141,15 +153,30 @@ const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }: 
                     <div className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-1">Nombre Completo</label>
-                            <input type="text" value={localData.name} onChange={e => setLocalData({...localData, name: e.target.value})} className="form-input" />
+                            <input
+                                type="text"
+                                value={localData.name}
+                                onChange={e => setLocalData({...localData, name: e.target.value})}
+                                className="form-input"
+                            />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-1">WhatsApp</label>
-                            <input type="text" value={localData.whatsapp} onChange={e => setLocalData({...localData, whatsapp: e.target.value})} className="form-input" />
+                            <input
+                                type="text"
+                                value={localData.whatsapp}
+                                onChange={e => setLocalData({...localData, whatsapp: e.target.value})}
+                                className="form-input"
+                            />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-1">Enlace de Activación Directa</label>
-                            <input type="text" value={localData.affiliationLink} onChange={e => setLocalData({...localData, affiliationLink: e.target.value})} className="form-input" />
+                            <input
+                                type="text"
+                                value={localData.affiliationLink}
+                                onChange={e => setLocalData({...localData, affiliationLink: e.target.value})}
+                                className="form-input"
+                            />
                         </div>
                         <div className="pt-4 flex justify-end">
                             <button onClick={handleSave} className="creatuactivo-cta-ecosystem text-base py-2 px-6">
@@ -165,7 +192,7 @@ const ProfileModal = ({ isOpen, onClose, constructorData, setConstructorData }: 
 
 // --- Componente Principal de la Página de NodeX ---
 export default function NodeXPage() {
-    const [constructorData, setConstructorData] = useState({
+    const [constructorData, setConstructorData] = useState<ConstructorData>({
         name: "Carlos",
         id: "carlos-perez-123",
         affiliationLink: "https://ganoexcel.com/afiliacion/carlosperez123",
@@ -190,7 +217,7 @@ export default function NodeXPage() {
         <>
             <GlobalStyles />
 
-            {/* ✅ ARQUITECTURA CORREGIDA: Sidebar wrapper sin double layout */}
+            {/* ✅ ARQUITECTURA CORREGIDA: Sidebar wrapper sin doble layout */}
             <NodeXSidebar>
                 {/* ✅ CONTENIDO DIRECTO - Sin wrapper adicional de layout */}
                 <div className="p-6 text-white relative">
@@ -312,8 +339,8 @@ export default function NodeXPage() {
                             <div className="opacity-50">
                                 <h3 className="text-xl font-bold text-white pt-4 flex items-center gap-2"><Construction size={20}/> En Construcción</h3>
                                 <div className="space-y-8 mt-4 pointer-events-none">
-                                    <MetricCard title="Volumen del Canal (CV)" value="-" icon={<BarChart3 />} />
-                                    <MetricCard title="Ingreso Proyectado (Mes)" value="-" icon={<Crown />} />
+                                    <MetricCard title="Volumen del Canal (CV)" value="-" icon={<BarChart3 />} color="text-slate-400" />
+                                    <MetricCard title="Ingreso Proyectado (Mes)" value="-" icon={<Crown />} color="text-slate-400" />
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle, Copy, Link as LinkIcon, Rocket, Users, BarChar
 import Link from 'next/link'
 import NodeXSidebar from '@/components/NodeXSidebar'
 
-// --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
+// --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
@@ -68,7 +68,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componente Principal de la Página "Centro de Inteligencia del Arquitecto" ---
+// --- Componente Principal de la Página "Centro de Inteligencia del Arquitecto" (ACTUALIZADO) ---
 export default function CentroInteligenciaPage() {
     const [formData, setFormData] = useState({
         nombre: '',
@@ -77,7 +77,7 @@ export default function CentroInteligenciaPage() {
         confianza: 'Tibio',
         superpoder: '',
         contexto: '',
-        notas: '' // Campo unificado para notas adicionales
+        notas: ''
     });
     const [generatedMessage, setGeneratedMessage] = useState('');
     const [copied, setCopied] = useState(false);
@@ -86,12 +86,9 @@ export default function CentroInteligenciaPage() {
     const presentationLink = `https://CreaTuActivo.com/presentacion-empresarial?ref=${constructorId}`;
 
     const handleGenerateMessage = () => {
-        // Simulación de la llamada a la IA de NEXUS con datos enriquecidos
         const { nombre, arquetipo, otroArquetipo, confianza, superpoder, contexto, notas } = formData;
-
         const finalArquetipo = arquetipo === 'Otro' ? otroArquetipo : arquetipo;
 
-        // Lógica de IA (simulada) que ahora puede usar el campo 'notas' para mayor asertividad
         let toneIntro = "te escribo por algo muy puntual.";
         if (confianza === 'Caliente') toneIntro = "te escribo directo al grano porque pensé en ti para algo grande.";
         if (confianza === 'Frío') toneIntro = `espero que estés muy bien. Mi nombre es [Tu Nombre], nos conocimos en ${contexto}.`;
@@ -122,9 +119,9 @@ export default function CentroInteligenciaPage() {
     return (
         <>
             <GlobalStyles />
-            <div className="flex min-h-screen bg-slate-900">
-                <NodeXSidebar />
-                <main className="flex-1 p-6">
+            {/* AJUSTE: Se utiliza NodeXSidebar como el layout principal que envuelve todo el contenido. */}
+            <NodeXSidebar>
+                <div className="p-6 relative">
                     <section className="text-center max-w-4xl mx-auto pb-20 lg:pb-28">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                              <div className="inline-block bg-blue-500/10 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
@@ -228,8 +225,8 @@ export default function CentroInteligenciaPage() {
                             </Link>
                         </div>
                     </section>
-                </main>
-            </div>
+                </div>
+            </NodeXSidebar>
         </>
     );
 }

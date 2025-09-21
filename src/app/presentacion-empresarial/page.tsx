@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+// AJUSTE: Se añaden los iconos necesarios para las nuevas tarjetas de paquetes
 import { ArrowRight, CheckCircle, ShieldCheck, Zap, BrainCircuit, Box, Users, Award, DollarSign, Package, Crown, Video, Rocket } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
@@ -71,9 +72,45 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// --- Componentes (sin cambios en su definición interna) ---
+// --- Componentes ---
 const SectionHeader = ({ title, subtitle }) => ( <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16"> <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-4">{title}</h2> <p className="text-slate-400 text-lg">{subtitle}</p> </div> );
-const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPlan, bonusIcon, ctaText = "Activar Plan" }) => ( <div className="creatuactivo-package-card h-full flex flex-col"> <div className="p-8 flex-grow flex flex-col"> <h3 className="text-2xl font-bold text-white mb-2">{title}</h3> <div className="mb-6"> <span className="text-4xl font-extrabold text-white">${priceUSD}</span> <span className="text-slate-400"> USD</span> <p className="text-sm text-slate-500">~ ${priceCOP} COP</p> </div> <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10 mb-6"> <div className="flex items-center gap-3"> <div className="text-yellow-400">{bonusIcon}</div> <div> <p className="font-bold text-white">Bono Tecnológico Incluido</p> <p className="text-sm text-slate-300"> <span className="font-semibold">{bonusMonths} Meses de Cortesía</span> del <span className="font-semibold">{bonusPlan}</span> </p> </div> </div> </div> <ul className="space-y-3 text-slate-300 flex-grow mb-8"> {features.map((feature, index) => ( <li key={index} className="flex items-start"> <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" /> <span>{feature}</span> </li> ))} </ul> <Link href="/fundadores" className="w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto bg-slate-700/70 text-white hover:bg-slate-700"> {ctaText} </Link> </div> </div> );
+
+const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPlan, bonusIcon, ctaText = "Activar Plan" }) => (
+    <div className="creatuactivo-package-card h-full flex flex-col">
+        <div className="p-8 flex-grow flex flex-col">
+            <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+            <div className="mb-6">
+                <span className="text-4xl font-extrabold text-white">${priceUSD}</span>
+                <span className="text-slate-400"> USD</span>
+                <p className="text-sm text-slate-500">~ ${priceCOP} COP</p>
+            </div>
+
+            <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="text-yellow-400">{bonusIcon}</div>
+                <div>
+                  <p className="font-bold text-white">Bono Tecnológico Incluido</p>
+                  <p className="text-sm text-slate-300">
+                    <span className="font-semibold">{bonusMonths} Meses de Cortesía</span> del <span className="font-semibold">{bonusPlan}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <ul className="space-y-3 text-slate-300 flex-grow mb-8">
+                {features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                        <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                    </li>
+                ))}
+            </ul>
+            <Link href="/fundadores" className="w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto bg-slate-700/70 text-white hover:bg-slate-700">
+                {ctaText}
+            </Link>
+        </div>
+    </div>
+);
 
 // --- Componente Principal ---
 export default function PresentacionEmpresarialPage() {
@@ -82,18 +119,15 @@ export default function PresentacionEmpresarialPage() {
     const [monthlyIncomeCOP, setMonthlyIncomeCOP] = useState(0);
     const [selectedPackage, setSelectedPackage] = useState('ESP3');
     const [packageCount, setPackageCount] = useState(1);
-
-    // AJUSTE: Se crean dos estados para el bono, uno para USD y otro para COP.
     const [fastStartBonusUSD, setFastStartBonusUSD] = useState(0);
     const [fastStartBonusCOP, setFastStartBonusCOP] = useState(0);
 
     const packageData = {
-        'ESP1': { bonus: 25 }, // $25 USD
-        'ESP2': { bonus: 75 }, // $75 USD
-        'ESP3': { bonus: 150 },// $150 USD
+        'ESP1': { bonus: 25 },
+        'ESP2': { bonus: 75 },
+        'ESP3': { bonus: 150 },
     };
 
-    // Lógica del Simulador Residual (Sin cambios)
     useEffect(() => {
         const incomePerPersonCOP = 19125;
         const exchangeRate = 4500;
@@ -103,7 +137,6 @@ export default function PresentacionEmpresarialPage() {
         setMonthlyIncomeUSD(totalIncomeUSD);
     }, [teamSize]);
 
-    // AJUSTE: Lógica del Simulador de Capitalización actualizada para calcular ambas monedas.
     useEffect(() => {
         const exchangeRate = 4500;
         const bonusUSD = packageData[selectedPackage].bonus * packageCount;
@@ -124,27 +157,55 @@ export default function PresentacionEmpresarialPage() {
                 </div>
 
                 <main className="relative z-10 p-4 lg:p-8">
-                    {/* ... Todas las secciones superiores se mantienen igual ... */}
                     <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-20">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                            <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">La Arquitectura de tu Futuro.</h1>
-                            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">Este es un recorrido por un ecosistema diseñado para que construyas un activo real, apalancado en un sistema inteligente.</p>
+                            <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
+                                La Arquitectura de tu Futuro.
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+                                Este es un recorrido por un ecosistema diseñado para que construyas un activo real, apalancado en un sistema inteligente.
+                            </p>
                         </motion.div>
                     </section>
+
                     <section className="py-20 lg:py-28 px-4">
-                        {/* ... Sección 3 Pilares ... */}
+                        <div className="max-w-7xl mx-auto">
+                            <SectionHeader
+                                title="Los 3 Pilares de un Activo Insuperable"
+                                subtitle="Nuestra nueva categoría se construye sobre una base de credibilidad, exclusividad y una ventaja tecnológica decisiva."
+                            />
+                            <div className="grid md:grid-cols-3 gap-8 text-left">
+                                <div className="creatuactivo-component-card p-8">
+                                    <div className="inline-block bg-yellow-500/10 p-4 rounded-xl mb-4"><ShieldCheck className="w-8 h-8 text-yellow-300" /></div>
+                                    <h3 className="text-2xl font-bold mb-2 text-white">Socio Corporativo Sólido</h3>
+                                    <p className="text-slate-400">Nos apalancamos en Gano Excel, un gigante global con 30+ años de trayectoria, 100% libre de deudas, que se encarga de todo lo operativo.</p>
+                                </div>
+                                <div className="creatuactivo-component-card p-8">
+                                    <div className="inline-block bg-green-500/10 p-4 rounded-xl mb-4"><Award className="w-8 h-8 text-green-300" /></div>
+                                    <h3 className="text-2xl font-bold mb-2 text-white">Producto con Patente Mundial</h3>
+                                    <p className="text-slate-400">Tu activo se construye sobre un producto único. No compites, operas en una categoría propia. Es la máxima ventaja competitiva.</p>
+                                </div>
+                                <div className="creatuactivo-component-card p-8">
+                                    <div className="inline-block bg-purple-500/10 p-4 rounded-xl mb-4"><Zap className="w-8 h-8 text-purple-300" /></div>
+                                    <h3 className="text-2xl font-bold mb-2 text-white">Sistema Tecnológico Superior</h3>
+                                    <p className="text-slate-400">Te entregamos el ecosistema CreaTuActivo.com, con el Framework IAA y NEXUS IA, diseñado para automatizar el 80% del trabajo.</p>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section className="py-20 lg:py-28 px-4 bg-slate-900/70 rounded-3xl">
                         <div className="max-w-7xl mx-auto">
+                            {/* AJUSTE: Textos del header de la sección actualizados */}
                             <SectionHeader
-                                title="El Potencial de tu Activo: Los 2 Flujos Fundamentales"
+                                title="El Potencial de tu Activo: Visualizando tus Flujos Principales"
                                 subtitle="Tu activo tiene 12 formas de generar valor. Aquí visualizamos las dos que construyen el cimiento de tu libertad: la Capitalización y el Residual."
                             />
                             <div className="grid lg:grid-cols-2 gap-8">
                                 <div className="creatuactivo-component-card p-8">
                                     <h3 className="text-xl font-bold text-white mb-2">Etapa 1: Flujo de Capitalización</h3>
-                                    <p className="text-slate-400 mb-6">Calcula el valor generado por la compra de Paquetes Empresariales en tu sistema de distribución (hasta la 5ta generación).</p>
+                                    {/* AJUSTE: Subtítulo más preciso */}
+                                    <p className="text-slate-400 mb-6">Calcula el valor generado por la compra de Paquetes Empresariales en tu arquitectura en expansión (hasta la 5ta generación).</p>
                                     <div className="mb-4">
                                         <label className="block text-sm font-medium text-slate-300 mb-2">1. Selecciona el tipo de Paquete</label>
                                         <div className="flex rounded-lg bg-slate-900/50 p-1">
@@ -154,20 +215,20 @@ export default function PresentacionEmpresarialPage() {
                                         </div>
                                     </div>
                                     <div className="mb-6">
+                                        {/* AJUSTE: Texto y rango del slider modificados */}
                                         <label htmlFor="packageSlider" className="block text-center text-slate-300 mb-2">2. Número de Paquetes Empresariales: <span className="font-bold text-white text-xl">{packageCount}</span></label>
                                         <input type="range" id="packageSlider" min="1" max="10" value={packageCount} onChange={(e) => setPackageCount(Number(e.target.value))} className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"/>
                                     </div>
-                                    {/* AJUSTE: Visualización del bono en ambas monedas */}
                                     <div className="bg-slate-900/50 p-4 rounded-xl text-center border border-white/10">
                                         <p className="text-sm font-semibold text-slate-400">Bono por Compra de Paquetes</p>
-                                        <p className="text-2xl font-extrabold text-blue-400 mt-1">
-                                            ${fastStartBonusUSD.toLocaleString('en-US')} USD
-                                        </p>
+                                        {/* AJUSTE: Muestra el valor en ambas monedas */}
+                                        <p className="text-2xl font-extrabold text-blue-400 mt-1">${fastStartBonusUSD.toLocaleString('en-US')} USD</p>
                                         <p className="text-xs text-slate-500">(~ ${fastStartBonusCOP.toLocaleString('es-CO')} COP)</p>
                                     </div>
                                 </div>
                                 <div className="creatuactivo-component-card p-8">
                                     <h3 className="text-xl font-bold text-white mb-2">Etapa 2: Flujo Residual</h3>
+                                     {/* AJUSTE: Subtítulo más preciso */}
                                     <p className="text-slate-400 mb-6">Proyecta tu ingreso mensual basado en el volumen de producto que fluye a través de tu activo en crecimiento.</p>
                                     <div className="mb-6">
                                         <label htmlFor="teamSlider" className="block text-center text-slate-300 mb-2">Personas consumiendo en tu activo: <span className="font-bold text-white text-xl">{teamSize}</span></label>
@@ -226,7 +287,6 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                     </section>
 
-                    {/* ... Resto de las secciones (Historias, CTA Final) sin cambios ... */}
                     <section className="py-20 lg:py-28 px-4">
                         <div className="max-w-4xl mx-auto text-center">
                              <SectionHeader
@@ -261,7 +321,6 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                     </section>
                 </main>
-
             </div>
         </>
     );

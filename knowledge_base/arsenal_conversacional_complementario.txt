@@ -1,4 +1,7 @@
-# ARSENAL CIERRE - 25 RESPUESTAS PARA SISTEMA, VALOR Y ESCALACIÓN
+UPDATE
+  nexus_documents
+SET
+  content = '# ARSENAL CIERRE - 25 RESPUESTAS PARA SISTEMA, VALOR Y ESCALACIÓN
 
 **Propósito:** Explicaciones del sistema, modelo de valor y escalación estratégica
 **Categorías:** SIST (10) + VAL (10) + ESC (5) = 25 respuestas totales
@@ -21,7 +24,6 @@ Esta es una pregunta estratégica que revela la verdadera sofisticación de nues
 **CREATUACTIVO.COM te potencia tecnológicamente:** NodeX y NEXUS son tus herramientas para construir esos canales de forma inteligente y automatizada.
 
 **Pregunta de seguimiento:** ¿Te gustaría que profundice en cómo construyes específicamente tu primer canal con estas herramientas?
-
 ---
 
 ### SIST_02: "¿Qué herramientas tecnológicas me proporciona el ecosistema?"
@@ -36,7 +38,6 @@ El ecosistema te entrega dos herramientas principales que trabajan en perfecta s
 Ambas herramientas están diseñadas para trabajar como una sola entidad integrada. Mientras NEXUS maneja las conversaciones, NodeX te da la inteligencia para que sepas cuándo y cómo actuar estratégicamente.
 
 **Pregunta de seguimiento:** ¿Te gustaría ver cómo interactúan estas herramientas en una situación práctica?
-
 ---
 
 ### SIST_03: "¿Cómo escalo mi operación estratégicamente?"
@@ -53,7 +54,6 @@ La escalabilidad está integrada en nuestra metodología propietaria: el Framewo
 La escalabilidad proviene de la duplicación del sistema, no de la duplicación de tu esfuerzo.
 
 **Pregunta de seguimiento:** ¿Cuál de estas tres acciones te interesa dominar primero?
-
 ---
 
 ### SIST_04: "¿Dónde queda mi toque personal en un sistema tan automatizado?"
@@ -62,7 +62,6 @@ La escalabilidad proviene de la duplicación del sistema, no de la duplicación 
 El sistema está diseñado precisamente para potenciar tu toque personal, no para reemplazarlo. Automatizamos lo repetitivo (la educación, el seguimiento) para liberar tu tiempo para lo irremplazable: la confianza, la conexión genuina y la mentoría estratégica. La tecnología elimina el ruido para que puedas enfocarte en lo que realmente construye relaciones y activos duraderos.
 
 **Pregunta de seguimiento:** ¿Cuáles son tus fortalezas naturales en las relaciones que te gustaría potenciar con tecnología?
-
 ---
 
 ### SIST_05: "¿Qué diferencia esto de otros sistemas tecnológicos?"
@@ -71,7 +70,6 @@ El sistema está diseñado precisamente para potenciar tu toque personal, no par
 Operamos en una nueva categoría: ecosistema tecnológico para constructores. Cinco diferencias clave: 1) Productos únicos con patente mundial que nadie puede copiar, 2) Tecnología NodeX que automatiza el 80% del trabajo, 3) Framework IAA metodológicamente probado, 4) NEXUS como tu copiloto de IA, 5) Enfoque en construcción de activos, no solo generar ingresos. Es como comparar Uber vs taxis tradicionales.
 
 **Pregunta de seguimiento:** ¿Cuál de estos elementos resuena más contigo?
-
 ---
 
 ### SIST_06: "¿Qué es el Modelo DEA?"
@@ -88,7 +86,6 @@ Piénsalo como nuestra filosofía de construcción, que se divide en dos partes:
 En resumen, el Modelo DEA es nuestra respuesta al "viejo mundo" del esfuerzo manual. Es la arquitectura que te permite apalancarte en la tecnología para desarrollar un activo que se escala, en lugar de un autoempleo que te consume.
 
 **Pregunta de seguimiento:** ¿Te identificas más con el rol estratégico del 20% humano o te emociona más el poder del 80% automatizado?
-
 ---
 
 ### SIST_07: "¿Qué me diferencia de los demás constructores?"
@@ -110,7 +107,6 @@ Pero tu éxito viene de dominar tres habilidades específicas:
 La tecnología se encarga del resto.
 
 **Pregunta de seguimiento:** ¿Cuál de estas tres habilidades sientes que es tu fortaleza natural?
-
 ---
 
 ### SIST_08: "¿Qué tipo de personas ya están construyendo aquí?"
@@ -141,7 +137,6 @@ Mi rol como tu Constructor Mentor tiene tres facetas:
 Es una sociedad: yo aporto el sistema probado, tú aportas la ejecución consistente.
 
 **Pregunta de seguimiento:** ¿Qué tipo de mentoría valorarías más: la estratégica, la técnica, o el acompañamiento emocional?
-
 ---
 
 ### SIST_10: "¿Cuál es el plan de construcción para el primer año?"
@@ -159,6 +154,74 @@ Es una progresión lógica y emocionante hacia la construcción de un patrimonio
 
 **Pregunta de seguimiento:** ¿En cuál de estas tres fases te visualizas teniendo más éxito natural?
 
+---
+
+### SIST_11: "¿Qué productos Gano Excel trae específicamente cada paquete?"
+
+¡Por supuesto! Cada arquitectura está diseñada con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
+
+#### Paquete Constructor Inicial (ESP 1)
+- **Total:** 7 productos
+- **Inventario:**
+    - 1 Ganocafé 3 en 1
+    - 1 Ganocafé Classic
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Exfoliante Corporal
+    - 1 Gano Fresh Toothpaste
+    - 1 Gano Transparent Soap
+
+#### Paquete Constructor Empresarial (ESP 2)
+- **Total:** 18 productos
+- **Inventario:**
+    - 4 Ganocafé 3 en 1
+    - 3 Ganocafé Classic
+    - 1 Gano Soap
+    - 1 Gano Fresh Toothpaste
+    - 1 Gano Transparent Soap
+    - 1 Ganó Rico MochaRico
+    - 1 Gano C''Real Spirulina
+    - 1 Ganorico Latte Rico
+    - 1 Ganorico Shoko Rico
+    - 1 Reskine Collagen Drink
+    - 1 Ganoderma Cápsulas
+    - 1 Excellium Cápsulas
+
+#### Paquete Constructor Visionario (ESP 3)
+- **Total:** 35 productos
+- **Inventario:**
+    - 10 Ganocafé 3 en 1
+    - 10 Ganocafé Classic
+    - 1 Gano Soap
+    - 1 Gano Fresh Toothpaste
+    - 1 Gano Transparent Soap
+    - 1 Gano Schokolade
+    - 1 Oleaf Gano Rooibos Drink
+    - 1 Gano C''Real Spirulina
+    - 1 Ganorico Latte Rico
+    - 1 Reskine Collagen Drink
+    - 1 Ganoderma Cápsulas
+    - 1 Excellium Cápsulas
+
+*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario.*
+
+---
+
+### SIST_12: "¿Qué es el programa Auto Envío y qué beneficios ofrece?"
+
+El **Auto Envío** es un programa de lealtad diseñado para los constructores que mantienen una actividad constante. Su principal beneficio es recompensar tu consumo personal con productos de obsequio, incentivando la consistencia que construye activos sólidos.
+
+#### ¿Cómo funciona?
+Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Activa" durante cuatro (4) meses consecutivos**. Al cumplir este ciclo, recibes un producto gratis con tu cuarto Auto Envío, basado en el siguiente modelo:
+
+- **Nivel 1 (50 a 99 PV)**: Si tu Auto Envío mensual es de **50 a 99 PV**, recibirás **un (1) producto gratis** valorado entre **$73.000 y $78.500**.
+- **Nivel 2 (100 PV o más)**: Si tu Auto Envío es de **100 PV o más**, recibirás **un (1) producto gratis** valorado entre **$110.900 y $124.900**.
+
+#### Puntos a Considerar
+- El producto de obsequio es seleccionado por Gano Excel a su discrecionalidad, según la disponibilidad de inventario.
+- Cualquier modificación en la información de pago o débitos fallidos puede reiniciar el conteo de los cuatro meses.
+- Puedes continuar recibiendo el obsequio de forma cíclica siempre que mantengas tu suscripción activa.
+---
 ## 💰 MODELO DE VALOR AVANZADAS (10 respuestas)
 
 ### VAL_01: "¿Cómo se gana en el negocio?"
@@ -297,6 +360,18 @@ Los sistemas tradicionales te dan herramientas fragmentadas que debes coordinar 
 
 **Pregunta de seguimiento:** ¿Has experimentado la frustración de coordinar múltiples herramientas o sistemas para un proyecto?
 
+---
+### VAL_11: "¿Qué significan PV, CV y GCV?"
+
+Estos tres términos son fundamentales para entender cómo se construye el valor en el ecosistema.
+
+* **PV (Volumen Personal):** Son los puntos que generas con tus compras personales. Miden tu actividad y necesitas un mínimo de **50 PV** mensuales para mantenerte activo y calificado para comisiones. Volúmenes más altos, como 100 PV, pueden activar bonos adicionales.
+
+* **CV (Volumen Comisional):** Son los puntos que se utilizan para calcular tus ganancias. Cuando alguien en tu equipo de construcción compra un producto, esa compra te genera un volumen de CV a ti. Tus comisiones se basan en el total de CV que mueve tu equipo.
+
+* **GCV (Volumen Comisional Grupal):** Es la suma de todo el **CV** generado por todos los constructores en tu organización. Representa la productividad total de tu activo y es la base para calcular tus comisiones de equipo y bonos de liderazgo.
+---
+
 ## 🚀 ESCALACIÓN Y CIERRE (5 respuestas)
 
 ### ESC_01: "¿Cuál sería mi siguiente paso?"
@@ -360,14 +435,15 @@ Sin embargo, lo que sí puedo hacer es conectarte directamente con Liliana Moren
 
 Esa es la respuesta de una persona inteligente que toma decisiones estratégicas, no impulsivas. Te respeto por eso.
 
-Lo que sí es importante que sepas es que el programa Fundadores tiene un prelanzamiento del 1 de septiembre al 3 de noviembre, con el objetivo de crear un equipo base de 150 constructores. Durante esta ventana tienes la oportunidad de posicionarte como uno de los arquitectos fundacionales antes del lanzamiento masivo.
+Lo que sí es importante que sepas es que el programa Fundadores tiene una ventana de oportunidad única que va desde el pre-lanzamiento el **29 de septiembre de 2025** hasta el lanzamiento público el **1 de diciembre de 2025**, con el objetivo de crear un equipo base de 150 constructores. Durante esta ventana tienes la oportunidad de posicionarte como uno de los arquitectos fundacionales antes del lanzamiento masivo.
 
 Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es para presionarte a decidir, sino para que tengas toda la información que necesitas para tomar la mejor decisión para tu futuro, sea cual sea.
 
 **Pregunta de seguimiento:** ¿Te parece sensato tener toda la información antes de que termine tu ventana de oportunidad?
-
 ---
 
 **FIN DEL ARSENAL CIERRE**
 **Total de respuestas:** 25 (SIST: 10 + VAL: 10 + ESC: 5)
-**Estado:** Listo para implementación NEXUS
+**Estado:** Listo para implementación NEXUS'
+WHERE
+  id = 17;

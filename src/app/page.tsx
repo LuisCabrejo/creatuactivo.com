@@ -1,4 +1,4 @@
-'use client'
+ 'use client'
 
 import React from 'react'
 // Se mantienen los íconos ya que los necesarios para la nueva sección ya estaban importados.

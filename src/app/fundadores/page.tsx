@@ -198,28 +198,28 @@ const BenefitCard = ({ icon, title, description, colorScheme }: {
 export default function FundadoresPage() {
   const [spotsLeft, setSpotsLeft] = useState(() => {
     const now = new Date();
-    const startDate = new Date('2025-08-20T10:00:00'); // Miércoles 10am
+    const startDate = new Date('2025-09-22T10:00:00'); // Lunes 22 septiembre 10am
     const currentHour = now.getHours();
 
     let spotsLeft = 150;
 
-    // Si es el día de inicio (miércoles) y después de las 10am
+    // Si es el día de inicio (lunes 22) y después de las 10am
     if (now.toDateString() === startDate.toDateString() && currentHour >= 10) {
       const hoursPassedToday = currentHour - 10;
       spotsLeft = 150 - hoursPassedToday;
     }
-    // Si han pasado días completos desde el miércoles
+    // Si han pasado días completos desde el lunes 22
     else if (now > startDate) {
-      // ✅ CORREGIDO: .getTime() para operación matemática correcta
       const daysPassed = Math.floor((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
       const hoursPassedToday = currentHour >= 10 ? currentHour - 10 : 0;
-      spotsLeft = 150 - (daysPassed * 15) - hoursPassedToday;
+      spotsLeft = 150 - (daysPassed * 12) - hoursPassedToday;
     }
 
     return Math.max(spotsLeft, 0); // No menor a 0
   });
 
   const [formStep, setFormStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -232,7 +232,7 @@ export default function FundadoresPage() {
     // Actualizar contador cada hora
     const interval = setInterval(() => {
       const now = new Date();
-      const startDate = new Date('2025-08-20T10:00:00');
+      const startDate = new Date('2025-09-22T10:00:00'); // Lunes 22 septiembre
       const currentHour = now.getHours();
 
       let spotsLeft = 150;
@@ -242,10 +242,9 @@ export default function FundadoresPage() {
         spotsLeft = 150 - hoursPassedToday;
       }
       else if (now > startDate) {
-        // ✅ CORREGIDO: .getTime() para operación matemática correcta
         const daysPassed = Math.floor((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
         const hoursPassedToday = currentHour >= 10 ? currentHour - 10 : 0;
-        spotsLeft = 150 - (daysPassed * 15) - hoursPassedToday;
+        spotsLeft = 150 - (daysPassed * 12) - hoursPassedToday;
       }
 
       setSpotsLeft(Math.max(spotsLeft, 0));
@@ -254,20 +253,57 @@ export default function FundadoresPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ CORREGIDO: Event handler tipado
-  const handleFormSubmit = (e: React.FormEvent) => {
+  // ✅ NUEVA FUNCIONALIDAD RESEND AGREGADA
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (formStep < 3) {
       setFormStep(formStep + 1);
     } else {
-      // Procesar datos del fundador
-      console.log('Datos fundador:', formData);
-      alert('¡Excelente! Luis o Liliana te contactará en las próximas 24 horas para tu consultoría estratégica personalizada.');
+      setIsSubmitting(true);
+
+      try {
+        const response = await fetch('/api/fundadores', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+            page: 'fundadores'
+          })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Éxito - mostrar mensaje personalizado
+          alert(`¡Excelente ${formData.nombre}! Tu solicitud fue enviada exitosamente. Nuestro equipo revisará tu perfil y, si se alinea con la visión, recibirás una invitación en las próximas 24 horas.`);
+
+          // Opcional: Analytics o redirección
+          console.log('✅ Solicitud enviada:', result.emailId);
+
+        } else {
+          throw new Error(result.error || 'Error en el procesamiento de la solicitud');
+        }
+
+      } catch (error) {
+        console.error('❌ Error enviando solicitud:', error);
+
+        // Mensaje de error amigable con alternativa
+        alert(`Hubo un error al enviar tu solicitud, ${formData.nombre}. Por favor intenta de nuevo en unos minutos, o contáctanos directamente por WhatsApp al +57 310 206 6593.`);
+
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   const scrollToForm = () => {
-    // ✅ CORREGIDO: Verificación de null para getElementById
+    // Verificación de null para getElementById
     const element = document.getElementById('formulario-fundador');
     if (element) {
       element.scrollIntoView({behavior: 'smooth'});
@@ -307,12 +343,12 @@ export default function FundadoresPage() {
               >
                 Reservar mi Cupo de Fundador <ArrowRight size={20} className="ml-2" />
               </button>
-              <button
-                onClick={scrollToForm}
-                className="w-full md:w-auto bg-white/10 backdrop-blur-lg text-slate-300 font-semibold py-4 px-8 rounded-lg hover:bg-white/20 transition-colors duration-300"
+              <a
+                href="/presentacion-empresarial"
+                className="w-full md:w-auto bg-white/10 backdrop-blur-lg text-slate-300 font-semibold py-4 px-8 rounded-lg hover:bg-white/20 transition-colors duration-300 inline-block text-center"
               >
-                Ver el Simulador de Activos
-              </button>
+                Ver Presentación Empresarial
+              </a>
             </div>
           </section>
 
@@ -332,25 +368,98 @@ export default function FundadoresPage() {
               </div>
           </section>
 
-          {/* --- SECCIÓN 3: URGENCIA Y TIMELINE --- */}
-          <section className="max-w-5xl mx-auto mb-20 lg:mb-32 grid md:grid-cols-2 gap-8 items-center">
-              <div className="creatuactivo-trust-ecosystem text-center">
-                  <p className="text-sm text-slate-400 uppercase tracking-wider mb-2">Cupos de Fundador Disponibles</p>
-                  <p className="text-6xl font-bold text-green-400 animate-pulse">{spotsLeft}</p>
-                  <p className="text-slate-400">de 150</p>
+          {/* --- SECCIÓN 3: URGENCIA Y TIMELINE MEJORADO --- */}
+          <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
+              <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+                  <div className="creatuactivo-trust-ecosystem text-center">
+                      <p className="text-sm text-slate-400 uppercase tracking-wider mb-2">Cupos de Fundador Disponibles</p>
+                      <p className="text-6xl font-bold text-green-400 animate-pulse">{spotsLeft}</p>
+                      <p className="text-slate-400">de 150</p>
+                  </div>
+                  <div>
+                      <h3 className="creatuactivo-h2-component text-2xl font-bold mb-4">La Ventana de Oportunidad es Real</h3>
+                      <p className="text-slate-300 mb-6">Estamos en la fase exclusiva para Fundadores. Una vez que se abran las puertas al público, la oportunidad de tener una ventaja posicional como esta no volverá a existir.</p>
+
+                      {/* Timeline Premium - Sutil y Elegante (ORIGINAL) */}
+                      <div className="space-y-2 mb-6 text-sm">
+                        <div className="flex items-center justify-between text-slate-400">
+                          <span>22 Sept: Lista Privada</span>
+                          <span className="text-slate-500">20 Constructores</span>
+                        </div>
+                        <div className="flex items-center justify-between text-slate-400">
+                          <span>29 Sept: Pre-Lanzamiento</span>
+                          <span className="text-slate-500">150 Constructores</span>
+                        </div>
+                        <div className="flex items-center justify-between text-slate-400">
+                          <span>01 Dic: Lanzamiento Público</span>
+                          <span className="text-slate-500">3,000 Constructores</span>
+                        </div>
+                        <div className="flex items-center justify-between text-slate-400">
+                          <span>05 Ene 2026: Arquitectos Consolidados</span>
+                          <span className="text-slate-500">Elite</span>
+                        </div>
+                      </div>
+
+                      <div className="creatuactivo-progress-ecosystem">
+                        <div className="ecosystem-progress-bar">
+                          <div className="ecosystem-progress-fill" style={{width: `${(spotsLeft/150)*100}%`}}></div>
+                        </div>
+                        <div className="flex justify-between text-xs mt-2 text-slate-400">
+                            <span>Fase Fundadores (Activa)</span>
+                            <span>Pre-Lanzamiento</span>
+                            <span>Lanzamiento Público</span>
+                        </div>
+                      </div>
+                  </div>
               </div>
-              <div>
-                  <h3 className="creatuactivo-h2-component text-2xl font-bold mb-4">La Ventana de Oportunidad es Real</h3>
-                  <p className="text-slate-300 mb-4">Estamos en la fase exclusiva para Fundadores. Una vez que se abran las puertas al público, la oportunidad de tener una ventaja posicional como esta no volverá a existir.</p>
-                  <div className="creatuactivo-progress-ecosystem">
-                    <div className="ecosystem-progress-bar">
-                      <div className="ecosystem-progress-fill" style={{width: `${(spotsLeft/150)*100}%`}}></div>
-                    </div>
-                    <div className="flex justify-between text-xs mt-2 text-slate-400">
-                        <span>Fase Fundadores (Activa)</span>
-                        <span>Pre-Lanzamiento</span>
-                        <span>Lanzamiento Público</span>
-                    </div>
+
+              {/* ✅ ROADMAP ESTRATÉGICO COOL (AGREGADO) - CON CORRECCIÓN DIAMANTES */}
+              <div className="creatuactivo-progress-ecosystem mt-12">
+                  <h4 className="text-white font-bold mb-6 text-center">🗓️ Roadmap Estratégico 2025-2026</h4>
+
+                  {/* Hitos del Timeline */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                      <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4">
+                          <div className="flex items-center mb-2">
+                              <div className="w-3 h-3 bg-blue-400 rounded-full mr-2"></div>
+                              <span className="font-bold text-blue-400">22 Sep - ACTIVA</span>
+                          </div>
+                          <p className="text-slate-300">Lista Privada</p>
+                          <p className="text-xs text-slate-400 mt-1">Feedback + Primeros 20 Constructores</p>
+                      </div>
+
+                      <div className="bg-purple-500/20 border border-purple-400/30 rounded-lg p-4">
+                          <div className="flex items-center mb-2">
+                              <div className="w-3 h-3 bg-purple-400 rounded-full mr-2"></div>
+                              <span className="font-bold text-purple-400">29 Sep</span>
+                          </div>
+                          <p className="text-slate-300">Pre-Lanzamiento</p>
+                          <p className="text-xs text-slate-400 mt-1">Base: 150 Constructores</p>
+                      </div>
+
+                      <div className="bg-orange-500/20 border border-orange-400/30 rounded-lg p-4">
+                          <div className="flex items-center mb-2">
+                              <div className="w-3 h-3 bg-orange-400 rounded-full mr-2"></div>
+                              <span className="font-bold text-orange-400">1 Dic</span>
+                          </div>
+                          <p className="text-slate-300">Lanzamiento</p>
+                          <p className="text-xs text-slate-400 mt-1">Objetivo: 3,000 Constructores</p>
+                      </div>
+
+                      <div className="bg-yellow-500/20 border border-yellow-400/30 rounded-lg p-4">
+                          <div className="flex items-center mb-2">
+                              <div className="w-3 h-3 bg-yellow-400 rounded-full mr-2"></div>
+                              <span className="font-bold text-yellow-400">5 Ene 2026</span>
+                          </div>
+                          <p className="text-slate-300">Arquitectos Consolidados</p>
+                          <p className="text-xs text-slate-400 mt-1">Élite de Constructores</p>
+                      </div>
+                  </div>
+
+                  {/* Fase Actual Destacada */}
+                  <div className="mt-6 text-center bg-green-500/10 border border-green-400/30 rounded-lg p-4">
+                      <p className="text-green-400 font-bold">📍 FASE ACTUAL: Lista Privada Activa</p>
+                      <p className="text-slate-300 text-sm mt-1">Tu oportunidad de estar en el grupo fundacional antes que nadie</p>
                   </div>
               </div>
           </section>
@@ -402,18 +511,18 @@ export default function FundadoresPage() {
                </div>
           </section>
 
-          {/* --- SECCIÓN 6: FORMULARIO DE REGISTRO FUNDADOR --- */}
+          {/* --- SECCIÓN 6: FORMULARIO ORIGINAL MANTENIDO --- */}
           <section id="formulario-fundador" className="max-w-4xl mx-auto mb-20 lg:mb-32">
             <div className="text-center mb-12">
               <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl font-bold mb-6">
-                Activa tu Posición
+                Solicita tu Consultoría
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   de Fundador
                 </span>
               </h2>
               <p className="text-slate-300 max-w-2xl mx-auto">
-                Proceso estratégico de 3 pasos. Luis o Liliana te contactará personalmente en 24 horas para tu consultoría exclusiva de fundador.
+                Proceso de aplicación de 3 pasos. Nuestro equipo revisará tu perfil y, si se alinea con la visión, te contactaremos para agendar tu sesión estratégica exclusiva.
               </p>
             </div>
 
@@ -538,11 +647,11 @@ export default function FundadoresPage() {
                 </div>
               )}
 
-              {/* Paso 3: Confirmación */}
+              {/* Paso 3: Confirmación (ORIGINAL MANTENIDO) */}
               {formStep === 3 && (
                 <div className="text-center space-y-6">
                   <div className="text-6xl mb-4">🚀</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">¡Posición de Fundador Confirmada!</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">¡Solicitud Recibida!</h3>
                   <div className="bg-slate-700/50 rounded-lg p-6 space-y-3 text-left">
                     <div><strong className="text-blue-400">Constructor:</strong> <span className="text-white">{formData.nombre}</span></div>
                     <div><strong className="text-blue-400">Email:</strong> <span className="text-white">{formData.email}</span></div>
@@ -550,38 +659,48 @@ export default function FundadoresPage() {
                     <div><strong className="text-blue-400">Inversión:</strong> <span className="text-white">{formData.inversion?.split(' -')[0]}</span></div>
                   </div>
                   <div className="creatuactivo-trust-ecosystem">
-                    <h4 className="text-blue-400 font-bold mb-3">📞 Próximos Pasos Confirmados</h4>
+                    <h4 className="text-blue-400 font-bold mb-3">📋 Proceso de Evaluación</h4>
                     <div className="text-sm text-slate-300 space-y-2">
-                      <div>✓ <strong>Consultoría estratégica exclusiva</strong> con Luis o Liliana</div>
-                      <div>✓ <strong>Demo completo del ecosistema</strong> en funcionamiento</div>
+                      <div>✓ <strong>Revisión de perfil</strong> por nuestro equipo de Arquitectos</div>
+                      <div>✓ <strong>Evaluación de alineación</strong> con la visión del ecosistema</div>
+                      <div>✓ <strong>Si calificas:</strong> Invitación a consultoría estratégica exclusiva</div>
                       <div>✓ <strong>Activación inmediata</strong> de tu posición de fundador</div>
-                      <div>✓ <strong>Plan personalizado</strong> según tu perfil y objetivos</div>
                     </div>
                     <div className="mt-4 text-center">
-                      <p className="text-[var(--creatuactivo-gold)] font-medium">Luis o Liliana te contactará en las próximas 24 horas</p>
+                      <p className="text-[var(--creatuactivo-gold)] font-medium">Nuestro equipo revisará tu perfil. Si tu visión se alinea con la de un Arquitecto Fundador, recibirás una invitación por WhatsApp o Email en las próximas 24 horas.</p>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Botón de Acción */}
+              {/* Botón de Acción - CON FUNCIONALIDAD RESEND AGREGADA */}
               <div className="mt-8">
                 <button
                   onClick={handleFormSubmit}
                   disabled={
+                    isSubmitting ||
                     (formStep === 1 && (!formData.nombre || !formData.email || !formData.telefono)) ||
                     (formStep === 2 && (!formData.arquetipo || !formData.inversion))
                   }
                   className="creatuactivo-cta-ecosystem w-full text-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  {formStep === 1 && (
-                    <>Continuar al Perfil <ArrowRight size={20} className="ml-2" /></>
-                  )}
-                  {formStep === 2 && (
-                    <>Confirmar Posición <CheckCircle size={20} className="ml-2" /></>
-                  )}
-                  {formStep === 3 && (
-                    <>🎯 ¡Espera la Llamada de Luis o Liliana!</>
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      Enviando solicitud...
+                    </>
+                  ) : (
+                    <>
+                      {formStep === 1 && (
+                        <>Continuar al Perfil <ArrowRight size={20} className="ml-2" /></>
+                      )}
+                      {formStep === 2 && (
+                        <>Enviar Solicitud <CheckCircle size={20} className="ml-2" /></>
+                      )}
+                      {formStep === 3 && (
+                        <>Finalizar Proceso</>
+                      )}
+                    </>
                   )}
                 </button>
               </div>

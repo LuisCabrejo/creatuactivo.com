@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, CheckCircle, PlayCircle, Rocket, Shield, Users, Zap, Briefcase, Target, Lightbulb, Home, UsersRound, TrendingUp } from 'lucide-react'
+import { ArrowRight, CheckCircle, PlayCircle, Rocket, Shield, Users, Zap, Briefcase, Target, Lightbulb, Home, UsersRound, TrendingUp, Timer } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
 // Componente para tarjetas de beneficios
@@ -94,41 +94,45 @@ export default function FundadoresPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (formStep < 3) {
-      setFormStep(formStep + 1)
+    if (formStep === 1) {
+      setFormStep(2)
       return
     }
 
-    setIsSubmitting(true)
+    if (formStep === 2) {
+      // Enviar formulario directamente desde paso 2
+      setIsSubmitting(true)
 
-    try {
-      const response = await fetch('/api/fundadores', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent,
-          referrer: document.referrer,
-          page: 'fundadores'
+      try {
+        const response = await fetch('/api/fundadores', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+            page: 'fundadores'
+          })
         })
-      })
 
-      const result = await response.json()
+        const result = await response.json()
 
-      if (response.ok && result.success) {
-        setIsSuccess(true)
-        console.log('Solicitud enviada:', result.emailId)
-      } else {
-        throw new Error(result.error || 'Error en la solicitud')
+        if (response.ok && result.success) {
+          setIsSuccess(true)
+          setFormStep(3) // Ir a pantalla de éxito
+          console.log('Solicitud enviada:', result.emailId)
+        } else {
+          throw new Error(result.error || 'Error en la solicitud')
+        }
+      } catch (error) {
+        console.error('Error:', error)
+        alert(`Hubo un error al enviar tu solicitud, ${formData.nombre}. Por favor intenta de nuevo o contáctanos por WhatsApp al +57 310 206 6593.`)
+      } finally {
+        setIsSubmitting(false)
       }
-    } catch (error) {
-      console.error('Error:', error)
-      alert(`Hubo un error al enviar tu solicitud, ${formData.nombre}. Por favor intenta de nuevo o contáctanos por WhatsApp al +57 310 206 6593.`)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -442,15 +446,16 @@ export default function FundadoresPage() {
                 </div>
               )}
 
-              {/* Paso 3: Confirmación */}
-              {formStep === 3 && !isSuccess && (
-                <div className="text-center space-y-6" onKeyDown={handleKeyDown}>
+              {/* Paso 3: Confirmación de Éxito */}
+              {formStep === 3 && isSuccess && (
+                <div className="text-center space-y-6">
                   <div className="flex justify-center mb-4">
                     <CheckCircle size={64} className="text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">¡Solicitud Recibida!</h3>
+                  <h3 className="text-2xl font-bold text-green-400 mb-4">¡Solicitud Enviada Exitosamente!</h3>
 
                   <div className="bg-slate-700/50 rounded-lg p-6 space-y-3 text-left">
+                    <h4 className="text-blue-400 font-semibold mb-3 text-center">📋 Resumen de Tu Solicitud</h4>
                     <div><strong className="text-blue-400">Constructor:</strong> <span className="text-white">{formData.nombre}</span></div>
                     <div><strong className="text-blue-400">Email:</strong> <span className="text-white">{formData.email}</span></div>
                     <div><strong className="text-blue-400">Perfil:</strong> <span className="text-white">{formData.arquetipo.split(' ')[0]} {formData.arquetipo.split(' ')[1]}</span></div>
@@ -472,19 +477,8 @@ export default function FundadoresPage() {
                 </div>
               )}
 
-              {/* Mensaje de éxito */}
-              {isSuccess && (
-                <div className="text-center space-y-6">
-                  <div className="flex justify-center mb-4">
-                    <CheckCircle size={64} className="text-green-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-green-400 mb-4">¡Solicitud Enviada Exitosamente!</h3>
-                  <p className="text-slate-300">Tu solicitud ha sido recibida correctamente. Nuestro equipo la revisará y se pondrá en contacto contigo pronto.</p>
-                </div>
-              )}
-
-              {/* Botón de acción */}
-              {!isSuccess && (
+              {/* Botón de acción - Solo pasos 1 y 2 */}
+              {!isSuccess && formStep < 3 && (
                 <div className="mt-8">
                   <button
                     type="submit"
@@ -502,10 +496,7 @@ export default function FundadoresPage() {
                           <>Continuar al Perfil <ArrowRight size={20} className="ml-2" /></>
                         )}
                         {formStep === 2 && (
-                          <>Enviar Solicitud <CheckCircle size={20} className="ml-2" /></>
-                        )}
-                        {formStep === 3 && (
-                          <>Finalizar Proceso <CheckCircle size={20} className="ml-2" /></>
+                          <>Enviar Mi Solicitud <Rocket size={20} className="ml-2" /></>
                         )}
                       </>
                     )}

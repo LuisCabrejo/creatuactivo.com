@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ArrowRight, CheckCircle, Clock, PlayCircle, Rocket, Shield, Users, Zap } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -196,6 +196,9 @@ const BenefitCard = ({ icon, title, description, colorScheme }: {
 
 // --- Componente Principal de la Página de Fundadores ---
 export default function FundadoresPage() {
+  // ✅ REF PARA TRACKING DE MONTAJE - SOLUCIÓN PRINCIPAL
+  const isMountedRef = useRef(true);
+
   const [spotsLeft, setSpotsLeft] = useState(() => {
     const now = new Date();
     const startDate = new Date('2025-09-22T10:00:00'); // Lunes 22 septiembre 10am
@@ -228,9 +231,16 @@ export default function FundadoresPage() {
     inversion: ''
   });
 
+  // ✅ USEEFFECT CON CLEANUP MEJORADO Y VERIFICACIÓN DE MONTAJE
   useEffect(() => {
+    // Marcar como montado
+    isMountedRef.current = true;
+
     // Actualizar contador cada hora
     const interval = setInterval(() => {
+      // ✅ VERIFICAR SI EL COMPONENTE AÚN ESTÁ MONTADO
+      if (!isMountedRef.current) return;
+
       const now = new Date();
       const startDate = new Date('2025-09-22T10:00:00'); // Lunes 22 septiembre
       const currentHour = now.getHours();
@@ -247,19 +257,32 @@ export default function FundadoresPage() {
         spotsLeft = 150 - (daysPassed * 12) - hoursPassedToday;
       }
 
-      setSpotsLeft(Math.max(spotsLeft, 0));
+      // ✅ VERIFICAR MONTAJE ANTES DE ACTUALIZAR ESTADO
+      if (isMountedRef.current) {
+        setSpotsLeft(Math.max(spotsLeft, 0));
+      }
     }, 3600000); // Cada hora
 
-    return () => clearInterval(interval);
+    // ✅ CLEANUP MEJORADO - MARCAR COMO DESMONTADO Y LIMPIAR INTERVAL
+    return () => {
+      isMountedRef.current = false;
+      clearInterval(interval);
+    };
   }, []);
 
-  // ✅ NUEVA FUNCIONALIDAD RESEND AGREGADA
+  // ✅ FUNCIÓN DE SUBMIT CON VERIFICACIÓN DE MONTAJE PARA EVITAR ERRORES REACT
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (formStep < 3) {
-      setFormStep(formStep + 1);
+      // Solo avanzar paso si el componente está montado
+      if (isMountedRef.current) {
+        setFormStep(formStep + 1);
+      }
     } else {
+      // ✅ VERIFICAR MONTAJE ANTES DE ACTUALIZAR ESTADO
+      if (!isMountedRef.current) return;
+
       setIsSubmitting(true);
 
       try {
@@ -279,6 +302,9 @@ export default function FundadoresPage() {
 
         const result = await response.json();
 
+        // ✅ VERIFICAR MONTAJE ANTES DE MANEJAR RESPUESTA
+        if (!isMountedRef.current) return;
+
         if (response.ok && result.success) {
           // Éxito - mostrar mensaje personalizado
           alert(`¡Excelente ${formData.nombre}! Tu solicitud fue enviada exitosamente. Nuestro equipo revisará tu perfil y, si se alinea con la visión, recibirás una invitación en las próximas 24 horas.`);
@@ -291,19 +317,25 @@ export default function FundadoresPage() {
         }
 
       } catch (error) {
+        // ✅ VERIFICAR MONTAJE ANTES DE MANEJAR ERRORES
+        if (!isMountedRef.current) return;
+
         console.error('❌ Error enviando solicitud:', error);
 
         // Mensaje de error amigable con alternativa
         alert(`Hubo un error al enviar tu solicitud, ${formData.nombre}. Por favor intenta de nuevo en unos minutos, o contáctanos directamente por WhatsApp al +57 310 206 6593.`);
 
       } finally {
-        setIsSubmitting(false);
+        // ✅ VERIFICAR MONTAJE ANTES DE ACTUALIZAR ESTADO - CRÍTICO PARA EVITAR ERRORES REACT
+        if (isMountedRef.current) {
+          setIsSubmitting(false);
+        }
       }
     }
   };
 
   const scrollToForm = () => {
-    // Verificación de null para getElementById
+    // Verificación de null para getElementById - ya estaba bien
     const element = document.getElementById('formulario-fundador');
     if (element) {
       element.scrollIntoView({behavior: 'smooth'});
@@ -673,7 +705,7 @@ export default function FundadoresPage() {
                 </div>
               )}
 
-              {/* Botón de Acción - CON FUNCIONALIDAD RESEND AGREGADA */}
+              {/* Botón de Acción - CON FUNCIONALIDAD RESEND AGREGADA Y VERIFICACIÓN DE MONTAJE */}
               <div className="mt-8">
                 <button
                   onClick={handleFormSubmit}

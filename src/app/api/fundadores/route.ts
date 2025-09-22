@@ -293,7 +293,7 @@ export async function POST(request: NextRequest) {
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
                   <tr>
                     <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;">
-                      <a href="${BRAND.urls.base}/"
+                      <a href="${BRAND.urls.base}/ecosistema?nombre=${encodeURIComponent(firstName)}"
                          style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark};
                                 text-decoration: none; font-weight: 700; font-size: 16px; text-align: center; line-height: 24px;">
                         Explorar CreaTuActivo.com

@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ====================================================================
-    // 📧 EMAIL 2: CONFIRMACIÓN USUARIO - USANDO HTML CONFIABLE TEMPORAL
+    // 🎨 EMAIL 2: CONFIRMACIÓN USUARIO - AHORA USA REACT EMAIL OPTIMIZADO
     // ====================================================================
 
     // Extraer primer nombre para personalización
@@ -331,11 +331,13 @@ export async function POST(request: NextRequest) {
         from: 'CreaTuActivo <noreply@creatuactivo.com>',
         to: formData.email,
         subject: `✅ Confirmación de Solicitud - ${firstName}`,
-        html: emailContainer(userEmailContent, true) // ← Usando HTML confiable temporalmente
+        react: FounderConfirmationEmail({ firstName }) // ← Usando el nuevo componente React Email
       });
 
       if (confirmationError) {
         console.error('Error enviando email de confirmación:', confirmationError);
+        // No falla completamente si el email de confirmación falla
+        // El email interno ya se envió exitosamente
         console.warn('Continuando después de error en email de confirmación');
       }
 
@@ -343,7 +345,7 @@ export async function POST(request: NextRequest) {
         internal: mainEmail?.id,
         confirmation: confirmationEmail?.id || 'failed',
         user: formData.nombre,
-        method: 'html-only-temporary'
+        method: 'hybrid-html-react'
       });
 
       return NextResponse.json({
@@ -353,8 +355,8 @@ export async function POST(request: NextRequest) {
         confirmationEmailId: confirmationEmail?.id
       });
 
-    } catch (htmlEmailError) {
-      console.error('Error con email HTML:', htmlEmailError);
+    } catch (reactEmailError) {
+      console.error('Error con React Email, usando fallback HTML:', reactEmailError);
 
       // 🔄 FALLBACK: Si React Email falla, usar el HTML original como backup
       const fallbackUserEmailContent = `

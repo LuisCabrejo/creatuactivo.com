@@ -1,481 +1,155 @@
-// /src/app/api/fundadores/route.ts - HYBRID APPROACH: HTML + React Email
-import { Resend } from 'resend';
+// src/app/api/fundadores/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { FounderConfirmationEmail } from '@/emails/FounderConfirmation'; // ← Nuevo componente React Email
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// 🎨 DESIGN TOKENS - Mantenemos para el email interno (funciona perfecto)
-const BRAND = {
-  colors: {
-    blue: '#1E40AF',
-    purple: '#7C3AED',
-    gold: '#F59E0B',
-    dark: '#0f172a',
-    darkAlt: '#1e293b',
-    white: '#FFFFFF',
-    gray: {
-      100: '#f1f5f9',
-      300: '#cbd5e1',
-      500: '#64748b',
-      700: '#334155'
-    }
-  },
-  fonts: {
-    stack: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-  },
-  urls: {
-    base: 'https://creatuactivo.com',
-    logo: 'https://creatuactivo.com/logo-email-header-200x80.png'
-  }
-};
-
-// 🎯 HELPER: Email Container Component - SOLO para email interno
-const emailContainer = (content: string, isDark: boolean = true) => `
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
-  <meta name="supported-color-schemes" content="light dark">
-  <!--[if mso]>
-  <noscript>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-  </noscript>
-  <![endif]-->
-  <style>
-    @media (prefers-color-scheme: dark) {
-      .dark-logo { display: block !important; }
-      .light-logo { display: none !important; }
-      .dark-bg { background-color: ${BRAND.colors.dark} !important; }
-      .dark-text { color: ${BRAND.colors.white} !important; }
-    }
-    @media only screen and (max-width: 600px) {
-      .mobile-padding { padding: 16px !important; }
-      .mobile-padding-lg { padding: 24px !important; }
-      .mobile-text { font-size: 15px !important; line-height: 22px !important; }
-      .mobile-heading { font-size: 22px !important; }
-      .mobile-button {
-        width: 100% !important;
-        display: block !important;
-        text-align: center !important;
-      }
-      .mobile-width { width: 100% !important; }
-    }
-  </style>
-</head>
-<body style="margin: 0; padding: 0; font-family: ${BRAND.fonts.stack}; background-color: ${isDark ? BRAND.colors.dark : BRAND.colors.gray[100]};">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-    <tr>
-      <td align="center" style="padding: 20px 10px;">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; width: 100%;">
-          ${content}
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`;
-
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.json();
+    // 1. Parse form data
+    const formData = await request.formData();
+    const nombre = formData.get('nombre') as string;
+    const email = formData.get('email') as string;
+    const telefono = formData.get('telefono') as string;
+    const arquetipo = formData.get('arquetipo') as string;
+    const inversion = formData.get('inversion') as string;
 
-    // ✅ VALIDACIONES - Se mantienen exactamente iguales
-    if (!formData.email || !formData.nombre || !formData.telefono) {
+    // Validation
+    if (!nombre || !email) {
       return NextResponse.json(
-        { error: 'Faltan datos requeridos' },
+        { error: 'Nombre y email son requeridos' },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      return NextResponse.json(
-        { error: 'Formato de email inválido' },
-        { status: 400 }
-      );
-    }
+    const firstName = nombre.split(' ')[0];
+    const personalizedURL = `https://creatuactivo.com/ecosistema?nombre=${encodeURIComponent(firstName)}`;
 
-    // ====================================================================
-    // 📧 EMAIL 1: NOTIFICACIÓN INTERNA - SE MANTIENE EXACTAMENTE IGUAL
-    // ====================================================================
-    const internalEmailContent = `
-      <!-- Header -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.blue}; padding: 30px 40px; text-align: center;" class="mobile-padding-lg">
-          <h1 style="margin: 0; color: ${BRAND.colors.white}; font-size: 24px; font-weight: 700;" class="mobile-heading">
-            Nueva Solicitud de Fundador
-          </h1>
-        </td>
-      </tr>
+    console.log('Processing founder application:', { nombre: firstName, email });
 
-      <!-- Content -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.white}; padding: 40px;" class="mobile-padding-lg">
-
-          <!-- Applicant Info Card -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="background-color: ${BRAND.colors.gray[100]}; border-radius: 8px; margin-bottom: 30px;">
-            <tr>
-              <td style="padding: 24px;" class="mobile-padding">
-                <h2 style="margin: 0 0 20px; color: ${BRAND.colors.dark}; font-size: 20px; font-weight: 600;">
-                  ${formData.nombre}
-                </h2>
-
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="8" border="0">
-                  <tr>
-                    <td width="30%" style="color: ${BRAND.colors.gray[500]}; font-size: 14px; min-width: 80px;">Email:</td>
-                    <td style="color: ${BRAND.colors.dark}; font-size: 14px;" class="mobile-text">
-                      <a href="mailto:${formData.email}" style="color: ${BRAND.colors.blue}; text-decoration: none;">
-                        ${formData.email}
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="color: ${BRAND.colors.gray[500]}; font-size: 14px;">WhatsApp:</td>
-                    <td style="color: ${BRAND.colors.dark}; font-size: 14px;" class="mobile-text">
-                      <a href="https://wa.me/${formData.telefono.replace(/\D/g, '')}"
-                         style="color: ${BRAND.colors.purple}; text-decoration: none;">
-                        ${formData.telefono}
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="color: ${BRAND.colors.gray[500]}; font-size: 14px; vertical-align: top;">Perfil:</td>
-                    <td style="color: ${BRAND.colors.dark}; font-size: 14px; line-height: 20px;" class="mobile-text">
-                      ${formData.arquetipo || 'No especificado'}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="color: ${BRAND.colors.gray[500]}; font-size: 14px; vertical-align: top;">Inversión:</td>
-                    <td style="color: ${BRAND.colors.dark}; font-size: 14px; line-height: 20px;" class="mobile-text">
-                      ${formData.inversion || 'No especificado'}
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-
-          <!-- CTA Button -->
-          <table role="presentation" align="center" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
-            <tr>
-              <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;" class="mobile-button">
-                <a href="https://wa.me/${formData.telefono.replace(/\D/g, '')}"
-                   style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark}; text-decoration: none; font-weight: 700; font-size: 16px; text-align: center;">
-                  Contactar por WhatsApp →
-                </a>
-              </td>
-            </tr>
-          </table>
-
-          <!-- Metadata -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="margin-top: 30px; border-top: 1px solid ${BRAND.colors.gray[300]}; padding-top: 20px;">
-            <tr>
-              <td style="color: ${BRAND.colors.gray[500]}; font-size: 12px; line-height: 20px;">
-                <strong>Timestamp:</strong> ${new Date().toLocaleString('es-CO', {
-                  timeZone: 'America/Bogota',
-                  dateStyle: 'medium',
-                  timeStyle: 'short'
-                })}<br>
-                <strong>Fuente:</strong> Página /fundadores<br>
-                <strong>IP:</strong> ${request.headers.get('x-forwarded-for') || 'N/A'}
-              </td>
-            </tr>
-          </table>
-
-        </td>
-      </tr>
-    `;
-
-    // ✅ ENVÍO EMAIL INTERNO - Se mantiene exactamente igual
-    const { data: mainEmail, error: mainError } = await resend.emails.send({
+    // 2. Internal notification email
+    const internalEmailData = {
       from: 'Sistema CreaTuActivo <sistema@creatuactivo.com>',
-      to: ['luiscabrejo7@gmail.com', 'lilianapatriciamoreno7@gmail.com'],
-      subject: `🚀 Nueva Solicitud: ${formData.nombre}`,
-      html: emailContainer(internalEmailContent, false)
+      to: ['luis@creatuactivo.com', 'liliana@creatuactivo.com'],
+      subject: `🔥 Nueva Aplicación de Fundador: ${nombre}`,
+      html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #1e40af, #7c3aed, #f59e0b); padding: 2px; border-radius: 12px;">
+            <div style="background: #ffffff; padding: 30px; border-radius: 10px;">
+              <h2 style="color: #0f172a; margin-bottom: 20px;">🔥 Nueva Aplicación Recibida</h2>
+
+              <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">Datos del Fundador:</h3>
+                <p><strong>Nombre:</strong> ${nombre}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Teléfono:</strong> ${telefono}</p>
+                <p><strong>Arquetipo:</strong> ${arquetipo}</p>
+                <p><strong>Inversión:</strong> ${inversion}</p>
+              </div>
+
+              <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <p style="margin: 0; color: #92400e;">
+                  <strong>Acción requerida:</strong> Revisar aplicación y programar llamada estratégica.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    // 3. User confirmation email with HTML fallback
+    const userEmailData = {
+      from: 'CreaTuActivo <confirmacion@creatuactivo.com>',
+      to: email,
+      subject: `Confirmación de tu solicitud de Fundador, ${firstName}`,
+      html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #ffffff;">
+          <!-- Header -->
+          <div style="text-align: center; padding: 30px 20px;">
+            <img src="https://creatuactivo.com/logo-email-header-200x80.png" alt="CreaTuActivo" style="max-width: 200px; height: auto;" />
+          </div>
+
+          <!-- Main Content -->
+          <div style="padding: 0 30px 30px;">
+            <!-- Greeting -->
+            <div style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(124, 58, 237, 0.15), rgba(245, 158, 11, 0.15)); backdrop-filter: blur(10px); border-radius: 12px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.1);">
+              <h1 style="color: #f59e0b; margin: 0 0 15px 0; font-size: 24px; font-weight: 700;">¡Hola ${firstName}!</h1>
+              <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #e2e8f0;">
+                Hemos recibido tu solicitud para formar parte de nuestro selecto grupo de <strong style="color: #f59e0b;">Fundadores CreaTuActivo</strong>.
+              </p>
+            </div>
+
+            <!-- What's Next -->
+            <div style="margin-bottom: 30px;">
+              <h2 style="color: #f59e0b; font-size: 20px; margin-bottom: 15px;">¿Qué sigue ahora?</h2>
+              <div style="background: rgba(30, 64, 175, 0.1); border-radius: 8px; padding: 20px; border-left: 4px solid #1e40af;">
+                <p style="margin: 0 0 15px 0; color: #e2e8f0; line-height: 1.6;">
+                  Nuestro equipo de Arquitectos revisará tu perfil. Si tu visión se alinea con la de un verdadero <strong>Fundador</strong>, recibirás una invitación a una conversación estratégica exclusiva en las próximas 24 horas.
+                </p>
+                <p style="margin: 0; color: #94a3b8; font-size: 14px; font-style: italic;">
+                  Solo contactamos a aquellos constructores que demuestran potencial real de transformación.
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div style="text-align: center; margin: 40px 0;">
+              <a href="${personalizedURL}" style="display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; text-decoration: none; font-weight: 700; font-size: 16px; padding: 15px 30px; border-radius: 8px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;">
+                Explora el Ecosistema de Fundadores
+              </a>
+            </div>
+
+            <!-- Signature -->
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; text-align: center;">
+              <p style="margin: 0 0 10px 0; color: #64748b; font-size: 14px;">
+                Construyendo el futuro, un sistema a la vez
+              </p>
+              <img src="https://creatuactivo.com/logo-email-footer-120x48.png" alt="CreaTuActivo" style="max-width: 120px; height: auto; opacity: 0.7;" />
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    // Send emails with error handling
+    const emailResults = await Promise.allSettled([
+      resend.emails.send(internalEmailData),
+      resend.emails.send(userEmailData)
+    ]);
+
+    // Log results
+    emailResults.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        console.log(`Email ${index + 1} sent successfully:`, result.value.id);
+      } else {
+        console.error(`Email ${index + 1} failed:`, result.reason);
+      }
     });
 
-    if (mainError) {
-      console.error('Error enviando email interno:', mainError);
-      return NextResponse.json({ error: 'Error en notificación' }, { status: 500 });
+    // Check if at least user email was sent
+    const userEmailResult = emailResults[1];
+    if (userEmailResult.status === 'rejected') {
+      throw new Error(`Failed to send confirmation email: ${userEmailResult.reason}`);
     }
 
-    // ====================================================================
-    // 📧 EMAIL 2: CONFIRMACIÓN USUARIO - USANDO HTML CONFIABLE TEMPORAL
-    // ====================================================================
-
-    // Extraer primer nombre para personalización
-    const firstName = formData.nombre.split(' ')[0];
-
-    // TEMPORAL: Usar HTML directo mientras resolvemos React Email
-    const userEmailContent = `
-      <!-- Header con Logo -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.dark}; padding: 30px 20px; text-align: center;" class="dark-bg mobile-padding-lg">
-          <img src="${BRAND.urls.logo}" alt="CreaTuActivo"
-               style="height: 40px; width: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"
-               width="150" height="40">
-          <h1 style="margin: 0; color: ${BRAND.colors.white}; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;" class="dark-text mobile-heading">
-            Hola ${firstName}
-          </h1>
-        </td>
-      </tr>
-
-      <!-- Main Content -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.darkAlt}; padding: 30px 20px;" class="mobile-padding-lg">
-
-          <!-- Status Card -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="background-color: rgba(30, 64, 175, 0.1); border: 1px solid rgba(30, 64, 175, 0.2);
-                        border-radius: 12px; margin-bottom: 30px;">
-            <tr>
-              <td align="center" style="padding: 28px 16px;" class="mobile-padding">
-                <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto 24px;">
-                  <tr>
-                    <td style="width: 64px; height: 64px; background-color: ${BRAND.colors.blue}; border-radius: 12px; text-align: center; vertical-align: middle; font-size: 32px; font-weight: bold; color: ${BRAND.colors.white}; line-height: 64px; font-family: Arial, sans-serif;">
-
-                    </td>
-                  </tr>
-                </table>
-                <h2 style="margin: 0 0 16px; color: ${BRAND.colors.white}; font-size: 24px; font-weight: 600;" class="mobile-heading">
-                  Solicitud Recibida
-                </h2>
-                <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 15px; line-height: 24px; padding: 0 10px;" class="mobile-text">
-                  Tu aplicación para ser Fundador está siendo<br>
-                  evaluada por nuestro Comité de Arquitectos
-                </p>
-              </td>
-            </tr>
-          </table>
-
-          <!-- Timeline -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="background-color: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.2);
-                        border-radius: 12px; margin-bottom: 36px;">
-            <tr>
-              <td style="padding: 24px 20px;" class="mobile-padding">
-                <h3 style="margin: 0 0 20px; color: ${BRAND.colors.white}; font-size: 18px; font-weight: 600;">
-                  Próximos Pasos
-                </h3>
-                <p style="margin: 0 0 12px; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Revisión de tu perfil (24-48 horas)
-                </p>
-                <p style="margin: 0 0 12px; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Contacto directo si calificas
-                </p>
-                <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Consultoría estratégica exclusiva
-                </p>
-              </td>
-            </tr>
-          </table>
-
-          <!-- CTA Section -->
-          <table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-              <td align="center" style="padding: 24px 0 16px;">
-                <p style="margin: 0 0 24px; color: ${BRAND.colors.gray[300]}; font-size: 15px;" class="mobile-text">
-                  Mientras esperas, explora el ecosistema:
-                </p>
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
-                  <tr>
-                    <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;">
-                      <a href="${BRAND.urls.base}/"
-                         style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark};
-                                text-decoration: none; font-weight: 700; font-size: 16px; text-align: center; line-height: 24px;">
-                        Explorar CreaTuActivo.com
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-
-        </td>
-      </tr>
-
-      <!-- Footer -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.dark}; padding: 24px 20px; text-align: center;
-                   border-top: 1px solid rgba(255,255,255,0.1);" class="mobile-padding">
-          <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[300]}; font-size: 14px;">
-            Luis Cabrejo & Liliana Moreno
-          </p>
-          <p style="margin: 0 0 16px; color: ${BRAND.colors.gray[500]}; font-size: 12px;">
-            Co-Fundadores de CreaTuActivo
-          </p>
-          <p style="margin: 0; color: ${BRAND.colors.gray[500]}; font-size: 11px; line-height: 18px;">
-            © ${new Date().getFullYear()} CreaTuActivo.com<br>
-            El primer ecosistema tecnológico para construcción de activos en América
-          </p>
-        </td>
-      </tr>
-    `;
-
-    try {
-      const { data: confirmationEmail, error: confirmationError } = await resend.emails.send({
-        from: 'CreaTuActivo <noreply@creatuactivo.com>',
-        to: formData.email,
-        subject: `✅ Confirmación de Solicitud - ${firstName}`,
-        html: emailContainer(userEmailContent, true) // ← Usando HTML confiable temporalmente
-      });
-
-      if (confirmationError) {
-        console.error('Error enviando email de confirmación:', confirmationError);
-        console.warn('Continuando después de error en email de confirmación');
-      }
-
-      console.log('✅ Emails enviados:', {
-        internal: mainEmail?.id,
-        confirmation: confirmationEmail?.id || 'failed',
-        user: formData.nombre,
-        method: 'html-only-temporary'
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Solicitud procesada exitosamente',
-        emailId: mainEmail?.id,
-        confirmationEmailId: confirmationEmail?.id
-      });
-
-    } catch (htmlEmailError) {
-      console.error('Error con email HTML:', htmlEmailError);
-
-      // 🔄 FALLBACK: Si React Email falla, usar el HTML original como backup
-      const fallbackUserEmailContent = `
-        <!-- Header con Logo -->
-        <tr>
-          <td style="background-color: ${BRAND.colors.dark}; padding: 30px 20px; text-align: center;" class="dark-bg mobile-padding-lg">
-            <img src="${BRAND.urls.logo}" alt="CreaTuActivo"
-                 style="height: 40px; width: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"
-                 width="150" height="40">
-            <h1 style="margin: 0; color: ${BRAND.colors.white}; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;" class="dark-text mobile-heading">
-              Hola ${firstName}
-            </h1>
-          </td>
-        </tr>
-
-        <!-- Main Content -->
-        <tr>
-          <td style="background-color: ${BRAND.colors.darkAlt}; padding: 30px 20px;" class="mobile-padding-lg">
-
-            <!-- Status Card -->
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                   style="background-color: rgba(30, 64, 175, 0.1); border: 1px solid rgba(30, 64, 175, 0.2);
-                          border-radius: 12px; margin-bottom: 30px;">
-              <tr>
-                <td align="center" style="padding: 28px 16px;" class="mobile-padding">
-                  <div style="font-size: 48px; margin: 0 0 20px 0;">✅</div>
-                  <h2 style="margin: 0 0 16px; color: ${BRAND.colors.white}; font-size: 24px; font-weight: 600;" class="mobile-heading">
-                    Solicitud Recibida
-                  </h2>
-                  <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 15px; line-height: 24px; padding: 0 10px;" class="mobile-text">
-                    Tu aplicación para ser Fundador está siendo<br>
-                    evaluada por nuestro Comité de Arquitectos
-                  </p>
-                </td>
-              </tr>
-            </table>
-
-            <!-- CTA Section -->
-            <table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
-              <tr>
-                <td align="center" style="padding: 24px 0 16px;">
-                  <p style="margin: 0 0 24px; color: ${BRAND.colors.gray[300]}; font-size: 15px;" class="mobile-text">
-                    Mientras esperas, explora el ecosistema:
-                  </p>
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
-                    <tr>
-                      <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;">
-                        <a href="${BRAND.urls.base}/ecosistema"
-                           style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark};
-                                  text-decoration: none; font-weight: 700; font-size: 16px; text-align: center; line-height: 24px;">
-                          Explora el Ecosistema de Fundadores
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-
-          </td>
-        </tr>
-
-        <!-- Footer -->
-        <tr>
-          <td style="background-color: ${BRAND.colors.dark}; padding: 24px 20px; text-align: center;
-                     border-top: 1px solid rgba(255,255,255,0.1);" class="mobile-padding">
-            <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[300]}; font-size: 14px;">
-              Luis Cabrejo & Liliana Moreno
-            </p>
-            <p style="margin: 0 0 16px; color: ${BRAND.colors.gray[500]}; font-size: 12px;">
-              Co-Fundadores de CreaTuActivo
-            </p>
-            <p style="margin: 0; color: ${BRAND.colors.gray[500]}; font-size: 11px; line-height: 18px;">
-              © ${new Date().getFullYear()} CreaTuActivo.com<br>
-              El primer ecosistema tecnológico para construcción de activos en América
-            </p>
-          </td>
-        </tr>
-      `;
-
-      // Enviar email de fallback
-      const { data: fallbackEmail } = await resend.emails.send({
-        from: 'CreaTuActivo <noreply@creatuactivo.com>',
-        to: formData.email,
-        subject: `✅ Confirmación de Solicitud - ${firstName}`,
-        html: emailContainer(fallbackUserEmailContent, true)
-      });
-
-      console.log('✅ Email enviado con fallback HTML:', {
-        internal: mainEmail?.id,
-        confirmation: fallbackEmail?.id,
-        user: formData.nombre,
-        method: 'fallback-html'
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Solicitud procesada exitosamente',
-        emailId: mainEmail?.id,
-        confirmationEmailId: fallbackEmail?.id,
-        note: 'Usado fallback HTML para confirmación'
-      });
-    }
+    return NextResponse.json({
+      success: true,
+      message: 'Aplicación procesada exitosamente',
+      personalizedURL
+    });
 
   } catch (error) {
-    console.error('❌ Error general:', error);
+    console.error('Error in fundadores API:', error);
+
+    // Return detailed error for debugging
     return NextResponse.json(
-      { error: 'Error interno del servidor' },
+      {
+        error: 'Error interno del servidor',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
     );
   }
-}
-
-// ✅ OPTIONS - Se mantiene exactamente igual
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
 }

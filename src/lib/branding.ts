@@ -16,7 +16,7 @@ export const BRAND = {
     gray: {
       100: '#f1f5f9',
       300: '#cbd5e1',
-      400: '#94a3b8',
+      400: '#94a3b8',  // ← AÑADIDO: Faltaba esta definición
       500: '#64748b',
       700: '#334155'
     }
@@ -28,8 +28,8 @@ export const BRAND = {
 
   urls: {
     base: 'https://creatuactivo.com',
-    logo: '/logo-email-header-200x80.png', // Logo específico para emails
-    logoSignature: '/logo-email-signature-150x60.png' // Logo alternativo
+    logo: 'https://creatuactivo.com/logo-email-header-200x80.png', // ← CORREGIDO: URL absoluta
+    logoSignature: 'https://creatuactivo.com/logo-email-signature-150x60.png' // ← CORREGIDO: URL absoluta
   },
 
   spacing: {

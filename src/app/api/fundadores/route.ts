@@ -1,34 +1,10 @@
-// /src/app/api/fundadores/route.ts - HYBRID APPROACH: HTML + React Email
+// /src/app/api/fundadores/route.ts - CORREGIDO
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
-import { FounderConfirmationEmail } from '@/emails/FounderConfirmation'; // ← Nuevo componente React Email
+import { FounderConfirmationEmail } from '@/emails/FounderConfirmation';
+import { BRAND } from '@/lib/branding'; // ← USAR IMPORTACIÓN ÚNICA
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// 🎨 DESIGN TOKENS - Mantenemos para el email interno (funciona perfecto)
-const BRAND = {
-  colors: {
-    blue: '#1E40AF',
-    purple: '#7C3AED',
-    gold: '#F59E0B',
-    dark: '#0f172a',
-    darkAlt: '#1e293b',
-    white: '#FFFFFF',
-    gray: {
-      100: '#f1f5f9',
-      300: '#cbd5e1',
-      500: '#64748b',
-      700: '#334155'
-    }
-  },
-  fonts: {
-    stack: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-  },
-  urls: {
-    base: 'https://creatuactivo.com',
-    logo: 'https://creatuactivo.com/logo-email-header-200x80.png'
-  }
-};
 
 // 🎯 HELPER: Email Container Component - SOLO para email interno
 const emailContainer = (content: string, isDark: boolean = true) => `
@@ -39,15 +15,6 @@ const emailContainer = (content: string, isDark: boolean = true) => `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="supported-color-schemes" content="light dark">
-  <!--[if mso]>
-  <noscript>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-  </noscript>
-  <![endif]-->
   <style>
     @media (prefers-color-scheme: dark) {
       .dark-logo { display: block !important; }
@@ -87,7 +54,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.json();
 
-    // ✅ VALIDACIONES - Se mantienen exactamente iguales
+    // ✅ VALIDACIONES
     if (!formData.email || !formData.nombre || !formData.telefono) {
       return NextResponse.json(
         { error: 'Faltan datos requeridos' },
@@ -104,7 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ====================================================================
-    // 📧 EMAIL 1: NOTIFICACIÓN INTERNA - SE MANTIENE EXACTAMENTE IGUAL
+    // 📧 EMAIL 1: NOTIFICACIÓN INTERNA
     // ====================================================================
     const internalEmailContent = `
       <!-- Header -->
@@ -196,7 +163,7 @@ export async function POST(request: NextRequest) {
       </tr>
     `;
 
-    // ✅ ENVÍO EMAIL INTERNO - Se mantiene exactamente igual
+    // ✅ ENVÍO EMAIL INTERNO
     const { data: mainEmail, error: mainError } = await resend.emails.send({
       from: 'Sistema CreaTuActivo <sistema@creatuactivo.com>',
       to: ['luiscabrejo7@gmail.com', 'lilianapatriciamoreno7@gmail.com'],
@@ -210,140 +177,30 @@ export async function POST(request: NextRequest) {
     }
 
     // ====================================================================
-    // 📧 EMAIL 2: CONFIRMACIÓN USUARIO - USANDO HTML CONFIABLE TEMPORAL
+    // 📧 EMAIL 2: CONFIRMACIÓN USUARIO - USANDO REACT EMAIL
     // ====================================================================
 
     // Extraer primer nombre para personalización
     const firstName = formData.nombre.split(' ')[0];
 
-    // TEMPORAL: Usar HTML directo mientras resolvemos React Email
-    const userEmailContent = `
-      <!-- Header con Logo -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.dark}; padding: 30px 20px; text-align: center;" class="dark-bg mobile-padding-lg">
-          <img src="${BRAND.urls.logo}" alt="CreaTuActivo"
-               style="height: 40px; width: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"
-               width="150" height="40">
-          <h1 style="margin: 0; color: ${BRAND.colors.white}; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;" class="dark-text mobile-heading">
-            Hola ${firstName}
-          </h1>
-        </td>
-      </tr>
-
-      <!-- Main Content -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.darkAlt}; padding: 30px 20px;" class="mobile-padding-lg">
-
-          <!-- Status Card -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="background-color: rgba(30, 64, 175, 0.1); border: 1px solid rgba(30, 64, 175, 0.2);
-                        border-radius: 12px; margin-bottom: 30px;">
-            <tr>
-              <td align="center" style="padding: 28px 16px;" class="mobile-padding">
-                <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto 24px;">
-                  <tr>
-                    <td style="width: 64px; height: 64px; background-color: ${BRAND.colors.blue}; border-radius: 12px; text-align: center; vertical-align: middle; font-size: 32px; font-weight: bold; color: ${BRAND.colors.white}; line-height: 64px; font-family: Arial, sans-serif;">
-
-                    </td>
-                  </tr>
-                </table>
-                <h2 style="margin: 0 0 16px; color: ${BRAND.colors.white}; font-size: 24px; font-weight: 600;" class="mobile-heading">
-                  Solicitud Recibida
-                </h2>
-                <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 15px; line-height: 24px; padding: 0 10px;" class="mobile-text">
-                  Tu aplicación para ser Fundador está siendo<br>
-                  evaluada por nuestro Comité de Arquitectos
-                </p>
-              </td>
-            </tr>
-          </table>
-
-          <!-- Timeline -->
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                 style="background-color: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.2);
-                        border-radius: 12px; margin-bottom: 36px;">
-            <tr>
-              <td style="padding: 24px 20px;" class="mobile-padding">
-                <h3 style="margin: 0 0 20px; color: ${BRAND.colors.white}; font-size: 18px; font-weight: 600;">
-                  Próximos Pasos
-                </h3>
-                <p style="margin: 0 0 12px; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Revisión de tu perfil (24-48 horas)
-                </p>
-                <p style="margin: 0 0 12px; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Contacto directo si calificas
-                </p>
-                <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 14px; line-height: 22px;" class="mobile-text">
-                  <strong style="color: ${BRAND.colors.gold};">▶</strong>
-                  Consultoría estratégica exclusiva
-                </p>
-              </td>
-            </tr>
-          </table>
-
-          <!-- CTA Section -->
-          <table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-              <td align="center" style="padding: 24px 0 16px;">
-                <p style="margin: 0 0 24px; color: ${BRAND.colors.gray[300]}; font-size: 15px;" class="mobile-text">
-                  Mientras esperas, explora el ecosistema:
-                </p>
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
-                  <tr>
-                    <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;">
-                      <a href="${BRAND.urls.base}/"
-                         style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark};
-                                text-decoration: none; font-weight: 700; font-size: 16px; text-align: center; line-height: 24px;">
-                        Explorar CreaTuActivo.com
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-
-        </td>
-      </tr>
-
-      <!-- Footer -->
-      <tr>
-        <td style="background-color: ${BRAND.colors.dark}; padding: 24px 20px; text-align: center;
-                   border-top: 1px solid rgba(255,255,255,0.1);" class="mobile-padding">
-          <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[300]}; font-size: 14px;">
-            Luis Cabrejo & Liliana Moreno
-          </p>
-          <p style="margin: 0 0 16px; color: ${BRAND.colors.gray[500]}; font-size: 12px;">
-            Co-Fundadores de CreaTuActivo
-          </p>
-          <p style="margin: 0; color: ${BRAND.colors.gray[500]}; font-size: 11px; line-height: 18px;">
-            © ${new Date().getFullYear()} CreaTuActivo.com<br>
-            El primer ecosistema tecnológico para construcción de activos en América
-          </p>
-        </td>
-      </tr>
-    `;
-
     try {
+      // Intentar con React Email primero
       const { data: confirmationEmail, error: confirmationError } = await resend.emails.send({
         from: 'CreaTuActivo <noreply@creatuactivo.com>',
         to: formData.email,
         subject: `✅ Confirmación de Solicitud - ${firstName}`,
-        html: emailContainer(userEmailContent, true) // ← Usando HTML confiable temporalmente
+        react: FounderConfirmationEmail({ firstName }) // ← CORRECTO: Pasar como objeto
       });
 
       if (confirmationError) {
-        console.error('Error enviando email de confirmación:', confirmationError);
-        console.warn('Continuando después de error en email de confirmación');
+        throw new Error(`Error React Email: ${confirmationError.message}`);
       }
 
-      console.log('✅ Emails enviados:', {
+      console.log('✅ Emails enviados exitosamente:', {
         internal: mainEmail?.id,
-        confirmation: confirmationEmail?.id || 'failed',
+        confirmation: confirmationEmail?.id,
         user: formData.nombre,
-        method: 'html-only-temporary'
+        method: 'react-email'
       });
 
       return NextResponse.json({
@@ -353,10 +210,10 @@ export async function POST(request: NextRequest) {
         confirmationEmailId: confirmationEmail?.id
       });
 
-    } catch (htmlEmailError) {
-      console.error('Error con email HTML:', htmlEmailError);
+    } catch (reactEmailError) {
+      console.error('Error con React Email, usando HTML fallback:', reactEmailError);
 
-      // 🔄 FALLBACK: Si React Email falla, usar el HTML original como backup
+      // 🔄 FALLBACK: HTML directo si React Email falla
       const fallbackUserEmailContent = `
         <!-- Header con Logo -->
         <tr>
@@ -380,11 +237,11 @@ export async function POST(request: NextRequest) {
                           border-radius: 12px; margin-bottom: 30px;">
               <tr>
                 <td align="center" style="padding: 28px 16px;" class="mobile-padding">
-                  <div style="font-size: 48px; margin: 0 0 20px 0;">✅</div>
+                  <div style="font-size: 48px; margin: 0 0 20px 0;"></div>
                   <h2 style="margin: 0 0 16px; color: ${BRAND.colors.white}; font-size: 24px; font-weight: 600;" class="mobile-heading">
                     Solicitud Recibida
                   </h2>
-                  <p style="margin: 0; color: ${BRAND.colors.gray[300]}; font-size: 15px; line-height: 24px; padding: 0 10px;" class="mobile-text">
+                  <p style="margin: 0; color: ${BRAND.colors.gray[400]}; font-size: 15px; line-height: 24px; padding: 0 10px;" class="mobile-text">
                     Tu aplicación para ser Fundador está siendo<br>
                     evaluada por nuestro Comité de Arquitectos
                   </p>
@@ -396,13 +253,13 @@ export async function POST(request: NextRequest) {
             <table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
               <tr>
                 <td align="center" style="padding: 24px 0 16px;">
-                  <p style="margin: 0 0 24px; color: ${BRAND.colors.gray[300]}; font-size: 15px;" class="mobile-text">
+                  <p style="margin: 0 0 24px; color: ${BRAND.colors.gray[400]}; font-size: 15px;" class="mobile-text">
                     Mientras esperas, explora el ecosistema:
                   </p>
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="mobile-width">
                     <tr>
                       <td style="background-color: ${BRAND.colors.gold}; border-radius: 8px;">
-                        <a href="${BRAND.urls.base}/ecosistema"
+                        <a href="${BRAND.urls.base}/ecosistema?nombre=${encodeURIComponent(firstName)}"
                            style="display: block; padding: 16px 32px; color: ${BRAND.colors.dark};
                                   text-decoration: none; font-weight: 700; font-size: 16px; text-align: center; line-height: 24px;">
                           Explora el Ecosistema de Fundadores
@@ -421,7 +278,7 @@ export async function POST(request: NextRequest) {
         <tr>
           <td style="background-color: ${BRAND.colors.dark}; padding: 24px 20px; text-align: center;
                      border-top: 1px solid rgba(255,255,255,0.1);" class="mobile-padding">
-            <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[300]}; font-size: 14px;">
+            <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[400]}; font-size: 14px;">
               Luis Cabrejo & Liliana Moreno
             </p>
             <p style="margin: 0 0 16px; color: ${BRAND.colors.gray[500]}; font-size: 12px;">
@@ -443,11 +300,11 @@ export async function POST(request: NextRequest) {
         html: emailContainer(fallbackUserEmailContent, true)
       });
 
-      console.log('✅ Email enviado con fallback HTML:', {
+      console.log('✅ Email enviado con HTML fallback:', {
         internal: mainEmail?.id,
         confirmation: fallbackEmail?.id,
         user: formData.nombre,
-        method: 'fallback-html'
+        method: 'html-fallback'
       });
 
       return NextResponse.json({
@@ -468,7 +325,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// ✅ OPTIONS - Se mantiene exactamente igual
+// ✅ OPTIONS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,

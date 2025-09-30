@@ -1034,7 +1034,7 @@ export default function CatalogoEstrategico() {
               <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Sistemas de Bienestar Inteligentes</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
-              No Vendas Productos, Ofrece Soluciones
+              No Vendemos Productos, Ofrecemos Soluciones
             </h2>
             <p className="text-slate-600 text-lg max-w-3xl mx-auto">
               Cada sistema está diseñado para resolver necesidades específicas y generar testimonios poderosos

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Shield, Brain, Users, Rocket } from 'lucide-react'
+import StrategicNavigation from '@/components/StrategicNavigation'
 
 // Interfaces mejoradas con campos estratégicos
 interface Product {
@@ -726,6 +727,7 @@ export default function CatalogoEstrategico() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+          <StrategicNavigation />
 
       {/* Botón carrito flotante */}
       <button

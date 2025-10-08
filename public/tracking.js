@@ -1,7 +1,7 @@
 // ========================================
 // SISTEMA DE TRACKING FRAMEWORK IAA
 // Identifica prospectos y mantiene atribución
-// VERSION: v1.1 - Compatible con NEXUS API
+// VERSION: v1.3 - Debug Mejorado + Error Handling
 // ========================================
 
 (function() {
@@ -52,6 +52,23 @@
         return cookieId;
     }
 
+    // Obtener parámetro ref del URL
+    function getConstructorRef() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let ref = urlParams.get('ref');
+
+        // Si no hay ref en URL, buscar en localStorage (visitas posteriores)
+        if (!ref) {
+            ref = localStorage.getItem('constructor_ref');
+        } else {
+            // Guardar ref en localStorage para futuras visitas
+            localStorage.setItem('constructor_ref', ref);
+            console.log('✅ Constructor REF guardado:', ref);
+        }
+
+        return ref;
+    }
+
     // Detectar dispositivo
     function getDeviceInfo() {
         const isMobile = /Mobile|Android|iPhone/i.test(navigator.userAgent);
@@ -70,15 +87,28 @@
             const fingerprint = await generateFingerprint();
             const cookieId = getCookieId();
             const deviceInfo = getDeviceInfo();
+            const constructorRef = getConstructorRef();
 
             // Guardar en localStorage
             localStorage.setItem('nexus_fingerprint', fingerprint);
             localStorage.setItem('nexus_cookie', cookieId);
 
-            console.log('🔍 Framework IAA - Identificando prospecto...');
-            console.log('📊 Fingerprint generado:', fingerprint);
+            console.log('🎯 Framework IAA - Identificando prospecto...');
+            console.log('🔑 Fingerprint generado:', fingerprint);
 
-            // Llamar a Supabase
+            if (constructorRef) {
+                console.log('👤 Constructor REF detectado:', constructorRef);
+            }
+
+            // Construir URL con ref si existe y no está ya en la URL
+            let currentUrl = window.location.href;
+            if (constructorRef && !currentUrl.includes('?ref=') && !currentUrl.includes('&ref=')) {
+                currentUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + `ref=${constructorRef}`;
+            }
+
+            console.log('📡 Llamando a identify_prospect RPC...');
+
+            // Llamar a Supabase RPC
             const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/identify_prospect`, {
                 method: 'POST',
                 headers: {
@@ -89,61 +119,73 @@
                 body: JSON.stringify({
                     p_fingerprint: fingerprint,
                     p_cookie: cookieId,
-                    p_url: window.location.href,
+                    p_url: currentUrl,
                     p_device: deviceInfo
                 })
             });
 
+            console.log('📥 Response status:', response.status);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('❌ Error HTTP:', response.status, response.statusText);
+                console.error('❌ Error body:', errorText);
+                throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+            }
+
             const data = await response.json();
+            console.log('✅ Datos recibidos de identify_prospect:', data);
 
             if (data && data.length > 0) {
                 const prospectInfo = data[0];
 
-                // CRÍTICO: Crear API FrameworkIAA compatible con NEXUS
+                // Crear API FrameworkIAA compatible con NEXUS
                 window.FrameworkIAA = {
                     fingerprint: fingerprint,
+                    constructorRef: constructorRef,
                     prospect: {
                         id: prospectInfo.prospect_id,
                         constructorId: prospectInfo.constructor_id,
                         isReturning: prospectInfo.is_returning,
                         visits: prospectInfo.visits
                     },
-                    // Mantener compatibilidad con código existente
                     updateProspectData: window.updateProspectData
                 };
 
-                // BACKWARD COMPATIBILITY: Mantener window.nexusProspect
+                // BACKWARD COMPATIBILITY
                 window.nexusProspect = {
                     id: prospectInfo.prospect_id,
                     constructorId: prospectInfo.constructor_id,
                     isReturning: prospectInfo.is_returning,
                     visits: prospectInfo.visits,
-                    fingerprint: fingerprint
+                    fingerprint: fingerprint,
+                    constructorRef: constructorRef
                 };
 
                 console.log('✅ Prospecto identificado:', {
                     fingerprint: fingerprint,
                     prospectId: prospectInfo.prospect_id,
+                    constructorRef: constructorRef,
                     isReturning: prospectInfo.is_returning,
                     visits: prospectInfo.visits
                 });
 
-                console.log('🌟 window.FrameworkIAA creado:', window.FrameworkIAA);
+                console.log('✅ window.FrameworkIAA creado:', window.FrameworkIAA);
 
                 // Si NEXUS existe, pasarle el contexto
                 if (window.NEXUS) {
                     window.NEXUS.setProspectContext(window.nexusProspect);
                 }
 
-                // Emitir evento personalizado
+                // Emitir eventos
                 window.dispatchEvent(new CustomEvent('prospectIdentified', {
                     detail: {
                         fingerprint: fingerprint,
-                        prospect: prospectInfo
+                        prospect: prospectInfo,
+                        constructorRef: constructorRef
                     }
                 }));
 
-                // Emitir evento para NEXUS específicamente
                 window.dispatchEvent(new CustomEvent('nexusTrackingReady', {
                     detail: window.FrameworkIAA
                 }));
@@ -153,6 +195,9 @@
             }
         } catch (error) {
             console.error('❌ Error identificando prospecto:', error);
+            console.error('❌ Error name:', error.name);
+            console.error('❌ Error message:', error.message);
+            console.error('❌ Error stack:', error.stack);
 
             // Fallback: crear FrameworkIAA con datos mínimos
             const fallbackFingerprint = localStorage.getItem('nexus_fingerprint') || 'fallback_' + Date.now();
@@ -166,17 +211,24 @@
         }
     }
 
-    // Función para actualizar datos del prospecto
+    // Función para actualizar datos del prospecto (MEJORADA CON DEBUG)
     window.updateProspectData = async function(data) {
         try {
             const fingerprint = window.FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint');
 
             if (!fingerprint) {
                 console.error('❌ No hay fingerprint disponible para actualizar datos');
-                return;
+                return false;
             }
 
-            console.log('📊 Actualizando datos del prospecto:', data);
+            console.log('📤 Actualizando datos del prospecto:', data);
+
+            const payload = {
+                p_fingerprint_id: fingerprint,
+                p_data: data
+            };
+
+            console.log('📦 Payload completo:', payload);
 
             const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/update_prospect_data`, {
                 method: 'POST',
@@ -185,11 +237,17 @@
                     'apikey': SUPABASE_ANON_KEY,
                     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                 },
-                body: JSON.stringify({
-                    p_fingerprint_id: fingerprint,
-                    p_data: data
-                })
+                body: JSON.stringify(payload)
             });
+
+            console.log('📥 update_prospect_data - Response status:', response.status);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('❌ Error HTTP en update_prospect_data:', response.status);
+                console.error('❌ Error body:', errorText);
+                throw new Error(`HTTP error ${response.status}: ${errorText}`);
+            }
 
             const result = await response.json();
             console.log('✅ Datos actualizados exitosamente:', result);
@@ -197,6 +255,9 @@
             return result;
         } catch (error) {
             console.error('❌ Error actualizando datos:', error);
+            console.error('❌ Error name:', error.name);
+            console.error('❌ Error message:', error.message);
+            return false;
         }
     };
 
@@ -208,34 +269,55 @@
     setInterval(() => {
         timeSpent = Math.floor((Date.now() - startTime) / 1000);
         if (window.FrameworkIAA?.fingerprint && timeSpent > 30) {
+            console.log('⏱️ Actualizando tiempo (30s interval):', timeSpent, 'segundos');
             window.updateProspectData({
                 tiempo_total_segundos: timeSpent
             });
         }
     }, 30000);
 
-    // Enviar tiempo total al salir
+    // Enviar tiempo total al salir (DEBUG MEJORADO)
     window.addEventListener('beforeunload', () => {
         timeSpent = Math.floor((Date.now() - startTime) / 1000);
 
-        // Enviar tiempo total con beacon API
         if (window.FrameworkIAA?.fingerprint) {
-            const payload = JSON.stringify({
+            const payload = {
                 p_fingerprint_id: window.FrameworkIAA.fingerprint,
                 p_data: {
                     tiempo_total_segundos: timeSpent,
                     ultima_visita: new Date().toISOString()
                 }
-            });
+            };
 
-            navigator.sendBeacon(
-                `${SUPABASE_URL}/rest/v1/rpc/update_prospect_data`,
-                new Blob([payload], { type: 'application/json' })
-            );
+            console.log('🔍 DEBUG beforeunload - Enviando:', payload);
+            console.log('🔍 DEBUG - Tiempo total:', timeSpent, 'segundos');
+
+            // Usar fetch con keepalive
+            fetch(`${SUPABASE_URL}/rest/v1/rpc/update_prospect_data`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                },
+                body: JSON.stringify(payload),
+                keepalive: true
+            }).then(response => {
+                console.log('✅ beforeunload - Response status:', response.status);
+                console.log('✅ beforeunload - Response headers:', [...response.headers.entries()]);
+                return response.text();
+            }).then(text => {
+                console.log('✅ beforeunload - Response body:', text);
+            }).catch(err => {
+                console.error('❌ ERROR COMPLETO en beforeunload:', err);
+                console.error('❌ Error name:', err.name);
+                console.error('❌ Error message:', err.message);
+                console.error('❌ Error stack:', err.stack);
+            });
         }
     });
 
-    // Función helper para obtener el contexto del prospecto (BACKWARD COMPATIBILITY)
+    // BACKWARD COMPATIBILITY
     window.getProspectContext = function() {
         return window.nexusProspect || window.FrameworkIAA?.prospect || null;
     };
@@ -246,29 +328,37 @@
         await identifyProspect();
     };
 
-    // DEBUGGING: Función para verificar estado del tracking
+    // DEBUGGING MEJORADO
     window.debugTracking = function() {
-        console.log('🔍 ESTADO DEL TRACKING:');
-        console.log('- window.FrameworkIAA:', window.FrameworkIAA);
-        console.log('- Fingerprint disponible:', window.FrameworkIAA?.fingerprint);
-        console.log('- localStorage fingerprint:', localStorage.getItem('nexus_fingerprint'));
-        console.log('- Cookie tracking:', document.cookie.includes('nexus_prospect_id'));
-        console.log('- Prospect data:', window.nexusProspect);
+        console.log('═══════════════════════════════════════');
+        console.log('🔍 ESTADO COMPLETO DEL TRACKING');
+        console.log('═══════════════════════════════════════');
+        console.log('📊 window.FrameworkIAA:', window.FrameworkIAA);
+        console.log('🔑 Fingerprint:', window.FrameworkIAA?.fingerprint);
+        console.log('👤 Constructor REF:', window.FrameworkIAA?.constructorRef);
+        console.log('💾 localStorage fingerprint:', localStorage.getItem('nexus_fingerprint'));
+        console.log('💾 localStorage ref:', localStorage.getItem('constructor_ref'));
+        console.log('🍪 Cookie tracking:', document.cookie.includes('nexus_prospect_id'));
+        console.log('👥 Prospect data:', window.nexusProspect);
+        console.log('⏱️ Tiempo actual en página:', Math.floor((Date.now() - startTime) / 1000), 'segundos');
+        console.log('🌐 URL actual:', window.location.href);
+        console.log('🔧 Supabase URL:', SUPABASE_URL);
+        console.log('═══════════════════════════════════════');
     };
 
     // Inicializar cuando el DOM esté listo
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', identifyProspect);
     } else {
-        // Delay mínimo para asegurar que el DOM esté completamente listo
         setTimeout(identifyProspect, 100);
     }
 
-    // Log para confirmar que el script está cargado
-    console.log('🚀 Framework IAA Tracking v1.1 cargado - Compatible con NEXUS API');
-
-    // DEBUG: Verificar configuración
-    console.log('🔧 Configuración:', {
+    console.log('═══════════════════════════════════════');
+    console.log('🚀 Framework IAA Tracking v1.3 cargado');
+    console.log('🔧 Compatible con NEXUS API');
+    console.log('🐛 Debug Mode: ACTIVADO');
+    console.log('═══════════════════════════════════════');
+    console.log('Configuracion:', {
         SUPABASE_URL: SUPABASE_URL,
         TRACKING_CONFIG: window.TRACKING_CONFIG
     });

@@ -19,16 +19,16 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const runtime = 'edge';
-export const maxDuration = 25;
+export const maxDuration = 30; // ✅ OPTIMIZACIÓN v11.9: 25→30s buffer para requests pesados
 
 // Cache en memoria optimizado para arquitectura híbrida
 const searchCache = new Map<string, any>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
-// CORRECCIÓN: System prompt sin cache para forzar actualización
+// ✅ OPTIMIZACIÓN v11.9: System prompt CON cache para reducir latencia
 const systemPromptCache = new Map<string, any>();
-const SYSTEM_PROMPT_CACHE_TTL = 0; // Sin cache permanentemente
+const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con searchCache)
 
-const API_VERSION = 'arquitectura_hibrida_escalable_catalogo_fix';
+const API_VERSION = 'v11.9_cap_temprana_optimizada';
 
 // ========================================
 // FRAMEWORK IAA - CAPTURA INTELIGENTE
@@ -106,23 +106,34 @@ async function captureProspectData(
     }
   }
 
-  // CÁLCULO DE NIVEL DE INTERÉS (HÍBRIDO)
+  // CÁLCULO DE NIVEL DE INTERÉS (HÍBRIDO MEJORADO)
   let nivelInteres = 5; // Base neutral
 
-  // Indicadores positivos
+  // ✅ NUEVO: Compartir datos personales = alta calificación
+  if (data.nombre) nivelInteres += 2;
+  if (data.telefono) nivelInteres += 3; // WhatsApp es el indicador más fuerte
+  if (data.email) nivelInteres += 1.5;
+  if (data.ocupacion) nivelInteres += 1;
+
+  // Indicadores positivos (palabras clave)
   if (messageLower.includes('paquete') || messageLower.includes('inversión')) nivelInteres += 2;
   if (messageLower.includes('empezar') || messageLower.includes('comenzar')) nivelInteres += 3;
-  if (messageLower.includes('precio') || messageLower.includes('costo')) nivelInteres += 1;
-  if (messageLower.includes('quiero') || messageLower.includes('necesito')) nivelInteres += 2;
-  if (messageLower.includes('cuándo') || messageLower.includes('cuando')) nivelInteres += 1;
+  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) nivelInteres += 1.5;
+  if (messageLower.includes('quiero') || messageLower.includes('necesito') || messageLower.includes('me interesa')) nivelInteres += 2;
+  if (messageLower.includes('cuándo') || messageLower.includes('cuando') || messageLower.includes('cómo')) nivelInteres += 1;
 
-  // Indicadores negativos
-  if (messageLower.includes('no') || messageLower.includes('después')) nivelInteres -= 2;
-  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 1;
-  if (messageLower.includes('duda') || messageLower.includes('no sé')) nivelInteres -= 1;
+  // Indicadores negativos (menos agresivos)
+  if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) nivelInteres -= 3;
+  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 0.5;
+  if (messageLower.includes('duda')) nivelInteres -= 0.5;
 
   data.nivel_interes = Math.min(10, Math.max(0, nivelInteres));
-  console.log('Nivel de interés calculado:', data.nivel_interes);
+  console.log('Nivel de interés calculado:', data.nivel_interes, {
+    tiene_nombre: !!data.nombre,
+    tiene_telefono: !!data.telefono,
+    tiene_email: !!data.email,
+    tiene_ocupacion: !!data.ocupacion
+  });
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
   const objeciones: string[] = [];
@@ -631,10 +642,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   }
 }
 
-// CORRECCIÓN: Función para obtener system prompt sin cache
+// ✅ OPTIMIZACIÓN v11.9: Función para obtener system prompt CON cache inteligente
 async function getSystemPrompt(): Promise<string> {
-  // ELIMINADO COMPLETAMENTE EL CACHE - FORZAR RECARGA SIEMPRE
-  console.log('🔄 Forzando recarga system prompt (sin cache)');
+  const cacheKey = 'system_prompt_main';
+  const cached = systemPromptCache.get(cacheKey);
+
+  // Verificar cache válido
+  if (cached && (Date.now() - cached.timestamp) < SYSTEM_PROMPT_CACHE_TTL) {
+    console.log(`✅ System prompt ${cached.version} desde cache (TTL: ${Math.round((SYSTEM_PROMPT_CACHE_TTL - (Date.now() - cached.timestamp)) / 1000)}s restantes)`);
+    return cached.content;
+  }
+
+  console.log('🔄 Recargando system prompt desde Supabase...');
 
   try {
     const { data, error } = await supabase
@@ -645,17 +664,39 @@ async function getSystemPrompt(): Promise<string> {
 
     if (error) {
       console.error('Error leyendo system prompt de Supabase:', error);
+      // Si hay cache expirado, úsalo como fallback antes del hardcoded
+      if (cached) {
+        console.warn('⚠️ Usando cache expirado como fallback');
+        return cached.content;
+      }
       return getFallbackSystemPrompt();
     }
 
     const systemPrompt = data?.content || getFallbackSystemPrompt();
 
-    // LOGS CLAROS DE VERSIÓN
-    console.log(`✅ System prompt ${data?.version || 'desconocido'} cargado - CACHE DESHABILITADO`);
+    // ⚠️ Validar longitud para detectar prompts excesivos
+    if (systemPrompt.length > 50000) {
+      console.warn(`⚠️ System prompt muy largo: ${systemPrompt.length} caracteres (>50k)`);
+    }
+
+    // Cachear el prompt con metadata
+    systemPromptCache.set(cacheKey, {
+      content: systemPrompt,
+      timestamp: Date.now(),
+      version: data?.version || 'unknown',
+      length: systemPrompt.length
+    });
+
+    console.log(`✅ System prompt ${data?.version} cargado y cacheado (${systemPrompt.length} chars, TTL: 5min)`);
     return systemPrompt;
 
   } catch (error) {
     console.error('Error conectando system prompt:', error);
+    // Fallback a cache expirado si existe
+    if (cached) {
+      console.warn('⚠️ Error crítico - usando cache expirado');
+      return cached.content;
+    }
     return getFallbackSystemPrompt();
   }
 }

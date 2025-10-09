@@ -52,8 +52,8 @@ async function captureProspectData(
   fingerprint?: string
 ): Promise<ProspectData> {
 
-  console.log('Captura datos híbrida - Input:', {
-    message: message.substring(0, 50) + '...',
+  console.log('🔍 [NEXUS] Captura datos híbrida - Input:', {
+    message: message.substring(0, 100),
     sessionId,
     fingerprint,
     hasFingerprint: !!fingerprint
@@ -72,8 +72,17 @@ async function captureProspectData(
     const match = message.match(pattern);
     if (match) {
       data.nombre = match[1].trim();
-      console.log('Nombre capturado:', data.nombre);
+      console.log('✅ [NEXUS] Nombre capturado:', data.nombre, 'del mensaje:', message.substring(0, 50));
       break;
+    }
+  }
+
+  if (!data.nombre && message.length < 30) {
+    // Intento adicional: nombre simple sin patrón estricto
+    const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
+    if (simpleNameMatch && !messageLower.match(/hola|gracias|si|no|ok|bien/)) {
+      data.nombre = simpleNameMatch[1].trim();
+      console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.nombre);
     }
   }
 
@@ -128,11 +137,12 @@ async function captureProspectData(
   if (messageLower.includes('duda')) nivelInteres -= 0.5;
 
   data.nivel_interes = Math.min(10, Math.max(0, nivelInteres));
-  console.log('Nivel de interés calculado:', data.nivel_interes, {
+  console.log('📊 [NEXUS] Nivel de interés calculado:', data.nivel_interes, {
     tiene_nombre: !!data.nombre,
     tiene_telefono: !!data.telefono,
     tiene_email: !!data.email,
-    tiene_ocupacion: !!data.ocupacion
+    tiene_ocupacion: !!data.ocupacion,
+    momento_optimo: data.nivel_interes >= 7 ? 'caliente' : data.nivel_interes >= 4 ? 'tibio' : 'frio'
   });
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
@@ -190,21 +200,29 @@ async function captureProspectData(
   // GUARDAR EN SUPABASE SI HAY DATOS
   if (Object.keys(data).length > 0 && fingerprint) {
     try {
-      console.log('Guardando en BD:', { fingerprint, data });
+      console.log('🔵 [NEXUS] Guardando en BD:', { fingerprint, data });
 
-      await supabase.rpc('update_prospect_data', {
+      const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
         p_fingerprint_id: fingerprint,
         p_data: data
       });
 
-      console.log('Datos guardados exitosamente en BD');
+      if (rpcError) {
+        console.error('❌ [NEXUS] Error RPC update_prospect_data:', rpcError);
+        throw rpcError;
+      }
+
+      console.log('✅ [NEXUS] Datos guardados exitosamente:', rpcResult);
     } catch (error) {
-      console.error('Error guardando datos del prospecto:', error);
+      console.error('❌ [NEXUS] Error guardando datos del prospecto:', error);
+      // No propagar el error para no romper la conversación
     }
   } else {
-    console.log('No se guardaron datos:', {
+    console.warn('⚠️ [NEXUS] No se guardaron datos:', {
       tieneFingerprint: !!fingerprint,
+      fingerprintValue: fingerprint || 'undefined',
       cantidadDatos: Object.keys(data).length,
+      datosCapturados: data,
       motivo: !fingerprint ? 'Sin fingerprint' : 'Sin datos capturados'
     });
   }

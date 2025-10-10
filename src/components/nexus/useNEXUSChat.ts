@@ -70,8 +70,40 @@ const sendMessage = useCallback(async (content: string) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    const fingerprint = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || undefined;
+    // ========================================
+    // FIX: Race Condition - Esperar fingerprint
+    // ========================================
+    const waitForFingerprint = async (maxWait = 5000): Promise<string | undefined> => {
+      const start = Date.now();
+
+      // Intentar obtener fingerprint cada 100ms durante máximo 5 segundos
+      while (Date.now() - start < maxWait) {
+        const fp = (window as any).FrameworkIAA?.fingerprint;
+        if (fp) {
+          console.log('✅ [NEXUS Widget] Fingerprint obtenido:', fp.substring(0, 20) + '...');
+          return fp;
+        }
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+
+      // Fallback a localStorage si no se inicializó FrameworkIAA
+      const stored = localStorage.getItem('nexus_fingerprint');
+      if (stored) {
+        console.log('⚠️ [NEXUS Widget] Fingerprint desde localStorage (fallback)');
+        return stored;
+      }
+
+      console.error('❌ [NEXUS Widget] CRÍTICO: No se pudo obtener fingerprint después de', maxWait, 'ms');
+      return undefined;
+    };
+
+    // ✅ ESPERAR fingerprint antes de hacer la petición
+    const fingerprint = await waitForFingerprint();
     const sessionId = (window as any).nexusProspect?.id || `session_${Date.now()}`;
+
+    if (!fingerprint) {
+      console.error('❌ [NEXUS Widget] Enviando mensaje SIN fingerprint - Los datos NO se guardarán');
+    }
 
     const response = await fetch('/api/nexus', {
       method: 'POST',
@@ -83,7 +115,7 @@ const sendMessage = useCallback(async (content: string) => {
           role: msg.role,
           content: msg.content
         })),
-        fingerprint: fingerprint,
+        fingerprint: fingerprint,  // ✅ Ahora garantizado que existe o es undefined con warning
         sessionId: sessionId
       }),
       signal: controller.signal

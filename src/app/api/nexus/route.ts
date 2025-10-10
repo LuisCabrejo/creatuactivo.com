@@ -931,12 +931,21 @@ export async function POST(req: Request) {
     const { messages, sessionId, fingerprint } = await req.json();
     const latestUserMessage = messages[messages.length - 1].content;
 
-    console.log('NEXUS Híbrido - Request:', {
-      message: latestUserMessage.substring(0, 50) + '...',
-      sessionId,
-      fingerprint,
-      hasTracking: !!fingerprint
+    // ========================================
+    // ✅ LOGGING DETALLADO DEL REQUEST
+    // ========================================
+    console.log('🔍 [NEXUS API] Request recibido:', {
+      messagePreview: latestUserMessage.substring(0, 50) + '...',
+      sessionId: sessionId,
+      fingerprint: fingerprint ? `${fingerprint.substring(0, 20)}...` : '❌ UNDEFINED',
+      hasFingerprint: !!fingerprint,
+      messageCount: messages.length
     });
+
+    if (!fingerprint) {
+      console.error('❌ [NEXUS API] CRÍTICO: Request sin fingerprint - Los datos personales NO se guardarán en BD');
+      console.error('❌ [NEXUS API] Verificar que tracking.js se haya cargado antes de la conversación');
+    }
 
     // FRAMEWORK IAA - CAPTURA INTELIGENTE
     const prospectData = await captureProspectData(

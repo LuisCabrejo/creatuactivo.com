@@ -3,17 +3,34 @@
 // Responsabilidad: Validar + Encolar → Respuesta 202 Accepted inmediata
 // NO procesa IA ni guarda datos directamente
 
-import { Kafka } from '@upstash/kafka';
+import { Kafka } from 'kafkajs';
 import { nanoid } from 'nanoid';
 
-// Configuración de Upstash Kafka
+// Configuración de Confluent Cloud Kafka
 const kafka = new Kafka({
-  url: process.env.UPSTASH_KAFKA_REST_URL!,
-  username: process.env.UPSTASH_KAFKA_REST_USERNAME!,
-  password: process.env.UPSTASH_KAFKA_REST_PASSWORD!,
+  clientId: 'nexus-producer',
+  brokers: [process.env.CONFLUENT_BOOTSTRAP_SERVER!],
+  ssl: true,
+  sasl: {
+    mechanism: 'plain',
+    username: process.env.CONFLUENT_API_KEY!,
+    password: process.env.CONFLUENT_API_SECRET!,
+  },
 });
 
-export const runtime = 'edge';
+// Crear producer singleton para reutilizar conexión
+let producer: any = null;
+
+async function getProducer() {
+  if (!producer) {
+    producer = kafka.producer();
+    await producer.connect();
+  }
+  return producer;
+}
+
+// Node.js runtime (KafkaJS no funciona en Edge)
+export const runtime = 'nodejs';
 export const maxDuration = 10; // Solo encolamos, no procesamos
 
 interface ProducerMessage {
@@ -79,21 +96,27 @@ export async function POST(req: Request) {
     // Generar ID único para tracking
     const messageId = nanoid();
 
-    // Encolar mensaje usando Upstash Kafka
-    const producer = kafka.producer();
-    const kafkaResult = await producer.produce(
-      'nexus-prospect-ingestion', // topic name
-      enrichedPayload,
-      {
-        key: messageId, // Use messageId as key for partitioning
-      }
-    );
+    // Encolar mensaje usando Confluent Cloud Kafka (KafkaJS)
+    const producer = await getProducer();
+    const result = await producer.send({
+      topic: 'nexus-prospect-ingestion',
+      messages: [
+        {
+          key: messageId,
+          value: JSON.stringify(enrichedPayload),
+          headers: {
+            'correlation-id': messageId,
+            'producer-version': '2.0.0-confluent',
+          },
+        },
+      ],
+    });
 
     const totalTime = Date.now() - startTime;
     console.log(`✅ [PRODUCTOR] Mensaje encolado en ${totalTime}ms`, {
       messageId,
-      kafkaOffset: kafkaResult?.offset,
-      kafkaPartition: kafkaResult?.partition,
+      kafkaOffset: result[0]?.offset,
+      kafkaPartition: result[0]?.partition,
       fingerprint: payload.fingerprint?.substring(0, 20) || 'none'
     });
 
@@ -102,8 +125,9 @@ export async function POST(req: Request) {
       status: 'accepted',
       messageId,
       kafka: {
-        offset: kafkaResult?.offset,
-        partition: kafkaResult?.partition,
+        offset: result[0]?.offset,
+        partition: result[0]?.partition,
+        topicName: result[0]?.topicName,
       },
       message: 'Your message has been queued for processing',
       estimatedProcessingTime: '2-5 seconds'
@@ -134,24 +158,29 @@ export async function POST(req: Request) {
 // Health check endpoint
 export async function GET() {
   try {
-    // Verificar que las credenciales de Kafka estén configuradas
+    // Verificar que las credenciales de Confluent estén configuradas
     const hasKafkaConfig = !!(
-      process.env.UPSTASH_KAFKA_REST_URL &&
-      process.env.UPSTASH_KAFKA_REST_USERNAME &&
-      process.env.UPSTASH_KAFKA_REST_PASSWORD
+      process.env.CONFLUENT_BOOTSTRAP_SERVER &&
+      process.env.CONFLUENT_API_KEY &&
+      process.env.CONFLUENT_API_SECRET
     );
 
     if (!hasKafkaConfig) {
-      throw new Error('Kafka credentials not configured');
+      throw new Error('Confluent Kafka credentials not configured');
     }
+
+    // Verificar conexión al producer
+    const producer = await getProducer();
+    const isConnected = producer !== null;
 
     return new Response(JSON.stringify({
       status: 'healthy',
-      version: '2.0.0-producer-kafka',
+      version: '3.0.0-producer-confluent',
       role: 'message-producer',
-      transport: 'upstash-kafka',
+      transport: 'confluent-cloud-kafka',
       topic: 'nexus-prospect-ingestion',
       kafkaConfigured: hasKafkaConfig,
+      producerConnected: isConnected,
       timestamp: new Date().toISOString()
     }), {
       status: 200,
@@ -161,7 +190,7 @@ export async function GET() {
   } catch (error) {
     return new Response(JSON.stringify({
       status: 'unhealthy',
-      version: '2.0.0-producer-kafka',
+      version: '3.0.0-producer-confluent',
       error: error instanceof Error ? error.message : String(error)
     }), {
       status: 503,

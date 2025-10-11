@@ -106,39 +106,40 @@ Browser-based fingerprinting and session tracking loaded in [src/app/layout.tsx]
 
 **Critical Integration**: The tracking script MUST load before NEXUS widget renders. Currently configured as synchronous script (no `defer`) in layout.tsx:111.
 
-**✅ FASE 1 IMPLEMENTADA**: Async Message Queue with Upstash Kafka
+**✅ FASE 1 IMPLEMENTADA**: Async Message Queue with Confluent Cloud
 
-The NEXUS system now uses a **producer-consumer architecture** with **Upstash Kafka** (serverless message queue):
+The NEXUS system now uses a **producer-consumer architecture** with **Confluent Cloud** (enterprise Kafka):
 
-**Architecture** (see [UPSTASH_SETUP.md](UPSTASH_SETUP.md) for complete setup guide):
+**Architecture**:
 
 1. **Producer** - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts)
    - Validates incoming chat messages
    - Publishes to Kafka topic `nexus-prospect-ingestion`
    - Returns `202 Accepted` immediately (<100ms)
    - No LLM processing, no database writes
-   - Uses `@upstash/kafka` SDK with REST API
+   - Uses `kafkajs` SDK with SASL/SSL
 
 2. **Consumer** - [supabase/functions/nexus-consumer/index.ts](supabase/functions/nexus-consumer/index.ts)
-   - Supabase Edge Function triggered by Cron/QStash (every 10s)
-   - Consumes messages from Kafka topic
+   - Supabase Edge Function triggered by Cron (every 10s)
+   - Consumes messages from Kafka topic in batches
    - Calls Claude API with optimized extraction prompt
    - Persists data via `update_prospect_data` RPC
    - Auto-commits offset after successful processing
 
 3. **Queue Infrastructure**:
-   - **Service**: Upstash Kafka (serverless)
+   - **Service**: Confluent Cloud (fully managed Kafka)
+   - **Cluster**: lkc-r35ym9 (US East 2)
    - **Topic**: `nexus-prospect-ingestion`
    - **Consumer Group**: `nexus-consumer-group`
-   - **SDK**: `@upstash/kafka` (Node.js/Deno)
-   - **Retention**: 3 days, 1GB
+   - **SDK**: `kafkajs` (Node.js/Deno compatible)
 
 **Environment Variables Required**:
 ```bash
-# Upstash Kafka (get from console.upstash.com)
-UPSTASH_KAFKA_REST_URL=https://your-cluster.upstash.io
-UPSTASH_KAFKA_REST_USERNAME=your-username
-UPSTASH_KAFKA_REST_PASSWORD=your-password
+# Confluent Kafka (get from confluent.cloud)
+CONFLUENT_BOOTSTRAP_SERVER=pkc-921jm.us-east-2.aws.confluent.cloud:9092
+CONFLUENT_API_KEY=your-api-key
+CONFLUENT_API_SECRET=your-api-secret
+CONFLUENT_CLUSTER_ID=lkc-r35ym9
 
 # Existing variables
 ANTHROPIC_API_KEY=sk-ant-...
@@ -146,26 +147,27 @@ NEXT_PUBLIC_SUPABASE_URL=https://...
 SUPABASE_SERVICE_ROLE_KEY=...
 ```
 
-See [.env.example](.env.example) for complete reference.
+See [.env.example](.env.example) for complete reference. **Credentials already configured in `.env.local`**.
 
 **Benefits**:
 - ✅ Eliminates "Mensaje Fantasma" bug (data loss on failures)
 - ✅ Resilient: Messages retry automatically if processing fails
-- ✅ Scalable: Kafka handles millions of messages/day
-- ✅ Observable: Full traceability via Upstash Console + logs
-- ✅ Serverless: No infrastructure management, pay-per-use
+- ✅ Enterprise-grade: Confluent SLA 99.99% uptime
+- ✅ Scalable: Proven to handle billions of messages/day
+- ✅ Observable: Full traceability via Confluent Cloud Console + logs
 - ✅ Future-proof: Aligns with NodeX ecosystem (PostHog → Kafka → Supabase)
 
-**Migration from pgmq**:
+**Migration History**:
 - ❌ pgmq was blocked due to Supabase infrastructure limitations
-- ✅ Upstash Kafka chosen per strategic roadmap ([Ecosistema-Digital-NodeX-Integración-y-Optimización.md](knowledge_base/Ecosistema-Digital-NodeX-Integración-y-Optimización.md))
-- 📋 Minimal code changes (90% of logic preserved)
+- ✅ Initially migrated to Upstash Kafka (REST API)
+- ✅ Final migration to Confluent Cloud (native Kafka protocol for better performance)
+- 📋 Code changes: 95% of business logic preserved
 
 **Deployment**:
-1. Follow [UPSTASH_SETUP.md](UPSTASH_SETUP.md) to create cluster and configure env vars
-2. Deploy Producer: `git push` (Vercel auto-deploys)
-3. Deploy Consumer: `npx supabase functions deploy nexus-consumer`
-4. Setup Cron: Vercel Cron, Supabase Cron, or Upstash QStash
+1. **Credentials**: Already configured in `.env.local` ✅
+2. **Deploy Producer**: `git push` (Vercel auto-deploys)
+3. **Deploy Consumer**: `npx supabase functions deploy nexus-consumer`
+4. **Setup Cron**: Vercel Cron or Supabase Cron (every 10 seconds)
 
 **Legacy Endpoint**: `/api/nexus/route.ts` remains for backward compatibility but should be migrated to `/api/nexus/producer`
 

@@ -21,7 +21,7 @@ const kafka = new Kafka({
   brokers: [CONFLUENT_BOOTSTRAP_SERVER],
   ssl: true,
   sasl: {
-    mechanism: 'plain',
+    mechanism: 'scram-sha-256', // Confluent Cloud requiere SCRAM-SHA-256
     username: CONFLUENT_API_KEY,
     password: CONFLUENT_API_SECRET,
   },

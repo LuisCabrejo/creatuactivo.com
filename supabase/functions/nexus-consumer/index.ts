@@ -27,17 +27,8 @@ const kafka = new Kafka({
   },
 });
 
-// Crear consumer singleton
-let consumer: any = null;
-
-async function getConsumer() {
-  if (!consumer) {
-    consumer = kafka.consumer({ groupId: 'nexus-consumer-group' });
-    await consumer.connect();
-    await consumer.subscribe({ topic: 'nexus-prospect-ingestion', fromBeginning: false });
-  }
-  return consumer;
-}
+// NO usar singleton - crear nueva instancia en cada invocación
+// para evitar EarlyDrop del runtime de Supabase
 
 interface QueueMessage {
   messages: Array<{ role: 'user' | 'assistant'; content: string }>;
@@ -202,27 +193,50 @@ async function processMessage(payload: QueueMessage) {
 
 serve(async (_req: any) => {
   const startTime = Date.now();
+  let consumer: any = null;
 
   try {
-    console.log('🟢 [CONSUMIDOR] Iniciando procesamiento de Confluent Kafka...');
+    console.log('🟢 [CONSUMIDOR] Iniciando single poll de Confluent Kafka...');
 
-    // Obtener consumer singleton
-    const consumer = await getConsumer();
+    // Crear nueva instancia de consumer (NO singleton)
+    consumer = kafka.consumer({
+      groupId: 'nexus-consumer-group',
+      sessionTimeout: 30000,
+      heartbeatInterval: 3000,
+    });
+
+    // Conectar
+    console.log('🔌 [CONSUMIDOR] Conectando a Confluent...');
+    await consumer.connect();
+
+    // Suscribirse al topic
+    await consumer.subscribe({
+      topic: 'nexus-prospect-ingestion',
+      fromBeginning: false
+    });
+
+    console.log('📥 [CONSUMIDOR] Solicitando batch de mensajes...');
 
     let processedCount = 0;
     let lastPayload: QueueMessage | null = null as QueueMessage | null;
     let lastExtractedData: ProspectData | null = null;
+    let batchReceived = false;
 
-    // Configurar timeout para procesar al menos 1 mensaje y retornar
-    const timeout = setTimeout(() => {
-      consumer.disconnect();
-    }, 8000); // 8 segundos timeout
-
-    // Consumir mensajes
+    // Patrón "single poll" - consumir UNA SOLA VEZ
     await consumer.run({
-      eachBatch: async ({ batch }: any) => {
-        console.log(`📦 [CONSUMIDOR] Batch recibido: ${batch.messages.length} mensajes`);
+      eachBatch: async ({ batch, resolveOffset, heartbeat }: any) => {
+        batchReceived = true;
+        const batchSize = batch.messages.length;
 
+        console.log(`📦 [CONSUMIDOR] Batch recibido: ${batchSize} mensajes`);
+
+        if (batchSize === 0) {
+          // No hay mensajes, salir inmediatamente
+          await consumer.stop();
+          return;
+        }
+
+        // Procesar cada mensaje del batch
         for (const message of batch.messages) {
           try {
             const payload: QueueMessage = JSON.parse(message.value.toString());
@@ -241,19 +255,37 @@ serve(async (_req: any) => {
             lastExtractedData = await processMessage(payload);
             processedCount++;
 
+            // Commit offset inmediatamente después de procesar
+            await resolveOffset(message.offset);
+
+            // Enviar heartbeat para mantener sesión activa
+            await heartbeat();
+
           } catch (error) {
             console.error('❌ [CONSUMIDOR] Error procesando mensaje individual:', error);
-            // Continuar con el siguiente mensaje
+            // Continuar con el siguiente mensaje sin hacer commit del offset fallido
           }
         }
 
-        // Limpiar timeout después de procesar batch
-        clearTimeout(timeout);
-
-        // Detener consumer después de procesar este batch
-        await consumer.disconnect();
+        // Detener consumer después de procesar el batch
+        console.log('🛑 [CONSUMIDOR] Deteniendo consumer después del batch...');
+        await consumer.stop();
       },
     });
+
+    // Esperar un momento para que el batch se procese
+    // Si no hay mensajes, esto termina rápidamente
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Desconectar explícitamente
+    console.log('🔌 [CONSUMIDOR] Desconectando...');
+    if (consumer) {
+      try {
+        await consumer.disconnect();
+      } catch (disconnectError) {
+        console.warn('⚠️ [CONSUMIDOR] Error al desconectar (ignorado):', disconnectError);
+      }
+    }
 
     const totalTime = Date.now() - startTime;
 
@@ -262,6 +294,7 @@ serve(async (_req: any) => {
       return new Response(JSON.stringify({
         status: 'idle',
         message: 'No new messages in Kafka topic',
+        batchReceived,
         processingTime: `${totalTime}ms`
       }), {
         status: 200,
@@ -285,6 +318,15 @@ serve(async (_req: any) => {
   } catch (error) {
     const totalTime = Date.now() - startTime;
     console.error(`❌ [CONSUMIDOR] Error después de ${totalTime}ms:`, error);
+
+    // Intentar desconectar en caso de error
+    if (consumer) {
+      try {
+        await consumer.disconnect();
+      } catch (disconnectError) {
+        console.warn('⚠️ [CONSUMIDOR] Error al desconectar en cleanup:', disconnectError);
+      }
+    }
 
     return new Response(JSON.stringify({
       status: 'error',

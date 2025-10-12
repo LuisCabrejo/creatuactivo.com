@@ -106,74 +106,76 @@ Browser-based fingerprinting and session tracking loaded in [src/app/layout.tsx]
 
 **Critical Integration**: The tracking script MUST load before NEXUS widget renders. Currently configured as synchronous script (no `defer`) in layout.tsx:111.
 
-**✅ FASE 1 IMPLEMENTADA**: Async Message Queue with Confluent Cloud
+**✅ ARQUITECTURA ACTUAL**: Database Queue (Simplified & Free)
 
-The NEXUS system now uses a **producer-consumer architecture** with **Confluent Cloud** (enterprise Kafka):
+The NEXUS system uses a **database trigger architecture** with **Supabase** (no external queue service):
 
 **Architecture**:
 
+```
+Usuario → Producer → nexus_queue (INSERT)
+                           ↓ (DB Trigger)
+                  Edge Function (nexus-queue-processor)
+                           ↓
+              Claude API + update_prospect_data RPC
+```
+
 1. **Producer** - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts)
    - Validates incoming chat messages
-   - Publishes to Kafka topic `nexus-prospect-ingestion`
+   - Inserts into `nexus_queue` table via RPC `enqueue_nexus_message()`
    - Returns `202 Accepted` immediately (<100ms)
-   - No LLM processing, no database writes
-   - Uses `kafkajs` SDK with SASL/SSL
+   - Idempotent by `session_id` (UNIQUE constraint)
+   - Runtime: Edge (faster than Node.js)
 
-2. **Consumer** - [supabase/functions/nexus-consumer/index.ts](supabase/functions/nexus-consumer/index.ts)
-   - Supabase Edge Function triggered by Cron (every 10s)
-   - Consumes messages from Kafka topic in batches
+2. **Database Queue** - `nexus_queue` table
+   - States: `pending`, `processing`, `completed`, `failed`
+   - Automatic trigger on INSERT → invokes Edge Function
+   - Built-in retry mechanism (retry_count)
+   - Auto-cleanup of old messages (7 days)
+
+3. **Processor** - [supabase/functions/nexus-queue-processor/index.ts](supabase/functions/nexus-queue-processor/index.ts)
+   - Supabase Edge Function invoked by database trigger
+   - Processes message immediately (<2s latency)
    - Calls Claude API with optimized extraction prompt
    - Persists data via `update_prospect_data` RPC
-   - Auto-commits offset after successful processing
-
-3. **Queue Infrastructure**:
-   - **Service**: Confluent Cloud (fully managed Kafka)
-   - **Cluster**: lkc-r35ym9 (US East 2)
-   - **Topic**: `nexus-prospect-ingestion`
-   - **Consumer Group**: `nexus-consumer-group`
-   - **SDK**: `kafkajs` (Node.js/Deno compatible)
+   - Updates queue status (completed/failed)
 
 **Environment Variables Required**:
 ```bash
-# Confluent Kafka (get from confluent.cloud)
-CONFLUENT_BOOTSTRAP_SERVER=pkc-921jm.us-east-2.aws.confluent.cloud:9092
-CONFLUENT_API_KEY=your-api-key
-CONFLUENT_API_SECRET=your-api-secret
-CONFLUENT_CLUSTER_ID=lkc-r35ym9
-
-# Existing variables
-ANTHROPIC_API_KEY=sk-ant-...
+# Supabase (already configured)
 NEXT_PUBLIC_SUPABASE_URL=https://...
 SUPABASE_SERVICE_ROLE_KEY=...
+
+# Anthropic (already configured)
+ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-See [.env.example](.env.example) for complete reference. **Credentials already configured in `.env.local`**.
+See [.env.example](.env.example) for complete reference.
 
-**Benefits**:
-- ✅ Eliminates "Mensaje Fantasma" bug (data loss on failures)
-- ✅ Resilient: Messages retry automatically if processing fails
-- ✅ Enterprise-grade: Confluent SLA 99.99% uptime
-- ✅ Scalable: Proven to handle billions of messages/day
-- ✅ Observable: Full traceability via Confluent Cloud Console + logs
-- ✅ Future-proof: Aligns with NodeX ecosystem (PostHog → Kafka → Supabase)
+**Benefits vs Kafka**:
+- ✅ **$0/month** (no Confluent Cloud, no Vercel Pro)
+- ✅ **<2s latency** (vs 30-60s with polling)
+- ✅ **Simpler**: One table, one trigger, one function
+- ✅ **Native idempotency**: UNIQUE(session_id) constraint
+- ✅ **Easy debugging**: View queue in Supabase Dashboard
+- ✅ **No external dependencies**: Everything in Supabase
 
 **Migration History**:
 - ❌ pgmq was blocked due to Supabase infrastructure limitations
-- ✅ Initially migrated to Upstash Kafka (REST API)
-- ✅ Final migration to Confluent Cloud (native Kafka protocol for better performance)
-- 📋 Code changes: 95% of business logic preserved
+- ❌ Upstash Kafka (REST API) - complex setup
+- ❌ Confluent Cloud (native Kafka) - required Vercel Pro ($20/mo)
+- ✅ **Database Queue** (current) - free, simple, fast
 
 **Deployment**:
-1. **Credentials**: Already configured in `.env.local` ✅
-2. **Deploy Producer**: `git push` (Vercel auto-deploys)
-3. **Deploy Consumer**: `npx supabase functions deploy nexus-consumer`
-4. **Setup Cron**: Vercel Cron or Supabase Cron (every 10 seconds)
+See [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) for complete step-by-step guide.
+
+Quick steps:
+1. Apply SQL migration: `supabase/APPLY_MANUALLY.sql`
+2. Deploy Edge Function: `npx supabase functions deploy nexus-queue-processor`
+3. Create trigger: `supabase/CREATE_TRIGGER_AFTER_FUNCTION.sql`
+4. Test: Send message to `/api/nexus/producer`
 
 **Legacy Endpoint**: `/api/nexus/route.ts` remains for backward compatibility but should be migrated to `/api/nexus/producer`
-
-**Known Remaining Issues**:
-1. Frontend race condition in `useNEXUSChat.ts` (stale state) - **Pending Paso 2**
-2. Component redundancy (`NEXUSWidget.tsx` vs `Chat.tsx`) - **Pending Paso 2**
 
 #### 3. Supabase Schema
 
@@ -184,11 +186,18 @@ See [.env.example](.env.example) for complete reference. **Credentials already c
 - `nexus_documents` - Knowledge base for chatbot responses
 - `nexus_conversations` - Chat history logging
 - `system_prompts` - Dynamic system prompts for NEXUS
+- **`nexus_queue`** - Async message queue for NEXUS processing (NEW)
+  - Fields: `id`, `messages`, `fingerprint`, `session_id`, `status`, `metadata`, `created_at`, `processed_at`, `error_message`, `retry_count`
+  - Idempotency: UNIQUE constraint on `session_id`
+  - States: `pending`, `processing`, `completed`, `failed`
 
 **RPC Functions**:
 - `identify_prospect(p_fingerprint, p_cookie, p_url, p_device)` - Creates or updates prospect record
 - `update_prospect_data(p_fingerprint_id, p_data)` - Merges new prospect data
 - `search_nexus_documents(search_query, match_count)` - Semantic search over knowledge base
+- **`enqueue_nexus_message(p_messages, p_session_id, p_fingerprint, p_metadata)`** - Adds message to queue (NEW)
+- **`update_queue_status(p_queue_id, p_status, p_error_message)`** - Updates processing status (NEW)
+- **`cleanup_old_nexus_queue()`** - Removes old completed/failed messages (NEW)
 
 **Schema Location**: [src/types/database.ts](src/types/database.ts) (partial), [supabase-setup.sql](supabase-setup.sql)
 

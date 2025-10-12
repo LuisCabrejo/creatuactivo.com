@@ -127,7 +127,7 @@ export async function POST(req: Request) {
   }
 }
 
-// Health check endpoint
+// Health check endpoint (lightweight - no actual queue insertion)
 export async function GET() {
   try {
     // Verificar configuración de Supabase
@@ -140,21 +140,14 @@ export async function GET() {
       throw new Error('Supabase credentials not configured');
     }
 
-    // Verificar que la función RPC existe
-    const { data, error } = await supabase.rpc('enqueue_nexus_message', {
-      p_messages: [{ role: 'user', content: 'health-check' }],
-      p_session_id: 'health-check-' + Date.now(),
-      p_fingerprint: null,
-      p_metadata: { healthCheck: true }
-    });
+    // Verificar conexión a Supabase sin insertar en la queue
+    const { error } = await supabase
+      .from('nexus_queue')
+      .select('id')
+      .limit(1);
 
     if (error) {
-      throw new Error(`RPC test failed: ${error.message}`);
-    }
-
-    // Limpiar mensaje de health check
-    if (data) {
-      await supabase.from('nexus_queue').delete().eq('id', data);
+      throw new Error(`Supabase connection failed: ${error.message}`);
     }
 
     return new Response(JSON.stringify({
@@ -163,7 +156,7 @@ export async function GET() {
       role: 'message-producer',
       transport: 'supabase-database-queue',
       supabaseConfigured: hasSupabaseConfig,
-      rpcTestPassed: true,
+      connectionTestPassed: true,
       timestamp: new Date().toISOString()
     }), {
       status: 200,

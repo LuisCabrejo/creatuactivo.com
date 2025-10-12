@@ -9,6 +9,7 @@ import { createClient } from '@supabase/supabase-js';
 // Node.js runtime (KafkaJS requiere Node)
 export const runtime = 'nodejs';
 export const maxDuration = 30; // 30 segundos para consumir batch
+export const dynamic = 'force-dynamic'; // Fuerza renderizado dinámico (fix despliegue Vercel)
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY!;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;

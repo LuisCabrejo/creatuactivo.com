@@ -1,37 +1,19 @@
 // src/app/api/nexus/producer/route.ts
-// FASE 1 - PRODUCTOR: Endpoint que solo encola mensajes
-// Responsabilidad: Validar + Encolar → Respuesta 202 Accepted inmediata
-// NO procesa IA ni guarda datos directamente
+// ARQUITECTURA SIMPLIFICADA: DB Queue en lugar de Kafka
+// Responsabilidad: Validar + Encolar en Supabase → Trigger invoca procesamiento
+// Ventajas: Gratis, simple, latencia <2s, idempotencia nativa
 
-import { Kafka } from 'kafkajs';
+import { createClient } from '@supabase/supabase-js';
 import { nanoid } from 'nanoid';
 
-// Configuración de Confluent Cloud Kafka
-const kafka = new Kafka({
-  clientId: 'nexus-producer',
-  brokers: [process.env.CONFLUENT_BOOTSTRAP_SERVER!],
-  ssl: true,
-  sasl: {
-    mechanism: 'scram-sha-256', // Confluent Cloud requiere SCRAM-SHA-256
-    username: process.env.CONFLUENT_API_KEY!,
-    password: process.env.CONFLUENT_API_SECRET!,
-  },
-});
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
-// Crear producer singleton para reutilizar conexión
-let producer: any = null;
-
-async function getProducer() {
-  if (!producer) {
-    producer = kafka.producer();
-    await producer.connect();
-  }
-  return producer;
-}
-
-// Node.js runtime (KafkaJS no funciona en Edge)
-export const runtime = 'nodejs';
-export const maxDuration = 10; // Solo encolamos, no procesamos
+// Edge runtime compatible (no necesitamos Node.js)
+export const runtime = 'edge';
+export const maxDuration = 10;
 
 interface ProducerMessage {
   messages: Array<{ role: 'user' | 'assistant'; content: string }>;
@@ -82,60 +64,50 @@ export async function POST(req: Request) {
     }
 
     // Enriquecer metadata
-    const enrichedPayload = {
-      ...payload,
-      metadata: {
-        ...payload.metadata,
-        enqueuedAt: new Date().toISOString(),
-        producerVersion: '1.0.0',
-        url: payload.metadata?.url || req.headers.get('referer') || 'unknown',
-        userAgent: payload.metadata?.userAgent || req.headers.get('user-agent') || 'unknown'
-      }
+    const metadata = {
+      ...payload.metadata,
+      enqueuedAt: new Date().toISOString(),
+      producerVersion: '2.0.0-db-queue',
+      url: payload.metadata?.url || req.headers.get('referer') || 'unknown',
+      userAgent: payload.metadata?.userAgent || req.headers.get('user-agent') || 'unknown'
     };
 
     // Generar ID único para tracking
     const messageId = nanoid();
 
-    // Encolar mensaje usando Confluent Cloud Kafka (KafkaJS)
-    const producer = await getProducer();
-    const result = await producer.send({
-      topic: 'nexus-prospect-ingestion',
-      messages: [
-        {
-          key: messageId,
-          value: JSON.stringify(enrichedPayload),
-          headers: {
-            'correlation-id': messageId,
-            'producer-version': '2.0.0-confluent',
-          },
-        },
-      ],
+    // Encolar mensaje en Supabase (idempotente por session_id)
+    const { data: queueId, error: enqueueError } = await supabase.rpc('enqueue_nexus_message', {
+      p_messages: payload.messages,
+      p_session_id: payload.sessionId,
+      p_fingerprint: payload.fingerprint || null,
+      p_metadata: metadata
     });
+
+    if (enqueueError) {
+      console.error('❌ [PRODUCTOR] Error encolando mensaje:', enqueueError);
+      throw new Error(`Failed to enqueue: ${enqueueError.message}`);
+    }
 
     const totalTime = Date.now() - startTime;
     console.log(`✅ [PRODUCTOR] Mensaje encolado en ${totalTime}ms`, {
       messageId,
-      kafkaOffset: result[0]?.offset,
-      kafkaPartition: result[0]?.partition,
+      queueId,
       fingerprint: payload.fingerprint?.substring(0, 20) || 'none'
     });
 
-    // Respuesta 202 Accepted (procesamiento asíncrono)
+    // Respuesta 202 Accepted (procesamiento asíncrono vía DB trigger)
     return new Response(JSON.stringify({
       status: 'accepted',
       messageId,
-      kafka: {
-        offset: result[0]?.offset,
-        partition: result[0]?.partition,
-        topicName: result[0]?.topicName,
-      },
+      queueId,
       message: 'Your message has been queued for processing',
-      estimatedProcessingTime: '2-5 seconds'
+      estimatedProcessingTime: '<2 seconds'
     }), {
       status: 202,
       headers: {
         'Content-Type': 'application/json',
         'X-Message-Id': messageId,
+        'X-Queue-Id': queueId,
         'X-Processing-Time': `${totalTime}ms`
       }
     });
@@ -158,29 +130,40 @@ export async function POST(req: Request) {
 // Health check endpoint
 export async function GET() {
   try {
-    // Verificar que las credenciales de Confluent estén configuradas
-    const hasKafkaConfig = !!(
-      process.env.CONFLUENT_BOOTSTRAP_SERVER &&
-      process.env.CONFLUENT_API_KEY &&
-      process.env.CONFLUENT_API_SECRET
+    // Verificar configuración de Supabase
+    const hasSupabaseConfig = !!(
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    if (!hasKafkaConfig) {
-      throw new Error('Confluent Kafka credentials not configured');
+    if (!hasSupabaseConfig) {
+      throw new Error('Supabase credentials not configured');
     }
 
-    // Verificar conexión al producer
-    const producer = await getProducer();
-    const isConnected = producer !== null;
+    // Verificar que la función RPC existe
+    const { data, error } = await supabase.rpc('enqueue_nexus_message', {
+      p_messages: [{ role: 'user', content: 'health-check' }],
+      p_session_id: 'health-check-' + Date.now(),
+      p_fingerprint: null,
+      p_metadata: { healthCheck: true }
+    });
+
+    if (error) {
+      throw new Error(`RPC test failed: ${error.message}`);
+    }
+
+    // Limpiar mensaje de health check
+    if (data) {
+      await supabase.from('nexus_queue').delete().eq('id', data);
+    }
 
     return new Response(JSON.stringify({
       status: 'healthy',
-      version: '3.0.0-producer-confluent',
+      version: '2.0.0-db-queue',
       role: 'message-producer',
-      transport: 'confluent-cloud-kafka',
-      topic: 'nexus-prospect-ingestion',
-      kafkaConfigured: hasKafkaConfig,
-      producerConnected: isConnected,
+      transport: 'supabase-database-queue',
+      supabaseConfigured: hasSupabaseConfig,
+      rpcTestPassed: true,
       timestamp: new Date().toISOString()
     }), {
       status: 200,
@@ -190,7 +173,7 @@ export async function GET() {
   } catch (error) {
     return new Response(JSON.stringify({
       status: 'unhealthy',
-      version: '3.0.0-producer-confluent',
+      version: '2.0.0-db-queue',
       error: error instanceof Error ? error.message : String(error)
     }), {
       status: 503,

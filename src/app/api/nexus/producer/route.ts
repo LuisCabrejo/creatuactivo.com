@@ -13,6 +13,7 @@ const supabase = createClient(
 
 // Edge runtime compatible (no necesitamos Node.js)
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 export const maxDuration = 10;
 
 interface ProducerMessage {

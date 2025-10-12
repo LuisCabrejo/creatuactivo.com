@@ -1,24 +1,27 @@
-// supabase/functions/nexus-consumer/index.ts
-// FASE 1 - CONSUMIDOR: Edge Function que procesa mensajes de Confluent Kafka
-// ARQUITECTURA: Single-fetch pattern compatible con Edge Runtime de corta duración
-// ESTRATEGIA: Conectar → Consumir 1 batch → Commit → Desconectar
+// src/app/api/nexus/consumer-cron/route.ts
+// FASE 1 - CONSUMIDOR: Cron job que consume mensajes de Confluent Kafka
+// ARQUITECTURA: Node.js runtime con KafkaJS - Compatible con procesos largos
+// DEPLOY: Vercel Cron (cada 10 segundos)
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
-import { Kafka } from 'npm:kafkajs@2.2.4';
+import { Kafka } from 'kafkajs';
+import { createClient } from '@supabase/supabase-js';
 
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY')!;
-const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const CONFLUENT_BOOTSTRAP_SERVER = Deno.env.get('CONFLUENT_BOOTSTRAP_SERVER')!;
-const CONFLUENT_API_KEY = Deno.env.get('CONFLUENT_API_KEY')!;
-const CONFLUENT_API_SECRET = Deno.env.get('CONFLUENT_API_SECRET')!;
+// Node.js runtime (KafkaJS requiere Node)
+export const runtime = 'nodejs';
+export const maxDuration = 30; // 30 segundos para consumir batch
+
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY!;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const CONFLUENT_BOOTSTRAP_SERVER = process.env.CONFLUENT_BOOTSTRAP_SERVER!;
+const CONFLUENT_API_KEY = process.env.CONFLUENT_API_KEY!;
+const CONFLUENT_API_SECRET = process.env.CONFLUENT_API_SECRET!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-// Configuración de Kafka con timeouts agresivos para Edge Runtime
+// Configuración de Kafka
 const kafka = new Kafka({
-  clientId: 'nexus-consumer-edge',
+  clientId: 'nexus-consumer-cron',
   brokers: [CONFLUENT_BOOTSTRAP_SERVER],
   ssl: true,
   sasl: {
@@ -26,9 +29,29 @@ const kafka = new Kafka({
     username: CONFLUENT_API_KEY,
     password: CONFLUENT_API_SECRET,
   },
-  connectionTimeout: 8000,
-  requestTimeout: 12000,
+  connectionTimeout: 10000,
+  requestTimeout: 15000,
 });
+
+// Consumer singleton para reutilizar conexión
+let consumer: any = null;
+let isConsuming = false;
+
+async function getConsumer() {
+  if (!consumer) {
+    consumer = kafka.consumer({
+      groupId: 'nexus-consumer-group',
+      sessionTimeout: 30000,
+      heartbeatInterval: 3000,
+    });
+    await consumer.connect();
+    await consumer.subscribe({
+      topic: 'nexus-prospect-ingestion',
+      fromBeginning: false,
+    });
+  }
+  return consumer;
+}
 
 interface QueueMessage {
   messages: Array<{ role: 'user' | 'assistant'; content: string }>;
@@ -181,39 +204,45 @@ async function processMessage(payload: QueueMessage): Promise<ProspectData> {
   return extractedData;
 }
 
-// Función para consumir mensajes usando KafkaJS (single-fetch pattern)
-async function consumeFromKafka(): Promise<{ messages: any[], processedCount: number }> {
-  const consumer = kafka.consumer({
-    groupId: 'nexus-consumer-group',
-    sessionTimeout: 30000,
-    heartbeatInterval: 3000,
-  });
+export async function GET(req: Request) {
+  const startTime = Date.now();
 
-  let collectedMessages: any[] = [];
-  let processedCount = 0;
+  // Verificar autorización del cron job
+  const authHeader = req.headers.get('authorization');
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  // Evitar consumo concurrente
+  if (isConsuming) {
+    console.log('⏳ [CONSUMIDOR] Ya hay un consumo en progreso, saltando...');
+    return new Response(JSON.stringify({
+      status: 'skipped',
+      message: 'Consumer already running'
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  isConsuming = true;
 
   try {
-    console.log('🔌 [KAFKA] Conectando consumer...');
-    await consumer.connect();
+    console.log('🟢 [CONSUMIDOR] Iniciando consumo con KafkaJS...');
 
-    console.log('📡 [KAFKA] Suscribiendo a topic nexus-prospect-ingestion...');
-    await consumer.subscribe({
-      topic: 'nexus-prospect-ingestion',
-      fromBeginning: false,
-    });
+    const consumer = await getConsumer();
+    let processedCount = 0;
+    let messagesReceived = 0;
 
-    console.log('📥 [KAFKA] Consumiendo batch único...');
-
-    // Crear promesa que se resuelve después de procesar UN batch
-    await new Promise<void>((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        console.log('⏱️ [KAFKA] Timeout alcanzado, finalizando consumo');
-        resolve();
-      }, 10000); // 10 segundos máximo
-
+    // Consumir mensajes con timeout
+    await Promise.race([
       consumer.run({
         eachBatch: async ({ batch, resolveOffset, heartbeat }) => {
           console.log(`📦 [KAFKA] Batch recibido: ${batch.messages.length} mensajes`);
+          messagesReceived += batch.messages.length;
 
           for (const message of batch.messages) {
             try {
@@ -237,66 +266,31 @@ async function consumeFromKafka(): Promise<{ messages: any[], processedCount: nu
 
             } catch (error) {
               console.error('❌ [CONSUMIDOR] Error procesando mensaje individual:', error);
-              // Continuar con el siguiente mensaje sin hacer commit del fallido
+              // Continuar con el siguiente mensaje
             }
           }
 
-          collectedMessages.push(...batch.messages);
-
           // Detener después de procesar el primer batch
-          clearTimeout(timeout);
-          await consumer.stop();
-          resolve();
+          await consumer.pause([{ topic: 'nexus-prospect-ingestion' }]);
         },
-      }).catch(reject);
-    });
+      }),
+      // Timeout de 25 segundos (dejar 5s para respuesta)
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Timeout')), 25000)
+      ),
+    ]);
 
-    console.log('🛑 [KAFKA] Desconectando consumer...');
-    await consumer.disconnect();
-
-    return { messages: collectedMessages, processedCount };
-
-  } catch (error) {
-    console.error('❌ [KAFKA] Error en consumo:', error);
-
-    // Intentar desconectar limpiamente incluso si hay error
-    try {
-      await consumer.disconnect();
-    } catch (disconnectError) {
-      console.error('❌ [KAFKA] Error desconectando:', disconnectError);
-    }
-
-    throw error;
-  }
-}
-
-serve(async (_req: any) => {
-  const startTime = Date.now();
-
-  try {
-    console.log('🟢 [CONSUMIDOR] Iniciando consumo con KafkaJS...');
-
-    const { messages, processedCount } = await consumeFromKafka();
-
-    if (messages.length === 0) {
-      console.log('📭 [CONSUMIDOR] Sin mensajes nuevos en Kafka');
-      const totalTime = Date.now() - startTime;
-      return new Response(JSON.stringify({
-        status: 'idle',
-        message: 'No new messages in Kafka topic',
-        processingTime: `${totalTime}ms`
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
+    // Reanudar para próxima invocación
+    await consumer.resume([{ topic: 'nexus-prospect-ingestion' }]);
 
     const totalTime = Date.now() - startTime;
-    console.log(`✅ [CONSUMIDOR] Procesados ${processedCount} mensajes en ${totalTime}ms`);
+    console.log(`✅ [CONSUMIDOR] Procesados ${processedCount}/${messagesReceived} mensajes en ${totalTime}ms`);
+
+    isConsuming = false;
 
     return new Response(JSON.stringify({
       status: 'success',
-      messagesReceived: messages.length,
+      messagesReceived,
       processedCount,
       processingTime: `${totalTime}ms`
     }), {
@@ -308,6 +302,8 @@ serve(async (_req: any) => {
     const totalTime = Date.now() - startTime;
     console.error(`❌ [CONSUMIDOR] Error después de ${totalTime}ms:`, error);
 
+    isConsuming = false;
+
     return new Response(JSON.stringify({
       status: 'error',
       error: error instanceof Error ? error.message : String(error),
@@ -317,4 +313,4 @@ serve(async (_req: any) => {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-});
+}

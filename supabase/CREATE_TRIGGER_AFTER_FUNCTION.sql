@@ -31,27 +31,26 @@ CREATE OR REPLACE FUNCTION invoke_nexus_processor()
 RETURNS TRIGGER AS $$
 DECLARE
   function_url TEXT;
-  response_status INT;
+  request_id BIGINT;
 BEGIN
   -- Construir URL de la Edge Function
   function_url := 'https://cvadzbmdypnbrbnkznpb.supabase.co/functions/v1/nexus-queue-processor';
 
-  -- Invocar Edge Function de forma asíncrona
+  -- Invocar Edge Function de forma asíncrona usando pg_net 0.14+
   BEGIN
-    SELECT status INTO response_status
-    FROM extensions.http_post(
-      function_url,
-      jsonb_build_object(
+    SELECT net.http_post(
+      url := function_url,
+      headers := jsonb_build_object(
+        'Authorization', 'Bearer ' || current_setting('supabase.service_role_jwt', true),
+        'Content-Type', 'application/json'
+      ),
+      body := jsonb_build_object(
         'queue_id', NEW.id,
         'session_id', NEW.session_id
-      )::text,
-      'application/json',
-      ARRAY[
-        extensions.http_header('Authorization', 'Bearer ' || current_setting('supabase.service_role_jwt', true))
-      ]
-    );
+      )
+    ) INTO request_id;
 
-    RAISE NOTICE 'Edge Function invocada para queue_id: % (status: %)', NEW.id, response_status;
+    RAISE NOTICE 'Edge Function invocada para queue_id: % (request_id: %)', NEW.id, request_id;
   EXCEPTION
     WHEN OTHERS THEN
       -- Log error pero no fallar la inserción

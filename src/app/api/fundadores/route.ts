@@ -13,6 +13,26 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// 🎯 MAPEO: Texto descriptivo → Código corto (para consistencia con Dashboard)
+function normalizePlanType(planText: string | undefined): 'inicial' | 'empresarial' | 'visionario' {
+  if (!planText) return 'empresarial'; // Default
+
+  const lowerText = planText.toLowerCase();
+
+  // Detectar "inicial" en el texto
+  if (lowerText.includes('inicial') || lowerText.includes('$900,000') || lowerText.includes('$200')) {
+    return 'inicial';
+  }
+
+  // Detectar "visionario" en el texto
+  if (lowerText.includes('visionario') || lowerText.includes('$4,500,000') || lowerText.includes('$1,000')) {
+    return 'visionario';
+  }
+
+  // Default: empresarial
+  return 'empresarial';
+}
+
 // 🎯 HELPER: Email Container Component - SOLO para email interno
 const emailContainer = (content: string, isDark: boolean = true) => `
 <!DOCTYPE html>
@@ -127,13 +147,17 @@ export async function POST(request: NextRequest) {
         }
       }
 
+      // Normalizar plan_type antes de insertar
+      const normalizedPlanType = normalizePlanType(formData.inversion);
+
       // Insertar en pending_activations
       console.log('🔍 [DB] Intentando INSERT con datos:', {
         name: formData.nombre.trim(),
         email: formData.email.toLowerCase().trim(),
         whatsapp: formData.telefono.trim(),
         gano_excel_id: 'PENDING',
-        plan_type: formData.inversion || 'empresarial',
+        plan_type: normalizedPlanType,
+        plan_type_original: formData.inversion, // Para logging
         status: 'pending',
         invited_by: invitedById
       });
@@ -145,7 +169,7 @@ export async function POST(request: NextRequest) {
           email: formData.email.toLowerCase().trim(),
           whatsapp: formData.telefono.trim(),
           gano_excel_id: 'PENDING', // Se completa cuando pague
-          plan_type: formData.inversion || 'empresarial',
+          plan_type: normalizedPlanType, // ✅ Código corto normalizado
           status: 'pending',
           invited_by: invitedById,
         })

@@ -3,8 +3,15 @@ import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 import { FounderConfirmationEmail } from '@/emails/FounderConfirmation';
 import { BRAND } from '@/lib/branding'; // ← USAR IMPORTACIÓN ÚNICA
+import { createClient } from '@supabase/supabase-js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 // 🎯 HELPER: Email Container Component - SOLO para email interno
 const emailContainer = (content: string, isDark: boolean = true) => `
@@ -68,6 +75,64 @@ export async function POST(request: NextRequest) {
         { error: 'Formato de email inválido' },
         { status: 400 }
       );
+    }
+
+    // ====================================================================
+    // 💾 GUARDAR EN BASE DE DATOS (pending_activations)
+    // ====================================================================
+
+    // Verificar si ya existe solicitud para este email
+    const { data: existingRequest } = await supabase
+      .from('pending_activations')
+      .select('id, email, status')
+      .eq('email', formData.email.toLowerCase())
+      .eq('status', 'pending')
+      .single();
+
+    if (existingRequest) {
+      console.log('⚠️ Ya existe solicitud pendiente para:', formData.email);
+      // No bloqueamos, pero lo registramos
+    } else {
+      // Obtener constructor_id del referral si existe
+      let invitedById = null;
+      const refParam = new URL(request.url).searchParams.get('ref') ||
+                       request.headers.get('referer')?.match(/\?ref=([^&]+)/)?.[1];
+
+      if (refParam) {
+        // Buscar constructor por slug o ID
+        const { data: constructor } = await supabase
+          .from('private_users')
+          .select('id')
+          .or(`constructor_id.eq.${refParam},constructor_id.like.%${refParam}%`)
+          .single();
+
+        if (constructor) {
+          invitedById = constructor.id;
+          console.log('✅ Constructor referente encontrado:', invitedById);
+        }
+      }
+
+      // Insertar en pending_activations
+      const { data: insertedRequest, error: insertError } = await supabase
+        .from('pending_activations')
+        .insert({
+          name: formData.nombre.trim(),
+          email: formData.email.toLowerCase().trim(),
+          whatsapp: formData.telefono.trim(),
+          gano_excel_id: 'PENDING', // Se completa cuando pague
+          plan_type: formData.inversion || 'empresarial',
+          status: 'pending',
+          invited_by: invitedById,
+        })
+        .select()
+        .single();
+
+      if (insertError) {
+        console.error('❌ Error insertando en pending_activations:', insertError);
+        // No bloqueamos el flujo si falla el INSERT, pero lo registramos
+      } else {
+        console.log('✅ Prospecto guardado en BD:', insertedRequest.id);
+      }
     }
 
     // ====================================================================
@@ -166,7 +231,7 @@ export async function POST(request: NextRequest) {
     // ✅ ENVÍO EMAIL INTERNO
     const { data: mainEmail, error: mainError } = await resend.emails.send({
       from: 'Sistema CreaTuActivo <sistema@creatuactivo.com>',
-      to: ['luiscabrejo7@gmail.com', 'lilianapatriciamoreno7@gmail.com'],
+      to: 'sistema@creatuactivo.com',
       subject: `🚀 Nueva Solicitud: ${formData.nombre}`,
       html: emailContainer(internalEmailContent, false)
     });

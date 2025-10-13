@@ -81,38 +81,63 @@ export async function POST(request: NextRequest) {
     // 💾 GUARDAR EN BASE DE DATOS (pending_activations)
     // ====================================================================
 
+    console.log('🔍 [DB] Iniciando guardado en pending_activations...');
+    console.log('🔍 [DB] Email prospecto:', formData.email);
+    console.log('🔍 [DB] Nombre prospecto:', formData.nombre);
+
     // Verificar si ya existe solicitud para este email
-    const { data: existingRequest } = await supabase
+    const { data: existingRequest, error: checkError } = await supabase
       .from('pending_activations')
       .select('id, email, status')
       .eq('email', formData.email.toLowerCase())
       .eq('status', 'pending')
       .single();
 
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error('❌ [DB] Error verificando duplicados:', checkError);
+    }
+
     if (existingRequest) {
-      console.log('⚠️ Ya existe solicitud pendiente para:', formData.email);
+      console.log('⚠️ [DB] Ya existe solicitud pendiente para:', formData.email);
+      console.log('⚠️ [DB] ID existente:', existingRequest.id);
       // No bloqueamos, pero lo registramos
     } else {
+      console.log('✅ [DB] Email no existe, procediendo a insertar...');
+
       // Obtener constructor_id del referral si existe
       let invitedById = null;
       const refParam = new URL(request.url).searchParams.get('ref') ||
                        request.headers.get('referer')?.match(/\?ref=([^&]+)/)?.[1];
 
+      console.log('🔍 [DB] Parámetro ref detectado:', refParam || 'NINGUNO');
+
       if (refParam) {
         // Buscar constructor por slug o ID
-        const { data: constructor } = await supabase
+        const { data: constructor, error: constructorError } = await supabase
           .from('private_users')
-          .select('id')
+          .select('id, name, email')
           .or(`constructor_id.eq.${refParam},constructor_id.like.%${refParam}%`)
           .single();
 
-        if (constructor) {
+        if (constructorError) {
+          console.log('⚠️ [DB] Constructor no encontrado para ref:', refParam);
+        } else if (constructor) {
           invitedById = constructor.id;
-          console.log('✅ Constructor referente encontrado:', invitedById);
+          console.log('✅ [DB] Constructor referente encontrado:', constructor.name, '-', constructor.email);
         }
       }
 
       // Insertar en pending_activations
+      console.log('🔍 [DB] Intentando INSERT con datos:', {
+        name: formData.nombre.trim(),
+        email: formData.email.toLowerCase().trim(),
+        whatsapp: formData.telefono.trim(),
+        gano_excel_id: 'PENDING',
+        plan_type: formData.inversion || 'empresarial',
+        status: 'pending',
+        invited_by: invitedById
+      });
+
       const { data: insertedRequest, error: insertError } = await supabase
         .from('pending_activations')
         .insert({
@@ -128,10 +153,16 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (insertError) {
-        console.error('❌ Error insertando en pending_activations:', insertError);
+        console.error('❌ [DB] Error insertando en pending_activations:', insertError);
+        console.error('❌ [DB] Error code:', insertError.code);
+        console.error('❌ [DB] Error message:', insertError.message);
+        console.error('❌ [DB] Error details:', insertError.details);
+        console.error('❌ [DB] Error hint:', insertError.hint);
         // No bloqueamos el flujo si falla el INSERT, pero lo registramos
       } else {
-        console.log('✅ Prospecto guardado en BD:', insertedRequest.id);
+        console.log('✅ [DB] Prospecto guardado exitosamente en BD!');
+        console.log('✅ [DB] ID asignado:', insertedRequest.id);
+        console.log('✅ [DB] Email guardado:', insertedRequest.email);
       }
     }
 

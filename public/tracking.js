@@ -52,18 +52,35 @@
         return cookieId;
     }
 
-    // Obtener parámetro ref del URL
+    // Obtener parámetro ref del URL (query param o path)
     function getConstructorRef() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let ref = urlParams.get('ref');
+        let ref = null;
 
-        // Si no hay ref en URL, buscar en localStorage (visitas posteriores)
+        // Opción 1: Leer de query param (retrocompatibilidad)
+        const urlParams = new URLSearchParams(window.location.search);
+        ref = urlParams.get('ref');
+
+        // Opción 2: Leer desde el path (NUEVO formato limpio)
+        // Ejemplo: /fundadores/luiscabrejo-1288 → luiscabrejo-1288
+        if (!ref) {
+            const pathParts = window.location.pathname.split('/').filter(part => part);
+            const lastPart = pathParts[pathParts.length - 1];
+
+            // Validar que el último segmento tiene formato de constructor_id
+            // Formato esperado: nombre-apellido-xxxx (termina con guión y 4 dígitos)
+            if (lastPart && /^[a-z0-9-]+-\d{4}$/.test(lastPart)) {
+                ref = lastPart;
+                console.log('✅ Constructor REF detectado desde path:', ref);
+            }
+        }
+
+        // Si no hay ref en URL (ni query ni path), buscar en localStorage (visitas posteriores)
         if (!ref) {
             ref = localStorage.getItem('constructor_ref');
         } else {
             // Guardar ref en localStorage para futuras visitas
             localStorage.setItem('constructor_ref', ref);
-            console.log('✅ Constructor REF guardado:', ref);
+            console.log('✅ Constructor REF guardado en localStorage:', ref);
         }
 
         return ref;

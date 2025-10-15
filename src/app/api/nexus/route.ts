@@ -595,8 +595,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     try {
       const { data, error } = await supabase
         .from('nexus_documents')
-        .select('id, title, content, document_type, metadata')
-        .eq('document_type', documentType)
+        .select('id, title, content, category, metadata')
+        .eq('category', documentType)
         .limit(1);
 
       if (!error && data && data.length > 0) {
@@ -639,7 +639,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
 
     const result = (data || []).filter((doc: any) =>
-      doc.document_type && doc.document_type.includes('arsenal')
+      doc.category && doc.category.includes('arsenal')
     ).map((doc: any) => ({
       ...doc,
       search_method: 'hibrid_semantic'
@@ -987,7 +987,7 @@ ${doc.content}
 `;
       } else {
         // Lógica arsenal original sin cambios
-        const docType = doc.document_type?.replace('arsenal_', '').toUpperCase();
+        const docType = doc.category?.replace('arsenal_', '').toUpperCase();
         const respuestas = doc.metadata?.respuestas_totales || 'N/A';
         const metodo = doc.search_method === 'hibrid_classification' ? 'CLASIFICACIÓN AUTOMÁTICA' : 'BÚSQUEDA SEMÁNTICA';
 
@@ -995,7 +995,7 @@ ${doc.content}
       }
 
       context += '---\n\n';
-      documentsUsed.push(doc.source || doc.document_type);
+      documentsUsed.push(doc.source || doc.category);
     }
 
     // Agregar contexto del prospecto
@@ -1112,13 +1112,13 @@ export async function GET() {
     // Verificar Arsenal MVP completo
     const { data: arsenalDocs, error: arsenalError } = await supabase
       .from('nexus_documents')
-      .select('document_type, metadata')
-      .in('document_type', ['arsenal_inicial', 'arsenal_manejo', 'arsenal_cierre']);
+      .select('category, metadata')
+      .in('category', ['arsenal_inicial', 'arsenal_manejo', 'arsenal_cierre']);
 
     if (arsenalError) throw arsenalError;
 
     const arsenalInfo = arsenalDocs?.map(doc => ({
-      type: doc.document_type,
+      type: doc.category,
       respuestas: doc.metadata?.respuestas_totales || 0
     })) || [];
 

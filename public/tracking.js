@@ -61,14 +61,15 @@
         ref = urlParams.get('ref');
 
         // Opción 2: Leer desde el path (NUEVO formato limpio)
-        // Ejemplo: /fundadores/luiscabrejo-1288 → luiscabrejo-1288
+        // Ejemplo: /fundadores/luiscabrejo-4871288 → luiscabrejo-4871288
         if (!ref) {
             const pathParts = window.location.pathname.split('/').filter(part => part);
             const lastPart = pathParts[pathParts.length - 1];
 
             // Validar que el último segmento tiene formato de constructor_id
-            // Formato esperado: nombre-apellido-xxxx (termina con guión y 4 dígitos)
-            if (lastPart && /^[a-z0-9-]+-\d{4}$/.test(lastPart)) {
+            // Formato esperado: nombre-apellido-GANOEXCELID (termina con guión y dígitos)
+            // Ejemplos válidos: luiscabrejo-4871288, juan-perez-123456
+            if (lastPart && /^[a-z0-9-]+-\d+$/.test(lastPart)) {
                 ref = lastPart;
                 console.log('✅ Constructor REF detectado desde path:', ref);
             }

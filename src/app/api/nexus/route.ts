@@ -34,13 +34,13 @@ const API_VERSION = 'v11.9_cap_temprana_optimizada';
 // FRAMEWORK IAA - CAPTURA INTELIGENTE
 // ========================================
 interface ProspectData {
-  nombre?: string;
+  name?: string;
   email?: string;
-  telefono?: string;
-  ocupacion?: string;
-  nivel_interes?: number;
-  objeciones?: string[];
-  arquetipo?: string;
+  phone?: string;
+  occupation?: string;
+  interest_level?: number;
+  objections?: string[];
+  archetype?: string;
   momento_optimo?: string;
   preguntas?: string[];
 }
@@ -71,26 +71,26 @@ async function captureProspectData(
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
     if (match) {
-      data.nombre = match[1].trim();
-      console.log('✅ [NEXUS] Nombre capturado:', data.nombre, 'del mensaje:', message.substring(0, 50));
+      data.name = match[1].trim();
+      console.log('✅ [NEXUS] Nombre capturado:', data.name, 'del mensaje:', message.substring(0, 50));
       break;
     }
   }
 
-  if (!data.nombre && message.length < 30) {
+  if (!data.name && message.length < 30) {
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
     if (simpleNameMatch && !messageLower.match(/hola|gracias|si|no|ok|bien/)) {
-      data.nombre = simpleNameMatch[1].trim();
-      console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.nombre);
+      data.name = simpleNameMatch[1].trim();
+      console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.name);
     }
   }
 
   // CAPTURA DE TELÉFONO
   const phoneMatch = message.match(/(?:\+?57)?\s*(\d{10})/);
   if (phoneMatch) {
-    data.telefono = phoneMatch[0].replace(/\s/g, '');
-    console.log('Teléfono capturado:', data.telefono);
+    data.phone = phoneMatch[0].replace(/\s/g, '');
+    console.log('Teléfono capturado:', data.phone);
   }
 
   // CAPTURA DE EMAIL
@@ -109,8 +109,8 @@ async function captureProspectData(
   for (const pattern of occupationPatterns) {
     const match = message.match(pattern);
     if (match) {
-      data.ocupacion = match[1].trim();
-      console.log('Ocupación capturada:', data.ocupacion);
+      data.occupation = match[1].trim();
+      console.log('Ocupación capturada:', data.occupation);
       break;
     }
   }
@@ -119,10 +119,10 @@ async function captureProspectData(
   let nivelInteres = 5; // Base neutral
 
   // ✅ NUEVO: Compartir datos personales = alta calificación
-  if (data.nombre) nivelInteres += 2;
-  if (data.telefono) nivelInteres += 3; // WhatsApp es el indicador más fuerte
+  if (data.name) nivelInteres += 2;
+  if (data.phone) nivelInteres += 3; // WhatsApp es el indicador más fuerte
   if (data.email) nivelInteres += 1.5;
-  if (data.ocupacion) nivelInteres += 1;
+  if (data.occupation) nivelInteres += 1;
 
   // Indicadores positivos (palabras clave)
   if (messageLower.includes('paquete') || messageLower.includes('inversión')) nivelInteres += 2;
@@ -136,13 +136,13 @@ async function captureProspectData(
   if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 0.5;
   if (messageLower.includes('duda')) nivelInteres -= 0.5;
 
-  data.nivel_interes = Math.min(10, Math.max(0, nivelInteres));
-  console.log('📊 [NEXUS] Nivel de interés calculado:', data.nivel_interes, {
-    tiene_nombre: !!data.nombre,
-    tiene_telefono: !!data.telefono,
+  data.interest_level = Math.min(10, Math.max(0, nivelInteres));
+  console.log('📊 [NEXUS] Nivel de interés calculado:', data.interest_level, {
+    tiene_nombre: !!data.name,
+    tiene_telefono: !!data.phone,
     tiene_email: !!data.email,
-    tiene_ocupacion: !!data.ocupacion,
-    momento_optimo: data.nivel_interes >= 7 ? 'caliente' : data.nivel_interes >= 4 ? 'tibio' : 'frio'
+    tiene_ocupacion: !!data.occupation,
+    momento_optimo: data.interest_level >= 7 ? 'caliente' : data.interest_level >= 4 ? 'tibio' : 'frio'
   });
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
@@ -169,29 +169,29 @@ async function captureProspectData(
   }
 
   if (objeciones.length > 0) {
-    data.objeciones = objeciones;
+    data.objections = objeciones;
     console.log('Objeciones detectadas:', objeciones);
   }
 
   // DETECCIÓN DE ARQUETIPO (ESCALABLE)
   if (messageLower.includes('empresa') || messageLower.includes('negocio')) {
-    data.arquetipo = 'emprendedor_dueno_negocio';
+    data.archetype = 'emprendedor_dueno_negocio';
   } else if (messageLower.includes('trabajo') || messageLower.includes('empleado')) {
-    data.arquetipo = 'profesional_vision';
+    data.archetype = 'profesional_vision';
   } else if (messageLower.includes('familia') || messageLower.includes('hijos')) {
-    data.arquetipo = 'lider_hogar';
+    data.archetype = 'lider_hogar';
   } else if (messageLower.includes('estudiante') || messageLower.includes('universidad')) {
-    data.arquetipo = 'joven_ambicion';
+    data.archetype = 'joven_ambicion';
   }
 
-  if (data.arquetipo) {
-    console.log('Arquetipo detectado:', data.arquetipo);
+  if (data.archetype) {
+    console.log('Arquetipo detectado:', data.archetype);
   }
 
   // DETERMINAR MOMENTO ÓPTIMO
-  if (data.nivel_interes >= 7) {
+  if (data.interest_level >= 7) {
     data.momento_optimo = 'caliente';
-  } else if (data.nivel_interes >= 4) {
+  } else if (data.interest_level >= 4) {
     data.momento_optimo = 'tibio';
   } else {
     data.momento_optimo = 'frio';
@@ -1001,11 +1001,11 @@ ${doc.content}
     // Agregar contexto del prospecto
     if (Object.keys(prospectData).length > 0) {
       context += `INFORMACIÓN DEL PROSPECTO CAPTURADA (Framework IAA):
-- Nivel de interés: ${prospectData.nivel_interes || 'No determinado'}/10
+- Nivel de interés: ${prospectData.interest_level || 'No determinado'}/10
 - Momento óptimo: ${prospectData.momento_optimo || 'Por determinar'}
-- Arquetipo: ${prospectData.arquetipo || 'No identificado'}
-${prospectData.objeciones ? `- Objeciones: ${prospectData.objeciones.join(', ')}` : ''}
-${prospectData.nombre ? `- Nombre: ${prospectData.nombre}` : ''}
+- Arquetipo: ${prospectData.archetype || 'No identificado'}
+${prospectData.objections ? `- Objeciones: ${prospectData.objections.join(', ')}` : ''}
+${prospectData.name ? `- Nombre: ${prospectData.name}` : ''}
 
 `;
       console.log('Contexto híbrido del prospecto incluido:', prospectData.momento_optimo);

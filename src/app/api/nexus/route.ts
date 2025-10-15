@@ -676,7 +676,7 @@ async function getSystemPrompt(): Promise<string> {
   try {
     const { data, error } = await supabase
       .from('system_prompts')
-      .select('content, version')
+      .select('prompt, version')
       .eq('name', 'nexus_main')
       .single();
 
@@ -690,7 +690,7 @@ async function getSystemPrompt(): Promise<string> {
       return getFallbackSystemPrompt();
     }
 
-    const systemPrompt = data?.content || getFallbackSystemPrompt();
+    const systemPrompt = data?.prompt || getFallbackSystemPrompt();
 
     // ⚠️ Validar longitud para detectar prompts excesivos
     if (systemPrompt.length > 50000) {

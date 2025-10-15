@@ -12,7 +12,7 @@
 
 UPDATE system_prompts
 SET
-  content = '# NEXUS - SYSTEM PROMPT v11.9 CAPTURA TEMPRANA
+  prompt = '# NEXUS - SYSTEM PROMPT v11.9 CAPTURA TEMPRANA
 ## El Copiloto del Arquitecto - Captura Proactiva de Datos
 
 **Versión:** 11.9 - Captura temprana optimizada (1ra-2da interacción)
@@ -432,7 +432,7 @@ WHERE name = 'nexus_main';
 SELECT
   name,
   version,
-  LENGTH(content) as content_length,
+  LENGTH(prompt) as content_length,
   updated_at,
   'ACTUALIZADO A CAPTURA TEMPRANA v11.9' as status
 FROM system_prompts
@@ -448,19 +448,19 @@ SELECT
   name,
   version,
   CASE
-    WHEN content LIKE '%CAPTURA TEMPRANA Y PROACTIVA%' THEN 'SÍ'
+    WHEN prompt LIKE '%CAPTURA TEMPRANA Y PROACTIVA%' THEN 'SÍ'
     ELSE 'NO'
   END as tiene_captura_temprana,
   CASE
-    WHEN content LIKE '%PRIMERA O SEGUNDA INTERACCIÓN%' THEN 'SÍ'
+    WHEN prompt LIKE '%PRIMERA O SEGUNDA INTERACCIÓN%' THEN 'SÍ'
     ELSE 'NO'
   END as tiene_timing_nombre,
   CASE
-    WHEN content LIKE '%INMEDIATAMENTE DESPUÉS DEL NOMBRE%' THEN 'SÍ'
+    WHEN prompt LIKE '%INMEDIATAMENTE DESPUÉS DEL NOMBRE%' THEN 'SÍ'
     ELSE 'NO'
   END as tiene_timing_ocupacion,
   CASE
-    WHEN content LIKE '%70%' AND content LIKE '%50%' AND content LIKE '%40%' THEN 'SÍ'
+    WHEN prompt LIKE '%70%' AND prompt LIKE '%50%' AND prompt LIKE '%40%' THEN 'SÍ'
     ELSE 'NO'
   END as tiene_metricas
 FROM system_prompts

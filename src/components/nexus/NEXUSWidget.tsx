@@ -156,7 +156,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               <span className="text-xs text-slate-300 transition-all duration-300">
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span>💭 Procesando consulta</span>
+                    <span>Procesando consulta</span>
                     <span className="animate-pulse">...</span>
                   </span>
                 ) : isUserScrolling ? (
@@ -195,8 +195,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
                 transform: `translateY(-${offset}px)`,
 
-                // 🎯 SIN TRANSICIÓN: Cambio completamente instantáneo como asistentes profesionales
+                // 🎯 SIN TRANSICIÓN: Ascenso instantáneo como rayo de luz (como Claude.ai)
                 transition: 'none',
+
+                // 🔑 HARDWARE ACCELERATION: Fuerza GPU rendering para eliminar parpadeos
+                willChange: 'transform',
 
                 // 🔑 PADDING COMPENSATORIO: Hace que el contenido transformado sea accesible por scroll
                 paddingTop: `${offset + 20}px`
@@ -211,11 +214,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     animation: 'fadeInUp 600ms cubic-bezier(0.25, 0.8, 0.25, 1) 200ms both'
                   }}
                 >
-                  <div className="w-7 h-7 bg-slate-700/80 rounded-full flex-shrink-0 flex items-center justify-center mr-2 backdrop-blur-sm">
-                    <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                  </div>
                   <div className="flex-1 p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
                     <p className="font-semibold text-white mb-2">Hola, soy NEXUS</p>
                     <p className="mb-3">Estoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un <span className="text-amber-400 font-semibold">activo patrimonial real</span>, donde la tecnología trabaja para ti 24/7.</p>
@@ -270,11 +268,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     animation: 'fadeIn 200ms ease-out'
                   }}
                 >
-                  <div className="w-6 h-6 bg-slate-700/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <svg className="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                  </div>
                   <div className="flex items-center gap-1">
                     {[...Array(3)].map((_, i) => (
                       <span
@@ -354,22 +347,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{
                   boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)'
                 }}
-                disabled={isLoading}
               />
-
-              {/* BOTÓN PARA VOLVER A CONVERSACIÓN ACTUAL */}
-              {isUserScrolling && (
-                <button
-                  type="button"
-                  onClick={scrollToLatest}
-                  className="p-3 rounded-lg text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 transition-all duration-200"
-                  title="Volver a conversación actual"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                  </svg>
-                </button>
-              )}
 
               <button
                 type="submit"
@@ -380,8 +358,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   boxShadow: '0 4px 15px rgba(30, 64, 175, 0.4)'
                 }}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
               </button>
             </form>

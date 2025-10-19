@@ -42,7 +42,7 @@ const sendMessage = useCallback(async (content: string) => {
     timestamp: new Date(),
   };
 
-  // 🎯 SIMPLE: Solo agregar mensaje, el scroll lo maneja el componente
+  // ✅ APPEND: Agregar al FINAL (orden cronológico: antiguo→nuevo)
   setMessages(prev => [...prev, userMessage]);
 
   // Preparar respuesta en streaming
@@ -61,7 +61,7 @@ const sendMessage = useCallback(async (content: string) => {
     isStreaming: true
   };
 
-  // Agregar mensaje asistente vacío después de delay
+  // Agregar mensaje asistente vacío después de delay (APPEND)
   setTimeout(() => {
     setMessages(prev => [...prev, initialAssistantMessage]);
   }, 200);
@@ -111,11 +111,12 @@ const sendMessage = useCallback(async (content: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        // ✅ Orden cronológico natural (antiguo→nuevo)
         messages: [...messages, userMessage].map(msg => ({
           role: msg.role,
           content: msg.content
         })),
-        fingerprint: fingerprint,  // ✅ Ahora garantizado que existe o es undefined con warning
+        fingerprint: fingerprint,
         sessionId: sessionId
       }),
       signal: controller.signal

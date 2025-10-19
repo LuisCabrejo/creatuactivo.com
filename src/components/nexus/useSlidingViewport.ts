@@ -122,32 +122,28 @@ export const useSlidingViewport = (
   }, [offset]);
 
   // PRIORIDAD: Auto-scroll para nuevos mensajes
-  useEffect(() => {
+  // useLayoutEffect ejecuta DESPUÉS de que registerNode haya capturado los nodos
+  // pero ANTES del primer paint - aplicamos scroll SINCRÓNICAMENTE para eliminar parpadeo
+  useLayoutEffect(() => {
     // Si hay nuevos mensajes, SIEMPRE hacer auto-scroll
     if (messages.length > lastMessageCountRef.current) {
       console.log(`📬 NUEVO MENSAJE: ${messages.length} (anterior: ${lastMessageCountRef.current})`);
 
-      // Calcular nuevo offset
+      // En este punto, registerNode YA ejecutó y el nodo está en el Map
       const newOffset = calculateOffset();
+
+      // Actualizar estado - ascenso instantáneo
       setOffset(newOffset);
+      setIsUserScrolling(false);
 
-      // FORZAR auto-scroll independientemente del estado manual
-      setTimeout(() => {
-        const container = scrollContainerRef.current;
-        if (container) {
-          programmaticScrollRef.current = true;
-
-          container.scrollTo({
-            top: newOffset,
-            behavior: 'smooth'
-          });
-
-          console.log(`🚀 AUTO-SCROLL FORZADO a ${newOffset}px`);
-        }
-
-        // Resetear estado manual para nuevos mensajes
-        setIsUserScrolling(false);
-      }, 100);
+      // ✅ SCROLL SÍNCRONO: Aplicado en el mismo useLayoutEffect, ANTES del paint
+      // Esto garantiza que transform y scroll se apliquen en UN SOLO frame visual
+      const scrollContainer = scrollContainerRef.current;
+      if (scrollContainer) {
+        programmaticScrollRef.current = true;
+        scrollContainer.scrollTop = newOffset;
+        console.log(`⚡ AUTO-SCROLL SÍNCRONO a ${newOffset}px (sin RAF)`);
+      }
     }
 
     lastMessageCountRef.current = messages.length;
@@ -155,18 +151,21 @@ export const useSlidingViewport = (
 
   // Actualizar offset cuando cambia el contenido (streaming)
   useLayoutEffect(() => {
-    if (messages.length > 0) {
+    if (messages.length > 0 && !isUserScrolling) {
       const newOffset = calculateOffset();
       if (Math.abs(newOffset - offset) > 10) {
+        // Actualizar estado - ascenso instantáneo
         setOffset(newOffset);
 
-        // Si no está en modo manual, ajustar scroll
-        if (!isUserScrolling) {
-          setTimeout(() => scrollToLatest(), 50);
+        // ✅ SCROLL SÍNCRONO: Aplicado directamente, sin requestAnimationFrame
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+          programmaticScrollRef.current = true;
+          scrollContainer.scrollTop = newOffset;
         }
       }
     }
-  }, [messages, calculateOffset, offset, isUserScrolling, scrollToLatest]);
+  }, [messages, calculateOffset, offset, isUserScrolling]);
 
   // Función para registrar nodos DOM
   const registerNode = useCallback((messageId: string) => (node: HTMLElement | null) => {

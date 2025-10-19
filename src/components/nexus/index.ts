@@ -4,4 +4,6 @@
 export { default as NEXUSWidget } from "./NEXUSWidget";
 export { default as NEXUSFloatingButton } from "./NEXUSFloatingButton";
 export { useNEXUSChat } from "./useNEXUSChat";
-export { useSlidingViewport } from "./useSlidingViewport"; // 🎯 NUEVO: Hook de viewport deslizante
+export { useSlidingViewport } from "./useSlidingViewport"; // 🎯 Hook de viewport deslizante
+export { NEXUSDataCaptureCard } from "./NEXUSDataCaptureCard"; // 🔥 FASE 1: Sticky Data Capture Card
+export type { CapturedData } from "./NEXUSDataCaptureCard";

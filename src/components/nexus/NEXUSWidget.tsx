@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
+import { NEXUSDataCaptureCard, type CapturedData } from './NEXUSDataCaptureCard';
 
 interface Message {
   id: string;
@@ -31,6 +32,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
 
+  // 🔥 FASE 1: Tracking de datos capturados
+  const [capturedData, setCapturedData] = useState<CapturedData>({});
+  const [showDataCard, setShowDataCard] = useState(false);
+
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -47,6 +52,62 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         setLastMessageId(latestMessage.id);
       }
     }
+  }, [messages]);
+
+  // 🔥 FASE 1: Detectar datos capturados en los mensajes
+  useEffect(() => {
+    const allMessages = messages.map(m => m.content.toLowerCase()).join(' ');
+    const newCapturedData: CapturedData = { ...capturedData };
+
+    // Detectar nombre (simple: buscar "me llamo X" o "mi nombre es X")
+    if (!capturedData.nombre) {
+      const nombreMatch = allMessages.match(/(?:me llamo|mi nombre es|soy)\s+([a-záéíóúñ]+(?:\s+[a-záéíóúñ]+)?)/i);
+      if (nombreMatch) {
+        newCapturedData.nombre = nombreMatch[1].trim();
+      }
+    }
+
+    // Detectar teléfono (10 dígitos o con +57)
+    if (!capturedData.telefono) {
+      const telefonoMatch = allMessages.match(/(?:\+?57\s?)?(\d{10})/);
+      if (telefonoMatch) {
+        newCapturedData.telefono = telefonoMatch[0];
+      }
+    }
+
+    // Detectar email
+    if (!capturedData.email) {
+      const emailMatch = allMessages.match(/([a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,})/i);
+      if (emailMatch) {
+        newCapturedData.email = emailMatch[1];
+      }
+    }
+
+    // Detectar ocupación (keywords comunes)
+    if (!capturedData.ocupacion) {
+      const ocupaciones = [
+        'emprendedor', 'empresario', 'profesional', 'ingeniero', 'abogado',
+        'médico', 'docente', 'estudiante', 'contador', 'administrador',
+        'vendedor', 'comerciante', 'freelance', 'independiente'
+      ];
+
+      for (const ocupacion of ocupaciones) {
+        if (allMessages.includes(ocupacion)) {
+          newCapturedData.ocupacion = ocupacion.charAt(0).toUpperCase() + ocupacion.slice(1);
+          break;
+        }
+      }
+    }
+
+    // Actualizar si hay cambios
+    if (JSON.stringify(newCapturedData) !== JSON.stringify(capturedData)) {
+      setCapturedData(newCapturedData);
+    }
+
+    // Mostrar card si hay al menos 1 dato capturado pero faltan otros
+    const completedFields = Object.values(newCapturedData).filter(v => v).length;
+    setShowDataCard(completedFields > 0 && completedFields < 4);
+
   }, [messages]);
 
   const handleSendMessage = async (message: string) => {
@@ -185,6 +246,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </span>
             </div>
           </div>
+
+          {/* 🔥 FASE 1: Sticky Data Capture Card */}
+          <NEXUSDataCaptureCard
+            capturedData={capturedData}
+            isVisible={showDataCard}
+            onDismiss={() => setShowDataCard(false)}
+          />
 
           {/* 🎯 CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
           <div

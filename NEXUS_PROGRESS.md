@@ -131,22 +131,26 @@ useLayoutEffect(() => {
 
 ---
 
-### 2. 🟡 **SPINNER NEXUS AL REFRESCAR PÁGINA**
+### 2. ✅ ~~**SPINNER NEXUS AL REFRESCAR PÁGINA**~~ (RESUELTO)
 
-**Problema:**
-- Al refrescar la página de inicio (`/`), el icono de NEXUS se queda girando como spinner
-- No abre el widget automáticamente
-- Si refrescas de nuevo, funciona correctamente
+**Problema identificado:**
+- Al refrescar la página de inicio (`/`), el icono de NEXUS se quedaba girando como spinner
+- No abría el widget automáticamente
+- Si refrescabas de nuevo, funcionaba correctamente
+- **Causa raíz**: Loop infinito en `useEffect` con dependencias problemáticas
 
-**Comportamiento esperado:**
-- Debe abrir correctamente desde el primer refresh
-- El spinner solo debe aparecer durante carga inicial, no indefinidamente
+**Solución implementada:**
+- Estado inicial `isReady: true` (no bloquear UI esperando tracking)
+- Eliminadas dependencias `[trackingState.retryCount, trackingState.isReady]` que causaban loop
+- Variables locales para `retryCount` (evitar re-renders)
+- Código simplificado sin fallbacks que bloquean UI
 
-**Archivo a investigar:**
-- `src/components/nexus/NEXUSFloatingButton.tsx`
-- Posible problema de estado de `isOpen` o carga de componente
+**Resultado:**
+- ✅ Botón NEXUS aparece normal desde primera carga
+- ✅ Widget abre inmediatamente al hacer click
+- ✅ Sin necesidad de refresh manual
 
-**Estado:** Pendiente de investigación
+**Estado:** Resuelto y deployd en producción (commit cd7e886)
 
 ---
 

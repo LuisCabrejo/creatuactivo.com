@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
-import { NEXUSDataCaptureCard, type CapturedData } from './NEXUSDataCaptureCard';
 
 interface Message {
   id: string;
@@ -18,17 +17,21 @@ interface NEXUSWidgetProps {
   onClose: () => void;
 }
 
-// 🎯 Función para resaltar preguntas de captura en dorado
+// 🎯 Función para resaltar preguntas de captura en negrilla
 const highlightCaptureQuestions = (text: string) => {
-  // Patrones de preguntas de captura
+  // Patrones de preguntas de captura (nombre, ocupación, WhatsApp)
   const patterns = [
+    // Nombre
     /¿[Cc]ómo te llamas\?/g,
     /¿[Cc]uál es tu nombre\?/g,
     /¿[Mm]e compartes tu nombre\?/g,
     /¿[Cc]ómo puedo llamarte\?/g,
-    /¿[Cc]uál es tu ocupación\?/g,
+    // Ocupación (incluyendo variaciones con nombres)
+    /¿[Aa] qué te dedicas actualmente[^?]*\?/g, // Captura "¿A qué te dedicas actualmente, Federico?"
+    /¿[Cc]uál es tu ocupación[^?]*\?/g,
     /¿[Aa] qué te dedicas\?/g,
     /¿[Qq]ué haces\?/g,
+    // WhatsApp / Teléfono
     /¿[Cc]uál es tu número de [Ww]hats[Aa]pp\?/g,
     /¿[Mm]e compartes tu [Ww]hats[Aa]pp\?/g,
     /¿[Cc]uál es tu teléfono\?/g,
@@ -38,7 +41,8 @@ const highlightCaptureQuestions = (text: string) => {
   let highlighted = text;
   patterns.forEach(pattern => {
     highlighted = highlighted.replace(pattern, (match) => {
-      return `**🎯 ${match}**`;
+      // Solo negrilla, sin emoji ni fondo dorado
+      return `**${match}**`;
     });
   });
 
@@ -59,10 +63,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
 
-  // 🔥 FASE 1: Tracking de datos capturados
-  const [capturedData, setCapturedData] = useState<CapturedData>({});
-  const [showDataCard, setShowDataCard] = useState(false);
-
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -79,54 +79,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         setLastMessageId(latestMessage.id);
       }
     }
-  }, [messages]);
-
-  // 🔥 FASE 1: Detectar datos capturados en los mensajes
-  useEffect(() => {
-    const allMessages = messages.map(m => m.content.toLowerCase()).join(' ');
-    const newCapturedData: CapturedData = { ...capturedData };
-
-    // Detectar nombre (simple: buscar "me llamo X" o "mi nombre es X")
-    if (!capturedData.nombre) {
-      const nombreMatch = allMessages.match(/(?:me llamo|mi nombre es|soy)\s+([a-záéíóúñ]+(?:\s+[a-záéíóúñ]+)?)/i);
-      if (nombreMatch) {
-        newCapturedData.nombre = nombreMatch[1].trim();
-      }
-    }
-
-    // Detectar teléfono (10 dígitos o con +57)
-    if (!capturedData.telefono) {
-      const telefonoMatch = allMessages.match(/(?:\+?57\s?)?(\d{10})/);
-      if (telefonoMatch) {
-        newCapturedData.telefono = telefonoMatch[0];
-      }
-    }
-
-    // Detectar ocupación (keywords comunes)
-    if (!capturedData.ocupacion) {
-      const ocupaciones = [
-        'emprendedor', 'empresario', 'profesional', 'ingeniero', 'abogado',
-        'médico', 'docente', 'estudiante', 'contador', 'administrador',
-        'vendedor', 'comerciante', 'freelance', 'independiente'
-      ];
-
-      for (const ocupacion of ocupaciones) {
-        if (allMessages.includes(ocupacion)) {
-          newCapturedData.ocupacion = ocupacion.charAt(0).toUpperCase() + ocupacion.slice(1);
-          break;
-        }
-      }
-    }
-
-    // Actualizar si hay cambios
-    if (JSON.stringify(newCapturedData) !== JSON.stringify(capturedData)) {
-      setCapturedData(newCapturedData);
-    }
-
-    // Mostrar card si hay al menos 1 dato capturado pero faltan otros
-    const completedFields = Object.values(newCapturedData).filter(v => v).length;
-    setShowDataCard(completedFields > 0 && completedFields < 3);
-
   }, [messages]);
 
   const handleSendMessage = async (message: string) => {
@@ -266,13 +218,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🔥 FASE 1: Sticky Data Capture Card */}
-          <NEXUSDataCaptureCard
-            capturedData={capturedData}
-            isVisible={showDataCard}
-            onDismiss={() => setShowDataCard(false)}
-          />
-
           {/* 🎯 CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
           <div
             ref={scrollContainerRef}
@@ -352,26 +297,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     >
                       <ReactMarkdown
                         components={{
-                          strong: ({children}) => {
-                            // Si contiene el emoji 🎯, es una pregunta de captura
-                            const childText = String(children);
-                            if (childText.includes('🎯')) {
-                              return (
-                                <strong
-                                  className="font-bold inline-block px-2 py-0.5 rounded"
-                                  style={{
-                                    background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.3) 100%)',
-                                    color: '#F59E0B',
-                                    border: '1.5px solid rgba(245, 158, 11, 0.5)',
-                                    boxShadow: '0 2px 8px rgba(245, 158, 11, 0.3)'
-                                  }}
-                                >
-                                  {children}
-                                </strong>
-                              );
-                            }
-                            return <strong className="font-bold text-amber-400">{children}</strong>;
-                          },
+                          strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
                           li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>

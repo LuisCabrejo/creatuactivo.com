@@ -1155,6 +1155,10 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
 `;
 
     // 🎯 BLOQUE 3 - NO CACHEABLE: Instrucciones específicas de la sesión
+    // Calcular interacción actual (cada mensaje user + assistant = 1 interacción)
+    const interaccionActual = Math.floor(messages.length / 2) + 1;
+    const esPrimeraInteraccion = interaccionActual === 1;
+
     const sessionInstructions = `
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
@@ -1179,12 +1183,27 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Evalúa escalación inteligente si momento_optimo 'caliente'
 
 🎯 CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA:
-- SIEMPRE cierra tu respuesta con UNA pregunta de captura de datos
-- Prioriza preguntas FALTANTES en este orden: 1) Nombre, 2) WhatsApp, 3) Ocupación
-- NUNCA cierres con preguntas de arquitectura, productos u otros temas (esas van EN MEDIO del texto)
-- Formato exacto de cierre: Una línea en blanco + "¿Cómo te llamas?" (o variación)
-- Esto es PRIORITARIO sobre cualquier otra pregunta de seguimiento
-- Datos ya capturados en esta sesión: Nombre=${prospectData.name || 'FALTA'}, WhatsApp=${prospectData.phone || 'FALTA'}, Ocupación=${prospectData.occupation || 'FALTA'}`;
+${esPrimeraInteraccion ? `
+- PRIMERA INTERACCIÓN: NO preguntes datos personales todavía
+- Enfócate en entregar VALOR primero (explicar el sistema, responder dudas)
+- Cierra con opciones para profundizar (A, B, C) o pregunta de seguimiento relacionada al tema
+- La captura de datos empieza en la 2da o 3ra interacción
+` : `
+- SEGUNDA INTERACCIÓN EN ADELANTE: Cierra tu respuesta con UNA pregunta de captura de datos
+
+PRINCIPIO CONVERSACIONAL HUMANO (CRÍTICO):
+- Cuando preguntas datos personales, te QUEDAS EN SILENCIO esperando respuesta (como una persona real)
+- NO agregues nada después de la pregunta de captura (ni opciones A/B/C, ni preguntas adicionales, ni texto extra)
+- La pregunta de captura ES EL FINAL ABSOLUTO de tu mensaje
+- Ejemplo correcto: "...contenido... **¿Cómo te llamas?**" [FIN DEL MENSAJE]
+- Ejemplo INCORRECTO: "...contenido... **¿Cómo te llamas?** ¿Qué pieza te interesa?" [NUNCA HACER ESTO]
+
+FORMATO Y REGLAS:
+- Prioriza preguntas FALTANTES: 1) Nombre, 2) WhatsApp, 3) Ocupación
+- Formato: Una línea en blanco + "**¿Cómo te llamas?**" (SIEMPRE usar negrilla **)
+- La pregunta debe ser conversacional, puede incluir el nombre si ya lo tienes
+- Datos ya capturados: Nombre=${prospectData.name || 'FALTA'}, WhatsApp=${prospectData.phone || 'FALTA'}, Ocupación=${prospectData.occupation || 'FALTA'}
+`}`;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');

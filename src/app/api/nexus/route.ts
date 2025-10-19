@@ -1088,7 +1088,21 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
-    // ✅ Generar respuesta con Claude usando Prompt Caching
+    // ⚡ FASE 1 - OPTIMIZACIÓN: max_tokens dinámico según tipo de consulta
+    const maxTokens = searchMethod === 'catalogo_productos'
+      ? 300  // Consultas de precios = respuestas cortas (producto + precio)
+      : prospectData.momento_optimo === 'caliente'
+      ? 500  // Prospecto caliente = respuesta más detallada para cerrar
+      : 400; // Default: respuestas concisas para mejor UX
+
+    console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
+
+    // ⚡ FASE 1 - OPTIMIZACIÓN: Limitar historial a últimos 6 mensajes (3 intercambios)
+    // Ahorra tokens en conversaciones largas manteniendo contexto suficiente
+    const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
+    console.log(`⚡ Historial optimizado: ${recentMessages.length}/${messages.length} mensajes`);
+
+    // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       system: [
@@ -1111,9 +1125,10 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
         }
       ],
       stream: true,
-      max_tokens: 1000,
+      max_tokens: maxTokens,        // ⚡ OPTIMIZADO: dinámico 300-500 (antes: 1000)
       temperature: 0.3,
-      messages: messages,
+      top_p: 0.9,                    // ⚡ NUEVO: consistencia mejorada
+      messages: recentMessages,      // ⚡ OPTIMIZADO: últimos 6 mensajes (antes: todos)
     });
 
     // Stream optimizado para arquitectura híbrida

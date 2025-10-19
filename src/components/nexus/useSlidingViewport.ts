@@ -123,27 +123,29 @@ export const useSlidingViewport = (
 
   // PRIORIDAD: Auto-scroll para nuevos mensajes
   // useLayoutEffect ejecuta DESPUÉS de que registerNode haya capturado los nodos
-  // pero ANTES del primer paint - aplicamos scroll SINCRÓNICAMENTE para eliminar parpadeo
+  // pero ANTES del primer paint
   useLayoutEffect(() => {
     // Si hay nuevos mensajes, SIEMPRE hacer auto-scroll
     if (messages.length > lastMessageCountRef.current) {
       console.log(`📬 NUEVO MENSAJE: ${messages.length} (anterior: ${lastMessageCountRef.current})`);
 
-      // En este punto, registerNode YA ejecutó y el nodo está en el Map
-      const newOffset = calculateOffset();
+      // ⚡ FIX CRÍTICO: requestAnimationFrame NECESARIO para que los nodos se registren
+      // El problema era que calculateOffset() se ejecutaba ANTES de que registerNode capturara los nodos
+      // RAF retrasa la ejecución hasta el siguiente frame, cuando los nodos ya están en el Map
+      requestAnimationFrame(() => {
+        const newOffset = calculateOffset();
 
-      // Actualizar estado - ascenso instantáneo
-      setOffset(newOffset);
-      setIsUserScrolling(false);
+        // Actualizar estado - ascenso instantáneo
+        setOffset(newOffset);
+        setIsUserScrolling(false);
 
-      // ✅ SCROLL SÍNCRONO: Aplicado en el mismo useLayoutEffect, ANTES del paint
-      // Esto garantiza que transform y scroll se apliquen en UN SOLO frame visual
-      const scrollContainer = scrollContainerRef.current;
-      if (scrollContainer) {
-        programmaticScrollRef.current = true;
-        scrollContainer.scrollTop = newOffset;
-        console.log(`⚡ AUTO-SCROLL SÍNCRONO a ${newOffset}px (sin RAF)`);
-      }
+        // Scroll aplicado inmediatamente después del offset
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+          programmaticScrollRef.current = true;
+          scrollContainer.scrollTop = newOffset;
+        }
+      });
     }
 
     lastMessageCountRef.current = messages.length;
@@ -192,6 +194,7 @@ export const useSlidingViewport = (
     offset,
     registerNode,
     isUserScrolling,
-    scrollToLatest
+    scrollToLatest,
+    messageCount: messages.length // Exportar para detectar nuevos mensajes en el componente
   };
 };

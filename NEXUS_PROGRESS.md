@@ -1,6 +1,20 @@
 # NEXUS - Progreso de Optimización
-**Última actualización:** 2025-10-19
+**Última actualización:** 2025-10-19 12:30 PM
 **Proyecto:** CreaTuActivo-Marketing
+
+---
+
+## 🎉 ✅ PROBLEMA RESUELTO: Scroll perfecto estilo Claude.ai
+
+**Solución final implementada:**
+- ✅ Las preguntas suben al tope correctamente (requestAnimationFrame necesario)
+- ✅ Fade-in suave oculta el movimiento ascendente (animación `claudeFadeIn`)
+- ✅ Sin parpadeo, sin movimientos bruscos, sin flicker visible
+- ✅ Experiencia idéntica a Claude.ai
+
+**Archivos modificados:**
+- `src/components/nexus/useSlidingViewport.ts` - requestAnimationFrame para timing correcto
+- `src/components/nexus/NEXUSWidget.tsx` - Animación fade-in con delay de 150ms
 
 ---
 
@@ -25,9 +39,46 @@
 
 ---
 
+## 📚 EXPLICACIÓN TÉCNICA DE LA SOLUCIÓN:
+
+### ¿Cómo funciona el efecto Claude.ai?
+
+**Problema original:**
+- Usuario enviaba pregunta → aparecía abajo → MOVIMIENTO ASCENDENTE VISIBLE → llegaba arriba
+- Demasiado rápido (5 capturas en video vs 10 de Claude.ai)
+- Parpadeo visible durante el ascenso
+
+**Solución implementada (2 partes):**
+
+1. **requestAnimationFrame en useSlidingViewport.ts:**
+   - `useLayoutEffect` se ejecuta ANTES de que los nodos DOM se rendericen
+   - Sin RAF: `calculateOffset()` ejecutaba con Map vacío → offset = 0 → mensaje no subía
+   - Con RAF: Espera 1 frame → nodos registrados → offset correcto → mensaje sube
+
+2. **Animación claudeFadeIn en NEXUSWidget.tsx:**
+   ```css
+   @keyframes claudeFadeIn {
+     0% { opacity: 0; }
+     100% { opacity: 1; }
+   }
+   ```
+   - Delay de 150ms: Mensaje invisible durante el ascenso
+   - Duración 400ms: Fade-in suave cuando llega arriba
+   - `both` fill-mode: Mantiene opacity 0 durante delay
+   - Total: 550ms (150ms ascenso + 400ms fade)
+
+**Resultado:**
+- Usuario envía pregunta
+- Pregunta aparece abajo con opacity: 0 (invisible)
+- Durante 150ms sube al tope (invisible)
+- A los 150ms inicia fade-in de 400ms
+- Usuario solo ve la pregunta "aparecer" suavemente arriba
+
+---
+
 ## ⚠️ PROBLEMAS PENDIENTES (PRIORIDAD):
 
-### 1. 🔴 **PARPADEO AL POSICIONARSE ARRIBA** (CRÍTICO)
+### 1. ✅ ~~**PARPADEO AL POSICIONARSE ARRIBA**~~ (RESUELTO)
 
 **Problema identificado:**
 - Cuando envías la **PRIMERA pregunta** (y todas las subsecuentes), hay un parpadeo visible cuando el mensaje llega a la parte superior

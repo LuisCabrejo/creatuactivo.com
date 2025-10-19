@@ -35,7 +35,19 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Hook balanceado: slide effect + scroll accesible
-  const { offset, registerNode, isUserScrolling, scrollToLatest } = useSlidingViewport(messages, scrollContainerRef);
+  const { offset, registerNode, isUserScrolling, scrollToLatest, messageCount } = useSlidingViewport(messages, scrollContainerRef);
+
+  // Track del último mensaje para aplicar fade-in animation
+  const [lastMessageId, setLastMessageId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      const latestMessage = messages[messages.length - 1];
+      if (latestMessage.role === 'user' && latestMessage.id !== lastMessageId) {
+        setLastMessageId(latestMessage.id);
+      }
+    }
+  }, [messages]);
 
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
@@ -223,41 +235,48 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               )}
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
-              {messages.map((message, index) => (
-                <div
-                  key={message.id}
-                  ref={registerNode(message.id)}
-                  className="flex message-item"
-                  style={{
-                    animation: messageAppearing === message.role ?
-                      'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)' :
-                      'fadeInUp 300ms ease-out'
-                  }}
-                >
+              {messages.map((message, index) => {
+                // Detectar si es el último mensaje user para aplicar animación especial Claude.ai
+                const isLastUserMessage = message.role === 'user' && message.id === lastMessageId;
+
+                return (
                   <div
-                    className={`p-3 rounded-lg text-sm transition-all duration-200 ${
-                      message.role === 'user'
-                        ? 'text-white max-w-[75%] ml-auto shadow-lg'
-                        : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
-                    }`}
-                    style={message.role === 'user' ? {
-                      background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
-                      boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
-                    } : {}}
+                    key={message.id}
+                    ref={registerNode(message.id)}
+                    className="flex message-item"
+                    style={{
+                      animation: isLastUserMessage
+                        ? 'claudeFadeIn 400ms ease-out 150ms both' // 🎯 Fade-in como Claude.ai con delay
+                        : messageAppearing === message.role
+                        ? 'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
+                        : 'fadeInUp 300ms ease-out'
+                    }}
                   >
-                    <ReactMarkdown
-                      components={{
-                        strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
-                        p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
-                        ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                        li: ({children}) => <li className="mb-1">{children}</li>
-                      }}
+                    <div
+                      className={`p-3 rounded-lg text-sm transition-all duration-200 ${
+                        message.role === 'user'
+                          ? 'text-white max-w-[75%] ml-auto shadow-lg'
+                          : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
+                      }`}
+                      style={message.role === 'user' ? {
+                        background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
+                        boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
+                      } : {}}
                     >
-                      {message.content}
-                    </ReactMarkdown>
+                      <ReactMarkdown
+                        components={{
+                          strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
+                          p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
+                          ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                          li: ({children}) => <li className="mb-1">{children}</li>
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
               {/* TYPING INDICATOR */}
               {isLoading && (
@@ -425,6 +444,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             opacity: 0;
           }
           to {
+            opacity: 1;
+          }
+        }
+
+        /* 🎯 ANIMACIÓN CLAUDE.AI: Fade-in suave para ocultar ascenso */
+        @keyframes claudeFadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
             opacity: 1;
           }
         }

@@ -75,14 +75,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
       }
     }
 
-    // Detectar email
-    if (!capturedData.email) {
-      const emailMatch = allMessages.match(/([a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,})/i);
-      if (emailMatch) {
-        newCapturedData.email = emailMatch[1];
-      }
-    }
-
     // Detectar ocupación (keywords comunes)
     if (!capturedData.ocupacion) {
       const ocupaciones = [
@@ -106,7 +98,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
     // Mostrar card si hay al menos 1 dato capturado pero faltan otros
     const completedFields = Object.values(newCapturedData).filter(v => v).length;
-    setShowDataCard(completedFields > 0 && completedFields < 4);
+    setShowDataCard(completedFields > 0 && completedFields < 3);
 
   }, [messages]);
 

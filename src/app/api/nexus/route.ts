@@ -950,6 +950,18 @@ export async function POST(req: Request) {
 
   try {
     const { messages, sessionId, fingerprint } = await req.json();
+
+    // ✅ Validación de mensajes
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      console.error('❌ [NEXUS] Request inválido: messages vacío o undefined');
+      return new Response(JSON.stringify({
+        error: 'Request inválido: se requiere array de mensajes'
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     const latestUserMessage = messages[messages.length - 1].content;
 
     // ========================================
@@ -1032,13 +1044,15 @@ ${prospectData.name ? `- Nombre: ${prospectData.name}` : ''}
       console.log('Contexto híbrido del prospecto incluido:', prospectData.momento_optimo);
     }
 
-    // System prompt híbrido (sin cache)
+    // ✅ OPTIMIZACIÓN: System prompt CON CACHE de Anthropic
     const baseSystemPrompt = await getSystemPrompt();
 
-    // 🔧 SYSTEM PROMPT AUGMENTADO MEJORADO - FIX APLICADO
-    const augmentedSystemPrompt = `${baseSystemPrompt}
+    // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
+    const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
 
-${context}INSTRUCCIONES ARQUITECTURA HÍBRIDA:
+    // 🎯 BLOQUE 2 - NO CACHEABLE: Instrucciones específicas de la sesión
+    const sessionInstructions = `
+INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
 - Arsenal MVP como fuente de verdad absoluta
 - Clasificación automática funcionando correctamente
@@ -1060,22 +1074,42 @@ ${context}INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - CRÍTICO: Respuestas concisas + opciones para profundizar
 - Evalúa escalación inteligente si momento_optimo 'caliente'`;
 
-    // 🔍 LOGGING DETALLADO PARA DEBUGGING - FIX APLICADO
+    // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');
     console.log('Método de búsqueda:', searchMethod);
+    console.log('📦 CACHE STATUS: Usando Anthropic Prompt Caching (2 bloques)');
     if (searchMethod === 'catalogo_productos') {
       console.log('📋 Contenido catálogo enviado (primeros 200 chars):',
         relevantDocuments[0]?.content?.substring(0, 200) + '...');
     }
-    console.log('📝 System prompt final (últimos 300 chars):',
-      augmentedSystemPrompt.slice(-300));
+    console.log('📝 System prompt base (primeros 100 chars):',
+      baseSystemPrompt.substring(0, 100) + '...');
+    console.log('📝 Arsenal context length:', arsenalContext.length, 'chars');
 
-    console.log('Enviando request Claude con contexto híbrido...');
+    console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
-    // Generar respuesta con Claude
+    // ✅ Generar respuesta con Claude usando Prompt Caching
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      system: augmentedSystemPrompt,
+      system: [
+        // 🎯 BLOQUE 1: Base System Prompt (CACHEABLE - ~15K chars)
+        {
+          type: 'text',
+          text: baseSystemPrompt,
+          cache_control: { type: 'ephemeral' }
+        },
+        // 🎯 BLOQUE 2: Arsenal/Catálogo Context (CACHEABLE - ~2-8K chars)
+        {
+          type: 'text',
+          text: arsenalContext,
+          cache_control: { type: 'ephemeral' }
+        },
+        // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)
+        {
+          type: 'text',
+          text: sessionInstructions
+        }
+      ],
       stream: true,
       max_tokens: 1000,
       temperature: 0.3,

@@ -1050,7 +1050,111 @@ ${prospectData.name ? `- Nombre: ${prospectData.name}` : ''}
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
     const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
 
-    // 🎯 BLOQUE 2 - NO CACHEABLE: Instrucciones específicas de la sesión
+    // 🔥 FASE 1.5 - BLOQUE FAQ: Preguntas más frecuentes pre-cargadas (CACHEABLE)
+    const topQueriesFAQ = `
+## 🔥 PREGUNTAS MÁS FRECUENTES - RESPUESTAS OPTIMIZADAS
+
+Estas son las preguntas con mayor frecuencia y conversión. Si el usuario pregunta sobre estos temas, usa EXACTAMENTE estas respuestas:
+
+### FAQ_01: "¿Cómo funciona el negocio?" (Flujo completo de 3 niveles)
+
+**NIVEL 1 - LA VISIÓN:**
+Esa es la pregunta correcta, y la respuesta redefine el juego. Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.
+
+Nosotros aplicamos esa misma filosofía. Ayudamos a personas con mentalidad de constructor a crear su propio sistema de distribución, por donde fluyen cientos de productos únicos de Gano Excel y Gano Itouch todos los días.
+
+**Preguntas de seguimiento sugeridas:**
+➡️ ¿Quieres saber cómo lo hacemos posible?
+⚙️ ¿Qué es un "sistema de distribución"?
+📦 ¿Qué productos son?
+
+**NIVEL 2 - LA ARQUITECTURA:**
+Lo hacemos posible entregándote una arquitectura donde tú te enfocas en el 20% del trabajo que es puramente estratégico, mientras la maquinaria tecnológica de NodeX y NEXUS se encarga del 80% del trabajo pesado y operativo. Es un modelo de apalancamiento real.
+
+**Preguntas de seguimiento sugeridas:**
+➡️ Explícame el 80% que hace la tecnología
+🧠 ¿Cuál es mi 20% estratégico?
+💡 ¿Cómo se ve eso en la práctica?
+
+**NIVEL 3 - LA METODOLOGÍA:**
+Tu 20% estratégico se simplifica a nuestro Framework IAA:
+
+**INICIAR:** Eres la chispa que conecta a las personas con el ecosistema.
+**ACOGER:** Eres el consultor que aporta la confianza en el momento clave.
+**ACTIVAR:** Eres el mentor que entrega la arquitectura a un nuevo constructor.
+
+Dejas de ser el operador y te conviertes en el director de orquesta.
+
+**Preguntas de seguimiento sugeridas:**
+➡️ ¿Qué herramientas tengo para INICIAR?
+🤝 ¿Cómo sé cuándo ACOGER?
+🚀 ¿Cómo es el proceso de ACTIVAR?
+
+---
+
+### FAQ_02: "¿Cómo se gana en el negocio?"
+
+En nuestro ecosistema, no "ganas dinero", construyes flujos de valor. La arquitectura financiera recompensa la construcción de un activo real en tres fases:
+
+**A Corto Plazo (Capitalización):** A través de los Bonos de Inicio Rápido al activar a tus primeros constructores.
+
+**A Mediano Plazo (Expansión):** Con las Comisiones de Equipo (Binario), participas del volumen total de productos que se mueven en tu canal.
+
+**A Largo Plazo (Legado):** Desbloqueas los Bonos de Liderazgo y otros incentivos por desarrollar a otros arquitectos.
+
+**Pregunta de seguimiento:** ¿Cuál de estas tres fases resuena más con tu visión de construcción?
+
+---
+
+### FAQ_03: "¿Cuál es la inversión para empezar a construir?"
+
+Esta no es una simple compra; es la elección de tu **arquitectura de construcción inicial**. Hemos diseñado tres puntos de entrada, cada uno pensado para una visión y un nivel de apalancamiento diferente.
+
+Como parte del selecto grupo de los **150 Fundadores**, cada paquete desbloquea meses de cortesía de nuestra maquinaria tecnológica, un **Bono Tecnológico** exclusivo para los pioneros del ecosistema.
+
+Aquí están las tres arquitecturas iniciales:
+
+* **Constructor Inicial ($200 USD / ~$900.000 COP):** El punto de partida inteligente para validar la arquitectura y el poder del ecosistema. Incluye **2 meses de cortesía** de nuestra tecnología.
+
+* **Constructor Empresarial ($500 USD / ~$2.250.000 COP):** El equilibrio perfecto para una construcción sólida y una operación profesional desde el inicio. Incluye **4 meses de cortesía** de nuestra tecnología.
+
+* **Constructor Visionario ($1,000 USD / ~$4.500.000 COP):** Diseñado para el máximo apalancamiento y una construcción a gran escala desde el día uno. Incluye **6 meses de cortesía** de nuestra tecnología.
+
+La única inversión recurrente es de 50 PV (aprox. $450,000 COP), que recibes íntegramente en productos. No es un costo de plataforma, es el **combustible que mueve tu activo**.
+
+**Pregunta de seguimiento:** ¿Cuál de estas arquitecturas iniciales resuena más con tu visión de construcción?
+
+---
+
+### FAQ_04: "¿Qué hay que hacer?" / "¿Cuál es mi trabajo?"
+
+Tu trabajo se transforma de operador a arquitecto estratégico. Con el Framework IAA, te enfocas en tres acciones clave:
+
+**INICIAR (La Chispa):**
+- Conectas personas con el ecosistema usando herramientas automatizadas
+- NodeX y NEXUS educan y cualifican por ti
+- Tu rol: Ser el puente inicial
+
+**ACOGER (El Consultor):**
+- Aportas el toque humano cuando el sistema detecta el momento óptimo
+- Das confianza y validas el ajuste
+- Tu rol: Consultoría estratégica (no ventas)
+
+**ACTIVAR (El Mentor):**
+- Entregas las llaves del ecosistema a nuevos constructores
+- Enseñas el primer paso y acompañas el arranque
+- Tu rol: Mentoría y transferencia de conocimiento
+
+La tecnología maneja el 80% operativo (seguimiento, educación, contenido, análisis). Tú manejas el 20% estratégico (conexión humana, consultoría, mentoría).
+
+**Pregunta de seguimiento:** ¿Cuál de estas tres acciones estratégicas te parece más natural para tu personalidad?
+
+---
+
+🎯 INSTRUCCIÓN CRÍTICA: Si el usuario hace una pregunta que coincide con estas FAQ, usa EXACTAMENTE el contenido de arriba. Estas respuestas han sido optimizadas para máxima claridad y conversión.
+`;
+
+    // 🎯 BLOQUE 3 - NO CACHEABLE: Instrucciones específicas de la sesión
     const sessionInstructions = `
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
@@ -1077,7 +1181,7 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');
     console.log('Método de búsqueda:', searchMethod);
-    console.log('📦 CACHE STATUS: Usando Anthropic Prompt Caching (2 bloques)');
+    console.log('📦 CACHE STATUS: Usando Anthropic Prompt Caching (3 bloques + 1 dinámico)');
     if (searchMethod === 'catalogo_productos') {
       console.log('📋 Contenido catálogo enviado (primeros 200 chars):',
         relevantDocuments[0]?.content?.substring(0, 200) + '...');
@@ -1085,6 +1189,7 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
     console.log('📝 System prompt base (primeros 100 chars):',
       baseSystemPrompt.substring(0, 100) + '...');
     console.log('📝 Arsenal context length:', arsenalContext.length, 'chars');
+    console.log('🔥 FAQ context length:', topQueriesFAQ.length, 'chars');
 
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
@@ -1102,7 +1207,7 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
     const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
     console.log(`⚡ Historial optimizado: ${recentMessages.length}/${messages.length} mensajes`);
 
-    // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1
+    // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       system: [
@@ -1118,7 +1223,13 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
           text: arsenalContext,
           cache_control: { type: 'ephemeral' }
         },
-        // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)
+        // 🔥 BLOQUE 3: FAQ Top Queries (CACHEABLE - ~4K chars) - FASE 1.5
+        {
+          type: 'text',
+          text: topQueriesFAQ,
+          cache_control: { type: 'ephemeral' }
+        },
+        // 📝 BLOQUE 4: Session Instructions (NO CACHEABLE - siempre cambia)
         {
           type: 'text',
           text: sessionInstructions

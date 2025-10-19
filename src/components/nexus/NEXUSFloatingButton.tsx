@@ -11,7 +11,7 @@ interface TrackingState {
 const NEXUSFloatingButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
-    isReady: false,
+    isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI
     hasError: false,
     retryCount: 0
   });
@@ -19,6 +19,7 @@ const NEXUSFloatingButton: React.FC = () => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     let retryTimeoutId: NodeJS.Timeout;
+    let retryCount = 0; // ✅ FIX: Variable local en lugar de state
 
     const checkTrackingReady = () => {
       // Verificar si FrameworkIAA está disponible y funcional
@@ -31,11 +32,7 @@ const NEXUSFloatingButton: React.FC = () => {
 
         if (isFrameworkReady) {
           console.log('✅ NEXUS: Framework IAA listo');
-          setTrackingState(prev => ({
-            ...prev,
-            isReady: true,
-            hasError: false
-          }));
+          // No actualizamos state porque ya empezó como ready
           return true;
         }
       }
@@ -64,49 +61,28 @@ const NEXUSFloatingButton: React.FC = () => {
 
     // 🔧 FIX 3: Polling backup para casos edge
     const pollForTracking = () => {
-      if (!checkTrackingReady() && trackingState.retryCount < 10) {
-        setTrackingState(prev => ({
-          ...prev,
-          retryCount: prev.retryCount + 1
-        }));
-
+      if (!checkTrackingReady() && retryCount < 10) {
+        retryCount++; // ✅ FIX: Incremento local
         retryTimeoutId = setTimeout(pollForTracking, 500);
-      } else if (trackingState.retryCount >= 10) {
-        console.warn('⚠️ NEXUS: Timeout esperando Framework IAA - Activando modo fallback');
-        setTrackingState(prev => ({
-          ...prev,
-          isReady: true, // Permitir funcionar en modo degradado
-          hasError: true
-        }));
+      } else if (retryCount >= 10) {
+        console.warn('⚠️ NEXUS: Timeout esperando Framework IAA - Modo fallback activo');
+        // Ya está ready por defecto, no necesitamos actualizar state
       }
     };
 
-    // 🔧 FIX 4: Timeout inicial más agresivo
+    // 🔧 FIX 4: Timeout inicial - solo para logging
     timeoutId = setTimeout(() => {
-      if (!trackingState.isReady) {
-        pollForTracking();
-      }
+      checkTrackingReady(); // Verificación silenciosa
     }, 1000);
 
-    // 🔧 FIX 5: Fallback absoluto después de 10 segundos
-    const absoluteTimeoutId = setTimeout(() => {
-      if (!trackingState.isReady) {
-        console.warn('🚨 NEXUS: Activando modo emergency - Framework IAA no disponible');
-        setTrackingState({
-          isReady: true,
-          hasError: true,
-          retryCount: 999
-        });
-      }
-    }, 10000);
+    // ✅ FIX: Removido fallback absoluto - no necesitamos bloquear UI
 
     return () => {
       window.removeEventListener('nexusTrackingReady', handleTrackingReady as EventListener);
       if (timeoutId) clearTimeout(timeoutId);
       if (retryTimeoutId) clearTimeout(retryTimeoutId);
-      if (absoluteTimeoutId) clearTimeout(absoluteTimeoutId);
     };
-  }, [trackingState.retryCount, trackingState.isReady]);
+  }, []); // ✅ FIX: Sin dependencias para evitar loop infinito
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {

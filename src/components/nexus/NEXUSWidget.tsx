@@ -18,6 +18,33 @@ interface NEXUSWidgetProps {
   onClose: () => void;
 }
 
+// 🎯 Función para resaltar preguntas de captura en dorado
+const highlightCaptureQuestions = (text: string) => {
+  // Patrones de preguntas de captura
+  const patterns = [
+    /¿[Cc]ómo te llamas\?/g,
+    /¿[Cc]uál es tu nombre\?/g,
+    /¿[Mm]e compartes tu nombre\?/g,
+    /¿[Cc]ómo puedo llamarte\?/g,
+    /¿[Cc]uál es tu ocupación\?/g,
+    /¿[Aa] qué te dedicas\?/g,
+    /¿[Qq]ué haces\?/g,
+    /¿[Cc]uál es tu número de [Ww]hats[Aa]pp\?/g,
+    /¿[Mm]e compartes tu [Ww]hats[Aa]pp\?/g,
+    /¿[Cc]uál es tu teléfono\?/g,
+    /¿[Mm]e das tu contacto\?/g
+  ];
+
+  let highlighted = text;
+  patterns.forEach(pattern => {
+    highlighted = highlighted.replace(pattern, (match) => {
+      return `**🎯 ${match}**`;
+    });
+  });
+
+  return highlighted;
+};
+
 const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const {
     messages,
@@ -325,13 +352,32 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     >
                       <ReactMarkdown
                         components={{
-                          strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
+                          strong: ({children}) => {
+                            // Si contiene el emoji 🎯, es una pregunta de captura
+                            const childText = String(children);
+                            if (childText.includes('🎯')) {
+                              return (
+                                <strong
+                                  className="font-bold inline-block px-2 py-0.5 rounded"
+                                  style={{
+                                    background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.3) 100%)',
+                                    color: '#F59E0B',
+                                    border: '1.5px solid rgba(245, 158, 11, 0.5)',
+                                    boxShadow: '0 2px 8px rgba(245, 158, 11, 0.3)'
+                                  }}
+                                >
+                                  {children}
+                                </strong>
+                              );
+                            }
+                            return <strong className="font-bold text-amber-400">{children}</strong>;
+                          },
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
-                          ul: ({children}) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                          li: ({children}) => <li className="mb-1">{children}</li>
+                          ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
+                          li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>
                         }}
                       >
-                        {message.content}
+                        {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}
                       </ReactMarkdown>
                     </div>
                   </div>

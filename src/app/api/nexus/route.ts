@@ -1176,7 +1176,15 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Si no hay información específica: "Para esa consulta, te conectaré con Liliana Moreno"
 - Personalización adaptativa por arquetipo detectado
 - CRÍTICO: Respuestas concisas + opciones para profundizar
-- Evalúa escalación inteligente si momento_optimo 'caliente'`;
+- Evalúa escalación inteligente si momento_optimo 'caliente'
+
+🎯 CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA:
+- SIEMPRE cierra tu respuesta con UNA pregunta de captura de datos
+- Prioriza preguntas FALTANTES en este orden: 1) Nombre, 2) WhatsApp, 3) Ocupación
+- NUNCA cierres con preguntas de arquitectura, productos u otros temas (esas van EN MEDIO del texto)
+- Formato exacto de cierre: Una línea en blanco + "¿Cómo te llamas?" (o variación)
+- Esto es PRIORITARIO sobre cualquier otra pregunta de seguimiento
+- Datos ya capturados en esta sesión: Nombre=${prospectData.name || 'FALTA'}, WhatsApp=${prospectData.phone || 'FALTA'}, Ocupación=${prospectData.occupation || 'FALTA'}`;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');

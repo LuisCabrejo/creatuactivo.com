@@ -22,10 +22,11 @@ interface FieldConfig {
   priority: number;
 }
 
+// ✅ v12.0 - Orden actualizado según buenas prácticas: Nombre → Ocupación → WhatsApp
 const FIELDS: FieldConfig[] = [
   { key: 'nombre', label: 'Nombre', icon: '👤', priority: 1 },
-  { key: 'telefono', label: 'WhatsApp', icon: '📱', priority: 2 },
-  { key: 'ocupacion', label: 'Ocupación', icon: '💼', priority: 3 }
+  { key: 'ocupacion', label: 'Ocupación', icon: '💼', priority: 2 },
+  { key: 'telefono', label: 'WhatsApp', icon: '📱', priority: 3 }
 ];
 
 export function NEXUSDataCaptureCard({
@@ -72,7 +73,7 @@ export function NEXUSDataCaptureCard({
                   📝
                 </motion.span>
                 <h3 className="font-semibold text-xs sm:text-sm" style={{ color: '#1E40AF' }}>
-                  NEXUS está recopilando tu información
+                  Conociendo tu perfil
                 </h3>
               </div>
               <button

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 
@@ -67,7 +68,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Hook balanceado: slide effect + scroll accesible
-  const { offset, registerNode, isUserScrolling, scrollToLatest, messageCount } = useSlidingViewport(messages, scrollContainerRef);
+  const { offset, registerNode, isUserScrolling } = useSlidingViewport(messages, scrollContainerRef);
 
   // Track del último mensaje para aplicar fade-in animation
   const [lastMessageId, setLastMessageId] = useState<string | null>(null);
@@ -296,11 +297,22 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       } : {}}
                     >
                       <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
                         components={{
                           strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
-                          li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>
+                          li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>,
+                          a: ({href, children}) => (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 hover:text-blue-300 underline transition-colors font-semibold"
+                            >
+                              {children}
+                            </a>
+                          )
                         }}
                       >
                         {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}

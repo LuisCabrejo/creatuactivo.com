@@ -1,9 +1,10 @@
 // src/app/api/nexus/route.ts
-// API Route NEXUS - ARQUITECTURA HÍBRIDA ESCALABLE CORREGIDA
+// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.1
+// VERSION: v12.1 - Timing Optimizado + Formato de Listas Mejorado
 // ARSENAL: 79 respuestas en 3 documentos con búsqueda adaptativa
-// IDENTIDAD: Copiloto del Arquitecto (atemporal, sin versiones)
-// CORRECCIONES: System prompt sin cache + Clasificación productos/paquetes + Consulta catálogo
-// FIX APLICADO: Instrucciones específicas para interpretación correcta del catálogo
+// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + timing estratégico
+// CAMBIOS v12.1: Captura AL FINAL + Listas verticales + Datos acumulados
+// COMPLIANCE: Ley 1581/2012 Art. 9 + UX optimizada (efecto de recencia)
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
@@ -19,16 +20,16 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const runtime = 'edge';
-export const maxDuration = 30; // ✅ OPTIMIZACIÓN v11.9: 25→30s buffer para requests pesados
+export const maxDuration = 30; // ✅ OPTIMIZACIÓN: 30s buffer para requests pesados
 
 // Cache en memoria optimizado para arquitectura híbrida
 const searchCache = new Map<string, any>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
-// ✅ OPTIMIZACIÓN v11.9: System prompt CON cache para reducir latencia
+// System prompt cache para reducir latencia
 const systemPromptCache = new Map<string, any>();
 const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con searchCache)
 
-const API_VERSION = 'v11.9_cap_temprana_optimizada';
+const API_VERSION = 'v12.1_timing_optimizado'; // ✅ v12.1: Timing + Formato + Datos acumulados
 
 // ========================================
 // FRAMEWORK IAA - CAPTURA INTELIGENTE
@@ -980,12 +981,42 @@ export async function POST(req: Request) {
       console.error('❌ [NEXUS API] Verificar que tracking.js se haya cargado antes de la conversación');
     }
 
-    // FRAMEWORK IAA - CAPTURA INTELIGENTE
+    // 🔵 CONSULTAR DATOS YA GUARDADOS DEL PROSPECTO (para evitar re-pedir)
+    let existingProspectData: any = {};
+    if (fingerprint) {
+      try {
+        const { data: existingProspect } = await supabase
+          .from('nexus_prospects')
+          .select('data')
+          .eq('fingerprint_id', fingerprint)
+          .single();
+
+        if (existingProspect?.data) {
+          existingProspectData = existingProspect.data;
+          console.log('📊 [NEXUS] Datos existentes del prospecto:', {
+            tiene_nombre: !!existingProspectData.name,
+            tiene_ocupacion: !!existingProspectData.occupation,
+            tiene_whatsapp: !!existingProspectData.phone
+          });
+        }
+      } catch (error) {
+        // Si no existe, no pasa nada (primera interacción)
+        console.log('ℹ️ [NEXUS] Primera interacción - sin datos previos');
+      }
+    }
+
+    // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)
     const prospectData = await captureProspectData(
       latestUserMessage,
       sessionId || 'anonymous',
       fingerprint
     );
+
+    // COMBINAR datos existentes + nuevos capturados
+    const mergedProspectData = {
+      ...existingProspectData,
+      ...prospectData // Los nuevos sobrescriben los viejos
+    };
 
     // CONSULTA HÍBRIDA ESCALABLE
     const searchQuery = interpretQueryHibrido(latestUserMessage);
@@ -1031,17 +1062,19 @@ ${doc.content}
       documentsUsed.push(doc.source || doc.category);
     }
 
-    // Agregar contexto del prospecto
-    if (Object.keys(prospectData).length > 0) {
+    // Agregar contexto del prospecto (DATOS ACUMULADOS + NUEVOS)
+    if (Object.keys(mergedProspectData).length > 0) {
       context += `INFORMACIÓN DEL PROSPECTO CAPTURADA (Framework IAA):
-- Nivel de interés: ${prospectData.interest_level || 'No determinado'}/10
-- Momento óptimo: ${prospectData.momento_optimo || 'Por determinar'}
-- Arquetipo: ${prospectData.archetype || 'No identificado'}
-${prospectData.objections ? `- Objeciones: ${prospectData.objections.join(', ')}` : ''}
-${prospectData.name ? `- Nombre: ${prospectData.name}` : ''}
+- Nivel de interés: ${mergedProspectData.interest_level || 'No determinado'}/10
+- Momento óptimo: ${mergedProspectData.momento_optimo || 'Por determinar'}
+- Arquetipo: ${mergedProspectData.archetype || 'No identificado'}
+${mergedProspectData.objections ? `- Objeciones: ${mergedProspectData.objections.join(', ')}` : ''}
+${mergedProspectData.name ? `- Nombre: ${mergedProspectData.name}` : ''}
+${mergedProspectData.occupation ? `- Ocupación: ${mergedProspectData.occupation}` : ''}
+${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
 `;
-      console.log('Contexto híbrido del prospecto incluido:', prospectData.momento_optimo);
+      console.log('Contexto híbrido del prospecto incluido:', mergedProspectData.momento_optimo);
     }
 
     // ✅ OPTIMIZACIÓN: System prompt CON CACHE de Anthropic
@@ -1182,27 +1215,79 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - CRÍTICO: Respuestas concisas + opciones para profundizar
 - Evalúa escalación inteligente si momento_optimo 'caliente'
 
-🎯 CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA:
+🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.0:
 ${esPrimeraInteraccion ? `
-- PRIMERA INTERACCIÓN: NO preguntes datos personales todavía
-- Enfócate en entregar VALOR primero (explicar el sistema, responder dudas)
-- Cierra con opciones para profundizar (A, B, C) o pregunta de seguimiento relacionada al tema
-- La captura de datos empieza en la 2da o 3ra interacción
+⚠️ PRIMERA INTERACCIÓN - ONBOARDING LEGAL OBLIGATORIO:
+- DETENER: Antes de responder la pregunta del usuario, DEBES hacer el onboarding legal
+- FLUJO OBLIGATORIO (5 pasos del system prompt v12.0):
+  1. Saludo de bienvenida (adaptado al contexto)
+  2. Declaración de capacidades
+  3. Solicitud de consentimiento legal (texto completo del system prompt)
+  4. Botones: [✅ Sí, autorizo] [❌ No, gracias] [📄 Leer política]
+  5. Esperar respuesta del usuario antes de continuar
+
+- IMPORTANTE: El usuario preguntó "${latestUserMessage}"
+- Pero NO respondas esa pregunta AÚN
+- Primero completa el onboarding legal
+- Al final del onboarding, puedes mencionar: "Ahora que tenemos eso claro, respondamos a tu pregunta..."
 ` : `
-- SEGUNDA INTERACCIÓN EN ADELANTE: Cierra tu respuesta con UNA pregunta de captura de datos
+✅ SEGUNDA INTERACCIÓN EN ADELANTE - CAPTURA PROGRESIVA CON PROPUESTA DE VALOR:
 
-PRINCIPIO CONVERSACIONAL HUMANO (CRÍTICO):
-- Cuando preguntas datos personales, te QUEDAS EN SILENCIO esperando respuesta (como una persona real)
-- NO agregues nada después de la pregunta de captura (ni opciones A/B/C, ni preguntas adicionales, ni texto extra)
-- La pregunta de captura ES EL FINAL ABSOLUTO de tu mensaje
-- Ejemplo correcto: "...contenido... **¿Cómo te llamas?**" [FIN DEL MENSAJE]
-- Ejemplo INCORRECTO: "...contenido... **¿Cómo te llamas?** ¿Qué pieza te interesa?" [NUNCA HACER ESTO]
+📊 ESTADO ACTUAL DE CAPTURA (Datos acumulados en BD):
+- Nombre: ${mergedProspectData.name || '❌ FALTA - PEDIR AHORA'}
+- Ocupación: ${mergedProspectData.occupation || '❌ FALTA'}
+- WhatsApp: ${mergedProspectData.phone || '❌ FALTA'}
 
-FORMATO Y REGLAS:
-- Prioriza preguntas FALTANTES: 1) Nombre, 2) WhatsApp, 3) Ocupación
-- Formato: Una línea en blanco + "**¿Cómo te llamas?**" (SIEMPRE usar negrilla **)
-- La pregunta debe ser conversacional, puede incluir el nombre si ya lo tienes
-- Datos ya capturados: Nombre=${prospectData.name || 'FALTA'}, WhatsApp=${prospectData.phone || 'FALTA'}, Ocupación=${prospectData.occupation || 'FALTA'}
+🎯 SCRIPTS OBLIGATORIOS CON PROPUESTA DE VALOR:
+
+${!mergedProspectData.name ? `
+⚠️ FALTA NOMBRE - USA UNO DE ESTOS SCRIPTS (TEXTUAL):
+  Opción 1: "Por cierto, ¿cómo te llamas? Me gusta personalizar nuestra conversación 😊"
+  Opción 2: "Para que nuestra conversación sea más cercana, ¿cómo te llamas?"
+  Opción 3: "Para ayudarte mejor, ¿cómo te llamo?"
+` : mergedProspectData.name && !mergedProspectData.occupation ? `
+⚠️ FALTA OCUPACIÓN - USA UNO DE ESTOS SCRIPTS (TEXTUAL):
+  Opción 1: "Gracias ${mergedProspectData.name}. Para darte recomendaciones que se ajusten a tu perfil, ¿a qué te dedicas actualmente?"
+  Opción 2: "Perfecto ${mergedProspectData.name}. ¿Cuál es tu ocupación? Así puedo personalizar mejor la información para ti."
+  Opción 3: "Encantado ${mergedProspectData.name}. ¿A qué te dedicas? Me ayuda a darte ejemplos más relevantes."
+` : mergedProspectData.name && mergedProspectData.occupation && (mergedProspectData.interest_level || 0) >= 7 && !mergedProspectData.phone ? `
+⚠️ INTERÉS ALTO (${mergedProspectData.interest_level}/10) - PEDIR WHATSAPP:
+  Opción 1: "${mergedProspectData.name}, me gustaría enviarte un resumen completo por WhatsApp. ¿Cuál es tu número?"
+  Opción 2: "Perfecto ${mergedProspectData.name}. Para conectarte con Liliana y dar el siguiente paso, ¿me compartes tu WhatsApp?"
+  Opción 3: "${mergedProspectData.name}, para darte seguimiento personalizado, ¿cuál es tu WhatsApp?"
+` : `
+✅ DATOS COMPLETOS - Continúa conversación sin pedir más datos (o pide Email solo si usuario solicita recurso digital)
+`}
+
+⚠️ REGLAS CRÍTICAS - TIMING DE CAPTURA:
+- USA EXACTAMENTE uno de los scripts de arriba (COPIA TEXTUAL)
+- La propuesta de valor DEBE estar ANTES de la pregunta
+- NUNCA preguntes solo "¿Cómo te llamas?" sin justificación
+
+🎯 POSICIÓN DE LA PREGUNTA DE CAPTURA (CRÍTICO):
+- La pregunta de datos va AL FINAL ABSOLUTO del mensaje
+- DESPUÉS de todo el contenido de valor
+- DESPUÉS de las opciones A/B/C (si las hay)
+- SIN agregar nada más después de la pregunta
+
+📐 ESTRUCTURA CORRECTA DEL MENSAJE:
+1. Respuesta al usuario (contenido de valor)
+2. Opciones A/B/C de seguimiento (si aplica)
+3. [Línea en blanco]
+4. Pregunta de captura de datos ← FINAL ABSOLUTO
+5. [FIN - NO agregar más texto]
+
+❌ INCORRECTO (pregunta en medio):
+"[Respuesta]
+¿Cómo te llamas?
+[Opciones A/B/C]" ← MAL - Usuario no ve la pregunta
+
+✅ CORRECTO (pregunta al final):
+"[Respuesta completa]
+
+[Opciones A/B/C si hay]
+
+Por cierto, ¿cómo te llamas? Me gusta personalizar nuestra conversación 😊" ← BIEN - Usuario lee esto último
 `}`;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING

@@ -98,7 +98,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   };
 
   const quickReplies = [
-    { text: '¿Cómo funciona exactamente el negocio?', icon: '🗏️' },
+    { text: '¿Cómo funciona exactamente el negocio?', icon: '📊' },
     { text: '¿Cómo funciona el sistema de distribución?', icon: '⚙️' },
     { text: '¿Qué es CreaTuActivo.com?', icon: '💎' }
   ];
@@ -234,7 +234,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               className={`w-full space-y-4 ${
                 isExpanded
                   ? 'p-6'
-                  : 'p-4 md:p-4 pt-12 md:pt-4'
+                  : 'p-2 md:p-4 pt-12 md:pt-4'
               }`}
               style={{
                 // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
@@ -259,7 +259,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     animation: 'fadeInUp 600ms cubic-bezier(0.25, 0.8, 0.25, 1) 200ms both'
                   }}
                 >
-                  <div className="flex-1 p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
+                  <div className="flex-1 p-2 md:p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
                     <p className="font-semibold text-white mb-2">Hola, soy NEXUS</p>
                     <p className="mb-3">Estoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un <span className="text-amber-400 font-semibold">activo patrimonial real</span>, donde la tecnología trabaja para ti 24/7.</p>
                     <p>¿Qué aspecto del sistema te interesa conocer?</p>
@@ -286,9 +286,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     }}
                   >
                     <div
-                      className={`p-3 rounded-lg text-sm transition-all duration-200 ${
+                      className={`p-2 md:p-3 rounded-lg text-sm transition-all duration-200 ${
                         message.role === 'user'
-                          ? 'text-white max-w-[75%] ml-auto shadow-lg'
+                          ? 'text-white max-w-[85%] md:max-w-[75%] ml-auto shadow-lg'
                           : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
                       }`}
                       style={message.role === 'user' ? {
@@ -356,7 +356,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           {/* QUICK REPLIES */}
           {messages.length === 0 && (
             <div
-              className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-4'}`}
+              className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-2 md:p-4'}`}
               style={{
                 animation: 'fadeInUp 800ms cubic-bezier(0.25, 0.8, 0.25, 1) 600ms both'
               }}
@@ -365,7 +365,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 {quickReplies.map((reply, index) => (
                   <button
                     key={index}
-                    className={`w-full text-left p-3 rounded-lg font-medium flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                    className={`w-full text-left p-2 md:p-3 rounded-lg font-medium flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg ${
                       isExpanded ? 'text-sm' : 'text-xs'
                     }`}
                     style={{
@@ -397,7 +397,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           )}
 
           {/* INPUT CON BOTÓN DE VOLVER A CONVERSACIÓN ACTUAL */}
-          <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-3'}`}>
+          <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}>
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -429,16 +429,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* FOOTER */}
-          <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
-            <div className="flex justify-center gap-6">
+          <div className={`${isExpanded ? 'px-6 pb-4' : 'px-2 md:px-4 pb-3'}`}>
+            <div className="flex justify-center gap-2 md:gap-6">
               <button
-                className="text-xs text-slate-400 hover:text-slate-200 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
+                className="text-xs text-slate-400 hover:text-slate-200 px-2 md:px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
                 onClick={resetChat}
               >
                 🔄 Limpiar Pizarra
               </button>
               <button
-                className="text-xs text-slate-400 hover:text-slate-200 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
+                className="text-xs text-slate-400 hover:text-slate-200 px-2 md:px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
                 onClick={() => handleSendMessage('Quiero hablar con Liliana Moreno')}
               >
                 👤 Consultoría Estratégica

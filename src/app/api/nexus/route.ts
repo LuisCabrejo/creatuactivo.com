@@ -44,6 +44,8 @@ interface ProspectData {
   archetype?: string;
   momento_optimo?: string;
   preguntas?: string[];
+  consent_granted?: boolean;
+  consent_timestamp?: string;
 }
 
 // Función para capturar datos del prospecto inteligentemente
@@ -99,6 +101,16 @@ async function captureProspectData(
   if (emailMatch) {
     data.email = emailMatch[0].toLowerCase();
     console.log('Email capturado:', data.email);
+  }
+
+  // DETECCIÓN DE CONSENTIMIENTO (palabras clave de aceptación)
+  const consentKeywords = ['acepto', 'aceptar', 'sí autorizo', 'si autorizo', 'autorizo', 'de acuerdo', 'ok', 'si', 'sí'];
+  const hasConsent = consentKeywords.some(keyword => messageLower.includes(keyword));
+
+  if (hasConsent && (messageLower.includes('dato') || messageLower.includes('trata') || messageLower.includes('privacidad') || messageLower === 'si' || messageLower === 'sí' || messageLower === 'acepto' || messageLower === 'aceptar')) {
+    data.consent_granted = true;
+    data.consent_timestamp = new Date().toISOString();
+    console.log('✅ [NEXUS] Consentimiento detectado y guardado');
   }
 
   // CAPTURA DE OCUPACIÓN
@@ -1190,7 +1202,24 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
     // 🎯 BLOQUE 3 - NO CACHEABLE: Instrucciones específicas de la sesión
     // Calcular interacción actual (cada mensaje user + assistant = 1 interacción)
     const interaccionActual = Math.floor(messages.length / 2) + 1;
-    const esPrimeraInteraccion = interaccionActual === 1;
+
+    // ✅ NUEVA LÓGICA: Es primera interacción SOLO si no hay datos previos con consentimiento
+    const tieneConsentimientoPrevio = existingProspectData.consent_granted === true;
+    const tieneNombrePrevio = !!existingProspectData.name;
+    const esUsuarioConocido = tieneConsentimientoPrevio && tieneNombrePrevio;
+
+    // Solo mostrar onboarding si es primera vez Y primera interacción de la sesión
+    const esPrimeraInteraccion = interaccionActual === 1 && !esUsuarioConocido;
+
+    // Logging para debug
+    console.log('🎯 [NEXUS] Estado del usuario:', {
+      interaccionActual,
+      esUsuarioConocido,
+      tieneConsentimientoPrevio,
+      tieneNombrePrevio,
+      esPrimeraInteraccion,
+      nombre: existingProspectData.name || 'N/A'
+    });
 
     const sessionInstructions = `
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
@@ -1215,8 +1244,23 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - CRÍTICO: Respuestas concisas + opciones para profundizar
 - Evalúa escalación inteligente si momento_optimo 'caliente'
 
-🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.0:
-${esPrimeraInteraccion ? `
+🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.2:
+${esUsuarioConocido ? `
+🎉 USUARIO CONOCIDO - SALUDO PERSONALIZADO:
+- El usuario YA dio consentimiento previamente
+- Su nombre es: ${existingProspectData.name}
+- NO vuelvas a pedir consentimiento ni datos que ya tienes
+- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${existingProspectData.name}! ¿En qué puedo ayudarte hoy?"
+- Si preguntan algo que ya respondiste antes, recuérdales: "Como te comenté antes..."
+- Mantén un tono familiar y cercano (ya se conocen)
+
+📊 DATOS QUE YA TIENES:
+- Nombre: ${existingProspectData.name || 'N/A'}
+- Ocupación: ${existingProspectData.occupation || 'N/A'}
+- WhatsApp: ${existingProspectData.phone || 'N/A'}
+
+⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp u ocupación)
+` : esPrimeraInteraccion ? `
 ⚠️ PRIMERA INTERACCIÓN - ONBOARDING LEGAL OBLIGATORIO:
 - DETENER: Antes de responder la pregunta del usuario, DEBES hacer el onboarding legal
 - FLUJO OBLIGATORIO (5 pasos del system prompt v12.0):

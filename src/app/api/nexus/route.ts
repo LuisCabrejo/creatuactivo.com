@@ -42,6 +42,7 @@ interface ProspectData {
   interest_level?: number;
   objections?: string[];
   archetype?: string;
+  package?: string;  // ✅ NUEVO: paquete de inversión seleccionado
   momento_optimo?: string;
   preguntas?: string[];
   consent_granted?: boolean;
@@ -115,18 +116,55 @@ async function captureProspectData(
     console.log('✅ [NEXUS] Consentimiento detectado y guardado');
   }
 
-  // CAPTURA DE OCUPACIÓN
-  const occupationPatterns = [
-    /(?:soy|trabajo como|me dedico a|trabajo en)\s+(.+?)(?:\.|,|$)/i,
-    /(?:profesión|ocupación):\s*(.+?)(?:\.|,|$)/i
-  ];
+  // ✅ CAPTURA DE ARQUETIPO (desde Quick Replies)
+  const archetypeMap: Record<string, string> = {
+    'profesional con visión': 'profesional_vision',
+    'emprendedor y dueño de negocio': 'emprendedor_dueno_negocio',
+    'independiente y freelancer': 'independiente_freelancer',
+    'líder del hogar': 'lider_hogar',
+    'líder de la comunidad': 'lider_comunidad',
+    'joven con ambición': 'joven_ambicion'
+  };
 
-  for (const pattern of occupationPatterns) {
-    const match = message.match(pattern);
-    if (match) {
-      data.occupation = match[1].trim();
-      console.log('Ocupación capturada:', data.occupation);
+  for (const [label, value] of Object.entries(archetypeMap)) {
+    if (messageLower.includes(label)) {
+      data.archetype = value;
+      console.log('✅ [NEXUS] Arquetipo capturado:', value, 'desde label:', label);
       break;
+    }
+  }
+
+  // ✅ CAPTURA DE PAQUETE (desde Quick Replies)
+  const packageMap: Record<string, string> = {
+    'constructor inicial': 'inicial',
+    'constructor estratégico': 'estrategico',
+    'constructor visionario': 'visionario',
+    'prefiero asesoría personalizada': 'asesoria',
+    'asesoría personalizada': 'asesoria'
+  };
+
+  for (const [label, value] of Object.entries(packageMap)) {
+    if (messageLower.includes(label)) {
+      data.package = value;
+      console.log('✅ [NEXUS] Paquete capturado:', value, 'desde label:', label);
+      break;
+    }
+  }
+
+  // CAPTURA DE OCUPACIÓN (fallback para captura libre)
+  if (!data.archetype) {
+    const occupationPatterns = [
+      /(?:soy|trabajo como|me dedico a|trabajo en)\s+(.+?)(?:\.|,|$)/i,
+      /(?:profesión|ocupación):\s*(.+?)(?:\.|,|$)/i
+    ];
+
+    for (const pattern of occupationPatterns) {
+      const match = message.match(pattern);
+      if (match) {
+        data.occupation = match[1].trim();
+        console.log('Ocupación capturada (fallback):', data.occupation);
+        break;
+      }
     }
   }
 

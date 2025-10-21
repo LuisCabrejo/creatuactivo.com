@@ -1330,13 +1330,17 @@ ${esUsuarioConocido ? `
 ⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp u ocupación)
 ` : esPrimeraInteraccion ? `
 ⚠️ PRIMERA INTERACCIÓN - ONBOARDING LEGAL OBLIGATORIO:
-- DETENER: Antes de responder la pregunta del usuario, DEBES hacer el onboarding legal
-- FLUJO OBLIGATORIO (5 pasos del system prompt v12.0):
-  1. Saludo de bienvenida (adaptado al contexto)
-  2. Declaración de capacidades
-  3. Solicitud de consentimiento legal (texto completo del system prompt)
-  4. Botones: [✅ Sí, autorizo] [❌ No, gracias] [📄 Leer política]
-  5. Esperar respuesta del usuario antes de continuar
+
+PROHIBICIONES CRÍTICAS:
+❌ NO agregues saludos ("¡Hola! Soy NEXUS..." o similares)
+❌ NO agregues emojis (🚀, ✅, ❌)
+❌ NO agregues texto sobre "arquitecto tecnológico" o "comprar tu tiempo de vuelta"
+❌ NO agregues frases como "Una vez que tengamos eso claro..."
+❌ NO expandas ni interpretes el texto de consentimiento
+
+INSTRUCCIÓN:
+- USA SOLO el texto de consentimiento del System Prompt (sección ONBOARDING MINIMALISTA)
+- Esperar respuesta del usuario antes de continuar
 
 - IMPORTANTE: El usuario preguntó "${latestUserMessage}"
 - Pero NO respondas esa pregunta AÚN

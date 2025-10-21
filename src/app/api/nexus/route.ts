@@ -52,7 +52,8 @@ interface ProspectData {
 async function captureProspectData(
   message: string,
   sessionId: string,
-  fingerprint?: string
+  fingerprint?: string,
+  constructorUUID?: string | null
 ): Promise<ProspectData> {
 
   console.log('🔍 [NEXUS] Captura datos híbrida - Input:', {
@@ -214,11 +215,16 @@ async function captureProspectData(
   // GUARDAR EN SUPABASE SI HAY DATOS
   if (Object.keys(data).length > 0 && fingerprint) {
     try {
-      console.log('🔵 [NEXUS] Guardando en BD:', { fingerprint, data });
+      console.log('🔵 [NEXUS] Guardando en BD:', {
+        fingerprint: fingerprint.substring(0, 20) + '...',
+        data,
+        constructor_uuid: constructorUUID || 'Sistema (fallback)'
+      });
 
       const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
         p_fingerprint_id: fingerprint,
-        p_data: data
+        p_data: data,
+        p_constructor_id: constructorUUID || undefined  // ✅ Pasar UUID o undefined (usa Sistema como fallback)
       });
 
       if (rpcError) {
@@ -963,7 +969,7 @@ export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    const { messages, sessionId, fingerprint } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId } = await req.json();
 
     // ✅ Validación de mensajes
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -977,6 +983,28 @@ export async function POST(req: Request) {
     }
 
     const latestUserMessage = messages[messages.length - 1].content;
+
+    // 🔑 EXTRAER CONSTRUCTOR UUID (para tracking correcto por constructor)
+    let constructorUUID: string | null = null;
+    if (constructorId) {
+      try {
+        // Buscar UUID del constructor por su constructor_id (slug)
+        const { data: constructorData } = await supabase
+          .from('private_users')
+          .select('id')
+          .eq('constructor_id', constructorId)
+          .single();
+
+        if (constructorData) {
+          constructorUUID = constructorData.id;
+          console.log(`✅ [NEXUS] Constructor encontrado: ${constructorId} → UUID: ${constructorUUID}`);
+        } else {
+          console.warn(`⚠️ [NEXUS] Constructor no encontrado: ${constructorId}`);
+        }
+      } catch (error) {
+        console.error('❌ [NEXUS] Error buscando constructor:', error);
+      }
+    }
 
     // ========================================
     // ✅ LOGGING DETALLADO DEL REQUEST
@@ -1022,7 +1050,8 @@ export async function POST(req: Request) {
     const prospectData = await captureProspectData(
       latestUserMessage,
       sessionId || 'anonymous',
-      fingerprint
+      fingerprint,
+      constructorUUID  // ✅ Pasar UUID del constructor para tracking correcto
     );
 
     // COMBINAR datos existentes + nuevos capturados

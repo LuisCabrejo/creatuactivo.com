@@ -105,6 +105,17 @@ const sendMessage = useCallback(async (content: string) => {
       console.error('❌ [NEXUS Widget] Enviando mensaje SIN fingerprint - Los datos NO se guardarán');
     }
 
+    // 🔑 EXTRAER constructor_id de la URL (si viene de /fundadores/SLUG)
+    let constructorId: string | null = null;
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      const match = pathname.match(/\/fundadores\/([a-z0-9-]+)/);
+      if (match) {
+        constructorId = match[1];
+        console.log(`✅ [NEXUS Widget] Constructor detectado desde URL: ${constructorId}`);
+      }
+    }
+
     const response = await fetch('/api/nexus', {
       method: 'POST',
       headers: {
@@ -117,7 +128,8 @@ const sendMessage = useCallback(async (content: string) => {
           content: msg.content
         })),
         fingerprint: fingerprint,
-        sessionId: sessionId
+        sessionId: sessionId,
+        constructorId: constructorId  // ✅ Pasar constructor_id para tracking
       }),
       signal: controller.signal
     });

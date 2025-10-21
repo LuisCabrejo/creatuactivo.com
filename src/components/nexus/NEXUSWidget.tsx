@@ -5,18 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
-import QuickRepliesButtons, { QuickReply } from './QuickRepliesButtons';
 
 interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
-}
-
-interface ParsedMessage {
-  text: string;
-  quickReplies?: QuickReply[];
 }
 
 interface NEXUSWidgetProps {
@@ -54,32 +48,6 @@ const highlightCaptureQuestions = (text: string) => {
   });
 
   return highlighted;
-};
-
-// ✅ Parser de respuestas NEXUS para detectar Quick Replies
-const parseNEXUSResponse = (content: string): ParsedMessage => {
-  // Buscar pattern: QUICK_REPLIES:\n{...}
-  const quickRepliesMatch = content.match(/QUICK_REPLIES:\s*(\{[\s\S]*?\})/);
-
-  if (!quickRepliesMatch) {
-    return { text: content };
-  }
-
-  // Separar texto de quick replies
-  const text = content.substring(0, quickRepliesMatch.index).trim();
-  const quickRepliesJSON = quickRepliesMatch[1];
-
-  try {
-    const parsed = JSON.parse(quickRepliesJSON);
-    return {
-      text,
-      quickReplies: parsed.quickReplies || []
-    };
-  } catch (error) {
-    console.warn('⚠️ [NEXUS Widget] Error parsing quick replies:', error);
-    // Si falla el parsing, retorna todo como texto
-    return { text: content };
-  }
 };
 
 const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
@@ -304,16 +272,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 // Detectar si es el último mensaje user para aplicar animación especial Claude.ai
                 const isLastUserMessage = message.role === 'user' && message.id === lastMessageId;
 
-                // ✅ Parsear respuesta para detectar Quick Replies
-                const parsed = message.role === 'assistant'
-                  ? parseNEXUSResponse(message.content)
-                  : { text: message.content };
-
                 return (
                   <div
                     key={message.id}
                     ref={registerNode(message.id)}
-                    className="flex flex-col message-item"
+                    className="flex message-item"
                     style={{
                       animation: isLastUserMessage
                         ? 'claudeFadeIn 400ms ease-out 150ms both' // 🎯 Fade-in como Claude.ai con delay
@@ -352,20 +315,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                           )
                         }}
                       >
-                        {message.role === 'assistant' ? highlightCaptureQuestions(parsed.text) : parsed.text}
+                        {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}
                       </ReactMarkdown>
                     </div>
-
-                    {/* ✅ Quick Replies Buttons */}
-                    {parsed.quickReplies && parsed.quickReplies.length > 0 && (
-                      <QuickRepliesButtons
-                        replies={parsed.quickReplies}
-                        onSelect={(value, label) => {
-                          // Enviar el label como mensaje del usuario
-                          sendMessage(label);
-                        }}
-                      />
-                    )}
                   </div>
                 );
               })}

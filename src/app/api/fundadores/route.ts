@@ -13,6 +13,9 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// ID del usuario Sistema para usar como fallback cuando no hay referente
+const SISTEMA_USER_ID = '0456e1b9-a661-48c9-9fa1-9dc24fe007b9';
+
 // 🎯 MAPEO: Texto descriptivo → Código corto (para consistencia con Dashboard)
 function normalizePlanType(planText: string | undefined): 'inicial' | 'empresarial' | 'visionario' {
   if (!planText) return 'empresarial'; // Default
@@ -126,10 +129,36 @@ export async function POST(request: NextRequest) {
 
       // Obtener constructor_id del referral si existe
       let invitedById = null;
-      const refParam = new URL(request.url).searchParams.get('ref') ||
-                       request.headers.get('referer')?.match(/\?ref=([^&]+)/)?.[1];
+      let refParam: string | null = null;
 
-      console.log('🔍 [DB] Parámetro ref detectado:', refParam || 'NINGUNO');
+      // ESTRATEGIA 1: Intentar obtener desde query param (?ref=...)
+      refParam = new URL(request.url).searchParams.get('ref');
+
+      if (!refParam) {
+        // ESTRATEGIA 2: Extraer desde referer header
+        const referer = request.headers.get('referer');
+        console.log('🔍 [DB] Referer completo:', referer);
+
+        if (referer) {
+          // Opción A: Query param en referer (?ref=...)
+          const queryMatch = referer.match(/[?&]ref=([^&]+)/);
+          if (queryMatch) {
+            refParam = queryMatch[1];
+            console.log('🔍 [DB] Constructor ID extraído desde query param:', refParam);
+          } else {
+            // Opción B: Slug en la ruta (/fundadores/luis-cabrejo-parra-4871288)
+            const pathMatch = referer.match(/\/fundadores\/([a-z0-9-]+)/);
+            if (pathMatch) {
+              refParam = pathMatch[1];
+              console.log('🔍 [DB] Constructor ID extraído desde ruta:', refParam);
+            }
+          }
+        }
+      } else {
+        console.log('🔍 [DB] Constructor ID desde query param directo:', refParam);
+      }
+
+      console.log('🔍 [DB] Parámetro ref FINAL:', refParam || 'NINGUNO');
 
       if (refParam) {
         // Buscar constructor por slug o ID
@@ -141,10 +170,18 @@ export async function POST(request: NextRequest) {
 
         if (constructorError) {
           console.log('⚠️ [DB] Constructor no encontrado para ref:', refParam);
+          console.log('⚠️ [DB] Error details:', constructorError.message);
         } else if (constructor) {
           invitedById = constructor.id;
           console.log('✅ [DB] Constructor referente encontrado:', constructor.name, '-', constructor.email);
         }
+      }
+
+      // 🛡️ FALLBACK: Si no se encontró constructor, usar usuario Sistema
+      if (!invitedById) {
+        invitedById = SISTEMA_USER_ID;
+        console.log('⚠️ [DB] No se encontró constructor referente, usando Sistema como fallback');
+        console.log('🔍 [DB] Sistema User ID:', SISTEMA_USER_ID);
       }
 
       // Normalizar plan_type antes de insertar
@@ -182,12 +219,22 @@ export async function POST(request: NextRequest) {
         console.error('❌ [DB] Error message:', insertError.message);
         console.error('❌ [DB] Error details:', insertError.details);
         console.error('❌ [DB] Error hint:', insertError.hint);
-        // No bloqueamos el flujo si falla el INSERT, pero lo registramos
-      } else {
-        console.log('✅ [DB] Prospecto guardado exitosamente en BD!');
-        console.log('✅ [DB] ID asignado:', insertedRequest.id);
-        console.log('✅ [DB] Email guardado:', insertedRequest.email);
+
+        // 🛡️ CRÍTICO: Si no se guarda en BD, NO continuar con el flujo
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Error al guardar tu solicitud. Por favor intenta de nuevo o contáctanos por WhatsApp.',
+            technicalDetails: insertError.message,
+            whatsapp: '+573102066593'
+          },
+          { status: 500 }
+        );
       }
+
+      console.log('✅ [DB] Prospecto guardado exitosamente en BD!');
+      console.log('✅ [DB] ID asignado:', insertedRequest.id);
+      console.log('✅ [DB] Email guardado:', insertedRequest.email);
     }
 
     // ====================================================================

@@ -1415,56 +1415,31 @@ INSTRUCCIÓN:
 - Ocupación: ${mergedProspectData.occupation || '❌ FALTA'}
 - WhatsApp: ${mergedProspectData.phone || '❌ FALTA'}
 
-🎯 SCRIPTS OBLIGATORIOS CON PROPUESTA DE VALOR:
+🎯 PRÓXIMO DATO A CAPTURAR (si falta):
 
 ${!mergedProspectData.name ? `
-⚠️ FALTA NOMBRE - USA UNO DE ESTOS SCRIPTS (TEXTUAL):
-  Opción 1: "Por cierto, ¿cómo te llamas? Me gusta personalizar nuestra conversación 😊"
-  Opción 2: "Para que nuestra conversación sea más cercana, ¿cómo te llamas?"
-  Opción 3: "Para ayudarte mejor, ¿cómo te llamo?"
-` : mergedProspectData.name && !mergedProspectData.occupation ? `
-⚠️ FALTA OCUPACIÓN - USA UNO DE ESTOS SCRIPTS (TEXTUAL):
-  Opción 1: "Gracias ${mergedProspectData.name}. Para darte recomendaciones que se ajusten a tu perfil, ¿a qué te dedicas actualmente?"
-  Opción 2: "Perfecto ${mergedProspectData.name}. ¿Cuál es tu ocupación? Así puedo personalizar mejor la información para ti."
-  Opción 3: "Encantado ${mergedProspectData.name}. ¿A qué te dedicas? Me ayuda a darte ejemplos más relevantes."
-` : mergedProspectData.name && mergedProspectData.occupation && (mergedProspectData.interest_level || 0) >= 7 && !mergedProspectData.phone ? `
-⚠️ INTERÉS ALTO (${mergedProspectData.interest_level}/10) - PEDIR WHATSAPP:
-  Opción 1: "${mergedProspectData.name}, me gustaría enviarte un resumen completo por WhatsApp. ¿Cuál es tu número?"
-  Opción 2: "Perfecto ${mergedProspectData.name}. Para conectarte con Liliana y dar el siguiente paso, ¿me compartes tu WhatsApp?"
-  Opción 3: "${mergedProspectData.name}, para darte seguimiento personalizado, ¿cuál es tu WhatsApp?"
+⚠️ FALTA: NOMBRE
+- Sigue las instrucciones del System Prompt (PASO 1) para timing y formato
+` : mergedProspectData.name && !mergedProspectData.archetype ? `
+⚠️ FALTA: ARQUETIPO
+- Nombre ya capturado: ${mergedProspectData.name}
+- Sigue las instrucciones del System Prompt (PASO 2) para presentar arquetipos
+- Usa formato de viñetas: "- A) 💼 Profesional..."
+` : mergedProspectData.name && mergedProspectData.archetype && (mergedProspectData.interest_level || 0) >= 7 && !mergedProspectData.phone ? `
+⚠️ FALTA: WHATSAPP (Interés Alto: ${mergedProspectData.interest_level}/10)
+- Nombre: ${mergedProspectData.name}
+- Arquetipo: ${mergedProspectData.archetype}
+- Sigue las instrucciones del System Prompt (PASO 3) para pedir WhatsApp
 ` : `
-✅ DATOS COMPLETOS - Continúa conversación sin pedir más datos (o pide Email solo si usuario solicita recurso digital)
+✅ DATOS COMPLETOS
+- Continúa conversación sin pedir más datos
+- Email solo si usuario solicita recurso digital
 `}
 
-⚠️ REGLAS CRÍTICAS - TIMING DE CAPTURA:
-- USA EXACTAMENTE uno de los scripts de arriba (COPIA TEXTUAL)
-- La propuesta de valor DEBE estar ANTES de la pregunta
-- NUNCA preguntes solo "¿Cómo te llamas?" sin justificación
-
-🎯 POSICIÓN DE LA PREGUNTA DE CAPTURA (CRÍTICO):
-- La pregunta de datos va AL FINAL ABSOLUTO del mensaje
-- DESPUÉS de todo el contenido de valor
-- DESPUÉS de las opciones A/B/C (si las hay)
-- SIN agregar nada más después de la pregunta
-
-📐 ESTRUCTURA CORRECTA DEL MENSAJE:
-1. Respuesta al usuario (contenido de valor)
-2. Opciones A/B/C de seguimiento (si aplica)
-3. [Línea en blanco]
-4. Pregunta de captura de datos ← FINAL ABSOLUTO
-5. [FIN - NO agregar más texto]
-
-❌ INCORRECTO (pregunta en medio):
-"[Respuesta]
-¿Cómo te llamas?
-[Opciones A/B/C]" ← MAL - Usuario no ve la pregunta
-
-✅ CORRECTO (pregunta al final):
-"[Respuesta completa]
-
-[Opciones A/B/C si hay]
-
-Por cierto, ¿cómo te llamas? Me gusta personalizar nuestra conversación 😊" ← BIEN - Usuario lee esto último
+⚠️ TIMING Y FORMATO - SEGUIR SYSTEM PROMPT v12.5:
+- El System Prompt (PASO 1 y PASO 2) contiene las reglas de timing correctas
+- Sigue esas instrucciones para timing de nombre y arquetipo
+- NO impongas timing diferente a lo que dice el System Prompt
 `}`;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING

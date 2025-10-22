@@ -320,7 +320,47 @@ export async function POST(request: NextRequest) {
           }
         } else {
           console.log('⚠️ [PROSPECTS] No se encontró prospect existente para actualizar');
-          console.log('ℹ️ [PROSPECTS] Se creará cuando el usuario interactúe con NEXUS');
+          console.log('🎯 [PROSPECTS] Creando nuevo prospect desde formulario...');
+
+          // Generar fingerprint único para el prospect
+          const crypto = require('crypto');
+          const fingerprintData = `${formData.email}-${formData.telefono}-${Date.now()}`;
+          const fingerprint = crypto.createHash('sha256').update(fingerprintData).digest('hex');
+
+          console.log('🔍 [PROSPECTS] Fingerprint generado:', fingerprint);
+
+          // Preparar datos completos para el nuevo prospect
+          const prospectData = {
+            name: formData.nombre.trim(),
+            email: formData.email.toLowerCase().trim(),
+            phone: formData.telefono.trim(),
+            whatsapp: formData.telefono.trim(),
+            archetype: formData.arquetipo || null,
+            package: normalizedPlanType,
+            interest_level: 10, // Formulario enviado = máximo interés
+            consent_granted: true,
+            form_submitted: true,
+            form_submitted_at: new Date().toISOString()
+          };
+
+          console.log('🔍 [PROSPECTS] Datos del nuevo prospect:', prospectData);
+
+          // Llamar al RPC para crear el prospect
+          const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+            p_fingerprint_id: fingerprint,
+            p_data: prospectData,
+            p_constructor_id: invitedById
+          });
+
+          if (rpcError) {
+            console.error('❌ [PROSPECTS] Error creando prospect con RPC:', rpcError.message);
+            console.error('❌ [PROSPECTS] RPC Error details:', rpcError);
+          } else {
+            console.log('✅ [PROSPECTS] Prospect creado exitosamente!');
+            console.log('✅ [PROSPECTS] Resultado RPC:', rpcResult);
+            console.log('✅ [PROSPECTS] Stage inicial:', rpcResult?.stage || 'INICIAR');
+            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcResult?.advanced || false);
+          }
         }
       }
     }

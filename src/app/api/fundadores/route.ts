@@ -235,6 +235,94 @@ export async function POST(request: NextRequest) {
       console.log('✅ [DB] Prospecto guardado exitosamente en BD!');
       console.log('✅ [DB] ID asignado:', insertedRequest.id);
       console.log('✅ [DB] Email guardado:', insertedRequest.email);
+
+      // ====================================================================
+      // 🎯 ACTUALIZAR TABLA PROSPECTS (para Dashboard Mi Sistema IAA)
+      // ====================================================================
+      console.log('\n🔍 [PROSPECTS] Buscando prospect existente del constructor...');
+
+      // Buscar prospect existente del constructor (puede existir si visitó la página antes)
+      const { data: existingProspects, error: prospectSearchError } = await supabase
+        .from('prospects')
+        .select('id, fingerprint_id, device_info, stage, created_at')
+        .eq('constructor_id', invitedById)
+        .order('created_at', { ascending: false })
+        .limit(5); // Últimos 5 prospects del constructor
+
+      if (prospectSearchError) {
+        console.error('⚠️ [PROSPECTS] Error buscando prospects:', prospectSearchError.message);
+      } else {
+        console.log(`🔍 [PROSPECTS] Encontrados ${existingProspects?.length || 0} prospects del constructor`);
+
+        // Intentar encontrar el prospect correcto (por email, nombre o fecha cercana)
+        let targetProspect = null;
+
+        if (existingProspects && existingProspects.length > 0) {
+          // Estrategia 1: Buscar por email en device_info
+          targetProspect = existingProspects.find(p =>
+            p.device_info?.email?.toLowerCase() === formData.email.toLowerCase()
+          );
+
+          // Estrategia 2: Buscar por nombre parcial
+          if (!targetProspect) {
+            targetProspect = existingProspects.find(p =>
+              p.device_info?.name?.toLowerCase().includes(formData.nombre.toLowerCase().split(' ')[0])
+            );
+          }
+
+          // Estrategia 3: El más reciente sin datos completos (creado en los últimos 30 minutos)
+          if (!targetProspect) {
+            const now = new Date();
+            targetProspect = existingProspects.find(p => {
+              const createdAt = new Date(p.created_at);
+              const diffMinutes = (now.getTime() - createdAt.getTime()) / 1000 / 60;
+              const hasIncompleteData = !p.device_info?.name || !p.device_info?.phone;
+              return diffMinutes < 30 && hasIncompleteData;
+            });
+          }
+        }
+
+        if (targetProspect) {
+          console.log('✅ [PROSPECTS] Prospect encontrado, actualizando...');
+          console.log('🔍 [PROSPECTS] Fingerprint:', targetProspect.fingerprint_id);
+          console.log('🔍 [PROSPECTS] Stage actual:', targetProspect.stage);
+
+          // Preparar datos completos para actualizar
+          const prospectData = {
+            name: formData.nombre.trim(),
+            email: formData.email.toLowerCase().trim(),
+            phone: formData.telefono.trim(),
+            whatsapp: formData.telefono.trim(),
+            archetype: formData.arquetipo || null,
+            package: normalizedPlanType,
+            interest_level: 10, // Formulario enviado = máximo interés (stage debería avanzar a ACOGER)
+            consent_granted: true,
+            form_submitted: true,
+            form_submitted_at: new Date().toISOString()
+          };
+
+          console.log('🔍 [PROSPECTS] Datos a actualizar:', prospectData);
+
+          // Llamar al RPC update_prospect_data
+          const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+            p_fingerprint_id: targetProspect.fingerprint_id,
+            p_data: prospectData,
+            p_constructor_id: invitedById
+          });
+
+          if (rpcError) {
+            console.error('❌ [PROSPECTS] Error actualizando con RPC:', rpcError.message);
+          } else {
+            console.log('✅ [PROSPECTS] Prospect actualizado exitosamente!');
+            console.log('✅ [PROSPECTS] Resultado RPC:', rpcResult);
+            console.log('✅ [PROSPECTS] Nuevo stage:', rpcResult?.stage || 'unknown');
+            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcResult?.advanced || false);
+          }
+        } else {
+          console.log('⚠️ [PROSPECTS] No se encontró prospect existente para actualizar');
+          console.log('ℹ️ [PROSPECTS] Se creará cuando el usuario interactúe con NEXUS');
+        }
+      }
     }
 
     // ====================================================================

@@ -134,6 +134,26 @@ async function captureProspectData(
     }
   }
 
+  // ✅ CAPTURA DE ARQUETIPO POR EMOJI (fallback cuando usuario copia solo el emoji)
+  if (!data.archetype) {
+    const emojiArchetypeMap: Record<string, string> = {
+      '💼': 'profesional_vision',
+      '🎯': 'emprendedor_dueno_negocio',
+      '💡': 'independiente_freelancer',
+      '🏠': 'lider_hogar',
+      '👥': 'lider_comunidad',
+      '📈': 'joven_ambicion'
+    };
+
+    for (const [emoji, value] of Object.entries(emojiArchetypeMap)) {
+      if (message.includes(emoji)) {
+        data.archetype = value;
+        console.log('✅ [NEXUS] Arquetipo capturado por emoji:', emoji, '→', value);
+        break;
+      }
+    }
+  }
+
   // ✅ CAPTURA DE PAQUETE (desde Quick Replies)
   const packageMap: Record<string, string> = {
     'constructor inicial': 'inicial',

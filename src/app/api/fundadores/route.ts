@@ -17,8 +17,8 @@ const supabase = createClient(
 const SISTEMA_USER_ID = '0456e1b9-a661-48c9-9fa1-9dc24fe007b9';
 
 // 🎯 MAPEO: Texto descriptivo → Código corto (para consistencia con Dashboard)
-function normalizePlanType(planText: string | undefined): 'inicial' | 'empresarial' | 'visionario' {
-  if (!planText) return 'empresarial'; // Default
+function normalizePlanType(planText: string | undefined): 'inicial' | 'estrategico' | 'visionario' {
+  if (!planText) return 'estrategico'; // Default
 
   const lowerText = planText.toLowerCase();
 
@@ -32,8 +32,8 @@ function normalizePlanType(planText: string | undefined): 'inicial' | 'empresari
     return 'visionario';
   }
 
-  // Default: empresarial
-  return 'empresarial';
+  // Default: estrategico (nombre correcto según CreaTuActivo.com)
+  return 'estrategico';
 }
 
 // 🎯 HELPER: Email Container Component - SOLO para email interno

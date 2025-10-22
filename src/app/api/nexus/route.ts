@@ -175,21 +175,21 @@ async function captureProspectData(
     }
   }
 
-  // ✅ CAPTURA DE ARQUETIPO POR EMOJI (fallback cuando usuario copia solo el emoji)
+  // ✅ CAPTURA DE ARQUETIPO POR ICONO VECTORIAL (branding CreaTuActivo)
   if (!data.archetype) {
-    const emojiArchetypeMap: Record<string, string> = {
+    const iconArchetypeMap: Record<string, string> = {
       '💼': 'profesional_vision',
-      '🎯': 'emprendedor_dueno_negocio',
+      '📱': 'emprendedor_dueno_negocio',  // Actualizado: 🎯 → 📱
       '💡': 'independiente_freelancer',
       '🏠': 'lider_hogar',
       '👥': 'lider_comunidad',
-      '📈': 'joven_ambicion'
+      '🎓': 'joven_ambicion'  // Actualizado: 📈 → 🎓
     };
 
-    for (const [emoji, value] of Object.entries(emojiArchetypeMap)) {
-      if (message.includes(emoji)) {
+    for (const [icon, value] of Object.entries(iconArchetypeMap)) {
+      if (message.includes(icon)) {
         data.archetype = value;
-        console.log('✅ [NEXUS] Arquetipo capturado por emoji:', emoji, '→', value);
+        console.log('✅ [NEXUS] Arquetipo capturado por icono:', icon, '→', value);
         break;
       }
     }

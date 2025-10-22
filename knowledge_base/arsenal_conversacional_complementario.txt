@@ -167,9 +167,9 @@ Es una progresión lógica y emocionante hacia la construcción de un patrimonio
     - 1 Ganocafé Classic
     - 1 Piel&Brillo Shampoo
     - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Exfoliante Corporal
-    - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
+    - 1 Ganorico MochaRico
+    - 1 Gano C'Real Spirulina
+    - 1 Ganorico Latte Rico
 
 #### Paquete Constructor Empresarial (ESP 2)
 - **Total:** 18 productos
@@ -179,13 +179,14 @@ Es una progresión lógica y emocionante hacia la construcción de un patrimonio
     - 1 Gano Soap
     - 1 Gano Fresh Toothpaste
     - 1 Gano Transparent Soap
-    - 1 Ganó Rico MochaRico
-    - 1 Gano C''Real Spirulina
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Exfoliante Corporal
+    - 1 Ganorico MochaRico
+    - 1 Gano C'Real Spirulina
     - 1 Ganorico Latte Rico
     - 1 Ganorico Shoko Rico
     - 1 Reskine Collagen Drink
-    - 1 Ganoderma Cápsulas
-    - 1 Excellium Cápsulas
 
 #### Paquete Constructor Visionario (ESP 3)
 - **Total:** 35 productos
@@ -195,10 +196,15 @@ Es una progresión lógica y emocionante hacia la construcción de un patrimonio
     - 1 Gano Soap
     - 1 Gano Fresh Toothpaste
     - 1 Gano Transparent Soap
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Exfoliante Corporal
     - 1 Gano Schokolade
+    - 1 Ganorico MochaRico
     - 1 Oleaf Gano Rooibos Drink
-    - 1 Gano C''Real Spirulina
+    - 1 Gano C'Real Spirulina
     - 1 Ganorico Latte Rico
+    - 1 Ganorico Shoko Rico
     - 1 Reskine Collagen Drink
     - 1 Ganoderma Cápsulas
     - 1 Excellium Cápsulas

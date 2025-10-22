@@ -17,10 +17,15 @@ const supabase = createClient(
 const SISTEMA_USER_ID = '0456e1b9-a661-48c9-9fa1-9dc24fe007b9';
 
 // 🎯 MAPEO: Texto descriptivo → Código corto (para consistencia con Dashboard)
-function normalizePlanType(planText: string | undefined): 'inicial' | 'estrategico' | 'visionario' {
+function normalizePlanType(planText: string | undefined): 'inicial' | 'estrategico' | 'visionario' | 'asesoria' {
   if (!planText) return 'estrategico'; // Default
 
   const lowerText = planText.toLowerCase();
+
+  // Detectar "asesoría personalizada" en el texto
+  if (lowerText.includes('asesore') || lowerText.includes('asesor') || lowerText.includes('luis o liliana')) {
+    return 'asesoria';
+  }
 
   // Detectar "inicial" en el texto
   if (lowerText.includes('inicial') || lowerText.includes('$900,000') || lowerText.includes('$200')) {

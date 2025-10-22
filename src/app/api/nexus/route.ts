@@ -400,7 +400,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /precio.*(?!.*paquete|.*inversión|.*constructor)/i,
   ];
 
-  // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES) - SIN CAMBIOS
+  // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)
   const patrones_paquetes = [
     // Paquetes específicos de inversión
     /cuál.*inversión/i,
@@ -418,7 +418,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /costo.*activar/i,
     /precio.*fundador/i,
 
-    // NUEVOS: Patrones generales para paquetes
+    // Patrones generales para paquetes
     /háblame.*paquetes/i,
     /sobre.*paquetes/i,
     /de.*los.*paquetes/i,
@@ -429,7 +429,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /paquetes.*hay/i,
     /tipos.*paquetes/i,
 
-    // NUEVOS: Referencias específicas ESP
+    // Referencias específicas ESP
     /esp\s*1/i,
     /esp\s*2/i,
     /esp\s*3/i,
@@ -437,7 +437,53 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /esp2/i,
     /esp3/i,
     /paquete.*esp/i,
-    /esp.*paquete/i
+    /esp.*paquete/i,
+
+    // 🆕 FIX 2025-10-21: PATRONES PARA PRODUCTOS POR PAQUETE (SIST_11)
+    // ============================================================
+    // Preguntas sobre CANTIDAD de productos
+    /cuántos.*productos.*paquete/i,
+    /cuántos.*productos.*ESP/i,
+    /cuántos.*productos.*trae/i,
+    /cuántos.*productos.*incluye/i,
+    /cuántos.*productos.*contiene/i,
+    /cantidad.*productos.*paquete/i,
+    /número.*productos.*paquete/i,
+
+    // Preguntas sobre QUÉ productos
+    /qué.*productos.*paquete/i,
+    /qué.*productos.*ESP/i,
+    /qué.*productos.*trae/i,
+    /qué.*productos.*incluye/i,
+    /qué.*contiene.*paquete/i,
+    /qué.*viene.*paquete/i,
+    /cuáles.*productos.*paquete/i,
+    /cuáles.*productos.*ESP/i,
+
+    // Preguntas sobre INVENTARIO/COMPOSICIÓN
+    /inventario.*paquete/i,
+    /listado.*productos.*paquete/i,
+    /lista.*productos.*paquete/i,
+    /desglose.*paquete/i,
+    /composición.*paquete/i,
+    /detalle.*paquete/i,
+    /detalle.*productos.*paquete/i,
+
+    // Patrones específicos por paquete y productos
+    /ESP.*1.*productos/i,
+    /ESP.*2.*productos/i,
+    /ESP.*3.*productos/i,
+    /Inicial.*productos/i,
+    /Empresarial.*productos/i,
+    /Visionario.*productos/i,
+    /productos.*Inicial/i,
+    /productos.*Empresarial/i,
+    /productos.*Visionario/i,
+
+    // Patrones de contexto "qué viene"
+    /qué.*viene.*ESP/i,
+    /qué.*trae.*ESP/i,
+    /qué.*incluye.*ESP/i
   ];
 
   // 🔧 PRIORIDAD 1: PRODUCTOS INDIVIDUALES (SIN CAMBIOS)
@@ -446,10 +492,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'catalogo_productos';
   }
 
-  // PRIORIDAD 2: PAQUETES DE INVERSIÓN (SIN CAMBIOS)
+  // PRIORIDAD 2: PAQUETES DE INVERSIÓN
+  // 🆕 FIX 2025-10-21: Routing a arsenal_cierre (contiene SIST_11 con productos por paquete)
   if (patrones_paquetes.some(patron => patron.test(messageLower))) {
-    console.log('💼 Clasificación: PAQUETES (arsenal_inicial)');
-    return 'arsenal_inicial';
+    console.log('💼 Clasificación: PAQUETES (arsenal_cierre - SIST_11)');
+    return 'arsenal_cierre'; // ✅ CORRECTO: SIST_11 está en arsenal_cierre
   }
 
   // 🎯 PRIORIDAD 3: FLUJO 3 NIVELES - EXPANSIÓN SEMÁNTICA CRÍTICA

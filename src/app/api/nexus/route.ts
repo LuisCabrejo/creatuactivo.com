@@ -116,21 +116,62 @@ async function captureProspectData(
     console.log('✅ [NEXUS] Consentimiento detectado y guardado');
   }
 
-  // ✅ CAPTURA DE ARQUETIPO (desde Quick Replies)
-  const archetypeMap: Record<string, string> = {
-    'profesional con visión': 'profesional_vision',
-    'emprendedor y dueño de negocio': 'emprendedor_dueno_negocio',
-    'independiente y freelancer': 'independiente_freelancer',
-    'líder del hogar': 'lider_hogar',
-    'líder de la comunidad': 'lider_comunidad',
-    'joven con ambición': 'joven_ambicion'
-  };
+  // ✅ CAPTURA DE ARQUETIPO (viñetas A-F + texto completo)
 
-  for (const [label, value] of Object.entries(archetypeMap)) {
-    if (messageLower.includes(label)) {
-      data.archetype = value;
-      console.log('✅ [NEXUS] Arquetipo capturado:', value, 'desde label:', label);
-      break;
+  // PRIORIDAD 1: Detección por letra sola (usuario escribe solo "A", "B", etc.)
+  const trimmedMessage = message.trim().toLowerCase();
+  const singleLetterRegex = /^[a-f]$/i;
+
+  if (singleLetterRegex.test(trimmedMessage)) {
+    const letterMap: Record<string, string> = {
+      'a': 'profesional_vision',
+      'b': 'emprendedor_dueno_negocio',
+      'c': 'independiente_freelancer',
+      'd': 'lider_hogar',
+      'e': 'lider_comunidad',
+      'f': 'joven_ambicion'
+    };
+    data.archetype = letterMap[trimmedMessage];
+    console.log('✅ [NEXUS] Arquetipo capturado por letra:', trimmedMessage.toUpperCase(), '→', data.archetype);
+  }
+
+  // PRIORIDAD 2: Detección por viñeta (usuario escribe "A)", "B)", etc.)
+  if (!data.archetype) {
+    const bulletMap: Record<string, string> = {
+      'a)': 'profesional_vision',
+      'b)': 'emprendedor_dueno_negocio',
+      'c)': 'independiente_freelancer',
+      'd)': 'lider_hogar',
+      'e)': 'lider_comunidad',
+      'f)': 'joven_ambicion'
+    };
+
+    for (const [bullet, value] of Object.entries(bulletMap)) {
+      if (messageLower.includes(bullet)) {
+        data.archetype = value;
+        console.log('✅ [NEXUS] Arquetipo capturado por viñeta:', bullet.toUpperCase(), '→', value);
+        break;
+      }
+    }
+  }
+
+  // PRIORIDAD 3: Detección por texto completo (usuario copia el perfil completo)
+  if (!data.archetype) {
+    const textMap: Record<string, string> = {
+      'profesional con visión': 'profesional_vision',
+      'emprendedor y dueño de negocio': 'emprendedor_dueno_negocio',
+      'independiente y freelancer': 'independiente_freelancer',
+      'líder del hogar': 'lider_hogar',
+      'líder de la comunidad': 'lider_comunidad',
+      'joven con ambición': 'joven_ambicion'
+    };
+
+    for (const [label, value] of Object.entries(textMap)) {
+      if (messageLower.includes(label)) {
+        data.archetype = value;
+        console.log('✅ [NEXUS] Arquetipo capturado por texto:', label, '→', value);
+        break;
+      }
     }
   }
 
@@ -1445,8 +1486,8 @@ Por cierto, ¿cómo te llamas? Me gusta personalizar nuestra conversación 😊"
     const maxTokens = searchMethod === 'catalogo_productos'
       ? 300  // Consultas de precios = respuestas cortas (producto + precio)
       : prospectData.momento_optimo === 'caliente'
-      ? 500  // Prospecto caliente = respuesta más detallada para cerrar
-      : 400; // Default: respuestas concisas para mejor UX
+      ? 600  // Prospecto caliente = respuesta más detallada para cerrar + arquetipos
+      : 500; // Default: respuestas concisas + lista completa de arquetipos (6 items ~150 tokens)
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
 

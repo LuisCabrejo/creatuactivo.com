@@ -633,7 +633,31 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /siguiente.*paso/i,
     /hablar.*equipo/i,
     /empezar.*hoy/i,
-    /contactar.*alguien/i
+    /contactar.*alguien/i,
+
+    // 🆕 FIX 2025-10-22: PATRONES PARA AUTO ENVÍO (SIST_12)
+    // ============================================================
+    /auto.*envío/i,
+    /autoenvío/i,
+    /auto\s*envío/i,
+    /qué.*auto.*envío/i,
+    /cómo.*funciona.*auto.*envío/i,
+    /beneficios.*auto.*envío/i,
+    /programa.*auto.*envío/i,
+    /qué.*es.*auto.*envío/i,
+    /explicame.*auto.*envío/i,
+    /cuánto.*auto.*envío/i,
+
+    // Variaciones sin tilde
+    /auto.*envio/i,
+    /qué.*auto.*envio/i,
+    /beneficios.*auto.*envio/i,
+
+    // Contexto de programa de lealtad
+    /programa.*lealtad/i,
+    /producto.*gratis/i,
+    /producto.*obsequio/i,
+    /recompensa.*consumo/i
   ];
 
   // Evaluar patrones restantes

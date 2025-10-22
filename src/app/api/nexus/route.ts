@@ -657,7 +657,138 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /programa.*lealtad/i,
     /producto.*gratis/i,
     /producto.*obsequio/i,
-    /recompensa.*consumo/i
+    /recompensa.*consumo/i,
+
+    // 🆕 FIX 2025-10-22: PATRONES PARA SECCIONES SIST FALTANTES (Auditoría Completa)
+    // ============================================================
+
+    // SIST_03: "¿Cómo escalo mi operación estratégicamente?"
+    /escalo.*operación/i,
+    /escala.*operación/i,
+    /escalabilidad.*operación/i,
+    /operación.*estratégica/i,
+    /escalar.*estratégicamente/i,
+    /cómo.*crezco/i,
+
+    // SIST_04: "¿Dónde queda mi toque personal en un sistema tan automatizado?"
+    /toque.*personal/i,
+    /personalización/i,
+    /sistema.*automatizado/i,
+    /automatizado.*personal/i,
+    /dónde.*queda.*personal/i,
+
+    // SIST_05: "¿Qué diferencia esto de otros sistemas tecnológicos?"
+    /diferencia.*otros.*sistemas/i,
+    /diferencia.*sistemas.*tecnológicos/i,
+    /qué.*diferencia.*esto/i,
+    /vs.*otros.*sistemas/i,
+    /comparación.*sistemas/i,
+
+    // SIST_07: "¿Qué me diferencia de los demás constructores?"
+    /me.*diferencia.*constructores/i,
+    /diferencia.*demás.*constructores/i,
+    /otros.*constructores/i,
+    /diferenciación.*personal/i,
+
+    // SIST_08: "¿Qué tipo de personas ya están construyendo aquí?"
+    /tipo.*personas/i,
+    /personas.*construyendo/i,
+    /quién.*está.*aquí/i,
+    /perfil.*constructores/i,
+    /ya.*están.*construyendo/i,
+
+    // SIST_09: "¿Cuál sería tu rol como mi mentor?"
+    /rol.*mentor/i,
+    /como.*mentor/i,
+    /tu.*rol/i,
+    /mentoría/i,
+    /guía.*estratégico/i,
+
+    // SIST_10: "¿Cuál es el plan de construcción para el primer año?"
+    /plan.*construcción/i,
+    /plan.*primer.*año/i,
+    /roadmap.*año/i,
+    /estrategia.*anual/i,
+    /plan.*anual/i,
+
+    // 🆕 FIX 2025-10-22: PATRONES PARA SECCIONES VAL FALTANTES
+    // ============================================================
+
+    // VAL_03: "¿Mi ingreso depende de cuánta gente active?"
+    /ingreso.*depende.*gente/i,
+    /depende.*cuánta.*gente/i,
+    /depende.*activar/i,
+    /ingreso.*cantidad/i,
+
+    // VAL_05: "¿Qué me están vendiendo exactamente?"
+    /qué.*venden.*exactamente/i,
+    /qué.*me.*están.*vendiendo/i,
+    /están.*vendiendo/i,
+    /venden.*realmente/i,
+
+    // VAL_06: "¿En qué tiempo promedio veo resultados?"
+    /tiempo.*promedio.*resultados/i,
+    /cuándo.*veo.*resultados/i,
+    /cuánto.*tiempo.*resultados/i,
+    /qué.*tiempo.*resultados/i,
+
+    // VAL_07: "¿Normalmente qué estadística hay de éxito?"
+    /estadística.*éxito/i,
+    /qué.*estadística/i,
+    /tasa.*éxito/i,
+    /porcentaje.*éxito/i,
+    /normalmente.*éxito/i,
+
+    // VAL_08: "¿Cuál paquete me recomienda para iniciar?"
+    /paquete.*recomienda/i,
+    /recomienda.*iniciar/i,
+    /cuál.*paquete.*mejor/i,
+    /qué.*paquete.*elegir/i,
+
+    // VAL_09: "¿Cuál es la arquitectura completa que incluye esto?"
+    /arquitectura.*completa/i,
+    /qué.*incluye.*arquitectura/i,
+    /arquitectura.*incluye/i,
+    /qué.*viene.*arquitectura/i,
+
+    // VAL_10: "¿Es lo mismo que otros sistemas de marketing que he visto?"
+    /es.*lo.*mismo/i,
+    /igual.*otros.*sistemas/i,
+    /otros.*sistemas.*marketing/i,
+    /parecido.*otros/i,
+
+    // VAL_11: "¿Qué significan PV, CV y GCV?"
+    /qué.*significan/i,
+    /significado.*pv/i,
+    /qué.*es.*pv/i,
+    /qué.*es.*cv/i,
+    /qué.*es.*gcv/i,
+    /volumen.*personal/i,
+    /volumen.*comisional/i,
+
+    // 🆕 FIX 2025-10-22: PATRONES PARA SECCIONES ESC FALTANTES
+    // ============================================================
+
+    // ESC_03: "¿Cómo empiezo hoy mismo?"
+    /empiezo.*hoy/i,
+    /empezar.*inmediatamente/i,
+    /empezar.*ya/i,
+    /comenzar.*hoy/i,
+    /activar.*hoy/i,
+
+    // ESC_04: "¿Puedo reservar mi lugar sin comprometerme completamente?"
+    /reservar.*lugar/i,
+    /puedo.*reservar/i,
+    /sin.*comprometerme/i,
+    /sin.*compromiso/i,
+    /apartar.*lugar/i,
+
+    // ESC_05: "Me interesa pero necesito pensarlo"
+    /necesito.*pensarlo/i,
+    /interesa.*pero/i,
+    /interesa.*necesito/i,
+    /me.*interesa.*tiempo/i,
+    /tengo.*dudas/i
   ];
 
   // Evaluar patrones restantes

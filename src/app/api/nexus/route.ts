@@ -1328,13 +1328,13 @@ export async function POST(req: Request) {
     if (fingerprint) {
       try {
         const { data: existingProspect } = await supabase
-          .from('nexus_prospects')
-          .select('data')
+          .from('prospects')
+          .select('device_info')
           .eq('fingerprint_id', fingerprint)
           .single();
 
-        if (existingProspect?.data) {
-          existingProspectData = existingProspect.data;
+        if (existingProspect?.device_info) {
+          existingProspectData = existingProspect.device_info;
           console.log('📊 [NEXUS] Datos existentes del prospecto:', {
             tiene_nombre: !!existingProspectData.name,
             tiene_ocupacion: !!existingProspectData.occupation,

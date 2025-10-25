@@ -1681,11 +1681,12 @@ ${!mergedProspectData.name ? `
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
     // ⚡ FASE 1 - OPTIMIZACIÓN: max_tokens dinámico según tipo de consulta
+    // FIX 2025-10-25: Ajuste gradual para evitar respuestas cortadas (sincronizado con Dashboard)
     const maxTokens = searchMethod === 'catalogo_productos'
       ? 300  // Consultas de precios = respuestas cortas (producto + precio)
       : prospectData.momento_optimo === 'caliente'
-      ? 600  // Prospecto caliente = respuesta más detallada para cerrar + arquetipos
-      : 500; // Default: respuestas concisas + lista completa de arquetipos (6 items ~150 tokens)
+      ? 500  // Prospecto caliente = respuesta más detallada para cerrar
+      : 600; // Default: incrementado de 500 → 600 para arquetipos/paquetes completos
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
 

@@ -365,49 +365,49 @@ async function captureProspectData(
 function clasificarDocumentoHibrido(userMessage: string): string | null {
   const messageLower = userMessage.toLowerCase();
 
-  // 🔧 NUEVA CLASIFICACIÓN ROBUSTA: PRODUCTOS INDIVIDUALES (CATÁLOGO) - SIN CAMBIOS
+  // 🔧 NUEVA CLASIFICACIÓN ROBUSTA: PRODUCTOS INDIVIDUALES (CATÁLOGO) - FIX 2025-10-25: AGREGADO "VALOR"
   const patrones_productos = [
     // ===== CÁPSULAS CORDYGOLD (PROBLEMA ESPECÍFICO) =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:cordy gold|cordygold|cordy|gano cordyceps)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*cordyceps/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cordy gold|cordygold|cordy|gano cordyceps)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*cordyceps/i,
 
     // ===== GANO CAFÉ VARIACIONES =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:gano.*café|ganocafé|café.*3.*en.*1|capuchino)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:café.*negro|café.*clásico|negrito)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:latte.*rico|mocha.*rico|shoko.*rico)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:gano.*café|ganocafé|café.*3.*en.*1|capuchino)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:café.*negro|café.*clásico|negrito)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:latte.*rico|mocha.*rico|shoko.*rico)/i,
 
     // ===== CÁPSULAS SUPLEMENTOS =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:cápsulas.*ganoderma|ganoderma.*lucidum)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*excellium/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:cápsula|suplemento)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cápsulas.*ganoderma|ganoderma.*lucidum)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*excellium/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cápsula|suplemento)/i,
 
     // ===== LÍNEA LUVOCO =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:máquina.*luvoco|luvoco)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:cápsulas.*luvoco|luvoco.*cápsulas)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:máquina.*luvoco|luvoco)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cápsulas.*luvoco|luvoco.*cápsulas)/i,
 
     // ===== PRODUCTOS ESPECÍFICOS =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:reskine|colágeno)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:espirulina|c'real)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:rooibos|oleaf)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*schokoladde/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:reskine|colágeno)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:espirulina|c'real)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:rooibos|oleaf)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*schokoladde/i,
 
     // ===== CUIDADO PERSONAL =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:pasta.*dientes|gano fresh)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:jabón|champú|acondicionador|exfoliante)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:piel.*brillo|piel&brillo)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:pasta.*dientes|gano fresh)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:jabón|champú|acondicionador|exfoliante)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:piel.*brillo|piel&brillo)/i,
 
     // ===== PATRONES GENERALES DE PRODUCTOS =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*producto/i,
-    /precio.*(?:consumidor|individual)/i,
-    /catálogo.*precio/i,
-    /lista.*precios.*producto/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*producto/i,
+    /(?:precio|valor).*(?:consumidor|individual)/i,
+    /catálogo.*(?:precio|valor)/i,
+    /lista.*(?:precios|valores).*producto/i,
 
     // ===== PATRONES ESPECÍFICOS POR MARCA =====
-    /(?:dame el precio|cuánto cuesta|precio|cuesta).*(?:gano excel|dxn)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:gano excel|dxn)/i,
 
     // ===== CRÍTICO: Distinguir productos de paquetes de inversión =====
-    /cuánto.*cuesta(?!.*paquete|.*inversión|.*empezar|.*constructor|.*activar)/i,
-    /precio.*(?!.*paquete|.*inversión|.*constructor)/i,
+    /(?:cuánto.*cuesta|cuánto.*vale|valor)(?!.*paquete|.*inversión|.*empezar|.*constructor|.*activar)/i,
+    /(?:precio|valor).*(?!.*paquete|.*inversión|.*constructor)/i,
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)

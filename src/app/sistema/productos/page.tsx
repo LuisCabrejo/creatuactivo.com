@@ -574,25 +574,77 @@ export default function CatalogoEstrategico() {
   const featuredProducts = ['bebida-colageno-reskine', 'maquina-luvoco', 'ganocafe-3-en-1', 'capsulas-excellium']
   const topSellingProducts = ['ganocafe-3-en-1', 'maquina-luvoco', 'bebida-colageno-reskine', 'pasta-dientes-gano-fresh', 'capsulas-ganoderma']
 
-  // Función para buscar distribuidor
-  const buscarDistribuidor = async (slug: string): Promise<DistributorProfile | null> => {
-    return {
-      nombre: 'Liliana Patricia',
+  // Función para buscar distribuidor en Supabase
+  const buscarDistribuidor = async (constructorRef: string | null): Promise<DistributorProfile | null> => {
+    // Default para tráfico orgánico (sin referido)
+    const defaultDistributor: DistributorProfile = {
+      nombre: 'Liliana Moreno',
       whatsapp: '+573102066593',
       email: 'info@creatuactivo.com',
       ciudad: 'Villavicencio',
       pais: 'Colombia'
     }
+
+    // Si no hay constructor_ref, retornar default (tráfico orgánico)
+    if (!constructorRef) {
+      console.log('🔵 [Productos] Tráfico orgánico - usando distribuidor default:', defaultDistributor.nombre)
+      return defaultDistributor
+    }
+
+    try {
+      // Buscar constructor en Supabase por constructor_id
+      console.log('🔍 [Productos] Buscando constructor:', constructorRef)
+
+      const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cvadzbmdypnbrbnkznpb.supabase.co'
+      const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+
+      const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/private_users?constructor_id=eq.${constructorRef}&select=name,whatsapp,email`,
+        {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        }
+      )
+
+      if (!response.ok) {
+        console.warn('⚠️ [Productos] Error buscando constructor, usando default')
+        return defaultDistributor
+      }
+
+      const data = await response.json()
+
+      if (data && data.length > 0) {
+        const constructor = data[0]
+        console.log('✅ [Productos] Constructor encontrado:', constructor.name)
+
+        return {
+          nombre: constructor.name,
+          whatsapp: constructor.whatsapp || defaultDistributor.whatsapp,
+          email: constructor.email || defaultDistributor.email,
+          ciudad: 'Colombia',
+          pais: 'Colombia'
+        }
+      } else {
+        console.log('ℹ️ [Productos] Constructor no encontrado en DB, usando default')
+        return defaultDistributor
+      }
+    } catch (error) {
+      console.error('❌ [Productos] Error consultando distribuidor:', error)
+      return defaultDistributor
+    }
   }
 
   // Cargar distribuidor y carrito al montar
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const distributorSlug = params.get('distribuidor') || 'liliana-patricia'
+    // Leer constructor_ref desde localStorage (guardado por tracking.js)
+    const constructorRef = localStorage.getItem('constructor_ref')
+    console.log('🎯 [Productos] Constructor ref desde localStorage:', constructorRef)
 
-    buscarDistribuidor(distributorSlug).then(profile => {
+    buscarDistribuidor(constructorRef).then(profile => {
       setDistributor(profile || {
-        nombre: 'Liliana Patricia',
+        nombre: 'Liliana Moreno',
         whatsapp: '+573102066593',
         email: 'info@creatuactivo.com',
         ciudad: 'Villavicencio',
@@ -674,7 +726,7 @@ export default function CatalogoEstrategico() {
   const generateWhatsAppMessage = () => {
     if (cart.length === 0) return ""
 
-    const distributorName = distributor?.nombre || 'Liliana Patricia'
+    const distributorName = distributor?.nombre || 'Liliana Moreno'
 
     let message = `¡Hola ${distributorName}! 👋\n\nMe interesa realizar este pedido desde CreaTuActivo.com:\n\n`
 

@@ -235,22 +235,23 @@ async function captureProspectData(
   // ✅ NUEVO: Compartir datos personales = alta calificación
   if (data.name) nivelInteres += 2;
   if (data.phone) nivelInteres += 3; // WhatsApp es el indicador más fuerte
-  if (data.email) nivelInteres += 1.5;
+  if (data.email) nivelInteres += 2; // Cambiado de 1.5 a 2 (INTEGER)
   if (data.occupation) nivelInteres += 1;
 
   // Indicadores positivos (palabras clave)
   if (messageLower.includes('paquete') || messageLower.includes('inversión')) nivelInteres += 2;
   if (messageLower.includes('empezar') || messageLower.includes('comenzar')) nivelInteres += 3;
-  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) nivelInteres += 1.5;
+  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) nivelInteres += 2; // Cambiado de 1.5 a 2 (INTEGER)
   if (messageLower.includes('quiero') || messageLower.includes('necesito') || messageLower.includes('me interesa')) nivelInteres += 2;
   if (messageLower.includes('cuándo') || messageLower.includes('cuando') || messageLower.includes('cómo')) nivelInteres += 1;
 
-  // Indicadores negativos (menos agresivos)
+  // Indicadores negativos (menos agresivos) - convertidos a INTEGER
   if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) nivelInteres -= 3;
-  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 0.5;
-  if (messageLower.includes('duda')) nivelInteres -= 0.5;
+  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 1; // Cambiado de -0.5 a -1 (INTEGER)
+  if (messageLower.includes('duda')) nivelInteres -= 1; // Cambiado de -0.5 a -1 (INTEGER)
 
-  data.interest_level = Math.min(10, Math.max(0, nivelInteres));
+  // Redondear a INTEGER y limitar entre 0-10
+  data.interest_level = Math.round(Math.min(10, Math.max(0, nivelInteres)));
   console.log('📊 [NEXUS] Nivel de interés calculado:', data.interest_level, {
     tiene_nombre: !!data.name,
     tiene_telefono: !!data.phone,

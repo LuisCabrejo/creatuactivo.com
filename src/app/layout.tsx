@@ -136,40 +136,54 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* Scripts de análisis y tracking */}
+        {/* Scripts de análisis y tracking - OPTIMIZADO PARA PERFORMANCE */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Performance monitoring
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                  });
-                });
-              }
+              // 🔧 FIX CRÍTICO: Prevenir acumulación de event listeners
+              (function() {
+                // Guard: Solo ejecutar una vez
+                if (window.__cta_tracking_initialized) return;
+                window.__cta_tracking_initialized = true;
 
-              // Error tracking
-              window.addEventListener('error', function(e) {
-                console.warn('Global error:', e.error);
-              });
-
-              // Framework IAA - Tracking Integration
-              window.addEventListener('nexusMessage', function(e) {
-                if (window.updateProspectData) {
-                  window.updateProspectData(e.detail);
+                // Performance monitoring (solo si serviceWorker disponible)
+                if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
+                  window.addEventListener('load', function swInit() {
+                    navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                      console.log('ServiceWorker registration failed: ', err);
+                    });
+                  }, { once: true }); // ✅ CRÍTICO: once: true limpia automáticamente
                 }
-              });
 
-              // FIX CRÍTICO: Verificación de tracking antes de NEXUS
-              window.addEventListener('nexusTrackingReady', function(e) {
-                console.log('✅ Framework IAA Tracking listo para NEXUS:', e.detail);
-
-                // Notificar a NEXUS que el tracking está disponible
-                if (window.NEXUS && window.NEXUS.setTrackingReady) {
-                  window.NEXUS.setTrackingReady(e.detail);
+                // Error tracking (sin acumular listeners)
+                if (!window.__cta_error_handler) {
+                  window.__cta_error_handler = function(e) {
+                    console.warn('Global error:', e.error);
+                  };
+                  window.addEventListener('error', window.__cta_error_handler);
                 }
-              });
+
+                // Framework IAA - Tracking Integration
+                if (!window.__cta_nexus_handler) {
+                  window.__cta_nexus_handler = function(e) {
+                    if (window.updateProspectData) {
+                      window.updateProspectData(e.detail);
+                    }
+                  };
+                  window.addEventListener('nexusMessage', window.__cta_nexus_handler);
+                }
+
+                // Tracking ready handler
+                if (!window.__cta_tracking_ready_handler) {
+                  window.__cta_tracking_ready_handler = function(e) {
+                    console.log('✅ Framework IAA Tracking listo para NEXUS:', e.detail);
+                    if (window.NEXUS && window.NEXUS.setTrackingReady) {
+                      window.NEXUS.setTrackingReady(e.detail);
+                    }
+                  };
+                  window.addEventListener('nexusTrackingReady', window.__cta_tracking_ready_handler);
+                }
+              })();
             `
           }}
         />
@@ -177,11 +191,21 @@ export default function RootLayout({
         {/* NEXUS Floating Button */}
         <NEXUSFloatingButton />
 
-        {/* ✅ MOBILE MENU FIX - SCRIPT CONFLICT COMPLETAMENTE SOLUCIONADO */}
+        {/* ✅ MOBILE MENU FIX - OPTIMIZADO PARA PERFORMANCE (NO MEMORY LEAKS) */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              document.addEventListener('DOMContentLoaded', function() {
+              // 🔧 FIX CRÍTICO: Guard para prevenir ejecución múltiple
+              (function initMobileMenu() {
+                // Guard: Solo ejecutar una vez
+                if (window.__cta_mobile_menu_initialized) {
+                  console.log('📱 Mobile menu already initialized - skipping');
+                  return;
+                }
+                window.__cta_mobile_menu_initialized = true;
+
+                // Usar función con nombre para poder cleanup después
+                function setupMobileMenu() {
                 // ✅ DETECCIÓN INTELIGENTE: Skip si hay navegación custom
                 if (window.location.pathname.startsWith('/nodex')) {
                   console.log('📱 NodeX page detected - Skipping mobile menu script (NodeXSidebar handles its own menu)');
@@ -380,7 +404,7 @@ export default function RootLayout({
                   return;
                 }
 
-                // Función para alternar menú
+                // 🔧 Función para alternar menú
                 function toggleMenu() {
                   console.log('🍔 Toggling legacy menu, current state:', isMenuOpen);
 
@@ -409,47 +433,74 @@ export default function RootLayout({
                   }
                 }
 
-                // Event listeners para el botón
-                menuButton.addEventListener('click', function(e) {
+                // 🔧 Event handlers con referencias para posible cleanup
+                const handleMenuClick = function(e) {
                   e.preventDefault();
                   e.stopPropagation();
                   toggleMenu();
-                });
+                };
 
-                menuButton.addEventListener('touchstart', function(e) {
+                const handleMenuTouch = function(e) {
                   e.preventDefault();
                   e.stopPropagation();
                   toggleMenu();
-                }, { passive: false });
+                };
 
-                // Cerrar al hacer click en overlay
-                mobileMenu.addEventListener('click', function(e) {
+                const handleOverlayClick = function(e) {
                   if (e.target === mobileMenu) {
                     console.log('🎯 Overlay clicked, closing legacy menu');
                     if (isMenuOpen) toggleMenu();
                   }
-                });
+                };
 
-                // Cerrar al hacer click en enlaces del menú
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                  link.addEventListener('click', function() {
-                    console.log('🔗 Link clicked, closing legacy menu');
-                    setTimeout(() => {
-                      if (isMenuOpen) toggleMenu();
-                    }, 150);
-                  });
-                });
+                const handleLinkClick = function() {
+                  console.log('🔗 Link clicked, closing legacy menu');
+                  setTimeout(() => {
+                    if (isMenuOpen) toggleMenu();
+                  }, 150);
+                };
 
-                // Cerrar menú al redimensionar ventana (desktop)
-                window.addEventListener('resize', function() {
+                const handleResize = function() {
                   if (window.innerWidth >= 768 && isMenuOpen) {
                     console.log('📱 Resize to desktop, closing legacy menu');
                     toggleMenu();
                   }
+                };
+
+                // Agregar event listeners
+                menuButton.addEventListener('click', handleMenuClick);
+                menuButton.addEventListener('touchstart', handleMenuTouch, { passive: false });
+                mobileMenu.addEventListener('click', handleOverlayClick);
+
+                // Agregar listeners a todos los links
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                  link.addEventListener('click', handleLinkClick);
                 });
 
+                window.addEventListener('resize', handleResize);
+
+                // 🔧 CRÍTICO: Guardar referencias para cleanup futuro (si se necesita)
+                window.__cta_mobile_menu_cleanup = function() {
+                  menuButton.removeEventListener('click', handleMenuClick);
+                  menuButton.removeEventListener('touchstart', handleMenuTouch);
+                  mobileMenu.removeEventListener('click', handleOverlayClick);
+                  mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.removeEventListener('click', handleLinkClick);
+                  });
+                  window.removeEventListener('resize', handleResize);
+                  console.log('🧹 Mobile menu listeners cleaned up');
+                };
+
                 console.log('🎉 Legacy mobile menu fix initialized successfully!');
-              });
+              } // End setupMobileMenu
+
+              // Ejecutar setup cuando DOM esté listo
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupMobileMenu, { once: true });
+              } else {
+                setupMobileMenu();
+              }
+            })(); // End IIFE
             `
           }}
         />

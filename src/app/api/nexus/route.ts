@@ -827,11 +827,12 @@ async function consultarCatalogoProductos(query: string): Promise<any[]> {
   console.log('🛒 Consultando catálogo de productos...');
 
   try {
-    // Buscar por ID específico (más confiable) o por pattern de título/source
+    // Buscar por category (más confiable) o por pattern de título
+    // NOTA: No usar id.eq.8 porque la tabla usa UUIDs, no integers
     const { data, error } = await supabase
       .from('nexus_documents')
-      .select('id, title, content, source, metadata')
-      .or('id.eq.8,title.ilike.%Catálogo%Productos%,source.ilike.%catalogo_productos%')
+      .select('id, title, content, category, metadata')
+      .or('category.eq.catalogo_productos,title.ilike.%Catálogo%Productos%')
       .limit(1);
 
     if (error) {
@@ -1568,11 +1569,21 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Clasificación automática funcionando correctamente
 
 🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
-- CRÍTICO: Si consultaste el catálogo de productos, usa ÚNICAMENTE los precios exactos que aparecen en el contenido
+${searchMethod === 'catalogo_productos'
+  ? `- ✅ CATÁLOGO CARGADO: Usa ÚNICAMENTE los precios exactos que aparecen en el contenido arriba
 - NUNCA inventes precios ni uses información de otras fuentes
 - Los precios del catálogo son la autoridad final para productos individuales
-- Formato respuesta: "El [PRODUCTO] tiene un precio de $[PRECIO EXACTO] COP por [PRESENTACIÓN]"
-- Si no encuentras un producto específico en el catálogo, indica que no tienes esa información
+- Formato respuesta: "El [PRODUCTO] tiene un precio de $[PRECIO EXACTO] COP por [PRESENTACIÓN]"`
+  : `- ⚠️ CATÁLOGO NO DISPONIBLE: Si te preguntan por precios de productos individuales, responde:
+"En este momento no tengo acceso a los precios actualizados de productos individuales.
+
+Para información precisa sobre precios y disponibilidad, te puedo conectar con **Liliana Moreno**, nuestra consultora senior.
+
+📱 **WhatsApp:** +573102066593
+🕐 **Horario:** 8:00 AM - 8:00 PM (GMT-5)
+
+Ella te brindará el catálogo completo actualizado y podrá asesorarte personalmente."`
+}
 
 💼 INSTRUCCIONES PARA PAQUETES DE INVERSIÓN:
 - Si consultas arsenal: usar información de paquetes de inversión (Constructor Inicial, Empresarial, Visionario)

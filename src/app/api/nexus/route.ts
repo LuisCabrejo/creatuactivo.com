@@ -71,8 +71,8 @@ async function captureProspectData(
   const namePatterns = [
     /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
-    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)+)\s*-/i,                  // Nombre seguido de guión y cualquier texto: "Luis - dame el precio"
-    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)+)\s+(?:y|dame|precio|cuánto|quiero|necesito|empezar|iniciar|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre seguido de conectores o opciones
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*-/i,                  // Nombre (1 o más palabras) + guión: "Luis - precio" o "Juan Pérez - precio"
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|dame|precio|cuánto|quiero|necesito|empezar|iniciar|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 

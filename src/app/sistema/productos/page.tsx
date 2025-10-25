@@ -592,42 +592,34 @@ export default function CatalogoEstrategico() {
     }
 
     try {
-      // Buscar constructor en Supabase por constructor_id
+      // Buscar constructor via API endpoint (usa SERVICE_KEY en servidor)
       console.log('🔍 [Productos] Buscando constructor:', constructorRef)
 
-      const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cvadzbmdypnbrbnkznpb.supabase.co'
-      const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-
-      const response = await fetch(
-        `${SUPABASE_URL}/rest/v1/private_users?constructor_id=eq.${constructorRef}&select=name,whatsapp,email`,
-        {
-          headers: {
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-          }
-        }
-      )
+      const response = await fetch(`/api/constructor/${constructorRef}`)
 
       if (!response.ok) {
-        console.warn('⚠️ [Productos] Error buscando constructor, usando default')
+        if (response.status === 404) {
+          console.log('ℹ️ [Productos] Constructor no encontrado en DB, usando default')
+        } else {
+          console.warn('⚠️ [Productos] Error buscando constructor, usando default')
+        }
         return defaultDistributor
       }
 
       const data = await response.json()
 
-      if (data && data.length > 0) {
-        const constructor = data[0]
-        console.log('✅ [Productos] Constructor encontrado:', constructor.name)
+      if (data && data.nombre) {
+        console.log('✅ [Productos] Constructor encontrado:', data.nombre)
 
         return {
-          nombre: constructor.name,
-          whatsapp: constructor.whatsapp || defaultDistributor.whatsapp,
-          email: constructor.email || defaultDistributor.email,
+          nombre: data.nombre,
+          whatsapp: data.whatsapp || defaultDistributor.whatsapp,
+          email: data.email || defaultDistributor.email,
           ciudad: 'Colombia',
           pais: 'Colombia'
         }
       } else {
-        console.log('ℹ️ [Productos] Constructor no encontrado en DB, usando default')
+        console.log('ℹ️ [Productos] Respuesta inválida, usando default')
         return defaultDistributor
       }
     } catch (error) {

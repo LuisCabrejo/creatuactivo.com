@@ -1289,15 +1289,14 @@ export async function POST(req: Request) {
     let constructorUUID: string | null = null;
     if (constructorId) {
       try {
-        // Buscar UUID del constructor por su constructor_id (slug)
-        const { data: constructorData } = await supabase
-          .from('private_users')
-          .select('id')
-          .eq('constructor_id', constructorId)
-          .single();
+        // Usar RPC function con SECURITY DEFINER para bypasear RLS
+        const { data: uuid, error } = await supabase
+          .rpc('get_constructor_uuid', { p_constructor_id: constructorId });
 
-        if (constructorData) {
-          constructorUUID = constructorData.id;
+        if (error) {
+          console.error(`❌ [NEXUS] Error al buscar constructor "${constructorId}":`, error);
+        } else if (uuid) {
+          constructorUUID = uuid;
           console.log(`✅ [NEXUS] Constructor encontrado: ${constructorId} → UUID: ${constructorUUID}`);
         } else {
           console.warn(`⚠️ [NEXUS] Constructor no encontrado: ${constructorId}`);

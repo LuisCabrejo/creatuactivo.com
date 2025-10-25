@@ -71,15 +71,20 @@ async function captureProspectData(
   const namePatterns = [
     /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)+)\s*-\s*[A-F]\)?/i,      // Nombre seguido de separador y opción: "Radamel Falcao - A)"
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
     if (match) {
-      data.name = match[1].trim();
-      console.log('✅ [NEXUS] Nombre capturado:', data.name, 'del mensaje:', message.substring(0, 50));
-      break;
+      const capturedName = match[1].trim();
+      // Validar que el nombre tenga al menos 2 caracteres (evita capturar solo letras de opciones)
+      if (capturedName.length >= 2) {
+        data.name = capturedName;
+        console.log('✅ [NEXUS] Nombre capturado:', data.name, 'del mensaje:', message.substring(0, 50));
+        break;
+      }
     }
   }
 
@@ -87,8 +92,12 @@ async function captureProspectData(
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
     if (simpleNameMatch && !messageLower.match(/hola|gracias|si|no|ok|bien/)) {
-      data.name = simpleNameMatch[1].trim();
-      console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.name);
+      const capturedName = simpleNameMatch[1].trim();
+      // Validar longitud mínima de 2 caracteres
+      if (capturedName.length >= 2) {
+        data.name = capturedName;
+        console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.name);
+      }
     }
   }
 

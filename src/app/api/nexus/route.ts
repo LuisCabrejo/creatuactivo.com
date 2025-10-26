@@ -1701,11 +1701,8 @@ export async function POST(req: Request) {
     }
 
     // 🧠 CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
-    // ⚠️ TEMPORALMENTE DESHABILITADO - Debugging Error 500
     let historicalMessages: any[] = [];
-    console.log('⚠️ [NEXUS] Feature de memoria a largo plazo DESHABILITADA temporalmente para debugging');
 
-    /* CÓDIGO COMENTADO PARA DEBUGGING
     if (fingerprint) {
       try {
         console.log('🔍 [NEXUS] Cargando historial de conversaciones para:', fingerprint.substring(0, 20) + '...');
@@ -1719,16 +1716,21 @@ export async function POST(req: Request) {
 
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
-          // HOTFIX: Continuar sin historial si hay error
           historicalMessages = [];
         } else if (conversations && conversations.length > 0) {
-          // Aplanar mensajes de todas las conversaciones
           try {
-            historicalMessages = conversations.flatMap(conv => conv.messages || []);
-            console.log(`✅ [NEXUS] Historial cargado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
+            // ✅ FIX CRÍTICO: Sanitizar mensajes eliminando campos extras (timestamp, metadata, etc.)
+            // Claude API solo acepta { role, content } - cualquier campo extra causa Error 500
+            const rawMessages = conversations.flatMap(conv => conv.messages || []);
+            historicalMessages = rawMessages.map((msg: any) => ({
+              role: msg.role,
+              content: msg.content
+            }));
+
+            console.log(`✅ [NEXUS] Historial cargado y sanitizado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
             console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
           } catch (flatMapError) {
-            console.error('❌ [NEXUS] Error aplanando mensajes históricos:', flatMapError);
+            console.error('❌ [NEXUS] Error procesando mensajes históricos:', flatMapError);
             historicalMessages = [];
           }
         } else {
@@ -1736,11 +1738,9 @@ export async function POST(req: Request) {
         }
       } catch (error) {
         console.error('❌ [NEXUS] Error consultando historial:', error);
-        // HOTFIX: Continuar sin historial si falla la query
         historicalMessages = [];
       }
     }
-    */
 
     // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)
     const prospectData = await captureProspectData(

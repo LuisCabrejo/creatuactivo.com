@@ -1347,6 +1347,92 @@ function extraerKeywordsHibrido(message: string): string {
   }
 }
 
+// ========================================
+// EXTRACCIÓN SEMÁNTICA DESDE RESPUESTA DE CLAUDE
+// ========================================
+/**
+ * Analiza la respuesta de Claude para extraer paquete y arquetipo.
+ * Claude SIEMPRE menciona el nombre oficial cuando el usuario escoge,
+ * independientemente de cómo el usuario lo haya escrito.
+ *
+ * Ejemplo:
+ * Usuario: "el más grande"
+ * Claude: "Perfecto, elegiste Constructor Visionario..."
+ * Resultado: package = "visionario"
+ */
+function extractFromClaudeResponse(response: string): Partial<ProspectData> {
+  const extracted: Partial<ProspectData> = {};
+  const responseLower = response.toLowerCase();
+
+  // ✅ EXTRACCIÓN DE PAQUETE desde respuesta de Claude
+  // Claude usa nombres oficiales: "Constructor Inicial/Estratégico/Visionario"
+  if (responseLower.includes('constructor visionario') ||
+      responseLower.includes('visionario ($4,500') ||
+      responseLower.includes('visionario ($4.500') ||
+      responseLower.includes('esp3') ||
+      responseLower.includes('35 productos')) {
+    extracted.package = 'visionario';
+    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: visionario');
+  } else if (responseLower.includes('constructor estratégico') ||
+             responseLower.includes('constructor estrategico') ||
+             responseLower.includes('estratégico ($3,500') ||
+             responseLower.includes('estrategico ($3.500') ||
+             responseLower.includes('esp2')) {
+    extracted.package = 'estrategico';
+    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: estrategico');
+  } else if (responseLower.includes('constructor inicial') ||
+             responseLower.includes('inicial ($2,000') ||
+             responseLower.includes('inicial ($2.250') ||
+             responseLower.includes('esp1') ||
+             responseLower.includes('7 productos')) {
+    extracted.package = 'inicial';
+    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: inicial');
+  }
+
+  // ✅ EXTRACCIÓN DE ARQUETIPO desde respuesta de Claude
+  // Claude confirma arquetipos con nombres oficiales
+  // ⚠️ IMPORTANTE: Verificar que sea confirmación, no solo mención
+  // Claude puede decir "A) Profesional con Visión" sin que el usuario lo haya elegido
+  const isArchetypeConfirmation = (
+    responseLower.includes('perfecto') ||
+    responseLower.includes('excelente') ||
+    responseLower.includes('veo que eres') ||
+    responseLower.includes('identificas como') ||
+    responseLower.includes('elegiste') ||
+    responseLower.includes('eres un') ||
+    responseLower.includes('eres una')
+  );
+
+  if (isArchetypeConfirmation) {
+    if (responseLower.includes('profesional con visión') ||
+        responseLower.includes('profesional con vision')) {
+      extracted.archetype = 'profesional_vision';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: profesional_vision');
+    } else if (responseLower.includes('emprendedor') && responseLower.includes('dueño de negocio')) {
+      extracted.archetype = 'emprendedor_dueno_negocio';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: emprendedor_dueno_negocio');
+    } else if (responseLower.includes('independiente') || responseLower.includes('freelancer')) {
+      extracted.archetype = 'independiente_freelancer';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: independiente_freelancer');
+    } else if (responseLower.includes('líder del hogar') ||
+               responseLower.includes('lider del hogar') ||
+               responseLower.includes('ama de casa')) {
+      extracted.archetype = 'lider_hogar';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: lider_hogar');
+    } else if (responseLower.includes('líder de la comunidad') ||
+               responseLower.includes('lider de la comunidad')) {
+      extracted.archetype = 'lider_comunidad';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: lider_comunidad');
+    } else if (responseLower.includes('joven con ambición') ||
+               responseLower.includes('joven con ambicion')) {
+      extracted.archetype = 'joven_ambicion';
+      console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: joven_ambicion');
+    }
+  }
+
+  return extracted;
+}
+
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
 async function logConversationHibrida(
   userMessage: string,
@@ -1851,9 +1937,41 @@ ${!mergedProspectData.name ? `
     const stream = AnthropicStream(response as any, {
       onFinal: async (completion) => {
         const totalTime = Date.now() - startTime;
-        console.log(`NEXUS híbrido completado en ${totalTime}ms - Método: ${searchMethod}`);
+        console.log(`✅ NEXUS híbrido completado en ${totalTime}ms - Método: ${searchMethod}`);
 
-        // Log conversación con método de búsqueda - CORREGIDO 2025-10-17
+        // ✅ EXTRACCIÓN SEMÁNTICA: Analizar respuesta de Claude para capturar datos
+        const semanticData = extractFromClaudeResponse(completion);
+
+        // Merge datos: captura directa (del usuario) + semántica (de respuesta Claude)
+        const finalData: ProspectData = {
+          ...prospectData,  // Datos capturados del input del usuario
+          ...semanticData   // Datos extraídos de la respuesta de Claude (prioridad)
+        };
+
+        // Guardar datos semánticos si se encontró algo
+        if (Object.keys(semanticData).length > 0 && fingerprint) {
+          console.log('🔍 [SEMÁNTICA] Guardando datos extraídos de respuesta Claude:', semanticData);
+
+          try {
+            const cleanedSemanticData = removeNullValues(semanticData);
+
+            const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+              p_fingerprint_id: fingerprint,
+              p_data: cleanedSemanticData,
+              p_constructor_id: constructorUUID || undefined
+            });
+
+            if (rpcError) {
+              console.error('❌ [SEMÁNTICA] Error guardando datos semánticos:', rpcError);
+            } else {
+              console.log('✅ [SEMÁNTICA] Datos semánticos guardados exitosamente:', rpcResult);
+            }
+          } catch (error) {
+            console.error('❌ [SEMÁNTICA] Exception guardando datos semánticos:', error);
+          }
+        }
+
+        // Log conversación con datos finales completos
         await logConversationHibrida(
           latestUserMessage,
           completion,
@@ -1861,7 +1979,7 @@ ${!mergedProspectData.name ? `
           searchMethod,
           sessionId,
           fingerprint,
-          prospectData
+          finalData  // ✅ Incluir datos semánticos en el log
         );
       }
     });

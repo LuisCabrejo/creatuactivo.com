@@ -1715,16 +1715,25 @@ export async function POST(req: Request) {
 
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
+          // HOTFIX: Continuar sin historial si hay error
+          historicalMessages = [];
         } else if (conversations && conversations.length > 0) {
           // Aplanar mensajes de todas las conversaciones
-          historicalMessages = conversations.flatMap(conv => conv.messages || []);
-          console.log(`✅ [NEXUS] Historial cargado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
-          console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
+          try {
+            historicalMessages = conversations.flatMap(conv => conv.messages || []);
+            console.log(`✅ [NEXUS] Historial cargado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
+            console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
+          } catch (flatMapError) {
+            console.error('❌ [NEXUS] Error aplanando mensajes históricos:', flatMapError);
+            historicalMessages = [];
+          }
         } else {
           console.log('ℹ️ [NEXUS] Sin historial previo - primera conversación');
         }
       } catch (error) {
         console.error('❌ [NEXUS] Error consultando historial:', error);
+        // HOTFIX: Continuar sin historial si falla la query
+        historicalMessages = [];
       }
     }
 
@@ -2068,23 +2077,29 @@ ${!mergedProspectData.name ? `
     // Combinar: historial (conversaciones previas) + mensajes actuales (esta sesión)
     let allMessages = [];
 
-    if (historicalMessages.length > 0) {
-      // Tomar últimos 30 mensajes históricos (15 intercambios)
-      const recentHistory = historicalMessages.length > 30
-        ? historicalMessages.slice(-30)
-        : historicalMessages;
+    try {
+      if (historicalMessages.length > 0) {
+        // Tomar últimos 30 mensajes históricos (15 intercambios)
+        const recentHistory = historicalMessages.length > 30
+          ? historicalMessages.slice(-30)
+          : historicalMessages;
 
-      // Combinar historial + mensajes de sesión actual
-      allMessages = [...recentHistory, ...messages];
+        // Combinar historial + mensajes de sesión actual
+        allMessages = [...recentHistory, ...messages];
 
-      console.log(`🧠 [NEXUS] Memoria a largo plazo activa:`);
-      console.log(`   📚 Histórico: ${recentHistory.length} mensajes (${Math.floor(recentHistory.length / 2)} intercambios)`);
-      console.log(`   📝 Sesión actual: ${messages.length} mensajes`);
-      console.log(`   📊 TOTAL enviando a Claude: ${allMessages.length} mensajes`);
-    } else {
-      // Sin historial, usar solo mensajes de sesión actual
+        console.log(`🧠 [NEXUS] Memoria a largo plazo activa:`);
+        console.log(`   📚 Histórico: ${recentHistory.length} mensajes (${Math.floor(recentHistory.length / 2)} intercambios)`);
+        console.log(`   📝 Sesión actual: ${messages.length} mensajes`);
+        console.log(`   📊 TOTAL enviando a Claude: ${allMessages.length} mensajes`);
+      } else {
+        // Sin historial, usar solo mensajes de sesión actual
+        allMessages = messages;
+        console.log(`ℹ️ [NEXUS] Primera conversación - sin historial previo (${allMessages.length} mensajes)`);
+      }
+    } catch (error) {
+      // HOTFIX: Si falla la combinación de historial, usar solo mensajes actuales
+      console.error('❌ [NEXUS] Error combinando historial, usando solo mensajes actuales:', error);
       allMessages = messages;
-      console.log(`ℹ️ [NEXUS] Primera conversación - sin historial previo (${allMessages.length} mensajes)`);
     }
 
     // Limitar total a 40 mensajes para no exceder tokens (20 intercambios)

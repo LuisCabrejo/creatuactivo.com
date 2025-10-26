@@ -117,11 +117,21 @@ async function captureProspectData(
     }
   }
 
-  // CAPTURA DE TELÉFONO
-  const phoneMatch = message.match(/(?:\+?57)?\s*(\d{10})/);
+  // CAPTURA DE TELÉFONO (WhatsApp Colombia)
+  // Acepta múltiples formatos:
+  // - 3102066593 (10 dígitos)
+  // - +57 3102066593 (con código país)
+  // - 310 206 6593 (con espacios)
+  // - 320 3412323 (3 + 7 con espacio)
+  const phoneMatch = message.match(/(?:\+?57)?\s*(\d{3})\s*(\d{3,7})\s*(\d{0,4})/);
   if (phoneMatch) {
-    data.phone = phoneMatch[0].replace(/\s/g, '');
-    console.log('Teléfono capturado:', data.phone);
+    // Unir todos los grupos de dígitos y limpiar espacios
+    const digitsOnly = phoneMatch[0].replace(/[\s+]/g, '').replace(/^57/, '');
+    // Validar que sean exactamente 10 dígitos y empiece con 3 (celular colombiano)
+    if (digitsOnly.length === 10 && digitsOnly.startsWith('3')) {
+      data.phone = digitsOnly;
+      console.log('✅ [NEXUS] Teléfono capturado:', data.phone, 'desde input:', phoneMatch[0]);
+    }
   }
 
   // CAPTURA DE EMAIL

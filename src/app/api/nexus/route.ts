@@ -117,20 +117,35 @@ async function captureProspectData(
     }
   }
 
-  // CAPTURA DE TELÉFONO (WhatsApp Colombia)
-  // Acepta múltiples formatos:
-  // - 3102066593 (10 dígitos)
-  // - +57 3102066593 (con código país)
-  // - 310 206 6593 (con espacios)
-  // - 320 3412323 (3 + 7 con espacio)
-  const phoneMatch = message.match(/(?:\+?57)?\s*(\d{3})\s*(\d{3,7})\s*(\d{0,4})/);
-  if (phoneMatch) {
-    // Unir todos los grupos de dígitos y limpiar espacios
-    const digitsOnly = phoneMatch[0].replace(/[\s+]/g, '').replace(/^57/, '');
-    // Validar que sean exactamente 10 dígitos y empiece con 3 (celular colombiano)
-    if (digitsOnly.length === 10 && digitsOnly.startsWith('3')) {
-      data.phone = digitsOnly;
-      console.log('✅ [NEXUS] Teléfono capturado:', data.phone, 'desde input:', phoneMatch[0]);
+  // CAPTURA DE WHATSAPP (Internacional - Multi-país)
+  // Soporta todos los países de operación CreaTuActivo:
+  // 🇨🇴 Colombia: +57 310 206 6593 o 320 3412323 (10 dígitos)
+  // 🇺🇸 USA: +1 305 123 4567 (10 dígitos)
+  // 🇲🇽 México: +52 55 1234 5678 (10 dígitos)
+  // 🇪🇨 Ecuador: +593 99 123 4567 (9 dígitos)
+  // 🇵🇪 Perú: +51 987 654 321 (9 dígitos)
+  // 🇻🇪 Venezuela: +58 414 123 4567 (10 dígitos)
+  // 🇧🇷 Brasil: +55 11 91234 5678 (11 dígitos)
+  // Acepta formatos: con/sin +, con/sin espacios, con/sin guiones, con/sin paréntesis
+
+  // Regex que captura números con formato flexible
+  const phonePattern = /(?:\+?\d{1,4}[\s\-\(\)]?)?([\d\s\-\(\)]{7,20})/g;
+  const phoneMatches = message.match(phonePattern);
+
+  if (phoneMatches) {
+    for (const match of phoneMatches) {
+      // Extraer solo dígitos (limpiar +, espacios, guiones, paréntesis)
+      const digitsOnly = match.replace(/[\s\-\(\)+]/g, '');
+
+      // Validar longitud para WhatsApp internacional (7-15 dígitos)
+      // Estándar E.164: código país (1-3) + número nacional (4-14)
+      // Mínimo 7: números locales cortos (ej: Ecuador sin código)
+      // Máximo 15: estándar internacional máximo
+      if (digitsOnly.length >= 7 && digitsOnly.length <= 15) {
+        data.phone = digitsOnly;
+        console.log('✅ [NEXUS] WhatsApp capturado:', data.phone, 'desde input:', match.trim());
+        break; // Tomar primer número válido encontrado
+      }
     }
   }
 

@@ -69,20 +69,27 @@ async function captureProspectData(
   message: string,
   sessionId: string,
   fingerprint?: string,
-  constructorUUID?: string | null
+  constructorUUID?: string | null,
+  existingData?: any  // ✅ NUEVO: Datos ya guardados en BD
 ): Promise<ProspectData> {
 
   console.log('🔍 [NEXUS] Captura datos híbrida - Input:', {
     message: message.substring(0, 100),
     sessionId,
     fingerprint,
-    hasFingerprint: !!fingerprint
+    hasFingerprint: !!fingerprint,
+    hasExistingName: !!(existingData?.name)  // ✅ Log si ya hay nombre
   });
 
   const data: ProspectData = {};
   const messageLower = message.toLowerCase();
 
-  // CAPTURA DE NOMBRE
+  // ✅ CAPTURA DE NOMBRE (solo si NO existe previamente)
+  // Evita sobrescribir nombre válido con frases como "el pequeño", "el más grande"
+  const skipNameCapture = existingData?.name && existingData.name.length > 2;
+
+  if (!skipNameCapture) {
+    // CAPTURA DE NOMBRE (solo si no existe)
   const namePatterns = [
     /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
@@ -107,14 +114,26 @@ async function captureProspectData(
   if (!data.name && message.length < 30) {
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
-    if (simpleNameMatch && !messageLower.match(/hola|gracias|si|no|ok|bien/)) {
+
+    // ⚠️ BLACKLIST EXPANDIDA: Evitar capturar frases que NO son nombres
+    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco)$/i;
+
+    if (simpleNameMatch && !messageLower.match(nameBlacklist)) {
       const capturedName = simpleNameMatch[1].trim();
-      // Validar longitud mínima de 2 caracteres
-      if (capturedName.length >= 2) {
+
+      // ✅ VALIDACIÓN ADICIONAL: No capturar si empieza con artículo
+      const startsWithArticle = /^(el|la|los|las|un|una|unos|unas)\s+/i.test(capturedName);
+
+      if (capturedName.length >= 2 && !startsWithArticle) {
         data.name = capturedName;
         console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.name);
+      } else if (startsWithArticle) {
+        console.log('⚠️ [NEXUS] Nombre rechazado (empieza con artículo):', capturedName);
       }
     }
+  }
+  } else {
+    console.log('⏭️ [NEXUS] Nombre ya existe, omitiendo captura:', existingData?.name);
   }
 
   // CAPTURA DE WHATSAPP (Internacional - Multi-país)
@@ -1566,7 +1585,8 @@ export async function POST(req: Request) {
       latestUserMessage,
       sessionId || 'anonymous',
       fingerprint,
-      constructorUUID  // ✅ Pasar UUID del constructor para tracking correcto
+      constructorUUID,  // ✅ Pasar UUID del constructor para tracking correcto
+      existingProspectData  // ✅ Protección contra sobrescritura de datos válidos
     );
 
     // COMBINAR datos existentes + nuevos capturados

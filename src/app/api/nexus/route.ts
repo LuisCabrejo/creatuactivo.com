@@ -245,7 +245,7 @@ async function captureProspectData(
     }
   }
 
-  // ✅ CAPTURA DE PAQUETE (desde Quick Replies + variaciones)
+  // ✅ CAPTURA DE PAQUETE (Multi-estrategia: directa + semántica + contexto)
   const packageMap: Record<string, string> = {
     // Nombres completos
     'constructor inicial': 'inicial',
@@ -277,7 +277,55 @@ async function captureProspectData(
     'inicial': 'inicial',
     'estratégico': 'estrategico',
     'estrategico': 'estrategico',
-    'visionario': 'visionario'
+    'visionario': 'visionario',
+
+    // ✅ LENGUAJE NATURAL (cómo la gente realmente habla)
+    // Tamaño relativo
+    'el más grande': 'visionario',
+    'el grande': 'visionario',
+    'el mayor': 'visionario',
+    'el más completo': 'visionario',
+    'el más caro': 'visionario',
+    'el premium': 'visionario',
+    'el top': 'visionario',
+    'el mejor': 'visionario',
+
+    'el pequeño': 'inicial',
+    'el más pequeño': 'inicial',
+    'el chico': 'inicial',
+    'el básico': 'inicial',
+    'el económico': 'inicial',
+    'el barato': 'inicial',
+    'el más barato': 'inicial',
+    'el de entrada': 'inicial',
+    'para empezar': 'inicial',
+
+    'el de la mitad': 'estrategico',
+    'el del medio': 'estrategico',
+    'el mediano': 'estrategico',
+    'el intermedio': 'estrategico',
+    'el estándar': 'estrategico',
+    'el normal': 'estrategico',
+
+    // Cantidad de productos
+    'el de 7 productos': 'inicial',
+    'el de siete productos': 'inicial',
+    'el de 7': 'inicial',
+    'con 7 productos': 'inicial',
+
+    'el de 35 productos': 'visionario',
+    'el de treinta y cinco': 'visionario',
+    'el de 35': 'visionario',
+    'con 35 productos': 'visionario',
+
+    'el que tiene más productos': 'visionario',
+    'el que trae más': 'visionario',
+    'el más completo': 'visionario',
+
+    // Variaciones coloquiales
+    'ese': 'estrategico',  // "¿Cuál prefieres?" → "Ese" (contexto depende de última mención)
+    'este': 'estrategico',
+    'aquel': 'estrategico'
   };
 
   for (const [label, value] of Object.entries(packageMap)) {

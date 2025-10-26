@@ -220,13 +220,39 @@ async function captureProspectData(
     }
   }
 
-  // ✅ CAPTURA DE PAQUETE (desde Quick Replies)
+  // ✅ CAPTURA DE PAQUETE (desde Quick Replies + variaciones)
   const packageMap: Record<string, string> = {
+    // Nombres completos
     'constructor inicial': 'inicial',
     'constructor estratégico': 'estrategico',
     'constructor visionario': 'visionario',
     'prefiero asesoría personalizada': 'asesoria',
-    'asesoría personalizada': 'asesoria'
+    'asesoría personalizada': 'asesoria',
+
+    // Abreviaciones ESP
+    'esp1': 'inicial',
+    'esp 1': 'inicial',
+    'esp2': 'estrategico',
+    'esp 2': 'estrategico',
+    'esp3': 'visionario',
+    'esp 3': 'visionario',
+
+    // Precios mencionados
+    '$2,000': 'inicial',
+    '2000 usd': 'inicial',
+    '2.250.000': 'inicial',
+    '$3,500': 'estrategico',
+    '3500 usd': 'estrategico',
+    '3.500.000': 'estrategico',
+    '$4,500': 'visionario',
+    '4500 usd': 'visionario',
+    '4.500.000': 'visionario',
+
+    // Solo palabras clave
+    'inicial': 'inicial',
+    'estratégico': 'estrategico',
+    'estrategico': 'estrategico',
+    'visionario': 'visionario'
   };
 
   for (const [label, value] of Object.entries(packageMap)) {

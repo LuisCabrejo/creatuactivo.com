@@ -1701,7 +1701,7 @@ export async function POST(req: Request) {
     }
 
     // 🧠 CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
-    let historicalMessages: any[] = [];
+    let conversationSummary = '';
 
     if (fingerprint) {
       try {
@@ -1712,33 +1712,55 @@ export async function POST(req: Request) {
           .select('messages, created_at')
           .eq('fingerprint_id', fingerprint)
           .order('created_at', { ascending: true })
-          .limit(20); // Últimas 20 conversaciones (40 mensajes aprox)
+          .limit(10); // Últimas 10 conversaciones
 
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
-          historicalMessages = [];
         } else if (conversations && conversations.length > 0) {
           try {
-            // ✅ FIX CRÍTICO: Sanitizar mensajes eliminando campos extras (timestamp, metadata, etc.)
-            // Claude API solo acepta { role, content } - cualquier campo extra causa Error 500
-            const rawMessages = conversations.flatMap(conv => conv.messages || []);
-            historicalMessages = rawMessages.map((msg: any) => ({
-              role: msg.role,
-              content: msg.content
-            }));
+            // Generar resumen del historial para el System Prompt
+            const summaryParts: string[] = [];
 
-            console.log(`✅ [NEXUS] Historial cargado y sanitizado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
-            console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
-          } catch (flatMapError) {
-            console.error('❌ [NEXUS] Error procesando mensajes históricos:', flatMapError);
-            historicalMessages = [];
+            conversations.forEach((conv, index) => {
+              const messages = conv.messages || [];
+              const userMessages = messages.filter((m: any) => m.role === 'user').map((m: any) => m.content);
+              const assistantMessages = messages.filter((m: any) => m.role === 'assistant').map((m: any) => m.content);
+
+              if (userMessages.length > 0) {
+                const date = new Date(conv.created_at).toLocaleDateString('es-CO');
+                const userQuery = userMessages[0].substring(0, 100);
+                const response = assistantMessages[0]?.substring(0, 100) || 'Sin respuesta';
+
+                summaryParts.push(`- ${date}: Usuario preguntó "${userQuery}..." → Respondiste "${response}..."`);
+              }
+            });
+
+            if (summaryParts.length > 0) {
+              conversationSummary = `
+
+---
+
+## 🧠 HISTORIAL DE CONVERSACIONES PREVIAS
+
+Este usuario ha conversado contigo antes. Aquí está el resumen de sus últimas ${conversations.length} interacciones:
+
+${summaryParts.join('\n')}
+
+**IMPORTANTE:** Cuando el usuario pregunte "¿de qué hablamos antes?" o "¿recuerdas...?", haz referencia a esta información del historial.
+
+---
+`;
+              console.log(`✅ [NEXUS] Resumen de historial generado: ${conversations.length} conversaciones`);
+              console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
+            }
+          } catch (summaryError) {
+            console.error('❌ [NEXUS] Error generando resumen de historial:', summaryError);
           }
         } else {
           console.log('ℹ️ [NEXUS] Sin historial previo - primera conversación');
         }
       } catch (error) {
         console.error('❌ [NEXUS] Error consultando historial:', error);
-        historicalMessages = [];
       }
     }
 
@@ -1816,8 +1838,14 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       console.log('Contexto híbrido del prospecto incluido:', mergedProspectData.momento_optimo);
     }
 
-    // ✅ OPTIMIZACIÓN: System prompt CON CACHE de Anthropic
-    const baseSystemPrompt = await getSystemPrompt();
+    // ✅ OPTIMIZACIÓN: System prompt CON CACHE de Anthropic + Historial
+    let baseSystemPrompt = await getSystemPrompt();
+
+    // 🧠 Agregar resumen de historial al System Prompt (si existe)
+    if (conversationSummary) {
+      baseSystemPrompt = baseSystemPrompt + conversationSummary;
+      console.log('✅ [NEXUS] Resumen de historial agregado al System Prompt');
+    }
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
     const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
@@ -2075,41 +2103,10 @@ ${!mergedProspectData.name ? `
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
 
-    // 🧠 MEMORIA A LARGO PLAZO: Combinar historial previo + mensajes actuales
-    // CRITICAL FIX 2025-10-25: Usuario reportó que NEXUS no recordaba conversaciones previas
-    // Ahora cargamos historial completo de nexus_conversations (hasta 40 mensajes históricos)
-
-    // Combinar: historial (conversaciones previas) + mensajes actuales (esta sesión)
-    let allMessages = [];
-
-    try {
-      if (historicalMessages.length > 0) {
-        // Tomar últimos 30 mensajes históricos (15 intercambios)
-        const recentHistory = historicalMessages.length > 30
-          ? historicalMessages.slice(-30)
-          : historicalMessages;
-
-        // Combinar historial + mensajes de sesión actual
-        allMessages = [...recentHistory, ...messages];
-
-        console.log(`🧠 [NEXUS] Memoria a largo plazo activa:`);
-        console.log(`   📚 Histórico: ${recentHistory.length} mensajes (${Math.floor(recentHistory.length / 2)} intercambios)`);
-        console.log(`   📝 Sesión actual: ${messages.length} mensajes`);
-        console.log(`   📊 TOTAL enviando a Claude: ${allMessages.length} mensajes`);
-      } else {
-        // Sin historial, usar solo mensajes de sesión actual
-        allMessages = messages;
-        console.log(`ℹ️ [NEXUS] Primera conversación - sin historial previo (${allMessages.length} mensajes)`);
-      }
-    } catch (error) {
-      // HOTFIX: Si falla la combinación de historial, usar solo mensajes actuales
-      console.error('❌ [NEXUS] Error combinando historial, usando solo mensajes actuales:', error);
-      allMessages = messages;
-    }
-
-    // Limitar total a 40 mensajes para no exceder tokens (20 intercambios)
-    const recentMessages = allMessages.length > 40 ? allMessages.slice(-40) : allMessages;
-    console.log(`⚡ Historial enviado a Claude: ${recentMessages.length}/${allMessages.length} mensajes (últimos 20 intercambios)`);
+    // 🧠 MEMORIA A LARGO PLAZO: Usar solo mensajes de sesión actual
+    // El historial se inyecta como RESUMEN en el System Prompt (no como mensajes)
+    const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
+    console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
 
     // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
     const response = await anthropic.messages.create({

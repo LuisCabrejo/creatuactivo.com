@@ -45,9 +45,13 @@ NEXUS completamente inoperativo
 
 ### Paso 2: Copiar Script SQL
 
-1. Abrir archivo: `supabase/migrations/20251025_create_nexus_conversations.sql`
-2. Copiar TODO el contenido (líneas 1-150)
+⚠️ **IMPORTANTE:** Usa la versión SIMPLE del script (evita error de columna inexistente)
+
+1. Abrir archivo: `supabase/migrations/20251025_create_nexus_conversations_SIMPLE.sql`
+2. Copiar TODO el contenido (líneas 1-120)
 3. Pegar en el editor SQL de Supabase
+
+**NOTA:** Existe también `20251025_create_nexus_conversations.sql` (versión completa con RLS avanzado), pero puede fallar si el schema de `nexus_prospects` es diferente. La versión SIMPLE funciona en todos los casos.
 
 ### Paso 3: Ejecutar Script
 

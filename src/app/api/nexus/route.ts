@@ -1701,7 +1701,11 @@ export async function POST(req: Request) {
     }
 
     // 🧠 CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
+    // ⚠️ TEMPORALMENTE DESHABILITADO - Debugging Error 500
     let historicalMessages: any[] = [];
+    console.log('⚠️ [NEXUS] Feature de memoria a largo plazo DESHABILITADA temporalmente para debugging');
+
+    /* CÓDIGO COMENTADO PARA DEBUGGING
     if (fingerprint) {
       try {
         console.log('🔍 [NEXUS] Cargando historial de conversaciones para:', fingerprint.substring(0, 20) + '...');
@@ -1736,6 +1740,7 @@ export async function POST(req: Request) {
         historicalMessages = [];
       }
     }
+    */
 
     // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)
     const prospectData = await captureProspectData(

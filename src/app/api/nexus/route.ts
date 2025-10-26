@@ -32,6 +32,21 @@ const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con se
 const API_VERSION = 'v12.1_timing_optimizado'; // ✅ v12.1: Timing + Formato + Datos acumulados
 
 // ========================================
+// UTILIDADES - LIMPIEZA DE DATOS
+// ========================================
+/**
+ * Remueve valores NULL y undefined de un objeto.
+ * Evita que NULL sobreescriba datos existentes en el merge JSONB de PostgreSQL.
+ * @param obj - Objeto con posibles valores NULL/undefined
+ * @returns Objeto limpio solo con valores válidos
+ */
+function removeNullValues(obj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => value !== null && value !== undefined)
+  );
+}
+
+// ========================================
 // FRAMEWORK IAA - CAPTURA INTELIGENTE
 // ========================================
 interface ProspectData {
@@ -325,15 +340,18 @@ async function captureProspectData(
   // GUARDAR EN SUPABASE SI HAY DATOS
   if (Object.keys(data).length > 0 && fingerprint) {
     try {
+      // ✅ PROTECCIÓN: Remover valores NULL antes de guardar
+      const cleanedData = removeNullValues(data);
+
       console.log('🔵 [NEXUS] Guardando en BD:', {
         fingerprint: fingerprint.substring(0, 20) + '...',
-        data,
+        data: cleanedData,
         constructor_uuid: constructorUUID || 'Sistema (fallback)'
       });
 
       const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
         p_fingerprint_id: fingerprint,
-        p_data: data,
+        p_data: cleanedData,  // ✅ Usar datos limpios sin NULL
         p_constructor_id: constructorUUID || undefined  // ✅ Pasar UUID o undefined (usa Sistema como fallback)
       });
 

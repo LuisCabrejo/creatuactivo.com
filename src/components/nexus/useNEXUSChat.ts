@@ -68,7 +68,9 @@ const sendMessage = useCallback(async (content: string) => {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    // ✅ FIX: Aumentar timeout de 15s → 30s para permitir carga de historial
+    // (coincide con max_duration de la API route edge)
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
 
     // ========================================
     // FIX: Race Condition - Esperar fingerprint

@@ -1232,29 +1232,57 @@ LENGUAJE DEL "NUEVO MUNDO" (USAR SIEMPRE):
 
 ## 🔒 NORMALIZACIÓN DE DATOS (CRÍTICO)
 
-**SIEMPRE confirma los datos en formato normalizado:**
+⚠️ **REGLA DE ORO:** El sistema extrae datos de TUS respuestas (no del usuario). NUNCA repitas el texto del usuario tal cual. SIEMPRE normaliza antes de confirmar.
 
-### Nombres:
-- Capitaliza correctamente (Primera Letra Mayúscula)
-- Ejemplo: Usuario escribe "andrés guzmán" → Tú confirmas "¡Perfecto Andrés Guzmán!"
-- Patrón: "¡Hola [NOMBRE]!" o "Perfecto [NOMBRE]" o "Gracias [NOMBRE]"
+### ✅ Nombres:
+**REGLA:** Capitaliza correctamente (Primera Letra Mayúscula en cada palabra)
 
-### Emails:
-- Valida formato (debe tener @ y dominio)
-- Confirma en lowercase
-- Si falta @: "Parece que falta el @ en tu correo, ¿puedes verificarlo?"
-- Si es válido: "Tu correo [email@domain.com] ha sido confirmado"
-- Ejemplo: "billgates.microsoft.com" → Pedir corrección
-- Ejemplo: "BILLGATES@MICROSOFT.COM" → Confirmar "billgates@microsoft.com"
+**Ejemplos INCORRECTOS → CORRECTOS:**
+- Usuario: "andrés guzmán" (minúsculas) → Tú: "¡Hola Andrés Guzmán!" ✅
+- Usuario: "MARÍA GARCÍA" (mayúsculas) → Tú: "¡Perfecto María García!" ✅
+- Usuario: "jOsÉ pEñA" (mezcla) → Tú: "¡Gracias José Peña!" ✅
 
-### WhatsApp:
-- Acepta cualquier formato (espacios, puntos, guiones, paréntesis)
-- Confirma en formato limpio con código de país
-- Ejemplo: Usuario "320.341.2323" → Confirmas "tu WhatsApp +57 320 341 2323"
-- Ejemplo: Usuario "(320) 341-2323" → Confirmas "tu número +57 320 341 2323"
+**Patrón de confirmación:** "¡Hola [NOMBRE]!" o "Perfecto [NOMBRE]" o "Gracias [NOMBRE]"
+
+---
+
+### ✅ Emails:
+**REGLA:** Valida formato (@) + normaliza a lowercase
+
+**Ejemplos INCORRECTOS → CORRECTOS:**
+- Usuario: "billgates.microsoft.com" (sin @) → Tú: "Parece que falta el @ en tu correo, ¿puedes verificarlo?" ✅
+- Usuario: "bill,gates@microsoft.com" (con coma) → Tú: "Veo una coma en tu email. ¿Es billgates@microsoft.com?" ✅
+- Usuario: "BILLGATES@MICROSOFT.COM" (mayúsculas) → Tú: "Tu correo billgates@microsoft.com ha sido confirmado" ✅
+- Usuario: "BillGates@Microsoft.Com" (mixto) → Tú: "Tu correo billgates@microsoft.com ha sido confirmado" ✅
+
+**⚠️ NUNCA digas:** "Tu correo BILLGATES@MICROSOFT.COM" o "bill,gates@microsoft.com"
+**✅ SIEMPRE normaliza:** Lowercase + sin comas/espacios
+
+---
+
+### ✅ WhatsApp:
+**REGLA:** Acepta CUALQUIER formato (puntos, comas, espacios, guiones, paréntesis) pero SIEMPRE confirma limpio con +57
+
+**Ejemplos INCORRECTOS → CORRECTOS:**
+- Usuario: "320.341.2323" (con puntos) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
+- Usuario: "320,341,2323" (con comas) → Tú: "Tu número +57 320 341 2323" ✅
+- Usuario: "(320) 341-2323" (paréntesis + guión) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
+- Usuario: "320 341 2323" (espacios) → Tú: "Tu número +57 320 341 2323" ✅
+- Usuario: "3203412323" (sin formato) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
+
+**⚠️ NUNCA repitas:** "320.341.2323" o "320,341,2323"
+**✅ SIEMPRE formato:** "+57 XXX XXX XXXX" (espacios, sin puntos/comas)
+
+---
 
 **¿POR QUÉ ES CRÍTICO?**
-El sistema extrae datos de TUS respuestas (no del usuario directamente). Si confirmas datos normalizados, el sistema guardará datos limpios y consistentes. Si no normalizas, se guardarán datos con errores de formato.
+El sistema usa REGEX para extraer datos de tus respuestas:
+- Si dices "320,341,2323" → regex NO captura (espera espacios, no comas)
+- Si dices "+57 320 341 2323" → regex captura "3203412323" ✅
+- Si dices "bill,gates@microsoft.com" → regex NO captura (detecta coma como error)
+- Si dices "billgates@microsoft.com" → regex captura correctamente ✅
+
+**TU NORMALIZACIÓN = DATOS LIMPIOS EN BASE DE DATOS**
 
 PERSONALIDAD: Copiloto del Arquitecto con consulta inteligente escalable que crece automáticamente sin mantenimiento.`;
 }
@@ -1672,6 +1700,34 @@ export async function POST(req: Request) {
       }
     }
 
+    // 🧠 CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
+    let historicalMessages: any[] = [];
+    if (fingerprint) {
+      try {
+        console.log('🔍 [NEXUS] Cargando historial de conversaciones para:', fingerprint.substring(0, 20) + '...');
+
+        const { data: conversations, error: convError } = await supabase
+          .from('nexus_conversations')
+          .select('messages, created_at')
+          .eq('fingerprint_id', fingerprint)
+          .order('created_at', { ascending: true })
+          .limit(20); // Últimas 20 conversaciones (40 mensajes aprox)
+
+        if (convError) {
+          console.error('❌ [NEXUS] Error cargando historial:', convError);
+        } else if (conversations && conversations.length > 0) {
+          // Aplanar mensajes de todas las conversaciones
+          historicalMessages = conversations.flatMap(conv => conv.messages || []);
+          console.log(`✅ [NEXUS] Historial cargado: ${historicalMessages.length} mensajes de ${conversations.length} conversaciones`);
+          console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
+        } else {
+          console.log('ℹ️ [NEXUS] Sin historial previo - primera conversación');
+        }
+      } catch (error) {
+        console.error('❌ [NEXUS] Error consultando historial:', error);
+      }
+    }
+
     // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)
     const prospectData = await captureProspectData(
       latestUserMessage,
@@ -2005,10 +2061,35 @@ ${!mergedProspectData.name ? `
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
 
-    // ⚡ FASE 1 - OPTIMIZACIÓN: Limitar historial a últimos 6 mensajes (3 intercambios)
-    // Ahorra tokens en conversaciones largas manteniendo contexto suficiente
-    const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
-    console.log(`⚡ Historial optimizado: ${recentMessages.length}/${messages.length} mensajes`);
+    // 🧠 MEMORIA A LARGO PLAZO: Combinar historial previo + mensajes actuales
+    // CRITICAL FIX 2025-10-25: Usuario reportó que NEXUS no recordaba conversaciones previas
+    // Ahora cargamos historial completo de nexus_conversations (hasta 40 mensajes históricos)
+
+    // Combinar: historial (conversaciones previas) + mensajes actuales (esta sesión)
+    let allMessages = [];
+
+    if (historicalMessages.length > 0) {
+      // Tomar últimos 30 mensajes históricos (15 intercambios)
+      const recentHistory = historicalMessages.length > 30
+        ? historicalMessages.slice(-30)
+        : historicalMessages;
+
+      // Combinar historial + mensajes de sesión actual
+      allMessages = [...recentHistory, ...messages];
+
+      console.log(`🧠 [NEXUS] Memoria a largo plazo activa:`);
+      console.log(`   📚 Histórico: ${recentHistory.length} mensajes (${Math.floor(recentHistory.length / 2)} intercambios)`);
+      console.log(`   📝 Sesión actual: ${messages.length} mensajes`);
+      console.log(`   📊 TOTAL enviando a Claude: ${allMessages.length} mensajes`);
+    } else {
+      // Sin historial, usar solo mensajes de sesión actual
+      allMessages = messages;
+      console.log(`ℹ️ [NEXUS] Primera conversación - sin historial previo (${allMessages.length} mensajes)`);
+    }
+
+    // Limitar total a 40 mensajes para no exceder tokens (20 intercambios)
+    const recentMessages = allMessages.length > 40 ? allMessages.slice(-40) : allMessages;
+    console.log(`⚡ Historial enviado a Claude: ${recentMessages.length}/${allMessages.length} mensajes (últimos 20 intercambios)`);
 
     // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
     const response = await anthropic.messages.create({

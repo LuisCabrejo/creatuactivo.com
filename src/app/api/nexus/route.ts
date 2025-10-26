@@ -1230,6 +1230,32 @@ LENGUAJE DEL "NUEVO MUNDO" (USAR SIEMPRE):
 - "Operamos bajo el Modelo DEA (Distribución Estratégica Automatizada)..."
 - "Como Constructor Inteligente, tú..."
 
+## 🔒 NORMALIZACIÓN DE DATOS (CRÍTICO)
+
+**SIEMPRE confirma los datos en formato normalizado:**
+
+### Nombres:
+- Capitaliza correctamente (Primera Letra Mayúscula)
+- Ejemplo: Usuario escribe "andrés guzmán" → Tú confirmas "¡Perfecto Andrés Guzmán!"
+- Patrón: "¡Hola [NOMBRE]!" o "Perfecto [NOMBRE]" o "Gracias [NOMBRE]"
+
+### Emails:
+- Valida formato (debe tener @ y dominio)
+- Confirma en lowercase
+- Si falta @: "Parece que falta el @ en tu correo, ¿puedes verificarlo?"
+- Si es válido: "Tu correo [email@domain.com] ha sido confirmado"
+- Ejemplo: "billgates.microsoft.com" → Pedir corrección
+- Ejemplo: "BILLGATES@MICROSOFT.COM" → Confirmar "billgates@microsoft.com"
+
+### WhatsApp:
+- Acepta cualquier formato (espacios, puntos, guiones, paréntesis)
+- Confirma en formato limpio con código de país
+- Ejemplo: Usuario "320.341.2323" → Confirmas "tu WhatsApp +57 320 341 2323"
+- Ejemplo: Usuario "(320) 341-2323" → Confirmas "tu número +57 320 341 2323"
+
+**¿POR QUÉ ES CRÍTICO?**
+El sistema extrae datos de TUS respuestas (no del usuario directamente). Si confirmas datos normalizados, el sistema guardará datos limpios y consistentes. Si no normalizas, se guardarán datos con errores de formato.
+
 PERSONALIDAD: Copiloto del Arquitecto con consulta inteligente escalable que crece automáticamente sin mantenimiento.`;
 }
 
@@ -1446,6 +1472,72 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
                responseLower.includes('joven con ambicion')) {
       extracted.archetype = 'joven_ambicion';
       console.log('✅ [SEMÁNTICA] Arquetipo extraído de respuesta Claude: joven_ambicion');
+    }
+  }
+
+  // ✅ EXTRACCIÓN DE NOMBRE desde respuesta de Claude
+  // Claude normaliza nombres (capitaliza correctamente)
+  // Buscar confirmaciones como "¡Hola [NOMBRE]!", "Perfecto [NOMBRE]"
+  const nameConfirmationPatterns = [
+    /(?:hola|perfecto|excelente|genial|encantado)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
+    /(?:gracias|muchas gracias)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
+    /tu nombre es\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)/i
+  ];
+
+  for (const pattern of nameConfirmationPatterns) {
+    const nameMatch = response.match(pattern);
+    if (nameMatch && nameMatch[1]) {
+      const extractedName = nameMatch[1].trim();
+      // Validar que no sea un falso positivo (palabras comunes)
+      const nameBlacklist = /^(constructor|visionario|inicial|estratégico|excelente|perfecto)$/i;
+      if (!nameBlacklist.test(extractedName) && extractedName.length >= 2) {
+        extracted.name = extractedName;
+        console.log('✅ [SEMÁNTICA] Nombre extraído de respuesta Claude (normalizado):', extractedName);
+        break;
+      }
+    }
+  }
+
+  // ✅ EXTRACCIÓN DE EMAIL desde respuesta de Claude
+  // Claude valida formato y lo repite correctamente
+  // Buscar confirmaciones como "tu correo [EMAIL]", "email [EMAIL]"
+  const emailConfirmationPatterns = [
+    /(?:tu correo|tu email|email|correo)\s+(?:es\s+)?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i,
+    /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\s+(?:correcto|verificado|confirmado)/i
+  ];
+
+  for (const pattern of emailConfirmationPatterns) {
+    const emailMatch = response.match(pattern);
+    if (emailMatch && emailMatch[1]) {
+      const extractedEmail = emailMatch[1].toLowerCase().trim();
+      // Validación básica de formato
+      if (extractedEmail.includes('@') && extractedEmail.includes('.')) {
+        extracted.email = extractedEmail;
+        console.log('✅ [SEMÁNTICA] Email extraído de respuesta Claude (validado):', extractedEmail);
+        break;
+      }
+    }
+  }
+
+  // ✅ EXTRACCIÓN DE WHATSAPP desde respuesta de Claude
+  // Claude normaliza números (quita espacios, puntos, comas)
+  // Buscar confirmaciones como "tu WhatsApp +57 320...", "número 320..."
+  const phoneConfirmationPatterns = [
+    /(?:tu whatsapp|tu número|whatsapp|número|teléfono)\s+(?:es\s+)?(?:\+?57\s?)?(\d[\d\s\-\.\(\)]{8,14}\d)/i,
+    /(?:\+?57\s?)?(\d[\d\s\-\.\(\)]{8,14}\d)\s+(?:correcto|verificado|confirmado)/i
+  ];
+
+  for (const pattern of phoneConfirmationPatterns) {
+    const phoneMatch = response.match(pattern);
+    if (phoneMatch && phoneMatch[1]) {
+      // Limpiar número: quitar espacios, guiones, puntos, paréntesis
+      const cleanedPhone = phoneMatch[1].replace(/[\s\-\.\(\)]/g, '');
+      // Validar longitud internacional (7-15 dígitos)
+      if (cleanedPhone.length >= 7 && cleanedPhone.length <= 15) {
+        extracted.phone = cleanedPhone;
+        console.log('✅ [SEMÁNTICA] WhatsApp extraído de respuesta Claude (normalizado):', cleanedPhone);
+        break;
+      }
     }
   }
 

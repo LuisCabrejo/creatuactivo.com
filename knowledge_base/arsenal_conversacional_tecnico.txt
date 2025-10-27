@@ -62,8 +62,15 @@ Perfecto. Eso, de hecho, es una ventaja. Los modelos antiguos requerían que fue
 ### OBJ_07: "¿La urgencia me parece sospechosa?"
 **[Objeción de credibilidad temporal]**
 
-La urgencia es 100% real y se basa en una ventana de oportunidad estratégica, no en una táctica de escasez. Nuestro objetivo es consolidar un núcleo de 150 constructores fundadores de élite antes del pre-lanzamiento el **29 de septiembre de 2025**. Limitamos el acceso en esta fase para garantizar un acompañamiento profundo y asegurar el éxito de este primer grupo de pioneros. El ecosistema estará ampliamente disponible después del lanzamiento público el **1 de diciembre de 2025**. Lo que es temporal es la oportunidad de ser parte del selecto grupo fundacional.
-**Pregunta de seguimiento:** ¿Prefieres evaluar esta oportunidad ahora o esperar al lanzamiento público cuando la ventaja de pionero ya no esté disponible?
+La urgencia es 100% real y se basa en una ventana de oportunidad estratégica, no en una táctica de escasez.
+
+**Estamos construyendo en 3 fases:**
+- **Lista Privada (27 Oct - 16 Nov):** Consolidar 150 Fundadores élite con acompañamiento profundo e individual
+- **Pre-Lanzamiento (17 Nov - 27 Dic):** Los 150 Fundadores mentorean a 22,500 constructores (cada fundador guía a 150 nuevos)
+- **Lanzamiento Público (05 Ene 2026):** Apertura masiva al público con objetivo de 4 millones de personas en América
+
+Limitamos el acceso en la fase de Lista Privada para garantizar el éxito del grupo fundacional. Lo que es temporal es la oportunidad de ser parte del selecto grupo de los 150 pioneros.
+**Pregunta de seguimiento:** ¿Prefieres evaluar esta oportunidad ahora como Fundador o esperar al lanzamiento público cuando la ventaja posicional ya no esté disponible?
 ---
 
 ### OBJ_08: "¿Qué pasa si no me va bien?"

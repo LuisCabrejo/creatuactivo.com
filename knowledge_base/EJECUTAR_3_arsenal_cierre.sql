@@ -435,7 +435,13 @@ Sin embargo, lo que sí puedo hacer es conectarte directamente con Liliana Moren
 
 Esa es la respuesta de una persona inteligente que toma decisiones estratégicas, no impulsivas. Te respeto por eso.
 
-Lo que sí es importante que sepas es que el programa Fundadores tiene una ventana de oportunidad única que va desde el pre-lanzamiento el **29 de septiembre de 2025** hasta el lanzamiento público el **1 de diciembre de 2025**, con el objetivo de crear un equipo base de 150 constructores. Durante esta ventana tienes la oportunidad de posicionarte como uno de los arquitectos fundacionales antes del lanzamiento masivo.
+Lo que sí es importante que sepas es que el programa Fundadores tiene una ventana de oportunidad única estructurada en 3 fases:
+
+- **Lista Privada (27 Oct - 16 Nov):** Construcción de la base de 150 Fundadores élite
+- **Pre-Lanzamiento (17 Nov - 27 Dic):** Los 150 Fundadores mentorean a 22,500 nuevos constructores
+- **Lanzamiento Público (05 Ene 2026):** Apertura masiva con objetivo de 4 millones en América
+
+Estamos en la fase de Lista Privada. Durante esta ventana tienes la oportunidad de posicionarte como uno de los 150 arquitectos fundacionales antes del lanzamiento masivo.
 
 Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es para presionarte a decidir, sino para que tengas toda la información que necesitas para tomar la mejor decisión para tu futuro, sea cual sea.
 

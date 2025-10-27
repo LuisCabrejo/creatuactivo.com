@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowRight, CheckCircle, PlayCircle, Rocket, Shield, Users, Zap, Briefcase, Target, Lightbulb, Home, UsersRound, TrendingUp, Timer } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -27,6 +27,57 @@ function BenefitCard({ icon, title, description, color }: {
       <p className="text-slate-400 leading-relaxed">{description}</p>
     </div>
   )
+}
+
+/**
+ * Calcula los cupos disponibles basado en la fecha y hora actual
+ * - Inicio: Lunes 27 de Octubre 2025 a las 10:00 AM con 150 cupos
+ * - Cada hora en punto (11:00, 12:00, etc.) resta 1 cupo
+ * - Cada día resta 10 cupos del total del día anterior
+ * - Día 1 (27 Oct): 150 → 140
+ * - Día 2 (28 Oct): 140 → 130
+ * - Día 3 (29 Oct): 130 → 120, etc.
+ */
+function calcularCuposDisponibles(): number {
+  const ahora = new Date()
+
+  // Fecha de inicio: 27 de Octubre 2025 a las 10:00 AM (hora de Colombia UTC-5)
+  const inicioLista = new Date('2025-10-27T10:00:00-05:00')
+
+  // Si aún no ha llegado la fecha de inicio, mostrar 150
+  if (ahora < inicioLista) {
+    return 150
+  }
+
+  // Calcular días completos desde el inicio
+  const msEnUnDia = 24 * 60 * 60 * 1000
+  const diferenciaTiempo = ahora.getTime() - inicioLista.getTime()
+  const diasCompletos = Math.floor(diferenciaTiempo / msEnUnDia)
+
+  // Calcular cupos base del día actual (resta 10 por cada día completo)
+  const cuposBaseDia = 150 - (diasCompletos * 10)
+
+  // Si ya se agotaron todos los cupos
+  if (cuposBaseDia <= 0) {
+    return 0
+  }
+
+  // Calcular horas completas desde el inicio del día actual
+  const inicioDiaActual = new Date(inicioLista)
+  inicioDiaActual.setDate(inicioDiaActual.getDate() + diasCompletos)
+
+  const diferenciaHoras = ahora.getTime() - inicioDiaActual.getTime()
+  const horasTranscurridas = Math.floor(diferenciaHoras / (60 * 60 * 1000))
+
+  // Restar 1 cupo por cada hora DESPUÉS de las 10:00
+  // Hora 10:00 = 0 horas transcurridas = 0 cupos restados
+  // Hora 11:00 = 1 hora transcurrida = 1 cupo restado
+  // Hora 20:00 = 10 horas transcurridas = 10 cupos restados (máximo)
+  const cuposRestadosPorHora = Math.min(Math.max(horasTranscurridas, 0), 10)
+  const cuposActuales = cuposBaseDia - cuposRestadosPorHora
+
+  // Asegurar que no sea negativo
+  return Math.max(cuposActuales, 0)
 }
 
 // Arquetipos actualizados del sitio web
@@ -77,8 +128,8 @@ const arquetipos = [
 
 // Componente principal
 export default function FundadoresPage() {
-  // Estados simples sin useEffect complejo
-  const [spotsLeft] = useState(142) // Valor estático por ahora para evitar hydration issues
+  // Estado de cupos disponibles (dinámico)
+  const [spotsLeft, setSpotsLeft] = useState(150)
   const [formStep, setFormStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -89,6 +140,19 @@ export default function FundadoresPage() {
     arquetipo: '',
     inversion: ''
   })
+
+  // Actualizar cupos cada minuto y al montar el componente
+  useEffect(() => {
+    // Calcular cupos iniciales
+    setSpotsLeft(calcularCuposDisponibles())
+
+    // Actualizar cada minuto para detectar cambios de hora
+    const interval = setInterval(() => {
+      setSpotsLeft(calcularCuposDisponibles())
+    }, 60000) // 60 segundos
+
+    return () => clearInterval(interval)
+  }, [])
 
   // Función de envío del formulario
   const handleSubmit = async (e: React.FormEvent) => {
@@ -289,16 +353,16 @@ export default function FundadoresPage() {
 
               <div className="space-y-2 mb-6 text-sm">
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>22 Sept: Lista Privada</span>
-                  <span className="text-slate-500">20 Constructores</span>
+                  <span>27 Oct - 16 Nov: Lista Privada</span>
+                  <span className="text-slate-500">150 Fundadores</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>29 Sept: Pre-Lanzamiento</span>
-                  <span className="text-slate-500">150 Constructores</span>
+                  <span>17 Nov - 27 Dic: Pre-Lanzamiento</span>
+                  <span className="text-slate-500">22,500 Constructores</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>01 Dic: Lanzamiento Público</span>
-                  <span className="text-slate-500">3,000 Constructores</span>
+                  <span>05 Ene 2026: Lanzamiento Público</span>
+                  <span className="text-slate-500">4M+ en América</span>
                 </div>
               </div>
 

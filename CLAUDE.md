@@ -239,9 +239,21 @@ src/app/
 │   ├── lider-comunidad/page.tsx
 │   └── joven-con-ambicion/page.tsx
 └── api/
-    ├── nexus/route.ts              # Main chatbot API
+    ├── nexus/
+    │   ├── route.ts                # Legacy chatbot API (backward compatible)
+    │   ├── producer/route.ts       # Queue producer (PREFERRED)
+    │   └── consumer-cron/route.ts  # Queue consumer (cron job)
     ├── fundadores/route.ts         # Founder form submission
+    ├── constructor/[id]/route.ts   # Constructor profile API
     └── test-resend/route.ts        # Email testing
+```
+
+**Supabase Edge Functions** (deployed separately):
+```
+supabase/functions/
+├── nexus-queue-processor/       # Process NEXUS messages from queue
+├── nexus-consumer/              # Legacy Kafka consumer
+└── notify-stage-change/         # Notify on prospect stage changes
 ```
 
 **Navigation Components**:
@@ -252,7 +264,7 @@ src/app/
 
 ### Environment Variables
 
-Required variables (see [.env.local](.env.local) - **DO NOT commit this file**):
+Required variables (see [.env.example](.env.example) for complete reference, **DO NOT commit .env.local**):
 
 ```bash
 # Supabase
@@ -263,8 +275,12 @@ SUPABASE_SERVICE_ROLE_KEY=         # Server-side only
 # Anthropic (for NEXUS)
 ANTHROPIC_API_KEY=
 
-# Resend (email service)
-RESEND_API_KEY=
+# Vercel Blob (for video storage)
+BLOB_READ_WRITE_TOKEN=             # For uploading videos
+NEXT_PUBLIC_VIDEO_FUNDADORES_1080P=
+NEXT_PUBLIC_VIDEO_FUNDADORES_720P=
+NEXT_PUBLIC_VIDEO_FUNDADORES_4K=
+NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER=
 
 # Site config
 NEXT_PUBLIC_SITE_URL=
@@ -283,10 +299,49 @@ import type { Type } from '@/types/nexus'           // → src/types/nexus
 
 ## Common Development Patterns
 
+### Working with Video Content
+
+**Location**: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) (lines 204-275)
+
+The platform uses **Vercel Blob** for video hosting with adaptive streaming:
+
+1. **Optimize video** (creates 720p, 1080p, 4K versions + poster):
+   ```bash
+   ./scripts/optimize-video.sh /path/to/video.mp4
+   ```
+
+2. **Upload to Vercel Blob**:
+   ```bash
+   node scripts/upload-to-blob.mjs
+   ```
+
+3. **Add URLs to environment variables** (both `.env.local` and Vercel Dashboard)
+
+**See**: [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) and [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) for complete guides.
+
+**Cost**: ~$0.75-$2/month (vs $10-20 with Mux). Uses progressive download with automatic resolution selection.
+
+### Founder Spots Counter
+
+**Location**: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx)
+
+Dynamic countdown system that reduces available spots:
+- **Start**: Monday Oct 27, 2025 at 10:00 AM (UTC-5)
+- **Initial spots**: 150
+- **Reduction**: -1 spot per hour (11:00, 12:00... 20:00)
+- **Daily reduction**: -10 spots total per day
+- **Updates**: Every 60 seconds (client-side calculation)
+
+**Testing**: Use `node scripts/test-contador-cupos.mjs` to validate logic across 15 scenarios.
+
+**Manual adjustment**: Edit `calcularCuposDisponibles()` function and add `ajusteManual` offset if real sales differ from projection.
+
+**See**: [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) for complete specification.
+
 ### Adding New NEXUS Knowledge
 
 1. Add content to appropriate file in `knowledge_base/`
-2. Update Supabase table `nexus_documents` with new content
+2. Update Supabase table `nexus_documents` with new content (use scripts in `knowledge_base/EJECUTAR_*.sql`)
 3. If adding new document type, update `clasificarDocumentoHibrido()` in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts:236)
 
 ### Modifying NEXUS Behavior
@@ -294,8 +349,18 @@ import type { Type } from '@/types/nexus'           // → src/types/nexus
 **DO NOT** modify the fallback system prompt in code. Instead:
 
 1. Update `system_prompts` table in Supabase (name: `nexus_main`)
-2. Clear cache by restarting dev server or waiting 5 minutes
-3. Test with `/api/nexus` GET endpoint to verify prompt version
+2. Use helper scripts in `scripts/` directory:
+   - `actualizar-system-prompt-flujo.mjs` - Update conversation flow
+   - `actualizar-system-prompt-captura.mjs` - Update data capture behavior
+   - `actualizar-system-prompt-paquetes.mjs` - Update package information
+   - `leer-system-prompt.mjs` - Read current prompt version
+3. Clear cache by restarting dev server or waiting 5 minutes
+4. Test with `/api/nexus` GET endpoint to verify prompt version
+
+**NEXUS Memory System**:
+- Uses Anthropic's long-term memory feature (enabled via `habilitar-memoria-largo-plazo.mjs`)
+- Stores conversation context across sessions using RESUMEN blocks
+- Cache can be force-refreshed with `forzar-refresh-anthropic-cache.mjs`
 
 ### Adding New Landing Pages
 
@@ -354,27 +419,91 @@ window.reidentifyProspect()         // Force re-identification
 - **Fix**: Update classification patterns in `clasificarDocumentoHibrido()`
 - **Verify**: Test with specific query patterns in Quick Replies
 
+## Utility Scripts Reference
+
+**Location**: [scripts/](scripts/) directory
+
+### NEXUS System Prompt Management
+- `actualizar-system-prompt-flujo.mjs` - Update conversation flow prompts
+- `actualizar-system-prompt-captura.mjs` - Update data capture prompts
+- `actualizar-system-prompt-paquetes.mjs` - Update package pricing prompts
+- `leer-system-prompt.mjs` - Read current system prompt from Supabase
+- `habilitar-memoria-largo-plazo.mjs` - Enable long-term memory feature
+- `forzar-refresh-anthropic-cache.mjs` - Force refresh Anthropic cache
+
+### Knowledge Base Management
+- `actualizar-fechas-prelanzamiento.mjs` - Update launch dates in knowledge base
+- `diagnostico-knowledge-base.js` - Diagnose knowledge base issues
+- `auditoria-completa-knowledge-base.js` - Full knowledge base audit
+- `comparar-lista-oficial.js` - Compare with official product list
+
+### Video & Media
+- `optimize-video.sh` - Optimize video to multiple resolutions (requires FFmpeg)
+- `upload-to-blob.mjs` - Upload optimized videos to Vercel Blob
+
+### Testing & Verification
+- `test-contador-cupos.mjs` - Test founder spots counter logic (15 scenarios)
+- `verificar-estructura-nexus-prospects.mjs` - Verify NEXUS-prospects data structure
+- `verificar-datos-usuario-prueba.mjs` - Verify test user data
+- `verificar-esquema-completo.mjs` - Verify complete database schema
+
+**Note**: Most scripts require environment variables from `.env.local`. Run with `node scripts/script-name.mjs`.
+
 ## Important Files Reference
 
 ### Core Application Files
-- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - NEXUS chatbot API (1192 lines, core business logic)
+- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - NEXUS chatbot API (legacy, use producer instead)
+- [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - Queue producer (PREFERRED)
 - [public/tracking.js](public/tracking.js) - Prospect tracking system (366 lines)
-- [src/app/layout.tsx](src/app/layout.tsx) - Root layout with tracking integration (460 lines)
+- [src/app/layout.tsx](src/app/layout.tsx) - Root layout with tracking integration
 - [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI component
 - [src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) - Main navigation
+- [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) - Founder signup page with video & counter
+
+### Supabase Edge Functions
+- [supabase/functions/nexus-queue-processor/](supabase/functions/nexus-queue-processor/) - Process queued NEXUS messages
 
 ### Documentation Files
-- [handoff.md](handoff.md) - Phase 1 architectural rebuild roadmap (addresses "Mensaje Fantasma" and async pipeline)
+- [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Complete deployment guide for queue system
+- [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation guide
+- [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) - Quick start for video upload
+- [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter specification
+- [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Latest updates summary
+- [handoff.md](handoff.md) - Phase 1 architectural rebuild roadmap
 - [inventory-report.md](inventory-report.md) - System inventory and status report
-- [README.md](README.md) - Basic Next.js setup instructions
+
+## Business Critical Dates
+
+**Current Timeline** (as of October 2025):
+
+1. **Lista Privada (Private List)**: Oct 27 - Nov 16, 2025
+   - 150 Founder spots
+   - Counter starts: Monday Oct 27, 10:00 AM UTC-5
+   - Mentorship ratio: 1 Founder → 150 Constructors
+
+2. **Pre-Lanzamiento (Pre-Launch)**: Nov 17 - Dec 27, 2025
+   - 22,500 Constructor spots (150 Founders × 150)
+   - 6-week mentorship period
+
+3. **Lanzamiento Público (Public Launch)**: Jan 5, 2026
+   - Target: 4M+ users across Latin America
+
+**IMPORTANT**: These dates are reflected across:
+- Frontend: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx:292-302)
+- Knowledge base: All 3 arsenales (inicial, manejo, cierre)
+- Database: Supabase `nexus_documents` table
+
+When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to sync across all systems.
 
 ## Deployment Notes
 
 - TypeScript errors do not block builds (by design)
-- Ensure all environment variables are set in production
+- Ensure all environment variables are set in production (Vercel Dashboard → Settings → Environment Variables)
 - Supabase RPC functions must be deployed before app deployment
 - Knowledge base documents should be seeded into `nexus_documents` table
 - Edge runtime requires Vercel or compatible platform
+- Video URLs must be configured in production environment variables
+- Deploy Supabase Edge Functions: `npx supabase functions deploy nexus-queue-processor`
 
 ## Git Workflow
 

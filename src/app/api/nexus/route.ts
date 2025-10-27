@@ -1700,7 +1700,39 @@ export async function POST(req: Request) {
       }
     }
 
-    // 🧠 CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
+    // 🧠 CARGAR DATOS DEL USUARIO (Fix 1: Load user data from prospects)
+    let userData: any = {};
+
+    if (fingerprint) {
+      try {
+        console.log('👤 [NEXUS] Cargando datos del usuario desde prospects...');
+
+        const { data: prospect, error: prospectError } = await supabase
+          .from('prospects')
+          .select('device_info')
+          .eq('fingerprint_id', fingerprint)
+          .order('updated_at', { ascending: false })
+          .limit(1)
+          .single();
+
+        if (prospectError) {
+          console.log('⚠️ [NEXUS] Usuario nuevo - sin datos previos');
+        } else if (prospect?.device_info) {
+          userData = prospect.device_info;
+          console.log('✅ [NEXUS] Datos del usuario cargados:', {
+            tiene_nombre: !!userData.name,
+            tiene_email: !!userData.email,
+            tiene_whatsapp: !!userData.whatsapp,
+            tiene_archetype: !!userData.archetype,
+            tiene_consentimiento: !!userData.consent_granted
+          });
+        }
+      } catch (error) {
+        console.error('❌ [NEXUS] Error cargando datos del usuario:', error);
+      }
+    }
+
+    // �� CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
     let conversationSummary = '';
 
     if (fingerprint) {
@@ -1736,11 +1768,27 @@ export async function POST(req: Request) {
             });
 
             if (summaryParts.length > 0) {
+              // Fix 2: Agregar datos del usuario al resumen
+              const userDataSection = userData.name || userData.email || userData.whatsapp ? `
+
+**DATOS DEL USUARIO (ya capturados previamente):**
+${userData.name ? `- Nombre: ${userData.name}` : ''}
+${userData.email ? `- Email: ${userData.email}` : ''}
+${userData.whatsapp ? `- WhatsApp: ${userData.whatsapp}` : ''}
+${userData.archetype ? `- Arquetipo: ${userData.archetype}` : ''}
+${userData.consent_granted ? `- Consentimiento de datos: ✅ YA OTORGADO (no volver a pedir)` : ''}
+
+**INSTRUCCIÓN CRÍTICA:** Este usuario YA te dio estos datos. NO vuelvas a pedirlos. Salúdalo por su nombre si lo tiene.
+` : '';
+
               conversationSummary = `
 
 ---
 
-## 🧠 HISTORIAL DE CONVERSACIONES PREVIAS
+## 🧠 MEMORIA DEL USUARIO
+${userDataSection}
+
+## 📜 HISTORIAL DE CONVERSACIONES PREVIAS
 
 Este usuario ha conversado contigo antes. Aquí está el resumen de sus últimas ${conversations.length} interacciones:
 
@@ -1752,6 +1800,12 @@ ${summaryParts.join('\n')}
 `;
               console.log(`✅ [NEXUS] Resumen de historial generado: ${conversations.length} conversaciones`);
               console.log(`📅 [NEXUS] Período: ${conversations[0]?.created_at} → ${conversations[conversations.length - 1]?.created_at}`);
+              console.log(`👤 [NEXUS] Datos del usuario incluidos en resumen:`, {
+                tiene_nombre: !!userData.name,
+                tiene_email: !!userData.email,
+                tiene_whatsapp: !!userData.whatsapp,
+                tiene_consentimiento: !!userData.consent_granted
+              });
             }
           } catch (summaryError) {
             console.error('❌ [NEXUS] Error generando resumen de historial:', summaryError);
@@ -2009,22 +2063,24 @@ Ella te brindará el catálogo completo actualizado y podrá asesorarte personal
 - CRÍTICO: Respuestas concisas + opciones para profundizar
 - Evalúa escalación inteligente si momento_optimo 'caliente'
 
-🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.2:
-${esUsuarioConocido ? `
+🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.2 (Fix 3):
+${userData.name || userData.consent_granted ? `
 🎉 USUARIO CONOCIDO - SALUDO PERSONALIZADO:
-- El usuario YA dio consentimiento previamente
-- Su nombre es: ${existingProspectData.name}
+- El usuario YA dio consentimiento previamente: ${userData.consent_granted ? '✅ SÍ' : 'Pendiente'}
+- Su nombre es: ${userData.name || 'No capturado aún'}
 - NO vuelvas a pedir consentimiento ni datos que ya tienes
-- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${existingProspectData.name}! ¿En qué puedo ayudarte hoy?"
+${userData.name ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
 - Si preguntan algo que ya respondiste antes, recuérdales: "Como te comenté antes..."
 - Mantén un tono familiar y cercano (ya se conocen)
 
-📊 DATOS QUE YA TIENES:
-- Nombre: ${existingProspectData.name || 'N/A'}
-- Ocupación: ${existingProspectData.occupation || 'N/A'}
-- WhatsApp: ${existingProspectData.phone || 'N/A'}
+📊 DATOS QUE YA TIENES (cargados desde BD):
+- Nombre: ${userData.name || '❌ No capturado'}
+- Arquetipo: ${userData.archetype || '❌ No capturado'}
+- WhatsApp: ${userData.whatsapp || '❌ No capturado'}
+- Email: ${userData.email || '❌ No capturado'}
+- Consentimiento: ${userData.consent_granted ? '✅ YA OTORGADO' : '❌ Pendiente'}
 
-⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp u ocupación)
+⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp, arquetipo o email)
 ` : esPrimeraInteraccion ? `
 ⚠️ PRIMERA INTERACCIÓN - ONBOARDING LEGAL OBLIGATORIO:
 

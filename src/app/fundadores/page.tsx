@@ -201,15 +201,76 @@ export default function FundadoresPage() {
           </div>
         </section>
 
-        {/* Video placeholder */}
+        {/* Video Hero - Optimizado con Vercel Blob */}
         <section className="max-w-5xl mx-auto mb-20">
           <div className="relative aspect-video bg-slate-800/50 rounded-2xl border border-white/10 shadow-2xl overflow-hidden group">
-            <img src="https://placehold.co/1280x720/0f172a/94a3b8?text=La+Nueva+Categoria" alt="Video explicativo" className="w-full h-full object-cover opacity-30" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-              <PlayCircle size={80} className="text-white/50 group-hover:text-white/80 transition-all duration-300 mb-4" />
-              <h2 className="text-2xl lg:text-4xl font-bold mb-2 text-white">Esto es diferente.</h2>
-              <p className="text-slate-300 max-w-xl">Presiona play y descubre en 60 segundos por qué este ecosistema está redefiniendo las reglas del juego en América.</p>
-            </div>
+            <video
+              className="w-full h-full object-cover"
+              poster={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER || "https://placehold.co/1920x1080/0f172a/94a3b8?text=La+Nueva+Categoria"}
+              controls
+              preload="metadata"
+              playsInline
+              controlsList="nodownload"
+            >
+              {/* Fuente 4K para pantallas grandes (2K+) */}
+              {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_4K && (
+                <source
+                  src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_4K}
+                  type="video/mp4"
+                  media="(min-width: 2560px)"
+                />
+              )}
+
+              {/* Fuente 1080p para desktop (principal) */}
+              {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+                <source
+                  src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P}
+                  type="video/mp4"
+                  media="(min-width: 1024px)"
+                />
+              )}
+
+              {/* Fuente 720p para móviles y tablets */}
+              {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_720P && (
+                <source
+                  src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_720P}
+                  type="video/mp4"
+                />
+              )}
+
+              {/* Fallback para navegadores que no soportan video */}
+              <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                <PlayCircle size={80} className="text-white/50 mb-4" />
+                <p className="text-white mb-4">
+                  Tu navegador no soporta la reproducción de video.
+                </p>
+                {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+                  <a
+                    href={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P}
+                    className="bg-gradient-to-r from-blue-700 to-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:shadow-lg transition-all"
+                    download
+                  >
+                    Descargar Video
+                  </a>
+                )}
+              </div>
+            </video>
+
+            {/* Overlay informativo (solo si no hay videos configurados) */}
+            {!process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none">
+                <PlayCircle size={80} className="text-white/50 group-hover:text-white/80 transition-all duration-300 mb-4" />
+                <h2 className="text-2xl lg:text-4xl font-bold mb-2 text-white">Esto es diferente.</h2>
+                <p className="text-slate-300 max-w-xl">Presiona play y descubre en 60 segundos por qué este ecosistema está redefiniendo las reglas del juego en América.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Metadata del video para SEO */}
+          <div className="mt-4 text-center">
+            <p className="text-slate-400 text-sm">
+              Video: Presentación del Ecosistema CreaTuActivo | Duración: 1:03 min
+            </p>
           </div>
         </section>
 

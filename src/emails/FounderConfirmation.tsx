@@ -246,7 +246,7 @@ export const FounderConfirmationEmail = ({
               </Text>
 
               <Button
-                href={`${BRAND.urls.base}/`}
+                href={`${BRAND.urls.base}/ecosistema`}
                 style={{
                   backgroundColor: BRAND.colors.gold,
                   color: BRAND.colors.dark,
@@ -260,7 +260,7 @@ export const FounderConfirmationEmail = ({
                 }}
                 className="mobile-button"
               >
-                Explorar CreaTuActivo.com
+                Explorar el Ecosistema
               </Button>
 
             </Section>

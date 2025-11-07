@@ -1,3 +1,13 @@
+/**
+ * Copyright © 2025 CreaTuActivo.com
+ * Todos los derechos reservados.
+ *
+ * Este software es propiedad privada y confidencial de CreaTuActivo.com.
+ * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ *
+ * Para consultas de licenciamiento: legal@creatuactivo.com
+ */
+
 import { MetadataRoute } from 'next';
 
 /**
@@ -52,12 +62,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // ========================================
     // ECOSISTEMA (Framework IAA - Activar)
+    // NOTA: /ecosistema es página de confirmación post-registro
+    // Prioridad baja porque es principalmente tráfico directo
     // ========================================
     {
       url: `${baseUrl}/ecosistema`,
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
+      changeFrequency: 'monthly',
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/ecosistema/academia`,
@@ -128,42 +140,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // ========================================
     // SOLUCIONES (6 arquetipos de usuarios)
+    // ESTRATEGIA SEO: Alta prioridad - Long-tail keywords con baja competencia
+    // Mayor potencial de conversión (match específico usuario-solución)
     // ========================================
     {
       url: `${baseUrl}/soluciones/profesional-con-vision`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/soluciones/emprendedor-negocio`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/soluciones/independiente-freelancer`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/soluciones/lider-del-hogar`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/soluciones/lider-comunidad`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/soluciones/joven-con-ambicion`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.85,
     },
 
     // ========================================

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Logo CreaTuActivo: 3 líneas paralelas doradas ascendentes a 45° -->
+  <!-- Paralelogramos con esquinas biseladas -->
+
+  <g fill="#D39E4E">
+    <!-- Línea 1 (superior) - 6 vértices con biseles en las 4 esquinas -->
+    <polygon points="
+      145,800
+      740,205
+      755,190
+      825,260
+      840,255
+      230,865
+      215,880
+      145,810
+    "/>
+
+    <!-- Línea 2 (centro) -->
+    <polygon points="
+      305,835
+      900,240
+      915,225
+      985,295
+      1000,290
+      390,900
+      375,915
+      305,845
+    "/>
+
+    <!-- Línea 3 (inferior) -->
+    <polygon points="
+      465,870
+      1060,275
+      1075,260
+      1145,330
+      1160,325
+      550,935
+      535,950
+      465,880
+    "/>
+  </g>
+</svg>

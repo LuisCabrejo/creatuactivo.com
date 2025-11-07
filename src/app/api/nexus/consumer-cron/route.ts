@@ -1,3 +1,13 @@
+/**
+ * Copyright © 2025 CreaTuActivo.com
+ * Todos los derechos reservados.
+ *
+ * Este software es propiedad privada y confidencial de CreaTuActivo.com.
+ * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ *
+ * Para consultas de licenciamiento: legal@creatuactivo.com
+ */
+
 // src/app/api/nexus/consumer-cron/route.ts
 // FASE 1 - CONSUMIDOR: Cron job que consume mensajes de Confluent Kafka
 // ARQUITECTURA: Node.js runtime con KafkaJS - Compatible con procesos largos

@@ -1,3 +1,13 @@
+/**
+ * Copyright © 2025 CreaTuActivo.com
+ * Todos los derechos reservados.
+ *
+ * Este software es propiedad privada y confidencial de CreaTuActivo.com.
+ * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ *
+ * Para consultas de licenciamiento: legal@creatuactivo.com
+ */
+
 // src/app/api/nexus/route.ts
 // API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.1
 // VERSION: v12.1 - Timing Optimizado + Formato de Listas Mejorado

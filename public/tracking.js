@@ -157,18 +157,18 @@
             if (data && data.length > 0) {
                 const prospectInfo = data[0];
 
-                // Crear API FrameworkIAA compatible con NEXUS
-                window.FrameworkIAA = {
-                    fingerprint: fingerprint,
-                    constructorRef: constructorRef,
-                    prospect: {
-                        id: prospectInfo.prospect_id,
-                        constructorId: prospectInfo.constructor_id,
-                        isReturning: prospectInfo.is_returning,
-                        visits: prospectInfo.visits
-                    },
-                    updateProspectData: window.updateProspectData
+                // Actualizar FrameworkIAA existente (no reemplazar, para preservar referencias)
+                window.FrameworkIAA.fingerprint = fingerprint;
+                window.FrameworkIAA.constructorRef = constructorRef;
+                window.FrameworkIAA.prospect = {
+                    id: prospectInfo.prospect_id,
+                    constructorId: prospectInfo.constructor_id,
+                    isReturning: prospectInfo.is_returning,
+                    visits: prospectInfo.visits
                 };
+                window.FrameworkIAA.updateProspectData = window.updateProspectData;
+                window.FrameworkIAA.ready = true;
+                window.FrameworkIAA.error = null;
 
                 // BACKWARD COMPATIBILITY
                 window.nexusProspect = {
@@ -217,15 +217,11 @@
             console.error('❌ Error message:', error.message);
             console.error('❌ Error stack:', error.stack);
 
-            // Fallback: crear FrameworkIAA con datos mínimos
-            const fallbackFingerprint = localStorage.getItem('nexus_fingerprint') || 'fallback_' + Date.now();
-            window.FrameworkIAA = {
-                fingerprint: fallbackFingerprint,
-                prospect: null,
-                error: error instanceof Error ? error.message : String(error)
-            };
+            // Actualizar FrameworkIAA con error (mantener stub existente)
+            window.FrameworkIAA.error = error instanceof Error ? error.message : String(error);
+            window.FrameworkIAA.ready = false;
 
-            console.log('⚠️ FrameworkIAA fallback creado:', window.FrameworkIAA);
+            console.log('⚠️ FrameworkIAA con error:', window.FrameworkIAA);
         }
     }
 
@@ -364,11 +360,58 @@
         console.log('═══════════════════════════════════════');
     };
 
-    // Inicializar cuando el DOM esté listo
+    // ========================================
+    // OPTIMIZACIÓN PAGESP INSIGHTS:
+    // Diferir identify_prospect hasta que el navegador esté idle
+    // Crear stub inmediato para evitar race conditions con NEXUS
+    // ========================================
+
+    // PASO 1: Crear stub inmediato (sincrónico, no bloquea render)
+    const fallbackFingerprint = localStorage.getItem('nexus_fingerprint') || 'pending_' + Date.now();
+    const constructorRef = getConstructorRef();
+
+    window.FrameworkIAA = {
+        fingerprint: fallbackFingerprint,
+        constructorRef: constructorRef,
+        prospect: null,
+        ready: false,
+        error: null,
+        // Función para esperar a que esté listo
+        whenReady: function(callback) {
+            if (this.ready) {
+                callback(this);
+            } else {
+                window.addEventListener('nexusTrackingReady', () => callback(this));
+            }
+        }
+    };
+
+    console.log('⚡ FrameworkIAA stub creado (optimizado):', window.FrameworkIAA);
+
+    // PASO 2: Diferir identify_prospect hasta que el navegador esté idle
+    function scheduleIdentifyProspect() {
+        // Usar requestIdleCallback si está disponible (mejor para performance)
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(async () => {
+                console.log('⚡ Ejecutando identify_prospect en idle callback');
+                await identifyProspect();
+                window.FrameworkIAA.ready = true;
+            }, { timeout: 2000 }); // Max 2s de espera
+        } else {
+            // Fallback: setTimeout con delay mínimo
+            setTimeout(async () => {
+                console.log('⚡ Ejecutando identify_prospect en setTimeout fallback');
+                await identifyProspect();
+                window.FrameworkIAA.ready = true;
+            }, 0);
+        }
+    }
+
+    // PASO 3: Esperar a que el DOM esté listo antes de programar
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', identifyProspect);
+        document.addEventListener('DOMContentLoaded', scheduleIdentifyProspect);
     } else {
-        setTimeout(identifyProspect, 100);
+        scheduleIdentifyProspect();
     }
 
     console.log('═══════════════════════════════════════');

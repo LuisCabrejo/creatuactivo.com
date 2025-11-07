@@ -3,7 +3,13 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
 
-const inter = Inter({ subsets: ['latin'] });
+// Optimización PageSpeed: display swap + preload
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap', // Evita FOIT (Flash of Invisible Text)
+  preload: true,
+  variable: '--font-inter'
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -89,6 +95,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
+        {/* Preconnect para Supabase - OPTIMIZACIÓN PAGESPEED */}
+        <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
+        <link rel="dns-prefetch" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
+
         {/* Favicons */}
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -107,8 +117,9 @@ export default function RootLayout({
             `
           }}
         />
-        {/* FIX CRÍTICO: Eliminar 'defer' para carga inmediata */}
-        <script src="/tracking.js"></script>
+        {/* OPTIMIZACIÓN PAGESPEED: defer para no bloquear render inicial
+            tracking.js ahora crea un stub inmediato y difiere identify_prospect */}
+        <script src="/tracking.js" defer></script>
 
         {/* Esquema estructurado */}
         <script

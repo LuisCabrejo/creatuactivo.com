@@ -8,6 +8,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Stack**: Next.js 14 (App Router), TypeScript, React, Tailwind CSS, Supabase, Anthropic Claude API, Resend (emails)
 
+## Quick Reference
+
+**Most Common Tasks**:
+```bash
+npm run dev                                      # Start development server
+node scripts/leer-system-prompt.mjs             # View current NEXUS prompt
+node scripts/test-contador-cupos.mjs            # Test founder spots counter
+curl http://localhost:3000/api/nexus            # NEXUS health check
+npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
+```
+
+**Key Files to Modify**:
+- NEXUS behavior → Update `system_prompts` table in Supabase (use scripts in `scripts/`)
+- Knowledge base → Edit files in `knowledge_base/`, then run corresponding `EJECUTAR_*.sql`
+- Tracking logic → [public/tracking.js](public/tracking.js)
+- Business dates → `node scripts/actualizar-fechas-prelanzamiento.mjs`
+
 ## Development Commands
 
 ```bash
@@ -104,9 +121,15 @@ Browser-based fingerprinting and session tracking loaded in [src/app/layout.tsx]
 
 4. **Race Condition Fix**: NEXUS waits for fingerprint availability (up to 5 seconds) before sending messages. See [src/components/nexus/useNEXUSChat.ts:76-98](src/components/nexus/useNEXUSChat.ts#L76-L98).
 
-**Critical Integration**: The tracking script MUST load before NEXUS widget renders. Currently configured as synchronous script (no `defer`) in layout.tsx:111.
+**Critical Integration**: The tracking script uses a **deferred loading strategy** optimized for PageSpeed:
+- Script loads with `defer` attribute (non-blocking)
+- Creates `window.FrameworkIAA` stub immediately with localStorage fingerprint
+- Defers API call to `identify_prospect` using `requestIdleCallback`
+- NEXUS can send messages immediately using stub, full data loads in background
 
-**✅ ARQUITECTURA ACTUAL**: Database Queue (Simplified & Free)
+**See**: [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) and [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) for details.
+
+#### 3. Async Processing Architecture (Database Queue)
 
 The NEXUS system uses a **database trigger architecture** with **Supabase** (no external queue service):
 
@@ -144,6 +167,7 @@ Usuario → Producer → nexus_queue (INSERT)
 ```bash
 # Supabase (already configured)
 NEXT_PUBLIC_SUPABASE_URL=https://...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 
 # Anthropic (already configured)
@@ -151,6 +175,8 @@ ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 See [.env.example](.env.example) for complete reference.
+
+**Note**: The `.env.example` file contains outdated Confluent Kafka references from a previous architecture. These variables are no longer needed and can be ignored.
 
 **Benefits vs Kafka**:
 - ✅ **$0/month** (no Confluent Cloud, no Vercel Pro)
@@ -175,9 +201,40 @@ Quick steps:
 3. Create trigger: `supabase/CREATE_TRIGGER_AFTER_FUNCTION.sql`
 4. Test: Send message to `/api/nexus/producer`
 
-**Legacy Endpoint**: `/api/nexus/route.ts` remains for backward compatibility but should be migrated to `/api/nexus/producer`
+**API Endpoints**:
+- `/api/nexus/producer` - **PREFERRED** for all new implementations. Enqueues messages for async processing
+- `/api/nexus` (route.ts) - Legacy endpoint with synchronous processing. Still functional but use producer instead
+- `/api/nexus/consumer-cron` - Internal cron job endpoint (not for direct use)
 
-#### 3. Supabase Schema
+**When to use which**:
+- **Production/New features**: Always use `/api/nexus/producer`
+- **Health checks/diagnostics**: Use GET request to `/api/nexus` to verify system status
+- **Backward compatibility**: Existing integrations using `/api/nexus` still work but migrate when possible
+
+#### 4. Email System (Resend)
+
+**Location**: [src/app/api/fundadores/route.ts](src/app/api/fundadores/route.ts)
+
+The platform uses **Resend** for transactional emails:
+
+**Key Features**:
+- Welcome email to new founders with video tutorial
+- Confirmation email with next steps
+- Automatic redirect to `/ecosistema` after email confirmation
+
+**Email Components** ([src/emails/](src/emails/)):
+- React Email templates using `@react-email/components`
+- HTML rendering via `@react-email/render`
+- Styled with inline CSS for email client compatibility
+
+**Configuration**:
+- `RESEND_API_KEY` - API key from resend.com
+- `NEXT_PUBLIC_SITE_URL` - Base URL for email links
+- Test endpoint: `/api/test-resend`
+
+**Pattern**: All emails send from `noreply@` domain with branded styling matching [src/lib/branding.ts](src/lib/branding.ts).
+
+#### 5. Supabase Schema
 
 **Tables**:
 - `prospects` - Identified visitors with fingerprint, cookie, and metadata
@@ -275,6 +332,9 @@ SUPABASE_SERVICE_ROLE_KEY=         # Server-side only
 # Anthropic (for NEXUS)
 ANTHROPIC_API_KEY=
 
+# Resend (for transactional emails)
+RESEND_API_KEY=                    # Get from resend.com
+
 # Vercel Blob (for video storage)
 BLOB_READ_WRITE_TOKEN=             # For uploading videos
 NEXT_PUBLIC_VIDEO_FUNDADORES_1080P=
@@ -296,6 +356,15 @@ import { Something } from '@/components/Something'  // → src/components/Someth
 import { useHook } from '@/hooks/useHook'           // → src/hooks/useHook
 import type { Type } from '@/types/nexus'           // → src/types/nexus
 ```
+
+### Utility Hooks & Libraries
+
+**Custom Hooks** ([src/hooks/](src/hooks/)):
+- `useHydration.tsx` - Prevents hydration mismatches by checking if component is client-side mounted
+- `useTracking.ts` - React wrapper for `window.FrameworkIAA` tracking API
+
+**Shared Libraries** ([src/lib/](src/lib/)):
+- `branding.ts` - Centralized branding constants (colors, fonts, company info)
 
 ## Common Development Patterns
 
@@ -340,9 +409,25 @@ Dynamic countdown system that reduces available spots:
 
 ### Adding New NEXUS Knowledge
 
-1. Add content to appropriate file in `knowledge_base/`
-2. Update Supabase table `nexus_documents` with new content (use scripts in `knowledge_base/EJECUTAR_*.sql`)
-3. If adding new document type, update `clasificarDocumentoHibrido()` in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts:236)
+**Workflow**:
+
+1. **Edit source files** in `knowledge_base/`:
+   - `arsenal_conversacional_inicial.txt` - Initial business questions
+   - `arsenal_conversacional_tecnico.txt` - Objection handling
+   - `arsenal_conversacional_complementario.txt` - Advanced/closing questions
+   - `catalogo_productos_gano_excel.txt` - Product catalog
+
+2. **Apply to database** using corresponding SQL script in `knowledge_base/`:
+   - Run `EJECUTAR_1_arsenal_inicial.sql` - Updates `arsenal_inicial` document
+   - Run `EJECUTAR_2_arsenal_manejo.sql` - Updates `arsenal_manejo` document
+   - Run `EJECUTAR_3_arsenal_cierre.sql` - Updates `arsenal_cierre` document
+   - Product catalog updates via manual SQL or script
+
+3. **Update classifier** (if adding new document type):
+   - Modify `clasificarDocumentoHibrido()` in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts:236)
+   - Add new classification patterns and keywords
+
+**Important**: The SQL scripts in `knowledge_base/` use `UPDATE` statements that preserve document IDs and metadata. Never delete and re-insert documents as this breaks references in `nexus_conversations` table.
 
 ### Modifying NEXUS Behavior
 
@@ -419,6 +504,13 @@ window.reidentifyProspect()         // Force re-identification
 - **Fix**: Update classification patterns in `clasificarDocumentoHibrido()`
 - **Verify**: Test with specific query patterns in Quick Replies
 
+**Issue**: NEXUS messages queued but not processed
+- **Check**: Supabase Dashboard → Edge Functions → nexus-queue-processor → Logs
+- **Verify**: Database trigger exists: `SELECT * FROM pg_trigger WHERE tgname LIKE '%nexus_queue%'`
+- **Debug**: Check queue status: `SELECT * FROM nexus_queue WHERE status = 'pending' ORDER BY created_at DESC`
+- **Fix**: Redeploy Edge Function if missing: `npx supabase functions deploy nexus-queue-processor`
+- **Manual retry**: Update failed messages: `UPDATE nexus_queue SET status = 'pending' WHERE id = 'xxx'`
+
 ## Utility Scripts Reference
 
 **Location**: [scripts/](scripts/) directory
@@ -439,7 +531,11 @@ window.reidentifyProspect()         // Force re-identification
 
 ### Video & Media
 - `optimize-video.sh` - Optimize video to multiple resolutions (requires FFmpeg)
-- `upload-to-blob.mjs` - Upload optimized videos to Vercel Blob
+- `upload-to-blob.mjs` - Upload optimized videos to Vercel Blob (mentioned in docs but verify existence)
+
+### Database & Schema
+- `check-prospect-structure.js` - Check prospect data structure
+- `fix-onboarding-strict.js` - Fix onboarding data issues
 
 ### Testing & Verification
 - `test-contador-cupos.mjs` - Test founder spots counter logic (15 scenarios)
@@ -454,11 +550,13 @@ window.reidentifyProspect()         // Force re-identification
 ### Core Application Files
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - NEXUS chatbot API (legacy, use producer instead)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - Queue producer (PREFERRED)
+- [src/app/api/fundadores/route.ts](src/app/api/fundadores/route.ts) - Founder form submission & email sending
 - [public/tracking.js](public/tracking.js) - Prospect tracking system (366 lines)
 - [src/app/layout.tsx](src/app/layout.tsx) - Root layout with tracking integration
 - [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI component
 - [src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) - Main navigation
 - [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) - Founder signup page with video & counter
+- [src/lib/branding.ts](src/lib/branding.ts) - Centralized branding constants (colors, company info)
 
 ### Supabase Edge Functions
 - [supabase/functions/nexus-queue-processor/](supabase/functions/nexus-queue-processor/) - Process queued NEXUS messages
@@ -468,6 +566,8 @@ window.reidentifyProspect()         // Force re-identification
 - [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation guide
 - [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) - Quick start for video upload
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter specification
+- [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed Insights optimizations (Nov 2025)
+- [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) - Testing guide for PageSpeed optimizations
 - [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Latest updates summary
 - [handoff.md](handoff.md) - Phase 1 architectural rebuild roadmap
 - [inventory-report.md](inventory-report.md) - System inventory and status report
@@ -497,13 +597,34 @@ When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to 
 
 ## Deployment Notes
 
-- TypeScript errors do not block builds (by design)
+### Next.js Application (Vercel)
+
+- TypeScript errors do not block builds (by design via `next.config.js`)
 - Ensure all environment variables are set in production (Vercel Dashboard → Settings → Environment Variables)
-- Supabase RPC functions must be deployed before app deployment
-- Knowledge base documents should be seeded into `nexus_documents` table
 - Edge runtime requires Vercel or compatible platform
 - Video URLs must be configured in production environment variables
-- Deploy Supabase Edge Functions: `npx supabase functions deploy nexus-queue-processor`
+
+### Supabase Deployment
+
+**Critical order**:
+1. **First**: Apply database migrations from `supabase/migrations/` or `supabase/APPLY_MANUALLY.sql`
+2. **Second**: Seed knowledge base documents into `nexus_documents` table (use scripts in `knowledge_base/EJECUTAR_*.sql`)
+3. **Third**: Deploy Edge Functions:
+   ```bash
+   # Required for queue processing
+   npx supabase functions deploy nexus-queue-processor
+
+   # Optional (legacy)
+   npx supabase functions deploy nexus-consumer
+   npx supabase functions deploy notify-stage-change
+   ```
+4. **Fourth**: Create database triggers (see `supabase/CREATE_TRIGGER_AFTER_FUNCTION.sql`)
+5. **Finally**: Update system prompts in `system_prompts` table
+
+**Verify deployment**:
+- Check Edge Function logs: Supabase Dashboard → Edge Functions → nexus-queue-processor → Logs
+- Test queue: `curl -X POST https://your-app.vercel.app/api/nexus/producer -d '...'`
+- Check queue table: Supabase Dashboard → Table Editor → nexus_queue
 
 ## Git Workflow
 

@@ -10,7 +10,7 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden px-4">
-      <div className="absolute inset-0 z-0 opacity-20">
+      <div className="absolute inset-0 z-0 opacity-15">
         <div className="absolute top-0 left-0 w-96 h-96 rounded-full filter blur-3xl animate-pulse"
              style={{background: '#1E40AF'}}></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full filter blur-3xl animate-pulse"
@@ -57,7 +57,7 @@ const HeroSection = () => {
           </Link>
           <Link
             href="/fundadores"
-            className="bg-white/10 backdrop-blur-lg text-slate-300 font-semibold py-4 px-8 rounded-2xl hover:bg-white/20 transition-colors duration-300 border border-white/10"
+            className="bg-white/20 backdrop-blur-lg text-slate-100 font-semibold py-4 px-8 rounded-2xl hover:bg-white/30 transition-colors duration-300 border border-white/20"
           >
             Sé Fundador
           </Link>
@@ -177,21 +177,21 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 bg-slate-800 rounded-lg border border-white/10">
               <Briefcase className="w-8 h-8 text-cyan-400 mb-3" />
-              <h4 className="font-bold text-lg text-white">Profesionales</h4>
+              <h3 className="font-bold text-lg text-white">Profesionales</h3>
               <p className="text-sm text-slate-400">
                 Que buscan trascender el modelo de intercambiar tiempo por dinero.
               </p>
             </div>
             <div className="p-6 bg-slate-800 rounded-lg border border-white/10">
               <MonitorSmartphone className="w-8 h-8 text-orange-400 mb-3" />
-              <h4 className="font-bold text-lg text-white">Emprendedores</h4>
+              <h3 className="font-bold text-lg text-white">Emprendedores</h3>
               <p className="text-sm text-slate-400">
                 Listos para escalar con un sistema probado en lugar de hacerlo todo manualmente.
               </p>
             </div>
             <div className="p-6 bg-slate-800 rounded-lg border border-white/10">
               <Home className="w-8 h-8 text-pink-400 mb-3" />
-              <h4 className="font-bold text-lg text-white">Líderes del Hogar</h4>
+              <h3 className="font-bold text-lg text-white">Líderes del Hogar</h3>
               <p className="text-sm text-slate-400">
                 Que buscan construir un activo con flexibilidad y propósito.
               </p>
@@ -200,7 +200,7 @@ export default function HomePage() {
             {/* AJUSTE 2: Se actualiza el título, el texto y el color del ícono para esta tarjeta. */}
             <div className="p-6 bg-slate-800 rounded-lg border border-white/10">
               <School className="w-8 h-8 text-yellow-400 mb-3" />
-              <h4 className="font-bold text-lg text-white">Visionarios</h4>
+              <h3 className="font-bold text-lg text-white">Visionarios</h3>
               <p className="text-sm text-slate-400">
                 Estudiantes o jubilados con la ambición de construir su próximo gran activo.
               </p>
@@ -224,21 +224,21 @@ export default function HomePage() {
                 <div className="flex items-start gap-3">
                     <div className="bg-purple-500/10 p-2 rounded-full mt-1"><BrainCircuit className="w-5 h-5 text-purple-300"/></div>
                     <div>
-                        <h4 className="font-bold text-white">Democratizando la Tecnología</h4>
+                        <h3 className="font-bold text-white">Democratizando la Tecnología</h3>
                         <p className="text-slate-400 text-sm">Poniendo herramientas de nivel corporativo en manos de constructores individuales.</p>
                     </div>
                 </div>
                  <div className="flex items-start gap-3">
                     <div className="bg-blue-500/10 p-2 rounded-full mt-1"><GitBranch className="w-5 h-5 text-blue-300"/></div>
                     <div>
-                        <h4 className="font-bold text-white">Con un Sistema Probado</h4>
+                        <h3 className="font-bold text-white">Con un Sistema Probado</h3>
                         <p className="text-slate-400 text-sm">Entregando el Framework IAA como el plano para una construcción predecible.</p>
                     </div>
                 </div>
                  <div className="flex items-start gap-3">
                     <div className="bg-green-500/10 p-2 rounded-full mt-1"><ShieldCheck className="w-5 h-5 text-green-300"/></div>
                     <div>
-                        <h4 className="font-bold text-white">Sobre una Base Sólida</h4>
+                        <h3 className="font-bold text-white">Sobre una Base Sólida</h3>
                         <p className="text-slate-400 text-sm">Apalancados en un socio con más de 30 años de trayectoria y productos con patente mundial.</p>
                     </div>
                 </div>

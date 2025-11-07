@@ -686,7 +686,11 @@ export default function StrategicNavigation() {
             </div>
             <span className="strategic-logo-text">CreaTuActivo</span>
           </Link>
-          <button onClick={closeMobileMenu} className="strategic-mobile-close">
+          <button
+            onClick={closeMobileMenu}
+            className="strategic-mobile-close"
+            aria-label="Cerrar menú de navegación"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>

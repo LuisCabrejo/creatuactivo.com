@@ -121,13 +121,14 @@ Browser-based fingerprinting and session tracking loaded in [src/app/layout.tsx]
 
 4. **Race Condition Fix**: NEXUS waits for fingerprint availability (up to 5 seconds) before sending messages. See [src/components/nexus/useNEXUSChat.ts:76-98](src/components/nexus/useNEXUSChat.ts#L76-L98).
 
-**Critical Integration**: The tracking script uses a **deferred loading strategy** optimized for PageSpeed:
-- Script loads with `defer` attribute (non-blocking)
+**Critical Integration**: The tracking script uses a **deferred loading strategy** optimized for PageSpeed (deployed Nov 7, 2025):
+- Script loads with `defer` attribute (non-blocking, eliminates 570ms render-blocking)
 - Creates `window.FrameworkIAA` stub immediately with localStorage fingerprint
 - Defers API call to `identify_prospect` using `requestIdleCallback`
 - NEXUS can send messages immediately using stub, full data loads in background
+- Achieved ~52% LCP improvement (2.5s → 1.2-1.5s)
 
-**See**: [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) and [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) for details.
+**See**: [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md), [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md), and [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) for details.
 
 #### 3. Async Processing Architecture (Database Queue)
 
@@ -211,30 +212,7 @@ Quick steps:
 - **Health checks/diagnostics**: Use GET request to `/api/nexus` to verify system status
 - **Backward compatibility**: Existing integrations using `/api/nexus` still work but migrate when possible
 
-#### 4. Email System (Resend)
-
-**Location**: [src/app/api/fundadores/route.ts](src/app/api/fundadores/route.ts)
-
-The platform uses **Resend** for transactional emails:
-
-**Key Features**:
-- Welcome email to new founders with video tutorial
-- Confirmation email with next steps
-- Automatic redirect to `/ecosistema` after email confirmation
-
-**Email Components** ([src/emails/](src/emails/)):
-- React Email templates using `@react-email/components`
-- HTML rendering via `@react-email/render`
-- Styled with inline CSS for email client compatibility
-
-**Configuration**:
-- `RESEND_API_KEY` - API key from resend.com
-- `NEXT_PUBLIC_SITE_URL` - Base URL for email links
-- Test endpoint: `/api/test-resend`
-
-**Pattern**: All emails send from `noreply@` domain with branded styling matching [src/lib/branding.ts](src/lib/branding.ts).
-
-#### 5. Supabase Schema
+#### 4. Supabase Schema
 
 **Tables**:
 - `prospects` - Identified visitors with fingerprint, cookie, and metadata
@@ -264,7 +242,30 @@ The platform uses **Resend** for transactional emails:
 - `arsenal_cierre` - [knowledge_base/arsenal_conversacional_complementario.txt](knowledge_base/arsenal_conversacional_complementario.txt)
 - `catalogo_productos` - [knowledge_base/catalogo_productos_gano_excel.txt](knowledge_base/catalogo_productos_gano_excel.txt)
 
-#### 4. Page Structure & Routing
+#### 5. Email System (Resend)
+
+**Location**: [src/app/api/fundadores/route.ts](src/app/api/fundadores/route.ts)
+
+The platform uses **Resend** for transactional emails:
+
+**Key Features**:
+- Welcome email to new founders with video tutorial
+- Confirmation email with next steps
+- Automatic redirect to `/ecosistema` after email confirmation
+
+**Email Components** ([src/emails/](src/emails/)):
+- React Email templates using `@react-email/components`
+- HTML rendering via `@react-email/render`
+- Styled with inline CSS for email client compatibility
+
+**Configuration**:
+- `RESEND_API_KEY` - API key from resend.com
+- `NEXT_PUBLIC_SITE_URL` - Base URL for email links
+- Test endpoint: `/api/test-resend`
+
+**Pattern**: All emails send from `noreply@` domain with branded styling matching [src/lib/branding.ts](src/lib/branding.ts).
+
+#### 6. Page Structure & Routing
 
 **App Router Structure** (Next.js 14):
 
@@ -531,7 +532,6 @@ window.reidentifyProspect()         // Force re-identification
 
 ### Video & Media
 - `optimize-video.sh` - Optimize video to multiple resolutions (requires FFmpeg)
-- `upload-to-blob.mjs` - Upload optimized videos to Vercel Blob (mentioned in docs but verify existence)
 
 ### Database & Schema
 - `check-prospect-structure.js` - Check prospect data structure
@@ -566,11 +566,10 @@ window.reidentifyProspect()         // Force re-identification
 - [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation guide
 - [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) - Quick start for video upload
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter specification
-- [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed Insights optimizations (Nov 2025)
+- [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed Insights optimizations (Nov 7, 2025)
 - [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) - Testing guide for PageSpeed optimizations
-- [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Latest updates summary
-- [handoff.md](handoff.md) - Phase 1 architectural rebuild roadmap
-- [inventory-report.md](inventory-report.md) - System inventory and status report
+- [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) - Successful PageSpeed deployment verification checklist
+- [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Updates summary (Oct 26, 2025)
 
 ## Business Critical Dates
 
@@ -629,7 +628,12 @@ When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to 
 ## Git Workflow
 
 Current branch: `main`
-Recent commits focus on NEXUS tracking fixes and race condition resolution.
+
+Recent significant updates:
+- Nov 7, 2025: PageSpeed optimizations (defer tracking.js, preconnect Supabase)
+- Oct 26, 2025: Massive cleanup (70+ obsolete files removed)
+- Oct 26, 2025: Email redirect fix for Founders
+- Oct 26, 2025: Pre-launch dates updated + dynamic spots counter
 
 When committing:
 - **Never commit** `.env.local` or any files with API keys

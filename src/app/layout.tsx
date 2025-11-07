@@ -81,6 +81,12 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
     creator: '@creatuactivo',
   },
+  // Google Search Console verification
+  // INSTRUCCIONES: Reemplaza 'CODIGO_VERIFICACION_GSC' con el código que Google te proporcione
+  // cuando configures Google Search Console en https://search.google.com/search-console
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'CODIGO_VERIFICACION_GSC',
+  },
 };
 
 export default function RootLayout({
@@ -121,7 +127,7 @@ export default function RootLayout({
             tracking.js ahora crea un stub inmediato y difiere identify_prospect */}
         <script src="/tracking.js" defer></script>
 
-        {/* Esquema estructurado */}
+        {/* Esquema estructurado - JSON-LD mejorado para SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -129,13 +135,41 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "CreaTuActivo.com",
+              "alternateName": "CreaTuActivo",
               "url": "https://creatuactivo.com",
               "logo": "https://creatuactivo.com/logo.png",
-              "description": "Plataforma integral para construir activos empresariales mediante el Framework IAA",
+              "description": "Plataforma integral para construir activos empresariales mediante el Framework IAA: Iniciar, Acoger, Activar. Ecosistema completo para emprendedores y constructores de riqueza.",
+              "foundingDate": "2024",
+              "slogan": "Tu Ecosistema, Tu Activo, Tu Futuro",
               "sameAs": [
                 "https://facebook.com/creatuactivo",
                 "https://twitter.com/creatuactivo",
-                "https://instagram.com/creatuactivo"
+                "https://instagram.com/creatuactivo",
+                "https://linkedin.com/company/creatuactivo"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+57-300-1234567",
+                "contactType": "Customer Service",
+                "areaServed": "LATAM",
+                "availableLanguage": ["Spanish", "English"]
+              },
+              "offers": {
+                "@type": "Offer",
+                "name": "Programa Fundadores CreaTuActivo",
+                "description": "Acceso exclusivo al ecosistema empresarial con mentoría 1:150",
+                "url": "https://creatuactivo.com/fundadores",
+                "availability": "https://schema.org/LimitedAvailability",
+                "validFrom": "2025-10-27T10:00:00-05:00",
+                "validThrough": "2025-11-16T23:59:59-05:00"
+              },
+              "knowsAbout": [
+                "Activos Empresariales",
+                "Framework IAA",
+                "Marketing Multinivel",
+                "Ecosistema Empresarial",
+                "Construcción de Riqueza",
+                "Emprendimiento"
               ]
             })
           }}

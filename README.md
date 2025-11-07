@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CreaTuActivo Marketing Platform
 
-## Getting Started
+Next.js 14 application for a multilevel marketing business ecosystem featuring an AI-powered chatbot (NEXUS) that guides prospects through the sales funnel.
 
-First, run the development server:
+## 📚 Documentation
+
+**→ See [CLAUDE.md](CLAUDE.md) for complete development documentation** ←
+
+The CLAUDE.md file contains:
+- Development commands and workflow
+- Architecture overview (NEXUS AI, tracking system, async queue)
+- Common development patterns
+- Testing and debugging guides
+- Deployment procedures
+- Utility scripts reference
+
+## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Supabase and Anthropic API keys
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **AI**: Anthropic Claude API (Sonnet 4)
+- **Email**: Resend
+- **Video**: Vercel Blob
 
-## Learn More
+## Key Features
 
-To learn more about Next.js, take a look at the following resources:
+- **NEXUS AI Chatbot** - Intelligent prospect engagement with hybrid document retrieval
+- **Prospect Tracking** - Browser fingerprinting with multi-layer identification
+- **Async Processing** - Database queue with Edge Functions for scalable message handling
+- **Dynamic Content** - Founder spots counter, video hosting, email automation
+- **Framework IAA** - Three-stage funnel (Iniciar, Acoger, Activar)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router pages and API routes
+│   ├── api/nexus/         # NEXUS chatbot API (producer/consumer/legacy)
+│   ├── fundadores/        # Founder signup page
+│   └── ...                # Landing pages and feature pages
+├── components/            # React components
+│   ├── nexus/            # NEXUS chatbot UI and hooks
+│   └── ...
+├── lib/                   # Shared utilities and branding
+├── types/                 # TypeScript type definitions
+└── emails/                # Email templates (React Email)
 
-## Deploy on Vercel
+supabase/
+├── functions/             # Edge Functions for async processing
+└── migrations/            # Database migrations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+knowledge_base/            # NEXUS knowledge base documents and SQL scripts
+scripts/                   # Utility scripts for maintenance and testing
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+When committing:
+- **Never commit** `.env.local` or files with API keys
+- Use descriptive commit messages
+- Refer to [CLAUDE.md](CLAUDE.md) for development patterns and guidelines
+
+## Support
+
+For questions about working with this codebase, see [CLAUDE.md](CLAUDE.md) which provides comprehensive guidance for Claude Code and human developers.

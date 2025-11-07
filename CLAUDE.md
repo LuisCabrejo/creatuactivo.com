@@ -37,9 +37,16 @@ npm start            # Start production server
 
 # Code Quality
 npm run lint         # Run ESLint
+
+# Testing (via utility scripts - no test runner configured)
+node scripts/test-contador-cupos.mjs              # Test founder spots counter
+node scripts/verificar-esquema-completo.mjs       # Verify database schema
+node scripts/diagnostico-knowledge-base.js        # Diagnose knowledge base
 ```
 
 **Important**: TypeScript build errors are currently ignored (`ignoreBuildErrors: true` in [next.config.js](next.config.js)). Fix type errors when possible, but builds will succeed regardless.
+
+**Note**: This project does not use a traditional test framework (Jest/Vitest). Testing is done through utility scripts in the `scripts/` directory and manual verification.
 
 ## Architecture Overview
 
@@ -558,6 +565,11 @@ window.reidentifyProspect()         // Force re-identification
 - [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) - Founder signup page with video & counter
 - [src/lib/branding.ts](src/lib/branding.ts) - Centralized branding constants (colors, company info)
 
+### SEO Files (New - Nov 7, 2025)
+- [src/app/sitemap.ts](src/app/sitemap.ts) - Dynamic sitemap with 24 public URLs
+- [src/app/robots.ts](src/app/robots.ts) - Robots.txt configuration (blocks /api/, /dashboard/, /admin/)
+- [src/app/layout.tsx](src/app/layout.tsx) - Enhanced JSON-LD structured data (Organization, Offer, ContactPoint)
+
 ### Supabase Edge Functions
 - [supabase/functions/nexus-queue-processor/](supabase/functions/nexus-queue-processor/) - Process queued NEXUS messages
 
@@ -569,6 +581,7 @@ window.reidentifyProspect()         // Force re-identification
 - [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed Insights optimizations (Nov 7, 2025)
 - [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) - Testing guide for PageSpeed optimizations
 - [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) - Successful PageSpeed deployment verification checklist
+- [GOOGLE_SEARCH_CONSOLE_SETUP.md](GOOGLE_SEARCH_CONSOLE_SETUP.md) - Complete guide for Google Search Console setup (Nov 7, 2025)
 - [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Updates summary (Oct 26, 2025)
 
 ## Business Critical Dates

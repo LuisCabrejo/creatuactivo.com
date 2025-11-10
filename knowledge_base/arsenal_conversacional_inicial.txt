@@ -81,9 +81,9 @@ Significa asegurar tu posición en la arquitectura fundacional de nuestro ecosis
 Ser uno de los **150 Constructores Fundadores** te posiciona en el cimiento antes de que el ecosistema esté disponible masivamente.
 
 **La ventana de oportunidad tiene 3 fases:**
-- **Lista Privada (27 Oct - 16 Nov):** Construcción de la base de 150 Fundadores élite
-- **Pre-Lanzamiento (17 Nov - 27 Dic):** Los 150 Fundadores mentorean a 22,500 nuevos constructores (150 c/u)
-- **Lanzamiento Público (05 Ene 2026):** Apertura masiva con objetivo de impactar 4 millones de personas en América en los próximos 3-7 años
+- **Lista Privada (10 Nov - 30 Nov):** Construcción de la base de 150 Fundadores élite
+- **Pre-Lanzamiento (01 Dic - 01 Mar):** Los 150 Fundadores actúan como MENTORES de 150 nuevos constructores cada uno (22,500 total)
+- **Lanzamiento Público (02 Mar 2026):** Apertura masiva con objetivo de impactar 4 millones de personas en América en los próximos 3-7 años
 
 Todo el crecimiento futuro en América se construirá a partir de los activos de este grupo pionero, una ventaja posicional que no se volverá a repetir.
 **Pregunta de seguimiento:** ¿Te gustaría que te muestre la arquitectura de esta ventaja estratégica?

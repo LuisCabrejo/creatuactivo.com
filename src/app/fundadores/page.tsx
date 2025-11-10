@@ -323,15 +323,15 @@ export default function FundadoresPage() {
 
               <div className="space-y-2 mb-6 text-sm">
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>27 Oct - 16 Nov: Lista Privada</span>
+                  <span>10 Nov - 30 Nov: Lista Privada</span>
                   <span className="text-slate-500">150 Fundadores</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>17 Nov - 27 Dic: Pre-Lanzamiento</span>
-                  <span className="text-slate-500">22,500 Constructores</span>
+                  <span>01 Dic - 01 Mar: Pre-Lanzamiento</span>
+                  <span className="text-slate-500">150 Mentores → 22,500 Constructores</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>05 Ene 2026: Lanzamiento Público</span>
+                  <span>02 Mar 2026: Lanzamiento Público</span>
                   <span className="text-slate-500">4M+ en América</span>
                 </div>
               </div>

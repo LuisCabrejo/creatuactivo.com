@@ -30,13 +30,12 @@ const BRAND_COLORS = {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }}></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      {/* Animated Blobs Background - MATCHING ORIGINAL BRANDING */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute -top-64 -left-64 w-96 h-96 bg-purple-500 opacity-20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-64 -right-64 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-yellow-500 opacity-10 rounded-full blur-3xl animate-pulse transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
 
       {/* Content */}
@@ -49,15 +48,9 @@ function HeroSection() {
           </span>
         </div>
 
-        {/* Headline */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight">
-          <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400 bg-clip-text text-transparent">
-            ¿Cuánto tiempo más vas a depender
-          </span>
-          <br />
-          <span className="text-white">
-            de que NO te despidan?
-          </span>
+        {/* Headline - MATCHING ORIGINAL GRADIENT */}
+        <h1 className="bg-gradient-to-br from-blue-700 via-purple-600 to-amber-500 bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          ¿Cuánto tiempo más vas a depender de que NO te despidan?
         </h1>
 
         {/* Subheadline */}
@@ -70,16 +63,15 @@ function HeroSection() {
           <p className="text-slate-300">Y cuando por fin eres "libre"... <span className="text-red-400">ya no tienes energía para disfrutarlo</span>.</p>
         </div>
 
-        {/* CTAs */}
+        {/* CTAs - MATCHING ORIGINAL BUTTON STYLE */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#formulario"
-            className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-amber-500 hover:from-blue-700 hover:via-purple-700 hover:to-amber-600 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-amber-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 overflow-hidden"
+            className="bg-gradient-to-r from-blue-700 to-purple-600 text-white font-bold py-[18px] px-9 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-            <Building2 className="w-6 h-6 relative z-10" />
-            <span className="relative z-10">Construir Mi Activo</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+            <Building2 className="w-6 h-6" />
+            <span>Construir Mi Activo</span>
+            <ArrowRight className="w-5 h-5" />
           </a>
           <a
             href="#video"
@@ -105,8 +97,8 @@ function HeroSection() {
 
 function HistoriaPersonalSection() {
   return (
-    <section className="py-24 bg-slate-900">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 bg-slate-900 relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Eyebrow */}
         <div className="text-center mb-4">
           <span className="inline-block text-sm uppercase tracking-wider font-bold bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">
@@ -269,8 +261,8 @@ function ArquitecturaCompletaSection() {
 
         {/* 3 Componentes */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {/* El Motor */}
-          <div className="group bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-2 border-amber-500/30 rounded-2xl p-8 hover:border-amber-500 hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-300">
+          {/* El Motor - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Building2 className="w-8 h-8 text-white" />
             </div>
@@ -282,8 +274,8 @@ function ArquitecturaCompletaSection() {
             </p>
           </div>
 
-          {/* El Plano */}
-          <div className="group bg-gradient-to-br from-green-900/20 to-emerald-900/20 border-2 border-green-500/30 rounded-2xl p-8 hover:border-green-500 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300">
+          {/* El Plano - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-green-500/30 rounded-3xl shadow-2xl hover:shadow-green-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <FileText className="w-8 h-8 text-white" />
             </div>
@@ -295,8 +287,8 @@ function ArquitecturaCompletaSection() {
             </p>
           </div>
 
-          {/* La Maquinaria */}
-          <div className="group bg-gradient-to-br from-blue-900/20 to-purple-900/20 border-2 border-purple-500/30 rounded-2xl p-8 hover:border-purple-500 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
+          {/* La Maquinaria - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-purple-500/30 rounded-3xl shadow-2xl hover:shadow-purple-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Cpu className="w-8 h-8 text-white" />
             </div>
@@ -559,8 +551,8 @@ function QueConstruyesSection() {
 
         {/* 4 Beneficios Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
-          {/* Beneficio 1 */}
-          <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border-2 border-blue-500/30 rounded-2xl p-8 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all">
+          {/* Beneficio 1 - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-blue-500/30 rounded-3xl shadow-2xl hover:shadow-blue-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="text-5xl mb-4">🏗️</div>
             <h3 className="text-2xl font-black text-white mb-4">Posicionamiento Estratégico</h3>
             <div className="space-y-3 text-slate-300">
@@ -571,8 +563,8 @@ function QueConstruyesSection() {
             </div>
           </div>
 
-          {/* Beneficio 2 */}
-          <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-2 border-purple-500/30 rounded-2xl p-8 hover:border-purple-500 hover:shadow-2xl hover:shadow-purple-500/20 transition-all">
+          {/* Beneficio 2 - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-purple-500/30 rounded-3xl shadow-2xl hover:shadow-purple-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="text-5xl mb-4">🛠️</div>
             <h3 className="text-2xl font-black text-white mb-4">Acceso Tecnológico Total</h3>
             <div className="space-y-2 text-slate-300 mb-4">
@@ -591,8 +583,8 @@ function QueConstruyesSection() {
             </div>
           </div>
 
-          {/* Beneficio 3 */}
-          <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 border-2 border-amber-500/30 rounded-2xl p-8 hover:border-amber-500 hover:shadow-2xl hover:shadow-amber-500/20 transition-all">
+          {/* Beneficio 3 - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="text-5xl mb-4">💰</div>
             <h3 className="text-2xl font-black text-white mb-4">Ventaja Económica Fundacional</h3>
             <div className="space-y-3 text-slate-300">
@@ -608,8 +600,8 @@ function QueConstruyesSection() {
             </div>
           </div>
 
-          {/* Beneficio 4 */}
-          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border-2 border-green-500/30 rounded-2xl p-8 hover:border-green-500 hover:shadow-2xl hover:shadow-green-500/20 transition-all">
+          {/* Beneficio 4 - MATCHING ORIGINAL CARD STYLE */}
+          <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-green-500/30 rounded-3xl shadow-2xl hover:shadow-green-500/25 hover:-translate-y-1 transition-all duration-300 p-8 h-full">
             <div className="text-5xl mb-4">🧠</div>
             <h3 className="text-2xl font-black text-white mb-4">Mentoría Directa</h3>
             <div className="space-y-3 text-slate-300">
@@ -922,8 +914,8 @@ function FormularioSection() {
           </div>
         </div>
 
-        {/* Formulario */}
-        <form onSubmit={handleSubmit} className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-purple-500/30 rounded-2xl p-8 backdrop-blur-xl">
+        {/* Formulario - MATCHING ORIGINAL CARD STYLE */}
+        <form onSubmit={handleSubmit} className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto">
           {paso === 1 && (
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
@@ -938,7 +930,7 @@ function FormularioSection() {
                   placeholder="Luis Cabrejo Moreno"
                   value={formData.nombre}
                   onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -952,7 +944,7 @@ function FormularioSection() {
                   placeholder="luis@ejemplo.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -966,14 +958,14 @@ function FormularioSection() {
                   placeholder="+57 300 123 4567"
                   value={formData.whatsapp}
                   onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition-colors"
                 />
               </div>
 
               <button
                 type="button"
                 onClick={() => setPaso(2)}
-                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-amber-500 hover:from-blue-700 hover:via-purple-700 hover:to-amber-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-700 to-purple-600 text-white font-bold py-[18px] px-9 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Siguiente
                 <ChevronRight className="w-5 h-5" />
@@ -1022,7 +1014,7 @@ function FormularioSection() {
                   placeholder="Comparte brevemente qué te motiva..."
                   value={formData.motivacion}
                   onChange={(e) => setFormData({ ...formData, motivacion: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -1062,7 +1054,7 @@ function FormularioSection() {
                 <button
                   type="button"
                   onClick={() => setPaso(3)}
-                  className="flex-1 bg-gradient-to-r from-blue-600 via-purple-600 to-amber-500 hover:from-blue-700 hover:via-purple-700 hover:to-amber-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-blue-700 to-purple-600 text-white font-bold py-[18px] px-9 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   Siguiente
                   <ChevronRight className="w-5 h-5" />

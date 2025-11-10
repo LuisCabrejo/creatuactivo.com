@@ -40,54 +40,14 @@ function BenefitCard({ icon, title, description, color }: {
 }
 
 /**
- * Calcula los cupos disponibles basado en la fecha y hora actual
- * - Inicio: Lunes 27 de Octubre 2025 a las 10:00 AM con 150 cupos
- * - Cada hora en punto (11:00, 12:00, etc.) resta 1 cupo
- * - Cada día resta 10 cupos del total del día anterior
- * - Día 1 (27 Oct): 150 → 140
- * - Día 2 (28 Oct): 140 → 130
- * - Día 3 (29 Oct): 130 → 120, etc.
+ * Calcula los cupos disponibles
+ * AJUSTE MANUAL: Retorna 150 cupos estáticos hasta recibir actualización
+ * - Luis actualizará esta noche con el dato real
  */
 function calcularCuposDisponibles(): number {
-  const ahora = new Date()
-
-  // Fecha de inicio: 27 de Octubre 2025 a las 10:00 AM (hora de Colombia UTC-5)
-  const inicioLista = new Date('2025-10-27T10:00:00-05:00')
-
-  // Si aún no ha llegado la fecha de inicio, mostrar 150
-  if (ahora < inicioLista) {
-    return 150
-  }
-
-  // Calcular días completos desde el inicio
-  const msEnUnDia = 24 * 60 * 60 * 1000
-  const diferenciaTiempo = ahora.getTime() - inicioLista.getTime()
-  const diasCompletos = Math.floor(diferenciaTiempo / msEnUnDia)
-
-  // Calcular cupos base del día actual (resta 10 por cada día completo)
-  const cuposBaseDia = 150 - (diasCompletos * 10)
-
-  // Si ya se agotaron todos los cupos
-  if (cuposBaseDia <= 0) {
-    return 0
-  }
-
-  // Calcular horas completas desde el inicio del día actual
-  const inicioDiaActual = new Date(inicioLista)
-  inicioDiaActual.setDate(inicioDiaActual.getDate() + diasCompletos)
-
-  const diferenciaHoras = ahora.getTime() - inicioDiaActual.getTime()
-  const horasTranscurridas = Math.floor(diferenciaHoras / (60 * 60 * 1000))
-
-  // Restar 1 cupo por cada hora DESPUÉS de las 10:00
-  // Hora 10:00 = 0 horas transcurridas = 0 cupos restados
-  // Hora 11:00 = 1 hora transcurrida = 1 cupo restado
-  // Hora 20:00 = 10 horas transcurridas = 10 cupos restados (máximo)
-  const cuposRestadosPorHora = Math.min(Math.max(horasTranscurridas, 0), 10)
-  const cuposActuales = cuposBaseDia - cuposRestadosPorHora
-
-  // Asegurar que no sea negativo
-  return Math.max(cuposActuales, 0)
+  // TEMPORAL: Retornar 150 cupos estáticos
+  // TODO: Luis actualizará con el número real esta noche
+  return 150
 }
 
 // Arquetipos actualizados del sitio web

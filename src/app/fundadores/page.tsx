@@ -158,7 +158,7 @@ function BenefitCard({ icon, title, description, color }: {
   }
 
   return (
-    <div className="creatuactivo-component-card p-5 h-full flex items-start gap-4">
+    <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-5 h-full flex items-start gap-4">
       <div className={`${colorMap[color]} flex-shrink-0`}>
         {icon}
       </div>
@@ -685,7 +685,7 @@ export default function FundadoresPage() {
 
           {/* Urgencia y Timeline */}
           <section className="max-w-5xl mx-auto mb-20">
-            <div className="creatuactivo-urgency-card p-8 lg:p-12 text-center">
+            <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-8 lg:p-12 text-center">
               <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-4">La Ventana de Oportunidad Es Real</h2>
 
               <div className="my-8">
@@ -766,7 +766,7 @@ export default function FundadoresPage() {
             </div>
 
             {/* Formulario container */}
-            <div className="creatuactivo-form-card p-8 max-w-2xl mx-auto">
+            <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto">
               <form onSubmit={handleSubmit}>
 
                 {/* Paso 1: Información Base */}

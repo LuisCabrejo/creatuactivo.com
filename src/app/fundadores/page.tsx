@@ -158,13 +158,13 @@ function BenefitCard({ icon, title, description, color }: {
   }
 
   return (
-    <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-5 h-full flex items-start gap-4">
-      <div className={`${colorMap[color]} flex-shrink-0`}>
+    <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl hover:shadow-amber-500/25 hover:-translate-y-1 transition-all duration-300 p-6 lg:p-8 h-full">
+      <div className={`${colorMap[color]} flex-shrink-0 mb-4`}>
         {icon}
       </div>
       <div>
-        <h3 className="text-base font-bold text-white mb-1">{title}</h3>
-        <p className="text-sm text-slate-400">{description}</p>
+        <h3 className="text-lg lg:text-xl font-bold text-white mb-3 leading-tight">{title}</h3>
+        <p className="text-sm lg:text-base text-slate-400 leading-relaxed">{description}</p>
       </div>
     </div>
   )
@@ -615,11 +615,11 @@ export default function FundadoresPage() {
           {/* Beneficios */}
           <section className="max-w-7xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">El Valor de Ser Fundador</h2>
-            <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-slate-400 mb-16 max-w-2xl mx-auto">
               Beneficios exclusivos que solo los primeros 150 tendrán
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               <BenefitCard
                 icon={<Rocket size={24}/>}
                 title="Posicionamiento Estratégico"
@@ -650,22 +650,22 @@ export default function FundadoresPage() {
           {/* Quién Califica */}
           <section className="max-w-5xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">¿Quién Califica Como Fundador?</h2>
-            <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-slate-400 mb-16 max-w-2xl mx-auto">
               No buscamos a cualquiera. Buscamos constructores con visión.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
               {arquetipos.map((arquetipo) => (
                 <div
                   key={arquetipo.id}
-                  className="creatuactivo-component-card p-5 flex items-start gap-4"
+                  className="creatuactivo-component-card p-6 lg:p-8"
                 >
-                  <div className={`${arquetipo.iconColor} flex-shrink-0`}>
+                  <div className={`${arquetipo.iconColor} flex-shrink-0 mb-4`}>
                     {arquetipo.icon}
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1">{arquetipo.title}</h3>
-                    <p className="text-sm text-slate-400">{arquetipo.description}</p>
+                    <h3 className="text-lg font-bold text-white mb-3 leading-tight">{arquetipo.title}</h3>
+                    <p className="text-sm lg:text-base text-slate-400 leading-relaxed">{arquetipo.description}</p>
                   </div>
                 </div>
               ))}

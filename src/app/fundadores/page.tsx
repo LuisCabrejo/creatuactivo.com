@@ -78,12 +78,24 @@ const GlobalStyles = () => (
       transition: all 0.4s ease;
     }
 
+    .creatuactivo-why-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
+    }
+
     .creatuactivo-bezos-card {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
       backdrop-filter: blur(24px);
-      border: 1px solid rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.2);
       border-radius: 20px;
       transition: all 0.4s ease;
+    }
+
+    .creatuactivo-bezos-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
     }
 
     .creatuactivo-urgency-card {
@@ -94,12 +106,24 @@ const GlobalStyles = () => (
       transition: all 0.4s ease;
     }
 
+    .creatuactivo-urgency-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: 0 20px 60px rgba(5, 150, 105, 0.3);
+    }
+
     .creatuactivo-form-card {
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
       backdrop-filter: blur(24px);
       border: 2px solid rgba(245, 158, 11, 0.3);
       border-radius: 24px;
       transition: all 0.4s ease;
+    }
+
+    .creatuactivo-form-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245, 158, 11, 0.5);
+      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
     }
 
     .creatuactivo-cta-ecosystem {
@@ -351,7 +375,7 @@ export default function FundadoresPage() {
           {/* WHY Section - Por Qué Existimos */}
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
-              <div className="inline-block bg-amber-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-6 border border-amber-500/20">
+              <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-6 border border-purple-500/20">
                 Por Qué Existimos
               </div>
 
@@ -439,14 +463,14 @@ export default function FundadoresPage() {
               {/* Fase 3: La Ventana Fundador */}
               <div className="creatuactivo-timeline-card p-6 lg:p-8 relative">
                 {/* Ícono lateral externo - SOLO MOBILE */}
-                <div className="flex lg:hidden absolute -left-4 top-8 w-8 h-8 bg-amber-500 rounded-full border-4 border-slate-900 items-center justify-center">
+                <div className="flex lg:hidden absolute -left-4 top-8 w-8 h-8 bg-purple-500 rounded-full border-4 border-slate-900 items-center justify-center">
                   <Rocket size={16} className="text-white" />
                 </div>
 
                 <div className="mb-4 lg:flex lg:items-start lg:gap-4">
                   {/* Ícono interno - SOLO DESKTOP */}
-                  <div className="hidden lg:flex w-12 h-12 bg-amber-500/10 rounded-lg items-center justify-center flex-shrink-0">
-                    <Rocket size={24} className="text-amber-400" />
+                  <div className="hidden lg:flex w-12 h-12 bg-purple-500/10 rounded-lg items-center justify-center flex-shrink-0">
+                    <Rocket size={24} className="text-purple-400" />
                   </div>
                   <div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Noviembre 2025</div>
@@ -468,7 +492,7 @@ export default function FundadoresPage() {
             </div>
 
             {/* Conclusión Timeline */}
-            <div className="mt-8 text-center p-6 lg:p-8 bg-amber-500/5 border border-amber-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
+            <div className="mt-8 text-center p-6 lg:p-8 bg-blue-500/5 border border-purple-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
               <p className="text-xl lg:text-2xl font-semibold text-white">
                 Los primeros <strong className="text-amber-400">2,847 probaron que funciona</strong> sin tecnología.
                 <br /><br />
@@ -647,7 +671,7 @@ export default function FundadoresPage() {
               ))}
             </div>
 
-            <div className="text-center p-6 lg:p-8 bg-amber-500/5 border border-amber-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
+            <div className="text-center p-6 lg:p-8 bg-blue-500/5 border border-purple-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
               <p className="text-lg lg:text-xl text-slate-300 leading-relaxed">
                 Si crees que tienes el <strong className="text-amber-400">talento</strong> y la <strong className="text-amber-400">capacidad</strong>,<br />
                 y solo te falta la <strong className="text-amber-400">oportunidad real</strong>...

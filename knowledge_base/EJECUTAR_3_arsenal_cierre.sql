@@ -165,45 +165,53 @@ Es una progresión lógica y emocionante hacia la construcción de un patrimonio
 - **Inventario:**
     - 1 Ganocafé 3 en 1
     - 1 Ganocafé Classic
-    - 1 Piel&Brillo Shampoo
-    - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Exfoliante Corporal
+    - 1 Ganorico Shoko Rico
+    - 1 Gano C''Real Spirulina
+    - 1 Reskine Collagen Drink
     - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
+    - 1 Gano Soap (2/pkg)
 
 #### Paquete Constructor Empresarial (ESP 2)
 - **Total:** 18 productos
 - **Inventario:**
     - 4 Ganocafé 3 en 1
-    - 3 Ganocafé Classic
-    - 1 Gano Soap
+    - 1 Ganocafé Classic
+    - 2 Ganorico Shoko Rico
+    - 1 Gano C''Real Spirulina
+    - 1 Reskine Collagen Drink
     - 1 Gano Fresh Toothpaste
     - 1 Gano Transparent Soap
-    - 1 Ganó Rico MochaRico
-    - 1 Gano C''Real Spirulina
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Shoko Rico
-    - 1 Reskine Collagen Drink
-    - 1 Ganoderma Cápsulas
-    - 1 Excellium Cápsulas
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Exfoliante Corporal
+    - 1 Gano Soap (2/pkg)
+    - 1 Ganorico Mocha Rico
+    - 1 Ganorico Latte Riko
+    - 1 Oleaf Gano Rooibos Drink
 
 #### Paquete Constructor Visionario (ESP 3)
 - **Total:** 35 productos
 - **Inventario:**
     - 10 Ganocafé 3 en 1
-    - 10 Ganocafé Classic
-    - 1 Gano Soap
+    - 6 Ganocafé Classic
+    - 2 Ganorico Shoko Rico
+    - 1 Gano C''Real Spirulina
+    - 1 Reskine Collagen Drink
     - 1 Gano Fresh Toothpaste
     - 1 Gano Transparent Soap
-    - 1 Gano Schokolade
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Exfoliante Corporal
+    - 1 Gano Soap (2/pkg)
+    - 1 Ganorico Mocha Rico
+    - 1 Ganorico Latte Riko
     - 1 Oleaf Gano Rooibos Drink
-    - 1 Gano C''Real Spirulina
-    - 1 Ganorico Latte Rico
-    - 1 Reskine Collagen Drink
+    - 1 Gano Schokolade
     - 1 Ganoderma Cápsulas
     - 1 Excellium Cápsulas
+    - 1 Cordygold Cápsulas
 
-*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario.*
+*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario. Última actualización: 12 Noviembre 2025.*
 
 ---
 

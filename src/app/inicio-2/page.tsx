@@ -11,7 +11,7 @@
 'use client'
 
 import React from 'react'
-import { Zap, BrainCircuit, Box, Briefcase, Target, ShieldCheck, Lightbulb, Home, UsersRound, TrendingUp } from 'lucide-react'
+import { Zap, BrainCircuit, Box, Briefcase, MonitorSmartphone, Home, School, Target, ShieldCheck, Lightbulb, UsersRound, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -129,7 +129,7 @@ function ArquetipoCard({ icon, title, description, iconColor }: {
   )
 }
 
-export default function HomePage() {
+export default function Inicio2Page() {
   return (
     <>
       <GlobalStyles />

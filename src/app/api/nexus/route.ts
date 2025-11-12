@@ -643,13 +643,73 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /qué.*incluye.*ESP/i
   ];
 
-  // 🔧 PRIORIDAD 1: PRODUCTOS INDIVIDUALES (SIN CAMBIOS)
+  // 🌿 NUEVA PRIORIDAD 1: BENEFICIOS DE PRODUCTOS (arsenal_productos)
+  // Detecta preguntas sobre beneficios, propiedades, Ganoderma, salud
+  const patrones_beneficios_productos = [
+    // Beneficios generales
+    /beneficios.*productos/i,
+    /qué.*beneficios.*productos/i,
+    /cuáles.*beneficios/i,
+    /para.*qué.*sirven.*productos/i,
+    /qué.*hacen.*productos/i,
+    /por.*qué.*productos/i,
+
+    // Ganoderma específico
+    /ganoderma/i,
+    /reishi/i,
+    /hongo/i,
+    /qué.*es.*ganoderma/i,
+    /beneficios.*ganoderma/i,
+    /propiedades.*ganoderma/i,
+    /para.*qué.*sirve.*ganoderma/i,
+    /por.*qué.*ganoderma/i,
+    /qué.*hace.*ganoderma/i,
+
+    // Estudios científicos
+    /estudios.*científicos/i,
+    /estudios.*pubmed/i,
+    /evidencia.*científica/i,
+    /respaldo.*científico/i,
+    /investigación.*ganoderma/i,
+
+    // Salud y bienestar
+    /salud.*productos/i,
+    /sistema.*inmune/i,
+    /inmunológico/i,
+    /anti.*inflamatorio/i,
+    /energía.*productos/i,
+    /claridad.*mental/i,
+
+    // Preguntas técnicas
+    /seguro.*consumir/i,
+    /cuánto.*tiempo.*beneficios/i,
+    /cómo.*tomar/i,
+    /cómo.*combinar.*productos/i,
+    /dosis/i,
+    /contraindicaciones/i,
+
+    // Diferenciación
+    /qué.*hace.*diferente.*gano.*excel/i,
+    /diferencia.*otros.*productos/i,
+    /por.*qué.*gano.*excel/i,
+    /ventaja.*productos/i,
+    /patente/i,
+    /proceso.*extracción/i,
+    /biodisponibilidad/i
+  ];
+
+  if (patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
+    console.log('🌿 Clasificación: BENEFICIOS PRODUCTOS (arsenal_productos)');
+    return 'arsenal_productos';
+  }
+
+  // 🔧 PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
   if (patrones_productos.some(patron => patron.test(messageLower))) {
     console.log('🛒 Clasificación: PRODUCTOS (catálogo)');
     return 'catalogo_productos';
   }
 
-  // PRIORIDAD 2: PAQUETES DE INVERSIÓN
+  // PRIORIDAD 3: PAQUETES DE INVERSIÓN
   // 🆕 FIX 2025-10-21: Routing a arsenal_cierre (contiene SIST_11 con productos por paquete)
   if (patrones_paquetes.some(patron => patron.test(messageLower))) {
     console.log('💼 Clasificación: PAQUETES (arsenal_cierre - SIST_11)');
@@ -1064,6 +1124,43 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       });
 
       return catalogoResult;
+    }
+  }
+
+  // 🌿 NUEVA LÓGICA: CONSULTA DE ARSENAL PRODUCTOS (beneficios, Ganoderma, ciencia)
+  if (documentType === 'arsenal_productos') {
+    console.log('🌿 Consulta dirigida: ARSENAL PRODUCTOS (beneficios y ciencia)');
+
+    try {
+      const { data, error } = await supabase
+        .from('nexus_documents')
+        .select('id, title, content, category, metadata')
+        .eq('category', 'arsenal_productos')
+        .limit(1);
+
+      if (error) {
+        console.error('Error consultando arsenal_productos:', error);
+      } else if (data && data.length > 0) {
+        const arsenalProductos = data[0];
+        console.log('✅ Arsenal Productos encontrado:', arsenalProductos.title);
+
+        const result = {
+          ...arsenalProductos,
+          search_method: 'arsenal_productos',
+          source: '/knowledge_base/arsenal_productos_beneficios.txt'
+        };
+
+        searchCache.set(cacheKey, {
+          data: [result],
+          timestamp: Date.now()
+        });
+
+        return [result];
+      } else {
+        console.warn('⚠️ Arsenal Productos no encontrado en Supabase (aún no insertado)');
+      }
+    } catch (error) {
+      console.error('Error accediendo arsenal_productos:', error);
     }
   }
 

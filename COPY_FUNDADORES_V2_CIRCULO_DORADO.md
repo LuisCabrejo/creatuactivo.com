@@ -419,7 +419,7 @@ Fundador vs Constructor vs Público
 
 | CARACTERÍSTICA | FUNDADOR (150) | CONSTRUCTOR (22,500) | PÚBLICO (4M+) |
 |----------------|----------------|----------------------|---------------|
-| **Entrada** | Nov 2025 | Ene 2026 | Ene 2026+ |
+| **Entrada** | 10 Nov - 30 Nov 2025 | 01 Dic 2025 - 01 Mar 2026 | 02 Mar 2026+ |
 | **NodeX Dashboard** | Gratis vitalicio ($497/mes valor) | $97/mes | $197/mes |
 | **Mentoría** | Directa 1:150 | Grupal 1:22,500 | Autoservicio |
 | **Posición red** | BASE (cima) | Media | Entrada tardía |
@@ -480,16 +480,16 @@ Reservar mi posición de Fundador →
 │  📋 FASE 1          🎓 FASE 2              🚀 FASE 3        │
 │  Lista Privada      Pre-Lanzamiento        Lanzamiento      │
 │                                             Público         │
-│  Nov 17 - Dic 27    Ene 5 - Feb 28         Mar 1, 2026     │
-│  2025               2026                    →               │
+│  10 Nov - 30 Nov    01 Dic - 01 Mar        02 Mar 2026     │
+│  2025               2025-2026               →               │
 │  ─────────────────  ─────────────────────  ───────────────  │
 │  150 Fundadores     22,500 Constructores   4M+ Usuarios     │
-│                                             (objetivo)      │
+│  (MENTORES)         (mentoreados)          (objetivo)       │
 │  • Mentoría 1:150   • Mentoría grupal      • Autoservicio  │
-│  • 6 semanas        • Pre-público          • Público       │
-│    intensivas       • Ventaja vs masivo      general       │
+│  • 3 semanas        • 3 meses              • Público       │
+│    intensivas       • Pre-público            general       │
 │  • Construyes base  • Construyes red       • Entrada       │
-│                                               tardía        │
+│                     • 150 MENTORES           tardía        │
 │                                                             │
 │  [TÚ ESTÁS AQUÍ] ──────────────────►                        │
 │                                                             │
@@ -499,9 +499,9 @@ Reservar mi posición de Fundador →
 
 [CALLOUT BOX - Fondo amarillo claro, borde naranja]
 ⏰ **Fecha límite:**
-Lista privada cierra: **16 de noviembre 2025** a las 23:59 (UTC-5)
+Lista privada cierra: **30 de noviembre 2025** a las 23:59 (UTC-5)
 
-Después de esa fecha, solo podrás entrar como Constructor (enero 2026).
+Después de esa fecha, solo podrás entrar como Constructor (diciembre 2025).
 Posición de Fundador no estará disponible NUNCA más.
 
 [CTA BUTTON - Grande, urgencia, naranja]
@@ -735,7 +735,7 @@ gtag('event', 'scroll_depth', { percent: 75 })
 - [ ] Reemplazar [PRECIO PÚBLICO] con precio real
 - [ ] Subir foto profesional Luis + esposa
 - [ ] Grabar video 1 min (si no reutilizas el actual)
-- [ ] Verificar fechas timeline (Nov 17, Dic 27, Ene 5, Mar 1)
+- [ ] Verificar fechas timeline (10 Nov, 30 Nov, 01 Dic, 01 Mar, 02 Mar)
 - [ ] Actualizar contador de cupos (integración Supabase)
 
 ## Legal:

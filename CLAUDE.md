@@ -25,6 +25,47 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - Tracking logic → [public/tracking.js](public/tracking.js)
 - Business dates → `node scripts/actualizar-fechas-prelanzamiento.mjs`
 
+## Quick Decision Tree
+
+**I need to...**
+
+- **Modify NEXUS responses** → Update `system_prompts` table (see "Modifying NEXUS Behavior")
+- **Add new knowledge** → Edit files in `knowledge_base/` then run SQL scripts
+- **Track new user data** → Update `captureProspectData()` in route.ts
+- **Change business dates** → Run `node scripts/actualizar-fechas-prelanzamiento.mjs`
+- **Debug tracking issues** → Use `window.debugTracking()` in browser console
+- **Fix queue processing** → Check Supabase Edge Function logs
+- **Update video content** → See "Working with Video Content" section
+- **Add new landing page** → See "Adding New Landing Pages" section
+
+## First Time Setup (New Developers)
+
+1. Clone repository and install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Copy environment template:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+3. Configure required environment variables in `.env.local`:
+   - `NEXT_PUBLIC_SUPABASE_URL` - From Supabase project settings
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - From Supabase project settings
+   - `ANTHROPIC_API_KEY` - From anthropic.com console
+   - `RESEND_API_KEY` - From resend.com (for emails)
+
+4. Start development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Verify NEXUS is working:
+   ```bash
+   curl http://localhost:3000/api/nexus
+   ```
+
 ## Development Commands
 
 ```bash
@@ -402,16 +443,21 @@ The platform uses **Vercel Blob** for video hosting with adaptive streaming:
 
 **Location**: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx)
 
-Dynamic countdown system that reduces available spots:
-- **Start**: Monday Oct 27, 2025 at 10:00 AM (UTC-5)
-- **Initial spots**: 150
-- **Reduction**: -1 spot per hour (11:00, 12:00... 20:00)
-- **Daily reduction**: -10 spots total per day
-- **Updates**: Every 60 seconds (client-side calculation)
+**Current Status**: Static counter showing 150 spots (as of Nov 11, 2025)
 
-**Testing**: Use `node scripts/test-contador-cupos.mjs` to validate logic across 15 scenarios.
+The dynamic countdown system has been **paused** and replaced with a static display:
+- **Current value**: 150 spots (fixed)
+- **Started**: Monday 10 Nov 2025
+- **Reason for pause**: Waiting for real sales data from user
 
-**Manual adjustment**: Edit `calcularCuposDisponibles()` function and add `ajusteManual` offset if real sales differ from projection.
+**Previous dynamic system** (now inactive):
+- Start: Monday Oct 27, 2025 at 10:00 AM (UTC-5)
+- Reduction: -1 spot per hour (11:00, 12:00... 20:00)
+- Daily reduction: -10 spots total per day
+
+**Testing**: Use `node scripts/test-contador-cupos.mjs` to validate logic if dynamic counter is re-enabled.
+
+**To re-enable dynamic counter**: Edit `calcularCuposDisponibles()` function in fundadores/page.tsx and provide real sales offset.
 
 **See**: [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) for complete specification.
 
@@ -586,24 +632,30 @@ window.reidentifyProspect()         // Force re-identification
 
 ## Business Critical Dates
 
-**Current Timeline** (as of October 2025):
+**Current Timeline** (as of November 2025):
 
-1. **Lista Privada (Private List)**: Oct 27 - Nov 16, 2025
+1. **Lista Privada (Private List)**: 10 Nov - 30 Nov 2025 (ACTIVE)
    - 150 Founder spots
-   - Counter starts: Monday Oct 27, 10:00 AM UTC-5
+   - Started: Monday 10 Nov, 2025
    - Mentorship ratio: 1 Founder → 150 Constructors
+   - **Role emphasis**: Fundadores actúan como **MENTORES**
 
-2. **Pre-Lanzamiento (Pre-Launch)**: Nov 17 - Dec 27, 2025
+2. **Pre-Lanzamiento (Pre-Launch)**: 01 Dic 2025 - 01 Mar 2026 (UPCOMING)
    - 22,500 Constructor spots (150 Founders × 150)
-   - 6-week mentorship period
+   - 3-month mentorship period
+   - 150 Fundadores become **MENTORES** to new Constructors
 
-3. **Lanzamiento Público (Public Launch)**: Jan 5, 2026
-   - Target: 4M+ users across Latin America
+3. **Lanzamiento Público (Public Launch)**: 02 Mar 2026
+   - Target: 4M+ users across Latin America (3-7 year goal)
 
 **IMPORTANT**: These dates are reflected across:
-- Frontend: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx:292-302)
+- Frontend: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) - Timeline visual
 - Knowledge base: All 3 arsenales (inicial, manejo, cierre)
 - Database: Supabase `nexus_documents` table
+
+**Date Change History**:
+- Original dates (Oct 27 - Nov 16 - Jan 5, 2026): OBSOLETE
+- Current dates (Nov 10 - Dec 1 - Mar 2, 2026): ACTIVE since Nov 11, 2025
 
 When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to sync across all systems.
 
@@ -643,10 +695,11 @@ When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to 
 Current branch: `main`
 
 Recent significant updates:
+- **Nov 11, 2025**: Business dates updated (10 Nov - 01 Dic - 02 Mar) + MENTOR role emphasis
+- **Nov 11, 2025**: Founder spots counter paused at 150 (static)
 - Nov 7, 2025: PageSpeed optimizations (defer tracking.js, preconnect Supabase)
 - Oct 26, 2025: Massive cleanup (70+ obsolete files removed)
 - Oct 26, 2025: Email redirect fix for Founders
-- Oct 26, 2025: Pre-launch dates updated + dynamic spots counter
 
 When committing:
 - **Never commit** `.env.local` or any files with API keys

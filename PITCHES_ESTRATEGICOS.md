@@ -647,7 +647,7 @@ La clave es que no vendes productos, construyes un sistema de distribución. Hay
 
 Lo más fuerte es que es heredable. Literal estás construyendo un activo patrimonial, no solo generando ingresos este mes.
 
-Ahora están abriendo para solo 150 personas fundadoras antes del lanzamiento masivo. Es como obtener una de las primeras franquicias de McDonald's vs la número mil, ¿me explico?
+Ahora están abriendo para solo 150 personas fundadoras (10 Nov - 30 Nov 2025) antes del lanzamiento masivo. Es como obtener una de las primeras franquicias de McDonald's vs la número mil, ¿me explico?
 
 ¿Te gustaría que te muestre cómo funciona la tecnología?"
 
@@ -705,7 +705,7 @@ No reemplaza tu trabajo. Construye tu Plan B que puede convertirse en tu Plan A.
 
 Es heredable. Es escalable. Es TUYO.
 
-Abrimos para 150 Fundadores (Lista Privada cierra Nov 16).
+Abrimos para 150 Fundadores (Lista Privada cierra 30 Nov 2025).
 
 ¿Listo para dejar de vender tiempo y construir sistemas?
 

@@ -108,9 +108,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   };
 
   const quickReplies = [
-    { text: '¿Cómo funciona exactamente el negocio?', icon: '📊' },
-    { text: '¿Cómo funciona el sistema de distribución?', icon: '⚙️' },
-    { text: '¿Qué es CreaTuActivo.com?', icon: '💎' }
+    { text: '¿Cómo funciona exactamente el negocio?', icon: '⚙️' },
+    { text: '¿Cómo funciona el sistema de distribución?', icon: '💎' },
+    { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' }
   ];
 
   if (!isOpen) return null;

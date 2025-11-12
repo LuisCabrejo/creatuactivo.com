@@ -182,19 +182,21 @@ export default function HomePage() {
           {/* WHY PROFUNDO - Sección tipo "fundadores" */}
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
-              <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-6 border border-purple-500/20">
-                Nuestra Creencia Fundamental
+              <div className="text-center mb-6">
+                <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-purple-500/20">
+                  Nuestra Creencia Fundamental
+                </div>
               </div>
 
-              <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6">
+              <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
                 En CreaTuActivo.com creemos firmemente que las personas <strong className="text-amber-400">MERECEN cumplir sueños</strong>, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
               </p>
 
-              <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6">
+              <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
                 Y creemos que construir un activo patrimonial <strong className="text-amber-400">NO debe ser una lotería de esfuerzo ciego</strong>, sino <strong className="text-amber-400">ARQUITECTURA INTELIGENTE.</strong>
               </p>
 
-              <p className="text-lg lg:text-xl text-slate-300 leading-relaxed">
+              <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
                 Por eso creamos un ecosistema completo que democratiza el acceso a <strong className="text-white">tecnología de nivel corporativo</strong>, entregando el sistema probado, la IA que automatiza el trabajo pesado, y productos únicos con patente mundial.
               </p>
             </div>

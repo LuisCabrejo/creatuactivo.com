@@ -33,10 +33,10 @@ export default async function Image() {
           padding: '80px',
         }}
       >
-        {/* Ícono grande */}
+        {/* Ícono reducido */}
         <div
           style={{
-            fontSize: 160,
+            fontSize: 80,
             marginBottom: 30,
             display: 'flex',
           }}
@@ -83,6 +83,7 @@ export default async function Image() {
             fontWeight: 600,
             color: '#94a3b8',
             display: 'flex',
+            marginBottom: 80,
           }}
         >
           Ganoderma Lucidum

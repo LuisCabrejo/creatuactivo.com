@@ -60,6 +60,7 @@ export default async function Image() {
             marginBottom: 50,
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
             letterSpacing: '-0.03em',
           }}
         >
@@ -75,6 +76,7 @@ export default async function Image() {
             color: '#fff',
             textAlign: 'center',
             display: 'flex',
+            marginBottom: 80,
           }}
         >
           No Solo Ingresos

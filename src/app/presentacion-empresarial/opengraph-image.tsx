@@ -33,10 +33,10 @@ export default async function Image() {
           padding: '80px',
         }}
       >
-        {/* Ícono grande */}
+        {/* Ícono reducido */}
         <div
           style={{
-            fontSize: 160,
+            fontSize: 80,
             marginBottom: 30,
             display: 'flex',
           }}
@@ -57,6 +57,7 @@ export default async function Image() {
             marginBottom: 30,
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
             letterSpacing: '-0.02em',
           }}
         >
@@ -72,9 +73,10 @@ export default async function Image() {
             color: '#94a3b8',
             textAlign: 'center',
             display: 'flex',
+            marginBottom: 80,
           }}
         >
-          Framework IAA
+          Método Probado IAA
         </div>
 
         {/* Footer */}

@@ -11,7 +11,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ArrowRight, CheckCircle, PlayCircle, Rocket, Shield, Users, Zap, Briefcase, Target, Lightbulb, Home, UsersRound, TrendingUp, BarChart3 } from 'lucide-react'
+import { ArrowRight, CheckCircle, PlayCircle, Rocket, Shield, Users, Zap, Briefcase, Target, Lightbulb, Home, UsersRound, TrendingUp, BarChart3, Phone, Mail, Clock, TrendingDown, Bot, Smartphone, BarChart } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
 // --- Estilos CSS Globales (Alineados con socio-corporativo y presentacion-empresarial) ---
@@ -348,15 +348,13 @@ export default function FundadoresPage() {
             </div>
 
             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
-              ¿Y Si Pudieras Construir un Sistema Que Trabaje Cuando Tú No Trabajas?
+              ¿Y Si Hubiera Una Forma Más Fácil de Ganar Dinero?
             </h1>
 
             <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
-              No más bicicleta estática: esfuerzo sin movimiento, trabajo sin apalancamiento.
-              <br /><br />
-              Una arquitectura completa, <span className="text-amber-400 font-semibold">FÁCIL de gestionar</span>, impulsada con IA.
-              <br />
-              Tu propio sistema de distribución automatizado.
+              La mayoría trabaja duro toda la vida y solo gana lo que le pagan.<br />
+              Imagina tener algo que trabaja para ti <span className="text-amber-400 font-semibold">mientras tú duermes</span>.<br /><br />
+              No necesitas ser experto. El sistema hace el trabajo difícil por ti.
             </p>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -372,121 +370,158 @@ export default function FundadoresPage() {
             </div>
           </section>
 
-          {/* WHY Section - Por Qué Existimos */}
+          {/* WHY Section - LENGUAJE SIMPLE */}
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
-              <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-6 border border-purple-500/20">
-                Por Qué Existimos
+              <div className="text-center mb-6">
+                <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-purple-500/20">
+                  Por Qué Hacemos Esto
+                </div>
               </div>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6">
-                En CreaTuActivo.com creemos firmemente que las personas <strong className="text-amber-400">MERECEN cumplir sueños</strong>, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
+                Creemos que <strong className="text-amber-400">todas las personas merecen</strong> viajar, tener tiempo para su familia, no preocuparse por el dinero.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed">
-                Y creemos que construir un activo patrimonial <strong className="text-amber-400">NO debe ser una lotería de esfuerzo ciego</strong>, sino <strong className="text-amber-400">ARQUITECTURA INTELIGENTE.</strong>
+                Y creemos que <strong className="text-amber-400">no debería ser tan difícil</strong>. Por eso creamos herramientas que hacen el trabajo por ti.
               </p>
             </div>
           </section>
 
-          {/* Timeline Evolution - MOBILE: Solo íconos externos | DESKTOP: Ambos */}
+          {/* Timeline Evolution - CONCRECIÓN BRUTAL */}
           <section className="max-w-5xl mx-auto mb-20">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De lo Manual a lo Tecnológico</h2>
+            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De Difícil a Fácil</h2>
+            <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
+              Antes era trabajo manual. Ahora la tecnología hace el 80% por ti.
+            </p>
+
+            {/* Analogías del día a día */}
+            <div className="max-w-3xl mx-auto mb-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-slate-400 text-sm mb-1">ANTES</p>
+                <p className="text-white font-semibold mb-2">Alquilar películas</p>
+                <p className="text-slate-500 text-xs">Ir al videoclub</p>
+                <div className="my-2 text-amber-400">→</div>
+                <p className="text-slate-400 text-sm mb-1">AHORA</p>
+                <p className="text-amber-400 font-bold">Netflix</p>
+                <p className="text-slate-500 text-xs">Desde tu sofá</p>
+              </div>
+
+              <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-slate-400 text-sm mb-1">ANTES</p>
+                <p className="text-white font-semibold mb-2">Cartas por correo</p>
+                <p className="text-slate-500 text-xs">Esperar días</p>
+                <div className="my-2 text-amber-400">→</div>
+                <p className="text-slate-400 text-sm mb-1">AHORA</p>
+                <p className="text-amber-400 font-bold">WhatsApp</p>
+                <p className="text-slate-500 text-xs">Instantáneo</p>
+              </div>
+
+              <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-slate-400 text-sm mb-1">ANTES</p>
+                <p className="text-white font-semibold mb-2">Comprar CDs</p>
+                <p className="text-slate-500 text-xs">$20 por álbum</p>
+                <div className="my-2 text-amber-400">→</div>
+                <p className="text-slate-400 text-sm mb-1">AHORA</p>
+                <p className="text-amber-400 font-bold">Spotify</p>
+                <p className="text-slate-500 text-xs">Millones de canciones</p>
+              </div>
+            </div>
+
+            <p className="text-center text-lg text-white mb-12 max-w-2xl mx-auto">
+              La tecnología convirtió lo <span className="text-red-400 line-through">complicado</span> en <span className="text-amber-400 font-bold">simple</span>.<br />
+              <strong className="text-amber-400">Antes no existía</strong> la facilidad de crear un sistema que trabaje para ti mientras tú no trabajas.
+            </p>
+
             <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
               Cómo un sistema probado se transforma con tecnología
             </p>
 
             <div className="space-y-6 pl-6 lg:pl-0">
-              {/* Fase 1: El Sistema Probado */}
+              {/* Fase 1 */}
               <div className="creatuactivo-timeline-card p-6 lg:p-8 relative">
-                {/* Ícono lateral externo - SOLO MOBILE */}
                 <div className="flex lg:hidden absolute -left-4 top-8 w-8 h-8 bg-blue-500 rounded-full border-4 border-slate-900 items-center justify-center">
                   <BarChart3 size={16} className="text-white" />
                 </div>
 
-                {/* Header */}
                 <div className="mb-4 lg:flex lg:items-start lg:gap-4">
-                  {/* Ícono interno - SOLO DESKTOP */}
                   <div className="hidden lg:flex w-12 h-12 bg-blue-500/10 rounded-lg items-center justify-center flex-shrink-0">
                     <BarChart3 size={24} className="text-blue-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">2015-2024</div>
-                    <h3 className="text-xl font-bold text-white">EL SISTEMA PROBADO</h3>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">ANTES (2015-2024)</div>
+                    <h3 className="text-xl font-bold text-white">Todo era Manual</h3>
                   </div>
                 </div>
 
                 <div className="text-slate-300 space-y-2 mb-4 lg:ml-16">
-                  <p><strong className="text-white">9 años</strong> de liderazgo construyendo el sistema base</p>
-                  <p><strong className="text-white">2,847 constructores</strong> exitosos</p>
-                  <p><strong className="text-white">Método:</strong> Manual, esfuerzo sostenido, sin tecnología</p>
+                  <p className="flex items-start gap-2"><Phone size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Llamar</strong> a cada persona manualmente</span></p>
+                  <p className="flex items-start gap-2"><Mail size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Enviar</strong> mensajes uno por uno</span></p>
+                  <p className="flex items-start gap-2"><Clock size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Explicar</strong> lo mismo 50 veces al día</span></p>
+                  <p className="flex items-start gap-2"><BarChart size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Resultado:</strong> 2,847 personas lo lograron... pero con mucho esfuerzo</span></p>
                 </div>
 
                 <p className="text-amber-400 font-medium italic lg:ml-16">
-                  Ellos lo hicieron de forma manual y artesanal.<br />
-                  Como alquilar películas físicas en el videoclub del barrio.<br />
-                  Funcionó. Pero era trabajo aburrido.
+                  Era como alquilar películas en el videoclub del barrio.<br />
+                  Funcionaba... pero era cansado.
                 </p>
               </div>
 
-              {/* Fase 2: La Transformación */}
+              {/* Fase 2 */}
               <div className="creatuactivo-timeline-card p-6 lg:p-8 relative">
-                {/* Ícono lateral externo - SOLO MOBILE */}
                 <div className="flex lg:hidden absolute -left-4 top-8 w-8 h-8 bg-purple-500 rounded-full border-4 border-slate-900 items-center justify-center">
                   <Zap size={16} className="text-white" />
                 </div>
 
                 <div className="mb-4 lg:flex lg:items-start lg:gap-4">
-                  {/* Ícono interno - SOLO DESKTOP */}
                   <div className="hidden lg:flex w-12 h-12 bg-purple-500/10 rounded-lg items-center justify-center flex-shrink-0">
                     <Zap size={24} className="text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">2024-2025</div>
-                    <h3 className="text-xl font-bold text-white">LA TRANSFORMACIÓN TECNOLÓGICA</h3>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (2024-2025)</div>
+                    <h3 className="text-xl font-bold text-white">La Tecnología Trabaja Por Ti</h3>
                   </div>
                 </div>
 
                 <div className="text-slate-300 space-y-2 mb-4 lg:ml-16">
-                  <p>Integración de <strong className="text-white">NodeX + NEXUS + IA</strong></p>
-                  <p>Automatización del <strong className="text-white">80% del trabajo</strong> manual</p>
-                  <p><strong className="text-white">Resultado:</strong> Sistema probado + Tecnología potente</p>
+                  <p className="flex items-start gap-2"><Bot size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Un robot inteligente</strong> contesta preguntas automáticamente 24/7</span></p>
+                  <p className="flex items-start gap-2"><Smartphone size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">El sistema envía</strong> mensajes por ti</span></p>
+                  <p className="flex items-start gap-2"><BarChart size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Una aplicación te dice</strong> exactamente qué hacer cada día</span></p>
+                  <p className="flex items-start gap-2"><Zap size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Resultado:</strong> Tú solo haces el 20% del trabajo, la tecnología hace el resto</span></p>
                 </div>
 
                 <p className="text-amber-400 font-medium italic lg:ml-16">
-                  El mismo sistema probado.<br />
-                  Ahora potenciado con tecnología.<br />
-                  Como pasar del videoclub a Netflix.
+                  Lo mismo que funcionó antes.<br />
+                  Pero ahora es tan fácil como usar Netflix.
                 </p>
               </div>
 
-              {/* Fase 3: La Ventana Fundador */}
+              {/* Fase 3 */}
               <div className="creatuactivo-timeline-card p-6 lg:p-8 relative">
-                {/* Ícono lateral externo - SOLO MOBILE */}
                 <div className="flex lg:hidden absolute -left-4 top-8 w-8 h-8 bg-purple-500 rounded-full border-4 border-slate-900 items-center justify-center">
                   <Rocket size={16} className="text-white" />
                 </div>
 
                 <div className="mb-4 lg:flex lg:items-start lg:gap-4">
-                  {/* Ícono interno - SOLO DESKTOP */}
                   <div className="hidden lg:flex w-12 h-12 bg-purple-500/10 rounded-lg items-center justify-center flex-shrink-0">
                     <Rocket size={24} className="text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Noviembre 2025</div>
-                    <h3 className="text-xl font-bold text-white">LA VENTANA FUNDADOR</h3>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (Noviembre 2025)</div>
+                    <h3 className="text-xl font-bold text-white">Solo 150 Espacios Disponibles</h3>
                   </div>
                 </div>
 
                 <div className="text-slate-300 space-y-2 mb-4 lg:ml-16">
-                  <p><strong className="text-white">150 posiciones</strong> pioneras exclusivas</p>
-                  <p>Acceso completo a la <strong className="text-white">arquitectura tecnológica</strong></p>
-                  <p><strong className="text-white">Beneficios vitalicios</strong> que nadie más tendrá</p>
+                  <p className="flex items-start gap-2"><Target size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Solo 150 personas</strong> tendrán acceso primero</span></p>
+                  <p className="flex items-start gap-2"><Zap size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Tendrás todas las herramientas</strong> automáticas desde el día 1</span></p>
+                  <p className="flex items-start gap-2"><Shield size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Beneficios especiales</strong> que nadie más tendrá después</span></p>
                 </div>
 
                 <p className="text-amber-400 font-medium italic lg:ml-16">
-                  Esta ventaja estratégica no volverá a existir.<br />
-                  Una vez cerrada, no habrá segunda oportunidad.
+                  Esta oportunidad solo existe ahora.<br />
+                  Después será tarde.
                 </p>
               </div>
             </div>
@@ -565,7 +600,7 @@ export default function FundadoresPage() {
               {!process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none">
                   <PlayCircle size={80} className="text-white/50 group-hover:text-white/80 transition-all duration-300 mb-4" />
-                  <h2 className="text-2xl lg:text-4xl font-bold mb-2 text-white">De Vendedor a Arquitecto</h2>
+                  <h2 className="text-2xl lg:text-4xl font-bold mb-2 text-white">La Forma Fácil vs La Forma Difícil</h2>
                   <p className="text-slate-300 max-w-xl">La pregunta que Jeff Bezos respondió diferente... y que cambiará cómo ves esta oportunidad.</p>
                 </div>
               )}
@@ -574,7 +609,7 @@ export default function FundadoresPage() {
             {/* Metadata del video para SEO */}
             <div className="mt-4 text-center">
               <p className="text-slate-400 text-sm">
-                Video: De Vendedor a Arquitecto | Duración: 1:03 min
+                Video: La Forma Fácil vs La Forma Difícil | Duración: 1:03 min
               </p>
             </div>
           </section>
@@ -593,20 +628,20 @@ export default function FundadoresPage() {
 
               <div className="text-base lg:text-lg text-slate-300 space-y-4 leading-relaxed">
                 <p>
-                  La mayoría de nosotros estamos atrapados en la misma ecuación: intercambiar nuestro tiempo por dinero.
+                  La mayoría trabaja toda la vida y solo gana lo que le pagan ese mes.
                 </p>
 
                 <p>
-                  Pero hay otra vía: la del <strong className="text-amber-400">ARQUITECTO</strong>. El que no busca más trabajo, sino que construye la arquitectura que trabaja para él.
+                  Pero hay otra forma: <strong className="text-amber-400">crear algo que gane dinero por ti</strong>, incluso cuando no estás trabajando.
                 </p>
 
                 <p>
-                  Te ayudamos a construir tu propio sistema de distribución por donde fluyen productos únicos de <strong className="text-white">Gano Excel</strong> y <strong className="text-white">Gano iTOUCH</strong> todos los días.
+                  Te ayudamos a vender productos de salud de <strong className="text-white">Gano Excel</strong> y <strong className="text-white">Gano iTOUCH</strong>, pero sin que tengas que hacer todo el trabajo tú mismo.
                 </p>
 
                 <p className="text-lg lg:text-xl font-semibold text-amber-400">
-                  La clave es el apalancamiento tecnológico.<br />
-                  Tu sistema trabaja automáticamente mientras tú tomas las decisiones estratégicas.
+                  La tecnología hace el trabajo pesado.<br />
+                  Tú solo tomas las decisiones importantes.
                 </p>
               </div>
             </div>
@@ -622,26 +657,26 @@ export default function FundadoresPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               <BenefitCard
                 icon={<Rocket size={24}/>}
-                title="Posicionamiento Estratégico"
-                description="Tu activo se construye en la cima de la arquitectura. Todo el crecimiento futuro se apalanca desde tu base."
+                title="Empiezas Primero"
+                description="Llegas antes que todos. Cuando otros empiecen, tú ya estarás adelante."
                 color="blue"
               />
               <BenefitCard
                 icon={<Zap size={24}/>}
-                title="Acceso Tecnológico Total"
-                description="Desbloquea el 100% del arsenal de NodeX + NEXUS desde el día cero. Una ventaja competitiva que nadie más tendrá."
+                title="Todas las Herramientas"
+                description="Tienes acceso completo a todo desde el primer día. Ventajas que nadie más tendrá."
                 color="purple"
               />
               <BenefitCard
                 icon={<Shield size={24}/>}
-                title="Ventaja Económica Vitalicia"
-                description="Accede a un modelo de valor diseñado para recompensar de forma superior y permanente a quienes construyeron primero."
+                title="Ganas Más"
+                description="Por llegar primero, siempre ganarás más que los que lleguen después."
                 color="green"
               />
               <BenefitCard
                 icon={<Users size={24}/>}
-                title="Co-Creación del Ecosistema"
-                description="Tu feedback no solo será escuchado, moldeará la evolución del ecosistema. Serás un arquitecto, no un usuario."
+                title="Tu Opinión Cuenta"
+                description="No solo escuchamos tus ideas, las usamos para mejorar todo."
                 color="orange"
               />
             </div>
@@ -649,9 +684,9 @@ export default function FundadoresPage() {
 
           {/* Quién Califica */}
           <section className="max-w-5xl mx-auto mb-20">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">¿Quién Califica Como Fundador?</h2>
+            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">¿Quién Puede Ser Fundador?</h2>
             <p className="text-center text-slate-400 mb-16 max-w-2xl mx-auto">
-              No buscamos a cualquiera. Buscamos constructores con visión.
+              Buscamos personas que quieran crear algo grande.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
@@ -734,7 +769,7 @@ export default function FundadoresPage() {
                 <span className="bg-gradient-to-br from-blue-700 via-purple-600 to-amber-500 bg-clip-text text-transparent"> Fundador</span>
               </h2>
               <p className="text-slate-300 max-w-2xl mx-auto">
-                Revisaré personalmente cada aplicación. Si tu visión se alinea con la de un Arquitecto Fundador, recibirás una invitación en las próximas 24 horas.
+                Revisaré personalmente cada solicitud. Si quieres crear algo grande y estás listo para empezar, recibirás una invitación en las próximas 24 horas.
               </p>
             </div>
 
@@ -840,12 +875,12 @@ export default function FundadoresPage() {
                     </div>
 
                     <div>
-                      <div className="text-amber-500 font-bold text-lg mb-4 pb-2 border-b-2 border-amber-500/30">Nivel de inversión que consideras para tu posición de fundador</div>
+                      <div className="text-amber-500 font-bold text-lg mb-4 pb-2 border-b-2 border-amber-500/30">¿Cuánto podrías invertir para empezar?</div>
                       <div className="space-y-3">
                         {[
-                          'Constructor Inicial - $900,000 COP (~$200 USD) (validación del ecosistema)',
-                          'Constructor Estratégico - $2,250,000 COP (~$500 USD) (posición equilibrada)',
-                          'Constructor Visionario - $4,500,000 COP (~$1,000 USD) (máximo potencial)',
+                          'Opción Básica - $900,000 COP (~$200 USD)',
+                          'Opción Media - $2,250,000 COP (~$500 USD)',
+                          'Opción Completa - $4,500,000 COP (~$1,000 USD)',
                           'Prefiero que Luis o Liliana me asesore sobre la mejor opción'
                         ].map((option) => (
                           <button
@@ -883,15 +918,15 @@ export default function FundadoresPage() {
                     </div>
 
                     <div className="bg-emerald-600/10 border border-emerald-600/30 rounded-2xl p-6">
-                      <h4 className="text-blue-400 font-bold mb-3">📋 Proceso de Evaluación</h4>
+                      <h4 className="text-blue-400 font-bold mb-3">📋 Qué Sigue</h4>
                       <div className="text-sm text-slate-300 space-y-2">
-                        <div>✓ <strong>Revisión de perfil</strong> por nuestro equipo de Arquitectos</div>
-                        <div>✓ <strong>Evaluación de alineación</strong> con la visión del ecosistema</div>
-                        <div>✓ <strong>Si calificas:</strong> Invitación a consultoría estratégica exclusiva</div>
-                        <div>✓ <strong>Activación inmediata</strong> de tu posición de fundador</div>
+                        <div>✓ <strong>Revisamos</strong> tu información</div>
+                        <div>✓ <strong>Verificamos</strong> si calificas para los 150 espacios</div>
+                        <div>✓ <strong>Si calificas:</strong> Te llamamos para una consulta gratis</div>
+                        <div>✓ <strong>Empiezas de inmediato</strong> como fundador</div>
                       </div>
                       <div className="mt-4 text-center">
-                        <p className="text-yellow-400 font-medium">Nuestro equipo revisará tu perfil. Si tu visión se alinea con la de un Arquitecto Fundador, recibirás una invitación por WhatsApp o Email en las próximas 24 horas.</p>
+                        <p className="text-yellow-400 font-medium">Revisaremos tu información. Si calificas para los 150 espacios, recibirás una invitación por WhatsApp o Email en las próximas 24 horas.</p>
                       </div>
                     </div>
                   </div>
@@ -932,7 +967,7 @@ export default function FundadoresPage() {
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-6">Tu Momento es Ahora.</h2>
             <p className="text-slate-300 mb-10 max-w-2xl mx-auto">
               La pregunta ya no es si tienes una oportunidad.<br />
-              Es si tienes la <strong className="text-amber-400">visión</strong> para convertirte en el arquitecto.
+              Es si estás listo para <strong className="text-amber-400">crear algo grande</strong>.
             </p>
             <button
               onClick={scrollToForm}
@@ -946,7 +981,7 @@ export default function FundadoresPage() {
           <footer className="border-t border-white/10 py-8">
             <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
               <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-              <p className="mt-2">El primer ecosistema tecnológico completo para construcción de activos en América.</p>
+              <p className="mt-2">La primera plataforma completa para crear ingresos en América Latina.</p>
             </div>
           </footer>
         </main>

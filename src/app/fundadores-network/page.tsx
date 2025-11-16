@@ -229,6 +229,81 @@ export default function FundadoresNetworkPage() {
             </div>
           </section>
 
+          {/* Analogías Tecnológicas */}
+          <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                La tecnología cambia las reglas
+              </h2>
+              <p className="text-xl text-slate-400">
+                Lo que antes era imposible, ahora es normal.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-red-400 text-4xl">📀</div>
+                  <div>
+                    <p className="text-sm text-slate-500 line-through">Antes: Tienda de videos</p>
+                    <p className="text-lg font-bold text-white">Ahora: Netflix</p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm">Ya nadie va a una tienda a rentar películas.</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-green-400 text-4xl">📱</div>
+                  <div>
+                    <p className="text-sm text-slate-500 line-through">Antes: Mensajes de texto</p>
+                    <p className="text-lg font-bold text-white">Ahora: WhatsApp</p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm">Ya nadie paga por SMS cuando hay WhatsApp gratis.</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-blue-400 text-4xl">🎵</div>
+                  <div>
+                    <p className="text-sm text-slate-500 line-through">Antes: Comprar CDs</p>
+                    <p className="text-lg font-bold text-white">Ahora: Spotify</p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm">Ya nadie compra discos cuando toda la música está en tu celular.</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-yellow-400 text-4xl">📧</div>
+                  <div>
+                    <p className="text-sm text-slate-500 line-through">Antes: Correo tradicional</p>
+                    <p className="text-lg font-bold text-white">Ahora: Gmail</p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm">Ya nadie espera días por una carta cuando un email llega en segundos.</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-2 border-purple-500/50 rounded-2xl p-12 text-center">
+              <div className="flex items-center justify-center gap-6 mb-8">
+                <Users className="w-16 h-16 text-slate-500" />
+                <ArrowRight className="w-12 h-12 text-purple-400" />
+                <Sparkles className="w-16 h-16 text-yellow-400" />
+              </div>
+              <p className="text-2xl text-slate-300 mb-2">
+                <span className="text-slate-500 line-through">Antes: Tú puedes, campeón</span>
+              </p>
+              <p className="text-4xl font-bold text-white mb-6">
+                Ahora: CreaTuActivo.com + NEXUS
+              </p>
+              <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                Intentar construir network marketing sin tecnología de punta. Es como intentar competir con Netflix usando VHS.
+              </p>
+            </div>
+          </section>
+
           {/* NEXUS para Networkers */}
           <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
             <div className="text-center mb-12">
@@ -334,81 +409,6 @@ export default function FundadoresNetworkPage() {
                   Mismo Gano Excel. Mismo plan. Nueva era.
                 </p>
               </div>
-            </div>
-          </section>
-
-          {/* Analogías Tecnológicas */}
-          <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                La tecnología cambia las reglas
-              </h2>
-              <p className="text-xl text-slate-400">
-                Lo que antes era imposible, ahora es normal.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-12">
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="text-red-400 text-4xl">📀</div>
-                  <div>
-                    <p className="text-sm text-slate-500 line-through">Antes: Tienda de videos</p>
-                    <p className="text-lg font-bold text-white">Ahora: Netflix</p>
-                  </div>
-                </div>
-                <p className="text-slate-400 text-sm">Ya nadie va a una tienda a rentar películas.</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="text-green-400 text-4xl">📱</div>
-                  <div>
-                    <p className="text-sm text-slate-500 line-through">Antes: Mensajes de texto</p>
-                    <p className="text-lg font-bold text-white">Ahora: WhatsApp</p>
-                  </div>
-                </div>
-                <p className="text-slate-400 text-sm">Ya nadie paga por SMS cuando hay WhatsApp gratis.</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="text-blue-400 text-4xl">🎵</div>
-                  <div>
-                    <p className="text-sm text-slate-500 line-through">Antes: Comprar CDs</p>
-                    <p className="text-lg font-bold text-white">Ahora: Spotify</p>
-                  </div>
-                </div>
-                <p className="text-slate-400 text-sm">Ya nadie compra discos cuando toda la música está en tu celular.</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="text-yellow-400 text-4xl">📧</div>
-                  <div>
-                    <p className="text-sm text-slate-500 line-through">Antes: Correo tradicional</p>
-                    <p className="text-lg font-bold text-white">Ahora: Gmail</p>
-                  </div>
-                </div>
-                <p className="text-slate-400 text-sm">Ya nadie espera días por una carta cuando un email llega en segundos.</p>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-2 border-purple-500/50 rounded-2xl p-12 text-center">
-              <div className="flex items-center justify-center gap-6 mb-8">
-                <Users className="w-16 h-16 text-slate-500" />
-                <ArrowRight className="w-12 h-12 text-purple-400" />
-                <Sparkles className="w-16 h-16 text-yellow-400" />
-              </div>
-              <p className="text-2xl text-slate-300 mb-2">
-                <span className="text-slate-500 line-through">Antes: Tú puedes, campeón</span>
-              </p>
-              <p className="text-4xl font-bold text-white mb-6">
-                Ahora: CreaTuActivo.com + NEXUS
-              </p>
-              <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                Intentar construir network marketing sin tecnología de punta. Es como intentar competir con Netflix usando VHS.
-              </p>
             </div>
           </section>
 

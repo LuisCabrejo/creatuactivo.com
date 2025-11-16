@@ -395,10 +395,10 @@ export default function FundadoresNetworkPage() {
             </div>
 
             <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-2 border-purple-500/50 rounded-2xl p-12 text-center">
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="text-5xl">💼</div>
-                <div className="text-5xl">→</div>
-                <div className="text-5xl">🚀</div>
+              <div className="flex items-center justify-center gap-6 mb-8">
+                <Users className="w-16 h-16 text-slate-500" />
+                <ArrowRight className="w-12 h-12 text-purple-400" />
+                <Sparkles className="w-16 h-16 text-yellow-400" />
               </div>
               <p className="text-2xl text-slate-300 mb-2">
                 <span className="text-slate-500 line-through">Antes: Tú puedes, campeón</span>
@@ -407,7 +407,7 @@ export default function FundadoresNetworkPage() {
                 Ahora: CreaTuActivo.com + NEXUS
               </p>
               <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                Ya nadie construye network marketing sin tecnología. Es como intentar competir con Netflix usando VHS.
+                Intentar construir network marketing sin tecnología de punta. Es como intentar competir con Netflix usando VHS.
               </p>
             </div>
           </section>

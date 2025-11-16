@@ -694,14 +694,91 @@ When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to 
 
 Current branch: `main`
 
-Recent significant updates:
+### ⚠️ CRITICAL: Git Repository Setup Issue (Nov 15, 2025)
+
+**PROBLEM DISCOVERED**: The local repository at `/Users/luiscabrejo/Cta/marketing/` may lose its `.git` directory, causing deployment issues.
+
+**Symptoms**:
+- ✅ Local changes work perfectly (http://localhost:3000)
+- ❌ Production shows old code (https://creatuactivo.com)
+- ❌ `git status` returns: "fatal: no es un repositorio git"
+- ⚠️ Vercel deployments show "vercel deploy" instead of `main` branch
+
+**Root Cause**: The `.git` directory was missing from the local repository, preventing Git operations.
+
+**Solution (Step-by-Step)**:
+```bash
+# 1. Verify if .git exists
+ls -la | grep "\.git"
+
+# 2. If missing, reinitialize git
+git init
+
+# 3. Connect to GitHub remote
+git remote add origin https://github.com/LuisCabrejo/creatuactivo.com.git
+
+# 4. Fetch remote state
+git fetch origin main
+
+# 5. Reset to match remote (WARNING: This overwrites local files)
+git reset --hard origin/main
+
+# 6. IMPORTANT: If you have local changes, restore them BEFORE step 5
+# Save your changed files elsewhere first!
+
+# 7. Add and commit changes
+git add src/app/fundadores/page.tsx  # or other changed files
+git commit -m "✨ Your commit message"
+
+# 8. Rename master to main if needed
+git branch -m master main
+
+# 9. Push to GitHub
+git push -u origin main
+```
+
+**BEST PRACTICE for Agents**:
+1. **Always verify git status FIRST** before making changes: `git status`
+2. **If .git is missing**, follow the solution above
+3. **NEVER use `git reset --hard`** without confirming user has backups of local changes
+4. **Save work in progress** to a temporary file before git operations
+5. **Verify GitHub after push**: Check the actual file on GitHub matches local version
+
+**Verification Checklist**:
+- [ ] `git status` works (no "fatal: no es un repositorio git")
+- [ ] `git remote -v` shows correct GitHub URL
+- [ ] `git branch` shows `main` (not `master`)
+- [ ] After push, GitHub shows updated code
+- [ ] Vercel deployment shows `main` branch source (not "vercel deploy")
+- [ ] Production site shows new content after deployment completes
+
+**Post-Deployment Verification**:
+```bash
+# 1. Verify GitHub has the changes
+# Visit: https://github.com/LuisCabrejo/creatuactivo.com/blob/main/[your-file]
+
+# 2. Monitor Vercel deployment
+# Vercel Dashboard → Deployments → Look for "main" branch icon
+
+# 3. Test production (wait 1-2 min after deploy shows "Ready")
+# Visit: https://creatuactivo.com/[your-page]
+# Hard refresh: Cmd+Shift+R (Mac) or Ctrl+F5 (Windows)
+```
+
+### Recent Significant Updates
+
+- **Nov 15, 2025**: Fixed git repository setup issue + deployed fundadores v3-simplified
 - **Nov 11, 2025**: Business dates updated (10 Nov - 01 Dic - 02 Mar) + MENTOR role emphasis
 - **Nov 11, 2025**: Founder spots counter paused at 150 (static)
 - Nov 7, 2025: PageSpeed optimizations (defer tracking.js, preconnect Supabase)
 - Oct 26, 2025: Massive cleanup (70+ obsolete files removed)
 - Oct 26, 2025: Email redirect fix for Founders
 
+### Standard Git Operations
+
 When committing:
 - **Never commit** `.env.local` or any files with API keys
 - **Do commit** `knowledge_base/` SQL files (they document schema changes)
 - Use descriptive commit messages following existing pattern (emojis optional)
+- **Always verify** git status before starting work
+- **Always check GitHub** after pushing to confirm changes uploaded

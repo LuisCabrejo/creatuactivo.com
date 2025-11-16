@@ -223,7 +223,7 @@ const PackageCard = ({
     <div className="p-8 flex-grow flex flex-col">
       <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
       <div className="mb-4">
-        <span className="text-sm text-slate-400">Inversión en tu activo</span>
+        <span className="text-sm text-slate-400">Inversión inicial</span>
         <div>
           <span className="text-4xl font-extrabold text-white">${priceUSD}</span>
           <span className="text-slate-400"> USD</span>
@@ -232,7 +232,7 @@ const PackageCard = ({
       </div>
 
       <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg mb-6">
-        <p className="text-sm text-blue-400 font-semibold mb-2">POR QUÉ ESTE PAQUETE:</p>
+        <p className="text-sm text-blue-400 font-semibold mb-2">POR QUÉ ESTA OPCIÓN:</p>
         <p className="text-slate-300 text-sm italic">{purpose}</p>
       </div>
 
@@ -248,7 +248,7 @@ const PackageCard = ({
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 font-semibold mb-3">LO QUE CONSTRUYES:</p>
+      <p className="text-xs text-slate-400 font-semibold mb-3">LO QUE RECIBES:</p>
       <ul className="space-y-3 text-slate-300 flex-grow mb-8">
         {features.map((feature, index) => (
           <li key={index} className="flex items-start">
@@ -274,7 +274,7 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
   // Function to parse simple markdown-like formatting with keyword highlighting
   const parseAnswer = (text: string) => {
     // Keywords to highlight in amber/gold
-    const keywords = ['FALLAR', 'TODOS', 'QUIENES YA CREEN', 'CONVENCER ESCÉPTICOS', 'ENCONTRAR believers', 'VERIFICA', 'PREGUNTA REAL', 'VERDAD', 'LA VENTAJA', 'TU TRABAJO', 'MERECEN', 'ARQUITECTURA', 'TIEMPO', 'PATRIMONIO', 'LIBERTAD'];
+    const keywords = ['FALLAR', 'TODOS', 'QUIENES YA CREEN', 'CONVENCER ESCÉPTICOS', 'ENCONTRAR believers', 'VERIFICA', 'PREGUNTA REAL', 'VERDAD', 'LA VENTAJA', 'TU TRABAJO', 'MERECEN', 'TIEMPO', 'LIBERTAD'];
 
     const highlightKeywords = (content: string) => {
       let result = content;
@@ -495,7 +495,7 @@ export default function PresentacionEmpresarialPage() {
             <TestimonialMicro
               quote="Cuando Luis me dijo 'tu tiempo es más valioso que dinero', algo hizo clic. Llevaba 15 años intercambiando mi vida por un salario. Ya no más."
               author="Carlos M."
-              role="Constructor Empresarial"
+              role="Fundador"
             />
           </section>
 
@@ -520,14 +520,14 @@ export default function PresentacionEmpresarialPage() {
                   ]}
                 />
                 <ContrastColumn
-                  title="Camino Arquitecto"
+                  title="La Forma Nueva"
                   color="new"
                   items={[
-                    "Construir 3-5 años, cosechar 30+",
-                    "Construyes activo que trabaja solo",
+                    "Trabajar 3-5 años, cosechar 30+",
+                    "Creas el sistema que trabaja cuando tú no trabajas",
                     "Tu ingreso es independiente de ti",
-                    "Activo heredable multi-generacional",
-                    '"Diseño mi libertad financiera"'
+                    "Lo dejas a tus hijos y nietos",
+                    '"Creo mi propia libertad"'
                   ]}
                 />
               </div>
@@ -547,31 +547,31 @@ export default function PresentacionEmpresarialPage() {
             <div className="max-w-7xl mx-auto">
               <SectionHeader
                 title="Cómo Lo Hacemos Diferente"
-                subtitle="No te convertimos en vendedor. Te convertimos en ARQUITECTO."
+                subtitle="No eres vendedor. Eres dueño de algo que trabaja por ti."
               />
 
               <div className="grid md:grid-cols-3 gap-8">
                 <HOWPillar
                   icon={<ShieldCheck size={40} />}
-                  title="Motor: Ventaja Competitiva"
-                  porque="mereces construir sobre algo defendible, algo que nadie pueda copiar"
-                  description="Producto con patente mundial de Gano Excel (30+ años). No compites en un mercado saturado. Creas tu propia categoría."
+                  title="El Producto Especial"
+                  porque="mereces algo que nadie más tiene"
+                  description="Producto con patente mundial de Gano Excel (30+ años). No compites con nadie. Tienes algo único."
                   iconColor="text-green-400"
                   iconBg="bg-green-500/10"
                 />
                 <HOWPillar
                   icon={<Target size={40} />}
-                  title="Metodología Simple"
-                  porque="la complejidad mata sueños y el éxito debe ser replicable"
-                  description="Framework IAA (Iniciar, Acoger, Activar). Tan simple que un niño lo entiende. Tan poderoso que escala a millones."
+                  title="El Método Simple"
+                  porque="lo que funciona debe ser tan fácil que cualquiera pueda repetirlo"
+                  description="Método Probado IAA (Iniciar, Acoger, Activar). Tan simple que un niño lo entiende. Tan poderoso que escala a millones."
                   iconColor="text-orange-400"
                   iconBg="bg-orange-500/10"
                 />
                 <HOWPillar
                   icon={<Zap size={40} />}
-                  title="Maquinaria: IA que Trabaja"
-                  porque="tu tiempo es más valioso respondiendo las mismas preguntas repetitivamente"
-                  description="Sistema NEXUS automatiza el 80% del trabajo. Educa, gestiona, escala. Mientras tú recuperas tu tiempo con tu familia."
+                  title="La Tecnología que Trabaja por Ti"
+                  porque="mereces tener acceso a la mejor tecnología, un especialista en conversión trabajando 24/7 para ti"
+                  description="NEXUS responde profesionalmente, explica el valor de Gano Excel, identifica interés real, y convierte prospectos. Mientras tú vives tu vida."
                   iconColor="text-purple-400"
                   iconBg="bg-purple-500/10"
                 />
@@ -582,7 +582,7 @@ export default function PresentacionEmpresarialPage() {
                   ¿Ves la diferencia?
                 </p>
                 <p className="text-xl text-slate-400 leading-relaxed">
-                  No te damos un "negocio". Te damos la <span className="text-purple-400 font-semibold">arquitectura completa</span> para construir tu patrimonio.
+                  No te damos un "negocio". Te damos <span className="text-purple-400 font-semibold">un sistema completo</span> que genera ingresos para ti.
                 </p>
               </div>
             </div>
@@ -591,9 +591,9 @@ export default function PresentacionEmpresarialPage() {
           {/* Testimonio Micro 2 */}
           <section className="max-w-3xl mx-auto my-20">
             <TestimonialMicro
-              quote="La diferencia real no es el producto. Es el SISTEMA. Por primera vez en mi vida, el sistema trabaja para mí, no yo para el sistema."
+              quote="El producto es extraordinario, pero lo revolucionario es el SISTEMA completo. Por primera vez en mi vida, tengo algo que trabaja para mí, no yo para él."
               author="María G."
-              role="Constructora Visionaria"
+              role="Fundadora"
             />
           </section>
 
@@ -611,7 +611,7 @@ export default function PresentacionEmpresarialPage() {
                     9 Años
                   </div>
                   <p className="text-slate-400 mb-3">de Liderazgo Probado</p>
-                  <p className="text-sm text-slate-500">2,847 constructores exitosos sin tecnología</p>
+                  <p className="text-sm text-slate-500">2,847 personas exitosas sin tecnología</p>
                 </div>
                 <div className="creatuactivo-component-card p-8 text-center">
                   <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
@@ -640,10 +640,10 @@ export default function PresentacionEmpresarialPage() {
                     />
                     <div className="text-left">
                       <p className="text-slate-300 text-lg lg:text-xl italic leading-relaxed mb-6">
-                        "Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad. Una decisión puede cambiarlo todo. Aquí encontré la arquitectura para cumplir mis sueños."
+                        "Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad. Una decisión puede cambiarlo todo. Aquí encontré lo necesario para cumplir mis sueños."
                       </p>
                       <p className="font-bold text-white text-xl">Liliana Patricia Moreno</p>
-                      <p className="text-purple-400 font-semibold mb-4">Constructora Diamante</p>
+                      <p className="text-purple-400 font-semibold mb-4">Líder Diamante</p>
                       <a
                         href="https://www.facebook.com/share/v/17CLotD3R2/"
                         target="_blank"
@@ -664,17 +664,17 @@ export default function PresentacionEmpresarialPage() {
           <section className="py-20 lg:py-28 px-4 bg-slate-900/70 rounded-3xl">
             <div className="max-w-7xl mx-auto">
               <SectionHeader
-                title="Visualiza Tu Libertad"
-                subtitle="Estos números no son solo cifras. Son horas con tus hijos. Son meses de libertad financiera. Son generaciones de legado."
+                title="Visualiza Tus Resultados"
+                subtitle="Estos números no son solo cifras. Son horas con tus hijos. Son meses de independencia financiera. Son generaciones de legado."
               />
 
               <div className="max-w-4xl mx-auto mb-12 p-8 bg-blue-500/5 border border-blue-500/20 rounded-xl">
                 <p className="text-xl text-slate-200 leading-relaxed text-center">
-                  Tu activo tiene <span className="text-purple-400 font-bold">12 formas de generar valor</span>.
+                  <span className="text-purple-400 font-bold">12 formas de ganar dinero</span>.
                   <br /><br />
-                  Aquí visualizamos las dos que construyen el cimiento de tu libertad:
+                  Las dos principales:
                   <br />
-                  <span className="text-blue-400 font-semibold">Capitalización Inicial</span> y <span className="text-green-400 font-semibold">Flujo Residual</span>.
+                  <span className="text-blue-400 font-semibold">Bonos por paquetes empresariales</span> (ingreso activo) y <span className="text-green-400 font-semibold">Bonos semanales por consumo</span> (ingreso residual).
                 </p>
               </div>
 
@@ -683,10 +683,10 @@ export default function PresentacionEmpresarialPage() {
                 <div className="creatuactivo-component-card p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <Sparkles className="text-blue-400" size={28} />
-                    <h3 className="text-xl font-bold text-white">Etapa 1: Flujo de Capitalización</h3>
+                    <h3 className="text-xl font-bold text-white">Bonos por Paquetes Empresariales</h3>
                   </div>
                   <p className="text-slate-400 mb-6 text-sm">
-                    Cuando personas en tu arquitectura deciden construir sus propios activos empresariales, generas un flujo de capitalización inicial.
+                    Cuando personas en tu equipo adquieren paquetes empresariales, ganas bonos inmediatos (ingreso activo).
                   </p>
 
                   <div className="mb-4">
@@ -702,20 +702,20 @@ export default function PresentacionEmpresarialPage() {
                         onClick={() => setSelectedPackage('ESP2')}
                         className={`w-1/3 p-2 text-sm rounded-md transition ${selectedPackage === 'ESP2' ? 'bg-[var(--creatuactivo-blue)] text-white' : 'text-slate-300'}`}
                       >
-                        Empresarial
+                        Completa
                       </button>
                       <button
                         onClick={() => setSelectedPackage('ESP3')}
                         className={`w-1/3 p-2 text-sm rounded-md transition ${selectedPackage === 'ESP3' ? 'bg-[var(--creatuactivo-purple)] text-white' : 'text-slate-300'}`}
                       >
-                        Visionario
+                        Premium
                       </button>
                     </div>
                   </div>
 
                   <div className="mb-6">
                     <label htmlFor="packageSlider" className="block text-center text-slate-300 mb-2 text-sm">
-                      2. Número de Arquitectos: <span className="font-bold text-white text-lg">{packageCount}</span>
+                      2. Número de Personas: <span className="font-bold text-white text-lg">{packageCount}</span>
                     </label>
                     <input
                       type="range"
@@ -729,7 +729,7 @@ export default function PresentacionEmpresarialPage() {
                   </div>
 
                   <div className="bg-blue-900/30 border border-blue-500/30 p-6 rounded-xl text-center">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Flujo de Capitalización</p>
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Bono Inmediato</p>
                     <p className="text-4xl font-extrabold text-blue-400 mb-1">
                       ${fastStartBonusUSD.toLocaleString('en-US')} USD
                     </p>
@@ -741,15 +741,15 @@ export default function PresentacionEmpresarialPage() {
                 <div className="creatuactivo-component-card p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <TrendingUp className="text-green-400" size={28} />
-                    <h3 className="text-xl font-bold text-white">Etapa 2: Flujo Residual</h3>
+                    <h3 className="text-xl font-bold text-white">Bonos Semanales por Consumo</h3>
                   </div>
                   <p className="text-slate-400 mb-6 text-sm">
-                    A medida que tu arquitectura crece y personas consumen producto regularmente, tu flujo residual mensual se construye.
+                    Ganas de manera recurrente cada vez que hay compras en tu sistema de distribución (ingreso residual semanal).
                   </p>
 
                   <div className="mb-6">
                     <label htmlFor="teamSlider" className="block text-center text-slate-300 mb-2 text-sm">
-                      Personas consumiendo en tu activo: <span className="font-bold text-white text-lg">{teamSize}</span>
+                      Personas consumiendo en tu equipo: <span className="font-bold text-white text-lg">{teamSize}</span>
                     </label>
                     <input
                       type="range"
@@ -764,7 +764,7 @@ export default function PresentacionEmpresarialPage() {
                   </div>
 
                   <div className="bg-green-900/30 border border-green-500/30 p-6 rounded-xl text-center">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Ingreso Residual Mensual</p>
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Bonos Semanales (Estimado Mensual)</p>
                     <p className="text-4xl font-extrabold text-green-400 mb-1">
                       ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
                     </p>
@@ -793,65 +793,65 @@ export default function PresentacionEmpresarialPage() {
             <div className="max-w-7xl mx-auto">
               <SectionHeader
                 title="Tu Punto de Entrada"
-                subtitle="Esto no es un 'paquete'. Es la fundación de tu activo patrimonial."
+                subtitle="Esto no es un 'paquete'. Es el inicio de algo que te dará dinero por años."
               />
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
                 <PackageCard
-                  title="Arquitecto Inicial"
+                  title="Opción Básica"
                   priceUSD="200"
                   priceCOP="900.000"
-                  purpose="Para quienes quieren validar que este camino es el correcto antes de comprometer recursos mayores. Porque creemos que debes sentirte seguro antes de escalar."
+                  purpose="Para quienes quieren probar primero antes de comprometer más dinero. Porque creemos que debes sentirte seguro antes de dar el siguiente paso."
                   features={[
-                    "Base arquitectónica completa (Framework IAA)",
-                    "Inventario para validar el modelo",
-                    "Acceso total al ecosistema tecnológico",
-                    "Comunidad de Arquitectos fundadores"
+                    "Todo el sistema (Framework IAA)",
+                    "Inventario para probar el modelo",
+                    "Acceso total a la plataforma completa",
+                    "Comunidad de Fundadores"
                   ]}
                   bonusMonths={2}
                   bonusPlan="Plan Cimiento"
                   bonusIcon={<Zap size={20}/>}
-                  ctaText="Iniciar Mi Construcción"
+                  ctaText="Empezar Aquí"
                 />
 
                 <PackageCard
-                  title="Arquitecto Empresarial"
+                  title="Opción Completa"
                   priceUSD="500"
                   priceCOP="2.250.000"
-                  purpose="Para quienes ya decidieron y quieren posición estratégica sólida. Porque creemos que el compromiso real merece recursos reales."
+                  purpose="Para quienes ya decidieron y quieren una posición más fuerte. Porque creemos que cuando te comprometes de verdad, mereces más herramientas."
                   features={[
-                    "Todo lo del Arquitecto Inicial +",
-                    "Inventario para operación profesional",
-                    "Consultoría estratégica prioritaria",
-                    "Mentoría personalizada mensual"
+                    "Todo lo de la Opción Básica +",
+                    "Inventario para trabajar profesionalmente",
+                    "Apoyo prioritario",
+                    "Mentoría personalizada cada mes"
                   ]}
                   bonusMonths={4}
                   bonusPlan="Plan Estructura"
                   bonusIcon={<Rocket size={20}/>}
-                  ctaText="Escalar Mi Activo"
+                  ctaText="Crecer Más Rápido"
                 />
 
                 <PackageCard
-                  title="Arquitecto Visionario"
+                  title="Opción Premium"
                   priceUSD="1,000"
                   priceCOP="4.500.000"
-                  purpose="Para quienes piensan en grande y quieren máximo potencial desde día uno. Porque creemos que la visión audaz merece herramientas excepcionales."
+                  purpose="Para quienes piensan en grande y quieren todo desde el día uno. Porque creemos que la ambición merece las mejores herramientas."
                   features={[
-                    "Todo lo del Arquitecto Empresarial +",
+                    "Todo lo de la Opción Completa +",
                     "Inventario premium de máximo potencial",
-                    "Consultoría estratégica VIP directa",
-                    "Acceso prioritario a nuevas features"
+                    "Apoyo VIP directo",
+                    "Acceso prioritario a nuevas funciones"
                   ]}
                   bonusMonths={6}
                   bonusPlan="Plan Rascacielos"
                   bonusIcon={<Crown size={20}/>}
-                  ctaText="Maximizar Mi Arquitectura"
+                  ctaText="Maximizar Desde Ya"
                 />
               </div>
 
               <div className="mt-12 text-center max-w-2xl mx-auto p-6 bg-slate-800/50 border border-slate-700 rounded-xl">
                 <p className="text-slate-300 text-sm">
-                  <span className="font-semibold text-white">Nota importante:</span> Cada inversión es en producto de Gano Excel que puedes consumir o distribuir. No es un "gasto", es inventario de tu activo.
+                  <span className="font-semibold text-white">Nota importante:</span> Cada inversión es en producto de Gano Excel que puedes consumir o distribuir. No es un "gasto", es inventario para tu negocio.
                 </p>
               </div>
             </div>
@@ -883,11 +883,11 @@ export default function PresentacionEmpresarialPage() {
 
 **PERO AQUÍ ESTÁ LA VERDAD:**
 
-Si aplicas el Framework IAA, usas la tecnología que te damos, y te mantienes conectado con la comunidad de Arquitectos...
+Si aplicas el Framework IAA, usas la tecnología que te damos, y te mantienes conectado con la comunidad de Fundadores...
 
 **El "fracaso" técnicamente no existe.**
 
-Porque o construyes el activo... o aprendes habilidades valiosas que usarás toda tu vida.
+Porque o lo logras... o aprendes habilidades valiosas que usarás toda tu vida.
 
 **En ambos casos, ganas.**
 
@@ -911,7 +911,7 @@ Tú decides qué es más aterrador.`}
 Necesitas encontrar a los que YA creen que:
 
 • **El tiempo es más valioso que dinero**
-• **Construir patrimonio es posible para personas comunes**
+• **Crear algo propio es posible para personas comunes**
 • **Hay otra forma más allá del empleo tradicional**
 
 Esas personas existen. De hecho, **2,847 ya lo demostraron**.
@@ -932,7 +932,7 @@ Entonces déjame darte **transparencia total:**
 
 • ✓ **Gano Excel:** 30+ años operando. Búscalo. Lee su historia.
 • ✓ **Patente mundial:** Número de patente verificable públicamente.
-• ✓ **Trayectoria de 9 años:** 2,847 constructores. Testimonios reales.
+• ✓ **Trayectoria de 9 años:** 2,847 personas. Testimonios reales.
 • ✓ **Tecnología propia:** CreaTuActivo.com. Lo estás usando ahora mismo.
 
 **LO QUE NO SOMOS:**
@@ -947,7 +947,7 @@ Entonces déjame darte **transparencia total:**
 **No me creas a MÍ.**
 
 • Habla con Liliana Patricia Moreno.
-• Habla con otros constructores.
+• Habla con otros fundadores.
 • Revisa los documentos legales.
 • Haz tus propias verificaciones.
 
@@ -973,7 +973,7 @@ Probablemente porque tu tiempo actual está siendo consumido por cosas que **no 
 Si la respuesta es:
 
 • **Para estar con mi familia**
-• **Para construir libertad financiera**
+• **Para tener libertad financiera**
 • **Para dejar legado**
 
 **Entonces SÍ tienes tiempo.**
@@ -1010,13 +1010,13 @@ Solo tú sabes tu WHY.`}
 
                 <div className="space-y-6 text-xl text-slate-300 leading-relaxed mb-12">
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">la vida es demasiado corta</span> para intercambiarla por dinero...
+                    Si crees que <span className="text-blue-400 font-semibold">las cosas no tienen porque ser difíciles</span>...
                   </p>
                   <p>
-                    Si crees que <span className="text-purple-400 font-semibold">tu familia merece tu tiempo</span>, no solo tu provisión...
+                    Si crees que <span className="text-blue-400 font-semibold">mereces vivir una vida extraordinaria</span>, no solo sobrevivir...
                   </p>
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">deberías construir legado</span>, no solo sobrevivir...
+                    Si crees que <span className="text-green-400 font-semibold">mereces seguridad, estabilidad y tranquilidad financiera</span>...
                   </p>
                 </div>
 
@@ -1036,11 +1036,11 @@ Solo tú sabes tu WHY.`}
                 </div>
 
                 <Link href="/fundadores" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center mb-8">
-                  Unirme al Movimiento de Arquitectos <ArrowRight size={24} className="ml-2" />
+                  Empezar Ahora <ArrowRight size={24} className="ml-2" />
                 </Link>
 
                 <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-                  Al hacer clic, serás redirigido a la página de fundadores donde podrás aplicar para una consultoría estratégica personalizada.
+                  Al hacer clic, serás redirigido a la página de fundadores donde podrás aplicar para una consulta personalizada.
                   No es un "compra ya". Es una invitación a explorar si esto se alinea con tu WHY.
                 </p>
               </motion.div>
@@ -1051,7 +1051,7 @@ Solo tú sabes tu WHY.`}
           <footer className="border-t border-white/10 py-8">
             <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
               <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-              <p className="mt-2">El primer ecosistema tecnológico completo para construcción de activos en América.</p>
+              <p className="mt-2">La primera plataforma completa para crear tu negocio en América.</p>
             </div>
           </footer>
         </main>

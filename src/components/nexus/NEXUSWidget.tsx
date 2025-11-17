@@ -107,11 +107,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     handleSendMessage(inputMessage);
   };
 
-  const quickReplies = [
-    { text: '¿Cómo funciona exactamente el negocio?', icon: '⚙️' },
-    { text: '¿Cómo funciona el sistema de distribución?', icon: '💎' },
-    { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' }
-  ];
+  // 🎯 Detectar si estamos en página de productos (asesor de salud)
+  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+
+  // Quick Replies dinámicas según contexto
+  const quickReplies = isProductsPage
+    ? [
+        { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' },
+        { text: '¿Qué estudios científicos respaldan los beneficios?', icon: '🔬' },
+        { text: '¿Es seguro consumir Ganoderma diariamente?', icon: '✅' }
+      ]
+    : [
+        { text: '¿Cómo funciona exactamente el negocio?', icon: '💡' },
+        { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' },
+        { text: '¿Cuánto necesito para empezar?', icon: '💰' }
+      ];
 
   if (!isOpen) return null;
 
@@ -271,8 +281,19 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 >
                   <div className="flex-1 p-2 md:p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
                     <p className="font-semibold text-white mb-2">Hola, soy NEXUS</p>
-                    <p className="mb-3">Estoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un <span className="text-amber-400 font-semibold">activo patrimonial real</span>, donde la tecnología trabaja para ti 24/7.</p>
-                    <p>¿Qué aspecto del sistema te interesa conocer?</p>
+                    {isProductsPage ? (
+                      <>
+                        <p className="mb-3">Soy tu asesor de <span className="text-emerald-400 font-semibold">salud y bienestar</span>.</p>
+                        <p className="mb-3">Estoy aquí para ayudarte a entender cómo Ganoderma lucidum puede apoyar tu bienestar, respaldado por más de 2,000 estudios científicos.</p>
+                        <p>¿Qué te gustaría saber sobre los productos?</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mb-3">Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el <span className="text-amber-400 font-semibold">sistema</span>.</p>
+                        <p className="mb-3">Nosotros aplicamos esa misma filosofía. Te ayudamos a construir <span className="text-amber-400 font-semibold">TU sistema</span>.</p>
+                        <p>¿Por dónde empezamos?</p>
+                      </>
+                    )}
                   </div>
                 </div>
               )}

@@ -32,8 +32,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL SIMPLIFICADO - Coordinado con NEXUSWidget
-        content: 'Hola, soy NEXUS\n\nEstoy aquí para explicarte cómo la construcción de un sistema de distribución del siglo XXI te permite construir un activo patrimonial real, donde la tecnología trabaja para ti 24/7.\n\n¿Qué aspecto del sistema te interesa conocer?'
+        // 🔧 MENSAJE INICIAL Jobs-Style - Coordinado con NEXUSWidget
+        content: 'Hola, soy NEXUS\n\nPiénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.\n\nNosotros aplicamos esa misma filosofía. Te ayudamos a construir TU sistema.\n\n¿Por dónde empezamos?'
       }
     ]
   });

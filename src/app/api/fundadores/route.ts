@@ -15,7 +15,14 @@ import { FounderConfirmationEmail } from '@/emails/FounderConfirmation';
 import { BRAND } from '@/lib/branding'; // ← USAR IMPORTACIÓN ÚNICA
 import { createClient } from '@supabase/supabase-js';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// ✅ FIX: Lazy initialization para evitar error en build-time
+let resendClient: Resend | null = null;
+function getResendClient(): Resend {
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+}
 
 // Supabase client
 const supabase = createClient(
@@ -474,7 +481,7 @@ export async function POST(request: NextRequest) {
     `;
 
     // ✅ ENVÍO EMAIL INTERNO
-    const { data: mainEmail, error: mainError } = await resend.emails.send({
+    const { data: mainEmail, error: mainError } = await getResendClient().emails.send({
       from: 'Sistema CreaTuActivo <sistema@creatuactivo.com>',
       to: 'sistema@creatuactivo.com',
       subject: `🚀 Nueva Solicitud: ${formData.nombre}`,
@@ -495,7 +502,7 @@ export async function POST(request: NextRequest) {
 
     try {
       // Intentar con React Email primero
-      const { data: confirmationEmail, error: confirmationError } = await resend.emails.send({
+      const { data: confirmationEmail, error: confirmationError } = await getResendClient().emails.send({
         from: 'CreaTuActivo <noreply@creatuactivo.com>',
         to: formData.email,
         subject: `✅ Confirmación de Solicitud - ${firstName}`,
@@ -603,7 +610,7 @@ export async function POST(request: NextRequest) {
       `;
 
       // Enviar email de fallback
-      const { data: fallbackEmail } = await resend.emails.send({
+      const { data: fallbackEmail } = await getResendClient().emails.send({
         from: 'CreaTuActivo <noreply@creatuactivo.com>',
         to: formData.email,
         subject: `✅ Confirmación de Solicitud - ${firstName}`,

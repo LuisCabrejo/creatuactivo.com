@@ -22,13 +22,21 @@ export const maxDuration = 30; // 30 segundos para consumir batch
 export const dynamic = 'force-dynamic'; // Fuerza renderizado dinámico (fix despliegue Vercel)
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY!;
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const CONFLUENT_BOOTSTRAP_SERVER = process.env.CONFLUENT_BOOTSTRAP_SERVER!;
 const CONFLUENT_API_KEY = process.env.CONFLUENT_API_KEY!;
 const CONFLUENT_API_SECRET = process.env.CONFLUENT_API_SECRET!;
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+// ✅ FIX: Lazy initialization de Supabase client para build-time
+let supabaseClient: ReturnType<typeof createClient> | null = null;
+function getSupabaseClient() {
+  if (!supabaseClient) {
+    supabaseClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseClient;
+}
 
 // Configuración de Kafka
 const kafka = new Kafka({
@@ -197,7 +205,7 @@ async function processMessage(payload: QueueMessage): Promise<ProspectData> {
   if (payload.fingerprint && Object.keys(extractedData).length > 0) {
     console.log('💾 [CONSUMIDOR] Guardando datos en BD...');
 
-    const { data: saveResult, error: saveError } = await supabase.rpc('update_prospect_data', {
+    const { data: saveResult, error: saveError } = await getSupabaseClient().rpc('update_prospect_data', {
       p_fingerprint_id: payload.fingerprint,
       p_data: extractedData
     });

@@ -16,10 +16,17 @@
 import { createClient } from '@supabase/supabase-js';
 import { nanoid } from 'nanoid';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// ✅ FIX: Lazy initialization de Supabase client para build-time
+let supabaseClient: ReturnType<typeof createClient> | null = null;
+function getSupabaseClient() {
+  if (!supabaseClient) {
+    supabaseClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseClient;
+}
 
 // Edge runtime compatible (no necesitamos Node.js)
 export const runtime = 'edge';
@@ -87,7 +94,7 @@ export async function POST(req: Request) {
     const messageId = nanoid();
 
     // Encolar mensaje en Supabase (idempotente por session_id)
-    const { data: queueId, error: enqueueError } = await supabase.rpc('enqueue_nexus_message', {
+    const { data: queueId, error: enqueueError } = await getSupabaseClient().rpc('enqueue_nexus_message', {
       p_messages: payload.messages,
       p_session_id: payload.sessionId,
       p_fingerprint: payload.fingerprint || null,

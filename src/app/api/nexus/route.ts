@@ -25,9 +25,16 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// ✅ FIX: Lazy initialization de Supabase client para build-time
+let supabaseClient: ReturnType<typeof createClient> | null = null;
+function getSupabaseClient() {
+  if (!supabaseClient) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  }
+  return supabaseClient;
+}
 
 export const runtime = 'edge';
 export const maxDuration = 30; // ✅ OPTIMIZACIÓN: 30s buffer para requests pesados
@@ -1036,7 +1043,7 @@ async function consultarCatalogoProductos(query: string): Promise<any[]> {
   try {
     // Buscar por category (más confiable) o por pattern de título
     // NOTA: No usar id.eq.8 porque la tabla usa UUIDs, no integers
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
       .select('id, title, content, category, metadata')
       .or('category.eq.catalogo_productos,title.ilike.%Catálogo%Productos%')
@@ -1132,7 +1139,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     console.log('🔬 Consulta dirigida: PRODUCTOS CIENCIA (beneficios científicos)');
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseClient()
         .from('nexus_documents')
         .select('id, title, content, category, metadata')
         .eq('category', 'productos_ciencia')
@@ -1169,7 +1176,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     console.log(`📚 Consulta dirigida: ${documentType.toUpperCase()}`);
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseClient()
         .from('nexus_documents')
         .select('id, title, content, category, metadata')
         .eq('category', documentType)
@@ -1204,7 +1211,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   const searchTerms = conceptos.length > 0 ? conceptos.join(' ') : query;
 
   try {
-    const { data, error } = await supabase.rpc('search_nexus_documents', {
+    const { data, error } = await getSupabaseClient().rpc('search_nexus_documents', {
       search_query: searchTerms,
       match_count: maxResults
     });
@@ -1250,7 +1257,7 @@ async function getSystemPrompt(): Promise<string> {
   console.log('🔄 Recargando system prompt desde Supabase...');
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('system_prompts')
       .select('prompt, version')
       .eq('name', 'nexus_main')

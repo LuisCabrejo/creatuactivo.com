@@ -643,8 +643,8 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /qué.*incluye.*ESP/i
   ];
 
-  // 🌿 NUEVA PRIORIDAD 1: BENEFICIOS DE PRODUCTOS (arsenal_productos)
-  // Detecta preguntas sobre beneficios, propiedades, Ganoderma, salud
+  // 🌿 PRIORIDAD 1: BENEFICIOS CIENTÍFICOS (productos_ciencia)
+  // Detecta preguntas sobre beneficios, propiedades, Ganoderma, estudios científicos
   const patrones_beneficios_productos = [
     // Beneficios generales
     /beneficios.*productos/i,
@@ -699,8 +699,8 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   ];
 
   if (patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
-    console.log('🌿 Clasificación: BENEFICIOS PRODUCTOS (arsenal_productos)');
-    return 'arsenal_productos';
+    console.log('🔬 Clasificación: CIENCIA GANODERMA (productos_ciencia)');
+    return 'productos_ciencia';
   }
 
   // 🔧 PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
@@ -1127,26 +1127,26 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // 🌿 NUEVA LÓGICA: CONSULTA DE ARSENAL PRODUCTOS (beneficios, Ganoderma, ciencia)
-  if (documentType === 'arsenal_productos') {
-    console.log('🌿 Consulta dirigida: ARSENAL PRODUCTOS (beneficios y ciencia)');
+  // 🔬 NUEVA LÓGICA: CONSULTA DE PRODUCTOS CIENCIA (beneficios científicos Ganoderma)
+  if (documentType === 'productos_ciencia') {
+    console.log('🔬 Consulta dirigida: PRODUCTOS CIENCIA (beneficios científicos)');
 
     try {
       const { data, error } = await supabase
         .from('nexus_documents')
         .select('id, title, content, category, metadata')
-        .eq('category', 'arsenal_productos')
+        .eq('category', 'productos_ciencia')
         .limit(1);
 
       if (error) {
-        console.error('Error consultando arsenal_productos:', error);
+        console.error('Error consultando productos_ciencia:', error);
       } else if (data && data.length > 0) {
-        const arsenalProductos = data[0];
-        console.log('✅ Arsenal Productos encontrado:', arsenalProductos.title);
+        const productosCiencia = data[0];
+        console.log('✅ Productos Ciencia encontrado:', productosCiencia.title);
 
         const result = {
-          ...arsenalProductos,
-          search_method: 'arsenal_productos',
+          ...productosCiencia,
+          search_method: 'productos_ciencia',
           source: '/knowledge_base/arsenal_productos_beneficios.txt'
         };
 
@@ -1157,10 +1157,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
         return [result];
       } else {
-        console.warn('⚠️ Arsenal Productos no encontrado en Supabase (aún no insertado)');
+        console.warn('⚠️ Productos Ciencia no encontrado en Supabase (ejecutar EJECUTAR_7_productos_ciencia.sql)');
       }
     } catch (error) {
-      console.error('Error accediendo arsenal_productos:', error);
+      console.error('Error accediendo productos_ciencia:', error);
     }
   }
 
@@ -2020,36 +2020,45 @@ Estas son las preguntas con mayor frecuencia y conversión. Si el usuario pregun
 ### FAQ_01: "¿Cómo funciona el negocio?" (Flujo completo de 3 niveles)
 
 **NIVEL 1 - LA VISIÓN:**
-Esa es la pregunta correcta, y la respuesta redefine el juego. Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.
+Esa es la pregunta correcta, y la respuesta redefine el juego.
 
-Nosotros aplicamos esa misma filosofía. Ayudamos a personas con mentalidad de constructor a crear su propio sistema de distribución, por donde fluyen cientos de productos únicos de Gano Excel y Gano Itouch todos los días.
+**Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros.**
+Construyó Amazon, el **sistema** donde millones de libros se venden cada día.
 
-**Preguntas de seguimiento sugeridas:**
-➡️ ¿Quieres saber cómo lo hacemos posible?
+Nosotros aplicamos esa misma filosofía. Tú no vendes productos. Construyes un sistema por donde fluyen productos todos los días.
+
+**Preguntas por defecto:**
+➡️ ¿Cómo puedo YO tener un sistema así?
 ⚙️ ¿Qué es un "sistema de distribución"?
-📦 ¿Qué productos son?
+📦 ¿Qué productos distribuye el sistema?
 
-**NIVEL 2 - LA ARQUITECTURA:**
-Lo hacemos posible entregándote una arquitectura donde tú te enfocas en el 20% del trabajo que es puramente estratégico, mientras la maquinaria tecnológica de NodeX y NEXUS se encarga del 80% del trabajo pesado y operativo. Es un modelo de apalancamiento real.
+**NIVEL 2 - CÓMO FUNCIONA:**
+Tu sistema tiene tres componentes que trabajan juntos:
 
-**Preguntas de seguimiento sugeridas:**
-➡️ Explícame el 80% que hace la tecnología
-🧠 ¿Cuál es mi 20% estratégico?
-💡 ¿Cómo se ve eso en la práctica?
+**1. Productos únicos (Gano Excel)** - Patente mundial
+**2. Inteligencia artificial (NEXUS)** - Comunica el proyecto por ti
+**3. Tu aplicación (NodeX)** - Ves todo en tiempo real
 
-**NIVEL 3 - LA METODOLOGÍA:**
-Tu 20% estratégico se simplifica a nuestro Framework IAA:
+La tecnología hace el 80% del trabajo pesado. Tú haces el 20% estratégico.
 
-**INICIAR:** Eres la chispa que conecta a las personas con el ecosistema.
-**ACOGER:** Eres el consultor que aporta la confianza en el momento clave.
-**ACTIVAR:** Eres el mentor que entrega la arquitectura a un nuevo constructor.
+**Preguntas por defecto:**
+➡️ ¿Qué hace exactamente la tecnología por mí?
+🧠 ¿Qué tengo que hacer yo?
+💡 ¿Cómo funciona en la práctica?
 
-Dejas de ser el operador y te conviertes en el director de orquesta.
+**NIVEL 3 - TU TRABAJO:**
+Tu trabajo se divide en tres pasos simples:
 
-**Preguntas de seguimiento sugeridas:**
-➡️ ¿Qué herramientas tengo para INICIAR?
-🤝 ¿Cómo sé cuándo ACOGER?
-🚀 ¿Cómo es el proceso de ACTIVAR?
+**INICIAR:** Conectas personas con el sistema
+**ACOGER:** Construyes confianza en momentos clave
+**ACTIVAR:** Ayudas a otros a empezar su sistema
+
+Mientras tú vives tu vida, el sistema sigue trabajando. Mientras duermes, NEXUS sigue conversando.
+
+**Preguntas por defecto:**
+➡️ ¿Qué herramientas tengo para iniciar?
+🤝 ¿Cómo sé cuándo intervenir?
+🚀 ¿Cómo ayudo a otros a empezar?
 
 ---
 

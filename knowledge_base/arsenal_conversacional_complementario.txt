@@ -13,43 +13,45 @@ SET
 ## 🏗️ SISTEMA/CONSTRUCCIÓN (10 respuestas)
 
 ### SIST_01: "¿Cómo funciona el sistema de distribución?"
-**[Sistema de distribución]**
 
-Esta es una pregunta estratégica que revela la verdadera sofisticación de nuestro ecosistema. Aquí es donde se ve la diferencia entre un modelo tradicional y una operación de clase mundial.
+Aquí es donde se ve la diferencia real.
 
-**GANO EXCEL maneja toda la infraestructura de distribución:** Ellos operan el callcenter en cada país, el carrito de compras online, las oficinas físicas para recoger productos, todo el proceso de importación, la creación del producto patentado, el embalaje, los envíos, el recaudo de dineros, el pago de comisiones a constructores, y hasta promocionan 2 viajes internacionales anuales como recompensa para constructores destacados.
+**GANO EXCEL maneja toda la infraestructura:**
+Callcenter en cada país, carrito de compras online, oficinas físicas para recoger productos, proceso de importación, creación del producto patentado, embalaje, envíos, recaudo de dinero, pago de comisiones, y hasta 2 viajes internacionales anuales como recompensa.
 
-**TÚ como Constructor construyes los canales:** Tu rol es construir la red de consumidores y constructores. No manejas inventarios, no procesas pagos, no envías productos. Te enfocas únicamente en lo estratégico: construir las relaciones y expandir la red.
+**TÚ construyes los canales:**
+Tu rol es construir la red de consumidores y constructores. No manejas inventarios, no procesas pagos, no envías productos. Te enfocas en construir relaciones y expandir la red.
 
-**CREATUACTIVO.COM te potencia tecnológicamente:** NodeX y NEXUS son tus herramientas para construir esos canales de forma inteligente y automatizada.
+**CREATUACTIVO.COM te potencia tecnológicamente:**
+La aplicación y la IA son tus herramientas para construir esos canales de forma inteligente y automatizada.
 
-**Pregunta de seguimiento:** ¿Te gustaría que profundice en cómo construyes específicamente tu primer canal con estas herramientas?
+**Pregunta de seguimiento:** ¿Te gustaría que profundice en cómo construyes tu primer canal con estas herramientas?
 ---
 
-### SIST_02: "¿Qué herramientas tecnológicas me proporciona el ecosistema?"
-**[Herramientas tecnológicas]**
+### SIST_02: "¿Qué herramientas tecnológicas me proporciona la aplicación?"
 
-El ecosistema te entrega dos herramientas principales que trabajan en perfecta sinergia:
+Te entregamos dos herramientas principales que trabajan en perfecta sinergia:
 
-**NEXUS (Tu Copiloto de IA):** Es la inteligencia conversacional del sistema. NEXUS es tu asesor estratégico 24/7 que se encarga de las conversaciones iniciales, educa a tus constructores potenciales, responde sus preguntas y los cualifica. Es tu experto en comunicación.
+**Inteligencia Artificial:**
+Tu asesor 24/7 que se encarga de las conversaciones iniciales, educa a tus constructores potenciales, responde sus preguntas y los cualifica. Es tu experto en comunicación.
 
-**NodeX (Tu Centro de Comando):** Es la plataforma donde gestionas tu activo. Aquí es donde configuras tu perfil, obtienes tus enlaces personalizados, ves tus métricas de crecimiento y recibes los informes de inteligencia que NEXUS genera para ti. Es tu panel de control.
+**Tu aplicación:**
+Es donde gestionas tu activo. Aquí configuras tu perfil, obtienes tus enlaces personalizados, ves tus métricas de crecimiento y recibes los informes de inteligencia. Es tu panel de control.
 
-Ambas herramientas están diseñadas para trabajar como una sola entidad integrada. Mientras NEXUS maneja las conversaciones, NodeX te da la inteligencia para que sepas cuándo y cómo actuar estratégicamente.
+Ambas herramientas están diseñadas para trabajar como una sola entidad integrada. Mientras la IA maneja las conversaciones, la aplicación te da la inteligencia para que sepas cuándo y cómo actuar.
 
 **Pregunta de seguimiento:** ¿Te gustaría ver cómo interactúan estas herramientas en una situación práctica?
 ---
 
 ### SIST_03: "¿Cómo escalo mi operación estratégicamente?"
-**[Escalabilidad estratégica]**
 
-La escalabilidad está integrada en nuestra metodología propietaria: el Framework IAA. No escalas trabajando más horas, escalas ejecutando tres acciones de alto apalancamiento:
+La escalabilidad está integrada en nuestro método. No escalas trabajando más horas, escalas ejecutando tres acciones de alto apalancamiento:
 
-**INICIAR:** Usas las herramientas de inteligencia de NodeX para conectar a nuevos constructores potenciales con el ecosistema. La tecnología hace la presentación inicial.
+**INICIAR:** Usas las herramientas de inteligencia para conectar a nuevos constructores potenciales. La tecnología hace la presentación inicial.
 
-**ACOGER:** Cuando el sistema detecta un interés genuino, intervienes con tu toque humano para tener una conversación estratégica de alto valor, guiado por la inteligencia que NEXUS te proporciona.
+**ACOGER:** Cuando la aplicación detecta un interés genuino, intervienes con tu toque humano para tener una conversación de alto valor, guiado por la inteligencia que la IA te proporciona.
 
-**ACTIVAR:** Cuando un nuevo constructor se une, no lo entrenas desde cero. Le entregas una réplica exacta de tu propio ecosistema tecnológico y lo mentorizas para que ejecute su primer INICIAR.
+**ACTIVAR:** Cuando un nuevo constructor se une, no lo entrenas desde cero. Le entregas una réplica exacta de tu propio sistema tecnológico y lo mentorizas para que ejecute su primer INICIAR.
 
 La escalabilidad proviene de la duplicación del sistema, no de la duplicación de tu esfuerzo.
 
@@ -65,25 +67,21 @@ El sistema está diseñado precisamente para potenciar tu toque personal, no par
 ---
 
 ### SIST_05: "¿Qué diferencia esto de otros sistemas tecnológicos?"
-**[Diferenciación competitiva]**
 
-Operamos en una nueva categoría: ecosistema tecnológico para constructores. Cinco diferencias clave: 1) Productos únicos con patente mundial que nadie puede copiar, 2) Tecnología NodeX que automatiza el 80% del trabajo, 3) Framework IAA metodológicamente probado, 4) NEXUS como tu copiloto de IA, 5) Enfoque en construcción de activos, no solo generar ingresos. Es como comparar Uber vs taxis tradicionales.
+Operamos en una nueva categoría: sistema tecnológico completo para constructores. Cinco diferencias clave: 1) Productos únicos con patente mundial que nadie puede copiar, 2) Tecnología que automatiza el 80% del trabajo, 3) Método probado, 4) IA como tu copiloto, 5) Enfoque en construcción de activos, no solo generar ingresos. Es como comparar Uber vs taxis tradicionales.
 
 **Pregunta de seguimiento:** ¿Cuál de estos elementos resuena más contigo?
 ---
 
-### SIST_06: "¿Qué es el Modelo DEA?"
-**[Modelo DEA explicado]**
+### SIST_06: "¿Cómo funciona la división del trabajo?"
 
-El Modelo DEA es nuestra arquitectura para construir patrimonio. Es el acrónimo de Desarrollo Estratégico de Activos.
+Nuestro método se divide en dos partes:
 
-Piénsalo como nuestra filosofía de construcción, que se divide en dos partes:
+**20% Estrategia Humana:** Este eres tú, el Constructor. Tu rol se enfoca en las decisiones de alto valor que solo un humano puede tomar: construir relaciones, aportar confianza y mentorear a otros.
 
-**20% Estrategia Humana:** Este eres tú, el Constructor. Tu rol se enfoca en las decisiones de alto valor que solo un humano puede tomar: construir relaciones, aportar confianza y mentorear a otros (las acciones del Framework IAA).
+**80% Automatización Tecnológica:** Este es el sistema CreaTuActivo.com (la aplicación + IA). Se encarga de todo el trabajo pesado y repetitivo: educar a los prospectos, hacer el seguimiento, analizar datos y darte la inteligencia para que actúes.
 
-**80% Automatización Tecnológica:** Este es el ecosistema CreaTuActivo.com (NodeX y NEXUS). Se encarga de todo el trabajo pesado y repetitivo: educar a los prospectos, hacer el seguimiento, analizar datos y darte la inteligencia para que actúes.
-
-En resumen, el Modelo DEA es nuestra respuesta al "viejo mundo" del esfuerzo manual. Es la arquitectura que te permite apalancarte en la tecnología para desarrollar un activo que se escala, en lugar de un autoempleo que te consume.
+En resumen, es nuestra respuesta al "viejo mundo" del esfuerzo manual. Te permite apalancarte en la tecnología para desarrollar un activo que se escala, en lugar de un autoempleo que te consume.
 
 **Pregunta de seguimiento:** ¿Te identificas más con el rol estratégico del 20% humano o te emociona más el poder del 80% automatizado?
 ---
@@ -91,12 +89,12 @@ En resumen, el Modelo DEA es nuestra respuesta al "viejo mundo" del esfuerzo man
 ### SIST_07: "¿Qué me diferencia de los demás constructores?"
 **[Diferenciación personal]**
 
-Tu diferenciación no viene de competir con otros constructores, viene de dominar las herramientas del ecosistema. Piénsalo como tener todos la misma marca de automóvil, pero algunos saben conducir mejor que otros.
+Tu diferenciación no viene de competir con otros constructores, viene de dominar las herramientas de la aplicación. Piénsalo como tener todos la misma marca de automóvil, pero algunos saben conducir mejor que otros.
 
 Todos tenemos acceso a:
 - Los mismos productos únicos
 - La misma tecnología de automatización
-- La misma metodología Framework IAA
+- El mismo método probado
 
 Pero tu éxito viene de dominar tres habilidades específicas:
 
@@ -112,7 +110,7 @@ La tecnología se encarga del resto.
 ### SIST_08: "¿Qué tipo de personas ya están construyendo aquí?"
 **[Perfil de constructores]**
 
-El perfil de nuestros constructores es el del "Constructor Inteligente". Son diversos, pero comparten una mentalidad:
+Nuestros constructores son diversos, pero comparten una mentalidad:
 
 - Profesionales corporativos que diversifican sus ingresos con un activo real.
 - Emprendedores que ven esto como una expansión estratégica a su portafolio.
@@ -130,9 +128,9 @@ Lo que los une es que entienden que la verdadera riqueza proviene de construir s
 
 Mi rol como tu Constructor Mentor tiene tres facetas:
 
-**Guía Estratégico:** Te ayudo a dominar cada fase del Framework IAA.
-**Soporte Técnico:** Me aseguro de que maximices el poder del ecosistema tecnológico.
-**Socio en el Crecimiento:** Tu éxito fortalece todo el ecosistema, por lo que estoy invertido en tu progreso.
+**Guía Estratégico:** Te ayudo a dominar cada fase del método.
+**Soporte Técnico:** Me aseguro de que maximices el poder del sistema tecnológico.
+**Socio en el Crecimiento:** Tu éxito fortalece todo el sistema, por lo que estoy invertido en tu progreso.
 
 Es una sociedad: yo aporto el sistema probado, tú aportas la ejecución consistente.
 
@@ -142,23 +140,27 @@ Es una sociedad: yo aporto el sistema probado, tú aportas la ejecución consist
 ### SIST_10: "¿Cuál es el plan de construcción para el primer año?"
 **[Plan estratégico anual]**
 
-El plan está estructurado en tres fases claras:
+Esa es la pregunta correcta. No se trata de "qué haces", sino de "qué logras".
 
-**Meses 1-3 (Dominio):** Te enfocas en dominar el INICIAR. Validarás el modelo con tus primeras comisiones y construirás tu base de clientes.
+Desde tu primera semana ejecutas las tres acciones: compartes enlaces personalizados (INICIAR), generas confianza con tu experiencia (ACOGER), y entregas el sistema a quienes se activan (ACTIVAR). Todo desde tu aplicación.
 
-**Meses 4-6 (Expansión):** Te enfocas en dominar ACOGER y ACTIVAR. Activarás a tus primeros constructores y tu activo comenzará a generar flujos consistentes.
+**Mi objetivo para ti como Fundador en tu primer año:**
 
-**Meses 7-12 (Multiplicación):** Te enfocas en la mentoría. Tu activo comienza a operar de forma semi-autónoma y a crecer exponencialmente.
+Que construyas un árbol financiero lo suficientemente sólido para que te cuestiones si vale la pena seguir siendo empleado.
 
-Es una progresión lógica y emocionante hacia la construcción de un patrimonio real.
+Que te ganes tu primer viaje internacional como recompensa.
 
-**Pregunta de seguimiento:** ¿En cuál de estas tres fases te visualizas teniendo más éxito natural?
+Que tengas tu propio equipo de trabajo funcionando.
+
+Que te conviertas en referente de éxito. Esto es clave para la prueba social que necesitamos para llegar a la meta: 4 millones de familias beneficiadas en América para 2030. 4 millones de personas viviendo vidas extraordinarias.
+
+**Pregunta de seguimiento:** ¿Cuál de estos logros te motiva más: la libertad financiera, el reconocimiento, o formar parte de algo más grande que tú?
 
 ---
 
 ### SIST_11: "¿Qué productos Gano Excel trae específicamente cada paquete?"
 
-¡Por supuesto! Cada arquitectura está diseñada con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
+¡Por supuesto! Cada paquete está diseñado con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
 
 #### Paquete Constructor Inicial (ESP 1)
 - **Total:** 7 productos
@@ -232,47 +234,57 @@ Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Acti
 ### VAL_01: "¿Cómo se gana en el negocio?"
 **[Modelo financiero]**
 
-En nuestro ecosistema, no "ganas dinero", construyes flujos de valor. La arquitectura financiera está diseñada para recompensar la construcción de un activo real en tres fases:
+Hay tres formas de generar ingresos:
 
-**A Corto Plazo (Capitalización):** Desde tu primera semana, generas valor a través de los Bonos de Inicio Rápido al activar a tus primeros constructores. Este es el flujo que te permite validar el modelo y capitalizar tu inversión inicial rápidamente.
+**Corto plazo:**
+Bonos de Inicio Rápido cuando activas nuevos constructores. Esto te permite validar el modelo y capitalizar tu inversión inicial rápidamente.
 
-**A Mediano Plazo (Expansión):** Aquí es donde tu activo cobra vida. A través de las Comisiones de Equipo (Binario), participas del volumen total de productos que se mueven en tu canal de distribución. Tu valor ya no depende de tu acción directa, sino del poder del sistema que has construido.
+**Mediano plazo:**
+Comisiones de Equipo (Binario) del volumen de productos que se mueven en tu sistema. Tu ingreso ya no depende de tu acción directa, sino del poder del sistema que construiste.
 
-**A Largo Plazo (Legado):** En esta fase, desbloqueas los Bonos de Liderazgo y otros incentivos. Tu activo madura y se convierte en una fuente de ingresos residuales y heredables, un verdadero patrimonio.
+**Largo plazo:**
+Bonos de Liderazgo por desarrollar a otros constructores. Tu activo madura y se convierte en ingresos residuales heredables.
 
-**Pregunta de seguimiento:** ¿Cuál de estas tres fases resuena más con tu visión de construcción de activos?
+Mientras más crece tu sistema, más flujos de ingreso generas.
+
+**Pregunta de seguimiento:** ¿Cuál te interesa más: resultados inmediatos o construir ingresos a largo plazo?
 
 ---
 
-### VAL_02: "¿Puedes darme los detalles y porcentajes del modelo de valor?"
+### VAL_02: "¿Cuáles son los porcentajes?"
 **[Detalles financieros]**
 
-Esa es la pregunta de un arquitecto que analiza los planos. Por supuesto. Nuestro Modelo de Distribución de Valor es transparente y se centra en recompensar la construcción. Las tres fuentes principales son:
+Por supuesto. Aquí están los números:
 
-**Construcción Directa (GEN5):** En la fase de Capitalización, recibes bonos del 2% al 15% por los paquetes empresariales que se activan en tu canal de distribución hasta la quinta generación. Es el motor de tu retorno de inversión inicial.
+**Bonos por activar constructores:**
+Del 2% al 15% cuando alguien en tu red (hasta 5 niveles) activa su paquete inicial. Es tu retorno de inversión rápido.
 
-**Bono Binario (Comisiones de Equipo):** Este es el corazón de tu activo a mediano plazo. Ganas entre el 10% y el 17% del volumen compensado semanalmente en toda tu estructura, tanto por paquetes iniciales como por el consumo recurrente de productos.
+**Comisiones semanales del sistema:**
+Del 10% al 17% del volumen total de productos que se mueven en tu red cada semana. Esto incluye tanto paquetes iniciales como consumo recurrente.
 
-**Bonos de Liderazgo:** A mediano y largo plazo, a medida que te conviertes en un Constructor Mentor, el sistema te recompensa con bonos adicionales por el desarrollo y el éxito de los otros arquitectos en tu ecosistema.
+**Bonos de Liderazgo:**
+Cuando mentores a otros constructores, recibes bonos adicionales por su desarrollo y éxito.
 
-Es una arquitectura diseñada para recompensar tanto la velocidad inicial como la solidez a largo plazo.
+El sistema recompensa tanto la velocidad inicial como construir algo sólido a largo plazo.
 
-**Pregunta de seguimiento:** ¿Qué aspecto del modelo de compensación te parece más atractivo?
+**Pregunta de seguimiento:** ¿Qué te interesa más: los bonos rápidos o las comisiones recurrentes?
 
 ---
 
 ### VAL_03: "¿Mi ingreso depende de cuánta gente active?"
 **[Modelo de valor vs cantidad]**
 
-Esa es una pregunta de un estratega, y la respuesta revela la inteligencia de nuestro modelo. La respuesta corta es no. No ganas por activar personas, ganas por el movimiento de valor.
+No. Ganas por el volumen de productos que se mueven, no por cuántas personas actives.
 
-Piénsalo como un restaurante de alta cocina. ¿Qué genera más ingresos? ¿Una mesa de 10 personas donde 9 solo toman café, o una mesa de 2 que piden una cena completa con vino? La respuesta es obvia: el valor está en la facturación, no en el número de sillas ocupadas.
+Piénsalo como un restaurante. ¿Qué genera más dinero? ¿Una mesa de 10 personas que solo toman café, o una mesa de 2 que piden cena completa con vino?
 
-Nuestro ecosistema funciona igual. Tu activo genera valor basado en el volumen de producto que se mueve a través de tu canal de distribución.
+El valor está en lo que se consume, no en cuántas sillas ocupas.
 
-Ahora bien, como en cualquier negocio, las estadísticas son claras: un restaurante más concurrido tiene más probabilidades de tener más mesas pidiendo la cena completa. De la misma forma, un canal de distribución con más constructores y consumidores activos, estadísticamente, generará un mayor movimiento de valor. Pero el foco siempre está en el valor, no en el número.
+Lo mismo pasa aquí. Tu ingreso viene del movimiento de productos en tu red.
 
-**Pregunta de seguimiento:** ¿Prefieres enfocarte en la calidad de las conexiones o en el volumen de personas?
+Ahora bien, es cierto: más gente activa estadísticamente significa más consumo. Pero el foco está en el valor, no en los números.
+
+**Pregunta de seguimiento:** ¿Tiene sentido para ti?
 
 ---
 
@@ -281,13 +293,16 @@ Ahora bien, como en cualquier negocio, las estadísticas son claras: un restaura
 
 Esa es la pregunta más honesta que puedes hacer. La respuesta es: depende de la arquitectura que construyas, no del tiempo que inviertas.
 
-**Validación (Mes 1-3):** Constructores que ejecutan consistentemente el Framework IAA generan $300-1,000 USD mensuales. Es tu validación de que el sistema funciona.
+**Primeros 3 meses:**
+Constructores que ejecutan consistentemente el método generan $300-1,000 USD mensuales. Compruebas que el sistema funciona.
 
-**Expansión (Mes 6-12):** Con una base sólida construida, el rango típico es $1,500-5,000 USD mensuales. Tu activo entra en fase de crecimiento apalancado.
+**De 6 a 12 meses:**
+Con una base sólida construida, el rango típico es $1,500-5,000 USD mensuales. Tu activo entra en crecimiento exponencial.
 
-**Consolidación (Año 2+):** Constructores que desarrollan liderazgo y construyen equipos sólidos pueden alcanzar $10,000+ USD mensuales de forma residual.
+**Año 2 en adelante:**
+Constructores que desarrollan liderazgo y construyen equipos sólidos pueden alcanzar $10,000+ USD mensuales de forma residual.
 
-Estas no son promesas, son referencias basadas en arquitectos que han ejecutado el Framework consistentemente. Tu resultado depende de tu consistencia, no de tu talento inicial.
+Estas no son promesas, son referencias basadas en constructores que han ejecutado el método consistentemente. Tu resultado depende de tu consistencia, no de tu talento inicial.
 
 **Pregunta de seguimiento:** ¿En cuál de estas fases te visualizas en tu primer año?
 
@@ -296,9 +311,17 @@ Estas no son promesas, son referencias basadas en arquitectos que han ejecutado 
 ### VAL_05: "¿Qué me están vendiendo exactamente?"
 **[Definición del valor]**
 
-No te vendemos un negocio. Te entregamos la arquitectura completa para que construyas tu propio activo patrimonial. Piénsalo así: Gano Excel provee el motor (un producto único con patente mundial). Nosotros te entregamos el plano (el Framework IAA) y la maquinaria de construcción de alta tecnología (NodeX y NEXUS) para que tú te conviertas en el arquitecto de tu propio sistema de distribución. En resumen, te entregamos la posibilidad de pasar de ser el operador que hace el trabajo a ser el dueño del activo que lo genera.
+No te vendemos un negocio. Te entregamos la única aplicación que existe para la construcción de un activo patrimonial.
 
-**Pregunta de seguimiento:** ¿Te interesa más el aspecto del "motor", el "plano" o la "maquinaria tecnológica"?
+Piénsalo así:
+
+**El motor:** Gano Excel (producto único con patente mundial)
+**El método:** Cómo construir tu canal de distribución
+**La tecnología:** Aplicación + IA que automatiza el proceso
+
+En resumen: pasas de ser el generador de ingresos, a ser el dueño del activo que lo genera.
+
+**Pregunta de seguimiento:** ¿Cuál de estos tres componentes te parece más interesante?
 
 ---
 
@@ -307,11 +330,11 @@ No te vendemos un negocio. Te entregamos la arquitectura completa para que const
 
 El éxito ama la velocidad, y nuestro sistema está diseñado para generarla. Basado en la experiencia, un constructor enfocado ve resultados tangibles en su primera semana.
 
-Al ejecutar tu primer INICIAR con 10 constructores potenciales, la estadística muestra un patrón claro:
+Si compartes el proyecto con 10 personas, la estadística muestra un patrón claro:
 
-- **3 de ellos** suelen activar su ecosistema esa misma semana, validando inmediatamente el poder del modelo y generando tus primeros flujos de valor.
-- **5 de ellos** se convierten en consumidores inmediatos, formando la base sólida de tu canal de distribución.
-- Los **2 restantes** a menudo son los más analíticos; se toman su tiempo para investigar y, cuando se activan en las siguientes semanas, lo hacen con una convicción total, convirtiéndose en pilares de tu activo.
+- **3 de ellos** suelen activarse esa misma semana, generando tus primeros ingresos.
+- **5 de ellos** se convierten en consumidores inmediatos, formando la base de tu canal de distribución.
+- Los **2 restantes** son más analíticos; investigan por varias semanas y cuando deciden activarse, lo hacen con convicción total, convirtiéndose en pilares de tu negocio.
 
 **Pregunta de seguimiento:** ¿Te sientes más identificado con el perfil de activación rápida o con el analítico?
 
@@ -320,13 +343,13 @@ Al ejecutar tu primer INICIAR con 10 constructores potenciales, la estadística 
 ### VAL_07: "¿Normalmente qué estadística hay de éxito?"
 **[Estadísticas de activación]**
 
-Nuestro ecosistema no está diseñado para convencer a todos; está diseñado para identificar a los verdaderos constructores. Por eso, nuestras estadísticas no miden el "cierre", miden la "activación de arquitectos".
+Nuestro sistema no está diseñado para convencer a todos; está diseñado para identificar a los verdaderos constructores. Por eso, nuestras estadísticas no miden el "cierre", miden la activación.
 
-Cuando presentas la visión a 5 constructores potenciales cualificados, el patrón suele ser el siguiente:
+Cuando compartes el proyecto con 5 personas cualificadas, el patrón suele ser el siguiente:
 
 - **1 o 2 de ellos** son "pioneros". Reconocen la oportunidad de inmediato y se activan.
 - **2 o 3 son "analíticos"**. Validan, investigan y se activan en los siguientes 45 días, a menudo convirtiéndose en los constructores más sólidos.
-- **1 de ellos** usualmente no se activa, lo que nos confirma que no tenía la mentalidad de arquitecto que buscamos.
+- **1 de ellos** usualmente no se activa, lo que confirma que no tenía la mentalidad que buscamos.
 
 Nuestro sistema no es un filtro de ventas, es un filtro de mentalidad.
 
@@ -337,22 +360,30 @@ Nuestro sistema no es un filtro de ventas, es un filtro de mentalidad.
 ### VAL_08: "¿Cuál paquete me recomienda para iniciar?"
 **[Recomendaciones personalizadas]**
 
-Esa es la pregunta de un verdadero arquitecto que planifica su construcción. Mi recomendación siempre es la misma: inicia con el paquete que te permita construir con confianza y dormir tranquilo por la noche.
+Depende del tamaño de la visión que tengas para tu futuro.
 
-- Si tu prioridad es **validar la arquitectura del modelo** con una inversión inteligente, el **Paquete Emprendedor (ESP 1)** es tu punto de entrada perfecto.
+- El **Paquete Emprendedor (ESP 1)** es para quienes están construyendo su primer activo digital y quieren hacerlo de forma inteligente.
 
-- Si tu visión es una **construcción sólida y equilibrada** desde el principio, el **Paquete Empresarial (ESP 2)** es el más elegido por los constructores estratégicos.
+- El **Paquete Empresarial (ESP 2)** te da una base sólida y equilibrada desde el día uno.
 
-- Si, como los grandes arquitectos, quieres el **máximo apalancamiento y una construcción acelerada** desde el día uno, el **Paquete Visionario (ESP 3)** es, sin duda, la mejor opción.
+- El **Paquete Visionario (ESP 3)** es para quienes entienden el poder del apalancamiento y quieren construir a máxima velocidad desde el inicio. Es el que recomiendo si tu visión es grande.
 
-**Pregunta de seguimiento:** ¿Cuál de estos enfoques resuena más con tu estilo de construcción?
+Cada uno funciona. La diferencia está en qué tan rápido quieres llegar.
+
+**Pregunta de seguimiento:** ¿Cómo te visualizas en 12 meses?
 
 ---
 
-### VAL_09: "¿Cuál es la arquitectura completa que incluye esto?"
-**[Arquitectura detallada]**
+### VAL_09: "¿Qué incluye exactamente el sistema?"
+**[Componentes del sistema]**
 
-La arquitectura incluye tres componentes integrados: 1) **El Motor:** Gano Excel (producto único con patente mundial), 2) **El Plano:** Framework IAA (metodología probada de construcción), 3) **La Maquinaria Tecnológica:** NodeX y NEXUS (automatización y IA). No son herramientas separadas que debes coordinar. Es un ecosistema donde todo trabaja conectado automáticamente. Tú te conviertes en el arquitecto que usa estas herramientas integradas para construir tu canal de distribución.
+El sistema incluye tres componentes integrados:
+
+1) **El Motor:** Gano Excel (producto único con patente mundial)
+2) **El Método:** Una metodología probada de construcción
+3) **La Tecnología:** Aplicación + IA
+
+No son herramientas separadas que debes coordinar. Es un sistema donde todo trabaja conectado automáticamente. Tú usas estas herramientas integradas para construir tu canal de distribución.
 
 **Pregunta de seguimiento:** ¿Cuál de estos tres componentes te parece más diferenciador?
 
@@ -361,14 +392,29 @@ La arquitectura incluye tres componentes integrados: 1) **El Motor:** Gano Excel
 ### VAL_10: "¿Es lo mismo que otros sistemas de marketing que he visto?"
 **[Diferenciación de sistemas]**
 
-Los sistemas tradicionales te dan herramientas fragmentadas que debes coordinar manualmente. Nosotros operamos en una categoría diferente: ecosistema tecnológico integrado. Es como comparar armar un auto pieza por pieza vs recibir un Tesla completo. Mismo objetivo final (transporte/distribución), pero la experiencia y eficiencia son completamente diferentes. El apalancamiento viene precisamente de esa integración: no pierdes tiempo coordinando sistemas separados, el ecosistema trabaja como una unidad.
+No. Es una categoría completamente diferente.
 
-**Pregunta de seguimiento:** ¿Has experimentado la frustración de coordinar múltiples herramientas o sistemas para un proyecto?
+Lo que probablemente has visto es: "Aquí está el producto, tú puedes campeón, ahora ve y convence gente". Te dejan solo con listas de contactos, sin tecnología, sin método probado.
+
+Esto es como salir a alquilar películas vs Netflix. Mismo objetivo (ver películas), experiencia completamente diferente.
+
+O como comprar CDs vs Spotify. Mismo resultado (escuchar música), pero uno es del viejo mundo y el otro es la nueva categoría.
+
+Aquí no te decimos "tú puedes". Te entregamos:
+- La aplicación que hace el trabajo pesado
+- La IA que educa y cualifica por ti
+- El método probado paso a paso
+- Los productos con patente mundial
+- Apoyo y mentoría de expertos
+
+No es motivación. Es tecnología + acompañamiento real.
+
+**Pregunta de seguimiento:** ¿Has tenido experiencias anteriores donde te dejaron solo sin herramientas reales?
 
 ---
 ### VAL_11: "¿Qué significan PV, CV y GCV?"
 
-Estos tres términos son fundamentales para entender cómo se construye el valor en el ecosistema.
+Estos tres términos son fundamentales para entender cómo se construye el valor en el sistema.
 
 * **PV (Volumen Personal):** Son los puntos que generas con tus compras personales. Miden tu actividad y necesitas un mínimo de **50 PV** mensuales para mantenerte activo y calificado para comisiones. Volúmenes más altos, como 100 PV, pueden activar bonos adicionales.
 
@@ -382,7 +428,7 @@ Estos tres términos son fundamentales para entender cómo se construye el valor
 ### ESC_01: "¿Cuál sería mi siguiente paso?"
 **[Interés transaccional detectado]**
 
-El siguiente paso es una breve conversación de alineación estratégica. Su propósito es simple: confirmar que este es el vehículo correcto para tus metas y que tú tienes la mentalidad de constructor que buscamos. Después de eso, si ambos estamos de acuerdo, procedemos a la activación de tu ecosistema personalizado.
+El siguiente paso es una breve conversación de alineación estratégica. Su propósito es simple: confirmar que este es el vehículo correcto para tus metas y que tú tienes la mentalidad de constructor que buscamos. Después de eso, si ambos estamos de acuerdo, procedemos a la activación de tu sistema personalizado.
 
 **CONTACTO DIRECTO:**
 Liliana Moreno - +573102066593
@@ -397,7 +443,7 @@ Es el paso natural para cualquier profesional que evalúa seriamente construir s
 ### ESC_02: "Quiero hablar con alguien del equipo"
 **[Solicitud explícita de escalación]**
 
-Excelente decisión. Eso me dice que estás tomando esto seriamente y quieres información directa de los arquitectos del ecosistema. Te voy a conectar con Luis o Liliana Moreno para una conversación estratégica de 20 minutos donde podrán responder todas tus preguntas específicas y, si hay alineación mutua, ayudarte a activar tu ecosistema personalizado.
+Excelente decisión. Eso me dice que estás tomando esto seriamente y quieres información directa de los fundadores. Te voy a conectar con Luis o Liliana Moreno para una conversación estratégica de 20 minutos donde podrán responder todas tus preguntas específicas y, si hay alineación mutua, ayudarte a activar tu sistema personalizado.
 
 **CONTACTO PRIORITARIO:**
 Liliana Moreno - +573102066593
@@ -410,11 +456,11 @@ Menciona que vienes de NEXUS para atención prioritaria.
 ### ESC_03: "¿Cómo empiezo hoy mismo?"
 **[Alta intención transaccional]**
 
-El proceso para convertirte en arquitecto es una activación estratégica en dos pasos simples:
+El proceso de activación es simple, en dos pasos:
 
-1. **Adquieres tu Franquicia Digital:** Eliges uno de los Paquetes Empresariales. Esto no es una simple compra; es la adquisición de tu inventario inicial y la llave de acceso a todo el ecosistema.
+1. **Activamos tu código directamente con Gano Excel:** Adquieres uno de los Paquetes Empresariales. Esto no es una simple compra; es la adquisición de tu inventario inicial y la llave de acceso a todo el sistema.
 
-2. **Despliegas tu Centro de Comando:** Inmediatamente después, activamos tu cuenta en CreaTuActivo.com, donde tu Dashboard de NodeX y tu arsenal de herramientas personalizadas ya te están esperando, listos para que ejecutes tu primer INICIAR.
+2. **Activas tu cuenta:** Inmediatamente después, activamos tu cuenta en CreaTuActivo.com, donde tu aplicación y tus herramientas personalizadas ya te están esperando, listas para que compartas tu primer enlace.
 
 **CONTACTO INMEDIATO:**
 Liliana Moreno - +573102066593
@@ -427,7 +473,7 @@ Como fundador, tu activación tiene prioridad total.
 ### ESC_04: "¿Puedo reservar mi lugar sin comprometerme completamente?"
 **[Interés con reservas]**
 
-Entiendo perfectamente esa mentalidad estratégica. Lamentablemente, por la naturaleza del programa Fundadores, no podemos "reservar lugares". La activación requiere el compromiso completo porque desde el momento en que te conviertes en constructor, el ecosistema tecnológico se configura específicamente para tu construcción.
+Entiendo perfectamente esa mentalidad estratégica. Lamentablemente, por la naturaleza del programa Fundadores, no podemos "reservar lugares". La activación requiere el compromiso completo porque desde el momento en que te conviertes en constructor, el sistema tecnológico se configura específicamente para tu construcción.
 
 Sin embargo, lo que sí puedo hacer es conectarte directamente con Liliana Moreno para una consultoría estratégica gratuita donde puedes hacer todas las preguntas que necesites para tomar una decisión 100% informada. No hay presión de venta, solo información estratégica.
 
@@ -442,11 +488,11 @@ Esa es la respuesta de una persona inteligente que toma decisiones estratégicas
 
 Lo que sí es importante que sepas es que el programa Fundadores tiene una ventana de oportunidad única estructurada en 3 fases:
 
-- **Lista Privada (10 Nov - 30 Nov):** Construcción de la base de 150 Fundadores élite
+- **Lista Privada (17 Nov - 30 Nov):** Construcción de la base de 150 Fundadores élite
 - **Pre-Lanzamiento (01 Dic - 01 Mar):** Los 150 Fundadores actúan como MENTORES de 150 nuevos constructores cada uno (22,500 total)
 - **Lanzamiento Público (02 Mar 2026):** Apertura masiva con objetivo de 4 millones en América
 
-Estamos en la fase de Lista Privada. Durante esta ventana tienes la oportunidad de posicionarte como uno de los 150 arquitectos fundacionales antes del lanzamiento masivo.
+Estamos en la fase de Lista Privada. Durante esta ventana tienes la oportunidad de posicionarte como uno de los 150 Fundadores antes del lanzamiento masivo.
 
 Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es para presionarte a decidir, sino para que tengas toda la información que necesitas para tomar la mejor decisión para tu futuro, sea cual sea.
 
@@ -454,7 +500,7 @@ Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es p
 ---
 
 **FIN DEL ARSENAL CIERRE**
-**Total de respuestas:** 25 (SIST: 10 + VAL: 10 + ESC: 5)
+**Total de respuestas:** 26 (SIST: 10 + VAL: 11 + ESC: 5)
 **Estado:** Listo para implementación NEXUS'
 WHERE
   id = 17;

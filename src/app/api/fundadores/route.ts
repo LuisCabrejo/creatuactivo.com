@@ -24,11 +24,17 @@ function getResendClient(): Resend {
   return resendClient;
 }
 
-// Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// ✅ FIX: Lazy initialization de Supabase client
+let supabaseClient: ReturnType<typeof createClient> | null = null;
+function getSupabaseClient() {
+  if (!supabaseClient) {
+    supabaseClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseClient;
+}
 
 // ID del usuario Sistema para usar como fallback cuando no hay referente
 const SISTEMA_USER_ID = '0456e1b9-a661-48c9-9fa1-9dc24fe007b9';
@@ -326,7 +332,7 @@ export async function POST(request: NextRequest) {
           console.log('🔍 [PROSPECTS] Datos a actualizar:', prospectData);
 
           // Llamar al RPC update_prospect_data
-          const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+          const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
             p_fingerprint_id: targetProspect.fingerprint_id,
             p_data: prospectData,
             p_constructor_id: invitedById
@@ -368,7 +374,7 @@ export async function POST(request: NextRequest) {
           console.log('🔍 [PROSPECTS] Datos del nuevo prospect:', prospectData);
 
           // Llamar al RPC para crear el prospect
-          const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+          const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
             p_fingerprint_id: fingerprint,
             p_data: prospectData,
             p_constructor_id: invitedById

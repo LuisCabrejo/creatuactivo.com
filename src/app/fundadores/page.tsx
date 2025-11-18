@@ -393,7 +393,11 @@ export default function FundadoresPage() {
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed">
-                Y creemos que <strong className="text-amber-400">no debería ser tan difícil</strong>. Por eso creamos herramientas que hacen el trabajo por ti.
+                Y creemos que <strong className="text-amber-400">no debería ser tan difícil</strong>.
+              </p>
+
+              <p className="text-xl lg:text-2xl text-white leading-relaxed mt-4">
+                Por eso creamos <strong className="text-amber-400">NodeX</strong>: tu aplicación para construir un activo.
               </p>
             </div>
           </section>
@@ -402,7 +406,7 @@ export default function FundadoresPage() {
           <section className="max-w-5xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De Difícil a Fácil</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
-              Antes era trabajo manual. Ahora la tecnología hace el 80% por ti.
+              Antes era trabajo manual. Ahora <strong className="text-amber-400">NodeX</strong> hace el 80% por ti.
             </p>
 
             {/* Analogías del día a día */}
@@ -439,13 +443,17 @@ export default function FundadoresPage() {
             </div>
 
             <p className="text-center text-lg text-white mb-12 max-w-2xl mx-auto">
-              La tecnología convirtió lo <span className="text-red-400 line-through">complicado</span> en <span className="text-amber-400 font-bold">simple</span>.<br />
-              <strong className="text-amber-400">Antes no existía</strong> la facilidad de crear un sistema que trabaje para ti mientras tú no trabajas.
+              Así como Netflix simplificó ver películas...<br />
+              <strong className="text-amber-400">NodeX simplifica construir tu negocio.</strong>
             </p>
 
-            <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
-              Cómo un sistema probado se transforma con tecnología
+            <p className="text-center text-base text-slate-400 mb-12">
+              Tú solo guías el sistema.
             </p>
+
+            <h3 className="text-2xl lg:text-3xl font-bold text-white text-center mb-12">
+              Cómo un sistema probado se transforma con tecnología
+            </h3>
 
             <div className="space-y-6 pl-6 lg:pl-0">
               {/* Fase 1 */}
@@ -489,7 +497,7 @@ export default function FundadoresPage() {
                   </div>
                   <div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (2024-2025)</div>
-                    <h3 className="text-xl font-bold text-white">La Tecnología Trabaja Por Ti</h3>
+                    <h3 className="text-xl font-bold text-white">NodeX, la Aplicación que Trabaja Por Ti</h3>
                   </div>
                 </div>
 
@@ -540,14 +548,14 @@ export default function FundadoresPage() {
               <p className="text-xl lg:text-2xl font-semibold text-white">
                 Los primeros <strong className="text-amber-400">2,847 probaron que funciona</strong> sin tecnología.
                 <br /><br />
-                Imagina lo que <strong className="text-amber-400">TÚ lograrás con ella.</strong>
+                Imagina lo que <strong className="text-amber-400">TÚ lograrás con NodeX.</strong>
               </p>
             </div>
           </section>
 
           {/* Video Hero */}
           <section className="max-w-5xl mx-auto mb-20">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">El Momento que Cambia tu Perspectiva</h2>
+            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">Cómo NodeX Cambia tu Perspectiva</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
               60 segundos que te mostrarán por qué esto es diferente a todo lo demás
             </p>
@@ -649,7 +657,7 @@ export default function FundadoresPage() {
                 </p>
 
                 <p className="text-lg font-semibold text-white mb-2">
-                  ¿Qué hace el trabajo pesado?
+                  ¿Quién hace el trabajo pesado?
                 </p>
 
                 <p className="text-lg lg:text-xl font-bold text-amber-400">
@@ -998,7 +1006,7 @@ export default function FundadoresPage() {
           <footer className="border-t border-white/10 py-8">
             <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
               <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-              <p className="mt-2">La primera plataforma completa para crear ingresos en América Latina.</p>
+              <p className="mt-2">NodeX: La primera aplicación completa para construir tu activo en América Latina.</p>
             </div>
           </footer>
         </main>

@@ -86,10 +86,16 @@ Ahora la tecnología hace eso por ti:
 - Videos explican los productos
 - La aplicación te dice exactamente qué hacer cada día
 
-Tú solo haces 3 cosas simples:
-1. Compartir un link (como cuando mandas un video por WhatsApp)
-2. Responder "sí, funciona" cuando te pregunten (desde tu experiencia real)
-3. Presentar a las personas con quien las puede ayudar mejor
+**Tú solo sigues 3 pasos simples: INICIAR, ACOGER, ACTIVAR**
+
+**1. INICIAR:**
+Compartir un link (como cuando mandas un video por WhatsApp)
+
+**2. ACOGER:**
+Responder desde tu experiencia si te preguntan: "¿A ti te funciona?"
+
+**3. ACTIVAR:**
+Conectar a las personas interesadas con tu mentor o alguien con experiencia
 
 **Pregunta de seguimiento:** ¿Alguna vez has recomendado un restaurante o una película a un amigo?
 ---

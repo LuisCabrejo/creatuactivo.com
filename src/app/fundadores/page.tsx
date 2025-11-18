@@ -348,13 +348,22 @@ export default function FundadoresPage() {
             </div>
 
             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
-              ¿Y Si Hubiera Una Forma Más Fácil de Ganar Dinero?
+              ¿Y Si Una App Hiciera El Trabajo Duro Por Ti?
             </h1>
 
             <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
-              La mayoría trabaja duro toda la vida y solo gana lo que le pagan.<br />
-              Imagina tener algo que trabaja para ti <span className="text-amber-400 font-semibold">mientras tú duermes</span>.<br /><br />
-              No necesitas ser experto. La tecnología hace el trabajo difícil por ti.
+              <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama NodeX.</span>
+              <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span><br /><br />
+
+              99% de las personas nunca lo logra.<br />
+              <span className="text-amber-400 font-semibold">NodeX te ayuda a ser del 1%.</span><br /><br />
+
+              Mientras tú duermes, NodeX trabaja:<br />
+              ✅ NEXUS (tu asistente IA) conversa con personas 24/7<br />
+              ✅ Te muestra quién está interesado<br />
+              ✅ Te dice exactamente qué hacer cada día<br /><br />
+
+              Tú solo tomas las decisiones importantes.
             </p>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -619,7 +628,7 @@ export default function FundadoresPage() {
             <div className="creatuactivo-bezos-card p-8 lg:p-12 text-center">
               <h2 className="text-2xl lg:text-3xl font-bold text-amber-400 mb-6 leading-tight">
                 ¿Jeff Bezos se hizo rico vendiendo libros<br />
-                o creando el SISTEMA donde se venden millones de libros cada día?
+                o creando el SISTEMA que distribuye millones de libros cada día?
               </h2>
 
               <p className="text-xl font-bold text-white mb-6">
@@ -632,16 +641,24 @@ export default function FundadoresPage() {
                 </p>
 
                 <p>
-                  Pero hay otra forma: <strong className="text-amber-400">crear algo que gane dinero por ti</strong>, incluso cuando no estás trabajando.
+                  Pero hay otra forma: <strong className="text-amber-400">construir tu propio sistema de distribución</strong> que trabaja por ti, incluso cuando duermes.
                 </p>
 
                 <p>
-                  Te ayudamos a vender productos de salud de <strong className="text-white">Gano Excel</strong> y <strong className="text-white">Gano iTOUCH</strong>, pero sin que tengas que hacer todo el trabajo tú mismo.
+                  Usas productos únicos de salud (<strong className="text-white">Gano Excel</strong> con patente mundial) y construyes tu red de distribución.
                 </p>
 
-                <p className="text-lg lg:text-xl font-semibold text-amber-400">
-                  La tecnología hace el trabajo pesado.<br />
-                  Tú solo tomas las decisiones importantes.
+                <p className="text-lg font-semibold text-white mb-2">
+                  ¿Qué hace el trabajo pesado?
+                </p>
+
+                <p className="text-lg lg:text-xl font-bold text-amber-400">
+                  NodeX (tu aplicación personal)<br />
+                  + NEXUS (tu asistente IA 24/7)
+                </p>
+
+                <p className="text-base text-slate-300 mt-4">
+                  Tú solo guías el sistema.
                 </p>
               </div>
             </div>

@@ -21,7 +21,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 
 **Key Files to Modify**:
 - NEXUS behavior → Update `system_prompts` table in Supabase (use scripts in `scripts/`)
-- Knowledge base → Edit files in `knowledge_base/`, then run corresponding `EJECUTAR_*.sql`
+- Knowledge base → Edit `.txt` files in `knowledge_base/`, then copy/paste to Supabase
 - Tracking logic → [public/tracking.js](public/tracking.js)
 - Business dates → `node scripts/actualizar-fechas-prelanzamiento.mjs`
 
@@ -30,7 +30,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 **I need to...**
 
 - **Modify NEXUS responses** → Update `system_prompts` table (see "Modifying NEXUS Behavior")
-- **Add new knowledge** → Edit files in `knowledge_base/` then run SQL scripts
+- **Add new knowledge** → Edit `.txt` files in `knowledge_base/` then copy to Supabase (see README.md)
 - **Track new user data** → Update `captureProspectData()` in route.ts
 - **Change business dates** → Run `node scripts/actualizar-fechas-prelanzamiento.mjs`
 - **Debug tracking issues** → Use `window.debugTracking()` in browser console
@@ -285,10 +285,12 @@ Quick steps:
 **Schema Location**: [src/types/database.ts](src/types/database.ts) (partial), [supabase-setup.sql](supabase-setup.sql)
 
 **Knowledge Base Documents** (stored in `nexus_documents` table):
-- `arsenal_inicial` - [knowledge_base/arsenal_conversacional_inicial.txt](knowledge_base/arsenal_conversacional_inicial.txt)
-- `arsenal_manejo` - [knowledge_base/arsenal_conversacional_tecnico.txt](knowledge_base/arsenal_conversacional_tecnico.txt)
-- `arsenal_cierre` - [knowledge_base/arsenal_conversacional_complementario.txt](knowledge_base/arsenal_conversacional_complementario.txt)
-- `catalogo_productos` - [knowledge_base/catalogo_productos_gano_excel.txt](knowledge_base/catalogo_productos_gano_excel.txt)
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt)
+- `arsenal_manejo` - [knowledge_base/arsenal_manejo.txt](knowledge_base/arsenal_manejo.txt)
+- `arsenal_cierre` - [knowledge_base/arsenal_cierre.txt](knowledge_base/arsenal_cierre.txt)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
+
+**Note**: File names now match exactly with Supabase `category` field. See [knowledge_base/README.md](knowledge_base/README.md) for update workflow.
 
 #### 5. Email System (Resend)
 
@@ -463,25 +465,31 @@ The dynamic countdown system has been **paused** and replaced with a static disp
 
 ### Adding New NEXUS Knowledge
 
-**Workflow**:
+**Workflow** (Updated Nov 17, 2025):
 
-1. **Edit source files** in `knowledge_base/`:
-   - `arsenal_conversacional_inicial.txt` - Initial business questions
-   - `arsenal_conversacional_tecnico.txt` - Objection handling
-   - `arsenal_conversacional_complementario.txt` - Advanced/closing questions
-   - `catalogo_productos_gano_excel.txt` - Product catalog
+1. **Edit `.txt` files** in `knowledge_base/`:
+   - `arsenal_inicial.txt` - Initial business questions (category: `arsenal_inicial`)
+   - `arsenal_manejo.txt` - Objection handling (category: `arsenal_manejo`)
+   - `arsenal_cierre.txt` - Advanced/closing questions (category: `arsenal_cierre`)
+   - `catalogo_productos.txt` - Product catalog (category: `catalogo_productos`)
 
-2. **Apply to database** using corresponding SQL script in `knowledge_base/`:
-   - Run `EJECUTAR_1_arsenal_inicial.sql` - Updates `arsenal_inicial` document
-   - Run `EJECUTAR_2_arsenal_manejo.sql` - Updates `arsenal_manejo` document
-   - Run `EJECUTAR_3_arsenal_cierre.sql` - Updates `arsenal_cierre` document
-   - Product catalog updates via manual SQL or script
+2. **Apply to Supabase manually**:
+   - Copy content from `.txt` file
+   - Go to Supabase Dashboard → Table Editor → `nexus_documents`
+   - Find record with matching `category`
+   - Paste into `content` field
+   - Save changes
+
+   **Verification**: Run `node scripts/verificar-arsenal-supabase.mjs` to check current version
 
 3. **Update classifier** (if adding new document type):
    - Modify `clasificarDocumentoHibrido()` in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts:236)
    - Add new classification patterns and keywords
 
-**Important**: The SQL scripts in `knowledge_base/` use `UPDATE` statements that preserve document IDs and metadata. Never delete and re-insert documents as this breaks references in `nexus_conversations` table.
+**Important**:
+- File names now match exactly with Supabase `category` field (no more `_conversacional_` prefix)
+- No SQL scripts needed (simplified workflow)
+- See [knowledge_base/README.md](knowledge_base/README.md) for detailed instructions
 
 ### Modifying NEXUS Behavior
 
@@ -672,7 +680,7 @@ When updating dates, use `node scripts/actualizar-fechas-prelanzamiento.mjs` to 
 
 **Critical order**:
 1. **First**: Apply database migrations from `supabase/migrations/` or `supabase/APPLY_MANUALLY.sql`
-2. **Second**: Seed knowledge base documents into `nexus_documents` table (use scripts in `knowledge_base/EJECUTAR_*.sql`)
+2. **Second**: Seed knowledge base documents into `nexus_documents` table (copy from `.txt` files in `knowledge_base/`)
 3. **Third**: Deploy Edge Functions:
    ```bash
    # Required for queue processing
@@ -778,7 +786,7 @@ git push -u origin main
 
 When committing:
 - **Never commit** `.env.local` or any files with API keys
-- **Do commit** `knowledge_base/` SQL files (they document schema changes)
+- **Do commit** `knowledge_base/` `.txt` files (they are the source of truth for NEXUS knowledge)
 - Use descriptive commit messages following existing pattern (emojis optional)
 - **Always verify** git status before starting work
 - **Always check GitHub** after pushing to confirm changes uploaded

@@ -354,7 +354,7 @@ export default function FundadoresPage() {
             <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
               La mayoría trabaja duro toda la vida y solo gana lo que le pagan.<br />
               Imagina tener algo que trabaja para ti <span className="text-amber-400 font-semibold">mientras tú duermes</span>.<br /><br />
-              No necesitas ser experto. El sistema hace el trabajo difícil por ti.
+              No necesitas ser experto. La tecnología hace el trabajo difícil por ti.
             </p>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -459,7 +459,7 @@ export default function FundadoresPage() {
                   <p className="flex items-start gap-2"><Phone size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Llamar</strong> a cada persona manualmente</span></p>
                   <p className="flex items-start gap-2"><Mail size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Enviar</strong> mensajes uno por uno</span></p>
                   <p className="flex items-start gap-2"><Clock size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Explicar</strong> lo mismo 50 veces al día</span></p>
-                  <p className="flex items-start gap-2"><BarChart size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Resultado:</strong> 2,847 personas lo lograron... pero con mucho esfuerzo</span></p>
+                  <p className="flex items-start gap-2"><BarChart size={18} className="text-blue-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Resultado:</strong> 2,847 personas lo lograron... pero con mucho esfuerzo manual</span></p>
                 </div>
 
                 <p className="text-amber-400 font-medium italic lg:ml-16">

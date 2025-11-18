@@ -287,20 +287,33 @@ export default function FundadoresNetworkPage() {
             </div>
 
             <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-2 border-purple-500/50 rounded-2xl p-12 text-center">
-              <div className="flex items-center justify-center gap-6 mb-8">
-                <Users className="w-16 h-16 text-slate-500" />
-                <ArrowRight className="w-12 h-12 text-purple-400" />
-                <Sparkles className="w-16 h-16 text-yellow-400" />
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
+                ¿Jeff Bezos se hizo rico vendiendo libros<br />
+                o construyendo el SISTEMA donde se venden millones de productos diarios?
+              </h3>
+
+              <p className="text-xl font-bold text-blue-400 mb-6">
+                Exacto. Construyó el sistema.
+              </p>
+
+              <div className="text-base lg:text-lg text-slate-300 space-y-4 leading-relaxed max-w-3xl mx-auto">
+                <p>
+                  Nosotros aplicamos la misma filosofía.
+                </p>
+
+                <p>
+                  No te damos un catálogo para que vayas a vender productos.
+                </p>
+
+                <p>
+                  Te damos la tecnología para construir tu propio sistema de distribución, donde se distribuirán productos de <strong className="text-white">Gano Excel</strong> y <strong className="text-white">Gano iTOUCH</strong> todos los días.
+                </p>
+
+                <p className="text-lg lg:text-xl font-semibold text-blue-400 pt-4">
+                  Igual que Bezos.<br />
+                  Pero esto es tuyo.
+                </p>
               </div>
-              <p className="text-2xl text-slate-300 mb-2">
-                <span className="text-slate-500 line-through">Antes: Tú puedes, campeón</span>
-              </p>
-              <p className="text-4xl font-bold text-white mb-6">
-                Ahora: CreaTuActivo.com + NEXUS
-              </p>
-              <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                Intentar construir network marketing sin tecnología de punta. Es como intentar competir con Netflix usando VHS.
-              </p>
             </div>
           </section>
 

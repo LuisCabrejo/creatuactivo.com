@@ -1,9 +1,9 @@
 # Guión de Video Fundadores - Posicionamiento NodeX
-## CreaTuActivo.com - Versión NodeX v2.0
+## CreaTuActivo.com - Versión NodeX v2.1
 
 **Fecha:** 18 de Noviembre 2025
 **Objetivo:** Video hero con posicionamiento NodeX desde el primer segundo (Rappi analogy aplicada)
-**Duración:** 90-120 segundos
+**Duración:** 100-130 segundos
 **Formato:** Founder a cámara (Opción A - máxima credibilidad)
 
 ---
@@ -51,33 +51,39 @@ Se llama NodeX."
 ### BLOQUE 2: PROBLEMA + CONTEXTO (8-30 segundos)
 
 ```
-[VISUAL: B-roll de personas trabajando, cansadas, atrapadas en rutina]
+[VISUAL: Calculadora mostrando cifras grandes, gráficos de quiebra de negocios]
 
 FOUNDER:
 "99% de las personas nunca construirá un activo.
 
 ¿Por qué?
 
-[VISUAL: Reloj corriendo, calendario pasando]
+[VISUAL: Números apareciendo en pantalla: $500M COP, gráfico de quiebra 10 años]
 
-Porque construir un negocio requiere hacer llamadas,
-responder preguntas las 24 horas,
-hacer seguimiento constante...
+Porque los números no cuadran:
 
-Todo eso mientras trabajas en tu empleo actual.
+Para generar $1.5M de renta mensual,
+necesitas $500 millones de capital inicial.
+
+Y el 99% de los negocios quiebran antes del año 10.
+
+[VISUAL: Persona agobiada frente a laptop, papeles, calculadora]
+
+Montar un negocio tradicional... difícil.
+Montar una startup... aún más difícil.
 
 [PAUSA - tono empático]
 
-Es agotador.
-
-Y la mayoría se rinde antes de empezar."
+No es falta de talento.
+Es falta de infraestructura."
 ```
 
 **Por qué funciona:**
-- "99% nunca lo logra" = estadística poderosa de la landing
-- Problema relatable (todos tienen empleo o negocio actual)
-- "Es agotador" = validación emocional
-- Setup perfecto para introducir solución
+- Números reales, concretos (500M COP → $1.5M renta)
+- Estadística de quiebra (99% año 10) = validación del riesgo
+- Universal: aplica a empleados, freelancers, comerciantes, todos
+- No segmenta por tipo de trabajo ("empleo actual" eliminado)
+- "Falta de infraestructura" = setup perfecto para NodeX + Gano Excel
 
 ---
 
@@ -118,7 +124,7 @@ Tú solo guías el sistema.
 
 ---
 
-### BLOQUE 4: CREDIBILIDAD + OPORTUNIDAD FUNDADORES (55-85 segundos)
+### BLOQUE 4: CREDIBILIDAD + OPORTUNIDAD FUNDADORES (55-95 segundos)
 
 ```
 [VISUAL: Gráfico simple: 2,847 personas → sin tecnología]
@@ -129,39 +135,52 @@ sin tecnología.
 
 Imagina lo que TÚ lograrás con NodeX.
 
+[VISUAL: Mapa de América Latina con 15 países destacados]
+
+¿Recuerdas los $500 millones que necesitabas?
+
+Aquí es donde cambia todo:
+
+Gano Excel pone la infraestructura:
+15 países en América Latina.
+Oficinas. Inventarios. Logística. Pagos. Importaciones.
+
+[VISUAL: Split screen: Gano Excel infraestructura | NodeX tecnología]
+
+Tú con NodeX pones la tecnología:
+Creas tu red de consumo.
+Ayudas a personas a tener su sistema de distribución.
+
 [VISUAL: Timeline: 150 → 22,500 → 4M+]
 
-Ahora estamos en Lista Privada.
-Buscamos 150 Fundadores.
+Estamos en Lista Privada.
+150 Fundadores.
 
-¿Por qué Fundadores y no distribuidores?
-
-[VISUAL: Ratio 1:150 animado]
+¿Por qué Fundadores?
 
 Porque el 1 de diciembre abrimos a 22,500 Constructores.
 Y cada Fundador se convierte en MENTOR de hasta 150 personas.
 
-Usas productos únicos de salud con patente mundial.
-Construyes tu red de distribución.
-
 [VISUAL: NodeX logo + NEXUS trabajando]
 
 ¿Quién hace el trabajo pesado?
-NodeX y NEXUS.
+Gano Excel: la infraestructura.
+NodeX y NEXUS: la tecnología.
 
-Tú solo tomas las decisiones importantes."
+Tú solo diseñas tu sistema de distribución."
 ```
 
 **Por qué funciona:**
-- Prueba social (2,847 personas)
-- Contraste "sin tech → con NodeX" (poder del diferenciador)
-- Rol MENTOR (no vendedor)
-- Gano Excel mencionado sin hacer foco (es medio, no fin)
-- Cierre con NodeX + NEXUS = stack reconocible
+- Contraste directo: "$500M" (problema) → "Gano Excel + NodeX" (solución)
+- Explicita el modelo startup: infraestructura regional + tecnología
+- Gano Excel como socio estratégico (no solo productos)
+- "Diseñas tu sistema" > "tomas decisiones" (más empoderador)
+- 15 países = prueba tangible de infraestructura
+- Rol MENTOR claramente definido
 
 ---
 
-### BLOQUE 5: URGENCIA + CTA (85-120 segundos)
+### BLOQUE 5: URGENCIA + CTA (95-130 segundos)
 
 ```
 [VISUAL: Founder a cámara, tono serio pero cálido]
@@ -290,27 +309,31 @@ Nos vemos del otro lado."
 
 - "La tecnología" (abstracto) → ✅ "NodeX" (concreto)
 - "Herramientas que hacen el trabajo" → ✅ "NodeX trabaja por ti"
-- Demasiado foco en Gano Excel → ✅ Mención breve, foco en NodeX
+- "Mientras trabajas en tu empleo actual" → ✅ Problema financiero universal ($500M COP)
+- Gano Excel como "producto" → ✅ Gano Excel como "infraestructura estratégica"
 - Lenguaje complejo → ✅ Jobs-Style simplificado
 
 ### ✅ Añadido (Versión NodeX v2.0)
 
 - NodeX nombrado en primeros 8 segundos
 - Analogía Netflix integrada
-- "¿Quién hace el trabajo pesado? NodeX + NEXUS"
-- Estadística "99% nunca lo logra"
-- Tagline final consistente con landing
+- **Números concretos: $500M COP → $1.5M renta** (problema financiero real)
+- **Estadística quiebra: 99% negocios año 10** (validación del riesgo)
+- **Modelo startup explícito: Gano Excel (infraestructura 15 países) + NodeX (tecnología)**
+- "¿Quién hace el trabajo pesado? Gano Excel + NodeX + NEXUS"
+- "Diseñas tu sistema de distribución" (más empoderador)
 - NEXUS como parte del stack (no solo "IA")
+- Tagline final consistente con landing
 
 ### 🎯 Alineación con Landing Page
 
 | Sección Landing | Sección Video | Timing |
 |-----------------|---------------|--------|
 | Hero H1 | Hook | 0-8s |
-| Hero body | Problema | 8-30s |
+| Hero body | Problema (números reales) | 8-30s |
 | WHY section | Solución NodeX | 30-55s |
-| Timeline + Bezos | Credibilidad + Oportunidad | 55-85s |
-| Formulario | CTA | 85-120s |
+| Timeline + Bezos | Credibilidad + Modelo Startup | 55-95s |
+| Formulario | CTA | 95-130s |
 
 **Resultado:** Video = microcosmos perfecto de la landing completa
 
@@ -425,8 +448,48 @@ CreaTuActivo.com/fundadores"
 
 **Preparado por:** Claude Code (Anthropic)
 **Para:** CreaTuActivo.com - Posicionamiento NodeX
-**Versión:** NodeX v2.0 - Jobs-Style + Rappi Analogy
+**Versión:** NodeX v2.1 - Jobs-Style + Rappi Analogy + Modelo Startup
 **Fecha:** 18 Noviembre 2025
+
+---
+
+## 🔄 CHANGELOG v2.1 (18 Nov 2025 - Tarde)
+
+### Cambio Principal: Problema Universal en vez de Segmentado
+
+**Problema identificado:**
+- v2.0 decía: "Todo eso mientras trabajas en tu empleo actual"
+- Esto excluía a freelancers, comerciantes, independientes, vendedores
+- Segmentación demasiado brusca
+
+**Solución v2.1:**
+- Problema basado en **números financieros reales** (universal para todos)
+- $500M COP capital inicial → $1.5M renta mensual
+- 99% negocios quiebran antes del año 10
+- "No es falta de talento. Es falta de infraestructura."
+
+### Cambio Secundario: Modelo Startup Explícito
+
+**v2.0:** Gano Excel mencionado brevemente como "productos con patente mundial"
+
+**v2.1:** Gano Excel como **socio estratégico de infraestructura**
+- 15 países en América Latina
+- Oficinas, inventarios, logística, pagos, importaciones
+- **Tú con NodeX pones la tecnología**
+- **Gano Excel pone la infraestructura**
+- "Literalmente montando una startup con infraestructura regional lista"
+
+### Impacto:
+
+✅ **Conecta con TODOS los arquetipos** (empleados, freelancers, comerciantes, profesionales, líderes)
+✅ **Problema más tangible** (números > situación laboral)
+✅ **Gano Excel + NodeX = propuesta de valor clara**
+✅ **"Diseñas tu sistema" > "tomas decisiones"** (más empoderador)
+
+---
 
 **Diferencia clave vs v1.0:**
 Esta versión posiciona a **NodeX como protagonista desde el segundo 3**, eliminando fricción cognitiva y aplicando la lección de Rappi: "La gente necesita entender que existe una app concreta que resuelve su problema".
+
+**Diferencia clave v2.1 vs v2.0:**
+Problema **universal basado en números reales** (no segmentado por tipo de trabajo) + **modelo startup explícito** (Gano Excel infraestructura + NodeX tecnología).

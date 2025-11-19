@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
     console.log('🔍 [DB] Nombre prospecto:', formData.nombre);
 
     // Verificar si ya existe solicitud para este email
-    const { data: existingRequest, error: checkError } = await supabase
+    const { data: existingRequest, error: checkError } = await getSupabaseClient()
       .from('pending_activations')
       .select('id, email, status')
       .eq('email', formData.email.toLowerCase())
@@ -190,7 +190,7 @@ export async function POST(request: NextRequest) {
 
       if (refParam) {
         // Buscar constructor por slug o ID
-        const { data: constructor, error: constructorError } = await supabase
+        const { data: constructor, error: constructorError } = await getSupabaseClient()
           .from('private_users')
           .select('id, name, email')
           .or(`constructor_id.eq.${refParam},constructor_id.like.%${refParam}%`)
@@ -227,7 +227,7 @@ export async function POST(request: NextRequest) {
         invited_by: invitedById
       });
 
-      const { data: insertedRequest, error: insertError } = await supabase
+      const { data: insertedRequest, error: insertError } = await getSupabaseClient()
         .from('pending_activations')
         .insert({
           name: formData.nombre.trim(),
@@ -270,7 +270,7 @@ export async function POST(request: NextRequest) {
       console.log('\n🔍 [PROSPECTS] Buscando prospect existente del constructor...');
 
       // Buscar prospect existente del constructor (puede existir si visitó la página antes)
-      const { data: existingProspects, error: prospectSearchError } = await supabase
+      const { data: existingProspects, error: prospectSearchError } = await getSupabaseClient()
         .from('prospects')
         .select('id, fingerprint_id, device_info, stage, created_at')
         .eq('constructor_id', invitedById)

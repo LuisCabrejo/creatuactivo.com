@@ -836,7 +836,10 @@ export default function CatalogoEstrategico() {
                           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-4 flex items-center justify-center h-[320px]">
                             <img
                               src={product.image}
-                              alt={product.name}
+                              alt={`${product.name} - ${product.taglineEstrategico}`}
+                              width="522"
+                              height="348"
+                              loading="lazy"
                               className="object-contain max-h-[18rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                             />
                           </div>
@@ -1131,7 +1134,10 @@ export default function CatalogoEstrategico() {
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.shortDescription}`}
+                        width="522"
+                        height="348"
+                        loading="lazy"
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1201,7 +1207,10 @@ export default function CatalogoEstrategico() {
                     <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.shortDescription}`}
+                        width="522"
+                        height="348"
+                        loading="lazy"
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1291,7 +1300,10 @@ export default function CatalogoEstrategico() {
                     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.shortDescription}`}
+                        width="522"
+                        height="348"
+                        loading="lazy"
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1349,7 +1361,10 @@ export default function CatalogoEstrategico() {
                     <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.shortDescription}`}
+                        width="522"
+                        height="348"
+                        loading="lazy"
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1562,7 +1577,7 @@ export default function CatalogoEstrategico() {
                   </p>
                 </div>
                 <p className="text-sm text-slate-600 mt-4">
-                  📦 <strong>Envío gratis a toda Colombia</strong> en compras superiores a $150.000 COP
+                  📦 <strong>Tarifas preferenciales de envío</strong>: Hasta 15 productos pagas solo el envío mínimo. Fletes variables según ciudad y volumen.
                 </p>
               </div>
             </details>
@@ -1759,7 +1774,10 @@ export default function CatalogoEstrategico() {
                     <div className="flex items-start space-x-4">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - Carrito`}
+                        width="96"
+                        height="96"
+                        loading="lazy"
                         className="w-24 h-24 object-contain rounded-lg bg-white p-2"
                       />
                       <div className="flex-1">

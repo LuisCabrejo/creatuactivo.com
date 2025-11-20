@@ -95,28 +95,28 @@ export default function FrameworkIAAPage() {
 
     const frameworkContent = {
         iniciar: {
-            title: "INICIAR: La Chispa Estratégica",
-            description: "Tu rol no es convencer, es conectar. INICIAR es el arte de usar la tecnología del ecosistema para despertar la curiosidad y atraer a los constructores potenciales correctos, permitiendo que el sistema haga el trabajo pesado de la educación inicial.",
-            yourRole: "Ser el Arquitecto que abre la puerta al ecosistema.",
-            systemRole: "Educar, cualificar y filtrar 24/7 de forma automatizada.",
+            title: "INICIAR: La Chispa",
+            description: "Tu rol no es convencer, es conectar. INICIAR es usar CreaTuActivo para despertar la curiosidad y atraer a las personas correctas, mientras la aplicación hace el trabajo pesado de responder preguntas iniciales.",
+            yourRole: "Compartir la oportunidad con personas que podrían estar interesadas.",
+            systemRole: "NEXUS responde preguntas y califica interés 24/7 automáticamente.",
             oldWay: "Perseguir amigos y familiares con presentaciones interminables.",
-            newWay: "Atraer prospectos cualificados que ya están interesados."
+            newWay: "Atraer personas que ya están interesadas."
         },
         acoger: {
-            title: "ACOGER: La Consultoría de Alto Valor",
-            description: "Aquí es donde tu toque humano se vuelve irremplazable. Cuando el sistema te notifica que un constructor potencial está listo, tu rol es ACOGER con una consultoría estratégica, resolver sus dudas finales y construir un puente de confianza.",
-            yourRole: "Ser el Consultor de confianza que aporta claridad.",
-            systemRole: "Notificarte en el momento preciso y darte la inteligencia para la conversación.",
+            title: "ACOGER: Tu Conversación Personal",
+            description: "Aquí es donde tu toque humano se vuelve importante. Cuando CreaTuActivo te notifica que alguien está listo, tu rol es ACOGER con una conversación personal, resolver sus dudas finales y construir confianza.",
+            yourRole: "Tener una conversación de confianza que aporta claridad.",
+            systemRole: "Notificarte en el momento preciso y darte la información para la conversación.",
             oldWay: "Hacer seguimiento manual y desgastante.",
-            newWay: "Intervenir con valor solo cuando es efectivo."
+            newWay: "Intervenir solo cuando es el momento correcto."
         },
         activar: {
-            title: "ACTIVAR: La Multiplicación del Activo",
-            description: "ACTIVAR no es un cierre, es una transferencia de poder. Le entregas a un nuevo constructor las llaves de su propio ecosistema tecnológico y lo mentorizas en su primer INICIAR. Aquí es donde tu activo comienza a multiplicarse.",
-            yourRole: "Ser el Mentor que enseña a otros a construir.",
-            systemRole: "Provisionar el ecosistema completo para el nuevo constructor.",
-            oldWay: "Entrenar desde cero con métodos inconsistentes.",
-            newWay: "Entregar un sistema probado y replicable."
+            title: "ACTIVAR: Ayudar a Otros a Empezar",
+            description: "ACTIVAR no es un cierre, es dar poder a otra persona. Le entregas a un nuevo constructor su propia aplicación CreaTuActivo y lo acompañas en su primer INICIAR. Aquí es donde tu red comienza a crecer.",
+            yourRole: "Enseñar a otros a usar la aplicación.",
+            systemRole: "Dar acceso completo a CreaTuActivo para el nuevo constructor.",
+            oldWay: "Entrenar desde cero con métodos diferentes cada vez.",
+            newWay: "Entregar una aplicación lista para usar."
         }
     };
 
@@ -137,12 +137,14 @@ export default function FrameworkIAAPage() {
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-28">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                            <div className="inline-block bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
+                                3 Pasos Simples
+                            </div>
                             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
-                                El Framework IAA.
+                                Los 3 Pasos: IAA
                             </h1>
-                            {/* AJUSTE ESTRATÉGICO: Se actualiza el subtítulo con la nueva narrativa. */}
                             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-                                No te vendemos un "qué", te entregamos un "cómo". Esta es la arquitectura probada que te permite construir un canal de distribución alrededor de un producto de clase mundial.
+                                No te vendemos un "qué", te entregamos un "cómo". <span className="text-white font-semibold">Estos son los 3 pasos probados</span> que te permiten construir tu red de distribución con productos únicos en el mundo.
                             </p>
                         </motion.div>
                     </section>
@@ -150,8 +152,8 @@ export default function FrameworkIAAPage() {
                     <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
                         <div className="creatuactivo-component-card p-8 grid md:grid-cols-2 gap-8 items-center">
                             <div className="text-left">
-                                <h2 className="creatuactivo-h2-component text-3xl font-bold mb-4">Del Esfuerzo a la Estrategia</h2>
-                                <p className="text-slate-300 mb-6">Los modelos tradicionales te exigen ser un experto en todo: vendedor, presentador, motivador y técnico. El Framework IAA redefine tu rol, permitiéndote enfocarte únicamente en las 3 acciones que generan crecimiento exponencial.</p>
+                                <h2 className="creatuactivo-h2-component text-3xl font-bold mb-4">Del Esfuerzo al Sistema</h2>
+                                <p className="text-slate-300 mb-6">Los modelos tradicionales te exigen ser un experto en todo: vendedor, presentador, motivador y técnico. Los 3 Pasos IAA redefinen tu rol: <span className="text-white font-semibold">solo haces 3 cosas simples</span> y CreaTuActivo hace el resto.</p>
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3">
                                         <div className="bg-red-500/20 p-2 rounded-full"><X className="w-5 h-5 text-red-400"/></div>
@@ -159,7 +161,7 @@ export default function FrameworkIAAPage() {
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <div className="bg-green-500/20 p-2 rounded-full"><Check className="w-5 h-5 text-green-400"/></div>
-                                        <span className="text-white font-semibold">Apalancamiento Tecnológico y Estratégico</span>
+                                        <span className="text-white font-semibold">Tecnología Trabajando para Ti</span>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +218,7 @@ export default function FrameworkIAAPage() {
                                             <p className="text-slate-400">{currentContent.yourRole}</p>
                                         </div>
                                         <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10">
-                                            <p className="font-semibold text-white mb-1">El Rol del Ecosistema:</p>
+                                            <p className="font-semibold text-white mb-1">El Rol de CreaTuActivo:</p>
                                             <p className="text-slate-400">{currentContent.systemRole}</p>
                                         </div>
                                         <div className="bg-red-900/20 p-4 rounded-lg border border-red-500/20">
@@ -235,8 +237,8 @@ export default function FrameworkIAAPage() {
 
                     <section className="text-center py-20">
                          <div className="max-w-3xl mx-auto">
-                            <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-6">El Sistema es tu Ventaja.</h2>
-                            <p className="text-slate-400 text-lg mb-10">Ahora que conoces el plano, el siguiente paso es ver la arquitectura completa del ecosistema en acción.</p>
+                            <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-6">El Sistema es tu Ventaja</h2>
+                            <p className="text-slate-400 text-lg mb-10">Ahora que conoces los 3 pasos, el siguiente paso es ver cómo funciona CreaTuActivo completo.</p>
                             <Link href="/presentacion-empresarial" className="creatuactivo-cta-ecosystem text-lg inline-block">
                                 Ver la Presentación Completa
                             </Link>

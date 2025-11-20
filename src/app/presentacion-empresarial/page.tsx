@@ -446,46 +446,47 @@ export default function PresentacionEmpresarialPage() {
           <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-24">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <div className="inline-block bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
-                Por Qué Existimos
+                Una Aplicación para Construir tu Activo
               </div>
 
               <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-8">
-                ¿Cuánto Vale Tu Tiempo?
+                Imagina Despertar y Ver<br />Que Tu Negocio Ya Trabajó Por Ti
               </h1>
 
               <p className="text-xl md:text-2xl text-slate-300 mb-6 leading-relaxed">
-                No en dinero. <span className="text-blue-400 font-semibold">En vida.</span>
+                <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
+                <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span>
               </p>
 
-              <div className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 space-y-3">
-                <p>En horas con tus hijos.</p>
-                <p>En mañanas sin despertador.</p>
-                <p>En libertad para elegir.</p>
+              <div className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 space-y-4">
+                <p>Mientras dormías, <span className="text-blue-400 font-semibold">NEXUS respondió 12 conversaciones</span>.</p>
+                <p>Mientras desayunabas con tu familia, <span className="text-purple-400 font-semibold">3 personas mostraron interés real</span>.</p>
+                <p>Antes de las 9 AM, <span className="text-amber-400 font-semibold">ya sabes exactamente qué hacer hoy</span>.</p>
               </div>
 
               <div className="creatuactivo-why-card p-8 lg:p-12 text-left max-w-3xl mx-auto mb-10">
                 <WhyCard
                   icon={<Heart size={28} />}
-                  text="Creemos que la vida es demasiado corta para intercambiarla por un cheque quincenal."
+                  text="Tu hijo te pregunta '¿vienes a mi partido?' y puedes decir SÍ sin pedirle permiso a nadie."
                 />
                 <WhyCard
                   icon={<Users size={28} />}
-                  text="Creemos que tu familia merece tu presencia, no solo tu provisión."
+                  text="Tu pareja te dice 'vamos de viaje' y revisas tu aplicación, no tu cuenta bancaria."
                 />
                 <WhyCard
                   icon={<Target size={28} />}
-                  text="Creemos que deberías construir legado, no solo sobrevivir."
+                  text="Tus nietos heredan algo que genera ingresos, no solo recuerdos."
                 />
 
                 <div className="mt-8 pt-6 border-t border-purple-500/20">
                   <p className="text-2xl font-bold text-purple-400 text-center">
-                    Por eso creamos esto.
+                    Por eso creamos CreaTuActivo.
                   </p>
                 </div>
               </div>
 
               <Link href="#contraste" className="creatuactivo-cta-ecosystem text-lg inline-flex items-center">
-                Descubre Cómo <ArrowRight size={20} className="ml-2" />
+                Ver Cómo Funciona <ArrowRight size={20} className="ml-2" />
               </Link>
             </motion.div>
           </section>
@@ -547,31 +548,31 @@ export default function PresentacionEmpresarialPage() {
             <div className="max-w-7xl mx-auto">
               <SectionHeader
                 title="Cómo Lo Hacemos Diferente"
-                subtitle="No eres vendedor. Eres dueño de algo que trabaja por ti."
+                subtitle="No eres vendedor. Tienes una aplicación que hace el trabajo pesado por ti."
               />
 
               <div className="grid md:grid-cols-3 gap-8">
                 <HOWPillar
                   icon={<ShieldCheck size={40} />}
-                  title="El Producto Especial"
+                  title="Producto con Patente Mundial"
                   porque="mereces algo que nadie más tiene"
-                  description="Producto con patente mundial de Gano Excel (30+ años). No compites con nadie. Tienes algo único."
+                  description="Gano Excel (30+ años, 100% libre de deudas). No compites con Amazon. No compites con Rappi. Tienes algo único que solo tú puedes ofrecer en tu red."
                   iconColor="text-green-400"
                   iconBg="bg-green-500/10"
                 />
                 <HOWPillar
                   icon={<Target size={40} />}
-                  title="El Método Simple"
-                  porque="lo que funciona debe ser tan fácil que cualquiera pueda repetirlo"
-                  description="Método Probado IAA (Iniciar, Acoger, Activar). Tan simple que un niño lo entiende. Tan poderoso que escala a millones."
+                  title="Sistema Probado con 2,847 Personas"
+                  porque="lo que funciona debe ser tan simple que cualquiera pueda repetirlo"
+                  description="Framework IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora con CreaTuActivo, es 10 veces más fácil."
                   iconColor="text-orange-400"
                   iconBg="bg-orange-500/10"
                 />
                 <HOWPillar
                   icon={<Zap size={40} />}
-                  title="La Tecnología que Trabaja por Ti"
-                  porque="mereces tener acceso a la mejor tecnología, un especialista en conversión trabajando 24/7 para ti"
-                  description="NEXUS responde profesionalmente, explica el valor de Gano Excel, identifica interés real, y convierte prospectos. Mientras tú vives tu vida."
+                  title="CreaTuActivo: Tu Aplicación 24/7"
+                  porque="mereces tener un especialista en conversión trabajando para ti mientras duermes"
+                  description="NEXUS (tu asistente IA) conversa profesionalmente, califica interés real, y te dice exactamente a quién contactar. Tú solo guías el sistema."
                   iconColor="text-purple-400"
                   iconBg="bg-purple-500/10"
                 />
@@ -582,7 +583,7 @@ export default function PresentacionEmpresarialPage() {
                   ¿Ves la diferencia?
                 </p>
                 <p className="text-xl text-slate-400 leading-relaxed">
-                  No te damos un "negocio". Te damos <span className="text-purple-400 font-semibold">un sistema completo</span> que genera ingresos para ti.
+                  No te damos un "negocio para trabajar". Te damos <span className="text-purple-400 font-semibold">CreaTuActivo: una aplicación completa</span> que trabaja por ti.
                 </p>
               </div>
             </div>
@@ -591,7 +592,7 @@ export default function PresentacionEmpresarialPage() {
           {/* Testimonio Micro 2 */}
           <section className="max-w-3xl mx-auto my-20">
             <TestimonialMicro
-              quote="El producto es extraordinario, pero lo revolucionario es el SISTEMA completo. Por primera vez en mi vida, tengo algo que trabaja para mí, no yo para él."
+              quote="Cuando abrí CreaTuActivo a las 7 AM y vi que NEXUS ya había atendido 8 conversaciones mientras yo dormía... ahí entendí. Esto no es un negocio. Es tener un equipo trabajando 24/7."
               author="María G."
               role="Fundadora"
             />
@@ -1010,38 +1011,37 @@ Solo tú sabes tu WHY.`}
 
                 <div className="space-y-6 text-xl text-slate-300 leading-relaxed mb-12">
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">las cosas no tienen porque ser difíciles</span>...
+                    Si crees que <span className="text-blue-400 font-semibold">despertar sin alarma</span> es más valioso que cualquier salario...
                   </p>
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">mereces vivir una vida extraordinaria</span>, no solo sobrevivir...
+                    Si crees que <span className="text-blue-400 font-semibold">estar en el recital de tu hija</span> no debería costarte un día de vacaciones...
                   </p>
                   <p>
-                    Si crees que <span className="text-green-400 font-semibold">mereces seguridad, estabilidad y tranquilidad financiera</span>...
+                    Si crees que <span className="text-green-400 font-semibold">tus nietos merecen heredar libertad</span>, no solo fotos...
                   </p>
                 </div>
 
                 <div className="creatuactivo-why-card p-8 lg:p-12 mb-12">
                   <p className="text-2xl lg:text-3xl font-bold text-white mb-6">
-                    Entonces esto es para ti.
+                    Entonces CreaTuActivo es para ti.
                   </p>
                   <p className="text-xl text-slate-300 leading-relaxed">
                     Porque yo creo eso también.
                     <br /><br />
-                    Y no puedo construirlo solo.
+                    Y no quiero construirlo solo.
                     <br /><br />
                     Los movimientos no se construyen con individuos aislados.
                     <br />
-                    Se construyen con <span className="text-purple-400 font-semibold">comunidades de personas que creen lo mismo</span>.
+                    Se construyen con <span className="text-purple-400 font-semibold">150 fundadores que creen lo mismo</span>.
                   </p>
                 </div>
 
                 <Link href="/fundadores" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center mb-8">
-                  Empezar Ahora <ArrowRight size={24} className="ml-2" />
+                  Activar mi Aplicación <ArrowRight size={24} className="ml-2" />
                 </Link>
 
                 <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-                  Al hacer clic, serás redirigido a la página de fundadores donde podrás aplicar para una consulta personalizada.
-                  No es un "compra ya". Es una invitación a explorar si esto se alinea con tu WHY.
+                  Solo 150 espacios como Fundador. Después del 1 de diciembre, solo podrás entrar como Constructor bajo la mentoría de alguien más.
                 </p>
               </motion.div>
             </div>

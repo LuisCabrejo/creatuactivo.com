@@ -8,17 +8,6 @@
  * Para consultas de licenciamiento: legal@creatuactivo.com
  */
 
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Planes Tecnológicos CreaTuActivo | NodeX + NEXUS IA',
-  description: 'Planes de suscripción mensual para acceso a NodeX y NEXUS IA. Desde plan gratuito hasta ilimitado.',
-  robots: {
-    index: false,  // Contenido duplicado con /paquetes, usar redirect 301 después
-    follow: true,
-  },
-};
-
 'use client'
 
 import React from 'react'

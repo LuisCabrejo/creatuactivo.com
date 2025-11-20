@@ -786,6 +786,7 @@ export default function CatalogoEstrategico() {
       {/* Botón carrito flotante */}
       <button
         onClick={() => setCartOpen(true)}
+        aria-label="Abrir carrito de compras con productos seleccionados"
         className="fixed top-20 right-4 z-40 bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-600 transition-all"
       >
         <ShoppingCart className="h-6 w-6" />
@@ -815,6 +816,7 @@ export default function CatalogoEstrategico() {
               </div>
               <button
                 onClick={() => setShowTopSelling(false)}
+                aria-label="Cerrar ventana de productos más vendidos"
                 className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
               >
                 <X className="h-6 w-6" />
@@ -849,7 +851,7 @@ export default function CatalogoEstrategico() {
                         </div>
 
                         <h3 className="text-lg font-bold text-slate-800 mb-2">{product.name}</h3>
-                        <p className="text-sm text-amber-600 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                        <p className="text-sm text-amber-800 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                         <p className="text-slate-700 text-sm mb-4 leading-relaxed line-clamp-2">{product.shortDescription}</p>
 
                         <div className="mb-4">
@@ -907,6 +909,7 @@ export default function CatalogoEstrategico() {
                 <h2 className="text-xl font-bold text-white">Tu Sistema de Bienestar</h2>
                 <button
                   onClick={() => setCartOpen(false)}
+                  aria-label="Cerrar carrito de compras"
                   className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-slate-700"
                 >
                   <X className="h-6 w-6" />
@@ -939,6 +942,7 @@ export default function CatalogoEstrategico() {
                           <div className="flex items-center space-x-2">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              aria-label="Disminuir cantidad"
                               className="w-8 h-8 bg-slate-600 rounded-lg flex items-center justify-center text-white hover:bg-slate-500 transition-colors"
                             >
                               -
@@ -946,6 +950,7 @@ export default function CatalogoEstrategico() {
                             <span className="text-white w-8 text-center font-medium">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              aria-label="Aumentar cantidad"
                               className="w-8 h-8 bg-slate-600 rounded-lg flex items-center justify-center text-white hover:bg-slate-500 transition-colors"
                             >
                               +
@@ -953,6 +958,7 @@ export default function CatalogoEstrategico() {
                           </div>
                           <button
                             onClick={() => removeFromCart(item.id)}
+                            aria-label="Eliminar producto del carrito"
                             className="text-red-400 hover:text-red-300 transition-colors"
                           >
                             <X className="h-5 w-5" />
@@ -1148,7 +1154,7 @@ export default function CatalogoEstrategico() {
 
                   <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-amber-600 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm text-amber-800 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                   )}
                   <p className="text-slate-500 text-sm mb-3">INVIMA: {product.invima}</p>
                   <p className="text-slate-700 text-sm mb-6 leading-relaxed line-clamp-3">{product.shortDescription}</p>
@@ -1229,7 +1235,7 @@ export default function CatalogoEstrategico() {
                   {product.puntosConversacion && (
                     <div className="mb-4 p-3 bg-amber-50 rounded-xl border border-amber-200">
                       <p className="text-xs font-semibold text-amber-700 mb-1">💡 Estrategia Constructor:</p>
-                      <p className="text-xs text-amber-600">{product.puntosConversacion[0]}</p>
+                      <p className="text-xs text-amber-800">{product.puntosConversacion[0]}</p>
                     </div>
                   )}
 
@@ -1438,7 +1444,7 @@ export default function CatalogoEstrategico() {
               </div>
 
               <div className="bg-white/80 rounded-xl p-6">
-                <div className="text-3xl font-bold text-amber-600 mb-2">Constructor Visionario</div>
+                <div className="text-3xl font-bold text-amber-800 mb-2">Constructor Visionario</div>
                 <p className="text-slate-700 font-semibold mb-2">$1,000 USD</p>
                 <p className="text-slate-600 text-sm">~$4.500.000 COP</p>
                 <p className="text-slate-500 text-xs mt-3">Bono Tecnológico incluido</p>
@@ -1667,7 +1673,7 @@ export default function CatalogoEstrategico() {
                 <h3 className="text-xl font-bold text-amber-900 pr-4">
                   🚀 ¿Cómo puedo comprar Gano Café y otros productos al mayorista?
                 </h3>
-                <span className="text-amber-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-amber-800 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-slate-700 leading-relaxed">
                 <p className="mb-4">
@@ -1753,6 +1759,7 @@ export default function CatalogoEstrategico() {
               </div>
               <button
                 onClick={() => setSelectedSystem(null)}
+                aria-label="Cerrar detalle del sistema de bienestar"
                 className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
               >
                 <X className="h-6 w-6" />
@@ -1782,7 +1789,7 @@ export default function CatalogoEstrategico() {
                       />
                       <div className="flex-1">
                         <h3 className="font-bold text-slate-800 mb-1">{product.name}</h3>
-                        <p className="text-amber-600 text-xs italic mb-2">"{product.taglineEstrategico}"</p>
+                        <p className="text-amber-800 text-xs italic mb-2">"{product.taglineEstrategico}"</p>
                         <p className="text-slate-600 text-sm mb-3">{product.shortDescription}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-lg font-bold text-slate-800">${product.price.toLocaleString()}</span>
@@ -1829,10 +1836,11 @@ export default function CatalogoEstrategico() {
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-slate-800">{selectedProduct.name}</h2>
-                <p className="text-amber-600 font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
+                <p className="text-amber-800 font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
               </div>
               <button
                 onClick={() => setSelectedProduct(null)}
+                aria-label="Cerrar detalle del producto"
                 className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
               >
                 <X className="h-6 w-6" />

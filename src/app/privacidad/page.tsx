@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Política de Privacidad | CreaTuActivo.com',
   description: 'Política de Tratamiento y Protección de Datos Personales - Ley 1581 de 2012',
   robots: {
-    index: true,
+    index: false,  // No indexar (contenido legal, no aporta conversión)
     follow: true,
   },
 };

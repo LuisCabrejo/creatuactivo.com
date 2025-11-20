@@ -92,10 +92,9 @@ export const metadata: Metadata = {
     creator: '@creatuactivo',
   },
   // Google Search Console verification
-  // INSTRUCCIONES: Reemplaza 'CODIGO_VERIFICACION_GSC' con el código que Google te proporcione
-  // cuando configures Google Search Console en https://search.google.com/search-console
+  // Código de verificación obtenido el 19 Nov 2025
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'CODIGO_VERIFICACION_GSC',
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'QRNGxKcHOJYRbR9hFLZfUmUlxV2ScasRQAFlb7vJC14',
   },
 };
 

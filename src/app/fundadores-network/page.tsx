@@ -233,7 +233,7 @@ export default function FundadoresNetworkPage() {
           <section className="max-w-5xl mx-auto mb-20 lg:mb-32">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                NodeX cambia las reglas
+                CreaTuActivo cambia las reglas
               </h2>
               <p className="text-xl text-slate-400">
                 Lo que antes era imposible, ahora es normal.
@@ -306,7 +306,7 @@ export default function FundadoresNetworkPage() {
                 </p>
 
                 <p>
-                  Te damos <strong className="text-amber-400">NodeX</strong>: tu aplicación personal para construir tu propio sistema de distribución, donde se distribuyen productos de <strong className="text-white">Gano Excel</strong> todos los días.
+                  Te damos <strong className="text-amber-400">CreaTuActivo</strong>: tu aplicación personal para construir tu propio sistema de distribución, donde se distribuyen productos de <strong className="text-white">Gano Excel</strong> todos los días.
                 </p>
 
                 <p className="text-lg lg:text-xl font-semibold text-blue-400 pt-4">
@@ -667,7 +667,7 @@ export default function FundadoresNetworkPage() {
               </h2>
               <p className="text-xl text-slate-300 mb-8 leading-relaxed">
                 Duplicación. Residual. Binario. Patente mundial.<br />
-                Ahora con <strong className="text-amber-400">NodeX</strong>: la aplicación que siempre debió existir.
+                Ahora con <strong className="text-amber-400">CreaTuActivo</strong>: la aplicación que siempre debió existir.
               </p>
               <a href="#formulario" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center">
                 Solicitar Espacio Ahora <ArrowRight size={24} className="ml-2" />
@@ -680,7 +680,7 @@ export default function FundadoresNetworkPage() {
         <footer className="border-t border-white/10 py-8">
           <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
             <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-            <p className="mt-2">NodeX: La primera aplicación completa para construir tu activo en América Latina.</p>
+            <p className="mt-2">CreaTuActivo: La primera aplicación completa para construir tu activo en América Latina.</p>
           </div>
         </footer>
       </div>

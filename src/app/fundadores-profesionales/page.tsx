@@ -352,13 +352,13 @@ export default function FundadoresPage() {
             </h1>
 
             <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
-              <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama NodeX.</span>
+              <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
               <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span><br /><br />
 
               Has construido una carrera exitosa.<br />
               Pero sigues intercambiando <span className="text-amber-400 font-semibold">tiempo por dinero</span>.<br /><br />
 
-              Mientras tú duermes, NodeX trabaja:<br />
+              Mientras tú duermes, CreaTuActivo trabaja:<br />
               ✅ NEXUS (tu asistente IA) conversa con personas 24/7<br />
               ✅ Te muestra quién está interesado<br />
               ✅ Te dice exactamente qué hacer cada día<br /><br />
@@ -398,7 +398,7 @@ export default function FundadoresPage() {
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mt-4">
-                Por eso creamos <strong className="text-amber-400">NodeX</strong>: para que los construyas sin dejar tu carrera.
+                Por eso creamos <strong className="text-amber-400">CreaTuActivo</strong>: para que los construyas sin dejar tu carrera.
               </p>
             </div>
           </section>
@@ -407,7 +407,7 @@ export default function FundadoresPage() {
           <section className="max-w-5xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De Difícil a Fácil</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
-              Antes era trabajo manual. Ahora <strong className="text-amber-400">NodeX</strong> hace el 80% por ti.
+              Antes era trabajo manual. Ahora <strong className="text-amber-400">CreaTuActivo</strong> hace el 80% por ti.
             </p>
 
             {/* Analogías del día a día */}
@@ -445,7 +445,7 @@ export default function FundadoresPage() {
 
             <p className="text-center text-lg text-white mb-12 max-w-2xl mx-auto">
               Así como Netflix simplificó ver películas...<br />
-              <strong className="text-amber-400">NodeX simplifica construir tu negocio.</strong>
+              <strong className="text-amber-400">CreaTuActivo simplifica construir tu negocio.</strong>
             </p>
 
             <p className="text-center text-base text-slate-400 mb-12">
@@ -498,14 +498,14 @@ export default function FundadoresPage() {
                   </div>
                   <div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (2024-2025)</div>
-                    <h3 className="text-xl font-bold text-white">NodeX, la Aplicación que Trabaja Por Ti</h3>
+                    <h3 className="text-xl font-bold text-white">CreaTuActivo, la Aplicación que Trabaja Por Ti</h3>
                   </div>
                 </div>
 
                 <div className="text-slate-300 space-y-2 mb-4 lg:ml-16">
                   <p className="flex items-start gap-2"><Bot size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">NEXUS</strong> atiende conversaciones mientras estás en reuniones de trabajo</span></p>
                   <p className="flex items-start gap-2"><Smartphone size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">El sistema trabaja</strong> mientras tú avanzas en tu carrera profesional</span></p>
-                  <p className="flex items-start gap-2"><BarChart size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">NodeX te dice</strong> exactamente a quién contactar en tus 2 horas libres</span></p>
+                  <p className="flex items-start gap-2"><BarChart size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">CreaTuActivo te dice</strong> exactamente a quién contactar en tus 2 horas libres</span></p>
                   <p className="flex items-start gap-2"><Zap size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Resultado:</strong> Construyes tu activo sin renunciar a tu estabilidad</span></p>
                 </div>
 
@@ -533,7 +533,7 @@ export default function FundadoresPage() {
 
                 <div className="text-slate-300 space-y-2 mb-4 lg:ml-16">
                   <p className="flex items-start gap-2"><Target size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Solo 150 profesionales</strong> tendrán acceso como Fundadores</span></p>
-                  <p className="flex items-start gap-2"><Zap size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">NodeX completo</strong> desde el día 1 (sin esperas, sin limitaciones)</span></p>
+                  <p className="flex items-start gap-2"><Zap size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">CreaTuActivo completo</strong> desde el día 1 (sin esperas, sin limitaciones)</span></p>
                   <p className="flex items-start gap-2"><Shield size={18} className="text-purple-400 mt-1 flex-shrink-0" /> <span><strong className="text-white">Mentoría exclusiva</strong> para construir tu red de 150 personas</span></p>
                 </div>
 
@@ -549,14 +549,14 @@ export default function FundadoresPage() {
               <p className="text-xl lg:text-2xl font-semibold text-white">
                 Los primeros <strong className="text-amber-400">2,847 probaron que funciona</strong> sin tecnología.
                 <br /><br />
-                Imagina lo que <strong className="text-amber-400">TÚ lograrás con NodeX.</strong>
+                Imagina lo que <strong className="text-amber-400">TÚ lograrás con CreaTuActivo.</strong>
               </p>
             </div>
           </section>
 
           {/* Video Hero */}
           <section className="max-w-5xl mx-auto mb-20">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">Cómo Profesionales Usan NodeX</h2>
+            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-4">Cómo Profesionales Usan CreaTuActivo</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
               60 segundos que te mostrarán cómo construir un activo sin dejar tu carrera
             </p>
@@ -662,7 +662,7 @@ export default function FundadoresPage() {
                 </p>
 
                 <p className="text-lg lg:text-xl font-bold text-amber-400">
-                  NodeX (tu aplicación personal)<br />
+                  CreaTuActivo<br />
                   + NEXUS (tu asistente IA 24/7)
                 </p>
 
@@ -739,7 +739,7 @@ export default function FundadoresPage() {
                 y quieres <strong className="text-amber-400">diversificar tus ingresos</strong> sin renunciar a tu estabilidad...
                 <br /><br />
                 <span className="text-xl lg:text-2xl font-bold text-white">
-                  NodeX fue diseñado para profesionales como tú.
+                  CreaTuActivo fue diseñado para profesionales como tú.
                 </span>
               </p>
             </div>
@@ -995,7 +995,7 @@ export default function FundadoresPage() {
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-6">Tu Carrera + Tu Activo</h2>
             <p className="text-slate-300 mb-10 max-w-2xl mx-auto">
               Ya no tienes que elegir entre estabilidad e independencia.<br />
-              <strong className="text-amber-400">NodeX te permite tener ambos</strong>.
+              <strong className="text-amber-400">CreaTuActivo te permite tener ambos</strong>.
             </p>
             <button
               onClick={scrollToForm}
@@ -1009,7 +1009,7 @@ export default function FundadoresPage() {
           <footer className="border-t border-white/10 py-8">
             <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
               <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-              <p className="mt-2">NodeX: La primera aplicación completa para construir tu activo en América Latina.</p>
+              <p className="mt-2">CreaTuActivo: La primera aplicación completa para construir tu activo en América Latina.</p>
             </div>
           </footer>
         </main>

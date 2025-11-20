@@ -11,22 +11,22 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Lista Privada Fundadores - CreaTuActivo.com',
-  description: '🚀 150 cupos exclusivos para fundadores pioneros. Únete a la primera fase de CreaTuActivo y conviértete en mentor de 150 constructores. Acceso limitado del 10 Nov al 30 Nov 2025.',
-  keywords: 'fundadores, lista privada, mentores, CreaTuActivo, constructores de riqueza, oportunidad exclusiva, Framework IAA',
+  title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
+  description: 'Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, tecnología NodeX + IA, ingresos residuales. Solo 150 cupos del 10 Nov al 30 Nov 2025. Lista privada exclusiva.',
+  keywords: 'afiliación gano excel, fundadores gano excel 2025, mentor gano excel, afiliarse gano excel colombia, lista privada fundadores, mentorías 1 a 150, creatuactivo fundadores',
   authors: [{ name: 'CreaTuActivo.com' }],
   openGraph: {
     type: 'website',
     locale: 'es_ES',
     url: 'https://creatuactivo.com/fundadores',
-    title: '🚀 Lista Privada Fundadores - Solo 150 Cupos',
-    description: 'Únete como FUNDADOR pionero. Mentorea a 150 constructores y construye tu ecosistema empresarial desde el inicio. Cupos limitados hasta el 30 Nov 2025.',
+    title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
+    description: 'Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, tecnología NodeX + IA, ingresos residuales. Solo 150 cupos hasta 30 Nov 2025.',
     siteName: 'CreaTuActivo.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '🚀 Lista Privada Fundadores - Solo 150 Cupos',
-    description: 'Conviértete en FUNDADOR pionero y mentor de 150 constructores. Acceso exclusivo hasta el 30 Nov 2025.',
+    title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor',
+    description: 'Afiliación Gano Excel como FUNDADOR. Mentoría 1:150, NodeX + IA, ingresos residuales. 150 cupos hasta 30 Nov.',
     creator: '@creatuactivo',
   },
 }

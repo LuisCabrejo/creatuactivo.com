@@ -14,17 +14,17 @@ import type { Metadata } from 'next'
 const siteUrl = 'https://creatuactivo.com'
 
 export const metadata: Metadata = {
-  title: 'Catálogo de Productos | CreaTuActivo',
-  description: 'Descubre el único catálogo con patente mundial de extracto 100% hidrosoluble de Ganoderma Lucidum. Productos únicos respaldados por 30+ años de ciencia.',
+  title: 'Catálogo Productos Gano Excel Colombia 2025 | Ganoderma 100% Hidrosoluble',
+  description: 'Catálogo oficial Gano Excel Colombia con patente mundial extracto 100% hidrosoluble Ganoderma Lucidum. Café, té, suplementos, cosméticos. 30+ años ciencia, distribución nacional.',
 
   // Metadatos básicos
-  keywords: ['Ganoderma', 'productos naturales', 'patente mundial', 'suplementos', 'bienestar', 'extracto hidrosoluble'],
+  keywords: ['catálogo gano excel', 'productos gano excel colombia', 'ganoderma lucidum', 'café gano excel', 'extracto hidrosoluble ganoderma', 'patente mundial ganoderma', 'suplementos gano excel'],
   authors: [{ name: 'CreaTuActivo' }],
 
   // Open Graph (Facebook, WhatsApp, LinkedIn)
   openGraph: {
-    title: 'Catálogo de Productos | CreaTuActivo',
-    description: 'Descubre el único catálogo con patente mundial de extracto 100% hidrosoluble de Ganoderma Lucidum.',
+    title: 'Catálogo Productos Gano Excel Colombia 2025 | Ganoderma Hidrosoluble',
+    description: 'Catálogo oficial Gano Excel Colombia con patente mundial extracto 100% hidrosoluble Ganoderma. Café, té, suplementos, cosméticos.',
     url: `${siteUrl}/sistema/productos`,
     siteName: 'CreaTuActivo',
     images: [
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: 'summary_large_image',
-    title: 'Catálogo de Productos | CreaTuActivo',
-    description: 'Descubre el único catálogo con patente mundial de extracto 100% hidrosoluble de Ganoderma Lucidum.',
+    title: 'Catálogo Productos Gano Excel Colombia | Ganoderma Hidrosoluble',
+    description: 'Catálogo oficial Gano Excel Colombia. Patente mundial extracto 100% hidrosoluble Ganoderma. Café, té, suplementos.',
     images: [`${siteUrl}/creatuactivo-redes-productos-card-2400x1260.png`],
     creator: '@creatuactivo',
   },

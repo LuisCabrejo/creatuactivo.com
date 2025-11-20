@@ -95,16 +95,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // ========================================
-    // PAQUETES Y PLANES (Conversión)
+    // PAQUETES (Conversión)
+    // NOTA: /planes removido del sitemap (tiene noindex, es duplicado de /paquetes)
     // ========================================
     {
       url: `${baseUrl}/paquetes`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/planes`,
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -182,12 +177,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // ========================================
     // LEGAL
+    // NOTA: /privacidad removido del sitemap (tiene noindex)
     // ========================================
-    {
-      url: `${baseUrl}/privacidad`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
   ];
 }

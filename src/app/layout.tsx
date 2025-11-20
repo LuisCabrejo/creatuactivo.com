@@ -33,9 +33,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://creatuactivo.com'),
-  title: 'CreaTuActivo.com - Tu Ecosistema, Tu Activo, Tu Futuro',
-  description: 'Plataforma integral para construir activos empresariales mediante el Framework IAA: Iniciar, Acoger, Activar. Únete a los pioneros que están revolucionando la forma de crear valor.',
-  keywords: 'activos empresariales, Framework IAA, constructores de riqueza, ecosistema empresarial, CreaTuActivo',
+  title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
+  description: 'Transforma tu talento en activo escalable con tecnología NodeX + IA. Afiliación Gano Excel 2025, mentoría 1:150, ingresos residuales. 150 espacios fundadores disponibles.',
+  keywords: 'creatuactivo, crea tu activo, ecosistema emprendimiento digital, afiliación gano excel colombia, framework iaa, activos empresariales, ingresos residuales',
   authors: [{ name: 'CreaTuActivo.com' }],
   creator: 'CreaTuActivo.com',
   publisher: 'CreaTuActivo.com',
@@ -72,8 +72,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_ES',
     url: 'https://creatuactivo.com',
-    title: 'CreaTuActivo.com - Tu Ecosistema, Tu Activo, Tu Futuro',
-    description: 'Únete a la revolución de los constructores de activos empresariales. Framework IAA exclusivo para pioneros visionarios.',
+    title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
+    description: 'Transforma tu talento en activo escalable con tecnología NodeX + IA. Afiliación Gano Excel 2025, mentoría 1:150, ingresos residuales. 150 espacios fundadores disponibles.',
     siteName: 'CreaTuActivo.com',
     images: [
       {
@@ -86,8 +86,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo.com - Tu Ecosistema, Tu Activo, Tu Futuro',
-    description: 'Framework IAA exclusivo para constructores de activos empresariales.',
+    title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
+    description: 'Transforma tu talento en activo escalable. Afiliación Gano Excel 2025, mentoría 1:150, NodeX + IA.',
     images: ['/og-image.jpg'],
     creator: '@creatuactivo',
   },

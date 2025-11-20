@@ -870,7 +870,7 @@ export default function CatalogoEstrategico() {
                             }}
                             className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
                           >
-                            Ver Estrategia
+                            Ver Detalles
                           </button>
                           <button
                             onClick={() => {
@@ -1008,7 +1008,7 @@ export default function CatalogoEstrategico() {
         {/* Header estratégico */}
         <div className="text-center mb-12">
   <div className="inline-block bg-gradient-to-r from-amber-200 to-yellow-200 border border-amber-300 rounded-full px-6 py-2 mb-6">
-    <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Motor del Ecosistema CreaTuActivo</span>
+    <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Catálogo Oficial Gano Excel</span>
   </div>
 
   <h1 className="text-4xl md:text-6xl font-bold mb-4">
@@ -1025,7 +1025,7 @@ export default function CatalogoEstrategico() {
     <div className="inline-flex items-center bg-white/90 backdrop-blur-lg border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
       <Rocket className="h-4 w-4 text-blue-500 mr-2 animate-pulse" />
       <span className="text-slate-700">
-        Tu mentor constructor: <span className="font-bold text-blue-700">{distributor.nombre}</span>
+        Asesor de bienestar: <span className="font-bold text-blue-700">{distributor.nombre}</span>
       </span>
     </div>
   )}
@@ -1080,7 +1080,7 @@ export default function CatalogoEstrategico() {
               className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:from-amber-600 hover:to-orange-600 transition-all inline-flex items-center gap-3"
             >
               <Trophy className="h-5 w-5" />
-              Ver Productos Más Exitosos para Constructores
+              Ver Productos Más Vendidos
             </button>
           </div>
         </section>
@@ -1167,7 +1167,7 @@ export default function CatalogoEstrategico() {
                       onClick={() => setSelectedProduct(product)}
                       className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
                     >
-                      Ver Estrategia
+                      Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}
@@ -1241,7 +1241,7 @@ export default function CatalogoEstrategico() {
                         onClick={() => setSelectedProduct(product)}
                         className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
                       >
-                        Ver Estrategia
+                        Ver Detalles
                       </button>
                       <button
                         onClick={() => addToCart(id)}
@@ -1326,7 +1326,7 @@ export default function CatalogoEstrategico() {
                       onClick={() => setSelectedProduct(product)}
                       className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
                     >
-                      Ver Estrategia
+                      Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}
@@ -1387,7 +1387,7 @@ export default function CatalogoEstrategico() {
                       onClick={() => setSelectedProduct(product)}
                       className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
                     >
-                      Ver Estrategia
+                      Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}

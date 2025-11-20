@@ -1452,6 +1452,271 @@ export default function CatalogoEstrategico() {
             </div>
           </div>
         </section>
+
+        {/* Sección FAQ - Optimizada para SEO */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              Preguntas Frecuentes sobre Gano Café
+            </h2>
+            <p className="text-slate-600 text-lg max-w-3xl mx-auto">
+              Descubre todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Pregunta 1 */}
+            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                  ¿Para qué sirve el Gano Café?
+                </h3>
+                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  El <strong>Gano Café</strong> es un café enriquecido con <strong>Ganoderma Lucidum</strong> (Reishi), un hongo medicinal con más de 2,000 años de uso en la medicina tradicional china. El Gano Café sirve para:
+                </p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li><strong>Aumentar energía natural</strong>: Sin los efectos nerviosos del café común</li>
+                  <li><strong>Fortalecer el sistema inmunológico</strong>: Gracias a los betaglucanos del Ganoderma</li>
+                  <li><strong>Reducir estrés y fatiga</strong>: Propiedades adaptógenas que equilibran el cuerpo</li>
+                  <li><strong>Mejorar concentración</strong>: Combinación de cafeína natural y nutrientes del hongo</li>
+                  <li><strong>Apoyar la digestión</strong>: Con más de 200 fitonutrientes bioactivos</li>
+                </ul>
+                <p className="mt-4 text-blue-600 font-medium">
+                  💡 A diferencia del café tradicional, el Gano Café transforma tu ritual diario en una inversión de salud.
+                </p>
+              </div>
+            </details>
+
+            {/* Pregunta 2 */}
+            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                  ¿Cuáles son los beneficios del Gano Café 3 en 1?
+                </h3>
+                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto 100% hidrosoluble de Ganoderma Lucidum</strong> con patente mundial:
+                </p>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <h4 className="font-bold text-blue-800 mb-2">🛡️ Sistema Inmunológico</h4>
+                    <p className="text-sm">Fortalece defensas naturales con betaglucanos</p>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-xl border border-green-100">
+                    <h4 className="font-bold text-green-800 mb-2">⚡ Energía Sostenida</h4>
+                    <p className="text-sm">Vitalidad sin nerviosismo ni caídas de energía</p>
+                  </div>
+                  <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
+                    <h4 className="font-bold text-purple-800 mb-2">🧘 Reducción de Estrés</h4>
+                    <p className="text-sm">Adaptógeno natural que equilibra cortisol</p>
+                  </div>
+                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
+                    <h4 className="font-bold text-amber-800 mb-2">🎯 Concentración</h4>
+                    <p className="text-sm">Mejora claridad mental y enfoque</p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-600 italic">
+                  ✅ Registro INVIMA: SD2012-0002589 | Respaldado por 30+ años de investigación científica
+                </p>
+              </div>
+            </details>
+
+            {/* Pregunta 3 */}
+            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                  ¿Cuál es el precio del Gano Café en Colombia 2025?
+                </h3>
+                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  Los <strong>precios oficiales de Gano Excel en Colombia</strong> para 2025 son:
+                </p>
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+                    <div>
+                      <p className="font-bold text-slate-800">Gano Café 3 en 1</p>
+                      <p className="text-sm text-slate-600">Caja con 20 sobres x 21g</p>
+                    </div>
+                    <p className="text-2xl font-bold text-blue-600">$110.900 COP</p>
+                  </div>
+                  <div className="flex items-center justify-between bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-xl border border-slate-200">
+                    <div>
+                      <p className="font-bold text-slate-800">Gano Café Clásico (Negro)</p>
+                      <p className="text-sm text-slate-600">Caja con 30 sobres x 4.5g</p>
+                    </div>
+                    <p className="text-2xl font-bold text-slate-600">$110.900 COP</p>
+                  </div>
+                </div>
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl">
+                  <p className="font-bold text-amber-800 mb-2">💰 Precios de Distribuidor Mayorista</p>
+                  <p className="text-sm text-amber-700">
+                    Como <strong>Fundador CreaTuActivo</strong>, accedes a precios mayoristas con descuento de hasta 35% sobre precio público.
+                    <a href="/fundadores" className="text-blue-600 hover:text-blue-800 font-medium ml-1 underline">Ver detalles de afiliación →</a>
+                  </p>
+                </div>
+                <p className="text-sm text-slate-600 mt-4">
+                  📦 <strong>Envío gratis a toda Colombia</strong> en compras superiores a $150.000 COP
+                </p>
+              </div>
+            </details>
+
+            {/* Pregunta 4 */}
+            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                  ¿Cómo se toma el Gano Café 3 en 1?
+                </h3>
+                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  La forma correcta de preparar el <strong>Gano Café 3 en 1</strong> es:
+                </p>
+                <ol className="list-decimal pl-6 space-y-3 mb-4">
+                  <li><strong>Vierte 1 sobre (21g)</strong> en tu taza favorita</li>
+                  <li><strong>Agrega 150ml de agua caliente</strong> (no hirviendo, aprox. 80-85°C)</li>
+                  <li><strong>Revuelve bien</strong> hasta disolver completamente</li>
+                  <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
+                </ol>
+                <div className="bg-green-50 border border-green-200 p-4 rounded-xl mb-4">
+                  <p className="font-bold text-green-800 mb-2">✅ Recomendaciones de Consumo</p>
+                  <ul className="text-sm text-green-700 space-y-1">
+                    <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
+                    <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
+                    <li>• <strong>Antes o después de comidas</strong>: Ambos funcionan bien</li>
+                    <li>• <strong>Puede tomarse frío</strong>: Prepara con agua fría y hielo en verano</li>
+                  </ul>
+                </div>
+                <div className="bg-red-50 border border-red-200 p-4 rounded-xl">
+                  <p className="font-bold text-red-800 mb-2">⚠️ Contraindicaciones</p>
+                  <p className="text-sm text-red-700">
+                    No recomendado para mujeres embarazadas o en lactancia. Si tomas anticoagulantes o tienes condiciones médicas especiales, consulta a tu médico antes de consumir.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            {/* Pregunta 5 */}
+            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                  ¿El Gano Café está disponible en toda Latinoamérica?
+                </h3>
+                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en más de <strong>15 países de Latinoamérica</strong>:
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                  <div className="bg-blue-50 p-3 rounded-lg text-center border border-blue-100">
+                    <p className="font-medium text-blue-800">🇨🇴 Colombia</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg text-center border border-green-100">
+                    <p className="font-medium text-green-800">🇲🇽 México</p>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded-lg text-center border border-red-100">
+                    <p className="font-medium text-red-800">🇵🇪 Perú</p>
+                  </div>
+                  <div className="bg-yellow-50 p-3 rounded-lg text-center border border-yellow-100">
+                    <p className="font-medium text-yellow-800">🇪🇨 Ecuador</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg text-center border border-purple-100">
+                    <p className="font-medium text-purple-800">🇨🇱 Chile</p>
+                  </div>
+                  <div className="bg-indigo-50 p-3 rounded-lg text-center border border-indigo-100">
+                    <p className="font-medium text-indigo-800">🇦🇷 Argentina</p>
+                  </div>
+                </div>
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 p-4 rounded-xl">
+                  <p className="font-bold text-slate-800 mb-2">🤖 Consulta con NEXUS IA</p>
+                  <p className="text-sm text-slate-700">
+                    Nuestro asistente de IA conversacional puede ayudarte a encontrar distribuidores en tu país,
+                    calcular envíos internacionales y recomendarte los productos ideales para tu perfil.
+                    <strong className="text-blue-600"> Haz clic en el botón flotante para hablar con NEXUS.</strong>
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            {/* Pregunta 6 - Bonus */}
+            <details className="group bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-300 hover:border-amber-400 transition-all overflow-hidden shadow-md hover:shadow-xl">
+              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                <h3 className="text-xl font-bold text-amber-900 pr-4">
+                  🚀 ¿Cómo puedo comprar Gano Café y otros productos al mayorista?
+                </h3>
+                <span className="text-amber-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+                <p className="mb-4">
+                  Con <strong>CreaTuActivo</strong>, no solo compras productos premium al <strong>precio de distribuidor mayorista</strong>
+                  (35% de descuento), también accedes a un <strong>ecosistema completo</strong>:
+                </p>
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
+                    <div>
+                      <p className="font-bold text-slate-800">Tecnología NodeX + NEXUS IA</p>
+                      <p className="text-sm text-slate-600">Sistema automatizado para gestionar tu negocio 24/7</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
+                    <div>
+                      <p className="font-bold text-slate-800">Mentoría Personalizada 1:150</p>
+                      <p className="text-sm text-slate-600">Como Fundador, recibes mentoría directa y construyes tu red</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
+                    <div>
+                      <p className="font-bold text-slate-800">Ingresos Residuales</p>
+                      <p className="text-sm text-slate-600">Gana comisiones por ventas propias y de tu red</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-xl">
+                  <p className="text-xl font-bold mb-2">🎯 Solo 150 Cupos Fundadores</p>
+                  <p className="mb-4 text-blue-100">Válido hasta el 30 de Noviembre 2025</p>
+                  <a
+                    href="/fundadores"
+                    className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-xl hover:bg-blue-50 transition-all shadow-lg"
+                  >
+                    Únete como Fundador →
+                  </a>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          {/* CTA Final después del FAQ */}
+          <div className="mt-12 text-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              ¿Listo para probar el Gano Café?
+            </h3>
+            <p className="text-lg mb-6 text-blue-100">
+              Habla con <strong>NEXUS IA</strong> y descubre qué productos son ideales para tu estilo de vida
+            </p>
+            <button
+              onClick={() => {
+                // Trigger NEXUS floating button
+                const nexusButton = document.querySelector('[data-nexus-trigger]') as HTMLButtonElement
+                if (nexusButton) nexusButton.click()
+              }}
+              className="bg-white text-blue-600 font-bold py-4 px-8 rounded-xl hover:bg-blue-50 transition-all shadow-lg inline-flex items-center space-x-2"
+            >
+              <Bot className="h-5 w-5" />
+              <span>Hablar con NEXUS IA</span>
+            </button>
+          </div>
+        </section>
       </div>
 
       {/* Modal de Sistema de Bienestar Seleccionado */}

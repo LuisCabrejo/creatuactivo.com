@@ -124,7 +124,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/sistema/productos`,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 0.8,
+      priority: 0.95, // AUMENTADO: página de alto valor con keywords de producto continental
     },
     {
       url: `${baseUrl}/sistema/socio-corporativo`,

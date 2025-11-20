@@ -11,6 +11,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Shield, Brain, Users, Rocket } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -836,12 +837,11 @@ export default function CatalogoEstrategico() {
                       <div className="p-6">
                         <div className="relative mb-6">
                           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-4 flex items-center justify-center h-[320px]">
-                            <img
+                            <Image
                               src={product.image}
                               alt={`${product.name} - ${product.taglineEstrategico}`}
-                              width="522"
-                              height="348"
-                              loading="lazy"
+                              width={522}
+                              height={348}
                               className="object-contain max-h-[18rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                             />
                           </div>
@@ -923,9 +923,11 @@ export default function CatalogoEstrategico() {
                     {cart.map((item) => (
                       <div key={item.id} className="bg-slate-800/80 border border-slate-600 rounded-2xl p-4">
                         <div className="flex items-center space-x-4">
-                          <img
+                          <Image
                             src={item.image}
                             alt={item.name}
+                            width={64}
+                            height={64}
                             className="w-16 h-16 rounded-lg object-contain bg-white/10 p-1"
                           />
                           <div className="flex-1">
@@ -1133,12 +1135,11 @@ export default function CatalogoEstrategico() {
                 <div className="p-6">
                   <div className="relative mb-6">
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
-                      <img
+                      <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
-                        width="522"
-                        height="348"
-                        loading="lazy"
+                        width={522}
+                        height={348}
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1206,12 +1207,11 @@ export default function CatalogoEstrategico() {
                 <div className="p-6">
                   <div className="relative mb-6">
                     <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
-                      <img
+                      <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
-                        width="522"
-                        height="348"
-                        loading="lazy"
+                        width={522}
+                        height={348}
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1292,12 +1292,11 @@ export default function CatalogoEstrategico() {
                 <div className="p-6">
                   <div className="relative mb-6">
                     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
-                      <img
+                      <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
-                        width="522"
-                        height="348"
-                        loading="lazy"
+                        width={522}
+                        height={348}
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1353,12 +1352,11 @@ export default function CatalogoEstrategico() {
                 <div className="p-6">
                   <div className="relative mb-6">
                     <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
-                      <img
+                      <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
-                        width="522"
-                        height="348"
-                        loading="lazy"
+                        width={522}
+                        height={348}
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
@@ -1759,12 +1757,11 @@ export default function CatalogoEstrategico() {
                 {getProductsBySystem(selectedSystem).map((product) => (
                   <div key={product.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                     <div className="flex items-start space-x-4">
-                      <img
+                      <Image
                         src={product.image}
                         alt={`${product.name} - Carrito`}
-                        width="96"
-                        height="96"
-                        loading="lazy"
+                        width={96}
+                        height={96}
                         className="w-24 h-24 object-contain rounded-lg bg-white p-2"
                       />
                       <div className="flex-1">
@@ -1830,9 +1827,11 @@ export default function CatalogoEstrategico() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6">
-                  <img
+                  <Image
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
+                    width={600}
+                    height={400}
                     className="w-full h-[400px] object-contain"
                   />
                 </div>

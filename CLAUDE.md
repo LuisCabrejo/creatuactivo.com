@@ -775,6 +775,7 @@ git push -u origin main
 
 ### Recent Significant Updates
 
+- **Nov 20, 2025**: Optimización PageSpeed /sistema/productos - Next.js Image component (ahorro ~2.4 MB)
 - **Nov 15, 2025**: Fixed git repository setup issue + deployed fundadores v3-simplified
 - **Nov 11, 2025**: Business dates updated (10 Nov - 01 Dic - 02 Mar) + MENTOR role emphasis
 - **Nov 11, 2025**: Founder spots counter paused at 150 (static)

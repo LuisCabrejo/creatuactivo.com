@@ -110,7 +110,7 @@ const productData: ProductData = {
     invima: 'SD2012-0002589',
     goals: ['Energía', 'Defensas', 'Digestivo'],
     shortDescription: 'Una deliciosa mezcla de café premium con Ganoderma Lucidum, cremoso y azúcar',
-    taglineEstrategico: 'El hábito diario que construye tu activo',
+    taglineEstrategico: 'Tu ritual diario con beneficios reales',
     usage: 'Mezcla 1 sobre (21g) en 150ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café soluble premium', 'Cremora vegetal', 'Azúcar'],
     benefits: ['Aporta energía y vitalidad para tu día', 'Apoya las defensas naturales del cuerpo', 'Contribuye a la reducción del estrés y la fatiga', 'Promueve un estado de ánimo positivo', 'Disfruta de un delicioso y nutritivo sabor cremoso'],
@@ -152,7 +152,7 @@ const productData: ProductData = {
     invima: 'NSA-0012966-2022',
     goals: ['Energía', 'Relajación', 'Digestivo'],
     shortDescription: 'Una experiencia de latte premium con textura cremosa y espumosa',
-    taglineEstrategico: 'El latte que transforma pausas en oportunidades',
+    taglineEstrategico: 'El latte que merece cada pausa',
     usage: 'Disuelve 1 sobre (25g) en 180ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Leche en polvo', 'Cremora natural'],
     benefits: ['Disfruta de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita tus sentidos', 'Un gusto enriquecido para tu bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
@@ -215,7 +215,7 @@ const productData: ProductData = {
     invima: 'NSA-0012963-2022',
     goals: ['Energía', 'Digestivo', 'Defensas'],
     shortDescription: 'Un cereal nutritivo que combina Spirulina y Ganoderma',
-    taglineEstrategico: 'El desayuno que alimenta tu cuerpo y tu negocio',
+    taglineEstrategico: 'El desayuno que alimenta tu día',
     usage: 'Mezcla 2 cucharadas (30g) con leche, yogur o agua',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Spirulina orgánica', 'Cereales integrales', 'Fibra natural', 'Vitaminas y minerales'],
     benefits: ['Alto contenido de fibra para la salud digestiva', 'Excelente fuente de proteína vegetal', 'Promueve una nutrición completa y balanceada', 'Rico en vitaminas y minerales esenciales', 'Apoya la desintoxicación natural del organismo'],
@@ -279,7 +279,7 @@ const productData: ProductData = {
     invima: 'NSA-0012959-2022',
     goals: ['Belleza'],
     shortDescription: 'Bebida revolucionaria que combina colágeno marino con Ganoderma',
-    taglineEstrategico: 'La inversión más inteligente en tu apariencia',
+    taglineEstrategico: 'Colágeno + Ganoderma para tu piel radiante',
     usage: 'Disuelve 1 sobre en agua fría o al tiempo',
     ingredients: ['Colágeno marino', 'Gano Plus', 'Vitamina C', 'Sabor natural a frutas'],
     benefits: ['Apoya la elasticidad y firmeza de la piel', 'Fortalece el cabello y las uñas', 'Contribuye a una apariencia más juvenil', 'Ayuda a mantener la salud de articulaciones', 'Fórmula única con Colágeno y Gano Plus'],
@@ -321,7 +321,7 @@ const productData: ProductData = {
     invima: 'NSA-0012958-2022',
     goals: ['Concentración', 'Energía'],
     shortDescription: 'Conocido como el "tónico cerebral", contiene extracto del micelio joven del Ganoderma',
-    taglineEstrategico: 'Claridad mental para decisiones brillantes',
+    taglineEstrategico: 'Claridad mental para tu día a día',
     usage: 'Tomar 1-2 cápsulas al día con agua',
     ingredients: ['Extracto de micelio de Ganoderma', 'Germanio orgánico', 'Cápsula vegetal', 'Aminoácidos esenciales'],
     benefits: ['Apoya la función cerebral, memoria y concentración', 'Conocido como el "tónico para el cerebro"', 'Ayuda a mantener un sistema nervioso saludable', 'Promueve una óptima oxigenación celular', 'Contribuye al desarrollo y función del cerebro'],
@@ -363,7 +363,7 @@ const productData: ProductData = {
     invima: 'NSOC58855-14CO',
     goals: ['Belleza', 'Digestivo'],
     shortDescription: 'Pasta dental enriquecida con Ganoderma, libre de flúor',
-    taglineEstrategico: 'Sonrisas que abren puertas de oportunidad',
+    taglineEstrategico: 'Sonrisas naturalmente brillantes',
     usage: 'Usar como pasta dental regular',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Aceites esenciales naturales', 'Agentes limpiadores suaves', 'Sin flúor'],
     benefits: ['Promueve la salud integral de dientes y encías', 'Proporciona un aliento fresco y duradero', 'Fórmula suave, sin flúor, ideal para toda la familia', 'Ayuda a prevenir la formación de placa', 'Contribuye a calmar la sensibilidad dental'],
@@ -490,7 +490,7 @@ const productData: ProductData = {
     invima: 'Certificado CE - Dispositivo',
     goals: ['Comodidad', 'Calidad'],
     shortDescription: 'Máquina de café premium Luvoco con tecnología de bomba de 15 bares y sistema de 2 pasos. Diseño compacto y elegante, eficiencia energética automática.',
-    taglineEstrategico: 'La máquina que eleva tu experiencia y construye tu imperio',
+    taglineEstrategico: 'La máquina que eleva cada taza a experiencia premium',
     usage: 'Conectar a la corriente, llenar depósito de agua, insertar cápsula Luvoco, seleccionar intensidad y presionar botón. Preparación en 30 segundos.',
     ingredients: ['Acero inoxidable', 'Componentes de alta durabilidad', 'Sistema de bomba 15 bares', 'Eficiencia energética'],
     benefits: ['Tecnología de bomba de 15 bares para extracción perfecta', 'Sistema de 2 pasos para máxima calidad de café', 'Diseño compacto y elegante para cualquier cocina', 'Eficiencia energética automática', 'Preparación en 30 segundos', 'Compatible exclusivamente con cápsulas Luvoco'],
@@ -512,7 +512,7 @@ const productData: ProductData = {
     invima: 'NSA-0012955-2022',
     goals: ['Energía', 'Sabor'],
     shortDescription: 'Disfruta de la suavidad y el delicado sabor del café Luvoco Suave. Perfecto para aquellos que prefieren un café más ligero al paladar. Caja con 15 cápsulas.',
-    taglineEstrategico: 'Suavidad premium que abre conversaciones',
+    taglineEstrategico: 'Suavidad premium para cada momento',
     usage: 'Insertar cápsula en máquina Luvoco, seleccionar intensidad suave, presionar botón. Temperatura interna 180°C-205°C.',
     ingredients: ['Café molido tostado suave', 'Betaglucanos de Ganoderma Lucidum', 'Antioxidantes naturales'],
     benefits: ['Sabor suave y delicado, perfecto para paladares sensibles', 'Enriquecido con betaglucanos de Ganoderma Lucidum', 'Ideal para empezar el día con energía natural', 'Aroma rico y envolvente', 'Sistema de cápsulas que preserva la frescura'],
@@ -554,7 +554,7 @@ const productData: ProductData = {
     invima: 'NSA-0012953-2022',
     goals: ['Energía', 'Intensidad'],
     shortDescription: 'Déjate envolver por la intensidad robusta del café Luvoco Fuerte. Para los amantes del café que buscan una experiencia intensa y vigorosa. Caja con 15 cápsulas.',
-    taglineEstrategico: 'Intensidad que impulsa resultados extraordinarios',
+    taglineEstrategico: 'Intensidad para quienes aman el café robusto',
     usage: 'Insertar cápsula en máquina Luvoco, seleccionar intensidad fuerte, presionar botón. Temperatura interna 240°C-250°C.',
     ingredients: ['Café molido tostado fuerte', 'Betaglucanos de Ganoderma Lucidum', 'Proceso de tostado dominante'],
     benefits: ['Intensidad robusta para verdaderos amantes del café', 'Sabor profundo y audaz que despierta los sentidos', 'Enriquecido con betaglucanos de Ganoderma Lucidum', 'Ideal para momentos que requieren impulso extra', 'Experiencia de café intensa y vigorosa'],
@@ -810,8 +810,8 @@ export default function CatalogoEstrategico() {
                   <Trophy className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800">Productos Estrella para Constructores</h2>
-                  <p className="text-slate-600">Los que generan más resultados y testimonios</p>
+                  <h2 className="text-2xl font-bold text-slate-800">Productos Más Vendidos</h2>
+                  <p className="text-slate-600">Los favoritos de nuestra comunidad</p>
                 </div>
               </div>
               <button
@@ -852,12 +852,7 @@ export default function CatalogoEstrategico() {
 
                         <h3 className="text-lg font-bold text-slate-800 mb-2">{product.name}</h3>
                         <p className="text-sm text-amber-800 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
-                        <p className="text-slate-700 text-sm mb-4 leading-relaxed line-clamp-2">{product.shortDescription}</p>
-
-                        <div className="mb-4">
-                          <p className="text-xs font-semibold text-slate-600 mb-2">Para Constructores:</p>
-                          <p className="text-xs text-slate-600 italic line-clamp-2">{product.puntosConversacion[0]}</p>
-                        </div>
+                        <p className="text-slate-700 text-sm mb-6 leading-relaxed line-clamp-2">{product.shortDescription}</p>
 
                         <div className="flex flex-wrap gap-2 mb-6">
                           {product.goals.map((goal) => (
@@ -1231,13 +1226,6 @@ export default function CatalogoEstrategico() {
                   )}
                   <p className="text-slate-500 text-sm mb-3">Certificación: {product.invima}</p>
                   <p className="text-slate-700 text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
-
-                  {product.puntosConversacion && (
-                    <div className="mb-4 p-3 bg-amber-50 rounded-xl border border-amber-200">
-                      <p className="text-xs font-semibold text-amber-700 mb-1">💡 Estrategia Constructor:</p>
-                      <p className="text-xs text-amber-800">{product.puntosConversacion[0]}</p>
-                    </div>
-                  )}
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
@@ -1767,14 +1755,6 @@ export default function CatalogoEstrategico() {
             </div>
 
             <div className="p-6">
-              <div className="mb-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
-                <p className="text-amber-800 font-semibold mb-2">Estrategia de Venta para Constructores:</p>
-                <p className="text-amber-700 text-sm">
-                  Este sistema resuelve necesidades específicas. Úsalo como paquete completo para maximizar
-                  el valor percibido y generar testimonios poderosos que atraigan más clientes.
-                </p>
-              </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {getProductsBySystem(selectedSystem).map((product) => (
                   <div key={product.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
@@ -1893,7 +1873,7 @@ export default function CatalogoEstrategico() {
                         : 'text-slate-500 hover:text-slate-700'
                     }`}
                   >
-                    Para Constructores
+                    Guía de Uso Avanzado
                   </button>
                 </div>
 
@@ -1964,11 +1944,11 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'constructor' && (
                     <div className="space-y-4">
                       <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-200">
-                        <h4 className="font-bold text-purple-800 mb-3">Puntos de Conversación Estratégicos</h4>
+                        <h4 className="font-bold text-purple-800 mb-3">💡 Consejos de Uso Óptimo</h4>
                         <ul className="space-y-2">
                           {selectedProduct.puntosConversacion.map((punto, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-purple-500 mr-2">{index + 1}.</span>
+                              <span className="text-purple-500 mr-2">•</span>
                               <span className="text-purple-700 text-sm">{punto}</span>
                             </li>
                           ))}
@@ -1977,7 +1957,8 @@ export default function CatalogoEstrategico() {
 
                       {selectedProduct.combinacionSugerida && (
                         <div>
-                          <h3 className="text-lg font-bold text-slate-800 mb-3">Combinación Sugerida</h3>
+                          <h3 className="text-lg font-bold text-slate-800 mb-3">🔗 Combina con estos productos</h3>
+                          <p className="text-slate-600 text-sm mb-3">Para potenciar tus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
                               <span key={productoId} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
@@ -1989,10 +1970,10 @@ export default function CatalogoEstrategico() {
                       )}
 
                       <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
-                        <h4 className="font-bold text-emerald-800 mb-2">Potencial de Construcción</h4>
+                        <h4 className="font-bold text-emerald-800 mb-2">✨ Ideal para ti si...</h4>
                         <p className="text-emerald-700 text-sm">
-                          Ideal para construir relaciones con: {selectedProduct.perfilIdeal}.
-                          Este producto crea conversaciones de valor y abre puertas para presentar el ecosistema completo.
+                          Este producto es perfecto para: {selectedProduct.perfilIdeal}.
+                          Maximiza tus beneficios explorando el catálogo completo y descubriendo combinaciones que se adapten a tus objetivos.
                         </p>
                       </div>
 
@@ -2044,7 +2025,7 @@ export default function CatalogoEstrategico() {
                       className="w-full flex items-center justify-center bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 rounded-xl hover:from-emerald-600 hover:to-green-600 transition-all font-medium text-lg shadow-lg"
                     >
                       <Download className="h-5 w-5 mr-2" />
-                      Descargar Material para Constructores
+                      Descargar Guía del Producto (PDF)
                     </a>
                   )}
                 </div>

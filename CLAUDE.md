@@ -29,39 +29,48 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 
 **I need to...**
 
+- **Start any development work** → FIRST verify git status: `git status` (see Git Workflow section)
 - **Modify NEXUS responses** → Update `system_prompts` table (see "Modifying NEXUS Behavior")
 - **Add new knowledge** → Edit `.txt` files in `knowledge_base/` then copy to Supabase (see README.md)
+- **Send NEXUS messages (new code)** → Use `/api/nexus/producer` endpoint (async queue, PREFERRED)
+- **Test NEXUS locally** → Use `/api/nexus` with GET for health check, POST for sync testing
 - **Track new user data** → Update `captureProspectData()` in route.ts
 - **Change business dates** → Run `node scripts/actualizar-fechas-prelanzamiento.mjs`
 - **Debug tracking issues** → Use `window.debugTracking()` in browser console
 - **Fix queue processing** → Check Supabase Edge Function logs
 - **Update video content** → See "Working with Video Content" section
 - **Add new landing page** → See "Adding New Landing Pages" section
+- **Deploy to production** → Verify git, commit, push, then check Vercel deployment (see Git Workflow)
 
 ## First Time Setup (New Developers)
 
-1. Clone repository and install dependencies:
+1. **Verify git repository** (CRITICAL - see Git Workflow section):
+   ```bash
+   git status  # Should NOT return "fatal: no es un repositorio git"
+   ```
+
+2. Clone repository and install dependencies:
    ```bash
    npm install
    ```
 
-2. Copy environment template:
+3. Copy environment template:
    ```bash
    cp .env.example .env.local
    ```
 
-3. Configure required environment variables in `.env.local`:
+4. Configure required environment variables in `.env.local`:
    - `NEXT_PUBLIC_SUPABASE_URL` - From Supabase project settings
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - From Supabase project settings
    - `ANTHROPIC_API_KEY` - From anthropic.com console
    - `RESEND_API_KEY` - From resend.com (for emails)
 
-4. Start development server:
+5. Start development server:
    ```bash
    npm run dev
    ```
 
-5. Verify NEXUS is working:
+6. Verify NEXUS is working:
    ```bash
    curl http://localhost:3000/api/nexus
    ```
@@ -803,9 +812,35 @@ git push -u origin main
 
 ### Standard Git Operations
 
+**BEFORE starting ANY development work**:
+```bash
+git status  # Verify repository is working
+```
+
 When committing:
 - **Never commit** `.env.local` or any files with API keys
 - **Do commit** `knowledge_base/` `.txt` files (they are the source of truth for NEXUS knowledge)
 - Use descriptive commit messages following existing pattern (emojis optional)
 - **Always verify** git status before starting work
 - **Always check GitHub** after pushing to confirm changes uploaded
+
+**Standard commit workflow**:
+```bash
+# 1. Verify git is working
+git status
+
+# 2. Stage changes
+git add [files]
+
+# 3. Commit with descriptive message
+git commit -m "✨ feat: Your descriptive message"
+
+# 4. Push to main
+git push origin main
+
+# 5. VERIFY on GitHub that changes are there
+# Visit: https://github.com/LuisCabrejo/creatuactivo.com/blob/main/[your-file]
+
+# 6. Monitor Vercel deployment
+# Vercel Dashboard → Look for "main" branch deployment
+```

@@ -377,6 +377,15 @@ const resetChat = useCallback(() => {
   setIsStreaming(false);
   setProgressiveReplies([]);
   setStreamingComplete(false);
+
+  // ✅ CRÍTICO: Limpiar localStorage para que backend trate como nueva conversación
+  localStorage.removeItem('nexus_consent_given');
+  localStorage.removeItem('nexus_consent_timestamp');
+  localStorage.removeItem('nexus_first_greeting_shown');
+  localStorage.removeItem('nexus_first_greeting_timestamp');
+  // Nota: NO limpiamos nexus_fingerprint (identificación del dispositivo debe persistir)
+
+  console.log('✅ [NEXUS] Chat reseteado - localStorage limpio');
  }, []);
 
 const handleQuickReply = useCallback((reply: string) => {

@@ -321,7 +321,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     <div
                       className={`p-2 md:p-3 rounded-lg text-sm transition-all duration-200 ${
                         message.role === 'user'
-                          ? 'text-white max-w-[85%] md:max-w-[75%] ml-auto shadow-lg'
+                          ? 'text-white max-w-[85%] md:max-w-[75%] shadow-lg'
                           : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
                       }`}
                       style={message.role === 'user' ? {

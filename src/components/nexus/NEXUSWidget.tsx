@@ -191,8 +191,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </button>
 
               <button
-                className="text-slate-400 hover:text-white p-2 transition-all duration-200 rounded-lg hover:bg-white/10"
+                className="text-white hover:text-red-400 p-2 transition-all duration-200 rounded-lg bg-slate-700/50 hover:bg-red-500/20 border border-slate-600/50 hover:border-red-500/50"
                 onClick={onClose}
+                aria-label="Cerrar asistente NEXUS"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
@@ -203,14 +204,15 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
           {/* BOTÓN CERRAR MOBILE */}
           <button
-            className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-sm text-slate-400 hover:text-white transition-all duration-200 hover:bg-slate-700/80"
+            className="md:hidden absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-slate-700 backdrop-blur-sm text-white hover:text-red-400 transition-all duration-200 hover:bg-red-500/20 border-2 border-slate-600 hover:border-red-500"
             onClick={onClose}
             style={{
-              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)'
             }}
+            aria-label="Cerrar asistente NEXUS"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
 

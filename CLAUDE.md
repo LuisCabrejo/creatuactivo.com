@@ -628,14 +628,32 @@ window.reidentifyProspect()         // Force re-identification
 - [supabase/functions/nexus-queue-processor/](supabase/functions/nexus-queue-processor/) - Process queued NEXUS messages
 
 ### Documentation Files
+
+**NEXUS & Arsenales:**
+- [HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md](HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md) - **MASTER**: Filosofía Jobs-Style + Deploy arsenales (20 Nov 2025)
+- [DEPLOY_SUCCESS_ARSENALES_JOBS_STYLE.md](DEPLOY_SUCCESS_ARSENALES_JOBS_STYLE.md) - Deploy report arsenales Jobs-Style (20 Nov 2025)
+- [HANDOFF_FUNDADORES_PROFESIONALES_REDESIGN.md](HANDOFF_FUNDADORES_PROFESIONALES_REDESIGN.md) - Rediseño /fundadores-profesionales (18 Nov 2025)
+- [HANDOFF_VIDEO_FUNDADORES_CONTEXTO_COMPLETO.md](HANDOFF_VIDEO_FUNDADORES_CONTEXTO_COMPLETO.md) - Video hero context (17 Nov 2025)
+
+**SEO & PageSpeed (Nov 7, 2025):**
+- [GOOGLE_SEARCH_CONSOLE_SETUP.md](GOOGLE_SEARCH_CONSOLE_SETUP.md) - Complete GSC setup guide
+- [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed optimizations (defer tracking.js, preconnect)
+- [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) - Testing guide for PageSpeed
+- [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) - PageSpeed deployment verification
+- [LIMPIEZA_SEO_NOV20.md](LIMPIEZA_SEO_NOV20.md) - SEO documentation cleanup (20 Nov 2025)
+
+**Infrastructure & Queue:**
 - [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Complete deployment guide for queue system
+
+**Video & Media:**
 - [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation guide
 - [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) - Quick start for video upload
+
+**Business Logic:**
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter specification
-- [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed Insights optimizations (Nov 7, 2025)
-- [PRUEBAS_PAGESPEED_OPTIMIZACIONES.md](PRUEBAS_PAGESPEED_OPTIMIZACIONES.md) - Testing guide for PageSpeed optimizations
-- [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) - Successful PageSpeed deployment verification checklist
-- [GOOGLE_SEARCH_CONSOLE_SETUP.md](GOOGLE_SEARCH_CONSOLE_SETUP.md) - Complete guide for Google Search Console setup (Nov 7, 2025)
+
+**Cleanup Reports:**
+- [LIMPIEZA_HANDOFF_NOV20.md](LIMPIEZA_HANDOFF_NOV20.md) - HANDOFF files cleanup (20 Nov 2025)
 - [RESUMEN_ACTUALIZACIONES_26OCT.md](RESUMEN_ACTUALIZACIONES_26OCT.md) - Updates summary (Oct 26, 2025)
 
 ## Business Critical Dates

@@ -1738,7 +1738,7 @@ export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    const { messages, sessionId, fingerprint, constructorId } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven } = await req.json();
 
     // ✅ Validación de mensajes
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -2136,7 +2136,8 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
     const interaccionActual = Math.floor(messages.length / 2) + 1;
 
     // ✅ NUEVA LÓGICA: Es primera interacción SOLO si no hay datos previos con consentimiento
-    const tieneConsentimientoPrevio = existingProspectData.consent_granted === true;
+    // 🆕 TAMBIÉN verifica consentimiento desde localStorage (consentGiven flag)
+    const tieneConsentimientoPrevio = existingProspectData.consent_granted === true || consentGiven === true;
     const tieneNombrePrevio = !!existingProspectData.name;
     const esUsuarioConocido = tieneConsentimientoPrevio && tieneNombrePrevio;
 
@@ -2148,6 +2149,7 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
       interaccionActual,
       esUsuarioConocido,
       tieneConsentimientoPrevio,
+      tieneConsentimientoLocalStorage: consentGiven,
       tieneNombrePrevio,
       esPrimeraInteraccion,
       nombre: existingProspectData.name || 'N/A'

@@ -15,7 +15,7 @@ SET
 ### OBJ_01: "¿Esto es MLM / Multinivel?"
 **[Objeción #1 más común]**
 
-Sí, **Gano Excel** usa ese modelo (multinivel).
+Sí, **Gano Excel** usa ese modelo de distribución.
 
 Pero **CreaTuActivo.com** es diferente:
 Nosotros te damos la tecnología para que sea más fácil.
@@ -86,7 +86,9 @@ Ahora la tecnología hace eso por ti:
 - Videos explican los productos
 - La aplicación te dice exactamente qué hacer cada día
 
-**Tú solo sigues 3 pasos simples: INICIAR, ACOGER, ACTIVAR**
+**Tú solo sigues 3 pasos simples:**
+
+Piensa en el dueño de un restaurante: él no cocina cada plato ni atiende cada mesa. Pero sabe cuándo enviar al chef o al mesero correcto.
 
 **1. INICIAR:**
 Compartir un link (como cuando mandas un video por WhatsApp)
@@ -189,7 +191,7 @@ Piénsalo:
 
 Eso es todo lo que necesitas saber hacer.
 
-**La tecnología hace lo difícil:**
+**CreaTuActivo.com hace lo difícil:**
 - Yo (NEXUS) educo a las personas 24/7
 - Videos presentan los productos
 - La aplicación les dice qué hacer cada día
@@ -351,7 +353,7 @@ Te entiendo. Si suena perfecto, probablemente no lo es.
 
 Porque antes todo era manual y agotador.
 
-Ahora la tecnología hace el 80% del trabajo:
+Ahora CreaTuActivo.com hace el 80% del trabajo:
 - Yo (NEXUS) respondo preguntas mientras duermes
 - Videos explican los productos por ti
 - La aplicación te guía paso a paso
@@ -434,8 +436,8 @@ Sección "comisiones".
 Todo transparente, todo claro.
 
 **Pronto:**
-NodeX y Back Office integrados.
-Todo en un solo lugar.
+Todo en un solo lugar dentro de CreaTuActivo.com.
+Sin cambiar de pantallas.
 
 Es como Uber o Airbnb:
 Tú no manejas dinero.
@@ -477,7 +479,7 @@ Tienes ayuda en cada nivel:
 Disponible 24/7.
 Respondo al instante.
 
-**NodeX:**
+**La aplicación:**
 Tutoriales paso a paso dentro del sistema.
 Ayuda justo donde la necesitas.
 
@@ -508,7 +510,7 @@ Te enseñamos a usarlas.
 ✅ Mentorías directas cuando las necesites
 
 **Piénsalo como un gimnasio:**
-Te damos las máquinas (NodeX, NEXUS).
+Te damos las máquinas (CreaTuActivo.com, NEXUS).
 Te enseñamos los ejercicios (La Academia).
 Te acompaña un entrenador (mentorías).
 Entrenas con otros (comunidad).
@@ -635,10 +637,10 @@ Que puedes heredar.
 ¿O siempre has intercambiado tiempo por dinero?
 ---
 
-### TECH_11: "¿Cuál es el soporte real del sistema NodeX?"
-**[Soporte NodeX específico]**
+### TECH_11: "¿Cuál es el soporte real del sistema?"
+**[Soporte del sistema]**
 
-NodeX no es solo un software.
+CreaTuActivo.com no es solo un software.
 Es como tener un equipo trabajando para ti 24/7.
 
 **Te da inteligencia:**
@@ -648,7 +650,7 @@ No solo datos. Te dice:
 - Cuándo es el mejor momento para hablarles
 
 **Te automatiza tareas:**
-NodeX hace lo aburrido:
+CreaTuActivo.com hace lo aburrido:
 - Enviar recordatorios
 - Mandar información
 - Hacer seguimiento
@@ -657,9 +659,9 @@ Tú haces lo importante:
 - Conversaciones con personas interesadas
 
 **Te da herramientas:**
-✅ Centro de Inteligencia (crea mensajes personalizados)
+✅ Mensajes personalizados listos para usar
 ✅ Enlaces personalizados
-✅ ACE (próximamente - asistente para preparar tus llamadas)
+✅ Asistente para preparar tus llamadas (próximamente)
 
 Es como tener asistentes:
 Uno investiga. Uno envía emails. Uno organiza tu agenda.
@@ -806,7 +808,7 @@ No le das un manual complicado.
 Le das una copia exacta del sistema completo.
 
 **Recibe lo mismo que tú:**
-✅ Su propio NodeX (Centro de Comando)
+✅ Su propia aplicación CreaTuActivo.com
 ✅ Sus propios enlaces personalizados
 ✅ Acceso a La Academia
 ✅ NEXUS trabajando para él 24/7
@@ -996,8 +998,8 @@ No hay problema. Está hecho para ti.
 **La Academia está diseñada para personas no técnicas.**
 Paso a paso. Videos simples.
 
-**NodeX es intuitivo:**
-Si puedes usar Facebook, puedes usar NodeX.
+**CreaTuActivo.com es intuitivo:**
+Si puedes usar Facebook, puedes usar CreaTuActivo.com.
 
 **NEXUS (yo) hablo simple:**
 Español claro. Sin jerga técnica.

@@ -44,6 +44,14 @@ const cleanMessageContent = (content: string) => {
 };
 
 const sendMessage = useCallback(async (content: string) => {
+  // 🆕 Detectar si el usuario está dando consentimiento
+  const isAcceptingConsent = /acepto|aceptas|a\)/i.test(content);
+  if (isAcceptingConsent) {
+    localStorage.setItem('nexus_consent_given', 'true');
+    localStorage.setItem('nexus_consent_timestamp', Date.now().toString());
+    console.log('✅ [NEXUS] Consentimiento guardado en localStorage');
+  }
+
   // Agregar mensaje del usuario
   const userMessage: Message = {
     id: generateId(),
@@ -128,6 +136,14 @@ const sendMessage = useCallback(async (content: string) => {
       }
     }
 
+    // 🆕 Verificar si ya se dio consentimiento previamente
+    const consentGiven = localStorage.getItem('nexus_consent_given') === 'true';
+    const consentTimestamp = localStorage.getItem('nexus_consent_timestamp');
+    console.log('🔍 [NEXUS] Estado de consentimiento:', {
+      consentGiven,
+      timestamp: consentTimestamp ? new Date(parseInt(consentTimestamp)).toISOString() : 'nunca'
+    });
+
     const response = await fetch('/api/nexus', {
       method: 'POST',
       headers: {
@@ -141,7 +157,8 @@ const sendMessage = useCallback(async (content: string) => {
         })),
         fingerprint: fingerprint,
         sessionId: sessionId,
-        constructorId: constructorId  // ✅ Pasar constructor_id para tracking
+        constructorId: constructorId,  // ✅ Pasar constructor_id para tracking
+        consentGiven: consentGiven  // 🆕 Enviar estado de consentimiento
       }),
       signal: controller.signal
     });

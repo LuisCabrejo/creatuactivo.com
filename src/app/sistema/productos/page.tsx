@@ -1027,7 +1027,7 @@ export default function CatalogoEstrategico() {
     <div className="inline-flex items-center bg-white/90 backdrop-blur-lg border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
       <Rocket className="h-4 w-4 text-blue-500 mr-2 animate-pulse" />
       <span className="text-slate-700">
-        Asesor de bienestar: <span className="font-bold text-blue-700">{distributor.nombre}</span>
+        Especialista en bienestar: <span className="font-bold text-blue-700">{distributor.nombre}</span>
       </span>
     </div>
   )}

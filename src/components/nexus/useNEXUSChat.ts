@@ -139,9 +139,15 @@ const sendMessage = useCallback(async (content: string) => {
     // 🆕 Verificar si ya se dio consentimiento previamente
     const consentGiven = localStorage.getItem('nexus_consent_given') === 'true';
     const consentTimestamp = localStorage.getItem('nexus_consent_timestamp');
-    console.log('🔍 [NEXUS] Estado de consentimiento:', {
+
+    // 🆕 Verificar si el usuario ya tuvo su primer saludo
+    const hasSeenGreeting = localStorage.getItem('nexus_first_greeting_shown') === 'true';
+
+    console.log('🔍 [NEXUS] Estado de usuario:', {
       consentGiven,
-      timestamp: consentTimestamp ? new Date(parseInt(consentTimestamp)).toISOString() : 'nunca'
+      consentTimestamp: consentTimestamp ? new Date(parseInt(consentTimestamp)).toISOString() : 'nunca',
+      hasSeenGreeting,
+      isFirstMessageOfConversation: messages.length === 0
     });
 
     const response = await fetch('/api/nexus', {
@@ -158,7 +164,8 @@ const sendMessage = useCallback(async (content: string) => {
         fingerprint: fingerprint,
         sessionId: sessionId,
         constructorId: constructorId,  // ✅ Pasar constructor_id para tracking
-        consentGiven: consentGiven  // 🆕 Enviar estado de consentimiento
+        consentGiven: consentGiven,  // 🆕 Enviar estado de consentimiento
+        isReturningUser: hasSeenGreeting  // 🆕 Enviar si ya vio el saludo completo
       }),
       signal: controller.signal
     });
@@ -234,6 +241,13 @@ const sendMessage = useCallback(async (content: string) => {
 
       setStreamingComplete(true);
 
+      // 🆕 Marcar que el usuario ya vio el primer saludo (si es el primer mensaje)
+      if (messages.length === 0 && !hasSeenGreeting) {
+        localStorage.setItem('nexus_first_greeting_shown', 'true');
+        localStorage.setItem('nexus_first_greeting_timestamp', Date.now().toString());
+        console.log('✅ [NEXUS] Primer saludo mostrado, marcado en localStorage');
+      }
+
     } else {
       // 🎯 MANEJAR RESPUESTA JSON
       const data = await response.json();
@@ -273,6 +287,13 @@ const sendMessage = useCallback(async (content: string) => {
               )
             );
             setStreamingComplete(true);
+
+            // 🆕 Marcar que el usuario ya vio el primer saludo (si es el primer mensaje)
+            if (messages.length === 0 && !hasSeenGreeting) {
+              localStorage.setItem('nexus_first_greeting_shown', 'true');
+              localStorage.setItem('nexus_first_greeting_timestamp', Date.now().toString());
+              console.log('✅ [NEXUS] Primer saludo mostrado, marcado en localStorage');
+            }
           } else {
             setMessages(prev =>
               prev.map(msg =>

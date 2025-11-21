@@ -1738,7 +1738,7 @@ export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser } = await req.json();
 
     // ✅ Validación de mensajes
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -1794,18 +1794,23 @@ export async function POST(req: Request) {
     let existingProspectData: any = {};
     if (fingerprint) {
       try {
-        const { data: existingProspect } = await supabase
-          .from('prospects')
-          .select('device_info')
-          .eq('fingerprint_id', fingerprint)
+        const { data: deviceData, error: deviceError } = await supabase
+          .from('device_info')
+          .select('*')
+          .eq('fingerprint', fingerprint)
+          .order('created_at', { ascending: false })
+          .limit(1)
           .single();
 
-        if (existingProspect?.device_info) {
-          existingProspectData = existingProspect.device_info;
+        if (deviceData) {
+          existingProspectData = deviceData;
           console.log('📊 [NEXUS] Datos existentes del prospecto:', {
             tiene_nombre: !!existingProspectData.name,
-            tiene_ocupacion: !!existingProspectData.occupation,
-            tiene_whatsapp: !!existingProspectData.phone
+            tiene_email: !!existingProspectData.email,
+            tiene_whatsapp: !!existingProspectData.whatsapp,
+            tiene_archetype: !!existingProspectData.archetype,
+            tiene_consentimiento: !!existingProspectData.consent_granted,
+            consentGivenFromLocalStorage: consentGiven
           });
         }
       } catch (error) {
@@ -1814,37 +1819,9 @@ export async function POST(req: Request) {
       }
     }
 
-    // 🧠 CARGAR DATOS DEL USUARIO (Fix 1: Load user data from prospects)
-    let userData: any = {};
-
-    if (fingerprint) {
-      try {
-        console.log('👤 [NEXUS] Cargando datos del usuario desde prospects...');
-
-        const { data: prospect, error: prospectError } = await supabase
-          .from('prospects')
-          .select('device_info')
-          .eq('fingerprint_id', fingerprint)
-          .order('updated_at', { ascending: false })
-          .limit(1)
-          .single();
-
-        if (prospectError) {
-          console.log('⚠️ [NEXUS] Usuario nuevo - sin datos previos');
-        } else if (prospect?.device_info) {
-          userData = prospect.device_info;
-          console.log('✅ [NEXUS] Datos del usuario cargados:', {
-            tiene_nombre: !!userData.name,
-            tiene_email: !!userData.email,
-            tiene_whatsapp: !!userData.whatsapp,
-            tiene_archetype: !!userData.archetype,
-            tiene_consentimiento: !!userData.consent_granted
-          });
-        }
-      } catch (error) {
-        console.error('❌ [NEXUS] Error cargando datos del usuario:', error);
-      }
-    }
+    // 🧠 DATOS DEL USUARIO: Reutilizar existingProspectData ya cargado
+    // (ya no necesitamos consultar 2 veces la misma información)
+    const userData = existingProspectData;
 
     // �� CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
     let conversationSummary = '';
@@ -2193,8 +2170,10 @@ ${userData.name || userData.consent_granted ? `
 🎉 USUARIO CONOCIDO - SALUDO PERSONALIZADO:
 - El usuario YA dio consentimiento previamente: ${userData.consent_granted ? '✅ SÍ' : 'Pendiente'}
 - Su nombre es: ${userData.name || 'No capturado aún'}
+- Usuario que regresa (limpia pizarra): ${isReturningUser ? '✅ SÍ' : 'No'}
 - NO vuelvas a pedir consentimiento ni datos que ya tienes
-${userData.name ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
+${userData.name && isReturningUser ? `- SALUDO BREVE OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué más puedo ayudarte?"` : userData.name && !isReturningUser ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
+${!userData.name && isReturningUser ? `- SALUDO BREVE SIN NOMBRE: "¡Hola de nuevo! ¿En qué más puedo ayudarte?"` : ''}
 - Si preguntan algo que ya respondiste antes, recuérdales: "Como te comenté antes..."
 - Mantén un tono familiar y cercano (ya se conocen)
 

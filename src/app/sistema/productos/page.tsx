@@ -990,7 +990,7 @@ export default function CatalogoEstrategico() {
                   </div>
 
                   <a
-                    href={`https://wa.me/${distributor?.whatsapp || '+573102066593'}?text=${generateWhatsAppMessage()}`}
+                    href={`https://wa.me/${(distributor?.whatsapp || '+573102066593').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-3 rounded-xl font-medium hover:from-emerald-600 hover:to-green-600 transition-all text-center block"
@@ -1440,7 +1440,7 @@ export default function CatalogoEstrategico() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={`https://wa.me/${distributor?.whatsapp || '+573102066593'}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
+                href={`https://wa.me/${(distributor?.whatsapp || '+573102066593').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:from-emerald-600 hover:to-green-600 transition-all inline-flex items-center justify-center gap-3"

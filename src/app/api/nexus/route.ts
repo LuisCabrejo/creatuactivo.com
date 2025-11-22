@@ -2334,10 +2334,11 @@ ${!mergedProspectData.name ? `
         const semanticData = extractFromClaudeResponse(completion);
 
         // 🛡️ PROTECCIÓN: NO sobrescribir nombre válido con extracción semántica
-        // Causa: Regex "Excelente [NOMBRE]" puede capturar palabras como "observación"
-        // Fix: Solo usar nombre semántico si NO existe nombre previo
-        if (semanticData.name && prospectData.name && prospectData.name.length >= 2) {
-          console.log('⚠️ [SEMÁNTICA] Ignorando nombre semántico - ya existe nombre válido:', prospectData.name, '(semántico:', semanticData.name, ')');
+        // Causa: Regex "Perfecto [NOMBRE]" puede capturar solo apellido ("Pablo" en vez de "Pablo Hoyos")
+        // Fix: Comparar con datos EXISTENTES en BD, no solo del mensaje actual
+        const currentNameInDB = mergedProspectData.name || existingProspectData.name;
+        if (semanticData.name && currentNameInDB && currentNameInDB.length >= 2) {
+          console.log('⚠️ [SEMÁNTICA] Ignorando nombre semántico - ya existe nombre válido en BD:', currentNameInDB, '(semántico:', semanticData.name, ')');
           delete semanticData.name;
         }
 

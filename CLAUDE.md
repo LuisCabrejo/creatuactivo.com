@@ -802,6 +802,7 @@ git push -u origin main
 
 ### Recent Significant Updates
 
+- **Nov 21, 2025**: Cookie Banner implementation + System Prompt v17.0 (zero consent)
 - **Nov 20, 2025**: Optimización PageSpeed /sistema/productos - Next.js Image component (ahorro ~2.4 MB)
 - **Nov 15, 2025**: Fixed git repository setup issue + deployed fundadores v3-simplified
 - **Nov 11, 2025**: Business dates updated (10 Nov - 01 Dic - 02 Mar) + MENTOR role emphasis
@@ -844,3 +845,82 @@ git push origin main
 # 6. Monitor Vercel deployment
 # Vercel Dashboard → Look for "main" branch deployment
 ```
+
+## Cookie Banner & Consent Management
+
+**Last Updated:** Nov 21, 2025
+
+### Architecture Overview
+
+The platform uses a **professional Cookie Banner** approach (like Amazon/Google) instead of NEXUS asking for consent:
+
+```
+Cookie Banner (Footer) → Handles ALL consent UX
+       ↓
+NEXUS (Chatbot) → System Prompt v17.0 (ZERO consent mentions)
+       ↓
+Backend (route.ts) → Clean flow without interception
+       ↓
+Supabase → Data persists by fingerprint
+```
+
+### Key Components
+
+**1. Cookie Banner Component**
+- **File:** [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx)
+- **Appears:** 1 second after page load (first visit only)
+- **Position:** Fixed footer, professional design
+- **Storage:** `localStorage.cookie_consent` (accepted/rejected)
+- **Integration:** Root layout ([src/app/layout.tsx](src/app/layout.tsx))
+
+**2. System Prompt (NEXUS Behavior)**
+- **Version:** v17.0_zero_consent_aggressive_clean
+- **Table:** Supabase `system_prompts` (name: `nexus_main`)
+- **Status:** 100% free of consent mentions (8,307 characters removed)
+- **Script:** [scripts/eliminar-todo-consentimiento-agresivo.mjs](scripts/eliminar-todo-consentimiento-agresivo.mjs)
+- **Verification:** `grep -i "consentimiento\|autorización\|aceptas"` returns 0 matches
+
+**3. Backend Clean Flow**
+- **File:** [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts)
+- **Removed:** Lines 1850-1914 (consent interception logic)
+- **Flow:** User message → Load history → Call Claude API → Stream response
+- **No blocking:** NEXUS never interrupts conversation for consent
+
+### Modifying NEXUS Consent Behavior
+
+**DO NOT:**
+- ❌ Add consent logic to route.ts
+- ❌ Modify System Prompt to ask for consent
+- ❌ Create new consent modals in NEXUS
+
+**DO:**
+- ✅ Modify Cookie Banner UI/text in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx)
+- ✅ Update privacy policy link in Cookie Banner
+- ✅ Maintain System Prompt v17.0 without consent mentions
+
+### Common Issues & Solutions
+
+**Issue:** NEXUS asks for consent again
+- **Check:** System Prompt version in Supabase (`SELECT version FROM system_prompts WHERE name = 'nexus_main'`)
+- **Expected:** v17.0_zero_consent_aggressive_clean
+- **Fix:** Wait 5 minutes for Anthropic cache to expire, or run aggressive cleanup script again
+
+**Issue:** Cookie Banner appears every time
+- **Check:** Browser localStorage for `cookie_consent` key
+- **Fix:** Verify CookieBanner component `useEffect` logic and localStorage.setItem calls
+
+**Issue:** "Limpiar Pizarra" re-asks for name/occupation
+- **Status:** Known issue (Nov 21, 2025)
+- **Cause:** resetChat() clears localStorage flags, backend loses context
+- **Fix needed:** Persist session_id across resets, load historical data by fingerprint
+
+### Scripts Reference
+
+**Cookie Banner & Consent:**
+- `scripts/eliminar-todo-consentimiento-agresivo.mjs` - Remove ALL consent from System Prompt (v17.0)
+- `scripts/leer-system-prompt.mjs` - Read current System Prompt version
+
+**Historical (obsolete):**
+- `scripts/solucion-radical-consentimiento.mjs` - v14.0 attempt (failed)
+- `scripts/aplicar-solucion-limpia-consentimiento.mjs` - v13.0 attempt (failed)
+- `scripts/eliminar-consentimiento-system-prompt.mjs` - v16.0 attempt (incomplete)

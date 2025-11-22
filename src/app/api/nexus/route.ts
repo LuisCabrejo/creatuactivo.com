@@ -1813,24 +1813,27 @@ export async function POST(req: Request) {
 
     // 🔵 CONSULTAR DATOS YA GUARDADOS DEL PROSPECTO (para evitar re-pedir)
     let existingProspectData: any = {};
+    let prospectId: string | null = null;
     if (fingerprint) {
       try {
-        const { data: deviceData, error: deviceError } = await supabase
-          .from('device_info')
-          .select('*')
-          .eq('fingerprint', fingerprint)
+        const { data: prospectData, error: prospectError } = await getSupabaseClient()
+          .from('prospects')
+          .select('id, device_info')
+          .eq('fingerprint_id', fingerprint)
           .order('created_at', { ascending: false })
           .limit(1)
           .single();
 
-        if (deviceData) {
-          existingProspectData = deviceData;
+        if (prospectData && prospectData.device_info) {
+          prospectId = prospectData.id;
+          existingProspectData = prospectData.device_info;
           console.log('📊 [NEXUS] Datos existentes del prospecto:', {
             tiene_nombre: !!existingProspectData.name,
             tiene_email: !!existingProspectData.email,
             tiene_whatsapp: !!existingProspectData.whatsapp,
             tiene_archetype: !!existingProspectData.archetype,
             tiene_consentimiento: !!existingProspectData.consent_granted,
+            consent_modal_shown_count: existingProspectData.consent_modal_shown_count || 0,
             consentGivenFromLocalStorage: consentGiven
           });
         }
@@ -1857,13 +1860,20 @@ export async function POST(req: Request) {
 
         // Incrementar contador INMEDIATAMENTE (garantía de solo una vez)
         try {
+          // Actualizar device_info JSONB en prospects
+          const updatedDeviceInfo = {
+            ...existingProspectData,
+            consent_modal_shown_count: 1,
+            last_consent_modal_shown: new Date().toISOString()
+          };
+
           const { error: updateError } = await getSupabaseClient()
-            .from('device_info')
+            .from('prospects')
             .update({
-              consent_modal_shown_count: 1,
-              last_consent_modal_shown: new Date().toISOString()
+              device_info: updatedDeviceInfo,
+              updated_at: new Date().toISOString()
             })
-            .eq('fingerprint', fingerprint);
+            .eq('fingerprint_id', fingerprint);
 
           if (updateError) {
             console.error('❌ [NEXUS] Error actualizando contador de consentimiento:', updateError);

@@ -2210,24 +2210,6 @@ ${!userData.name && isReturningUser ? `- SALUDO BREVE SIN NOMBRE: "¡Hola de nue
 - Consentimiento: ${userData.consent_granted ? '✅ YA OTORGADO' : '❌ Pendiente'}
 
 ⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp, arquetipo o email)
-` : esPrimeraInteraccion ? `
-⚠️ PRIMERA INTERACCIÓN - ONBOARDING LEGAL OBLIGATORIO:
-
-PROHIBICIONES CRÍTICAS:
-❌ NO agregues saludos ("¡Hola! Soy NEXUS..." o similares)
-❌ NO agregues emojis (🚀, ✅, ❌)
-❌ NO agregues texto sobre "arquitecto tecnológico" o "comprar tu tiempo de vuelta"
-❌ NO agregues frases como "Una vez que tengamos eso claro..."
-❌ NO expandas ni interpretes el texto de consentimiento
-
-INSTRUCCIÓN:
-- USA SOLO el texto de consentimiento del System Prompt (sección ONBOARDING MINIMALISTA)
-- Esperar respuesta del usuario antes de continuar
-
-- IMPORTANTE: El usuario preguntó "${latestUserMessage}"
-- Pero NO respondas esa pregunta AÚN
-- Primero completa el onboarding legal
-- Al final del onboarding, puedes mencionar: "Ahora que tenemos eso claro, respondamos a tu pregunta..."
 ` : `
 ✅ SEGUNDA INTERACCIÓN EN ADELANTE - CAPTURA PROGRESIVA CON PROPUESTA DE VALOR:
 

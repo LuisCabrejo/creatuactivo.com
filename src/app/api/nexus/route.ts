@@ -99,7 +99,28 @@ async function captureProspectData(
   });
 
   const data: ProspectData = {};
-  const messageLower = message.toLowerCase();
+  const messageLower = message.toLowerCase().trim();
+
+  // ✅ DETECCIÓN AUTOMÁTICA DE CONSENTIMIENTO (Backend-driven)
+  // Detecta cuando el usuario acepta el consentimiento de datos
+  const consentPatterns = [
+    /^a$/i,                           // Solo "a"
+    /^acepto$/i,                      // "acepto"
+    /^si$/i, /^sí$/i,                // "si" o "sí"
+    /^a\)$/i,                         // "a)"
+    /acepto/i,                        // contiene "acepto"
+    /aceptar/i,                       // contiene "aceptar"
+    /^opci[oó]n\s*a$/i,              // "opción a"
+    /^dale$/i, /^ok$/i, /^okay$/i    // afirmaciones simples
+  ];
+
+  const isAcceptingConsent = consentPatterns.some(pattern => pattern.test(message.trim()));
+
+  if (isAcceptingConsent && !existingData?.consent_granted) {
+    data.consent_granted = true;
+    data.consent_timestamp = new Date().toISOString();
+    console.log('✅ [NEXUS Backend] Consentimiento detectado y guardado - Input:', message);
+  }
 
   // ✅ CAPTURA DE NOMBRE (solo si NO existe previamente)
   // Evita sobrescribir nombre válido con frases como "el pequeño", "el más grande"

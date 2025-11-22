@@ -44,28 +44,6 @@ const cleanMessageContent = (content: string) => {
 };
 
 const sendMessage = useCallback(async (content: string) => {
-  // 🆕 Detectar si el usuario está dando consentimiento
-  // Regex mejorado para capturar: "acepto", "a)", "a", "si", "✅", "aceptar"
-  const normalizedContent = content.trim().toLowerCase();
-  const isAcceptingConsent =
-    /^acepto$/i.test(normalizedContent) ||      // "acepto" exacto
-    /^a$/i.test(normalizedContent) ||           // "a" sola
-    /^a\)$/i.test(normalizedContent) ||         // "a)" exacto
-    /^si$/i.test(normalizedContent) ||          // "si" exacto
-    /^sí$/i.test(normalizedContent) ||          // "sí" con acento
-    /acepto/i.test(normalizedContent) ||        // contiene "acepto"
-    /aceptar/i.test(normalizedContent) ||       // contiene "aceptar"
-    /✅/.test(content) ||                        // emoji de check
-    /opcion\s*a/i.test(normalizedContent) ||    // "opcion a"
-    /opción\s*a/i.test(normalizedContent);      // "opción a" con acento
-
-  // ⚠️ CRÍTICO: Guardar consentimiento ANTES de leer para la petición actual
-  if (isAcceptingConsent) {
-    localStorage.setItem('nexus_consent_given', 'true');
-    localStorage.setItem('nexus_consent_timestamp', Date.now().toString());
-    console.log('✅ [NEXUS] Consentimiento guardado en localStorage - Input:', content);
-  }
-
   // Agregar mensaje del usuario
   const userMessage: Message = {
     id: generateId(),
@@ -150,17 +128,10 @@ const sendMessage = useCallback(async (content: string) => {
       }
     }
 
-    // 🆕 Verificar si ya se dio consentimiento previamente
-    // ✅ FIX CRÍTICO: Leer DESPUÉS de guardar (si acaba de aceptar en este mensaje)
-    const consentGiven = localStorage.getItem('nexus_consent_given') === 'true';
-    const consentTimestamp = localStorage.getItem('nexus_consent_timestamp');
-
     // 🆕 Verificar si el usuario ya tuvo su primer saludo
     const hasSeenGreeting = localStorage.getItem('nexus_first_greeting_shown') === 'true';
 
     console.log('🔍 [NEXUS] Estado de usuario:', {
-      consentGiven,
-      consentTimestamp: consentTimestamp ? new Date(parseInt(consentTimestamp)).toISOString() : 'nunca',
       hasSeenGreeting,
       isFirstMessageOfConversation: messages.length === 0
     });
@@ -179,7 +150,6 @@ const sendMessage = useCallback(async (content: string) => {
         fingerprint: fingerprint,
         sessionId: sessionId,
         constructorId: constructorId,  // ✅ Pasar constructor_id para tracking
-        consentGiven: consentGiven,  // 🆕 Enviar estado de consentimiento
         isReturningUser: hasSeenGreeting  // 🆕 Enviar si ya vio el saludo completo
       }),
       signal: controller.signal
@@ -393,14 +363,12 @@ const resetChat = useCallback(() => {
   setProgressiveReplies([]);
   setStreamingComplete(false);
 
-  // ✅ CRÍTICO: Limpiar localStorage para que backend trate como nueva conversación
-  localStorage.removeItem('nexus_consent_given');
-  localStorage.removeItem('nexus_consent_timestamp');
+  // ✅ Limpiar solo flags de UI (el consentimiento persiste en BD)
   localStorage.removeItem('nexus_first_greeting_shown');
   localStorage.removeItem('nexus_first_greeting_timestamp');
   // Nota: NO limpiamos nexus_fingerprint (identificación del dispositivo debe persistir)
 
-  console.log('✅ [NEXUS] Chat reseteado - localStorage limpio');
+  console.log('✅ [NEXUS] Chat reseteado - UI limpia, consentimiento persiste en BD');
  }, []);
 
 const handleQuickReply = useCallback((reply: string) => {

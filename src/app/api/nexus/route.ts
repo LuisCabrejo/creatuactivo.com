@@ -1844,6 +1844,66 @@ export async function POST(req: Request) {
     // (ya no necesitamos consultar 2 veces la misma información)
     const userData = existingProspectData;
 
+    // ========================================
+    // 🚨 INTERCEPTACIÓN: CONSENTIMIENTO (BACKEND-ONLY)
+    // Basado en arquitectura de Intercom/Drift/Zendesk
+    // ========================================
+    if (fingerprint && userData) {
+      const needsConsent = !userData.consent_granted;
+      const neverShownModal = !userData.consent_modal_shown_count || userData.consent_modal_shown_count === 0;
+
+      if (needsConsent && neverShownModal) {
+        console.log('🔐 [NEXUS] INTERCEPTACIÓN: Usuario necesita consentimiento y nunca se le mostró modal');
+
+        // Incrementar contador INMEDIATAMENTE (garantía de solo una vez)
+        try {
+          const { error: updateError } = await getSupabaseClient()
+            .from('device_info')
+            .update({
+              consent_modal_shown_count: 1,
+              last_consent_modal_shown: new Date().toISOString()
+            })
+            .eq('fingerprint', fingerprint);
+
+          if (updateError) {
+            console.error('❌ [NEXUS] Error actualizando contador de consentimiento:', updateError);
+          } else {
+            console.log('✅ [NEXUS] Contador de consentimiento actualizado: 0 → 1');
+          }
+        } catch (error) {
+          console.error('❌ [NEXUS] Error en transacción de consentimiento:', error);
+        }
+
+        // Retornar mensaje de consentimiento SIN llamar a Claude
+        const consentMessage = `Para seguir conversando, necesito tu autorización para usar los datos que compartas conmigo.
+
+Nuestra Política de Privacidad (https://creatuactivo.com/privacidad) explica todo.
+
+¿Aceptas?
+
+A) ✅ Acepto
+
+B) ❌ No, gracias`;
+
+        console.log('📤 [NEXUS] Retornando mensaje de consentimiento (sin llamar a Claude)');
+
+        return new Response(consentMessage, {
+          status: 200,
+          headers: {
+            'Content-Type': 'text/plain; charset=utf-8',
+            'Transfer-Encoding': 'chunked'
+          }
+        });
+      } else if (needsConsent && !neverShownModal) {
+        console.log('⚠️ [NEXUS] Usuario NO consintió pero ya se le mostró modal (consent_modal_shown_count >= 1)');
+        console.log('⚠️ [NEXUS] Continuar conversación en modo restringido');
+      } else {
+        console.log('✅ [NEXUS] Usuario YA dio consentimiento (consent_granted = true)');
+        console.log('✅ [NEXUS] Proceder con conversación normal');
+      }
+    }
+
+
     // �� CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
     let conversationSummary = '';
 

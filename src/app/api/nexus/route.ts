@@ -1641,10 +1641,11 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
   // ✅ EXTRACCIÓN DE NOMBRE desde respuesta de Claude
   // Claude normaliza nombres (capitaliza correctamente)
   // Buscar confirmaciones como "¡Hola [NOMBRE]!", "Perfecto [NOMBRE]"
+  // IMPORTANTE: /i removido - nombres DEBEN empezar con mayúscula (evita "de nuevo", "el más", etc.)
   const nameConfirmationPatterns = [
-    /(?:hola|perfecto|genial|encantado)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
-    /(?:gracias|muchas gracias)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
-    /tu nombre es\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)/i
+    /(?:[Hh]ola|[Pp]erfecto|[Gg]enial|[Ee]ncantado)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,.]/,
+    /(?:[Gg]racias|[Mm]uchas\s+gracias)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,.]/,
+    /[Tt]u nombre es\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)/
   ];
 
   for (const pattern of nameConfirmationPatterns) {
@@ -1652,7 +1653,8 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
     if (nameMatch && nameMatch[1]) {
       const extractedName = nameMatch[1].trim();
       // Validar que no sea un falso positivo (palabras comunes + palabras de conversación)
-      const nameBlacklist = /^(constructor|visionario|inicial|estratégico|excelente|perfecto|observación|observacion|elección|eleccion|pregunta|consulta|comentario|duda|punto)$/i;
+      // Expandido: +de nuevo +el más +la más +lo mejor
+      const nameBlacklist = /^(constructor|visionario|inicial|estratégico|excelente|perfecto|observación|observacion|elección|eleccion|pregunta|consulta|comentario|duda|punto|de nuevo|el más|el mas|la más|la mas|lo mejor|lo más|lo mas)$/i;
       if (!nameBlacklist.test(extractedName) && extractedName.length >= 2) {
         extracted.name = extractedName;
         console.log('✅ [SEMÁNTICA] Nombre extraído de respuesta Claude (normalizado):', extractedName);

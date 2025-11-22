@@ -1343,8 +1343,8 @@ Tu propósito elevado es entregar la arquitectura y las herramientas para que ca
 
 LOS TRES PILARES DE TU CONOCIMIENTO:
 🏭 EL MOTOR: Los productos Gano Excel con patente mundial. Son tu prueba de una ventaja competitiva insuperable.
-📋 EL PLANO: El Framework IAA (INICIAR → ACOGER → ACTIVAR). Es la metodología probada que estructura el éxito.
-⚡ LA MAQUINARIA: NodeX y NEXUS. Es la automatización que elimina el 80% del trabajo manual y entrega apalancamiento real.
+📋 EL MÉTODO PROBADO: Los 3 Pasos: INICIAR → ACOGER → ACTIVAR. Es la metodología probada que estructura el éxito.
+⚡ LA APLICACIÓN CREATUACTIVO: La tecnología + IA que elimina el 80% del trabajo manual y entrega apalancamiento real.
 
 ARQUITECTURA HÍBRIDA ESCALABLE:
 - Clasificación automática de documentos por intención
@@ -1505,8 +1505,8 @@ function interpretQueryHibrido(userMessage: string): string {
     'esp 3': 'inversión para empezar construir Constructor Visionario',
 
     // Conceptos fundamentales
-    'arquitectura': 'Framework IAA NodeX NEXUS Motor Plano Maquinaria arquitectura sistema',
-    'funcionamiento': 'cómo funciona Framework IAA INICIAR ACOGER ACTIVAR proceso sistema',
+    'arquitectura': 'Los 3 Pasos IAA NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
+    'funcionamiento': 'cómo funciona Los 3 Pasos INICIAR ACOGER ACTIVAR proceso sistema método probado',
     'productos': 'productos Gano Excel patente mundial ventaja competitiva único',
     'contacto': 'Liliana Moreno contacto WhatsApp escalación constructor mentor',
 
@@ -1539,10 +1539,10 @@ function extraerKeywordsHibrido(message: string): string {
 
   // Keywords generales del ecosistema (actualizables)
   const keywords_ecosistema = [
-    'CreaTuActivo', 'ecosistema', 'Framework IAA', 'INICIAR', 'ACOGER', 'ACTIVAR',
-    'Gano Excel', 'NodeX', 'NEXUS', 'Constructor', 'activo', 'Liliana',
+    'CreaTuActivo', 'ecosistema', 'Los 3 Pasos', 'INICIAR', 'ACOGER', 'ACTIVAR',
+    'Gano Excel', 'NEXUS', 'Constructor', 'activo', 'Liliana', 'aplicación',
     'inversión', 'automatización', 'paquete', 'precio', 'costo', 'Motor',
-    'Plano', 'Maquinaria', 'arquitectura', 'apalancamiento', 'híbrido'
+    'método probado', 'arquitectura', 'apalancamiento', 'tecnología'
   ];
 
   const keywords_encontradas = keywords_ecosistema.filter(keyword =>
@@ -2070,7 +2070,7 @@ Tu sistema tiene tres componentes que trabajan juntos:
 
 **1. Productos únicos (Gano Excel)** - Patente mundial
 **2. Inteligencia artificial (NEXUS)** - Comunica el proyecto por ti
-**3. Tu aplicación (NodeX)** - Ves todo en tiempo real
+**3. La aplicación CreaTuActivo** - Tecnología que trabaja 24/7 por ti
 
 La tecnología hace el 80% del trabajo pesado. Tú haces el 20% estratégico.
 
@@ -2135,7 +2135,7 @@ Tu trabajo se transforma de operador a arquitecto estratégico. Con el Framework
 
 **INICIAR (La Chispa):**
 - Conectas personas con el ecosistema usando herramientas automatizadas
-- NodeX y NEXUS educan y cualifican por ti
+- La aplicación CreaTuActivo y NEXUS educan y cualifican por ti
 - Tu rol: Ser el puente inicial
 
 **ACOGER (El Consultor):**

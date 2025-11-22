@@ -331,8 +331,8 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
 
 **Opciones mientras optimizamos:**
 1. **El Motor de Valor** - Los productos únicos con patente mundial
-2. **El Plano Estratégico** - Framework IAA y metodología
-3. **La Maquinaria Tecnológica** - NodeX y automatización
+2. **El Método Probado** - Los 3 Pasos: IAA (INICIAR → ACOGER → ACTIVAR)
+3. **La Aplicación CreaTuActivo** - Tecnología + IA que automatiza el 80% del trabajo
 4. **Consultoría Estratégica** - Liliana Moreno +573102066593
 
 ¿Qué pieza de la arquitectura te interesa más?`;

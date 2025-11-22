@@ -45,11 +45,24 @@ const cleanMessageContent = (content: string) => {
 
 const sendMessage = useCallback(async (content: string) => {
   // 🆕 Detectar si el usuario está dando consentimiento
-  const isAcceptingConsent = /acepto|aceptas|a\)/i.test(content);
+  // Regex mejorado para capturar: "acepto", "a)", "a", "si", "✅", "aceptar"
+  const normalizedContent = content.trim().toLowerCase();
+  const isAcceptingConsent =
+    /^acepto$/i.test(normalizedContent) ||      // "acepto" exacto
+    /^a$/i.test(normalizedContent) ||           // "a" sola
+    /^a\)$/i.test(normalizedContent) ||         // "a)" exacto
+    /^si$/i.test(normalizedContent) ||          // "si" exacto
+    /^sí$/i.test(normalizedContent) ||          // "sí" con acento
+    /acepto/i.test(normalizedContent) ||        // contiene "acepto"
+    /aceptar/i.test(normalizedContent) ||       // contiene "aceptar"
+    /✅/.test(content) ||                        // emoji de check
+    /opcion\s*a/i.test(normalizedContent) ||    // "opcion a"
+    /opción\s*a/i.test(normalizedContent);      // "opción a" con acento
+
   if (isAcceptingConsent) {
     localStorage.setItem('nexus_consent_given', 'true');
     localStorage.setItem('nexus_consent_timestamp', Date.now().toString());
-    console.log('✅ [NEXUS] Consentimiento guardado en localStorage');
+    console.log('✅ [NEXUS] Consentimiento guardado en localStorage - Input:', content);
   }
 
   // Agregar mensaje del usuario

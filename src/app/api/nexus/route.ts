@@ -396,15 +396,16 @@ async function captureProspectData(
   // CAPTURA DE OCUPACIÓN (fallback para captura libre)
   if (!data.archetype) {
     const occupationPatterns = [
-      /(?:soy|trabajo como|me dedico a|trabajo en)\s+(.+?)(?:\.|,|$)/i,
-      /(?:profesión|ocupación):\s*(.+?)(?:\.|,|$)/i
+      /(?:soy|trabajo como|me dedico a|trabajo en|estudio)\s+(.+?)(?:\.|,|$)/i,
+      /(?:profesión|ocupación):\s*(.+?)(?:\.|,|$)/i,
+      /(?:estudiante de|estudiante|estoy estudiando)\s+(.+?)(?:\.|,|$)/i  // Nuevo: casos de estudiantes
     ];
 
     for (const pattern of occupationPatterns) {
       const match = message.match(pattern);
       if (match) {
         data.occupation = match[1].trim();
-        console.log('Ocupación capturada (fallback):', data.occupation);
+        console.log('✅ [NEXUS] Ocupación capturada:', data.occupation, 'del mensaje:', message.substring(0, 50));
         break;
       }
     }

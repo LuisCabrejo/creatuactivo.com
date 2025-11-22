@@ -1868,9 +1868,9 @@ export async function POST(req: Request) {
 
     if (fingerprint) {
       try {
-        console.log('🔍 [NEXUS] Cargando historial de conversaciones para:', fingerprint.substring(0, 20) + '...');
+        console.log('🔍 [NEXUS] Cargando historial de conversaciones para fingerprint:', fingerprint.substring(0, 30) + '...');
 
-        const { data: conversations, error: convError } = await supabase
+        const { data: conversations, error: convError } = await getSupabaseClient()
           .from('nexus_conversations')
           .select('messages, created_at')
           .eq('fingerprint_id', fingerprint)
@@ -1880,6 +1880,7 @@ export async function POST(req: Request) {
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
         } else if (conversations && conversations.length > 0) {
+          console.log(`✅ [NEXUS] Historial encontrado: ${conversations.length} conversaciones previas`);
           try {
             // Generar resumen del historial para el System Prompt
             const summaryParts: string[] = [];
@@ -1942,11 +1943,14 @@ ${summaryParts.join('\n')}
             console.error('❌ [NEXUS] Error generando resumen de historial:', summaryError);
           }
         } else {
-          console.log('ℹ️ [NEXUS] Sin historial previo - primera conversación');
+          console.log('ℹ️ [NEXUS] Sin historial previo - primera conversación o conversaciones no encontradas');
+          console.log('ℹ️ [NEXUS] Fingerprint buscado:', fingerprint.substring(0, 40) + '...');
         }
       } catch (error) {
         console.error('❌ [NEXUS] Error consultando historial:', error);
       }
+    } else {
+      console.warn('⚠️ [NEXUS] No hay fingerprint - no se puede cargar historial');
     }
 
     // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)

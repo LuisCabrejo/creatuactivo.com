@@ -161,7 +161,7 @@ export default function ProductosLayout({
     "alternateName": "CreaTuActivo",
     "url": siteUrl,
     "logo": `${siteUrl}/logo.png`,
-    "description": "Plataforma de emprendimiento digital que combina productos premium Gano Excel con tecnología NodeX y asesoría IA conversacional (NEXUS) para construir activos empresariales escalables.",
+    "description": "Plataforma de emprendimiento digital que combina productos premium Gano Excel con la aplicación CreaTuActivo y asesoría IA conversacional (NEXUS) para construir activos empresariales escalables.",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Sales",

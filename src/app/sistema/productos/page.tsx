@@ -1670,7 +1670,7 @@ export default function CatalogoEstrategico() {
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
                     <div>
-                      <p className="font-bold text-slate-800">Tecnología NodeX + NEXUS IA</p>
+                      <p className="font-bold text-slate-800">Aplicación CreaTuActivo + NEXUS IA</p>
                       <p className="text-sm text-slate-600">Sistema automatizado para gestionar tu negocio 24/7</p>
                     </div>
                   </div>

@@ -204,10 +204,10 @@ export default function PlanesTecnologicosPage() {
                                     networkSize="1 (solo tú)"
                                     timeLimit="2 min/chat"
                                     features={[
-                                        "<b>30</b> Prospectos en NodeX",
+                                        "<b>30</b> Prospectos en la aplicación",
                                         "<b>30</b> Conversaciones con NEXUS/mes",
                                         "Límite: <b>2 minutos por conversación</b>",
-                                        "Acceso: <b>30 minutos/día</b> NodeX",
+                                        "Acceso: <b>30 minutos/día</b> a la aplicación",
                                         "Analíticas Básicas",
                                         "La Academia (Nivel Fundamentos)",
                                         "Marca 'Powered by CreaTuActivo.com'",
@@ -228,10 +228,10 @@ export default function PlanesTecnologicosPage() {
                                     networkSize="1 (solo tú)"
                                     timeLimit="5 min/chat"
                                     features={[
-                                        "<b>200</b> Prospectos en NodeX",
+                                        "<b>200</b> Prospectos en la aplicación",
                                         "<b>100</b> Conversaciones con NEXUS/mes",
                                         "Límite: <b>5 minutos por conversación</b>",
-                                        "Acceso: <b>2 horas/día</b> NodeX",
+                                        "Acceso: <b>2 horas/día</b> a la aplicación",
                                         "Analíticas Básicas",
                                         "Asistente ACE Incluido",
                                         "La Academia (Nivel Fundamentos)",
@@ -250,10 +250,10 @@ export default function PlanesTecnologicosPage() {
                                     networkSize="Hasta 3"
                                     timeLimit="10 min/chat"
                                     features={[
-                                        "<b>500</b> Prospectos en NodeX",
+                                        "<b>500</b> Prospectos en la aplicación",
                                         "<b>500</b> Conversaciones con NEXUS/mes",
                                         "Límite: <b>10 minutos por conversación</b>",
-                                        "Acceso: <b>4 horas/día</b> NodeX",
+                                        "Acceso: <b>4 horas/día</b> a la aplicación",
                                         "Analíticas Avanzadas",
                                         "<b>Panel Básico de Gestión de Red</b>",
                                         "<b>Exportar Datos a Hojas de Cálculo</b>",
@@ -274,10 +274,10 @@ export default function PlanesTecnologicosPage() {
                                     networkSize="Hasta 10+"
                                     timeLimit="Sin límites"
                                     features={[
-                                        "Prospectos <b>Ilimitados</b> en NodeX",
+                                        "Prospectos <b>Ilimitados</b> en la aplicación",
                                         "Conversaciones con NEXUS <b>Ilimitadas</b>",
                                         "<b>Sin límites de tiempo</b> de uso",
-                                        "<b>Acceso completo 24/7</b> NodeX",
+                                        "<b>Acceso completo 24/7</b> a la aplicación",
                                         "Analíticas Avanzadas + <b>Panel de Red</b>",
                                         "<b>Panel Avanzado de Gestión de Red</b>",
                                         "Exportar Datos a Hojas de Cálculo",
@@ -309,7 +309,7 @@ export default function PlanesTecnologicosPage() {
                                 </div>
                                 <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20">
                                     <BarChart3 className="w-12 h-12 text-blue-400 mx-auto mb-4"/>
-                                    <h3 className="text-xl font-bold text-white mb-3">Acceso a NodeX</h3>
+                                    <h3 className="text-xl font-bold text-white mb-3">Acceso a la Aplicación</h3>
                                     <p className="text-slate-300">30 minutos diarios en tu centro de comando para gestionar tu operación.</p>
                                 </div>
                             </div>

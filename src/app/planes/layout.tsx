@@ -11,8 +11,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Planes Tecnológicos CreaTuActivo | NodeX + NEXUS IA',
-  description: 'Planes de suscripción mensual para acceso a NodeX y NEXUS IA. Desde plan gratuito hasta ilimitado.',
+  title: 'Planes Tecnológicos CreaTuActivo | Aplicación + NEXUS IA',
+  description: 'Planes de suscripción mensual para acceso a la aplicación CreaTuActivo y NEXUS IA. Desde plan gratuito hasta ilimitado.',
   robots: {
     index: false,  // Contenido duplicado con /paquetes, usar redirect 301 después
     follow: true,

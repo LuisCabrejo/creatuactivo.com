@@ -208,8 +208,8 @@ export default function SocioCorporativoPage() {
                   CreaTuActivo provee:
                 </h3>
                 <ul className="space-y-3 text-slate-300">
-                  <li className="flex items-start gap-3"><span className="text-green-400 mt-1">✓</span>La Arquitectura Tecnológica (NodeX y NEXUS IA).</li>
-                  <li className="flex items-start gap-3"><span className="text-green-400 mt-1">✓</span>El Sistema de Crecimiento (Framework IAA).</li>
+                  <li className="flex items-start gap-3"><span className="text-green-400 mt-1">✓</span>La Arquitectura Tecnológica (Aplicación CreaTuActivo y NEXUS IA).</li>
+                  <li className="flex items-start gap-3"><span className="text-green-400 mt-1">✓</span>El Sistema de Crecimiento (Los 3 Pasos: IAA).</li>
                   <li className="flex items-start gap-3"><span className="text-green-400 mt-1">✓</span>La Experiencia del Constructor Inteligente.</li>
                 </ul>
               </div>

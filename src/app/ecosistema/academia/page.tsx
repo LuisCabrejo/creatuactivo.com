@@ -135,7 +135,7 @@ export default function AcademiaPage() {
                                 level="Nivel 1"
                                 title="Fundamentos del Constructor"
                                 description="Domina los pilares de tu nuevo activo. En esta fase, te enfocas en la ejecución precisa del sistema."
-                                modules={["Maestría del Framework IAA", "Psicología del Constructor Inteligente", "Operación del Centro de Comando NodeX", "Conversaciones Estratégicas con NEXUS IA"]}
+                                modules={["Maestría de Los 3 Pasos: IAA", "Psicología del Constructor Inteligente", "Operación de la Aplicación CreaTuActivo", "Conversaciones Estratégicas con NEXUS IA"]}
                                 icon={<Zap className="w-8 h-8 text-blue-400" />}
                                 color="blue"
                             />

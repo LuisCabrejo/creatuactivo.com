@@ -133,10 +133,10 @@ export default function TecnologiaPage() {
 
                         <TechCard
                             icon={<Server className="w-10 h-10 text-blue-400" />}
-                            title="NodeX: Tu Centro de Comando"
+                            title="Tu Centro de Comando"
                         >
                              <h3 className="creatuactivo-h2-component text-3xl font-bold">El Poder que Ejecuta</h3>
-                            <p>NodeX es el motor de automatización y el dashboard donde operas tu activo. Es tu centro de comando unificado que te da una visión de 360° de tu negocio y las herramientas para ejecutar el Framework IAA con una eficiencia sin precedentes.</p>
+                            <p>La aplicación CreaTuActivo es el motor de automatización y el dashboard donde operas tu activo. Es tu centro de comando unificado que te da una visión de 360° de tu negocio y las herramientas para ejecutar Los 3 Pasos: IAA con una eficiencia sin precedentes.</p>
                              <ul className="space-y-2">
                                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-400" /><span>Dashboard con Métricas en Tiempo Real</span></li>
                                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-400" /><span>Generador de Mensajes Estratégicos</span></li>
@@ -148,7 +148,7 @@ export default function TecnologiaPage() {
                     <section className="max-w-4xl mx-auto text-center mb-20 lg:mb-32">
                         <div className="text-center mb-12">
                             <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-4">La Sinergia del Ecosistema</h2>
-                            <p className="text-slate-400 text-lg">NEXUS y NodeX no son herramientas separadas. Son un sistema integrado que crea un ciclo de crecimiento virtuoso.</p>
+                            <p className="text-slate-400 text-lg">NEXUS y la aplicación CreaTuActivo no son herramientas separadas. Son un sistema integrado que crea un ciclo de crecimiento virtuoso.</p>
                         </div>
                         <div className="relative flex flex-col md:flex-row items-center justify-center gap-8">
                             <div className="text-center">
@@ -161,7 +161,7 @@ export default function TecnologiaPage() {
                             </div>
                              <div className="text-center">
                                 <div className="bg-blue-500/10 p-4 rounded-full inline-block mb-2"><Server className="w-8 h-8 text-blue-400"/></div>
-                                <p className="font-bold">NodeX</p>
+                                <p className="font-bold">La Aplicación</p>
                                 <p className="text-sm text-slate-400">Analiza Datos y Provee Herramientas</p>
                             </div>
                              <div className="text-4xl font-thin text-slate-500 animate-pulse">

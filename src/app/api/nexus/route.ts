@@ -1847,6 +1847,18 @@ export async function POST(req: Request) {
     // (ya no necesitamos consultar 2 veces la misma información)
     const userData = existingProspectData;
 
+    // 🎯 CALCULAR isReturningUser AUTOMÁTICAMENTE (basado en BD, NO en frontend)
+    // Usuario es "returning" si tiene nombre O consentimiento guardado en BD
+    const isReturningUserCalculated = !!(userData.name || userData.consent_granted);
+
+    console.log('🔍 [NEXUS] Detección de usuario:', {
+      isReturningUser_frontend: isReturningUser,
+      isReturningUser_calculado: isReturningUserCalculated,
+      tiene_nombre_BD: !!userData.name,
+      tiene_consentimiento_BD: !!userData.consent_granted,
+      usando: 'BD (calculado)'
+    });
+
 
     // �� CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
     let conversationSummary = '';
@@ -2195,10 +2207,10 @@ ${userData.name || userData.consent_granted ? `
 🎉 USUARIO CONOCIDO - SALUDO PERSONALIZADO:
 - El usuario YA dio consentimiento previamente: ${userData.consent_granted ? '✅ SÍ' : 'Pendiente'}
 - Su nombre es: ${userData.name || 'No capturado aún'}
-- Usuario que regresa (limpia pizarra): ${isReturningUser ? '✅ SÍ' : 'No'}
+- Usuario que regresa (limpia pizarra): ${isReturningUserCalculated ? '✅ SÍ' : 'No'}
 - NO vuelvas a pedir consentimiento ni datos que ya tienes
-${userData.name && isReturningUser ? `- SALUDO BREVE OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué más puedo ayudarte?"` : userData.name && !isReturningUser ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
-${!userData.name && isReturningUser ? `- SALUDO BREVE SIN NOMBRE: "¡Hola de nuevo! ¿En qué más puedo ayudarte?"` : ''}
+${userData.name && isReturningUserCalculated ? `- SALUDO BREVE OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué más puedo ayudarte?"` : userData.name && !isReturningUserCalculated ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
+${!userData.name && isReturningUserCalculated ? `- SALUDO BREVE SIN NOMBRE: "¡Hola de nuevo! ¿En qué más puedo ayudarte?"` : ''}
 - Si preguntan algo que ya respondiste antes, recuérdales: "Como te comenté antes..."
 - Mantén un tono familiar y cercano (ya se conocen)
 

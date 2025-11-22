@@ -148,7 +148,7 @@ const NEXUSFloatingButton: React.FC = () => {
       return 'Sistema en modo degradado - Click para continuar';
     }
 
-    return 'Descubre cómo construir patrimonio con tecnología';
+    return 'Construye tu activo. NEXUS te guía paso a paso.';
   };
 
   return (

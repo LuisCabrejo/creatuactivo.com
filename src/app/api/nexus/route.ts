@@ -1642,7 +1642,7 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
   // Claude normaliza nombres (capitaliza correctamente)
   // Buscar confirmaciones como "¡Hola [NOMBRE]!", "Perfecto [NOMBRE]"
   const nameConfirmationPatterns = [
-    /(?:hola|perfecto|excelente|genial|encantado)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
+    /(?:hola|perfecto|genial|encantado)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
     /(?:gracias|muchas gracias)\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)[!,]/i,
     /tu nombre es\s+([A-ZÀ-Ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ]+)*)/i
   ];
@@ -1651,8 +1651,8 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
     const nameMatch = response.match(pattern);
     if (nameMatch && nameMatch[1]) {
       const extractedName = nameMatch[1].trim();
-      // Validar que no sea un falso positivo (palabras comunes)
-      const nameBlacklist = /^(constructor|visionario|inicial|estratégico|excelente|perfecto)$/i;
+      // Validar que no sea un falso positivo (palabras comunes + palabras de conversación)
+      const nameBlacklist = /^(constructor|visionario|inicial|estratégico|excelente|perfecto|observación|observacion|elección|eleccion|pregunta|consulta|comentario|duda|punto)$/i;
       if (!nameBlacklist.test(extractedName) && extractedName.length >= 2) {
         extracted.name = extractedName;
         console.log('✅ [SEMÁNTICA] Nombre extraído de respuesta Claude (normalizado):', extractedName);
@@ -2331,10 +2331,18 @@ ${!mergedProspectData.name ? `
         // ✅ EXTRACCIÓN SEMÁNTICA: Analizar respuesta de Claude para capturar datos
         const semanticData = extractFromClaudeResponse(completion);
 
+        // 🛡️ PROTECCIÓN: NO sobrescribir nombre válido con extracción semántica
+        // Causa: Regex "Excelente [NOMBRE]" puede capturar palabras como "observación"
+        // Fix: Solo usar nombre semántico si NO existe nombre previo
+        if (semanticData.name && prospectData.name && prospectData.name.length >= 2) {
+          console.log('⚠️ [SEMÁNTICA] Ignorando nombre semántico - ya existe nombre válido:', prospectData.name, '(semántico:', semanticData.name, ')');
+          delete semanticData.name;
+        }
+
         // Merge datos: captura directa (del usuario) + semántica (de respuesta Claude)
         const finalData: ProspectData = {
           ...prospectData,  // Datos capturados del input del usuario
-          ...semanticData   // Datos extraídos de la respuesta de Claude (prioridad)
+          ...semanticData   // Datos extraídos de la respuesta de Claude (prioridad, excepto nombre)
         };
 
         // Guardar datos semánticos si se encontró algo

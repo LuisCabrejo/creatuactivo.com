@@ -136,15 +136,20 @@ async function captureProspectData(
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 
+  // Blacklist de palabras que NO son nombres (incluye paquetes y opciones)
+  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico)$/i;
+
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
     if (match) {
       const capturedName = match[1].trim();
-      // Validar que el nombre tenga al menos 2 caracteres (evita capturar solo letras de opciones)
-      if (capturedName.length >= 2) {
+      // Validar que no sea palabra blacklisted (paquetes, opciones, etc)
+      if (capturedName.length >= 2 && !nameBlacklist.test(capturedName)) {
         data.name = capturedName;
         console.log('✅ [NEXUS] Nombre capturado:', data.name, 'del mensaje:', message.substring(0, 50));
         break;
+      } else if (nameBlacklist.test(capturedName)) {
+        console.log('⚠️ [NEXUS] Nombre rechazado (blacklist):', capturedName);
       }
     }
   }

@@ -59,6 +59,7 @@ const sendMessage = useCallback(async (content: string) => {
     /opcion\s*a/i.test(normalizedContent) ||    // "opcion a"
     /opción\s*a/i.test(normalizedContent);      // "opción a" con acento
 
+  // ⚠️ CRÍTICO: Guardar consentimiento ANTES de leer para la petición actual
   if (isAcceptingConsent) {
     localStorage.setItem('nexus_consent_given', 'true');
     localStorage.setItem('nexus_consent_timestamp', Date.now().toString());
@@ -150,6 +151,7 @@ const sendMessage = useCallback(async (content: string) => {
     }
 
     // 🆕 Verificar si ya se dio consentimiento previamente
+    // ✅ FIX CRÍTICO: Leer DESPUÉS de guardar (si acaba de aceptar en este mensaje)
     const consentGiven = localStorage.getItem('nexus_consent_given') === 'true';
     const consentTimestamp = localStorage.getItem('nexus_consent_timestamp');
 

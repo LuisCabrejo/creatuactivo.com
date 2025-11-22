@@ -231,7 +231,7 @@ export default function HomePage() {
               <HOWPillar
                 icon={<Zap size={32} />}
                 title="Sistema Probado con 2,847 Personas"
-                description="Framework IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora con CreaTuActivo, es 10 veces más fácil."
+                description="Los 3 Pasos: IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora con CreaTuActivo, es 10 veces más fácil."
                 iconColor="text-blue-400"
                 iconBg="bg-blue-500/10"
               />
@@ -383,7 +383,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-white text-lg mb-1">Con un Sistema Probado</h3>
-                      <p className="text-slate-400">Framework IAA: 3 pasos simples que ya funcionaron con 2,847 personas.</p>
+                      <p className="text-slate-400">Los 3 Pasos: IAA - 3 pasos simples que ya funcionaron con 2,847 personas.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">

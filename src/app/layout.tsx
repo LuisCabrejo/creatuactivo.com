@@ -12,6 +12,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
+import CookieBanner from '@/components/CookieBanner';
 
 // Optimización PageSpeed: display swap + preload
 const inter = Inter({
@@ -558,6 +559,9 @@ export default function RootLayout({
             `
           }}
         />
+
+        {/* Cookie Banner - Consentimiento profesional */}
+        <CookieBanner />
       </body>
     </html>
   );

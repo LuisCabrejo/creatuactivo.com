@@ -505,7 +505,7 @@ async function captureProspectData(
         constructor_uuid: constructorUUID || 'Sistema (fallback)'
       });
 
-      const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+      const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
         p_fingerprint_id: fingerprint,
         p_data: cleanedData,  // ✅ Usar datos limpios sin NULL
         p_constructor_id: constructorUUID || undefined  // ✅ Pasar UUID o undefined (usa Sistema como fallback)
@@ -1718,7 +1718,7 @@ async function logConversationHibrida(
   prospectData?: ProspectData
 ) {
   try {
-    const { error } = await supabase.from('nexus_conversations').insert({
+    const { error } = await getSupabaseClient().from('nexus_conversations').insert({
       fingerprint_id: fingerprint,
       session_id: sessionId,
       messages: [
@@ -2344,7 +2344,7 @@ ${!mergedProspectData.name ? `
           try {
             const cleanedSemanticData = removeNullValues(semanticData);
 
-            const { data: rpcResult, error: rpcError } = await supabase.rpc('update_prospect_data', {
+            const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
               p_fingerprint_id: fingerprint,
               p_data: cleanedSemanticData,
               p_constructor_id: constructorUUID || undefined
@@ -2434,7 +2434,7 @@ export async function GET() {
       .single();
 
     // Verificar funciones RPC disponibles
-    const { data: rpcFunctions } = await supabase.rpc('search_nexus_documents', {
+    const { data: rpcFunctions } = await getSupabaseClient().rpc('search_nexus_documents', {
       search_query: 'test',
       match_count: 1
     });

@@ -35,39 +35,34 @@ export default function CookieBanner() {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-amber-500 shadow-2xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Texto */}
-          <div className="flex-1 text-sm text-gray-700">
-            <p className="font-medium text-gray-900 mb-1">
-              🍪 Usamos cookies para mejorar tu experiencia
-            </p>
-            <p className="text-gray-600">
-              Utilizamos cookies y tecnologías similares para personalizar tu experiencia y analizar el tráfico del sitio.
-              Al hacer clic en "Aceptar", aceptas nuestro uso de cookies según nuestra{' '}
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-amber-500 shadow-lg">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+          {/* Texto - Ultra minimalista en mobile */}
+          <div className="flex-1 text-xs sm:text-sm text-gray-700">
+            <p className="text-gray-800 leading-tight">
+              Usamos cookies para mejorar tu experiencia.{' '}
               <Link
                 href="/privacidad"
-                className="text-amber-600 hover:text-amber-700 underline font-medium"
+                className="text-amber-600 hover:text-amber-700 underline"
                 target="_blank"
               >
                 Política de Privacidad
               </Link>
-              {' '}y cumplimos con la Ley 1581/2012 de Colombia.
             </p>
           </div>
 
-          {/* Botones */}
-          <div className="flex gap-3 shrink-0">
+          {/* Botones - Más compactos en mobile */}
+          <div className="flex gap-2 shrink-0 w-full sm:w-auto">
             <button
               onClick={handleReject}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
             >
               Rechazar
             </button>
             <button
               onClick={handleAccept}
-              className="px-6 py-2 text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+              className="flex-1 sm:flex-none px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-md transition-colors shadow-sm"
             >
               Aceptar
             </button>

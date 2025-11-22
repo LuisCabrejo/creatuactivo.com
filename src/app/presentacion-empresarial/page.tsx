@@ -564,7 +564,7 @@ export default function PresentacionEmpresarialPage() {
                   icon={<Target size={40} />}
                   title="Sistema Probado con 2,847 Personas"
                   porque="lo que funciona debe ser tan simple que cualquiera pueda repetirlo"
-                  description="Framework IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora con CreaTuActivo, es 10 veces más fácil."
+                  description="Método probado IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora automatizado es 10 veces más fácil."
                   iconColor="text-orange-400"
                   iconBg="bg-orange-500/10"
                 />
@@ -804,7 +804,7 @@ export default function PresentacionEmpresarialPage() {
                   priceCOP="900.000"
                   purpose="Para quienes quieren probar primero antes de comprometer más dinero. Porque creemos que debes sentirte seguro antes de dar el siguiente paso."
                   features={[
-                    "Todo el sistema (Framework IAA)",
+                    "Todo el sistema de 3 pasos IAA automatizado",
                     "Inventario para probar el modelo",
                     "Acceso total a la plataforma completa",
                     "Comunidad de Fundadores"
@@ -884,7 +884,7 @@ export default function PresentacionEmpresarialPage() {
 
 **PERO AQUÍ ESTÁ LA VERDAD:**
 
-Si aplicas el Framework IAA, usas la tecnología que te damos, y te mantienes conectado con la comunidad de Fundadores...
+Si aplicas Los 3 Pasos: IAA, usas la tecnología que te damos, y te mantienes conectado con la comunidad de Fundadores...
 
 **El "fracaso" técnicamente no existe.**
 

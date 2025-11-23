@@ -81,6 +81,158 @@ interface ProspectData {
   consent_timestamp?: string;
 }
 
+// ========================================
+// SISTEMA DE SCORING PROGRESIVO v2.0
+// ========================================
+/**
+ * Detecta señales conversacionales avanzadas que indican interés real
+ * más allá de keywords básicos.
+ *
+ * Caso de uso: Prospectos como Diego que muestran alto interés ANTES
+ * de compartir WhatsApp deben calificar en ACOGER temprano.
+ *
+ * @param message - Mensaje del usuario
+ * @param previousMessages - Número de mensajes previos (para engagement)
+ * @returns Score adicional basado en señales avanzadas
+ */
+function detectAdvancedSignals(message: string, previousMessages?: number): number {
+  let signalScore = 0;
+  const messageLower = message.toLowerCase();
+
+  // SEÑAL 1: Cambio de teoría a aplicación personal (+3 puntos)
+  // Indica que pasó de curiosidad a evaluación seria
+  const personalApplicationPatterns = [
+    /cómo puedo yo/i,
+    /qué hago yo/i,
+    /en mi caso/i,
+    /para mí/i,
+    /yo podría/i,
+    /si yo/i,
+    /mi whatsapp/i,
+    /mi correo/i,
+    /mi número/i
+  ];
+
+  if (personalApplicationPatterns.some(pattern => pattern.test(message))) {
+    signalScore += 3;
+    console.log('🌟 [SCORING] SEÑAL: Aplicación personal (+3)');
+  }
+
+  // SEÑAL 2: Preguntas sobre DETALLES/profundización (+1.5 puntos)
+  // Muestra engagement más allá de curiosidad superficial
+  const detailPatterns = [
+    /exactamente/i,
+    /específicamente/i,
+    /en detalle/i,
+    /cuánto.*exacto/i,
+    /qué hace/i,
+    /cómo funciona.*práctica/i,
+    /explícame/i,
+    /más información/i
+  ];
+
+  if (detailPatterns.some(pattern => pattern.test(message))) {
+    signalScore += 1.5;
+    console.log('🔍 [SCORING] SEÑAL: Profundización (+1.5)');
+  }
+
+  // SEÑAL 3: Mentalidad de LÍDER/CONSTRUCTOR (+3.5 puntos)
+  // Piensa en equipo ANTES de activarse = prospecto de alto valor
+  const leadershipPatterns = [
+    /cómo ayudo/i,
+    /mi equipo/i,
+    /otras personas/i,
+    /replicar/i,
+    /enseñar/i,
+    /mentorear/i,
+    /acompañar/i,
+    /construir.*equipo/i,
+    /ayudar.*otros/i
+  ];
+
+  if (leadershipPatterns.some(pattern => pattern.test(message))) {
+    signalScore += 3.5;
+    console.log('👑 [SCORING] SEÑAL: Mentalidad de líder (+3.5)');
+  }
+
+  // SEÑAL 4: Análisis FINANCIERO - hace cálculos (+4 puntos)
+  // Está evaluando ROI = decisor serio
+  const financialAnalysisPatterns = [
+    /cuánto gano/i,
+    /si.*compra.*paquete/i,
+    /en.*generación/i,
+    /gen \d/i,
+    /porcentaje/i,
+    /comisión/i,
+    /retorno/i,
+    /inversión/i,
+    /esp\d/i,
+    /plan.*compensación/i
+  ];
+
+  if (financialAnalysisPatterns.some(pattern => pattern.test(message))) {
+    signalScore += 4;
+    console.log('💰 [SCORING] SEÑAL: Análisis financiero (+4)');
+  }
+
+  // SEÑAL 5: Profesión RELEVANTE compartida (+2 puntos)
+  // Fit natural con el modelo de negocio
+  const relevantProfessions = [
+    'comerciante', 'vendedor', 'emprendedor', 'empresario',
+    'networker', 'distribuidor', 'freelance', 'consultor',
+    'coach', 'asesor', 'independiente'
+  ];
+
+  if (relevantProfessions.some(prof => messageLower.includes(prof))) {
+    signalScore += 2;
+    console.log('💼 [SCORING] SEÑAL: Profesión relevante (+2)');
+  }
+
+  // SEÑAL 6: Respuestas CONCISAS = decisor (+1 punto)
+  // Comunicación directa indica persona de acción
+  const wordCount = message.split(/\s+/).length;
+  if (wordCount <= 5 && (previousMessages || 0) >= 3) {
+    signalScore += 1;
+    console.log('⚡ [SCORING] SEÑAL: Comunicación directa (+1)');
+  }
+
+  // SEÑAL 7: Feedback POSITIVO explícito (+2 puntos)
+  // Confirma interés genuino
+  const positiveFeedback = [
+    /suena bien/i,
+    /interesante/i,
+    /me gusta/i,
+    /perfecto/i,
+    /excelente/i,
+    /genial/i,
+    /me parece bien/i,
+    /está bien/i
+  ];
+
+  if (positiveFeedback.some(pattern => pattern.test(message))) {
+    signalScore += 2;
+    console.log('✅ [SCORING] SEÑAL: Feedback positivo (+2)');
+  }
+
+  // SEÑAL 8: Solicita CONTACTO directo (+2.5 puntos)
+  // Quiere escalada humana = muy caliente
+  const contactRequestPatterns = [
+    /una llamada/i,
+    /hablar.*whatsapp/i,
+    /contactar/i,
+    /llamar/i,
+    /videollamada/i,
+    /reunión/i
+  ];
+
+  if (contactRequestPatterns.some(pattern => pattern.test(message))) {
+    signalScore += 2.5;
+    console.log('📞 [SCORING] SEÑAL: Solicita contacto (+2.5)');
+  }
+
+  return signalScore;
+}
+
 // Función para capturar datos del prospecto inteligentemente
 async function captureProspectData(
   message: string,
@@ -416,36 +568,83 @@ async function captureProspectData(
     }
   }
 
-  // CÁLCULO DE NIVEL DE INTERÉS (HÍBRIDO MEJORADO)
-  let nivelInteres = 5; // Base neutral
+  // ========================================
+  // CÁLCULO DE NIVEL DE INTERÉS - SISTEMA PROGRESIVO v2.0
+  // ========================================
+  // CAMBIO FUNDAMENTAL: Score ACUMULATIVO (no snapshot)
+  // Caso Diego: Debe calificar en ACOGER desde mensaje 1, no esperar al WhatsApp
 
-  // ✅ NUEVO: Compartir datos personales = alta calificación
-  if (data.name) nivelInteres += 2;
-  if (data.phone) nivelInteres += 3; // WhatsApp es el indicador más fuerte
-  if (data.email) nivelInteres += 2; // Cambiado de 1.5 a 2 (INTEGER)
-  if (data.occupation) nivelInteres += 1;
+  // PASO 1: Obtener score previo del prospecto (si existe)
+  let previousScore = 5; // Base neutral para nuevos prospectos
+  let messageCount = 0;
 
-  // Indicadores positivos (palabras clave)
-  if (messageLower.includes('paquete') || messageLower.includes('inversión')) nivelInteres += 2;
-  if (messageLower.includes('empezar') || messageLower.includes('comenzar')) nivelInteres += 3;
-  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) nivelInteres += 2; // Cambiado de 1.5 a 2 (INTEGER)
-  if (messageLower.includes('quiero') || messageLower.includes('necesito') || messageLower.includes('me interesa')) nivelInteres += 2;
-  if (messageLower.includes('cuándo') || messageLower.includes('cuando') || messageLower.includes('cómo')) nivelInteres += 1;
+  if (fingerprint && existingData) {
+    // existingData ya contiene la info de device_info
+    previousScore = existingData.interest_level || 5;
+    messageCount = (existingData.message_count || 0) + 1;
+    console.log('📊 [SCORING v2.0] Score previo:', previousScore, '| Mensaje #' + messageCount);
+  } else {
+    console.log('📊 [SCORING v2.0] Nuevo prospecto, score base: 5');
+  }
 
-  // Indicadores negativos (menos agresivos) - convertidos a INTEGER
-  if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) nivelInteres -= 3;
-  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) nivelInteres -= 1; // Cambiado de -0.5 a -1 (INTEGER)
-  if (messageLower.includes('duda')) nivelInteres -= 1; // Cambiado de -0.5 a -1 (INTEGER)
+  // PASO 2: Calcular señales BÁSICAS (keywords tradicionales)
+  let basicSignals = 0;
 
-  // Redondear a INTEGER y limitar entre 0-10
-  data.interest_level = Math.round(Math.min(10, Math.max(0, nivelInteres)));
-  console.log('📊 [NEXUS] Nivel de interés calculado:', data.interest_level, {
-    tiene_nombre: !!data.name,
-    tiene_telefono: !!data.phone,
-    tiene_email: !!data.email,
-    tiene_ocupacion: !!data.occupation,
-    momento_optimo: data.interest_level >= 7 ? 'caliente' : data.interest_level >= 4 ? 'tibio' : 'frio'
-  });
+  // Compartir datos personales = interés alto
+  if (data.name) basicSignals += 2;
+  if (data.phone) basicSignals += 2; // ✅ AJUSTADO: Antes +3, ahora +2 (menos peso)
+  if (data.email) basicSignals += 2;
+  if (data.occupation) basicSignals += 1;
+
+  // Keywords positivos
+  if (messageLower.includes('paquete') || messageLower.includes('inversión')) basicSignals += 2;
+  if (messageLower.includes('empezar') || messageLower.includes('comenzar')) basicSignals += 3;
+  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) basicSignals += 2;
+  if (messageLower.includes('quiero') || messageLower.includes('necesito') || messageLower.includes('me interesa')) basicSignals += 2;
+  if (messageLower.includes('cuándo') || messageLower.includes('cuando') || messageLower.includes('cómo')) basicSignals += 1;
+
+  // Keywords negativos
+  if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) basicSignals -= 3;
+  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) basicSignals -= 1;
+  if (messageLower.includes('duda')) basicSignals -= 1;
+
+  // PASO 3: Calcular señales AVANZADAS (sistema nuevo v2.0)
+  const advancedSignals = detectAdvancedSignals(message, messageCount);
+
+  // PASO 4: Bonus por engagement sostenido (frecuencia de mensajes)
+  let engagementBonus = 0;
+  if (messageCount >= 3) engagementBonus += 1.5;
+  if (messageCount >= 5) engagementBonus += 1; // Total +2.5
+  if (messageCount >= 8) engagementBonus += 1; // Total +3.5
+
+  // PASO 5: Calcular DELTA (cambio en este mensaje solamente)
+  const deltaScore = basicSignals + advancedSignals + engagementBonus;
+
+  // PASO 6: Score ACUMULATIVO (sumar al score previo)
+  const totalScore = Math.min(10, Math.max(0, previousScore + deltaScore));
+
+  // Redondear a INTEGER
+  data.interest_level = Math.round(totalScore);
+
+  // PASO 7: Determinar momento óptimo con NUEVOS UMBRALES
+  // ✅ CRÍTICO: Umbrales más bajos para calificar en ACOGER más rápido
+  const momentoOptimo = data.interest_level >= 9 ? 'listo' :
+                        data.interest_level >= 7 ? 'caliente' :
+                        data.interest_level >= 5 ? 'tibio' : 'frio';
+
+  data.momento_optimo = momentoOptimo;
+
+  // PASO 8: Logging detallado del scoring progresivo
+  console.log('📊 ═══════════════════════════════════════════════');
+  console.log('📊 [SCORING PROGRESIVO v2.0] Mensaje #' + messageCount);
+  console.log('📊 ───────────────────────────────────────────────');
+  console.log('  ├─ 📥 Score previo: ' + previousScore.toFixed(1));
+  console.log('  ├─ 🔤 Señales básicas: +' + basicSignals.toFixed(1));
+  console.log('  ├─ 🌟 Señales avanzadas: +' + advancedSignals.toFixed(1));
+  console.log('  ├─ 💬 Bonus engagement: +' + engagementBonus.toFixed(1));
+  console.log('  ├─ 📈 Delta total: +' + deltaScore.toFixed(1));
+  console.log('  └─ 🎯 SCORE FINAL: ' + data.interest_level + '/10 → ' + momentoOptimo.toUpperCase());
+  console.log('📊 ═══════════════════════════════════════════════');
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
   const objeciones: string[] = [];

@@ -467,25 +467,24 @@ export default function PresentacionEmpresarialPage() {
                 <p>Antes de las 9 AM, ya sabes exactamente qué hacer hoy.</p>
               </div>
 
-              <div className="creatuactivo-why-card p-8 lg:p-12 text-left max-w-3xl mx-auto mb-10">
-                <WhyCard
-                  icon={<Heart size={28} />}
-                  text="Tu hijo te pregunta '¿vienes a mi partido?' y puedes decir SÍ sin pedirle permiso a nadie."
-                />
-                <WhyCard
-                  icon={<Users size={28} />}
-                  text="Tu pareja te dice 'vamos de viaje' y revisas tu aplicación, no tu cuenta bancaria."
-                />
-                <WhyCard
-                  icon={<Target size={28} />}
-                  text="Tus nietos heredan algo que genera ingresos, no solo recuerdos."
-                />
-
-                <div className="mt-8 pt-6 border-t border-purple-500/20">
-                  <p className="text-2xl font-bold text-purple-400 text-center">
-                    Por eso creamos CreaTuActivo.
-                  </p>
+              <div className="creatuactivo-why-card p-8 lg:p-12 max-w-3xl mx-auto mb-10">
+                <div className="text-center mb-6">
+                  <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
+                    Nuestra Creencia Fundamental
+                  </div>
                 </div>
+
+                <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
+                  Creemos firmemente que las personas merecen cumplir sueños, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
+                </p>
+
+                <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
+                  Y creemos que construir un activo patrimonial no debe ser tan difícil.
+                </p>
+
+                <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
+                  Por eso creamos CreaTuActivo: una aplicación completa que te da el sistema probado, la tecnología que automatiza el trabajo pesado, y productos únicos con patente mundial.
+                </p>
               </div>
 
               <Link href="#contraste" className="creatuactivo-cta-ecosystem text-lg inline-flex items-center">

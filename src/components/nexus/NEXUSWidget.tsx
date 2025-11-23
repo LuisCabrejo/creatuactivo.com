@@ -282,7 +282,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   }}
                 >
                   <div className="flex-1 p-2 md:p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
-                    <p className="font-semibold text-white mb-2">Hola, soy NEXUS</p>
+                    <p className="font-semibold text-white mb-2">¡Hola! 👋 Soy NEXUS, tu asistente virtual de CreaTuActivo.</p>
                     {isProductsPage ? (
                       <>
                         <p className="mb-3">Soy tu asesor de <span className="text-emerald-400 font-semibold">salud y bienestar</span>.</p>
@@ -291,9 +291,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       </>
                     ) : (
                       <>
-                        <p className="mb-3">Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el <span className="text-amber-400 font-semibold">sistema</span>.</p>
-                        <p className="mb-3">Nosotros aplicamos esa misma filosofía. Te ayudamos a construir <span className="text-amber-400 font-semibold">TU sistema</span>.</p>
-                        <p>¿Por dónde empezamos?</p>
+                        <p className="mb-3">Estoy aquí para ayudarte a construir tu propio activo con productos <span className="text-amber-400 font-semibold">Gano Excel</span>.</p>
+                        <p className="mb-2">¿Qué te gustaría saber?</p>
+                        <p className="text-xs text-slate-400 mt-2">
+                          A) ⚙️ Cómo funciona el sistema<br />
+                          B) 📦 Qué productos distribuimos<br />
+                          C) 💰 Inversión y ganancias<br />
+                          D) 🎯 Si esto es para ti
+                        </p>
                       </>
                     )}
                   </div>

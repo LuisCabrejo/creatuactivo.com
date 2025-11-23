@@ -407,18 +407,8 @@ const contactLiliana = useCallback(() => {
   setMessages(prev => [...prev, contactMessage]);
 }, []);
 
-// 🚀 ENVIAR SALUDO AUTOMÁTICO AL ABRIR EL CHAT
-useEffect(() => {
-  // Solo enviar si no hay mensajes y no está cargando
-  if (messages.length === 0 && !isLoading) {
-    // Esperar un momento para que se inicialice todo
-    const timer = setTimeout(() => {
-      sendMessage('Hola');
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }
-}, []); // Solo ejecutar una vez al montar
+// 🚫 SALUDO AUTOMÁTICO ELIMINADO (23 Nov 2025)
+// Ya no enviamos "Hola" automáticamente. NEXUS responde directamente cuando el usuario escribe.
 
 return {
   messages,

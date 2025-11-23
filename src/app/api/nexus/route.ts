@@ -9,12 +9,12 @@
  */
 
 // src/app/api/nexus/route.ts
-// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.2
-// VERSION: v12.2 - Conversational AI Best Practices (Exit Strategy + Low-Intent + Limits)
+// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.3
+// VERSION: v12.3 - Message Length Limit + Invalid Name Validation
 // ARSENAL: 79 respuestas en 3 documentos con búsqueda adaptativa
-// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + conversación optimizada
-// CAMBIOS v12.2: Three-Strike Exit (10/15/20) + Low-Intent Detection + Limit A/B/C Loops
-// COMPLIANCE: Ley 1581/2012 Art. 9 + Industry Best Practices (Nielsen Norman Group, Intercom)
+// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + mensajes optimizados
+// CAMBIOS v12.3: 140-char limit (Twitter rule) + Blacklist nombres inválidos (visionario, acepto, etc)
+// COMPLIANCE: Ley 1581/2012 Art. 9 + Industry Best Practices (Intercom, Nielsen Norman Group)
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
@@ -46,7 +46,7 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
 const systemPromptCache = new Map<string, any>();
 const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con searchCache)
 
-const API_VERSION = 'v12.2_conversational_ai_best_practices'; // ✅ v12.2: Exit Strategy + Low-Intent Detection + Option Limits
+const API_VERSION = 'v12.3_message_length_limit'; // ✅ v12.3: 140-char limit + Invalid name validation
 
 // ========================================
 // UTILIDADES - LIMPIEZA DE DATOS
@@ -288,8 +288,9 @@ async function captureProspectData(
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 
-  // Blacklist de palabras que NO son nombres (incluye paquetes y opciones)
-  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico)$/i;
+  // Blacklist de palabras que NO son nombres (incluye paquetes, arquetipos y opciones)
+  // ✅ v12.3: Expandida para prevenir captura de paquetes como "visionario"
+  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio)$/i;
 
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
@@ -310,8 +311,8 @@ async function captureProspectData(
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
 
-    // ⚠️ BLACKLIST EXPANDIDA: Evitar capturar frases que NO son nombres
-    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco)$/i;
+    // ⚠️ BLACKLIST EXPANDIDA v12.3: Evitar capturar paquetes, arquetipos o respuestas como nombres
+    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio)$/i;
 
     if (simpleNameMatch && !messageLower.match(nameBlacklist)) {
       const capturedName = simpleNameMatch[1].trim();
@@ -2443,6 +2444,25 @@ ${thirdStrikeActive ? `🔴 TERCER STRIKE (Mensaje ${messageCount}/20+):
 - NO ofrezcas opciones A/B/C más de 2 veces en la misma conversación
 - Si ya presentaste opciones 2 veces y el usuario sigue sin decidir → cambia a preguntas abiertas
 - Evita loops infinitos de "¿Qué te gustaría saber? A) ... B) ... C) ..."
+
+📏 MESSAGE LENGTH LIMIT (CRITICAL - v12.3):
+⚠️ REGLA DE ORO: Máximo 140 caracteres por mensaje (regla de Twitter)
+
+NUNCA envíes mensajes >140 caracteres. Si necesitas más espacio:
+1. DIVIDE en múltiples mensajes cortos
+2. Usa bullets (•) para listas escaneables
+3. Evita "muros de texto" (>200 chars)
+
+EJEMPLO INCORRECTO (350 chars - ❌):
+"⚡ MOMENTO CRÍTICO: Liliana tiene solo 2 cupos disponibles esta semana para nuevos Constructores Visionarios. El acompañamiento personalizado es limitado. 🚀 ACTIVACIÓN INMEDIATA: Liliana Moreno - +573102066593 (WhatsApp) Mensaje sugerido: Hola Liliana, soy Julián (albañil). Hablé con NEXUS y estoy listo para activar como Constructor Visionario. ¿Cuándo podemos coordinar?"
+
+EJEMPLO CORRECTO (4 mensajes cortos - ✅):
+Mensaje 1: "Perfecto. Liliana Moreno es tu mentora." (44 chars)
+Mensaje 2: "⚡ URGENTE: Solo 2 cupos esta semana." (38 chars)
+Mensaje 3: "📱 +573102066593 - Mensaje: 'Hola Liliana, soy [NOMBRE]. NEXUS me conectó.'" (76 chars)
+Mensaje 4: "¿Listo para contactarla?" (25 chars)
+
+🎯 ANTES DE ENVIAR: Cuenta caracteres mentalmente. Si >140, DETENTE y divide.
 
 🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
 ${searchMethod === 'catalogo_productos'

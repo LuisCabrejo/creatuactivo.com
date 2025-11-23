@@ -333,17 +333,16 @@ export default function FundadoresPage() {
       <div className="bg-slate-900 text-white min-h-screen">
         <StrategicNavigation />
 
-        {/* Fondo decorativo oficial */}
+        {/* Fondo decorativo sutil */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[var(--creatuactivo-gold)]/10 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
-          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[var(--creatuactivo-blue)]/10 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[var(--creatuactivo-purple)]/10 rounded-full filter blur-3xl opacity-30 animate-pulse transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/4 -right-1/4 w-96 h-96 bg-[var(--creatuactivo-purple)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
         </div>
 
         <main className="relative z-10 px-4 lg:px-8">
           {/* Hero Section */}
           <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-24">
-            <div className="inline-block bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-purple-500/30">
+            <div className="inline-block bg-indigo-500/10 text-indigo-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-indigo-500/30">
               Una Invitación para 150 Constructores Pioneros
             </div>
 
@@ -351,20 +350,24 @@ export default function FundadoresPage() {
               ¿Y Si Una App Hiciera El Trabajo Duro Por Ti?
             </h1>
 
-            <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
-              <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
-              <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span><br /><br />
+            <div className="text-xl md:text-2xl text-white mb-6">
+              Se llama CreaTuActivo.
+            </div>
 
-              99% de las personas nunca lo logra.<br />
-              <span className="text-amber-400 font-semibold">CreaTuActivo te ayuda a ser del 1%.</span><br /><br />
-
-              Mientras tú duermes, CreaTuActivo trabaja:<br />
-              ✅ NEXUS (tu asistente IA) conversa con personas 24/7<br />
-              ✅ Te muestra quién está interesado<br />
-              ✅ Te dice exactamente qué hacer cada día<br /><br />
-
-              Tú solo tomas las decisiones importantes.
+            <p className="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+              Tu aplicación personal para construir un activo.
             </p>
+
+            <div className="text-base lg:text-lg text-slate-300 max-w-3xl mx-auto mb-10 space-y-3">
+              <p>99% de las personas nunca lo logra. CreaTuActivo te ayuda a ser del 1%.</p>
+
+              <p className="pt-2">Mientras tú duermes, CreaTuActivo trabaja:</p>
+              <p>✅ NEXUS (tu asistente IA) conversa con personas 24/7</p>
+              <p>✅ Te muestra quién está interesado</p>
+              <p>✅ Te dice exactamente qué hacer cada día</p>
+
+              <p className="pt-2">Tú solo tomas las decisiones importantes.</p>
+            </div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
               <button
@@ -383,21 +386,21 @@ export default function FundadoresPage() {
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
               <div className="text-center mb-6">
-                <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-purple-500/20">
+                <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
                   Por Qué Hacemos Esto
                 </div>
               </div>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6">
-                Creemos que <strong className="text-amber-400">todas las personas merecen</strong> viajar, tener tiempo para su familia, no preocuparse por el dinero.
+                Creemos que todas las personas merecen viajar, tener tiempo para su familia, no preocuparse por el dinero.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed">
-                Y creemos que <strong className="text-amber-400">no debería ser tan difícil</strong>.
+                Y creemos que no debería ser tan difícil.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mt-4">
-                Por eso creamos <strong className="text-amber-400">CreaTuActivo</strong>: tu aplicación para construir un activo.
+                Por eso creamos CreaTuActivo: tu aplicación para construir un activo.
               </p>
             </div>
           </section>
@@ -406,7 +409,7 @@ export default function FundadoresPage() {
           <section className="max-w-5xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De Difícil a Fácil</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
-              Antes era trabajo manual. Ahora <strong className="text-amber-400">CreaTuActivo</strong> hace el 80% por ti.
+              Antes era trabajo manual. Ahora CreaTuActivo hace el 80% por ti.
             </p>
 
             {/* Analogías del día a día */}
@@ -443,8 +446,7 @@ export default function FundadoresPage() {
             </div>
 
             <p className="text-center text-lg text-white mb-12 max-w-2xl mx-auto">
-              Así como Netflix simplificó ver películas...<br />
-              <strong className="text-amber-400">CreaTuActivo simplifica construir tu negocio.</strong>
+              Así como Netflix simplificó ver películas, CreaTuActivo simplifica construir tu negocio.
             </p>
 
             <p className="text-center text-base text-slate-400 mb-12">

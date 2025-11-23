@@ -1,8 +1,9 @@
 # Deep Dive: Gary Vaynerchuk Style - CreaTuActivo.com
 
-**Versión:** 1.0 - Profundización Máxima del Estilo Gary Vaynerchuk
-**Fecha:** 11 de Enero 2025
+**Versión:** 2.0 - Actualización con Branding 2025
+**Fecha:** 22 de Noviembre 2025
 **Para:** Luis Cabrejo - Aplicación práctica al pitch de CreaTuActivo.com
+**Cambios:** Actualizado a "Los 3 Pasos: IAA" + "la aplicación CreaTuActivo"
 
 ---
 
@@ -214,11 +215,11 @@ Hoy, [fecha actual], voy a ejecutar estas acciones específicas:
 
 **CLOUDS (Visión 30 años para CreaTuActivo):**
 
-*"En 2055, habré construido un activo patrimonial que genera $_____ mensuales sin mi trabajo activo. Mi red tiene ___ arquitectos independientes prosperando. Mis hijos han heredado este activo y lo están expandiendo. Ayudé a ___ familias a recuperar su tiempo. Soy conocido como [tu identidad deseada]. Ese es mi cloud."*
+*"En 2055, habré construido un activo patrimonial que genera $_____ mensuales sin mi trabajo activo. Mi red tiene ___ Constructores independientes prosperando. Mis hijos han heredado este activo y lo están expandiendo. Ayudé a ___ familias a recuperar su tiempo. Soy conocido como [tu identidad deseada]. Ese es mi cloud."*
 
 **DIRT (Acción HOY para CreaTuActivo):**
 
-*"HOY a las 6pm, mandaré 10 mensajes personalizados a contactos de mi red. HOY a las 8pm, haré 1 video de 60 segundos documentando mi journey. HOY antes de dormir, leeré 20 páginas del manual Framework IAA. Eso es dirt. Zero excusas."*
+*"HOY a las 6pm, mandaré 10 mensajes personalizados a contactos de mi red. HOY a las 8pm, haré 1 video de 60 segundos documentando mi journey. HOY antes de dormir, leeré 20 páginas del manual Los 3 Pasos: IAA. Eso es dirt. Zero excusas."*
 
 ---
 
@@ -258,10 +259,10 @@ Gary revolucionó esto: **No CREES contenido. DOCUMENTAS tu journey.**
 - Día 7: Post largo - "Semana 1: Qué aprendí sobre mí mismo"
 
 **Semana 2 - Documenta tu aprendizaje:**
-- Día 8: Video - "Framework IAA explicado como si tuvieras 10 años"
+- Día 8: Video - "Los 3 Pasos: IAA explicados como si tuvieras 10 años"
 - Día 9: Post - "Diferencia entre ingreso y activo (lo entendí HOY)"
 - Día 10: Video - "Cómo funciona NEXUS (demostración en tiempo real)"
-- Día 11: Post - "Concepto de leverage sin permisos (mind blown)"
+- Día 11: Post - "Concepto de leverage automatizado (mind blown)"
 - Día 12: Video - "Conversé con [nombre], esto me dijo"
 - Día 13: Stories - "3 errores que cometí esta semana"
 - Día 14: Post largo - "Semana 2: Cambios en mi mentalidad"
@@ -1050,7 +1051,7 @@ Grabas 1 video de 60 segundos documentando tu journey.
 
 HOY. 10pm.
 
-Estudias Framework IAA por 30 minutos.
+Estudias Los 3 Pasos: IAA por 30 minutos.
 
 *[Grita]*
 

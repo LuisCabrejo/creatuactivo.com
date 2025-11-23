@@ -107,9 +107,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     handleSendMessage(inputMessage);
   };
 
-  // 🎯 Detectar si estamos en página de productos (asesor de salud)
-  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
-
   if (!isOpen) return null;
 
   const containerClasses = isExpanded
@@ -260,37 +257,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               }}
             >
 
-              {/* SALUDO INICIAL */}
-              {messages.length === 0 && (
-                <div
-                  className="flex items-start animate-fadeIn"
-                  style={{
-                    animation: 'fadeInUp 600ms cubic-bezier(0.25, 0.8, 0.25, 1) 200ms both'
-                  }}
-                >
-                  <div className="flex-1 p-2 md:p-3 rounded-lg text-sm bg-slate-800/90 text-slate-200 backdrop-blur-sm border border-slate-700/30">
-                    <p className="font-semibold text-white mb-2">¡Hola! 👋 Soy NEXUS, tu asistente virtual de CreaTuActivo.</p>
-                    {isProductsPage ? (
-                      <>
-                        <p className="mb-3">Soy tu asesor de <span className="text-emerald-400 font-semibold">salud y bienestar</span>.</p>
-                        <p className="mb-3">Estoy aquí para ayudarte a entender cómo Ganoderma lucidum puede apoyar tu bienestar, respaldado por más de 2,000 estudios científicos.</p>
-                        <p>¿Qué te gustaría saber sobre los productos?</p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="mb-3">Estoy aquí para ayudarte a construir tu propio activo con productos <span className="text-amber-400 font-semibold">Gano Excel</span>.</p>
-                        <p className="mb-3 font-medium">¿Qué te gustaría saber?</p>
-                        <p className="text-sm text-slate-300 leading-relaxed">
-                          A) ⚙️ Cómo funciona el sistema<br />
-                          B) 📦 Qué productos distribuimos<br />
-                          C) 💰 Inversión y ganancias<br />
-                          D) 🎯 Si esto es para ti
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
+              {/* SALUDO INICIAL - Removido para evitar doble saludo */}
+              {/* El saludo completo lo genera Claude vía streaming */}
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
               {messages.map((message, index) => {

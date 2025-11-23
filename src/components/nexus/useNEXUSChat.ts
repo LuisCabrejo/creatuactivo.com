@@ -11,7 +11,7 @@
 // src/components/nexus/useNEXUSChat.ts
 // 🎯 SIMPLIFICADO - Sin lógica de scroll (movida al componente)
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 interface Message {
  id: string;
@@ -406,6 +406,19 @@ const contactLiliana = useCallback(() => {
 
   setMessages(prev => [...prev, contactMessage]);
 }, []);
+
+// 🚀 ENVIAR SALUDO AUTOMÁTICO AL ABRIR EL CHAT
+useEffect(() => {
+  // Solo enviar si no hay mensajes y no está cargando
+  if (messages.length === 0 && !isLoading) {
+    // Esperar un momento para que se inicialice todo
+    const timer = setTimeout(() => {
+      sendMessage('Hola');
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }
+}, []); // Solo ejecutar una vez al montar
 
 return {
   messages,

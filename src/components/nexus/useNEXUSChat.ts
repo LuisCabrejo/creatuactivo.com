@@ -22,11 +22,39 @@ interface Message {
 }
 
 export const useNEXUSChat = () => {
-// 🎯 MENSAJE INICIAL DE NEXUS (sin burbuja del usuario)
-const initialGreeting: Message = {
-  id: 'initial-greeting',
-  role: 'assistant',
-  content: `¡Hola! 👋 Soy **NEXUS**, tu asistente virtual de CreaTuActivo.com.
+// 🎯 MENSAJE INICIAL CONTEXTUAL DE NEXUS
+const getInitialGreeting = (): Message => {
+  // Detectar si estamos en la página de productos
+  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+
+  if (isProductsPage) {
+    // Saludo especializado para página de productos (bienestar y salud)
+    return {
+      id: 'initial-greeting-products',
+      role: 'assistant',
+      content: `¡Hola! 👋 Soy **NEXUS**, tu asesor especializado en productos de **bienestar y salud**.
+
+Te ayudo a descubrir los beneficios del **Ganoderma Lucidum** y cómo estos productos únicos con **patente mundial** pueden transformar tu bienestar.
+
+¿Qué te gustaría saber?
+
+**A)** ⚙️ Cómo funciona el negocio
+
+**B)** 📦 Qué productos distribuimos
+
+**C)** 💰 Inversión y ganancias
+
+**D)** 🎯 Si esto es para ti`,
+      timestamp: new Date(),
+      isStreaming: false
+    };
+  }
+
+  // Saludo genérico para el resto de páginas
+  return {
+    id: 'initial-greeting',
+    role: 'assistant',
+    content: `¡Hola! 👋 Soy **NEXUS**, tu asistente virtual de CreaTuActivo.com.
 
 Estoy aquí para ayudarte a construir tu propio activo con productos **Gano Excel** que tienen patente mundial.
 
@@ -39,11 +67,12 @@ Estoy aquí para ayudarte a construir tu propio activo con productos **Gano Exce
 **C)** 💰 Inversión y ganancias
 
 **D)** 🎯 Si esto es para ti`,
-  timestamp: new Date(),
-  isStreaming: false
+    timestamp: new Date(),
+    isStreaming: false
+  };
 };
 
-const [messages, setMessages] = useState<Message[]>([initialGreeting]);
+const [messages, setMessages] = useState<Message[]>([getInitialGreeting()]);
 const [isLoading, setIsLoading] = useState(false);
 const [isStreaming, setIsStreaming] = useState(false);
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
@@ -378,8 +407,8 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
  }, [messages]);
 
 const resetChat = useCallback(() => {
-  // 🔄 Restaurar mensaje inicial de NEXUS
-  setMessages([initialGreeting]);
+  // 🔄 Restaurar mensaje inicial CONTEXTUAL de NEXUS
+  setMessages([getInitialGreeting()]);
   setIsLoading(false);
   setIsStreaming(false);
   setProgressiveReplies([]);
@@ -390,7 +419,7 @@ const resetChat = useCallback(() => {
   localStorage.removeItem('nexus_first_greeting_timestamp');
   // Nota: NO limpiamos nexus_fingerprint (identificación del dispositivo debe persistir)
 
-  console.log('✅ [NEXUS] Chat reseteado - Mensaje inicial restaurado, consentimiento persiste en BD');
+  console.log('✅ [NEXUS] Chat reseteado - Mensaje inicial contextual restaurado, consentimiento persiste en BD');
  }, []);
 
 const handleQuickReply = useCallback((reply: string) => {

@@ -32,8 +32,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL Jobs-Style - Coordinado con NEXUSWidget
-        content: 'Hola, soy NEXUS\n\nPiénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.\n\nNosotros aplicamos esa misma filosofía. Te ayudamos a construir TU sistema.\n\n¿Por dónde empezamos?'
+        // 🔧 MENSAJE INICIAL Jobs-Style - Coordinado con NEXUSWidget (SIN "Hola")
+        content: 'Soy NEXUS\n\nPiénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.\n\nNosotros aplicamos esa misma filosofía. Te ayudamos a construir TU sistema.\n\n¿Por dónde empezamos?'
       }
     ]
   });

@@ -22,7 +22,28 @@ interface Message {
 }
 
 export const useNEXUSChat = () => {
-const [messages, setMessages] = useState<Message[]>([]);
+// 🎯 MENSAJE INICIAL DE NEXUS (sin burbuja del usuario)
+const initialGreeting: Message = {
+  id: 'initial-greeting',
+  role: 'assistant',
+  content: `¡Hola! 👋 Soy **NEXUS**, tu asistente virtual de CreaTuActivo.com.
+
+Estoy aquí para ayudarte a construir tu propio activo con productos **Gano Excel** que tienen patente mundial.
+
+¿Qué te gustaría saber?
+
+**A)** ⚙️ Cómo funciona el negocio
+
+**B)** 📦 Qué productos distribuimos
+
+**C)** 💰 Inversión y ganancias
+
+**D)** 🎯 Si esto es para ti`,
+  timestamp: new Date(),
+  isStreaming: false
+};
+
+const [messages, setMessages] = useState<Message[]>([initialGreeting]);
 const [isLoading, setIsLoading] = useState(false);
 const [isStreaming, setIsStreaming] = useState(false);
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
@@ -357,7 +378,8 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
  }, [messages]);
 
 const resetChat = useCallback(() => {
-  setMessages([]);
+  // 🔄 Restaurar mensaje inicial de NEXUS
+  setMessages([initialGreeting]);
   setIsLoading(false);
   setIsStreaming(false);
   setProgressiveReplies([]);
@@ -368,7 +390,7 @@ const resetChat = useCallback(() => {
   localStorage.removeItem('nexus_first_greeting_timestamp');
   // Nota: NO limpiamos nexus_fingerprint (identificación del dispositivo debe persistir)
 
-  console.log('✅ [NEXUS] Chat reseteado - UI limpia, consentimiento persiste en BD');
+  console.log('✅ [NEXUS] Chat reseteado - Mensaje inicial restaurado, consentimiento persiste en BD');
  }, []);
 
 const handleQuickReply = useCallback((reply: string) => {

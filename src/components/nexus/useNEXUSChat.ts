@@ -38,13 +38,17 @@ Te ayudo a descubrir los beneficios del **Ganoderma Lucidum** y cómo estos prod
 
 ¿Qué te gustaría saber?
 
-**A)** ☕ Beneficios del Gano Café
+**A)** 🌿 ¿Qué beneficios tienen los productos Gano Excel?
 
-**B)** 💰 Precios y presentaciones
+**B)** 🔬 ¿Qué estudios científicos respaldan los beneficios?
 
-**C)** 📋 Cómo tomar los productos
+**C)** ☕ Beneficios del Gano Café
 
-**D)** ⚠️ Contraindicaciones y precauciones`,
+**D)** 💰 Precios y presentaciones
+
+**E)** 📋 Cómo tomar los productos
+
+**F)** ⚠️ Contraindicaciones y precauciones`,
       timestamp: new Date(),
       isStreaming: false
     };

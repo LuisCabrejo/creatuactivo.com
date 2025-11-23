@@ -38,13 +38,13 @@ Te ayudo a descubrir los beneficios del **Ganoderma Lucidum** y cómo estos prod
 
 ¿Qué te gustaría saber?
 
-**A)** ⚙️ Cómo funciona el negocio
+**A)** ☕ Beneficios del Gano Café
 
-**B)** 📦 Qué productos distribuimos
+**B)** 💰 Precios y presentaciones
 
-**C)** 💰 Inversión y ganancias
+**C)** 📋 Cómo tomar los productos
 
-**D)** 🎯 Si esto es para ti`,
+**D)** ⚠️ Contraindicaciones y precauciones`,
       timestamp: new Date(),
       isStreaming: false
     };

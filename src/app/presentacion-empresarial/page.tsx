@@ -445,7 +445,7 @@ export default function PresentacionEmpresarialPage() {
           {/* SECCIÓN 1: WHY - Hero Emocional */}
           <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-24">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-block bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
+              <div className="inline-block bg-indigo-500/10 text-indigo-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-indigo-500/30">
                 Una Aplicación para Construir tu Activo
               </div>
 
@@ -453,15 +453,18 @@ export default function PresentacionEmpresarialPage() {
                 Imagina Despertar y Ver<br />Que Tu Negocio Ya Trabajó Por Ti
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-300 mb-6 leading-relaxed">
-                <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
-                <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span>
+              <div className="text-xl md:text-2xl text-white mb-6">
+                Se llama CreaTuActivo.
+              </div>
+
+              <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                Tu aplicación personal para construir un activo.
               </p>
 
-              <div className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 space-y-4">
-                <p>Mientras dormías, <span className="text-blue-400 font-semibold">NEXUS respondió 12 conversaciones</span>.</p>
-                <p>Mientras desayunabas con tu familia, <span className="text-purple-400 font-semibold">3 personas mostraron interés real</span>.</p>
-                <p>Antes de las 9 AM, <span className="text-amber-400 font-semibold">ya sabes exactamente qué hacer hoy</span>.</p>
+              <div className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-10 space-y-3">
+                <p>Mientras dormías, NEXUS respondió 12 conversaciones.</p>
+                <p>Mientras desayunabas con tu familia, 3 personas mostraron interés real.</p>
+                <p>Antes de las 9 AM, ya sabes exactamente qué hacer hoy.</p>
               </div>
 
               <div className="creatuactivo-why-card p-8 lg:p-12 text-left max-w-3xl mx-auto mb-10">
@@ -535,9 +538,9 @@ export default function PresentacionEmpresarialPage() {
 
               <div className="text-center max-w-2xl mx-auto p-8 bg-blue-500/10 border border-blue-500/20 rounded-xl">
                 <p className="text-xl text-slate-200 leading-relaxed">
-                  La pregunta no es <span className="text-blue-400 font-semibold">"¿cuál prefieres?"</span>
+                  La pregunta no es "¿cuál prefieres?"
                   <br /><br />
-                  La pregunta es <span className="text-blue-400 font-semibold">"¿cuál estás construyendo HOY?"</span>
+                  La pregunta es "¿cuál estás construyendo HOY?"
                 </p>
               </div>
             </div>
@@ -583,7 +586,7 @@ export default function PresentacionEmpresarialPage() {
                   ¿Ves la diferencia?
                 </p>
                 <p className="text-xl text-slate-400 leading-relaxed">
-                  No te damos un "negocio para trabajar". Te damos <span className="text-purple-400 font-semibold">CreaTuActivo: una aplicación completa</span> que trabaja por ti.
+                  No te damos un "negocio para trabajar". Te damos CreaTuActivo: una aplicación completa que trabaja por ti.
                 </p>
               </div>
             </div>
@@ -671,11 +674,9 @@ export default function PresentacionEmpresarialPage() {
 
               <div className="max-w-4xl mx-auto mb-12 p-8 bg-blue-500/5 border border-blue-500/20 rounded-xl">
                 <p className="text-xl text-slate-200 leading-relaxed text-center">
-                  <span className="text-purple-400 font-bold">12 formas de ganar dinero</span>.
+                  12 formas de ganar dinero.
                   <br /><br />
-                  Las dos principales:
-                  <br />
-                  <span className="text-blue-400 font-semibold">Bonos por paquetes empresariales</span> (ingreso activo) y <span className="text-green-400 font-semibold">Bonos semanales por consumo</span> (ingreso residual).
+                  Las dos principales: Bonos por paquetes empresariales (ingreso activo) y Bonos semanales por consumo (ingreso residual).
                 </p>
               </div>
 
@@ -778,10 +779,10 @@ export default function PresentacionEmpresarialPage() {
 
               <div className="mt-12 max-w-3xl mx-auto text-center p-8 bg-green-900/20 border border-green-500/30 rounded-xl">
                 <Clock className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <p className="text-xl text-slate-200 leading-relaxed">
+                <p className="text-xl text-white leading-relaxed">
                   Esto no es "ganar dinero".
                   <br />
-                  Esto es <span className="text-green-400 font-bold">construir libertad</span>.
+                  Esto es construir libertad.
                   <br /><br />
                   <span className="text-lg text-slate-400">¿Ves la diferencia?</span>
                 </p>
@@ -1011,13 +1012,13 @@ Solo tú sabes tu WHY.`}
 
                 <div className="space-y-6 text-xl text-slate-300 leading-relaxed mb-12">
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">despertar sin alarma</span> es más valioso que cualquier salario...
+                    Si crees que despertar sin alarma es más valioso que cualquier salario...
                   </p>
                   <p>
-                    Si crees que <span className="text-blue-400 font-semibold">estar en el recital de tu hija</span> no debería costarte un día de vacaciones...
+                    Si crees que estar en el recital de tu hija no debería costarte un día de vacaciones...
                   </p>
                   <p>
-                    Si crees que <span className="text-green-400 font-semibold">tus nietos merecen heredar libertad</span>, no solo fotos...
+                    Si crees que tus nietos merecen heredar libertad, no solo fotos...
                   </p>
                 </div>
 
@@ -1032,7 +1033,7 @@ Solo tú sabes tu WHY.`}
                     <br /><br />
                     Los movimientos no se construyen con individuos aislados.
                     <br />
-                    Se construyen con <span className="text-purple-400 font-semibold">150 fundadores que creen lo mismo</span>.
+                    Se construyen con 150 fundadores que creen lo mismo.
                   </p>
                 </div>
 

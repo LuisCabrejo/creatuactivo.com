@@ -9,12 +9,12 @@
  */
 
 // src/app/api/nexus/route.ts
-// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.1
-// VERSION: v12.1 - Timing Optimizado + Formato de Listas Mejorado
+// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.2
+// VERSION: v12.2 - Conversational AI Best Practices (Exit Strategy + Low-Intent + Limits)
 // ARSENAL: 79 respuestas en 3 documentos con búsqueda adaptativa
-// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + timing estratégico
-// CAMBIOS v12.1: Captura AL FINAL + Listas verticales + Datos acumulados
-// COMPLIANCE: Ley 1581/2012 Art. 9 + UX optimizada (efecto de recencia)
+// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + conversación optimizada
+// CAMBIOS v12.2: Three-Strike Exit (10/15/20) + Low-Intent Detection + Limit A/B/C Loops
+// COMPLIANCE: Ley 1581/2012 Art. 9 + Industry Best Practices (Nielsen Norman Group, Intercom)
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
@@ -46,7 +46,7 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
 const systemPromptCache = new Map<string, any>();
 const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con searchCache)
 
-const API_VERSION = 'v12.1_timing_optimizado'; // ✅ v12.1: Timing + Formato + Datos acumulados
+const API_VERSION = 'v12.2_conversational_ai_best_practices'; // ✅ v12.2: Exit Strategy + Low-Intent Detection + Option Limits
 
 // ========================================
 // UTILIDADES - LIMPIEZA DE DATOS
@@ -672,6 +672,30 @@ async function captureProspectData(
   if (objeciones.length > 0) {
     data.objections = objeciones;
     console.log('Objeciones detectadas:', objeciones);
+  }
+
+  // 🧠 DETECCIÓN DE LOW-INTENT SIGNALS (Best Practice: Adapt strategy when user shows disinterest)
+  const lowIntentKeywords = [
+    'tal vez', 'quizás', 'quizas', 'no sé', 'no se',
+    'después veo', 'despues veo', 'luego te escribo',
+    'más tarde', 'mas tarde', 'otro día', 'otro dia',
+    'déjame pensarlo', 'dejame pensarlo', 'lo pienso',
+    'no estoy seguro', 'no estoy segura'
+  ];
+
+  const hasLowIntent = lowIntentKeywords.some(keyword => messageLower.includes(keyword));
+
+  if (hasLowIntent) {
+    // Reduce score by 1 point when low-intent is detected
+    if (data.interest_level && data.interest_level > 0) {
+      data.interest_level = Math.max(0, data.interest_level - 1);
+      console.log('⚠️ [LOW-INTENT DETECTED] Score reducido por señales de desinterés:', lowIntentKeywords.find(k => messageLower.includes(k)));
+    }
+    // Mark as "tibio" instead of "caliente"
+    if (data.momento_optimo === 'caliente') {
+      data.momento_optimo = 'tibio';
+      console.log('⚠️ [LOW-INTENT DETECTED] Momento óptimo cambiado de "caliente" a "tibio"');
+    }
   }
 
   // DETECCIÓN DE ARQUETIPO (ESCALABLE)
@@ -2380,11 +2404,45 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
       nombre: existingProspectData.name || 'N/A'
     });
 
+    // 📊 CONVERSATIONAL AI BEST PRACTICES - Three-Strike Exit Strategy
+    const messageCount = messages.length;
+    const exitStrategyActive = messageCount >= 10;
+    const secondStrikeActive = messageCount >= 15;
+    const thirdStrikeActive = messageCount >= 20;
+
     const sessionInstructions = `
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
 - Arsenal MVP como fuente de verdad absoluta
 - Clasificación automática funcionando correctamente
+
+🚪 EXIT STRATEGY (Three-Strike Rule - Conversational AI Best Practice):
+${exitStrategyActive && !secondStrikeActive ? `⚠️ PRIMER STRIKE (Mensaje ${messageCount}/10+):
+- Hemos intercambiado ${messageCount} mensajes
+- Ofrece resumen breve de lo discutido
+- Pregunta si quiere continuar explorando O prefiere que lo conecte con un asesor humano
+- Opciones: [Seguir conversando] [Hablar con asesor] [Recibir info por WhatsApp]` : ''}
+${secondStrikeActive && !thirdStrikeActive ? `⚠️ SEGUNDO STRIKE (Mensaje ${messageCount}/15+):
+- Ya son ${messageCount} mensajes
+- Es momento de dar opciones simplificadas
+- Pregunta: "¿Qué necesitas específicamente? Puedo ayudarte con: A) Explicación del sistema B) Información de inversión C) Conectarte con asesor"
+- Si elige C o muestra indecisión, escala a humano` : ''}
+${thirdStrikeActive ? `🔴 TERCER STRIKE (Mensaje ${messageCount}/20+):
+- CRÍTICO: Conversación muy extendida (${messageCount} mensajes)
+- Escala OBLIGATORIAMENTE a humano
+- Mensaje: "Creo que sería más productivo que hables con [Sponsor Name]. Tiene más experiencia resolviendo casos complejos como el tuyo. ¿Te conecto ahora?"
+- Si dice NO, despídete cordialmente y ofrece dejar WhatsApp para contacto posterior` : ''}
+
+🧠 LOW-INTENT DETECTION (señales de desinterés - ajustar estrategia):
+- Si el usuario dice: "tal vez", "quizás", "no sé", "después veo", "luego te escribo" → REDUCE frecuencia de preguntas
+- NO insistas con opciones A/B/C si muestra bajo interés
+- Ofrece salida elegante: "Entiendo. ¿Quieres que te deje info para revisar con calma?"
+- Marca conversación como "tibio" (no "caliente")
+
+⚡ LIMIT OPTION LOOPS (Máximo 2 veces opciones A/B/C):
+- NO ofrezcas opciones A/B/C más de 2 veces en la misma conversación
+- Si ya presentaste opciones 2 veces y el usuario sigue sin decidir → cambia a preguntas abiertas
+- Evita loops infinitos de "¿Qué te gustaría saber? A) ... B) ... C) ..."
 
 🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
 ${searchMethod === 'catalogo_productos'

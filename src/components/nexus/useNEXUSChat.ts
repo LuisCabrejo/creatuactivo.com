@@ -32,23 +32,21 @@ const getInitialGreeting = (): Message => {
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `¡Hola! 👋 Soy **NEXUS**, tu asesor especializado en productos de **bienestar y salud**.
+      content: `Hola, soy NEXUS
 
-Te ayudo a descubrir los beneficios del **Ganoderma Lucidum** y cómo estos productos únicos con **patente mundial** pueden transformar tu bienestar.
+Soy tu asesor de salud y bienestar.
 
-¿Qué te gustaría saber?
+Estoy aquí para ayudarte a entender cómo Ganoderma lucidum puede apoyar tu bienestar, respaldado por más de 2,000 estudios científicos.
+
+¿Qué te gustaría saber sobre los productos?
 
 **A)** 🌿 ¿Qué beneficios tienen los productos Gano Excel?
 
 **B)** 🔬 ¿Qué estudios científicos respaldan los beneficios?
 
-**C)** ☕ Beneficios del Gano Café
-
 **D)** 💰 Precios y presentaciones
 
-**E)** 📋 Cómo tomar los productos
-
-**F)** ⚠️ Contraindicaciones y precauciones`,
+**E)** 📋 Cómo tomar los productos`,
       timestamp: new Date(),
       isStreaming: false
     };

@@ -351,21 +351,24 @@ export default function FundadoresPage() {
               ¿Y Si Pudieras Construir un Activo<br />Sin Dejar Tu Carrera?
             </h1>
 
-            <p className="text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
-              <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
-              <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span><br /><br />
+            <div className="text-xl md:text-2xl text-white mb-6">
+              Se llama CreaTuActivo.
+            </div>
 
-              Has construido una carrera exitosa.<br />
-              Pero sigues intercambiando <span className="text-amber-400 font-semibold">tiempo por dinero</span>.<br /><br />
-
-              Mientras tú duermes, CreaTuActivo trabaja:<br />
-              ✅ NEXUS (tu asistente IA) conversa con personas 24/7<br />
-              ✅ Te muestra quién está interesado<br />
-              ✅ Te dice exactamente qué hacer cada día<br /><br />
-
-              Solo necesitas <span className="text-amber-400 font-semibold">2 horas al día</span>.<br />
-              Tu carrera continúa. Tu activo crece.
+            <p className="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+              Tu aplicación personal para construir un activo.
             </p>
+
+            <div className="text-base lg:text-lg text-slate-300 max-w-3xl mx-auto mb-10 space-y-3">
+              <p>Has construido una carrera exitosa. Pero sigues intercambiando tiempo por dinero.</p>
+
+              <p className="pt-2">Mientras tú duermes, CreaTuActivo trabaja:</p>
+              <p>✅ NEXUS (tu asistente IA) conversa con personas 24/7</p>
+              <p>✅ Te muestra quién está interesado</p>
+              <p>✅ Te dice exactamente qué hacer cada día</p>
+
+              <p className="pt-2">Solo necesitas 2 horas al día. Tu carrera continúa. Tu activo crece.</p>
+            </div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
               <button
@@ -384,21 +387,21 @@ export default function FundadoresPage() {
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
               <div className="text-center mb-6">
-                <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-purple-500/20">
+                <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
                   Por Qué Hacemos Esto
                 </div>
               </div>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6">
-                Creemos que <strong className="text-amber-400">los profesionales merecen</strong> construir algo propio sin sacrificar la estabilidad que han logrado.
+                Creemos que los profesionales merecen construir algo propio sin sacrificar la estabilidad que han logrado.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed">
-                Tu experiencia, tu red de contactos, tu credibilidad... <strong className="text-amber-400">son activos valiosos</strong>.
+                Tu experiencia, tu red de contactos, tu credibilidad... son activos valiosos.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mt-4">
-                Por eso creamos <strong className="text-amber-400">CreaTuActivo</strong>: para que los construyas sin dejar tu carrera.
+                Por eso creamos CreaTuActivo: para que los construyas sin dejar tu carrera.
               </p>
             </div>
           </section>
@@ -407,7 +410,7 @@ export default function FundadoresPage() {
           <section className="max-w-5xl mx-auto mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-3">De Difícil a Fácil</h2>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
-              Antes era trabajo manual. Ahora <strong className="text-amber-400">CreaTuActivo</strong> hace el 80% por ti.
+              Antes era trabajo manual. Ahora CreaTuActivo hace el 80% por ti.
             </p>
 
             {/* Analogías del día a día */}
@@ -444,8 +447,7 @@ export default function FundadoresPage() {
             </div>
 
             <p className="text-center text-lg text-white mb-12 max-w-2xl mx-auto">
-              Así como Netflix simplificó ver películas...<br />
-              <strong className="text-amber-400">CreaTuActivo simplifica construir tu negocio.</strong>
+              Así como Netflix simplificó ver películas, CreaTuActivo simplifica construir tu negocio.
             </p>
 
             <p className="text-center text-base text-slate-400 mb-12">

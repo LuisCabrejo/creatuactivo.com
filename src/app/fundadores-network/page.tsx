@@ -292,7 +292,7 @@ export default function FundadoresNetworkPage() {
                 o construyendo el SISTEMA donde se venden millones de productos diarios?
               </h3>
 
-              <p className="text-xl font-bold text-blue-400 mb-6">
+              <p className="text-xl font-bold text-white mb-6">
                 Exacto. Construyó el sistema.
               </p>
 
@@ -306,12 +306,11 @@ export default function FundadoresNetworkPage() {
                 </p>
 
                 <p>
-                  Te damos <strong className="text-amber-400">CreaTuActivo</strong>: tu aplicación personal para construir tu propio sistema de distribución, donde se distribuyen productos de <strong className="text-white">Gano Excel</strong> todos los días.
+                  Te damos CreaTuActivo: tu aplicación personal para construir tu propio sistema de distribución, donde se distribuyen productos de Gano Excel todos los días.
                 </p>
 
-                <p className="text-lg lg:text-xl font-semibold text-blue-400 pt-4">
-                  Igual que Bezos.<br />
-                  Pero esto es tuyo.
+                <p className="text-lg lg:text-xl font-semibold text-white pt-4">
+                  Igual que Bezos. Pero esto es tuyo.
                 </p>
               </div>
             </div>
@@ -418,7 +417,7 @@ export default function FundadoresNetworkPage() {
                   </div>
                 </div>
 
-                <p className="text-center text-xl font-bold text-purple-400 pt-6">
+                <p className="text-center text-xl font-bold text-white pt-6">
                   Mismo Gano Excel. Mismo plan. Nueva era.
                 </p>
               </div>
@@ -667,7 +666,7 @@ export default function FundadoresNetworkPage() {
               </h2>
               <p className="text-xl text-slate-300 mb-8 leading-relaxed">
                 Duplicación. Residual. Binario. Patente mundial.<br />
-                Ahora con <strong className="text-amber-400">CreaTuActivo</strong>: la aplicación que siempre debió existir.
+                Ahora con CreaTuActivo: la aplicación que siempre debió existir.
               </p>
               <a href="#formulario" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center">
                 Solicitar Espacio Ahora <ArrowRight size={24} className="ml-2" />

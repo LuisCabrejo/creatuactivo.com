@@ -110,19 +110,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   // 🎯 Detectar si estamos en página de productos (asesor de salud)
   const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
 
-  // Quick Replies dinámicas según contexto
-  const quickReplies = isProductsPage
-    ? [
-        { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' },
-        { text: '¿Qué estudios científicos respaldan los beneficios?', icon: '🔬' },
-        { text: '¿Es seguro consumir Ganoderma diariamente?', icon: '✅' }
-      ]
-    : [
-        { text: '¿Cómo funciona exactamente el negocio?', icon: '💡' },
-        { text: '¿Qué beneficios tienen los productos Gano Excel?', icon: '🌿' },
-        { text: '¿Cuánto necesito para empezar?', icon: '💰' }
-      ];
-
   if (!isOpen) return null;
 
   const containerClasses = isExpanded
@@ -292,8 +279,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     ) : (
                       <>
                         <p className="mb-3">Estoy aquí para ayudarte a construir tu propio activo con productos <span className="text-amber-400 font-semibold">Gano Excel</span>.</p>
-                        <p className="mb-2">¿Qué te gustaría saber?</p>
-                        <p className="text-xs text-slate-400 mt-2">
+                        <p className="mb-3 font-medium">¿Qué te gustaría saber?</p>
+                        <p className="text-sm text-slate-300 leading-relaxed">
                           A) ⚙️ Cómo funciona el sistema<br />
                           B) 📦 Qué productos distribuimos<br />
                           C) 💰 Inversión y ganancias<br />
@@ -390,49 +377,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
             </div>
           </div>
-
-          {/* QUICK REPLIES */}
-          {messages.length === 0 && (
-            <div
-              className={`border-t border-white/10 ${isExpanded ? 'p-6 pt-4' : 'p-2 md:p-4'}`}
-              style={{
-                animation: 'fadeInUp 800ms cubic-bezier(0.25, 0.8, 0.25, 1) 600ms both'
-              }}
-            >
-              <div className={`space-y-2 mb-3 ${isExpanded ? 'grid grid-cols-1 gap-3 space-y-0' : ''}`}>
-                {quickReplies.map((reply, index) => (
-                  <button
-                    key={index}
-                    className={`w-full text-left p-2 md:p-3 rounded-lg font-medium flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-                      isExpanded ? 'text-sm' : 'text-xs'
-                    }`}
-                    style={{
-                      background: 'rgba(245, 158, 11, 0.1)',
-                      border: '1px solid rgba(245, 158, 11, 0.4)',
-                      color: '#F59E0B',
-                      animation: `fadeInUp 300ms cubic-bezier(0.25, 0.8, 0.25, 1) ${700 + index * 100}ms both`
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(245, 158, 11, 0.2)';
-                      e.currentTarget.style.borderColor = '#F59E0B';
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(245, 158, 11, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(245, 158, 11, 0.1)';
-                      e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                    onClick={() => handleSendMessage(reply.text)}
-                  >
-                    <span className="text-lg">{reply.icon}</span>
-                    <span>{reply.text}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* INPUT CON BOTÓN DE VOLVER A CONVERSACIÓN ACTUAL */}
           <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}>

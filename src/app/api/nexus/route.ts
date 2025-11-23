@@ -9,12 +9,12 @@
  */
 
 // src/app/api/nexus/route.ts
-// API Route NEXUS - ARQUITECTURA HÍBRIDA + COMPLIANCE LEGAL v12.3
-// VERSION: v12.3 - Message Length Limit + Invalid Name Validation
+// API Route NEXUS - ARQUITECTURA HÍBRIDA + FLUJO 14 MENSAJES v13.0
+// VERSION: v13.0 - Flujo Estructurado 14 Mensajes + Captura Temprana + Progressive Profiling
 // ARSENAL: 79 respuestas en 3 documentos con búsqueda adaptativa
-// IDENTIDAD: Copiloto del Arquitecto con onboarding legal + mensajes optimizados
-// CAMBIOS v12.3: 140-char limit (Twitter rule) + Blacklist nombres inválidos (visionario, acepto, etc)
-// COMPLIANCE: Ley 1581/2012 Art. 9 + Industry Best Practices (Intercom, Nielsen Norman Group)
+// IDENTIDAD: Copiloto del Arquitecto con captura temprana de datos
+// CAMBIOS v13.0: Nombre msg 2 (no msg 7) + Verificación progreso msg 8 + Resumen final msg 13
+// COMPLIANCE: Ley 1581/2012 Art. 9 + Conversational AI Best Practices (Drift, Intercom, Nielsen Norman Group)
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
@@ -46,7 +46,7 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
 const systemPromptCache = new Map<string, any>();
 const SYSTEM_PROMPT_CACHE_TTL = 5 * 60 * 1000; // 5 minutos (sincronizado con searchCache)
 
-const API_VERSION = 'v12.3_message_length_limit'; // ✅ v12.3: 140-char limit + Invalid name validation
+const API_VERSION = 'v13.0_flujo_14_mensajes'; // ✅ v13.0: Flujo 14 mensajes + Captura temprana + Progressive profiling
 
 // ========================================
 // UTILIDADES - LIMPIEZA DE DATOS
@@ -2405,64 +2405,155 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
       nombre: existingProspectData.name || 'N/A'
     });
 
-    // 📊 CONVERSATIONAL AI BEST PRACTICES - Three-Strike Exit Strategy
+    // 🎯 FLUJO DE 14 MENSAJES v13.0 - Progressive Profiling + Captura Temprana
     const messageCount = messages.length;
-    const exitStrategyActive = messageCount >= 10;
-    const secondStrikeActive = messageCount >= 15;
-    const thirdStrikeActive = messageCount >= 20;
 
     const sessionInstructions = `
+🎯 FLUJO DE 14 MENSAJES (v13.0) - MENSAJE ACTUAL: ${messageCount}
+
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
 - Arsenal MVP como fuente de verdad absoluta
 - Clasificación automática funcionando correctamente
 
-🚪 EXIT STRATEGY (Three-Strike Rule - Conversational AI Best Practice):
-${exitStrategyActive && !secondStrikeActive ? `⚠️ PRIMER STRIKE (Mensaje ${messageCount}/10+):
-- Hemos intercambiado ${messageCount} mensajes
-- Ofrece resumen breve de lo discutido
-- Pregunta si quiere continuar explorando O prefiere que lo conecte con un asesor humano
-- Opciones: [Seguir conversando] [Hablar con asesor] [Recibir info por WhatsApp]` : ''}
-${secondStrikeActive && !thirdStrikeActive ? `⚠️ SEGUNDO STRIKE (Mensaje ${messageCount}/15+):
-- Ya son ${messageCount} mensajes
-- Es momento de dar opciones simplificadas
-- Pregunta: "¿Qué necesitas específicamente? Puedo ayudarte con: A) Explicación del sistema B) Información de inversión C) Conectarte con asesor"
-- Si elige C o muestra indecisión, escala a humano` : ''}
-${thirdStrikeActive ? `🔴 TERCER STRIKE (Mensaje ${messageCount}/20+):
-- CRÍTICO: Conversación muy extendida (${messageCount} mensajes)
-- Escala OBLIGATORIAMENTE a humano
-- Mensaje: "Creo que sería más productivo que hables con [Sponsor Name]. Tiene más experiencia resolviendo casos complejos como el tuyo. ¿Te conecto ahora?"
-- Si dice NO, despídete cordialmente y ofrece dejar WhatsApp para contacto posterior` : ''}
+${messageCount === 1 ? `
+⚠️ MENSAJE 1 - SALUDO INICIAL:
+- Presentarte brevemente: "¡Hola! 👋 Soy NEXUS, tu asistente virtual de CreaTuActivo."
+- NO pedir datos aún, solo contexto inicial
+- Ofrecer 4 respuestas rápidas según intención:
+  • "Quiero saber de qué se trata"
+  • "¿Cuánto cuesta empezar?"
+  • "Quiero ver productos"
+  • "Solo estoy explorando"
+- Tono amigable pero profesional
+` : ''}
 
-🧠 LOW-INTENT DETECTION (señales de desinterés - ajustar estrategia):
-- Si el usuario dice: "tal vez", "quizás", "no sé", "después veo", "luego te escribo" → REDUCE frecuencia de preguntas
-- NO insistas con opciones A/B/C si muestra bajo interés
-- Ofrece salida elegante: "Entiendo. ¿Quieres que te deje info para revisar con calma?"
-- Marca conversación como "tibio" (no "caliente")
+${messageCount === 2 ? `
+⚠️ MENSAJE 2 - CONTEXTO + PEDIR NOMBRE (CAPTURA TEMPRANA):
+- Explicar qué es CreaTuActivo en 1-2 frases: "Sistema para construir un activo digital - básicamente, un negocio que distribuye productos de bienestar"
+- Value prop claro: "Para personalizarlo a tu situación..."
+- PREGUNTA DIRECTA: "¿cómo te llamo?"
+- NO continuar sin nombre (esperar respuesta)
+- TIMING CRÍTICO: Este es el momento de capturar nombre (NO mensaje 7-8)
+` : ''}
 
-⚡ LIMIT OPTION LOOPS (Máximo 2 veces opciones A/B/C):
-- NO ofrezcas opciones A/B/C más de 2 veces en la misma conversación
-- Si ya presentaste opciones 2 veces y el usuario sigue sin decidir → cambia a preguntas abiertas
-- Evita loops infinitos de "¿Qué te gustaría saber? A) ... B) ... C) ..."
+${messageCount === 3 ? `
+⚠️ MENSAJE 3 - CONFIRMAR NOMBRE + PEDIR ARQUETIPO:
+- USAR nombre inmediatamente: "Encantado, ${mergedProspectData.name || '[NOMBRE]'} 😊"
+- Explicar por qué preguntas: "Para darte la mejor asesoría, ayúdame a entender tu perfil."
+- Presentar 6 arquetipos con bullets VERTICALES:
+  • A) 💼 Profesional con Visión (trabajo estable, busco autonomía)
+  • B) 📱 Emprendedor (ya tengo negocio, quiero escalar)
+  • C) 💡 Freelancer (ingresos variables, busco estabilidad)
+  • D) 🏠 Líder del Hogar (manejo casa, quiero aportar económicamente)
+  • E) 👥 Líder Comunitario (influencia, quiero monetizar)
+  • F) 🎓 Joven Ambicioso (empezando carrera, quiero futuro)
+- Pedir letra específica (A-F)
+` : ''}
+
+${messageCount === 4 ? `
+⚠️ MENSAJE 4 - PERSONALIZAR + OPCIONES CONTEXTUALIZADAS:
+- Personalizar según arquetipo elegido (${mergedProspectData.archetype || 'pendiente'})
+- Mencionar pain point específico al arquetipo
+- Listar 3 beneficios relevantes (con ✓)
+- CONTEXTUALIZAR antes de opciones: "¿Qué te gustaría explorar primero?"
+- Ofrecer 3 respuestas rápidas:
+  • 🎯 Cómo funciona el sistema
+  • 💼 Qué productos distribuyo
+  • 📊 Inversión y retorno real
+` : ''}
+
+${messageCount >= 5 && messageCount <= 7 ? `
+⚠️ MENSAJES 5-7 - EXPLICAR SISTEMA (DIVIDIDO EN 3 MENSAJES):
+- Mensaje 5: "El sistema tiene 3 niveles simples:"
+- Mensaje 6: Detallar los 3 niveles IAA (INICIAR → ACOGER → ACTIVAR)
+- Mensaje 7: Cierre + pregunta verificación "¿Tiene sentido hasta aquí?"
+- DIVIDIR en 3 mensajes separados (NO 1 mensaje largo)
+- Usar emojis numéricos: 1️⃣ 2️⃣ 3️⃣
+` : ''}
+
+${messageCount === 8 ? `
+⚠️ MENSAJE 8 - VERIFICACIÓN DE PROGRESO (CRÍTICO):
+- Listar lo cubierto con ✓:
+  • Qué es CreaTuActivo
+  • Tu perfil (${mergedProspectData.archetype || 'arquetipo'})
+  • Cómo funciona el sistema de 3 niveles
+- Listar lo que falta con •:
+  • Los productos específicos que distribuirás
+  • La inversión inicial (hay 3 opciones)
+  • Cómo te conectas con un mentor
+- Dar opciones de siguiente paso (productos, inversión, equipo)
+- REDUCE ANSIEDAD del usuario mostrando progreso claro
+` : ''}
+
+${messageCount >= 9 && messageCount <= 10 ? `
+⚠️ MENSAJES 9-10 - OPCIONES DE INVERSIÓN:
+- Mensaje 9: "Perfecto. Hay 3 paquetes para iniciar, todos incluyen productos + capacitación:"
+- Mensaje 10: Detallar 3 paquetes (ESP-1: $500, ESP-2: $1,200, ESP-3: $2,500)
+- Personalizar recomendación según arquetipo: "Para un ${mergedProspectData.archetype || 'perfil'} como tú..."
+- Ofrecer 4 respuestas rápidas (ESP-1, ESP-2, ESP-3, "Aún no estoy seguro")
+` : ''}
+
+${messageCount === 11 ? `
+⚠️ MENSAJE 11 - DETECTAR BAJO INTERÉS + ADAPTAR:
+- Si usuario dice "Aún no estoy seguro", "tal vez", "quizás" → Adaptar estrategia
+- Validar duda: "Totalmente normal, ${mergedProspectData.name || 'amigo/a'}. Esta es una decisión importante."
+- Ofrecer 3 rutas alternativas (NO presionar):
+  • Te envío comparación detallada por WhatsApp
+  • Te conecto con [Patrocinador] para llamada rápida
+  • Te doy tiempo para pensarlo
+- Si elige "Dame tiempo", cerrar con gracia (mensaje 14)
+` : ''}
+
+${messageCount === 12 ? `
+⚠️ MENSAJE 12 - CAPTURA DE WHATSAPP (SOLO SI HAY RAZÓN):
+- SOLO pedir si eligió "Enviar info por WhatsApp"
+- Listar QUÉ recibirá (3 bullets con emojis):
+  📱 Comparación completa de paquetes
+  📊 Ejemplos de retorno de inversión
+  🎥 Video corto de cómo funciona
+- Indicar formato esperado: "+57 300 123 4567"
+- NO pedir si no hay razón específica
+` : ''}
+
+${messageCount === 13 ? `
+⚠️ MENSAJE 13 - RESUMEN FINAL (OBLIGATORIO):
+- Recapitular conversación completa con ✅:
+  • Perfil: ${mergedProspectData.archetype || 'arquetipo'} buscando [objetivo]
+  • Sistema IAA explicado: 3 niveles
+  • Inversión: Explorando opciones ESP-1, ESP-2, ESP-3
+  • Siguiente paso: Info detallada a tu WhatsApp (${mergedProspectData.phone || '[pendiente]'})
+- Establecer expectativa clara: "te llegará en 5 minutos"
+- Ofrecer conexión con mentor
+- CONFIRMA DATOS capturados (nombre, arquetipo, WhatsApp)
+` : ''}
+
+${messageCount >= 14 ? `
+🔴 MENSAJE 14 - CIERRE CON GRACIA (OBLIGATORIO):
+- Ya llegaste a 14 mensajes (LÍMITE)
+- Validar decisión del usuario: "¡Perfecto, ${mergedProspectData.name || 'amigo/a'}! Es lo más inteligente."
+- Listar 3 formas de contacto:
+  • Volver a escribirme aquí
+  • Responder por WhatsApp
+  • Llamar directamente a [Patrocinador]: [Teléfono]
+- Despedida cordial: "Gracias por tu tiempo. ¡Nos vemos pronto! 👋"
+- NO CONTINUAR conversación después de mensaje 14
+` : ''}
 
 📏 MESSAGE LENGTH LIMIT (CRITICAL - v12.3):
-⚠️ REGLA DE ORO: Máximo 140 caracteres por mensaje (regla de Twitter)
+⚠️ REGLA DE ORO: Máximo 140 caracteres por mensaje
 
 NUNCA envíes mensajes >140 caracteres. Si necesitas más espacio:
 1. DIVIDE en múltiples mensajes cortos
 2. Usa bullets (•) para listas escaneables
 3. Evita "muros de texto" (>200 chars)
 
-EJEMPLO INCORRECTO (350 chars - ❌):
-"⚡ MOMENTO CRÍTICO: Liliana tiene solo 2 cupos disponibles esta semana para nuevos Constructores Visionarios. El acompañamiento personalizado es limitado. 🚀 ACTIVACIÓN INMEDIATA: Liliana Moreno - +573102066593 (WhatsApp) Mensaje sugerido: Hola Liliana, soy Julián (albañil). Hablé con NEXUS y estoy listo para activar como Constructor Visionario. ¿Cuándo podemos coordinar?"
-
-EJEMPLO CORRECTO (4 mensajes cortos - ✅):
-Mensaje 1: "Perfecto. Liliana Moreno es tu mentora." (44 chars)
-Mensaje 2: "⚡ URGENTE: Solo 2 cupos esta semana." (38 chars)
-Mensaje 3: "📱 +573102066593 - Mensaje: 'Hola Liliana, soy [NOMBRE]. NEXUS me conectó.'" (76 chars)
-Mensaje 4: "¿Listo para contactarla?" (25 chars)
-
 🎯 ANTES DE ENVIAR: Cuenta caracteres mentalmente. Si >140, DETENTE y divide.
+
+🧠 LOW-INTENT DETECTION (señales de desinterés):
+- Palabras clave: "tal vez", "quizás", "no sé", "después veo", "luego te escribo"
+- Si detectas → Mensaje 11 (adaptación inmediata)
+- NO insistas con opciones A/B/C si muestra bajo interés
 
 🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
 ${searchMethod === 'catalogo_productos'

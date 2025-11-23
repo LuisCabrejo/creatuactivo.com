@@ -136,18 +136,17 @@ export default function HomePage() {
       <div className="bg-slate-900 text-white min-h-screen">
         <StrategicNavigation />
 
-        {/* Fondo decorativo */}
+        {/* Fondo decorativo sutil */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[var(--creatuactivo-gold)]/10 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
-          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[var(--creatuactivo-blue)]/10 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[var(--creatuactivo-purple)]/10 rounded-full filter blur-3xl opacity-30 animate-pulse transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/4 -right-1/4 w-96 h-96 bg-[var(--creatuactivo-purple)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
         </div>
 
         <main className="relative z-10 px-4 lg:px-8">
-          {/* HERO SECTION - WHY */}
+          {/* HERO SECTION - LIMPIO */}
           <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden pt-24">
             <div className="relative z-10 max-w-4xl fade-in-hero">
-              <div className="inline-block bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-purple-500/30">
+              <div className="inline-block bg-indigo-500/10 text-indigo-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-indigo-500/30">
                 Una Aplicación para Construir tu Activo
               </div>
 
@@ -155,15 +154,18 @@ export default function HomePage() {
                 Imagina Despertar y Ver<br />Que Tu Negocio Ya Trabajó Por Ti
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-300 mb-6 leading-relaxed">
-                <span className="text-xl lg:text-2xl font-bold text-white block mb-4">Se llama CreaTuActivo.</span>
-                <span className="text-amber-400 font-semibold">Tu aplicación personal para construir un activo.</span>
+              <div className="text-xl md:text-2xl text-white mb-6">
+                Se llama CreaTuActivo.
+              </div>
+
+              <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                Tu aplicación personal para construir un activo.
               </p>
 
-              <div className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 space-y-4">
-                <p>Mientras dormías, <span className="text-blue-400 font-semibold">NEXUS respondió 12 conversaciones</span>.</p>
-                <p>Mientras desayunabas con tu familia, <span className="text-purple-400 font-semibold">3 personas mostraron interés real</span>.</p>
-                <p>Antes de las 9 AM, <span className="text-amber-400 font-semibold">ya sabes exactamente qué hacer hoy</span>.</p>
+              <div className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-10 space-y-3">
+                <p>Mientras dormías, NEXUS respondió 12 conversaciones.</p>
+                <p>Mientras desayunabas con tu familia, 3 personas mostraron interés real.</p>
+                <p>Antes de las 9 AM, ya sabes exactamente qué hacer hoy.</p>
               </div>
 
               <div className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -183,25 +185,25 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* WHY PROFUNDO - Sección tipo "fundadores" */}
+          {/* WHY PROFUNDO - Limpio */}
           <section className="max-w-4xl mx-auto mb-20">
             <div className="creatuactivo-why-card p-8 lg:p-12">
               <div className="text-center mb-6">
-                <div className="inline-block bg-purple-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-purple-500/20">
+                <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
                   Nuestra Creencia Fundamental
                 </div>
               </div>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                Creemos firmemente que las personas <strong className="text-amber-400">merecen cumplir sueños</strong>, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
+                Creemos firmemente que las personas merecen cumplir sueños, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
               </p>
 
               <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                Y creemos que construir un activo patrimonial <strong className="text-amber-400">no debe ser tan difícil</strong>.
+                Y creemos que construir un activo patrimonial no debe ser tan difícil.
               </p>
 
               <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
-                Por eso creamos CreaTuActivo: una aplicación completa que te da <strong className="text-white">el sistema probado</strong>, <strong className="text-white">la tecnología que automatiza el trabajo pesado</strong>, y <strong className="text-white">productos únicos con patente mundial</strong>.
+                Por eso creamos CreaTuActivo: una aplicación completa que te da el sistema probado, la tecnología que automatiza el trabajo pesado, y productos únicos con patente mundial.
               </p>
             </div>
           </section>
@@ -249,7 +251,7 @@ export default function HomePage() {
                 ¿Ves la diferencia?
               </p>
               <p className="text-xl text-slate-400 leading-relaxed">
-                No te damos un "negocio para trabajar". Te damos <span className="text-purple-400 font-semibold">CreaTuActivo: una aplicación completa</span> que trabaja por ti.
+                No te damos un "negocio para trabajar". Te damos CreaTuActivo: una aplicación completa que trabaja por ti.
               </p>
             </div>
           </section>
@@ -257,7 +259,7 @@ export default function HomePage() {
           {/* PARA QUIÉN - Arquetipos */}
           <section className="max-w-5xl mx-auto mb-20">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-block bg-amber-500/10 text-amber-300 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-4 border border-amber-500/20">
+              <div className="inline-block bg-purple-500/10 text-purple-300 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-4 border border-purple-500/20">
                 Para Quién
               </div>
               <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-4">
@@ -309,8 +311,7 @@ export default function HomePage() {
 
             <div className="mt-8 text-center p-6 lg:p-8 bg-blue-500/5 border border-purple-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
               <p className="text-lg lg:text-xl text-slate-300 leading-relaxed">
-                Si crees que tienes el <strong className="text-amber-400">talento</strong> y la <strong className="text-amber-400">capacidad</strong>,<br />
-                y solo te falta la <strong className="text-amber-400">oportunidad real</strong>...
+                Si crees que tienes el talento y la capacidad, y solo te falta la oportunidad real...
                 <br /><br />
                 <span className="text-xl lg:text-2xl font-bold text-white">
                   Esto fue diseñado para ti.
@@ -346,9 +347,9 @@ export default function HomePage() {
 
             <div className="text-center p-8 lg:p-12 bg-blue-500/5 border border-purple-500/20 rounded-xl backdrop-filter backdrop-blur-xl">
               <p className="text-xl lg:text-2xl font-semibold text-white">
-                Los primeros <strong className="text-amber-400">2,847 probaron que funciona</strong> sin tecnología.
+                Los primeros 2,847 probaron que funciona sin tecnología.
                 <br /><br />
-                Imagina lo que <strong className="text-amber-400">TÚ lograrás con CreaTuActivo.</strong>
+                Imagina lo que TÚ lograrás con CreaTuActivo.
               </p>
             </div>
           </section>
@@ -415,11 +416,11 @@ export default function HomePage() {
               Solo 150 Espacios como Fundador
             </h2>
             <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Si crees que <span className="text-blue-400 font-semibold">despertar sin alarma</span> es más valioso que cualquier salario...<br />
-              Si crees que <span className="text-blue-400 font-semibold">estar en el recital de tu hija</span> no debería costarte un día de vacaciones...<br />
-              Si crees que <span className="text-green-400 font-semibold">tus nietos merecen heredar libertad</span>, no solo fotos...
+              Si crees que despertar sin alarma es más valioso que cualquier salario...<br />
+              Si crees que estar en el recital de tu hija no debería costarte un día de vacaciones...<br />
+              Si crees que tus nietos merecen heredar libertad, no solo fotos...
               <br /><br />
-              <span className="text-amber-400 font-semibold text-2xl">Entonces CreaTuActivo es para ti.</span>
+              <span className="text-white font-semibold text-2xl">Entonces CreaTuActivo es para ti.</span>
             </p>
             <Link href="/fundadores" className="creatuactivo-cta-ecosystem text-lg">
               Activar mi Aplicación

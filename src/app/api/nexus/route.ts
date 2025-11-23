@@ -2409,7 +2409,12 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
     const messageCount = messages.length;
 
     const sessionInstructions = `
-🎯 FLUJO DE 14 MENSAJES (v13.0) - MENSAJE ACTUAL: ${messageCount}
+🎯 FLUJO DE 14 MENSAJES (v13.3) - MENSAJE ACTUAL: ${messageCount}
+
+⚠️ CRÍTICO: DELEGAR AL SYSTEM PROMPT DE SUPABASE
+- El System Prompt principal (v13.3) contiene TODAS las instrucciones del flujo de 14 mensajes
+- Estas session instructions SOLO proporcionan contexto de estado actual
+- NO SOBREESCRIBIR las instrucciones del System Prompt principal
 
 INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Usa la consulta semántica escalable implementada
@@ -2417,143 +2422,88 @@ INSTRUCCIONES ARQUITECTURA HÍBRIDA:
 - Clasificación automática funcionando correctamente
 
 ${messageCount === 1 ? `
-⚠️ MENSAJE 1 - SALUDO INICIAL:
-- Presentarte brevemente: "¡Hola! 👋 Soy NEXUS, tu asistente virtual de CreaTuActivo."
-- NO pedir datos aún, solo contexto inicial
-- Ofrecer 4 respuestas rápidas según intención:
-  • "Quiero saber de qué se trata"
-  • "¿Cuánto cuesta empezar?"
-  • "Quiero ver productos"
-  • "Solo estoy explorando"
-- Tono amigable pero profesional
+📍 ESTÁS EN: MENSAJE 1 - SALUDO INICIAL
+- Sigue las instrucciones del System Prompt principal para MENSAJE 1
+- NO generes saludos diferentes al especificado en el System Prompt
 ` : ''}
 
 ${messageCount === 2 ? `
-⚠️ MENSAJE 2 - CONTEXTO + PEDIR NOMBRE (CAPTURA TEMPRANA):
-- Explicar qué es CreaTuActivo en 1-2 frases: "Sistema para construir un activo digital - básicamente, un negocio que distribuye productos de bienestar"
-- Value prop claro: "Para personalizarlo a tu situación..."
-- PREGUNTA DIRECTA: "¿cómo te llamo?"
-- NO continuar sin nombre (esperar respuesta)
-- TIMING CRÍTICO: Este es el momento de capturar nombre (NO mensaje 7-8)
+📍 ESTÁS EN: MENSAJE 2 - CAPTURA TEMPRANA DE NOMBRE
+- Sigue las instrucciones del System Prompt principal para MENSAJE 2
+- Nombre capturado: ${mergedProspectData.name || 'pendiente'}
 ` : ''}
 
 ${messageCount === 3 ? `
-⚠️ MENSAJE 3 - CONFIRMAR NOMBRE + PEDIR ARQUETIPO:
-- USAR nombre inmediatamente: "Encantado, ${mergedProspectData.name || '[NOMBRE]'} 😊"
-- Explicar por qué preguntas: "Para darte la mejor asesoría, ayúdame a entender tu perfil."
-- Presentar 6 arquetipos con bullets VERTICALES:
-  • A) 💼 Profesional con Visión (trabajo estable, busco autonomía)
-  • B) 📱 Emprendedor (ya tengo negocio, quiero escalar)
-  • C) 💡 Freelancer (ingresos variables, busco estabilidad)
-  • D) 🏠 Líder del Hogar (manejo casa, quiero aportar económicamente)
-  • E) 👥 Líder Comunitario (influencia, quiero monetizar)
-  • F) 🎓 Joven Ambicioso (empezando carrera, quiero futuro)
-- Pedir letra específica (A-F)
+📍 ESTÁS EN: MENSAJE 3 - CAPTURA DE ARQUETIPO
+- Sigue las instrucciones del System Prompt principal para MENSAJE 3
+- Nombre del prospecto: ${mergedProspectData.name || '[pendiente]'}
+- Arquetipo capturado: ${mergedProspectData.archetype || 'pendiente'}
 ` : ''}
 
 ${messageCount === 4 ? `
-⚠️ MENSAJE 4 - PERSONALIZAR + OPCIONES CONTEXTUALIZADAS:
-- Personalizar según arquetipo elegido (${mergedProspectData.archetype || 'pendiente'})
-- Mencionar pain point específico al arquetipo
-- Listar 3 beneficios relevantes (con ✓)
-- CONTEXTUALIZAR antes de opciones: "¿Qué te gustaría explorar primero?"
-- Ofrecer 3 respuestas rápidas:
-  • 🎯 Cómo funciona el sistema
-  • 💼 Qué productos distribuyo
-  • 📊 Inversión y retorno real
+📍 ESTÁS EN: MENSAJE 4 - OPCIONES CONTEXTUALIZADAS
+- Sigue las instrucciones del System Prompt principal para MENSAJE 4
+- Arquetipo del prospecto: ${mergedProspectData.archetype || 'pendiente'}
+- ⚠️ CRÍTICO: NO REPETIR SALUDO INICIAL (esto ya se especifica en System Prompt)
 ` : ''}
 
 ${messageCount >= 5 && messageCount <= 7 ? `
-⚠️ MENSAJES 5-7 - EXPLICAR SISTEMA (DIVIDIDO EN 3 MENSAJES):
-- Mensaje 5: "El sistema tiene 3 niveles simples:"
-- Mensaje 6: Detallar los 3 niveles IAA (INICIAR → ACOGER → ACTIVAR)
-- Mensaje 7: Cierre + pregunta verificación "¿Tiene sentido hasta aquí?"
-- DIVIDIR en 3 mensajes separados (NO 1 mensaje largo)
-- Usar emojis numéricos: 1️⃣ 2️⃣ 3️⃣
+📍 ESTÁS EN: MENSAJES 5-7 - RESPONDER PREGUNTAS
+- Sigue las instrucciones del System Prompt principal para MENSAJES 5-7
+- Mensaje actual: ${messageCount}/14
 ` : ''}
 
 ${messageCount === 8 ? `
-⚠️ MENSAJE 8 - VERIFICACIÓN DE PROGRESO (CRÍTICO):
-- Listar lo cubierto con ✓:
-  • Qué es CreaTuActivo
-  • Tu perfil (${mergedProspectData.archetype || 'arquetipo'})
-  • Cómo funciona el sistema de 3 niveles
-- Listar lo que falta con •:
-  • Los productos específicos que distribuirás
-  • La inversión inicial (hay 3 opciones)
-  • Cómo te conectas con un mentor
-- Dar opciones de siguiente paso (productos, inversión, equipo)
-- REDUCE ANSIEDAD del usuario mostrando progreso claro
+📍 ESTÁS EN: MENSAJE 8 - CHECKPOINT DE PROGRESO
+- Sigue las instrucciones del System Prompt principal para MENSAJE 8
+- Datos capturados hasta ahora:
+  • Nombre: ${mergedProspectData.name || 'pendiente'}
+  • Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
+  • WhatsApp: ${mergedProspectData.phone || 'pendiente'}
 ` : ''}
 
 ${messageCount >= 9 && messageCount <= 10 ? `
-⚠️ MENSAJES 9-10 - OPCIONES DE INVERSIÓN:
-- Mensaje 9: "Perfecto. Hay 3 paquetes para iniciar, todos incluyen productos + capacitación:"
-- Mensaje 10: Detallar 3 paquetes (ESP-1: $500, ESP-2: $1,200, ESP-3: $2,500)
-- Personalizar recomendación según arquetipo: "Para un ${mergedProspectData.archetype || 'perfil'} como tú..."
-- Ofrecer 4 respuestas rápidas (ESP-1, ESP-2, ESP-3, "Aún no estoy seguro")
+📍 ESTÁS EN: MENSAJES 9-10 - PROFUNDIZAR SEGÚN INTERÉS
+- Sigue las instrucciones del System Prompt principal para MENSAJES 9-10
+- Mensaje actual: ${messageCount}/14
+- Arquetipo del prospecto: ${mergedProspectData.archetype || 'pendiente'}
 ` : ''}
 
 ${messageCount === 11 ? `
-⚠️ MENSAJE 11 - DETECTAR BAJO INTERÉS + ADAPTAR:
-- Si usuario dice "Aún no estoy seguro", "tal vez", "quizás" → Adaptar estrategia
-- Validar duda: "Totalmente normal, ${mergedProspectData.name || 'amigo/a'}. Esta es una decisión importante."
-- Ofrecer 3 rutas alternativas (NO presionar):
-  • Te envío comparación detallada por WhatsApp
-  • Te conecto con [Patrocinador] para llamada rápida
-  • Te doy tiempo para pensarlo
-- Si elige "Dame tiempo", cerrar con gracia (mensaje 14)
+📍 ESTÁS EN: MENSAJE 11 - CONTINUAR CONVERSACIÓN
+- Sigue las instrucciones del System Prompt principal para MENSAJE 11
+- Mensaje actual: ${messageCount}/14
 ` : ''}
 
 ${messageCount === 12 ? `
-⚠️ MENSAJE 12 - CAPTURA DE WHATSAPP (SOLO SI HAY RAZÓN):
-- SOLO pedir si eligió "Enviar info por WhatsApp"
-- Listar QUÉ recibirá (3 bullets con emojis):
-  📱 Comparación completa de paquetes
-  📊 Ejemplos de retorno de inversión
-  🎥 Video corto de cómo funciona
-- Indicar formato esperado: "+57 300 123 4567"
-- NO pedir si no hay razón específica
+📍 ESTÁS EN: MENSAJE 12 - CONTINUAR CONVERSACIÓN
+- Sigue las instrucciones del System Prompt principal para MENSAJE 12
+- Mensaje actual: ${messageCount}/14
+- Nivel de interés detectado: ${mergedProspectData.interest_level || 'calculando...'}
 ` : ''}
 
 ${messageCount === 13 ? `
-⚠️ MENSAJE 13 - RESUMEN FINAL (OBLIGATORIO):
-- Recapitular conversación completa con ✅:
-  • Perfil: ${mergedProspectData.archetype || 'arquetipo'} buscando [objetivo]
-  • Sistema IAA explicado: 3 niveles
-  • Inversión: Explorando opciones ESP-1, ESP-2, ESP-3
-  • Siguiente paso: Info detallada a tu WhatsApp (${mergedProspectData.phone || '[pendiente]'})
-- Establecer expectativa clara: "te llegará en 5 minutos"
-- Ofrecer conexión con mentor
-- CONFIRMA DATOS capturados (nombre, arquetipo, WhatsApp)
+📍 ESTÁS EN: MENSAJE 13 - RESUMEN FINAL
+- Sigue las instrucciones del System Prompt principal para MENSAJE 13
+- Datos capturados para confirmar:
+  • Nombre: ${mergedProspectData.name || 'pendiente'}
+  • Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
+  • WhatsApp: ${mergedProspectData.phone || 'pendiente'}
 ` : ''}
 
 ${messageCount >= 14 ? `
-🔴 MENSAJE 14 - CIERRE CON GRACIA (OBLIGATORIO):
-- Ya llegaste a 14 mensajes (LÍMITE)
-- Validar decisión del usuario: "¡Perfecto, ${mergedProspectData.name || 'amigo/a'}! Es lo más inteligente."
-- Listar 3 formas de contacto:
-  • Volver a escribirme aquí
-  • Responder por WhatsApp
-  • Llamar directamente a [Patrocinador]: [Teléfono]
-- Despedida cordial: "Gracias por tu tiempo. ¡Nos vemos pronto! 👋"
-- NO CONTINUAR conversación después de mensaje 14
+📍 ESTÁS EN: MENSAJE 14 - CIERRE OBLIGATORIO
+- Sigue las instrucciones del System Prompt principal para MENSAJE 14
+- ⚠️ CRÍTICO: NO CONTINUAR después de este mensaje (límite alcanzado)
+- Nombre del prospecto: ${mergedProspectData.name || 'amigo/a'}
 ` : ''}
 
-📏 MESSAGE LENGTH LIMIT (CRITICAL - v12.3):
-⚠️ REGLA DE ORO: Máximo 140 caracteres por mensaje
-
-NUNCA envíes mensajes >140 caracteres. Si necesitas más espacio:
-1. DIVIDE en múltiples mensajes cortos
-2. Usa bullets (•) para listas escaneables
-3. Evita "muros de texto" (>200 chars)
-
-🎯 ANTES DE ENVIAR: Cuenta caracteres mentalmente. Si >140, DETENTE y divide.
-
-🧠 LOW-INTENT DETECTION (señales de desinterés):
-- Palabras clave: "tal vez", "quizás", "no sé", "después veo", "luego te escribo"
-- Si detectas → Mensaje 11 (adaptación inmediata)
-- NO insistas con opciones A/B/C si muestra bajo interés
+📊 DATOS DEL PROSPECTO (Estado Actual):
+- Nombre: ${mergedProspectData.name || 'pendiente'}
+- Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
+- WhatsApp: ${mergedProspectData.phone || 'pendiente'}
+- Email: ${mergedProspectData.email || 'pendiente'}
+- Nivel de interés: ${mergedProspectData.interest_level || 'calculando...'}
 
 🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
 ${searchMethod === 'catalogo_productos'
@@ -2576,66 +2526,11 @@ Ella te brindará el catálogo completo actualizado y podrá asesorarte personal
 - Si consultas arsenal: usar información de paquetes de inversión (Constructor Inicial, Empresarial, Visionario)
 - Para paquetes usa los precios: $900,000 / $2,250,000 / $4,500,000 COP
 
-⚡ INSTRUCCIONES GENERALES:
-- Si no hay información específica: "Para esa consulta, te conectaré con Liliana Moreno"
-- Personalización adaptativa por arquetipo detectado
-- CRÍTICO: Respuestas concisas + opciones para profundizar
-- Evalúa escalación inteligente si momento_optimo 'caliente'
-
-🎯 ONBOARDING + CAPTURA DE DATOS - INSTRUCCIÓN CRÍTICA v12.2 (Fix 3):
-${userData.name || userData.consent_granted ? `
-🎉 USUARIO CONOCIDO - SALUDO PERSONALIZADO:
-- El usuario YA dio consentimiento previamente: ${userData.consent_granted ? '✅ SÍ' : 'Pendiente'}
-- Su nombre es: ${userData.name || 'No capturado aún'}
-- Usuario que regresa (limpia pizarra): ${isReturningUserCalculated ? '✅ SÍ' : 'No'}
-- NO vuelvas a pedir consentimiento ni datos que ya tienes
-${userData.name && isReturningUserCalculated ? `- SALUDO BREVE OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué más puedo ayudarte?"` : userData.name && !isReturningUserCalculated ? `- SALUDO OBLIGATORIO: "¡Hola de nuevo, ${userData.name}! ¿En qué puedo ayudarte hoy?"` : ''}
-${!userData.name && isReturningUserCalculated ? `- SALUDO BREVE SIN NOMBRE: "¡Hola de nuevo! ¿En qué más puedo ayudarte?"` : ''}
-- Si preguntan algo que ya respondiste antes, recuérdales: "Como te comenté antes..."
-- Mantén un tono familiar y cercano (ya se conocen)
-
-📊 DATOS QUE YA TIENES (cargados desde BD):
-- Nombre: ${userData.name || '❌ No capturado'}
-- Arquetipo: ${userData.archetype || '❌ No capturado'}
-- WhatsApp: ${userData.whatsapp || '❌ No capturado'}
-- Email: ${userData.email || '❌ No capturado'}
-- Consentimiento: ${userData.consent_granted ? '✅ YA OTORGADO' : '❌ Pendiente'}
-
-⚠️ SOLO pide datos que AÚN NO TIENES (si faltan WhatsApp, arquetipo o email)
-` : `
-✅ SEGUNDA INTERACCIÓN EN ADELANTE - CAPTURA PROGRESIVA CON PROPUESTA DE VALOR:
-
-📊 ESTADO ACTUAL DE CAPTURA (Datos acumulados en BD):
-- Nombre: ${mergedProspectData.name || '❌ FALTA - PEDIR AHORA'}
-- Ocupación: ${mergedProspectData.occupation || '❌ FALTA'}
-- WhatsApp: ${mergedProspectData.phone || '❌ FALTA'}
-
-🎯 PRÓXIMO DATO A CAPTURAR (si falta):
-
-${!mergedProspectData.name ? `
-⚠️ FALTA: NOMBRE
-- Sigue las instrucciones del System Prompt (PASO 1) para timing y formato
-` : mergedProspectData.name && !mergedProspectData.archetype ? `
-⚠️ FALTA: ARQUETIPO
-- Nombre ya capturado: ${mergedProspectData.name}
-- Sigue las instrucciones del System Prompt (PASO 2) para presentar arquetipos
-- Usa formato de viñetas: "- A) 💼 Profesional..."
-` : mergedProspectData.name && mergedProspectData.archetype && (mergedProspectData.interest_level || 0) >= 7 && !mergedProspectData.phone ? `
-⚠️ FALTA: WHATSAPP (Interés Alto: ${mergedProspectData.interest_level}/10)
-- Nombre: ${mergedProspectData.name}
-- Arquetipo: ${mergedProspectData.archetype}
-- Sigue las instrucciones del System Prompt (PASO 3) para pedir WhatsApp
-` : `
-✅ DATOS COMPLETOS
-- Continúa conversación sin pedir más datos
-- Email solo si usuario solicita recurso digital
-`}
-
-⚠️ TIMING Y FORMATO - SEGUIR SYSTEM PROMPT v12.5:
-- El System Prompt (PASO 1 y PASO 2) contiene las reglas de timing correctas
-- Sigue esas instrucciones para timing de nombre y arquetipo
-- NO impongas timing diferente a lo que dice el System Prompt
-`}`;
+⚠️ INSTRUCCIONES CRÍTICAS:
+- Sigue ÚNICAMENTE las instrucciones del System Prompt principal (v13.3) de Supabase
+- Estas session instructions solo proporcionan estado actual, NO dictan comportamiento
+- El System Prompt principal es la autoridad para timing, formato y flujo conversacional
+`;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');

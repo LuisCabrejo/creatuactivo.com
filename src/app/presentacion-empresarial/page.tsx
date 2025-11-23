@@ -470,20 +470,20 @@ export default function PresentacionEmpresarialPage() {
               <div className="creatuactivo-why-card p-8 lg:p-12 max-w-3xl mx-auto mb-10">
                 <div className="text-center mb-6">
                   <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
-                    Nuestra Creencia Fundamental
+                    La Diferencia Clave
                   </div>
                 </div>
 
                 <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                  Creemos firmemente que las personas merecen cumplir sueños, viajar, tener estabilidad financiera, ser dueños de su tiempo y su vida.
+                  La mayoría intercambia tiempo por dinero toda su vida.
                 </p>
 
                 <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                  Y creemos que construir un activo patrimonial no debe ser tan difícil.
+                  Nosotros creemos que deberías construir un sistema que genere ingresos independiente de tu tiempo.
                 </p>
 
                 <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
-                  Por eso creamos CreaTuActivo: una aplicación completa que te da el sistema probado, la tecnología que automatiza el trabajo pesado, y productos únicos con patente mundial.
+                  Por eso creamos CreaTuActivo: tu propia plataforma de distribución donde los productos fluyen y tú solo guías el sistema.
                 </p>
               </div>
 

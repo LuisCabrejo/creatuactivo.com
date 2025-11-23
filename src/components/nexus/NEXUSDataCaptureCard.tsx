@@ -15,8 +15,8 @@ import { X } from 'lucide-react';
 
 export interface CapturedData {
   nombre?: string;
+  archetype?: string; // ✅ v13.0 - Cambiado de 'ocupacion' a 'archetype' (arquetipos A-F)
   telefono?: string;
-  ocupacion?: string;
 }
 
 interface NEXUSDataCaptureCardProps {
@@ -32,10 +32,10 @@ interface FieldConfig {
   priority: number;
 }
 
-// ✅ v12.0 - Orden actualizado según buenas prácticas: Nombre → Ocupación → WhatsApp
+// ✅ v13.0 - Orden actualizado según flujo 14 mensajes: Nombre → Arquetipo → WhatsApp
 const FIELDS: FieldConfig[] = [
   { key: 'nombre', label: 'Nombre', icon: '👤', priority: 1 },
-  { key: 'ocupacion', label: 'Ocupación', icon: '💼', priority: 2 },
+  { key: 'archetype', label: 'Arquetipo', icon: '💼', priority: 2 },
   { key: 'telefono', label: 'WhatsApp', icon: '📱', priority: 3 }
 ];
 

@@ -19,6 +19,11 @@
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
+import {
+  vectorSearch,
+  type DocumentWithEmbedding,
+  type VectorSearchResult
+} from '@/lib/vectorSearch';
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -764,6 +769,105 @@ async function captureProspectData(
   return data;
 }
 
+// ============================================================================
+// BÚSQUEDA VECTORIAL CON VOYAGE AI (90% precisión)
+// ============================================================================
+// Cache de documentos con embeddings para evitar queries repetidas
+let vectorDocsCache: { data: DocumentWithEmbedding[] | null; timestamp: number } = {
+  data: null,
+  timestamp: 0
+};
+const VECTOR_DOCS_CACHE_TTL = 10 * 60 * 1000; // 10 minutos
+
+/**
+ * Obtiene documentos con embeddings de Supabase (con cache)
+ */
+async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
+  // Check cache
+  if (vectorDocsCache.data && (Date.now() - vectorDocsCache.timestamp) < VECTOR_DOCS_CACHE_TTL) {
+    return vectorDocsCache.data;
+  }
+
+  try {
+    const { data, error } = await getSupabaseClient()
+      .from('nexus_documents')
+      .select('category, title, content, embedding, metadata')
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos'])
+      .not('embedding', 'is', null);
+
+    if (error) {
+      console.error('[VectorSearch] Error loading documents:', error);
+      return [];
+    }
+
+    const docs = (data || []).map(doc => ({
+      category: doc.category,
+      title: doc.title,
+      content: doc.content,
+      embedding: doc.embedding,
+      metadata: doc.metadata
+    }));
+
+    // Update cache
+    vectorDocsCache = { data: docs, timestamp: Date.now() };
+    console.log(`[VectorSearch] Cached ${docs.length} documents with embeddings`);
+
+    return docs;
+  } catch (error) {
+    console.error('[VectorSearch] Exception loading documents:', error);
+    return [];
+  }
+}
+
+/**
+ * Clasificación vectorial usando Voyage AI
+ * Retorna la categoría del documento más similar o null si no hay match claro
+ *
+ * @param userMessage - Mensaje del usuario
+ * @returns Categoría del documento o null
+ */
+async function clasificarDocumentoVectorial(userMessage: string): Promise<string | null> {
+  const voyageApiKey = process.env.VOYAGE_API_KEY;
+
+  // Si no hay API key, skip búsqueda vectorial
+  if (!voyageApiKey) {
+    console.log('[VectorSearch] No VOYAGE_API_KEY, skipping vector search');
+    return null;
+  }
+
+  try {
+    const documents = await getDocumentsWithEmbeddings();
+
+    if (documents.length === 0) {
+      console.log('[VectorSearch] No documents with embeddings found');
+      return null;
+    }
+
+    const results = await vectorSearch(userMessage, documents, voyageApiKey, {
+      threshold: 0.35, // Umbral más estricto para evitar falsos positivos
+      maxResults: 1,
+      debug: false
+    });
+
+    if (results.length > 0) {
+      const topResult = results[0];
+      console.log(`[VectorSearch] Match: ${topResult.category} (similarity: ${topResult.similarity.toFixed(3)})`);
+
+      // Solo retornar si la similitud es suficientemente alta
+      if (topResult.similarity >= 0.4) {
+        return topResult.category;
+      } else {
+        console.log(`[VectorSearch] Similarity too low (${topResult.similarity.toFixed(3)} < 0.4), using pattern fallback`);
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error('[VectorSearch] Error:', error);
+    return null;
+  }
+}
+
 // FUNCIÓN ACTUALIZADA: clasificarDocumentoHibrido() con EXPANSIÓN SEMÁNTICA COMPLETA
 // Para reconocer TODAS las variaciones de "¿Cómo funciona el negocio?"
 
@@ -1365,8 +1469,28 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     return cached.data;
   }
 
-  // PASO 1: Clasificar documento apropiado
-  const documentType = clasificarDocumentoHibrido(userMessage);
+  // ============================================================================
+  // PASO 0: BÚSQUEDA VECTORIAL (90% precisión con Voyage AI)
+  // ============================================================================
+  // Intenta clasificación semántica primero, fallback a patrones si no hay match
+  let documentType: string | null = null;
+
+  try {
+    documentType = await clasificarDocumentoVectorial(userMessage);
+    if (documentType) {
+      console.log(`🧠 [VectorSearch] Clasificación vectorial: ${documentType}`);
+    }
+  } catch (error) {
+    console.warn('[VectorSearch] Failed, using pattern fallback:', error);
+  }
+
+  // PASO 1: Fallback a clasificación por patrones si vector no encontró match
+  if (!documentType) {
+    documentType = clasificarDocumentoHibrido(userMessage);
+    if (documentType) {
+      console.log(`📋 [Patterns] Clasificación por patrones: ${documentType}`);
+    }
+  }
 
   // NUEVA LÓGICA: CONSULTA DE CATÁLOGO DE PRODUCTOS
   if (documentType === 'catalogo_productos') {

@@ -528,7 +528,7 @@ export default function FundadoresPage() {
                     <Rocket size={24} className="text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (Noviembre 2025)</div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">AHORA (Lista Privada hasta Enero 2026)</div>
                     <h3 className="text-xl font-bold text-white">Solo 150 Espacios Disponibles</h3>
                   </div>
                 </div>

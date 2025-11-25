@@ -1691,7 +1691,7 @@ export default function CatalogoEstrategico() {
                 </div>
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-xl">
                   <p className="text-xl font-bold mb-2">🎯 Solo 150 Cupos Fundadores</p>
-                  <p className="mb-4 text-blue-100">Válido hasta el 30 de Noviembre 2025</p>
+                  <p className="mb-4 text-blue-100">Válido hasta el 04 de Enero 2026</p>
                   <a
                     href="/fundadores"
                     className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-xl hover:bg-blue-50 transition-all shadow-lg"

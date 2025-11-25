@@ -1041,7 +1041,7 @@ Solo tú sabes tu WHY.`}
                 </Link>
 
                 <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-                  Solo 150 espacios como Fundador. Después del 1 de diciembre, solo podrás entrar como Constructor bajo la mentoría de alguien más.
+                  Solo 150 espacios como Fundador hasta el 04 de enero 2026. Después, solo podrás entrar como Constructor bajo la mentoría de alguien más.
                 </p>
               </motion.div>
             </div>

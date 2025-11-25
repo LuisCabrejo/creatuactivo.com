@@ -431,7 +431,7 @@ export default function FundadoresNetworkPage() {
                 La Ventana de Oportunidad
               </h2>
               <p className="text-slate-400 text-lg">
-                Solo 150 espacios para Fundadores. Cierra 30 de noviembre 2025.
+                Solo 150 espacios para Fundadores. Cierra 04 de enero 2026.
               </p>
             </div>
 

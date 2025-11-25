@@ -439,14 +439,14 @@ export default function FundadoresNetworkPage() {
               <div className="creatuactivo-component-card p-6 text-center">
                 <Calendar className="w-12 h-12 text-blue-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Lista Privada</h3>
-                <p className="text-sm text-slate-400 mb-3">10 Nov - 30 Nov 2025</p>
+                <p className="text-sm text-slate-400 mb-3">10 Nov 2025 - 04 Ene 2026</p>
                 <p className="text-slate-300">150 Fundadores (tú estás aquí)</p>
               </div>
 
               <div className="creatuactivo-component-card p-6 text-center">
                 <Users className="w-12 h-12 text-purple-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Pre-Lanzamiento</h3>
-                <p className="text-sm text-slate-400 mb-3">01 Dic 2025 - 01 Mar 2026</p>
+                <p className="text-sm text-slate-400 mb-3">05 Ene - 01 Mar 2026</p>
                 <p className="text-slate-300">22,500 Constructores (tu equipo)</p>
               </div>
 

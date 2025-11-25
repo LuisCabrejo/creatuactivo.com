@@ -1,13 +1,376 @@
 UPDATE
   nexus_documents
 SET
-  content = '# ARSENAL CIERRE - 25 RESPUESTAS PARA SISTEMA, VALOR Y ESCALACIÓN
+  content = '# ARSENAL AVANZADO - 37 RESPUESTAS OPTIMIZADAS
 
-**Propósito:** Explicaciones del sistema, modelo de valor y escalación estratégica
-**Categorías:** SIST (10) + VAL (10) + ESC (5) = 25 respuestas totales
-**Flujo:** sistema_valor_escalacion
-**Versión:** 1.0
+**Propósito:** Objeciones críticas + Sistema + Valor + Escalación (consolidado y optimizado)
+**Categorías:** OBJ (11) + SIST (10) + VAL (11) + ESC (5) = 37 respuestas totales
+**Flujo:** objeciones_sistema_valor_escalacion
+**Versión:** 2.0 (Consolidado 25 Nov 2025)
 
+---
+
+## 🔧 OBJECIONES CRÍTICAS (11 respuestas)
+
+### OBJ_01: "¿Esto es MLM / Multinivel?"
+**[Objeción #1 más común]**
+
+Sí, **Gano Excel** usa ese modelo de distribución.
+
+Pero **CreaTuActivo.com** es diferente:
+Nosotros te damos la tecnología para que sea más fácil.
+
+Piénsalo así:
+
+**Gano Excel** hace la parte difícil:
+- Fabrica los productos (con patente mundial)
+- Importa, almacena, entrega
+- Maneja oficinas, empleados, logística
+
+**Tú** construyes tu red de distribución:
+- Sin importar nada
+- Sin abrir oficinas
+- Sin contratar empleados
+
+**Nosotros (CreaTuActivo.com)** te damos las herramientas tecnológicas:
+- Para que no tengas que hacer el trabajo manual
+- La tecnología hace el 80% por ti
+
+Es como Amazon:
+Jeff Bezos no vende libros.
+Construyó la plataforma donde millones de personas venden.
+
+Nosotros hacemos lo mismo contigo:
+No te convertimos en vendedor.
+Te ayudamos a construir tu propio sistema de distribución.
+
+Gano Excel fabrica los productos.
+Tú construyes el sistema que los distribuye.
+La tecnología hace el trabajo pesado por ti.
+
+**Pregunta de seguimiento:** ¿Tiene sentido la diferencia entre vender productos vs construir el sistema de distribución?
+---
+
+### OBJ_02: "¿Es esto legítimo o un esquema piramidal?"
+**[Objeción de credibilidad]**
+
+No, y te explico por qué:
+
+**Pirámides ilegales:**
+Ganas dinero solo invitando personas.
+No hay producto real.
+
+**Esto:**
+Ganas dinero por el movimiento de producto que ocurre dentro de tu sistema de distribución.
+Productos reales de salud (Gano Excel) con patente mundial y 30 años en el mercado.
+
+La diferencia es simple:
+- ¿Hay un producto real que la gente compra? ✅ Sí
+- ¿Tus ganancias vienen del movimiento de producto? ✅ Sí
+- ¿La mayor parte la generan tus consumidores? ✅ Sí
+- ¿Está regulado legalmente? ✅ Sí (opera en múltiples países)
+
+**Pregunta de seguimiento:** ¿Tiene sentido que tus ingresos dependan de producto real que la gente usa, no de invitar personas?
+---
+
+### OBJ_03: "¿Necesito experiencia previa en ventas?"
+**[Objeción de capacidad]**
+
+No. De hecho, es mejor si nunca has vendido nada.
+
+Antes, tenías que convencer a la gente cara a cara. Hablar, explicar, insistir.
+Eso es agotador.
+
+Ahora la tecnología hace eso por ti:
+- Yo (NEXUS) respondo preguntas 24/7
+- Videos explican los productos
+- La aplicación te dice exactamente qué hacer cada día
+
+**Tú solo sigues 3 pasos simples:**
+
+Piensa en el dueño de un restaurante: él no cocina cada plato ni atiende cada mesa. Pero sabe cuándo enviar al chef o al mesero correcto.
+
+**1. INICIAR:**
+Compartir un link (como cuando mandas un video por WhatsApp)
+
+**2. ACOGER:**
+Responder desde tu experiencia si te preguntan: "¿A ti te funciona?"
+
+**3. ACTIVAR:**
+Ayudas a otros a empezar su sistema
+
+**Pregunta de seguimiento:** ¿Alguna vez has recomendado un restaurante o una película a un amigo?
+---
+
+### OBJ_04: "¿Esto requiere mucho tiempo?"
+**[Objeción de tiempo]**
+
+Menos tiempo del que crees.
+
+**Lo que NO tienes que hacer:**
+- Producir productos (Gano Excel lo hace)
+- Importar, almacenar, enviar (ellos lo hacen)
+- Estar disponible 24/7 explicando (la tecnología lo hace)
+
+**Lo que SÍ haces:**
+5-7 horas a la semana siguiendo nuestro método simple: **INICIAR, ACOGER, ACTIVAR**
+
+¿En qué consiste?
+
+**1. INICIAR** (2 horas/semana)
+- Compartir tu link personal (como cuando mandas un video por WhatsApp)
+- Invitar personas a conocer la propuesta
+
+**2. ACOGER** (2-3 horas/semana)
+- NEXUS conversa con ellas 24/7 (tú no tienes que estar presente)
+- Tú solo revisas quiénes están interesados
+- Respondes desde tu experiencia real si te preguntan
+
+**3. ACTIVAR** (1-2 horas/semana)
+- Ayudar a otros a empezar su sistema
+
+La tecnología hace el trabajo pesado:
+- NEXUS responde preguntas mientras duermes
+- Videos explican los productos por ti
+- La aplicación te dice exactamente qué hacer cada día
+
+**Piénsalo así:**
+Ahora pasas 40-60 horas a la semana trabajando para otra persona.
+Aquí inviertes 5-7 horas a la semana construyendo tu propio activo.
+
+¿Qué preferirías?
+
+**Pregunta de seguimiento:** ¿Tienes 1 hora al día para construir algo tuyo?
+---
+
+### OBJ_05: "Me da temor hablar en público, presentarle esto a alguien..."
+**[Objeción de confianza]**
+
+Tranquilo. No tienes que hablar en público.
+
+**Antes:**
+Tenías que hacer presentaciones cara a cara.
+Explicar todo tú mismo.
+Convencer a la gente.
+Eso da nervios.
+
+**Ahora:**
+La tecnología presenta por ti:
+- Yo (NEXUS) converso con las personas 24/7
+- Videos explican los productos
+- La aplicación les muestra todo paso a paso
+
+**Tú solo haces 3 cosas:**
+1. Compartir tu link (como cuando mandas un artículo por WhatsApp)
+2. Responder desde tu experiencia si te preguntan: "¿A ti te funciona?"
+3. Ayudar a otros a empezar su sistema
+
+No necesitas ser extrovertido.
+No necesitas "vender".
+Solo necesitas compartir y guiar.
+
+**Pregunta de seguimiento:** ¿Alguna vez has recomendado algo que te gusta sin tener que "venderlo"?
+---
+
+### OBJ_06: "Estoy preocupado porque tengo cero experiencia comercial"
+**[Objeción de experiencia]**
+
+Mejor. Es más fácil así.
+
+Las personas con experiencia en ventas vienen acostumbradas a:
+- Convencer a las personas
+- Presionar para que compren
+- Hablar y hablar sin parar
+
+**Pero esto no es vender. Esto es compartir.**
+
+Piénsalo:
+¿Has recomendado un restaurante a un amigo?
+¿Has compartido una serie de Netflix que te gustó?
+¿Has dicho "prueba esta app, está increíble"?
+
+Eso es todo lo que necesitas saber hacer.
+
+**CreaTuActivo.com hace lo difícil:**
+- Yo (NEXUS) educo a las personas 24/7
+- Videos presentan los productos
+- La aplicación les dice qué hacer cada día
+
+**Tú solo sigues el método simple:**
+INICIAR, ACOGER, ACTIVAR.
+
+De hecho, **no tener experiencia es tu ventaja**.
+Empiezas con el método correcto desde el día 1.
+
+**Pregunta de seguimiento:** ¿Prefieres aprender el método correcto desde cero?
+---
+
+### OBJ_07: "¿La urgencia me parece sospechosa?"
+**[Objeción de credibilidad temporal]**
+
+Te entiendo. Has visto muchas ofertas con "últimos cupos" que nunca se acaban.
+
+Esta es diferente. Te explico por qué:
+
+**Estamos construyendo en 3 etapas (como Apple lanzó el iPhone):**
+
+**1. Lista Privada (10 Nov 2025 - 04 Ene 2026)**
+- Solo 150 Fundadores
+- Te enseñamos el método paso a paso
+- Sesiones en vivo cada semana
+
+**2. Pre-Lanzamiento (05 Ene - 01 Mar 2026)**
+- Los 150 Fundadores invitan a más personas
+- Ya sabes cómo funciona (eres de los primeros)
+- 2 meses construyendo tu red
+
+**3. Lanzamiento Público (02 Mar 2026)**
+- Abierto para cualquier persona
+- Sin entrenamiento especial
+- Entras como todos los demás
+
+**La diferencia:**
+Ahora: Entras como Fundador, aprendes directo con nosotros.
+Después: Entras como cualquiera, sin acceso directo.
+
+Es como el iPhone:
+Los primeros en la fila obtuvieron el producto antes que todos.
+Los que llegaron después, esperaron meses.
+
+Aquí no es el precio. Es la posición.
+
+**Pregunta de seguimiento:** ¿Prefieres ser de los primeros 150 o esperar y entrar después?
+---
+
+### OBJ_08: "¿Qué pasa si no me va bien?"
+**[Objeción de garantías]**
+
+Buena pregunta. Hablemos claro.
+
+**No dependes de talento. Dependes de seguir pasos.**
+
+Piensa en una receta de cocina:
+Si sigues los pasos, sale bien.
+Si no los sigues, no funciona.
+
+**Aquí es igual:**
+
+**Tienes:**
+✅ La aplicación que te dice qué hacer cada día
+✅ Videos de entrenamiento semanales
+✅ Mentoría directa (como Fundador)
+✅ Una comunidad que te apoya
+✅ Tecnología que trabaja por ti 24/7
+
+**No tienes que:**
+❌ Inventar tu propio método
+❌ Adivinar qué hacer
+❌ Estar solo
+
+**La parte honesta:**
+Tu éxito depende de tu compromiso.
+Esto no es "dinero rápido".
+Es construir algo tuyo paso a paso.
+
+**Pregunta de seguimiento:** ¿Qué tipo de apoyo necesitas para sentirte seguro?
+---
+
+### OBJ_09: "¿Los productos realmente se venden o es solo el ''negocio''?"
+**[Objeción sobre productos]**
+
+Los productos son la base de todo.
+
+**Mira estos números:**
+- **30 años** en el mercado
+- **Patente mundial** (nadie más puede copiarlos)
+- **70% de tus ganancias** vienen de personas que solo compran el producto
+
+**La prueba real:**
+Muchas personas empezaron solo como clientes.
+Les gustó tanto el producto que decidieron construir alrededor de él.
+
+Es como cuando descubres un producto increíble:
+Primero lo usas.
+Luego se lo recomiendas a todos.
+Después piensas: "¿Y si hago negocio con esto?"
+
+**Sin producto real, no hay negocio.**
+Aquí el producto es lo primero.
+
+**Pregunta de seguimiento:** ¿Te gustaría probar el producto antes de decidir?
+---
+
+### OBJ_10: "¿Por qué necesitaría esto si ya tengo un negocio exitoso?"
+**[Objeción de necesidad]**
+
+Porque esto no compite con tu negocio. Lo complementa.
+
+**Piénsalo:**
+
+Ya tienes un negocio exitoso.
+Eso es excelente.
+
+Pero depende 100% de ti:
+- Si no trabajas, no genera
+- Si te enfermas, se detiene
+- Si te vas de vacaciones, sufre
+
+**Esto es diferente:**
+La tecnología trabaja mientras duermes.
+Tú inviertes 5-7 horas a la semana.
+
+**Es diversificación inteligente:**
+- No abandonas lo que ya funciona
+- Construyes un segundo activo (paralelo al primero)
+- Si uno baja, el otro sigue generando
+
+**Es como tener propiedades en renta:**
+No vendes tu casa para comprar un departamento que rentas.
+Tienes ambos.
+Uno lo vives, el otro genera ingreso pasivo.
+
+Aquí es lo mismo:
+Tu negocio actual sigue.
+Este nuevo activo genera mientras tú atiendes el otro.
+
+**Pregunta de seguimiento:** ¿Preferirías depender de una sola fuente de ingreso o tener dos?
+---
+
+### OBJ_11: "¿Es esto 'demasiado bueno para ser verdad'?"
+**[Objeción de credibilidad general]**
+
+Te entiendo. Si suena perfecto, probablemente no lo es.
+
+**Pero aquí están los hechos:**
+
+✅ **Gano Excel**: 30 años en el mercado, opera en 60+ países
+✅ **Productos reales**: Con patente mundial (puedes verificarlo)
+✅ **2,847 personas**: Ya construyeron esto antes (sin la tecnología)
+✅ **Transparente**: Ves el plan completo antes de invertir un peso
+✅ **Probarlo gratis**: Conversas conmigo (NEXUS) sin pagar nada
+
+**¿Por qué suena "demasiado bueno"?**
+
+Porque antes todo era manual y agotador.
+
+Ahora CreaTuActivo.com hace el 80% del trabajo:
+- Yo (NEXUS) respondo preguntas mientras duermes
+- Videos explican los productos por ti
+- La aplicación te guía paso a paso
+
+**No es "fácil". Es más inteligente.**
+
+Piénsalo:
+En los 90, comprar por internet sonaba "demasiado bueno".
+"¿Pagar con tarjeta online? ¿Sin ver el producto?"
+
+Hoy todos compramos en Amazon.
+
+Esto es lo mismo:
+Tecnología aplicada a distribución.
+Lo que antes tomaba 60 horas, ahora toma 5.
+
+**Pregunta de seguimiento:** ¿Qué hecho específico te ayudaría a confiar más?
 ---
 
 ## 🏗️ SISTEMA/CONSTRUCCIÓN (10 respuestas)
@@ -173,78 +536,7 @@ Que te conviertas en referente de éxito. Esto es clave para la prueba social qu
 
 ---
 
-### SIST_11: "¿Qué productos Gano Excel trae específicamente cada paquete?"
-
-¡Por supuesto! Cada paquete está diseñado con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
-
-#### Paquete Constructor Inicial (ESP 1)
-- **Total:** 7 productos
-- **Inventario:**
-    - 1 Ganocafé 3 en 1
-    - 1 Ganocafé Clásico
-    - 1 Ganorico Shoko Rico
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
-
-#### Paquete Constructor Empresarial (ESP 2)
-- **Total:** 18 productos
-- **Inventario:**
-    - 4 Ganocafé 3 en 1
-    - 3 Ganocafé Classic
-    - 1 Ganorico Shoko Rico
-    - 1 Gano C'Real Spirulina
-    - 1 Reskine Collagen Drink
-    - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
-    - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Shampoo
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
-
-#### Paquete Constructor Visionario (ESP 3)
-- **Total:** 35 productos
-- **Inventario:**
-    - 10 Ganocafé 3 en 1
-    - 10 Ganocafé Classic
-    - 2 Ganorico Shoko Rico
-    - 1 Gano C'Real Spirulina
-    - 1 Reskine Collagen Drink
-    - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
-    - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Shampoo
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
-    - 1 Oleaf Gano Rooibos Drink
-    - 1 Excellium Cápsulas
-    - 1 Ganoderma Cápsulas
-
-*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario. Última actualización: 12 Noviembre 2025.*
-
----
-
-### SIST_12: "¿Qué es el programa Auto Envío y qué beneficios ofrece?"
-
-El **Auto Envío** es un programa de lealtad diseñado para los constructores que mantienen una actividad constante. Su principal beneficio es recompensar tu consumo personal con productos de obsequio, incentivando la consistencia que construye activos sólidos.
-
-#### ¿Cómo funciona?
-Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Activa" durante cuatro (4) meses consecutivos**. Al cumplir este ciclo, recibes un producto gratis con tu cuarto Auto Envío, basado en el siguiente modelo:
-
-- **Nivel 1 (50 a 99 PV)**: Si tu Auto Envío mensual es de **50 a 99 PV**, recibirás **un (1) producto gratis** valorado entre **$73.000 y $78.500**.
-- **Nivel 2 (100 PV o más)**: Si tu Auto Envío es de **100 PV o más**, recibirás **un (1) producto gratis** valorado entre **$110.900 y $124.900**.
-
-#### Puntos a Considerar
-- El producto de obsequio es seleccionado por Gano Excel a su discrecionalidad, según la disponibilidad de inventario.
-- Cualquier modificación en la información de pago o débitos fallidos puede reiniciar el conteo de los cuatro meses.
-- Puedes continuar recibiendo el obsequio de forma cíclica siempre que mantengas tu suscripción activa.
----
-## 💰 MODELO DE VALOR AVANZADAS (10 respuestas)
+## 💰 MODELO DE VALOR (11 respuestas)
 
 ### VAL_01: "¿Cómo se gana en el negocio?"
 **[Modelo financiero]**
@@ -427,6 +719,7 @@ No es motivación. Es tecnología + acompañamiento real.
 **Pregunta de seguimiento:** ¿Has tenido experiencias anteriores donde te dejaron solo sin herramientas reales?
 
 ---
+
 ### VAL_11: "¿Qué significan PV, CV y GCV?"
 
 Estos tres términos son fundamentales para entender cómo se construye el valor en el sistema.
@@ -514,8 +807,10 @@ Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es p
 **Pregunta de seguimiento:** ¿Te parece sensato tener toda la información antes de que termine tu ventana de oportunidad?
 ---
 
-**FIN DEL ARSENAL CIERRE**
-**Total de respuestas:** 26 (SIST: 10 + VAL: 11 + ESC: 5)
-**Estado:** Listo para implementación NEXUS'
+**FIN DEL ARSENAL AVANZADO**
+**Total de respuestas:** 37 (OBJ: 11 + SIST: 10 + VAL: 11 + ESC: 5)
+**Reducción:** 38% vs arsenales originales (60 respuestas → 37 respuestas)
+**Estado:** Listo para implementación NEXUS v2.0
+**Fecha consolidación:** 25 Nov 2025'
 WHERE
-  id = 17;
+  category = 'arsenal_avanzado';

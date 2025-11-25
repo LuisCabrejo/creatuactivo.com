@@ -968,10 +968,10 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   }
 
   // PRIORIDAD 3: PAQUETES DE INVERSIÓN
-  // 🆕 FIX 2025-10-21: Routing a arsenal_cierre (contiene SIST_11 con productos por paquete)
+  // 🆕 FIX 2025-11-25: Routing a arsenal_avanzado (contiene SIST_11 con productos por paquete)
   if (patrones_paquetes.some(patron => patron.test(messageLower))) {
-    console.log('💼 Clasificación: PAQUETES (arsenal_cierre - SIST_11)');
-    return 'arsenal_cierre'; // ✅ CORRECTO: SIST_11 está en arsenal_cierre
+    console.log('💼 Clasificación: PAQUETES (arsenal_avanzado - SIST_11)');
+    return 'arsenal_avanzado'; // ✅ CORRECTO: SIST_11 está en arsenal_avanzado
   }
 
   // 🎯 PRIORIDAD 3: FLUJO 3 NIVELES - EXPANSIÓN SEMÁNTICA CRÍTICA
@@ -1281,8 +1281,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 
   // Retornar clasificación más específica
   if (esInicial && !esManejo && !esCierre) return 'arsenal_inicial';
-  if (esManejo && !esCierre) return 'arsenal_manejo';
-  if (esCierre) return 'arsenal_cierre';
+  if (esManejo || esCierre) return 'arsenal_avanzado'; // ✅ CONSOLIDADO: arsenal_manejo + arsenal_cierre → arsenal_avanzado
 
   return null; // Búsqueda general si no hay clasificación clara
 }
@@ -1576,10 +1575,10 @@ ARQUITECTURA HÍBRIDA ESCALABLE:
 - Búsqueda adaptativa por contenido
 - Escalabilidad infinita para nuevas respuestas
 
-ARSENAL MVP (79 respuestas escalables):
-- arsenal_inicial: Primeras interacciones y credibilidad
-- arsenal_manejo: Objeciones y soporte técnico
-- arsenal_cierre: Sistema avanzado y escalación
+ARSENAL MVP v2.0 (71 respuestas optimizadas):
+- arsenal_inicial: Primeras interacciones y credibilidad (34 respuestas)
+- arsenal_avanzado: Objeciones + Sistema + Valor + Escalación (37 respuestas)
+- catalogo_productos: Catálogo completo de productos Gano Excel
 
 PROCESO HÍBRIDO:
 1. Clasificar documento apropiado
@@ -2688,11 +2687,13 @@ Información disponible:
 // Health check híbrido
 export async function GET() {
   try {
+    const supabase = getSupabaseClient();
+
     // Verificar Arsenal MVP completo
     const { data: arsenalDocs, error: arsenalError } = await supabase
       .from('nexus_documents')
       .select('category, metadata')
-      .in('category', ['arsenal_inicial', 'arsenal_manejo', 'arsenal_cierre']);
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos']);
 
     if (arsenalError) throw arsenalError;
 

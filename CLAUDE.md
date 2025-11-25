@@ -100,6 +100,7 @@ Three-stage funnel methodology:
 
 **API Endpoints**:
 - **Production**: Always use `/api/nexus/producer` (async queue)
+- **Cron fallback**: `/api/nexus/consumer-cron` (processes queue without triggers)
 - **Health checks**: GET request to `/api/nexus`
 - **Legacy**: `/api/nexus` POST (synchronous, still works)
 
@@ -207,6 +208,9 @@ NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER=
 # Site config
 NEXT_PUBLIC_SITE_URL=
 NEXT_PUBLIC_WHATSAPP_NUMBER=
+
+# SEO
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 ```
 
 ## Common Development Patterns
@@ -324,11 +328,11 @@ Supabase → Data persists by fingerprint
 
 **Current Timeline** (Nov 2025):
 
-1. **Lista Privada**: 10 Nov - 30 Nov 2025 (ACTIVE)
+1. **Lista Privada**: 10 Nov 2025 - 04 Ene 2026 (ACTIVE)
    - 150 Founder spots
    - Role: Fundadores = MENTORES
 
-2. **Pre-Lanzamiento**: 01 Dic 2025 - 01 Mar 2026
+2. **Pre-Lanzamiento**: 05 Ene 2026 - 01 Mar 2026
    - 22,500 Constructor spots (150 × 150)
 
 3. **Lanzamiento Público**: 02 Mar 2026
@@ -377,6 +381,20 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Prospect Data Flow**:
 1. Browser → `tracking.js` → RPC `identify_prospect`
 2. NEXUS → `captureProspectData()` → RPC `update_prospect_data`
+
+**Edge Runtime**:
+- All NEXUS API routes use `export const runtime = 'edge'`
+- Configured with `maxDuration = 30` seconds for heavy requests
+- Supports streaming responses via `StreamingTextResponse`
+
+**Build-Time Patterns**:
+- Supabase client uses lazy initialization (avoid build-time errors)
+- TypeScript errors ignored (`ignoreBuildErrors: true`)
+- Environment variables validated at runtime
+
+**Code Headers**:
+- All API routes include copyright header (© CreaTuActivo.com)
+- Headers specify proprietary licensing and confidentiality
 
 **Never** store PII in localStorage (only fingerprint/session IDs).
 

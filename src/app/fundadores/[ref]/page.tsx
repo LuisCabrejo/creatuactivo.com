@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
 
   return {
     title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
-    description: `Invitado por ${params.ref}. Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, aplicación CreaTuActivo + IA NEXUS, ingresos residuales. Solo 150 cupos hasta 30 Nov 2025.`,
+    description: `Invitado por ${params.ref}. Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, aplicación CreaTuActivo + IA NEXUS, ingresos residuales. Solo 150 cupos hasta 04 Ene 2026.`,
     keywords: 'afiliación gano excel, fundadores gano excel 2025, mentor gano excel, afiliarse gano excel colombia, lista privada fundadores, mentorías 1 a 150, creatuactivo fundadores',
     authors: [{ name: 'CreaTuActivo.com' }],
     openGraph: {
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
       locale: 'es_ES',
       url: `${siteUrl}/fundadores/${params.ref}`,
       title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
-      description: `Invitado por ${params.ref}. Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, aplicación CreaTuActivo + IA NEXUS, ingresos residuales. Solo 150 cupos hasta 30 Nov 2025.`,
+      description: `Invitado por ${params.ref}. Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, aplicación CreaTuActivo + IA NEXUS, ingresos residuales. Solo 150 cupos hasta 04 Ene 2026.`,
       siteName: 'CreaTuActivo.com',
       images: [
         {
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
     twitter: {
       card: 'summary_large_image',
       title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor',
-      description: `Invitado por ${params.ref}. Mentoría 1:150, NodeX + IA, ingresos residuales. 150 cupos hasta 30 Nov.`,
+      description: `Invitado por ${params.ref}. Mentoría 1:150, NodeX + IA, ingresos residuales. 150 cupos hasta 04 Ene 2026.`,
       images: [`${siteUrl}/fundadores/opengraph-image`],
       creator: '@creatuactivo',
     },

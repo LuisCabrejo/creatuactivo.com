@@ -1,11 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Todos los derechos reservados.
- *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * Layout Raíz Optimizado para SEO Técnico Continental
+ * Estrategia: Hreflang, Schema.org Avanzado y Performance
  */
 
 import type { Metadata, Viewport } from 'next';
@@ -32,20 +28,50 @@ export const viewport: Viewport = {
   ],
 };
 
+// URL Base de Producción
+const baseUrl = 'https://creatuactivo.com';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://creatuactivo.com'),
-  title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
-  description: 'Transforma tu talento en activo escalable con tecnología NodeX + IA. Afiliación Gano Excel 2025, mentoría 1:150, ingresos residuales. 150 espacios fundadores disponibles.',
-  keywords: 'creatuactivo, crea tu activo, ecosistema emprendimiento digital, afiliación gano excel colombia, framework iaa, activos empresariales, ingresos residuales',
-  authors: [{ name: 'CreaTuActivo.com' }],
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: 'CreaTuActivo: Ecosistema Empresarial & Activos Digitales',
+    template: '%s | CreaTuActivo'
+  },
+  description: 'Plataforma líder en América para construir activos patrimoniales. Tecnología NodeX + IA, infraestructura Gano Excel y mentoría de alto nivel. 150 cupos fundadores.',
+
+  // Keywords Estratégicas (SEO Semántico)
+  keywords: [
+    'creatuactivo',
+    'activos digitales',
+    'ingresos pasivos reales',
+    'franquicia digital',
+    'sistema de distribución',
+    'gano excel latinoamerica',
+    'luis cabrejo mentor',
+    'nexus ia',
+    'nodex dashboard'
+  ],
+
+  authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   creator: 'CreaTuActivo.com',
-  publisher: 'CreaTuActivo.com',
+  publisher: 'CreaTuActivo Inc.',
+
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  // SECCIÓN DE ICONS AGREGADA
+
+  // Configuración Internacional (Hreflang) - VITAL PARA BRASIL
+  alternates: {
+    canonical: baseUrl,
+    languages: {
+      'es': baseUrl,
+      'pt-BR': `${baseUrl}/paises/brasil`,
+      'en-US': `${baseUrl}/en`, // Preparado para futuro
+    },
+  },
+
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -58,6 +84,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/site.webmanifest',
+
   robots: {
     index: true,
     follow: true,
@@ -69,31 +96,33 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://creatuactivo.com',
-    title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
-    description: 'Transforma tu talento en activo escalable con tecnología NodeX + IA. Afiliación Gano Excel 2025, mentoría 1:150, ingresos residuales. 150 espacios fundadores disponibles.',
+    alternateLocale: ['pt_BR', 'en_US'],
+    url: baseUrl,
+    title: 'CreaTuActivo: Arquitectura de Activos Digitales',
+    description: 'No es un negocio más. Es la arquitectura completa para construir tu patrimonio: Producto Patentado + Tecnología IA + Metodología Probada.',
     siteName: 'CreaTuActivo.com',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'CreaTuActivo.com - Framework IAA',
+        alt: 'CreaTuActivo.com - Ecosistema de Negocios Inteligente',
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo: Ecosistema Emprendimiento Digital | Gano Excel Colombia',
-    description: 'Transforma tu talento en activo escalable. Afiliación Gano Excel 2025, mentoría 1:150, NodeX + IA.',
+    title: 'CreaTuActivo: Arquitectura de Activos Digitales',
+    description: 'Transforma tu talento en activo escalable. Tecnología NodeX + IA + Infraestructura Gano Excel.',
     images: ['/og-image.jpg'],
     creator: '@creatuactivo',
   },
-  // Google Search Console verification
-  // Código de verificación obtenido el 19 Nov 2025
+
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'QRNGxKcHOJYRbR9hFLZfUmUlxV2ScasRQAFlb7vJC14',
   },
@@ -104,14 +133,72 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // JSON-LD Estructurado para "Organization" y "SoftwareApplication"
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${baseUrl}/#organization`,
+        "name": "CreaTuActivo",
+        "url": baseUrl,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${baseUrl}/logo.png`,
+          "width": 512,
+          "height": 512
+        },
+        "sameAs": [
+          "https://facebook.com/creatuactivo",
+          "https://instagram.com/creatuactivo",
+          "https://linkedin.com/company/creatuactivo",
+          "https://luiscabrejo.com"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+57-300-1234567",
+          "contactType": "customer service",
+          "areaServed": ["US", "CO", "MX", "BR", "PE", "EC"],
+          "availableLanguage": ["Spanish", "English", "Portuguese"]
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "NodeX Dashboard",
+        "operatingSystem": "Web",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Plataforma de gestión inteligente para constructores de redes de distribución Gano Excel.",
+        "author": {
+          "@id": `${baseUrl}/#organization`
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Luis Cabrejo",
+        "jobTitle": "Fundador & Mentor Empresarial",
+        "url": "https://luiscabrejo.com",
+        "sameAs": [
+          "https://www.linkedin.com/in/luiscabrejo/",
+          "https://instagram.com/luiscabrejo"
+        ],
+        "worksFor": {
+          "@id": `${baseUrl}/#organization`
+        }
+      }
+    ]
+  };
+
   return (
     <html lang="es" className="h-full">
       <head>
         {/* Preconnect para performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-
-        {/* Preconnect para Supabase - OPTIMIZACIÓN PAGESPEED */}
         <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
         <link rel="dns-prefetch" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
 
@@ -121,11 +208,10 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
-        {/* FRAMEWORK IAA - TRACKING SCRIPT - FIX APLICADO */}
+        {/* Configuración Tracking */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Configuración del tracking antes de cargar el script
               window.TRACKING_CONFIG = {
                 SUPABASE_URL: '${process.env.NEXT_PUBLIC_SUPABASE_URL}',
                 SUPABASE_ANON_KEY: '${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}'
@@ -133,434 +219,107 @@ export default function RootLayout({
             `
           }}
         />
-        {/* OPTIMIZACIÓN PAGESPEED: defer para no bloquear render inicial
-            tracking.js ahora crea un stub inmediato y difiere identify_prospect */}
         <script src="/tracking.js" defer></script>
 
-        {/* Esquema estructurado - JSON-LD mejorado para SEO */}
+        {/* Schema Markup Inyectado */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "CreaTuActivo.com",
-              "alternateName": "CreaTuActivo",
-              "url": "https://creatuactivo.com",
-              "logo": "https://creatuactivo.com/logo.png",
-              "description": "Plataforma integral para construir activos empresariales mediante el Framework IAA: Iniciar, Acoger, Activar. Ecosistema completo para emprendedores y constructores de riqueza.",
-              "foundingDate": "2024",
-              "slogan": "Tu Ecosistema, Tu Activo, Tu Futuro",
-              "sameAs": [
-                "https://facebook.com/creatuactivo",
-                "https://twitter.com/creatuactivo",
-                "https://instagram.com/creatuactivo",
-                "https://linkedin.com/company/creatuactivo"
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+57-300-1234567",
-                "contactType": "Customer Service",
-                "areaServed": "LATAM",
-                "availableLanguage": ["Spanish", "English"]
-              },
-              "offers": {
-                "@type": "Offer",
-                "name": "Programa Fundadores CreaTuActivo",
-                "description": "Acceso exclusivo al ecosistema empresarial con mentoría 1:150",
-                "url": "https://creatuactivo.com/fundadores",
-                "availability": "https://schema.org/LimitedAvailability",
-                "validFrom": "2025-10-27T10:00:00-05:00",
-                "validThrough": "2025-11-16T23:59:59-05:00"
-              },
-              "knowsAbout": [
-                "Activos Empresariales",
-                "Framework IAA",
-                "Marketing Multinivel",
-                "Ecosistema Empresarial",
-                "Construcción de Riqueza",
-                "Emprendimiento"
-              ]
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className={`${inter.className} h-full bg-slate-900 text-white antialiased`}>
-        {/* Contenido Principal */}
         <main className="relative">
           {children}
         </main>
 
-        {/* Scripts de análisis y tracking - OPTIMIZADO PARA PERFORMANCE */}
+        {/* Scripts de Utilidad y Performance */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // 🔧 FIX CRÍTICO: Prevenir acumulación de event listeners
               (function() {
-                // Guard: Solo ejecutar una vez
                 if (window.__cta_tracking_initialized) return;
                 window.__cta_tracking_initialized = true;
 
-                // Performance monitoring (solo si serviceWorker disponible)
                 if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
-                  window.addEventListener('load', function swInit() {
-                    navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                      console.log('ServiceWorker registration failed: ', err);
-                    });
-                  }, { once: true }); // ✅ CRÍTICO: once: true limpia automáticamente
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
+                  }, { once: true });
                 }
 
-                // Error tracking (sin acumular listeners)
-                if (!window.__cta_error_handler) {
-                  window.__cta_error_handler = function(e) {
-                    console.warn('Global error:', e.error);
-                  };
-                  window.addEventListener('error', window.__cta_error_handler);
-                }
-
-                // Framework IAA - Tracking Integration
                 if (!window.__cta_nexus_handler) {
                   window.__cta_nexus_handler = function(e) {
-                    if (window.updateProspectData) {
-                      window.updateProspectData(e.detail);
-                    }
+                    if (window.updateProspectData) window.updateProspectData(e.detail);
                   };
                   window.addEventListener('nexusMessage', window.__cta_nexus_handler);
-                }
-
-                // Tracking ready handler
-                if (!window.__cta_tracking_ready_handler) {
-                  window.__cta_tracking_ready_handler = function(e) {
-                    console.log('✅ Framework IAA Tracking listo para NEXUS:', e.detail);
-                    if (window.NEXUS && window.NEXUS.setTrackingReady) {
-                      window.NEXUS.setTrackingReady(e.detail);
-                    }
-                  };
-                  window.addEventListener('nexusTrackingReady', window.__cta_tracking_ready_handler);
                 }
               })();
             `
           }}
         />
 
-        {/* NEXUS Floating Button */}
         <NEXUSFloatingButton />
 
-        {/* ✅ MOBILE MENU FIX - OPTIMIZADO PARA PERFORMANCE (NO MEMORY LEAKS) */}
+        {/* Menú Móvil Legacy - Mantenido por compatibilidad */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // 🔧 FIX CRÍTICO: Guard para prevenir ejecución múltiple
               (function initMobileMenu() {
-                // Guard: Solo ejecutar una vez
-                if (window.__cta_mobile_menu_initialized) {
-                  console.log('📱 Mobile menu already initialized - skipping');
-                  return;
-                }
+                if (window.__cta_mobile_menu_initialized) return;
                 window.__cta_mobile_menu_initialized = true;
 
-                // Usar función con nombre para poder cleanup después
                 function setupMobileMenu() {
-                // ✅ DETECCIÓN INTELIGENTE: Skip si hay navegación custom
-                if (window.location.pathname.startsWith('/nodex')) {
-                  console.log('📱 NodeX page detected - Skipping mobile menu script (NodeXSidebar handles its own menu)');
-                  return;
-                }
+                  if (window.location.pathname.startsWith('/nodex') || document.querySelector('.strategic-nav-critical')) return;
 
-                // ✅ DETECCIÓN: Skip si StrategicNavigation está presente
-                const strategicNav = document.querySelector('.strategic-nav-critical');
-                if (strategicNav) {
-                  console.log('📱 StrategicNavigation detected - Skipping mobile menu script (StrategicNavigation handles its own menu)');
-                  return;
-                }
+                  const menuButton = document.querySelector('[aria-label="Toggle menu"]') ||
+                                    document.querySelector('[aria-label="Abrir menú"]');
 
-                console.log('🔧 Mobile Menu Fix loading for legacy pages...');
+                  if (!menuButton) return;
 
-                let isMenuOpen = false;
-
-                // ✅ BÚSQUEDA FLEXIBLE: Múltiples aria-labels
-                const menuButton = document.querySelector('[aria-label="Toggle menu"]') ||
-                                  document.querySelector('[aria-label="Abrir menú"]') ||
-                                  document.querySelector('[aria-label="Open menu"]');
-
-                const body = document.body;
-
-                if (!menuButton) {
-                  console.log('ℹ️  No legacy menu button found - this is expected for pages with modern navigation');
-                  return;
-                }
-
-                console.log('✅ Legacy menu button found, initializing mobile menu...');
-
-                // Crear menú móvil HTML completo
-                const mobileMenuHTML = \`
-                  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden md:hidden">
-                    <div class="fixed top-20 left-0 right-0 bottom-0 z-50">
-                      <div class="bg-slate-900/98 backdrop-blur-xl border-t border-white/10 h-full overflow-y-auto">
-                        <div class="px-4 py-6 space-y-4">
-
-                          <!-- El Sistema -->
-                          <div class="py-2">
-                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">El Sistema</h3>
-                            <div class="space-y-1">
-                              <a href="/sistema/framework-iaa" class="mobile-menu-link">
-                                <span class="mr-3">⚡</span>
-                                <div>
-                                  <div class="font-medium">Framework (IAA)</div>
-                                  <div class="text-xs text-slate-500 mt-1">Metodología propietaria construcción activos</div>
-                                </div>
-                              </a>
-                              <a href="/sistema/tecnologia" class="mobile-menu-link">
-                                <span class="mr-3">🧠</span>
-                                <div>
-                                  <div class="font-medium">Tecnología</div>
-                                  <div class="text-xs text-slate-500 mt-1">NEXUS IA y NodeX: ventaja competitiva</div>
-                                </div>
-                              </a>
-                              <a href="/sistema/productos" class="mobile-menu-link">
-                                <span class="mr-3">📦</span>
-                                <div>
-                                  <div class="font-medium">Productos</div>
-                                  <div class="text-xs text-slate-500 mt-1">Motor único con patente mundial</div>
-                                </div>
-                              </a>
-                              <a href="/sistema/socio-corporativo" class="mobile-menu-link">
-                                <span class="mr-3">🛡️</span>
-                                <div>
-                                  <div class="font-medium">Socio Corporativo</div>
-                                  <div class="text-xs text-slate-500 mt-1">Gano Excel: credibilidad y trayectoria</div>
-                                </div>
+                  const mobileMenuHTML = \`
+                    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden md:hidden">
+                      <div class="fixed top-20 left-0 right-0 bottom-0 z-50">
+                        <div class="bg-slate-900/98 backdrop-blur-xl border-t border-white/10 h-full overflow-y-auto">
+                          <div class="px-4 py-6 space-y-4">
+                            <div class="py-2">
+                              <a href="/fundadores" class="w-full block text-center py-4 px-6 rounded-lg font-bold text-lg" style="background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%); color: white;">
+                                Sé Fundador
                               </a>
                             </div>
-                          </div>
-
-                          <!-- Soluciones -->
-                          <div class="py-2">
-                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">Soluciones</h3>
-                            <div class="space-y-1">
-                              <a href="/soluciones/profesional-con-vision" class="mobile-menu-link">
-                                <span class="mr-3">💼</span>
-                                <div>
-                                  <div class="font-medium">Profesional con Visión</div>
-                                  <div class="text-xs text-slate-500 mt-1">Construir activo, no solo carrera</div>
-                                </div>
-                              </a>
-                              <a href="/soluciones/emprendedor-negocio" class="mobile-menu-link">
-                                <span class="mr-3">📱</span>
-                                <div>
-                                  <div class="font-medium">Emprendedor y Dueño</div>
-                                  <div class="text-xs text-slate-500 mt-1">Escalar con sistema, no tareas</div>
-                                </div>
-                              </a>
-                              <a href="/soluciones/independiente-freelancer" class="mobile-menu-link">
-                                <span class="mr-3">💡</span>
-                                <div>
-                                  <div class="font-medium">Independiente</div>
-                                  <div class="text-xs text-slate-500 mt-1">Talento a activo escalable</div>
-                                </div>
-                              </a>
-                              <a href="/soluciones/lider-del-hogar" class="mobile-menu-link">
-                                <span class="mr-3">🏠</span>
-                                <div>
-                                  <div class="font-medium">Líder del Hogar</div>
-                                  <div class="text-xs text-slate-500 mt-1">Flexibilidad y propósito</div>
-                                </div>
-                              </a>
-                              <a href="/soluciones/lider-comunidad" class="mobile-menu-link">
-                                <span class="mr-3">👥</span>
-                                <div>
-                                  <div class="font-medium">Líder Comunidad</div>
-                                  <div class="text-xs text-slate-500 mt-1">Influencia a legado tangible</div>
-                                </div>
-                              </a>
-                              <a href="/soluciones/joven-con-ambicion" class="mobile-menu-link">
-                                <span class="mr-3">🎓</span>
-                                <div>
-                                  <div class="font-medium">Joven con Ambición</div>
-                                  <div class="text-xs text-slate-500 mt-1">Activo antes que carrera</div>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-
-                          <!-- Presentación -->
-                          <div class="py-2">
-                            <a href="/presentacion-empresarial" class="mobile-menu-link">
-                              <span class="mr-3">📊</span>
-                              <div class="font-medium">Presentación Empresarial</div>
-                            </a>
-                          </div>
-
-                          <!-- El Ecosistema -->
-                          <div class="py-2">
-                            <h3 class="text-slate-400 px-3 py-2 text-sm font-semibold uppercase tracking-wider">El Ecosistema</h3>
-                            <div class="space-y-1">
-                              <a href="/ecosistema/comunidad" class="mobile-menu-link">
-                                <span class="mr-3">👥</span>
-                                <div>
-                                  <div class="font-medium">La Comunidad</div>
-                                  <div class="text-xs text-slate-500 mt-1">Historias éxito y pulso humano</div>
-                                </div>
-                              </a>
-                              <a href="/ecosistema/academia" class="mobile-menu-link">
-                                <span class="mr-3">🎓</span>
-                                <div>
-                                  <div class="font-medium">La Academia</div>
-                                  <div class="text-xs text-slate-500 mt-1">Rutas maestros constructores</div>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-
-                          <!-- Botón Sé Fundador -->
-                          <div class="mt-8 pt-6 border-t border-white/10">
-                            <a href="/fundadores" class="w-full block text-center py-4 px-6 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);">
-                              <span class="mr-2">👑</span>
-                              Sé Fundador
-                            </a>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                \`;
+                    </div>\`;
 
-                // CSS para los enlaces del menú móvil
-                const mobileMenuStyles = document.createElement('style');
-                mobileMenuStyles.textContent = \`
-                  .mobile-menu-link {
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    padding: 12px 16px;
-                    color: rgb(203 213 225);
-                    border-radius: 8px;
-                    transition: all 0.2s ease;
-                    text-decoration: none;
-                    margin: 2px 0;
-                  }
-                  .mobile-menu-link:hover {
-                    background-color: rgba(51, 65, 85, 0.5);
-                    color: white;
-                    transform: translateX(4px);
-                  }
-                  .mobile-menu-link:active {
-                    background-color: rgba(51, 65, 85, 0.7);
-                  }
-                \`;
-                document.head.appendChild(mobileMenuStyles);
+                  document.body.insertAdjacentHTML('beforeend', mobileMenuHTML);
+                  const mobileMenu = document.getElementById('mobile-menu-overlay');
+                  let isMenuOpen = false;
 
-                // Insertar menú en el DOM
-                body.insertAdjacentHTML('beforeend', mobileMenuHTML);
-                const mobileMenu = document.getElementById('mobile-menu-overlay');
-
-                if (!mobileMenu) {
-                  console.error('❌ Failed to create mobile menu');
-                  return;
-                }
-
-                // 🔧 Función para alternar menú
-                function toggleMenu() {
-                  console.log('🍔 Toggling legacy menu, current state:', isMenuOpen);
-
-                  isMenuOpen = !isMenuOpen;
-
-                  if (isMenuOpen) {
-                    mobileMenu.classList.remove('hidden');
-                    body.style.overflow = 'hidden';
-                    console.log('✅ Legacy menu opened');
-
-                    // Cambiar icono a X
-                    const icon = menuButton.querySelector('svg');
-                    if (icon) {
-                      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
-                    }
-                  } else {
-                    mobileMenu.classList.add('hidden');
-                    body.style.overflow = 'auto';
-                    console.log('✅ Legacy menu closed');
-
-                    // Cambiar icono a hamburguesa
-                    const icon = menuButton.querySelector('svg');
-                    if (icon) {
-                      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />';
-                    }
-                  }
-                }
-
-                // 🔧 Event handlers con referencias para posible cleanup
-                const handleMenuClick = function(e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  toggleMenu();
-                };
-
-                const handleMenuTouch = function(e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  toggleMenu();
-                };
-
-                const handleOverlayClick = function(e) {
-                  if (e.target === mobileMenu) {
-                    console.log('🎯 Overlay clicked, closing legacy menu');
-                    if (isMenuOpen) toggleMenu();
-                  }
-                };
-
-                const handleLinkClick = function() {
-                  console.log('🔗 Link clicked, closing legacy menu');
-                  setTimeout(() => {
-                    if (isMenuOpen) toggleMenu();
-                  }, 150);
-                };
-
-                const handleResize = function() {
-                  if (window.innerWidth >= 768 && isMenuOpen) {
-                    console.log('📱 Resize to desktop, closing legacy menu');
-                    toggleMenu();
-                  }
-                };
-
-                // Agregar event listeners
-                menuButton.addEventListener('click', handleMenuClick);
-                menuButton.addEventListener('touchstart', handleMenuTouch, { passive: false });
-                mobileMenu.addEventListener('click', handleOverlayClick);
-
-                // Agregar listeners a todos los links
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                  link.addEventListener('click', handleLinkClick);
-                });
-
-                window.addEventListener('resize', handleResize);
-
-                // 🔧 CRÍTICO: Guardar referencias para cleanup futuro (si se necesita)
-                window.__cta_mobile_menu_cleanup = function() {
-                  menuButton.removeEventListener('click', handleMenuClick);
-                  menuButton.removeEventListener('touchstart', handleMenuTouch);
-                  mobileMenu.removeEventListener('click', handleOverlayClick);
-                  mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.removeEventListener('click', handleLinkClick);
+                  menuButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    isMenuOpen = !isMenuOpen;
+                    mobileMenu.classList.toggle('hidden', !isMenuOpen);
+                    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
                   });
-                  window.removeEventListener('resize', handleResize);
-                  console.log('🧹 Mobile menu listeners cleaned up');
-                };
 
-                console.log('🎉 Legacy mobile menu fix initialized successfully!');
-              } // End setupMobileMenu
+                  mobileMenu.addEventListener('click', (e) => {
+                    if (e.target === mobileMenu) {
+                      isMenuOpen = false;
+                      mobileMenu.classList.add('hidden');
+                      document.body.style.overflow = 'auto';
+                    }
+                  });
+                }
 
-              // Ejecutar setup cuando DOM esté listo
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', setupMobileMenu, { once: true });
-              } else {
-                setupMobileMenu();
-              }
-            })(); // End IIFE
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', setupMobileMenu, { once: true });
+                } else {
+                  setupMobileMenu();
+                }
+              })();
             `
           }}
         />
 
-        {/* Cookie Banner - Consentimiento profesional */}
         <CookieBanner />
       </body>
     </html>

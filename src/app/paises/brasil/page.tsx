@@ -1,17 +1,20 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
  * Página de Lanzamiento: Gano Excel Brasil
- * Feature: Multilenguaje (ES/PT), Imágenes Reales, Diseño Premium
+ * Update: Corrección Botón Hero + Urgencia 7 Dic Visual
  */
 
 'use client'
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Globe, ArrowRight, Star, Coffee, AlertCircle, Building, CheckCircle, Flag } from 'lucide-react'
+import { MapPin, Globe, ArrowRight, Star, Coffee, AlertCircle, Building, CheckCircle, Flag, Gift, PackagePlus, CreditCard, ChevronRight, Eye } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import Image from 'next/image'
+
+// Enlace de WhatsApp Configurado (Solo para cierre final)
+const WA_LINK = "https://wa.me/573102066593?text=Ol%C3%A1%2C%20tenho%20interesse%20nos%20produtos%20e%20pacotes%20da%20Gano%20Excel%20no%20Brasil";
 
 // --- DICCIONARIO DE CONTENIDO (ES / PT) ---
 const content = {
@@ -20,24 +23,65 @@ const content = {
     hero_title_1: "El Gigante ha Despertado.",
     hero_title_2: "Brasil es Territorio Gano Excel.",
     hero_desc: "La economía número 1 de América Latina abre sus puertas. La infraestructura física ya está en São Paulo. La infraestructura digital está en tus manos con CreaTuActivo.",
-    btn_products: "Ver Productos Trufados",
-    btn_expand: "Cómo Expandir mi Red",
+    btn_products: "Ver Promociones", // Ahora lleva a la sección, no a WA
+    btn_expand: "Cómo Afiliarse",
+
+    // --- UPDATE: PROMOCIONES ---
+    promo_title: "Oportunidades Flash",
+    promo_subtitle: "Válido hasta 07 Dic 2025",
+
+    // Textos Visuales de la Tarjeta Derecha
+    promo_visual_top: "CIERRE DE AÑO",
+    promo_visual_middle: "HASTA 07 DIC", // Fecha límite explícita
+
+    promo_1_title: "PAGUE 5, LLEVE 6",
+    promo_1_desc: "En referencias seleccionadas de Café Trufado.",
+
+    promo_2_title: "PRODUCTOS GRATIS",
+    promo_2_desc: "Recibe cajas extra de regalo al comprar tu Paquete Empresarial (ESP 1, 2 o 3).",
+
+    promo_3_title: "NUEVO KIT VISIÓN",
+    promo_3_desc: "Tu puerta de entrada accesible por solo R$ 190,00 (aprox).",
 
     strategy_title: "La Estrategia 'Trufada':",
     strategy_subtitle: "Lujo y Exclusividad",
-    strategy_desc: "Para entrar al mercado brasileño y chileno con total cumplimiento legal, Gano Excel ha ejecutado una jugada maestra de marketing y formulación.",
+    strategy_desc: "Para entrar al mercado brasileño con total cumplimiento legal, Gano Excel ha ejecutado una jugada maestra de marketing y formulación.",
     reto_title: "El Reto Regulatorio",
-    reto_desc: "En Brasil, la regulación sanitaria tiene restricciones específicas sobre la comercialización masiva de 'hongos medicinales' como el Ganoderma en alimentos comunes.",
+    reto_desc: "En Brasil, la regulación sanitaria tiene restricciones sobre la comercialización masiva de 'hongos medicinales' en alimentos.",
     solucion_title: "La Solución Premium",
-    solucion_desc: "Evolucionamos a 'Bebidas Trufadas'. La trufa es sinónimo mundial de lujo gastronómico. Mantenemos el perfil de bienestar pero elevamos el estatus a 'Gourmet'.",
+    solucion_desc: "Evolucionamos a 'Bebidas Trufadas'. La trufa es sinónimo mundial de lujo gastronómico. Mismo bienestar, estatus elevado.",
     note: "* Nota para constructores: El vehículo de bienestar sigue siendo el mismo ADN de excelencia, pero el 'empaque' narrativo se adapta para conquistar el paladar exigente de Brasil.",
+
+    // --- SECCIÓN AFILIACIÓN ---
+    affiliate_title: "¿Cómo Afiliarse a Gano Excel Brasil?",
+    affiliate_subtitle: "Elige tu nivel de entrada al mercado más grande de LATAM.",
+    affiliate_step_1: "Elige tu Paquete",
+    affiliate_step_2: "Registro Oficial",
+    affiliate_step_3: "Activación Digital",
+
+    // Paquetes
+    kit_name: "Kit Visión (Nuevo)",
+    kit_price: "R$ 190,00",
+    kit_desc: "Acceso básico + 2 Cajas de Producto.",
+
+    esp1_name: "Paquete ESP 1",
+    esp1_price: "R$ 900,00",
+    esp1_desc: "+ Regalo: 1 Caja Extra.",
+
+    esp2_name: "Paquete ESP 2",
+    esp2_price: "R$ 2.250,00",
+    esp2_desc: "+ Regalo: 2 Cajas Extra.",
+
+    esp3_name: "Paquete ESP 3",
+    esp3_price: "R$ 4.500,00",
+    esp3_desc: "+ Regalo: 4 Cajas Extra (Máxima Rentabilidad).",
 
     catalog_title: "Colección Brasil 2025",
     catalog_sub: "La fusión perfecta entre el café premium y la sofisticación de la trufa.",
 
     infra_title_1: "Infraestructura Física",
     infra_title_2: "Ya Instalada.",
-    infra_desc: "Gano Excel no llegó a 'probar suerte'. Llegó con infraestructura corporativa completa desde el día 1. Tú no tienes que invertir en oficinas ni logística.",
+    infra_desc: "Gano Excel no llegó a 'probar suerte'. Llegó con infraestructura corporativa completa. Tú no tienes que invertir en oficinas ni logística.",
     hq_title: "Sede Corporativa São Paulo",
     hq_desc: "Av. Rebouças 2455, Pinheiros. El corazón financiero de Brasil.",
     legal_title: "Legalidad Total",
@@ -52,7 +96,7 @@ const content = {
     cta_title_1: "No necesitas vivir en Brasil",
     cta_title_2: "para ganar en Brasil.",
     cta_desc: "Construye tu equipo internacional usando la arquitectura digital de CreaTuActivo.",
-    cta_btn: "Iniciar Expansión",
+    cta_btn: "Iniciar Expansión Ahora",
 
     products: [
       {
@@ -90,24 +134,65 @@ const content = {
     hero_title_1: "O Gigante Acordou.",
     hero_title_2: "Brasil é Território Gano Excel.",
     hero_desc: "A economia número 1 da América Latina abre suas portas. A infraestrutura física já está em São Paulo. A infraestrutura digital está em suas mãos com CreaTuActivo.",
-    btn_products: "Ver Produtos Trufados",
-    btn_expand: "Como Expandir minha Rede",
+    btn_products: "Ver Promoções",
+    btn_expand: "Como se Afiliar",
+
+    // --- UPDATE: PROMOCIONES PT ---
+    promo_title: "Oportunidades Flash",
+    promo_subtitle: "Válido até 07 Dez 2025",
+
+    // Textos Visuais
+    promo_visual_top: "ENCERRAMENTO DE ANO",
+    promo_visual_middle: "ATÉ 07 DEZ", // Data limite explícita
+
+    promo_1_title: "PAGUE 5, LEVE 6",
+    promo_1_desc: "Em referências selecionadas de Café Trufado.",
+
+    promo_2_title: "PRODUTOS GRÁTIS",
+    promo_2_desc: "Receba caixas extras de presente na compra do seu Pacote Empresarial (ESP 1, 2 ou 3).",
+
+    promo_3_title: "NOVO KIT VISÃO",
+    promo_3_desc: "Sua porta de entrada acessível por apenas R$ 190,00 (aprox).",
 
     strategy_title: "A Estratégia 'Trufada':",
     strategy_subtitle: "Luxo e Exclusividade",
     strategy_desc: "Para entrar no mercado brasileiro com total conformidade legal, a Gano Excel executou uma jogada mestre de marketing e formulação.",
     reto_title: "O Desafio Regulatório",
-    reto_desc: "No Brasil, a regulação sanitária possui restrições específicas sobre a comercialização massiva de 'cogumelos medicinais' como o Ganoderma em alimentos comuns.",
+    reto_desc: "No Brasil, a regulação sanitária possui restrições específicas sobre a comercialização massiva de 'cogumelos medicinais' em alimentos.",
     solucion_title: "A Solução Premium",
     solucion_desc: "Evoluímos para 'Bebidas Trufadas'. A trufa é sinônimo mundial de luxo gastronômico. Mantemos o perfil de bem-estar, mas elevamos o status para 'Gourmet'.",
     note: "* Nota para construtores: O veículo de bem-estar continua sendo o mesmo DNA de excelência, mas a narrativa se adapta para conquistar o paladar exigente do Brasil.",
+
+    // --- SECCIÓN AFILIACIÓN ---
+    affiliate_title: "Como se Afiliar à Gano Excel Brasil?",
+    affiliate_subtitle: "Escolha seu nível de entrada no maior mercado da LATAM.",
+    affiliate_step_1: "Escolha seu Pacote",
+    affiliate_step_2: "Cadastro Oficial",
+    affiliate_step_3: "Ativação Digital",
+
+    // Pacotes PT
+    kit_name: "Kit Visão (Novo)",
+    kit_price: "R$ 190,00",
+    kit_desc: "Acesso básico + 2 Caixas de Produto.",
+
+    esp1_name: "Pacote ESP 1",
+    esp1_price: "R$ 900,00",
+    esp1_desc: "+ Presente: 1 Caixa Extra.",
+
+    esp2_name: "Pacote ESP 2",
+    esp2_price: "R$ 2.250,00",
+    esp2_desc: "+ Presente: 2 Caixas Extra.",
+
+    esp3_name: "Pacote ESP 3",
+    esp3_price: "R$ 4.500,00",
+    esp3_desc: "+ Presente: 4 Caixas Extra (Máxima Rentabilidade).",
 
     catalog_title: "Coleção Brasil 2025",
     catalog_sub: "A fusão perfeita entre o café premium e a sofisticação da trufa.",
 
     infra_title_1: "Infraestrutura Física",
     infra_title_2: "Já Instalada.",
-    infra_desc: "A Gano Excel não chegou para 'tentar a sorte'. Chegou com infraestrutura corporativa completa desde o dia 1. Você não precisa investir em escritórios ou logística.",
+    infra_desc: "A Gano Excel não chegou para 'tentar a sorte'. Chegou com infraestrutura corporativa completa. Você não precisa investir em escritórios ou logística.",
     hq_title: "Sede Corporativa São Paulo",
     hq_desc: "Av. Rebouças 2455, Pinheiros. O coração financeiro do Brasil.",
     legal_title: "Legalidade Total",
@@ -122,7 +207,7 @@ const content = {
     cta_title_1: "Você não precisa morar no Brasil",
     cta_title_2: "para ganhar no Brasil.",
     cta_desc: "Construa sua equipe internacional usando a arquitetura digital do CreaTuActivo.",
-    cta_btn: "Iniciar Expansão",
+    cta_btn: "Iniciar Expansão Agora",
 
     products: [
       {
@@ -196,12 +281,20 @@ const GlobalStyles = () => (
     .lang-switch-btn.inactive:hover {
       color: white;
     }
+    .promo-badge {
+      animation: pulse-border 2s infinite;
+    }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(255, 223, 0, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 223, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 223, 0, 0); }
+    }
   `}</style>
 );
 
 export default function BrasilLaunchPage() {
-  const [lang, setLang] = useState<'es' | 'pt'>('es'); // Estado del idioma
-  const t = content[lang]; // Helper para acceder al texto actual
+  const [lang, setLang] = useState<'es' | 'pt'>('es');
+  const t = content[lang];
 
   return (
     <>
@@ -209,75 +302,155 @@ export default function BrasilLaunchPage() {
       <div className="bg-slate-900 text-white min-h-screen font-sans selection:bg-green-500 selection:text-white">
         <StrategicNavigation />
 
-        {/* --- SELECTOR DE IDIOMA FLOTANTE --- */}
+        {/* SELECTOR DE IDIOMA FLOTANTE */}
         <div className="fixed top-24 right-4 z-50 bg-black/40 backdrop-blur-md border border-white/10 rounded-full p-1 flex gap-1 shadow-xl">
-          <button
-            onClick={() => setLang('es')}
-            className={`lang-switch-btn px-3 py-1 rounded-full text-sm ${lang === 'es' ? 'active' : 'inactive'}`}
-          >
-            ES
-          </button>
-          <button
-            onClick={() => setLang('pt')}
-            className={`lang-switch-btn px-3 py-1 rounded-full text-sm ${lang === 'pt' ? 'active' : 'inactive'}`}
-          >
-            PT
-          </button>
+          <button onClick={() => setLang('es')} className={`lang-switch-btn px-3 py-1 rounded-full text-sm ${lang === 'es' ? 'active' : 'inactive'}`}>ES</button>
+          <button onClick={() => setLang('pt')} className={`lang-switch-btn px-3 py-1 rounded-full text-sm ${lang === 'pt' ? 'active' : 'inactive'}`}>PT</button>
         </div>
 
-  {/* Background Effects - CORREGIDO PARA VISIBILIDAD */}
+        {/* Background Effects */}
         <div className="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-
-          {/* 1. Imagen con MÁS opacidad (subimos de 20 a 60) */}
-          <Image
-            src="/images/brasil/ganoexcel-brazil.webp"
-            alt="Fondo Brasil Gano Excel"
-            fill
-            className="object-cover opacity-60"
-            priority
-          />
-
-          {/* 2. Gradiente MÁS SUAVE (bajamos de 80 a 40 en la parte superior) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/4.9 via-slate-900/80 to-black"></div>
+          <Image src="/images/brasil/ganoexcel-brazil.webp" alt="Fondo Brasil Gano Excel" fill className="object-cover opacity-60" priority />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-black"></div>
         </div>
 
         <main className="relative z-10">
 
           {/* SECCIÓN 1: HERO */}
-          <section className="pt-32 pb-20 px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-5xl mx-auto"
-            >
+          <section className="pt-32 pb-10 px-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-5xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
                 <Flag className="w-4 h-4 text-green-400" />
                 <span className="text-sm font-semibold tracking-wider uppercase text-green-400">{t.badge}</span>
               </div>
-
               <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
                 {t.hero_title_1}<br />
-                <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-green-400 bg-clip-text text-transparent">
-                  {t.hero_title_2}
-                </span>
+                <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-green-400 bg-clip-text text-transparent">{t.hero_title_2}</span>
               </h1>
+              <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{t.hero_desc}</p>
 
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-                {t.hero_desc}
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link href="#productos" className="bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg shadow-green-900/20 flex items-center justify-center gap-2">
-                  <Coffee className="w-5 h-5" />
+              {/* BOTONES HERO ACTUALIZADOS */}
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+                <Link href="#promociones" className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg shadow-yellow-500/20 flex items-center justify-center gap-2 promo-badge">
+                  <Gift className="w-5 h-5" />
                   {t.btn_products}
                 </Link>
-                <Link href="/fundadores" className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
+                <Link href="#afiliacion" className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
                   <Globe className="w-5 h-5" />
                   {t.btn_expand}
                 </Link>
               </div>
             </motion.div>
+          </section>
+
+          {/* SECCIÓN ACTUALIZADA: OPORTUNIDADES FLASH */}
+          <section id="promociones" className="py-10 px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-gradient-to-r from-green-900/40 to-slate-900 border border-green-500/30 rounded-2xl p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 bg-yellow-500 text-black font-bold text-xs px-4 py-2 rounded-full transform rotate-12 shadow-lg">
+                  {t.promo_subtitle}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                      <Star className="text-yellow-400 fill-yellow-400" /> {t.promo_title}
+                    </h2>
+
+                    <div className="space-y-4">
+                      {/* Promo 1: 5x6 */}
+                      <div className="flex items-start gap-4 bg-white/5 p-4 rounded-xl">
+                        <Gift className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-bold text-yellow-400">{t.promo_1_title}</h3>
+                          <p className="text-sm text-slate-300">{t.promo_1_desc}</p>
+                        </div>
+                      </div>
+
+                      {/* Promo 2: Productos Gratis en Paquetes */}
+                      <div className="flex items-start gap-4 bg-white/5 p-4 rounded-xl">
+                        <PackagePlus className="w-8 h-8 text-green-400 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-bold text-green-400">{t.promo_2_title}</h3>
+                          <p className="text-sm text-slate-300">{t.promo_2_desc}</p>
+                        </div>
+                      </div>
+
+                      {/* Promo 3: Kit Vision */}
+                      <div className="flex items-start gap-4 bg-white/5 p-4 rounded-xl">
+                        <Eye className="w-8 h-8 text-blue-400 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-bold text-blue-400">{t.promo_3_title}</h3>
+                          <p className="text-sm text-slate-300">{t.promo_3_desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Visual de Acción - ACTUALIZADO CON FECHA EXACTA */}
+                  <div className="bg-slate-800/50 rounded-xl p-6 flex items-center justify-center border border-white/5 h-full">
+                    <div className="text-center">
+                      <p className="text-sm text-slate-400 uppercase tracking-widest mb-2">{t.promo_visual_top}</p>
+                      <p className="text-3xl font-extrabold text-white mb-2">{t.promo_visual_middle}</p>
+                      <p className="text-xl text-yellow-400 font-bold">2025</p>
+                      <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Aprovechar Ahora →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* SECCIÓN ACTUALIZADA: CÓMO AFILIARSE */}
+          <section id="afiliacion" className="py-16 px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.affiliate_title}</h2>
+                <p className="text-slate-400">{t.affiliate_subtitle}</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Kit Visión */}
+                <div className="creatuactivo-card p-5 border-t-4 border-t-blue-400">
+                  <div className="text-xs font-bold text-blue-400 mb-2 uppercase">Entrada Básica</div>
+                  <h3 className="text-lg font-bold text-white mb-1">{t.kit_name}</h3>
+                  <p className="text-xl font-bold text-yellow-400 mb-2">{t.kit_price}</p>
+                  <p className="text-xs text-slate-400 mb-4">{t.kit_desc}</p>
+                </div>
+
+                {/* ESP 1 */}
+                <div className="creatuactivo-card p-5 border-t-4 border-t-green-500">
+                  <div className="text-xs font-bold text-green-500 mb-2 uppercase">Emprendedor</div>
+                  <h3 className="text-lg font-bold text-white mb-1">{t.esp1_name}</h3>
+                  <p className="text-xl font-bold text-yellow-400 mb-2">{t.esp1_price}</p>
+                  <p className="text-xs text-green-400 font-semibold mb-4">{t.esp1_desc}</p>
+                </div>
+
+                {/* ESP 2 */}
+                <div className="creatuactivo-card p-5 border-t-4 border-t-purple-500">
+                  <div className="text-xs font-bold text-purple-500 mb-2 uppercase">Empresarial</div>
+                  <h3 className="text-lg font-bold text-white mb-1">{t.esp2_name}</h3>
+                  <p className="text-xl font-bold text-yellow-400 mb-2">{t.esp2_price}</p>
+                  <p className="text-xs text-purple-400 font-semibold mb-4">{t.esp2_desc}</p>
+                </div>
+
+                {/* ESP 3 */}
+                <div className="creatuactivo-card p-5 border-t-4 border-t-yellow-500 bg-gradient-to-b from-yellow-900/20 to-slate-900">
+                  <div className="text-xs font-bold text-yellow-500 mb-2 uppercase">Fundador</div>
+                  <h3 className="text-lg font-bold text-white mb-1">{t.esp3_name}</h3>
+                  <p className="text-xl font-bold text-yellow-400 mb-2">{t.esp3_price}</p>
+                  <p className="text-xs text-yellow-400 font-semibold mb-4">{t.esp3_desc}</p>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-white text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
+                  {t.cta_btn} <ChevronRight className="ml-2 w-5 h-5" />
+                </a>
+              </div>
+            </div>
           </section>
 
           {/* SECCIÓN 2: EL PIVOT ESTRATÉGICO (TRUFAS) */}
@@ -433,9 +606,9 @@ export default function BrasilLaunchPage() {
                 {t.cta_desc}
               </p>
 
-              <Link href="/fundadores" className="inline-flex items-center bg-white text-slate-900 px-10 py-5 rounded-full font-bold text-xl hover:bg-slate-200 transition-colors shadow-2xl shadow-white/10">
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-white text-slate-900 px-10 py-5 rounded-full font-bold text-xl hover:bg-slate-200 transition-colors shadow-2xl shadow-white/10">
                 {t.cta_btn} <ArrowRight className="ml-2 w-6 h-6" />
-              </Link>
+              </a>
             </div>
           </section>
 

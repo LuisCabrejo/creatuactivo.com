@@ -138,19 +138,6 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   };
 
-  // 🔧 FIX 7: Tooltip dinámico basado en estado
-  const getTooltipText = () => {
-    if (!trackingState.isReady) {
-      return 'Inicializando sistema...';
-    }
-
-    if (trackingState.hasError) {
-      return 'Sistema en modo degradado - Click para continuar';
-    }
-
-    return 'Construye tu activo. NEXUS te guía paso a paso.';
-  };
-
   return (
     <>
       {/* 🎯 BADGE PULSANTE PERMANENTE - Call to Action */}
@@ -171,7 +158,7 @@ const NEXUSFloatingButton: React.FC = () => {
         className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
         style={getButtonStyles()}
         onClick={handleButtonClick}
-        title={getTooltipText()}
+        aria-label="Abrir chat con NEXUS IA"
       >
         <div className="relative">
           {/* 🔧 FIX 8: Icono dinámico basado en estado */}
@@ -199,12 +186,6 @@ const NEXUSFloatingButton: React.FC = () => {
               <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
             </div>
           )}
-        </div>
-
-        {/* Tooltip mejorado */}
-        <div className="absolute right-full mr-4 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-          {getTooltipText()}
-          <div className="absolute top-1/2 -right-1 transform -translate-y-1/2 w-2 h-2 bg-slate-800 rotate-45"></div>
         </div>
       </button>
 

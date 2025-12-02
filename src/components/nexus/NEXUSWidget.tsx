@@ -257,8 +257,39 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               }}
             >
 
-              {/* SALUDO INICIAL - Removido para evitar doble saludo */}
-              {/* El saludo completo lo genera Claude vía streaming */}
+              {/* 🎯 MENSAJE DE BIENVENIDA AUTOMÁTICO - Solo cuando no hay mensajes */}
+              {messages.length === 0 && (
+                <div className="flex message-item">
+                  <div className="bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="font-bold text-white">NEXUS IA</p>
+                        <p className="text-xs text-green-400">🟢 En línea</p>
+                      </div>
+                    </div>
+                    <p className="mb-3 leading-relaxed">
+                      Hola 👋 Soy <strong className="text-amber-400">NEXUS</strong>, tu asistente con IA.
+                    </p>
+                    <p className="mb-3 leading-relaxed">
+                      Puedo responder cualquier duda sobre:
+                    </p>
+                    <ul className="list-disc list-outside ml-4 mb-3 space-y-1 text-sm">
+                      <li>¿Cómo funciona el sistema?</li>
+                      <li>¿Cuánto puedo ganar?</li>
+                      <li>¿Qué tengo que hacer?</li>
+                      <li>Productos Gano Excel</li>
+                    </ul>
+                    <p className="text-sm text-slate-400 italic">
+                      💬 Escribe tu pregunta abajo para empezar...
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
               {messages.map((message, index) => {

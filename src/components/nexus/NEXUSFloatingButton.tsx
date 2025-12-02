@@ -153,6 +153,18 @@ const NEXUSFloatingButton: React.FC = () => {
 
   return (
     <>
+      {/* 🎯 BADGE PULSANTE PERMANENTE - Call to Action */}
+      {!isOpen && trackingState.isReady && !trackingState.hasError && (
+        <div className="fixed bottom-24 right-3 z-40 animate-bounce">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2 animate-pulse">
+            <span className="text-sm font-semibold whitespace-nowrap">💬 Habla con NEXUS</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+        </div>
+      )}
+
       {/* Floating Button - Con verificación de estado */}
       <button
         data-nexus-button

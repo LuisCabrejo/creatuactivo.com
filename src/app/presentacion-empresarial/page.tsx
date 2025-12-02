@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, ShieldCheck, Zap, Award, Video, Rocket, Crown, Heart, Target, Clock, TrendingUp, Users, Sparkles, ChevronDown, Play, Package } from 'lucide-react'
+import { ArrowRight, CheckCircle, ShieldCheck, Zap, Award, Video, Rocket, Crown, Heart, Target, Clock, TrendingUp, Users, Sparkles, ChevronDown, Play, Package, Globe, Cpu } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -551,7 +551,7 @@ export default function PresentacionEmpresarialPage() {
             </div>
           </section>
 
-          {/* SECCIÓN 3: LA TRIADA DE PODER (HOW) */}
+          {/* SECCIÓN 3: TU EQUIPO DE 3 PARTES (Alineado con FAQ_COMPONENTES) */}
           <section id="como-funciona" className="max-w-7xl mx-auto mb-24 lg:mb-32">
              <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Tu Equipo de 3 Partes</h2>
@@ -560,54 +560,41 @@ export default function PresentacionEmpresarialPage() {
                 </p>
              </div>
 
-             {/* TODO: Contenido de "Tu Equipo de 3 Partes" se agregará después para alinearse con FAQ_COMPONENTES */}
-
-          </section>
-
-          {/* SECCIÓN 4: HOW - Cómo Lo Hacemos Diferente */}
-          <section className="py-20 lg:py-28 px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Cómo Lo Hacemos Diferente"
-                subtitle="No eres vendedor. Tienes una aplicación que hace el trabajo pesado por ti."
-              />
-
-              <div className="grid md:grid-cols-3 gap-8">
+             <div className="grid md:grid-cols-3 gap-6">
                 <HOWPillar
-                  icon={<ShieldCheck size={40} />}
-                  title="Producto con Patente Mundial"
-                  porque="mereces algo que nadie más tiene"
-                  description="Gano Excel (30+ años, 100% libre de deudas). No compites con Amazon. No compites con Rappi. Tienes algo único que solo tú puedes ofrecer en tu red."
-                  iconColor="text-green-400"
-                  iconBg="bg-green-500/10"
+                    icon={<Globe size={40} />}
+                    title="1. Gano Excel (Los Materiales)"
+                    porque="necesitas un gigante sólido que maneje lo que no quieres manejar"
+                    description="El gigante corporativo libre de deudas. 30+ años en el mercado. Ellos fabrican productos certificados, manejan permisos sanitarios, logística internacional y te pagan. Tú no tocas una caja."
+                    iconColor="text-green-400"
+                    iconBg="bg-green-500/10"
                 />
                 <HOWPillar
-                  icon={<Target size={40} />}
-                  title="Sistema Probado con 2,847 Personas"
-                  porque="lo que funciona debe ser tan simple que cualquiera pueda repetirlo"
-                  description="Método probado IAA (Iniciar, Acoger, Activar). Ya funcionó 9 años sin tecnología. Ahora automatizado es 10 veces más fácil."
-                  iconColor="text-orange-400"
-                  iconBg="bg-orange-500/10"
+                    icon={<Cpu size={40} />}
+                    title="2. CreaTuActivo.com (El Plano)"
+                    porque="mereces un sistema que haga el trabajo pesado mientras tú vives tu vida"
+                    description="Tu sistema automatizado. NEXUS (IA exclusiva) educa, filtra y cualifica por ti. Dashboard inteligente te dice exactamente qué hacer. El método probado con 9 años de resultados ya viene incluido."
+                    iconColor="text-purple-400"
+                    iconBg="bg-purple-500/10"
                 />
                 <HOWPillar
-                  icon={<Zap size={40} />}
-                  title="CreaTuActivo: Tu Aplicación 24/7"
-                  porque="mereces tener un especialista en conversión trabajando para ti mientras duermes"
-                  description="NEXUS (tu asistente IA) conversa profesionalmente, califica interés real, y te dice exactamente a quién contactar. Tú solo guías el sistema."
-                  iconColor="text-purple-400"
-                  iconBg="bg-purple-500/10"
+                    icon={<Users size={40} />}
+                    title="3. Tú (El Constructor)"
+                    porque="solo tú puedes poner la visión y conectar personas con esta oportunidad"
+                    description="Tu único trabajo es conectar personas con la oportunidad. No tienes que convencer, solo invitar a conocer. Tú pones la visión y el liderazgo. El sistema hace el trabajo pesado."
+                    iconColor="text-blue-400"
+                    iconBg="bg-blue-500/10"
                 />
-              </div>
+             </div>
 
-              <div className="mt-16 text-center max-w-3xl mx-auto">
+             <div className="mt-16 text-center max-w-3xl mx-auto">
                 <p className="text-2xl text-slate-200 leading-relaxed mb-4">
-                  ¿Ves la diferencia?
+                  ¿Ves cómo funciona?
                 </p>
                 <p className="text-xl text-slate-400 leading-relaxed">
-                  No te damos un "negocio para trabajar". Te damos CreaTuActivo: una aplicación completa que trabaja por ti.
+                  Así como un edificio necesita materiales + plano + constructor, tu sistema de distribución necesita estos 3 elementos trabajando juntos.
                 </p>
-              </div>
-            </div>
+             </div>
           </section>
 
           {/* Testimonio Micro 2 */}

@@ -442,111 +442,130 @@ export default function PresentacionEmpresarialPage() {
         </div>
 
         <main className="relative z-10 p-4 lg:p-8">
-          {/* SECCIÓN 1: WHY - Hero Emocional */}
-          <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-24">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-block bg-indigo-500/10 text-indigo-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-indigo-500/30">
-                Una Aplicación para Construir tu Activo
+          {/* SECCIÓN 1: HERO (Analogía Waze/Netflix) */}
+          <section className="text-center max-w-5xl mx-auto mb-20 lg:mb-32">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                <span className="px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 text-sm">
+                  📀 Antes: Alquilar Películas
+                </span>
+                <span className="px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-semibold flex items-center gap-2">
+                  <Play size={14} className="fill-current"/> Hoy: Streaming
+                </span>
               </div>
 
-              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-8">
-                Imagina Despertar y Ver<br />Que Tu Negocio Ya Trabajó Por Ti
+              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6 tracking-tight">
+                Hacerlo difícil ya pasó de moda.<br />
+                <span className="text-white">Deja que la tecnología trabaje.</span>
               </h1>
 
-              <div className="text-xl md:text-2xl text-white mb-6">
-                Se llama CreaTuActivo.
-              </div>
-
-              <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                Tu aplicación personal para construir un activo.
+              <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Pasamos de los mapas de papel a Waze. Pasamos de vender puerta a puerta a <b>CreaTuActivo.</b>
+                <br/>
+                La primera plataforma que construye tu activo mientras tú vives tu vida.
               </p>
 
-              <div className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-10 space-y-3">
-                <p>Mientras dormías, NEXUS respondió 12 conversaciones.</p>
-                <p>Mientras desayunabas con tu familia, 3 personas mostraron interés real.</p>
-                <p>Antes de las 9 AM, ya sabes exactamente qué hacer hoy.</p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                <Link href="#como-funciona" className="creatuactivo-cta-ecosystem w-full sm:w-auto text-lg inline-flex items-center justify-center">
+                  Ver la Tecnología <ArrowRight size={20} className="ml-2" />
+                </Link>
+                <Link href="#calculadora" className="px-8 py-4 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors w-full sm:w-auto text-slate-300">
+                  ¿Cuánto puedo ganar?
+                </Link>
               </div>
 
-              <div className="creatuactivo-why-card p-8 lg:p-12 max-w-3xl mx-auto mb-10">
-                <div className="text-center mb-6">
-                  <div className="inline-block bg-indigo-500/10 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-indigo-500/20">
-                    La Diferencia Clave
-                  </div>
-                </div>
-
-                <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                  La mayoría intercambia tiempo por dinero toda su vida.
-                </p>
-
-                <p className="text-xl lg:text-2xl text-white leading-relaxed mb-6 text-left">
-                  Nosotros creemos que deberías construir un sistema que genere ingresos independiente de tu tiempo.
-                </p>
-
-                <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
-                  Por eso creamos CreaTuActivo: tu propia plataforma de distribución donde los productos fluyen y tú solo guías el sistema.
-                </p>
+              {/* NEXUS DEMO MOCKUP (Concepto Visual) */}
+              <div className="creatuactivo-component-card max-w-3xl mx-auto p-1 rounded-2xl border-t border-white/10 shadow-2xl">
+                 <div className="bg-slate-900/90 rounded-xl p-6 md:p-8 text-left">
+                    <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 flex items-center justify-center">
+                            <Sparkles size={20} className="text-white" />
+                        </div>
+                        <div>
+                            <p className="font-bold text-white">NEXUS IA</p>
+                            <p className="text-xs text-green-400 flex items-center gap-1">● Trabajando ahora mismo</p>
+                        </div>
+                    </div>
+                    <div className="space-y-4 font-mono text-sm">
+                        <div className="bg-slate-800/50 p-3 rounded-lg rounded-tl-none inline-block max-w-[85%] text-slate-300">
+                           <span className="text-purple-400 font-bold">NEXUS:</span> He detectado 3 nuevos interesados en Bogotá mientras dormías. Ya les expliqué el modelo de negocio.
+                        </div>
+                        <div className="bg-slate-800/50 p-3 rounded-lg rounded-tl-none inline-block max-w-[85%] text-slate-300">
+                           <span className="text-purple-400 font-bold">NEXUS:</span> ¿Deseas que agende una videollamada solo con los 2 que están listos para iniciar?
+                        </div>
+                        <div className="flex justify-end">
+                            <div className="bg-blue-600/20 border border-blue-500/50 p-3 rounded-lg rounded-tr-none inline-block text-blue-200">
+                                Sí, por favor. Encárgate del resto.
+                            </div>
+                        </div>
+                    </div>
+                 </div>
               </div>
+              <p className="mt-4 text-xs text-slate-500 uppercase tracking-widest">
+                Tu sistema operativo de distribución
+              </p>
 
-              <Link href="#contraste" className="creatuactivo-cta-ecosystem text-lg inline-flex items-center">
-                Ver Cómo Funciona <ArrowRight size={20} className="ml-2" />
-              </Link>
             </motion.div>
           </section>
 
-          {/* Testimonio Micro 1 */}
-          <section className="max-w-3xl mx-auto mb-20">
-            <TestimonialMicro
-              quote="Cuando Luis me dijo 'tu tiempo es más valioso que dinero', algo hizo clic. Llevaba 15 años intercambiando mi vida por un salario. Ya no más."
-              author="Carlos M."
-              role="Fundador"
-            />
+          {/* Testimonio 1 */}
+          <section className="mb-24">
+             <TestimonialMicro
+                quote="Yo no sé vender y me daba terror cobrarle a mis amigos. Cuando vi que Nexus hacía esa parte 'incómoda' por mí, supe que este negocio sí lo podía hacer."
+                author="Andrés R."
+                role="Ingeniero & Fundador"
+             />
           </section>
 
-          {/* SECCIÓN 2: Contraste de Paradigmas */}
-          <section id="contraste" className="py-20 lg:py-28 px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Dos Caminos. Una Decisión."
-                subtitle="La mayoría sigue el camino tradicional sin cuestionarlo. Pero hay otra forma."
-              />
+          {/* SECCIÓN 2: EL PROBLEMA VS LA SOLUCIÓN */}
+          <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
+            <SectionHeader
+                title="El Juego Cambió"
+                subtitle="El mundo se divide en dos: los que siguen operando manual y los que construyen sistemas."
+            />
 
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
                 <ContrastColumn
-                  title="Camino Tradicional"
-                  color="old"
-                  items={[
-                    "40 años trabajando para otros",
-                    "Intercambias tiempo por dinero",
-                    "Tu ingreso depende de tu esfuerzo",
-                    "Pensión de $400/mes a los 65",
-                    '"Espero llegar a jubilación"'
-                  ]}
+                    title="La Forma Antigua"
+                    color="old"
+                    items={[
+                        "Perseguir amigos y familiares",
+                        "Explicar el negocio 100 veces",
+                        "Manejar inventario y cobros",
+                        "Si tú no estás, el negocio para",
+                        "Estrés y rechazo constante"
+                    ]}
                 />
                 <ContrastColumn
-                  title="La Forma Nueva"
-                  color="new"
-                  items={[
-                    "Trabajar 3-5 años, cosechar 30+",
-                    "Creas el sistema que trabaja cuando tú no trabajas",
-                    "Tu ingreso es independiente de ti",
-                    "Lo dejas a tus hijos y nietos",
-                    '"Creo mi propia libertad"'
-                  ]}
+                    title="El Ecosistema (Tu Activo)"
+                    color="new"
+                    items={[
+                        "Los interesados llegan a ti (Atracción)",
+                        "NEXUS explica el negocio perfecto siempre",
+                        "El corporativo maneja la logística",
+                        "El sistema trabaja 24/7",
+                        "Certeza y crecimiento inteligente"
+                    ]}
                 />
-              </div>
-
-              <div className="text-center max-w-2xl mx-auto p-8 bg-blue-500/10 border border-blue-500/20 rounded-xl">
-                <p className="text-xl text-slate-200 leading-relaxed">
-                  La pregunta no es "¿cuál prefieres?"
-                  <br /><br />
-                  La pregunta es "¿cuál estás construyendo HOY?"
-                </p>
-              </div>
             </div>
           </section>
 
-          {/* SECCIÓN 3: HOW - Cómo Lo Hacemos Diferente */}
-          <section className="py-20 lg:py-28 px-4 bg-slate-900/50 rounded-3xl">
+          {/* SECCIÓN 3: LA TRIADA DE PODER (HOW) */}
+          <section id="como-funciona" className="max-w-7xl mx-auto mb-24 lg:mb-32">
+             <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Tu Equipo de 3 Partes</h2>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                    Para ganar en grande, no necesitas hacerlo todo. Necesitas las alianzas correctas.
+                </p>
+             </div>
+
+             {/* TODO: Contenido de "Tu Equipo de 3 Partes" se agregará después para alinearse con FAQ_COMPONENTES */}
+
+          </section>
+
+          {/* SECCIÓN 4: HOW - Cómo Lo Hacemos Diferente */}
+          <section className="py-20 lg:py-28 px-4">
             <div className="max-w-7xl mx-auto">
               <SectionHeader
                 title="Cómo Lo Hacemos Diferente"

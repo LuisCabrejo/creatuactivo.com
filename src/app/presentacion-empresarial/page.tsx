@@ -470,7 +470,7 @@ export default function PresentacionEmpresarialPage() {
                 <Link href="#como-funciona" className="creatuactivo-cta-ecosystem w-full sm:w-auto text-lg inline-flex items-center justify-center">
                   Ver la Tecnología <ArrowRight size={20} className="ml-2" />
                 </Link>
-                <Link href="#calculadora" className="px-8 py-4 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors w-full sm:w-auto text-slate-300">
+                <Link href="#visualiza-resultados" className="px-8 py-4 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors w-full sm:w-auto text-slate-300">
                   ¿Cuánto puedo ganar?
                 </Link>
               </div>
@@ -670,20 +670,26 @@ export default function PresentacionEmpresarialPage() {
           </section>
 
           {/* SECCIÓN 5: WHAT - Visualiza Tu Libertad */}
-          <section className="py-20 lg:py-28 px-4 bg-slate-900/70 rounded-3xl">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Visualiza Tus Resultados"
-                subtitle="Estos números no son solo cifras. Son horas con tus hijos. Son meses de independencia financiera. Son generaciones de legado."
-              />
-
-              <div className="max-w-4xl mx-auto mb-12 p-8 bg-blue-500/5 border border-blue-500/20 rounded-xl">
-                <p className="text-xl text-slate-200 leading-relaxed text-center">
-                  12 formas de ganar dinero.
-                  <br /><br />
-                  Las dos principales: Bonos por paquetes empresariales (ingreso activo) y Bonos semanales por consumo (ingreso residual).
-                </p>
+          <section id="visualiza-resultados" className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-slate-900/50 px-8 py-12 rounded-3xl border border-slate-800">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-bold uppercase mb-4">
+                <TrendingUp size={14} /> Proyección Financiera
               </div>
+              <h2 className="text-3xl font-bold text-white mb-4">No es Magia, es Matemática</h2>
+              <p className="text-slate-400">
+                Esto pasa cuando combinas un producto de consumo masivo (café) con un sistema de retención.
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto mb-12 p-6 bg-blue-500/5 border border-blue-500/20 rounded-xl">
+              <p className="text-lg text-slate-200 leading-relaxed text-center">
+                Existen 12 formas de ganar. Para este ejemplo, te mostramos 2 de ellas:
+                <br />
+                <span className="text-blue-300 font-semibold">Bonos por paquetes empresariales</span> (ingreso activo) y <span className="text-blue-300 font-semibold">Bonos semanales por consumo</span> (ingreso residual).
+              </p>
+            </div>
+
+            <div className="max-w-7xl mx-auto">
 
               <div className="grid lg:grid-cols-2 gap-8">
                 {/* Calculadora Capitalización */}

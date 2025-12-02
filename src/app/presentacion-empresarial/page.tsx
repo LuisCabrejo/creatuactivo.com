@@ -443,7 +443,7 @@ export default function PresentacionEmpresarialPage() {
 
         <main className="relative z-10 p-4 lg:p-8">
           {/* SECCIÓN 1: HERO (Analogía Waze/Netflix) */}
-          <section className="text-center max-w-5xl mx-auto mb-20 lg:mb-32">
+          <section className="text-center max-w-5xl mx-auto py-20 lg:py-32 pt-24">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
 
               <div className="flex flex-wrap justify-center gap-3 mb-8">

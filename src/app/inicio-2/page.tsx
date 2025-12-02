@@ -370,7 +370,7 @@ export default function Inicio2Page() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-white text-lg mb-1">Con un Sistema Probado</h3>
-                      <p className="text-slate-400">Entregando el Framework IAA como el plano para una construcción predecible.</p>
+                      <p className="text-slate-400">Entregando el método probado como el plano para una construcción predecible.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">

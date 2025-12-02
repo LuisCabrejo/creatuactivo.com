@@ -165,7 +165,7 @@ export default function ProfesionalCorporativoPage() {
                                 <div className="bg-purple-500/10 p-4 rounded-xl"><BrainCircuit className="w-8 h-8 text-purple-300"/></div>
                                 <div className="flex-1 text-center md:text-left">
                                     <h4 className="text-xl font-bold text-white">Apalanca tu Experiencia</h4>
-                                    <p className="text-slate-400">Tus habilidades de gestión, estrategia y comunicación son oro puro aquí. El Framework IAA te da el sistema para canalizar esa experiencia en un activo que te pertenece.</p>
+                                    <p className="text-slate-400">Tus habilidades de gestión, estrategia y comunicación son oro puro aquí. El método probado te da el sistema para canalizar esa experiencia en un activo que te pertenece.</p>
                                 </div>
                             </div>
                              <div className="flex flex-col md:flex-row items-center gap-6">

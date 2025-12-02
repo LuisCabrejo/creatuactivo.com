@@ -300,7 +300,7 @@ export default function PlanesTecnologicosPage() {
                                 <div className="bg-slate-800/50 p-6 rounded-xl border border-green-500/20">
                                     <BrainCircuit className="w-12 h-12 text-green-400 mx-auto mb-4"/>
                                     <h3 className="text-xl font-bold text-white mb-3">Valida la Metodología</h3>
-                                    <p className="text-slate-300">30 prospectos son suficientes para probar el Framework IAA y ver resultados reales.</p>
+                                    <p className="text-slate-300">30 prospectos son suficientes para probar el método probado y ver resultados reales.</p>
                                 </div>
                                 <div className="bg-slate-800/50 p-6 rounded-xl border border-purple-500/20">
                                     <MessageSquare className="w-12 h-12 text-purple-400 mx-auto mb-4"/>

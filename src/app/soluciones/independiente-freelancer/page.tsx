@@ -158,7 +158,7 @@ export default function IndependienteFreelancerPage() {
                                 <div className="bg-blue-500/10 p-4 rounded-xl"><Zap className="w-8 h-8 text-blue-300"/></div>
                                 <div className="flex-1 text-center md:text-left">
                                     <h4 className="text-xl font-bold text-white">Multiplica tu Impacto, no tus Horas</h4>
-                                    <p className="text-slate-400">El Framework IAA te permite replicar tu capacidad de conectar y generar confianza a través de un sistema. En lugar de una conversación a la vez, inicias cientos de forma automatizada.</p>
+                                    <p className="text-slate-400">El método probado te permite replicar tu capacidad de conectar y generar confianza a través de un sistema. En lugar de una conversación a la vez, inicias cientos de forma automatizada.</p>
                                 </div>
                             </div>
                              <div className="flex flex-col md:flex-row items-center gap-6">

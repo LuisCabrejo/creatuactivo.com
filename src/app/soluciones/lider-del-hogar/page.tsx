@@ -165,7 +165,7 @@ export default function LiderDelHogarPage() {
                                 <div className="bg-purple-500/10 p-4 rounded-xl"><BrainCircuit className="w-8 h-8 text-purple-300"/></div>
                                 <div className="flex-1 text-center md:text-left">
                                     <h4 className="text-xl font-bold text-white">Capitaliza tus Superpoderes</h4>
-                                    <p className="text-slate-400">La empatía, la gestión del tiempo y la creación de redes son tus superpoderes. El Framework IAA te da el sistema para convertir esas habilidades innatas en un activo profesional y rentable.</p>
+                                    <p className="text-slate-400">La empatía, la gestión del tiempo y la creación de redes son tus superpoderes. El método probado te da el sistema para convertir esas habilidades innatas en un activo profesional y rentable.</p>
                                 </div>
                             </div>
                              <div className="flex flex-col md:flex-row items-center gap-6">

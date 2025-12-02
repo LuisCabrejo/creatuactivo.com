@@ -158,7 +158,7 @@ export default function EmprendedorActualPage() {
                                 <div className="bg-blue-500/10 p-4 rounded-xl"><Zap className="w-8 h-8 text-blue-300"/></div>
                                 <div className="flex-1 text-center md:text-left">
                                     <h4 className="text-xl font-bold text-white">Automatización que Libera</h4>
-                                    <p className="text-slate-400">El Framework IAA y NEXUS IA se encargan del 80% de las tareas de bajo nivel (presentar, seguir, educar), liberándote para que te dediques a lo que solo tú puedes hacer: la estrategia.</p>
+                                    <p className="text-slate-400">El método probado y NEXUS IA se encargan del 80% de las tareas de bajo nivel (presentar, seguir, educar), liberándote para que te dediques a lo que solo tú puedes hacer: la estrategia.</p>
                                 </div>
                             </div>
                              <div className="flex flex-col md:flex-row items-center gap-6">

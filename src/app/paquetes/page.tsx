@@ -175,7 +175,7 @@ export default function PaquetesPage() { // AJUSTE: Nombre del componente para m
                                     bonusIcon={<Zap size={24}/>}
                                     features={[
                                         "Acceso completo al ecosistema",
-                                        "Framework IAA completo",
+                                        "método completo",
                                         "Inventario inicial de validación",
                                         "Tecnología NodeX incluida"
                                     ]}
@@ -216,7 +216,7 @@ export default function PaquetesPage() { // AJUSTE: Nombre del componente para m
                                 />
                             </div>
                             <div className="text-center mt-12 text-slate-400">
-                                <p>Todos los paquetes incluyen el acceso total a la plataforma CreaTuActivo.com y al Framework IAA.</p>
+                                <p>Todos los paquetes incluyen el acceso total a la plataforma CreaTuActivo.com y al método probado.</p>
                                 {/* NUEVO: Enlace a la nueva página de planes */}
                                 <p className="mt-2">Como Fundador, tu paquete desbloquea meses de cortesía de nuestra maquinaria tecnológica.
                                   <Link href="/planes" className="font-semibold text-blue-400 hover:text-blue-300 transition-colors ml-2">

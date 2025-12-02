@@ -2481,17 +2481,17 @@ La única inversión recurrente es de 50 PV (aprox. $450,000 COP), que recibes �
 Tu trabajo se transforma de operador a arquitecto estratégico. Con el método probado, te enfocas en tres acciones clave:
 
 **INICIAR (La Chispa):**
-- Conectas personas con el ecosistema usando herramientas automatizadas
+- Compartes un enlace por WhatsApp con personas que conoces
 - La aplicación CreaTuActivo y NEXUS educan y cualifican por ti
 - Tu rol: Ser el puente inicial
 
 **ACOGER (El Consultor):**
-- Aportas el toque humano cuando el sistema detecta el momento óptimo
+- Tienes una llamada de 20-30 minutos cuando alguien dice "quiero saber más"
 - Das confianza y validas el ajuste
 - Tu rol: Consultoría estratégica (no ventas)
 
 **ACTIVAR (El Mentor):**
-- Entregas las llaves del ecosistema a nuevos constructores
+- Les das acceso a su aplicación CreaTuActivo
 - Enseñas el primer paso y acompañas el arranque
 - Tu rol: Mentoría y transferencia de conocimiento
 

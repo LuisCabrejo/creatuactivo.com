@@ -1,9 +1,35 @@
 # 🐛 CORRECCIÓN: "Framework IAA" en Código Hardcoded
 
 **Fecha:** 2 de Diciembre, 2025
-**Deploy:** https://marketing-mrkoj7m62-luis-cabrejo-s-projects.vercel.app
+**Deploy 1 (NEXUS API + Componentes):** https://marketing-mrkoj7m62-luis-cabrejo-s-projects.vercel.app
+**Deploy 2 (Landing Pages):** https://marketing-g5agv5zjp-luis-cabrejo-s-projects.vercel.app
 
 ---
+
+## 🆕 DEPLOY 2 - Landing Pages (7 archivos adicionales)
+
+Después del primer deploy, se identificaron **7 landing pages públicas** con "Framework IAA":
+
+**Archivos corregidos:**
+1. [src/app/soluciones/emprendedor-negocio/page.tsx](src/app/soluciones/emprendedor-negocio/page.tsx)
+2. [src/app/soluciones/lider-del-hogar/page.tsx](src/app/soluciones/lider-del-hogar/page.tsx)
+3. [src/app/soluciones/profesional-con-vision/page.tsx](src/app/soluciones/profesional-con-vision/page.tsx)
+4. [src/app/soluciones/independiente-freelancer/page.tsx](src/app/soluciones/independiente-freelancer/page.tsx)
+5. [src/app/paquetes/page.tsx](src/app/paquetes/page.tsx)
+6. [src/app/planes/page.tsx](src/app/planes/page.tsx)
+7. [src/app/inicio-2/page.tsx](src/app/inicio-2/page.tsx)
+
+**Reemplazos:** 8 instancias totales
+
+**Script creado:** [scripts/actualizar-framework-iaa-landing-pages.mjs](scripts/actualizar-framework-iaa-landing-pages.mjs)
+
+**Commit:** 6c29bfb
+
+**Status:** ✅ Desplegado en producción
+
+---
+
+## 📋 DEPLOY 1 - NEXUS API + Componentes
 
 ## 📋 PROBLEMA REPORTADO
 

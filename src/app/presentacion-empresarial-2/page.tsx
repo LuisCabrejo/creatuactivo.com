@@ -2,17 +2,14 @@
  * Copyright © 2025 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * Versión Optimizada: Estrategia "Nexus Protagonista" & "Método Conquista"
  */
 
 'use client'
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, ShieldCheck, Zap, Award, Video, Rocket, Crown, Heart, Target, Clock, TrendingUp, Users, Sparkles, ChevronDown, Play, Package } from 'lucide-react'
+import { ArrowRight, CheckCircle, ShieldCheck, Zap, Award, Video, Rocket, Crown, Heart, Target, Clock, TrendingUp, Users, Sparkles, ChevronDown, Play, Package, Cpu, Globe, Smartphone } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -26,7 +23,7 @@ const GlobalStyles = () => (
     }
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #93C5FD 50%, #A78BFA 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.1;
@@ -45,59 +42,26 @@ const GlobalStyles = () => (
         -webkit-text-fill-color: transparent;
     }
     .creatuactivo-component-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
       backdrop-filter: blur(24px);
-      border: 1px solid rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.15);
       border-radius: 20px;
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
     }
     .creatuactivo-component-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.15);
     }
-    .creatuactivo-why-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.12) 0%, rgba(124, 58, 237, 0.12) 100%);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-radius: 20px;
-      transition: all 0.4s ease;
-    }
-    .creatuactivo-why-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
-    }
-    .creatuactivo-contrast-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-radius: 16px;
-      transition: all 0.4s ease;
-    }
-    .creatuactivo-contrast-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
-    }
-    .creatuactivo-package-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-radius: 20px;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-    .creatuactivo-package-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
+    .creatuactivo-highlight-card {
+        background: linear-gradient(135deg, rgba(30, 64, 175, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+        border: 1px solid rgba(147, 197, 253, 0.3);
     }
     .creatuactivo-cta-ecosystem {
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
-      border-radius: 16px;
+      border-radius: 12px;
       padding: 18px 36px;
       font-weight: 700;
       color: white;
@@ -106,7 +70,8 @@ const GlobalStyles = () => (
     }
     .creatuactivo-cta-ecosystem:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
+      box-shadow: 0 12px 35px rgba(30, 64, 175, 0.6);
+      filter: brightness(1.1);
     }
     .creatuactivo-faq-item {
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
@@ -115,8 +80,16 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
     }
     .creatuactivo-faq-item:hover {
-      border-color: rgba(245, 158, 11, 0.3);
+      border-color: rgba(147, 197, 253, 0.3);
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.12) 0%, rgba(124, 58, 237, 0.12) 100%);
+    }
+    /* Animación sutil para el fondo */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.2; }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
   `}</style>
 );
@@ -125,74 +98,62 @@ const GlobalStyles = () => (
 const SectionHeader = ({ title, subtitle }: { title: string, subtitle: string }) => (
   <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
     <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-4">{title}</h2>
-    <p className="text-slate-400 text-lg">{subtitle}</p>
+    <p className="text-slate-400 text-lg leading-relaxed">{subtitle}</p>
   </div>
 );
 
-const WhyCard = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    className="flex items-start gap-4 mb-6"
-  >
-    <div className="text-blue-400 flex-shrink-0 mt-1">
-      {icon}
-    </div>
-    <p className="text-xl text-slate-200 leading-relaxed">{text}</p>
-  </motion.div>
-);
-
 const ContrastColumn = ({ title, items, color }: { title: string, items: string[], color: 'old' | 'new' }) => (
-  <div className="creatuactivo-contrast-card p-6">
-    <h3 className={`text-2xl font-bold mb-6 ${color === 'old' ? 'text-slate-400' : 'text-blue-400'}`}>
-      {title}
-    </h3>
+  <div className={`p-6 rounded-2xl ${color === 'old' ? 'bg-slate-800/30 border border-slate-700/50' : 'creatuactivo-component-card creatuactivo-highlight-card'}`}>
+    <div className="flex items-center justify-between mb-6">
+      <h3 className={`text-2xl font-bold ${color === 'old' ? 'text-slate-400' : 'text-blue-400'}`}>
+        {title}
+      </h3>
+      {color === 'new' && <Cpu className="text-purple-400 w-6 h-6" />}
+    </div>
     <ul className="space-y-4">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-start gap-3">
-          <span className={`text-2xl ${color === 'old' ? 'text-slate-500' : 'text-green-400'}`}>
+          <span className={`text-xl font-bold mt-1 ${color === 'old' ? 'text-slate-600' : 'text-green-400'}`}>
             {color === 'old' ? '✗' : '✓'}
           </span>
-          <span className="text-slate-300">{item}</span>
+          <span className={`text-base ${color === 'old' ? 'text-slate-500' : 'text-slate-200'}`}>{item}</span>
         </li>
       ))}
     </ul>
   </div>
 );
 
-const HOWPillar = ({ icon, title, porque, description, iconColor, iconBg }: { icon: React.ReactNode, title: string, porque: string, description: string, iconColor: string, iconBg: string }) => (
+const HOWPillar = ({ icon, title, description, highlight }: { icon: React.ReactNode, title: string, description: string, highlight?: boolean }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.95 }}
     whileInView={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.5 }}
-    className="creatuactivo-component-card p-8"
+    className={`p-8 rounded-2xl h-full flex flex-col ${highlight ? 'creatuactivo-component-card border-blue-400/30' : 'bg-slate-800/30 border border-slate-700/50'}`}
   >
-    <div className={`inline-block ${iconBg} p-4 rounded-xl mb-4`}>
-      <div className={iconColor}>
-        {icon}
-      </div>
+    <div className={`inline-block p-3 rounded-xl mb-5 w-fit ${highlight ? 'bg-blue-500/20 text-blue-400' : 'bg-slate-700/30 text-slate-400'}`}>
+      {icon}
     </div>
-    <h3 className="text-2xl font-bold mb-3 text-white">{title}</h3>
-    <p className="text-blue-400 italic mb-4 text-sm">
-      <span className="font-semibold">Porque creemos que</span> {porque}
-    </p>
-    <p className="text-slate-400 leading-relaxed">{description}</p>
+    <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
+    <p className="text-slate-400 leading-relaxed text-sm flex-grow">{description}</p>
   </motion.div>
 );
 
 const TestimonialMicro = ({ quote, author, role }: { quote: string, author: string, role: string }) => (
   <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
-    className="bg-blue-500/5 border-l-4 border-blue-500 p-6 rounded-r-xl"
+    className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-700/50 p-6 rounded-2xl max-w-2xl mx-auto shadow-xl"
   >
-    <p className="text-slate-300 italic mb-3">"{quote}"</p>
-    <p className="text-sm">
-      <span className="font-semibold text-white">{author}</span>
-      <span className="text-slate-500"> — {role}</span>
-    </p>
+    <p className="text-slate-300 italic mb-4 text-center text-lg">"{quote}"</p>
+    <div className="flex justify-center items-center gap-2">
+      <div className="h-1 w-8 bg-blue-500 rounded-full"></div>
+      <p className="text-sm">
+        <span className="font-semibold text-white">{author}</span>
+        <span className="text-slate-500"> — {role}</span>
+      </p>
+      <div className="h-1 w-8 bg-blue-500 rounded-full"></div>
+    </div>
   </motion.div>
 );
 
@@ -206,7 +167,7 @@ const PackageCard = ({
   bonusPlan,
   bonusIcon,
   ctaText = "Activar Plan",
-  highlighted = false
+  isPopular
 }: {
   title: string
   priceUSD: string
@@ -217,42 +178,42 @@ const PackageCard = ({
   bonusPlan: string
   bonusIcon: React.ReactNode
   ctaText?: string
-  highlighted?: boolean
+  isPopular?: boolean
 }) => (
-  <div className={`creatuactivo-package-card h-full flex flex-col`}>
-    <div className="p-8 flex-grow flex flex-col">
+  <div className={`h-full flex flex-col rounded-2xl relative overflow-hidden transition-all duration-300 ${isPopular ? 'creatuactivo-component-card border-purple-500/40 transform lg:-translate-y-4 shadow-2xl z-10' : 'bg-slate-900/50 border border-slate-700/50'}`}>
+
+    {isPopular && (
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-bold text-center py-1 absolute top-0 left-0 w-full uppercase tracking-wider">
+        Más Elegido por Fundadores
+      </div>
+    )}
+
+    <div className={`p-8 flex-grow flex flex-col ${isPopular ? 'pt-10' : ''}`}>
       <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
-      <div className="mb-4">
-        <span className="text-sm text-slate-400">Inversión inicial</span>
-        <div>
+      <div className="mb-6">
+        <div className="flex items-baseline gap-1">
           <span className="text-4xl font-extrabold text-white">${priceUSD}</span>
-          <span className="text-slate-400"> USD</span>
+          <span className="text-slate-400 font-medium">USD</span>
         </div>
-        <p className="text-sm text-slate-500">~ ${priceCOP} COP</p>
+        <p className="text-sm text-slate-500">~ ${priceCOP} COP (Pago Único)</p>
       </div>
 
-      <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg mb-6">
-        <p className="text-sm text-blue-400 font-semibold mb-2">POR QUÉ ESTA OPCIÓN:</p>
-        <p className="text-slate-300 text-sm italic">{purpose}</p>
-      </div>
-
-      <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10 mb-6">
-        <div className="flex items-center gap-3">
-          <div className="text-yellow-400">{bonusIcon}</div>
-          <div>
-            <p className="font-bold text-white text-sm">Bono Tecnológico Incluido</p>
-            <p className="text-xs text-slate-300">
-              <span className="font-semibold">{bonusMonths} Meses de Cortesía</span> del <span className="font-semibold">{bonusPlan}</span>
-            </p>
-          </div>
+      <div className="bg-slate-800/50 rounded-lg p-4 mb-6 border border-white/5">
+        <div className="flex items-start gap-3">
+           <div className="text-purple-400 mt-0.5">{bonusIcon}</div>
+           <div>
+             <p className="text-sm font-bold text-white">Tecnología Incluida (Valor $0)</p>
+             <p className="text-xs text-slate-400 mt-1">
+               Tu acceso a <b>NEXUS & Ecosistema</b> está bonificado al 100% por pertenecer al equipo.
+             </p>
+           </div>
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 font-semibold mb-3">LO QUE RECIBES:</p>
       <ul className="space-y-3 text-slate-300 flex-grow mb-8">
         {features.map((feature, index) => (
           <li key={index} className="flex items-start">
-            <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+            <CheckCircle className={`w-5 h-5 mr-3 mt-0.5 flex-shrink-0 ${isPopular ? 'text-green-400' : 'text-slate-500'}`} />
             <span className="text-sm">{feature}</span>
           </li>
         ))}
@@ -260,7 +221,10 @@ const PackageCard = ({
 
       <Link
         href="/fundadores"
-        className="w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+        className={`w-full text-center font-semibold py-4 px-6 rounded-xl transition-all duration-300 mt-auto ${isPopular
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg hover:shadow-purple-500/25'
+            : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-600'
+        }`}
       >
         {ctaText}
       </Link>
@@ -271,101 +235,21 @@ const PackageCard = ({
 const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Function to parse simple markdown-like formatting with keyword highlighting
-  const parseAnswer = (text: string) => {
-    // Keywords to highlight in amber/gold
-    const keywords = ['FALLAR', 'TODOS', 'QUIENES YA CREEN', 'CONVENCER ESCÉPTICOS', 'ENCONTRAR believers', 'VERIFICA', 'PREGUNTA REAL', 'VERDAD', 'LA VENTAJA', 'TU TRABAJO', 'MERECEN', 'TIEMPO', 'LIBERTAD'];
-
-    const highlightKeywords = (content: string) => {
-      let result = content;
-      const parts: Array<{text: string, isKeyword: boolean}> = [];
-      let remaining = content;
-
-      // Find all keyword matches
-      const matches: Array<{word: string, index: number}> = [];
-      keywords.forEach(keyword => {
-        let index = remaining.toUpperCase().indexOf(keyword.toUpperCase());
-        while (index !== -1) {
-          matches.push({word: keyword, index});
-          index = remaining.toUpperCase().indexOf(keyword.toUpperCase(), index + 1);
-        }
-      });
-
-      if (matches.length === 0) return content;
-
-      // Sort by index
-      matches.sort((a, b) => a.index - b.index);
-
-      let lastIndex = 0;
-      const elements: JSX.Element[] = [];
-
-      matches.forEach((match, i) => {
-        if (match.index > lastIndex) {
-          elements.push(<span key={`text-${i}`}>{remaining.substring(lastIndex, match.index)}</span>);
-        }
-        elements.push(
-          <span key={`keyword-${i}`} className="text-amber-400 font-semibold">
-            {remaining.substring(match.index, match.index + match.word.length)}
-          </span>
-        );
-        lastIndex = match.index + match.word.length;
-      });
-
-      if (lastIndex < remaining.length) {
-        elements.push(<span key="text-end">{remaining.substring(lastIndex)}</span>);
-      }
-
-      return elements.length > 0 ? <>{elements}</> : content;
-    };
-
-    const lines = text.split('\n');
-    return lines.map((line, index) => {
-      // Check if line is bold (wrapped in **)
-      if (line.match(/^\*\*.*\*\*$/)) {
-        const content = line.replace(/^\*\*/, '').replace(/\*\*$/, '');
-        return <p key={index} className="font-bold text-white mb-2">{highlightKeywords(content)}</p>;
-      }
-      // Check if line contains inline bold
-      if (line.includes('**')) {
+  // Función simple para resaltar negritas en el texto markdown
+  const formatText = (text: string) => {
+    return text.split('\n').map((line, i) => {
+        if (!line) return <div key={i} className="h-2" />;
         const parts = line.split(/(\*\*.*?\*\*)/g);
         return (
-          <p key={index} className="text-slate-300 leading-relaxed mb-2">
-            {parts.map((part, i) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                const boldContent = part.replace(/\*\*/g, '');
-                return <span key={i} className="font-bold text-white">{highlightKeywords(boldContent)}</span>;
-              }
-              return <span key={i}>{highlightKeywords(part)}</span>;
-            })}
-          </p>
+            <p key={i} className="mb-2 text-slate-300 leading-relaxed text-sm lg:text-base">
+                {parts.map((part, j) => {
+                    if (part.startsWith('**') && part.endsWith('**')) {
+                        return <span key={j} className="text-white font-bold">{part.replace(/\*\*/g, '')}</span>;
+                    }
+                    return part;
+                })}
+            </p>
         );
-      }
-      // Check if line is a bullet point
-      if (line.startsWith('• ')) {
-        const content = line.substring(2);
-        // Check if bullet contains bold
-        if (content.includes('**')) {
-          const parts = content.split(/(\*\*.*?\*\*)/g);
-          return (
-            <li key={index} className="ml-6 mb-2 text-slate-300">
-              {parts.map((part, i) => {
-                if (part.startsWith('**') && part.endsWith('**')) {
-                  const boldContent = part.replace(/\*\*/g, '');
-                  return <span key={i} className="font-bold text-white">{highlightKeywords(boldContent)}</span>;
-                }
-                return <span key={i}>{highlightKeywords(part)}</span>;
-              })}
-            </li>
-          );
-        }
-        return <li key={index} className="ml-6 mb-2 text-slate-300">{highlightKeywords(content)}</li>;
-      }
-      // Empty line
-      if (line.trim() === '') {
-        return <div key={index} className="h-2"></div>;
-      }
-      // Regular line
-      return <p key={index} className="text-slate-300 leading-relaxed mb-2">{highlightKeywords(line)}</p>;
     });
   };
 
@@ -373,24 +257,19 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
     <div className="creatuactivo-faq-item">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 text-left flex items-center justify-between"
+        className="w-full p-5 text-left flex items-center justify-between"
       >
-        <h3 className="text-lg font-bold text-white pr-4">{question}</h3>
-        <ChevronDown
-          className={`w-6 h-6 text-blue-400 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-        />
+        <h3 className="text-base lg:text-lg font-bold text-white pr-4">{question}</h3>
+        <ChevronDown className={`w-5 h-5 text-blue-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
         <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="px-6 pb-6"
+          className="px-5 pb-5"
         >
-          <div className="space-y-1">
-            {parseAnswer(answer)}
-          </div>
+            {formatText(answer)}
         </motion.div>
       )}
     </div>
@@ -402,18 +281,10 @@ export default function PresentacionEmpresarialPage() {
   const [teamSize, setTeamSize] = useState(100);
   const [monthlyIncomeUSD, setMonthlyIncomeUSD] = useState(0);
   const [monthlyIncomeCOP, setMonthlyIncomeCOP] = useState(0);
-  const [selectedPackage, setSelectedPackage] = useState('ESP3');
-  const [packageCount, setPackageCount] = useState(1);
-  const [fastStartBonusUSD, setFastStartBonusUSD] = useState(0);
-  const [fastStartBonusCOP, setFastStartBonusCOP] = useState(0);
 
-  const packageData: Record<string, { bonus: number }> = {
-    'ESP1': { bonus: 25 },
-    'ESP2': { bonus: 75 },
-    'ESP3': { bonus: 150 },
-  };
-
+  // Calculadora lógica
   useEffect(() => {
+    // Estimación conservadora basada en consumo promedio
     const incomePerPersonCOP = 19125;
     const exchangeRate = 4500;
     const totalIncomeCOP = teamSize * incomePerPersonCOP;
@@ -422,638 +293,322 @@ export default function PresentacionEmpresarialPage() {
     setMonthlyIncomeUSD(totalIncomeUSD);
   }, [teamSize]);
 
-  useEffect(() => {
-    const exchangeRate = 4500;
-    const bonusUSD = packageData[selectedPackage].bonus * packageCount;
-    const bonusCOP = bonusUSD * exchangeRate;
-    setFastStartBonusUSD(bonusUSD);
-    setFastStartBonusCOP(bonusCOP);
-  }, [selectedPackage, packageCount]);
-
   return (
     <>
       <GlobalStyles />
-      <div className="bg-slate-900 text-white">
+      <div className="bg-slate-950 text-white min-h-screen font-sans selection:bg-purple-500/30">
         <StrategicNavigation />
 
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-          <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-[var(--creatuactivo-purple)] opacity-10 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+        {/* Background Effects */}
+        <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-[var(--creatuactivo-blue)] opacity-[0.08] rounded-full filter blur-[120px] animate-pulse-slow"></div>
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[var(--creatuactivo-purple)] opacity-[0.08] rounded-full filter blur-[100px] animate-pulse-slow animation-delay-2000"></div>
         </div>
 
-        <main className="relative z-10 p-4 lg:p-8">
-          {/* SECCIÓN 1: WHY - Hero Emocional */}
-          <section className="text-center max-w-4xl mx-auto py-20 lg:py-32 pt-24">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-block bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
-                Por Qué Existimos
+        <main className="relative z-10 pt-24 lg:pt-32 pb-20 px-4">
+
+          {/* SECCIÓN 1: HERO (Analogía Waze/Netflix) */}
+          <section className="text-center max-w-5xl mx-auto mb-20 lg:mb-32">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                <span className="px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 text-sm">
+                  📀 Antes: Alquilar Películas
+                </span>
+                <span className="px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-semibold flex items-center gap-2">
+                  <Play size={14} className="fill-current"/> Hoy: Streaming
+                </span>
               </div>
 
-              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-8">
-                ¿Cuánto Vale Tu Tiempo?
+              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6 tracking-tight">
+                Hacerlo difícil ya pasó de moda.<br />
+                <span className="text-white">Deja que la tecnología trabaje.</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-300 mb-6 leading-relaxed">
-                No en dinero. <span className="text-blue-400 font-semibold">En vida.</span>
+              <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Pasamos de los mapas de papel a Waze. Pasamos de vender puerta a puerta a <b>CreaTuActivo.</b>
+                <br/>
+                La primera plataforma que construye tu activo mientras tú vives tu vida.
               </p>
 
-              <div className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 space-y-3">
-                <p>En horas con tus hijos.</p>
-                <p>En mañanas sin despertador.</p>
-                <p>En libertad para elegir.</p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                <Link href="#como-funciona" className="creatuactivo-cta-ecosystem w-full sm:w-auto text-lg inline-flex items-center justify-center">
+                  Ver la Tecnología <ArrowRight size={20} className="ml-2" />
+                </Link>
+                <Link href="#calculadora" className="px-8 py-4 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors w-full sm:w-auto text-slate-300">
+                  ¿Cuánto puedo ganar?
+                </Link>
               </div>
 
-              <div className="creatuactivo-why-card p-8 lg:p-12 text-left max-w-3xl mx-auto mb-10">
-                <WhyCard
-                  icon={<Heart size={28} />}
-                  text="Creemos que la vida es demasiado corta para intercambiarla por un cheque quincenal."
-                />
-                <WhyCard
-                  icon={<Users size={28} />}
-                  text="Creemos que tu familia merece tu presencia, no solo tu provisión."
-                />
-                <WhyCard
-                  icon={<Target size={28} />}
-                  text="Creemos que deberías construir legado, no solo sobrevivir."
-                />
-
-                <div className="mt-8 pt-6 border-t border-purple-500/20">
-                  <p className="text-2xl font-bold text-purple-400 text-center">
-                    Por eso creamos esto.
-                  </p>
-                </div>
+              {/* NEXUS DEMO MOCKUP (Concepto Visual) */}
+              <div className="creatuactivo-component-card max-w-3xl mx-auto p-1 rounded-2xl border-t border-white/10 shadow-2xl">
+                 <div className="bg-slate-900/90 rounded-xl p-6 md:p-8 text-left">
+                    <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 flex items-center justify-center">
+                            <Sparkles size={20} className="text-white" />
+                        </div>
+                        <div>
+                            <p className="font-bold text-white">NEXUS IA</p>
+                            <p className="text-xs text-green-400 flex items-center gap-1">● Trabajando ahora mismo</p>
+                        </div>
+                    </div>
+                    <div className="space-y-4 font-mono text-sm">
+                        <div className="bg-slate-800/50 p-3 rounded-lg rounded-tl-none inline-block max-w-[85%] text-slate-300">
+                           <span className="text-purple-400 font-bold">NEXUS:</span> He detectado 3 nuevos interesados en Bogotá mientras dormías. Ya les expliqué el modelo de negocio.
+                        </div>
+                        <div className="bg-slate-800/50 p-3 rounded-lg rounded-tl-none inline-block max-w-[85%] text-slate-300">
+                           <span className="text-purple-400 font-bold">NEXUS:</span> ¿Deseas que agende una videollamada solo con los 2 que están listos para iniciar?
+                        </div>
+                        <div className="flex justify-end">
+                            <div className="bg-blue-600/20 border border-blue-500/50 p-3 rounded-lg rounded-tr-none inline-block text-blue-200">
+                                Sí, por favor. Encárgate del resto.
+                            </div>
+                        </div>
+                    </div>
+                 </div>
               </div>
+              <p className="mt-4 text-xs text-slate-500 uppercase tracking-widest">
+                Tu sistema operativo de distribución
+              </p>
 
-              <Link href="#contraste" className="creatuactivo-cta-ecosystem text-lg inline-flex items-center">
-                Descubre Cómo <ArrowRight size={20} className="ml-2" />
-              </Link>
             </motion.div>
           </section>
 
-          {/* Testimonio Micro 1 */}
-          <section className="max-w-3xl mx-auto mb-20">
-            <TestimonialMicro
-              quote="Cuando Luis me dijo 'tu tiempo es más valioso que dinero', algo hizo clic. Llevaba 15 años intercambiando mi vida por un salario. Ya no más."
-              author="Carlos M."
-              role="Fundador"
+          {/* Testimonio 1 */}
+          <section className="mb-24">
+             <TestimonialMicro
+                quote="Yo no sé vender y me daba terror cobrarle a mis amigos. Cuando vi que Nexus hacía esa parte 'incómoda' por mí, supe que este negocio sí lo podía hacer."
+                author="Andrés R."
+                role="Ingeniero & Fundador"
+             />
+          </section>
+
+          {/* SECCIÓN 2: EL PROBLEMA VS LA SOLUCIÓN */}
+          <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
+            <SectionHeader
+                title="El Juego Cambió"
+                subtitle="El mundo se divide en dos: los que siguen operando manual y los que construyen sistemas."
             />
-          </section>
 
-          {/* SECCIÓN 2: Contraste de Paradigmas */}
-          <section id="contraste" className="py-20 lg:py-28 px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Dos Caminos. Una Decisión."
-                subtitle="La mayoría sigue el camino tradicional sin cuestionarlo. Pero hay otra forma."
-              />
-
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
                 <ContrastColumn
-                  title="Camino Tradicional"
-                  color="old"
-                  items={[
-                    "40 años trabajando para otros",
-                    "Intercambias tiempo por dinero",
-                    "Tu ingreso depende de tu esfuerzo",
-                    "Pensión de $400/mes a los 65",
-                    '"Espero llegar a jubilación"'
-                  ]}
+                    title="La Forma Antigua"
+                    color="old"
+                    items={[
+                        "Perseguir amigos y familiares",
+                        "Explicar el negocio 100 veces",
+                        "Manejar inventario y cobros",
+                        "Si tú no estás, el negocio para",
+                        "Estrés y rechazo constante"
+                    ]}
                 />
                 <ContrastColumn
-                  title="La Forma Nueva"
-                  color="new"
-                  items={[
-                    "Trabajar 3-5 años, cosechar 30+",
-                    "Creas el sistema que trabaja cuando tú no trabajas",
-                    "Tu ingreso es independiente de ti",
-                    "Lo dejas a tus hijos y nietos",
-                    '"Creo mi propia libertad"'
-                  ]}
+                    title="El Ecosistema (Tu Activo)"
+                    color="new"
+                    items={[
+                        "Los interesados llegan a ti (Atracción)",
+                        "NEXUS explica el negocio perfecto siempre",
+                        "El corporativo maneja la logística",
+                        "El sistema trabaja 24/7",
+                        "Certeza y crecimiento inteligente"
+                    ]}
                 />
-              </div>
-
-              <div className="text-center max-w-2xl mx-auto p-8 bg-blue-500/10 border border-blue-500/20 rounded-xl">
-                <p className="text-xl text-slate-200 leading-relaxed">
-                  La pregunta no es <span className="text-blue-400 font-semibold">"¿cuál prefieres?"</span>
-                  <br /><br />
-                  La pregunta es <span className="text-blue-400 font-semibold">"¿cuál estás construyendo HOY?"</span>
-                </p>
-              </div>
             </div>
           </section>
 
-          {/* SECCIÓN 3: HOW - Cómo Lo Hacemos Diferente */}
-          <section className="py-20 lg:py-28 px-4 bg-slate-900/50 rounded-3xl">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Cómo Lo Hacemos Diferente"
-                subtitle="No eres vendedor. Eres dueño de algo que trabaja por ti."
-              />
-
-              <div className="grid md:grid-cols-3 gap-8">
-                <HOWPillar
-                  icon={<ShieldCheck size={40} />}
-                  title="El Producto Especial"
-                  porque="mereces algo que nadie más tiene"
-                  description="Producto con patente mundial de Gano Excel (30+ años). No compites con nadie. Tienes algo único."
-                  iconColor="text-green-400"
-                  iconBg="bg-green-500/10"
-                />
-                <HOWPillar
-                  icon={<Target size={40} />}
-                  title="El Método Simple"
-                  porque="lo que funciona debe ser tan fácil que cualquiera pueda repetirlo"
-                  description="Método Probado IAA (Iniciar, Acoger, Activar). Tan simple que un niño lo entiende. Tan poderoso que escala a millones."
-                  iconColor="text-orange-400"
-                  iconBg="bg-orange-500/10"
-                />
-                <HOWPillar
-                  icon={<Zap size={40} />}
-                  title="La Tecnología que Trabaja por Ti"
-                  porque="mereces tener acceso a la mejor tecnología, un especialista en conversión trabajando 24/7 para ti"
-                  description="NEXUS responde profesionalmente, explica el valor de Gano Excel, identifica interés real, y convierte prospectos. Mientras tú vives tu vida."
-                  iconColor="text-purple-400"
-                  iconBg="bg-purple-500/10"
-                />
-              </div>
-
-              <div className="mt-16 text-center max-w-3xl mx-auto">
-                <p className="text-2xl text-slate-200 leading-relaxed mb-4">
-                  ¿Ves la diferencia?
+          {/* SECCIÓN 3: LA TRIADA DE PODER (HOW) */}
+          <section id="como-funciona" className="max-w-7xl mx-auto mb-24 lg:mb-32">
+             <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Tu Equipo de 3 Partes</h2>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                    Para ganar en grande, no necesitas hacerlo todo. Necesitas las alianzas correctas.
                 </p>
-                <p className="text-xl text-slate-400 leading-relaxed">
-                  No te damos un "negocio". Te damos <span className="text-purple-400 font-semibold">un sistema completo</span> que genera ingresos para ti.
-                </p>
-              </div>
-            </div>
+             </div>
+
+             <div className="grid md:grid-cols-3 gap-6">
+                <HOWPillar
+                    icon={<Users size={32} />}
+                    title="1. TÚ (La Visión)"
+                    description="Tu único trabajo es conectar personas con una oportunidad. No tienes que convencer, solo invitar a conocer. Tú pones la dirección y el liderazgo."
+                />
+                <HOWPillar
+                    highlight={true}
+                    icon={<Cpu size={32} />}
+                    title="2. NEXUS (El Trabajo)"
+                    description="Nuestra IA exclusiva. Se encarga de educar, filtrar, responder dudas y detectar quién está listo. Hace el trabajo pesado y repetitivo por ti."
+                />
+                <HOWPillar
+                    icon={<Globe size={32} />}
+                    title="3. EL GIGANTE (La Logística)"
+                    description="Gano Excel. Un monstruo corporativo libre de deudas. Ellos ponen el producto, las bodegas, la importación y te pagan. Tú no tocas una caja."
+                />
+             </div>
           </section>
 
-          {/* Testimonio Micro 2 */}
-          <section className="max-w-3xl mx-auto my-20">
-            <TestimonialMicro
-              quote="El producto es extraordinario, pero lo revolucionario es el SISTEMA completo. Por primera vez en mi vida, tengo algo que trabaja para mí, no yo para él."
-              author="María G."
-              role="Fundadora"
+          {/* SECCIÓN 4: PROYECCIÓN (CALCULADORA) */}
+          <section id="calculadora" className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-slate-900/50 p-8 rounded-3xl border border-slate-800">
+             <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-bold uppercase mb-4">
+                    <TrendingUp size={14} /> Proyección Financiera
+                </div>
+                <h2 className="text-3xl font-bold text-white mb-4">No es Magia, es Matemática</h2>
+                <p className="text-slate-400">
+                    Esto pasa cuando combinas un producto de consumo masivo (café) con un sistema de retención.
+                </p>
+             </div>
+
+             <div className="creatuactivo-component-card p-8 lg:p-12">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                    <div className="flex-1">
+                        <label className="block text-slate-300 font-medium mb-4">
+                            Si tu red de consumo crece a...
+                        </label>
+                        <div className="flex items-center gap-4">
+                            <Users className="text-slate-500" size={24} />
+                            <input
+                              type="range"
+                              min="10"
+                              max="1000"
+                              step="10"
+                              value={teamSize}
+                              onChange={(e) => setTeamSize(Number(e.target.value))}
+                              className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                            />
+                            <span className="text-2xl font-bold text-white w-20 text-right">{teamSize}</span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-2">Personas consumiendo café saludable</p>
+                    </div>
+
+                    <div className="h-px md:h-24 w-full md:w-px bg-slate-700/50"></div>
+
+                    <div className="flex-1 text-center md:text-right">
+                        <p className="text-sm text-slate-400 uppercase tracking-wider font-semibold mb-2">Tu Ingreso Residual Mensual</p>
+                        <div className="text-5xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+                            ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                            <span className="text-lg text-slate-500 font-medium ml-1">USD</span>
+                        </div>
+                        <p className="text-sm text-slate-500 mt-1">
+                            ~ ${monthlyIncomeCOP.toLocaleString('es-CO', { maximumFractionDigits: 0 })} COP
+                        </p>
+                    </div>
+                </div>
+
+                <div className="bg-slate-800/50 rounded-xl p-4 text-center border border-white/5">
+                    <p className="text-sm text-slate-300">
+                        <span className="text-amber-400 font-bold">Dato Clave:</span> A diferencia de vender ropa o seguros, el café se acaba. La gente vuelve a comprar.
+                        Tu "trabajo" se hace una vez, la recompra es automática.
+                    </p>
+                </div>
+             </div>
+          </section>
+
+          {/* SECCIÓN 5: PAQUETES (REFRAMING: SOCIOS, NO COMPRADORES) */}
+          <section className="max-w-7xl mx-auto mb-24 lg:mb-32">
+            <SectionHeader
+                title="Elige tu Nivel de Compromiso"
+                subtitle="No estás comprando un curso. Estás adquiriendo inventario para tu negocio y recibiendo la tecnología GRATIS como socio."
             />
-          </section>
 
-          {/* SECCIÓN 4: Proof - Prueba Social */}
-          <section className="py-20 lg:py-28 px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Construido Sobre Base Sólida"
-                subtitle="Esto no nace en el vacío. Es el resultado de años de prueba y respaldo corporativo."
-              />
-
-              <div className="grid md:grid-cols-3 gap-8 mb-16">
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    9 Años
-                  </div>
-                  <p className="text-slate-400 mb-3">de Liderazgo Probado</p>
-                  <p className="text-sm text-slate-500">2,847 personas exitosas sin tecnología</p>
-                </div>
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    30+ Años
-                  </div>
-                  <p className="text-slate-400 mb-3">de Respaldo Corporativo</p>
-                  <p className="text-sm text-slate-500">Gano Excel, 100% libre de deudas</p>
-                </div>
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    80%
-                  </div>
-                  <p className="text-slate-400 mb-3">del Trabajo Automatizado</p>
-                  <p className="text-sm text-slate-500">Sistema NEXUS con IA trabajando 24/7</p>
-                </div>
-              </div>
-
-              {/* Testimonio Principal */}
-              <div className="max-w-4xl mx-auto">
-                <div className="creatuactivo-component-card p-8 lg:p-12">
-                  <div className="flex flex-col md:flex-row items-center gap-8">
-                    <img
-                      className="h-40 w-40 object-cover rounded-full mx-auto md:mx-0 md:flex-shrink-0 border-4 border-purple-500/50"
-                      src="https://4millones.com/wp-content/uploads/2025/07/liliana-patricia-moreno-diamante-gano-excel.webp"
-                      alt="Foto de Liliana Patricia Moreno"
-                    />
-                    <div className="text-left">
-                      <p className="text-slate-300 text-lg lg:text-xl italic leading-relaxed mb-6">
-                        "Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad. Una decisión puede cambiarlo todo. Aquí encontré lo necesario para cumplir mis sueños."
-                      </p>
-                      <p className="font-bold text-white text-xl">Liliana Patricia Moreno</p>
-                      <p className="text-purple-400 font-semibold mb-4">Líder Diamante</p>
-                      <a
-                        href="https://www.facebook.com/share/v/17CLotD3R2/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center bg-purple-500/20 text-purple-300 font-bold py-3 px-6 rounded-lg hover:bg-purple-500/30 transition-colors"
-                      >
-                        <Video className="w-5 h-5 mr-2" />
-                        Ver su Historia Completa
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* SECCIÓN 5: WHAT - Visualiza Tu Libertad */}
-          <section className="py-20 lg:py-28 px-4 bg-slate-900/70 rounded-3xl">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Visualiza Tus Resultados"
-                subtitle="Estos números no son solo cifras. Son horas con tus hijos. Son meses de independencia financiera. Son generaciones de legado."
-              />
-
-              <div className="max-w-4xl mx-auto mb-12 p-8 bg-blue-500/5 border border-blue-500/20 rounded-xl">
-                <p className="text-xl text-slate-200 leading-relaxed text-center">
-                  <span className="text-purple-400 font-bold">12 formas de ganar dinero</span>.
-                  <br /><br />
-                  Las dos principales:
-                  <br />
-                  <span className="text-blue-400 font-semibold">Bonos por paquetes empresariales</span> (ingreso activo) y <span className="text-green-400 font-semibold">Bonos semanales por consumo</span> (ingreso residual).
-                </p>
-              </div>
-
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Calculadora Capitalización */}
-                <div className="creatuactivo-component-card p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Sparkles className="text-blue-400" size={28} />
-                    <h3 className="text-xl font-bold text-white">Bonos por Paquetes Empresariales</h3>
-                  </div>
-                  <p className="text-slate-400 mb-6 text-sm">
-                    Cuando personas en tu equipo adquieren paquetes empresariales, ganas bonos inmediatos (ingreso activo).
-                  </p>
-
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-slate-300 mb-2">1. Tipo de Paquete</label>
-                    <div className="flex rounded-lg bg-slate-900/50 p-1">
-                      <button
-                        onClick={() => setSelectedPackage('ESP1')}
-                        className={`w-1/3 p-2 text-sm rounded-md transition ${selectedPackage === 'ESP1' ? 'bg-[var(--creatuactivo-blue)] text-white' : 'text-slate-300'}`}
-                      >
-                        Inicial
-                      </button>
-                      <button
-                        onClick={() => setSelectedPackage('ESP2')}
-                        className={`w-1/3 p-2 text-sm rounded-md transition ${selectedPackage === 'ESP2' ? 'bg-[var(--creatuactivo-blue)] text-white' : 'text-slate-300'}`}
-                      >
-                        Completa
-                      </button>
-                      <button
-                        onClick={() => setSelectedPackage('ESP3')}
-                        className={`w-1/3 p-2 text-sm rounded-md transition ${selectedPackage === 'ESP3' ? 'bg-[var(--creatuactivo-purple)] text-white' : 'text-slate-300'}`}
-                      >
-                        Premium
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <label htmlFor="packageSlider" className="block text-center text-slate-300 mb-2 text-sm">
-                      2. Número de Personas: <span className="font-bold text-white text-lg">{packageCount}</span>
-                    </label>
-                    <input
-                      type="range"
-                      id="packageSlider"
-                      min="1"
-                      max="10"
-                      value={packageCount}
-                      onChange={(e) => setPackageCount(Number(e.target.value))}
-                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
-                    />
-                  </div>
-
-                  <div className="bg-blue-900/30 border border-blue-500/30 p-6 rounded-xl text-center">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Bono Inmediato</p>
-                    <p className="text-4xl font-extrabold text-blue-400 mb-1">
-                      ${fastStartBonusUSD.toLocaleString('en-US')} USD
-                    </p>
-                    <p className="text-xs text-slate-500">(~ ${fastStartBonusCOP.toLocaleString('es-CO')} COP)</p>
-                  </div>
-                </div>
-
-                {/* Calculadora Residual */}
-                <div className="creatuactivo-component-card p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <TrendingUp className="text-green-400" size={28} />
-                    <h3 className="text-xl font-bold text-white">Bonos Semanales por Consumo</h3>
-                  </div>
-                  <p className="text-slate-400 mb-6 text-sm">
-                    Ganas de manera recurrente cada vez que hay compras en tu sistema de distribución (ingreso residual semanal).
-                  </p>
-
-                  <div className="mb-6">
-                    <label htmlFor="teamSlider" className="block text-center text-slate-300 mb-2 text-sm">
-                      Personas consumiendo en tu equipo: <span className="font-bold text-white text-lg">{teamSize}</span>
-                    </label>
-                    <input
-                      type="range"
-                      id="teamSlider"
-                      min="10"
-                      max="1000"
-                      value={teamSize}
-                      onChange={(e) => setTeamSize(Number(e.target.value))}
-                      step="10"
-                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
-                    />
-                  </div>
-
-                  <div className="bg-green-900/30 border border-green-500/30 p-6 rounded-xl text-center">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Bonos Semanales (Estimado Mensual)</p>
-                    <p className="text-4xl font-extrabold text-green-400 mb-1">
-                      ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
-                    </p>
-                    <p className="text-xs text-slate-500">
-                      (~ ${monthlyIncomeCOP.toLocaleString('es-CO', { maximumFractionDigits: 0 })} COP)
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-12 max-w-3xl mx-auto text-center p-8 bg-green-900/20 border border-green-500/30 rounded-xl">
-                <Clock className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <p className="text-xl text-slate-200 leading-relaxed">
-                  Esto no es "ganar dinero".
-                  <br />
-                  Esto es <span className="text-green-400 font-bold">construir libertad</span>.
-                  <br /><br />
-                  <span className="text-lg text-slate-400">¿Ves la diferencia?</span>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* SECCIÓN 6: Paquetes Reenmarcados */}
-          <section className="py-20 lg:py-28 px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                title="Tu Punto de Entrada"
-                subtitle="Esto no es un 'paquete'. Es el inicio de algo que te dará dinero por años."
-              />
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            <div className="grid md:grid-cols-3 gap-6 items-start pt-8">
                 <PackageCard
-                  title="Opción Básica"
-                  priceUSD="200"
-                  priceCOP="900.000"
-                  purpose="Para quienes quieren probar primero antes de comprometer más dinero. Porque creemos que debes sentirte seguro antes de dar el siguiente paso."
-                  features={[
-                    "Todo el sistema (Framework IAA)",
-                    "Inventario para probar el modelo",
-                    "Acceso total a la plataforma completa",
-                    "Comunidad de Fundadores"
-                  ]}
-                  bonusMonths={2}
-                  bonusPlan="Plan Cimiento"
-                  bonusIcon={<Zap size={20}/>}
-                  ctaText="Empezar Aquí"
+                    title="Paquete 1: Explorador"
+                    priceUSD="200"
+                    priceCOP="900.000"
+                    purpose="Ideal para conocer el producto y probar el sistema."
+                    features={[
+                        "Inventario personal básico",
+                        "Acceso a NEXUS (Versión Lite)",
+                        "Oficina Virtual Gano Excel",
+                        "Plan de Pagos: 20%"
+                    ]}
+                    bonusMonths={0}
+                    bonusPlan=""
+                    bonusIcon={<Zap size={20} />}
                 />
 
                 <PackageCard
-                  title="Opción Completa"
-                  priceUSD="500"
-                  priceCOP="2.250.000"
-                  purpose="Para quienes ya decidieron y quieren una posición más fuerte. Porque creemos que cuando te comprometes de verdad, mereces más herramientas."
-                  features={[
-                    "Todo lo de la Opción Básica +",
-                    "Inventario para trabajar profesionalmente",
-                    "Apoyo prioritario",
-                    "Mentoría personalizada cada mes"
-                  ]}
-                  bonusMonths={4}
-                  bonusPlan="Plan Estructura"
-                  bonusIcon={<Rocket size={20}/>}
-                  ctaText="Crecer Más Rápido"
+                    title="Paquete 2: Constructor"
+                    priceUSD="500"
+                    priceCOP="2.250.000"
+                    purpose="Para quienes van a construir equipo desde el primer mes."
+                    features={[
+                        "Inventario comercial",
+                        "Acceso NEXUS PRO (Completo)",
+                        "Mentoría Grupal",
+                        "Plan de Pagos: 50%"
+                    ]}
+                    bonusMonths={0}
+                    bonusPlan=""
+                    bonusIcon={<Rocket size={20} />}
+                    isPopular={true}
+                    ctaText="Elegir Opción Recomendada"
                 />
 
                 <PackageCard
-                  title="Opción Premium"
-                  priceUSD="1,000"
-                  priceCOP="4.500.000"
-                  purpose="Para quienes piensan en grande y quieren todo desde el día uno. Porque creemos que la ambición merece las mejores herramientas."
-                  features={[
-                    "Todo lo de la Opción Completa +",
-                    "Inventario premium de máximo potencial",
-                    "Apoyo VIP directo",
-                    "Acceso prioritario a nuevas funciones"
-                  ]}
-                  bonusMonths={6}
-                  bonusPlan="Plan Rascacielos"
-                  bonusIcon={<Crown size={20}/>}
-                  ctaText="Maximizar Desde Ya"
+                    title="Paquete 3: Empresario"
+                    priceUSD="1,000"
+                    priceCOP="4.500.000"
+                    purpose="Máxima rentabilidad desde el día 1. Para visión a largo plazo."
+                    features={[
+                        "Inventario de alto volumen",
+                        "Acceso NEXUS VIP (Prioritario)",
+                        "Mentoría Directa con Diamantes",
+                        "Plan de Pagos: 100% (Ilimitado)"
+                    ]}
+                    bonusMonths={0}
+                    bonusPlan=""
+                    bonusIcon={<Crown size={20} />}
                 />
-              </div>
-
-              <div className="mt-12 text-center max-w-2xl mx-auto p-6 bg-slate-800/50 border border-slate-700 rounded-xl">
-                <p className="text-slate-300 text-sm">
-                  <span className="font-semibold text-white">Nota importante:</span> Cada inversión es en producto de Gano Excel que puedes consumir o distribuir. No es un "gasto", es inventario para tu negocio.
-                </p>
-              </div>
             </div>
+
+            <p className="text-center text-sm text-slate-500 mt-8 max-w-2xl mx-auto">
+                * El valor en USD es aproximado. El pago se realiza directamente a Gano Excel Colombia S.A. garantizando total transparencia y legalidad.
+            </p>
           </section>
 
-          {/* SECCIÓN 7: FAQ Emocionales */}
-          <section className="py-20 lg:py-28 px-4 bg-slate-900/50 rounded-3xl">
+          {/* SECCIÓN 6: FAQ (OBJECIONES REALES) */}
+          <section className="max-w-3xl mx-auto mb-24 lg:mb-32">
+             <h2 className="text-3xl font-bold text-center text-white mb-10">Preguntas sin Filtro</h2>
+             <div className="space-y-4">
+                <FAQItem
+                    question="¿Necesito ser experto en tecnología?"
+                    answer="**Absolutamente no.** Esa es la belleza de NEXUS. Tú no programas, tú usas. Es tan fácil como usar WhatsApp. Si sabes enviar un mensaje, sabes usar este sistema."
+                />
+                <FAQItem
+                    question="¿Tengo que perseguir gente?"
+                    answer="**Esa es la vieja escuela.** Nuestro sistema se basa en atracción, no persecución. Usamos contenido (como el que viste) para que los interesados levanten la mano. NEXUS filtra a los curiosos para que tú solo hables con quien está listo."
+                />
+                <FAQItem
+                    question="¿Qué pasa si no tengo tiempo?"
+                    answer="Precisamente por eso necesitas un **Activo**. Si no tienes tiempo hoy, es porque tu ingreso depende 100% de tu presencia física. Este sistema está diseñado para construirse en tus 'horas muertas' (noches, fines de semana) hasta que el ingreso del sistema supere tu sueldo y recuperes tu libertad."
+                />
+                <FAQItem
+                    question="¿Es legal?"
+                    answer="**100%.** Gano Excel es Gran Contribuyente de la DIAN en Colombia, cumple la Ley 1700 y tiene sedes físicas. No captamos dinero; tú compras un producto físico real. Nosotros te damos la estrategia y la tecnología para mover ese producto masivamente."
+                />
+             </div>
+          </section>
+
+          {/* SECCIÓN 7: CTA FINAL */}
+          <section className="text-center py-20 border-t border-slate-800">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-                <h2 className="creatuactivo-h2-gradient text-3xl md:text-5xl font-bold mb-4">Las Preguntas Que Realmente Importan</h2>
-                <p className="text-slate-400 text-lg">No las preguntas técnicas. Las preguntas que sientes en el corazón.</p>
-              </div>
-
-              <div className="space-y-4">
-                <FAQItem
-                  question="¿Y si fallo?"
-                  answer={`**PRIMERO, REDEFÍNAMOS "FALLAR"**
-
-¿Es fallar intentar construir algo mejor y no lograrlo?
-¿O es fallar NO intentar y resignarte a 40 años de rutina?
-
-**Yo creo que el único fracaso real es arrepentimiento.**
-
-**AHORA, PRAGMÁTICAMENTE:**
-
-• ¿Puedes no tener éxito inmediato? Claro.
-• ¿Puedes tardar más de lo esperado? Posible.
-• ¿Puedes descubrir que esto no es para ti? También.
-
-**PERO AQUÍ ESTÁ LA VERDAD:**
-
-Si aplicas el Framework IAA, usas la tecnología que te damos, y te mantienes conectado con la comunidad de Fundadores...
-
-**El "fracaso" técnicamente no existe.**
-
-Porque o lo logras... o aprendes habilidades valiosas que usarás toda tu vida.
-
-**En ambos casos, ganas.**
-
-**LA PREGUNTA REAL ES:**
-¿Prefieres intentar y descubrir... o no intentar y vivir con el "¿y si...?"
-
-Tú decides qué es más aterrador.`}
-                />
-
-                <FAQItem
-                  question="¿Y si nadie me cree?"
-                  answer={`Esta pregunta revela algo hermoso: te importa la opinión de otros. **Eso es humano.**
-
-**PERO DÉJAME PREGUNTARTE ALGO:**
-
-¿Quieres construir esto para convencer a TODOS?
-¿O quieres construirlo con **QUIENES YA CREEN LO QUE TÚ CREES**?
-
-**Tú no necesitas que todos te crean.**
-
-Necesitas encontrar a los que YA creen que:
-
-• **El tiempo es más valioso que dinero**
-• **Crear algo propio es posible para personas comunes**
-• **Hay otra forma más allá del empleo tradicional**
-
-Esas personas existen. De hecho, **2,847 ya lo demostraron**.
-
-**TU TRABAJO NO ES CONVENCER ESCÉPTICOS.**
-**Es ENCONTRAR believers.**
-
-Y cuando hablas desde tu WHY auténtico... los believers se autoseleccionan.`}
-                />
-
-                <FAQItem
-                  question="¿Esto es legítimo o una estafa?"
-                  answer={`**Honestamente, me alegra que preguntes.** El escepticismo saludable es inteligente.
-
-Entonces déjame darte **transparencia total:**
-
-**VERIFICA TÚ MISMO:**
-
-• ✓ **Gano Excel:** 30+ años operando. Búscalo. Lee su historia.
-• ✓ **Patente mundial:** Número de patente verificable públicamente.
-• ✓ **Trayectoria de 9 años:** 2,847 personas. Testimonios reales.
-• ✓ **Tecnología propia:** CreaTuActivo.com. Lo estás usando ahora mismo.
-
-**LO QUE NO SOMOS:**
-
-• ✗ No prometemos "hazte rico rápido"
-• ✗ No escondemos información del plan de compensación
-• ✗ No presionamos con "decide ya o pierdes"
-• ✗ No dependemos de reclutamiento infinito (tenemos producto con valor real)
-
-**LA PRUEBA DEFINITIVA:**
-
-**No me creas a MÍ.**
-
-• Habla con Liliana Patricia Moreno.
-• Habla con otros fundadores.
-• Revisa los documentos legales.
-• Haz tus propias verificaciones.
-
-Si después de investigar sientes confianza, **bienvenido**.
-Si no, está bien. **No es para todos.**
-
-**Lo único que pido es:** no decidas desde el miedo. Decide desde la información.`}
-                />
-
-                <FAQItem
-                  question="No tengo tiempo para esto"
-                  answer={`**Entiendo.** Y déjame preguntarte algo honesto:
-
-**¿POR QUÉ sientes que no tienes tiempo?**
-
-Probablemente porque tu tiempo actual está siendo consumido por cosas que **no te acercan a lo que realmente quieres**.
-
-¿Correcto?
-
-**Entonces la pregunta no es "¿tengo tiempo?"**
-**La pregunta es "¿para QUÉ quiero tiempo?"**
-
-Si la respuesta es:
-
-• **Para estar con mi familia**
-• **Para tener libertad financiera**
-• **Para dejar legado**
-
-**Entonces SÍ tienes tiempo.**
-
-Porque este sistema existe precisamente para **DEVOLVERTE tiempo**.
-
-**LA PARADOJA ES:**
-Inviertes 3-6 meses construyendo el sistema... para recuperar 30+ años de tiempo.
-
-¿Tiene sentido ese trade-off para ti?
-
-Si sí, **encontrarás el tiempo**.
-Si no, está bien. **No es para todos.**
-
-Solo tú sabes tu WHY.`}
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* SECCIÓN 8: CTA Final Inspirador */}
-          <section className="text-center py-20 lg:py-32">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6"/>
-
                 <h2 className="creatuactivo-h2-gradient text-4xl md:text-6xl font-bold mb-8">
-                  Si Crees Lo Que Yo Creo...
+                  Lo difícil ya está hecho.
                 </h2>
-
-                <div className="space-y-6 text-xl text-slate-300 leading-relaxed mb-12">
-                  <p>
-                    Si crees que <span className="text-blue-400 font-semibold">las cosas no tienen porque ser difíciles</span>...
-                  </p>
-                  <p>
-                    Si crees que <span className="text-blue-400 font-semibold">mereces vivir una vida extraordinaria</span>, no solo sobrevivir...
-                  </p>
-                  <p>
-                    Si crees que <span className="text-green-400 font-semibold">mereces seguridad, estabilidad y tranquilidad financiera</span>...
-                  </p>
-                </div>
-
-                <div className="creatuactivo-why-card p-8 lg:p-12 mb-12">
-                  <p className="text-2xl lg:text-3xl font-bold text-white mb-6">
-                    Entonces esto es para ti.
-                  </p>
-                  <p className="text-xl text-slate-300 leading-relaxed">
-                    Porque yo creo eso también.
-                    <br /><br />
-                    Y no puedo construirlo solo.
-                    <br /><br />
-                    Los movimientos no se construyen con individuos aislados.
-                    <br />
-                    Se construyen con <span className="text-purple-400 font-semibold">comunidades de personas que creen lo mismo</span>.
-                  </p>
-                </div>
-
-                <Link href="/fundadores" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center mb-8">
-                  Empezar Ahora <ArrowRight size={24} className="ml-2" />
-                </Link>
-
-                <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-                  Al hacer clic, serás redirigido a la página de fundadores donde podrás aplicar para una consulta personalizada.
-                  No es un "compra ya". Es una invitación a explorar si esto se alinea con tu WHY.
+                <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+                   Tienes el vehículo (Gano Excel), tienes el piloto automático (NEXUS) y tienes el equipo.
+                   <br/>Solo falta que te subas.
                 </p>
-              </motion.div>
+
+                <Link href="/fundadores" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center hover:scale-105 transform transition-transform">
+                  Activar mi Código y Recibir NEXUS <ArrowRight size={24} className="ml-2" />
+                </Link>
+                <p className="mt-6 text-slate-500 text-sm">
+                   Garantía de Satisfacción: Si el equipo no te convence en 30 días, te quedas con el producto y amigos como siempre.
+                </p>
             </div>
           </section>
 
-          {/* Footer */}
-          <footer className="border-t border-white/10 py-8">
-            <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
-              <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-              <p className="mt-2">La primera plataforma completa para crear tu negocio en América.</p>
-            </div>
-          </footer>
         </main>
       </div>
     </>

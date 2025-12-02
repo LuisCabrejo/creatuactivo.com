@@ -443,7 +443,7 @@ const contactLiliana = useCallback(() => {
 **Especialidades de la consultoría:**
 • Diseño completo de la arquitectura personalizada para tu perfil
 • Análisis de cuál punto de entrada optimiza tu situación específica
-• Implementación paso a paso del Framework IAA
+• Implementación paso a paso del método probado
 • Mentoring estratégico para construcción de activo patrimonial
 
 **Tu consultoría estratégica incluye:**

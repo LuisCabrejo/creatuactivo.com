@@ -2366,7 +2366,7 @@ ${doc.content}
 
     // Agregar contexto del prospecto (DATOS ACUMULADOS + NUEVOS)
     if (Object.keys(mergedProspectData).length > 0) {
-      context += `INFORMACIÓN DEL PROSPECTO CAPTURADA (Framework IAA):
+      context += `INFORMACIÓN DEL PROSPECTO CAPTURADA (Los 3 pasos probados):
 - Nivel de interés: ${mergedProspectData.interest_level || 'No determinado'}/10
 - Momento óptimo: ${mergedProspectData.momento_optimo || 'Por determinar'}
 - Arquetipo: ${mergedProspectData.archetype || 'No identificado'}
@@ -2478,7 +2478,7 @@ La única inversión recurrente es de 50 PV (aprox. $450,000 COP), que recibes �
 
 ### FAQ_04: "¿Qué hay que hacer?" / "¿Cuál es mi trabajo?"
 
-Tu trabajo se transforma de operador a arquitecto estratégico. Con el Framework IAA, te enfocas en tres acciones clave:
+Tu trabajo se transforma de operador a arquitecto estratégico. Con el método probado, te enfocas en tres acciones clave:
 
 **INICIAR (La Chispa):**
 - Conectas personas con el ecosistema usando herramientas automatizadas

@@ -298,7 +298,7 @@ Seguro que sí. Porque ves el valor.
 
 Aquí estás recibiendo:
 1.  Un negocio internacional llave en mano.
-2.  Una tecnología de $20,000 USD gratis.
+2.  Una tecnología de $200,000 USD gratis.
 3.  Mentoría de millonarios.
 
 Todo por una compra de inventario de $500 o $1,000 USD.

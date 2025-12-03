@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, Zap, Video, Rocket, Crown, Clock, TrendingUp, Users, Sparkles, ChevronDown, Globe, Cpu } from 'lucide-react'
+import { ArrowRight, CheckCircle, Zap, Video, Rocket, Crown, Clock, TrendingUp, Users, Sparkles, ChevronDown, Globe, Cpu, Database } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 
@@ -472,7 +472,43 @@ export default function PresentacionEmpresarialPage() {
              </div>
           </section>
 
-          {/* SECCIÓN 2: NEXUS - Tu Socio Digital */}
+          {/* SECCIÓN 2: ¿QUÉ ESTAMOS CONSTRUYENDO? */}
+          <section id="que-construimos" className="max-w-5xl mx-auto mb-24 lg:mb-32 text-center">
+             <SectionHeader
+                title="¿Qué estamos construyendo?"
+                subtitle="No es venta de catálogo. No es repartir café. Es Infraestructura."
+             />
+
+             <div className="creatuactivo-component-card p-8 lg:p-12 rounded-3xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+                <div className="grid md:grid-cols-3 gap-8 text-left relative z-10">
+                    <div>
+                        <div className="mb-4 text-blue-400"><Globe size={32} /></div>
+                        <h3 className="text-xl font-bold text-white mb-2">Distribución Masiva</h3>
+                        <p className="text-slate-400 text-sm">
+                            Creamos canales por donde fluyen millones de dólares en productos de consumo diario en toda América.
+                        </p>
+                    </div>
+                    <div>
+                        <div className="mb-4 text-purple-400"><Database size={32} /></div>
+                        <h3 className="text-xl font-bold text-white mb-2">Activo Digital</h3>
+                        <p className="text-slate-400 text-sm">
+                            El mercado que construyes queda codificado a tu nombre. Es tuyo. Heredable y vitalicio.
+                        </p>
+                    </div>
+                    <div>
+                        <div className="mb-4 text-green-400"><TrendingUp size={32} /></div>
+                        <h3 className="text-xl font-bold text-white mb-2">Ingreso Residual</h3>
+                        <p className="text-slate-400 text-sm">
+                            Haces el trabajo bien una vez (construir la red), y cobras cada vez que alguien se toma un café.
+                        </p>
+                    </div>
+                </div>
+             </div>
+          </section>
+
+          {/* SECCIÓN 3: NEXUS - Tu Socio Digital */}
           <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
              <div className="grid lg:grid-cols-2 gap-12 items-center">
                  {/* Demo Chat UI */}
@@ -552,7 +588,7 @@ export default function PresentacionEmpresarialPage() {
              </div>
           </section>
 
-          {/* SECCIÓN 3: LA TRÍADA PERFECTA (La Lógica del Negocio) */}
+          {/* SECCIÓN 4: LA TRÍADA PERFECTA (La Lógica del Negocio) */}
           <section id="como-funciona" className="max-w-7xl mx-auto mb-24 lg:mb-32">
              <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
@@ -586,7 +622,7 @@ export default function PresentacionEmpresarialPage() {
              </div>
           </section>
 
-          {/* SECCIÓN 4: LA OFERTA IRRESISTIBLE (Value Stack) */}
+          {/* SECCIÓN 5: LA OFERTA IRRESISTIBLE (Value Stack) */}
           <section className="max-w-4xl mx-auto mb-24 lg:mb-32">
              <div className="creatuactivo-component-card rounded-3xl p-1 border-t border-purple-500/50">
                 <div className="bg-slate-900/90 rounded-[22px] p-8 lg:p-12">

@@ -1005,8 +1005,9 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /qué.*incluye.*ESP/i
   ];
 
-  // 🌿 PRIORIDAD 1: BENEFICIOS CIENTÍFICOS (productos_ciencia)
-  // Detecta preguntas sobre beneficios, propiedades, Ganoderma, estudios científicos
+  // 🌿 PRIORIDAD 1: BENEFICIOS CIENTÍFICOS + PRODUCTOS (catalogo_productos v3.0)
+  // Detecta preguntas sobre beneficios, propiedades, Ganoderma, estudios científicos, precios
+  // CONSOLIDADO: productos_ciencia + catalogo_productos → catalogo_productos v3.0
   const patrones_beneficios_productos = [
     // Beneficios generales
     /beneficios.*productos/i,
@@ -1042,7 +1043,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /energía.*productos/i,
     /claridad.*mental/i,
 
-    // Preguntas técnicas
+    // Preguntas técnicas (TECH_01 a TECH_04 ahora en catalogo_productos)
     /seguro.*consumir/i,
     /cuánto.*tiempo.*beneficios/i,
     /cómo.*tomar/i,
@@ -1060,14 +1061,10 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /biodisponibilidad/i
   ];
 
-  if (patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
-    console.log('🔬 Clasificación: CIENCIA GANODERMA (productos_ciencia)');
-    return 'productos_ciencia';
-  }
-
-  // 🔧 PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
-  if (patrones_productos.some(patron => patron.test(messageLower))) {
-    console.log('🛒 Clasificación: PRODUCTOS (catálogo)');
+  // PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
+  if (patrones_productos.some(patron => patron.test(messageLower)) ||
+      patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
+    console.log('🛒 Clasificación: PRODUCTOS + CIENCIA (catalogo_productos v3.0)');
     return 'catalogo_productos';
   }
 
@@ -1508,43 +1505,6 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // 🔬 NUEVA LÓGICA: CONSULTA DE PRODUCTOS CIENCIA (beneficios científicos Ganoderma)
-  if (documentType === 'productos_ciencia') {
-    console.log('🔬 Consulta dirigida: PRODUCTOS CIENCIA (beneficios científicos)');
-
-    try {
-      const { data, error } = await getSupabaseClient()
-        .from('nexus_documents')
-        .select('id, title, content, category, metadata')
-        .eq('category', 'productos_ciencia')
-        .limit(1);
-
-      if (error) {
-        console.error('Error consultando productos_ciencia:', error);
-      } else if (data && data.length > 0) {
-        const productosCiencia = data[0];
-        console.log('✅ Productos Ciencia encontrado:', productosCiencia.title);
-
-        const result = {
-          ...productosCiencia,
-          search_method: 'productos_ciencia',
-          source: '/knowledge_base/arsenal_productos_beneficios.txt'
-        };
-
-        searchCache.set(cacheKey, {
-          data: [result],
-          timestamp: Date.now()
-        });
-
-        return [result];
-      } else {
-        console.warn('⚠️ Productos Ciencia no encontrado en Supabase (ejecutar EJECUTAR_7_productos_ciencia.sql)');
-      }
-    } catch (error) {
-      console.error('Error accediendo productos_ciencia:', error);
-    }
-  }
-
   // LÓGICA ORIGINAL PARA ARSENALES
   if (documentType && documentType.startsWith('arsenal_')) {
     console.log(`📚 Consulta dirigida: ${documentType.toUpperCase()}`);
@@ -1699,10 +1659,10 @@ ARQUITECTURA HÍBRIDA ESCALABLE:
 - Búsqueda adaptativa por contenido
 - Escalabilidad infinita para nuevas respuestas
 
-ARSENAL MVP v2.0 (71 respuestas optimizadas):
+ARSENAL MVP v3.0 (97 respuestas optimizadas + productos):
 - arsenal_inicial: Primeras interacciones y credibilidad (34 respuestas)
-- arsenal_avanzado: Objeciones + Sistema + Valor + Escalación (37 respuestas)
-- catalogo_productos: Catálogo completo de productos Gano Excel
+- arsenal_avanzado: Objeciones + Sistema + Valor + Escalación (63 respuestas consolidadas)
+- catalogo_productos v3.0: Catálogo completo + Preguntas técnicas + Perfiles de usuario
 
 PROCESO HÍBRIDO:
 1. Clasificar documento apropiado

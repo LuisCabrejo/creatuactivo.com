@@ -1,6 +1,4 @@
-UPDATE nexus_documents
-SET
-  content = '# Arsenal Conversacional: Respuestas Fundamentales v9.0
+# Arsenal Conversacional: Respuestas Fundamentales v9.0
 
 **Propósito:** La base de conocimiento inicial para NEXUS, diseñada para establecer la credibilidad de nuestra nueva categoría y manejar las primeras interacciones con la maestría de un arquitecto.
 
@@ -620,6 +618,4 @@ Puedes empezar a construir desde el primer día.
 **Documento actualizado:** v9.0 con integración Círculo Dorado
 **Última actualización:** Noviembre 11, 2025
 **Nuevas secciones:** Preguntas WHY (WHY_01, WHY_02, WHY_03) alineadas con home optimizada
-**Enfoque especial:** Conexión emocional WHY antes de HOW/WHAT, basado en filosofía Simon Sinek',
-  updated_at = NOW()
-WHERE id = 15;
+**Enfoque especial:** Conexión emocional WHY antes de HOW/WHAT, basado en filosofía Simon Sinek

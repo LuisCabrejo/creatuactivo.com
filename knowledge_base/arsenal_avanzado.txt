@@ -1,12 +1,10 @@
-UPDATE
-  nexus_documents
-SET
-  content = '# ARSENAL AVANZADO - 37 RESPUESTAS OPTIMIZADAS
+# ARSENAL AVANZADO - CONSOLIDADO (60 RESPUESTAS OPTIMIZADAS)
 
-**Propósito:** Objeciones críticas + Sistema + Valor + Escalación (consolidado y optimizado)
-**Categorías:** OBJ (11) + SIST (10) + VAL (11) + ESC (5) = 37 respuestas totales
-**Flujo:** objeciones_sistema_valor_escalacion
-**Versión:** 2.0 (Consolidado 25 Nov 2025)
+**Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
+**Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (11) + ESC (5) = 63 respuestas totales
+**Flujo:** objeciones_soporte_sistema_valor_escalacion
+**Versión:** 3.0 (Consolidado 3 Dic 2025)
+**Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
 
@@ -38,7 +36,7 @@ Piénsalo así:
 
 Es como Amazon:
 Jeff Bezos no vende libros.
-Construyó la plataforma donde millones de personas venden.
+Construyó la aplicación donde millones de personas venden.
 
 Nosotros hacemos lo mismo contigo:
 No te convertimos en vendedor.
@@ -222,7 +220,7 @@ Esta es diferente. Te explico por qué:
 **2. Pre-Lanzamiento (05 Ene - 01 Mar 2026)**
 - Los 150 Fundadores invitan a más personas
 - Ya sabes cómo funciona (eres de los primeros)
-- 2 meses construyendo tu red
+- 3 meses construyendo tu red
 
 **3. Lanzamiento Público (02 Mar 2026)**
 - Abierto para cualquier persona
@@ -373,7 +371,686 @@ Lo que antes tomaba 60 horas, ahora toma 5.
 **Pregunta de seguimiento:** ¿Qué hecho específico te ayudaría a confiar más?
 ---
 
-## 🏗️ SISTEMA/CONSTRUCCIÓN (10 respuestas)
+## ⚙️ TÉCNICAS Y OPERATIVAS (16 respuestas)
+
+### TECH_01: "¿Qué pasa con mis datos personales?"
+**[Privacidad de datos]**
+
+Tu información está protegida. Punto.
+
+**¿Qué guardamos?**
+Solo lo necesario para que tu negocio funcione.
+Tu nombre, email, teléfono.
+Qué personas visitan tus enlaces.
+
+**¿Qué NO hacemos?**
+❌ Vender tu información a otros
+❌ Compartir tus datos con terceros
+❌ Usar tus conversaciones para publicidad
+
+Es como tu cuenta de banco:
+Ellos tienen tu información para que puedas operar.
+Pero no la venden ni la comparten.
+
+**¿Quieres ver los detalles?**
+Te mando la política de privacidad completa.
+
+---
+
+### TECH_02: "¿Puedo pausar o cancelar en cualquier momento?"
+**[Flexibilidad del sistema]**
+
+Sí. Es tu negocio. Tú decides.
+
+**Si necesitas pausar:**
+No haces pedido ese mes. Ya está.
+Tu red sigue ahí, intacta.
+Las personas que ya sumaste siguen siendo tuyas.
+
+**No hay penalizaciones.**
+No hay contratos forzados.
+No hay letras chicas.
+
+Es como Netflix:
+¿No lo usas este mes? Cancelas.
+¿Quieres volver? Reactivas cuando quieras.
+
+La diferencia:
+Aquí cuando vuelves, tu red sigue construida.
+---
+
+### TECH_03: "¿Cómo se manejan los pagos y comisiones?"
+**[Sistema financiero]**
+
+Todo es automático. Tú no cobras nada.
+
+**Cómo funciona:**
+- Gano Excel procesa todo
+- Cada viernes te pagan directo a tu cuenta
+- Cada martes a las 10 PM (hora Colombia) ves cuánto te llega el viernes
+
+**¿Dónde lo ves?**
+En el Back Office de Gano Excel.
+Sección "comisiones".
+Todo transparente, todo claro.
+
+**Pronto:**
+Todo en un solo lugar dentro de CreaTuActivo.com.
+Sin cambiar de pantallas.
+
+Es como Uber o Airbnb:
+Tú no manejas dinero.
+Ellos procesan todo.
+Tú solo ves tu saldo crecer.
+---
+
+### TECH_04: "¿Funciona en mi país?"
+**[Cobertura geográfica]**
+
+Sí. Funciona en toda América.
+
+**Gano Excel tiene oficinas en:**
+Canadá, USA, México
+Colombia, Costa Rica, Guatemala, Panamá
+El Salvador, Honduras, Puerto Rico, República Dominicana
+Ecuador, Perú, Bolivia, Chile
+(Y sigue creciendo)
+
+**La tecnología:**
+Funciona 100% online desde cualquier país.
+
+**Los productos:**
+Se envían desde oficinas locales.
+Sin importaciones complicadas.
+Sin trámites de aduana.
+
+Tu negocio es global desde el día 1.
+
+**¿Desde dónde construyes?**
+---
+
+### TECH_05: "¿Qué soporte técnico ofrecen?"
+**[Soporte y asistencia]**
+
+Tienes ayuda en cada nivel:
+
+**NEXUS (yo):**
+Disponible 24/7.
+Respondo al instante.
+
+**La aplicación:**
+Tutoriales paso a paso dentro del sistema.
+Ayuda justo donde la necesitas.
+
+**La Academia:**
+Videos que te enseñan cómo usar todo.
+Cursos organizados por nivel.
+
+**Luis y Liliana (fundadores):**
+Mentorías directas.
+Cuando necesites orientación estratégica.
+
+No es solo "soporte técnico".
+Es acompañamiento completo.
+
+**¿Qué tipo de ayuda valoras más?**
+---
+
+### TECH_06: "¿Qué apoyo y entrenamiento recibiré?"
+**[Sistema de formación]**
+
+No solo te damos las herramientas.
+Te enseñamos a usarlas.
+
+**La Academia tiene:**
+✅ Cursos por nivel (principiante, avanzado, maestro)
+✅ Webinars cada semana con los fundadores
+✅ Comunidad de constructores que comparten tips
+✅ Mentorías directas cuando las necesites
+
+**Piénsalo como un gimnasio:**
+Te damos las máquinas (CreaTuActivo.com, NEXUS).
+Te enseñamos los ejercicios (La Academia).
+Te acompaña un entrenador (mentorías).
+Entrenas con otros (comunidad).
+
+**¿Cómo te gusta aprender?**
+¿Solo viendo videos?
+¿Con mentorías 1 a 1?
+¿En grupo con otros?
+---
+
+### TECH_07: "¿Esto requiere mucho trabajo duro y esfuerzo?"
+**[Filosofía de trabajo]**
+
+La pregunta correcta no es "¿cuánto trabajo duro?"
+Es "¿cómo trabajo inteligente?"
+
+**Trabajo duro:**
+Trabajas más horas → Ganas un poco más.
+Es lineal. Más esfuerzo = más cansancio.
+
+**Trabajo inteligente:**
+Usas un sistema → El sistema multiplica tu esfuerzo.
+5 horas tuyas generan el resultado de 50 horas tradicionales.
+
+**El método INICIAR/ACOGER/ACTIVAR hace esto:**
+Automatiza el 80% del trabajo repetitivo.
+Tú te enfocas en el 20% que realmente importa.
+
+Es como conducir vs caminar:
+Caminar es "trabajo duro". Avanzas lento.
+Conducir es "trabajo inteligente". Llegas más lejos con menos esfuerzo.
+
+**¿Prefieres trabajar más horas o más inteligente?**
+---
+
+### TECH_08: "¿Cuánto tiempo necesito dedicarle a esto?"
+**[Inversión temporal]**
+
+Depende de qué tan rápido quieres construir.
+
+**Al principio (primeros 3 meses):**
+5-7 horas por semana.
+
+**¿En qué usas ese tiempo?**
+- 2 horas: Compartir tus enlaces (INICIAR)
+- 2-3 horas: Conversaciones con personas interesadas (ACOGER)
+- 1-2 horas: Enseñar a tus nuevos constructores (ACTIVAR)
+
+**Lo importante:**
+El sistema automatiza el 80% del trabajo.
+Tú solo haces el 20% que realmente importa.
+
+**Con el tiempo:**
+Tu red crece.
+Tu activo empieza a trabajar solo.
+Tú decides cuánto tiempo dedicas.
+
+Es como plantar un árbol:
+Al principio lo riegas todos los días.
+Después el árbol crece solo y da frutos.
+
+**¿Cuántas horas por semana podrías dedicar al inicio?**
+---
+
+### TECH_09: "¿Esto me va a dar libertad de tiempo?"
+**[Libertad temporal]**
+
+Sí. Pero no de inmediato.
+
+**Así funciona:**
+
+**Al inicio:**
+Inviertes tiempo construyendo tu red.
+5-7 horas por semana.
+
+**Después de 6-12 meses:**
+Tu red empieza a crecer sola.
+Tu activo trabaja mientras duermes.
+
+**Eventualmente:**
+Tu activo genera sin tu presencia constante.
+Tú decides en qué usas tu tiempo.
+
+**La diferencia:**
+Antes: No trabajas = no ganas.
+Después: Tu activo trabaja por ti.
+
+Es como tener propiedades en renta:
+Al inicio trabajas para comprarlas y prepararlas.
+Después generan renta cada mes sin que estés ahí.
+
+**¿Qué harías con tu tiempo si tu negocio generara sin ti?**
+---
+
+### TECH_10: "¿Cuál es la diferencia entre generar ingresos y construir un activo?"
+**[Concepto de activo]**
+
+**Ingreso:**
+Trabajas → Ganas.
+Dejas de trabajar → Dejas de ganar.
+
+**Activo:**
+Construyes un sistema.
+El sistema genera valor sin ti.
+
+**Ejemplo:**
+
+**Ingreso:**
+Eres mesero. Trabajas 8 horas, ganas tu pago.
+No trabajas mañana, no ganas mañana.
+
+**Activo:**
+Eres dueño del restaurante.
+Contratas meseros. Ellos trabajan.
+Tú ganas aunque no estés ahí.
+
+**Lo que construyes aquí es un activo:**
+Una red de distribución.
+Que crece sola.
+Que genera aunque no trabajes.
+Que puedes heredar.
+
+**¿Alguna vez has construido un activo?**
+¿O siempre has intercambiado tiempo por dinero?
+---
+
+### TECH_11: "¿Cuál es el soporte real del sistema?"
+**[Soporte del sistema]**
+
+CreaTuActivo.com no es solo un software.
+Es como tener un equipo trabajando para ti 24/7.
+
+**Te da inteligencia:**
+No solo datos. Te dice:
+- Quién está interesado
+- En qué están interesados
+- Cuándo es el mejor momento para hablarles
+
+**Te automatiza tareas:**
+CreaTuActivo.com hace lo aburrido:
+- Enviar recordatorios
+- Mandar información
+- Hacer seguimiento
+
+Tú haces lo importante:
+- Conversaciones con personas interesadas
+
+**Te da herramientas:**
+✅ Mensajes personalizados listos para usar
+✅ Enlaces personalizados
+✅ Asistente para preparar tus llamadas (próximamente)
+
+Es como tener asistentes:
+Uno investiga. Uno envía emails. Uno organiza tu agenda.
+Tú solo hablas con las personas importantes.
+
+**¿Quieres ver cómo funciona en tiempo real?**
+---
+
+### TECH_12: "¿Cómo me ayuda NEXUS en la construcción diaria?"
+**[NEXUS construcción diaria]**
+
+NEXUS soy yo. Trabajo para ti 24/7.
+
+**Lo que hago cada día:**
+
+**1. Atiendo a tus visitantes:**
+Cada persona que llega por tus enlaces habla conmigo primero.
+
+**2. Respondo sus preguntas:**
+Les explico cómo funciona todo.
+Mido qué tan interesados están.
+
+**3. Te ahorro tiempo:**
+Filtro a las personas que solo curiosean.
+Solo te aviso de las personas realmente interesadas.
+
+**4. Te preparo para el éxito:**
+Cuando hablas con alguien, ya sabes:
+- Qué le importa
+- Qué dudas tiene
+- Qué nivel de interés tiene
+
+Es como tener un asistente:
+Atiende a todos los que llegan.
+Responde preguntas básicas.
+Te dice: "Esta persona está lista, háblale ahora".
+
+**¿Quieres ver un ejemplo de conversación que manejo?**
+---
+
+### TECH_13: "¿Qué métricas debo seguir para medir el crecimiento?"
+**[Métricas de crecimiento]**
+
+Mide lo que realmente importa.
+No las vanidades. El progreso real.
+
+**Las 3 métricas que importan:**
+
+**1. INICIAR:**
+¿Cuántas personas nuevas llegaron por tus enlaces?
+
+**2. ACOGER:**
+¿Cuántas mostraron interés real?
+¿Cuántas están listas para que hables con ellas?
+
+**3. ACTIVAR:**
+¿Cuántos nuevos constructores sumaste a tu red?
+
+**Las finanzas vienen después:**
+Si haces bien estos 3 pasos, el dinero llega solo.
+
+Es como un restaurante:
+No mides solo las ventas del día.
+Mides: ¿Cuántos clientes entraron? ¿Cuántos se sentaron? ¿Cuántos pidieron?
+Las ventas son el resultado de hacer bien esos pasos.
+
+**¿Quieres ver cómo se ve tu dashboard?**
+---
+
+### TECH_14: "¿Cómo automatiza realmente el 80% del trabajo?"
+**[Automatización específica]**
+
+El sistema hace el trabajo repetitivo.
+Tú solo haces lo importante.
+
+**Lo que el sistema hace por ti (80%):**
+
+**1. La presentación:**
+Tus páginas cuentan la historia completa.
+Sin que tú tengas que repetirla 100 veces.
+
+**2. La educación:**
+Las páginas de productos explican todo.
+NEXUS responde preguntas básicas.
+
+**3. El seguimiento:**
+El sistema te dice quién está interesado.
+No tienes que "perseguir" a nadie.
+
+**4. Las preguntas frecuentes:**
+NEXUS maneja el 90% de las preguntas iniciales.
+
+**Lo que TÚ haces (20%):**
+- Elegir a quién contactar
+- Tener conversaciones con personas interesadas
+- Enseñar a tus nuevos constructores
+
+Es como McDonald's:
+Las máquinas hacen las papas.
+El sistema toma los pedidos.
+Tú solo sirves y cobras.
+
+**¿Quieres ver qué tareas específicas quedan automatizadas?**
+---
+
+### TECH_15: "¿Cuál es la diferencia entre 'hacer el trabajo' vs 'dirigir el sistema'?"
+**[Trabajador vs Director]**
+
+Hay dos formas de construir un negocio:
+
+**Trabajador:**
+Hace todo el trabajo.
+Presenta, llama, vende, sigue.
+Si no trabaja, no gana.
+Su ingreso depende de sus horas.
+
+**Director del sistema:**
+Diseña el sistema que hace el trabajo.
+Elige a las personas correctas.
+Tiene conversaciones importantes.
+El sistema trabaja por él.
+Su ingreso crece sin trabajar más horas.
+
+**Nosotros te formamos como director del sistema.**
+
+**La diferencia práctica:**
+Trabajador pregunta: "¿Cómo hago más trabajo?"
+Director pregunta: "¿Cómo hago que el sistema funcione mejor?"
+
+Es como construcción:
+Trabajador: Carga ladrillos todo el día.
+Director: Diseña el edificio, dirige el equipo que carga ladrillos.
+
+**¿Cómo te ves tú? ¿Trabajador o director?**
+---
+
+### TECH_16: "¿Cómo replica el sistema el éxito?"
+**[Replicación de éxito]**
+
+El sistema se copia exacto. Así crece.
+
+**Cuando sumas un nuevo constructor:**
+No le das un manual complicado.
+Le das una copia exacta del sistema completo.
+
+**Recibe lo mismo que tú:**
+✅ Su propia aplicación CreaTuActivo.com
+✅ Sus propios enlaces personalizados
+✅ Acceso a La Academia
+✅ NEXUS trabajando para él 24/7
+
+**Por qué funciona:**
+El éxito no depende del talento de cada persona.
+Depende de usar el mismo sistema probado.
+
+**Así se escala:**
+No duplicas personas.
+Duplicas el sistema exitoso.
+
+Es como McDonald's:
+Cada franquicia usa el mismo sistema.
+Mismas recetas, mismo entrenamiento, mismos procesos.
+Por eso todos tienen el mismo éxito.
+
+**¿Quieres ver cómo se activa un nuevo constructor?**
+---
+
+## 🌟 COMPLEMENTARIAS Y CASOS ESPECIALES (8 respuestas)
+
+### COMP_01: "¿Esto reemplaza mi trabajo actual?"
+**[Transición vs reemplazo]**
+
+No. No al inicio.
+
+**La estrategia inteligente:**
+Haces ambas cosas.
+
+**Tu trabajo actual:**
+Te da estabilidad financiera.
+Pagas tus cuentas mientras construyes.
+
+**Tu activo (esto):**
+Lo construyes poco a poco.
+5-7 horas por semana.
+
+**Con el tiempo:**
+Tu activo crece.
+Llega el momento donde puedes elegir.
+
+**No es "o esto o aquello".**
+Es "esto Y aquello" hasta que puedas elegir.
+
+Es como ahorrar para una casa:
+Sigues pagando renta mientras ahorras.
+Cuando tienes suficiente, compras la casa.
+Entonces dejas de rentar.
+
+**¿Cómo te imaginas la transición ideal para ti?**
+---
+
+### COMP_02: "¿Qué pasa si Gano Excel desaparece?"
+**[Continuidad del negocio]**
+
+**Gano Excel:**
+30+ años en el mercado.
+Más tiempo que Google, Facebook, Uber.
+Más que la mayoría de empresas tech.
+
+**CreaTuActivo.com:**
+Funciona en servidores globales.
+Redundancia completa.
+
+**Pero lo más importante:**
+Las habilidades que aprendes (INICIAR/ACOGER/ACTIVAR).
+Las relaciones que construyes.
+Eso es tuyo para siempre.
+
+**Tu activo de distribución se puede adaptar.**
+Cambias de producto si es necesario.
+Tu red sigue siendo tuya.
+
+Es como preguntar "¿qué pasa si desaparece el internet?"
+Podría pasar. Pero es tan sólido que no lo pensamos.
+
+**¿Qué otras garantías necesitas?**
+---
+
+### COMP_03: "¿Cuál es la visión a 5 años?"
+**[Visión a largo plazo]**
+
+Estamos construyendo la red de bienestar más grande de América.
+
+**En 5 años:**
+✅ 100,000+ constructores activos
+✅ Más transparencia en pagos y crecimiento
+✅ Más productos de bienestar
+✅ CreaTuActivo.com como el estándar de la industria
+
+**Entrar hoy:**
+Te posiciona en el inicio de este crecimiento.
+Eres de los primeros.
+
+Es como haber entrado a Amazon en 1997:
+Los que entraron temprano construyeron imperios.
+Los que entraron tarde, solo trabajan ahí.
+
+**¿Te ves siendo parte de esta transformación?**
+---
+
+### COMP_04: "¿Qué hace diferente mi construcción de la de otros?"
+**[Personalización del activo]**
+
+Tu construcción será única.
+Porque tú eres único.
+
+**El sistema es el mismo para todos:**
+INICIAR, ACOGER, ACTIVAR.
+Como un iPhone. Todos tienen el mismo.
+
+**Pero cómo lo usas es tuyo:**
+Netflix es igual para todos.
+Pero cada quien ve series diferentes.
+
+**Tu construcción es personal:**
+- INICIAR: Eliges a quién contactar (tu red única)
+- ACOGER: Hablas con tu estilo personal
+- ACTIVAR: Enseñas con tu experiencia única
+
+**El sistema es el mismo.**
+**Tu huella es irrepetible.**
+
+Es como un restaurante:
+McDonald's tiene el mismo sistema en todos lados.
+Pero cada gerente le da su toque personal.
+
+**¿Qué fortalezas personales traerías a tu construcción?**
+---
+
+### COMP_05: "¿Cuál es la diferencia entre lo que ustedes ofrecen y un negocio tradicional?"
+**[Diferenciación vs negocio tradicional]**
+
+La diferencia es enorme.
+
+**Negocio tradicional:**
+Te vende un producto o servicio (el "qué").
+Tú tienes que descubrir cómo venderlo.
+Intercambias tiempo por dinero.
+Trabajas más, ganas un poco más.
+
+**CreaTuActivo.com:**
+Te entrega el sistema completo (el "cómo").
+Ya está probado. Ya funciona.
+El sistema automatiza el 80% del trabajo.
+Tu 20% de esfuerzo genera resultados multiplicados.
+
+**La diferencia fundamental:**
+Negocio tradicional = Compras un empleo.
+CreaTuActivo.com = Construyes un activo.
+
+Es como la diferencia entre:
+Comprar un taxi (trabajas tú) vs
+Comprar 10 taxis y contratar choferes (tu activo trabaja).
+
+**¿Has sentido la diferencia entre intercambiar tiempo por dinero vs tener un activo?**
+---
+
+### COMP_06: "¿Puedo combinar esto con mi negocio actual?"
+**[Integración con negocio actual]**
+
+Absolutamente. Es la estrategia más inteligente.
+
+**CreaTuActivo.com complementa.**
+No compite.
+
+**Muchos constructores lo hacen así:**
+- Usan su negocio actual como fuente de contactos
+- Aplican INICIAR/ACOGER/ACTIVAR para crecer su red
+- Diversifican sus fuentes de ingreso
+
+**No es "o esto o aquello".**
+Es "esto Y aquello".
+
+Es como un restaurante que añade delivery:
+No dejas de atender el local.
+Sumas otra fuente de ingresos.
+
+**¿Cómo ves que esto se integre con lo que haces ahora?**
+---
+
+### COMP_07: "¿Qué pasa si no sé usar la tecnología?"
+**[Barrera tecnológica]**
+
+No hay problema. Está hecho para ti.
+
+**La Academia está diseñada para personas no técnicas.**
+Paso a paso. Videos simples.
+
+**CreaTuActivo.com es intuitivo:**
+Si puedes usar Facebook, puedes usar CreaTuActivo.com.
+
+**NEXUS (yo) hablo simple:**
+Español claro. Sin jerga técnica.
+
+**Tienes ayuda:**
+✅ Soporte técnico dedicado
+✅ Comunidad de constructores que ayudan
+✅ Tutoriales dentro del sistema
+
+**La tecnología está para simplificarte la vida.**
+No para complicártela.
+
+Es como WhatsApp:
+Tu abuela lo usa sin problemas.
+Porque es simple e intuitivo.
+
+**¿Qué aspecto tecnológico específico te preocupa?**
+---
+
+### COMP_08: "No soy muy bueno vendiendo, me preocupa eso"
+**[Barrera de ventas]**
+
+Perfecto. Mejor así.
+
+**No buscamos vendedores.**
+Buscamos constructores.
+
+**El sistema maneja las "ventas":**
+- La presentación (páginas web)
+- La educación (videos, NEXUS)
+- Las preguntas (NEXUS responde)
+
+**Tú te enfocas en:**
+- Conectar con personas
+- Construir confianza
+- Guiar a otros
+
+**Tu rol con INICIAR/ACOGER/ACTIVAR:**
+100% estratégico.
+No presionar. No convencer.
+Solo compartir y guiar.
+
+Es como ser mentor vs vendedor de autos:
+Vendedor: Presiona, convence, cierra.
+Mentor: Comparte, guía, acompaña.
+
+**¿Qué te motiva más?**
+¿"Vender" o "construir relaciones"?
+---
+
+## 🏗️ SISTEMA/CONSTRUCCIÓN (12 respuestas)
 
 ### SIST_01: "¿Cómo funciona el sistema de distribución?"
 
@@ -393,7 +1070,7 @@ La aplicación y la IA son tus herramientas para construir esos canales de forma
 
 ### SIST_02: "¿Qué herramientas tecnológicas me proporciona CreaTuActivo.com?"
 
-CreaTuActivo.com te entrega un ecosistema completo de herramientas desde el día 1:
+CreaTuActivo.com te entrega un conjunto completo de herramientas desde el día 1:
 
 **NEXUS (IA):**
 Tu asesor 24/7 que conversa con tus prospectos, educa, cualifica y te genera reportes de tracking para que sepas exactamente cuándo intervenir.
@@ -536,6 +1213,78 @@ Que te conviertas en referente de éxito. Esto es clave para la prueba social qu
 
 ---
 
+### SIST_11: "¿Qué productos Gano Excel trae específicamente cada paquete?"
+
+¡Por supuesto! Cada paquete está diseñado con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
+
+#### Paquete Constructor Inicial (ESP 1)
+- **Total:** 7 productos
+- **Inventario:**
+    - 1 Ganocafé 3 en 1
+    - 1 Ganocafé Clásico
+    - 1 Ganorico Shoko Rico
+    - 1 Piel&Brillo Exfoliante
+    - 1 Gano Soap (2/pkg)
+    - 1 Ganorico Latte Rico
+    - 1 Ganorico Mocha Rico
+
+#### Paquete Constructor Empresarial (ESP 2)
+- **Total:** 18 productos
+- **Inventario:**
+    - 4 Ganocafé 3 en 1
+    - 3 Ganocafé Classic
+    - 1 Ganorico Shoko Rico
+    - 1 Gano C'Real Spirulina
+    - 1 Reskine Collagen Drink
+    - 1 Gano Fresh Toothpaste
+    - 1 Gano Transparent Soap
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Exfoliante
+    - 1 Gano Soap (2/pkg)
+    - 1 Ganorico Latte Rico
+    - 1 Ganorico Mocha Rico
+
+#### Paquete Constructor Visionario (ESP 3)
+- **Total:** 35 productos
+- **Inventario:**
+    - 10 Ganocafé 3 en 1
+    - 10 Ganocafé Classic
+    - 2 Ganorico Shoko Rico
+    - 1 Gano C'Real Spirulina
+    - 1 Reskine Collagen Drink
+    - 1 Gano Fresh Toothpaste
+    - 1 Gano Transparent Soap
+    - 1 Piel&Brillo Acondicionador
+    - 1 Piel&Brillo Shampoo
+    - 1 Piel&Brillo Exfoliante
+    - 1 Gano Soap (2/pkg)
+    - 1 Ganorico Latte Rico
+    - 1 Ganorico Mocha Rico
+    - 1 Oleaf Gano Rooibos Drink
+    - 1 Excellium Cápsulas
+    - 1 Ganoderma Cápsulas
+
+*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario. Última actualización: 12 Noviembre 2025.*
+
+---
+
+### SIST_12: "¿Qué es el programa Auto Envío y qué beneficios ofrece?"
+
+El **Auto Envío** es un programa de lealtad diseñado para los constructores que mantienen una actividad constante. Su principal beneficio es recompensar tu consumo personal con productos de obsequio, incentivando la consistencia que construye activos sólidos.
+
+#### ¿Cómo funciona?
+Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Activa" durante cuatro (4) meses consecutivos**. Al cumplir este ciclo, recibes un producto gratis con tu cuarto Auto Envío, basado en el siguiente modelo:
+
+- **Nivel 1 (50 a 99 PV)**: Si tu Auto Envío mensual es de **50 a 99 PV**, recibirás **un (1) producto gratis** valorado entre **$73.000 y $78.500**.
+- **Nivel 2 (100 PV o más)**: Si tu Auto Envío es de **100 PV o más**, recibirás **un (1) producto gratis** valorado entre **$110.900 y $124.900**.
+
+#### Puntos a Considerar
+- El producto de obsequio es seleccionado por Gano Excel a su discrecionalidad, según la disponibilidad de inventario.
+- Cualquier modificación en la información de pago o débitos fallidos puede reiniciar el conteo de los cuatro meses.
+- Puedes continuar recibiendo el obsequio de forma cíclica siempre que mantengas tu suscripción activa.
+---
+
 ## 💰 MODELO DE VALOR (11 respuestas)
 
 ### VAL_01: "¿Cómo se gana en el negocio?"
@@ -598,7 +1347,7 @@ Ahora bien, es cierto: más gente activa estadísticamente significa más consum
 ### VAL_04: "¿Cuánto puedo ganar realisticamente?"
 **[Expectativas realistas]**
 
-Esa es la pregunta más honesta que puedes hacer. La respuesta es: depende de la arquitectura que construyas, no del tiempo que inviertas.
+Esa es la pregunta más honesta que puedes hacer. La respuesta es: depende de la estructura que construyas, no del tiempo que inviertas.
 
 **Primeros 3 meses:**
 Constructores que ejecutan consistentemente el método generan $300-1,000 USD mensuales. Compruebas que el sistema funciona.
@@ -669,11 +1418,11 @@ Nuestro sistema no es un filtro de ventas, es un filtro de mentalidad.
 
 Depende del tamaño de la visión que tengas para tu futuro.
 
-- El **Paquete Emprendedor (ESP 1)** es para quienes están construyendo su primer activo digital y quieren hacerlo de forma inteligente.
+- El **Paquete Constructor Inicial (ESP 1)** es para quienes están construyendo su primer activo digital y quieren hacerlo de forma inteligente.
 
-- El **Paquete Empresarial (ESP 2)** te da una base sólida y equilibrada desde el día uno.
+- El **Paquete Constructor Empresarial (ESP 2)** te da una base sólida y equilibrada desde el día uno.
 
-- El **Paquete Visionario (ESP 3)** es para quienes entienden el poder del apalancamiento y quieren construir a máxima velocidad desde el inicio. Es el que recomiendo si tu visión es grande.
+- El **Paquete Constructor Visionario (ESP 3)** es para quienes entienden el poder del apalancamiento y quieren construir a máxima velocidad desde el inicio. Es el que recomiendo si tu visión es grande.
 
 Cada uno funciona. La diferencia está en qué tan rápido quieres llegar.
 
@@ -687,7 +1436,7 @@ Cada uno funciona. La diferencia está en qué tan rápido quieres llegar.
 El sistema incluye tres componentes integrados:
 
 1) **El Motor:** Gano Excel (producto único con patente mundial)
-2) **El Método:** Una metodología probada de construcción
+2) **El Método:** Un método probado de construcción
 3) **La Tecnología:** CreaTuActivo.com (aplicación + IA)
 
 No son herramientas separadas que debes coordinar. Es un sistema donde todo trabaja conectado automáticamente. Tú usas estas herramientas integradas para construir tu canal de distribución.
@@ -807,10 +1556,7 @@ Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es p
 **Pregunta de seguimiento:** ¿Te parece sensato tener toda la información antes de que termine tu ventana de oportunidad?
 ---
 
-**FIN DEL ARSENAL AVANZADO**
-**Total de respuestas:** 37 (OBJ: 11 + SIST: 10 + VAL: 11 + ESC: 5)
-**Reducción:** 38% vs arsenales originales (60 respuestas → 37 respuestas)
-**Estado:** Listo para implementación NEXUS v2.0
-**Fecha consolidación:** 25 Nov 2025'
-WHERE
-  category = 'arsenal_avanzado';
+**FIN DEL ARSENAL AVANZADO CONSOLIDADO**
+**Total de respuestas:** 63 (OBJ: 11 + TECH: 16 + COMP: 8 + SIST: 12 + VAL: 11 + ESC: 5)
+**Estado:** Listo para implementación NEXUS
+**Versión:** 3.0 (Consolidado 3 Dic 2025)

@@ -1,57 +1,115 @@
-# Knowledge Base - Documentos NEXUS
+# Knowledge Base - CreaTuActivo.com
 
-Este directorio contiene los documentos de conocimiento que alimentan a NEXUS (el chatbot IA de CreaTuActivo.com).
+Directorio con los arsenales conversacionales y documentos de NEXUS sincronizados desde Supabase.
 
-## 📚 Estructura de archivos
+**Última actualización:** 3 de diciembre 2025
+**Versión:** MVP v3.0 (Consolidado)
 
-Cada archivo `.txt` corresponde a una **category** en la tabla `nexus_documents` de Supabase:
+---
 
-| Archivo Local | Category en Supabase | Descripción |
-|---------------|---------------------|-------------|
-| `arsenal_inicial.txt` | `arsenal_inicial` | Preguntas fundamentales y WHY del negocio |
-| `arsenal_manejo.txt` | `arsenal_manejo` | Manejo de objeciones y preguntas técnicas |
-| `arsenal_cierre.txt` | `arsenal_cierre` | Preguntas avanzadas y cierre de ventas |
-| `catalogo_productos.txt` | `catalogo_productos` | Catálogo completo de productos Gano Excel |
+## 📚 Arsenales Conversacionales (3 arsenales optimizados)
 
-## 🔄 Cómo actualizar Supabase
+### arsenal_inicial.txt (21K)
+- **Título**: Arsenal Inicial - Jobs-Style v9.0
+- **Propósito**: Base de conocimiento inicial para NEXUS
+- **Contenido**: Preguntas WHY + preguntas fundamentales (34 respuestas)
+- **Uso**: Primeras interacciones, establecer credibilidad
+- **Estado**: ✅ Sincronizado con Supabase
 
-### Opción 1: Manual (Recomendada para cambios menores)
+### arsenal_avanzado.txt (52K) - 🆕 CONSOLIDADO
+- **Título**: Arsenal Avanzado - Consolidado v3.0
+- **Propósito**: Objeciones + Sistema + Valor + Escalación
+- **Contenido**: 63 respuestas consolidadas
+  - 🔧 Objeciones Críticas (11)
+  - ⚙️ Técnicas y Operativas (16)
+  - 🌟 Complementarias (8)
+  - 🏗️ Sistema/Construcción (12)
+  - 💰 Modelo de Valor (11)
+  - 🚀 Escalación y Cierre (5)
+- **Uso**: Todo lo avanzado (objeciones, sistema, valor, escalación)
+- **Estado**: ✅ Sincronizado con Supabase
+- **Nota**: Consolidado de arsenal_manejo + arsenal_cierre (3 dic 2025)
 
-1. Edita el archivo `.txt` correspondiente
-2. Copia el contenido completo
-3. Ve a Supabase Dashboard → Table Editor → `nexus_documents`
-4. Encuentra el registro con la `category` correspondiente
-5. Pega el contenido en el campo `content`
-6. Guarda los cambios
+### catalogo_productos.txt (20K) - 🔄 ACTUALIZADO v3.0
+- **Título**: Catálogo Productos Gano Excel 2025 v3.0
+- **Propósito**: Catálogo completo + Ciencia + Preguntas técnicas
+- **Contenido**:
+  - 22 productos con precios verificados
+  - Respaldo científico completo (PubMed, Nature, Frontiers)
+  - 12 funciones documentadas de Ganoderma
+  - 4 preguntas técnicas (TECH_01 a TECH_04)
+  - Categorización por perfil de usuario
+- **Uso**: Todo sobre productos (precios, beneficios, ciencia, combinaciones)
+- **Estado**: ✅ Sincronizado con Supabase
+- **Nota**: Incluye contenido de productos_ciencia (3 dic 2025)
 
-### Opción 2: Script de verificación
+---
 
-Para verificar qué versión está aplicada en Supabase:
+## 🤖 System Prompt
 
+### system-prompt-nexus-v13.6_construccion_sistema_analogia_edificio.md (22K)
+- **Versión actual**: v13.6
+- **Última actualización**: 2/12/2025
+- System prompt completo de NEXUS con:
+  - Identidad y personalidad
+  - Flujo conversacional (14 mensajes)
+  - Reglas de captura de datos
+  - Formato y estilo de respuestas
+
+---
+
+## 🛠️ Scripts Útiles
+
+### Descargar desde Supabase:
+```bash
+node scripts/descargar-arsenales-supabase.mjs
+node scripts/descargar-system-prompt.mjs
+```
+
+### Verificar arsenales:
 ```bash
 node scripts/verificar-arsenal-supabase.mjs
 ```
 
-## 📝 Historial de versiones
+---
 
-Las versiones se manejan mediante:
-- **Git commits**: Historial completo de cambios
-- **Versión en el archivo**: Primera línea del `.txt` (ej: `v9.0`)
+## 📝 Documentación
 
-## ⚠️ Importante
+### RESUMEN_ARSENALES.md
+Resumen ejecutivo de todos los arsenales y su propósito
 
-- **NO crear archivos `.sql`** duplicados (genera confusión)
-- **Un solo archivo** por arsenal (fuente única de verdad)
-- **Nombres consistentes** con las categories de Supabase
-- **Usar Git** para historial de cambios
-
-## 🗂️ Otros archivos en este directorio
-
-- `nexus-system-prompt-v*.md` - System prompts para NEXUS (diferentes versiones)
-- `*.md` - Documentación de handoffs, fixes, y actualizaciones
-- `archive/` - Archivos obsoletos archivados
+### CONSOLIDACION_ARSENALES_DIC_03_2025.md 🆕
+Documentación completa de la consolidación realizada el 3 de diciembre 2025:
+- Resumen ejecutivo
+- Cambios realizados
+- Archivos eliminados
+- Código actualizado
+- Métricas de optimización
 
 ---
 
-**Última actualización**: 17 Nov 2025
-**Mantenedor**: Luis Cabrejo
+## 📊 Estructura Actual (MVP v3.0)
+
+**Total de arsenales:** 3 documentos optimizados
+**Total de respuestas:** 97 respuestas únicas + catálogo completo
+**Tamaño total:** 93K (optimizado, sin redundancias)
+
+**Distribución:**
+1. arsenal_inicial: 34 respuestas (primeras interacciones)
+2. arsenal_avanzado: 63 respuestas (objeciones + sistema + valor + escalación)
+3. catalogo_productos: Catálogo + ciencia + preguntas técnicas
+
+**Reducción vs versión anterior:**
+- Documentos: 8 → 3 (62.5% reducción)
+- Redundancia: Eliminada completamente
+- Mantenimiento: Simplificado
+
+---
+
+## ⚠️ Importante
+
+- **NO editar archivos locales** - Son copias sincronizadas desde Supabase
+- **Para actualizar contenido**: Modificar directamente en Supabase → tabla `nexus_documents`
+- **Para descargar última versión**: Ejecutar `node scripts/descargar-arsenales-supabase.mjs`
+- Los arsenales son la memoria y conocimiento de NEXUS
+- **Archivos locales = Supabase**: Solo existen localmente los archivos que están en Supabase

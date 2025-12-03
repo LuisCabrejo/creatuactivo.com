@@ -656,7 +656,7 @@ export default function FundadoresPage() {
                 </p>
 
                 <p>
-                  Usas productos únicos de salud (<strong className="text-white">Gano Excel</strong> con patente mundial) y construyes tu red de distribución.
+                  Usas productos únicos de salud (<strong className="text-white">Gano Excel</strong> con tecnología propietaria) y construyes tu red de distribución.
                 </p>
 
                 <p className="text-lg font-semibold text-white mb-2">
@@ -777,7 +777,7 @@ export default function FundadoresPage() {
           {/* Prueba de Confianza */}
           <section className="max-w-5xl mx-auto text-center mb-20">
             <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-4">Construido Sobre Base Sólida</h2>
-            <p className="text-slate-300 max-w-3xl mx-auto mb-12">Esta innovación no nace en el vacío. Es el resultado de 9 años de éxito probado, ahora potenciado por un socio corporativo con 30+ años de trayectoria global y una patente mundial que garantiza su unicidad.</p>
+            <p className="text-slate-300 max-w-3xl mx-auto mb-12">Esta innovación no nace en el vacío. Es el resultado de 9 años de éxito probado, ahora potenciado por un socio corporativo con 30+ años de trayectoria global y tecnología propietaria protegida por secretos industriales que garantiza su unicidad.</p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-8">
               <div className="creatuactivo-component-card p-6 text-center">

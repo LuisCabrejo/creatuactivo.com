@@ -73,7 +73,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          Productos con Patente Mundial
+          Fórmula Exclusiva Mundial
         </div>
 
         {/* Detalle */}

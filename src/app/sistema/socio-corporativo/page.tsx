@@ -179,8 +179,8 @@ export default function SocioCorporativoPage() {
               icon={<Award className="w-8 h-8 text-[var(--creatuactivo-gold)]" />}
               title="Pilar de Unicidad"
             >
-              <p>Esta es nuestra ventaja competitiva más profunda. Gano Excel es la <span className="font-semibold text-white">única compañía en el mundo</span> que posee la patente para un extracto de Ganoderma lucidum 100% soluble.</p>
-              <p>Como constructor, no distribuyes un producto genérico; construyes tu activo sobre una pieza de propiedad intelectual única. Eliminas la competencia y te posicionas en una categoría propia desde el día uno.</p>
+              <p>Esta es nuestra ventaja competitiva más profunda. Gano Excel protege su proceso de extracción mediante <span className="font-semibold text-white">secretos industriales</span>, produciendo un extracto de Ganoderma lucidum 100% soluble que nadie más puede replicar exactamente.</p>
+              <p>Como constructor, no distribuyes un producto genérico; construyes tu activo sobre tecnología propietaria única. Eliminas la competencia y te posicionas en una categoría propia desde el día uno.</p>
             </PillarCard>
           </section>
 

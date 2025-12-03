@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/creatuactivo-redes-productos-card-2400x1260.png`,
         width: 2400,
         height: 1260,
-        alt: 'CreaTuActivo - Un Producto Único respaldado por patente mundial',
+        alt: 'CreaTuActivo - Un Producto Único respaldado por una fórmula exclusiva',
         type: 'image/png',
       }
     ],
@@ -124,7 +124,7 @@ export default function ProductosLayout({
         "name": "¿Cuáles son los beneficios del Gano Café 3 en 1?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El Gano Café 3 en 1 de Gano Excel ofrece beneficios respaldados por el extracto 100% hidrosoluble de Ganoderma Lucidum con patente mundial: fortalece el sistema inmunológico con betaglucanos, aporta energía sostenida sin nerviosismo, reduce el estrés como adaptógeno natural que equilibra cortisol, y mejora la concentración y claridad mental. Tiene Registro INVIMA SD2012-0002589 y está respaldado por 30+ años de investigación científica."
+          "text": "El Gano Café 3 en 1 de Gano Excel ofrece beneficios respaldados por el extracto 100% hidrosoluble de Ganoderma Lucidum con una fórmula exclusiva: fortalece el sistema inmunológico con betaglucanos, aporta energía sostenida sin nerviosismo, reduce el estrés como adaptógeno natural que equilibra cortisol, y mejora la concentración y claridad mental. Tiene Registro INVIMA SD2012-0002589 y está respaldado por 30+ años de investigación científica."
         }
       },
       {

@@ -174,7 +174,7 @@ export default function FundadoresNetworkPage() {
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start gap-3">
                       <span className="text-green-400 font-bold">✓</span>
-                      <span>Producto con patente mundial (Gano Excel, 30+ años)</span>
+                      <span>Producto con tecnología propietaria (Gano Excel, 30+ años)</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-green-400 font-bold">✓</span>
@@ -665,7 +665,7 @@ export default function FundadoresNetworkPage() {
                 Tú ya sabes cómo funciona.
               </h2>
               <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Duplicación. Residual. Binario. Patente mundial.<br />
+                Duplicación. Residual. Binario. Tecnología propietaria.<br />
                 Ahora con CreaTuActivo: la aplicación que siempre debió existir.
               </p>
               <a href="#formulario" className="creatuactivo-cta-ecosystem text-xl inline-flex items-center">

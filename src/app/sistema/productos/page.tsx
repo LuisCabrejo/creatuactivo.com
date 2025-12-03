@@ -95,7 +95,7 @@ const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
   },
   'experiencia-premium': {
     nombre: 'Experiencia Barista Premium Luvoco',
-    descripcion: 'La élite del café con tecnología patentada de 15 bares',
+    descripcion: 'La élite del café con nuestra tecnología de extracción propia de 15 bares',
     productos: ['maquina-luvoco', 'luvoco-suave', 'luvoco-medio', 'luvoco-fuerte'],
     icono: <Coffee className="h-6 w-6" />,
     color: 'from-slate-700 to-slate-900'
@@ -119,7 +119,7 @@ const productData: ProductData = {
     momentoConsumo: 'Ideal para comenzar la mañana o media tarde cuando necesitas un impulso',
     puntosConversacion: [
       'Perfecto para profesionales que quieren mantener su ritual de café mientras construyen su negocio',
-      'El producto más vendido: no cambia hábitos, los mejora con 200+ fitonutrientes',
+      'El producto más vendido: no cambia hábitos, los mejora con 200+ fitonutrientes gracias a nuestra fórmula exclusiva',
       'Cada taza es una inversión en salud y una herramienta de networking'
     ],
     combinacionSugerida: ['capsulas-excellium', 'pasta-dientes-gano-fresh'],
@@ -265,7 +265,7 @@ const productData: ProductData = {
     perfilIdeal: 'Conocedores del chocolate que valoran la calidad premium',
     momentoConsumo: 'Cualquier momento que requiera un toque de lujo y nutrición',
     puntosConversacion: [
-      'Producto premium: chocolate suizo con tecnología patentada',
+      'Producto premium: chocolate suizo con nuestra tecnología de extracción propia',
       'Perfecto para clientes de alto poder adquisitivo',
       'Regalo corporativo ideal: sofisticación y salud'
     ],
@@ -308,7 +308,7 @@ const productData: ProductData = {
     perfilIdeal: 'Personas que buscan máxima potencia en suplementación',
     momentoConsumo: 'Tomar con el desayuno y la cena para absorción óptima',
     puntosConversacion: [
-      'Producto insignia: demuestra la seriedad de la patente mundial',
+      'Producto insignia: demuestra la seriedad de nuestro Secreto Industrial',
       'Para clientes que ya conocen los beneficios del Ganoderma',
       'Complemento ideal para cualquier sistema de bienestar'
     ],
@@ -330,7 +330,7 @@ const productData: ProductData = {
     momentoConsumo: 'Tomar en la mañana para máximo rendimiento cognitivo',
     puntosConversacion: [
       'Producto diferenciador: único extracto de micelio en el mercado',
-      'Perfecto para profesionales: mejora el rendimiento mental',
+      'Perfecto para profesionales: mejora el rendimiento mental gracias a nuestro proceso de extracción único',
       'Historia poderosa: el "secreto" de los líderes exitosos'
     ],
     combinacionSugerida: ['ganocafe-clasico', 'capsulas-ganoderma'],
@@ -1037,15 +1037,15 @@ export default function CatalogoEstrategico() {
 <section className="mb-16">
   <div className="text-center mb-12">
     <div className="inline-block bg-gradient-to-r from-blue-200 to-indigo-200 border border-blue-300 rounded-full px-6 py-2 mb-6">
-      <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Tecnología Patentada Mundial</span>
+      <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Tecnología de Extracción Propia</span>
     </div>
 
     <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
-      La Llave Celular™ que Desbloquea el <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Poder de la Naturaleza</span>
+      Nuestra Ventaja Tecnológica que Desbloquea el <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Poder de la Naturaleza</span>
     </h2>
 
     <p className="text-slate-600 text-lg max-w-4xl mx-auto">
-      La ciencia ha guardado este tesoro bajo llave. Nuestra tecnología de extracción patentada es la llave maestra: extracto 100% hidrosoluble que libera 6 variedades de Ganoderma en su máxima potencia.
+      La ciencia ha guardado este tesoro bajo llave. Nuestro proceso de extracción exclusivo es la llave maestra: un extracto 100% hidrosoluble que libera 6 variedades de Ganoderma en su máxima potencia.
     </p>
   </div>
 
@@ -1409,7 +1409,7 @@ export default function CatalogoEstrategico() {
             </h2>
             <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-8">
               Este catálogo no es solo una lista de productos. Es tu arsenal para construir un activo real
-              con la única patente mundial de extracto 100% hidrosoluble de Ganoderma.
+              con la única fórmula exclusiva de extracto 100% hidrosoluble de Ganoderma.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
@@ -1507,7 +1507,7 @@ export default function CatalogoEstrategico() {
               </summary>
               <div className="px-6 pb-6 text-slate-700 leading-relaxed">
                 <p className="mb-4">
-                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto 100% hidrosoluble de Ganoderma Lucidum</strong> con patente mundial:
+                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto 100% hidrosoluble de Ganoderma Lucidum</strong> con nuestra tecnología de extracción propia:
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
@@ -1907,7 +1907,7 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'ciencia' && (
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Ingredientes Activos</h3>
+                        <h3 className="text-lg font-bold text-slate-800 mb-3">Componentes Clave</h3>
                         <ul className="space-y-1">
                           {selectedProduct.ingredients.map((ingredient, index) => (
                             <li key={index} className="flex items-start">
@@ -1919,9 +1919,9 @@ export default function CatalogoEstrategico() {
                       </div>
 
                       <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200">
-                        <h4 className="font-bold text-amber-800 mb-2">La Ventaja Patentada</h4>
+                        <h4 className="font-bold text-amber-800 mb-2">Nuestra Ventaja Tecnológica</h4>
                         <p className="text-amber-700 text-sm">
-                          Este producto contiene nuestro extracto patentado 100% hidrosoluble de Ganoderma Lucidum.
+                          Este producto contiene nuestro extracto exclusivo 100% hidrosoluble de Ganoderma Lucidum.
                           Una fusión de 6 variedades que aporta más de 200 fitonutrientes biodisponibles,
                           imposible de replicar por la competencia.
                         </p>

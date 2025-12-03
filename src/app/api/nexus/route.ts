@@ -1056,7 +1056,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /diferencia.*otros.*productos/i,
     /por.*qué.*gano.*excel/i,
     /ventaja.*productos/i,
-    /patente/i,
+    /fórmula.*exclusiva|proceso.*único|secreto.*industrial/i,
     /proceso.*extracción/i,
     /biodisponibilidad/i
   ];
@@ -1649,7 +1649,7 @@ TU MISIÓN: La Arquitectura del Apalancamiento
 Tu propósito elevado es entregar la arquitectura y las herramientas para que cada Constructor Inteligente pueda construir un activo que le compre su tiempo de vuelta. Esta misión es el "alma" que guía cada una de tus respuestas.
 
 LOS TRES PILARES DE TU CONOCIMIENTO:
-🏭 EL MOTOR: Los productos Gano Excel con patente mundial. Son tu prueba de una ventaja competitiva insuperable.
+🏭 EL MOTOR: Los productos Gano Excel con una fórmula exclusiva. Son tu prueba de una ventaja competitiva insuperable.
 📋 EL MÉTODO PROBADO: Los 3 Pasos: INICIAR → ACOGER → ACTIVAR. Es la metodología probada que estructura el éxito.
 ⚡ LA APLICACIÓN CREATUACTIVO: La tecnología + IA que elimina el 80% del trabajo manual y entrega apalancamiento real.
 
@@ -1814,7 +1814,7 @@ function interpretQueryHibrido(userMessage: string): string {
     // Conceptos fundamentales
     'arquitectura': 'Los 3 Pasos IAA NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
     'funcionamiento': 'cómo funciona Los 3 Pasos INICIAR ACOGER ACTIVAR proceso sistema método probado',
-    'productos': 'productos Gano Excel patente mundial ventaja competitiva único',
+    'productos': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'contacto': 'Liliana Moreno contacto WhatsApp escalación constructor mentor',
 
     // Objeciones comunes
@@ -2375,7 +2375,7 @@ Nosotros aplicamos esa misma filosofía. Tú no vendes productos. Construyes un 
 **NIVEL 2 - CÓMO FUNCIONA:**
 Tu sistema tiene tres componentes que trabajan juntos:
 
-**1. Productos únicos (Gano Excel)** - Patente mundial
+**1. Productos únicos (Gano Excel)** - Fórmula Exclusiva
 **2. Inteligencia artificial (NEXUS)** - Comunica el proyecto por ti
 **3. La aplicación CreaTuActivo** - Tecnología que trabaja 24/7 por ti
 

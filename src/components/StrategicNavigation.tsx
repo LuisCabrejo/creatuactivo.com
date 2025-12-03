@@ -484,7 +484,7 @@ export default function StrategicNavigation() {
           name: 'Nuestros Productos',
           href: '/sistema/productos',
           icon: <Box className="w-5 h-5 text-green-400" />,
-          description: 'El motor de valor con patente mundial.'
+          description: 'El motor de valor con tecnología propietaria única.'
         },
         {
           name: 'Nuestro Socio Corporativo',

@@ -270,10 +270,10 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">1. La Fábrica (Producto)</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                  Gano Excel pone los productos, las bodegas, los envíos y los empleados. Salud patentada para millones.
+                  Gano Excel pone los productos, las bodegas, los envíos y los empleados. Tecnología propietaria para millones.
                 </p>
                 <div className="text-xs font-bold text-green-500 uppercase tracking-wide">
-                  Patente Mundial Incluida
+                  Tecnología Propietaria Única
                 </div>
               </div>
 

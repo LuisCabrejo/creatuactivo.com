@@ -423,7 +423,7 @@ export default function FundadoresPage() {
 
               <div className="space-y-4 text-lg text-slate-300 relative z-10">
                 <p>Nosotros te entregamos ese sistema.</p>
-                <p>El producto lo pone <strong className="text-white">Gano Excel</strong> (Patente Mundial).</p>
+                <p>El producto lo pone <strong className="text-white">Gano Excel</strong> (Tecnología Propietaria).</p>
                 <p>La tecnología la pone <strong className="text-gradient-gold">CreaTuActivo</strong>.</p>
                 <p className="font-bold text-white mt-6 text-xl">Tú cobras por conectar.</p>
               </div>

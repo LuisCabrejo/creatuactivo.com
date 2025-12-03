@@ -197,7 +197,7 @@ export default function Inicio2Page() {
               </p>
 
               <p className="text-lg lg:text-xl text-slate-300 leading-relaxed text-left">
-                Por eso creamos un ecosistema completo que democratiza el acceso a <strong className="text-white">tecnología de nivel corporativo</strong>, entregando el sistema probado, la IA que automatiza el trabajo pesado, y productos únicos con patente mundial.
+                Por eso creamos un ecosistema completo que democratiza el acceso a <strong className="text-white">tecnología de nivel corporativo</strong>, entregando el sistema probado, la IA que automatiza el trabajo pesado, y productos únicos con tecnología propietaria.
               </p>
             </div>
           </section>
@@ -233,7 +233,7 @@ export default function Inicio2Page() {
               />
               <HOWPillar
                 icon={<Box size={32} />}
-                title="Productos con Patente"
+                title="Productos con Tecnología Propietaria"
                 description="Un foso competitivo infranqueable. Distribuyes productos únicos que nadie más en el mundo puede replicar."
                 iconColor="text-green-400"
                 iconBg="bg-green-500/10"
@@ -314,7 +314,7 @@ export default function Inicio2Page() {
               </div>
               <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-4">El Sistema que Ya Probó que Funciona</h2>
               <p className="text-slate-300 max-w-3xl mx-auto mb-12">
-                Esta innovación no nace en el vacío. Es el resultado de 9 años de éxito probado, ahora potenciado por un socio corporativo con 30+ años de trayectoria global y una patente mundial que garantiza su unicidad.
+                Esta innovación no nace en el vacío. Es el resultado de 9 años de éxito probado, ahora potenciado por un socio corporativo con 30+ años de trayectoria global y tecnología propietaria protegida por secretos industriales que garantiza su unicidad.
               </p>
             </div>
 
@@ -327,7 +327,7 @@ export default function Inicio2Page() {
               <div className="backdrop-blur-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-amber-500/10 border-2 border-amber-500/30 rounded-3xl shadow-2xl p-8 text-center">
                 <p className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">30+ Años</p>
                 <p className="text-slate-400 text-lg">de Respaldo Corporativo</p>
-                <p className="text-sm text-slate-500 mt-2">Gano Excel - Patente Mundial</p>
+                <p className="text-sm text-slate-500 mt-2">Gano Excel - Tecnología Propietaria</p>
               </div>
             </div>
 
@@ -379,7 +379,7 @@ export default function Inicio2Page() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-white text-lg mb-1">Sobre una Base Sólida</h3>
-                      <p className="text-slate-400">Apalancados en un socio con más de 30 años de trayectoria y productos con patente mundial.</p>
+                      <p className="text-slate-400">Apalancados en un socio con más de 30 años de trayectoria y productos con tecnología propietaria.</p>
                     </div>
                   </div>
                 </div>

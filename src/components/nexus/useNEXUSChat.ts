@@ -56,9 +56,9 @@ Estoy aquí para ayudarte a entender cómo Ganoderma lucidum puede apoyar tu bie
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `¡Hola! 👋 Soy **NEXUS**, tu asistente virtual de CreaTuActivo.com.
+    content: `¡Hola! 👋 Soy **NEXUS**, tu Socio Digital en CreaTuActivo.com.
 
-Estoy aquí para ayudarte a construir tu propio activo con productos **Gano Excel** que tienen patente mundial.
+Estoy aquí para mostrarte cómo construir tu propio sistema de **Distribución Masiva** de productos Gano Excel.
 
 ¿Qué te gustaría saber?
 
@@ -382,7 +382,7 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
       errorMessage = `🤖 Estoy experimentando dificultades en mi arquitectura de procesamiento.
 
 **Opciones mientras optimizamos:**
-1. **El Motor de Valor** - Los productos únicos con patente mundial
+1. **El Motor de Valor** - Los productos únicos con tecnología propietaria
 2. **El Método Probado** - Los 3 Pasos: IAA (INICIAR → ACOGER → ACTIVAR)
 3. **La Aplicación CreaTuActivo** - Tecnología + IA que automatiza el 80% del trabajo
 4. **Consultoría Estratégica** - Liliana Moreno +573102066593

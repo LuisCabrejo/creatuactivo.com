@@ -11,22 +11,22 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Calculadora Ingreso Residual Gano Excel | Simula Tus Ganancias MLM 2025',
-  description: 'Calculadora oficial ingreso residual Gano Excel Colombia 2025. Simula ganancias multinivel con paquetes ESP-1, ESP-2, ESP-3. Proyecciones realistas, compensación binaria + unilevel. Presentación empresarial completa.',
-  keywords: 'calculadora ingreso residual gano excel, simulador ganancias gano excel, plan compensación gano excel, presentación empresarial gano excel, calculadora mlm, ganancias multinivel gano excel colombia',
+  title: 'Oportunidad de Negocio: Construye tu Activo Digital y Genera Ingreso Residual',
+  description: 'Descubre la primera oportunidad de negocio con un sistema automatizado que trabaja para ti. Construye un activo digital heredable y genera ingreso residual con nuestro modelo probado. Presentación empresarial completa.',
+  keywords: 'oportunidad de negocio, crear activo digital, generar ingreso residual, negocio automatizado, franquicia digital, emprendimiento, Gano Excel, CreaTuActivo',
   authors: [{ name: 'CreaTuActivo.com' }],
   openGraph: {
     type: 'website',
     locale: 'es_ES',
     url: 'https://creatuactivo.com/presentacion-empresarial',
-    title: 'Calculadora Ingreso Residual Gano Excel | Simula Tus Ganancias MLM 2025',
-    description: 'Calculadora oficial ingreso residual Gano Excel Colombia. Simula ganancias con ESP-1, ESP-2, ESP-3. Proyecciones realistas compensación binaria + unilevel.',
+    title: 'Oportunidad de Negocio: Construye tu Activo Digital con un Sistema Automatizado',
+    description: 'Descubre cómo construir un activo digital que genera ingreso residual. Presentación de la oportunidad de negocio con la tecnología de CreaTuActivo.com.',
     siteName: 'CreaTuActivo.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calculadora Ingreso Residual Gano Excel | Simula Ganancias MLM',
-    description: 'Simula tus ganancias Gano Excel Colombia. Calculadora oficial con ESP-1, ESP-2, ESP-3. Binario + unilevel.',
+    title: 'Oportunidad de Negocio: Construye tu Activo Digital y Genera Ingreso Residual',
+    description: 'Descubre cómo construir un activo digital que genera ingreso residual con un sistema automatizado. Presentación de negocio completa.',
     creator: '@creatuactivo',
   },
   robots: {

@@ -404,10 +404,13 @@ export default function PresentacionEmpresarialPage() {
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Evolución Tecnológica
                     </div>
 
-                    <h1 className="creatuactivo-h1-ecosystem text-5xl lg:text-7xl mb-6 leading-tight">
-                        Hacerlo difícil <br />
-                        ya pasó de moda.
+                    <h1 className="creatuactivo-h1-ecosystem text-5xl lg:text-6xl mb-6 leading-tight">
+                        Construye tu Activo Digital y Genera Ingreso Residual
                     </h1>
+
+                    <h2 className="text-2xl text-slate-300 mb-8 leading-relaxed font-semibold">
+                        La primera oportunidad de negocio con un sistema automatizado que trabaja para ti 24/7.
+                    </h2>
 
                     <p className="text-xl text-slate-300 mb-8 leading-relaxed">
                         Pasamos de alquilar películas a <b>Netflix</b>. <br/>
@@ -485,21 +488,21 @@ export default function PresentacionEmpresarialPage() {
                 <div className="grid md:grid-cols-3 gap-8 text-left relative z-10">
                     <div>
                         <div className="mb-4 text-blue-400"><Globe size={32} /></div>
-                        <h3 className="text-xl font-bold text-white mb-2">Distribución Masiva</h3>
+                        <h2 className="text-xl font-bold text-white mb-2">Distribución Masiva</h2>
                         <p className="text-slate-400 text-sm">
                             Creamos canales por donde fluyen millones de dólares en productos de consumo diario en toda América.
                         </p>
                     </div>
                     <div>
                         <div className="mb-4 text-purple-400"><Database size={32} /></div>
-                        <h3 className="text-xl font-bold text-white mb-2">Activo Digital</h3>
+                        <h2 className="text-xl font-bold text-white mb-2">Activo Digital</h2>
                         <p className="text-slate-400 text-sm">
                             El mercado que construyes queda codificado a tu nombre. Es tuyo. Heredable y vitalicio.
                         </p>
                     </div>
                     <div>
                         <div className="mb-4 text-green-400"><TrendingUp size={32} /></div>
-                        <h3 className="text-xl font-bold text-white mb-2">Ingreso Residual</h3>
+                        <h2 className="text-xl font-bold text-white mb-2">Ingreso Residual</h2>
                         <p className="text-slate-400 text-sm">
                             Haces el trabajo bien una vez (construir la red), y cobras cada vez que alguien se toma un café.
                         </p>

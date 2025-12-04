@@ -47,28 +47,28 @@ export default async function Image() {
         {/* Título principal - MUY GRANDE */}
         <div
           style={{
-            fontSize: 85,
+            fontSize: 78,
             fontWeight: 900,
             background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #F59E0B 100%)',
             backgroundClip: 'text',
             color: 'transparent',
             textAlign: 'center',
             lineHeight: 1.1,
-            marginBottom: 30,
+            marginBottom: 40,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             letterSpacing: '-0.02em',
           }}
         >
-          <span style={{ display: 'flex' }}>TU ECOSISTEMA</span>
-          <span style={{ display: 'flex' }}>TU ACTIVO</span>
+          <span style={{ display: 'flex' }}>Construye tu Activo Digital</span>
+          <span style={{ display: 'flex' }}>y Genera Ingreso Residual</span>
         </div>
 
         {/* Subtítulo */}
         <div
           style={{
-            fontSize: 48,
+            fontSize: 42,
             fontWeight: 700,
             color: '#94a3b8',
             textAlign: 'center',
@@ -76,7 +76,7 @@ export default async function Image() {
             marginBottom: 80,
           }}
         >
-          Método Probado IAA
+          La Oportunidad de Negocio con Sistema Automatizado
         </div>
 
         {/* Footer */}

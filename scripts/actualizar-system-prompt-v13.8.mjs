@@ -33,7 +33,7 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function actualizarSystemPrompt() {
-  console.log('\n🚀 Actualizando System Prompt v13.8.2 Simplificación Radical...');
+  console.log('\n🚀 Actualizando System Prompt v13.8.3 No Opciones en MENSAJE 2...');
 
   const contenido = readFileSync(
     join(__dirname, '../knowledge_base/system-prompt-nexus-v13.7_quirurgico_socio_digital.md'),
@@ -44,7 +44,7 @@ async function actualizarSystemPrompt() {
     .from('system_prompts')
     .update({
       prompt: contenido,
-      version: 'v13.8.2_simplificacion_radical',
+      version: 'v13.8.3_no_opciones_en_mensaje_2',
       updated_at: new Date().toISOString()
     })
     .eq('name', 'nexus_main');
@@ -54,7 +54,7 @@ async function actualizarSystemPrompt() {
     return false;
   }
 
-  console.log('✅ System Prompt v13.8.2 actualizado exitosamente');
+  console.log('✅ System Prompt v13.8.3 actualizado exitosamente');
   console.log(`   - ${contenido.split('\n').length} líneas`);
   console.log(`   - ${(contenido.length / 1024).toFixed(1)} KB`);
   return true;
@@ -79,11 +79,11 @@ async function verificarActualizacion() {
   console.log(`   - Versión: ${data.version}`);
   console.log(`   - Fecha: ${data.updated_at}`);
 
-  console.log('\n✨ Cambios críticos aplicados (v13.8.2):');
-  console.log('   ✅ REGLA GLOBAL: Solicitudes de datos SIEMPRE solas (sin opciones después)');
-  console.log('   ✅ MENSAJE 2 SIMPLIFICADO: Sin ejemplos condicionantes');
-  console.log('   ✅ MENSAJE 5-7 SIMPLIFICADO: Sin condicionales confusos');
-  console.log('   🗑️  ELIMINADO: Ejemplo que condicionaba "Perfecto. CreaTuActivo es..."');
+  console.log('\n✨ Cambios críticos aplicados (v13.8.3):');
+  console.log('   🚨 FIX: MENSAJE 2 omite opciones A/B/C/D que vengan del arsenal');
+  console.log('   🚨 INSTRUCCIÓN EXPLÍCITA: "NO incluyas opciones en este mensaje"');
+  console.log('   🎯 CLARIFICACIÓN: Sin importar pregunta del usuario, MENSAJE 2 sin opciones');
+  console.log('   ✅ MANTIENE: Regla global solicitudes + simplificación radical');
 }
 
 async function limpiarCachePrompt() {
@@ -94,11 +94,11 @@ async function limpiarCachePrompt() {
 
 // Ejecutar actualización
 async function main() {
-  console.log('🚀 ACTUALIZACIÓN SYSTEM PROMPT NEXUS v13.8.2');
+  console.log('🚀 ACTUALIZACIÓN SYSTEM PROMPT NEXUS v13.8.3');
   console.log('===============================================\n');
-  console.log('SIMPLIFICACIÓN RADICAL');
-  console.log('Eliminados ejemplos condicionantes');
-  console.log('Regla global: Solicitudes SIEMPRE solas\n');
+  console.log('FIX CRÍTICO: NO OPCIONES EN MENSAJE 2');
+  console.log('Instrucción explícita: Omitir opciones del arsenal');
+  console.log('Objetivo: Evitar dispersión al pedir nombre\n');
 
   const ok = await actualizarSystemPrompt();
 
@@ -106,9 +106,9 @@ async function main() {
     await verificarActualizacion();
     await limpiarCachePrompt();
     console.log('\n✅ ACTUALIZACIÓN COMPLETA');
-    console.log('\n📌 Simplificación aplicada: Sin ejemplos que condicionen respuestas');
-    console.log('📌 NEXUS ahora responde preguntas y pide datos de forma natural');
-    console.log('📌 Solicitudes SIEMPRE solas (sin opciones adicionales)');
+    console.log('\n📌 FIX aplicado: MENSAJE 2 omite opciones del arsenal');
+    console.log('📌 Usuario recibe respuesta + solicitud de nombre (sin dispersión)');
+    console.log('📌 Opciones A/B/C/D solo aparecen cuando NO se solicitan datos');
     console.log('📌 Reinicia el servidor dev para aplicar cambios inmediatamente');
   } else {
     console.log('\n❌ ACTUALIZACIÓN FALLIDA - Revisar errores arriba');

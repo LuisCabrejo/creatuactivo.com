@@ -18,8 +18,18 @@ interface TrackingState {
   retryCount: number;
 }
 
+// Configuración de tiempos para el tooltip (en milisegundos)
+const TOOLTIP_CONFIG = {
+  scrollDelayMs: 5000,        // Aparece 5 segundos después de scroll
+  visibleDurationMs: 8000,    // Visible por 8 segundos
+  reappearDelayMs: 60000,     // Reaparece después de 1 minuto si no hay clic
+};
+
 const NEXUSFloatingButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
     isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI
     hasError: false,
@@ -94,6 +104,56 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   }, []); // ✅ FIX: Sin dependencias para evitar loop infinito
 
+  // 🎯 TOOLTIP: Lógica de aparición/desaparición basada en scroll
+  useEffect(() => {
+    // Si el usuario ya abrió el widget, no mostrar más el tooltip
+    if (hasInteracted || isOpen) return;
+
+    let scrollTimeout: NodeJS.Timeout;
+    let hideTimeout: NodeJS.Timeout;
+    let reappearTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      if (!hasScrolled) {
+        setHasScrolled(true);
+
+        // Mostrar tooltip después del delay configurado
+        scrollTimeout = setTimeout(() => {
+          if (!hasInteracted && !isOpen) {
+            setShowTooltip(true);
+
+            // Ocultar después del tiempo de visibilidad
+            hideTimeout = setTimeout(() => {
+              setShowTooltip(false);
+
+              // Programar reaparición si no hay interacción
+              reappearTimeout = setTimeout(() => {
+                if (!hasInteracted && !isOpen) {
+                  setShowTooltip(true);
+
+                  // Ocultar nuevamente después del tiempo de visibilidad
+                  hideTimeout = setTimeout(() => {
+                    setShowTooltip(false);
+                  }, TOOLTIP_CONFIG.visibleDurationMs);
+                }
+              }, TOOLTIP_CONFIG.reappearDelayMs);
+
+            }, TOOLTIP_CONFIG.visibleDurationMs);
+          }
+        }, TOOLTIP_CONFIG.scrollDelayMs);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      if (hideTimeout) clearTimeout(hideTimeout);
+      if (reappearTimeout) clearTimeout(reappearTimeout);
+    };
+  }, [hasScrolled, hasInteracted, isOpen]);
+
   const handleButtonClick = () => {
     if (!trackingState.isReady) {
       console.log('🚫 NEXUS: Tracking no está listo aún, intentando recargar...');
@@ -114,6 +174,8 @@ const NEXUSFloatingButton: React.FC = () => {
       return;
     }
 
+    setHasInteracted(true); // Marcar que el usuario interactuó
+    setShowTooltip(false);  // Ocultar tooltip
     setIsOpen(true);
   };
 
@@ -140,10 +202,16 @@ const NEXUSFloatingButton: React.FC = () => {
 
   return (
     <>
-      {/* 🎯 BADGE PULSANTE PERMANENTE - Call to Action */}
+      {/* 🎯 TOOLTIP INTELIGENTE - Aparece tras scroll, desaparece y reaparece */}
       {!isOpen && trackingState.isReady && !trackingState.hasError && (
-        <div className="fixed bottom-24 right-3 z-40 animate-bounce">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2 animate-pulse">
+        <div
+          className={`fixed bottom-24 right-3 z-40 transition-all duration-500 ${
+            showTooltip
+              ? 'opacity-100 translate-y-0 animate-bounce'
+              : 'opacity-0 translate-y-4 pointer-events-none'
+          }`}
+        >
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2">
             <span className="text-sm font-semibold whitespace-nowrap">💬 Habla con NEXUS</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>

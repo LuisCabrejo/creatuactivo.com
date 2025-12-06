@@ -28,7 +28,6 @@ const TOOLTIP_CONFIG = {
 const NEXUSFloatingButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
     isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI
@@ -104,55 +103,44 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   }, []); // ✅ FIX: Sin dependencias para evitar loop infinito
 
-  // 🎯 TOOLTIP: Lógica de aparición/desaparición basada en scroll
+  // 🎯 TOOLTIP: Lógica de aparición/desaparición automática
   useEffect(() => {
     // Si el usuario ya abrió el widget, no mostrar más el tooltip
     if (hasInteracted || isOpen) return;
 
-    let scrollTimeout: NodeJS.Timeout;
+    let initialTimeout: NodeJS.Timeout;
     let hideTimeout: NodeJS.Timeout;
     let reappearTimeout: NodeJS.Timeout;
 
-    const handleScroll = () => {
-      if (!hasScrolled) {
-        setHasScrolled(true);
+    // Función para mostrar tooltip y programar ocultamiento
+    const showAndScheduleHide = () => {
+      if (hasInteracted || isOpen) return;
 
-        // Mostrar tooltip después del delay configurado
-        scrollTimeout = setTimeout(() => {
-          if (!hasInteracted && !isOpen) {
-            setShowTooltip(true);
+      setShowTooltip(true);
 
-            // Ocultar después del tiempo de visibilidad
-            hideTimeout = setTimeout(() => {
-              setShowTooltip(false);
+      // Ocultar después del tiempo de visibilidad
+      hideTimeout = setTimeout(() => {
+        setShowTooltip(false);
 
-              // Programar reaparición si no hay interacción
-              reappearTimeout = setTimeout(() => {
-                if (!hasInteracted && !isOpen) {
-                  setShowTooltip(true);
+        // Programar reaparición si no hay interacción
+        reappearTimeout = setTimeout(() => {
+          showAndScheduleHide();
+        }, TOOLTIP_CONFIG.reappearDelayMs);
 
-                  // Ocultar nuevamente después del tiempo de visibilidad
-                  hideTimeout = setTimeout(() => {
-                    setShowTooltip(false);
-                  }, TOOLTIP_CONFIG.visibleDurationMs);
-                }
-              }, TOOLTIP_CONFIG.reappearDelayMs);
-
-            }, TOOLTIP_CONFIG.visibleDurationMs);
-          }
-        }, TOOLTIP_CONFIG.scrollDelayMs);
-      }
+      }, TOOLTIP_CONFIG.visibleDurationMs);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Mostrar tooltip automáticamente después del delay inicial
+    initialTimeout = setTimeout(() => {
+      showAndScheduleHide();
+    }, TOOLTIP_CONFIG.scrollDelayMs);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
+      if (initialTimeout) clearTimeout(initialTimeout);
       if (hideTimeout) clearTimeout(hideTimeout);
       if (reappearTimeout) clearTimeout(reappearTimeout);
     };
-  }, [hasScrolled, hasInteracted, isOpen]);
+  }, [hasInteracted, isOpen]);
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {

@@ -1396,9 +1396,12 @@ Se paga el **viernes**.
 
 Después de tu período promocional, el porcentaje base es **10%**.
 
-Puedes mejorar este porcentaje alcanzando rangos en la compañía (Bronce, Plata, Oro, Platino, Diamante).
+Tienes **dos formas** de mejorar este porcentaje:
 
-**Pregunta de seguimiento:** ¿Te gustaría saber cómo subir de rango?
+1. **Alcanzando rangos en la compañía** (Bronce 11%, Plata 12%, Oro 13%, Platino 14%, Diamante 15%)
+2. **Comprando nuevamente un paquete empresarial ESP-3** (te da 15% por 6 meses adicionales)
+
+**Pregunta de seguimiento:** ¿Te gustaría saber más sobre alguna de estas opciones?
 
 ---
 
@@ -1544,8 +1547,8 @@ Son dos bonos diferentes que se complementan:
 
 **¿Cuál es mejor?**
 No compiten, se suman. Estrategia óptima:
-1. **Corto plazo:** Enfócate en activar constructores (Bono GEN5)
-2. **Mediano plazo:** Construye volumen en tu organización (Binario)
+1. **Corto plazo:** Enfócate en generar compras de paquetes empresariales (Bono GEN5)
+2. **Mediano plazo:** Construye volumen de productos en tu organización (Binario)
 3. **Largo plazo:** Alcanza rangos para mantener % alto
 
 **Pregunta de seguimiento:** ¿Te queda clara la diferencia?

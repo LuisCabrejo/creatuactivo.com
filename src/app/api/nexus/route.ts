@@ -1211,6 +1211,28 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /empezar.*hoy/i,
     /contactar.*alguien/i,
 
+    // 🆕 FIX 2025-12-07: PATRONES PARA BONOS Y COMISIONES (VAL_01, VAL_02)
+    // ============================================================
+    /bono/i,                      // "bono", "bonos", "qué bono"
+    /gen5/i,                      // "gen5", "GEN5"
+    /gen\s*5/i,                   // "gen 5", "GEN 5"
+    /gen-5/i,                     // "gen-5"
+    /inicio.*rápido/i,            // "inicio rápido", "bono de inicio rápido"
+    /inicio.*rapido/i,            // sin tilde
+    /comisión/i,                  // "comisión", "comisiones"
+    /comision/i,                  // sin tilde
+    /cuánto.*gano/i,              // "cuánto gano"
+    /cuanto.*gano/i,              // sin tilde
+    /porcentaje/i,                // "porcentaje", "porcentajes"
+    /qué.*gano.*cuando/i,         // "qué gano cuando alguien compra"
+    /que.*gano.*cuando/i,         // sin tilde
+    /plan.*compensación/i,        // "plan de compensación"
+    /plan.*compensacion/i,        // sin tilde
+    /binario/i,                   // "binario", "bono binario"
+    /bono.*semanal/i,             // "bono semanal"
+    /consumo.*semanal/i,          // "consumo semanal"
+    /recompra/i,                  // "recompra", "recompras"
+
     // 🆕 FIX 2025-10-22: PATRONES PARA AUTO ENVÍO (SIST_12)
     // ============================================================
     /auto.*envío/i,
@@ -2406,11 +2428,11 @@ Mientras tú vives tu vida, el sistema sigue trabajando. Mientras duermes, NEXUS
 
 En nuestro ecosistema, no "ganas dinero", construyes flujos de valor. La arquitectura financiera recompensa la construcción de un activo real en tres fases:
 
-**A Corto Plazo (Capitalización):** A través de los Bonos de Inicio Rápido al activar a tus primeros constructores.
+**A Corto Plazo (Capitalización):** A través de los Bonos de Inicio Rápido por compras de paquetes empresariales en tu red de patrocinio.
 
 **A Mediano Plazo (Expansión):** Con las Comisiones de Equipo (Binario), participas del volumen total de productos que se mueven en tu canal.
 
-**A Largo Plazo (Legado):** Desbloqueas los Bonos de Liderazgo y otros incentivos por desarrollar a otros arquitectos.
+**A Largo Plazo (Legado):** Desbloqueas los Bonos de Liderazgo y otros incentivos por desarrollar a otros constructores.
 
 **Pregunta de seguimiento:** ¿Cuál de estas tres fases resuena más con tu visión de construcción?
 

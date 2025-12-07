@@ -1,9 +1,9 @@
-# ARSENAL AVANZADO - CONSOLIDADO (60 RESPUESTAS OPTIMIZADAS)
+# ARSENAL AVANZADO - CONSOLIDADO (75 RESPUESTAS OPTIMIZADAS)
 
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
-**Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (11) + ESC (5) = 63 respuestas totales
+**Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 3.0 (Consolidado 3 Dic 2025)
+**Versión:** 3.6 (Actualizado 7 Dic 2025) - VAL_06 reescrito, VAL_06b regla mejor porcentaje
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -15,19 +15,38 @@
 
 Sí, **Gano Excel** usa ese modelo de distribución.
 
-Pero aquí está la diferencia:
+Pero **CreaTuActivo.com** es diferente:
+Nosotros te damos la tecnología para que sea más fácil.
 
-**No te ofrecemos un empleo. Te ofrecemos ser SOCIO para construir tu propio sistema de Distribución Masiva a nivel América.**
+Piénsalo así:
 
-**Tres componentes que recibes:**
-1. **Negocio internacional llave en mano** (Gano Excel pone productos, logística, infraestructura)
-2. **Tecnología de $200,000 USD gratis** (CreaTuActivo.com + NEXUS automatiza el 80%)
-3. **Mentoría de líderes millonarios** (12 años de experiencia probada)
+**Gano Excel** hace la parte difícil:
+- Fabrica los productos (con patente mundial)
+- Importa, almacena, entrega
+- Maneja oficinas, empleados, logística
 
-La diferencia es que no estás solo vendiendo productos.
-Estás construyendo un activo de distribución con tecnología exclusiva de nuestro equipo.
+**Tú** construyes tu red de distribución:
+- Sin importar nada
+- Sin abrir oficinas
+- Sin contratar empleados
 
-**Pregunta de seguimiento:** ¿Tiene sentido ser socio de un proyecto de expansión continental vs vender productos al detal?
+**Nosotros (CreaTuActivo.com)** te damos las herramientas tecnológicas:
+- Para que no tengas que hacer el trabajo manual
+- La tecnología hace el 80% por ti
+
+Es como Amazon:
+Jeff Bezos no vende libros.
+Construyó la aplicación donde millones de personas venden.
+
+Nosotros hacemos lo mismo contigo:
+No te convertimos en vendedor.
+Te ayudamos a construir tu propio sistema de distribución.
+
+Gano Excel fabrica los productos.
+Tú construyes el sistema que los distribuye.
+La tecnología hace el trabajo pesado por ti.
+
+**Pregunta de seguimiento:** ¿Tiene sentido la diferencia entre vender productos vs construir el sistema de distribución?
 ---
 
 ### OBJ_02: "¿Es esto legítimo o un esquema piramidal?"
@@ -42,7 +61,6 @@ No hay producto real.
 **Esto:**
 Ganas dinero por el movimiento de producto que ocurre dentro de tu sistema de distribución.
 Productos reales de salud (Gano Excel) con patente mundial y 30 años en el mercado.
-Productos reales de salud (Gano Excel) con una fórmula exclusiva y 30 años en el mercado.
 
 La diferencia es simple:
 - ¿Hay un producto real que la gente compra? ✅ Sí
@@ -263,7 +281,6 @@ Los productos son la base de todo.
 **Mira estos números:**
 - **30 años** en el mercado
 - **Patente mundial** (nadie más puede copiarlos)
-- **Secreto Industrial** (nadie más puede copiarlos)
 - **70% de tus ganancias** vienen de personas que solo compran el producto
 
 **La prueba real:**
@@ -284,23 +301,37 @@ Aquí el producto es lo primero.
 ### OBJ_10: "¿Por qué necesitaría esto si ya tengo un negocio exitoso?"
 **[Objeción de necesidad]**
 
-Porque esto no compite con tu negocio. Es una **columna financiera alterna**.
+Porque esto no compite con tu negocio. Lo complementa.
 
-**Tu negocio actual:**
-Depende 100% de tu presencia física. Si no vas, no ganas.
+**Piénsalo:**
 
-**Esta columna nueva:**
-La tecnología trabaja 24/7. Inviertes 5-7 horas semanales.
+Ya tienes un negocio exitoso.
+Eso es excelente.
 
-**Diversificación inteligente:**
-- No abandonas lo que funciona
-- Construyes un segundo activo paralelo
+Pero depende 100% de ti:
+- Si no trabajas, no genera
+- Si te enfermas, se detiene
+- Si te vas de vacaciones, sufre
+
+**Esto es diferente:**
+La tecnología trabaja mientras duermes.
+Tú inviertes 5-7 horas a la semana.
+
+**Es diversificación inteligente:**
+- No abandonas lo que ya funciona
+- Construyes un segundo activo (paralelo al primero)
 - Si uno baja, el otro sigue generando
 
-Es como tener propiedades en renta:
-Una la vives, la otra genera ingreso pasivo.
+**Es como tener propiedades en renta:**
+No vendes tu casa para comprar un departamento que rentas.
+Tienes ambos.
+Uno lo vives, el otro genera ingreso pasivo.
 
-**Pregunta de seguimiento:** ¿Prefieres depender de una sola fuente o tener una columna financiera alterna automatizada?
+Aquí es lo mismo:
+Tu negocio actual sigue.
+Este nuevo activo genera mientras tú atiendes el otro.
+
+**Pregunta de seguimiento:** ¿Preferirías depender de una sola fuente de ingreso o tener dos?
 ---
 
 ### OBJ_11: "¿Es esto 'demasiado bueno para ser verdad'?"
@@ -312,7 +343,6 @@ Te entiendo. Si suena perfecto, probablemente no lo es.
 
 ✅ **Gano Excel**: 30 años en el mercado, opera en 60+ países
 ✅ **Productos reales**: Con patente mundial (puedes verificarlo)
-✅ **Productos reales**: Con Propiedad Intelectual del Proceso de Extracción (puedes verificarlo)
 ✅ **2,847 personas**: Ya construyeron esto antes (sin la tecnología)
 ✅ **Transparente**: Ves el plan completo antes de invertir un peso
 ✅ **Probarlo gratis**: Conversas conmigo (NEXUS) sin pagar nada
@@ -942,17 +972,20 @@ Comprar 10 taxis y contratar choferes (tu activo trabaja).
 
 Absolutamente. Es la estrategia más inteligente.
 
-**No te ofrecemos reemplazar tu negocio. Te ofrecemos una columna financiera alterna.**
+**CreaTuActivo.com complementa.**
+No compite.
 
 **Muchos constructores lo hacen así:**
 - Usan su negocio actual como fuente de contactos
-- Dedican 5-7 horas semanales a construir este activo paralelo
+- Aplican INICIAR/ACOGER/ACTIVAR para crecer su red
 - Diversifican sus fuentes de ingreso
 
-**No es "o esto o aquello". Es "esto Y aquello".**
+**No es "o esto o aquello".**
+Es "esto Y aquello".
 
 Es como un restaurante que añade delivery:
-No dejas de atender el local. Sumas otra fuente de ingresos.
+No dejas de atender el local.
+Sumas otra fuente de ingresos.
 
 **¿Cómo ves que esto se integre con lo que haces ahora?**
 ---
@@ -1025,7 +1058,6 @@ Aquí es donde se ve la diferencia real.
 
 **GANO EXCEL maneja toda la infraestructura:**
 Callcenter en cada país, carrito de compras online, oficinas físicas para recoger productos, proceso de importación, creación del producto patentado, embalaje, envíos, recaudo de dinero, pago de comisiones, y hasta 2 viajes internacionales anuales como recompensa.
-Callcenter en cada país, carrito de compras online, oficinas físicas para recoger productos, proceso de importación, creación del producto con nuestra tecnología de extracción propia, embalaje, envíos, recaudo de dinero, pago de comisiones, y hasta 2 viajes internacionales anuales como recompensa.
 
 **TÚ construyes los canales:**
 Tu rol es construir la red de consumidores y constructores. No manejas inventarios, no procesas pagos, no envías productos. Te enfocas en construir relaciones y expandir la red.
@@ -1091,16 +1123,9 @@ El sistema está diseñado precisamente para potenciar tu toque personal, no par
 
 ### SIST_05: "¿Qué diferencia esto de otros sistemas tecnológicos?"
 
-**No te vendemos tecnología. Te invitamos a ser SOCIO con tecnología exclusiva de nuestro equipo.**
+Operamos en una nueva categoría: sistema tecnológico completo para constructores. Cinco diferencias clave: 1) Productos únicos con patente mundial que nadie puede copiar, 2) Tecnología que automatiza el 80% del trabajo, 3) Método probado, 4) IA como tu copiloto, 5) Enfoque en construcción de activos, no solo generar ingresos. Es como comparar Uber vs taxis tradicionales.
 
-**Tres componentes únicos:**
-1. **Negocio internacional llave en mano** - Gano Excel (tecnología propietaria que nadie puede copiar)
-2. **Tecnología de $200,000 USD gratis** - CreaTuActivo.com + NEXUS (automatiza el 80% del trabajo)
-3. **Mentoría de líderes millonarios** - Método probado en 12 años
-
-Es como comparar Uber vs taxis tradicionales. Nueva categoría.
-
-**Pregunta de seguimiento:** ¿Cuál de estos componentes resuena más contigo?
+**Pregunta de seguimiento:** ¿Cuál de estos elementos resuena más contigo?
 ---
 
 ### SIST_06: "¿Cómo funciona la división del trabajo?"
@@ -1260,49 +1285,295 @@ Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Acti
 - Puedes continuar recibiendo el obsequio de forma cíclica siempre que mantengas tu suscripción activa.
 ---
 
-## 💰 MODELO DE VALOR (11 respuestas)
+## 💰 MODELO DE VALOR (16 respuestas)
 
-### VAL_01: "¿Cómo se gana en el negocio?"
-**[Modelo financiero]**
+### VAL_01: "¿Cómo se gana en el negocio?" / "¿Cómo funcionan las comisiones?"
+**[Modelo financiero - Visión general]**
 
-Hay tres formas de generar ingresos:
+Hay 12 formas de ganar que te permiten generar ingresos para el corto, mediano y largo plazo. Aquí te muestro 3 de ellas:
 
-**Corto plazo:**
-Bonos de Inicio Rápido cuando activas nuevos constructores. Esto te permite validar el modelo y capitalizar tu inversión inicial rápidamente.
+**1. Bono GEN5 de Inicio Rápido (Corto plazo):**
+Bono que ganas por todas las compras de paquetes empresariales hasta tu quinta generación. Se paga semanalmente.
 
-**Mediano plazo:**
-Comisiones de Equipo (Binario) del volumen de productos que se mueven en tu sistema. Tu ingreso ya no depende de tu acción directa, sino del poder del sistema que construiste.
+**2. Comisiones de Equipo - Binario (Corto y mediano plazo):**
+Un porcentaje de todo el volumen de productos que se mueva en tu red (CV). Se paga semanalmente.
 
-**Largo plazo:**
-Bonos de Liderazgo por desarrollar a otros constructores. Tu activo madura y se convierte en ingresos residuales heredables.
+**3. Bonos de Liderazgo (Largo plazo):**
+Bonos adicionales por desarrollar a otros constructores. Se paga semanalmente.
 
-Mientras más crece tu sistema, más flujos de ingreso generas.
-
-**Pregunta de seguimiento:** ¿Cuál te interesa más: resultados inmediatos o construir ingresos a largo plazo?
+**Pregunta de seguimiento:** ¿Sobre cuál de estos tres te gustaría más detalle?
 
 ---
 
-### VAL_02: "¿Cuáles son los porcentajes?"
-**[Detalles financieros]**
+### VAL_02: "¿Cuánto es el Bono GEN5?" / "¿Qué es el Bono de Inicio Rápido?" / "¿Cuánto gano por compra de paquete?"
+**[Bono GEN5 - Definición y tabla]**
 
-Por supuesto. Aquí están los números:
+Bono en efectivo que recibes por cada compra de Paquete Empresarial en tu red de patrocinio, hasta la quinta generación.
 
-**Bonos por activar constructores:**
-Del 2% al 15% cuando alguien en tu red (hasta 5 niveles) activa su paquete inicial. Es tu retorno de inversión rápido.
+**⚠️ REGLA CLAVE: Tu bono depende de DOS factores: TU paquete y el paquete comprado.**
 
-**Comisiones semanales del sistema:**
-Del 10% al 17% del volumen total de productos que se mueven en tu red cada semana. Esto incluye tanto paquetes iniciales como consumo recurrente.
+Cobras el **menor** entre tu techo y el valor del paquete:
 
-**Bonos de Liderazgo:**
-Cuando mentores a otros constructores, recibes bonos adicionales por su desarrollo y éxito.
+| Tu Paquete | Compra ESP-1 | Compra ESP-2 | Compra ESP-3 |
+|------------|--------------|--------------|--------------|
+| ESP-3 | $25 USD | $75 USD | $150 USD |
+| ESP-2 | $25 USD | $75 USD | $75 USD (tu techo) |
+| ESP-1 | $25 USD | $25 USD (tu techo) | $25 USD (tu techo) |
 
-El sistema recompensa tanto la velocidad inicial como construir algo sólido a largo plazo.
+Se paga **semanalmente (los viernes)**.
 
-**Pregunta de seguimiento:** ¿Qué te interesa más: los bonos rápidos o las comisiones recurrentes?
+**Pregunta de seguimiento:** ¿Te gustaría ver un ejemplo práctico?
 
 ---
 
-### VAL_03: "¿Mi ingreso depende de cuánta gente active?"
+### VAL_02b: "Ejemplo práctico del Bono GEN5" / "Muéstrame un ejemplo" / "¿Cómo funciona en la práctica?"
+**[Bono GEN5 - Ejemplo ESP-3]**
+
+**Ejemplo con Paquete Constructor Visionario (ESP-3):**
+
+Supongamos que en una semana se compran 5 paquetes ESP-3 en tu red de patrocinio:
+
+| Generación | Bono por compra | Compras | Total |
+|------------|-----------------|---------|-------|
+| 1ra generación | $150 USD | 1 | $150 USD |
+| 2da generación | $20 USD | 1 | $20 USD |
+| 3ra generación | $20 USD | 1 | $20 USD |
+| 4ta generación | $20 USD | 1 | $20 USD |
+| 5ta generación | $40 USD | 1 | $40 USD |
+| **TOTAL SEMANA** | | | **$250 USD** |
+
+Eso son aproximadamente **$1.125.000 COP** en una semana, solo por 5 compras de paquetes.
+
+Se paga el **viernes**.
+
+**Pregunta de seguimiento:** ¿Te gustaría saber los requisitos para cobrar este bono?
+
+---
+
+### VAL_03: "¿Qué es el Binario?" / "¿Cuál es el porcentaje del binario?"
+**[Binario - Definición y porcentajes]**
+
+El **Bono Binario** te da derecho a un porcentaje sobre el volumen de producto facturado en tu organización.
+
+**¿Cómo se calcula?**
+Se toman **puntos compensados**: el mismo volumen de ambos lados.
+
+Ejemplo: Si tienes 1,000 CV en la izquierda y 50,000 CV en la derecha, se compensan 1,000 de cada lado y te pagan 1,000 CV.
+
+**Porcentajes promocionales:**
+
+| Tu Paquete | Porcentaje | Duración |
+|------------|-----------|----------|
+| ESP-3 (Visionario) | **17%** | 6 meses |
+| ESP-2 (Empresarial) | **16%** | 4 meses |
+| ESP-1 (Inicial) | **15%** | 2 meses |
+
+Se paga **semanalmente (los viernes)**.
+
+**Pregunta de seguimiento:** ¿Te gustaría ver un ejemplo práctico?
+
+---
+
+### VAL_03b: "Ejemplo práctico del Binario" / "¿Cómo se calcula el binario?"
+**[Binario - Ejemplo ESP-3]**
+
+**Ejemplo con 17% (Paquete ESP-3):**
+
+| Pierna Izquierda | Pierna Derecha | Puntos Compensados | Tu % | Bono |
+|------------------|----------------|-------------------|------|------|
+| 1,000 CV | 50,000 CV | 1,000 CV | 17% | $170 USD |
+
+**Cálculo:** 1,000 CV × 17% = **$170 USD** (~$765.000 COP)
+
+Se paga el **viernes**.
+
+**Pregunta de seguimiento:** ¿Te gustaría saber los requisitos para cobrar este bono?
+
+---
+
+### VAL_03c: "¿Qué pasa después del período promocional?" / "¿Cuál es el porcentaje base del binario?"
+**[Binario - Después del período promocional]**
+
+Después de tu período promocional, el porcentaje base es **10%**.
+
+Puedes mejorar este porcentaje alcanzando rangos en la compañía (Bronce, Plata, Oro, Platino, Diamante).
+
+**Pregunta de seguimiento:** ¿Te gustaría saber cómo subir de rango?
+
+---
+
+### VAL_03d: "¿Cuánto puedo ganar con el Binario?" / "Proyección de ganancias del Binario"
+**[Binario - Proyección mensual ESP-3]**
+
+**Proyección mensual con 17% (Paquete ESP-3):**
+
+Ejemplo: cada persona en tu red compra una caja de Ganocafé a la semana.
+
+| Pierna Izquierda | Pierna Derecha | Bono Mensual |
+|------------------|----------------|--------------|
+| 10 personas | 10 personas | $88 USD (~$397.800 COP) |
+| 100 personas | 100 personas | $884 USD (~$3.978.000 COP) |
+| 200 personas | 200 personas | $1,768 USD (~$7.956.000 COP) |
+| 300 personas | 300 personas | $2,652 USD (~$11.934.000 COP) |
+| ... | ... | ... |
+| 1,000 personas | 1,000 personas | $8,840 USD (~$39.780.000 COP) |
+
+Este es el poder del **volumen de producto** moviéndose en tu organización. Como una bola de nieve que crece.
+
+**Pregunta de seguimiento:** ¿Te gustaría saber los requisitos para cobrar este bono?
+
+---
+
+### VAL_04: "¿Qué porcentaje gano con mi rango?"
+**[Binario - Porcentajes por rango]**
+
+Los rangos te permiten mejorar tu porcentaje del Binario de forma permanente:
+
+| Rango | Porcentaje Binario |
+|-------|-------------------|
+| Sin rango (base) | 10% |
+| Bronce | 11% |
+| Plata | 12% |
+| Oro | 13% |
+| Platino | 14% |
+| Diamante | 15% |
+
+**Pregunta de seguimiento:** ¿Te gustaría saber cómo alcanzar cada rango?
+
+---
+
+### VAL_04b: "¿Cómo subo de rango?" / "¿Cuáles son los requisitos para cada rango?"
+**[Rangos - Requisitos de CV]**
+
+Para alcanzar cada rango **DEBES COBRAR** el siguiente volumen de CV en la semana:
+
+| Rango | CV Semanal |
+|-------|------------|
+| Bronce | 1,500 CV |
+| Plata | 2,500 CV |
+| Oro | 4,000 CV |
+| Platino | 8,000 CV |
+| Diamante | 12,000 CV |
+
+**Pregunta de seguimiento:** ¿Te gustaría ver una proyección de cuánto ganarías en cada rango?
+
+---
+
+### VAL_05: "¿Qué pasa si hago upgrade?" / "¿El upgrade me da el 17%?"
+**[Binario - Reglas de upgrade]**
+
+Si haces upgrade de paquete después de tu compra inicial:
+
+- Obtienes los meses restantes del beneficio promocional
+- Pero el máximo porcentaje es **15%** (no 17%)
+- El 17% **solo aplica** si compras ESP-3 desde el inicio en un solo pago
+
+**Ejemplo:**
+- Compraste ESP-1 (15% por 2 meses)
+- Haces upgrade a ESP-3 después de 1 mes
+- Obtienes: 15% por 4 meses (no 17%)
+
+Si quieres el 17%, la recomendación es empezar con ESP-3 desde el inicio.
+
+**Pregunta de seguimiento:** ¿Cuál paquete estás considerando?
+
+---
+
+### VAL_06: "¿Qué pasa después de los 6 meses?" / "¿Puedo recuperar el 17%?"
+**[Binario - Después del período promocional]**
+
+Después de 6 meses, el porcentaje se aplica según el rango que hayas construido:
+
+| Rango | Porcentaje |
+|-------|------------|
+| Bronce | 11% |
+| Plata | 12% |
+| Oro | 13% |
+| Platino | 14% |
+| Diamante | 15% |
+| Sin rango | 10% |
+
+**¿Cómo cobrar más del 10% si no tengo rango?**
+Comprando nuevamente un inventario de productos (como el ESP-3) puedes cobrar al 15% durante 6 meses adicionales.
+
+**Promociones de la compañía:**
+Durante el año la compañía lanza promociones que permiten cobrar al 17% o superior por 6 meses. En la última promoción del bono binario, los distribuidores aplicaron al **18%** durante 6 meses.
+
+Aprovechando estas promociones, es posible mantener porcentajes entre 17% y 20% de forma consistente.
+
+**Pregunta de seguimiento:** ¿Te interesa saber cómo alcanzar rangos?
+
+---
+
+### VAL_06b: "¿Qué porcentaje me aplica si tengo rango y promoción?" / "¿Me bajan el porcentaje si subo de rango?"
+**[Binario - Regla del mejor porcentaje]**
+
+**Regla de oro:** Siempre aplica el porcentaje que sea más beneficioso para ti.
+
+**Ejemplos:**
+
+1. Eres **Oro (13%)** y compras ESP-3 para cobrar al **15%** → Cobras al **15%** (el mayor)
+
+2. Compraste ESP-3 y estás cobrando al **17%**, luego alcanzas rango **Oro (13%)** → Sigues cobrando al **17%** (el mayor)
+
+3. Tu promoción del 17% termina y eres **Platino (14%)** → Cobras al **14%** (tu rango)
+
+La compañía siempre te paga con el porcentaje que más te beneficie.
+
+**Pregunta de seguimiento:** ¿Te queda clara la regla?
+
+---
+
+### VAL_07: "¿Cuál es la diferencia entre GEN5 y Binario?" / "¿Cuál bono es mejor?"
+**[Comparación GEN5 vs Binario]**
+
+Son dos bonos diferentes que se complementan:
+
+**Bono GEN5 (Inicio Rápido):**
+- Ganas por cada **compra de paquete** en tu red
+- Valores **fijos en USD**
+- Hasta **5 generaciones** de profundidad
+- **NO requiere** estar calificado en el binario
+- Ideal para **ingresos rápidos** al inicio
+
+**Binario (Comisiones de Equipo):**
+- Ganas por el **volumen semanal** de productos (puntos compensados)
+- Porcentaje entre 10% y 17%
+- Requiere estar **binario calificado**
+- Ideal para **ingresos recurrentes** a largo plazo
+
+**¿Cuál es mejor?**
+No compiten, se suman. Estrategia óptima:
+1. **Corto plazo:** Enfócate en activar constructores (Bono GEN5)
+2. **Mediano plazo:** Construye volumen en tu organización (Binario)
+3. **Largo plazo:** Alcanza rangos para mantener % alto
+
+**Pregunta de seguimiento:** ¿Te queda clara la diferencia?
+
+---
+
+### VAL_08: "¿Cómo me califico para el binario?" / "¿Qué necesito para ganar comisiones de equipo?"
+**[Requisitos Binario Calificado]**
+
+Para recibir el Bono Binario debes estar **"Binario Calificado"** cada semana.
+
+**Requisitos:**
+1. Mantener **50 PV mensual** personal (tu propia recompra)
+2. Tener mínimo **2 inscritos personales activos** (uno a cada lado de tu organización), cada uno con mínimo 50 PV
+3. Tener mínimo **100 CV** para compensar esa semana
+
+**¿Qué pasa si no estoy calificado?**
+- El volumen de tu red sigue acumulándose
+- Pero no recibes el bono esa semana
+- Cuando te calificas, empiezas a cobrar
+
+Calificarte desde el primer mes es clave para no perder semanas de comisiones.
+
+**Pregunta de seguimiento:** ¿Tienes personas en mente para tus dos primeros inscritos?
+
+---
+
+### VAL_09: "¿Mi ingreso depende de cuánta gente active?"
 **[Modelo de valor vs cantidad]**
 
 No. Ganas por el volumen de productos que se mueven, no por cuántas personas actives.
@@ -1319,7 +1590,7 @@ Ahora bien, es cierto: más gente activa estadísticamente significa más consum
 
 ---
 
-### VAL_04: "¿Cuánto puedo ganar realisticamente?"
+### VAL_10: "¿Cuánto puedo ganar realisticamente?"
 **[Expectativas realistas]**
 
 Esa es la pregunta más honesta que puedes hacer. La respuesta es: depende de la estructura que construyas, no del tiempo que inviertas.
@@ -1339,23 +1610,24 @@ Estas no son promesas, son referencias basadas en constructores que han ejecutad
 
 ---
 
-### VAL_05: "¿Qué me están vendiendo exactamente?"
+### VAL_11: "¿Qué me están vendiendo exactamente?"
 **[Definición del valor]**
 
-No te vendemos nada. **Te invitamos a ser SOCIO de un proyecto de expansión continental.**
+No te vendemos un negocio. Te entregamos la única aplicación que existe para la construcción de un activo patrimonial.
 
-**Tres componentes que recibes:**
-1. **Negocio internacional llave en mano** - Gano Excel (productos con tecnología propietaria + infraestructura en toda América)
-2. **Tecnología de $200,000 USD gratis** - CreaTuActivo.com + NEXUS (automatiza el 80% del trabajo)
-3. **Mentoría de líderes millonarios** - 12 años de experiencia probada
+Piénsalo así:
+
+**El motor:** Gano Excel (producto único con patente mundial)
+**El método:** Cómo construir tu canal de distribución
+**La tecnología:** CreaTuActivo.com (aplicación + IA que automatiza el proceso)
 
 En resumen: pasas de ser el generador de ingresos, a ser el dueño del activo que lo genera.
 
-**Pregunta de seguimiento:** ¿Cuál de estos tres componentes te parece más diferenciador?
+**Pregunta de seguimiento:** ¿Cuál de estos tres componentes te parece más interesante?
 
 ---
 
-### VAL_06: "¿En qué tiempo promedio veo resultados?"
+### VAL_12: "¿En qué tiempo promedio veo resultados?"
 **[Estadísticas de resultados]**
 
 El éxito ama la velocidad, y nuestro sistema está diseñado para generarla. Basado en la experiencia, un constructor enfocado ve resultados tangibles en su primera semana.
@@ -1370,7 +1642,7 @@ Si compartes el proyecto con 10 personas, la estadística muestra un patrón cla
 
 ---
 
-### VAL_07: "¿Normalmente qué estadística hay de éxito?"
+### VAL_13: "¿Normalmente qué estadística hay de éxito?"
 **[Estadísticas de activación]**
 
 Nuestro sistema no está diseñado para convencer a todos; está diseñado para identificar a los verdaderos constructores. Por eso, nuestras estadísticas no miden el "cierre", miden la activación.
@@ -1387,7 +1659,7 @@ Nuestro sistema no es un filtro de ventas, es un filtro de mentalidad.
 
 ---
 
-### VAL_08: "¿Cuál paquete me recomienda para iniciar?"
+### VAL_14: "¿Cuál paquete me recomienda para iniciar?"
 **[Recomendaciones personalizadas]**
 
 Depende del tamaño de la visión que tengas para tu futuro.
@@ -1404,13 +1676,12 @@ Cada uno funciona. La diferencia está en qué tan rápido quieres llegar.
 
 ---
 
-### VAL_09: "¿Qué incluye exactamente el sistema?"
+### VAL_15: "¿Qué incluye exactamente el sistema?"
 **[Componentes del sistema]**
 
 El sistema incluye tres componentes integrados:
 
 1) **El Motor:** Gano Excel (producto único con patente mundial)
-1) **El Motor:** Gano Excel (producto único con Secreto Industrial)
 2) **El Método:** Un método probado de construcción
 3) **La Tecnología:** CreaTuActivo.com (aplicación + IA)
 
@@ -1420,26 +1691,31 @@ No son herramientas separadas que debes coordinar. Es un sistema donde todo trab
 
 ---
 
-### VAL_10: "¿Es lo mismo que otros sistemas de marketing que he visto?"
+### VAL_16: "¿Es lo mismo que otros sistemas de marketing que he visto?"
 **[Diferenciación de sistemas]**
 
 No. Es una categoría completamente diferente.
 
-**Otros sistemas:** "Tú puedes campeón, ve y convence gente". Te dejan solo sin herramientas.
+Lo que probablemente has visto es: "Aquí está el producto, tú puedes campeón, ahora ve y convence gente". Te dejan solo con listas de contactos, sin tecnología, sin método probado.
 
-**Nosotros:** Te invitamos a ser SOCIO y te entregamos:
+Esto es como salir a alquilar películas vs Netflix. Mismo objetivo (ver películas), experiencia completamente diferente.
 
-1. **Negocio internacional llave en mano** - Gano Excel con tecnología propietaria única
-2. **Tecnología de $200,000 USD gratis** - CreaTuActivo.com + NEXUS (automatiza el 80%)
-3. **Mentoría de líderes millonarios** - 12 años de experiencia probada
+O como comprar CDs vs Spotify. Mismo resultado (escuchar música), pero uno es del viejo mundo y el otro es la nueva categoría.
 
-No es motivación. Es **tecnología exclusiva de nuestro equipo** + acompañamiento real.
+Aquí no te decimos "tú puedes". Te entregamos:
+- La aplicación que hace el trabajo pesado
+- La IA que educa y cualifica por ti
+- El método probado paso a paso
+- Los productos con patente mundial
+- Apoyo y mentoría de expertos
 
-**Pregunta de seguimiento:** ¿Has tenido experiencias donde te dejaron solo sin herramientas reales?
+No es motivación. Es tecnología + acompañamiento real.
+
+**Pregunta de seguimiento:** ¿Has tenido experiencias anteriores donde te dejaron solo sin herramientas reales?
 
 ---
 
-### VAL_11: "¿Qué significan PV, CV y GCV?"
+### VAL_17: "¿Qué significan PV, CV y GCV?"
 
 Estos tres términos son fundamentales para entender cómo se construye el valor en el sistema.
 
@@ -1527,6 +1803,6 @@ Mi sugerencia estratégica: agenda una conversación con Liliana Moreno. No es p
 ---
 
 **FIN DEL ARSENAL AVANZADO CONSOLIDADO**
-**Total de respuestas:** 63 (OBJ: 11 + TECH: 16 + COMP: 8 + SIST: 12 + VAL: 11 + ESC: 5)
+**Total de respuestas:** 70 (OBJ: 11 + TECH: 16 + COMP: 8 + SIST: 12 + VAL: 18 + ESC: 5)
 **Estado:** Listo para implementación NEXUS
-**Versión:** 3.0 (Consolidado 3 Dic 2025)
+**Versión:** 3.1 (Actualizado 6 Dic 2025) - Q&A comprehensivas bonos GEN5 y Binario

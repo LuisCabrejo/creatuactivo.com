@@ -27,6 +27,9 @@ import {
   ChevronRight
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import AnimatedCountUp from '@/components/AnimatedCountUp'
+import AnimatedTimeline from '@/components/AnimatedTimeline'
+import AnimatedEvolution from '@/components/AnimatedEvolution'
 
 // --- Estilos CSS Globales (Sincronizados con Home y Ecosystem) ---
 const GlobalStyles = () => (
@@ -331,27 +334,7 @@ export default function FundadoresPage() {
               <p className="text-slate-400">Antes era trabajo duro. Ahora es trabajo inteligente.</p>
             </div>
 
-            <div className="max-w-4xl mx-auto mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { old: 'Videoclub', new: 'Netflix', label: 'Películas' },
-                { old: 'Carta Postal', new: 'WhatsApp', label: 'Mensajes' },
-                { old: 'Venta Directa', new: 'CreaTuActivo', label: 'Negocios' }
-              ].map((item, idx) => (
-                <div key={idx} className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 text-center relative overflow-hidden group hover:border-blue-500/30 transition-colors">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative z-10">
-                    <p className="text-xs font-bold text-slate-500 uppercase mb-2">{item.label}</p>
-                    <div className="flex items-center justify-center gap-3 text-slate-400 text-sm mb-2 line-through">
-                      {item.old}
-                    </div>
-                    <div className="text-amber-500 text-xl my-1">↓</div>
-                    <div className="text-white font-bold text-xl">
-                      {item.new}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <AnimatedEvolution />
 
             <div className="relative max-w-4xl mx-auto space-y-8 pl-8 md:pl-0">
               <div className="absolute left-0 md:left-[27px] top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-transparent opacity-30 md:hidden"></div>
@@ -447,7 +430,11 @@ export default function FundadoresPage() {
                 <p className="text-green-400 font-bold uppercase tracking-widest text-sm mb-8">Estado Actual: Abierto</p>
 
                 <div className="flex items-end justify-center gap-3 mb-4">
-                  <span className="text-7xl font-bold text-white leading-none">{spotsLeft}</span>
+                  <AnimatedCountUp
+                    end={spotsLeft}
+                    duration={2.5}
+                    className="text-7xl font-bold text-white leading-none"
+                  />
                   <span className="text-slate-400 text-lg mb-2">/ 150 Cupos</span>
                 </div>
 
@@ -465,6 +452,9 @@ export default function FundadoresPage() {
               </div>
             </div>
           </section>
+
+          {/* Timeline de las 3 Fases */}
+          <AnimatedTimeline />
 
           <section id="formulario" className="max-w-3xl mx-auto mb-32 pt-10" ref={formTopRef}>
             <div className="text-center mb-10">

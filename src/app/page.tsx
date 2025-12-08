@@ -16,11 +16,14 @@ import {
   ChevronRight,
   Users,
   Heart,
-  Play
-  // Eliminé 'Star' de aquí porque ya tienes una función Star al final del archivo
+  Play,
+  Instagram
 } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import AnimatedCountUp from '@/components/AnimatedCountUp'
+import AnimatedTimeline from '@/components/AnimatedTimeline'
+import IncomeComparisonAnimation from '@/components/IncomeComparisonAnimation'
 
 // --- ESTILOS GLOBALES ---
 const GlobalStyles = () => (
@@ -146,7 +149,9 @@ export default function HomePage() {
                 <div className="aspect-square rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-3xl absolute inset-0"></div>
                 <div className="relative glass-card p-10 rounded-3xl border-t border-white/10 text-center">
                   <Users className="w-20 h-20 text-blue-400 mx-auto mb-6" />
-                  <div className="text-7xl font-bold text-white mb-2 tracking-tighter">4M</div>
+                  <div className="text-7xl font-bold text-white mb-2 tracking-tighter">
+                    <AnimatedCountUp end={4} duration={2} suffix="M" />
+                  </div>
                   <div className="text-xl text-blue-300 font-medium uppercase tracking-widest">Familias</div>
                   <div className="mt-8 flex justify-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-white/20"></span>
@@ -343,36 +348,118 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* --- PRUEBA SOCIAL --- */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block p-4 rounded-full bg-white/5 border border-white/10 mb-8">
-              <div className="flex items-center gap-2 text-yellow-400">
-                <Star className="fill-current" size={20} />
-                <Star className="fill-current" size={20} />
-                <Star className="fill-current" size={20} />
-                <Star className="fill-current" size={20} />
-                <Star className="fill-current" size={20} />
+        {/* --- VISUALIZACIÓN: GANAR DINERO VS CONSTRUIR LIBERTAD --- */}
+        <section className="py-20 bg-slate-950">
+          <div className="container mx-auto px-4">
+            <IncomeComparisonAnimation />
+          </div>
+        </section>
+
+        {/* --- PRUEBA SOCIAL CON TESTIMONIOS REALES --- */}
+        <section className="py-20 bg-slate-900">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Lo Que Dicen los Líderes
+              </h2>
+              <p className="text-slate-400">Diamantes de Gano Excel que construyeron con esta metodología.</p>
+            </div>
+
+            {/* Stats Animados */}
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-white">
+                  +<AnimatedCountUp end={2847} duration={2.5} />
+                </div>
+                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">Personas</p>
+              </div>
+              <div className="hidden md:block text-slate-600 text-4xl">•</div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-white">
+                  <AnimatedCountUp end={12} duration={2} suffix=" Años" />
+                </div>
+                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">de Éxito</p>
+              </div>
+              <div className="hidden md:block text-slate-600 text-4xl">•</div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-white">
+                  <AnimatedCountUp end={17} duration={2} suffix="+" />
+                </div>
+                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">Países</p>
               </div>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              "No entendía de tecnología,<br />hasta que usé la App"
-            </h2>
+            {/* Testimonios Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {/* Testimonio 1 - Liliana */}
+              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
+                <div className="flex items-center mb-4">
+                  <img
+                    src="https://4millones.com/wp-content/uploads/2025/07/liliana-patricia-moreno-diamante-gano-excel.webp"
+                    alt="Liliana Patricia Moreno"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-purple-500/50 mr-3"
+                  />
+                  <div>
+                    <p className="font-bold text-white text-sm">Liliana P. Moreno</p>
+                    <p className="text-xs text-purple-400">Ama de Casa y Empresaria</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad."</p>
+                <a href="https://www.facebook.com/share/v/17CLotD3R2/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-blue-400 text-xs font-semibold hover:text-blue-300">
+                  Ver Historia →
+                </a>
+              </div>
 
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-10 italic">
-              "Siempre pensé que para tener un negocio digital tenía que ser programador o 'influencer'. Con CreaTuActivo, la aplicación hace lo difícil. Yo solo comparto."
-            </p>
+              {/* Testimonio 2 - Andrés */}
+              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm mr-3 border-2 border-blue-500/50">AG</div>
+                  <div>
+                    <p className="font-bold text-white text-sm">Andrés Guzmán</p>
+                    <p className="text-xs text-blue-400">Empresario Sector Salud</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D."</p>
+                <a href="https://www.instagram.com/andresguzmanofficial/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
+                  <Instagram size={14} className="mr-1" /> @andresguzmanofficial
+                </a>
+              </div>
 
-            <div className="flex justify-center gap-8 text-slate-500 font-semibold uppercase tracking-wider text-sm">
-              <div>+2,847 Personas</div>
-              <div>•</div>
-              <div>9 Años de Éxito</div>
-              <div>•</div>
-              <div>Presencia Global</div>
+              {/* Testimonio 3 - Jonathan */}
+              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm mr-3 border-2 border-purple-500/50">JM</div>
+                  <div>
+                    <p className="font-bold text-white text-sm">Dr. Jonathan M.</p>
+                    <p className="text-xs text-purple-400">Médico Estético y Antiage</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Como médico, mi tiempo es limitado. Lo que antes requería 100% de mi esfuerzo, ahora se logra con un 20%."</p>
+                <a href="https://www.instagram.com/jonathanmoncaleano/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
+                  <Instagram size={14} className="mr-1" /> @jonathanmoncaleano
+                </a>
+              </div>
+
+              {/* Testimonio 4 - Juan Pablo */}
+              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center text-slate-900 font-bold text-sm mr-3 border-2 border-amber-500/50">JP</div>
+                  <div>
+                    <p className="font-bold text-white text-sm">Juan Pablo R.</p>
+                    <p className="text-xs text-amber-400">Ex Gerente Bancario, Escritor</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm italic flex-grow mb-3">"La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba."</p>
+                <a href="https://www.instagram.com/juanpaelrojo/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
+                  <Instagram size={14} className="mr-1" /> @juanpaelrojo
+                </a>
+              </div>
             </div>
           </div>
         </section>
+
+        {/* --- TIMELINE DE LANZAMIENTO --- */}
+        <AnimatedTimeline />
 
         {/* --- CTA FINAL --- */}
         <section className="py-20 bg-gradient-to-b from-blue-900/20 to-slate-950 border-t border-white/5">

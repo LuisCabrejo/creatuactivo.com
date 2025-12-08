@@ -3,7 +3,7 @@
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
 **Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 3.9 (Actualizado 7 Dic 2025) - Tablas ultra-compactas mobile-friendly
+**Versión:** 4.0 (Actualizado 7 Dic 2025) - Binario visual como GEN5
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -1377,22 +1377,19 @@ Se paga **semanalmente (los viernes)**.
 ### VAL_03b: "Ejemplo práctico del Binario" / "¿Cómo se calcula el binario?"
 **[Binario - Ejemplo ESP-3]**
 
-**Ejemplo con 17% (Paquete ESP-3):**
+**Ejemplo práctico del Bono Binario con ESP-3 (17%):**
 
-Supongamos que tienes:
-
-| Pierna | CV |
-|--------|-----|
-| Izquierda | 1,000 |
-| Derecha | 50,000 |
-
-Se compensan **1,000 CV** (el menor de ambos lados).
-
-Tu bono: **1,000 CV × 17% = $170 USD** (~$765.000 COP)
+| Personas/lado | Semanal | Mensual |
+|---------------|---------|---------|
+| 10 | $22 USD | $88 USD |
+| 100 | $221 USD | $884 USD |
+| 200 | $442 USD | $1,768 USD |
+| 300 | $663 USD | $2,652 USD |
+| 1,000 | $2,210 USD | $8,840 USD |
 
 Se paga el **viernes**.
 
-**Pregunta de seguimiento:** ¿Te gustaría saber los requisitos para cobrar este bono?
+**Regla clave:** Tu bono depende del volumen en tu red. Con ESP-3 cobras al 17%.
 
 ---
 

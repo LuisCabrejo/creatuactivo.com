@@ -1408,21 +1408,15 @@ Tienes **dos formas** de mejorar este porcentaje:
 ---
 
 ### VAL_03d: "¿Cuánto puedo ganar con el Binario?" / "Proyección de ganancias del Binario"
-**[Binario - Proyección mensual ESP-3]**
+**[Binario - Proyección mensual]**
 
-**Proyección mensual con 17% (Paquete ESP-3):**
+**Proyección mensual al 17%:**
 
-Ejemplo: cada persona en tu red compra una caja de Ganocafé a la semana.
-
-• **10 personas** cada lado → **$88 USD/mes** (~$397.800 COP)
-• **100 personas** cada lado → **$884 USD/mes** (~$3.978.000 COP)
-• **200 personas** cada lado → **$1,768 USD/mes** (~$7.956.000 COP)
-• **300 personas** cada lado → **$2,652 USD/mes** (~$11.934.000 COP)
-• **1,000 personas** cada lado → **$8,840 USD/mes** (~$39.780.000 COP)
-
-Este es el poder del **volumen de producto** moviéndose en tu organización. Como una bola de nieve que crece.
-
-**Pregunta de seguimiento:** ¿Te gustaría saber los requisitos para cobrar este bono?
+• 10 personas cada lado → $88 USD/mes
+• 100 personas cada lado → $884 USD/mes
+• 200 personas cada lado → $1,768 USD/mes
+• 300 personas cada lado → $2,652 USD/mes
+• 1,000 personas cada lado → $8,840 USD/mes
 
 ---
 

@@ -336,6 +336,39 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             >
                               {children}
                             </a>
+                          ),
+                          // 🎯 TABLAS CON BORDES VISIBLES
+                          table: ({children}) => (
+                            <div className="overflow-x-auto my-3">
+                              <table className="w-full border-collapse border border-slate-600 text-sm">
+                                {children}
+                              </table>
+                            </div>
+                          ),
+                          thead: ({children}) => (
+                            <thead className="bg-slate-700/80">
+                              {children}
+                            </thead>
+                          ),
+                          tbody: ({children}) => (
+                            <tbody className="bg-slate-800/50">
+                              {children}
+                            </tbody>
+                          ),
+                          tr: ({children}) => (
+                            <tr className="border-b border-slate-600 hover:bg-slate-700/30 transition-colors">
+                              {children}
+                            </tr>
+                          ),
+                          th: ({children}) => (
+                            <th className="border border-slate-600 px-3 py-2 text-left font-semibold text-amber-400">
+                              {children}
+                            </th>
+                          ),
+                          td: ({children}) => (
+                            <td className="border border-slate-600 px-3 py-2 text-slate-200">
+                              {children}
+                            </td>
                           )
                         }}
                       >

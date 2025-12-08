@@ -34,7 +34,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 git status  # MUST verify repository is working
 ```
 
-The local repository at `/Users/luiscabrejo/Cta/marketing/` has **lost its `.git` directory** in the past. Always verify git status before starting work.
+This repository has **lost its `.git` directory** in the past. Always verify git status before starting work.
 
 **Symptoms of missing .git**:
 - ❌ `git status` returns "fatal: no es un repositorio git"
@@ -79,13 +79,16 @@ Three-stage funnel methodology:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Legacy API (backward compatible)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - **PREFERRED** async queue producer
 - [src/components/nexus/useNEXUSChat.ts](src/components/nexus/useNEXUSChat.ts) - React hook for chat state
-- [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI
+- [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI container
+- [src/components/nexus/NEXUSFloatingButton.tsx](src/components/nexus/NEXUSFloatingButton.tsx) - Floating chat trigger
+- [src/components/nexus/Chat.tsx](src/components/nexus/Chat.tsx) - Chat message rendering
+- [src/components/nexus/NEXUSDataCaptureCard.tsx](src/components/nexus/NEXUSDataCaptureCard.tsx) - Data capture UI
+- [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
 1. **Hybrid Document Retrieval** - `clasificarDocumentoHibrido()` routes queries to:
-   - `arsenal_inicial` - Initial business questions
-   - `arsenal_manejo` - Objection handling
-   - `arsenal_cierre` - Advanced questions/escalation
+   - `arsenal_inicial` - Initial business questions (34 responses)
+   - `arsenal_avanzado` - Objections + System + Value + Escalation (63 responses, consolidated from arsenal_manejo + arsenal_cierre)
    - `catalogo_productos` - Product catalog
 
 2. **Data Capture** - `captureProspectData()` extracts:
@@ -156,10 +159,15 @@ Usuario → Producer → nexus_queue (INSERT)
 - `enqueue_nexus_message()` - Add to queue
 
 **Knowledge Base** (stored in `nexus_documents`):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt)
-- `arsenal_manejo` - [knowledge_base/arsenal_manejo.txt](knowledge_base/arsenal_manejo.txt)
-- `arsenal_cierre` - [knowledge_base/arsenal_cierre.txt](knowledge_base/arsenal_cierre.txt)
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses: OBJ + SIST + VAL + ESC)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
+
+**Backup files** (not deployed):
+- `arsenal_inicial_v10.1_hibrido.txt` - Historical version for reference
+- `arsenal_productos.txt` - Legacy product arsenal
+
+**Note**: `arsenal_manejo` and `arsenal_cierre` were deprecated and consolidated into `arsenal_avanzado` (Nov 2025).
 
 ### 5. Page Structure
 
@@ -167,17 +175,24 @@ Usuario → Producer → nexus_queue (INSERT)
 src/app/
 ├── page.tsx                         # Homepage
 ├── layout.tsx                       # Root layout (tracking + NEXUS)
-├── fundadores/page.tsx              # Founder signup
-├── presentacion-empresarial/page.tsx
+├── fundadores/                      # Main founder signup
+├── fundadores-network/              # Network-focused landing
+├── fundadores-profesionales/        # Professional-focused landing
+├── presentacion-empresarial/        # Business presentation
+├── presentacion-empresarial-inversionistas/  # Investor presentation
 ├── modelo-de-valor/page.tsx
 ├── paquetes/page.tsx
-├── ecosistema/                      # 3 pages
-├── sistema/                         # 4 pages + productos/
-├── soluciones/                      # 6 persona pages
+├── paises/                          # Country-specific pages
+├── planes/                          # Pricing plans
+├── ecosistema/                      # 3 ecosystem pages
+├── sistema/                         # System pages + productos/
+├── soluciones/                      # Persona-specific pages
+├── privacidad/                      # Privacy policy
 └── api/
-    ├── nexus/                       # 3 endpoints
+    ├── nexus/                       # producer/, consumer-cron/, legacy route
     ├── fundadores/route.ts
-    └── constructor/[id]/route.ts
+    ├── constructor/[id]/route.ts
+    └── test-resend/                 # Email testing
 ```
 
 **Navigation**: [src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) used on most pages.
@@ -194,6 +209,9 @@ SUPABASE_SERVICE_ROLE_KEY=         # Server-side only
 
 # Anthropic
 ANTHROPIC_API_KEY=
+
+# Voyage AI (vector search)
+VOYAGE_API_KEY=                    # Required for semantic search in NEXUS
 
 # Resend (emails)
 RESEND_API_KEY=
@@ -222,8 +240,8 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 1. Update `system_prompts` table in Supabase (name: `nexus_main`)
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
-   - `actualizar-system-prompt-flujo.mjs` - Update conversation flow
-   - `actualizar-system-prompt-captura.mjs` - Update data capture
+   - `descargar-system-prompt.mjs` - Download prompt to local file
+   - `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (e.g., v13.8)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
@@ -233,18 +251,24 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 **Workflow**:
 
 1. Edit `.txt` files in `knowledge_base/`:
-   - `arsenal_inicial.txt`
-   - `arsenal_manejo.txt`
-   - `arsenal_cierre.txt`
-   - `catalogo_productos.txt`
+   - `arsenal_inicial.txt` - Initial questions
+   - `arsenal_avanzado.txt` - Objections, System, Value, Escalation
+   - `catalogo_productos.txt` - Product catalog
 
-2. Copy to Supabase manually:
+2. Deploy to Supabase via scripts:
+   ```bash
+   node scripts/deploy-arsenal-inicial.mjs
+   node scripts/deploy-arsenal-avanzado.mjs
+   node scripts/actualizar-catalogo-productos.mjs
+   ```
+
+3. Or copy manually:
    - Supabase Dashboard → Table Editor → `nexus_documents`
    - Find record with matching `category`
    - Paste content from `.txt` file
    - Save
 
-3. Verify: `node scripts/verificar-arsenal-supabase.mjs`
+4. Verify: `node scripts/verificar-arsenal-supabase.mjs`
 
 ### Working with Video Content
 
@@ -326,7 +350,7 @@ Supabase → Data persists by fingerprint
 
 ## Business Critical Dates
 
-**Current Timeline** (Nov 2025):
+**Current Timeline** (Dec 2025):
 
 1. **Lista Privada**: 10 Nov 2025 - 04 Ene 2026 (ACTIVE)
    - 150 Founder spots
@@ -402,6 +426,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Architecture & Deploy**:
 - [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Queue system deployment
+- [CONSOLIDACION_ARSENALES_NOV25.md](CONSOLIDACION_ARSENALES_NOV25.md) - Arsenal consolidation (arsenal_manejo + arsenal_cierre → arsenal_avanzado)
 - [HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md](HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md) - Jobs-Style arsenales (Nov 20)
 
 **SEO & Performance**:
@@ -421,15 +446,23 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Location**: `scripts/` directory
 
 **NEXUS Management**:
-- `leer-system-prompt.mjs` - Read current prompt
-- `actualizar-system-prompt-*.mjs` - Update specific prompt sections
-- `habilitar-memoria-largo-plazo.mjs` - Enable long-term memory
-- `eliminar-todo-consentimiento-agresivo.mjs` - Remove consent (v17.0)
+- `leer-system-prompt.mjs` - Read current prompt from Supabase
+- `descargar-system-prompt.mjs` - Download prompt to local file
+- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (e.g., v13.9.5)
+- `revertir-system-prompt-v{VERSION}.mjs` - Revert to previous prompt version
 
 **Knowledge Base**:
+- `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
+- `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
+- `deploy-arsenal-cierre.mjs` - Legacy script (deploys arsenal_avanzado)
+- `actualizar-catalogo-productos.mjs` - Update product catalog
 - `actualizar-fechas-prelanzamiento.mjs` - Update launch dates
 - `verificar-arsenal-supabase.mjs` - Verify current version
-- `diagnostico-knowledge-base.js` - Diagnose issues
+- `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
+
+**Embeddings** (Voyage AI):
+- `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
+- `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
 
 **Testing**:
 - `test-contador-cupos.mjs` - Test founder counter (15 scenarios)

@@ -42,7 +42,7 @@ function getSupabaseClient() {
 }
 
 export const runtime = 'edge';
-export const maxDuration = 30; // ✅ OPTIMIZACIÓN: 30s buffer para requests pesados
+export const maxDuration = 60; // ✅ FIX: Aumentado de 30→60s para lista de precios completa (22 productos)
 
 // Cache en memoria optimizado para arquitectura híbrida
 const searchCache = new Map<string, any>();
@@ -2513,6 +2513,14 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
     // 🎯 FLUJO DE 14 MENSAJES v13.0 - Progressive Profiling + Captura Temprana
     const messageCount = messages.length;
 
+    // 🔍 Detectar si pide lista de precios COMPLETA (para excepción de concisión)
+    // ⚠️ IMPORTANTE: Solo activar para lista completa, NO para precios individuales
+    const lastUserMessageForPrices = messages[messages.length - 1]?.content?.toLowerCase() || '';
+    const pideListaPreciosEarly = /lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa/i.test(lastUserMessageForPrices);
+
+    // 🚨 LOG CRÍTICO: Verificar detección de lista de precios
+    console.log(`🚨🚨🚨 DETECCIÓN LISTA PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, mensaje="${lastUserMessageForPrices.substring(0, 50)}"`);
+
     const sessionInstructions = `
 🎯 FLUJO DE 14 MENSAJES (v13.3) - MENSAJE ACTUAL: ${messageCount}
 
@@ -2635,6 +2643,60 @@ Ella te brindará el catálogo completo actualizado y podrá asesorarte personal
 - Sigue ÚNICAMENTE las instrucciones del System Prompt principal (v13.3) de Supabase
 - Estas session instructions solo proporcionan estado actual, NO dictan comportamiento
 - El System Prompt principal es la autoridad para timing, formato y flujo conversacional
+
+${pideListaPreciosEarly ? `
+🚨🚨🚨 INSTRUCCIÓN PRIORITARIA - LISTA DE PRECIOS 🚨🚨🚨
+EL USUARIO PIDIÓ LA LISTA DE PRECIOS COMPLETA.
+IGNORA CUALQUIER LÍMITE DE PALABRAS O REGLA DE CONCISIÓN.
+
+📋 COPIA Y PEGA ESTA TABLA COMPLETA (22 productos):
+
+**☕ BEBIDAS FUNCIONALES (9 productos)**
+| Producto | Precio COP |
+|----------|------------|
+| Ganocafé 3 en 1 (20 sobres) | $110,900 |
+| Ganocafé Clásico (30 sobres) | $110,900 |
+| Ganorico Latte Rico (20 sobres) | $119,900 |
+| Ganorico Mocha Rico (20 sobres) | $119,900 |
+| Ganorico Shoko Rico (20 sobres) | $124,900 |
+| Espirulina Gano C'Real (15 sobres) | $119,900 |
+| Bebida Oleaf Gano Rooibos (20 sobres) | $119,900 |
+| Gano Schokoladde (20 sobres) | $124,900 |
+| Bebida Colágeno Reskine (10 sachets) | $216,900 |
+
+**💊 SUPLEMENTOS (3 productos)**
+| Producto | Precio COP |
+|----------|------------|
+| Cápsulas Ganoderma (90 caps) | $272,500 |
+| Cápsulas Excellium (90 caps) | $272,500 |
+| Cápsulas Cordygold (90 caps) | $336,900 |
+
+**✨ CUIDADO PERSONAL - Piel&Brillo (6 productos)**
+| Producto | Precio COP |
+|----------|------------|
+| Pasta Dientes Gano Fresh (150g) | $73,900 |
+| Jabón Gano (2 barras 100g) | $73,900 |
+| Jabón Transparente Gano (100g) | $78,500 |
+| Champú Piel&Brillo (250ml) | $73,900 |
+| Acondicionador Piel&Brillo (250ml) | $73,900 |
+| Exfoliante Corporal Piel&Brillo (200g) | $73,900 |
+
+**☕ LÍNEA PREMIUM LUVOCO (4 productos)**
+| Producto | Precio COP |
+|----------|------------|
+| Máquina Café LUVOCO | $1,026,000 |
+| LUVOCO Cápsulas Suave x15 | $110,900 |
+| LUVOCO Cápsulas Medio x15 | $110,900 |
+| LUVOCO Cápsulas Fuerte x15 | $110,900 |
+
+MUESTRA TODA LA TABLA. NO OMITAS NINGÚN PRODUCTO.
+` : `
+🎯 CONCISIÓN OBLIGATORIA:
+- Responde ÚNICAMENTE lo que el usuario preguntó
+- NO agregues porcentajes, estrategias o ejemplos si no te los piden
+- NO agregues secciones "¿Cómo se calcula?" o "Porcentajes promocionales" por cuenta propia
+- Si preguntan "requisitos del binario" → da SOLO los requisitos, nada más
+`}
 `;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
@@ -2653,14 +2715,21 @@ Ella te brindará el catálogo completo actualizado y podrá asesorarte personal
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
     // ⚡ FASE 1 - OPTIMIZACIÓN: max_tokens dinámico según tipo de consulta
-    // FIX 2025-10-25: Ajuste gradual para evitar respuestas cortadas (sincronizado con Dashboard)
-    const maxTokens = searchMethod === 'catalogo_productos'
-      ? 300  // Consultas de precios = respuestas cortas (producto + precio)
-      : prospectData.momento_optimo === 'caliente'
-      ? 500  // Prospecto caliente = respuesta más detallada para cerrar
-      : 600; // Default: incrementado de 500 → 600 para arquetipos/paquetes completos
+    // FIX 2025-12-08: Regex específico para lista COMPLETA (no precios individuales)
+    const lastUserMessage = messages[messages.length - 1]?.content?.toLowerCase() || '';
+    const pideListaPrecios = /lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa/i.test(lastUserMessage);
 
-    console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, momento: ${prospectData.momento_optimo || 'N/A'})`);
+    console.log(`🔍 DEBUG PRECIOS: mensaje="${lastUserMessage.substring(0, 80)}", detectado=${pideListaPrecios}`);
+
+    const maxTokens = pideListaPrecios
+      ? 1000  // Lista completa de 22 productos (optimizado)
+      : searchMethod === 'catalogo_productos'
+      ? 400   // Consultas de precios individuales = respuestas cortas
+      : prospectData.momento_optimo === 'caliente'
+      ? 500   // Prospecto caliente = respuesta más detallada para cerrar
+      : 600;  // Default: incrementado de 500 → 600 para arquetipos/paquetes completos
+
+    console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, pideListaPrecios=${pideListaPrecios})`);
 
     // 🧠 MEMORIA A LARGO PLAZO: Usar solo mensajes de sesión actual
     // El historial se inyecta como RESUMEN en el System Prompt (no como mensajes)

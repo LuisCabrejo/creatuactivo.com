@@ -15,6 +15,11 @@ import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Zap, Video, Rocket, Crown, Clock, TrendingUp, Users, Sparkles, ChevronDown, Globe, Cpu, Database } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import AnimatedChatDemo from '@/components/AnimatedChatDemo'
+import { AnimatedStatCard } from '@/components/AnimatedCountUp'
+import AnimatedValueStack from '@/components/AnimatedValueStack'
+import AnimatedTimeline from '@/components/AnimatedTimeline'
+import IncomeComparisonAnimation from '@/components/IncomeComparisonAnimation'
 
 // --- Estilos CSS Globales ---
 const GlobalStyles = () => (
@@ -146,16 +151,6 @@ const TriadCard = ({ icon, title, role, description, color }: { icon: React.Reac
     <p className="text-slate-400 leading-relaxed text-sm">
       {description}
     </p>
-  </div>
-);
-
-const ValueItem = ({ feature, price }: { feature: string, price: string }) => (
-  <div className="flex items-center justify-between py-4 border-b border-slate-700/50 last:border-0">
-    <div className="flex items-center gap-3">
-      <CheckCircle className="text-green-400 w-5 h-5" />
-      <span className="text-slate-300">{feature}</span>
-    </div>
-    <span className="text-slate-500 font-mono line-through decoration-slate-600">{price}</span>
   </div>
 );
 
@@ -514,46 +509,12 @@ export default function PresentacionEmpresarialPage() {
           {/* SECCIÓN 3: NEXUS - Tu Socio Digital */}
           <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                 {/* Demo Chat UI */}
+                 {/* Demo Chat UI - ANIMADO */}
                  <div className="order-2 lg:order-1">
-                    <div className="creatuactivo-component-card p-4 rounded-3xl border border-slate-700 shadow-2xl max-w-sm mx-auto">
-                        <div className="bg-slate-900 rounded-2xl overflow-hidden h-[500px] flex flex-col relative">
-                            {/* Header Celular */}
-                            <div className="bg-slate-800 p-4 flex items-center gap-3 border-b border-slate-700">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center">
-                                    <Sparkles size={14} className="text-white"/>
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-white">NEXUS AI</p>
-                                    <p className="text-[10px] text-green-400 flex items-center gap-1">● En línea</p>
-                                </div>
-                            </div>
-
-                            {/* Chat Area */}
-                            <div className="flex-1 p-4 space-y-4 overflow-y-auto font-mono text-xs">
-                                <div className="bg-slate-800 p-3 rounded-xl rounded-tl-none text-slate-300">
-                                    Hola Juan, veo que te interesa generar ingresos pasivos. ¿Cuentas con 5 horas semanales?
-                                </div>
-                                <div className="bg-blue-600/20 p-3 rounded-xl rounded-tr-none text-blue-100 ml-auto max-w-[80%]">
-                                    Sí, tengo el tiempo. Pero no sé vender.
-                                </div>
-                                <div className="bg-slate-800 p-3 rounded-xl rounded-tl-none text-slate-300">
-                                    <span className="text-purple-400 font-bold">NEXUS:</span> Perfecto. No buscamos vendedores, buscamos conectores. Yo me encargo de explicar el negocio por ti. ¿Te muestro cómo?
-                                </div>
-                                <div className="bg-blue-600/20 p-3 rounded-xl rounded-tr-none text-blue-100 ml-auto max-w-[80%]">
-                                    Ok, muéstrame.
-                                </div>
-                                <div className="mt-4 text-center">
-                                    <span className="text-[10px] text-slate-500 uppercase">NEXUS ha agendado una cita</span>
-                                </div>
-                            </div>
-
-                            {/* Input Mockup */}
-                            <div className="p-3 bg-slate-800 border-t border-slate-700">
-                                <div className="h-8 bg-slate-700 rounded-full w-full opacity-50"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <AnimatedChatDemo
+                      typingSpeed={20}
+                      loopDelay={5000}
+                    />
                  </div>
 
                  <div className="order-1 lg:order-2">
@@ -625,50 +586,11 @@ export default function PresentacionEmpresarialPage() {
              </div>
           </section>
 
-          {/* SECCIÓN 5: LA OFERTA IRRESISTIBLE (Value Stack) */}
-          <section className="max-w-4xl mx-auto mb-24 lg:mb-32">
-             <div className="creatuactivo-component-card rounded-3xl p-1 border-t border-purple-500/50">
-                <div className="bg-slate-900/90 rounded-[22px] p-8 lg:p-12">
-                    <div className="text-center mb-10">
-                        <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">Bono Exclusivo de Equipo</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">¿Cuánto cuesta esta tecnología?</h2>
-                    </div>
+          {/* SECCIÓN 5: LA OFERTA IRRESISTIBLE (Value Stack Animado) */}
+          <AnimatedValueStack />
 
-                    <div className="space-y-2 mb-10">
-                        <ValueItem feature="Desarrollo de Plataforma Completa (12-18 meses)" price="$150,000 USD" />
-                        <ValueItem feature="Integración de IA + Base de Datos Vectorial" price="$35,000 USD" />
-                        <ValueItem feature="Sistema de Automatización y Analytics" price="$25,000 USD" />
-                        <ValueItem feature="Infraestructura Cloud (APIs, Hosting, CDN)" price="$1,200 USD/mes" />
-                        <ValueItem feature="Equipo de Desarrollo y Soporte (2-3 devs)" price="$12,000 USD/mes" />
-
-                        <div className="flex items-center justify-between py-6 mt-4 border-t-2 border-slate-700">
-                            <span className="text-xl font-bold text-white">Inversión Inicial de Desarrollo</span>
-                            <span className="text-lg font-bold text-slate-400">$210,000 USD</span>
-                        </div>
-                        <div className="flex items-center justify-between py-4 border-b-2 border-slate-700">
-                            <span className="text-xl font-bold text-white">Costos Operativos Mensuales</span>
-                            <span className="text-lg font-bold text-slate-400">$13,200 USD/mes</span>
-                        </div>
-                        <div className="flex items-center justify-between py-6 mt-2">
-                            <span className="text-xl font-bold text-white">Valor Total Real (Primer Año)</span>
-                            <span className="text-2xl font-extrabold text-slate-400 line-through">$368,400 USD</span>
-                        </div>
-
-                        <div className="flex items-center justify-between py-4 bg-purple-600/20 p-4 rounded-xl border border-purple-500/50">
-                            <div className="flex items-center gap-3">
-                                <Sparkles className="text-yellow-400 fill-current" />
-                                <span className="text-white font-bold text-lg">Precio para Socios</span>
-                            </div>
-                            <span className="text-4xl font-extrabold text-green-400">$0 USD</span>
-                        </div>
-                    </div>
-
-                    <p className="text-center text-slate-400 text-sm">
-                        * No vendemos el software. Lo entregamos <b>GRATIS</b> como herramienta de trabajo a quienes se asocian con nosotros para distribuir la marca.
-                    </p>
-                </div>
-             </div>
-          </section>
+          {/* SECCIÓN 5.5: Timeline de Urgencia */}
+          <AnimatedTimeline />
 
           {/* SECCIÓN 6: Proof - Prueba Social */}
           <section className="py-20 lg:py-28 px-4">
@@ -679,27 +601,30 @@ export default function PresentacionEmpresarialPage() {
               />
 
               <div className="grid md:grid-cols-3 gap-8 mb-16">
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    9 Años
-                  </div>
-                  <p className="text-slate-400 mb-3">de Liderazgo Probado</p>
-                  <p className="text-sm text-slate-500">2,847 personas exitosas sin tecnología</p>
-                </div>
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    30+ Años
-                  </div>
-                  <p className="text-slate-400 mb-3">de Respaldo Corporativo</p>
-                  <p className="text-sm text-slate-500">Gano Excel, 100% libre de deudas</p>
-                </div>
-                <div className="creatuactivo-component-card p-8 text-center">
-                  <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                    80%
-                  </div>
-                  <p className="text-slate-400 mb-3">del Trabajo Automatizado</p>
-                  <p className="text-sm text-slate-500">Sistema NEXUS con IA trabajando 24/7</p>
-                </div>
+                <AnimatedStatCard
+                  value={12}
+                  suffix=" Años"
+                  label="de Liderazgo Probado"
+                  sublabel="2,847 personas exitosas sin tecnología"
+                  duration={2}
+                  delay={0}
+                />
+                <AnimatedStatCard
+                  value={30}
+                  suffix="+ Años"
+                  label="de Respaldo Corporativo"
+                  sublabel="Gano Excel, 100% libre de deudas"
+                  duration={2}
+                  delay={200}
+                />
+                <AnimatedStatCard
+                  value={80}
+                  suffix="%"
+                  label="del Trabajo Automatizado"
+                  sublabel="Sistema NEXUS con IA trabajando 24/7"
+                  duration={2}
+                  delay={400}
+                />
               </div>
 
               {/* Testimonio Principal */}
@@ -854,15 +779,9 @@ export default function PresentacionEmpresarialPage() {
                 </div>
               </div>
 
-              <div className="mt-12 max-w-3xl mx-auto text-center p-8 bg-green-900/20 border border-green-500/30 rounded-xl">
-                <Clock className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <p className="text-xl text-white leading-relaxed">
-                  Esto no es "ganar dinero".
-                  <br />
-                  Esto es construir libertad.
-                  <br /><br />
-                  <span className="text-lg text-slate-400">¿Ves la diferencia?</span>
-                </p>
+              {/* Comparación Visual: Ganar Dinero vs Construir Libertad */}
+              <div className="mt-12">
+                <IncomeComparisonAnimation />
               </div>
             </div>
           </section>

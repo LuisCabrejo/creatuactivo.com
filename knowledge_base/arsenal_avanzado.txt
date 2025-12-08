@@ -3,7 +3,7 @@
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
 **Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 3.6 (Actualizado 7 Dic 2025) - VAL_06 reescrito, VAL_06b regla mejor porcentaje
+**Versión:** 3.8 (Actualizado 7 Dic 2025) - VAL_03b/03d formato lista mobile-friendly
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -1379,11 +1379,13 @@ Se paga **semanalmente (los viernes)**.
 
 **Ejemplo con 17% (Paquete ESP-3):**
 
-| Pierna Izquierda | Pierna Derecha | Puntos Compensados | Tu % | Bono |
-|------------------|----------------|-------------------|------|------|
-| 1,000 CV | 50,000 CV | 1,000 CV | 17% | $170 USD |
+Supongamos que tienes:
+• Pierna izquierda: **1,000 CV**
+• Pierna derecha: **50,000 CV**
 
-**Cálculo:** 1,000 CV × 17% = **$170 USD** (~$765.000 COP)
+Se compensan **1,000 CV** (el menor de ambos lados).
+
+Tu bono: **1,000 CV × 17% = $170 USD** (~$765.000 COP)
 
 Se paga el **viernes**.
 
@@ -1412,14 +1414,11 @@ Tienes **dos formas** de mejorar este porcentaje:
 
 Ejemplo: cada persona en tu red compra una caja de Ganocafé a la semana.
 
-| Pierna Izquierda | Pierna Derecha | Bono Mensual |
-|------------------|----------------|--------------|
-| 10 personas | 10 personas | $88 USD (~$397.800 COP) |
-| 100 personas | 100 personas | $884 USD (~$3.978.000 COP) |
-| 200 personas | 200 personas | $1,768 USD (~$7.956.000 COP) |
-| 300 personas | 300 personas | $2,652 USD (~$11.934.000 COP) |
-| ... | ... | ... |
-| 1,000 personas | 1,000 personas | $8,840 USD (~$39.780.000 COP) |
+• **10 personas** cada lado → **$88 USD/mes** (~$397.800 COP)
+• **100 personas** cada lado → **$884 USD/mes** (~$3.978.000 COP)
+• **200 personas** cada lado → **$1,768 USD/mes** (~$7.956.000 COP)
+• **300 personas** cada lado → **$2,652 USD/mes** (~$11.934.000 COP)
+• **1,000 personas** cada lado → **$8,840 USD/mes** (~$39.780.000 COP)
 
 Este es el poder del **volumen de producto** moviéndose en tu organización. Como una bola de nieve que crece.
 

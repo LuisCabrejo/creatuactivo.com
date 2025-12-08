@@ -94,7 +94,8 @@ export async function POST(req: Request) {
     const messageId = nanoid();
 
     // Encolar mensaje en Supabase (idempotente por session_id)
-    const { data: queueId, error: enqueueError } = await getSupabaseClient().rpc('enqueue_nexus_message', {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: queueId, error: enqueueError } = await (getSupabaseClient().rpc as any)('enqueue_nexus_message', {
       p_messages: payload.messages,
       p_session_id: payload.sessionId,
       p_fingerprint: payload.fingerprint || null,
@@ -159,7 +160,7 @@ export async function GET() {
     }
 
     // Verificar conexión a Supabase sin insertar en la queue
-    const { error } = await supabase
+    const { error } = await getSupabaseClient()
       .from('nexus_queue')
       .select('id')
       .limit(1);

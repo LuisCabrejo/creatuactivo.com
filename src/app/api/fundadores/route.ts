@@ -137,13 +137,14 @@ export async function POST(request: NextRequest) {
     console.log('🔍 [DB] Nombre prospecto:', formData.nombre);
 
     // Verificar si ya existe solicitud para este email
-    const { data: existingRequest, error: checkError } = await getSupabaseClient()
+    const { data: existingRequestRaw, error: checkError } = await getSupabaseClient()
       .from('pending_activations')
       .select('id, email, status')
       .eq('email', formData.email.toLowerCase())
       .eq('status', 'pending')
       .single();
 
+    const existingRequest = existingRequestRaw as { id: string; email: string; status: string } | null;
     if (checkError && checkError.code !== 'PGRST116') {
       console.error('❌ [DB] Error verificando duplicados:', checkError);
     }
@@ -190,12 +191,13 @@ export async function POST(request: NextRequest) {
 
       if (refParam) {
         // Buscar constructor por slug o ID
-        const { data: constructor, error: constructorError } = await getSupabaseClient()
+        const { data: constructorRaw, error: constructorError } = await getSupabaseClient()
           .from('private_users')
           .select('id, name, email')
           .or(`constructor_id.eq.${refParam},constructor_id.like.%${refParam}%`)
           .single();
 
+        const constructor = constructorRaw as { id: string; name: string; email: string } | null;
         if (constructorError) {
           console.log('⚠️ [DB] Constructor no encontrado para ref:', refParam);
           console.log('⚠️ [DB] Error details:', constructorError.message);
@@ -227,7 +229,7 @@ export async function POST(request: NextRequest) {
         invited_by: invitedById
       });
 
-      const { data: insertedRequest, error: insertError } = await getSupabaseClient()
+      const { data: insertedRequestRaw, error: insertError } = await getSupabaseClient()
         .from('pending_activations')
         .insert({
           name: formData.nombre.trim(),
@@ -241,6 +243,7 @@ export async function POST(request: NextRequest) {
         .select()
         .single();
 
+      const insertedRequest = insertedRequestRaw as { id: string; email: string; name: string } | null;
       if (insertError) {
         console.error('❌ [DB] Error insertando en pending_activations:', insertError);
         console.error('❌ [DB] Error code:', insertError.code);
@@ -261,8 +264,8 @@ export async function POST(request: NextRequest) {
       }
 
       console.log('✅ [DB] Prospecto guardado exitosamente en BD!');
-      console.log('✅ [DB] ID asignado:', insertedRequest.id);
-      console.log('✅ [DB] Email guardado:', insertedRequest.email);
+      console.log('✅ [DB] ID asignado:', insertedRequest?.id);
+      console.log('✅ [DB] Email guardado:', insertedRequest?.email);
 
       // ====================================================================
       // 🎯 ACTUALIZAR TABLA PROSPECTS (para Dashboard Mi Sistema IAA)
@@ -270,12 +273,15 @@ export async function POST(request: NextRequest) {
       console.log('\n🔍 [PROSPECTS] Buscando prospect existente del constructor...');
 
       // Buscar prospect existente del constructor (puede existir si visitó la página antes)
-      const { data: existingProspects, error: prospectSearchError } = await getSupabaseClient()
+      const { data: existingProspectsRaw, error: prospectSearchError } = await getSupabaseClient()
         .from('prospects')
         .select('id, fingerprint_id, device_info, stage, created_at')
         .eq('constructor_id', invitedById)
         .order('created_at', { ascending: false })
         .limit(5); // Últimos 5 prospects del constructor
+
+      type ProspectRecord = { id: string; fingerprint_id: string; device_info: Record<string, unknown>; stage: string; created_at: string };
+      const existingProspects = existingProspectsRaw as ProspectRecord[] | null;
 
       if (prospectSearchError) {
         console.error('⚠️ [PROSPECTS] Error buscando prospects:', prospectSearchError.message);
@@ -283,18 +289,18 @@ export async function POST(request: NextRequest) {
         console.log(`🔍 [PROSPECTS] Encontrados ${existingProspects?.length || 0} prospects del constructor`);
 
         // Intentar encontrar el prospect correcto (por email, nombre o fecha cercana)
-        let targetProspect = null;
+        let targetProspect: ProspectRecord | null | undefined = null;
 
         if (existingProspects && existingProspects.length > 0) {
           // Estrategia 1: Buscar por email en device_info
           targetProspect = existingProspects.find(p =>
-            p.device_info?.email?.toLowerCase() === formData.email.toLowerCase()
+            (p.device_info as { email?: string })?.email?.toLowerCase() === formData.email.toLowerCase()
           );
 
           // Estrategia 2: Buscar por nombre parcial
           if (!targetProspect) {
             targetProspect = existingProspects.find(p =>
-              p.device_info?.name?.toLowerCase().includes(formData.nombre.toLowerCase().split(' ')[0])
+              (p.device_info as { name?: string })?.name?.toLowerCase().includes(formData.nombre.toLowerCase().split(' ')[0])
             );
           }
 
@@ -304,7 +310,8 @@ export async function POST(request: NextRequest) {
             targetProspect = existingProspects.find(p => {
               const createdAt = new Date(p.created_at);
               const diffMinutes = (now.getTime() - createdAt.getTime()) / 1000 / 60;
-              const hasIncompleteData = !p.device_info?.name || !p.device_info?.phone;
+              const deviceInfo = p.device_info as { name?: string; phone?: string };
+              const hasIncompleteData = !deviceInfo?.name || !deviceInfo?.phone;
               return diffMinutes < 30 && hasIncompleteData;
             });
           }
@@ -332,19 +339,21 @@ export async function POST(request: NextRequest) {
           console.log('🔍 [PROSPECTS] Datos a actualizar:', prospectData);
 
           // Llamar al RPC update_prospect_data
-          const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data: rpcResult, error: rpcError } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
             p_fingerprint_id: targetProspect.fingerprint_id,
             p_data: prospectData,
             p_constructor_id: invitedById
           });
 
+          const rpcData = rpcResult as { stage?: string; advanced?: boolean } | null;
           if (rpcError) {
             console.error('❌ [PROSPECTS] Error actualizando con RPC:', rpcError.message);
           } else {
             console.log('✅ [PROSPECTS] Prospect actualizado exitosamente!');
-            console.log('✅ [PROSPECTS] Resultado RPC:', rpcResult);
-            console.log('✅ [PROSPECTS] Nuevo stage:', rpcResult?.stage || 'unknown');
-            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcResult?.advanced || false);
+            console.log('✅ [PROSPECTS] Resultado RPC:', rpcData);
+            console.log('✅ [PROSPECTS] Nuevo stage:', rpcData?.stage || 'unknown');
+            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcData?.advanced || false);
           }
         } else {
           console.log('⚠️ [PROSPECTS] No se encontró prospect existente para actualizar');
@@ -374,20 +383,22 @@ export async function POST(request: NextRequest) {
           console.log('🔍 [PROSPECTS] Datos del nuevo prospect:', prospectData);
 
           // Llamar al RPC para crear el prospect
-          const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data: rpcResult2, error: rpcError2 } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
             p_fingerprint_id: fingerprint,
             p_data: prospectData,
             p_constructor_id: invitedById
           });
 
-          if (rpcError) {
-            console.error('❌ [PROSPECTS] Error creando prospect con RPC:', rpcError.message);
-            console.error('❌ [PROSPECTS] RPC Error details:', rpcError);
+          const rpcData2 = rpcResult2 as { stage?: string; advanced?: boolean } | null;
+          if (rpcError2) {
+            console.error('❌ [PROSPECTS] Error creando prospect con RPC:', rpcError2.message);
+            console.error('❌ [PROSPECTS] RPC Error details:', rpcError2);
           } else {
             console.log('✅ [PROSPECTS] Prospect creado exitosamente!');
-            console.log('✅ [PROSPECTS] Resultado RPC:', rpcResult);
-            console.log('✅ [PROSPECTS] Stage inicial:', rpcResult?.stage || 'INICIAR');
-            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcResult?.advanced || false);
+            console.log('✅ [PROSPECTS] Resultado RPC:', rpcData2);
+            console.log('✅ [PROSPECTS] Stage inicial:', rpcData2?.stage || 'INICIAR');
+            console.log('✅ [PROSPECTS] Avanzó a ACOGER:', rpcData2?.advanced || false);
           }
         }
       }

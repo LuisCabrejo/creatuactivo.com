@@ -540,7 +540,6 @@ async function captureProspectData(
 
     'el que tiene más productos': 'visionario',
     'el que trae más': 'visionario',
-    'el más completo': 'visionario',
 
     // Variaciones coloquiales
     'ese': 'estrategico',  // "¿Cuál prefieres?" → "Ese" (contexto depende de última mención)
@@ -740,7 +739,8 @@ async function captureProspectData(
         constructor_uuid: constructorUUID || 'Sistema (fallback)'
       });
 
-      const { data: rpcResult, error: rpcError } = await getSupabaseClient().rpc('update_prospect_data', {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: rpcResult, error: rpcError } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
         p_fingerprint_id: fingerprint,
         p_data: cleanedData,  // ✅ Usar datos limpios sin NULL
         p_constructor_id: constructorUUID || undefined  // ✅ Pasar UUID o undefined (usa Sistema como fallback)
@@ -800,7 +800,8 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
       return [];
     }
 
-    const docs = (data || []).map(doc => ({
+    const rawDocs = data as Array<{ category: string; title: string; content: string; embedding: number[]; metadata: Record<string, unknown> }> | null;
+    const docs = (rawDocs || []).map(doc => ({
       category: doc.category,
       title: doc.title,
       content: doc.content,
@@ -1427,12 +1428,13 @@ async function consultarCatalogoProductos(query: string): Promise<any[]> {
       return [];
     }
 
-    if (!data || data.length === 0) {
+    const docs = data as Array<{ id: string; title: string; content: string; category: string; metadata: Record<string, unknown> }> | null;
+    if (!docs || docs.length === 0) {
       console.warn('⚠️ Catálogo de productos no encontrado en Supabase');
       return [];
     }
 
-    const catalogoDoc = data[0];
+    const catalogoDoc = docs[0];
     console.log('✅ Catálogo de productos encontrado:', catalogoDoc.title);
 
     // Agregar metadata de identificación
@@ -1538,10 +1540,11 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         .eq('category', documentType)
         .limit(1);
 
-      if (!error && data && data.length > 0) {
-        console.log(`✅ Arsenal ${documentType} encontrado - ${data[0].metadata?.respuestas_totales || 'N/A'} respuestas disponibles`);
+      const docs = data as Array<{ id: string; title: string; content: string; category: string; metadata: Record<string, unknown> }> | null;
+      if (!error && docs && docs.length > 0) {
+        console.log(`✅ Arsenal ${documentType} encontrado - ${(docs[0].metadata as { respuestas_totales?: string })?.respuestas_totales || 'N/A'} respuestas disponibles`);
 
-        const result = data.map(doc => ({
+        const result = docs.map(doc => ({
           ...doc,
           source: `/knowledge_base/arsenal_conversacional_${documentType.replace('arsenal_', '')}.txt`,
           search_method: 'hibrid_classification'
@@ -1567,7 +1570,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   const searchTerms = conceptos.length > 0 ? conceptos.join(' ') : query;
 
   try {
-    const { data, error } = await getSupabaseClient().rpc('search_nexus_documents', {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (getSupabaseClient().rpc as any)('search_nexus_documents', {
       search_query: searchTerms,
       match_count: maxResults
     });
@@ -1577,9 +1581,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       return [];
     }
 
-    const result = (data || []).filter((doc: any) =>
+    const rawData = data as Array<{ category: string; title: string; content: string; metadata: Record<string, unknown> }> | null;
+    const result = (rawData || []).filter((doc) =>
       doc.category && doc.category.includes('arsenal')
-    ).map((doc: any) => ({
+    ).map((doc) => ({
       ...doc,
       search_method: 'hibrid_semantic'
     }));
@@ -1629,7 +1634,8 @@ async function getSystemPrompt(): Promise<string> {
       return getFallbackSystemPrompt();
     }
 
-    const systemPrompt = data?.prompt || getFallbackSystemPrompt();
+    const promptData = data as { prompt: string; version: string } | null;
+    const systemPrompt = promptData?.prompt || getFallbackSystemPrompt();
 
     // ⚠️ Validar longitud para detectar prompts excesivos
     if (systemPrompt.length > 50000) {
@@ -1640,11 +1646,11 @@ async function getSystemPrompt(): Promise<string> {
     systemPromptCache.set(cacheKey, {
       content: systemPrompt,
       timestamp: Date.now(),
-      version: data?.version || 'unknown',
+      version: promptData?.version || 'unknown',
       length: systemPrompt.length
     });
 
-    console.log(`✅ System prompt ${data?.version} cargado y cacheado (${systemPrompt.length} chars, TTL: 5min)`);
+    console.log(`✅ System prompt ${promptData?.version} cargado y cacheado (${systemPrompt.length} chars, TTL: 5min)`);
     return systemPrompt;
 
   } catch (error) {
@@ -2116,8 +2122,8 @@ export async function POST(req: Request) {
     if (constructorId) {
       try {
         // Usar RPC function con SECURITY DEFINER para bypasear RLS
-        const { data: uuid, error } = await supabase
-          .rpc('get_constructor_uuid', { p_constructor_id: constructorId });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: uuid, error } = await (getSupabaseClient().rpc as any)('get_constructor_uuid', { p_constructor_id: constructorId });
 
         if (error) {
           console.error(`❌ [NEXUS] Error al buscar constructor "${constructorId}":`, error);
@@ -2153,7 +2159,7 @@ export async function POST(req: Request) {
     let prospectId: string | null = null;
     if (fingerprint) {
       try {
-        const { data: prospectData, error: prospectError } = await getSupabaseClient()
+        const { data: prospectDataRaw, error: prospectError } = await getSupabaseClient()
           .from('prospects')
           .select('id, device_info')
           .eq('fingerprint_id', fingerprint)
@@ -2161,6 +2167,7 @@ export async function POST(req: Request) {
           .limit(1)
           .single();
 
+        const prospectData = prospectDataRaw as { id: string; device_info: Record<string, unknown> } | null;
         if (prospectData && prospectData.device_info) {
           prospectId = prospectData.id;
           existingProspectData = prospectData.device_info;

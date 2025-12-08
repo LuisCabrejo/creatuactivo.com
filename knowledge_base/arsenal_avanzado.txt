@@ -3,7 +3,7 @@
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
 **Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 4.0 (Actualizado 7 Dic 2025) - Binario visual como GEN5
+**Versión:** 4.1 (Actualizado 7 Dic 2025) - Requisitos en tabla visual
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -1548,24 +1548,18 @@ No compiten, se suman. Estrategia óptima:
 
 ---
 
-### VAL_08: "¿Cómo me califico para el binario?" / "¿Qué necesito para ganar comisiones de equipo?"
+### VAL_08: "¿Cómo me califico para el binario?" / "¿Qué necesito para ganar comisiones de equipo?" / "¿Requisitos del binario?"
 **[Requisitos Binario Calificado]**
 
-Para recibir el Bono Binario debes estar **"Binario Calificado"** cada semana.
+Para cobrar el Bono Binario debes estar **"Binario Calificado"** cada semana.
 
-**Requisitos:**
-1. Mantener **50 PV mensual** personal (tu propia recompra)
-2. Tener mínimo **2 inscritos personales activos** (uno a cada lado de tu organización), cada uno con mínimo 50 PV
-3. Tener mínimo **100 CV** para compensar esa semana
+| # | Requisito | Valor |
+|---|-----------|-------|
+| 1 | PV Personal | 50/mes |
+| 2 | Inscritos activos | 2 (uno cada lado, 50 PV c/u) |
+| 3 | CV para compensar | 100/semana |
 
-**¿Qué pasa si no estoy calificado?**
-- El volumen de tu red sigue acumulándose
-- Pero no recibes el bono esa semana
-- Cuando te calificas, empiezas a cobrar
-
-Calificarte desde el primer mes es clave para no perder semanas de comisiones.
-
-**Pregunta de seguimiento:** ¿Tienes personas en mente para tus dos primeros inscritos?
+Se paga el **viernes**.
 
 ---
 

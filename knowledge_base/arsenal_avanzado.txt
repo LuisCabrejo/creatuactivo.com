@@ -3,7 +3,7 @@
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
 **Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 3.8 (Actualizado 7 Dic 2025) - VAL_03b/03d formato lista mobile-friendly
+**Versión:** 3.9 (Actualizado 7 Dic 2025) - Tablas ultra-compactas mobile-friendly
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -1333,14 +1333,14 @@ Se paga **semanalmente (los viernes)**.
 
 Supongamos que en una semana se compran 5 paquetes ESP-3 en tu red de patrocinio:
 
-| Generación | Bono por compra | Compras | Total |
-|------------|-----------------|---------|-------|
-| 1ra generación | $150 USD | 1 | $150 USD |
-| 2da generación | $20 USD | 1 | $20 USD |
-| 3ra generación | $20 USD | 1 | $20 USD |
-| 4ta generación | $20 USD | 1 | $20 USD |
-| 5ta generación | $40 USD | 1 | $40 USD |
-| **TOTAL SEMANA** | | | **$250 USD** |
+| Generación | Bono | Compras | Total |
+|------------|------|---------|-------|
+| 1a | $150 USD | 1 | $150 USD |
+| 2a | $20 USD | 1 | $20 USD |
+| 3a | $20 USD | 1 | $20 USD |
+| 4a | $20 USD | 1 | $20 USD |
+| 5a | $40 USD | 1 | $40 USD |
+| **TOTAL** | | | **$250 USD** |
 
 Eso son aproximadamente **$1.125.000 COP** en una semana, solo por 5 compras de paquetes.
 
@@ -1380,8 +1380,11 @@ Se paga **semanalmente (los viernes)**.
 **Ejemplo con 17% (Paquete ESP-3):**
 
 Supongamos que tienes:
-• Pierna izquierda: **1,000 CV**
-• Pierna derecha: **50,000 CV**
+
+| Pierna | CV |
+|--------|-----|
+| Izquierda | 1,000 |
+| Derecha | 50,000 |
 
 Se compensan **1,000 CV** (el menor de ambos lados).
 

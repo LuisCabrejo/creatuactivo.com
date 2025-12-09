@@ -21,6 +21,19 @@ export async function POST(request: NextRequest) {
     const bankEntity = formData.get('bankEntity') as string;
     const accountNumber = formData.get('accountNumber') as string;
     const accountType = formData.get('accountType') as string;
+    const sponsorName = formData.get('sponsorName') as string;
+    const sponsorCode = formData.get('sponsorCode') as string;
+    const selectedPackage = formData.get('selectedPackage') as string;
+    const notes = formData.get('notes') as string;
+
+    // Mapear paquete a nombre completo
+    const packageNames: Record<string, string> = {
+      'ESP3': 'Visionario - $4.500.000',
+      'ESP2': 'Empresarial - $2.250.000',
+      'ESP1': 'Inicial - $900.000',
+      'KIT': 'Kit de Inicio - $443.600',
+    };
+    const packageDisplay = packageNames[selectedPackage] || selectedPackage;
 
     // Extraer archivos de documento de identidad
     const idDocument1 = formData.get('idDocument1') as File | null;
@@ -83,6 +96,13 @@ export async function POST(request: NextRequest) {
             <h1>Nuevo Registro de Fundador</h1>
             <p style="color: #94a3b8;">Registrado el ${fechaRegistro}</p>
 
+            <h2>📦 Paquete Seleccionado</h2>
+            <div class="highlight" style="background: linear-gradient(135deg, #f59e0b20, #d9770620); border-color: #f59e0b40;">
+              <div class="value" style="font-size: 20px; font-weight: bold; color: #f59e0b; text-align: center;">
+                ${packageDisplay}
+              </div>
+            </div>
+
             <h2>👤 Datos Personales</h2>
             <div class="field">
               <div class="label">Nombre Completo</div>
@@ -123,10 +143,35 @@ export async function POST(request: NextRequest) {
               </div>
             </div>
 
+            <h2>👥 Patrocinador de Registro</h2>
+            <div class="highlight">
+              <div class="field">
+                <div class="label">Nombre del Patrocinador</div>
+                <div class="value">${sponsorName}</div>
+              </div>
+              <div class="field">
+                <div class="label">Código del Patrocinador</div>
+                <div class="value" style="font-family: monospace; font-size: 18px;">${sponsorCode}</div>
+              </div>
+            </div>
+
+            ${notes ? `
+            <h2>📝 Notas Adicionales</h2>
+            <div class="field">
+              <div class="value" style="background: #1e293b; padding: 12px; border-radius: 8px; white-space: pre-wrap;">${notes}</div>
+            </div>
+            ` : ''}
+
             <h2>📎 Documentos Adjuntos</h2>
             <p style="color: #94a3b8;">
               ${attachments.length} archivo(s) de documento de identidad adjuntos a este correo.
             </p>
+
+            <div style="margin-top: 24px; padding: 16px; background: #f59e0b15; border: 1px solid #f59e0b40; border-radius: 8px;">
+              <p style="color: #f59e0b; font-size: 12px; margin: 0;">
+                <strong>⚠️ Recordatorio:</strong> Las ganancias se generan exclusivamente por el movimiento de producto.
+              </p>
+            </div>
 
             <div class="footer">
               <p>Este registro fue enviado desde la página del Reto de los 12 Días</p>

@@ -6,8 +6,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Proyección Fundadores | CreaTuActivo',
-  description: 'Proyección exclusiva para fundadores - Modelo de duplicación 2×2',
+  title: 'Reto de los 12 Días | CreaTuActivo',
+  description: 'Construye el mejor diciembre de tu vida - 12 días, 12 niveles, una red de 8,190 personas',
   robots: {
     index: false,
     follow: false,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ProyeccionFundadoresLayout({
+export default function Reto12DiasLayout({
   children,
 }: {
   children: React.ReactNode

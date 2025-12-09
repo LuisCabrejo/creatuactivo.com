@@ -5,13 +5,13 @@
 
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import {
   Users, TrendingUp, Crown, Rocket, Target, ChevronRight, ChevronDown,
   DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame,
   Globe, Cpu, Database, CheckCircle, Upload, Send, FileImage, MapPin,
-  CreditCard, CheckCircle2, AlertCircle
+  CreditCard, CheckCircle2, AlertCircle, Camera, FolderOpen
 } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
@@ -29,6 +29,14 @@ const GlobalStyles = () => (
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
       background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .creatuactivo-h1-subtle {
+      font-weight: 800;
+      background: linear-gradient(135deg, #60A5FA 0%, var(--creatuactivo-blue) 40%, var(--creatuactivo-purple) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.1;
@@ -306,6 +314,12 @@ export default function PresentacionEmpresarial2Page() {
   const [daysRemaining, setDaysRemaining] = useState(12);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  // Auto-avance de días al hacer scroll
+  const [animatedDay, setAnimatedDay] = useState(1);
+  const [hasAnimatedDays, setHasAnimatedDays] = useState(false);
+  const challengeSectionRef = useRef<HTMLElement>(null);
+  const isChallengeInView = useInView(challengeSectionRef, { once: true, margin: '-100px' });
+
   // Estado del formulario
   const [formData, setFormData] = useState({
     fullName: '',
@@ -354,6 +368,23 @@ export default function PresentacionEmpresarial2Page() {
     };
   }, []);
 
+  // Auto-avance de días cuando la sección entra en viewport
+  useEffect(() => {
+    if (isChallengeInView && !hasAnimatedDays) {
+      setHasAnimatedDays(true);
+      let day = 1;
+      const interval = setInterval(() => {
+        day++;
+        if (day <= 12) {
+          setAnimatedDay(day);
+        } else {
+          clearInterval(interval);
+        }
+      }, 400); // 400ms entre cada día
+      return () => clearInterval(interval);
+    }
+  }, [isChallengeInView, hasAnimatedDays]);
+
   return (
     <>
       <GlobalStyles />
@@ -377,7 +408,7 @@ export default function PresentacionEmpresarial2Page() {
                 Reto de los 12 Días
               </div>
 
-              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">
+              <h1 className="creatuactivo-h1-subtle text-4xl md:text-6xl lg:text-7xl mb-6">
                 Construye el Mejor
                 <br />
                 Diciembre de tu Vida
@@ -499,7 +530,7 @@ export default function PresentacionEmpresarial2Page() {
           </section>
 
           {/* RETO DE LOS 12 DÍAS */}
-          <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
+          <section ref={challengeSectionRef} className="max-w-6xl mx-auto mb-24 lg:mb-32">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 <Zap className="w-6 h-6 inline text-amber-400 mr-2" />
@@ -515,8 +546,8 @@ export default function PresentacionEmpresarial2Page() {
                   day={day.day}
                   action={day.action}
                   people={day.people}
-                  isActive={day.day === currentDay}
-                  isCompleted={day.day < currentDay}
+                  isActive={day.day === animatedDay}
+                  isCompleted={day.day < animatedDay}
                   delay={index}
                 />
               ))}
@@ -839,28 +870,32 @@ Mayor paquete = Mayor inventario + Mayor % de binario desde el inicio.`}
 
                   {/* Documento de identidad */}
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                      <FileImage className="w-5 h-5 text-purple-400" />
+                    <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+                      <FileImage className="w-4 h-4 text-purple-400" />
                       Documento de Identidad
-                    </h3>
-                    <div className="bg-slate-800/30 border border-dashed border-slate-600 rounded-xl p-6">
-                      <div className="text-center mb-4">
-                        <Upload className="w-10 h-10 text-slate-400 mx-auto mb-2" />
-                        <p className="text-slate-300 font-medium">Sube imagen clara de tu documento</p>
-                        <p className="text-sm text-slate-500 mt-1">Puedes subir 1 archivo con ambas caras, o 2 archivos separados</p>
-                        <p className="text-xs text-slate-600 mt-2">Formatos: JPG, PNG o PDF • Máximo 5MB por archivo</p>
-                      </div>
-                      <input type="file" accept=".jpg,.jpeg,.png,.pdf" multiple onChange={(e) => { const files = Array.from(e.target.files || []).slice(0, 2); setIdFiles(files); }} className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-500/20 file:text-purple-400 hover:file:bg-purple-500/30 cursor-pointer" />
-                      {idFiles.length > 0 && (
-                        <div className="mt-3 space-y-1">
-                          {idFiles.map((file, index) => (
-                            <p key={index} className="text-sm text-green-400 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4" />{file.name}
-                            </p>
-                          ))}
-                        </div>
-                      )}
+                    </label>
+                    <p className="text-xs text-slate-500 mb-3">Foto clara de tu cédula (ambas caras)</p>
+                    <div className="flex gap-3">
+                      <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-slate-300 hover:border-purple-500 hover:bg-purple-500/10 cursor-pointer transition-colors">
+                        <FolderOpen className="w-5 h-5 text-purple-400" />
+                        <span className="text-sm font-medium">Elegir archivos</span>
+                        <input type="file" accept=".jpg,.jpeg,.png,.pdf" multiple onChange={(e) => { const files = Array.from(e.target.files || []).slice(0, 2); setIdFiles(files); }} className="hidden" />
+                      </label>
+                      <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-slate-300 hover:border-blue-500 hover:bg-blue-500/10 cursor-pointer transition-colors">
+                        <Camera className="w-5 h-5 text-blue-400" />
+                        <span className="text-sm font-medium">Tomar foto</span>
+                        <input type="file" accept="image/*" capture="environment" onChange={(e) => { const files = Array.from(e.target.files || []).slice(0, 2); setIdFiles(prev => [...prev, ...files].slice(0, 2)); }} className="hidden" />
+                      </label>
                     </div>
+                    {idFiles.length > 0 && (
+                      <div className="mt-3 space-y-1">
+                        {idFiles.map((file, index) => (
+                          <p key={index} className="text-sm text-green-400 flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4" />{file.name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Direcciones */}

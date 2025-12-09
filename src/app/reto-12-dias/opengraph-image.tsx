@@ -64,15 +64,13 @@ export default async function Image() {
         {/* Número grande - FOCAL POINT */}
         <div
           style={{
-            fontSize: 220,
+            fontSize: 180,
             fontWeight: 900,
-            background: 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FDE68A 100%)',
-            backgroundClip: 'text',
-            color: 'transparent',
-            lineHeight: 0.9,
-            marginBottom: 10,
+            color: '#FBBF24',
+            lineHeight: 1,
+            marginBottom: 0,
             display: 'flex',
-            letterSpacing: '-0.05em',
+            textShadow: '0 4px 20px rgba(251, 191, 36, 0.5)',
           }}
         >
           12
@@ -81,14 +79,15 @@ export default async function Image() {
         {/* Texto DÍAS */}
         <div
           style={{
-            fontSize: 80,
+            fontSize: 72,
             fontWeight: 900,
-            color: '#fff',
+            color: '#ffffff',
             textAlign: 'center',
             lineHeight: 1,
-            marginBottom: 20,
+            marginBottom: 16,
+            marginTop: -5,
             display: 'flex',
-            letterSpacing: '0.15em',
+            letterSpacing: '0.2em',
           }}
         >
           DÍAS

@@ -331,18 +331,19 @@ export default function PresentacionEmpresarial2Page() {
     setCurrentDay(getCurrentChallengeDay());
     setDaysRemaining(getDaysRemaining());
 
-    // Countdown en tiempo real
+    // Countdown de 24 horas (se reinicia a medianoche)
     const updateCountdown = () => {
       const now = new Date();
-      const diff = CHALLENGE_END_DATE.getTime() - now.getTime();
-      if (diff > 0) {
-        setCountdown({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((diff % (1000 * 60)) / 1000)
-        });
-      }
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0); // Próxima medianoche
+      const diff = midnight.getTime() - now.getTime();
+
+      setCountdown({
+        days: 0,
+        hours: Math.floor(diff / (1000 * 60 * 60)),
+        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((diff % (1000 * 60)) / 1000)
+      });
     };
     updateCountdown();
     const countdownInterval = setInterval(updateCountdown, 1000);
@@ -388,25 +389,25 @@ export default function PresentacionEmpresarial2Page() {
                 Con solo <span className="text-gradient-gold">$443,600 COP</span> de inversión mínima.
               </p>
 
-              {/* Countdown en tiempo real */}
-              <div className="max-w-lg mx-auto mb-8">
-                <p className="text-sm text-slate-400 mb-3 uppercase tracking-wider">El reto termina en:</p>
-                <div className="grid grid-cols-4 gap-2 md:gap-3">
-                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
-                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.days}</span>
-                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Días</p>
+              {/* Countdown 24 horas - El reto empieza hoy */}
+              <div className="max-w-md mx-auto mb-8">
+                <p className="text-lg text-amber-400 font-bold mb-3 uppercase tracking-wider flex items-center justify-center gap-2">
+                  <Flame className="w-5 h-5" />
+                  ¡Arrancamos Hoy!
+                </p>
+                <p className="text-xs text-slate-400 mb-3">Tu día 1 empieza ahora • Próximo reinicio en:</p>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="bg-blue-500/20 border border-blue-500/30 rounded-xl p-4 text-center">
+                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.hours.toString().padStart(2, '0')}</span>
+                    <p className="text-xs text-blue-400 uppercase tracking-wider mt-1">Horas</p>
                   </div>
-                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
-                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.hours.toString().padStart(2, '0')}</span>
-                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Horas</p>
+                  <div className="bg-purple-500/20 border border-purple-500/30 rounded-xl p-4 text-center">
+                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.minutes.toString().padStart(2, '0')}</span>
+                    <p className="text-xs text-purple-400 uppercase tracking-wider mt-1">Min</p>
                   </div>
-                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
-                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.minutes.toString().padStart(2, '0')}</span>
-                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Min</p>
-                  </div>
-                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center animate-pulse">
-                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.seconds.toString().padStart(2, '0')}</span>
-                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Seg</p>
+                  <div className="bg-amber-500/20 border border-amber-500/30 rounded-xl p-4 text-center animate-pulse">
+                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.seconds.toString().padStart(2, '0')}</span>
+                    <p className="text-xs text-amber-400 uppercase tracking-wider mt-1">Seg</p>
                   </div>
                 </div>
               </div>

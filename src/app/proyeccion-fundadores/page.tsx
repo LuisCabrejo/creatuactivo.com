@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Users, TrendingUp, Crown, Rocket, Target, ChevronRight, Calculator, DollarSign, Coffee } from 'lucide-react'
+import { ArrowRight, Users, TrendingUp, Crown, Rocket, Target, ChevronRight, Calculator, DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { useHydration } from '@/hooks/useHydration'
@@ -86,6 +86,43 @@ const GlobalStyles = () => (
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
       border: 1px solid rgba(245, 158, 11, 0.3);
     }
+    .day-card {
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .day-card:hover {
+      transform: scale(1.05);
+      border-color: rgba(245, 158, 11, 0.5);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+    }
+    .day-card.active {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+      border: 2px solid rgba(245, 158, 11, 0.6);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+    .pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
+    }
+    .text-gradient-fire {
+      background: linear-gradient(135deg, #EF4444 0%, #F59E0B 50%, #FBBF24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+    .historic-badge {
+      background: linear-gradient(135deg, #DC2626 0%, #F59E0B 100%);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
   `}</style>
 );
 
@@ -118,6 +155,42 @@ const totals = {
   bonus15: 143734500,     // Total acumulado 15% en COP
   bonus16: 153316800,     // Total acumulado 16% en COP
   bonus17: 162899100,     // Total acumulado 17% en COP
+};
+
+// Reto de los 12 Días - Plan de acción diario
+const challengeDays = [
+  { day: 1, action: "Tú arrancas", people: 1, icon: "rocket", description: "Activas tu posición de Fundador" },
+  { day: 2, action: "Invitas a 2", people: 2, icon: "users", description: "Tus primeros 2 socios directos" },
+  { day: 3, action: "Ellos invitan", people: 4, icon: "trending", description: "Cada uno trae 2 más" },
+  { day: 4, action: "4 → 8", people: 8, icon: "zap", description: "La duplicación acelera" },
+  { day: 5, action: "8 → 16", people: 16, icon: "flame", description: "Tu red crece exponencialmente" },
+  { day: 6, action: "16 → 32", people: 32, icon: "star", description: "32 personas en tu equipo" },
+  { day: 7, action: "32 → 64", people: 64, icon: "gift", description: "Primera semana completada" },
+  { day: 8, action: "64 → 128", people: 128, icon: "crown", description: "Superas las 100 personas" },
+  { day: 9, action: "128 → 256", people: 256, icon: "rocket", description: "Tu red se duplica" },
+  { day: 10, action: "256 → 512", people: 512, icon: "trending", description: "500+ en tu organización" },
+  { day: 11, action: "512 → 1024", people: 1024, icon: "zap", description: "Más de 1,000 personas" },
+  { day: 12, action: "1024 → 2048", people: 2048, icon: "flame", description: "Nivel 12 COMPLETADO" },
+];
+
+// Fecha de inicio del reto (9 de diciembre 2024)
+const CHALLENGE_START_DATE = new Date('2024-12-09T00:00:00');
+const CHALLENGE_END_DATE = new Date('2024-12-20T23:59:59');
+
+// Calcular día actual del reto
+const getCurrentChallengeDay = () => {
+  const now = new Date();
+  const diffTime = now.getTime() - CHALLENGE_START_DATE.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return Math.max(1, Math.min(12, diffDays));
+};
+
+// Calcular días restantes
+const getDaysRemaining = () => {
+  const now = new Date();
+  const diffTime = CHALLENGE_END_DATE.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return Math.max(0, diffDays);
 };
 
 // Componente de fila de la tabla
@@ -235,11 +308,60 @@ const StatCard = ({
   );
 };
 
+// Componente de día del reto
+const ChallengeDay = ({
+  day,
+  action,
+  people,
+  description,
+  isActive,
+  isCompleted,
+  delay
+}: {
+  day: number
+  action: string
+  people: number
+  description: string
+  isActive: boolean
+  isCompleted: boolean
+  delay: number
+}) => {
+  const isHydrated = useHydration();
+
+  const getIcon = () => {
+    if (isCompleted) return <Star className="w-4 h-4 text-green-400" />;
+    if (isActive) return <Flame className="w-4 h-4 text-amber-400" />;
+    return <Calendar className="w-4 h-4 text-slate-400" />;
+  };
+
+  return (
+    <motion.div
+      initial={isHydrated ? { opacity: 0, scale: 0.8 } : false}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4, delay: delay * 0.05 }}
+      className={`day-card p-3 md:p-4 text-center ${isActive ? 'active pulse-glow' : ''} ${isCompleted ? 'opacity-70' : ''}`}
+    >
+      <div className="flex items-center justify-center gap-1 mb-1">
+        {getIcon()}
+        <span className={`text-xs font-bold ${isActive ? 'text-amber-400' : isCompleted ? 'text-green-400' : 'text-slate-400'}`}>
+          DÍA {day}
+        </span>
+      </div>
+      <p className={`text-lg md:text-xl font-extrabold ${isActive ? 'text-white' : 'text-slate-300'}`}>
+        {people.toLocaleString('es-CO')}
+      </p>
+      <p className="text-[10px] md:text-xs text-slate-400 mt-1 line-clamp-1">{action}</p>
+    </motion.div>
+  );
+};
+
 // Componente principal
 export default function ProyeccionFundadoresPage() {
   const isHydrated = useHydration()
   const [showAllLevels, setShowAllLevels] = useState(false);
   const [animateTable, setAnimateTable] = useState(false);
+  const [currentDay, setCurrentDay] = useState(1);
+  const [daysRemaining, setDaysRemaining] = useState(12);
 
   // Calcular estadísticas
   const totalPorFundador = 8190;
@@ -250,6 +372,8 @@ export default function ProyeccionFundadoresPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => setAnimateTable(true), 500);
+    setCurrentDay(getCurrentChallengeDay());
+    setDaysRemaining(getDaysRemaining());
     return () => clearTimeout(timer);
   }, []);
 
@@ -268,31 +392,86 @@ export default function ProyeccionFundadoresPage() {
 
         <main className="relative z-10 pt-28 pb-20 px-4 lg:px-8">
 
-          {/* HERO */}
-          <section className="max-w-5xl mx-auto mb-16 lg:mb-24 text-center">
+          {/* HERO - DÍA HISTÓRICO */}
+          <section className="max-w-5xl mx-auto mb-12 lg:mb-16 text-center">
             <motion.div
               initial={isHydrated ? { opacity: 0, y: 30 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-bold uppercase tracking-wider mb-6">
-                <Crown className="w-4 h-4" />
-                Exclusivo Fundadores
+              {/* Badge Histórico */}
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full historic-badge text-white text-sm font-bold uppercase tracking-wider mb-6 shadow-lg">
+                <Flame className="w-4 h-4" />
+                DÍA {currentDay} — ¡ARRANCAMOS HOY!
+                <Flame className="w-4 h-4" />
               </div>
 
-              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">
-                El Poder de la Duplicación
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6">
+                <span className="text-gradient-fire">Construye el Mejor</span>
+                <br />
+                <span className="creatuactivo-h1-ecosystem">Diciembre de tu Vida</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-8">
-                Meta: Impactar positivamente la vida de <span className="text-gradient-gold">4 millones de personas</span> en los próximos 3-7 años.
+              <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
+                <strong className="text-white">12 días. 12 niveles. Una red de 8,190 personas.</strong>
+                <br />
+                Con solo <span className="text-gradient-gold">$443,600 COP</span> de inversión mínima.
               </p>
 
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                <div className="bg-red-500/20 border border-red-500/30 rounded-xl px-6 py-3">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-red-400" />
+                    <span className="text-red-400 font-bold">{daysRemaining} días restantes</span>
+                  </div>
+                </div>
+                <div className="bg-amber-500/20 border border-amber-500/30 rounded-xl px-6 py-3">
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-5 h-5 text-amber-400" />
+                    <span className="text-amber-400 font-bold">Solo 150 cupos Fundador</span>
+                  </div>
+                </div>
+              </div>
+
               <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                ¿Cómo se logra? Con la <strong className="text-white">duplicación más conservadora posible</strong>:
-                cada persona invita a <span className="text-blue-400 font-bold">solo 2 personas</span>.
+                Hoy es <strong className="text-white">el día histórico</strong>. El día de arrancar.
+                <br />
+                <span className="text-blue-400">2 personas</span> — eso es todo lo que necesitas invitar.
               </p>
             </motion.div>
+          </section>
+
+          {/* RETO DE LOS 12 DÍAS */}
+          <section className="max-w-6xl mx-auto mb-16 lg:mb-20">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                <Zap className="w-6 h-6 inline text-amber-400 mr-2" />
+                El Reto de los 12 Días
+              </h2>
+              <p className="text-slate-400">Un día = Un nivel. Así de simple.</p>
+            </div>
+
+            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2 md:gap-3">
+              {challengeDays.map((day, index) => (
+                <ChallengeDay
+                  key={day.day}
+                  day={day.day}
+                  action={day.action}
+                  people={day.people}
+                  description={day.description}
+                  isActive={day.day === currentDay}
+                  isCompleted={day.day < currentDay}
+                  delay={index}
+                />
+              ))}
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-500">
+                <Gift className="w-4 h-4 inline mr-1" />
+                Al completar los 12 días: <span className="text-green-400 font-bold">8,190 personas</span> en tu red
+              </p>
+            </div>
           </section>
 
           {/* ESTADÍSTICAS CLAVE */}

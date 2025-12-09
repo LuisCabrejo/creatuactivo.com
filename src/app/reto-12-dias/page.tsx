@@ -117,12 +117,8 @@ const GlobalStyles = () => (
       50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
     }
     .historic-badge {
-      background: linear-gradient(135deg, #DC2626 0%, #F59E0B 100%);
-      animation: shimmer 2s ease-in-out infinite;
-    }
-    @keyframes shimmer {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.4);
     }
     .creatuactivo-faq-item {
       background: linear-gradient(135deg, rgba(30, 64, 175, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
@@ -178,8 +174,8 @@ const challengeDays = [
   { day: 12, action: "1024 → 2048", people: 2048 },
 ];
 
-const CHALLENGE_START_DATE = new Date('2024-12-09T00:00:00');
-const CHALLENGE_END_DATE = new Date('2024-12-20T23:59:59');
+const CHALLENGE_START_DATE = new Date('2025-12-09T00:00:00');
+const CHALLENGE_END_DATE = new Date('2025-12-31T23:59:59');
 
 const getCurrentChallengeDay = () => {
   const now = new Date();
@@ -375,10 +371,9 @@ export default function PresentacionEmpresarial2Page() {
           {/* HERO - DÍA HISTÓRICO */}
           <section className="max-w-5xl mx-auto mb-24 lg:mb-32 text-center">
             <motion.div initial={isHydrated ? { opacity: 0, y: 30 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full historic-badge text-white text-sm font-bold uppercase tracking-wider mb-6 shadow-lg">
-                <Flame className="w-4 h-4" />
-                DÍA {currentDay} — ¡ARRANCAMOS HOY!
-                <Flame className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full historic-badge text-blue-300 text-sm font-bold uppercase tracking-wider mb-6">
+                <Zap className="w-4 h-4 text-purple-400" />
+                Reto de los 12 Días — Diciembre 2025
               </div>
 
               <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">

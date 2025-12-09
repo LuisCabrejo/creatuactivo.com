@@ -819,33 +819,22 @@ Mayor paquete = Mayor inventario + Mayor % de binario desde el inicio.`}
 
                   {/* Selección de Paquete */}
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                      <Gift className="w-5 h-5 text-amber-400" />
-                      Paquete Empresarial
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {[
-                        { id: 'ESP3', name: 'Visionario', price: '$4.500.000', highlight: true },
-                        { id: 'ESP2', name: 'Empresarial', price: '$2.250.000', highlight: false },
-                        { id: 'ESP1', name: 'Inicial', price: '$900.000', highlight: false },
-                        { id: 'KIT', name: 'Kit de Inicio', price: '$443.600', highlight: false },
-                      ].map((pkg) => (
-                        <label key={pkg.id} className={`relative flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${formData.selectedPackage === pkg.id ? 'border-amber-500 bg-amber-500/10' : 'border-slate-600 bg-slate-800/30 hover:border-slate-500'} ${pkg.highlight ? 'ring-1 ring-amber-500/30' : ''}`}>
-                          <input type="radio" name="selectedPackage" value={pkg.id} checked={formData.selectedPackage === pkg.id} onChange={(e) => setFormData({...formData, selectedPackage: e.target.value})} className="sr-only" required />
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.selectedPackage === pkg.id ? 'border-amber-500 bg-amber-500' : 'border-slate-500'}`}>
-                            {formData.selectedPackage === pkg.id && <div className="w-2 h-2 rounded-full bg-white" />}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-white">{pkg.name}</span>
-                              <span className="text-xs text-slate-500">({pkg.id})</span>
-                              {pkg.highlight && <span className="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">RECOMENDADO</span>}
-                            </div>
-                            <span className="text-lg font-bold text-amber-400">{pkg.price}</span>
-                          </div>
-                        </label>
-                      ))}
-                    </div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+                      <Gift className="w-4 h-4 text-amber-400" />
+                      Paquete Empresarial *
+                    </label>
+                    <select
+                      required
+                      value={formData.selectedPackage}
+                      onChange={(e) => setFormData({...formData, selectedPackage: e.target.value})}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-colors"
+                    >
+                      <option value="">Selecciona tu paquete...</option>
+                      <option value="ESP3">Visionario (ESP3) — $4.500.000</option>
+                      <option value="ESP2">Empresarial (ESP2) — $2.250.000</option>
+                      <option value="ESP1">Inicial (ESP1) — $900.000</option>
+                      <option value="KIT">Kit de Inicio — $443.600</option>
+                    </select>
                   </div>
 
                   {/* Documento de identidad */}

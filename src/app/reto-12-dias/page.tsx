@@ -212,15 +212,15 @@ const StatCard = ({ icon, value, label, sublabel, color = "blue", prefix = "", s
     green: "from-green-500/20 to-green-600/20 border-green-500/30 text-green-400"
   };
   return (
-    <div className={`bg-gradient-to-br ${colorClasses[color]} border rounded-2xl p-6 text-center`}>
-      <div className="mb-3 flex justify-center">{icon}</div>
-      <p className="text-3xl md:text-4xl font-extrabold text-white mb-1">
+    <div className={`bg-gradient-to-br ${colorClasses[color]} border rounded-2xl p-4 md:p-6 text-center`}>
+      <div className="mb-2 md:mb-3 flex justify-center">{icon}</div>
+      <p className="text-xl md:text-3xl font-extrabold text-white mb-1">
         {animatedValue !== undefined ? (
           <><span>{prefix}</span><AnimatedCountUp end={animatedValue} duration={2} decimals={decimals} /><span>{suffix}</span></>
         ) : value}
       </p>
-      <p className="text-sm font-semibold text-slate-300">{label}</p>
-      {sublabel && <p className="text-xs text-slate-500 mt-1">{sublabel}</p>}
+      <p className="text-xs md:text-sm font-semibold text-slate-300">{label}</p>
+      {sublabel && <p className="text-[10px] md:text-xs text-slate-500 mt-1">{sublabel}</p>}
     </div>
   );
 };
@@ -372,9 +372,9 @@ export default function PresentacionEmpresarial2Page() {
           {/* HERO - DÍA HISTÓRICO */}
           <section className="max-w-5xl mx-auto mb-24 lg:mb-32 text-center">
             <motion.div initial={isHydrated ? { opacity: 0, y: 30 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full historic-badge text-blue-300 text-sm font-bold uppercase tracking-wider mb-6">
-                <Zap className="w-4 h-4 text-purple-400" />
-                Reto de los 12 Días — Diciembre 2025
+              <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full historic-badge text-blue-300 text-xs font-bold uppercase tracking-wider mb-6">
+                <Zap className="w-3.5 h-3.5 text-purple-400" />
+                Reto de los 12 Días
               </div>
 
               <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">

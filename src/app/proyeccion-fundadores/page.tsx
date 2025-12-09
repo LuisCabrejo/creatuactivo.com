@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Users, TrendingUp, Crown, Rocket, Target, ChevronRight, Calculator, DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame } from 'lucide-react'
+import { ArrowRight, Users, TrendingUp, Crown, Rocket, Target, ChevronRight, Calculator, DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame, Upload, Send, FileImage, MapPin, Building2, CreditCard, CheckCircle2, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { useHydration } from '@/hooks/useHydration'
@@ -363,6 +363,22 @@ export default function ProyeccionFundadoresPage() {
   const [currentDay, setCurrentDay] = useState(1);
   const [daysRemaining, setDaysRemaining] = useState(12);
 
+  // Estado del formulario de confirmación
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    shippingAddress: '',
+    correspondenceAddress: '',
+    sameAddress: true,
+    bankEntity: '',
+    accountNumber: '',
+    accountType: 'ahorros',
+  });
+  const [idFiles, setIdFiles] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
   // Calcular estadísticas
   const totalPorFundador = 8190;
   const fundadores = 150;
@@ -393,7 +409,7 @@ export default function ProyeccionFundadoresPage() {
         <main className="relative z-10 pt-28 pb-20 px-4 lg:px-8">
 
           {/* HERO - DÍA HISTÓRICO */}
-          <section className="max-w-5xl mx-auto mb-12 lg:mb-16 text-center">
+          <section className="max-w-5xl mx-auto mb-20 lg:mb-28 text-center">
             <motion.div
               initial={isHydrated ? { opacity: 0, y: 30 } : false}
               animate={{ opacity: 1, y: 0 }}
@@ -406,10 +422,10 @@ export default function ProyeccionFundadoresPage() {
                 <Flame className="w-4 h-4" />
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6">
-                <span className="text-gradient-fire">Construye el Mejor</span>
+              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">
+                Construye el Mejor
                 <br />
-                <span className="creatuactivo-h1-ecosystem">Diciembre de tu Vida</span>
+                Diciembre de tu Vida
               </h1>
 
               <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
@@ -442,7 +458,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* RETO DE LOS 12 DÍAS */}
-          <section className="max-w-6xl mx-auto mb-16 lg:mb-20">
+          <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 <Zap className="w-6 h-6 inline text-amber-400 mr-2" />
@@ -475,7 +491,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* ESTADÍSTICAS CLAVE */}
-          <section className="max-w-6xl mx-auto mb-16 lg:mb-24">
+          <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <StatCard
                 icon={<Coffee className="w-8 h-8 text-blue-400" />}
@@ -509,7 +525,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* EXPLICACIÓN DEL MODELO */}
-          <section className="max-w-4xl mx-auto mb-16 lg:mb-24">
+          <section className="max-w-4xl mx-auto mb-24 lg:mb-32">
             <div className="creatuactivo-component-card p-6 md:p-10">
               <div className="flex items-start gap-4 mb-6">
                 <div className="bg-blue-500/20 p-3 rounded-xl">
@@ -549,7 +565,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* TABLA DE PROYECCIÓN */}
-          <section className="max-w-7xl mx-auto mb-16 lg:mb-24">
+          <section className="max-w-7xl mx-auto mb-24 lg:mb-32">
             <div className="text-center mb-8">
               <h2 className="creatuactivo-h2-component text-3xl md:text-4xl font-bold mb-4">
                 Proyección Binaria 2×2 en COP
@@ -710,7 +726,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* VISIÓN 4 MILLONES */}
-          <section className="max-w-5xl mx-auto mb-16 lg:mb-24">
+          <section className="max-w-5xl mx-auto mb-24 lg:mb-32">
             <div className="creatuactivo-component-card p-8 md:p-12">
               <div className="text-center mb-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -779,7 +795,7 @@ export default function ProyeccionFundadoresPage() {
           </section>
 
           {/* MENSAJE PARA FUNDADORES */}
-          <section className="max-w-4xl mx-auto mb-16 lg:mb-24">
+          <section className="max-w-4xl mx-auto mb-24 lg:mb-32">
             <div className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 border border-amber-500/20 rounded-3xl p-8 md:p-12 text-center">
               <Crown className="w-16 h-16 text-amber-400 mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -811,23 +827,292 @@ export default function ProyeccionFundadoresPage() {
             </div>
           </section>
 
-          {/* CTA FINAL */}
-          <section className="text-center py-12">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                La proyección está clara. <br/>
-                <span className="text-gradient-gold">¿Estarás en ella?</span>
-              </h2>
-              <p className="text-slate-400 text-lg mb-8">
-                2 personas. Eso es todo lo que necesitas para activar la duplicación.
-              </p>
-              <Link
-                href="/fundadores"
-                className="creatuactivo-cta-ecosystem text-lg inline-flex items-center gap-3"
-              >
-                Asegurar mi Posición de Fundador
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+          {/* FORMULARIO DE CONFIRMACIÓN */}
+          <section className="max-w-3xl mx-auto mb-16">
+            <div className="creatuactivo-component-card p-8 md:p-12">
+              <div className="text-center mb-10">
+                <Flame className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+                <h2 className="creatuactivo-h1-ecosystem text-3xl md:text-4xl font-bold mb-4">
+                  ¡Voy por el Mejor Diciembre!
+                </h2>
+                <p className="text-slate-400 max-w-xl mx-auto">
+                  Confirma tu participación completando este formulario.
+                  Tu información es confidencial y será usada únicamente para tu registro.
+                </p>
+              </div>
+
+              {submitStatus === 'success' ? (
+                <div className="text-center py-12">
+                  <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-white mb-2">¡Registro Enviado!</h3>
+                  <p className="text-slate-400">
+                    Hemos recibido tu información. Te contactaremos pronto para confirmar tu posición de Fundador.
+                  </p>
+                </div>
+              ) : (
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setIsSubmitting(true);
+
+                    try {
+                      const formDataToSend = new FormData();
+                      formDataToSend.append('fullName', formData.fullName);
+                      formDataToSend.append('email', formData.email);
+                      formDataToSend.append('phone', formData.phone);
+                      formDataToSend.append('shippingAddress', formData.shippingAddress);
+                      formDataToSend.append('correspondenceAddress', formData.sameAddress ? formData.shippingAddress : formData.correspondenceAddress);
+                      formDataToSend.append('bankEntity', formData.bankEntity);
+                      formDataToSend.append('accountNumber', formData.accountNumber);
+                      formDataToSend.append('accountType', formData.accountType);
+
+                      idFiles.forEach((file, index) => {
+                        formDataToSend.append(`idDocument${index + 1}`, file);
+                      });
+
+                      const response = await fetch('/api/fundadores/registro-diciembre', {
+                        method: 'POST',
+                        body: formDataToSend,
+                      });
+
+                      if (response.ok) {
+                        setSubmitStatus('success');
+                      } else {
+                        setSubmitStatus('error');
+                      }
+                    } catch {
+                      setSubmitStatus('error');
+                    } finally {
+                      setIsSubmitting(false);
+                    }
+                  }}
+                  className="space-y-8"
+                >
+                  {/* Datos personales */}
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <Users className="w-5 h-5 text-blue-400" />
+                      Datos Personales
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Nombre Completo *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                          placeholder="Tu nombre completo"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Teléfono / WhatsApp *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                          placeholder="+57 300 123 4567"
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Correo Electrónico *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                          placeholder="tu@email.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Documento de identidad */}
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <FileImage className="w-5 h-5 text-purple-400" />
+                      Documento de Identidad
+                    </h3>
+                    <div className="bg-slate-800/30 border border-dashed border-slate-600 rounded-xl p-6">
+                      <div className="text-center mb-4">
+                        <Upload className="w-10 h-10 text-slate-400 mx-auto mb-2" />
+                        <p className="text-slate-300 font-medium">Sube imagen clara de tu documento</p>
+                        <p className="text-sm text-slate-500 mt-1">
+                          Puedes subir 1 archivo con ambas caras, o 2 archivos separados (frente y reverso)
+                        </p>
+                        <p className="text-xs text-slate-600 mt-2">
+                          Formatos: JPG, PNG o PDF • Máximo 5MB por archivo
+                        </p>
+                      </div>
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []).slice(0, 2);
+                          setIdFiles(files);
+                        }}
+                        className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-500/20 file:text-purple-400 hover:file:bg-purple-500/30 cursor-pointer"
+                      />
+                      {idFiles.length > 0 && (
+                        <div className="mt-3 space-y-1">
+                          {idFiles.map((file, index) => (
+                            <p key={index} className="text-sm text-green-400 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4" />
+                              {file.name}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Direcciones */}
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <MapPin className="w-5 h-5 text-green-400" />
+                      Direcciones
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Dirección de Envío (para tus productos) *
+                        </label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={formData.shippingAddress}
+                          onChange={(e) => setFormData({...formData, shippingAddress: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors resize-none"
+                          placeholder="Calle, número, barrio, ciudad, departamento"
+                        />
+                      </div>
+
+                      <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.sameAddress}
+                          onChange={(e) => setFormData({...formData, sameAddress: e.target.checked})}
+                          className="w-5 h-5 rounded border-slate-600 bg-slate-800 text-blue-500 focus:ring-blue-500"
+                        />
+                        <span className="text-slate-300 text-sm">
+                          La dirección de correspondencia es la misma
+                        </span>
+                      </label>
+
+                      {!formData.sameAddress && (
+                        <div>
+                          <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Dirección de Correspondencia *
+                          </label>
+                          <textarea
+                            required={!formData.sameAddress}
+                            rows={2}
+                            value={formData.correspondenceAddress}
+                            onChange={(e) => setFormData({...formData, correspondenceAddress: e.target.value})}
+                            className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors resize-none"
+                            placeholder="Calle, número, barrio, ciudad, departamento"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Datos bancarios */}
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <CreditCard className="w-5 h-5 text-amber-400" />
+                      Datos Bancarios (para tus comisiones)
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Entidad Bancaria *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.bankEntity}
+                          onChange={(e) => setFormData({...formData, bankEntity: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                          placeholder="Ej: Bancolombia, Davivienda..."
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Tipo de Cuenta *
+                        </label>
+                        <select
+                          value={formData.accountType}
+                          onChange={(e) => setFormData({...formData, accountType: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                        >
+                          <option value="ahorros">Cuenta de Ahorros</option>
+                          <option value="corriente">Cuenta Corriente</option>
+                        </select>
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          Número de Cuenta *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.accountNumber}
+                          onChange={(e) => setFormData({...formData, accountNumber: e.target.value})}
+                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                          placeholder="Número de cuenta"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Error message */}
+                  {submitStatus === 'error' && (
+                    <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center gap-3">
+                      <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                      <p className="text-red-400 text-sm">
+                        Hubo un error al enviar tu registro. Por favor intenta de nuevo o contáctanos por WhatsApp.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Submit button */}
+                  <div className="pt-4">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || idFiles.length === 0}
+                      className="w-full creatuactivo-cta-ecosystem text-lg flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5" />
+                          Confirmar Mi Participación
+                        </>
+                      )}
+                    </button>
+                    <p className="text-center text-xs text-slate-500 mt-4">
+                      Al enviar este formulario, confirmas que vas por el mejor diciembre de tu vida
+                      y aceptas formar parte del Reto de los 12 Días.
+                    </p>
+                  </div>
+                </form>
+              )}
             </div>
           </section>
 

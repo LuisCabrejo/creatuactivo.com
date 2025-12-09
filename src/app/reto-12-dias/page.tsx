@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import AnimatedCountUp from '@/components/AnimatedCountUp'
 import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales ---
@@ -207,7 +208,7 @@ const TriadCard = ({ icon, title, role, description, color }: { icon: React.Reac
   </div>
 );
 
-const StatCard = ({ icon, value, label, sublabel, color = "blue" }: { icon: React.ReactNode, value: string, label: string, sublabel?: string, color?: "blue" | "purple" | "amber" | "green" }) => {
+const StatCard = ({ icon, value, label, sublabel, color = "blue", prefix = "", suffix = "", animatedValue, decimals = 0 }: { icon: React.ReactNode, value: string, label: string, sublabel?: string, color?: "blue" | "purple" | "amber" | "green", prefix?: string, suffix?: string, animatedValue?: number, decimals?: number }) => {
   const colorClasses = {
     blue: "from-blue-500/20 to-blue-600/20 border-blue-500/30 text-blue-400",
     purple: "from-purple-500/20 to-purple-600/20 border-purple-500/30 text-purple-400",
@@ -217,7 +218,11 @@ const StatCard = ({ icon, value, label, sublabel, color = "blue" }: { icon: Reac
   return (
     <div className={`bg-gradient-to-br ${colorClasses[color]} border rounded-2xl p-6 text-center`}>
       <div className="mb-3 flex justify-center">{icon}</div>
-      <p className="text-3xl md:text-4xl font-extrabold text-white mb-1">{value}</p>
+      <p className="text-3xl md:text-4xl font-extrabold text-white mb-1">
+        {animatedValue !== undefined ? (
+          <><span>{prefix}</span><AnimatedCountUp end={animatedValue} duration={2} decimals={decimals} /><span>{suffix}</span></>
+        ) : value}
+      </p>
       <p className="text-sm font-semibold text-slate-300">{label}</p>
       {sublabel && <p className="text-xs text-slate-500 mt-1">{sublabel}</p>}
     </div>
@@ -303,6 +308,7 @@ export default function PresentacionEmpresarial2Page() {
   const [animateTable, setAnimateTable] = useState(false);
   const [currentDay, setCurrentDay] = useState(1);
   const [daysRemaining, setDaysRemaining] = useState(12);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   // Estado del formulario
   const [formData, setFormData] = useState({
@@ -328,7 +334,27 @@ export default function PresentacionEmpresarial2Page() {
     const timer = setTimeout(() => setAnimateTable(true), 500);
     setCurrentDay(getCurrentChallengeDay());
     setDaysRemaining(getDaysRemaining());
-    return () => clearTimeout(timer);
+
+    // Countdown en tiempo real
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = CHALLENGE_END_DATE.getTime() - now.getTime();
+      if (diff > 0) {
+        setCountdown({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((diff % (1000 * 60)) / 1000)
+        });
+      }
+    };
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(countdownInterval);
+    };
   }, []);
 
   return (
@@ -367,13 +393,30 @@ export default function PresentacionEmpresarial2Page() {
                 Con solo <span className="text-gradient-gold">$443,600 COP</span> de inversión mínima.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                <div className="bg-red-500/20 border border-red-500/30 rounded-xl px-6 py-3">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-red-400" />
-                    <span className="text-red-400 font-bold">{daysRemaining} días restantes</span>
+              {/* Countdown en tiempo real */}
+              <div className="max-w-lg mx-auto mb-8">
+                <p className="text-sm text-slate-400 mb-3 uppercase tracking-wider">El reto termina en:</p>
+                <div className="grid grid-cols-4 gap-2 md:gap-3">
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
+                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.days}</span>
+                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Días</p>
+                  </div>
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
+                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.hours.toString().padStart(2, '0')}</span>
+                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Horas</p>
+                  </div>
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center">
+                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.minutes.toString().padStart(2, '0')}</span>
+                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Min</p>
+                  </div>
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 text-center animate-pulse">
+                    <span className="text-2xl md:text-3xl font-bold text-white">{countdown.seconds.toString().padStart(2, '0')}</span>
+                    <p className="text-[10px] md:text-xs text-red-400 uppercase tracking-wider">Seg</p>
                   </div>
                 </div>
+              </div>
+
+              <div className="flex justify-center mb-8">
                 <div className="bg-amber-500/20 border border-amber-500/30 rounded-xl px-6 py-3">
                   <div className="flex items-center gap-2">
                     <Crown className="w-5 h-5 text-amber-400" />
@@ -494,10 +537,10 @@ export default function PresentacionEmpresarial2Page() {
           {/* ESTADÍSTICAS CLAVE */}
           <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              <StatCard icon={<Coffee className="w-8 h-8 text-blue-400" />} value="$443,600" label="Inversión Mínima" sublabel="4 cajas Gano Café 3en1" color="blue" />
-              <StatCard icon={<TrendingUp className="w-8 h-8 text-purple-400" />} value="52 CV" label="Por Persona" sublabel="Volumen de comisión" color="purple" />
-              <StatCard icon={<Users className="w-8 h-8 text-amber-400" />} value="8,190" label="Red al Nivel 12" sublabel="Duplicación 2×2" color="amber" />
-              <StatCard icon={<DollarSign className="w-8 h-8 text-green-400" />} value="$95.8M" label="Bono Binario COP" sublabel="Acumulado 10% nivel 12" color="green" />
+              <StatCard icon={<Coffee className="w-8 h-8 text-blue-400" />} value="" animatedValue={443600} prefix="$" label="Inversión Mínima" sublabel="4 cajas Gano Café 3en1" color="blue" />
+              <StatCard icon={<TrendingUp className="w-8 h-8 text-purple-400" />} value="" animatedValue={52} suffix=" CV" label="Por Persona" sublabel="Volumen de comisión" color="purple" />
+              <StatCard icon={<Users className="w-8 h-8 text-amber-400" />} value="" animatedValue={8190} label="Red al Nivel 12" sublabel="Duplicación 2×2" color="amber" />
+              <StatCard icon={<DollarSign className="w-8 h-8 text-green-400" />} value="" animatedValue={95.8} prefix="$" suffix="M" decimals={1} label="Bono Binario COP" sublabel="Acumulado 10% nivel 12" color="green" />
             </div>
           </section>
 
@@ -561,19 +604,27 @@ export default function PresentacionEmpresarial2Page() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center p-3 bg-green-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 10%</p>
-                      <p className="text-xl md:text-2xl font-extrabold text-green-400">$95.8M</p>
+                      <p className="text-xl md:text-2xl font-extrabold text-green-400">
+                        $<AnimatedCountUp end={95.8} duration={2} decimals={1} />M
+                      </p>
                     </div>
                     <div className="text-center p-3 bg-blue-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 15%</p>
-                      <p className="text-xl md:text-2xl font-extrabold text-blue-400">$143.7M</p>
+                      <p className="text-xl md:text-2xl font-extrabold text-blue-400">
+                        $<AnimatedCountUp end={143.7} duration={2} decimals={1} delay={200} />M
+                      </p>
                     </div>
                     <div className="text-center p-3 bg-purple-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 16%</p>
-                      <p className="text-xl md:text-2xl font-extrabold text-purple-400">$153.3M</p>
+                      <p className="text-xl md:text-2xl font-extrabold text-purple-400">
+                        $<AnimatedCountUp end={153.3} duration={2} decimals={1} delay={400} />M
+                      </p>
                     </div>
                     <div className="text-center p-3 bg-amber-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 17%</p>
-                      <p className="text-xl md:text-2xl font-extrabold text-amber-400">$162.9M</p>
+                      <p className="text-xl md:text-2xl font-extrabold text-amber-400">
+                        $<AnimatedCountUp end={162.9} duration={2} decimals={1} delay={600} />M
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -611,19 +662,25 @@ export default function PresentacionEmpresarial2Page() {
                 <div className="text-center p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20">
                   <Crown className="w-10 h-10 text-amber-400 mx-auto mb-4" />
                   <p className="text-sm text-slate-400 mb-2">FASE 1: Lista Privada</p>
-                  <p className="text-3xl font-bold text-white mb-1">150</p>
+                  <p className="text-3xl font-bold text-white mb-1">
+                    <AnimatedCountUp end={150} duration={1.5} />
+                  </p>
                   <p className="text-sm text-slate-400">Fundadores</p>
                 </div>
                 <div className="text-center p-6 bg-purple-500/10 rounded-2xl border border-purple-500/20">
                   <Rocket className="w-10 h-10 text-purple-400 mx-auto mb-4" />
                   <p className="text-sm text-slate-400 mb-2">FASE 2: Pre-Lanzamiento</p>
-                  <p className="text-3xl font-bold text-white mb-1">22,500</p>
+                  <p className="text-3xl font-bold text-white mb-1">
+                    <AnimatedCountUp end={22500} duration={2} />
+                  </p>
                   <p className="text-sm text-slate-400">Constructores</p>
                 </div>
                 <div className="text-center p-6 bg-green-500/10 rounded-2xl border border-green-500/20">
                   <Target className="w-10 h-10 text-green-400 mx-auto mb-4" />
                   <p className="text-sm text-slate-400 mb-2">META: 3-7 Años</p>
-                  <p className="text-3xl font-bold text-white mb-1">4M+</p>
+                  <p className="text-3xl font-bold text-white mb-1">
+                    <AnimatedCountUp end={4} duration={1.5} suffix="M+" />
+                  </p>
                   <p className="text-sm text-slate-400">Personas impactadas</p>
                 </div>
               </div>

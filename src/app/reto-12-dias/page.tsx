@@ -236,7 +236,6 @@ const StatCard = ({ icon, value, label, sublabel, color = "blue", prefix = "", s
 };
 
 const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay }: { day: number, action: string, people: number, isActive: boolean, isCompleted: boolean, delay: number }) => {
-  const isHydrated = useHydration();
   const getIcon = () => {
     if (isCompleted) return <Star className="w-4 h-4 text-green-400" />;
     if (isActive) return <Flame className="w-4 h-4 text-amber-400" />;
@@ -244,7 +243,7 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay }: { d
   };
   return (
     <motion.div
-      initial={isHydrated ? { opacity: 0, scale: 0.8 } : false}
+      initial={false}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: delay * 0.05 }}
       className={`day-card p-3 md:p-4 text-center ${isActive ? 'active pulse-glow' : ''} ${isCompleted ? 'opacity-70' : ''}`}
@@ -264,14 +263,13 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay }: { d
 };
 
 const ProjectionRow = ({ level, people, cvPerSide, bonus10, acum10, acum15, acum16, acum17, isAnimated, delay }: { level: number, people: number, cvPerSide: number, bonus10: number, acum10: number, acum15: number, acum16: number, acum17: number, isAnimated: boolean, delay: number }) => {
-  const isHydrated = useHydration();
   const isHighlight = level >= 10;
   const formatCOP = (value: number) => `$${value.toLocaleString('es-CO')}`;
   return (
     <motion.tr
-      initial={isHydrated && isAnimated ? { opacity: 0, x: -20 } : false}
+      initial={false}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4, delay: delay * 0.08 }}
+      transition={{ duration: 0.4, delay: isAnimated ? delay * 0.08 : 0 }}
       className={`projection-row ${isHighlight ? 'milestone-row' : ''}`}
     >
       <td className="py-3 px-2 md:px-3">
@@ -403,7 +401,7 @@ export default function PresentacionEmpresarial2Page() {
 
           {/* HERO - DÍA HISTÓRICO */}
           <section className="max-w-5xl mx-auto mb-24 lg:mb-32 text-center">
-            <motion.div initial={isHydrated ? { opacity: 0, y: 30 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full historic-badge text-blue-300 text-xs font-bold uppercase tracking-wider mb-6">
                 <Zap className="w-3.5 h-3.5 text-purple-400" />
                 Reto de los 12 Días
@@ -430,15 +428,15 @@ export default function PresentacionEmpresarial2Page() {
                 <p className="text-xs text-slate-400 mb-3">Tu día 1 empieza ahora • Próximo reinicio en:</p>
                 <div className="grid grid-cols-3 gap-3">
                   <div className="bg-blue-500/20 border border-blue-500/30 rounded-xl p-4 text-center">
-                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.hours.toString().padStart(2, '0')}</span>
+                    <span className="text-3xl md:text-4xl font-bold text-white">{isHydrated ? countdown.hours.toString().padStart(2, '0') : '--'}</span>
                     <p className="text-xs text-blue-400 uppercase tracking-wider mt-1">Horas</p>
                   </div>
                   <div className="bg-purple-500/20 border border-purple-500/30 rounded-xl p-4 text-center">
-                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.minutes.toString().padStart(2, '0')}</span>
+                    <span className="text-3xl md:text-4xl font-bold text-white">{isHydrated ? countdown.minutes.toString().padStart(2, '0') : '--'}</span>
                     <p className="text-xs text-purple-400 uppercase tracking-wider mt-1">Min</p>
                   </div>
                   <div className="bg-amber-500/20 border border-amber-500/30 rounded-xl p-4 text-center animate-pulse">
-                    <span className="text-3xl md:text-4xl font-bold text-white">{countdown.seconds.toString().padStart(2, '0')}</span>
+                    <span className="text-3xl md:text-4xl font-bold text-white">{isHydrated ? countdown.seconds.toString().padStart(2, '0') : '--'}</span>
                     <p className="text-xs text-amber-400 uppercase tracking-wider mt-1">Seg</p>
                   </div>
                 </div>

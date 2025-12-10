@@ -9,9 +9,9 @@
  */
 
 // src/app/api/nexus/route.ts
-// API Route NEXUS - ARQUITECTURA HÍBRIDA + FLUJO 14 MENSAJES v13.0
-// VERSION: v13.0 - Flujo Estructurado 14 Mensajes + Captura Temprana + Progressive Profiling
-// ARSENAL: 79 respuestas en 3 documentos con búsqueda adaptativa
+// API Route NEXUS - ARQUITECTURA HÍBRIDA + FLUJO 14 MENSAJES v14.9
+// VERSION: v14.9 - Fragmentación de arsenales (95% reducción tokens)
+// ARSENAL: 108 fragmentos individuales con embeddings Voyage AI (antes: 3 documentos monolíticos)
 // IDENTIDAD: Copiloto del Arquitecto con captura temprana de datos
 // CAMBIOS v13.0: Nombre msg 2 (no msg 7) + Verificación progreso msg 8 + Resumen final msg 13
 // COMPLIANCE: Ley 1581/2012 Art. 9 + Conversational AI Best Practices (Drift, Intercom, Nielsen Norman Group)
@@ -816,6 +816,127 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
     return docs;
   } catch (error) {
     console.error('[VectorSearch] Exception loading documents:', error);
+    return [];
+  }
+}
+
+// ========================================
+// ⚡ FRAGMENTACIÓN DE ARSENALES v14.9
+// Reduce tokens de entrada de ~60K a ~3K por request
+// ========================================
+
+// Cache para fragmentos de arsenales
+const fragmentsCache: { data: DocumentWithEmbedding[]; timestamp: number } = { data: [], timestamp: 0 };
+const FRAGMENTS_CACHE_TTL = 5 * 60 * 1000; // 5 minutos
+
+/**
+ * Obtiene todos los fragmentos de arsenales con embeddings
+ * Los fragmentos tienen categoría como: arsenal_inicial_WHY_01, arsenal_avanzado_OBJ_03, etc.
+ */
+async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
+  // Check cache
+  if (fragmentsCache.data.length > 0 && (Date.now() - fragmentsCache.timestamp) < FRAGMENTS_CACHE_TTL) {
+    console.log(`⚡ [Fragments] Usando ${fragmentsCache.data.length} fragmentos desde cache`);
+    return fragmentsCache.data;
+  }
+
+  try {
+    const { data, error } = await getSupabaseClient()
+      .from('nexus_documents')
+      .select('category, title, content, embedding, metadata')
+      .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, etc.
+      .not('embedding', 'is', null);
+
+    if (error) {
+      console.error('[Fragments] Error loading fragments:', error);
+      return [];
+    }
+
+    const rawDocs = data as Array<{
+      category: string;
+      title: string;
+      content: string;
+      embedding: number[] | string;
+      metadata: Record<string, unknown>;
+    }> | null;
+
+    // Filtrar solo fragmentos (tienen metadata.is_fragment = true)
+    const fragments = (rawDocs || [])
+      .filter(doc => {
+        const meta = doc.metadata as { is_fragment?: boolean };
+        return meta?.is_fragment === true;
+      })
+      .map(doc => ({
+        category: doc.category,
+        title: doc.title,
+        content: doc.content,
+        // ✅ FIX: pgvector devuelve string, convertir a string si es array
+        embedding: typeof doc.embedding === 'string' ? doc.embedding : `[${doc.embedding.join(',')}]`,
+        metadata: doc.metadata
+      }));
+
+    // Update cache
+    fragmentsCache.data = fragments;
+    fragmentsCache.timestamp = Date.now();
+    console.log(`⚡ [Fragments] Cacheados ${fragments.length} fragmentos de arsenales`);
+
+    return fragments;
+  } catch (error) {
+    console.error('[Fragments] Exception loading fragments:', error);
+    return [];
+  }
+}
+
+/**
+ * Busca fragmentos relevantes para una consulta usando Voyage AI
+ *
+ * @param userMessage - Mensaje del usuario
+ * @param arsenalType - Tipo de arsenal (arsenal_inicial, arsenal_avanzado, arsenal_compensacion)
+ * @param maxResults - Número máximo de fragmentos (default: 5)
+ * @returns Array de fragmentos relevantes con similitud
+ */
+async function searchArsenalFragments(
+  userMessage: string,
+  arsenalType: string,
+  maxResults: number = 5
+): Promise<VectorSearchResult[]> {
+  const voyageApiKey = process.env.VOYAGE_API_KEY;
+
+  if (!voyageApiKey) {
+    console.log('[Fragments] No VOYAGE_API_KEY, cannot search fragments');
+    return [];
+  }
+
+  try {
+    const allFragments = await getArsenalFragments();
+
+    // Filtrar fragmentos del arsenal específico
+    const arsenalFragments = allFragments.filter(f =>
+      f.category.startsWith(`${arsenalType}_`)
+    );
+
+    if (arsenalFragments.length === 0) {
+      console.log(`[Fragments] No fragments found for ${arsenalType}`);
+      return [];
+    }
+
+    console.log(`⚡ [Fragments] Buscando en ${arsenalFragments.length} fragmentos de ${arsenalType}...`);
+
+    // Buscar fragmentos similares
+    const results = await vectorSearch(userMessage, arsenalFragments, voyageApiKey, {
+      threshold: 0.30,  // Umbral más bajo para fragmentos específicos
+      maxResults,
+      debug: false
+    });
+
+    if (results.length > 0) {
+      console.log(`✅ [Fragments] ${results.length} fragmentos relevantes encontrados:`);
+      results.forEach((r, i) => console.log(`   ${i + 1}. ${r.category} (${r.similarity.toFixed(3)})`));
+    }
+
+    return results;
+  } catch (error) {
+    console.error('[Fragments] Error searching fragments:', error);
     return [];
   }
 }
@@ -1653,11 +1774,50 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // LÓGICA ORIGINAL PARA ARSENALES
+  // ⚡ LÓGICA OPTIMIZADA v14.9: FRAGMENTOS DE ARSENALES
+  // Reduce tokens de entrada de ~60K a ~3K por request (95% ahorro)
   if (documentType && documentType.startsWith('arsenal_')) {
-    console.log(`📚 Consulta dirigida: ${documentType.toUpperCase()}`);
+    console.log(`⚡ Consulta fragmentada: ${documentType.toUpperCase()}`);
 
     try {
+      // PASO 1: Buscar fragmentos relevantes con vector search
+      const fragments = await searchArsenalFragments(userMessage, documentType, 5);
+
+      if (fragments.length > 0) {
+        // Calcular chars totales de fragmentos vs arsenal completo
+        const totalFragmentChars = fragments.reduce((sum, f) => sum + f.content.length, 0);
+        console.log(`✅ [Fragments] ${fragments.length} fragmentos encontrados (${totalFragmentChars} chars vs ~60K full arsenal)`);
+
+        // Combinar contenido de fragmentos relevantes
+        const combinedContent = fragments
+          .map(f => f.content)
+          .join('\n\n---\n\n');
+
+        const result = [{
+          id: `${documentType}_fragments`,
+          title: `Fragmentos relevantes de ${documentType}`,
+          content: combinedContent,
+          category: documentType,
+          metadata: {
+            is_fragment_result: true,
+            fragment_count: fragments.length,
+            fragment_categories: fragments.map(f => f.category),
+            total_chars: totalFragmentChars
+          },
+          source: `/knowledge_base/arsenal_conversacional_${documentType.replace('arsenal_', '')}.txt`,
+          search_method: 'fragment_vector_search'
+        }];
+
+        searchCache.set(cacheKey, {
+          data: result,
+          timestamp: Date.now()
+        });
+
+        return result;
+      }
+
+      // FALLBACK: Si no hay fragmentos, usar arsenal completo (legacy)
+      console.log(`⚠️ [Fragments] No fragments found, falling back to full arsenal`);
       const { data, error } = await getSupabaseClient()
         .from('nexus_documents')
         .select('id, title, content, category, metadata')
@@ -1666,12 +1826,12 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
       const docs = data as Array<{ id: string; title: string; content: string; category: string; metadata: Record<string, unknown> }> | null;
       if (!error && docs && docs.length > 0) {
-        console.log(`✅ Arsenal ${documentType} encontrado - ${(docs[0].metadata as { respuestas_totales?: string })?.respuestas_totales || 'N/A'} respuestas disponibles`);
+        console.log(`✅ Arsenal ${documentType} (fallback) - ${(docs[0].metadata as { respuestas_totales?: string })?.respuestas_totales || 'N/A'} respuestas disponibles`);
 
         const result = docs.map(doc => ({
           ...doc,
           source: `/knowledge_base/arsenal_conversacional_${documentType.replace('arsenal_', '')}.txt`,
-          search_method: 'hibrid_classification'
+          search_method: 'full_arsenal_fallback'
         }));
 
         searchCache.set(cacheKey, {
@@ -1682,7 +1842,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         return result;
       }
     } catch (error) {
-      console.error(`Error consulta híbrida ${documentType}:`, error);
+      console.error(`Error consulta fragmentada ${documentType}:`, error);
     }
   }
 

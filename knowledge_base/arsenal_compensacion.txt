@@ -1,8 +1,8 @@
-# Arsenal Conversacional: Plan de Compensación v1.2
+# Arsenal Conversacional: Plan de Compensación v1.3
 
 **Propósito:** Respuestas sobre inversión, paquetes, plan de compensación y Reto 12 Días para NEXUS.
 **Categorías:** RETO (7) + INV (5) + COMP (6) + OBJINV (4) = 22 respuestas
-**Versión:** 1.2 (9 Dic 2025) - FIX: Kit de Inicio = SOLO binario (NO GEN5)
+**Versión:** 1.3 (9 Dic 2025) - FIX: Contexto interno NO se comparte con prospectos
 
 ---
 
@@ -10,39 +10,33 @@
 
 ### **RETO_01: "¿Qué es el Reto de los 12 Días?"**
 
-Es nuestra campaña de cierre de año para construir el mejor diciembre de tu vida.
+El Reto de los 12 Días es una estrategia de CreaTuActivo.com que busca premiar la velocidad.
 
-**La idea es simple:**
-- 12 días
-- 12 niveles de duplicación
-- Una red de 8,190 personas
+En este plan se refleja cómo una persona, al hacer un trabajo sencillo de unir dos personas, puede construir un sistema de distribución masiva de productos Gano Excel.
 
-**¿Cómo funciona?**
+**¿Por qué 12 días?**
 
-Cada día representa un nivel de duplicación 2×2:
+Cada día representa un nivel de tu red:
 
-| Día | Acción | Personas en tu red |
-|-----|--------|-------------------|
-| 1 | Tú arrancas | 1 |
-| 2 | Invitas a 2 | 2 |
-| 3 | Ellos invitan a 2 | 4 |
-| 4 | 4 → 8 | 8 |
-| 5 | 8 → 16 | 16 |
-| 6 | 16 → 32 | 32 |
-| 7 | 32 → 64 | 64 |
-| 8 | 64 → 128 | 128 |
-| 9 | 128 → 256 | 256 |
-| 10 | 256 → 512 | 512 |
-| 11 | 512 → 1024 | 1,024 |
-| 12 | 1024 → 2048 | 2,048 |
+| Día | Tu red crece a |
+|-----|----------------|
+| 1 | Tú arrancas |
+| 2 | 2 personas |
+| 3 | 4 personas |
+| 4 | 8 personas |
+| ... | ... |
+| 12 | +12,000 clientes y constructores |
 
-**Al completar los 12 niveles:** 8,190 personas en tu red.
+En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 12,000 clientes y constructores.
 
-**La inversión mínima:** $443,600 COP (Kit de Inicio).
+**Contenido del Kit de Inicio ($443,600 COP):**
+- Productos Gano Excel con fórmula exclusiva
+- My Gano Plan Negocios (acceso al sistema)
+- Bono Binario al 10% (única forma de ganar con este paquete)
 
 **Fechas:** 9 - 31 de Diciembre 2025.
 
-**Pregunta de seguimiento:** ¿Te gustaría saber más sobre la inversión mínima o la proyección de ganancias?
+**Pregunta de seguimiento:** ¿Te gustaría saber más sobre cómo funciona el sistema de duplicación?
 
 ---
 
@@ -236,12 +230,10 @@ Recuerda: La tecnología (NEXUS + CreaTuActivo.com) es **GRATIS** para todos.
 ### **INV_03: "¿Para quién es ideal cada paquete?"**
 
 **Kit de Inicio ($443,600):**
-✅ Para quien entiende que la VELOCIDAD es más importante que el volumen
-✅ Para quien sabe que en el siglo XXI el rápido se come al lento
-✅ Para quien quiere posicionarse HOY, no mañana
-✅ Acceso al 10% de binario
-
-**Dato clave:** Una persona que inicia con Kit de Inicio puede ganar DE POR VIDA por todo el trabajo de alguien que le coloquen debajo con ESP3. La velocidad de arranque puede valer más que el paquete inicial.
+✅ Para quien quiere arrancar de inmediato
+✅ Para quien prefiere comenzar con la inversión mínima
+✅ Acceso al Bono Binario al 10%
+✅ Incluye productos Gano Excel + My Gano Plan Negocios
 
 **ESP1 Inicial ($900,000):**
 ✅ Para quien quiere más inventario de arranque

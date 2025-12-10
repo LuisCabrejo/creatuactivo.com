@@ -331,31 +331,31 @@ export const Reto12DiasConfirmationEmail = ({
                 Mientras esperas, explora:
               </Heading>
 
-              {/* Link 1 - Ecosistema */}
-              <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '12px' }}>
+              {/* Botón 1 - Ecosistema */}
+              <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '16px' }}>
                 <tr>
-                  <td style={{
-                    backgroundColor: `rgba(30, 64, 175, 0.15)`,
-                    border: `1px solid rgba(30, 64, 175, 0.3)`,
-                    borderRadius: '10px',
-                    padding: '16px 20px'
-                  }}>
+                  <td>
                     <Link
                       href="https://creatuactivo.com/ecosistema"
                       style={{
+                        display: 'block',
+                        backgroundColor: BRAND.colors.blue,
                         color: BRAND.colors.white,
                         textDecoration: 'none',
                         fontSize: '16px',
-                        fontWeight: '600'
+                        fontWeight: '700',
+                        padding: '18px 24px',
+                        borderRadius: '12px',
+                        textAlign: 'center' as const
                       }}
                     >
-                      <span style={{ color: BRAND.colors.blue, marginRight: '12px' }}>●</span>
-                      El Ecosistema CreaTuActivo
+                      Explorar el Ecosistema →
                     </Link>
                     <Text style={{
-                      margin: '8px 0 0 24px',
+                      margin: '8px 0 0',
                       color: BRAND.colors.gray[400],
-                      fontSize: '14px'
+                      fontSize: '13px',
+                      textAlign: 'center' as const
                     }}>
                       Descubre cómo funciona todo el sistema
                     </Text>
@@ -363,63 +363,31 @@ export const Reto12DiasConfirmationEmail = ({
                 </tr>
               </table>
 
-              {/* Link 2 - Fundadores */}
-              <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '12px' }}>
-                <tr>
-                  <td style={{
-                    backgroundColor: `rgba(124, 58, 237, 0.15)`,
-                    border: `1px solid rgba(124, 58, 237, 0.3)`,
-                    borderRadius: '10px',
-                    padding: '16px 20px'
-                  }}>
-                    <Link
-                      href="https://creatuactivo.com/fundadores"
-                      style={{
-                        color: BRAND.colors.white,
-                        textDecoration: 'none',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                      }}
-                    >
-                      <span style={{ color: BRAND.colors.purple, marginRight: '12px' }}>●</span>
-                      Comunidad de Fundadores
-                    </Link>
-                    <Text style={{
-                      margin: '8px 0 0 24px',
-                      color: BRAND.colors.gray[400],
-                      fontSize: '14px'
-                    }}>
-                      Conoce a quienes están construyendo contigo
-                    </Text>
-                  </td>
-                </tr>
-              </table>
-
-              {/* Link 3 - Productos */}
+              {/* Botón 2 - Productos */}
               <table width="100%" cellPadding={0} cellSpacing={0} border={0}>
                 <tr>
-                  <td style={{
-                    backgroundColor: `rgba(245, 158, 11, 0.15)`,
-                    border: `1px solid rgba(245, 158, 11, 0.3)`,
-                    borderRadius: '10px',
-                    padding: '16px 20px'
-                  }}>
+                  <td>
                     <Link
                       href="https://creatuactivo.com/sistema/productos"
                       style={{
-                        color: BRAND.colors.white,
+                        display: 'block',
+                        backgroundColor: BRAND.colors.gold,
+                        color: BRAND.colors.dark,
                         textDecoration: 'none',
                         fontSize: '16px',
-                        fontWeight: '600'
+                        fontWeight: '700',
+                        padding: '18px 24px',
+                        borderRadius: '12px',
+                        textAlign: 'center' as const
                       }}
                     >
-                      <span style={{ color: BRAND.colors.gold, marginRight: '12px' }}>●</span>
-                      Catálogo de Productos
+                      Ver Catálogo de Productos →
                     </Link>
                     <Text style={{
-                      margin: '8px 0 0 24px',
+                      margin: '8px 0 0',
                       color: BRAND.colors.gray[400],
-                      fontSize: '14px'
+                      fontSize: '13px',
+                      textAlign: 'center' as const
                     }}>
                       Los mejores productos de salud y bienestar
                     </Text>

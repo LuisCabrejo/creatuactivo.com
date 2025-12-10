@@ -58,7 +58,7 @@ El Reto de los 12 Días es una estrategia de CreaTuActivo.com que busca premiar 
 
 En este plan se refleja cómo una persona, al hacer un trabajo sencillo de unir dos personas, puede construir un sistema de distribución masiva de productos Gano Excel.
 
-En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 12,000 clientes y constructores.
+En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 8,000 clientes y constructores.
 
 **Contenido del Kit de Inicio ($443,600 COP):**
 - Productos Gano Excel con fórmula exclusiva
@@ -83,7 +83,7 @@ Estas frases te ayudan a entender el contexto, pero NO las repitas al usuario.
 
 - "Busca premiar la velocidad"
 - "Trabajo sencillo de unir dos personas"
-- "Tu red puede tener más de 12,000 clientes"
+- "Tu red puede tener más de 8,000 clientes"
 - "Inversión mínima de $443,600 COP"
 - "Bono Binario al 10%"
 

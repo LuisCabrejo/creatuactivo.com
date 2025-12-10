@@ -792,7 +792,7 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
     const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
       .select('category, title, content, embedding, metadata')
-      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos'])
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion'])
       .not('embedding', 'is', null);
 
     if (error) {
@@ -2951,7 +2951,7 @@ export async function GET() {
     const { data: arsenalDocs, error: arsenalError } = await supabase
       .from('nexus_documents')
       .select('category, metadata')
-      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos']);
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion']);
 
     if (arsenalError) throw arsenalError;
 

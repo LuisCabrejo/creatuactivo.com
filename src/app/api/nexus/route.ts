@@ -2516,121 +2516,9 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
     const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
+    // ⚡ OPTIMIZADO v14.8: Eliminado topQueriesFAQ (~4,400 chars) - contenido ya está en arsenales
 
-    // 🔥 FASE 1.5 - BLOQUE FAQ: Preguntas más frecuentes pre-cargadas (CACHEABLE)
-    const topQueriesFAQ = `
-## 🔥 PREGUNTAS MÁS FRECUENTES - RESPUESTAS OPTIMIZADAS
-
-Estas son las preguntas con mayor frecuencia y conversión. Si el usuario pregunta sobre estos temas, usa EXACTAMENTE estas respuestas:
-
-### FAQ_01: "¿Cómo funciona el negocio?" (Flujo completo de 3 niveles)
-
-**NIVEL 1 - LA VISIÓN:**
-Esa es la pregunta correcta, y la respuesta redefine el juego.
-
-**Piénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros.**
-Construyó Amazon, el **sistema** donde millones de libros se venden cada día.
-
-Nosotros aplicamos esa misma filosofía. Tú no vendes productos. Construyes un sistema por donde fluyen productos todos los días.
-
-**Preguntas por defecto:**
-➡️ ¿Cómo puedo YO tener un sistema así?
-⚙️ ¿Qué es un "sistema de distribución"?
-📦 ¿Qué productos distribuye el sistema?
-
-**NIVEL 2 - CÓMO FUNCIONA:**
-Tu sistema tiene tres componentes que trabajan juntos:
-
-**1. Productos únicos (Gano Excel)** - Fórmula Exclusiva
-**2. Inteligencia artificial (NEXUS)** - Comunica el proyecto por ti
-**3. La aplicación CreaTuActivo** - Tecnología que trabaja 24/7 por ti
-
-La tecnología hace el 80% del trabajo pesado. Tú haces el 20% estratégico.
-
-**Preguntas por defecto:**
-➡️ ¿Qué hace exactamente la tecnología por mí?
-🧠 ¿Qué tengo que hacer yo?
-💡 ¿Cómo funciona en la práctica?
-
-**NIVEL 3 - TU TRABAJO:**
-Tu trabajo se divide en tres pasos simples:
-
-**INICIAR:** Conectas personas con el sistema
-**ACOGER:** Construyes confianza en momentos clave
-**ACTIVAR:** Ayudas a otros a empezar su sistema
-
-Mientras tú vives tu vida, el sistema sigue trabajando. Mientras duermes, NEXUS sigue conversando.
-
-**Preguntas por defecto:**
-➡️ ¿Qué herramientas tengo para iniciar?
-🤝 ¿Cómo sé cuándo intervenir?
-🚀 ¿Cómo ayudo a otros a empezar?
-
----
-
-### FAQ_02: "¿Cómo se gana en el negocio?"
-
-En nuestro ecosistema, no "ganas dinero", construyes flujos de valor. La arquitectura financiera recompensa la construcción de un activo real en tres fases:
-
-**A Corto Plazo (Capitalización):** A través de los Bonos de Inicio Rápido por compras de paquetes empresariales en tu red de patrocinio.
-
-**A Mediano Plazo (Expansión):** Con las Comisiones de Equipo (Binario), participas del volumen total de productos que se mueven en tu canal.
-
-**A Largo Plazo (Legado):** Desbloqueas los Bonos de Liderazgo y otros incentivos por desarrollar a otros constructores.
-
-**Pregunta de seguimiento:** ¿Cuál de estas tres fases resuena más con tu visión de construcción?
-
----
-
-### FAQ_03: "¿Cuál es la inversión para empezar a construir?"
-
-Esta no es una simple compra; es la elección de tu **arquitectura de construcción inicial**. Hemos diseñado tres puntos de entrada, cada uno pensado para una visión y un nivel de apalancamiento diferente.
-
-Como parte del selecto grupo de los **150 Fundadores**, cada paquete desbloquea meses de cortesía de nuestra maquinaria tecnológica, un **Bono Tecnológico** exclusivo para los pioneros del ecosistema.
-
-Aquí están las tres arquitecturas iniciales:
-
-* **Constructor Inicial ($200 USD / ~$900.000 COP):** El punto de partida inteligente para validar la arquitectura y el poder del ecosistema. Incluye **2 meses de cortesía** de nuestra tecnología.
-
-* **Constructor Empresarial ($500 USD / ~$2.250.000 COP):** El equilibrio perfecto para una construcción sólida y una operación profesional desde el inicio. Incluye **4 meses de cortesía** de nuestra tecnología.
-
-* **Constructor Visionario ($1,000 USD / ~$4.500.000 COP):** Diseñado para el máximo apalancamiento y una construcción a gran escala desde el día uno. Incluye **6 meses de cortesía** de nuestra tecnología.
-
-La única inversión recurrente es de 50 PV (aprox. $450,000 COP), que recibes íntegramente en productos. No es un costo de plataforma, es el **combustible que mueve tu activo**.
-
-**Pregunta de seguimiento:** ¿Cuál de estas arquitecturas iniciales resuena más con tu visión de construcción?
-
----
-
-### FAQ_04: "¿Qué hay que hacer?" / "¿Cuál es mi trabajo?"
-
-Tu trabajo se transforma de operador a arquitecto estratégico. Con el método probado, te enfocas en tres acciones clave:
-
-**INICIAR (La Chispa):**
-- Compartes un enlace por WhatsApp con personas que conoces
-- La aplicación CreaTuActivo y NEXUS educan y cualifican por ti
-- Tu rol: Ser el puente inicial
-
-**ACOGER (El Consultor):**
-- Tienes una llamada de 20-30 minutos cuando alguien dice "quiero saber más"
-- Das confianza y validas el ajuste
-- Tu rol: Consultoría estratégica (no ventas)
-
-**ACTIVAR (El Mentor):**
-- Les das acceso a su aplicación CreaTuActivo
-- Enseñas el primer paso y acompañas el arranque
-- Tu rol: Mentoría y transferencia de conocimiento
-
-La tecnología maneja el 80% operativo (seguimiento, educación, contenido, análisis). Tú manejas el 20% estratégico (conexión humana, consultoría, mentoría).
-
-**Pregunta de seguimiento:** ¿Cuál de estas tres acciones estratégicas te parece más natural para tu personalidad?
-
----
-
-🎯 INSTRUCCIÓN CRÍTICA: Si el usuario hace una pregunta que coincide con estas FAQ, usa EXACTAMENTE el contenido de arriba. Estas respuestas han sido optimizadas para máxima claridad y conversión.
-`;
-
-    // 🎯 BLOQUE 3 - NO CACHEABLE: Instrucciones específicas de la sesión
+    // 🎯 BLOQUE 2 - NO CACHEABLE: Instrucciones específicas de la sesión
     // Calcular interacción actual (cada mensaje user + assistant = 1 interacción)
     const interaccionActual = Math.floor(messages.length / 2) + 1;
 
@@ -2665,188 +2553,38 @@ La tecnología maneja el 80% operativo (seguimiento, educación, contenido, aná
     // 🚨 LOG CRÍTICO: Verificar detección de lista de precios
     console.log(`🚨🚨🚨 DETECCIÓN LISTA PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, mensaje="${lastUserMessageForPrices.substring(0, 50)}"`);
 
+    // ⚡ OPTIMIZADO v14.8: sessionInstructions reducido de ~7K a ~1.5K chars
+    // Eliminado: 14 condicionales redundantes, tabla precios duplicada, instrucciones repetitivas
+    const getMessageContext = () => {
+      if (messageCount === 1) return 'MENSAJE 1 - SALUDO INICIAL';
+      if (messageCount === 2) return 'MENSAJE 2 - CAPTURA NOMBRE';
+      if (messageCount === 3) return 'MENSAJE 3 - CAPTURA ARQUETIPO';
+      if (messageCount === 4) return 'MENSAJE 4 - OPCIONES';
+      if (messageCount >= 5 && messageCount <= 7) return `MENSAJES 5-7 - PREGUNTAS (${messageCount}/14)`;
+      if (messageCount === 8) return 'MENSAJE 8 - CHECKPOINT';
+      if (messageCount >= 9 && messageCount <= 10) return `MENSAJES 9-10 - PROFUNDIZAR (${messageCount}/14)`;
+      if (messageCount >= 11 && messageCount <= 13) return `MENSAJES 11-13 - CONVERSACIÓN (${messageCount}/14)`;
+      return 'MENSAJE 14+ - CIERRE OBLIGATORIO';
+    };
+
     const sessionInstructions = `
-🎯 FLUJO DE 14 MENSAJES (v13.3) - MENSAJE ACTUAL: ${messageCount}
+📍 ${getMessageContext()}
 
-⚠️ CRÍTICO: DELEGAR AL SYSTEM PROMPT DE SUPABASE
-- El System Prompt principal (v13.3) contiene TODAS las instrucciones del flujo de 14 mensajes
-- Estas session instructions SOLO proporcionan contexto de estado actual
-- NO SOBREESCRIBIR las instrucciones del System Prompt principal
+📊 PROSPECTO:
+${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
+${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
+${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
+${mergedProspectData.interest_level ? `• Interés: ${mergedProspectData.interest_level}/10` : ''}
 
-INSTRUCCIONES ARQUITECTURA HÍBRIDA:
-- Usa la consulta semántica escalable implementada
-- Arsenal MVP como fuente de verdad absoluta
-- Clasificación automática funcionando correctamente
-
-${messageCount === 1 ? `
-📍 ESTÁS EN: MENSAJE 1 - SALUDO INICIAL
-- Sigue las instrucciones del System Prompt principal para MENSAJE 1
-- NO generes saludos diferentes al especificado en el System Prompt
-` : ''}
-
-${messageCount === 2 ? `
-📍 ESTÁS EN: MENSAJE 2 - CAPTURA TEMPRANA DE NOMBRE
-- Sigue las instrucciones del System Prompt principal para MENSAJE 2
-- Nombre capturado: ${mergedProspectData.name || 'pendiente'}
-` : ''}
-
-${messageCount === 3 ? `
-📍 ESTÁS EN: MENSAJE 3 - CAPTURA DE ARQUETIPO
-- Sigue las instrucciones del System Prompt principal para MENSAJE 3
-- Nombre del prospecto: ${mergedProspectData.name || '[pendiente]'}
-- Arquetipo capturado: ${mergedProspectData.archetype || 'pendiente'}
-` : ''}
-
-${messageCount === 4 ? `
-📍 ESTÁS EN: MENSAJE 4 - OPCIONES CONTEXTUALIZADAS
-- Sigue las instrucciones del System Prompt principal para MENSAJE 4
-- Arquetipo del prospecto: ${mergedProspectData.archetype || 'pendiente'}
-- ⚠️ CRÍTICO: NO REPETIR SALUDO INICIAL (esto ya se especifica en System Prompt)
-` : ''}
-
-${messageCount >= 5 && messageCount <= 7 ? `
-📍 ESTÁS EN: MENSAJES 5-7 - RESPONDER PREGUNTAS
-- Sigue las instrucciones del System Prompt principal para MENSAJES 5-7
-- Mensaje actual: ${messageCount}/14
-` : ''}
-
-${messageCount === 8 ? `
-📍 ESTÁS EN: MENSAJE 8 - CHECKPOINT DE PROGRESO
-- Sigue las instrucciones del System Prompt principal para MENSAJE 8
-- Datos capturados hasta ahora:
-  • Nombre: ${mergedProspectData.name || 'pendiente'}
-  • Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
-  • WhatsApp: ${mergedProspectData.phone || 'pendiente'}
-` : ''}
-
-${messageCount >= 9 && messageCount <= 10 ? `
-📍 ESTÁS EN: MENSAJES 9-10 - PROFUNDIZAR SEGÚN INTERÉS
-- Sigue las instrucciones del System Prompt principal para MENSAJES 9-10
-- Mensaje actual: ${messageCount}/14
-- Arquetipo del prospecto: ${mergedProspectData.archetype || 'pendiente'}
-` : ''}
-
-${messageCount === 11 ? `
-📍 ESTÁS EN: MENSAJE 11 - CONTINUAR CONVERSACIÓN
-- Sigue las instrucciones del System Prompt principal para MENSAJE 11
-- Mensaje actual: ${messageCount}/14
-` : ''}
-
-${messageCount === 12 ? `
-📍 ESTÁS EN: MENSAJE 12 - CONTINUAR CONVERSACIÓN
-- Sigue las instrucciones del System Prompt principal para MENSAJE 12
-- Mensaje actual: ${messageCount}/14
-- Nivel de interés detectado: ${mergedProspectData.interest_level || 'calculando...'}
-` : ''}
-
-${messageCount === 13 ? `
-📍 ESTÁS EN: MENSAJE 13 - RESUMEN FINAL
-- Sigue las instrucciones del System Prompt principal para MENSAJE 13
-- Datos capturados para confirmar:
-  • Nombre: ${mergedProspectData.name || 'pendiente'}
-  • Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
-  • WhatsApp: ${mergedProspectData.phone || 'pendiente'}
-` : ''}
-
-${messageCount >= 14 ? `
-📍 ESTÁS EN: MENSAJE 14 - CIERRE OBLIGATORIO
-- Sigue las instrucciones del System Prompt principal para MENSAJE 14
-- ⚠️ CRÍTICO: NO CONTINUAR después de este mensaje (límite alcanzado)
-- Nombre del prospecto: ${mergedProspectData.name || 'amigo/a'}
-` : ''}
-
-📊 DATOS DEL PROSPECTO (Estado Actual):
-- Nombre: ${mergedProspectData.name || 'pendiente'}
-- Arquetipo: ${mergedProspectData.archetype || 'pendiente'}
-- WhatsApp: ${mergedProspectData.phone || 'pendiente'}
-- Email: ${mergedProspectData.email || 'pendiente'}
-- Nivel de interés: ${mergedProspectData.interest_level || 'calculando...'}
-
-🛒 INSTRUCCIONES ESPECÍFICAS PARA CATÁLOGO DE PRODUCTOS:
-${searchMethod === 'catalogo_productos'
-  ? `- ✅ CATÁLOGO CARGADO: Usa ÚNICAMENTE los precios exactos que aparecen en el contenido arriba
-- NUNCA inventes precios ni uses información de otras fuentes
-- Los precios del catálogo son la autoridad final para productos individuales
-- Formato respuesta: "El [PRODUCTO] tiene un precio de $[PRECIO EXACTO] COP por [PRESENTACIÓN]"`
-  : `- ⚠️ CATÁLOGO NO DISPONIBLE: Si te preguntan por precios de productos individuales, responde:
-"En este momento no tengo acceso a los precios actualizados de productos individuales.
-
-Para información precisa sobre precios y disponibilidad, te puedo conectar con **Liliana Moreno**, nuestra consultora senior.
-
-📱 **WhatsApp:** +573102066593
-🕐 **Horario:** 8:00 AM - 8:00 PM (GMT-5)
-
-Ella te brindará el catálogo completo actualizado y podrá asesorarte personalmente."`
-}
-
-💼 INSTRUCCIONES PARA PAQUETES DE INVERSIÓN:
-- Si consultas arsenal: usar información de paquetes de inversión (Constructor Inicial, Empresarial, Visionario)
-- Para paquetes usa los precios: $900,000 / $2,250,000 / $4,500,000 COP
-
-⚠️ INSTRUCCIONES CRÍTICAS:
-- Sigue ÚNICAMENTE las instrucciones del System Prompt principal (v13.3) de Supabase
-- Estas session instructions solo proporcionan estado actual, NO dictan comportamiento
-- El System Prompt principal es la autoridad para timing, formato y flujo conversacional
-
-${pideListaPreciosEarly ? `
-🚨🚨🚨 INSTRUCCIÓN PRIORITARIA - LISTA DE PRECIOS 🚨🚨🚨
-EL USUARIO PIDIÓ LA LISTA DE PRECIOS COMPLETA.
-IGNORA CUALQUIER LÍMITE DE PALABRAS O REGLA DE CONCISIÓN.
-
-📋 COPIA Y PEGA ESTA TABLA COMPLETA (22 productos):
-
-**☕ BEBIDAS FUNCIONALES (9 productos)**
-| Producto | Precio COP |
-|----------|------------|
-| Ganocafé 3 en 1 (20 sobres) | $110,900 |
-| Ganocafé Clásico (30 sobres) | $110,900 |
-| Ganorico Latte Rico (20 sobres) | $119,900 |
-| Ganorico Mocha Rico (20 sobres) | $119,900 |
-| Ganorico Shoko Rico (20 sobres) | $124,900 |
-| Espirulina Gano C'Real (15 sobres) | $119,900 |
-| Bebida Oleaf Gano Rooibos (20 sobres) | $119,900 |
-| Gano Schokoladde (20 sobres) | $124,900 |
-| Bebida Colágeno Reskine (10 sachets) | $216,900 |
-
-**💊 SUPLEMENTOS (3 productos)**
-| Producto | Precio COP |
-|----------|------------|
-| Cápsulas Ganoderma (90 caps) | $272,500 |
-| Cápsulas Excellium (90 caps) | $272,500 |
-| Cápsulas Cordygold (90 caps) | $336,900 |
-
-**✨ CUIDADO PERSONAL - Piel&Brillo (6 productos)**
-| Producto | Precio COP |
-|----------|------------|
-| Pasta Dientes Gano Fresh (150g) | $73,900 |
-| Jabón Gano (2 barras 100g) | $73,900 |
-| Jabón Transparente Gano (100g) | $78,500 |
-| Champú Piel&Brillo (250ml) | $73,900 |
-| Acondicionador Piel&Brillo (250ml) | $73,900 |
-| Exfoliante Corporal Piel&Brillo (200g) | $73,900 |
-
-**☕ LÍNEA PREMIUM LUVOCO (4 productos)**
-| Producto | Precio COP |
-|----------|------------|
-| Máquina Café LUVOCO | $1,026,000 |
-| LUVOCO Cápsulas Suave x15 | $110,900 |
-| LUVOCO Cápsulas Medio x15 | $110,900 |
-| LUVOCO Cápsulas Fuerte x15 | $110,900 |
-
-MUESTRA TODA LA TABLA. NO OMITAS NINGÚN PRODUCTO.
-` : `
-🎯 CONCISIÓN OBLIGATORIA:
-- Responde ÚNICAMENTE lo que el usuario preguntó
-- NO agregues porcentajes, estrategias o ejemplos si no te los piden
-- NO agregues secciones "¿Cómo se calcula?" o "Porcentajes promocionales" por cuenta propia
-- Si preguntan "requisitos del binario" → da SOLO los requisitos, nada más
-`}
+${searchMethod === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Usa precios EXACTOS del contenido arriba.` : ''}
+${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
+${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING
     console.log('🔍 DEBUG - Contexto enviado a Claude:');
     console.log('Método de búsqueda:', searchMethod);
-    console.log('📦 CACHE STATUS: Usando Anthropic Prompt Caching (3 bloques + 1 dinámico)');
+    console.log('📦 CACHE STATUS: Usando Anthropic Prompt Caching (2 bloques + 1 dinámico)');
     if (searchMethod === 'catalogo_productos') {
       console.log('📋 Contenido catálogo enviado (primeros 200 chars):',
         relevantDocuments[0]?.content?.substring(0, 200) + '...');
@@ -2854,7 +2592,7 @@ MUESTRA TODA LA TABLA. NO OMITAS NINGÚN PRODUCTO.
     console.log('📝 System prompt base (primeros 100 chars):',
       baseSystemPrompt.substring(0, 100) + '...');
     console.log('📝 Arsenal context length:', arsenalContext.length, 'chars');
-    console.log('🔥 FAQ context length:', topQueriesFAQ.length, 'chars');
+    console.log('📝 Session instructions length:', sessionInstructions.length, 'chars');
 
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
 
@@ -2896,13 +2634,8 @@ MUESTRA TODA LA TABLA. NO OMITAS NINGÚN PRODUCTO.
           text: arsenalContext,
           cache_control: { type: 'ephemeral' }
         },
-        // 🔥 BLOQUE 3: FAQ Top Queries (CACHEABLE - ~4K chars) - FASE 1.5
-        {
-          type: 'text',
-          text: topQueriesFAQ,
-          cache_control: { type: 'ephemeral' }
-        },
-        // 📝 BLOQUE 4: Session Instructions (NO CACHEABLE - siempre cambia)
+        // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)
+        // ⚡ OPTIMIZADO: Eliminado topQueriesFAQ (~4K chars) - ya está en arsenales
         {
           type: 'text',
           text: sessionInstructions

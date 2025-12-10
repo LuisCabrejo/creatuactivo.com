@@ -1567,13 +1567,33 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   }
 
   // ============================================================================
+  // PASO -1: EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d)
+  // ============================================================================
+  // Cuando el usuario responde "a", "b", "c" o "d" al menú inicial, expandimos
+  // el mensaje para que la búsqueda vectorial encuentre el contenido correcto.
+  const menuExpansion: Record<string, string> = {
+    'a': 'conocer el reto de los 12 días qué es el reto',
+    'b': 'cómo funciona el negocio explicar el sistema',
+    'c': 'qué productos distribuimos catálogo Gano Excel',
+    'd': 'inversión y ganancias cuánto cuesta empezar'
+  };
+
+  const trimmedMessage = userMessage.trim().toLowerCase();
+  let expandedMessage = userMessage;
+
+  if (menuExpansion[trimmedMessage]) {
+    expandedMessage = menuExpansion[trimmedMessage];
+    console.log(`🔄 [MenuExpansion] "${trimmedMessage}" → "${expandedMessage}"`);
+  }
+
+  // ============================================================================
   // PASO 0: BÚSQUEDA VECTORIAL (90% precisión con Voyage AI)
   // ============================================================================
   // Intenta clasificación semántica primero, fallback a patrones si no hay match
   let documentType: string | null = null;
 
   try {
-    documentType = await clasificarDocumentoVectorial(userMessage);
+    documentType = await clasificarDocumentoVectorial(expandedMessage);
     if (documentType) {
       console.log(`🧠 [VectorSearch] Clasificación vectorial: ${documentType}`);
     }
@@ -1583,7 +1603,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
   // PASO 1: Fallback a clasificación por patrones si vector no encontró match
   if (!documentType) {
-    documentType = clasificarDocumentoHibrido(userMessage);
+    documentType = clasificarDocumentoHibrido(expandedMessage);
     if (documentType) {
       console.log(`📋 [Patterns] Clasificación por patrones: ${documentType}`);
     }

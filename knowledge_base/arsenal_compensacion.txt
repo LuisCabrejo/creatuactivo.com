@@ -2,7 +2,7 @@
 
 **Propósito:** Respuestas sobre inversión, paquetes, plan de compensación y Reto 12 Días para NEXUS.
 **Categorías:** RETO (7) + INV (5) + COMP (6) + OBJINV (4) = 22 respuestas
-**Versión:** 1.4 (9 Dic 2025) - FIX: 8,000 personas + bullets verticales + vinculación simplificada
+**Versión:** 1.5 (10 Dic 2025) - FIX: Tabla días correcta (Día 1 = 2 directos)
 
 ---
 
@@ -16,18 +16,18 @@ En este plan se refleja cómo una persona, al hacer un trabajo sencillo de unir 
 
 **¿Por qué 12 días?**
 
-Cada día representa un nivel de tu red:
+Cada día representa un nivel de crecimiento:
 
-| Día | Tu red crece a |
-|-----|----------------|
-| 1 | Tú arrancas |
-| 2 | 2 personas |
-| 3 | 4 personas |
-| 4 | 8 personas |
-| ... | ... |
-| 12 | +8,000 clientes y constructores |
+| Día | Nivel | Tu red crece a |
+|-----|-------|----------------|
+| 1 | Tus 2 directos | 2 personas |
+| 2 | 2da generación | 6 personas |
+| 3 | 3ra generación | 14 personas |
+| 4 | 4ta generación | 30 personas |
+| ... | ... | ... |
+| 12 | 12va generación | 8,190 personas |
 
-En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 8,000 clientes y constructores.
+En el día 12 (nivel 12), como resultado de ese trabajo 2×2, tu red puede tener más de 8,000 clientes y constructores.
 
 **Contenido del Kit de Inicio ($443,600 COP):**
 

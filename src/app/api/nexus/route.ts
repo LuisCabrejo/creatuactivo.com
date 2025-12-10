@@ -1009,22 +1009,22 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /comprar.*paquete.*mes/i,          // "comprar paquete cada mes"
 
     // ===== PV/CV DE PRODUCTOS ESPECÍFICOS (INV_06) =====
-    /cu[aá]ntos.*pv/i,                 // "cuántos pv tiene/tienen"
-    /cu[aá]ntos.*cv/i,                 // "cuántos cv tiene/tienen"
-    /pv.*y.*cv/i,                      // "pv y cv tienen los productos"
-    /cv.*y.*pv/i,                      // "cv y pv tienen"
+    /cuántos.*pv.*tiene/i,             // "cuántos pv tiene el gano café"
+    /cuantos.*pv.*tiene/i,             // sin tilde
+    /cuántos.*cv.*tiene/i,             // "cuántos cv tiene"
+    /cuantos.*cv.*tiene/i,             // sin tilde
+    /pv.*y.*cv.*tiene/i,               // "pv y cv tiene"
+    /cv.*y.*pv.*tiene/i,               // "cv y pv tiene"
     /pv.*del.*gano/i,                  // "pv del gano café"
     /cv.*del.*gano/i,                  // "cv del gano café"
-    /pv.*gano/i,                       // "pv gano excel/café"
-    /cv.*gano/i,                       // "cv gano excel/café"
+    /pv.*gano.*café/i,                 // "pv gano café"
+    /cv.*gano.*café/i,                 // "cv gano café"
     /pv.*producto/i,                   // "pv de este producto"
     /cv.*producto/i,                   // "cv de este producto"
-    /productos.*pv/i,                  // "productos gano excel pv"
-    /productos.*cv/i,                  // "productos gano excel cv"
     /tabla.*pv/i,                      // "tabla de pv"
     /tabla.*cv/i,                      // "tabla de cv"
     /lista.*pv/i,                      // "lista de pv"
-    /cat[aá]logo.*pv/i,                // "catálogo de pv"
+    /catálogo.*pv/i,                   // "catálogo de pv"
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)

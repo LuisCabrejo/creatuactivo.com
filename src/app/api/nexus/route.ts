@@ -22,7 +22,6 @@ import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
   vectorSearch,
   type DocumentWithEmbedding,
-  type VectorSearchResult
 } from '@/lib/vectorSearch';
 
 // 1. Configuración de Clientes
@@ -800,7 +799,7 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
       return [];
     }
 
-    const rawDocs = data as Array<{ category: string; title: string; content: string; embedding: number[]; metadata: Record<string, unknown> }> | null;
+    const rawDocs = data as Array<{ category: string; title: string; content: string; embedding: string; metadata: Record<string, unknown> }> | null;
     const docs = (rawDocs || []).map(doc => ({
       category: doc.category,
       title: doc.title,
@@ -988,6 +987,44 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /con.*cuanto.*empiezo/i,           // sin tilde
     /cuánto.*necesito.*invertir/i,     // "cuánto necesito invertir"
     /cuanto.*necesito.*invertir/i,     // sin tilde
+
+    // ===== RECOMPRA MENSUAL Y PV (INV_04, INV_05, INV_06) =====
+    /recompra/i,                       // "recompra", "recompras"
+    /compra.*mensual/i,                // "compra mensual"
+    /comprar.*cada.*mes/i,             // "comprar cada mes"
+    /todos.*meses.*comprar/i,          // "todos los meses comprar"
+    /debo.*comprar.*mensual/i,         // "debo comprar mensual"
+    /50.*pv/i,                         // "50 PV"
+    /cincuenta.*pv/i,                  // "cincuenta PV"
+    /puntos.*volumen/i,                // "puntos de volumen"
+    /qué.*es.*pv/i,                    // "qué es PV"
+    /qué.*son.*pv/i,                   // "qué son los PV"
+    /productos.*para.*pv/i,            // "productos para mis PV"
+    /completar.*pv/i,                  // "completar mis PV"
+    /completo.*pv/i,                   // "cómo completo mis PV"
+    /mantener.*activo/i,               // "mantenerme activo"
+    /seguir.*activo/i,                 // "seguir activo"
+    /mantenerse.*activo/i,             // "mantenerse activo"
+    /paquete.*empresarial.*mensual/i,  // "paquete empresarial mensual"
+    /comprar.*paquete.*mes/i,          // "comprar paquete cada mes"
+
+    // ===== PV/CV DE PRODUCTOS ESPECÍFICOS (INV_06) =====
+    /cuántos.*pv.*tiene/i,             // "cuántos pv tiene el gano café"
+    /cuantos.*pv.*tiene/i,             // sin tilde
+    /cuántos.*cv.*tiene/i,             // "cuántos cv tiene"
+    /cuantos.*cv.*tiene/i,             // sin tilde
+    /pv.*y.*cv.*tiene/i,               // "pv y cv tiene"
+    /cv.*y.*pv.*tiene/i,               // "cv y pv tiene"
+    /pv.*del.*gano/i,                  // "pv del gano café"
+    /cv.*del.*gano/i,                  // "cv del gano café"
+    /pv.*gano.*café/i,                 // "pv gano café"
+    /cv.*gano.*café/i,                 // "cv gano café"
+    /pv.*producto/i,                   // "pv de este producto"
+    /cv.*producto/i,                   // "cv de este producto"
+    /tabla.*pv/i,                      // "tabla de pv"
+    /tabla.*cv/i,                      // "tabla de cv"
+    /lista.*pv/i,                      // "lista de pv"
+    /catálogo.*pv/i,                   // "catálogo de pv"
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)

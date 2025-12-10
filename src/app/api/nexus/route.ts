@@ -920,6 +920,67 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(?:precio|valor).*(?!.*paquete|.*inversión|.*constructor)/i,
   ];
 
+  // 🔥 NUEVA CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)
+  // Prioridad alta para capturar preguntas sobre el reto, inversión mínima y formas de ganar
+  const patrones_compensacion = [
+    // ===== RETO DE LOS 12 DÍAS =====
+    /reto/i,                           // "reto", "el reto"
+    /12.*días/i,                       // "12 días"
+    /doce.*días/i,                     // "doce días"
+    /reto.*diciembre/i,                // "reto de diciembre"
+    /campaña.*diciembre/i,             // "campaña de diciembre"
+    /construir.*diciembre/i,           // "construir en diciembre"
+
+    // ===== INVERSIÓN MÍNIMA / KIT DE INICIO =====
+    /inversión.*mínima/i,              // "inversión mínima"
+    /inversion.*minima/i,              // sin tildes
+    /mínimo.*para.*empezar/i,          // "mínimo para empezar"
+    /minimo.*para.*empezar/i,          // sin tildes
+    /443/i,                            // "$443,600" o "443 mil"
+    /kit.*inicio/i,                    // "kit de inicio"
+    /kit.*inicial/i,                   // "kit inicial"
+    /cuánto.*mínimo/i,                 // "cuánto es el mínimo"
+    /menos.*puedo.*empezar/i,          // "con cuánto menos puedo empezar"
+    /más.*barato/i,                    // "más barato"
+    /más.*económico/i,                 // "más económico"
+    /opción.*accesible/i,              // "opción accesible"
+    /menor.*inversión/i,               // "menor inversión"
+
+    // ===== COMPENSACIÓN Y FORMAS DE GANAR =====
+    /cómo.*gano/i,                     // "cómo gano"
+    /como.*gano/i,                     // sin tilde
+    /formas.*ganar/i,                  // "formas de ganar"
+    /maneras.*ganar/i,                 // "maneras de ganar"
+    /cuántas.*formas.*ganar/i,         // "cuántas formas de ganar"
+    /12.*formas/i,                     // "12 formas"
+    /doce.*formas/i,                   // "doce formas"
+    /plan.*compensación/i,             // "plan de compensación"
+    /plan.*compensacion/i,             // sin tilde
+
+    // ===== PROYECCIONES Y GANANCIAS =====
+    /proyección.*ganar/i,              // "proyección de ganancias"
+    /cuánto.*puedo.*ganar/i,           // "cuánto puedo ganar"
+    /cuanto.*puedo.*ganar/i,           // sin tilde
+    /potencial.*ganancias/i,           // "potencial de ganancias"
+    /ganar.*reto/i,                    // "ganar con el reto"
+    /ganar.*12.*días/i,                // "ganar en 12 días"
+
+    // ===== DUPLICACIÓN 2x2 =====
+    /2.*x.*2/i,                        // "2x2"
+    /2×2/i,                            // "2×2"
+    /duplicación/i,                    // "duplicación"
+    /sistema.*2.*2/i,                  // "sistema 2 2"
+    /red.*8.*190/i,                    // "red de 8,190"
+
+    // ===== PREGUNTAS SOBRE OPCIONES DE INVERSIÓN =====
+    /opciones.*inversión/i,            // "opciones de inversión"
+    /opciones.*para.*empezar/i,        // "opciones para empezar"
+    /con.*cuánto.*empiezo/i,           // "con cuánto empiezo"
+    /con.*cuanto.*empiezo/i,           // sin tilde
+    /cuánto.*necesito.*invertir/i,     // "cuánto necesito invertir"
+    /cuanto.*necesito.*invertir/i,     // sin tilde
+  ];
+
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)
   const patrones_paquetes = [
     // Paquetes específicos de inversión
@@ -1069,14 +1130,20 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'catalogo_productos';
   }
 
-  // PRIORIDAD 3: PAQUETES DE INVERSIÓN
+  // 🔥 PRIORIDAD 3: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)
+  if (patrones_compensacion.some(patron => patron.test(messageLower))) {
+    console.log('🔥 Clasificación: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)');
+    return 'arsenal_compensacion';
+  }
+
+  // PRIORIDAD 4: PAQUETES DE INVERSIÓN
   // 🆕 FIX 2025-11-25: Routing a arsenal_avanzado (contiene SIST_11 con productos por paquete)
   if (patrones_paquetes.some(patron => patron.test(messageLower))) {
     console.log('💼 Clasificación: PAQUETES (arsenal_avanzado - SIST_11)');
     return 'arsenal_avanzado'; // ✅ CORRECTO: SIST_11 está en arsenal_avanzado
   }
 
-  // 🎯 PRIORIDAD 3: FLUJO 3 NIVELES - EXPANSIÓN SEMÁNTICA CRÍTICA
+  // 🎯 PRIORIDAD 5: FLUJO 3 NIVELES - EXPANSIÓN SEMÁNTICA CRÍTICA
   // ===============================================================
   const patrones_flujo_3_niveles = [
     // ===== VARIACIONES DIRECTAS "¿CÓMO FUNCIONA?" =====

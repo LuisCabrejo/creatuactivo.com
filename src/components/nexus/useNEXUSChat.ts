@@ -62,13 +62,13 @@ Estoy aquí para mostrarte cómo construir tu propio sistema de **Distribución 
 
 ¿Qué te gustaría saber?
 
-**A)** ⚙️ Cómo funciona el negocio
+**A)** 🔥 Conocer el Reto de los 12 Días
 
-**B)** 📦 Qué productos distribuimos
+**B)** ⚙️ Cómo funciona el negocio
 
-**C)** 💰 Inversión y ganancias
+**C)** 📦 Qué productos distribuimos
 
-**D)** 🎯 Si esto es para ti`,
+**D)** 💰 Inversión y ganancias`,
     timestamp: new Date(),
     isStreaming: false
   };
@@ -130,9 +130,9 @@ const sendMessage = useCallback(async (content: string) => {
 
   try {
     const controller = new AbortController();
-    // ✅ FIX: Aumentar timeout de 15s → 30s para permitir carga de historial
-    // (coincide con max_duration de la API route edge)
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    // ✅ FIX: Aumentar timeout de 30s → 60s para respuestas largas (lista de precios)
+    // (debe ser mayor que max_duration de la API route edge que es 30s)
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
 
     // ========================================
     // FIX: Race Condition - Esperar fingerprint
@@ -382,7 +382,7 @@ Horario: 8:00 AM - 8:00 PM (GMT-5)
       errorMessage = `🤖 Estoy experimentando dificultades en mi arquitectura de procesamiento.
 
 **Opciones mientras optimizamos:**
-1. **El Motor de Valor** - Los productos únicos con tecnología propietaria
+1. **El Motor de Valor** - Los productos únicos con fórmula exclusiva
 2. **El Método Probado** - Los 3 Pasos: IAA (INICIAR → ACOGER → ACTIVAR)
 3. **La Aplicación CreaTuActivo** - Tecnología + IA que automatiza el 80% del trabajo
 4. **Consultoría Estratégica** - Liliana Moreno +573102066593

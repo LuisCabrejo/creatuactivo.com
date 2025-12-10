@@ -1,0 +1,604 @@
+# Arsenal Conversacional: Plan de Compensación v1.2
+
+**Propósito:** Respuestas sobre inversión, paquetes, plan de compensación y Reto 12 Días para NEXUS.
+**Categorías:** RETO (7) + INV (5) + COMP (6) + OBJINV (4) = 22 respuestas
+**Versión:** 1.2 (9 Dic 2025) - FIX: Kit de Inicio = SOLO binario (NO GEN5)
+
+---
+
+## 🔥 **BLOQUE 0: RETO DE LOS 12 DÍAS (RETO) - 7 respuestas**
+
+### **RETO_01: "¿Qué es el Reto de los 12 Días?"**
+
+Es nuestra campaña de cierre de año para construir el mejor diciembre de tu vida.
+
+**La idea es simple:**
+- 12 días
+- 12 niveles de duplicación
+- Una red de 8,190 personas
+
+**¿Cómo funciona?**
+
+Cada día representa un nivel de duplicación 2×2:
+
+| Día | Acción | Personas en tu red |
+|-----|--------|-------------------|
+| 1 | Tú arrancas | 1 |
+| 2 | Invitas a 2 | 2 |
+| 3 | Ellos invitan a 2 | 4 |
+| 4 | 4 → 8 | 8 |
+| 5 | 8 → 16 | 16 |
+| 6 | 16 → 32 | 32 |
+| 7 | 32 → 64 | 64 |
+| 8 | 64 → 128 | 128 |
+| 9 | 128 → 256 | 256 |
+| 10 | 256 → 512 | 512 |
+| 11 | 512 → 1024 | 1,024 |
+| 12 | 1024 → 2048 | 2,048 |
+
+**Al completar los 12 niveles:** 8,190 personas en tu red.
+
+**La inversión mínima:** $443,600 COP (Kit de Inicio).
+
+**Fechas:** 9 - 31 de Diciembre 2025.
+
+**Pregunta de seguimiento:** ¿Te gustaría saber más sobre la inversión mínima o la proyección de ganancias?
+
+---
+
+### **RETO_02: "¿Cuál es la inversión mínima para el Reto?" / "¿Cuánto necesito para participar?"**
+
+La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
+
+**¿Qué incluye el Kit de Inicio?**
+- 4 cajas de Gano Café 3en1
+- 52 CV (Volumen Comisional)
+- My Gano Plan Negocios (material de apoyo profesional)
+- Acceso al Bono Binario al 10%
+- Acceso completo a CreaTuActivo.com y NEXUS
+
+**¿Para quién es ideal?**
+- Personas que quieren arrancar YA sin esperar
+- Quienes buscan velocidad de ejecución
+- Personas que quieren probar el sistema con inversión accesible
+
+**Importante:** Con el Kit de Inicio accedes al Bono Binario (10%). Para acceder a más formas de ganar y porcentajes más altos, puedes elegir un Paquete Empresarial.
+
+**Pregunta de seguimiento:** ¿Te gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
+
+---
+
+### **RETO_03: "¿Cuánto puedo ganar con el Reto de los 12 Días?"**
+
+Con una inversión mínima de $443,600 COP (52 CV por persona), esta es la proyección si logras construir una red 2×2 balanceada:
+
+**Proyección del Bono Binario al 10%:**
+
+| Nivel | Personas | CV/Lado | Bono Acumulado COP |
+|-------|----------|---------|-------------------|
+| 1 | 2 | 52 | $23,400 |
+| 2 | 4 | 104 | $70,200 |
+| 3 | 8 | 208 | $163,800 |
+| 4 | 16 | 416 | $351,000 |
+| 5 | 32 | 832 | $725,400 |
+| 6 | 64 | 1,664 | $1,474,200 |
+| 7 | 128 | 3,328 | $2,971,800 |
+| 8 | 256 | 6,656 | $5,967,000 |
+| 9 | 512 | 13,312 | $11,957,400 |
+| 10 | 1,024 | 26,624 | $23,938,200 |
+| 11 | 2,048 | 53,248 | $47,899,800 |
+| 12 | 4,096 | 106,496 | **$95,823,000** |
+
+**Total al nivel 12:** $95.8 millones COP acumulados (al 10% base).
+
+**Con paquetes empresariales (mayor %):**
+- Al 15% (ESP1): $143.7 millones COP
+- Al 16% (ESP2): $153.3 millones COP
+- Al 17% (ESP3): $162.9 millones COP
+
+**Importante:** Estos números son ilustrativos y representan el potencial matemático del sistema 2×2. Las ganancias reales dependen del movimiento de producto y tu esfuerzo.
+
+**Pregunta de seguimiento:** ¿Te gustaría saber cómo alcanzar los porcentajes más altos?
+
+---
+
+### **RETO_04: "¿Cómo participo en el Reto de los 12 Días?"**
+
+Para participar necesitas:
+
+1. **Activar tu posición** con cualquier paquete:
+   - Kit de Inicio: $443,600 COP (mínimo)
+   - ESP-1: $900,000 COP
+   - ESP-2: $2,250,000 COP
+   - ESP-3: $4,500,000 COP
+
+2. **Completar el formulario** de registro con tus datos
+
+3. **Comprometerte** a invitar al menos 2 personas durante los 12 días
+
+4. **Estar en contacto** con tu patrocinador para recibir apoyo
+
+**No necesitas experiencia previa.** NEXUS te ayuda a explicar el negocio 24/7.
+
+**El reto empieza:** 9 de Diciembre 2025
+**Termina:** 31 de Diciembre 2025
+
+**Solo hay 150 cupos de Fundador.**
+
+**Pregunta de seguimiento:** ¿Estás listo para arrancar hoy?
+
+---
+
+### **RETO_05: "¿Qué pasa si no logro invitar a 2 personas el primer día?"**
+
+No pasa nada. El reto es una guía, no una obligación.
+
+Si tardas 2 días en invitar a tus primeras 2 personas, está bien. Lo importante es empezar.
+
+**El sistema 2×2 funciona cuando cada quien encuentra su ritmo.**
+
+Lo que sí es crítico es que **arranques HOY**, porque:
+- Tu posición de Fundador se bloquea al comenzar
+- Solo hay 150 cupos de Fundador
+- Mientras más temprano empieces, más tiempo tienes para construir
+
+**Recuerda:** No tienes que convencer a nadie. Solo invitas a conocer. NEXUS hace el trabajo de explicar y educar 24/7.
+
+**Pregunta de seguimiento:** ¿Cuántas personas conoces que podrían estar interesadas en una oportunidad así?
+
+---
+
+### **RETO_06: "¿Por qué solo $443,600?" / "¿Por qué tan accesible?"**
+
+Queremos eliminar la barrera de entrada.
+
+**La mayoría de personas no empiezan por dos razones:**
+1. "No tengo el dinero"
+2. "Es mucho riesgo"
+
+Con $443,600 COP resolvemos ambas:
+- Es menos que un salario mínimo mensual
+- Recibes producto real (4 cajas de café premium)
+- Tienes acceso completo a la tecnología
+
+**No es una "inscripción".** Es tu inventario inicial de productos que puedes consumir o compartir.
+
+**La tecnología ($200,000+ USD en desarrollo) te la damos a costo cero.**
+
+El Reto de los 12 Días es la oportunidad perfecta para arrancar con riesgo mínimo.
+
+**Pregunta de seguimiento:** ¿Qué te detendría de empezar con $443,600?
+
+---
+
+### **RETO_07: "¿Qué pasa si alguien de mi red no une sus dos?"**
+
+Este es un temor común, pero tiene solución.
+
+**La realidad:** No todos van a avanzar al mismo ritmo. Algunos se quedarán quietos. Eso es normal.
+
+**Por eso los expertos recomiendan:**
+No unas solo 2 personas. Entre más personas unas TÚ, más garantizas tu propio crecimiento.
+
+**¿Y si alguien se queda quieto?**
+Tienes dos opciones:
+1. **Esperar:** A veces las personas reactivan después
+2. **Actuar:** Tú puedes inscribir un nuevo constructor en ese mismo lugar donde alguien no avanzó
+
+**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo.
+
+En el Reto de los 12 Días, la velocidad lo es todo. No esperes a que otros se muevan. Muévete tú.
+
+**Pregunta de seguimiento:** ¿Cuántas personas tienes en tu lista para invitar?
+
+---
+
+## 💰 **BLOQUE 1: OPCIONES DE INVERSIÓN (INV) - 5 respuestas**
+
+### **INV_01: "¿Cuál es la inversión mínima para empezar?"**
+
+La inversión más accesible es el **Kit de Inicio: $443,600 COP** (4 cajas Gano Café 3en1).
+
+Con $443,600 tienes todo lo que necesitas para activarte y empezar a construir tu red desde el primer día.
+
+**52 CV** que se suman a tu red. Eso es lo que importa.
+
+Si quieres más productos y porcentajes más altos, puedes elegir un Paquete Empresarial (ESP1, ESP2 o ESP3).
+
+**Pregunta de seguimiento:** ¿Prefieres arrancar con el mínimo o invertir más para mayor porcentaje de binario?
+
+---
+
+### **INV_02: "¿Cuáles son los paquetes disponibles?"**
+
+Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
+
+| Paquete | Inversión COP | CV | Bono Binario |
+|---------|---------------|-----|--------------|
+| **Kit de Inicio** | $443,600 | 52 | 10% |
+| **ESP1 Inicial** | $900,000 | 100 | 15% (2 meses) |
+| **ESP2 Empresarial** | $2,250,000 | 250 | 16% (4 meses) |
+| **ESP3 Visionario** | $4,500,000 | 500 | 17% (6 meses) |
+
+**¿Cuál elegir?**
+
+- **Kit de Inicio** → Para quien quiere arrancar YA con inversión mínima.
+- **ESP1** → Para quien quiere 15% de binario por 2 meses.
+- **ESP2** → Para quien quiere ir en serio con 16% por 4 meses.
+- **ESP3** → Para quien quiere máximo impacto: 17% por 6 meses.
+
+Recuerda: La tecnología (NEXUS + CreaTuActivo.com) es **GRATIS** para todos.
+
+**Pregunta de seguimiento:** ¿Cuál de estas opciones se alinea mejor con tu presupuesto?
+
+---
+
+### **INV_03: "¿Para quién es ideal cada paquete?"**
+
+**Kit de Inicio ($443,600):**
+✅ Para quien entiende que la VELOCIDAD es más importante que el volumen
+✅ Para quien sabe que en el siglo XXI el rápido se come al lento
+✅ Para quien quiere posicionarse HOY, no mañana
+✅ Acceso al 10% de binario
+
+**Dato clave:** Una persona que inicia con Kit de Inicio puede ganar DE POR VIDA por todo el trabajo de alguien que le coloquen debajo con ESP3. La velocidad de arranque puede valer más que el paquete inicial.
+
+**ESP1 Inicial ($900,000):**
+✅ Para quien quiere más inventario de arranque
+✅ 15% de binario por 2 meses
+✅ Acceso al Bono GEN5 (Inicio Rápido)
+
+**ESP2 Empresarial ($2,250,000):**
+✅ Para emprendedores que van en serio
+✅ 16% de binario por 4 meses
+✅ Inventario profesional (18 productos)
+
+**ESP3 Visionario ($4,500,000):**
+✅ Para líderes que quieren el máximo impacto
+✅ 17% de binario por 6 meses (máximo posible)
+✅ Inventario completo (35 productos)
+
+**La verdad:** Cualquier paquete te da acceso completo a la tecnología. La diferencia es porcentaje de bonos y cantidad de productos.
+
+**Pregunta de seguimiento:** ¿Qué es más importante para ti: arrancar con mínimo o tener mayor porcentaje?
+
+---
+
+### **INV_04: "¿Qué recibo con cada paquete?"**
+
+Todos los paquetes incluyen:
+
+**1. Acceso completo a la tecnología:**
+- NEXUS (tu socio digital que trabaja 24/7)
+- CreaTuActivo.com (tu plataforma personalizada)
+- Sistema de duplicación automatizado
+
+**2. Inventario de productos:**
+- Kit de Inicio: 4 cajas Gano Café 3en1 + My Gano Plan Negocios (material de apoyo)
+- ESP1: 7 productos variados
+- ESP2: 18 productos variados
+- ESP3: 35 productos (incluye suplementos)
+
+**3. Posición en la red:**
+- Tu código de afiliado permanente
+- Posición heredable y vitalicia
+- Derecho a construir en todos los países
+
+**4. Mentoría y soporte:**
+- Acceso al equipo de Fundadores
+- Capacitación continua
+- Comunidad privada
+
+La diferencia entre paquetes es: cantidad de producto + porcentaje de binario + duración del porcentaje promocional.
+
+**Pregunta de seguimiento:** ¿Qué preguntas tienes sobre lo que recibes?
+
+---
+
+### **INV_05: "¿Por qué empezar con el Kit de Inicio si puedo pagar más?"**
+
+El Kit de Inicio es la opción de **VELOCIDAD**.
+
+Hay dos tipos de personas:
+
+**Tipo 1:** Espera tener "todo listo" para empezar. Ahorra para un paquete más grande. Espera el momento perfecto. Y mientras espera... el tiempo pasa.
+
+**Tipo 2:** Arranca con lo que tiene HOY. Genera sus primeros resultados. Usa esos resultados para crecer el negocio. El negocio se paga solo.
+
+El Kit de Inicio es para el Tipo 2.
+
+Si tienes $443,600 hoy y puedes arrancar HOY, eso vale más que tener $4,500,000 "algún día".
+
+**El mejor momento para plantar un árbol fue hace 20 años. El segundo mejor momento es AHORA.**
+
+**Pregunta de seguimiento:** ¿Eres del Tipo 1 o del Tipo 2?
+
+---
+
+## 📊 **BLOQUE 2: PLAN DE COMPENSACIÓN (COMP) - 6 respuestas**
+
+### **COMP_01: "¿Cómo funciona el plan de compensación?"**
+
+El plan de compensación de Gano Excel tiene múltiples formas de ganar. Depende de tu paquete inicial:
+
+**CON KIT DE INICIO ($443,600):**
+✅ Bono Binario al 10% (única forma de ganar)
+❌ NO incluye Bono GEN5 (Inicio Rápido)
+
+**CON PAQUETES EMPRESARIALES (ESP1, ESP2, ESP3):**
+✅ Bono Binario (15%, 16% o 17%)
+✅ Bono GEN5 (Inicio Rápido) - Hasta 5 generaciones
+✅ Bonos de Liderazgo
+
+**¿Qué significa esto?**
+- **Kit de Inicio:** Ganas SOLO por el movimiento de tu red (binario). Es tu entrada rápida al sistema.
+- **ESP1+:** Ganas por movimiento de red (binario) + por cada inscripción de paquete empresarial (GEN5).
+
+**La clave:** Con Kit de Inicio tu enfoque es 100% construir red para el binario. Con ESP+ tienes múltiples fuentes.
+
+**Pregunta de seguimiento:** ¿Te gustaría que profundice en el bono binario o en el GEN5?
+
+---
+
+### **COMP_02: "¿Cómo funciona el bono binario?"**
+
+El bono binario es donde está el dinero grande.
+
+**Cómo funciona:**
+1. Tienes dos piernas: izquierda y derecha.
+2. Cada persona que se activa genera CV (volumen de comisión).
+3. Al final de cada semana, se comparan ambas piernas.
+4. Ganas un porcentaje del lado MENOR (puntos compensados).
+
+**Porcentajes según tu paquete:**
+
+| Paquete | Porcentaje | Duración |
+|---------|-----------|----------|
+| Kit Inicio | 10% | Permanente |
+| ESP-1 | 15% | 2 meses |
+| ESP-2 | 16% | 4 meses |
+| ESP-3 | **17%** | 6 meses |
+
+**Después del período promocional:** El porcentaje base es 10%, pero puedes mejorarlo alcanzando rangos (hasta 15%) o comprando nuevo paquete empresarial.
+
+**Ejemplo con Kit de Inicio (52 CV por persona):**
+
+Al nivel 12 con red balanceada:
+- Lado menor: 106,496 CV
+- Bono 10%: $4,500 × 106,496 × 10% = **$47,923,200 COP**
+
+Se paga **semanalmente (los viernes)**.
+
+**Pregunta de seguimiento:** ¿Entiendes cómo la duplicación 2×2 genera estos números?
+
+---
+
+### **COMP_03: "¿Cuánto puedo ganar realísticamente?"**
+
+Voy a ser muy directo contigo:
+
+**Tus ganancias dependen 100% de:**
+1. Tu inversión inicial (determina tu % de binario)
+2. Tu actividad (personas que invitas)
+3. La actividad de tu red (personas que ellos invitan)
+
+**Escenarios realistas:**
+
+**Mes 1-3 (Arranque):**
+- 2-5 personas invitadas
+- $50,000 - $500,000 COP/mes
+- Estás aprendiendo y construyendo base
+
+**Mes 4-6 (Crecimiento):**
+- Red de 20-50 personas
+- $500,000 - $2,000,000 COP/mes
+- Tu red empieza a duplicarse sola
+
+**Mes 7-12 (Aceleración):**
+- Red de 100-500 personas
+- $2,000,000 - $10,000,000 COP/mes
+- El efecto compuesto empieza a notarse
+
+**Año 2+ (Consolidación):**
+- Red de 1,000+ personas
+- $10,000,000+ COP/mes
+- Ingreso residual verdadero
+
+**Importante:** Estos números son posibles, no garantizados. Dependen de tu trabajo y el de tu equipo.
+
+**Pregunta de seguimiento:** ¿Cuál de estos escenarios te motiva más?
+
+---
+
+### **COMP_04: "¿Qué es el CV y cómo se calcula?"**
+
+CV = Comission Volume (Volumen de Comisión).
+
+**Cómo funciona:**
+- Cada producto tiene un valor en CV.
+- Cuando alguien compra, ese CV se suma a tu red.
+- Tu bono binario se calcula sobre el CV, no sobre el precio.
+
+**Ejemplos de CV:**
+- Kit de Inicio (4 cajas Gano Café): 52 CV
+- Paquete ESP1: 100 CV
+- Paquete ESP2: 250 CV
+- Paquete ESP3: 500 CV
+
+**Tasa de conversión en Colombia:**
+$4,500 COP = 1 USD de comisión
+
+**Cálculo simple:**
+Si tu lado menor tiene 1,000 CV y tu binario es 10%:
+- 1,000 CV × 10% = 100 CV de comisión
+- 100 CV × $4,500 = **$450,000 COP**
+
+**Pregunta de seguimiento:** ¿Te queda claro cómo se calcula tu bono?
+
+---
+
+### **COMP_05: "¿Cada cuánto se pagan las comisiones?"**
+
+**Frecuencia de pagos:**
+
+- **Bono de Inicio Rápido (GEN5):** Semanal (cada viernes)
+- **Bono Binario:** Semanal (cada viernes)
+- **Bonos de Liderazgo:** Al alcanzar el rango
+
+**Visibilidad:**
+Cada martes a las 10 PM (hora Colombia) ves en el Back Office cuánto te llega el viernes.
+
+**Métodos de pago en Colombia:**
+- Transferencia bancaria directa
+- Debes tener tu cuenta registrada en el sistema
+
+**Importante:** Gano Excel es una empresa libre de deudas. Nunca ha fallado un pago en 30+ años de operación.
+
+**Pregunta de seguimiento:** ¿Tienes cuenta bancaria lista para recibir tus comisiones?
+
+---
+
+### **COMP_06: "¿Qué es el Bono GEN5 / Bono de Inicio Rápido?"**
+
+🚨 **IMPORTANTE:** El Bono GEN5 (también llamado "Bono de Inicio Rápido") **NO está disponible para Kit de Inicio**.
+
+**¿Qué es?**
+Es un bono en efectivo que recibes cuando alguien en tu red de patrocinio compra un Paquete Empresarial (ESP1, ESP2 o ESP3).
+
+**¿Quién tiene acceso?**
+
+| Tu Paquete | ¿Tienes GEN5? |
+|------------|---------------|
+| Kit de Inicio | ❌ NO |
+| ESP1 Inicial | ✅ SÍ |
+| ESP2 Empresarial | ✅ SÍ |
+| ESP3 Visionario | ✅ SÍ |
+
+**¿Cómo funciona el GEN5?**
+- Ganas hasta 5 generaciones de profundidad
+- Solo aplica cuando alguien compra paquete EMPRESARIAL (no Kit)
+- Se paga semanalmente (viernes)
+
+**Ejemplo con ESP3:**
+Si alguien en tu 1ra generación compra ESP3 → ganas $150 USD
+Si alguien en tu 2da generación compra ESP3 → ganas $20 USD
+(y así hasta la 5ta generación)
+
+**Confusión común:**
+- "Kit de Inicio" = Paquete de $443,600 (SOLO binario)
+- "Bono de Inicio Rápido" = GEN5 (solo para ESP1+)
+
+Son cosas diferentes. El nombre puede confundir pero la regla es clara: **Kit de Inicio = solo binario 10%**.
+
+**Pregunta de seguimiento:** ¿Te interesa saber más sobre los porcentajes del GEN5 por paquete?
+
+---
+
+## 🎯 **BLOQUE 3: OBJECIONES DE INVERSIÓN (OBJINV) - 4 respuestas**
+
+### **OBJINV_01: "Es mucho dinero para empezar"**
+
+Entiendo que parece una inversión importante.
+
+Pero déjame ponértelo en perspectiva:
+
+**$443,600 COP es:**
+- 3 salidas a comer en un restaurante
+- 1 mes de Netflix + Spotify + gimnasio
+- La cuota de un celular financiado
+
+**La diferencia:**
+- El restaurante = placer de una noche
+- Las suscripciones = entretenimiento que no genera nada
+- El celular = se deprecia cada año
+
+**$443,600 en CreaTuActivo =**
+- Un activo que puede generar millones
+- Una posición heredable a tus hijos
+- Acceso a tecnología de $200,000 USD gratis
+
+No es "mucho dinero". Es el precio de entrada a construir libertad financiera.
+
+**Pregunta de seguimiento:** ¿Qué otras cosas has comprado por $443,600 que te generan ingresos?
+
+---
+
+### **OBJINV_02: "Quiero empezar pero no tengo el dinero ahora"**
+
+Perfecto. Eso significa que ya tomaste la decisión.
+
+Ahora solo es cuestión de estrategia.
+
+**Opciones reales:**
+
+1. **Vende algo que no uses:** Ropa, electrónicos, cosas guardadas.
+2. **Pide prestado:** A alguien de confianza, como inversión (no como deuda).
+3. **Ahorra rápido:** $443,600 ÷ 4 semanas = $110,900/semana
+4. **Tarjeta de crédito:** Si puedes pagar en el primer mes (evita intereses).
+
+**Lo que NO recomiendo:**
+- Endeudarte sin plan de pago
+- Usar dinero de emergencias
+- Comprometer gastos esenciales
+
+**La realidad:** Si realmente quieres esto, encontrarás la forma. Si no, encontrarás excusas.
+
+**Pregunta de seguimiento:** ¿Cuál de estas opciones podrías ejecutar esta semana?
+
+---
+
+### **OBJINV_03: "¿Por qué tengo que pagar para trabajar?"**
+
+No estás pagando para trabajar. Estás **invirtiendo en un activo**.
+
+**Diferencia clave:**
+
+**Pagar para trabajar:**
+- Le das dinero a alguien
+- Recibes un empleo donde intercambias tiempo por dinero
+- Si paras de trabajar, dejas de ganar
+
+**Invertir en un activo:**
+- Pones capital inicial
+- Construyes algo que genera ingresos sin tu presencia constante
+- El activo crece y se vuelve heredable
+
+Los $443,600 son tu inventario de productos reales. No es una "inscripción" ni un "fee".
+
+Es como abrir cualquier negocio: necesitas inventario inicial.
+
+La diferencia es que aquí tienes la tecnología, el sistema y la mentoría GRATIS.
+
+**Pregunta de seguimiento:** ¿Conoces algún negocio real que empiece sin inversión?
+
+---
+
+### **OBJINV_04: "¿Qué pasa si no funciona? ¿Pierdo mi dinero?"**
+
+Buena pregunta. Muestra que piensas antes de actuar.
+
+**La realidad:**
+
+1. **Tienes productos físicos:** Si no construyes la red, tienes café premium que puedes consumir o vender.
+
+2. **El sistema funciona:** Miles de personas han construido ingresos reales con Gano Excel en 30+ años.
+
+3. **Lo que puede fallar:** TÚ puedes decidir no hacer el trabajo. Eso no es que el sistema falle.
+
+**Garantía real:**
+- No hay garantía de ganancias (eso sería ilegal)
+- Hay garantía de que el sistema está probado
+- Hay garantía de que tienes todo el soporte
+
+**La pregunta real no es "¿qué pasa si no funciona?"**
+Es: "¿Estoy dispuesto a hacer el trabajo para que funcione?"
+
+**Pregunta de seguimiento:** ¿Estás dispuesto a comprometerte con el proceso?
+
+---
+
+**Fin del Arsenal de Compensación v1.2**
+**Total:** 22 respuestas (RETO: 7 + INV: 5 + COMP: 6 + OBJINV: 4)
+**Porcentajes correctos:** Kit=10%, ESP1=15%, ESP2=16%, ESP3=17%
+**Regla crítica:** Kit de Inicio = SOLO bono binario 10% (NO tiene GEN5)
+**Modo Velocidad:** Kit de Inicio = velocidad > volumen

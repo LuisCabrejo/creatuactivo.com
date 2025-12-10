@@ -949,6 +949,12 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // ===== COMPENSACIÓN Y FORMAS DE GANAR =====
     /cómo.*gano/i,                     // "cómo gano"
     /como.*gano/i,                     // sin tilde
+    /cómo.*se.*gana/i,                 // "cómo se gana"
+    /como.*se.*gana/i,                 // sin tilde
+    /cómo.*gana.*uno/i,                // "cómo gana uno"
+    /cómo.*ganas/i,                    // "cómo ganas"
+    /gana.*en.*este.*plan/i,           // "gana en este plan"
+    /ganar.*en.*este.*plan/i,          // "ganar en este plan"
     /formas.*ganar/i,                  // "formas de ganar"
     /maneras.*ganar/i,                 // "maneras de ganar"
     /cuántas.*formas.*ganar/i,         // "cuántas formas de ganar"
@@ -956,6 +962,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /doce.*formas/i,                   // "doce formas"
     /plan.*compensación/i,             // "plan de compensación"
     /plan.*compensacion/i,             // sin tilde
+    /plan.*ganancias/i,                // "plan de ganancias"
 
     // ===== PROYECCIONES Y GANANCIAS =====
     /proyección.*ganar/i,              // "proyección de ganancias"
@@ -964,6 +971,8 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /potencial.*ganancias/i,           // "potencial de ganancias"
     /ganar.*reto/i,                    // "ganar con el reto"
     /ganar.*12.*días/i,                // "ganar en 12 días"
+    /ganancias.*reto/i,                // "ganancias del reto"
+    /ingresos.*reto/i,                 // "ingresos del reto"
 
     // ===== DUPLICACIÓN 2x2 =====
     /2.*x.*2/i,                        // "2x2"

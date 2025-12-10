@@ -5,6 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
+import Reto12DiasConfirmationEmail from '@/emails/Reto12DiasConfirmation';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -189,59 +191,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
 
-    // También enviar confirmación al usuario
+    // Enviar correo épico de confirmación al usuario
+    const firstName = fullName.split(' ')[0];
+    const confirmationEmailHtml = await render(
+      Reto12DiasConfirmationEmail({
+        firstName,
+        selectedPackage: packageDisplay,
+      })
+    );
+
     await resend.emails.send({
       from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
       to: [email],
-      subject: '🔥 ¡Recibimos tu registro para el Reto de los 12 Días!',
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: #1e293b; border-radius: 16px; padding: 32px; }
-            h1 { color: #f59e0b; }
-            .badge { display: inline-block; background: linear-gradient(135deg, #dc2626, #f59e0b); color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-bottom: 16px; }
-            .cta { display: inline-block; background: linear-gradient(135deg, #1e40af, #7c3aed); color: white; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 24px; }
-            .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #334155; font-size: 12px; color: #64748b; text-align: center; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="badge">🔥 RETO DE LOS 12 DÍAS</div>
-            <h1>¡Hola ${fullName.split(' ')[0]}!</h1>
-
-            <p style="font-size: 18px; color: #e2e8f0;">
-              Hemos recibido tu registro para el <strong>Reto de los 12 Días</strong>.
-            </p>
-
-            <p style="color: #94a3b8;">
-              Nuestro equipo revisará tu información y te contactaremos pronto
-              para confirmar tu posición como Fundador y darte los siguientes pasos.
-            </p>
-
-            <p style="color: #94a3b8;">
-              Mientras tanto, prepárate para construir el mejor diciembre de tu vida.
-              Recuerda: <strong style="color: #60a5fa;">2 personas</strong> — eso es todo
-              lo que necesitas para activar la duplicación.
-            </p>
-
-            <p style="text-align: center;">
-              <a href="https://creatuactivo.com/proyeccion-fundadores" class="cta">
-                Ver Mi Proyección
-              </a>
-            </p>
-
-            <div class="footer">
-              <p>Si tienes alguna pregunta, responde a este correo o contáctanos por WhatsApp.</p>
-              <p>© ${new Date().getFullYear()} CreaTuActivo.com</p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
+      subject: `🔥 ¡FELICIDADES ${firstName.toUpperCase()}! Tu registro en el Reto de los 12 Días ha sido recibido`,
+      html: confirmationEmailHtml,
     });
 
     return NextResponse.json({ success: true });

@@ -33,6 +33,7 @@ const GlobalStyles = () => (
       -webkit-text-fill-color: transparent;
       line-height: 1.1;
       letter-spacing: -0.03em;
+      filter: drop-shadow(0 2px 10px rgba(124, 58, 237, 0.2));
     }
     .creatuactivo-h1-subtle {
       font-weight: 800;
@@ -314,11 +315,11 @@ export default function PresentacionEmpresarial2Page() {
   const [daysRemaining, setDaysRemaining] = useState(12);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  // Auto-avance de días al hacer scroll
+  // Auto-avance de días (efecto bola de nieve)
   const [animatedDay, setAnimatedDay] = useState(1);
-  const [hasAnimatedDays, setHasAnimatedDays] = useState(false);
-  const challengeSectionRef = useRef<HTMLElement>(null);
-  const isChallengeInView = useInView(challengeSectionRef, { once: true, margin: '-100px' });
+  const hasAnimatedDaysRef = useRef(false);
+  const challengeSectionRef = useRef<HTMLDivElement>(null);
+  const isChallengeInView = useInView(challengeSectionRef, { once: true, amount: 0.3 });
 
   // Estado del formulario
   const [formData, setFormData] = useState({
@@ -370,8 +371,8 @@ export default function PresentacionEmpresarial2Page() {
 
   // Auto-avance de días cuando la sección entra en viewport
   useEffect(() => {
-    if (isChallengeInView && !hasAnimatedDays) {
-      setHasAnimatedDays(true);
+    if (isChallengeInView && !hasAnimatedDaysRef.current) {
+      hasAnimatedDaysRef.current = true;
       let day = 1;
       const interval = setInterval(() => {
         day++;
@@ -380,10 +381,9 @@ export default function PresentacionEmpresarial2Page() {
         } else {
           clearInterval(interval);
         }
-      }, 400); // 400ms entre cada día
-      return () => clearInterval(interval);
+      }, 1200); // 1200ms × 11 pasos = ~24 segundos total
     }
-  }, [isChallengeInView, hasAnimatedDays]);
+  }, [isChallengeInView]);
 
   return (
     <>
@@ -408,7 +408,7 @@ export default function PresentacionEmpresarial2Page() {
                 Reto de los 12 Días
               </div>
 
-              <h1 className="creatuactivo-h1-subtle text-4xl md:text-6xl lg:text-7xl mb-6">
+              <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-6">
                 Construye el Mejor
                 <br />
                 Diciembre de tu Vida

@@ -988,6 +988,34 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /con.*cuanto.*empiezo/i,           // sin tilde
     /cuánto.*necesito.*invertir/i,     // "cuánto necesito invertir"
     /cuanto.*necesito.*invertir/i,     // sin tilde
+
+    // ===== 🆕 PREGUNTAS SOBRE CV/PV DE PRODUCTOS (FIX 2025-12-10) =====
+    // Preguntas directas sobre CV/PV de productos individuales
+    /cu[aá]ntos?\s*cv/i,               // "cuántos CV", "cuanto CV"
+    /cu[aá]ntos?\s*pv/i,               // "cuántos PV", "cuanto PV"
+    /cv\s*(?:tiene|de|del)/i,          // "CV tiene", "CV de", "CV del"
+    /pv\s*(?:tiene|de|del)/i,          // "PV tiene", "PV de", "PV del"
+    /(?:tiene|aporta|genera).*cv/i,    // "tiene CV", "aporta CV", "genera CV"
+    /(?:tiene|aporta|genera).*pv/i,    // "tiene PV", "aporta PV", "genera PV"
+    /puntos.*(?:tiene|de|del)/i,       // "puntos tiene", "puntos de"
+    /(?:valor|volumen).*comision/i,    // "valor comisional", "volumen comisional"
+    /(?:valor|volumen).*personal/i,    // "valor personal", "volumen personal"
+
+    // Preguntas sobre cálculos de recompra con PV
+    /completar.*pv/i,                  // "completar mis PV"
+    /faltan.*pv/i,                     // "me faltan PV"
+    /llegar.*a.*50.*pv/i,              // "llegar a 50 PV"
+    /tengo.*pv.*(?:qu[eé]|c[oó]mo)/i,  // "tengo 30 PV, qué..."
+    /con.*qu[eé].*productos.*complet/i,// "con qué productos completo"
+    /qu[eé].*productos.*para.*pv/i,    // "qué productos para mis PV"
+    /productos.*para.*recompra/i,      // "productos para recompra"
+    /cu[aá]nto.*pv.*(?:necesito|falta)/i, // "cuánto PV necesito/falta"
+
+    // Preguntas específicas sobre máquina Luvoco y puntos
+    /luvoco.*(?:cv|pv|puntos)/i,       // "luvoco CV", "luvoco PV"
+    /m[aá]quina.*(?:cv|pv|puntos)/i,   // "máquina CV", "máquina puntos"
+    /(?:cv|pv|puntos).*luvoco/i,       // "CV luvoco", "puntos luvoco"
+    /(?:cv|pv|puntos).*m[aá]quina/i,   // "CV máquina", "puntos máquina"
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)

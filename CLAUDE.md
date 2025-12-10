@@ -142,6 +142,11 @@ Usuario → Producer → nexus_queue (INSERT)
 
 **Deployment**: See [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md)
 
+**Edge Functions** (in `supabase/functions/`):
+- `nexus-queue-processor` - **Primary**: Processes NEXUS messages from DB queue
+- `nexus-consumer` - Legacy: Kafka consumer (deprecated, kept for reference)
+- `notify-stage-change` - Sends email notifications when prospects advance stages
+
 ### 4. Supabase Schema
 
 **Key Tables**:
@@ -161,11 +166,11 @@ Usuario → Producer → nexus_queue (INSERT)
 **Knowledge Base** (stored in `nexus_documents`):
 - `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses)
 - `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses: OBJ + SIST + VAL + ESC)
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (13 responses: RETO + INV)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
 
 **Backup files** (not deployed):
-- `arsenal_inicial_v10.1_hibrido.txt` - Historical version for reference
-- `arsenal_productos.txt` - Legacy product arsenal
+- `arsenal_inicial_v10.2_backup.txt` - Historical version for reference
 
 **Note**: `arsenal_manejo` and `arsenal_cierre` were deprecated and consolidated into `arsenal_avanzado` (Nov 2025).
 
@@ -184,6 +189,7 @@ src/app/
 ├── paquetes/page.tsx
 ├── paises/                          # Country-specific pages
 ├── planes/                          # Pricing plans
+├── reto-12-dias/                    # 12-day challenge landing page
 ├── ecosistema/                      # 3 ecosystem pages
 ├── sistema/                         # System pages + productos/
 ├── soluciones/                      # Persona-specific pages
@@ -253,12 +259,14 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions
    - `arsenal_avanzado.txt` - Objections, System, Value, Escalation
+   - `arsenal_compensacion.txt` - Compensation plan, Reto 12 Días
    - `catalogo_productos.txt` - Product catalog
 
 2. Deploy to Supabase via scripts:
    ```bash
    node scripts/deploy-arsenal-inicial.mjs
    node scripts/deploy-arsenal-avanzado.mjs
+   node scripts/deploy-arsenal-compensacion.mjs
    node scripts/actualizar-catalogo-productos.mjs
    ```
 
@@ -454,7 +462,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Knowledge Base**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
 - `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
-- `deploy-arsenal-cierre.mjs` - Legacy script (deploys arsenal_avanzado)
+- `deploy-arsenal-compensacion.mjs` - Deploy arsenal_compensacion to Supabase
 - `actualizar-catalogo-productos.mjs` - Update product catalog
 - `actualizar-fechas-prelanzamiento.mjs` - Update launch dates
 - `verificar-arsenal-supabase.mjs` - Verify current version

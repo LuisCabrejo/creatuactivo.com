@@ -143,28 +143,29 @@ const GlobalStyles = () => (
 );
 
 // Datos de proyección 2×2 a 12 niveles con cálculos financieros en COP
+// Kit de Inicio: 4 cajas × 14 CV = 56 CV por persona
 const projectionData = [
-  { level: 1, people: 2, cvPerSide: 52, bonus10: 23400, acum10: 23400, acum15: 35100, acum16: 37440, acum17: 39780 },
-  { level: 2, people: 4, cvPerSide: 104, bonus10: 46800, acum10: 70200, acum15: 105300, acum16: 112320, acum17: 119340 },
-  { level: 3, people: 8, cvPerSide: 208, bonus10: 93600, acum10: 163800, acum15: 245700, acum16: 262080, acum17: 278460 },
-  { level: 4, people: 16, cvPerSide: 416, bonus10: 187200, acum10: 351000, acum15: 526500, acum16: 561600, acum17: 596700 },
-  { level: 5, people: 32, cvPerSide: 832, bonus10: 374400, acum10: 725400, acum15: 1088100, acum16: 1160640, acum17: 1233180 },
-  { level: 6, people: 64, cvPerSide: 1664, bonus10: 748800, acum10: 1474200, acum15: 2211300, acum16: 2358720, acum17: 2506140 },
-  { level: 7, people: 128, cvPerSide: 3328, bonus10: 1497600, acum10: 2971800, acum15: 4457700, acum16: 4754880, acum17: 5052060 },
-  { level: 8, people: 256, cvPerSide: 6656, bonus10: 2995200, acum10: 5967000, acum15: 8950500, acum16: 9547200, acum17: 10143900 },
-  { level: 9, people: 512, cvPerSide: 13312, bonus10: 5990400, acum10: 11957400, acum15: 17936100, acum16: 19131840, acum17: 20327580 },
-  { level: 10, people: 1024, cvPerSide: 26624, bonus10: 11980800, acum10: 23938200, acum15: 35907300, acum16: 38301120, acum17: 40694940 },
-  { level: 11, people: 2048, cvPerSide: 53248, bonus10: 23961600, acum10: 47899800, acum15: 71849700, acum16: 76639680, acum17: 81429660 },
-  { level: 12, people: 4096, cvPerSide: 106496, bonus10: 47923200, acum10: 95823000, acum15: 143734500, acum16: 153316800, acum17: 162899100 },
+  { level: 1, people: 2, cvPerSide: 56, bonus10: 25200, acum10: 25200, acum15: 37800, acum16: 40320, acum17: 42840 },
+  { level: 2, people: 4, cvPerSide: 112, bonus10: 50400, acum10: 75600, acum15: 113400, acum16: 120960, acum17: 128520 },
+  { level: 3, people: 8, cvPerSide: 224, bonus10: 100800, acum10: 176400, acum15: 264600, acum16: 282240, acum17: 299880 },
+  { level: 4, people: 16, cvPerSide: 448, bonus10: 201600, acum10: 378000, acum15: 567000, acum16: 604800, acum17: 642600 },
+  { level: 5, people: 32, cvPerSide: 896, bonus10: 403200, acum10: 781200, acum15: 1171800, acum16: 1249920, acum17: 1328040 },
+  { level: 6, people: 64, cvPerSide: 1792, bonus10: 806400, acum10: 1587600, acum15: 2381400, acum16: 2540160, acum17: 2698920 },
+  { level: 7, people: 128, cvPerSide: 3584, bonus10: 1612800, acum10: 3200400, acum15: 4800600, acum16: 5120640, acum17: 5440680 },
+  { level: 8, people: 256, cvPerSide: 7168, bonus10: 3225600, acum10: 6426000, acum15: 9639000, acum16: 10281600, acum17: 10924200 },
+  { level: 9, people: 512, cvPerSide: 14336, bonus10: 6451200, acum10: 12877200, acum15: 19315800, acum16: 20603520, acum17: 21891240 },
+  { level: 10, people: 1024, cvPerSide: 28672, bonus10: 12902400, acum10: 25779600, acum15: 38669400, acum16: 41247360, acum17: 43825320 },
+  { level: 11, people: 2048, cvPerSide: 57344, bonus10: 25804800, acum10: 51584400, acum15: 77376600, acum16: 82535040, acum17: 87693480 },
+  { level: 12, people: 4096, cvPerSide: 114688, bonus10: 51609600, acum10: 103194000, acum15: 154791000, acum16: 165110400, acum17: 175429800 },
 ];
 
 const totals = {
   people: 8190,
-  cv: 212940,
-  bonus10: 95823000,
-  bonus15: 143734500,
-  bonus16: 153316800,
-  bonus17: 162899100,
+  cv: 229320,
+  bonus10: 103194000,
+  bonus15: 154791000,
+  bonus16: 165110400,
+  bonus17: 175429800,
 };
 
 // Reto de los 12 Días
@@ -565,9 +566,9 @@ export default function PresentacionEmpresarial2Page() {
           <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <StatCard icon={<Coffee className="w-8 h-8 text-blue-400" />} value="" animatedValue={443600} prefix="$" label="Inversión Mínima" sublabel="4 cajas Gano Café 3en1" color="blue" />
-              <StatCard icon={<TrendingUp className="w-8 h-8 text-purple-400" />} value="" animatedValue={52} suffix=" CV" label="Por Persona" sublabel="Volumen de comisión" color="purple" />
+              <StatCard icon={<TrendingUp className="w-8 h-8 text-purple-400" />} value="" animatedValue={56} suffix=" CV" label="Por Persona" sublabel="Volumen de comisión" color="purple" />
               <StatCard icon={<Users className="w-8 h-8 text-amber-400" />} value="" animatedValue={8190} label="Red al Nivel 12" sublabel="Duplicación 2×2" color="amber" />
-              <StatCard icon={<DollarSign className="w-8 h-8 text-green-400" />} value="" animatedValue={95.8} prefix="$" suffix="M" decimals={1} label="Bono Binario COP" sublabel="Acumulado 10% nivel 12" color="green" />
+              <StatCard icon={<DollarSign className="w-8 h-8 text-green-400" />} value="" animatedValue={103.2} prefix="$" suffix="M" decimals={1} label="Bono Binario COP" sublabel="Acumulado 10% nivel 12" color="green" />
             </div>
           </section>
 
@@ -577,7 +578,7 @@ export default function PresentacionEmpresarial2Page() {
               <h2 className="creatuactivo-h2-component text-3xl md:text-4xl font-bold mb-4">
                 Proyección Binaria 2×2 en COP
               </h2>
-              <p className="text-slate-400">Inversión mínima: <span className="text-white font-semibold">$443,600 COP</span> = <span className="text-blue-400 font-semibold">52 CV</span></p>
+              <p className="text-slate-400">Inversión mínima: <span className="text-white font-semibold">$443,600 COP</span> = <span className="text-blue-400 font-semibold">56 CV</span></p>
               <p className="text-slate-500 text-sm mt-1">Tasa Gano Excel Colombia: $4,500 COP = 1 USD</p>
             </div>
 
@@ -632,25 +633,25 @@ export default function PresentacionEmpresarial2Page() {
                     <div className="text-center p-3 bg-green-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 10%</p>
                       <p className="text-xl md:text-2xl font-extrabold text-green-400">
-                        $<AnimatedCountUp end={95.8} duration={2} decimals={1} />M
+                        $<AnimatedCountUp end={103.2} duration={2} decimals={1} />M
                       </p>
                     </div>
                     <div className="text-center p-3 bg-blue-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 15%</p>
                       <p className="text-xl md:text-2xl font-extrabold text-blue-400">
-                        $<AnimatedCountUp end={143.7} duration={2} decimals={1} delay={200} />M
+                        $<AnimatedCountUp end={154.8} duration={2} decimals={1} delay={200} />M
                       </p>
                     </div>
                     <div className="text-center p-3 bg-purple-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 16%</p>
                       <p className="text-xl md:text-2xl font-extrabold text-purple-400">
-                        $<AnimatedCountUp end={153.3} duration={2} decimals={1} delay={400} />M
+                        $<AnimatedCountUp end={165.1} duration={2} decimals={1} delay={400} />M
                       </p>
                     </div>
                     <div className="text-center p-3 bg-amber-500/10 rounded-xl">
                       <p className="text-xs text-slate-400 mb-1">ACUMULADO 17%</p>
                       <p className="text-xl md:text-2xl font-extrabold text-amber-400">
-                        $<AnimatedCountUp end={162.9} duration={2} decimals={1} delay={600} />M
+                        $<AnimatedCountUp end={175.4} duration={2} decimals={1} delay={600} />M
                       </p>
                     </div>
                   </div>
@@ -729,8 +730,8 @@ export default function PresentacionEmpresarial2Page() {
                 answer="El reto es una guía, no una obligación. Si tardas 2 días en invitar a tus primeras 2 personas, no pasa nada. Lo importante es empezar. El sistema 2×2 funciona cuando cada quien encuentra su ritmo. Lo que sí es crítico es que arranques HOY, porque tu posición de Fundador se bloquea al comenzar."
               />
               <FAQItem
-                question="¿De dónde salen los $95 millones de la proyección?"
-                answer="El bono binario se calcula así: Por cada persona que activa con 52 CV, tú ganas el 10% del CV del lado menor multiplicado por $4,500 COP. Con 2×2 balanceado en 12 niveles, eso suma 8,190 personas × 52 CV × 10% × $4,500 = $95,823,000 COP acumulados. Este es el escenario más conservador (todos con el paquete mínimo)."
+                question="¿De dónde salen los $103 millones de la proyección?"
+                answer="El bono binario se calcula así: Por cada persona que activa con 56 CV, tú ganas el 10% del CV del lado menor multiplicado por $4,500 COP. Con 2×2 balanceado en 12 niveles, eso suma 8,190 personas × 56 CV × 10% × $4,500 = $103,194,000 COP acumulados. Este es el escenario más conservador (todos con el paquete mínimo)."
               />
               <FAQItem
                 question="¿Las ganancias son garantizadas?"
@@ -741,7 +742,7 @@ export default function PresentacionEmpresarial2Page() {
                 answer={`Todos te dan acceso al sistema completo. La diferencia está en el inventario de producto que recibes y el porcentaje del bono binario:
 
 • Kit de Inicio ($443,600)
-  4 cajas Gano Café - 52 CV - Binario 10%
+  4 cajas Gano Café - 56 CV - Binario 10%
 
 • ESP1 Inicial ($900,000)
   Inventario básico - 100 CV - Binario 12%

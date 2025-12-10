@@ -1861,7 +1861,20 @@ PERSONALIDAD: Copiloto del Arquitecto con consulta inteligente escalable que cre
 
 // Interpretación híbrida de queries
 function interpretQueryHibrido(userMessage: string): string {
-  const messageLower = userMessage.toLowerCase();
+  const messageLower = userMessage.toLowerCase().trim();
+
+  // 🔥 EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d)
+  const menuExpansion: Record<string, string> = {
+    'a': 'reto de los 12 días qué es el reto cómo funciona',
+    'b': 'cómo funciona el negocio sistema distribución',
+    'c': 'productos Gano Excel catálogo qué distribuimos',
+    'd': 'inversión ganancias cuánto cuesta empezar paquetes'
+  };
+
+  if (menuExpansion[messageLower]) {
+    console.log(`🔄 [interpretQuery] Expansión menú: "${messageLower}" → "${menuExpansion[messageLower]}"`);
+    return menuExpansion[messageLower];
+  }
 
   // 🔧 NUEVO: MAPEO ESPECÍFICO DE PRODUCTOS INDIVIDUALES
   const mapeos_productos_especificos: Record<string, string> = {

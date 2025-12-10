@@ -1,8 +1,8 @@
-# Arsenal Conversacional: Plan de Compensación v1.3
+# Arsenal Conversacional: Plan de Compensación v1.4
 
 **Propósito:** Respuestas sobre inversión, paquetes, plan de compensación y Reto 12 Días para NEXUS.
 **Categorías:** RETO (7) + INV (5) + COMP (6) + OBJINV (4) = 22 respuestas
-**Versión:** 1.3 (9 Dic 2025) - FIX: Contexto interno NO se comparte con prospectos
+**Versión:** 1.4 (9 Dic 2025) - FIX: 8,000 personas + bullets verticales + vinculación simplificada
 
 ---
 
@@ -25,14 +25,17 @@ Cada día representa un nivel de tu red:
 | 3 | 4 personas |
 | 4 | 8 personas |
 | ... | ... |
-| 12 | +12,000 clientes y constructores |
+| 12 | +8,000 clientes y constructores |
 
-En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 12,000 clientes y constructores.
+En el día 12 (nivel 12), como resultado de ese trabajo, tu red puede tener más de 8,000 clientes y constructores.
 
 **Contenido del Kit de Inicio ($443,600 COP):**
-- Productos Gano Excel con fórmula exclusiva
-- My Gano Plan Negocios (acceso al sistema)
-- Bono Binario al 10% (única forma de ganar con este paquete)
+
+• Productos Gano Excel con fórmula exclusiva
+
+• My Gano Plan Negocios (acceso al sistema)
+
+• Bono Binario al 10% (única forma de ganar con este paquete)
 
 **Fechas:** 9 - 31 de Diciembre 2025.
 
@@ -96,30 +99,39 @@ Con una inversión mínima de $443,600 COP (52 CV por persona), esta es la proye
 
 ---
 
-### **RETO_04: "¿Cómo participo en el Reto de los 12 Días?"**
+### **RETO_04: "¿Cómo participo en el Reto de los 12 Días?" / "¿Cómo me vinculo?"**
 
-Para participar necesitas:
+Tienes varias opciones para vincularte:
 
-1. **Activar tu posición** con cualquier paquete:
-   - Kit de Inicio: $443,600 COP (mínimo)
-   - ESP-1: $900,000 COP
-   - ESP-2: $2,250,000 COP
-   - ESP-3: $4,500,000 COP
+**1. WhatsApp directo:**
 
-2. **Completar el formulario** de registro con tus datos
+Envía tus datos completos al WhatsApp **3102066593** y te ayudaremos directamente con tu vinculación.
 
-3. **Comprometerte** a invitar al menos 2 personas durante los 12 días
+**2. Formulario en la página:**
 
-4. **Estar en contacto** con tu patrocinador para recibir apoyo
+Puedes llenar el formulario directamente en [creatuactivo.com/reto-12-dias](https://creatuactivo.com/reto-12-dias)
 
-**No necesitas experiencia previa.** NEXUS te ayuda a explicar el negocio 24/7.
+**3. Te ayudo con el proceso:**
 
-**El reto empieza:** 9 de Diciembre 2025
-**Termina:** 31 de Diciembre 2025
+Si prefieres, puedo tomar tus datos aquí mismo y enviarlos al equipo para que procesen tu vinculación.
 
-**Solo hay 150 cupos de Fundador.**
+**4. Consultoría personalizada:**
 
-**Pregunta de seguimiento:** ¿Estás listo para arrancar hoy?
+También puedes agendar una llamada con la persona que te compartió este enlace para resolver dudas antes de vincularte.
+
+**Paquetes disponibles:**
+
+• Kit de Inicio: $443,600 COP
+
+• ESP-1: $900,000 COP
+
+• ESP-2: $2,250,000 COP
+
+• ESP-3: $4,500,000 COP
+
+**Fechas del Reto:** 9 - 31 de Diciembre 2025
+
+**Pregunta de seguimiento:** ¿Cuál opción prefieres para vincularte?
 
 ---
 
@@ -167,21 +179,15 @@ El Reto de los 12 Días es la oportunidad perfecta para arrancar con riesgo mín
 
 ### **RETO_07: "¿Qué pasa si alguien de mi red no une sus dos?"**
 
-Este es un temor común, pero tiene solución.
+Este es un temor común.
 
-**La realidad:** No todos van a avanzar al mismo ritmo. Algunos se quedarán quietos. Eso es normal.
+**La realidad:** No todos van a avanzar al mismo ritmo. Algunos se quedarán quietos. Eso es normal en cualquier proyecto.
 
 **Por eso los expertos recomiendan:**
-No unas solo 2 personas. Entre más personas unas TÚ, más garantizas tu propio crecimiento.
 
-**¿Y si alguien se queda quieto?**
-Tienes dos opciones:
-1. **Esperar:** A veces las personas reactivan después
-2. **Actuar:** Tú puedes inscribir un nuevo constructor en ese mismo lugar donde alguien no avanzó
+No te limites a unir solo 2 personas. Entre más personas unas TÚ, más garantizas tu propio crecimiento.
 
-**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo.
-
-En el Reto de los 12 Días, la velocidad lo es todo. No esperes a que otros se muevan. Muévete tú.
+**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo y uniendo más personas a tu red.
 
 **Pregunta de seguimiento:** ¿Cuántas personas tienes en tu lista para invitar?
 

@@ -184,7 +184,7 @@ const challengeDays = [
   { day: 12, action: "1024 → 2048", people: 2048 },
 ];
 
-const CHALLENGE_START_DATE = new Date('2025-12-09T00:00:00');
+const CHALLENGE_START_DATE = new Date('2025-12-11T00:00:00');
 const CHALLENGE_END_DATE = new Date('2025-12-31T23:59:59');
 
 const getCurrentChallengeDay = () => {

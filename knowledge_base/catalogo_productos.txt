@@ -26,43 +26,46 @@ RESPALDO CIENTÍFICO: GANODERMA LUCIDUM (Reishi)
 
 ### BENEFICIOS RESPALDADOS POR CIENCIA (Estudios 2024):
 
-**Sistema Inmunológico:**
+🛡️ **Sistema Inmunológico:**
 - Estimula respuesta inmune mediante activación de macrófagos
 - Induce diferenciación celular protectora
 - Mejora función de células T y NK (Natural Killer)
 - **Fuente:** Frontiers in Microbiology (2024), Nature Scientific Reports (2018)
 
-**Salud Metabólica:**
+⚡ **Salud Metabólica:**
 - Mejora sensibilidad a la insulina en modelos animales
 - Reduce peso corporal y mejora metabolismo de glucosa
 - Regula niveles de lípidos en sangre
 - **Fuente:** PubMed, estudios metabólicos (2023)
 
-**Microbioma Intestinal:**
+🦠 **Microbioma Intestinal:**
 - Componentes bioactivos impactan flora intestinal positivamente
 - Alivia hiperglucemia, hiperlipidemia y obesidad por desorden de flora
 - Regula equilibrio bacteriano intestinal
 - **Fuente:** Frontiers in Microbiology (2024)
 
-**Función Cardiovascular:**
+❤️ **Función Cardiovascular:**
 - Soporte a presión arterial saludable
 - Propiedades antitrombóticas naturales
 - Mejora circulación sanguínea
 - **Fuente:** Estudios cardiovasculares PubMed (2023-2024)
 
 **12 FUNCIONES DOCUMENTADAS DE GANODERIC ACIDS:**
-1. Anti-cáncer (complementario, no primario) - PubMed Central
-2. Anti-inflamatorio - Multiple studies 2024
-3. Inmunomodulador - Nature Scientific Reports
-4. Anti-radiación - Chinese Medicine Journal
-5. Anti-envejecimiento - Antioxidant studies
-6. Protección hepática - Hepatology journals
-7. Anti-microbiano - Microbiology Frontiers
-8. Neuroprotección - Neuroscience studies
-9. Protección ósea - Bone health research
-10. Cardioprotección - Cardiovascular journals
-11. Anti-plaquetas - Hematology studies
-12. Anti-diabetes - Metabolic syndrome research
+
+| # | Función | Fuente |
+|---|---------|--------|
+| 1 | Anti-cáncer (complementario) | PubMed Central |
+| 2 | Anti-inflamatorio | Multiple studies 2024 |
+| 3 | Inmunomodulador | Nature Scientific Reports |
+| 4 | Anti-radiación | Chinese Medicine Journal |
+| 5 | Anti-envejecimiento | Antioxidant studies |
+| 6 | Protección hepática | Hepatology journals |
+| 7 | Anti-microbiano | Microbiology Frontiers |
+| 8 | Neuroprotección | Neuroscience studies |
+| 9 | Protección ósea | Bone health research |
+| 10 | Cardioprotección | Cardiovascular journals |
+| 11 | Anti-plaquetas | Hematology studies |
+| 12 | Anti-diabetes | Metabolic syndrome research |
 
 **Fuentes científicas verificables:**
 - **PubMed:** 2,000+ estudios publicados (1990-2024)
@@ -96,12 +99,15 @@ Mientras que consumir el hongo directamente o en polvo tiene biodisponibilidad l
 - Estrategia de 6 variedades: Rojo, Púrpura, Verde, Blanco, Amarillo, Negro (espectro completo de beneficios)
 
 **Certificaciones y Registros Internacionales:**
-- **NPRA Malasia:** Múltiples registros MAL (National Pharmaceutical Regulatory Agency)
-- **INVIMA Colombia:** Registros SD (Suplemento Dietario) vigentes
-- **TGA Australia:** Aprobación de productos terapéuticos (uno de los reguladores más estrictos)
-- **Halal JAKIM:** Certificación pureza y proceso
-- **GMP:** Good Manufacturing Practices
-- **ISO 9001:2000:** Sistema de gestión de calidad
+
+| Certificación | Descripción |
+|---------------|-------------|
+| 🇲🇾 NPRA Malasia | Múltiples registros MAL |
+| 🇨🇴 INVIMA Colombia | Registros SD vigentes |
+| 🇦🇺 TGA Australia | Regulador más estricto |
+| ☪️ Halal JAKIM | Pureza y proceso |
+| ✅ GMP | Good Manufacturing Practices |
+| 📋 ISO 9001:2000 | Gestión de calidad |
 
 **IMPORTANTE - DISCLAIMER:**
 Ganoderma lucidum se usa como suplemento alimenticio para **apoyo a la salud general**, no como agente medicinal primario. Los productos Gano Excel son alimentos funcionales, no medicamentos. Los beneficios descritos se basan en investigación científica publicada, pero los productos no pretenden diagnosticar, tratar, curar o prevenir ninguna enfermedad.
@@ -129,198 +135,83 @@ R: Ganoderma es generalmente seguro, pero si estás bajo medicación específica
 R: Los beneficios pueden variar por persona. Algunos usuarios reportan mayor energía y claridad mental en días o semanas. Beneficios de soporte inmunológico y metabólico pueden tomar de 4 a 12 semanas de uso consistente. Ganoderma trabaja a nivel celular, no es un estimulante inmediato.
 
 ================================================================
-CATEGORÍA 1: BEBIDAS CON TECNOLOGÍA PATENTADA
+☕ CATEGORÍA 1: BEBIDAS CON TECNOLOGÍA PATENTADA
 ================================================================
 
-GANOCAFÉ 3 EN 1
-Precio: $110,900 COP
-Presentación: 20 sobres de 21g
-Descripción: El balance perfecto entre café cremoso y poder del Ganoderma
-Beneficios: Energía sostenida sin nerviosismo, apoyo sistema inmune
-Contenido Ganoderma: Extracto propietario en cada sobre
+| Producto | Precio COP | Presentación | Beneficio clave |
+|----------|------------|--------------|-----------------|
+| Ganocafé 3 en 1 | $110,900 | 20 sobres 21g | Energía sin nerviosismo |
+| Ganocafé Clásico | $110,900 | 30 sobres | Claridad mental |
+| Ganorico Latte Rico | $119,900 | 20 sobres | Café gourmet funcional |
+| Ganorico Mocha Rico | $119,900 | 20 sobres | Satisface sin culpas |
+| Ganorico Shoko Rico | $124,900 | 20 sobres 32g | Toda la familia |
+| Gano C'Real Spirulina | $119,900 | 15 sobres | Desayuno inteligente |
+| Oleaf Gano Rooibos | $119,900 | 20 sobres | Sin cafeína, antioxidantes |
+| Gano Schokoladde | $124,900 | 20 sobres | Chocolate premium |
+| Reskine Colágeno | $216,900 | 10 sachets 25ml | Piel, cabello, articulaciones |
 
-GANOCAFÉ CLÁSICO
-Precio: $110,900 COP
-Presentación: 30 sobres
-Descripción: Café negro robusto, potenciado para bienestar diario
-Beneficios: Energía limpia, claridad mental, soporte inmunológico
-Contenido Ganoderma: Extracto propietario en cada sobre
-
-GANORICO LATTE RICO
-Precio: $119,900 COP
-Presentación: 20 sobres
-Descripción: Suavidad de latte premium con inteligencia nutricional
-Beneficios: Experiencia café gourmet con beneficios funcionales
-Contenido Ganoderma: Extracto propietario premium
-
-GANORICO MOCHA RICO
-Precio: $119,900 COP
-Presentación: 20 sobres
-Descripción: Indulgencia de moca y chocolate, sin culpas
-Beneficios: Satisface antojos mientras nutre
-Contenido Ganoderma: Extracto propietario premium
-
-GANORICO SHOKO RICO
-Precio: $124,900 COP
-Presentación: 20 sobres de 32g
-Descripción: Chocolate suizo superior, enriquecido para toda la familia
-Beneficios: Alternativa saludable, energía natural
-Contenido Ganoderma: Extracto propietario apto para toda la familia
-
-ESPIRULINA GANO C'REAL
-Precio: $119,900 COP
-Presentación: 15 Sobres individuales
-Descripción: Desayuno inteligente que nutre cuerpo y mente
-Beneficios: Nutrición completa para comenzar el día
-Contenido Ganoderma: Extracto propietario + espirulina orgánica
-
-BEBIDA OLEAF GANO ROOIBOS
-Precio: $119,900 COP
-Presentación: 20 sobres
-Descripción: Té exótico sin cafeína, cargado de antioxidantes
-Beneficios: Relajación sin somnolencia, antioxidantes potentes
-Contenido Ganoderma: Extracto propietario + rooibos africano
-
-GANO SCHOKOLADDE
-Precio: $124,900 COP
-Presentación: 20 sobres
-Descripción: Experiencia chocolate europeo + extracto propietario
-Beneficios: Indulgencia premium con beneficios funcionales
-Contenido Ganoderma: Extracto propietario premium
-
-BEBIDA COLÁGENO RESKINE
-Precio: $216,900 COP
-Presentación: 10 Sachets x 25 ml.
-Descripción: Belleza y bienestar desde adentro hacia afuera
-Beneficios: Soporte para piel, cabello y articulaciones
-Contenido Ganoderma: Extracto propietario + colágeno marino hidrolizado
+*Todos contienen extracto propietario de Ganoderma lucidum*
 
 ================================================================
-CATEGORÍA 2: LÍNEA PREMIUM LUVOCO
+☕ CATEGORÍA 2: LÍNEA PREMIUM LUVOCO
 ================================================================
 
-MÁQUINA CAFÉ LUVOCO
-Precio: $1,026,000 COP
-Especificaciones: Sistema cápsulas premium, diseño italiano, 15 bares presión
-Descripción: Experiencia barista de élite en tu hogar
-Beneficios: Café perfecto, tecnología extracción optimizada para Ganoderma
-Garantía: 12 meses fabricante
+| Producto | Precio COP | Intensidad | Descripción |
+|----------|------------|------------|-------------|
+| Máquina LUVOCO | $1,026,000 | - | Diseño italiano, 15 bares, garantía 12 meses |
+| Cápsulas Suave x15 | $110,900 | 4/10 | Café suave con Ganoderma |
+| Cápsulas Medio x15 | $110,900 | 6/10 | Balance perfecto |
+| Cápsulas Fuerte x15 | $110,900 | 8/10 | Intensidad máxima |
 
-LUVOCO CÁPSULAS SUAVE x15
-Precio: $110,900 COP
-Presentación: 15 cápsulas
-Intensidad: Suave (nivel 4/10)
-Compatibilidad: Exclusivo máquina LUVOCO
-Contenido Ganoderma: Extracto propietario por cápsula
-
-LUVOCO CÁPSULAS MEDIO x15
-Precio: $110,900 COP
-Presentación: 15 cápsulas
-Intensidad: Media (nivel 6/10)
-Compatibilidad: Exclusivo máquina LUVOCO
-Contenido Ganoderma: Extracto propietario por cápsula
-
-LUVOCO CÁPSULAS FUERTE x15
-Precio: $110,900 COP
-Presentación: 15 cápsulas
-Intensidad: Fuerte (nivel 8/10)
-Compatibilidad: Exclusivo máquina LUVOCO
-Contenido Ganoderma: Extracto propietario por cápsula
+*Cápsulas exclusivas para máquina LUVOCO*
 
 ================================================================
-CATEGORÍA 3: SUPLEMENTOS AVANZADOS (Alta Concentración)
+💊 CATEGORÍA 3: SUPLEMENTOS AVANZADOS (Alta Concentración)
 ================================================================
 
-CÁPSULAS GANODERMA
-Precio: $272,500 COP
-Presentación: 90 cápsulas (suministro 3 meses)
-Descripción: Máxima concentración extracto para apoyo inmunológico superior
-Beneficios: Soporte inmunológico máximo, 400+ compuestos bioactivos
-Dosis: 1 cápsula diaria
-Contenido: Extracto puro concentrado 400mg por cápsula
+| Producto | Precio COP | Duración | Enfoque |
+|----------|------------|----------|---------|
+| Cápsulas Ganoderma | $272,500 | 90 caps (3 meses) | Soporte inmunológico máximo |
+| Cápsulas Excellium | $272,500 | 90 caps (3 meses) | Claridad mental, enfoque |
+| Cápsulas Cordygold | $336,900 | 90 caps (3 meses) | Rendimiento físico, recuperación |
 
-CÁPSULAS EXCELLIUM
-Precio: $272,500 COP
-Presentación: 90 cápsulas (suministro 3 meses)
-Descripción: Enfocado en nutrición cerebral y energía mental
-Beneficios: Claridad mental, enfoque, energía cognitiva
-Dosis: 1 cápsula diaria
-Contenido: Ganoderma + complejo nootrópico natural
-
-CÁPSULAS CORDYGOLD
-Precio: $336,900 COP
-Presentación: 90 cápsulas (suministro 3 meses)
-Ingrediente Principal: Cordyceps sinensis (hongo medicinal tibetano)
-Descripción: Potencia rendimiento físico y vitalidad
-Beneficios: Rendimiento atlético, energía física, recuperación muscular
-Dosis: 1 cápsula diaria
-Contenido: Cordyceps + Ganoderma propietario
-
-**Nota sobre suplementos:** Las cápsulas concentradas son ideales para quienes buscan beneficios específicos intensificados. Pueden combinarse con bebidas para efecto sinérgico.
+*Dosis: 1 cápsula diaria. Combinables con bebidas para efecto sinérgico.*
 
 ================================================================
-CATEGORÍA 4: CUIDADO PERSONAL NATURAL
+🧴 CATEGORÍA 4: CUIDADO PERSONAL NATURAL
 ================================================================
 
-PASTA DIENTES GANO FRESH
-Precio: $73,900 COP
-Presentación: Pasta dental 150g
-Descripción: Cuidado oral refrescante y natural, sin flúor
-Beneficios: Limpieza profunda, encías saludables, aliento fresco
-Contenido Ganoderma: Extracto propietario para salud oral
+| Producto | Precio COP | Presentación | Beneficio clave |
+|----------|------------|--------------|-----------------|
+| Gano Fresh (Pasta dental) | $73,900 | 150g | Sin flúor, encías saludables |
+| Jabón Gano | $73,900 | 2 barras 100g | Hidratación, anti-inflamatorio |
+| Jabón Transparente | $78,500 | 1 barra 100g | Pieles sensibles |
+| Shampoo Piel&Brillo | $73,900 | 250ml | Reduce caída, brillo natural |
+| Acondicionador Piel&Brillo | $73,900 | 250ml | Hidratación profunda |
+| Exfoliante Piel&Brillo | $73,900 | 200g | Renovación celular |
 
-JABÓN GANO
-Precio: $73,900 COP
-Presentación: 2 Barras 100g
-Descripción: Limpieza y nutrición para piel con Ganoderma
-Beneficios: Hidratación, limpieza suave, anti-inflamatorio natural
-Contenido Ganoderma: Extracto propietario uso tópico
-
-JABÓN TRANSPARENTE GANO
-Precio: $78,500 COP
-Presentación: Barra 100g
-Descripción: Fórmula suave para cuidado diario
-Beneficios: Pieles sensibles, hidratación extra, glicerina natural
-Contenido Ganoderma: Extracto propietario concentrado
-
-CHAMPÚ PIEL&BRILLO
-Precio: $73,900 COP
-Presentación: Botella 250ml
-Descripción: Cuidado capilar que revitaliza desde la raíz
-Beneficios: Fortalecimiento, brillo natural, reduce caída
-Contenido Ganoderma: Extracto propietario capilar
-
-PIEL&BRILLO ACONDICIONADOR
-Precio: $73,900 COP
-Presentación: Botella 250ml
-Descripción: Suavidad y brillo potenciado con Ganoderma
-Beneficios: Desenredo fácil, hidratación profunda, reparación
-Contenido Ganoderma: Extracto propietario acondicionador
-
-PIEL&BRILLO EXFOLIANTE CORPORAL
-Precio: $73,900 COP
-Presentación: Botella 200g
-Descripción: Renueva piel con exfoliación suave y nutritiva
-Beneficios: Eliminación células muertas, renovación, hidratación
-Contenido Ganoderma: Extracto propietario regenerativo
+*Toda la línea contiene extracto propietario de Ganoderma*
 
 ================================================================
 RESUMEN EJECUTIVO
 ================================================================
 
 **RANGOS DE PRECIOS:**
-- Cuidado Personal: $73,900 - $78,500 COP
-- Bebidas Funcionales: $110,900 - $124,900 COP
-- Colágeno Premium: $216,900 COP
-- Suplementos Avanzados: $272,500 - $336,900 COP
-- Línea Premium LUVOCO: $1,026,000 COP (máquina)
+
+| Categoría | Rango COP |
+|-----------|-----------|
+| Cuidado Personal | $73,900 - $78,500 |
+| Bebidas Funcionales | $110,900 - $124,900 |
+| Colágeno Premium | $216,900 |
+| Suplementos Avanzados | $272,500 - $336,900 |
+| Máquina LUVOCO | $1,026,000 |
 
 **ESTADÍSTICAS CLAVE:**
-- TOTAL: 22 productos únicos con tecnología propietaria
-- DISPONIBILIDAD: 15 países América con distribución local
-- VENTAJA COMPETITIVA: Proceso extracción protegido por secretos industriales - NADIE puede replicar
-- RESPALDO CIENTÍFICO: 2,000+ estudios PubMed, 30+ años investigación
-- BIODISPONIBILIDAD: 100% hidrosoluble (absorción garantizada)
+- 📦 TOTAL: 22 productos únicos con tecnología propietaria
+- 🌎 DISPONIBILIDAD: 15 países América con distribución local
+- 🔒 VENTAJA COMPETITIVA: Proceso extracción protegido por secretos industriales - NADIE puede replicar
+- 📚 RESPALDO CIENTÍFICO: 2,000+ estudios PubMed, 30+ años investigación
+- ✅ BIODISPONIBILIDAD: 100% hidrosoluble (absorción garantizada)
 
 **CATEGORÍAS DE USO:**
 1. **Consumo Diario:** Bebidas funcionales (cafés, chocolates, tés)
@@ -398,23 +289,11 @@ Sí, Ganoderma tiene un perfil de seguridad excelente respaldado por evidencia:
 
 Los beneficios de Ganoderma operan a diferentes niveles y tiempos:
 
-**Efectos tempranos (Días a 2 semanas):**
-- Mayor energía sostenida (sin picos de cafeína)
-- Claridad mental y enfoque
-- Mejor calidad de sueño
-- Sensación general de bienestar
-
-**Efectos de mediano plazo (4-8 semanas):**
-- Soporte inmunológico (menos resfriados)
-- Mejora digestión y regulación
-- Balance energético estable
-- Reducción inflamación percibida
-
-**Efectos de largo plazo (3-6 meses):**
-- Fortalecimiento sistema inmune sostenido
-- Balance metabólico (glucosa, lípidos)
-- Mejora marcadores de salud en análisis
-- Beneficios acumulativos adaptogénicos
+| Plazo | Beneficios |
+|-------|------------|
+| ⚡ Días-2 semanas | Energía sostenida, claridad mental, mejor sueño |
+| 📈 4-8 semanas | Soporte inmune, mejor digestión, balance energético |
+| 🏆 3-6 meses | Sistema inmune fuerte, balance metabólico, marcadores saludables |
 
 **Importante entender:**
 Ganoderma NO es un estimulante (no sentirás un "rush" inmediato). Trabaja a nivel celular, apoyando sistemas del cuerpo de forma gradual y sostenible. Es como ir al gimnasio: los beneficios se acumulan con consistencia.
@@ -455,30 +334,18 @@ El uso diario consistente es crucial. Los compuestos bioactivos necesitan alcanz
 ---
 
 ================================================================
-CATEGORIZACIÓN POR PERFIL DE USUARIO
+👤 CATEGORIZACIÓN POR PERFIL DE USUARIO
 ================================================================
 
-**Para el Profesional Corporativo:**
-- LUVOCO (impresiona en casa)
-- GANOCAFÉ 3 EN 1 (energía reuniones)
-- CÁPSULAS EXCELLIUM (claridad estratégica)
-
-**Para el Atleta/Activo:**
-- GANOCAFÉ CLÁSICO (pre-entreno)
-- CÁPSULAS CORDYGOLD (recuperación)
-- ESPIRULINA GANO C'REAL (nutrición completa)
-
-**Para la Familia Consciente:**
-- GANO SCHOKOLADDE (niños y adultos)
-- JABÓN GANO (toda la familia)
-- CHAMPÚ PIEL&BRILLO (cuidado natural)
-
-**Para el Minimalista Optimizador:**
-- CÁPSULAS GANODERMA (máxima concentración)
-- Un producto, máximo beneficio
+| Perfil | Productos recomendados |
+|--------|------------------------|
+| 💼 Profesional Corporativo | LUVOCO + Ganocafé 3en1 + Excellium |
+| 💪 Atleta/Activo | Ganocafé Clásico + Cordygold + Spirulina |
+| 👨‍👩‍👧‍👦 Familia Consciente | Schokoladde + Jabón Gano + Shampoo P&B |
+| 🎯 Minimalista | Cápsulas Ganoderma (máxima concentración) |
 
 ================================================================
-ACTUALIZACIÓN: Versión 3.0 con Preguntas Técnicas y Perfiles
-FECHA: Diciembre 3, 2025
+ACTUALIZACIÓN: Versión 4.2 - Tablas compactas + emojis + perfiles
+FECHA: Diciembre 8, 2025
 FUENTES: PubMed, PMC, Nature, Frontiers in Microbiology (2024)
 ================================================================

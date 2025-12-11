@@ -1,9 +1,9 @@
-# ARSENAL AVANZADO - CONSOLIDADO (75 RESPUESTAS OPTIMIZADAS)
+# ARSENAL AVANZADO - CONSOLIDADO (78 RESPUESTAS OPTIMIZADAS)
 
 **Propósito:** Arsenal consolidado de objeciones, sistema, valor y escalación
-**Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (12) + VAL (23) + ESC (5) = 75 respuestas totales
+**Categorías:** OBJ (11) + TECH (16) + COMP (8) + SIST (15) + VAL (23) + ESC (5) = 78 respuestas totales
 **Flujo:** objeciones_soporte_sistema_valor_escalacion
-**Versión:** 4.1 (Actualizado 7 Dic 2025) - Requisitos en tabla visual
+**Versión:** 4.6 (Actualizado 8 Dic 2025) - Tablas compactas + Paquetes individuales
 **Fuente:** Consolidación optimizada de arsenal_manejo + arsenal_cierre
 
 ---
@@ -212,20 +212,11 @@ Esta es diferente. Te explico por qué:
 
 **Estamos construyendo en 3 etapas (como Apple lanzó el iPhone):**
 
-**1. Lista Privada (10 Nov 2025 - 04 Ene 2026)**
-- Solo 150 Fundadores
-- Te enseñamos el método paso a paso
-- Sesiones en vivo cada semana
-
-**2. Pre-Lanzamiento (05 Ene - 01 Mar 2026)**
-- Los 150 Fundadores invitan a más personas
-- Ya sabes cómo funciona (eres de los primeros)
-- 3 meses construyendo tu red
-
-**3. Lanzamiento Público (02 Mar 2026)**
-- Abierto para cualquier persona
-- Sin entrenamiento especial
-- Entras como todos los demás
+| Fase | Período | Qué incluye |
+|------|---------|-------------|
+| Lista Privada | 10 Nov - 04 Ene | 150 Fundadores, método paso a paso |
+| Pre-Lanzamiento | 05 Ene - 01 Mar | Fundadores invitan, 3 meses construyendo |
+| Lanzamiento | 02 Mar 2026 | Abierto al público, sin entrenamiento especial |
 
 **La diferencia:**
 Ahora: Entras como Fundador, aprendes directo con nosotros.
@@ -253,17 +244,13 @@ Si no los sigues, no funciona.
 
 **Aquí es igual:**
 
-**Tienes:**
-✅ La aplicación que te dice qué hacer cada día
-✅ Videos de entrenamiento semanales
-✅ Mentoría directa (como Fundador)
-✅ Una comunidad que te apoya
-✅ Tecnología que trabaja por ti 24/7
-
-**No tienes que:**
-❌ Inventar tu propio método
-❌ Adivinar qué hacer
-❌ Estar solo
+| Tienes ✅ | No tienes que ❌ |
+|-----------|-----------------|
+| App con tareas diarias | Inventar tu método |
+| Videos de entrenamiento | Adivinar qué hacer |
+| Mentoría directa | Estar solo |
+| Comunidad de apoyo | |
+| Tecnología 24/7 | |
 
 **La parte honesta:**
 Tu éxito depende de tu compromiso.
@@ -894,10 +881,13 @@ Podría pasar. Pero es tan sólido que no lo pensamos.
 Estamos construyendo la red de bienestar más grande de América.
 
 **En 5 años:**
-✅ 100,000+ constructores activos
-✅ Más transparencia en pagos y crecimiento
-✅ Más productos de bienestar
-✅ CreaTuActivo.com como el estándar de la industria
+
+| Meta | Objetivo |
+|------|----------|
+| Constructores | 100,000+ activos |
+| Pagos | Más transparencia |
+| Productos | Más opciones bienestar |
+| Plataforma | Estándar de la industria |
 
 **Entrar hoy:**
 Te posiciona en el inicio de este crecimiento.
@@ -1213,59 +1203,89 @@ Que te conviertas en referente de éxito. Esto es clave para la prueba social qu
 
 ---
 
-### SIST_11: "¿Qué productos Gano Excel trae específicamente cada paquete?"
+### SIST_11: "¿Qué productos Gano Excel trae cada paquete?"
+**[Resumen comparativo de paquetes]**
 
-¡Por supuesto! Cada paquete está diseñado con un inventario específico para que puedas experimentar y mover valor desde el primer día. Este es el desglose de los productos Gano Excel que componen cada paquete:
+Cada paquete está diseñado para que puedas experimentar y mover valor desde el primer día:
 
-#### Paquete Constructor Inicial (ESP 1)
-- **Total:** 7 productos
-- **Inventario:**
-    - 1 Ganocafé 3 en 1
-    - 1 Ganocafé Clásico
-    - 1 Ganorico Shoko Rico
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
+| Paquete | Productos | Enfoque |
+|---------|-----------|---------|
+| ESP-1 Inicial | 7 | Probar el sistema |
+| ESP-2 Empresarial | 18 | Base sólida |
+| ESP-3 Visionario | 35 | Máxima velocidad |
 
-#### Paquete Constructor Empresarial (ESP 2)
-- **Total:** 18 productos
-- **Inventario:**
-    - 4 Ganocafé 3 en 1
-    - 3 Ganocafé Classic
-    - 1 Ganorico Shoko Rico
-    - 1 Gano C'Real Spirulina
-    - 1 Reskine Collagen Drink
-    - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
-    - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Shampoo
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
+**Pregunta de seguimiento:** ¿Cuál paquete te interesa conocer en detalle?
 
-#### Paquete Constructor Visionario (ESP 3)
-- **Total:** 35 productos
-- **Inventario:**
-    - 10 Ganocafé 3 en 1
-    - 10 Ganocafé Classic
-    - 2 Ganorico Shoko Rico
-    - 1 Gano C'Real Spirulina
-    - 1 Reskine Collagen Drink
-    - 1 Gano Fresh Toothpaste
-    - 1 Gano Transparent Soap
-    - 1 Piel&Brillo Acondicionador
-    - 1 Piel&Brillo Shampoo
-    - 1 Piel&Brillo Exfoliante
-    - 1 Gano Soap (2/pkg)
-    - 1 Ganorico Latte Rico
-    - 1 Ganorico Mocha Rico
-    - 1 Oleaf Gano Rooibos Drink
-    - 1 Excellium Cápsulas
-    - 1 Ganoderma Cápsulas
+---
 
-*Nota Importante: La composición de los Paquetes Ejecutivos de Éxito está sujeta a la disponibilidad de inventario. Última actualización: 12 Noviembre 2025.*
+### SIST_11a: "¿Qué trae el Paquete Inicial (ESP-1)?"
+**[Detalle ESP-1 - 7 productos]**
+
+| Producto | Cant |
+|----------|------|
+| Ganocafé 3 en 1 | 1 |
+| Ganocafé Clásico | 1 |
+| Ganorico Shoko Rico | 1 |
+| Ganorico Latte Rico | 1 |
+| Ganorico Mocha Rico | 1 |
+| Piel&Brillo Exfoliante | 1 |
+| Gano Soap (2/pkg) | 1 |
+| **Total** | **7** |
+
+Ideal para probar el sistema y conocer los productos.
+
+---
+
+### SIST_11b: "¿Qué trae el Paquete Empresarial (ESP-2)?"
+**[Detalle ESP-2 - 18 productos]**
+
+| Producto | Cant |
+|----------|------|
+| Ganocafé 3 en 1 | 4 |
+| Ganocafé Classic | 3 |
+| Ganorico Shoko Rico | 1 |
+| Ganorico Latte Rico | 1 |
+| Ganorico Mocha Rico | 1 |
+| Gano C'Real Spirulina | 1 |
+| Reskine Collagen Drink | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Gano Transparent Soap | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Piel&Brillo Shampoo | 1 |
+| Piel&Brillo Acondicionador | 1 |
+| Piel&Brillo Exfoliante | 1 |
+| **Total** | **18** |
+
+Base sólida para construir con variedad de productos.
+
+---
+
+### SIST_11c: "¿Qué trae el Paquete Visionario (ESP-3)?"
+**[Detalle ESP-3 - 35 productos]**
+
+| Producto | Cant |
+|----------|------|
+| Ganocafé 3 en 1 | 10 |
+| Ganocafé Classic | 10 |
+| Ganorico Shoko Rico | 2 |
+| Ganorico Latte Rico | 1 |
+| Ganorico Mocha Rico | 1 |
+| Gano C'Real Spirulina | 1 |
+| Reskine Collagen Drink | 1 |
+| Oleaf Gano Rooibos Drink | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Gano Transparent Soap | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Piel&Brillo Shampoo | 1 |
+| Piel&Brillo Acondicionador | 1 |
+| Piel&Brillo Exfoliante | 1 |
+| Excellium Cápsulas | 1 |
+| Ganoderma Cápsulas | 1 |
+| **Total** | **35** |
+
+Máxima velocidad: incluye suplementos y mayor volumen de bebidas.
+
+*Nota: Composición sujeta a disponibilidad. Actualización: Nov 2025.*
 
 ---
 
@@ -1276,8 +1296,10 @@ El **Auto Envío** es un programa de lealtad diseñado para los constructores qu
 #### ¿Cómo funciona?
 Para recibir el beneficio, debes mantener tu suscripción de **Auto Envío "Activa" durante cuatro (4) meses consecutivos**. Al cumplir este ciclo, recibes un producto gratis con tu cuarto Auto Envío, basado en el siguiente modelo:
 
-- **Nivel 1 (50 a 99 PV)**: Si tu Auto Envío mensual es de **50 a 99 PV**, recibirás **un (1) producto gratis** valorado entre **$73.000 y $78.500**.
-- **Nivel 2 (100 PV o más)**: Si tu Auto Envío es de **100 PV o más**, recibirás **un (1) producto gratis** valorado entre **$110.900 y $124.900**.
+| Nivel | PV mensual | Producto gratis |
+|-------|------------|-----------------|
+| 1 | 50-99 PV | $73,000-$78,500 |
+| 2 | 100+ PV | $110,900-$124,900 |
 
 #### Puntos a Considerar
 - El producto de obsequio es seleccionado por Gano Excel a su discrecionalidad, según la disponibilidad de inventario.
@@ -1400,8 +1422,10 @@ Después de tu período promocional, el porcentaje base es **10%**.
 
 Tienes **dos formas** de mejorar este porcentaje:
 
-1. **Alcanzando rangos en la compañía** (Bronce 11%, Plata 12%, Oro 13%, Platino 14%, Diamante 15%)
-2. **Comprando nuevamente un paquete empresarial ESP-3** (te da 15% por 6 meses adicionales)
+| Opción | Cómo | Porcentaje |
+|--------|------|------------|
+| Rangos | Bronce→Plata→Oro→Platino→Diamante | 11%→12%→13%→14%→15% |
+| Recompra ESP-3 | Nuevo paquete empresarial | 15% por 6 meses |
 
 **Pregunta de seguimiento:** ¿Te gustaría saber más sobre alguna de estas opciones?
 
@@ -1412,11 +1436,13 @@ Tienes **dos formas** de mejorar este porcentaje:
 
 **Proyección mensual al 17%:**
 
-• 10 personas cada lado → $88 USD/mes
-• 100 personas cada lado → $884 USD/mes
-• 200 personas cada lado → $1,768 USD/mes
-• 300 personas cada lado → $2,652 USD/mes
-• 1,000 personas cada lado → $8,840 USD/mes
+| Personas/lado | USD/mes |
+|---------------|---------|
+| 10 | $88 |
+| 100 | $884 |
+| 200 | $1,768 |
+| 300 | $2,652 |
+| 1,000 | $8,840 |
 
 ---
 
@@ -1553,13 +1579,13 @@ No compiten, se suman. Estrategia óptima:
 
 Para cobrar el Bono Binario debes estar **"Binario Calificado"** cada semana.
 
-| # | Requisito | Valor |
-|---|-----------|-------|
-| 1 | PV Personal | 50/mes |
-| 2 | Inscritos activos | 2 (uno cada lado, 50 PV c/u) |
-| 3 | CV para compensar | 100/semana |
+| Requisito | Valor |
+|-----------|-------|
+| PV Personal | 50 PV |
+| Inscritos activos | 1 en cada lado |
+| CV para compensar | mínimo 100 CV |
 
-Se paga el **viernes**.
+Se paga los días **viernes**.
 
 ---
 
@@ -1585,14 +1611,11 @@ Ahora bien, es cierto: más gente activa estadísticamente significa más consum
 
 Esa es la pregunta más honesta que puedes hacer. La respuesta es: depende de la estructura que construyas, no del tiempo que inviertas.
 
-**Primeros 3 meses:**
-Constructores que ejecutan consistentemente el método generan $300-1,000 USD mensuales. Compruebas que el sistema funciona.
-
-**De 6 a 12 meses:**
-Con una base sólida construida, el rango típico es $1,500-5,000 USD mensuales. Tu activo entra en crecimiento exponencial.
-
-**Año 2 en adelante:**
-Constructores que desarrollan liderazgo y construyen equipos sólidos pueden alcanzar $10,000+ USD mensuales de forma residual.
+| Período | Rango típico | Etapa |
+|---------|--------------|-------|
+| 0-3 meses | $300-1,000/mes | Compruebas que funciona |
+| 6-12 meses | $1,500-5,000/mes | Crecimiento exponencial |
+| Año 2+ | $10,000+/mes | Ingreso residual |
 
 Estas no son promesas, son referencias basadas en constructores que han ejecutado el método consistentemente. Tu resultado depende de tu consistencia, no de tu talento inicial.
 
@@ -1624,9 +1647,11 @@ El éxito ama la velocidad, y nuestro sistema está diseñado para generarla. Ba
 
 Si compartes el proyecto con 10 personas, la estadística muestra un patrón claro:
 
-- **3 de ellos** suelen activarse esa misma semana, generando tus primeros ingresos.
-- **5 de ellos** se convierten en consumidores inmediatos, formando la base de tu canal de distribución.
-- Los **2 restantes** son más analíticos; investigan por varias semanas y cuando deciden activarse, lo hacen con convicción total, convirtiéndose en pilares de tu negocio.
+| Perfil | Cantidad | Resultado |
+|--------|----------|-----------|
+| Activación rápida | 3 | Primeros ingresos esa semana |
+| Consumidores | 5 | Base de tu canal |
+| Analíticos | 2 | Pilares del negocio (deciden después) |
 
 **Pregunta de seguimiento:** ¿Te sientes más identificado con el perfil de activación rápida o con el analítico?
 
@@ -1639,9 +1664,11 @@ Nuestro sistema no está diseñado para convencer a todos; está diseñado para 
 
 Cuando compartes el proyecto con 5 personas cualificadas, el patrón suele ser el siguiente:
 
-- **1 o 2 de ellos** son "pioneros". Reconocen la oportunidad de inmediato y se activan.
-- **2 o 3 son "analíticos"**. Validan, investigan y se activan en los siguientes 45 días, a menudo convirtiéndose en los constructores más sólidos.
-- **1 de ellos** usualmente no se activa, lo que confirma que no tenía la mentalidad que buscamos.
+| Perfil | Cantidad | Comportamiento |
+|--------|----------|----------------|
+| Pioneros | 1-2 | Se activan de inmediato |
+| Analíticos | 2-3 | Validan y activan en 45 días |
+| No encajan | 1 | No tienen la mentalidad |
 
 Nuestro sistema no es un filtro de ventas, es un filtro de mentalidad.
 
@@ -1781,9 +1808,11 @@ Esa es la respuesta de una persona inteligente que toma decisiones estratégicas
 
 Lo que sí es importante que sepas es que el programa Fundadores tiene una ventana de oportunidad única estructurada en 3 fases:
 
-- **Lista Privada (10 Nov 2025 - 04 Ene 2026):** Construcción de la base de 150 Fundadores élite
-- **Pre-Lanzamiento (05 Ene - 01 Mar 2026):** Los 150 Fundadores actúan como MENTORES de 150 nuevos constructores cada uno (22,500 total)
-- **Lanzamiento Público (02 Mar 2026):** Apertura masiva con objetivo de 4 millones en América
+| Fase | Período | Objetivo |
+|------|---------|----------|
+| Lista Privada | 10 Nov - 04 Ene | 150 Fundadores élite |
+| Pre-Lanzamiento | 05 Ene - 01 Mar | 22,500 constructores (150×150) |
+| Lanzamiento | 02 Mar 2026 | 4M+ en América |
 
 Estamos en la fase de Lista Privada. Durante esta ventana tienes la oportunidad de posicionarte como uno de los 150 Fundadores antes del lanzamiento masivo.
 

@@ -64,8 +64,6 @@ export const Reto12DiasConfirmationEmail = ({
             .heading-main { font-size: 28px !important; }
             .heading-card { font-size: 18px !important; }
             .text-body { font-size: 15px !important; line-height: 24px !important; }
-            .button { width: 100% !important; text-align: center !important; padding: 16px 24px !important; }
-            .button-secondary { width: 100% !important; text-align: center !important; }
             .footer-text { font-size: 11px !important; }
             .package-label { font-size: 12px !important; }
             .package-value { font-size: 16px !important; }
@@ -267,52 +265,61 @@ export const Reto12DiasConfirmationEmail = ({
 
           </Section>
 
-          {/* CTA principal - botón limpio y bien proporcionado */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
-            <Button
-              className="button"
-              href="https://creatuactivo.com"
-              style={{
-                backgroundColor: colors.accent,
-                color: colors.bg,
-                padding: '14px 32px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '15px',
-                display: 'inline-block'
-              }}
-            >
-              Hablar con NEXUS
-            </Button>
-          </Section>
+          {/* CTA principal - tabla para centrado garantizado en móvil */}
+          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
+            <tr>
+              <td align="center">
+                <Button
+                  href="https://creatuactivo.com"
+                  style={{
+                    backgroundColor: colors.accent,
+                    color: colors.bg,
+                    padding: '14px 32px',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '15px'
+                  }}
+                >
+                  Hablar con NEXUS
+                </Button>
+              </td>
+            </tr>
+          </table>
 
-          {/* Enlaces secundarios - discretos */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '32px' }}>
-            <Link
-              className="button-secondary"
-              href="https://creatuactivo.com/ecosistema"
-              style={{
-                color: colors.textMuted,
-                fontSize: '14px',
-                textDecoration: 'none',
-                marginRight: '16px'
-              }}
-            >
-              Explorar Ecosistema →
-            </Link>
-            <Link
-              className="button-secondary"
-              href="https://creatuactivo.com/sistema/productos"
-              style={{
-                color: colors.textMuted,
-                fontSize: '14px',
-                textDecoration: 'none'
-              }}
-            >
-              Ver Productos →
-            </Link>
-          </Section>
+          {/* Enlaces secundarios - separados verticalmente para móvil */}
+          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '32px' }}>
+            <tr>
+              <td align="center" style={{ paddingBottom: '16px' }}>
+                <Link
+                  href="https://creatuactivo.com/ecosistema"
+                  style={{
+                    color: colors.textMuted,
+                    fontSize: '14px',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: '3px'
+                  }}
+                >
+                  Explorar Ecosistema →
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <Link
+                  href="https://creatuactivo.com/sistema/productos"
+                  style={{
+                    color: colors.textMuted,
+                    fontSize: '14px',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: '3px'
+                  }}
+                >
+                  Ver Productos →
+                </Link>
+              </td>
+            </tr>
+          </table>
 
           {/* Firma simple */}
           <Section style={{ marginBottom: '32px' }}>

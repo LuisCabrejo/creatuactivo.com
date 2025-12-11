@@ -1,30 +1,28 @@
 #!/usr/bin/env node
 
 /**
- * Script para aplicar arsenal_inicial.txt (Jobs-Style v9.0) a Supabase
- * Fecha: 20 Noviembre 2025
- * Versión: Jobs-Style v9.0
+ * Script para desplegar arsenal_inicial.txt a Supabase
+ * Fecha: 8 Diciembre 2025
+ * Versión: v10.2 HÍBRIDO
  */
 
 import { createClient } from '@supabase/supabase-js';
-import fs from 'fs';
+import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Leer variables de entorno desde .env.local en la raíz
+// Cargar .env.local manualmente
 const envPath = join(__dirname, '..', '.env.local');
-const envContent = fs.readFileSync(envPath, 'utf8');
+const envContent = readFileSync(envPath, 'utf-8');
 const envVars = {};
 
 envContent.split('\n').forEach(line => {
-  const match = line.match(/^([^=]+)=(.+)$/);
+  const match = line.match(/^([^=]+)=(.*)$/);
   if (match) {
-    const key = match[1].trim();
-    const value = match[2].trim().replace(/^["']|["']$/g, '');
-    envVars[key] = value;
+    envVars[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
   }
 });
 
@@ -33,36 +31,29 @@ const supabase = createClient(
   envVars.SUPABASE_SERVICE_ROLE_KEY
 );
 
-async function aplicarArsenalInicial() {
-  console.log('📤 Aplicando arsenal_inicial.txt (Jobs-Style v9.0) a Supabase...\n');
+async function deployArsenalInicial() {
+  console.log('📤 Desplegando arsenal_inicial.txt a Supabase...\n');
 
   // Leer archivo arsenal_inicial.txt
   const arsenalPath = join(__dirname, '..', 'knowledge_base', 'arsenal_inicial.txt');
-  const fileContent = fs.readFileSync(arsenalPath, 'utf8');
-
-  // Extraer contenido entre comillas del UPDATE
-  const contentMatch = fileContent.match(/content = '([\s\S]+)'\s*,?\s*updated_at/);
-  if (!contentMatch) {
-    console.error('❌ No se pudo extraer el contenido del archivo');
-    console.error('Nota: Asegúrate de que el archivo tiene formato SQL UPDATE con content = \'...\' ');
-    process.exit(1);
-  }
-
-  const content = contentMatch[1];
+  const content = readFileSync(arsenalPath, 'utf8');
 
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
-  console.log('📌 Actualizando documento UUID: 2c3e3a8b-f75e-4c78-8bb2-630c7d8b60a7');
-  console.log('📌 Título: Arsenal Inicial - Jobs-Style v9.0\n');
 
-  // Actualizar en Supabase
+  // Extraer versión
+  const versionMatch = content.match(/v([\d.]+)\s+HÍBRIDO/);
+  const version = versionMatch ? versionMatch[1] : 'unknown';
+  console.log('📌 Versión detectada:', version);
+
+  // Actualizar en Supabase por categoría
   const { data, error } = await supabase
     .from('nexus_documents')
     .update({
-      title: 'Arsenal Inicial - Jobs-Style v9.0',
+      title: `Arsenal Inicial v${version} HÍBRIDO`,
       content: content,
       updated_at: new Date().toISOString()
     })
-    .eq('id', '2c3e3a8b-f75e-4c78-8bb2-630c7d8b60a7')
+    .eq('category', 'arsenal_inicial')
     .select();
 
   if (error) {
@@ -70,55 +61,51 @@ async function aplicarArsenalInicial() {
     process.exit(1);
   }
 
-  console.log('✅ Arsenal Inicial actualizado exitosamente\n');
-  console.log('📌 Updated at:', data[0].updated_at);
-  console.log('📌 Content length:', data[0].content.length, 'caracteres\n');
+  if (!data || data.length === 0) {
+    console.log('⚠️  No se encontró documento con category=arsenal_inicial');
+    console.log('   Intentando insertar nuevo documento...');
+
+    const { data: insertData, error: insertError } = await supabase
+      .from('nexus_documents')
+      .insert({
+        category: 'arsenal_inicial',
+        title: `Arsenal Inicial v${version} HÍBRIDO`,
+        content: content
+      })
+      .select();
+
+    if (insertError) {
+      console.error('❌ Error al insertar:', insertError);
+      process.exit(1);
+    }
+
+    console.log('✅ Documento insertado exitosamente');
+    console.log('📌 ID:', insertData[0].id);
+  } else {
+    console.log('\n✅ Arsenal Inicial actualizado exitosamente');
+    console.log('📌 ID:', data[0].id);
+    console.log('📌 Updated at:', data[0].updated_at);
+  }
 
   // Verificaciones
-  console.log('🔍 Verificando cambios Jobs-Style...\n');
+  console.log('\n🔍 Verificando contenido...\n');
 
   const checks = [
-    {
-      name: 'Versión v9.0',
-      pattern: 'v9.0',
-      found: data[0].content.includes('v9.0')
-    },
-    {
-      name: 'Fecha correcta (17 Nov - 30 Nov 2025)',
-      pattern: '17 Nov - 30 Nov 2025',
-      found: data[0].content.includes('17 Nov - 30 Nov 2025')
-    },
-    {
-      name: 'Brand seeding: CreaTuActivo.com presente',
-      pattern: 'CreaTuActivo.com',
-      found: data[0].content.includes('CreaTuActivo.com')
-    },
-    {
-      name: 'Restaurant analogy presente',
-      pattern: 'restaurante',
-      found: data[0].content.includes('restaurante') || data[0].content.includes('Restaurante')
-    },
-    {
-      name: 'Sección WHY_01 presente',
-      pattern: 'WHY_01',
-      found: data[0].content.includes('WHY_01')
-    },
-    {
-      name: 'Terminología: "constructores" (NO "arquitectos")',
-      pattern: 'constructores',
-      found: data[0].content.includes('constructores') && !data[0].content.includes('arquitectos')
-    }
+    { name: 'Versión HÍBRIDO', found: content.includes('HÍBRIDO') },
+    { name: 'WHY_01 presente', found: content.includes('WHY_01') },
+    { name: 'FREQ_03 tabla paquetes', found: content.includes('| Paquete | USD |') },
+    { name: 'FREQ_04 tabla resultados', found: content.includes('| Tiempo | Resultado |') },
+    { name: 'FREQ_06 tabla fases', found: content.includes('| Fase | Fechas |') },
+    { name: 'FREQ_08 tabla Academia', found: content.includes('| Nivel | Enfoque |') },
+    { name: 'FREQ_09 tabla costos', found: content.includes('| Concepto | Costo |') },
+    { name: 'FREQ_11 tabla ganancias', found: content.includes('| Plazo | Tipo |') }
   ];
 
   checks.forEach(check => {
-    if (check.found) {
-      console.log(`✅ ${check.name}`);
-    } else {
-      console.log(`❌ ${check.name}`);
-    }
+    console.log(`${check.found ? '✅' : '❌'} ${check.name}`);
   });
 
   console.log('\n🎉 Proceso completado\n');
 }
 
-aplicarArsenalInicial().catch(console.error);
+deployArsenalInicial().catch(console.error);

@@ -95,8 +95,8 @@ export const Reto12DiasConfirmationEmail = ({
           {/* Logo minimalista */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
             <Img
-              src="https://creatuactivo.com/logo-icon-64.png"
-              width="48"
+              src="https://creatuactivo.com/logo-email-footer-120x48.png"
+              width="120"
               height="48"
               alt="CreaTuActivo"
               style={{ margin: '0 auto', display: 'block' }}

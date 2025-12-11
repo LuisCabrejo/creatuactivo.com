@@ -392,6 +392,14 @@ Supabase → Data persists by fingerprint
 - Test: `curl -X POST https://your-app.vercel.app/api/nexus/producer`
 - Check `nexus_queue` table
 
+**Security (RLS)**:
+All 34 tables have Row Level Security enabled (Dec 2025). To diagnose/fix:
+```bash
+# Run in Supabase SQL Editor
+# Diagnostic: scripts/diagnostico-seguridad-supabase.sql
+# Fix: scripts/fix-rls-seguridad-supabase.sql
+```
+
 ## Important Patterns & Constraints
 
 **Path Aliases** (tsconfig.json):
@@ -433,14 +441,11 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Architecture & Deploy**:
 - [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Queue system deployment
-- [knowledge_base/README.md](knowledge_base/README.md) - Arsenal structure and sync docs (MVP v3.0)
-- [knowledge_base/CONSOLIDACION_ARSENALES_DIC_03_2025.md](knowledge_base/CONSOLIDACION_ARSENALES_DIC_03_2025.md) - Arsenal consolidation (Dec 2025)
-- [HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md](HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md) - Jobs-Style arsenales (Nov 20)
+- [knowledge_base/README.md](knowledge_base/README.md) - Arsenal structure and sync docs
 
 **SEO & Performance**:
 - [GOOGLE_SEARCH_CONSOLE_SETUP.md](GOOGLE_SEARCH_CONSOLE_SETUP.md) - GSC setup
 - [OPTIMIZACIONES_PAGESPEED.md](OPTIMIZACIONES_PAGESPEED.md) - PageSpeed optimizations
-- [DEPLOY_EXITOSO_PAGESPEED.md](DEPLOY_EXITOSO_PAGESPEED.md) - PageSpeed verification
 
 **Video & Media**:
 - [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation
@@ -448,37 +453,41 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Business Logic**:
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter spec
+- [PITCHES_ARQUITECTO_EMPRESARIAL_V3.md](PITCHES_ARQUITECTO_EMPRESARIAL_V3.md) - Sales pitches
+
+**Security**:
+- [scripts/diagnostico-seguridad-supabase.sql](scripts/diagnostico-seguridad-supabase.sql) - RLS diagnostic
+- [scripts/fix-rls-seguridad-supabase.sql](scripts/fix-rls-seguridad-supabase.sql) - RLS fix script
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory
+**Location**: `scripts/` directory (~40 scripts after Dec 2025 cleanup)
 
 **NEXUS Management**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (e.g., v13.9.5)
-- `revertir-system-prompt-v{VERSION}.mjs` - Revert to previous prompt version
+- `actualizar-system-prompt-v13.9.*.mjs` - Versioned update scripts
 
 **Knowledge Base**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
-- `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
 - `deploy-arsenal-compensacion.mjs` - Deploy arsenal_compensacion to Supabase
 - `actualizar-catalogo-productos.mjs` - Update product catalog
-- `actualizar-fechas-prelanzamiento.mjs` - Update launch dates
 - `verificar-arsenal-supabase.mjs` - Verify current version
 - `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
 
 **Embeddings** (Voyage AI):
+- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into 108 individual chunks with embeddings
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
-- `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
-- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks (108 fragments)
+
+**Security**:
+- `diagnostico-seguridad-supabase.sql` - Check RLS status on all tables
+- `fix-rls-seguridad-supabase.sql` - Enable RLS and create policies
 
 **Testing**:
 - `test-contador-cupos.mjs` - Test founder counter (15 scenarios)
-- `verificar-esquema-completo.mjs` - Verify database schema
 
 **Video**:
 - `optimize-video.sh` - Optimize to multiple resolutions (requires FFmpeg)
 - `upload-to-blob.mjs` - Upload to Vercel Blob
 
-**Note**: Most scripts require `.env.local` variables.
+**Note**: Most scripts require `.env.local` variables. Run `ls scripts/` for full list.

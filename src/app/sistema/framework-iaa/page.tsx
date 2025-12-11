@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Users, Target, ArrowRight, Check, X } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
@@ -75,7 +76,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Pestaña para el Framework (Sin cambios) ---
-const FrameworkTab = ({ phase, title, icon, color, isActive, onClick }) => (
+const FrameworkTab = ({ title, icon, color, isActive, onClick }: { title: string; icon: React.ReactNode; color: string; isActive: boolean; onClick: () => void }) => (
     <button
         onClick={onClick}
         className={`flex-1 p-4 md:p-6 text-center rounded-t-lg border-b-4 transition-all duration-300 ${
@@ -91,7 +92,8 @@ const FrameworkTab = ({ phase, title, icon, color, isActive, onClick }) => (
 
 // --- Componente Principal de la Página del Framework IAA (ACTUALIZADO) ---
 export default function FrameworkIAAPage() {
-    const [activeTab, setActiveTab] = useState('iniciar');
+    const isHydrated = useHydration()
+    const [activeTab, setActiveTab] = useState<'iniciar' | 'acoger' | 'activar'>('iniciar');
 
     const frameworkContent = {
         iniciar: {
@@ -136,7 +138,7 @@ export default function FrameworkIAAPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <div className="inline-block bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-blue-500/30">
                                 3 Pasos Simples
                             </div>

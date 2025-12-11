@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, BrainCircuit, Zap, Server, Check } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -75,7 +76,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Tecnología ---
-const TechCard = ({ icon, title, description, children }) => (
+const TechCard = ({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) => (
     <div className="creatuactivo-component-card p-8 md:p-12 h-full">
         <div className="flex items-center gap-4 mb-4">
             <div className="bg-slate-800/50 p-4 rounded-xl">
@@ -94,6 +95,7 @@ const TechCard = ({ icon, title, description, children }) => (
 
 // --- Componente Principal de la Página de Tecnología ---
 export default function TecnologiaPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -107,7 +109,7 @@ export default function TecnologiaPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
                                 La Ventaja Tecnológica.
                             </h1>

@@ -14,6 +14,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle, Zap, Target, Users, TrendingUp, Award, Calendar, Sparkles, MessageCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales ---
 const GlobalStyles = () => (
@@ -75,6 +76,7 @@ const GlobalStyles = () => (
 
 // --- Componente Principal ---
 export default function FundadoresNetworkPage() {
+  const isHydrated = useHydration()
   const [formStep, setFormStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
@@ -141,7 +143,7 @@ export default function FundadoresNetworkPage() {
         <main className="relative z-10 p-4 lg:p-8">
           {/* Hero Section */}
           <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-32">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <div className="inline-block px-6 py-2 bg-purple-500/20 border border-purple-500/30 rounded-full mb-8">
                 <p className="text-purple-300 font-semibold text-sm">Para Networkers Profesionales</p>
               </div>
@@ -174,7 +176,7 @@ export default function FundadoresNetworkPage() {
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start gap-3">
                       <span className="text-green-400 font-bold">✓</span>
-                      <span>Producto con tecnología propietaria (Gano Excel, 30+ años)</span>
+                      <span>Producto con fórmula exclusiva (Gano Excel, 30+ años)</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-green-400 font-bold">✓</span>

@@ -34,6 +34,7 @@ export const useSlidingViewport = (
   registerNode: (messageId: string) => (node: HTMLElement | null) => void;
   isUserScrolling: boolean;
   scrollToLatest: () => void;
+  messageCount: number;
 } => {
   const [offset, setOffset] = useState(0);
   const [isUserScrolling, setIsUserScrolling] = useState(false);

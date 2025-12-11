@@ -226,7 +226,7 @@ function EcosistemaContent() {
               <ComponentCard
                 icon={<Package size={48} />}
                 title="1. Gano Excel"
-                description="Productos únicos con tecnología propietaria. Nadie más puede venderlos."
+                description="Productos únicos con fórmula exclusiva. Nadie más puede venderlos."
               />
               <ComponentCard
                 icon={<Smartphone size={48} />}
@@ -440,7 +440,7 @@ function EcosistemaContent() {
             <div className="space-y-4">
               <FAQItem
                 question="¿Qué productos distribuyo?"
-                answer="Productos de salud de Gano Excel: café, té y suplementos con Ganoderma (un hongo medicinal con tecnología propietaria). Son productos que la gente compra cada mes."
+                answer="Productos de salud de Gano Excel: café, té y suplementos con Ganoderma (un hongo medicinal con fórmula exclusiva). Son productos que la gente compra cada mes."
               />
               <FAQItem
                 question="¿Necesito experiencia en ventas?"

@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { Globe, ShieldCheck, Zap, BrainCircuit, GitBranch, Award } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -110,9 +111,9 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Cabecera de Página ---
-const PageHeader = ({ title, subtitle }) => (
+const PageHeader = ({ title, subtitle, isHydrated }: { title: string, subtitle: string, isHydrated: boolean }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={isHydrated ? { opacity: 0, y: 20 } : false}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
     className="text-center max-w-4xl mx-auto pt-20 pb-16"
@@ -127,7 +128,7 @@ const PageHeader = ({ title, subtitle }) => (
 );
 
 // --- Componente de Tarjeta de Pilar ---
-const PillarCard = ({ icon, title, children }) => (
+const PillarCard = ({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) => (
   <div className="creatuactivo-ecosystem-card p-8 h-full">
     <div className="flex items-center gap-4 mb-6">
       <div className="bg-[var(--creatuactivo-gold)]/20 p-3 rounded-lg">
@@ -143,6 +144,7 @@ const PillarCard = ({ icon, title, children }) => (
 
 // --- Componente Principal de la Página del Socio Corporativo ---
 export default function SocioCorporativoPage() {
+  const isHydrated = useHydration()
   return (
     <>
       <GlobalStyles />
@@ -160,6 +162,7 @@ export default function SocioCorporativoPage() {
           <PageHeader
             title="El Motor de la Nueva Categoría"
             subtitle="Un ecosistema tecnológico tan avanzado necesita un motor de valor igual de robusto, probado y, sobre todo, único. Esa base es nuestro socio corporativo: Gano Excel."
+            isHydrated={isHydrated}
           />
 
           {/* --- Sección de Pilares --- */}
@@ -180,7 +183,7 @@ export default function SocioCorporativoPage() {
               title="Pilar de Unicidad"
             >
               <p>Esta es nuestra ventaja competitiva más profunda. Gano Excel protege su proceso de extracción mediante <span className="font-semibold text-white">secretos industriales</span>, produciendo un extracto de Ganoderma lucidum 100% soluble que nadie más puede replicar exactamente.</p>
-              <p>Como constructor, no distribuyes un producto genérico; construyes tu activo sobre tecnología propietaria única. Eliminas la competencia y te posicionas en una categoría propia desde el día uno.</p>
+              <p>Como constructor, no distribuyes un producto genérico; construyes tu activo sobre fórmula exclusiva única. Eliminas la competencia y te posicionas en una categoría propia desde el día uno.</p>
             </PillarCard>
           </section>
 

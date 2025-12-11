@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, GraduationCap, Zap, Users, Target, Award, BarChart3, Check } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -75,7 +76,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Ruta de Aprendizaje ---
-const LearningPathCard = ({ level, title, description, modules, icon, color }: any) => (
+const LearningPathCard = ({ level, title, description, modules, icon, color }: { level: string; title: string; description: string; modules: string[]; icon: React.ReactNode; color: string }) => (
     <div className="creatuactivo-component-card p-8 h-full">
         <div className="flex items-center gap-4 mb-4">
             <div className={`inline-block bg-${color}-500/10 p-3 rounded-xl`}>
@@ -100,6 +101,7 @@ const LearningPathCard = ({ level, title, description, modules, icon, color }: a
 
 // --- Componente Principal de la Página de la Academia ---
 export default function AcademiaPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -112,7 +114,7 @@ export default function AcademiaPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="text-center max-w-4xl mx-auto pt-20 pb-20 lg:pb-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <div className="inline-block bg-indigo-500/10 text-indigo-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-indigo-500/30">
                                 El Ecosistema de Crecimiento
                             </div>

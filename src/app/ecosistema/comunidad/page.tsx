@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Users, Mic, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -83,7 +84,7 @@ const communityMembers = [
 ];
 
 // --- Componente de Tarjeta de Testimonio ---
-const TestimonialCard = ({ member }) => (
+const TestimonialCard = ({ member }: { member: { name: string; role: string; story: string; img: string } }) => (
     <div className="creatuactivo-component-card p-6 h-full flex flex-col">
         <p className="text-slate-300 italic flex-grow">"{member.story}"</p>
         <div className="mt-4 flex items-center gap-4 pt-4 border-t border-white/10">
@@ -98,6 +99,7 @@ const TestimonialCard = ({ member }) => (
 
 // --- Componente Principal de la Página de la Comunidad ---
 export default function ComunidadPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -110,7 +112,7 @@ export default function ComunidadPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="text-center max-w-4xl mx-auto pt-20 pb-20 lg:pb-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <div className="inline-block bg-teal-500/10 text-teal-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-teal-500/30">
                                 El Ecosistema Humano
                             </div>

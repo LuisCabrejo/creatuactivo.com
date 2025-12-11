@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, HelpCircle, ChevronDown, Crown, Zap, Rocket } from 'lucide-react' // NUEVO: Se añaden Zap y Rocket
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Sin cambios) ---
 const GlobalStyles = () => (
@@ -67,7 +68,7 @@ const GlobalStyles = () => (
 
 // --- Componente de Tarjeta de Paquete (Branding v4.2 - ACTUALIZADO) ---
 // AJUSTE: Se elimina 'recommended' y se añaden props para el bono tecnológico
-const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPlan, bonusIcon, ctaText = "Seleccionar Plan" }) => (
+const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPlan, bonusIcon, ctaText = "Seleccionar Plan" }: { title: string; priceUSD: string; priceCOP: string; features: string[]; bonusMonths: number; bonusPlan: string; bonusIcon: React.ReactNode; ctaText?: string }) => (
     <div className="creatuactivo-package-card h-full flex flex-col">
         <div className="p-8 flex-grow flex flex-col">
             <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
@@ -106,7 +107,7 @@ const PackageCard = ({ title, priceUSD, priceCOP, features, bonusMonths, bonusPl
 );
 
 // --- Componente para Preguntas Frecuentes (FAQ - Sin cambios) ---
-const FaqItem = ({ question, answer }) => {
+const FaqItem = ({ question, answer }: { question: string; answer: string }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
         <div className="border-b border-white/10">
@@ -135,6 +136,7 @@ const FaqItem = ({ question, answer }) => {
 
 // --- Componente Principal de la Página de Paquetes (ACTUALIZADO) ---
 export default function PaquetesPage() { // AJUSTE: Nombre del componente para mayor claridad
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -149,7 +151,7 @@ export default function PaquetesPage() { // AJUSTE: Nombre del componente para m
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="text-center max-w-4xl mx-auto py-20 lg:py-28 pt-20">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={isHydrated ? { opacity: 0, y: 20 } : false}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >

@@ -31,6 +31,7 @@ import {
   Laptop
 } from 'lucide-react'
 import Link from 'next/link'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos Globales ---
 const GlobalStyles = () => (
@@ -238,6 +239,7 @@ const TimelineItem = ({ quarter, title, budget, goals }: { quarter: string, titl
 
 // --- Componente Principal ---
 export default function PresentacionInversionistasPage() {
+  const isHydrated = useHydration()
   const [teamSize, setTeamSize] = useState(50);
   const [weeklyIncome, setWeeklyIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
@@ -269,7 +271,7 @@ export default function PresentacionInversionistasPage() {
           {/* Hero Section */}
           <section className="mb-20">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={isHydrated ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >

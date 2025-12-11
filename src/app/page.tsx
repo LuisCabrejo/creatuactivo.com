@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Home Page v6.3.1 - Hotfix
- * Corrección: Eliminado conflicto de nombre 'Star' y aplicado estilo H1 Ecosystem.
+ * Home Page v6.3.2 - Hydration Fix
+ * Corrección: Fix animación Hero que no aparecía en primera carga (useHydration).
  */
 
 'use client'
@@ -24,6 +24,7 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 import AnimatedCountUp from '@/components/AnimatedCountUp'
 import AnimatedTimeline from '@/components/AnimatedTimeline'
 import IncomeComparisonAnimation from '@/components/IncomeComparisonAnimation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- ESTILOS GLOBALES ---
 const GlobalStyles = () => (
@@ -88,6 +89,8 @@ const ComparisonRow = ({ label, oldWay, newWay }: { label: string, oldWay: strin
 );
 
 export default function HomePage() {
+  const isHydrated = useHydration()
+
   return (
     <>
       <GlobalStyles />
@@ -101,7 +104,7 @@ export default function HomePage() {
 
           <div className="container mx-auto px-4 relative z-10 text-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={isHydrated ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="max-w-4xl mx-auto"

@@ -20,6 +20,7 @@ import { AnimatedStatCard } from '@/components/AnimatedCountUp'
 import AnimatedValueStack from '@/components/AnimatedValueStack'
 import AnimatedTimeline from '@/components/AnimatedTimeline'
 import IncomeComparisonAnimation from '@/components/IncomeComparisonAnimation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales ---
 const GlobalStyles = () => (
@@ -348,6 +349,7 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
 
 // --- Componente Principal ---
 export default function PresentacionEmpresarialPage() {
+  const isHydrated = useHydration()
   const [teamSize, setTeamSize] = useState(100);
   const [monthlyIncomeUSD, setMonthlyIncomeUSD] = useState(0);
   const [monthlyIncomeCOP, setMonthlyIncomeCOP] = useState(0);
@@ -394,7 +396,7 @@ export default function PresentacionEmpresarialPage() {
           {/* SECCIÓN 1: HERO (Analogía Waze/Netflix) */}
           <section className="max-w-6xl mx-auto mb-24 lg:mb-32">
              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+                <motion.div initial={isHydrated ? { opacity: 0, x: -30 } : false} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-bold uppercase tracking-wider mb-6">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Evolución Tecnológica
                     </div>
@@ -430,7 +432,7 @@ export default function PresentacionEmpresarialPage() {
 
                 {/* Visual Hero: Comparativa */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={isHydrated ? { opacity: 0, scale: 0.9 } : false}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative"

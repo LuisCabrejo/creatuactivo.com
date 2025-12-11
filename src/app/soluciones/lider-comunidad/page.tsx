@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { Check, Zap, BrainCircuit, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -75,7 +76,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Contraste ---
-const ContrastCard = ({ title, items, isNewWorld = false }) => (
+const ContrastCard = ({ title, items, isNewWorld = false }: { title: string; items: string[]; isNewWorld?: boolean }) => (
     <div className={`creatuactivo-component-card p-8 h-full ${isNewWorld ? 'border-[var(--creatuactivo-gold)]' : ''}`}>
         <h3 className={`text-2xl font-bold mb-4 ${isNewWorld ? 'text-[var(--creatuactivo-gold)]' : 'text-slate-400'}`}>{title}</h3>
         <ul className="space-y-3">
@@ -94,6 +95,7 @@ const ContrastCard = ({ title, items, isNewWorld = false }) => (
 
 // --- Componente Principal de la Página de Soluciones para el Líder de Comunidad ---
 export default function LiderComunidadPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -107,7 +109,7 @@ export default function LiderComunidadPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <div className="inline-block bg-teal-500/10 text-teal-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-teal-500/30">
                                 Solución para Líderes de Comunidad
                             </div>

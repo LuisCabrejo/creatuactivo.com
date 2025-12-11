@@ -11,6 +11,7 @@ import { motion } from 'framer-motion'
 import { MapPin, Globe, ArrowRight, Star, Coffee, AlertCircle, Building, CheckCircle, Flag, Gift, PackagePlus, CreditCard, ChevronRight, Eye } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 import Image from 'next/image'
 
 // Enlace de WhatsApp Configurado (Solo para cierre final)
@@ -293,6 +294,7 @@ const GlobalStyles = () => (
 );
 
 export default function BrasilLaunchPage() {
+  const isHydrated = useHydration()
   const [lang, setLang] = useState<'es' | 'pt'>('es');
   const t = content[lang];
 
@@ -318,7 +320,7 @@ export default function BrasilLaunchPage() {
 
           {/* SECCIÓN 1: HERO */}
           <section className="pt-32 pb-10 px-4 text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-5xl mx-auto">
+            <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-5xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
                 <Flag className="w-4 h-4 text-green-400" />
                 <span className="text-sm font-semibold tracking-wider uppercase text-green-400">{t.badge}</span>

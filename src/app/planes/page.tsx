@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { CheckCircle, Zap, BrainCircuit, BarChart3, Rocket, Crown, FileSpreadsheet, Users, School, MessageSquare, Gift } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Actualizados para 4 planes) ---
 const GlobalStyles = () => (
@@ -90,7 +91,7 @@ const PlanCard = ({
   networkSize,
   ctaText = "Activar como Fundador",
   ctaLink = "/fundadores"
-}) => (
+}: { icon: React.ReactNode; title: string; price: string; priceCOP: string; profile: string; features: string[]; recommended?: boolean; free?: boolean; timeLimit: string; networkSize: string; ctaText?: string; ctaLink?: string }) => (
     <div className={`creatuactivo-plan-card h-full flex flex-col ${
       recommended ? 'creatuactivo-plan-card-recommended' :
       free ? 'creatuactivo-plan-card-free' : ''
@@ -161,6 +162,7 @@ const PlanCard = ({
 
 // --- Componente Principal de la Página de Planes Tecnológicos (ACTUALIZADO) ---
 export default function PlanesTecnologicosPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -175,7 +177,7 @@ export default function PlanesTecnologicosPage() {
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="text-center max-w-4xl mx-auto py-20 lg:py-28 pt-20">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={isHydrated ? { opacity: 0, y: 20 } : false}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >

@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, DollarSign, TrendingUp, Award, CheckCircle, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { useHydration } from '@/hooks/useHydration'
 
 // --- Estilos CSS Globales (Desde Guía de Branding v4.2) ---
 const GlobalStyles = () => (
@@ -75,7 +76,7 @@ const GlobalStyles = () => (
 );
 
 // --- Componente de Tarjeta de Fase ---
-const PhaseCard = ({ icon, phase, title, description, incomeTypes }) => (
+const PhaseCard = ({ icon, phase, title, description, incomeTypes }: { icon: React.ReactNode; phase: string; title: string; description: string; incomeTypes: string[] }) => (
     <div className="creatuactivo-component-card p-8 h-full">
         <div className="flex items-center gap-4 mb-4">
             <div className="bg-slate-800/50 p-3 rounded-xl">
@@ -103,6 +104,7 @@ const PhaseCard = ({ icon, phase, title, description, incomeTypes }) => (
 
 // --- Componente Principal de la Página de Modelo de Distribución de Valor ---
 export default function ModeloDeValorPage() {
+    const isHydrated = useHydration()
     return (
         <>
             <GlobalStyles />
@@ -116,7 +118,7 @@ export default function ModeloDeValorPage() {
 
                 <main className="relative z-10 p-4 lg:p-8">
                     <section className="pt-20 text-center max-w-4xl mx-auto py-20 lg:py-28">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
                                 El Modelo de Distribución de Valor.
                             </h1>

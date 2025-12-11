@@ -135,7 +135,7 @@ export const FounderConfirmationEmail = ({
             }}>
 
               {/* Icono premium - Sin emoji que se convierta en imagen */}
-              <table align="center" cellpadding="0" cellspacing="0" border="0" style={{ margin: '0 auto 24px' }}>
+              <table align="center" cellPadding={0} cellSpacing={0} border={0} style={{ margin: '0 auto 24px' }}>
                 <tr>
                   <td style={{
                     width: '64px',

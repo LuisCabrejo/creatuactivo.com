@@ -76,8 +76,9 @@ Three-stage funnel methodology:
 ### 1. NEXUS AI Chatbot
 
 **Key Files**:
-- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Legacy API (backward compatible)
+- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - **PREFERRED** async queue producer
+- [src/lib/vectorSearch.ts](src/lib/vectorSearch.ts) - Voyage AI embeddings + semantic search
 - [src/components/nexus/useNEXUSChat.ts](src/components/nexus/useNEXUSChat.ts) - React hook for chat state
 - [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI container
 - [src/components/nexus/NEXUSFloatingButton.tsx](src/components/nexus/NEXUSFloatingButton.tsx) - Floating chat trigger
@@ -86,10 +87,11 @@ Three-stage funnel methodology:
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Hybrid Document Retrieval** - `clasificarDocumentoHibrido()` routes queries to:
+1. **Fragmented Vector Search** (v14.9) - 108 individual fragments with Voyage AI embeddings (93% token reduction):
    - `arsenal_inicial` - Initial business questions (34 responses)
-   - `arsenal_avanzado` - Objections + System + Value + Escalation (63 responses, consolidated from arsenal_manejo + arsenal_cierre)
-   - `catalogo_productos` - Product catalog
+   - `arsenal_avanzado` - Objections + System + Value + Escalation (63 responses)
+   - `arsenal_compensacion` - Compensation plan + Reto 12 Días (13 responses)
+   - `catalogo_productos` - Product catalog (22 products + science)
 
 2. **Data Capture** - `captureProspectData()` extracts:
    - Personal info (name, email, phone, occupation)
@@ -163,16 +165,13 @@ Usuario → Producer → nexus_queue (INSERT)
 - `search_nexus_documents()` - Semantic search
 - `enqueue_nexus_message()` - Add to queue
 
-**Knowledge Base** (stored in `nexus_documents`):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses: OBJ + SIST + VAL + ESC)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (13 responses: RETO + INV)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
+**Knowledge Base** (stored in `nexus_documents` as 108 fragments):
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses, ~21KB)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses, ~61KB)
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (13 responses, ~14KB)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~18KB)
 
-**Backup files** (not deployed):
-- `arsenal_inicial_v10.2_backup.txt` - Historical version for reference
-
-**Note**: `arsenal_manejo` and `arsenal_cierre` were deprecated and consolidated into `arsenal_avanzado` (Nov 2025).
+**Note**: Arsenales are fragmented into individual chunks with Voyage AI embeddings for semantic search (Dec 2025).
 
 ### 5. Page Structure
 
@@ -254,13 +253,13 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 
 ### Updating NEXUS Knowledge
 
-**Workflow**:
+**Workflow** (Fragmented Architecture v14.9):
 
 1. Edit `.txt` files in `knowledge_base/`:
-   - `arsenal_inicial.txt` - Initial questions
-   - `arsenal_avanzado.txt` - Objections, System, Value, Escalation
-   - `arsenal_compensacion.txt` - Compensation plan, Reto 12 Días
-   - `catalogo_productos.txt` - Product catalog
+   - `arsenal_inicial.txt` - Initial questions (34 responses)
+   - `arsenal_avanzado.txt` - Objections, System, Value, Escalation (63 responses)
+   - `arsenal_compensacion.txt` - Compensation plan, Reto 12 Días (13 responses)
+   - `catalogo_productos.txt` - Product catalog (22 products)
 
 2. Deploy to Supabase via scripts:
    ```bash
@@ -270,11 +269,10 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
    node scripts/actualizar-catalogo-productos.mjs
    ```
 
-3. Or copy manually:
-   - Supabase Dashboard → Table Editor → `nexus_documents`
-   - Find record with matching `category`
-   - Paste content from `.txt` file
-   - Save
+3. Regenerate embeddings (required after content changes):
+   ```bash
+   node scripts/fragmentar-arsenales-voyage.mjs    # Creates 108 fragments with Voyage AI embeddings
+   ```
 
 4. Verify: `node scripts/verificar-arsenal-supabase.mjs`
 
@@ -407,8 +405,9 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `useHydration.tsx` - Prevents hydration mismatches
 - `useTracking.ts` - React wrapper for tracking API
 
-**Shared Libraries**:
+**Shared Libraries** (in `src/lib/`):
 - `branding.ts` - Centralized branding constants
+- `vectorSearch.ts` - Voyage AI embeddings + cosine similarity for semantic search
 
 **Prospect Data Flow**:
 1. Browser → `tracking.js` → RPC `identify_prospect`
@@ -416,7 +415,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Edge Runtime**:
 - All NEXUS API routes use `export const runtime = 'edge'`
-- Configured with `maxDuration = 30` seconds for heavy requests
+- Configured with `maxDuration = 60` seconds for heavy requests (product list queries)
 - Supports streaming responses via `StreamingTextResponse`
 
 **Build-Time Patterns**:
@@ -434,7 +433,8 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Architecture & Deploy**:
 - [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Queue system deployment
-- [CONSOLIDACION_ARSENALES_NOV25.md](CONSOLIDACION_ARSENALES_NOV25.md) - Arsenal consolidation (arsenal_manejo + arsenal_cierre → arsenal_avanzado)
+- [knowledge_base/README.md](knowledge_base/README.md) - Arsenal structure and sync docs (MVP v3.0)
+- [knowledge_base/CONSOLIDACION_ARSENALES_DIC_03_2025.md](knowledge_base/CONSOLIDACION_ARSENALES_DIC_03_2025.md) - Arsenal consolidation (Dec 2025)
 - [HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md](HANDOFF_ARSENALES_JOBS_STYLE_NOV20.md) - Jobs-Style arsenales (Nov 20)
 
 **SEO & Performance**:
@@ -471,6 +471,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Embeddings** (Voyage AI):
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
 - `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
+- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks (108 fragments)
 
 **Testing**:
 - `test-contador-cupos.mjs` - Test founder counter (15 scenarios)

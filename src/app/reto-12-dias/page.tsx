@@ -380,7 +380,7 @@ export default function PresentacionEmpresarial2Page() {
         } else {
           clearInterval(interval);
         }
-      }, 1200); // 1200ms × 11 pasos = ~24 segundos total
+      }, 3000); // 3000ms × 11 pasos = ~33 segundos total
     }
   }, [isChallengeInView]);
 

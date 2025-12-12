@@ -546,21 +546,21 @@ export default function PresentacionEmpresarial2Page() {
                   <div className="mb-4 text-blue-400"><Globe size={32} /></div>
                   <h3 className="text-xl font-bold text-white mb-2">Distribución Masiva</h3>
                   <p className="text-slate-400 text-sm">
-                    Creamos canales por donde fluyen millones de dólares en productos de consumo diario en toda América.
+                    Construyes tu propio canal de distribución de productos Gano Excel. Tú eres el dueño del sistema por donde fluyen millones de dólares en América.
                   </p>
                 </div>
                 <div>
                   <div className="mb-4 text-purple-400"><Database size={32} /></div>
                   <h3 className="text-xl font-bold text-white mb-2">Activo Digital</h3>
                   <p className="text-slate-400 text-sm">
-                    El mercado que construyes queda codificado a tu nombre. Es tuyo. Heredable y vitalicio.
+                    Tu red de distribución queda registrada a tu nombre de forma permanente. Es tu activo: heredable, vitalicio y 100% tuyo.
                   </p>
                 </div>
                 <div>
                   <div className="mb-4 text-green-400"><TrendingUp size={32} /></div>
                   <h3 className="text-xl font-bold text-white mb-2">Ingreso Residual</h3>
                   <p className="text-slate-400 text-sm">
-                    Haces el trabajo bien una vez (construir la red), y cobras cada vez que alguien se toma un café.
+                    Construyes una vez, cobras siempre. Cada vez que alguien en tu red compra su café Gano Excel, tú ganas.
                   </p>
                 </div>
               </div>

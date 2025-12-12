@@ -9,7 +9,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
   Users, TrendingUp, Crown, Rocket, Target, ChevronRight, ChevronDown,
-  DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame,
+  DollarSign, Coffee, Calendar, Zap, Star, Clock, Gift, Flame, Pause,
   Globe, Cpu, Database, CheckCircle, Upload, Send, FileImage, MapPin,
   CreditCard, CheckCircle2, AlertCircle, Camera, FolderOpen
 } from 'lucide-react'
@@ -235,9 +235,10 @@ const StatCard = ({ icon, value, label, sublabel, color = "blue", prefix = "", s
   );
 };
 
-const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay, onClick }: { day: number, action: string, people: number, isActive: boolean, isCompleted: boolean, delay: number, onClick?: () => void }) => {
+const ChallengeDay = ({ day, action, people, isActive, isCompleted, isPaused, delay, onClick }: { day: number, action: string, people: number, isActive: boolean, isCompleted: boolean, isPaused?: boolean, delay: number, onClick?: () => void }) => {
   const getIcon = () => {
     if (isCompleted) return <Star className="w-4 h-4 text-green-400" />;
+    if (isActive && isPaused) return <Pause className="w-4 h-4 text-blue-400" />;
     if (isActive) return <Flame className="w-4 h-4 text-amber-400" />;
     return <Calendar className="w-4 h-4 text-slate-400" />;
   };
@@ -251,10 +252,11 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay, onCli
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
+      title={isActive && isPaused ? 'Pausado - Clic para continuar' : isActive ? 'En progreso - Clic para pausar' : 'Clic para saltar a este día'}
     >
       <div className="flex items-center justify-center gap-1 mb-1">
         {getIcon()}
-        <span className={`text-xs font-bold ${isActive ? 'text-amber-400' : isCompleted ? 'text-green-400' : 'text-slate-400'}`}>
+        <span className={`text-xs font-bold ${isActive && isPaused ? 'text-blue-400' : isActive ? 'text-amber-400' : isCompleted ? 'text-green-400' : 'text-slate-400'}`}>
           DÍA {day}
         </span>
       </div>
@@ -320,6 +322,7 @@ export default function PresentacionEmpresarial2Page() {
 
   // Auto-avance de días (efecto bola de nieve)
   const [animatedDay, setAnimatedDay] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
   const hasAnimatedDaysRef = useRef(false);
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const challengeSectionRef = useRef<HTMLDivElement>(null);
@@ -380,12 +383,24 @@ export default function PresentacionEmpresarial2Page() {
     return 2000; // 2 segundos para días 5-12
   };
 
+  // Función para pausar la animación
+  const pauseAnimation = () => {
+    setIsPaused(true);
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+      animationTimeoutRef.current = null;
+    }
+  };
+
   // Función para reiniciar la animación desde un día específico
   const restartFromDay = (startDay: number) => {
     // Limpiar timeout anterior si existe
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
+
+    // Marcar como no pausado
+    setIsPaused(false);
 
     // Iniciar desde el día seleccionado
     setAnimatedDay(startDay);
@@ -403,6 +418,24 @@ export default function PresentacionEmpresarial2Page() {
     };
 
     scheduleNext();
+  };
+
+  // Manejar clic en un día para pausar/reanudar o saltar
+  const handleDayClick = (clickedDay: number) => {
+    if (clickedDay === animatedDay) {
+      // Clic en el día actual → Toggle pause/play
+      if (isPaused) {
+        // Está pausado → Reanudar desde este día
+        restartFromDay(clickedDay);
+      } else {
+        // Está corriendo → Pausar
+        pauseAnimation();
+      }
+    } else {
+      // Clic en otro día → Saltar a ese día y pausar
+      setAnimatedDay(clickedDay);
+      pauseAnimation();
+    }
   };
 
   // Auto-avance de días cuando la sección entra en viewport
@@ -583,8 +616,9 @@ export default function PresentacionEmpresarial2Page() {
                   people={day.people}
                   isActive={day.day === animatedDay}
                   isCompleted={day.day < animatedDay}
+                  isPaused={day.day === animatedDay && isPaused}
                   delay={index}
-                  onClick={() => restartFromDay(day.day)}
+                  onClick={() => handleDayClick(day.day)}
                 />
               ))}
             </div>

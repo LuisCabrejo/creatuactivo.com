@@ -487,9 +487,7 @@ export default function PresentacionEmpresarial2Page() {
               </h1>
 
               <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
-                <strong className="text-white">12 días. 12 niveles. Una red de 8,190 personas.</strong>
-                <br />
-                Con solo <span className="text-gradient-gold">$443,600 COP</span> de inversión mínima.
+                <strong className="text-white">12 niveles.</strong> Un sistema de distribución masiva de productos Gano Excel puede ser tuyo por solo <span className="text-gradient-gold">$443,600 COP</span> de inversión mínima.
               </p>
 
               {/* Countdown 24 horas - El reto empieza hoy */}
@@ -536,7 +534,7 @@ export default function PresentacionEmpresarial2Page() {
           <section className="max-w-5xl mx-auto mb-24 lg:mb-32 text-center">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-4">¿Qué estamos construyendo?</h2>
-              <p className="text-slate-400 text-lg">No es venta de catálogo. No es repartir café. Es Infraestructura.</p>
+              <p className="text-slate-400 text-lg">La mayoría de los profesionales trabajan muy duro pero no avanzan porque están atrapados cambiando tiempo por dinero. Les damos las llaves para que puedan recuperar su libertad y dejar de preocuparse por las cuentas.</p>
             </div>
 
             <div className="creatuactivo-component-card p-8 lg:p-12 rounded-3xl relative overflow-hidden">
@@ -608,7 +606,7 @@ export default function PresentacionEmpresarial2Page() {
                 <Zap className="w-6 h-6 inline text-amber-400 mr-2" />
                 El Reto de los 12 Días
               </h2>
-              <p className="text-slate-400">Un día = Un nivel. Así de simple.</p>
+              <p className="text-slate-400 max-w-3xl mx-auto">Este es un ejercicio de visualización. Tú decides el ritmo: un nivel por día, por semana o por mes. Lo importante es que mientras construyes, ya estás ganando. Gano Excel paga cada viernes. En tu camino, en el nivel 6 tu ingreso mensual puede ser de $1.5M al 10% o $2.3M al 15%. En el nivel 7, $3.2M al 10% o $4.8M al 15%.</p>
             </div>
 
             <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2 md:gap-3">

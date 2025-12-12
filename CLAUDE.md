@@ -27,6 +27,14 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 
 **IMPORTANT**: TypeScript build errors are ignored (`ignoreBuildErrors: true` in next.config.js). Builds succeed regardless of type errors.
 
+## Reglas Críticas (NO HACER)
+
+- ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
+- ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS
+- ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
+- ❌ **NO hacer commit** de `.env.local`, API keys o secretos
+- ❌ **NO editar** archivos en `knowledge_base/` directamente - son copias de Supabase
+
 ## Critical Git Workflow
 
 **BEFORE any development work**:
@@ -87,10 +95,9 @@ Three-stage funnel methodology:
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) - 108 individual fragments with Voyage AI embeddings (93% token reduction):
+1. **Fragmented Vector Search** (v14.9) - 3 arsenales consolidados con Voyage AI embeddings (93% token reduction):
    - `arsenal_inicial` - Initial business questions (34 responses)
-   - `arsenal_avanzado` - Objections + System + Value + Escalation (63 responses)
-   - `arsenal_compensacion` - Compensation plan + Reto 12 Días (13 responses)
+   - `arsenal_avanzado` - Objections + System + Value + Escalation + Compensation (63 responses)
    - `catalogo_productos` - Product catalog (22 products + science)
 
 2. **Data Capture** - `captureProspectData()` extracts:
@@ -165,13 +172,12 @@ Usuario → Producer → nexus_queue (INSERT)
 - `search_nexus_documents()` - Semantic search
 - `enqueue_nexus_message()` - Add to queue
 
-**Knowledge Base** (stored in `nexus_documents` as 108 fragments):
+**Knowledge Base** (stored in `nexus_documents`, consolidado Dic 2025):
 - `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses, ~21KB)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses, ~61KB)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (13 responses, ~14KB)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~18KB)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~52KB)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
 
-**Note**: Arsenales are fragmented into individual chunks with Voyage AI embeddings for semantic search (Dec 2025).
+**Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
 ### 5. Page Structure
 
@@ -253,25 +259,23 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 
 ### Updating NEXUS Knowledge
 
-**Workflow** (Fragmented Architecture v14.9):
+**Workflow** (Arquitectura Consolidada v3.0 - Dic 2025):
 
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (34 responses)
-   - `arsenal_avanzado.txt` - Objections, System, Value, Escalation (63 responses)
-   - `arsenal_compensacion.txt` - Compensation plan, Reto 12 Días (13 responses)
-   - `catalogo_productos.txt` - Product catalog (22 products)
+   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Compensation (63 responses)
+   - `catalogo_productos.txt` - Product catalog + science (22 products)
 
 2. Deploy to Supabase via scripts:
    ```bash
    node scripts/deploy-arsenal-inicial.mjs
    node scripts/deploy-arsenal-avanzado.mjs
-   node scripts/deploy-arsenal-compensacion.mjs
    node scripts/actualizar-catalogo-productos.mjs
    ```
 
 3. Regenerate embeddings (required after content changes):
    ```bash
-   node scripts/fragmentar-arsenales-voyage.mjs    # Creates 108 fragments with Voyage AI embeddings
+   node scripts/fragmentar-arsenales-voyage.mjs    # Creates fragments with Voyage AI embeddings
    ```
 
 4. Verify: `node scripts/verificar-arsenal-supabase.mjs`
@@ -332,43 +336,23 @@ Returns: Arsenal counts, system prompt version, catalog availability, RPC status
 
 ## Cookie Banner & Consent
 
-**Architecture** (Nov 21, 2025):
+**Arquitectura**: Cookie Banner maneja TODO el UX de consentimiento. NEXUS no menciona consentimiento.
 
-```
-Cookie Banner (Footer) → Handles ALL consent UX
-NEXUS (Chatbot) → System Prompt v17.0 (ZERO consent mentions)
-Backend (route.ts) → Clean flow without interception
-Supabase → Data persists by fingerprint
-```
+**Key File**: [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx)
 
-**Key Files**:
-- [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) - Banner component
-- Supabase `system_prompts` (v17.0_zero_consent_aggressive_clean)
+**Importante**: Ver "Reglas Críticas (NO HACER)" al inicio del documento.
 
-**DO NOT**:
-- ❌ Add consent logic to route.ts
-- ❌ Modify System Prompt to ask for consent
-- ❌ Create consent modals in NEXUS
+## Business Timeline
 
-**DO**:
-- ✅ Modify Cookie Banner UI/text in CookieBanner.tsx
-- ✅ Maintain System Prompt v17.0 without consent
+**Fases del Lanzamiento** (ver fechas actuales en la aplicación):
 
-## Business Critical Dates
+1. **Lista Privada** - 150 Founder spots (Fundadores = MENTORES)
+2. **Pre-Lanzamiento** - 22,500 Constructor spots (150 × 150)
+3. **Lanzamiento Público** - Target: 4M+ users
 
-**Current Timeline** (Dec 2025):
+**Actualizar fechas**: `node scripts/actualizar-fechas-prelanzamiento.mjs`
 
-1. **Lista Privada**: 10 Nov 2025 - 04 Ene 2026 (ACTIVE)
-   - 150 Founder spots
-   - Role: Fundadores = MENTORES
-
-2. **Pre-Lanzamiento**: 05 Ene 2026 - 01 Mar 2026
-   - 22,500 Constructor spots (150 × 150)
-
-3. **Lanzamiento Público**: 02 Mar 2026
-   - Target: 4M+ users (3-7 year goal)
-
-**Update dates**: `node scripts/actualizar-fechas-prelanzamiento.mjs`
+**Nota**: Las fechas exactas están en el código de las landing pages. Consultar [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx) para la fase actual.
 
 ## Deployment
 
@@ -470,13 +454,13 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 **Knowledge Base**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
-- `deploy-arsenal-compensacion.mjs` - Deploy arsenal_compensacion to Supabase
+- `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
 - `actualizar-catalogo-productos.mjs` - Update product catalog
 - `verificar-arsenal-supabase.mjs` - Verify current version
 - `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
 
 **Embeddings** (Voyage AI):
-- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into 108 individual chunks with embeddings
+- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks with embeddings
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
 
 **Security**:

@@ -186,19 +186,40 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* BOTÓN CERRAR MOBILE */}
-          <button
-            className="md:hidden absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-slate-700 backdrop-blur-sm text-white hover:text-red-400 transition-all duration-200 hover:bg-red-500/20 border-2 border-slate-600 hover:border-red-500"
-            onClick={onClose}
+          {/* HEADER MOBILE */}
+          <div
+            className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center border-b border-white/10"
             style={{
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)'
+              background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.6) 0%, rgba(124, 58, 237, 0.6) 100%)'
             }}
-            aria-label="Cerrar asistente NEXUS"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)'
+                }}
+              >
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold text-white text-sm">NEXUS</p>
+                <p className="text-[10px] text-slate-300">por CreaTuActivo.com</p>
+              </div>
+            </div>
+
+            <button
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-700/80 text-white hover:text-red-400 transition-all duration-200 hover:bg-red-500/20 border border-slate-600 hover:border-red-500"
+              onClick={onClose}
+              aria-label="Cerrar asistente NEXUS"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
 
           {/* STATUS BAR */}
           <div className="hidden md:block px-4 py-3 bg-slate-800/40 border-b border-white/5">
@@ -240,7 +261,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               className={`w-full space-y-4 ${
                 isExpanded
                   ? 'p-6'
-                  : 'p-2 md:p-4 pt-12 md:pt-4'
+                  : 'p-2 md:p-4'
               }`}
               style={{
                 // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
@@ -313,7 +334,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       className={`p-2 md:p-3 rounded-lg text-sm transition-all duration-200 ${
                         message.role === 'user'
                           ? 'text-white max-w-[85%] md:max-w-[75%] shadow-lg'
-                          : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20'
+                          : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20 overflow-hidden'
                       }`}
                       style={message.role === 'user' ? {
                         background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',

@@ -393,7 +393,7 @@ export default function PresentacionEmpresarial2Page() {
   };
 
   // Función para reiniciar la animación desde un día específico
-  const restartFromDay = (startDay: number) => {
+  const restartFromDay = (startDay: number, isResume = false) => {
     // Limpiar timeout anterior si existe
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
@@ -405,10 +405,14 @@ export default function PresentacionEmpresarial2Page() {
     // Iniciar desde el día seleccionado
     setAnimatedDay(startDay);
     let currentDay = startDay;
+    let isFirstStep = isResume; // Si es reanudación, el primer paso es rápido (1s)
 
     const scheduleNext = () => {
       if (currentDay < 12) {
-        const delay = getDelayForDay(currentDay);
+        // Si es el primer paso después de reanudar, usar 1 segundo para arranque rápido
+        const delay = isFirstStep ? 1000 : getDelayForDay(currentDay);
+        isFirstStep = false; // Después del primer paso, usar delays normales
+
         animationTimeoutRef.current = setTimeout(() => {
           currentDay++;
           setAnimatedDay(currentDay);
@@ -425,8 +429,8 @@ export default function PresentacionEmpresarial2Page() {
     if (clickedDay === animatedDay) {
       // Clic en el día actual → Toggle pause/play
       if (isPaused) {
-        // Está pausado → Reanudar desde este día
-        restartFromDay(clickedDay);
+        // Está pausado → Reanudar desde este día con primer paso rápido (1s)
+        restartFromDay(clickedDay, true);
       } else {
         // Está corriendo → Pausar
         pauseAnimation();

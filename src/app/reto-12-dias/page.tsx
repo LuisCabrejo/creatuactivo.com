@@ -168,20 +168,20 @@ const totals = {
   bonus17: 175429800,
 };
 
-// Reto de los 12 Días
+// Reto de los 12 Días - Alineado con tabla de proyección binaria 2×2
 const challengeDays = [
-  { day: 1, action: "Tú arrancas", people: 1 },
-  { day: 2, action: "Invitas a 2", people: 2 },
-  { day: 3, action: "Ellos invitan", people: 4 },
-  { day: 4, action: "4 → 8", people: 8 },
-  { day: 5, action: "8 → 16", people: 16 },
-  { day: 6, action: "16 → 32", people: 32 },
-  { day: 7, action: "32 → 64", people: 64 },
-  { day: 8, action: "64 → 128", people: 128 },
-  { day: 9, action: "128 → 256", people: 256 },
-  { day: 10, action: "256 → 512", people: 512 },
-  { day: 11, action: "512 → 1024", people: 1024 },
-  { day: 12, action: "1024 → 2048", people: 2048 },
+  { day: 1, action: "Invitas a 2", people: 2 },
+  { day: 2, action: "Ellos invitan", people: 4 },
+  { day: 3, action: "4 → 8", people: 8 },
+  { day: 4, action: "8 → 16", people: 16 },
+  { day: 5, action: "16 → 32", people: 32 },
+  { day: 6, action: "32 → 64", people: 64 },
+  { day: 7, action: "64 → 128", people: 128 },
+  { day: 8, action: "128 → 256", people: 256 },
+  { day: 9, action: "256 → 512", people: 512 },
+  { day: 10, action: "512 → 1024", people: 1024 },
+  { day: 11, action: "1024 → 2048", people: 2048 },
+  { day: 12, action: "2048 → 4096", people: 4096 },
 ];
 
 const CHALLENGE_START_DATE = new Date('2025-12-11T00:00:00');
@@ -235,7 +235,7 @@ const StatCard = ({ icon, value, label, sublabel, color = "blue", prefix = "", s
   );
 };
 
-const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay }: { day: number, action: string, people: number, isActive: boolean, isCompleted: boolean, delay: number }) => {
+const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay, onClick }: { day: number, action: string, people: number, isActive: boolean, isCompleted: boolean, delay: number, onClick?: () => void }) => {
   const getIcon = () => {
     if (isCompleted) return <Star className="w-4 h-4 text-green-400" />;
     if (isActive) return <Flame className="w-4 h-4 text-amber-400" />;
@@ -246,7 +246,11 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, delay }: { d
       initial={false}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: delay * 0.05 }}
-      className={`day-card p-3 md:p-4 text-center ${isActive ? 'active pulse-glow' : ''} ${isCompleted ? 'opacity-70' : ''}`}
+      className={`day-card p-3 md:p-4 text-center ${isActive ? 'active pulse-glow' : ''} ${isCompleted ? 'opacity-70' : ''} ${onClick ? 'cursor-pointer hover:scale-105 transition-transform' : ''}`}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
     >
       <div className="flex items-center justify-center gap-1 mb-1">
         {getIcon()}
@@ -317,6 +321,7 @@ export default function PresentacionEmpresarial2Page() {
   // Auto-avance de días (efecto bola de nieve)
   const [animatedDay, setAnimatedDay] = useState(1);
   const hasAnimatedDaysRef = useRef(false);
+  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const challengeSectionRef = useRef<HTMLDivElement>(null);
   const isChallengeInView = useInView(challengeSectionRef, { once: true, amount: 0.3 });
 
@@ -368,20 +373,51 @@ export default function PresentacionEmpresarial2Page() {
     };
   }, []);
 
+  // Función para obtener el delay basado en el día actual
+  const getDelayForDay = (day: number): number => {
+    if (day <= 3) return 4000; // 4 segundos para días 1-3
+    if (day <= 5) return 3000; // 3 segundos para días 3-5
+    return 2000; // 2 segundos para días 5-12
+  };
+
+  // Función para reiniciar la animación desde un día específico
+  const restartFromDay = (startDay: number) => {
+    // Limpiar timeout anterior si existe
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+
+    // Iniciar desde el día seleccionado
+    setAnimatedDay(startDay);
+    let currentDay = startDay;
+
+    const scheduleNext = () => {
+      if (currentDay < 12) {
+        const delay = getDelayForDay(currentDay);
+        animationTimeoutRef.current = setTimeout(() => {
+          currentDay++;
+          setAnimatedDay(currentDay);
+          scheduleNext();
+        }, delay);
+      }
+    };
+
+    scheduleNext();
+  };
+
   // Auto-avance de días cuando la sección entra en viewport
   useEffect(() => {
     if (isChallengeInView && !hasAnimatedDaysRef.current) {
       hasAnimatedDaysRef.current = true;
-      let day = 1;
-      const interval = setInterval(() => {
-        day++;
-        if (day <= 12) {
-          setAnimatedDay(day);
-        } else {
-          clearInterval(interval);
-        }
-      }, 3000); // 3000ms × 11 pasos = ~33 segundos total
+      restartFromDay(1);
     }
+
+    // Cleanup al desmontar
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
   }, [isChallengeInView]);
 
   return (
@@ -548,6 +584,7 @@ export default function PresentacionEmpresarial2Page() {
                   isActive={day.day === animatedDay}
                   isCompleted={day.day < animatedDay}
                   delay={index}
+                  onClick={() => restartFromDay(day.day)}
                 />
               ))}
             </div>

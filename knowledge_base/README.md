@@ -108,8 +108,10 @@ Documentación completa de la consolidación realizada el 3 de diciembre 2025:
 
 ## ⚠️ Importante
 
-- **NO editar archivos locales** - Son copias sincronizadas desde Supabase
-- **Para actualizar contenido**: Modificar directamente en Supabase → tabla `nexus_documents`
-- **Para descargar última versión**: Ejecutar `node scripts/descargar-arsenales-supabase.mjs`
+- **Workflow de edición**: Editar archivos locales `.txt` → Deploy a Supabase con scripts
+- **Para actualizar contenido**:
+  1. Editar el archivo `.txt` correspondiente en este directorio
+  2. Deploy con: `node scripts/deploy-arsenal-inicial.mjs` o `deploy-arsenal-avanzado.mjs`
+  3. Regenerar embeddings: `node scripts/fragmentar-arsenales-voyage.mjs`
+- **Para descargar versión de Supabase**: `node scripts/descargar-arsenales-supabase.mjs`
 - Los arsenales son la memoria y conocimiento de NEXUS
-- **Archivos locales = Supabase**: Solo existen localmente los archivos que están en Supabase

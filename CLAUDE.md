@@ -12,6 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
+npm install          # Install dependencies
 npm run dev          # Start dev server at http://localhost:3000
 npm run build        # Build for production (TypeScript errors ignored)
 npm run lint         # Run ESLint
@@ -33,7 +34,6 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
-- ❌ **NO editar** archivos en `knowledge_base/` directamente - son copias de Supabase
 
 ## Critical Git Workflow
 
@@ -459,7 +459,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **NEXUS Management**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v13.9.*.mjs` - Versioned update scripts
+- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (último: v14.8.0)
 
 **Knowledge Base**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

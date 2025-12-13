@@ -9,7 +9,7 @@
 
 import { useState, useRef } from 'react'
 import {
-  ArrowRight, CheckCircle, Play, Rocket, Shield, Users,
+  ArrowRight, CheckCircle, Play, PlayCircle, Rocket, Shield, Users,
   Zap, Briefcase, Target, Lightbulb, TrendingUp,
   BarChart3, Bot, ChevronRight, Lock, Crown, Clock,
   Globe, Database, Box
@@ -233,21 +233,80 @@ export default function FundadoresPage() {
             </div>
         </section>
 
-        {/* --- 2. VIDEO DE MANIFIESTO (NUEVO) --- */}
+        {/* --- 2. VIDEO DE MANIFIESTO --- */}
         <section className="pb-24 pt-10">
             <div className="container mx-auto px-4 max-w-5xl">
-                <div className="relative aspect-video bg-slate-900 rounded-3xl overflow-hidden video-glow group cursor-pointer">
-                     {/* Placeholder de Video (Reemplazar src con tu video real) */}
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-3">Manifiesto del Fundador</h2>
+                <p className="text-center text-slate-400 mb-8">Descubre la visión detrás del ecosistema.</p>
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                        <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-6 group-hover:bg-white/20 transition-all border border-white/20 shadow-2xl">
-                            <Play size={32} className="text-white ml-1 fill-white" />
-                        </div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Manifiesto del Fundador</h3>
-                        <p className="text-slate-300">Descubre la visión detrás del ecosistema.</p>
+                <div className="relative aspect-video bg-slate-800/50 rounded-2xl border border-white/10 shadow-2xl overflow-hidden video-glow group">
+                  <video
+                    className="w-full h-full object-cover"
+                    poster={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER || "https://placehold.co/1920x1080/0f172a/94a3b8?text=Manifiesto+del+Fundador"}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    controlsList="nodownload"
+                  >
+                    {/* Fuente 4K para pantallas grandes (2K+) */}
+                    {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_4K && (
+                      <source
+                        src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_4K}
+                        type="video/mp4"
+                        media="(min-width: 2560px)"
+                      />
+                    )}
+
+                    {/* Fuente 1080p para desktop (principal) */}
+                    {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+                      <source
+                        src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P}
+                        type="video/mp4"
+                        media="(min-width: 1024px)"
+                      />
+                    )}
+
+                    {/* Fuente 720p para móviles y tablets */}
+                    {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_720P && (
+                      <source
+                        src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_720P}
+                        type="video/mp4"
+                      />
+                    )}
+
+                    {/* Fallback para navegadores que no soportan video */}
+                    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                      <PlayCircle size={80} className="text-white/50 mb-4" />
+                      <p className="text-white mb-4">
+                        Tu navegador no soporta la reproducción de video.
+                      </p>
+                      {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+                        <a
+                          href={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P}
+                          className="bg-gradient-to-r from-blue-700 to-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:shadow-lg transition-all"
+                          download
+                        >
+                          Descargar Video
+                        </a>
+                      )}
                     </div>
+                  </video>
+
+                  {/* Overlay informativo (solo si no hay videos configurados) */}
+                  {!process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none">
+                      <PlayCircle size={80} className="text-white/50 group-hover:text-white/80 transition-all duration-300 mb-4" />
+                      <h2 className="text-2xl lg:text-4xl font-bold mb-2 text-white">La Forma Fácil vs La Forma Difícil</h2>
+                      <p className="text-slate-300 max-w-xl">La pregunta que Jeff Bezos respondió diferente... y que cambiará cómo ves esta oportunidad.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Metadata del video */}
+                <div className="mt-4 text-center">
+                  <p className="text-slate-400 text-sm">
+                    Video: Manifiesto del Fundador | Duración: 1:03 min
+                  </p>
                 </div>
             </div>
         </section>

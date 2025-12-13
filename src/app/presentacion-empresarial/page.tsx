@@ -653,7 +653,7 @@ export default function PresentacionEmpresarialPage() {
                     </p>
 
                     <Link
-                        href="/fundadores"
+                        href="/fundadores#aplicacion"
                         className="inline-flex items-center justify-center px-12 py-5 bg-white text-slate-950 font-bold rounded-full text-xl transition-all hover:scale-105 hover:bg-slate-200 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
                     >
                         Unirme a los Fundadores <ArrowRight className="ml-2 w-6 h-6" />

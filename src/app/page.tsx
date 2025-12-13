@@ -526,7 +526,7 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col items-center gap-6">
-              <Link href="/fundadores" className="group relative inline-flex items-center justify-center px-12 py-5 bg-white text-slate-950 font-bold rounded-full text-xl overflow-hidden transition-all hover:scale-105">
+              <Link href="/fundadores#aplicacion" className="group relative inline-flex items-center justify-center px-12 py-5 bg-white text-slate-950 font-bold rounded-full text-xl overflow-hidden transition-all hover:scale-105">
                 <span className="relative z-10 flex items-center gap-3">
                   Aplicar ahora <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>

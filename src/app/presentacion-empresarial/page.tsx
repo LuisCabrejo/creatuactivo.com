@@ -188,7 +188,7 @@ const DualIncomeCalculator = () => {
         setActiveIncome(packageCount * bonuses[packageType]);
 
         // PASIVO: Ingreso residual por consumo
-        const incomePerPersonCOP = 19125;
+        const incomePerPersonCOP = 21420;
         const exchangeRate = 4500;
         const totalIncomeCOP = teamSize * incomePerPersonCOP;
         const totalIncomeUSD = totalIncomeCOP / exchangeRate;

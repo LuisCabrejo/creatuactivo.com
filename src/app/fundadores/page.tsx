@@ -1,232 +1,158 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Founders Page v4.2 - Final Polish
- * Ajustes: Sincronización de estilos ecosystem, UX de formulario mejorada y animaciones de urgencia.
+ * Founders Page v7.0 - "The Apple Strategy"
+ * Estrategia: Long-Form Persuasion + Apple Aesthetic.
+ * Recuperamos: Video, Analogía Bezos, Estructura de 3 Piezas.
  */
 
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import {
-  ArrowRight,
-  CheckCircle,
-  PlayCircle,
-  Rocket,
-  Shield,
-  Users,
-  Zap,
-  Briefcase,
-  Target,
-  Lightbulb,
-  Home,
-  UsersRound,
-  TrendingUp,
-  BarChart3,
-  Bot,
-  Smartphone,
-  ChevronRight
+  ArrowRight, CheckCircle, Play, Rocket, Shield, Users,
+  Zap, Briefcase, Target, Lightbulb, TrendingUp,
+  BarChart3, Bot, ChevronRight, Lock, Crown, Clock,
+  Globe, Database, Box
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import AnimatedCountUp from '@/components/AnimatedCountUp'
-import AnimatedTimeline from '@/components/AnimatedTimeline'
-import AnimatedEvolution from '@/components/AnimatedEvolution'
+import { useHydration } from '@/hooks/useHydration'
 
-// --- Estilos CSS Globales (Sincronizados con Home y Ecosystem) ---
+// --- Estilos CSS Globales (Premium Titanium) ---
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --creatuactivo-blue: #1E40AF;
-      --creatuactivo-purple: #7C3AED;
-      --creatuactivo-gold: #F59E0B;
+      --slate-900: #0F172A;
+      --slate-950: #020617;
     }
 
-    /* TÍTULO PRINCIPAL ECOSYSTEM (Idéntico a Home) */
+    /* TÍTULO H1: TITANIUM WHITE (Elegancia Institucional) */
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      filter: drop-shadow(0 2px 10px rgba(124, 58, 237, 0.2));
+      letter-spacing: -0.04em;
     }
 
-    /* TEXTO DORADO DE ÉNFASIS */
-    .text-gradient-gold {
+    /* TEXTO DORADO (Solo para énfasis de lujo) */
+    .text-gold {
       background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-weight: 800;
     }
 
-    .creatuactivo-h2-component {
-        font-weight: 700;
-        background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    /* TARJETAS CON EFECTO GLASS (Unificado) */
-    .creatuactivo-glass-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+    /* GLASS CARDS */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .creatuactivo-glass-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.3);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
-    }
-
-    /* TARJETA ESPECIAL DE URGENCIA */
-    .creatuactivo-urgency-card {
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.3) 0%, rgba(15, 23, 42, 0.6) 100%);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-    }
-
-    /* BOTÓN CTA PRINCIPAL */
-    .creatuactivo-cta-ecosystem {
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
-      border-radius: 12px;
-      padding: 16px 32px;
-      font-weight: 700;
-      color: white;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
     }
-
-    .creatuactivo-cta-ecosystem:hover {
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
-      border-color: rgba(255, 255, 255, 0.3);
     }
 
-    .creatuactivo-cta-ecosystem::after {
-      content: '';
+    /* VIDEO CONTAINER */
+    .video-glow {
+      box-shadow: 0 0 100px -20px rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* TIMELINE */
+    .phase-line {
       position: absolute;
-      top: 0;
-      left: -100%;
+      top: 50%;
+      left: 0;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.5s;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      z-index: 0;
+      transform: translateY(-50%);
+    }
+    .phase-progress {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+      z-index: 0;
+      transform: translateY(-50%);
     }
 
-    .creatuactivo-cta-ecosystem:hover::after {
-      left: 100%;
+    /* INPUTS PREMIUM */
+    .input-premium {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: all 0.3s;
     }
-
-    /* ANIMACIONES */
-    @keyframes pulse-gold {
-      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-    }
-
-    .animate-pulse-gold {
-      animation: pulse-gold 2s infinite;
+    .input-premium:focus {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     }
   `}</style>
 );
 
-// Componente para tarjetas de beneficios
-function BenefitCard({ icon, title, description, color }: {
-  icon: React.ReactNode
-  title: string
-  description: string
-  color: 'blue' | 'purple' | 'green' | 'orange'
-}) {
-  const colorMap = {
-    blue: 'text-blue-400',
-    purple: 'text-purple-400',
-    green: 'text-green-400',
-    orange: 'text-orange-400'
-  }
+// --- COMPONENTES AUXILIARES ---
 
+function PhaseNode({ title, date, spots, isActive, isPast }: any) {
   return (
-    <div className="creatuactivo-glass-card p-6 lg:p-8 h-full flex flex-col">
-      <div className={`${colorMap[color]} bg-white/5 w-12 h-12 rounded-lg flex items-center justify-center mb-6`}>
-        {icon}
+    <div className={`relative z-10 flex flex-col items-center ${isActive ? 'scale-110' : 'opacity-60'}`}>
+      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-4 mb-4 transition-all duration-500 bg-slate-950 ${
+        isActive
+          ? 'border-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.5)] text-white'
+          : isPast
+            ? 'border-slate-600 bg-slate-800 text-slate-400'
+            : 'border-slate-800 bg-slate-900 text-slate-600'
+      }`}>
+        {isActive ? <Crown size={24} className="text-amber-400" /> : isPast ? <CheckCircle size={24} /> : <Lock size={24} />}
       </div>
-      <div>
-        <h3 className="text-xl font-bold text-white mb-3 leading-tight">{title}</h3>
-        <p className="text-sm lg:text-base text-slate-400 leading-relaxed">{description}</p>
-      </div>
+
+      {isActive && (
+        <div className="absolute -top-8 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-bounce">
+          Estás Aquí
+        </div>
+      )}
+
+      <h3 className={`font-bold text-xs md:text-sm mb-1 text-center ${isActive ? 'text-white' : 'text-slate-500'}`}>{title}</h3>
+      <p className="text-[10px] text-slate-500 mb-1">{date}</p>
+      <p className={`text-[10px] font-mono ${isActive ? 'text-emerald-400 font-bold' : 'text-slate-600'}`}>{spots}</p>
     </div>
   )
 }
 
-function calcularCuposDisponibles(): number {
-  // TEMPORAL: Retornar 150 cupos estáticos (Configuración inicial)
-  return 150
-}
-
 const arquetipos = [
-  { id: 'profesional', icon: <Briefcase size={24} />, title: 'Profesional con Visión', description: 'Para construir un activo, no solo una carrera.', iconColor: 'text-blue-400' },
-  { id: 'emprendedor', icon: <Target size={24} />, title: 'Dueño de Negocio', description: 'Para escalar con un sistema, no con más tareas.', iconColor: 'text-orange-400' },
-  { id: 'independiente', icon: <Lightbulb size={24} />, title: 'Freelancer', description: 'Para convertir el talento en un activo escalable.', iconColor: 'text-purple-400' },
-  { id: 'lider-hogar', icon: <Home size={24} />, title: 'Líder del Hogar', description: 'Para construir con flexibilidad y propósito.', iconColor: 'text-pink-400' },
-  { id: 'lider-comunidad', icon: <UsersRound size={24} />, title: 'Líder Social', description: 'Para transformar tu influencia en un legado tangible.', iconColor: 'text-green-400' },
-  { id: 'joven-ambicioso', icon: <TrendingUp size={24} />, title: 'Joven Ambicioso', description: 'Para construir un activo antes de empezar una carrera.', iconColor: 'text-cyan-400' }
+  { id: 'profesional', icon: <Briefcase size={20} />, title: 'Profesional', description: 'Diversificar ingresos sin dejar mi empleo.', iconColor: 'text-blue-400' },
+  { id: 'emprendedor', icon: <Target size={20} />, title: 'Dueño de Negocio', description: 'Sistemas que no dependan de mi tiempo.', iconColor: 'text-amber-400' },
+  { id: 'independiente', icon: <Lightbulb size={20} />, title: 'Freelancer', description: 'Escalar ingresos y tener estabilidad.', iconColor: 'text-purple-400' },
+  { id: 'lider', icon: <Users size={20} />, title: 'Líder / Networker', description: 'Modernizar mi equipo con tecnología.', iconColor: 'text-emerald-400' }
 ]
 
 export default function FundadoresPage() {
-  const [spotsLeft, setSpotsLeft] = useState(150)
-  const [progressWidth, setProgressWidth] = useState(0)
+  const isHydrated = useHydration()
   const [formStep, setFormStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const formTopRef = useRef<HTMLDivElement>(null)
+  const [formData, setFormData] = useState({ nombre: '', email: '', telefono: '', arquetipo: '', inversion: '' })
 
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    arquetipo: '',
-    inversion: ''
-  })
-
-  useEffect(() => {
-    setSpotsLeft(calcularCuposDisponibles())
-    setTimeout(() => {
-      setProgressWidth((calcularCuposDisponibles() / 150) * 100)
-    }, 500)
-
-    const interval = setInterval(() => {
-      setSpotsLeft(calcularCuposDisponibles())
-    }, 60000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const scrollToForm = () => {
-    document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const scrollToForm = () => document.getElementById('aplicacion')?.scrollIntoView({ behavior: 'smooth' })
 
   const nextStep = () => {
     if (isStepValid()) {
       setFormStep(prev => prev + 1)
-      setTimeout(() => {
-        formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }, 100)
+      setTimeout(() => formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100)
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (formStep === 1) {
-      nextStep()
-      return
-    }
-
+    if (formStep === 1) { nextStep(); return }
     if (formStep === 2) {
       setIsSubmitting(true)
       try {
@@ -238,7 +164,7 @@ export default function FundadoresPage() {
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
             referrer: document.referrer,
-            page: 'fundadores'
+            page: 'fundadores-v7'
           })
         })
         const result = await response.json()
@@ -251,7 +177,7 @@ export default function FundadoresPage() {
         }
       } catch (error) {
         console.error('Error:', error)
-        alert(`Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.`)
+        alert('Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.')
       } finally {
         setIsSubmitting(false)
       }
@@ -274,372 +200,316 @@ export default function FundadoresPage() {
   return (
     <>
       <GlobalStyles />
-      <div className="bg-slate-950 text-white min-h-screen selection:bg-purple-500/30">
+      <div className="bg-slate-950 text-white min-h-screen font-sans selection:bg-blue-500/30">
         <StrategicNavigation />
 
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-          <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full filter blur-[100px] animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full filter blur-[100px]"></div>
-        </div>
+        {/* --- 1. HERO: PROMESA + URGENCIA --- */}
+        <section className="relative pt-36 pb-20 overflow-hidden text-center">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <main className="relative z-10 px-4 lg:px-8">
-          <section className="text-center max-w-5xl mx-auto py-20 lg:py-32 pt-28">
-            <div className="inline-flex items-center gap-2 bg-blue-900/20 border border-blue-500/30 text-blue-300 text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-              </span>
-              Convocatoria Privada 2025
-            </div>
-
-            <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl lg:text-7xl mb-8 leading-tight">
-              ¿Y Si Una App Hiciera<br className="hidden md:block"/> El Trabajo Duro Por Ti?
-            </h1>
-
-            <div className="text-xl md:text-3xl font-medium text-slate-200 mb-6">
-              Se llama <span className="text-white font-bold">CreaTuActivo</span>.
-            </div>
-
-            <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Tu aplicación personal para construir un activo digital. 99% de las personas fallan porque lo hacen manual. <strong className="text-white">Nosotros automatizamos el éxito.</strong>
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <button
-                onClick={scrollToForm}
-                className="creatuactivo-cta-ecosystem w-full sm:w-auto text-lg flex items-center justify-center gap-2 animate-pulse-gold"
-              >
-                Verificar Si Califico <ArrowRight size={20} />
-              </button>
-              <a href="/presentacion-empresarial" className="w-full sm:w-auto bg-slate-800/50 backdrop-blur-md border border-slate-700 text-slate-300 font-semibold py-4 px-8 rounded-xl hover:bg-slate-700 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
-                <PlayCircle size={20} /> Ver Presentación
-              </a>
-            </div>
-          </section>
-
-          <section className="max-w-4xl mx-auto mb-24">
-            <div className="creatuactivo-glass-card p-8 lg:p-12 text-center border-amber-500/20">
-              <div className="text-amber-500 font-bold uppercase tracking-widest text-sm mb-4">Nuestra Filosofía</div>
-              <p className="text-xl lg:text-3xl text-white leading-relaxed font-light">
-                Creemos que todas las personas merecen viajar y tener tiempo libre. <strong className="text-gradient-gold">Pero no debería ser tan difícil.</strong>
-                <br /><br />
-                Por eso creamos CreaTuActivo: el sistema que reemplaza el esfuerzo manual con inteligencia artificial.
-              </p>
-            </div>
-          </section>
-
-          <section className="max-w-6xl mx-auto mb-24">
-            <div className="text-center mb-16">
-              <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl mb-4">La Evolución del Negocio</h2>
-              <p className="text-slate-400">Antes era trabajo duro. Ahora es trabajo inteligente.</p>
-            </div>
-
-            <AnimatedEvolution />
-
-            <div className="relative max-w-4xl mx-auto space-y-8 pl-8 md:pl-0">
-              <div className="absolute left-0 md:left-[27px] top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-transparent opacity-30 md:hidden"></div>
-
-              <div className="creatuactivo-glass-card p-6 lg:p-8 flex flex-col md:flex-row gap-6 items-start">
-                <div className="hidden md:flex w-14 h-14 bg-blue-900/30 rounded-full border border-blue-500/30 items-center justify-center flex-shrink-0 text-blue-400">
-                  <BarChart3 size={24} />
-                </div>
-                <div>
-                  <div className="text-xs text-blue-400 font-bold uppercase tracking-wider mb-2">El Pasado (Manual)</div>
-                  <h3 className="text-xl font-bold text-white mb-4">Vender puerta a puerta</h3>
-                  <div className="text-slate-400 space-y-2 text-sm">
-                    <p>❌ Llamar a listas de desconocidos.</p>
-                    <p>❌ Explicar lo mismo 100 veces.</p>
-                    <p>❌ Perseguir amigos y familiares.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="creatuactivo-glass-card p-6 lg:p-8 flex flex-col md:flex-row gap-6 items-start border-purple-500/30 shadow-[0_0_30px_rgba(124,58,237,0.1)]">
-                <div className="hidden md:flex w-14 h-14 bg-purple-900/30 rounded-full border border-purple-500/50 items-center justify-center flex-shrink-0 text-purple-400 shadow-lg shadow-purple-500/20">
-                  <Bot size={28} />
-                </div>
-                <div>
-                  <div className="text-xs text-purple-400 font-bold uppercase tracking-wider mb-2">El Presente (Automatizado)</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">CreaTuActivo + IA NEXUS</h3>
-                  <div className="text-slate-300 space-y-3">
-                    <p className="flex items-center gap-2"><CheckCircle size={16} className="text-green-400"/> <span><strong className="text-white">IA NEXUS</strong> responde preguntas 24/7.</span></p>
-                    <p className="flex items-center gap-2"><CheckCircle size={16} className="text-green-400"/> <span><strong className="text-white">La App</strong> te dice qué hacer cada día.</span></p>
-                    <p className="flex items-center gap-2"><CheckCircle size={16} className="text-green-400"/> <span><strong className="text-white">El Sistema</strong> filtra a los interesados por ti.</span></p>
-                  </div>
-                  <div className="mt-4 p-3 bg-purple-500/10 rounded-lg text-sm text-purple-200 border border-purple-500/20 inline-block">
-                    ✨ Tú solo tomas las decisiones finales. La tecnología hace el resto.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="max-w-5xl mx-auto mb-24">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-8">La Forma Fácil vs La Forma Difícil</h2>
-            <div className="relative aspect-video bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden group">
-              {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P ? (
-                <video className="w-full h-full object-cover" controls preload="metadata" poster={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER}>
-                  <source src={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P} type="video/mp4" />
-                   Tu navegador no soporta video.
-                </video>
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
-                  <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"></div>
-                  <div className="relative z-10 text-center p-8">
-                    <PlayCircle size={64} className="text-white/80 mx-auto mb-4 animate-pulse" />
-                    <h3 className="text-2xl font-bold text-white mb-2">Video Exclusivo para Fundadores</h3>
-                    <p className="text-slate-300">Descubre cómo la tecnología cambia las reglas del juego.</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <section className="max-w-4xl mx-auto mb-24">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-8 lg:p-12 text-center relative overflow-hidden">
-               <div className="absolute top-4 left-6 text-8xl text-slate-800 font-serif opacity-50">"</div>
-
-              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 relative z-10">
-                ¿Jeff Bezos se hizo rico vendiendo libros puerta a puerta? <br/>
-                <span className="text-slate-400 text-xl font-normal">No. Él creó el sistema que los distribuye.</span>
-              </h2>
-
-              <div className="space-y-4 text-lg text-slate-300 relative z-10">
-                <p>Nosotros te entregamos ese sistema.</p>
-                <p>El producto lo pone <strong className="text-white">Gano Excel</strong> (Tecnología Propietaria).</p>
-                <p>La tecnología la pone <strong className="text-gradient-gold">CreaTuActivo</strong>.</p>
-                <p className="font-bold text-white mt-6 text-xl">Tú cobras por conectar.</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="max-w-7xl mx-auto mb-24">
-            <h2 className="creatuactivo-h2-component text-3xl lg:text-4xl text-center mb-12">Ventajas de ser Fundador</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <BenefitCard icon={<Rocket size={24}/>} title="Llegas Primero" description="Posicionamiento privilegiado antes del lanzamiento masivo en 2026." color="blue" />
-              <BenefitCard icon={<Zap size={24}/>} title="Suite Tecnológica" description="Acceso vitalicio a NEXUS IA y herramientas de automatización." color="purple" />
-              <BenefitCard icon={<Shield size={24}/>} title="Mentoria Directa" description="Acceso directo a Luis Cabrejo y al equipo corporativo." color="green" />
-              <BenefitCard icon={<Users size={24}/>} title="Comunidad Alpha" description="Grupo cerrado de estrategia con los líderes de mayor rendimiento." color="orange" />
-            </div>
-          </section>
-
-          <section className="max-w-4xl mx-auto mb-24">
-            <div className="creatuactivo-urgency-card rounded-3xl p-8 lg:p-12 text-center relative overflow-hidden shadow-2xl shadow-green-900/20">
-              <div className="relative z-10">
-                <h2 className="text-3xl font-bold text-white mb-2">Ventana de Oportunidad</h2>
-                <p className="text-green-400 font-bold uppercase tracking-widest text-sm mb-8">Estado Actual: Abierto</p>
-
-                <div className="flex items-end justify-center gap-3 mb-4">
-                  <AnimatedCountUp
-                    end={spotsLeft}
-                    duration={2.5}
-                    className="text-7xl font-bold text-white leading-none"
-                  />
-                  <span className="text-slate-400 text-lg mb-2">/ 150 Cupos</span>
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/50 border border-slate-700/50 text-slate-300 text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    Solo 150 Cupos Fundadores
                 </div>
 
-                <div className="h-4 bg-slate-900/50 rounded-full overflow-hidden max-w-md mx-auto mb-8 border border-white/10">
-                  <div
-                    className="h-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(34,197,94,0.5)]"
-                    style={{ width: `${progressWidth}%` }}
-                  ></div>
-                </div>
+                <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
+                    El "Amazon" llave en mano <br />
+                    <span className="text-white">está buscando socios.</span>
+                </h1>
 
-                <p className="text-slate-300">
-                  Una vez se llenen los 150 cupos, la entrada a Fundadores se cierra permanentemente.
-                  <br/> El público general entrará en Marzo 2026 sin estos beneficios.
+                <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                    No venimos a venderte un curso. Venimos a entregarte la <strong>infraestructura tecnológica</strong> para que construyas el activo de distribución más grande de América.
                 </p>
-              </div>
-            </div>
-          </section>
 
-          {/* Timeline de las 3 Fases */}
-          <AnimatedTimeline />
-
-          <section id="formulario" className="max-w-3xl mx-auto mb-32 pt-10" ref={formTopRef}>
-            <div className="text-center mb-10">
-              <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-                Postulación a <span className="text-gradient-gold">Fundador</span>
-              </h2>
-              <p className="text-slate-400 text-lg">
-                Completa tu perfil. Si calificas, recibirás acceso en 24 horas.
-              </p>
-            </div>
-
-            <div className="creatuactivo-glass-card p-6 md:p-10 border-t border-white/10">
-              <div className="flex items-center justify-between mb-10 relative px-4">
-                <div className="absolute left-0 top-1/2 w-full h-0.5 bg-slate-800 -z-10"></div>
-                {[1, 2, 3].map((step) => (
-                  <div key={step} className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 z-10 ${
-                    formStep >= step ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110' : 'bg-slate-800 text-slate-500 border border-slate-700'
-                  }`}>
-                    {formStep > step ? <CheckCircle size={18} /> : step}
-                  </div>
-                ))}
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {formStep === 1 && (
-                  <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-300 ml-1">Nombre Completo</label>
-                      <input
-                        type="text"
-                        value={formData.nombre}
-                        onChange={(e) => setFormData({...formData, nombre: e.target.value})}
-                        onKeyDown={handleKeyDown}
-                        className="w-full px-4 py-4 bg-slate-900/50 border border-slate-700 rounded-xl text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600"
-                        placeholder="Ej: Juan Pérez"
-                        autoFocus
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-300 ml-1">Correo Electrónico</label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        onKeyDown={handleKeyDown}
-                        className="w-full px-4 py-4 bg-slate-900/50 border border-slate-700 rounded-xl text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600"
-                        placeholder="Ej: juan@gmail.com"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-300 ml-1">WhatsApp (con código país)</label>
-                      <input
-                        type="tel"
-                        value={formData.telefono}
-                        onChange={(e) => setFormData({...formData, telefono: e.target.value})}
-                        onKeyDown={handleKeyDown}
-                        className="w-full px-4 py-4 bg-slate-900/50 border border-slate-700 rounded-xl text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600"
-                        placeholder="Ej: +57 300 123 4567"
-                        required
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={nextStep}
-                      disabled={!isStepValid()}
-                      className="w-full py-4 mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20"
-                    >
-                      Continuar <ChevronRight size={20} />
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onClick={scrollToForm} className="px-8 py-4 bg-white text-slate-950 font-bold rounded-full hover:bg-slate-200 transition-all shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                        Aplicar a Fundador <ArrowRight size={18} />
                     </button>
-                  </div>
-                )}
+                    <div className="flex items-center gap-2 px-6 py-4 text-slate-400 text-sm border border-white/5 rounded-full bg-white/5">
+                        <Clock size={16} /> La lista cierra el 04 de Enero
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                {formStep === 2 && (
-                  <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
-                    <div>
-                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <span className="text-amber-500">1.</span> ¿Qué te describe mejor?
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {arquetipos.map((arq) => (
-                          <div
-                            key={arq.id}
-                            onClick={() => setFormData({...formData, arquetipo: arq.title})}
-                            className={`p-4 rounded-xl border cursor-pointer transition-all hover:scale-[1.02] ${
-                              formData.arquetipo === arq.title
-                                ? 'bg-blue-600/20 border-blue-500 ring-1 ring-blue-500'
-                                : 'bg-slate-900/40 border-slate-700 hover:border-slate-500'
-                            }`}
-                          >
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className={arq.iconColor}>{arq.icon}</span>
-                              <span className="font-bold text-white text-sm">{arq.title}</span>
+        {/* --- 2. VIDEO DE MANIFIESTO (NUEVO) --- */}
+        <section className="pb-24 pt-10">
+            <div className="container mx-auto px-4 max-w-5xl">
+                <div className="relative aspect-video bg-slate-900 rounded-3xl overflow-hidden video-glow group cursor-pointer">
+                     {/* Placeholder de Video (Reemplazar src con tu video real) */}
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+
+                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+                        <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-6 group-hover:bg-white/20 transition-all border border-white/20 shadow-2xl">
+                            <Play size={32} className="text-white ml-1 fill-white" />
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Manifiesto del Fundador</h3>
+                        <p className="text-slate-300">Descubre la visión detrás del ecosistema.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* --- 3. ANALOGÍA BEZOS (RECUPERADA) --- */}
+        <section className="py-24 bg-slate-900/50 border-t border-white/5">
+            <div className="container mx-auto px-4 max-w-4xl">
+                 <div className="glass-card p-10 md:p-14 rounded-3xl text-center">
+                    <h2 className="text-3xl font-bold text-white mb-10">El Secreto de los Activos Digitales</h2>
+
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="bg-red-500/5 p-8 rounded-2xl border border-red-500/10 opacity-70 hover:opacity-100 transition-opacity">
+                            <h3 className="text-xl font-bold text-white mb-4">Jeff Bezos...</h3>
+                            <p className="text-sm text-slate-400 mb-6">¿Se hizo rico vendiendo libros puerta a puerta?</p>
+                            <div className="flex items-center justify-center gap-2 text-red-500 font-bold bg-red-500/10 py-2 rounded-lg">
+                                <span>❌</span> ¡NO!
                             </div>
-                            <p className="text-xs text-slate-400 leading-snug">{arq.description}</p>
-                          </div>
-                        ))}
-                      </div>
+                        </div>
+
+                        <div className="bg-emerald-500/5 p-8 rounded-2xl border border-emerald-500/10 shadow-lg shadow-emerald-500/5">
+                            <h3 className="text-xl font-bold text-white mb-4">Él construyó el SISTEMA</h3>
+                            <p className="text-sm text-slate-300 mb-6">Creó la plataforma (Amazon) donde millones de transacciones ocurren sin él.</p>
+                            <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold bg-emerald-500/10 py-2 rounded-lg">
+                                <CheckCircle size={16} /> ¡EXACTO!
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <span className="text-amber-500">2.</span> Capacidad de Inversión Inicial
-                      </h3>
-                      <div className="space-y-2">
-                        {[
-                          'Básica - $900,000 COP (~$200 USD)',
-                          'Empresarial 1 - $2,250,000 COP (~$500 USD)',
-                          'Empresarial 2 - $4,500,000 COP (~$1,000 USD)',
-                          'Necesito asesoría financiera'
-                        ].map((opt) => (
-                          <div
-                            key={opt}
-                            onClick={() => setFormData({...formData, inversion: opt})}
-                            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
-                              formData.inversion === opt
-                                ? 'bg-purple-600/20 border-purple-500 text-white'
-                                : 'bg-slate-900/40 border-slate-700 text-slate-300 hover:border-slate-500'
-                            }`}
-                          >
-                            <span>{opt}</span>
-                            {formData.inversion === opt && <CheckCircle size={18} className="text-purple-400"/>}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || !isStepValid()}
-                      className="creatuactivo-cta-ecosystem w-full text-lg flex items-center justify-center disabled:opacity-50"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                          Procesando...
-                        </span>
-                      ) : (
-                        <>Enviar Solicitud <Rocket size={20} className="ml-2" /></>
-                      )}
-                    </button>
-                  </div>
-                )}
-
-                {formStep === 3 && isSuccess && (
-                  <div className="text-center py-8 animate-in zoom-in duration-500">
-                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-green-500/20">
-                      <CheckCircle size={40} className="text-green-500" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">¡Solicitud Recibida!</h3>
-                    <p className="text-slate-400 mb-8 max-w-md mx-auto">
-                      Hemos recibido tu perfil correctamente. El equipo de admisiones revisará tu información.
+                    <p className="mt-10 text-slate-400 italic">
+                        "Nosotros te entregamos el sistema. Tú no vendes puerta a puerta, tú operas la infraestructura."
                     </p>
-                    <div className="bg-slate-800/50 rounded-xl p-6 text-left border border-slate-700 mb-8">
-                      <p className="text-sm text-slate-500 uppercase font-bold mb-4 border-b border-slate-700 pb-2">Próximos Pasos</p>
-                      <ul className="space-y-3 text-slate-300 text-sm">
-                        <li className="flex gap-3">
-                          <span className="bg-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                          Revisión de perfil (Duración: 2 a 4 horas).
-                        </li>
-                        <li className="flex gap-3">
-                          <span className="bg-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                          Si eres aprobado, recibirás un WhatsApp de nuestro equipo.
-                        </li>
-                        <li className="flex gap-3">
-                          <span className="bg-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                          Agendaremos tu llamada de bienvenida.
-                        </li>
-                      </ul>
-                    </div>
-                    <a href="/" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                      Volver al Inicio
-                    </a>
-                  </div>
-                )}
-              </form>
+                 </div>
             </div>
-          </section>
+        </section>
 
-          <footer className="border-t border-slate-800 py-12 text-center text-slate-500 text-sm">
-            <p>&copy; {new Date().getFullYear()} CreaTuActivo.com</p>
-            <p className="mt-2">Tecnología propietaria para la construcción de activos.</p>
-          </footer>
-        </main>
+        {/* --- 4. LAS 3 PIEZAS DEL AMAZON (RECUPERADA) --- */}
+        <section className="py-24 bg-slate-950">
+             <div className="container mx-auto px-4">
+                <div className="text-center mb-16">
+                    <span className="text-blue-500 font-bold uppercase tracking-widest text-xs mb-2 block">Tu Franquicia Digital Incluye</span>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white">El "Amazon" llave en mano</h2>
+                    <p className="text-slate-400 mt-4">Las 3 piezas listas para operar desde el Día 1.</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    {/* Pieza 1 */}
+                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                        <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 mb-6">
+                            <Box size={24} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">1. La Fábrica (Producto)</h3>
+                        <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                            Gano Excel pone los productos, las bodegas, los envíos y los empleados. Tecnología propietaria para millones.
+                        </p>
+                        <p className="text-xs font-bold text-emerald-500 uppercase">Tecnología Propietaria Única</p>
+                    </div>
+
+                    {/* Pieza 2 */}
+                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group border-blue-500/30 bg-blue-500/5">
+                        <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
+                        <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-blue-500/20">
+                            <Bot size={24} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">2. La App (Tecnología)</h3>
+                        <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+                            CreaTuActivo.com es tu aplicación inteligente. Tiene una IA que educa, filtra y cierra el negocio por ti las 24 horas.
+                        </p>
+                        <p className="text-xs font-bold text-blue-400 uppercase">Trabaja mientras duermes</p>
+                    </div>
+
+                    {/* Pieza 3 */}
+                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                        <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-500 mb-6">
+                            <Globe size={24} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">3. El Método (Mapa)</h3>
+                        <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                            No improvisas. Sigues 3 pasos simples (Iniciar, Acoger, Activar) que ya funcionaron para miles de personas.
+                        </p>
+                        <p className="text-xs font-bold text-purple-500 uppercase">Sistema Probado</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        {/* --- 5. TIMELINE (SCARCITY) --- */}
+        <section className="py-24 bg-slate-900/50 border-y border-white/5">
+            <div className="container mx-auto px-4 max-w-5xl">
+                <div className="text-center mb-16">
+                    <div className="inline-block border border-amber-500/30 bg-amber-500/10 px-4 py-1 rounded-full text-amber-500 text-xs font-bold uppercase mb-4">Ventana de Oportunidad</div>
+                    <h2 className="text-3xl font-bold text-white mb-2">3 Fases de Lanzamiento</h2>
+                    <p className="text-slate-400 text-sm">Como Apple lanzó el iPhone: los primeros en la fila tienen ventaja.</p>
+                </div>
+
+                <div className="relative py-12 px-4">
+                    <div className="phase-line"></div>
+                    <div className="phase-progress w-[33%]"></div>
+
+                    <div className="grid grid-cols-3 gap-4 relative z-10">
+                        <PhaseNode isActive={true} title="Lista Privada" date="Hoy - 04 Ene" spots="150 Cupos" />
+                        <PhaseNode isPast={false} title="Pre-Lanzamiento" date="05 Ene - 01 Mar" spots="22,500" />
+                        <PhaseNode isPast={false} title="Lanzamiento Global" date="02 Mar 2026" spots="4M+" />
+                    </div>
+                </div>
+
+                <div className="mt-16 glass-card p-8 rounded-3xl max-w-2xl mx-auto text-center border-amber-500/20 bg-amber-500/5">
+                    <p className="text-amber-500 font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
+                    <div className="grid grid-cols-4 gap-4">
+                        <div className="bg-slate-950/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
+                        <div className="bg-slate-950/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">03</span><p className="text-[10px] text-slate-500 mt-1">HRS</p></div>
+                        <div className="bg-slate-950/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">06</span><p className="text-[10px] text-slate-500 mt-1">MIN</p></div>
+                        <div className="bg-slate-950/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">43</span><p className="text-[10px] text-slate-500 mt-1">SEG</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* --- 6. COMPARATIVA (RED VS GREEN) --- */}
+        <section className="py-24 bg-slate-950">
+            <div className="container mx-auto px-4">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">¿Ves la diferencia ahora?</h2>
+                    <p className="text-slate-400 font-light">No estamos ofreciendo un empleo. Estamos ofreciendo construir un <strong className="text-white">activo</strong>.</p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {/* Rojo */}
+                    <div className="p-10 rounded-3xl border border-red-500/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-4 mb-8 text-red-500"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
+                        <div className="space-y-6">
+                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Tu Rol</span><span className="text-red-400 text-sm text-right">❌ Vendedor manual</span></div>
+                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Tu Tiempo</span><span className="text-red-400 text-sm text-right">❌ Reuniones físicas</span></div>
+                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-red-400 text-sm text-right">❌ Ingreso Lineal</span></div>
+                        </div>
+                    </div>
+                    {/* Verde */}
+                    <div className="p-10 rounded-3xl border border-emerald-500/30 bg-emerald-500/10 shadow-2xl shadow-emerald-500/5 transform md:-translate-y-4">
+                        <div className="flex items-center gap-4 mb-8 text-emerald-400"><TrendingUp size={24}/><h3 className="text-xl font-bold text-white">Ecosistema Digital</h3></div>
+                        <div className="space-y-6">
+                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Tu Rol</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Dueño de Sistema</span></div>
+                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Tu Tiempo</span><span className="text-emerald-400 text-sm text-right font-bold">✅ 15 min/día (App)</span></div>
+                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Resultado</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Renta Vitalicia</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* --- 7. PRUEBA SOCIAL (LÍDERES) --- */}
+        <section className="py-24 bg-slate-900 border-t border-white/5">
+            <div className="container mx-auto px-4 max-w-6xl">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl font-bold text-white mb-4">Lo que dicen los Líderes</h2>
+                    <div className="flex justify-center gap-8 text-slate-400 text-sm font-bold uppercase tracking-widest mt-6">
+                        <span>+2,847 Personas</span>
+                        <span>•</span>
+                        <span>12 Años de Éxito</span>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-4 gap-6">
+                    {[
+                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad.", ini: "LM"},
+                        {name: "Andrés G.", role: "Sector Salud", quote: "Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D.", ini: "AG"},
+                        {name: "Dr. Jonathan", role: "Médico", quote: "Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.", ini: "JM"},
+                        {name: "Juan Pablo", role: "Ex-Bancario", quote: "La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba.", ini: "JP"}
+                    ].map((lider, i) => (
+                        <div key={i} className="glass-card p-6 rounded-2xl hover:bg-white/5">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">{lider.ini}</div>
+                                <div><p className="font-bold text-white text-sm">{lider.name}</p><p className="text-[10px] text-slate-500 uppercase">{lider.role}</p></div>
+                            </div>
+                            <p className="text-xs text-slate-400 italic">"{lider.quote}"</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* --- 8. FORMULARIO DE ADMISIÓN --- */}
+        <section id="aplicacion" className="py-24 bg-slate-900 relative overflow-hidden" ref={formTopRef}>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+
+            <div className="container mx-auto px-4 relative z-10 max-w-2xl">
+                <div className="glass-card p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+                    <div className="text-center mb-10">
+                        <Crown className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+                        <h2 className="text-3xl font-bold text-white mb-2">Solicitud de Admisión</h2>
+                        <p className="text-slate-400 text-sm">
+                            Este no es un registro abierto. Es una aplicación para trabajar directamente con Luis Cabrejo.
+                        </p>
+                    </div>
+
+                    {isSuccess ? (
+                        <div className="text-center py-12 animate-in zoom-in duration-300">
+                            <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-green-400">
+                                <CheckCircle size={40} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-2">¡Aplicación Enviada!</h3>
+                            <p className="text-slate-400 mb-6">
+                                Tu perfil ha entrado en revisión prioritaria. Te contactaremos por WhatsApp en breve.
+                            </p>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {formStep === 1 && (
+                                <div className="space-y-5 animate-in fade-in slide-in-from-right-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Tu Nombre</label>
+                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" autoFocus />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">WhatsApp</label>
+                                        <input type="tel" required value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="+57 300 000 0000" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
+                                        <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
+                                    </div>
+                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="w-full py-4 mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
+                                </div>
+                            )}
+
+                            {formStep === 2 && (
+                                <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
+                                    <div>
+                                        <h3 className="text-lg font-bold text-white mb-4">¿Qué perfil te describe mejor?</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            {arquetipos.map((arq) => (
+                                                <div key={arq.id} onClick={() => setFormData({...formData, arquetipo: arq.title})} className={`p-3 rounded-xl border cursor-pointer transition-all hover:bg-white/5 ${formData.arquetipo === arq.title ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-900/50'}`}>
+                                                    <div className="flex items-center gap-2 mb-1"><span className={arq.iconColor}>{arq.icon}</span><span className="font-bold text-sm text-white">{arq.title}</span></div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-white mb-4">Capacidad de Inversión Inicial</h3>
+                                        <div className="space-y-2">
+                                            {[
+                                              'Básica - $900,000 COP (~$200 USD)',
+                                              'Empresarial 1 - $2,250,000 COP (~$500 USD)',
+                                              'Empresarial 2 - $4,500,000 COP (~$1,000 USD)',
+                                              'Necesito asesoría financiera'
+                                            ].map((opt) => (
+                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-amber-500 bg-amber-500/10 text-white' : 'border-white/10 bg-slate-900/50 text-slate-400'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-amber-400"/>}</div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="w-full py-4 bg-white text-slate-950 font-bold rounded-xl text-lg hover:bg-slate-200 transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
+                                </div>
+                            )}
+                        </form>
+                    )}
+                </div>
+            </div>
+        </section>
+
+        {/* --- FOOTER --- */}
+        <footer className="py-12 text-center text-slate-500 text-sm border-t border-white/5">
+            <p className="font-bold text-white mb-2">CreaTuActivo.com</p>
+            <p className="mt-4 text-xs opacity-50">&copy; 2025 Todos los derechos reservados.</p>
+        </footer>
       </div>
     </>
   )

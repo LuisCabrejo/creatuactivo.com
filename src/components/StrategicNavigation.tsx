@@ -101,21 +101,27 @@ const CRITICAL_NAVIGATION_CSS = `
     }
   }
 
+  /* Titanium White (Fintech/Institucional) */
   .strategic-logo-text {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #f59e0b 100%);
+    /* Degradado sutil de Blanco Puro a Gris Perla */
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.2;
+    letter-spacing: -0.03em; /* Tracking ajustado para elegancia */
+    transition: opacity 0.3s ease;
   }
 
   .strategic-logo-text:hover {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #fbbf24 100%);
+    /* En hover, brilla en blanco puro */
+    background: #ffffff;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    opacity: 0.9;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 
   /* MENU DESKTOP - LAYOUT INMEDIATO */

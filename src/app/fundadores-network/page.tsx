@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { CheckCircle, Zap, Target, Users, TrendingUp, Award, Calendar, Sparkles, MessageCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { useHydration } from '@/hooks/useHydration'
+import StrategicNavigation from '@/components/StrategicNavigation'
 
 // --- Estilos CSS Globales ---
 const GlobalStyles = () => (
@@ -25,13 +26,14 @@ const GlobalStyles = () => (
       --creatuactivo-gold: #F59E0B;
     }
 
+    /* TÍTULO H1: TITANIUM WHITE (Elegancia Institucional) */
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.1;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
     }
 
     .creatuactivo-h2-gradient {
@@ -133,6 +135,8 @@ export default function FundadoresNetworkPage() {
     <>
       <GlobalStyles />
       <div className="bg-slate-900 text-white min-h-screen">
+        <StrategicNavigation />
+
         {/* Background Effects */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>

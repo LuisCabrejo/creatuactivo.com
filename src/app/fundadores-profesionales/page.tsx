@@ -23,13 +23,14 @@ const GlobalStyles = () => (
       --creatuactivo-gold: #F59E0B;
     }
 
+    /* TÍTULO H1: TITANIUM WHITE (Elegancia Institucional) */
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.1;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
     }
 
     .creatuactivo-h2-component {

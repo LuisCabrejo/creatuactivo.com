@@ -156,12 +156,11 @@ export default function FundadoresPage() {
   const formTopRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({ nombre: '', email: '', telefono: '', arquetipo: '', inversion: '' })
 
-  // Scroll to top on page load (prevent browser scroll restoration)
+  // Prevenir scroll restoration del navegador
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
-    window.scrollTo(0, 0)
   }, [])
 
   const scrollToForm = () => document.getElementById('aplicacion')?.scrollIntoView({ behavior: 'smooth' })
@@ -547,7 +546,7 @@ export default function FundadoresPage() {
                                 <div className="space-y-5 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Tu Nombre</label>
-                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" autoFocus />
+                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">WhatsApp</label>

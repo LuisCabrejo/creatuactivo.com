@@ -7,7 +7,7 @@
 
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   ArrowRight, CheckCircle, Play, PlayCircle, Rocket, Shield, Users,
   Zap, Briefcase, Target, Lightbulb, TrendingUp,
@@ -61,6 +61,21 @@ const GlobalStyles = () => (
     .video-glow {
       box-shadow: 0 0 100px -20px rgba(59, 130, 246, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      isolation: isolate;
+      touch-action: manipulation;
+    }
+
+    /* Fix para evitar scroll en mobile al reproducir video */
+    .video-glow video {
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+    }
+
+    @media (max-width: 768px) {
+      .video-glow {
+        position: relative;
+        z-index: 10;
+      }
     }
 
     /* TIMELINE */
@@ -140,6 +155,14 @@ export default function FundadoresPage() {
   const [isSuccess, setIsSuccess] = useState(false)
   const formTopRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({ nombre: '', email: '', telefono: '', arquetipo: '', inversion: '' })
+
+  // Scroll to top on page load (prevent browser scroll restoration)
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
 
   const scrollToForm = () => document.getElementById('aplicacion')?.scrollIntoView({ behavior: 'smooth' })
 
@@ -234,7 +257,7 @@ export default function FundadoresPage() {
         </section>
 
         {/* --- 2. VIDEO DE MANIFIESTO --- */}
-        <section className="pb-24 pt-10">
+        <section id="video" className="pb-24 pt-10">
             <div className="container mx-auto px-4 max-w-5xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-3">Manifiesto del Fundador</h2>
                 <p className="text-center text-slate-400 mb-8">Descubre la visión detrás del ecosistema.</p>
@@ -246,7 +269,15 @@ export default function FundadoresPage() {
                     controls
                     preload="metadata"
                     playsInline
+                    webkit-playsinline="true"
                     controlsList="nodownload"
+                    onPlay={(e) => {
+                      // Prevenir scroll al formulario en mobile
+                      const videoSection = document.getElementById('video')
+                      if (videoSection) {
+                        videoSection.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      }
+                    }}
                   >
                     {/* Fuente 4K para pantallas grandes (2K+) */}
                     {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_4K && (

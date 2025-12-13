@@ -1,7 +1,8 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Home Page v6.3.2 - Hydration Fix
- * Corrección: Fix animación Hero que no aparecía en primera carga (useHydration).
+ * Home Page v7.0 - "The Apple Strategy"
+ * Rediseño enfocado en Aspiracionalidad, Retención y Autoridad Premium.
+ * Principios: Loss Aversion, Storytelling (Cliente=Héroe), Tough Love, Deseo Mimético.
  */
 
 'use client'
@@ -11,13 +12,14 @@ import { motion } from 'framer-motion'
 import {
   Smartphone,
   Globe,
-  Package,
   TrendingUp,
-  ChevronRight,
   Users,
   Heart,
   Play,
-  Instagram
+  Check,
+  X,
+  ArrowRight,
+  ChevronDown
 } from 'lucide-react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
@@ -30,60 +32,64 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      /* Variables de color Branding */
-      --creatuactivo-blue: #1E40AF;
-      --creatuactivo-purple: #7C3AED;
-      --creatuactivo-gold: #F59E0B;
+      /* Variables de color Branding - Palette Premium */
+      --creatuactivo-blue: #3B82F6;
+      --creatuactivo-purple: #8B5CF6;
       --slate-900: #0F172A;
+      --slate-950: #020617;
     }
 
-    /* ESTILO H1 UNIFICADO (Traído de Socio Corporativo) */
+    /* ESTILO H1 UNIFICADO (Premium Gradient) */
     .creatuactivo-h1-ecosystem {
       font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em; /* Tight Apple style */
     }
 
-    /* Mantenemos este estilo por si lo usas en otros H2 (como en la sección 4M) */
+    /* Acentos dorados sutiles */
     .text-gradient-gold {
-      background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      background: linear-gradient(135deg, #FDE68A 0%, #D97706 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.2));
     }
 
-    /* Efectos de Vidrio */
+    /* Efectos de Vidrio Premium (Frosted Glass) */
     .glass-card {
       background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
 
-    .amazon-card {
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
+    .glass-card-hover:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    .amazon-card:hover {
-      border-color: rgba(59, 130, 246, 0.4);
-      transform: translateY(-5px);
+
+    /* Botón estilo "Glow" */
+    .btn-glow {
+      box-shadow: 0 0 20px -5px rgba(59, 130, 246, 0.5);
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.7);
     }
   `}</style>
 );
 
-// --- COMPONENTES UI ---
+// --- COMPONENTE FILA DE COMPARACIÓN ---
 const ComparisonRow = ({ label, oldWay, newWay }: { label: string, oldWay: string, newWay: string }) => (
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-6 border-b border-white/5 last:border-0 items-center">
-    <div className="text-slate-500 font-semibold uppercase tracking-wider text-sm md:text-right md:pr-8">{label}</div>
-    <div className="flex items-center text-red-400/80 bg-red-900/10 p-3 rounded-lg text-sm">
-      <span className="mr-2 text-lg">❌</span> {oldWay}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-6 border-b border-white/5 last:border-0 items-center group">
+    <div className="text-slate-500 font-medium uppercase tracking-widest text-xs md:text-right md:pr-8 group-hover:text-slate-400 transition-colors">{label}</div>
+    <div className="flex items-center text-red-400/70 bg-red-500/5 p-3 rounded-lg text-sm border border-transparent">
+      <X size={16} className="mr-3 shrink-0" /> {oldWay}
     </div>
-    <div className="flex items-center text-green-400 bg-green-900/10 p-3 rounded-lg font-medium border border-green-500/20 text-sm">
-      <span className="mr-2 text-lg">✅</span> {newWay}
+    <div className="flex items-center text-emerald-400 bg-emerald-500/5 p-3 rounded-lg font-medium border border-emerald-500/10 text-sm shadow-[0_0_15px_-5px_rgba(16,185,129,0.1)]">
+      <Check size={16} className="mr-3 shrink-0" /> {newWay}
     </div>
   </div>
 );
@@ -94,368 +100,349 @@ export default function HomePage() {
   return (
     <>
       <GlobalStyles />
-      <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30">
+      <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden">
         <StrategicNavigation />
 
-        {/* --- HERO SECTION --- */}
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-          {/* Fondo abstracto */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        {/* --- HERO SECTION: IDENTIDAD & ASPIRACIÓN --- */}
+        <section className="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden">
+          {/* Fondo Ambiental Sutil */}
+          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none"></div>
 
           <div className="container mx-auto px-4 relative z-10 text-center">
             <motion.div
               initial={isHydrated ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="max-w-5xl mx-auto"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-300 text-sm font-semibold mb-8">
-                <span className="relative flex h-3 w-3">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/50 border border-slate-700/50 text-slate-300 text-xs font-medium uppercase tracking-widest mb-8 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                Nueva Tecnología 2025
+                Ecosistema 2025
               </div>
 
-              {/* TÍTULO HERO: ESTILO ECOSYSTEM APLICADO */}
-              <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl mb-8 leading-tight">
-                La Tecnología hace el Trabajo Pesado.<br />
-                Tú Cobras.
+              {/* TÍTULO HERO REFINADO */}
+              <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.1] md:leading-[1.05]">
+                Tu Libertad no debería<br />
+                depender de tu Presencia.
               </h1>
 
-              {/* COPY EVOLUCIÓN */}
-              <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Tu próximo paso no es otro negocio tradicional. <strong>Es crear un Activo.</strong> Te entregamos la tecnología para que construyas un <strong>Sistema de Distribución Masivo</strong> que opere 24/7, sin depender de tu presencia física.
+              {/* COPY: ESTADO MENTAL */}
+              <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+                La mayoría trabaja duro por dinero. Los inteligentes construyen sistemas.
+                Accede a la <strong className="text-white font-medium">primera infraestructura de Inteligencia Artificial</strong> diseñada para generar activos mientras vives tu vida.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/fundadores" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 font-bold rounded-full text-lg hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-xl shadow-white/10">
-                  <Smartphone className="w-5 h-5" />
-                  Activar mi Aplicación
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <Link href="/fundadores" className="w-full sm:w-auto px-10 py-4 bg-white text-slate-950 font-bold rounded-full text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2 btn-glow transform hover:-translate-y-1">
+                  Comenzar mi Ecosistema
                 </Link>
-                <Link href="/presentacion-empresarial" className="w-full sm:w-auto px-8 py-4 bg-slate-800 text-white font-semibold rounded-full text-lg hover:bg-slate-700 transition-all flex items-center justify-center gap-2 border border-slate-700">
-                  <Play className="w-5 h-5 fill-current" />
-                  Ver Cómo Funciona
+                <Link href="/presentacion-empresarial" className="w-full sm:w-auto px-10 py-4 bg-slate-900/50 text-white font-medium rounded-full text-lg hover:bg-slate-800 transition-all flex items-center justify-center gap-2 border border-slate-700 backdrop-blur-sm group">
+                  <Play className="w-4 h-4 fill-current group-hover:scale-110 transition-transform" />
+                  Ver la Demo (3 min)
                 </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* --- VISIÓN 4 MILLONES --- */}
-        <section className="py-24 bg-gradient-to-b from-slate-900 to-slate-950 border-y border-white/5">
+        {/* --- VISIÓN: TU SALUD Y TU TIEMPO --- */}
+        <section className="py-32 bg-slate-950 border-t border-white/5 relative">
           <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-20 items-center max-w-6xl mx-auto">
 
-              {/* Lado Visual */}
-              <div className="relative">
-                <div className="aspect-square rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-3xl absolute inset-0"></div>
-                <div className="relative glass-card p-10 rounded-3xl border-t border-white/10 text-center">
-                  <Users className="w-20 h-20 text-blue-400 mx-auto mb-6" />
-                  <div className="text-7xl font-bold text-white mb-2 tracking-tighter">
+              {/* Lado Visual Minimalista */}
+              <div className="relative order-2 lg:order-1">
+                <div className="aspect-square rounded-full bg-gradient-to-tr from-blue-500/10 to-emerald-500/10 blur-3xl absolute inset-0"></div>
+                <div className="relative glass-card p-12 rounded-[2.5rem] border-t border-white/10 text-center transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700">
+                  <Users className="w-16 h-16 text-slate-200 mx-auto mb-6 opacity-80" />
+                  <div className="text-6xl md:text-8xl font-bold text-white mb-2 tracking-tighter">
                     <AnimatedCountUp end={4} duration={2} suffix="M" />
                   </div>
-                  <div className="text-xl text-blue-300 font-medium uppercase tracking-widest">Familias</div>
-                  <div className="mt-8 flex justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-white/20"></span>
-                    <span className="w-2 h-2 rounded-full bg-white/50"></span>
-                    <span className="w-12 h-2 rounded-full bg-blue-500"></span>
+                  <div className="text-sm text-slate-400 font-medium uppercase tracking-[0.3em]">Familias Impactadas</div>
+
+                  {/* Barra de progreso visual */}
+                  <div className="mt-12 w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "35%" }}
+                      transition={{ duration: 2, ease: "easeOut" }}
+                      className="h-full bg-gradient-to-r from-blue-500 to-emerald-400"
+                    ></motion.div>
                   </div>
+                  <p className="mt-4 text-xs text-slate-500">Objetivo 2030</p>
                 </div>
               </div>
 
-              {/* Lado Texto: La Visión */}
-              <div>
-                <div className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-purple-400 uppercase bg-purple-500/10 rounded-full">
-                  Nuestra Visión
-                </div>
-
-                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-                  4 Millones de Familias.<br />
-                  <span className="text-gradient-gold">Salud y Libertad.</span>
+              {/* Lado Texto: El Héroe es el Usuario */}
+              <div className="order-1 lg:order-2">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight tracking-tight">
+                  Tu Salud y Libertad<br />
+                  <span className="text-slate-500">No son negociables.</span>
                 </h2>
 
-                <p className="text-lg text-slate-400 mb-6 leading-relaxed">
-                  No se puede hablar de riqueza si no hay salud.
-                  Nuestra meta es llevar el <strong>primer café saludable del mundo</strong> a 4 millones de hogares en América.
+                <p className="text-lg text-slate-400 mb-8 leading-relaxed font-light">
+                  El modelo antiguo te obligaba a elegir: o tenías dinero sin tiempo, o tiempo sin dinero. Nosotros diseñamos un ecosistema para que tengas ambos.
                 </p>
 
-                <blockquote className="border-l-4 border-blue-500 pl-6 mb-8 italic text-slate-300 text-xl">
-                  "Un producto que cuida tu cuerpo. Un sistema que cuida tu tiempo. Esa es la verdadera definición de Activo."
+                <blockquote className="border-l-2 border-blue-500/50 pl-6 mb-10 text-slate-300 text-lg italic font-light">
+                  "No vendemos café. Construimos la infraestructura digital que distribuye bienestar mientras tú duermes."
                 </blockquote>
 
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3">
-                    <Heart className="w-6 h-6 text-green-400 mt-1" />
-                    <p className="text-slate-400"><strong className="text-white">Gano Excel:</strong> Pone el producto patentado (Salud).</p>
+                <div className="space-y-6 mb-10">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                      <Heart size={20} />
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Bienestar Físico</p>
+                      <p className="text-slate-500 text-sm">Respaldo científico y patentes globales.</p>
+                    </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Smartphone className="w-6 h-6 text-blue-400 mt-1" />
-                    <p className="text-slate-400"><strong className="text-white">CreaTuActivo:</strong> Pone la automatización (Libertad).</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
+                      <Smartphone size={20} />
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Bienestar Financiero</p>
+                      <p className="text-slate-500 text-sm">Automatización y activos digitales.</p>
+                    </div>
                   </div>
                 </div>
-
-                <Link href="/fundadores" className="text-white font-bold underline decoration-blue-500 decoration-2 underline-offset-4 hover:text-blue-400 transition-colors">
-                  ¿Quieres ser parte de los que construyen?
-                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* --- LA ANALOGÍA MAESTRA (AMAZON) --- */}
-        <section className="py-20 bg-slate-950">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  El Secreto de los Activos Digitales
-                </h2>
-                <p className="text-slate-400">Entiende esto y nunca más buscarás un empleo tradicional.</p>
-              </div>
+        {/* --- LA ANALOGÍA MAESTRA (HARDWARE VS SOFTWARE) --- */}
+        <section className="py-32 bg-slate-950 relative overflow-hidden">
+          {/* Fondo sutil */}
+          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
 
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                {/* Lado A */}
-                <div className="space-y-6">
-                  <div className="glass-card p-8 rounded-2xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                      <Globe size={100} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Jeff Bezos...</h3>
-                    <p className="text-lg text-slate-300 mb-6">
-                      ¿Se hizo rico vendiendo libros puerta a puerta?
-                    </p>
-                    <p className="text-red-400 font-bold text-xl flex items-center">
-                      <span className="text-2xl mr-2">🚫</span> ¡NO!
-                    </p>
-                  </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+                El Código vs. El Ladrillo
+              </h2>
+              <p className="text-xl text-slate-400 font-light max-w-2xl mx-auto">
+                Jeff Bezos no se hizo rico empacando cajas. Se hizo rico siendo dueño del sistema que las empaca.
+              </p>
+            </div>
+
+            {/* Tarjeta Unificada Elegante */}
+            <div className="relative glass-card p-1 rounded-3xl overflow-hidden max-w-5xl mx-auto border border-white/10 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-emerald-500/5 opacity-50"></div>
+
+              <div className="relative bg-slate-950/80 p-8 md:p-16 rounded-[20px] grid md:grid-cols-2 gap-12 items-stretch backdrop-blur-xl">
+                {/* Columna Izquierda (Lo viejo) */}
+                <div className="md:pr-8 md:border-r border-white/5">
+                  <h3 className="text-xl font-bold text-slate-300 mb-8 flex items-center gap-3 opacity-60">
+                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                    Lo que la gente "cree" que es:
+                  </h3>
+                  <ul className="space-y-6">
+                    <li className="flex items-start gap-4 text-slate-400">
+                      <X className="w-5 h-5 text-red-500/50 mt-1 shrink-0" />
+                      <span>Vender productos puerta a puerta</span>
+                    </li>
+                    <li className="flex items-start gap-4 text-slate-400">
+                      <X className="w-5 h-5 text-red-500/50 mt-1 shrink-0" />
+                      <span>Llamar a amigos y familiares (Spam)</span>
+                    </li>
+                    <li className="flex items-start gap-4 text-slate-400">
+                      <X className="w-5 h-5 text-red-500/50 mt-1 shrink-0" />
+                      <span>Manejar inventario y cobros</span>
+                    </li>
+                  </ul>
                 </div>
 
-                {/* Lado B */}
-                <div className="space-y-6">
-                  <div className="glass-card p-8 rounded-2xl border-green-500/20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 text-green-500">
-                      <TrendingUp size={100} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Él construyó el SISTEMA</h3>
-                    <p className="text-lg text-slate-300 mb-6">
-                      Creó la plataforma (Amazon) donde millones de transacciones ocurren automáticamente.
-                    </p>
-                    <p className="text-green-400 font-bold text-xl flex items-center">
-                      <span className="text-2xl mr-2">✅</span> ¡EXACTO!
-                    </p>
-                  </div>
+                {/* Columna Derecha (La Realidad Tech) */}
+                <div className="md:pl-4">
+                  <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Lo que realmente hacemos:
+                  </h3>
+                  <ul className="space-y-6">
+                    <li className="flex items-start gap-4 text-white">
+                      <Check className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                      <span>Conectar personas usando el Ecosistema CreaTuActivo</span>
+                    </li>
+                    <li className="flex items-start gap-4 text-white">
+                      <Check className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                      <span>Automatizar la educación y filtrado con IA</span>
+                    </li>
+                    <li className="flex items-start gap-4 text-white">
+                      <Check className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                      <span>Cobrar regalías globales de por vida</span>
+                    </li>
+                  </ul>
                 </div>
-              </div>
-
-              <div className="mt-8 text-center max-w-2xl mx-auto">
-                <p className="text-slate-400 leading-relaxed">
-                  Nosotros te enseñamos a hacer lo mismo. No a vender café puerta a puerta, sino a <strong>construir tu sistema de distribución</strong> usando nuestra tecnología de automatización.
-                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* --- LOS 3 COMPONENTES (SIMPLE) --- */}
-        <section className="py-24 relative bg-slate-900">
+        {/* --- LOS 3 PILARES (RENOMBRADOS) --- */}
+        <section className="py-32 relative bg-slate-900/50">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-blue-400 font-bold tracking-wider uppercase text-sm">Tu Franquicia Digital Incluye</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-6">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <span className="text-blue-400 font-bold tracking-widest uppercase text-xs mb-4 block">Tu Infraestructura Digital</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                 El "Amazon" llave en mano
               </h2>
-              <p className="text-slate-400 text-lg">
+              <p className="text-slate-400 text-lg font-light">
                 No tienes que inventar nada. Te entregamos las 3 piezas listas para operar.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8">
               {/* Pieza 1 */}
-              <div className="amazon-card p-8 rounded-2xl relative group">
-                <div className="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 mb-6">
-                  <Package size={32} />
+              <div className="glass-card glass-card-hover p-10 rounded-3xl relative group">
+                <div className="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:bg-blue-600 transition-colors duration-300">
+                  <Globe size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">1. La Fábrica (Producto)</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                  Gano Excel pone los productos, las bodegas, los envíos y los empleados. Tecnología propietaria para millones.
+                <h3 className="text-xl font-bold text-white mb-4">1. El Socio Corporativo</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  Acceso inmediato a una infraestructura de mil millones de dólares. Gano Excel pone la logística, las patentes y el capital.
                 </p>
-                <div className="text-xs font-bold text-green-500 uppercase tracking-wide">
-                  Tecnología Propietaria Única
-                </div>
+                <div className="h-px w-full bg-gradient-to-r from-blue-500/50 to-transparent"></div>
               </div>
 
-              {/* Pieza 2 */}
-              <div className="amazon-card p-8 rounded-2xl relative group border-blue-500/30">
-                <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-                  IA INTEGRADA
+              {/* Pieza 2 - Highlight */}
+              <div className="glass-card glass-card-hover p-10 rounded-3xl relative group border-blue-500/20 bg-blue-500/5">
+                <div className="absolute top-6 right-6">
+                  <div className="w-2 h-2 rounded-full bg-blue-400 animate-ping"></div>
                 </div>
-                <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-6">
-                  <Smartphone size={32} />
+                <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-blue-500/20">
+                  <Smartphone size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">2. La App (Tecnología)</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                  CreaTuActivo.com es tu aplicación inteligente. Tiene una IA (NEXUS) que educa y filtra el negocio por ti las 24 horas.
+                <h3 className="text-xl font-bold text-white mb-4">2. Tu Motor de IA</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  <strong>La App CreaTuActivo</strong> es tu ventaja injusta. Nuestra tecnología propietaria trabaja, filtra, educa y cierra prospectos mientras tú vives.
                 </p>
-                <div className="text-xs font-bold text-blue-500 uppercase tracking-wide">
-                  Trabaja mientras duermes
-                </div>
+                <div className="h-px w-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
               </div>
 
               {/* Pieza 3 */}
-              <div className="amazon-card p-8 rounded-2xl relative group">
-                <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6">
-                  <TrendingUp size={32} />
+              <div className="glass-card glass-card-hover p-10 rounded-3xl relative group">
+                <div className="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:bg-purple-600 transition-colors duration-300">
+                  <TrendingUp size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">3. El Método (Mapa)</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                  No improvisas. Sigues 3 pasos simples (Iniciar, Acoger, Activar) que ya funcionaron para 2,847 personas.
+                <h3 className="text-xl font-bold text-white mb-4">3. El Plan de Ejecución</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  No improvises. Ejecuta una estrategia de precisión militar (IAA) probada por más de 2,000 personas con resultados.
                 </p>
-                <div className="text-xs font-bold text-purple-500 uppercase tracking-wide">
-                  Sistema Probado
-                </div>
+                <div className="h-px w-full bg-gradient-to-r from-purple-500/50 to-transparent"></div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* --- COMPARATIVA --- */}
-        <section className="py-20 bg-slate-950/50">
+        {/* --- COMPARATIVA LÓGICA --- */}
+        <section className="py-24 bg-slate-950">
           <div className="container mx-auto px-4 max-w-4xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white">¿Por qué esto es diferente?</h2>
-            </div>
+            <div className="bg-slate-900/50 rounded-3xl border border-white/5 p-8 md:p-12 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white mb-10 text-center">La Matemática de tu Libertad</h3>
 
-            <div className="bg-slate-900 rounded-2xl border border-white/10 p-6 md:p-8">
               <ComparisonRow
-                label="Tu rol"
-                oldWay="Vendedor que persigue gente"
-                newWay="Dueño de sistema digital"
+                label="Tu Rol"
+                oldWay="Vendedor operativo"
+                newWay="Arquitecto de Sistemas"
               />
               <ComparisonRow
-                label="Tu tiempo"
-                oldWay="Reuniones físicas interminables"
-                newWay="15 min/día desde el celular"
+                label="Escalabilidad"
+                oldWay="Limitada a tus horas"
+                newWay="Infinita (Software + Red)"
               />
               <ComparisonRow
-                label="Quién explica"
-                oldWay="Tú explicas lo mismo 100 veces"
-                newWay="La IA explica por ti 24/7"
-              />
-              <ComparisonRow
-                label="Resultado"
-                oldWay="Ingreso lineal (Empleo)"
-                newWay="Activo exponencial (Libertad)"
+                label="Ingreso"
+                oldWay="Lineal (Sueldo)"
+                newWay="Exponencial (Activo)"
               />
             </div>
           </div>
         </section>
 
-        {/* --- VISUALIZACIÓN: GANAR DINERO VS CONSTRUIR LIBERTAD --- */}
-        <section className="py-20 bg-slate-950">
+        {/* --- VISUALIZACIÓN: INCOME GRAPH --- */}
+        <section className="py-24 bg-slate-950 border-t border-white/5">
           <div className="container mx-auto px-4">
             <IncomeComparisonAnimation />
           </div>
         </section>
 
-        {/* --- PRUEBA SOCIAL CON TESTIMONIOS REALES --- */}
-        <section className="py-20 bg-slate-900">
+        {/* --- PRUEBA SOCIAL (RESULTADOS) --- */}
+        <section className="py-32 bg-slate-900 relative">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Lo Que Dicen los Líderes
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                Resultados, No Promesas.
               </h2>
-              <p className="text-slate-400">Diamantes de Gano Excel que construyeron con esta metodología.</p>
-            </div>
-
-            {/* Stats Animados */}
-            <div className="flex flex-wrap justify-center gap-8 mb-12">
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-white">
-                  +<AnimatedCountUp end={2847} duration={2.5} />
-                </div>
-                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">Personas</p>
-              </div>
-              <div className="hidden md:block text-slate-600 text-4xl">•</div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-white">
-                  <AnimatedCountUp end={12} duration={2} suffix=" Años" />
-                </div>
-                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">de Éxito</p>
-              </div>
-              <div className="hidden md:block text-slate-600 text-4xl">•</div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-white">
-                  <AnimatedCountUp end={17} duration={2} suffix="+" />
-                </div>
-                <p className="text-slate-400 text-sm uppercase tracking-wider mt-1">Países</p>
-              </div>
+              <p className="text-slate-400 font-light">Diamantes que cambiaron el "Trabajo Duro" por "Trabajo Inteligente".</p>
             </div>
 
             {/* Testimonios Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              {/* Testimonio 1 - Liliana */}
-              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
-                <div className="flex items-center mb-4">
-                  <img
-                    src="https://4millones.com/wp-content/uploads/2025/07/liliana-patricia-moreno-diamante-gano-excel.webp"
-                    alt="Liliana Patricia Moreno"
-                    className="w-12 h-12 rounded-full object-cover border-2 border-purple-500/50 mr-3"
-                  />
+              {/* Testimonio 1 */}
+              <div className="glass-card p-8 rounded-3xl flex flex-col h-full hover:bg-white/5 transition-colors">
+                <div className="flex items-center mb-6">
+                  <img src="https://4millones.com/wp-content/uploads/2025/07/liliana-patricia-moreno-diamante-gano-excel.webp" alt="Liliana" className="w-12 h-12 rounded-full object-cover mr-4 grayscale opacity-80 hover:grayscale-0 transition-all" />
                   <div>
                     <p className="font-bold text-white text-sm">Liliana P. Moreno</p>
-                    <p className="text-xs text-purple-400">Ama de Casa y Empresaria</p>
+                    <p className="text-xs text-slate-500">Ex-Ama de Casa</p>
                   </div>
                 </div>
-                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad."</p>
-                <a href="https://www.facebook.com/share/v/17CLotD3R2/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-blue-400 text-xs font-semibold hover:text-blue-300">
-                  Ver Historia →
-                </a>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">"Pasé años intentando vender manualmente. Con este sistema, construí un patrimonio para mis hijas sin salir de casa."</p>
+                <div className="mt-auto pt-4 border-t border-white/5">
+                  <p className="text-xs font-bold text-emerald-400">Resultado: Libertad Total</p>
+                </div>
               </div>
 
-              {/* Testimonio 2 - Andrés */}
-              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm mr-3 border-2 border-blue-500/50">AG</div>
+              {/* Testimonio 2 */}
+              <div className="glass-card p-8 rounded-3xl flex flex-col h-full hover:bg-white/5 transition-colors">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 rounded-full bg-blue-900/50 flex items-center justify-center text-white font-bold text-sm mr-4">AG</div>
                   <div>
                     <p className="font-bold text-white text-sm">Andrés Guzmán</p>
-                    <p className="text-xs text-blue-400">Empresario Sector Salud</p>
+                    <p className="text-xs text-slate-500">Sector Salud</p>
                   </div>
                 </div>
-                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D."</p>
-                <a href="https://www.instagram.com/andresguzmanofficial/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
-                  <Instagram size={14} className="mr-1" /> @andresguzmanofficial
-                </a>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">"Es como tener una imprenta 3D de activos. La tecnología hace el 80% del trabajo aburrido que yo odiaba."</p>
+                <div className="mt-auto pt-4 border-t border-white/5">
+                  <p className="text-xs font-bold text-emerald-400">Resultado: Automatización</p>
+                </div>
               </div>
 
-              {/* Testimonio 3 - Jonathan */}
-              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm mr-3 border-2 border-purple-500/50">JM</div>
+              {/* Testimonio 3 */}
+              <div className="glass-card p-8 rounded-3xl flex flex-col h-full hover:bg-white/5 transition-colors">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 rounded-full bg-purple-900/50 flex items-center justify-center text-white font-bold text-sm mr-4">JM</div>
                   <div>
                     <p className="font-bold text-white text-sm">Dr. Jonathan M.</p>
-                    <p className="text-xs text-purple-400">Médico Estético y Antiage</p>
+                    <p className="text-xs text-slate-500">Médico</p>
                   </div>
                 </div>
-                <p className="text-slate-300 text-sm italic flex-grow mb-3">"Como médico, mi tiempo es limitado. Lo que antes requería 100% de mi esfuerzo, ahora se logra con un 20%."</p>
-                <a href="https://www.instagram.com/jonathanmoncaleano/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
-                  <Instagram size={14} className="mr-1" /> @jonathanmoncaleano
-                </a>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">"Como médico no tenía tiempo. Ahora mi consultorio digital atiende a miles de personas mientras yo viajo."</p>
+                <div className="mt-auto pt-4 border-t border-white/5">
+                  <p className="text-xs font-bold text-emerald-400">Resultado: Tiempo Recuperado</p>
+                </div>
               </div>
 
-              {/* Testimonio 4 - Juan Pablo */}
-              <div className="glass-card p-6 rounded-2xl flex flex-col h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center text-slate-900 font-bold text-sm mr-3 border-2 border-amber-500/50">JP</div>
+              {/* Testimonio 4 */}
+              <div className="glass-card p-8 rounded-3xl flex flex-col h-full hover:bg-white/5 transition-colors">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 rounded-full bg-amber-900/50 flex items-center justify-center text-white font-bold text-sm mr-4">JP</div>
                   <div>
                     <p className="font-bold text-white text-sm">Juan Pablo R.</p>
-                    <p className="text-xs text-amber-400">Ex Gerente Bancario, Escritor</p>
+                    <p className="text-xs text-slate-500">Ex-Bancario</p>
                   </div>
                 </div>
-                <p className="text-slate-300 text-sm italic flex-grow mb-3">"La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba."</p>
-                <a href="https://www.instagram.com/juanpaelrojo/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pink-400 text-xs font-semibold hover:text-pink-300">
-                  <Instagram size={14} className="mr-1" /> @juanpaelrojo
-                </a>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">"Entendí que la riqueza no está en el producto, está en la red de distribución. Este software crea la red por ti."</p>
+                <div className="mt-auto pt-4 border-t border-white/5">
+                  <p className="text-xs font-bold text-emerald-400">Resultado: Activo Heredable</p>
+                </div>
               </div>
             </div>
           </div>
@@ -464,62 +451,111 @@ export default function HomePage() {
         {/* --- TIMELINE DE LANZAMIENTO --- */}
         <AnimatedTimeline />
 
-        {/* --- CTA FINAL --- */}
-        <section className="py-20 bg-gradient-to-b from-blue-900/20 to-slate-950 border-t border-white/5">
-          <div className="container mx-auto px-4 text-center max-w-3xl">
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Solo 150 Fundadores
+        {/* --- FAQ: EL ASESINO DE OBJECIONES --- */}
+        <section className="py-24 bg-slate-950 border-t border-white/5">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-white mb-4">Preguntas Frecuentes</h2>
+              <p className="text-slate-400 font-light">Claridad total antes de iniciar tu aplicación.</p>
+            </div>
+
+            <div className="space-y-4">
+              {/* Pregunta 1 */}
+              <details className="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl bg-slate-900/50 p-6 text-white hover:bg-slate-800 transition-colors">
+                  <h3 className="font-bold">¿Necesito conocimientos técnicos o de programación?</h3>
+                  <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-300" />
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-400 text-sm leading-relaxed font-light">
+                  <p>
+                    <strong className="text-white">Absolutamente no.</strong> Esa es la razón de ser de CreaTuActivo. Nosotros ponemos la infraestructura. Tú gestionas tu Nodo Digital desde el celular con funciones de usuario básico (copiar, pegar, monitorear). Es como usar Uber: no necesitas ser mecánico para que el auto te lleve.
+                  </p>
+                </div>
+              </details>
+
+              {/* Pregunta 2 */}
+              <details className="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl bg-slate-900/50 p-6 text-white hover:bg-slate-800 transition-colors">
+                  <h3 className="font-bold">¿Esto es otro Multinivel tradicional?</h3>
+                  <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-300" />
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-400 text-sm leading-relaxed font-light">
+                  <p>
+                    No en la forma operativa. Usamos el modelo legal de Network Marketing de Gano Excel para la facturación y pagos (porque es el más eficiente fiscalmente), pero <strong className="text-white">eliminamos la parte manual</strong> (perseguir gente, reuniones en casa, venta de catálogo). Convertimos un modelo de venta directa en un modelo de E-commerce y Marketing Digital automatizado.
+                  </p>
+                </div>
+              </details>
+
+              {/* Pregunta 3 */}
+              <details className="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl bg-slate-900/50 p-6 text-white hover:bg-slate-800 transition-colors">
+                  <h3 className="font-bold">¿Cuánto tiempo real debo dedicarle?</h3>
+                  <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-300" />
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-400 text-sm leading-relaxed font-light">
+                  <p>
+                    El sistema está diseñado para profesionales ocupados (médicos, ingenieros, empresarios). En la fase de construcción, requieres de <strong className="text-white">45 a 60 minutos diarios</strong> (no continuos) para gestionar las notificaciones de tu IA. Una vez el activo está maduro, el tiempo se reduce drásticamente.
+                  </p>
+                </div>
+              </details>
+
+              {/* Pregunta 4 */}
+              <details className="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl bg-slate-900/50 p-6 text-white hover:bg-slate-800 transition-colors">
+                  <h3 className="font-bold">¿Por qué hay un límite de 150 cupos?</h3>
+                  <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-300" />
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-400 text-sm leading-relaxed font-light">
+                  <p>
+                    Porque recibirás <strong className="text-white">Mentoría Directa</strong> y acceso gratuito a la infraestructura tecnológica (que tiene un costo de servidor alto). No es un curso grabado masivo; es un programa de formación de socios. Para garantizar resultados, no podemos atender a más personas con este nivel de personalización.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        {/* --- CTA FINAL: ESCALABILIDAD --- */}
+        <section className="py-32 bg-slate-950 border-t border-white/5">
+          <div className="container mx-auto px-4 text-center max-w-4xl">
+            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
+              150 Fundadores.
             </h2>
-            <p className="text-lg text-slate-300 mb-10 leading-relaxed">
-              Vamos a construir la red más grande de América. Los primeros 150 tendrán acceso directo a mi mentoría y a la tecnología GRATIS de por vida.
-              <br /><br />
-              <span className="text-yellow-400 font-bold">La lista cierra el 04 de Enero.</span>
+            <p className="text-xl text-slate-400 mb-12 leading-relaxed font-light max-w-2xl mx-auto">
+              Vamos a construir la red más grande de América. Los primeros 150 tendrán acceso directo a mi mentoría privada y a la tecnología <span className="text-white font-bold">CreaTuActivo GRATIS de por vida.</span>
             </p>
 
-            <div className="flex flex-col gap-4 max-w-md mx-auto">
-              <Link href="/fundadores" className="w-full py-5 bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-900 font-extrabold rounded-xl text-xl hover:scale-105 transition-transform shadow-2xl shadow-yellow-500/20 flex items-center justify-center gap-2">
-                Quiero ser Fundador <ChevronRight />
+            <div className="flex flex-col items-center gap-6">
+              <Link href="/fundadores" className="group relative inline-flex items-center justify-center px-12 py-5 bg-white text-slate-950 font-bold rounded-full text-xl overflow-hidden transition-all hover:scale-105">
+                <span className="relative z-10 flex items-center gap-3">
+                  Aplicar ahora <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-100 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </Link>
-              <p className="text-xs text-slate-500 mt-2">
-                * No necesitas tarjeta de crédito para ver la información.
-              </p>
+
+              <div className="flex items-center gap-2 text-sm text-yellow-500/80 bg-yellow-500/5 px-4 py-2 rounded-full border border-yellow-500/10">
+                <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                La lista cierra estrictamente el 04 de Enero.
+              </div>
             </div>
           </div>
         </section>
 
         {/* --- FOOTER --- */}
-        <footer className="border-t border-white/5 py-12 bg-slate-950 text-slate-500 text-sm">
-          <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <footer className="border-t border-white/5 py-16 bg-slate-950 text-slate-500 text-sm">
+          <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-center md:text-left">
-              <p>&copy; {new Date().getFullYear()} CreaTuActivo.com</p>
-              <p>Tecnología para construir activos.</p>
+              <p className="text-white font-bold text-lg mb-2">CreaTuActivo</p>
+              <p className="font-light">Ingeniería de Activos Digitales.</p>
+              <p className="mt-4 text-xs opacity-50">&copy; {new Date().getFullYear()} Todos los derechos reservados.</p>
             </div>
-            <div className="flex gap-6">
+            <div className="flex gap-8">
               <Link href="/legal/privacidad" className="hover:text-white transition-colors">Privacidad</Link>
-              <Link href="/contacto" className="hover:text-white transition-colors">Contacto</Link>
+              <Link href="/contacto" className="hover:text-white transition-colors">Soporte</Link>
             </div>
           </div>
         </footer>
       </div>
     </>
-  )
-}
-
-function Star({ className, size }: { className?: string, size: number }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-    </svg>
   )
 }

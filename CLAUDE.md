@@ -174,8 +174,9 @@ Usuario → Producer → nexus_queue (INSERT)
 
 **Knowledge Base** (stored in `nexus_documents`, consolidado Dic 2025):
 - `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses, ~21KB)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~52KB)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~61KB)
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (compensation plan details, ~14KB)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~18KB)
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -186,18 +187,24 @@ src/app/
 ├── page.tsx                         # Homepage
 ├── layout.tsx                       # Root layout (tracking + NEXUS)
 ├── fundadores/                      # Main founder signup
+│   └── [ref]/page.tsx               # Referral tracking (/fundadores/luis123)
 ├── fundadores-network/              # Network-focused landing
+│   └── [ref]/page.tsx               # Referral tracking
 ├── fundadores-profesionales/        # Professional-focused landing
+│   └── [ref]/page.tsx               # Referral tracking
 ├── presentacion-empresarial/        # Business presentation
+│   └── [ref]/page.tsx               # Referral tracking
 ├── presentacion-empresarial-inversionistas/  # Investor presentation
 ├── modelo-de-valor/page.tsx
-├── paquetes/page.tsx
-├── paises/                          # Country-specific pages
+├── paquetes/                        # Product packages
+│   └── [ref]/page.tsx               # Referral tracking
+├── paises/                          # Country-specific pages (brasil/)
 ├── planes/                          # Pricing plans
 ├── reto-12-dias/                    # 12-day challenge landing page
-├── ecosistema/                      # 3 ecosystem pages
-├── sistema/                         # System pages + productos/
-├── soluciones/                      # Persona-specific pages
+│   └── [ref]/page.tsx               # Referral tracking
+├── ecosistema/                      # 3 ecosystem pages + [ref]/
+├── sistema/                         # System pages + productos/[ref]/
+├── soluciones/                      # Persona-specific pages (6 archetypes)
 ├── privacidad/                      # Privacy policy
 └── api/
     ├── nexus/                       # producer/, consumer-cron/, legacy route
@@ -205,6 +212,8 @@ src/app/
     ├── constructor/[id]/route.ts
     └── test-resend/                 # Email testing
 ```
+
+**Dynamic `[ref]` Routes**: Most landing pages support referral tracking via `/page-name/referrer-id`. The `ref` parameter identifies the referring user for attribution.
 
 **Navigation**: [src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) used on most pages.
 
@@ -445,7 +454,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~40 scripts after Dec 2025 cleanup)
+**Location**: `scripts/` directory (~38 scripts after Dec 2025 cleanup)
 
 **NEXUS Management**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase

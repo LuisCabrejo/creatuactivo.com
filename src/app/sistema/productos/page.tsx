@@ -1126,7 +1126,7 @@ export default function CatalogoEstrategico() {
         {/* Productos por categorías tradicionales */}
         <section id="bebidas" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Bebidas Funcionales</h2>
+            <h2 className="text-3xl font-bold text-slate-800">Bebidas Saludables</h2>
             <div className="h-1 flex-1 bg-gradient-to-r from-blue-400 to-indigo-400 ml-8 rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -1283,7 +1283,7 @@ export default function CatalogoEstrategico() {
         {/* Suplementos */}
         <section id="suplementos" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Suplementos Concentrados</h2>
+            <h2 className="text-3xl font-bold text-slate-800">Suplementos Naturales</h2>
             <div className="h-1 flex-1 bg-gradient-to-r from-indigo-500 to-purple-500 ml-8 rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -1343,7 +1343,7 @@ export default function CatalogoEstrategico() {
         {/* Cuidado Personal */}
         <section id="cuidado-personal" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Cuidado Personal Inteligente</h2>
+            <h2 className="text-3xl font-bold text-slate-800">Cuidado Personal</h2>
             <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 to-pink-500 ml-8 rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -1405,11 +1405,10 @@ export default function CatalogoEstrategico() {
           <div className="bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-amber-600/10 rounded-3xl p-12 text-center">
             <Shield className="w-16 h-16 text-amber-500 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
-              ¿Listo para Construir Tu Activo?
+              ¿Te Interesa Emprender con Productos de Bienestar?
             </h2>
             <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-8">
-              Este catálogo no es solo una lista de productos. Es tu arsenal para construir un activo real
-              con la única fórmula exclusiva de extracto 100% hidrosoluble de Ganoderma.
+              Si quieres conocer más sobre cómo estos productos pueden ayudarte, o te interesa compartirlos con otros, estamos aquí para ayudarte.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
@@ -1507,7 +1506,7 @@ export default function CatalogoEstrategico() {
               </summary>
               <div className="px-6 pb-6 text-slate-700 leading-relaxed">
                 <p className="mb-4">
-                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto 100% hidrosoluble de Ganoderma Lucidum</strong> con nuestra tecnología de extracción propia:
+                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto natural de Ganoderma Lucidum</strong> que tu cuerpo absorbe fácilmente:
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
@@ -1520,7 +1519,7 @@ export default function CatalogoEstrategico() {
                   </div>
                   <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
                     <h4 className="font-bold text-purple-800 mb-2">🧘 Reducción de Estrés</h4>
-                    <p className="text-sm">Adaptógeno natural que equilibra cortisol</p>
+                    <p className="text-sm">Ayuda a manejar el estrés del día a día</p>
                   </div>
                   <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
                     <h4 className="font-bold text-amber-800 mb-2">🎯 Concentración</h4>

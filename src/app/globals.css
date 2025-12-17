@@ -210,21 +210,4 @@
   animation: fade-in-up 0.8s ease-out forwards;
 }
 
-/* CTA Button Styles para compatibilidad */
-.creatuactivo-cta-ecosystem {
-  background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
-  border-radius: 16px;
-  padding: 18px 36px;
-  font-weight: 700;
-  color: white;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.creatuactivo-cta-ecosystem:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
-}
+/* CTA Button Styles - Duplicado eliminado (ya definido arriba en líneas 54-71) */

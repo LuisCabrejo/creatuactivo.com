@@ -135,6 +135,18 @@ window.FrameworkIAA                 // Current prospect
 window.reidentifyProspect()         // Force re-identification
 ```
 
+### 2.1. PWA & Service Worker
+
+**Location**: [public/sw.js](public/sw.js) (v1.1.0)
+
+Hybrid caching strategy for Next.js App Router:
+- **Cache-first**: HTML navigation, static assets (JS, CSS, images)
+- **Network-first**: Dynamic data, APIs
+- **Auto-cache**: Client-side navigation via RSC (`?_rsc=` params)
+- **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services
+
+**Registered in**: [src/app/layout.tsx](src/app/layout.tsx) via inline script
+
 ### 3. Async Queue Architecture
 
 **Database trigger architecture** (no external queue service):
@@ -307,7 +319,7 @@ See [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) for details
 
 **Location**: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx)
 
-**Status**: Static counter showing 150 spots (as of Nov 11, 2025). Dynamic system paused waiting for real sales data.
+**Status**: Static counter showing 150 spots. Dynamic system paused waiting for real sales data.
 
 **Test**: `node scripts/test-contador-cupos.mjs`
 
@@ -459,7 +471,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **NEXUS Management**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (último: v14.8.0)
+- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (see `ls scripts/actualizar-system-prompt-*`)
 
 **Knowledge Base**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

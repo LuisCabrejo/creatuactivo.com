@@ -1,28 +1,23 @@
 /**
- * CreaTuActivo.com - Service Worker v1.0.9
+ * CreaTuActivo.com - Service Worker v1.1.0
  *
- * Estrategia Híbrida:
+ * Estrategia Híbrida para Next.js App Router:
  * - Cache-first para navegación (HTML)
  * - Cache-first para assets estáticos (JS, CSS, imágenes)
  * - Network-first para datos dinámicos
- * - Auto-cache HTML cuando se detecta navegación cliente
+ * - Auto-cache HTML cuando se detecta navegación cliente (?_rsc= para App Router)
  *
+ * FIX v1.1.0: Soporte para App Router RSC navigation (?_rsc= params)
  * Basado en Dashboard SW v1.0.9 (2025-12-17)
  */
 
-const CACHE_VERSION = 'v1.0.9';
-const CACHE_NAME = `creatuactivo-marketing-${CACHE_VERSION}`;
+const CACHE_VERSION = '1.1.0';
+const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache
 const CRITICAL_ASSETS = [
   '/',
-  '/favicon.ico',
-  '/favicon-32x32.png',
-  '/favicon-96x96.png',
-  '/apple-touch-icon.png',
-  '/web-app-manifest-192x192.png',
-  '/web-app-manifest-512x512.png',
-  '/og-image.jpg'
+  '/site.webmanifest'
 ];
 
 // Rutas que NUNCA se cachean (APIs, auth, tracking)
@@ -32,14 +27,15 @@ const BYPASS_CACHE_PATTERNS = [
   '/_next/webpack-hmr',
   '/tracking.js',  // Siempre fresh para fingerprinting
   'supabase.co',
-  'anthropic.com'
+  'anthropic.com',
+  'placehold.co'   // Imágenes placeholder externas
 ];
 
 // ============================================================================
 // INSTALL EVENT
 // ============================================================================
 self.addEventListener('install', (event) => {
-  console.warn('🚀 [SW] Service Worker v' + CACHE_VERSION + ' instalando...');
+  console.warn(`🚀 [SW] Service Worker v${CACHE_VERSION} instalando...`);
 
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -67,7 +63,7 @@ self.addEventListener('install', (event) => {
 // ACTIVATE EVENT
 // ============================================================================
 self.addEventListener('activate', (event) => {
-  console.warn('🔄 [SW] Activando Service Worker v' + CACHE_VERSION);
+  console.warn(`🔄 [SW] Activando Service Worker v${CACHE_VERSION}`);
 
   event.waitUntil(
     caches.keys()
@@ -83,7 +79,7 @@ self.addEventListener('activate', (event) => {
         );
       })
       .then(() => {
-        console.warn('✅ [SW] Service Worker v' + CACHE_VERSION + ' activo');
+        console.warn(`✅ [SW] Service Worker v${CACHE_VERSION} activo`);
       })
   );
 
@@ -114,7 +110,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // NEXT.JS DATA (navegación cliente) → Cache-first + auto-cache HTML
+  // APP ROUTER RSC (navegación cliente con ?_rsc=) → Cache + auto-cache HTML
+  if (url.searchParams.has('_rsc')) {
+    event.respondWith(handleRSCRequest(request, url));
+    return;
+  }
+
+  // NEXT.JS DATA (Pages Router - navegación cliente) → Cache-first + auto-cache HTML
   if (url.pathname.startsWith('/_next/data/')) {
     event.respondWith(handleNextData(request, url));
     return;
@@ -126,7 +128,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // OTROS → Network-first
+  // OTROS → Network-first con fallback
   event.respondWith(handleDynamic(request));
 });
 
@@ -162,12 +164,56 @@ async function handleNavigation(request) {
 
   } catch (error) {
     console.warn('❌ [SW] Error en navegación:', error.message);
+
+    // Intentar servir desde cache una última vez
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
     return createOfflineFallback();
   }
 }
 
 /**
- * Manejar navegación cliente de Next.js (/_next/data/)
+ * Manejar requests RSC de App Router (?_rsc= params)
+ * Auto-cachea el HTML correspondiente para que funcione offline
+ */
+async function handleRSCRequest(request, url) {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const cachedResponse = await cache.match(request);
+
+    if (cachedResponse) {
+      console.warn('📦 [SW] RSC cache HIT:', url.pathname);
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(request);
+
+    if (networkResponse.ok) {
+      cache.put(request, networkResponse.clone());
+      console.warn('✅ [SW] RSC cacheado:', url.pathname);
+
+      // AUTO-CACHE: También cachear el HTML de la página (sin params)
+      cacheHTMLForRSC(url);
+    }
+
+    return networkResponse;
+
+  } catch (error) {
+    console.warn('❌ [SW] Error en RSC:', error.message);
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    // Para RSC, no mostrar offline fallback, dejar que falle
+    throw error;
+  }
+}
+
+/**
+ * Manejar navegación cliente de Next.js Pages Router (/_next/data/)
  * Auto-cachea el HTML correspondiente
  */
 async function handleNextData(request, url) {
@@ -236,7 +282,7 @@ async function handleStaticAsset(request) {
 }
 
 /**
- * Network-first para contenido dinámico
+ * Network-first para contenido dinámico con mejor manejo de errores
  */
 async function handleDynamic(request) {
   try {
@@ -255,7 +301,12 @@ async function handleDynamic(request) {
       console.warn('📦 [SW] Fallback a cache:', request.url);
       return cachedResponse;
     }
-    throw error;
+
+    // No lanzar error, devolver respuesta vacía para evitar spam de errores
+    return new Response('', {
+      status: 503,
+      statusText: 'Service Unavailable (Offline)'
+    });
   }
 }
 
@@ -294,7 +345,54 @@ function fetchAndCache(request, cache) {
 }
 
 /**
- * Auto-cachear HTML cuando se detecta navegación cliente
+ * Auto-cachear HTML cuando se detecta navegación RSC de App Router
+ * (Cuando /ruta?_rsc=xxx es cacheado, también cachear /ruta sin params)
+ */
+function cacheHTMLForRSC(url) {
+  try {
+    // Crear URL sin parámetros de RSC
+    const htmlUrl = url.origin + url.pathname;
+
+    // Crear Request object (importante para matching correcto)
+    const htmlRequest = new Request(htmlUrl, {
+      method: 'GET',
+      headers: { 'Accept': 'text/html' }
+    });
+
+    console.warn('🔗 [SW] Auto-cacheando HTML para RSC:', htmlUrl);
+
+    caches.open(CACHE_NAME)
+      .then(cache => cache.match(htmlRequest))
+      .then(existingResponse => {
+        if (existingResponse) {
+          console.warn('📦 [SW] HTML ya existe en cache:', htmlUrl);
+          return;
+        }
+
+        console.warn('📡 [SW] Descargando HTML:', htmlUrl);
+        return fetch(htmlRequest)
+          .then(response => {
+            if (response.ok) {
+              const responseToCache = response.clone();
+              return caches.open(CACHE_NAME)
+                .then(cache => cache.put(htmlRequest, responseToCache))
+                .then(() => {
+                  console.warn('✅ [SW] HTML CACHEADO:', htmlUrl);
+                });
+            }
+          });
+      })
+      .catch(err => {
+        console.warn('⚠️ [SW] Error cacheando HTML:', htmlUrl, err.message || err);
+      });
+
+  } catch (err) {
+    console.warn('⚠️ [SW] Error en cacheHTMLForRSC:', err.message || err);
+  }
+}
+
+/**
+ * Auto-cachear HTML cuando se detecta navegación cliente de Pages Router
  * (Cuando /_next/data/BUILD_ID/ruta.json es cacheado, también cachear /ruta)
  */
 function cacheHTMLForNextData(nextDataUrl) {
@@ -448,4 +546,4 @@ function createOfflineFallback() {
 }
 
 // Log de carga
-console.warn('🚀 [SW] Service Worker v' + CACHE_VERSION + ' cargado');
+console.warn(`🚀 [SW] Service Worker v${CACHE_VERSION} cargado`);

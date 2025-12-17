@@ -232,6 +232,25 @@ export default function RootLayout({
           {children}
         </main>
 
+        {/* ✅ PWA SERVICE WORKER v1.0.9 - Registro robusto */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(reg) {
+                      console.log('✅ [PWA] Service Worker registrado:', reg.scope);
+                    })
+                    .catch(function(err) {
+                      console.error('❌ [PWA] Error:', err);
+                    });
+                });
+              }
+            `
+          }}
+        />
+
         {/* Scripts de Utilidad y Performance */}
         <script
           dangerouslySetInnerHTML={{
@@ -239,12 +258,6 @@ export default function RootLayout({
               (function() {
                 if (window.__cta_tracking_initialized) return;
                 window.__cta_tracking_initialized = true;
-
-                if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
-                  window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
-                  }, { once: true });
-                }
 
                 if (!window.__cta_nexus_handler) {
                   window.__cta_nexus_handler = function(e) {

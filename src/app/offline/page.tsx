@@ -1,14 +1,11 @@
+'use client'
+
 /**
  * Página Offline Fallback
  * Se muestra cuando el usuario está sin conexión y la página no está en cache
  */
 
 import { WifiOff, RefreshCw, Home } from 'lucide-react'
-
-export const metadata = {
-  title: 'Sin Conexión | CreaTuActivo',
-  description: 'No hay conexión a internet disponible',
-}
 
 export default function OfflinePage() {
   return (

@@ -66,29 +66,29 @@ interface SistemaBienestar {
 // Sistemas de Bienestar Estratégicos
 const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
   'energia-enfoque': {
-    nombre: 'Sistema de Energía y Enfoque Diario',
-    descripcion: 'Para profesionales que buscan rendimiento óptimo sin sacrificar su salud',
+    nombre: 'Para Tener Más Energía',
+    descripcion: 'Empieza el día con energía y mantente activo sin el bajón del café normal',
     productos: ['ganocafe-3-en-1', 'ganocafe-clasico', 'capsulas-excellium'],
     icono: <Zap className="h-6 w-6" />,
     color: 'from-yellow-500 to-orange-500'
   },
   'familiar-nutricion': {
-    nombre: 'Sistema de Bienestar Familiar',
-    descripcion: 'Alternativas saludables que toda la familia disfrutará',
+    nombre: 'Para Toda la Familia',
+    descripcion: 'Bebidas y productos que cuidan a grandes y chicos por igual',
     productos: ['ganorico-shoko-rico', 'espirulina-gano-creal', 'pasta-dientes-gano-fresh', 'ganorico-latte-rico'],
     icono: <Users className="h-6 w-6" />,
     color: 'from-green-500 to-emerald-500'
   },
   'rendimiento-avanzado': {
-    nombre: 'Sistema de Rendimiento y Recuperación',
-    descripcion: 'Para atletas y personas con estilo de vida activo',
+    nombre: 'Para Mantenerte Activo',
+    descripcion: 'Ideal si caminas, haces ejercicio o simplemente quieres sentirte con más vitalidad',
     productos: ['capsulas-cordygold', 'capsulas-ganoderma', 'espirulina-gano-creal'],
     icono: <Target className="h-6 w-6" />,
     color: 'from-red-500 to-pink-500'
   },
   'belleza-holistica': {
-    nombre: 'Sistema de Belleza Integral',
-    descripcion: 'Cuidado profundo desde adentro hacia afuera',
+    nombre: 'Para Tu Piel y Belleza',
+    descripcion: 'Cuida tu piel desde adentro con colágeno, y por fuera con jabones naturales',
     productos: ['bebida-colageno-reskine', 'jabon-gano', 'jabon-transparente-gano', 'exfoliante-piel-brillo'],
     icono: <Sparkles className="h-6 w-6" />,
     color: 'from-purple-500 to-pink-500'
@@ -1015,12 +1015,12 @@ export default function CatalogoEstrategico() {
 
   <h1 className="text-4xl md:text-6xl font-bold mb-4">
     <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-      Tu Vitalidad, Desbloqueada
+      Siéntete Bien Cada Día
     </span>
   </h1>
 
   <p className="text-slate-700 text-lg md:text-xl max-w-3xl mx-auto mb-8">
-    La naturaleza creó el código. La ciencia nos dio la llave. Tu cuerpo recibe la recompensa completa: el único extracto con 200+ fitonutrientes en Absorción a Nivel Celular™.
+    Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo Ganoderma: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
   </p>
 
   {distributor && (
@@ -1037,15 +1037,15 @@ export default function CatalogoEstrategico() {
 <section className="mb-16">
   <div className="text-center mb-12">
     <div className="inline-block bg-gradient-to-r from-blue-200 to-indigo-200 border border-blue-300 rounded-full px-6 py-2 mb-6">
-      <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Tecnología de Extracción Propia</span>
+      <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Lo Mejor del Ganoderma</span>
     </div>
 
     <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
-      Nuestra Ventaja Tecnológica que Desbloquea el <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Poder de la Naturaleza</span>
+      Nutrición que Tu Cuerpo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Realmente Aprovecha</span>
     </h2>
 
     <p className="text-slate-600 text-lg max-w-4xl mx-auto">
-      La ciencia ha guardado este tesoro bajo llave. Nuestro proceso de extracción exclusivo es la llave maestra: un extracto 100% hidrosoluble que libera 6 variedades de Ganoderma en su máxima potencia.
+      No basta con tener buenos ingredientes, tu cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
@@ -1055,7 +1055,7 @@ export default function CatalogoEstrategico() {
               <div className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent mb-2">
                 200+
               </div>
-              <div className="text-slate-700 font-semibold">Fitonutrientes Activos</div>
+              <div className="text-slate-700 font-semibold">Nutrientes Naturales</div>
               <div className="text-slate-500 text-sm mt-2">En cada producto</div>
             </div>
 
@@ -1063,16 +1063,16 @@ export default function CatalogoEstrategico() {
               <div className="text-5xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-2">
                 100%
               </div>
-              <div className="text-slate-700 font-semibold">Hidrosoluble</div>
-              <div className="text-slate-500 text-sm mt-2">Absorción completa garantizada</div>
+              <div className="text-slate-700 font-semibold">Fácil de Absorber</div>
+              <div className="text-slate-500 text-sm mt-2">Tu cuerpo lo aprovecha completo</div>
             </div>
 
             <div className="bg-white/90 backdrop-blur-lg border border-amber-200 rounded-2xl p-8 text-center group hover:scale-105 transition-transform">
               <div className="text-5xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent mb-2">
                 6
               </div>
-              <div className="text-slate-700 font-semibold">Variedades Fusionadas</div>
-              <div className="text-slate-500 text-sm mt-2">Fórmula exclusiva mundial</div>
+              <div className="text-slate-700 font-semibold">Tipos de Ganoderma</div>
+              <div className="text-slate-500 text-sm mt-2">Unidos en una fórmula única</div>
             </div>
           </div>
 
@@ -1091,13 +1091,13 @@ export default function CatalogoEstrategico() {
         <section className="mb-16">
           <div className="text-center mb-12">
             <div className="inline-block bg-gradient-to-r from-green-200 to-emerald-200 border border-green-300 rounded-full px-6 py-2 mb-6">
-              <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Sistemas de Bienestar Inteligentes</span>
+              <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Encuentra lo que Necesitas</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
-              No Vendemos Productos, Ofrecemos Soluciones
+              Productos para Cada Momento de Tu Vida
             </h2>
             <p className="text-slate-600 text-lg max-w-3xl mx-auto">
-              Cada sistema está diseñado para resolver necesidades específicas y generar testimonios poderosos
+              Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a tu familia, verte mejor o disfrutar un buen café.
             </p>
           </div>
 

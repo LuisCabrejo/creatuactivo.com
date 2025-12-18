@@ -6,7 +6,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Reto de los 12 Días - CreaTuActivo.com'
+export const alt = 'Los 12 Niveles - CreaTuActivo.com'
 export const size = {
   width: 1200,
   height: 630,
@@ -76,7 +76,7 @@ export default async function Image() {
           12
         </div>
 
-        {/* Texto DÍAS */}
+        {/* Texto NIVELES */}
         <div
           style={{
             fontSize: 72,
@@ -87,10 +87,10 @@ export default async function Image() {
             marginBottom: 16,
             marginTop: -5,
             display: 'flex',
-            letterSpacing: '0.2em',
+            letterSpacing: '0.15em',
           }}
         >
-          DÍAS
+          NIVELES
         </div>
 
         {/* Subtítulo */}
@@ -104,7 +104,7 @@ export default async function Image() {
             marginBottom: 16,
           }}
         >
-          Construye el mejor diciembre de tu vida
+          El protocolo de duplicación 2×2
         </div>
 
         {/* Stats en línea */}

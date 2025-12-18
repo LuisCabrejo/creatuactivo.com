@@ -212,8 +212,9 @@ src/app/
 │   └── [ref]/page.tsx               # Referral tracking
 ├── paises/                          # Country-specific pages (brasil/)
 ├── planes/                          # Pricing plans
-├── reto-12-dias/                    # 12-day challenge landing page
+├── reto-12-niveles/                 # 12-level challenge landing page
 │   └── [ref]/page.tsx               # Referral tracking
+├── offline/                         # Offline fallback page (PWA)
 ├── ecosistema/                      # 3 ecosystem pages + [ref]/
 ├── sistema/                         # System pages + productos/[ref]/
 ├── soluciones/                      # Persona-specific pages (6 archetypes)
@@ -410,8 +411,9 @@ All 34 tables have Row Level Security enabled (Dec 2025). To diagnose/fix:
 **Path Aliases** (tsconfig.json):
 ```typescript
 import { X } from '@/components/X'  // → src/components/X
-import { Y } from '@/hooks/Y'       // → src/hooks/Y
+import { Y } from '@/lib/Y'         // → src/lib/Y
 import type { Z } from '@/types/Z'  // → src/types/Z
+// All imports starting with @/ resolve to src/*
 ```
 
 **Custom Hooks**:

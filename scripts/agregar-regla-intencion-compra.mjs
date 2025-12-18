@@ -57,10 +57,10 @@ Perfecto [NOMBRE], te ayudo a vincularte.
 **Opciones para tu vinculación:**
 
 **1. Formulario de vinculación:**
-Llena el formulario en [creatuactivo.com/reto-12-dias](https://creatuactivo.com/reto-12-dias#formulario)
+Llena el formulario en [creatuactivo.com/reto-12-niveles](https://creatuactivo.com/reto-12-niveles#formulario)
 
 **2. WhatsApp directo:**
-[Escríbenos al 310 206 6593](https://wa.me/573102066593?text=Hola%2C%20quiero%20participar%20en%20el%20Reto%20de%20los%2012%20D%C3%ADas)
+[Escríbenos al 310 206 6593](https://wa.me/573102066593?text=Hola%2C%20quiero%20participar%20en%20los%2012%20Niveles)
 
 **3. Contacta a quien te invitó:**
 La persona que te compartió el enlace puede guiarte.
@@ -162,7 +162,7 @@ async function agregarRegla() {
     { name: 'Regla de intención de compra', found: verify.prompt.includes('DETECCIÓN DE INTENCIÓN DE COMPRA') },
     { name: 'Frases activadoras', found: verify.prompt.includes('deseo iniciar') },
     { name: 'Link WhatsApp', found: verify.prompt.includes('wa.me/573102066593') },
-    { name: 'Link formulario', found: verify.prompt.includes('reto-12-dias#formulario') }
+    { name: 'Link formulario', found: verify.prompt.includes('reto-12-niveles#formulario') }
   ];
 
   console.log('\n🔍 Verificaciones:');

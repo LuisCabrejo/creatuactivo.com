@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Landing Page: "Reto de los 12 Días"
+ * Landing Page: "Los 12 Niveles"
  * Estrategia: Apple Aesthetic + Low Friction Form + High Authority.
  */
 
@@ -360,8 +360,8 @@ export default function Reto12DiasPage() {
                 <h2 className="text-3xl font-bold text-white mb-10 text-center">Resolviendo Dudas</h2>
                 <div className="space-y-2">
                     <FAQItem
-                        question="¿Qué pasa si no consigo 2 personas en un día?"
-                        answer="Nada. El 'Reto de 12 Días' es un protocolo de velocidad, pero tú marcas tu ritmo. Puedes hacerlo en 12 semanas o 12 meses. El sistema te espera."
+                        question="¿Qué pasa si no consigo 2 personas en un nivel?"
+                        answer="Nada. 'Los 12 Niveles' es un protocolo de velocidad, pero tú marcas tu ritmo. Puedes hacerlo en 12 semanas o 12 meses. El sistema te espera."
                     />
                     <FAQItem
                         question="¿Es seguro poner mi dinero?"

@@ -34,6 +34,22 @@ const nextConfig = {
       },
     ]
   },
+
+  // ✅ Redirects permanentes (301)
+  async redirects() {
+    return [
+      {
+        source: '/reto-12-dias',
+        destination: '/reto-12-niveles',
+        permanent: true,
+      },
+      {
+        source: '/reto-12-dias/:ref',
+        destination: '/reto-12-niveles/:ref',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

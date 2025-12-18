@@ -6,8 +6,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Reto de los 12 Días | CreaTuActivo',
-  description: 'Construye el mejor diciembre de tu vida - 12 días, 12 niveles, una red de 8,190 personas',
+  title: 'Los 12 Niveles | CreaTuActivo',
+  description: 'El protocolo de duplicación 2×2 - 12 niveles, una red de 8,190 personas',
   robots: {
     index: false,
     follow: false,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Reto12DiasLayout({
+export default function Reto12NivelesLayout({
   children,
 }: {
   children: React.ReactNode

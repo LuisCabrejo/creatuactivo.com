@@ -196,7 +196,31 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
-        {/* Preconnect para performance */}
+        {/* ⚡ CRITICAL: Preconnects FIRST - Inyectados al inicio del head para PageSpeed */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var head = document.head;
+                var first = head.firstChild;
+                var origins = [
+                  ['https://fonts.googleapis.com', false],
+                  ['https://fonts.gstatic.com', true],
+                  ['https://cvadzbmdypnbrbnkznpb.supabase.co', false]
+                ];
+                origins.forEach(function(o) {
+                  var link = document.createElement('link');
+                  link.rel = 'preconnect';
+                  link.href = o[0];
+                  if (o[1]) link.crossOrigin = '';
+                  head.insertBefore(link, first);
+                });
+              })();
+            `
+          }}
+        />
+
+        {/* Preconnect fallback (para crawlers que no ejecutan JS) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />

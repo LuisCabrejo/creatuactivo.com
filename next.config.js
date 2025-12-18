@@ -3,10 +3,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // ✅ Optimización CSS crítico - Reduce render-blocking (PageSpeed)
-  experimental: {
-    optimizeCss: true,
-  },
   images: {
     remotePatterns: [
       {

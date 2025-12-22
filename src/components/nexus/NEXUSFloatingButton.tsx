@@ -201,9 +201,6 @@ const NEXUSFloatingButton: React.FC = () => {
         >
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white pl-4 pr-2 py-2 rounded-full shadow-xl flex items-center gap-2">
             <span className="text-sm font-semibold whitespace-nowrap">💬 Habla con NEXUS</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
-            </svg>
             {/* Botón para cerrar el tooltip */}
             <button
               onClick={(e) => {

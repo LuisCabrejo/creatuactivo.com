@@ -21,8 +21,8 @@ interface TrackingState {
 // Configuración de tiempos para el tooltip (en milisegundos)
 const TOOLTIP_CONFIG = {
   scrollDelayMs: 5000,        // Aparece 5 segundos después de scroll
-  visibleDurationMs: 8000,    // Visible por 8 segundos
-  reappearDelayMs: 60000,     // Reaparece después de 1 minuto si no hay clic
+  visibleDurationMs: 5000,    // Visible por 5 segundos (antes 8s)
+  reappearDelayMs: 120000,    // Reaparece después de 2 minutos (antes 1min)
 };
 
 const NEXUSFloatingButton: React.FC = () => {
@@ -190,20 +190,34 @@ const NEXUSFloatingButton: React.FC = () => {
 
   return (
     <>
-      {/* 🎯 TOOLTIP INTELIGENTE - Aparece tras scroll, desaparece y reaparece */}
+      {/* 🎯 TOOLTIP INTELIGENTE - Aparece tras scroll, con botón para cerrar */}
       {!isOpen && trackingState.isReady && !trackingState.hasError && (
         <div
           className={`fixed bottom-24 right-3 z-40 transition-all duration-500 ${
             showTooltip
-              ? 'opacity-100 translate-y-0 animate-bounce'
+              ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white pl-4 pr-2 py-2 rounded-full shadow-xl flex items-center gap-2">
             <span className="text-sm font-semibold whitespace-nowrap">💬 Habla con NEXUS</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
             </svg>
+            {/* Botón para cerrar el tooltip */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowTooltip(false);
+                setHasInteracted(true); // No vuelve a aparecer
+              }}
+              className="ml-1 p-1 hover:bg-white/20 rounded-full transition-colors"
+              aria-label="Cerrar sugerencia"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
           </div>
         </div>
       )}

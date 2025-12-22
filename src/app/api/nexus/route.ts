@@ -2399,7 +2399,7 @@ export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext } = await req.json();
 
     // ✅ Validación de mensajes
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -2443,7 +2443,8 @@ export async function POST(req: Request) {
       sessionId: sessionId,
       fingerprint: fingerprint ? `${fingerprint.substring(0, 20)}...` : '❌ UNDEFINED',
       hasFingerprint: !!fingerprint,
-      messageCount: messages.length
+      messageCount: messages.length,
+      pageContext: pageContext || 'default'  // 🎯 Contexto de página
     });
 
     if (!fingerprint) {
@@ -2727,9 +2728,37 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       return 'MENSAJE 14+ - CIERRE OBLIGATORIO';
     };
 
+    // 🎯 CONTEXTO DE PÁGINA: Instrucciones específicas según dónde está el usuario
+    const getPageContextInstructions = () => {
+      if (pageContext === 'catalogo_productos') {
+        return `
+🌿 MODO ASESOR DE SALUD Y BIENESTAR (Página de Productos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ INSTRUCCIÓN CRÍTICA: En esta página SOLO hablas de SALUD y BIENESTAR.
+
+✅ LO QUE DEBES HACER:
+• Enfocarte en beneficios para la salud del Ganoderma
+• Explicar cómo los productos pueden mejorar su bienestar
+• Responder sobre ingredientes, uso y beneficios
+• Ayudar a elegir productos según sus necesidades de salud
+• Dar información de precios cuando pregunten
+
+❌ LO QUE NUNCA DEBES HACER EN ESTA PÁGINA:
+• NUNCA mencionar "oportunidad de negocio"
+• NUNCA hablar de "construir un activo" o "ingresos pasivos"
+• NUNCA mencionar "ser distribuidor" o "unirse al equipo"
+• NUNCA hablar de comisiones, redes o multinivel
+• NUNCA sugerir que pueden ganar dinero con los productos
+
+🎯 TU ROL: Eres un asesor de salud amable que ayuda a encontrar productos para mejorar el bienestar.
+`;
+      }
+      return ''; // Sin instrucciones especiales para otras páginas
+    };
+
     const sessionInstructions = `
 📍 ${getMessageContext()}
-
+${getPageContextInstructions()}
 📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}

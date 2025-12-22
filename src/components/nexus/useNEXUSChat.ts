@@ -183,9 +183,15 @@ const sendMessage = useCallback(async (content: string) => {
     // 🆕 Verificar si el usuario ya tuvo su primer saludo
     const hasSeenGreeting = localStorage.getItem('nexus_first_greeting_shown') === 'true';
 
+    // 🎯 CONTEXTO DE PÁGINA: Detectar si estamos en catálogo de productos
+    const pageContext = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos')
+      ? 'catalogo_productos'  // Modo asesor de salud/bienestar
+      : 'default';            // Modo asesor de negocio
+
     console.log('🔍 [NEXUS] Estado de usuario:', {
       hasSeenGreeting,
-      isFirstMessageOfConversation: messages.length === 0
+      isFirstMessageOfConversation: messages.length === 0,
+      pageContext
     });
 
     const response = await fetch('/api/nexus', {
@@ -202,7 +208,8 @@ const sendMessage = useCallback(async (content: string) => {
         fingerprint: fingerprint,
         sessionId: sessionId,
         constructorId: constructorId,  // ✅ Pasar constructor_id para tracking
-        isReturningUser: hasSeenGreeting  // 🆕 Enviar si ya vio el saludo completo
+        isReturningUser: hasSeenGreeting,  // 🆕 Enviar si ya vio el saludo completo
+        pageContext: pageContext  // 🎯 Contexto de página para ajustar comportamiento
       }),
       signal: controller.signal
     });

@@ -784,11 +784,11 @@ export default function CatalogoEstrategico() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
           <StrategicNavigation />
 
-      {/* Botón carrito flotante */}
+      {/* Botón carrito flotante - debajo del header */}
       <button
         onClick={() => setCartOpen(true)}
         aria-label="Abrir carrito de compras con productos seleccionados"
-        className="fixed top-20 right-4 z-40 bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-600 transition-all"
+        className="fixed top-24 right-4 z-40 bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-600 transition-all"
       >
         <ShoppingCart className="h-6 w-6" />
         {cart.length > 0 && (

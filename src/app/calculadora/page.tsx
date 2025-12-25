@@ -2,6 +2,9 @@
  * Copyright © 2025 CreaTuActivo.com
  * Calculadora de Días de Libertad - Lead Magnet Principal
  * "La libertad no es un concepto abstracto. Es una métrica matemática."
+ *
+ * Simplificado a 3 preguntas siguiendo principios de Russell Brunson:
+ * Menos fricción = Más conversiones
  */
 
 'use client';
@@ -24,48 +27,23 @@ const QUIET_LUXURY = {
   border: '#2a2a35',
 };
 
-// Preguntas del quiz - Diseñadas para generar reflexión
+// 3 preguntas esenciales - Russell Brunson style
 const questions = [
   {
-    id: 'hoursPerWeek',
-    question: '¿Cuántas horas trabajas a la semana?',
-    subtext: 'Incluye reuniones, emails fuera de horario y trabajo en casa',
+    id: 'situation',
+    question: '¿Cuál es tu situación actual?',
+    subtext: 'Esto nos ayuda a personalizar tu resultado',
     options: [
-      { value: 40, label: '40 horas (horario estándar)' },
-      { value: 50, label: '45-50 horas' },
-      { value: 55, label: '50-60 horas' },
-      { value: 65, label: '60-70 horas' },
-      { value: 75, label: 'Más de 70 horas' },
-    ],
-  },
-  {
-    id: 'commuteMinutes',
-    question: '¿Cuánto tiempo gastas en transporte al día?',
-    subtext: 'Ida y vuelta, incluyendo tráfico',
-    options: [
-      { value: 30, label: 'Menos de 30 minutos' },
-      { value: 60, label: '30-60 minutos' },
-      { value: 90, label: '1-1.5 horas' },
-      { value: 120, label: '1.5-2 horas' },
-      { value: 180, label: 'Más de 2 horas' },
-    ],
-  },
-  {
-    id: 'jobSecurity',
-    question: '¿Qué tan seguro te sientes en tu trabajo?',
-    subtext: 'Si mañana hay reestructuración, ¿qué pasa contigo?',
-    options: [
-      { value: 5, label: 'Muy seguro - Soy indispensable' },
-      { value: 4, label: 'Bastante seguro' },
-      { value: 3, label: 'Neutral - Podría pasar cualquier cosa' },
-      { value: 2, label: 'Inseguro - Hay rumores' },
-      { value: 1, label: 'Muy inseguro - Vivo preocupado' },
+      { value: 'empleado', label: 'Empleado' },
+      { value: 'emprendedor', label: 'Emprendedor' },
+      { value: 'freelancer', label: 'Freelancer' },
+      { value: 'otro', label: 'Otro' },
     ],
   },
   {
     id: 'monthlyExpenses',
-    question: '¿Cuáles son tus gastos mensuales totales?',
-    subtext: 'Vivienda, alimentación, transporte, servicios, deudas, todo',
+    question: '¿Cuánto necesitas al mes para vivir?',
+    subtext: 'Vivienda, alimentación, servicios, transporte, deudas... todo',
     options: [
       { value: 3000000, label: '$2M - $4M COP' },
       { value: 5000000, label: '$4M - $6M COP' },
@@ -76,8 +54,8 @@ const questions = [
   },
   {
     id: 'passiveIncome',
-    question: '¿Cuánto ingreso pasivo tienes actualmente?',
-    subtext: 'Dinero que entra sin que trabajes activamente (arriendos, inversiones, regalías)',
+    question: '¿Cuánto dinero entra a tu cuenta cada mes SIN trabajar?',
+    subtext: 'Arriendos, inversiones, regalías, dividendos... ingreso pasivo real',
     options: [
       { value: 0, label: '$0 - No tengo ingreso pasivo' },
       { value: 500000, label: 'Menos de $500K COP' },
@@ -90,13 +68,13 @@ const questions = [
 
 export default function CalculadoraPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [showResults, setShowResults] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', whatsapp: '' });
 
-  const handleAnswer = (questionId: string, value: number) => {
+  const handleAnswer = (questionId: string, value: number | string) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
 
     if (currentStep < questions.length - 1) {
@@ -107,11 +85,11 @@ export default function CalculadoraPage() {
   };
 
   const calculateResults = () => {
-    const monthlyExpenses = answers.monthlyExpenses || 5000000;
-    const passiveIncome = answers.passiveIncome || 0;
-    const hoursPerWeek = answers.hoursPerWeek || 50;
+    const monthlyExpenses = (answers.monthlyExpenses as number) || 5000000;
+    const passiveIncome = (answers.passiveIncome as number) || 0;
+    const situation = (answers.situation as string) || 'empleado';
 
-    // LA FÓRMULA CLAVE
+    // LA FÓRMULA CLAVE: (Ingreso Pasivo / Gastos) × 365
     const freedomDays = monthlyExpenses > 0
       ? Math.min(Math.floor((passiveIncome / monthlyExpenses) * 365), 365)
       : 0;
@@ -123,7 +101,7 @@ export default function CalculadoraPage() {
       freedomPercentage,
       passiveIncome,
       monthlyExpenses,
-      hoursPerWeek,
+      situation,
     };
   };
 
@@ -151,17 +129,26 @@ export default function CalculadoraPage() {
   const getMessage = () => {
     if (!results) return { title: '', body: '' };
 
-    const { freedomDays } = results;
+    const { freedomDays, situation } = results;
+
+    // Personalización sutil basada en situación
+    const situationContext = situation === 'empleado'
+      ? 'Tu trabajo no es el problema. Es depender 100% de él.'
+      : situation === 'emprendedor'
+      ? 'Emprender es el primer paso. Construir un activo es el segundo.'
+      : situation === 'freelancer'
+      ? 'Ser freelancer es libertad de horario. No es libertad financiera.'
+      : '';
 
     if (freedomDays === 0) {
       return {
         title: 'Dependes 100% de tu trabajo.',
-        body: 'Si mañana no puedes trabajar—por enfermedad, despido, o cualquier imprevisto—no tienes ni un solo día de respaldo. Todo lo que has construido depende de que sigas intercambiando tu tiempo por dinero.',
+        body: `Si mañana no puedes trabajar—por enfermedad, despido, o cualquier imprevisto—no tienes ni un solo día de respaldo. ${situationContext}`,
       };
     } else if (freedomDays < 30) {
       return {
         title: `Solo ${freedomDays} días de respaldo.`,
-        body: 'Menos de un mes. Una emergencia, una reestructuración, y tu situación cambia completamente. El problema no eres tú. Es que nadie te enseñó a construir un activo.',
+        body: `Menos de un mes. Una emergencia, una reestructuración, y tu situación cambia completamente. El problema no eres tú. Es que nadie te enseñó a construir un activo.`,
       };
     } else if (freedomDays < 90) {
       return {
@@ -298,7 +285,7 @@ export default function CalculadoraPage() {
       `}</style>
 
       <div className="calculator-container">
-        {/* Hero Section */}
+        {/* Hero Section - Solo en primera pregunta */}
         {currentStep === 0 && !showResults && (
           <section className="pt-16 pb-8 px-4 animate-fade-in">
             <div className="max-w-2xl mx-auto text-center">
@@ -306,7 +293,7 @@ export default function CalculadoraPage() {
                 className="text-sm uppercase tracking-wider mb-4"
                 style={{ color: QUIET_LUXURY.gold }}
               >
-                Herramienta Gratuita
+                Herramienta Gratuita • 30 segundos
               </p>
               <h1 className="display-font text-3xl md:text-4xl lg:text-5xl font-medium mb-6">
                 Calculadora de Días de Libertad
@@ -367,7 +354,7 @@ export default function CalculadoraPage() {
                 <div className="space-y-3">
                   {questions[currentStep].options.map((option) => (
                     <button
-                      key={option.value}
+                      key={String(option.value)}
                       onClick={() => handleAnswer(questions[currentStep].id, option.value)}
                       className={`option-card w-full text-left ${
                         answers[questions[currentStep].id] === option.value ? 'selected' : ''
@@ -481,8 +468,8 @@ export default function CalculadoraPage() {
                 </p>
               </div>
 
-              {/* Datos de Contexto */}
-              <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {/* Datos de Contexto - Solo 2 cards relevantes */}
+              <div className="grid md:grid-cols-2 gap-4 mb-10">
                 <div
                   className="p-6 rounded-xl text-center"
                   style={{
@@ -491,13 +478,13 @@ export default function CalculadoraPage() {
                   }}
                 >
                   <p style={{ color: QUIET_LUXURY.textMuted, fontSize: '0.875rem' }}>
-                    Horas de trabajo/año
+                    Gastos mensuales
                   </p>
                   <p
                     className="display-font text-2xl mt-2"
                     style={{ color: QUIET_LUXURY.textPrimary }}
                   >
-                    {(results.hoursPerWeek * 52).toLocaleString()}
+                    {formatCurrency(results.monthlyExpenses)}
                   </p>
                 </div>
                 <div
@@ -515,23 +502,6 @@ export default function CalculadoraPage() {
                     style={{ color: results.passiveIncome === 0 ? QUIET_LUXURY.textMuted : QUIET_LUXURY.gold }}
                   >
                     {results.passiveIncome === 0 ? '$0' : formatCurrency(results.passiveIncome)}
-                  </p>
-                </div>
-                <div
-                  className="p-6 rounded-xl text-center"
-                  style={{
-                    background: QUIET_LUXURY.bgCard,
-                    border: `1px solid ${QUIET_LUXURY.border}`,
-                  }}
-                >
-                  <p style={{ color: QUIET_LUXURY.textMuted, fontSize: '0.875rem' }}>
-                    Gastos mensuales
-                  </p>
-                  <p
-                    className="display-font text-2xl mt-2"
-                    style={{ color: QUIET_LUXURY.textPrimary }}
-                  >
-                    {formatCurrency(results.monthlyExpenses)}
                   </p>
                 </div>
               </div>

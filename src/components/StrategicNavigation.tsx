@@ -661,7 +661,7 @@ export default function StrategicNavigation() {
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
               {/* BOTÓN CALCULADORA DESKTOP - Lead Magnet Principal */}
-              <Link href="/calculadora" className="strategic-cta-button">
+              <Link href="/#calculadora" className="strategic-cta-button">
                 <Calculator className="w-4 h-4" />
                 Calcular mi Libertad
               </Link>
@@ -747,7 +747,7 @@ export default function StrategicNavigation() {
 
           {/* Mobile CTA - Lead Magnet Principal */}
           <div className="strategic-mobile-cta">
-            <Link href="/calculadora" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+            <Link href="/#calculadora" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Calculator className="w-4 h-4" />
               Calcular mi Libertad
             </Link>

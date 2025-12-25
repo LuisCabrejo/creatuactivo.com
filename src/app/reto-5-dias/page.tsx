@@ -215,7 +215,7 @@ function HeroSection({
 
             <p className="text-xl mb-8" style={{ color: 'var(--text-secondary)' }}>
               Un reto gratuito por WhatsApp donde descubrirás por qué tu plan actual
-              no te llevará a la libertad financiera—y qué hacer al respecto.
+              no te llevará a la libertad que mereces—y qué hacer al respecto.
             </p>
 
             {/* Bullets */}

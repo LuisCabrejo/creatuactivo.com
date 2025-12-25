@@ -106,7 +106,7 @@ const questions = [
   {
     id: 'yearsToRetirement',
     question: '¿Cuántos años te faltan para "jubilarte"?',
-    subtext: 'O para alcanzar libertad financiera',
+    subtext: 'O para dejar de depender de tu trabajo',
     type: 'select',
     options: [
       { value: 10, label: 'Menos de 10 años' },

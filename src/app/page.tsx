@@ -834,6 +834,16 @@ function TestimonialCard({ quote, name, role }: { quote: string; name: string; r
 
 function FinalCTASection() {
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsLoading(true);
+    // Redirigir a la calculadora con el email
+    window.location.href = `/calculadora?email=${encodeURIComponent(email)}`;
+  };
 
   return (
     <section id="calculadora" className="py-24" style={{ backgroundColor: 'var(--bg-surface)' }}>
@@ -875,13 +885,14 @@ function FinalCTASection() {
           </p>
 
           {/* Email capture form */}
-          <div className="max-w-md mx-auto">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 placeholder="Tu email profesional"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
                 className="flex-1 px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
                 style={{
                   backgroundColor: 'var(--bg-elevated)',
@@ -890,19 +901,21 @@ function FinalCTASection() {
                 }}
               />
               <button
-                className="px-7 py-4 rounded-xl font-semibold transition-all duration-300 hover:opacity-90"
+                type="submit"
+                disabled={isLoading}
+                className="px-7 py-4 rounded-xl font-semibold transition-all duration-300 hover:opacity-90 disabled:opacity-60"
                 style={{
                   backgroundColor: 'var(--gold)',
                   color: 'var(--bg-deep)'
                 }}
               >
-                Calcular
+                {isLoading ? 'Cargando...' : 'Calcular'}
               </button>
             </div>
             <p className="text-sm mt-5" style={{ color: 'var(--text-muted)' }}>
               Tu información está segura. Sin spam.
             </p>
-          </div>
+          </form>
 
           {/* Guarantee */}
           <div

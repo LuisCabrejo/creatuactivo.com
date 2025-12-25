@@ -506,7 +506,7 @@ export default function PresentacionEmpresarialPage() {
                         </h2>
                         <p className="text-slate-400 text-lg mb-8 font-light">
                             A diferencia de un sueldo lineal, aquí construyes una red de consumo.
-                            Pequeños consumos de café multiplicados por miles de personas = Libertad Financiera.
+                            Pequeños consumos de café multiplicados por miles de personas = Libertad.
                         </p>
 
                         <div className="glass-card p-6 rounded-2xl border-l-4 border-emerald-500 bg-emerald-500/5 mb-8">

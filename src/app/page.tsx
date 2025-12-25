@@ -855,7 +855,7 @@ function FinalCTASection() {
             border: '1px solid var(--border)'
           }}
         >
-          {/* Badge - urgencia fin de año */}
+          {/* Badge - sutil */}
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 text-sm"
             style={{
@@ -864,24 +864,24 @@ function FinalCTASection() {
             }}
           >
             <span
-              className="w-1.5 h-1.5 rounded-full animate-pulse"
+              className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: 'var(--gold)' }}
             />
-            Acceso Anticipado — Abre 2 Enero 2026
+            Enero 2025 — Solo 30 cupos
           </div>
 
           <h2
             className="text-3xl sm:text-4xl mb-5"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            Si mañana no puedes trabajar...
+            ¿Cuántos años te faltan para
             <br />
-            <span style={{ color: 'var(--gold)' }}>¿cuántos días aguantas?</span>
+            <span style={{ color: 'var(--gold)' }}>dejar de depender de tu trabajo?</span>
           </h2>
 
           <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            2024 se fue. ¿Qué cambió? Descubre tu número de libertad en 30 segundos
-            —y empieza 2026 con un plan real.
+            Descúbrelo en 2 minutos con la Calculadora de Libertad.
+            Sin compromiso. Sin costo.
           </p>
 
           {/* Email capture form */}
@@ -925,7 +925,7 @@ function FinalCTASection() {
               color: 'var(--text-muted)'
             }}
           >
-            {['Gratis', '30 segundos', 'Resultado inmediato'].map((item, i) => (
+            {['Gratis', '2 minutos', 'Resultado inmediato'].map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <svg className="w-4 h-4" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />

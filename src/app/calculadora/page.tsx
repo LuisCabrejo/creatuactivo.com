@@ -35,8 +35,8 @@ const questions = [
     subtext: 'Esto nos ayuda a personalizar tu resultado',
     options: [
       { value: 'empleado', label: 'Empleado' },
-      { value: 'emprendedor', label: 'Emprendedor' },
-      { value: 'freelancer', label: 'Freelancer' },
+      { value: 'emprendedor', label: 'Emprendedor/Dueño de negocio' },
+      { value: 'freelancer', label: 'Freelancer/Independiente' },
       { value: 'otro', label: 'Otro' },
     ],
   },
@@ -135,9 +135,9 @@ export default function CalculadoraPage() {
     const situationContext = situation === 'empleado'
       ? 'Tu trabajo no es el problema. Es depender 100% de él.'
       : situation === 'emprendedor'
-      ? 'Emprender es el primer paso. Construir un activo es el segundo.'
+      ? 'Tener un negocio es el primer paso. Construir un activo es el segundo.'
       : situation === 'freelancer'
-      ? 'Ser freelancer es libertad de horario. No es libertad financiera.'
+      ? 'Ser independiente es libertad de horario. No es libertad real.'
       : '';
 
     if (freedomDays === 0) {
@@ -539,11 +539,11 @@ export default function CalculadoraPage() {
               >
                 <div className="text-center mb-8">
                   <h2 className="display-font text-2xl font-medium mb-3">
-                    Un paso más
+                    ¿Listo para cambiar estos números?
                   </h2>
                   <p style={{ color: QUIET_LUXURY.textSecondary }}>
-                    Accede al Reto de 5 Días y aprende a construir
-                    tu primer activo sin dejar tu trabajo.
+                    En 5 días te muestro cómo construir un activo
+                    que trabaje para ti—sin dejar tu trabajo actual.
                   </p>
                 </div>
 

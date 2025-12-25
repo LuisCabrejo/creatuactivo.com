@@ -149,7 +149,8 @@ function HeroSection() {
               </svg>
             </Link>
             <button
-              className="inline-flex items-center justify-center gap-3 font-medium text-lg px-8 py-4 rounded-xl transition-all duration-300"
+              onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center justify-center gap-3 font-medium text-lg px-8 py-4 rounded-xl transition-all duration-300 hover:bg-[var(--bg-elevated)]"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 color: 'var(--text-primary)',
@@ -545,7 +546,7 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode; titl
 
 function HowItWorksSection() {
   return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-deep)' }}>
+    <section id="como-funciona" className="py-24" style={{ backgroundColor: 'var(--bg-deep)' }}>
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <span
@@ -571,12 +572,16 @@ function HowItWorksSection() {
             title="Calcula tu situación"
             description="Usa la Calculadora de Libertad para entender exactamente dónde estás y cuánto te falta."
             highlight="2 minutos"
+            href="/calculadora"
+            cta="Calcular ahora"
           />
           <StepCard
             number="02"
             title="Aprende el sistema"
-            description="Accede a la metodología paso a paso y entiende cómo funciona la construcción de activos."
+            description="Únete al Reto de 5 Días y descubre cómo construir un activo sin sacrificar tu carrera."
             highlight="5 días"
+            href="/reto-5-dias"
+            cta="Unirme al reto"
           />
           <StepCard
             number="03"
@@ -590,15 +595,16 @@ function HowItWorksSection() {
   );
 }
 
-function StepCard({ number, title, description, highlight }: { number: string; title: string; description: string; highlight: string }) {
-  return (
-    <div
-      className="relative p-8 rounded-2xl"
-      style={{
-        backgroundColor: 'var(--bg-surface)',
-        border: '1px solid var(--border)'
-      }}
-    >
+function StepCard({ number, title, description, highlight, href, cta }: {
+  number: string;
+  title: string;
+  description: string;
+  highlight: string;
+  href?: string;
+  cta?: string;
+}) {
+  const content = (
+    <>
       <div
         className="text-6xl font-bold absolute top-6 right-6"
         style={{ color: 'var(--border)', fontFamily: 'var(--font-display)' }}
@@ -617,7 +623,45 @@ function StepCard({ number, title, description, highlight }: { number: string; t
         </div>
         <h3 className="text-xl font-medium mb-3" style={{ color: 'var(--text-primary)' }}>{title}</h3>
         <p style={{ color: 'var(--text-secondary)' }}>{description}</p>
+        {cta && (
+          <div
+            className="mt-5 inline-flex items-center gap-2 text-sm font-medium"
+            style={{ color: 'var(--gold)' }}
+          >
+            {cta}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        )}
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="relative p-8 rounded-2xl block transition-all duration-300 hover:scale-[1.02]"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border)'
+        }}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      className="relative p-8 rounded-2xl"
+      style={{
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border)'
+      }}
+    >
+      {content}
     </div>
   );
 }

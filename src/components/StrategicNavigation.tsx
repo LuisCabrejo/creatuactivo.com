@@ -27,7 +27,7 @@ import {
   ShieldCheck,
   Lightbulb,
   Home,
-  Crown,
+  Calculator,
   Menu
 } from 'lucide-react'
 
@@ -660,10 +660,10 @@ export default function StrategicNavigation() {
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
-              {/* BOTÓN FUNDADORES DESKTOP */}
-              <Link href="/fundadores" className="strategic-cta-button">
-                <Crown className="w-4 h-4" />
-                Sé Fundador
+              {/* BOTÓN CALCULADORA DESKTOP - Lead Magnet Principal */}
+              <Link href="/calculadora" className="strategic-cta-button">
+                <Calculator className="w-4 h-4" />
+                Calcular mi Libertad
               </Link>
 
               {/* MOBILE TOGGLE */}
@@ -745,11 +745,11 @@ export default function StrategicNavigation() {
             </Link>
           </div>
 
-          {/* Mobile CTA */}
+          {/* Mobile CTA - Lead Magnet Principal */}
           <div className="strategic-mobile-cta">
-            <Link href="/fundadores" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
-              <Crown className="w-4 h-4" />
-              Sé Fundador
+            <Link href="/calculadora" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+              <Calculator className="w-4 h-4" />
+              Calcular mi Libertad
             </Link>
           </div>
         </div>

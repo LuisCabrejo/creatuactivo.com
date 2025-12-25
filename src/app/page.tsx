@@ -855,7 +855,7 @@ function FinalCTASection() {
             border: '1px solid var(--border)'
           }}
         >
-          {/* Badge - sutil */}
+          {/* Badge */}
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 text-sm"
             style={{
@@ -867,20 +867,20 @@ function FinalCTASection() {
               className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: 'var(--gold)' }}
             />
-            Enero 2025 — Solo 30 cupos
+            Acceso Anticipado — Abre 2 Enero 2026
           </div>
 
           <h2
             className="text-3xl sm:text-4xl mb-5"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            ¿Cuántos años te faltan para
+            Si mañana no puedes trabajar...
             <br />
-            <span style={{ color: 'var(--gold)' }}>dejar de depender de tu trabajo?</span>
+            <span style={{ color: 'var(--gold)' }}>¿cuántos días aguantas?</span>
           </h2>
 
           <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Descúbrelo en 2 minutos con la Calculadora de Libertad.
+            Descúbrelo en 30 segundos con la Calculadora de Libertad.
             Sin compromiso. Sin costo.
           </p>
 
@@ -925,7 +925,7 @@ function FinalCTASection() {
               color: 'var(--text-muted)'
             }}
           >
-            {['Gratis', '2 minutos', 'Resultado inmediato'].map((item, i) => (
+            {['Gratis', '30 segundos', 'Resultado inmediato'].map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <svg className="w-4 h-4" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />

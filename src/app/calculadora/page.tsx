@@ -284,34 +284,7 @@ export default function CalculadoraPage() {
         }
       `}</style>
 
-      <div className="calculator-container">
-        {/* Hero Section - Solo en primera pregunta */}
-        {currentStep === 0 && !showResults && (
-          <section className="pt-16 pb-8 px-4 animate-fade-in">
-            <div className="max-w-2xl mx-auto text-center">
-              <p
-                className="text-sm uppercase tracking-wider mb-4"
-                style={{ color: QUIET_LUXURY.gold }}
-              >
-                Herramienta Gratuita • 30 segundos
-              </p>
-              <h1 className="display-font text-3xl md:text-4xl lg:text-5xl font-medium mb-6">
-                Calculadora de Días de Libertad
-              </h1>
-              <p
-                className="text-lg md:text-xl mb-8"
-                style={{ color: QUIET_LUXURY.textSecondary }}
-              >
-                La libertad no es un concepto abstracto. Es una métrica matemática.
-                <br />
-                <span style={{ color: QUIET_LUXURY.gold }}>
-                  ¿Cuántos días del año podrías vivir sin trabajar hoy?
-                </span>
-              </p>
-            </div>
-          </section>
-        )}
-
+      <div className="calculator-container pt-8">
         {/* Progress Bar */}
         {!showResults && (
           <div className="max-w-2xl mx-auto px-4 mb-8">

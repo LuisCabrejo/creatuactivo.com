@@ -25,6 +25,19 @@ const TOOLTIP_CONFIG = {
   reappearDelayMs: 120000,    // Reaparece después de 2 minutos (antes 1min)
 };
 
+// 🎨 Quiet Luxury Color Palette
+const QUIET_LUXURY = {
+  gold: '#D4AF37',
+  goldMuted: '#C9A962',
+  goldDark: '#B8962F',
+  bgDeep: '#0a0a0f',
+  bgSurface: '#12121a',
+  bgCard: '#1a1a24',
+  textPrimary: '#f5f5f5',
+  textSecondary: '#a0a0a8',
+  textMuted: '#6b6b75',
+};
+
 const NEXUSFloatingButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -167,30 +180,34 @@ const NEXUSFloatingButton: React.FC = () => {
     setIsOpen(true);
   };
 
-  // 🔧 FIX 6: Estado visual del botón basado en tracking
+  // 🎨 Quiet Luxury: Estado visual del botón
   const getButtonStyles = () => {
     if (!trackingState.isReady) {
       return {
-        background: 'linear-gradient(135deg, #64748b 0%, #475569 100%)', // Gris mientras carga
-        opacity: 0.7
+        background: QUIET_LUXURY.bgCard,
+        opacity: 0.7,
+        border: `1px solid ${QUIET_LUXURY.textMuted}`
       };
     }
 
     if (trackingState.hasError) {
       return {
-        background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)', // Rojo si hay error
-        opacity: 0.9
+        background: '#2a1a1a',
+        opacity: 0.9,
+        border: '1px solid #6b3030'
       };
     }
 
+    // 🎨 Quiet Luxury: Dorado elegante con sutil brillo
     return {
-      background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)' // Normal
+      background: QUIET_LUXURY.gold,
+      boxShadow: `0 8px 32px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1)`
     };
   };
 
   return (
     <>
-      {/* 🎯 TOOLTIP INTELIGENTE - Aparece tras scroll, con botón para cerrar */}
+      {/* 🎨 Quiet Luxury TOOLTIP - Elegante y minimalista */}
       {!isOpen && trackingState.isReady && !trackingState.hasError && (
         <div
           className={`fixed bottom-24 right-3 z-40 transition-all duration-500 ${
@@ -199,8 +216,20 @@ const NEXUSFloatingButton: React.FC = () => {
               : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white pl-4 pr-2 py-2 rounded-full shadow-xl flex items-center gap-2">
-            <span className="text-sm font-semibold whitespace-nowrap">💬 Habla con NEXUS</span>
+          <div
+            className="pl-4 pr-2 py-2.5 rounded-xl shadow-xl flex items-center gap-2"
+            style={{
+              background: QUIET_LUXURY.bgSurface,
+              border: `1px solid ${QUIET_LUXURY.gold}`,
+              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.2)`
+            }}
+          >
+            <span
+              className="text-sm font-medium whitespace-nowrap"
+              style={{ color: QUIET_LUXURY.textPrimary }}
+            >
+              Habla con <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>NEXUS</span>
+            </span>
             {/* Botón para cerrar el tooltip */}
             <button
               onClick={(e) => {
@@ -208,7 +237,10 @@ const NEXUSFloatingButton: React.FC = () => {
                 setShowTooltip(false);
                 setHasInteracted(true); // No vuelve a aparecer
               }}
-              className="ml-1 p-1 hover:bg-white/20 rounded-full transition-colors"
+              className="ml-1 p-1 rounded-full transition-colors"
+              style={{ color: QUIET_LUXURY.textMuted }}
+              onMouseEnter={(e) => e.currentTarget.style.color = QUIET_LUXURY.gold}
+              onMouseLeave={(e) => e.currentTarget.style.color = QUIET_LUXURY.textMuted}
               aria-label="Cerrar sugerencia"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,38 +251,44 @@ const NEXUSFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Button - Con verificación de estado */}
+      {/* 🎨 Quiet Luxury Floating Button - Cuadrado redondeado elegante */}
       <button
         data-nexus-button
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
         style={getButtonStyles()}
         onClick={handleButtonClick}
         aria-label="Abrir chat con NEXUS IA"
       >
         <div className="relative">
-          {/* 🔧 FIX 8: Icono dinámico basado en estado */}
+          {/* Icono dinámico basado en estado */}
           {!trackingState.isReady ? (
-            // Spinner de carga
-            <svg className="w-8 h-8 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            // Spinner de carga - color oscuro sobre fondo gris
+            <svg className="w-7 h-7 animate-spin" style={{ color: QUIET_LUXURY.textMuted }} fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           ) : trackingState.hasError ? (
             // Icono de advertencia
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7" style={{ color: '#f87171' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
             </svg>
           ) : (
-            // Icono normal
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            // 🎨 Icono NEXUS - Rayo estilizado en negro sobre dorado
+            <svg className="w-7 h-7" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
           )}
 
-          {/* Notification pulse - Solo cuando está listo y sin errores */}
+          {/* 🎨 Quiet Luxury pulse - dorado sutil */}
           {trackingState.isReady && !trackingState.hasError && (
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse">
-              <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
+            <div
+              className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full"
+              style={{ background: QUIET_LUXURY.textPrimary }}
+            >
+              <div
+                className="absolute inset-0 rounded-full animate-ping opacity-60"
+                style={{ background: QUIET_LUXURY.textPrimary }}
+              ></div>
             </div>
           )}
         </div>

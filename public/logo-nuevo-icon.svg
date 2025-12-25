@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Quiet Luxury Logo - CreaTuActivo -->
+  <!-- Cuadrado dorado con C serif -->
+
+  <!-- Fondo: Cuadrado dorado con esquinas redondeadas -->
+  <rect
+    x="20"
+    y="20"
+    width="160"
+    height="160"
+    rx="24"
+    ry="24"
+    fill="#D4AF37"
+  />
+
+  <!-- C: Tipografía serif - centrado exacto -->
+  <text
+    x="100"
+    y="100"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="110"
+    font-weight="700"
+    fill="#0a0a0f"
+    text-anchor="middle"
+    dominant-baseline="central"
+  >C</text>
+</svg>

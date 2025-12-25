@@ -16,6 +16,19 @@ import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 
+// 🎨 Quiet Luxury Color Palette
+const QUIET_LUXURY = {
+  gold: '#D4AF37',
+  goldMuted: '#C9A962',
+  goldDark: '#B8962F',
+  bgDeep: '#0a0a0f',
+  bgSurface: '#12121a',
+  bgCard: '#1a1a24',
+  textPrimary: '#f5f5f5',
+  textSecondary: '#a0a0a8',
+  textMuted: '#6b6b75',
+};
+
 interface Message {
   id: string;
   role: 'user' | 'assistant';
@@ -122,42 +135,54 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }}
       >
         <div
-          className="h-full flex flex-col shadow-2xl shadow-purple-500/20 rounded-2xl overflow-hidden relative"
+          className="h-full flex flex-col shadow-2xl rounded-2xl overflow-hidden relative"
           style={{
-            background: 'rgba(15, 23, 42, 0.90)',
+            background: `rgba(18, 18, 26, 0.95)`,
             backdropFilter: 'blur(32px)',
-            border: '1px solid rgba(124, 58, 237, 0.3)'
+            border: `1px solid rgba(212, 175, 55, 0.2)`,
+            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1)`
           }}
         >
 
-          {/* HEADER */}
-          <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b border-white/10 rounded-t-2xl"
+          {/* 🎨 Quiet Luxury HEADER */}
+          <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b rounded-t-2xl"
                style={{
-                 background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.5) 0%, rgba(124, 58, 237, 0.5) 100%)'
+                 background: QUIET_LUXURY.bgSurface,
+                 borderColor: `rgba(212, 175, 55, 0.15)`
                }}>
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
                 style={{
-                  background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)'
+                  background: QUIET_LUXURY.gold,
+                  boxShadow: `0 4px 12px rgba(212, 175, 55, 0.3)`
                 }}
               >
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
               <div>
-                <p className="font-bold text-white text-sm">NEXUS</p>
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <p className="text-xs text-green-400">En línea</p>
+                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS</p>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
+                  <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <button
-                className="text-slate-400 hover:text-white p-2 transition-all duration-200 rounded-lg hover:bg-white/10"
+                className="p-2 transition-all duration-200 rounded-lg"
+                style={{ color: QUIET_LUXURY.textMuted }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.gold;
+                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.textMuted;
+                  e.currentTarget.style.background = 'transparent';
+                }}
                 onClick={() => setIsExpanded(!isExpanded)}
                 title={isExpanded ? "Contraer ventana" : "Expandir ventana"}
               >
@@ -175,7 +200,22 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </button>
 
               <button
-                className="text-white hover:text-red-400 p-2 transition-all duration-200 rounded-lg bg-slate-700/50 hover:bg-red-500/20 border border-slate-600/50 hover:border-red-500/50"
+                className="p-2 transition-all duration-200 rounded-lg"
+                style={{
+                  color: QUIET_LUXURY.textSecondary,
+                  background: QUIET_LUXURY.bgCard,
+                  border: `1px solid ${QUIET_LUXURY.textMuted}40`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#f87171';
+                  e.currentTarget.style.borderColor = '#f8717150';
+                  e.currentTarget.style.background = 'rgba(248, 113, 113, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.textSecondary;
+                  e.currentTarget.style.borderColor = `${QUIET_LUXURY.textMuted}40`;
+                  e.currentTarget.style.background = QUIET_LUXURY.bgCard;
+                }}
                 onClick={onClose}
                 aria-label="Cerrar asistente NEXUS"
               >
@@ -186,32 +226,39 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* HEADER MOBILE */}
+          {/* 🎨 Quiet Luxury HEADER MOBILE */}
           <div
-            className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center border-b border-white/10"
+            className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center"
             style={{
-              background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.6) 0%, rgba(124, 58, 237, 0.6) 100%)'
+              background: QUIET_LUXURY.bgSurface,
+              borderBottom: `1px solid rgba(212, 175, 55, 0.15)`
             }}
           >
             <div className="flex items-center gap-2">
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{
-                  background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)'
+                  background: QUIET_LUXURY.gold,
+                  boxShadow: `0 2px 8px rgba(212, 175, 55, 0.3)`
                 }}
               >
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <svg className="w-4 h-4" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
               <div>
-                <p className="font-bold text-white text-sm">NEXUS</p>
-                <p className="text-[10px] text-slate-300">por CreaTuActivo.com</p>
+                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS</p>
+                <p className="text-[10px]" style={{ color: QUIET_LUXURY.textMuted }}>por CreaTuActivo.com</p>
               </div>
             </div>
 
             <button
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-700/80 text-white hover:text-red-400 transition-all duration-200 hover:bg-red-500/20 border border-slate-600 hover:border-red-500"
+              className="w-9 h-9 flex items-center justify-center rounded-xl transition-all duration-200"
+              style={{
+                background: QUIET_LUXURY.bgCard,
+                color: QUIET_LUXURY.textSecondary,
+                border: `1px solid ${QUIET_LUXURY.textMuted}40`
+              }}
               onClick={onClose}
               aria-label="Cerrar asistente NEXUS"
             >
@@ -221,11 +268,17 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {/* STATUS BAR */}
-          <div className="hidden md:block px-4 py-3 bg-slate-800/40 border-b border-white/5">
+          {/* 🎨 Quiet Luxury STATUS BAR */}
+          <div
+            className="hidden md:block px-4 py-2.5"
+            style={{
+              background: `rgba(26, 26, 36, 0.6)`,
+              borderBottom: `1px solid rgba(255, 255, 255, 0.03)`
+            }}
+          >
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-xs text-slate-300 transition-all duration-300">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
+              <span className="text-xs transition-all duration-300" style={{ color: QUIET_LUXURY.textSecondary }}>
                 {isLoading ? (
                   <span className="flex items-center gap-2">
                     <span>Procesando consulta</span>
@@ -233,27 +286,27 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   </span>
                 ) : isUserScrolling ? (
                   <>
-                    📜 Explorando historial
-                    <span className="text-amber-400 ml-2">• Slide pausado</span>
+                    Explorando historial
+                    <span style={{ color: QUIET_LUXURY.goldMuted }} className="ml-2">• Pausado</span>
                   </>
                 ) : (
                   <>
-                    🎯 Conversación actual
-                    <span className="text-green-400 ml-2">• Slide activo</span>
+                    Conversación actual
+                    <span style={{ color: QUIET_LUXURY.gold }} className="ml-2">• Activo</span>
                   </>
                 )}
               </span>
             </div>
           </div>
 
-          {/* 🎯 CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
+          {/* 🎨 Quiet Luxury CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
           <div
             ref={scrollContainerRef}
             className="flex-grow overflow-y-auto relative"
             style={{
-              // Scrollbar personalizado
+              // Scrollbar personalizado - dorado sutil
               scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(124, 58, 237, 0.5) rgba(30, 41, 59, 0.3)'
+              scrollbarColor: `rgba(212, 175, 55, 0.4) rgba(26, 26, 36, 0.5)`
             }}
           >
             {/* 🔑 CONTENEDOR CON TRANSFORM + PADDING COMPENSATORIO */}
@@ -278,35 +331,51 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               }}
             >
 
-              {/* 🎯 MENSAJE DE BIENVENIDA AUTOMÁTICO - Solo cuando no hay mensajes */}
+              {/* 🎨 Quiet Luxury MENSAJE DE BIENVENIDA */}
               {messages.length === 0 && (
                 <div className="flex message-item">
-                  <div className="bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20 p-3 rounded-lg">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  <div
+                    className="backdrop-blur-sm flex-1 p-4 rounded-xl"
+                    style={{
+                      background: QUIET_LUXURY.bgCard,
+                      border: `1px solid rgba(212, 175, 55, 0.1)`,
+                      color: QUIET_LUXURY.textSecondary
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: QUIET_LUXURY.gold,
+                          boxShadow: `0 4px 12px rgba(212, 175, 55, 0.25)`
+                        }}
+                      >
+                        <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                       </div>
                       <div>
-                        <p className="font-bold text-white">NEXUS IA</p>
-                        <p className="text-xs text-green-400">🟢 En línea</p>
+                        <p className="font-semibold" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS IA</p>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
+                          <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
+                        </div>
                       </div>
                     </div>
-                    <p className="mb-3 leading-relaxed">
-                      Hola 👋 Soy <strong className="text-amber-400">NEXUS</strong>, tu asistente con IA.
+                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textPrimary }}>
+                      Hola, soy <strong style={{ color: QUIET_LUXURY.gold }}>NEXUS</strong>, tu asistente con IA.
                     </p>
                     <p className="mb-3 leading-relaxed">
                       Puedo responder cualquier duda sobre:
                     </p>
-                    <ul className="list-disc list-outside ml-4 mb-3 space-y-1 text-sm">
+                    <ul className="list-disc list-outside ml-4 mb-4 space-y-1.5 text-sm" style={{ color: QUIET_LUXURY.textSecondary }}>
                       <li>¿Cómo funciona el sistema?</li>
                       <li>¿Cuánto puedo ganar?</li>
                       <li>¿Qué tengo que hacer?</li>
                       <li>Productos Gano Excel</li>
                     </ul>
-                    <p className="text-sm text-slate-400 italic">
-                      💬 Escribe tu pregunta abajo para empezar...
+                    <p className="text-sm italic" style={{ color: QUIET_LUXURY.textMuted }}>
+                      Escribe tu pregunta abajo para empezar...
                     </p>
                   </div>
                 </div>
@@ -331,20 +400,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     }}
                   >
                     <div
-                      className={`p-2 md:p-3 rounded-lg text-sm transition-all duration-200 ${
+                      className={`p-3 md:p-4 rounded-xl text-sm transition-all duration-200 ${
                         message.role === 'user'
-                          ? 'text-white max-w-[85%] md:max-w-[75%] shadow-lg'
-                          : 'bg-slate-800/90 text-slate-200 backdrop-blur-sm flex-1 border border-slate-700/20 overflow-hidden'
+                          ? 'max-w-[85%] md:max-w-[75%]'
+                          : 'backdrop-blur-sm flex-1 overflow-hidden'
                       }`}
                       style={message.role === 'user' ? {
-                        background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
-                        boxShadow: '0 4px 20px rgba(30, 64, 175, 0.3)'
-                      } : {}}
+                        background: QUIET_LUXURY.gold,
+                        color: QUIET_LUXURY.bgDeep,
+                        boxShadow: '0 4px 16px rgba(212, 175, 55, 0.25)'
+                      } : {
+                        background: QUIET_LUXURY.bgCard,
+                        color: QUIET_LUXURY.textSecondary,
+                        border: `1px solid rgba(212, 175, 55, 0.08)`
+                      }}
                     >
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
-                          strong: ({children}) => <strong className="font-bold text-amber-400">{children}</strong>,
+                          strong: ({children}) => <strong style={{ fontWeight: 600, color: QUIET_LUXURY.gold }}>{children}</strong>,
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
                           li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>,
@@ -353,41 +427,60 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                               href={href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 underline transition-colors font-semibold"
+                              style={{ color: QUIET_LUXURY.gold, textDecoration: 'underline' }}
+                              className="hover:opacity-80 transition-opacity font-medium"
                             >
                               {children}
                             </a>
                           ),
-                          // 🎯 TABLAS CON BORDES VISIBLES
+                          // 🎨 Quiet Luxury TABLAS
                           table: ({children}) => (
                             <div className="overflow-x-auto my-3">
-                              <table className="w-full border-collapse border border-slate-600 text-sm">
+                              <table
+                                className="w-full border-collapse text-sm"
+                                style={{ border: `1px solid rgba(212, 175, 55, 0.2)` }}
+                              >
                                 {children}
                               </table>
                             </div>
                           ),
                           thead: ({children}) => (
-                            <thead className="bg-slate-700/80">
+                            <thead style={{ background: QUIET_LUXURY.bgSurface }}>
                               {children}
                             </thead>
                           ),
                           tbody: ({children}) => (
-                            <tbody className="bg-slate-800/50">
+                            <tbody style={{ background: `rgba(26, 26, 36, 0.5)` }}>
                               {children}
                             </tbody>
                           ),
                           tr: ({children}) => (
-                            <tr className="border-b border-slate-600 hover:bg-slate-700/30 transition-colors">
+                            <tr
+                              className="transition-colors"
+                              style={{ borderBottom: `1px solid rgba(212, 175, 55, 0.1)` }}
+                            >
                               {children}
                             </tr>
                           ),
                           th: ({children}) => (
-                            <th className="border border-slate-600 px-3 py-2 text-left font-semibold text-amber-400">
+                            <th
+                              className="px-3 py-2 text-left font-semibold"
+                              style={{
+                                border: `1px solid rgba(212, 175, 55, 0.15)`,
+                                color: QUIET_LUXURY.gold
+                              }}
+                            >
                               {children}
                             </th>
                           ),
                           td: ({children}) => (
-                            <td className="border border-slate-600 px-3 py-2 text-slate-200">
+                            <td
+                              className="px-3 py-2"
+                              style={{
+                                border: `1px solid rgba(212, 175, 55, 0.1)`,
+                                color: QUIET_LUXURY.textPrimary
+                              }}
+                            >
                               {children}
                             </td>
                           )
@@ -400,7 +493,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 );
               })}
 
-              {/* TYPING INDICATOR */}
+              {/* 🎨 Quiet Luxury TYPING INDICATOR */}
               {isLoading && (
                 <div
                   className="flex items-center gap-3 px-1 transition-all duration-300"
@@ -409,19 +502,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     animation: 'fadeIn 200ms ease-out'
                   }}
                 >
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {[...Array(3)].map((_, i) => (
                       <span
                         key={i}
-                        className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
+                        className="w-1.5 h-1.5 rounded-full animate-bounce"
                         style={{
+                          background: QUIET_LUXURY.gold,
                           animationDelay: `${i * 0.2}s`,
                           animationDuration: '1s'
                         }}
                       />
                     ))}
                   </div>
-                  <span className="hidden md:inline text-xs text-slate-400 animate-pulse">NEXUS está analizando...</span>
+                  <span
+                    className="hidden md:inline text-xs animate-pulse"
+                    style={{ color: QUIET_LUXURY.textMuted }}
+                  >
+                    NEXUS está analizando...
+                  </span>
                 </div>
               )}
 
@@ -431,58 +530,91 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* INPUT CON BOTÓN DE VOLVER A CONVERSACIÓN ACTUAL */}
-          <div className={`border-t border-white/10 ${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}>
+          {/* 🎨 Quiet Luxury INPUT */}
+          <div
+            className={`${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}
+            style={{ borderTop: `1px solid rgba(212, 175, 55, 0.1)` }}
+          >
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Escribe tu pregunta aquí..."
-                className={`flex-1 bg-slate-800/90 backdrop-blur-sm text-white px-4 py-3 rounded-lg border border-slate-700/50 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 transition-all duration-200 ${
+                className={`flex-1 backdrop-blur-sm px-4 py-3 rounded-xl transition-all duration-200 ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}
                 style={{
-                  boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)'
+                  background: QUIET_LUXURY.bgCard,
+                  color: QUIET_LUXURY.textPrimary,
+                  border: `1px solid rgba(212, 175, 55, 0.15)`,
+                  boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
+                  outline: 'none'
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = QUIET_LUXURY.gold;
+                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(212, 175, 55, 0.15)`;
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
                 }}
               />
 
               <button
                 type="submit"
                 disabled={isLoading || !inputMessage.trim()}
-                className="p-3 rounded-lg text-white hover:scale-105 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="p-3 rounded-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{
-                  background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)',
-                  boxShadow: '0 4px 15px rgba(30, 64, 175, 0.4)'
+                  background: QUIET_LUXURY.gold,
+                  color: QUIET_LUXURY.bgDeep,
+                  boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
                 }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
               </button>
             </form>
           </div>
 
-          {/* FOOTER */}
+          {/* 🎨 Quiet Luxury FOOTER */}
           <div className={`${isExpanded ? 'px-6 pb-4' : 'px-2 md:px-4 pb-3'}`}>
             <div className="flex justify-center gap-2 md:gap-6">
               <button
-                className="text-xs text-slate-400 hover:text-slate-200 px-2 md:px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
+                className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
+                style={{ color: QUIET_LUXURY.textMuted }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.gold;
+                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.textMuted;
+                  e.currentTarget.style.background = 'transparent';
+                }}
                 onClick={() => {
                   resetChat();
-                  // ✅ Scroll al tope para ver el nuevo saludo
                   if (scrollContainerRef.current) {
                     scrollContainerRef.current.scrollTop = 0;
                   }
                 }}
               >
-                🔄 Limpiar Pizarra
+                Limpiar Pizarra
               </button>
               <button
-                className="text-xs text-slate-400 hover:text-slate-200 px-2 md:px-3 py-2 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
+                className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
+                style={{ color: QUIET_LUXURY.textMuted }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.gold;
+                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = QUIET_LUXURY.textMuted;
+                  e.currentTarget.style.background = 'transparent';
+                }}
                 onClick={() => handleSendMessage('Quiero hablar con Liliana Moreno')}
               >
-                👤 Consultoría Estratégica
+                Consultoría Estratégica
               </button>
             </div>
           </div>
@@ -543,24 +675,23 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           }
         }
 
-        /* SCROLLBAR PERSONALIZADO */
+        /* 🎨 Quiet Luxury SCROLLBAR */
         div::-webkit-scrollbar {
-          width: 8px;
+          width: 6px;
         }
 
         div::-webkit-scrollbar-track {
-          background: rgba(30, 41, 59, 0.3);
-          border-radius: 4px;
+          background: rgba(26, 26, 36, 0.5);
+          border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb {
-          background: rgba(124, 58, 237, 0.6);
-          border-radius: 4px;
-          border: 1px solid rgba(30, 41, 59, 0.2);
+          background: rgba(212, 175, 55, 0.4);
+          border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb:hover {
-          background: rgba(124, 58, 237, 0.8);
+          background: rgba(212, 175, 55, 0.6);
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

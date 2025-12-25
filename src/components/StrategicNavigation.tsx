@@ -13,7 +13,6 @@
 import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   ChevronDown,
   X,
@@ -34,15 +33,15 @@ import {
 
 // ✅ ZERO FOUC: CSS crítico inline que renderiza perfectamente desde el primer frame
 const CRITICAL_NAVIGATION_CSS = `
-  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA */
+  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA - QUIET LUXURY */
   .strategic-nav-critical {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(10, 10, 15, 0.95);
     backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
 
   .strategic-nav-container {
@@ -88,40 +87,56 @@ const CRITICAL_NAVIGATION_CSS = `
     transform: scale(1.02);
   }
 
-  .strategic-logo-image-container {
-    position: relative;
+  /* Quiet Luxury Logo Icon */
+  .strategic-logo-icon {
     width: 40px;
     height: 40px;
+    background: #D4AF37;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   @media (max-width: 767px) {
-    .strategic-logo-image-container {
+    .strategic-logo-icon {
       width: 32px;
       height: 32px;
+      border-radius: 8px;
     }
   }
 
-  /* Titanium White (Fintech/Institucional) */
-  .strategic-logo-text {
-    font-size: 1.5rem;
+  .strategic-logo-icon span {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24px;
     font-weight: 700;
-    /* Degradado sutil de Blanco Puro a Gris Perla */
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0a0a0f;
+  }
+
+  @media (max-width: 767px) {
+    .strategic-logo-icon span {
+      font-size: 18px;
+    }
+  }
+
+  /* Quiet Luxury Wordmark */
+  .strategic-logo-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #f5f5f5;
     line-height: 1.2;
-    letter-spacing: -0.03em; /* Tracking ajustado para elegancia */
+    letter-spacing: -0.01em;
     transition: opacity 0.3s ease;
   }
 
-  .strategic-logo-text:hover {
-    /* En hover, brilla en blanco puro */
-    background: #ffffff;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .strategic-logo-text .tu {
+    color: #D4AF37;
+  }
+
+  .strategic-logo-link:hover .strategic-logo-text {
     opacity: 0.9;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 
   /* MENU DESKTOP - LAYOUT INMEDIATO */
@@ -139,7 +154,7 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-menu-item {
     position: relative;
-    color: #cbd5e1;
+    color: #a0a0a8;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
@@ -148,7 +163,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-menu-item:hover {
-    color: #ffffff;
+    color: #f5f5f5;
   }
 
   .strategic-menu-button {
@@ -193,11 +208,11 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-dropdown-content {
     width: 20rem;
-    background: rgba(30, 41, 59, 0.95);
+    background: rgba(26, 26, 36, 0.98);
     backdrop-filter: blur(16px);
     border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     padding: 0.5rem;
   }
 
@@ -212,7 +227,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-item:hover {
-    background-color: rgba(51, 65, 85, 0.5);
+    background-color: rgba(212, 175, 55, 0.08);
   }
 
   .strategic-dropdown-icon {
@@ -222,36 +237,35 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-text h4 {
-    color: #ffffff;
+    color: #f5f5f5;
     font-weight: 600;
     margin: 0 0 0.25rem 0;
     transition: color 0.2s ease;
   }
 
   .strategic-dropdown-item:hover h4 {
-    color: #60a5fa;
+    color: #D4AF37;
   }
 
   .strategic-dropdown-text p {
-    color: #94a3b8;
+    color: #6b6b75;
     font-size: 0.875rem;
     margin: 0;
     line-height: 1.4;
   }
 
-  /* BOTÓN FUNDADORES - STYLING CRÍTICO */
+  /* BOTÓN FUNDADORES - QUIET LUXURY GOLD */
   .strategic-cta-button {
     display: none;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
-    color: #ffffff;
-    font-weight: 700;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
+    background: #D4AF37;
+    color: #0a0a0f;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
   }
 
   @media (min-width: 768px) {
@@ -262,7 +276,7 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
+    opacity: 0.9;
   }
 
   /* MOBILE BUTTON - IMMEDIATE RENDER */
@@ -270,7 +284,7 @@ const CRITICAL_NAVIGATION_CSS = `
     display: block;
     background: none;
     border: none;
-    color: #cbd5e1;
+    color: #a0a0a8;
     padding: 0.5rem;
     margin: -0.5rem;
     cursor: pointer;
@@ -284,7 +298,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-toggle:hover {
-    color: #ffffff;
+    color: #D4AF37;
   }
 
   /* MOBILE OVERLAY */
@@ -304,7 +318,7 @@ const CRITICAL_NAVIGATION_CSS = `
     visibility: visible;
   }
 
-  /* MOBILE MENU */
+  /* MOBILE MENU - QUIET LUXURY */
   .strategic-mobile-menu {
     position: fixed;
     top: 0;
@@ -312,9 +326,9 @@ const CRITICAL_NAVIGATION_CSS = `
     bottom: 0;
     width: 100%;
     max-width: 28rem;
-    background: rgba(15, 23, 42, 0.98);
+    background: rgba(18, 18, 26, 0.98);
     backdrop-filter: blur(24px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(212, 175, 55, 0.1);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -330,20 +344,20 @@ const CRITICAL_NAVIGATION_CSS = `
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
   }
 
   .strategic-mobile-close {
     background: none;
     border: none;
-    color: #94a3b8;
+    color: #6b6b75;
     cursor: pointer;
     padding: 0.5rem;
     transition: color 0.2s ease;
   }
 
   .strategic-mobile-close:hover {
-    color: #ffffff;
+    color: #D4AF37;
   }
 
   .strategic-mobile-content {
@@ -355,7 +369,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-section-title {
-    color: #94a3b8;
+    color: #C9A962;
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -368,7 +382,7 @@ const CRITICAL_NAVIGATION_CSS = `
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #cbd5e1;
+    color: #a0a0a8;
     text-decoration: none;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -377,8 +391,8 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-link:hover {
-    background-color: rgba(124, 58, 237, 0.1);
-    color: #ffffff;
+    background-color: rgba(212, 175, 55, 0.08);
+    color: #f5f5f5;
     transform: translateX(0.25rem);
   }
 
@@ -393,7 +407,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-link p {
-    color: #94a3b8;
+    color: #6b6b75;
     font-size: 0.75rem;
     margin: 0;
     line-height: 1.3;
@@ -402,7 +416,7 @@ const CRITICAL_NAVIGATION_CSS = `
   .strategic-mobile-cta {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
   }
 
   .strategic-mobile-cta-button {
@@ -411,19 +425,18 @@ const CRITICAL_NAVIGATION_CSS = `
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
-    color: #ffffff;
-    font-weight: 700;
+    background: #D4AF37;
+    color: #0a0a0f;
+    font-weight: 600;
     padding: 1rem;
     border-radius: 0.75rem;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
   }
 
   .strategic-mobile-cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
+    opacity: 0.9;
   }
 
   /* HABILITACIÓN DE TRANSICIONES POST-HIDRATACIÓN */
@@ -587,30 +600,15 @@ export default function StrategicNavigation() {
         <nav className="strategic-nav-container">
           <div className="strategic-nav-content">
 
-            {/* ✅ LOGO SECTION */}
+            {/* ✅ LOGO SECTION - QUIET LUXURY */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
-                <div className="strategic-logo-image-container">
-                  {/* Desktop Logo */}
-                  <Image
-                    src="/logo-icon-80x80-sm.svg"
-                    alt="CreaTuActivo"
-                    width={40}
-                    height={40}
-                    className="hidden md:block"
-                    priority
-                  />
-                  {/* Mobile Logo */}
-                  <Image
-                    src="/favicon-40x40.svg"
-                    alt="CreaTuActivo"
-                    width={32}
-                    height={32}
-                    className="md:hidden"
-                    priority
-                  />
+                <div className="strategic-logo-icon">
+                  <span>C</span>
                 </div>
-                <span className="strategic-logo-text">CreaTuActivo</span>
+                <span className="strategic-logo-text">
+                  Crea<span className="tu">Tu</span>Activo
+                </span>
               </Link>
             </div>
 
@@ -692,15 +690,12 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
-            <div className="strategic-logo-image-container">
-              <Image
-                src="/favicon-40x40.svg"
-                alt="CreaTuActivo"
-                width={32}
-                height={32}
-              />
+            <div className="strategic-logo-icon">
+              <span>C</span>
             </div>
-            <span className="strategic-logo-text">CreaTuActivo</span>
+            <span className="strategic-logo-text">
+              Crea<span className="tu">Tu</span>Activo
+            </span>
           </Link>
           <button
             onClick={closeMobileMenu}

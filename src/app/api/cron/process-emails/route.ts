@@ -128,10 +128,11 @@ export async function GET(request: NextRequest) {
 
       try {
         const { data: emailResult, error: emailError } = await getResendClient().emails.send({
-          from: 'CreaTuActivo <sistema@creatuactivo.com>',
+          from: 'CreaTuActivo <noreply@creatuactivo.com>',
           to: lead.email,
           subject: subject,
           react: Component({ firstName, freedomDays: lead.freedom_days || 0 }),
+          tags: [{ name: 'sequence', value: 'soap-opera' }],
         });
 
         if (emailError) {

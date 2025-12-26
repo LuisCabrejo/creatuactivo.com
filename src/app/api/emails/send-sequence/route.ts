@@ -119,10 +119,11 @@ async function sendSingleEmail({
 
   try {
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <sistema@creatuactivo.com>',
+      from: 'CreaTuActivo <noreply@creatuactivo.com>',
       to: to,
       subject: subject,
       react: Component({ firstName, freedomDays }),
+      tags: [{ name: 'sequence', value: 'soap-opera' }],
     });
 
     if (error) {

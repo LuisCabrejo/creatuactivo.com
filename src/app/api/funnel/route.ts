@@ -173,10 +173,11 @@ async function sendFirstEmail(
 
   try {
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <sistema@creatuactivo.com>',
+      from: 'CreaTuActivo <noreply@creatuactivo.com>',
       to: email,
       subject: `${firstName}, tu resultado + mi historia`,
       react: Email1Backstory({ firstName, freedomDays: freedomDays || 0 }),
+      tags: [{ name: 'sequence', value: 'soap-opera' }],
     });
 
     if (error) {

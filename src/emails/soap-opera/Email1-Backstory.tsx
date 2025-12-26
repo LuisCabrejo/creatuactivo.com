@@ -15,7 +15,6 @@ import {
   Preview,
   Section,
   Text,
-  Button,
   Hr,
 } from '@react-email/components';
 
@@ -28,7 +27,18 @@ export const Email1Backstory = ({
   firstName = 'Hola',
   freedomDays = 0,
 }: Email1Props) => {
-  const previewText = `${firstName}, tu resultado de la calculadora + mi historia`;
+  const previewText = `${firstName}, tu resultado + una confesión`;
+
+  // Mensaje personalizado según días de libertad
+  const getResultMessage = () => {
+    if (freedomDays === 0) {
+      return 'Cero. Eso significa que hoy dependes 100% de tu trabajo. No te juzgo—yo estuve exactamente ahí.';
+    } else if (freedomDays < 30) {
+      return 'Menos de un mes de respaldo. Una emergencia y todo cambia.';
+    } else {
+      return 'Vas por buen camino, pero aún hay trabajo por hacer.';
+    }
+  };
 
   return (
     <Html lang="es">
@@ -50,28 +60,26 @@ export const Email1Backstory = ({
           </Section>
 
           {/* Resultado personalizado */}
-          {freedomDays !== undefined && (
-            <Section style={resultBox}>
-              <Text style={resultLabel}>Tu resultado:</Text>
-              <Text style={resultNumber}>{freedomDays}</Text>
-              <Text style={resultUnit}>Días de Libertad</Text>
-            </Section>
-          )}
+          <Section style={resultBox}>
+            <Text style={resultLabel}>Tu resultado:</Text>
+            <Text style={resultNumber}>{freedomDays}</Text>
+            <Text style={resultUnit}>Días de Libertad</Text>
+          </Section>
 
           {/* Contenido principal */}
           <Section style={content}>
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Gracias por tomarte 30 segundos para calcular tu número.
+              Gracias por calcular tu número.
             </Text>
 
             <Text style={paragraph}>
-              {freedomDays === 0
-                ? 'Cero días. Eso significa que hoy dependes 100% de tu trabajo. No te juzgo—yo estuve exactamente ahí.'
-                : freedomDays < 30
-                ? `${freedomDays} días. Es un comienzo, pero sigues dependiendo mayoritariamente de tu trabajo.`
-                : `${freedomDays} días. Vas por buen camino, pero aún hay trabajo por hacer.`}
+              <strong>{freedomDays} días de libertad.</strong>
+            </Text>
+
+            <Text style={paragraph}>
+              {getResultMessage()}
             </Text>
 
             <Text style={paragraph}>
@@ -79,22 +87,31 @@ export const Email1Backstory = ({
             </Text>
 
             <Text style={paragraph}>
-              <strong>A los 40 años, quebré.</strong>
+              Durante 20 años viví atrapado en lo que llamo <strong>"el plan por defecto"</strong>: trabajar, pagar cuentas, repetir.
             </Text>
 
             <Text style={paragraph}>
-              12 años emprendiendo. Restaurantes. Importaciones. Franquicias.
-              Todo lo que "se supone" que debes hacer para tener éxito.
-              Y terminé con deudas, sin ahorros, y preguntándome qué había hecho mal.
+              Como empleado, mi techo era bajo—limitado por un sueldo y por el tiempo.
             </Text>
 
             <Text style={paragraph}>
-              Lo peor no era el dinero. Era darme cuenta de que había seguido
-              el plan equivocado durante 12 años.
+              Como emprendedor, la expectativa era más alta... pero solo 1 de cada 100 negocios sobrevive 10 años. Yo no fui la excepción.
+            </Text>
+
+            <Text style={highlightBox}>
+              <strong>A los 40, quebrado.</strong>
             </Text>
 
             <Text style={paragraph}>
-              Mañana te cuento qué descubrí después de tocar fondo.
+              Pensé que sería millonario a los 30. Después a los 40. Ninguna de las dos pasó.
+            </Text>
+
+            <Text style={paragraph}>
+              Lo peor no era el dinero. Era darme cuenta de que había seguido el plan equivocado durante dos décadas.
+            </Text>
+
+            <Text style={paragraph}>
+              Mañana te cuento qué descubrí cuando toqué fondo.
             </Text>
 
             <Text style={signature}>
@@ -192,6 +209,17 @@ const paragraph = {
   fontSize: '16px',
   lineHeight: '1.7',
   margin: '0 0 20px',
+};
+
+const highlightBox = {
+  backgroundColor: '#12121a',
+  borderLeft: '4px solid #D4AF37',
+  padding: '20px 24px',
+  color: '#f5f5f5',
+  fontSize: '18px',
+  lineHeight: '1.6',
+  margin: '24px 0',
+  borderRadius: '0 8px 8px 0',
 };
 
 const signature = {

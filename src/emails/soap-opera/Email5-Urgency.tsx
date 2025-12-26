@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Soap Opera Sequence - Email 5: La Urgencia (CTA)
+ * Soap Opera Sequence - Email 5: La Invitación (CTA)
  * Se envía 4 días después del registro
  */
 
@@ -28,7 +28,7 @@ export const Email5Urgency = ({
   firstName = 'Hola',
   freedomDays = 0,
 }: Email5Props) => {
-  const previewText = `${firstName}, tu invitación al Reto de 5 Días`;
+  const previewText = `${firstName}, tu invitación`;
 
   return (
     <Html lang="es">
@@ -58,8 +58,13 @@ export const Email5Urgency = ({
             </Text>
 
             <Text style={paragraph}>
-              Cómo quebré a los 40. El muro que me detuvo.
-              La epifanía que cambió todo. Y por qué construí CreaTuActivo.
+              Cómo viví 20 años atrapado en el plan por defecto.
+              <br />
+              El muro que me hizo caer a los 40.
+              <br />
+              La epifanía que cambió mi forma de ver el dinero.
+              <br />
+              Y cómo 2.5 años después logré la libertad que buscaba.
             </Text>
 
             <Text style={paragraph}>
@@ -84,19 +89,14 @@ export const Email5Urgency = ({
               5 días. 15 minutos al día. Por WhatsApp.
             </Text>
 
-            <Text style={bulletPoint}>✓ Día 1: El Diagnóstico (dónde estás realmente)</Text>
-            <Text style={bulletPoint}>✓ Día 2: Los Vehículos (qué opciones tienes)</Text>
-            <Text style={bulletPoint}>✓ Día 3: El Nuevo Modelo (la matemática que funciona)</Text>
-            <Text style={bulletPoint}>✓ Día 4: El Estigma (cómo construir sin vergüenza)</Text>
-            <Text style={bulletPoint}>✓ Día 5: La Invitación (tu siguiente paso)</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 1:</strong> El Diagnóstico — dónde estás realmente</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 2:</strong> Los Vehículos — qué opciones tienes</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 3:</strong> El Nuevo Modelo — la matemática que funciona</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 4:</strong> El Estigma — cómo construir sin vergüenza</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 5:</strong> La Invitación — tu siguiente paso</Text>
 
             <Text style={paragraph}>
-              <strong>Es 100% gratis.</strong> Sin tarjeta. Sin compromiso.
-            </Text>
-
-            <Text style={paragraph}>
-              Solo tienes que decidir si quieres seguir con el plan que no está funcionando...
-              o probar algo diferente por 5 días.
+              <strong>100% gratis.</strong> Sin tarjeta. Sin compromiso.
             </Text>
 
             {/* CTA Principal */}
@@ -118,8 +118,7 @@ export const Email5Urgency = ({
               — Luis
               <br />
               <span style={signatureTitle}>
-                PD: Si llegas al día 5 y no te ha servido, simplemente deja de abrir los mensajes.
-                Pero si llegas y algo cambia... habrá valido la pena.
+                PD: Si llegas al día 5 y no te ha servido, simplemente deja de abrir los mensajes. Pero si algo cambia... habrá valido la pena.
               </span>
             </Text>
           </Section>
@@ -132,8 +131,6 @@ export const Email5Urgency = ({
               © 2025 CreaTuActivo.com
               <br />
               Email 5 de 5 de la serie "Días de Libertad"
-              <br /><br />
-              Si no quieres recibir más emails, puedes darte de baja aquí.
             </Text>
           </Section>
         </Container>

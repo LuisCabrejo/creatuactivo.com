@@ -25,7 +25,7 @@ interface Email2Props {
 export const Email2Wall = ({
   firstName = 'Hola',
 }: Email2Props) => {
-  const previewText = `${firstName}, el muro que todos enfrentamos (y cómo lo derribé)`;
+  const previewText = `${firstName}, el techo que nadie te muestra`;
 
   return (
     <Html lang="es">
@@ -51,7 +51,7 @@ export const Email2Wall = ({
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Ayer te conté que quebré a los 40 después de 12 años emprendiendo.
+              Ayer te conté que a los 40 me encontré quebrado después de 20 años siguiendo "el plan".
             </Text>
 
             <Text style={paragraph}>
@@ -59,45 +59,52 @@ export const Email2Wall = ({
             </Text>
 
             <Text style={paragraph}>
-              Verás, durante esos 12 años seguí el consejo de todos los "expertos":
+              Verás, durante esos 20 años hice todo lo que se supone debes hacer:
             </Text>
 
-            <Text style={bulletPoint}>• "Emprende con tu pasión"</Text>
-            <Text style={bulletPoint}>• "Trabaja duro y el éxito vendrá"</Text>
-            <Text style={bulletPoint}>• "Invierte en tu negocio"</Text>
-            <Text style={bulletPoint}>• "Escala cuando puedas"</Text>
+            <Text style={bulletPoint}>• Me formé (comercial, técnico, arquitectura digital)</Text>
+            <Text style={bulletPoint}>• Trabajé en empresas importantes</Text>
+            <Text style={bulletPoint}>• Me destaqué. Me convertí en referente.</Text>
+            <Text style={bulletPoint}>• Emprendí junto a mi esposa. Una y otra vez.</Text>
 
             <Text style={paragraph}>
-              Hice todo eso. Y el resultado fue:
+              ¿El resultado?
             </Text>
 
             <Text style={highlightBox}>
-              Más trabajo. Más estrés. Más deuda.
+              <strong>Más trabajo. Más estrés. Más deudas.</strong>
               <br />
-              Y <strong>cero libertad</strong>.
+              <strong>Y cero libertad.</strong>
             </Text>
 
             <Text style={paragraph}>
               El muro no era mi falta de esfuerzo.
               <br />
-              El muro era que <strong>estaba siguiendo el plan equivocado</strong>.
+              El muro no era mi falta de conocimiento.
             </Text>
 
             <Text style={paragraph}>
-              El plan que te enseñan (estudia → trabaja → ahorra → jubílate) tiene
-              un defecto matemático fatal que nadie te explica.
+              El muro era que <strong>el sistema está diseñado para mantenerte ahí</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Mañana te muestro ese defecto con números reales.
+              En el empleo: tu techo es el sueldo.
               <br />
-              Cuando lo veas, todo cambiará.
+              En el emprendimiento tradicional: 99% fracasan antes de 10 años.
+            </Text>
+
+            <Text style={paragraph}>
+              Ambos caminos tienen algo en común: <strong>si no trabajas, no comes.</strong>
+            </Text>
+
+            <Text style={paragraph}>
+              Mañana te muestro la pregunta que lo cambió todo.
             </Text>
 
             <Text style={signature}>
               — Luis
               <br />
-              <span style={signatureTitle}>PD: El cálculo que hiciste ayer es solo el comienzo.</span>
+              <span style={signatureTitle}>PD: El cálculo que hiciste ayer es más importante de lo que crees.</span>
             </Text>
           </Section>
 

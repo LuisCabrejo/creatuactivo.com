@@ -25,7 +25,7 @@ interface Email3Props {
 export const Email3Epiphany = ({
   firstName = 'Hola',
 }: Email3Props) => {
-  const previewText = `${firstName}, el momento que cambió todo para mí`;
+  const previewText = `${firstName}, la pregunta que cambió todo`;
 
   return (
     <Html lang="es">
@@ -51,34 +51,33 @@ export const Email3Epiphany = ({
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Hoy te prometí mostrarte el defecto matemático del plan tradicional.
+              Hoy te prometí contarte la pregunta que lo cambió todo.
             </Text>
 
             <Text style={paragraph}>
               Aquí está:
             </Text>
 
-            <Text style={highlightBox}>
-              <strong>El Plan Tradicional:</strong>
-              <br /><br />
-              Trabajas 40 años.
-              <br />
-              Ahorras el 10% de tu ingreso.
-              <br />
-              Esperas tener suficiente para jubilarte.
-              <br /><br />
-              <span style={{ color: '#D4AF37' }}>
-                Resultado: A los 65 años, tal vez tengas para vivir 10-15 años más.
-                Si la inflación no te come primero.
-              </span>
+            <Text style={questionBox}>
+              <strong>"¿Cuántos días podrías vivir si mañana dejaras de trabajar?"</strong>
             </Text>
 
             <Text style={paragraph}>
-              Cuando vi esto por primera vez, entendí por qué había fracasado.
+              Cuando me hice esa pregunta a los 40, la respuesta era: <strong>cero</strong>.
             </Text>
 
             <Text style={paragraph}>
-              <strong>No estaba construyendo un activo. Estaba comprando un empleo.</strong>
+              Veinte años trabajando. Cero días de libertad.
+            </Text>
+
+            <Text style={paragraph}>
+              Ahí entendí el problema:
+            </Text>
+
+            <Text style={paragraph}>
+              No estaba construyendo un <strong>activo</strong>.
+              <br />
+              Había comprado un <strong>empleo</strong>.
             </Text>
 
             <Text style={paragraph}>
@@ -87,30 +86,35 @@ export const Email3Epiphany = ({
             </Text>
 
             <Text style={paragraph}>
-              La epifanía fue esta:
+              La epifanía fue simple pero poderosa:
             </Text>
 
             <Text style={epiphanyBox}>
-              La libertad no viene de cuánto <em>ganas</em>.
+              <strong>La libertad no viene de cuánto GANAS.</strong>
               <br />
-              Viene de cuánto <em>entra sin que trabajes</em>.
+              <strong>Viene de cuánto ENTRA sin que trabajes.</strong>
             </Text>
 
             <Text style={paragraph}>
-              Esa fórmula simple que usaste en la calculadora
-              (Ingreso Pasivo ÷ Gastos × 365) es la métrica más importante
-              que nadie te enseña.
+              Esa fórmula que usaste en la calculadora—(Ingreso Pasivo ÷ Gastos × 365)—es la métrica más importante que nadie te enseña.
             </Text>
 
             <Text style={paragraph}>
-              Mañana te cuento qué hice con esta revelación
-              —y por qué tardé 2.5 años en llegar donde estoy hoy.
+              Cuando entendí esto, empecé a buscar un vehículo diferente.
+            </Text>
+
+            <Text style={paragraph}>
+              Uno que generara ingresos <strong>sin</strong> depender de mi tiempo.
+            </Text>
+
+            <Text style={paragraph}>
+              Mañana te cuento qué encontré—y por qué me tomó 2.5 años hacerlo funcionar.
             </Text>
 
             <Text style={signature}>
               — Luis
               <br />
-              <span style={signatureTitle}>PD: No tuve que dejar mi trabajo para empezar.</span>
+              <span style={signatureTitle}>PD: No tuve que renunciar a nada para empezar.</span>
             </Text>
           </Section>
 
@@ -172,15 +176,16 @@ const paragraph = {
   margin: '0 0 20px',
 };
 
-const highlightBox = {
+const questionBox = {
   backgroundColor: '#12121a',
   padding: '24px',
   color: '#f5f5f5',
-  fontSize: '16px',
-  lineHeight: '1.7',
+  fontSize: '20px',
+  lineHeight: '1.6',
   margin: '24px 0',
   borderRadius: '12px',
   border: '1px solid #2a2a35',
+  textAlign: 'center' as const,
 };
 
 const epiphanyBox = {

@@ -25,7 +25,7 @@ interface Email4Props {
 export const Email4HiddenPlan = ({
   firstName = 'Hola',
 }: Email4Props) => {
-  const previewText = `${firstName}, lo que los "gurús" no te cuentan`;
+  const previewText = `${firstName}, por qué tardé 2.5 años (y tú no tienes que)`;
 
   return (
     <Html lang="es">
@@ -51,53 +51,49 @@ export const Email4HiddenPlan = ({
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Ayer te conté mi epifanía sobre la diferencia entre
-              <em> ganar dinero</em> y <em>tener libertad</em>.
+              Cuando entendí que necesitaba un activo que generara ingresos sin mi tiempo, analicé las opciones:
             </Text>
 
-            <Text style={paragraph}>
-              Hoy quiero contarte lo que descubrí después
-              —y por qué me tomó 2.5 años llegar donde estoy.
-            </Text>
-
-            <Text style={paragraph}>
-              Cuando entendí que necesitaba un <strong>activo</strong>
-              (algo que genere ingresos sin mi tiempo),
-              empecé a investigar las opciones:
-            </Text>
-
-            <Text style={bulletPoint}>• Bienes raíces: Necesitas capital inicial grande</Text>
-            <Text style={bulletPoint}>• Acciones/dividendos: Años para generar algo significativo</Text>
-            <Text style={bulletPoint}>• Negocios digitales: Requieren habilidades técnicas</Text>
-            <Text style={bulletPoint}>• Franquicias: Más del mismo problema (compras un empleo)</Text>
+            <Text style={bulletPoint}>• <strong>Bienes raíces:</strong> Capital inicial grande</Text>
+            <Text style={bulletPoint}>• <strong>Acciones/dividendos:</strong> Décadas para algo significativo</Text>
+            <Text style={bulletPoint}>• <strong>E-commerce:</strong> Lo intenté. Funciona, pero sigue siendo un empleo</Text>
+            <Text style={bulletPoint}>• <strong>Franquicias:</strong> Compras un empleo más caro</Text>
 
             <Text style={paragraph}>
               Entonces encontré un modelo que matemáticamente funcionaba.
             </Text>
 
             <Text style={paragraph}>
-              Pero había un problema...
-            </Text>
-
-            <Text style={highlightBox}>
-              <strong>El modelo correcto existía.</strong>
-              <br />
-              <strong>La infraestructura estaba rota.</strong>
-              <br /><br />
-              Herramientas obsoletas. Entrenamiento genérico.
-              Sistemas que no escalaban.
-              <br /><br />
-              Así que lo construí de la manera difícil.
-              2.5 años hasta llegar a Diamante.
+              Ingresos escalables. Residuales. Sin techo.
             </Text>
 
             <Text style={paragraph}>
-              Después me pregunté:
+              <strong>Pero había un problema.</strong>
+            </Text>
+
+            <Text style={highlightBox}>
+              El modelo correcto existía.
+              <br />
+              <strong>La infraestructura estaba rota.</strong>
+              <br /><br />
+              Herramientas del siglo pasado. Listas de contactos que se acaban.
+              Sistemas que no escalaban.
+              <br /><br />
+              Así que lo construí de la manera difícil.
+              <br />
+              <strong>2.5 años hasta llegar al #1.</strong>
+            </Text>
+
+            <Text style={paragraph}>
+              Logré lo que buscaba: libertad de tiempo, ingresos que entran sin trabajar, viajar por el mundo.
+            </Text>
+
+            <Text style={paragraph}>
+              Pero después me pregunté algo:
             </Text>
 
             <Text style={epiphanyBox}>
-              ¿Qué hubiera pasado si hubiera tenido
-              las herramientas correctas desde el día uno?
+              ¿Qué hubiera pasado si desde el día uno hubiera tenido las herramientas correctas?
             </Text>
 
             <Text style={paragraph}>
@@ -105,9 +101,17 @@ export const Email4HiddenPlan = ({
             </Text>
 
             <Text style={paragraph}>
-              Mañana te invito a algo especial.
+              Antes usábamos CDs. Ahora Spotify.
               <br />
-              Algo que hubiera querido tener hace 2.5 años.
+              Antes mapas de papel. Ahora Waze.
+            </Text>
+
+            <Text style={paragraph}>
+              ¿Por qué seguir construyendo con metodologías del siglo pasado?
+            </Text>
+
+            <Text style={paragraph}>
+              Mañana te invito a ver cómo se ve cuando haces fácil lo difícil.
             </Text>
 
             <Text style={signature}>
@@ -135,7 +139,7 @@ export const Email4HiddenPlan = ({
 
 export default Email4HiddenPlan;
 
-// Estilos (mismos que los anteriores)
+// Estilos
 const main = {
   backgroundColor: '#0a0a0f',
   fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",

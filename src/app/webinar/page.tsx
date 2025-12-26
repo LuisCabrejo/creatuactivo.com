@@ -117,7 +117,7 @@ export default function WebinarPage() {
                 {/* What you'll learn */}
                 <div className="space-y-4 mb-8">
                   {[
-                    'Por qué el 97% de las personas nunca logran libertad financiera',
+                    'Por qué el 97% nunca logran soberanía financiera',
                     'El modelo matemático que funciona (y cómo empezar hoy)',
                     'El sistema que construí después de 12 años de fracasos',
                   ].map((item, i) => (

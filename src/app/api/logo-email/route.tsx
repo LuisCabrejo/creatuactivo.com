@@ -30,7 +30,7 @@ export async function GET() {
             gap: '12px',
           }}
         >
-          {/* Icono C dorada */}
+          {/* Icono C dorada - igual al favicon */}
           <div
             style={{
               display: 'flex',
@@ -38,17 +38,16 @@ export async function GET() {
               justifyContent: 'center',
               width: '48px',
               height: '48px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #D4AF37 0%, #F5D670 50%, #D4AF37 100%)',
-              boxShadow: '0 2px 8px rgba(212, 175, 55, 0.3)',
+              borderRadius: '8px',
+              backgroundColor: '#D4AF37',
             }}
           >
             <span
               style={{
-                fontSize: '28px',
-                fontWeight: 700,
+                fontSize: '30px',
+                fontWeight: 500,
                 color: '#0a0a0f',
-                fontFamily: 'Georgia, serif',
+                fontFamily: "Georgia, 'Playfair Display', serif",
               }}
             >
               C

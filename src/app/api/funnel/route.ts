@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
 
 // Lazy initialization de Resend client
@@ -172,12 +173,16 @@ async function sendFirstEmail(
   const firstName = name?.split(' ')[0] || 'Hola';
 
   try {
+    // Renderizar email a HTML (igual que reto-12-niveles)
+    const emailHtml = await render(
+      Email1Backstory({ firstName, freedomDays: freedomDays || 0 })
+    );
+
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <noreply@creatuactivo.com>',
-      to: email,
+      from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
+      to: [email],
       subject: `${firstName}, tu resultado + mi historia`,
-      react: Email1Backstory({ firstName, freedomDays: freedomDays || 0 }),
-      tags: [{ name: 'sequence', value: 'soap-opera' }],
+      html: emailHtml,
     });
 
     if (error) {

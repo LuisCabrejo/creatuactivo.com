@@ -10,6 +10,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
 import { createClient } from '@supabase/supabase-js';
 import {
   Email1Backstory,
@@ -118,12 +119,16 @@ async function sendSingleEmail({
   const subject = sequenceItem.subject.replace('{{firstName}}', firstName);
 
   try {
+    // Renderizar email a HTML (igual que reto-12-niveles)
+    const emailHtml = await render(
+      Component({ firstName, freedomDays })
+    );
+
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <noreply@creatuactivo.com>',
-      to: to,
+      from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
+      to: [to],
       subject: subject,
-      react: Component({ firstName, freedomDays }),
-      tags: [{ name: 'sequence', value: 'soap-opera' }],
+      html: emailHtml,
     });
 
     if (error) {

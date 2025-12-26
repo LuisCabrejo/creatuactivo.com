@@ -18,6 +18,11 @@ CREATE TABLE IF NOT EXISTS funnel_leads (
   passive_income NUMERIC,
   freedom_days INTEGER,
 
+  -- Email sequence tracking
+  last_email_sent INTEGER DEFAULT 0,
+  last_email_sent_at TIMESTAMPTZ,
+  email_sequence_completed BOOLEAN DEFAULT FALSE,
+
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

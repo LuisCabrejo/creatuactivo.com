@@ -7,6 +7,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { Resend } from 'resend';
+import { Email1Backstory } from '@/emails/soap-opera';
+
+// Lazy initialization de Resend client
+let resendClient: Resend | null = null;
+function getResendClient(): Resend {
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+}
 
 // Lazy initialization de Supabase client
 let supabaseClient: ReturnType<typeof createClient> | null = null;
@@ -130,6 +141,13 @@ export async function POST(request: NextRequest) {
       console.log('✅ [FUNNEL] Lead guardado via RPC:', rpcResult);
     }
 
+    // Enviar primer email de la secuencia (async, no bloquea la respuesta)
+    if (data.step === 'calculator_completed' && data.email) {
+      sendFirstEmail(data.email, data.name, data.freedomDays).catch(err => {
+        console.error('❌ [FUNNEL] Error enviando primer email:', err);
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Lead guardado exitosamente',
@@ -142,6 +160,43 @@ export async function POST(request: NextRequest) {
       { error: 'Error interno del servidor' },
       { status: 500 }
     );
+  }
+}
+
+// Función para enviar el primer email de la secuencia
+async function sendFirstEmail(
+  email: string,
+  name: string | null,
+  freedomDays: number | null
+) {
+  const firstName = name?.split(' ')[0] || 'Hola';
+
+  try {
+    const { data, error } = await getResendClient().emails.send({
+      from: 'CreaTuActivo <sistema@creatuactivo.com>',
+      to: email,
+      subject: `${firstName}, tu resultado + mi historia`,
+      react: Email1Backstory({ firstName, freedomDays: freedomDays || 0 }),
+    });
+
+    if (error) {
+      console.error('❌ [EMAIL] Error enviando email 1:', error);
+      return;
+    }
+
+    console.log('✅ [EMAIL] Email 1 enviado a', email, '- ID:', data?.id);
+
+    // Actualizar el lead con el tracking
+    await getSupabaseClient()
+      .from('funnel_leads')
+      .update({
+        last_email_sent: 1,
+        last_email_sent_at: new Date().toISOString(),
+      })
+      .eq('email', email.toLowerCase());
+
+  } catch (err) {
+    console.error('❌ [EMAIL] Exception:', err);
   }
 }
 

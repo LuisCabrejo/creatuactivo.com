@@ -12,8 +12,8 @@
 |---|--------|--------|------|-------|
 | 1 | Calculadora de Libertad | ✅ Hecho | `/calculadora` | Lead magnet principal |
 | 2 | Reto 5 Días | ✅ Hecho | `/reto-5-dias` | Página de registro |
-| 3 | Webinar (Registro) | ❌ Pendiente | `/webinar` | "Los 3 Secretos para Construir un Activo Digital" |
-| 4 | Webinar (Sala) | ❌ Pendiente | `/webinar/sala` | Sala de transmisión |
+| 3 | Webinar (Registro) | ✅ Hecho | `/webinar` | "Los 3 Secretos para Construir un Activo Digital" |
+| 4 | Webinar (Sala) | ✅ Hecho | `/webinar/sala` | Sala de transmisión con countdown |
 | 5 | Página de Orden | ❌ Pendiente | `/constructor-pro` | Constructor Pro $297 |
 | 6 | High Ticket Application | ❌ Pendiente | `/arquitecto` | Formulario de aplicación $2,000+ |
 
@@ -23,7 +23,7 @@
 - [x] Conectar formulario de Reto 5 Días con Supabase ✅
 - [x] API `/api/funnel` creado para ambos formularios ✅
 - [ ] **EJECUTAR**: Migración SQL `supabase/migrations/create_funnel_leads.sql`
-- [ ] Configurar Soap Opera Sequence (5 emails automáticos con Resend)
+- [x] Configurar Soap Opera Sequence (5 emails automáticos con Resend) ✅
 - [ ] Integrar WhatsApp Business API para el Reto
 - [ ] Configurar secuencia Seinfeld (emails diarios post-reto)
 
@@ -152,13 +152,13 @@ Basadas en la estrategia Russell Brunson / StoryBrand:
 ### Esta Semana
 
 1. [ ] Definir qué páginas del menú eliminar
-2. [ ] Conectar formulario de Calculadora con Supabase
-3. [ ] Conectar formulario de Reto 5 Días con Supabase
-4. [ ] Crear página de Webinar (registro)
+2. [x] Conectar formulario de Calculadora con Supabase ✅
+3. [x] Conectar formulario de Reto 5 Días con Supabase ✅
+4. [x] Crear página de Webinar (registro + sala) ✅
 
 ### Próxima Semana
 
-1. [ ] Configurar emails automáticos (Soap Opera)
+1. [x] Configurar emails automáticos (Soap Opera) ✅
 2. [ ] Crear página de orden (Constructor Pro)
 3. [ ] Actualizar branding en páginas antiguas
 4. [ ] Limpiar menú de navegación

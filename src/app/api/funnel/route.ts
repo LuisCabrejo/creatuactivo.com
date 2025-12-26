@@ -135,6 +135,26 @@ export async function POST(request: NextRequest) {
       console.log('✅ [FUNNEL] Lead guardado (fallback)');
     } else {
       console.log('✅ [FUNNEL] Lead guardado');
+
+      // También guardar en funnel_leads para tracking de emails
+      await getSupabaseClient()
+        .from('funnel_leads')
+        .upsert({
+          email: data.email.toLowerCase().trim(),
+          name: data.name || null,
+          whatsapp: data.whatsapp || null,
+          source: data.source || 'calculadora',
+          step: data.step || 'lead_captured',
+          situation: data.situation || null,
+          monthly_expenses: data.monthlyExpenses || null,
+          passive_income: data.passiveIncome || null,
+          freedom_days: data.freedomDays || null,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'email',
+          ignoreDuplicates: false
+        });
     }
 
     // Enviar primer email de la secuencia (async, no bloquea la respuesta)

@@ -143,10 +143,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Enviar primer email de la secuencia (async, no bloquea la respuesta)
+    console.log('🔍 [FUNNEL] Verificando condición de email:', {
+      step: data.step,
+      email: data.email,
+      shouldSendEmail: data.step === 'calculator_completed' && !!data.email,
+    });
+
     if (data.step === 'calculator_completed' && data.email) {
+      console.log('📧 [FUNNEL] Iniciando envío de Email 1...');
       sendFirstEmail(data.email, data.name, data.freedomDays).catch(err => {
         console.error('❌ [FUNNEL] Error enviando primer email:', err);
       });
+    } else {
+      console.log('⏭️ [FUNNEL] No se envía email (step:', data.step, ')');
     }
 
     return NextResponse.json({
@@ -172,11 +181,20 @@ async function sendFirstEmail(
 ) {
   const firstName = name?.split(' ')[0] || 'Hola';
 
+  console.log('📨 [EMAIL] sendFirstEmail() llamada:', {
+    email,
+    firstName,
+    freedomDays,
+    resendKeyExists: !!process.env.RESEND_API_KEY,
+  });
+
   try {
     // Renderizar email a HTML (igual que reto-12-niveles)
+    console.log('📝 [EMAIL] Renderizando template...');
     const emailHtml = await render(
       Email1Backstory({ firstName, freedomDays: freedomDays || 0 })
     );
+    console.log('✅ [EMAIL] Template renderizado:', emailHtml.length, 'caracteres');
 
     const { data, error } = await getResendClient().emails.send({
       from: 'CreaTuActivo <notificaciones@creatuactivo.com>',

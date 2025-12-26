@@ -31,7 +31,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
-- ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS
+- ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
 
@@ -69,8 +69,6 @@ git commit -m "✨ feat: Description"
 git push origin main
 # ALWAYS verify on GitHub that changes uploaded
 ```
-
-**Never commit**: `.env.local`, API keys, or secrets.
 
 ## Architecture Overview
 
@@ -274,7 +272,7 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (e.g., v13.8)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v14.x series)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
@@ -355,14 +353,6 @@ Returns: Arsenal counts, system prompt version, catalog availability, RPC status
 - Check trigger: `SELECT * FROM pg_trigger WHERE tgname LIKE '%nexus_queue%'`
 - Check queue: `SELECT * FROM nexus_queue WHERE status = 'pending'`
 - Redeploy: `npx supabase functions deploy nexus-queue-processor`
-
-## Cookie Banner & Consent
-
-**Arquitectura**: Cookie Banner maneja TODO el UX de consentimiento. NEXUS no menciona consentimiento.
-
-**Key File**: [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx)
-
-**Importante**: Ver "Reglas Críticas (NO HACER)" al inicio del documento.
 
 ## Business Timeline
 
@@ -468,30 +458,35 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~38 scripts after Dec 2025 cleanup)
+**Location**: `scripts/` directory (~38 scripts)
 
-**NEXUS Management**:
+**NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v{VERSION}.mjs` - Versioned update scripts (see `ls scripts/actualizar-system-prompt-*`)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v14.x series)
 
-**Knowledge Base**:
+**Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
 - `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
+- `deploy-arsenal-compensacion.mjs` - Deploy compensation plan arsenal
+- `deploy-arsenal-cierre.mjs` - Deploy closing arsenal
 - `actualizar-catalogo-productos.mjs` - Update product catalog
-- `verificar-arsenal-supabase.mjs` - Verify current version
+- `verificar-arsenal-supabase.mjs` - Verify current version in DB
 - `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
 
 **Embeddings** (Voyage AI):
 - `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks with embeddings
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
+- `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
 
-**Security**:
+**Database**:
+- `verificar-esquema-completo.mjs` - Verify complete database schema
 - `diagnostico-seguridad-supabase.sql` - Check RLS status on all tables
 - `fix-rls-seguridad-supabase.sql` - Enable RLS and create policies
 
-**Testing**:
+**Testing & Utilities**:
 - `test-contador-cupos.mjs` - Test founder counter (15 scenarios)
+- `actualizar-fechas-prelanzamiento.mjs` - Update pre-launch dates
 
 **Video**:
 - `optimize-video.sh` - Optimize to multiple resolutions (requires FFmpeg)

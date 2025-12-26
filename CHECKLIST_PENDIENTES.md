@@ -19,8 +19,10 @@
 
 ### Integraciones del Funnel
 
-- [ ] Conectar formulario de Calculadora con Supabase (guardar leads)
-- [ ] Conectar formulario de Reto 5 Días con Supabase
+- [x] Conectar formulario de Calculadora con Supabase (guardar leads) ✅
+- [x] Conectar formulario de Reto 5 Días con Supabase ✅
+- [x] API `/api/funnel` creado para ambos formularios ✅
+- [ ] **EJECUTAR**: Migración SQL `supabase/migrations/create_funnel_leads.sql`
 - [ ] Configurar Soap Opera Sequence (5 emails automáticos con Resend)
 - [ ] Integrar WhatsApp Business API para el Reto
 - [ ] Configurar secuencia Seinfeld (emails diarios post-reto)

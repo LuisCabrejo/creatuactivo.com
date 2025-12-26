@@ -9,6 +9,11 @@ import { ImageResponse } from 'next/og';
 export const runtime = 'edge';
 
 export async function GET() {
+  // Cargar fuente Playfair Display desde Google Fonts
+  const playfairFont = await fetch(
+    'https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtY.ttf'
+  ).then((res) => res.arrayBuffer());
+
   return new ImageResponse(
     (
       <div
@@ -47,7 +52,7 @@ export async function GET() {
                 fontSize: '30px',
                 fontWeight: 500,
                 color: '#0a0a0f',
-                fontFamily: "Georgia, 'Playfair Display', serif",
+                fontFamily: 'Playfair Display',
               }}
             >
               C
@@ -62,7 +67,7 @@ export async function GET() {
               fontSize: '24px',
               fontWeight: 500,
               color: '#f5f5f5',
-              fontFamily: 'system-ui, sans-serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               letterSpacing: '-0.02em',
             }}
           >
@@ -76,6 +81,14 @@ export async function GET() {
     {
       width: 280,
       height: 80,
+      fonts: [
+        {
+          name: 'Playfair Display',
+          data: playfairFont,
+          style: 'normal',
+          weight: 500,
+        },
+      ],
     }
   );
 }

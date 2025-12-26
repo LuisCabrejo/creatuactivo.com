@@ -6,7 +6,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
@@ -92,6 +93,32 @@ const diasDelReto = [
 // ============================================================================
 
 export default function Reto5DiasPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <Reto5DiasContent />
+    </Suspense>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{ backgroundColor: '#0a0a0f' }}
+    >
+      <div className="animate-pulse text-center">
+        <div
+          className="w-16 h-16 rounded-full mx-auto mb-4"
+          style={{ backgroundColor: '#D4AF37' }}
+        />
+        <p style={{ color: '#a0a0a8' }}>Cargando...</p>
+      </div>
+    </div>
+  );
+}
+
+function Reto5DiasContent() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     email: '',
@@ -99,16 +126,58 @@ export default function Reto5DiasPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [diasLibertad, setDiasLibertad] = useState<number | null>(null);
+
+  // Pre-llenar datos si vienen de la calculadora
+  useEffect(() => {
+    const email = searchParams.get('email');
+    const name = searchParams.get('name');
+    const dias = searchParams.get('dias');
+
+    if (email || name) {
+      setFormData(prev => ({
+        ...prev,
+        email: email || prev.email,
+        nombre: name || prev.nombre,
+      }));
+    }
+
+    if (dias) {
+      setDiasLibertad(parseInt(dias, 10));
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simular envío - aquí conectarías con tu backend/CRM
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Enviar datos al API
+      const response = await fetch('/api/funnel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.nombre,
+          whatsapp: formData.whatsapp,
+          source: searchParams.get('source') || 'reto-5-dias',
+          step: 'reto_registered',
+          freedomDays: diasLibertad,
+        }),
+      });
 
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+      if (!response.ok) {
+        throw new Error('Error guardando datos');
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error:', error);
+      // Aún así mostrar éxito para no frustrar al usuario
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

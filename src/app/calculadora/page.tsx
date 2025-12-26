@@ -109,10 +109,45 @@ export default function CalculadoraPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Aquí iría la integración con Supabase
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Calcular resultados para enviar
+      const calculatorResults = calculateResults();
 
-    window.location.href = '/reto-5-dias?source=calculadora';
+      // Enviar datos al API
+      const response = await fetch('/api/funnel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          whatsapp: formData.whatsapp,
+          source: 'calculadora',
+          step: 'calculator_completed',
+          situation: calculatorResults.situation,
+          monthlyExpenses: calculatorResults.monthlyExpenses,
+          passiveIncome: calculatorResults.passiveIncome,
+          freedomDays: calculatorResults.freedomDays,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error guardando datos');
+      }
+
+      // Redirigir al Reto con datos
+      const params = new URLSearchParams({
+        source: 'calculadora',
+        email: formData.email,
+        name: formData.name,
+        dias: String(calculatorResults.freedomDays),
+      });
+      window.location.href = `/reto-5-dias?${params.toString()}`;
+
+    } catch (error) {
+      console.error('Error:', error);
+      // Aún así redirigir para no bloquear al usuario
+      window.location.href = '/reto-5-dias?source=calculadora';
+    }
   };
 
   const formatCurrency = (value: number) => {

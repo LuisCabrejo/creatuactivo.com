@@ -52,11 +52,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('🎯 [FUNNEL] Procesando lead:', {
-      email: data.email,
-      source: data.source,
-      name: data.name || 'No proporcionado'
-    });
+    console.log('🎯 [FUNNEL] Lead:', data.email, '| step:', data.step);
 
     // Generar fingerprint único si no existe
     const crypto = require('crypto');
@@ -97,7 +93,6 @@ export async function POST(request: NextRequest) {
       prospectData.interest_level = 4;
     }
 
-    console.log('🔍 [FUNNEL] Datos a guardar:', prospectData);
 
     // Llamar al RPC update_prospect_data
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -137,25 +132,16 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      console.log('✅ [FUNNEL] Lead guardado via fallback (funnel_leads)');
+      console.log('✅ [FUNNEL] Lead guardado (fallback)');
     } else {
-      console.log('✅ [FUNNEL] Lead guardado via RPC:', rpcResult);
+      console.log('✅ [FUNNEL] Lead guardado');
     }
 
     // Enviar primer email de la secuencia (async, no bloquea la respuesta)
-    console.log('🔍 [FUNNEL] Verificando condición de email:', {
-      step: data.step,
-      email: data.email,
-      shouldSendEmail: data.step === 'calculator_completed' && !!data.email,
-    });
-
     if (data.step === 'calculator_completed' && data.email) {
-      console.log('📧 [FUNNEL] Iniciando envío de Email 1...');
       sendFirstEmail(data.email, data.name, data.freedomDays).catch(err => {
-        console.error('❌ [FUNNEL] Error enviando primer email:', err);
+        console.error('❌ [FUNNEL] Error Email 1:', err);
       });
-    } else {
-      console.log('⏭️ [FUNNEL] No se envía email (step:', data.step, ')');
     }
 
     return NextResponse.json({
@@ -181,20 +167,10 @@ async function sendFirstEmail(
 ) {
   const firstName = name?.split(' ')[0] || 'Hola';
 
-  console.log('📨 [EMAIL] sendFirstEmail() llamada:', {
-    email,
-    firstName,
-    freedomDays,
-    resendKeyExists: !!process.env.RESEND_API_KEY,
-  });
-
   try {
-    // Renderizar email a HTML (igual que reto-12-niveles)
-    console.log('📝 [EMAIL] Renderizando template...');
     const emailHtml = await render(
       Email1Backstory({ firstName, freedomDays: freedomDays || 0 })
     );
-    console.log('✅ [EMAIL] Template renderizado:', emailHtml.length, 'caracteres');
 
     const { data, error } = await getResendClient().emails.send({
       from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
@@ -204,11 +180,11 @@ async function sendFirstEmail(
     });
 
     if (error) {
-      console.error('❌ [EMAIL] Error enviando email 1:', error);
+      console.error('❌ [EMAIL] Error:', error);
       return;
     }
 
-    console.log('✅ [EMAIL] Email 1 enviado a', email, '- ID:', data?.id);
+    console.log('📧 [EMAIL] Enviado a', email, '| ID:', data?.id);
 
     // Actualizar el lead con el tracking
     await getSupabaseClient()

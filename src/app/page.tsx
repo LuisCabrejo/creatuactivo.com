@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Homepage - Quiet Luxury Branding
- * Basada en Framework Russell Brunson + StoryBrand + Quiet Tech
+ * Homepage v2.0 - Diagnóstico de Arquitectura Soberana
+ * Basado en investigación de Gemini: Quiz Funnel + Radar Chart
  */
 
 'use client';
@@ -9,9 +9,29 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import RadarChart from '@/components/RadarChart';
 
 // ============================================================================
-// CSS VARIABLES - QUIET LUXURY PALETTE
+// TYPES
+// ============================================================================
+
+type QuizStep = 'hero' | 'quiz' | 'capture' | 'result';
+
+interface QuizAnswers {
+  autonomia: number;
+  resiliencia: number;
+  eficiencia: number;
+  apalancamiento: number;
+  pazMental: number;
+}
+
+interface CaptureData {
+  email: string;
+  whatsapp: string;
+}
+
+// ============================================================================
+// CSS VARIABLES
 // ============================================================================
 
 const styles = `
@@ -35,21 +55,189 @@ const styles = `
     --border: #2a2a35;
     --border-subtle: #1f1f28;
 
-    /* Quiet Luxury - No traffic light colors */
-    --accent-positive: var(--gold);
-    --accent-negative: #6b6b75;
-    --muted-warm: #8a7355;
-
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', -apple-system, sans-serif;
+  }
+
+  .quiz-option {
+    transition: all 0.3s ease;
+  }
+  .quiz-option:hover {
+    transform: translateX(4px);
+    border-color: var(--gold);
+  }
+  .quiz-option.selected {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
   }
 `;
 
 // ============================================================================
-// COMPONENTE PRINCIPAL
+// QUIZ DATA
+// ============================================================================
+
+const quizQuestions = [
+  {
+    id: 'autonomia',
+    question: 'Si por una razón de fuerza mayor dejaras de trabajar físicamente durante 6 meses, ¿qué sucedería con tus ingresos?',
+    options: [
+      { value: 10, label: 'Se detienen inmediatamente', sublabel: 'Dependo 100% de mi trabajo activo' },
+      { value: 50, label: 'Se mantienen al 50-70% por un tiempo', sublabel: 'Tengo algo de colchón pero decaen' },
+      { value: 100, label: 'Continúan llegando sin mi presencia', sublabel: 'Tengo sistemas que generan sin mí' },
+    ],
+  },
+  {
+    id: 'resiliencia',
+    question: '¿Qué porcentaje de tu patrimonio y fuentes de ingreso está atado a una ubicación geográfica específica?',
+    options: [
+      { value: 10, label: '100% - Todo depende de donde vivo', sublabel: 'Mi economía no es portátil' },
+      { value: 50, label: '50% - Tengo inversiones diversificadas', sublabel: 'Pero mi ingreso principal es local' },
+      { value: 100, label: '0-20% - Mi economía es agnóstica', sublabel: 'Puedo operar desde cualquier lugar' },
+    ],
+  },
+  {
+    id: 'eficiencia',
+    question: 'Cuando revisas la relación entre lo que generaste (bruto) y lo que retuviste en activos reales, ¿cómo te sientes?',
+    options: [
+      { value: 20, label: 'Frustrado', sublabel: '"Soy un canal de paso para el dinero; entra y sale"' },
+      { value: 50, label: 'Conforme', sublabel: '"Ahorré algo, pero no lo suficiente para cambiar mi vida"' },
+      { value: 90, label: 'Satisfecho', sublabel: '"Construí patrimonio neto real y tangible"' },
+    ],
+  },
+  {
+    id: 'apalancamiento',
+    question: '¿Tu estrategia actual para duplicar tus ingresos requiere duplicar tu esfuerzo personal o tu tiempo?',
+    options: [
+      { value: 20, label: 'Sí, es una relación lineal', sublabel: 'Más dinero = Más trabajo' },
+      { value: 50, label: 'Parcialmente', sublabel: 'Tengo equipo pero sigo siendo el cuello de botella' },
+      { value: 90, label: 'No, uso sistemas de apalancamiento', sublabel: 'Mi ingreso puede escalar sin mí' },
+    ],
+  },
+  {
+    id: 'pazMental',
+    question: 'En una escala del 1 al 10, ¿cuánta paz mental te da la arquitectura financiera que has construido hasta hoy?',
+    options: [
+      { value: 20, label: '1-3: Muy poca', sublabel: 'Vivo con ansiedad financiera constante' },
+      { value: 50, label: '4-6: Regular', sublabel: 'Hay días buenos y días de preocupación' },
+      { value: 80, label: '7-8: Buena', sublabel: 'Me siento relativamente seguro' },
+      { value: 100, label: '9-10: Excelente', sublabel: 'Tengo paz mental total sobre mi futuro' },
+    ],
+  },
+];
+
+// ============================================================================
+// ARQUETIPOS
+// ============================================================================
+
+const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: number; resilienciaGeografica: number; escalabilidadSistemica: number; eficienciaPatrimonial: number }) => {
+  const avgSupport = (data.autonomiaOperativa + data.escalabilidadSistemica + data.eficienciaPatrimonial) / 3;
+
+  if (data.potenciaIngreso >= 70 && avgSupport <= 40) {
+    return {
+      name: 'EL GIGANTE DE PIES DE BARRO',
+      subtitle: 'Alto Rendimiento / Motor Solitario',
+      description: 'Los datos indican que tienes una capacidad excepcional para generar flujo de efectivo. Eres el motor indiscutible de tu economía. Ese es tu superpoder, pero paradójicamente, es tu mayor riesgo.',
+      insight: 'Tu gráfico muestra una "Arquitectura Asimétrica". Has optimizado todo tu sistema para el Ingreso Activo (dependiente de ti), pero has descuidado peligrosamente la Infraestructura de Soporte.',
+      truth: 'Actualmente, no posees un activo; el activo eres TÚ. Si tú te detienes, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
+      metaphor: 'Tienes el motor de un Ferrari montado en el chasis de una bicicleta.',
+      need: 'Lo que te falta no es más dinero. Te falta un Chasis.',
+    };
+  }
+
+  if (avgSupport <= 30) {
+    return {
+      name: 'EL OPERADOR AGOTADO',
+      subtitle: 'Negocio Propio / Sin Tiempo',
+      description: 'Has construido algo, pero te has convertido en esclavo de tu propia creación. Tu negocio no funciona sin ti, lo que significa que no tienes un negocio: tienes un trabajo disfrazado.',
+      insight: 'Todos los ejes de tu gráfico dependen de tu presencia física. No has logrado separar tu tiempo de tu ingreso.',
+      truth: 'Si cierras la puerta mañana, dejas de ganar. Eso no es un activo, es una trampa operativa.',
+      metaphor: 'Eres el motor, el volante y los frenos. Si te enfermas, el carro se detiene.',
+      need: 'Necesitas sistemas que operen sin tu presencia constante.',
+    };
+  }
+
+  return {
+    name: 'EL CONSTRUCTOR EN PROGRESO',
+    subtitle: 'En Camino / Con Potencial',
+    description: 'Tienes algunos elementos de estructura, pero aún no has logrado la independencia operativa completa. Estás mejor que la mayoría, pero lejos de la Soberanía.',
+    insight: 'Tu gráfico muestra áreas de oportunidad claras. No estás en crisis, pero tampoco estás protegido.',
+    truth: 'Con los ajustes correctos, podrías acelerar significativamente tu camino hacia la autonomía.',
+    metaphor: 'Tienes los planos, pero la construcción está a medias.',
+    need: 'Necesitas completar la infraestructura que ya empezaste.',
+  };
+};
+
+// ============================================================================
+// MAIN COMPONENT
 // ============================================================================
 
 export default function HomePage() {
+  const [step, setStep] = useState<QuizStep>('hero');
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<QuizAnswers>({
+    autonomia: 0,
+    resiliencia: 0,
+    eficiencia: 0,
+    apalancamiento: 0,
+    pazMental: 0,
+  });
+  const [captureData, setCaptureData] = useState<CaptureData>({ email: '', whatsapp: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleStartQuiz = () => {
+    setStep('quiz');
+  };
+
+  const handleAnswer = (questionId: string, value: number) => {
+    setAnswers(prev => ({ ...prev, [questionId]: value }));
+
+    // Auto-advance after selection
+    setTimeout(() => {
+      if (currentQuestion < quizQuestions.length - 1) {
+        setCurrentQuestion(prev => prev + 1);
+      } else {
+        setStep('capture');
+      }
+    }, 300);
+  };
+
+  const handleCapture = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!captureData.email || !captureData.whatsapp) return;
+
+    setIsSubmitting(true);
+
+    try {
+      // Enviar datos al API
+      await fetch('/api/diagnostico', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...captureData,
+          answers,
+          timestamp: new Date().toISOString(),
+          page: 'home-diagnostico-v2',
+        }),
+      });
+    } catch (error) {
+      console.error('Error guardando diagnóstico:', error);
+    }
+
+    setIsSubmitting(false);
+    setStep('result');
+  };
+
+  // Calcular datos del radar
+  const radarData = {
+    potenciaIngreso: 85, // Asumimos alto para el target
+    autonomiaOperativa: answers.autonomia,
+    resilienciaGeografica: answers.resiliencia,
+    escalabilidadSistemica: answers.apalancamiento,
+    eficienciaPatrimonial: answers.eficiencia,
+  };
+
+  const archetype = getArchetype(radarData);
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
@@ -59,18 +247,30 @@ export default function HomePage() {
         style={{
           backgroundColor: 'var(--bg-deep)',
           color: 'var(--text-primary)',
-          fontFamily: 'var(--font-body)'
+          fontFamily: 'var(--font-body)',
         }}
       >
-        <HeroSection />
-        <ProblemSection />
-        <EpiphanySection />
-        <SolutionSection />
-        <HowItWorksSection />
-        <ForWhoSection />
-        <SocialProofSection />
-        <FinalCTASection />
-        <Footer />
+        {step === 'hero' && <HeroSection onStart={handleStartQuiz} />}
+        {step === 'quiz' && (
+          <QuizSection
+            question={quizQuestions[currentQuestion]}
+            currentIndex={currentQuestion}
+            total={quizQuestions.length}
+            selectedValue={answers[quizQuestions[currentQuestion].id as keyof QuizAnswers]}
+            onAnswer={handleAnswer}
+          />
+        )}
+        {step === 'capture' && (
+          <CaptureSection
+            data={captureData}
+            onChange={setCaptureData}
+            onSubmit={handleCapture}
+            isSubmitting={isSubmitting}
+          />
+        )}
+        {step === 'result' && (
+          <ResultSection radarData={radarData} archetype={archetype} />
+        )}
       </main>
     </>
   );
@@ -80,859 +280,90 @@ export default function HomePage() {
 // HERO SECTION
 // ============================================================================
 
-function HeroSection() {
+function HeroSection({ onStart }: { onStart: () => void }) {
   return (
-    <section className="relative pt-40 pb-32 overflow-hidden">
-      {/* Subtle gradient background */}
+    <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
+      {/* Background gradient */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)',
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge - más sutil */}
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-10"
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border)'
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: 'var(--gold)' }}
-            />
-            <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-              Solo 30 cupos disponibles
-            </span>
-          </div>
-
-          {/* Headline - tipografía serif */}
-          <h1
-            className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-8"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            <span style={{ color: 'var(--text-secondary)' }}>Trabajas 50+ horas.</span>
-            <br />
-            <span style={{ color: 'var(--text-primary)' }}>Ganas bien.</span>
-            <br />
-            <span style={{ color: 'var(--gold)' }}>
-              ¿Por qué no avanzas?
-            </span>
-          </h1>
-
-          {/* Subheadline - más espaciado */}
-          <p
-            className="text-xl sm:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            Descubre en 2 minutos cuántos años te faltan para dejar de
-            depender de tu trabajo.
-          </p>
-
-          {/* CTA Buttons - más elegantes */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link
-              href="#calculadora"
-              className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-8 py-4 rounded-xl transition-all duration-300 hover:translate-y-[-2px]"
-              style={{
-                backgroundColor: 'var(--gold)',
-                color: 'var(--bg-deep)'
-              }}
-            >
-              Calcular Mi Número de Libertad
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <button
-              onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center justify-center gap-3 font-medium text-lg px-8 py-4 rounded-xl transition-all duration-300 hover:bg-[var(--bg-elevated)]"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border)'
-              }}
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
-              </svg>
-              Ver cómo funciona
-            </button>
-          </div>
-
-          {/* Trust indicators - minimalistas */}
-          <div className="flex flex-wrap items-center justify-center gap-10 text-sm" style={{ color: 'var(--text-muted)' }}>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-              </svg>
-              <span>Sin riesgo</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>2 minutos</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-              </svg>
-              <span>Resultado inmediato</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// PROBLEM SECTION - EL VILLANO: EL PLAN POR DEFECTO
-// ============================================================================
-
-function ProblemSection() {
-  return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-surface)' }}>
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          {/* Section header - EL VILLANO */}
-          <div className="text-center mb-16">
-            <span
-              className="text-sm font-medium uppercase tracking-widest"
-              style={{ color: 'var(--gold-muted)' }}
-            >
-              El enemigo invisible
-            </span>
-            <h2
-              className="text-3xl sm:text-4xl mt-6 mb-6"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-            >
-              Estás atrapado en
-              <br />
-              <span style={{ color: 'var(--gold)' }}>El Plan por Defecto</span>
-            </h2>
-            <p className="text-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Trabajar → Pagar cuentas → Repetir.
-              <br />
-              Mes tras mes. Año tras año. Hasta que se te va la vida.
-            </p>
-          </div>
-
-          {/* Problem cards - Síntomas del villano */}
-          <div className="space-y-5">
-            <ProblemCard
-              icon={
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-              }
-              title="El ciclo que no termina"
-              description="Trabajas para pagar la tarjeta. Pagas la tarjeta para poder seguir trabajando. El fin de mes llega y empiezas de nuevo."
-            />
-            <ProblemCard
-              icon={
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                </svg>
-              }
-              title="Subes de sueldo, suben tus gastos"
-              description="Te aumentan, te compras un mejor carro. Te ascienden, te mudas a mejor zona. 10 años después, sigues igual de atado."
-            />
-            <ProblemCard
-              icon={
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              }
-              title="El tiempo pasa, tú no avanzas"
-              description="Miras atrás y han pasado 5, 10, 15 años. Trabajaste duro. Pero sigues dependiendo del próximo cheque."
-            />
-          </div>
-
-          {/* The truth - Golpe de realidad */}
-          <div
-            className="mt-16 p-10 rounded-2xl text-center"
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border)'
-            }}
-          >
-            <p className="text-lg mb-4" style={{ color: 'var(--text-secondary)' }}>
-              La verdad que nadie te dice:
-            </p>
-            <p
-              className="text-2xl sm:text-3xl"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-            >
-              El Plan por Defecto no está roto.
-              <br />
-              <span style={{ color: 'var(--text-secondary)' }}>Está diseñado para mantenerte ahí.</span>
-            </p>
-            <p className="mt-6" style={{ color: 'var(--text-muted)' }}>
-              Si mañana no pudieras trabajar, ¿cuántos meses sobrevivirías?
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProblemCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div
-      className="flex gap-5 p-6 rounded-xl transition-all duration-300"
-      style={{
-        backgroundColor: 'var(--bg-card)',
-        border: '1px solid var(--border)'
-      }}
-    >
-      <div
-        className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{
-          backgroundColor: 'rgba(212, 175, 55, 0.1)',
-          color: 'var(--gold-muted)'
-        }}
-      >
-        {icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--text-primary)' }}>{title}</h3>
-        <p style={{ color: 'var(--text-secondary)' }}>{description}</p>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// EPIPHANY SECTION - LA REVELACIÓN
-// ============================================================================
-
-function EpiphanySection() {
-  return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-deep)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - Story */}
-          <div>
-            <span
-              className="text-sm font-medium uppercase tracking-widest"
-              style={{ color: 'var(--gold-muted)' }}
-            >
-              La revelación
-            </span>
-            <h2
-              className="text-3xl sm:text-4xl mt-6 mb-8"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-            >
-              Seguiste las reglas.
-              <br />
-              <span style={{ color: 'var(--gold)' }}>El problema es que las reglas están obsoletas.</span>
-            </h2>
-
-            <div className="space-y-5 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              <p>
-                Estudiaste. Conseguiste el trabajo. Trabajas duro.
-              </p>
-              <p style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
-                Hiciste todo lo que te dijeron que hicieras.
-              </p>
-              <p>
-                Pero el mapa que te dieron fue diseñado en los años 50.
-                Cuando había pensiones. Cuando un empleo duraba 40 años.
-              </p>
-              <p>
-                Ese mundo ya no existe.
-              </p>
-              <p style={{ color: 'var(--gold)', fontWeight: 500 }}>
-                El problema no eres tú. Es que te dieron herramientas obsoletas para un mundo que cambió.
-              </p>
-              <p>
-                La buena noticia: existe otro camino. Y no requiere que dejes tu trabajo ni arriesgues todo.
-              </p>
-            </div>
-          </div>
-
-          {/* Right - Comparison - Quiet Luxury Style */}
-          <div className="space-y-6">
-            {/* El mapa obsoleto */}
-            <div
-              className="p-7 rounded-xl"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                border: '1px solid var(--border)'
-              }}
-            >
-              <div className="flex items-center gap-4 mb-5">
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: 'rgba(107, 107, 117, 0.1)' }}
-                >
-                  <svg className="w-5 h-5" style={{ color: 'var(--text-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium" style={{ color: 'var(--text-muted)' }}>El mapa de los años 50</h3>
-              </div>
-              <ul className="space-y-3" style={{ color: 'var(--text-muted)' }}>
-                {[
-                  'Trabajar más horas para ganar más',
-                  'Ahorrar lo que sobra (nunca sobra)',
-                  'Esperar el aumento o el ascenso',
-                  'Jubilarte a los 65 si tienes suerte'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span>—</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-sm" style={{ color: 'var(--text-muted)' }}>
-                Si dejas de trabajar, dejas de ganar.
-              </p>
-            </div>
-
-            {/* El nuevo camino */}
-            <div
-              className="p-7 rounded-xl"
-              style={{
-                backgroundColor: 'rgba(212, 175, 55, 0.05)',
-                border: '1px solid rgba(212, 175, 55, 0.2)'
-              }}
-            >
-              <div className="flex items-center gap-4 mb-5">
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }}
-                >
-                  <svg className="w-5 h-5" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium" style={{ color: 'var(--gold)' }}>El mapa actualizado</h3>
-              </div>
-              <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
-                {[
-                  'Construir algo que genere mientras duermes',
-                  'Usar tu tiempo libre, no renunciar',
-                  'Ver progreso real cada mes',
-                  'Elegir cuándo dejar de trabajar'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <svg className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-sm font-medium" style={{ color: 'var(--gold-muted)' }}>
-                Tú decides cuándo parar. No tu jefe.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// SOLUTION SECTION
-// ============================================================================
-
-function SolutionSection() {
-  return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span
-            className="text-sm font-medium uppercase tracking-widest"
-            style={{ color: 'var(--gold-muted)' }}
-          >
-            La solución
-          </span>
-          <h2
-            className="text-3xl sm:text-4xl mt-6 mb-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            Infraestructura para
-            <br />
-            <span style={{ color: 'var(--gold)' }}>construir tu libertad</span>
-          </h2>
-          <p className="text-xl max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            CreaTuActivo no es un curso. No es motivación.
-            Es infraestructura tecnológica que hace fácil lo que antes era difícil.
-          </p>
-        </div>
-
-        {/* Feature grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          <FeatureCard
-            icon={
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
-              </svg>
-            }
-            title="Dashboard Inteligente"
-            description="Visualiza tus métricas y progreso en tiempo real. Sin Excel, sin confusión."
-          />
-          <FeatureCard
-            icon={
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-              </svg>
-            }
-            title="NEXUS IA"
-            description="Un asistente inteligente disponible 24/7 que responde preguntas y te ahorra horas."
-          />
-          <FeatureCard
-            icon={
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-              </svg>
-            }
-            title="Metodología Clara"
-            description="Pasos definidos que cualquiera puede seguir. Sin ambigüedades."
-          />
-          <FeatureCard
-            icon={
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-              </svg>
-            }
-            title="Comunidad"
-            description="Acceso a personas construyendo lo mismo que tú. No estás solo."
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div
-      className="p-6 rounded-xl transition-all duration-300 hover:translate-y-[-2px]"
-      style={{
-        backgroundColor: 'var(--bg-card)',
-        border: '1px solid var(--border)'
-      }}
-    >
-      <div
-        className="w-12 h-12 rounded-lg flex items-center justify-center mb-5"
-        style={{
-          backgroundColor: 'rgba(212, 175, 55, 0.1)',
-          color: 'var(--gold)'
-        }}
-      >
-        {icon}
-      </div>
-      <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--text-primary)' }}>{title}</h3>
-      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{description}</p>
-    </div>
-  );
-}
-
-// ============================================================================
-// HOW IT WORKS
-// ============================================================================
-
-function HowItWorksSection() {
-  return (
-    <section id="como-funciona" className="py-24" style={{ backgroundColor: 'var(--bg-deep)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span
-            className="text-sm font-medium uppercase tracking-widest"
-            style={{ color: 'var(--gold-muted)' }}
-          >
-            Cómo funciona
-          </span>
-          <h2
-            className="text-3xl sm:text-4xl mt-6 mb-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            Tres pasos hacia tu libertad
-          </h2>
-          <p className="text-xl max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Sin misterios. Sin complejidad. Un sistema probado.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <StepCard
-            number="01"
-            title="Calcula tu situación"
-            description="Usa la Calculadora de Libertad para entender exactamente dónde estás y cuánto te falta."
-            highlight="2 minutos"
-            href="/calculadora"
-            cta="Calcular ahora"
-          />
-          <StepCard
-            number="02"
-            title="Aprende el sistema"
-            description="Únete al Reto de 5 Días y descubre cómo construir un activo sin sacrificar tu carrera."
-            highlight="5 días"
-            href="/reto-5-dias"
-            cta="Unirme al reto"
-          />
-          <StepCard
-            number="03"
-            title="Ejecuta con herramientas"
-            description="Usa el Dashboard, NEXUS y la comunidad para construir tu activo de forma sistemática."
-            highlight="Tu ritmo"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StepCard({ number, title, description, highlight, href, cta }: {
-  number: string;
-  title: string;
-  description: string;
-  highlight: string;
-  href?: string;
-  cta?: string;
-}) {
-  const content = (
-    <>
-      <div
-        className="text-6xl font-bold absolute top-6 right-6"
-        style={{ color: 'var(--border)', fontFamily: 'var(--font-display)' }}
-      >
-        {number}
-      </div>
-      <div className="relative">
+      <div className="relative max-w-3xl mx-auto text-center">
+        {/* Badge */}
         <div
-          className="inline-block px-3 py-1.5 rounded-full mb-5 text-sm font-medium"
-          style={{
-            backgroundColor: 'rgba(212, 175, 55, 0.1)',
-            color: 'var(--gold)'
-          }}
-        >
-          {highlight}
-        </div>
-        <h3 className="text-xl font-medium mb-3" style={{ color: 'var(--text-primary)' }}>{title}</h3>
-        <p style={{ color: 'var(--text-secondary)' }}>{description}</p>
-        {cta && (
-          <div
-            className="mt-5 inline-flex items-center gap-2 text-sm font-medium"
-            style={{ color: 'var(--gold)' }}
-          >
-            {cta}
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </div>
-        )}
-      </div>
-    </>
-  );
-
-  if (href) {
-    return (
-      <Link
-        href={href}
-        className="relative p-8 rounded-2xl block transition-all duration-300 hover:scale-[1.02]"
-        style={{
-          backgroundColor: 'var(--bg-surface)',
-          border: '1px solid var(--border)'
-        }}
-      >
-        {content}
-      </Link>
-    );
-  }
-
-  return (
-    <div
-      className="relative p-8 rounded-2xl"
-      style={{
-        backgroundColor: 'var(--bg-surface)',
-        border: '1px solid var(--border)'
-      }}
-    >
-      {content}
-    </div>
-  );
-}
-
-// ============================================================================
-// FOR WHO SECTION
-// ============================================================================
-
-function ForWhoSection() {
-  return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Es para ti si... */}
-          <div>
-            <h2
-              className="text-2xl mb-8"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-            >
-              Esto es para ti si...
-            </h2>
-            <ul className="space-y-4">
-              {[
-                'Tienes un buen ingreso pero no construyes patrimonio',
-                'Quieres un Plan B que no dependa de tu empleador',
-                'Buscas algo serio, no "dinero fácil"',
-                'Estás dispuesto a trabajar 1-2 horas diarias',
-                'Valoras los sistemas sobre la motivación',
-                'Prefieres herramientas sobre discursos',
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span
-                    className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }}
-                  >
-                    <svg className="w-3.5 h-3.5" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                  </span>
-                  <span style={{ color: 'var(--text-secondary)' }}>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* No es para ti si... */}
-          <div>
-            <h2
-              className="text-2xl mb-8"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-            >
-              Esto no es para ti si...
-            </h2>
-            <ul className="space-y-4">
-              {[
-                'Buscas hacerte rico de la noche a la mañana',
-                'No tienes tiempo para dedicar al menos 1 hora diaria',
-                'Esperas que alguien haga el trabajo por ti',
-                'No estás dispuesto a aprender algo nuevo',
-                'Prefieres quejarte a tomar acción',
-                'Crees que el éxito llega sin esfuerzo',
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span
-                    className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ backgroundColor: 'rgba(107, 107, 117, 0.1)' }}
-                  >
-                    <svg className="w-3.5 h-3.5" style={{ color: 'var(--text-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  <span style={{ color: 'var(--text-muted)' }}>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// SOCIAL PROOF SECTION
-// ============================================================================
-
-function SocialProofSection() {
-  return (
-    <section className="py-24" style={{ backgroundColor: 'var(--bg-deep)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span
-            className="text-sm font-medium uppercase tracking-widest"
-            style={{ color: 'var(--gold-muted)' }}
-          >
-            Historias reales
-          </span>
-          <h2
-            className="text-3xl sm:text-4xl mt-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            Lo que dicen quienes ya construyen
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <TestimonialCard
-            quote="Llevaba años escuchando sobre 'ingresos pasivos' pero todo era humo. Esto es diferente: hay un sistema real, herramientas reales, métricas reales."
-            name="Carlos M."
-            role="Ingeniero de Software"
-          />
-          <TestimonialCard
-            quote="Lo que más me convenció fue que nadie me pidió hacer lista de amigos. Todo es con personas que genuinamente buscan esto."
-            name="María L."
-            role="Contadora"
-          />
-          <TestimonialCard
-            quote="NEXUS es increíble. Responde las mismas preguntas que yo respondía 50 veces al día. Ahora uso mi tiempo en lo que importa."
-            name="Andrés R."
-            role="Empresario"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TestimonialCard({ quote, name, role }: { quote: string; name: string; role: string }) {
-  return (
-    <div
-      className="p-7 rounded-xl"
-      style={{
-        backgroundColor: 'var(--bg-surface)',
-        border: '1px solid var(--border)'
-      }}
-    >
-      {/* Stars - más sutiles */}
-      <div className="flex gap-1 mb-5">
-        {[1,2,3,4,5].map(i => (
-          <svg key={i} className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
-      </div>
-      <p className="mb-6 italic leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        &quot;{quote}&quot;
-      </p>
-      <div className="flex items-center gap-4">
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium"
-          style={{
-            backgroundColor: 'var(--gold)',
-            color: 'var(--bg-deep)'
-          }}
-        >
-          {name.split(' ').map(n => n[0]).join('')}
-        </div>
-        <div>
-          <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{name}</p>
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{role}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// FINAL CTA SECTION
-// ============================================================================
-
-function FinalCTASection() {
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-
-    setIsLoading(true);
-    // Redirigir a la calculadora con el email
-    window.location.href = `/calculadora?email=${encodeURIComponent(email)}`;
-  };
-
-  return (
-    <section id="calculadora" className="py-24" style={{ backgroundColor: 'var(--bg-surface)' }}>
-      <div className="max-w-3xl mx-auto px-6 lg:px-8">
-        <div
-          className="rounded-2xl p-10 sm:p-14 text-center"
+          className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
           style={{
             backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)'
+            border: '1px solid var(--border)',
           }}
         >
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 text-sm"
-            style={{
-              backgroundColor: 'rgba(212, 175, 55, 0.1)',
-              color: 'var(--gold)'
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: 'var(--gold)' }}
-            />
-            Acceso Anticipado — Abre 2 Enero 2026
+          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
+          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Diagnóstico de 60 segundos
+          </span>
+        </div>
+
+        {/* Main Headline */}
+        <h1
+          className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8"
+          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
+        >
+          <span style={{ color: 'var(--text-secondary)' }}>A los 40 años descubrí que</span>
+          <br />
+          <span style={{ color: 'var(--text-primary)' }}>había pasado dos décadas</span>
+          <br />
+          <span style={{ color: 'var(--gold)' }}>subiendo la escalera equivocada.</span>
+        </h1>
+
+        {/* Subheadline */}
+        <p
+          className="text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
+          <br className="hidden sm:block" />
+          <span style={{ color: 'var(--text-primary)' }}>
+            Realiza este diagnóstico para visualizar las grietas invisibles en tu modelo actual.
+          </span>
+        </p>
+
+        {/* CTA Button */}
+        <button
+          onClick={onStart}
+          className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+          style={{
+            backgroundColor: 'var(--gold)',
+            color: 'var(--bg-deep)',
+          }}
+        >
+          Iniciar Diagnóstico Gratuito
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+
+        {/* Trust indicators */}
+        <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm" style={{ color: 'var(--text-muted)' }}>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>60 segundos</span>
           </div>
-
-          <h2
-            className="text-3xl sm:text-4xl mb-5"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            Si mañana no puedes trabajar...
-            <br />
-            <span style={{ color: 'var(--gold)' }}>¿cuántos días aguantas?</span>
-          </h2>
-
-          <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Descúbrelo en 30 segundos con la Calculadora de Libertad.
-            Sin compromiso. Sin costo.
-          </p>
-
-          {/* Email capture form */}
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Tu email profesional"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="flex-1 px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                style={{
-                  backgroundColor: 'var(--bg-elevated)',
-                  border: '1px solid var(--border)',
-                  color: 'var(--text-primary)'
-                }}
-              />
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="px-7 py-4 rounded-xl font-semibold transition-all duration-300 hover:opacity-90 disabled:opacity-60"
-                style={{
-                  backgroundColor: 'var(--gold)',
-                  color: 'var(--bg-deep)'
-                }}
-              >
-                {isLoading ? 'Cargando...' : 'Calcular'}
-              </button>
-            </div>
-            <p className="text-sm mt-5" style={{ color: 'var(--text-muted)' }}>
-              Tu información está segura. Sin spam.
-            </p>
-          </form>
-
-          {/* Guarantee */}
-          <div
-            className="mt-10 pt-10 flex flex-wrap items-center justify-center gap-8 text-sm"
-            style={{
-              borderTop: '1px solid var(--border)',
-              color: 'var(--text-muted)'
-            }}
-          >
-            {['Gratis', '30 segundos', 'Resultado inmediato'].map((item, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <svg className="w-4 h-4" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-                <span>{item}</span>
-              </div>
-            ))}
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            <span>100% confidencial</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            </svg>
+            <span>Resultado inmediato</span>
           </div>
         </div>
       </div>
@@ -941,55 +372,361 @@ function FinalCTASection() {
 }
 
 // ============================================================================
-// FOOTER
+// QUIZ SECTION
 // ============================================================================
 
-function Footer() {
+interface QuizSectionProps {
+  question: typeof quizQuestions[0];
+  currentIndex: number;
+  total: number;
+  selectedValue: number;
+  onAnswer: (questionId: string, value: number) => void;
+}
+
+function QuizSection({ question, currentIndex, total, selectedValue, onAnswer }: QuizSectionProps) {
   return (
-    <footer
-      className="py-16"
-      style={{
-        backgroundColor: 'var(--bg-deep)',
-        borderTop: '1px solid var(--border-subtle)'
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: 'var(--gold)' }}
-            >
-              <span className="font-bold" style={{ color: 'var(--bg-deep)', fontFamily: 'var(--font-display)' }}>C</span>
-            </div>
-            <span className="text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              Crea<span style={{ color: 'var(--gold)' }}>Tu</span>Activo
+    <section className="min-h-screen flex items-center justify-center px-6 py-20">
+      <div className="max-w-2xl mx-auto w-full">
+        {/* Progress */}
+        <div className="mb-10">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
+              Pregunta {currentIndex + 1} de {total}
+            </span>
+            <span className="text-sm font-medium" style={{ color: 'var(--gold)' }}>
+              {Math.round(((currentIndex + 1) / total) * 100)}%
             </span>
           </div>
-
-          {/* Links */}
-          <div className="flex flex-wrap items-center gap-8 text-sm" style={{ color: 'var(--text-muted)' }}>
-            <Link href="/privacidad" className="hover:opacity-80 transition-opacity">
-              Privacidad
-            </Link>
-            <Link href="/terminos" className="hover:opacity-80 transition-opacity">
-              Términos
-            </Link>
-            <span>© 2025 CreaTuActivo.com</span>
+          <div
+            className="h-1 rounded-full overflow-hidden"
+            style={{ backgroundColor: 'var(--bg-card)' }}
+          >
+            <div
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                backgroundColor: 'var(--gold)',
+                width: `${((currentIndex + 1) / total) * 100}%`,
+              }}
+            />
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <p
-          className="text-xs text-center mt-12 max-w-2xl mx-auto leading-relaxed"
-          style={{ color: 'var(--text-muted)' }}
+        {/* Question */}
+        <h2
+          className="text-xl sm:text-2xl lg:text-3xl mb-10 leading-relaxed"
+          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
         >
-          CreaTuActivo es una plataforma de infraestructura tecnológica. Los resultados individuales
-          pueden variar y dependen del esfuerzo, dedicación y circunstancias de cada persona.
-          Esto no es un esquema de dinero fácil ni garantizamos ingresos específicos.
+          {question.question}
+        </h2>
+
+        {/* Options */}
+        <div className="space-y-4">
+          {question.options.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => onAnswer(question.id, option.value)}
+              className={`quiz-option w-full text-left p-5 rounded-xl border-2 ${
+                selectedValue === option.value ? 'selected' : ''
+              }`}
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                borderColor: selectedValue === option.value ? 'var(--gold)' : 'var(--border)',
+              }}
+            >
+              <div className="flex items-start gap-4">
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-sm font-bold"
+                  style={{
+                    backgroundColor: selectedValue === option.value ? 'var(--gold)' : 'var(--bg-elevated)',
+                    color: selectedValue === option.value ? 'var(--bg-deep)' : 'var(--text-muted)',
+                  }}
+                >
+                  {String.fromCharCode(65 + index)}
+                </div>
+                <div>
+                  <p className="font-medium text-lg" style={{ color: 'var(--text-primary)' }}>
+                    {option.label}
+                  </p>
+                  <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
+                    {option.sublabel}
+                  </p>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// CAPTURE SECTION
+// ============================================================================
+
+interface CaptureSectionProps {
+  data: CaptureData;
+  onChange: (data: CaptureData) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  isSubmitting: boolean;
+}
+
+function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSectionProps) {
+  return (
+    <section className="min-h-screen flex items-center justify-center px-6 py-20">
+      <div className="max-w-md mx-auto w-full text-center">
+        {/* Icon */}
+        <div
+          className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"
+          style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }}
+        >
+          <svg className="w-10 h-10" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+        </div>
+
+        <h2
+          className="text-2xl sm:text-3xl mb-4"
+          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
+        >
+          Tu análisis está listo
+        </h2>
+
+        <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
+          ¿A dónde enviamos tu informe detallado y el gráfico de arquitectura?
+        </p>
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Tu email"
+            value={data.email}
+            onChange={(e) => onChange({ ...data, email: e.target.value })}
+            required
+            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              color: 'var(--text-primary)',
+            }}
+          />
+          <input
+            type="tel"
+            placeholder="Tu WhatsApp (con código de país)"
+            value={data.whatsapp}
+            onChange={(e) => onChange({ ...data, whatsapp: e.target.value })}
+            required
+            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              color: 'var(--text-primary)',
+            }}
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60"
+            style={{
+              backgroundColor: 'var(--gold)',
+              color: 'var(--bg-deep)',
+            }}
+          >
+            {isSubmitting ? 'Procesando...' : 'Ver Mi Diagnóstico'}
+          </button>
+        </form>
+
+        <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
+          Tus datos están protegidos. Sin spam, solo tu diagnóstico.
         </p>
       </div>
-    </footer>
+    </section>
+  );
+}
+
+// ============================================================================
+// RESULT SECTION
+// ============================================================================
+
+interface ResultSectionProps {
+  radarData: {
+    potenciaIngreso: number;
+    autonomiaOperativa: number;
+    resilienciaGeografica: number;
+    escalabilidadSistemica: number;
+    eficienciaPatrimonial: number;
+  };
+  archetype: ReturnType<typeof getArchetype>;
+}
+
+function ResultSection({ radarData, archetype }: ResultSectionProps) {
+  return (
+    <section className="min-h-screen px-6 py-20">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <span
+            className="text-sm font-medium uppercase tracking-widest"
+            style={{ color: 'var(--gold)' }}
+          >
+            Diagnóstico Completado
+          </span>
+          <h1
+            className="text-3xl sm:text-4xl mt-4"
+            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
+          >
+            Tu Arquitectura Financiera
+          </h1>
+        </div>
+
+        {/* Radar Chart */}
+        <div className="flex justify-center mb-12">
+          <RadarChart data={radarData} size={320} animated={true} />
+        </div>
+
+        {/* Archetype Card */}
+        <div
+          className="rounded-2xl p-8 sm:p-10 mb-10"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+          }}
+        >
+          <div className="text-center mb-8">
+            <span
+              className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
+              style={{
+                backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                color: 'var(--gold)',
+              }}
+            >
+              ARQUETIPO DETECTADO
+            </span>
+            <h2
+              className="text-2xl sm:text-3xl mb-2"
+              style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}
+            >
+              {archetype.name}
+            </h2>
+            <p style={{ color: 'var(--text-muted)' }}>{archetype.subtitle}</p>
+          </div>
+
+          <div className="space-y-6" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-lg leading-relaxed">{archetype.description}</p>
+            <p className="leading-relaxed">{archetype.insight}</p>
+            <p
+              className="text-lg font-medium leading-relaxed"
+              style={{ color: 'var(--text-primary)' }}
+            >
+              <strong>La Verdad Incómoda:</strong> {archetype.truth}
+            </p>
+            <p
+              className="text-xl italic text-center py-4"
+              style={{ color: 'var(--gold)', fontFamily: 'var(--font-display)' }}
+            >
+              &quot;{archetype.metaphor}&quot;
+            </p>
+            <p
+              className="text-lg font-semibold text-center"
+              style={{ color: 'var(--text-primary)' }}
+            >
+              {archetype.need}
+            </p>
+          </div>
+        </div>
+
+        {/* Transition to Reto */}
+        <div
+          className="rounded-2xl p-8 sm:p-10 text-center"
+          style={{
+            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%)',
+            border: '1px solid rgba(212, 175, 55, 0.2)',
+          }}
+        >
+          <h3
+            className="text-xl sm:text-2xl mb-6"
+            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
+          >
+            La brecha entre tu situación actual y la Soberanía
+            <br />
+            <span style={{ color: 'var(--gold)' }}>no es cuestión de esfuerzo. Es cuestión de Diseño.</span>
+          </h3>
+
+          <p className="text-lg mb-6 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+            La mayoría intenta corregir este gráfico trabajando más duro. Pero no puedes solucionar
+            un problema estructural con más esfuerzo operativo. Eso es como tratar de arreglar
+            una fuga de agua abriendo más el grifo.
+          </p>
+
+          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
+            He diseñado el <strong style={{ color: 'var(--gold)' }}>Protocolo Soberanía (Reto de 5 Días)</strong> específicamente
+            para perfiles de alto rendimiento que necesitan transicionar de{' '}
+            <em>Operadores</em> a <em>Arquitectos</em>.
+          </p>
+
+          <div
+            className="p-6 rounded-xl mb-8 text-left"
+            style={{ backgroundColor: 'var(--bg-deep)', border: '1px solid var(--border)' }}
+          >
+            <p className="font-medium mb-4" style={{ color: 'var(--text-primary)' }}>
+              No es un curso motivacional. Es un proceso de ingeniería donde:
+            </p>
+            <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
+              <li className="flex items-start gap-3">
+                <span style={{ color: 'var(--gold)' }}>Día 1:</span>
+                <span>Realizaremos la auditoría matemática profunda (la versión cuantitativa de lo que acabas de ver)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span style={{ color: 'var(--gold)' }}>Día 2:</span>
+                <span>Desmantelaremos los vehículos obsoletos que consumen tu tiempo</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span style={{ color: 'var(--gold)' }}>Día 3:</span>
+                <span>Te entregaré los planos de la infraestructura de socios (El Nuevo Modelo)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span style={{ color: 'var(--gold)' }}>Día 4:</span>
+                <span>Hablaremos del elefante en la habitación (El Estigma)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span style={{ color: 'var(--gold)' }}>Día 5:</span>
+                <span>Te entregaré las llaves de tu soberanía (La Invitación)</span>
+              </li>
+            </ul>
+          </div>
+
+          <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
+            Tu diagnóstico dice que estás listo para escalar,
+            <br />
+            pero tu estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
+          </p>
+
+          <Link
+            href="/reto-5-dias"
+            className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+            style={{
+              backgroundColor: 'var(--gold)',
+              color: 'var(--bg-deep)',
+            }}
+          >
+            Unirme al Protocolo Soberanía
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+
+          <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
+            Trae tu gráfico de resultados al Día 1. Será nuestro punto de partida.
+          </p>
+        </div>
+
+        {/* Footer */}
+        <footer className="text-center mt-16 pt-10" style={{ borderTop: '1px solid var(--border)' }}>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            © 2025 CreaTuActivo.com — Arquitectura de Soberanía Financiera
+          </p>
+        </footer>
+      </div>
+    </section>
   );
 }

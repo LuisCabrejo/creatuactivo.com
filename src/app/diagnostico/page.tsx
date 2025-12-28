@@ -172,7 +172,7 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
 // ============================================================================
 
 export default function DiagnosticoPage() {
-  const [step, setStep] = useState<QuizStep>('hero');
+  const [step, setStep] = useState<QuizStep>('quiz');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({
     autonomia: 0,

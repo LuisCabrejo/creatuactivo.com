@@ -690,7 +690,7 @@ function SobreLuis() {
           <p className="text-lg max-w-2xl mx-auto mb-8" style={{ color: 'var(--text-secondary)' }}>
             12 años emprendiendo. A los 40, quebrado. Encontré un modelo que funcionaba
             matemáticamente pero la infraestructura estaba rota. Lo ejecuté de la forma
-            difícil: 2.5 años hasta llegar a Diamante. Después me pregunté: ¿qué hubiera
+            difícil: 2.5 años hasta el #1 de mi organización. Después me pregunté: ¿qué hubiera
             pasado si hubiera tenido las herramientas correctas?
           </p>
 

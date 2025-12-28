@@ -32,43 +32,45 @@ const getInitialGreeting = (): Message => {
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `Hola, soy NEXUS
+      content: `Soy Queswa 🪢
 
-Soy tu asesor de salud y bienestar.
+Tu asesor de bienestar en CreaTuActivo.
 
-Estoy aquí para ayudarte a entender cómo Ganoderma lucidum puede apoyar tu bienestar, respaldado por más de 2,000 estudios científicos.
+El Ganoderma lucidum tiene más de 2,000 estudios científicos publicados.
 
-¿Qué te gustaría saber sobre los productos?
+¿Qué te gustaría explorar?
 
-**A)** 🌿 ¿Qué beneficios tienen los productos Gano Excel?
+**A)** 🌿 Beneficios de los productos
 
-**B)** 🔬 ¿Qué estudios científicos respaldan los beneficios?
+**B)** 🔬 Estudios científicos
 
-**D)** 💰 Precios y presentaciones
+**C)** 💰 Precios y presentaciones
 
-**E)** 📋 Cómo tomar los productos`,
+**D)** 📋 Cómo tomar los productos`,
       timestamp: new Date(),
       isStreaming: false
     };
   }
 
-  // Saludo genérico para el resto de páginas
+  // Saludo genérico para el resto de páginas - Léxico de Soberanía
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `¡Hola! 👋 Soy **NEXUS**, tu Socio Digital en CreaTuActivo.com.
+    content: `Soy Queswa 🪢
 
-Estoy aquí para mostrarte cómo construir tu propio sistema de **Distribución Masiva** de productos Gano Excel.
+La mayoría de profesionales pasan 40 años construyendo el activo de otro.
 
-¿Qué te gustaría saber?
+Aquí enseñamos cómo construir tu propia **Infraestructura de Soberanía**.
 
-**A)** 🔥 Conocer el Reto de los 12 Días
+¿Cuál es tu situación?
 
-**B)** ⚙️ Cómo funciona el negocio
+**A)** Quiero construir un activo propio
 
-**C)** 📦 Qué productos distribuimos
+**B)** Me siento estancado profesionalmente
 
-**D)** 💰 Inversión y ganancias`,
+**C)** Solo estoy explorando opciones
+
+**D)** Quiero conocer el producto`,
     timestamp: new Date(),
     isStreaming: false
   };

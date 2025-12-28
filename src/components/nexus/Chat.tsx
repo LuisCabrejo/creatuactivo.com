@@ -32,8 +32,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL Jobs-Style - Coordinado con NEXUSWidget (SIN "Hola")
-        content: 'Soy NEXUS\n\nPiénsalo así: Jeff Bezos no construyó su fortuna vendiendo libros. Construyó Amazon, el sistema.\n\nNosotros aplicamos esa misma filosofía. Te ayudamos a construir TU sistema.\n\n¿Por dónde empezamos?'
+        // 🔧 MENSAJE INICIAL Queswa - Léxico de Soberanía
+        content: 'Soy Queswa 🪢\n\nLa mayoría de profesionales pasan 40 años construyendo el activo de otro.\n\nAquí enseñamos cómo construir tu propia **Infraestructura de Soberanía**.\n\n¿Cuál es tu situación?\n\n**A)** Quiero construir un activo propio\n**B)** Me siento estancado profesionalmente\n**C)** Solo estoy explorando opciones\n**D)** Quiero conocer el producto'
       }
     ]
   });
@@ -68,8 +68,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
             <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
           <div>
-            <h3 className="font-semibold">NEXUS</h3>
-            <p className="text-xs opacity-90">Especialista en sistemas de distribución</p>
+            <h3 className="font-semibold">Queswa 🪢</h3>
+            <p className="text-xs opacity-90">Asesor de Soberanía Financiera</p>
           </div>
         </div>
 
@@ -153,7 +153,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                 <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <span className="text-sm ml-2">NEXUS está analizando...</span>
+                <span className="text-sm ml-2">Queswa está analizando...</span>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
 
         {/* Footer info */}
         <div className="mt-2 text-xs text-gray-500 text-center">
-          NEXUS • Especialista en sistemas inteligentes CreaTuActivo.com
+          Queswa 🪢 • Asesor de Soberanía Financiera • CreaTuActivo.com
         </div>
       </div>
     </div>

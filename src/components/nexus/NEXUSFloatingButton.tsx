@@ -228,7 +228,7 @@ const NEXUSFloatingButton: React.FC = () => {
               className="text-sm font-medium whitespace-nowrap"
               style={{ color: QUIET_LUXURY.textPrimary }}
             >
-              Habla con <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>NEXUS</span>
+              Habla con <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>Queswa</span> 🪢
             </span>
             {/* Botón para cerrar el tooltip */}
             <button
@@ -257,7 +257,7 @@ const NEXUSFloatingButton: React.FC = () => {
         className="fixed bottom-6 right-6 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
         style={getButtonStyles()}
         onClick={handleButtonClick}
-        aria-label="Abrir chat con NEXUS IA"
+        aria-label="Abrir chat con Queswa"
       >
         <div className="relative">
           {/* Icono dinámico basado en estado */}

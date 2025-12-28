@@ -163,7 +163,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 </svg>
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS</p>
+                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
                   <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
@@ -217,7 +217,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   e.currentTarget.style.background = QUIET_LUXURY.bgCard;
                 }}
                 onClick={onClose}
-                aria-label="Cerrar asistente NEXUS"
+                aria-label="Cerrar asistente Queswa"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
@@ -247,7 +247,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 </svg>
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS</p>
+                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                 <p className="text-[10px]" style={{ color: QUIET_LUXURY.textMuted }}>por CreaTuActivo.com</p>
               </div>
             </div>
@@ -260,7 +260,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 border: `1px solid ${QUIET_LUXURY.textMuted}40`
               }}
               onClick={onClose}
-              aria-label="Cerrar asistente NEXUS"
+              aria-label="Cerrar asistente Queswa"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
@@ -355,28 +355,28 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         </svg>
                       </div>
                       <div>
-                        <p className="font-semibold" style={{ color: QUIET_LUXURY.textPrimary }}>NEXUS IA</p>
+                        <p className="font-semibold" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                         <div className="flex items-center gap-1.5">
                           <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
                           <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
                         </div>
                       </div>
                     </div>
+                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
+                      La mayoría de profesionales pasan 40 años construyendo el activo de otro.
+                    </p>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      Hola, soy <strong style={{ color: QUIET_LUXURY.gold }}>NEXUS</strong>, tu asistente con IA.
+                      Aquí enseñamos cómo construir tu propia <strong style={{ color: QUIET_LUXURY.gold }}>Infraestructura de Soberanía</strong>.
                     </p>
-                    <p className="mb-3 leading-relaxed">
-                      Puedo responder cualquier duda sobre:
+                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
+                      ¿Cuál es tu situación?
                     </p>
-                    <ul className="list-disc list-outside ml-4 mb-4 space-y-1.5 text-sm" style={{ color: QUIET_LUXURY.textSecondary }}>
-                      <li>¿Cómo funciona el sistema?</li>
-                      <li>¿Cuánto puedo ganar?</li>
-                      <li>¿Qué tengo que hacer?</li>
-                      <li>Productos Gano Excel</li>
+                    <ul className="list-none mb-4 space-y-2 text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>A)</strong> Quiero construir un activo propio</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>B)</strong> Me siento estancado profesionalmente</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>C)</strong> Solo estoy explorando opciones</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> Quiero conocer el producto</li>
                     </ul>
-                    <p className="text-sm italic" style={{ color: QUIET_LUXURY.textMuted }}>
-                      Escribe tu pregunta abajo para empezar...
-                    </p>
                   </div>
                 </div>
               )}
@@ -519,7 +519,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     className="hidden md:inline text-xs animate-pulse"
                     style={{ color: QUIET_LUXURY.textMuted }}
                   >
-                    NEXUS está analizando...
+                    Queswa está analizando...
                   </span>
                 </div>
               )}

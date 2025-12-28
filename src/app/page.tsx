@@ -65,6 +65,19 @@ function HeroSection() {
         }}
       />
 
+      {/* Blueprint/Grid texture - "Aquí hay ingeniería" */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          opacity: 0.5,
+        }}
+      />
+
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1a1a24] border border-[#2a2a35]">
@@ -128,7 +141,7 @@ function HeroSection() {
             <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
             </svg>
-            <span>100% digital</span>
+            <span>Operación 100% Remota</span>
           </div>
         </div>
       </div>

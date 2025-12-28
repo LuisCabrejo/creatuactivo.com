@@ -12,7 +12,8 @@ import { render } from '@react-email/render';
 import PreRegistroUserEmail from '@/emails/PreRegistroUser';
 import PreRegistroAdminEmail from '@/emails/PreRegistroAdmin';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 interface PreRegistroData {
   fullName: string;
@@ -55,6 +56,7 @@ export async function POST(request: NextRequest) {
       })
     );
 
+    const resend = getResend();
     const { error: adminError } = await resend.emails.send({
       from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
       to: ['sistema@creatuactivo.com'],

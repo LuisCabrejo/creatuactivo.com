@@ -8,7 +8,8 @@ import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import Reto12DiasConfirmationEmail from '@/emails/Reto12DiasConfirmation';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -69,6 +70,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Enviar email con Resend
+    const resend = getResend();
     const { error } = await resend.emails.send({
       from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
       to: ['sistema@creatuactivo.com'],

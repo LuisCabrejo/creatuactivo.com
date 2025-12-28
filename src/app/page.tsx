@@ -70,25 +70,28 @@ function HeroSection() {
         <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1a1a24] border border-[#2a2a35]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
           <span className="text-sm text-[#a0a0a8]">
-            Sistema de Arquitectura Soberana
+            Estrategia de Soberanía Financiera
           </span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-serif">
-          <span className="text-[#a0a0a8]">Construye tu</span>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6 font-serif">
+          <span className="text-[#a0a0a8]">¿Es Tu Plan Financiero un Puente</span>
           <br />
-          <span className="text-[#D4AF37]">Cartera de Activos</span>
+          <span className="text-[#f5f5f5]">hacia la </span>
+          <span className="text-[#D4AF37]">Soberanía</span>
           <br />
-          <span className="text-[#f5f5f5]">con Distribución Global</span>
+          <span className="text-[#f5f5f5]">o una </span>
+          <span className="text-[#a0a0a8]">Trampa de Dependencia</span>
+          <span className="text-[#f5f5f5]">?</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-[#a0a0a8]">
-          Un sistema de tecnología y mentoría para transicionar de{' '}
-          <span className="text-[#f5f5f5] font-medium">dependiente del empleo o negocio propio</span>{' '}
-          a{' '}
-          <span className="text-[#D4AF37] font-medium">soberano de tu vida financiera y tiempo</span>.
+          Deja de ser el motor de tu economía.{' '}
+          <span className="text-[#f5f5f5] font-medium">Construye el chasis</span>{' '}
+          que te permita detenerte{' '}
+          <span className="text-[#D4AF37] font-medium">sin que todo colapse</span>.
         </p>
 
         {/* Architect credit */}
@@ -192,6 +195,8 @@ function ProblemSection() {
             <span className="text-[#f5f5f5]">.</span>
             <br />
             <span className="text-[#a0a0a8]">Si tú te detienes, el sistema colapsa.</span>
+            <br />
+            <span className="text-[#6b6b75] text-lg italic mt-2 block">¿Es eso un negocio... o una obligación disfrazada?</span>
           </p>
         </div>
       </div>
@@ -303,8 +308,9 @@ function ArchitectSection() {
           {/* Bio */}
           <div className="space-y-6">
             <p className="text-lg leading-relaxed text-[#a0a0a8]">
-              <span className="text-[#f5f5f5]">A los 40 años, después de 20 años trabajando</span>,
-              descubrí que había pasado dos décadas subiendo la escalera equivocada.
+              <span className="text-[#f5f5f5]">A los 40 años</span> descubrí que había pasado dos décadas
+              escalando la escalera del éxito... <span className="text-[#D4AF37]">solo para darme cuenta
+              de que estaba apoyada en la pared equivocada</span>.
             </p>
 
             <p className="leading-relaxed text-[#a0a0a8]">
@@ -462,7 +468,7 @@ function FinalCTASection() {
         </Link>
 
         <p className="text-sm mt-6 text-[#6b6b75]">
-          Sin compromiso. Sin spam. Solo claridad.
+          Sin atajos mágicos. Sin promesas vacías. Solo claridad sobre dónde estás y a dónde podrías ir.
         </p>
       </div>
     </section>

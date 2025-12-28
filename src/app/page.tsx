@@ -449,7 +449,7 @@ function FinalCTASection() {
     <section className="px-6 py-20 bg-[#12121a]">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-serif mb-6">
-          ¿Listo para diagnosticar tu arquitectura?
+          ¿Listo para tu diagnóstico?
         </h2>
 
         <p className="text-lg text-[#a0a0a8] mb-10">

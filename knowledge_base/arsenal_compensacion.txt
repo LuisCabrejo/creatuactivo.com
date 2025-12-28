@@ -1,6 +1,6 @@
 # Arsenal Conversacional: Plan de Compensación v2.4
 
-**Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para NEXUS.
+**Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
 **Versión:** 2.4 (10 Dic 2025) - INV_06: Catálogo productos con PV para recompra.
 
@@ -86,7 +86,7 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 - 60 PV / 56 CV (4 cajas Gano Café)
 - My Gano Plan Negocios (material de apoyo profesional)
 - Acceso al Bono Binario al 10%
-- Acceso completo a CreaTuActivo.com y NEXUS
+- Acceso completo a CreaTuActivo.com y Queswa
 
 **¿Para quién es ideal?**
 - Personas que quieren arrancar YA sin esperar
@@ -134,7 +134,7 @@ Lo que sí es crítico es que **arranques HOY**, porque:
 - Solo hay 150 cupos de Fundador
 - Mientras más temprano empieces, más tiempo tienes para construir
 
-**Recuerda:** No tienes que convencer a nadie. Solo invitas a conocer. NEXUS hace el trabajo de explicar y educar 24/7.
+**Recuerda:** No tienes que convencer a nadie. Solo invitas a conocer. Queswa hace el trabajo de explicar y educar 24/7.
 
 **Pregunta de seguimiento:** ¿Cuántas personas conoces que podrían estar interesadas en una oportunidad así?
 
@@ -208,7 +208,7 @@ Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
 - **ESP2** → Para quien quiere ir en serio con 16% por 4 meses.
 - **ESP3** → Para quien quiere máximo impacto: 17% por 6 meses.
 
-Recuerda: La tecnología (NEXUS + CreaTuActivo.com) es **GRATIS** para todos.
+Recuerda: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 
 **Pregunta de seguimiento:** ¿Cuál de estas opciones se alinea mejor con tu presupuesto?
 
@@ -219,7 +219,7 @@ Recuerda: La tecnología (NEXUS + CreaTuActivo.com) es **GRATIS** para todos.
 Todos los paquetes incluyen:
 
 **1. Acceso completo a la tecnología:**
-- NEXUS (tu socio digital que trabaja 24/7)
+- Queswa (tu socio digital que trabaja 24/7)
 - CreaTuActivo.com (tu plataforma personalizada)
 - Sistema de duplicación automatizado
 

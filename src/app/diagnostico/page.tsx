@@ -478,6 +478,18 @@ interface CaptureSectionProps {
 }
 
 function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSectionProps) {
+  const [showCustomCode, setShowCustomCode] = useState(false);
+
+  const handleCountryChange = (value: string) => {
+    if (value === 'other') {
+      setShowCustomCode(true);
+      onChange({ ...data, countryCode: '+' });
+    } else {
+      setShowCustomCode(false);
+      onChange({ ...data, countryCode: value });
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center px-6 py-20">
       <div className="max-w-md mx-auto w-full text-center">
@@ -517,31 +529,52 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
           />
           {/* WhatsApp con código de país separado */}
           <div className="flex gap-3">
-            <select
-              value={data.countryCode}
-              onChange={(e) => onChange({ ...data, countryCode: e.target.value })}
-              className="px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                color: 'var(--text-primary)',
-                width: '120px',
-              }}
-            >
-              <option value="+57">🇨🇴 +57</option>
-              <option value="+1">🇺🇸 +1</option>
-              <option value="+52">🇲🇽 +52</option>
-              <option value="+34">🇪🇸 +34</option>
-              <option value="+51">🇵🇪 +51</option>
-              <option value="+56">🇨🇱 +56</option>
-              <option value="+54">🇦🇷 +54</option>
-              <option value="+593">🇪🇨 +593</option>
-              <option value="+58">🇻🇪 +58</option>
-              <option value="+507">🇵🇦 +507</option>
-              <option value="+506">🇨🇷 +506</option>
-              <option value="+502">🇬🇹 +502</option>
-              <option value="+55">🇧🇷 +55</option>
-            </select>
+            {showCustomCode ? (
+              <input
+                type="text"
+                placeholder="+XX"
+                value={data.countryCode}
+                onChange={(e) => {
+                  let val = e.target.value;
+                  if (!val.startsWith('+')) val = '+' + val;
+                  onChange({ ...data, countryCode: val.replace(/[^+\d]/g, '') });
+                }}
+                className="px-4 py-4 rounded-xl focus:outline-none transition-all duration-300 text-center"
+                style={{
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-primary)',
+                  width: '90px',
+                }}
+              />
+            ) : (
+              <select
+                value={data.countryCode}
+                onChange={(e) => handleCountryChange(e.target.value)}
+                className="px-3 py-4 rounded-xl focus:outline-none transition-all duration-300"
+                style={{
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-primary)',
+                  width: '115px',
+                }}
+              >
+                <option value="+57">🇨🇴 +57</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+51">🇵🇪 +51</option>
+                <option value="+56">🇨🇱 +56</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+593">🇪🇨 +593</option>
+                <option value="+58">🇻🇪 +58</option>
+                <option value="+507">🇵🇦 +507</option>
+                <option value="+506">🇨🇷 +506</option>
+                <option value="+502">🇬🇹 +502</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="other">🌍 Otro</option>
+              </select>
+            )}
             <input
               type="tel"
               placeholder="Tu número de WhatsApp"

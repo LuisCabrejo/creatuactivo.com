@@ -211,10 +211,10 @@ const NEXUSFloatingButton: React.FC = () => {
 
   return (
     <>
-      {/* 🎨 Quiet Luxury TOOLTIP - Elegante y minimalista */}
+      {/* 🎨 Quiet Luxury TOOLTIP - Alineado con navegación */}
       {!isOpen && trackingState.isReady && !trackingState.hasError && (
         <div
-          className={`fixed bottom-24 right-3 z-40 transition-all duration-500 ${
+          className={`fixed bottom-24 right-3 sm:right-5 lg:right-7 z-40 transition-all duration-500 ${
             showTooltip
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-4 pointer-events-none'
@@ -255,10 +255,10 @@ const NEXUSFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* 🎨 Quiet Luxury Floating Button - Cuadrado redondeado elegante */}
+      {/* 🎨 Quiet Luxury Floating Button - Alineado con navegación */}
       <button
         data-nexus-button
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
         style={getButtonStyles()}
         onClick={handleButtonClick}
         aria-label="Abrir chat con Queswa"

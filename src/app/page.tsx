@@ -1,170 +1,19 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Homepage v2.0 - Diagnóstico de Arquitectura Soberana
- * Basado en investigación de Gemini: Quiz Funnel + Radar Chart
+ * Homepage v3.0 - Funnel Hub
+ * Arquitectura según Russell Brunson: Hub que valida y dirige al embudo
  */
 
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
-import RadarChart from '@/components/RadarChart';
 
 // ============================================================================
-// TYPES
+// METADATA
 // ============================================================================
 
-type QuizStep = 'hero' | 'quiz' | 'capture' | 'result';
-
-interface QuizAnswers {
-  autonomia: number;
-  resiliencia: number;
-  eficiencia: number;
-  apalancamiento: number;
-  pazMental: number;
-}
-
-interface CaptureData {
-  email: string;
-  whatsapp: string;
-}
-
-// ============================================================================
-// CSS VARIABLES
-// ============================================================================
-
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
-  :root {
-    --gold: #D4AF37;
-    --gold-light: #E8C547;
-    --gold-dark: #B8982F;
-    --gold-muted: #C9A962;
-
-    --bg-deep: #0a0a0f;
-    --bg-surface: #12121a;
-    --bg-card: #1a1a24;
-    --bg-elevated: #22222e;
-
-    --text-primary: #f5f5f5;
-    --text-secondary: #a0a0a8;
-    --text-muted: #6b6b75;
-
-    --border: #2a2a35;
-    --border-subtle: #1f1f28;
-
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, sans-serif;
-  }
-
-  .quiz-option {
-    transition: all 0.3s ease;
-  }
-  .quiz-option:hover {
-    transform: translateX(4px);
-    border-color: var(--gold);
-  }
-  .quiz-option.selected {
-    border-color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
-  }
-`;
-
-// ============================================================================
-// QUIZ DATA
-// ============================================================================
-
-const quizQuestions = [
-  {
-    id: 'autonomia',
-    question: 'Si por una razón de fuerza mayor dejaras de trabajar físicamente durante 6 meses, ¿qué sucedería con tus ingresos?',
-    options: [
-      { value: 10, label: 'Se detienen inmediatamente', sublabel: 'Dependo 100% de mi trabajo activo' },
-      { value: 50, label: 'Se mantienen al 50-70% por un tiempo', sublabel: 'Tengo algo de colchón pero decaen' },
-      { value: 100, label: 'Continúan llegando sin mi presencia', sublabel: 'Tengo sistemas que generan sin mí' },
-    ],
-  },
-  {
-    id: 'resiliencia',
-    question: '¿Qué porcentaje de tu patrimonio y fuentes de ingreso está atado a una ubicación geográfica específica?',
-    options: [
-      { value: 10, label: '100% - Todo depende de donde vivo', sublabel: 'Mi economía no es portátil' },
-      { value: 50, label: '50% - Tengo inversiones diversificadas', sublabel: 'Pero mi ingreso principal es local' },
-      { value: 100, label: '0-20% - Mi economía es agnóstica', sublabel: 'Puedo operar desde cualquier lugar' },
-    ],
-  },
-  {
-    id: 'eficiencia',
-    question: 'Cuando revisas la relación entre lo que generaste (bruto) y lo que retuviste en activos reales, ¿cómo te sientes?',
-    options: [
-      { value: 20, label: 'Frustrado', sublabel: '"Soy un canal de paso para el dinero; entra y sale"' },
-      { value: 50, label: 'Conforme', sublabel: '"Ahorré algo, pero no lo suficiente para cambiar mi vida"' },
-      { value: 90, label: 'Satisfecho', sublabel: '"Construí patrimonio neto real y tangible"' },
-    ],
-  },
-  {
-    id: 'apalancamiento',
-    question: '¿Tu estrategia actual para duplicar tus ingresos requiere duplicar tu esfuerzo personal o tu tiempo?',
-    options: [
-      { value: 20, label: 'Sí, es una relación lineal', sublabel: 'Más dinero = Más trabajo' },
-      { value: 50, label: 'Parcialmente', sublabel: 'Tengo equipo pero sigo siendo el cuello de botella' },
-      { value: 90, label: 'No, uso sistemas de apalancamiento', sublabel: 'Mi ingreso puede escalar sin mí' },
-    ],
-  },
-  {
-    id: 'pazMental',
-    question: 'En una escala del 1 al 10, ¿cuánta paz mental te da la arquitectura financiera que has construido hasta hoy?',
-    options: [
-      { value: 20, label: '1-3: Muy poca', sublabel: 'Vivo con ansiedad financiera constante' },
-      { value: 50, label: '4-6: Regular', sublabel: 'Hay días buenos y días de preocupación' },
-      { value: 80, label: '7-8: Buena', sublabel: 'Me siento relativamente seguro' },
-      { value: 100, label: '9-10: Excelente', sublabel: 'Tengo paz mental total sobre mi futuro' },
-    ],
-  },
-];
-
-// ============================================================================
-// ARQUETIPOS
-// ============================================================================
-
-const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: number; resilienciaGeografica: number; escalabilidadSistemica: number; eficienciaPatrimonial: number }) => {
-  const avgSupport = (data.autonomiaOperativa + data.escalabilidadSistemica + data.eficienciaPatrimonial) / 3;
-
-  if (data.potenciaIngreso >= 70 && avgSupport <= 40) {
-    return {
-      name: 'EL GIGANTE DE PIES DE BARRO',
-      subtitle: 'Alto Rendimiento / Motor Solitario',
-      description: 'Los datos indican que tienes una capacidad excepcional para generar flujo de efectivo. Eres el motor indiscutible de tu economía. Ese es tu superpoder, pero paradójicamente, es tu mayor riesgo.',
-      insight: 'Tu gráfico muestra una "Arquitectura Asimétrica". Has optimizado todo tu sistema para el Ingreso Activo (dependiente de ti), pero has descuidado peligrosamente la Infraestructura de Soporte.',
-      truth: 'Actualmente, no posees un activo; el activo eres TÚ. Si tú te detienes, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
-      metaphor: 'Tienes el motor de un Ferrari montado en el chasis de una bicicleta.',
-      need: 'Lo que te falta no es más dinero. Te falta un Chasis.',
-    };
-  }
-
-  if (avgSupport <= 30) {
-    return {
-      name: 'EL OPERADOR AGOTADO',
-      subtitle: 'Negocio Propio / Sin Tiempo',
-      description: 'Has construido algo, pero te has convertido en esclavo de tu propia creación. Tu negocio no funciona sin ti, lo que significa que no tienes un negocio: tienes un trabajo disfrazado.',
-      insight: 'Todos los ejes de tu gráfico dependen de tu presencia física. No has logrado separar tu tiempo de tu ingreso.',
-      truth: 'Si cierras la puerta mañana, dejas de ganar. Eso no es un activo, es una trampa operativa.',
-      metaphor: 'Eres el motor, el volante y los frenos. Si te enfermas, el carro se detiene.',
-      need: 'Necesitas sistemas que operen sin tu presencia constante.',
-    };
-  }
-
-  return {
-    name: 'EL CONSTRUCTOR EN PROGRESO',
-    subtitle: 'En Camino / Con Potencial',
-    description: 'Tienes algunos elementos de estructura, pero aún no has logrado la independencia operativa completa. Estás mejor que la mayoría, pero lejos de la Soberanía.',
-    insight: 'Tu gráfico muestra áreas de oportunidad claras. No estás en crisis, pero tampoco estás protegido.',
-    truth: 'Con los ajustes correctos, podrías acelerar significativamente tu camino hacia la autonomía.',
-    metaphor: 'Tienes los planos, pero la construcción está a medias.',
-    need: 'Necesitas completar la infraestructura que ya empezaste.',
-  };
+export const metadata = {
+  title: 'CreaTuActivo - Sistema de Arquitectura Soberana',
+  description: 'Construye tu cartera de activos con distribución global. Un sistema diseñado por Luis Cabrejo para transicionar de dependiente a soberano.',
 };
 
 // ============================================================================
@@ -172,105 +21,30 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
 // ============================================================================
 
 export default function HomePage() {
-  const [step, setStep] = useState<QuizStep>('hero');
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswers>({
-    autonomia: 0,
-    resiliencia: 0,
-    eficiencia: 0,
-    apalancamiento: 0,
-    pazMental: 0,
-  });
-  const [captureData, setCaptureData] = useState<CaptureData>({ email: '', whatsapp: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleStartQuiz = () => {
-    setStep('quiz');
-  };
-
-  const handleAnswer = (questionId: string, value: number) => {
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
-
-    // Auto-advance after selection
-    setTimeout(() => {
-      if (currentQuestion < quizQuestions.length - 1) {
-        setCurrentQuestion(prev => prev + 1);
-      } else {
-        setStep('capture');
-      }
-    }, 300);
-  };
-
-  const handleCapture = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!captureData.email || !captureData.whatsapp) return;
-
-    setIsSubmitting(true);
-
-    try {
-      // Enviar datos al API
-      await fetch('/api/diagnostico', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...captureData,
-          answers,
-          timestamp: new Date().toISOString(),
-          page: 'home-diagnostico-v2',
-        }),
-      });
-    } catch (error) {
-      console.error('Error guardando diagnóstico:', error);
-    }
-
-    setIsSubmitting(false);
-    setStep('result');
-  };
-
-  // Calcular datos del radar
-  const radarData = {
-    potenciaIngreso: 85, // Asumimos alto para el target
-    autonomiaOperativa: answers.autonomia,
-    resilienciaGeografica: answers.resiliencia,
-    escalabilidadSistemica: answers.apalancamiento,
-    eficienciaPatrimonial: answers.eficiencia,
-  };
-
-  const archetype = getArchetype(radarData);
-
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
       <StrategicNavigation />
-      <main
-        className="min-h-screen"
-        style={{
-          backgroundColor: 'var(--bg-deep)',
-          color: 'var(--text-primary)',
-          fontFamily: 'var(--font-body)',
-        }}
-      >
-        {step === 'hero' && <HeroSection onStart={handleStartQuiz} />}
-        {step === 'quiz' && (
-          <QuizSection
-            question={quizQuestions[currentQuestion]}
-            currentIndex={currentQuestion}
-            total={quizQuestions.length}
-            selectedValue={answers[quizQuestions[currentQuestion].id as keyof QuizAnswers]}
-            onAnswer={handleAnswer}
-          />
-        )}
-        {step === 'capture' && (
-          <CaptureSection
-            data={captureData}
-            onChange={setCaptureData}
-            onSubmit={handleCapture}
-            isSubmitting={isSubmitting}
-          />
-        )}
-        {step === 'result' && (
-          <ResultSection radarData={radarData} archetype={archetype} />
-        )}
+      <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5]">
+        {/* HERO SECTION */}
+        <HeroSection />
+
+        {/* EL PROBLEMA (EL VILLANO) */}
+        <ProblemSection />
+
+        {/* EL SISTEMA */}
+        <SystemSection />
+
+        {/* EL ARQUITECTO */}
+        <ArchitectSection />
+
+        {/* TESTIMONIOS */}
+        <TestimonialsSection />
+
+        {/* CTA FINAL */}
+        <FinalCTASection />
+
+        {/* FOOTER */}
+        <Footer />
       </main>
     </>
   );
@@ -280,9 +54,9 @@ export default function HomePage() {
 // HERO SECTION
 // ============================================================================
 
-function HeroSection({ onStart }: { onStart: () => void }) {
+function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
+    <section className="relative min-h-[90vh] flex items-center justify-center px-6 py-20">
       {/* Background gradient */}
       <div
         className="absolute inset-0"
@@ -291,253 +65,404 @@ function HeroSection({ onStart }: { onStart: () => void }) {
         }}
       />
 
-      <div className="relative max-w-3xl mx-auto text-center">
+      <div className="relative max-w-4xl mx-auto text-center">
         {/* Badge */}
-        <div
-          className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
-          style={{
-            backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-          }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
-          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Diagnóstico de 60 segundos
+        <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1a1a24] border border-[#2a2a35]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
+          <span className="text-sm text-[#a0a0a8]">
+            Sistema de Arquitectura Soberana
           </span>
         </div>
 
         {/* Main Headline */}
-        <h1
-          className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8"
-          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-        >
-          <span style={{ color: 'var(--text-secondary)' }}>A los 40 años descubrí que</span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-serif">
+          <span className="text-[#a0a0a8]">Construye tu</span>
           <br />
-          <span style={{ color: 'var(--text-primary)' }}>había pasado dos décadas</span>
+          <span className="text-[#D4AF37]">Cartera de Activos</span>
           <br />
-          <span style={{ color: 'var(--gold)' }}>subiendo la escalera equivocada.</span>
+          <span className="text-[#f5f5f5]">con Distribución Global</span>
         </h1>
 
         {/* Subheadline */}
-        <p
-          className="text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
-          style={{ color: 'var(--text-secondary)' }}
-        >
-          La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
-          <br className="hidden sm:block" />
-          <span style={{ color: 'var(--text-primary)' }}>
-            Realiza este diagnóstico para visualizar las grietas invisibles en tu modelo actual.
-          </span>
+        <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-[#a0a0a8]">
+          Un sistema de tecnología y mentoría para transicionar de{' '}
+          <span className="text-[#f5f5f5] font-medium">dependiente del empleo o negocio propio</span>{' '}
+          a{' '}
+          <span className="text-[#D4AF37] font-medium">soberano de tu vida financiera y tiempo</span>.
+        </p>
+
+        {/* Architect credit */}
+        <p className="text-sm mb-10 text-[#6b6b75]">
+          Diseñado por <span className="text-[#a0a0a8]">Luis Cabrejo Parra</span> · #1 de su organización
         </p>
 
         {/* CTA Button */}
-        <button
-          onClick={onStart}
-          className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
-          style={{
-            backgroundColor: 'var(--gold)',
-            color: 'var(--bg-deep)',
-          }}
+        <Link
+          href="/diagnostico"
+          className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
+        >
+          Empieza Aquí: Diagnóstico Gratuito
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
+
+        {/* Trust indicators */}
+        <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-[#6b6b75]">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
+            <span>65+ países</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            <span>Inversión desde $200 USD</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            </svg>
+            <span>100% digital</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// PROBLEM SECTION (EL VILLANO)
+// ============================================================================
+
+function ProblemSection() {
+  return (
+    <section className="px-6 py-20 bg-[#12121a]">
+      <div className="max-w-4xl mx-auto">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="text-sm font-medium uppercase tracking-widest text-[#D4AF37]">
+            El Problema
+          </span>
+          <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
+            La Trampa del Plan por Defecto
+          </h2>
+        </div>
+
+        {/* The trap visualization */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
+            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">1</span>
+            </div>
+            <h3 className="font-semibold mb-2">Trabajar</h3>
+            <p className="text-sm text-[#a0a0a8]">
+              Dedicas 40+ horas semanales a generar ingresos
+            </p>
+          </div>
+          <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
+            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">2</span>
+            </div>
+            <h3 className="font-semibold mb-2">Pagar Cuentas</h3>
+            <p className="text-sm text-[#a0a0a8]">
+              El dinero entra y sale. Eres un canal de paso.
+            </p>
+          </div>
+          <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
+            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">3</span>
+            </div>
+            <h3 className="font-semibold mb-2">Repetir</h3>
+            <p className="text-sm text-[#a0a0a8]">
+              Hasta que... ¿cuándo? ¿Jubilación a los 65?
+            </p>
+          </div>
+        </div>
+
+        {/* The insight */}
+        <div className="p-8 rounded-2xl bg-gradient-to-r from-[#1a1a24] to-[#22222e] border border-[#2a2a35]">
+          <p className="text-xl leading-relaxed text-center">
+            <span className="text-[#a0a0a8]">El problema no es que trabajes duro.</span>
+            <br />
+            <span className="text-[#f5f5f5]">El problema es que </span>
+            <span className="text-[#D4AF37] font-semibold">el activo eres TÚ</span>
+            <span className="text-[#f5f5f5]">.</span>
+            <br />
+            <span className="text-[#a0a0a8]">Si tú te detienes, el sistema colapsa.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// SYSTEM SECTION
+// ============================================================================
+
+function SystemSection() {
+  return (
+    <section className="px-6 py-20">
+      <div className="max-w-5xl mx-auto">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="text-sm font-medium uppercase tracking-widest text-[#D4AF37]">
+            La Solución
+          </span>
+          <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
+            ¿Qué es CreaTuActivo?
+          </h2>
+          <p className="text-lg text-[#a0a0a8] mt-4 max-w-2xl mx-auto">
+            Un sistema que combina tecnología, mentoría y distribución global
+            para que construyas activos que generen sin tu presencia constante.
+          </p>
+        </div>
+
+        {/* Three pillars */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Pilar 1 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
+              <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Tecnología</h3>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              Funnels automatizados, chatbot inteligente, sistema de seguimiento.
+              El sistema filtra y educa. Tú conectas y cierras.
+            </p>
+          </div>
+
+          {/* Pilar 2 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
+              <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Mentoría</h3>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              Reto de 5 Días, capacitación continua, comunidad de constructores.
+              No estás solo. Tienes un arquitecto que ya recorrió el camino.
+            </p>
+          </div>
+
+          {/* Pilar 3 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
+              <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Distribución Global</h3>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              Socio de infraestructura con presencia en 65+ países.
+              Producto de consumo recurrente. Tu red crece mientras duermes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// ARCHITECT SECTION
+// ============================================================================
+
+function ArchitectSection() {
+  return (
+    <section className="px-6 py-20 bg-[#12121a]">
+      <div className="max-w-4xl mx-auto">
+        {/* Section header */}
+        <div className="text-center mb-12">
+          <span className="text-sm font-medium uppercase tracking-widest text-[#D4AF37]">
+            El Arquitecto
+          </span>
+          <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
+            Luis Cabrejo Parra
+          </h2>
+        </div>
+
+        {/* Content */}
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Photo placeholder */}
+          <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a24] to-[#22222e] border border-[#2a2a35] flex items-center justify-center">
+            <div className="text-center p-8">
+              <div className="w-24 h-24 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-4xl font-serif text-[#D4AF37]">LC</span>
+              </div>
+              <p className="text-sm text-[#6b6b75]">Foto próximamente</p>
+            </div>
+          </div>
+
+          {/* Bio */}
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed text-[#a0a0a8]">
+              <span className="text-[#f5f5f5]">A los 40 años, después de 20 años trabajando</span>,
+              descubrí que había pasado dos décadas subiendo la escalera equivocada.
+            </p>
+
+            <p className="leading-relaxed text-[#a0a0a8]">
+              Trabajé en empresas importantes del sector automotriz.
+              Emprendí negocios con mi esposa. Pensé que sería millonario a los 30...
+              luego a los 40. Me equivoqué.
+            </p>
+
+            <p className="leading-relaxed text-[#a0a0a8]">
+              Descubrí que <span className="text-[#f5f5f5]">había comprado un empleo,
+              no construido un activo</span>. Entonces encontré un modelo diferente.
+            </p>
+
+            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
+              <p className="text-sm text-[#D4AF37] font-medium">
+                En 2.5 años llegué al #1 de mi organización.
+              </p>
+              <p className="text-sm text-[#6b6b75] mt-1">
+                Ahora ayudo a otros a construir su propia arquitectura soberana.
+              </p>
+            </div>
+
+            <p className="text-sm italic text-[#6b6b75]">
+              &quot;La lealtad es con los objetivos del proyecto.&quot;
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// TESTIMONIALS SECTION
+// ============================================================================
+
+function TestimonialsSection() {
+  return (
+    <section className="px-6 py-20">
+      <div className="max-w-5xl mx-auto">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="text-sm font-medium uppercase tracking-widest text-[#D4AF37]">
+            Historias de Transformación
+          </span>
+          <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
+            De Dependientes a Soberanos
+          </h2>
+        </div>
+
+        {/* Testimonials grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Testimonial 1 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center">
+                <span className="font-semibold text-[#D4AF37]">MR</span>
+              </div>
+              <div>
+                <p className="font-medium">María R.</p>
+                <p className="text-sm text-[#6b6b75]">Profesional en finanzas</p>
+              </div>
+            </div>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              &quot;Después de 15 años en banca, mi diagnóstico fue devastador:
+              14 días de libertad. Hoy, 8 meses después, mi activo paralelo
+              genera lo que antes me tomaba 3 meses de trabajo.&quot;
+            </p>
+          </div>
+
+          {/* Testimonial 2 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center">
+                <span className="font-semibold text-[#D4AF37]">CA</span>
+              </div>
+              <div>
+                <p className="font-medium">Carlos A.</p>
+                <p className="text-sm text-[#6b6b75]">Dueño de restaurante</p>
+              </div>
+            </div>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              &quot;Mi negocio me tenía atrapado. Si no abría, no cobraba.
+              CreaTuActivo me enseñó a construir algo que funciona
+              sin mi presencia física. Ahora tengo dos motores.&quot;
+            </p>
+          </div>
+
+          {/* Testimonial 3 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center">
+                <span className="font-semibold text-[#D4AF37]">JL</span>
+              </div>
+              <div>
+                <p className="font-medium">Jorge L.</p>
+                <p className="text-sm text-[#6b6b75]">Latino en Miami</p>
+              </div>
+            </div>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              &quot;Trabajo en construcción. Envío remesas a mi familia.
+              Mi cuerpo no va a durar siempre. Necesitaba un plan B.
+              Encontré un activo que funciona en dólares y pesos.&quot;
+            </p>
+          </div>
+
+          {/* Testimonial 4 */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center">
+                <span className="font-semibold text-[#D4AF37]">AP</span>
+              </div>
+              <div>
+                <p className="font-medium">Andrea P.</p>
+                <p className="text-sm text-[#6b6b75]">Emprendedora</p>
+              </div>
+            </div>
+            <p className="text-[#a0a0a8] leading-relaxed">
+              &quot;El Reto de 5 Días me abrió los ojos. No es lo que
+              pensaba. Es un proyecto empresarial serio. Ya recuperé
+              mi inversión inicial y apenas estoy empezando.&quot;
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// FINAL CTA SECTION
+// ============================================================================
+
+function FinalCTASection() {
+  return (
+    <section className="px-6 py-20 bg-[#12121a]">
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl sm:text-4xl font-serif mb-6">
+          ¿Listo para diagnosticar tu arquitectura?
+        </h2>
+
+        <p className="text-lg text-[#a0a0a8] mb-10">
+          En 60 segundos descubrirás cuál es tu Índice de Soberanía
+          y qué arquetipo de dependencia te define hoy.
+        </p>
+
+        <Link
+          href="/diagnostico"
+          className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
         >
           Iniciar Diagnóstico Gratuito
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
-        </button>
+        </Link>
 
-        {/* Trust indicators */}
-        <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm" style={{ color: 'var(--text-muted)' }}>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>60 segundos</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-            <span>100% confidencial</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: 'var(--gold-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-            </svg>
-            <span>Resultado inmediato</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// QUIZ SECTION
-// ============================================================================
-
-interface QuizSectionProps {
-  question: typeof quizQuestions[0];
-  currentIndex: number;
-  total: number;
-  selectedValue: number;
-  onAnswer: (questionId: string, value: number) => void;
-}
-
-function QuizSection({ question, currentIndex, total, selectedValue, onAnswer }: QuizSectionProps) {
-  return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-2xl mx-auto w-full">
-        {/* Progress */}
-        <div className="mb-10">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
-              Pregunta {currentIndex + 1} de {total}
-            </span>
-            <span className="text-sm font-medium" style={{ color: 'var(--gold)' }}>
-              {Math.round(((currentIndex + 1) / total) * 100)}%
-            </span>
-          </div>
-          <div
-            className="h-1 rounded-full overflow-hidden"
-            style={{ backgroundColor: 'var(--bg-card)' }}
-          >
-            <div
-              className="h-full rounded-full transition-all duration-500"
-              style={{
-                backgroundColor: 'var(--gold)',
-                width: `${((currentIndex + 1) / total) * 100}%`,
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Question */}
-        <h2
-          className="text-xl sm:text-2xl lg:text-3xl mb-10 leading-relaxed"
-          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-        >
-          {question.question}
-        </h2>
-
-        {/* Options */}
-        <div className="space-y-4">
-          {question.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => onAnswer(question.id, option.value)}
-              className={`quiz-option w-full text-left p-5 rounded-xl border-2 ${
-                selectedValue === option.value ? 'selected' : ''
-              }`}
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                borderColor: selectedValue === option.value ? 'var(--gold)' : 'var(--border)',
-              }}
-            >
-              <div className="flex items-start gap-4">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-sm font-bold"
-                  style={{
-                    backgroundColor: selectedValue === option.value ? 'var(--gold)' : 'var(--bg-elevated)',
-                    color: selectedValue === option.value ? 'var(--bg-deep)' : 'var(--text-muted)',
-                  }}
-                >
-                  {String.fromCharCode(65 + index)}
-                </div>
-                <div>
-                  <p className="font-medium text-lg" style={{ color: 'var(--text-primary)' }}>
-                    {option.label}
-                  </p>
-                  <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-                    {option.sublabel}
-                  </p>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// CAPTURE SECTION
-// ============================================================================
-
-interface CaptureSectionProps {
-  data: CaptureData;
-  onChange: (data: CaptureData) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  isSubmitting: boolean;
-}
-
-function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSectionProps) {
-  return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-md mx-auto w-full text-center">
-        {/* Icon */}
-        <div
-          className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"
-          style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }}
-        >
-          <svg className="w-10 h-10" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-          </svg>
-        </div>
-
-        <h2
-          className="text-2xl sm:text-3xl mb-4"
-          style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-        >
-          Tu análisis está listo
-        </h2>
-
-        <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
-          ¿A dónde enviamos tu informe detallado y el gráfico de arquitectura?
-        </p>
-
-        <form onSubmit={onSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Tu email"
-            value={data.email}
-            onChange={(e) => onChange({ ...data, email: e.target.value })}
-            required
-            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              color: 'var(--text-primary)',
-            }}
-          />
-          <input
-            type="tel"
-            placeholder="Tu WhatsApp (con código de país)"
-            value={data.whatsapp}
-            onChange={(e) => onChange({ ...data, whatsapp: e.target.value })}
-            required
-            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              color: 'var(--text-primary)',
-            }}
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60"
-            style={{
-              backgroundColor: 'var(--gold)',
-              color: 'var(--bg-deep)',
-            }}
-          >
-            {isSubmitting ? 'Procesando...' : 'Ver Mi Diagnóstico'}
-          </button>
-        </form>
-
-        <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-          Tus datos están protegidos. Sin spam, solo tu diagnóstico.
+        <p className="text-sm mt-6 text-[#6b6b75]">
+          Sin compromiso. Sin spam. Solo claridad.
         </p>
       </div>
     </section>
@@ -545,188 +470,38 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
 }
 
 // ============================================================================
-// RESULT SECTION
+// FOOTER
 // ============================================================================
 
-interface ResultSectionProps {
-  radarData: {
-    potenciaIngreso: number;
-    autonomiaOperativa: number;
-    resilienciaGeografica: number;
-    escalabilidadSistemica: number;
-    eficienciaPatrimonial: number;
-  };
-  archetype: ReturnType<typeof getArchetype>;
-}
-
-function ResultSection({ radarData, archetype }: ResultSectionProps) {
+function Footer() {
   return (
-    <section className="min-h-screen px-6 py-20">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <span
-            className="text-sm font-medium uppercase tracking-widest"
-            style={{ color: 'var(--gold)' }}
-          >
-            Diagnóstico Completado
-          </span>
-          <h1
-            className="text-3xl sm:text-4xl mt-4"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            Tu Arquitectura Financiera
-          </h1>
-        </div>
-
-        {/* Radar Chart */}
-        <div className="flex justify-center mb-12">
-          <RadarChart data={radarData} size={320} animated={true} />
-        </div>
-
-        {/* Archetype Card */}
-        <div
-          className="rounded-2xl p-8 sm:p-10 mb-10"
-          style={{
-            backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-          }}
-        >
-          <div className="text-center mb-8">
-            <span
-              className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
-              style={{
-                backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                color: 'var(--gold)',
-              }}
-            >
-              ARQUETIPO DETECTADO
-            </span>
-            <h2
-              className="text-2xl sm:text-3xl mb-2"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}
-            >
-              {archetype.name}
-            </h2>
-            <p style={{ color: 'var(--text-muted)' }}>{archetype.subtitle}</p>
-          </div>
-
-          <div className="space-y-6" style={{ color: 'var(--text-secondary)' }}>
-            <p className="text-lg leading-relaxed">{archetype.description}</p>
-            <p className="leading-relaxed">{archetype.insight}</p>
-            <p
-              className="text-lg font-medium leading-relaxed"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              <strong>La Verdad Incómoda:</strong> {archetype.truth}
-            </p>
-            <p
-              className="text-xl italic text-center py-4"
-              style={{ color: 'var(--gold)', fontFamily: 'var(--font-display)' }}
-            >
-              &quot;{archetype.metaphor}&quot;
-            </p>
-            <p
-              className="text-lg font-semibold text-center"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {archetype.need}
+    <footer className="px-6 py-12 border-t border-[#2a2a35]">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-center md:text-left">
+            <p className="font-medium text-[#D4AF37]">CreaTuActivo</p>
+            <p className="text-sm text-[#6b6b75] mt-1">
+              Sistema de Arquitectura Soberana
             </p>
           </div>
-        </div>
 
-        {/* Transition to Reto */}
-        <div
-          className="rounded-2xl p-8 sm:p-10 text-center"
-          style={{
-            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%)',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
-          }}
-        >
-          <h3
-            className="text-xl sm:text-2xl mb-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
-          >
-            La brecha entre tu situación actual y la Soberanía
-            <br />
-            <span style={{ color: 'var(--gold)' }}>no es cuestión de esfuerzo. Es cuestión de Diseño.</span>
-          </h3>
-
-          <p className="text-lg mb-6 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            La mayoría intenta corregir este gráfico trabajando más duro. Pero no puedes solucionar
-            un problema estructural con más esfuerzo operativo. Eso es como tratar de arreglar
-            una fuga de agua abriendo más el grifo.
-          </p>
-
-          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-            He diseñado el <strong style={{ color: 'var(--gold)' }}>Protocolo Soberanía (Reto de 5 Días)</strong> específicamente
-            para perfiles de alto rendimiento que necesitan transicionar de{' '}
-            <em>Operadores</em> a <em>Arquitectos</em>.
-          </p>
-
-          <div
-            className="p-6 rounded-xl mb-8 text-left"
-            style={{ backgroundColor: 'var(--bg-deep)', border: '1px solid var(--border)' }}
-          >
-            <p className="font-medium mb-4" style={{ color: 'var(--text-primary)' }}>
-              No es un curso motivacional. Es un proceso de ingeniería donde:
-            </p>
-            <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 1:</span>
-                <span>Realizaremos la auditoría matemática profunda (la versión cuantitativa de lo que acabas de ver)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 2:</span>
-                <span>Desmantelaremos los vehículos obsoletos que consumen tu tiempo</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 3:</span>
-                <span>Te entregaré los planos de la infraestructura de socios (El Nuevo Modelo)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 4:</span>
-                <span>Hablaremos del elefante en la habitación (El Estigma)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 5:</span>
-                <span>Te entregaré las llaves de tu soberanía (La Invitación)</span>
-              </li>
-            </ul>
+          <div className="flex gap-6 text-sm text-[#6b6b75]">
+            <Link href="/privacidad" className="hover:text-[#a0a0a8] transition-colors">
+              Privacidad
+            </Link>
+            <Link href="/presentacion-empresarial" className="hover:text-[#a0a0a8] transition-colors">
+              Presentación
+            </Link>
+            <Link href="/fundadores" className="hover:text-[#a0a0a8] transition-colors">
+              Fundadores
+            </Link>
           </div>
 
-          <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Tu diagnóstico dice que estás listo para escalar,
-            <br />
-            pero tu estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
-          </p>
-
-          <Link
-            href="/reto-5-dias"
-            className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
-            style={{
-              backgroundColor: 'var(--gold)',
-              color: 'var(--bg-deep)',
-            }}
-          >
-            Unirme al Protocolo Soberanía
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-
-          <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-            Trae tu gráfico de resultados al Día 1. Será nuestro punto de partida.
+          <p className="text-sm text-[#6b6b75]">
+            © 2025 CreaTuActivo.com
           </p>
         </div>
-
-        {/* Footer */}
-        <footer className="text-center mt-16 pt-10" style={{ borderTop: '1px solid var(--border)' }}>
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            © 2025 CreaTuActivo.com — Arquitectura de Soberanía Financiera
-          </p>
-        </footer>
       </div>
-    </section>
+    </footer>
   );
 }

@@ -171,14 +171,23 @@ const sendMessage = useCallback(async (content: string) => {
       console.error('❌ [NEXUS Widget] Enviando mensaje SIN fingerprint - Los datos NO se guardarán');
     }
 
-    // 🔑 EXTRAER constructor_id de la URL (si viene de /fundadores/SLUG)
+    // 🔑 EXTRAER constructor_id usando FrameworkIAA (captura de URL path, query param y localStorage)
     let constructorId: string | null = null;
     if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname;
-      const match = pathname.match(/\/fundadores\/([a-z0-9-]+)/);
-      if (match) {
-        constructorId = match[1];
-        console.log(`✅ [NEXUS Widget] Constructor detectado desde URL: ${constructorId}`);
+      // FrameworkIAA ya captura el ref de múltiples fuentes y lo persiste
+      constructorId = (window as any).FrameworkIAA?.constructorRef || null;
+
+      // Fallback: extraer directamente del URL path si FrameworkIAA no está listo
+      if (!constructorId) {
+        const pathname = window.location.pathname;
+        const match = pathname.match(/\/fundadores\/([a-z0-9-]+)/);
+        if (match) {
+          constructorId = match[1];
+        }
+      }
+
+      if (constructorId) {
+        console.log(`✅ [NEXUS Widget] Constructor detectado: ${constructorId}`);
       }
     }
 

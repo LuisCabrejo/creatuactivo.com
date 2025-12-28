@@ -36,6 +36,9 @@ const QUIET_LUXURY = {
   textPrimary: '#f5f5f5',
   textSecondary: '#a0a0a8',
   textMuted: '#6b6b75',
+  // 🆕 Botón flotante: Blanco puro para máximo contraste en móvil
+  buttonBg: '#FFFFFF',
+  buttonIcon: '#1a1a24',  // Icono oscuro sobre fondo blanco
 };
 
 const NEXUSFloatingButton: React.FC = () => {
@@ -198,10 +201,11 @@ const NEXUSFloatingButton: React.FC = () => {
       };
     }
 
-    // 🎨 Quiet Luxury: Dorado elegante con sutil brillo
+    // 🎨 Quiet Luxury: Blanco puro - Máximo contraste en móvil
+    // Evita choque visual con el botón dorado de CTA
     return {
-      background: QUIET_LUXURY.gold,
-      boxShadow: `0 8px 32px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1)`
+      background: QUIET_LUXURY.buttonBg,
+      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.3)`
     };
   };
 
@@ -273,21 +277,21 @@ const NEXUSFloatingButton: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
             </svg>
           ) : (
-            // 🎨 Icono NEXUS - Rayo estilizado en negro sobre dorado
-            <svg className="w-7 h-7" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            // 🎨 Icono NEXUS - Rayo estilizado en oscuro sobre blanco
+            <svg className="w-7 h-7" style={{ color: QUIET_LUXURY.buttonIcon }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
           )}
 
-          {/* 🎨 Quiet Luxury pulse - dorado sutil */}
+          {/* 🎨 Quiet Luxury pulse - dorado sobre blanco */}
           {trackingState.isReady && !trackingState.hasError && (
             <div
               className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full"
-              style={{ background: QUIET_LUXURY.textPrimary }}
+              style={{ background: QUIET_LUXURY.gold }}
             >
               <div
                 className="absolute inset-0 rounded-full animate-ping opacity-60"
-                style={{ background: QUIET_LUXURY.textPrimary }}
+                style={{ background: QUIET_LUXURY.gold }}
               ></div>
             </div>
           )}

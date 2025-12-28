@@ -660,10 +660,10 @@ export default function StrategicNavigation() {
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
-              {/* BOTÓN DIAGNÓSTICO DESKTOP - Lead Magnet Principal */}
+              {/* BOTÓN AUDITORÍA DESKTOP - Lead Magnet Principal */}
               <Link href="/diagnostico" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
-                Mi Diagnóstico
+                Mi Auditoría
               </Link>
 
               {/* MOBILE TOGGLE */}
@@ -749,7 +749,7 @@ export default function StrategicNavigation() {
           <div className="strategic-mobile-cta">
             <Link href="/diagnostico" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Target className="w-4 h-4" />
-              Mi Diagnóstico
+              Mi Auditoría
             </Link>
           </div>
         </div>

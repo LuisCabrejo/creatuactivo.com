@@ -308,7 +308,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
           <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Diagnóstico de 60 segundos
+            Auditoría de 60 segundos
           </span>
         </div>
 
@@ -332,7 +332,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
           <br className="hidden sm:block" />
           <span style={{ color: 'var(--text-primary)' }}>
-            Realiza este diagnóstico para visualizar las grietas invisibles en tu modelo actual.
+            Realiza esta auditoría para visualizar las grietas invisibles en tu modelo actual.
           </span>
         </p>
 
@@ -345,7 +345,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
             color: 'var(--bg-deep)',
           }}
         >
-          Iniciar Diagnóstico Gratuito
+          Iniciar Auditoría Gratuita
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -598,12 +598,12 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
               color: 'var(--bg-deep)',
             }}
           >
-            {isSubmitting ? 'Procesando...' : 'Ver Mi Diagnóstico'}
+            {isSubmitting ? 'Procesando...' : 'Ver Mi Auditoría'}
           </button>
         </form>
 
         <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-          Tus datos están protegidos. Sin spam, solo tu diagnóstico.
+          Tus datos están protegidos. Sin spam, solo tu auditoría.
         </p>
       </div>
     </section>
@@ -635,7 +635,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-sm font-medium uppercase tracking-widest"
             style={{ color: 'var(--gold)' }}
           >
-            Diagnóstico Completado
+            Auditoría Completada
           </span>
           <h1
             className="text-3xl sm:text-4xl mt-4"
@@ -762,7 +762,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </div>
 
           <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Tu diagnóstico dice que estás listo para escalar,
+            Tu auditoría dice que estás listo para escalar,
             <br />
             pero tu estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
           </p>

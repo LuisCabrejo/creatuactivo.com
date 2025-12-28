@@ -26,7 +26,8 @@ interface QuizAnswers {
 
 interface CaptureData {
   email: string;
-  whatsapp: string;
+  countryCode: string;
+  phoneNumber: string;
 }
 
 // ============================================================================
@@ -180,7 +181,7 @@ export default function DiagnosticoPage() {
     apalancamiento: 0,
     pazMental: 0,
   });
-  const [captureData, setCaptureData] = useState<CaptureData>({ email: '', whatsapp: '' });
+  const [captureData, setCaptureData] = useState<CaptureData>({ email: '', countryCode: '+57', phoneNumber: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleStartQuiz = () => {
@@ -201,7 +202,9 @@ export default function DiagnosticoPage() {
 
   const handleCapture = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captureData.email || !captureData.whatsapp) return;
+    if (!captureData.email || !captureData.phoneNumber) return;
+
+    const whatsapp = `${captureData.countryCode}${captureData.phoneNumber}`;
 
     setIsSubmitting(true);
 
@@ -210,7 +213,8 @@ export default function DiagnosticoPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...captureData,
+          email: captureData.email,
+          whatsapp,
           answers,
           timestamp: new Date().toISOString(),
           page: 'diagnostico-landing',
@@ -511,19 +515,47 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
               color: 'var(--text-primary)',
             }}
           />
-          <input
-            type="tel"
-            placeholder="Tu WhatsApp (con código de país)"
-            value={data.whatsapp}
-            onChange={(e) => onChange({ ...data, whatsapp: e.target.value })}
-            required
-            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              color: 'var(--text-primary)',
-            }}
-          />
+          {/* WhatsApp con código de país separado */}
+          <div className="flex gap-3">
+            <select
+              value={data.countryCode}
+              onChange={(e) => onChange({ ...data, countryCode: e.target.value })}
+              className="px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+                width: '120px',
+              }}
+            >
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+507">🇵🇦 +507</option>
+              <option value="+506">🇨🇷 +506</option>
+              <option value="+502">🇬🇹 +502</option>
+              <option value="+55">🇧🇷 +55</option>
+            </select>
+            <input
+              type="tel"
+              placeholder="Tu número de WhatsApp"
+              value={data.phoneNumber}
+              onChange={(e) => onChange({ ...data, phoneNumber: e.target.value.replace(/\D/g, '') })}
+              required
+              className="flex-1 px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+              }}
+            />
+          </div>
           <button
             type="submit"
             disabled={isSubmitting}

@@ -471,9 +471,10 @@ export default function StrategicNavigation() {
     }
   }, [isMobileMenuOpen])
 
-  // Links directos sin dropdown
+  // Links directos sin dropdown (Funnel Hub structure)
   const directLinks = [
     { name: 'Tecnología', href: '/tecnologia' },
+    { name: 'Productos', href: '/productos' },
     { name: 'Blog', href: '/blog' },
   ]
 

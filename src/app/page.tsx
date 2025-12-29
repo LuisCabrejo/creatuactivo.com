@@ -27,7 +27,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5] relative">
         {/* Americas Map Background - Mercado Latino (65+ países) */}
         <div
-          className="fixed inset-0 pointer-events-none z-0"
+          className="fixed inset-0 pointer-events-none z-0 opacity-40"
           style={{
             backgroundImage: `url('/gano-excel.jpg')`,
             backgroundSize: 'cover',

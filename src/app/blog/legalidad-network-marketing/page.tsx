@@ -8,9 +8,9 @@ import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const metadata = {
-  title: 'Network Marketing: ¿Es Legal? Todo lo que Debes Saber | CreaTuActivo Blog',
-  description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Criterios de la FTC y señales de alerta explicados de forma clara.',
-  keywords: 'network marketing legal, MLM legal, pirámide vs multinivel, FTC, esquema piramidal, multinivel legítimo',
+  title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700) | CreaTuActivo Blog',
+  description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 en Colombia, criterios de la FTC y señales de alerta explicados.',
+  keywords: 'ley 1700 colombia, network marketing legal, negocios digitales legales, MLM legal, pirámide vs multinivel, FTC, multinivel legítimo',
 };
 
 export default function LegalidadNetworkMarketingPage() {
@@ -47,8 +47,8 @@ export default function LegalidadNetworkMarketingPage() {
 
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
-                Network Marketing: ¿Es Legal?
-                <span className="text-[#D4AF37]"> Todo lo que Debes Saber</span>
+                La verdad sobre la legalidad de los
+                <span className="text-[#D4AF37]"> negocios digitales en América</span>
               </h1>
 
               <p className="text-xl text-[#a0a0a8] mb-12 leading-relaxed">

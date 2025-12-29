@@ -8,9 +8,9 @@ import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const metadata = {
-  title: 'Empleo vs Activos: La Diferencia que No te Enseñaron | CreaTuActivo Blog',
-  description: 'Por qué trabajar más horas no es la respuesta. Descubre la diferencia entre ingreso lineal e ingreso residual y cómo construir activos.',
-  keywords: 'ingreso residual, activos, libertad financiera, independencia financiera, ingresos pasivos, empleo',
+  title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
+  description: 'Por qué trabajar más horas no es la respuesta. Descubre la diferencia entre ingreso lineal e ingreso residual y cómo construir una cartera de activos.',
+  keywords: 'análisis financiero, cartera de activos, ingreso residual, libertad financiera, independencia financiera, ingresos pasivos, empleo vs activos',
 };
 
 export default function EmpleoVsActivosPage() {
@@ -47,8 +47,8 @@ export default function EmpleoVsActivosPage() {
 
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
-                Empleo vs Activos:
-                <span className="text-[#D4AF37]"> La Diferencia que No te Enseñaron</span>
+                Análisis Financiero:
+                <span className="text-[#D4AF37]"> Empleo vs. Cartera de Activos</span>
               </h1>
 
               <p className="text-xl text-[#a0a0a8] mb-12 leading-relaxed">

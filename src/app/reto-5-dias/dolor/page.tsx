@@ -1,10 +1,9 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * RETO 5 DÍAS - SQUEEZE PAGE (Russell Brunson Style)
- * Página minimalista de captura para tráfico frío (ads/redes)
+ * VARIACIÓN A - DOLOR/MIEDO
+ * Hook enfocado en el perfil "Empleado frustrado"
  *
- * Estructura basada en investigación "Páginas Definitivas y Estrategia de Funnel"
- * Sección 3.1: Elementos Críticos de la Página de Aterrizaje
+ * A/B Test: /reto-5-dias/dolor
  */
 
 'use client';
@@ -13,7 +12,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function Reto5DiasPage() {
+export default function RetoDolorPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     nombre: '',
@@ -36,17 +35,15 @@ export default function Reto5DiasPage() {
           email: formData.email,
           name: formData.nombre,
           whatsapp: formData.whatsapp,
-          source: 'reto-5-dias',
+          source: 'reto-5-dias-dolor',
           step: 'reto_registered',
+          variant: 'A_dolor',
         }),
       });
 
       if (!response.ok) throw new Error('Error');
-
-      // Redirigir a página de gracias (Bridge Page)
       router.push('/reto-5-dias/gracias');
     } catch {
-      // Aún así redirigir para no frustrar
       router.push('/reto-5-dias/gracias');
     } finally {
       setIsSubmitting(false);
@@ -63,7 +60,7 @@ export default function Reto5DiasPage() {
         }}
       />
 
-      {/* Main Content - Centered */}
+      {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4 py-12 relative z-10">
         <div className="w-full max-w-lg">
           {/* Logo */}
@@ -80,39 +77,36 @@ export default function Reto5DiasPage() {
 
           {/* Card */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 sm:p-10">
-            {/* PRE-TITULAR - Cualificación del Lead */}
+            {/* PRE-TITULAR */}
             <div className="text-center mb-6">
               <span className="inline-flex items-center gap-2 text-sm text-[#a0a0a8] bg-[#1a1a24] px-4 py-2 rounded-full border border-[#2a2a35]">
-                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
-                Para profesionales que buscan diversificación inteligente
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                Esto me hubiera ahorrado 20 años
               </span>
             </div>
 
-            {/* TITULAR (HOOK) - Identity Shift */}
+            {/* TITULAR - HOOK DOLOR */}
             <h1
               className="text-2xl sm:text-3xl text-center leading-tight mb-4"
               style={{ fontFamily: 'Georgia, serif' }}
             >
-              Pasa de <span className="text-[#a0a0a8]">DEPENDIENTE</span> a{' '}
-              <span className="text-[#D4AF37]">SOBERANO</span>
+              Hace unos años cometí un error que{' '}
+              <span className="text-red-400">me costó 20 años de mi vida</span>
             </h1>
 
-            {/* SUB-TITULAR - Mecanismo Único */}
+            {/* SUB-TITULAR */}
             <p className="text-center text-[#a0a0a8] mb-6 text-sm sm:text-base">
-              El Plan de 5 Días para construir tu{' '}
-              <span className="text-[#f5f5f5] font-medium">Cartera de Activos Híbrida</span>.
+              Y cómo evitar que te pase a ti.
               <br className="hidden sm:block" />
-              <span className="text-[#D4AF37]">Modelo Tri-Modal</span> + Tecnología de IA Propietaria.
+              En <span className="text-[#D4AF37]">5 días</span> te muestro la salida que yo no conocí.
             </p>
 
-            {/* HISTORIA (MICRO) - Epiphany Bridge */}
-            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-[#2a2a35] mb-6">
-              <p className="text-sm text-[#a0a0a8] italic text-center leading-relaxed">
-                &quot;A los 40 años descubrí que había comprado un empleo, no construido un activo.
-                Esta es la hoja de ruta matemática para salir de la trampa.&quot;
-              </p>
-              <p className="text-xs text-[#6b6b75] text-center mt-2">
-                — Luis Cabrejo, Arquitecto de Activos
+            {/* HISTORIA DOLOR */}
+            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-red-500/20 mb-6">
+              <p className="text-sm text-[#a0a0a8] leading-relaxed">
+                Trabajé 20 años creyendo que el esfuerzo me llevaría a la libertad.
+                A los 40 descubrí la verdad: había construido una jaula de oro.
+                <span className="text-[#f5f5f5] font-medium"> No cometas mi error.</span>
               </p>
             </div>
 
@@ -147,7 +141,6 @@ export default function Reto5DiasPage() {
                 <p className="text-red-400 text-sm text-center">{error}</p>
               )}
 
-              {/* CTA - Micro-compromiso */}
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -162,58 +155,24 @@ export default function Reto5DiasPage() {
                     Reservando...
                   </span>
                 ) : (
-                  'Reservar mi Cupo GRATIS'
+                  'Quiero Evitar Ese Error'
                 )}
               </button>
             </form>
 
-            {/* ANTI-GANCHOS - Manejo objeciones preventivo */}
-            <div className="mt-6 pt-6 border-t border-[#2a2a35]">
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#6b6b75]">
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Sin perseguir amigos
-                </span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Sin inventario en casa
-                </span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Sin ventas de los 90
-                </span>
-              </div>
-            </div>
-
-            {/* Trust Elements */}
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-[#6b6b75]">
-              <span className="flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                Sin spam
-              </span>
-              <span>•</span>
+            {/* Trust */}
+            <div className="mt-6 flex items-center justify-center gap-4 text-xs text-[#6b6b75]">
               <span>100% gratis</span>
+              <span>•</span>
+              <span>Sin spam</span>
               <span>•</span>
               <span>5 días por WhatsApp</span>
             </div>
           </div>
-
-          {/* Social Proof */}
-          <p className="text-center text-[#6b6b75] text-sm mt-6">
-            +2,400 personas ya tomaron el reto
-          </p>
         </div>
       </div>
 
-      {/* Minimal Footer */}
+      {/* Footer */}
       <footer className="py-4 text-center text-[#6b6b75] text-xs relative z-10">
         <Link href="/privacidad" className="hover:text-[#a0a0a8] transition-colors">
           Política de Privacidad

@@ -23,19 +23,19 @@ const articles = [
   },
   {
     slug: 'empleo-vs-activos',
-    title: 'Empleo vs Activos: La Diferencia que No te Enseñaron',
-    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de ingreso residual explicado.',
+    title: 'Análisis Financiero: Empleo vs. Cartera de Activos',
+    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de ingreso residual y cómo construir activos.',
     category: 'Educación Financiera',
     readTime: '6 min',
     featured: true,
   },
   {
     slug: 'legalidad-network-marketing',
-    title: 'Network Marketing: ¿Es Legal? Todo lo que Debes Saber',
-    excerpt: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Criterios de la FTC explicados.',
+    title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700)',
+    excerpt: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 y criterios de la FTC explicados.',
     category: 'Legal',
     readTime: '7 min',
-    featured: false,
+    featured: true,
   },
 ];
 

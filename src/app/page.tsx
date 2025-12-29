@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Homepage v4.0 - Funnel Hub Architecture
+ * Homepage v5.0 - Funnel Hub (Restaurada según diseño original)
  * Basado en Russell Brunson: Hub que valida y dirige al embudo principal
  * Gap corregido: pt-32 para espacio entre nav y body
  */
@@ -13,7 +13,7 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 // ============================================================================
 
 export const metadata = {
-  title: 'CreaTuActivo - Arquitectura de Activos Digitales',
+  title: 'CreaTuActivo - Sistema de Arquitectura Soberana',
   description: 'Construye tu cartera de activos con distribución global. Un sistema diseñado por Luis Cabrejo para transicionar de dependiente a soberano.',
 };
 
@@ -42,14 +42,11 @@ export default function HomePage() {
           {/* HERO SECTION */}
           <HeroSection />
 
-          {/* TRAFFIC DIRECTOR - Russell Brunson Pattern */}
+          {/* TRAFFIC DIRECTOR */}
           <TrafficDirector />
 
           {/* EL PROBLEMA (EL VILLANO) */}
           <ProblemSection />
-
-          {/* VIDEO MANIFESTO */}
-          <VideoManifesto />
 
           {/* EL SISTEMA */}
           <SystemSection />
@@ -72,7 +69,7 @@ export default function HomePage() {
 }
 
 // ============================================================================
-// HERO SECTION - Con pt-32 para el gap
+// HERO SECTION - Con Video Manifiesto integrado
 // ============================================================================
 
 function HeroSection() {
@@ -91,39 +88,56 @@ function HeroSection() {
         <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1a1a24] border border-[#2a2a35]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
           <span className="text-sm text-[#a0a0a8]">
-            Arquitectura de Activos Digitales
+            Estrategia de Soberanía Financiera
           </span>
         </div>
 
         {/* Main Headline */}
         <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6 font-serif">
-          <span className="text-[#a0a0a8]">¿Estás Construyendo </span>
-          <span className="text-[#D4AF37]">Activos</span>
+          <span className="text-[#a0a0a8]">¿Es Tu Plan Financiero un Puente</span>
           <br />
-          <span className="text-[#f5f5f5]">o Simplemente </span>
-          <span className="text-[#a0a0a8]">Intercambiando Tiempo por Dinero</span>
+          <span className="text-[#f5f5f5]">hacia la </span>
+          <span className="text-[#D4AF37]">Soberanía</span>
+          <br />
+          <span className="text-[#f5f5f5]">o una </span>
+          <span className="text-[#a0a0a8]">Trampa de Dependencia</span>
           <span className="text-[#f5f5f5]">?</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-[#a0a0a8]">
-          Descubre en 5 días cómo construir una{' '}
-          <span className="text-[#f5f5f5] font-medium">Arquitectura de Activos</span>{' '}
-          que genera{' '}
-          <span className="text-[#D4AF37] font-medium">sin tu presencia constante</span>.
+          Deja de ser el motor de tu economía.{' '}
+          <span className="text-[#f5f5f5] font-medium underline decoration-[#D4AF37]/50">Construye el chasis</span>{' '}
+          que te permita detenerte{' '}
+          <span className="text-[#D4AF37] font-medium underline decoration-[#D4AF37]/50">sin que todo colapse</span>.
         </p>
 
+        {/* Video Manifiesto Placeholder */}
+        <div className="max-w-md mx-auto mb-8">
+          <div className="aspect-video rounded-2xl bg-[#12121a] border border-[#2a2a35] flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-[#D4AF37] flex items-center justify-center mx-auto mb-3 cursor-pointer hover:bg-[#E8C547] transition-colors">
+                <svg className="w-7 h-7 text-[#0a0a0f] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <p className="text-[#a0a0a8] text-sm">Ver Manifiesto</p>
+              <p className="text-[#6b6b75] text-xs">2 minutos</p>
+            </div>
+          </div>
+        </div>
+
         {/* Architect credit */}
-        <p className="text-sm mb-10 text-[#6b6b75]">
+        <p className="text-sm mb-8 text-[#6b6b75]">
           Diseñado por <span className="text-[#a0a0a8]">Luis Cabrejo Parra</span> · #1 de su organización
         </p>
 
-        {/* CTA Button - Apunta a /reto-5-dias */}
+        {/* CTA Button */}
         <Link
           href="/reto-5-dias"
           className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
         >
-          Empezar el Reto de 5 Días
+          Unirme al Reto de 5 Días
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -141,13 +155,13 @@ function HeroSection() {
             <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
-            <span>100% gratis · 5 días</span>
+            <span>Inversión desde $200 USD</span>
           </div>
           <div className="flex items-center gap-2">
             <svg className="w-4 h-4 text-[#C9A962]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
             </svg>
-            <span>Por WhatsApp</span>
+            <span>Operación 100% Remota</span>
           </div>
         </div>
       </div>
@@ -156,57 +170,54 @@ function HeroSection() {
 }
 
 // ============================================================================
-// TRAFFIC DIRECTOR - Russell Brunson Pattern
+// TRAFFIC DIRECTOR - 2 Opciones: Nuevo vs Ya tomó el reto
 // ============================================================================
 
 function TrafficDirector() {
   return (
     <section className="px-6 py-12 bg-[#0a0a0f]">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-4">
-          {/* Option 1: Reto */}
+      <div className="max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Option 1: Nuevo - Reto */}
           <Link
             href="/reto-5-dias"
-            className="group p-6 rounded-xl bg-[#12121a] border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all duration-300"
+            className="group p-8 rounded-2xl bg-[#12121a] border border-[#2a2a35] hover:border-[#D4AF37]/50 transition-all duration-300"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
               </div>
-              <span className="text-xs text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-1 rounded-full">Popular</span>
+              <span className="text-xs text-[#D4AF37]">¿Eres nuevo?</span>
             </div>
-            <h3 className="font-semibold mb-1 group-hover:text-[#D4AF37] transition-colors">Reto de 5 Días</h3>
-            <p className="text-sm text-[#6b6b75]">Gratis · WhatsApp</p>
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#D4AF37] transition-colors">
+              Empieza por el Reto de 5 Días
+            </h3>
+            <p className="text-sm text-[#6b6b75]">
+              Descubre si este modelo es para ti. Gratis, sin compromiso.
+            </p>
           </Link>
 
-          {/* Option 2: Nosotros */}
+          {/* Option 2: Ya tomó el reto - Fundador */}
           <Link
-            href="/nosotros"
-            className="group p-6 rounded-xl bg-[#12121a] border border-[#2a2a35] hover:border-[#D4AF37]/50 transition-all duration-300"
+            href="/fundadores"
+            className="group p-8 rounded-2xl bg-[#12121a] border border-[#2a2a35] hover:border-[#D4AF37]/50 transition-all duration-300"
           >
-            <div className="w-10 h-10 rounded-lg bg-[#2a2a35] flex items-center justify-center mb-3">
-              <svg className="w-5 h-5 text-[#a0a0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-              </svg>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                </svg>
+              </div>
+              <span className="text-xs text-[#D4AF37]">¿Ya tomaste el reto?</span>
             </div>
-            <h3 className="font-semibold mb-1 group-hover:text-[#D4AF37] transition-colors">Mi Historia</h3>
-            <p className="text-sm text-[#6b6b75]">Conoce al arquitecto</p>
-          </Link>
-
-          {/* Option 3: Blog */}
-          <Link
-            href="/blog"
-            className="group p-6 rounded-xl bg-[#12121a] border border-[#2a2a35] hover:border-[#D4AF37]/50 transition-all duration-300"
-          >
-            <div className="w-10 h-10 rounded-lg bg-[#2a2a35] flex items-center justify-center mb-3">
-              <svg className="w-5 h-5 text-[#a0a0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-              </svg>
-            </div>
-            <h3 className="font-semibold mb-1 group-hover:text-[#D4AF37] transition-colors">Blog</h3>
-            <p className="text-sm text-[#6b6b75]">Recursos y guías</p>
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#D4AF37] transition-colors">
+              Únete como Fundador
+            </h3>
+            <p className="text-sm text-[#6b6b75]">
+              Accede a la tecnología y comienza a construir tu activo.
+            </p>
           </Link>
         </div>
       </div>
@@ -235,8 +246,8 @@ function ProblemSection() {
         {/* The trap visualization */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
-            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">1</span>
+            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-[#D4AF37]">1</span>
             </div>
             <h3 className="font-semibold mb-2">Trabajar</h3>
             <p className="text-sm text-[#a0a0a8]">
@@ -244,8 +255,8 @@ function ProblemSection() {
             </p>
           </div>
           <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
-            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">2</span>
+            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-[#D4AF37]">2</span>
             </div>
             <h3 className="font-semibold mb-2">Pagar Cuentas</h3>
             <p className="text-sm text-[#a0a0a8]">
@@ -253,8 +264,8 @@ function ProblemSection() {
             </p>
           </div>
           <div className="p-6 rounded-xl bg-[#1a1a24] border border-[#2a2a35] text-center">
-            <div className="w-12 h-12 rounded-full bg-[#2a2a35] flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">3</span>
+            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-[#D4AF37]">3</span>
             </div>
             <h3 className="font-semibold mb-2">Repetir</h3>
             <p className="text-sm text-[#a0a0a8]">
@@ -273,6 +284,8 @@ function ProblemSection() {
             <span className="text-[#f5f5f5]">.</span>
             <br />
             <span className="text-[#a0a0a8]">Si tú te detienes, el sistema colapsa.</span>
+            <br />
+            <span className="text-[#6b6b75] text-lg italic mt-2 block">¿Es eso un negocio... o una obligación disfrazada?</span>
           </p>
         </div>
       </div>
@@ -281,46 +294,12 @@ function ProblemSection() {
 }
 
 // ============================================================================
-// VIDEO MANIFESTO
-// ============================================================================
-
-function VideoManifesto() {
-  return (
-    <section className="px-6 py-20">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <span className="text-sm font-medium uppercase tracking-widest text-[#D4AF37]">
-            El Manifiesto
-          </span>
-          <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-            De Dependiente a Arquitecto
-          </h2>
-        </div>
-
-        {/* Video Placeholder */}
-        <div className="aspect-video rounded-2xl bg-[#12121a] border border-[#2a2a35] flex items-center justify-center">
-          <div className="text-center p-8">
-            <div className="w-20 h-20 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-              </svg>
-            </div>
-            <p className="text-[#6b6b75]">Video próximamente</p>
-            <p className="text-sm text-[#4a4a55] mt-2">La historia completa de Luis Cabrejo</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
-// SYSTEM SECTION - Con links y menciones a Queswa
+// SYSTEM SECTION - Con Queswa y Gano Excel específicos
 // ============================================================================
 
 function SystemSection() {
   return (
-    <section className="px-6 py-20 bg-[#12121a]">
+    <section className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -328,84 +307,60 @@ function SystemSection() {
             La Solución
           </span>
           <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-            ¿Qué es la Arquitectura de Activos?
+            ¿Qué es CreaTuActivo?
           </h2>
           <p className="text-lg text-[#a0a0a8] mt-4 max-w-2xl mx-auto">
-            Un sistema que combina tecnología, mentoría y distribución global
+            Un sistema que combina tecnología propietaria, mentoría y distribución global
             para que construyas activos que generen sin tu presencia constante.
           </p>
         </div>
 
-        {/* Three pillars with links */}
+        {/* Three pillars */}
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Pilar 1 - Tecnología */}
-          <Link
-            href="/tecnologia"
-            className="group p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
-          >
+          {/* Pilar 1 - Tecnología Queswa */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 group-hover:text-[#D4AF37] transition-colors">Tecnología</h3>
-            <p className="text-[#a0a0a8] leading-relaxed mb-4">
-              Queswa (IA conversacional), funnels automatizados, sistema de seguimiento.
-              El sistema filtra y educa. Tú conectas y cierras.
+            <h3 className="text-xl font-semibold mb-1">Tecnología Queswa</h3>
+            <p className="text-sm text-[#D4AF37] mb-3">Tu ventaja injusta</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
+              IA que educa y filtra prospectos 24/7. Funnels automatizados. Sistema que
+              hace el 80% del trabajo que tú odias.
             </p>
-            <span className="text-sm text-[#D4AF37] inline-flex items-center gap-1">
-              Conocer más
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+          </div>
 
           {/* Pilar 2 - Mentoría */}
-          <Link
-            href="/reto-5-dias"
-            className="group p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
-          >
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 group-hover:text-[#D4AF37] transition-colors">Mentoría</h3>
-            <p className="text-[#a0a0a8] leading-relaxed mb-4">
-              Reto de 5 Días, capacitación continua, comunidad de constructores.
-              No estás solo. Tienes un arquitecto que ya recorrió el camino.
+            <h3 className="text-xl font-semibold mb-1">Mentoría</h3>
+            <p className="text-sm text-[#D4AF37] mb-3">No estás solo</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
+              Reto de 5 Días, capacitación continua, comunidad de constructores. Tienes
+              un arquitecto que ya recorrió el camino.
             </p>
-            <span className="text-sm text-[#D4AF37] inline-flex items-center gap-1">
-              Empezar el reto
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+          </div>
 
-          {/* Pilar 3 - Productos */}
-          <Link
-            href="/productos"
-            className="group p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
-          >
+          {/* Pilar 3 - Distribución Global */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 group-hover:text-[#D4AF37] transition-colors">Distribución Global</h3>
-            <p className="text-[#a0a0a8] leading-relaxed mb-4">
-              Socio de infraestructura con presencia en 65+ países.
-              Productos de consumo recurrente. Tu red crece mientras duermes.
+            <h3 className="text-xl font-semibold mb-1">Distribución Global</h3>
+            <p className="text-sm text-[#D4AF37] mb-3">Gano Excel · 65+ países</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
+              Producto de consumo diario con 28 años en el mercado. Tu red crece
+              mientras duermes. Sin inventario en casa.
             </p>
-            <span className="text-sm text-[#D4AF37] inline-flex items-center gap-1">
-              Ver productos
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -418,7 +373,7 @@ function SystemSection() {
 
 function ArchitectSection() {
   return (
-    <section className="px-6 py-20">
+    <section className="px-6 py-20 bg-[#12121a]">
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-12">
@@ -446,7 +401,7 @@ function ArchitectSection() {
           <div className="space-y-6">
             <p className="text-lg leading-relaxed text-[#a0a0a8]">
               <span className="text-[#f5f5f5]">A los 40 años</span> descubrí que había pasado dos décadas
-              escalando la escalera del éxito... <span className="text-[#D4AF37]">solo para darme cuenta
+              escalando la escalera del éxito... <span className="text-[#D4AF37] underline decoration-[#D4AF37]/50">solo para darme cuenta
               de que estaba apoyada en la pared equivocada</span>.
             </p>
 
@@ -457,28 +412,22 @@ function ArchitectSection() {
             </p>
 
             <p className="leading-relaxed text-[#a0a0a8]">
-              Descubrí que <span className="text-[#f5f5f5]">había comprado un empleo,
+              Descubrí que <span className="text-[#f5f5f5] underline decoration-[#D4AF37]/50">había comprado un empleo,
               no construido un activo</span>. Entonces encontré un modelo diferente.
             </p>
 
-            <div className="p-4 rounded-xl bg-[#12121a] border border-[#2a2a35]">
+            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
               <p className="text-sm text-[#D4AF37] font-medium">
                 En 2.5 años llegué al #1 de mi organización.
               </p>
               <p className="text-sm text-[#6b6b75] mt-1">
-                Ahora ayudo a otros a construir su propia arquitectura de activos.
+                Ahora ayudo a otros a construir su propia arquitectura soberana.
               </p>
             </div>
 
-            <Link
-              href="/nosotros"
-              className="inline-flex items-center gap-2 text-[#D4AF37] hover:underline"
-            >
-              Leer mi historia completa
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+            <p className="text-sm italic text-[#6b6b75]">
+              &quot;La lealtad es con los objetivos del proyecto.&quot;
+            </p>
           </div>
         </div>
       </div>
@@ -492,7 +441,7 @@ function ArchitectSection() {
 
 function TestimonialsSection() {
   return (
-    <section className="px-6 py-20 bg-[#12121a]">
+    <section className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -500,7 +449,7 @@ function TestimonialsSection() {
             Historias de Transformación
           </span>
           <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-            De Dependientes a Arquitectos
+            De Dependientes a Soberanos
           </h2>
         </div>
 
@@ -589,29 +538,28 @@ function TestimonialsSection() {
 
 function FinalCTASection() {
   return (
-    <section className="px-6 py-20">
+    <section className="px-6 py-20 bg-[#12121a]">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-serif mb-6">
-          ¿Listo para empezar?
+          ¿Listo para construir tu activo?
         </h2>
 
         <p className="text-lg text-[#a0a0a8] mb-10">
-          En 5 días descubrirás si la Arquitectura de Activos es para ti.
-          Sin compromiso. Sin presión. Solo claridad.
+          En 5 días descubrirás si este modelo es para ti. Sin compromiso. Sin presión. Solo claridad.
         </p>
 
         <Link
           href="/reto-5-dias"
           className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
         >
-          Empezar el Reto de 5 Días
+          Unirme al Reto Gratis
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Link>
 
         <p className="text-sm mt-6 text-[#6b6b75]">
-          100% gratis · 5 días por WhatsApp · Sin atajos mágicos
+          Sin atajos mágicos. Sin promesas vacías. Solo un sistema probado y mentoría real.
         </p>
       </div>
     </section>
@@ -630,7 +578,7 @@ function Footer() {
           <div className="text-center md:text-left">
             <p className="font-medium text-[#D4AF37]">CreaTuActivo</p>
             <p className="text-sm text-[#6b6b75] mt-1">
-              Arquitectura de Activos Digitales
+              Sistema de Arquitectura Soberana
             </p>
           </div>
 
@@ -638,8 +586,8 @@ function Footer() {
             <Link href="/privacidad" className="hover:text-[#a0a0a8] transition-colors">
               Privacidad
             </Link>
-            <Link href="/nosotros" className="hover:text-[#a0a0a8] transition-colors">
-              Nosotros
+            <Link href="/presentacion-empresarial" className="hover:text-[#a0a0a8] transition-colors">
+              Presentación
             </Link>
             <Link href="/fundadores" className="hover:text-[#a0a0a8] transition-colors">
               Fundadores

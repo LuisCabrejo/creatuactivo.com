@@ -9,9 +9,9 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';
 
 export const metadata = {
-  title: 'Tecnología Queswa - Tu Ventaja Injusta | CreaTuActivo',
-  description: 'Conoce Queswa, la inteligencia artificial que educa, filtra y trabaja 24/7 para que tú no tengas que vender. La tecnología que diferencia a CreaTuActivo.',
-  robots: { index: false, follow: true }, // Página interna de funnel
+  title: 'Queswa - Inteligencia Artificial para Network Marketing | CreaTuActivo',
+  description: 'Queswa es la IA de CreaTuActivo que educa, filtra prospectos y trabaja 24/7. Tu asistente virtual para construir tu negocio sin tener que vender.',
+  keywords: 'queswa, creatuactivo queswa, queswa ia, asistente virtual network marketing, chatbot mlm, inteligencia artificial multinivel',
 };
 
 export default function TecnologiaPage() {

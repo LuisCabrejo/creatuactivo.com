@@ -21,7 +21,6 @@ import { MetadataRoute } from 'next';
  * PÁGINAS EXCLUIDAS (noindex - funnel interno):
  * - /reto-5-dias, /reto-5-dias/gracias → Squeeze/Bridge pages para ADS
  * - /nosotros → Epiphany Bridge, SEO en página personal Luis Cabrejo Parra
- * - /tecnologia → Diferenciador interno, sin keywords buscables
  * - /productos → Duplicado, SEO en /sistema/productos
  *
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
@@ -77,6 +76,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/legalidad-network-marketing`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+
+    // ========================================
+    // TECNOLOGÍA QUESWA (Brand Search SEO)
+    // Captura búsquedas: "queswa", "creatuactivo queswa"
+    // ========================================
+    {
+      url: `${baseUrl}/tecnologia`,
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,

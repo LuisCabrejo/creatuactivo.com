@@ -4,9 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**CreaTuActivo Marketing Platform** - Next.js 14 application for a multilevel marketing business featuring an AI-powered chatbot (NEXUS) that guides prospects through the sales funnel while tracking engagement via Supabase.
+**CreaTuActivo Marketing Platform** - Next.js 14 application for a multilevel marketing business featuring an AI-powered chatbot (Queswa, formerly NEXUS) that guides prospects through the sales funnel while tracking engagement via Supabase.
 
 **Stack**: Next.js 14 (App Router), TypeScript, React, Tailwind CSS, Supabase, Anthropic Claude API, Resend
+
+**Design System**: "Quiet Luxury" - Dark theme (#0a0a0f background), gold accents (#D4AF37), Georgia serif for headlines, minimal UI
+
+**Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
 ## Development Commands
 
@@ -190,43 +194,65 @@ Usuario → Producer → nexus_queue (INSERT)
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
-### 5. Page Structure
+### 5. Page Structure & Funnel Architecture
 
+**Funnel Strategy** (Russell Brunson methodology - Dic 2025):
+```
+Tráfico Frío (Ads/Redes) → /reto-5-dias (Squeeze Page)
+                              ↓
+                         /reto-5-dias/gracias (Bridge Page)
+                              ↓
+                         WhatsApp 5 días (Nurture)
+                              ↓
+                         /fundadores (Oferta)
+```
+
+**Active Pages**:
 ```
 src/app/
-├── page.tsx                         # Homepage
-├── layout.tsx                       # Root layout (tracking + NEXUS)
-├── fundadores/                      # Main founder signup
-│   └── [ref]/page.tsx               # Referral tracking (/fundadores/luis123)
-├── fundadores-network/              # Network-focused landing
+├── page.tsx                         # Homepage (Quiet Luxury style)
+├── layout.tsx                       # Root layout (tracking + Queswa chatbot)
+├── reto-5-dias/                     # 🎯 MAIN FUNNEL ENTRY
+│   ├── page.tsx                     # Squeeze page (minimal, form only)
+│   ├── gracias/page.tsx             # Bridge page (Epiphany Bridge story)
+│   └── [ref]/page.tsx               # Referral tracking version
+├── fundadores/                      # Main founder signup (oferta)
 │   └── [ref]/page.tsx               # Referral tracking
-├── fundadores-profesionales/        # Professional-focused landing
+├── presentacion-empresarial/        # Support tool for 1-on-1 (NOT in menu)
 │   └── [ref]/page.tsx               # Referral tracking
-├── presentacion-empresarial/        # Business presentation
-│   └── [ref]/page.tsx               # Referral tracking
-├── presentacion-empresarial-inversionistas/  # Investor presentation
-├── modelo-de-valor/page.tsx
+├── sistema/
+│   ├── productos/                   # Product catalog
+│   │   └── [ref]/page.tsx
+│   └── socio-corporativo/           # Gano Excel info
+├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
+│   └── [ref]/page.tsx
+├── diagnostico/                     # Lead magnet "Mi Auditoría"
 ├── paquetes/                        # Product packages
-│   └── [ref]/page.tsx               # Referral tracking
-├── paises/                          # Country-specific pages (brasil/)
-├── planes/                          # Pricing plans
-├── reto-12-niveles/                 # 12-level challenge landing page
-│   └── [ref]/page.tsx               # Referral tracking
-├── offline/                         # Offline fallback page (PWA)
-├── ecosistema/                      # 3 ecosystem pages + [ref]/
-├── sistema/                         # System pages + productos/[ref]/
-├── soluciones/                      # Persona-specific pages (6 archetypes)
+│   └── [ref]/page.tsx
 ├── privacidad/                      # Privacy policy
+├── offline/                         # PWA offline fallback
 └── api/
-    ├── nexus/                       # producer/, consumer-cron/, legacy route
+    ├── nexus/                       # Queswa chatbot API
+    ├── funnel/route.ts              # Funnel form submissions
     ├── fundadores/route.ts
-    ├── constructor/[id]/route.ts
-    └── test-resend/                 # Email testing
+    └── constructor/[id]/route.ts
 ```
 
-**Dynamic `[ref]` Routes**: Most landing pages support referral tracking via `/page-name/referrer-id`. The `ref` parameter identifies the referring user for attribution.
+**Removed Pages** (with 301 redirects in next.config.js):
+- `/soluciones/*` → `/reto-5-dias` (6 persona pages eliminated)
+- `/ecosistema/*` → `/reto-5-dias` (community, academia pages eliminated)
+- `/fundadores-network` → `/fundadores`
+- `/fundadores-profesionales` → `/fundadores`
+- `/sistema/framework-iaa` → `/reto-5-dias`
+- `/sistema/tecnologia` → `/reto-5-dias`
+- `/reto-12-dias` → `/reto-12-niveles`
 
-**Navigation**: [src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) used on most pages.
+**Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
+
+**Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx)):
+- **Desktop Menu**: El Sistema (Productos, Socio Corporativo) + Mi Auditoría CTA
+- **Removed from menu**: Soluciones, Ecosistema, Presentación (simplified for funnel focus)
+- **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
 
 ## Environment Variables
 

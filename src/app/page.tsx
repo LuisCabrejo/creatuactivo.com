@@ -70,7 +70,7 @@ function HeroSection() {
         className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
       >
         <div
-          className="w-[150%] h-[150%] opacity-60"
+          className="w-[200%] h-[200%]"
           style={{
             backgroundImage: `url('/images/world-map-outline.svg')`,
             backgroundSize: 'contain',

@@ -74,7 +74,7 @@ function HeroSection() {
             linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
-          opacity: 0.05,
+          opacity: 0.15,
         }}
       />
 

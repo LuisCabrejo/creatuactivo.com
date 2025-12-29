@@ -534,7 +534,7 @@ export default function StrategicNavigation() {
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
-              {/* BOTÓN AUDITORÍA DESKTOP - Lead Magnet Principal */}
+              {/* BOTÓN RETO DESKTOP - Entrada al Funnel Principal */}
               <Link href="/reto-5-dias" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
                 Reto 5 Días

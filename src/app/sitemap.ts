@@ -27,17 +27,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://creatuactivo.com';
 
   // Fecha de última modificación (actualizar cuando hagas cambios importantes)
-  const lastModified = new Date('2025-11-07');
+  const lastModified = new Date('2025-12-29');
 
   return [
     // ========================================
-    // PÁGINA PRINCIPAL
+    // PÁGINA PRINCIPAL (Funnel Hub)
     // ========================================
     {
       url: baseUrl,
       lastModified,
       changeFrequency: 'weekly',
       priority: 1.0,
+    },
+
+    // ========================================
+    // FUNNEL PRINCIPAL - Reto 5 Días (Russell Brunson)
+    // ========================================
+    {
+      url: `${baseUrl}/reto-5-dias`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.95, // Squeeze Page - entrada principal del funnel
+    },
+    {
+      url: `${baseUrl}/reto-5-dias/gracias`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5, // Bridge Page - solo tráfico post-registro
     },
 
     // ========================================
@@ -51,37 +67,74 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // ========================================
-    // PRESENTACIÓN EMPRESARIAL
+    // NOSOTROS (Epiphany Bridge Story)
     // ========================================
     {
-      url: `${baseUrl}/presentacion-empresarial`,
+      url: `${baseUrl}/nosotros`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.9,
+      priority: 0.8,
     },
 
     // ========================================
-    // ECOSISTEMA (Framework IAA - Activar)
-    // NOTA: /ecosistema es página de confirmación post-registro
-    // Prioridad baja porque es principalmente tráfico directo
+    // BLOG - Shadow Funnel SEO Content
+    // Alta prioridad para captura de tráfico orgánico
     // ========================================
     {
-      url: `${baseUrl}/ecosistema`,
+      url: `${baseUrl}/blog`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/blog/network-marketing-obsoleto`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.3,
+      priority: 0.8,
     },
     {
-      url: `${baseUrl}/ecosistema/academia`,
+      url: `${baseUrl}/blog/empleo-vs-activos`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/blog/legalidad-network-marketing`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+
+    // ========================================
+    // TECNOLOGÍA Y PRODUCTOS
+    // ========================================
+    {
+      url: `${baseUrl}/tecnologia`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/productos`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+
+    // ========================================
+    // SISTEMA (Páginas de soporte)
+    // ========================================
+    {
+      url: `${baseUrl}/sistema/productos`,
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/ecosistema/comunidad`,
+      url: `${baseUrl}/sistema/socio-corporativo`,
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
 
     // ========================================
@@ -91,93 +144,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/modelo-de-valor`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.7,
     },
 
     // ========================================
     // PAQUETES (Conversión)
-    // NOTA: /planes removido del sitemap (tiene noindex, es duplicado de /paquetes)
     // ========================================
     {
       url: `${baseUrl}/paquetes`,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-
-    // ========================================
-    // SISTEMA (Framework IAA - Información técnica)
-    // ========================================
-    {
-      url: `${baseUrl}/sistema/framework-iaa`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/sistema/tecnologia`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/sistema/productos`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.95, // AUMENTADO: página de alto valor con keywords de producto continental
-    },
-    {
-      url: `${baseUrl}/sistema/socio-corporativo`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-
-    // ========================================
-    // SOLUCIONES (6 arquetipos de usuarios)
-    // ESTRATEGIA SEO: Alta prioridad - Long-tail keywords con baja competencia
-    // Mayor potencial de conversión (match específico usuario-solución)
-    // ========================================
-    {
-      url: `${baseUrl}/soluciones/profesional-con-vision`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/soluciones/emprendedor-negocio`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/soluciones/independiente-freelancer`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/soluciones/lider-del-hogar`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/soluciones/lider-comunidad`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/soluciones/joven-con-ambicion`,
-      lastModified,
-      changeFrequency: 'monthly',
       priority: 0.85,
     },
 
     // ========================================
-    // LEGAL
-    // NOTA: /privacidad removido del sitemap (tiene noindex)
+    // PRESENTACIÓN EMPRESARIAL
+    // (Herramienta interna, prioridad baja en SEO)
     // ========================================
+    {
+      url: `${baseUrl}/presentacion-empresarial`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
   ];
 }

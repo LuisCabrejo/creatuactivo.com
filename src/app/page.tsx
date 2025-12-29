@@ -28,7 +28,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5] relative">
         {/* Background Image - Gano Excel */}
         <div
-          className="fixed inset-0 pointer-events-none z-0 opacity-40"
+          className="fixed inset-0 pointer-events-none z-0 opacity-25"
           style={{
             backgroundImage: `url('/gano-excel.jpg')`,
             backgroundSize: 'cover',

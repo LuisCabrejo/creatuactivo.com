@@ -74,6 +74,30 @@ const nextConfig = {
         destination: '/fundadores/:ref',
         permanent: true,
       },
+
+      // Ecosistema → Reto 5 días
+      {
+        source: '/ecosistema',
+        destination: '/reto-5-dias',
+        permanent: true,
+      },
+      {
+        source: '/ecosistema/:path*',
+        destination: '/reto-5-dias',
+        permanent: true,
+      },
+
+      // Sistema páginas eliminadas → Reto 5 días
+      {
+        source: '/sistema/framework-iaa',
+        destination: '/reto-5-dias',
+        permanent: true,
+      },
+      {
+        source: '/sistema/tecnologia',
+        destination: '/reto-5-dias',
+        permanent: true,
+      },
     ]
   },
 }

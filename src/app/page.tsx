@@ -65,14 +65,20 @@ function HeroSection() {
         }}
       />
 
-      {/* Topographic Lines - Mapea tu Territorio Financiero (soberanía) */}
+      {/* World Map Sketch - Tu Imperio Financiero Global (65+ países) */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23D4AF37' stroke-opacity='0.1' stroke-width='1' d='M25 50c0-15 10-25 25-25s25 10 25 25-10 25-25 25-25-10-25-25zM10 50c0-22 18-40 40-40s40 18 40 40-18 40-40 40-40-18-40-40zM0 50c0-28 22-50 50-50s50 22 50 50-22 50-50 50-50-22-50-50z'/%3E%3C/svg%3E")`,
-          backgroundSize: '100px 100px',
-        }}
-      />
+        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
+      >
+        <div
+          className="w-[150%] h-[150%] opacity-60"
+          style={{
+            backgroundImage: `url('/images/world-map-outline.svg')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+      </div>
 
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Badge */}

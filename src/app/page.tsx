@@ -24,7 +24,15 @@ export default function HomePage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5]">
+      <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5] relative">
+        {/* Hexagonal Pattern - Panal Global (arquitectura financiera sólida) */}
+        <div
+          className="fixed inset-0 pointer-events-none z-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23D4AF37' fill-opacity='0.06' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9z'/%3E%3C/svg%3E")`,
+            backgroundSize: '28px 49px',
+          }}
+        />
         {/* HERO SECTION */}
         <HeroSection />
 
@@ -65,20 +73,6 @@ function HeroSection() {
         }}
       />
 
-      {/* World Map Sketch - Tu Imperio Financiero Global (65+ países) */}
-      <div
-        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
-      >
-        <div
-          className="w-[200%] h-[200%]"
-          style={{
-            backgroundImage: `url('/images/world-map-outline.svg')`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-      </div>
 
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Badge */}

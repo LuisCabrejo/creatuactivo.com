@@ -1,29 +1,43 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * RETO 5 DÍAS - SQUEEZE PAGE (Russell Brunson Style)
- * Página minimalista de captura para tráfico frío (ads/redes)
+ * RETO 5 DÍAS - SQUEEZE PAGE CON REFERIDO
+ * Versión con tracking de constructor que invita
  */
 
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function Reto5DiasPage() {
+export default function Reto5DiasRefPage() {
   const router = useRouter();
+  const params = useParams();
+  const ref = params.ref as string;
+
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
     whatsapp: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [constructorName, setConstructorName] = useState<string | null>(null);
+
+  // Obtener nombre del constructor que invita
+  useEffect(() => {
+    if (ref) {
+      // Guardar ref en localStorage para tracking
+      localStorage.setItem('constructorRef', ref);
+
+      // TODO: Fetch constructor name from API
+      // Por ahora usar ref como fallback
+      // fetch(`/api/constructor/${ref}`).then(...)
+    }
+  }, [ref]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
 
     try {
       const response = await fetch('/api/funnel', {
@@ -35,15 +49,14 @@ export default function Reto5DiasPage() {
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias',
           step: 'reto_registered',
+          referrer: ref, // Tracking del constructor
         }),
       });
 
       if (!response.ok) throw new Error('Error');
 
-      // Redirigir a página de gracias (Bridge Page)
       router.push('/reto-5-dias/gracias');
     } catch {
-      // Aún así redirigir para no frustrar
       router.push('/reto-5-dias/gracias');
     } finally {
       setIsSubmitting(false);
@@ -74,6 +87,15 @@ export default function Reto5DiasPage() {
               </span>
             </Link>
           </div>
+
+          {/* Referrer Badge (if we have constructor name) */}
+          {constructorName && (
+            <div className="text-center mb-6">
+              <span className="text-sm text-[#a0a0a8]">
+                Invitado por <span className="text-[#D4AF37] font-medium">{constructorName}</span>
+              </span>
+            </div>
+          )}
 
           {/* Card */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8">
@@ -127,10 +149,6 @@ export default function Reto5DiasPage() {
                 required
                 className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
               />
-
-              {error && (
-                <p className="text-red-400 text-sm text-center">{error}</p>
-              )}
 
               <button
                 type="submit"

@@ -14,11 +14,7 @@ import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import {
-  ChevronDown,
   X,
-  Box,
-  Users,
-  ShieldCheck,
   Target,
   Menu
 } from 'lucide-react'
@@ -475,24 +471,10 @@ export default function StrategicNavigation() {
     }
   }, [isMobileMenuOpen])
 
-  const menuStructure = [
-    {
-      name: 'El Sistema',
-      items: [
-        {
-          name: 'Nuestros Productos',
-          href: '/sistema/productos',
-          icon: <Box className="w-5 h-5 text-green-400" />,
-          description: 'El motor de valor con fórmula exclusiva única.'
-        },
-        {
-          name: 'Nuestro Socio Corporativo',
-          href: '/sistema/socio-corporativo',
-          icon: <ShieldCheck className="w-5 h-5 text-yellow-400" />,
-          description: 'Gano Excel: la base de credibilidad y trayectoria.'
-        }
-      ]
-    }
+  // Links directos sin dropdown
+  const directLinks = [
+    { name: 'Tecnología', href: '/tecnologia' },
+    { name: 'Blog', href: '/blog' },
   ]
 
   const closeMobileMenu = () => {
@@ -534,58 +516,26 @@ export default function StrategicNavigation() {
               </Link>
             </div>
 
-            {/* ✅ MENU DESKTOP */}
+            {/* ✅ MENU DESKTOP - Links Directos */}
             <div className="strategic-menu-desktop">
-              {menuStructure.map((section) => (
-                <div
-                  key={section.name}
+              {directLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
                   className="strategic-menu-item"
-                  onMouseEnter={() => handleDropdownEnter(section.name)}
-                  onMouseLeave={handleDropdownLeave}
+                  onClick={handleLinkClick}
                 >
-                  <button className="strategic-menu-button">
-                    {section.name}
-                    <ChevronDown className="strategic-chevron" />
-                  </button>
-
-                  {/* DROPDOWN */}
-                  <div className={`strategic-dropdown ${activeDropdown === section.name ? 'active' : ''}`}>
-                    <div className="strategic-dropdown-content">
-                      {section.items.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className="strategic-dropdown-item"
-                          onClick={handleLinkClick}
-                        >
-                          <div className="strategic-dropdown-icon">{item.icon}</div>
-                          <div className="strategic-dropdown-text">
-                            <h4>{item.name}</h4>
-                            <p>{item.description}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                  {link.name}
+                </Link>
               ))}
-
-              {/* PRESENTACIÓN DIRECT LINK */}
-              <Link
-                href="/presentacion-empresarial"
-                className="strategic-menu-item"
-                onClick={handleLinkClick}
-              >
-                Presentación
-              </Link>
             </div>
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
               {/* BOTÓN AUDITORÍA DESKTOP - Lead Magnet Principal */}
-              <Link href="/diagnostico" className="strategic-cta-button">
+              <Link href="/reto-5-dias" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
-                Mi Auditoría
+                Reto 5 Días
               </Link>
 
               {/* MOBILE TOGGLE */}
@@ -630,48 +580,28 @@ export default function StrategicNavigation() {
 
         {/* Mobile Content */}
         <div className="strategic-mobile-content">
-          {menuStructure.map((section) => (
-            <div key={section.name} className="strategic-mobile-section">
-              <h3 className="strategic-mobile-section-title">{section.name}</h3>
-              {section.items.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="strategic-mobile-link"
-                  onClick={handleLinkClick}
-                >
-                  <div className="strategic-dropdown-icon">{item.icon}</div>
-                  <div className="strategic-mobile-link-content">
-                    <h4>{item.name}</h4>
-                    <p>{item.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ))}
-
-          {/* Presentación Direct Link */}
+          {/* Links Directos */}
           <div className="strategic-mobile-section">
-            <Link
-              href="/presentacion-empresarial"
-              className="strategic-mobile-link"
-              onClick={handleLinkClick}
-            >
-              <div className="strategic-dropdown-icon">
-                <Users className="w-5 h-5 text-blue-400" />
-              </div>
-              <div className="strategic-mobile-link-content">
-                <h4>Presentación Empresarial</h4>
-                <p>Conoce el sistema completo de distribución</p>
-              </div>
-            </Link>
+            <h3 className="strategic-mobile-section-title">Explora</h3>
+            {directLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="strategic-mobile-link"
+                onClick={handleLinkClick}
+              >
+                <div className="strategic-mobile-link-content">
+                  <h4>{link.name}</h4>
+                </div>
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile CTA - Lead Magnet Principal */}
+          {/* Mobile CTA - Reto 5 Días */}
           <div className="strategic-mobile-cta">
-            <Link href="/diagnostico" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+            <Link href="/reto-5-dias" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Target className="w-4 h-4" />
-              Mi Auditoría
+              Unirme al Reto
             </Link>
           </div>
         </div>

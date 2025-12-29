@@ -41,6 +41,9 @@ export default function HomePage() {
           {/* HERO SECTION */}
           <HeroSection />
 
+          {/* TRAFFIC DIRECTOR */}
+          <TrafficDirector />
+
           {/* EL PROBLEMA (EL VILLANO) */}
           <ProblemSection />
 
@@ -102,24 +105,40 @@ function HeroSection() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-[#a0a0a8]">
+        <p className="text-lg sm:text-xl mb-10 max-w-2xl mx-auto leading-relaxed text-[#a0a0a8]">
           Deja de ser el motor de tu economía.{' '}
           <span className="text-[#f5f5f5] font-medium">Construye el chasis</span>{' '}
           que te permita detenerte{' '}
           <span className="text-[#D4AF37] font-medium">sin que todo colapse</span>.
         </p>
 
+        {/* Video Manifesto Placeholder */}
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="aspect-video rounded-2xl bg-[#1a1a24] border border-[#2a2a35] flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-[#D4AF37]/30 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent" />
+            <div className="relative z-10 text-center">
+              <div className="w-16 h-16 rounded-full bg-[#D4AF37] mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-[#D4AF37]/20">
+                <svg className="w-6 h-6 text-[#0a0a0f] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <p className="text-[#a0a0a8] text-sm">Ver Manifiesto</p>
+              <p className="text-[#6b6b75] text-xs mt-1">2 minutos</p>
+            </div>
+          </div>
+        </div>
+
         {/* Architect credit */}
         <p className="text-sm mb-10 text-[#6b6b75]">
           Diseñado por <span className="text-[#a0a0a8]">Luis Cabrejo Parra</span> · #1 de su organización
         </p>
 
-        {/* CTA Button */}
+        {/* CTA Button - Entry to Funnel */}
         <Link
-          href="/diagnostico"
+          href="/reto-5-dias"
           className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
         >
-          Iniciar Auditoría de Soberanía
+          Unirme al Reto de 5 Días
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -145,6 +164,66 @@ function HeroSection() {
             </svg>
             <span>Operación 100% Remota</span>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// TRAFFIC DIRECTOR - Hub Navigation
+// ============================================================================
+
+function TrafficDirector() {
+  return (
+    <section className="px-6 py-12 border-y border-[#2a2a35] bg-[#0a0a0f]/80">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* New Visitor Path */}
+          <Link
+            href="/reto-5-dias"
+            className="group p-6 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm text-[#D4AF37] font-medium mb-1">¿Eres nuevo?</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-[#D4AF37] transition-colors">
+                  Empieza por el Reto de 5 Días
+                </h3>
+                <p className="text-sm text-[#a0a0a8]">
+                  Descubre si este modelo es para ti. Gratis, sin compromiso.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Existing Partner Path */}
+          <Link
+            href="/fundadores"
+            className="group p-6 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm text-[#D4AF37] font-medium mb-1">¿Ya tomaste el reto?</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-[#D4AF37] transition-colors">
+                  Únete como Fundador
+                </h3>
+                <p className="text-sm text-[#a0a0a8]">
+                  Accede a la tecnología y comienza a construir tu activo.
+                </p>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </section>
@@ -236,53 +315,74 @@ function SystemSection() {
             ¿Qué es CreaTuActivo?
           </h2>
           <p className="text-lg text-[#a0a0a8] mt-4 max-w-2xl mx-auto">
-            Un sistema que combina tecnología, mentoría y distribución global
+            Un sistema que combina tecnología propietaria, mentoría y distribución global
             para que construyas activos que generen sin tu presencia constante.
           </p>
         </div>
 
         {/* Three pillars */}
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Pilar 1 */}
-          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+          {/* Pilar 1 - Tecnología Queswa */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] group hover:border-[#D4AF37]/30 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Tecnología</h3>
-            <p className="text-[#a0a0a8] leading-relaxed">
-              Funnels automatizados, chatbot inteligente, sistema de seguimiento.
-              El sistema filtra y educa. Tú conectas y cierras.
+            <h3 className="text-xl font-semibold mb-1">Tecnología Queswa</h3>
+            <p className="text-xs text-[#D4AF37] mb-3">Tu ventaja injusta</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
+              IA que educa y filtra prospectos 24/7. Funnels automatizados.
+              Sistema que hace el 80% del trabajo que tú odias.
             </p>
+            <Link href="/tecnologia" className="inline-flex items-center gap-1 text-sm text-[#D4AF37] mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              Conocer más
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
 
-          {/* Pilar 2 */}
-          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+          {/* Pilar 2 - Mentoría */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] group hover:border-[#D4AF37]/30 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Mentoría</h3>
-            <p className="text-[#a0a0a8] leading-relaxed">
+            <h3 className="text-xl font-semibold mb-1">Mentoría</h3>
+            <p className="text-xs text-[#D4AF37] mb-3">No estás solo</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
               Reto de 5 Días, capacitación continua, comunidad de constructores.
-              No estás solo. Tienes un arquitecto que ya recorrió el camino.
+              Tienes un arquitecto que ya recorrió el camino.
             </p>
+            <Link href="/reto-5-dias" className="inline-flex items-center gap-1 text-sm text-[#D4AF37] mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              Empezar reto
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
 
-          {/* Pilar 3 */}
-          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35]">
+          {/* Pilar 3 - Distribución */}
+          <div className="p-8 rounded-2xl bg-[#1a1a24] border border-[#2a2a35] group hover:border-[#D4AF37]/30 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
               <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Distribución Global</h3>
-            <p className="text-[#a0a0a8] leading-relaxed">
-              Socio de infraestructura con presencia en 65+ países.
-              Producto de consumo recurrente. Tu red crece mientras duermes.
+            <h3 className="text-xl font-semibold mb-1">Distribución Global</h3>
+            <p className="text-xs text-[#D4AF37] mb-3">Gano Excel · 65+ países</p>
+            <p className="text-[#a0a0a8] leading-relaxed text-sm">
+              Producto de consumo diario con 28 años en el mercado.
+              Tu red crece mientras duermes. Sin inventario en casa.
             </p>
+            <Link href="/sistema/productos" className="inline-flex items-center gap-1 text-sm text-[#D4AF37] mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              Ver productos
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
@@ -464,26 +564,26 @@ function FinalCTASection() {
     <section className="px-6 py-20 bg-[#12121a]">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-serif mb-6">
-          ¿Listo para tu auditoría?
+          ¿Listo para construir tu activo?
         </h2>
 
         <p className="text-lg text-[#a0a0a8] mb-10">
-          En 60 segundos descubrirás cuál es tu Índice de Soberanía
-          y qué arquetipo de dependencia te define hoy.
+          En 5 días descubrirás si este modelo es para ti.
+          Sin compromiso. Sin presión. Solo claridad.
         </p>
 
         <Link
-          href="/diagnostico"
+          href="/reto-5-dias"
           className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#D4AF37] text-[#0a0a0f]"
         >
-          Iniciar Auditoría de Soberanía
+          Unirme al Reto Gratis
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Link>
 
         <p className="text-sm mt-6 text-[#6b6b75]">
-          Sin atajos mágicos. Sin promesas vacías. Solo claridad sobre dónde estás y a dónde podrías ir.
+          Sin atajos mágicos. Sin promesas vacías. Solo un sistema probado y mentoría real.
         </p>
       </div>
     </section>

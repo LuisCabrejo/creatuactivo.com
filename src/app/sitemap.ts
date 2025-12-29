@@ -18,8 +18,11 @@ import { MetadataRoute } from 'next';
  *
  * Google Search Console leerá este sitemap para indexar todas las páginas públicas.
  *
- * IMPORTANTE: Las rutas con [ref] (parámetros dinámicos) NO se incluyen en el sitemap
- * porque son variaciones de la misma página con tracking de referidos.
+ * PÁGINAS EXCLUIDAS (noindex - funnel interno):
+ * - /reto-5-dias, /reto-5-dias/gracias → Squeeze/Bridge pages para ADS
+ * - /nosotros → Epiphany Bridge, SEO en página personal Luis Cabrejo Parra
+ * - /tecnologia → Diferenciador interno, sin keywords buscables
+ * - /productos → Duplicado, SEO en /sistema/productos
  *
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
@@ -41,22 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // ========================================
-    // FUNNEL PRINCIPAL - Reto 5 Días (Russell Brunson)
-    // ========================================
-    {
-      url: `${baseUrl}/reto-5-dias`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.95, // Squeeze Page - entrada principal del funnel
-    },
-    {
-      url: `${baseUrl}/reto-5-dias/gracias`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.5, // Bridge Page - solo tráfico post-registro
-    },
-
-    // ========================================
     // FUNDADORES (Alta prioridad - conversión)
     // ========================================
     {
@@ -64,16 +51,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'daily', // Cambia diariamente (contador de cupos)
       priority: 0.95,
-    },
-
-    // ========================================
-    // NOSOTROS (Epiphany Bridge Story)
-    // ========================================
-    {
-      url: `${baseUrl}/nosotros`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.8,
     },
 
     // ========================================
@@ -106,29 +83,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // ========================================
-    // TECNOLOGÍA Y PRODUCTOS
-    // ========================================
-    {
-      url: `${baseUrl}/tecnologia`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/productos`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-
-    // ========================================
-    // SISTEMA (Páginas de soporte)
+    // SISTEMA (Páginas SEO de producto)
     // ========================================
     {
       url: `${baseUrl}/sistema/productos`,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 0.8,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/sistema/socio-corporativo`,

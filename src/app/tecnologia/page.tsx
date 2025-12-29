@@ -11,6 +11,7 @@ import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';
 export const metadata = {
   title: 'Tecnología Queswa - Tu Ventaja Injusta | CreaTuActivo',
   description: 'Conoce Queswa, la inteligencia artificial que educa, filtra y trabaja 24/7 para que tú no tengas que vender. La tecnología que diferencia a CreaTuActivo.',
+  robots: { index: false, follow: true }, // Página interna de funnel
 };
 
 export default function TecnologiaPage() {

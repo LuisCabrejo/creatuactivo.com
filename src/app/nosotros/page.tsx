@@ -14,7 +14,7 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 export const metadata = {
   title: 'Mi Historia - De Empleado Exitoso a Arquitecto de Activos | CreaTuActivo',
   description: 'Conoce la historia de Luis Cabrejo: 20 años de éxito corporativo, la quiebra a los 40, y el descubrimiento del sistema que cambió todo. La misión de 4 millones de familias.',
-  keywords: 'luis cabrejo, arquitecto de activos, historia de éxito, libertad financiera, transformación financiera',
+  robots: { index: false, follow: true }, // SEO en página personal Luis Cabrejo Parra
 };
 
 export default function NosotrosPage() {

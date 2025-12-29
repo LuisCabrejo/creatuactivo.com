@@ -16,17 +16,9 @@ import Link from 'next/link'
 import {
   ChevronDown,
   X,
-  Zap,
-  BrainCircuit,
   Box,
   Users,
-  GraduationCap,
-  Briefcase,
-  MonitorSmartphone,
-  School,
   ShieldCheck,
-  Lightbulb,
-  Home,
   Target,
   Menu
 } from 'lucide-react'
@@ -488,18 +480,6 @@ export default function StrategicNavigation() {
       name: 'El Sistema',
       items: [
         {
-          name: 'Nuestro Framework (IAA)',
-          href: '/sistema/framework-iaa',
-          icon: <Zap className="w-5 h-5 text-blue-400" />,
-          description: 'La metodología propietaria para la construcción de activos.'
-        },
-        {
-          name: 'Nuestra Tecnología',
-          href: '/sistema/tecnologia',
-          icon: <BrainCircuit className="w-5 h-5 text-purple-400" />,
-          description: 'NEXUS IA y NodeX: tu ventaja competitiva.'
-        },
-        {
           name: 'Nuestros Productos',
           href: '/sistema/productos',
           icon: <Box className="w-5 h-5 text-green-400" />,
@@ -510,64 +490,6 @@ export default function StrategicNavigation() {
           href: '/sistema/socio-corporativo',
           icon: <ShieldCheck className="w-5 h-5 text-yellow-400" />,
           description: 'Gano Excel: la base de credibilidad y trayectoria.'
-        }
-      ]
-    },
-    {
-      name: 'Soluciones',
-      items: [
-        {
-          name: 'Profesional con Visión',
-          href: '/soluciones/profesional-con-vision',
-          icon: <Briefcase className="w-5 h-5 text-cyan-400" />,
-          description: 'Para construir un activo, no solo una carrera.'
-        },
-        {
-          name: 'Emprendedor y Dueño de Negocio',
-          href: '/soluciones/emprendedor-negocio',
-          icon: <MonitorSmartphone className="w-5 h-5 text-orange-400" />,
-          description: 'Para escalar con un sistema, no con más tareas.'
-        },
-        {
-          name: 'Independiente y Freelancer',
-          href: '/soluciones/independiente-freelancer',
-          icon: <Lightbulb className="w-5 h-5 text-purple-400" />,
-          description: 'Para convertir el talento en un activo escalable.'
-        },
-        {
-          name: 'Líder del Hogar',
-          href: '/soluciones/lider-del-hogar',
-          icon: <Home className="w-5 h-5 text-pink-400" />,
-          description: 'Para construir con flexibilidad y propósito.'
-        },
-        {
-          name: 'Líder de la Comunidad',
-          href: '/soluciones/lider-comunidad',
-          icon: <Users className="w-5 h-5 text-teal-400" />,
-          description: 'Para transformar tu influencia en un legado tangible.'
-        },
-        {
-          name: 'Joven con Ambición',
-          href: '/soluciones/joven-con-ambicion',
-          icon: <School className="w-5 h-5 text-green-400" />,
-          description: 'Para construir un activo antes de empezar una carrera.'
-        }
-      ]
-    },
-    {
-      name: 'El Ecosistema',
-      items: [
-        {
-          name: 'La Comunidad',
-          href: '/ecosistema/comunidad',
-          icon: <Users className="w-5 h-5 text-teal-400" />,
-          description: 'Historias de éxito, eventos y el pulso humano.'
-        },
-        {
-          name: 'La Academia',
-          href: '/ecosistema/academia',
-          icon: <GraduationCap className="w-5 h-5 text-indigo-400" />,
-          description: 'Rutas de aprendizaje para maestros constructores.'
         }
       ]
     }

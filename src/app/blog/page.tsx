@@ -15,10 +15,10 @@ export const metadata = {
 const articles = [
   {
     slug: 'network-marketing-obsoleto',
-    title: '¿El Network Marketing Tradicional Está Obsoleto?',
-    excerpt: 'El modelo de los 90s murió. Pero una nueva versión está emergiendo con tecnología del 2025.',
+    title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos',
+    excerpt: 'El modelo de los 90s murió. Descubre por qué evolucionamos hacia un sistema de construcción de activos.',
     category: 'Industria',
-    readTime: '5 min',
+    readTime: '6 min',
     featured: true,
   },
   {

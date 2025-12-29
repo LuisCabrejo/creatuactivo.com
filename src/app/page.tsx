@@ -73,7 +73,7 @@ export default function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center px-6 py-20">
+    <section className="relative min-h-[90vh] flex items-center justify-center px-6 pt-32 pb-20">
       {/* Background gradient */}
       <div
         className="absolute inset-0"

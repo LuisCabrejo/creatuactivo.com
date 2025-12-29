@@ -35,26 +35,30 @@ export default function HomePage() {
             backgroundRepeat: 'no-repeat',
           }}
         />
-        {/* HERO SECTION */}
-        <HeroSection />
 
-        {/* EL PROBLEMA (EL VILLANO) */}
-        <ProblemSection />
+        {/* Content wrapper - above background */}
+        <div className="relative z-10">
+          {/* HERO SECTION */}
+          <HeroSection />
 
-        {/* EL SISTEMA */}
-        <SystemSection />
+          {/* EL PROBLEMA (EL VILLANO) */}
+          <ProblemSection />
 
-        {/* EL ARQUITECTO */}
-        <ArchitectSection />
+          {/* EL SISTEMA */}
+          <SystemSection />
 
-        {/* TESTIMONIOS */}
-        <TestimonialsSection />
+          {/* EL ARQUITECTO */}
+          <ArchitectSection />
 
-        {/* CTA FINAL */}
-        <FinalCTASection />
+          {/* TESTIMONIOS */}
+          <TestimonialsSection />
 
-        {/* FOOTER */}
-        <Footer />
+          {/* CTA FINAL */}
+          <FinalCTASection />
+
+          {/* FOOTER */}
+          <Footer />
+        </div>
       </main>
     </>
   );

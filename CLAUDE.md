@@ -149,6 +149,18 @@ Hybrid caching strategy for Next.js App Router:
 
 **Registered in**: [src/app/layout.tsx](src/app/layout.tsx) via inline script
 
+**PWA Icons & Manifest** (Dic 2025):
+- **Manifest**: [public/site.webmanifest](public/site.webmanifest)
+- **Theme color**: #D4AF37 (gold - Quiet Luxury)
+- **Background**: #0a0a0f (dark)
+- **Icons** (generated from [public/favicon.svg](public/favicon.svg)):
+  - `web-app-manifest-192x192.png` - PWA icon
+  - `web-app-manifest-512x512.png` - PWA splash
+  - `favicon-96x96.png` - Browser tab
+  - `apple-touch-icon.png` - iOS home screen
+
+**Regenerate icons**: `node scripts/generate-pwa-icons.mjs` (requires sharp)
+
 ### 3. Async Queue Architecture
 
 **Database trigger architecture** (no external queue service):
@@ -205,23 +217,42 @@ Tráfico Frío (Ads/Redes) → /reto-5-dias (Squeeze Page)
                          WhatsApp 5 días (Nurture)
                               ↓
                          /fundadores (Oferta)
+
+Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
+                              ↓
+                         /reto-5-dias o /fundadores
 ```
 
 **Active Pages**:
 ```
 src/app/
-├── page.tsx                         # Homepage (Quiet Luxury style)
+├── page.tsx                         # Homepage (Funnel Hub, Quiet Luxury style)
 ├── layout.tsx                       # Root layout (tracking + Queswa chatbot)
-├── reto-5-dias/                     # 🎯 MAIN FUNNEL ENTRY
+├── reto-5-dias/                     # 🎯 MAIN FUNNEL ENTRY (noindex)
 │   ├── page.tsx                     # Squeeze page (minimal, form only)
+│   ├── layout.tsx                   # noindex metadata
 │   ├── gracias/page.tsx             # Bridge page (Epiphany Bridge story)
-│   └── [ref]/page.tsx               # Referral tracking version
+│   ├── [ref]/page.tsx               # Referral tracking version
+│   ├── dolor/page.tsx               # A/B variant: emotional pain
+│   ├── analitico/page.tsx           # A/B variant: analytical approach
+│   └── global/page.tsx              # A/B variant: global opportunity
 ├── fundadores/                      # Main founder signup (oferta)
 │   └── [ref]/page.tsx               # Referral tracking
+├── nosotros/                        # Epiphany Bridge Story (noindex - SEO en luiscabrejo.com)
+├── blog/                            # 📝 SEO SHADOW FUNNEL
+│   ├── page.tsx                     # Blog index
+│   ├── network-marketing-obsoleto/  # SEO article
+│   ├── empleo-vs-activos/           # SEO article
+│   └── legalidad-network-marketing/ # SEO article
+├── tecnologia/                      # Queswa brand search landing (indexed)
+├── productos/                       # Product catalog (noindex - SEO en /sistema/productos)
 ├── presentacion-empresarial/        # Support tool for 1-on-1 (NOT in menu)
 │   └── [ref]/page.tsx               # Referral tracking
+├── webinar/                         # Webinar funnel (WIP)
+│   ├── page.tsx                     # Registration page
+│   └── sala/page.tsx                # Live room with countdown
 ├── sistema/
-│   ├── productos/                   # Product catalog
+│   ├── productos/                   # Product catalog (SEO indexed)
 │   │   └── [ref]/page.tsx
 │   └── socio-corporativo/           # Gano Excel info
 ├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
@@ -233,10 +264,17 @@ src/app/
 ├── offline/                         # PWA offline fallback
 └── api/
     ├── nexus/                       # Queswa chatbot API
-    ├── funnel/route.ts              # Funnel form submissions
+    ├── funnel/route.ts              # Funnel form submissions (reto + webinar)
     ├── fundadores/route.ts
     └── constructor/[id]/route.ts
 ```
+
+**SEO Strategy** (Dic 2025):
+- **Indexed pages**: `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
+- **noindex pages** (funnel interno):
+  - `/reto-5-dias/*` → Squeeze/Bridge para ADS
+  - `/nosotros` → SEO en página personal Luis Cabrejo Parra
+  - `/productos` → Duplicado, SEO en `/sistema/productos`
 
 **Removed Pages** (with 301 redirects in next.config.js):
 - `/soluciones/*` → `/reto-5-dias` (6 persona pages eliminated)
@@ -244,14 +282,15 @@ src/app/
 - `/fundadores-network` → `/fundadores`
 - `/fundadores-profesionales` → `/fundadores`
 - `/sistema/framework-iaa` → `/reto-5-dias`
-- `/sistema/tecnologia` → `/reto-5-dias`
+- `/sistema/tecnologia` → `/tecnologia`
 - `/reto-12-dias` → `/reto-12-niveles`
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
 **Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx)):
-- **Desktop Menu**: El Sistema (Productos, Socio Corporativo) + Mi Auditoría CTA
-- **Removed from menu**: Soluciones, Ecosistema, Presentación (simplified for funnel focus)
+- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Reto 5 Días" CTA
+- **Mobile CTA**: "Unirme al Reto" → /reto-5-dias
+- **Removed from menu**: Soluciones, Ecosistema, Presentación, Auditoría
 - **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
 
 ## Environment Variables
@@ -517,5 +556,8 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Video**:
 - `optimize-video.sh` - Optimize to multiple resolutions (requires FFmpeg)
 - `upload-to-blob.mjs` - Upload to Vercel Blob
+
+**PWA**:
+- `generate-pwa-icons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
 
 **Note**: Most scripts require `.env.local` variables. Run `ls scripts/` for full list.

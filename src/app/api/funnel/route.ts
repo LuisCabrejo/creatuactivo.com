@@ -3,6 +3,7 @@
  * API Funnel - Endpoint para Calculadora y Reto 5 Días
  *
  * Guarda leads del funnel Russell Brunson en Supabase
+ * Envía notificación WhatsApp via Twilio (Sandbox para testing)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -10,6 +11,12 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
+import { Reto5DiasConfirmationEmail } from '@/emails/Reto5DiasConfirmation';
+
+// Twilio configuration
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886';
 
 // Lazy initialization de Resend client
 let resendClient: Resend | null = null;
@@ -164,6 +171,20 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // Enviar WhatsApp de bienvenida para Reto 5 Días (async, no bloquea la respuesta)
+    if (data.step === 'reto_registered' && data.whatsapp) {
+      sendWhatsAppMessage(data.whatsapp, data.name).catch(err => {
+        console.error('❌ [FUNNEL] Error WhatsApp:', err);
+      });
+    }
+
+    // Enviar email de confirmación para Reto 5 Días
+    if (data.step === 'reto_registered' && data.email) {
+      sendRetoWelcomeEmail(data.email, data.name).catch(err => {
+        console.error('❌ [FUNNEL] Error Email Reto:', err);
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Lead guardado exitosamente',
@@ -176,6 +197,113 @@ export async function POST(request: NextRequest) {
       { error: 'Error interno del servidor' },
       { status: 500 }
     );
+  }
+}
+
+// Función para enviar WhatsApp via Twilio
+async function sendWhatsAppMessage(
+  to: string,
+  name: string | null
+) {
+  // Verificar configuración de Twilio
+  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN) {
+    console.log('⚠️ [WHATSAPP] Twilio no configurado, saltando envío');
+    return;
+  }
+
+  // Formatear número (asegurar formato internacional)
+  let phoneNumber = to.replace(/\D/g, ''); // Solo números
+  if (phoneNumber.startsWith('57') && phoneNumber.length === 12) {
+    // Ya tiene código de país Colombia
+  } else if (phoneNumber.length === 10) {
+    phoneNumber = '57' + phoneNumber; // Agregar código Colombia
+  }
+
+  const whatsappTo = `whatsapp:+${phoneNumber}`;
+  const firstName = name?.split(' ')[0] || 'Hola';
+
+  // Mensaje de bienvenida al Reto 5 Días
+  // Nota: En sandbox solo podemos usar templates pre-aprobados
+  // Para mensajes personalizados necesitamos WhatsApp Business API en producción
+
+  try {
+    // Usar la API de Twilio con autenticación Account SID + Auth Token
+    const credentials = Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString('base64');
+
+    const response = await fetch(
+      `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${credentials}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          From: TWILIO_WHATSAPP_FROM,
+          To: whatsappTo,
+          // Mensaje directo para sandbox (no requiere template aprobado)
+          Body: `¡Hola ${firstName}! 👋
+
+Bienvenido al Reto 5 Días de CreaTuActivo.
+
+Tu registro está confirmado. Mañana recibirás el Día 1: "El Diagnóstico".
+
+Guarda este número para no perderte ningún mensaje.
+
+- Luis de CreaTuActivo`,
+        }).toString(),
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log('✅ [WHATSAPP] Mensaje enviado a', whatsappTo, '| SID:', result.sid);
+    } else {
+      console.error('❌ [WHATSAPP] Error:', result.message || result);
+    }
+  } catch (err) {
+    console.error('❌ [WHATSAPP] Exception:', err);
+  }
+}
+
+// Función para enviar email de bienvenida al Reto 5 Días
+async function sendRetoWelcomeEmail(
+  email: string,
+  name: string | null
+) {
+  const firstName = name?.split(' ')[0] || 'Hola';
+
+  try {
+    const emailHtml = await render(
+      Reto5DiasConfirmationEmail({ firstName })
+    );
+
+    const { data, error } = await getResendClient().emails.send({
+      from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
+      to: [email],
+      subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
+      html: emailHtml,
+    });
+
+    if (error) {
+      console.error('❌ [EMAIL RETO] Error:', error);
+      return;
+    }
+
+    console.log('📧 [EMAIL RETO] Enviado a', email, '| ID:', data?.id);
+
+    // Actualizar el lead con el tracking
+    await getSupabaseClient()
+      .from('funnel_leads')
+      .update({
+        last_email_sent: 0, // Email 0 = bienvenida
+        last_email_sent_at: new Date().toISOString(),
+      })
+      .eq('email', email.toLowerCase());
+
+  } catch (err) {
+    console.error('❌ [EMAIL RETO] Exception:', err);
   }
 }
 

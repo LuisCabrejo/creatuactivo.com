@@ -142,18 +142,30 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="mt-8 bg-[#12121a] rounded-xl border border-[#D4AF37]/30 p-6">
-            <h4 className="font-semibold text-[#D4AF37] mb-3">El problema no es la persona. Es el método.</h4>
-            <p className="text-[#a0a0a8] mb-4">
-              Cuando alguien me pregunta a qué me dedico, respondo:
-              <br />
-              <strong className="text-[#f5f5f5]">"Ayudo a las personas a pasar de dependientes a soberanos financieramente."</strong>
-            </p>
-            <p className="text-[#a0a0a8]">
-              La respuesta: <strong className="text-[#D4AF37]">"Wooow, me interesa."</strong>
-              <br /><br />
-              Eso no es talento. <strong className="text-[#f5f5f5]">Es tener un sistema que atrae en lugar de perseguir.</strong>
-            </p>
+          <div className="mt-8 bg-[#12121a] rounded-xl border border-[#D4AF37]/30 p-8">
+            <h4 className="font-semibold text-[#D4AF37] mb-4 text-lg">Mi Historia</h4>
+            <div className="space-y-4 text-[#a0a0a8] leading-relaxed">
+              <p>
+                Cuando empecé, no me costaba. <strong className="text-[#f5f5f5]">5 presentaciones, 4 iniciaban.</strong> Pensé que duplicar sería igual de fácil.
+              </p>
+              <p>
+                Pero cuando mi equipo empezó a crecer, descubrí algo incómodo:
+                <strong className="text-[#D4AF37]"> lo que para mí era fácil, para ellos era difícil.</strong>
+              </p>
+              <p>
+                Ellos no sabían qué decir. Les daba miedo llamar. Y yo no podía estar en cada presentación.
+              </p>
+              <p>
+                Ahí entendí: <strong className="text-[#f5f5f5]">el problema no era mi gente. Era que el método dependía de MÍ.</strong>
+              </p>
+              <p>
+                Necesitaba un sistema que hiciera el trabajo pesado — educar, responder objeciones, generar interés —
+                para que cuando mi equipo hablara con alguien, esa persona ya llegara lista.
+              </p>
+              <p className="text-[#D4AF37] font-semibold pt-2">
+                Eso es lo que construimos.
+              </p>
+            </div>
           </div>
         </div>
       </section>

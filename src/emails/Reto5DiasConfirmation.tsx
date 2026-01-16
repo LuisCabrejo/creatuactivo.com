@@ -76,26 +76,35 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              backgroundColor: colors.gold,
-              borderRadius: '8px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto'
-            }}>
-              <span style={{
-                color: colors.bg,
-                fontSize: '28px',
-                fontWeight: '700',
-                fontFamily: 'Georgia, serif'
-              }}>C</span>
-            </div>
-          </Section>
+          {/* Logo - Using table for email client compatibility */}
+          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
+            <tr>
+              <td align="center">
+                <table cellPadding={0} cellSpacing={0} border={0}>
+                  <tr>
+                    <td
+                      align="center"
+                      valign="middle"
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        backgroundColor: colors.gold,
+                        borderRadius: '8px',
+                      }}
+                    >
+                      <span style={{
+                        color: colors.bg,
+                        fontSize: '28px',
+                        fontWeight: '700',
+                        fontFamily: 'Georgia, serif',
+                        lineHeight: '48px',
+                      }}>C</span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
 
           {/* Título */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px' }}>

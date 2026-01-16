@@ -101,15 +101,15 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
             {/* CTA */}
             <Section style={ctaSection}>
               <Button
-                href="https://creatuactivo.com/fundadores?source=reto-dia5"
+                href="https://creatuactivo.com/webinar?source=reto-dia5"
                 style={ctaButton}
               >
-                Quiero Ver Cómo Funciona
+                Reservar Mi Lugar en el Webinar
               </Button>
             </Section>
 
             <Text style={noteText}>
-              Esta invitación es para personas que completaron el Reto 5 Días. Hay cupos limitados porque cada persona recibe acompañamiento real.
+              En este webinar exclusivo te mostraré exactamente cómo funciona el sistema. Solo para quienes completaron el Reto 5 Días.
             </Text>
 
             <Text style={paragraph}>

@@ -105,33 +105,44 @@ export default function GraciasPage() {
               </div>
             </div>
 
-            {/* Story Summary (for now, before video is ready) */}
+            {/* Story Summary - Epiphany Bridge Oficial */}
             <div className="bg-[#0a0a0f] rounded-2xl p-8 border border-[#2a2a35]">
               <h3
                 className="text-2xl mb-6"
                 style={{ fontFamily: 'Georgia, serif' }}
               >
-                La historia corta
+                Mi historia (versión corta)
               </h3>
 
               <div className="space-y-4 text-[#a0a0a8]">
                 <p>
-                  <strong className="text-[#f5f5f5]">A los 40 años estaba quebrado.</strong> 12 años emprendiendo,
-                  múltiples negocios, y cada uno terminaba igual: dependiendo de mí 24/7.
+                  Cuando estaba de novio con mi esposa, la llevé a un mirador en los Llanos que se llama{' '}
+                  <strong className="text-[#f5f5f5]">Buena Vista</strong>. Ahí le hice tres promesas:
+                  una casa de campo, compras sin mirar la etiqueta, y tres hijos.
                 </p>
                 <p>
-                  Entonces encontré un modelo que funcionaba matemáticamente diferente. No era vender mi tiempo,
-                  era construir un <span className="text-[#D4AF37]">activo que generara ingresos sin mi presencia constante</span>.
+                  <strong className="text-[#f5f5f5]">Catorce años después...</strong> de las tres promesas,
+                  solo le había cumplido con los tres hijos.
                 </p>
                 <p>
-                  El problema: la infraestructura para ejecutarlo estaba rota. Tuve que hacerlo de la forma difícil.
-                  2.5 años después, era el #1 de mi organización.
+                  No era por falta de esfuerzo. Mi vida se había convertido en lo que llamo el{' '}
+                  <span className="text-[#D4AF37] font-medium">&quot;Plan por Defecto&quot;</span>: trabajar como loco
+                  para pagar las cuentas, y repetir al mes siguiente.
                 </p>
                 <p>
-                  <strong className="text-[#f5f5f5]">Y me pregunté:</strong> ¿Qué hubiera pasado si hubiera tenido las herramientas correctas desde el día 1?
+                  Encontré un modelo diferente. En 2.5 años, fui el #1 de mi organización. Pero mi éxito no se duplicaba.
+                  Lo que para mí era natural, para otros era una lucha constante.
                 </p>
-                <p className="text-[#D4AF37] font-medium">
-                  Esa pregunta se convirtió en CreaTuActivo.
+                <p>
+                  <strong className="text-[#f5f5f5]">Esa fue mi primera epifanía:</strong> un sistema que solo funciona
+                  para algunos no es una solución real.
+                </p>
+                <p>
+                  Después vino el e-commerce. Otra vez funcionó para mí, pero requería saber de marketing, SEO, logística...{' '}
+                  <strong className="text-[#f5f5f5]">Segunda epifanía:</strong> el problema no era la gente, era el modelo.
+                </p>
+                <p className="text-[#D4AF37] font-medium text-lg mt-6">
+                  &quot;La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra.&quot;
                 </p>
               </div>
             </div>

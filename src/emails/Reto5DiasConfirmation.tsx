@@ -76,34 +76,48 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo - Using table for email client compatibility */}
+          {/* Logo - Using table for maximum email client compatibility */}
           <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
-            <tr>
-              <td align="center">
-                <table cellPadding={0} cellSpacing={0} border={0}>
-                  <tr>
-                    <td
-                      align="center"
-                      valign="middle"
-                      style={{
-                        width: '48px',
-                        height: '48px',
-                        backgroundColor: colors.gold,
-                        borderRadius: '8px',
-                      }}
-                    >
-                      <span style={{
-                        color: colors.bg,
-                        fontSize: '28px',
-                        fontWeight: '700',
-                        fontFamily: 'Georgia, serif',
-                        lineHeight: '48px',
-                      }}>C</span>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td align="center" style={{ padding: 0 }}>
+                  <table
+                    width="48"
+                    height="48"
+                    cellPadding={0}
+                    cellSpacing={0}
+                    border={0}
+                    style={{
+                      backgroundColor: colors.gold,
+                      borderRadius: '8px',
+                      width: '48px',
+                      height: '48px',
+                    }}
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          align="center"
+                          valign="middle"
+                          width="48"
+                          height="48"
+                          style={{
+                            color: colors.bg,
+                            fontSize: '28px',
+                            fontWeight: 700,
+                            fontFamily: 'Georgia, serif',
+                            textAlign: 'center',
+                            verticalAlign: 'middle',
+                          }}
+                        >
+                          C
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
           </table>
 
           {/* Título */}

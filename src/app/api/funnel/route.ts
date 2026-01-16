@@ -27,6 +27,28 @@ function getResendClient(): Resend {
   return resendClient;
 }
 
+// Helper para reintentos con backoff exponencial
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+): Promise<T> {
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error as Error;
+      if (attempt < maxRetries - 1) {
+        const delay = baseDelay * Math.pow(2, attempt);
+        console.log(`⏳ Reintento ${attempt + 1}/${maxRetries} en ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+  throw lastError;
+}
+
 // Lazy initialization de Supabase client
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 function getSupabaseClient() {
@@ -279,19 +301,23 @@ async function sendRetoWelcomeEmail(
       Reto5DiasConfirmationEmail({ firstName })
     );
 
-    const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <reto@creatuactivo.com>',
-      to: [email],
-      subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
-      html: emailHtml,
-    });
+    // Usar withRetry para manejar timeouts temporales
+    const result = await withRetry(async () => {
+      const { data, error } = await getResendClient().emails.send({
+        from: 'CreaTuActivo <reto@creatuactivo.com>',
+        to: [email],
+        subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
+        html: emailHtml,
+      });
 
-    if (error) {
-      console.error('❌ [EMAIL RETO] Error:', error);
-      return;
-    }
+      if (error) {
+        throw new Error(error.message || 'Error enviando email');
+      }
 
-    console.log('📧 [EMAIL RETO] Enviado a', email, '| ID:', data?.id);
+      return data;
+    }, 3, 1000); // 3 reintentos, empezando con 1s de delay
+
+    console.log('📧 [EMAIL RETO] Enviado a', email, '| ID:', result?.id);
 
     // Actualizar el lead con el tracking
     await getSupabaseClient()

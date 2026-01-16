@@ -78,18 +78,26 @@ export const Reto5DiasConfirmationEmail = ({
         >
 
           {/* Logo */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
-            <Img
-              src="https://creatuactivo.com/logo-email-header-200x80.png"
-              width="200"
-              height="80"
-              alt="CreaTuActivo"
-              style={{
-                margin: '0 auto',
-                display: 'block',
-              }}
-            />
-          </Section>
+          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
+            <tbody>
+              <tr>
+                <td align="center" valign="middle" style={{ padding: 0 }}>
+                  <Img
+                    src="https://creatuactivo.com/logo-email-header-200x80.png"
+                    width="200"
+                    height="80"
+                    alt="CreaTuActivo"
+                    style={{
+                      display: 'block',
+                      width: '200px',
+                      height: '80px',
+                      maxWidth: '100%',
+                    }}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           {/* Título */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px' }}>

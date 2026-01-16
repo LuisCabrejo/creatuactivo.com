@@ -13,6 +13,7 @@ import {
   Heading,
   Hr,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -76,49 +77,19 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo - Using table for maximum email client compatibility */}
-          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
-            <tbody>
-              <tr>
-                <td align="center" style={{ padding: 0 }}>
-                  <table
-                    width="48"
-                    height="48"
-                    cellPadding={0}
-                    cellSpacing={0}
-                    border={0}
-                    style={{
-                      backgroundColor: colors.gold,
-                      borderRadius: '8px',
-                      width: '48px',
-                      height: '48px',
-                    }}
-                  >
-                    <tbody>
-                      <tr>
-                        <td
-                          align="center"
-                          valign="middle"
-                          width="48"
-                          height="48"
-                          style={{
-                            color: colors.bg,
-                            fontSize: '28px',
-                            fontWeight: 700,
-                            fontFamily: 'Georgia, serif',
-                            textAlign: 'center',
-                            verticalAlign: 'middle',
-                          }}
-                        >
-                          C
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {/* Logo */}
+          <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
+            <Img
+              src="https://creatuactivo.com/logo-email-header-200x80.png"
+              width="200"
+              height="80"
+              alt="CreaTuActivo"
+              style={{
+                margin: '0 auto',
+                display: 'block',
+              }}
+            />
+          </Section>
 
           {/* Título */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px' }}>

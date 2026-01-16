@@ -83,13 +83,13 @@ export const Reto5DiasConfirmationEmail = ({
               <tr>
                 <td align="center" valign="middle" style={{ padding: 0 }}>
                   <Img
-                    src="https://creatuactivo.com/logo-email-header-200x80.png"
-                    width="200"
+                    src="https://creatuactivo.com/logo-email-header-280x80.png"
+                    width="280"
                     height="80"
                     alt="CreaTuActivo"
                     style={{
                       display: 'block',
-                      width: '200px',
+                      width: '280px',
                       height: '80px',
                       maxWidth: '100%',
                     }}

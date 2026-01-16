@@ -280,7 +280,7 @@ async function sendRetoWelcomeEmail(
     );
 
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
+      from: 'CreaTuActivo <reto@creatuactivo.com>',
       to: [email],
       subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
       html: emailHtml,
@@ -321,7 +321,7 @@ async function sendFirstEmail(
     );
 
     const { data, error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo <notificaciones@creatuactivo.com>',
+      from: 'Luis de CreaTuActivo <reto@creatuactivo.com>',
       to: [email],
       subject: `${firstName}, tu resultado + mi historia`,
       html: emailHtml,

@@ -1,17 +1,13 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Todos los derechos reservados.
- *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * OpenGraph Image - Quiet Luxury Branding
+ * Estilo: Private Equity / Banca Privada
  */
 
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo.com - Tu Ecosistema, Tu Activo, Tu Futuro'
+export const alt = 'CreaTuActivo - Estrategia de Soberanía Financiera'
 export const size = {
   width: 1200,
   height: 630,
@@ -29,71 +25,111 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          background: '#0F1115',
           padding: '80px',
+          position: 'relative',
         }}
       >
+        {/* Subtle gold gradient overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 60%)',
+            display: 'flex',
+          }}
+        />
+
         {/* Logo marca */}
         <div
           style={{
-            fontSize: 52,
-            fontWeight: 700,
-            color: '#94a3b8',
-            marginBottom: 40,
-            letterSpacing: '0.1em',
+            fontSize: 24,
+            fontWeight: 500,
+            color: '#A3A3A3',
+            marginBottom: 50,
+            letterSpacing: '0.3em',
             display: 'flex',
+            textTransform: 'uppercase',
           }}
         >
-          CREATUACTIVO
+          CreaTuActivo
         </div>
 
-        {/* Título principal gigante */}
+        {/* Título principal */}
         <div
           style={{
-            fontSize: 110,
-            fontWeight: 900,
-            background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #F59E0B 100%)',
-            backgroundClip: 'text',
-            color: 'transparent',
+            fontSize: 72,
+            fontWeight: 300,
+            color: '#E5E5E5',
             textAlign: 'center',
-            lineHeight: 1,
-            marginBottom: 50,
+            lineHeight: 1.2,
+            marginBottom: 20,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            letterSpacing: '-0.03em',
+            fontFamily: 'Georgia, serif',
           }}
         >
-          <span style={{ display: 'flex', marginBottom: 15 }}>CONSTRUYE</span>
-          <span style={{ display: 'flex' }}>ACTIVOS</span>
+          <span style={{ display: 'flex' }}>Estrategia de</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Soberanía Financiera</span>
         </div>
 
         {/* Tagline */}
         <div
           style={{
-            fontSize: 42,
-            fontWeight: 700,
-            color: '#fff',
+            fontSize: 28,
+            fontWeight: 400,
+            color: '#A3A3A3',
             textAlign: 'center',
             display: 'flex',
-            marginBottom: 80,
+            marginTop: 30,
+            maxWidth: 800,
           }}
         >
-          No Solo Ingresos
+          Construye el chasis que te permita detenerte sin que todo colapse.
         </div>
 
-        {/* Footer */}
+        {/* Footer - Byline */}
         <div
           style={{
             position: 'absolute',
             bottom: 50,
-            fontSize: 28,
-            color: '#64748b',
-            fontWeight: 600,
             display: 'flex',
+            alignItems: 'center',
+            gap: 40,
           }}
         >
-          Framework IAA · Ecosistema Completo
+          <div
+            style={{
+              fontSize: 18,
+              color: '#6B7280',
+              fontWeight: 400,
+              display: 'flex',
+            }}
+          >
+            Luis Cabrejo · Arquitecto de Activos
+          </div>
+          <div
+            style={{
+              width: 1,
+              height: 20,
+              backgroundColor: '#374151',
+              display: 'flex',
+            }}
+          />
+          <div
+            style={{
+              fontSize: 18,
+              color: '#6B7280',
+              fontWeight: 400,
+              display: 'flex',
+            }}
+          >
+            Presencia en 70+ Países
+          </div>
         </div>
       </div>
     ),

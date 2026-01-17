@@ -1,17 +1,13 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Todos los derechos reservados.
- *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * OpenGraph Image - Catálogo de Productos
+ * Estilo: Quiet Luxury / Premium Boutique
  */
 
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Productos Gano Excel - CreaTuActivo.com'
+export const alt = 'Catálogo de Productos - Infraestructura Bioactiva Global'
 export const size = {
   width: 1200,
   height: 630,
@@ -29,64 +25,73 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          background: '#0F1115',
           padding: '80px',
+          position: 'relative',
         }}
       >
-        {/* Ícono reducido */}
+        {/* Subtle gold gradient overlay */}
         <div
           style={{
-            fontSize: 80,
-            marginBottom: 30,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.06) 0%, transparent 60%)',
             display: 'flex',
           }}
+        />
+
+        {/* Badge */}
+        <div
+          style={{
+            fontSize: 16,
+            fontWeight: 500,
+            color: '#C5A059',
+            marginBottom: 40,
+            letterSpacing: '0.2em',
+            display: 'flex',
+            textTransform: 'uppercase',
+            padding: '10px 24px',
+            border: '1px solid rgba(197, 160, 89, 0.3)',
+            borderRadius: 100,
+          }}
         >
-          📦
+          Infraestructura Global
         </div>
 
         {/* Título principal */}
         <div
           style={{
-            fontSize: 95,
-            fontWeight: 900,
-            background: 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)',
-            backgroundClip: 'text',
-            color: 'transparent',
+            fontSize: 80,
+            fontWeight: 300,
+            color: '#E5E5E5',
             textAlign: 'center',
-            lineHeight: 1,
-            marginBottom: 30,
+            lineHeight: 1.1,
+            marginBottom: 20,
             display: 'flex',
-            letterSpacing: '-0.02em',
+            flexDirection: 'column',
+            alignItems: 'center',
+            fontFamily: 'Georgia, serif',
           }}
         >
-          GANO EXCEL
+          <span style={{ display: 'flex' }}>Catálogo de</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Productos</span>
         </div>
 
         {/* Subtítulo */}
         <div
           style={{
-            fontSize: 46,
-            fontWeight: 700,
-            color: '#fff',
+            fontSize: 28,
+            fontWeight: 400,
+            color: '#A3A3A3',
             textAlign: 'center',
-            marginBottom: 20,
             display: 'flex',
+            marginTop: 20,
           }}
         >
-          Fórmula Exclusiva Mundial
-        </div>
-
-        {/* Detalle */}
-        <div
-          style={{
-            fontSize: 38,
-            fontWeight: 600,
-            color: '#94a3b8',
-            display: 'flex',
-            marginBottom: 80,
-          }}
-        >
-          Ganoderma Lucidum
+          Extracto exclusivo de Ganoderma Lucidum · 200+ Fitonutrientes
         </div>
 
         {/* Footer */}
@@ -94,13 +99,39 @@ export default async function Image() {
           style={{
             position: 'absolute',
             bottom: 50,
-            fontSize: 32,
-            color: '#64748b',
-            fontWeight: 600,
             display: 'flex',
+            alignItems: 'center',
+            gap: 40,
           }}
         >
-          CreaTuActivo.com
+          <div
+            style={{
+              fontSize: 18,
+              color: '#6B7280',
+              fontWeight: 400,
+              display: 'flex',
+            }}
+          >
+            CreaTuActivo.com
+          </div>
+          <div
+            style={{
+              width: 1,
+              height: 20,
+              backgroundColor: '#374151',
+              display: 'flex',
+            }}
+          />
+          <div
+            style={{
+              fontSize: 18,
+              color: '#6B7280',
+              fontWeight: 400,
+              display: 'flex',
+            }}
+          >
+            Distribución en 70+ Países desde 1995
+          </div>
         </div>
       </div>
     ),

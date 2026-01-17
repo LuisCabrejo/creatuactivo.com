@@ -145,6 +145,7 @@ const CRITICAL_NAVIGATION_CSS = `
     position: relative;
     color: #A3A3A3;
     font-weight: 500;
+    letter-spacing: 0.05em;
     cursor: pointer;
     text-decoration: none;
     padding: 0.5rem 0;
@@ -472,12 +473,12 @@ export default function StrategicNavigation() {
     }
   }, [isMobileMenuOpen])
 
-  // Links directos sin dropdown (Funnel Hub structure)
+  // Links directos sin dropdown (Arquitectura de Activos - Quiet Luxury)
   const directLinks = [
-    { name: 'Nosotros', href: '/nosotros' },
-    { name: 'Tecnología', href: '/tecnologia' },
-    { name: 'Productos', href: '/productos' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Manifiesto', href: '/nosotros' },
+    { name: 'El Sistema', href: '/tecnologia' },
+    { name: 'Infraestructura', href: '/productos' },
+    { name: 'Insights', href: '/blog' },
   ]
 
   const closeMobileMenu = () => {
@@ -585,7 +586,7 @@ export default function StrategicNavigation() {
         <div className="strategic-mobile-content">
           {/* Links Directos */}
           <div className="strategic-mobile-section">
-            <h3 className="strategic-mobile-section-title">Explora</h3>
+            <h3 className="strategic-mobile-section-title">Descubre</h3>
             {directLinks.map((link) => (
               <Link
                 key={link.name}

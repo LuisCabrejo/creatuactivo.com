@@ -1,7 +1,11 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
  * Reto 5 Días - Día 1: El Diagnóstico
- * "Tu métrica más importante"
+ * "Sobre el número que acabas de ver..."
+ *
+ * FLUJO HÍBRIDO: Funciona para usuarios que:
+ * 1. Ya usaron la Calculadora en Home (valida su dolor)
+ * 2. Entraron directo al Reto (los invita a calcular)
  */
 
 import * as React from 'react';
@@ -24,7 +28,7 @@ interface Dia1Props {
 }
 
 export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
-  const previewText = `Día 1: ${firstName}, tu métrica más importante`;
+  const previewText = `Sobre el número que acabas de ver... (El Diagnóstico)`;
 
   return (
     <Html lang="es">
@@ -60,69 +64,55 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
             </Text>
 
             <Text style={paragraph}>
-              Hoy vamos a hablar de la métrica que cambiará tu forma de ver el dinero para siempre.
+              Si llegaste aquí a través de nuestra página de inicio, es probable que ya hayas pasado por la <strong style={{ color: '#C5A059' }}>Calculadora de Libertad</strong> y hayas visto tu número.
+            </Text>
+
+            <Text style={inlineLink}>
+              (Si aún no lo has hecho, <a href="https://creatuactivo.com/calculadora?source=reto-dia1" style={link}>calcula tu número aquí</a> antes de seguir leyendo.)
             </Text>
 
             <Text style={paragraph}>
-              Se llama <strong style={{ color: '#D4AF37' }}>Días de Libertad</strong>.
+              Ahora, hablemos con la verdad sobre ese número.
             </Text>
 
             <Text style={highlightBox}>
-              <strong>¿Cuántos días podrías vivir si mañana dejaras de trabajar?</strong>
+              Para la gran mayoría de profesionales, el resultado es <strong>menos de 30 días</strong>. Eso significa que estás a un solo mes de distancia de la quiebra técnica si tu ingreso principal se detiene.
             </Text>
 
             <Text style={paragraph}>
-              La fórmula es simple:
-            </Text>
-
-            <Text style={formula}>
-              Ahorros ÷ Gastos Mensuales × 30 = Días de Libertad
+              Ese número no es para juzgarte. <strong style={{ color: '#E5E5E5' }}>Es para despertarte.</strong>
             </Text>
 
             <Text style={paragraph}>
-              Si tienes $10,000 ahorrados y gastas $2,000 al mes:
-              <br />
-              <span style={{ color: '#D4AF37' }}>$10,000 ÷ $2,000 × 30 = 150 días</span>
+              Yo estuve ahí. Tenía un "buen cargo", pero mis Días de Libertad eran casi cero. Vivía en lo que llamo la <strong style={{ color: '#C5A059' }}>Zona de Peligro</strong>: corriendo cada vez más rápido solo para quedarme en el mismo lugar.
             </Text>
 
             <Text style={paragraph}>
-              Ahora, la pregunta incómoda:
+              La razón por la que tu número es bajo no es porque gastes mucho o ganes poco. Es porque estás operando bajo el <strong style={{ color: '#E5E5E5' }}>"Plan por Defecto"</strong>.
             </Text>
 
             <Text style={paragraph}>
-              <strong style={{ color: '#f5f5f5' }}>¿Cuál es TU número?</strong>
+              El sistema tradicional (empleo o autoempleo lineal) está diseñado matemáticamente para que tus gastos crezcan a la par de tus ingresos, manteniéndote atrapado en ese ciclo de 30 días.
+            </Text>
+
+            <Text style={highlightBox}>
+              <strong>La buena noticia:</strong> No necesitas "ahorrar más" (eso es lento y doloroso). Necesitas <strong style={{ color: '#C5A059' }}>cambiar de vehículo</strong>.
             </Text>
 
             <Text style={paragraph}>
-              La mayoría de las personas que hacen este cálculo por primera vez descubren que tienen menos de 30 días. Algunos, cero.
+              Mañana, en el Día 2, te voy a mostrar por qué tu vehículo actual tiene un "motor defectuoso" para crear libertad, y cuál es la alternativa que usan los verdaderos Arquitectos de Activos.
             </Text>
 
             <Text style={paragraph}>
-              No te juzgo. Yo estuve exactamente ahí.
-            </Text>
-
-            <Text style={paragraph}>
-              Y esa es precisamente la razón por la que creé este reto: para mostrarte que hay otra forma.
-            </Text>
-
-            {/* CTA */}
-            <Section style={ctaSection}>
-              <Button
-                href="https://creatuactivo.com/calculadora?source=reto-dia1"
-                style={ctaButton}
-              >
-                Calcular mis Días de Libertad
-              </Button>
-            </Section>
-
-            <Text style={paragraph}>
-              Mañana te explicaré por qué tu plan actual probablemente no te llevará a donde quieres.
+              <strong style={{ color: '#C5A059' }}>Tu viaje para cambiar ese número rojo a verde acaba de empezar.</strong>
             </Text>
 
             <Text style={signature}>
-              — Luis
+              Nos vemos mañana,
+              <br /><br />
+              Luis "El Arquitecto" Cabrejo
               <br />
-              <span style={signatureTitle}>Día 1 de 5</span>
+              <span style={signatureTitle}>Fundador, CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -145,7 +135,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
 export default Dia1Diagnostico;
 
 const main = {
-  backgroundColor: '#0a0a0f',
+  backgroundColor: '#0F1115',
   fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 };
 
@@ -166,7 +156,7 @@ const dayBadge = {
 };
 
 const dayNumber = {
-  color: '#D4AF37',
+  color: '#C5A059',
   fontSize: '14px',
   fontWeight: '600',
   letterSpacing: '2px',
@@ -201,40 +191,27 @@ const paragraph = {
 };
 
 const highlightBox = {
-  backgroundColor: '#12121a',
-  borderLeft: '4px solid #D4AF37',
+  backgroundColor: '#1A1D23',
+  borderLeft: '4px solid #C5A059',
   padding: '20px 24px',
-  color: '#f5f5f5',
-  fontSize: '18px',
+  color: '#E5E5E5',
+  fontSize: '17px',
   lineHeight: '1.6',
   margin: '24px 0',
   borderRadius: '0 8px 8px 0',
 };
 
-const formula = {
-  backgroundColor: '#12121a',
-  padding: '16px 24px',
-  color: '#D4AF37',
-  fontSize: '16px',
-  fontFamily: 'monospace',
-  margin: '16px 0',
-  borderRadius: '8px',
-  textAlign: 'center' as const,
+const inlineLink = {
+  color: '#A3A3A3',
+  fontSize: '15px',
+  lineHeight: '1.6',
+  margin: '0 0 24px',
+  fontStyle: 'italic' as const,
 };
 
-const ctaSection = {
-  textAlign: 'center' as const,
-  margin: '32px 0',
-};
-
-const ctaButton = {
-  backgroundColor: '#D4AF37',
-  borderRadius: '8px',
-  color: '#0a0a0f',
-  fontSize: '16px',
-  fontWeight: '600',
-  textDecoration: 'none',
-  padding: '14px 32px',
+const link = {
+  color: '#C5A059',
+  textDecoration: 'underline',
 };
 
 const signature = {
@@ -245,7 +222,7 @@ const signature = {
 };
 
 const signatureTitle = {
-  color: '#D4AF37',
+  color: '#C5A059',
   fontSize: '14px',
 };
 

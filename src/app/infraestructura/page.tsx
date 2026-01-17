@@ -10,40 +10,13 @@
 
 import Link from 'next/link';
 import { Leaf, Factory, Globe, Coffee, Shield, TrendingUp, ArrowDown, ChevronRight } from 'lucide-react';
+import StrategicNavigation from '@/components/StrategicNavigation';
 
 export default function InfraestructuraPage() {
   return (
     <>
-      {/* ═══════════════════════════════════════════════════════════════
-          NAVEGACIÓN MÍNIMA - Institutional Style
-          ═══════════════════════════════════════════════════════════════ */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-[#0F1115]/90 backdrop-blur-md border-b border-[rgba(197,160,89,0.1)]">
-        <nav className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 md:w-10 md:h-10">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
-                  <path d="M14 5 H5 V27 H20"/>
-                  <path d="M16 27 V10 H27 V27"/>
-                  <path d="M16 18 H27"/>
-                </g>
-              </svg>
-            </div>
-            <span className="hidden sm:flex items-baseline transition-opacity group-hover:opacity-80">
-              <span className="font-sans text-lg md:text-xl font-normal text-[#E5E5E5] tracking-wide">CreaTu</span>
-              <span className="font-serif text-lg md:text-xl font-bold text-[#C5A059]">Activo</span>
-            </span>
-          </Link>
-
-          <Link
-            href="/reto-5-dias"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 hover:translate-y-[-1px] bg-[#C5A059] text-[#0F1115]"
-          >
-            Reto 5 Días
-            <ChevronRight className="w-4 h-4" />
-          </Link>
-        </nav>
-      </header>
+      {/* Navegación estándar del sitio */}
+      <StrategicNavigation />
 
       <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
         {/* Subtle gradient overlay */}

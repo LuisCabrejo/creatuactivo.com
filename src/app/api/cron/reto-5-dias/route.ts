@@ -38,13 +38,13 @@ function getSupabaseClient() {
   return supabaseClient;
 }
 
-// Configuración de la secuencia
+// Configuración de la secuencia (Soap Opera Sequence optimizada v4)
 const RETO_5_DIAS_SEQUENCE = [
-  { day: 1, subject: '🎯 Día 1: Tu métrica más importante', component: 'Dia1Diagnostico' },
-  { day: 2, subject: '🚗 Día 2: Por qué tu plan no funciona', component: 'Dia2Vehiculos' },
-  { day: 3, subject: '📐 Día 3: La fórmula que lo cambió todo', component: 'Dia3Modelo' },
-  { day: 4, subject: '🎭 Día 4: La verdad incómoda', component: 'Dia4Estigma' },
-  { day: 5, subject: '🚀 Día 5: Tu invitación está lista', component: 'Dia5Invitacion' },
+  { day: 1, subject: 'La métrica que te quita el sueño (Días de Libertad)', component: 'Dia1Diagnostico' },
+  { day: 2, subject: 'Por qué trabajar duro no te hará rico', component: 'Dia2Vehiculos' },
+  { day: 3, subject: 'Las 3 promesas que le hice a mi esposa (y las 2 que rompí)', component: 'Dia3Modelo' },
+  { day: 4, subject: 'Gané dinero, pero perdí mi vida (La verdad del E-commerce)', component: 'Dia4Estigma' },
+  { day: 5, subject: 'Tu turno de cumplir promesas', component: 'Dia5Invitacion' },
 ];
 
 // Mapeo de componentes
@@ -162,7 +162,7 @@ export async function GET(request: NextRequest) {
         const emailHtml = await render(Component({ firstName }));
 
         const { error: emailError } = await getResendClient().emails.send({
-          from: 'Luis de CreaTuActivo <reto@creatuactivo.com>',
+          from: 'Luis de CreaTuActivo <test@creatuactivo.com>',
           to: [lead.email],
           subject: emailConfig.subject.replace('{{firstName}}', firstName),
           html: emailHtml,

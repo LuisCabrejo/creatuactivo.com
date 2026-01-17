@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
 
     // Enviar email de confirmación para Reto 5 Días
     if (data.step === 'reto_registered' && data.email) {
-      sendRetoWelcomeEmail(data.email, data.name).catch(err => {
+      sendRetoWelcomeEmail(data.email, data.name, data.whatsapp || null).catch(err => {
         console.error('❌ [FUNNEL] Error Email Reto:', err);
       });
     }
@@ -292,7 +292,8 @@ Guarda este número para no perderte ningún mensaje.
 // Función para enviar email de bienvenida al Reto 5 Días
 async function sendRetoWelcomeEmail(
   email: string,
-  name: string | null
+  name: string | null,
+  whatsapp: string | null
 ) {
   const firstName = name?.split(' ')[0] || 'Hola';
 
@@ -304,7 +305,7 @@ async function sendRetoWelcomeEmail(
     // Usar withRetry para manejar timeouts temporales
     const result = await withRetry(async () => {
       const { data, error } = await getResendClient().emails.send({
-        from: 'CreaTuActivo <reto@creatuactivo.com>',
+        from: 'CreaTuActivo <test@creatuactivo.com>',
         to: [email],
         subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
         html: emailHtml,
@@ -328,8 +329,78 @@ async function sendRetoWelcomeEmail(
       })
       .eq('email', email.toLowerCase());
 
+    // Enviar notificación al admin
+    await sendAdminNotification(email, name, whatsapp);
+
   } catch (err) {
     console.error('❌ [EMAIL RETO] Exception:', err);
+  }
+}
+
+// Función para notificar al admin de nuevo registro
+async function sendAdminNotification(
+  userEmail: string,
+  name: string | null,
+  whatsapp: string | null
+) {
+  const firstName = name?.split(' ')[0] || 'Sin nombre';
+  const phoneClean = whatsapp?.replace(/\D/g, '') || '';
+  const fechaRegistro = new Date().toLocaleString('es-CO', {
+    timeZone: 'America/Bogota',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+
+  const adminHtml = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 20px; background-color: #0f172a; color: #f8fafc;">
+      <div style="margin-bottom: 24px;">
+        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Reto 5 Días</span>
+        <h1 style="margin: 8px 0 0; color: #f8fafc; font-size: 28px; font-weight: 700;">Nuevo Registro</h1>
+        <p style="margin: 8px 0 0; color: #64748b; font-size: 14px;">${fechaRegistro}</p>
+      </div>
+
+      <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+        <p style="margin: 0 0 16px; color: #f8fafc; font-size: 14px; font-weight: 600;">Datos del Prospecto</p>
+
+        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Nombre</p>
+        <p style="margin: 0 0 16px; color: #f8fafc; font-size: 16px;">${name || 'No proporcionado'}</p>
+
+        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Correo</p>
+        <p style="margin: 0 0 16px;"><a href="mailto:${userEmail}" style="color: #3b82f6; font-size: 16px; text-decoration: none;">${userEmail}</a></p>
+
+        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">WhatsApp</p>
+        <p style="margin: 0;"><a href="https://wa.me/${phoneClean}" style="color: #22c55e; font-size: 16px; text-decoration: none;">${whatsapp || 'No proporcionado'}</a></p>
+      </div>
+
+      ${phoneClean ? `
+      <div style="margin-bottom: 24px;">
+        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Reto%20de%205%20D%C3%ADas.%20%C2%BFTienes%20alguna%20pregunta%3F"
+           style="display: block; background-color: #22c55e; color: #ffffff; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; text-align: center;">
+          Contactar por WhatsApp
+        </a>
+      </div>
+      ` : ''}
+
+      <hr style="border: none; border-top: 1px solid #334155; margin: 0 0 24px;">
+      <p style="margin: 0; color: #64748b; font-size: 12px; text-align: center;">© ${new Date().getFullYear()} CreaTuActivo.com - Sistema de Notificaciones</p>
+    </div>
+  `;
+
+  try {
+    const { error } = await getResendClient().emails.send({
+      from: 'CreaTuActivo Notificaciones <test@creatuactivo.com>',
+      to: ['luiscabrejo7@gmail.com', 'notificaciones@creatuactivo.com'],
+      subject: `🎯 Nuevo registro Reto 5 Días: ${firstName}`,
+      html: adminHtml,
+    });
+
+    if (error) {
+      console.error('❌ [ADMIN NOTIFY] Error:', error);
+    } else {
+      console.log('✅ [ADMIN NOTIFY] Notificación enviada para', userEmail);
+    }
+  } catch (err) {
+    console.error('❌ [ADMIN NOTIFY] Exception:', err);
   }
 }
 
@@ -347,7 +418,7 @@ async function sendFirstEmail(
     );
 
     const { data, error } = await getResendClient().emails.send({
-      from: 'Luis de CreaTuActivo <reto@creatuactivo.com>',
+      from: 'Luis de CreaTuActivo <test@creatuactivo.com>',
       to: [email],
       subject: `${firstName}, tu resultado + mi historia`,
       html: emailHtml,

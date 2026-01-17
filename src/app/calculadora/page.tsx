@@ -1,33 +1,41 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Calculadora de Días de Libertad - Lead Magnet Principal
- * "La libertad no es un concepto abstracto. Es una métrica matemática."
+ * Calculadora de Días de Libertad v3.0 - THE ARCHITECT'S SUITE
+ * Protocolo Funnel v4
  *
- * Simplificado a 3 preguntas siguiendo principios de Russell Brunson:
- * Menos fricción = Más conversiones
+ * Cambios clave:
+ * 1. Captura de email ANTES de mostrar resultados
+ * 2. Sistema semafórico de colores (Rojo/Amarillo/Verde)
+ * 3. THE ARCHITECT'S SUITE branding
  */
 
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
-// 🎨 Quiet Luxury Color Palette
-const QUIET_LUXURY = {
-  gold: '#D4AF37',
-  goldMuted: '#C9A962',
-  goldDark: '#B8962F',
-  bgDeep: '#0a0a0f',
-  bgSurface: '#12121a',
-  bgCard: '#1a1a24',
-  bgElevated: '#22222e',
-  textPrimary: '#f5f5f5',
-  textSecondary: '#a0a0a8',
-  textMuted: '#6b6b75',
-  border: '#2a2a35',
+// ============================================================================
+// THE ARCHITECT'S SUITE - COLOR PALETTE
+// ============================================================================
+
+const COLORS = {
+  bg: { main: '#0F1115', card: '#1A1D23' },
+  gold: { primary: '#C5A059', hover: '#D4AF37', bronze: '#B38B59' },
+  text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3' },
+  border: { subtle: 'rgba(197, 160, 89, 0.2)', card: 'rgba(197, 160, 89, 0.1)' },
+  // Semáforo
+  semaphore: {
+    red: '#dc2626',
+    redBg: 'rgba(220, 38, 38, 0.15)',
+    yellow: '#eab308',
+    yellowBg: 'rgba(234, 179, 8, 0.15)',
+    green: '#22c55e',
+    greenBg: 'rgba(34, 197, 94, 0.15)',
+  }
 };
 
-// 3 preguntas esenciales - Russell Brunson style
+// 3 preguntas simplificadas
 const questions = [
   {
     id: 'situation',
@@ -53,100 +61,134 @@ const questions = [
     ],
   },
   {
-    id: 'passiveIncome',
-    question: '¿Cuánto dinero entra a tu cuenta cada mes SIN trabajar?',
-    subtext: 'Arriendos, inversiones, regalías, dividendos... ingreso pasivo real',
+    id: 'savings',
+    question: '¿Cuánto tienes ahorrado ahora mismo?',
+    subtext: 'Cuentas de ahorro, inversiones líquidas, colchón de emergencia',
     options: [
-      { value: 0, label: '$0 - No tengo ingreso pasivo' },
-      { value: 500000, label: 'Menos de $500K COP' },
-      { value: 1500000, label: '$500K - $2M COP' },
-      { value: 4000000, label: '$2M - $5M COP' },
-      { value: 8000000, label: 'Más de $5M COP' },
+      { value: 0, label: '$0 - No tengo ahorros' },
+      { value: 2000000, label: 'Menos de $2M COP' },
+      { value: 5000000, label: '$2M - $8M COP' },
+      { value: 15000000, label: '$8M - $20M COP' },
+      { value: 40000000, label: 'Más de $20M COP' },
     ],
   },
 ];
 
+type Step = 'quiz' | 'capture' | 'results';
+
 export default function CalculadoraPage() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [step, setStep] = useState<Step>('quiz');
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
-  const [showResults, setShowResults] = useState(false);
-  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', whatsapp: '' });
 
   const handleAnswer = (questionId: string, value: number | string) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
 
-    if (currentStep < questions.length - 1) {
-      setTimeout(() => setCurrentStep(prev => prev + 1), 300);
+    if (currentQuestion < questions.length - 1) {
+      setTimeout(() => setCurrentQuestion(prev => prev + 1), 300);
     } else {
-      setTimeout(() => setShowResults(true), 300);
+      setTimeout(() => setStep('capture'), 300);
     }
   };
 
   const calculateResults = () => {
     const monthlyExpenses = (answers.monthlyExpenses as number) || 5000000;
-    const passiveIncome = (answers.passiveIncome as number) || 0;
-    const situation = (answers.situation as string) || 'empleado';
+    const savings = (answers.savings as number) || 0;
 
-    // LA FÓRMULA CLAVE: (Ingreso Pasivo / Gastos) × 365
     const freedomDays = monthlyExpenses > 0
-      ? Math.min(Math.floor((passiveIncome / monthlyExpenses) * 365), 365)
+      ? Math.floor((savings / monthlyExpenses) * 30)
       : 0;
-
-    const freedomPercentage = (freedomDays / 365) * 100;
 
     return {
       freedomDays,
-      freedomPercentage,
-      passiveIncome,
+      savings,
       monthlyExpenses,
-      situation,
+      situation: answers.situation as string,
     };
   };
 
-  const handleLeadSubmit = async (e: React.FormEvent) => {
+  const handleCapture = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.email) return;
+
     setIsSubmitting(true);
 
     try {
-      // Calcular resultados para enviar
-      const calculatorResults = calculateResults();
+      const results = calculateResults();
 
-      // Enviar datos al API
-      const response = await fetch('/api/funnel', {
+      await fetch('/api/funnel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.email,
           name: formData.name,
-          whatsapp: formData.whatsapp,
           source: 'calculadora',
           step: 'calculator_completed',
-          situation: calculatorResults.situation,
-          monthlyExpenses: calculatorResults.monthlyExpenses,
-          passiveIncome: calculatorResults.passiveIncome,
-          freedomDays: calculatorResults.freedomDays,
+          situation: results.situation,
+          monthlyExpenses: results.monthlyExpenses,
+          savings: results.savings,
+          freedomDays: results.freedomDays,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error('Error guardando datos');
-      }
-
-      // Redirigir al Reto con datos
-      const params = new URLSearchParams({
-        source: 'calculadora',
-        email: formData.email,
-        name: formData.name,
-        dias: String(calculatorResults.freedomDays),
-      });
-      window.location.href = `/reto-5-dias?${params.toString()}`;
-
     } catch (error) {
       console.error('Error:', error);
-      // Aún así redirigir para no bloquear al usuario
-      window.location.href = '/reto-5-dias?source=calculadora';
+    }
+
+    setIsSubmitting(false);
+    setStep('results');
+  };
+
+  const results = step === 'results' ? calculateResults() : null;
+
+  const getSemaphoreColor = (days: number) => {
+    if (days < 30) return {
+      color: COLORS.semaphore.red,
+      bg: COLORS.semaphore.redBg,
+      label: 'Zona de Peligro',
+      emoji: '🔴'
+    };
+    if (days < 180) return {
+      color: COLORS.semaphore.yellow,
+      bg: COLORS.semaphore.yellowBg,
+      label: 'Estabilidad Falsa',
+      emoji: '🟡'
+    };
+    return {
+      color: COLORS.semaphore.green,
+      bg: COLORS.semaphore.greenBg,
+      label: 'Listo para Invertir',
+      emoji: '🟢'
+    };
+  };
+
+  const getMessage = (days: number) => {
+    if (days === 0) {
+      return {
+        title: 'Dependes 100% de tu trabajo.',
+        body: 'Si mañana no puedes trabajar—por enfermedad, despido, o cualquier imprevisto—no tienes ni un solo día de respaldo.',
+      };
+    } else if (days < 30) {
+      return {
+        title: `Solo ${days} días de respaldo.`,
+        body: 'Menos de un mes. Una emergencia, una reestructuración, y tu situación cambia completamente.',
+      };
+    } else if (days < 90) {
+      return {
+        title: `${days} días. Algo es algo.`,
+        body: 'Tienes algo construido, pero aún estás lejos de la libertad real. ¿Qué pasaría si pudieras duplicar este número en 12 meses?',
+      };
+    } else if (days < 180) {
+      return {
+        title: `${days} días. Vas por buen camino.`,
+        body: 'Ya entiendes el concepto. La pregunta es: ¿cómo aceleras para llegar a 365 días de soberanía total?',
+      };
+    } else {
+      return {
+        title: `${days} días. Impresionante.`,
+        body: 'Estás más cerca que el 99% de las personas. Con el sistema correcto, podrías alcanzar soberanía completa.',
+      };
     }
   };
 
@@ -159,218 +201,79 @@ export default function CalculadoraPage() {
     }).format(value);
   };
 
-  const results = showResults ? calculateResults() : null;
-
-  const getMessage = () => {
-    if (!results) return { title: '', body: '' };
-
-    const { freedomDays, situation } = results;
-
-    // Personalización sutil basada en situación
-    const situationContext = situation === 'empleado'
-      ? 'Tu trabajo no es el problema. Es depender 100% de él.'
-      : situation === 'emprendedor'
-      ? 'Tener un negocio es el primer paso. Construir un activo es el segundo.'
-      : situation === 'freelancer'
-      ? 'Ser independiente es libertad de horario. No es libertad real.'
-      : '';
-
-    if (freedomDays === 0) {
-      return {
-        title: 'Dependes 100% de tu trabajo.',
-        body: `Si mañana no puedes trabajar—por enfermedad, despido, o cualquier imprevisto—no tienes ni un solo día de respaldo. ${situationContext}`,
-      };
-    } else if (freedomDays < 30) {
-      return {
-        title: `Solo ${freedomDays} días de respaldo.`,
-        body: `Menos de un mes. Una emergencia, una reestructuración, y tu situación cambia completamente. El problema no eres tú. Es que nadie te enseñó a construir un activo.`,
-      };
-    } else if (freedomDays < 90) {
-      return {
-        title: `${freedomDays} días no es libertad.`,
-        body: 'Tienes algo construido, pero aún dependes mayoritariamente de tu trabajo. ¿Qué pasaría si pudieras duplicar o triplicar tus días de libertad en los próximos 12 meses?',
-      };
-    } else if (freedomDays < 180) {
-      return {
-        title: `${freedomDays} días. Vas por buen camino.`,
-        body: 'Ya entiendes el concepto. Ahora la pregunta es: ¿cómo aceleras para llegar a 365 días de soberanía total?',
-      };
-    } else if (freedomDays < 365) {
-      return {
-        title: `${freedomDays} días. Casi libre.`,
-        body: 'Estás más cerca que el 99% de las personas. Con el sistema correcto, podrías alcanzar soberanía completa.',
-      };
-    } else {
-      return {
-        title: '365 días. Soberanía total.',
-        body: 'Tu ingreso pasivo cubre tus gastos. Trabajas porque quieres, no porque necesitas. Este es el objetivo.',
-      };
-    }
-  };
-
   return (
     <>
       <StrategicNavigation />
 
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
-        .calculator-container {
-          min-height: 100vh;
-          background: ${QUIET_LUXURY.bgDeep};
-          color: ${QUIET_LUXURY.textPrimary};
-          font-family: 'Inter', -apple-system, sans-serif;
-        }
-
-        .display-font {
-          font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        .option-card {
-          background: ${QUIET_LUXURY.bgCard};
-          border: 1px solid transparent;
-          border-radius: 12px;
-          padding: 16px 20px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .option-card:hover {
-          border-color: ${QUIET_LUXURY.gold};
-          transform: translateY(-2px);
-        }
-
-        .option-card.selected {
-          border-color: ${QUIET_LUXURY.gold};
-          background: rgba(212, 175, 55, 0.1);
-        }
-
-        .progress-bar {
-          height: 4px;
-          background: ${QUIET_LUXURY.bgCard};
-          border-radius: 2px;
-          overflow: hidden;
-        }
-
-        .progress-fill {
-          height: 100%;
-          background: ${QUIET_LUXURY.gold};
-          transition: width 0.5s ease;
-        }
-
-        .input-field {
-          width: 100%;
-          background: ${QUIET_LUXURY.bgSurface};
-          border: 1px solid ${QUIET_LUXURY.border};
-          border-radius: 12px;
-          padding: 16px;
-          color: ${QUIET_LUXURY.textPrimary};
-          font-size: 16px;
-          outline: none;
-          transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-          border-color: ${QUIET_LUXURY.gold};
-          box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        }
-
-        .input-field::placeholder {
-          color: ${QUIET_LUXURY.textMuted};
-        }
-
-        .cta-button {
-          background: ${QUIET_LUXURY.gold};
-          color: ${QUIET_LUXURY.bgDeep};
-          font-weight: 600;
-          padding: 16px 32px;
-          border-radius: 12px;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 16px;
-          width: 100%;
-        }
-
-        .cta-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-        }
-
-        .cta-button:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-          transform: none;
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fadeInUp 0.5s ease forwards;
-        }
-      `}</style>
-
-      <div className="calculator-container pt-8">
+      <div
+        className="min-h-screen pt-8"
+        style={{
+          backgroundColor: COLORS.bg.main,
+          color: COLORS.text.main,
+          fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
+        }}
+      >
         {/* Progress Bar */}
-        {!showResults && (
+        {step === 'quiz' && (
           <div className="max-w-2xl mx-auto px-4 mb-8">
-            <div className="progress-bar">
+            <div
+              className="h-1 rounded-full overflow-hidden"
+              style={{ backgroundColor: COLORS.bg.card }}
+            >
               <div
-                className="progress-fill"
-                style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+                className="h-full transition-all duration-500"
+                style={{
+                  backgroundColor: COLORS.gold.primary,
+                  width: `${((currentQuestion + 1) / questions.length) * 100}%`,
+                }}
               />
             </div>
             <p
               className="text-sm mt-2 text-center"
-              style={{ color: QUIET_LUXURY.textMuted }}
+              style={{ color: COLORS.text.muted }}
             >
-              Pregunta {currentStep + 1} de {questions.length}
+              Pregunta {currentQuestion + 1} de {questions.length}
             </p>
           </div>
         )}
 
-        {/* Questions */}
-        {!showResults && (
-          <section className="px-4 pb-16 animate-fade-in" key={currentStep}>
+        {/* QUIZ STEP */}
+        {step === 'quiz' && (
+          <section className="px-4 pb-16 animate-fade-in" key={currentQuestion}>
             <div className="max-w-2xl mx-auto">
               <div
                 className="p-8 rounded-2xl"
                 style={{
-                  background: QUIET_LUXURY.bgSurface,
-                  border: `1px solid ${QUIET_LUXURY.border}`,
+                  backgroundColor: COLORS.bg.card,
+                  border: `1px solid ${COLORS.border.card}`,
                 }}
               >
-                <h2 className="display-font text-2xl md:text-3xl font-medium mb-3">
-                  {questions[currentStep].question}
+                <h2
+                  className="text-2xl md:text-3xl font-medium mb-3 font-serif"
+                  style={{ color: COLORS.text.primary }}
+                >
+                  {questions[currentQuestion].question}
                 </h2>
                 <p
                   className="mb-8"
-                  style={{ color: QUIET_LUXURY.textSecondary }}
+                  style={{ color: COLORS.text.muted }}
                 >
-                  {questions[currentStep].subtext}
+                  {questions[currentQuestion].subtext}
                 </p>
 
                 <div className="space-y-3">
-                  {questions[currentStep].options.map((option) => (
+                  {questions[currentQuestion].options.map((option) => (
                     <button
                       key={String(option.value)}
-                      onClick={() => handleAnswer(questions[currentStep].id, option.value)}
-                      className={`option-card w-full text-left ${
-                        answers[questions[currentStep].id] === option.value ? 'selected' : ''
-                      }`}
+                      onClick={() => handleAnswer(questions[currentQuestion].id, option.value)}
+                      className="w-full text-left p-4 rounded-xl transition-all duration-300 hover:translate-x-1"
+                      style={{
+                        backgroundColor: COLORS.bg.main,
+                        border: `1px solid ${answers[questions[currentQuestion].id] === option.value ? COLORS.gold.primary : COLORS.border.card}`,
+                        color: COLORS.text.main,
+                      }}
                     >
-                      <span style={{ color: QUIET_LUXURY.textPrimary }}>
-                        {option.label}
-                      </span>
+                      {option.label}
                     </button>
                   ))}
                 </div>
@@ -379,229 +282,250 @@ export default function CalculadoraPage() {
           </section>
         )}
 
-        {/* Results */}
-        {showResults && results && !showLeadForm && (
+        {/* CAPTURE STEP */}
+        {step === 'capture' && (
+          <section className="px-4 py-16 animate-fade-in">
+            <div className="max-w-md mx-auto text-center">
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"
+                style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }}
+              >
+                <svg
+                  className="w-10 h-10"
+                  style={{ color: COLORS.gold.primary }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                </svg>
+              </div>
+
+              <h2
+                className="text-2xl sm:text-3xl mb-4 font-serif"
+                style={{ color: COLORS.text.primary }}
+              >
+                Tu diagnóstico está listo
+              </h2>
+
+              <p
+                className="text-lg mb-8"
+                style={{ color: COLORS.text.muted }}
+              >
+                ¿A dónde enviamos tu reporte de libertad y el plan de acción?
+              </p>
+
+              <form
+                onSubmit={handleCapture}
+                className="space-y-4"
+                style={{
+                  backgroundColor: COLORS.bg.card,
+                  border: `1px solid ${COLORS.border.card}`,
+                  borderRadius: '16px',
+                  padding: '24px',
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={formData.name}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+                  style={{
+                    backgroundColor: COLORS.bg.main,
+                    border: `1px solid ${COLORS.border.card}`,
+                    color: COLORS.text.main,
+                  }}
+                />
+                <input
+                  type="email"
+                  placeholder="Tu email"
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  required
+                  className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+                  style={{
+                    backgroundColor: COLORS.bg.main,
+                    border: `1px solid ${COLORS.border.card}`,
+                    color: COLORS.text.main,
+                  }}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60 uppercase tracking-wide"
+                  style={{
+                    backgroundColor: COLORS.gold.primary,
+                    color: COLORS.bg.main,
+                  }}
+                >
+                  {isSubmitting ? 'Procesando...' : 'Ver Mi Resultado'}
+                </button>
+              </form>
+
+              <p
+                className="text-sm mt-6"
+                style={{ color: COLORS.text.muted }}
+              >
+                Tus datos están protegidos. Sin spam.
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* RESULTS STEP */}
+        {step === 'results' && results && (
           <section className="px-4 py-16 animate-fade-in">
             <div className="max-w-3xl mx-auto">
               {/* Título */}
               <div className="text-center mb-12">
                 <p
                   className="text-sm uppercase tracking-wider mb-4"
-                  style={{ color: QUIET_LUXURY.gold }}
+                  style={{ color: COLORS.gold.primary }}
                 >
                   Tu Resultado
                 </p>
-                <h1 className="display-font text-3xl md:text-4xl font-medium">
-                  Calculadora de Días de Libertad
+                <h1
+                  className="text-3xl md:text-4xl font-medium font-serif"
+                  style={{ color: COLORS.text.primary }}
+                >
+                  Días de Libertad
                 </h1>
               </div>
 
-              {/* Anillo Visual */}
-              <div className="flex justify-center mb-12">
-                <div
-                  style={{
-                    width: '280px',
-                    height: '280px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: `conic-gradient(${QUIET_LUXURY.gold} 0% ${results.freedomPercentage}%, ${QUIET_LUXURY.bgCard} ${results.freedomPercentage}% 100%)`,
-                    boxShadow: '0 0 60px rgba(212, 175, 55, 0.15)',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '240px',
-                      height: '240px',
-                      background: QUIET_LUXURY.bgDeep,
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <span
-                      className="display-font"
+              {/* Resultado con Semáforo */}
+              {(() => {
+                const semaphore = getSemaphoreColor(results.freedomDays);
+                const message = getMessage(results.freedomDays);
+
+                return (
+                  <>
+                    {/* Número grande con color semafórico */}
+                    <div
+                      className="text-center p-10 rounded-2xl mb-8"
                       style={{
-                        fontSize: '4.5rem',
-                        fontWeight: 500,
-                        color: QUIET_LUXURY.gold,
-                        lineHeight: 1,
+                        backgroundColor: semaphore.bg,
+                        border: `2px solid ${semaphore.color}`,
                       }}
                     >
-                      {results.freedomDays}
-                    </span>
-                    <span
+                      <div className="text-6xl mb-2">{semaphore.emoji}</div>
+                      <span
+                        className="text-7xl md:text-8xl font-bold font-serif"
+                        style={{ color: semaphore.color }}
+                      >
+                        {results.freedomDays}
+                      </span>
+                      <p
+                        className="text-xl mt-2"
+                        style={{ color: COLORS.text.muted }}
+                      >
+                        Días de Libertad
+                      </p>
+                      <p
+                        className="text-lg font-semibold mt-4"
+                        style={{ color: semaphore.color }}
+                      >
+                        {semaphore.label}
+                      </p>
+                    </div>
+
+                    {/* Mensaje */}
+                    <div
+                      className="p-8 rounded-2xl mb-8 text-center"
                       style={{
-                        fontSize: '1.1rem',
-                        color: QUIET_LUXURY.textSecondary,
-                        marginTop: '8px',
+                        backgroundColor: COLORS.bg.card,
+                        border: `1px solid ${COLORS.border.card}`,
                       }}
                     >
-                      Días de Libertad
-                    </span>
-                    <span
-                      style={{
-                        fontSize: '0.9rem',
-                        color: QUIET_LUXURY.textMuted,
-                      }}
-                    >
-                      de 365
-                    </span>
-                  </div>
-                </div>
-              </div>
+                      <h2
+                        className="text-2xl md:text-3xl font-medium mb-4 font-serif"
+                        style={{ color: COLORS.text.primary }}
+                      >
+                        {message.title}
+                      </h2>
+                      <p
+                        className="text-lg leading-relaxed"
+                        style={{ color: COLORS.text.muted }}
+                      >
+                        {message.body}
+                      </p>
+                    </div>
 
-              {/* Mensaje Impactante */}
-              <div
-                className="p-8 rounded-2xl mb-8 text-center"
-                style={{
-                  background: QUIET_LUXURY.bgSurface,
-                  border: `1px solid ${QUIET_LUXURY.border}`,
-                }}
-              >
-                <h2
-                  className="display-font text-2xl md:text-3xl font-medium mb-4"
-                  style={{ color: QUIET_LUXURY.gold }}
-                >
-                  {getMessage().title}
-                </h2>
-                <p
-                  className="text-lg leading-relaxed"
-                  style={{ color: QUIET_LUXURY.textSecondary }}
-                >
-                  {getMessage().body}
-                </p>
-              </div>
+                    {/* Datos de contexto */}
+                    <div className="grid md:grid-cols-2 gap-4 mb-10">
+                      <div
+                        className="p-6 rounded-xl text-center"
+                        style={{
+                          backgroundColor: COLORS.bg.card,
+                          border: `1px solid ${COLORS.border.card}`,
+                        }}
+                      >
+                        <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
+                          Ahorros actuales
+                        </p>
+                        <p
+                          className="text-2xl mt-2 font-serif"
+                          style={{
+                            color: results.savings === 0 ? COLORS.text.muted : COLORS.text.primary,
+                          }}
+                        >
+                          {results.savings === 0 ? '$0' : formatCurrency(results.savings)}
+                        </p>
+                      </div>
+                      <div
+                        className="p-6 rounded-xl text-center"
+                        style={{
+                          backgroundColor: COLORS.bg.card,
+                          border: `1px solid ${COLORS.border.card}`,
+                        }}
+                      >
+                        <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
+                          Gastos mensuales
+                        </p>
+                        <p
+                          className="text-2xl mt-2 font-serif"
+                          style={{ color: COLORS.text.primary }}
+                        >
+                          {formatCurrency(results.monthlyExpenses)}
+                        </p>
+                      </div>
+                    </div>
 
-              {/* Datos de Contexto - Solo 2 cards relevantes */}
-              <div className="grid md:grid-cols-2 gap-4 mb-10">
-                <div
-                  className="p-6 rounded-xl text-center"
-                  style={{
-                    background: QUIET_LUXURY.bgCard,
-                    border: `1px solid ${QUIET_LUXURY.border}`,
-                  }}
-                >
-                  <p style={{ color: QUIET_LUXURY.textMuted, fontSize: '0.875rem' }}>
-                    Gastos mensuales
-                  </p>
-                  <p
-                    className="display-font text-2xl mt-2"
-                    style={{ color: QUIET_LUXURY.textPrimary }}
-                  >
-                    {formatCurrency(results.monthlyExpenses)}
-                  </p>
-                </div>
-                <div
-                  className="p-6 rounded-xl text-center"
-                  style={{
-                    background: QUIET_LUXURY.bgCard,
-                    border: `1px solid ${QUIET_LUXURY.border}`,
-                  }}
-                >
-                  <p style={{ color: QUIET_LUXURY.textMuted, fontSize: '0.875rem' }}>
-                    Ingreso pasivo actual
-                  </p>
-                  <p
-                    className="display-font text-2xl mt-2"
-                    style={{ color: results.passiveIncome === 0 ? QUIET_LUXURY.textMuted : QUIET_LUXURY.gold }}
-                  >
-                    {results.passiveIncome === 0 ? '$0' : formatCurrency(results.passiveIncome)}
-                  </p>
-                </div>
-              </div>
+                    {/* CTA Final */}
+                    <div className="text-center">
+                      <p
+                        className="text-lg mb-6"
+                        style={{ color: COLORS.text.muted }}
+                      >
+                        ¿Quieres cambiar estos números?
+                      </p>
 
-              {/* CTA */}
-              <div className="text-center">
-                <button
-                  onClick={() => setShowLeadForm(true)}
-                  className="cta-button inline-block"
-                  style={{ maxWidth: '400px' }}
-                >
-                  Quiero cambiar esto
-                </button>
-                <p
-                  className="mt-4 text-sm"
-                  style={{ color: QUIET_LUXURY.textMuted }}
-                >
-                  Descubre cómo construir tu activo en 5 días
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
+                      <Link
+                        href="/reto-5-dias"
+                        className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
+                        style={{
+                          backgroundColor: COLORS.gold.primary,
+                          color: COLORS.bg.main,
+                          boxShadow: '0 0 20px rgba(197, 160, 89, 0.2)',
+                        }}
+                      >
+                        Ver la Solución (Reto 5 Días)
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
 
-        {/* Lead Form */}
-        {showLeadForm && (
-          <section className="px-4 py-16 animate-fade-in">
-            <div className="max-w-md mx-auto">
-              <div
-                className="p-8 rounded-2xl"
-                style={{
-                  background: QUIET_LUXURY.bgSurface,
-                  border: `1px solid ${QUIET_LUXURY.border}`,
-                }}
-              >
-                <div className="text-center mb-8">
-                  <h2 className="display-font text-2xl font-medium mb-3">
-                    ¿Listo para cambiar estos números?
-                  </h2>
-                  <p style={{ color: QUIET_LUXURY.textSecondary }}>
-                    En 5 días te muestro cómo construir un activo
-                    que trabaje para ti—sin dejar tu trabajo actual.
-                  </p>
-                </div>
-
-                <form onSubmit={handleLeadSubmit} className="space-y-4">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Tu nombre"
-                      value={formData.name}
-                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      required
-                      className="input-field"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Tu email"
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      required
-                      className="input-field"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="tel"
-                      placeholder="Tu WhatsApp"
-                      value={formData.whatsapp}
-                      onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
-                      required
-                      className="input-field"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="cta-button"
-                  >
-                    {isSubmitting ? 'Enviando...' : 'Unirme al Reto de 5 Días'}
-                  </button>
-                </form>
-
-                <p
-                  className="text-center text-sm mt-6"
-                  style={{ color: QUIET_LUXURY.textMuted }}
-                >
-                  100% gratis. Sin spam. Puedes salir cuando quieras.
-                </p>
-              </div>
+                      <p
+                        className="mt-6 text-sm"
+                        style={{ color: COLORS.text.muted }}
+                      >
+                        100% gratis. Sin compromiso. Descubre si este modelo es para ti.
+                      </p>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </section>
         )}

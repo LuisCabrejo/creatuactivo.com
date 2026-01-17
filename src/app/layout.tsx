@@ -5,17 +5,26 @@
  */
 
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Playfair_Display, Montserrat } from 'next/font/google';
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
 import CookieBanner from '@/components/CookieBanner';
 
-// Optimización PageSpeed: display swap + preload
-const inter = Inter({
+// THE ARCHITECT'S SUITE - Typography System
+// Playfair Display: Títulos, citas, encabezados (evoca autoridad editorial)
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  display: 'swap', // Evita FOIT (Flash of Invisible Text)
-  preload: true,
-  variable: '--font-inter'
+  display: 'swap',
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700'],
+});
+
+// Montserrat: Cuerpo, botones, navegación (limpio, moderno)
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+  weight: ['400', '500', '600', '700'],
 });
 
 export const viewport: Viewport = {
@@ -23,8 +32,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#D4AF37' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0f' },
+    { media: '(prefers-color-scheme: light)', color: '#C5A059' },
+    { media: '(prefers-color-scheme: dark)', color: '#0F1115' },
   ],
 };
 
@@ -247,7 +256,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} h-full bg-slate-900 text-white antialiased`}>
+      <body className={`${montserrat.variable} ${playfair.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
         <main className="relative">
           {children}
         </main>

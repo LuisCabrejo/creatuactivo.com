@@ -1,169 +1,181 @@
-/* /src/app/globals.css - Versión Consolidada y Optimizada */
+/* /src/app/globals.css - THE ARCHITECT'S SUITE v1.0 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ========================================
-   VARIABLES CSS - ECOSISTEMA CREATUACTIVO v4.2
+   CSS VARIABLES - THE ARCHITECT'S SUITE
+   "Private Equity meets Digital Architect"
    ======================================== */
 :root {
-  --creatuactivo-blue: #1E40AF;
-  --creatuactivo-purple: #7C3AED;
-  --creatuactivo-gold: #F59E0B;
+  /* FONDOS */
+  --bg-main: #0F1115;       /* Carbono Profundo */
+  --bg-card: #1A1D23;       /* Obsidiana Suave */
+
+  /* ACENTOS */
+  --gold-primary: #C5A059;  /* Champagne Gold */
+  --gold-hover: #D4AF37;    /* Brillo Hover */
+  --bronze-text: #B38B59;   /* Texto Bronce */
+
+  /* TEXTOS */
+  --text-main: #E5E5E5;     /* Blanco Humo */
+  --text-muted: #A3A3A3;    /* Gris Titanio */
+
+  /* BORDES */
+  --border-subtle: rgba(197, 160, 89, 0.2); /* Oro al 20% opacidad */
+  --border-card: rgba(197, 160, 89, 0.1);
+
+  /* Legacy compatibility */
+  --background: #0F1115;
+  --foreground: #E5E5E5;
 }
 
 /* ========================================
-   ESTILOS CREATUACTIVO ECOSISTEMA v5.0
-   Titanium White - Elegancia Institucional
+   BASE STYLES - QUIET LUXURY
    ======================================== */
-.creatuactivo-h1-ecosystem {
-  font-weight: 800;
-  background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
 }
 
-.creatuactivo-h2-component {
-  font-weight: 700;
-  background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Títulos con Playfair Display */
+h1, h2, h3, .quote-text, .font-serif {
+  color: #FFFFFF; /* Títulos en blanco puro para jerarquía */
 }
 
-.creatuactivo-component-card {
-  background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(124, 58, 237, 0.2);
-  border-radius: 20px;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
+/* ========================================
+   COMPONENT CLASSES - ARCHITECT'S SUITE
+   ======================================== */
 
-.creatuactivo-component-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
-}
-
-/* CONSOLIDADO: Un solo estilo CTA para consistencia */
-.creatuactivo-cta-ecosystem {
-  background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
-  border-radius: 12px;
-  padding: 12px 24px;
+/* Botón Dorado Principal */
+.btn-gold {
+  background-color: var(--gold-primary);
+  color: #0F1115;
   font-weight: 600;
-  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 30px;
+  border: 1px solid var(--gold-primary);
+  border-radius: 8px;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
 }
 
-.creatuactivo-cta-ecosystem:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4);
+.btn-gold:hover {
+  background-color: transparent;
+  color: var(--gold-primary);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+}
+
+/* Botón Dorado Outline */
+.btn-gold-outline {
+  background-color: transparent;
+  color: var(--gold-primary);
+  font-weight: 600;
+  padding: 12px 30px;
+  border: 1px solid var(--gold-primary);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-gold-outline:hover {
+  background-color: var(--gold-primary);
+  color: #0F1115;
+}
+
+/* Cita Destacada Editorial */
+.highlight-quote {
+  border-left: 3px solid var(--gold-primary);
+  padding-left: 20px;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--text-main);
+  background: linear-gradient(90deg, rgba(197,160,89,0.05) 0%, rgba(0,0,0,0) 100%);
+}
+
+/* Tarjeta con estilo arquitectónico */
+.architect-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.architect-card:hover {
+  border-color: var(--border-subtle);
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
+}
+
+/* Líneas arquitectónicas (blueprint lines) */
+.architect-line {
+  height: 1px;
+  background-color: rgba(197, 160, 89, 0.1);
+}
+
+.architect-line-vertical {
+  width: 1px;
+  background-color: rgba(197, 160, 89, 0.1);
 }
 
 /* ========================================
-   OPTIMIZACIONES PARA HIDRATACIÓN
+   SCROLLBAR - QUIET LUXURY
    ======================================== */
-
-/* Prevenir saltos durante la carga */
-.navigation-container {
-  min-height: 80px; /* Altura fija para evitar saltos */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Mejorar estabilidad del sticky header */
+::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-hover);
+}
+
+/* ========================================
+   NAVIGATION & LAYOUT
+   ======================================== */
+.navigation-container {
+  min-height: 80px;
+}
+
 .sticky-header {
   position: sticky;
   top: 0;
   z-index: 50;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 como fallback */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  will-change: transform; /* Optimización para navegadores */
-}
-
-/* Optimización para animaciones de Framer Motion */
-.motion-safe {
-  transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
-}
-
-/* Prevenir flash de contenido sin estilo */
-.hero-background {
-  background-color: rgb(15 23 42); /* slate-900 como fallback */
-  color: white;
-}
-
-/* Scrollbar Personalizado */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--creatuactivo-blue), var(--creatuactivo-purple));
-  border-radius: 4px;
-}
-
-/* Utilidades para hidratación */
-.hydration-safe {
-  opacity: 1;
-  transform: none;
-}
-
-/* Optimización para menú móvil */
-@media (max-width: 768px) {
-  .mobile-menu-container {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 40;
-    background-color: rgba(15, 23, 42, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
+  background-color: rgba(15, 17, 21, 0.9);
+  border-bottom: 1px solid var(--border-subtle);
+  will-change: transform;
 }
 
 /* ========================================
-   ESTILOS NEXUS WIDGET - HABILITADOS
+   NEXUS WIDGET STYLES
    ======================================== */
-
-/* NEXUS Widget Scrollbar Styles */
 .nexus-scroll::-webkit-scrollbar {
   width: 6px;
 }
 
 .nexus-scroll::-webkit-scrollbar-track {
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(26, 29, 35, 0.5);
   border-radius: 3px;
 }
 
 .nexus-scroll::-webkit-scrollbar-thumb {
-  background: #7C3AED;
+  background: var(--gold-primary);
   border-radius: 3px;
 }
 
 .nexus-scroll::-webkit-scrollbar-thumb:hover {
-  background: #6D28D9;
+  background: var(--gold-hover);
 }
 
-/* Animation keyframes for NEXUS */
 @keyframes nexus-slide-in {
   from {
     transform: translateY(10px);
@@ -194,7 +206,9 @@
   animation: nexus-typing 1.4s infinite;
 }
 
-/* Animaciones para la homepage */
+/* ========================================
+   ANIMATIONS
+   ======================================== */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -210,4 +224,70 @@
   animation: fade-in-up 0.8s ease-out forwards;
 }
 
-/* CTA Button Styles - Duplicado eliminado (ya definido arriba en líneas 54-71) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* ========================================
+   MOBILE MENU
+   ======================================== */
+@media (max-width: 768px) {
+  .mobile-menu-container {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background-color: rgba(15, 17, 21, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.motion-safe {
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.hydration-safe {
+  opacity: 1;
+  transform: none;
+}
+
+/* Text gradient for special headings */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--gold-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   LEGACY COMPATIBILITY (deprecated)
+   ======================================== */
+.creatuactivo-cta-ecosystem {
+  background: var(--gold-primary);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  color: #0F1115;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.creatuactivo-cta-ecosystem:hover {
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+}

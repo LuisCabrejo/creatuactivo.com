@@ -20,16 +20,17 @@ import {
 } from 'lucide-react'
 
 // ✅ ZERO FOUC: CSS crítico inline que renderiza perfectamente desde el primer frame
+// THE ARCHITECT'S SUITE - Quiet Luxury Colors
 const CRITICAL_NAVIGATION_CSS = `
-  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA - QUIET LUXURY */
+  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA - THE ARCHITECT'S SUITE */
   .strategic-nav-critical {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(10, 10, 15, 0.95);
+    background: rgba(15, 17, 21, 0.95);
     backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
 
   .strategic-nav-container {
@@ -79,7 +80,7 @@ const CRITICAL_NAVIGATION_CSS = `
   .strategic-logo-icon {
     width: 40px;
     height: 40px;
-    background: #D4AF37;
+    background: #C5A059;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -99,7 +100,7 @@ const CRITICAL_NAVIGATION_CSS = `
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 24px;
     font-weight: 700;
-    color: #0a0a0f;
+    color: #0F1115;
   }
 
   @media (max-width: 767px) {
@@ -113,14 +114,14 @@ const CRITICAL_NAVIGATION_CSS = `
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.25rem;
     font-weight: 400;
-    color: #f5f5f5;
+    color: #E5E5E5;
     line-height: 1.2;
     letter-spacing: -0.01em;
     transition: opacity 0.3s ease;
   }
 
   .strategic-logo-text .tu {
-    color: #D4AF37;
+    color: #C5A059;
   }
 
   .strategic-logo-link:hover .strategic-logo-text {
@@ -142,7 +143,7 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-menu-item {
     position: relative;
-    color: #a0a0a8;
+    color: #A3A3A3;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
@@ -151,7 +152,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-menu-item:hover {
-    color: #f5f5f5;
+    color: #E5E5E5;
   }
 
   .strategic-menu-button {
@@ -196,10 +197,10 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-dropdown-content {
     width: 20rem;
-    background: rgba(26, 26, 36, 0.98);
+    background: rgba(26, 29, 35, 0.98);
     backdrop-filter: blur(16px);
     border-radius: 0.75rem;
-    border: 1px solid rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(197, 160, 89, 0.1);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     padding: 0.5rem;
   }
@@ -215,7 +216,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-item:hover {
-    background-color: rgba(212, 175, 55, 0.08);
+    background-color: rgba(197, 160, 89, 0.08);
   }
 
   .strategic-dropdown-icon {
@@ -225,14 +226,14 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-text h4 {
-    color: #f5f5f5;
+    color: #E5E5E5;
     font-weight: 600;
     margin: 0 0 0.25rem 0;
     transition: color 0.2s ease;
   }
 
   .strategic-dropdown-item:hover h4 {
-    color: #D4AF37;
+    color: #C5A059;
   }
 
   .strategic-dropdown-text p {
@@ -247,8 +248,8 @@ const CRITICAL_NAVIGATION_CSS = `
     display: none;
     align-items: center;
     gap: 0.5rem;
-    background: #D4AF37;
-    color: #0a0a0f;
+    background: #C5A059;
+    color: #0F1115;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
@@ -272,7 +273,7 @@ const CRITICAL_NAVIGATION_CSS = `
     display: block;
     background: none;
     border: none;
-    color: #a0a0a8;
+    color: #A3A3A3;
     padding: 0.5rem;
     margin: -0.5rem;
     cursor: pointer;
@@ -286,7 +287,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-toggle:hover {
-    color: #D4AF37;
+    color: #C5A059;
   }
 
   /* MOBILE OVERLAY */
@@ -314,9 +315,9 @@ const CRITICAL_NAVIGATION_CSS = `
     bottom: 0;
     width: 100%;
     max-width: 28rem;
-    background: rgba(18, 18, 26, 0.98);
+    background: rgba(15, 17, 21, 0.98);
     backdrop-filter: blur(24px);
-    border-right: 1px solid rgba(212, 175, 55, 0.1);
+    border-right: 1px solid rgba(197, 160, 89, 0.1);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -332,7 +333,7 @@ const CRITICAL_NAVIGATION_CSS = `
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
   }
 
   .strategic-mobile-close {
@@ -345,7 +346,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-close:hover {
-    color: #D4AF37;
+    color: #C5A059;
   }
 
   .strategic-mobile-content {
@@ -357,7 +358,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-section-title {
-    color: #C9A962;
+    color: #C5A059;
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -370,7 +371,7 @@ const CRITICAL_NAVIGATION_CSS = `
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #a0a0a8;
+    color: #A3A3A3;
     text-decoration: none;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -379,8 +380,8 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-link:hover {
-    background-color: rgba(212, 175, 55, 0.08);
-    color: #f5f5f5;
+    background-color: rgba(197, 160, 89, 0.08);
+    color: #E5E5E5;
     transform: translateX(0.25rem);
   }
 
@@ -404,7 +405,7 @@ const CRITICAL_NAVIGATION_CSS = `
   .strategic-mobile-cta {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    border-top: 1px solid rgba(197, 160, 89, 0.1);
   }
 
   .strategic-mobile-cta-button {
@@ -413,8 +414,8 @@ const CRITICAL_NAVIGATION_CSS = `
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    background: #D4AF37;
-    color: #0a0a0f;
+    background: #C5A059;
+    color: #0F1115;
     font-weight: 600;
     padding: 1rem;
     border-radius: 0.75rem;

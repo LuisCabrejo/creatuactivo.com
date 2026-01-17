@@ -781,44 +781,44 @@ export default function CatalogoEstrategico() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-[#0F1115]">
           <StrategicNavigation />
 
-      {/* Botón carrito flotante - debajo del header */}
+      {/* Botón carrito flotante - Quiet Luxury */}
       <button
         onClick={() => setCartOpen(true)}
         aria-label="Abrir carrito de compras con productos seleccionados"
-        className="fixed top-24 right-4 z-40 bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-600 transition-all"
+        className="fixed top-24 right-4 z-40 bg-[#C5A059] text-[#0F1115] p-3 rounded-full shadow-lg hover:bg-[#D4AF37] transition-all"
       >
         <ShoppingCart className="h-6 w-6" />
         {cart.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 bg-[#C5A059] text-[#0F1115] text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
             {cart.reduce((sum, item) => sum + item.quantity, 0)}
           </span>
         )}
       </button>
 
-      {/* Modal Los Más Vendidos */}
+      {/* Modal Los Más Vendidos - Quiet Luxury */}
       {showTopSelling && (
         <div
-          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => handleOverlayClick(e, () => setShowTopSelling(false))}
         >
-          <div className="w-full max-w-5xl bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-slate-200">
+          <div className="w-full max-w-5xl bg-[#1A1D23] border border-[#C5A059]/30 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-[#C5A059]/20">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                  <Trophy className="h-6 w-6 text-white" />
+                <div className="w-12 h-12 bg-[#C5A059]/20 rounded-full flex items-center justify-center">
+                  <Trophy className="h-6 w-6 text-[#C5A059]" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800">Productos Más Vendidos</h2>
-                  <p className="text-slate-600">Los favoritos de nuestra comunidad</p>
+                  <h2 className="text-2xl font-serif font-bold text-[#E5E5E5]">Productos Más Vendidos</h2>
+                  <p className="text-[#A3A3A3]">Los favoritos de nuestra comunidad</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowTopSelling(false)}
                 aria-label="Cerrar ventana de productos más vendidos"
-                className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
+                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors rounded-lg hover:bg-[#0F1115]"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -829,14 +829,14 @@ export default function CatalogoEstrategico() {
                 {topSellingProducts.map((productId, index) => {
                   const product = productData[productId]
                   return (
-                    <div key={productId} className="group relative overflow-hidden rounded-2xl border border-slate-200 hover:border-amber-300 hover:shadow-xl transition-all duration-300 bg-white">
-                      <div className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
+                    <div key={productId} className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 bg-[#0F1115]">
+                      <div className="absolute top-4 left-4 bg-[#C5A059] text-[#0F1115] px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
                         Top #{index + 1}
                       </div>
 
                       <div className="p-6">
                         <div className="relative mb-6">
-                          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-4 flex items-center justify-center h-[320px]">
+                          <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[320px]">
                             <Image
                               src={product.image}
                               alt={`${product.name} - ${product.taglineEstrategico}`}
@@ -845,18 +845,18 @@ export default function CatalogoEstrategico() {
                               className="object-contain max-h-[18rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                             />
                           </div>
-                          <div className="absolute top-4 right-4 bg-gradient-to-r from-slate-800 to-slate-700 text-white px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                          <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
                             ${product.price.toLocaleString()}
                           </div>
                         </div>
 
-                        <h3 className="text-lg font-bold text-slate-800 mb-2">{product.name}</h3>
-                        <p className="text-sm text-amber-800 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
-                        <p className="text-slate-700 text-sm mb-6 leading-relaxed line-clamp-2">{product.shortDescription}</p>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
+                        <p className="text-sm text-[#C5A059] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                        <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed line-clamp-2">{product.shortDescription}</p>
 
                         <div className="flex flex-wrap gap-2 mb-6">
                           {product.goals.map((goal) => (
-                            <span key={goal} className="bg-gradient-to-r from-amber-100 to-orange-100 border border-amber-200 px-3 py-1 rounded-full text-xs text-amber-800 font-medium">
+                            <span key={goal} className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-3 py-1 rounded-full text-xs text-[#C5A059] font-medium">
                               {goal}
                             </span>
                           ))}
@@ -868,7 +868,7 @@ export default function CatalogoEstrategico() {
                               setSelectedProduct(product)
                               setShowTopSelling(false)
                             }}
-                            className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
+                            className="flex-1 bg-[#1A1D23] border border-[#C5A059]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                           >
                             Ver Detalles
                           </button>
@@ -877,7 +877,7 @@ export default function CatalogoEstrategico() {
                               addToCart(productId)
                               setShowTopSelling(false)
                             }}
-                            className="flex-1 bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 px-4 rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all text-sm font-medium shadow-lg"
+                            className="flex-1 bg-[#C5A059] text-[#0F1115] py-3 px-4 rounded-xl hover:bg-[#D4AF37] transition-all text-sm font-medium shadow-lg"
                           >
                             Añadir al carrito
                           </button>
@@ -1007,79 +1007,77 @@ export default function CatalogoEstrategico() {
       {/* Contenido principal */}
       <div className="container mx-auto px-4 py-8">
 
-        {/* Header estratégico */}
-        <div className="text-center mb-12">
-  <div className="inline-block bg-gradient-to-r from-amber-200 to-yellow-200 border border-amber-300 rounded-full px-6 py-2 mb-6">
-    <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Catálogo Oficial Gano Excel</span>
+        {/* Header estratégico - Quiet Luxury */}
+        <div className="text-center mb-12 pt-8">
+  <div className="inline-block bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full px-6 py-2 mb-6">
+    <span className="text-[#C5A059] font-medium text-sm tracking-wider uppercase">Catálogo Oficial Gano Excel</span>
   </div>
 
-  <h1 className="text-4xl md:text-6xl font-bold mb-4">
-    <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-      Siéntete Bien Cada Día
-    </span>
+  <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 text-[#E5E5E5]">
+    Siéntete Bien <span className="text-[#C5A059]">Cada Día</span>
   </h1>
 
-  <p className="text-slate-700 text-lg md:text-xl max-w-3xl mx-auto mb-8">
-    Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo Ganoderma: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
+  <p className="text-[#A3A3A3] text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
+    Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo <span className="text-[#C5A059]">Ganoderma</span>: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
   </p>
 
   {distributor && (
-    <div className="inline-flex items-center bg-white/90 backdrop-blur-lg border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-      <Rocket className="h-4 w-4 text-blue-500 mr-2 animate-pulse" />
-      <span className="text-slate-700">
-        Especialista en bienestar: <span className="font-bold text-blue-700">{distributor.nombre}</span>
+    <div className="inline-flex items-center bg-[#1A1D23] border border-[#C5A059]/20 rounded-full px-6 py-3 mb-8">
+      <Rocket className="h-4 w-4 text-[#C5A059] mr-2 animate-pulse" />
+      <span className="text-[#A3A3A3]">
+        Especialista en bienestar: <span className="font-bold text-[#C5A059]">{distributor.nombre}</span>
       </span>
     </div>
   )}
 </div>
 
-{/* Nueva Sección: La Ventaja Competitiva */}
+{/* Nueva Sección: La Ventaja Competitiva - Quiet Luxury */}
 <section className="mb-16">
   <div className="text-center mb-12">
-    <div className="inline-block bg-gradient-to-r from-blue-200 to-indigo-200 border border-blue-300 rounded-full px-6 py-2 mb-6">
-      <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Lo Mejor del Ganoderma</span>
+    <div className="inline-block bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full px-6 py-2 mb-6">
+      <span className="text-[#C5A059] font-medium text-sm tracking-wider uppercase">Lo Mejor del Ganoderma</span>
     </div>
 
-    <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
-      Nutrición que Tu Cuerpo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Realmente Aprovecha</span>
+    <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#E5E5E5] mb-6 leading-tight">
+      Nutrición que Tu Cuerpo <span className="text-[#C5A059]">Realmente Aprovecha</span>
     </h2>
 
-    <p className="text-slate-600 text-lg max-w-4xl mx-auto">
+    <p className="text-[#A3A3A3] text-lg max-w-4xl mx-auto">
       No basta con tener buenos ingredientes, tu cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
-          {/* Estadísticas de impacto */}
+          {/* Estadísticas de impacto - Dark Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
-            <div className="bg-white/90 backdrop-blur-lg border border-blue-200 rounded-2xl p-8 text-center group hover:scale-105 transition-transform">
-              <div className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent mb-2">
+            <div className="bg-[#1A1D23] border border-[#C5A059]/20 rounded-2xl p-8 text-center group hover:border-[#C5A059]/40 hover:scale-105 transition-all">
+              <div className="text-5xl font-serif font-bold text-[#C5A059] mb-2">
                 200+
               </div>
-              <div className="text-slate-700 font-semibold">Nutrientes Naturales</div>
-              <div className="text-slate-500 text-sm mt-2">En cada producto</div>
+              <div className="text-[#E5E5E5] font-semibold">Nutrientes Naturales</div>
+              <div className="text-[#6B7280] text-sm mt-2">En cada producto</div>
             </div>
 
-            <div className="bg-white/90 backdrop-blur-lg border border-purple-200 rounded-2xl p-8 text-center group hover:scale-105 transition-transform">
-              <div className="text-5xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-2">
+            <div className="bg-[#1A1D23] border border-[#C5A059]/20 rounded-2xl p-8 text-center group hover:border-[#C5A059]/40 hover:scale-105 transition-all">
+              <div className="text-5xl font-serif font-bold text-[#C5A059] mb-2">
                 100%
               </div>
-              <div className="text-slate-700 font-semibold">Fácil de Absorber</div>
-              <div className="text-slate-500 text-sm mt-2">Tu cuerpo lo aprovecha completo</div>
+              <div className="text-[#E5E5E5] font-semibold">Fácil de Absorber</div>
+              <div className="text-[#6B7280] text-sm mt-2">Tu cuerpo lo aprovecha completo</div>
             </div>
 
-            <div className="bg-white/90 backdrop-blur-lg border border-amber-200 rounded-2xl p-8 text-center group hover:scale-105 transition-transform">
-              <div className="text-5xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent mb-2">
+            <div className="bg-[#1A1D23] border border-[#C5A059]/20 rounded-2xl p-8 text-center group hover:border-[#C5A059]/40 hover:scale-105 transition-all">
+              <div className="text-5xl font-serif font-bold text-[#C5A059] mb-2">
                 6
               </div>
-              <div className="text-slate-700 font-semibold">Tipos de Ganoderma</div>
-              <div className="text-slate-500 text-sm mt-2">Unidos en una fórmula única</div>
+              <div className="text-[#E5E5E5] font-semibold">Tipos de Ganoderma</div>
+              <div className="text-[#6B7280] text-sm mt-2">Unidos en una fórmula única</div>
             </div>
           </div>
 
           <div className="text-center">
             <button
               onClick={() => setShowTopSelling(true)}
-              className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:from-amber-600 hover:to-orange-600 transition-all inline-flex items-center gap-3"
+              className="bg-[#C5A059] text-[#0F1115] px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#D4AF37] transition-all inline-flex items-center gap-3"
             >
               <Trophy className="h-5 w-5" />
               Ver Productos Más Vendidos
@@ -1087,16 +1085,16 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Nueva Sección: Sistemas de Bienestar */}
+        {/* Nueva Sección: Sistemas de Bienestar - Quiet Luxury */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <div className="inline-block bg-gradient-to-r from-green-200 to-emerald-200 border border-green-300 rounded-full px-6 py-2 mb-6">
-              <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Encuentra lo que Necesitas</span>
+            <div className="inline-block bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full px-6 py-2 mb-6">
+              <span className="text-[#C5A059] font-medium text-sm tracking-wider uppercase">Encuentra lo que Necesitas</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E5E5E5] mb-6">
               Productos para Cada Momento de Tu Vida
             </h2>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto">
+            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
               Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a tu familia, verte mejor o disfrutar un buen café.
             </p>
           </div>
@@ -1106,15 +1104,15 @@ export default function CatalogoEstrategico() {
               <div
                 key={key}
                 onClick={() => setSelectedSystem(key)}
-                className="bg-white/90 backdrop-blur-lg border-2 border-slate-200 rounded-2xl p-6 cursor-pointer group hover:border-blue-400 hover:shadow-xl transition-all"
+                className="bg-[#1A1D23] border border-[#C5A059]/20 rounded-2xl p-6 cursor-pointer group hover:border-[#C5A059]/50 transition-all"
               >
-                <div className={`w-16 h-16 bg-gradient-to-r ${system.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                <div className="w-16 h-16 bg-[#C5A059]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#C5A059]/20 group-hover:scale-110 transition-all text-[#C5A059]">
                   {system.icono}
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 mb-2 text-center">{system.nombre}</h3>
-                <p className="text-slate-600 text-sm text-center mb-4">{system.descripcion}</p>
+                <h3 className="text-lg font-bold text-[#E5E5E5] mb-2 text-center">{system.nombre}</h3>
+                <p className="text-[#A3A3A3] text-sm text-center mb-4">{system.descripcion}</p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  <span className="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-700">
+                  <span className="text-xs bg-[#0F1115] border border-[#C5A059]/30 px-3 py-1 rounded-full text-[#C5A059]">
                     {system.productos.length} productos
                   </span>
                 </div>
@@ -1123,18 +1121,18 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Productos por categorías tradicionales */}
+        {/* Productos por categorías tradicionales - Quiet Luxury */}
         <section id="bebidas" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Bebidas Saludables</h2>
-            <div className="h-1 flex-1 bg-gradient-to-r from-blue-400 to-indigo-400 ml-8 rounded-full"></div>
+            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Bebidas Saludables</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#C5A059]/50 to-transparent ml-8"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {bebidas.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 bg-white">
+              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 bg-[#1A1D23]">
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1143,21 +1141,21 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-amber-800 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm text-[#C5A059] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-slate-500 text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-slate-700 text-sm mb-6 leading-relaxed line-clamp-3">{product.shortDescription}</p>
+                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
+                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed line-clamp-3">{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-200 px-3 py-1 rounded-full text-xs text-blue-800 font-medium">
+                      <span key={goal} className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-3 py-1 rounded-full text-xs text-[#C5A059] font-medium">
                         {goal}
                       </span>
                     ))}
@@ -1166,13 +1164,13 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
+                      className="flex-1 bg-[#0F1115] border border-[#C5A059]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                     >
                       Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all text-sm font-medium shadow-lg inline-flex items-center justify-center"
+                      className="flex-1 bg-[#C5A059] text-[#0F1115] py-3 px-4 rounded-xl hover:bg-[#D4AF37] transition-all text-sm font-medium shadow-lg inline-flex items-center justify-center"
                     >
                       <Gift className="h-4 w-4 mr-2" />
                       Agregar
@@ -1184,18 +1182,18 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección Luvoco Premium */}
+        {/* Sección Luvoco Premium - Quiet Luxury */}
         <section id="luvoco" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Experiencia Luvoco Premium</h2>
-            <div className="h-1 flex-1 bg-gradient-to-r from-red-400 to-pink-400 ml-8 rounded-full"></div>
+            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Experiencia Luvoco Premium</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#C5A059]/50 to-transparent ml-8"></div>
           </div>
 
           <div className="text-center mb-12">
-            <div className="inline-block bg-gradient-to-r from-red-200 to-pink-200 border border-red-300 rounded-full px-6 py-2 mb-6">
-              <span className="text-slate-800 font-medium text-sm tracking-wider uppercase">Love of Coffee - Sistema Premium</span>
+            <div className="inline-block bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full px-6 py-2 mb-6">
+              <span className="text-[#C5A059] font-medium text-sm tracking-wider uppercase">Love of Coffee - Sistema Premium</span>
             </div>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto">
+            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
               Sistema de cápsulas con tecnología de 15 bares. El ancla perfecta para clientes de alto valor
               que garantiza compra recurrente y construye tu activo mes a mes.
             </p>
@@ -1203,10 +1201,10 @@ export default function CatalogoEstrategico() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8">
             {luvoco.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-slate-200 hover:border-red-300 hover:shadow-xl transition-all duration-300 bg-white">
+              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 bg-[#1A1D23]">
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1215,21 +1213,21 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-pink-600 text-white px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-red-600 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm text-[#C5A059] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-slate-500 text-sm mb-3">Certificación: {product.invima}</p>
-                  <p className="text-slate-700 text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-[#6B7280] text-sm mb-3">Certificación: {product.invima}</p>
+                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-gradient-to-r from-red-100 to-pink-100 border border-red-200 px-3 py-1 rounded-full text-xs text-red-800 font-medium">
+                      <span key={goal} className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-3 py-1 rounded-full text-xs text-[#C5A059] font-medium">
                         {goal}
                       </span>
                     ))}
@@ -1239,13 +1237,13 @@ export default function CatalogoEstrategico() {
                     <div className="flex space-x-3">
                       <button
                         onClick={() => setSelectedProduct(product)}
-                        className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
+                        className="flex-1 bg-[#0F1115] border border-[#C5A059]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                       >
                         Ver Detalles
                       </button>
                       <button
                         onClick={() => addToCart(id)}
-                        className="flex-1 bg-gradient-to-r from-red-600 to-pink-600 text-white py-3 px-4 rounded-xl hover:from-red-700 hover:to-pink-700 transition-all text-sm font-medium shadow-lg"
+                        className="flex-1 bg-[#C5A059] text-[#0F1115] py-3 px-4 rounded-xl hover:bg-[#D4AF37] transition-all text-sm font-medium shadow-lg"
                       >
                         Agregar Premium
                       </button>
@@ -1257,7 +1255,7 @@ export default function CatalogoEstrategico() {
                           href="https://drive.google.com/file/d/13C_CQyXnmeNPqzrsm34GNCIysE-T4p2k/view?usp=drive_link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-3 px-4 rounded-xl hover:from-emerald-600 hover:to-green-600 transition-all text-sm font-medium shadow-lg"
+                          className="flex items-center justify-center w-full bg-[#1A1D23] border border-[#C5A059]/30 text-[#C5A059] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                         >
                           <Download className="h-4 w-4 mr-2" />
                           Descargar Ficha de Producto
@@ -1266,7 +1264,7 @@ export default function CatalogoEstrategico() {
                           href="https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 px-4 rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all text-sm font-medium shadow-lg"
+                          className="flex items-center justify-center w-full bg-[#1A1D23] border border-[#C5A059]/30 text-[#C5A059] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                         >
                           <Download className="h-4 w-4 mr-2" />
                           Descargar Especificaciones Técnicas
@@ -1280,18 +1278,18 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Suplementos */}
+        {/* Suplementos - Quiet Luxury */}
         <section id="suplementos" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Suplementos Naturales</h2>
-            <div className="h-1 flex-1 bg-gradient-to-r from-indigo-500 to-purple-500 ml-8 rounded-full"></div>
+            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Suplementos Naturales</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#C5A059]/50 to-transparent ml-8"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {suplementos.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all duration-300 bg-white">
+              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 bg-[#1A1D23]">
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1300,21 +1298,21 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-indigo-600 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm text-[#C5A059] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-slate-500 text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-slate-700 text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
+                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-gradient-to-r from-indigo-100 to-purple-100 border border-indigo-200 px-3 py-1 rounded-full text-xs text-indigo-800 font-medium">
+                      <span key={goal} className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-3 py-1 rounded-full text-xs text-[#C5A059] font-medium">
                         {goal}
                       </span>
                     ))}
@@ -1323,13 +1321,13 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
+                      className="flex-1 bg-[#0F1115] border border-[#C5A059]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                     >
                       Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all text-sm font-medium shadow-lg"
+                      className="flex-1 bg-[#C5A059] text-[#0F1115] py-3 px-4 rounded-xl hover:bg-[#D4AF37] transition-all text-sm font-medium shadow-lg"
                     >
                       Agregar
                     </button>
@@ -1340,18 +1338,18 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Cuidado Personal */}
+        {/* Cuidado Personal - Quiet Luxury */}
         <section id="cuidado-personal" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-slate-800">Cuidado Personal</h2>
-            <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 to-pink-500 ml-8 rounded-full"></div>
+            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Cuidado Personal</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#C5A059]/50 to-transparent ml-8"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {cuidadoPersonal.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-slate-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 bg-white">
+              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 bg-[#1A1D23]">
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1360,21 +1358,21 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-purple-600 font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm text-[#C5A059] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-slate-500 text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-slate-700 text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
+                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 px-3 py-1 rounded-full text-xs text-purple-800 font-medium">
+                      <span key={goal} className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-3 py-1 rounded-full text-xs text-[#C5A059] font-medium">
                         {goal}
                       </span>
                     ))}
@@ -1383,13 +1381,13 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-slate-100 border-2 border-slate-200 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-200 hover:border-slate-300 transition-all text-sm font-medium"
+                      className="flex-1 bg-[#0F1115] border border-[#C5A059]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#C5A059]/60 transition-all text-sm font-medium"
                     >
                       Ver Detalles
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-4 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all text-sm font-medium shadow-lg"
+                      className="flex-1 bg-[#C5A059] text-[#0F1115] py-3 px-4 rounded-xl hover:bg-[#D4AF37] transition-all text-sm font-medium shadow-lg"
                     >
                       Agregar
                     </button>
@@ -1400,40 +1398,40 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección CTA Final: Construye tu Sistema */}
+        {/* Sección CTA Final: Construye tu Sistema - Quiet Luxury */}
         <section className="mb-16 mt-20">
-          <div className="bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-amber-600/10 rounded-3xl p-12 text-center">
-            <Shield className="w-16 h-16 text-amber-500 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
+          <div className="bg-[#1A1D23] border border-[#C5A059]/20 rounded-3xl p-12 text-center">
+            <Shield className="w-16 h-16 text-[#C5A059] mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E5E5E5] mb-6">
               ¿Te Interesa Emprender con Productos de Bienestar?
             </h2>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-8">
+            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
               Si quieres conocer más sobre cómo estos productos pueden ayudarte, o te interesa compartirlos con otros, estamos aquí para ayudarte.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-              <div className="bg-white/80 rounded-xl p-6">
-                <div className="text-3xl font-bold text-blue-600 mb-2">Constructor Inicial</div>
-                <p className="text-slate-700 font-semibold mb-2">$200 USD</p>
-                <p className="text-slate-600 text-sm">~$900.000 COP</p>
-                <p className="text-slate-500 text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-slate-500 text-xs">2 meses cortesía Plan Cimiento</p>
+              <div className="bg-[#0F1115] border border-[#C5A059]/20 rounded-xl p-6">
+                <div className="text-2xl font-serif font-bold text-[#C5A059] mb-2">Constructor Inicial</div>
+                <p className="text-[#E5E5E5] font-semibold mb-2">$200 USD</p>
+                <p className="text-[#A3A3A3] text-sm">~$900.000 COP</p>
+                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
+                <p className="text-[#6B7280] text-xs">2 meses cortesía Plan Cimiento</p>
               </div>
 
-              <div className="bg-white/80 rounded-xl p-6">
-                <div className="text-3xl font-bold text-purple-600 mb-2">Constructor Empresarial</div>
-                <p className="text-slate-700 font-semibold mb-2">$500 USD</p>
-                <p className="text-slate-600 text-sm">~$2.250.000 COP</p>
-                <p className="text-slate-500 text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-slate-500 text-xs">4 meses cortesía Plan Estructura</p>
+              <div className="bg-[#0F1115] border border-[#C5A059]/30 rounded-xl p-6">
+                <div className="text-2xl font-serif font-bold text-[#C5A059] mb-2">Constructor Empresarial</div>
+                <p className="text-[#E5E5E5] font-semibold mb-2">$500 USD</p>
+                <p className="text-[#A3A3A3] text-sm">~$2.250.000 COP</p>
+                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
+                <p className="text-[#6B7280] text-xs">4 meses cortesía Plan Estructura</p>
               </div>
 
-              <div className="bg-white/80 rounded-xl p-6">
-                <div className="text-3xl font-bold text-amber-800 mb-2">Constructor Visionario</div>
-                <p className="text-slate-700 font-semibold mb-2">$1,000 USD</p>
-                <p className="text-slate-600 text-sm">~$4.500.000 COP</p>
-                <p className="text-slate-500 text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-slate-500 text-xs">6 meses cortesía Plan Rascacielos</p>
+              <div className="bg-[#0F1115] border border-[#C5A059]/40 rounded-xl p-6">
+                <div className="text-2xl font-serif font-bold text-[#C5A059] mb-2">Constructor Visionario</div>
+                <p className="text-[#E5E5E5] font-semibold mb-2">$1,000 USD</p>
+                <p className="text-[#A3A3A3] text-sm">~$4.500.000 COP</p>
+                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
+                <p className="text-[#6B7280] text-xs">6 meses cortesía Plan Rascacielos</p>
               </div>
             </div>
 
@@ -1442,7 +1440,7 @@ export default function CatalogoEstrategico() {
                 href={`https://wa.me/${(distributor?.whatsapp || '+573102066593').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:from-emerald-600 hover:to-green-600 transition-all inline-flex items-center justify-center gap-3"
+                className="bg-[#C5A059] text-[#0F1115] px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#D4AF37] transition-all inline-flex items-center justify-center gap-3"
               >
                 <MessageCircle className="h-5 w-5" />
                 Quiero Ser Constructor
@@ -1450,7 +1448,7 @@ export default function CatalogoEstrategico() {
 
               <button
                 onClick={() => window.open('https://creatuactivo.com/presentacion-empresarial', '_blank')}
-                className="bg-white border-2 border-blue-500 text-blue-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-all inline-flex items-center justify-center gap-3"
+                className="bg-[#0F1115] border border-[#C5A059]/30 text-[#E5E5E5] px-8 py-4 rounded-xl font-bold text-lg hover:border-[#C5A059]/60 transition-all inline-flex items-center justify-center gap-3"
               >
                 <Brain className="h-5 w-5" />
                 Ver Presentación del Ecosistema
@@ -1459,27 +1457,27 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección FAQ - Optimizada para SEO */}
+        {/* Sección FAQ - Quiet Luxury */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Preguntas Frecuentes sobre Gano Café
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-[#E5E5E5]">
+              Preguntas Frecuentes sobre <span className="text-[#C5A059]">Gano Café</span>
             </h2>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto">
+            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
               Descubre todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Pregunta 1 */}
-            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+            <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
                   ¿Para qué sirve el Gano Café?
                 </h3>
-                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   El <strong>Gano Café</strong> es un café enriquecido con <strong>Ganoderma Lucidum</strong> (Reishi), un hongo medicinal con más de 2,000 años de uso en la medicina tradicional china. El Gano Café sirve para:
                 </p>
@@ -1490,98 +1488,98 @@ export default function CatalogoEstrategico() {
                   <li><strong>Mejorar concentración</strong>: Combinación de cafeína natural y nutrientes del hongo</li>
                   <li><strong>Apoyar la digestión</strong>: Con más de 200 fitonutrientes bioactivos</li>
                 </ul>
-                <p className="mt-4 text-blue-600 font-medium">
+                <p className="mt-4 text-[#C5A059] font-medium">
                   💡 A diferencia del café tradicional, el Gano Café transforma tu ritual diario en una inversión de salud.
                 </p>
               </div>
             </details>
 
             {/* Pregunta 2 */}
-            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+            <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
                   ¿Cuáles son los beneficios del Gano Café 3 en 1?
                 </h3>
-                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto natural de Ganoderma Lucidum</strong> que tu cuerpo absorbe fácilmente:
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                    <h4 className="font-bold text-blue-800 mb-2">🛡️ Sistema Inmunológico</h4>
+                  <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/20">
+                    <h4 className="font-bold text-[#C5A059] mb-2">🛡️ Sistema Inmunológico</h4>
                     <p className="text-sm">Fortalece defensas naturales con betaglucanos</p>
                   </div>
-                  <div className="bg-green-50 p-4 rounded-xl border border-green-100">
-                    <h4 className="font-bold text-green-800 mb-2">⚡ Energía Sostenida</h4>
+                  <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/20">
+                    <h4 className="font-bold text-[#C5A059] mb-2">⚡ Energía Sostenida</h4>
                     <p className="text-sm">Vitalidad sin nerviosismo ni caídas de energía</p>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                    <h4 className="font-bold text-purple-800 mb-2">🧘 Reducción de Estrés</h4>
+                  <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/20">
+                    <h4 className="font-bold text-[#C5A059] mb-2">🧘 Reducción de Estrés</h4>
                     <p className="text-sm">Ayuda a manejar el estrés del día a día</p>
                   </div>
-                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
-                    <h4 className="font-bold text-amber-800 mb-2">🎯 Concentración</h4>
+                  <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/20">
+                    <h4 className="font-bold text-[#C5A059] mb-2">🎯 Concentración</h4>
                     <p className="text-sm">Mejora claridad mental y enfoque</p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-600 italic">
+                <p className="text-sm text-[#A3A3A3] italic">
                   ✅ Registro INVIMA: SD2012-0002589 | Respaldado por 30+ años de investigación científica
                 </p>
               </div>
             </details>
 
             {/* Pregunta 3 */}
-            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+            <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
                   ¿Cuál es el precio del Gano Café en Colombia 2025?
                 </h3>
-                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   Los <strong>precios oficiales de Gano Excel en Colombia</strong> para 2025 son:
                 </p>
                 <div className="space-y-3 mb-4">
-                  <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+                  <div className="flex items-center justify-between bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/30">
                     <div>
-                      <p className="font-bold text-slate-800">Gano Café 3 en 1</p>
-                      <p className="text-sm text-slate-600">Caja con 20 sobres x 21g</p>
+                      <p className="font-bold text-[#E5E5E5]">Gano Café 3 en 1</p>
+                      <p className="text-sm text-[#A3A3A3]">Caja con 20 sobres x 21g</p>
                     </div>
-                    <p className="text-2xl font-bold text-blue-600">$110.900 COP</p>
+                    <p className="text-2xl font-bold text-[#C5A059]">$110.900 COP</p>
                   </div>
-                  <div className="flex items-center justify-between bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-xl border border-slate-200">
+                  <div className="flex items-center justify-between bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/20">
                     <div>
-                      <p className="font-bold text-slate-800">Gano Café Clásico (Negro)</p>
-                      <p className="text-sm text-slate-600">Caja con 30 sobres x 4.5g</p>
+                      <p className="font-bold text-[#E5E5E5]">Gano Café Clásico (Negro)</p>
+                      <p className="text-sm text-[#A3A3A3]">Caja con 30 sobres x 4.5g</p>
                     </div>
-                    <p className="text-2xl font-bold text-slate-600">$110.900 COP</p>
+                    <p className="text-2xl font-bold text-[#C5A059]">$110.900 COP</p>
                   </div>
                 </div>
                 <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl">
-                  <p className="font-bold text-amber-800 mb-2">💰 Precios de Distribuidor Mayorista</p>
+                  <p className="font-bold text-[#C5A059] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-amber-700">
                     Como <strong>Fundador CreaTuActivo</strong>, accedes a precios mayoristas con descuento de hasta 35% sobre precio público.
                     <a href="/fundadores" className="text-blue-600 hover:text-blue-800 font-medium ml-1 underline">Ver detalles de afiliación →</a>
                   </p>
                 </div>
-                <p className="text-sm text-slate-600 mt-4">
+                <p className="text-sm text-[#A3A3A3] mt-4">
                   📦 <strong>Tarifas preferenciales de envío</strong>: Hasta 15 productos pagas solo el envío mínimo. Fletes variables según ciudad y volumen.
                 </p>
               </div>
             </details>
 
             {/* Pregunta 4 */}
-            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+            <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
                   ¿Cómo se toma el Gano Café 3 en 1?
                 </h3>
-                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   La forma correcta de preparar el <strong>Gano Café 3 en 1</strong> es:
                 </p>
@@ -1592,7 +1590,7 @@ export default function CatalogoEstrategico() {
                   <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
                 </ol>
                 <div className="bg-green-50 border border-green-200 p-4 rounded-xl mb-4">
-                  <p className="font-bold text-green-800 mb-2">✅ Recomendaciones de Consumo</p>
+                  <p className="font-bold text-[#C5A059] mb-2">✅ Recomendaciones de Consumo</p>
                   <ul className="text-sm text-green-700 space-y-1">
                     <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
                     <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
@@ -1610,14 +1608,14 @@ export default function CatalogoEstrategico() {
             </details>
 
             {/* Pregunta 5 */}
-            <details className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all overflow-hidden shadow-sm hover:shadow-lg">
+            <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-slate-800 pr-4">
+                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
                   ¿El Gano Café está disponible en toda Latinoamérica?
                 </h3>
-                <span className="text-blue-600 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en más de <strong>15 países de Latinoamérica</strong>:
                 </p>
@@ -1642,7 +1640,7 @@ export default function CatalogoEstrategico() {
                   </div>
                 </div>
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 p-4 rounded-xl">
-                  <p className="font-bold text-slate-800 mb-2">🤖 Consulta con NEXUS IA</p>
+                  <p className="font-bold text-[#E5E5E5] mb-2">🤖 Consulta con NEXUS IA</p>
                   <p className="text-sm text-slate-700">
                     Nuestro asistente de IA conversacional puede ayudarte a encontrar distribuidores en tu país,
                     calcular envíos internacionales y recomendarte los productos ideales para tu perfil.
@@ -1660,7 +1658,7 @@ export default function CatalogoEstrategico() {
                 </h3>
                 <span className="text-amber-800 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="px-6 pb-6 text-slate-700 leading-relaxed">
+              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
                   Con <strong>CreaTuActivo</strong>, no solo compras productos premium al <strong>precio de distribuidor mayorista</strong>
                   (35% de descuento), también accedes a un <strong>ecosistema completo</strong>:
@@ -1669,22 +1667,22 @@ export default function CatalogoEstrategico() {
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
                     <div>
-                      <p className="font-bold text-slate-800">Aplicación CreaTuActivo + NEXUS IA</p>
-                      <p className="text-sm text-slate-600">Sistema automatizado para gestionar tu negocio 24/7</p>
+                      <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + NEXUS IA</p>
+                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar tu negocio 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
                     <div>
-                      <p className="font-bold text-slate-800">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-slate-600">Como Fundador, recibes mentoría directa y construyes tu red</p>
+                      <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
+                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes tu red</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
                     <div>
-                      <p className="font-bold text-slate-800">Ingresos Residuales</p>
-                      <p className="text-sm text-slate-600">Gana comisiones por ventas propias y de tu red</p>
+                      <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
+                      <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de tu red</p>
                     </div>
                   </div>
                 </div>
@@ -1738,7 +1736,7 @@ export default function CatalogoEstrategico() {
                   {sistemasDebienestar[selectedSystem].icono}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800">{sistemasDebienestar[selectedSystem].nombre}</h2>
+                  <h2 className="text-2xl font-bold text-[#E5E5E5]">{sistemasDebienestar[selectedSystem].nombre}</h2>
                   <p className="text-slate-600">{sistemasDebienestar[selectedSystem].descripcion}</p>
                 </div>
               </div>
@@ -1764,11 +1762,11 @@ export default function CatalogoEstrategico() {
                         className="w-24 h-24 object-contain rounded-lg bg-white p-2"
                       />
                       <div className="flex-1">
-                        <h3 className="font-bold text-slate-800 mb-1">{product.name}</h3>
+                        <h3 className="font-bold text-[#E5E5E5] mb-1">{product.name}</h3>
                         <p className="text-amber-800 text-xs italic mb-2">"{product.taglineEstrategico}"</p>
                         <p className="text-slate-600 text-sm mb-3">{product.shortDescription}</p>
                         <div className="flex items-center justify-between">
-                          <span className="text-lg font-bold text-slate-800">${product.price.toLocaleString()}</span>
+                          <span className="text-lg font-bold text-[#E5E5E5]">${product.price.toLocaleString()}</span>
                           <button
                             onClick={() => {
                               addToCart(product.id)
@@ -1811,7 +1809,7 @@ export default function CatalogoEstrategico() {
           <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-slate-800">{selectedProduct.name}</h2>
+                <h2 className="text-2xl font-bold text-[#E5E5E5]">{selectedProduct.name}</h2>
                 <p className="text-amber-800 font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
               </div>
               <button
@@ -1835,7 +1833,7 @@ export default function CatalogoEstrategico() {
                   />
                 </div>
                 <div className="text-center">
-                  <span className="text-3xl font-bold text-slate-800">${selectedProduct.price.toLocaleString()}</span>
+                  <span className="text-3xl font-bold text-[#E5E5E5]">${selectedProduct.price.toLocaleString()}</span>
                   <p className="text-slate-500 text-sm mt-1">Precio constructor</p>
                 </div>
               </div>
@@ -1880,7 +1878,7 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'beneficios' && (
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Beneficios Clave</h3>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Beneficios Clave</h3>
                         <ul className="space-y-2">
                           {selectedProduct.benefits.map((benefit, index) => (
                             <li key={index} className="flex items-start">
@@ -1892,12 +1890,12 @@ export default function CatalogoEstrategico() {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Perfil Ideal</h3>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Perfil Ideal</h3>
                         <p className="text-slate-700 bg-blue-50 p-3 rounded-lg">{selectedProduct.perfilIdeal}</p>
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Momento de Consumo</h3>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Momento de Consumo</h3>
                         <p className="text-slate-700">{selectedProduct.momentoConsumo}</p>
                       </div>
                     </div>
@@ -1906,7 +1904,7 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'ciencia' && (
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Componentes Clave</h3>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Componentes Clave</h3>
                         <ul className="space-y-1">
                           {selectedProduct.ingredients.map((ingredient, index) => (
                             <li key={index} className="flex items-start">
@@ -1918,7 +1916,7 @@ export default function CatalogoEstrategico() {
                       </div>
 
                       <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200">
-                        <h4 className="font-bold text-amber-800 mb-2">Nuestra Ventaja Tecnológica</h4>
+                        <h4 className="font-bold text-[#C5A059] mb-2">Nuestra Ventaja Tecnológica</h4>
                         <p className="text-amber-700 text-sm">
                           Este producto contiene nuestro extracto exclusivo 100% hidrosoluble de Ganoderma Lucidum.
                           Una fusión de 6 variedades que aporta más de 200 fitonutrientes biodisponibles,
@@ -1927,7 +1925,7 @@ export default function CatalogoEstrategico() {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Modo de Uso</h3>
+                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Modo de Uso</h3>
                         <p className="text-slate-700 bg-slate-50 p-3 rounded-lg">{selectedProduct.usage}</p>
                       </div>
 
@@ -1955,7 +1953,7 @@ export default function CatalogoEstrategico() {
 
                       {selectedProduct.combinacionSugerida && (
                         <div>
-                          <h3 className="text-lg font-bold text-slate-800 mb-3">🔗 Combina con estos productos</h3>
+                          <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">🔗 Combina con estos productos</h3>
                           <p className="text-slate-600 text-sm mb-3">Para potenciar tus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
@@ -1977,7 +1975,7 @@ export default function CatalogoEstrategico() {
 
                       {selectedProduct.sistemaRecomendado && (
                         <div>
-                          <h3 className="text-lg font-bold text-slate-800 mb-3">Sistema Recomendado</h3>
+                          <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Sistema Recomendado</h3>
                           <button
                             onClick={() => {
                               setSelectedProduct(null)

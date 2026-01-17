@@ -1,14 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- THE ARCHITECT'S SUITE - CA Monogram Favicon -->
-  <!-- Style: Architectural Blueprint / Private Banking -->
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- THE ARCHITECT'S SUITE - CA Monogram App Icon -->
+  <!-- Fondo Carbón para contraste en temas claros/oscuros -->
+  <rect width="64" height="64" rx="12" fill="#0F1115"/>
 
   <!-- CA Symbol: Angular geometric lines -->
-  <g fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="square">
+  <g transform="translate(2, 2)">
     <!-- C: Angular form -->
-    <path d="M14 5 H5 V27 H20"/>
+    <path
+      d="M25 10 H10 V50 H40"
+      stroke="#C5A059"
+      stroke-width="3"
+      stroke-linecap="square"
+    />
     <!-- A: Vertical + horizontal structure -->
-    <path d="M16 27 V10 H27 V27"/>
+    <path
+      d="M30 50 V20 H50 V50"
+      stroke="#C5A059"
+      stroke-width="3"
+      stroke-linecap="square"
+    />
     <!-- A crossbar -->
-    <path d="M16 18 H27"/>
+    <path
+      d="M30 35 H50"
+      stroke="#C5A059"
+      stroke-width="3"
+    />
   </g>
 </svg>

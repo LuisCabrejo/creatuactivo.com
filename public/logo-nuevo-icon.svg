@@ -1,17 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
   <!-- THE ARCHITECT'S SUITE - CA Monogram Icon -->
-  <!-- Style: Private Banking / Architectural Blueprint -->
+  <!-- Style: Architectural Blueprint / Private Banking -->
   <!-- Use: App icons, social media, PWA -->
 
-  <!-- Background: Transparent (Quiet Luxury) -->
-
-  <!-- CA Monogram: Geometric interlocking design -->
-  <g fill="none" stroke="#C5A059" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" transform="translate(25, 20)">
-    <!-- C: Elegant arc with architectural precision -->
-    <path d="M110 25 C80 5, 30 15, 15 55 C0 95, 15 155, 60 175 C95 190, 125 175, 140 145"/>
-
-    <!-- A: Angular form integrated with C -->
-    <path d="M70 165 L105 25 L140 165"/>
-    <line x1="80" y1="120" x2="130" y2="120"/>
+  <!-- CA Symbol: Angular geometric lines -->
+  <g fill="none" stroke="#C5A059" stroke-width="8" stroke-linecap="square" transform="translate(30, 25)">
+    <!-- C: Angular form -->
+    <path d="M55 10 H15 V140 H90"/>
+    <!-- A: Vertical + horizontal structure -->
+    <path d="M70 140 V35 H125 V140"/>
+    <!-- A crossbar -->
+    <path d="M70 85 H125"/>
   </g>
 </svg>

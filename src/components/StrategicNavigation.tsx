@@ -110,21 +110,17 @@ const CRITICAL_NAVIGATION_CSS = `
   .strategic-logo-text .crea-tu {
     font-family: Montserrat, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 400;
     color: #E5E5E5;
-    letter-spacing: 0.02em;
-  }
-
-  .strategic-logo-text .tu {
-    color: #C5A059;
+    letter-spacing: 0.05em;
   }
 
   .strategic-logo-text .activo {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.25rem;
-    font-weight: 600;
-    color: #E5E5E5;
-    letter-spacing: 0.01em;
+    font-weight: 700;
+    color: #C5A059;
+    letter-spacing: 0.02em;
   }
 
   .strategic-logo-link:hover .strategic-logo-text {
@@ -514,19 +510,19 @@ export default function StrategicNavigation() {
             {/* ✅ LOGO SECTION - THE ARCHITECT'S SUITE */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
-                {/* CA Monogram - Architectural Style */}
+                {/* CA Symbol - Architectural Blueprint */}
                 <div className="strategic-logo-icon">
                   <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="#C5A059" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
-                      <path d="M14 26 L20 8 L26 26"/>
-                      <line x1="16" y1="20" x2="24" y2="20"/>
+                    <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
+                      <path d="M14 5 H5 V27 H20"/>
+                      <path d="M16 27 V10 H27 V27"/>
+                      <path d="M16 18 H27"/>
                     </g>
                   </svg>
                 </div>
-                {/* Mixed Typography Wordmark */}
+                {/* Mixed Typography Wordmark: CreaTu (Sans) + Activo (Serif Gold) */}
                 <span className="strategic-logo-text">
-                  <span className="crea-tu">Crea<span className="tu">Tu</span></span>
+                  <span className="crea-tu">CreaTu</span>
                   <span className="activo">Activo</span>
                 </span>
               </Link>
@@ -578,19 +574,19 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
-            {/* CA Monogram - Architectural Style */}
+            {/* CA Symbol - Architectural Blueprint */}
             <div className="strategic-logo-icon">
               <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="#C5A059" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
-                  <path d="M14 26 L20 8 L26 26"/>
-                  <line x1="16" y1="20" x2="24" y2="20"/>
+                <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
+                  <path d="M14 5 H5 V27 H20"/>
+                  <path d="M16 27 V10 H27 V27"/>
+                  <path d="M16 18 H27"/>
                 </g>
               </svg>
             </div>
-            {/* Mixed Typography Wordmark */}
+            {/* Mixed Typography Wordmark: CreaTu (Sans) + Activo (Serif Gold) */}
             <span className="strategic-logo-text">
-              <span className="crea-tu">Crea<span className="tu">Tu</span></span>
+              <span className="crea-tu">CreaTu</span>
               <span className="activo">Activo</span>
             </span>
           </Link>

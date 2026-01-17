@@ -1,16 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <!-- THE ARCHITECT'S SUITE - CA Monogram Favicon -->
-  <!-- Style: Private Banking / Architectural Blueprint -->
+  <!-- Style: Architectural Blueprint / Private Banking -->
 
-  <!-- Background: Transparent (Quiet Luxury) -->
-
-  <!-- CA Monogram: Geometric interlocking design -->
-  <g fill="none" stroke="#C5A059" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <!-- C: Elegant arc with architectural precision -->
-    <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
-
-    <!-- A: Angular form integrated with C -->
-    <path d="M14 26 L20 8 L26 26"/>
-    <line x1="16" y1="20" x2="24" y2="20"/>
+  <!-- CA Symbol: Angular geometric lines -->
+  <g fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="square">
+    <!-- C: Angular form -->
+    <path d="M14 5 H5 V27 H20"/>
+    <!-- A: Vertical + horizontal structure -->
+    <path d="M16 27 V10 H27 V27"/>
+    <!-- A crossbar -->
+    <path d="M16 18 H27"/>
   </g>
 </svg>

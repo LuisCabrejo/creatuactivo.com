@@ -1,46 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="60" viewBox="0 0 320 60">
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="60" viewBox="0 0 300 60">
   <!-- THE ARCHITECT'S SUITE - Full Logo -->
-  <!-- Style: Private Banking / Architectural Blueprint -->
-  <!-- CA Monogram + Mixed Typography Wordmark -->
+  <!-- Style: Architectural Blueprint / Private Banking -->
+  <!-- CA Symbol + Mixed Typography Wordmark -->
 
-  <!-- CA Monogram (scaled for header) -->
-  <g fill="none" stroke="#C5A059" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" transform="translate(4, 4)">
-    <!-- C: Elegant arc -->
-    <path d="M36 8 C28 3, 14 5, 8 16 C2 27, 5 42, 16 48 C26 52, 36 48, 40 40"/>
-    <!-- A: Angular form -->
-    <path d="M22 46 L32 8 L42 46"/>
-    <line x1="25" y1="34" x2="39" y2="34"/>
+  <!-- CA Symbol: Angular geometric lines (scaled for header) -->
+  <g fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="square">
+    <!-- C: Angular form -->
+    <path d="M25 10 H10 V50 H40"/>
+    <!-- A: Vertical + horizontal structure -->
+    <path d="M30 50 V20 H50 V50"/>
+    <!-- A crossbar -->
+    <path d="M30 35 H50"/>
   </g>
 
   <!-- Wordmark: CreaTuActivo -->
   <!-- "CreaTu" in Montserrat (Sans) - Modern -->
   <text
-    x="62"
-    y="38"
-    font-family="Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    x="70"
+    y="42"
+    font-family="Montserrat, sans-serif"
+    font-weight="400"
     font-size="24"
-    font-weight="500"
+    letter-spacing="1"
     fill="#E5E5E5"
-    letter-spacing="0.02em"
-  >Crea</text>
-  <text
-    x="120"
-    y="38"
-    font-family="Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="24"
-    font-weight="500"
-    fill="#C5A059"
-    letter-spacing="0.02em"
-  >Tu</text>
+  >CreaTu</text>
 
   <!-- "Activo" in Playfair Display (Serif) - Authority -->
   <text
-    x="156"
-    y="38"
-    font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+    x="165"
+    y="42"
+    font-family="'Playfair Display', serif"
+    font-weight="700"
     font-size="24"
-    font-weight="600"
-    fill="#E5E5E5"
-    letter-spacing="0.01em"
+    letter-spacing="0.5"
+    fill="#C5A059"
   >Activo</text>
 </svg>

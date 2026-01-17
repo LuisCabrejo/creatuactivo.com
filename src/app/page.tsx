@@ -82,31 +82,35 @@ function HeroSection() {
             style={{ backgroundColor: COLORS.gold.primary }}
           />
           <span className="text-sm" style={{ color: COLORS.text.muted }}>
-            Diagnóstico Gratuito
+            Estrategia de Soberanía Financiera
           </span>
         </div>
 
-        {/* Main Headline - El Plan por Defecto */}
+        {/* Main Headline - Soberanía */}
         <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6 font-serif">
-          <span style={{ color: COLORS.text.muted }}>¿Sigues operando bajo el</span>
+          <span style={{ color: COLORS.text.main }}>¿Es Tu Plan Financiero un Puente hacia la</span>
           <br />
-          <span style={{ color: COLORS.gold.primary }}>Plan por Defecto</span>
-          <span style={{ color: COLORS.text.primary }}>?</span>
+          <span style={{ color: COLORS.gold.primary }}>Soberanía</span>
+          <span style={{ color: COLORS.text.main }}> o una Trampa de Dependencia?</span>
         </h1>
 
         {/* Subheadline */}
         <p
-          className="text-lg sm:text-xl mb-10 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg sm:text-xl mb-6 max-w-2xl mx-auto leading-relaxed"
           style={{ color: COLORS.text.muted }}
         >
-          Descubre cuántos{' '}
+          Deja de ser el motor de tu economía.{' '}
           <span className="font-medium" style={{ color: COLORS.text.main }}>
-            días de libertad real
-          </span>{' '}
-          tienes antes de que se acabe el dinero.
+            Construye el chasis que te permita detenerte sin que todo colapse.
+          </span>
         </p>
 
-        {/* CTA Principal - Calculadora */}
+        {/* Byline */}
+        <p className="text-sm mb-10" style={{ color: COLORS.text.muted }}>
+          Diseñado por Luis Cabrejo · <span style={{ color: COLORS.gold.bronze }}>Arquitecto de Activos</span>
+        </p>
+
+        {/* CTA Principal - Auditoría */}
         <Link
           href="/calculadora"
           className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
@@ -116,37 +120,40 @@ function HeroSection() {
             boxShadow: '0 0 20px rgba(197, 160, 89, 0.2)',
           }}
         >
-          Hacer el Diagnóstico
+          Iniciar Auditoría de Soberanía
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Link>
 
-        {/* Trust indicators */}
+        {/* Trust indicators - Solidez Institucional */}
         <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm" style={{ color: COLORS.text.muted }}>
           <div className="flex items-center gap-2">
+            {/* Globe icon */}
             <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
             </svg>
-            <span>3 preguntas</span>
+            <span>Presencia en 70+ Países</span>
           </div>
           <div className="flex items-center gap-2">
+            {/* Shield icon */}
             <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
-            <span>100% gratis</span>
+            <span>Infraestructura Corporativa Propia</span>
           </div>
           <div className="flex items-center gap-2">
+            {/* Bolt/Zap icon */}
             <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
             </svg>
-            <span>Resultado inmediato</span>
+            <span>Operación 100% Digital</span>
           </div>
         </div>
 
         {/* Secondary CTA */}
         <p className="mt-8 text-sm" style={{ color: COLORS.text.muted }}>
-          ¿Ya hiciste el diagnóstico?{' '}
+          ¿Ya hiciste la auditoría?{' '}
           <Link
             href="/reto-5-dias"
             className="hover:underline transition-colors"

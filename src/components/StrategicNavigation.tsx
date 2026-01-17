@@ -476,7 +476,7 @@ export default function StrategicNavigation() {
   const directLinks = [
     { name: 'Manifiesto', href: '/nosotros' },
     { name: 'El Sistema', href: '/tecnologia' },
-    { name: 'Infraestructura', href: '/productos' },
+    { name: 'Infraestructura', href: '/infraestructura' },
     { name: 'Insights', href: '/blog' },
   ]
 

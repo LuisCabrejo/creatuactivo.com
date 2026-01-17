@@ -98,6 +98,13 @@ const nextConfig = {
         destination: '/reto-5-dias',
         permanent: true,
       },
+
+      // Productos → Infraestructura (página renombrada)
+      {
+        source: '/productos',
+        destination: '/infraestructura',
+        permanent: true,
+      },
     ]
   },
 }

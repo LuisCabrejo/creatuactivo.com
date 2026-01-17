@@ -25,20 +25,20 @@ const TOOLTIP_CONFIG = {
   reappearDelayMs: 120000,    // Reaparece después de 2 minutos (antes 1min)
 };
 
-// 🎨 Quiet Luxury Color Palette
+// 🎨 Quiet Luxury Color Palette (THE ARCHITECT'S SUITE)
 const QUIET_LUXURY = {
-  gold: '#D4AF37',
-  goldMuted: '#C9A962',
-  goldDark: '#B8962F',
-  bgDeep: '#0a0a0f',
-  bgSurface: '#12121a',
-  bgCard: '#1a1a24',
-  textPrimary: '#f5f5f5',
-  textSecondary: '#a0a0a8',
-  textMuted: '#6b6b75',
+  gold: '#C5A059',           // Champagne Gold - Primary accent
+  goldMuted: '#A68A4A',      // Muted gold for subtle elements
+  goldDark: '#8A7340',       // Dark gold for hover states
+  bgDeep: '#0F1115',         // Carbono - Primary background
+  bgSurface: '#1A1D23',      // Surface background
+  bgCard: '#22252B',         // Card background
+  textPrimary: '#E5E5E5',    // Blanco Humo - Primary text
+  textSecondary: '#A3A3A3',  // Secondary text
+  textMuted: '#6B7280',      // Muted text (Slate Gray)
   // 🆕 Botón flotante: Blanco puro para máximo contraste en móvil
   buttonBg: '#FFFFFF',
-  buttonIcon: '#1a1a24',  // Icono oscuro sobre fondo blanco
+  buttonIcon: '#0F1115',     // Icono Carbono sobre fondo blanco
 };
 
 const NEXUSFloatingButton: React.FC = () => {
@@ -205,7 +205,7 @@ const NEXUSFloatingButton: React.FC = () => {
     // Evita choque visual con el botón dorado de CTA
     return {
       background: QUIET_LUXURY.buttonBg,
-      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.3)`
+      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(197, 160, 89, 0.3)`
     };
   };
 
@@ -225,7 +225,7 @@ const NEXUSFloatingButton: React.FC = () => {
             style={{
               background: QUIET_LUXURY.bgSurface,
               border: `1px solid ${QUIET_LUXURY.gold}`,
-              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.2)`
+              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(197, 160, 89, 0.2)`
             }}
           >
             <span

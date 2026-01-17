@@ -8,7 +8,7 @@ import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const metadata = {
-  title: 'Blog - Recursos para Construir tu Libertad Financiera | CreaTuActivo',
+  title: 'Blog - Recursos para Construir tu Soberanía Financiera | CreaTuActivo',
   description: 'Artículos y guías sobre activos digitales, network marketing moderno, y estrategias para construir ingresos residuales desde casa.',
 };
 
@@ -64,7 +64,7 @@ export default function BlogPage() {
               <h1 className="text-4xl sm:text-5xl leading-tight mb-6 font-serif">
                 Ideas para construir
                 <br />
-                <span className="text-[#C5A059]">tu libertad financiera</span>
+                <span className="text-[#C5A059]">tu Soberanía Financiera</span>
               </h1>
 
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">

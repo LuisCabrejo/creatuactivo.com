@@ -62,7 +62,7 @@ export default function TecnologiaPage() {
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div className="p-6 rounded-2xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
-                  <div className="text-red-400 text-4xl font-bold mb-4">#1</div>
+                  <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
                   <h3 className="text-xl font-semibold mb-3">&quot;No sé vender&quot;</h3>
                   <p className="text-[#A3A3A3]">
                     La mayoría de las personas odian vender. No quieren molestar amigos,
@@ -71,7 +71,7 @@ export default function TecnologiaPage() {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
-                  <div className="text-red-400 text-4xl font-bold mb-4">#2</div>
+                  <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
                   <h3 className="text-xl font-semibold mb-3">&quot;No tengo tiempo&quot;</h3>
                   <p className="text-[#A3A3A3]">
                     Entre el trabajo, la familia y otras responsabilidades,
@@ -204,22 +204,22 @@ export default function TecnologiaPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Sin Queswa */}
                 <div className="p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] opacity-60">
-                  <h3 className="text-xl font-semibold mb-6 text-red-400">Método Tradicional</h3>
+                  <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Método Tradicional</h3>
                   <ul className="space-y-4 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
                       <span>Hacer presentaciones una por una</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
                       <span>Memorizar respuestas a objeciones</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
                       <span>Disponibilidad limitada a tu tiempo</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
                       <span>Difícil de duplicar (depende de tu habilidad)</span>
                     </li>
                   </ul>

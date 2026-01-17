@@ -16,17 +16,17 @@ import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 
-// 🎨 Quiet Luxury Color Palette
+// 🎨 Quiet Luxury Color Palette (THE ARCHITECT'S SUITE)
 const QUIET_LUXURY = {
-  gold: '#D4AF37',
-  goldMuted: '#C9A962',
-  goldDark: '#B8962F',
-  bgDeep: '#0a0a0f',
-  bgSurface: '#12121a',
-  bgCard: '#1a1a24',
-  textPrimary: '#f5f5f5',
-  textSecondary: '#a0a0a8',
-  textMuted: '#6b6b75',
+  gold: '#C5A059',           // Champagne Gold - Primary accent
+  goldMuted: '#A68A4A',      // Muted gold for subtle elements
+  goldDark: '#8A7340',       // Dark gold for hover states
+  bgDeep: '#0F1115',         // Carbono - Primary background
+  bgSurface: '#1A1D23',      // Surface background
+  bgCard: '#22252B',         // Card background
+  textPrimary: '#E5E5E5',    // Blanco Humo - Primary text
+  textSecondary: '#A3A3A3',  // Secondary text
+  textMuted: '#6B7280',      // Muted text (Slate Gray)
 };
 
 interface Message {
@@ -139,8 +139,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           style={{
             background: `rgba(18, 18, 26, 0.95)`,
             backdropFilter: 'blur(32px)',
-            border: `1px solid rgba(212, 175, 55, 0.2)`,
-            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1)`
+            border: `1px solid rgba(197, 160, 89, 0.2)`,
+            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(197, 160, 89, 0.1)`
           }}
         >
 
@@ -148,14 +148,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b rounded-t-2xl"
                style={{
                  background: QUIET_LUXURY.bgSurface,
-                 borderColor: `rgba(212, 175, 55, 0.15)`
+                 borderColor: `rgba(197, 160, 89, 0.15)`
                }}>
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
                 style={{
                   background: QUIET_LUXURY.gold,
-                  boxShadow: `0 4px 12px rgba(212, 175, 55, 0.3)`
+                  boxShadow: `0 4px 12px rgba(197, 160, 89, 0.3)`
                 }}
               >
                 <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +177,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)';
+                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.1)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -231,7 +231,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center"
             style={{
               background: QUIET_LUXURY.bgSurface,
-              borderBottom: `1px solid rgba(212, 175, 55, 0.15)`
+              borderBottom: `1px solid rgba(197, 160, 89, 0.15)`
             }}
           >
             <div className="flex items-center gap-2">
@@ -239,7 +239,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{
                   background: QUIET_LUXURY.gold,
-                  boxShadow: `0 2px 8px rgba(212, 175, 55, 0.3)`
+                  boxShadow: `0 2px 8px rgba(197, 160, 89, 0.3)`
                 }}
               >
                 <svg className="w-4 h-4" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -306,7 +306,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             style={{
               // Scrollbar personalizado - dorado sutil
               scrollbarWidth: 'thin',
-              scrollbarColor: `rgba(212, 175, 55, 0.4) rgba(26, 26, 36, 0.5)`
+              scrollbarColor: `rgba(197, 160, 89, 0.4) rgba(26, 26, 36, 0.5)`
             }}
           >
             {/* 🔑 CONTENEDOR CON TRANSFORM + PADDING COMPENSATORIO */}
@@ -338,7 +338,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     className="backdrop-blur-sm flex-1 p-4 rounded-xl"
                     style={{
                       background: QUIET_LUXURY.bgCard,
-                      border: `1px solid rgba(212, 175, 55, 0.1)`,
+                      border: `1px solid rgba(197, 160, 89, 0.1)`,
                       color: QUIET_LUXURY.textSecondary
                     }}
                   >
@@ -347,7 +347,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         className="w-10 h-10 rounded-xl flex items-center justify-center"
                         style={{
                           background: QUIET_LUXURY.gold,
-                          boxShadow: `0 4px 12px rgba(212, 175, 55, 0.25)`
+                          boxShadow: `0 4px 12px rgba(197, 160, 89, 0.25)`
                         }}
                       >
                         <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -408,11 +408,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       style={message.role === 'user' ? {
                         background: QUIET_LUXURY.gold,
                         color: QUIET_LUXURY.bgDeep,
-                        boxShadow: '0 4px 16px rgba(212, 175, 55, 0.25)'
+                        boxShadow: '0 4px 16px rgba(197, 160, 89, 0.25)'
                       } : {
                         background: QUIET_LUXURY.bgCard,
                         color: QUIET_LUXURY.textSecondary,
-                        border: `1px solid rgba(212, 175, 55, 0.08)`
+                        border: `1px solid rgba(197, 160, 89, 0.08)`
                       }}
                     >
                       <ReactMarkdown
@@ -438,7 +438,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <div className="overflow-x-auto my-3">
                               <table
                                 className="w-full border-collapse text-sm"
-                                style={{ border: `1px solid rgba(212, 175, 55, 0.2)` }}
+                                style={{ border: `1px solid rgba(197, 160, 89, 0.2)` }}
                               >
                                 {children}
                               </table>
@@ -457,7 +457,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                           tr: ({children}) => (
                             <tr
                               className="transition-colors"
-                              style={{ borderBottom: `1px solid rgba(212, 175, 55, 0.1)` }}
+                              style={{ borderBottom: `1px solid rgba(197, 160, 89, 0.1)` }}
                             >
                               {children}
                             </tr>
@@ -466,7 +466,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <th
                               className="px-3 py-2 text-left font-semibold"
                               style={{
-                                border: `1px solid rgba(212, 175, 55, 0.15)`,
+                                border: `1px solid rgba(197, 160, 89, 0.15)`,
                                 color: QUIET_LUXURY.gold
                               }}
                             >
@@ -477,7 +477,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <td
                               className="px-3 py-2"
                               style={{
-                                border: `1px solid rgba(212, 175, 55, 0.1)`,
+                                border: `1px solid rgba(197, 160, 89, 0.1)`,
                                 color: QUIET_LUXURY.textPrimary
                               }}
                             >
@@ -533,7 +533,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           {/* 🎨 Quiet Luxury INPUT */}
           <div
             className={`${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}
-            style={{ borderTop: `1px solid rgba(212, 175, 55, 0.1)` }}
+            style={{ borderTop: `1px solid rgba(197, 160, 89, 0.1)` }}
           >
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
@@ -547,16 +547,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{
                   background: QUIET_LUXURY.bgCard,
                   color: QUIET_LUXURY.textPrimary,
-                  border: `1px solid rgba(212, 175, 55, 0.15)`,
+                  border: `1px solid rgba(197, 160, 89, 0.15)`,
                   boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
                   outline: 'none'
                 }}
                 onFocus={(e) => {
                   e.currentTarget.style.borderColor = QUIET_LUXURY.gold;
-                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(212, 175, 55, 0.15)`;
+                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(197, 160, 89, 0.15)`;
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(197, 160, 89, 0.15)';
                   e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
                 }}
               />
@@ -568,7 +568,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{
                   background: QUIET_LUXURY.gold,
                   color: QUIET_LUXURY.bgDeep,
-                  boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
+                  boxShadow: '0 4px 12px rgba(197, 160, 89, 0.3)'
                 }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -586,7 +586,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -606,7 +606,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -686,12 +686,12 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }
 
         div::-webkit-scrollbar-thumb {
-          background: rgba(212, 175, 55, 0.4);
+          background: rgba(197, 160, 89, 0.4);
           border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb:hover {
-          background: rgba(212, 175, 55, 0.6);
+          background: rgba(197, 160, 89, 0.6);
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

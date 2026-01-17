@@ -36,45 +36,45 @@ export default function SociosPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5]">
+    <div className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
       {/* Header Simple */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-md border-b border-[#2a2a35]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0F1115]/90 backdrop-blur-md border-b border-[rgba(197, 160, 89, 0.15)]">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#D4AF37] rounded-lg flex items-center justify-center">
-              <span className="text-[#0a0a0f] font-bold text-xl font-serif">C</span>
+            <div className="w-10 h-10 bg-[#C5A059] rounded-lg flex items-center justify-center">
+              <span className="text-[#0F1115] font-bold text-xl font-serif">C</span>
             </div>
             <span className="text-lg font-semibold">CreaTuActivo</span>
           </div>
-          <span className="text-sm text-[#a0a0a8]">Presentación para Socios</span>
+          <span className="text-sm text-[#A3A3A3]">Presentación para Socios</span>
         </div>
       </header>
 
       {/* Hero - Validación + Curiosidad */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1a1a24] border border-[#D4AF37]/30">
-            <Heart className="w-4 h-4 text-[#D4AF37]" />
-            <span className="text-sm text-[#a0a0a8]">Para quienes ya conocen el poder de las relaciones</span>
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1A1D23] border border-[#C5A059]/30">
+            <Heart className="w-4 h-4 text-[#C5A059]" />
+            <span className="text-sm text-[#A3A3A3]">Para quienes ya conocen el poder de las relaciones</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif leading-tight mb-6">
             Lo que funciona sigue funcionando.
             <br />
-            <span className="text-[#D4AF37]">Solo necesita más alcance.</span>
+            <span className="text-[#C5A059]">Solo necesita más alcance.</span>
           </h1>
 
-          <p className="text-lg text-[#a0a0a8] mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-[#A3A3A3] mb-8 max-w-2xl mx-auto leading-relaxed">
             El 1 a 1. Las reuniones. La conexión humana genuina.
-            <strong className="text-[#f5f5f5]"> Eso nunca será reemplazado por tecnología.</strong>
+            <strong className="text-[#E5E5E5]"> Eso nunca será reemplazado por tecnología.</strong>
             <br /><br />
             Pero... ¿y si la tecnología pudiera
-            <strong className="text-[#D4AF37]"> multiplicar tu alcance sin perder tu esencia?</strong>
+            <strong className="text-[#C5A059]"> multiplicar tu alcance sin perder tu esencia?</strong>
           </p>
 
           <a
             href="#historia"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#D4AF37] text-[#0a0a0f] font-semibold rounded-lg hover:bg-[#c9a432] transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C5A059] text-[#0F1115] font-semibold rounded-lg hover:bg-[#B38B59] transition-colors"
           >
             Conocer la Historia
             <ArrowRight className="w-5 h-5" />
@@ -86,26 +86,26 @@ export default function SociosPage() {
       <section id="historia" className="py-20 px-6 bg-[#0d0d14]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Verdadero Enemigo
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               No es tu gente.
-              <span className="text-[#D4AF37]"> Es el entrenamiento que les dieron.</span>
+              <span className="text-[#C5A059]"> Es el entrenamiento que les dieron.</span>
             </h2>
           </div>
 
-          <div className="bg-[#12121a] rounded-2xl border border-red-500/20 p-8 mb-8">
+          <div className="bg-[#1A1D23] rounded-2xl border border-red-500/20 p-8 mb-8">
             <div className="flex items-start gap-4">
               <Quote className="w-8 h-8 text-red-400 shrink-0 mt-2" />
               <div>
                 <p className="text-xl text-red-400 font-semibold mb-4">
                   "Haz una lista de 100 y vamos a llamarlos."
                 </p>
-                <p className="text-[#a0a0a8] leading-relaxed">
+                <p className="text-[#A3A3A3] leading-relaxed">
                   Ese es el entrenamiento tradicional. Y funciona... para los que ya tienen
                   confianza, las palabras correctas y cero miedo al rechazo.
-                  <strong className="text-[#f5f5f5]"> Para el resto, genera esto:</strong>
+                  <strong className="text-[#E5E5E5]"> Para el resto, genera esto:</strong>
                 </p>
               </div>
             </div>
@@ -131,38 +131,38 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl p-6 border border-red-500/10"
+                className="bg-[#1A1D23] rounded-xl p-6 border border-red-500/10"
               >
                 <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
                   <item.icon className="w-5 h-5 text-red-400" />
                 </div>
                 <h3 className="font-semibold mb-2 text-red-400">{item.title}</h3>
-                <p className="text-sm text-[#a0a0a8]">{item.description}</p>
+                <p className="text-sm text-[#A3A3A3]">{item.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 bg-[#12121a] rounded-xl border border-[#D4AF37]/30 p-8">
-            <h4 className="font-semibold text-[#D4AF37] mb-4 text-lg">Mi Historia</h4>
-            <div className="space-y-4 text-[#a0a0a8] leading-relaxed">
+          <div className="mt-8 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30 p-8">
+            <h4 className="font-semibold text-[#C5A059] mb-4 text-lg">Mi Historia</h4>
+            <div className="space-y-4 text-[#A3A3A3] leading-relaxed">
               <p>
-                Cuando empecé, no me costaba. <strong className="text-[#f5f5f5]">5 presentaciones, 4 iniciaban.</strong> Pensé que duplicar sería igual de fácil.
+                Cuando empecé, no me costaba. <strong className="text-[#E5E5E5]">5 presentaciones, 4 iniciaban.</strong> Pensé que duplicar sería igual de fácil.
               </p>
               <p>
                 Pero cuando mi equipo empezó a crecer, descubrí algo incómodo:
-                <strong className="text-[#D4AF37]"> lo que para mí era fácil, para ellos era difícil.</strong>
+                <strong className="text-[#C5A059]"> lo que para mí era fácil, para ellos era difícil.</strong>
               </p>
               <p>
                 Ellos no sabían qué decir. Les daba miedo llamar. Y yo no podía estar en cada presentación.
               </p>
               <p>
-                Ahí entendí: <strong className="text-[#f5f5f5]">el problema no era mi gente. Era que el método dependía de MÍ.</strong>
+                Ahí entendí: <strong className="text-[#E5E5E5]">el problema no era mi gente. Era que el método dependía de MÍ.</strong>
               </p>
               <p>
                 Necesitaba un sistema que hiciera el trabajo pesado — educar, responder objeciones, generar interés —
                 para que cuando mi equipo hablara con alguien, esa persona ya llegara lista.
               </p>
-              <p className="text-[#D4AF37] font-semibold pt-2">
+              <p className="text-[#C5A059] font-semibold pt-2">
                 Eso es lo que construimos.
               </p>
             </div>
@@ -174,14 +174,14 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Evolución, No Revolución
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Los taxis no desaparecieron.
-              <span className="text-[#D4AF37]"> Se transformaron.</span>
+              <span className="text-[#C5A059]"> Se transformaron.</span>
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Las habilidades que funcionan no desaparecen.
               Se amplifican con las herramientas del siglo XXI.
             </p>
@@ -207,23 +207,23 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl p-6 border border-[#2a2a35]"
+                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
               >
                 <div className="grid md:grid-cols-3 gap-4 items-center">
                   <div className="text-center md:text-left">
                     <p className="text-sm text-[#6b6b75] mb-1">Antes</p>
-                    <p className="text-[#a0a0a8]">{item.before}</p>
+                    <p className="text-[#A3A3A3]">{item.before}</p>
                   </div>
                   <div className="text-center">
-                    <ArrowRight className="w-6 h-6 text-[#D4AF37] mx-auto" />
+                    <ArrowRight className="w-6 h-6 text-[#C5A059] mx-auto" />
                   </div>
                   <div className="text-center md:text-right">
                     <p className="text-sm text-[#6b6b75] mb-1">Ahora</p>
-                    <p className="text-[#f5f5f5]">{item.after}</p>
+                    <p className="text-[#E5E5E5]">{item.after}</p>
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-[#2a2a35]">
-                  <p className="text-sm text-[#D4AF37] text-center">
+                <div className="mt-4 pt-4 border-t border-[rgba(197, 160, 89, 0.15)]">
+                  <p className="text-sm text-[#C5A059] text-center">
                     <Sparkles className="w-4 h-4 inline mr-2" />
                     {item.insight}
                   </p>
@@ -238,14 +238,14 @@ export default function SociosPage() {
       <section className="py-20 px-6 bg-[#0d0d14]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Plan Trimodal
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Tres caminos.
-              <span className="text-[#D4AF37]"> Tú eliges el tuyo.</span>
+              <span className="text-[#C5A059]"> Tú eliges el tuyo.</span>
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               No todos tenemos los mismos talentos ni recursos. Por eso diseñamos
               tres rutas para construir activos según tu perfil.
             </p>
@@ -253,18 +253,18 @@ export default function SociosPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Análogo */}
-            <div className="bg-[#12121a] rounded-2xl border-2 border-[#D4AF37]/50 p-8 relative">
-              <div className="absolute -top-3 right-8 px-3 py-1 bg-[#D4AF37] text-[#0a0a0f] text-xs font-bold rounded-full">
+            <div className="bg-[#1A1D23] rounded-2xl border-2 border-[#C5A059]/50 p-8 relative">
+              <div className="absolute -top-3 right-8 px-3 py-1 bg-[#C5A059] text-[#0F1115] text-xs font-bold rounded-full">
                 TU FORTALEZA
               </div>
-              <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-6">
-                <Handshake className="w-7 h-7 text-[#D4AF37]" />
+              <div className="w-14 h-14 bg-[#C5A059]/10 rounded-xl flex items-center justify-center mb-6">
+                <Handshake className="w-7 h-7 text-[#C5A059]" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-[#D4AF37]">Análogo</h3>
+              <h3 className="text-xl font-semibold mb-2 text-[#C5A059]">Análogo</h3>
               <p className="text-sm text-[#6b6b75] mb-4">El poder de las relaciones</p>
-              <p className="text-[#a0a0a8] mb-6 leading-relaxed">
+              <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes brillan en el 1 a 1, las reuniones y las presentaciones personales.
-                <strong className="text-[#f5f5f5]"> Tu red de contactos es tu mayor activo.</strong>
+                <strong className="text-[#E5E5E5]"> Tu red de contactos es tu mayor activo.</strong>
               </p>
               <ul className="space-y-3">
                 {[
@@ -274,26 +274,26 @@ export default function SociosPage() {
                   'El arte del cierre en vivo',
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#C5A059] shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 p-4 bg-[#D4AF37]/5 rounded-xl">
-                <p className="text-xs text-[#D4AF37]">
+              <div className="mt-6 p-4 bg-[#C5A059]/5 rounded-xl">
+                <p className="text-xs text-[#C5A059]">
                   + La tecnología filtra y educa a tus prospectos ANTES de que lleguen a ti
                 </p>
               </div>
             </div>
 
             {/* Híbrido */}
-            <div className="bg-[#12121a] rounded-2xl border border-[#2a2a35] p-8">
+            <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
               <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
                 <Users className="w-7 h-7 text-purple-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-purple-400">Híbrido</h3>
               <p className="text-sm text-[#6b6b75] mb-4">Marca personal + Relaciones</p>
-              <p className="text-[#a0a0a8] mb-6 leading-relaxed">
+              <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes quieren construir autoridad en redes sociales mientras
                 mantienen el toque personal.
               </p>
@@ -313,13 +313,13 @@ export default function SociosPage() {
             </div>
 
             {/* Digital */}
-            <div className="bg-[#12121a] rounded-2xl border border-[#2a2a35] p-8">
+            <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
               <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6">
                 <Rocket className="w-7 h-7 text-blue-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-blue-400">Digital</h3>
               <p className="text-sm text-[#6b6b75] mb-4">Inversión + Automatización</p>
-              <p className="text-[#a0a0a8] mb-6 leading-relaxed">
+              <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes tienen capital para invertir en publicidad y prefieren
                 sistemas 100% automatizados.
               </p>
@@ -340,9 +340,9 @@ export default function SociosPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               La belleza del modelo es que puedes combinarlos.
-              Empezar con <strong className="text-[#D4AF37]">Análogo</strong> y
+              Empezar con <strong className="text-[#C5A059]">Análogo</strong> y
               escalar a <strong className="text-purple-400">Híbrido</strong> o
               <strong className="text-blue-400"> Digital</strong> cuando estés lista.
             </p>
@@ -354,28 +354,28 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               La Metodología Probada
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               No inventamos la rueda.
-              <span className="text-[#D4AF37]"> La adaptamos.</span>
+              <span className="text-[#C5A059]"> La adaptamos.</span>
             </h2>
           </div>
 
-          <div className="bg-[#12121a] rounded-2xl border border-[#2a2a35] p-8 mb-8">
+          <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8 mb-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-24 h-24 bg-[#D4AF37]/10 rounded-full flex items-center justify-center shrink-0">
-                <Trophy className="w-12 h-12 text-[#D4AF37]" />
+              <div className="w-24 h-24 bg-[#C5A059]/10 rounded-full flex items-center justify-center shrink-0">
+                <Trophy className="w-12 h-12 text-[#C5A059]" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-3">Russell Brunson</h3>
-                <p className="text-[#a0a0a8] leading-relaxed mb-4">
+                <p className="text-[#A3A3A3] leading-relaxed mb-4">
                   Creador de ClickFunnels, empresa valorada en $360 millones.
-                  Sus metodologías —<strong className="text-[#f5f5f5]">DotCom Secrets, Expert Secrets, Traffic Secrets</strong>—
+                  Sus metodologías —<strong className="text-[#E5E5E5]">DotCom Secrets, Expert Secrets, Traffic Secrets</strong>—
                   han ayudado a miles de emprendedores a construir negocios de 7 y 8 cifras.
                 </p>
-                <p className="text-[#f5f5f5]">
+                <p className="text-[#E5E5E5]">
                   Lo que hemos construido para CreaTuActivo está basado en sus principios:
                 </p>
               </div>
@@ -407,14 +407,14 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl p-6 border border-[#2a2a35] flex items-start gap-4"
+                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)] flex items-start gap-4"
               >
-                <div className="w-10 h-10 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-[#D4AF37]" />
+                <div className="w-10 h-10 bg-[#C5A059]/10 rounded-lg flex items-center justify-center shrink-0">
+                  <item.icon className="w-5 h-5 text-[#C5A059]" />
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">{item.title}</h4>
-                  <p className="text-sm text-[#a0a0a8]">{item.description}</p>
+                  <p className="text-sm text-[#A3A3A3]">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -426,14 +426,14 @@ export default function SociosPage() {
       <section className="py-20 px-6 bg-[#0d0d14]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Reto de 5 Días
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Qué reciben tus prospectos
-              <span className="text-[#D4AF37]"> antes de hablar contigo</span>
+              <span className="text-[#C5A059]"> antes de hablar contigo</span>
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Imagina que cada persona que llega a ti ya entiende el modelo,
               ya superó sus objeciones y ya está lista para tomar una decisión.
             </p>
@@ -479,31 +479,31 @@ export default function SociosPage() {
             ].map((day, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl border border-[#2a2a35] overflow-hidden"
+                className="bg-[#1A1D23] rounded-xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden"
               >
                 <button
                   onClick={() => setOpenDay(openDay === i ? null : i)}
-                  className="w-full p-6 text-left flex items-center gap-4 hover:bg-[#1a1a24] transition-colors"
+                  className="w-full p-6 text-left flex items-center gap-4 hover:bg-[#1A1D23] transition-colors"
                 >
-                  <div className="w-12 h-12 bg-[#D4AF37] rounded-xl flex items-center justify-center shrink-0">
-                    <span className="text-[#0a0a0f] font-bold text-lg">{day.day}</span>
+                  <div className="w-12 h-12 bg-[#C5A059] rounded-xl flex items-center justify-center shrink-0">
+                    <span className="text-[#0F1115] font-bold text-lg">{day.day}</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold">{day.title}</h3>
-                    <p className="text-sm text-[#a0a0a8]">{day.subtitle}</p>
+                    <p className="text-sm text-[#A3A3A3]">{day.subtitle}</p>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#D4AF37] shrink-0 transition-transform ${
+                    className={`w-5 h-5 text-[#C5A059] shrink-0 transition-transform ${
                       openDay === i ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {openDay === i && (
                   <div className="px-6 pb-6">
-                    <div className="ml-16 border-l-2 border-[#D4AF37]/30 pl-6">
-                      <p className="text-[#a0a0a8] mb-4 leading-relaxed">{day.content}</p>
-                      <div className="p-3 bg-[#D4AF37]/5 rounded-lg">
-                        <p className="text-sm text-[#D4AF37]">
+                    <div className="ml-16 border-l-2 border-[#C5A059]/30 pl-6">
+                      <p className="text-[#A3A3A3] mb-4 leading-relaxed">{day.content}</p>
+                      <div className="p-3 bg-[#C5A059]/5 rounded-lg">
+                        <p className="text-sm text-[#C5A059]">
                           <CheckCircle2 className="w-4 h-4 inline mr-2" />
                           <strong>Resultado:</strong> {day.result}
                         </p>
@@ -515,12 +515,12 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="mt-8 p-6 bg-[#12121a] rounded-xl border border-[#D4AF37]/30">
-            <p className="text-center text-[#f5f5f5]">
-              <Sparkles className="w-5 h-5 text-[#D4AF37] inline mr-2" />
+          <div className="mt-8 p-6 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30">
+            <p className="text-center text-[#E5E5E5]">
+              <Sparkles className="w-5 h-5 text-[#C5A059] inline mr-2" />
               <strong>El poder para ustedes:</strong> Cada persona que completa el reto
               llega educada, sin objeciones, lista para que ustedes hagan lo que mejor saben:
-              <span className="text-[#D4AF37]"> conectar y cerrar.</span>
+              <span className="text-[#C5A059]"> conectar y cerrar.</span>
             </p>
           </div>
         </div>
@@ -530,32 +530,32 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Después del Reto
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               El Webinar de Arquitectura de Activos
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Para quienes completaron el reto y quieren entender el modelo a profundidad
               antes de tomar su decisión.
             </p>
           </div>
 
-          <div className="bg-[#12121a] rounded-2xl border border-[#2a2a35] p-8">
+          <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center">
-                <Play className="w-8 h-8 text-[#D4AF37]" />
+              <div className="w-16 h-16 bg-[#C5A059]/10 rounded-full flex items-center justify-center">
+                <Play className="w-8 h-8 text-[#C5A059]" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Webinar en Vivo</h3>
-                <p className="text-[#a0a0a8]">90 minutos que cambian la perspectiva</p>
+                <p className="text-[#A3A3A3]">90 minutos que cambian la perspectiva</p>
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-semibold mb-4 text-[#D4AF37]">Contenido:</h4>
+                <h4 className="font-semibold mb-4 text-[#C5A059]">Contenido:</h4>
                 <ul className="space-y-3">
                   {[
                     'La Gran Promesa: Cartera de activos en 6 meses',
@@ -564,22 +564,22 @@ export default function SociosPage() {
                     'Secreto 3: El factor Tri-Modal explicado',
                     'La Oferta Irresistible (The Stack)',
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-[#a0a0a8]">
-                      <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-3 text-sm text-[#A3A3A3]">
+                      <CheckCircle2 className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 text-[#D4AF37]">Beneficio para ustedes:</h4>
-                <p className="text-[#a0a0a8] leading-relaxed mb-4">
+                <h4 className="font-semibold mb-4 text-[#C5A059]">Beneficio para ustedes:</h4>
+                <p className="text-[#A3A3A3] leading-relaxed mb-4">
                   En lugar de hacer presentaciones individuales explicando todo desde cero,
                   invitan a sus prospectos al webinar. Ellos reciben la información completa.
                   Ustedes solo hacen seguimiento y cierre.
                 </p>
-                <div className="p-4 bg-[#D4AF37]/5 rounded-lg">
-                  <p className="text-sm text-[#D4AF37]">
+                <div className="p-4 bg-[#C5A059]/5 rounded-lg">
+                  <p className="text-sm text-[#C5A059]">
                     <strong>Resultado:</strong> Más cierres con menos esfuerzo.
                     <br />
                     El sistema presenta. Ustedes conectan.
@@ -595,14 +595,14 @@ export default function SociosPage() {
       <section className="py-20 px-6 bg-[#0d0d14]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Nuestra Visión
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               La Experiencia de
-              <span className="text-[#D4AF37]"> 11 Estrellas</span>
+              <span className="text-[#C5A059]"> 11 Estrellas</span>
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Brian Chesky (fundador de Airbnb) preguntaba: "Si la experiencia de 5 estrellas
               es excelente... ¿cómo sería una de 11?" Esa pregunta cambió todo.
             </p>
@@ -614,7 +614,7 @@ export default function SociosPage() {
                 stars: 5,
                 title: 'Experiencia Normal',
                 description: 'El prospecto recibe información, entiende el producto, puede decidir.',
-                color: 'text-[#a0a0a8]',
+                color: 'text-[#A3A3A3]',
               },
               {
                 stars: 7,
@@ -632,12 +632,12 @@ export default function SociosPage() {
                 stars: 11,
                 title: 'Lo que estamos construyendo',
                 description: 'El prospecto siente que encontró una comunidad que genuinamente quiere su éxito. No una venta, sino un equipo.',
-                color: 'text-[#D4AF37]',
+                color: 'text-[#C5A059]',
               },
             ].map((level, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl p-6 border border-[#2a2a35]"
+                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex gap-1">
@@ -655,33 +655,33 @@ export default function SociosPage() {
                   </div>
                   <div className="flex-1">
                     <h4 className={`font-semibold ${level.color}`}>{level.title}</h4>
-                    <p className="text-sm text-[#a0a0a8]">{level.description}</p>
+                    <p className="text-sm text-[#A3A3A3]">{level.description}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="p-6 bg-[#12121a] rounded-xl border border-[#D4AF37]/30 mb-8">
-            <p className="text-center text-[#a0a0a8]">
-              <strong className="text-[#f5f5f5]">¿Por qué importa esto para ustedes?</strong>
+          <div className="p-6 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30 mb-8">
+            <p className="text-center text-[#A3A3A3]">
+              <strong className="text-[#E5E5E5]">¿Por qué importa esto para ustedes?</strong>
               <br /><br />
               Cuando sus prospectos y nuevos socios tienen una experiencia de 11 estrellas,
-              <span className="text-[#D4AF37]"> la duplicación se vuelve natural</span>.
+              <span className="text-[#C5A059]"> la duplicación se vuelve natural</span>.
               No tienen que "convencer" a nadie de quedarse. Quieren quedarse porque
               la experiencia es excepcional.
             </p>
           </div>
 
           {/* La Solución: Material que Atrae */}
-          <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#12121a] rounded-2xl border border-[#D4AF37]/30 p-8">
+          <div className="bg-gradient-to-br from-[#C5A059]/10 to-[#1A1D23] rounded-2xl border border-[#C5A059]/30 p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-[#D4AF37] rounded-xl flex items-center justify-center">
-                <Share2 className="w-6 h-6 text-[#0a0a0f]" />
+              <div className="w-12 h-12 bg-[#C5A059] rounded-xl flex items-center justify-center">
+                <Share2 className="w-6 h-6 text-[#0F1115]" />
               </div>
               <div>
-                <h4 className="font-semibold text-[#D4AF37]">La Solución 11 Estrellas</h4>
-                <p className="text-sm text-[#a0a0a8]">Lo que encuentra el nuevo al llegar</p>
+                <h4 className="font-semibold text-[#C5A059]">La Solución 11 Estrellas</h4>
+                <p className="text-sm text-[#A3A3A3]">Lo que encuentra el nuevo al llegar</p>
               </div>
             </div>
 
@@ -703,20 +703,20 @@ export default function SociosPage() {
                   description: 'No persiguen. Los prospectos llegan preguntando. Listos para hablar.',
                 },
               ].map((item, i) => (
-                <div key={i} className="bg-[#0a0a0f]/50 rounded-xl p-4 text-center">
-                  <div className="w-8 h-8 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#0a0a0f] font-bold text-sm">{item.step}</span>
+                <div key={i} className="bg-[#0F1115]/50 rounded-xl p-4 text-center">
+                  <div className="w-8 h-8 bg-[#C5A059] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-[#0F1115] font-bold text-sm">{item.step}</span>
                   </div>
-                  <h5 className="font-semibold mb-2 text-[#f5f5f5]">{item.title}</h5>
-                  <p className="text-xs text-[#a0a0a8]">{item.description}</p>
+                  <h5 className="font-semibold mb-2 text-[#E5E5E5]">{item.title}</h5>
+                  <p className="text-xs text-[#A3A3A3]">{item.description}</p>
                 </div>
               ))}
             </div>
 
-            <p className="text-center text-[#f5f5f5]">
+            <p className="text-center text-[#E5E5E5]">
               El nuevo ya no dice <span className="text-red-400">"no sé qué decirle a mis amigos"</span>.
               <br />
-              Ahora dice: <span className="text-[#D4AF37]">"publiqué y me escribieron 3 personas preguntando"</span>.
+              Ahora dice: <span className="text-[#C5A059]">"publiqué y me escribieron 3 personas preguntando"</span>.
             </p>
           </div>
         </div>
@@ -726,15 +726,15 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Sueño Tangible
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Malasia. Tailandia. Cancún. Cartagena.
               <br />
-              <span className="text-[#D4AF37]">Y TODO tu equipo puede llegar.</span>
+              <span className="text-[#C5A059]">Y TODO tu equipo puede llegar.</span>
             </h2>
-            <p className="text-[#a0a0a8] max-w-2xl mx-auto">
+            <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Gano Excel acaba de lanzar el Corporativo Malasia-Tailandia 2026.
               Y nuestro equipo tiene dos viajes propios este año.
             </p>
@@ -763,34 +763,34 @@ export default function SociosPage() {
             ].map((trip, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-2xl border border-[#2a2a35] overflow-hidden group hover:border-[#D4AF37]/30 transition-colors"
+                className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden group hover:border-[#C5A059]/30 transition-colors"
               >
                 <div className={`h-2 bg-gradient-to-r ${trip.color}`} />
                 <div className="p-6">
                   <p className="text-xs text-[#6b6b75] mb-2">{trip.type}</p>
                   <h3 className="text-xl font-semibold mb-1">{trip.destination}</h3>
-                  <p className="text-sm text-[#a0a0a8]">{trip.event}</p>
+                  <p className="text-sm text-[#A3A3A3]">{trip.event}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="bg-[#12121a] rounded-2xl border border-[#D4AF37]/30 p-8">
+          <div className="bg-[#1A1D23] rounded-2xl border border-[#C5A059]/30 p-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Trophy className="w-6 h-6 text-[#D4AF37]" />
+              <div className="w-12 h-12 bg-[#C5A059]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Trophy className="w-6 h-6 text-[#C5A059]" />
               </div>
               <div>
-                <h4 className="font-semibold mb-3 text-[#D4AF37]">
+                <h4 className="font-semibold mb-3 text-[#C5A059]">
                   El sistema no solo te ayuda a TI a calificar...
                 </h4>
-                <p className="text-[#a0a0a8] leading-relaxed mb-4">
+                <p className="text-[#A3A3A3] leading-relaxed mb-4">
                   Imagina que cada persona en tu equipo tiene acceso al mismo sistema:
                   el Reto que educa, Queswa que responde 24/7, el webinar que presenta.
                 </p>
-                <p className="text-[#f5f5f5] leading-relaxed">
+                <p className="text-[#E5E5E5] leading-relaxed">
                   Cuando tu equipo tiene herramientas que funcionan aunque ellos estén dormidos,
-                  <strong className="text-[#D4AF37]"> la calificación a estos viajes se vuelve alcanzable para TODOS</strong>.
+                  <strong className="text-[#C5A059]"> la calificación a estos viajes se vuelve alcanzable para TODOS</strong>.
                   No solo para las "estrellas" — para todo tu árbol.
                 </p>
               </div>
@@ -798,10 +798,10 @@ export default function SociosPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-[#a0a0a8]">
+            <p className="text-[#A3A3A3]">
               Tú en Malasia. Tu primer nivel en Cancún. Tu segundo nivel en Cartagena.
               <br />
-              <strong className="text-[#f5f5f5]">Eso es lo que hace la diferencia entre un sistema y no tenerlo.</strong>
+              <strong className="text-[#E5E5E5]">Eso es lo que hace la diferencia entre un sistema y no tenerlo.</strong>
             </p>
           </div>
         </div>
@@ -811,12 +811,12 @@ export default function SociosPage() {
       <section className="py-20 px-6 bg-[#0d0d14]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Entendemos el Desafío
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Los dolores que conocemos
-              <span className="text-[#D4AF37]"> porque también los vivimos</span>
+              <span className="text-[#C5A059]"> porque también los vivimos</span>
             </h2>
           </div>
 
@@ -845,7 +845,7 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl p-6 border border-[#2a2a35]"
+                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center">
@@ -854,10 +854,10 @@ export default function SociosPage() {
                   <h4 className="font-semibold text-red-400">{item.pain}</h4>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-[#D4AF37]/10 rounded flex items-center justify-center shrink-0 mt-0.5">
-                    <Zap className="w-3 h-3 text-[#D4AF37]" />
+                  <div className="w-6 h-6 bg-[#C5A059]/10 rounded flex items-center justify-center shrink-0 mt-0.5">
+                    <Zap className="w-3 h-3 text-[#C5A059]" />
                   </div>
-                  <p className="text-[#a0a0a8] text-sm leading-relaxed">{item.solution}</p>
+                  <p className="text-[#A3A3A3] text-sm leading-relaxed">{item.solution}</p>
                 </div>
               </div>
             ))}
@@ -899,22 +899,22 @@ export default function SociosPage() {
             ].map((faq, i) => (
               <div
                 key={i}
-                className="bg-[#12121a] rounded-xl border border-[#2a2a35] overflow-hidden"
+                className="bg-[#1A1D23] rounded-xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-[#1a1a24] transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-[#1A1D23] transition-colors"
                 >
                   <span className="font-semibold pr-4">{faq.q}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#D4AF37] shrink-0 transition-transform ${
+                    className={`w-5 h-5 text-[#C5A059] shrink-0 transition-transform ${
                       openFaq === i ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {openFaq === i && (
                   <div className="px-6 pb-6">
-                    <p className="text-[#a0a0a8] leading-relaxed">{faq.a}</p>
+                    <p className="text-[#A3A3A3] leading-relaxed">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -929,10 +929,10 @@ export default function SociosPage() {
           <h2 className="text-2xl sm:text-3xl font-serif mb-6">
             Lo que construimos es para ustedes.
             <br />
-            <span className="text-[#D4AF37]">Para potenciar lo que ya hacen.</span>
+            <span className="text-[#C5A059]">Para potenciar lo que ya hacen.</span>
           </h2>
 
-          <p className="text-[#a0a0a8] mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-[#A3A3A3] mb-8 max-w-xl mx-auto leading-relaxed">
             No les pedimos que cambien. Les invitamos a que vean cómo sus talentos
             de siempre pueden multiplicarse con las herramientas de hoy.
           </p>
@@ -940,14 +940,14 @@ export default function SociosPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/reto-5-dias"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#D4AF37] text-[#0a0a0f] font-semibold rounded-lg hover:bg-[#c9a432] transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C5A059] text-[#0F1115] font-semibold rounded-lg hover:bg-[#B38B59] transition-colors"
             >
               Experimentar el Reto (Como Prospecto)
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/fundadores"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#12121a] border border-[#2a2a35] text-[#f5f5f5] font-semibold rounded-lg hover:bg-[#1a1a24] transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-[#E5E5E5] font-semibold rounded-lg hover:bg-[#1A1D23] transition-colors"
             >
               Ver la Oferta Completa
             </Link>
@@ -955,7 +955,7 @@ export default function SociosPage() {
 
           <p className="mt-8 text-sm text-[#6b6b75]">
             ¿Preguntas? Hablemos directamente:
-            <a href="https://wa.me/573215193909" className="text-[#D4AF37] hover:underline ml-1">
+            <a href="https://wa.me/573215193909" className="text-[#C5A059] hover:underline ml-1">
               +57 321 519 3909
             </a>
           </p>
@@ -963,7 +963,7 @@ export default function SociosPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-[#2a2a35]">
+      <footer className="py-8 px-6 border-t border-[rgba(197, 160, 89, 0.15)]">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-[#6b6b75]">
             © {new Date().getFullYear()} CreaTuActivo.com — Presentación exclusiva para socios estratégicos

@@ -51,12 +51,12 @@ export default function RetoDolorPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5] flex flex-col">
+    <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5] flex flex-col">
       {/* Gradient Background */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
         }}
       />
 
@@ -66,20 +66,20 @@ export default function RetoDolorPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-[#D4AF37] flex items-center justify-center">
-                <span className="text-[#0a0a0f] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
+              <div className="w-10 h-10 rounded-lg bg-[#C5A059] flex items-center justify-center">
+                <span className="text-[#0F1115] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
               </div>
               <span className="text-lg font-medium">
-                Crea<span className="text-[#D4AF37]">Tu</span>Activo
+                Crea<span className="text-[#C5A059]">Tu</span>Activo
               </span>
             </Link>
           </div>
 
           {/* Card */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 sm:p-10">
+          <div className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-2xl p-8 sm:p-10">
             {/* PRE-TITULAR */}
             <div className="text-center mb-6">
-              <span className="inline-flex items-center gap-2 text-sm text-[#a0a0a8] bg-[#1a1a24] px-4 py-2 rounded-full border border-[#2a2a35]">
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)]">
                 <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                 Esto me hubiera ahorrado 20 años
               </span>
@@ -95,18 +95,18 @@ export default function RetoDolorPage() {
             </h1>
 
             {/* SUB-TITULAR */}
-            <p className="text-center text-[#a0a0a8] mb-6 text-sm sm:text-base">
+            <p className="text-center text-[#A3A3A3] mb-6 text-sm sm:text-base">
               Y cómo evitar que te pase a ti.
               <br className="hidden sm:block" />
-              En <span className="text-[#D4AF37]">5 días</span> te muestro la salida que yo no conocí.
+              En <span className="text-[#C5A059]">5 días</span> te muestro la salida que yo no conocí.
             </p>
 
             {/* HISTORIA DOLOR */}
-            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-red-500/20 mb-6">
-              <p className="text-sm text-[#a0a0a8] leading-relaxed">
+            <div className="p-4 rounded-xl bg-[#0F1115] border border-red-500/20 mb-6">
+              <p className="text-sm text-[#A3A3A3] leading-relaxed">
                 Trabajé 20 años creyendo que el esfuerzo me llevaría a la libertad.
                 A los 40 descubrí la verdad: había construido una jaula de oro.
-                <span className="text-[#f5f5f5] font-medium"> No cometas mi error.</span>
+                <span className="text-[#E5E5E5] font-medium"> No cometas mi error.</span>
               </p>
             </div>
 
@@ -118,7 +118,7 @@ export default function RetoDolorPage() {
                 value={formData.nombre}
                 onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="email"
@@ -126,7 +126,7 @@ export default function RetoDolorPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="tel"
@@ -134,7 +134,7 @@ export default function RetoDolorPage() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
 
               {error && (
@@ -144,7 +144,7 @@ export default function RetoDolorPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#D4AF37] hover:bg-[#E8C547] text-[#0a0a0f] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
+                className="w-full py-4 bg-[#C5A059] hover:bg-[#E8C547] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -174,7 +174,7 @@ export default function RetoDolorPage() {
 
       {/* Footer */}
       <footer className="py-4 text-center text-[#6b6b75] text-xs relative z-10">
-        <Link href="/privacidad" className="hover:text-[#a0a0a8] transition-colors">
+        <Link href="/privacidad" className="hover:text-[#A3A3A3] transition-colors">
           Política de Privacidad
         </Link>
         <span className="mx-2">•</span>

@@ -10,16 +10,16 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
-// Quiet Luxury Colors
+// THE ARCHITECT'S SUITE - Quiet Luxury Colors
 const COLORS = {
-  gold: '#D4AF37',
-  bgDeep: '#0a0a0f',
-  bgSurface: '#12121a',
-  bgCard: '#1a1a24',
-  textPrimary: '#f5f5f5',
-  textSecondary: '#a0a0a8',
-  textMuted: '#6b6b75',
-  border: '#2a2a35',
+  gold: '#C5A059',
+  bgDeep: '#0F1115',
+  bgSurface: '#1A1D23',
+  bgCard: '#1A1D23',
+  textPrimary: '#E5E5E5',
+  textSecondary: '#A3A3A3',
+  textMuted: '#6B7280',
+  border: 'rgba(197, 160, 89, 0.15)',
 };
 
 export default function WebinarSalaPage() {

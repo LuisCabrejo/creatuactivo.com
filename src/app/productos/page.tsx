@@ -66,12 +66,12 @@ export default function ProductosPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5]">
+      <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
         {/* Gradient Background */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
           }}
         />
 
@@ -79,18 +79,18 @@ export default function ProductosPage() {
           {/* Hero */}
           <section className="pt-32 pb-16 px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <span className="inline-flex items-center gap-2 text-sm text-[#a0a0a8] bg-[#1a1a24] px-4 py-2 rounded-full border border-[#2a2a35] mb-8">
-                <Leaf className="w-4 h-4 text-[#D4AF37]" />
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)] mb-8">
+                <Leaf className="w-4 h-4 text-[#C5A059]" />
                 Productos de Bienestar
               </span>
 
               <h1 className="text-4xl sm:text-5xl leading-tight mb-6 font-serif">
                 Transforma tus hábitos
                 <br />
-                <span className="text-[#D4AF37]">con productos que funcionan</span>
+                <span className="text-[#C5A059]">con productos que funcionan</span>
               </h1>
 
-              <p className="text-xl text-[#a0a0a8] max-w-2xl mx-auto leading-relaxed mb-8">
+              <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed mb-8">
                 Café funcional, suplementos y cuidado personal basados en Ganoderma Lucidum.
                 Productos que la gente ya consume a diario, mejorados con ciencia.
               </p>
@@ -98,23 +98,23 @@ export default function ProductosPage() {
               {/* Trust Badges */}
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-[#6b6b75]">
                 <span className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                  <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                   Registro INVIMA
                 </span>
                 <span className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                  <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                   GMP Certified
                 </span>
                 <span className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                  <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                   Halal Certified
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                  <CheckCircle className="w-4 h-4 text-[#C5A059]" />
                   28+ años
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                  <CheckCircle className="w-4 h-4 text-[#C5A059]" />
                   60+ países
                 </span>
               </div>
@@ -128,7 +128,7 @@ export default function ProductosPage() {
                 <h2 className="text-2xl sm:text-3xl font-serif mb-4">
                   Sistemas de Bienestar
                 </h2>
-                <p className="text-[#a0a0a8]">
+                <p className="text-[#A3A3A3]">
                   Productos organizados por objetivo para que encuentres lo que necesitas.
                 </p>
               </div>
@@ -139,7 +139,7 @@ export default function ProductosPage() {
                   return (
                     <div
                       key={sistema.id}
-                      className="group p-6 rounded-2xl bg-[#12121a] border border-[#2a2a35] hover:border-[#D4AF37]/30 transition-all duration-300"
+                      className="group p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] hover:border-[#C5A059]/30 transition-all duration-300"
                     >
                       {/* Icon */}
                       <div className={`w-14 h-14 rounded-xl ${sistema.bgColor} flex items-center justify-center mb-4`}>
@@ -148,7 +148,7 @@ export default function ProductosPage() {
 
                       {/* Content */}
                       <h3 className="text-lg font-semibold mb-2">{sistema.nombre}</h3>
-                      <p className="text-[#a0a0a8] text-sm mb-4 leading-relaxed">
+                      <p className="text-[#A3A3A3] text-sm mb-4 leading-relaxed">
                         {sistema.descripcion}
                       </p>
 
@@ -156,8 +156,8 @@ export default function ProductosPage() {
                       <ul className="space-y-2 mb-4">
                         {sistema.beneficios.map((beneficio, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm">
-                            <CheckCircle className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" />
-                            <span className="text-[#a0a0a8]">{beneficio}</span>
+                            <CheckCircle className="w-4 h-4 text-[#C5A059] mt-0.5 flex-shrink-0" />
+                            <span className="text-[#A3A3A3]">{beneficio}</span>
                           </li>
                         ))}
                       </ul>
@@ -169,7 +169,7 @@ export default function ProductosPage() {
           </section>
 
           {/* El Diferenciador */}
-          <section className="py-16 px-6 bg-[#12121a]">
+          <section className="py-16 px-6 bg-[#1A1D23]">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-2xl sm:text-3xl font-serif mb-4">
@@ -178,45 +178,45 @@ export default function ProductosPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
+                <div className="p-6 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
                   <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <Leaf className="w-5 h-5 text-[#D4AF37]" />
+                    <Leaf className="w-5 h-5 text-[#C5A059]" />
                     Ganoderma Lucidum
                   </h3>
-                  <p className="text-[#a0a0a8] text-sm leading-relaxed">
+                  <p className="text-[#A3A3A3] text-sm leading-relaxed">
                     Conocido como el &quot;Rey de los Hongos&quot;, contiene más de 200 fitonutrientes.
                     Usado por más de 4,000 años en la medicina tradicional asiática.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
+                <div className="p-6 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
                   <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
+                    <ShieldCheck className="w-5 h-5 text-[#C5A059]" />
                     Calidad Certificada
                   </h3>
-                  <p className="text-[#a0a0a8] text-sm leading-relaxed">
+                  <p className="text-[#A3A3A3] text-sm leading-relaxed">
                     Certificación GMP (Buenas Prácticas de Manufactura), Halal Certified,
                     registro INVIMA Colombia. Cultivo orgánico propio sin químicos.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
+                <div className="p-6 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
                   <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <Coffee className="w-5 h-5 text-[#D4AF37]" />
+                    <Coffee className="w-5 h-5 text-[#C5A059]" />
                     No Cambia Hábitos
                   </h3>
-                  <p className="text-[#a0a0a8] text-sm leading-relaxed">
+                  <p className="text-[#A3A3A3] text-sm leading-relaxed">
                     Café, chocolate, pasta de dientes—productos que ya consumes.
                     Solo los mejora con nutrientes funcionales.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-xl bg-[#0a0a0f] border border-[#2a2a35]">
+                <div className="p-6 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)]">
                   <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <Target className="w-5 h-5 text-[#D4AF37]" />
+                    <Target className="w-5 h-5 text-[#C5A059]" />
                     Consumo Recurrente
                   </h3>
-                  <p className="text-[#a0a0a8] text-sm leading-relaxed">
+                  <p className="text-[#A3A3A3] text-sm leading-relaxed">
                     La base del modelo de ingresos residuales: productos que se consumen
                     y reordenan naturalmente mes a mes.
                   </p>
@@ -228,8 +228,8 @@ export default function ProductosPage() {
           {/* CTA Principal */}
           <section className="py-20 px-6">
             <div className="max-w-2xl mx-auto">
-              <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 sm:p-10 text-center">
-                <span className="inline-flex items-center gap-2 text-sm text-[#a0a0a8] bg-[#0a0a0f] px-4 py-2 rounded-full border border-[#2a2a35] mb-6">
+              <div className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-2xl p-8 sm:p-10 text-center">
+                <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#0F1115] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)] mb-6">
                   <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
                   Siguiente paso
                 </span>
@@ -238,14 +238,14 @@ export default function ProductosPage() {
                   ¿Quieres saber cómo funciona?
                 </h2>
 
-                <p className="text-[#a0a0a8] mb-8 max-w-lg mx-auto">
-                  En el <span className="text-[#f5f5f5] font-medium">Reto de 5 Días</span> te explico
+                <p className="text-[#A3A3A3] mb-8 max-w-lg mx-auto">
+                  En el <span className="text-[#E5E5E5] font-medium">Reto de 5 Días</span> te explico
                   cómo estos productos pueden convertirse en tu primer activo generador de ingresos residuales.
                 </p>
 
                 <Link
                   href="/reto-5-dias"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#D4AF37] hover:bg-[#E8C547] text-[#0a0a0f] font-semibold text-lg rounded-xl transition-all duration-300 w-full sm:w-auto justify-center"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#C5A059] hover:bg-[#E8C547] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 w-full sm:w-auto justify-center"
                 >
                   Unirme al Reto Gratis
                   <ArrowRight className="w-5 h-5" />
@@ -263,7 +263,7 @@ export default function ProductosPage() {
                 </p>
                 <Link
                   href="/sistema/productos"
-                  className="text-[#D4AF37] hover:text-[#E8C547] text-sm font-medium inline-flex items-center gap-1 transition-colors"
+                  className="text-[#C5A059] hover:text-[#E8C547] text-sm font-medium inline-flex items-center gap-1 transition-colors"
                 >
                   Ver catálogo de productos <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -272,11 +272,11 @@ export default function ProductosPage() {
           </section>
 
           {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[#2a2a35]">
+          <footer className="px-6 py-12 border-t border-[rgba(197, 160, 89, 0.15)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6b6b75]">
                 © 2025 CreaTuActivo.com ·
-                <Link href="/privacidad" className="hover:text-[#a0a0a8] ml-2">
+                <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>
               </p>

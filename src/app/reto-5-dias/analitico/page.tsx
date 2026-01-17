@@ -51,12 +51,12 @@ export default function RetoAnaliticoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-[#f5f5f5] flex flex-col">
+    <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5] flex flex-col">
       {/* Gradient Background */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
         }}
       />
 
@@ -66,20 +66,20 @@ export default function RetoAnaliticoPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-[#D4AF37] flex items-center justify-center">
-                <span className="text-[#0a0a0f] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
+              <div className="w-10 h-10 rounded-lg bg-[#C5A059] flex items-center justify-center">
+                <span className="text-[#0F1115] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
               </div>
               <span className="text-lg font-medium">
-                Crea<span className="text-[#D4AF37]">Tu</span>Activo
+                Crea<span className="text-[#C5A059]">Tu</span>Activo
               </span>
             </Link>
           </div>
 
           {/* Card */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 sm:p-10">
+          <div className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-2xl p-8 sm:p-10">
             {/* PRE-TITULAR */}
             <div className="text-center mb-6">
-              <span className="inline-flex items-center gap-2 text-sm text-[#a0a0a8] bg-[#1a1a24] px-4 py-2 rounded-full border border-[#2a2a35]">
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)]">
                 <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
                 Análisis financiero personal
               </span>
@@ -91,26 +91,26 @@ export default function RetoAnaliticoPage() {
               style={{ fontFamily: 'Georgia, serif' }}
             >
               Hay una pregunta que{' '}
-              <span className="text-[#D4AF37]">tu banco sabe responder</span>{' '}
+              <span className="text-[#C5A059]">tu banco sabe responder</span>{' '}
               pero tú probablemente nunca te has hecho
             </h1>
 
             {/* SUB-TITULAR */}
-            <p className="text-center text-[#a0a0a8] mb-6 text-sm sm:text-base">
+            <p className="text-center text-[#A3A3A3] mb-6 text-sm sm:text-base">
               ¿Cuántos meses podrías vivir si dejaras de trabajar hoy?
               <br className="hidden sm:block" />
-              En <span className="text-[#D4AF37]">5 días</span> te muestro cómo cambiar esa respuesta.
+              En <span className="text-[#C5A059]">5 días</span> te muestro cómo cambiar esa respuesta.
             </p>
 
             {/* DATOS */}
-            <div className="p-4 rounded-xl bg-[#0a0a0f] border border-[#2a2a35] mb-6">
+            <div className="p-4 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)] mb-6">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-[#D4AF37]">40%</p>
+                  <p className="text-2xl font-bold text-[#C5A059]">40%</p>
                   <p className="text-xs text-[#6b6b75]">Pensión típica vs. último ingreso</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-[#f5f5f5]">0</p>
+                  <p className="text-2xl font-bold text-[#E5E5E5]">0</p>
                   <p className="text-xs text-[#6b6b75]">Meses sin trabajar = 0 ingresos</p>
                 </div>
                 <div>
@@ -128,7 +128,7 @@ export default function RetoAnaliticoPage() {
                 value={formData.nombre}
                 onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="email"
@@ -136,7 +136,7 @@ export default function RetoAnaliticoPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="tel"
@@ -144,7 +144,7 @@ export default function RetoAnaliticoPage() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl text-[#f5f5f5] placeholder-[#6b6b75] focus:outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
 
               {error && (
@@ -154,7 +154,7 @@ export default function RetoAnaliticoPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#D4AF37] hover:bg-[#E8C547] text-[#0a0a0f] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
+                className="w-full py-4 bg-[#C5A059] hover:bg-[#E8C547] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -184,7 +184,7 @@ export default function RetoAnaliticoPage() {
 
       {/* Footer */}
       <footer className="py-4 text-center text-[#6b6b75] text-xs relative z-10">
-        <Link href="/privacidad" className="hover:text-[#a0a0a8] transition-colors">
+        <Link href="/privacidad" className="hover:text-[#A3A3A3] transition-colors">
           Política de Privacidad
         </Link>
         <span className="mx-2">•</span>

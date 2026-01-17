@@ -44,14 +44,14 @@ export async function GET() {
               width: '48px',
               height: '48px',
               borderRadius: '8px',
-              backgroundColor: '#D4AF37',
+              backgroundColor: '#C5A059',
             }}
           >
             <span
               style={{
                 fontSize: '30px',
                 fontWeight: 700,
-                color: '#0a0a0f',
+                color: '#0F1115',
                 fontFamily: 'Playfair Display',
               }}
             >
@@ -72,7 +72,7 @@ export async function GET() {
             }}
           >
             <span>Crea</span>
-            <span style={{ color: '#D4AF37', fontWeight: 600 }}>Tu</span>
+            <span style={{ color: '#C5A059', fontWeight: 600 }}>Tu</span>
             <span>Activo</span>
           </div>
         </div>

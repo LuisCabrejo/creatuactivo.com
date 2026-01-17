@@ -1,255 +1,289 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Página "Acerca de" - Epiphany Bridge Story
+ * Página "Manifiesto" - El Arquitecto de Activos
  *
- * Estructura basada en investigación "Páginas Definitivas y Estrategia de Funnel"
- * Sección 5.1, Punto 2: La historia completa para conexión emocional
+ * Objetivo: Vender al Guía (Luis) para vender el Destino (Libertad)
+ * Estructura: Gancho filosófico → Historia Buena Vista → Pivote → Principios → CTA
  *
- * Objetivo: Que el lector diga "Él es como yo, pero está donde yo quiero estar"
+ * NO es un CV. Es una Squeeze Page disfrazada de "Sobre Nosotros".
  */
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const metadata = {
-  title: 'Mi Historia - De Empleado Exitoso a Arquitecto de Activos | CreaTuActivo',
-  description: 'Conoce la historia de Luis Cabrejo: 20 años de éxito corporativo, la quiebra a los 40, y el descubrimiento del sistema que cambió todo. La misión de 4 millones de familias.',
-  robots: { index: false, follow: true }, // SEO en página personal Luis Cabrejo Parra
+  title: 'Manifiesto - La Búsqueda de la Soberanía | CreaTuActivo',
+  description: 'De las promesas rotas en un mirador a la arquitectura de activos digitales. Por qué dejé de trabajar para vivir y cómo puedes hacerlo tú también.',
+  robots: { index: false, follow: true },
 };
 
-export default function NosotrosPage() {
+export default function ManifiestoPage() {
   return (
     <>
       <StrategicNavigation />
       <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
-        {/* Gradient Background */}
+        {/* Subtle gradient - Quiet Luxury */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.06) 0%, transparent 60%)'
           }}
         />
 
         <div className="relative z-10">
-          {/* Hero */}
-          <section className="pt-32 pb-16 px-6">
-            <div className="max-w-3xl mx-auto text-center">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)] mb-8">
-                <span className="w-2 h-2 bg-[#C5A059] rounded-full" />
-                Mi Historia
-              </span>
+          {/* ═══════════════════════════════════════════════════════════════
+              HERO: El Gancho Filosófico
+              ═══════════════════════════════════════════════════════════════ */}
+          <section className="pt-32 pb-20 px-6">
+            <div className="max-w-3xl mx-auto">
+              {/* Badge sutil */}
+              <div className="flex justify-center mb-12">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#C5A059]">
+                  Manifiesto
+                </span>
+              </div>
 
-              <h1 className="text-4xl sm:text-5xl leading-tight mb-6 font-serif">
-                A los 40 años descubrí que había
+              {/* Headline filosófico */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-8 font-serif text-center">
+                La búsqueda de la
                 <br />
-                <span className="text-[#C5A059]">comprado un empleo</span>
+                <span className="text-[#C5A059]">Soberanía</span>
               </h1>
 
-              <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
-                No construido un activo. Esta es la historia de cómo encontré el camino
-                que me hubiera ahorrado 20 años de esfuerzo mal direccionado.
+              {/* Subhead - La promesa */}
+              <p className="text-xl sm:text-2xl text-[#A3A3A3] text-center leading-relaxed max-w-2xl mx-auto font-light">
+                De las promesas rotas en un mirador
+                <br className="hidden sm:block" />
+                a la arquitectura de activos digitales.
               </p>
             </div>
           </section>
 
-          {/* Story Content */}
-          <article className="py-12 px-6">
-            <div className="max-w-3xl mx-auto">
-              {/* Chapter 1: El Éxito Aparente */}
-              <section className="mb-16">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-4xl font-bold text-[#C5A059]/30">01</span>
-                  <h2 className="text-2xl font-serif">El &quot;éxito&quot; que todos querían</h2>
-                </div>
+          {/* ═══════════════════════════════════════════════════════════════
+              LA HISTORIA: Buena Vista (Evolución de Consciencia)
+              ═══════════════════════════════════════════════════════════════ */}
+          <article className="py-16 px-6">
+            <div className="max-w-2xl mx-auto">
+              {/* Opening */}
+              <div className="mb-20">
+                <p className="text-3xl sm:text-4xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                  El algoritmo estaba roto.
+                </p>
 
-                <div className="prose prose-invert max-w-none space-y-4 text-[#A3A3A3] leading-relaxed">
+                <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
-                    Durante 20 años hice todo lo que se supone que debía hacer. Estudié,
-                    me especialicé, trabajé más que nadie. Llegué a posiciones directivas
-                    en empresas multinacionales del sector automotriz.
+                    Hace años, llevé a mi novia (hoy mi esposa) a un lugar llamado Buena Vista.
+                    Mirando al horizonte, le hice tres promesas: una casa de campo,
+                    compras sin mirar el precio, y tres hijos.
                   </p>
                   <p>
-                    Tenía el cargo, el salario, el reconocimiento. Mis padres estaban orgullosos.
-                    Mis amigos me veían como el ejemplo a seguir.
-                    <span className="text-[#E5E5E5] font-medium"> El problema: yo era el motor.</span>
-                  </p>
-                  <p>
-                    Si me detenía, todo paraba. Cada promoción significaba más responsabilidad,
-                    más horas, menos tiempo. Había comprado una jaula de oro y me había
-                    convencido de que era libertad.
+                    Catorce años después, la matemática de mi vida no cuadraba.
+                    <span className="text-[#E5E5E5]"> Solo había cumplido con los hijos.</span>
                   </p>
                 </div>
-              </section>
+              </div>
 
-              {/* Chapter 2: El Despertar */}
-              <section className="mb-16">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-4xl font-bold text-[#C5A059]/30">02</span>
-                  <h2 className="text-2xl font-serif">El golpe de realidad</h2>
+              {/* La Cinta Estática */}
+              <div className="mb-20">
+                <p className="text-lg text-[#A3A3A3] leading-relaxed mb-6">
+                  No era por falta de esfuerzo. Yo era el prototipo del &quot;buen profesional&quot;.
+                  Trabajaba, ahorraba, invertía horas... pero mi cuenta bancaria y mi libertad
+                  no crecían al mismo ritmo que mi estrés.
+                </p>
+
+                <div className="p-8 rounded-xl bg-[#1A1D23] border-l-2 border-[#C5A059] my-10">
+                  <p className="text-xl text-[#E5E5E5] font-serif italic">
+                    Estaba corriendo en una cinta estática: mucho sudor, cero desplazamiento.
+                  </p>
                 </div>
+              </div>
 
-                <div className="prose prose-invert max-w-none space-y-4 text-[#A3A3A3] leading-relaxed">
+              {/* La Primera Epifanía */}
+              <div className="mb-20">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                  La Primera Epifanía
+                </h2>
+                <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                  El &quot;Qué&quot; vs. El &quot;Cómo&quot;
+                </p>
+
+                <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
-                    A los 40 todo cambió. No importan los detalles—puede ser una enfermedad,
-                    un recorte de personal, una crisis económica. El resultado es el mismo:
-                    de un día para otro, descubres que no tienes nada.
+                    Entendí que no importaba cuánto trabajara si el vehículo era incorrecto.
+                    Un Ferrari en un embotellamiento avanza más lento que una bicicleta en campo abierto.
+                  </p>
+                  <p>
+                    Probé el modelo tradicional de distribución. Me fue bien financieramente
+                    (llegué al 1%), pero fallé en lo vital:
+                    <span className="text-[#E5E5E5]"> Libertad.</span>
+                    Me convertí en un esclavo de mi propio teléfono, persiguiendo gente.
+                  </p>
+                  <p>
+                    Probé el E-commerce. Me fue bien en ventas, pero fallé en lo vital:
+                    <span className="text-[#E5E5E5]"> Paz Mental.</span>
+                    Me convertí en un esclavo de la logística, las aduanas y los algoritmos publicitarios.
+                  </p>
+                </div>
+              </div>
+
+              {/* La Reingeniería */}
+              <div className="mb-20">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                  El Pivote
+                </h2>
+                <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                  La Reingeniería
+                </p>
+
+                <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
+                  <p>
+                    Me di cuenta de que la verdadera riqueza no es el dinero;
+                    es el <span className="text-[#C5A059] font-medium">Apalancamiento</span>.
+                  </p>
+                  <p>
+                    Me obsesioné con una pregunta: ¿Existe una forma de construir un activo
+                    que tenga la logística de una multinacional pero la libertad de un inversionista?
                   </p>
 
-                  <div className="p-6 rounded-xl bg-[#1A1D23] border border-red-500/20 my-8">
-                    <p className="text-lg text-[#E5E5E5] italic">
-                      &quot;Todo lo que había construido en 20 años dependía de mi presencia.
-                      Sin mí trabajando, el ingreso era cero.&quot;
+                  <div className="p-8 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20 my-10">
+                    <p className="text-xl text-[#E5E5E5] font-serif text-center">
+                      La respuesta fue dejar de ser un &quot;vendedor&quot;
+                      <br />
+                      y convertirme en un
+                      <span className="text-[#C5A059]"> Arquitecto de Activos</span>.
                     </p>
                   </div>
 
                   <p>
-                    Fue devastador. Pero también fue el despertar que necesitaba.
-                    Por primera vez me hice la pregunta correcta: ¿Qué pasaría con mis
-                    ingresos si dejo de trabajar por 6 meses?
+                    Hoy, dirijo CreaTuActivo, una firma de educación e implementación
+                    donde enseñamos a profesionales a:
                   </p>
-                  <p>
-                    La respuesta era obvia y aterradora.
-                    <span className="text-[#E5E5E5] font-medium"> No tenía activos. Tenía un empleo disfrazado de éxito.</span>
-                  </p>
-                </div>
-              </section>
-
-              {/* Chapter 3: El Descubrimiento */}
-              <section className="mb-16">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-4xl font-bold text-[#C5A059]/30">03</span>
-                  <h2 className="text-2xl font-serif">El plan oculto</h2>
                 </div>
 
-                <div className="prose prose-invert max-w-none space-y-4 text-[#A3A3A3] leading-relaxed">
-                  <p>
-                    Empecé a estudiar cómo se construye riqueza real. No la riqueza de
-                    aparentar, sino la que sigue generando cuando tú no estás.
-                  </p>
-                  <p>
-                    Descubrí que las personas verdaderamente libres tienen algo en común:
-                    <span className="text-[#E5E5E5] font-medium"> no dependen de su tiempo para generar ingresos.</span>
-                  </p>
-                  <p>
-                    Pero la mayoría de los caminos hacia esa libertad—bienes raíces,
-                    dividendos, negocios propios—requieren capital significativo o
-                    décadas de acumulación.
-                  </p>
-                  <p>
-                    Hasta que encontré un modelo diferente. Uno que combina:
-                  </p>
-                  <ul className="space-y-2 my-4">
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059] mt-1">→</span>
-                      <span>Una empresa global de 28+ años con infraestructura en 60+ países</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059] mt-1">→</span>
-                      <span>Productos de consumo recurrente (no ventas de una vez)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059] mt-1">→</span>
-                      <span>Tecnología de IA que hace el trabajo pesado</span>
-                    </li>
-                  </ul>
-                </div>
-              </section>
-
-              {/* Chapter 4: La Construcción */}
-              <section className="mb-16">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-4xl font-bold text-[#C5A059]/30">04</span>
-                  <h2 className="text-2xl font-serif">CreaTuActivo</h2>
-                </div>
-
-                <div className="prose prose-invert max-w-none space-y-4 text-[#A3A3A3] leading-relaxed">
-                  <p>
-                    Hoy lidero una organización de más de 800 personas en varios países.
-                    Pero más importante que los números es esto:
-                    <span className="text-[#E5E5E5] font-medium"> mi ingreso no depende de mi tiempo.</span>
-                  </p>
-                  <p>
-                    He construido lo que llamo una &quot;Arquitectura de Activos&quot;—un sistema
-                    que genera mientras duermo, viajo, o simplemente vivo mi vida.
-                  </p>
-                  <p>
-                    CreaTuActivo nace de una convicción: nadie debería tener que descubrir
-                    esto a los 40 años, después de haber perdido dos décadas en el camino equivocado.
-                  </p>
-                </div>
-              </section>
-
-              {/* Chapter 5: La Misión */}
-              <section className="mb-16">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-4xl font-bold text-[#C5A059]/30">05</span>
-                  <h2 className="text-2xl font-serif">La misión de 4 millones</h2>
-                </div>
-
-                <div className="p-8 rounded-2xl bg-[#1A1D23] border border-[#C5A059]/20">
-                  <p className="text-xl text-[#E5E5E5] font-serif mb-4 text-center">
-                    &quot;Ayudar a 4 millones de familias hispanas a construir
-                    <span className="text-[#C5A059]"> activos que generen sin su presencia constante.</span>&quot;
-                  </p>
-                  <p className="text-[#A3A3A3] text-center">
-                    No prometo riqueza rápida. No vendo sueños. Ofrezco un sistema probado,
-                    mentoría real, y tecnología que hace posible lo que antes solo podían
-                    lograr los que tenían capital o conexiones.
-                  </p>
-                </div>
-              </section>
-
-              {/* Stats */}
-              <section className="mb-16">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-center">
-                    <p className="text-3xl font-bold text-[#C5A059]">20+</p>
-                    <p className="text-sm text-[#6B7280]">Años en liderazgo corporativo</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-center">
-                    <p className="text-3xl font-bold text-[#C5A059]">800+</p>
-                    <p className="text-sm text-[#6B7280]">Personas en la organización</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-center">
-                    <p className="text-3xl font-bold text-[#C5A059]">#1</p>
-                    <p className="text-sm text-[#6B7280]">De su upline directo</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-center">
-                    <p className="text-3xl font-bold text-[#C5A059]">4M</p>
-                    <p className="text-sm text-[#6B7280]">Familias: la meta</p>
-                  </div>
-                </div>
-              </section>
+                <ul className="space-y-4 my-8 text-lg">
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#C5A059] text-xl mt-0.5">1</span>
+                    <span className="text-[#E5E5E5]">
+                      Utilizar infraestructuras existentes para eliminar el riesgo logístico.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#C5A059] text-xl mt-0.5">2</span>
+                    <span className="text-[#E5E5E5]">
+                      Utilizar sistemas digitales para eliminar el rechazo social.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#C5A059] text-xl mt-0.5">3</span>
+                    <span className="text-[#E5E5E5]">
+                      Construir flujos de caja que no dependan de su reloj.
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </article>
 
-          {/* CTA */}
+          {/* ═══════════════════════════════════════════════════════════════
+              PRINCIPIOS OPERATIVOS (No Misión/Visión genérica)
+              ═══════════════════════════════════════════════════════════════ */}
           <section className="py-20 px-6 bg-[#1A1D23]">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl sm:text-3xl font-serif mb-6">
-                ¿Te suena familiar esta historia?
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-4 text-center">
+                Nuestros Principios Operativos
               </h2>
-              <p className="text-[#A3A3A3] mb-8">
-                Si sientes que estás trabajando duro pero no construyendo nada duradero,
-                el Reto de 5 Días te mostrará una alternativa. Sin compromiso.
+              <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-16 text-center">
+                Lo que creemos (y no negociamos)
               </p>
+
+              <div className="space-y-12">
+                {/* Principio 1 */}
+                <div className="flex gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                    <span className="text-[#C5A059] font-serif text-lg">01</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Cero Hype</h3>
+                    <p className="text-[#A3A3A3] leading-relaxed">
+                      No vendemos sueños falsos. Hablamos de matemáticas y sistemas.
+                      Si no puedes explicarlo con números, probablemente sea humo.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Principio 2 */}
+                <div className="flex gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                    <span className="text-[#C5A059] font-serif text-lg">02</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Tecnología sobre Talento</h3>
+                    <p className="text-[#A3A3A3] leading-relaxed">
+                      Si el negocio depende de que seas carismático, no es duplicable.
+                      El sistema debe hacer el trabajo pesado, no tu personalidad.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Principio 3 */}
+                <div className="flex gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                    <span className="text-[#C5A059] font-serif text-lg">03</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">La Familia Primero</h3>
+                    <p className="text-[#A3A3A3] leading-relaxed">
+                      Si el negocio te quita tiempo para cenar con tus hijos
+                      (o cumplir tus promesas), es un mal negocio. Punto.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ═══════════════════════════════════════════════════════════════
+              CTA: Squeeze Page Disfrazada
+              ═══════════════════════════════════════════════════════════════ */}
+          <section className="py-24 px-6">
+            <div className="max-w-2xl mx-auto text-center">
+              <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-8 leading-relaxed">
+                No estoy aquí para convencerte.
+              </p>
+
+              <p className="text-lg text-[#A3A3A3] mb-12 leading-relaxed">
+                Ya pasé la etapa de &quot;perseguir&quot;. Hoy, dedico mi tiempo a construir
+                con aquellos que entienden que el &quot;Plan por Defecto&quot; ha caducado.
+              </p>
+
+              <div className="p-8 rounded-2xl bg-[#1A1D23] border border-[#C5A059]/20 mb-12">
+                <p className="text-[#A3A3A3] mb-6">
+                  Si quieres ver los planos exactos de cómo construimos estos activos
+                  sin inventarios y sin perseguir amigos, he preparado un entrenamiento de 5 días.
+                </p>
+                <p className="text-[#E5E5E5] font-medium">
+                  Es la condensación de 14 años de prueba y error.
+                </p>
+              </div>
+
               <Link
                 href="/reto-5-dias"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#C5A059] text-[#0F1115]"
+                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] bg-[#C5A059] text-[#0F1115]"
               >
-                Empezar el Reto de 5 Días
+                Ver los Planos
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
+
               <p className="text-sm mt-6 text-[#6B7280]">
-                Gratis · 5 días por WhatsApp · Sin presión
+                5 días · Gratis · Sin compromiso
               </p>
             </div>
           </section>
 
-          {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[rgba(197, 160, 89, 0.15)]">
+          {/* Footer mínimo */}
+          <footer className="px-6 py-10 border-t border-[rgba(197, 160, 89, 0.1)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6B7280]">
                 © 2025 CreaTuActivo.com ·

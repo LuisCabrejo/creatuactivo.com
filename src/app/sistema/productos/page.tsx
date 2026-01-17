@@ -993,7 +993,7 @@ export default function CatalogoEstrategico() {
                     href={`https://wa.me/${(distributor?.whatsapp || '+573102066593').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-3 rounded-xl font-medium hover:from-emerald-600 hover:to-green-600 transition-all text-center block"
+                    className="w-full bg-[#C5A059] text-[#0F1115] py-3 rounded-xl font-medium hover:bg-[#D4AF37] transition-all text-center block"
                   >
                     Finalizar por WhatsApp
                   </a>
@@ -1558,11 +1558,11 @@ export default function CatalogoEstrategico() {
                     <p className="text-2xl font-bold text-[#C5A059]">$110.900 COP</p>
                   </div>
                 </div>
-                <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl">
+                <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl">
                   <p className="font-bold text-[#C5A059] mb-2">💰 Precios de Distribuidor Mayorista</p>
-                  <p className="text-sm text-amber-700">
+                  <p className="text-sm text-[#A3A3A3]">
                     Como <strong>Fundador CreaTuActivo</strong>, accedes a precios mayoristas con descuento de hasta 35% sobre precio público.
-                    <a href="/fundadores" className="text-blue-600 hover:text-blue-800 font-medium ml-1 underline">Ver detalles de afiliación →</a>
+                    <a href="/fundadores" className="text-[#C5A059] hover:text-[#D4AF37] font-medium ml-1 underline">Ver detalles de afiliación →</a>
                   </p>
                 </div>
                 <p className="text-sm text-[#A3A3A3] mt-4">
@@ -1589,18 +1589,18 @@ export default function CatalogoEstrategico() {
                   <li><strong>Revuelve bien</strong> hasta disolver completamente</li>
                   <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
                 </ol>
-                <div className="bg-green-50 border border-green-200 p-4 rounded-xl mb-4">
+                <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl mb-4">
                   <p className="font-bold text-[#C5A059] mb-2">✅ Recomendaciones de Consumo</p>
-                  <ul className="text-sm text-green-700 space-y-1">
+                  <ul className="text-sm text-[#A3A3A3] space-y-1">
                     <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
                     <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
                     <li>• <strong>Antes o después de comidas</strong>: Ambos funcionan bien</li>
                     <li>• <strong>Puede tomarse frío</strong>: Prepara con agua fría y hielo en verano</li>
                   </ul>
                 </div>
-                <div className="bg-red-50 border border-red-200 p-4 rounded-xl">
-                  <p className="font-bold text-red-800 mb-2">⚠️ Contraindicaciones</p>
-                  <p className="text-sm text-red-700">
+                <div className="bg-[#0F1115] border border-red-500/30 p-4 rounded-xl">
+                  <p className="font-bold text-red-400 mb-2">⚠️ Contraindicaciones</p>
+                  <p className="text-sm text-[#A3A3A3]">
                     No recomendado para mujeres embarazadas o en lactancia. Si tomas anticoagulantes o tienes condiciones médicas especiales, consulta a tu médico antes de consumir.
                   </p>
                 </div>
@@ -1620,78 +1620,78 @@ export default function CatalogoEstrategico() {
                   Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en más de <strong>15 países de Latinoamérica</strong>:
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                  <div className="bg-blue-50 p-3 rounded-lg text-center border border-blue-100">
-                    <p className="font-medium text-blue-800">🇨🇴 Colombia</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇨🇴 Colombia</p>
                   </div>
-                  <div className="bg-green-50 p-3 rounded-lg text-center border border-green-100">
-                    <p className="font-medium text-green-800">🇲🇽 México</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇲🇽 México</p>
                   </div>
-                  <div className="bg-red-50 p-3 rounded-lg text-center border border-red-100">
-                    <p className="font-medium text-red-800">🇵🇪 Perú</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇵🇪 Perú</p>
                   </div>
-                  <div className="bg-yellow-50 p-3 rounded-lg text-center border border-yellow-100">
-                    <p className="font-medium text-yellow-800">🇪🇨 Ecuador</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇪🇨 Ecuador</p>
                   </div>
-                  <div className="bg-purple-50 p-3 rounded-lg text-center border border-purple-100">
-                    <p className="font-medium text-purple-800">🇨🇱 Chile</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇨🇱 Chile</p>
                   </div>
-                  <div className="bg-indigo-50 p-3 rounded-lg text-center border border-indigo-100">
-                    <p className="font-medium text-indigo-800">🇦🇷 Argentina</p>
+                  <div className="bg-[#0F1115] p-3 rounded-lg text-center border border-[#C5A059]/30">
+                    <p className="font-medium text-[#E5E5E5]">🇦🇷 Argentina</p>
                   </div>
                 </div>
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 p-4 rounded-xl">
-                  <p className="font-bold text-[#E5E5E5] mb-2">🤖 Consulta con NEXUS IA</p>
-                  <p className="text-sm text-slate-700">
+                <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl">
+                  <p className="font-bold text-[#C5A059] mb-2">🤖 Consulta con Queswa IA</p>
+                  <p className="text-sm text-[#A3A3A3]">
                     Nuestro asistente de IA conversacional puede ayudarte a encontrar distribuidores en tu país,
                     calcular envíos internacionales y recomendarte los productos ideales para tu perfil.
-                    <strong className="text-blue-600"> Haz clic en el botón flotante para hablar con NEXUS.</strong>
+                    <strong className="text-[#C5A059]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
                 </div>
               </div>
             </details>
 
-            {/* Pregunta 6 - Bonus */}
-            <details className="group bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-300 hover:border-amber-400 transition-all overflow-hidden shadow-md hover:shadow-xl">
+            {/* Pregunta 6 - Bonus - Quiet Luxury */}
+            <details className="group bg-[#1A1D23] rounded-2xl border-2 border-[#C5A059]/40 hover:border-[#C5A059]/70 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-amber-900 pr-4">
+                <h3 className="text-xl font-bold text-[#C5A059] pr-4">
                   🚀 ¿Cómo puedo comprar Gano Café y otros productos al mayorista?
                 </h3>
-                <span className="text-amber-800 text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  Con <strong>CreaTuActivo</strong>, no solo compras productos premium al <strong>precio de distribuidor mayorista</strong>
-                  (35% de descuento), también accedes a un <strong>ecosistema completo</strong>:
+                  Con <strong className="text-[#C5A059]">CreaTuActivo</strong>, no solo compras productos premium al <strong className="text-[#E5E5E5]">precio de distribuidor mayorista</strong>
+                  (35% de descuento), también accedes a un <strong className="text-[#E5E5E5]">ecosistema completo</strong>:
                 </p>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
+                    <div className="w-8 h-8 bg-[#C5A059] rounded-full flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + NEXUS IA</p>
+                      <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + Queswa IA</p>
                       <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar tu negocio 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
+                    <div className="w-8 h-8 bg-[#C5A059] rounded-full flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
                       <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes tu red</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
+                    <div className="w-8 h-8 bg-[#C5A059] rounded-full flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">3</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
                       <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de tu red</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-xl">
-                  <p className="text-xl font-bold mb-2">🎯 Solo 150 Cupos Fundadores</p>
-                  <p className="mb-4 text-blue-100">Válido hasta el 04 de Enero 2026</p>
+                <div className="bg-[#0F1115] border border-[#C5A059]/30 p-6 rounded-xl">
+                  <p className="text-xl font-bold text-[#C5A059] mb-2">🎯 Solo 150 Cupos Fundadores</p>
+                  <p className="mb-4 text-[#A3A3A3]">Válido hasta el 04 de Enero 2026</p>
                   <a
                     href="/fundadores"
-                    className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-xl hover:bg-blue-50 transition-all shadow-lg"
+                    className="inline-block bg-[#C5A059] text-[#0F1115] font-bold py-3 px-8 rounded-xl hover:bg-[#D4AF37] transition-all shadow-lg"
                   >
                     Únete como Fundador →
                   </a>
@@ -1700,13 +1700,13 @@ export default function CatalogoEstrategico() {
             </details>
           </div>
 
-          {/* CTA Final después del FAQ */}
-          <div className="mt-12 text-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              ¿Listo para probar el Gano Café?
+          {/* CTA Final después del FAQ - Quiet Luxury */}
+          <div className="mt-12 text-center bg-[#1A1D23] border border-[#C5A059]/30 rounded-2xl p-8">
+            <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 text-[#E5E5E5]">
+              ¿Listo para probar el <span className="text-[#C5A059]">Gano Café</span>?
             </h3>
-            <p className="text-lg mb-6 text-blue-100">
-              Habla con <strong>NEXUS IA</strong> y descubre qué productos son ideales para tu estilo de vida
+            <p className="text-lg mb-6 text-[#A3A3A3]">
+              Habla con <strong className="text-[#C5A059]">Queswa IA</strong> y descubre qué productos son ideales para tu estilo de vida
             </p>
             <button
               onClick={() => {
@@ -1714,10 +1714,10 @@ export default function CatalogoEstrategico() {
                 const nexusButton = document.querySelector('[data-nexus-trigger]') as HTMLButtonElement
                 if (nexusButton) nexusButton.click()
               }}
-              className="bg-white text-blue-600 font-bold py-4 px-8 rounded-xl hover:bg-blue-50 transition-all shadow-lg inline-flex items-center space-x-2"
+              className="bg-[#C5A059] text-[#0F1115] font-bold py-4 px-8 rounded-xl hover:bg-[#D4AF37] transition-all shadow-lg inline-flex items-center space-x-2"
             >
               <Bot className="h-5 w-5" />
-              <span>Hablar con NEXUS IA</span>
+              <span>Hablar con Queswa IA</span>
             </button>
           </div>
         </section>
@@ -1729,21 +1729,21 @@ export default function CatalogoEstrategico() {
           className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => handleOverlayClick(e, () => setSelectedSystem(null))}
         >
-          <div className="w-full max-w-5xl bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-slate-200">
+          <div className="w-full max-w-5xl bg-[#1A1D23]/95 backdrop-blur-xl border border-[#C5A059]/30 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-[#C5A059]/20">
               <div className="flex items-center space-x-3">
-                <div className={`w-12 h-12 bg-gradient-to-r ${sistemasDebienestar[selectedSystem].color} rounded-full flex items-center justify-center`}>
+                <div className="w-12 h-12 bg-[#C5A059] rounded-full flex items-center justify-center text-[#0F1115]">
                   {sistemasDebienestar[selectedSystem].icono}
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-[#E5E5E5]">{sistemasDebienestar[selectedSystem].nombre}</h2>
-                  <p className="text-slate-600">{sistemasDebienestar[selectedSystem].descripcion}</p>
+                  <p className="text-[#A3A3A3]">{sistemasDebienestar[selectedSystem].descripcion}</p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedSystem(null)}
                 aria-label="Cerrar detalle del sistema de bienestar"
-                className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
+                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors rounded-lg hover:bg-[#0F1115]"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -1752,19 +1752,19 @@ export default function CatalogoEstrategico() {
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {getProductsBySystem(selectedSystem).map((product) => (
-                  <div key={product.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                  <div key={product.id} className="bg-[#0F1115] rounded-xl p-4 border border-[#C5A059]/20">
                     <div className="flex items-start space-x-4">
                       <Image
                         src={product.image}
                         alt={`${product.name} - Carrito`}
                         width={96}
                         height={96}
-                        className="w-24 h-24 object-contain rounded-lg bg-white p-2"
+                        className="w-24 h-24 object-contain rounded-lg bg-[#0A0A0E] p-2"
                       />
                       <div className="flex-1">
                         <h3 className="font-bold text-[#E5E5E5] mb-1">{product.name}</h3>
-                        <p className="text-amber-800 text-xs italic mb-2">"{product.taglineEstrategico}"</p>
-                        <p className="text-slate-600 text-sm mb-3">{product.shortDescription}</p>
+                        <p className="text-[#C5A059] text-xs italic mb-2">"{product.taglineEstrategico}"</p>
+                        <p className="text-[#A3A3A3] text-sm mb-3">{product.shortDescription}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-lg font-bold text-[#E5E5E5]">${product.price.toLocaleString()}</span>
                           <button
@@ -1772,7 +1772,7 @@ export default function CatalogoEstrategico() {
                               addToCart(product.id)
                               setSelectedSystem(null)
                             }}
-                            className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-indigo-600 transition-all"
+                            className="bg-[#C5A059] text-[#0F1115] px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#D4AF37] transition-all"
                           >
                             Agregar
                           </button>
@@ -1790,7 +1790,7 @@ export default function CatalogoEstrategico() {
                     sistemasDebienestar[selectedSystem].productos.forEach(id => addToCart(id))
                     setSelectedSystem(null)
                   }}
-                  className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:from-emerald-600 hover:to-green-600 transition-all"
+                  className="bg-[#C5A059] text-[#0F1115] px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#D4AF37] transition-all"
                 >
                   Agregar Sistema Completo al Carrito
                 </button>
@@ -1806,16 +1806,16 @@ export default function CatalogoEstrategico() {
           className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => handleOverlayClick(e, () => setSelectedProduct(null))}
         >
-          <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#1A1D23]/95 backdrop-blur-xl border border-[#C5A059]/30 rounded-2xl p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-[#E5E5E5]">{selectedProduct.name}</h2>
-                <p className="text-amber-800 font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
+                <p className="text-[#C5A059] font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
               </div>
               <button
                 onClick={() => setSelectedProduct(null)}
                 aria-label="Cerrar detalle del producto"
-                className="p-2 text-slate-500 hover:text-slate-700 transition-colors rounded-lg hover:bg-slate-100"
+                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors rounded-lg hover:bg-[#0F1115]"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -1823,7 +1823,7 @@ export default function CatalogoEstrategico() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6">
+                <div className="bg-[#0A0A0E] rounded-2xl p-6 mb-6">
                   <Image
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
@@ -1834,19 +1834,19 @@ export default function CatalogoEstrategico() {
                 </div>
                 <div className="text-center">
                   <span className="text-3xl font-bold text-[#E5E5E5]">${selectedProduct.price.toLocaleString()}</span>
-                  <p className="text-slate-500 text-sm mt-1">Precio constructor</p>
+                  <p className="text-[#A3A3A3] text-sm mt-1">Precio constructor</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 {/* Tabs de navegación */}
-                <div className="flex space-x-2 border-b border-slate-200">
+                <div className="flex space-x-2 border-b border-[#C5A059]/30">
                   <button
                     onClick={() => setActiveTab('beneficios')}
                     className={`px-4 py-2 font-medium transition-all ${
                       activeTab === 'beneficios'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
-                        : 'text-slate-500 hover:text-slate-700'
+                        ? 'text-[#C5A059] border-b-2 border-[#C5A059]'
+                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
                     }`}
                   >
                     Beneficios
@@ -1855,8 +1855,8 @@ export default function CatalogoEstrategico() {
                     onClick={() => setActiveTab('ciencia')}
                     className={`px-4 py-2 font-medium transition-all ${
                       activeTab === 'ciencia'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
-                        : 'text-slate-500 hover:text-slate-700'
+                        ? 'text-[#C5A059] border-b-2 border-[#C5A059]'
+                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
                     }`}
                   >
                     Ciencia
@@ -1865,8 +1865,8 @@ export default function CatalogoEstrategico() {
                     onClick={() => setActiveTab('constructor')}
                     className={`px-4 py-2 font-medium transition-all ${
                       activeTab === 'constructor'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
-                        : 'text-slate-500 hover:text-slate-700'
+                        ? 'text-[#C5A059] border-b-2 border-[#C5A059]'
+                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
                     }`}
                   >
                     Guía de Uso Avanzado
@@ -1882,8 +1882,8 @@ export default function CatalogoEstrategico() {
                         <ul className="space-y-2">
                           {selectedProduct.benefits.map((benefit, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-emerald-500 mr-2">✓</span>
-                              <span className="text-slate-700">{benefit}</span>
+                              <span className="text-[#C5A059] mr-2">✓</span>
+                              <span className="text-[#A3A3A3]">{benefit}</span>
                             </li>
                           ))}
                         </ul>
@@ -1891,12 +1891,12 @@ export default function CatalogoEstrategico() {
 
                       <div>
                         <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Perfil Ideal</h3>
-                        <p className="text-slate-700 bg-blue-50 p-3 rounded-lg">{selectedProduct.perfilIdeal}</p>
+                        <p className="text-[#A3A3A3] bg-[#0F1115] p-3 rounded-lg">{selectedProduct.perfilIdeal}</p>
                       </div>
 
                       <div>
                         <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Momento de Consumo</h3>
-                        <p className="text-slate-700">{selectedProduct.momentoConsumo}</p>
+                        <p className="text-[#A3A3A3]">{selectedProduct.momentoConsumo}</p>
                       </div>
                     </div>
                   )}
@@ -1908,16 +1908,16 @@ export default function CatalogoEstrategico() {
                         <ul className="space-y-1">
                           {selectedProduct.ingredients.map((ingredient, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-blue-500 mr-2">•</span>
-                              <span className="text-slate-700">{ingredient}</span>
+                              <span className="text-[#C5A059] mr-2">•</span>
+                              <span className="text-[#A3A3A3]">{ingredient}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200">
+                      <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/30">
                         <h4 className="font-bold text-[#C5A059] mb-2">Nuestra Ventaja Tecnológica</h4>
-                        <p className="text-amber-700 text-sm">
+                        <p className="text-[#A3A3A3] text-sm">
                           Este producto contiene nuestro extracto exclusivo 100% hidrosoluble de Ganoderma Lucidum.
                           Una fusión de 6 variedades que aporta más de 200 fitonutrientes biodisponibles,
                           imposible de replicar por la competencia.
@@ -1926,11 +1926,11 @@ export default function CatalogoEstrategico() {
 
                       <div>
                         <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Modo de Uso</h3>
-                        <p className="text-slate-700 bg-slate-50 p-3 rounded-lg">{selectedProduct.usage}</p>
+                        <p className="text-[#A3A3A3] bg-[#0F1115] p-3 rounded-lg">{selectedProduct.usage}</p>
                       </div>
 
                       <div>
-                        <p className="text-slate-500 text-sm">
+                        <p className="text-[#A3A3A3] text-sm">
                           <strong>Registro INVIMA:</strong> {selectedProduct.invima}
                         </p>
                       </div>
@@ -1939,13 +1939,13 @@ export default function CatalogoEstrategico() {
 
                   {activeTab === 'constructor' && (
                     <div className="space-y-4">
-                      <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-200">
-                        <h4 className="font-bold text-purple-800 mb-3">💡 Consejos de Uso Óptimo</h4>
+                      <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/30">
+                        <h4 className="font-bold text-[#C5A059] mb-3">💡 Consejos de Uso Óptimo</h4>
                         <ul className="space-y-2">
                           {selectedProduct.puntosConversacion.map((punto, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-purple-500 mr-2">•</span>
-                              <span className="text-purple-700 text-sm">{punto}</span>
+                              <span className="text-[#C5A059] mr-2">•</span>
+                              <span className="text-[#A3A3A3] text-sm">{punto}</span>
                             </li>
                           ))}
                         </ul>
@@ -1954,10 +1954,10 @@ export default function CatalogoEstrategico() {
                       {selectedProduct.combinacionSugerida && (
                         <div>
                           <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">🔗 Combina con estos productos</h3>
-                          <p className="text-slate-600 text-sm mb-3">Para potenciar tus resultados, prueba combinarlo con:</p>
+                          <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar tus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
-                              <span key={productoId} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                              <span key={productoId} className="bg-[#C5A059]/20 text-[#C5A059] px-3 py-1 rounded-full text-sm">
                                 {productData[productoId]?.name || productoId}
                               </span>
                             ))}
@@ -1965,9 +1965,9 @@ export default function CatalogoEstrategico() {
                         </div>
                       )}
 
-                      <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
-                        <h4 className="font-bold text-emerald-800 mb-2">✨ Ideal para ti si...</h4>
-                        <p className="text-emerald-700 text-sm">
+                      <div className="bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/30">
+                        <h4 className="font-bold text-[#C5A059] mb-2">✨ Ideal para ti si...</h4>
+                        <p className="text-[#A3A3A3] text-sm">
                           Este producto es perfecto para: {selectedProduct.perfilIdeal}.
                           Maximiza tus beneficios explorando el catálogo completo y descubriendo combinaciones que se adapten a tus objetivos.
                         </p>
@@ -1981,18 +1981,18 @@ export default function CatalogoEstrategico() {
                               setSelectedProduct(null)
                               setSelectedSystem(selectedProduct.sistemaRecomendado!)
                             }}
-                            className="w-full bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-300 p-4 rounded-xl hover:from-blue-200 hover:to-indigo-200 transition-all text-left"
+                            className="w-full bg-[#0F1115] border border-[#C5A059]/40 p-4 rounded-xl hover:border-[#C5A059]/70 transition-all text-left"
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="font-semibold text-blue-800">
+                                <p className="font-semibold text-[#C5A059]">
                                   {sistemasDebienestar[selectedProduct.sistemaRecomendado].nombre}
                                 </p>
-                                <p className="text-blue-600 text-sm">
+                                <p className="text-[#A3A3A3] text-sm">
                                   {sistemasDebienestar[selectedProduct.sistemaRecomendado].descripcion}
                                 </p>
                               </div>
-                              <Rocket className="h-6 w-6 text-blue-600" />
+                              <Rocket className="h-6 w-6 text-[#C5A059]" />
                             </div>
                           </button>
                         </div>
@@ -2008,7 +2008,7 @@ export default function CatalogoEstrategico() {
                       if (productId) addToCart(productId)
                       setSelectedProduct(null)
                     }}
-                    className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-4 rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all font-medium text-lg shadow-lg"
+                    className="w-full bg-[#C5A059] text-[#0F1115] py-4 rounded-xl hover:bg-[#D4AF37] transition-all font-medium text-lg shadow-lg"
                   >
                     Agregar al Sistema de Bienestar
                   </button>
@@ -2018,7 +2018,7 @@ export default function CatalogoEstrategico() {
                       href={selectedProduct.downloadUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 rounded-xl hover:from-emerald-600 hover:to-green-600 transition-all font-medium text-lg shadow-lg"
+                      className="w-full flex items-center justify-center bg-[#C5A059]/80 text-[#0F1115] py-4 rounded-xl hover:bg-[#D4AF37] transition-all font-medium text-lg shadow-lg"
                     >
                       <Download className="h-5 w-5 mr-2" />
                       Descargar Guía del Producto (PDF)

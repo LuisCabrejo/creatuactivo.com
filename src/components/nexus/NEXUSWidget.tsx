@@ -127,7 +127,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98vh] md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-3 md:p-4 bg-black/20 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-4 md:p-4 bg-black/20 backdrop-blur-sm">
       <div
         className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
         style={{

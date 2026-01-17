@@ -124,10 +124,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
   const containerClasses = isExpanded
     ? "w-full max-w-4xl h-[95vh]"
-    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[85vh] md:h-[85vh] lg:h-[80vh]";
+    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98vh] md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center pt-4 md:pt-0 p-2 md:p-4 bg-black/20 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-4 bg-black/20 backdrop-blur-sm">
       <div
         className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
         style={{
@@ -314,7 +314,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               className={`w-full space-y-4 ${
                 isExpanded
                   ? 'p-6'
-                  : 'p-2 md:p-4'
+                  : 'p-4 md:p-4'
               }`}
               style={{
                 // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
@@ -532,7 +532,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
           {/* 🎨 Quiet Luxury INPUT */}
           <div
-            className={`${isExpanded ? 'p-4 pt-3' : 'p-2 md:p-3'}`}
+            className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
             style={{ borderTop: `1px solid rgba(197, 160, 89, 0.1)` }}
           >
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
@@ -579,8 +579,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* 🎨 Quiet Luxury FOOTER */}
-          <div className={`${isExpanded ? 'px-6 pb-4' : 'px-2 md:px-4 pb-3'}`}>
-            <div className="flex justify-center gap-2 md:gap-6">
+          <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
+            <div className="flex justify-center gap-6">
               <button
                 className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
                 style={{ color: QUIET_LUXURY.textMuted }}

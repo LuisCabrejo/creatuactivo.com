@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Quiet Luxury Favicon - CreaTuActivo -->
-  <rect width="32" height="32" rx="6" fill="#D4AF37"/>
-  <text
-    x="16"
-    y="16"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="24"
-    font-weight="700"
-    fill="#0a0a0f"
-    text-anchor="middle"
-    dominant-baseline="central"
-  >C</text>
+  <!-- THE ARCHITECT'S SUITE - CA Monogram Favicon -->
+  <!-- Style: Private Banking / Architectural Blueprint -->
+
+  <!-- Background: Transparent (Quiet Luxury) -->
+
+  <!-- CA Monogram: Geometric interlocking design -->
+  <g fill="none" stroke="#C5A059" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- C: Elegant arc with architectural precision -->
+    <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
+
+    <!-- A: Angular form integrated with C -->
+    <path d="M14 26 L20 8 L26 26"/>
+    <line x1="16" y1="20" x2="24" y2="20"/>
+  </g>
 </svg>

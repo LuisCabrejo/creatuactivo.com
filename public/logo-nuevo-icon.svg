@@ -1,27 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <!-- Quiet Luxury Logo - CreaTuActivo -->
-  <!-- Cuadrado dorado con C serif -->
+  <!-- THE ARCHITECT'S SUITE - CA Monogram Icon -->
+  <!-- Style: Private Banking / Architectural Blueprint -->
+  <!-- Use: App icons, social media, PWA -->
 
-  <!-- Fondo: Cuadrado dorado con esquinas redondeadas -->
-  <rect
-    x="20"
-    y="20"
-    width="160"
-    height="160"
-    rx="24"
-    ry="24"
-    fill="#D4AF37"
-  />
+  <!-- Background: Transparent (Quiet Luxury) -->
 
-  <!-- C: Tipografía serif - centrado exacto -->
-  <text
-    x="100"
-    y="100"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="110"
-    font-weight="700"
-    fill="#0a0a0f"
-    text-anchor="middle"
-    dominant-baseline="central"
-  >C</text>
+  <!-- CA Monogram: Geometric interlocking design -->
+  <g fill="none" stroke="#C5A059" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" transform="translate(25, 20)">
+    <!-- C: Elegant arc with architectural precision -->
+    <path d="M110 25 C80 5, 30 15, 15 55 C0 95, 15 155, 60 175 C95 190, 125 175, 140 145"/>
+
+    <!-- A: Angular form integrated with C -->
+    <path d="M70 165 L105 25 L140 165"/>
+    <line x1="80" y1="120" x2="130" y2="120"/>
+  </g>
 </svg>

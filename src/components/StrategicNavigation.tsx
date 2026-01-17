@@ -76,12 +76,10 @@ const CRITICAL_NAVIGATION_CSS = `
     transform: scale(1.02);
   }
 
-  /* Quiet Luxury Logo Icon */
+  /* THE ARCHITECT'S SUITE - CA Monogram Icon */
   .strategic-logo-icon {
     width: 40px;
     height: 40px;
-    background: #C5A059;
-    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,36 +90,41 @@ const CRITICAL_NAVIGATION_CSS = `
     .strategic-logo-icon {
       width: 32px;
       height: 32px;
-      border-radius: 8px;
     }
   }
 
-  .strategic-logo-icon span {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: #0F1115;
+  .strategic-logo-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
-  @media (max-width: 767px) {
-    .strategic-logo-icon span {
-      font-size: 18px;
-    }
-  }
-
-  /* Quiet Luxury Wordmark */
+  /* THE ARCHITECT'S SUITE - Mixed Typography Wordmark */
   .strategic-logo-text {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #E5E5E5;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
     line-height: 1.2;
-    letter-spacing: -0.01em;
     transition: opacity 0.3s ease;
+  }
+
+  .strategic-logo-text .crea-tu {
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #E5E5E5;
+    letter-spacing: 0.02em;
   }
 
   .strategic-logo-text .tu {
     color: #C5A059;
+  }
+
+  .strategic-logo-text .activo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E5E5E5;
+    letter-spacing: 0.01em;
   }
 
   .strategic-logo-link:hover .strategic-logo-text {
@@ -508,14 +511,23 @@ export default function StrategicNavigation() {
         <nav className="strategic-nav-container">
           <div className="strategic-nav-content">
 
-            {/* ✅ LOGO SECTION - QUIET LUXURY */}
+            {/* ✅ LOGO SECTION - THE ARCHITECT'S SUITE */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
+                {/* CA Monogram - Architectural Style */}
                 <div className="strategic-logo-icon">
-                  <span>C</span>
+                  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="#C5A059" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
+                      <path d="M14 26 L20 8 L26 26"/>
+                      <line x1="16" y1="20" x2="24" y2="20"/>
+                    </g>
+                  </svg>
                 </div>
+                {/* Mixed Typography Wordmark */}
                 <span className="strategic-logo-text">
-                  Crea<span className="tu">Tu</span>Activo
+                  <span className="crea-tu">Crea<span className="tu">Tu</span></span>
+                  <span className="activo">Activo</span>
                 </span>
               </Link>
             </div>
@@ -566,11 +578,20 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
+            {/* CA Monogram - Architectural Style */}
             <div className="strategic-logo-icon">
-              <span>C</span>
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="#C5A059" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 8 C17 4, 9 5, 6 11 C3 17, 5 25, 12 28 C17 30, 22 28, 24 24"/>
+                  <path d="M14 26 L20 8 L26 26"/>
+                  <line x1="16" y1="20" x2="24" y2="20"/>
+                </g>
+              </svg>
             </div>
+            {/* Mixed Typography Wordmark */}
             <span className="strategic-logo-text">
-              Crea<span className="tu">Tu</span>Activo
+              <span className="crea-tu">Crea<span className="tu">Tu</span></span>
+              <span className="activo">Activo</span>
             </span>
           </Link>
           <button

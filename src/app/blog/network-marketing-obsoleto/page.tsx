@@ -10,7 +10,7 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 export const metadata = {
   title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos | CreaTuActivo Blog',
   description: 'El network marketing tradicional está muriendo. Descubre por qué evolucionamos hacia un modelo de Arquitectura de Activos con tecnología y sistemas automatizados.',
-  keywords: 'network marketing obsoleto, arquitectura de activos, MLM moderno, multinivel 2025, sistema de activos, ingresos residuales, network marketing con IA',
+  keywords: 'network marketing obsoleto, arquitectura de activos, MLM moderno, multinivel 2026, sistema de activos, ingresos residuales, network marketing con IA',
 };
 
 export default function NetworkMarketingObsoletoPage() {
@@ -74,7 +74,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     El problema es que muchos siguen intentando aplicar métodos de 1995
-                    en un mundo de 2025. Es como intentar competir en e-commerce usando
+                    en un mundo de 2026. Es como intentar competir en e-commerce usando
                     un catálogo impreso.
                   </p>
                 </section>

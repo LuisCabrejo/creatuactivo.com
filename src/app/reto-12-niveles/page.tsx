@@ -238,7 +238,7 @@ export default function Reto12DiasPage() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                         </span>
-                        Protocolo de Ejecución 2025
+                        Protocolo de Ejecución 2026
                     </div>
 
                     <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight">

@@ -857,7 +857,7 @@ function FinalCTASection() {
               className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: 'var(--gold)' }}
             />
-            Enero 2025 — Solo 30 cupos
+            Enero 2026 — Solo 30 cupos
           </div>
 
           <h2

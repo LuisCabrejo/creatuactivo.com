@@ -1,5 +1,5 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Página de Lanzamiento: Gano Excel Brasil
  * Update: Corrección Botón Hero + Urgencia 7 Dic Visual
  */
@@ -20,7 +20,7 @@ const WA_LINK = "https://wa.me/573102066593?text=Ol%C3%A1%2C%20tenho%20interesse
 // --- DICCIONARIO DE CONTENIDO (ES / PT) ---
 const content = {
   es: {
-    badge: "Lanzamiento Oficial 2025",
+    badge: "Lanzamiento Oficial 2026",
     hero_title_1: "El Gigante ha Despertado.",
     hero_title_2: "Brasil es Territorio Gano Excel.",
     hero_desc: "La economía número 1 de América Latina abre sus puertas. La infraestructura física ya está en São Paulo. La infraestructura digital está en tus manos con CreaTuActivo.",
@@ -29,7 +29,7 @@ const content = {
 
     // --- UPDATE: PROMOCIONES ---
     promo_title: "Oportunidades Flash",
-    promo_subtitle: "Válido hasta 07 Dic 2025",
+    promo_subtitle: "Válido hasta 07 Dic 2026",
 
     // Textos Visuales de la Tarjeta Derecha
     promo_visual_top: "CIERRE DE AÑO",
@@ -77,7 +77,7 @@ const content = {
     esp3_price: "R$ 4.500,00",
     esp3_desc: "+ Regalo: 4 Cajas Extra (Máxima Rentabilidad).",
 
-    catalog_title: "Colección Brasil 2025",
+    catalog_title: "Colección Brasil 2026",
     catalog_sub: "La fusión perfecta entre el café premium y la sofisticación de la trufa.",
 
     infra_title_1: "Infraestructura Física",
@@ -90,7 +90,7 @@ const content = {
 
     alert_title: "Para Distribuidores Existentes",
     alert_desc: "Proceso de Nacionalización de Código ID activo.",
-    alert_list_1: "Solicitud disponible desde Noviembre 2025.",
+    alert_list_1: "Solicitud disponible (proceso activo).",
     alert_list_2: "Requiere CPF (Cadastro de Pessoas Físicas).",
     alert_list_3: "Gestión directa con SAC Gano Excel Brasil.",
 
@@ -131,7 +131,7 @@ const content = {
     ]
   },
   pt: {
-    badge: "Lançamento Oficial 2025",
+    badge: "Lançamento Oficial 2026",
     hero_title_1: "O Gigante Acordou.",
     hero_title_2: "Brasil é Território Gano Excel.",
     hero_desc: "A economia número 1 da América Latina abre suas portas. A infraestrutura física já está em São Paulo. A infraestrutura digital está em suas mãos com CreaTuActivo.",
@@ -140,7 +140,7 @@ const content = {
 
     // --- UPDATE: PROMOCIONES PT ---
     promo_title: "Oportunidades Flash",
-    promo_subtitle: "Válido até 07 Dez 2025",
+    promo_subtitle: "Válido até 07 Dez 2026",
 
     // Textos Visuais
     promo_visual_top: "ENCERRAMENTO DE ANO",
@@ -188,7 +188,7 @@ const content = {
     esp3_price: "R$ 4.500,00",
     esp3_desc: "+ Presente: 4 Caixas Extra (Máxima Rentabilidade).",
 
-    catalog_title: "Coleção Brasil 2025",
+    catalog_title: "Coleção Brasil 2026",
     catalog_sub: "A fusão perfeita entre o café premium e a sofisticação da trufa.",
 
     infra_title_1: "Infraestrutura Física",
@@ -201,7 +201,7 @@ const content = {
 
     alert_title: "Para Distribuidores Existentes",
     alert_desc: "Processo de Nacionalização de Código ID ativo.",
-    alert_list_1: "Solicitação disponível desde Novembro 2025.",
+    alert_list_1: "Solicitação disponível (processo ativo).",
     alert_list_2: "Requer CPF (Cadastro de Pessoas Físicas).",
     alert_list_3: "Gestão direta com SAC Gano Excel Brasil.",
 
@@ -394,7 +394,7 @@ export default function BrasilLaunchPage() {
                     <div className="text-center">
                       <p className="text-sm text-slate-400 uppercase tracking-widest mb-2">{t.promo_visual_top}</p>
                       <p className="text-3xl font-extrabold text-white mb-2">{t.promo_visual_middle}</p>
-                      <p className="text-xl text-yellow-400 font-bold">2025</p>
+                      <p className="text-xl text-yellow-400 font-bold">2026</p>
                       <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
                         Aprovechar Ahora →
                       </a>

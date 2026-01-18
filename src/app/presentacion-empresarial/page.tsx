@@ -324,7 +324,7 @@ export default function PresentacionEmpresarialPage() {
             <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Economía Digital 2025
+                    Economía Digital 2026
                 </div>
                 <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.1]">
                     Construye un Activo. <br />

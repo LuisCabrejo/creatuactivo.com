@@ -1,27 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-  <!-- Quiet Luxury Favicon - CreaTuActivo -->
-  <!-- Cuadrado dorado con C serif -->
-
-  <!-- Fondo: Cuadrado dorado con esquinas redondeadas -->
-  <rect
-    x="4"
-    y="4"
-    width="32"
-    height="32"
-    rx="6"
-    ry="6"
-    fill="#D4AF37"
-  />
-
-  <!-- C: Tipografía serif bold - centrado exacto -->
-  <text
-    x="20"
-    y="20"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="22"
-    font-weight="700"
-    fill="#0a0a0f"
-    text-anchor="middle"
-    dominant-baseline="central"
-  >C</text>
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- THE ARCHITECT'S SUITE - CA Monogram 40x40 -->
+  <rect width="40" height="40" rx="8" fill="#0F1115"/>
+  <g transform="translate(5, 5)">
+    <!-- C: Angular form -->
+    <path d="M12 4 H4 V26 H18" stroke="#C5A059" stroke-width="2" stroke-linecap="square"/>
+    <!-- A: Vertical + horizontal structure -->
+    <path d="M14 26 V8 H26 V26" stroke="#C5A059" stroke-width="2" stroke-linecap="square"/>
+    <!-- A crossbar -->
+    <path d="M14 17 H26" stroke="#C5A059" stroke-width="2"/>
+  </g>
 </svg>

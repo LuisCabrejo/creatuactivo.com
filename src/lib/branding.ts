@@ -81,8 +81,9 @@ export const BRAND = {
 
   urls: {
     base: 'https://creatuactivo.com',
-    logo: 'https://creatuactivo.com/logo-email-header-200x80.png',
-    logoSignature: 'https://creatuactivo.com/logo-email-signature-150x60.png'
+    logo: 'https://creatuactivo.com/logo-email-header-280x80.png',
+    logoSignature: 'https://creatuactivo.com/logo-email-signature-200x60.png',
+    logoFooter: 'https://creatuactivo.com/logo-email-footer-180x48.png'
   },
 
   spacing: {

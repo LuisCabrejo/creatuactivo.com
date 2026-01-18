@@ -1,5 +1,6 @@
 /**
  * Genera los logos para emails de CreaTuActivo
+ * Estilo: THE ARCHITECT'S SUITE - CA Monogram
  * Ejecutar: node scripts/generate-email-logos.mjs
  */
 
@@ -10,58 +11,72 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
 
-// Colores Quiet Luxury
+// Colores Architect's Suite
 const colors = {
-  gold: '#D4AF37',
-  dark: '#0a0a0f',
-  text: '#f5f5f5',
+  gold: '#C5A059',
+  dark: '#0F1115',
+  text: '#E5E5E5',
 };
 
 /**
- * Crea un SVG del logo de CreaTuActivo
+ * Genera el CA monogram SVG escalado
  */
-function createLogoSVG(width, height, iconSize) {
-  const iconRadius = Math.round(iconSize * 0.15);
-  const fontSize = Math.round(iconSize * 0.6);
-  const textFontSize = Math.round(height * 0.35);
-  const iconX = Math.round((height - iconSize) / 2);
-  const iconY = iconX;
-  const textX = iconX + iconSize + Math.round(iconSize * 0.3);
-  const textY = height / 2;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-  <rect x="${iconX}" y="${iconY}" width="${iconSize}" height="${iconSize}" rx="${iconRadius}" fill="${colors.gold}"/>
-  <text x="${iconX + iconSize / 2}" y="${iconY + iconSize / 2}" font-family="Georgia, serif" font-size="${fontSize}" font-weight="700" fill="${colors.dark}" text-anchor="middle" dominant-baseline="central">C</text>
-  <text x="${textX}" y="${textY}" font-family="system-ui, sans-serif" font-size="${textFontSize}" font-weight="500" fill="${colors.text}" dominant-baseline="central">Crea<tspan fill="${colors.gold}">Tu</tspan>Activo</text>
-</svg>`;
+function createCAMonogram(size, strokeWidth) {
+  const scale = size / 60; // Base 60px
+  return `
+    <g transform="scale(${scale})">
+      <path d="M25 5 H5 V55 H35" stroke="${colors.gold}" stroke-width="${strokeWidth}" stroke-linecap="square" fill="none"/>
+      <path d="M30 55 V15 H55 V55" stroke="${colors.gold}" stroke-width="${strokeWidth}" stroke-linecap="square" fill="none"/>
+      <path d="M30 35 H55" stroke="${colors.gold}" stroke-width="${strokeWidth}" fill="none"/>
+    </g>`;
 }
 
 async function generateLogos() {
-  console.log('🎨 Generando logos para emails...\n');
+  console.log('🎨 Generando logos para emails (CA Monogram)...\n');
 
-  // Logo header con fondo oscuro: 280x80
+  // Logo header: 280x80
   const headerSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="80" viewBox="0 0 280 80">
-  <rect width="280" height="80" fill="${colors.dark}"/>
-  <rect x="12" y="12" width="56" height="56" rx="8" fill="${colors.gold}"/>
-  <text x="40" y="40" font-family="Georgia, serif" font-size="34" font-weight="700" fill="${colors.dark}" text-anchor="middle" dominant-baseline="central">C</text>
-  <text x="84" y="40" font-family="system-ui, sans-serif" font-size="28" font-weight="500" fill="${colors.text}" dominant-baseline="central">Crea<tspan fill="${colors.gold}">Tu</tspan>Activo</text>
+  <rect width="280" height="80" rx="4" fill="${colors.dark}"/>
+  <g transform="translate(10, 10)">
+    ${createCAMonogram(60, 3)}
+  </g>
+  <text x="85" y="35" font-family="Montserrat, sans-serif" font-weight="400" font-size="20" letter-spacing="1" fill="${colors.text}">CreaTu</text>
+  <text x="170" y="35" font-family="'Playfair Display', serif" font-weight="700" font-size="20" letter-spacing="0.5" fill="${colors.gold}">Activo</text>
+  <text x="85" y="58" font-family="sans-serif" font-size="10" letter-spacing="2" fill="#666">THE ARCHITECT'S SUITE</text>
 </svg>`;
 
   await sharp(Buffer.from(headerSVG)).png().toFile(join(publicDir, 'logo-email-header-280x80.png'));
   console.log('✅ logo-email-header-280x80.png');
 
-  // Logo footer con fondo oscuro: 180x48
+  // Logo footer: 180x48
   const footerSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48" viewBox="0 0 180 48">
-  <rect width="180" height="48" fill="${colors.dark}"/>
-  <rect x="6" y="6" width="36" height="36" rx="5" fill="${colors.gold}"/>
-  <text x="24" y="24" font-family="Georgia, serif" font-size="22" font-weight="700" fill="${colors.dark}" text-anchor="middle" dominant-baseline="central">C</text>
-  <text x="52" y="24" font-family="system-ui, sans-serif" font-size="17" font-weight="500" fill="${colors.text}" dominant-baseline="central">Crea<tspan fill="${colors.gold}">Tu</tspan>Activo</text>
+  <rect width="180" height="48" rx="4" fill="${colors.dark}"/>
+  <g transform="translate(6, 6)">
+    ${createCAMonogram(36, 2)}
+  </g>
+  <text x="52" y="22" font-family="Montserrat, sans-serif" font-weight="400" font-size="12" letter-spacing="0.5" fill="${colors.text}">CreaTu</text>
+  <text x="103" y="22" font-family="'Playfair Display', serif" font-weight="700" font-size="12" fill="${colors.gold}">Activo</text>
+  <text x="52" y="36" font-family="sans-serif" font-size="7" letter-spacing="1.5" fill="#555">THE ARCHITECT'S SUITE</text>
 </svg>`;
 
   await sharp(Buffer.from(footerSVG)).png().toFile(join(publicDir, 'logo-email-footer-180x48.png'));
   console.log('✅ logo-email-footer-180x48.png');
 
-  console.log('\n🎉 Logos generados!');
+  // Logo signature: 200x60
+  const signatureSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60">
+  <rect width="200" height="60" rx="4" fill="${colors.dark}"/>
+  <g transform="translate(8, 8)">
+    ${createCAMonogram(44, 2.5)}
+  </g>
+  <text x="62" y="28" font-family="Montserrat, sans-serif" font-weight="400" font-size="14" letter-spacing="0.5" fill="${colors.text}">CreaTu</text>
+  <text x="122" y="28" font-family="'Playfair Display', serif" font-weight="700" font-size="14" fill="${colors.gold}">Activo</text>
+  <text x="62" y="44" font-family="sans-serif" font-size="8" letter-spacing="1.5" fill="#555">THE ARCHITECT'S SUITE</text>
+</svg>`;
+
+  await sharp(Buffer.from(signatureSVG)).png().toFile(join(publicDir, 'logo-email-signature-200x60.png'));
+  console.log('✅ logo-email-signature-200x60.png');
+
+  console.log('\n🎉 Logos de email generados con estilo CA Monogram!');
 }
 
 generateLogos().catch(console.error);

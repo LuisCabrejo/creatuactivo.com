@@ -93,8 +93,8 @@ export const FounderConfirmationEmail = ({
           }} className="mobile-padding-lg">
 
             <Img
-              src="https://creatuactivo.com/logo-email-header-200x80.png"
-              width="200"
+              src="https://creatuactivo.com/logo-email-header-280x80.png"
+              width="280"
               height="80"
               alt="CreaTuActivo - Ecosistema Tecnológico"
               style={{

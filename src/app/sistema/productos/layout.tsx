@@ -14,7 +14,7 @@ import type { Metadata } from 'next'
 const siteUrl = 'https://creatuactivo.com'
 
 export const metadata: Metadata = {
-  title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2025 | Gano Excel',
+  title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2026 | Gano Excel',
   description: 'Descubre para qué sirve el Gano Café: beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo Gano Excel con envío a toda Latinoamérica. Café, suplementos, cosméticos con IA conversacional.',
 
   // Metadatos básicos optimizados para búsquedas de producto
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   // Open Graph (Facebook, WhatsApp, LinkedIn)
   openGraph: {
-    title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2025',
+    title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2026',
     description: '¿Para qué sirve el Gano Café? Descubre beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo con envío a Latinoamérica. IA conversacional para asesorarte.',
     url: `${siteUrl}/sistema/productos`,
     siteName: 'CreaTuActivo',
@@ -88,7 +88,7 @@ export default function ProductosLayout({
       "url": `${siteUrl}/sistema/productos`,
       "priceCurrency": "COP",
       "price": "110900",
-      "priceValidUntil": "2025-12-31",
+      "priceValidUntil": "2026-12-31",
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
@@ -129,10 +129,10 @@ export default function ProductosLayout({
       },
       {
         "@type": "Question",
-        "name": "¿Cuál es el precio del Gano Café en Colombia 2025?",
+        "name": "¿Cuál es el precio del Gano Café en Colombia 2026?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Los precios oficiales de Gano Excel en Colombia para 2025 son: Gano Café 3 en 1 (caja con 20 sobres x 21g): $110.900 COP. Gano Café Clásico Negro (caja con 30 sobres x 4.5g): $110.900 COP. Como Fundador CreaTuActivo, accedes a precios mayoristas con descuento de hasta 35% sobre precio público. Envío gratis a toda Colombia en compras superiores a $150.000 COP."
+          "text": "Los precios oficiales de Gano Excel en Colombia para 2026 son: Gano Café 3 en 1 (caja con 20 sobres x 21g): $110.900 COP. Gano Café Clásico Negro (caja con 30 sobres x 4.5g): $110.900 COP. Como Fundador CreaTuActivo, accedes a precios mayoristas con descuento de hasta 35% sobre precio público. Envío gratis a toda Colombia en compras superiores a $150.000 COP."
         }
       },
       {

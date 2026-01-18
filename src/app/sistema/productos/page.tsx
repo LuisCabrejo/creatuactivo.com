@@ -1534,13 +1534,13 @@ export default function CatalogoEstrategico() {
             <details className="group bg-[#1A1D23] rounded-2xl border border-[#C5A059]/20 hover:border-[#C5A059]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
                 <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
-                  ¿Cuál es el precio del Gano Café en Colombia 2025?
+                  ¿Cuál es el precio del Gano Café en Colombia 2026?
                 </h3>
                 <span className="text-[#C5A059] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  Los <strong>precios oficiales de Gano Excel en Colombia</strong> para 2025 son:
+                  Los <strong>precios oficiales de Gano Excel en Colombia</strong> para 2026 son:
                 </p>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center justify-between bg-[#0F1115] p-4 rounded-xl border border-[#C5A059]/30">

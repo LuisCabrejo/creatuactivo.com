@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**CreaTuActivo Marketing Platform** - Next.js 14 application for a multilevel marketing business featuring an AI-powered chatbot (Queswa, formerly NEXUS) that guides prospects through the sales funnel while tracking engagement via Supabase.
+**CreaTuActivo Marketing Platform** - Next.js 14 application for a multilevel marketing business featuring an AI-powered chatbot (**Queswa**, formerly NEXUS - rebranded in v15.0) that guides prospects through the sales funnel while tracking engagement via Supabase.
 
 **Stack**: Next.js 14 (App Router), TypeScript, React, Tailwind CSS, Supabase, Anthropic Claude API, Resend
 
-**Design System**: "Quiet Luxury" - Dark theme (#0a0a0f background), gold accents (#D4AF37), Georgia serif for headlines, minimal UI
+**Design System**: "Quiet Luxury" with Bimetallic Accents v3.0 - See detailed guide below
 
 **Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
@@ -118,6 +118,29 @@ Three-stage funnel methodology:
 - **Health checks**: GET request to `/api/nexus`
 - **Legacy**: `/api/nexus` POST (synchronous, still works)
 
+### 1.1. API Routes Reference
+
+| Route | Runtime | Timeout | Purpose |
+|-------|---------|---------|---------|
+| `/api/nexus` | Edge | 60s | NEXUS AI main (streaming) |
+| `/api/nexus/producer` | Edge | 10s | DB Queue producer |
+| `/api/nexus/consumer-cron` | Edge | 60s | Legacy queue consumer |
+| `/api/funnel` | Node | 10s | Reto 5 Días + Webinar forms |
+| `/api/fundadores` | Node | 10s | Founder registration |
+| `/api/diagnostico` | Edge | 30s | Audit/self-assessment |
+| `/api/cron/process-emails` | Node | 60s | Soap Opera sequence |
+| `/api/cron/reto-5-dias` | Node | 60s | 5-day challenge emails |
+| `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
+| `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
+
+**Vercel Cron Schedules** (vercel.json):
+```
+/api/cron/process-emails   → 0 14 * * *  (9:00 AM UTC-5 Colombia)
+/api/cron/reto-5-dias      → 0 13 * * *  (8:00 AM UTC-5 Colombia)
+```
+
+**Important**: Cron routes require `CRON_SECRET` env var for authorization.
+
 ### 2. Prospect Tracking
 
 **Location**: [public/tracking.js](public/tracking.js)
@@ -200,9 +223,9 @@ Usuario → Producer → nexus_queue (INSERT)
 
 **Knowledge Base** (stored in `nexus_documents`, consolidado Dic 2025):
 - `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses, ~21KB)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~61KB)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (compensation plan details, ~14KB)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~18KB)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~52KB)
+- `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (12-level challenge content)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -257,6 +280,8 @@ src/app/
 │   └── socio-corporativo/           # Gano Excel info
 ├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
 │   └── [ref]/page.tsx
+├── socios/                          # Landing for traditional networkers
+├── calculadora/                     # Business calculator tool
 ├── diagnostico/                     # Lead magnet "Mi Auditoría"
 ├── paquetes/                        # Product packages
 │   └── [ref]/page.tsx
@@ -270,7 +295,7 @@ src/app/
 ```
 
 **SEO Strategy** (Dic 2025):
-- **Indexed pages**: `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
+- **Indexed pages**: `/`, `/fundadores`, `/socios`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
 - **noindex pages** (funnel interno):
   - `/reto-5-dias/*` → Squeeze/Bridge para ADS
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
@@ -295,37 +320,19 @@ src/app/
 
 ## Environment Variables
 
-Required in `.env.local` (see [.env.example](.env.example)):
+Copia `.env.example` a `.env.local` y configura. Servicios requeridos:
 
-```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=         # Server-side only
+- **Supabase**: Base de datos + Auth + Edge Functions (requires pgvector extension)
+- **Anthropic**: Claude API para chatbot Queswa/NEXUS
+- **Voyage AI**: Embeddings vectoriales para búsqueda semántica
+- **Resend**: Emails transaccionales
+- **Vercel Blob**: Almacenamiento de videos (opcional)
+- **Twilio**: WhatsApp automation (opcional)
 
-# Anthropic
-ANTHROPIC_API_KEY=
+**Production-only variables** (set in Vercel Dashboard, not in .env.example):
+- `CRON_SECRET` - Authorization for Vercel cron jobs
 
-# Voyage AI (vector search)
-VOYAGE_API_KEY=                    # Required for semantic search in NEXUS
-
-# Resend (emails)
-RESEND_API_KEY=
-
-# Vercel Blob (videos)
-BLOB_READ_WRITE_TOKEN=
-NEXT_PUBLIC_VIDEO_FUNDADORES_1080P=
-NEXT_PUBLIC_VIDEO_FUNDADORES_720P=
-NEXT_PUBLIC_VIDEO_FUNDADORES_4K=
-NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER=
-
-# Site config
-NEXT_PUBLIC_SITE_URL=
-NEXT_PUBLIC_WHATSAPP_NUMBER=
-
-# SEO
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
-```
+Ver [.env.example](.env.example) para la lista completa con instrucciones de configuración.
 
 ## Common Development Patterns
 
@@ -342,19 +349,21 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
 
-### Updating NEXUS Knowledge
+### Updating Queswa Knowledge
 
 **Workflow** (Arquitectura Consolidada v3.0 - Dic 2025):
 
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (34 responses)
-   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Compensation (63 responses)
+   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation (63 responses)
+   - `arsenal_12_niveles.txt` - 12-level challenge content
    - `catalogo_productos.txt` - Product catalog + science (22 products)
 
 2. Deploy to Supabase via scripts:
    ```bash
    node scripts/deploy-arsenal-inicial.mjs
    node scripts/deploy-arsenal-avanzado.mjs
+   node scripts/deploy-arsenal-12-niveles.mjs
    node scripts/actualizar-catalogo-productos.mjs
    ```
 
@@ -441,6 +450,10 @@ Returns: Arsenal counts, system prompt version, catalog availability, RPC status
 
 ### Supabase
 
+**Prerequisites**:
+- Enable `pgvector` extension (for embeddings storage)
+- Enable `pg_net` extension (for DB triggers to call Edge Functions)
+
 **Critical order**:
 1. Apply migrations: `supabase/APPLY_MANUALLY.sql`
 2. Seed knowledge base (copy from `knowledge_base/*.txt`)
@@ -476,8 +489,79 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `useTracking.ts` - React wrapper for tracking API
 
 **Shared Libraries** (in `src/lib/`):
-- `branding.ts` - Centralized branding constants
+- `branding.ts` - Centralized branding v3.0 (COLORS, BRAND, ICON_COLORS, emailStyles)
 - `vectorSearch.ts` - Voyage AI embeddings + cosine similarity for semantic search
+
+## Design System: Bimetallic v3.0
+
+**Philosophy**: "Quiet Luxury meets Private Equity" - The site should look like a high-end investment firm, not a typical MLM.
+
+### Color Hierarchy (Sistema Bimetálico)
+
+| Category | Color | Hex | Usage |
+|----------|-------|-----|-------|
+| **Gold (EL PREMIO)** | Champagne | `#C5A059` | CTAs, money, achievements, key titles |
+| Gold Hover | | `#D4AF37` | Button hover states |
+| Gold Bronze | | `#B38B59` | Secondary gold text |
+| **Titanium (LA ESTRUCTURA)** | Primary | `#94A3B8` | Active icons, navigation |
+| Titanium Muted | | `#64748B` | Inactive icons, labels |
+| Titanium Dark | | `#475569` | Subtle lines, dividers |
+| **Backgrounds** | Carbon Deep | `#0F1115` | Main background |
+| Carbon Elevated | | `#15171C` | Alternate sections |
+| Obsidian | | `#1A1D23` | Cards, surfaces |
+| **Text** | White | `#FFFFFF` | Headlines |
+| Smoke | | `#E5E5E5` | Body text |
+| Muted | | `#A3A3A3` | Secondary text |
+| **Status** | Success | `#10B981` | Completed, growth |
+| Warning | | `#FBBF24` | Pending, in progress |
+| Alert | | `#F43F5E` | Errors, required action |
+
+### Icon Color Rules
+
+```typescript
+// From src/lib/branding.ts - ICON_COLORS
+prize: '#C5A059'      // Trophy, coins, achievements → GOLD
+structure: '#94A3B8'  // Navigation, tools, menus → TITANIUM (hover → gold)
+success: '#10B981'    // Completed states → GREEN
+warning: '#FBBF24'    // Pending states → AMBER
+alert: '#F43F5E'      // Error states → RED
+trust: 'rgba(255, 255, 255, 0.6)'  // Trust markers on landing pages
+```
+
+### Atmospheric Effects
+
+**Spotlights** (for hero sections):
+- Titanium: `radial-gradient(ellipse at center, rgba(148, 163, 184, 0.08) 0%, transparent 70%)`
+- Gold (CTAs): `radial-gradient(ellipse at center, rgba(197, 160, 89, 0.06) 0%, transparent 70%)`
+
+**Glass Borders** (for cards):
+- Standard: `rgba(255, 255, 255, 0.1)` (neutral, not gold)
+- Hover: `rgba(197, 160, 89, 0.3)` (gold on interaction)
+
+**Section Gradients**:
+- Alternate between `#0F1115` and `#15171C` for visual depth
+
+### Reference Implementation
+
+See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) for a complete example of the Bimetallic system applied:
+- Icons start titanium, hover → gold
+- Card borders use glass (white 10% opacity)
+- Section dividers use titanium (not gold)
+- Only CTAs, numbers, and achievements use gold
+
+### Tailwind Config
+
+Extended colors and utilities are defined in [tailwind.config.ts](tailwind.config.ts):
+- `titanium`, `carbon`, `champagne` color palettes
+- `shadow-spotlight`, `shadow-warm-spot` for atmospheric lighting
+- `bg-gradient-section`, `bg-spotlight-blue`, `bg-spotlight-gold` utilities
+
+**Email Templates** (in `src/emails/`):
+- `soap-opera/` - Soap Opera sequence (Dia1-5)
+- `reto-5-dias/` - 5-day challenge emails (Dia1-5)
+- `FounderConfirmation.tsx` - Founder registration confirmation
+- `Reto5DiasConfirmation.tsx` - Challenge registration confirmation
+- `PreRegistroAdmin.tsx`, `PreRegistroUser.tsx` - Pre-registration emails
 
 **Prospect Data Flow**:
 1. Browser → `tracking.js` → RPC `identify_prospect`
@@ -496,6 +580,12 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Code Headers**:
 - All API routes include copyright header (© CreaTuActivo.com)
 - Headers specify proprietary licensing and confidentiality
+
+**Global Window Types** (defined in `src/types/global.d.ts`):
+```typescript
+window.FrameworkIAA?: { fingerprint?: string }  // Tracking API
+window.nexusProspect?: { id: string }           // Current prospect
+```
 
 **Never** store PII in localStorage (only fingerprint/session IDs).
 
@@ -523,24 +613,24 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~38 scripts)
+**Location**: `scripts/` directory (~48 scripts)
 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v14.x series)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v17.x series)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
 - `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
-- `deploy-arsenal-compensacion.mjs` - Deploy compensation plan arsenal
-- `deploy-arsenal-cierre.mjs` - Deploy closing arsenal
+- `deploy-arsenal-12-niveles.mjs` - Deploy 12-level challenge arsenal
 - `actualizar-catalogo-productos.mjs` - Update product catalog
 - `verificar-arsenal-supabase.mjs` - Verify current version in DB
 - `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
 
 **Embeddings** (Voyage AI):
 - `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks with embeddings
+- `regenerar-12-niveles-fragments.mjs` - Regenerate 12-level challenge embeddings
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
 - `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
 
@@ -561,3 +651,102 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `generate-pwa-icons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
 
 **Note**: Most scripts require `.env.local` variables. Run `ls scripts/` for full list.
+
+**SEO & Analytics**:
+- `gsc-extractor.mjs` - Google Search Console data extractor (see Analytics section below)
+
+## Analytics: Google Search Console Integration
+
+### GSC Data Extractor
+
+**Script**: [scripts/gsc-extractor.mjs](scripts/gsc-extractor.mjs)
+
+Automatically extracts performance data from Google Search Console API.
+
+**Setup (one-time)**:
+1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+2. Create/select project → Enable "Google Search Console API"
+3. APIs & Services → Credentials → Create OAuth Client (Desktop app)
+4. Download JSON → rename to `gsc-credentials.json` → move to `scripts/`
+5. Run: `node scripts/gsc-extractor.mjs`
+6. First run opens browser for OAuth authorization
+
+**Output** (saved to `data/gsc/`):
+- `queries_FECHA.csv` - Top 1000 keywords
+- `pages_FECHA.csv` - Top 500 pages
+- `countries_FECHA.csv` - Traffic by country
+- `devices_FECHA.csv` - Traffic by device
+- `REPORTE_GSC_FECHA.md` - Full analysis with Quick Wins
+
+**Quick Wins**: Queries in position 5-20 with high impressions = opportunities to optimize and reach top 3.
+
+**Google Account**: luiscabrejo7@gmail.com (owner of GSC for creatuactivo.com)
+
+## Marketing Strategy & Research Prompts
+
+### Two-Pronged Content Strategy (Enero 2026)
+
+The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funnels):
+
+```
+[NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
+30 videos de valor puro      →    Squeeze Page /reto-5-dias
+         ↓                               ↓
+"¿Cómo lo hago?"             →    Soap Opera Emails (5)
+         ↓                               ↓
+CTA sutil a CreaTuActivo     →    Reto 5 Días (5 videos)
+                                         ↓
+                                   Webinar (Perfect Webinar)
+                                         ↓
+                                   Oferta Fundador/Constructor
+```
+
+### Research Prompts (for AI agents)
+
+**Location**: Root directory
+
+| Prompt File | Purpose | Entregables |
+|-------------|---------|-------------|
+| [PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md](PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md) | Content strategy (TRAFFIC) | 30 video scripts, hooks, tone guide |
+| [PROMPT_INVESTIGACION_BRUNSON_FUNNELS.md](PROMPT_INVESTIGACION_BRUNSON_FUNNELS.md) | Funnel system (CONVERSION) | Emails, webinar script, challenge videos |
+
+These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc.)
+
+### Key Marketing Constraints
+
+**Words to AVOID** (activate MLM filter):
+- ❌ MLM, network marketing, multinivel
+- ❌ "Oportunidad de negocio"
+- ❌ Reclutar, downline, upline
+- ❌ "Sé tu propio jefe", "Trabaja desde casa"
+- ❌ "Ingresos pasivos", "Libertad financiera" (overused)
+
+**Words to USE** (new category positioning):
+- ✅ Arquitectura de Activos
+- ✅ Soberanía financiera
+- ✅ Construir patrimonio
+- ✅ El plan por defecto (villain)
+- ✅ Leverage / Apalancamiento
+- ✅ Cartera de activos
+- ✅ Distribución global
+
+## Luis Cabrejo's Real Story (Epiphany Bridge)
+
+**Master Document**: [EPIPHANY_BRIDGE_OFICIAL.md](EPIPHANY_BRIDGE_OFICIAL.md) - Use this for all storytelling.
+
+**Key Quote**: "La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra."
+
+| Duration | Use Case |
+|----------|----------|
+| 60 seconds | Reels, TikTok, Squeeze Page |
+| 3 minutes | Bridge Page (`/reto-5-dias/gracias`) |
+| 7 minutes | Webinar, Presentations |
+
+### Two Different Audiences
+
+| Audience | Villain | Page |
+|----------|---------|------|
+| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /reto-5-dias, /fundadores |
+| **Traditional networkers** (know MLM) | "Haz una lista de 100" | /socios |
+
+**Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".

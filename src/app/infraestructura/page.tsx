@@ -1,9 +1,14 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Página Infraestructura - Certeza Logística
  *
  * Objetivo: Proyectar "Solidez Institucional" y "Lujo Silencioso"
  * Debe verse como el sitio de una firma de Private Equity, no de un MLM.
+ *
+ * BIMETALLIC DESIGN SYSTEM v3.0:
+ * - Oro (#C5A059): CTAs, logros, números destacados, títulos clave
+ * - Titanio (#94A3B8): Íconos estructurales, líneas, bordes secundarios
+ * - Glass borders: rgba(255,255,255,0.1) para tarjetas
  */
 
 'use client';
@@ -30,22 +35,30 @@ export default function InfraestructuraPage() {
         {/* ═══════════════════════════════════════════════════════════════
             SECCIÓN 1: HERO - La Declaración de Soberanía
             Full height, cinematográfico
+            BIMETALLIC: Spotlight titanio para profundidad
             ═══════════════════════════════════════════════════════════════ */}
         <section className="relative min-h-screen flex flex-col items-center justify-center px-6">
-          {/* Background pattern - subtle grid */}
+          {/* Spotlight effect - BIMETALLIC: luz titanio sutil */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 30%, rgba(148, 163, 184, 0.06) 0%, transparent 60%)'
+            }}
+          />
+          {/* Background pattern - subtle grid with titanium */}
           <div
             className="absolute inset-0 opacity-[0.02]"
             style={{
-              backgroundImage: `linear-gradient(rgba(197, 160, 89, 0.5) 1px, transparent 1px),
-                               linear-gradient(90deg, rgba(197, 160, 89, 0.5) 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(rgba(148, 163, 184, 0.5) 1px, transparent 1px),
+                               linear-gradient(90deg, rgba(148, 163, 184, 0.5) 1px, transparent 1px)`,
               backgroundSize: '60px 60px'
             }}
           />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center pt-24">
-            {/* Institutional badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(197,160,89,0.2)] bg-[rgba(197,160,89,0.05)] mb-8">
-              <Shield className="w-4 h-4 text-[#C5A059]" />
+            {/* Institutional badge - BIMETALLIC: Shield es estructura (titanio) */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(148,163,184,0.05)] mb-8">
+              <Shield className="w-4 h-4 text-[#94A3B8]" />
               <span className="text-sm text-[#A3A3A3] tracking-wide uppercase">Desde 1995</span>
             </div>
 
@@ -59,10 +72,10 @@ export default function InfraestructuraPage() {
               Orquestando cadenas de suministro bioactivas en más de 70 países.
             </p>
 
-            {/* Scroll indicator */}
+            {/* Scroll indicator - BIMETALLIC: Navegación → titanio, hover → dorado */}
             <button
               onClick={() => document.getElementById('origen')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex flex-col items-center gap-3 text-[#6B7280] hover:text-[#C5A059] transition-colors group"
+              className="inline-flex flex-col items-center gap-3 text-[#64748B] hover:text-[#C5A059] transition-colors group"
             >
               <span className="text-sm tracking-widest uppercase">Ver la Matriz Logística</span>
               <ArrowDown className="w-5 h-5 animate-bounce" />
@@ -76,13 +89,14 @@ export default function InfraestructuraPage() {
         {/* ═══════════════════════════════════════════════════════════════
             SECCIÓN 2: EL ORIGEN - La Década Silenciosa (1983-1995)
             ═══════════════════════════════════════════════════════════════ */}
-        <section id="origen" className="py-24 px-6 border-t border-[rgba(197,160,89,0.1)]">
+        {/* BIMETALLIC: Bordes de sección → titanio, títulos → dorado */}
+        <section id="origen" className="py-24 px-6 border-t border-[rgba(148,163,184,0.15)]">
           <div className="max-w-5xl mx-auto">
-            {/* Section header */}
+            {/* Section header - BIMETALLIC: líneas titanio, texto dorado */}
             <div className="flex items-center gap-4 mb-16">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(197,160,89,0.3)]" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(148,163,184,0.3)]" />
               <span className="text-[#C5A059] text-sm tracking-[0.3em] uppercase font-medium">El Origen</span>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[rgba(197,160,89,0.3)]" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[rgba(148,163,184,0.3)]" />
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -143,7 +157,7 @@ export default function InfraestructuraPage() {
             SECCIÓN 3: INTEGRACIÓN VERTICAL - El Foso Defensivo
             Modelo "Seed-to-Seal"
             ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 bg-[#0A0A0E]">
+        <section className="py-24 px-6 bg-[#15171C]">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="font-serif text-3xl sm:text-4xl mb-4">
@@ -165,15 +179,15 @@ export default function InfraestructuraPage() {
               <div className="absolute right-1/6 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#C5A059]" />
             </div>
 
-            {/* 3 Cards */}
+            {/* 3 Cards - BIMETALLIC: Íconos titanio, bordes glass, hover → dorado */}
             <div className="grid md:grid-cols-3 gap-6">
               {/* Card 1: La Fuente */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(197,160,89,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-[rgba(197,160,89,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
-                  <Leaf className="w-7 h-7 text-[#C5A059]" />
+              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
+                  <Leaf className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
                 <h3 className="font-serif text-xl mb-2 text-[#E5E5E5]">La Fuente</h3>
-                <p className="text-sm text-[#C5A059] mb-4">Cultivo Propio · Kedah, Malasia</p>
+                <p className="text-sm text-[#64748B] mb-4">Cultivo Propio · Kedah, Malasia</p>
                 <p className="text-[#A3A3A3] text-sm leading-relaxed">
                   Propietarios de la plantación orgánica de Ganoderma más grande del mundo.
                   Control total desde la semilla.
@@ -181,12 +195,12 @@ export default function InfraestructuraPage() {
               </div>
 
               {/* Card 2: La Ciencia */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(197,160,89,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-[rgba(197,160,89,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
-                  <Factory className="w-7 h-7 text-[#C5A059]" />
+              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
+                  <Factory className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
                 <h3 className="font-serif text-xl mb-2 text-[#E5E5E5]">La Ciencia</h3>
-                <p className="text-sm text-[#C5A059] mb-4">Manufactura GMP · ISO Certified</p>
+                <p className="text-sm text-[#64748B] mb-4">Manufactura GMP · ISO Certified</p>
                 <p className="text-[#A3A3A3] text-sm leading-relaxed">
                   Manufactura propia con certificaciones internacionales.
                   Sin maquilas. Sin intermediarios.
@@ -194,12 +208,12 @@ export default function InfraestructuraPage() {
               </div>
 
               {/* Card 3: El Resultado */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(197,160,89,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-[rgba(197,160,89,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
-                  <Globe className="w-7 h-7 text-[#C5A059]" />
+              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
+                  <Globe className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
                 <h3 className="font-serif text-xl mb-2 text-[#E5E5E5]">El Resultado</h3>
-                <p className="text-sm text-[#C5A059] mb-4">Logística Global Propia</p>
+                <p className="text-sm text-[#64748B] mb-4">Logística Global Propia</p>
                 <p className="text-[#A3A3A3] text-sm leading-relaxed">
                   Inmunidad ante la fluctuación de precios de materias primas.
                   Tu margen está protegido desde la raíz.
@@ -213,7 +227,8 @@ export default function InfraestructuraPage() {
             SECCIÓN 4: PRESENCIA GEOPOLÍTICA - La Escala
             Mapa mundial estilizado
             ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 border-t border-[rgba(197,160,89,0.1)]">
+        {/* BIMETALLIC: Borde titanio */}
+        <section className="py-24 px-6 border-t border-[rgba(148,163,184,0.15)]">
           <div className="max-w-5xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left: Copy */}
@@ -236,9 +251,9 @@ export default function InfraestructuraPage() {
                 </p>
               </div>
 
-              {/* Right: Stylized map representation */}
+              {/* Right: Stylized map representation - BIMETALLIC: Glass border */}
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-[#1A1D23] border border-[rgba(197,160,89,0.15)] p-8 overflow-hidden">
+                <div className="aspect-[4/3] rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] p-8 overflow-hidden">
                   {/* Simplified world representation with dots */}
                   <div className="relative w-full h-full">
                     {/* Grid pattern */}
@@ -285,7 +300,7 @@ export default function InfraestructuraPage() {
         {/* ═══════════════════════════════════════════════════════════════
             SECCIÓN 5: LOS VEHÍCULOS - El Producto como Activo
             ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 bg-[#0A0A0E]">
+        <section className="py-24 px-6 bg-[#15171C]">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="font-serif text-3xl sm:text-4xl mb-4">
@@ -298,27 +313,27 @@ export default function InfraestructuraPage() {
               </p>
             </div>
 
-            {/* Product formula visualization */}
+            {/* Product formula visualization - BIMETALLIC: Proceso=titanio, Resultado=dorado */}
             <div className="max-w-3xl mx-auto">
               <div className="grid md:grid-cols-3 gap-4 items-center">
-                {/* El Vehículo */}
-                <div className="text-center p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197,160,89,0.1)]">
-                  <Coffee className="w-10 h-10 text-[#C5A059] mx-auto mb-4" />
-                  <p className="text-xs text-[#6B7280] uppercase tracking-wider mb-2">El Vehículo</p>
+                {/* El Vehículo - Titanio (es estructura/proceso) */}
+                <div className="text-center p-6 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
+                  <Coffee className="w-10 h-10 text-[#94A3B8] mx-auto mb-4" />
+                  <p className="text-xs text-[#64748B] uppercase tracking-wider mb-2">El Vehículo</p>
                   <p className="text-lg text-[#E5E5E5] font-medium">Café Arábica Premium</p>
                 </div>
 
-                {/* Plus sign */}
+                {/* Plus sign - Titanio (operador) */}
                 <div className="hidden md:flex justify-center">
-                  <div className="w-10 h-10 rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059] text-2xl font-light">
+                  <div className="w-10 h-10 rounded-full border border-[#64748B] flex items-center justify-center text-[#94A3B8] text-2xl font-light">
                     +
                   </div>
                 </div>
 
-                {/* La Carga */}
-                <div className="text-center p-6 rounded-xl bg-[#1A1D23] border border-[rgba(197,160,89,0.1)]">
-                  <Leaf className="w-10 h-10 text-[#C5A059] mx-auto mb-4" />
-                  <p className="text-xs text-[#6B7280] uppercase tracking-wider mb-2">La Carga</p>
+                {/* La Carga - Titanio (es estructura/ingrediente) */}
+                <div className="text-center p-6 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
+                  <Leaf className="w-10 h-10 text-[#94A3B8] mx-auto mb-4" />
+                  <p className="text-xs text-[#64748B] uppercase tracking-wider mb-2">La Carga</p>
                   <p className="text-lg text-[#E5E5E5] font-medium">200+ Fitonutrientes</p>
                 </div>
               </div>
@@ -345,8 +360,9 @@ export default function InfraestructuraPage() {
 
         {/* ═══════════════════════════════════════════════════════════════
             STATS BAR - Números que hablan
+            BIMETALLIC: Bordes titanio, números dorado (son premios)
             ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-16 px-6 border-y border-[rgba(197,160,89,0.15)]">
+        <section className="py-16 px-6 border-y border-[rgba(148,163,184,0.15)]">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-3 gap-8 text-center">
               <div>
@@ -397,10 +413,10 @@ export default function InfraestructuraPage() {
         {/* ═══════════════════════════════════════════════════════════════
             FOOTER MÍNIMO
             ═══════════════════════════════════════════════════════════════ */}
-        <footer className="py-12 px-6 border-t border-[rgba(197,160,89,0.1)]">
+        <footer className="py-12 px-6 border-t border-[rgba(148,163,184,0.15)]">
           <div className="max-w-5xl mx-auto text-center">
             <p className="text-sm text-[#6B7280]">
-              © 2025 CreaTuActivo.com ·
+              © 2026 CreaTuActivo.com ·
               <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2 transition-colors">
                 Privacidad
               </Link>

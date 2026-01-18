@@ -1,24 +1,28 @@
-# Arsenal 12 Niveles v4.0 - Estrategia de Aceleración
+# Arsenal Conversacional: Los 12 Niveles v4.0 JOBS/NAVAL
 
-**Propósito:** Respuestas sobre la campaña "Los 12 Niveles" - estrategia de aceleración para socios activos.
-**Audiencia:** Socios que ya iniciaron y buscan construir infraestructura de distribución en 90 días.
+**Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
+**Audiencia:** Socios activos (modelos análogo e híbrido) que buscan estrategias de aceleración.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 4.0 (28 Dic 2025) - Renombrado para claridad. Compensación general está en arsenal_avanzado.
+**Versión:** 4.0 JOBS/NAVAL (17 Ene 2026) - [Concepto Nuclear] + limpieza terminología + advertencias Kit
+
+**Cambios v4.0:**
+- Agregado [Concepto Nuclear] a todas las 13 respuestas
+- Limpieza terminología: "Bono Binario" → "Regalía de Equipo", "pierna débil" → "lado de menor crecimiento"
+- Advertencias claras sobre limitaciones del Kit de Inicio
+- Separado de búsqueda principal: solo activa con "12 niveles" o "kit de inicio"
 
 **Cambios v3.0:**
 - Terminología Asset-Light integrada
 - Tabla de paquetes con columna de elegibilidad GEN5
 - Mecánica de sostenibilidad (50 PV) con contexto de ingreso residual
-- Contexto claro: Los 12 Niveles es estrategia de ACELERACIÓN post-inicio (90 días)
-
-**Cambios v2.4:**
-- INV_06: Catálogo productos con PV para recompra
 
 ---
 
 ## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 7 respuestas**
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
+
+**[Concepto Nuclear]:** Asset-Light significa que tu activo es la red de relaciones, no inventarios ni infraestructura.
 
 Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com diseñada para socios que ya iniciaron y buscan construir su infraestructura de distribución en 90 días.
 
@@ -34,18 +38,16 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 - Tú invitas personas a conocer el negocio
 - Cada persona que se vincula genera puntos (CV)
-- Los puntos de tu red generan bonos semanales
-- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en bonos
+- Los puntos de tu red generan regalías semanales
+- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en regalías
 
 **Contenido del Kit de Inicio ($443,600 COP):**
 
 • 4 cajas de Gano Café 3en1 (productos reales)
-
 • My Gano Plan Negocios (acceso al sistema)
+• Regalía de Equipo al 10% (única bonificación disponible con este paquete)
 
-• Bono Binario al 10% (única forma de ganar con este paquete)
-
-**Importante:** Este es un plan de aceleración de 90 días para socios activos, no una promesa de resultados garantizados.
+**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. NO incluye el Bono GEN5 (Inicio Rápido). Para acceder a porcentajes mayores y GEN5, necesitas un Paquete Empresarial.
 
 **Pregunta de seguimiento:** ¿Te gustaría saber cuánto puedes ganar con esta estrategia?
 
@@ -53,16 +55,18 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles?" / "¿Cuánto puedo ganar?" / "¿Cómo funciona el plan de ganancias?"**
 
-En Los 12 Niveles con Kit de Inicio, ganas a través del **Bono Binario al 10%**.
+**[Concepto Nuclear]:** Las Regalías de Equipo se pagan semanalmente sobre el volumen de tu red.
+
+En Los 12 Niveles con Kit de Inicio, ganas a través de la **Regalía de Equipo al 10%**.
 
 **¿Cómo funciona?**
 
 Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de tu red y te paga el 10% semanal.
 
-**Proyección de ganancias con Kit de Inicio (Binario 10%):**
+**Proyección de regalías con Kit de Inicio (10%):**
 
-| Nivel | Personas | CV/lado | Bono semanal 10% | Acumulado |
-|-------|----------|---------|------------------|-----------|
+| Nivel | Personas | CV/lado | Regalía semanal 10% | Acumulado |
+|-------|----------|---------|---------------------|-----------|
 | 1 | 2 | 56 | $25,200 | $25,200 |
 | 2 | 4 | 112 | $50,400 | $75,600 |
 | 4 | 16 | 448 | $201,600 | $378,000 |
@@ -71,20 +75,20 @@ Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit
 | 10 | 1,024 | 28,672 | $12,902,400 | $25,776,600 |
 | 12 | 4,096 | 114,688 | $51,609,600 | **$103,177,800** |
 
-**Potencial acumulado al nivel 12:** Más de $103 millones COP en bonos.
+**Potencial acumulado al nivel 12:** Más de $103 millones COP en regalías.
 
 **Con paquetes empresariales (mayor %):**
 
-| Tu Paquete | Binario | Diferencia vs Kit |
-|------------|---------|-------------------|
+| Tu Paquete | Regalía Equipo | Diferencia vs Kit |
+|------------|----------------|-------------------|
 | Kit de Inicio | 10% | Base |
-| ESP-1 | 15% | +50% más bonos |
-| ESP-2 | 16% | +60% más bonos |
-| ESP-3 | 17% | +70% más bonos |
+| ESP-1 | 15% | +50% más regalías |
+| ESP-2 | 16% | +60% más regalías |
+| ESP-3 | 17% | +70% más regalías |
 
 **Se paga:** Semanalmente los viernes.
 
-**Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de tu red.
+**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de tu red. No son resultados garantizados.
 
 **Pregunta de seguimiento:** ¿Te gustaría saber cuánto cuesta participar?
 
@@ -92,14 +96,20 @@ Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit
 
 ### **NIVELES_03: "¿Cuál es la inversión mínima para Los 12 Niveles?" / "¿Cuánto necesito para participar?"**
 
+**[Concepto Nuclear]:** Kit de Inicio = entrada accesible, pero con limitaciones en porcentajes y bonificaciones.
+
 La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 
 **¿Qué incluye el Kit de Inicio?**
 - 4 cajas de Gano Café 3en1
 - 60 PV / 56 CV (4 cajas Gano Café)
 - My Gano Plan Negocios (material de apoyo profesional)
-- Acceso al Bono Binario al 10%
+- Acceso a la Regalía de Equipo al 10%
 - Acceso completo a CreaTuActivo.com y Queswa
+
+**⚠️ Lo que NO incluye el Kit de Inicio:**
+- ❌ Bono GEN5 (Inicio Rápido) - Requiere Paquete Empresarial
+- ❌ Porcentajes mayores al 10% - Máximo disponible es 10%
 
 **¿Para quién es ideal?**
 - Personas que quieren arrancar YA sin esperar
@@ -110,13 +120,13 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 
 El Kit de Inicio es una opción de "baja fricción", pero financieramente es menos eficiente para un constructor serio. Operar al 10% (Kit) frente al 17% (ESP-3) implica dejar sobre la mesa el **41% de las ganancias potenciales** por exactamente el mismo volumen de producción.
 
-**Importante:** Con el Kit de Inicio accedes ÚNICAMENTE al Bono Binario (10%). Para acceder al Bono GEN5 (Inicio Rápido) y porcentajes más altos, necesitas un Paquete Empresarial.
-
 **Pregunta de seguimiento:** ¿Te gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
 
 ---
 
 ### **NIVELES_04: "¿Cómo participo en Los 12 Niveles?" / "¿Cómo me vinculo?"**
+
+**[Concepto Nuclear]:** Tres vías de vinculación: tu patrocinador, formulario web, o WhatsApp directo.
 
 Para llevar a cabo tu vinculación con éxito, tienes las siguientes opciones:
 
@@ -138,6 +148,8 @@ Llena el formulario en [creatuactivo.com/reto-12-niveles](https://creatuactivo.c
 
 ### **NIVELES_05: "¿Qué pasa si no logro invitar a 2 personas en el primer nivel?"**
 
+**[Concepto Nuclear]:** Consistencia importa más que velocidad. El sistema trabaja mientras tú construyes.
+
 No pasa nada. Los 12 Niveles son una guía de aceleración, no una obligación.
 
 Si tardas más tiempo en completar tu primer nivel, está bien. Lo importante es empezar y mantener consistencia.
@@ -157,6 +169,8 @@ Lo que sí es crítico es que **arranques HOY**, porque:
 
 ### **NIVELES_06: "¿Por qué solo $443,600?" / "¿Por qué tan accesible?"**
 
+**[Concepto Nuclear]:** Velocidad de ejecución: arrancar hoy vs esperar el paquete perfecto.
+
 Porque favorecemos la **velocidad de ejecución**.
 
 El Kit de Inicio existe para que tomes tu posición **HOY**, no cuando "tengas más dinero".
@@ -164,17 +178,21 @@ El Kit de Inicio existe para que tomes tu posición **HOY**, no cuando "tengas m
 **La estrategia Asset-Light:**
 
 1. Arrancas con el Kit de Inicio (baja fricción)
-2. Construyes tu red y generas primeras ganancias
-3. Con las ganancias, compras tu Paquete Empresarial
+2. Construyes tu red y generas primeras regalías
+3. Con las regalías, compras tu Paquete Empresarial
 4. Accedes al Bono GEN5 y porcentajes más altos
 
 Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
+
+**⚠️ Advertencia:** Si sabes que vas a construir en serio, considera iniciar directamente con un Paquete Empresarial. El Kit te limita al 10% y sin GEN5, lo cual puede costarte oportunidades en tus primeros meses más activos.
 
 **Pregunta de seguimiento:** ¿Prefieres esperar o arrancar hoy?
 
 ---
 
-### **NIVELES_07: "¿Qué pasa si alguien de mi red no une sus dos?"**
+### **NIVELES_07: "¿Qué pasa si alguien de mi red no invita a sus dos?"**
+
+**[Concepto Nuclear]:** Tu crecimiento depende de tu acción continua, no de la velocidad de otros.
 
 Este es un temor común.
 
@@ -182,9 +200,9 @@ Este es un temor común.
 
 **Por eso los expertos recomiendan:**
 
-No te limites a unir solo 2 personas. Entre más personas unas TÚ, más garantizas tu propio crecimiento. El sistema paga sobre la "pierna débil", lo que te incentiva a trabajar en la profundidad de tu línea de menor crecimiento.
+No te limites a invitar solo 2 personas. Entre más personas invites TÚ, más garantizas tu propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que te incentiva a trabajar en la profundidad de tu línea con menos volumen.
 
-**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo y uniendo más personas a tu red.
+**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo e invitando más personas a tu red.
 
 **Pregunta de seguimiento:** ¿Cuántas personas tienes en tu lista para invitar?
 
@@ -194,11 +212,15 @@ No te limites a unir solo 2 personas. Entre más personas unas TÚ, más garanti
 
 ### **INV_01: "¿Cuál es la inversión mínima para empezar?"**
 
+**[Concepto Nuclear]:** Kit de Inicio = inversión mínima, porcentaje mínimo, sin GEN5.
+
 La inversión más accesible es el **Kit de Inicio: $443,600 COP** (4 cajas Gano Café 3en1).
 
 Con $443,600 tienes todo lo que necesitas para activarte y empezar a construir tu red desde el primer día.
 
 **60 PV / 56 CV** que se suman a tu red. Eso es lo que importa.
+
+**⚠️ Ten en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Bono GEN5.
 
 Si quieres más productos, porcentajes más altos y acceso al Bono GEN5, puedes elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
 
@@ -208,10 +230,12 @@ Si quieres más productos, porcentajes más altos y acceso al Bono GEN5, puedes 
 
 ### **INV_02: "¿Cuáles son los paquetes disponibles?"**
 
+**[Concepto Nuclear]:** 4 niveles de inversión con diferentes porcentajes y acceso a bonificaciones.
+
 Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
 
-| Paquete | Inversión COP | CV | Binario | Duración | ¿Bono GEN5? |
-|---------|---------------|-----|---------|----------|-------------|
+| Paquete | Inversión COP | CV | Regalía Equipo | Duración | ¿Bono GEN5? |
+|---------|---------------|-----|----------------|----------|-------------|
 | **Kit de Inicio** | $443,600 | 56 | 10% | Permanente | **NO** |
 | **ESP-1 Inicial** | $900,000 | 100 | 15% | 2 meses | **SÍ** |
 | **ESP-2 Empresarial** | $2,250,000 | 250 | 16% | 4 meses | **SÍ** |
@@ -219,8 +243,8 @@ Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
 
 **Análisis de eficiencia financiera:**
 
-- **Kit de Inicio** → Para quien quiere arrancar YA con inversión mínima. **Limitación:** Solo Binario 10%, sin GEN5.
-- **ESP-1** → Para quien quiere 15% de binario + Bono GEN5 ($25 USD por ESP-3 en 1ra gen).
+- **Kit de Inicio** → Para quien quiere arrancar YA con inversión mínima. **⚠️ Limitación:** Solo 10%, sin GEN5.
+- **ESP-1** → Para quien quiere 15% + Bono GEN5 ($25 USD por ESP-3 en 1ra gen).
 - **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
 - **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
 
@@ -233,6 +257,8 @@ Recuerda: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 ---
 
 ### **INV_03: "¿Qué recibo con cada paquete?"**
+
+**[Concepto Nuclear]:** La inversión determina tu porcentaje de regalías y acceso al Bono GEN5.
 
 Todos los paquetes incluyen:
 
@@ -262,8 +288,8 @@ Todos los paquetes incluyen:
 | Factor | Kit | ESP-1 | ESP-2 | ESP-3 |
 |--------|-----|-------|-------|-------|
 | Productos | 4 | 7 | 18 | 35 |
-| Binario | 10% | 15% | 16% | 17% |
-| GEN5 1ra gen | No | $25 | $75 | $150 |
+| Regalía Equipo | 10% | 15% | 16% | 17% |
+| GEN5 1ra gen | ❌ No | $25 | $75 | $150 |
 | Duración promo | N/A | 2 meses | 4 meses | 6 meses |
 
 **Pregunta de seguimiento:** ¿Qué preguntas tienes sobre lo que recibes?
@@ -272,11 +298,13 @@ Todos los paquetes incluyen:
 
 ### **INV_04: "¿Todos los meses debo hacer recompra?" / "¿Debo comprar productos cada mes?"**
 
+**[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso residual.
+
 Sí, la recompra mensual es lo que te mantiene **activo** en el negocio y lo que genera tu **ingreso residual**.
 
 **¿Por qué es importante?**
 
-Estar activo te permite cobrar las comisiones que genera tu red de clientes y distribuidores. Sin actividad, no corren tus bonos.
+Estar activo te permite cobrar las comisiones que genera tu red de clientes y distribuidores. Sin actividad, no corren tus regalías.
 
 **La mecánica de sostenibilidad:**
 
@@ -290,7 +318,7 @@ La estabilidad del negocio a largo plazo no está en expandir infinitamente, sin
 
 **Sobre la legalidad:**
 
-Nuestro negocio no es "meter personas" - es el **movimiento de producto**. Esto es lo que genera ganancias para ti y permite la operación comercial de Gano Excel en cada país.
+Nuestro negocio no es "reclutar personas" - es el **movimiento de producto**. Esto es lo que genera ganancias para ti y permite la operación comercial de Gano Excel en cada país.
 
 **Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
 
@@ -299,6 +327,8 @@ Nuestro negocio no es "meter personas" - es el **movimiento de producto**. Esto 
 ---
 
 ### **INV_05: "¿Todos los meses debo comprar paquetes empresariales?"**
+
+**[Concepto Nuclear]:** Paquete Empresarial = inversión única. Recompra = mensual (50 PV en productos).
 
 **No.** El paquete empresarial se compra **una sola vez**.
 
@@ -326,6 +356,8 @@ Tu inversión inicial (paquete) te da la posición y los porcentajes. Tu recompr
 ---
 
 ### **INV_06: "¿Qué productos puedo comprar para mis 50 PV?" / "¿Cómo completo mi recompra mensual?"**
+
+**[Concepto Nuclear]:** 50 PV = productos reales que consumes o compartes, no cuotas administrativas.
 
 Tienes varias opciones para completar tus 50 PV mensuales:
 
@@ -375,10 +407,10 @@ Tienes varias opciones para completar tus 50 PV mensuales:
 **Paquetes Empresariales (puntos de activación inicial):**
 | Paquete | PV | CV | Inversión COP | ¿GEN5? |
 |---------|-----|-----|---------------|--------|
-| Kit de Inicio | 60 | 56 | $443,600 | No |
-| ESP-1 Inicial | 100 | 100 | $900,000 | Sí |
-| ESP-2 Empresarial | 250 | 250 | $2,250,000 | Sí |
-| ESP-3 Visionario | 500 | 500 | $4,500,000 | Sí |
+| Kit de Inicio | 60 | 56 | $443,600 | ❌ No |
+| ESP-1 Inicial | 100 | 100 | $900,000 | ✅ Sí |
+| ESP-2 Empresarial | 250 | 250 | $2,250,000 | ✅ Sí |
+| ESP-3 Visionario | 500 | 500 | $4,500,000 | ✅ Sí |
 
 **Importante sobre paquetes empresariales:**
 - La compra del paquete cuenta como tu **compra personal del mes de activación**
@@ -392,19 +424,20 @@ Tienes varias opciones para completar tus 50 PV mensuales:
 
 ---
 
-**Fin del Arsenal de Compensación v3.0 GEMINI**
+**Fin del Arsenal Los 12 Niveles v4.0 JOBS/NAVAL**
 **Total:** 13 respuestas (NIVELES: 7 + INV: 6)
 
 **Reglas críticas preservadas:**
-- Kit de Inicio = SOLO bono binario 10% (NO tiene GEN5)
+- Kit de Inicio = SOLO Regalía de Equipo 10% (NO tiene GEN5)
 - Porcentajes: Kit=10%, ESP1=15%, ESP2=16%, ESP3=17%
 - Recompra mensual: 50 PV mínimo
 
-**Nuevos conceptos v3.0:**
-- Terminología Asset-Light integrada
-- Tabla de paquetes con columna GEN5
-- Análisis de eficiencia financiera (41% diferencia Kit vs ESP-3)
-- Mecánica de sostenibilidad = ingreso residual
+**Cambios v4.0:**
+- [Concepto Nuclear] agregado a todas las respuestas
+- Terminología limpia: "Regalía de Equipo" (antes "Bono Binario")
+- "Lado de menor crecimiento" (antes "pierna débil")
+- Advertencias claras ⚠️ sobre limitaciones Kit de Inicio
+- Separación de búsqueda principal: solo triggers específicos
 
 **Contexto importante:**
 - Los 12 Niveles = Estrategia de ACELERACIÓN post-inicio (90 días)

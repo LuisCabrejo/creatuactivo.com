@@ -2,8 +2,8 @@
 
 /**
  * Script para desplegar arsenal_inicial.txt a Supabase
- * Fecha: 8 Diciembre 2025
- * Versión: v10.2 HÍBRIDO
+ * Fecha: 17 Enero 2026
+ * Versión: v12.4 PEAJE
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -40,16 +40,17 @@ async function deployArsenalInicial() {
 
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
-  // Extraer versión
-  const versionMatch = content.match(/v([\d.]+)\s+HÍBRIDO/);
+  // Extraer versión (soporta HÍBRIDO y PEAJE)
+  const versionMatch = content.match(/([\d.]+)\s+(HÍBRIDO|PEAJE|JOBS)/i);
   const version = versionMatch ? versionMatch[1] : 'unknown';
-  console.log('📌 Versión detectada:', version);
+  const versionTag = versionMatch ? versionMatch[2].toUpperCase() : 'PEAJE';
+  console.log('📌 Versión detectada:', version, versionTag);
 
   // Actualizar en Supabase por categoría
   const { data, error } = await supabase
     .from('nexus_documents')
     .update({
-      title: `Arsenal Inicial v${version} HÍBRIDO`,
+      title: `Arsenal Inicial v${version} ${versionTag}`,
       content: content,
       updated_at: new Date().toISOString()
     })
@@ -69,7 +70,7 @@ async function deployArsenalInicial() {
       .from('nexus_documents')
       .insert({
         category: 'arsenal_inicial',
-        title: `Arsenal Inicial v${version} HÍBRIDO`,
+        title: `Arsenal Inicial v${version} ${versionTag}`,
         content: content
       })
       .select();
@@ -91,14 +92,16 @@ async function deployArsenalInicial() {
   console.log('\n🔍 Verificando contenido...\n');
 
   const checks = [
-    { name: 'Versión HÍBRIDO', found: content.includes('HÍBRIDO') },
+    { name: 'Versión PEAJE/HÍBRIDO', found: content.includes('PEAJE') || content.includes('HÍBRIDO') },
     { name: 'WHY_01 presente', found: content.includes('WHY_01') },
-    { name: 'FREQ_03 tabla paquetes', found: content.includes('| Paquete | USD |') },
-    { name: 'FREQ_04 tabla resultados', found: content.includes('| Tiempo | Resultado |') },
-    { name: 'FREQ_06 tabla fases', found: content.includes('| Fase | Fechas |') },
-    { name: 'FREQ_08 tabla Academia', found: content.includes('| Nivel | Enfoque |') },
-    { name: 'FREQ_09 tabla costos', found: content.includes('| Concepto | Costo |') },
-    { name: 'FREQ_11 tabla ganancias', found: content.includes('| Plazo | Tipo |') }
+    { name: 'WHY_02 Peaje', found: content.includes('[Concepto Nuclear]') },
+    { name: 'FREQ_01-22 presentes', found: content.includes('FREQ_22') },
+    { name: 'CRED_01-04 presentes', found: content.includes('CRED_04') },
+    { name: 'OBJ_01-03 presentes', found: content.includes('OBJ_03') },
+    { name: 'Analogías Jobs Style', found: content.includes('Peaje') || content.includes('Acueducto') },
+    { name: 'Bloque WHY', found: content.includes('BLOQUE 1: PROPÓSITO') },
+    { name: 'Bloque FREQ', found: content.includes('BLOQUE 2: PREGUNTAS') },
+    { name: 'Bloque CRED', found: content.includes('BLOQUE 3: CONFIANZA') }
   ];
 
   checks.forEach(check => {

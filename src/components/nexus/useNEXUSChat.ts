@@ -70,7 +70,7 @@ Aquí enseñamos cómo construir tu propia **Infraestructura de Soberanía**.
 
 **C)** Solo estoy explorando opciones
 
-**D)** Quiero conocer el producto`,
+**D)** Quiero conocer la Infraestructura`,
     timestamp: new Date(),
     isStreaming: false
   };

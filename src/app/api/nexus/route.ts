@@ -1041,7 +1041,31 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(?:precio|valor).*(?!.*paquete|.*inversión|.*constructor)/i,
   ];
 
-  // 🔥 NUEVA CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)
+  // 🎯 NUEVA CLASIFICACIÓN: LOS 12 NIVELES (arsenal_12_niveles v4.0)
+  // Solo se activa con menciones EXPLÍCITAS a "12 niveles" o "kit de inicio"
+  // Separado de patrones_compensacion para socios activos con estrategia específica
+  const patrones_12_niveles = [
+    // ===== MENCIONES EXPLÍCITAS "12 NIVELES" =====
+    /12\s*niveles/i,                     // "12 niveles", "12niveles"
+    /doce\s*niveles/i,                   // "doce niveles"
+    /los\s*12\s*niveles/i,               // "los 12 niveles"
+    /los\s*doce\s*niveles/i,             // "los doce niveles"
+    /estrategia.*12.*niveles/i,          // "estrategia de 12 niveles"
+    /reto.*12.*niveles/i,                // "reto 12 niveles"
+
+    // ===== MENCIONES EXPLÍCITAS "KIT DE INICIO" =====
+    /kit\s*de\s*inicio/i,                // "kit de inicio"
+    /kit\s*inicio/i,                     // "kit inicio"
+    /kit\s*inicial/i,                    // "kit inicial"
+    /el\s*kit/i,                         // "el kit" (en contexto)
+
+    // ===== PRECIOS ESPECÍFICOS KIT =====
+    /443[,.]?600/i,                      // "$443,600" o "443.600"
+    /443\s*mil/i,                        // "443 mil"
+    /cuatrocientos.*cuarenta.*tres/i,    // escrito en palabras
+  ];
+
+  // 🔥 CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN GENERAL (arsenal_compensacion)
   // Prioridad alta para capturar preguntas sobre el reto, inversión mínima y formas de ganar
   const patrones_compensacion = [
     // ===== RETO DE LOS 12 DÍAS =====
@@ -1286,6 +1310,13 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
       patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
     console.log('🛒 Clasificación: PRODUCTOS + CIENCIA (catalogo_productos v3.0)');
     return 'catalogo_productos';
+  }
+
+  // 🎯 PRIORIDAD 2.5: LOS 12 NIVELES (arsenal_12_niveles v4.0)
+  // Solo activa con menciones EXPLÍCITAS - separado de compensación general
+  if (patrones_12_niveles.some(patron => patron.test(messageLower))) {
+    console.log('🎯 Clasificación: LOS 12 NIVELES (arsenal_12_niveles v4.0)');
+    return 'arsenal_12_niveles';
   }
 
   // 🔥 PRIORIDAD 3: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)

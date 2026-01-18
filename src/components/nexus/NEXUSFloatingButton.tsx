@@ -19,10 +19,11 @@ interface TrackingState {
 }
 
 // Configuración de tiempos para el tooltip (en milisegundos)
+// 🎯 v2.0 PREMIUM UX: Comportamiento "Concierge 5 Estrellas" (no vendedor ambulante)
 const TOOLTIP_CONFIG = {
-  scrollDelayMs: 5000,        // Aparece 5 segundos después de scroll
-  visibleDurationMs: 5000,    // Visible por 5 segundos (antes 8s)
-  reappearDelayMs: 120000,    // Reaparece después de 2 minutos (antes 1min)
+  scrollDelayMs: 15000,       // Aparece 15 segundos después de carga (da tiempo a explorar)
+  visibleDurationMs: 15000,   // Visible por 15 segundos (tiempo suficiente para leer)
+  // ❌ ELIMINADO: reappearDelayMs - NO reaparece automáticamente (Quiet Luxury)
 };
 
 // 🎨 Quiet Luxury Color Palette (THE ARCHITECT'S SUITE)
@@ -119,42 +120,33 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   }, []); // ✅ FIX: Sin dependencias para evitar loop infinito
 
-  // 🎯 TOOLTIP: Lógica de aparición/desaparición automática
+  // 🎯 TOOLTIP v2.0: Lógica "Concierge" - UNA SOLA VEZ, luego discreto
+  // Comportamiento Premium: Se presenta una vez, ofrece ayuda, y espera pacientemente
   useEffect(() => {
-    // Si el usuario ya abrió el widget, no mostrar más el tooltip
+    // Si el usuario ya interactuó o el widget está abierto, no mostrar tooltip
     if (hasInteracted || isOpen) return;
 
     let initialTimeout: NodeJS.Timeout;
     let hideTimeout: NodeJS.Timeout;
-    let reappearTimeout: NodeJS.Timeout;
 
-    // Función para mostrar tooltip y programar ocultamiento
-    const showAndScheduleHide = () => {
+    // 🎯 Mostrar tooltip UNA SOLA VEZ después del delay inicial
+    initialTimeout = setTimeout(() => {
       if (hasInteracted || isOpen) return;
 
       setShowTooltip(true);
 
-      // Ocultar después del tiempo de visibilidad
+      // Ocultar suavemente después del tiempo de visibilidad
+      // ❌ NO programar reaparición - Quiet Luxury (Concierge espera, no insiste)
       hideTimeout = setTimeout(() => {
         setShowTooltip(false);
-
-        // Programar reaparición si no hay interacción
-        reappearTimeout = setTimeout(() => {
-          showAndScheduleHide();
-        }, TOOLTIP_CONFIG.reappearDelayMs);
-
+        setHasInteracted(true); // Marcar como "ya mostrado" para no repetir
       }, TOOLTIP_CONFIG.visibleDurationMs);
-    };
 
-    // Mostrar tooltip automáticamente después del delay inicial
-    initialTimeout = setTimeout(() => {
-      showAndScheduleHide();
     }, TOOLTIP_CONFIG.scrollDelayMs);
 
     return () => {
       if (initialTimeout) clearTimeout(initialTimeout);
       if (hideTimeout) clearTimeout(hideTimeout);
-      if (reappearTimeout) clearTimeout(reappearTimeout);
     };
   }, [hasInteracted, isOpen]);
 
@@ -232,7 +224,7 @@ const NEXUSFloatingButton: React.FC = () => {
               className="text-sm font-medium whitespace-nowrap"
               style={{ color: QUIET_LUXURY.textPrimary }}
             >
-              Habla con <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>Queswa</span> 🪢
+              ¿Iniciamos tu <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>Auditoría</span>?
             </span>
             {/* Botón para cerrar el tooltip */}
             <button

@@ -375,7 +375,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       <li><strong style={{ color: QUIET_LUXURY.gold }}>A)</strong> Quiero construir un activo propio</li>
                       <li><strong style={{ color: QUIET_LUXURY.gold }}>B)</strong> Me siento estancado profesionalmente</li>
                       <li><strong style={{ color: QUIET_LUXURY.gold }}>C)</strong> Solo estoy explorando opciones</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> Quiero conocer el producto</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> Quiero conocer la Infraestructura</li>
                     </ul>
                   </div>
                 </div>

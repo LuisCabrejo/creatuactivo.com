@@ -73,23 +73,24 @@ function formatForPgvector(embedding) {
  *
  * Soporta DOS formatos:
  * - arsenal_compensacion/inicial: ### **RETO_01: "Pregunta"**
- * - arsenal_avanzado: ### OBJ_01: "Pregunta"
+ * - arsenal_avanzado v6.0: ### ADV_OBJ_01: "Pregunta"
  */
 function parseArsenalIntoResponses(content, arsenalName) {
   const responses = [];
 
-  // Split por headers - soporta ambos formatos:
+  // Split por headers - soporta múltiples formatos:
   // - Con asteriscos: ### **ID:
   // - Sin asteriscos: ### ID:
-  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+_\d+)/);
+  // - Con prefijo ADV_: ### ADV_OBJ_01: (arsenal_avanzado v6.0)
+  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z]+)?_\d+)/);
 
   for (const section of sections) {
     if (!section.trim() || !section.includes('###')) continue;
 
-    // Extraer ID del header - soporta ambos formatos
+    // Extraer ID del header - soporta múltiples formatos
     // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion, arsenal_inicial)
-    // Formato 2: ### OBJ_01: "Pregunta" (arsenal_avanzado)
-    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+_\d+):?\s*"?([^"\n*]+)/);
+    // Formato 2: ### ADV_OBJ_01: "Pregunta" (arsenal_avanzado v6.0)
+    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z]+)?_\d+):?\s*"?([^"\n*]+)/);
     if (!headerMatch) continue;
 
     const responseId = headerMatch[1].trim();
@@ -226,7 +227,8 @@ async function main() {
   const arsenales = [
     'arsenal_compensacion',  // 13 respuestas
     'arsenal_inicial',       // 34 respuestas
-    'arsenal_avanzado',      // 63 respuestas
+    'arsenal_avanzado',      // 14 respuestas (v6.0 JOBS/NAVAL)
+    'arsenal_12_niveles',    // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)
   ];
 
   const results = {};

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Script para actualizar el catálogo de productos en Supabase
- * Versión 3.1 - Con correcciones semánticas (patente → tecnología propietaria)
- * Fecha: 3 Dic 2025
+ * Versión 6.0 JOBS/NAVAL - [Concepto Nuclear] + Estilo Naval
+ * Fecha: 17 Enero 2026
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -46,23 +46,25 @@ async function actualizarCatalogo() {
     .from('nexus_documents')
     .update({
       content: contenido,
-      title: 'Catálogo Oficial Productos Gano Excel 2025',
+      title: 'Catálogo Oficial Productos Gano Excel 2026 v6.0',
       metadata: {
-        version: '3.1',
+        version: '6.0 JOBS/NAVAL',
         last_updated: new Date().toISOString(),
         changes: [
-          'Eliminadas todas las referencias incorrectas a "patente"',
-          'Actualizado con semántica correcta: secretos industriales + tecnología propietaria',
-          'Agregada información del fundador Dr. Leow Soon Seng',
-          'Agregadas certificaciones internacionales (NPRA, INVIMA, TGA, Halal JAKIM)',
-          'Enriquecido con detalles de tecnologías propietarias (cultivo de tejidos, sustrato exclusivo, extracción dual, spray drying)'
+          '[Concepto Nuclear] agregado a cada sección',
+          'Estilo Naval/Jobs (frases cortas, sin exclamaciones)',
+          'Actualización año 2025 → 2026',
+          'Reorganización por categorías de respuesta'
         ],
         total_productos: 22,
         categorias: [
-          'Bebidas funcionales',
-          'Línea Premium LUVOCO',
-          'Suplementos avanzados',
-          'Cuidado personal natural'
+          'Estrategia de Portafolio',
+          'Respaldo Científico',
+          'Bebidas Funcionales',
+          'Línea LUVOCO',
+          'Suplementos Avanzados',
+          'Cuidado Personal',
+          'FAQs'
         ]
       },
       updated_at: new Date().toISOString()
@@ -76,16 +78,13 @@ async function actualizarCatalogo() {
 
   console.log('✅ Catálogo actualizado correctamente en Supabase\n');
   console.log('='.repeat(60));
-  console.log('\n📋 CAMBIOS APLICADOS:\n');
-  console.log('  ❌ Eliminado: Referencias a "patente mundial"');
-  console.log('  ✅ Agregado: Secretos industriales como protección principal');
-  console.log('  ✅ Agregado: Tecnologías propietarias detalladas');
-  console.log('  ✅ Agregado: Dr. Leow Soon Seng (fundador)');
-  console.log('  ✅ Agregado: Certificaciones internacionales');
-  console.log('  ✅ Actualizado: 21 ocurrencias "patentado" → "propietario"');
+  console.log('\n📋 CAMBIOS v6.0 JOBS/NAVAL:\n');
+  console.log('  ✅ [Concepto Nuclear] en cada sección');
+  console.log('  ✅ Estilo Naval/Jobs (frases cortas)');
+  console.log('  ✅ Año actualizado: 2025 → 2026');
+  console.log('  ✅ Reorganizado por categorías de respuesta');
   console.log('');
-  console.log('🎯 SIGUIENTE PASO:');
-  console.log('   Hacer deploy a producción: git push origin main');
+  console.log('🎯 Catálogo v6.0 JOBS/NAVAL desplegado correctamente');
   console.log('');
 }
 

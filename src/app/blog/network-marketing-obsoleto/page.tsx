@@ -1,7 +1,11 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Blog Article: Network Marketing Obsoleto → Arquitectura de Activos
  * SEO Shadow Funnel Content
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, key titles
+ * Titanium (#94A3B8): Structural elements
  */
 
 import Link from 'next/link';
@@ -79,7 +83,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[#2a2a35] mb-12">
+                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;No eliminamos el network marketing.
                     <span className="text-[#C5A059]"> Lo evolucionamos a Arquitectura de Activos.</span>&quot;
@@ -96,7 +100,7 @@ export default function NetworkMarketingObsoletoPage() {
 
                   {/* Comparison */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="p-5 rounded-xl bg-[#0F1115] border border-[#2a2a35] opacity-70">
+                    <div className="p-5 rounded-xl bg-[#0F1115] border border-[rgba(255,255,255,0.1)] opacity-70">
                       <h3 className="text-lg font-semibold mb-3 text-red-400">Network Marketing Tradicional</h3>
                       <ul className="space-y-2 text-sm text-[#A3A3A3]">
                         <li className="flex items-start gap-2">
@@ -154,7 +158,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </h2>
 
                   <div className="space-y-6">
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[#2a2a35]">
+                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">1</span>
                         <div>
@@ -167,7 +171,7 @@ export default function NetworkMarketingObsoletoPage() {
                       </div>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[#2a2a35]">
+                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">2</span>
                         <div>
@@ -181,7 +185,7 @@ export default function NetworkMarketingObsoletoPage() {
                       </div>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[#2a2a35]">
+                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">3</span>
                         <div>
@@ -276,7 +280,7 @@ export default function NetworkMarketingObsoletoPage() {
               </div>
 
               {/* Back to Blog */}
-              <div className="mt-12 pt-8 border-t border-[#2a2a35]">
+              <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
                 <Link
                   href="/blog"
                   className="text-[#A3A3A3] hover:text-[#C5A059] transition-colors inline-flex items-center gap-2"
@@ -291,10 +295,10 @@ export default function NetworkMarketingObsoletoPage() {
           </article>
 
           {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[#2a2a35]">
+          <footer className="px-6 py-12 border-t border-[rgba(255,255,255,0.1)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6B7280]">
-                © 2025 CreaTuActivo.com ·
+                © 2026 CreaTuActivo.com ·
                 <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>

@@ -1,11 +1,13 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Página "Manifiesto" - El Arquitecto de Activos
  *
  * Objetivo: Vender al Guía (Luis) para vender el Destino (Libertad)
  * Estructura: Gancho filosófico → Historia Buena Vista → Pivote → Principios → CTA
  *
- * NO es un CV. Es una Squeeze Page disfrazada de "Sobre Nosotros".
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, key titles
+ * Titanium (#94A3B8): Structural elements
  */
 
 import Link from 'next/link';
@@ -288,7 +290,7 @@ export default function ManifiestoPage() {
           <footer className="px-6 py-10 border-t border-[rgba(197, 160, 89, 0.1)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6B7280]">
-                © 2025 CreaTuActivo.com ·
+                © 2026 CreaTuActivo.com ·
                 <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>

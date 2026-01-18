@@ -1,7 +1,11 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Blog - Centro de Recursos (Shadow Funnel Content)
  * SEO-optimized articles for organic traffic
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, key titles
+ * Titanium (#94A3B8): Structural elements, muted text
  */
 
 import Link from 'next/link';
@@ -87,7 +91,7 @@ export default function BlogPage() {
                       <span className="text-xs text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 rounded-full">
                         {article.category}
                       </span>
-                      <span className="text-xs text-[#6b6b75]">{article.readTime}</span>
+                      <span className="text-xs text-[#64748B]">{article.readTime}</span>
                     </div>
 
                     <h2 className="text-xl font-semibold mb-3 group-hover:text-[#C5A059] transition-colors">
@@ -124,16 +128,16 @@ export default function BlogPage() {
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <span className="text-xs text-[#6b6b75]">{article.category}</span>
-                        <span className="text-xs text-[#6b6b75]">·</span>
-                        <span className="text-xs text-[#6b6b75]">{article.readTime}</span>
+                        <span className="text-xs text-[#64748B]">{article.category}</span>
+                        <span className="text-xs text-[#64748B]">·</span>
+                        <span className="text-xs text-[#64748B]">{article.readTime}</span>
                       </div>
                       <h3 className="font-medium group-hover:text-[#C5A059] transition-colors">
                         {article.title}
                       </h3>
                     </div>
 
-                    <svg className="w-5 h-5 text-[#6b6b75] group-hover:text-[#C5A059] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#64748B] group-hover:text-[#C5A059] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
@@ -166,8 +170,8 @@ export default function BlogPage() {
           {/* Footer */}
           <footer className="px-6 py-12 border-t border-[rgba(197, 160, 89, 0.15)]">
             <div className="max-w-5xl mx-auto text-center">
-              <p className="text-sm text-[#6b6b75]">
-                © 2025 CreaTuActivo.com ·
+              <p className="text-sm text-[#64748B]">
+                © 2026 CreaTuActivo.com ·
                 <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>

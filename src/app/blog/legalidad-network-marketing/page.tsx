@@ -1,7 +1,11 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Blog Article: Legalidad Network Marketing
  * SEO Shadow Funnel Content
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, key titles
+ * Titanium (#94A3B8): Structural elements
  */
 
 import Link from 'next/link';
@@ -84,7 +88,7 @@ export default function LegalidadNetworkMarketingPage() {
                     Según la FTC (Federal Trade Commission de Estados Unidos), la diferencia
                     entre un negocio legítimo y un esquema piramidal se reduce a una pregunta:
                   </p>
-                  <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[#2a2a35] mb-6">
+                  <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-6">
                     <p className="text-lg text-[#E5E5E5] font-medium">
                       ¿De dónde viene el dinero que se paga a los participantes?
                     </p>
@@ -255,7 +259,7 @@ export default function LegalidadNetworkMarketingPage() {
                   </div>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[#2a2a35] mb-12">
+                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;La estructura de red no es ilegal. Lo ilegal es cuando
                     <span className="text-[#C5A059]"> el dinero viene del reclutamiento, no de las ventas.</span>&quot;
@@ -333,7 +337,7 @@ export default function LegalidadNetworkMarketingPage() {
               </div>
 
               {/* Back to Blog */}
-              <div className="mt-12 pt-8 border-t border-[#2a2a35]">
+              <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
                 <Link
                   href="/blog"
                   className="text-[#A3A3A3] hover:text-[#C5A059] transition-colors inline-flex items-center gap-2"
@@ -348,10 +352,10 @@ export default function LegalidadNetworkMarketingPage() {
           </article>
 
           {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[#2a2a35]">
+          <footer className="px-6 py-12 border-t border-[rgba(255,255,255,0.1)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6B7280]">
-                © 2025 CreaTuActivo.com ·
+                © 2026 CreaTuActivo.com ·
                 <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>

@@ -32,8 +32,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL Queswa - Léxico de Soberanía
-        content: 'Soy Queswa 🪢\n\nLa mayoría de profesionales pasan 40 años construyendo el activo de otro.\n\nAquí enseñamos cómo construir tu propia **Infraestructura de Soberanía**.\n\n¿Cuál es tu situación?\n\n**A)** Quiero construir un activo propio\n**B)** Me siento estancado profesionalmente\n**C)** Solo estoy explorando opciones\n**D)** Quiero conocer el producto'
+        // 🔧 MENSAJE INICIAL Queswa - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
+        content: 'Hola, soy Queswa 🪢\n\nLa mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.\n\nAquí diseñamos la salida: tu propia **Infraestructura de Soberanía**.\n\n¿Cuál es tu situación actual?\n\n**A)** 🏗️ Quiero construir algo propio\n**B)** 💭 Me siento estancado y busco un cambio\n**C)** 🔍 Solo estoy explorando, sin compromiso\n**D)** 🧠 Quiero entender el Modelo de Negocio'
       }
     ]
   });

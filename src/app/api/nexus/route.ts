@@ -2857,13 +2857,14 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
 
     console.log(`🔍 DEBUG PRECIOS: mensaje="${lastUserMessage.substring(0, 80)}", detectado=${pideListaPrecios}`);
 
+    // ⚡ v17.5.0: Tokens aumentados para respuestas más cálidas y completas
     const maxTokens = pideListaPrecios
       ? 1000  // Lista completa de 22 productos (optimizado)
       : searchMethod === 'catalogo_productos'
-      ? 400   // Consultas de precios individuales = respuestas cortas
+      ? 500   // Consultas de precios = espacio para contexto (antes: 400)
       : prospectData.momento_optimo === 'caliente'
-      ? 500   // Prospecto caliente = respuesta más detallada para cerrar
-      : 600;  // Default: incrementado de 500 → 600 para arquetipos/paquetes completos
+      ? 700   // Prospecto caliente = cierre cálido detallado (antes: 500)
+      : 700;  // Default: espacio para empatía + analogías (antes: 600)
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, pideListaPrecios=${pideListaPrecios})`);
 
@@ -2896,9 +2897,9 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
         }
       ],
       stream: true,
-      max_tokens: maxTokens,        // ⚡ OPTIMIZADO: dinámico 300-500 (antes: 1000)
-      temperature: 0.3,
-      top_p: 0.9,                    // ⚡ NUEVO: consistencia mejorada
+      max_tokens: maxTokens,        // ⚡ v17.5.0: dinámico 500-1000 (antes: 300-600)
+      temperature: 0.65,            // ⚡ v17.5.0: más natural y empático (antes: 0.3)
+      top_p: 0.9,                    // Consistencia mejorada
       messages: recentMessages,      // ⚡ OPTIMIZADO: últimos 6 mensajes (antes: todos)
     });
 

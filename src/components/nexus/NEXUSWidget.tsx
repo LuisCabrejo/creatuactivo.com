@@ -363,19 +363,19 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       </div>
                     </div>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
-                      La mayoría de profesionales pasan 40 años construyendo el activo de otro.
+                      La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
                     </p>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      Aquí enseñamos cómo construir tu propia <strong style={{ color: QUIET_LUXURY.gold }}>Infraestructura de Soberanía</strong>.
+                      Aquí diseñamos la salida: tu propia <strong style={{ color: QUIET_LUXURY.gold }}>Infraestructura de Soberanía</strong>.
                     </p>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
-                      ¿Cuál es tu situación?
+                      ¿Cuál es tu situación actual?
                     </p>
                     <ul className="list-none mb-4 space-y-2 text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>A)</strong> Quiero construir un activo propio</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>B)</strong> Me siento estancado profesionalmente</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>C)</strong> Solo estoy explorando opciones</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> Quiero conocer la Infraestructura</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>A)</strong> 🏗️ Quiero construir algo propio</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>B)</strong> 💭 Me siento estancado y busco un cambio</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>C)</strong> 🔍 Solo estoy explorando, sin compromiso</li>
+                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> 🧠 Quiero entender el Modelo de Negocio</li>
                     </ul>
                   </div>
                 </div>
@@ -519,7 +519,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     className="hidden md:inline text-xs animate-pulse"
                     style={{ color: QUIET_LUXURY.textMuted }}
                   >
-                    Queswa está analizando...
+                    Queswa está pensando en tu situación...
                   </span>
                 </div>
               )}
@@ -540,7 +540,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Escribe tu pregunta aquí..."
+                placeholder="¿Qué te gustaría saber?"
                 className={`flex-1 backdrop-blur-sm px-4 py-3 rounded-xl transition-all duration-200 ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}
@@ -599,7 +599,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   }
                 }}
               >
-                Limpiar Pizarra
+                Nueva Conversación
               </button>
               <button
                 className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
@@ -614,7 +614,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 }}
                 onClick={() => handleSendMessage('Quiero hablar con Liliana Moreno')}
               >
-                Consultoría Estratégica
+                Hablar con un Estratega
               </button>
             </div>
           </div>

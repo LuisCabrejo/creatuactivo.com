@@ -52,25 +52,25 @@ El Ganoderma lucidum tiene más de 2,000 estudios científicos publicados.
     };
   }
 
-  // Saludo genérico para el resto de páginas - Léxico de Soberanía
+  // Saludo genérico - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Soy Queswa 🪢
+    content: `Hola, soy Queswa 🪢
 
-La mayoría de profesionales pasan 40 años construyendo el activo de otro.
+La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
 
-Aquí enseñamos cómo construir tu propia **Infraestructura de Soberanía**.
+Aquí diseñamos la salida: tu propia **Infraestructura de Soberanía**.
 
-¿Cuál es tu situación?
+¿Cuál es tu situación actual?
 
-**A)** Quiero construir un activo propio
+**A)** 🏗️ Quiero construir algo propio
 
-**B)** Me siento estancado profesionalmente
+**B)** 💭 Me siento estancado y busco un cambio
 
-**C)** Solo estoy explorando opciones
+**C)** 🔍 Solo estoy explorando, sin compromiso
 
-**D)** Quiero conocer la Infraestructura`,
+**D)** 🧠 Quiero entender el Modelo de Negocio`,
     timestamp: new Date(),
     isStreaming: false
   };
@@ -374,38 +374,36 @@ const sendMessage = useCallback(async (content: string) => {
     let errorMessage = '';
 
     if (error.name === 'AbortError') {
-      errorMessage = `⏱️ La arquitectura está procesando tu consulta más tiempo del esperado.
+      errorMessage = `Parece que estoy tardando más de lo esperado en responder. Esto puede pasar cuando hay mucho tráfico.
 
-**Consultoría estratégica inmediata:**
-Liliana Moreno - Arquitecta Senior
-WhatsApp: +573102066593
-Horario: 8:00 AM - 8:00 PM (GMT-5)
+¿Te gustaría intentar de nuevo o prefieres hablar directamente con **Liliana Moreno**?
 
-¿Hay algo específico sobre la arquitectura de CreaTuActivo.com que pueda ayudarte mientras tanto?`;
+Ella es nuestra Estratega Senior y puede resolver tu consulta de inmediato:
+→ [WhatsApp](https://wa.me/573102066593)
+→ Horario: 8:00 AM - 8:00 PM (Colombia)`;
 
     } else if (error.message?.includes('500') || error.message?.includes('servidor')) {
       errorMessage = error.message;
 
     } else if (error.message?.includes('fetch')) {
-      errorMessage = `🔧 Conexión temporalmente interrumpida.
+      errorMessage = `Parece que perdimos la conexión por un momento.
 
-**Información básica de la arquitectura:**
-• **PUNTO DE ENTRADA FUNDADOR:** $200 USD - Acceso completo al ecosistema
-• **PUNTO DE ENTRADA EMPRESARIAL:** $500 USD - Más popular, inventario sólido
-• **PUNTO DE ENTRADA VISIONARIO:** $1,000 USD - Premium con consultoría VIP
+Mientras tanto, te comparto los puntos de entrada disponibles:
+• **Inicial:** $200 USD (~$900K COP) - Acceso completo
+• **Empresarial:** $500 USD (~$2.25M COP) - El más popular
+• **Visionario:** $1,000 USD (~$4.5M COP) - Máxima rentabilidad
 
-**Consultoría:** Liliana Moreno +573102066593`;
+¿Quieres que lo intentemos de nuevo o prefieres hablar con **Liliana**?
+→ [WhatsApp](https://wa.me/573102066593)`;
 
     } else {
-      errorMessage = `🤖 Estoy experimentando dificultades en mi arquitectura de procesamiento.
+      errorMessage = `Estoy teniendo dificultades técnicas en este momento.
 
-**Opciones mientras optimizamos:**
-1. **El Motor de Valor** - Los productos únicos con fórmula exclusiva
-2. **El Método Probado** - Los 3 Pasos: IAA (INICIAR → ACOGER → ACTIVAR)
-3. **La Aplicación CreaTuActivo** - Tecnología + IA que automatiza el 80% del trabajo
-4. **Consultoría Estratégica** - Liliana Moreno +573102066593
+La buena noticia: puedes hablar directamente con **Liliana Moreno**, nuestra Estratega Senior. Ella puede resolver cualquier duda sobre el modelo de negocio.
 
-¿Qué pieza de la arquitectura te interesa más?`;
+→ [Hablar con Liliana](https://wa.me/573102066593)
+
+¿O prefieres que intentemos de nuevo en unos segundos?`;
     }
 
     setMessages(prev =>

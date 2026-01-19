@@ -71,9 +71,11 @@ function formatForPgvector(embedding) {
  * Parsea un arsenal en respuestas individuales
  * Detecta headers ### y extrae ID y contenido
  *
- * Soporta DOS formatos:
- * - arsenal_compensacion/inicial: ### **RETO_01: "Pregunta"**
+ * Soporta MULTIPLES formatos:
+ * - arsenal_compensacion v1: ### **RETO_01: "Pregunta"**
+ * - arsenal_compensacion v2: ### COMP_GEN5_01: "Pregunta" (con alphanumeric middle)
  * - arsenal_avanzado v6.0: ### ADV_OBJ_01: "Pregunta"
+ * - arsenal_inicial: ### FREQ_01: "Pregunta"
  */
 function parseArsenalIntoResponses(content, arsenalName) {
   const responses = [];
@@ -82,15 +84,17 @@ function parseArsenalIntoResponses(content, arsenalName) {
   // - Con asteriscos: ### **ID:
   // - Sin asteriscos: ### ID:
   // - Con prefijo ADV_: ### ADV_OBJ_01: (arsenal_avanzado v6.0)
-  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z]+)?_\d+)/);
+  // - Con alphanumeric: ### COMP_GEN5_01: (arsenal_compensacion v2.0)
+  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_\d+)/);
 
   for (const section of sections) {
     if (!section.trim() || !section.includes('###')) continue;
 
     // Extraer ID del header - soporta múltiples formatos
-    // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion, arsenal_inicial)
+    // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion v1, arsenal_inicial)
     // Formato 2: ### ADV_OBJ_01: "Pregunta" (arsenal_avanzado v6.0)
-    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z]+)?_\d+):?\s*"?([^"\n*]+)/);
+    // Formato 3: ### COMP_GEN5_01: "Pregunta" (arsenal_compensacion v2.0)
+    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z0-9]+)*_\d+):?\s*"?([^"\n*]+)/);
     if (!headerMatch) continue;
 
     const responseId = headerMatch[1].trim();
@@ -225,10 +229,11 @@ async function main() {
   console.log('Objetivo: Reducir tokens de entrada de ~15K a ~400 por request\n');
 
   const arsenales = [
-    'arsenal_compensacion',  // 13 respuestas
+    'arsenal_compensacion',  // 38 respuestas
     'arsenal_inicial',       // 34 respuestas
     'arsenal_avanzado',      // 14 respuestas (v6.0 JOBS/NAVAL)
     'arsenal_12_niveles',    // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)
+    'arsenal_reto',          // 7 respuestas (v1.0 - Reto de 5 Días Challenge Funnel)
   ];
 
   const results = {};

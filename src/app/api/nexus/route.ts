@@ -792,7 +792,7 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
     const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
       .select('category, title, content, embedding, metadata')
-      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion'])
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion', 'arsenal_reto'])
       .not('embedding', 'is', null);
 
     if (error) {
@@ -1310,6 +1310,40 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
       patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
     console.log('🛒 Clasificación: PRODUCTOS + CIENCIA (catalogo_productos v3.0)');
     return 'catalogo_productos';
+  }
+
+  // 🎯 PRIORIDAD 2.4: RETO DE 5 DÍAS (arsenal_reto v1.0)
+  // Lead Magnet principal - Challenge Funnel
+  const patrones_reto_5_dias = [
+    /reto\s*(de\s*)?(5|cinco)\s*d[ií]as?/i,    // "reto de 5 días", "reto 5 dias"
+    /reto\s*5/i,                                // "reto 5"
+    /cinco\s*d[ií]as/i,                         // "cinco días"
+    /5\s*d[ií]as/i,                             // "5 días"
+    /bootcamp/i,                                // "bootcamp"
+    /challenge/i,                               // "challenge"
+    /c[oó]mo\s*(me\s*)?registro/i,              // "cómo me registro"
+    /c[oó]mo\s*(me\s*)?inscribo/i,              // "cómo me inscribo"
+    /c[oó]mo\s*empiezo\s*el\s*reto/i,           // "cómo empiezo el reto"
+    /qu[eé]\s*es\s*el\s*reto/i,                 // "qué es el reto"
+    /de\s*qu[eé]\s*trata\s*el\s*reto/i,         // "de qué trata el reto"
+    /temario/i,                                 // "temario"
+    /qu[eé]\s*voy\s*a\s*aprender/i,             // "qué voy a aprender"
+    /es\s*gratis\s*el\s*reto/i,                 // "es gratis el reto"
+    /cuesta\s*el\s*reto/i,                      // "cuesta el reto"
+    /precio\s*del\s*reto/i,                     // "precio del reto"
+    /horarios?\s*(del\s*)?reto/i,               // "horarios del reto"
+    /es\s*en\s*vivo/i,                          // "es en vivo"
+    /es\s*grabado/i,                            // "es grabado"
+    /requisitos?\s*(para\s*)?(el\s*)?reto/i,    // "requisitos para el reto"
+    /qu[eé]\s*necesito\s*para\s*(el\s*)?reto/i, // "qué necesito para el reto"
+    /simulador/i,                               // "simulador" (analogía del arsenal)
+    /test\s*drive/i,                            // "test drive" (analogía del arsenal)
+    /prueba\s*antes\s*de\s*comprar/i,           // "prueba antes de comprar"
+  ];
+
+  if (patrones_reto_5_dias.some(patron => patron.test(messageLower))) {
+    console.log('🎯 Clasificación: RETO DE 5 DÍAS (arsenal_reto v1.0)');
+    return 'arsenal_reto';
   }
 
   // 🎯 PRIORIDAD 2.5: LOS 12 NIVELES (arsenal_12_niveles v4.0)
@@ -2965,7 +2999,7 @@ export async function GET() {
     const { data: arsenalDocs, error: arsenalError } = await supabase
       .from('nexus_documents')
       .select('category, metadata')
-      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion']);
+      .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion', 'arsenal_reto']);
 
     if (arsenalError) throw arsenalError;
 

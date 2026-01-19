@@ -1,0 +1,964 @@
+# Arsenal de Compensacion: Infraestructura de Ingresos v5.2
+**Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
+**Enfoque:** Arquitectura de Activos (Quiet Luxury - No MLM tradicional)
+**Version:** 5.2 (19 Enero 2026) - Protocolo Arquitecto + Respuestas Canonicas
+**REGLA DE ORO:** Si no esta aqui, no lo inventes. Usa las analogias de construccion (Acueducto).
+
+---
+
+## REGLA CRITICA: MONEDA Y VALORACION GLOBAL
+
+### COMP_MONEDA_01: "En que moneda se valora el negocio?"
+
+**[Concepto Nuclear]:** Estandar Global. El negocio se valora en Dolares, se liquida en Pesos.
+
+El ecosistema Gano Excel opera en mas de 70 paises. Utilizamos el Dolar (USD) como moneda estandar para valorar los activos. Para protegerte de la volatilidad diaria, Gano Excel garantiza una **Tasa Corporativa Fija de $4,500 COP por dolar**.
+
+**Tabla de Valoracion:**
+| Nivel | Valor Global (USD) | Liquidacion Local (COP) |
+|-------|-------------------|-------------------------|
+| ESP-3 | $1,000 USD | ~$4,500,000 COP |
+| ESP-2 | $500 USD | ~$2,250,000 COP |
+| ESP-1 | $200 USD | ~$900,000 COP |
+| Gen 1 Bono | $150 USD | ~$675,000 COP |
+| Gen 2-4 Bono | $20 USD | ~$90,000 COP |
+| Gen 5 Bono | $40 USD | ~$180,000 COP |
+
+**Insight:** Tu construyes un activo en dolares. La compania te facilita la logistica bancarizandolo en pesos a una tasa preferencial fija.
+
+---
+
+## MODELO DE INGRESOS (RESPUESTA CANONICA)
+
+### COMP_MODELO_01: "Como se gana en el negocio?" / "Como funciona el plan de compensacion?"
+
+**[Concepto Nuclear]:** Volumen, no gente. Ganamos por tazas de cafe consumidas, no por personas inscritas.
+
+Quiero ser muy claro: No nos pagan por reclutar personas. Nos pagan porque el producto se mueve. Construimos una red de consumo. Tu activo genera regalias cada vez que alguien en tu organizacion (en cualquier pais) se prepara una taza de cafe, se lava los dientes o toma un suplemento.
+
+**Piensalo asi:** Es el modelo Spotify o Netflix. Spotify no cobra cada vez que el artista graba la cancion. Cobra cada vez que el usuario le da "Play".
+
+Tu haces el trabajo de conectar a la persona una sola vez. Pero cada vez que esa persona le da "Play" a su cafetera el resto de su vida, tu cobras una regalia. Haces el trabajo una vez, cobras muchas veces.
+
+**Nota:** Si quieres ver los numeros especificos de cada bono, pregunta por "GEN5" (liquidez inmediata) o "Binario" (ingreso residual).
+
+---
+
+## ESTRUCTURAS ORGANIZACIONALES
+
+### COMP_ESTRUCTURA_01: "Que es el Arbol de Vinculacion (Patrocinio)?"
+
+**[Concepto Nuclear]:** Es tu Portafolio de Socios. Define la paternidad del negocio. Aqui paga el GEN5.
+
+El Arbol de Patrocinio comienza con los afiliados que TU vinculas personalmente, y crece cuando ellos inscriben a otros.
+
+**Caracteristicas:**
+| Aspecto | Valor |
+|---------|-------|
+| Socios directos | SIN LIMITE |
+| Niveles de profundidad | SIN LIMITE |
+| Forma | Cualquier numero de posiciones por nivel |
+| Otro nombre | "Estructura Uninivel" |
+
+**Donde Aplica:**
+| Bono | Usa Arbol de Patrocinio? |
+|------|--------------------------|
+| GEN5 | SI (hasta 5 generaciones) |
+| Binario | NO |
+
+**Insight:** En el Arbol de Patrocinio puedes vincular infinitas personas directas. Cada una abre una nueva rama que crece independientemente.
+
+---
+
+### COMP_ESTRUCTURA_02: "Que es el Arbol Binario (de Colocacion)?"
+
+**[Concepto Nuclear]:** Es tu Centro de Distribucion. Define el volumen y las regalias. Aqui paga la Regalia de Equipo.
+
+El Arbol Binario es donde tu y los afiliados de tu linea ascendente y descendente COLOCAN posiciones dentro de la organizacion.
+
+**Caracteristicas:**
+| Aspecto | Valor |
+|---------|-------|
+| Posiciones debajo de cada nodo | MAXIMO 2 |
+| Por que se llama "binario" | "Compuesto de dos elementos" |
+| Profundidad | SIN LIMITE |
+| Tu conectador | El afiliado posicionado directamente arriba de ti |
+
+**Donde Aplica:**
+| Bono | Usa Arbol Binario? |
+|------|-------------------|
+| Regalia de Equipo (Binario) | SI |
+| GEN5 | NO |
+
+**Diferencia Clave:**
+| Arbol | Forma | Paga |
+|-------|-------|------|
+| Patrocinio | Ancho ilimitado, profundo | GEN5 (5 gen) |
+| Binario | Solo 2 lados, profundo | Binario (lado menor) |
+
+**Insight:** Tienes DOS estructuras simultaneas. El Patrocinio define QUIEN inscribiste. El Binario define DONDE los colocaste. GEN5 paga por vinculaciones. Binario paga por volumen.
+
+---
+
+### COMP_CENTRO_01: "Que es el Centro de Negocio de Cobro?"
+
+**[Concepto Nuclear]:** Es tu posicion en el Arbol Binario donde se acumula el CV de tu equipo.
+
+Tu Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de tus dos lados para calcular tu Regalia de Equipo.
+
+**Como Funciona:**
+| Componente | Descripcion |
+|------------|-------------|
+| Tu posicion | El nodo donde estas ubicado en el Binario |
+| Lado izquierdo | Todo el CV debajo de tu izquierda |
+| Lado derecho | Todo el CV debajo de tu derecha |
+| Tu cobro | % del lado MENOR |
+
+**Que NO suma a tu Centro:**
+| Fuente | Suma? |
+|--------|-------|
+| Tu compra personal (hasta 120 PV) | NO |
+| Tu compra personal (excedente de 120 PV) | SI |
+| Compras de tu equipo | SI |
+
+**Insight:** Piensa en tu Centro de Cobro como una balanza: el sistema pesa ambos lados y te paga sobre el mas liviano. Tu trabajo es mantener ambos lados creciendo.
+
+---
+
+### COMP_ACTIVO_01: "Que significa estar activo?"
+
+**[Concepto Nuclear]:** Activo = 50+ PV de compra personal en el ciclo. Sin esto, no cobras.
+
+"Estar activo" es el requisito minimo para recibir cualquier comision.
+
+**Niveles de Actividad:**
+| Tu PV | Estado | Que Desbloquea |
+|-------|--------|----------------|
+| 0-49 PV | INACTIVO | Nada - no cobras |
+| 50-99 PV | ACTIVO | GEN5 + Binario (Gen 5 normal) |
+| 100+ PV | ACTIVO PREMIUM | GEN5 + Binario (Gen 5 DOBLE) |
+
+**Que pasa si pierdes actividad:**
+| Situacion | Consecuencia |
+|-----------|--------------|
+| No compras 50 PV esta semana | No cobras esta semana |
+| Tu CV acumulado | Se CONGELA (no se pierde) |
+| Siguiente semana con 50+ PV | Vuelves a cobrar, CV se descongela |
+
+**Insight:** 50 PV es tu "cuota de mantenimiento". Sin ella, el sistema te pausa pero no te borra. Tu CV sigue ahi esperandote.
+
+---
+
+## BONO GEN5 (INICIO RAPIDO)
+
+### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5"
+
+**[Concepto Nuclear]:** Liquidez Inmediata. Te pagan por expansion y construccion.
+
+El GEN5 es tu Capital de Trabajo. Es un bono que recibes cada vez que un nuevo socio adquiere su Paquete de Infraestructura en tu red, hasta 5 generaciones de profundidad.
+
+**La Matematica (Si eres Fundador ESP-3):**
+- Por tus directos (Hijos): **$150 USD**
+- Por los indirectos (Nietos a Tataranietos): **$20 USD**
+- En la 5ta generacion: **$40 USD** (Bono doble)
+
+**Piensalo asi:** Si el Binario es el pago por el agua, el GEN5 es el pago por instalar la tuberia. En un negocio tradicional, construyes gratis y cobras anos despues. Aqui, te pagamos por cada metro de tuberia que instalas hoy. Este bono pone dinero en tu bolsillo esta misma semana ($600-$1,000 USD mensuales promedio) mientras tu acueducto se llena de volumen.
+
+**Nota:** Si quieres ver la proyeccion numerica completa, pregunta "dame la proyeccion GEN5".
+
+---
+
+### COMP_GEN5_02: "Cuanto paga el Bono GEN5?"
+
+**[Concepto Nuclear]:** Cobras el MENOR entre tu techo y lo que genera el nuevo.
+
+Tu paquete determina tu TECHO (maximo que puedes cobrar). El paquete del nuevo determina lo que GENERA.
+
+**Formula:** `Cobro = min(mi_techo, lo_que_genera_nuevo)`
+
+**Ejemplo Rapido:**
+| Escenario | Genera | Tu Techo | Cobras | Resultado |
+|-----------|--------|----------|--------|-----------|
+| Tu ESP-3, nuevo ESP-3 | $150 USD | $150 USD | $150 USD | ✓ Capturas todo |
+| Tu ESP-1, nuevo ESP-3 | $150 USD | $25 USD | $25 USD | ✗ Pierdes $125 USD |
+| Tu ESP-3, nuevo ESP-1 | $25 USD | $150 USD | $25 USD | ✓ No hay mas que capturar |
+
+**Insight:** Con ESP-3 nunca te limita tu techo. Con ESP-1 siempre dejas dinero en la mesa.
+
+---
+
+### COMP_GEN5_03: "Techos por paquete - Cuanto puedo cobrar maximo?"
+
+**[Concepto Nuclear]:** Tu paquete define tu techo. ESP-3 = techo maximo. ESP-1 = techo minimo.
+
+**Techos por Generacion (USD):**
+| Generacion | ESP-1 | ESP-2 | ESP-3 |
+|------------|-------|-------|-------|
+| Gen 1 | $25 USD | $75 USD | $150 USD |
+| Gen 2 | $5 USD | $10 USD | $20 USD |
+| Gen 3 | $5 USD | $10 USD | $20 USD |
+| Gen 4 | $5 USD | $10 USD | $20 USD |
+| Gen 5 (100 PV) | $10 USD | $20 USD | $40 USD |
+| Gen 5 (50-99 PV) | $5 USD | $10 USD | $20 USD |
+
+**Insight:** La diferencia entre ESP-1 y ESP-3 es 6x en Gen 1. Mismo esfuerzo, diferente captura.
+
+---
+
+### COMP_GEN5_04: "Cuanto genera cada paquete cuando alguien se vincula?"
+
+**[Concepto Nuclear]:** El paquete del nuevo determina cuanto genera para toda la linea ascendente.
+
+**Valores que GENERA cada paquete (USD):**
+| Generacion | ESP-1 Genera | ESP-2 Genera | ESP-3 Genera |
+|------------|--------------|--------------|--------------|
+| Gen 1 | $25 USD | $75 USD | $150 USD |
+| Gen 2 | $5 USD | $10 USD | $20 USD |
+| Gen 3 | $5 USD | $10 USD | $20 USD |
+| Gen 4 | $5 USD | $10 USD | $20 USD |
+| Gen 5 | $10 USD | $20 USD | $40 USD |
+
+**Insight:** Cuando tu socio compra ESP-3, genera mas bonos para ti Y para toda su linea ascendente.
+
+---
+
+### COMP_GEN5_05: "Ejemplo practico del Bono GEN5 - Socios directos"
+
+**[Concepto Nuclear]:** 2 socios directos ESP-3 = $300 USD en tu bolsillo.
+
+Veamos que pasa cuando conectas 2 personas que compran ESP-3:
+
+**Ejemplo: Tu tienes ESP-3, conectas 2 ESP-3:**
+| Socio | Paquete | Gen 1 Bono | Total |
+|----------|---------|------------|-------|
+| Persona 1 | ESP-3 | $150 USD | $150 USD |
+| Persona 2 | ESP-3 | $150 USD | $150 USD |
+| **TOTAL** | | | **$300 USD** (~$1.35M COP) |
+
+**Comparativa si tu tuvieras ESP-1:**
+| Socio | Genera | Tu Techo | Cobras |
+|----------|--------|----------|--------|
+| Persona 1 | $150 USD | $25 USD | $25 USD |
+| Persona 2 | $150 USD | $25 USD | $25 USD |
+| **TOTAL** | | | **$50 USD** (~$225K COP) |
+
+**Insight:** Mismo esfuerzo (2 personas). ESP-3 gana $300 USD. ESP-1 gana $50 USD. Diferencia: $250 USD.
+
+---
+
+### COMP_GEN5_08: "Ejemplo practico de ganancias GEN5 - Cuanto gano si conecto 2 personas"
+
+**[Concepto Nuclear]:** Cobras mientras construyes. Cada vinculacion = un pago.
+
+El GEN5 es como construir un acueducto: cada tramo de tuberia que colocas, te lo pagan. No es ingreso recurrente - es capital de construccion.
+
+**Como funciona:**
+- Tu conectas 2 → cobras 2 bonos
+- Ellos conectan 2 cada uno → cobras 4 bonos mas
+- Y asi hasta Gen 5
+
+**Proyeccion 2x2 (todos ESP-3):**
+| Gen | Vinculaciones | Bono c/u (USD) | Total Acumulado |
+|-----|---------------|----------------|-----------------|
+| 1 | 2 | $150 USD | $300 USD |
+| 2 | 4 | $20 USD | $380 USD |
+| 3 | 8 | $20 USD | $540 USD |
+| 4 | 16 | $20 USD | $860 USD |
+| 5 | 32 | $40 USD | $2,140 USD |
+
+**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Gen 1 = $150 USD. Gen 2-4 = $20 USD. Gen 5 = $40 USD. NO inventar otros valores.**
+
+**Total al completar estructura: $2,140 USD** (~$9.6M COP)
+
+Este dinero lo vas recibiendo A MEDIDA que se construye la red (cada viernes). No es que esperas a tener 62 personas - cobras desde la primera vinculacion.
+
+**Comparativa por paquete (misma estructura de 62 personas):**
+| Tu Paquete | Total GEN5 | Diferencia |
+|------------|------------|------------|
+| ESP-3 | $2,140 USD | - |
+| ESP-2 | $1,070 USD | -$1,070 USD |
+| ESP-1 | $510 USD | -$1,630 USD |
+
+**Insight:** El GEN5 te financia la construccion. Mientras ayudas a otros a arrancar, vas cobrando. Cuando la estructura esta lista, el Binario toma el relevo con ingresos semanales recurrentes.
+
+---
+
+### COMP_GEN5_06: "El Bono Doble de Generacion 5"
+
+**[Concepto Nuclear]:** Con 100 PV activos, Gen 5 paga el DOBLE.
+
+El Gen 5 tiene un multiplicador especial basado en tu actividad personal.
+
+**Tabla de Multiplicador Gen 5:**
+| Tu PV Activo | Gen 5 que Cobras | Ejemplo ESP-3 |
+|--------------|------------------|---------------|
+| 100+ PV | DOBLE | $40 USD |
+| 50-99 PV | NORMAL | $20 USD |
+| Menos de 50 PV | $0 | $0 |
+
+**Insight:** Mantener 100 PV te da acceso al bono doble en Gen 5. Es la diferencia entre $20 USD y $40 USD por cada vinculacion en tu quinta generacion.
+
+---
+
+### COMP_GEN5_07: "Cuando me pagan el Bono GEN5?"
+
+**[Concepto Nuclear]:** Cada viernes, con 2 semanas de desfase.
+
+El GEN5 se paga semanalmente, no mensualmente.
+
+**Ejemplo de Ciclo de Pago:**
+| Evento | Fecha |
+|--------|-------|
+| Tu conectado compra ESP-3 | Ciclo 893 (12-18 Ene) |
+| Se procesa | Ciclo 894 |
+| Recibes el pago | Viernes Ciclo 895 (31 Ene) |
+
+**Insight:** No esperas fin de mes. Cada compra de paquete en tu red se paga el viernes de 2 semanas despues.
+
+---
+
+## PUNTOS PV - VOLUMEN PERSONAL
+
+### COMP_PV_01: "Que son los PV (Puntos de Volumen Personal)?"
+
+**[Concepto Nuclear]:** PV mide tu actividad personal. 50 PV = activo. 100 PV = bono doble Gen 5.
+
+Los PV son puntos que generas con tus compras personales.
+
+**Umbrales Importantes:**
+| PV | Que Desbloquea |
+|----|----------------|
+| 50+ PV | Activo para comisiones |
+| 100+ PV | Gen 5 al doble |
+
+**Insight:** 50 PV es el minimo para cobrar. 100 PV es el objetivo si quieres maximizar Gen 5.
+
+---
+
+### COMP_PV_02: "Como acumulo los 100 PV?"
+
+**[Concepto Nuclear]:** Los 100 PV se acumulan durante el ciclo. No tienen que ser en una sola compra.
+
+Puedes hacer varias compras durante la semana.
+
+**Ejemplo de Acumulacion:**
+| Dia | Compra | PV Acumulado |
+|-----|--------|--------------|
+| Domingo | 2 cafes | 30 PV |
+| Miercoles | 2 chocolates | 64 PV |
+| Viernes | 1 jabon + 1 pasta | 85.4 PV |
+| Sabado | 1 cafe | 100.4 PV ✓ |
+
+**Insight:** Lo que importa es tu PV total al cierre del ciclo (domingo). No cuando lo compraste.
+
+---
+
+### COMP_PV_03: "Como funcionan los ciclos semanales?"
+
+**[Concepto Nuclear]:** Ciclo = Lunes a Domingo. Pago = Viernes de 2 semanas despues.
+
+**Estructura del Ciclo:**
+| Fase | Descripcion |
+|------|-------------|
+| Ciclo 893 (13-19 Ene) | Tu actividad se registra (cierra domingo) |
+| Ciclo 894 (20-26 Ene) | Se procesa y calcula |
+| Ciclo 895 (27 Ene-2 Feb) | Se paga el viernes (31 Ene) |
+
+**Calendario Visual:**
+| Lun | Mar | Mie | Jue | Vie | Sab | Dom |
+|-----|-----|-----|-----|-----|-----|-----|
+| 13 | 14 | 15 | 16 | 17 | 18 | **19** ← Cierre |
+
+**Insight:** Hay 2 semanas de desfase entre tu actividad y tu pago. Esto aplica para GEN5 y Binario.
+
+---
+
+### COMP_PV_04: "Que es CV (Volumen Comisional)?"
+
+**[Concepto Nuclear]:** CV de tu compra personal NO va a tu red. Solo te activa.
+
+CV son los puntos que se usan para calcular el Bono Binario.
+
+**Regla Critica:**
+| Fuente de CV | Va a tu centro de cobro? |
+|--------------|-------------------------|
+| Compras de tu equipo | SI |
+| Tu compra personal | NO* |
+
+*Excepcion: Si compras mas de 120 PV, el excedente SI va a tu centro.
+
+**Insight:** Tu compra personal sirve para activarte (50-100 PV), no para generar CV en tu red. El CV viene de tu equipo.
+
+---
+
+### COMP_PV_05: "Que es GCV (Volumen Comisional Grupal)?"
+
+**[Concepto Nuclear]:** GCV = Suma de TODO el CV de tu organizacion. Es la productividad de tu activo.
+
+**Como se Calcula:**
+| Fuente | Suma a tu GCV? |
+|--------|----------------|
+| CV de tu lado izquierdo | SI |
+| CV de tu lado derecho | SI |
+| Tu CV personal | NO |
+
+**Insight:** Mientras mas grande tu organizacion, mayor tu GCV. Es la base para comisiones y rangos.
+
+---
+
+### COMP_CV_01: "Cual es la diferencia entre PV y CV?"
+
+**[Concepto Nuclear]:** PV = tu consumo personal. CV = volumen que genera comision Binaria.
+
+Son dos metricas diferentes con propositos diferentes:
+
+**Comparativa PV vs CV:**
+| Metrica | Significa | Para que sirve | Quien lo genera |
+|---------|-----------|----------------|-----------------|
+| PV | Puntos de Volumen Personal | Activarte (50-100 PV) | TU con tus compras |
+| CV | Volumen Comisional | Calcular Bono Binario | TU EQUIPO con sus compras |
+
+**Relacion entre PV y CV:**
+| Producto | PV (tu activacion) | CV (comision binaria) |
+|----------|--------------------|-----------------------|
+| Ganocafe 3en1 | 15 PV | 14 CV |
+| Gano Schokolade | 17 PV | 16 CV |
+| Ganorico (todos) | 17 PV | 16 CV |
+| Ganoderma Caps | 41 PV | 38 CV |
+| Excellium Caps | 41 PV | 38 CV |
+| Cordygold Caps | 49 PV | 46 CV |
+
+**Regla practica:** CV ≈ PV - 1 a 3 puntos (varia por producto).
+
+**Insight:** Cuando calculas tu activacion personal, usa PV. Cuando calculas ganancias del Binario, usa CV de tu equipo.
+
+---
+
+### COMP_PV_06: "Cuantos PV genera cada producto?"
+
+**[Concepto Nuclear]:** Los cafes dan 15-17 PV. Los suplementos dan 41-49 PV.
+
+**Productos Principales (PV y Precio):**
+| Producto | PV | Precio COP |
+|----------|-----|------------|
+| Ganocafe 3en1 | 15 | $110,900 |
+| Gano Schokolade | 17 | $124,900 |
+| Ganorico (todos) | 17 | $119,900 |
+| Ganoderma Caps | 41 | $272,500 |
+| Excellium Caps | 41 | $272,500 |
+| Cordygold Caps | 49 | $336,900 |
+| Jabon/Pasta | 10-12 | $73,900 |
+
+**Ejemplo para llegar a 50 PV (~$350,000):**
+| Productos | PV |
+|-----------|-----|
+| 3x Ganocafe 3en1 | 45 PV |
+| 1x Jabon | 10.4 PV |
+| **Total** | **55.4 PV** ✓ |
+
+**Insight:** Con ~$350,000 en productos llegas a 50 PV. Con ~$550,000 llegas a 100 PV.
+
+---
+
+### COMP_PV_07: "Que pasa si compro mas de 120 PV?"
+
+**[Concepto Nuclear]:** El excedente sobre 120 PV SI va a tu centro de negocio de cobro.
+
+Esta regla es para constructores que compran inventario grande.
+
+**Como Funciona:**
+| Tu Compra | Activacion | Centro de Cobro |
+|-----------|------------|-----------------|
+| 200 PV | 120 PV | 80 PV |
+| 150 PV | 120 PV | 30 PV |
+| 100 PV | 100 PV | 0 PV |
+
+**Insight:** Solo aplica si compras mas de 120 PV. Para la mayoria, el autoconsumo normal (50-100 PV) no genera CV para tu centro.
+
+---
+
+## REGALIA DE EQUIPO (BONO BINARIO)
+
+### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"
+
+**[Concepto Nuclear]:** Ingreso Pasivo Real. Cobras por el volumen total del equipo, infinito en profundidad.
+
+El Binario es tu Fondo de Retiro. El sistema suma todo el volumen de consumo de tu equipo izquierdo y tu equipo derecho (sin importar quien invito a quien) y te paga un porcentaje sobre el equipo de menor volumen cada semana.
+
+**Tasas de Comision:**
+- Tasa Base: **10%**
+- Tasa Fundador (ESP-3): **17%** (El estandar recomendado)
+
+**Piensalo asi:** Siguiendo la analogia del acueducto: El Bono Binario es el pago que recibes por el agua que fluye por la tuberia. Mientras la gente tenga sed (consuma cafe), el agua fluye y el cheque llega cada viernes, aunque tu estes durmiendo o de viaje. Es el verdadero ingreso residual.
+
+**Nota:** Si quieres ver la proyeccion de crecimiento, pregunta "dame la proyeccion binario".
+
+---
+
+### COMP_BIN_02: "Cual es el porcentaje del Binario?"
+
+**[Concepto Nuclear]:** Base 10%. Con ESP-3 arrancas con 17% por 6 meses.
+
+**Porcentajes por Paquete Inicial:**
+| Paquete | % Binario | Duracion Bonus |
+|---------|-----------|----------------|
+| Kit Inicio | 10% | Permanente |
+| ESP-1 | 15% | 2 meses |
+| ESP-2 | 16% | 4 meses |
+| ESP-3 | 17% | 6 meses |
+
+**Ejemplo: Tu lado menor tiene 10,000 CV**
+| Tu Paquete | Calculo | Comision Semanal |
+|------------|---------|------------------|
+| Kit | 10,000 × 10% × $1 USD | $1,000 USD |
+| ESP-3 | 10,000 × 17% × $1 USD | $1,700 USD |
+| **Diferencia** | | **+$700 USD** |
+
+**Insight:** Mismo equipo, mismo volumen. ESP-3 gana $700 USD MAS por semana que Kit.
+
+---
+
+### COMP_BIN_03: "Como mantengo el porcentaje alto despues de los 6 meses?"
+
+**[Concepto Nuclear]:** 3 estrategias: Recompra, Rango, o Promociones.
+
+Despues de que expire tu bonus promocional, tienes opciones:
+
+**Estrategias para Mantener % Alto:**
+| Estrategia | % Resultado | Como |
+|------------|-------------|------|
+| Recompra ESP-3 | 15% | Comprar ESP-3 cada 6 meses |
+| Rango Diamante | 15% | Cobrar 12,000 CV semanal |
+| Promocion Gano | 17-20% | Aprovechar ofertas (~2/año) |
+
+**Rangos y Porcentajes:**
+| Rango | CV Semanal | % |
+|-------|------------|---|
+| Sin rango | <1,500 | 10% |
+| Bronce | 1,500 | 11% |
+| Plata | 2,500 | 12% |
+| Oro | 4,000 | 13% |
+| Platino | 8,000 | 14% |
+| Diamante | 12,000 | 15% |
+
+**Insight:** Siempre aplica el % MAS ALTO entre todas tus fuentes (paquete, rango, promocion).
+
+---
+
+### COMP_BIN_04: "Que pasa si tengo varios porcentajes activos?"
+
+**[Concepto Nuclear]:** Siempre aplica el porcentaje MAS ALTO automaticamente.
+
+**Ejemplo:**
+| Fuente 1 | Fuente 2 | Aplica |
+|----------|----------|--------|
+| ESP-3 (17%) | Rango Bronce (11%) | 17% |
+| ESP-3 expirado (10%) | Rango Oro (13%) | 13% |
+| Promocion (18%) | Rango Platino (14%) | 18% |
+
+**Insight:** El sistema siempre te favorece. No pierdes por tener multiples fuentes.
+
+---
+
+### COMP_BIN_05: "Cuando me pagan el Binario?"
+
+**[Concepto Nuclear]:** Cada viernes, con 2 semanas de desfase. Igual que el GEN5.
+
+**Ciclo de Pago:**
+| Evento | Cuando |
+|--------|--------|
+| Tu equipo genera CV | Ciclo 893 |
+| Se procesa | Ciclo 894 |
+| Recibes pago | Viernes Ciclo 895 |
+
+**Insight:** Binario y GEN5 se pagan el mismo dia (viernes). Ves ambos en tu estado de cuenta.
+
+---
+
+### COMP_BIN_06: "Requisitos para cobrar el Binario?"
+
+**[Concepto Nuclear]:** 50 PV + 1 activo en cada lado + minimo 100 CV.
+
+**Requisitos Semanales:**
+| Requisito | Valor |
+|-----------|-------|
+| PV Personal | Minimo 50 PV |
+| Vinculados Activos | 1 izquierda + 1 derecha |
+| CV para Compensar | Minimo 100 CV |
+
+**Insight:** Si no cumples estos requisitos la semana, no cobras Binario esa semana. Se reactiva cuando vuelves a cumplir.
+
+---
+
+### COMP_BIN_07: "Rangos - Requisitos de CV Semanal"
+
+**[Concepto Nuclear]:** Tu rango se define por el CV que COBRAS cada semana.
+
+**Tabla de Rangos:**
+| Rango | CV Semanal | % Binario |
+|-------|------------|-----------|
+| Sin rango | <1,500 | 10% |
+| Bronce | 1,500+ | 11% |
+| Plata | 2,500+ | 12% |
+| Oro | 4,000+ | 13% |
+| Platino | 8,000+ | 14% |
+| Diamante | 12,000+ | 15% |
+
+**Insight:** El rango se califica cada semana. Puedes subir y bajar segun tu desempeño.
+
+---
+
+### COMP_BIN_08: "Ejemplo practico del Binario - Cuanto gano si mi equipo crece"
+
+**[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es tu retiro semanal de por vida.
+
+El Binario paga CADA SEMANA sobre TODO el volumen de tu equipo, sin limite de profundidad.
+
+**Como funciona:**
+- Tu equipo se divide en 2 lados (izquierdo y derecho)
+- Cada compra de tu equipo genera CV
+- El sistema suma TODO el CV de cada lado
+- Te pagan el % sobre el lado MENOR
+
+**Proyeccion de Crecimiento (ESP-3 al 17%):**
+| Escenario | Activos/Lado | CV/Persona | CV Menor | Comision Semanal |
+|-----------|--------------|------------|----------|------------------|
+| Inicio | 5 | 60 CV | 300 CV | $51 USD |
+| 3 meses | 15 | 70 CV | 1,050 CV | $178 USD |
+| 6 meses | 30 | 80 CV | 2,400 CV | $408 USD |
+| 1 ano | 60 | 90 CV | 5,400 CV | $918 USD |
+| Diamante | 100+ | 120 CV | 12,000 CV | $2,040 USD |
+
+**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Formula: CV Menor × 17% × $1 USD.**
+
+**Lo que significa Rango Diamante:**
+| Periodo | Binario (USD) | Binario (COP) |
+|---------|---------------|---------------|
+| Semanal | $2,040 USD | ~$9.2M COP |
+| Mensual | $8,160 USD | ~$36.7M COP |
+| Anual | $97,920 USD | ~$440M COP |
+
+**Comparativa GEN5 vs Binario:**
+| Bono | Cuando Paga | Duracion |
+|------|-------------|----------|
+| GEN5 | Una vez por vinculacion | Unico |
+| Binario | CADA semana mientras haya actividad | Recurrente |
+
+**Insight:** El GEN5 te da flujo de caja para crecer. El Binario construye tu patrimonio. Un Diamante puede generar $36 millones/mes CADA MES en Bono Binario mientras su equipo este activo.
+
+---
+
+### COMP_BIN_09: "El CV se acumula o se pierde?"
+
+**[Concepto Nuclear]:** El CV NUNCA se pierde. Se acumula semana a semana mientras estes activo.
+
+A diferencia de muchas companias de network marketing donde el volumen no cobrado se pierde al final del mes, en Gano Excel el CV hace rollover.
+
+**Como Funciona el Rollover:**
+
+Gano Excel paga por centenas. Si tienes CV impar, el sobrante pasa al siguiente ciclo.
+
+**Ejemplo Practico:**
+| Ciclo | Izquierda | Derecha | Paga sobre | Queda Izq | Queda Der |
+|-------|-----------|---------|------------|-----------|-----------|
+| Semana 1 | 1,356 CV | 56,540 CV | 1,300 CV | 56 CV | 55,240 CV |
+| Semana 2 | 56 + 800 = 856 CV | 55,240 + 200 = 55,440 CV | 800 CV | 56 CV | 54,640 CV |
+
+**Requisito:** Estar activo con compra minima personal (50 PV). Si pierdes actividad, el CV se congela (no se borra).
+
+**Diferenciador vs Competencia:**
+| Compania | CV no cobrado |
+|----------|---------------|
+| Muchas MLM | Se pierde cada mes |
+| Gano Excel | Se acumula (rollover) |
+
+**Insight:** Tu trabajo NUNCA se pierde. El CV que construyes hoy sigue ahi manana. Solo necesitas mantener tu actividad personal.
+
+---
+
+### COMP_BIN_10: "Ejemplo practico del Binario con consumo estandar"
+
+**[Concepto Nuclear]:** 10 parejas consumiendo = ~$95 USD/semana. 100 parejas = ~$950 USD/semana.
+
+Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 = 56 CV).
+
+**Proyeccion con Consumo Estandar (56 CV/persona, 17%):**
+| Personas/Lado | CV/Persona | Comision Semanal (USD) | Comision Semanal (COP) |
+|---------------|------------|------------------------|------------------------|
+| 10 | 56 CV | $95 USD | ~$428K COP |
+| 100 | 56 CV | $952 USD | ~$4.3M COP |
+| 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
+
+**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Formula: Personas × 56 CV × 17% × $1 USD.**
+
+**Lo que significa en la practica:**
+| Escenario | Semanal (USD) | Mensual (USD) |
+|-----------|---------------|---------------|
+| 10 personas/lado | $95 USD | $380 USD |
+| 100 personas/lado | $952 USD | $3,808 USD |
+
+**Insight:** Con solo 10 personas consumiendo en cada lado, ya generas ~$100 USD semanales. El poder del Binario es que paga sobre TODO tu equipo, sin limite de profundidad.
+
+---
+
+## PAQUETES DE INVERSION
+
+### COMP_PAQ_01: "Cuales son los paquetes disponibles?"
+
+**[Concepto Nuclear]:** 4 opciones desde ~$100 USD hasta $1,000 USD. Solo ESP tiene GEN5.
+
+**Comparativa de Paquetes:**
+| Paquete | Inversion (USD) | Inversion (COP) | Productos | % Binario | GEN5? |
+|---------|-----------------|-----------------|-----------|-----------|-------|
+| Kit Inicio | ~$100 USD | ~$443,600 COP | Variable | 10% | NO |
+| ESP-1 | $200 USD | ~$900K COP | 7 | 15% (2 meses) | SI |
+| ESP-2 | $500 USD | ~$2.25M COP | 18 | 16% (4 meses) | SI |
+| ESP-3 | $1,000 USD | ~$4.5M COP | 35 | 17% (6 meses) | SI |
+
+**Bono GEN5 Gen 1 (socio directo):**
+| Tu Paquete | Nuevo ESP-3 | Nuevo ESP-2 | Nuevo ESP-1 |
+|------------|-------------|-------------|-------------|
+| ESP-3 | $150 USD | $75 USD | $25 USD |
+| ESP-2 | $75 USD | $75 USD | $25 USD |
+| ESP-1 | $25 USD | $25 USD | $25 USD |
+
+**Insight:** El Kit NO tiene GEN5. Si quieres ganar por expansion de red, necesitas minimo ESP-1.
+
+---
+
+### COMP_PAQ_02: "Que trae el ESP-1?"
+
+**[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
+
+**Contenido ESP-1 ($200 USD / ~$900K COP):**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafe 3en1 | 1 |
+| Ganocafe Clasico | 1 |
+| Ganorico Shoko Rico | 1 |
+| Ganorico Latte Rico | 1 |
+| Ganorico Mocha Rico | 1 |
+| Piel&Brillo Exfoliante | 1 |
+| Gano Soap (2/pkg) | 1 |
+| **Total** | **7** |
+
+**Insight:** ESP-1 te da acceso al GEN5, pero con techo limitado. Ideal si quieres probar antes de escalar.
+
+---
+
+### COMP_PAQ_03: "Que trae el ESP-2?"
+
+**[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
+
+**Contenido ESP-2 ($500 USD / ~$2.25M COP):**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafe 3en1 | 4 |
+| Ganocafe Classic | 3 |
+| Ganorico (varios) | 3 |
+| Gano C'Real Spirulina | 1 |
+| Reskine Collagen | 1 |
+| Cuidado Personal | 6 |
+| **Total** | **18** |
+
+**Insight:** ESP-2 duplica el techo de ESP-1 y te da mas inventario para mover.
+
+---
+
+### COMP_PAQ_04: "Que trae el ESP-3?"
+
+**[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
+
+**Contenido ESP-3 ($1,000 USD / ~$4.5M COP):**
+| Categoria | Cantidad |
+|-----------|----------|
+| Cafes (3en1 + Classic) | 20 |
+| Chocolates/Bebidas | 6 |
+| Cuidado Personal | 7 |
+| Suplementos (Ganoderma + Excellium) | 2 |
+| **Total** | **35** |
+
+**Insight:** ESP-3 = techo maximo + 17% Binario + 6 meses de bonus + inventario para desarrollar cartera de clientes.
+
+---
+
+## PROGRAMA AUTO ENVIO
+
+### COMP_AUTO_01: "Que es el programa Auto Envio?"
+
+**[Concepto Nuclear]:** 4 meses consecutivos activo = producto gratis.
+
+El Auto Envio es un programa de lealtad.
+
+**Beneficio por Nivel:**
+| Tu PV Mensual | Producto Gratis (valor) |
+|---------------|------------------------|
+| 50-99 PV | $73,000-$78,500 COP |
+| 100+ PV | $110,900-$124,900 COP |
+
+**Requisitos:**
+| Requisito | Detalle |
+|-----------|---------|
+| Meses consecutivos | 4 |
+| Debitos fallidos | Reinicia conteo |
+
+**Insight:** Si ya vas a consumir 50+ PV mensual, el Auto Envio te da un producto gratis cada 4 meses.
+
+---
+
+## GANANCIA POR VENTA DIRECTA
+
+### COMP_VENTA_01: "Puedo ganar vendiendo productos?"
+
+**[Concepto Nuclear]:** Ganas el diferencial entre precio constructor y precio publico.
+
+**Ejemplo con Ganocafe 3en1:**
+| Concepto | Valor |
+|----------|-------|
+| Tu costo | $110,900 |
+| Precio publico | $140,000 |
+| Tu ganancia | $29,100 |
+
+**Insight:** Muchos constructores desarrollan cartera de clientes naturalmente. Familiares y amigos que no hacen el proyecto pero consumen los productos.
+
+---
+
+## REGLAS CRITICAS PARA QUESWA
+
+1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Te puedo conectar con Liliana para datos precisos."
+
+2. **Estructura de respuesta para compensacion:**
+   - Primero: [Concepto Nuclear] - frase simple
+   - Segundo: Contexto breve (1-2 oraciones)
+   - Tercero: Tabla con ejemplo practico
+   - Cuarto: Insight que conecta con accion
+
+3. **USD PRIMERO.** Siempre mostrar valores en USD como moneda principal. COP entre parentesis como referencia local (~$X COP).
+
+4. **El Kit NO tiene GEN5.** Repetir cada vez que sea relevante.
+
+5. **Regla del Techo:** Cobras el MENOR entre tu techo y lo que genera el nuevo.
+
+6. **Gen 5 Doble:** 100 PV aplica igual para ESP-1, ESP-2 y ESP-3.
+
+7. **CV Personal NO Suma:** Tu compra solo te activa. El CV viene de tu equipo.
+
+8. **Siempre el % MAS ALTO:** El sistema aplica automaticamente el mejor porcentaje.
+
+9. **Analogia del Acueducto:** Al explicar compensacion, SIEMPRE usa esta analogia:
+   - **GEN5** = Pago por instalar tuberia (Construccion). Cada metro = un pago.
+   - **Binario** = Pago por el agua que fluye (Consumo Recurrente). Peaje infinito.
+
+---
+
+## DICCIONARIO TECNICO PARA QUESWA
+
+| Termino | Definicion |
+|---------|------------|
+| **Arbol de Vinculacion** | (Tambien: Arbol de Patrocinio) Tu portafolio de socios. Define QUIEN trajo a QUIEN. Aqui paga el GEN5. |
+| **Arbol de Colocacion** | (Tambien: Arbol Binario) Tu estructura de 2 lados. Define DONDE se ubican. Aqui paga la Regalia de Equipo. |
+| **Banco** | El lado de tu binario con MAS puntos acumulados (Pierna Fuerte). Ventaja estrategica: puedes enfocarte en el lado de cobro. |
+| **Lado de Cobro** | El lado de tu binario con MENOS puntos (Pierna Debil). Este es sobre el que te pagan. |
+| **PV (Personal Volume)** | Puntos de tus compras personales. Sirven para ACTIVARTE (50-100 PV). |
+| **CV (Commissionable Volume)** | Puntos de las compras de tu equipo. Sirven para PAGARTE (Binario). |
+| **GCV (Group CV)** | Suma total de CV de toda tu organizacion (ambos lados). |
+| **Ciclo Semanal** | Gano Excel corta los domingos y paga los viernes (2 semanas despues). |
+| **Rollover** | Los puntos no cobrados se ACUMULAN para la siguiente semana. Nunca se pierden. |
+| **Derrame (Spillover)** | Volumen que recibes de tu linea ascendente. Ellos colocan en TU estructura. |
+| **Techo** | Maximo que puedes cobrar segun tu paquete. ESP-3 = techo maximo. |
+| **Compresion** | Cuando tu paquete limita tu cobro (ej: tienes ESP-1, entra ESP-3 → pierdes diferencia). |
+
+**Nota para Queswa:** Al responder sobre compensacion, simplifica la matematica usando la Analogia del Acueducto:
+- "El GEN5 es como construir un acueducto: cada tramo de tuberia que instalas, te lo pagan."
+- "El Binario es como cobrar peaje: no importa quien pase, si usa tu autopista, tu cobras."
+
+---
+
+## FORMAS DE GANAR PENDIENTES
+
+| # | Forma de Ganar | Estado |
+|---|----------------|--------|
+| 1 | Bono GEN5 | DOCUMENTADO |
+| 2 | Regalia de Equipo | DOCUMENTADO |
+| 3 | Venta Directa | DOCUMENTADO |
+| 4 | Cheque Rapido | PENDIENTE |
+| 5 | Bono Liderazgo | PENDIENTE |
+| 6 | Bono Estilo de Vida | PENDIENTE |
+| 7 | Fondo Incentivos | PENDIENTE |
+| 8 | Bono Casa | PENDIENTE |
+| 9 | Bono Auto | PENDIENTE |
+| 10 | Viajes Incentivo | PENDIENTE |
+| 11 | Bono Fundadores | PENDIENTE |
+| 12 | Pool Liderazgo Global | PENDIENTE |
+
+**Para bonos no documentados:** Escalar a Liliana Moreno.
+
+---
+
+**Fin del Arsenal de Compensacion v5.1**
+**Total:** 38 respuestas documentadas + Diccionario Tecnico
+**Pendiente:** 9 formas de ganar adicionales
+
+**Cambios v5.1 (18 Ene 2026) - USD-FIRST CURRENCY POSITIONING:**
+- NUEVO ENFOQUE: USD como moneda principal de valoracion (reserva global)
+- ACTUALIZADO: COMP_MONEDA_01 - Tabla con USD primero, COP como referencia local
+- ACTUALIZADO: COMP_GEN5_02 a COMP_GEN5_08 - Todas las tablas en USD primero
+- ACTUALIZADO: COMP_BIN_02, COMP_BIN_08, COMP_BIN_10 - Binario valorado en USD
+- ACTUALIZADO: COMP_PAQ_01 a COMP_PAQ_04 - Paquetes con precio USD primero
+- ACTUALIZADO: Regla #3 Queswa - "USD PRIMERO" (antes "COP PRIMERO")
+- RAZON: Arquitectura de Activos se valora en moneda de reserva global
+
+**Cambios v5.0 (18 Ene 2026) - QUIET LUXURY AUDIT:**
+- LIMPIEZA SEMANTICA: inscribir → vincular, patrocinar → conectar, referidos → socios
+- NUEVO: Diccionario Tecnico completo (12 terminos incluyendo Banco, Derrame, Compresion)
+- NUEVO: Analogia del Acueducto como regla #9 para Queswa
+- RENOMBRADO: Arbol de Patrocinio → Arbol de Vinculacion (Patrocinio)
+- RENOMBRADO: Arbol Binario → Arbol Binario (de Colocacion)
+- ENFOQUE: Arquitectura de Activos (Quiet Luxury - No MLM tradicional)
+
+**Cambios v4.0 (18 Ene 2026) - AUDITORIA COMPLETA:**
+- NUEVO: COMP_CV_01 - Diferencia entre PV y CV + tabla CV por producto
+- NUEVO: COMP_CENTRO_01 - Definicion Centro de Negocio de Cobro
+- NUEVO: COMP_ACTIVO_01 - Definicion formal de "estar activo"
+- CORREGIDO: COMP_PV_03 - Ciclo es Lunes a Domingo (no Domingo a Sabado)
+- MEJORADO: COMP_BIN_02 - Ejemplo con formula visible (elimina friccion cognitiva)
+- REORDENADO: BIN_08 y BIN_09 ahora en orden secuencial correcto
+
+**Cambios v3.5 (18 Ene 2026):**
+- NUEVO: COMP_BIN_10 - Ejemplo practico con consumo estandar (56 CV/persona)
+- MEJORADO: Tabla simplificada sin columnas CV Total y Lado Menor (menos friccion cognitiva)
+
+**Cambios v3.4 (18 Ene 2026):**
+- NUEVO: COMP_ESTRUCTURA_01 - Definicion Arbol de Patrocinio (donde paga GEN5)
+- NUEVO: COMP_ESTRUCTURA_02 - Definicion Arbol Binario (donde paga Regalia de Equipo)
+
+**Cambios v3.3 (18 Ene 2026):**
+- NUEVO: COMP_BIN_09 - CV Rollover (el CV nunca se pierde, diferenciador clave)
+- CORREGIDO: COMP_PV_02 - Ciclo cierra domingo, no sabado
+- MEJORADO: COMP_GEN5_02 - Tabla con columna "Resultado" para claridad
+
+**Cambios v3.2 (18 Ene 2026):**
+- CORREGIDO: COMP_GEN5_08 - Eliminado "semanal" (GEN5 es por construccion, no recurrente)
+- NUEVO: Metafora del acueducto para explicar GEN5 vs Binario
+
+**Cambios v3.1 (18 Ene 2026):**
+- NUEVO: COMP_BIN_08 - Ejemplo practico aspiracional del Binario con proyeccion de crecimiento
+
+**Cambios v3.0 (18 Ene 2026):**
+- NUEVO: Estructura [Concepto Nuclear] + Tabla + Insight en TODAS las respuestas
+- NUEVO: Regla de estructura de respuesta para Queswa
+- MEJORADO: Todas las respuestas ahora tienen formato de conversion
+- MEJORADO: Tablas como formato principal (no texto plano)
+- MEJORADO: Insights que conectan con accion/decision
+
+**Cambios v2.3 (18 Ene 2026):**
+- MEJORADO: COMP_GEN5_08 - Formato visual paso a paso
+
+**Cambios v2.2 (18 Ene 2026):**
+- NUEVO: COMP_GEN5_08 - Proyeccion 2x2 con crecimiento exponencial
+
+**Cambios v2.1 (18 Ene 2026):**
+- NUEVO: COMP_MONEDA_01 - Tasa de cambio fija $4,500 COP/USD
+- NUEVO: COMP_PV_07 - Regla del excedente de 120 PV
+- CORREGIDO: COMP_PV_04 - CV personal NO suma a la red
+

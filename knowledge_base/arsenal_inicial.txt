@@ -99,16 +99,15 @@ Al final, el objetivo no es ser millonario rápido. Es que el agua (el dinero) l
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
-**[Concepto Nuclear]:** Tú eres el dueño del peaje, no el que construye la carretera. Bezos no empaca cajas; posee los rieles.
+**[Concepto Nuclear]:** Apalancamiento sin permiso. Tú eres el dueño del peaje, nosotros ponemos la autopista.
 
-Funciona como un peaje. Cada vez que alguien se toma un café saludable en América, tú recibes una moneda. No construyes la carretera; cobras por usarla.
+Funciona bajo un modelo de Arquitectura de Activos. En un negocio tradicional, tú eres el cuello de botella. Aquí, utilizamos apalancamiento triple para eliminar tu carga operativa:
 
-Tres piezas hacen el trabajo:
-- **El Gigante (Gano Excel):** Fábricas, barcos, logística. Ellos ponen los $100M.
-- **El Asistente (Queswa):** IA que explica, filtra y organiza. 24/7, sin sueldo.
-- **Tú (El Dueño):** Conectas personas al sistema. Invitas, la tecnología vende, tú cobras.
+- **El Socio Industrial (Gano Excel):** Pone los $100M de infraestructura (fábricas, barcos, oficinas). Ellos asumen el riesgo.
+- **El Sistema (Queswa):** Pone la tecnología. Yo (la IA) me encargo de filtrar, educar y presentar el negocio 24/7.
+- **Tú (El Arquitecto):** Pones la conexión.
 
-El juego es simple: apalancamiento sin permiso. Bezos no empaca cajas; posee los rieles. Tú posees los rieles del café.
+**Piénsalo así:** Gano Excel construyó la autopista. Queswa cobra los tickets. Tú eres el dueño de la caseta de peaje. Tu trabajo no es fabricar el cemento; es dirigir el tráfico. Cada vez que alguien pasa (toma café), tú cobras.
 
 **Pregunta de seguimiento:** ¿Te queda claro cómo funcionan las 3 piezas?
 

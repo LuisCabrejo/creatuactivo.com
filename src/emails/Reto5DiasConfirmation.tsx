@@ -13,7 +13,6 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -77,27 +76,29 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo */}
-          <table width="100%" cellPadding={0} cellSpacing={0} border={0} style={{ marginBottom: '24px' }}>
-            <tbody>
-              <tr>
-                <td align="center" valign="middle" style={{ padding: 0 }}>
-                  <Img
-                    src="https://creatuactivo.com/logo-email-header-280x80.png"
-                    width="280"
-                    height="80"
-                    alt="CreaTuActivo"
-                    style={{
-                      display: 'block',
-                      width: '280px',
-                      height: '80px',
-                      maxWidth: '100%',
-                    }}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {/* Logo - Text only for perfect clarity */}
+          <Section style={{ textAlign: 'center' as const, marginBottom: '32px', padding: '20px 0' }}>
+            <div style={{
+              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontSize: '28px',
+              fontWeight: '300',
+              letterSpacing: '-0.5px',
+              color: colors.text,
+              lineHeight: '1.2'
+            }}>
+              Crea<span style={{ fontWeight: '600', color: colors.gold }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: '#666666',
+              marginTop: '8px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
+          </Section>
 
           {/* Título */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px' }}>

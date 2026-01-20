@@ -18,7 +18,6 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -84,7 +83,7 @@ export const FounderConfirmationEmail = ({
           backgroundColor: BRAND.colors.dark
         }}>
 
-          {/* Header con logo */}
+          {/* Header con logo de texto */}
           <Section style={{
             backgroundColor: BRAND.colors.blue,
             padding: '32px 40px',
@@ -92,18 +91,28 @@ export const FounderConfirmationEmail = ({
             borderRadius: '12px 12px 0 0'
           }} className="mobile-padding-lg">
 
-            <Img
-              src="https://creatuactivo.com/logo-email-header-280x80.png"
-              width="280"
-              height="80"
-              alt="CreaTuActivo - Ecosistema Tecnológico"
-              style={{
-                margin: '0 auto 20px',
-                display: 'block',
-                maxWidth: '100%',
-                height: 'auto'
-              }}
-            />
+            {/* Logo - Text only */}
+            <div style={{
+              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontSize: '28px',
+              fontWeight: '300',
+              letterSpacing: '-0.5px',
+              color: BRAND.colors.white,
+              lineHeight: '1.2',
+              marginBottom: '8px'
+            }}>
+              Crea<span style={{ fontWeight: '600', color: BRAND.colors.gold }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: 'rgba(255, 255, 255, 0.5)',
+              marginBottom: '20px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
 
             <Heading style={{
               margin: '0',

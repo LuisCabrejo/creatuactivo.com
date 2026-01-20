@@ -19,7 +19,6 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -92,15 +91,28 @@ export const Reto12DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo minimalista */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '24px' }}>
-            <Img
-              src="https://creatuactivo.com/logo-email-footer-180x48.png"
-              width="180"
-              height="48"
-              alt="CreaTuActivo"
-              style={{ margin: '0 auto', display: 'block' }}
-            />
+          {/* Logo - Text only for perfect clarity */}
+          <Section style={{ textAlign: 'center' as const, marginBottom: '32px', padding: '20px 0' }}>
+            <div style={{
+              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontSize: '22px',
+              fontWeight: '300',
+              letterSpacing: '-0.4px',
+              color: colors.text,
+              lineHeight: '1.2'
+            }}>
+              Crea<span style={{ fontWeight: '600', color: colors.accent }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '8px',
+              letterSpacing: '2px',
+              color: '#666666',
+              marginTop: '6px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
           </Section>
 
           {/* Título principal - limpio y grande */}

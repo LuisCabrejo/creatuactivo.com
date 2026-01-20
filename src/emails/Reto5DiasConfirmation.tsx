@@ -172,6 +172,40 @@ export const Reto5DiasConfirmationEmail = ({
             </Text>
           </Section>
 
+          {/* WhatsApp CTA - Click-to-Chat */}
+          <Section style={{ marginBottom: '24px', textAlign: 'center' as const }}>
+            <Text style={{
+              margin: '0 0 16px',
+              color: colors.textMuted,
+              fontSize: '14px',
+              lineHeight: '24px'
+            }}>
+              Para asegurar que recibas todos los materiales,<br />
+              confírmame tu asistencia por WhatsApp:
+            </Text>
+            <table width="100%" cellPadding={0} cellSpacing={0} style={{ margin: '0 auto' }}>
+              <tr>
+                <td align="center">
+                  <Button
+                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Confirmo mi asistencia al Reto de 5 Días.`)}`}
+                    style={{
+                      backgroundColor: '#25D366',
+                      color: '#FFFFFF',
+                      padding: '16px 32px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      fontSize: '16px',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+                    }}
+                  >
+                    ✓ Confirmar por WhatsApp
+                  </Button>
+                </td>
+              </tr>
+            </table>
+          </Section>
+
           {/* Lo que aprenderás */}
           <Section style={{ marginBottom: '24px', padding: '0 4px' }}>
             <Text style={{
@@ -236,10 +270,10 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '15px',
               lineHeight: '24px'
             }}>
-              ¡Nos vemos mañana!<br /><br />
+              Hacia tu soberanía,<br /><br />
               <strong>Luis Cabrejo</strong><br />
-              <span style={{ color: colors.textSubtle, fontSize: '13px' }}>
-                Fundador de CreaTuActivo
+              <span style={{ color: colors.gold, fontSize: '13px' }}>
+                Arquitecto de Activos
               </span>
             </Text>
           </Section>

@@ -119,6 +119,37 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
               <strong style={{ color: '#C5A059' }}>Tu viaje para cambiar ese número rojo a verde acaba de empezar.</strong>
             </Text>
 
+            {/* WhatsApp VIP CTA */}
+            <Section style={whatsappBox}>
+              <Text style={{ margin: '0 0 12px', color: '#C5A059', fontSize: '14px', fontWeight: '600', textAlign: 'center' as const }}>
+                ACCESO VIP
+              </Text>
+              <Text style={{ margin: '0 0 16px', color: '#A3A3A3', fontSize: '14px', lineHeight: '1.6', textAlign: 'center' as const }}>
+                Para asegurarme de que recibas el video de mañana y poder resolver tus dudas personalmente, he abierto un canal directo en mi WhatsApp.
+              </Text>
+              <table width="100%" cellPadding={0} cellSpacing={0}>
+                <tr>
+                  <td align="center">
+                    <Button
+                      href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Estoy listo para el Reto de 5 Días.`)}`}
+                      style={{
+                        backgroundColor: '#25D366',
+                        color: '#FFFFFF',
+                        padding: '14px 28px',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        fontWeight: '600',
+                        fontSize: '15px',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+                      }}
+                    >
+                      CONFIRMAR MI CUPO EN WHATSAPP
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+
             <Text style={signature}>
               Hacia tu soberanía,
               <br /><br />
@@ -211,6 +242,14 @@ const highlightBox = {
   lineHeight: '1.6',
   margin: '24px 0',
   borderRadius: '0 8px 8px 0',
+};
+
+const whatsappBox = {
+  backgroundColor: '#1A1D23',
+  border: '1px solid rgba(197, 160, 89, 0.3)',
+  padding: '24px',
+  margin: '32px 0',
+  borderRadius: '12px',
 };
 
 const inlineLink = {

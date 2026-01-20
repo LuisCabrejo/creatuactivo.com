@@ -162,8 +162,9 @@ export async function GET(request: NextRequest) {
         const emailHtml = await render(Component({ firstName }));
 
         const { error: emailError } = await getResendClient().emails.send({
-          from: 'Luis de CreaTuActivo <test@creatuactivo.com>',
+          from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
           to: [lead.email],
+          replyTo: 'hola@creatuactivo.com',
           subject: emailConfig.subject.replace('{{firstName}}', firstName),
           html: emailHtml,
         });
@@ -191,8 +192,8 @@ export async function GET(request: NextRequest) {
         errors++;
       }
 
-      // Rate limiting: esperar 100ms entre emails
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Rate limiting: esperar 550ms entre emails (Resend limit: 2 req/s = 500ms)
+      await new Promise(resolve => setTimeout(resolve, 550));
     }
 
     console.log(`✅ [RETO-CRON] Completado: ${processed} enviados, ${skipped} saltados, ${errors} errores`);

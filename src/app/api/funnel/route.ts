@@ -305,8 +305,9 @@ async function sendRetoWelcomeEmail(
     // Usar withRetry para manejar timeouts temporales
     const result = await withRetry(async () => {
       const { data, error } = await getResendClient().emails.send({
-        from: 'CreaTuActivo <test@creatuactivo.com>',
+        from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
         to: [email],
+        replyTo: 'hola@creatuactivo.com',
         subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
         html: emailHtml,
       });
@@ -388,7 +389,7 @@ async function sendAdminNotification(
 
   try {
     const { error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo Notificaciones <test@creatuactivo.com>',
+      from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
       to: ['luiscabrejo7@gmail.com', 'notificaciones@creatuactivo.com'],
       subject: `🎯 Nuevo registro Reto 5 Días: ${firstName}`,
       html: adminHtml,
@@ -418,8 +419,9 @@ async function sendFirstEmail(
     );
 
     const { data, error } = await getResendClient().emails.send({
-      from: 'Luis de CreaTuActivo <test@creatuactivo.com>',
+      from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
       to: [email],
+      replyTo: 'hola@creatuactivo.com',
       subject: `${firstName}, tu resultado + mi historia`,
       html: emailHtml,
     });

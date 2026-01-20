@@ -69,10 +69,10 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
 
           {/* Content */}
           <Section style={content}>
-            <Heading style={h1}>{firstName},</Heading>
+            <Heading style={h1}>Hola {firstName},</Heading>
 
             <Text style={paragraph}>
-              Bienvenido al Día 1 del Reto.
+              Te damos la bienvenida al Día 1 del Reto.
             </Text>
 
             <Text style={paragraph}>

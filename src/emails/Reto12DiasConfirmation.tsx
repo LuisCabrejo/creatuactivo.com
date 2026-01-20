@@ -33,7 +33,7 @@ export const Reto12DiasConfirmationEmail = ({
   firstName = 'Constructor',
   selectedPackage = 'Kit de Inicio',
 }: Reto12DiasConfirmationProps) => {
-  const previewText = `¡Bienvenido al Reto de los 12 Días, ${firstName}!`;
+  const previewText = `¡Hola ${firstName}, te damos la bienvenida al Reto de los 12 Días!`;
 
   // Paleta minimalista
   const colors = {
@@ -128,7 +128,7 @@ export const Reto12DiasConfirmationEmail = ({
                 lineHeight: '1.2'
               }}
             >
-              ¡Bienvenido, {firstName}!
+              ¡Hola {firstName}, te damos la bienvenida!
             </Heading>
           </Section>
 

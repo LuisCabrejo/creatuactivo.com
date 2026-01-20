@@ -79,14 +79,14 @@ export const Reto5DiasConfirmationEmail = ({
           {/* Logo - Text only for perfect clarity */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px', padding: '20px 0' }}>
             <div style={{
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
               fontSize: '28px',
-              fontWeight: '300',
-              letterSpacing: '-0.5px',
-              color: colors.text,
+              fontWeight: '400',
+              letterSpacing: '0.05em',
+              color: '#E5E5E5',
               lineHeight: '1.2'
             }}>
-              Crea<span style={{ fontWeight: '600', color: colors.gold }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
             </div>
             <div style={{
               fontFamily: 'Inter, sans-serif',
@@ -112,7 +112,7 @@ export const Reto5DiasConfirmationEmail = ({
                 lineHeight: '1.3'
               }}
             >
-              ¡Bienvenido al Reto, {firstName}!
+              ¡Hola {firstName}, te damos la bienvenida!
             </Heading>
           </Section>
 

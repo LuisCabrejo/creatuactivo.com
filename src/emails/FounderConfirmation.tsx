@@ -93,15 +93,15 @@ export const FounderConfirmationEmail = ({
 
             {/* Logo - Text only */}
             <div style={{
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
               fontSize: '28px',
-              fontWeight: '300',
-              letterSpacing: '-0.5px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
               color: BRAND.colors.white,
               lineHeight: '1.2',
               marginBottom: '8px'
             }}>
-              Crea<span style={{ fontWeight: '600', color: BRAND.colors.gold }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
             </div>
             <div style={{
               fontFamily: 'Inter, sans-serif',

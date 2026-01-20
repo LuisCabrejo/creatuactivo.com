@@ -82,14 +82,14 @@ export const PreRegistroUserEmail = ({
           {/* Logo - Text only for perfect clarity */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '32px', padding: '20px 0' }}>
             <div style={{
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
               fontSize: '22px',
-              fontWeight: '300',
-              letterSpacing: '-0.4px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
               color: colors.text,
               lineHeight: '1.2'
             }}>
-              Crea<span style={{ fontWeight: '600', color: colors.accent }}>Tu</span><span style={{ fontWeight: '600' }}>Activo</span>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
             </div>
             <div style={{
               fontFamily: 'Inter, sans-serif',

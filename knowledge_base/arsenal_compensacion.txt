@@ -32,7 +32,7 @@ El ecosistema Gano Excel opera en mas de 70 paises. Utilizamos el Dolar (USD) co
 
 ### COMP_MODELO_01: "Como se gana en el negocio?" / "Como funciona el plan de compensacion?"
 
-**[Concepto Nuclear]:** Volumen, no gente. Ganamos por tazas de cafe consumidas, no por personas inscritas.
+**[Concepto Nuclear]:** Volumen, no gente. Ganamos por el volumen de tazas de cafe consumidas.
 
 Quiero ser muy claro: No nos pagan por reclutar personas. Nos pagan porque el producto se mueve. Construimos una red de consumo. Tu activo genera regalias cada vez que alguien en tu organizacion (en cualquier pais) se prepara una taza de cafe, se lava los dientes o toma un suplemento.
 
@@ -616,20 +616,25 @@ El Binario paga CADA SEMANA sobre TODO el volumen de tu equipo, sin limite de pr
 
 **Como funciona:**
 - Tu equipo se divide en 2 lados (izquierdo y derecho)
-- Cada compra de tu equipo genera CV
+- Cada compra de tu equipo genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
 - El sistema suma TODO el CV de cada lado
-- Te pagan el % sobre el lado MENOR
+- Te pagan el 17% sobre el lado de MENOR volumen
 
-**Proyeccion de Crecimiento (ESP-3 al 17%):**
-| Escenario | Activos/Lado | CV/Persona | CV Menor | Comision Semanal |
-|-----------|--------------|------------|----------|------------------|
-| Inicio | 5 | 60 CV | 300 CV | $51 USD |
-| 3 meses | 15 | 70 CV | 1,050 CV | $178 USD |
-| 6 meses | 30 | 80 CV | 2,400 CV | $408 USD |
-| 1 ano | 60 | 90 CV | 5,400 CV | $918 USD |
-| Diamante | 100+ | 120 CV | 12,000 CV | $2,040 USD |
+**⚠️ QUESWA REGLA CRITICA:** Cuando ambos lados tienen el MISMO numero de personas activas, el Lado Menor = CV Total de UN lado (NO la mitad).
 
-**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Formula: CV Menor × 17% × $1 USD.**
+**TABLA CANONICA - Proyeccion con Consumo Estandar (56 CV/persona, 17%):**
+
+| Mes | Personas/Lado | CV Total/Lado | Lado Menor | Comision Semanal | Comision Mensual |
+|-----|---------------|---------------|------------|------------------|------------------|
+| 1 | 10 | 560 CV | 560 CV | $95 USD | $380 USD |
+| 3 | 25 | 1,400 CV | 1,400 CV | $238 USD | $952 USD |
+| 6 | 50 | 2,800 CV | 2,800 CV | $476 USD | $1,904 USD |
+| 12 | 100 | 5,600 CV | 5,600 CV | $952 USD | $3,808 USD |
+| 18 | 200 | 11,200 CV | 5,600 CV | $952 USD | $3,808 USD |
+
+**Nota sobre Mes 18:** Ejemplo de equipos desbalanceados (200 vs 100). Lado Menor = 5,600 CV.
+
+**⚠️ QUESWA: USA SIEMPRE ESTA TABLA. Formula: Lado Menor × 17% × $1 USD. NO IMPROVISES NUMEROS.**
 
 **Lo que significa Rango Diamante:**
 | Periodo | Binario (USD) | Binario (COP) |
@@ -895,70 +900,6 @@ El Auto Envio es un programa de lealtad.
 
 ---
 
-**Fin del Arsenal de Compensacion v5.1**
+**Fin del Arsenal de Compensacion v5.2**
 **Total:** 38 respuestas documentadas + Diccionario Tecnico
-**Pendiente:** 9 formas de ganar adicionales
-
-**Cambios v5.1 (18 Ene 2026) - USD-FIRST CURRENCY POSITIONING:**
-- NUEVO ENFOQUE: USD como moneda principal de valoracion (reserva global)
-- ACTUALIZADO: COMP_MONEDA_01 - Tabla con USD primero, COP como referencia local
-- ACTUALIZADO: COMP_GEN5_02 a COMP_GEN5_08 - Todas las tablas en USD primero
-- ACTUALIZADO: COMP_BIN_02, COMP_BIN_08, COMP_BIN_10 - Binario valorado en USD
-- ACTUALIZADO: COMP_PAQ_01 a COMP_PAQ_04 - Paquetes con precio USD primero
-- ACTUALIZADO: Regla #3 Queswa - "USD PRIMERO" (antes "COP PRIMERO")
-- RAZON: Arquitectura de Activos se valora en moneda de reserva global
-
-**Cambios v5.0 (18 Ene 2026) - QUIET LUXURY AUDIT:**
-- LIMPIEZA SEMANTICA: inscribir → vincular, patrocinar → conectar, referidos → socios
-- NUEVO: Diccionario Tecnico completo (12 terminos incluyendo Banco, Derrame, Compresion)
-- NUEVO: Analogia del Acueducto como regla #9 para Queswa
-- RENOMBRADO: Arbol de Patrocinio → Arbol de Vinculacion (Patrocinio)
-- RENOMBRADO: Arbol Binario → Arbol Binario (de Colocacion)
-- ENFOQUE: Arquitectura de Activos (Quiet Luxury - No MLM tradicional)
-
-**Cambios v4.0 (18 Ene 2026) - AUDITORIA COMPLETA:**
-- NUEVO: COMP_CV_01 - Diferencia entre PV y CV + tabla CV por producto
-- NUEVO: COMP_CENTRO_01 - Definicion Centro de Negocio de Cobro
-- NUEVO: COMP_ACTIVO_01 - Definicion formal de "estar activo"
-- CORREGIDO: COMP_PV_03 - Ciclo es Lunes a Domingo (no Domingo a Sabado)
-- MEJORADO: COMP_BIN_02 - Ejemplo con formula visible (elimina friccion cognitiva)
-- REORDENADO: BIN_08 y BIN_09 ahora en orden secuencial correcto
-
-**Cambios v3.5 (18 Ene 2026):**
-- NUEVO: COMP_BIN_10 - Ejemplo practico con consumo estandar (56 CV/persona)
-- MEJORADO: Tabla simplificada sin columnas CV Total y Lado Menor (menos friccion cognitiva)
-
-**Cambios v3.4 (18 Ene 2026):**
-- NUEVO: COMP_ESTRUCTURA_01 - Definicion Arbol de Patrocinio (donde paga GEN5)
-- NUEVO: COMP_ESTRUCTURA_02 - Definicion Arbol Binario (donde paga Regalia de Equipo)
-
-**Cambios v3.3 (18 Ene 2026):**
-- NUEVO: COMP_BIN_09 - CV Rollover (el CV nunca se pierde, diferenciador clave)
-- CORREGIDO: COMP_PV_02 - Ciclo cierra domingo, no sabado
-- MEJORADO: COMP_GEN5_02 - Tabla con columna "Resultado" para claridad
-
-**Cambios v3.2 (18 Ene 2026):**
-- CORREGIDO: COMP_GEN5_08 - Eliminado "semanal" (GEN5 es por construccion, no recurrente)
-- NUEVO: Metafora del acueducto para explicar GEN5 vs Binario
-
-**Cambios v3.1 (18 Ene 2026):**
-- NUEVO: COMP_BIN_08 - Ejemplo practico aspiracional del Binario con proyeccion de crecimiento
-
-**Cambios v3.0 (18 Ene 2026):**
-- NUEVO: Estructura [Concepto Nuclear] + Tabla + Insight en TODAS las respuestas
-- NUEVO: Regla de estructura de respuesta para Queswa
-- MEJORADO: Todas las respuestas ahora tienen formato de conversion
-- MEJORADO: Tablas como formato principal (no texto plano)
-- MEJORADO: Insights que conectan con accion/decision
-
-**Cambios v2.3 (18 Ene 2026):**
-- MEJORADO: COMP_GEN5_08 - Formato visual paso a paso
-
-**Cambios v2.2 (18 Ene 2026):**
-- NUEVO: COMP_GEN5_08 - Proyeccion 2x2 con crecimiento exponencial
-
-**Cambios v2.1 (18 Ene 2026):**
-- NUEVO: COMP_MONEDA_01 - Tasa de cambio fija $4,500 COP/USD
-- NUEVO: COMP_PV_07 - Regla del excedente de 120 PV
-- CORREGIDO: COMP_PV_04 - CV personal NO suma a la red
 

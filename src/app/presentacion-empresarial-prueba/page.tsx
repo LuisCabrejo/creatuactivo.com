@@ -31,7 +31,7 @@ export default function PresentacionEmpresarialPruebaPage() {
                 <span className="text-[#0a0a0f] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
               </div>
               <span className="text-lg font-medium">
-                Crea<span className="text-[#D4AF37]">Tu</span>Activo
+                CreaTu<span className="text-[#D4AF37]">Activo</span>
               </span>
             </Link>
 

@@ -227,7 +227,7 @@ export default function WebinarSalaPage() {
                   </span>
                 </div>
                 <span className="text-lg font-medium">
-                  Crea<span style={{ color: COLORS.gold }}>Tu</span>Activo
+                  CreaTu<span style={{ color: COLORS.gold }}>Activo</span>
                 </span>
               </Link>
 

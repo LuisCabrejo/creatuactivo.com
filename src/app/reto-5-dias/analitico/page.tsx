@@ -70,7 +70,7 @@ export default function RetoAnaliticoPage() {
                 <span className="text-[#0F1115] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
               </div>
               <span className="text-lg font-medium">
-                Crea<span className="text-[#C5A059]">Tu</span>Activo
+                CreaTu<span className="text-[#C5A059]">Activo</span>
               </span>
             </Link>
           </div>

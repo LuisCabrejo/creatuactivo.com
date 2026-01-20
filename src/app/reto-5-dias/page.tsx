@@ -1,10 +1,11 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * RETO 5 DÍAS - SQUEEZE PAGE (Russell Brunson Style)
  * Página minimalista de captura para tráfico frío (ads/redes)
  *
- * Estructura basada en investigación "Páginas Definitivas y Estrategia de Funnel"
- * Sección 3.1: Elementos Críticos de la Página de Aterrizaje
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, accents
+ * Titanium (#94A3B8): Structural elements
  */
 
 'use client';
@@ -73,7 +74,7 @@ export default function Reto5DiasPage() {
                 <span className="text-[#0F1115] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
               </div>
               <span className="text-lg font-medium">
-                Crea<span className="text-[#C5A059]">Tu</span>Activo
+                CreaTu<span className="text-[#C5A059]">Activo</span>
               </span>
             </Link>
           </div>
@@ -111,7 +112,7 @@ export default function Reto5DiasPage() {
                 &quot;A los 40 años descubrí que había comprado un empleo, no construido un activo.
                 Esta es la hoja de ruta matemática para salir de la trampa.&quot;
               </p>
-              <p className="text-xs text-[#6b6b75] text-center mt-2">
+              <p className="text-xs text-[#64748B] text-center mt-2">
                 — Luis Cabrejo, Arquitecto de Activos
               </p>
             </div>
@@ -124,7 +125,7 @@ export default function Reto5DiasPage() {
                 value={formData.nombre}
                 onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="email"
@@ -132,7 +133,7 @@ export default function Reto5DiasPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="tel"
@@ -140,7 +141,7 @@ export default function Reto5DiasPage() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#C5A059] transition-colors"
               />
 
               {error && (
@@ -169,7 +170,7 @@ export default function Reto5DiasPage() {
 
             {/* ANTI-GANCHOS - Manejo objeciones preventivo */}
             <div className="mt-6 pt-6 border-t border-[rgba(197, 160, 89, 0.15)]">
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#6b6b75]">
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#64748B]">
                 <span className="flex items-center gap-1">
                   <svg className="w-3.5 h-3.5 text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -192,7 +193,7 @@ export default function Reto5DiasPage() {
             </div>
 
             {/* Trust Elements */}
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-[#6b6b75]">
+            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-[#64748B]">
               <span className="flex items-center gap-1">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -207,19 +208,19 @@ export default function Reto5DiasPage() {
           </div>
 
           {/* Social Proof */}
-          <p className="text-center text-[#6b6b75] text-sm mt-6">
+          <p className="text-center text-[#64748B] text-sm mt-6">
             +2,400 personas ya tomaron el reto
           </p>
         </div>
       </div>
 
       {/* Minimal Footer */}
-      <footer className="py-4 text-center text-[#6b6b75] text-xs relative z-10">
+      <footer className="py-4 text-center text-[#64748B] text-xs relative z-10">
         <Link href="/privacidad" className="hover:text-[#A3A3A3] transition-colors">
           Política de Privacidad
         </Link>
         <span className="mx-2">•</span>
-        <span>© 2025 CreaTuActivo.com</span>
+        <span>© 2026 CreaTuActivo.com</span>
       </footer>
     </main>
   );

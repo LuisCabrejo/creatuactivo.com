@@ -99,7 +99,7 @@ function Navigation() {
               <span className="font-bold text-xl" style={{ color: 'var(--bg-deep)', fontFamily: 'var(--font-display)' }}>C</span>
             </div>
             <span className="text-xl tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              Crea<span style={{ color: 'var(--gold)' }}>Tu</span>Activo
+              CreaTu<span style={{ color: 'var(--gold)' }}>Activo</span>
             </span>
           </Link>
 
@@ -951,7 +951,7 @@ function Footer() {
               <span className="font-bold" style={{ color: 'var(--bg-deep)', fontFamily: 'var(--font-display)' }}>C</span>
             </div>
             <span className="text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              Crea<span style={{ color: 'var(--gold)' }}>Tu</span>Activo
+              CreaTu<span style={{ color: 'var(--gold)' }}>Activo</span>
             </span>
           </div>
 

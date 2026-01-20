@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 4: El Estigma
- * "La verdad sobre el network"
+ * Reto 5 Días - Día 4: La Doble Trampa
+ * "Gané dinero, pero perdí mi vida (La verdad del E-commerce)"
  */
 
 import * as React from 'react';
@@ -11,7 +11,6 @@ import {
   Head,
   Heading,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -23,7 +22,7 @@ interface Dia4Props {
 }
 
 export const Dia4Estigma = ({ firstName = 'Hola' }: Dia4Props) => {
-  const previewText = `Día 4: ${firstName}, la verdad incómoda`;
+  const previewText = `Gané dinero, pero perdí mi vida (La verdad del E-commerce)`;
 
   return (
     <Html lang="es">
@@ -34,77 +33,114 @@ export const Dia4Estigma = ({ firstName = 'Hola' }: Dia4Props) => {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Img
-              src="https://creatuactivo.com/logo-email-header-280x80.png"
-              width="280"
-              height="80"
-              alt="CreaTuActivo"
-              style={{ margin: '0 auto', display: 'block' }}
-            />
+            <div style={{
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
+              fontSize: '28px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
+              color: '#E5E5E5',
+              lineHeight: '1.2'
+            }}>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: 'rgba(255, 255, 255, 0.5)',
+              marginTop: '8px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
           </Section>
 
           <Section style={dayBadge}>
             <Text style={dayNumber}>DÍA 4</Text>
-            <Text style={dayTitle}>El Estigma</Text>
+            <Text style={dayTitle}>La Doble Trampa</Text>
           </Section>
 
           <Section style={content}>
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Ayer te conté que encontré un modelo que funcionaba.
+              Ayer te dejé con un cliffhanger: Era el #1, pero algo estaba mal.
             </Text>
 
             <Text style={paragraph}>
-              Pero había un problema.
+              La verdad es esta: <strong style={{ color: '#f5f5f5' }}>Mi éxito no se duplicaba.</strong>
             </Text>
 
             <Text style={paragraph}>
-              Cuando miraba a mi equipo, veía personas esforzándose... pero no logrando los mismos resultados que yo. Lo que para mí era natural, para ellos era una lucha constante.
+              Lo que para mí era natural (hablar, liderar, vender), para mi equipo era una tortura. Veía a gente buena esforzándose y fracasando. El modelo tradicional de "perseguir gente" funcionaba para mí, pero no para ellos.
+            </Text>
+
+            <Text style={paragraph}>
+              Me sentí culpable. Así que busqué la "salida fácil". Pensé:
             </Text>
 
             <Text style={highlightBox}>
-              Mi éxito personal no se duplicaba.
+              "El problema es la gente. Me iré al E-commerce. Venderé productos por internet sin hablar con nadie."
             </Text>
 
             <Text style={paragraph}>
-              Y esa fue mi primera gran epifanía: <strong style={{ color: '#f5f5f5' }}>un sistema que solo funciona para algunos no es una solución real.</strong>
+              Usé mis habilidades técnicas. Monté una tienda online. Empezamos a vender por todo el continente durante la pandemia.
             </Text>
 
             <Text style={paragraph}>
-              Además, el modelo tradicional de network marketing carga con un estigma enorme:
-            </Text>
-
-            <Text style={listItem}>• "Haz una lista de 100 contactos"</Text>
-            <Text style={listItem}>• "Llama a tus amigos y familiares"</Text>
-            <Text style={listItem}>• "Invítalos a una reunión"</Text>
-
-            <Text style={paragraph}>
-              <strong style={{ color: '#f5f5f5' }}>¿El resultado?</strong> Relaciones incómodas, reuniones vacías, y la sensación de estar pidiendo un favor.
+              ¡Los números subían! Pensé que había encontrado el Santo Grial.
             </Text>
 
             <Text style={paragraph}>
-              Entonces me hice una pregunta:
+              <strong style={{ color: '#D4AF37' }}>Pero entonces llegó la segunda bofetada:</strong>
+            </Text>
+
+            <Text style={paragraph}>
+              El E-commerce tradicional es una <strong style={{ color: '#f5f5f5' }}>pesadilla logística</strong>.
+            </Text>
+
+            <Text style={listItem}>• Pasé de "perseguir prospectos" a "perseguir paquetes".</Text>
+            <Text style={listItem}>• Estaba despierto a las 3:00 AM resolviendo problemas de aduanas.</Text>
+            <Text style={listItem}>• Mis márgenes se los comía la publicidad y el inventario.</Text>
+
+            <Text style={paragraph}>
+              Había cambiado un jefe por mil jefes (los clientes). Seguía sin tiempo para mi esposa y mis promesas.
+            </Text>
+
+            <Text style={paragraph}>
+              En ese momento de desesperación, comparé mis dos fracasos y tuve la <strong style={{ color: '#D4AF37' }}>revelación final</strong>:
+            </Text>
+
+            <Text style={modelItem}>
+              <span style={{ color: '#D4AF37', fontWeight: '600' }}>1. Red de Mercadeo</span>
+              <br />
+              La logística era perfecta (Gano Excel ponía todo), pero el sistema de ventas era arcaico.
+            </Text>
+
+            <Text style={modelItem}>
+              <span style={{ color: '#D4AF37', fontWeight: '600' }}>2. E-commerce</span>
+              <br />
+              El sistema de ventas era genial (digital), pero la logística era un infierno.
+            </Text>
+
+            <Text style={paragraph}>
+              Me hice la pregunta del millón:
             </Text>
 
             <Text style={highlightBox}>
-              ¿Qué pasaría si la tecnología hiciera el 90% del trabajo pesado?
+              ¿Qué pasaría si uniera la LOGÍSTICA de Gano Excel (ellos ponen los millones y el inventario) con la TECNOLOGÍA del E-commerce (atracción automática)?
             </Text>
 
             <Text style={paragraph}>
-              ¿Qué pasaría si los prospectos llegaran a ti en lugar de tú perseguirlos?
+              Eso, {firstName}, no es MLM tradicional. Y tampoco es E-commerce.
             </Text>
 
             <Text style={paragraph}>
-              ¿Qué pasaría si pudieras construir sin vergüenza, sin incomodar a nadie, sin parecer vendedor?
+              Es una <strong style={{ color: '#D4AF37' }}>Arquitectura de Activos</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Esa pregunta nos llevó a crear algo completamente nuevo. No un "MLM mejorado", sino una nueva categoría.
-            </Text>
-
-            <Text style={paragraph}>
-              Mañana te lo muestro.
+              Mañana te invito a ver los planos de esta nueva categoría.
             </Text>
 
             <Text style={signature}>
@@ -204,6 +240,16 @@ const highlightBox = {
   lineHeight: '1.6',
   margin: '24px 0',
   borderRadius: '0 8px 8px 0',
+};
+
+const modelItem = {
+  color: '#a0a0a8',
+  fontSize: '15px',
+  lineHeight: '1.6',
+  margin: '0 0 16px',
+  padding: '16px',
+  backgroundColor: '#12121a',
+  borderRadius: '8px',
 };
 
 const signature = {

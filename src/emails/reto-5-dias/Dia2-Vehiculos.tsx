@@ -11,7 +11,6 @@ import {
   Head,
   Heading,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -34,13 +33,26 @@ export const Dia2Vehiculos = ({ firstName = 'Hola' }: Dia2Props) => {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Img
-              src="https://creatuactivo.com/logo-email-header-280x80.png"
-              width="280"
-              height="80"
-              alt="CreaTuActivo"
-              style={{ margin: '0 auto', display: 'block' }}
-            />
+            <div style={{
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
+              fontSize: '28px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
+              color: '#E5E5E5',
+              lineHeight: '1.2'
+            }}>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: 'rgba(255, 255, 255, 0.5)',
+              marginTop: '8px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
           </Section>
 
           <Section style={dayBadge}>

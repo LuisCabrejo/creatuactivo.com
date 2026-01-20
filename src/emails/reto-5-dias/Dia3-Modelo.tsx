@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
  * Reto 5 Días - Día 3: El Modelo
- * "La fórmula matemática"
+ * "Las 3 promesas que le hice a mi esposa (y las 2 que rompí)"
  */
 
 import * as React from 'react';
@@ -11,7 +11,6 @@ import {
   Head,
   Heading,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -23,7 +22,7 @@ interface Dia3Props {
 }
 
 export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
-  const previewText = `Día 3: ${firstName}, la fórmula que lo cambió todo`;
+  const previewText = `Las 3 promesas que le hice a mi esposa (y las 2 que rompí)`;
 
   return (
     <Html lang="es">
@@ -34,13 +33,26 @@ export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Img
-              src="https://creatuactivo.com/logo-email-header-280x80.png"
-              width="280"
-              height="80"
-              alt="CreaTuActivo"
-              style={{ margin: '0 auto', display: 'block' }}
-            />
+            <div style={{
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
+              fontSize: '28px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
+              color: '#E5E5E5',
+              lineHeight: '1.2'
+            }}>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: 'rgba(255, 255, 255, 0.5)',
+              marginTop: '8px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
           </Section>
 
           <Section style={dayBadge}>
@@ -106,11 +118,23 @@ export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
             </Text>
 
             <Text style={paragraph}>
-              Encontré ese modelo. En 2.5 años, pasé de cero a ser el #1 de mi organización.
+              Encontré ese modelo en la industria de la distribución. Trabajé 2 horas extra al día.
             </Text>
 
             <Text style={paragraph}>
-              Pero había un problema. Mañana te cuento cuál fue.
+              En 2.5 años, pasé de cero a ser el #1 de mi organización. Viajes, premios, reconocimiento.
+            </Text>
+
+            <Text style={paragraph}>
+              Parecía que lo había logrado. Parecía que iba a cumplir las promesas.
+            </Text>
+
+            <Text style={highlightBox}>
+              Pero aunque ganaba dinero, no tenía libertad real, y mi conciencia no estaba tranquila.
+            </Text>
+
+            <Text style={paragraph}>
+              Mañana te cuento por qué mi "éxito" se sentía como un fracaso.
             </Text>
 
             <Text style={signature}>

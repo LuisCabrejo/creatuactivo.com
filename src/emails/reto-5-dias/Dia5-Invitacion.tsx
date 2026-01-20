@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
  * Reto 5 Días - Día 5: La Invitación
- * "Tu siguiente paso"
+ * "Tu turno de cumplir promesas"
  */
 
 import * as React from 'react';
@@ -12,7 +12,6 @@ import {
   Head,
   Heading,
   Html,
-  Img,
   Preview,
   Section,
   Text,
@@ -24,7 +23,7 @@ interface Dia5Props {
 }
 
 export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
-  const previewText = `Día 5: ${firstName}, tu invitación está lista`;
+  const previewText = `Tu turno de cumplir promesas`;
 
   return (
     <Html lang="es">
@@ -35,13 +34,26 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Img
-              src="https://creatuactivo.com/logo-email-header-280x80.png"
-              width="280"
-              height="80"
-              alt="CreaTuActivo"
-              style={{ margin: '0 auto', display: 'block' }}
-            />
+            <div style={{
+              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
+              fontSize: '28px',
+              fontWeight: '400',
+              letterSpacing: '0.05em',
+              color: '#E5E5E5',
+              lineHeight: '1.2'
+            }}>
+              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
+            </div>
+            <div style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '9px',
+              letterSpacing: '2.5px',
+              color: 'rgba(255, 255, 255, 0.5)',
+              marginTop: '8px',
+              textTransform: 'uppercase' as const
+            }}>
+              The Architect's Suite
+            </div>
           </Section>
 
           <Section style={dayBadge}>
@@ -53,49 +65,36 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
             <Heading style={h1}>{firstName},</Heading>
 
             <Text style={paragraph}>
-              Durante 4 días te conté mi historia.
+              Durante estos 5 días hemos desmontado los mitos:
+            </Text>
+
+            <Text style={featureItem}>
+              <span style={{ color: '#D4AF37' }}>•</span> El empleo no te dará libertad <span style={{ color: '#6b6b75' }}>(Día 1 & 2)</span>
+            </Text>
+            <Text style={featureItem}>
+              <span style={{ color: '#D4AF37' }}>•</span> El MLM tradicional es difícil de duplicar <span style={{ color: '#6b6b75' }}>(Día 3)</span>
+            </Text>
+            <Text style={featureItem}>
+              <span style={{ color: '#D4AF37' }}>•</span> El E-commerce es una cárcel operativa <span style={{ color: '#6b6b75' }}>(Día 4)</span>
             </Text>
 
             <Text style={paragraph}>
-              Cómo viví atrapado en el plan por defecto.<br />
-              Las promesas que no pude cumplir.<br />
-              Las dos epifanías que cambiaron mi forma de ver el dinero.<br />
-              Y por qué la tecnología es la clave.
-            </Text>
-
-            <Text style={paragraph}>
-              Hoy es tu turno.
+              La solución es la <strong style={{ color: '#D4AF37' }}>Arquitectura de Activos</strong>.
             </Text>
 
             <Text style={highlightBox}>
-              Te invito a conocer <strong>CreaTuActivo</strong>: un sistema donde la tecnología hace el 90% del trabajo pesado.
+              Un sistema donde:<br /><br />
+              <strong>1. Gano Excel</strong> pone la infraestructura ($100M+ en logística y producto).<br /><br />
+              <strong>2. La Tecnología</strong> pone la atracción y educación de prospectos (el 90% del trabajo).<br /><br />
+              <strong>3. Tú</strong> pones la conexión... y cobras los dividendos.
             </Text>
 
             <Text style={paragraph}>
-              Lo que encontrarás:
-            </Text>
-
-            <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>✓</span> <strong>Queswa</strong> - IA que responde a tus prospectos 24/7
-            </Text>
-            <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>✓</span> <strong>Sistema de contenido</strong> - Publicaciones listas para atraer prospectos
-            </Text>
-            <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>✓</span> <strong>Funnels automatizados</strong> - Prospectos que llegan calificados
-            </Text>
-            <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>✓</span> <strong>Mentoría directa</strong> - Acompañamiento real, no solo videos
+              Hoy quiero invitarte a dar el siguiente paso. No es un curso. Es una invitación a asociarte con nosotros y usar este sistema.
             </Text>
 
             <Text style={paragraph}>
-              No tienes que perseguir a nadie.<br />
-              No tienes que ser experto en ventas.<br />
-              No tienes que inventar el contenido.
-            </Text>
-
-            <Text style={paragraph}>
-              Solo tienes que decidir que quieres algo diferente.
+              He preparado un <strong style={{ color: '#f5f5f5' }}>Briefing Ejecutivo</strong> donde te muestro los números reales, sin hype.
             </Text>
 
             {/* CTA */}
@@ -108,27 +107,27 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
               </Button>
             </Section>
 
-            <Text style={noteText}>
-              En este webinar exclusivo te mostraré exactamente cómo funciona el sistema. Solo para quienes completaron el Reto 5 Días.
+            <Text style={paragraph}>
+              La soberanía financiera no se trata de lujos.
+            </Text>
+
+            <Text style={highlightBox}>
+              Se trata de poder cumplir tu palabra.<br /><br />
+              <span style={{ fontSize: '14px', color: '#a0a0a8' }}>(Como yo pude finalmente cumplir la de la casa de campo).</span>
             </Text>
 
             <Text style={paragraph}>
-              La soberanía financiera no se trata de lujos.<br />
-              <strong style={{ color: '#D4AF37' }}>Se trata de poder cumplir tu palabra.</strong>
+              Si eso resuena contigo, reserva tu lugar.
             </Text>
 
             <Text style={paragraph}>
-              ¿Nos vemos del otro lado?
+              Nos vemos dentro.
             </Text>
 
             <Text style={signature}>
               — Luis
               <br />
-              <span style={signatureTitle}>Fundador, CreaTuActivo</span>
-            </Text>
-
-            <Text style={ps}>
-              PD: Si llegaste al día 5 y no te ha servido, simplemente ignora este email. Pero si algo cambió en cómo ves tu situación... vale la pena explorar.
+              <span style={signatureTitle}>Día 5 de 5</span>
             </Text>
           </Section>
 

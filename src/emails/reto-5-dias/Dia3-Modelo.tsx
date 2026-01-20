@@ -138,9 +138,11 @@ export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
             </Text>
 
             <Text style={signature}>
-              — Luis
+              Hacia tu soberanía,
+              <br /><br />
+              Luis Cabrejo
               <br />
-              <span style={signatureTitle}>Día 3 de 5</span>
+              <span style={signatureTitle}>Arquitecto de Activos</span>
             </Text>
           </Section>
 

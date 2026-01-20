@@ -88,7 +88,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
             </Text>
 
             <Text style={highlightBox}>
-              Para la gran mayoría de profesionales, el resultado es <strong>menos de 30 días</strong>. Eso significa que estás a un solo mes de distancia de la quiebra técnica si tu ingreso principal se detiene.
+              Para la gran mayoría de personas, el resultado es <strong>menos de 30 días</strong>. Eso significa que estás a un solo mes de distancia de la quiebra técnica si tu ingreso principal se detiene.
             </Text>
 
             <Text style={paragraph}>
@@ -96,7 +96,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
             </Text>
 
             <Text style={paragraph}>
-              Yo estuve ahí. Tenía un "buen cargo", pero mis Días de Libertad eran casi cero. Vivía en lo que llamo la <strong style={{ color: '#C5A059' }}>Zona de Peligro</strong>: corriendo cada vez más rápido solo para quedarme en el mismo lugar.
+              Yo estuve ahí. Tenía lo que muchos llamarían "estabilidad", pero mis Días de Libertad eran casi cero. Vivía en lo que llamo la <strong style={{ color: '#C5A059' }}>Zona de Peligro</strong>: corriendo cada vez más rápido solo para quedarme en el mismo lugar.
             </Text>
 
             <Text style={paragraph}>
@@ -120,11 +120,11 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
             </Text>
 
             <Text style={signature}>
-              Nos vemos mañana,
+              Hacia tu soberanía,
               <br /><br />
-              Luis "El Arquitecto" Cabrejo
+              Luis Cabrejo
               <br />
-              <span style={signatureTitle}>Fundador, CreaTuActivo</span>
+              <span style={signatureTitle}>Arquitecto de Activos</span>
             </Text>
           </Section>
 

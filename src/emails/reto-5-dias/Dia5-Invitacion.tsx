@@ -125,9 +125,11 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
             </Text>
 
             <Text style={signature}>
-              — Luis
+              Hacia tu soberanía,
+              <br /><br />
+              Luis Cabrejo
               <br />
-              <span style={signatureTitle}>Día 5 de 5</span>
+              <span style={signatureTitle}>Arquitecto de Activos</span>
             </Text>
           </Section>
 

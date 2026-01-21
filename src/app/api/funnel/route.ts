@@ -201,10 +201,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Enviar email de confirmación para Reto 5 Días
+    // IMPORTANTE: Usar await para que el email se envíe antes de que Vercel termine la función
     if (data.step === 'reto_registered' && data.email) {
-      sendRetoWelcomeEmail(data.email, data.name, data.whatsapp || null).catch(err => {
+      try {
+        await sendRetoWelcomeEmail(data.email, data.name, data.whatsapp || null);
+      } catch (err) {
         console.error('❌ [FUNNEL] Error Email Reto:', err);
-      });
+      }
     }
 
     return NextResponse.json({

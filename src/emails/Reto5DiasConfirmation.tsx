@@ -76,28 +76,18 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo - Text only for perfect clarity */}
-          <Section style={{ textAlign: 'center' as const, marginBottom: '32px', padding: '20px 0' }}>
-            <div style={{
-              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
-              fontSize: '28px',
+          {/* Logo - Simple text for email compatibility */}
+          <Section style={{ textAlign: 'center' as const, marginBottom: '24px', padding: '16px 0' }}>
+            <Text style={{
+              margin: 0,
+              fontFamily: 'Georgia, serif',
+              fontSize: '24px',
               fontWeight: '400',
-              letterSpacing: '0.05em',
               color: '#E5E5E5',
               lineHeight: '1.2'
             }}>
-              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
-            </div>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '9px',
-              letterSpacing: '2.5px',
-              color: '#666666',
-              marginTop: '8px',
-              textTransform: 'uppercase' as const
-            }}>
-              The Architect's Suite
-            </div>
+              CreaTu<span style={{ fontWeight: '700', color: '#C5A059' }}>Activo</span>
+            </Text>
           </Section>
 
           {/* Título */}

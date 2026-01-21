@@ -37,28 +37,19 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
       <Preview>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Header */}
+          {/* Header - Simple text for email compatibility */}
           <Section style={header}>
-            <div style={{
-              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
-              fontSize: '28px',
+            <Text style={{
+              margin: 0,
+              fontFamily: 'Georgia, serif',
+              fontSize: '24px',
               fontWeight: '400',
-              letterSpacing: '0.05em',
               color: '#E5E5E5',
-              lineHeight: '1.2'
+              lineHeight: '1.2',
+              textAlign: 'center' as const
             }}>
-              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
-            </div>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '9px',
-              letterSpacing: '2.5px',
-              color: 'rgba(255, 255, 255, 0.5)',
-              marginTop: '8px',
-              textTransform: 'uppercase' as const
-            }}>
-              The Architect's Suite
-            </div>
+              CreaTu<span style={{ fontWeight: '700', color: '#C5A059' }}>Activo</span>
+            </Text>
           </Section>
 
           {/* Day Badge */}

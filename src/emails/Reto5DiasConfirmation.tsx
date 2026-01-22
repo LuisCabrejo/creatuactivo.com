@@ -252,6 +252,35 @@ export const Reto5DiasConfirmationEmail = ({
             </tr>
           </table>
 
+          {/* Tips para recibir emails */}
+          <Section style={{
+            backgroundColor: colors.cardBg,
+            border: `1px solid ${colors.cardBorder}`,
+            borderRadius: '12px',
+            padding: '20px',
+            marginBottom: '24px'
+          }}>
+            <Text style={{
+              margin: '0 0 12px',
+              color: colors.gold,
+              fontSize: '13px',
+              fontWeight: '600',
+              textAlign: 'center' as const
+            }}>
+              IMPORTANTE: Para no perderte ningún email
+            </Text>
+            <Text style={{
+              margin: 0,
+              color: colors.textMuted,
+              fontSize: '13px',
+              lineHeight: '20px'
+            }}>
+              • Si este correo llegó a <strong style={{ color: colors.text }}>Promociones</strong> o <strong style={{ color: colors.text }}>Importantes</strong>, muévelo a tu bandeja <strong style={{ color: colors.text }}>Principal</strong><br />
+              • Agrega <strong style={{ color: colors.text }}>hola@creatuactivo.com</strong> a tus contactos<br />
+              • Esto entrena a Gmail para que los próximos correos lleguen directo a tu inbox
+            </Text>
+          </Section>
+
           {/* Firma */}
           <Section style={{ marginBottom: '32px', textAlign: 'center' as const }}>
             <Text style={{

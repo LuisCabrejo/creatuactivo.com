@@ -84,7 +84,7 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
 
             <Text style={highlightBox}>
               Un sistema donde:<br /><br />
-              <strong>1. Gano Excel</strong> pone la infraestructura ($100M+ en logística y producto).<br /><br />
+              <strong>1. Gano Excel</strong> pone la infraestructura (+$100M USD en logística y producto).<br /><br />
               <strong>2. La Tecnología</strong> pone la atracción y educación de prospectos (el 90% del trabajo).<br /><br />
               <strong>3. Tú</strong> pones la conexión... y cobras los dividendos.
             </Text>

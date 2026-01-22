@@ -96,7 +96,7 @@ export const Dia2Vehiculos = ({ firstName = 'Hola' }: Dia2Props) => {
               <span style={{ color: '#D4AF37' }}>3.</span> Las Inversiones
             </Text>
             <Text style={vehicleDesc}>
-              Excelente... si ya tienes capital. Para generar $3,000/mes de ingresos pasivos con inversiones tradicionales (7% anual), necesitarías $500,000 invertidos.
+              Excelente... si ya tienes capital. Para generar $3,000 USD/mes (~$13.5M COP) de ingresos pasivos con inversiones tradicionales (7% anual), necesitarías $500,000 USD (~$2,250M COP) invertidos.
             </Text>
 
             <Text style={highlightBox}>

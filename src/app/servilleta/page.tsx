@@ -28,6 +28,7 @@ import {
   Zap,
   TrendingUp,
   AlertTriangle,
+  Check,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -41,6 +42,8 @@ export default function ServilletaPage() {
   const [gen5Socios, setGen5Socios] = useState(2);
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
+  // Tab 3: Selectable operating mode
+  const [selectedMode, setSelectedMode] = useState<'relacional' | 'hibrido' | 'inversionista' | null>('hibrido');
 
   const switchTab = (tabId: TabId) => {
     setActiveTab(tabId);
@@ -164,6 +167,19 @@ export default function ServilletaPage() {
                 {/* X-axis label */}
                 <text x="280" y="125" textAnchor="end" fill="#64748B" fontSize="8" fontFamily="monospace">TIEMPO →</text>
 
+                {/* Area fill: DEFICIT zone (employment > asset) - Coral */}
+                <path
+                  d="M30,95 L80,75 L130,65 L155,60 L175,85 L175,85 L130,98 L80,103 L30,105 Z"
+                  fill="#FF8A80"
+                  opacity="0.08"
+                />
+                {/* Area fill: SURPLUS zone (asset > employment) - Gold/Emerald */}
+                <path
+                  d="M175,85 L195,100 L215,108 L280,108 L280,20 L255,30 L215,55 L175,85 Z"
+                  fill="#10B981"
+                  opacity="0.1"
+                />
+
                 {/* Line A: Employment - rises then CRASHES */}
                 <path
                   className="animate-drawLine"
@@ -188,8 +204,9 @@ export default function ServilletaPage() {
                   strokeLinecap="round"
                 />
 
-                {/* Crossover point indicator */}
+                {/* Crossover point indicator + LIBERTAD label */}
                 <circle cx="200" cy="65" r="5" fill="#0F1115" stroke="#C5A059" strokeWidth="2" className="animate-pulse" />
+                <text x="200" y="55" textAnchor="middle" fill="#10B981" fontSize="8" fontFamily="monospace" fontWeight="bold" letterSpacing="1">LIBERTAD</text>
               </svg>
             </div>
 
@@ -389,16 +406,33 @@ export default function ServilletaPage() {
             <div className="space-y-5">
 
               {/* OPCIÓN 1: MODO RELACIONAL (High Touch) */}
-              <div className="group relative bg-[#1A1D23]/40 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-[#C5A059]/30 transition-all duration-300 cursor-pointer overflow-hidden">
+              <div
+                onClick={() => setSelectedMode(selectedMode === 'relacional' ? null : 'relacional')}
+                className={`group relative backdrop-blur-sm p-6 rounded-xl transition-all duration-300 cursor-pointer overflow-hidden ${
+                  selectedMode === 'relacional'
+                    ? 'bg-[#C5A059]/10 border border-[#C5A059]/40 scale-[1.02]'
+                    : 'bg-[#1A1D23]/40 border border-white/5 hover:border-[#C5A059]/30'
+                }`}
+              >
+                {/* Checkmark indicator */}
+                {selectedMode === 'relacional' && (
+                  <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#C5A059] flex items-center justify-center z-20">
+                    <Check className="w-3.5 h-3.5 text-[#0F1115]" strokeWidth={3} />
+                  </div>
+                )}
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <Users className="w-16 h-16 text-[#94A3B8]" />
                 </div>
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#15171C] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-[#C5A059]/50 transition-colors">
-                    <Users className="w-5 h-5 text-[#94A3B8] group-hover:text-[#C5A059]" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+                    selectedMode === 'relacional'
+                      ? 'bg-[#C5A059]/20 border border-[#C5A059]'
+                      : 'bg-[#15171C] border border-white/10 group-hover:border-[#C5A059]/50'
+                  }`}>
+                    <Users className={`w-5 h-5 ${selectedMode === 'relacional' ? 'text-[#C5A059]' : 'text-[#94A3B8] group-hover:text-[#C5A059]'}`} />
                   </div>
                   <div>
-                    <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h3 className={`text-lg font-medium mb-1 transition-colors ${selectedMode === 'relacional' ? 'text-[#C5A059]' : 'text-white group-hover:text-[#C5A059]'}`} style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Relacional
                     </h3>
                     <p className="text-[11px] text-[#E5E5E5]/50 uppercase tracking-wider mb-2 font-mono font-medium">Para el Conector Natural</p>
@@ -410,22 +444,39 @@ export default function ServilletaPage() {
               </div>
 
               {/* OPCIÓN 2: MODO HÍBRIDO (Smart Leverage) - DESTACADO */}
-              <div className="group relative bg-gradient-to-r from-[#C5A059]/10 to-[#1A1D23]/60 backdrop-blur-sm p-6 rounded-xl border border-[#C5A059]/40 cursor-pointer shadow-[0_0_30px_rgba(197,160,89,0.05)]">
+              <div
+                onClick={() => setSelectedMode(selectedMode === 'hibrido' ? null : 'hibrido')}
+                className={`group relative backdrop-blur-sm p-6 rounded-xl cursor-pointer transition-all duration-300 ${
+                  selectedMode === 'hibrido'
+                    ? 'bg-gradient-to-r from-[#C5A059]/10 to-[#1A1D23]/60 border border-[#C5A059]/40 scale-[1.02] shadow-[0_0_30px_rgba(197,160,89,0.1)]'
+                    : 'bg-[#1A1D23]/40 border border-white/5 hover:border-[#C5A059]/30'
+                }`}
+              >
                 {/* Badge de Recomendado */}
-                <div className="absolute top-0 right-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
+                <div className="absolute top-0 left-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-3 py-1 rounded-br-lg rounded-tl-xl uppercase tracking-wider">
                   Recomendado
                 </div>
+                {/* Checkmark indicator */}
+                {selectedMode === 'hibrido' && (
+                  <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#C5A059] flex items-center justify-center z-20">
+                    <Check className="w-3.5 h-3.5 text-[#0F1115]" strokeWidth={3} />
+                  </div>
+                )}
 
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <Smartphone className="w-16 h-16 text-[#C5A059]" />
                 </div>
 
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#C5A059]/20 border border-[#C5A059] flex items-center justify-center flex-shrink-0">
-                    <Smartphone className="w-5 h-5 text-[#C5A059]" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+                    selectedMode === 'hibrido'
+                      ? 'bg-[#C5A059]/20 border border-[#C5A059]'
+                      : 'bg-[#15171C] border border-white/10'
+                  }`}>
+                    <Smartphone className={`w-5 h-5 ${selectedMode === 'hibrido' ? 'text-[#C5A059]' : 'text-[#94A3B8]'}`} />
                   </div>
                   <div>
-                    <h3 className="text-[#C5A059] text-lg font-medium mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h3 className={`text-lg font-medium mb-1 ${selectedMode === 'hibrido' ? 'text-[#C5A059]' : 'text-white'}`} style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Híbrido
                     </h3>
                     <p className="text-[11px] text-[#F5E8D8]/60 uppercase tracking-wider mb-2 font-mono font-medium">Marca Personal + Tecnología</p>
@@ -437,16 +488,33 @@ export default function ServilletaPage() {
               </div>
 
               {/* OPCIÓN 3: MODO INVERSIONISTA (Low Touch) */}
-              <div className="group relative bg-[#1A1D23]/40 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-[#C5A059]/30 transition-all duration-300 cursor-pointer overflow-hidden">
+              <div
+                onClick={() => setSelectedMode(selectedMode === 'inversionista' ? null : 'inversionista')}
+                className={`group relative backdrop-blur-sm p-6 rounded-xl transition-all duration-300 cursor-pointer overflow-hidden ${
+                  selectedMode === 'inversionista'
+                    ? 'bg-[#C5A059]/10 border border-[#C5A059]/40 scale-[1.02]'
+                    : 'bg-[#1A1D23]/40 border border-white/5 hover:border-[#C5A059]/30'
+                }`}
+              >
+                {/* Checkmark indicator */}
+                {selectedMode === 'inversionista' && (
+                  <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#C5A059] flex items-center justify-center z-20">
+                    <Check className="w-3.5 h-3.5 text-[#0F1115]" strokeWidth={3} />
+                  </div>
+                )}
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <BarChart3 className="w-16 h-16 text-[#94A3B8]" />
                 </div>
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#15171C] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-[#C5A059]/50 transition-colors">
-                    <BarChart3 className="w-5 h-5 text-[#94A3B8] group-hover:text-[#C5A059]" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+                    selectedMode === 'inversionista'
+                      ? 'bg-[#C5A059]/20 border border-[#C5A059]'
+                      : 'bg-[#15171C] border border-white/10 group-hover:border-[#C5A059]/50'
+                  }`}>
+                    <BarChart3 className={`w-5 h-5 ${selectedMode === 'inversionista' ? 'text-[#C5A059]' : 'text-[#94A3B8] group-hover:text-[#C5A059]'}`} />
                   </div>
                   <div>
-                    <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h3 className={`text-lg font-medium mb-1 transition-colors ${selectedMode === 'inversionista' ? 'text-[#C5A059]' : 'text-white group-hover:text-[#C5A059]'}`} style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Inversionista
                     </h3>
                     <p className="text-[11px] text-[#E5E5E5]/50 uppercase tracking-wider mb-2 font-mono font-medium">Tráfico Pago + Sistemas</p>
@@ -570,7 +638,12 @@ export default function ServilletaPage() {
                     <div className="bg-[#C5A059]/5 border border-[#C5A059]/10 p-3 rounded-lg flex gap-3 items-center">
                       <div className="p-2 bg-[#C5A059]/10 rounded-full text-[#C5A059]"><Zap size={14} /></div>
                       <p className="text-[11px] text-[#E5E5E5]/70 leading-tight font-normal">
-                        <strong className="text-[#F5E8D8]">Insight:</strong> Este bono se paga semanalmente. Es tu capital para recuperar inversión y financiar tu estilo de vida mientras construyes.
+                        <strong className="text-[#F5E8D8]">Insight:</strong>{' '}
+                        {gen5Income >= 1000
+                          ? 'Recuperas tu inversión en la primera semana. Capital de alto rendimiento inmediato.'
+                          : gen5Income >= 300
+                            ? 'Este bono se paga semanalmente. Es tu capital para recuperar inversión y financiar tu estilo de vida mientras construyes.'
+                            : 'Tip: Sube el paquete o conecta más socios para acelerar tu retorno de inversión.'}
                       </p>
                     </div>
                   </div>
@@ -621,7 +694,12 @@ export default function ServilletaPage() {
                     <div className="bg-[#66FCF1]/5 border border-[#66FCF1]/10 p-3 rounded-lg flex gap-3 items-center">
                       <div className="p-2 bg-[#66FCF1]/10 rounded-full text-[#66FCF1]"><TrendingUp size={14} /></div>
                       <p className="text-[11px] text-[#E5E5E5]/70 leading-tight font-normal">
-                        <strong className="text-[#66FCF1]">Insight:</strong> No tienes que traer a los 500 tú solo. Tú traes a 2, ellos a 2... el Efecto Compuesto hace el trabajo duro.
+                        <strong className="text-[#66FCF1]">Insight:</strong>{' '}
+                        {binarioIncomeUSD >= 1000
+                          ? 'Nivel de soberanía alcanzado. Esta renta cubre tus gastos fijos sin trabajar activamente.'
+                          : binarioIncomeUSD >= 238
+                            ? 'No tienes que traer a los 500 tú solo. Tú traes a 2, ellos a 2... el Efecto Compuesto hace el trabajo duro.'
+                            : 'Cada persona que entra a tu red genera renta recurrente. Empieza con 2 y deja que el sistema escale.'}
                       </p>
                     </div>
                   </div>

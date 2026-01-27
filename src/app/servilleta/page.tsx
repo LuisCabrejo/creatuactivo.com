@@ -257,65 +257,82 @@ export default function ServilletaPage() {
               <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
                 Arquitectura de Activos
               </span>
-              <h1 className="text-3xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              <h1 className="text-3xl leading-tight text-white tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
                 Eficiencia,
                 <br />
                 <span className="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] bg-clip-text text-transparent">no magia.</span>
               </h1>
             </div>
 
-            <div className="rounded-2xl overflow-hidden relative border border-white/5">
+            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl">
               {/* TOP: Tu Rol (10%) - Lighter background */}
-              <div className="p-6 bg-gradient-to-b from-white/[0.04] to-transparent relative z-10">
+              <div className="p-6 bg-gradient-to-b from-white/[0.05] to-transparent relative z-20">
                 <div className="flex items-center gap-5">
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold text-lg shadow-[0_0_20px_rgba(197,160,89,0.4)]">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C5A059] to-[#A68A4A] flex items-center justify-center text-[#0F1115] font-bold text-xl shadow-[0_0_25px_rgba(197,160,89,0.3)] border border-white/20">
                       10%
                     </div>
-                    <div className="absolute left-1/2 top-14 w-0.5 h-10 bg-gradient-to-b from-[#C5A059] to-transparent -translate-x-1/2" />
+                    {/* Structural pillar connecting Architect to Machine */}
+                    <div className="absolute left-1/2 top-16 w-0.5 h-12 bg-[#C5A059]/50 -translate-x-1/2 z-0" />
+                    <div className="absolute left-1/2 top-16 w-[1px] h-12 bg-white/20 -translate-x-1/2 z-0" />
                   </div>
                   <div>
-                    <h3 className="text-white text-lg" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
-                    <p className="text-xs text-[#94A3B8] mt-1 font-light">Conectar personas. Cobrar el peaje.</p>
+                    <h3 className="text-white text-xl tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
+                    <p className="text-xs text-[#94A3B8] mt-1 font-light leading-relaxed">
+                      Conectar personas. Cobrar el peaje.<br />
+                      <span className="text-[#C5A059]/80">Sin logística. Sin inventario.</span>
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* BOTTOM: Infraestructura (90%) - Deeper/submerged background */}
-              <div className="bg-[#08090C]/80 p-6 pt-4 relative border-t border-white/5">
-                <div className="flex justify-between items-end mb-4">
-                  <h3 className="text-xs text-[#94A3B8] uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8]" />
+              {/* BOTTOM: Infraestructura (90%) - Deep industrial foundation */}
+              <div className="bg-[#050608] p-6 pt-8 relative border-t border-white/10 z-10">
+                {/* Engineering grid texture */}
+                <div
+                  className="absolute inset-0 opacity-[0.08] pointer-events-none"
+                  style={{
+                    backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                    backgroundSize: '20px 20px',
+                  }}
+                />
+
+                <div className="flex justify-between items-end mb-6 relative z-10">
+                  <h3 className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-[#94A3B8]" />
                     Infraestructura (90%)
                   </h3>
-                  <span className="text-[9px] text-[#475569] italic">Activos entregados a costo cero</span>
+                  <span className="text-[9px] text-[#475569] italic font-mono border border-white/5 px-2 py-1 rounded">Activos a costo cero</span>
                 </div>
 
-                {/* Socio Industrial - Industrial block */}
-                <div className="mb-5 group">
-                  <div className="flex justify-between text-xs mb-2">
-                    <span className="text-white group-hover:text-[#C5A059] transition-colors">Socio Industrial</span>
-                    <span className="text-white font-bold font-mono text-xs bg-white/10 px-2 py-0.5 rounded border border-white/10">$100M Capital</span>
+                {/* Socio Industrial - Steel block with diagonal texture */}
+                <div className="mb-6 group relative z-10">
+                  <div className="flex justify-between items-center text-xs mb-2">
+                    <span className="text-white font-medium tracking-wide group-hover:text-[#C5A059] transition-colors">Socio Industrial</span>
+                    <span className="text-white font-bold font-mono text-[10px] bg-[#15171C] px-2 py-1 rounded border border-white/10 shadow-inner">$100M Capital</span>
                   </div>
-                  <div className="h-3 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/5">
-                    <div className="absolute inset-0 bg-[#94A3B8]/30 w-full" />
-                    <div className="h-full bg-gradient-to-r from-[#94A3B8] to-white w-full opacity-20" />
-                  </div>
-                </div>
-
-                {/* Tecnología Queswa - Industrial block with gold hint */}
-                <div className="group">
-                  <div className="flex justify-between text-xs mb-2">
-                    <span className="text-white group-hover:text-[#C5A059] transition-colors">Tecnología Queswa</span>
-                    <span className="text-white font-bold font-mono text-xs bg-white/10 px-2 py-0.5 rounded border border-white/10">IA &amp; Logística</span>
-                  </div>
-                  <div className="h-3 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/5">
-                    <div className="absolute inset-0 bg-[#C5A059]/10 w-full" />
-                    <div className="h-full bg-gradient-to-r from-[#C5A059]/30 to-[#C5A059]/50 w-full animate-pulse" />
+                  <div className="h-4 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
+                    <div
+                      className="absolute inset-0 w-full h-full opacity-[0.15]"
+                      style={{ background: 'repeating-linear-gradient(45deg, transparent, transparent 5px, #fff 5px, #fff 6px)' }}
+                    />
+                    <div className="h-full bg-gradient-to-r from-[#94A3B8]/50 to-white/10 w-full" />
                   </div>
                 </div>
 
-                <p className="text-[10px] text-center text-[#475569] mt-6 pt-4 border-t border-white/5 italic" style={{ fontFamily: 'Georgia, serif' }}>
+                {/* Tecnología Queswa - Gold energy block */}
+                <div className="group relative z-10">
+                  <div className="flex justify-between items-center text-xs mb-2">
+                    <span className="text-white font-medium tracking-wide group-hover:text-[#C5A059] transition-colors">Tecnología Queswa</span>
+                    <span className="text-white font-bold font-mono text-[10px] bg-[#15171C] px-2 py-1 rounded border border-white/10 shadow-inner">IA &amp; Logística</span>
+                  </div>
+                  <div className="h-4 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/20 shadow-[0_0_10px_rgba(197,160,89,0.1)]">
+                    <div className="absolute inset-0 bg-[#C5A059]/5 w-full" />
+                    <div className="h-full bg-gradient-to-r from-[#C5A059]/40 via-[#C5A059]/60 to-[#C5A059]/40 w-full animate-pulse" />
+                  </div>
+                </div>
+
+                <p className="text-[9px] text-center text-[#475569]/60 mt-8 pt-4 border-t border-white/5 italic leading-relaxed relative z-10" style={{ fontFamily: 'Georgia, serif' }}>
                   &quot;Nosotros ponemos los barcos, las fábricas y la IA.<br />Tú pones la conexión.&quot;
                 </p>
               </div>

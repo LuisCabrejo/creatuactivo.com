@@ -68,11 +68,20 @@ export default function ServilletaPage() {
       />
 
       {/* Header */}
-      <header className="relative z-10 px-6 pt-8 pb-4 flex justify-between items-center">
+      <header className="relative z-10 px-6 pt-6 pb-4 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-2 h-8 bg-[#C5A059] rounded-full" />
-          <span className="text-sm tracking-widest text-[#94A3B8] uppercase" style={{ fontFamily: 'Georgia, serif' }}>
-            CreaTuActivo
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+              <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
+                <path d="M14 5 H5 V27 H20"/>
+                <path d="M16 27 V10 H27 V27"/>
+                <path d="M16 18 H27"/>
+              </g>
+            </svg>
+          </div>
+          <span className="text-sm flex items-baseline">
+            <span className="font-normal text-[#E5E5E5] tracking-wide" style={{ fontFamily: 'Montserrat, -apple-system, BlinkMacSystemFont, sans-serif' }}>CreaTu</span>
+            <span className="font-bold text-[#C5A059] tracking-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Activo</span>
           </span>
         </Link>
         <div className="px-3 py-1.5 rounded-full border border-[#C5A059]/30 bg-[#C5A059]/5 text-xs text-[#C5A059] font-medium">
@@ -123,38 +132,53 @@ export default function ServilletaPage() {
             </div>
 
             {/* Divergent Lines Graph - Employment vs Asset */}
-            <div className="relative w-full h-40 bg-[#1A1D23]/60 backdrop-blur-sm rounded-xl mb-4 p-3 overflow-hidden border border-white/5">
-              <svg viewBox="0 0 300 120" className="w-full h-full">
-                {/* Grid lines */}
-                <line x1="30" y1="20" x2="30" y2="100" stroke="#1F2937" strokeWidth="1" />
-                <line x1="30" y1="100" x2="280" y2="100" stroke="#1F2937" strokeWidth="1" />
+            <div className="relative w-full h-44 bg-[#1A1D23]/60 backdrop-blur-sm rounded-xl mb-4 p-3 overflow-hidden border border-white/5">
+              {/* Legend - Top Right */}
+              <div className="absolute top-3 right-3 flex flex-col gap-1 items-end z-10">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-0.5 bg-red-400" />
+                  <span className="text-[10px] text-[#94A3B8]">Empleo (Lineal)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-0.5 bg-[#C5A059]" />
+                  <span className="text-[10px] text-[#C5A059]">Activo (Exponencial)</span>
+                </div>
+              </div>
 
-                {/* Y-axis labels */}
-                <text x="25" y="25" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$$$</text>
-                <text x="25" y="60" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$$</text>
-                <text x="25" y="98" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$0</text>
+              <svg viewBox="0 0 300 130" className="w-full h-full">
+                {/* Grid lines */}
+                <line x1="30" y1="20" x2="30" y2="110" stroke="#1F2937" strokeWidth="1" />
+                <line x1="30" y1="110" x2="280" y2="110" stroke="#1F2937" strokeWidth="1" />
+                {/* Horizontal grid lines */}
+                <line x1="30" y1="40" x2="280" y2="40" stroke="#1F2937" strokeWidth="0.5" opacity="0.3" />
+                <line x1="30" y1="70" x2="280" y2="70" stroke="#1F2937" strokeWidth="0.5" opacity="0.3" />
+
+                {/* Y-axis labels - Improved contrast */}
+                <text x="25" y="25" textAnchor="end" fill="#94A3B8" fontSize="8" fontFamily="monospace">$$$</text>
+                <text x="25" y="70" textAnchor="end" fill="#94A3B8" fontSize="8" fontFamily="monospace">$$</text>
+                <text x="25" y="108" textAnchor="end" fill="#94A3B8" fontSize="8" fontFamily="monospace">$0</text>
 
                 {/* X-axis label */}
-                <text x="280" y="112" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">TIEMPO →</text>
+                <text x="280" y="125" textAnchor="end" fill="#64748B" fontSize="8" fontFamily="monospace">TIEMPO →</text>
 
                 {/* Line A: Employment - rises then CRASHES */}
                 <path
                   className="animate-drawLine"
-                  d="M30,90 L80,70 L130,60 L150,55 L170,80 L190,95 L210,98 L280,98"
+                  d="M30,95 L80,75 L130,65 L155,60 L175,85 L195,100 L215,108 L280,108"
                   fill="none"
                   stroke="#EF4444"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  opacity="0.7"
+                  opacity="0.8"
                 />
-                {/* Crash indicator */}
-                <circle cx="170" cy="80" r="8" fill="none" stroke="#EF4444" strokeWidth="1" strokeDasharray="2,2" opacity="0.5" />
-                <text x="170" y="72" textAnchor="middle" fill="#EF4444" fontSize="6" fontFamily="monospace">CRISIS</text>
+                {/* Crash indicator - More visible */}
+                <circle cx="175" cy="85" r="12" fill="none" stroke="#EF4444" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+                <text x="175" y="70" textAnchor="middle" fill="#EF4444" fontSize="9" fontFamily="monospace" fontWeight="bold">CRISIS</text>
 
                 {/* Line B: Asset - J-curve exponential growth */}
                 <path
                   className="animate-drawAsset"
-                  d="M30,95 L80,93 L130,88 L170,75 L210,50 L250,25 L280,15"
+                  d="M30,105 L80,103 L130,98 L175,85 L215,55 L255,30 L280,20"
                   fill="none"
                   stroke="#C5A059"
                   strokeWidth="2.5"
@@ -162,13 +186,7 @@ export default function ServilletaPage() {
                 />
 
                 {/* Crossover point indicator */}
-                <circle cx="195" cy="58" r="4" fill="#C5A059" className="animate-pulse" />
-
-                {/* Legend */}
-                <rect x="200" y="85" width="8" height="3" fill="#EF4444" opacity="0.7" rx="1" />
-                <text x="212" y="88" fill="#64748B" fontSize="6" fontFamily="Inter, sans-serif">Empleo</text>
-                <rect x="200" y="93" width="8" height="3" fill="#C5A059" rx="1" />
-                <text x="212" y="96" fill="#C5A059" fontSize="6" fontFamily="Inter, sans-serif">Activo</text>
+                <circle cx="200" cy="65" r="5" fill="#0F1115" stroke="#C5A059" strokeWidth="2" className="animate-pulse" />
               </svg>
             </div>
 
@@ -212,7 +230,7 @@ export default function ServilletaPage() {
 
               {/* Loop indicator */}
               <div className="mt-3 pt-3 border-t border-white/5 text-center">
-                <span className="text-[10px] text-[#475569] italic">
+                <span className="text-[11px] sm:text-xs text-[#64748B] italic">
                   Este ciclo se repite hasta los 65 años... o hasta que el cuerpo diga basta.
                 </span>
               </div>

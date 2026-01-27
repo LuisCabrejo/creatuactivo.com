@@ -10,6 +10,7 @@
 
 'use client';
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import NEXUSWidget from './NEXUSWidget';
 
 interface TrackingState {
@@ -43,8 +44,12 @@ const QUIET_LUXURY = {
 };
 
 const NEXUSFloatingButton: React.FC = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+
+  // Hide Queswa on servilleta page
+  if (pathname === '/servilleta') return null;
   const [hasInteracted, setHasInteracted] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
     isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI

@@ -30,11 +30,7 @@ import {
   Check,
   ShieldCheck,
   Cpu,
-  Anchor,
-  Briefcase,
-  Banknote,
-  TrendingDown,
-  RefreshCw
+  Anchor
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -123,7 +119,7 @@ export default function ServilletaPage() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-32 px-1 sm:px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-24 px-1 sm:px-6">
 
         {/* =================================================================================
             TAB 1: LA TRAMPA (Iconos Vectoriales)
@@ -204,27 +200,24 @@ export default function ServilletaPage() {
                 </svg>
               </div>
 
-              {/* CICLO DE LA RATA CON VECTOR ICONS (Lucide) */}
-              <div className="bg-[#15171C] px-4 py-3 border-t border-white/5">
+              {/* CICLO - Estilo flujo horizontal (diferenciado del nav) */}
+              <div className="bg-[#0F1115] px-4 py-3 border-t border-white/5">
                 <p className="text-center text-[9px] text-[#94A3B8] uppercase tracking-widest mb-2">El Plan por Defecto</p>
-                <div className="flex justify-between items-center text-center px-2">
+                <div className="flex items-center justify-center gap-1.5 flex-wrap">
                   {[
-                    { icon: Briefcase, label: 'Trabajar', pain: false },
-                    { icon: Banknote, label: 'Pagar', pain: false },
-                    { icon: TrendingDown, label: '$0', pain: true },
-                    { icon: RefreshCw, label: 'Repetir', pain: false },
+                    { label: 'Trabajar', pain: false },
+                    { label: 'Pagar', pain: false },
+                    { label: '$0', pain: true },
+                    { label: 'Repetir', pain: false },
                   ].map((step, i) => (
                     <React.Fragment key={step.label}>
-                      {i > 0 && <ArrowRight className="w-3 h-3 text-[#334155] flex-shrink-0" />}
-                      <div className="flex flex-col items-center gap-1 relative">
-                        {step.pain && <div className="absolute inset-0 bg-[#FF8A80]/20 blur-lg rounded-full" />}
-                        <div className={`p-1.5 rounded-lg bg-[#1A1D23] border relative z-10 ${step.pain ? 'border-[#FF8A80]/30' : 'border-white/5'}`}>
-                          <step.icon className={`w-4 h-4 ${step.pain ? 'text-[#FF8A80]' : 'text-[#94A3B8]'}`} strokeWidth={step.pain ? 2 : 1.5} />
-                        </div>
-                        <span className={`text-[7px] uppercase tracking-wider relative z-10 ${step.pain ? 'font-bold text-[#FF8A80]' : 'text-[#94A3B8]'}`}>{step.label}</span>
-                      </div>
+                      {i > 0 && <span className="text-[#334155] text-[10px]">→</span>}
+                      <span className={`text-[10px] px-2.5 py-1 rounded-full border ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
+                        {step.label}
+                      </span>
                     </React.Fragment>
                   ))}
+                  <span className="text-[#334155] text-[10px]">↻</span>
                 </div>
               </div>
             </div>
@@ -412,7 +405,7 @@ export default function ServilletaPage() {
       </main>
 
       {/* --- BOTTOM NAVIGATION --- */}
-      <nav className="fixed bottom-6 left-6 right-6 h-16 bg-[#15171C]/90 backdrop-blur-xl rounded-2xl flex justify-around items-center z-50 shadow-2xl border border-white/10 max-w-xl mx-auto">
+      <nav className="fixed bottom-2 left-4 right-4 h-14 bg-[#15171C]/90 backdrop-blur-xl rounded-2xl flex justify-around items-center z-50 shadow-2xl border border-white/10 max-w-xl mx-auto">
         {[
           { id: 'villain', icon: Clock, label: 'La Trampa' },
           { id: 'solution', icon: FlaskConical, label: 'El Sistema' },

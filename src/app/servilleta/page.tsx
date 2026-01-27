@@ -105,8 +105,11 @@ export default function ServilletaPage() {
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
             <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
-              <path d="M20 8 H10 V24 H20" stroke="#C5A059" strokeWidth="2" strokeLinecap="square" />
-              <path d="M16 16 H24" stroke="#C5A059" strokeWidth="2" />
+              <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
+                <path d="M14 5 H5 V27 H20"/>
+                <path d="M16 27 V10 H27 V27"/>
+                <path d="M16 18 H27"/>
+              </g>
             </svg>
           </div>
           <span className="text-sm flex flex-col leading-none">
@@ -120,7 +123,7 @@ export default function ServilletaPage() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-32 px-4 sm:px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-32 px-1 sm:px-6">
 
         {/* =================================================================================
             TAB 1: LA TRAMPA (Iconos Vectoriales)
@@ -152,8 +155,8 @@ export default function ServilletaPage() {
               </div>
 
               {/* GRÁFICO */}
-              <div className="relative h-64 w-full bg-[#0F1115] p-4 overflow-hidden border-t border-white/5">
-                <svg viewBox="0 0 300 130" className="w-full h-full">
+              <div className="relative h-72 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
+                <svg viewBox="0 0 320 150" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <linearGradient id="dependencyFill" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#FF8A80" stopOpacity="0.2" />
@@ -165,27 +168,36 @@ export default function ServilletaPage() {
                     </linearGradient>
                   </defs>
 
-                  <line x1="0" y1="120" x2="300" y2="120" stroke="#334155" strokeWidth="1" />
-                  <text x="295" y="128" textAnchor="end" fill="#64748B" fontSize="8">TIEMPO →</text>
-                  <text x="5" y="20" fill="#64748B" fontSize="8">$$$</text>
+                  {/* Y-axis label */}
+                  <text x="18" y="18" fill="#64748B" fontSize="8" fontWeight="bold">$$$</text>
+                  {/* Y-axis line */}
+                  <line x1="14" y1="22" x2="14" y2="120" stroke="#334155" strokeWidth="0.5" />
 
-                  <path d="M0,85 L180,80 L180,110 L0,120 Z" fill="url(#dependencyFill)" />
-                  <path d="M180,80 L300,30 L300,120 L180,110 Z" fill="url(#freedomFill)" />
+                  {/* X-axis */}
+                  <line x1="14" y1="120" x2="306" y2="120" stroke="#334155" strokeWidth="1" />
+                  <text x="300" y="138" textAnchor="end" fill="#64748B" fontSize="8">TIEMPO →</text>
 
-                  <path d="M0,85 L300,75" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
-                  <path d="M0,120 C50,120 120,118 180,80 C220,50 260,20 300,10" fill="none" stroke="#C5A059" strokeWidth="2.5" />
+                  {/* Area fills */}
+                  <path d="M14,90 L190,85 L190,115 L14,120 Z" fill="url(#dependencyFill)" />
+                  <path d="M190,85 L306,30 L306,120 L190,115 Z" fill="url(#freedomFill)" />
 
-                  {/* Etiquetas Estratégicas */}
-                  <circle cx="280" cy="20" r="2" fill="#C5A059" />
-                  <text x="275" y="22" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
+                  {/* Lines */}
+                  <path d="M14,90 L306,80" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
+                  <path d="M14,120 C60,120 130,118 190,85 C230,55 270,25 306,12" fill="none" stroke="#C5A059" strokeWidth="2.5" />
 
-                  <circle cx="280" cy="85" r="2" fill="#FF8A80" />
-                  <text x="275" y="87" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
+                  {/* ACTIVO label - ABOVE the gold curve */}
+                  <circle cx="290" cy="18" r="2" fill="#C5A059" />
+                  <text x="285" y="15" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
 
-                  <text x="50" y="105" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
+                  {/* EMPLEO label */}
+                  <circle cx="290" cy="82" r="2" fill="#FF8A80" />
+                  <text x="285" y="84" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
 
-                  <circle cx="180" cy="80" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
-                  <g transform="translate(180, 65)">
+                  <text x="60" y="108" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
+
+                  {/* Crossover point */}
+                  <circle cx="190" cy="85" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
+                  <g transform="translate(190, 70)">
                     <rect x="-30" y="-10" width="60" height="14" rx="2" fill="#C5A059" />
                     <text x="0" y="0" textAnchor="middle" fill="#0F1115" fontSize="8" fontWeight="bold" dominantBaseline="middle">LIBERTAD</text>
                   </g>

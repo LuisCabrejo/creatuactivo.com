@@ -47,9 +47,6 @@ const NEXUSFloatingButton: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-
-  // Hide Queswa on servilleta page
-  if (pathname === '/servilleta') return null;
   const [hasInteracted, setHasInteracted] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
     isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI
@@ -154,6 +151,9 @@ const NEXUSFloatingButton: React.FC = () => {
       if (hideTimeout) clearTimeout(hideTimeout);
     };
   }, [hasInteracted, isOpen]);
+
+  // Hide Queswa on servilleta page (after all hooks)
+  if (pathname === '/servilleta') return null;
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {

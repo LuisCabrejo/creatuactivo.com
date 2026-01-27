@@ -253,28 +253,31 @@ export default function ServilletaPage() {
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'solution' && (
           <div className="min-h-[calc(100vh-220px)] flex flex-col justify-center animate-fadeIn">
-            <div className="text-center mb-6">
+            <div className="text-center mb-4">
               <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
                 Arquitectura de Activos
               </span>
-              <h1 className="text-3xl leading-tight text-white tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
+              <h1 className="text-3xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
                 Eficiencia,
                 <br />
                 <span className="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] bg-clip-text text-transparent">no magia.</span>
               </h1>
             </div>
 
-            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl">
-              {/* TOP: Tu Rol (10%) - Lighter background */}
-              <div className="p-6 bg-gradient-to-b from-white/[0.05] to-transparent relative z-20">
+            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl flex flex-col">
+              {/* TOP: Tu Rol (10%) - The Key */}
+              <div className="p-6 bg-gradient-to-b from-white/[0.05] to-transparent relative z-20 flex-shrink-0">
                 <div className="flex items-center gap-5">
                   <div className="relative flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C5A059] to-[#A68A4A] flex items-center justify-center text-[#0F1115] font-bold text-xl shadow-[0_0_25px_rgba(197,160,89,0.3)] border border-white/20">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C5A059] to-[#A68A4A] flex items-center justify-center text-[#0F1115] font-bold text-xl shadow-[0_0_25px_rgba(197,160,89,0.3)] border border-white/20 relative z-10">
                       10%
                     </div>
-                    {/* Structural pillar connecting Architect to Machine */}
-                    <div className="absolute left-1/2 top-16 w-0.5 h-12 bg-[#C5A059]/50 -translate-x-1/2 z-0" />
-                    <div className="absolute left-1/2 top-16 w-[1px] h-12 bg-white/20 -translate-x-1/2 z-0" />
+                    {/* "Tu Aporte" label */}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15171C] border border-[#C5A059]/30 text-[#C5A059] text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap z-20 uppercase tracking-wider">
+                      Tu Aporte
+                    </div>
+                    {/* Power cable connector */}
+                    <div className="absolute left-1/2 top-16 w-0.5 h-16 bg-gradient-to-b from-[#C5A059] via-[#C5A059]/50 to-[#94A3B8]/20 -translate-x-1/2 -z-10" />
                   </div>
                   <div>
                     <h3 className="text-white text-xl tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
@@ -286,53 +289,66 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* BOTTOM: Infraestructura (90%) - Deep industrial foundation */}
-              <div className="bg-[#050608] p-6 pt-8 relative border-t border-white/10 z-10">
+              {/* BOTTOM: Infraestructura (90%) - The Massive Engine */}
+              <div className="bg-[#050608] relative border-t border-white/10 flex-grow p-6 pt-10 overflow-hidden">
+                {/* Giant 90% watermark */}
+                <div className="absolute right-[-20px] bottom-[-20px] text-[120px] font-bold text-white/[0.04] leading-none select-none pointer-events-none z-0" style={{ fontFamily: 'Georgia, serif' }}>
+                  90%
+                </div>
+
                 {/* Engineering grid texture */}
                 <div
-                  className="absolute inset-0 opacity-[0.08] pointer-events-none"
+                  className="absolute inset-0 opacity-[0.08] pointer-events-none z-0"
                   style={{
                     backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
                     backgroundSize: '20px 20px',
                   }}
                 />
 
-                <div className="flex justify-between items-end mb-6 relative z-10">
-                  <h3 className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-[#94A3B8]" />
-                    Infraestructura (90%)
-                  </h3>
-                  <span className="text-[9px] text-[#475569] italic font-mono border border-white/5 px-2 py-1 rounded">Activos a costo cero</span>
+                <div className="relative z-10">
+                  {/* Robust section header */}
+                  <div className="flex items-baseline gap-3 mb-6 border-b border-white/5 pb-2">
+                    <h3 className="text-sm text-white font-bold tracking-widest uppercase">
+                      Infraestructura
+                    </h3>
+                    <span className="text-[10px] text-[#94A3B8]/60 font-mono">Respaldo Global</span>
+                  </div>
+
+                  {/* Socio Industrial - Steel block with internal label */}
+                  <div className="mb-5 group">
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Socio Industrial</span>
+                      <span className="text-[#C5A059] font-bold font-mono text-[10px]">$100M Capital</span>
+                    </div>
+                    <div className="h-6 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
+                      <div
+                        className="absolute inset-0 w-full h-full opacity-[0.08]"
+                        style={{ background: 'repeating-linear-gradient(45deg, transparent, transparent 5px, #fff 5px, #fff 6px)' }}
+                      />
+                      <div className="h-full bg-gradient-to-r from-[#94A3B8]/40 to-[#94A3B8]/10 w-full" />
+                      <div className="absolute inset-0 flex items-center justify-start pl-2">
+                        <span className="text-[8px] text-white/40 font-mono uppercase tracking-widest">Infraestructura Física &amp; Legal</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tecnología Queswa - Gold energy block with internal label */}
+                  <div className="group">
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Tecnología Queswa</span>
+                      <span className="text-[#C5A059] font-bold font-mono text-[10px]">IA &amp; Logística</span>
+                    </div>
+                    <div className="h-6 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/20 shadow-[0_0_10px_rgba(197,160,89,0.05)]">
+                      <div className="absolute inset-0 bg-[#C5A059]/5 w-full" />
+                      <div className="h-full bg-gradient-to-r from-[#C5A059]/30 via-[#C5A059]/40 to-[#C5A059]/30 w-full animate-pulse" />
+                      <div className="absolute inset-0 flex items-center justify-start pl-2">
+                        <span className="text-[8px] text-[#C5A059]/60 font-mono uppercase tracking-widest">Sistema Automatizado</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Socio Industrial - Steel block with diagonal texture */}
-                <div className="mb-6 group relative z-10">
-                  <div className="flex justify-between items-center text-xs mb-2">
-                    <span className="text-white font-medium tracking-wide group-hover:text-[#C5A059] transition-colors">Socio Industrial</span>
-                    <span className="text-white font-bold font-mono text-[10px] bg-[#15171C] px-2 py-1 rounded border border-white/10 shadow-inner">$100M Capital</span>
-                  </div>
-                  <div className="h-4 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
-                    <div
-                      className="absolute inset-0 w-full h-full opacity-[0.15]"
-                      style={{ background: 'repeating-linear-gradient(45deg, transparent, transparent 5px, #fff 5px, #fff 6px)' }}
-                    />
-                    <div className="h-full bg-gradient-to-r from-[#94A3B8]/50 to-white/10 w-full" />
-                  </div>
-                </div>
-
-                {/* Tecnología Queswa - Gold energy block */}
-                <div className="group relative z-10">
-                  <div className="flex justify-between items-center text-xs mb-2">
-                    <span className="text-white font-medium tracking-wide group-hover:text-[#C5A059] transition-colors">Tecnología Queswa</span>
-                    <span className="text-white font-bold font-mono text-[10px] bg-[#15171C] px-2 py-1 rounded border border-white/10 shadow-inner">IA &amp; Logística</span>
-                  </div>
-                  <div className="h-4 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/20 shadow-[0_0_10px_rgba(197,160,89,0.1)]">
-                    <div className="absolute inset-0 bg-[#C5A059]/5 w-full" />
-                    <div className="h-full bg-gradient-to-r from-[#C5A059]/40 via-[#C5A059]/60 to-[#C5A059]/40 w-full animate-pulse" />
-                  </div>
-                </div>
-
-                <p className="text-[9px] text-center text-[#475569]/60 mt-8 pt-4 border-t border-white/5 italic leading-relaxed relative z-10" style={{ fontFamily: 'Georgia, serif' }}>
+                <p className="text-[9px] text-center text-[#94A3B8]/30 mt-8 italic relative z-10" style={{ fontFamily: 'Georgia, serif' }}>
                   &quot;Nosotros ponemos los barcos, las fábricas y la IA.<br />Tú pones la conexión.&quot;
                 </p>
               </div>

@@ -22,38 +22,33 @@ import {
   Smartphone,
   BarChart3,
   ArrowRight,
+  Zap,
+  TrendingUp,
 } from 'lucide-react';
 import Link from 'next/link';
 
 type TabId = 'villain' | 'solution' | 'fit' | 'money';
-
-interface Scenario {
-  income: string;
-  desc: string;
-}
-
-const scenarios: Record<string, Scenario> = {
-  '1': { income: '$300 USD', desc: 'Tú + 2 Socios (Inicio Rápido)' },
-  '2': { income: '$1,000 USD', desc: 'Equipo: 12 Personas (Crecimiento)' },
-  '3': { income: 'Ilimitado', desc: 'Red de Consumo (Avalancha)' },
-};
+type IncomeMode = 'gen5' | 'binario';
 
 export default function ServilletaPage() {
   const [activeTab, setActiveTab] = useState<TabId>('villain');
-  const [sliderValue, setSliderValue] = useState('2');
-  const [animateIncome, setAnimateIncome] = useState(false);
+  // Simulador Bimetálico
+  const [incomeMode, setIncomeMode] = useState<IncomeMode>('gen5');
+  const [gen5Socios, setGen5Socios] = useState(2);
+  const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
+  const [binarioParejas, setBinarioParejas] = useState(50);
 
   const switchTab = (tabId: TabId) => {
     setActiveTab(tabId);
   };
 
-  const updateSimulation = (value: string) => {
-    setSliderValue(value);
-    setAnimateIncome(true);
-    setTimeout(() => setAnimateIncome(false), 500);
-  };
-
-  const currentScenario = scenarios[sliderValue];
+  // GEN5: Bonos por paquete (COMP_GEN5_04)
+  const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
+  const gen5Income = gen5Socios * gen5Bonuses[gen5Package];
+  // Binario: Personas lado menor × $38 USD mensual (COMP_BIN_08/10)
+  const exchangeRate = 4500;
+  const binarioIncomeUSD = binarioParejas * 38;
+  const binarioIncomeCOP = binarioIncomeUSD * exchangeRate;
 
   return (
     <div className="min-h-screen bg-[#0F1115] text-[#E5E5E5] flex flex-col relative">
@@ -90,29 +85,31 @@ export default function ServilletaPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-28 px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-32 px-4 sm:px-6">
 
         {/* ═══════════════════════════════════════════════════════════════════
             TAB 1: LA TRAMPA (Villain) - Financial Risk Report Style
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'villain' && (
-          <div className="min-h-[calc(100vh-220px)] flex flex-col pt-2 animate-fadeIn">
-            {/* Header - Sistema de diagnóstico */}
-            <div className="flex items-center justify-between mb-4">
+          <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center animate-fadeIn max-w-3xl mx-auto w-full py-4">
+            {/* Header - Outside container (matches Tab 2 title position) */}
+            <div className="flex items-center justify-between mb-6 px-1">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                 <span className="text-[10px] text-[#64748B] uppercase tracking-widest font-mono">
                   Diagnóstico Estructural
                 </span>
               </div>
-              <span className="text-[10px] text-red-400/80 font-mono">
+              <span className="text-[10px] text-red-400/80 font-mono border border-red-500/20 px-2 py-0.5 rounded bg-red-500/5">
                 ALERTA ACTIVA
               </span>
             </div>
 
-            {/* Risk Diagnostic Card - Glassmorphism */}
-            <div className="bg-red-500/5 backdrop-blur-sm rounded-xl p-4 mb-4 border border-red-500/20">
-              <div className="flex items-center justify-between mb-2">
+            {/* Unified Container Panel - Same chassis as Tab 2 */}
+            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl flex flex-col bg-[#0F1115]">
+            {/* Risk Diagnostic Card */}
+            <div className="bg-red-500/5 backdrop-blur-sm p-6 border-b border-red-500/20">
+              <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] text-red-400 uppercase tracking-wider font-medium">
                   Riesgo Operativo
                 </span>
@@ -120,21 +117,21 @@ export default function ServilletaPage() {
                   ALTO
                 </span>
               </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              <div className="flex items-baseline gap-3">
+                <span className="text-4xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
                   100%
                 </span>
-                <span className="text-xs text-[#64748B]">dependencia ingreso activo</span>
+                <span className="text-sm text-[#94A3B8] font-light">dependencia ingreso activo</span>
               </div>
-              <p className="text-[11px] text-red-400/70 mt-2 font-light">
-                Si tú paras, el dinero para.
+              <p className="text-xs text-red-400/70 mt-3 font-light italic">
+                &quot;Si tú paras, el dinero para.&quot;
               </p>
             </div>
 
             {/* Divergent Lines Graph - Employment vs Asset */}
-            <div className="relative w-full h-44 bg-[#1A1D23]/60 backdrop-blur-sm rounded-xl mb-4 p-3 overflow-hidden border border-white/5">
+            <div className="relative w-full h-52 bg-[#1A1D23]/40 backdrop-blur-sm p-4 overflow-hidden border-b border-white/5">
               {/* Legend - Top Right */}
-              <div className="absolute top-3 right-3 flex flex-col gap-1 items-end z-10">
+              <div className="absolute top-4 right-4 flex flex-col gap-2 items-end z-10">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-0.5 bg-red-400" />
                   <span className="text-[10px] text-[#94A3B8]">Empleo (Lineal)</span>
@@ -191,60 +188,61 @@ export default function ServilletaPage() {
             </div>
 
             {/* The Cycle - Hamster Wheel Diagram */}
-            <div className="bg-[#1A1D23]/40 rounded-xl p-4 mb-4 border border-white/5">
-              <div className="flex items-center gap-2 mb-3">
+            <div className="bg-[#1A1D23]/20 p-6 border-b border-white/5">
+              <div className="flex items-center gap-2 mb-6 justify-center">
                 <div className="w-1 h-4 bg-red-500/50 rounded-full" />
-                <span className="text-xs text-[#94A3B8] font-medium uppercase tracking-wide">El Plan por Defecto</span>
+                <span className="text-xs text-[#94A3B8] font-medium uppercase tracking-widest">El Plan por Defecto</span>
               </div>
 
               {/* Cycle visualization - horizontal flow */}
-              <div className="flex items-center justify-between text-center">
+              <div className="flex items-center justify-between text-center px-2 sm:px-8">
                 <div className="flex-1">
-                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10">
-                    <span className="text-lg">💼</span>
+                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
+                    <span className="text-xl">💼</span>
                   </div>
-                  <span className="text-[9px] text-[#64748B] block">Trabajar</span>
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Trabajar</span>
                 </div>
-                <span className="text-[#475569] text-xs">→</span>
+                <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
-                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10">
-                    <span className="text-lg">💸</span>
+                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
+                    <span className="text-xl">💸</span>
                   </div>
-                  <span className="text-[9px] text-[#64748B] block">Pagar</span>
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Pagar</span>
                 </div>
-                <span className="text-[#475569] text-xs">→</span>
+                <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
-                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-red-500/20">
-                    <span className="text-lg">📉</span>
+                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+                    <span className="text-xl">📉</span>
                   </div>
-                  <span className="text-[9px] text-red-400/70 block">$0</span>
+                  <span className="text-[10px] text-red-400 font-bold uppercase tracking-wide block">$0</span>
                 </div>
-                <span className="text-[#475569] text-xs">→</span>
+                <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
-                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10 relative">
-                    <span className="text-lg">🔄</span>
+                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
+                    <span className="text-xl">🔄</span>
                   </div>
-                  <span className="text-[9px] text-[#64748B] block">Repetir</span>
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Repetir</span>
                 </div>
               </div>
 
               {/* Loop indicator */}
-              <div className="mt-3 pt-3 border-t border-white/5 text-center">
-                <span className="text-[11px] sm:text-xs text-[#64748B] italic">
+              <div className="mt-6 pt-4 border-t border-white/5 text-center">
+                <span className="text-[11px] text-[#64748B] italic">
                   Este ciclo se repite hasta los 65 años... o hasta que el cuerpo diga basta.
                 </span>
               </div>
             </div>
 
             {/* Exit Promise - Naval/Jobs style quote */}
-            <div className="mt-auto pt-2">
-              <div className="border-l-2 border-[#C5A059]/50 pl-4">
-                <p className="text-sm text-[#E5E5E5] font-light italic leading-relaxed">
+            <div className="p-6 bg-gradient-to-b from-[#1A1D23]/20 to-transparent">
+              <div className="border-l-2 border-[#C5A059]/50 pl-5 py-1">
+                <p className="text-base sm:text-lg text-[#E5E5E5] font-light italic leading-relaxed">
                   &quot;No necesitas más esfuerzo.<br />
                   <span className="text-[#C5A059] font-medium not-italic">Necesitas cambiar de vehículo.&quot;</span>
                 </p>
               </div>
             </div>
+            </div>{/* End unified container panel */}
           </div>
         )}
 
@@ -252,48 +250,50 @@ export default function ServilletaPage() {
             TAB 2: EL SISTEMA (Solution)
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'solution' && (
-          <div className="min-h-[calc(100vh-220px)] flex flex-col justify-center animate-fadeIn">
-            <div className="text-center mb-4">
-              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
+          <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center animate-fadeIn max-w-3xl mx-auto w-full py-4">
+            <div className="text-center mb-8">
+              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.25em] mb-3 block">
                 Arquitectura de Activos
               </span>
-              <h1 className="text-3xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              <h1 className="text-4xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
                 Eficiencia,
                 <br />
                 <span className="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] bg-clip-text text-transparent">no magia.</span>
               </h1>
             </div>
 
-            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl flex flex-col">
+            <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl flex flex-col bg-[#0F1115]">
               {/* TOP: Tu Rol (10%) - The Key */}
-              <div className="p-6 bg-gradient-to-b from-white/[0.05] to-transparent relative z-20 flex-shrink-0">
-                <div className="flex items-center gap-5">
+              <div className="p-8 bg-gradient-to-b from-white/[0.05] to-transparent relative z-20 flex-shrink-0">
+                <div className="flex items-center gap-6">
                   <div className="relative flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C5A059] to-[#A68A4A] flex items-center justify-center text-[#0F1115] font-bold text-xl shadow-[0_0_25px_rgba(197,160,89,0.3)] border border-white/20 relative z-10">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#C5A059] to-[#A68A4A] flex items-center justify-center text-[#0F1115] font-bold text-2xl shadow-[0_0_30px_rgba(197,160,89,0.3)] border border-white/20 relative z-10">
                       10%
                     </div>
                     {/* "Tu Aporte" label */}
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15171C] border border-[#C5A059]/30 text-[#C5A059] text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap z-20 uppercase tracking-wider">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15171C] border border-[#C5A059]/30 text-[#C5A059] text-[10px] px-3 py-0.5 rounded-full whitespace-nowrap z-20 uppercase tracking-wider font-medium shadow-lg">
                       Tu Aporte
                     </div>
                     {/* Power cable connector */}
-                    <div className="absolute left-1/2 top-16 w-0.5 h-16 bg-gradient-to-b from-[#C5A059] via-[#C5A059]/50 to-[#94A3B8]/20 -translate-x-1/2 -z-10" />
+                    <div className="absolute left-1/2 top-20 w-[2px] h-20 bg-gradient-to-b from-[#C5A059] via-[#C5A059]/50 to-[#94A3B8]/20 -translate-x-1/2 z-0" />
                   </div>
                   <div>
-                    <h3 className="text-white text-xl tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
-                    <p className="text-xs text-[#94A3B8] mt-1 font-light leading-relaxed">
+                    <h3 className="text-white text-2xl tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
+                    <p className="text-sm text-[#94A3B8] font-light leading-relaxed">
                       Conectar personas. Cobrar el peaje.<br />
-                      <span className="text-[#C5A059]/80">Sin logística. Sin inventario.</span>
+                      <span className="text-[#C5A059]/90 font-medium">Sin logística. Sin inventario.</span>
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* BOTTOM: Infraestructura (90%) - The Massive Engine */}
-              <div className="bg-[#050608] relative border-t border-white/10 flex-grow p-6 pt-10 overflow-hidden">
-                {/* Giant 90% watermark */}
-                <div className="absolute right-[-20px] bottom-[-20px] text-[120px] font-bold text-white/[0.04] leading-none select-none pointer-events-none z-0" style={{ fontFamily: 'Georgia, serif' }}>
-                  90%
+              <div className="bg-[#050608] relative border-t border-white/10 flex-grow p-8 pt-12 overflow-hidden">
+                {/* Giant 90% watermark - centered */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-[0.04]">
+                  <span className="text-[140px] sm:text-[200px] font-bold text-white leading-none select-none" style={{ fontFamily: 'Georgia, serif' }}>
+                    90%
+                  </span>
                 </div>
 
                 {/* Engineering grid texture */}
@@ -307,50 +307,54 @@ export default function ServilletaPage() {
 
                 <div className="relative z-10">
                   {/* Robust section header */}
-                  <div className="flex items-baseline gap-3 mb-6 border-b border-white/5 pb-2">
-                    <h3 className="text-sm text-white font-bold tracking-widest uppercase">
+                  <div className="flex items-center gap-4 mb-8 border-b border-white/5 pb-3">
+                    <h3 className="text-base text-white font-bold tracking-widest uppercase">
                       Infraestructura
                     </h3>
-                    <span className="text-[10px] text-[#94A3B8]/60 font-mono">Respaldo Global</span>
+                    <div className="h-px flex-grow bg-white/5" />
+                    <span className="text-[10px] text-[#94A3B8] font-mono uppercase bg-white/5 px-2 py-1 rounded">Respaldo Global</span>
                   </div>
 
                   {/* Socio Industrial - Steel block with internal label */}
-                  <div className="mb-5 group">
-                    <div className="flex justify-between items-center text-xs mb-1">
+                  <div className="mb-6 group">
+                    <div className="flex justify-between items-center text-xs mb-2">
                       <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Socio Industrial</span>
-                      <span className="text-[#C5A059] font-bold font-mono text-[10px]">$100M Capital</span>
+                      <span className="text-[#C5A059] font-bold font-mono text-[10px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20">$100M Capital</span>
                     </div>
-                    <div className="h-6 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
+                    <div className="h-8 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
                       <div
                         className="absolute inset-0 w-full h-full opacity-[0.08]"
                         style={{ background: 'repeating-linear-gradient(45deg, transparent, transparent 5px, #fff 5px, #fff 6px)' }}
                       />
                       <div className="h-full bg-gradient-to-r from-[#94A3B8]/40 to-[#94A3B8]/10 w-full" />
-                      <div className="absolute inset-0 flex items-center justify-start pl-2">
-                        <span className="text-[8px] text-white/40 font-mono uppercase tracking-widest">Infraestructura Física &amp; Legal</span>
+                      <div className="absolute inset-0 flex items-center justify-start pl-3">
+                        <span className="text-[10px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Infraestructura Física &amp; Legal</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Tecnología Queswa - Gold energy block with internal label */}
                   <div className="group">
-                    <div className="flex justify-between items-center text-xs mb-1">
+                    <div className="flex justify-between items-center text-xs mb-2">
                       <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Tecnología Queswa</span>
-                      <span className="text-[#C5A059] font-bold font-mono text-[10px]">IA &amp; Logística</span>
+                      <span className="text-[#C5A059] font-bold font-mono text-[10px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20">IA &amp; Logística</span>
                     </div>
-                    <div className="h-6 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/20 shadow-[0_0_10px_rgba(197,160,89,0.05)]">
+                    <div className="h-8 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/30 shadow-[0_0_15px_rgba(197,160,89,0.1)]">
                       <div className="absolute inset-0 bg-[#C5A059]/5 w-full" />
-                      <div className="h-full bg-gradient-to-r from-[#C5A059]/30 via-[#C5A059]/40 to-[#C5A059]/30 w-full animate-pulse" />
-                      <div className="absolute inset-0 flex items-center justify-start pl-2">
-                        <span className="text-[8px] text-[#C5A059]/60 font-mono uppercase tracking-widest">Sistema Automatizado</span>
+                      <div className="h-full bg-gradient-to-r from-[#C5A059]/30 via-[#C5A059]/50 to-[#C5A059]/30 w-full animate-pulse" />
+                      <div className="absolute inset-0 flex items-center justify-start pl-3">
+                        <span className="text-[10px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Sistema Automatizado</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-[9px] text-center text-[#94A3B8]/30 mt-8 italic relative z-10" style={{ fontFamily: 'Georgia, serif' }}>
-                  &quot;Nosotros ponemos los barcos, las fábricas y la IA.<br />Tú pones la conexión.&quot;
-                </p>
+                <div className="mt-10 text-center relative z-10 px-4">
+                  <p className="text-sm sm:text-base text-[#94A3B8] italic leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                    &quot;Nosotros ponemos los barcos, las fábricas y la IA.<br />
+                    <span className="text-white font-medium not-italic">Tú solo pones la conexión.&quot;</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -360,128 +364,297 @@ export default function ServilletaPage() {
             TAB 3: TU ROL (Fit)
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'fit' && (
-          <div className="min-h-[calc(100vh-220px)] flex flex-col pt-4 animate-fadeIn">
-            <div className="mb-6">
-              <h1 className="text-2xl text-white mb-2" style={{ fontFamily: 'Georgia, serif' }}>Elige tu vehículo</h1>
-              <p className="text-sm text-[#A3A3A3] font-light">
-                El sistema se adapta a tu perfil, no al revés.
+          <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center animate-fadeIn max-w-3xl mx-auto w-full py-4">
+
+            {/* Header Centrado */}
+            <div className="text-center mb-8">
+              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
+                Matriz de Operación
+              </span>
+              <h1 className="text-3xl text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                Define tu Estilo
+              </h1>
+              <p className="text-sm text-[#A3A3A3] font-light max-w-md mx-auto leading-relaxed">
+                El sistema no te pide que cambies quién eres.<br/>
+                <span className="text-[#C5A059]">La tecnología se adapta a tu perfil.</span>
               </p>
             </div>
 
-            <div className="space-y-4">
-              {/* Modo Clásico */}
-              <div className="bg-[#1A1D23]/60 backdrop-blur-sm p-5 rounded-xl border-l-2 border-transparent hover:border-[#C5A059] transition-all cursor-pointer group border border-white/5">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-white font-medium group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
-                    Modo Clásico
-                  </h3>
-                  <Users className="w-5 h-5 text-[#64748B] group-hover:text-[#94A3B8] transition-colors" />
+            <div className="space-y-5">
+
+              {/* OPCIÓN 1: MODO RELACIONAL (High Touch) */}
+              <div className="group relative bg-[#1A1D23]/40 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-[#C5A059]/30 transition-all duration-300 cursor-pointer overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Users className="w-16 h-16 text-[#94A3B8]" />
                 </div>
-                <p className="text-xs text-[#64748B]">
-                  Relacional. Café presencial. Negocios de confianza.
-                </p>
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#15171C] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-[#C5A059]/50 transition-colors">
+                    <Users className="w-5 h-5 text-[#94A3B8] group-hover:text-[#C5A059]" />
+                  </div>
+                  <div>
+                    <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
+                      Modo Relacional
+                    </h3>
+                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-2 font-mono">Para el Conector Natural</p>
+                    <p className="text-sm text-[#E5E5E5]/80 font-light leading-relaxed">
+                      Prefieres el contacto humano. Café presencial, apretón de manos y construcción de confianza cara a cara. La App es solo tu apoyo administrativo.
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              {/* Modo Híbrido (destacado) */}
-              <div className="bg-[#C5A059]/5 backdrop-blur-sm p-5 rounded-xl border-l-2 border-[#C5A059] cursor-pointer border border-[#C5A059]/20">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-[#C5A059] font-medium" style={{ fontFamily: 'Georgia, serif' }}>Modo Híbrido</h3>
-                  <Smartphone className="w-5 h-5 text-[#C5A059]" />
+              {/* OPCIÓN 2: MODO HÍBRIDO (Smart Leverage) - DESTACADO */}
+              <div className="group relative bg-gradient-to-r from-[#C5A059]/10 to-[#1A1D23]/60 backdrop-blur-sm p-6 rounded-xl border border-[#C5A059]/40 cursor-pointer shadow-[0_0_30px_rgba(197,160,89,0.05)]">
+                {/* Badge de Recomendado */}
+                <div className="absolute top-0 right-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
+                  Recomendado
                 </div>
-                <p className="text-xs text-[#A3A3A3]">
-                  Marca personal + App. Usas redes, cierras con tecnología.
-                </p>
+
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <Smartphone className="w-16 h-16 text-[#C5A059]" />
+                </div>
+
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#C5A059]/20 border border-[#C5A059] flex items-center justify-center flex-shrink-0">
+                    <Smartphone className="w-5 h-5 text-[#C5A059]" />
+                  </div>
+                  <div>
+                    <h3 className="text-[#C5A059] text-lg font-medium mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+                      Modo Híbrido
+                    </h3>
+                    <p className="text-xs text-[#C5A059]/70 uppercase tracking-wider mb-2 font-mono">Marca Personal + Tecnología</p>
+                    <p className="text-sm text-[#E5E5E5] font-light leading-relaxed">
+                      Usas tus redes para atraer y Queswa para filtrar. Tú solo hablas con los que ya levantaron la mano. <span className="font-medium text-white">Máxima eficiencia.</span>
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              {/* Modo Digital */}
-              <div className="bg-[#1A1D23]/60 backdrop-blur-sm p-5 rounded-xl border-l-2 border-transparent hover:border-[#C5A059] transition-all cursor-pointer group border border-white/5">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-white font-medium group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
-                    Modo Digital
-                  </h3>
-                  <BarChart3 className="w-5 h-5 text-[#64748B] group-hover:text-[#94A3B8] transition-colors" />
+              {/* OPCIÓN 3: MODO INVERSIONISTA (Low Touch) */}
+              <div className="group relative bg-[#1A1D23]/40 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-[#C5A059]/30 transition-all duration-300 cursor-pointer overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <BarChart3 className="w-16 h-16 text-[#94A3B8]" />
                 </div>
-                <p className="text-xs text-[#64748B]">
-                  Sin tiempo. Tráfico pago + Automatización 100%.
-                </p>
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#15171C] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-[#C5A059]/50 transition-colors">
+                    <BarChart3 className="w-5 h-5 text-[#94A3B8] group-hover:text-[#C5A059]" />
+                  </div>
+                  <div>
+                    <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
+                      Modo Inversionista
+                    </h3>
+                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-2 font-mono">Tráfico Pago + Sistemas</p>
+                    <p className="text-sm text-[#E5E5E5]/80 font-light leading-relaxed">
+                      No tienes tiempo. Inviertes capital en publicidad (Ads) y delegas el cierre en el sistema y el equipo. Tu rol es puramente estratégico.
+                    </p>
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
         )}
 
         {/* ═══════════════════════════════════════════════════════════════════
-            TAB 4: EL DINERO (Money)
+            TAB 4: EL DINERO (Money) - SIMULADOR BIMETÁLICO (GEN5 + BINARIO)
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'money' && (
-          <div className="min-h-[calc(100vh-220px)] flex flex-col pt-4 animate-fadeIn">
+          <div className="min-h-[calc(100vh-200px)] flex flex-col pt-4 animate-fadeIn max-w-3xl mx-auto w-full">
+
             <div className="text-center mb-6">
-              <span className="text-xs text-[#C5A059] tracking-widest uppercase mb-1 block font-medium">
-                Modelo Bimetálico
+              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
+                Proyección de Ingresos
               </span>
-              <h1 className="text-2xl text-white" style={{ fontFamily: 'Georgia, serif' }}>El Efecto Bola de Nieve</h1>
+              <h1 className="text-3xl text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                Simulador de Soberanía
+              </h1>
             </div>
 
-            <div className="bg-[#1A1D23]/60 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-[#C5A059]/20 relative overflow-hidden">
-              {/* Glow effect */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/10 rounded-full blur-2xl -mr-10 -mt-10" />
+            {/* SIMULADOR BIMETÁLICO */}
+            <div className="bg-[#1A1D23]/60 backdrop-blur-sm rounded-2xl border border-[#C5A059]/30 relative overflow-hidden shadow-2xl flex flex-col">
 
-              <div className="flex justify-between items-end mb-2 relative z-10">
-                <span className="text-xs text-[#94A3B8] uppercase tracking-wider">
-                  Ingreso Mensual Proyectado
-                </span>
-                <span
-                  className={`text-3xl text-[#C5A059] font-bold transition-transform duration-300 ${
-                    animateIncome ? 'scale-110' : 'scale-100'
+              {/* SELECTOR DE MODO (TABS) */}
+              <div className="grid grid-cols-2 border-b border-white/5 bg-[#0F1115]/50">
+                <button
+                  onClick={() => setIncomeMode('gen5')}
+                  className={`py-4 text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 border-r border-white/5 ${
+                    incomeMode === 'gen5'
+                      ? 'text-[#C5A059] bg-[#C5A059]/10'
+                      : 'text-[#64748B] hover:text-white'
                   }`}
-                  style={{ fontFamily: 'Georgia, serif' }}
                 >
-                  {currentScenario.income}
-                </span>
+                  <Zap size={14} /> Capital Rápido
+                </button>
+                <button
+                  onClick={() => setIncomeMode('binario')}
+                  className={`py-4 text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${
+                    incomeMode === 'binario'
+                      ? 'text-[#66FCF1] bg-[#66FCF1]/10'
+                      : 'text-[#64748B] hover:text-white'
+                  }`}
+                >
+                  <TrendingUp size={14} /> Renta Vitalicia
+                </button>
               </div>
-              <p className="text-xs text-[#64748B] mb-6 text-right">{currentScenario.desc}</p>
 
-              {/* Slider */}
-              <div className="relative py-4">
-                <input
-                  type="range"
-                  min="1"
-                  max="3"
-                  step="1"
-                  value={sliderValue}
-                  onChange={(e) => updateSimulation(e.target.value)}
-                  className="w-full h-1 bg-[#1A1D23] rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
-                  style={{
-                    background: `linear-gradient(to right, #C5A059 0%, #C5A059 ${((parseInt(sliderValue) - 1) / 2) * 100}%, #1A1D23 ${((parseInt(sliderValue) - 1) / 2) * 100}%, #1A1D23 100%)`
-                  }}
-                />
-                <div className="flex justify-between mt-3 text-[10px] text-[#64748B] uppercase tracking-widest">
-                  <span>Inicio</span>
-                  <span>Crecimiento</span>
-                  <span>Avalancha</span>
+              {/* CONTENEDOR DE MODOS */}
+              <div className="p-8 relative min-h-[300px] flex flex-col justify-center">
+
+                {/* MODO 1: CAPITAL RÁPIDO (GEN5) */}
+                {incomeMode === 'gen5' && (
+                  <div className="space-y-8 animate-fadeIn">
+                    <div className="text-center">
+                      <p className="text-[10px] text-[#C5A059] mb-2 uppercase tracking-wider">Tu Ganancia Inmediata</p>
+                      <div className="flex items-baseline justify-center gap-2">
+                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(197,160,89,0.2)' }}>
+                          ${gen5Income.toLocaleString()}
+                        </span>
+                        <span className="text-xl text-[#64748B]">USD</span>
+                      </div>
+                      <p className="text-xs text-[#94A3B8] mt-2 font-light">
+                        Al conectar <span className="text-white font-bold">{gen5Socios}</span> socios en Paquete {gen5Package === 'ESP1' ? 'Inicial' : gen5Package === 'ESP2' ? 'Empresarial' : 'Visionario'}
+                      </p>
+                    </div>
+
+                    {/* Selector de Paquete */}
+                    <div className="flex justify-center gap-2">
+                      {([
+                        { key: 'ESP1' as const, label: 'Inicial', bonus: '$25' },
+                        { key: 'ESP2' as const, label: 'Empresarial', bonus: '$75' },
+                        { key: 'ESP3' as const, label: 'Visionario', bonus: '$150' },
+                      ]).map((pkg) => (
+                        <button
+                          key={pkg.key}
+                          onClick={() => setGen5Package(pkg.key)}
+                          className={`px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                            gen5Package === pkg.key
+                              ? 'bg-[#C5A059]/20 border border-[#C5A059] text-[#C5A059]'
+                              : 'bg-[#15171C] border border-white/10 text-[#94A3B8] hover:border-white/20'
+                          }`}
+                        >
+                          <span className="block">{pkg.label}</span>
+                          <span className={`block text-[10px] mt-0.5 ${gen5Package === pkg.key ? 'text-[#C5A059]/70' : 'text-[#64748B]'}`}>{pkg.bonus}/socio</span>
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Slider de Socios */}
+                    <div className="relative pt-4 pb-2 px-2">
+                      <div className="absolute top-[calc(50%-2px)] left-2 right-2 h-2 bg-[#15171C] rounded-full" />
+                      <div
+                        className="absolute top-[calc(50%-2px)] left-2 h-2 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] rounded-full pointer-events-none z-10 transition-all duration-100 shadow-[0_0_15px_rgba(197,160,89,0.5)]"
+                        style={{ width: `calc(${((gen5Socios - 1) / 9) * 100}%)` }}
+                      />
+                      <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        step="1"
+                        value={gen5Socios}
+                        onChange={(e) => setGen5Socios(parseInt(e.target.value))}
+                        className="relative w-full h-8 bg-transparent appearance-none cursor-pointer z-20"
+                      />
+                      <div className="flex justify-between mt-4 text-[9px] text-[#64748B] uppercase tracking-widest font-mono">
+                        <span>1 Socio</span>
+                        <span>5 Socios</span>
+                        <span>10 Socios</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#C5A059]/5 border border-[#C5A059]/10 p-3 rounded-lg flex gap-3 items-center">
+                      <div className="p-2 bg-[#C5A059]/10 rounded-full text-[#C5A059]"><Zap size={14} /></div>
+                      <p className="text-[10px] text-[#94A3B8] leading-tight">
+                        <strong className="text-[#C5A059]">Insight:</strong> Este bono se paga semanalmente. Es tu capital para recuperar inversión y financiar tu estilo de vida mientras construyes.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* MODO 2: RENTA VITALICIA (BINARIO) */}
+                {incomeMode === 'binario' && (
+                  <div className="space-y-8 animate-fadeIn">
+                    <div className="text-center">
+                      <p className="text-[10px] text-[#66FCF1] mb-2 uppercase tracking-wider">Tu Renta Mensual Recurrente</p>
+                      <div className="flex items-baseline justify-center gap-2">
+                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(102,252,241,0.2)' }}>
+                          ${binarioIncomeUSD.toLocaleString('en-US')}
+                        </span>
+                        <span className="text-xl text-[#64748B]">USD</span>
+                      </div>
+                      <p className="text-sm text-[#64748B] mt-1">
+                        ({binarioIncomeCOP.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })})
+                      </p>
+                      <p className="text-xs text-[#94A3B8] mt-2 font-light">
+                        Con <span className="text-white font-bold">{binarioParejas}</span> personas en tu lado menor
+                      </p>
+                    </div>
+
+                    {/* Slider de Volumen */}
+                    <div className="relative pt-4 pb-2 px-2">
+                      <div className="absolute top-[calc(50%-2px)] left-2 right-2 h-2 bg-[#15171C] rounded-full" />
+                      <div
+                        className="absolute top-[calc(50%-2px)] left-2 h-2 bg-gradient-to-r from-[#45A29E] to-[#66FCF1] rounded-full pointer-events-none z-10 transition-all duration-100 shadow-[0_0_15px_rgba(102,252,241,0.4)]"
+                        style={{ width: `calc(${((binarioParejas - 10) / 490) * 100}%)` }}
+                      />
+                      <input
+                        type="range"
+                        min="10"
+                        max="500"
+                        step="10"
+                        value={binarioParejas}
+                        onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
+                        className="relative w-full h-8 bg-transparent appearance-none cursor-pointer z-20"
+                      />
+                      <div className="flex justify-between mt-4 text-[9px] text-[#64748B] uppercase tracking-widest font-mono">
+                        <span>Inicio (10)</span>
+                        <span>Expansión (250)</span>
+                        <span>Libertad (500)</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#66FCF1]/5 border border-[#66FCF1]/10 p-3 rounded-lg flex gap-3 items-center">
+                      <div className="p-2 bg-[#66FCF1]/10 rounded-full text-[#66FCF1]"><TrendingUp size={14} /></div>
+                      <p className="text-[10px] text-[#94A3B8] leading-tight">
+                        <strong className="text-[#66FCF1]">Insight:</strong> No tienes que traer a los 500 tú solo. Tú traes a 2, ellos a 2... el Efecto Compuesto hace el trabajo duro.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+
+            {/* SECCIÓN DE CIERRE */}
+            <div className="mt-auto space-y-6 text-center px-4 pb-8">
+
+              <div className="space-y-2">
+                <p className="text-sm text-[#A3A3A3] font-light">
+                  No vendemos nada. Damos acceso a una infraestructura de soberanía.
+                </p>
+                {/* Scarcity Trigger */}
+                <div className="inline-flex items-center gap-2 bg-[#C5A059]/10 px-4 py-1.5 rounded-full border border-[#C5A059]/20">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
+                  <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-wider">
+                    Solo 30 cupos de Fundador activos
+                  </span>
                 </div>
               </div>
-            </div>
-
-            <div className="mt-auto space-y-6 text-center">
-              <p className="text-sm text-[#A3A3A3] font-light leading-relaxed">
-                No vendemos nada. Damos acceso a una infraestructura de soberanía.
-                <br />
-                <span className="text-[#E5E5E5] font-medium">Hay 30 cupos de Fundador activos.</span>
-              </p>
 
               <Link
                 href="/paquetes"
-                className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold text-lg rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)] hover:shadow-[0_0_30px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2"
+                className="block w-full py-5 bg-gradient-to-r from-[#C5A059] to-[#B38B59] hover:from-[#D4AF37] hover:to-[#C5A059] text-[#0F1115] font-bold text-lg rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(197,160,89,0.25)] hover:shadow-[0_0_40px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2"
               >
                 Aplicar como Fundador <ArrowRight className="w-5 h-5" />
               </Link>
 
-              <Link
-                href="/reto-5-dias"
-                className="inline-block text-xs text-[#64748B] hover:text-[#E5E5E5] transition-colors uppercase tracking-widest pb-1 border-b border-transparent hover:border-[#64748B]"
-              >
-                Tengo dudas &bull; Acceder al Simulador
-              </Link>
+              <div className="pt-2">
+                <Link
+                  href="/reto-5-dias"
+                  className="text-xs text-[#64748B] hover:text-[#E5E5E5] transition-colors uppercase tracking-widest border-b border-transparent hover:border-[#64748B] pb-0.5"
+                >
+                  Tengo dudas &bull; Acceder al Simulador
+                </Link>
+              </div>
             </div>
           </div>
         )}
@@ -490,7 +663,7 @@ export default function ServilletaPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           BOTTOM NAVIGATION
       ═══════════════════════════════════════════════════════════════════ */}
-      <nav className="fixed bottom-4 left-4 right-4 h-16 bg-[#1A1D23]/90 backdrop-blur-xl rounded-2xl flex justify-around items-center z-50 shadow-2xl border border-white/5">
+      <nav className="fixed bottom-4 left-4 right-4 h-16 bg-[#1A1D23]/90 backdrop-blur-xl rounded-2xl flex justify-around items-center z-50 shadow-2xl border border-white/5 max-w-3xl mx-auto">
         <button
           onClick={() => switchTab('villain')}
           className={`flex flex-col items-center gap-1 w-1/4 transition-all duration-300 ${

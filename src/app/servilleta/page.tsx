@@ -2,10 +2,13 @@
  * Copyright © 2026 CreaTuActivo.com
  * SERVILLETA DIGITAL - Presentación Mobile-First
  *
- * THE ARCHITECT'S SUITE - Bimetallic System v3.0
- * Gold (#C5A059): CTAs, money, achievements, key highlights
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.1 (Post-Audit)
+ * Gold (#C5A059): CTAs, large titles (>24px), icons, borders ONLY
+ * Beige Champagne (#F5E8D8): Small gold-semantic text (<24px) for WCAG AAA contrast
+ * Coral (#FF8A80): Replaces red for accessibility (protanopia-safe)
  * Titanium (#94A3B8): Structural elements, navigation, muted text
  * Carbon backgrounds: #0F1115 (deep), #15171C (elevated), #1A1D23 (cards)
+ * Typography: font-feature-settings 'tnum' for financial numbers
  *
  * Para consultas de licenciamiento: legal@creatuactivo.com
  */
@@ -24,6 +27,7 @@ import {
   ArrowRight,
   Zap,
   TrendingUp,
+  AlertTriangle,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -95,35 +99,37 @@ export default function ServilletaPage() {
             {/* Header - Outside container (matches Tab 2 title position) */}
             <div className="flex items-center justify-between mb-6 px-1">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                <span className="text-[10px] text-[#64748B] uppercase tracking-widest font-mono">
+                <div className="w-2 h-2 bg-[#FF8A80] rounded-full animate-pulse" />
+                <span className="text-[11px] text-[#94A3B8] uppercase tracking-widest font-mono font-medium">
                   Diagnóstico Estructural
                 </span>
               </div>
-              <span className="text-[10px] text-red-400/80 font-mono border border-red-500/20 px-2 py-0.5 rounded bg-red-500/5">
+              <span className="text-[11px] text-[#FF8A80] font-mono border border-[#FF8A80]/20 px-2 py-0.5 rounded bg-[#FF8A80]/5 flex items-center gap-1.5">
+                <AlertTriangle className="w-3 h-3" />
                 ALERTA ACTIVA
               </span>
             </div>
 
             {/* Unified Container Panel - Same chassis as Tab 2 */}
             <div className="rounded-2xl overflow-hidden relative border border-white/10 shadow-2xl flex flex-col bg-[#0F1115]">
-            {/* Risk Diagnostic Card */}
-            <div className="bg-red-500/5 backdrop-blur-sm p-6 border-b border-red-500/20">
+            {/* Risk Diagnostic Card — Coral (#FF8A80) replaces red for protanopia safety */}
+            <div className="bg-[#FF8A80]/5 backdrop-blur-sm p-6 border-b border-[#FF8A80]/20">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] text-red-400 uppercase tracking-wider font-medium">
+                <span className="text-[11px] text-[#FF8A80] uppercase tracking-wider font-medium flex items-center gap-1.5">
+                  <AlertTriangle className="w-3.5 h-3.5" />
                   Riesgo Operativo
                 </span>
-                <span className="text-xs font-bold text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                <span className="text-xs font-bold text-[#FF8A80] bg-[#FF8A80]/20 px-2 py-0.5 rounded">
                   ALTO
                 </span>
               </div>
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                <span className="text-4xl font-bold text-white" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </span>
-                <span className="text-sm text-[#94A3B8] font-light">dependencia ingreso activo</span>
+                <span className="text-sm text-[#E5E5E5] font-normal">dependencia ingreso activo</span>
               </div>
-              <p className="text-xs text-red-400/70 mt-3 font-light italic">
+              <p className="text-sm text-[#FF8A80]/80 mt-3 font-normal italic">
                 &quot;Si tú paras, el dinero para.&quot;
               </p>
             </div>
@@ -133,12 +139,12 @@ export default function ServilletaPage() {
               {/* Legend - Top Right */}
               <div className="absolute top-4 right-4 flex flex-col gap-2 items-end z-10">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-0.5 bg-red-400" />
-                  <span className="text-[10px] text-[#94A3B8]">Empleo (Lineal)</span>
+                  <span className="w-3 h-0.5 bg-[#FF8A80]" />
+                  <span className="text-[11px] text-[#E5E5E5] font-normal">Empleo (Lineal)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-0.5 bg-[#C5A059]" />
-                  <span className="text-[10px] text-[#C5A059]">Activo (Exponencial)</span>
+                  <span className="text-[11px] text-[#F5E8D8] font-normal">Activo (Exponencial)</span>
                 </div>
               </div>
 
@@ -163,14 +169,14 @@ export default function ServilletaPage() {
                   className="animate-drawLine"
                   d="M30,95 L80,75 L130,65 L155,60 L175,85 L195,100 L215,108 L280,108"
                   fill="none"
-                  stroke="#EF4444"
+                  stroke="#FF8A80"
                   strokeWidth="2"
                   strokeLinecap="round"
                   opacity="0.8"
                 />
                 {/* Crash indicator - More visible */}
-                <circle cx="175" cy="85" r="12" fill="none" stroke="#EF4444" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-                <text x="175" y="70" textAnchor="middle" fill="#EF4444" fontSize="9" fontFamily="monospace" fontWeight="bold">CRISIS</text>
+                <circle cx="175" cy="85" r="12" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+                <text x="175" y="70" textAnchor="middle" fill="#FF8A80" fontSize="9" fontFamily="monospace" fontWeight="bold">CRISIS</text>
 
                 {/* Line B: Asset - J-curve exponential growth */}
                 <path
@@ -190,8 +196,8 @@ export default function ServilletaPage() {
             {/* The Cycle - Hamster Wheel Diagram */}
             <div className="bg-[#1A1D23]/20 p-6 border-b border-white/5">
               <div className="flex items-center gap-2 mb-6 justify-center">
-                <div className="w-1 h-4 bg-red-500/50 rounded-full" />
-                <span className="text-xs text-[#94A3B8] font-medium uppercase tracking-widest">El Plan por Defecto</span>
+                <div className="w-1 h-4 bg-[#FF8A80]/50 rounded-full" />
+                <span className="text-sm text-[#E5E5E5] font-medium uppercase tracking-widest">El Plan por Defecto</span>
               </div>
 
               {/* Cycle visualization - horizontal flow */}
@@ -200,34 +206,34 @@ export default function ServilletaPage() {
                   <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
                     <span className="text-xl">💼</span>
                   </div>
-                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Trabajar</span>
+                  <span className="text-[11px] text-[#E5E5E5]/70 uppercase tracking-wide block font-normal">Trabajar</span>
                 </div>
                 <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
                   <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
                     <span className="text-xl">💸</span>
                   </div>
-                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Pagar</span>
+                  <span className="text-[11px] text-[#E5E5E5]/70 uppercase tracking-wide block font-normal">Pagar</span>
                 </div>
                 <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
-                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+                  <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-[#FF8A80]/30 shadow-[0_0_15px_rgba(255,138,128,0.1)]">
                     <span className="text-xl">📉</span>
                   </div>
-                  <span className="text-[10px] text-red-400 font-bold uppercase tracking-wide block">$0</span>
+                  <span className="text-[11px] text-[#FF8A80] font-bold uppercase tracking-wide block">$0</span>
                 </div>
                 <span className="text-[#475569] text-sm">→</span>
                 <div className="flex-1">
                   <div className="w-12 h-12 mx-auto bg-[#15171C] rounded-xl flex items-center justify-center mb-2 border border-white/10">
                     <span className="text-xl">🔄</span>
                   </div>
-                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wide block">Repetir</span>
+                  <span className="text-[11px] text-[#E5E5E5]/70 uppercase tracking-wide block font-normal">Repetir</span>
                 </div>
               </div>
 
               {/* Loop indicator */}
               <div className="mt-6 pt-4 border-t border-white/5 text-center">
-                <span className="text-[11px] text-[#64748B] italic">
+                <span className="text-sm text-[#A3A3A3] italic font-normal">
                   Este ciclo se repite hasta los 65 años... o hasta que el cuerpo diga basta.
                 </span>
               </div>
@@ -236,9 +242,9 @@ export default function ServilletaPage() {
             {/* Exit Promise - Naval/Jobs style quote */}
             <div className="p-6 bg-gradient-to-b from-[#1A1D23]/20 to-transparent">
               <div className="border-l-2 border-[#C5A059]/50 pl-5 py-1">
-                <p className="text-base sm:text-lg text-[#E5E5E5] font-light italic leading-relaxed">
+                <p className="text-base sm:text-lg text-[#E5E5E5] font-normal italic leading-relaxed">
                   &quot;No necesitas más esfuerzo.<br />
-                  <span className="text-[#C5A059] font-medium not-italic">Necesitas cambiar de vehículo.&quot;</span>
+                  <span className="text-[#F5E8D8] font-semibold not-italic">Necesitas cambiar de vehículo.&quot;</span>
                 </p>
               </div>
             </div>
@@ -252,7 +258,7 @@ export default function ServilletaPage() {
         {activeTab === 'solution' && (
           <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center animate-fadeIn max-w-3xl mx-auto w-full py-4">
             <div className="text-center mb-8">
-              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.25em] mb-3 block">
+              <span className="text-[11px] text-[#E5E5E5]/60 uppercase tracking-[0.25em] mb-3 block font-medium">
                 Arquitectura de Activos
               </span>
               <h1 className="text-4xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
@@ -271,7 +277,7 @@ export default function ServilletaPage() {
                       10%
                     </div>
                     {/* "Tu Aporte" label */}
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15171C] border border-[#C5A059]/30 text-[#C5A059] text-[10px] px-3 py-0.5 rounded-full whitespace-nowrap z-20 uppercase tracking-wider font-medium shadow-lg">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15171C] border border-[#C5A059]/30 text-[#F5E8D8] text-[11px] px-3 py-0.5 rounded-full whitespace-nowrap z-20 uppercase tracking-wider font-medium shadow-lg">
                       Tu Aporte
                     </div>
                     {/* Power cable connector */}
@@ -279,9 +285,9 @@ export default function ServilletaPage() {
                   </div>
                   <div>
                     <h3 className="text-white text-2xl tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>Tu Rol: El Arquitecto</h3>
-                    <p className="text-sm text-[#94A3B8] font-light leading-relaxed">
+                    <p className="text-sm text-[#E5E5E5]/80 font-normal leading-relaxed">
                       Conectar personas. Cobrar el peaje.<br />
-                      <span className="text-[#C5A059]/90 font-medium">Sin logística. Sin inventario.</span>
+                      <span className="text-[#F5E8D8] font-medium">Sin logística. Sin inventario.</span>
                     </p>
                   </div>
                 </div>
@@ -312,14 +318,14 @@ export default function ServilletaPage() {
                       Infraestructura
                     </h3>
                     <div className="h-px flex-grow bg-white/5" />
-                    <span className="text-[10px] text-[#94A3B8] font-mono uppercase bg-white/5 px-2 py-1 rounded">Respaldo Global</span>
+                    <span className="text-[11px] text-[#E5E5E5]/60 font-mono uppercase bg-white/5 px-2 py-1 rounded font-medium">Respaldo Global</span>
                   </div>
 
                   {/* Socio Industrial - Steel block with internal label */}
                   <div className="mb-6 group">
                     <div className="flex justify-between items-center text-xs mb-2">
                       <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Socio Industrial</span>
-                      <span className="text-[#C5A059] font-bold font-mono text-[10px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20">$100M Capital</span>
+                      <span className="text-[#F5E8D8] font-bold font-mono text-[11px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20" style={{ fontFeatureSettings: "'tnum'" }}>$100M Capital</span>
                     </div>
                     <div className="h-8 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-white/10 shadow-lg">
                       <div
@@ -328,7 +334,7 @@ export default function ServilletaPage() {
                       />
                       <div className="h-full bg-gradient-to-r from-[#94A3B8]/40 to-[#94A3B8]/10 w-full" />
                       <div className="absolute inset-0 flex items-center justify-start pl-3">
-                        <span className="text-[10px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Infraestructura Física &amp; Legal</span>
+                        <span className="text-[11px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Infraestructura Física &amp; Legal</span>
                       </div>
                     </div>
                   </div>
@@ -337,22 +343,22 @@ export default function ServilletaPage() {
                   <div className="group">
                     <div className="flex justify-between items-center text-xs mb-2">
                       <span className="text-[#94A3B8] font-medium tracking-wide group-hover:text-white transition-colors">Tecnología Queswa</span>
-                      <span className="text-[#C5A059] font-bold font-mono text-[10px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20">IA &amp; Logística</span>
+                      <span className="text-[#F5E8D8] font-bold font-mono text-[11px] bg-[#15171C] px-2 py-0.5 rounded border border-[#C5A059]/20">IA &amp; Logística</span>
                     </div>
                     <div className="h-8 w-full bg-[#15171C] rounded-sm overflow-hidden relative border border-[#C5A059]/30 shadow-[0_0_15px_rgba(197,160,89,0.1)]">
                       <div className="absolute inset-0 bg-[#C5A059]/5 w-full" />
                       <div className="h-full bg-gradient-to-r from-[#C5A059]/30 via-[#C5A059]/50 to-[#C5A059]/30 w-full animate-pulse" />
                       <div className="absolute inset-0 flex items-center justify-start pl-3">
-                        <span className="text-[10px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Sistema Automatizado</span>
+                        <span className="text-[11px] sm:text-xs text-white font-mono uppercase tracking-widest font-bold drop-shadow-md">Sistema Automatizado</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-10 text-center relative z-10 px-4">
-                  <p className="text-sm sm:text-base text-[#94A3B8] italic leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                  <p className="text-sm sm:text-base text-[#E5E5E5]/80 italic font-normal leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
                     &quot;Nosotros ponemos los barcos, las fábricas y la IA.<br />
-                    <span className="text-white font-medium not-italic">Tú solo pones la conexión.&quot;</span>
+                    <span className="text-white font-semibold not-italic">Tú solo pones la conexión.&quot;</span>
                   </p>
                 </div>
               </div>
@@ -368,15 +374,15 @@ export default function ServilletaPage() {
 
             {/* Header Centrado */}
             <div className="text-center mb-8">
-              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
+              <span className="text-[11px] text-[#E5E5E5]/60 uppercase tracking-[0.2em] mb-2 block font-medium">
                 Matriz de Operación
               </span>
               <h1 className="text-3xl text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                 Define tu Estilo
               </h1>
-              <p className="text-sm text-[#A3A3A3] font-light max-w-md mx-auto leading-relaxed">
+              <p className="text-sm text-[#E5E5E5]/70 font-normal max-w-md mx-auto leading-relaxed">
                 El sistema no te pide que cambies quién eres.<br/>
-                <span className="text-[#C5A059]">La tecnología se adapta a tu perfil.</span>
+                <span className="text-[#F5E8D8] font-medium">La tecnología se adapta a tu perfil.</span>
               </p>
             </div>
 
@@ -395,8 +401,8 @@ export default function ServilletaPage() {
                     <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Relacional
                     </h3>
-                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-2 font-mono">Para el Conector Natural</p>
-                    <p className="text-sm text-[#E5E5E5]/80 font-light leading-relaxed">
+                    <p className="text-[11px] text-[#E5E5E5]/50 uppercase tracking-wider mb-2 font-mono font-medium">Para el Conector Natural</p>
+                    <p className="text-sm text-[#E5E5E5]/80 font-normal leading-relaxed">
                       Prefieres el contacto humano. Café presencial, apretón de manos y construcción de confianza cara a cara. La App es solo tu apoyo administrativo.
                     </p>
                   </div>
@@ -422,9 +428,9 @@ export default function ServilletaPage() {
                     <h3 className="text-[#C5A059] text-lg font-medium mb-1" style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Híbrido
                     </h3>
-                    <p className="text-xs text-[#C5A059]/70 uppercase tracking-wider mb-2 font-mono">Marca Personal + Tecnología</p>
-                    <p className="text-sm text-[#E5E5E5] font-light leading-relaxed">
-                      Usas tus redes para atraer y Queswa para filtrar. Tú solo hablas con los que ya levantaron la mano. <span className="font-medium text-white">Máxima eficiencia.</span>
+                    <p className="text-[11px] text-[#F5E8D8]/60 uppercase tracking-wider mb-2 font-mono font-medium">Marca Personal + Tecnología</p>
+                    <p className="text-sm text-[#E5E5E5] font-normal leading-relaxed">
+                      Usas tus redes para atraer y Queswa para filtrar. Tú solo hablas con los que ya levantaron la mano. <span className="font-semibold text-white">Máxima eficiencia.</span>
                     </p>
                   </div>
                 </div>
@@ -443,8 +449,8 @@ export default function ServilletaPage() {
                     <h3 className="text-white text-lg font-medium mb-1 group-hover:text-[#C5A059] transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
                       Modo Inversionista
                     </h3>
-                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-2 font-mono">Tráfico Pago + Sistemas</p>
-                    <p className="text-sm text-[#E5E5E5]/80 font-light leading-relaxed">
+                    <p className="text-[11px] text-[#E5E5E5]/50 uppercase tracking-wider mb-2 font-mono font-medium">Tráfico Pago + Sistemas</p>
+                    <p className="text-sm text-[#E5E5E5]/80 font-normal leading-relaxed">
                       No tienes tiempo. Inviertes capital en publicidad (Ads) y delegas el cierre en el sistema y el equipo. Tu rol es puramente estratégico.
                     </p>
                   </div>
@@ -462,7 +468,7 @@ export default function ServilletaPage() {
           <div className="min-h-[calc(100vh-200px)] flex flex-col pt-4 animate-fadeIn max-w-3xl mx-auto w-full">
 
             <div className="text-center mb-6">
-              <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] mb-2 block">
+              <span className="text-[11px] text-[#E5E5E5]/60 uppercase tracking-[0.2em] mb-2 block font-medium">
                 Proyección de Ingresos
               </span>
               <h1 className="text-3xl text-white" style={{ fontFamily: 'Georgia, serif' }}>
@@ -504,14 +510,14 @@ export default function ServilletaPage() {
                 {incomeMode === 'gen5' && (
                   <div className="space-y-8 animate-fadeIn">
                     <div className="text-center">
-                      <p className="text-[10px] text-[#C5A059] mb-2 uppercase tracking-wider">Tu Ganancia Inmediata</p>
+                      <p className="text-[11px] text-[#F5E8D8] mb-2 uppercase tracking-wider font-medium">Tu Ganancia Inmediata</p>
                       <div className="flex items-baseline justify-center gap-2">
-                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(197,160,89,0.2)' }}>
+                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(197,160,89,0.2)', fontFeatureSettings: "'tnum'" }}>
                           ${gen5Income.toLocaleString()}
                         </span>
-                        <span className="text-xl text-[#64748B]">USD</span>
+                        <span className="text-xl text-[#A3A3A3]">USD</span>
                       </div>
-                      <p className="text-xs text-[#94A3B8] mt-2 font-light">
+                      <p className="text-sm text-[#E5E5E5]/70 mt-2 font-normal">
                         Al conectar <span className="text-white font-bold">{gen5Socios}</span> socios en Paquete {gen5Package === 'ESP1' ? 'Inicial' : gen5Package === 'ESP2' ? 'Empresarial' : 'Visionario'}
                       </p>
                     </div>
@@ -533,7 +539,7 @@ export default function ServilletaPage() {
                           }`}
                         >
                           <span className="block">{pkg.label}</span>
-                          <span className={`block text-[10px] mt-0.5 ${gen5Package === pkg.key ? 'text-[#C5A059]/70' : 'text-[#64748B]'}`}>{pkg.bonus}/socio</span>
+                          <span className={`block text-[11px] mt-0.5 ${gen5Package === pkg.key ? 'text-[#F5E8D8]/70' : 'text-[#A3A3A3]'}`} style={{ fontFeatureSettings: "'tnum'" }}>{pkg.bonus}/socio</span>
                         </button>
                       ))}
                     </div>
@@ -554,7 +560,7 @@ export default function ServilletaPage() {
                         onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                         className="relative w-full h-8 bg-transparent appearance-none cursor-pointer z-20"
                       />
-                      <div className="flex justify-between mt-4 text-[9px] text-[#64748B] uppercase tracking-widest font-mono">
+                      <div className="flex justify-between mt-4 text-[11px] text-[#A3A3A3] uppercase tracking-widest font-mono font-medium">
                         <span>1 Socio</span>
                         <span>5 Socios</span>
                         <span>10 Socios</span>
@@ -563,8 +569,8 @@ export default function ServilletaPage() {
 
                     <div className="bg-[#C5A059]/5 border border-[#C5A059]/10 p-3 rounded-lg flex gap-3 items-center">
                       <div className="p-2 bg-[#C5A059]/10 rounded-full text-[#C5A059]"><Zap size={14} /></div>
-                      <p className="text-[10px] text-[#94A3B8] leading-tight">
-                        <strong className="text-[#C5A059]">Insight:</strong> Este bono se paga semanalmente. Es tu capital para recuperar inversión y financiar tu estilo de vida mientras construyes.
+                      <p className="text-[11px] text-[#E5E5E5]/70 leading-tight font-normal">
+                        <strong className="text-[#F5E8D8]">Insight:</strong> Este bono se paga semanalmente. Es tu capital para recuperar inversión y financiar tu estilo de vida mientras construyes.
                       </p>
                     </div>
                   </div>
@@ -574,17 +580,17 @@ export default function ServilletaPage() {
                 {incomeMode === 'binario' && (
                   <div className="space-y-8 animate-fadeIn">
                     <div className="text-center">
-                      <p className="text-[10px] text-[#66FCF1] mb-2 uppercase tracking-wider">Tu Renta Mensual Recurrente</p>
+                      <p className="text-[11px] text-[#66FCF1] mb-2 uppercase tracking-wider font-medium">Tu Renta Mensual Recurrente</p>
                       <div className="flex items-baseline justify-center gap-2">
-                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(102,252,241,0.2)' }}>
+                        <span className="text-5xl md:text-6xl font-bold text-white tracking-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 30px rgba(102,252,241,0.2)', fontFeatureSettings: "'tnum'" }}>
                           ${binarioIncomeUSD.toLocaleString('en-US')}
                         </span>
-                        <span className="text-xl text-[#64748B]">USD</span>
+                        <span className="text-xl text-[#A3A3A3]">USD</span>
                       </div>
-                      <p className="text-sm text-[#64748B] mt-1">
+                      <p className="text-sm text-[#A3A3A3] mt-1" style={{ fontFeatureSettings: "'tnum'" }}>
                         ({binarioIncomeCOP.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })})
                       </p>
-                      <p className="text-xs text-[#94A3B8] mt-2 font-light">
+                      <p className="text-sm text-[#E5E5E5]/70 mt-2 font-normal">
                         Con <span className="text-white font-bold">{binarioParejas}</span> personas en tu lado menor
                       </p>
                     </div>
@@ -605,7 +611,7 @@ export default function ServilletaPage() {
                         onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                         className="relative w-full h-8 bg-transparent appearance-none cursor-pointer z-20"
                       />
-                      <div className="flex justify-between mt-4 text-[9px] text-[#64748B] uppercase tracking-widest font-mono">
+                      <div className="flex justify-between mt-4 text-[11px] text-[#A3A3A3] uppercase tracking-widest font-mono font-medium">
                         <span>Inicio (10)</span>
                         <span>Expansión (250)</span>
                         <span>Libertad (500)</span>
@@ -614,7 +620,7 @@ export default function ServilletaPage() {
 
                     <div className="bg-[#66FCF1]/5 border border-[#66FCF1]/10 p-3 rounded-lg flex gap-3 items-center">
                       <div className="p-2 bg-[#66FCF1]/10 rounded-full text-[#66FCF1]"><TrendingUp size={14} /></div>
-                      <p className="text-[10px] text-[#94A3B8] leading-tight">
+                      <p className="text-[11px] text-[#E5E5E5]/70 leading-tight font-normal">
                         <strong className="text-[#66FCF1]">Insight:</strong> No tienes que traer a los 500 tú solo. Tú traes a 2, ellos a 2... el Efecto Compuesto hace el trabajo duro.
                       </p>
                     </div>
@@ -628,13 +634,13 @@ export default function ServilletaPage() {
             <div className="mt-auto space-y-6 text-center px-4 pb-8">
 
               <div className="space-y-2">
-                <p className="text-sm text-[#A3A3A3] font-light">
+                <p className="text-sm text-[#E5E5E5]/70 font-normal">
                   No vendemos nada. Damos acceso a una infraestructura de soberanía.
                 </p>
                 {/* Scarcity Trigger */}
                 <div className="inline-flex items-center gap-2 bg-[#C5A059]/10 px-4 py-1.5 rounded-full border border-[#C5A059]/20">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
-                  <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-wider">
+                  <span className="text-[11px] text-[#F5E8D8] font-bold uppercase tracking-wider">
                     Solo 30 cupos de Fundador activos
                   </span>
                 </div>
@@ -671,7 +677,7 @@ export default function ServilletaPage() {
           }`}
         >
           <Clock className="w-5 h-5" />
-          <span className={`text-[10px] ${activeTab === 'villain' ? 'font-medium' : ''}`}>La Trampa</span>
+          <span className={`text-[11px] ${activeTab === 'villain' ? 'font-medium' : ''}`}>La Trampa</span>
         </button>
 
         <button
@@ -681,7 +687,7 @@ export default function ServilletaPage() {
           }`}
         >
           <FlaskConical className="w-5 h-5" />
-          <span className={`text-[10px] ${activeTab === 'solution' ? 'font-medium' : ''}`}>El Sistema</span>
+          <span className={`text-[11px] ${activeTab === 'solution' ? 'font-medium' : ''}`}>El Sistema</span>
         </button>
 
         <button
@@ -691,7 +697,7 @@ export default function ServilletaPage() {
           }`}
         >
           <User className="w-5 h-5" />
-          <span className={`text-[10px] ${activeTab === 'fit' ? 'font-medium' : ''}`}>Tu Rol</span>
+          <span className={`text-[11px] ${activeTab === 'fit' ? 'font-medium' : ''}`}>Tu Rol</span>
         </button>
 
         <button
@@ -701,7 +707,7 @@ export default function ServilletaPage() {
           }`}
         >
           <DollarSign className="w-5 h-5" />
-          <span className={`text-[10px] ${activeTab === 'money' ? 'font-medium' : ''}`}>El Dinero</span>
+          <span className={`text-[11px] ${activeTab === 'money' ? 'font-medium' : ''}`}>El Dinero</span>
         </button>
       </nav>
 

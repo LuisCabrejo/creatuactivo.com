@@ -274,69 +274,64 @@ export default function ServilletaPage() {
               </h1>
             </div>
 
-            <div className="relative w-full flex-1">
-              {/* LA PUNTA (TU ROL 10%) */}
-              <div className="flex justify-center mb-0 relative z-20">
-                <div className="relative">
-                  <div className="bg-gradient-to-b from-[#1A1D23] to-[#0F1115] p-5 rounded-2xl border border-[#C5A059] shadow-[0_0_30px_-5px_rgba(197,160,89,0.25)] w-64 text-center relative z-20">
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold shadow-lg border border-white/20">
-                      10%
-                    </div>
-                    <h3 className="text-white text-lg font-serif mt-3 mb-1">Tu Rol: Conector</h3>
-                    <p className="text-xs text-[#F5E8D8] leading-tight">
-                      Conectar personas.<br/>Cobrar el peaje.
-                    </p>
-                  </div>
-                  <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[40px] border-l-transparent border-r-[40px] border-r-transparent border-t-[60px] border-t-[#1A1D23]/80 blur-sm z-10"></div>
+            {/* ICEBERG - Una sola figura visual continua */}
+            <div className="relative w-full flex-1 flex flex-col items-center">
+
+              {/* PUNTA DEL ICEBERG (10%) - parte visible */}
+              <div className="relative z-20 w-72 text-center bg-gradient-to-b from-[#1A1D23] to-[#1A1D23]/90 pt-6 pb-5 px-5 rounded-t-2xl border border-[#C5A059]/40 border-b-0 shadow-[0_0_30px_-5px_rgba(197,160,89,0.2)]">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold text-sm shadow-lg border border-white/20">
+                  10%
+                </div>
+                <h3 className="text-white text-lg font-serif mt-2 mb-1">Tu Rol: Conector</h3>
+                <p className="text-xs text-[#F5E8D8] leading-tight">
+                  Conectar personas. Cobrar el peaje.
+                </p>
+              </div>
+
+              {/* LÍNEA DE SUPERFICIE - conecta la punta con la masa */}
+              <div className="relative w-full h-[2px] bg-gradient-to-r from-transparent via-[#94A3B8]/50 to-transparent z-30">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#15171C] px-3 py-0.5 border border-[#94A3B8]/30 rounded-full">
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] font-bold">Superficie</span>
                 </div>
               </div>
 
-              {/* LÍNEA DE SUPERFICIE */}
-              <div className="relative w-full h-[2px] bg-gradient-to-r from-transparent via-[#94A3B8]/60 to-transparent z-30 -mt-2">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#15171C] px-4 py-1 border border-[#94A3B8]/30 rounded-full">
-                  <span className="text-[11px] text-[#94A3B8] uppercase tracking-[0.2em] font-bold">Superficie</span>
-                </div>
-              </div>
+              {/* MASA DEL ICEBERG (90%) - sin borde inferior, se expande hacia abajo */}
+              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-6 px-4 pb-0 overflow-visible">
+                {/* Dot pattern que se extiende "infinitamente" */}
+                <div className="absolute inset-0 bottom-[-200px] opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
-              {/* LA MASA (SISTEMA 90%) - extends to fill remaining space */}
-              <div className="bg-gradient-to-b from-[#15171C] to-[#0F1115] rounded-t-[3rem] border-t border-white/10 overflow-hidden pt-10 px-5 pb-8 shadow-2xl mt-0 min-h-[350px]">
-                <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                <div className="text-7xl font-bold text-[#1F2937] select-none pointer-events-none text-right mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                {/* 90% watermark */}
+                <div className="text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-1" style={{ fontFamily: 'Georgia, serif' }}>
                   90%
                 </div>
-                <div className="relative z-10 space-y-5">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Anchor className="text-[#94A3B8] w-6 h-6" />
+
+                <div className="relative z-10 space-y-3">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Anchor className="text-[#94A3B8] w-5 h-5 flex-shrink-0" />
                     <div>
-                      <h3 className="text-white text-base font-bold uppercase tracking-widest">El Sistema</h3>
-                      <p className="text-sm text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
+                      <h3 className="text-white text-sm font-bold uppercase tracking-widest">El Sistema</h3>
+                      <p className="text-xs text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
                     </div>
                   </div>
-                  <div className="grid gap-4">
-                    <div className="bg-[#0F1115] p-5 rounded-xl border border-white/5 flex items-center gap-4 group">
-                      <div className="p-3 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
-                        <ShieldCheck size={24} />
+                  <div className="grid gap-3">
+                    <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
+                      <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
+                        <ShieldCheck size={20} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-base font-bold">Respaldo Corporativo</h4>
-                        <p className="text-sm text-[#94A3B8]">Capital ($100M) & Legalidad</p>
+                        <h4 className="text-[#E5E5E5] text-sm font-bold">Respaldo Corporativo</h4>
+                        <p className="text-xs text-[#94A3B8]">Capital ($100M) & Legalidad</p>
                       </div>
                     </div>
-                    <div className="bg-[#0F1115] p-5 rounded-xl border border-white/5 flex items-center gap-4 group">
-                      <div className="p-3 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
-                        <Cpu size={24} />
+                    <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
+                      <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
+                        <Cpu size={20} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-base font-bold">Tecnología Queswa</h4>
-                        <p className="text-sm text-[#94A3B8]">IA, Logística & Distribución</p>
+                        <h4 className="text-[#E5E5E5] text-sm font-bold">Tecnología Queswa</h4>
+                        <p className="text-xs text-[#94A3B8]">IA, Logística & Distribución</p>
                       </div>
                     </div>
-                  </div>
-                  <div className="mt-6 pt-6 border-t border-white/5 text-center">
-                    <p className="text-base text-[#F5E8D8] font-serif italic leading-relaxed">
-                      "Nosotros ponemos los barcos, las fábricas y la IA.<br />
-                      <span className="text-white font-bold not-italic">Tú solo pones la conexión."</span>
-                    </p>
                   </div>
                 </div>
               </div>

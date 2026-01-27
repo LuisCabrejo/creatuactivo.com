@@ -131,7 +131,7 @@ export default function ServilletaPage() {
         {activeTab === 'villain' && (
           <div className={slideContainerClass}>
 
-            <div className="flex items-center justify-between px-1 mb-3">
+            <div className="flex items-center justify-between px-1 mb-6">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-[#FF8A80]" />
                 <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Diagnóstico Estructural</span>
@@ -144,19 +144,19 @@ export default function ServilletaPage() {
             <div className={`rounded-xl overflow-hidden border border-[#FF8A80]/20 bg-[#15171C] shadow-2xl relative`}>
               <div className="absolute top-0 inset-x-0 h-1 bg-[#FF8A80]" />
 
-              <div className="px-5 pt-4 pb-1">
-                <h2 className="text-4xl font-bold text-white tracking-tighter mb-0.5" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
+              <div className="p-6 pb-2">
+                <h2 className="text-5xl font-bold text-white tracking-tighter mb-1" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </h2>
-                <p className="text-[#F5E8D8] text-base font-medium">Dependencia del Ingreso Activo</p>
-                <p className="text-xs text-[#FF8A80] mt-2 italic border-l-2 border-[#FF8A80] pl-3">
+                <p className="text-[#F5E8D8] text-lg font-medium">Dependencia del Ingreso Activo</p>
+                <p className="text-sm text-[#FF8A80] mt-3 italic border-l-2 border-[#FF8A80] pl-3">
                   &quot;Si tú paras, el dinero para.&quot;
                 </p>
               </div>
 
-              {/* GRÁFICO - compacto para mobile */}
-              <div className="relative h-48 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
-                <svg viewBox="0 0 320 140" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+              {/* GRÁFICO */}
+              <div className="relative h-72 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
+                <svg viewBox="0 0 320 150" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <linearGradient id="dependencyFill" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#FF8A80" stopOpacity="0.2" />
@@ -169,35 +169,35 @@ export default function ServilletaPage() {
                   </defs>
 
                   {/* Y-axis label */}
-                  <text x="18" y="16" fill="#64748B" fontSize="8" fontWeight="bold">$$$</text>
+                  <text x="18" y="18" fill="#64748B" fontSize="8" fontWeight="bold">$$$</text>
                   {/* Y-axis line */}
-                  <line x1="14" y1="20" x2="14" y2="112" stroke="#334155" strokeWidth="0.5" />
+                  <line x1="14" y1="22" x2="14" y2="120" stroke="#334155" strokeWidth="0.5" />
 
                   {/* X-axis */}
-                  <line x1="14" y1="112" x2="306" y2="112" stroke="#334155" strokeWidth="1" />
-                  <text x="300" y="128" textAnchor="end" fill="#64748B" fontSize="8">TIEMPO →</text>
+                  <line x1="14" y1="120" x2="306" y2="120" stroke="#334155" strokeWidth="1" />
+                  <text x="300" y="138" textAnchor="end" fill="#64748B" fontSize="8">TIEMPO →</text>
 
                   {/* Area fills */}
-                  <path d="M14,82 L190,78 L190,108 L14,112 Z" fill="url(#dependencyFill)" />
-                  <path d="M190,78 L306,26 L306,112 L190,108 Z" fill="url(#freedomFill)" />
+                  <path d="M14,90 L190,85 L190,115 L14,120 Z" fill="url(#dependencyFill)" />
+                  <path d="M190,85 L306,30 L306,120 L190,115 Z" fill="url(#freedomFill)" />
 
                   {/* Lines */}
-                  <path d="M14,82 L306,73" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
-                  <path d="M14,112 C60,112 130,110 190,78 C230,50 270,22 306,10" fill="none" stroke="#C5A059" strokeWidth="2.5" />
+                  <path d="M14,90 L306,80" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
+                  <path d="M14,120 C60,120 130,118 190,85 C230,55 270,25 306,12" fill="none" stroke="#C5A059" strokeWidth="2.5" />
 
-                  {/* ACTIVO label - ABOVE the gold curve */}
-                  <circle cx="306" cy="10" r="2" fill="#C5A059" />
-                  <text x="300" y="7" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
+                  {/* ACTIVO label - ABOVE the gold curve endpoint (y=12) */}
+                  <circle cx="306" cy="12" r="2" fill="#C5A059" />
+                  <text x="300" y="8" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
 
-                  {/* EMPLEO label - ABOVE the employment line */}
-                  <circle cx="306" cy="73" r="2" fill="#FF8A80" />
-                  <text x="300" y="67" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
+                  {/* EMPLEO label - ABOVE the employment line (y~80) */}
+                  <circle cx="306" cy="80" r="2" fill="#FF8A80" />
+                  <text x="300" y="74" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
 
-                  <text x="60" y="100" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
+                  <text x="60" y="108" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
 
                   {/* Crossover point */}
-                  <circle cx="190" cy="78" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
-                  <g transform="translate(190, 63)">
+                  <circle cx="190" cy="85" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
+                  <g transform="translate(190, 70)">
                     <rect x="-30" y="-10" width="60" height="14" rx="2" fill="#C5A059" />
                     <text x="0" y="0" textAnchor="middle" fill="#0F1115" fontSize="8" fontWeight="bold" dominantBaseline="middle">LIBERTAD</text>
                   </g>
@@ -205,28 +205,56 @@ export default function ServilletaPage() {
               </div>
 
               {/* CICLO DE LA RATA CON VECTOR ICONS (Lucide) */}
-              <div className="bg-[#15171C] px-4 py-3 border-t border-white/5">
-                <p className="text-center text-[9px] text-[#94A3B8] uppercase tracking-widest mb-2">El Plan por Defecto</p>
-                <div className="flex justify-between items-center text-center px-2">
-                  {[
-                    { icon: Briefcase, label: 'Trabajar', pain: false },
-                    { icon: Banknote, label: 'Pagar', pain: false },
-                    { icon: TrendingDown, label: '$0', pain: true },
-                    { icon: RefreshCw, label: 'Repetir', pain: false },
-                  ].map((step, i) => (
-                    <React.Fragment key={step.label}>
-                      {i > 0 && <ArrowRight className="w-3 h-3 text-[#334155] flex-shrink-0" />}
-                      <div className="flex flex-col items-center gap-1 relative">
-                        {step.pain && <div className="absolute inset-0 bg-[#FF8A80]/20 blur-lg rounded-full" />}
-                        <div className={`p-1.5 rounded-lg bg-[#1A1D23] border relative z-10 ${step.pain ? 'border-[#FF8A80]/30' : 'border-white/5'}`}>
-                          <step.icon className={`w-4 h-4 ${step.pain ? 'text-[#FF8A80]' : 'text-[#94A3B8]'}`} strokeWidth={step.pain ? 2 : 1.5} />
-                        </div>
-                        <span className={`text-[7px] uppercase tracking-wider relative z-10 ${step.pain ? 'font-bold text-[#FF8A80]' : 'text-[#94A3B8]'}`}>{step.label}</span>
-                      </div>
-                    </React.Fragment>
-                  ))}
+              <div className="bg-[#15171C] p-5 border-t border-white/5">
+                <p className="text-center text-[9px] text-[#94A3B8] uppercase tracking-widest mb-3">El Plan por Defecto</p>
+                <div className="flex justify-between items-center text-center px-4">
+                  {/* Trabajar */}
+                  <div className="flex flex-col items-center gap-1.5 group">
+                    <div className="p-2 rounded-lg bg-[#1A1D23] border border-white/5 group-hover:border-[#94A3B8] transition-colors">
+                      <Briefcase className="w-5 h-5 text-[#94A3B8]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[8px] uppercase text-[#94A3B8] tracking-wider">Trabajar</span>
+                  </div>
+
+                  <ArrowRight className="w-3 h-3 text-[#334155]" />
+
+                  {/* Pagar */}
+                  <div className="flex flex-col items-center gap-1.5 group">
+                    <div className="p-2 rounded-lg bg-[#1A1D23] border border-white/5 group-hover:border-[#94A3B8] transition-colors">
+                      <Banknote className="w-5 h-5 text-[#94A3B8]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[8px] uppercase text-[#94A3B8] tracking-wider">Pagar</span>
+                  </div>
+
+                  <ArrowRight className="w-3 h-3 text-[#334155]" />
+
+                  {/* $0 (Pain Point) */}
+                  <div className="flex flex-col items-center gap-1.5 relative">
+                    <div className="absolute inset-0 bg-[#FF8A80]/20 blur-lg rounded-full" />
+                    <div className="p-2 rounded-lg bg-[#1A1D23] border border-[#FF8A80]/30 relative z-10">
+                      <TrendingDown className="w-5 h-5 text-[#FF8A80]" strokeWidth={2} />
+                    </div>
+                    <span className="text-[8px] font-bold text-[#FF8A80] uppercase tracking-wider relative z-10">$0</span>
+                  </div>
+
+                  <ArrowRight className="w-3 h-3 text-[#334155]" />
+
+                  {/* Repetir */}
+                  <div className="flex flex-col items-center gap-1.5 group">
+                    <div className="p-2 rounded-lg bg-[#1A1D23] border border-white/5 group-hover:border-[#94A3B8] transition-colors">
+                      <RefreshCw className="w-5 h-5 text-[#94A3B8]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[8px] uppercase text-[#94A3B8] tracking-wider">Repetir</span>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-6">
+              <p className="text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
+                "No necesitas más esfuerzo.<br />
+                <span className="text-[#C5A059] font-bold not-italic">Necesitas cambiar de vehículo."</span>
+              </p>
             </div>
           </div>
         )}

@@ -84,78 +84,147 @@ export default function ServilletaPage() {
       <main className="flex-1 relative z-10 overflow-y-auto pb-28 px-6">
 
         {/* ═══════════════════════════════════════════════════════════════════
-            TAB 1: LA TRAMPA (Villain)
+            TAB 1: LA TRAMPA (Villain) - Financial Risk Report Style
         ═══════════════════════════════════════════════════════════════════ */}
         {activeTab === 'villain' && (
-          <div className="min-h-[calc(100vh-220px)] flex flex-col justify-center animate-fadeIn">
-            <div className="text-center mb-8">
-              <span className="text-xs text-[#C5A059] tracking-widest uppercase mb-2 block font-medium">
-                Diagnóstico Estructural
+          <div className="min-h-[calc(100vh-220px)] flex flex-col pt-2 animate-fadeIn">
+            {/* Header - Sistema de diagnóstico */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                <span className="text-[10px] text-[#64748B] uppercase tracking-widest font-mono">
+                  Diagnóstico Estructural
+                </span>
+              </div>
+              <span className="text-[10px] text-red-400/80 font-mono">
+                ALERTA ACTIVA
               </span>
-              <h1 className="text-3xl leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
-                El puente que alquilas <br />
-                <span className="italic text-[#64748B]">tiene fecha de caducidad.</span>
-              </h1>
             </div>
 
-            {/* SVG Bridge Animation */}
-            <div className="relative w-full h-48 bg-[#1A1D23]/60 backdrop-blur-sm rounded-2xl mb-8 p-4 flex items-center justify-center overflow-hidden border border-white/5">
-              <svg viewBox="0 0 300 150" className="w-full h-full">
-                {/* Línea punteada - Empleo lineal */}
-                <path
-                  d="M20,120 Q80,110 140,120 T280,120"
-                  fill="none"
-                  stroke="#475569"
-                  strokeWidth="1"
-                  strokeDasharray="5,5"
-                  opacity="0.5"
-                />
-                <text
-                  x="150"
-                  y="140"
-                  textAnchor="middle"
-                  fill="#475569"
-                  fontSize="8"
-                  fontFamily="Inter, sans-serif"
-                >
-                  TU EMPLEO (LINEAL)
-                </text>
+            {/* Risk Diagnostic Card - Glassmorphism */}
+            <div className="bg-red-500/5 backdrop-blur-sm rounded-xl p-4 mb-4 border border-red-500/20">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] text-red-400 uppercase tracking-wider font-medium">
+                  Riesgo Operativo
+                </span>
+                <span className="text-xs font-bold text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                  ALTO
+                </span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                  100%
+                </span>
+                <span className="text-xs text-[#64748B]">dependencia ingreso activo</span>
+              </div>
+              <p className="text-[11px] text-red-400/70 mt-2 font-light">
+                Si tú paras, el dinero para.
+              </p>
+            </div>
 
-                {/* Puente dorado - Activo exponencial */}
+            {/* Divergent Lines Graph - Employment vs Asset */}
+            <div className="relative w-full h-40 bg-[#1A1D23]/60 backdrop-blur-sm rounded-xl mb-4 p-3 overflow-hidden border border-white/5">
+              <svg viewBox="0 0 300 120" className="w-full h-full">
+                {/* Grid lines */}
+                <line x1="30" y1="20" x2="30" y2="100" stroke="#1F2937" strokeWidth="1" />
+                <line x1="30" y1="100" x2="280" y2="100" stroke="#1F2937" strokeWidth="1" />
+
+                {/* Y-axis labels */}
+                <text x="25" y="25" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$$$</text>
+                <text x="25" y="60" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$$</text>
+                <text x="25" y="98" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">$0</text>
+
+                {/* X-axis label */}
+                <text x="280" y="112" textAnchor="end" fill="#475569" fontSize="7" fontFamily="monospace">TIEMPO →</text>
+
+                {/* Line A: Employment - rises then CRASHES */}
                 <path
-                  className="animate-drawBridge"
-                  d="M20,120 C80,40 220,40 280,120"
+                  className="animate-drawLine"
+                  d="M30,90 L80,70 L130,60 L150,55 L170,80 L190,95 L210,98 L280,98"
+                  fill="none"
+                  stroke="#EF4444"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  opacity="0.7"
+                />
+                {/* Crash indicator */}
+                <circle cx="170" cy="80" r="8" fill="none" stroke="#EF4444" strokeWidth="1" strokeDasharray="2,2" opacity="0.5" />
+                <text x="170" y="72" textAnchor="middle" fill="#EF4444" fontSize="6" fontFamily="monospace">CRISIS</text>
+
+                {/* Line B: Asset - J-curve exponential growth */}
+                <path
+                  className="animate-drawAsset"
+                  d="M30,95 L80,93 L130,88 L170,75 L210,50 L250,25 L280,15"
                   fill="none"
                   stroke="#C5A059"
-                  strokeWidth="3"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                 />
-                <circle cx="150" cy="80" r="3" fill="#C5A059" className="animate-pulse" />
-                <text
-                  x="150"
-                  y="60"
-                  textAnchor="middle"
-                  fill="#C5A059"
-                  fontSize="10"
-                  fontFamily="Inter, sans-serif"
-                  fontWeight="bold"
-                >
-                  TU ACTIVO (EXPONENCIAL)
-                </text>
+
+                {/* Crossover point indicator */}
+                <circle cx="195" cy="58" r="4" fill="#C5A059" className="animate-pulse" />
+
+                {/* Legend */}
+                <rect x="200" y="85" width="8" height="3" fill="#EF4444" opacity="0.7" rx="1" />
+                <text x="212" y="88" fill="#64748B" fontSize="6" fontFamily="Inter, sans-serif">Empleo</text>
+                <rect x="200" y="93" width="8" height="3" fill="#C5A059" rx="1" />
+                <text x="212" y="96" fill="#C5A059" fontSize="6" fontFamily="Inter, sans-serif">Activo</text>
               </svg>
             </div>
 
-            <div className="space-y-6">
-              <p className="text-[#A3A3A3] font-light leading-relaxed text-sm">
-                Estás cruzando un abismo financiero sobre una estructura que no te pertenece. Si
-                dejas de caminar (trabajar), la estructura colapsa.
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-1 h-12 bg-red-500/50 rounded-full" />
-                <div>
-                  <h3 className="text-white font-semibold" style={{ fontFamily: 'Georgia, serif' }}>El Plan por Defecto</h3>
-                  <p className="text-xs text-[#64748B]">Trabajar → Pagar Cuentas → Repetir.</p>
+            {/* The Cycle - Hamster Wheel Diagram */}
+            <div className="bg-[#1A1D23]/40 rounded-xl p-4 mb-4 border border-white/5">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-4 bg-red-500/50 rounded-full" />
+                <span className="text-xs text-[#94A3B8] font-medium uppercase tracking-wide">El Plan por Defecto</span>
+              </div>
+
+              {/* Cycle visualization - horizontal flow */}
+              <div className="flex items-center justify-between text-center">
+                <div className="flex-1">
+                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10">
+                    <span className="text-lg">💼</span>
+                  </div>
+                  <span className="text-[9px] text-[#64748B] block">Trabajar</span>
                 </div>
+                <span className="text-[#475569] text-xs">→</span>
+                <div className="flex-1">
+                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10">
+                    <span className="text-lg">💸</span>
+                  </div>
+                  <span className="text-[9px] text-[#64748B] block">Pagar</span>
+                </div>
+                <span className="text-[#475569] text-xs">→</span>
+                <div className="flex-1">
+                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-red-500/20">
+                    <span className="text-lg">📉</span>
+                  </div>
+                  <span className="text-[9px] text-red-400/70 block">$0</span>
+                </div>
+                <span className="text-[#475569] text-xs">→</span>
+                <div className="flex-1">
+                  <div className="w-10 h-10 mx-auto bg-[#15171C] rounded-lg flex items-center justify-center mb-1 border border-white/10 relative">
+                    <span className="text-lg">🔄</span>
+                  </div>
+                  <span className="text-[9px] text-[#64748B] block">Repetir</span>
+                </div>
+              </div>
+
+              {/* Loop indicator */}
+              <div className="mt-3 pt-3 border-t border-white/5 text-center">
+                <span className="text-[10px] text-[#475569] italic">
+                  Este ciclo se repite hasta los 65 años... o hasta que el cuerpo diga basta.
+                </span>
+              </div>
+            </div>
+
+            {/* Exit Promise - Naval/Jobs style quote */}
+            <div className="mt-auto pt-2">
+              <div className="border-l-2 border-[#C5A059]/50 pl-4">
+                <p className="text-sm text-[#E5E5E5] font-light italic leading-relaxed">
+                  &quot;No necesitas más esfuerzo.<br />
+                  <span className="text-[#C5A059] font-medium not-italic">Necesitas cambiar de vehículo.&quot;</span>
+                </p>
               </div>
             </div>
           </div>
@@ -409,13 +478,24 @@ export default function ServilletaPage() {
           animation: fadeIn 0.4s ease-out;
         }
 
-        /* Bridge Draw Animation */
-        @keyframes drawBridge {
-          from { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
-          to { stroke-dasharray: 1000; stroke-dashoffset: 0; }
+        /* Line Draw Animation - Employment line */
+        @keyframes drawLine {
+          from { stroke-dasharray: 500; stroke-dashoffset: 500; }
+          to { stroke-dasharray: 500; stroke-dashoffset: 0; }
         }
-        .animate-drawBridge {
-          animation: drawBridge 2.5s ease-out forwards;
+        .animate-drawLine {
+          animation: drawLine 2s ease-out forwards;
+        }
+
+        /* Asset Line Animation - Delayed start */
+        @keyframes drawAsset {
+          from { stroke-dasharray: 500; stroke-dashoffset: 500; }
+          to { stroke-dasharray: 500; stroke-dashoffset: 0; }
+        }
+        .animate-drawAsset {
+          animation: drawAsset 2.5s ease-out 0.5s forwards;
+          stroke-dasharray: 500;
+          stroke-dashoffset: 500;
         }
 
         /* Custom Range Slider */

@@ -185,13 +185,13 @@ export default function ServilletaPage() {
                   <path d="M14,90 L306,80" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
                   <path d="M14,120 C60,120 130,118 190,85 C230,55 270,25 306,12" fill="none" stroke="#C5A059" strokeWidth="2.5" />
 
-                  {/* ACTIVO label - ABOVE the gold curve */}
-                  <circle cx="290" cy="18" r="2" fill="#C5A059" />
-                  <text x="285" y="15" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
+                  {/* ACTIVO label - ABOVE the gold curve endpoint (y=12) */}
+                  <circle cx="306" cy="12" r="2" fill="#C5A059" />
+                  <text x="300" y="8" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
 
-                  {/* EMPLEO label */}
-                  <circle cx="290" cy="82" r="2" fill="#FF8A80" />
-                  <text x="285" y="84" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
+                  {/* EMPLEO label - ABOVE the employment line (y~80) */}
+                  <circle cx="306" cy="80" r="2" fill="#FF8A80" />
+                  <text x="300" y="74" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
 
                   <text x="60" y="108" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
 
@@ -274,16 +274,9 @@ export default function ServilletaPage() {
               </h1>
             </div>
 
-            <div className="relative w-full flex-1 min-h-[400px]">
-              {/* LÍNEA DE SUPERFICIE */}
-              <div className="absolute top-[120px] left-[-20px] right-[-20px] h-[1px] bg-gradient-to-r from-transparent via-[#94A3B8]/50 to-transparent z-10">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0F1115] px-2 text-[9px] text-[#94A3B8] uppercase tracking-widest">
-                  Superficie
-                </div>
-              </div>
-
+            <div className="relative w-full flex-1">
               {/* LA PUNTA (TU ROL 10%) */}
-              <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
+              <div className="flex justify-center mb-0 relative z-20">
                 <div className="relative">
                   <div className="bg-gradient-to-b from-[#1A1D23] to-[#0F1115] p-5 rounded-2xl border border-[#C5A059] shadow-[0_0_30px_-5px_rgba(197,160,89,0.25)] w-64 text-center relative z-20">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold shadow-lg border border-white/20">
@@ -298,42 +291,49 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* LA MASA (SISTEMA 90%) */}
-              <div className="absolute top-[120px] inset-x-0 bottom-0 bg-gradient-to-b from-[#15171C]/90 to-[#0F1115] backdrop-blur-sm rounded-t-[3rem] border-t border-white/10 overflow-hidden pt-12 px-6 pb-6 shadow-2xl">
-                <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                <div className="absolute top-4 right-6 text-6xl font-bold text-[#1F2937] select-none pointer-events-none" style={{ fontFamily: 'Georgia, serif' }}>
+              {/* LÍNEA DE SUPERFICIE */}
+              <div className="relative w-full h-[2px] bg-gradient-to-r from-transparent via-[#94A3B8]/60 to-transparent z-30 -mt-2">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#15171C] px-4 py-1 border border-[#94A3B8]/30 rounded-full">
+                  <span className="text-[11px] text-[#94A3B8] uppercase tracking-[0.2em] font-bold">Superficie</span>
+                </div>
+              </div>
+
+              {/* LA MASA (SISTEMA 90%) - extends to fill remaining space */}
+              <div className="bg-gradient-to-b from-[#15171C] to-[#0F1115] rounded-t-[3rem] border-t border-white/10 overflow-hidden pt-10 px-5 pb-8 shadow-2xl mt-0 min-h-[350px]">
+                <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                <div className="text-7xl font-bold text-[#1F2937] select-none pointer-events-none text-right mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                   90%
                 </div>
-                <div className="relative z-10 space-y-6">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Anchor className="text-[#94A3B8] w-5 h-5" />
+                <div className="relative z-10 space-y-5">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Anchor className="text-[#94A3B8] w-6 h-6" />
                     <div>
-                      <h3 className="text-white text-sm font-bold uppercase tracking-widest">El Sistema</h3>
-                      <p className="text-[10px] text-[#64748B]">Lo que ocurre bajo la superficie</p>
+                      <h3 className="text-white text-base font-bold uppercase tracking-widest">El Sistema</h3>
+                      <p className="text-sm text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
                     </div>
                   </div>
-                  <div className="grid gap-3">
-                    <div className="bg-[#0F1115] p-4 rounded-xl border border-white/5 flex items-center gap-4 group">
-                      <div className="p-2 bg-[#94A3B8]/10 rounded text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
-                        <ShieldCheck size={20} />
+                  <div className="grid gap-4">
+                    <div className="bg-[#0F1115] p-5 rounded-xl border border-white/5 flex items-center gap-4 group">
+                      <div className="p-3 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
+                        <ShieldCheck size={24} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-sm font-bold">Respaldo Corporativo</h4>
-                        <p className="text-[10px] text-[#94A3B8]">Capital ($100M) & Legalidad</p>
+                        <h4 className="text-[#E5E5E5] text-base font-bold">Respaldo Corporativo</h4>
+                        <p className="text-sm text-[#94A3B8]">Capital ($100M) & Legalidad</p>
                       </div>
                     </div>
-                    <div className="bg-[#0F1115] p-4 rounded-xl border border-white/5 flex items-center gap-4 group">
-                      <div className="p-2 bg-[#94A3B8]/10 rounded text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
-                        <Cpu size={20} />
+                    <div className="bg-[#0F1115] p-5 rounded-xl border border-white/5 flex items-center gap-4 group">
+                      <div className="p-3 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] group-hover:text-[#C5A059] transition-colors">
+                        <Cpu size={24} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-sm font-bold">Tecnología Queswa</h4>
-                        <p className="text-[10px] text-[#94A3B8]">IA, Logística & Distribución</p>
+                        <h4 className="text-[#E5E5E5] text-base font-bold">Tecnología Queswa</h4>
+                        <p className="text-sm text-[#94A3B8]">IA, Logística & Distribución</p>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-white/5 text-center">
-                    <p className="text-sm text-[#F5E8D8] font-serif italic leading-relaxed">
+                  <div className="mt-6 pt-6 border-t border-white/5 text-center">
+                    <p className="text-base text-[#F5E8D8] font-serif italic leading-relaxed">
                       "Nosotros ponemos los barcos, las fábricas y la IA.<br />
                       <span className="text-white font-bold not-italic">Tú solo pones la conexión."</span>
                     </p>

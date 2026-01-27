@@ -86,7 +86,7 @@ export default function ServilletaPage() {
     return "Estilo de vida de abundancia (Top 5% ingresos).";
   };
 
-  const slideContainerClass = "w-full max-w-2xl mx-auto flex flex-col justify-center min-h-[550px] py-6 animate-fadeIn";
+  const slideContainerClass = "w-full max-w-2xl mx-auto flex flex-col justify-center min-h-[550px] py-3 animate-fadeIn";
 
   return (
     <div className={`min-h-screen ${THEME.bg} text-[#E5E5E5] flex flex-col relative font-sans`}>
@@ -97,7 +97,7 @@ export default function ServilletaPage() {
       />
 
       {/* --- HEADER --- */}
-      <header className="relative z-10 px-6 pt-6 pb-4 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
+      <header className="relative z-10 px-5 pt-3 pb-2 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
             <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
@@ -119,7 +119,7 @@ export default function ServilletaPage() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-24 px-1 sm:px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-20 px-1 sm:px-6">
 
         {/* =================================================================================
             TAB 1: LA TRAMPA (Iconos Vectoriales)
@@ -140,12 +140,12 @@ export default function ServilletaPage() {
             <div className={`rounded-xl overflow-hidden border border-[#FF8A80]/20 bg-[#15171C] shadow-2xl relative`}>
               <div className="absolute top-0 inset-x-0 h-1 bg-[#FF8A80]" />
 
-              <div className="px-5 pt-4 pb-1">
-                <h2 className="text-4xl font-bold text-white tracking-tighter mb-0.5" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
+              <div className="px-5 pt-4 pb-3">
+                <h2 className="text-4xl font-bold text-white tracking-tighter mb-1" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </h2>
-                <p className="text-[#F5E8D8] text-base font-medium">Dependencia del Ingreso Activo</p>
-                <p className="text-xs text-[#FF8A80] mt-2 italic border-l-2 border-[#FF8A80] pl-3">
+                <p className="text-[#F5E8D8] text-base font-medium mb-2">Dependencia del Ingreso Activo</p>
+                <p className="text-xs text-[#FF8A80] italic border-l-2 border-[#FF8A80] pl-3">
                   &quot;Si tú paras, el dinero para.&quot;
                 </p>
               </div>
@@ -201,7 +201,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* CICLO - Estilo flujo horizontal (diferenciado del nav) */}
-              <div className="bg-[#0F1115] px-4 py-3 border-t border-white/5">
+              <div className="bg-[#0F1115] px-4 py-4 border-t border-white/5">
                 <p className="text-center text-[9px] text-[#94A3B8] uppercase tracking-widest mb-2">El Plan por Defecto</p>
                 <div className="flex items-center justify-center gap-1.5 flex-wrap">
                   {[

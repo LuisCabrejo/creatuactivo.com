@@ -45,9 +45,9 @@ export default function ServilletaPage() {
   // GEN5: Bonos por paquete (COMP_GEN5_04)
   const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
   const gen5Income = gen5Socios * gen5Bonuses[gen5Package];
-  // Binario: Personas lado menor × $38 USD mensual (COMP_BIN_08/10)
+  // Binario: Personas lado menor × $4.76 USD mensual (proporcional confirmado)
   const exchangeRate = 4500;
-  const binarioIncomeUSD = binarioParejas * 38;
+  const binarioIncomeUSD = Math.round(binarioParejas * 4.76);
   const binarioIncomeCOP = binarioIncomeUSD * exchangeRate;
 
   return (

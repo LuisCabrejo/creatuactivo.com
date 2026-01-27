@@ -127,7 +127,7 @@ const PackageCard = ({
   priceUSD: string
   priceCOP: string
   features: string[]
-  isPremium?: boolean
+  isPremium: boolean
   ctaText?: string
 }) => (
   <div className={`glass-card rounded-[2rem] h-full flex flex-col relative transition-all duration-300 ${isPremium ? 'border-gold-glow border-white/5 hover:-translate-y-2' : 'border-white/5 hover:border-white/20 hover:bg-white/5 hover:-translate-y-2'}`}>
@@ -138,7 +138,7 @@ const PackageCard = ({
           <span className="text-4xl font-bold text-[#C5A059] tracking-tight">${priceUSD}</span>
           <span className="text-[#64748B] font-medium">USD</span>
         </div>
-        <p className="text-sm text-[#64748B] mt-1">Aprox. ${priceCOP} COP</p>
+        <p className="text-sm text-[#64748B] mt-1">Aprox. {Number(priceCOP).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })}</p>
       </div>
 
       <div className="w-full h-px mb-8 bg-white/10"></div>
@@ -191,23 +191,23 @@ const DualIncomeCalculator = () => {
     const [activeIncome, setActiveIncome] = useState(0);
 
     // Estados Pasivo (Renta Mensual)
-    const [teamSize, setTeamSize] = useState(100);
+    const [teamSize, setTeamSize] = useState(50); // Representa personas por lado para el cálculo
     const [monthlyIncomeUSD, setMonthlyIncomeUSD] = useState(0);
     const [monthlyIncomeCOP, setMonthlyIncomeCOP] = useState(0);
 
     // Cálculos
     useEffect(() => {
         // ACTIVO: Bonos por paquetes
-        const bonuses: Record<string, number> = { 'ESP3': 150, 'ESP2': 75, 'ESP1': 25 };
+        const bonuses: Record<string, number> = { 'ESP3': 150, 'ESP2': 75, 'ESP1': 25 }; // Valores confirmados por COMP_GEN5_04
         setActiveIncome(packageCount * bonuses[packageType]);
 
         // PASIVO: Ingreso residual por consumo
-        const incomePerPersonCOP = 21420;
-        const exchangeRate = 4500;
-        const totalIncomeCOP = teamSize * incomePerPersonCOP;
-        const totalIncomeUSD = totalIncomeCOP / exchangeRate;
-        setMonthlyIncomeCOP(totalIncomeCOP);
-        setMonthlyIncomeUSD(totalIncomeUSD);
+        // Proporcional confirmado: 10 personas = $48 USD, 100 = $476, 500 = $2,380
+        const monthlyIncomePerPersonPerSideUSD = 4.76;
+        const exchangeRate = 4500; // Tasa corporativa fija de COMP_MONEDA_01
+        const calculatedMonthlyUSD = teamSize * monthlyIncomePerPersonPerSideUSD;
+        setMonthlyIncomeUSD(calculatedMonthlyUSD);
+        setMonthlyIncomeCOP(calculatedMonthlyUSD * exchangeRate);
     }, [packageCount, packageType, teamSize]);
 
     return (
@@ -283,15 +283,15 @@ const DualIncomeCalculator = () => {
 
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div className="space-y-6">
-                                <div>
-                                    <label className="block text-xs text-[#64748B] uppercase font-bold mb-3">Volumen de tu Red:</label>
+                                <div className="relative">
+                                    <label className="block text-xs text-[#64748B] uppercase font-bold mb-3">Personas en tu Lado Menor (aprox.):</label>
                                     <div className="flex items-center gap-4">
                                         <input
-                                            type="range" min="10" max="1000" step="10" value={teamSize}
+                                            type="range" min="10" max="1000" step="10" value={teamSize} // Slider de 10 a 1000 personas por lado
                                             onChange={(e) => setTeamSize(Number(e.target.value))}
                                             className="w-full h-2 bg-[#1A1D23] rounded-lg appearance-none cursor-pointer accent-emerald-500"
                                         />
-                                        <span className="text-white font-bold text-xl w-16">{teamSize}</span>
+                                        <span className="text-white font-bold text-xl w-16 text-right">{teamSize}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-[#475569] mt-2">
                                         <span>10</span>
@@ -310,7 +310,7 @@ const DualIncomeCalculator = () => {
                                     ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-lg text-[#64748B]">USD</span>
                                 </div>
                                 <p className="text-sm text-[#64748B]">
-                                    ~ ${monthlyIncomeCOP.toLocaleString('es-CO', { maximumFractionDigits: 0 })} COP
+                                    ~ {monthlyIncomeCOP.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })}
                                 </p>
                             </div>
                         </div>
@@ -592,10 +592,11 @@ export default function PresentacionEmpresarialPage() {
                     {/* Opción 1 */}
                     <PackageCard
                         title="Paquete Inicial"
-                        priceUSD="200"
-                        priceCOP="900.000"
+                        priceUSD="200" // COMP_PAQ_01
+                        priceCOP="900000" // COMP_PAQ_01
+                        isPremium={false}
                         features={[
-                            "Inventario básico para consumo personal",
+                            "Inventario de 7 productos variados", // INV_03, COMP_PAQ_02
                             "Acceso a la App CreaTuActivo",
                             "Plan de Comisiones al 20%",
                             "Acceso a la Academia Básica"
@@ -605,14 +606,15 @@ export default function PresentacionEmpresarialPage() {
                     {/* Opción 2 */}
                     <PackageCard
                         title="Paquete Empresarial"
-                        priceUSD="500"
-                        priceCOP="2.250.000"
+                        priceUSD="500" // COMP_PAQ_01
+                        priceCOP="2250000" // COMP_PAQ_01
+                        isPremium={false}
                         features={[
-                            "Inventario profesional para muestras",
-                            "Acceso Prioritario a la IA",
-                            "Plan de Comisiones al 50%",
+                            "Inventario de 18 productos variados", // INV_03, COMP_PAQ_03
+                            "Acceso Prioritario a CreaTuActivo AI (Queswa)",
+                            "Regalía de Equipo al 16% (por 4 meses)", // INV_03
+                            "Bono GEN5 (hasta $75 USD por directo)", // INV_03
                             "Mentoría Grupal Mensual",
-                            "Herramientas de Marketing Pro"
                         ]}
                         ctaText="Seleccionar Empresarial"
                     />
@@ -620,13 +622,14 @@ export default function PresentacionEmpresarialPage() {
                     {/* Opción 3 - PREMIUM */}
                     <PackageCard
                         title="Paquete Visionario"
-                        priceUSD="1,000"
-                        priceCOP="4.500.000"
+                        priceUSD="1,000" // COMP_PAQ_01
+                        priceCOP="4500000" // COMP_PAQ_01
                         isPremium={true}
                         features={[
-                            "Inventario máximo volumen",
-                            "Acceso VIP a todas las funciones",
-                            "Plan de Comisiones al 100% (Máximo)",
+                            "Inventario de 35 productos (máximo volumen)", // INV_03, COMP_PAQ_04
+                            "Acceso VIP a CreaTuActivo AI (Queswa) y todas las funciones",
+                            "Regalía de Equipo al 17% (por 6 meses)", // INV_03
+                            "Bono GEN5 (hasta $150 USD por directo)", // INV_03
                             "Mentoría Directa con Diamantes",
                             "Acceso al Club de Fundadores"
                         ]}

@@ -119,7 +119,7 @@ export default function ServilletaPage() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-20 px-1 sm:px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-16 md:pb-20 px-1 sm:px-6">
 
         {/* =================================================================================
             TAB 1: LA TRAMPA (Iconos Vectoriales)
@@ -127,7 +127,7 @@ export default function ServilletaPage() {
         {activeTab === 'villain' && (
           <div className={slideContainerClass}>
 
-            <div className="flex items-center justify-between px-1 mb-3 mt-4 md:mt-0">
+            <div className="flex items-center justify-between px-1 mb-3 mt-6 md:mt-0">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-[#FF8A80]" />
                 <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Diagnóstico Estructural</span>
@@ -413,7 +413,7 @@ export default function ServilletaPage() {
       </main>
 
       {/* --- BOTTOM NAVIGATION --- */}
-      <nav className="fixed bottom-2 left-4 right-4 h-14 bg-[#15171C]/90 backdrop-blur-xl rounded-2xl flex justify-around items-center z-50 shadow-2xl border border-white/10 max-w-xl mx-auto">
+      <nav className="fixed bottom-0 left-0 right-0 h-12 md:h-14 md:bottom-2 md:left-4 md:right-4 bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 md:max-w-xl md:mx-auto">
         {[
           { id: 'villain', icon: Clock, label: 'La Trampa' },
           { id: 'solution', icon: FlaskConical, label: 'El Sistema' },

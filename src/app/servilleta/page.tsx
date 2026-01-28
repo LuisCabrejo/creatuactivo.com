@@ -360,16 +360,16 @@ export default function ServilletaPage() {
         ================================================================================= */}
         {activeTab === 'money' && (
           <div className={slideContainerClass}>
-            <div className="text-center mt-4 md:mt-0">
+            <div className="text-center mt-6 md:mt-0">
               <span className="text-[9px] md:text-xs text-[#94A3B8] uppercase tracking-widest">Simulador de Soberanía</span>
-              <h1 className="text-xl md:text-4xl text-white font-serif mt-0.5 md:mt-2">Proyecta tu Libertad</h1>
+              <h1 className="text-xl md:text-4xl text-white font-serif mt-1 md:mt-2">Proyecta tu Libertad</h1>
             </div>
-            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-4 md:mt-8">
+            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-5 md:mt-8">
               <div className="grid grid-cols-2 border-b border-white/5 bg-[#0F1115]">
                 <button onClick={() => setIncomeMode('gen5')} className={`py-2 md:py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'gen5' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Capital Rápido</button>
                 <button onClick={() => setIncomeMode('binario')} className={`py-2 md:py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'binario' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Renta Vitalicia</button>
               </div>
-              <div className="p-4 md:p-6 space-y-4 md:space-y-8">
+              <div className="p-5 md:p-6 space-y-5 md:space-y-8">
                 <div className="text-center">
                   <p className="text-[10px] text-[#94A3B8] uppercase mb-1">Ingreso Estimado</p>
 
@@ -395,7 +395,7 @@ export default function ServilletaPage() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-3 md:space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   {incomeMode === 'gen5' ? (
                     <>
                       <div className="flex justify-center gap-2">
@@ -414,8 +414,8 @@ export default function ServilletaPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 md:mt-8 px-4">
-              <div className="border-l-2 border-[#C5A059] pl-3 md:pl-4 py-1 md:py-2 mb-4 md:mb-6">
+            <div className="mt-5 md:mt-8 px-4">
+              <div className="border-l-2 border-[#C5A059] pl-3 md:pl-4 py-1.5 md:py-2 mb-5 md:mb-6">
                 <p className="text-[11px] md:text-base text-[#E5E5E5] font-serif italic leading-snug md:leading-relaxed">
                   &ldquo;La infraestructura está construida. La complejidad está resuelta. Hoy no cambia tu saldo, <span className="text-[#C5A059] font-bold not-italic">cambia tu dirección.</span>&rdquo;
                 </p>
@@ -424,7 +424,7 @@ export default function ServilletaPage() {
                 </p>
               </div>
               <Link href="/paquetes" className="block w-full py-3 md:py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-xs md:text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all text-center">Iniciar Plan de Soberanía <ArrowRight size={16} /></Link>
-              <Link href="/reto-5-dias" className="block w-full py-2.5 md:py-3 mt-2 md:mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#94A3B8] hover:text-[#E5E5E5] font-medium text-[10px] md:text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">Quiero saber más primero</Link>
+              <Link href="/reto-5-dias" className="block w-full py-2.5 md:py-3 mt-4 md:mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#94A3B8] hover:text-[#E5E5E5] font-medium text-[10px] md:text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">Quiero saber más primero</Link>
             </div>
           </div>
         )}

@@ -238,7 +238,7 @@ export default function ServilletaPage() {
         {activeTab === 'solution' && (
           <div className={slideContainerClass}>
 
-            <div className="text-center space-y-2 mb-8">
+            <div className="text-center space-y-2 mb-8 mt-6 md:mt-0">
               <span className="text-[10px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
                 Arquitectura de Apalancamiento
               </span>
@@ -282,7 +282,7 @@ export default function ServilletaPage() {
                   <div className="flex items-center gap-3 mb-3">
                     <Anchor className="text-[#94A3B8] w-5 h-5 flex-shrink-0" />
                     <div>
-                      <h3 className="text-white text-sm font-bold uppercase tracking-widest">El Sistema</h3>
+                      <h3 className="text-white text-sm font-bold uppercase tracking-widest">La Solución</h3>
                       <p className="text-xs text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
                     </div>
                   </div>
@@ -317,7 +317,7 @@ export default function ServilletaPage() {
         ================================================================================= */}
         {activeTab === 'fit' && (
           <div className={slideContainerClass}>
-            <div className="text-center mb-6 md:mb-10">
+            <div className="text-center mb-6 md:mb-10 mt-6 md:mt-0">
               <h1 className="text-3xl md:text-5xl text-white font-serif mb-2">Define tu Estilo</h1>
               <p className="text-[#94A3B8] text-sm md:text-base max-w-xs md:max-w-md mx-auto">
                 El sistema se adapta a ti. <span className="text-[#F5E8D8]">Elige tu vehículo.</span>
@@ -349,7 +349,7 @@ export default function ServilletaPage() {
         ================================================================================= */}
         {activeTab === 'money' && (
           <div className={slideContainerClass}>
-            <div className="text-center">
+            <div className="text-center mt-6 md:mt-0">
               <span className="text-[10px] md:text-xs text-[#94A3B8] uppercase tracking-widest">Simulador de Soberanía</span>
               <h1 className="text-2xl md:text-4xl text-white font-serif mt-1 md:mt-2">Proyecta tu Libertad</h1>
             </div>
@@ -416,7 +416,7 @@ export default function ServilletaPage() {
       <nav className="fixed bottom-0 left-0 right-0 h-12 md:h-14 md:bottom-2 md:left-4 md:right-4 bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 md:max-w-xl md:mx-auto">
         {[
           { id: 'villain', icon: Clock, label: 'La Trampa' },
-          { id: 'solution', icon: FlaskConical, label: 'El Sistema' },
+          { id: 'solution', icon: FlaskConical, label: 'La Solución' },
           { id: 'fit', icon: User, label: 'Tu Rol' },
           { id: 'money', icon: DollarSign, label: 'El Dinero' },
         ].map((tab) => (
@@ -439,8 +439,11 @@ export default function ServilletaPage() {
       </nav>
 
       <style jsx global>{`
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fadeIn { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
       `}</style>
     </div>
   );

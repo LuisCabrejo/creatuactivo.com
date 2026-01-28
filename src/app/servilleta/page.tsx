@@ -140,7 +140,7 @@ export default function ServilletaPage() {
             <div className={`rounded-xl overflow-hidden border border-[#FF8A80]/20 bg-[#15171C] shadow-2xl relative`}>
               <div className="absolute top-0 inset-x-0 h-1 bg-[#FF8A80]" />
 
-              <div className="px-5 pt-4 pb-3 md:px-8 md:pt-8 md:pb-5">
+              <div className="px-5 pt-4 pb-10 md:px-8 md:pt-8 md:pb-12">
                 <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-1 md:mb-2" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </h2>
@@ -223,7 +223,7 @@ export default function ServilletaPage() {
             </div>
 
             {/* Cita motivacional */}
-            <div className="hidden md:block px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-6">
+            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-6">
               <p className="text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
                 &quot;No necesitas más esfuerzo.<br />
                 <span className="text-[#C5A059] font-bold not-italic">Necesitas cambiar de vehículo.&quot;</span>

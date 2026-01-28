@@ -30,7 +30,11 @@ import {
   Check,
   ShieldCheck,
   Cpu,
-  Anchor
+  Anchor,
+  Briefcase,
+  CreditCard,
+  CircleOff,
+  Repeat
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -202,17 +206,18 @@ export default function ServilletaPage() {
 
               {/* CICLO - Estilo flujo horizontal (diferenciado del nav) */}
               <div className="bg-[#0F1115] px-4 py-4 md:py-6 border-t border-white/5">
-                <p className="text-center text-[9px] md:text-xs text-[#94A3B8] uppercase tracking-widest mb-2 md:mb-3">El Plan por Defecto</p>
+                <p className="text-center text-[11px] md:text-xs text-[#94A3B8] uppercase tracking-widest mb-2 md:mb-3">El Plan por Defecto</p>
                 <div className="flex items-center justify-center gap-1.5 md:gap-3 flex-wrap">
                   {[
-                    { label: 'Trabajar', pain: false },
-                    { label: 'Pagar', pain: false },
-                    { label: '$0', pain: true },
-                    { label: 'Repetir', pain: false },
+                    { label: 'Trabajar', pain: false, icon: Briefcase },
+                    { label: 'Pagar', pain: false, icon: CreditCard },
+                    { label: 'Quedar en ceros', pain: true, icon: CircleOff },
+                    { label: 'Repetir', pain: false, icon: Repeat },
                   ].map((step, i) => (
                     <React.Fragment key={step.label}>
                       {i > 0 && <span className="text-[#334155] text-[10px] md:text-sm">→</span>}
-                      <span className={`text-[10px] md:text-sm px-2.5 md:px-4 py-1 md:py-1.5 rounded-full border ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
+                      <span className={`text-[10px] md:text-sm px-2.5 md:px-4 py-1 md:py-1.5 rounded-full border flex items-center gap-1 ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
+                        <step.icon size={12} className="flex-shrink-0" />
                         {step.label}
                       </span>
                     </React.Fragment>
@@ -398,12 +403,12 @@ export default function ServilletaPage() {
                           <button key={pkg} onClick={() => setGen5Package(pkg as any)} className={`px-3 py-2 rounded text-[10px] uppercase font-bold transition-all border ${gen5Package === pkg ? 'bg-[#C5A059] text-[#0F1115] border-[#C5A059]' : 'bg-transparent text-[#64748B] border-white/10'}`}>{pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Pro' : 'Visionario'}</button>
                         ))}
                       </div>
-                      <input type="range" min="1" max="10" value={gen5Socios} onChange={(e) => setGen5Socios(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer accent-[#C5A059]" />
+                      <input type="range" min="1" max="10" value={gen5Socios} onChange={(e) => setGen5Socios(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer" />
                     </>
                   ) : (
                     <>
                       <div className="flex justify-between text-xs text-[#94A3B8] mb-2 font-medium"><span>Personas en Red:</span><span className="text-white font-mono">{binarioParejas}</span></div>
-                      <input type="range" min="10" max="500" step="10" value={binarioParejas} onChange={(e) => setBinarioParejas(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer accent-[#C5A059]" />
+                      <input type="range" min="10" max="500" step="10" value={binarioParejas} onChange={(e) => setBinarioParejas(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer" />
                     </>
                   )}
                 </div>
@@ -450,6 +455,8 @@ export default function ServilletaPage() {
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fadeIn { animation: fadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; cursor: pointer; border: 2px solid #C5A059; }
+        input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; cursor: pointer; border: 2px solid #C5A059; }
       `}</style>
     </div>
   );

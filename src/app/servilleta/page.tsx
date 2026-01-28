@@ -243,7 +243,7 @@ export default function ServilletaPage() {
         {activeTab === 'solution' && (
           <div className={slideContainerClass}>
 
-            <div className="text-center space-y-2 mb-12 mt-6 md:mt-0">
+            <div className="text-center space-y-2 mb-6 md:mb-12 mt-6 md:mt-0">
               <span className="text-[10px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
                 Arquitectura de Apalancamiento
               </span>
@@ -275,25 +275,25 @@ export default function ServilletaPage() {
               </div>
 
               {/* MASA DEL ICEBERG (90%) - sin borde inferior, se expande hacia abajo */}
-              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-6 px-4 md:pt-8 md:px-8 pb-0 overflow-visible">
+              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-4 px-4 md:pt-8 md:px-8 pb-0 overflow-visible">
                 {/* Dot pattern que se extiende "infinitamente" */}
                 <div className="absolute inset-0 bottom-[-200px] opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
                 {/* 90% watermark */}
-                <div className="text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="text-5xl md:text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-0" style={{ fontFamily: 'Georgia, serif' }}>
                   90%
                 </div>
 
-                <div className="relative z-10 space-y-3">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="relative z-10 space-y-2 md:space-y-3">
+                  <div className="flex items-center gap-3 mb-1 md:mb-3">
                     <Anchor className="text-[#94A3B8] w-5 h-5 flex-shrink-0" />
                     <div>
                       <h3 className="text-white text-sm font-bold uppercase tracking-widest">La Solución</h3>
                       <p className="text-xs text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
                     </div>
                   </div>
-                  <div className="grid gap-3">
-                    <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
+                  <div className="grid gap-2 md:gap-3">
+                    <div className="bg-[#0F1115]/80 p-3 md:p-4 rounded-xl border border-white/5 flex items-center gap-3">
                       <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
                         <ShieldCheck size={20} />
                       </div>
@@ -302,7 +302,7 @@ export default function ServilletaPage() {
                         <p className="text-xs md:text-sm text-[#94A3B8]">Socio Industrial con capital &gt; $100M</p>
                       </div>
                     </div>
-                    <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
+                    <div className="bg-[#0F1115]/80 p-3 md:p-4 rounded-xl border border-white/5 flex items-center gap-3">
                       <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
                         <Cpu size={20} />
                       </div>

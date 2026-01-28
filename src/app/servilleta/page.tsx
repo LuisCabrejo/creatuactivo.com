@@ -86,7 +86,7 @@ export default function ServilletaPage() {
     if (usd <= 300) return "Cubre todos los servicios públicos de tu hogar.";
     if (usd < 600) return "Paga la cuota de un vehículo gama media.";
     if (usd < 1000) return "Cubre un arriendo en zona exclusiva.";
-    if (usd < 2000) return "Salario de profesional senior (Libertad Básica).";
+    if (usd < 2000) return "El estrés de fin de mes desaparece.";
     return "Estilo de vida de abundancia (Top 5% ingresos).";
   };
 
@@ -199,7 +199,7 @@ export default function ServilletaPage() {
                   <circle cx="190" cy="78" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
                   <g transform="translate(190, 63)">
                     <rect x="-30" y="-10" width="60" height="14" rx="2" fill="#C5A059" />
-                    <text x="0" y="0" textAnchor="middle" fill="#0F1115" fontSize="8" fontWeight="bold" dominantBaseline="middle">LIBERTAD</text>
+                    <text x="0" y="0" textAnchor="middle" fill="#0F1115" fontSize="8" fontWeight="bold" dominantBaseline="middle">SOBERANÍA</text>
                   </g>
                 </svg>
               </div>
@@ -414,8 +414,16 @@ export default function ServilletaPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 text-center px-4">
-              <Link href="/paquetes" className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all">Iniciar Plan de Soberanía <ArrowRight size={18} /></Link>
+            <div className="mt-8 px-4">
+              <div className="border-l-2 border-[#C5A059] pl-4 py-2 mb-6">
+                <p className="text-sm md:text-base text-[#E5E5E5] font-serif italic leading-relaxed">
+                  &ldquo;La infraestructura está construida. La complejidad está resuelta. Hoy no cambia tu saldo, <span className="text-[#C5A059] font-bold not-italic">cambia tu dirección.</span>&rdquo;
+                </p>
+                <p className="text-xs md:text-sm text-[#C5A059] font-bold mt-2 uppercase tracking-wider">
+                  Enciende el vehículo.
+                </p>
+              </div>
+              <Link href="/paquetes" className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all text-center">Iniciar Plan de Soberanía <ArrowRight size={18} /></Link>
               <Link href="/reto-5-dias" className="block w-full py-3 mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#94A3B8] hover:text-[#E5E5E5] font-medium text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">Quiero saber más primero</Link>
             </div>
           </div>

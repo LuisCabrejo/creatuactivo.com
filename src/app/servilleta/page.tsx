@@ -238,7 +238,7 @@ export default function ServilletaPage() {
         {activeTab === 'solution' && (
           <div className={slideContainerClass}>
 
-            <div className="text-center space-y-2 mb-8 mt-6 md:mt-0">
+            <div className="text-center space-y-2 mb-12 mt-6 md:mt-0">
               <span className="text-[10px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
                 Arquitectura de Apalancamiento
               </span>
@@ -259,6 +259,7 @@ export default function ServilletaPage() {
                 <p className="text-xs md:text-sm text-[#F5E8D8] leading-tight">
                   Conectas personas. Cobras el peaje.
                 </p>
+                <p className="text-[9px] md:text-[10px] text-[#94A3B8] uppercase tracking-widest mt-2">Sin inventario • Sin logística</p>
               </div>
 
               {/* LÍNEA DE SUPERFICIE - conecta la punta con la masa */}
@@ -409,8 +410,8 @@ export default function ServilletaPage() {
               </div>
             </div>
             <div className="mt-8 text-center px-4">
-              <Link href="/paquetes" className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all">Aplicar como Fundador <ArrowRight size={18} /></Link>
-              <p className="text-[10px] text-[#64748B] mt-3 flex justify-center items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse"/> Solo 30 cupos de Fundador activos</p>
+              <Link href="/paquetes" className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all">Iniciar Plan de Soberanía <ArrowRight size={18} /></Link>
+              <Link href="/reto-5-dias" className="block w-full py-3 mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#94A3B8] hover:text-[#E5E5E5] font-medium text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">Quiero saber más primero</Link>
             </div>
           </div>
         )}

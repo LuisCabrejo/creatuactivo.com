@@ -280,7 +280,7 @@ export default function ServilletaPage() {
                 <div className="absolute inset-0 bottom-[-200px] opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
                 {/* 90% watermark */}
-                <div className="text-5xl md:text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-0" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="text-6xl md:text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-0" style={{ fontFamily: 'Georgia, serif' }}>
                   90%
                 </div>
 

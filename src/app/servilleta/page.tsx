@@ -86,7 +86,7 @@ export default function ServilletaPage() {
     return "Estilo de vida de abundancia (Top 5% ingresos).";
   };
 
-  const slideContainerClass = "w-full max-w-2xl mx-auto flex flex-col justify-center min-h-[550px] py-3 animate-fadeIn";
+  const slideContainerClass = "w-full max-w-2xl md:max-w-4xl mx-auto flex flex-col justify-center min-h-[550px] md:min-h-[85vh] py-3 md:py-8 animate-fadeIn";
 
   return (
     <div className={`min-h-screen ${THEME.bg} text-[#E5E5E5] flex flex-col relative font-sans`}>
@@ -97,7 +97,7 @@ export default function ServilletaPage() {
       />
 
       {/* --- HEADER --- */}
-      <header className="relative z-10 px-5 pt-3 pb-2 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
+      <header className="relative z-10 px-5 pt-3 pb-2 md:px-10 md:pt-5 md:pb-4 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
             <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
@@ -140,18 +140,18 @@ export default function ServilletaPage() {
             <div className={`rounded-xl overflow-hidden border border-[#FF8A80]/20 bg-[#15171C] shadow-2xl relative`}>
               <div className="absolute top-0 inset-x-0 h-1 bg-[#FF8A80]" />
 
-              <div className="px-5 pt-4 pb-3">
-                <h2 className="text-4xl font-bold text-white tracking-tighter mb-1" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
+              <div className="px-5 pt-4 pb-3 md:px-8 md:pt-8 md:pb-5">
+                <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-1 md:mb-2" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </h2>
-                <p className="text-[#F5E8D8] text-base font-medium mb-2">Dependencia del Ingreso Activo</p>
-                <p className="text-xs text-[#FF8A80] italic border-l-2 border-[#FF8A80] pl-3">
+                <p className="text-[#F5E8D8] text-base md:text-xl font-medium mb-2 md:mb-4">Dependencia del Ingreso Activo</p>
+                <p className="text-xs md:text-sm text-[#FF8A80] italic border-l-2 border-[#FF8A80] pl-3">
                   &quot;Si tú paras, el dinero para.&quot;
                 </p>
               </div>
 
-              {/* GRÁFICO - compacto para mobile */}
-              <div className="relative h-48 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
+              {/* GRÁFICO - compacto mobile, amplio desktop */}
+              <div className="relative h-48 md:h-80 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
                 <svg viewBox="0 0 320 140" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <linearGradient id="dependencyFill" x1="0" y1="0" x2="0" y2="1">
@@ -201,9 +201,9 @@ export default function ServilletaPage() {
               </div>
 
               {/* CICLO - Estilo flujo horizontal (diferenciado del nav) */}
-              <div className="bg-[#0F1115] px-4 py-4 border-t border-white/5">
-                <p className="text-center text-[9px] text-[#94A3B8] uppercase tracking-widest mb-2">El Plan por Defecto</p>
-                <div className="flex items-center justify-center gap-1.5 flex-wrap">
+              <div className="bg-[#0F1115] px-4 py-4 md:py-6 border-t border-white/5">
+                <p className="text-center text-[9px] md:text-xs text-[#94A3B8] uppercase tracking-widest mb-2 md:mb-3">El Plan por Defecto</p>
+                <div className="flex items-center justify-center gap-1.5 md:gap-3 flex-wrap">
                   {[
                     { label: 'Trabajar', pain: false },
                     { label: 'Pagar', pain: false },
@@ -211,15 +211,23 @@ export default function ServilletaPage() {
                     { label: 'Repetir', pain: false },
                   ].map((step, i) => (
                     <React.Fragment key={step.label}>
-                      {i > 0 && <span className="text-[#334155] text-[10px]">→</span>}
-                      <span className={`text-[10px] px-2.5 py-1 rounded-full border ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
+                      {i > 0 && <span className="text-[#334155] text-[10px] md:text-sm">→</span>}
+                      <span className={`text-[10px] md:text-sm px-2.5 md:px-4 py-1 md:py-1.5 rounded-full border ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
                         {step.label}
                       </span>
                     </React.Fragment>
                   ))}
-                  <span className="text-[#334155] text-[10px]">↻</span>
+                  <span className="text-[#334155] text-[10px] md:text-sm">↻</span>
                 </div>
               </div>
+            </div>
+
+            {/* Cita motivacional */}
+            <div className="hidden md:block px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-6">
+              <p className="text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
+                &quot;No necesitas más esfuerzo.<br />
+                <span className="text-[#C5A059] font-bold not-italic">Necesitas cambiar de vehículo.&quot;</span>
+              </p>
             </div>
           </div>
         )}
@@ -231,10 +239,10 @@ export default function ServilletaPage() {
           <div className={slideContainerClass}>
 
             <div className="text-center space-y-2 mb-8">
-              <span className="text-[10px] text-[#C5A059] uppercase tracking-[0.25em] font-bold">
+              <span className="text-[10px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
                 Arquitectura de Apalancamiento
               </span>
-              <h1 className="text-4xl text-white leading-none" style={{ fontFamily: 'Georgia, serif' }}>
+              <h1 className="text-4xl md:text-5xl text-white leading-none" style={{ fontFamily: 'Georgia, serif' }}>
                 Eficiencia, <span className="text-[#C5A059] italic">no magia.</span>
               </h1>
             </div>
@@ -243,12 +251,12 @@ export default function ServilletaPage() {
             <div className="relative w-full flex-1 flex flex-col items-center">
 
               {/* PUNTA DEL ICEBERG (10%) - parte visible */}
-              <div className="relative z-20 w-72 text-center bg-gradient-to-b from-[#1A1D23] to-[#1A1D23]/90 pt-6 pb-5 px-5 rounded-t-2xl border border-[#C5A059]/40 border-b-0 shadow-[0_0_30px_-5px_rgba(197,160,89,0.2)]">
+              <div className="relative z-20 w-72 md:w-96 text-center bg-gradient-to-b from-[#1A1D23] to-[#1A1D23]/90 pt-6 pb-5 px-5 md:pt-8 md:pb-6 md:px-8 rounded-t-2xl border border-[#C5A059]/40 border-b-0 shadow-[0_0_30px_-5px_rgba(197,160,89,0.2)]">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold text-sm shadow-lg border border-white/20">
                   10%
                 </div>
-                <h3 className="text-white text-lg font-serif mt-2 mb-1">Tu Rol: Conector</h3>
-                <p className="text-xs text-[#F5E8D8] leading-tight">
+                <h3 className="text-white text-lg md:text-xl font-serif mt-2 mb-1">Tu Rol: Conector</h3>
+                <p className="text-xs md:text-sm text-[#F5E8D8] leading-tight">
                   Conectar personas. Cobrar el peaje.
                 </p>
               </div>
@@ -261,7 +269,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* MASA DEL ICEBERG (90%) - sin borde inferior, se expande hacia abajo */}
-              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-6 px-4 pb-0 overflow-visible">
+              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-6 px-4 md:pt-8 md:px-8 pb-0 overflow-visible">
                 {/* Dot pattern que se extiende "infinitamente" */}
                 <div className="absolute inset-0 bottom-[-200px] opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
@@ -284,8 +292,8 @@ export default function ServilletaPage() {
                         <ShieldCheck size={20} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-sm font-bold">Respaldo Corporativo</h4>
-                        <p className="text-xs text-[#94A3B8]">Capital ($100M) & Legalidad</p>
+                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Respaldo Corporativo</h4>
+                        <p className="text-xs md:text-sm text-[#94A3B8]">Capital ($100M) & Legalidad</p>
                       </div>
                     </div>
                     <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
@@ -293,8 +301,8 @@ export default function ServilletaPage() {
                         <Cpu size={20} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-sm font-bold">Tecnología Queswa</h4>
-                        <p className="text-xs text-[#94A3B8]">IA, Logística & Distribución</p>
+                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Tecnología Queswa</h4>
+                        <p className="text-xs md:text-sm text-[#94A3B8]">IA, Logística & Distribución</p>
                       </div>
                     </div>
                   </div>
@@ -309,19 +317,19 @@ export default function ServilletaPage() {
         ================================================================================= */}
         {activeTab === 'fit' && (
           <div className={slideContainerClass}>
-            <div className="text-center mb-6">
-              <h1 className="text-3xl text-white font-serif mb-2">Define tu Estilo</h1>
-              <p className="text-[#94A3B8] text-sm max-w-xs mx-auto">
+            <div className="text-center mb-6 md:mb-10">
+              <h1 className="text-3xl md:text-5xl text-white font-serif mb-2">Define tu Estilo</h1>
+              <p className="text-[#94A3B8] text-sm md:text-base max-w-xs md:max-w-md mx-auto">
                 El sistema se adapta a ti. <span className="text-[#F5E8D8]">Elige tu vehículo.</span>
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 md:space-y-6">
               {[
                 { id: 'relacional', title: 'Modo Relacional', icon: Users, desc: 'Contacto humano, café y confianza. La app es tu asistente administrativo.', tag: 'Clásico' },
                 { id: 'hibrido', title: 'Modo Híbrido', icon: Smartphone, desc: 'Redes para atraer, IA para filtrar. Solo hablas con los que levantan la mano.', tag: 'Recomendado', highlight: true },
                 { id: 'inversionista', title: 'Modo Inversionista', icon: BarChart3, desc: 'Tráfico pago y sistemas delegados. Tu rol es 100% estratégico.', tag: 'Avanzado' }
               ].map((mode) => (
-                <div key={mode.id} onClick={() => setSelectedMode(mode.id as any)} className={`relative p-5 rounded-xl border transition-all duration-300 cursor-pointer ${selectedMode === mode.id ? 'bg-[#15171C] border-[#C5A059] shadow-[0_0_20px_-10px_rgba(197,160,89,0.3)] scale-[1.02]' : 'bg-[#0F1115] border-white/5 opacity-70 hover:opacity-100 hover:border-white/10'}`}>
+                <div key={mode.id} onClick={() => setSelectedMode(mode.id as any)} className={`relative p-5 md:p-6 rounded-xl border transition-all duration-300 cursor-pointer ${selectedMode === mode.id ? 'bg-[#15171C] border-[#C5A059] shadow-[0_0_20px_-10px_rgba(197,160,89,0.3)] scale-[1.02]' : 'bg-[#0F1115] border-white/5 opacity-70 hover:opacity-100 hover:border-white/10'}`}>
                   {mode.highlight && <div className="absolute top-0 right-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-2 py-0.5 rounded-bl rounded-tr-lg uppercase">{mode.tag}</div>}
                   <div className="flex items-start gap-4">
                     <div className={`p-3 rounded-full flex-shrink-0 ${selectedMode === mode.id ? 'bg-[#C5A059] text-[#0F1115]' : 'bg-[#1A1D23] text-[#94A3B8]'}`}><mode.icon size={20} /></div>
@@ -342,10 +350,10 @@ export default function ServilletaPage() {
         {activeTab === 'money' && (
           <div className={slideContainerClass}>
             <div className="text-center">
-              <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest">Simulador de Soberanía</span>
-              <h1 className="text-2xl text-white font-serif mt-1">Proyecta tu Libertad</h1>
+              <span className="text-[10px] md:text-xs text-[#94A3B8] uppercase tracking-widest">Simulador de Soberanía</span>
+              <h1 className="text-2xl md:text-4xl text-white font-serif mt-1 md:mt-2">Proyecta tu Libertad</h1>
             </div>
-            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-6">
+            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-6 md:mt-8">
               <div className="grid grid-cols-2 border-b border-white/5 bg-[#0F1115]">
                 <button onClick={() => setIncomeMode('gen5')} className={`py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'gen5' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Capital Rápido</button>
                 <button onClick={() => setIncomeMode('binario')} className={`py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'binario' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Renta Vitalicia</button>

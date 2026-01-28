@@ -127,7 +127,7 @@ export default function ServilletaPage() {
         {activeTab === 'villain' && (
           <div className={slideContainerClass}>
 
-            <div className="flex items-center justify-between px-1 mb-3">
+            <div className="flex items-center justify-between px-1 mb-3 mt-4 md:mt-0">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-[#FF8A80]" />
                 <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Diagnóstico Estructural</span>
@@ -223,8 +223,8 @@ export default function ServilletaPage() {
             </div>
 
             {/* Cita motivacional */}
-            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-6">
-              <p className="text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
+            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-4 md:mt-6">
+              <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
                 &quot;No necesitas más esfuerzo.<br />
                 <span className="text-[#C5A059] font-bold not-italic">Necesitas cambiar de vehículo.&quot;</span>
               </p>

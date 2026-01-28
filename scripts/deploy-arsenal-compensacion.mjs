@@ -2,9 +2,9 @@
 
 /**
  * Script para desplegar arsenal_compensacion.txt a Supabase
- * Fecha: 9 Diciembre 2025
- * Versión: v1.0
- * Contenido: Reto 12 Días + Inversión + Compensación
+ * Fecha: 18 Enero 2026
+ * Versión: v2.0
+ * Contenido: GEN5 + Binario + PV/CV + Paquetes + Auto Envio
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -42,22 +42,26 @@ async function deployArsenalCompensacion() {
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
   // Extraer versión
-  const versionMatch = content.match(/Versión:\s*([\d.]+)/);
-  const version = versionMatch ? versionMatch[1] : '1.0';
-  console.log('📌 Versión detectada:', version);
+  const versionMatch = content.match(/Version:\s*([\d.]+)/);
+  const version = versionMatch ? versionMatch[1] : '2.0';
+  console.log('📌 Version detectada:', version);
 
-  // Contar respuestas
-  const retoCount = (content.match(/RETO_\d+/g) || []).length;
-  const invCount = (content.match(/INV_\d+/g) || []).length;
-  const compCount = (content.match(/COMP_\d+/g) || []).length;
-  const objinvCount = (content.match(/OBJINV_\d+/g) || []).length;
-  const totalRespuestas = retoCount + invCount + compCount + objinvCount;
+  // Contar respuestas por categoría v2.0
+  const gen5Count = (content.match(/COMP_GEN5_\d+/g) || []).length;
+  const pvCount = (content.match(/COMP_PV_\d+/g) || []).length;
+  const binCount = (content.match(/COMP_BIN_\d+/g) || []).length;
+  const paqCount = (content.match(/COMP_PAQ_\d+/g) || []).length;
+  const autoCount = (content.match(/COMP_AUTO_\d+/g) || []).length;
+  const ventaCount = (content.match(/COMP_VENTA_\d+/g) || []).length;
+  const totalRespuestas = gen5Count + pvCount + binCount + paqCount + autoCount + ventaCount;
 
   console.log('📌 Respuestas detectadas:');
-  console.log(`   - RETO: ${retoCount}`);
-  console.log(`   - INV: ${invCount}`);
-  console.log(`   - COMP: ${compCount}`);
-  console.log(`   - OBJINV: ${objinvCount}`);
+  console.log(`   - COMP_GEN5: ${gen5Count}`);
+  console.log(`   - COMP_PV: ${pvCount}`);
+  console.log(`   - COMP_BIN: ${binCount}`);
+  console.log(`   - COMP_PAQ: ${paqCount}`);
+  console.log(`   - COMP_AUTO: ${autoCount}`);
+  console.log(`   - COMP_VENTA: ${ventaCount}`);
   console.log(`   - TOTAL: ${totalRespuestas}`);
 
   // Verificar si ya existe el documento
@@ -74,16 +78,18 @@ async function deployArsenalCompensacion() {
     const { data, error } = await supabase
       .from('nexus_documents')
       .update({
-        title: `Arsenal Compensación v${version} - Reto 12 Días`,
+        title: `Arsenal Compensacion v${version} - GEN5 + Binario + PV`,
         content: content,
         metadata: {
           version: version,
           respuestas_totales: totalRespuestas,
           categorias: {
-            RETO: retoCount,
-            INV: invCount,
-            COMP: compCount,
-            OBJINV: objinvCount
+            COMP_GEN5: gen5Count,
+            COMP_PV: pvCount,
+            COMP_BIN: binCount,
+            COMP_PAQ: paqCount,
+            COMP_AUTO: autoCount,
+            COMP_VENTA: ventaCount
           },
           fecha_actualizacion: new Date().toISOString()
         },
@@ -108,16 +114,18 @@ async function deployArsenalCompensacion() {
       .from('nexus_documents')
       .insert({
         category: 'arsenal_compensacion',
-        title: `Arsenal Compensación v${version} - Reto 12 Días`,
+        title: `Arsenal Compensacion v${version} - GEN5 + Binario + PV`,
         content: content,
         metadata: {
           version: version,
           respuestas_totales: totalRespuestas,
           categorias: {
-            RETO: retoCount,
-            INV: invCount,
-            COMP: compCount,
-            OBJINV: objinvCount
+            COMP_GEN5: gen5Count,
+            COMP_PV: pvCount,
+            COMP_BIN: binCount,
+            COMP_PAQ: paqCount,
+            COMP_AUTO: autoCount,
+            COMP_VENTA: ventaCount
           },
           fecha_creacion: new Date().toISOString()
         }
@@ -133,17 +141,25 @@ async function deployArsenalCompensacion() {
     console.log('📌 ID:', data[0].id);
   }
 
-  // Verificaciones de contenido
-  console.log('\n🔍 Verificando contenido...\n');
+  // Verificaciones de contenido v2.0
+  console.log('\n🔍 Verificando contenido v2.0...\n');
 
   const checks = [
-    { name: 'RETO_01 (Qué es el Reto)', found: content.includes('RETO_01') },
-    { name: 'RETO_02 (Inversión mínima)', found: content.includes('$443,600') },
-    { name: 'RETO_03 (Proyección)', found: content.includes('$95,823,000') || content.includes('95.8 millones') },
-    { name: 'INV_02 (Tabla paquetes)', found: content.includes('Kit de Inicio') && content.includes('ESP3') },
-    { name: 'COMP_02 (Bono Binario)', found: content.includes('binario') || content.includes('Binario') },
-    { name: 'Porcentajes correctos (15%, 16%, 17%)', found: content.includes('15%') && content.includes('16%') && content.includes('17%') },
-    { name: 'Kit Inicio 10%', found: content.includes('Kit') && content.includes('10%') }
+    { name: 'GEN5 - Regla del TECHO', found: content.includes('TECHO') && content.includes('GENERA') },
+    { name: 'GEN5 - Techos ESP-1 ($25)', found: content.includes('Gen 1 | $25 USD') },
+    { name: 'GEN5 - Techos ESP-2 ($75)', found: content.includes('Gen 1 | $75 USD') },
+    { name: 'GEN5 - Techos ESP-3 ($150)', found: content.includes('Gen 1 | $150 USD') },
+    { name: 'Gen 5 Doble (100 PV)', found: content.includes('100 PV') && content.includes('DOBLE') },
+    { name: 'Ciclos semanales (Domingo-Sabado)', found: content.includes('Domingo a Sabado') },
+    { name: 'PV/CV/GCV definiciones', found: content.includes('COMP_PV_01') && content.includes('COMP_PV_04') },
+    { name: 'Binario porcentajes (10-17%)', found: content.includes('15%') && content.includes('16%') && content.includes('17%') },
+    { name: '3 estrategias mantener %', found: content.includes('ESTRATEGIA 1') && content.includes('ESTRATEGIA 2') && content.includes('ESTRATEGIA 3') },
+    { name: 'Regla mayor porcentaje', found: content.includes('MAS ALTO') },
+    { name: 'Productos ESP-1 (7)', found: content.includes('ESP-1 - 7 productos') },
+    { name: 'Productos ESP-2 (18)', found: content.includes('ESP-2 - 18 productos') },
+    { name: 'Productos ESP-3 (35)', found: content.includes('ESP-3 - 35 productos') },
+    { name: 'Auto Envio programa', found: content.includes('Auto Envio') && content.includes('4 meses') },
+    { name: 'Rangos CV semanal', found: content.includes('Bronce') && content.includes('1,500 CV') }
   ];
 
   checks.forEach(check => {
@@ -151,12 +167,13 @@ async function deployArsenalCompensacion() {
   });
 
   console.log('\n🎉 Proceso completado\n');
-  console.log('📋 Próximos pasos:');
-  console.log('   1. Verificar en Supabase Dashboard que el documento existe');
-  console.log('   2. Probar NEXUS con preguntas como:');
-  console.log('      - "¿Qué es el Reto de los 12 Días?"');
-  console.log('      - "¿Cuál es la inversión mínima?"');
-  console.log('      - "¿Cuánto puedo ganar con el reto?"');
+  console.log('📋 Proximos pasos:');
+  console.log('   1. Ejecutar: node scripts/fragmentar-arsenales-voyage.mjs');
+  console.log('   2. Probar Queswa con preguntas como:');
+  console.log('      - "¿Cuanto gano por GEN5 si soy ESP-1?"');
+  console.log('      - "¿Cual es la regla del techo?"');
+  console.log('      - "¿Como funciona el bono doble de Gen 5?"');
+  console.log('      - "¿Cuantos productos trae el ESP-3?"');
   console.log('');
 }
 

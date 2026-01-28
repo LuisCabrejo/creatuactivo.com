@@ -1,22 +1,27 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Homepage v7.0 - THE ARCHITECT'S SUITE
+ * Copyright © 2026 CreaTuActivo.com
+ * Homepage v7.1 - THE ARCHITECT'S SUITE
  * Squeeze Page Híbrida (Protocolo Funnel v4)
  * Enfoque: Diagnóstico → Calculadora → Reto
+ *
+ * BIMETALLIC DESIGN SYSTEM v3.0:
+ * - Oro (#C5A059): CTAs, logros, números destacados
+ * - Titanio (#94A3B8): Íconos estructurales, líneas, bordes
  */
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 // ============================================================================
-// THE ARCHITECT'S SUITE - COLOR PALETTE
+// THE ARCHITECT'S SUITE - BIMETALLIC COLOR PALETTE v3.0
 // ============================================================================
 
 const COLORS = {
-  bg: { main: '#0F1115', card: '#1A1D23' },
+  bg: { main: '#0F1115', elevated: '#15171C', card: '#1A1D23' },
   gold: { primary: '#C5A059', hover: '#D4AF37', bronze: '#B38B59' },
-  text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3' },
-  border: { subtle: 'rgba(197, 160, 89, 0.2)', card: 'rgba(197, 160, 89, 0.1)' },
+  titanium: { primary: '#94A3B8', muted: '#64748B', dark: '#475569' },
+  text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3', subtle: '#6B7280' },
+  border: { subtle: 'rgba(197, 160, 89, 0.2)', glass: 'rgba(255, 255, 255, 0.1)', titanium: 'rgba(148, 163, 184, 0.2)' },
 };
 
 // ============================================================================
@@ -69,12 +74,12 @@ function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center px-6 pt-32 pb-16">
       <div className="relative max-w-3xl mx-auto text-center">
-        {/* Badge */}
+        {/* Badge - BIMETALLIC: borde glass, pulso dorado */}
         <div
           className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
           style={{
             backgroundColor: COLORS.bg.card,
-            border: `1px solid ${COLORS.border.card}`
+            border: `1px solid ${COLORS.border.glass}`
           }}
         >
           <span
@@ -126,25 +131,25 @@ function HeroSection() {
           </svg>
         </Link>
 
-        {/* Trust indicators - Solidez Institucional */}
+        {/* Trust indicators - BIMETALLIC: Íconos titanio (estructura) */}
         <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm" style={{ color: COLORS.text.muted }}>
           <div className="flex items-center gap-2">
-            {/* Globe icon */}
-            <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Globe icon - titanio */}
+            <svg className="w-4 h-4" style={{ color: COLORS.titanium.primary }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
             </svg>
             <span>Presencia en 70+ Países</span>
           </div>
           <div className="flex items-center gap-2">
-            {/* Shield icon */}
-            <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Shield icon - titanio */}
+            <svg className="w-4 h-4" style={{ color: COLORS.titanium.primary }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
             <span>Infraestructura Corporativa Propia</span>
           </div>
           <div className="flex items-center gap-2">
-            {/* Bolt/Zap icon */}
-            <svg className="w-4 h-4" style={{ color: COLORS.gold.bronze }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Bolt/Zap icon - titanio */}
+            <svg className="w-4 h-4" style={{ color: COLORS.titanium.primary }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
             </svg>
             <span>Operación 100% Digital</span>
@@ -173,7 +178,8 @@ function HeroSection() {
 
 function ProblemSection() {
   return (
-    <section className="px-6 py-20" style={{ backgroundColor: COLORS.bg.card }}>
+    // BIMETALLIC: Sección con fondo elevado
+    <section className="px-6 py-20" style={{ backgroundColor: COLORS.bg.elevated }}>
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-12">
@@ -191,7 +197,7 @@ function ProblemSection() {
           </h2>
         </div>
 
-        {/* The trap visualization */}
+        {/* The trap visualization - BIMETALLIC: bordes glass, números titanio */}
         <div className="grid md:grid-cols-3 gap-4 mb-10">
           {[
             { num: '1', title: 'Trabajar', desc: '40+ horas semanales' },
@@ -200,19 +206,19 @@ function ProblemSection() {
           ].map((item) => (
             <div
               key={item.num}
-              className="p-6 rounded-xl text-center transition-all duration-300 hover:translate-y-[-4px]"
+              className="p-6 rounded-xl text-center transition-all duration-300 hover:translate-y-[-4px] group"
               style={{
                 backgroundColor: COLORS.bg.main,
-                border: `1px solid ${COLORS.border.card}`
+                border: `1px solid ${COLORS.border.glass}`
               }}
             >
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }}
+                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors"
+                style={{ backgroundColor: 'rgba(148, 163, 184, 0.1)' }}
               >
                 <span
-                  className="text-xl font-bold"
-                  style={{ color: COLORS.gold.primary }}
+                  className="text-xl font-bold transition-colors"
+                  style={{ color: COLORS.titanium.primary }}
                 >
                   {item.num}
                 </span>
@@ -371,9 +377,10 @@ function FinalCTASection() {
 
 function Footer() {
   return (
+    // BIMETALLIC: Borde titanio
     <footer
       className="px-6 py-10"
-      style={{ borderTop: `1px solid ${COLORS.border.card}` }}
+      style={{ borderTop: `1px solid ${COLORS.border.titanium}` }}
     >
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left">
@@ -395,7 +402,7 @@ function Footer() {
         </div>
 
         <p className="text-xs" style={{ color: COLORS.text.muted }}>
-          © 2025 CreaTuActivo.com
+          © 2026 CreaTuActivo.com
         </p>
       </div>
     </footer>

@@ -19,6 +19,7 @@
     "ai": "^2.2.37",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.12",
+    "googleapis": "^170.1.0",
     "lucide-react": "^0.541.0",
     "nanoid": "^5.1.5",
     "next": "^14.2.5",
@@ -37,6 +38,7 @@
     "eslint": "^8",
     "eslint-config-next": "^14.2.5",
     "postcss": "^8",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

@@ -1,9 +1,13 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
  * Este software es propiedad privada y confidencial de CreaTuActivo.com.
  * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, prices, achievements
+ * Titanium (#94A3B8): Icons, navigation, structural borders
  *
  * Para consultas de licenciamiento: legal@creatuactivo.com
  */
@@ -898,14 +902,15 @@ export default function CatalogoEstrategico() {
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
           onClick={(e) => handleOverlayClick(e, () => setCartOpen(false))}
         >
-          <div className="absolute right-0 top-0 h-full w-96 bg-slate-900/98 backdrop-blur-xl border-l border-slate-600 shadow-2xl">
+          {/* BIMETALLIC: Cart panel with carbon backgrounds */}
+          <div className="absolute right-0 top-0 h-full w-96 bg-[#15171C]/98 backdrop-blur-xl border-l border-[rgba(148,163,184,0.2)] shadow-2xl">
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between p-6 border-b border-slate-600">
-                <h2 className="text-xl font-bold text-white">Tu Sistema de Bienestar</h2>
+              <div className="flex items-center justify-between p-6 border-b border-[rgba(148,163,184,0.2)]">
+                <h2 className="text-xl font-bold text-[#E5E5E5]">Tu Sistema de Bienestar</h2>
                 <button
                   onClick={() => setCartOpen(false)}
                   aria-label="Cerrar carrito de compras"
-                  className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-slate-700"
+                  className="p-2 text-[#94A3B8] hover:text-[#C5A059] transition-colors rounded-lg hover:bg-[#0F1115]"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -914,14 +919,14 @@ export default function CatalogoEstrategico() {
               <div className="flex-1 overflow-y-auto p-6">
                 {cart.length === 0 ? (
                   <div className="text-center py-12">
-                    <ShoppingCart className="h-16 w-16 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-300">Tu sistema está vacío</p>
-                    <p className="text-slate-400 text-sm mt-2">Comienza agregando productos estrella</p>
+                    <ShoppingCart className="h-16 w-16 text-[#64748B] mx-auto mb-4" />
+                    <p className="text-[#A3A3A3]">Tu sistema está vacío</p>
+                    <p className="text-[#6B7280] text-sm mt-2">Comienza agregando productos estrella</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {cart.map((item) => (
-                      <div key={item.id} className="bg-slate-800/80 border border-slate-600 rounded-2xl p-4">
+                      <div key={item.id} className="bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
                         <div className="flex items-center space-x-4">
                           <Image
                             src={item.image}
@@ -931,8 +936,8 @@ export default function CatalogoEstrategico() {
                             className="w-16 h-16 rounded-lg object-contain bg-white/10 p-1"
                           />
                           <div className="flex-1">
-                            <h3 className="text-white font-medium text-sm">{item.name}</h3>
-                            <p className="text-slate-200 text-sm">${item.price.toLocaleString()}</p>
+                            <h3 className="text-[#E5E5E5] font-medium text-sm">{item.name}</h3>
+                            <p className="text-[#C5A059] text-sm">${item.price.toLocaleString()}</p>
                           </div>
                         </div>
                         <div className="flex items-center justify-between mt-4">
@@ -940,15 +945,15 @@ export default function CatalogoEstrategico() {
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               aria-label="Disminuir cantidad"
-                              className="w-8 h-8 bg-slate-600 rounded-lg flex items-center justify-center text-white hover:bg-slate-500 transition-colors"
+                              className="w-8 h-8 bg-[#0F1115] border border-[rgba(148,163,184,0.2)] rounded-lg flex items-center justify-center text-[#94A3B8] hover:text-[#C5A059] hover:border-[#C5A059]/30 transition-colors"
                             >
                               -
                             </button>
-                            <span className="text-white w-8 text-center font-medium">{item.quantity}</span>
+                            <span className="text-[#E5E5E5] w-8 text-center font-medium">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               aria-label="Aumentar cantidad"
-                              className="w-8 h-8 bg-slate-600 rounded-lg flex items-center justify-center text-white hover:bg-slate-500 transition-colors"
+                              className="w-8 h-8 bg-[#0F1115] border border-[rgba(148,163,184,0.2)] rounded-lg flex items-center justify-center text-[#94A3B8] hover:text-[#C5A059] hover:border-[#C5A059]/30 transition-colors"
                             >
                               +
                             </button>
@@ -956,7 +961,7 @@ export default function CatalogoEstrategico() {
                           <button
                             onClick={() => removeFromCart(item.id)}
                             aria-label="Eliminar producto del carrito"
-                            className="text-red-400 hover:text-red-300 transition-colors"
+                            className="text-[#F43F5E] hover:text-[#FB7185] transition-colors"
                           >
                             <X className="h-5 w-5" />
                           </button>
@@ -968,25 +973,25 @@ export default function CatalogoEstrategico() {
               </div>
 
               {cart.length > 0 && (
-                <div className="border-t border-slate-600 p-6 space-y-4">
-                  <div className="space-y-2 text-white">
+                <div className="border-t border-[rgba(148,163,184,0.2)] p-6 space-y-4">
+                  <div className="space-y-2 text-[#E5E5E5]">
                     <div className="flex justify-between">
-                      <span className="text-slate-200">Subtotal:</span>
+                      <span className="text-[#A3A3A3]">Subtotal:</span>
                       <span className="font-medium">${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-200">Envío:</span>
+                      <span className="text-[#A3A3A3]">Envío:</span>
                       <span className="font-medium">$12.000</span>
                     </div>
-                    <div className="flex justify-between font-bold text-lg border-t border-slate-600 pt-2">
+                    <div className="flex justify-between font-bold text-lg border-t border-[rgba(148,163,184,0.2)] pt-2">
                       <span>Total:</span>
-                      <span className="text-amber-500">${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 12000).toLocaleString()}</span>
+                      <span className="text-[#C5A059]">${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 12000).toLocaleString()}</span>
                     </div>
                   </div>
 
-                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3">
-                    <p className="text-amber-300 text-xs font-medium mb-1">Siguiente Paso:</p>
-                    <p className="text-white text-sm">Confirma tu pedido y recibe tu sistema de bienestar</p>
+                  <div className="bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-xl p-3">
+                    <p className="text-[#C5A059] text-xs font-medium mb-1">Siguiente Paso:</p>
+                    <p className="text-[#E5E5E5] text-sm">Confirma tu pedido y recibe tu sistema de bienestar</p>
                   </div>
 
                   <a

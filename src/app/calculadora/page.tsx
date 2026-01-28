@@ -1,12 +1,12 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Calculadora de Días de Libertad v3.0 - THE ARCHITECT'S SUITE
  * Protocolo Funnel v4
  *
- * Cambios clave:
- * 1. Captura de email ANTES de mostrar resultados
- * 2. Sistema semafórico de colores (Rojo/Amarillo/Verde)
- * 3. THE ARCHITECT'S SUITE branding
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, progress bar, highlights
+ * Titanium (#94A3B8): Structural elements
+ * Semaphore colors for status indicators
  */
 
 'use client';

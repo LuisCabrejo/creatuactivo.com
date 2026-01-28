@@ -1,7 +1,11 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Página de Tecnología - Queswa Diferenciador
  * Explica la ventaja competitiva de la IA
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, Bot icon
+ * Titanium (#94A3B8): Structural elements
  */
 
 import Link from 'next/link';
@@ -272,7 +276,7 @@ export default function TecnologiaPage() {
                 </svg>
               </Link>
 
-              <p className="text-sm mt-6 text-[#6b6b75]">
+              <p className="text-sm mt-6 text-[#64748B]">
                 Gratis · Sin compromiso · 5 días por WhatsApp
               </p>
             </div>
@@ -281,8 +285,8 @@ export default function TecnologiaPage() {
           {/* Footer */}
           <footer className="px-6 py-12 border-t border-[rgba(197, 160, 89, 0.15)]">
             <div className="max-w-5xl mx-auto text-center">
-              <p className="text-sm text-[#6b6b75]">
-                © 2025 CreaTuActivo.com ·
+              <p className="text-sm text-[#64748B]">
+                © 2026 CreaTuActivo.com ·
                 <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                   Privacidad
                 </Link>

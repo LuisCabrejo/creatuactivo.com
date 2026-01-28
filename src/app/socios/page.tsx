@@ -1,8 +1,12 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Página de Presentación para Socios Estratégicos
  * Enfoque: StoryBrand (Ellas son las heroínas) + Plan Trimodal
  * NO confrontacional - La tecnología POTENCIA sus métodos tradicionales
+ *
+ * THE ARCHITECT'S SUITE - Bimetallic System v3.0
+ * Gold (#C5A059): CTAs, highlights, achievements
+ * Titanium (#94A3B8): Structural elements
  */
 
 'use client';
@@ -83,7 +87,7 @@ export default function SociosPage() {
       </section>
 
       {/* El Villano Real - El Entrenamiento Tradicional */}
-      <section id="historia" className="py-20 px-6 bg-[#0d0d14]">
+      <section id="historia" className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -211,14 +215,14 @@ export default function SociosPage() {
               >
                 <div className="grid md:grid-cols-3 gap-4 items-center">
                   <div className="text-center md:text-left">
-                    <p className="text-sm text-[#6b6b75] mb-1">Antes</p>
+                    <p className="text-sm text-[#64748B] mb-1">Antes</p>
                     <p className="text-[#A3A3A3]">{item.before}</p>
                   </div>
                   <div className="text-center">
                     <ArrowRight className="w-6 h-6 text-[#C5A059] mx-auto" />
                   </div>
                   <div className="text-center md:text-right">
-                    <p className="text-sm text-[#6b6b75] mb-1">Ahora</p>
+                    <p className="text-sm text-[#64748B] mb-1">Ahora</p>
                     <p className="text-[#E5E5E5]">{item.after}</p>
                   </div>
                 </div>
@@ -235,7 +239,7 @@ export default function SociosPage() {
       </section>
 
       {/* El Plan Trimodal */}
-      <section className="py-20 px-6 bg-[#0d0d14]">
+      <section className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -261,7 +265,7 @@ export default function SociosPage() {
                 <Handshake className="w-7 h-7 text-[#C5A059]" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-[#C5A059]">Análogo</h3>
-              <p className="text-sm text-[#6b6b75] mb-4">El poder de las relaciones</p>
+              <p className="text-sm text-[#64748B] mb-4">El poder de las relaciones</p>
               <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes brillan en el 1 a 1, las reuniones y las presentaciones personales.
                 <strong className="text-[#E5E5E5]"> Tu red de contactos es tu mayor activo.</strong>
@@ -292,7 +296,7 @@ export default function SociosPage() {
                 <Users className="w-7 h-7 text-purple-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-purple-400">Híbrido</h3>
-              <p className="text-sm text-[#6b6b75] mb-4">Marca personal + Relaciones</p>
+              <p className="text-sm text-[#64748B] mb-4">Marca personal + Relaciones</p>
               <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes quieren construir autoridad en redes sociales mientras
                 mantienen el toque personal.
@@ -318,7 +322,7 @@ export default function SociosPage() {
                 <Rocket className="w-7 h-7 text-blue-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-blue-400">Digital</h3>
-              <p className="text-sm text-[#6b6b75] mb-4">Inversión + Automatización</p>
+              <p className="text-sm text-[#64748B] mb-4">Inversión + Automatización</p>
               <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes tienen capital para invertir en publicidad y prefieren
                 sistemas 100% automatizados.
@@ -423,7 +427,7 @@ export default function SociosPage() {
       </section>
 
       {/* El Reto de 5 Días - Día por Día */}
-      <section className="py-20 px-6 bg-[#0d0d14]">
+      <section className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -592,7 +596,7 @@ export default function SociosPage() {
       </section>
 
       {/* La Experiencia de 11 Estrellas */}
-      <section className="py-20 px-6 bg-[#0d0d14]">
+      <section className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -767,7 +771,7 @@ export default function SociosPage() {
               >
                 <div className={`h-2 bg-gradient-to-r ${trip.color}`} />
                 <div className="p-6">
-                  <p className="text-xs text-[#6b6b75] mb-2">{trip.type}</p>
+                  <p className="text-xs text-[#64748B] mb-2">{trip.type}</p>
                   <h3 className="text-xl font-semibold mb-1">{trip.destination}</h3>
                   <p className="text-sm text-[#A3A3A3]">{trip.event}</p>
                 </div>
@@ -808,7 +812,7 @@ export default function SociosPage() {
       </section>
 
       {/* El Dolor que Resolvemos (Empatía) */}
-      <section className="py-20 px-6 bg-[#0d0d14]">
+      <section className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -924,7 +928,7 @@ export default function SociosPage() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 px-6 bg-[#0d0d14]">
+      <section className="py-20 px-6 bg-[#15171C]">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-serif mb-6">
             Lo que construimos es para ustedes.
@@ -953,7 +957,7 @@ export default function SociosPage() {
             </Link>
           </div>
 
-          <p className="mt-8 text-sm text-[#6b6b75]">
+          <p className="mt-8 text-sm text-[#64748B]">
             ¿Preguntas? Hablemos directamente:
             <a href="https://wa.me/573215193909" className="text-[#C5A059] hover:underline ml-1">
               +57 321 519 3909
@@ -965,7 +969,7 @@ export default function SociosPage() {
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-[rgba(197, 160, 89, 0.15)]">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm text-[#6b6b75]">
+          <p className="text-sm text-[#64748B]">
             © {new Date().getFullYear()} CreaTuActivo.com — Presentación exclusiva para socios estratégicos
           </p>
         </div>

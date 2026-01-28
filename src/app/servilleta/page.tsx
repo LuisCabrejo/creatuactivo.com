@@ -288,7 +288,7 @@ export default function ServilletaPage() {
                   <div className="flex items-center gap-3 mb-1 md:mb-3">
                     <Anchor className="text-[#94A3B8] w-5 h-5 flex-shrink-0" />
                     <div>
-                      <h3 className="text-white text-sm font-bold uppercase tracking-widest">La Solución</h3>
+                      <h3 className="text-[#C5A059] text-sm font-bold uppercase tracking-widest">La Solución</h3>
                       <p className="text-xs text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
                     </div>
                   </div>

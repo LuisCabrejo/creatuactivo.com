@@ -144,7 +144,7 @@ export default function ServilletaPage() {
                 <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-1 md:mb-2" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
                   100%
                 </h2>
-                <p className="text-[#F5E8D8] text-base md:text-xl font-medium mb-2 md:mb-4">Dependencia del Ingreso Activo</p>
+                <p className="text-[#F5E8D8] text-base md:text-xl font-medium mb-2 md:mb-4">Dependencia del Empleo/Auto-empleo</p>
                 <p className="text-xs md:text-sm text-[#FF8A80] italic border-l-2 border-[#FF8A80] pl-3">
                   &quot;Si tú paras, el dinero para.&quot;
                 </p>
@@ -257,7 +257,7 @@ export default function ServilletaPage() {
                 </div>
                 <h3 className="text-white text-lg md:text-xl font-serif mt-2 mb-1">Tu Rol: Conector</h3>
                 <p className="text-xs md:text-sm text-[#F5E8D8] leading-tight">
-                  Conectar personas. Cobrar el peaje.
+                  Conectas personas. Cobras el peaje.
                 </p>
               </div>
 
@@ -292,8 +292,8 @@ export default function ServilletaPage() {
                         <ShieldCheck size={20} />
                       </div>
                       <div>
-                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Respaldo Corporativo</h4>
-                        <p className="text-xs md:text-sm text-[#94A3B8]">Capital ($100M) & Legalidad</p>
+                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Respaldo Legal & Físico</h4>
+                        <p className="text-xs md:text-sm text-[#94A3B8]">Socio Industrial con capital &gt; $100M</p>
                       </div>
                     </div>
                     <div className="bg-[#0F1115]/80 p-4 rounded-xl border border-white/5 flex items-center gap-3">
@@ -308,6 +308,11 @@ export default function ServilletaPage() {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-4 md:mt-6">
+              <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
+                &ldquo;Nosotros ponemos los barcos, las fábricas y la IA. Tú solo pones la conexión.&rdquo;
+              </p>
             </div>
           </div>
         )}

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Servilleta Digital | CreaTuActivo',
-  description: 'Presentación interactiva del modelo de Arquitectura de Activos',
+  description: 'Presentación interactiva del modelo de Infraestructura de Apalancamiento',
   robots: {
     index: false,
     follow: false,

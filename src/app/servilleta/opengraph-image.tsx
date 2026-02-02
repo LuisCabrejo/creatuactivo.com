@@ -2,19 +2,21 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * OpenGraph Image - Servilleta Digital
- * BIMETALLIC DESIGN SYSTEM v3.0
+ * OpenGraph Image - Soberanía
+ * INDUSTRIAL REALISM DESIGN v10.0
  */
 
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge'
-export const alt = 'Servilleta Digital - Infraestuctura de Apalancamiento | CreaTuActivo'
+export const runtime = 'edge';
+
+export const alt = 'Soberanía | Diagnóstico Estructural';
 export const size = {
   width: 1200,
   height: 630,
-}
-export const contentType = 'image/png'
+};
+
+export const contentType = 'image/png';
 
 export default async function Image() {
   return new ImageResponse(
@@ -27,142 +29,128 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#0F1115',
-          padding: '60px 80px',
+          backgroundColor: '#0F1115',
+          backgroundImage: 'radial-gradient(#334155 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+          fontFamily: 'serif',
           position: 'relative',
         }}
       >
-        {/* Subtle gold radial glow */}
+        {/* Marco Perimetral Industrial */}
         <div
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 70%)',
+            top: '20px',
+            left: '20px',
+            right: '20px',
+            bottom: '20px',
+            border: '1px solid #334155',
+            borderRadius: '0px',
+            opacity: 0.5,
             display: 'flex',
           }}
         />
 
-        {/* Top label */}
+        {/* Badge Superior */}
         <div
           style={{
-            fontSize: 22,
-            fontWeight: 700,
-            color: '#C5A059',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            marginBottom: 24,
             display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px 16px',
+            backgroundColor: 'rgba(197, 160, 89, 0.1)',
+            border: '1px solid rgba(197, 160, 89, 0.3)',
+            borderRadius: '4px',
+            marginBottom: '40px',
           }}
         >
-          Servilleta Digital
+          <span
+            style={{
+              color: '#C5A059',
+              fontSize: 14,
+              fontFamily: 'sans-serif',
+              letterSpacing: '0.2em',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              display: 'flex',
+            }}
+          >
+            Diagnóstico Estructural v10.0
+          </span>
         </div>
 
-        {/* Main title */}
+        {/* Título Principal */}
         <div
           style={{
-            fontSize: 72,
-            fontWeight: 800,
-            color: '#FFFFFF',
-            textAlign: 'center',
-            lineHeight: 1.1,
-            marginBottom: 16,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            fontFamily: 'Georgia, serif',
-          }}
-        >
-          <span style={{ display: 'flex' }}>Infraestuctura de</span>
-          <span style={{ display: 'flex', color: '#C5A059' }}>Apalancamiento</span>
-        </div>
-
-        {/* Subtitle */}
-        <div
-          style={{
-            fontSize: 28,
-            fontWeight: 500,
-            color: '#94A3B8',
             textAlign: 'center',
-            marginBottom: 48,
-            display: 'flex',
           }}
         >
-          La trampa · La solución · Tu rol · El dinero
+          <span
+            style={{
+              fontSize: 130,
+              color: '#E5E5E5',
+              margin: 0,
+              lineHeight: 0.9,
+              fontWeight: 900,
+              letterSpacing: '-0.05em',
+              textShadow: '0 10px 30px rgba(0,0,0,0.5)',
+              display: 'flex',
+            }}
+          >
+            SOBERANÍA
+          </span>
+
+          {/* Línea Divisoria */}
+          <div
+            style={{
+              width: '100px',
+              height: '4px',
+              backgroundColor: '#C5A059',
+              marginTop: '30px',
+              marginBottom: '30px',
+              display: 'flex',
+            }}
+          />
+
+          <span
+            style={{
+              fontSize: 32,
+              color: '#94A3B8',
+              margin: 0,
+              fontFamily: 'sans-serif',
+              letterSpacing: '0.25em',
+              textTransform: 'uppercase',
+              fontWeight: 400,
+              display: 'flex',
+            }}
+          >
+            Arquitectura de Apalancamiento
+          </span>
         </div>
 
-        {/* 4 tab indicators */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 16,
-          }}
-        >
-          {[
-            { label: 'La Trampa', color: '#FF8A80' },
-            { label: 'La Solución', color: '#C5A059' },
-            { label: 'Tu Rol', color: '#94A3B8' },
-            { label: 'El Dinero', color: '#C5A059' },
-          ].map((tab) => (
-            <div
-              key={tab.label}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '10px 24px',
-                borderRadius: 999,
-                border: `1px solid ${tab.color}40`,
-                background: `${tab.color}10`,
-              }}
-            >
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  background: tab.color,
-                  display: 'flex',
-                }}
-              />
-              <span
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: tab.color,
-                  display: 'flex',
-                }}
-              >
-                {tab.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer */}
+        {/* Footer Técnico */}
         <div
           style={{
             position: 'absolute',
-            bottom: 40,
+            bottom: '40px',
             display: 'flex',
-            alignItems: 'center',
-            gap: 12,
+            width: '100%',
+            justifyContent: 'center',
+            color: '#475569',
+            fontSize: 16,
+            fontFamily: 'sans-serif',
+            letterSpacing: '0.1em',
           }}
         >
-          <span style={{ fontSize: 24, fontWeight: 600, color: '#C5A059', display: 'flex' }}>
-            CreaTuActivo
-          </span>
-          <span style={{ fontSize: 24, color: '#475569', display: 'flex' }}>·</span>
-          <span style={{ fontSize: 20, color: '#64748B', fontWeight: 500, display: 'flex' }}>
-            Acceso Privado
-          </span>
+          SYSTEM STATUS: ONLINE • CREATUACTIVO.COM
         </div>
       </div>
     ),
     {
       ...size,
     }
-  )
+  );
 }

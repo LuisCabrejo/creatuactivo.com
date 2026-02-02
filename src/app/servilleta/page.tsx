@@ -59,7 +59,13 @@ export default function ServilletaPage() {
   const [binarioParejas, setBinarioParejas] = useState(50);
   const [selectedRole, setSelectedRole] = useState<'campo' | 'hibrido' | 'arquitecto'>('hibrido');
 
-  const switchTab = (tabId: TabId) => setActiveTab(tabId);
+  const switchTab = (tabId: TabId) => {
+    setActiveTab(tabId);
+    // Resetear scroll al top cuando cambia de diapositiva
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Lógica de Negocio & Moneda (TRM Fija Corporativa)
   const TRM = 4500;
@@ -97,7 +103,7 @@ export default function ServilletaPage() {
       />
 
       {/* --- HEADER --- */}
-      <header className="relative z-10 px-5 pt-3 pb-2 md:px-10 md:pt-5 md:pb-4 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 px-5 pt-3 pb-2 md:px-10 md:pt-5 md:pb-4 flex justify-between items-center bg-[#0F1115]/95 backdrop-blur-md border-b border-white/5">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
             <Activity className="w-5 h-5 text-[#C5A059]" />
@@ -114,7 +120,7 @@ export default function ServilletaPage() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 scrollbar-hide">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 pt-16 md:pt-20 scrollbar-hide">
 
         {/* =================================================================================
             TAB 1: EL DIAGNÓSTICO (El Plan por Defecto + Oscilaciones)

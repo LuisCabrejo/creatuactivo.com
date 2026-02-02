@@ -1,75 +1,74 @@
 /**
- * SERVILLETA DIGITAL - THE LOCALIZED LEVERAGE EDITION v6.0
+ * SERVILLETA DIGITAL - INDUSTRIAL SOVEREIGNTY EDITION v7.0
  * Copyright © 2026 CreaTuActivo.com
  *
- * AJUSTES ESTRATÉGICOS:
- * 1. VISUAL: Reemplazo de Emojis por Lucide Icons (Estética Vectorial).
- * 2. COPYWRITING: "Arquitectura de Apalancamiento" (Más potente que Activos).
- * 3. PSICOLOGÍA: Insight de $300 ajustado a "Servicios Públicos" (Efecto Abundancia).
- * 4. LOCALIZACIÓN: Conversión a COP (Pesos Colombianos) en tiempo real.
- * 5. NAVEGACIÓN: Etiquetas de menú explícitas.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * ESTRATEGIA APLICADA:
+ * 1. DIAGNÓSTICO: Las 3 Oscilaciones (Tiempo, Esfuerzo, Seguridad).
+ * 2. SOLUCIÓN: Estrategia "Steve Jobs" (3 Elementos = 1 Plataforma).
+ * 3. ROLES: Nomenclatura de Ingeniería (Operador, Arquitecto).
+ * 4. SIMULADOR: Tablero de Control de Flujo de Caja.
  */
 
 'use client';
 
 import React, { useState } from 'react';
 import {
-  Clock,
-  FlaskConical,
-  User,
-  DollarSign,
-  Users,
-  Smartphone,
-  BarChart3,
+  Activity,       // Para Diagnóstico/Pulso
+  Clock,          // Tiempo
+  Flame,          // Esfuerzo (Desgaste Térmico)
+  ShieldAlert,    // Seguridad (Falla Frágil)
+  Factory,        // El Músculo (Gano Excel)
+  Globe,          // La Tubería (Logística)
+  BrainCircuit,   // El Cerebro (Queswa)
+  Key,            // El Código (Soberanía)
+  Users,          // Operador de Campo
+  Smartphone,     // Sistema Híbrido
+  BarChart3,      // Arquitecto de Tráfico
   ArrowRight,
   Zap,
-  TrendingUp,
-  AlertTriangle,
   Check,
-  ShieldCheck,
-  Cpu,
-  Anchor,
   Briefcase,
   CreditCard,
   CircleOff,
-  Repeat
+  Repeat,
+  Anchor,
+  Cpu,
+  Truck
 } from 'lucide-react';
 import Link from 'next/link';
 
-// --- CONFIGURACIÓN DE BRANDING ---
+// --- CONFIGURACIÓN DE BRANDING INDUSTRIAL ---
 const THEME = {
   bg: 'bg-[#0F1115]',       // Carbon Deep
   cardBg: 'bg-[#15171C]',   // Elevated Surface
   gold: '#C5A059',          // Primary Brand
-  goldLight: '#F5E8D8',     // Text Highlight
-  coral: '#FF8A80',         // Pain/Dependency
+  goldDim: 'rgba(197, 160, 89, 0.1)',
+  danger: '#EF4444',        // Alert Color
+  success: '#10B981',       // Success Color
   textMain: '#E5E5E5',
   textMuted: '#94A3B8',
 };
 
-type TabId = 'villain' | 'solution' | 'fit' | 'money';
+type TabId = 'diagnosis' | 'architecture' | 'operation' | 'projection';
 type IncomeMode = 'gen5' | 'binario';
 
 export default function ServilletaPage() {
-  const [activeTab, setActiveTab] = useState<TabId>('villain');
+  const [activeTab, setActiveTab] = useState<TabId>('diagnosis');
 
   // Estados del Simulador
   const [incomeMode, setIncomeMode] = useState<IncomeMode>('gen5');
   const [gen5Socios, setGen5Socios] = useState(2);
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
-  const [selectedMode, setSelectedMode] = useState<'relacional' | 'hibrido' | 'inversionista' | null>('hibrido');
+  const [selectedRole, setSelectedRole] = useState<'campo' | 'hibrido' | 'arquitecto'>('hibrido');
 
   const switchTab = (tabId: TabId) => setActiveTab(tabId);
 
-  // Lógica de Negocio & Moneda
-  // Tasa corporativa fija de Gano Excel (COMP_MONEDA_01)
+  // Lógica de Negocio & Moneda (TRM Fija Corporativa)
   const TRM = 4500;
   const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
   const gen5Income = gen5Socios * gen5Bonuses[gen5Package];
-  const binarioIncomeUSD = Math.round(binarioParejas * 4.76);
+  const binarioIncomeUSD = Math.round(binarioParejas * 4.76); // Promedio ponderado binario
 
   // Formateador de Pesos Colombianos
   const formatCOP = (usd: number) => {
@@ -82,271 +81,249 @@ export default function ServilletaPage() {
 
   // Traductor de Estilo de Vida (Efecto Abundancia)
   const getLifestyleTranslation = (usd: number) => {
-    if (usd < 100) return "Paga tu factura de celular e internet móvil.";
-    if (usd <= 300) return "Cubre todos los servicios públicos de tu hogar.";
+    if (usd < 100) return "Cubre factura de celular e internet móvil.";
+    if (usd <= 300) return "Cubre todos los servicios públicos del hogar.";
     if (usd < 600) return "Paga la cuota de un vehículo gama media.";
     if (usd < 1000) return "Cubre un arriendo en zona exclusiva.";
-    if (usd < 2000) return "El estrés de fin de mes desaparece.";
+    if (usd < 2000) return "Libertad de la presión financiera mensual.";
     return "Estilo de vida de abundancia (Top 5% ingresos).";
   };
 
-  const slideContainerClass = "w-full max-w-2xl md:max-w-4xl mx-auto flex flex-col justify-center min-h-[550px] md:min-h-[85vh] py-3 md:py-8 animate-fadeIn";
+  const slideContainerClass = "w-full max-w-2xl md:max-w-4xl mx-auto flex flex-col justify-start md:justify-center min-h-[600px] md:min-h-[85vh] py-4 md:py-8 animate-fadeIn";
 
   return (
-    <div className={`min-h-screen ${THEME.bg} text-[#E5E5E5] flex flex-col relative font-sans`}>
+    <div className={`min-h-screen ${THEME.bg} text-[#E5E5E5] flex flex-col relative font-sans selection:bg-[#C5A059] selection:text-black`}>
 
-      {/* Grid Background */}
-      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'linear-gradient(#94A3B8 1px, transparent 1px), linear-gradient(90deg, #94A3B8 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+      {/* Grid Background (Blueprint Effect) */}
+      <div className="fixed inset-0 z-0 opacity-[0.04] pointer-events-none"
+        style={{ backgroundImage: 'linear-gradient(#94A3B8 1px, transparent 1px), linear-gradient(90deg, #94A3B8 1px, transparent 1px)', backgroundSize: '30px 30px' }}
       />
 
       {/* --- HEADER --- */}
       <header className="relative z-10 px-5 pt-3 pb-2 md:px-10 md:pt-5 md:pb-4 flex justify-between items-center bg-[#0F1115]/90 backdrop-blur-md sticky top-0 border-b border-white/5">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
-            <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
-              <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
-                <path d="M14 5 H5 V27 H20"/>
-                <path d="M16 27 V10 H27 V27"/>
-                <path d="M16 18 H27"/>
-              </g>
-            </svg>
+            <Activity className="w-5 h-5 text-[#C5A059]" />
           </div>
           <span className="text-sm flex flex-col leading-none">
             <span className="font-serif text-[#C5A059] tracking-tight font-bold text-lg">CreaTuActivo</span>
-            <span className="font-sans text-[9px] text-[#94A3B8] tracking-[0.2em] uppercase">Soberanía</span>
+            <span className="font-mono text-[9px] text-[#94A3B8] tracking-[0.2em] uppercase">SISTEMA</span>
           </span>
         </Link>
-        <div className="px-3 py-1.5 rounded-full border border-[#C5A059]/30 bg-[#C5A059]/5 text-[10px] text-[#C5A059] font-medium tracking-wide uppercase">
-          Acceso Privado
+        <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            <span className="text-[10px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">Conexión Segura</span>
         </div>
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-16 md:pb-20 px-1 sm:px-6">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 scrollbar-hide">
 
         {/* =================================================================================
-            TAB 1: LA TRAMPA (Iconos Vectoriales)
+            TAB 1: EL DIAGNÓSTICO (Las 3 Fracturas)
         ================================================================================= */}
-        {activeTab === 'villain' && (
+        {activeTab === 'diagnosis' && (
           <div className={slideContainerClass}>
 
-            <div className="flex items-center justify-between px-1 mb-3 mt-6 md:mt-0">
+            {/* Header Diagnóstico */}
+            <div className="flex items-center justify-between px-1 mb-4">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-[#FF8A80]" />
+                <Activity className="w-4 h-4 text-[#EF4444]" />
                 <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Diagnóstico Estructural</span>
               </div>
-              <span className="text-[10px] text-[#FF8A80] bg-[#FF8A80]/10 px-2 py-0.5 rounded border border-[#FF8A80]/20 font-bold">
-                ALERTA ACTIVA
+              <span className="text-[9px] text-[#EF4444] bg-[#EF4444]/10 px-2 py-0.5 rounded border border-[#EF4444]/20 font-bold tracking-wider">
+                FALLA DETECTADA
               </span>
             </div>
 
-            <div className={`rounded-xl overflow-hidden border border-[#FF8A80]/20 bg-[#15171C] shadow-2xl relative`}>
-              <div className="absolute top-0 inset-x-0 h-1 bg-[#FF8A80]" />
+            <div className="bg-[#15171C] border border-[#EF4444]/20 rounded-xl overflow-hidden shadow-2xl relative mb-6">
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-[#EF4444]" />
 
-              <div className="px-5 pt-4 pb-10 md:px-8 md:pt-8 md:pb-12">
-                <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-1 md:mb-2" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: "'tnum'" }}>
-                  100%
-                </h2>
-                <p className="text-[#F5E8D8] text-base md:text-xl font-medium mb-2 md:mb-4">Dependencia del Empleo/Auto-empleo</p>
-                <p className="text-xs md:text-sm text-[#FF8A80] italic border-l-2 border-[#FF8A80] pl-3">
-                  &quot;Si tú paras, el dinero para.&quot;
-                </p>
-              </div>
+                {/* Gráfico de Monitor Cardíaco (Falla de Pulso) */}
+                <div className="p-6 md:p-10 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-10 pointer-events-none"
+                         style={{backgroundImage: 'radial-gradient(#EF4444 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
 
-              {/* GRÁFICO - compacto mobile, amplio desktop */}
-              <div className="relative h-48 md:h-80 w-full bg-[#0F1115] overflow-hidden border-t border-white/5">
-                <svg viewBox="0 0 320 140" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <linearGradient id="dependencyFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#FF8A80" stopOpacity="0.2" />
-                      <stop offset="100%" stopColor="#FF8A80" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient id="freedomFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#C5A059" stopOpacity="0.2" />
-                      <stop offset="100%" stopColor="#C5A059" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                        Falla Estructural
+                    </h2>
+                    <p className="text-[#EF4444] text-sm md:text-lg font-mono uppercase tracking-widest mb-6">
+                        Ingreso Lineal (Manual)
+                    </p>
 
-                  {/* Y-axis label */}
-                  <text x="18" y="16" fill="#64748B" fontSize="8" fontWeight="bold">$$$</text>
-                  {/* Y-axis line */}
-                  <line x1="14" y1="20" x2="14" y2="112" stroke="#334155" strokeWidth="0.5" />
+                    {/* Las 3 Oscilaciones (Fracturas) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                        {/* 1. TIEMPO */}
+                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
+                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
+                                <Clock size={20} />
+                            </div>
+                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Tiempo</h3>
+                            <p className="text-[10px] text-[#94A3B8] leading-tight">
+                                <span className="text-[#E5E5E5] font-semibold">Ingreso Manual.</span><br/>
+                                Si tú paras, el flujo se detiene. Finitud biológica.
+                            </p>
+                        </div>
 
-                  {/* X-axis */}
-                  <line x1="14" y1="112" x2="306" y2="112" stroke="#334155" strokeWidth="1" />
-                  <text x="300" y="128" textAnchor="end" fill="#64748B" fontSize="8">TIEMPO →</text>
+                        {/* 2. ESFUERZO */}
+                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
+                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
+                                <Flame size={20} />
+                            </div>
+                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Esfuerzo</h3>
+                            <p className="text-[10px] text-[#94A3B8] leading-tight">
+                                <span className="text-[#E5E5E5] font-semibold">Desgaste Térmico.</span><br/>
+                                Empujando peso muerto. Alta fricción, poco avance.
+                            </p>
+                        </div>
 
-                  {/* Area fills */}
-                  <path d="M14,82 L190,78 L190,108 L14,112 Z" fill="url(#dependencyFill)" />
-                  <path d="M190,78 L306,26 L306,112 L190,108 Z" fill="url(#freedomFill)" />
-
-                  {/* Lines */}
-                  <path d="M14,82 L306,73" fill="none" stroke="#FF8A80" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
-                  <path d="M14,112 C60,112 130,110 190,78 C230,50 270,22 306,10" fill="none" stroke="#C5A059" strokeWidth="2.5" />
-
-                  {/* ACTIVO label - ABOVE the gold curve */}
-                  <circle cx="306" cy="10" r="2" fill="#C5A059" />
-                  <text x="300" y="7" textAnchor="end" fill="#C5A059" fontSize="7" fontWeight="bold" letterSpacing="0.5">ACTIVO (EXPONENCIAL)</text>
-
-                  {/* EMPLEO label - ABOVE the employment line */}
-                  <circle cx="306" cy="73" r="2" fill="#FF8A80" />
-                  <text x="300" y="67" textAnchor="end" fill="#FF8A80" fontSize="7" fontWeight="bold" letterSpacing="0.5">EMPLEO (LINEAL)</text>
-
-                  <text x="60" y="100" textAnchor="middle" fill="#FF8A80" fontSize="8" letterSpacing="1" opacity="0.8" fontWeight="bold">DEPENDENCIA</text>
-
-                  {/* Crossover point */}
-                  <circle cx="190" cy="78" r="4" fill="#0F1115" stroke="#C5A059" strokeWidth="2" />
-                  <g transform="translate(190, 63)">
-                    <rect x="-30" y="-10" width="60" height="14" rx="2" fill="#C5A059" />
-                    <text x="0" y="0" textAnchor="middle" fill="#0F1115" fontSize="8" fontWeight="bold" dominantBaseline="middle">SOBERANÍA</text>
-                  </g>
-                </svg>
-              </div>
-
-              {/* CICLO - Estilo flujo horizontal (diferenciado del nav) */}
-              <div className="bg-[#0F1115] px-4 py-4 md:py-6 border-t border-white/5">
-                <p className="text-center text-[11px] md:text-xs text-[#94A3B8] uppercase tracking-widest mb-2 md:mb-3">El Plan por Defecto</p>
-                <div className="flex items-center justify-center gap-1.5 md:gap-3 flex-wrap">
-                  {[
-                    { label: 'Trabajar', pain: false, icon: Briefcase },
-                    { label: 'Pagar', pain: false, icon: CreditCard },
-                    { label: 'Quedar en ceros', pain: true, icon: CircleOff },
-                    { label: 'Repetir', pain: false, icon: Repeat },
-                  ].map((step, i) => (
-                    <React.Fragment key={step.label}>
-                      {i > 0 && <span className="text-[#334155] text-[10px] md:text-sm">→</span>}
-                      <span className={`text-[10px] md:text-sm px-2.5 md:px-4 py-1 md:py-1.5 rounded-full border flex items-center gap-1 ${step.pain ? 'bg-[#FF8A80]/10 border-[#FF8A80]/30 text-[#FF8A80] font-bold' : 'bg-white/[0.03] border-white/10 text-[#94A3B8]'}`}>
-                        <step.icon size={12} className="flex-shrink-0" />
-                        {step.label}
-                      </span>
-                    </React.Fragment>
-                  ))}
-                  <span className="text-[#334155] text-[10px] md:text-sm">↻</span>
+                        {/* 3. SEGURIDAD */}
+                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
+                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
+                                <ShieldAlert size={20} />
+                            </div>
+                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Seguridad</h3>
+                            <p className="text-[10px] text-[#94A3B8] leading-tight">
+                                <span className="text-[#E5E5E5] font-semibold">Ruptura Frágil.</span><br/>
+                                Una sola fuente. Sin redundancia. Riesgo de colapso total.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                {/* Footer del Diagnóstico */}
+                <div className="bg-[#0F1115] px-4 py-3 border-t border-white/5 flex justify-between items-center">
+                    <span className="text-[9px] text-[#64748B] font-mono">ESTADO DEL SISTEMA: CRÍTICO</span>
+                    <span className="text-[9px] text-[#EF4444] font-bold blink">REQUERIDA INTERVENCIÓN</span>
+                </div>
             </div>
 
-            {/* Cita motivacional */}
-            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-4 md:mt-6">
+            {/* Cita Ingenieril */}
+            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1">
               <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
-                &quot;No necesitas más esfuerzo.<br />
-                <span className="text-[#C5A059] font-bold not-italic">Necesitas cambiar de vehículo.&quot;</span>
+                &quot;No necesitas trabajar más duro.<br />
+                <span className="text-[#C5A059] font-bold not-italic">Necesitas reparar la estructura.&quot;</span>
               </p>
             </div>
           </div>
         )}
 
         {/* =================================================================================
-            TAB 2: EL SISTEMA (Arquitectura de Apalancamiento)
+            TAB 2: LA ARQUITECTURA (Estrategia Steve Jobs: 3 en 1)
         ================================================================================= */}
-        {activeTab === 'solution' && (
+        {activeTab === 'architecture' && (
           <div className={slideContainerClass}>
 
-            <div className="text-center space-y-2 mb-6 md:mb-12 mt-6 md:mt-0">
-              <span className="text-[10px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
-                Arquitectura de Apalancamiento
+            <div className="text-center space-y-2 mb-8 mt-4 md:mt-0">
+              <span className="text-[9px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
+                Arquitectura Integrada
               </span>
-              <h1 className="text-4xl md:text-5xl text-white leading-none" style={{ fontFamily: 'Georgia, serif' }}>
-                Eficiencia, <span className="text-[#C5A059] italic">no magia.</span>
+              <h1 className="text-3xl md:text-5xl text-white leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                Tres Potencias.<br/><span className="text-[#C5A059] italic">Un Solo Código.</span>
               </h1>
             </div>
 
-            {/* ICEBERG - Una sola figura visual continua */}
-            <div className="relative w-full flex-1 flex flex-col items-center">
+            {/* LOS 3 ELEMENTOS INDUSTRIALES */}
+            <div className="space-y-3 md:space-y-4 relative">
 
-              {/* PUNTA DEL ICEBERG (10%) - parte visible */}
-              <div className="relative z-20 w-72 md:w-96 text-center bg-gradient-to-b from-[#1A1D23] to-[#1A1D23]/90 pt-6 pb-5 px-5 md:pt-8 md:pb-6 md:px-8 rounded-t-2xl border border-[#C5A059]/40 border-b-0 shadow-[0_0_30px_-5px_rgba(197,160,89,0.2)]">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] font-bold text-sm shadow-lg border border-white/20">
-                  10%
-                </div>
-                <h3 className="text-white text-lg md:text-xl font-serif mt-2 mb-1">Tu Rol: Conector</h3>
-                <p className="text-xs md:text-sm text-[#F5E8D8] leading-tight">
-                  Conectas personas. Cobras el peaje.
-                </p>
-                <p className="text-[9px] md:text-[10px] text-[#94A3B8] uppercase tracking-widest mt-2">Sin inventario • Sin logística</p>
-              </div>
+                {/* Línea conectora vertical */}
+                <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[#C5A059]/0 via-[#C5A059]/30 to-[#C5A059]/0 hidden md:block"></div>
 
-              {/* LÍNEA DE SUPERFICIE - conecta la punta con la masa */}
-              <div className="relative w-full h-[2px] bg-gradient-to-r from-transparent via-[#94A3B8]/50 to-transparent z-30">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#15171C] px-3 py-0.5 border border-[#94A3B8]/30 rounded-full">
-                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-[0.2em] font-bold">Superficie</span>
-                </div>
-              </div>
-
-              {/* MASA DEL ICEBERG (90%) - sin borde inferior, se expande hacia abajo */}
-              <div className="relative w-full bg-gradient-to-b from-[#15171C] to-transparent pt-4 px-4 md:pt-8 md:px-8 pb-0 overflow-visible">
-                {/* Dot pattern que se extiende "infinitamente" */}
-                <div className="absolute inset-0 bottom-[-200px] opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
-
-                {/* 90% watermark */}
-                <div className="text-6xl md:text-7xl font-bold text-[#1F2937]/80 select-none pointer-events-none text-right -mt-1 mb-0" style={{ fontFamily: 'Georgia, serif' }}>
-                  90%
-                </div>
-
-                <div className="relative z-10 space-y-2 md:space-y-3">
-                  <div className="flex items-center gap-3 mb-1 md:mb-3">
-                    <Anchor className="text-[#94A3B8] w-5 h-5 flex-shrink-0" />
+                {/* 1. EL MÚSCULO */}
+                <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
+                        <Factory size={24} />
+                    </div>
                     <div>
-                      <h3 className="text-[#C5A059] text-sm font-bold uppercase tracking-widest">La Solución</h3>
-                      <p className="text-xs text-[#94A3B8]">Lo que ocurre bajo la superficie</p>
+                        <h3 className="text-white font-bold text-sm md:text-base">1. EL MÚSCULO (Capital)</h3>
+                        <p className="text-xs text-[#94A3B8]">Gano Excel Industries. Plantas, patentes, oficinas y músculo financiero.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">Ellos ponen el riesgo</span>
                     </div>
-                  </div>
-                  <div className="grid gap-2 md:gap-3">
-                    <div className="bg-[#0F1115]/80 p-3 md:p-4 rounded-xl border border-white/5 flex items-center gap-3">
-                      <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
-                        <ShieldCheck size={20} />
-                      </div>
-                      <div>
-                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Respaldo Legal & Físico</h4>
-                        <p className="text-xs md:text-sm text-[#94A3B8]">Socio Industrial con capital &gt; $100M</p>
-                      </div>
-                    </div>
-                    <div className="bg-[#0F1115]/80 p-3 md:p-4 rounded-xl border border-white/5 flex items-center gap-3">
-                      <div className="p-2 bg-[#94A3B8]/10 rounded-lg text-[#94A3B8] flex-shrink-0">
-                        <Cpu size={20} />
-                      </div>
-                      <div>
-                        <h4 className="text-[#E5E5E5] text-sm md:text-base font-bold">Tecnología Queswa</h4>
-                        <p className="text-xs md:text-sm text-[#94A3B8]">IA, Logística & Distribución</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1 mt-4 md:mt-6">
-              <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
-                &ldquo;Nosotros ponemos los barcos, las fábricas y la IA. Tú solo pones la conexión.&rdquo;
-              </p>
+
+                {/* 2. LA TUBERÍA */}
+                <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
+                        <Globe size={24} /> {/* Cambiado a Globe/Truck */}
+                    </div>
+                    <div>
+                        <h3 className="text-white font-bold text-sm md:text-base">2. LA TUBERÍA (Logística)</h3>
+                        <p className="text-xs text-[#94A3B8]">Red de Distribución Global. Despachos, pagos y legalidad en 11 países.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">El flujo no se detiene</span>
+                    </div>
+                </div>
+
+                {/* 3. EL CEREBRO */}
+                <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
+                        <BrainCircuit size={24} />
+                    </div>
+                    <div>
+                        <h3 className="text-white font-bold text-sm md:text-base">3. EL CEREBRO (Sistematización)</h3>
+                        <p className="text-xs text-[#94A3B8]">Sistema Queswa. Inteligencia Artificial, estrategia y educación.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">La mente maestra digital</span>
+                    </div>
+                </div>
+
+                {/* EL RESULTADO: UN SOLO CÓDIGO */}
+                <div className="mt-6 md:mt-8 bg-gradient-to-r from-[#C5A059]/10 to-[#C5A059]/5 border border-[#C5A059]/30 p-5 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p className="text-[10px] text-[#C5A059] uppercase tracking-widest font-bold mb-1">CONVERGENCIA</p>
+                        <h3 className="text-white font-serif text-lg md:text-xl">Tu Código de Soberanía</h3>
+                        <p className="text-xs text-[#F5E8D8]/80">El control de los 3 sistemas en tu mano.</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] shadow-[0_0_15px_rgba(197,160,89,0.4)]">
+                        <Key size={20} />
+                    </div>
+                </div>
+
             </div>
           </div>
         )}
 
         {/* =================================================================================
-            TAB 3: TU ROL
+            TAB 3: LA OPERACIÓN (Roles Industriales)
         ================================================================================= */}
-        {activeTab === 'fit' && (
+        {activeTab === 'operation' && (
           <div className={slideContainerClass}>
             <div className="text-center mb-6 md:mb-10 mt-6 md:mt-0">
-              <h1 className="text-3xl md:text-5xl text-white font-serif mb-2">Define tu Estilo</h1>
+              <h1 className="text-3xl md:text-5xl text-white font-serif mb-2">Selección de Operación</h1>
               <p className="text-[#94A3B8] text-sm md:text-base max-w-xs md:max-w-md mx-auto">
-                El sistema se adapta a ti. <span className="text-[#F5E8D8]">Elige tu vehículo.</span>
+                La plataforma se adapta a tu perfil. <span className="text-[#F5E8D8]">Elige tu rol.</span>
               </p>
             </div>
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-4 md:space-y-5">
               {[
-                { id: 'relacional', title: 'Modo Relacional', icon: Users, desc: 'Contacto humano, café y confianza. La app es tu asistente administrativo.', tag: 'Clásico' },
-                { id: 'hibrido', title: 'Modo Híbrido', icon: Smartphone, desc: 'Redes para atraer, IA para filtrar. Solo hablas con los que levantan la mano.', tag: 'Recomendado', highlight: true },
-                { id: 'inversionista', title: 'Modo Inversionista', icon: BarChart3, desc: 'Tráfico pago y sistemas delegados. Tu rol es 100% estratégico.', tag: 'Avanzado' }
-              ].map((mode) => (
-                <div key={mode.id} onClick={() => setSelectedMode(mode.id as any)} className={`relative p-5 md:p-6 rounded-xl border transition-all duration-300 cursor-pointer ${selectedMode === mode.id ? 'bg-[#15171C] border-[#C5A059] shadow-[0_0_20px_-10px_rgba(197,160,89,0.3)] scale-[1.02]' : 'bg-[#0F1115] border-white/5 opacity-70 hover:opacity-100 hover:border-white/10'}`}>
-                  {mode.highlight && <div className="absolute top-0 right-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-2 py-0.5 rounded-bl rounded-tr-lg uppercase">{mode.tag}</div>}
+                {
+                    id: 'campo',
+                    title: 'Operador de Campo', // Antes: Relacional
+                    icon: Users,
+                    desc: 'Operación manual. Contacto humano directo y gestión de confianza. Alta efectividad en cierre.',
+                    tag: 'CLÁSICO'
+                },
+                {
+                    id: 'hibrido',
+                    title: 'Sistema Híbrido', // Antes: Híbrido
+                    icon: Smartphone,
+                    desc: 'Apalancamiento digital. Redes para atraer, IA para filtrar. Solo gestionas prospectos calificados.',
+                    tag: 'RECOMENDADO',
+                    highlight: true
+                },
+                {
+                    id: 'arquitecto',
+                    title: 'Arquitecto de Tráfico', // Antes: Inversionista
+                    icon: BarChart3,
+                    desc: 'Sistemas delegados. Tráfico pago y embudos automatizados. Tu rol es 100% estratégico.',
+                    tag: 'AVANZADO'
+                }
+              ].map((role) => (
+                <div key={role.id} onClick={() => setSelectedRole(role.id as any)} className={`relative p-5 md:p-6 rounded-xl border transition-all duration-300 cursor-pointer group ${selectedRole === role.id ? 'bg-[#15171C] border-[#C5A059] shadow-[0_0_20px_-10px_rgba(197,160,89,0.3)]' : 'bg-[#0F1115] border-white/5 hover:border-white/10'}`}>
+                  {role.highlight && <div className="absolute top-0 right-0 bg-[#C5A059] text-[#0F1115] text-[9px] font-bold px-2 py-0.5 rounded-bl rounded-tr-lg uppercase">{role.tag}</div>}
                   <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-full flex-shrink-0 ${selectedMode === mode.id ? 'bg-[#C5A059] text-[#0F1115]' : 'bg-[#1A1D23] text-[#94A3B8]'}`}><mode.icon size={20} /></div>
+                    <div className={`p-3 rounded-lg flex-shrink-0 transition-colors ${selectedRole === role.id ? 'bg-[#C5A059] text-[#0F1115]' : 'bg-[#1A1D23] text-[#94A3B8] group-hover:text-[#E5E5E5]'}`}><role.icon size={20} /></div>
                     <div>
-                      <h3 className={`font-bold mb-1 ${selectedMode === mode.id ? 'text-white' : 'text-[#94A3B8]'}`} style={{ fontFamily: 'Georgia, serif' }}>{mode.title}</h3>
-                      <p className={`text-sm leading-snug ${selectedMode === mode.id ? 'text-[#F5E8D8]' : 'text-[#64748B]'}`}>{mode.desc}</p>
+                      <h3 className={`font-bold mb-1 uppercase tracking-wide text-sm ${selectedRole === role.id ? 'text-white' : 'text-[#94A3B8]'}`}>{role.title}</h3>
+                      <p className={`text-xs md:text-sm leading-snug ${selectedRole === role.id ? 'text-[#F5E8D8]' : 'text-[#64748B]'}`}>{role.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -356,115 +333,143 @@ export default function ServilletaPage() {
         )}
 
         {/* =================================================================================
-            TAB 4: EL DINERO (Con Conversión a COP)
+            TAB 4: LA PROYECCIÓN (Simulador de Flujo)
         ================================================================================= */}
-        {activeTab === 'money' && (
+        {activeTab === 'projection' && (
           <div className={slideContainerClass}>
-            <div className="text-center mt-6 md:mt-0">
-              <span className="text-[9px] md:text-xs text-[#94A3B8] uppercase tracking-widest">Simulador de Soberanía</span>
-              <h1 className="text-xl md:text-4xl text-white font-serif mt-1 md:mt-2">Proyecta tu Libertad</h1>
+            <div className="text-center mt-4 md:mt-0">
+              <span className="text-[9px] md:text-xs text-[#94A3B8] uppercase tracking-widest">Tablero de Control</span>
+              <h1 className="text-xl md:text-4xl text-white font-serif mt-1 md:mt-2">Proyección de Flujo</h1>
             </div>
-            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-5 md:mt-8">
+
+            <div className="bg-[#15171C] rounded-xl border border-white/10 overflow-hidden shadow-2xl mt-5 md:mt-8 relative">
+
+              {/* Selector de Modo (Tabs internos) */}
               <div className="grid grid-cols-2 border-b border-white/5 bg-[#0F1115]">
-                <button onClick={() => setIncomeMode('gen5')} className={`py-2 md:py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'gen5' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Capital Rápido</button>
-                <button onClick={() => setIncomeMode('binario')} className={`py-2 md:py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${incomeMode === 'binario' ? 'text-[#C5A059] bg-[#C5A059]/5' : 'text-[#64748B]'}`}>Renta Vitalicia</button>
+                <button onClick={() => setIncomeMode('gen5')} className={`py-3 text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${incomeMode === 'gen5' ? 'text-[#C5A059] bg-[#C5A059]/5 border-b-2 border-[#C5A059]' : 'text-[#64748B]'}`}>
+                    <Zap size={14} /> Capital Rápido
+                </button>
+                <button onClick={() => setIncomeMode('binario')} className={`py-3 text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${incomeMode === 'binario' ? 'text-[#C5A059] bg-[#C5A059]/5 border-b-2 border-[#C5A059]' : 'text-[#64748B]'}`}>
+                    <Anchor size={14} /> Renta Vitalicia
+                </button>
               </div>
-              <div className="p-5 md:p-6 space-y-5 md:space-y-8">
+
+              <div className="p-6 md:p-8 space-y-6 md:space-y-8">
                 <div className="text-center">
-                  <p className="text-[10px] text-[#94A3B8] uppercase mb-1">Ingreso Estimado</p>
+                  <p className="text-[10px] text-[#94A3B8] uppercase mb-1 font-mono">Flujo de Caja Proyectado</p>
 
                   {/* DISPLAY USD */}
                   <div className="flex justify-center items-baseline gap-2 text-white">
-                    <span className="text-5xl md:text-6xl font-bold tracking-tighter" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: '"tnum"' }}>
+                    <span className="text-5xl md:text-7xl font-bold tracking-tighter" style={{ fontFamily: 'Georgia, serif', fontFeatureSettings: '"tnum"' }}>
                       ${incomeMode === 'gen5' ? gen5Income.toLocaleString() : binarioIncomeUSD.toLocaleString()}
                     </span>
-                    <span className="text-base md:text-lg text-[#C5A059] font-medium">USD</span>
+                    <span className="text-lg md:text-xl text-[#C5A059] font-medium">USD</span>
                   </div>
 
                   {/* DISPLAY COP */}
-                  <div className="mt-0.5 md:mt-1">
+                  <div className="mt-1">
                     <span className="text-xs md:text-sm text-[#64748B] font-mono">
-                      ( aprox. {formatCOP(incomeMode === 'gen5' ? gen5Income : binarioIncomeUSD)} COP )
+                      ( ≈ {formatCOP(incomeMode === 'gen5' ? gen5Income : binarioIncomeUSD)} COP )
                     </span>
                   </div>
 
-                  <div className="mt-2 md:mt-4 bg-[#C5A059]/5 border border-[#C5A059]/10 rounded-lg p-2 md:p-3">
-                    <p className="text-xs text-[#F5E8D8] font-medium leading-tight">
-                      <Zap className="w-3 h-3 inline-block mr-1 text-[#C5A059]" />
+                  {/* Insight de Estilo de Vida */}
+                  <div className="mt-4 bg-[#0F1115] border border-white/5 rounded-lg p-3">
+                    <p className="text-xs text-[#F5E8D8] font-medium leading-tight flex items-center justify-center gap-2">
+                      <Check className="w-3 h-3 text-[#10B981]" />
                       {getLifestyleTranslation(incomeMode === 'gen5' ? gen5Income : binarioIncomeUSD)}
                     </p>
                   </div>
                 </div>
-                <div className="space-y-4 md:space-y-6">
+
+                {/* Controles Deslizantes (Estilo Industrial) */}
+                <div className="space-y-6 pt-2 border-t border-white/5">
                   {incomeMode === 'gen5' ? (
                     <>
                       <div className="flex justify-center gap-2">
                         {['ESP1', 'ESP2', 'ESP3'].map((pkg) => (
-                          <button key={pkg} onClick={() => setGen5Package(pkg as any)} className={`px-3 py-2 rounded text-[10px] uppercase font-bold transition-all border ${gen5Package === pkg ? 'bg-[#C5A059] text-[#0F1115] border-[#C5A059]' : 'bg-transparent text-[#64748B] border-white/10'}`}>{pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Pro' : 'Visionario'}</button>
+                          <button key={pkg} onClick={() => setGen5Package(pkg as any)} className={`px-4 py-2 rounded text-[10px] uppercase font-bold transition-all border ${gen5Package === pkg ? 'bg-[#C5A059] text-[#0F1115] border-[#C5A059]' : 'bg-transparent text-[#64748B] border-white/10 hover:border-white/20'}`}>{pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Pro' : 'Visionario'}</button>
                         ))}
                       </div>
-                      <input type="range" min="1" max="10" value={gen5Socios} onChange={(e) => setGen5Socios(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer" />
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-[10px] uppercase text-[#94A3B8] font-bold">
+                            <span>Socios Directos</span>
+                            <span className="text-[#C5A059]">{gen5Socios}</span>
+                        </div>
+                        <input type="range" min="1" max="10" value={gen5Socios} onChange={(e) => setGen5Socios(parseInt(e.target.value))} className="w-full h-1.5 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer accent-[#C5A059]" />
+                      </div>
                     </>
                   ) : (
-                    <>
-                      <div className="flex justify-between text-xs text-[#94A3B8] mb-2 font-medium"><span>Personas en Red:</span><span className="text-white font-mono">{binarioParejas}</span></div>
-                      <input type="range" min="10" max="500" step="10" value={binarioParejas} onChange={(e) => setBinarioParejas(parseInt(e.target.value))} className="w-full h-1 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer" />
-                    </>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-[10px] uppercase text-[#94A3B8] font-bold">
+                        <span>Red de Consumo (Personas)</span>
+                        <span className="text-[#C5A059] font-mono">{binarioParejas}</span>
+                      </div>
+                      <input type="range" min="10" max="1000" step="10" value={binarioParejas} onChange={(e) => setBinarioParejas(parseInt(e.target.value))} className="w-full h-1.5 bg-[#2A2E37] rounded-lg appearance-none cursor-pointer accent-[#C5A059]" />
+                    </div>
                   )}
                 </div>
               </div>
             </div>
-            <div className="mt-5 md:mt-8 px-4">
-              <div className="border-l-2 border-[#C5A059] pl-3 md:pl-4 py-1.5 md:py-2 mb-5 md:mb-6">
-                <p className="text-[11px] md:text-base text-[#E5E5E5] font-serif italic leading-snug md:leading-relaxed">
-                  &ldquo;La infraestructura está construida. La complejidad está resuelta. Hoy no cambia tu saldo, <span className="text-[#C5A059] font-bold not-italic">cambia tu dirección.</span>&rdquo;
-                </p>
-                <p className="text-[10px] md:text-sm text-[#C5A059] font-bold mt-1 md:mt-2 uppercase tracking-wider">
-                  Enciende el vehículo.
+
+            {/* CTA Final */}
+            <div className="mt-6 md:mt-8 px-4">
+              <div className="border-l-2 border-[#C5A059] pl-3 md:pl-4 py-1 mb-5">
+                <p className="text-xs md:text-sm text-[#94A3B8] font-serif italic">
+                  &ldquo;La infraestructura está lista. La complejidad resuelta. <span className="text-[#E5E5E5] not-italic font-bold">Es hora de encender el sistema.</span>&rdquo;
                 </p>
               </div>
-              <Link href="/paquetes" className="block w-full py-3 md:py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-wider text-xs md:text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all text-center">Iniciar Plan de Soberanía <ArrowRight size={16} /></Link>
-              <Link href="/reto-5-dias" className="block w-full py-2.5 md:py-3 mt-4 md:mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#94A3B8] hover:text-[#E5E5E5] font-medium text-[10px] md:text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">Quiero saber más primero</Link>
+              <Link href="/paquetes" className="block w-full py-4 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-bold uppercase tracking-widest text-xs md:text-sm rounded-lg shadow-[0_4px_20px_rgba(197,160,89,0.3)] flex items-center justify-center gap-2 transition-all text-center">
+                Iniciar Ejecución <ArrowRight size={16} />
+              </Link>
+              <Link href="/reto-5-dias" className="block w-full py-3 mt-3 border border-white/10 hover:border-[#C5A059]/30 text-[#64748B] hover:text-[#E5E5E5] font-medium text-[10px] md:text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all">
+                Auditar el Modelo (Reto 5 Días)
+              </Link>
             </div>
           </div>
         )}
 
       </main>
 
-      {/* --- BOTTOM NAVIGATION --- */}
-      <nav className="fixed bottom-0 left-0 right-0 h-12 md:h-14 md:bottom-2 md:left-4 md:right-4 bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 md:max-w-xl md:mx-auto">
+      {/* --- INDUSTRIAL NAVIGATION BAR --- */}
+      <nav className="fixed bottom-0 left-0 right-0 h-14 md:h-16 md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:w-[500px] bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 px-2">
         {[
-          { id: 'villain', icon: Clock, label: 'La Trampa' },
-          { id: 'solution', icon: FlaskConical, label: 'La Solución' },
-          { id: 'fit', icon: User, label: 'Tu Rol' },
-          { id: 'money', icon: DollarSign, label: 'El Dinero' },
+          { id: 'diagnosis', icon: Activity, label: 'Diagnóstico' },
+          { id: 'architecture', icon: Cpu, label: 'Arquitectura' }, // Icono cambiado a CPU/Estructura
+          { id: 'operation', icon: Users, label: 'Operación' },
+          { id: 'projection', icon: BarChart3, label: 'Proyección' },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => switchTab(tab.id as TabId)}
-            className={`flex flex-col items-center justify-center w-1/4 h-full transition-all duration-300 gap-1 ${
+            className={`relative flex flex-col items-center justify-center w-1/4 h-full transition-all duration-300 gap-1 group ${
               activeTab === tab.id ? 'text-[#C5A059]' : 'text-[#64748B] hover:text-[#94A3B8]'
             }`}
           >
-            <tab.icon size={18} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
-            <span className={`text-[9px] uppercase tracking-wide ${activeTab === tab.id ? 'font-bold' : 'font-medium'}`}>
+            {/* Indicador Superior */}
+            {activeTab === tab.id && (
+                <span className="absolute top-0 w-8 h-0.5 bg-[#C5A059] shadow-[0_0_10px_#C5A059]"></span>
+            )}
+
+            <tab.icon size={18} strokeWidth={activeTab === tab.id ? 2.5 : 2} className="group-hover:-translate-y-0.5 transition-transform" />
+            <span className={`text-[8px] md:text-[9px] uppercase tracking-wider ${activeTab === tab.id ? 'font-bold' : 'font-medium'}`}>
               {tab.label}
             </span>
-            {activeTab === tab.id && (
-              <span className="absolute bottom-2 w-1 h-1 bg-[#C5A059] rounded-full"></span>
-            )}
           </button>
         ))}
       </nav>
 
       <style jsx global>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
+          from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fadeIn { animation: fadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
-        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; cursor: pointer; border: 2px solid #C5A059; }
-        input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; cursor: pointer; border: 2px solid #C5A059; }
+        .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .blink { animation: blinker 2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        /* Ocultar scrollbar */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );

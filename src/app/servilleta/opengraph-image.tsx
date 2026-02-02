@@ -9,7 +9,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Servilleta Digital - Arquitectura de Apalancamiento | CreaTuActivo'
+export const alt = 'Servilleta Digital - Infraestuctura de Apalancamiento | CreaTuActivo'
 export const size = {
   width: 1200,
   height: 630,
@@ -75,7 +75,7 @@ export default async function Image() {
             fontFamily: 'Georgia, serif',
           }}
         >
-          <span style={{ display: 'flex' }}>Arquitectura de</span>
+          <span style={{ display: 'flex' }}>Infraestuctura de</span>
           <span style={{ display: 'flex', color: '#C5A059' }}>Apalancamiento</span>
         </div>
 

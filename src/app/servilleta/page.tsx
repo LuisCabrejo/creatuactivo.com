@@ -1,12 +1,12 @@
 /**
- * SERVILLETA DIGITAL - THE UPDATE EDITION v9.0
+ * SERVILLETA DIGITAL - STEVE JOBS EDITION v10.0
  * Copyright © 2026 CreaTuActivo.com
  *
- * CAMBIOS v9.0:
- * 1. NARRATIVA: De "Reparación de Falla" a "Actualización de Sistema".
- * 2. VILLANO: Integración explícita de "El Plan por Defecto (Trabajar > Pagar > Repetir)".
- * 3. PSICOLOGÍA: Color Ámbar (Advertencia) en lugar de Rojo (Pánico).
- * 4. CIERRE: "Actualizar la estructura" en lugar de "Reparar".
+ * CAMBIOS ESTRATÉGICOS v10.0:
+ * 1. ENFOQUE: No atacar al empleo, atacar al "Plan por Defecto" (El Villano).
+ * 2. PERSONA: "Él" (El Plan) actúa sobre "Ti" (El Usuario).
+ * 3. DISONANCIA: Aplicación de la fórmula "Si dependes de X... / Si usas Y...".
+ * 4. UX: Estilo Keynote (Comparativa limpia).
  */
 
 'use client';
@@ -29,7 +29,9 @@ import {
   Check,
   Anchor,
   Cpu,
-  RefreshCw,      // Icono de Update
+  RefreshCw,
+  Briefcase,
+  CreditCard,
   Repeat
 } from 'lucide-react';
 import Link from 'next/link';
@@ -89,7 +91,7 @@ export default function ServilletaPage() {
   return (
     <div className={`min-h-screen ${THEME.bg} text-[#E5E5E5] flex flex-col relative font-sans selection:bg-[#C5A059] selection:text-black`}>
 
-      {/* Grid Background (Blueprint Effect) */}
+      {/* Grid Background */}
       <div className="fixed inset-0 z-0 opacity-[0.04] pointer-events-none"
         style={{ backgroundImage: 'linear-gradient(#94A3B8 1px, transparent 1px), linear-gradient(90deg, #94A3B8 1px, transparent 1px)', backgroundSize: '30px 30px' }}
       />
@@ -107,7 +109,7 @@ export default function ServilletaPage() {
         </Link>
         <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-[9px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">V9.0 STABLE</span>
+            <span className="text-[9px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">V10.0 JOBS</span>
         </div>
       </header>
 
@@ -115,101 +117,145 @@ export default function ServilletaPage() {
       <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 scrollbar-hide">
 
         {/* =================================================================================
-            TAB 1: EL DIAGNÓSTICO (El Plan por Defecto)
+            TAB 1: EL DIAGNÓSTICO (El Plan por Defecto + Oscilaciones)
         ================================================================================= */}
         {activeTab === 'diagnosis' && (
           <div className={slideContainerClass}>
 
-            {/* Header Diagnóstico */}
+            {/* Header Alerta */}
             <div className="flex items-center justify-between px-1 mb-4">
               <div className="flex items-center gap-2">
                 <RefreshCw className="w-4 h-4 text-[#F59E0B]" />
-                <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Análisis de Sistema</span>
+                <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Auditoría de Sistema</span>
               </div>
-              <span className="text-[9px] text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded border border-[#F59E0B]/20 font-bold tracking-wider">
-                VERSION OBSOLETA
+              <span className="text-[9px] text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded border border-[#F59E0B]/20 font-bold tracking-wider animate-pulse">
+                REQUIERE ACTUALIZACIÓN
               </span>
             </div>
 
+            {/* MAIN CARD */}
             <div className="bg-[#15171C] border border-[#F59E0B]/20 rounded-xl overflow-hidden shadow-2xl relative mb-6">
-                <div className="absolute top-0 inset-x-0 h-0.5 bg-[#F59E0B]" />
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-[#F59E0B] via-[#15171C] to-[#C5A059]" />
 
-                {/* Panel de Control de Falla */}
-                <div className="p-6 md:p-10 text-center relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-5 pointer-events-none"
-                         style={{backgroundImage: 'radial-gradient(#F59E0B 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                <div className="p-4 md:p-8">
 
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-                        Falla Estructural
-                    </h2>
+                    {/* ENCABEZADO: EL VILLANO (El Plan por Defecto) */}
+                    <div className="text-center mb-8 pb-6 border-b border-white/5">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                            El Plan por Defecto
+                        </h2>
 
-                    {/* EL VILLANO INTEGRADO */}
-                    <div className="mb-8">
-                        <p className="text-[#F59E0B] text-xs md:text-sm font-mono uppercase tracking-[0.2em] mb-2">
-                            Sistema Operativo Actual:
-                        </p>
-                        <p className="text-lg md:text-xl font-bold text-white tracking-wide">
-                            &quot;El Plan por Defecto&quot;
-                        </p>
-                        <div className="flex items-center justify-center gap-2 text-[#94A3B8] text-[10px] md:text-xs mt-2 font-mono">
-                            <span>TRABAJAR</span>
-                            <ArrowRight size={10} />
-                            <span>PAGAR</span>
-                            <ArrowRight size={10} />
-                            <span>REPETIR</span>
-                            <Repeat size={10} />
+                        {/* El Ciclo Maldito Visualizado */}
+                        <div className="flex items-center justify-center gap-3 md:gap-4 text-[#94A3B8] text-[10px] md:text-xs font-mono uppercase tracking-widest mb-4">
+                            <div className="flex items-center gap-1.5 bg-[#0F1115] px-3 py-1.5 rounded-full border border-white/5">
+                                <Briefcase size={12} /> TRABAJAR
+                            </div>
+                            <ArrowRight size={12} className="text-[#F59E0B]" />
+                            <div className="flex items-center gap-1.5 bg-[#0F1115] px-3 py-1.5 rounded-full border border-white/5">
+                                <CreditCard size={12} /> PAGAR CUENTAS
+                            </div>
+                            <ArrowRight size={12} className="text-[#F59E0B]" />
+                            <div className="flex items-center gap-1.5 bg-[#0F1115] px-3 py-1.5 rounded-full border border-white/5 text-[#F59E0B]">
+                                <Repeat size={12} /> REPETIR
+                            </div>
                         </div>
+
+                        {/* El Subtítulo de Transición */}
+                        <p className="text-[#E5E5E5] text-xs md:text-sm font-bold italic mt-2">
+                            &quot;Lo que es vs. Lo que podrías ser&quot;
+                        </p>
                     </div>
 
-                    {/* Las 3 Oscilaciones (Fracturas) */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-                        {/* 1. TIEMPO */}
-                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
-                            <div className="mt-1 text-[#F59E0B]">
-                                <Clock size={18} />
+                    {/* MATRIZ DE 3 FILAS (OSCILACIONES) */}
+                    <div className="space-y-4 md:space-y-6">
+
+                        {/* --- FILA 1: EL TIEMPO --- */}
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-2 md:gap-6 items-center">
+                            {/* Villano (El Plan) */}
+                            <div className="bg-[#0F1115] border border-[#F59E0B]/20 p-4 rounded-xl text-left md:text-right relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B] md:hidden"></div>
+                                <h3 className="text-[#F59E0B] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">CONSUME TU VIDA</h3>
+                                <p className="text-xs md:text-sm text-[#94A3B8] leading-snug">
+                                    &quot;Roba tu tiempo vital. Mientras tu ingreso requiera tu presencia, la libertad es imposible.&quot;
+                                </p>
                             </div>
-                            <div>
-                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Tiempo</h3>
-                                <p className="text-[11px] text-[#94A3B8] leading-snug">
-                                    Dependencia biológica. Si tú paras, el ingreso llega a cero. Trampa de finitud.
+
+                            {/* Eje (Icono) */}
+                            <div className="hidden md:flex justify-center text-[#475569]">
+                                <Clock size={20} strokeWidth={1.5} />
+                            </div>
+
+                            {/* Héroe (El Sistema) */}
+                            <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl text-left relative overflow-hidden">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#C5A059] md:hidden"></div>
+                                <h3 className="text-[#C5A059] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">GANA TIEMPO</h3>
+                                <p className="text-xs md:text-sm text-[#E5E5E5] leading-snug">
+                                    &quot;Flujo Perpetuo. El sistema sigue generando valor mientras duermes o viajas.&quot;
                                 </p>
                             </div>
                         </div>
 
-                        {/* 2. ESFUERZO */}
-                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
-                            <div className="mt-1 text-[#F59E0B]">
-                                <Flame size={18} />
+                        {/* --- FILA 2: EL ESFUERZO --- */}
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-2 md:gap-6 items-center">
+                            {/* Villano */}
+                            <div className="bg-[#0F1115] border border-[#F59E0B]/20 p-4 rounded-xl text-left md:text-right relative overflow-hidden">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B] md:hidden"></div>
+                                <h3 className="text-[#F59E0B] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">SE ALIMENTA DE ESFUERZO</h3>
+                                <p className="text-xs md:text-sm text-[#94A3B8] leading-snug">
+                                    &quot;Si tu ingreso depende solo de tus manos, tienes un límite físico innegable.&quot;
+                                </p>
                             </div>
-                            <div>
-                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Esfuerzo</h3>
-                                <p className="text-[11px] text-[#94A3B8] leading-snug">
-                                    Desgaste térmico. Empujar peso muerto. Alta fricción mecánica con poco avance.
+
+                            {/* Eje */}
+                            <div className="hidden md:flex justify-center text-[#475569]">
+                                <Flame size={20} strokeWidth={1.5} />
+                            </div>
+
+                            {/* Héroe */}
+                            <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl text-left relative overflow-hidden">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#C5A059] md:hidden"></div>
+                                <h3 className="text-[#C5A059] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">TE APALANCA</h3>
+                                <p className="text-xs md:text-sm text-[#E5E5E5] leading-snug">
+                                    &quot;Si tu ingreso depende de una <strong>infraestructura de apalancamiento</strong>, tienes Soberanía.&quot;
                                 </p>
                             </div>
                         </div>
 
-                        {/* 3. SEGURIDAD */}
-                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
-                            <div className="mt-1 text-[#F59E0B]">
-                                <ShieldAlert size={18} />
+                        {/* --- FILA 3: LA SEGURIDAD --- */}
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-2 md:gap-6 items-center">
+                            {/* Villano */}
+                            <div className="bg-[#0F1115] border border-[#F59E0B]/20 p-4 rounded-xl text-left md:text-right relative overflow-hidden">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B] md:hidden"></div>
+                                <h3 className="text-[#F59E0B] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">TE DEJA VULNERABLE</h3>
+                                <p className="text-xs md:text-sm text-[#94A3B8] leading-snug">
+                                    &quot;El empleo y el autoempleo son frágiles. Una sola crisis puede romper tu única fuente.&quot;
+                                </p>
                             </div>
-                            <div>
-                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Seguridad</h3>
-                                <p className="text-[11px] text-[#94A3B8] leading-snug">
-                                    Ruptura frágil. Una sola fuente. Sin redundancia. Riesgo de colapso.
+
+                            {/* Eje */}
+                            <div className="hidden md:flex justify-center text-[#475569]">
+                                <ShieldAlert size={20} strokeWidth={1.5} />
+                            </div>
+
+                            {/* Héroe */}
+                            <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl text-left relative overflow-hidden">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#C5A059] md:hidden"></div>
+                                <h3 className="text-[#C5A059] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">ES INQUEBRANTABLE</h3>
+                                <p className="text-xs md:text-sm text-[#E5E5E5] leading-snug">
+                                    &quot;Antifragilidad. Si tienes una red de distribución diversificada, tu economía es blindada.&quot;
                                 </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
-                {/* Footer del Diagnóstico - CAMBIO DE TONO A "UPDATE" */}
+                {/* Footer del Diagnóstico */}
                 <div className="bg-[#0F1115] px-4 py-3 border-t border-white/5 flex justify-between items-center">
-                    <span className="text-[9px] text-[#64748B] font-mono uppercase">Estado del Sistema: Requiere Actualización</span>
+                    <span className="text-[9px] text-[#64748B] font-mono uppercase">ESTADO: OBSOLETO</span>
                     <span className="text-[9px] text-[#F59E0B] font-bold flex items-center gap-1">
                         <RefreshCw size={10} className="animate-spin" />
-                        ACTUALIZACIÓN DISPONIBLE
+                        ACTUALIZACIÓN LISTA
                     </span>
                 </div>
             </div>
@@ -218,14 +264,14 @@ export default function ServilletaPage() {
             <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1">
               <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
                 &quot;No necesitas trabajar más duro.<br />
-                <span className="text-[#C5A059] font-bold not-italic">Necesitas actualizar la estructura.&quot;</span>
+                <span className="text-[#C5A059] font-bold not-italic">Necesitas Infraestructura de Apalancamiento.&quot;</span>
               </p>
             </div>
           </div>
         )}
 
         {/* =================================================================================
-            TAB 2: LA ARQUITECTURA (Steve Jobs: 3 Elementos = 1 Solución)
+            TAB 2: LA ARQUITECTURA (3 Elementos = 1 Solución)
         ================================================================================= */}
         {activeTab === 'architecture' && (
           <div className={slideContainerClass}>
@@ -242,7 +288,7 @@ export default function ServilletaPage() {
             {/* LOS 3 ELEMENTOS INDUSTRIALES */}
             <div className="space-y-3 md:space-y-4 relative">
 
-                {/* Línea conectora vertical */}
+                {/* Línea conectora */}
                 <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[#C5A059]/0 via-[#C5A059]/30 to-[#C5A059]/0 hidden md:block"></div>
 
                 {/* 1. EL MÚSCULO */}
@@ -252,7 +298,7 @@ export default function ServilletaPage() {
                     </div>
                     <div>
                         <h3 className="text-white font-bold text-sm md:text-base tracking-wide">1. EL MÚSCULO (Capital y Productos)</h3>
-                        <p className="text-xs text-[#94A3B8] mt-1">Gano Excel Industries. Plantas, patentes, productos de consumo masivo y músculo financiero.</p>
+                        <p className="text-xs text-[#94A3B8] mt-1">Gano Excel Industries. Plantas, patentes, productos y músculo financiero.</p>
                         <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">Ellos ponen el riesgo</span>
                     </div>
                 </div>
@@ -264,7 +310,7 @@ export default function ServilletaPage() {
                     </div>
                     <div>
                         <h3 className="text-white font-bold text-sm md:text-base tracking-wide">2. LA TUBERÍA (Logística)</h3>
-                        <p className="text-xs text-[#94A3B8] mt-1">Red de Distribución Continental. Despachos, recaudos y legalidad operativa en 15 países.</p>
+                        <p className="text-xs text-[#94A3B8] mt-1">Red de Distribución Continental. Despachos, recaudos y legalidad en 15 países.</p>
                         <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">El flujo no se detiene</span>
                     </div>
                 </div>
@@ -276,7 +322,7 @@ export default function ServilletaPage() {
                     </div>
                     <div>
                         <h3 className="text-white font-bold text-sm md:text-base tracking-wide">3. EL CEREBRO (Sistematización)</h3>
-                        <p className="text-xs text-[#94A3B8] mt-1">Sistema Queswa. Inteligencia Artificial, estrategia digital y educación sistematizada.</p>
+                        <p className="text-xs text-[#94A3B8] mt-1">Sistema Queswa. Inteligencia Artificial, estrategia digital y educación.</p>
                         <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">La mente maestra digital</span>
                     </div>
                 </div>
@@ -451,7 +497,7 @@ export default function ServilletaPage() {
       <nav className="fixed bottom-0 left-0 right-0 h-14 md:h-16 md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:w-[500px] bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 px-2">
         {[
           { id: 'diagnosis', icon: Activity, label: 'Diagnóstico' },
-          { id: 'architecture', icon: Cpu, label: 'Arquitectura' },
+          { id: 'architecture', icon: Cpu, label: 'Solución' },
           { id: 'operation', icon: Users, label: 'Operación' },
           { id: 'projection', icon: BarChart3, label: 'Proyección' },
         ].map((tab) => (

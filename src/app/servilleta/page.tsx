@@ -162,15 +162,15 @@ export default function ServilletaPage() {
                                 <Repeat size={12} /> REPETIR
                             </div>
                         </div>
-
-                        {/* El Subtítulo de Transición */}
-                        <p className="text-[#E5E5E5] text-xs md:text-sm font-bold italic mt-2">
-                            &quot;Lo que es vs. Lo que podrías ser&quot;
-                        </p>
                     </div>
 
                     {/* MATRIZ DE 3 FILAS (OSCILACIONES) */}
                     <div className="space-y-4 md:space-y-6">
+
+                        {/* Subtítulo de la Matriz */}
+                        <p className="text-[#E5E5E5] text-xs md:text-sm font-bold italic text-center mb-2">
+                            &quot;Lo que es vs. Lo que podrías ser&quot;
+                        </p>
 
                         {/* --- FILA 1: EL TIEMPO --- */}
                         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-2 md:gap-6 items-center">

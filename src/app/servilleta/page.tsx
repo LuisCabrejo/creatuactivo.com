@@ -141,6 +141,9 @@ export default function ServilletaPage() {
 
                     {/* ENCABEZADO: EL VILLANO (El Plan por Defecto) */}
                     <div className="text-center mb-8 pb-6 border-b border-white/5">
+                        <p className="text-[9px] md:text-[10px] text-[#94A3B8] uppercase tracking-[0.3em] font-bold mb-2">
+                            SISTEMA OPERATIVO ACTUAL:
+                        </p>
                         <h2 className="text-3xl md:text-5xl font-bold text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                             El Plan por Defecto
                         </h2>

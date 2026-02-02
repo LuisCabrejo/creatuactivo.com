@@ -1,39 +1,36 @@
 /**
- * SERVILLETA DIGITAL - INDUSTRIAL SOVEREIGNTY EDITION v7.0
+ * SERVILLETA DIGITAL - THE UPDATE EDITION v9.0
  * Copyright © 2026 CreaTuActivo.com
  *
- * ESTRATEGIA APLICADA:
- * 1. DIAGNÓSTICO: Las 3 Oscilaciones (Tiempo, Esfuerzo, Seguridad).
- * 2. SOLUCIÓN: Estrategia "Steve Jobs" (3 Elementos = 1 Plataforma).
- * 3. ROLES: Nomenclatura de Ingeniería (Operador, Arquitecto).
- * 4. SIMULADOR: Tablero de Control de Flujo de Caja.
+ * CAMBIOS v9.0:
+ * 1. NARRATIVA: De "Reparación de Falla" a "Actualización de Sistema".
+ * 2. VILLANO: Integración explícita de "El Plan por Defecto (Trabajar > Pagar > Repetir)".
+ * 3. PSICOLOGÍA: Color Ámbar (Advertencia) en lugar de Rojo (Pánico).
+ * 4. CIERRE: "Actualizar la estructura" en lugar de "Reparar".
  */
 
 'use client';
 
 import React, { useState } from 'react';
 import {
-  Activity,       // Para Diagnóstico/Pulso
+  Activity,       // Diagnóstico
   Clock,          // Tiempo
-  Flame,          // Esfuerzo (Desgaste Térmico)
-  ShieldAlert,    // Seguridad (Falla Frágil)
-  Factory,        // El Músculo (Gano Excel)
-  Globe,          // La Tubería (Logística)
-  BrainCircuit,   // El Cerebro (Queswa)
-  Key,            // El Código (Soberanía)
-  Users,          // Operador de Campo
-  Smartphone,     // Sistema Híbrido
-  BarChart3,      // Arquitecto de Tráfico
+  Flame,          // Esfuerzo
+  ShieldAlert,    // Seguridad
+  Factory,        // El Músculo
+  Map,            // La Tubería
+  BrainCircuit,   // El Cerebro
+  Key,            // El Código
+  Users,          // Operador
+  Smartphone,     // Híbrido
+  BarChart3,      // Arquitecto
   ArrowRight,
   Zap,
   Check,
-  Briefcase,
-  CreditCard,
-  CircleOff,
-  Repeat,
   Anchor,
   Cpu,
-  Truck
+  RefreshCw,      // Icono de Update
+  Repeat
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -42,9 +39,7 @@ const THEME = {
   bg: 'bg-[#0F1115]',       // Carbon Deep
   cardBg: 'bg-[#15171C]',   // Elevated Surface
   gold: '#C5A059',          // Primary Brand
-  goldDim: 'rgba(197, 160, 89, 0.1)',
-  danger: '#EF4444',        // Alert Color
-  success: '#10B981',       // Success Color
+  warning: '#F59E0B',       // Amber (Update Required)
   textMain: '#E5E5E5',
   textMuted: '#94A3B8',
 };
@@ -68,7 +63,7 @@ export default function ServilletaPage() {
   const TRM = 4500;
   const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
   const gen5Income = gen5Socios * gen5Bonuses[gen5Package];
-  const binarioIncomeUSD = Math.round(binarioParejas * 4.76); // Promedio ponderado binario
+  const binarioIncomeUSD = Math.round(binarioParejas * 4.76);
 
   // Formateador de Pesos Colombianos
   const formatCOP = (usd: number) => {
@@ -79,7 +74,7 @@ export default function ServilletaPage() {
     }).format(usd * TRM);
   };
 
-  // Traductor de Estilo de Vida (Efecto Abundancia)
+  // Traductor de Estilo de Vida
   const getLifestyleTranslation = (usd: number) => {
     if (usd < 100) return "Cubre factura de celular e internet móvil.";
     if (usd <= 300) return "Cubre todos los servicios públicos del hogar.";
@@ -111,8 +106,8 @@ export default function ServilletaPage() {
           </span>
         </Link>
         <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-[10px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">Conexión Segura</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+            <span className="text-[9px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">V9.0 STABLE</span>
         </div>
       </header>
 
@@ -120,7 +115,7 @@ export default function ServilletaPage() {
       <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 scrollbar-hide">
 
         {/* =================================================================================
-            TAB 1: EL DIAGNÓSTICO (Las 3 Fracturas)
+            TAB 1: EL DIAGNÓSTICO (El Plan por Defecto)
         ================================================================================= */}
         {activeTab === 'diagnosis' && (
           <div className={slideContainerClass}>
@@ -128,73 +123,94 @@ export default function ServilletaPage() {
             {/* Header Diagnóstico */}
             <div className="flex items-center justify-between px-1 mb-4">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-[#EF4444]" />
-                <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Diagnóstico Estructural</span>
+                <RefreshCw className="w-4 h-4 text-[#F59E0B]" />
+                <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest font-bold">Análisis de Sistema</span>
               </div>
-              <span className="text-[9px] text-[#EF4444] bg-[#EF4444]/10 px-2 py-0.5 rounded border border-[#EF4444]/20 font-bold tracking-wider">
-                FALLA DETECTADA
+              <span className="text-[9px] text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded border border-[#F59E0B]/20 font-bold tracking-wider">
+                VERSION OBSOLETA
               </span>
             </div>
 
-            <div className="bg-[#15171C] border border-[#EF4444]/20 rounded-xl overflow-hidden shadow-2xl relative mb-6">
-                <div className="absolute top-0 inset-x-0 h-0.5 bg-[#EF4444]" />
+            <div className="bg-[#15171C] border border-[#F59E0B]/20 rounded-xl overflow-hidden shadow-2xl relative mb-6">
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-[#F59E0B]" />
 
-                {/* Gráfico de Monitor Cardíaco (Falla de Pulso) */}
+                {/* Panel de Control de Falla */}
                 <div className="p-6 md:p-10 text-center relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10 pointer-events-none"
-                         style={{backgroundImage: 'radial-gradient(#EF4444 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                    <div className="absolute inset-0 opacity-5 pointer-events-none"
+                         style={{backgroundImage: 'radial-gradient(#F59E0B 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
 
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                         Falla Estructural
                     </h2>
-                    <p className="text-[#EF4444] text-sm md:text-lg font-mono uppercase tracking-widest mb-6">
-                        Ingreso Lineal (Manual)
-                    </p>
+
+                    {/* EL VILLANO INTEGRADO */}
+                    <div className="mb-8">
+                        <p className="text-[#F59E0B] text-xs md:text-sm font-mono uppercase tracking-[0.2em] mb-2">
+                            Sistema Operativo Actual:
+                        </p>
+                        <p className="text-lg md:text-xl font-bold text-white tracking-wide">
+                            &quot;El Plan por Defecto&quot;
+                        </p>
+                        <div className="flex items-center justify-center gap-2 text-[#94A3B8] text-[10px] md:text-xs mt-2 font-mono">
+                            <span>TRABAJAR</span>
+                            <ArrowRight size={10} />
+                            <span>PAGAR</span>
+                            <ArrowRight size={10} />
+                            <span>REPETIR</span>
+                            <Repeat size={10} />
+                        </div>
+                    </div>
 
                     {/* Las 3 Oscilaciones (Fracturas) */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
                         {/* 1. TIEMPO */}
-                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
-                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
-                                <Clock size={20} />
+                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
+                            <div className="mt-1 text-[#F59E0B]">
+                                <Clock size={18} />
                             </div>
-                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Tiempo</h3>
-                            <p className="text-[10px] text-[#94A3B8] leading-tight">
-                                <span className="text-[#E5E5E5] font-semibold">Ingreso Manual.</span><br/>
-                                Si tú paras, el flujo se detiene. Finitud biológica.
-                            </p>
+                            <div>
+                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Tiempo</h3>
+                                <p className="text-[11px] text-[#94A3B8] leading-snug">
+                                    Dependencia biológica. Si tú paras, el ingreso llega a cero. Trampa de finitud.
+                                </p>
+                            </div>
                         </div>
 
                         {/* 2. ESFUERZO */}
-                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
-                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
-                                <Flame size={20} />
+                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
+                            <div className="mt-1 text-[#F59E0B]">
+                                <Flame size={18} />
                             </div>
-                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Esfuerzo</h3>
-                            <p className="text-[10px] text-[#94A3B8] leading-tight">
-                                <span className="text-[#E5E5E5] font-semibold">Desgaste Térmico.</span><br/>
-                                Empujando peso muerto. Alta fricción, poco avance.
-                            </p>
+                            <div>
+                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Esfuerzo</h3>
+                                <p className="text-[11px] text-[#94A3B8] leading-snug">
+                                    Desgaste térmico. Empujar peso muerto. Alta fricción mecánica con poco avance.
+                                </p>
+                            </div>
                         </div>
 
                         {/* 3. SEGURIDAD */}
-                        <div className="bg-[#0F1115]/80 border border-white/5 p-4 rounded-lg flex flex-col items-center gap-2">
-                            <div className="p-2 bg-[#EF4444]/10 rounded-full text-[#EF4444] mb-1">
-                                <ShieldAlert size={20} />
+                        <div className="bg-[#0F1115]/60 border border-white/5 p-4 rounded-lg flex gap-3 items-start hover:border-[#F59E0B]/30 transition-colors">
+                            <div className="mt-1 text-[#F59E0B]">
+                                <ShieldAlert size={18} />
                             </div>
-                            <h3 className="text-white text-xs font-bold uppercase tracking-wider">Falla de Seguridad</h3>
-                            <p className="text-[10px] text-[#94A3B8] leading-tight">
-                                <span className="text-[#E5E5E5] font-semibold">Ruptura Frágil.</span><br/>
-                                Una sola fuente. Sin redundancia. Riesgo de colapso total.
-                            </p>
+                            <div>
+                                <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-1">Falla de Seguridad</h3>
+                                <p className="text-[11px] text-[#94A3B8] leading-snug">
+                                    Ruptura frágil. Una sola fuente. Sin redundancia. Riesgo de colapso.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Footer del Diagnóstico */}
+                {/* Footer del Diagnóstico - CAMBIO DE TONO A "UPDATE" */}
                 <div className="bg-[#0F1115] px-4 py-3 border-t border-white/5 flex justify-between items-center">
-                    <span className="text-[9px] text-[#64748B] font-mono">ESTADO DEL SISTEMA: CRÍTICO</span>
-                    <span className="text-[9px] text-[#EF4444] font-bold blink">REQUERIDA INTERVENCIÓN</span>
+                    <span className="text-[9px] text-[#64748B] font-mono uppercase">Estado del Sistema: Requiere Actualización</span>
+                    <span className="text-[9px] text-[#F59E0B] font-bold flex items-center gap-1">
+                        <RefreshCw size={10} className="animate-spin" />
+                        ACTUALIZACIÓN DISPONIBLE
+                    </span>
                 </div>
             </div>
 
@@ -202,24 +218,24 @@ export default function ServilletaPage() {
             <div className="px-4 border-l-2 border-[#C5A059] py-2 ml-1">
               <p className="text-sm md:text-lg text-[#E5E5E5] font-serif italic leading-relaxed">
                 &quot;No necesitas trabajar más duro.<br />
-                <span className="text-[#C5A059] font-bold not-italic">Necesitas reparar la estructura.&quot;</span>
+                <span className="text-[#C5A059] font-bold not-italic">Necesitas actualizar la estructura.&quot;</span>
               </p>
             </div>
           </div>
         )}
 
         {/* =================================================================================
-            TAB 2: LA ARQUITECTURA (Estrategia Steve Jobs: 3 en 1)
+            TAB 2: LA ARQUITECTURA (Steve Jobs: 3 Elementos = 1 Solución)
         ================================================================================= */}
         {activeTab === 'architecture' && (
           <div className={slideContainerClass}>
 
             <div className="text-center space-y-2 mb-8 mt-4 md:mt-0">
               <span className="text-[9px] md:text-xs text-[#C5A059] uppercase tracking-[0.25em] font-bold">
-                Arquitectura Integrada
+                Solución de Ingeniería
               </span>
               <h1 className="text-3xl md:text-5xl text-white leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
-                Tres Potencias.<br/><span className="text-[#C5A059] italic">Un Solo Código.</span>
+                Arquitectura de<br/><span className="text-[#C5A059] italic">Apalancamiento.</span>
               </h1>
             </div>
 
@@ -231,49 +247,49 @@ export default function ServilletaPage() {
 
                 {/* 1. EL MÚSCULO */}
                 <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
-                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10 shrink-0">
                         <Factory size={24} />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-sm md:text-base">1. EL MÚSCULO (Capital)</h3>
-                        <p className="text-xs text-[#94A3B8]">Gano Excel Industries. Plantas, patentes, oficinas y músculo financiero.</p>
-                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">Ellos ponen el riesgo</span>
+                        <h3 className="text-white font-bold text-sm md:text-base tracking-wide">1. EL MÚSCULO (Capital y Productos)</h3>
+                        <p className="text-xs text-[#94A3B8] mt-1">Gano Excel Industries. Plantas, patentes, productos de consumo masivo y músculo financiero.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">Ellos ponen el riesgo</span>
                     </div>
                 </div>
 
                 {/* 2. LA TUBERÍA */}
                 <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
-                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
-                        <Globe size={24} /> {/* Cambiado a Globe/Truck */}
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10 shrink-0">
+                        <Map size={24} />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-sm md:text-base">2. LA TUBERÍA (Logística)</h3>
-                        <p className="text-xs text-[#94A3B8]">Red de Distribución Global. Despachos, pagos y legalidad en 11 países.</p>
-                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">El flujo no se detiene</span>
+                        <h3 className="text-white font-bold text-sm md:text-base tracking-wide">2. LA TUBERÍA (Logística)</h3>
+                        <p className="text-xs text-[#94A3B8] mt-1">Red de Distribución Continental. Despachos, recaudos y legalidad operativa en 15 países.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">El flujo no se detiene</span>
                     </div>
                 </div>
 
                 {/* 3. EL CEREBRO */}
                 <div className="bg-[#15171C] p-4 rounded-xl border border-white/5 flex gap-4 items-center relative overflow-hidden group hover:border-[#C5A059]/30 transition-all">
-                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10">
+                    <div className="w-12 h-12 rounded-lg bg-[#0F1115] flex items-center justify-center border border-white/10 text-[#94A3B8] group-hover:text-[#C5A059] group-hover:border-[#C5A059]/50 transition-all z-10 shrink-0">
                         <BrainCircuit size={24} />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-sm md:text-base">3. EL CEREBRO (Sistematización)</h3>
-                        <p className="text-xs text-[#94A3B8]">Sistema Queswa. Inteligencia Artificial, estrategia y educación.</p>
-                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1 block">La mente maestra digital</span>
+                        <h3 className="text-white font-bold text-sm md:text-base tracking-wide">3. EL CEREBRO (Sistematización)</h3>
+                        <p className="text-xs text-[#94A3B8] mt-1">Sistema Queswa. Inteligencia Artificial, estrategia digital y educación sistematizada.</p>
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-wider mt-1.5 block font-bold">La mente maestra digital</span>
                     </div>
                 </div>
 
-                {/* EL RESULTADO: UN SOLO CÓDIGO */}
-                <div className="mt-6 md:mt-8 bg-gradient-to-r from-[#C5A059]/10 to-[#C5A059]/5 border border-[#C5A059]/30 p-5 rounded-xl flex items-center justify-between">
+                {/* EL RESULTADO: CONVERGENCIA */}
+                <div className="mt-6 md:mt-8 bg-gradient-to-r from-[#C5A059]/10 to-[#C5A059]/5 border border-[#C5A059]/30 p-5 rounded-xl flex items-center justify-between shadow-[0_0_30px_-10px_rgba(197,160,89,0.2)]">
                     <div>
                         <p className="text-[10px] text-[#C5A059] uppercase tracking-widest font-bold mb-1">CONVERGENCIA</p>
                         <h3 className="text-white font-serif text-lg md:text-xl">Tu Código de Soberanía</h3>
-                        <p className="text-xs text-[#F5E8D8]/80">El control de los 3 sistemas en tu mano.</p>
+                        <p className="text-xs text-[#F5E8D8]/80 mt-1">El control de los 3 sistemas en tu mano.</p>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] shadow-[0_0_15px_rgba(197,160,89,0.4)]">
-                        <Key size={20} />
+                    <div className="w-12 h-12 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1115] shadow-lg animate-pulse-slow">
+                        <Key size={24} />
                     </div>
                 </div>
 
@@ -296,14 +312,14 @@ export default function ServilletaPage() {
               {[
                 {
                     id: 'campo',
-                    title: 'Operador de Campo', // Antes: Relacional
+                    title: 'Operador de Campo',
                     icon: Users,
                     desc: 'Operación manual. Contacto humano directo y gestión de confianza. Alta efectividad en cierre.',
                     tag: 'CLÁSICO'
                 },
                 {
                     id: 'hibrido',
-                    title: 'Sistema Híbrido', // Antes: Híbrido
+                    title: 'Sistema Híbrido',
                     icon: Smartphone,
                     desc: 'Apalancamiento digital. Redes para atraer, IA para filtrar. Solo gestionas prospectos calificados.',
                     tag: 'RECOMENDADO',
@@ -311,7 +327,7 @@ export default function ServilletaPage() {
                 },
                 {
                     id: 'arquitecto',
-                    title: 'Arquitecto de Tráfico', // Antes: Inversionista
+                    title: 'Arquitecto de Tráfico',
                     icon: BarChart3,
                     desc: 'Sistemas delegados. Tráfico pago y embudos automatizados. Tu rol es 100% estratégico.',
                     tag: 'AVANZADO'
@@ -435,7 +451,7 @@ export default function ServilletaPage() {
       <nav className="fixed bottom-0 left-0 right-0 h-14 md:h-16 md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:w-[500px] bg-[#15171C]/95 backdrop-blur-xl md:rounded-2xl flex justify-around items-center z-50 shadow-2xl border-t md:border border-white/10 px-2">
         {[
           { id: 'diagnosis', icon: Activity, label: 'Diagnóstico' },
-          { id: 'architecture', icon: Cpu, label: 'Arquitectura' }, // Icono cambiado a CPU/Estructura
+          { id: 'architecture', icon: Cpu, label: 'Arquitectura' },
           { id: 'operation', icon: Users, label: 'Operación' },
           { id: 'projection', icon: BarChart3, label: 'Proyección' },
         ].map((tab) => (
@@ -465,9 +481,7 @@ export default function ServilletaPage() {
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        .blink { animation: blinker 2s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-        /* Ocultar scrollbar */
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>

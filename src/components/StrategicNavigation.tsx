@@ -79,8 +79,8 @@ const CRITICAL_NAVIGATION_CSS = `
 
   /* THE ARCHITECT'S SUITE - Logo Icon (PNG) */
   .strategic-logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,8 +90,8 @@ const CRITICAL_NAVIGATION_CSS = `
 
   @media (max-width: 767px) {
     .strategic-logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
     }
   }
 
@@ -504,8 +504,8 @@ export default function StrategicNavigation() {
                   <Image
                     src="/logo-3.png"
                     alt="CreaTuActivo Logo"
-                    width={40}
-                    height={40}
+                    width={56}
+                    height={56}
                     priority
                     className="object-contain"
                   />
@@ -568,8 +568,8 @@ export default function StrategicNavigation() {
               <Image
                 src="/logo-3.png"
                 alt="CreaTuActivo Logo"
-                width={36}
-                height={36}
+                width={48}
+                height={48}
                 className="object-contain"
               />
             </div>

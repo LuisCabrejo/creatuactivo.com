@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: 'CreaTuActivo',
     images: [
       {
-        url: '/logo-3.png',
+        url: '/favicon.png',
         width: 1200,
         height: 1200,
         alt: 'Plan Servilleta CreaTuActivo - Calculadora Gano Excel',

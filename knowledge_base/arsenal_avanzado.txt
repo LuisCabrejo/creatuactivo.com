@@ -1,272 +1,235 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v6.0 JOBS/NAVAL
+# ARSENAL AVANZADO: MECÁNICA Y CIERRE v7.0 INDUSTRIAL
 
-**Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos y Cierre
-**Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (4) + ADV_SIST (2) + ADV_ESC (2) = 14 respuestas
-**Estrategia:** Jobs Style + Arquitectura de Activos (sin redundancias con Arsenal Inicial)
-**Versión:** 6.0 JOBS/NAVAL (17 Ene 2026) - Depuración completa, eliminación 40% redundancia
-
-**Cambios v6.0:**
-- Eliminadas redundancias con arsenal_inicial.txt (ej: "¿Cómo funciona?", "¿Soy introvertido?")
-- Enfoque exclusivo: Mecánica Financiera + Detalles Técnicos + Cierre
-- Reducción de 78 respuestas → 14 respuestas (alta precisión)
-- Lenguaje Jobs Style: analogías simples, sin jerga técnica
-- [Concepto Nuclear] en todas las respuestas
-
-**Criterio de Separación:**
-- Arsenal Inicial = Convencer y Educar (Filosofía + Conceptos Básicos)
-- Arsenal Avanzado = Operar y Cerrar (Detalles Técnicos + Matemática Financiera)
+**Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos y Cierre.
+**Enfoque:** Realismo Industrial. Matemáticas, Sistemas y Protocolos.
+**Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (4) + ADV_SIST (2) + ADV_ESC (2) = 14 respuestas.
+**Versión:** 7.0 INDUSTRIAL (Pereira Edition)
 
 ---
 
 ## 🔧 OBJECIONES DE ALTO NIVEL (Deep Dive) - 3 respuestas
 
 ### ADV_OBJ_01: "¿Es esto demasiado bueno para ser verdad? ¿Dónde está el truco?"
-**[Concepto Nuclear]:** Eficiencia, no magia. No es dinero fácil, es dinero inteligente apalancado en tecnología.
+**[Concepto Nuclear]:** Eficiencia Tecnológica vs. Fricción Manual.
 
-Te entiendo. Estamos acostumbrados a que los negocios sean duros y dolorosos. Si algo fluye, sospechamos.
+No es magia, es **Ingeniería**.
+Estamos acostumbrados a la fricción: negocios lentos, costosos y difíciles. Cuando ves un sistema sin fricción, sospechas.
 
-El "truco" no es magia, es **Tecnología**.
+El "truco" es la **Tecnología**.
+Antes, para tener una red de distribución, necesitabas bodegas, camiones y empleados (Fricción).
+Hoy, la infraestructura física la pone Gano Excel y la administración digital la hace Queswa (Fluidez).
 
-Antes, para tener una red de distribución, necesitabas bodegas, camiones y empleados. Eso era duro.
-
-Hoy, la infraestructura la pone Gano Excel y la administración la hace la Inteligencia Artificial (Queswa).
-
-Piénsalo así: No es que sea "demasiado bueno"; es que es moderno. Es como comparar enviar una carta por barco (lento y riesgoso) con enviar un WhatsApp. La tecnología eliminó la fricción.
-
-**Pregunta de seguimiento:** ¿Te hace sentido que la tecnología haya simplificado el proceso?
+**Piénsalo así:** Enviar una carta por barco tardaba 3 meses y era riesgoso. Enviar un WhatsApp es instantáneo y gratuito.
+No es que sea "demasiado bueno", es que eliminamos la fricción logística.
+**Pregunta de seguimiento:** ¿Te hace sentido que la tecnología haya optimizado el proceso?
 
 ---
 
 ### ADV_OBJ_02: "Ya tengo un negocio exitoso, ¿para qué quiero esto?"
-**[Concepto Nuclear]:** Diversificación de Activos. El seguro contra tu propia obsolescencia.
+**[Concepto Nuclear]:** Blindaje de Patrimonio y Diversificación de Activos.
 
-Precisamente por eso. Porque eres inteligente.
+Precisamente porque eres inteligente.
+Sabes que depender de un solo motor es un riesgo de ingeniería. Si ese motor falla, el avión cae.
 
-Si tienes un negocio exitoso, sabes que depender de una sola fuente de ingresos es un riesgo.
+Este proyecto no compite con tu negocio actual; **lo blinda**.
+Tu negocio actual probablemente depende de tu operación (Ingreso Activo).
+Esto es un **Activo Descorrelacionado**: no depende de tu industria ni de tu tiempo.
 
-Este proyecto no compite con tu negocio; **lo blinda**.
-
-Tu negocio actual depende de ti (si tú paras, él para). Esto es diferente: es un activo que no depende de tu industria ni de tu tiempo.
-
-Piénsalo así: Es como tener un edificio de apartamentos mientras eres médico. Si te cansas de operar, el edificio sigue pagando las rentas.
-
-No te pedimos que abandones tu negocio. Te invitamos a construir un segundo pilar de ingresos que trabaje aunque tú estés ocupado en lo otro.
-
-**Pregunta de seguimiento:** ¿Te gustaría tener un ingreso que no dependa de tu presencia diaria?
+**Piénsalo así:** Eres el dueño de un edificio. Aunque tengas tu oficina en el penthouse y trabajes mucho, el resto del edificio sigue cobrando rentas.
+Te invitamos a construir esa "renta" paralela para que, si tu industria principal entra en crisis, tu infraestructura personal te sostenga.
+**Pregunta de seguimiento:** ¿Tienes algún ingreso hoy que no dependa de tu sector actual?
 
 ---
 
 ### ADV_OBJ_03: "¿La urgencia de los cupos es real o es marketing?"
-**[Concepto Nuclear]:** Costo de Oportunidad. Entrar antes vs. entrar después.
+**[Concepto Nuclear]:** Ventaja de Primer Movimiento (First Mover Advantage).
 
-Es matemática pura. Trabajamos con **Ciclos de Mentoría**.
+Es un tema de **Ancho de Banda**.
+Operamos con Ciclos de Mentoría de Alto Rendimiento.
+El equipo directivo (Luis y Liliana) tiene una capacidad finita de atención. Solo pueden guiar la construcción de 30 infraestructuras a la vez para garantizar el éxito.
 
-Yo (Luis) y el equipo tenemos un límite. Solo podemos guiar personalmente a 30 constructores a la vez para garantizar su éxito.
+Si entras en la Fase de Fundadores, aseguras **Posición de Ventaja**.
+Si entras después, el sistema funciona, pero pierdes el acceso a la "Mesa de Control" donde se define la estrategia.
 
-Si entras en la Fase de Fundadores, recibes la mentoría directa y el posicionamiento superior.
-
-Si entras después, el sistema sigue funcionando, pero pierdes la ventaja de estar en la "mesa chica" donde se toman las decisiones.
-
-Piénsalo así: Es la diferencia entre comprar acciones de Apple en 1980 o comprarlas hoy. La empresa sigue siendo buena, pero el que entró primero multiplicó su dinero 1,000 veces.
-
-La urgencia no es presión de ventas. Es que las sillas de primera fila se llenan primero.
-
-**Pregunta de seguimiento:** ¿Prefieres la silla de primera fila o esperar a ver cómo les va a otros?
+**Piénsalo así:** Es la diferencia entre comprar acciones de una tecnológica en la IPO (Oferta Pública Inicial) o comprarlas 10 años después.
+La empresa sigue siendo buena, pero el que entró primero capturó el crecimiento exponencial.
+**Pregunta de seguimiento:** ¿Prefieres entrar en la fase de expansión o en la de consolidación?
 
 ---
 
 ## ⚙️ MECÁNICA TÉCNICA (Lo que pasa tras bambalinas) - 3 respuestas
 
 ### ADV_TECH_01: "¿Puedo pausar mi negocio si me enfermo o viajo?"
-**[Concepto Nuclear]:** El negocio no tiene botón de apagado, porque la gente no deja de tomar café.
+**[Concepto Nuclear]:** Inercia del Sistema. El activo no tiene botón de apagado.
 
-Esa es la belleza del modelo. **Tú puedes pausar, pero tu negocio no.**
+Esa es la ventaja de los **Sistemas Distribuidos**.
+Tú puedes pausar, pero tu infraestructura no.
 
-Tu red sigue consumiendo café, lavándose los dientes y recomendando el producto aunque tú estés en una playa o en cama.
+La red sigue consumiendo (generando volumen) aunque tú estés desconectado.
+Si un mes no haces tu activación personal, simplemente no cobras comisiones ese ciclo, pero tu posición y tu estructura se mantienen intactas.
 
-Si un mes no haces tu compra personal, simplemente no cobras comisiones ese mes, pero no pierdes tu posición ni tu red. Todo sigue ahí esperándote.
-
-Piénsalo así: Es como tener un auto estacionado. Si no le pones gasolina hoy, no anda, pero el auto sigue siendo tuyo. Lo enciendes cuando quieras.
-
-**Pregunta de seguimiento:** ¿Te da tranquilidad saber que puedes pausar sin perder lo construido?
+**Piénsalo así:** Es como una Turbina en Reposo.
+Si dejas de inyectar combustible hoy, la turbina deja de generar energía para ti, pero la máquina sigue ahí, instalada y lista.
+Cuando vuelves y activas el interruptor (tu compra), la energía vuelve a fluir inmediatamente. No tienes que volver a construir la turbina.
+**Pregunta de seguimiento:** ¿Te da tranquilidad saber que tu activo no se destruye si te ausentas?
 
 ---
 
 ### ADV_TECH_02: "¿Cómo manejan mis datos y la privacidad?"
-**[Concepto Nuclear]:** Ética de Datos. Somos un club privado, no una agencia de publicidad.
+**[Concepto Nuclear]:** Soberanía de Datos. Protocolo de Seguridad.
 
-Tu privacidad es sagrada. No somos Facebook.
+Tu base de datos es tu activo más valioso. La protegemos con **Protocolos Bancarios**.
+No somos una agencia de publicidad. Somos un Club de Negocios Privado.
 
-Tus datos y los de tus prospectos se usan **exclusivamente** para la operación de tu activo. Nunca vendemos datos a terceros.
+Tus datos y los de tus prospectos se usan **exclusivamente** para la operación de tu infraestructura. Nunca se venden a terceros.
+El sistema Queswa está diseñado como una caja fuerte digital.
 
-El sistema Queswa está diseñado para proteger tu base de contactos, que es tu mayor patrimonio.
-
-Piénsalo así: Es como una bóveda de banco. Tú tienes la llave de tu bóveda. Nosotros custodiamos el edificio, pero no abrimos tu caja.
-
-**Pregunta de seguimiento:** ¿Es importante para ti que tus contactos estén protegidos?
+**Piénsalo así:** Tú tienes la llave maestra. Nosotros custodiamos el servidor, pero solo tú tienes acceso a tu red de contactos.
+**Pregunta de seguimiento:** ¿Es vital para ti la confidencialidad de tus relaciones?
 
 ---
 
 ### ADV_TECH_03: "¿Qué soporte técnico real tengo si la App falla?"
-**[Concepto Nuclear]:** Redundancia. Tienes soporte humano y tecnológico.
+**[Concepto Nuclear]:** Redundancia Operativa (Capas de Seguridad).
 
-Tienes tres capas de seguridad:
+Tienes un sistema con **Triple Redundancia**:
 
-1. **Soporte IA:** Queswa resuelve dudas operativas 24/7 al instante.
-2. **Soporte Corporativo:** Gano Excel tiene líneas de atención al cliente en cada país para temas de pedidos y pagos.
-3. **Soporte Estratégico:** Acceso directo a nuestros grupos de liderazgo para temas de negocio.
+1.  **Capa 1 (IA):** Queswa resuelve dudas operativas y técnicas 24/7 en milisegundos.
+2.  **Capa 2 (Corporativa):** Gano Excel tiene Call Centers físicos y oficinas en cada país para logística y pagos.
+3.  **Capa 3 (Estratégica):** Acceso directo a la Línea de Liderazgo para resolución de problemas complejos.
 
-Piénsalo así: Es como tener un seguro médico con tres niveles: urgencias (Queswa), médico general (Gano Excel), y especialista (nuestro equipo).
-
-Nunca estás solo frente a una pantalla.
-
-**Pregunta de seguimiento:** ¿Te tranquiliza saber que hay humanos detrás del sistema?
+**Piénsalo así:** Nunca estás solo. Si falla el piloto automático (IA), tienes al copiloto (Soporte) y a la torre de control (Líderes). El sistema nunca se cae por completo.
+**Pregunta de seguimiento:** ¿Te da confianza tener respaldo en tres niveles?
 
 ---
 
-## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación Simplificado) - 4 respuestas
+## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
 
 ### ADV_VAL_01: "Explícame el Bono GEN5 (Inicio Rápido) con números"
-**[Concepto Nuclear]:** Flujo de Caja Inmediato. Ganas por expansión.
+**[Concepto Nuclear]:** Inyección de Liquidez. Flujo de Caja por Expansión.
 
-Es simple: Ganas dinero **cada vez que nace una nueva sucursal** en tu red, hasta 5 niveles de profundidad.
+Es simple: Generas liquidez **cada vez que instalas un nuevo nodo** en tu red.
 
-**Ejemplo Real:**
-- Tú conectas a Juan (Nivel 1) con un Paquete 3 → Recibes **$150 USD**
-- Juan conecta a María (Nivel 2) → Tú recibes **$20 USD**
-- Y así hasta el nivel 5...
+**Matemática (Si eres Fundador ESP-3):**
+* Tú conectas a Socio A (Nivel 1) → Recibes **$150 USD** (Liquidez Inmediata).
+* Socio A conecta a Socio B (Nivel 2) → Tú recibes **$20 USD** (Ingreso Indirecto).
+* Y así hasta 5 generaciones.
 
-Imagina que abres 5 sucursales directas. Y ellos abren sus propias sucursales.
+Si instalas 5 nodos directos y ellos se duplican, generas miles de dólares en las primeras semanas solo por **Instalación de Infraestructura**.
 
-Solo por ayudarles a arrancar, puedes generar miles de dólares en las primeras semanas **sin haber vendido ni una caja de café todavía**.
-
-Piénsalo así: Es el capital semilla que la empresa te da para que puedas construir sin estrés financiero.
-
-**Pregunta de seguimiento:** ¿Te queda claro que ganas por ayudar a otros a arrancar?
+**Piénsalo así:** Es el pago que recibes por "pegar los ladrillos". La empresa te paga por construir la red, antes de que empiece a fluir el volumen masivo.
+**Pregunta de seguimiento:** ¿Te queda claro que ganas por expandir la infraestructura?
 
 ---
 
 ### ADV_VAL_02: "Explícame el Bono Binario (Regalías) con números"
-**[Concepto Nuclear]:** Rentas Vitalicias. Ganas por volumen total, infinito en profundidad.
+**[Concepto Nuclear]:** Renta Perpetua. Ingreso por Volumen, no por gente.
 
-Este es el retiro. Es donde está el dinero de verdad.
+Este es el objetivo final. El **Ingreso Pasivo Real**.
+El sistema suma el **Volumen Total** (puntos) de tu lado izquierdo y derecho.
+No importa quién invitó a quién. Si el volumen pasa por tu código, tú cobras.
 
-El sistema suma **TODO el volumen de compras** de tu equipo izquierdo y tu equipo derecho (sin importar quién invitó a quién, hasta el infinito).
+Te pagan hasta el **17%** del volumen de tu equipo de cobro.
+**La Ecuación:** 1,000 personas consumiendo café = Volumen Masivo recurrente.
 
-Te pagan un porcentaje (hasta el 17%) del equipo más corto cada semana.
-
-**La Magia:** Si tienes 1,000 personas consumiendo café a un lado y 1,000 al otro, el sistema no te pregunta si tú las conoces. Simplemente te paga el porcentaje del volumen total.
-
-Piénsalo así: Es como cobrar un pequeño impuesto por cada taza de café que se sirve en tu ciudad. Tú no preparas el café, pero recibes una moneda por cada taza.
-
-**Pregunta de seguimiento:** ¿Entiendes por qué este bono es el que genera retiros millonarios?
+**Piénsalo así:** Es como cobrar un "Peaje Digital".
+Tú no fabricas el auto ni conduces el auto. Tú eres el dueño de la caseta.
+Cada vez que alguien pasa (toma una taza), tú cobras. De por vida.
+**Pregunta de seguimiento:** ¿Entiendes por qué este bono es el que genera la verdadera libertad?
 
 ---
 
 ### ADV_VAL_03: "¿Por qué es importante el Paquete ESP-3 (Visionario)?"
-**[Concepto Nuclear]:** Maximización del ROI. Mismo esfuerzo, más dinero.
+**[Concepto Nuclear]:** Maximización del ROI (Retorno sobre Inversión).
 
-Es una decisión puramente financiera.
+Es una decisión de eficiencia financiera.
+El sistema paga comisiones diferentes por el **mismo trabajo**, dependiendo de tu estatus.
 
-El sistema te permite cobrar entre el 10% y el 17% de comisiones, dependiendo de tu paquete inicial.
+* **Paquete ESP-1:** Cobras al 15% (aprox).
+* **Paquete ESP-3:** Cobras al **17%** inmediatamente.
 
-El Paquete 3 te "compra" el derecho a cobrar al **17% inmediatamente**.
+Si entras con un paquete pequeño, estás dejando dinero sobre la mesa. Haces el mismo esfuerzo de conexión, pero el sistema te paga menos.
 
-Si entras con un paquete pequeño, haces el mismo trabajo (conectar personas) pero cobras menos (15% o menos).
-
-Piénsalo así: Es como elegir entre dos trabajos idénticos, pero uno te paga $17 la hora y el otro $15. ¿Por qué elegirías el de $15?
-
-El Paquete 3 es la vía rápida para maximizar tu retorno por el mismo esfuerzo.
-
-**Pregunta de seguimiento:** ¿Prefieres cobrar al 15% o al 17% por el mismo trabajo?
+**Piénsalo así:** Es como tener dos contratos idénticos. Uno paga $15 la hora, el otro $17. ¿Por qué firmarías el de $15 si puedes firmar el de $17?
+El ESP-3 es la vía rápida para recuperar tu capital.
+**Pregunta de seguimiento:** ¿Prefieres cobrar al 15% o al 17%?
 
 ---
 
 ### ADV_VAL_04: "¿Qué es la Recompra Mensual (Autoship) y por qué la necesito?"
-**[Concepto Nuclear]:** Tu Costo Operativo Cero. El motor de la perpetuidad.
+**[Concepto Nuclear]:** Costo Operativo Cero. El motor de la perpetuidad.
 
-Para mantener tu negocio activo y cobrar comisiones, debes mover 50 Puntos al mes (aprox. 4 cajas de café / **$100 USD**).
+Para mantener tu infraestructura activa, debes mover 50 Puntos al mes (~$100 USD).
+**La genialidad del modelo:**
+1.  **Garantía de Flujo:** Si tú recompras, tu red recompra. Eso garantiza tu cheque mensual.
+2.  **Autoconsumo:** No es un gasto de oficina. Es el café y suplementos que consumes en casa.
 
-**Por qué es genial:**
-
-1. **Garantiza tu cheque:** Así como tú haces tu recompra, tu red hace la suya. Eso es lo que garantiza que te llegue dinero mes a mes, año tras año.
-
-2. **Es autoconsumo:** No es un gasto de oficina. Es el café que te tomas en el desayuno, el chocolate de tus hijos, los suplementos de tu mamá.
-
-Piénsalo así: El "arriendo" de tu negocio internacional es tu propio desayuno. Básicamente, tu "gasto operativo" es mantenerte saludable.
-
-**Pregunta de seguimiento:** ¿Consumes $100 USD en café y productos de salud al mes de todas formas?
+**Piénsalo así:** El "arriendo" de tu negocio multinacional es tu propio desayuno.
+Convertimos un gasto obligatorio (mercado) en tu único costo operativo.
+**Pregunta de seguimiento:** ¿Ya gastas $100 USD en café y salud al mes de todas formas?
 
 ---
 
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 2 respuestas
 
-### ADV_SIST_01: "¿Cuál es la diferencia entre un 'Trabajador' y un 'Arquitecto' en este modelo?"
+### ADV_SIST_01: "¿Cuál es la diferencia entre un 'Trabajador' y un 'Arquitecto'?"
 **[Concepto Nuclear]:** Mentalidad de Operario vs. Mentalidad de Dueño.
 
-El **Trabajador** pregunta: "¿A cuánta gente tengo que convencer hoy?"
-El **Arquitecto** pregunta: "¿Cómo puedo conectar a más personas al sistema hoy?"
+* El **Trabajador** pregunta: "¿A cuánta gente tengo que convencer?"
+* El **Arquitecto** pregunta: "¿Cómo conecto más nodos al sistema?"
 
-Nosotros enseñamos a ser Arquitectos.
+Nosotros formamos Arquitectos.
+No queremos que seas el "Vendedor Estrella". Si todo depende de ti, no eres libre.
+Queremos que seas el **Operador del Sistema**.
 
-No queremos que seas el mejor vendedor de tu equipo. Queremos que seas el mejor **guiando a otros** a usar la herramienta Queswa.
-
-Piénsalo así: Si el sistema depende de tu carisma, eres un trabajador (si tú paras, todo para). Si el sistema funciona sin ti, eres un Arquitecto (tú puedes descansar y el sistema sigue produciendo).
-
-**Pregunta de seguimiento:** ¿Quieres depender de tu carisma o de un sistema que trabaje por ti?
+**Piénsalo así:** Si tú cargas los baldes, eres trabajador. Si tú diseñas la tubería para que el agua fluya sola, eres Arquitecto.
+**Pregunta de seguimiento:** ¿Quieres cargar baldes o diseñar tuberías?
 
 ---
 
 ### ADV_SIST_02: "¿Cuál es la visión a 5 años? ¿A dónde vamos?"
-**[Concepto Nuclear]:** El "Amazon" del Bienestar.
+**[Concepto Nuclear]:** Red de Distribución Continental.
 
-Nuestra meta es tener **4 millones de familias** en América conectadas a nuestra infraestructura para 2030.
+Nuestra meta técnica es tener **4 millones de nodos** (familias) conectados a la infraestructura en América para 2030.
+Estamos construyendo la "Grid" (Red) de bienestar más eficiente del continente.
 
-Estamos construyendo la red de distribución de bienestar más eficiente del continente.
-
-Piénsalo así: Hoy tienes la oportunidad de posicionarte antes de que esa ola gigante termine de formarse.
-
-En 5 años, no te invitaremos a construir el acueducto; te invitaremos a beber agua.
-
-Hoy te invitamos a ser **dueño de la tubería**.
-
-**Pregunta de seguimiento:** ¿Prefieres construir el acueducto hoy o pagar por el agua mañana?
+**Piénsalo así:** Hoy estás viendo los planos y los cimientos. Tienes la oportunidad de ser dueño de una parte de la red principal.
+En 5 años, ya no invitaremos a construir la red; invitaremos a usarla.
+Hoy te invitamos a ser dueño del cableado, no solo usuario de la electricidad.
+**Pregunta de seguimiento:** ¿Prefieres ser dueño del cableado hoy o pagar la factura de luz mañana?
 
 ---
 
 ## 🚀 CIERRE Y ESCALACIÓN - 2 respuestas
 
-### ADV_ESC_01: "Me interesa, pero necesito hablar con un humano. ¿Qué hago?"
-**[Concepto Nuclear]:** Validación Final. Acceso a la mesa directiva.
+### ADV_ESC_01: "Me interesa, pero necesito hablar con un humano."
+**[Concepto Nuclear]:** Validación de Calidad. Entrevista de Acceso.
 
-Lo entiendo. Las grandes decisiones se toman mirando a los ojos.
+Entendido. Las alianzas estratégicas requieren confianza.
+Si ya validaste la lógica y los números, te voy a conectar con la **Dirección Estratégica** (Liliana Moreno o Luis Cabrejo).
 
-Si ya viste la información y tu intuición te dice que aquí hay algo, te voy a conectar directamente con **Liliana Moreno o Luis Cabrejo**.
+No es una llamada de ventas. Es una **Entrevista de Perfilamiento**.
+Queremos validar si tienes la mentalidad correcta para ser Fundador.
 
-No te van a "vender". Te van a hacer una **entrevista breve** para ver si calificas para el equipo.
-
-Escríbele a la persona que te envió este enlace y dile: **"Quiero hablar con el equipo"**.
-
-**Pregunta de seguimiento:** ¿Prefieres agendar una llamada o una videollamada?
+Escríbele a quien te envió esto: **"Solicito Entrevista de Perfil"**.
+**Pregunta de seguimiento:** ¿Prefieres agendar llamada o videollamada?
 
 ---
 
 ### ADV_ESC_02: "Estoy listo. ¿Cómo pago y empiezo?"
-**[Concepto Nuclear]:** Onboarding sin fricción.
+**[Concepto Nuclear]:** Protocolo de Activación.
 
-**¡Bienvenido al equipo de Arquitectos!**
+**¡Bienvenido al Equipo de Arquitectos!**
+Activamos el protocolo de inicio:
 
-El proceso es simple:
+1.  **Registro Legal:** Creamos tu código internacional en Gano Excel.
+2.  **Capitalización:** Adquieres tu Inventario Inicial (Recomendado ESP-3).
+3.  **Pago Seguro:** Transacción directa a la compañía (Blindaje financiero).
+4.  **Despliegue:** Te damos acceso a Queswa y agendamos tu Sesión de Estrategia.
 
-1. **Registro:** Hacemos tu registro oficial en Gano Excel (para proteger tu posición legal).
-2. **Paquete:** Eliges tu Paquete de Inventario (recomendamos ESP-3 para máximo retorno).
-3. **Pago:** Pagas directamente a la compañía (tarjeta, efectivo o transferencia).
-4. **Activación:** Inmediatamente te activamos tu cuenta en Queswa y agendamos tu sesión de inicio.
-
-Escribe ahora mismo: **"ESTOY LISTO"** y te paso los datos para blindar tu posición.
-
-**Pregunta de seguimiento:** ¿Listo para empezar?
+Escribe ahora: **"ACTIVAR CÓDIGO"** y te paso las coordenadas bancarias.
+**Pregunta de seguimiento:** ¿Listo para iniciar la construcción?
 
 ---
 
-**FIN DEL ARSENAL AVANZADO v6.0 JOBS/NAVAL**
+**FIN DEL ARSENAL AVANZADO v7.0 INDUSTRIAL**

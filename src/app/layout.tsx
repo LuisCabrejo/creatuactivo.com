@@ -91,10 +91,14 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/logo-3.png', type: 'image/png', sizes: '1200x1200' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }, // Fallback
     ],
     apple: [
-      { url: '/favicon.svg' }
+      { url: '/logo-3.png', sizes: '1200x1200', type: 'image/png' }
+    ],
+    shortcut: [
+      { url: '/logo-3.png' }
     ],
   },
   manifest: '/site.webmanifest',

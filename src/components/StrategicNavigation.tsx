@@ -507,7 +507,7 @@ export default function StrategicNavigation() {
                     width={56}
                     height={56}
                     priority
-                    className="object-contain"
+                    className="object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
                   />
                 </div>
                 {/* Brand Text - Oswald Bold */}
@@ -570,7 +570,7 @@ export default function StrategicNavigation() {
                 alt="CreaTuActivo Logo"
                 width={48}
                 height={48}
-                className="object-contain"
+                className="object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
               />
             </div>
             {/* Brand Text - Oswald Bold */}

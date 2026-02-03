@@ -35,6 +35,7 @@ import {
   Repeat
 } from 'lucide-react';
 import Link from 'next/link';
+import StrategicNavigation from '@/components/StrategicNavigation';
 
 // --- CONFIGURACIÓN DE BRANDING INDUSTRIAL ---
 const THEME = {
@@ -102,25 +103,11 @@ export default function ServilletaPage() {
         style={{ backgroundImage: 'linear-gradient(#94A3B8 1px, transparent 1px), linear-gradient(90deg, #94A3B8 1px, transparent 1px)', backgroundSize: '30px 30px' }}
       />
 
-      {/* --- HEADER --- */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-5 pt-3 pb-2 md:px-10 md:pt-5 md:pb-4 flex justify-between items-center bg-[#0F1115]/95 backdrop-blur-md border-b border-white/5">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 border border-[#C5A059]/30 rounded bg-[#C5A059]/5 group-hover:bg-[#C5A059]/10 transition-colors">
-            <Activity className="w-5 h-5 text-[#C5A059]" />
-          </div>
-          <span className="text-sm flex flex-col leading-none">
-            <span className="font-serif text-[#C5A059] tracking-tight font-bold text-lg">CreaTuActivo</span>
-            <span className="font-mono text-[9px] text-[#94A3B8] tracking-[0.2em] uppercase">SISTEMA</span>
-          </span>
-        </Link>
-        <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-[9px] text-[#94A3B8] font-mono tracking-widest uppercase hidden md:inline-block">V10.0 JOBS</span>
-        </div>
-      </header>
+      {/* --- HEADER ESTÁNDAR --- */}
+      <StrategicNavigation />
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 pt-16 md:pt-20 scrollbar-hide">
+      <main className="flex-1 relative z-10 overflow-y-auto pb-20 md:pb-24 px-2 sm:px-6 pt-24 md:pt-28 scrollbar-hide">
 
         {/* =================================================================================
             TAB 1: EL DIAGNÓSTICO (El Plan por Defecto + Oscilaciones)

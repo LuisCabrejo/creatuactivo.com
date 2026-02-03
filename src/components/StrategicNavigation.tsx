@@ -499,15 +499,15 @@ export default function StrategicNavigation() {
             {/* ✅ LOGO SECTION - THE ARCHITECT'S SUITE */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
-                {/* Logo Icon PNG */}
+                {/* Logo Icon PNG - Optimized for dark backgrounds */}
                 <div className="strategic-logo-icon">
                   <Image
-                    src="/logo-3.png"
+                    src="/header.png"
                     alt="CreaTuActivo Logo"
                     width={56}
                     height={56}
                     priority
-                    className="object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+                    className="object-contain"
                   />
                 </div>
                 {/* Brand Text - Oswald Bold */}
@@ -563,14 +563,14 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
-            {/* Logo Icon PNG */}
+            {/* Logo Icon PNG - Optimized for dark backgrounds */}
             <div className="strategic-logo-icon">
               <Image
-                src="/logo-3.png"
+                src="/header.png"
                 alt="CreaTuActivo Logo"
                 width={48}
                 height={48}
-                className="object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+                className="object-contain"
               />
             </div>
             {/* Brand Text - Oswald Bold */}

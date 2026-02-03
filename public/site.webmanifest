@@ -4,7 +4,7 @@
     "description": "Sistema de Arquitectura Soberana - Construye tu cartera de activos",
     "icons": [
         {
-            "src": "/favicon.png",
+            "src": "/favicon.png?v=2",
             "sizes": "1200x1200",
             "type": "image/png",
             "purpose": "any"

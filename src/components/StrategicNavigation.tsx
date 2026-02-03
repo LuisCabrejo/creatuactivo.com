@@ -13,6 +13,7 @@
 import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   X,
   Target,
@@ -76,7 +77,7 @@ const CRITICAL_NAVIGATION_CSS = `
     transform: scale(1.02);
   }
 
-  /* THE ARCHITECT'S SUITE - CA Monogram Icon */
+  /* THE ARCHITECT'S SUITE - Logo Icon (PNG) */
   .strategic-logo-icon {
     width: 40px;
     height: 40px;
@@ -84,43 +85,31 @@ const CRITICAL_NAVIGATION_CSS = `
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    position: relative;
   }
 
   @media (max-width: 767px) {
     .strategic-logo-icon {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
   }
 
-  .strategic-logo-icon svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* THE ARCHITECT'S SUITE - Mixed Typography Wordmark */
+  /* THE ARCHITECT'S SUITE - Brand Text (Oswald Bold) */
   .strategic-logo-text {
-    display: flex;
-    align-items: baseline;
-    gap: 0;
-    line-height: 1.2;
+    font-family: var(--font-oswald), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+    line-height: 1;
     transition: opacity 0.3s ease;
   }
 
-  .strategic-logo-text .crea-tu {
-    font-family: Montserrat, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #E5E5E5;
-    letter-spacing: 0.05em;
-  }
-
-  .strategic-logo-text .activo {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #C5A059;
-    letter-spacing: 0.02em;
+  @media (max-width: 767px) {
+    .strategic-logo-text {
+      font-size: 1.125rem;
+    }
   }
 
   .strategic-logo-link:hover .strategic-logo-text {
@@ -510,20 +499,20 @@ export default function StrategicNavigation() {
             {/* ✅ LOGO SECTION - THE ARCHITECT'S SUITE */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
-                {/* CA Symbol - Architectural Blueprint */}
+                {/* Logo Icon PNG */}
                 <div className="strategic-logo-icon">
-                  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
-                      <path d="M14 5 H5 V27 H20"/>
-                      <path d="M16 27 V10 H27 V27"/>
-                      <path d="M16 18 H27"/>
-                    </g>
-                  </svg>
+                  <Image
+                    src="/logo-3.png"
+                    alt="CreaTuActivo Logo"
+                    width={40}
+                    height={40}
+                    priority
+                    className="object-contain"
+                  />
                 </div>
-                {/* Mixed Typography Wordmark: CreaTu (Sans) + Activo (Serif Gold) */}
+                {/* Brand Text - Oswald Bold */}
                 <span className="strategic-logo-text">
-                  <span className="crea-tu">CreaTu</span>
-                  <span className="activo">Activo</span>
+                  CreaTuActivo
                 </span>
               </Link>
             </div>
@@ -574,20 +563,19 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
-            {/* CA Symbol - Architectural Blueprint */}
+            {/* Logo Icon PNG */}
             <div className="strategic-logo-icon">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="#C5A059" strokeWidth="2" strokeLinecap="square">
-                  <path d="M14 5 H5 V27 H20"/>
-                  <path d="M16 27 V10 H27 V27"/>
-                  <path d="M16 18 H27"/>
-                </g>
-              </svg>
+              <Image
+                src="/logo-3.png"
+                alt="CreaTuActivo Logo"
+                width={36}
+                height={36}
+                className="object-contain"
+              />
             </div>
-            {/* Mixed Typography Wordmark: CreaTu (Sans) + Activo (Serif Gold) */}
+            {/* Brand Text - Oswald Bold */}
             <span className="strategic-logo-text">
-              <span className="crea-tu">CreaTu</span>
-              <span className="activo">Activo</span>
+              CreaTuActivo
             </span>
           </Link>
           <button

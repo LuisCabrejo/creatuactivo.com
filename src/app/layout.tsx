@@ -5,7 +5,7 @@
  */
 
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Montserrat } from 'next/font/google';
+import { Playfair_Display, Montserrat, Oswald } from 'next/font/google';
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
 import CookieBanner from '@/components/CookieBanner';
@@ -24,6 +24,14 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-montserrat',
+  weight: ['400', '500', '600', '700'],
+});
+
+// Oswald: Logo y branding (condensada, bold, industrial)
+const oswald = Oswald({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-oswald',
   weight: ['400', '500', '600', '700'],
 });
 
@@ -256,7 +264,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${montserrat.variable} ${playfair.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+      <body className={`${montserrat.variable} ${playfair.variable} ${oswald.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
         <main className="relative">
           {children}
         </main>

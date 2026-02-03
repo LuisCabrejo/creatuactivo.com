@@ -1,128 +1,117 @@
-# Arsenal Reto 5 Dias: El Puente de Implementacion v1.0
-**Proposito:** Vender la asistencia y finalizacion del "Reto de 5 Dias".
-**Enfoque:** "Try before you buy" (Prueba antes de comprar).
-**Promesa:** Claridad y Plan de Accion, no solo "informacion".
-**Version:** 1.0 (19 Enero 2026)
-**REGLA DE ORO:** El Reto es un SIMULADOR, no un curso. Vende la experiencia, no la teoria.
+# Arsenal Reto 5 Días: Protocolo de Simulación v2.0 INDUSTRIAL
+
+**Propósito:** Vender la ejecución del "Reto de 5 Días".
+**Enfoque:** Validación Operativa. "Simulador antes de Realidad".
+**Versión:** 2.0 INDUSTRIAL (Pereira Edition)
+**REGLA DE ORO:** No es un curso. Es un **Entorno de Pruebas**.
 
 ---
 
-## 1. DEFINICION DEL PRODUCTO
+## 1. DEFINICIÓN DEL PRODUCTO
 
-### RETO_01: "Que es el Reto de 5 Dias?"
+### RETO_01: "¿Qué es el Reto de 5 Días?"
+**[Concepto Nuclear]:** Simulador de Infraestructura. Validación sin Riesgo.
 
-**[Concepto Nuclear]:** Una Prueba de Manejo. No compres el carro sin conducirlo primero.
+Es un **Protocolo de Simulación** de 5 días.
+Antes de entregarte la infraestructura real, te damos acceso a un entorno de pruebas para que operes el sistema sin riesgo financiero.
 
-Es una Semana de Prueba para que veas el negocio por dentro sin arriesgar tu dinero. Mucha gente no arranca un negocio porque tiene miedo de no saber hacerlo. Este reto elimina ese miedo.
-
-**Piensalo asi:** Imagina que vas a comprar un carro nuevo. Ningun vendedor espera que lo pagues solo viendo el catalogo. Primero te dan las llaves, te subes y das una vuelta a la manzana para ver si te sientes comodo. El Reto de 5 Dias es esa vuelta a la manzana. Te prestamos las llaves del sistema (Queswa), te mostramos como funciona el motor (Gano Excel) y te dejamos "manejar" el negocio por 5 dias. Si al final de la semana te gusta como se siente, hablamos de asociarnos. Si no, nos devuelves las llaves y no perdiste nada.
-
----
-
-### RETO_02: "Que voy a aprender exactamente?" / "Cual es el temario?"
-
-**[Concepto Nuclear]:** De la Consciencia a la Competencia. El viaje del Heroe en 5 pasos.
-
-El Reto esta estructurado para desmontar el "Plan por Defecto" y montar tu "Plan de Soberania". Cada dia desbloqueamos una pieza del rompecabezas:
-
-**Dia 1: El Diagnostico**
-Calculamos tu "Numero de Libertad" exacto y auditamos por que tu empleo actual no te lo puede dar.
-
-**Dia 2: El Vehiculo**
-Revelamos la Infraestructura Corporativa. Por que elegimos Gano Excel y no E-commerce, Crypto o Trading.
-
-**Dia 3: El Sistema**
-Te mostramos a Queswa por dentro. Veras como la IA hace el trabajo sucio (ventas) por ti.
-
-**Dia 4: La Matematica**
-Desglosamos el Plan de Pagos. Como construir un flujo de caja de $600-$1,000 USD en tus primeras semanas.
-
-**Dia 5: La Decision**
-Te presentamos el Plan de Accion Personalizado para iniciar como Fundador.
-
-**Piensalo asi:** Al final del dia 5, tendras una respuesta binaria: "Esto es para mi" o "Esto no es para mi". Ambas son victorias porque ganas claridad.
+**Piénsalo así:** Ningún piloto vuela un jet real el primer día. Primero entra al Simulador.
+El Reto es tu simulador.
+Operas el software (Queswa), entiendes la mecánica del hardware (Gano Excel) y validas si tienes el perfil para ser Arquitecto.
+Si al día 5 la ingeniería te hace sentido, pasamos a la realidad. Si no, cierras el simulador y no perdiste capital.
 
 ---
 
-## 2. LOGISTICA Y FORMATO
+### RETO_02: "¿Qué voy a aprender exactamente?" / "¿Cuál es el temario?"
+**[Concepto Nuclear]:** Despliegue Modular. De la Teoría a la Mecánica.
 
-### RETO_03: "Tiene algun costo participar?" / "Es gratis?"
+No es "aprender", es **Auditar**. Desglosamos la máquina en 5 módulos:
 
-**[Concepto Nuclear]:** Beca de Acceso. El costo es tu atencion, no tu dinero.
+* **Día 1: Diagnóstico Estructural.** Calculamos tu "Número de Soberanía" y auditamos por qué tu empleo actual tiene fallas de diseño.
+* **Día 2: La Infraestructura.** Revelamos el Hardware. Por qué elegimos la logística de Gano Excel y no la fragilidad del E-commerce.
+* **Día 3: El Sistema Operativo.** Te mostramos Queswa por dentro. Cómo la IA gestiona el tráfico y filtra candidatos.
+* **Día 4: Ingeniería Financiera.** Desglosamos el Plan de Pagos. Cómo construir flujo de caja (Gen5) y patrimonio (Binario).
+* **Día 5: Dictamen de Viabilidad.** Diseñamos tu Plan de Arranque como Fundador.
 
-El valor de mercado de este entrenamiento (con la tecnologia y mentoria incluidas) es de $97 USD. Sin embargo, en este momento tenemos una **Beca de Acceso al 100%** para personas que vienen referidas por nuestro sistema o nuestros anuncios.
-
-Por que es gratis? Porque confiamos en nuestro modelo. Sabemos que si ves la infraestructura y pruebas la tecnologia, la decision de asociarte con nosotros sera logica y natural.
-
-**Piensalo asi:** Nosotros invertimos en ti primero, para que tu puedas invertir en ti mismo despues con confianza.
-
----
-
-### RETO_04: "Es en vivo o grabado?" / "Tengo que cumplir horarios?"
-
-**[Concepto Nuclear]:** Soberania de Tiempo (Asynchronous-First).
-
-Respetamos tu tiempo (y el nuestro). El Reto es **Hibrido**:
-
-**Lecciones Estrategicas (Grabadas):**
-Cada manana recibes un video de alta produccion (15-20 minutos) directo a tu WhatsApp. Lo ves a tu ritmo, cuando puedas (desayuno, almuerzo, noche).
-
-**Soporte Real (En Vivo):**
-Tienes acceso a un grupo exclusivo de WhatsApp donde resolvemos dudas en tiempo real.
-
-No tienes que "estar" a una hora especifica. Tienes que "hacer" en tu propio tiempo.
-
-**Piensalo asi:** Disenamos esto para profesionales ocupados, no para estudiantes con tiempo libre.
+**Piénsalo así:** Al final del día 5, tendrás un plano completo. Sabrás exactamente qué construir y cuánto te va a costar. Cero incertidumbre.
 
 ---
 
-### RETO_05: "Que necesito para participar?" / "Requisitos"
+## 2. LOGÍSTICA Y FORMATO
 
-**[Concepto Nuclear]:** Baja barrera de entrada. Solo necesitas curiosidad y WhatsApp.
+### RETO_03: "¿Tiene algún costo participar?" / "¿Es gratis?"
+**[Concepto Nuclear]:** Acceso de Validación. Inversión de Tiempo, no de Dinero.
 
-No necesitas conocimientos tecnicos, ni experiencia en negocios, ni tarjeta de credito. Solo necesitas:
+El acceso al Simulador tiene un valor de mercado de $97 USD, pero hoy tienes un **Cupo de Validación al 100%**.
+No cobramos la entrada porque nuestro negocio no es vender cursos; nuestro negocio es encontrar Socios Operativos.
 
-- **WhatsApp:** Todo el curso ocurre en tu bolsillo.
-- **30 Minutos al dia:** 20 min para ver el video, 10 min para ejecutar la micro-tarea.
-- **Mente Abierta:** La disposicion para cuestionar el "Plan por Defecto" que te han ensenado toda la vida.
+Queremos eliminar la barrera de entrada para que tu única inversión sea **Atención**.
+Si el sistema funciona para ti en la simulación, sabemos que querrás operarlo en la realidad.
 
-**Piensalo asi:** Si tienes eso, estas calificado.
+---
+
+### RETO_04: "¿Es en vivo o grabado?" / "Tengo horarios complicados"
+**[Concepto Nuclear]:** Ejecución Asíncrona.
+
+Respetamos tu agenda productiva. El protocolo es **Híbrido**:
+
+1.  **Módulos Estratégicos (Grabados):** Cada mañana se libera un informe de video (15-20 min). Lo estudias a tu ritmo.
+2.  **Soporte Táctico (En Vivo):** Tienes línea directa por WhatsApp para resolver dudas de ingeniería en tiempo real.
+
+No tienes que "estar" a una hora. Tienes que "ejecutar" en tu tiempo.
+
+---
+
+### RETO_05: "¿Qué necesito para participar?" / "Requisitos"
+**[Concepto Nuclear]:** Ancho de Banda Mental.
+
+No necesitas experiencia previa ni capital de riesgo. Solo necesitas:
+
+1.  **WhatsApp:** Tu centro de comando.
+2.  **30 Minutos/día:** 20 min de estudio, 10 min de ejecución.
+3.  **Criterio Propio:** Capacidad para analizar datos y tomar decisiones lógicas.
+
+**Piénsalo así:** Si puedes seguir instrucciones y usar un celular, estás calificado para el simulador.
 
 ---
 
 ## 3. CIERRE AL RETO
 
-### RETO_06: "Como me registro?" / "Como empiezo?"
+### RETO_06: "¿Cómo me registro?" / "¿Cómo empiezo?"
+**[Concepto Nuclear]:** Iniciar Protocolo.
 
-**[Concepto Nuclear]:** Accion Inmediata. El primer filtro de exito es tomar accion.
+El despliegue es inmediato:
 
-El registro toma menos de 30 segundos:
+1.  Toca el botón **"Iniciar Simulación"**.
+2.  Confirmas tu credencial (WhatsApp).
+3.  El sistema te libera el **Módulo 1** al instante.
 
-1. Haz clic en el boton "Comenzar el Reto de 5 Dias"
-2. Te pediremos tu nombre y WhatsApp
-3. Recibes acceso a la Boveda del Reto
-4. El Dia 1 empieza de inmediato
-
-No esperes al lunes. La soberania se construye hoy.
+No esperes al lunes. La ingeniería no espera.
 
 ---
 
 ### RETO_07: "No estoy seguro..." / "Tengo dudas"
+**[Concepto Nuclear]:** Validación Empírica. Datos mata opinión.
 
-**[Concepto Nuclear]:** Test Drive sin riesgo.
+Es normal tener dudas. Por eso existe el Simulador.
+No te pido que confíes ciegamente. Te pido que **verifiques**.
 
-Nadie compra un coche sin manejarlo primero.
+Entra, revisa los planos, prueba el sistema.
+Si la lógica no se sostiene, te retiras sin costo.
+Pero no tomes una decisión basada en suposiciones. Tómala basada en datos.
 
-El Reto de 5 Dias es tu Test Drive. Te entregamos las llaves del sistema, lo manejas por 5 dias, y si no te gusta, te bajas sin pagar nada.
-
-**Piensalo asi:** Te parece un trato justo?
+**Piénsalo así:** ¿Rechazarías probar un Ferrari gratis solo porque dudas si sabes manejarlo? Súbete y prueba.
 
 ---
 
 ## CHANGELOG
 
+### v2.0 INDUSTRIAL (02 Febrero 2026)
+* Cambio de metáfora: "Test Drive" → **"Simulador de Infraestructura"**.
+* Cambio de término: "Beca" → **"Cupo de Validación"**.
+* Cambio de tono: De "Vendedor" a **"Ingeniero de Sistemas"**.
+* Terminología industrial: Protocolo, Módulos, Hardware/Software, Despliegue.
+
 ### v1.0 (19 Enero 2026)
-- NUEVO: Arsenal completo del Reto de 5 Dias
-- NUEVO: 7 respuestas con estructura [Concepto Nuclear] + Explicacion + "Piensalo asi"
-- NUEVO: Logistica (gratis, hibrido, requisitos)
-- NUEVO: Cierre con analogia del Test Drive
+* Arsenal completo del Reto de 5 Días
+* 7 respuestas con estructura [Concepto Nuclear] + Explicación + "Piénsalo así"

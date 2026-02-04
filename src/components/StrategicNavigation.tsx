@@ -56,7 +56,13 @@ const CRITICAL_NAVIGATION_CSS = `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 5rem;
+    height: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .strategic-nav-content {
+      height: 5rem;
+    }
   }
 
   /* LOGO SECTION - RENDERIZADO INMEDIATO */
@@ -79,8 +85,8 @@ const CRITICAL_NAVIGATION_CSS = `
 
   /* THE ARCHITECT'S SUITE - Logo Icon (PNG) */
   .strategic-logo-icon {
-    width: 56px;
-    height: 56px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,10 +94,10 @@ const CRITICAL_NAVIGATION_CSS = `
     position: relative;
   }
 
-  @media (max-width: 767px) {
+  @media (min-width: 768px) {
     .strategic-logo-icon {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
     }
   }
 
@@ -504,10 +510,10 @@ export default function StrategicNavigation() {
                   <Image
                     src="/header.png"
                     alt="CreaTuActivo Logo"
-                    width={56}
-                    height={56}
+                    width={40}
+                    height={40}
                     priority
-                    className="object-contain"
+                    className="object-contain md:w-14 md:h-14"
                   />
                 </div>
                 {/* Brand Text - Oswald Bold */}
@@ -568,8 +574,8 @@ export default function StrategicNavigation() {
               <Image
                 src="/header.png"
                 alt="CreaTuActivo Logo"
-                width={48}
-                height={48}
+                width={40}
+                height={40}
                 className="object-contain"
               />
             </div>

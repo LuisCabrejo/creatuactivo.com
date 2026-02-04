@@ -161,8 +161,10 @@ export default function ServilletaPage() {
                     <div className="space-y-4 md:space-y-6">
 
                         {/* Subtítulo de la Matriz */}
-                        <p className="text-[#E5E5E5] text-xs md:text-sm font-bold italic text-center mb-2">
-                            &quot;Lo que es vs. Lo que podrías ser&quot;
+                        <p className="text-base md:text-xl font-semibold text-center mb-2">
+                            <span className="text-[#E5E5E5]">&quot;Lo que es</span>
+                            <span className="text-[#94A3B8]"> vs. </span>
+                            <span className="text-[#C5A059]">Lo que podrías ser&quot;</span>
                         </p>
 
                         {/* --- FILA 1: EL TIEMPO --- */}

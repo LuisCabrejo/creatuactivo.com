@@ -222,9 +222,9 @@ export default function ServilletaPage() {
                             {/* Villano */}
                             <div className="bg-[#0F1115] border border-[#F59E0B]/20 p-4 rounded-xl text-left md:text-right relative overflow-hidden">
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B] md:hidden"></div>
-                                <h3 className="text-[#F59E0B] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">TE DEJA VULNERABLE</h3>
+                                <h3 className="text-[#F59E0B] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">LA TRAMPA DEL INGRESO LINEAL</h3>
                                 <p className="text-xs md:text-sm text-[#94A3B8] leading-snug">
-                                    &quot;El empleo y el autoempleo son frágiles. Una sola crisis puede romper tu única fuente.&quot;
+                                    &quot;No importa si tienes uno o cinco negocios; si todos dependen de tu presencia o del mercado local, una crisis sistémica los derriba a todos.&quot;
                                 </p>
                             </div>
 
@@ -236,9 +236,9 @@ export default function ServilletaPage() {
                             {/* Héroe */}
                             <div className="bg-[#0F1115] border border-[#C5A059]/30 p-4 rounded-xl text-left relative overflow-hidden">
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#C5A059] md:hidden"></div>
-                                <h3 className="text-[#C5A059] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">ES INQUEBRANTABLE</h3>
+                                <h3 className="text-[#C5A059] text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-1">SEGURIDAD DE RED</h3>
                                 <p className="text-xs md:text-sm text-[#E5E5E5] leading-snug">
-                                    &quot;Antifragilidad. Si tienes una red de distribución diversificada, tu economía es blindada.&quot;
+                                    &quot;Al igual que 1.000 cables de acero sosteniendo un puente, diversificas el riesgo en una estructura masiva. Si un punto falla, el sistema sigue pagando.&quot;
                                 </p>
                             </div>
                         </div>

@@ -2,15 +2,15 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * OpenGraph Image - Soberanía
- * INDUSTRIAL REALISM DESIGN v10.0
+ * OpenGraph Image - Industrial Deck v5.1
+ * QUESWA.SYS Industrial Design
  */
 
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
-export const alt = 'Soberanía | Diagnóstico Estructural';
+export const alt = 'Infraestructura de Multiplicación | QUESWA.SYS';
 export const size = {
   width: 1200,
   height: 630,
@@ -29,10 +29,10 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#0F1115',
-          backgroundImage: 'radial-gradient(#334155 1px, transparent 1px)',
+          backgroundColor: '#121212',
+          backgroundImage: 'radial-gradient(#37474f 1px, transparent 1px)',
           backgroundSize: '40px 40px',
-          fontFamily: 'serif',
+          fontFamily: 'sans-serif',
           position: 'relative',
         }}
       >
@@ -44,38 +44,37 @@ export default async function Image() {
             left: '20px',
             right: '20px',
             bottom: '20px',
-            border: '1px solid #334155',
+            border: '1px solid #37474f',
             borderRadius: '0px',
             opacity: 0.5,
             display: 'flex',
           }}
         />
 
-        {/* Badge Superior */}
+        {/* Badge Superior - QUESWA.SYS */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '8px 16px',
-            backgroundColor: 'rgba(197, 160, 89, 0.1)',
-            border: '1px solid rgba(197, 160, 89, 0.3)',
+            backgroundColor: 'rgba(0, 229, 255, 0.1)',
+            border: '1px solid rgba(0, 229, 255, 0.3)',
             borderRadius: '4px',
             marginBottom: '40px',
           }}
         >
           <span
             style={{
-              color: '#C5A059',
+              color: '#00e5ff',
               fontSize: 14,
-              fontFamily: 'sans-serif',
               letterSpacing: '0.2em',
               fontWeight: 700,
               textTransform: 'uppercase',
               display: 'flex',
             }}
           >
-            Diagnóstico Estructural v10.0
+            QUESWA.SYS // The Industrial Deck v5.1
           </span>
         </div>
 
@@ -90,37 +89,53 @@ export default async function Image() {
         >
           <span
             style={{
-              fontSize: 130,
-              color: '#E5E5E5',
+              fontSize: 90,
+              color: '#e0e0e0',
               margin: 0,
               lineHeight: 0.9,
               fontWeight: 900,
-              letterSpacing: '-0.05em',
+              letterSpacing: '-0.03em',
               textShadow: '0 10px 30px rgba(0,0,0,0.5)',
+              textTransform: 'uppercase',
               display: 'flex',
             }}
           >
-            SOBERANÍA
+            INFRAESTRUCTURA
+          </span>
+          <span
+            style={{
+              fontSize: 90,
+              color: '#e0e0e0',
+              margin: 0,
+              lineHeight: 0.9,
+              fontWeight: 900,
+              letterSpacing: '-0.03em',
+              textShadow: '0 10px 30px rgba(0,0,0,0.5)',
+              textTransform: 'uppercase',
+              display: 'flex',
+            }}
+          >
+            DE MULTIPLICACIÓN
           </span>
 
-          {/* Línea Divisoria */}
+          {/* Línea Divisoria - Cyan industrial */}
           <div
             style={{
               width: '100px',
               height: '4px',
-              backgroundColor: '#C5A059',
+              backgroundColor: '#00e5ff',
               marginTop: '30px',
               marginBottom: '30px',
+              boxShadow: '0 0 15px rgba(0, 229, 255, 0.4)',
               display: 'flex',
             }}
           />
 
           <span
             style={{
-              fontSize: 32,
-              color: '#94A3B8',
+              fontSize: 28,
+              color: '#9e9e9e',
               margin: 0,
-              fontFamily: 'sans-serif',
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
               fontWeight: 400,
@@ -139,9 +154,8 @@ export default async function Image() {
             display: 'flex',
             width: '100%',
             justifyContent: 'center',
-            color: '#475569',
+            color: '#37474f',
             fontSize: 16,
-            fontFamily: 'sans-serif',
             letterSpacing: '0.1em',
           }}
         >

@@ -8,7 +8,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 
-export default function ServilletaPage() {
+export default function Servilleta5Page() {
   const [activeSlide, setActiveSlide] = useState(1);
   const [simMode, setSimMode] = useState<'gen5' | 'binario'>('gen5');
   const [gen5Socios, setGen5Socios] = useState(2);

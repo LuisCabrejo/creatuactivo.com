@@ -162,7 +162,15 @@ export default function ServilletaPage() {
         .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
         .deck-h1 { font-size: 4rem; }
         .deck-h2 { font-size: 3rem; }
-        .deck-p { color: #ccc; line-height: 1.6; max-width: 600px; margin: 0; }
+        .deck-p { color: #ccc; line-height: 1.6; max-width: 600px; margin: 0; text-shadow: 0px 1px 3px black; }
+
+        /* PLACA DE CONTRASTE (Slide 1 readability) */
+        .contrast-plate {
+          background: rgba(0, 0, 0, 0.7);
+          padding: 20px 25px;
+          border-radius: 6px;
+          backdrop-filter: blur(4px);
+        }
 
         /* LISTA DE COMPONENTES (Slide 1) */
         .components-list {
@@ -450,6 +458,12 @@ export default function ServilletaPage() {
           .top-hud { justify-content: center; }
           .mobile-nav { display: block; }
 
+          /* Slide 1: Contraste mobile */
+          .deck-p { font-weight: 500; }
+          .components-list { font-weight: 500; }
+          .deck-h1 { text-shadow: 0px 2px 6px rgba(0,0,0,0.8); }
+          .technical-label { text-shadow: 0px 1px 3px black; }
+
           .slide { padding-bottom: 70px; overflow-y: auto; }
 
           .grid-layout-slide-2 {
@@ -476,11 +490,13 @@ export default function ServilletaPage() {
 
           .simulator-layout {
             flex-direction: column;
-            overflow-y: auto;
+            height: auto;
+            overflow-y: visible;
             padding: 70px 15px 80px;
             gap: 20px;
+            align-items: stretch;
           }
-          .simulator-panel { width: 100%; }
+          .simulator-panel { width: 100%; flex-shrink: 0; }
           .cta-panel { width: 100%; height: 350px; flex-shrink: 0; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
@@ -555,21 +571,23 @@ export default function ServilletaPage() {
               <h1 className="deck-h1">
                 INFRAESTRUCTURA<br />DE MULTIPLICACI&Oacute;N
               </h1>
-              <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                El &quot;Plan por Defecto&quot; tiene una falla estructural: depende de tu presencia f&iacute;sica.
-                <br /><br />
-                Hemos construido una m&aacute;quina h&iacute;brida de 3 componentes:
-              </p>
+              <div className="contrast-plate">
+                <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
+                  El &quot;Plan por Defecto&quot; tiene una falla estructural: depende de tu presencia f&iacute;sica.
+                  <br /><br />
+                  Hemos construido una m&aacute;quina h&iacute;brida de 3 componentes:
+                </p>
 
-              <div className="components-list">
-                <div className="comp-row">
-                  <span style={{ color: 'var(--cyan)' }}>1. GANO EXCEL:</span> Infraestructura y Capital ($100M USD).
-                </div>
-                <div className="comp-row">
-                  <span style={{ color: 'var(--cyan)' }}>2. QUESWA:</span> Nuestra Plataforma Digital Propietaria.
-                </div>
-                <div className="comp-row">
-                  <span style={{ color: 'var(--orange)' }}>3. T&Uacute;:</span> Direcci&oacute;n y Expansi&oacute;n.
+                <div className="components-list">
+                  <div className="comp-row">
+                    <span style={{ color: 'var(--cyan)' }}>1. GANO EXCEL:</span> Infraestructura y Capital ($100M USD).
+                  </div>
+                  <div className="comp-row">
+                    <span style={{ color: 'var(--cyan)' }}>2. QUESWA:</span> Nuestra Plataforma Digital Propietaria.
+                  </div>
+                  <div className="comp-row">
+                    <span style={{ color: 'var(--orange)' }}>3. T&Uacute;:</span> Direcci&oacute;n y Expansi&oacute;n.
+                  </div>
                 </div>
               </div>
 
@@ -801,7 +819,7 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <h2>INICIAR PROTOCOLO</h2>
+                  <h2>INICIAR ACTUALIZACI&Oacute;N</h2>
                   <p>Dos caminos para activar tu c&oacute;digo:</p>
 
                   <div className="cta-buttons">
@@ -813,7 +831,7 @@ export default function ServilletaPage() {
                       className="btn-industrial"
                     >
                       <span className="material-symbols-sharp">rocket_launch</span>
-                      INICIAR INMEDIATAMENTE
+                      INICIAR EJECUCI&Oacute;N
                     </a>
 
                     {/* CTA Secundario: Auditar → /reto-5-dias */}

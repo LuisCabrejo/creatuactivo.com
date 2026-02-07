@@ -199,7 +199,10 @@ export default function ServilletaPage() {
           background: transparent; border: 1px solid #444; color: #666;
           cursor: pointer; padding: 6px 8px; border-radius: 4px;
           display: flex; align-items: center; justify-content: center;
-          transition: all 0.3s; margin-left: 10px;
+          transition: all 0.3s; margin-left: 10px; flex-shrink: 0;
+        }
+        .btn-fullscreen-mobile {
+          display: none;
         }
         .btn-fullscreen:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,229,255,0.1); }
         .btn-fullscreen .material-symbols-sharp { font-size: 18px; }
@@ -358,14 +361,18 @@ export default function ServilletaPage() {
           position: relative; z-index: 10;
           display: flex; width: 100%; height: 100%;
           padding: 0;
-          align-items: flex-end;
+          align-items: center;
+          justify-content: center;
         }
 
         .slide-3-bottom {
           width: 100%;
           display: flex; gap: 30px; align-items: flex-end;
-          padding: 0 40px 40px;
-          background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
+          padding: 40px 60px;
+          margin-left: 10%;
+          max-width: 900px;
+          background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
+          border-radius: 8px;
         }
 
         .bio-text-panel {
@@ -548,6 +555,7 @@ export default function ServilletaPage() {
           .side-focus { padding: 30px 25px; max-width: 100%; }
 
           .nav-controls { display: none; }
+          .btn-fullscreen-mobile { display: flex; position: absolute; right: 15px; }
           .top-hud { justify-content: center; }
           .mobile-nav { display: block; }
           .slide-counter { display: none; }
@@ -577,6 +585,9 @@ export default function ServilletaPage() {
           .slide-3-bottom {
             flex-direction: column;
             padding: 0 20px 80px;
+            margin-left: 0;
+            max-width: 100%;
+            border-radius: 0;
             gap: 20px;
           }
           .bio-text-panel { max-width: 100%; }
@@ -714,27 +725,6 @@ export default function ServilletaPage() {
             min-height: 25vh;
           }
 
-          /* -- SLIDE 3 -- */
-          .slide-3-layout {
-            align-items: center;
-            justify-content: center;
-          }
-          .slide-3-bottom {
-            padding: 40px 60px;
-            margin-left: 10%;
-            max-width: 900px;
-            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
-            border-radius: 8px;
-          }
-          .bio-text-panel { max-width: 500px; }
-          .bio-text-panel .deck-h2 { font-size: 3.5rem; }
-          .bio-text-panel .deck-p { font-size: 1.1rem; }
-          .bio-metrics-container { max-width: 450px; }
-          .bio-metrics-panel { padding: 30px 35px; }
-          .metric-value { font-size: 1.4rem; }
-          .metric-label { font-size: 0.8rem; }
-          .progress-bar { height: 10px; }
-
           /* -- SLIDE 4 -- */
           .simulator-layout {
             max-width: 1400px;
@@ -767,8 +757,7 @@ export default function ServilletaPage() {
 
         {/* TOP HUD - Desktop */}
         <nav className="top-hud">
-          <button className="btn-fullscreen" onClick={toggleFullscreen} title="Pantalla completa (F)"
-            style={{ position: 'absolute', right: 15 }}>
+          <button className="btn-fullscreen btn-fullscreen-mobile" onClick={toggleFullscreen} title="Pantalla completa (F)">
             <span className="material-symbols-sharp">
               {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
             </span>
@@ -792,6 +781,11 @@ export default function ServilletaPage() {
                 {s.label}
               </button>
             ))}
+            <button className="btn-fullscreen" onClick={toggleFullscreen} title="Pantalla completa (F)">
+              <span className="material-symbols-sharp">
+                {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
+              </span>
+            </button>
           </div>
         </nav>
 
@@ -963,7 +957,7 @@ export default function ServilletaPage() {
                     </div>
                     <div className="metric-row">
                       <div className="metric-header-row">
-                        <span className="metric-label">SISTEMA INMUNE</span>
+                        <span className="metric-label">RESISTENCIA</span>
                         <span className="metric-value">89%</span>
                       </div>
                       <div className="progress-bar">

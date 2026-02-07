@@ -13,6 +13,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   ChevronDown,
@@ -45,9 +46,7 @@ export default function SociosPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#0F1115]/90 backdrop-blur-md border-b border-[rgba(197, 160, 89, 0.15)]">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#C5A059] rounded-lg flex items-center justify-center">
-              <span className="text-[#0F1115] font-bold text-xl font-serif">C</span>
-            </div>
+            <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
             <span className="text-lg font-semibold">CreaTuActivo</span>
           </div>
           <span className="text-sm text-[#A3A3A3]">Presentación para Socios</span>

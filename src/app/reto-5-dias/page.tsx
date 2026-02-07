@@ -13,6 +13,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Reto5DiasPage() {
   const router = useRouter();
@@ -70,9 +71,7 @@ export default function Reto5DiasPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-[#C5A059] flex items-center justify-center">
-                <span className="text-[#0F1115] font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>C</span>
-              </div>
+              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
               <span className="text-lg font-medium">
                 CreaTu<span className="text-[#C5A059]">Activo</span>
               </span>

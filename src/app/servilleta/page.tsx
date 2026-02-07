@@ -597,45 +597,105 @@ export default function ServilletaPage() {
         }
 
         /* === FULLSCREEN OVERRIDES === */
+
+        /* -- SLIDE 2: Constrain grid, center, taller cards -- */
         :fullscreen .grid-layout-slide-2 {
-          padding: 80px 80px 40px;
+          padding: 80px 60px 40px;
           gap: 25px;
           grid-template-rows: auto 1fr 1fr;
+          max-width: 1200px;
+          margin: 0 auto;
         }
         :fullscreen .card-industrial {
           height: auto;
-          min-height: 30vh;
+          min-height: 35vh;
+        }
+        :fullscreen .card-bg {
+          background-size: cover;
+          background-position: center;
         }
         :fullscreen .full-width {
           height: auto;
-          min-height: 22vh;
+          min-height: 25vh;
         }
+
+        /* -- SLIDE 3: Center content vertically, scale up -- */
+        :fullscreen .slide-3-layout {
+          align-items: center;
+          justify-content: center;
+        }
+        :fullscreen .slide-3-bottom {
+          padding: 40px 60px;
+          margin-left: 10%;
+          max-width: 900px;
+          background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
+          border-radius: 8px;
+        }
+        :fullscreen .bio-text-panel {
+          max-width: 500px;
+        }
+        :fullscreen .bio-text-panel .deck-h2 {
+          font-size: 3.5rem;
+        }
+        :fullscreen .bio-text-panel .deck-p {
+          font-size: 1.1rem;
+        }
+        :fullscreen .bio-metrics-container {
+          max-width: 450px;
+        }
+        :fullscreen .bio-metrics-panel {
+          padding: 30px 35px;
+        }
+        :fullscreen .metric-value {
+          font-size: 1.4rem;
+        }
+        :fullscreen .metric-label {
+          font-size: 0.8rem;
+        }
+        :fullscreen .progress-bar {
+          height: 10px;
+        }
+
+        /* -- SLIDE 4: Simulator + massive CTA door -- */
         :fullscreen .simulator-layout {
-          padding: 80px 80px 40px;
+          padding: 80px 60px 40px;
           max-width: 1400px;
           margin: 0 auto;
+          gap: 40px;
         }
         :fullscreen .simulator-panel {
+          flex: 1;
           padding: 40px;
         }
         :fullscreen .cta-panel {
+          flex: 2;
           height: auto;
-          min-height: 500px;
+          min-height: 600px;
           align-self: stretch;
+        }
+        :fullscreen .cta-overlay {
+          height: 100%;
+          padding: 60px;
+          gap: 15px;
+          justify-content: center;
+        }
+        :fullscreen .cta-overlay h2 {
+          font-size: 3rem;
+          letter-spacing: 4px;
+        }
+        :fullscreen .cta-overlay p {
+          font-size: 1.1rem;
         }
         :fullscreen .digital-display {
           font-size: 5rem;
         }
-        :fullscreen .cta-overlay h2 {
-          font-size: 2.5rem;
-        }
         :fullscreen .btn-industrial {
-          font-size: 1.5rem;
-          padding: 22px 44px;
+          font-size: 1.6rem;
+          padding: 24px 50px;
         }
         :fullscreen .btn-industrial.secondary {
-          font-size: 1rem;
-          padding: 14px 28px;
+          font-size: 1.1rem;
+          padding: 16px 32px;
         }
 
         /* SCROLLBAR */

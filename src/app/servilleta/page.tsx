@@ -698,6 +698,63 @@ export default function ServilletaPage() {
           padding: 16px 32px;
         }
 
+        /* === LARGE SCREEN OVERRIDES (same as fullscreen, for manual resize) === */
+        @media (min-width: 1200px) {
+          /* -- SLIDE 2 -- */
+          .grid-layout-slide-2 {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+          .card-industrial {
+            height: auto;
+            min-height: 35vh;
+          }
+          .full-width {
+            height: auto;
+            min-height: 25vh;
+          }
+
+          /* -- SLIDE 3 -- */
+          .slide-3-layout {
+            align-items: center;
+            justify-content: center;
+          }
+          .slide-3-bottom {
+            padding: 40px 60px;
+            margin-left: 10%;
+            max-width: 900px;
+            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
+            border-radius: 8px;
+          }
+          .bio-text-panel { max-width: 500px; }
+          .bio-text-panel .deck-h2 { font-size: 3.5rem; }
+          .bio-text-panel .deck-p { font-size: 1.1rem; }
+          .bio-metrics-container { max-width: 450px; }
+          .bio-metrics-panel { padding: 30px 35px; }
+          .metric-value { font-size: 1.4rem; }
+          .metric-label { font-size: 0.8rem; }
+          .progress-bar { height: 10px; }
+
+          /* -- SLIDE 4 -- */
+          .simulator-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+          }
+          .cta-panel {
+            flex: 2;
+            height: auto;
+            min-height: 500px;
+          }
+          .cta-overlay {
+            height: 100%;
+            padding: 50px;
+          }
+          .cta-overlay h2 {
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+          }
+        }
+
         /* SCROLLBAR */
         .industrial-theme {
           scrollbar-width: thin;

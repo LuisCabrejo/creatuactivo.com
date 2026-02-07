@@ -17,6 +17,7 @@ export default function ServilletaPage() {
   const [binarioParejas, setBinarioParejas] = useState(50);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const touchStartX = React.useRef(0);
+  const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Cargar fuentes dinámicamente
   useEffect(() => {
@@ -69,15 +70,25 @@ export default function ServilletaPage() {
     }
   }, []);
 
-  // Click-to-advance (ignora elementos interactivos)
+  // Click-to-advance (single clic) / Fullscreen (double clic)
   const handleSlideClick = useCallback((e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    // No avanzar si se hace clic en elementos interactivos
     if (target.closest('button, a, input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons')) {
       return;
     }
-    setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
-  }, []);
+    // Si hay timer pendiente → es double-click → fullscreen
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+      toggleFullscreen();
+      return;
+    }
+    // Single click → esperar 300ms para confirmar que no es double
+    clickTimer.current = setTimeout(() => {
+      clickTimer.current = null;
+      setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
+    }, 300);
+  }, [toggleFullscreen]);
 
   // Touch swipe para mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -583,6 +594,48 @@ export default function ServilletaPage() {
           .cta-panel { width: 100%; height: 350px; flex-shrink: 0; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
+        }
+
+        /* === FULLSCREEN OVERRIDES === */
+        :fullscreen .grid-layout-slide-2 {
+          padding: 80px 80px 40px;
+          gap: 25px;
+          grid-template-rows: auto 1fr 1fr;
+        }
+        :fullscreen .card-industrial {
+          height: auto;
+          min-height: 30vh;
+        }
+        :fullscreen .full-width {
+          height: auto;
+          min-height: 22vh;
+        }
+        :fullscreen .simulator-layout {
+          padding: 80px 80px 40px;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+        :fullscreen .simulator-panel {
+          padding: 40px;
+        }
+        :fullscreen .cta-panel {
+          height: auto;
+          min-height: 500px;
+          align-self: stretch;
+        }
+        :fullscreen .digital-display {
+          font-size: 5rem;
+        }
+        :fullscreen .cta-overlay h2 {
+          font-size: 2.5rem;
+        }
+        :fullscreen .btn-industrial {
+          font-size: 1.5rem;
+          padding: 22px 44px;
+        }
+        :fullscreen .btn-industrial.secondary {
+          font-size: 1rem;
+          padding: 14px 28px;
         }
 
         /* SCROLLBAR */

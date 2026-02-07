@@ -9,11 +9,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 export default function ServilletaPage() {
+  const TOTAL_SLIDES = 4;
   const [activeSlide, setActiveSlide] = useState(1);
   const [simMode, setSimMode] = useState<'gen5' | 'binario'>('gen5');
   const [gen5Socios, setGen5Socios] = useState(2);
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const touchStartX = React.useRef(0);
 
   // Cargar fuentes dinámicamente
   useEffect(() => {
@@ -31,6 +34,65 @@ export default function ServilletaPage() {
       document.head.removeChild(fontLink);
       document.head.removeChild(iconLink);
     };
+  }, []);
+
+  // Navegación por teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setActiveSlide((prev) => Math.max(prev - 1, 1));
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Detectar cambios de fullscreen (ESC del navegador)
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  // Fullscreen toggle (Mac + Windows)
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }, []);
+
+  // Click-to-advance (ignora elementos interactivos)
+  const handleSlideClick = useCallback((e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    // No avanzar si se hace clic en elementos interactivos
+    if (target.closest('button, a, input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons')) {
+      return;
+    }
+    setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
+  }, []);
+
+  // Touch swipe para mobile
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) {
+      if (diff > 0) {
+        setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+      } else {
+        setActiveSlide((prev) => Math.max(prev - 1, 1));
+      }
+    }
   }, []);
 
   // Lógica del Simulador
@@ -112,7 +174,7 @@ export default function ServilletaPage() {
           font-family: var(--font-head); font-weight: 700; letter-spacing: 2px;
         }
 
-        .nav-controls { display: flex; gap: 5px; }
+        .nav-controls { display: flex; gap: 5px; align-items: center; }
         .nav-btn {
           background: transparent; border: 1px solid transparent; color: #555;
           font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
@@ -120,6 +182,26 @@ export default function ServilletaPage() {
         }
         .nav-btn:hover { color: var(--text-main); background: #222; }
         .nav-btn.active { color: var(--cyan); background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.2); }
+
+        /* Fullscreen button */
+        .btn-fullscreen {
+          background: transparent; border: 1px solid #444; color: #666;
+          cursor: pointer; padding: 6px 8px; border-radius: 4px;
+          display: flex; align-items: center; justify-content: center;
+          transition: all 0.3s; margin-left: 10px;
+        }
+        .btn-fullscreen:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,229,255,0.1); }
+        .btn-fullscreen .material-symbols-sharp { font-size: 18px; }
+
+        /* Slide counter indicator */
+        .slide-counter {
+          position: fixed; bottom: 15px; right: 20px;
+          font-family: var(--font-mono); font-size: 0.65rem; color: #444;
+          z-index: 101; letter-spacing: 1px;
+        }
+
+        /* Click cursor on slides */
+        .slide { cursor: pointer; }
 
         /* CONTENEDOR DE DIAPOSITIVAS */
         .deck-container {
@@ -457,6 +539,7 @@ export default function ServilletaPage() {
           .nav-controls { display: none; }
           .top-hud { justify-content: center; }
           .mobile-nav { display: block; }
+          .slide-counter { display: none; }
 
           /* Slide 1: Contraste mobile */
           .deck-p { font-weight: 500; }
@@ -514,6 +597,12 @@ export default function ServilletaPage() {
 
         {/* TOP HUD - Desktop */}
         <nav className="top-hud">
+          <button className="btn-fullscreen" onClick={toggleFullscreen} title="Pantalla completa (F)"
+            style={{ position: 'absolute', right: 15 }}>
+            <span className="material-symbols-sharp">
+              {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
+            </span>
+          </button>
           <div className="brand">
             <span className="material-symbols-sharp">precision_manufacturing</span>
             <span>QUESWA.SYS // V2.1</span>
@@ -557,8 +646,16 @@ export default function ServilletaPage() {
           </div>
         </div>
 
+        {/* Slide counter (desktop) */}
+        <div className="slide-counter">{activeSlide} / {TOTAL_SLIDES}</div>
+
         {/* MAIN DECK */}
-        <main className="deck-container">
+        <main
+          className="deck-container"
+          onClick={handleSlideClick}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
 
           {/* ===== SLIDE 1: INFRAESTRUCTURA ===== */}
           <section id="slide-1" className={`slide ${activeSlide === 1 ? 'active' : ''}`}>

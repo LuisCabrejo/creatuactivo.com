@@ -47,7 +47,7 @@ export default function SociosPage() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
-            <span className="text-lg font-semibold">CreaTuActivo</span>
+            <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-oswald), sans-serif' }}>CreaTuActivo</span>
           </div>
           <span className="text-sm text-[#A3A3A3]">Presentación para Socios</span>
         </div>

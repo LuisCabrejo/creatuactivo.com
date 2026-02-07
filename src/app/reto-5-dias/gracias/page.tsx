@@ -30,9 +30,7 @@ export default function GraciasPage() {
           <div className="max-w-4xl mx-auto">
             <Link href="/" className="inline-flex items-center gap-2">
               <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
-              <span className="text-lg font-medium">
-                CreaTu<span className="text-[#C5A059]">Activo</span>
-              </span>
+              <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-oswald), sans-serif' }}>CreaTuActivo</span>
             </Link>
           </div>
         </header>

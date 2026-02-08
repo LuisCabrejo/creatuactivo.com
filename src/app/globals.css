@@ -44,12 +44,23 @@
    ======================================== */
 body {
   background-color: var(--bg-obsidian);
+  color: var(--text-main);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('/images/servilleta/fondo-global-hormigon.jpg');
   background-repeat: repeat;
   background-size: 500px;
-  background-attachment: fixed;
-  background-blend-mode: overlay;
-  color: var(--text-main);
+  opacity: 0.07;
+  filter: contrast(120%) brightness(150%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Títulos con Playfair Display */

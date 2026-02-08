@@ -91,17 +91,18 @@ export default function BlogPage() {
                     href={`/blog/${article.slug}`}
                     className="group block"
                     style={{
+                      position: 'relative',
                       background: 'rgba(15, 17, 21, 0.9)',
                       border: '1px solid rgba(197, 160, 89, 0.15)',
-                      overflow: 'hidden',
                       transition: 'border-color 0.3s ease',
                       textDecoration: 'none',
                       cursor: 'pointer',
                       WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation',
                     }}
                   >
                     {/* Thumbnail */}
-                    <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: '200px', overflow: 'hidden', isolation: 'isolate' }}>
                       <Image
                         src={article.image}
                         alt=""

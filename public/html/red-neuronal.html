@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Efecto Neuro Red - El Regreso</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      display: block;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+let particles = [];
+const canvasW = 540;
+const canvasH = 960;
+
+function setup() {
+  createCanvas(canvasW, canvasH);
+
+  for (let i = 0; i < 70; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function draw() {
+  background(0);
+
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+    particles[i].connect(particles.slice(i));
+  }
+}
+
+class Particle {
+  constructor() {
+    this.pos = createVector(random(width), random(height));
+    this.vel = p5.Vector.random2D().mult(0.6);
+    this.size = random(2, 4);
+  }
+
+  update() {
+    this.pos.add(this.vel);
+
+    if (this.pos.x < 0 || this.pos.x > width) this.vel.x *= -1;
+    if (this.pos.y < 0 || this.pos.y > height) this.vel.y *= -1;
+  }
+
+  draw() {
+    noStroke();
+    fill(198, 168, 124, 200);
+    circle(this.pos.x, this.pos.y, this.size);
+  }
+
+  connect(others) {
+    for (let p of others) {
+      let d = dist(this.pos.x, this.pos.y, p.pos.x, p.pos.y);
+      if (d < 85) {
+        let alpha = map(d, 0, 85, 150, 0);
+        stroke(198, 168, 124, alpha);
+        strokeWeight(1);
+        line(this.pos.x, this.pos.y, p.pos.x, p.pos.y);
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>

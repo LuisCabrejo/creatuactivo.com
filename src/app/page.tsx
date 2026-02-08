@@ -1,19 +1,12 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v8.0 - ELEGANCIA CINÉTICA
- * "Ingeniería de Lujo" - Industrial + Quiet Luxury
- *
- * Typography: Serif (Promesa) + Industrial (Máquina) + Mono (Evidencia)
- * Palette: 60% Obsidian, 30% Steel, 5% Cyan, 5% Gold
+ * Homepage v9.0 - INDUSTRIAL LUXURY
+ * Arquitectura visual de /servilleta aplicada a landing page scroll
+ * CSS inline (sin interferencia de globals.css ni Tailwind)
  */
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
-import { ELEGANCIA_CINETICA as EC } from '@/lib/branding';
-
-// ============================================================================
-// METADATA
-// ============================================================================
 
 export const metadata = {
   title: 'CreaTuActivo - ¿Sigues Operando Bajo el Plan por Defecto?',
@@ -21,17 +14,44 @@ export const metadata = {
 };
 
 // ============================================================================
-// MAIN COMPONENT
+// ESTILOS BASE — mismos valores que /servilleta
+// ============================================================================
+const C = {
+  bg: '#121212',
+  concrete: '#1e1e1e',
+  cyan: '#00e5ff',
+  orange: '#E5C279',   // gold en lugar de naranja industrial
+  textMain: '#e0e0e0',
+  textMuted: '#9e9e9e',
+  gold: '#E5C279',
+};
+
+// Div de imagen de fondo (mismo patrón .bg-image de /servilleta)
+function BgImage({ src, opacity = 0.4 }: { src: string; opacity?: number }) {
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 0, left: 0, width: '100%', height: '100%',
+      backgroundImage: `url('${src}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+      opacity,
+      zIndex: 0,
+      pointerEvents: 'none',
+    }} />
+  );
+}
+
+// ============================================================================
+// MAIN
 // ============================================================================
 
 export default function HomePage() {
   return (
     <>
       <StrategicNavigation />
-      <main
-        className="min-h-screen"
-        style={{ backgroundColor: EC.bg.obsidian, color: EC.text.main }}
-      >
+      <main style={{ background: C.bg, color: C.textMain, overflowX: 'hidden' }}>
         <HeroSection />
         <ProblemSection />
         <SolutionPreview />
@@ -43,103 +63,80 @@ export default function HomePage() {
 }
 
 // ============================================================================
-// HERO SECTION
+// HERO — fondo: hormigón (like /servilleta slide 2)
 // ============================================================================
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center px-6 pt-32 pb-16">
-      {/* Concrete texture - mismo patrón bg-image de /servilleta */}
+    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 60px' }}>
+      <BgImage src="/images/servilleta/fondo-global-hormigon.jpg" opacity={0.45} />
+
+      {/* dark gradient overlay for readability */}
       <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-        opacity: 0.35, pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to bottom, rgba(18,18,18,0.55) 0%, rgba(18,18,18,0.35) 50%, rgba(18,18,18,0.7) 100%)',
+        pointerEvents: 'none',
       }} />
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        {/* Badge - Industrial label */}
-        <div
-          className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
-          style={{
-            backgroundColor: EC.bg.gunmetal,
-            border: `1px solid ${EC.border.glass}`
-          }}
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: EC.accent.amber }}
-          />
-          <span className="text-sm font-industrial uppercase tracking-widest" style={{ color: EC.text.muted }}>
+
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+        {/* Label industrial */}
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '999px', padding: '6px 16px', marginBottom: '32px',
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
+          <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.textMuted, fontFamily: "'Roboto Mono', monospace" }}>
             Estrategia de Soberanía Financiera
           </span>
         </div>
 
-        {/* Main Headline - Serif "La Promesa" */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6 font-serif">
-          <span style={{ color: EC.text.main }}>¿Es Tu Plan Financiero un Puente hacia la</span>
-          <br />
-          <span style={{ color: EC.gold.champagne }}>Soberanía</span>
-          <span style={{ color: EC.text.main }}> o una Trampa de Dependencia?</span>
+        <h1 style={{
+          fontSize: 'clamp(1.8rem, 5vw, 3.2rem)',
+          lineHeight: 1.15,
+          marginBottom: '24px',
+          fontFamily: "'Playfair Display', Georgia, serif",
+          fontWeight: 600,
+          color: '#ffffff',
+        }}>
+          ¿Es Tu Plan Financiero un Puente hacia la{' '}
+          <span style={{ color: C.gold }}>Soberanía</span>{' '}
+          o una Trampa de Dependencia?
         </h1>
 
-        {/* Subheadline */}
-        <p
-          className="text-lg sm:text-xl mb-6 max-w-2xl mx-auto leading-relaxed"
-          style={{ color: EC.text.muted }}
-        >
+        <p style={{ fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '16px', color: C.textMuted, maxWidth: '600px', margin: '0 auto 16px' }}>
           Deja de ser el motor de tu economía.{' '}
-          <span className="font-medium" style={{ color: EC.text.main }}>
-            Construye el chasis que te permita detenerte sin que todo colapse.
-          </span>
+          <span style={{ color: C.textMain, fontWeight: 500 }}>Construye el chasis que te permita detenerte sin que todo colapse.</span>
         </p>
 
-        {/* Byline - Mono "La Evidencia" */}
-        <p className="text-sm mb-10 font-mono" style={{ color: EC.text.muted }}>
-          Diseñado por Luis Cabrejo · <span style={{ color: EC.gold.champagne }}>Arquitecto de Activos</span>
+        <p style={{ fontSize: '0.85rem', marginBottom: '40px', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
+          Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
         </p>
 
-        {/* CTA Principal - Haptic Amber */}
         <Link
           href="/calculadora"
-          className="btn-haptic text-lg px-10 py-5 rounded-xl font-industrial"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '10px',
+            background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
+            color: '#000', fontWeight: 700, fontSize: '1rem',
+            padding: '16px 40px', borderRadius: '8px',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+            textDecoration: 'none', textTransform: 'uppercase',
+          }}
         >
-          Iniciar Auditoría de Soberanía
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          Iniciar Auditoría de Soberanía →
         </Link>
 
-        {/* Trust indicators - Steel structure */}
-        <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm" style={{ color: EC.text.muted }}>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: EC.steel }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-            </svg>
-            <span>Presencia en 70+ Países</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: EC.steel }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-            <span>Infraestructura Corporativa Propia</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: EC.steel }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-            </svg>
-            <span>Operación 100% Digital</span>
-          </div>
+        {/* Trust row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '48px', fontSize: '0.8rem', color: C.textMuted }}>
+          <span>⬡ Presencia en 70+ Países</span>
+          <span>⬡ Infraestructura Corporativa Propia</span>
+          <span>⬡ Operación 100% Digital</span>
         </div>
 
-        {/* Secondary CTA */}
-        <p className="mt-8 text-sm" style={{ color: EC.text.muted }}>
+        <p style={{ marginTop: '24px', fontSize: '0.85rem', color: C.textMuted }}>
           ¿Ya hiciste la auditoría?{' '}
-          <Link
-            href="/reto-5-dias"
-            className="hover:underline transition-colors"
-            style={{ color: EC.gold.champagne }}
-          >
+          <Link href="/reto-5-dias" style={{ color: C.gold, textDecoration: 'none' }}>
             Ir al Reto de 5 Días →
           </Link>
         </p>
@@ -149,91 +146,66 @@ function HeroSection() {
 }
 
 // ============================================================================
-// PROBLEM SECTION (EL VILLANO)
+// PROBLEM SECTION — fondo: engranajes
 // ============================================================================
 
 function ProblemSection() {
+  const steps = [
+    { num: '01', title: 'Trabajar', desc: '40+ horas semanales' },
+    { num: '02', title: 'Pagar Cuentas', desc: 'El dinero entra y sale' },
+    { num: '03', title: 'Repetir', desc: 'Hasta... ¿cuándo?' },
+  ];
+
   return (
-    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <BgImage src="/images/servilleta/engranajes.jpg" opacity={0.35} />
       <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-        opacity: 0.25, pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'rgba(18,18,18,0.75)',
       }} />
-      <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Section header - Industrial label */}
-        <div className="text-center mb-12">
-          <span
-            className="text-sm font-industrial font-bold uppercase tracking-widest"
-            style={{ color: EC.accent.amber }}
-          >
+
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
             El Problema
           </span>
-          <h2
-            className="text-2xl sm:text-3xl mt-4 font-serif"
-            style={{ color: EC.text.primary }}
-          >
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
             La Trampa del Plan por Defecto
           </h2>
         </div>
 
-        {/* The trap visualization - Bento Cards */}
-        <div className="grid md:grid-cols-3 gap-4 mb-10">
-          {[
-            { num: '01', title: 'Trabajar', desc: '40+ horas semanales' },
-            { num: '02', title: 'Pagar Cuentas', desc: 'El dinero entra y sale' },
-            { num: '03', title: 'Repetir', desc: 'Hasta... ¿cuándo?' },
-          ].map((item) => (
-            <div
-              key={item.num}
-              className="p-6 rounded-xl text-center transition-all duration-300 hover:translate-y-[-4px] group"
-              style={{
-                backgroundColor: EC.bg.obsidian,
-                border: `1px solid ${EC.border.gold}`
-              }}
-            >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)' }}
-              >
-                <span
-                  className="text-lg font-mono font-bold"
-                  style={{ color: EC.accent.cyan }}
-                >
-                  {item.num}
-                </span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '40px' }}>
+          {steps.map((item) => (
+            <div key={item.num} style={{
+              padding: '24px', borderRadius: '12px', textAlign: 'center',
+              background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(0,229,255,0.15)',
+            }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: '50%', margin: '0 auto 16px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(0,229,255,0.1)',
+              }}>
+                <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 700 }}>{item.num}</span>
               </div>
-              <h3 className="font-semibold font-industrial text-lg mb-2" style={{ color: EC.text.primary }}>
-                {item.title}
-              </h3>
-              <p className="text-sm" style={{ color: EC.text.muted }}>
-                {item.desc}
-              </p>
+              <h3 style={{ color: '#fff', marginBottom: '8px', fontFamily: "'Rajdhani', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em' }}>{item.title}</h3>
+              <p style={{ color: C.textMuted, fontSize: '0.85rem' }}>{item.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* The insight - Editorial quote */}
-        <div
-          className="p-8 rounded-xl text-center"
-          style={{
-            backgroundColor: EC.bg.obsidian,
-            borderLeft: `3px solid ${EC.gold.champagne}`,
-            background: `linear-gradient(90deg, rgba(229,194,121,0.05) 0%, ${EC.bg.obsidian} 100%)`,
-          }}
-        >
-          <p className="text-lg leading-relaxed">
-            <span style={{ color: EC.text.muted }}>El problema no es que trabajes duro.</span>
+        <div style={{
+          padding: '32px', borderRadius: '12px', textAlign: 'center',
+          background: 'rgba(0,0,0,0.7)',
+          borderLeft: `3px solid ${C.gold}`,
+        }}>
+          <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
+            <span style={{ color: C.textMuted }}>El problema no es que trabajes duro.</span>
             <br />
-            <span style={{ color: EC.text.main }}>El problema es que </span>
-            <span className="font-semibold" style={{ color: EC.gold.champagne }}>
-              el activo eres TÚ
-            </span>
-            <span style={{ color: EC.text.main }}>.</span>
+            <span style={{ color: '#fff' }}>El problema es que </span>
+            <span style={{ color: C.gold, fontWeight: 600 }}>el activo eres TÚ</span>
+            <span style={{ color: '#fff' }}>.</span>
           </p>
-          <p className="text-sm mt-4 font-mono" style={{ color: EC.text.muted }}>
+          <p style={{ fontSize: '0.85rem', marginTop: '16px', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
             Si tú te detienes, el sistema colapsa.
           </p>
         </div>
@@ -243,62 +215,55 @@ function ProblemSection() {
 }
 
 // ============================================================================
-// SOLUTION PREVIEW
+// SOLUTION PREVIEW — fondo: turbina
 // ============================================================================
 
 function SolutionPreview() {
   return (
-    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.obsidian }}>
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <BgImage src="/images/servilleta/turbina.jpg" opacity={0.4} />
       <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-        opacity: 0.3, pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'rgba(18,18,18,0.70)',
       }} />
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <h2
-          className="text-2xl sm:text-3xl font-serif mb-6"
-          style={{ color: EC.text.primary }}
-        >
+
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
           ¿Cuántos días sobrevivirías sin trabajar?
         </h2>
 
-        <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: EC.text.muted }}>
+        <p style={{ fontSize: '1.05rem', color: C.textMuted, marginBottom: '40px' }}>
           La fórmula es simple:
         </p>
 
-        <div
-          className="p-6 rounded-xl mb-10 inline-block"
-          style={{
-            backgroundColor: EC.bg.gunmetal,
-            border: `1px solid ${EC.border.gold}`
-          }}
-        >
-          <p
-            className="font-mono text-lg"
-            style={{ color: EC.accent.cyan }}
-          >
+        <div style={{
+          display: 'inline-block', padding: '24px 40px', borderRadius: '12px',
+          background: 'rgba(0,0,0,0.7)', border: `1px solid ${C.gold}30`,
+          marginBottom: '40px',
+        }}>
+          <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1.1rem', color: C.cyan }}>
             Ahorros ÷ Gastos Mensuales = Días de Libertad
           </p>
         </div>
 
-        <p className="mb-10" style={{ color: EC.text.muted }}>
+        <p style={{ color: C.textMuted, marginBottom: '40px' }}>
           La mayoría descubre que tiene{' '}
-          <span className="font-mono font-medium" style={{ color: EC.accent.cyan }}>
-            menos de 30 días
-          </span>
+          <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 500 }}>menos de 30 días</span>
           . Algunos, cero.
         </p>
 
         <Link
           href="/calculadora"
-          className="btn-haptic-outline text-lg px-8 py-4 rounded-xl font-industrial"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            background: 'transparent', border: `1px solid ${C.gold}`,
+            color: C.gold, fontWeight: 600, fontSize: '1rem',
+            padding: '14px 32px', borderRadius: '8px',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+            textDecoration: 'none', textTransform: 'uppercase',
+          }}
         >
-          Calcular Mis Días de Libertad
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
+          Calcular Mis Días de Libertad →
         </Link>
       </div>
     </section>
@@ -306,49 +271,55 @@ function SolutionPreview() {
 }
 
 // ============================================================================
-// FINAL CTA SECTION
+// FINAL CTA — fondo: bóveda/riqueza
 // ============================================================================
 
 function FinalCTASection() {
   return (
-    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <BgImage src="/images/servilleta/riqueza-boveda.jpg" opacity={0.4} />
       <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-        opacity: 0.25, pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'rgba(18,18,18,0.70)',
       }} />
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <p
-          className="text-sm font-industrial font-bold uppercase tracking-widest mb-4"
-          style={{ color: EC.accent.amber }}
-        >
+
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
           El Siguiente Paso
         </p>
 
-        <h2
-          className="text-2xl sm:text-3xl font-serif mb-6"
-          style={{ color: EC.text.primary }}
-        >
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
           5 Días para Diseñar tu Salida del Sistema Tradicional
         </h2>
 
-        <p className="mb-10 max-w-xl mx-auto" style={{ color: EC.text.muted }}>
+        <p style={{ color: C.textMuted, maxWidth: '560px', margin: '0 auto 40px', lineHeight: 1.7 }}>
           Después del diagnóstico, únete al Reto de 5 Días. Descubre si este modelo es para ti. Sin compromiso.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
           <Link
             href="/calculadora"
-            className="btn-haptic text-lg px-8 py-4 rounded-xl font-industrial"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
+              color: '#000', fontWeight: 700, fontSize: '1rem',
+              padding: '14px 32px', borderRadius: '8px',
+              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+              textDecoration: 'none', textTransform: 'uppercase',
+            }}
           >
             Hacer el Diagnóstico Primero
           </Link>
-
           <Link
             href="/reto-5-dias"
-            className="btn-haptic-outline text-lg px-8 py-4 rounded-xl font-industrial"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: 'transparent', border: `1px solid ${C.gold}`,
+              color: C.gold, fontWeight: 600, fontSize: '1rem',
+              padding: '14px 32px', borderRadius: '8px',
+              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+              textDecoration: 'none', textTransform: 'uppercase',
+            }}
           >
             Ya lo hice, ir al Reto
           </Link>
@@ -359,35 +330,27 @@ function FinalCTASection() {
 }
 
 // ============================================================================
-// FOOTER MINIMALISTA
+// FOOTER
 // ============================================================================
 
 function Footer() {
   return (
-    <footer
-      className="px-6 py-10"
-      style={{ borderTop: `1px solid rgba(148, 163, 184, 0.15)` }}
-    >
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="text-center md:text-left">
-          <p className="font-medium font-industrial tracking-wide" style={{ color: EC.gold.champagne }}>
-            CreaTuActivo
-          </p>
-          <p className="text-xs font-mono" style={{ color: EC.text.muted }}>
-            Sistema de Arquitectura de Activos
-          </p>
+    <footer style={{
+      padding: '40px 24px',
+      borderTop: '1px solid rgba(148, 163, 184, 0.15)',
+      background: '#0a0a0a',
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
+        <div>
+          <p style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
+          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>Sistema de Arquitectura de Activos</p>
         </div>
-
-        <div className="flex gap-8 text-sm" style={{ color: EC.text.muted }}>
-          <Link href="/blog" className="hover:opacity-80 transition-opacity">
-            Blog
-          </Link>
-          <Link href="/privacidad" className="hover:opacity-80 transition-opacity">
-            Privacidad
-          </Link>
+        <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem', color: C.textMuted }}>
+          <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}>Blog</Link>
+          <Link href="/privacidad" style={{ color: C.textMuted, textDecoration: 'none' }}>Privacidad</Link>
+          <Link href="/tecnologia" style={{ color: C.textMuted, textDecoration: 'none' }}>Tecnología</Link>
         </div>
-
-        <p className="text-xs font-mono" style={{ color: EC.text.subtle }}>
+        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
           © 2026 CreaTuActivo.com
         </p>
       </div>

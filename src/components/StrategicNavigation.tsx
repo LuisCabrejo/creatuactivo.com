@@ -21,16 +21,16 @@ import {
 } from 'lucide-react'
 
 // ✅ ZERO FOUC: CSS crítico inline que renderiza perfectamente desde el primer frame
-// THE ARCHITECT'S SUITE - Quiet Luxury Colors
+// ELEGANCIA CINÉTICA - Obsidian + Amber Industrial
 const CRITICAL_NAVIGATION_CSS = `
-  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA - THE ARCHITECT'S SUITE */
+  /* ANTI-FOUC CRÍTICO - NAVEGACIÓN BASE INMEDIATA - ELEGANCIA CINÉTICA */
   .strategic-nav-critical {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(15, 17, 21, 0.95);
+    background: rgba(11, 12, 12, 0.95);
     backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    border-bottom: 1px solid rgba(229, 194, 121, 0.12);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
 
@@ -192,10 +192,10 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-dropdown-content {
     width: 20rem;
-    background: rgba(26, 29, 35, 0.98);
+    background: rgba(22, 24, 29, 0.98);
     backdrop-filter: blur(16px);
     border-radius: 0.75rem;
-    border: 1px solid rgba(197, 160, 89, 0.1);
+    border: 1px solid rgba(229, 194, 121, 0.12);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     padding: 0.5rem;
   }
@@ -211,7 +211,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-item:hover {
-    background-color: rgba(197, 160, 89, 0.08);
+    background-color: rgba(245, 158, 11, 0.07);
   }
 
   .strategic-dropdown-icon {
@@ -228,7 +228,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-dropdown-item:hover h4 {
-    color: #C5A059;
+    color: #E5C279;
   }
 
   .strategic-dropdown-text p {
@@ -238,18 +238,24 @@ const CRITICAL_NAVIGATION_CSS = `
     line-height: 1.4;
   }
 
-  /* BOTÓN FUNDADORES - QUIET LUXURY GOLD */
+  /* BOTÓN CTA - ELEGANCIA CINÉTICA AMBER */
   .strategic-cta-button {
     display: none;
     align-items: center;
     gap: 0.5rem;
-    background: #C5A059;
-    color: #0F1115;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    color: #0B0C0C;
+    font-family: var(--font-rajdhani), sans-serif;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.625rem 1.25rem;
     border-radius: 0.75rem;
+    border: 1px solid rgba(251, 191, 36, 0.4);
     text-decoration: none;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
   }
 
   @media (min-width: 768px) {
@@ -260,7 +266,8 @@ const CRITICAL_NAVIGATION_CSS = `
 
   .strategic-cta-button:hover {
     transform: translateY(-2px);
-    opacity: 0.9;
+    background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
   }
 
   /* MOBILE BUTTON - IMMEDIATE RENDER */
@@ -282,7 +289,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-toggle:hover {
-    color: #C5A059;
+    color: #F59E0B;
   }
 
   /* MOBILE OVERLAY */
@@ -302,7 +309,7 @@ const CRITICAL_NAVIGATION_CSS = `
     visibility: visible;
   }
 
-  /* MOBILE MENU - QUIET LUXURY */
+  /* MOBILE MENU - ELEGANCIA CINÉTICA */
   .strategic-mobile-menu {
     position: fixed;
     top: 0;
@@ -310,9 +317,9 @@ const CRITICAL_NAVIGATION_CSS = `
     bottom: 0;
     width: 100%;
     max-width: 28rem;
-    background: rgba(15, 17, 21, 0.98);
+    background: rgba(11, 12, 12, 0.98);
     backdrop-filter: blur(24px);
-    border-right: 1px solid rgba(197, 160, 89, 0.1);
+    border-right: 1px solid rgba(229, 194, 121, 0.12);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -328,7 +335,7 @@ const CRITICAL_NAVIGATION_CSS = `
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    border-bottom: 1px solid rgba(229, 194, 121, 0.12);
   }
 
   .strategic-mobile-close {
@@ -341,7 +348,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-close:hover {
-    color: #C5A059;
+    color: #F59E0B;
   }
 
   .strategic-mobile-content {
@@ -353,7 +360,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-section-title {
-    color: #C5A059;
+    color: #F59E0B;
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -375,7 +382,7 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-mobile-link:hover {
-    background-color: rgba(197, 160, 89, 0.08);
+    background-color: rgba(245, 158, 11, 0.07);
     color: #E5E5E5;
     transform: translateX(0.25rem);
   }
@@ -400,7 +407,7 @@ const CRITICAL_NAVIGATION_CSS = `
   .strategic-mobile-cta {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(197, 160, 89, 0.1);
+    border-top: 1px solid rgba(229, 194, 121, 0.12);
   }
 
   .strategic-mobile-cta-button {
@@ -409,18 +416,25 @@ const CRITICAL_NAVIGATION_CSS = `
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    background: #C5A059;
-    color: #0F1115;
-    font-weight: 600;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    color: #0B0C0C;
+    font-family: var(--font-rajdhani), sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     padding: 1rem;
     border-radius: 0.75rem;
+    border: 1px solid rgba(251, 191, 36, 0.4);
     text-decoration: none;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
   }
 
   .strategic-mobile-cta-button:hover {
     transform: translateY(-2px);
-    opacity: 0.9;
+    background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
   }
 
   /* HABILITACIÓN DE TRANSICIONES POST-HIDRATACIÓN */

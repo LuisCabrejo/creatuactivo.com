@@ -1,8 +1,9 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v9.0 - INDUSTRIAL LUXURY
- * Arquitectura visual de /servilleta aplicada a landing page scroll
- * CSS inline (sin interferencia de globals.css ni Tailwind)
+ * Homepage v10.0 - INDUSTRIAL LUXURY (Layer Management)
+ * Capa 0: Hormigón global en <main> (fijo, siempre visible)
+ * Capa 1: Turbina SOLO en hero con mask-image fade hacia abajo
+ * Secciones intermedias: transparentes → hormigón visible a través de glass cards
  */
 
 import Link from 'next/link';
@@ -13,45 +14,33 @@ export const metadata = {
   description: 'Descubre cuántos días de libertad real tienes antes de que se acabe el dinero. Calculadora gratuita de Días de Libertad.',
 };
 
-// ============================================================================
-// ESTILOS BASE — mismos valores que /servilleta
-// ============================================================================
 const C = {
-  bg: '#121212',
-  concrete: '#1e1e1e',
   cyan: '#00e5ff',
-  orange: '#E5C279',   // gold en lugar de naranja industrial
+  gold: '#E5C279',
   textMain: '#e0e0e0',
   textMuted: '#9e9e9e',
-  gold: '#E5C279',
 };
 
-// Div de imagen de fondo (mismo patrón .bg-image de /servilleta)
-function BgImage({ src, opacity = 0.4 }: { src: string; opacity?: number }) {
-  return (
-    <div style={{
-      position: 'absolute',
-      top: 0, left: 0, width: '100%', height: '100%',
-      backgroundImage: `url('${src}')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-      opacity,
-      zIndex: 0,
-      pointerEvents: 'none',
-    }} />
-  );
-}
-
 // ============================================================================
-// MAIN
+// MAIN — Capa 0: Hormigón como fondo permanente
 // ============================================================================
 
 export default function HomePage() {
   return (
     <>
       <StrategicNavigation />
-      <main style={{ background: C.bg, color: C.textMain, overflowX: 'hidden' }}>
+      <main style={{
+        position: 'relative',
+        color: C.textMain,
+        // Capa 0: dark tint (60%) + hormigón debajo (40% visible)
+        backgroundImage: `
+          linear-gradient(rgba(12,12,12,0.60), rgba(12,12,12,0.60)),
+          url('/images/servilleta/fondo-global-hormigon.jpg')
+        `,
+        backgroundSize: 'cover, 600px 600px',
+        backgroundRepeat: 'no-repeat, repeat',
+        backgroundAttachment: 'fixed, fixed',
+      }}>
         <HeroSection />
         <ProblemSection />
         <SolutionPreview />
@@ -63,19 +52,31 @@ export default function HomePage() {
 }
 
 // ============================================================================
-// HERO — fondo: hormigón (like /servilleta slide 2)
+// HERO — Capa 1: Turbina con mask-image fade hacia el hormigón
 // ============================================================================
 
 function HeroSection() {
   return (
-    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 60px' }}>
-      <BgImage src="/images/servilleta/fondo-global-hormigon.jpg" opacity={0.55} />
+    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 80px' }}>
+      {/* Turbina con fade suave hacia abajo → revela hormigón */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: 0, width: '100%', height: '100%',
+        backgroundImage: "url('/images/servilleta/turbina.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+        opacity: 0.55,
+        WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         {/* Label industrial */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)',
+          background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: '999px', padding: '6px 16px', marginBottom: '32px',
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
@@ -97,12 +98,12 @@ function HeroSection() {
           o una Trampa de Dependencia?
         </h1>
 
-        <p style={{ fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '16px', color: C.textMuted, maxWidth: '600px', margin: '0 auto 16px' }}>
+        <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.textMuted, maxWidth: '600px', margin: '0 auto 16px' }}>
           Deja de ser el motor de tu economía.{' '}
           <span style={{ color: C.textMain, fontWeight: 500 }}>Construye el chasis que te permita detenerte sin que todo colapse.</span>
         </p>
 
-        <p style={{ fontSize: '0.85rem', marginBottom: '40px', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
+        <p style={{ fontSize: '0.85rem', margin: '0 0 40px', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
           Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
         </p>
 
@@ -120,7 +121,6 @@ function HeroSection() {
           Iniciar Auditoría de Soberanía →
         </Link>
 
-        {/* Trust row */}
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '48px', fontSize: '0.8rem', color: C.textMuted }}>
           <span>⬡ Presencia en 70+ Países</span>
           <span>⬡ Infraestructura Corporativa Propia</span>
@@ -139,7 +139,7 @@ function HeroSection() {
 }
 
 // ============================================================================
-// PROBLEM SECTION — fondo: engranajes
+// PROBLEM — Sección transparente, hormigón visible, glass cards
 // ============================================================================
 
 function ProblemSection() {
@@ -151,12 +151,6 @@ function ProblemSection() {
 
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <BgImage src="/images/servilleta/engranajes.jpg" opacity={0.35} />
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'rgba(18,18,18,0.75)',
-      }} />
-
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
@@ -171,7 +165,8 @@ function ProblemSection() {
           {steps.map((item) => (
             <div key={item.num} style={{
               padding: '24px', borderRadius: '12px', textAlign: 'center',
-              background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(0,229,255,0.15)',
+              background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(0,229,255,0.15)',
+              backdropFilter: 'blur(4px)',
             }}>
               <div style={{
                 width: 48, height: 48, borderRadius: '50%', margin: '0 auto 16px',
@@ -188,8 +183,8 @@ function ProblemSection() {
 
         <div style={{
           padding: '32px', borderRadius: '12px', textAlign: 'center',
-          background: 'rgba(0,0,0,0.7)',
-          borderLeft: `3px solid ${C.gold}`,
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
+          backdropFilter: 'blur(4px)',
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
             <span style={{ color: C.textMuted }}>El problema no es que trabajes duro.</span>
@@ -208,31 +203,25 @@ function ProblemSection() {
 }
 
 // ============================================================================
-// SOLUTION PREVIEW — fondo: turbina
+// SOLUTION — Sección transparente, glass card central
 // ============================================================================
 
 function SolutionPreview() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <BgImage src="/images/servilleta/turbina.jpg" opacity={0.4} />
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'rgba(18,18,18,0.70)',
-      }} />
-
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
           ¿Cuántos días sobrevivirías sin trabajar?
         </h2>
 
-        <p style={{ fontSize: '1.05rem', color: C.textMuted, marginBottom: '40px' }}>
+        <p style={{ fontSize: '1.05rem', color: C.textMuted, marginBottom: '32px' }}>
           La fórmula es simple:
         </p>
 
         <div style={{
           display: 'inline-block', padding: '24px 40px', borderRadius: '12px',
-          background: 'rgba(0,0,0,0.7)', border: `1px solid ${C.gold}30`,
-          marginBottom: '40px',
+          background: 'rgba(0,0,0,0.65)', border: `1px solid ${C.gold}30`,
+          backdropFilter: 'blur(4px)', marginBottom: '32px',
         }}>
           <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1.1rem', color: C.cyan }}>
             Ahorros ÷ Gastos Mensuales = Días de Libertad
@@ -264,18 +253,12 @@ function SolutionPreview() {
 }
 
 // ============================================================================
-// FINAL CTA — fondo: bóveda/riqueza
+// CTA — Sección transparente, glass cards dobles
 // ============================================================================
 
 function FinalCTASection() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <BgImage src="/images/servilleta/riqueza-boveda.jpg" opacity={0.4} />
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'rgba(18,18,18,0.70)',
-      }} />
-
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
           El Siguiente Paso
@@ -330,15 +313,16 @@ function Footer() {
   return (
     <footer style={{
       padding: '40px 24px',
-      borderTop: '1px solid rgba(148, 163, 184, 0.15)',
-      background: '#0a0a0a',
+      borderTop: '1px solid rgba(148, 163, 184, 0.12)',
+      background: 'rgba(0,0,0,0.5)',
+      backdropFilter: 'blur(4px)',
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>
           <p style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
           <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>Sistema de Arquitectura de Activos</p>
         </div>
-        <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem', color: C.textMuted }}>
+        <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}>Blog</Link>
           <Link href="/privacidad" style={{ color: C.textMuted, textDecoration: 'none' }}>Privacidad</Link>
           <Link href="/tecnologia" style={{ color: C.textMuted, textDecoration: 'none' }}>Tecnología</Link>

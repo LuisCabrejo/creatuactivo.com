@@ -217,8 +217,11 @@ export default function CalculadoraPage() {
         {step === 'quiz' && (
           <div className="max-w-2xl mx-auto px-4 mb-8">
             <div
-              className="h-1 rounded-full overflow-hidden"
-              style={{ backgroundColor: COLORS.bg.card }}
+              className="h-1  overflow-hidden"
+              style={{
+                backgroundColor: COLORS.bg.card,
+                clipPath: 'polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)',
+              }}
             >
               <div
                 className="h-full transition-all duration-500"
@@ -242,10 +245,11 @@ export default function CalculadoraPage() {
           <section className="px-4 pb-16 animate-fade-in" key={currentQuestion}>
             <div className="max-w-2xl mx-auto">
               <div
-                className="p-8 rounded-2xl"
+                className="p-8 "
                 style={{
                   backgroundColor: COLORS.bg.card,
                   border: `1px solid ${COLORS.border.card}`,
+                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                 }}
               >
                 <h2
@@ -266,11 +270,12 @@ export default function CalculadoraPage() {
                     <button
                       key={String(option.value)}
                       onClick={() => handleAnswer(questions[currentQuestion].id, option.value)}
-                      className="w-full text-left p-4 rounded-xl transition-all duration-300 hover:translate-x-1"
+                      className="w-full text-left p-4  transition-all duration-300 hover:translate-x-1"
                       style={{
                         backgroundColor: COLORS.bg.main,
                         border: `1px solid ${answers[questions[currentQuestion].id] === option.value ? COLORS.gold.primary : COLORS.border.card}`,
                         color: COLORS.text.main,
+                        clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                       }}
                     >
                       {option.label}
@@ -287,8 +292,11 @@ export default function CalculadoraPage() {
           <section className="px-4 py-16 animate-fade-in">
             <div className="max-w-md mx-auto text-center">
               <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"
-                style={{ backgroundColor: 'rgba(229, 194, 121, 0.1)' }}
+                className="w-20 h-20  flex items-center justify-center mx-auto mb-8"
+                style={{
+                  backgroundColor: 'rgba(229, 194, 121, 0.1)',
+                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                }}
               >
                 <svg
                   className="w-10 h-10"
@@ -322,8 +330,8 @@ export default function CalculadoraPage() {
                 style={{
                   backgroundColor: COLORS.bg.card,
                   border: `1px solid ${COLORS.border.card}`,
-                  borderRadius: '16px',
                   padding: '24px',
+                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                 }}
               >
                 <input
@@ -331,11 +339,12 @@ export default function CalculadoraPage() {
                   placeholder="Tu nombre"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+                  className="w-full px-5 py-4  focus:outline-none transition-all duration-300"
                   style={{
                     backgroundColor: COLORS.bg.main,
                     border: `1px solid ${COLORS.border.card}`,
                     color: COLORS.text.main,
+                    clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                   }}
                 />
                 <input
@@ -344,20 +353,22 @@ export default function CalculadoraPage() {
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   required
-                  className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+                  className="w-full px-5 py-4  focus:outline-none transition-all duration-300"
                   style={{
                     backgroundColor: COLORS.bg.main,
                     border: `1px solid ${COLORS.border.card}`,
                     color: COLORS.text.main,
+                    clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                   }}
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60 uppercase tracking-wide"
+                  className="w-full px-8 py-4  font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60 uppercase tracking-wide"
                   style={{
                     backgroundColor: COLORS.gold.primary,
                     color: COLORS.bg.main,
+                    clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                   }}
                 >
                   {isSubmitting ? 'Procesando...' : 'Ver Mi Resultado'}
@@ -403,10 +414,11 @@ export default function CalculadoraPage() {
                   <>
                     {/* Número grande con color semafórico */}
                     <div
-                      className="text-center p-10 rounded-2xl mb-8"
+                      className="text-center p-10  mb-8"
                       style={{
                         backgroundColor: semaphore.bg,
                         border: `2px solid ${semaphore.color}`,
+                        clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
                       }}
                     >
                       <div className="text-6xl mb-2">{semaphore.emoji}</div>
@@ -432,10 +444,11 @@ export default function CalculadoraPage() {
 
                     {/* Mensaje */}
                     <div
-                      className="p-8 rounded-2xl mb-8 text-center"
+                      className="p-8  mb-8 text-center"
                       style={{
                         backgroundColor: COLORS.bg.card,
                         border: `1px solid ${COLORS.border.card}`,
+                        clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                       }}
                     >
                       <h2
@@ -455,10 +468,11 @@ export default function CalculadoraPage() {
                     {/* Datos de contexto */}
                     <div className="grid md:grid-cols-2 gap-4 mb-10">
                       <div
-                        className="p-6 rounded-xl text-center"
+                        className="p-6  text-center"
                         style={{
                           backgroundColor: COLORS.bg.card,
                           border: `1px solid ${COLORS.border.card}`,
+                          clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                         }}
                       >
                         <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
@@ -474,10 +488,11 @@ export default function CalculadoraPage() {
                         </p>
                       </div>
                       <div
-                        className="p-6 rounded-xl text-center"
+                        className="p-6  text-center"
                         style={{
                           backgroundColor: COLORS.bg.card,
                           border: `1px solid ${COLORS.border.card}`,
+                          clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                         }}
                       >
                         <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
@@ -503,11 +518,12 @@ export default function CalculadoraPage() {
 
                       <Link
                         href="/reto-5-dias"
-                        className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
+                        className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
                         style={{
                           backgroundColor: COLORS.gold.primary,
                           color: COLORS.bg.main,
                           boxShadow: '0 0 20px rgba(229, 194, 121, 0.2)',
+                          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                         }}
                       >
                         Ver la Solución (Reto 5 Días)

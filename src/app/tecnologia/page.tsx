@@ -35,7 +35,7 @@ export default function TecnologiaPage() {
         <div className="relative z-10">
           {/* Hero Section */}
           <IndustrialHeader
-            title="Conoce a Queswa"
+            title="CONOCE A QUESWA"
             subtitle="La Ventaja Injusta"
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.jpg"

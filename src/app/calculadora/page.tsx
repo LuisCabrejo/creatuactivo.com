@@ -208,7 +208,13 @@ export default function CalculadoraPage() {
       <div
         className="min-h-screen pt-8"
         style={{
-          backgroundColor: COLORS.bg.main,
+          backgroundImage: `
+            linear-gradient(rgba(12,12,12,0.70), rgba(12,12,12,0.70)),
+            url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')
+          `,
+          backgroundSize: 'cover, 600px 600px',
+          backgroundRepeat: 'no-repeat, repeat',
+          backgroundAttachment: 'scroll, scroll',
           color: COLORS.text.main,
           fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
         }}

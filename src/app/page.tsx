@@ -72,19 +72,12 @@ function HeroSection() {
         pointerEvents: 'none',
       }} />
 
-      {/* contrast-plate — mismo patrón que /servilleta */}
-      <div style={{
-        position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center',
-        background: 'rgba(0,0,0,0.65)',
-        backdropFilter: 'blur(6px)',
-        borderRadius: '16px',
-        padding: '48px 40px',
-      }}>
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         {/* Label industrial */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '999px', padding: '6px 16px', marginBottom: '32px',
+          background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.1)',
+          padding: '6px 16px', marginBottom: '32px',
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
           <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.textMuted, fontFamily: "'Roboto Mono', monospace" }}>
@@ -92,6 +85,7 @@ function HeroSection() {
           </span>
         </div>
 
+        {/* h1 — legible sin panel, texto grande */}
         <h1 style={{
           fontSize: 'clamp(1.8rem, 5vw, 3.2rem)',
           lineHeight: 1.15,
@@ -99,42 +93,59 @@ function HeroSection() {
           fontFamily: "'Playfair Display', Georgia, serif",
           fontWeight: 600,
           color: '#ffffff',
+          textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
           ¿Es Tu Plan Financiero un Puente hacia la{' '}
           <span style={{ color: C.gold }}>Soberanía</span>{' '}
           o una Trampa de Dependencia?
         </h1>
 
-        <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.textMuted, maxWidth: '600px', margin: '0 auto 16px' }}>
+        {/* Textos pequeños — text-shadow profundo para legibilidad */}
+        <p style={{
+          fontSize: '1.1rem', lineHeight: 1.7, color: C.textMuted,
+          maxWidth: '600px', margin: '0 auto 16px',
+          textShadow: '0 1px 10px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9)',
+        }}>
           Deja de ser el motor de tu economía.{' '}
           <span style={{ color: C.textMain, fontWeight: 500 }}>Construye el chasis que te permita detenerte sin que todo colapse.</span>
         </p>
 
-        <p style={{ fontSize: '0.85rem', margin: '0 0 40px', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
+        <p style={{
+          fontSize: '0.85rem', margin: '0 0 40px',
+          fontFamily: "'Roboto Mono', monospace", color: C.textMuted,
+          textShadow: '0 1px 8px rgba(0,0,0,1)',
+        }}>
           Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
         </p>
 
+        {/* Botón primario — Geometría Industrial (clip-path) */}
         <Link
           href="/calculadora"
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
             background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
             color: '#000', fontWeight: 700, fontSize: '1rem',
-            padding: '16px 40px', borderRadius: '8px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+            padding: '16px 40px',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
             textDecoration: 'none', textTransform: 'uppercase',
+            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
+            transition: 'all 0.2s ease',
           }}
         >
           Iniciar Auditoría de Soberanía →
         </Link>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px', fontSize: '0.8rem', color: C.textMuted }}>
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px',
+          fontSize: '0.8rem', color: C.textMuted,
+          textShadow: '0 1px 8px rgba(0,0,0,1)',
+        }}>
           <span>⬡ Presencia en 70+ Países</span>
           <span>⬡ Infraestructura Corporativa Propia</span>
           <span>⬡ Operación 100% Digital</span>
         </div>
 
-        <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.textMuted }}>
+        <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.textMuted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
           ¿Ya hiciste la auditoría?{' '}
           <Link href="/reto-5-dias" style={{ color: C.gold, textDecoration: 'none' }}>
             Ir al Reto de 5 Días →
@@ -247,9 +258,10 @@ function SolutionPreview() {
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: 'transparent', border: `1px solid ${C.gold}`,
             color: C.gold, fontWeight: 600, fontSize: '1rem',
-            padding: '14px 32px', borderRadius: '8px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+            padding: '14px 32px',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
             textDecoration: 'none', textTransform: 'uppercase',
+            clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
           }}
         >
           Calcular Mis Días de Libertad →
@@ -286,9 +298,10 @@ function FinalCTASection() {
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
               color: '#000', fontWeight: 700, fontSize: '1rem',
-              padding: '14px 32px', borderRadius: '8px',
-              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+              padding: '14px 32px',
+              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
               textDecoration: 'none', textTransform: 'uppercase',
+              clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
             }}
           >
             Hacer el Diagnóstico Primero
@@ -299,9 +312,10 @@ function FinalCTASection() {
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: 'transparent', border: `1px solid ${C.gold}`,
               color: C.gold, fontWeight: 600, fontSize: '1rem',
-              padding: '14px 32px', borderRadius: '8px',
-              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+              padding: '14px 32px',
+              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
               textDecoration: 'none', textTransform: 'uppercase',
+              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}
           >
             Ya lo hice, ir al Reto

@@ -287,7 +287,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`${montserrat.variable} ${playfair.variable} ${oswald.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
-        {/* Film grain global - mismo enfoque que /servilleta */}
+        {/* Textura hormigón + film grain global - mismo sistema que /servilleta */}
+        <div className="texture-overlay" aria-hidden="true" />
         <div className="noise-overlay" aria-hidden="true" />
         <main className="relative">
           {children}

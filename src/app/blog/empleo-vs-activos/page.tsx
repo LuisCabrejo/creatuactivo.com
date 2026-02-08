@@ -10,6 +10,7 @@
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
@@ -21,19 +22,38 @@ export default function EmpleoVsActivosPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
-        {/* Gradient Background */}
-        <div
-          className="fixed inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.08) 0%, transparent 50%)'
-          }}
-        />
-
+      <main
+        className="min-h-screen text-[#E5E5E5]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg')`,
+          backgroundSize: 'cover, 600px 600px',
+          backgroundRepeat: 'no-repeat, repeat',
+          backgroundAttachment: 'fixed, fixed',
+        }}
+      >
         <div className="relative z-10">
-          {/* Article Header */}
-          <article className="pt-32 pb-20 px-6">
-            <div className="max-w-3xl mx-auto">
+          <IndustrialHeader
+            title="Análisis Financiero: Empleo vs. Cartera de Activos"
+            refCode="ARTICLE_SYSTEM_V1"
+            imageSrc="/images/blog/thumb-blog-system.jpg"
+            imageAlt=""
+          />
+
+          {/* Article Content */}
+          <article className="py-0 px-6">
+            <div
+              className="max-w-3xl mx-auto"
+              style={{
+                background: 'rgba(22, 24, 29, 0.80)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(212, 175, 55, 0.1)',
+                padding: 'clamp(2rem, 5vw, 3.5rem)',
+                marginTop: '-1rem',
+                position: 'relative',
+                zIndex: 10,
+              }}
+            >
               {/* Breadcrumb */}
               <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-8">
                 <Link href="/blog" className="hover:text-[#A3A3A3]">Blog</Link>

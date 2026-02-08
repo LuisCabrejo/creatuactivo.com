@@ -75,8 +75,8 @@ export default function BlogPage() {
               className="max-w-5xl mx-auto"
               style={{
                 background: 'rgba(22, 24, 29, 0.80)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                backdropFilter: 'blur(6px)',
+                WebkitBackdropFilter: 'blur(6px)',
                 border: '1px solid rgba(212, 175, 55, 0.1)',
                 padding: 'clamp(1.5rem, 4vw, 2.5rem)',
                 marginTop: '-1rem',
@@ -96,6 +96,8 @@ export default function BlogPage() {
                       overflow: 'hidden',
                       transition: 'border-color 0.3s ease',
                       textDecoration: 'none',
+                      cursor: 'pointer',
+                      WebkitTapHighlightColor: 'transparent',
                     }}
                   >
                     {/* Thumbnail */}
@@ -107,13 +109,13 @@ export default function BlogPage() {
                         style={{
                           objectFit: 'cover',
                           filter: 'grayscale(60%) brightness(0.7)',
-                          transition: 'transform 0.5s ease',
                         }}
-                        className="group-hover:scale-105"
+                        className="md:group-hover:scale-105 md:transition-transform md:duration-500"
                       />
                       <div style={{
                         position: 'absolute', inset: 0,
                         background: 'linear-gradient(to bottom, transparent 40%, rgba(15,17,21,0.9) 100%)',
+                        pointerEvents: 'none',
                       }} />
                       <div style={{
                         position: 'absolute', top: 12, left: 12,
@@ -122,6 +124,7 @@ export default function BlogPage() {
                         color: '#00e5ff',
                         background: 'rgba(0,0,0,0.7)',
                         padding: '4px 10px',
+                        pointerEvents: 'none',
                       }}>
                         {article.label}
                       </div>

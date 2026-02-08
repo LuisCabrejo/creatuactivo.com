@@ -290,7 +290,10 @@ export default function NetworkMarketingObsoletoPage() {
                 </p>
                 <Link
                   href="/reto-5-dias"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold rounded-xl hover:bg-[#E8C547] transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
+                  style={{
+                    clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  }}
                 >
                   Unirme al Reto Gratis
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

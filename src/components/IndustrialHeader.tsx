@@ -76,7 +76,12 @@ export function IndustrialHeader({
         </h1>
 
         {subtitle && (
-          <p style={{ color: '#A3A3A3', marginBottom: '1rem' }}>{subtitle}</p>
+          <p style={{
+            color: '#E5E5E5',
+            marginBottom: '1rem',
+            fontSize: '1rem',
+            textShadow: '0 2px 8px rgba(0,0,0,0.9)',
+          }}>{subtitle}</p>
         )}
 
         {/* Línea técnica */}

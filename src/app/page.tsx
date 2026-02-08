@@ -72,11 +72,18 @@ function HeroSection() {
         pointerEvents: 'none',
       }} />
 
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+      {/* contrast-plate — mismo patrón que /servilleta */}
+      <div style={{
+        position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center',
+        background: 'rgba(0,0,0,0.65)',
+        backdropFilter: 'blur(6px)',
+        borderRadius: '16px',
+        padding: '48px 40px',
+      }}>
         {/* Label industrial */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)',
+          border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: '999px', padding: '6px 16px', marginBottom: '32px',
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
@@ -121,13 +128,13 @@ function HeroSection() {
           Iniciar Auditoría de Soberanía →
         </Link>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '48px', fontSize: '0.8rem', color: C.textMuted }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px', fontSize: '0.8rem', color: C.textMuted }}>
           <span>⬡ Presencia en 70+ Países</span>
           <span>⬡ Infraestructura Corporativa Propia</span>
           <span>⬡ Operación 100% Digital</span>
         </div>
 
-        <p style={{ marginTop: '24px', fontSize: '0.85rem', color: C.textMuted }}>
+        <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.textMuted }}>
           ¿Ya hiciste la auditoría?{' '}
           <Link href="/reto-5-dias" style={{ color: C.gold, textDecoration: 'none' }}>
             Ir al Reto de 5 Días →

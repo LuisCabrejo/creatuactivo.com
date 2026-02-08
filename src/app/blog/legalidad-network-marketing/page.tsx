@@ -28,7 +28,7 @@ export default function LegalidadNetworkMarketingPage() {
           backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg')`,
           backgroundSize: 'cover, 600px 600px',
           backgroundRepeat: 'no-repeat, repeat',
-          backgroundAttachment: 'fixed, fixed',
+          backgroundAttachment: 'scroll, scroll',
         }}
       >
         <div className="relative z-10">

@@ -39,7 +39,7 @@ export default function HomePage() {
         `,
         backgroundSize: 'cover, 600px 600px',
         backgroundRepeat: 'no-repeat, repeat',
-        backgroundAttachment: 'fixed, fixed',
+        backgroundAttachment: 'scroll, scroll',
       }}>
         <HeroSection />
         <ProblemSection />

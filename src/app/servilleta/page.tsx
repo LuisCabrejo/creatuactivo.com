@@ -566,14 +566,23 @@ export default function ServilletaPage() {
           .deck-h1 { text-shadow: 0px 2px 6px rgba(0,0,0,0.8); }
           .technical-label { text-shadow: 0px 1px 3px black; }
 
-          .slide { padding-bottom: 70px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+          .slide {
+            padding-bottom: 70px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+          }
 
-          /* Slide 1 mobile: permitir scroll — contenido fluye desde arriba */
+          /* Slide 1 mobile: permitir scroll suave y optimizado */
+          #slide-1 {
+            scroll-behavior: smooth;
+          }
           #slide-1 .content-overlay {
             height: auto;
             justify-content: flex-start;
             padding-top: 30px;
             padding-bottom: 20px;
+            will-change: transform;
           }
 
           .grid-layout-slide-2 {
@@ -715,6 +724,57 @@ export default function ServilletaPage() {
         :fullscreen .btn-industrial.secondary {
           font-size: 1.1rem;
           padding: 16px 32px;
+        }
+
+        /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
+        /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
+        @media (max-width: 768px) {
+          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile */
+          :fullscreen .grid-layout-slide-2 {
+            padding: 60px 20px 40px !important;
+            gap: 20px !important;
+            grid-template-rows: auto 1fr 1fr !important;
+          }
+          :fullscreen .card-industrial {
+            min-height: 45vh !important;  /* MÁS grande que los 220px default */
+            height: auto !important;
+          }
+          :fullscreen .full-width {
+            min-height: 35vh !important;  /* MÁS grande que los 200px default */
+            height: auto !important;
+          }
+          :fullscreen .slide-2-header .deck-h2 {
+            font-size: 2rem !important;
+          }
+
+          /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
+          :fullscreen .simulator-layout {
+            padding: 60px 20px 40px !important;
+            flex-direction: column !important;
+            gap: 30px !important;
+          }
+          :fullscreen .simulator-panel {
+            padding: 30px 20px !important;
+            width: 100% !important;
+          }
+          :fullscreen .cta-panel {
+            min-height: 60vh !important;  /* Aprovechar pantalla completa */
+            width: 100% !important;
+          }
+          :fullscreen .cta-overlay {
+            padding: 40px 25px !important;
+          }
+          :fullscreen .cta-overlay h2 {
+            font-size: 2rem !important;
+            letter-spacing: 2px !important;
+          }
+          :fullscreen .digital-display {
+            font-size: 3rem !important;
+          }
+          :fullscreen .btn-industrial {
+            font-size: 1.2rem !important;
+            padding: 18px 35px !important;
+          }
         }
 
         /* === LARGE SCREEN OVERRIDES (same as fullscreen, for manual resize) === */

@@ -34,7 +34,7 @@ export default function NetworkMarketingObsoletoPage() {
       <main
         className="min-h-screen text-[#E5E5E5]"
         style={{
-          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg')`,
+          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')`,
           backgroundSize: 'cover, 600px 600px',
           backgroundRepeat: 'no-repeat, repeat',
           backgroundAttachment: 'scroll, scroll',

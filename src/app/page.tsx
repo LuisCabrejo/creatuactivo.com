@@ -35,7 +35,7 @@ export default function HomePage() {
         // Capa 0: dark tint (60%) + hormigón debajo (40% visible)
         backgroundImage: `
           linear-gradient(rgba(12,12,12,0.60), rgba(12,12,12,0.60)),
-          url('/images/servilleta/fondo-global-hormigon.jpg')
+          url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')
         `,
         backgroundSize: 'cover, 600px 600px',
         backgroundRepeat: 'no-repeat, repeat',

@@ -29,31 +29,14 @@ export default function HomePage() {
     <>
       <StrategicNavigation />
       <main
-        className="min-h-screen relative"
+        className="min-h-screen"
         style={{ backgroundColor: EC.bg.obsidian, color: EC.text.main }}
       >
-        {/* Noise overlay - Film grain texture */}
-        <div className="noise-overlay" />
-
-        {/* Background mesh gradient - dual tone (gold bottom-left + cyan top-right) */}
-        <div
-          className="fixed inset-0 pointer-events-none z-0"
-          style={{
-            background: `
-              radial-gradient(ellipse at 20% 80%, rgba(229, 194, 121, 0.04) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.03) 0%, transparent 50%)
-            `,
-          }}
-        />
-
-        {/* Content wrapper */}
-        <div className="relative z-10">
-          <HeroSection />
-          <ProblemSection />
-          <SolutionPreview />
-          <FinalCTASection />
-          <Footer />
-        </div>
+        <HeroSection />
+        <ProblemSection />
+        <SolutionPreview />
+        <FinalCTASection />
+        <Footer />
       </main>
     </>
   );
@@ -66,7 +49,15 @@ export default function HomePage() {
 function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center px-6 pt-32 pb-16">
-      <div className="relative max-w-3xl mx-auto text-center">
+      {/* Concrete texture - mismo patrón bg-image de /servilleta */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+        opacity: 0.35, pointerEvents: 'none',
+      }} />
+      <div className="relative z-10 max-w-3xl mx-auto text-center">
         {/* Badge - Industrial label */}
         <div
           className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
@@ -163,8 +154,15 @@ function HeroSection() {
 
 function ProblemSection() {
   return (
-    <section className="px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
-      <div className="max-w-4xl mx-auto">
+    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+        opacity: 0.25, pointerEvents: 'none',
+      }} />
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Section header - Industrial label */}
         <div className="text-center mb-12">
           <span
@@ -250,8 +248,15 @@ function ProblemSection() {
 
 function SolutionPreview() {
   return (
-    <section className="px-6 py-20" style={{ backgroundColor: EC.bg.obsidian }}>
-      <div className="max-w-3xl mx-auto text-center">
+    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.obsidian }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+        opacity: 0.3, pointerEvents: 'none',
+      }} />
+      <div className="relative z-10 max-w-3xl mx-auto text-center">
         <h2
           className="text-2xl sm:text-3xl font-serif mb-6"
           style={{ color: EC.text.primary }}
@@ -306,8 +311,15 @@ function SolutionPreview() {
 
 function FinalCTASection() {
   return (
-    <section className="px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
-      <div className="max-w-3xl mx-auto text-center">
+    <section className="relative px-6 py-20" style={{ backgroundColor: EC.bg.gunmetal }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')",
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
+        opacity: 0.25, pointerEvents: 'none',
+      }} />
+      <div className="relative z-10 max-w-3xl mx-auto text-center">
         <p
           className="text-sm font-industrial font-bold uppercase tracking-widest mb-4"
           style={{ color: EC.accent.amber }}

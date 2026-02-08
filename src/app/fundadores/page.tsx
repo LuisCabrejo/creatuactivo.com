@@ -5,7 +5,7 @@
  * Recuperamos: Video, Analogía Bezos, Estructura de 3 Piezas.
  *
  * BIMETALLIC DESIGN SYSTEM v3.0:
- * - Oro (#C5A059): CTAs, logros, números destacados
+ * - Oro (#F59E0B): CTAs, logros, números destacados
  * - Titanio (#94A3B8): Íconos estructurales, líneas, bordes
  */
 
@@ -26,10 +26,10 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --carbon-deep: #0F1115;
-      --carbon-elevated: #15171C;
-      --gold-primary: #C5A059;
-      --gold-hover: #D4AF37;
+      --carbon-deep: #0B0C0C;
+      --carbon-elevated: #16181D;
+      --gold-primary: #E5C279;
+      --gold-hover: #F59E0B;
       --titanium-primary: #94A3B8;
       --titanium-muted: #64748B;
     }
@@ -43,9 +43,9 @@ const GlobalStyles = () => (
       letter-spacing: -0.04em;
     }
 
-    /* TEXTO DORADO (BIMETALLIC: Solo para énfasis de lujo) */
+    /* TEXTO DORADO (ELEGANCIA CINÉTICA: Champagne cálido) */
     .text-gold {
-      background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
+      background: linear-gradient(135deg, #E5C279 0%, #F59E0B 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -60,8 +60,8 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
     }
     .glass-card:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(197, 160, 89, 0.3);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(229, 194, 121, 0.3);
       transform: translateY(-2px);
     }
 
@@ -102,7 +102,7 @@ const GlobalStyles = () => (
       top: 50%;
       left: 0;
       height: 2px;
-      background: linear-gradient(90deg, #C5A059, #D4AF37);
+      background: linear-gradient(90deg, #F59E0B, #FBBF24);
       z-index: 0;
       transform: translateY(-50%);
     }
@@ -115,8 +115,8 @@ const GlobalStyles = () => (
       transition: all 0.3s;
     }
     .input-premium:focus {
-      border-color: #C5A059;
-      box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.2);
+      border-color: #F59E0B;
+      box-shadow: 0 0 0 2px rgba(229, 194, 121, 0.2);
     }
   `}</style>
 );
@@ -127,25 +127,25 @@ function PhaseNode({ title, date, spots, isActive, isPast }: any) {
   return (
     <div className={`relative z-10 flex flex-col items-center ${isActive ? 'scale-110' : 'opacity-60'}`}>
       {/* BIMETALLIC: Nodo activo usa dorado, inactivo usa titanio */}
-      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-4 mb-4 transition-all duration-500 bg-[#0F1115] ${
+      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-4 mb-4 transition-all duration-500 bg-[#0B0C0C] ${
         isActive
-          ? 'border-[#C5A059] shadow-[0_0_30px_rgba(197,160,89,0.5)] text-white'
+          ? 'border-[#F59E0B] shadow-[0_0_30px_rgba(245,158,11,0.5)] text-white'
           : isPast
-            ? 'border-[#64748B] bg-[#1A1D23] text-[#94A3B8]'
-            : 'border-[#475569] bg-[#15171C] text-[#64748B]'
+            ? 'border-[#64748B] bg-[#16181D] text-[#94A3B8]'
+            : 'border-[#475569] bg-[#16181D] text-[#64748B]'
       }`}>
-        {isActive ? <Crown size={24} className="text-[#C5A059]" /> : isPast ? <CheckCircle size={24} /> : <Lock size={24} />}
+        {isActive ? <Crown size={24} className="text-[#E5C279]" /> : isPast ? <CheckCircle size={24} /> : <Lock size={24} />}
       </div>
 
       {isActive && (
-        <div className="absolute -top-8 bg-[#C5A059] text-[#0F1115] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-bounce">
+        <div className="absolute -top-8 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-bounce">
           Estás Aquí
         </div>
       )}
 
       <h3 className={`font-bold text-xs md:text-sm mb-1 text-center ${isActive ? 'text-white' : 'text-[#64748B]'}`}>{title}</h3>
       <p className="text-[10px] text-[#64748B] mb-1">{date}</p>
-      <p className={`text-[10px] font-mono ${isActive ? 'text-[#C5A059] font-bold' : 'text-[#475569]'}`}>{spots}</p>
+      <p className={`text-[10px] font-mono ${isActive ? 'text-[#E5C279] font-bold' : 'text-[#475569]'}`}>{spots}</p>
     </div>
   )
 }
@@ -233,7 +233,7 @@ export default function FundadoresPage() {
     <>
       <GlobalStyles />
       {/* BIMETALLIC: Fondo carbono profundo */}
-      <div className="bg-[#0F1115] text-white min-h-screen font-sans selection:bg-[#C5A059]/30">
+      <div className="bg-[#0B0C0C] text-white min-h-screen font-sans selection:bg-[#F59E0B]/30">
         <StrategicNavigation />
 
         {/* --- 1. HERO: PROMESA + URGENCIA --- */}
@@ -243,8 +243,8 @@ export default function FundadoresPage() {
 
             <div className="container mx-auto px-4 relative z-10">
                 {/* BIMETALLIC: Badge con borde titanio y pulso dorado */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#15171C]/50 border border-[rgba(148,163,184,0.2)] text-[#A3A3A3] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
-                    <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse"></span>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/50 border border-[rgba(148,163,184,0.2)] text-[#A3A3A3] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></span>
                     Solo 150 Cupos Fundadores
                 </div>
 
@@ -259,7 +259,7 @@ export default function FundadoresPage() {
 
                 {/* BIMETALLIC: CTA dorado (es premio) */}
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onClick={scrollToForm} className="px-8 py-4 bg-[#C5A059] text-[#0F1115] font-bold rounded-full hover:bg-[#D4AF37] transition-all shadow-[0_0_20px_-5px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <button onClick={scrollToForm} className="btn-haptic px-8 py-4 font-industrial font-bold uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
                         Aplicar a Fundador <ArrowRight size={18} />
                     </button>
                     <div className="flex items-center gap-2 px-6 py-4 text-[#A3A3A3] text-sm border border-[rgba(255,255,255,0.1)] rounded-full bg-[rgba(255,255,255,0.05)]">
@@ -356,7 +356,7 @@ export default function FundadoresPage() {
         </section>
 
         {/* --- 3. ANALOGÍA BEZOS (RECUPERADA) --- */}
-        <section className="py-24 bg-[#15171C]/50 border-t border-white/5">
+        <section className="py-24 bg-[#16181D]/50 border-t border-white/5">
             <div className="container mx-auto px-4 max-w-4xl">
                  <div className="glass-card p-10 md:p-14 rounded-3xl text-center">
                     <h2 className="text-3xl font-bold text-white mb-10">El Secreto de los Activos Digitales</h2>
@@ -387,10 +387,10 @@ export default function FundadoresPage() {
         </section>
 
         {/* --- 4. LAS 3 PIEZAS DEL AMAZON (RECUPERADA) --- */}
-        <section className="py-24 bg-[#0F1115]">
+        <section className="py-24 bg-[#0B0C0C]">
              <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <span className="text-blue-500 font-bold uppercase tracking-widest text-xs mb-2 block">Tu Franquicia Digital Incluye</span>
+                    <span className="text-[#F59E0B] font-bold uppercase tracking-widest text-xs mb-2 block">Tu Franquicia Digital Incluye</span>
                     <h2 className="text-3xl md:text-5xl font-bold text-white">El "Amazon" llave en mano</h2>
                     <p className="text-slate-400 mt-4">Las 3 piezas listas para operar desde el Día 1.</p>
                 </div>
@@ -399,46 +399,46 @@ export default function FundadoresPage() {
                 <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     {/* Pieza 1 */}
                     <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
-                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#C5A059] transition-colors mb-6">
+                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
                             <Box size={24} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">1. La Fábrica (Producto)</h3>
                         <p className="text-sm text-[#A3A3A3] mb-4 leading-relaxed">
                             Gano Excel pone los productos, las bodegas, los envíos y los empleados. Tecnología propietaria para millones.
                         </p>
-                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#C5A059] transition-colors uppercase">Tecnología Propietaria Única</p>
+                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#E5C279] transition-colors uppercase">Tecnología Propietaria Única</p>
                     </div>
 
                     {/* Pieza 2 - DESTACADA con dorado */}
-                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group border-[rgba(197,160,89,0.3)] bg-[rgba(197,160,89,0.05)]">
-                        <div className="absolute top-4 right-4 bg-[#C5A059] text-[#0F1115] text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
-                        <div className="w-12 h-12 bg-[#C5A059] rounded-xl flex items-center justify-center text-[#0F1115] mb-6 shadow-lg shadow-[rgba(197,160,89,0.3)]">
+                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                        <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
+                        <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center text-[#0B0C0C] mb-6 shadow-lg shadow-[rgba(245,158,11,0.3)]">
                             <Bot size={24} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">2. La App (Tecnología)</h3>
                         <p className="text-sm text-[#E5E5E5] mb-4 leading-relaxed">
                             CreaTuActivo.com es tu aplicación inteligente. Tiene una IA que educa, filtra y cierra el negocio por ti las 24 horas.
                         </p>
-                        <p className="text-xs font-bold text-[#C5A059] uppercase">Trabaja mientras duermes</p>
+                        <p className="text-xs font-bold text-[#E5C279] uppercase">Trabaja mientras duermes</p>
                     </div>
 
                     {/* Pieza 3 */}
                     <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
-                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#C5A059] transition-colors mb-6">
+                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
                             <Globe size={24} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">3. El Método (Mapa)</h3>
                         <p className="text-sm text-[#A3A3A3] mb-4 leading-relaxed">
                             No improvisas. Sigues 3 pasos simples (Iniciar, Acoger, Activar) que ya funcionaron para miles de personas.
                         </p>
-                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#C5A059] transition-colors uppercase">Sistema Probado</p>
+                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#E5C279] transition-colors uppercase">Sistema Probado</p>
                     </div>
                 </div>
              </div>
         </section>
 
         {/* --- 5. TIMELINE (SCARCITY) --- */}
-        <section className="py-24 bg-[#15171C]/50 border-y border-white/5">
+        <section className="py-24 bg-[#16181D]/50 border-y border-white/5">
             <div className="container mx-auto px-4 max-w-5xl">
                 <div className="text-center mb-16">
                     <div className="inline-block border border-amber-500/30 bg-amber-500/10 px-4 py-1 rounded-full text-amber-500 text-xs font-bold uppercase mb-4">Ventana de Oportunidad</div>
@@ -458,20 +458,20 @@ export default function FundadoresPage() {
                 </div>
 
                 {/* BIMETALLIC: Countdown card con borde dorado */}
-                <div className="mt-16 glass-card p-8 rounded-3xl max-w-2xl mx-auto text-center border-[rgba(197,160,89,0.3)] bg-[rgba(197,160,89,0.05)]">
-                    <p className="text-[#C5A059] font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
+                <div className="mt-16 glass-card p-8 rounded-3xl max-w-2xl mx-auto text-center border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                    <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
                     <div className="grid grid-cols-4 gap-4">
-                        <div className="bg-[#0F1115]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
-                        <div className="bg-[#0F1115]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">03</span><p className="text-[10px] text-slate-500 mt-1">HRS</p></div>
-                        <div className="bg-[#0F1115]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">06</span><p className="text-[10px] text-slate-500 mt-1">MIN</p></div>
-                        <div className="bg-[#0F1115]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">43</span><p className="text-[10px] text-slate-500 mt-1">SEG</p></div>
+                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
+                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">03</span><p className="text-[10px] text-slate-500 mt-1">HRS</p></div>
+                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">06</span><p className="text-[10px] text-slate-500 mt-1">MIN</p></div>
+                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">43</span><p className="text-[10px] text-slate-500 mt-1">SEG</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
         {/* --- 6. COMPARATIVA (RED VS GREEN) --- */}
-        <section className="py-24 bg-[#0F1115]">
+        <section className="py-24 bg-[#0B0C0C]">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">¿Ves la diferencia ahora?</h2>
@@ -502,7 +502,7 @@ export default function FundadoresPage() {
         </section>
 
         {/* --- 7. PRUEBA SOCIAL (LÍDERES) --- */}
-        <section className="py-24 bg-[#15171C]border-t border-white/5">
+        <section className="py-24 bg-[#16181D]border-t border-white/5">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-white mb-4">Lo que dicen los Líderes</h2>
@@ -534,14 +534,14 @@ export default function FundadoresPage() {
 
         {/* --- 8. FORMULARIO DE ADMISIÓN --- */}
         {/* BIMETALLIC: Spotlight dorado sutil */}
-        <section id="aplicacion" className="py-24 bg-[#15171C] relative overflow-hidden" ref={formTopRef}>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(197,160,89,0.05)] rounded-full blur-[100px]"></div>
+        <section id="aplicacion" className="py-24 bg-[#16181D] relative overflow-hidden" ref={formTopRef}>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(245,158,11,0.05)] rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto px-4 relative z-10 max-w-2xl">
                 {/* BIMETALLIC: Crown dorado (es premio) */}
                 <div className="glass-card p-8 md:p-12 rounded-3xl border border-[rgba(255,255,255,0.1)] shadow-2xl">
                     <div className="text-center mb-10">
-                        <Crown className="w-12 h-12 text-[#C5A059] mx-auto mb-4" />
+                        <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
                         <h2 className="text-3xl font-bold text-white mb-2">Solicitud de Admisión</h2>
                         <p className="text-slate-400 text-sm">
                             Este no es un registro abierto. Es una aplicación para trabajar directamente con Luis Cabrejo.
@@ -574,8 +574,7 @@ export default function FundadoresPage() {
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
                                         <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
                                     </div>
-                                    {/* BIMETALLIC: Botón titanio para pasos secundarios */}
-                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="w-full py-4 mt-4 bg-[#94A3B8] hover:bg-[#C5A059] text-[#0F1115] font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
+                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="btn-haptic w-full py-4 mt-4 font-industrial font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
                                 </div>
                             )}
 
@@ -585,7 +584,7 @@ export default function FundadoresPage() {
                                         <h3 className="text-lg font-bold text-white mb-4">¿Qué perfil te describe mejor?</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             {arquetipos.map((arq) => (
-                                                <div key={arq.id} onClick={() => setFormData({...formData, arquetipo: arq.title})} className={`p-3 rounded-xl border cursor-pointer transition-all hover:bg-white/5 ${formData.arquetipo === arq.title ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-[#15171C]/50'}`}>
+                                                <div key={arq.id} onClick={() => setFormData({...formData, arquetipo: arq.title})} className={`p-3 rounded-xl border cursor-pointer transition-all hover:bg-white/5 ${formData.arquetipo === arq.title ? 'border-[#F59E0B] bg-[#F59E0B]/10' : 'border-white/10 bg-[#16181D]/50'}`}>
                                                     <div className="flex items-center gap-2 mb-1"><span className={arq.iconColor}>{arq.icon}</span><span className="font-bold text-sm text-white">{arq.title}</span></div>
                                                 </div>
                                             ))}
@@ -600,12 +599,11 @@ export default function FundadoresPage() {
                                               'Empresarial 2 - $4,500,000 COP (~$1,000 USD)',
                                               'Necesito asesoría financiera'
                                             ].map((opt) => (
-                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-[#C5A059] bg-[rgba(197,160,89,0.1)] text-white' : 'border-[rgba(255,255,255,0.1)] bg-[#15171C]/50 text-[#A3A3A3]'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-[#C5A059]"/>}</div>
+                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-[#F59E0B] bg-[rgba(245,158,11,0.1)] text-white' : 'border-[rgba(255,255,255,0.1)] bg-[#16181D]/50 text-[#A3A3A3]'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-[#E5C279]"/>}</div>
                                             ))}
                                         </div>
                                     </div>
-                                    {/* BIMETALLIC: CTA final dorado */}
-                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="w-full py-4 bg-[#C5A059] text-[#0F1115] font-bold rounded-xl text-lg hover:bg-[#D4AF37] transition-all shadow-lg shadow-[rgba(197,160,89,0.2)] flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
+                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="btn-haptic w-full py-4 font-industrial font-bold uppercase tracking-widest rounded-xl text-lg transition-all flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
                                 </div>
                             )}
                         </form>

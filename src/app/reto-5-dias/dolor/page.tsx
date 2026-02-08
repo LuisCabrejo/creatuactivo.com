@@ -52,12 +52,12 @@ export default function RetoDolorPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5] flex flex-col">
+    <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5] flex flex-col">
       {/* Gradient Background */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.07) 0%, transparent 50%)'
         }}
       />
 
@@ -73,10 +73,10 @@ export default function RetoDolorPage() {
           </div>
 
           {/* Card */}
-          <div className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-2xl p-8 sm:p-10">
+          <div className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-2xl p-8 sm:p-10">
             {/* PRE-TITULAR */}
             <div className="text-center mb-6">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)]">
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)]">
                 <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                 Esto me hubiera ahorrado 20 años
               </span>
@@ -85,7 +85,7 @@ export default function RetoDolorPage() {
             {/* TITULAR - HOOK DOLOR */}
             <h1
               className="text-2xl sm:text-3xl text-center leading-tight mb-4"
-              style={{ fontFamily: 'Georgia, serif' }}
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
             >
               Hace unos años cometí un error que{' '}
               <span className="text-red-400">me costó 20 años de mi vida</span>
@@ -95,11 +95,11 @@ export default function RetoDolorPage() {
             <p className="text-center text-[#A3A3A3] mb-6 text-sm sm:text-base">
               Y cómo evitar que te pase a ti.
               <br className="hidden sm:block" />
-              En <span className="text-[#C5A059]">5 días</span> te muestro la salida que yo no conocí.
+              En <span className="text-[#E5C279]">5 días</span> te muestro la salida que yo no conocí.
             </p>
 
             {/* HISTORIA DOLOR */}
-            <div className="p-4 rounded-xl bg-[#0F1115] border border-red-500/20 mb-6">
+            <div className="p-4 rounded-xl bg-[#0B0C0C] border border-red-500/20 mb-6">
               <p className="text-sm text-[#A3A3A3] leading-relaxed">
                 Trabajé 20 años creyendo que el esfuerzo me llevaría a la libertad.
                 A los 40 descubrí la verdad: había construido una jaula de oro.
@@ -115,7 +115,7 @@ export default function RetoDolorPage() {
                 value={formData.nombre}
                 onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
               <input
                 type="email"
@@ -123,7 +123,7 @@ export default function RetoDolorPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
               <input
                 type="tel"
@@ -131,7 +131,7 @@ export default function RetoDolorPage() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
 
               {error && (
@@ -141,7 +141,7 @@ export default function RetoDolorPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#C5A059] hover:bg-[#E8C547] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
+                className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

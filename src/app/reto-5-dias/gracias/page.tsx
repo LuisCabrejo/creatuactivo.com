@@ -15,12 +15,12 @@ export const metadata = {
 
 export default function GraciasPage() {
   return (
-    <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+    <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
       {/* Gradient Background */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.07) 0%, transparent 50%)'
         }}
       />
 
@@ -39,17 +39,16 @@ export default function GraciasPage() {
         <section className="py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             {/* Check Icon */}
-            <div className="w-20 h-20 rounded-full bg-[#C5A059]/20 mx-auto mb-6 flex items-center justify-center">
-              <svg className="w-10 h-10 text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <div className="w-20 h-20 rounded-full bg-[#F59E0B]/15 mx-auto mb-6 flex items-center justify-center">
+              <svg className="w-10 h-10 text-[#E5C279]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
 
             <h1
-              className="text-4xl sm:text-5xl mb-4"
-              style={{ fontFamily: 'Georgia, serif' }}
+              className="text-4xl sm:text-5xl mb-4 font-serif"
             >
-              <span className="text-[#C5A059]">¡Estás dentro!</span>
+              <span className="text-[#E5C279]">¡Estás dentro!</span>
             </h1>
 
             <p className="text-xl text-[#A3A3A3] mb-4">
@@ -62,15 +61,15 @@ export default function GraciasPage() {
         </section>
 
         {/* Bridge Section - Epiphany Bridge Story */}
-        <section className="py-16 px-4 bg-[#1A1D23]">
+        <section className="py-16 px-4 bg-[#16181D]">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]/70">
+              <span className="text-sm font-medium uppercase tracking-widest text-[#E5C279]/70">
                 Mientras esperas...
               </span>
               <h2
                 className="text-3xl sm:text-4xl mt-4 mb-4"
-                style={{ fontFamily: 'Georgia, serif' }}
+                style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
               >
                 Por qué creé este reto
               </h2>
@@ -80,10 +79,10 @@ export default function GraciasPage() {
             </div>
 
             {/* Video Placeholder */}
-            <div className="aspect-video bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] flex items-center justify-center mb-8">
+            <div className="aspect-video bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] flex items-center justify-center mb-8">
               <div className="text-center">
-                <div className="w-20 h-20 rounded-full bg-[#C5A059]/20 mx-auto mb-4 flex items-center justify-center">
-                  <svg className="w-10 h-10 text-[#C5A059]" fill="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 rounded-full bg-[#F59E0B]/15 mx-auto mb-4 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-[#E5C279]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
                 </div>
@@ -93,10 +92,10 @@ export default function GraciasPage() {
             </div>
 
             {/* WhatsApp VIP CTA - Golden Button */}
-            <div className="bg-[#0F1115] border border-[#C5A059]/30 rounded-2xl p-8 mb-8">
+            <div className="bg-[#0B0C0C] border border-[#E5C279]/25 rounded-2xl p-8 mb-8">
               <div className="text-center">
-                <h3 className="text-xl font-medium mb-4" style={{ fontFamily: 'Georgia, serif' }}>
-                  <span className="text-[#C5A059]">Paso Final</span>
+                <h3 className="text-xl font-medium mb-4" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+                  <span className="text-[#E5C279]">Paso Final</span>
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
                   Para garantizar que recibas los enlaces de acceso cada día
@@ -109,7 +108,7 @@ export default function GraciasPage() {
                   href="https://wa.me/573215193909?text=Hola%20Luis,%20ya%20vi%20el%20video%20y%20quiero%20activar%20mi%20acceso%20al%20Reto."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-semibold py-4 px-8 rounded-xl transition-colors text-lg"
+                  className="btn-haptic inline-flex items-center gap-3 py-4 px-8 rounded-xl transition-colors font-industrial font-bold text-lg tracking-widest uppercase"
                 >
                   <span>👉</span>
                   ACTIVAR MI ACCESO VIP EN WHATSAPP
@@ -118,10 +117,10 @@ export default function GraciasPage() {
             </div>
 
             {/* Story Summary - Epiphany Bridge Oficial */}
-            <div className="bg-[#0F1115] rounded-2xl p-8 border border-[rgba(197, 160, 89, 0.15)]">
+            <div className="bg-[#0B0C0C] rounded-2xl p-8 border border-[rgba(229, 194, 121, 0.15)]">
               <h3
                 className="text-2xl mb-6"
-                style={{ fontFamily: 'Georgia, serif' }}
+                style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
               >
                 Mi historia (versión corta)
               </h3>
@@ -138,7 +137,7 @@ export default function GraciasPage() {
                 </p>
                 <p>
                   No era por falta de esfuerzo. Mi vida se había convertido en lo que llamo el{' '}
-                  <span className="text-[#C5A059] font-medium">&quot;Plan por Defecto&quot;</span>: trabajar como loco
+                  <span className="text-[#E5C279] font-medium">&quot;Plan por Defecto&quot;</span>: trabajar como loco
                   para pagar las cuentas, y repetir al mes siguiente.
                 </p>
                 <p>
@@ -153,7 +152,7 @@ export default function GraciasPage() {
                   Después vino el e-commerce. Otra vez funcionó para mí, pero requería saber de marketing, SEO, logística...{' '}
                   <strong className="text-[#E5E5E5]">Segunda epifanía:</strong> el problema no era la gente, era el modelo.
                 </p>
-                <p className="text-[#C5A059] font-medium text-lg mt-6">
+                <p className="text-[#E5C279] font-medium text-lg mt-6">
                   &quot;La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra.&quot;
                 </p>
               </div>
@@ -167,7 +166,7 @@ export default function GraciasPage() {
             <div className="text-center mb-12">
               <h2
                 className="text-3xl mb-4"
-                style={{ fontFamily: 'Georgia, serif' }}
+                style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
               >
                 Lo que vas a descubrir
               </h2>
@@ -183,9 +182,9 @@ export default function GraciasPage() {
               ].map((item) => (
                 <div
                   key={item.dia}
-                  className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl p-4 text-center"
+                  className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl p-4 text-center"
                 >
-                  <div className="text-sm font-medium text-[#C5A059] mb-2">
+                  <div className="text-sm font-medium text-[#E5C279] mb-2">
                     Día {item.dia}
                   </div>
                   <div className="font-medium mb-1">{item.titulo}</div>
@@ -197,12 +196,12 @@ export default function GraciasPage() {
         </section>
 
         {/* Action Items */}
-        <section className="py-16 px-4 bg-[#1A1D23]">
+        <section className="py-16 px-4 bg-[#16181D]">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
               <h2
                 className="text-2xl mb-4"
-                style={{ fontFamily: 'Georgia, serif' }}
+                style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
               >
                 Mientras tanto, haz esto:
               </h2>
@@ -216,9 +215,9 @@ export default function GraciasPage() {
               ].map((item) => (
                 <div
                   key={item.num}
-                  className="flex items-center gap-4 bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)] rounded-xl p-4"
+                  className="flex items-center gap-4 bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)] rounded-xl p-4"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#C5A059] text-[#0F1115] font-bold flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-[#F59E0B] text-[#0B0C0C] font-bold flex items-center justify-center flex-shrink-0">
                     {item.num}
                   </div>
                   <span className="text-[#A3A3A3]">{item.text}</span>

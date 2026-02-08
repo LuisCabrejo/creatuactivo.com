@@ -65,12 +65,12 @@ export default function Reto5DiasRefPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5] flex flex-col">
+    <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5] flex flex-col">
       {/* Gradient Background */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.07) 0%, transparent 50%)'
         }}
       />
 
@@ -89,17 +89,17 @@ export default function Reto5DiasRefPage() {
           {constructorName && (
             <div className="text-center mb-6">
               <span className="text-sm text-[#A3A3A3]">
-                Invitado por <span className="text-[#C5A059] font-medium">{constructorName}</span>
+                Invitado por <span className="text-[#E5C279] font-medium">{constructorName}</span>
               </span>
             </div>
           )}
 
           {/* Card */}
-          <div className="bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-2xl p-8">
+          <div className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-2xl p-8">
             {/* Badge - Urgencia */}
             <div className="text-center mb-6">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)]">
-                <span className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)]">
+                <span className="w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
                 Próximo reto inicia en 48 horas
               </span>
             </div>
@@ -107,9 +107,9 @@ export default function Reto5DiasRefPage() {
             {/* Hook - Headline */}
             <h1
               className="text-3xl sm:text-4xl text-center leading-tight mb-4"
-              style={{ fontFamily: 'Georgia, serif' }}
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
             >
-              En <span className="text-[#C5A059]">5 días</span> vas a entender
+              En <span className="text-[#E5C279]">5 días</span> vas a entender
               <br />
               lo que nadie te explica
             </h1>
@@ -128,7 +128,7 @@ export default function Reto5DiasRefPage() {
                 value={formData.nombre}
                 onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
               <input
                 type="email"
@@ -136,7 +136,7 @@ export default function Reto5DiasRefPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
               <input
                 type="tel"
@@ -144,13 +144,13 @@ export default function Reto5DiasRefPage() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                 required
-                className="w-full px-4 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#C5A059] transition-colors"
+                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#6b6b75] focus:outline-none focus:border-[#E5C279] transition-colors"
               />
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#C5A059] hover:bg-[#E8C547] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 disabled:opacity-70"
+                className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

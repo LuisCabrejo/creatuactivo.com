@@ -566,14 +566,14 @@ export default function ServilletaPage() {
           .deck-h1 { text-shadow: 0px 2px 6px rgba(0,0,0,0.8); }
           .technical-label { text-shadow: 0px 1px 3px black; }
 
-          .slide { padding-bottom: 70px; overflow-y: auto; }
+          .slide { padding-bottom: 70px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
-          /* Slide 1 mobile: permitir scroll */
+          /* Slide 1 mobile: permitir scroll — contenido fluye desde arriba */
           #slide-1 .content-overlay {
             height: auto;
-            min-height: 100%;
             justify-content: flex-start;
             padding-top: 30px;
+            padding-bottom: 20px;
           }
 
           .grid-layout-slide-2 {

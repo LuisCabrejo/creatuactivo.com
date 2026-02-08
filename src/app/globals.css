@@ -126,6 +126,19 @@ h1, h2, h3, .quote-text, .font-serif {
 }
 
 /* ========================================
+   PROSE DROP CAP - NOSOTROS PAGE
+   ======================================== */
+.prose-drop-cap > p:first-of-type::first-letter {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #E5C279;
+  float: left;
+  line-height: 0.8;
+  margin: 0.1em 0.15em 0 0;
+}
+
+/* ========================================
    SCROLLBAR - QUIET LUXURY
    ======================================== */
 ::-webkit-scrollbar {

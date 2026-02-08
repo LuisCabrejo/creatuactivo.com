@@ -10,6 +10,7 @@
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Blog - Recursos para Construir tu Soberanía Financiera | CreaTuActivo',
@@ -58,28 +59,30 @@ export default function BlogPage() {
 
         <div className="relative z-10">
           {/* Hero */}
-          <section className="pt-32 pb-16 px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)] mb-8">
-                <span className="w-2 h-2 bg-[#F59E0B] rounded-full" />
-                Centro de Recursos
-              </span>
-
-              <h1 className="text-4xl sm:text-5xl leading-tight mb-6 font-serif">
-                Ideas para construir
-                <br />
-                <span className="text-[#E5C279]">tu Soberanía Financiera</span>
-              </h1>
-
-              <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
-                Artículos, guías y estrategias para quien busca alternativas al sistema tradicional.
-              </p>
-            </div>
-          </section>
+          <IndustrialHeader
+            title="Ideas para construir tu Soberanía"
+            subtitle="Artículos, guías y estrategias para quien busca alternativas al sistema tradicional."
+            refCode="INSIGHTS_V1"
+            imageSrc="/images/header-blog.jpg"
+            imageAlt="Fibra óptica - Blog CreaTuActivo"
+          />
 
           {/* Featured Articles */}
           <section className="py-12 px-6">
-            <div className="max-w-5xl mx-auto">
+            <div
+              className="max-w-5xl mx-auto"
+              style={{
+                background: 'rgba(22, 24, 29, 0.8)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                borderRadius: '1rem',
+                padding: 'clamp(1.5rem, 4vw, 3rem)',
+                marginTop: '-2rem',
+                position: 'relative',
+                zIndex: 10,
+              }}
+            >
               <div className="grid md:grid-cols-2 gap-6">
                 {articles.filter(a => a.featured).map((article) => (
                   <Link

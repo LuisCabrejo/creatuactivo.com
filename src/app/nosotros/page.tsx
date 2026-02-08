@@ -12,6 +12,7 @@
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Manifiesto - La Búsqueda de la Soberanía | CreaTuActivo',
@@ -36,45 +37,41 @@ export default function ManifiestoPage() {
 
         <div className="relative z-10">
           {/* ═══════════════════════════════════════════════════════════════
-              HERO: El Gancho Filosófico
+              HERO: Industrial Header
               ═══════════════════════════════════════════════════════════════ */}
-          <section className="pt-32 pb-20 px-6">
-            <div className="max-w-3xl mx-auto">
-              {/* Badge sutil */}
-              <div className="flex justify-center mb-12">
-                <span className="text-xs uppercase tracking-[0.2em] text-[#E5C279]">
-                  Manifiesto
-                </span>
-              </div>
-
-              {/* Headline filosófico */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-8 font-serif text-center">
-                La búsqueda de la
-                <br />
-                <span className="text-[#E5C279]">Soberanía</span>
-              </h1>
-
-              {/* Subhead - La promesa */}
-              <p className="text-xl sm:text-2xl text-[#A3A3A3] text-center leading-relaxed max-w-2xl mx-auto font-light">
-                De las promesas rotas en un mirador
-                <br className="hidden sm:block" />
-                a la arquitectura de activos digitales.
-              </p>
-            </div>
-          </section>
+          <IndustrialHeader
+            title="La búsqueda de la Soberanía"
+            subtitle="De las promesas rotas en un mirador a la arquitectura de activos digitales."
+            refCode="MANIFIESTO_V1"
+            imageSrc="/images/header-manifiesto.jpg"
+            imageAlt="Planos arquitectónicos - Manifiesto CreaTuActivo"
+          />
 
           {/* ═══════════════════════════════════════════════════════════════
               LA HISTORIA: Buena Vista (Evolución de Consciencia)
               ═══════════════════════════════════════════════════════════════ */}
-          <article className="py-16 px-6">
-            <div className="max-w-2xl mx-auto">
+          <article className="py-0 px-6">
+            <div
+              className="max-w-2xl mx-auto"
+              style={{
+                background: 'rgba(22, 24, 29, 0.8)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                borderRadius: '1rem',
+                padding: 'clamp(1.5rem, 4vw, 3rem)',
+                marginTop: '-2rem',
+                position: 'relative',
+                zIndex: 10,
+              }}
+            >
               {/* Opening */}
               <div className="mb-20">
                 <p className="text-3xl sm:text-4xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
                   El algoritmo estaba roto.
                 </p>
 
-                <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
+                <div className="prose-drop-cap space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
                     Hace años, llevé a mi novia (hoy mi esposa) a un lugar llamado Buena Vista.
                     Mirando al horizonte, le hice tres promesas: una casa de campo,

@@ -11,6 +11,7 @@
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';
+import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Queswa - Inteligencia Artificial para Network Marketing | CreaTuActivo',
@@ -33,24 +34,36 @@ export default function TecnologiaPage() {
 
         <div className="relative z-10">
           {/* Hero Section */}
-          <section className="pt-32 pb-20 px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)] mb-8">
-                <span className="w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
-                La Ventaja Injusta
-              </span>
+          <IndustrialHeader
+            title="Conoce a Queswa"
+            subtitle="La Ventaja Injusta"
+            refCode="SISTEMA_QUESWA_V3"
+            imageSrc="/images/servilleta/engranajes.jpg"
+            imageAlt="Engranajes industriales - Sistema Queswa"
+          />
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-serif">
-                Conoce a{' '}
-                <span className="text-[#E5C279]">Queswa</span>
-              </h1>
-
-              <p className="text-xl text-[#A3A3A3] mb-10 max-w-2xl mx-auto leading-relaxed">
+          {/* Intro glass container */}
+          <div className="px-6">
+            <div
+              className="max-w-4xl mx-auto text-center"
+              style={{
+                background: 'rgba(22, 24, 29, 0.8)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                borderRadius: '1rem',
+                padding: 'clamp(1.5rem, 4vw, 3rem)',
+                marginTop: '-2rem',
+                position: 'relative',
+                zIndex: 10,
+              }}
+            >
+              <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
                 La inteligencia artificial que trabaja 24/7 para que tú no tengas que
                 &quot;vender&quot;. El sistema que hace el 80% del trabajo que tú odias.
               </p>
             </div>
-          </section>
+          </div>
 
           {/* El Problema que Resuelve */}
           <section className="py-20 px-6 bg-[#16181D]">

@@ -23,7 +23,7 @@ export default function TecnologiaPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
+      <main className="min-h-screen bg-transparent text-[#E5E5E5]">
         {/* Gradient Background */}
         <div
           className="fixed inset-0 pointer-events-none"

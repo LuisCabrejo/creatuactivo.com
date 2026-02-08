@@ -568,6 +568,14 @@ export default function ServilletaPage() {
 
           .slide { padding-bottom: 70px; overflow-y: auto; }
 
+          /* Slide 1 mobile: permitir scroll */
+          #slide-1 .content-overlay {
+            height: auto;
+            min-height: 100%;
+            justify-content: flex-start;
+            padding-top: 30px;
+          }
+
           .grid-layout-slide-2 {
             grid-template-columns: 1fr;
             overflow-y: auto;

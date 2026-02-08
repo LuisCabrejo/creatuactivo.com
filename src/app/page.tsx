@@ -69,14 +69,7 @@ export default function HomePage() {
 function HeroSection() {
   return (
     <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 60px' }}>
-      <BgImage src="/images/servilleta/fondo-global-hormigon.jpg" opacity={0.45} />
-
-      {/* dark gradient overlay for readability */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(to bottom, rgba(18,18,18,0.55) 0%, rgba(18,18,18,0.35) 50%, rgba(18,18,18,0.7) 100%)',
-        pointerEvents: 'none',
-      }} />
+      <BgImage src="/images/servilleta/fondo-global-hormigon.jpg" opacity={0.55} />
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         {/* Label industrial */}

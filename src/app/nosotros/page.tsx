@@ -25,12 +25,12 @@ export default function ManifiestoPage() {
       {/* Navegación estándar del sitio */}
       <StrategicNavigation />
 
-      <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
         {/* Subtle gradient - Quiet Luxury */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.06) 0%, transparent 60%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.06) 0%, transparent 60%)'
           }}
         />
 
@@ -42,7 +42,7 @@ export default function ManifiestoPage() {
             <div className="max-w-3xl mx-auto">
               {/* Badge sutil */}
               <div className="flex justify-center mb-12">
-                <span className="text-xs uppercase tracking-[0.2em] text-[#C5A059]">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#E5C279]">
                   Manifiesto
                 </span>
               </div>
@@ -51,7 +51,7 @@ export default function ManifiestoPage() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-8 font-serif text-center">
                 La búsqueda de la
                 <br />
-                <span className="text-[#C5A059]">Soberanía</span>
+                <span className="text-[#E5C279]">Soberanía</span>
               </h1>
 
               {/* Subhead - La promesa */}
@@ -95,7 +95,7 @@ export default function ManifiestoPage() {
                   no crecían al mismo ritmo que mi estrés.
                 </p>
 
-                <div className="p-8 rounded-xl bg-[#1A1D23] border-l-2 border-[#C5A059] my-10">
+                <div className="p-8 rounded-xl bg-[#16181D] border-l-2 border-[#C5A059] my-10">
                   <p className="text-xl text-[#E5E5E5] font-serif italic">
                     Estaba corriendo en una cinta estática: mucho sudor, cero desplazamiento.
                   </p>
@@ -104,7 +104,7 @@ export default function ManifiestoPage() {
 
               {/* La Primera Epifanía */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-6">
                   La Primera Epifanía
                 </h2>
                 <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
@@ -132,7 +132,7 @@ export default function ManifiestoPage() {
 
               {/* La Reingeniería */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-6">
                   El Pivote
                 </h2>
                 <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
@@ -142,19 +142,19 @@ export default function ManifiestoPage() {
                 <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
                     Me di cuenta de que la verdadera riqueza no es el dinero;
-                    es el <span className="text-[#C5A059] font-medium">Apalancamiento</span>.
+                    es el <span className="text-[#E5C279] font-medium">Apalancamiento</span>.
                   </p>
                   <p>
                     Me obsesioné con una pregunta: ¿Existe una forma de construir un activo
                     que tenga la logística de una multinacional pero la libertad de un inversionista?
                   </p>
 
-                  <div className="p-8 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20 my-10">
+                  <div className="p-8 rounded-xl bg-[#16181D] border border-[#C5A059]/20 my-10">
                     <p className="text-xl text-[#E5E5E5] font-serif text-center">
                       La respuesta fue dejar de ser un &quot;vendedor&quot;
                       <br />
                       y convertirme en un
-                      <span className="text-[#C5A059]"> Arquitecto de Activos</span>.
+                      <span className="text-[#E5C279]"> Arquitecto de Activos</span>.
                     </p>
                   </div>
 
@@ -166,19 +166,19 @@ export default function ManifiestoPage() {
 
                 <ul className="space-y-4 my-8 text-lg">
                   <li className="flex items-start gap-4">
-                    <span className="text-[#C5A059] text-xl mt-0.5">1</span>
+                    <span className="text-[#E5C279] text-xl mt-0.5">1</span>
                     <span className="text-[#E5E5E5]">
                       Utilizar infraestructuras existentes para eliminar el riesgo logístico.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#C5A059] text-xl mt-0.5">2</span>
+                    <span className="text-[#E5C279] text-xl mt-0.5">2</span>
                     <span className="text-[#E5E5E5]">
                       Utilizar sistemas digitales para eliminar el rechazo social.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#C5A059] text-xl mt-0.5">3</span>
+                    <span className="text-[#E5C279] text-xl mt-0.5">3</span>
                     <span className="text-[#E5E5E5]">
                       Construir flujos de caja que no dependan de su reloj.
                     </span>
@@ -191,9 +191,9 @@ export default function ManifiestoPage() {
           {/* ═══════════════════════════════════════════════════════════════
               PRINCIPIOS OPERATIVOS (No Misión/Visión genérica)
               ═══════════════════════════════════════════════════════════════ */}
-          <section className="py-20 px-6 bg-[#1A1D23]">
+          <section className="py-20 px-6 bg-[#16181D]">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-4 text-center">
+              <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-4 text-center">
                 Nuestros Principios Operativos
               </h2>
               <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-16 text-center">
@@ -204,7 +204,7 @@ export default function ManifiestoPage() {
                 {/* Principio 1 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#C5A059] font-serif text-lg">01</span>
+                    <span className="text-[#E5C279] font-serif text-lg">01</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Cero Hype</h3>
@@ -218,7 +218,7 @@ export default function ManifiestoPage() {
                 {/* Principio 2 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#C5A059] font-serif text-lg">02</span>
+                    <span className="text-[#E5C279] font-serif text-lg">02</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Tecnología sobre Talento</h3>
@@ -232,7 +232,7 @@ export default function ManifiestoPage() {
                 {/* Principio 3 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#C5A059] font-serif text-lg">03</span>
+                    <span className="text-[#E5C279] font-serif text-lg">03</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">La Familia Primero</h3>
@@ -260,7 +260,7 @@ export default function ManifiestoPage() {
                 con aquellos que entienden que el &quot;Plan por Defecto&quot; ha caducado.
               </p>
 
-              <div className="p-8 rounded-2xl bg-[#1A1D23] border border-[#C5A059]/20 mb-12">
+              <div className="p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20 mb-12">
                 <p className="text-[#A3A3A3] mb-6">
                   Si quieres ver los planos exactos de cómo construimos estos activos
                   sin inventarios y sin perseguir amigos, he preparado un entrenamiento de 5 días.
@@ -272,7 +272,7 @@ export default function ManifiestoPage() {
 
               <Link
                 href="/reto-5-dias"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] bg-[#C5A059] text-[#0F1115]"
+                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
               >
                 Ver los Planos
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -287,7 +287,7 @@ export default function ManifiestoPage() {
           </section>
 
           {/* Footer mínimo */}
-          <footer className="px-6 py-10 border-t border-[rgba(197, 160, 89, 0.1)]">
+          <footer className="px-6 py-10 border-t border-[rgba(229, 194, 121, 0.1)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#6B7280]">
                 © 2026 CreaTuActivo.com ·

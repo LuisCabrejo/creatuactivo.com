@@ -5,7 +5,7 @@
  * THE ARCHITECT'S SUITE - Bimetallic System v3.0
  * Gold (#C5A059): CTAs, money, achievements, key titles
  * Titanium (#94A3B8): Structural elements, navigation, muted text
- * Carbon backgrounds: #0F1115 (deep), #15171C (elevated), #1A1D23 (cards)
+ * Carbon backgrounds: #0B0C0C (deep), #16181D (elevated), #16181D (cards)
  */
 
 'use client'
@@ -34,9 +34,9 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --carbon-deep: #0F1115;
-      --carbon-elevated: #15171C;
-      --carbon-card: #1A1D23;
+      --carbon-deep: #0B0C0C;
+      --carbon-elevated: #16181D;
+      --carbon-card: #16181D;
       --gold-primary: #C5A059;
       --gold-hover: #D4AF37;
       --titanium-primary: #94A3B8;
@@ -61,7 +61,7 @@ const GlobalStyles = () => (
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
     .glass-card:hover {
-      border-color: rgba(197, 160, 89, 0.3);
+      border-color: rgba(229, 194, 121, 0.3);
     }
 
     .glass-input {
@@ -71,15 +71,15 @@ const GlobalStyles = () => (
     }
     .glass-input:focus {
       border-color: #C5A059;
-      box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.2);
+      box-shadow: 0 0 0 2px rgba(229, 194, 121, 0.2);
     }
 
     /* BOTONES GLOW (Gold) */
     .btn-glow {
-      box-shadow: 0 0 20px -5px rgba(197, 160, 89, 0.5);
+      box-shadow: 0 0 20px -5px rgba(229, 194, 121, 0.5);
     }
     .btn-glow:hover {
-      box-shadow: 0 0 30px -5px rgba(197, 160, 89, 0.7);
+      box-shadow: 0 0 30px -5px rgba(229, 194, 121, 0.7);
     }
 
     /* BRILLO DORADO PARA PREMIUM */
@@ -87,8 +87,8 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
     }
     .border-gold-glow:hover {
-      border-color: rgba(197, 160, 89, 0.4) !important;
-      box-shadow: 0 0 20px -8px rgba(197, 160, 89, 0.3);
+      border-color: rgba(229, 194, 121, 0.4) !important;
+      box-shadow: 0 0 20px -8px rgba(229, 194, 121, 0.3);
     }
   `}</style>
 );
@@ -132,10 +132,10 @@ const PackageCard = ({
 }) => (
   <div className={`glass-card rounded-[2rem] h-full flex flex-col relative transition-all duration-300 ${isPremium ? 'border-gold-glow border-white/5 hover:-translate-y-2' : 'border-white/5 hover:border-white/20 hover:bg-white/5 hover:-translate-y-2'}`}>
     <div className="p-8 md:p-10 flex-grow flex flex-col">
-      <h3 className={`text-xl font-bold mb-2 ${isPremium ? 'text-[#C5A059]' : 'text-white'}`}>{title}</h3>
+      <h3 className={`text-xl font-bold mb-2 ${isPremium ? 'text-[#E5C279]' : 'text-white'}`}>{title}</h3>
       <div className="mb-8">
         <div className="flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-[#C5A059] tracking-tight">${priceUSD}</span>
+          <span className="text-4xl font-bold text-[#E5C279] tracking-tight">${priceUSD}</span>
           <span className="text-[#64748B] font-medium">USD</span>
         </div>
         <p className="text-sm text-[#64748B] mt-1">Aprox. {Number(priceCOP).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })}</p>
@@ -155,7 +155,7 @@ const PackageCard = ({
 
       <Link
         href="/fundadores"
-        className="w-full text-center font-bold py-4 px-6 rounded-xl transition-all duration-300 mt-auto flex items-center justify-center gap-2 bg-[#C5A059] text-[#0F1115] hover:bg-[#D4AF37] border border-[#C5A059]/20"
+        className="w-full text-center font-bold py-4 px-6 rounded-xl transition-all duration-300 mt-auto flex items-center justify-center gap-2 bg-[#F59E0B] text-[#0B0C0C] hover:bg-[#D4AF37] border border-[#C5A059]/20"
       >
         {ctaText} <ArrowRight size={16} />
       </Link>
@@ -172,7 +172,7 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
         className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
       >
         <h3 className="text-lg font-bold text-white pr-4">{question}</h3>
-        <ChevronDown className={`w-6 h-6 text-[#C5A059] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-6 h-6 text-[#E5C279] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <div className={`px-6 text-[#A3A3A3] text-sm leading-relaxed font-light transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 pb-6 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="whitespace-pre-line">{answer}</div>
@@ -213,10 +213,10 @@ const DualIncomeCalculator = () => {
     return (
         <div className="glass-card p-1 rounded-3xl overflow-hidden border border-white/10">
             {/* Tabs */}
-            <div className="grid grid-cols-2 bg-[#0F1115]/50 p-1 rounded-t-3xl">
+            <div className="grid grid-cols-2 bg-[#0B0C0C]/50 p-1 rounded-t-3xl">
                 <button
                     onClick={() => setMode('active')}
-                    className={`py-4 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${mode === 'active' ? 'bg-[#C5A059] text-[#0F1115] shadow-lg' : 'text-[#64748B] hover:text-white'}`}
+                    className={`py-4 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${mode === 'active' ? 'bg-[#F59E0B] text-[#0B0C0C] shadow-lg' : 'text-[#64748B] hover:text-white'}`}
                 >
                     <Zap size={18} /> Ganancias Rápidas
                 </button>
@@ -228,7 +228,7 @@ const DualIncomeCalculator = () => {
                 </button>
             </div>
 
-            <div className="p-8 md:p-12 bg-[#0F1115]/50">
+            <div className="p-8 md:p-12 bg-[#0B0C0C]/50">
                 {mode === 'active' ? (
                     <div className="animate-in fade-in duration-300">
                         <div className="text-center mb-8">
@@ -245,7 +245,7 @@ const DualIncomeCalculator = () => {
                                             <button
                                                 key={pkg}
                                                 onClick={() => setPackageType(pkg)}
-                                                className={`flex-1 py-2 rounded-lg text-sm font-bold border transition-all ${packageType === pkg ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059]' : 'border-white/10 bg-white/5 text-[#A3A3A3]'}`}
+                                                className={`flex-1 py-2 rounded-lg text-sm font-bold border transition-all ${packageType === pkg ? 'border-[#C5A059] bg-[#F59E0B]/20 text-[#E5C279]' : 'border-white/10 bg-white/5 text-[#A3A3A3]'}`}
                                             >
                                                 {pkg === 'ESP3' ? 'Visionario' : pkg === 'ESP2' ? 'Empresarial' : 'Inicial'}
                                             </button>
@@ -258,15 +258,15 @@ const DualIncomeCalculator = () => {
                                         <input
                                             type="range" min="1" max="20" value={packageCount}
                                             onChange={(e) => setPackageCount(Number(e.target.value))}
-                                            className="w-full h-2 bg-[#1A1D23] rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
+                                            className="w-full h-2 bg-[#16181D] rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
                                         />
                                         <span className="text-white font-bold text-xl w-8">{packageCount}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-[#C5A059]/10 border border-[#C5A059]/20 rounded-2xl p-8 text-center">
-                                <p className="text-xs font-bold text-[#C5A059] uppercase tracking-widest mb-2">Tu Ganancia Inmediata</p>
+                            <div className="bg-[#F59E0B]/10 border border-[#C5A059]/20 rounded-2xl p-8 text-center">
+                                <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-2">Tu Ganancia Inmediata</p>
                                 <div className="text-5xl font-bold text-white mb-2 tracking-tight">
                                     ${activeIncome} <span className="text-lg text-[#64748B]">USD</span>
                                 </div>
@@ -289,7 +289,7 @@ const DualIncomeCalculator = () => {
                                         <input
                                             type="range" min="10" max="1000" step="10" value={teamSize} // Slider de 10 a 1000 personas por lado
                                             onChange={(e) => setTeamSize(Number(e.target.value))}
-                                            className="w-full h-2 bg-[#1A1D23] rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                                            className="w-full h-2 bg-[#16181D] rounded-lg appearance-none cursor-pointer accent-emerald-500"
                                         />
                                         <span className="text-white font-bold text-xl w-16 text-right">{teamSize}</span>
                                     </div>
@@ -328,12 +328,12 @@ export default function PresentacionEmpresarialPage() {
   return (
     <>
       <GlobalStyles />
-      <div className="bg-[#0F1115] min-h-screen text-[#E5E5E5] font-sans selection:bg-[#C5A059]/30 overflow-x-hidden">
+      <div className="bg-[#0B0C0C] min-h-screen text-[#E5E5E5] font-sans selection:bg-[#F59E0B]/30 overflow-x-hidden">
         <StrategicNavigation />
 
         {/* 1. HERO: EVOLUCIÓN */}
         <section className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#C5A059]/5 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#F59E0B]/5 rounded-full blur-[120px] pointer-events-none"></div>
           <div className="container mx-auto px-4 relative z-10 text-center">
             <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#E5E5E5] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
@@ -349,7 +349,7 @@ export default function PresentacionEmpresarialPage() {
                     Es hora de pasar de "vender puerta a puerta" a construir <b className="text-white">Sistemas Digitales Automatizados</b>.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-                    <Link href="#diferencia" className="w-full sm:w-auto px-10 py-4 bg-[#C5A059] text-[#0F1115] font-bold rounded-full text-lg hover:bg-[#D4AF37] transition-all flex items-center justify-center gap-2 btn-glow">
+                    <Link href="#diferencia" className="w-full sm:w-auto px-10 py-4 bg-[#F59E0B] text-[#0B0C0C] font-bold rounded-full text-lg hover:bg-[#D4AF37] transition-all flex items-center justify-center gap-2 btn-glow">
                        Ver la Diferencia
                     </Link>
                 </div>
@@ -358,7 +358,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* 2. LA GRAN DIFERENCIA (EDUCACIÓN) */}
-        <section id="diferencia" className="py-24 bg-[#0F1115] border-t border-white/5">
+        <section id="diferencia" className="py-24 bg-[#0B0C0C] border-t border-white/5">
             <div className="container mx-auto px-4">
                 <SectionHeader title="El Juego ha Cambiado" subtitle="No te invitamos a ganar dinero (lineal). Te invitamos a construir libertad (exponencial)." />
 
@@ -393,7 +393,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- CONTEXTO: ¿QUÉ CONSTRUIMOS? --- */}
-        <section className="py-24 bg-[#0F1115] border-t border-white/5">
+        <section className="py-24 bg-[#0B0C0C] border-t border-white/5">
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Infraestructura, no Venta."
@@ -402,7 +402,7 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <div className="text-center p-6">
-                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#C5A059]">
+                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
                             <Globe size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Distribución Masiva</h3>
@@ -411,7 +411,7 @@ export default function PresentacionEmpresarialPage() {
                         </p>
                     </div>
                     <div className="text-center p-6 border-x border-white/5">
-                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#C5A059]">
+                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
                             <Database size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Propiedad del Activo</h3>
@@ -420,7 +420,7 @@ export default function PresentacionEmpresarialPage() {
                         </p>
                     </div>
                     <div className="text-center p-6">
-                        <div className="w-16 h-16 mx-auto bg-[#C5A059]/10 rounded-2xl flex items-center justify-center text-[#C5A059] mb-6">
+                        <div className="w-16 h-16 mx-auto bg-[#F59E0B]/10 rounded-2xl flex items-center justify-center text-[#E5C279] mb-6">
                             <TrendingUp size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Renta Recurrente</h3>
@@ -433,19 +433,19 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- LA SOLUCIÓN: CREATUACTIVO AI (Antes Nexus) --- */}
-        <section className="py-32 bg-[#15171C] relative overflow-hidden">
+        <section className="py-32 bg-[#16181D] relative overflow-hidden">
              <div className="container mx-auto px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
                      {/* Demo Chat UI - Reutilizamos componente pero con nuevo contexto */}
                      <div className="order-2 lg:order-1">
                         <div className="relative">
-                            <div className="absolute inset-0 bg-[#C5A059]/15 blur-[80px] rounded-full"></div>
+                            <div className="absolute inset-0 bg-[#F59E0B]/15 blur-[80px] rounded-full"></div>
                             <AnimatedChatDemo typingSpeed={20} loopDelay={5000} />
                         </div>
                      </div>
 
                      <div className="order-1 lg:order-2">
-                        <span className="text-[#C5A059] font-bold tracking-widest uppercase text-xs mb-4 block">Tu Ventaja Injusta</span>
+                        <span className="text-[#E5C279] font-bold tracking-widest uppercase text-xs mb-4 block">Tu Ventaja Injusta</span>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
                             Tú vives tu vida. <br/>
                             <span className="text-[#64748B]">La IA construye tu negocio.</span>
@@ -476,7 +476,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- CÓMO FUNCIONA: LA TRÍADA --- */}
-        <section id="como-funciona" className="py-32 bg-[#0F1115]">
+        <section id="como-funciona" className="py-32 bg-[#0B0C0C]">
              <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Tu Equipo de Poder"
@@ -492,7 +492,7 @@ export default function PresentacionEmpresarialPage() {
                         description="Tu único rol es conectar. No tienes que convencer, solo invitar a las personas a evaluar el sistema. Tú pones la dirección y las relaciones."
                     />
                     <TriadCard
-                        colorClass="bg-[#C5A059]/10 text-[#C5A059]"
+                        colorClass="bg-[#F59E0B]/10 text-[#E5C279]"
                         icon={<Cpu size={28} />}
                         title="2. CreaTuActivo"
                         role="La Tecnología"
@@ -510,11 +510,11 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- LA MATEMÁTICA (CALCULADORAS FINTECH) --- */}
-        <section id="proyeccion" className="py-32 bg-[#15171C] border-y border-white/5">
+        <section id="proyeccion" className="py-32 bg-[#16181D] border-y border-white/5">
             <div className="container mx-auto px-4">
                 <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                     <div>
-                        <span className="text-[#C5A059] font-bold tracking-widest uppercase text-xs mb-4 block">Proyección Financiera</span>
+                        <span className="text-[#E5C279] font-bold tracking-widest uppercase text-xs mb-4 block">Proyección Financiera</span>
                         <h2 className="text-4xl font-bold text-white mb-6">
                             El Poder del Efecto Compuesto.
                         </h2>
@@ -523,7 +523,7 @@ export default function PresentacionEmpresarialPage() {
                             Pequeños consumos de café multiplicados por miles de personas = Libertad.
                         </p>
 
-                        <div className="glass-card p-6 rounded-2xl border-l-4 border-[#C5A059] bg-[#C5A059]/5 mb-8">
+                        <div className="glass-card p-6 rounded-2xl border-l-4 border-[#C5A059] bg-[#F59E0B]/5 mb-8">
                             <p className="text-[#E5E5E5] italic text-sm">
                                 "Prefiero el 1% del esfuerzo de 100 personas, que el 100% de mi propio esfuerzo." <br/>
                                 <span className="text-white font-bold not-italic mt-2 block">- J. Paul Getty</span>
@@ -538,7 +538,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- PRUEBA SOCIAL --- */}
-        <section className="py-32 bg-[#0F1115]">
+        <section className="py-32 bg-[#0B0C0C]">
              <div className="container mx-auto px-4">
                 <SectionHeader title="Resultados Reales" subtitle="Personas comunes usando un sistema extraordinario." />
 
@@ -546,7 +546,7 @@ export default function PresentacionEmpresarialPage() {
                     {/* Testimonio 1 */}
                     <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 bg-[#1A1D23] rounded-full flex items-center justify-center text-xs font-bold text-white">LM</div>
+                            <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">LM</div>
                             <div>
                                 <h4 className="font-bold text-white">Liliana P. Moreno</h4>
                                 <p className="text-xs text-[#64748B]">Ex-Ama de Casa</p>
@@ -557,7 +557,7 @@ export default function PresentacionEmpresarialPage() {
                      {/* Testimonio 2 */}
                      <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 bg-[#1A1D23] rounded-full flex items-center justify-center text-xs font-bold text-white">AG</div>
+                            <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">AG</div>
                             <div>
                                 <h4 className="font-bold text-white">Andrés Guzmán</h4>
                                 <p className="text-xs text-[#64748B]">Sector Salud</p>
@@ -568,7 +568,7 @@ export default function PresentacionEmpresarialPage() {
                      {/* Testimonio 3 */}
                      <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 bg-[#1A1D23] rounded-full flex items-center justify-center text-xs font-bold text-white">JM</div>
+                            <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">JM</div>
                             <div>
                                 <h4 className="font-bold text-white">Dr. Jonathan M.</h4>
                                 <p className="text-xs text-[#64748B]">Médico Especialista</p>
@@ -581,7 +581,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- CAPITAL SEMILLA (PAQUETES) --- */}
-        <section className="py-32 bg-[#0F1115]">
+        <section className="py-32 bg-[#0B0C0C]">
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Elige tu Nivel de Entrada"
@@ -646,7 +646,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- FAQ --- */}
-        <section className="py-24 bg-[#15171C]">
+        <section className="py-24 bg-[#16181D]">
             <div className="container mx-auto px-4 max-w-3xl">
                 <h2 className="text-3xl font-bold text-white mb-12 text-center">Preguntas Frecuentes</h2>
                 <FAQItem question="¿Tengo que vender puerta a puerta?" answer="No. Usamos tecnología de atracción. La IA se encarga de explicar. Tú solo conectas." />
@@ -657,7 +657,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- CTA FINAL --- */}
-        <section className="py-32 bg-[#15171C] border-t border-white/5 relative overflow-hidden">
+        <section className="py-32 bg-[#16181D] border-t border-white/5 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
             <div className="container mx-auto px-4 text-center relative z-10">
                 <div className="max-w-3xl mx-auto">
@@ -671,7 +671,7 @@ export default function PresentacionEmpresarialPage() {
 
                     <Link
                         href="/fundadores#aplicacion"
-                        className="inline-flex items-center justify-center px-12 py-5 bg-[#C5A059] text-[#0F1115] font-bold rounded-full text-xl transition-all hover:scale-105 hover:bg-[#D4AF37] shadow-[0_0_40px_-10px_rgba(197,160,89,0.4)]"
+                        className="inline-flex items-center justify-center px-12 py-5 bg-[#F59E0B] text-[#0B0C0C] font-bold rounded-full text-xl transition-all hover:scale-105 hover:bg-[#D4AF37] shadow-[0_0_40px_-10px_rgba(229,194,121,0.4)]"
                     >
                         Unirme a los Fundadores <ArrowRight className="ml-2 w-6 h-6" />
                     </Link>
@@ -680,7 +680,7 @@ export default function PresentacionEmpresarialPage() {
         </section>
 
         {/* --- FOOTER --- */}
-        <footer className="border-t border-white/5 py-16 bg-[#0F1115] text-[#64748B] text-sm">
+        <footer className="border-t border-white/5 py-16 bg-[#0B0C0C] text-[#64748B] text-sm">
           <div className="container mx-auto px-4 text-center">
             <p className="text-white font-bold text-lg mb-2">CreaTuActivo</p>
             <p className="font-light mb-8">Ingeniería de Activos Digitales.</p>

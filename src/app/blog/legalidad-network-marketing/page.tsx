@@ -21,12 +21,12 @@ export default function LegalidadNetworkMarketingPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
         {/* Gradient Background */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.08) 0%, transparent 50%)'
           }}
         />
 
@@ -43,7 +43,7 @@ export default function LegalidadNetworkMarketingPage() {
 
               {/* Meta */}
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-xs text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 rounded-full">
+                <span className="text-xs text-[#E5C279] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
                   Legal
                 </span>
                 <span className="text-xs text-[#6B7280]">7 min de lectura</span>
@@ -52,7 +52,7 @@ export default function LegalidadNetworkMarketingPage() {
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
                 La verdad sobre la legalidad de los
-                <span className="text-[#C5A059]"> negocios digitales en América</span>
+                <span className="text-[#E5C279]"> negocios digitales en América</span>
               </h1>
 
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
@@ -88,14 +88,14 @@ export default function LegalidadNetworkMarketingPage() {
                     Según la FTC (Federal Trade Commission de Estados Unidos), la diferencia
                     entre un negocio legítimo y un esquema piramidal se reduce a una pregunta:
                   </p>
-                  <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-6">
+                  <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-6">
                     <p className="text-lg text-[#E5E5E5] font-medium">
                       ¿De dónde viene el dinero que se paga a los participantes?
                     </p>
                   </div>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#E5C279] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Esquema piramidal:</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -105,7 +105,7 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#E5C279] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Network marketing legítimo:</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -126,7 +126,7 @@ export default function LegalidadNetworkMarketingPage() {
                   </p>
 
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
                       <div className="flex items-start gap-3">
                         <span className="text-red-400 text-xl">1</span>
                         <div>
@@ -138,7 +138,7 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
                       <div className="flex items-start gap-3">
                         <span className="text-red-400 text-xl">2</span>
                         <div>
@@ -150,7 +150,7 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
                       <div className="flex items-start gap-3">
                         <span className="text-red-400 text-xl">3</span>
                         <div>
@@ -162,7 +162,7 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
                       <div className="flex items-start gap-3">
                         <span className="text-red-400 text-xl">4</span>
                         <div>
@@ -174,7 +174,7 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
                       <div className="flex items-start gap-3">
                         <span className="text-red-400 text-xl">5</span>
                         <div>
@@ -197,9 +197,9 @@ export default function LegalidadNetworkMarketingPage() {
                   </p>
 
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-[#C5A059]">✓</span>
+                        <span className="text-[#E5C279]">✓</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Productos con demanda real</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -209,9 +209,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-[#C5A059]">✓</span>
+                        <span className="text-[#E5C279]">✓</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costo de entrada razonable</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -221,9 +221,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-[#C5A059]">✓</span>
+                        <span className="text-[#E5C279]">✓</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Sin inventario obligatorio</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -233,9 +233,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-[#C5A059]">✓</span>
+                        <span className="text-[#E5C279]">✓</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Historial comprobable</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -245,9 +245,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#1A1D23] border border-[#C5A059]/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-[#C5A059]">✓</span>
+                        <span className="text-[#E5C279]">✓</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Income disclosure transparente</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -259,10 +259,10 @@ export default function LegalidadNetworkMarketingPage() {
                   </div>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-12">
+                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;La estructura de red no es ilegal. Lo ilegal es cuando
-                    <span className="text-[#C5A059]"> el dinero viene del reclutamiento, no de las ventas.</span>&quot;
+                    <span className="text-[#E5C279]"> el dinero viene del reclutamiento, no de las ventas.</span>&quot;
                   </p>
                 </div>
 
@@ -275,23 +275,23 @@ export default function LegalidadNetworkMarketingPage() {
                   </p>
                   <ol className="space-y-3 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] font-semibold">1.</span>
+                      <span className="text-[#E5C279] font-semibold">1.</span>
                       <span>¿Compraría este producto si no hubiera oportunidad de negocio?</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] font-semibold">2.</span>
+                      <span className="text-[#E5C279] font-semibold">2.</span>
                       <span>¿Cuántos años lleva operando la empresa? ¿En cuántos países?</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] font-semibold">3.</span>
+                      <span className="text-[#E5C279] font-semibold">3.</span>
                       <span>¿Cuál es el costo real de entrada y qué incluye?</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] font-semibold">4.</span>
+                      <span className="text-[#E5C279] font-semibold">4.</span>
                       <span>¿Hay obligación de comprar inventario mensual?</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#C5A059] font-semibold">5.</span>
+                      <span className="text-[#E5C279] font-semibold">5.</span>
                       <span>¿Las comisiones vienen de ventas de producto o de inscripciones?</span>
                     </li>
                   </ol>
@@ -316,7 +316,7 @@ export default function LegalidadNetworkMarketingPage() {
               </div>
 
               {/* CTA Box */}
-              <div className="mt-16 p-8 rounded-2xl bg-[#1A1D23] border border-[#C5A059]/20">
+              <div className="mt-16 p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20">
                 <h3 className="text-xl font-serif mb-4">
                   ¿Quieres evaluar una oportunidad real?
                 </h3>
@@ -327,7 +327,7 @@ export default function LegalidadNetworkMarketingPage() {
                 </p>
                 <Link
                   href="/reto-5-dias"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5A059] text-[#0F1115] font-semibold rounded-xl hover:bg-[#E8C547] transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold rounded-xl hover:bg-[#E8C547] transition-colors"
                 >
                   Unirme al Reto Gratis
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -340,7 +340,7 @@ export default function LegalidadNetworkMarketingPage() {
               <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
                 <Link
                   href="/blog"
-                  className="text-[#A3A3A3] hover:text-[#C5A059] transition-colors inline-flex items-center gap-2"
+                  className="text-[#A3A3A3] hover:text-[#E5C279] transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />

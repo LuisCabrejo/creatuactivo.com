@@ -47,12 +47,12 @@ export default function BlogPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
         {/* Gradient Background */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.08) 0%, transparent 50%)'
           }}
         />
 
@@ -60,15 +60,15 @@ export default function BlogPage() {
           {/* Hero */}
           <section className="pt-32 pb-16 px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#1A1D23] px-4 py-2 rounded-full border border-[rgba(197, 160, 89, 0.15)] mb-8">
-                <span className="w-2 h-2 bg-[#C5A059] rounded-full" />
+              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)] mb-8">
+                <span className="w-2 h-2 bg-[#F59E0B] rounded-full" />
                 Centro de Recursos
               </span>
 
               <h1 className="text-4xl sm:text-5xl leading-tight mb-6 font-serif">
                 Ideas para construir
                 <br />
-                <span className="text-[#C5A059]">tu Soberanía Financiera</span>
+                <span className="text-[#E5C279]">tu Soberanía Financiera</span>
               </h1>
 
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
@@ -85,16 +85,16 @@ export default function BlogPage() {
                   <Link
                     key={article.slug}
                     href={`/blog/${article.slug}`}
-                    className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] hover:border-[#C5A059]/30 transition-all duration-300"
+                    className="group p-8 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] hover:border-[#C5A059]/30 transition-all duration-300"
                   >
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-xs text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 rounded-full">
+                      <span className="text-xs text-[#E5C279] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
                         {article.category}
                       </span>
                       <span className="text-xs text-[#64748B]">{article.readTime}</span>
                     </div>
 
-                    <h2 className="text-xl font-semibold mb-3 group-hover:text-[#C5A059] transition-colors">
+                    <h2 className="text-xl font-semibold mb-3 group-hover:text-[#E5C279] transition-colors">
                       {article.title}
                     </h2>
 
@@ -102,7 +102,7 @@ export default function BlogPage() {
                       {article.excerpt}
                     </p>
 
-                    <span className="text-sm text-[#C5A059] inline-flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-sm text-[#E5C279] inline-flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       Leer artículo
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -115,7 +115,7 @@ export default function BlogPage() {
           </section>
 
           {/* All Articles */}
-          <section className="py-12 px-6 bg-[#1A1D23]">
+          <section className="py-12 px-6 bg-[#16181D]">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-2xl font-serif mb-8">Todos los artículos</h2>
 
@@ -124,7 +124,7 @@ export default function BlogPage() {
                   <Link
                     key={article.slug}
                     href={`/blog/${article.slug}`}
-                    className="group flex items-center justify-between p-6 rounded-xl bg-[#0F1115] border border-[rgba(197, 160, 89, 0.15)] hover:border-[#C5A059]/30 transition-all duration-300"
+                    className="group flex items-center justify-between p-6 rounded-xl bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)] hover:border-[#C5A059]/30 transition-all duration-300"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -132,12 +132,12 @@ export default function BlogPage() {
                         <span className="text-xs text-[#64748B]">·</span>
                         <span className="text-xs text-[#64748B]">{article.readTime}</span>
                       </div>
-                      <h3 className="font-medium group-hover:text-[#C5A059] transition-colors">
+                      <h3 className="font-medium group-hover:text-[#E5C279] transition-colors">
                         {article.title}
                       </h3>
                     </div>
 
-                    <svg className="w-5 h-5 text-[#64748B] group-hover:text-[#C5A059] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#64748B] group-hover:text-[#E5C279] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
@@ -157,7 +157,7 @@ export default function BlogPage() {
               </p>
               <Link
                 href="/reto-5-dias"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#C5A059] text-[#0F1115]"
+                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
               >
                 Unirme al Reto de 5 Días
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -168,7 +168,7 @@ export default function BlogPage() {
           </section>
 
           {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[rgba(197, 160, 89, 0.15)]">
+          <footer className="px-6 py-12 border-t border-[rgba(229, 194, 121, 0.15)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#64748B]">
                 © 2026 CreaTuActivo.com ·

@@ -21,12 +21,12 @@ export default function NetworkMarketingObsoletoPage() {
   return (
     <>
       <StrategicNavigation />
-      <main className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+      <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
         {/* Gradient Background */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.08) 0%, transparent 50%)'
           }}
         />
 
@@ -43,7 +43,7 @@ export default function NetworkMarketingObsoletoPage() {
 
               {/* Meta */}
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-xs text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 rounded-full">
+                <span className="text-xs text-[#E5C279] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
                   Industria
                 </span>
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
@@ -52,7 +52,7 @@ export default function NetworkMarketingObsoletoPage() {
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
                 ¿Es el Network Marketing un modelo obsoleto?
-                <span className="text-[#C5A059]"> Por qué evolucionamos a la Arquitectura de Activos</span>
+                <span className="text-[#E5C279]"> Por qué evolucionamos a la Arquitectura de Activos</span>
               </h1>
 
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
@@ -83,10 +83,10 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] mb-12">
+                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;No eliminamos el network marketing.
-                    <span className="text-[#C5A059]"> Lo evolucionamos a Arquitectura de Activos.</span>&quot;
+                    <span className="text-[#E5C279]"> Lo evolucionamos a Arquitectura de Activos.</span>&quot;
                   </p>
                 </div>
 
@@ -100,7 +100,7 @@ export default function NetworkMarketingObsoletoPage() {
 
                   {/* Comparison */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="p-5 rounded-xl bg-[#0F1115] border border-[rgba(255,255,255,0.1)] opacity-70">
+                    <div className="p-5 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)] opacity-70">
                       <h3 className="text-lg font-semibold mb-3 text-red-400">Network Marketing Tradicional</h3>
                       <ul className="space-y-2 text-sm text-[#A3A3A3]">
                         <li className="flex items-start gap-2">
@@ -122,23 +122,23 @@ export default function NetworkMarketingObsoletoPage() {
                       </ul>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-[#0F1115] border border-[#C5A059]/30">
-                      <h3 className="text-lg font-semibold mb-3 text-[#C5A059]">Arquitectura de Activos</h3>
+                    <div className="p-5 rounded-xl bg-[#0B0C0C] border border-[#C5A059]/30">
+                      <h3 className="text-lg font-semibold mb-3 text-[#E5C279]">Arquitectura de Activos</h3>
                       <ul className="space-y-2 text-sm">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
+                          <span className="text-[#E5C279]">✓</span>
                           <span className="text-[#E5E5E5]">Construir sistemas que generan</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
+                          <span className="text-[#E5C279]">✓</span>
                           <span className="text-[#E5E5E5]">IA que educa y filtra 24/7</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
+                          <span className="text-[#E5C279]">✓</span>
                           <span className="text-[#E5E5E5]">Funnels que trabajan solos</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
+                          <span className="text-[#E5C279]">✓</span>
                           <span className="text-[#E5E5E5]">Atraer en lugar de perseguir</span>
                         </li>
                       </ul>
@@ -158,9 +158,9 @@ export default function NetworkMarketingObsoletoPage() {
                   </h2>
 
                   <div className="space-y-6">
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
+                    <div className="p-5 rounded-xl bg-[#16181D] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
-                        <span className="text-2xl font-bold text-[#C5A059]">1</span>
+                        <span className="text-2xl font-bold text-[#E5C279]">1</span>
                         <div>
                           <h4 className="font-semibold text-[#E5E5E5] mb-2">Tecnología como multiplicador</h4>
                           <p className="text-[#A3A3A3] text-sm">
@@ -171,9 +171,9 @@ export default function NetworkMarketingObsoletoPage() {
                       </div>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
+                    <div className="p-5 rounded-xl bg-[#16181D] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
-                        <span className="text-2xl font-bold text-[#C5A059]">2</span>
+                        <span className="text-2xl font-bold text-[#E5C279]">2</span>
                         <div>
                           <h4 className="font-semibold text-[#E5E5E5] mb-2">Infraestructura probada</h4>
                           <p className="text-[#A3A3A3] text-sm">
@@ -185,9 +185,9 @@ export default function NetworkMarketingObsoletoPage() {
                       </div>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
+                    <div className="p-5 rounded-xl bg-[#16181D] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
-                        <span className="text-2xl font-bold text-[#C5A059]">3</span>
+                        <span className="text-2xl font-bold text-[#E5C279]">3</span>
                         <div>
                           <h4 className="font-semibold text-[#E5E5E5] mb-2">Consumo recurrente como base</h4>
                           <p className="text-[#A3A3A3] text-sm">
@@ -235,19 +235,19 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                   <ul className="space-y-2 text-[#A3A3A3] mb-6">
                     <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059]">→</span>
+                      <span className="text-[#E5C279]">→</span>
                       <span>Buscan ingresos residuales, no otro empleo</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059]">→</span>
+                      <span className="text-[#E5C279]">→</span>
                       <span>Prefieren sistemas a habilidades de ventas</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059]">→</span>
+                      <span className="text-[#E5C279]">→</span>
                       <span>Entienden que los activos se construyen, no se compran</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059]">→</span>
+                      <span className="text-[#E5C279]">→</span>
                       <span>Tienen paciencia para un proceso de 6-18 meses</span>
                     </li>
                   </ul>
@@ -259,7 +259,7 @@ export default function NetworkMarketingObsoletoPage() {
               </div>
 
               {/* CTA Box */}
-              <div className="mt-16 p-8 rounded-2xl bg-[#1A1D23] border border-[#C5A059]/20">
+              <div className="mt-16 p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20">
                 <h3 className="text-xl font-serif mb-4">
                   ¿Quieres ver cómo funciona en la práctica?
                 </h3>
@@ -270,7 +270,7 @@ export default function NetworkMarketingObsoletoPage() {
                 </p>
                 <Link
                   href="/reto-5-dias"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5A059] text-[#0F1115] font-semibold rounded-xl hover:bg-[#E8C547] transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold rounded-xl hover:bg-[#E8C547] transition-colors"
                 >
                   Unirme al Reto Gratis
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -283,7 +283,7 @@ export default function NetworkMarketingObsoletoPage() {
               <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
                 <Link
                   href="/blog"
-                  className="text-[#A3A3A3] hover:text-[#C5A059] transition-colors inline-flex items-center gap-2"
+                  className="text-[#A3A3A3] hover:text-[#E5C279] transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />

@@ -41,9 +41,9 @@ export default function SociosPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#0F1115] text-[#E5E5E5]">
+    <div className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5]">
       {/* Header Simple */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0F1115]/90 backdrop-blur-md border-b border-[rgba(197, 160, 89, 0.15)]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0B0C0C]/90 backdrop-blur-md border-b border-[rgba(229, 194, 121, 0.15)]">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
@@ -56,15 +56,15 @@ export default function SociosPage() {
       {/* Hero - Validación + Curiosidad */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#1A1D23] border border-[#C5A059]/30">
-            <Heart className="w-4 h-4 text-[#C5A059]" />
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 bg-[#16181D] border border-[#C5A059]/30">
+            <Heart className="w-4 h-4 text-[#E5C279]" />
             <span className="text-sm text-[#A3A3A3]">Para quienes ya conocen el poder de las relaciones</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif leading-tight mb-6">
             Lo que funciona sigue funcionando.
             <br />
-            <span className="text-[#C5A059]">Solo necesita más alcance.</span>
+            <span className="text-[#E5C279]">Solo necesita más alcance.</span>
           </h1>
 
           <p className="text-lg text-[#A3A3A3] mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -72,12 +72,12 @@ export default function SociosPage() {
             <strong className="text-[#E5E5E5]"> Eso nunca será reemplazado por tecnología.</strong>
             <br /><br />
             Pero... ¿y si la tecnología pudiera
-            <strong className="text-[#C5A059]"> multiplicar tu alcance sin perder tu esencia?</strong>
+            <strong className="text-[#E5C279]"> multiplicar tu alcance sin perder tu esencia?</strong>
           </p>
 
           <a
             href="#historia"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C5A059] text-[#0F1115] font-semibold rounded-lg hover:bg-[#B38B59] transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#F59E0B] text-[#0B0C0C] font-semibold rounded-lg hover:bg-[#D97706] transition-colors"
           >
             Conocer la Historia
             <ArrowRight className="w-5 h-5" />
@@ -86,19 +86,19 @@ export default function SociosPage() {
       </section>
 
       {/* El Villano Real - El Entrenamiento Tradicional */}
-      <section id="historia" className="py-20 px-6 bg-[#15171C]">
+      <section id="historia" className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Verdadero Enemigo
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               No es tu gente.
-              <span className="text-[#C5A059]"> Es el entrenamiento que les dieron.</span>
+              <span className="text-[#E5C279]"> Es el entrenamiento que les dieron.</span>
             </h2>
           </div>
 
-          <div className="bg-[#1A1D23] rounded-2xl border border-red-500/20 p-8 mb-8">
+          <div className="bg-[#16181D] rounded-2xl border border-red-500/20 p-8 mb-8">
             <div className="flex items-start gap-4">
               <Quote className="w-8 h-8 text-red-400 shrink-0 mt-2" />
               <div>
@@ -134,7 +134,7 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl p-6 border border-red-500/10"
+                className="bg-[#16181D] rounded-xl p-6 border border-red-500/10"
               >
                 <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
                   <item.icon className="w-5 h-5 text-red-400" />
@@ -145,15 +145,15 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="mt-8 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30 p-8">
-            <h4 className="font-semibold text-[#C5A059] mb-4 text-lg">Mi Historia</h4>
+          <div className="mt-8 bg-[#16181D] rounded-xl border border-[#C5A059]/30 p-8">
+            <h4 className="font-semibold text-[#E5C279] mb-4 text-lg">Mi Historia</h4>
             <div className="space-y-4 text-[#A3A3A3] leading-relaxed">
               <p>
                 Cuando empecé, no me costaba. <strong className="text-[#E5E5E5]">5 presentaciones, 4 iniciaban.</strong> Pensé que duplicar sería igual de fácil.
               </p>
               <p>
                 Pero cuando mi equipo empezó a crecer, descubrí algo incómodo:
-                <strong className="text-[#C5A059]"> lo que para mí era fácil, para ellos era difícil.</strong>
+                <strong className="text-[#E5C279]"> lo que para mí era fácil, para ellos era difícil.</strong>
               </p>
               <p>
                 Ellos no sabían qué decir. Les daba miedo llamar. Y yo no podía estar en cada presentación.
@@ -165,7 +165,7 @@ export default function SociosPage() {
                 Necesitaba un sistema que hiciera el trabajo pesado — educar, responder objeciones, generar interés —
                 para que cuando mi equipo hablara con alguien, esa persona ya llegara lista.
               </p>
-              <p className="text-[#C5A059] font-semibold pt-2">
+              <p className="text-[#E5C279] font-semibold pt-2">
                 Eso es lo que construimos.
               </p>
             </div>
@@ -177,12 +177,12 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Evolución, No Revolución
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Los taxis no desaparecieron.
-              <span className="text-[#C5A059]"> Se transformaron.</span>
+              <span className="text-[#E5C279]"> Se transformaron.</span>
             </h2>
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Las habilidades que funcionan no desaparecen.
@@ -210,7 +210,7 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
+                className="bg-[#16181D] rounded-xl p-6 border border-[rgba(229, 194, 121, 0.15)]"
               >
                 <div className="grid md:grid-cols-3 gap-4 items-center">
                   <div className="text-center md:text-left">
@@ -218,15 +218,15 @@ export default function SociosPage() {
                     <p className="text-[#A3A3A3]">{item.before}</p>
                   </div>
                   <div className="text-center">
-                    <ArrowRight className="w-6 h-6 text-[#C5A059] mx-auto" />
+                    <ArrowRight className="w-6 h-6 text-[#E5C279] mx-auto" />
                   </div>
                   <div className="text-center md:text-right">
                     <p className="text-sm text-[#64748B] mb-1">Ahora</p>
                     <p className="text-[#E5E5E5]">{item.after}</p>
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-[rgba(197, 160, 89, 0.15)]">
-                  <p className="text-sm text-[#C5A059] text-center">
+                <div className="mt-4 pt-4 border-t border-[rgba(229, 194, 121, 0.15)]">
+                  <p className="text-sm text-[#E5C279] text-center">
                     <Sparkles className="w-4 h-4 inline mr-2" />
                     {item.insight}
                   </p>
@@ -238,15 +238,15 @@ export default function SociosPage() {
       </section>
 
       {/* El Plan Trimodal */}
-      <section className="py-20 px-6 bg-[#15171C]">
+      <section className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Plan Trimodal
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Tres caminos.
-              <span className="text-[#C5A059]"> Tú eliges el tuyo.</span>
+              <span className="text-[#E5C279]"> Tú eliges el tuyo.</span>
             </h2>
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               No todos tenemos los mismos talentos ni recursos. Por eso diseñamos
@@ -256,14 +256,14 @@ export default function SociosPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Análogo */}
-            <div className="bg-[#1A1D23] rounded-2xl border-2 border-[#C5A059]/50 p-8 relative">
-              <div className="absolute -top-3 right-8 px-3 py-1 bg-[#C5A059] text-[#0F1115] text-xs font-bold rounded-full">
+            <div className="bg-[#16181D] rounded-2xl border-2 border-[#C5A059]/50 p-8 relative">
+              <div className="absolute -top-3 right-8 px-3 py-1 bg-[#F59E0B] text-[#0B0C0C] text-xs font-bold rounded-full">
                 TU FORTALEZA
               </div>
-              <div className="w-14 h-14 bg-[#C5A059]/10 rounded-xl flex items-center justify-center mb-6">
-                <Handshake className="w-7 h-7 text-[#C5A059]" />
+              <div className="w-14 h-14 bg-[#F59E0B]/10 rounded-xl flex items-center justify-center mb-6">
+                <Handshake className="w-7 h-7 text-[#E5C279]" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-[#C5A059]">Análogo</h3>
+              <h3 className="text-xl font-semibold mb-2 text-[#E5C279]">Análogo</h3>
               <p className="text-sm text-[#64748B] mb-4">El poder de las relaciones</p>
               <p className="text-[#A3A3A3] mb-6 leading-relaxed">
                 Para quienes brillan en el 1 a 1, las reuniones y las presentaciones personales.
@@ -277,20 +277,20 @@ export default function SociosPage() {
                   'El arte del cierre en vivo',
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-[#C5A059] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#E5C279] shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 p-4 bg-[#C5A059]/5 rounded-xl">
-                <p className="text-xs text-[#C5A059]">
+              <div className="mt-6 p-4 bg-[#F59E0B]/5 rounded-xl">
+                <p className="text-xs text-[#E5C279]">
                   + La tecnología filtra y educa a tus prospectos ANTES de que lleguen a ti
                 </p>
               </div>
             </div>
 
             {/* Híbrido */}
-            <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
+            <div className="bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] p-8">
               <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
                 <Users className="w-7 h-7 text-purple-400" />
               </div>
@@ -316,7 +316,7 @@ export default function SociosPage() {
             </div>
 
             {/* Digital */}
-            <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
+            <div className="bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] p-8">
               <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6">
                 <Rocket className="w-7 h-7 text-blue-400" />
               </div>
@@ -345,7 +345,7 @@ export default function SociosPage() {
           <div className="mt-12 text-center">
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               La belleza del modelo es que puedes combinarlos.
-              Empezar con <strong className="text-[#C5A059]">Análogo</strong> y
+              Empezar con <strong className="text-[#E5C279]">Análogo</strong> y
               escalar a <strong className="text-purple-400">Híbrido</strong> o
               <strong className="text-blue-400"> Digital</strong> cuando estés lista.
             </p>
@@ -357,19 +357,19 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               La Metodología Probada
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               No inventamos la rueda.
-              <span className="text-[#C5A059]"> La adaptamos.</span>
+              <span className="text-[#E5C279]"> La adaptamos.</span>
             </h2>
           </div>
 
-          <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8 mb-8">
+          <div className="bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] p-8 mb-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-24 h-24 bg-[#C5A059]/10 rounded-full flex items-center justify-center shrink-0">
-                <Trophy className="w-12 h-12 text-[#C5A059]" />
+              <div className="w-24 h-24 bg-[#F59E0B]/10 rounded-full flex items-center justify-center shrink-0">
+                <Trophy className="w-12 h-12 text-[#E5C279]" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-3">Russell Brunson</h3>
@@ -410,10 +410,10 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)] flex items-start gap-4"
+                className="bg-[#16181D] rounded-xl p-6 border border-[rgba(229, 194, 121, 0.15)] flex items-start gap-4"
               >
-                <div className="w-10 h-10 bg-[#C5A059]/10 rounded-lg flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-[#C5A059]" />
+                <div className="w-10 h-10 bg-[#F59E0B]/10 rounded-lg flex items-center justify-center shrink-0">
+                  <item.icon className="w-5 h-5 text-[#E5C279]" />
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">{item.title}</h4>
@@ -426,15 +426,15 @@ export default function SociosPage() {
       </section>
 
       {/* El Reto de 5 Días - Día por Día */}
-      <section className="py-20 px-6 bg-[#15171C]">
+      <section className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Reto de 5 Días
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Qué reciben tus prospectos
-              <span className="text-[#C5A059]"> antes de hablar contigo</span>
+              <span className="text-[#E5C279]"> antes de hablar contigo</span>
             </h2>
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Imagina que cada persona que llega a ti ya entiende el modelo,
@@ -482,21 +482,21 @@ export default function SociosPage() {
             ].map((day, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden"
+                className="bg-[#16181D] rounded-xl border border-[rgba(229, 194, 121, 0.15)] overflow-hidden"
               >
                 <button
                   onClick={() => setOpenDay(openDay === i ? null : i)}
-                  className="w-full p-6 text-left flex items-center gap-4 hover:bg-[#1A1D23] transition-colors"
+                  className="w-full p-6 text-left flex items-center gap-4 hover:bg-[#16181D] transition-colors"
                 >
-                  <div className="w-12 h-12 bg-[#C5A059] rounded-xl flex items-center justify-center shrink-0">
-                    <span className="text-[#0F1115] font-bold text-lg">{day.day}</span>
+                  <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center shrink-0">
+                    <span className="text-[#0B0C0C] font-bold text-lg">{day.day}</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold">{day.title}</h3>
                     <p className="text-sm text-[#A3A3A3]">{day.subtitle}</p>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#C5A059] shrink-0 transition-transform ${
+                    className={`w-5 h-5 text-[#E5C279] shrink-0 transition-transform ${
                       openDay === i ? 'rotate-180' : ''
                     }`}
                   />
@@ -505,8 +505,8 @@ export default function SociosPage() {
                   <div className="px-6 pb-6">
                     <div className="ml-16 border-l-2 border-[#C5A059]/30 pl-6">
                       <p className="text-[#A3A3A3] mb-4 leading-relaxed">{day.content}</p>
-                      <div className="p-3 bg-[#C5A059]/5 rounded-lg">
-                        <p className="text-sm text-[#C5A059]">
+                      <div className="p-3 bg-[#F59E0B]/5 rounded-lg">
+                        <p className="text-sm text-[#E5C279]">
                           <CheckCircle2 className="w-4 h-4 inline mr-2" />
                           <strong>Resultado:</strong> {day.result}
                         </p>
@@ -518,12 +518,12 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="mt-8 p-6 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30">
+          <div className="mt-8 p-6 bg-[#16181D] rounded-xl border border-[#C5A059]/30">
             <p className="text-center text-[#E5E5E5]">
-              <Sparkles className="w-5 h-5 text-[#C5A059] inline mr-2" />
+              <Sparkles className="w-5 h-5 text-[#E5C279] inline mr-2" />
               <strong>El poder para ustedes:</strong> Cada persona que completa el reto
               llega educada, sin objeciones, lista para que ustedes hagan lo que mejor saben:
-              <span className="text-[#C5A059]"> conectar y cerrar.</span>
+              <span className="text-[#E5C279]"> conectar y cerrar.</span>
             </p>
           </div>
         </div>
@@ -533,7 +533,7 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Después del Reto
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
@@ -545,10 +545,10 @@ export default function SociosPage() {
             </p>
           </div>
 
-          <div className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] p-8">
+          <div className="bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] p-8">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-16 h-16 bg-[#C5A059]/10 rounded-full flex items-center justify-center">
-                <Play className="w-8 h-8 text-[#C5A059]" />
+              <div className="w-16 h-16 bg-[#F59E0B]/10 rounded-full flex items-center justify-center">
+                <Play className="w-8 h-8 text-[#E5C279]" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Webinar en Vivo</h3>
@@ -558,7 +558,7 @@ export default function SociosPage() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-semibold mb-4 text-[#C5A059]">Contenido:</h4>
+                <h4 className="font-semibold mb-4 text-[#E5C279]">Contenido:</h4>
                 <ul className="space-y-3">
                   {[
                     'La Gran Promesa: Cartera de activos en 6 meses',
@@ -568,21 +568,21 @@ export default function SociosPage() {
                     'La Oferta Irresistible (The Stack)',
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-[#A3A3A3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#E5C279] shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 text-[#C5A059]">Beneficio para ustedes:</h4>
+                <h4 className="font-semibold mb-4 text-[#E5C279]">Beneficio para ustedes:</h4>
                 <p className="text-[#A3A3A3] leading-relaxed mb-4">
                   En lugar de hacer presentaciones individuales explicando todo desde cero,
                   invitan a sus prospectos al webinar. Ellos reciben la información completa.
                   Ustedes solo hacen seguimiento y cierre.
                 </p>
-                <div className="p-4 bg-[#C5A059]/5 rounded-lg">
-                  <p className="text-sm text-[#C5A059]">
+                <div className="p-4 bg-[#F59E0B]/5 rounded-lg">
+                  <p className="text-sm text-[#E5C279]">
                     <strong>Resultado:</strong> Más cierres con menos esfuerzo.
                     <br />
                     El sistema presenta. Ustedes conectan.
@@ -595,15 +595,15 @@ export default function SociosPage() {
       </section>
 
       {/* La Experiencia de 11 Estrellas */}
-      <section className="py-20 px-6 bg-[#15171C]">
+      <section className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Nuestra Visión
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               La Experiencia de
-              <span className="text-[#C5A059]"> 11 Estrellas</span>
+              <span className="text-[#E5C279]"> 11 Estrellas</span>
             </h2>
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Brian Chesky (fundador de Airbnb) preguntaba: "Si la experiencia de 5 estrellas
@@ -635,12 +635,12 @@ export default function SociosPage() {
                 stars: 11,
                 title: 'Lo que estamos construyendo',
                 description: 'El prospecto siente que encontró una comunidad que genuinamente quiere su éxito. No una venta, sino un equipo.',
-                color: 'text-[#C5A059]',
+                color: 'text-[#E5C279]',
               },
             ].map((level, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
+                className="bg-[#16181D] rounded-xl p-6 border border-[rgba(229, 194, 121, 0.15)]"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex gap-1">
@@ -665,25 +665,25 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="p-6 bg-[#1A1D23] rounded-xl border border-[#C5A059]/30 mb-8">
+          <div className="p-6 bg-[#16181D] rounded-xl border border-[#C5A059]/30 mb-8">
             <p className="text-center text-[#A3A3A3]">
               <strong className="text-[#E5E5E5]">¿Por qué importa esto para ustedes?</strong>
               <br /><br />
               Cuando sus prospectos y nuevos socios tienen una experiencia de 11 estrellas,
-              <span className="text-[#C5A059]"> la duplicación se vuelve natural</span>.
+              <span className="text-[#E5C279]"> la duplicación se vuelve natural</span>.
               No tienen que "convencer" a nadie de quedarse. Quieren quedarse porque
               la experiencia es excepcional.
             </p>
           </div>
 
           {/* La Solución: Material que Atrae */}
-          <div className="bg-gradient-to-br from-[#C5A059]/10 to-[#1A1D23] rounded-2xl border border-[#C5A059]/30 p-8">
+          <div className="bg-gradient-to-br from-[#C5A059]/10 to-[#16181D] rounded-2xl border border-[#C5A059]/30 p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-[#C5A059] rounded-xl flex items-center justify-center">
-                <Share2 className="w-6 h-6 text-[#0F1115]" />
+              <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center">
+                <Share2 className="w-6 h-6 text-[#0B0C0C]" />
               </div>
               <div>
-                <h4 className="font-semibold text-[#C5A059]">La Solución 11 Estrellas</h4>
+                <h4 className="font-semibold text-[#E5C279]">La Solución 11 Estrellas</h4>
                 <p className="text-sm text-[#A3A3A3]">Lo que encuentra el nuevo al llegar</p>
               </div>
             </div>
@@ -706,9 +706,9 @@ export default function SociosPage() {
                   description: 'No persiguen. Los prospectos llegan preguntando. Listos para hablar.',
                 },
               ].map((item, i) => (
-                <div key={i} className="bg-[#0F1115]/50 rounded-xl p-4 text-center">
-                  <div className="w-8 h-8 bg-[#C5A059] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#0F1115] font-bold text-sm">{item.step}</span>
+                <div key={i} className="bg-[#0B0C0C]/50 rounded-xl p-4 text-center">
+                  <div className="w-8 h-8 bg-[#F59E0B] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-[#0B0C0C] font-bold text-sm">{item.step}</span>
                   </div>
                   <h5 className="font-semibold mb-2 text-[#E5E5E5]">{item.title}</h5>
                   <p className="text-xs text-[#A3A3A3]">{item.description}</p>
@@ -719,7 +719,7 @@ export default function SociosPage() {
             <p className="text-center text-[#E5E5E5]">
               El nuevo ya no dice <span className="text-red-400">"no sé qué decirle a mis amigos"</span>.
               <br />
-              Ahora dice: <span className="text-[#C5A059]">"publiqué y me escribieron 3 personas preguntando"</span>.
+              Ahora dice: <span className="text-[#E5C279]">"publiqué y me escribieron 3 personas preguntando"</span>.
             </p>
           </div>
         </div>
@@ -729,13 +729,13 @@ export default function SociosPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               El Sueño Tangible
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Malasia. Tailandia. Cancún. Cartagena.
               <br />
-              <span className="text-[#C5A059]">Y TODO tu equipo puede llegar.</span>
+              <span className="text-[#E5C279]">Y TODO tu equipo puede llegar.</span>
             </h2>
             <p className="text-[#A3A3A3] max-w-2xl mx-auto">
               Gano Excel acaba de lanzar el Corporativo Malasia-Tailandia 2026.
@@ -766,7 +766,7 @@ export default function SociosPage() {
             ].map((trip, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-2xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden group hover:border-[#C5A059]/30 transition-colors"
+                className="bg-[#16181D] rounded-2xl border border-[rgba(229, 194, 121, 0.15)] overflow-hidden group hover:border-[#C5A059]/30 transition-colors"
               >
                 <div className={`h-2 bg-gradient-to-r ${trip.color}`} />
                 <div className="p-6">
@@ -778,13 +778,13 @@ export default function SociosPage() {
             ))}
           </div>
 
-          <div className="bg-[#1A1D23] rounded-2xl border border-[#C5A059]/30 p-8">
+          <div className="bg-[#16181D] rounded-2xl border border-[#C5A059]/30 p-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-[#C5A059]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Trophy className="w-6 h-6 text-[#C5A059]" />
+              <div className="w-12 h-12 bg-[#F59E0B]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Trophy className="w-6 h-6 text-[#E5C279]" />
               </div>
               <div>
-                <h4 className="font-semibold mb-3 text-[#C5A059]">
+                <h4 className="font-semibold mb-3 text-[#E5C279]">
                   El sistema no solo te ayuda a TI a calificar...
                 </h4>
                 <p className="text-[#A3A3A3] leading-relaxed mb-4">
@@ -793,7 +793,7 @@ export default function SociosPage() {
                 </p>
                 <p className="text-[#E5E5E5] leading-relaxed">
                   Cuando tu equipo tiene herramientas que funcionan aunque ellos estén dormidos,
-                  <strong className="text-[#C5A059]"> la calificación a estos viajes se vuelve alcanzable para TODOS</strong>.
+                  <strong className="text-[#E5C279]"> la calificación a estos viajes se vuelve alcanzable para TODOS</strong>.
                   No solo para las "estrellas" — para todo tu árbol.
                 </p>
               </div>
@@ -811,15 +811,15 @@ export default function SociosPage() {
       </section>
 
       {/* El Dolor que Resolvemos (Empatía) */}
-      <section className="py-20 px-6 bg-[#15171C]">
+      <section className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C5A059] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#E5C279] text-sm font-semibold uppercase tracking-wider mb-4 block">
               Entendemos el Desafío
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif mb-4">
               Los dolores que conocemos
-              <span className="text-[#C5A059]"> porque también los vivimos</span>
+              <span className="text-[#E5C279]"> porque también los vivimos</span>
             </h2>
           </div>
 
@@ -848,7 +848,7 @@ export default function SociosPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl p-6 border border-[rgba(197, 160, 89, 0.15)]"
+                className="bg-[#16181D] rounded-xl p-6 border border-[rgba(229, 194, 121, 0.15)]"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center">
@@ -857,8 +857,8 @@ export default function SociosPage() {
                   <h4 className="font-semibold text-red-400">{item.pain}</h4>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-[#C5A059]/10 rounded flex items-center justify-center shrink-0 mt-0.5">
-                    <Zap className="w-3 h-3 text-[#C5A059]" />
+                  <div className="w-6 h-6 bg-[#F59E0B]/10 rounded flex items-center justify-center shrink-0 mt-0.5">
+                    <Zap className="w-3 h-3 text-[#E5C279]" />
                   </div>
                   <p className="text-[#A3A3A3] text-sm leading-relaxed">{item.solution}</p>
                 </div>
@@ -902,15 +902,15 @@ export default function SociosPage() {
             ].map((faq, i) => (
               <div
                 key={i}
-                className="bg-[#1A1D23] rounded-xl border border-[rgba(197, 160, 89, 0.15)] overflow-hidden"
+                className="bg-[#16181D] rounded-xl border border-[rgba(229, 194, 121, 0.15)] overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-[#1A1D23] transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-[#16181D] transition-colors"
                 >
                   <span className="font-semibold pr-4">{faq.q}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#C5A059] shrink-0 transition-transform ${
+                    className={`w-5 h-5 text-[#E5C279] shrink-0 transition-transform ${
                       openFaq === i ? 'rotate-180' : ''
                     }`}
                   />
@@ -927,12 +927,12 @@ export default function SociosPage() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 px-6 bg-[#15171C]">
+      <section className="py-20 px-6 bg-[#16181D]">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-serif mb-6">
             Lo que construimos es para ustedes.
             <br />
-            <span className="text-[#C5A059]">Para potenciar lo que ya hacen.</span>
+            <span className="text-[#E5C279]">Para potenciar lo que ya hacen.</span>
           </h2>
 
           <p className="text-[#A3A3A3] mb-8 max-w-xl mx-auto leading-relaxed">
@@ -943,14 +943,14 @@ export default function SociosPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/reto-5-dias"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C5A059] text-[#0F1115] font-semibold rounded-lg hover:bg-[#B38B59] transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#F59E0B] text-[#0B0C0C] font-semibold rounded-lg hover:bg-[#D97706] transition-colors"
             >
               Experimentar el Reto (Como Prospecto)
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/fundadores"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#1A1D23] border border-[rgba(197, 160, 89, 0.15)] text-[#E5E5E5] font-semibold rounded-lg hover:bg-[#1A1D23] transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-[#E5E5E5] font-semibold rounded-lg hover:bg-[#16181D] transition-colors"
             >
               Ver la Oferta Completa
             </Link>
@@ -958,7 +958,7 @@ export default function SociosPage() {
 
           <p className="mt-8 text-sm text-[#64748B]">
             ¿Preguntas? Hablemos directamente:
-            <a href="https://wa.me/573215193909" className="text-[#C5A059] hover:underline ml-1">
+            <a href="https://wa.me/573215193909" className="text-[#E5C279] hover:underline ml-1">
               +57 321 519 3909
             </a>
           </p>
@@ -966,7 +966,7 @@ export default function SociosPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-[rgba(197, 160, 89, 0.15)]">
+      <footer className="py-8 px-6 border-t border-[rgba(229, 194, 121, 0.15)]">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-[#64748B]">
             © {new Date().getFullYear()} CreaTuActivo.com — Presentación exclusiva para socios estratégicos

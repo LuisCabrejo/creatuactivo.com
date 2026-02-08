@@ -43,7 +43,12 @@
    BASE STYLES - QUIET LUXURY
    ======================================== */
 body {
-  background-color: var(--bg-main);
+  background-color: var(--bg-obsidian);
+  background-image: url('/images/servilleta/fondo-global-hormigon.jpg');
+  background-repeat: repeat;
+  background-size: 500px;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
   color: var(--text-main);
 }
 

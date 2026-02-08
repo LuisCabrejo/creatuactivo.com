@@ -285,8 +285,8 @@ export default function NetworkMarketingObsoletoPage() {
                 </section>
               </div>
 
-              {/* CTA Box */}
-              <div className="mt-16 p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20">
+              {/* CTA Box - Industrial Geometry */}
+              <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
                   ¿Quieres ver cómo funciona en la práctica?
                 </h3>

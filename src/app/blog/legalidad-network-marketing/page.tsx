@@ -115,7 +115,7 @@ export default function LegalidadNetworkMarketingPage() {
                     Según la FTC (Federal Trade Commission de Estados Unidos), la diferencia
                     entre un negocio legítimo y un esquema piramidal se reduce a una pregunta:
                   </p>
-                  <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-6">
+                  <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-6">
                     <p className="text-lg text-[#E5E5E5] font-medium">
                       ¿De dónde viene el dinero que se paga a los participantes?
                     </p>
@@ -286,7 +286,7 @@ export default function LegalidadNetworkMarketingPage() {
                   </div>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
+                <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;La estructura de red no es ilegal. Lo ilegal es cuando
                     <span className="text-[#E5C279]"> el dinero viene del reclutamiento, no de las ventas.</span>&quot;
@@ -342,8 +342,8 @@ export default function LegalidadNetworkMarketingPage() {
                 </section>
               </div>
 
-              {/* CTA Box */}
-              <div className="mt-16 p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20">
+              {/* CTA Box - Industrial Geometry */}
+              <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
                   ¿Quieres evaluar una oportunidad real?
                 </h3>

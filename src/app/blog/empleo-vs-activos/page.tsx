@@ -108,7 +108,7 @@ export default function EmpleoVsActivosPage() {
                   </p>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
+                <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;El empleado gana dinero. El constructor de activos
                     <span className="text-[#E5C279]"> construye máquinas que generan dinero.</span>&quot;
@@ -262,8 +262,8 @@ export default function EmpleoVsActivosPage() {
                 </section>
               </div>
 
-              {/* CTA Box */}
-              <div className="mt-16 p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20">
+              {/* CTA Box - Industrial Geometry */}
+              <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
                   ¿Quieres aprender a construir activos?
                 </h3>

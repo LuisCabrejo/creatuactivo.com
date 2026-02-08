@@ -91,7 +91,7 @@ export default function ManifiestoPage() {
                   no crecían al mismo ritmo que mi estrés.
                 </p>
 
-                <div className="p-8 rounded-xl bg-[#16181D] border-l-2 border-[#C5A059] my-10">
+                <div className="p-8  bg-[#16181D] border-l-2 border-[#C5A059] my-10">
                   <p className="text-xl text-[#E5E5E5] font-serif italic">
                     Estaba corriendo en una cinta estática: mucho sudor, cero desplazamiento.
                   </p>
@@ -145,7 +145,7 @@ export default function ManifiestoPage() {
                     que tenga la logística de una multinacional pero la libertad de un inversionista?
                   </p>
 
-                  <div className="p-8 rounded-xl bg-[#16181D] border border-[#C5A059]/20 my-10">
+                  <div className="p-8  bg-[#16181D] border border-[#C5A059]/20 my-10">
                     <p className="text-xl text-[#E5E5E5] font-serif text-center">
                       La respuesta fue dejar de ser un &quot;vendedor&quot;
                       <br />
@@ -199,7 +199,7 @@ export default function ManifiestoPage() {
               <div className="space-y-12">
                 {/* Principio 1 */}
                 <div className="flex gap-6">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12  border border-[#C5A059]/30 flex items-center justify-center">
                     <span className="text-[#E5C279] font-serif text-lg">01</span>
                   </div>
                   <div>
@@ -213,7 +213,7 @@ export default function ManifiestoPage() {
 
                 {/* Principio 2 */}
                 <div className="flex gap-6">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12  border border-[#C5A059]/30 flex items-center justify-center">
                     <span className="text-[#E5C279] font-serif text-lg">02</span>
                   </div>
                   <div>
@@ -227,7 +227,7 @@ export default function ManifiestoPage() {
 
                 {/* Principio 3 */}
                 <div className="flex gap-6">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C5A059]/30 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12  border border-[#C5A059]/30 flex items-center justify-center">
                     <span className="text-[#E5C279] font-serif text-lg">03</span>
                   </div>
                   <div>
@@ -256,7 +256,7 @@ export default function ManifiestoPage() {
                 con aquellos que entienden que el &quot;Plan por Defecto&quot; ha caducado.
               </p>
 
-              <div className="p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/20 mb-12">
+              <div className="p-8  bg-[#16181D] border border-[#C5A059]/20 mb-12">
                 <p className="text-[#A3A3A3] mb-6">
                   Si quieres ver los planos exactos de cómo construimos estos activos
                   sin inventarios y sin perseguir amigos, he preparado un entrenamiento de 5 días.
@@ -268,7 +268,7 @@ export default function ManifiestoPage() {
 
               <Link
                 href="/reto-5-dias"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
+                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5  transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
               >
                 Ver los Planos
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

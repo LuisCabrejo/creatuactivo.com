@@ -24,27 +24,28 @@ export function IndustrialHeader({
   imageAlt,
 }: IndustrialHeaderProps) {
   return (
-    <section style={{ height: '40vh', position: 'relative', overflow: 'hidden' }}>
-      {/* Imagen B&W con opacidad */}
+    <section style={{ height: '45vh', position: 'relative', overflow: 'hidden' }}>
+      {/* Imagen B&W con fade inferior (mask-image) */}
       <Image
         src={imageSrc}
         alt={imageAlt}
         fill
         style={{
           objectFit: 'cover',
-          filter: 'grayscale(100%) contrast(1.1)',
-          opacity: 0.3,
+          filter: 'grayscale(90%) contrast(1.15) brightness(0.6)',
+          opacity: 0.85,
+          WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
         }}
         priority
       />
 
-      {/* Overlay oscuro + gradiente inferior */}
+      {/* Overlay sutil para uniformidad */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background:
-            'linear-gradient(to bottom, rgba(11,12,12,0.6) 0%, rgba(11,12,12,0.85) 70%, #0B0C0C 100%)',
+          background: 'linear-gradient(to bottom, rgba(11,12,12,0.3) 0%, rgba(11,12,12,0.5) 60%, transparent 100%)',
         }}
       />
 

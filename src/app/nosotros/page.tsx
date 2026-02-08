@@ -26,23 +26,22 @@ export default function ManifiestoPage() {
       {/* Navegación estándar del sitio */}
       <StrategicNavigation />
 
-      <main className="min-h-screen bg-transparent text-[#E5E5E5]">
-        {/* Subtle gradient - Quiet Luxury */}
-        <div
-          className="fixed inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.06) 0%, transparent 60%)'
-          }}
-        />
-
+      <main
+        className="min-h-screen text-[#E5E5E5]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg')`,
+          backgroundSize: 'cover, 600px 600px',
+          backgroundRepeat: 'no-repeat, repeat',
+          backgroundAttachment: 'fixed, fixed',
+        }}
+      >
         <div className="relative z-10">
           {/* ═══════════════════════════════════════════════════════════════
-              HERO: Industrial Header
+              HERO: Industrial Header - Planos Arquitectónicos
               ═══════════════════════════════════════════════════════════════ */}
           <IndustrialHeader
-            title="La búsqueda de la Soberanía"
-            subtitle="De las promesas rotas en un mirador a la arquitectura de activos digitales."
-            refCode="MANIFIESTO_V1"
+            title="MANIFIESTO DEL ARQUITECTO"
+            refCode="DOCUMENTO_FUNDACIONAL_V1"
             imageSrc="/images/header-manifiesto.jpg"
             imageAlt="Planos arquitectónicos - Manifiesto CreaTuActivo"
           />
@@ -54,13 +53,13 @@ export default function ManifiestoPage() {
             <div
               className="max-w-2xl mx-auto"
               style={{
-                background: 'rgba(22, 24, 29, 0.8)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                borderRadius: '1rem',
-                padding: 'clamp(1.5rem, 4vw, 3rem)',
-                marginTop: '-2rem',
+                background: 'rgba(22, 24, 29, 0.70)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(212, 175, 55, 0.1)',
+                borderRadius: '0',
+                padding: 'clamp(2rem, 5vw, 4rem)',
+                marginTop: '-1rem',
                 position: 'relative',
                 zIndex: 10,
               }}
@@ -188,7 +187,7 @@ export default function ManifiestoPage() {
           {/* ═══════════════════════════════════════════════════════════════
               PRINCIPIOS OPERATIVOS (No Misión/Visión genérica)
               ═══════════════════════════════════════════════════════════════ */}
-          <section className="py-20 px-6 bg-[#16181D]">
+          <section className="py-20 px-6" style={{ background: 'rgba(16,18,22,0.75)', backdropFilter: 'blur(6px)' }}>
             <div className="max-w-3xl mx-auto">
               <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-4 text-center">
                 Nuestros Principios Operativos

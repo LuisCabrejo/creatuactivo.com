@@ -42,6 +42,12 @@ const config: Config = {
           warning: '#FBBF24',  // Ámbar
           alert: '#F43F5E',    // Rosa Terracota
         },
+        // Elegancia Cinética v1.0
+        obsidian: '#0B0C0C',
+        gunmetal: '#16181D',
+        'amber-industrial': '#F59E0B',
+        'cyan-data': '#38BDF8',
+        'gold-warm': '#E5C279',
         // Legacy (for compatibility)
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -49,6 +55,8 @@ const config: Config = {
       fontFamily: {
         serif: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['Montserrat', 'Inter', '-apple-system', 'sans-serif'],
+        industrial: ['var(--font-rajdhani)', 'Rajdhani', 'sans-serif'],
+        mono: ['var(--font-roboto-mono)', 'Roboto Mono', 'monospace'],
       },
       borderColor: {
         subtle: 'rgba(197, 160, 89, 0.2)',
@@ -60,6 +68,9 @@ const config: Config = {
         'gold-glow-lg': '0 0 25px rgba(197, 160, 89, 0.4)',
         'spotlight': '0 0 80px 40px rgba(148, 163, 184, 0.08)',
         'warm-spot': '0 0 80px 40px rgba(197, 160, 89, 0.06)',
+        'neon-gold': '0 0 15px rgba(229, 194, 121, 0.3)',
+        'neon-cyan': '0 0 15px rgba(56, 189, 248, 0.3)',
+        'neon-amber': '0 0 15px rgba(245, 158, 11, 0.3)',
       },
       backgroundImage: {
         // Gradientes de atmósfera

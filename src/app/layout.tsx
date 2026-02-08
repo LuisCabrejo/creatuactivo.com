@@ -5,7 +5,7 @@
  */
 
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Montserrat, Oswald } from 'next/font/google';
+import { Playfair_Display, Montserrat, Oswald, Rajdhani, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
 import CookieBanner from '@/components/CookieBanner';
@@ -33,6 +33,22 @@ const oswald = Oswald({
   display: 'swap',
   variable: '--font-oswald',
   weight: ['400', '500', '600', '700'],
+});
+
+// ELEGANCIA CINÉTICA - Rajdhani: UI, subtítulos, botones ("La Máquina")
+const rajdhani = Rajdhani({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-rajdhani',
+  weight: ['500', '600', '700'],
+});
+
+// ELEGANCIA CINÉTICA - Roboto Mono: Datos, métricas, fórmulas ("La Evidencia")
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+  weight: ['300', '400', '500'],
 });
 
 export const viewport: Viewport = {
@@ -270,7 +286,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${montserrat.variable} ${playfair.variable} ${oswald.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+      <body className={`${montserrat.variable} ${playfair.variable} ${oswald.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
         <main className="relative">
           {children}
         </main>

@@ -93,8 +93,11 @@ export const BRAND = {
   },
 
   fonts: {
-    serif: 'Playfair Display, Georgia, serif',
-    sans: 'Montserrat, Inter, -apple-system, sans-serif',
+    serif: 'Playfair Display, Georgia, serif',           // "La Promesa"
+    sans: 'Montserrat, Inter, -apple-system, sans-serif', // Body text
+    industrial: 'Rajdhani, sans-serif',                   // "La Máquina"
+    mono: 'Roboto Mono, monospace',                       // "La Evidencia"
+    logo: 'Oswald, sans-serif',
     stack: 'Montserrat, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif'
   },
 
@@ -234,4 +237,40 @@ export const ICON_COLORS = {
 
   // Trust Markers (Landing pages)
   trust: 'rgba(255, 255, 255, 0.6)', // Blanco con opacidad
+} as const;
+
+// ============================================================================
+// ELEGANCIA CINÉTICA v1.0 - "Ingeniería de Lujo"
+// Fusión: Quiet Luxury + Realismo Industrial (Servilleta/Queswa)
+// Regla 60-30-10: 60% Obsidian, 30% Steel, 5% Cyan, 5% Gold
+// ============================================================================
+
+export const ELEGANCIA_CINETICA = {
+  bg: {
+    obsidian: '#0B0C0C',               // Fondo principal
+    gunmetal: '#16181D',               // Tarjetas/Módulos
+    glass: 'rgba(22, 24, 29, 0.7)',    // Glassmorphism
+  },
+  gold: {
+    champagne: '#E5C279',             // Títulos (más suave y cálido)
+    metallic: '#D4AF37',              // Bordes / Detalles finos
+  },
+  accent: {
+    amber: '#F59E0B',                 // CTAs principales
+    amberDark: '#D97706',             // Gradient bottom
+    cyan: '#38BDF8',                  // Datos / Biometría
+    cyanDark: '#0EA5E9',              // Cyan hover
+  },
+  steel: '#94A3B8',                   // Estructura (sin cambio)
+  text: {
+    primary: '#FFFFFF',               // Títulos
+    main: '#E5E5E5',                  // Body
+    muted: '#A3A3A3',                 // Secondary
+    subtle: '#6B7280',                // Very subtle
+  },
+  border: {
+    gold: 'rgba(212, 175, 55, 0.2)',  // Bordes dorados sutiles
+    glass: 'rgba(255, 255, 255, 0.08)', // Bordes neutrales
+    glow: 'rgba(229, 194, 121, 0.3)',   // Glow dorado
+  },
 } as const;

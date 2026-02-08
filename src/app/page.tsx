@@ -100,23 +100,21 @@ function HeroSection() {
           o una Trampa de Dependencia?
         </h1>
 
-        {/* Textos pequeños — text-shadow profundo para legibilidad */}
-        <p style={{
-          fontSize: '1.1rem', lineHeight: 1.7, color: C.textMuted,
-          maxWidth: '600px', margin: '0 auto 16px',
-          textShadow: '0 1px 10px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9)',
+        {/* contrast-plate — igual que /servilleta, solo para textos pequeños */}
+        <div style={{
+          background: 'rgba(0,0,0,0.70)',
+          padding: '20px 28px',
+          marginBottom: '32px',
+          borderLeft: `2px solid rgba(229,194,121,0.3)`,
         }}>
-          Deja de ser el motor de tu economía.{' '}
-          <span style={{ color: C.textMain, fontWeight: 500 }}>Construye el chasis que te permita detenerte sin que todo colapse.</span>
-        </p>
-
-        <p style={{
-          fontSize: '0.85rem', margin: '0 0 40px',
-          fontFamily: "'Roboto Mono', monospace", color: C.textMuted,
-          textShadow: '0 1px 8px rgba(0,0,0,1)',
-        }}>
-          Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
-        </p>
+          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.textMuted, maxWidth: '600px', margin: '0 auto 12px' }}>
+            Deja de ser el motor de tu economía.{' '}
+            <span style={{ color: C.textMain, fontWeight: 500 }}>Construye el chasis que te permita detenerte sin que todo colapse.</span>
+          </p>
+          <p style={{ fontSize: '0.85rem', margin: 0, fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
+            Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
+          </p>
+        </div>
 
         {/* Botón primario — Geometría Industrial (clip-path) */}
         <Link

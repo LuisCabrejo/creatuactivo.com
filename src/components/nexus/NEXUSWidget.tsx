@@ -16,17 +16,20 @@ import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 
-// 🎨 Quiet Luxury Color Palette (THE ARCHITECT'S SUITE)
+// 🤖 ELEGANCIA CINÉTICA - Terminal de Comando Avanzada (FASE F)
 const QUIET_LUXURY = {
-  gold: '#C5A059',           // Champagne Gold - Primary accent
-  goldMuted: '#A68A4A',      // Muted gold for subtle elements
-  goldDark: '#8A7340',       // Dark gold for hover states
-  bgDeep: '#0F1115',         // Carbono - Primary background
-  bgSurface: '#1A1D23',      // Surface background
-  bgCard: '#22252B',         // Card background
+  gold: '#E5C279',           // Champagne Gold - Primary accent (EC)
+  goldMuted: '#B89B5E',      // Muted gold
+  goldDark: '#9A7D42',       // Dark gold
+  bgDeep: '#0B0C0C',         // Obsidian - Primary background (EC)
+  bgSurface: '#16181D',      // Gunmetal - Surface background (EC)
+  bgCard: '#1E2028',         // Card background
   textPrimary: '#E5E5E5',    // Blanco Humo - Primary text
   textSecondary: '#A3A3A3',  // Secondary text
   textMuted: '#6B7280',      // Muted text (Slate Gray)
+  // Nuevos en EC:
+  cyan: '#38BDF8',            // Cyan Data - Identidad IA
+  amber: '#F59E0B',           // Amber Industrial - Usuario/Interactividad
 };
 
 interface Message {
@@ -137,36 +140,37 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         <div
           className="h-full flex flex-col shadow-2xl rounded-2xl overflow-hidden relative"
           style={{
-            background: `rgba(18, 18, 26, 0.95)`,
+            background: `rgba(11, 12, 12, 0.95)`,
             backdropFilter: 'blur(32px)',
-            border: `1px solid rgba(197, 160, 89, 0.2)`,
-            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(197, 160, 89, 0.1)`
+            border: `1px solid rgba(56, 189, 248, 0.15)`,
+            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.07)`
           }}
         >
 
-          {/* 🎨 Quiet Luxury HEADER */}
+          {/* 🤖 Terminal HEADER */}
           <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b rounded-t-2xl"
                style={{
                  background: QUIET_LUXURY.bgSurface,
-                 borderColor: `rgba(197, 160, 89, 0.15)`
+                 borderColor: `rgba(56, 189, 248, 0.1)`
                }}>
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
                 style={{
-                  background: QUIET_LUXURY.gold,
-                  boxShadow: `0 4px 12px rgba(197, 160, 89, 0.3)`
+                  background: `rgba(56, 189, 248, 0.12)`,
+                  border: `1px solid rgba(56, 189, 248, 0.3)`,
+                  boxShadow: `0 4px 12px rgba(56, 189, 248, 0.15)`
                 }}
               >
-                <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.cyan }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
+                <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
-                  <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
+                  <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
+                  <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>SISTEMA EN LÍNEA</p>
                 </div>
               </div>
             </div>
@@ -176,8 +180,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 className="p-2 transition-all duration-200 rounded-lg"
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.1)';
+                  e.currentTarget.style.color = QUIET_LUXURY.cyan;
+                  e.currentTarget.style.background = 'rgba(56, 189, 248, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -226,29 +230,30 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎨 Quiet Luxury HEADER MOBILE */}
+          {/* 🤖 Terminal HEADER MOBILE */}
           <div
             className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center"
             style={{
               background: QUIET_LUXURY.bgSurface,
-              borderBottom: `1px solid rgba(197, 160, 89, 0.15)`
+              borderBottom: `1px solid rgba(56, 189, 248, 0.1)`
             }}
           >
             <div className="flex items-center gap-2">
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{
-                  background: QUIET_LUXURY.gold,
-                  boxShadow: `0 2px 8px rgba(197, 160, 89, 0.3)`
+                  background: `rgba(56, 189, 248, 0.12)`,
+                  border: `1px solid rgba(56, 189, 248, 0.3)`,
+                  boxShadow: `0 2px 8px rgba(56, 189, 248, 0.1)`
                 }}
               >
-                <svg className="w-4 h-4" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" style={{ color: QUIET_LUXURY.cyan }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
-                <p className="text-[10px]" style={{ color: QUIET_LUXURY.textMuted }}>por CreaTuActivo.com</p>
+                <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
+                <p className="text-[10px] font-mono" style={{ color: QUIET_LUXURY.cyan }}>TERMINAL ACTIVA</p>
               </div>
             </div>
 
@@ -268,31 +273,31 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {/* 🎨 Quiet Luxury STATUS BAR */}
+          {/* 🤖 Terminal STATUS BAR */}
           <div
-            className="hidden md:block px-4 py-2.5"
+            className="hidden md:block px-4 py-2"
             style={{
-              background: `rgba(26, 26, 36, 0.6)`,
-              borderBottom: `1px solid rgba(255, 255, 255, 0.03)`
+              background: `rgba(11, 12, 12, 0.6)`,
+              borderBottom: `1px solid rgba(56, 189, 248, 0.06)`
             }}
           >
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
-              <span className="text-xs transition-all duration-300" style={{ color: QUIET_LUXURY.textSecondary }}>
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.cyan }}></div>
+              <span className="text-xs font-mono transition-all duration-300" style={{ color: QUIET_LUXURY.textSecondary }}>
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span>Procesando consulta</span>
-                    <span className="animate-pulse">...</span>
+                    <span style={{ color: QUIET_LUXURY.cyan }}>PROCESANDO</span>
+                    <span className="animate-pulse">_</span>
                   </span>
                 ) : isUserScrolling ? (
                   <>
-                    Explorando historial
-                    <span style={{ color: QUIET_LUXURY.goldMuted }} className="ml-2">• Pausado</span>
+                    <span style={{ color: QUIET_LUXURY.textMuted }}>HISTORIAL</span>
+                    <span className="ml-2">• pausado</span>
                   </>
                 ) : (
                   <>
-                    Conversación actual
-                    <span style={{ color: QUIET_LUXURY.gold }} className="ml-2">• Activo</span>
+                    <span>CANAL ACTIVO</span>
+                    <span style={{ color: QUIET_LUXURY.cyan }} className="ml-2">•</span>
                   </>
                 )}
               </span>
@@ -306,7 +311,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             style={{
               // Scrollbar personalizado - dorado sutil
               scrollbarWidth: 'thin',
-              scrollbarColor: `rgba(197, 160, 89, 0.4) rgba(26, 26, 36, 0.5)`
+              scrollbarColor: `rgba(56, 189, 248, 0.4) rgba(22, 24, 29, 0.5)`
             }}
           >
             {/* 🔑 CONTENEDOR CON TRANSFORM + PADDING COMPENSATORIO */}
@@ -335,10 +340,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               {messages.length === 0 && (
                 <div className="flex message-item">
                   <div
-                    className="backdrop-blur-sm flex-1 p-4 rounded-xl"
+                    className="flex-1 p-4"
                     style={{
-                      background: QUIET_LUXURY.bgCard,
-                      border: `1px solid rgba(197, 160, 89, 0.1)`,
+                      background: QUIET_LUXURY.bgSurface,
+                      borderLeft: `2px solid rgba(56, 189, 248, 0.5)`,
+                      borderRadius: '4px 12px 12px 12px',
                       color: QUIET_LUXURY.textSecondary
                     }}
                   >
@@ -346,19 +352,20 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center"
                         style={{
-                          background: QUIET_LUXURY.gold,
-                          boxShadow: `0 4px 12px rgba(197, 160, 89, 0.25)`
+                          background: `rgba(56, 189, 248, 0.12)`,
+                          border: `1px solid rgba(56, 189, 248, 0.3)`,
+                          boxShadow: `0 4px 12px rgba(56, 189, 248, 0.15)`
                         }}
                       >
-                        <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.bgDeep }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.cyan }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                       </div>
                       <div>
-                        <p className="font-semibold" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
+                        <p className="font-semibold font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                         <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.gold }}></div>
-                          <p className="text-xs" style={{ color: QUIET_LUXURY.gold }}>En línea</p>
+                          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
+                          <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>CONECTADO</p>
                         </div>
                       </div>
                     </div>
@@ -372,10 +379,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       ¿Cuál es tu situación actual?
                     </p>
                     <ul className="list-none mb-4 space-y-2 text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>A)</strong> 🏗️ Quiero construir algo propio</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>B)</strong> 💭 Me siento estancado y busco un cambio</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>C)</strong> 🔍 Solo estoy explorando, sin compromiso</li>
-                      <li><strong style={{ color: QUIET_LUXURY.gold }}>D)</strong> 🧠 Quiero entender el Modelo de Negocio</li>
+                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>A)</strong> 🏗️ Quiero construir algo propio</li>
+                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>B)</strong> 💭 Me siento estancado y busco un cambio</li>
+                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>C)</strong> 🔍 Solo estoy explorando, sin compromiso</li>
+                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>D)</strong> 🧠 Quiero entender el Modelo de Negocio</li>
                     </ul>
                   </div>
                 </div>
@@ -390,7 +397,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   <div
                     key={message.id}
                     ref={registerNode(message.id)}
-                    className="flex message-item"
+                    className={`flex message-item ${message.role === 'user' ? 'justify-end' : ''}`}
                     style={{
                       animation: isLastUserMessage
                         ? 'claudeFadeIn 400ms ease-out 150ms both' // 🎯 Fade-in como Claude.ai con delay
@@ -400,19 +407,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     }}
                   >
                     <div
-                      className={`p-3 md:p-4 rounded-xl text-sm transition-all duration-200 ${
+                      className={`p-3 md:p-4 text-sm transition-all duration-200 ${
                         message.role === 'user'
                           ? 'max-w-[85%] md:max-w-[75%]'
-                          : 'backdrop-blur-sm flex-1 overflow-hidden'
+                          : 'flex-1 overflow-hidden'
                       }`}
                       style={message.role === 'user' ? {
-                        background: QUIET_LUXURY.gold,
-                        color: QUIET_LUXURY.bgDeep,
-                        boxShadow: '0 4px 16px rgba(197, 160, 89, 0.25)'
+                        background: 'rgba(245, 158, 11, 0.08)',
+                        color: QUIET_LUXURY.textPrimary,
+                        border: '1px solid rgba(245, 158, 11, 0.3)',
+                        borderRadius: '12px 4px 4px 12px'
                       } : {
-                        background: QUIET_LUXURY.bgCard,
+                        background: QUIET_LUXURY.bgSurface,
                         color: QUIET_LUXURY.textSecondary,
-                        border: `1px solid rgba(197, 160, 89, 0.08)`
+                        borderLeft: `2px solid rgba(56, 189, 248, 0.5)`,
+                        borderRadius: '4px 12px 12px 12px'
                       }}
                     >
                       <ReactMarkdown
@@ -427,7 +436,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                               href={href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{ color: QUIET_LUXURY.gold, textDecoration: 'underline' }}
+                              style={{ color: QUIET_LUXURY.cyan, textDecoration: 'underline' }}
                               className="hover:opacity-80 transition-opacity font-medium"
                             >
                               {children}
@@ -438,7 +447,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <div className="overflow-x-auto my-3">
                               <table
                                 className="w-full border-collapse text-sm"
-                                style={{ border: `1px solid rgba(197, 160, 89, 0.2)` }}
+                                style={{ border: `1px solid rgba(56, 189, 248, 0.2)` }}
                               >
                                 {children}
                               </table>
@@ -450,14 +459,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             </thead>
                           ),
                           tbody: ({children}) => (
-                            <tbody style={{ background: `rgba(26, 26, 36, 0.5)` }}>
+                            <tbody style={{ background: `rgba(22, 24, 29, 0.5)` }}>
                               {children}
                             </tbody>
                           ),
                           tr: ({children}) => (
                             <tr
                               className="transition-colors"
-                              style={{ borderBottom: `1px solid rgba(197, 160, 89, 0.1)` }}
+                              style={{ borderBottom: `1px solid rgba(56, 189, 248, 0.08)` }}
                             >
                               {children}
                             </tr>
@@ -466,8 +475,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <th
                               className="px-3 py-2 text-left font-semibold"
                               style={{
-                                border: `1px solid rgba(197, 160, 89, 0.15)`,
-                                color: QUIET_LUXURY.gold
+                                border: `1px solid rgba(56, 189, 248, 0.15)`,
+                                color: QUIET_LUXURY.cyan
                               }}
                             >
                               {children}
@@ -477,7 +486,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                             <td
                               className="px-3 py-2"
                               style={{
-                                border: `1px solid rgba(197, 160, 89, 0.1)`,
+                                border: `1px solid rgba(56, 189, 248, 0.08)`,
                                 color: QUIET_LUXURY.textPrimary
                               }}
                             >
@@ -508,7 +517,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         key={i}
                         className="w-1.5 h-1.5 rounded-full animate-bounce"
                         style={{
-                          background: QUIET_LUXURY.gold,
+                          background: QUIET_LUXURY.cyan,
                           animationDelay: `${i * 0.2}s`,
                           animationDuration: '1s'
                         }}
@@ -533,30 +542,31 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           {/* 🎨 Quiet Luxury INPUT */}
           <div
             className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
-            style={{ borderTop: `1px solid rgba(197, 160, 89, 0.1)` }}
+            style={{ borderTop: `1px solid rgba(56, 189, 248, 0.1)` }}
           >
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="¿Qué te gustaría saber?"
-                className={`flex-1 backdrop-blur-sm px-4 py-3 rounded-xl transition-all duration-200 ${
+                placeholder="_ Escribe tu consulta..."
+                className={`flex-1 px-4 py-3 rounded-xl transition-all duration-200 ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}
                 style={{
-                  background: QUIET_LUXURY.bgCard,
+                  background: QUIET_LUXURY.bgSurface,
                   color: QUIET_LUXURY.textPrimary,
-                  border: `1px solid rgba(197, 160, 89, 0.15)`,
+                  border: `1px solid rgba(229, 194, 121, 0.15)`,
+                  fontFamily: 'var(--font-roboto-mono)',
                   boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
                   outline: 'none'
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = QUIET_LUXURY.gold;
-                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(197, 160, 89, 0.15)`;
+                  e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
+                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(197, 160, 89, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
                   e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
                 }}
               />
@@ -566,9 +576,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 disabled={isLoading || !inputMessage.trim()}
                 className="p-3 rounded-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{
-                  background: QUIET_LUXURY.gold,
-                  color: QUIET_LUXURY.bgDeep,
-                  boxShadow: '0 4px 12px rgba(197, 160, 89, 0.3)'
+                  background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+                  color: '#0B0C0C',
+                  boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)'
                 }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -585,8 +595,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.08)';
+                  e.currentTarget.style.color = QUIET_LUXURY.amber;
+                  e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -605,8 +615,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.gold;
-                  e.currentTarget.style.background = 'rgba(197, 160, 89, 0.08)';
+                  e.currentTarget.style.color = QUIET_LUXURY.amber;
+                  e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.textMuted;
@@ -681,17 +691,17 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }
 
         div::-webkit-scrollbar-track {
-          background: rgba(26, 26, 36, 0.5);
+          background: rgba(22, 24, 29, 0.5);
           border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb {
-          background: rgba(197, 160, 89, 0.4);
+          background: rgba(56, 189, 248, 0.4);
           border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb:hover {
-          background: rgba(197, 160, 89, 0.6);
+          background: rgba(56, 189, 248, 0.6);
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

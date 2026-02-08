@@ -27,20 +27,21 @@ const TOOLTIP_CONFIG = {
   // ❌ ELIMINADO: reappearDelayMs - NO reaparece automáticamente (Quiet Luxury)
 };
 
-// 🎨 Quiet Luxury Color Palette (THE ARCHITECT'S SUITE)
+// 🎨 Elegancia Cinética Color Palette
 const QUIET_LUXURY = {
-  gold: '#C5A059',           // Champagne Gold - Primary accent
-  goldMuted: '#A68A4A',      // Muted gold for subtle elements
-  goldDark: '#8A7340',       // Dark gold for hover states
-  bgDeep: '#0F1115',         // Carbono - Primary background
-  bgSurface: '#1A1D23',      // Surface background
-  bgCard: '#22252B',         // Card background
+  gold: '#E5C279',           // Champagne Gold - Primary accent (EC)
+  goldMuted: '#B89B5E',      // Muted gold
+  goldDark: '#9A7D42',       // Dark gold
+  bgDeep: '#0B0C0C',         // Obsidian - Primary background (EC)
+  bgSurface: '#16181D',      // Gunmetal - Surface (EC)
+  bgCard: '#1E2028',         // Card background (EC)
   textPrimary: '#E5E5E5',    // Blanco Humo - Primary text
   textSecondary: '#A3A3A3',  // Secondary text
   textMuted: '#6B7280',      // Muted text (Slate Gray)
+  amber: '#F59E0B',          // Amber Industrial - Interactividad
   // 🆕 Botón flotante: Blanco puro para máximo contraste en móvil
   buttonBg: '#FFFFFF',
-  buttonIcon: '#0F1115',     // Icono Carbono sobre fondo blanco
+  buttonIcon: '#0B0C0C',     // Icono Obsidian sobre fondo blanco
 };
 
 const NEXUSFloatingButton: React.FC = () => {
@@ -198,11 +199,10 @@ const NEXUSFloatingButton: React.FC = () => {
       };
     }
 
-    // 🎨 Quiet Luxury: Blanco puro - Máximo contraste en móvil
-    // Evita choque visual con el botón dorado de CTA
+    // Blanco puro - Máximo contraste en móvil
     return {
       background: QUIET_LUXURY.buttonBg,
-      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(197, 160, 89, 0.3)`
+      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(245, 158, 11, 0.25)`
     };
   };
 
@@ -221,15 +221,15 @@ const NEXUSFloatingButton: React.FC = () => {
             className="pl-4 pr-2 py-2.5 rounded-xl shadow-xl flex items-center gap-2"
             style={{
               background: QUIET_LUXURY.bgSurface,
-              border: `1px solid ${QUIET_LUXURY.gold}`,
-              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(197, 160, 89, 0.2)`
+              border: `1px solid rgba(229, 194, 121, 0.3)`,
+              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(229, 194, 121, 0.15)`
             }}
           >
             <span
               className="text-sm font-medium whitespace-nowrap"
               style={{ color: QUIET_LUXURY.textPrimary }}
             >
-              ¿Iniciamos tu <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }}>Auditoría</span>?
+              ¿Iniciamos tu <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }} className="font-industrial">Auditoría</span>?
             </span>
             {/* Botón para cerrar el tooltip */}
             <button
@@ -252,11 +252,21 @@ const NEXUSFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* 🎨 Quiet Luxury Floating Button - Alineado con navegación */}
+      {/* Floating Button */}
       <button
         data-nexus-button
         className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
         style={getButtonStyles()}
+        onMouseEnter={(e) => {
+          if (trackingState.isReady && !trackingState.hasError) {
+            e.currentTarget.style.boxShadow = `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 158, 11, 0.35)`;
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (trackingState.isReady && !trackingState.hasError) {
+            e.currentTarget.style.boxShadow = `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(245, 158, 11, 0.25)`;
+          }
+        }}
         onClick={handleButtonClick}
         aria-label="Abrir chat con Queswa"
       >

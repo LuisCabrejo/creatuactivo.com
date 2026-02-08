@@ -64,11 +64,11 @@ export function NEXUSDataCaptureCard({
           transition={{ duration: 0.3, ease: 'easeOut' }}
           className="sticky top-0 z-50"
           style={{
-            background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.12) 0%, rgba(124, 58, 237, 0.12) 50%, rgba(245, 158, 11, 0.12) 100%)',
+            background: 'rgba(22, 24, 29, 0.97)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
-            borderBottom: '2px solid rgba(245, 158, 11, 0.3)',
-            boxShadow: '0 8px 32px rgba(245, 158, 11, 0.15)'
+            borderBottom: '1px solid rgba(56, 189, 248, 0.15)',
+            boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4)'
           }}
         >
           <div className="max-w-4xl mx-auto px-3 py-2 sm:px-4 sm:py-3">
@@ -82,14 +82,14 @@ export function NEXUSDataCaptureCard({
                 >
                   📝
                 </motion.span>
-                <h3 className="font-semibold text-xs sm:text-sm" style={{ color: '#1E40AF' }}>
+                <h3 className="font-semibold text-xs sm:text-sm font-industrial" style={{ color: '#38BDF8' }}>
                   Conociendo tu perfil
                 </h3>
               </div>
               <button
                 onClick={onDismiss}
                 className="transition-colors p-1 rounded hover:bg-white/20"
-                style={{ color: '#7C3AED' }}
+                style={{ color: '#6B7280' }}
                 aria-label="Cerrar"
               >
                 <X size={16} />
@@ -114,13 +114,13 @@ export function NEXUSDataCaptureCard({
                     className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg flex-1"
                     style={{
                       background: isCompleted
-                        ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.25) 100%)'
-                        : 'rgba(255, 255, 255, 0.4)',
+                        ? 'rgba(245, 158, 11, 0.08)'
+                        : 'rgba(30, 32, 40, 0.8)',
                       border: isCompleted
-                        ? '1.5px solid rgba(245, 158, 11, 0.5)'
-                        : '1.5px solid rgba(124, 58, 237, 0.3)',
+                        ? '1px solid rgba(245, 158, 11, 0.4)'
+                        : '1px solid rgba(229, 194, 121, 0.15)',
                       boxShadow: isCompleted
-                        ? '0 2px 8px rgba(245, 158, 11, 0.2)'
+                        ? '0 2px 8px rgba(245, 158, 11, 0.12)'
                         : 'none'
                     }}
                   >
@@ -135,7 +135,7 @@ export function NEXUSDataCaptureCard({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1">
                         <span className="text-xs">{field.icon}</span>
-                        <span className="text-xs font-medium truncate" style={{ color: isCompleted ? '#1E40AF' : '#7C3AED' }}>
+                        <span className="text-xs font-medium truncate" style={{ color: isCompleted ? '#E5C279' : '#A3A3A3' }}>
                           {value || `${field.label}...`}
                         </span>
                       </div>
@@ -147,15 +147,15 @@ export function NEXUSDataCaptureCard({
 
             {/* Progress Bar - Compacto */}
             <div className="flex items-center gap-2">
-              <div className="flex-1 rounded-full h-1.5 overflow-hidden" style={{ background: 'rgba(255, 255, 255, 0.3)' }}>
+              <div className="flex-1 rounded-full h-1.5 overflow-hidden" style={{ background: 'rgba(56, 189, 248, 0.1)' }}>
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progressPercentage}%` }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                   className="h-1.5 rounded-full"
                   style={{
-                    background: 'linear-gradient(90deg, #1E40AF 0%, #7C3AED 50%, #F59E0B 100%)',
-                    boxShadow: '0 0 8px rgba(245, 158, 11, 0.6)'
+                    background: 'linear-gradient(90deg, #38BDF8 0%, #E5C279 50%, #F59E0B 100%)',
+                    boxShadow: '0 0 8px rgba(245, 158, 11, 0.4)'
                   }}
                 />
               </div>

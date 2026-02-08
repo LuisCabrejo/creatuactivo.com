@@ -28,10 +28,16 @@ const CRITICAL_NAVIGATION_CSS = `
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(11, 12, 12, 0.95);
-    backdrop-filter: blur(24px);
+    background: rgba(11, 12, 12, 0.98);
     border-bottom: 1px solid rgba(229, 194, 121, 0.12);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    .strategic-nav-critical {
+      background: rgba(11, 12, 12, 0.95);
+      backdrop-filter: blur(24px);
+    }
   }
 
   .strategic-nav-container {

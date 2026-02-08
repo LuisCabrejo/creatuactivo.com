@@ -49,6 +49,15 @@ const articles = [
 export default function BlogPage() {
   return (
     <>
+      {/* Mobile Performance Fix: No blur on mobile, blur only on desktop */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (min-width: 768px) {
+          .blog-container-glass {
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+          }
+        }
+      `}} />
       <StrategicNavigation />
       <main
         className="min-h-screen text-[#E5E5E5]"
@@ -72,11 +81,9 @@ export default function BlogPage() {
           {/* Article Grid */}
           <section className="py-0 px-6">
             <div
-              className="max-w-5xl mx-auto"
+              className="max-w-5xl mx-auto blog-container-glass"
               style={{
-                background: 'rgba(22, 24, 29, 0.80)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
+                background: 'rgba(22, 24, 29, 0.95)',
                 border: '1px solid rgba(212, 175, 55, 0.1)',
                 padding: 'clamp(1.5rem, 4vw, 2.5rem)',
                 marginTop: '-1rem',

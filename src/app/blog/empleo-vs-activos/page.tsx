@@ -21,6 +21,15 @@ export const metadata = {
 export default function EmpleoVsActivosPage() {
   return (
     <>
+      {/* Mobile Performance Fix: No blur on mobile, blur only on desktop */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (min-width: 768px) {
+          .article-container-glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+          }
+        }
+      `}} />
       <StrategicNavigation />
       <main
         className="min-h-screen text-[#E5E5E5]"
@@ -42,11 +51,9 @@ export default function EmpleoVsActivosPage() {
           {/* Article Content */}
           <article className="py-0 px-6">
             <div
-              className="max-w-3xl mx-auto"
+              className="max-w-3xl mx-auto article-container-glass"
               style={{
-                background: 'rgba(22, 24, 29, 0.80)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                background: 'rgba(22, 24, 29, 0.95)',
                 border: '1px solid rgba(212, 175, 55, 0.1)',
                 padding: 'clamp(2rem, 5vw, 3.5rem)',
                 marginTop: '-1rem',

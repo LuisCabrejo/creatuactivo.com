@@ -138,24 +138,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }}
       >
         <div
-          className="h-full flex flex-col shadow-2xl rounded-2xl overflow-hidden relative"
+          className="h-full flex flex-col shadow-2xl overflow-hidden relative"
           style={{
             background: `rgba(11, 12, 12, 0.95)`,
             backdropFilter: 'blur(32px)',
             border: `1px solid rgba(56, 189, 248, 0.15)`,
-            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.07)`
+            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.07)`,
+            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)'
           }}
         >
 
           {/* 🤖 Terminal HEADER */}
-          <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b rounded-t-2xl"
+          <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b"
                style={{
                  background: QUIET_LUXURY.bgSurface,
                  borderColor: `rgba(56, 189, 248, 0.1)`
                }}>
             <div className="flex items-center gap-3">
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
+                className="w-10 h-10  flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105"
                 style={{
                   background: `rgba(56, 189, 248, 0.12)`,
                   border: `1px solid rgba(56, 189, 248, 0.3)`,
@@ -169,7 +170,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               <div>
                 <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
+                  <div className="w-1.5 h-1.5  animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
                   <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>SISTEMA EN LÍNEA</p>
                 </div>
               </div>
@@ -177,7 +178,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
             <div className="flex items-center gap-2">
               <button
-                className="p-2 transition-all duration-200 rounded-lg"
+                className="p-2 transition-all duration-200 "
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.cyan;
@@ -204,7 +205,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               </button>
 
               <button
-                className="p-2 transition-all duration-200 rounded-lg"
+                className="p-2 transition-all duration-200 "
                 style={{
                   color: QUIET_LUXURY.textSecondary,
                   background: QUIET_LUXURY.bgCard,
@@ -240,7 +241,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           >
             <div className="flex items-center gap-2">
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                className="w-8 h-8  flex items-center justify-center"
                 style={{
                   background: `rgba(56, 189, 248, 0.12)`,
                   border: `1px solid rgba(56, 189, 248, 0.3)`,
@@ -258,7 +259,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
 
             <button
-              className="w-9 h-9 flex items-center justify-center rounded-xl transition-all duration-200"
+              className="w-9 h-9 flex items-center justify-center  transition-all duration-200"
               style={{
                 background: QUIET_LUXURY.bgCard,
                 color: QUIET_LUXURY.textSecondary,
@@ -282,7 +283,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             }}
           >
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: QUIET_LUXURY.cyan }}></div>
+              <div className="w-1.5 h-1.5 " style={{ background: QUIET_LUXURY.cyan }}></div>
               <span className="text-xs font-mono transition-all duration-300" style={{ color: QUIET_LUXURY.textSecondary }}>
                 {isLoading ? (
                   <span className="flex items-center gap-2">
@@ -350,7 +351,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   >
                     <div className="flex items-center gap-3 mb-4">
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        className="w-10 h-10  flex items-center justify-center"
                         style={{
                           background: `rgba(56, 189, 248, 0.12)`,
                           border: `1px solid rgba(56, 189, 248, 0.3)`,
@@ -364,7 +365,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       <div>
                         <p className="font-semibold font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
                         <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
+                          <div className="w-1.5 h-1.5  animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
                           <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>CONECTADO</p>
                         </div>
                       </div>
@@ -515,7 +516,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     {[...Array(3)].map((_, i) => (
                       <span
                         key={i}
-                        className="w-1.5 h-1.5 rounded-full animate-bounce"
+                        className="w-1.5 h-1.5  animate-bounce"
                         style={{
                           background: QUIET_LUXURY.cyan,
                           animationDelay: `${i * 0.2}s`,
@@ -550,7 +551,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="_ Escribe tu consulta..."
-                className={`flex-1 px-4 py-3 rounded-xl transition-all duration-200 ${
+                className={`flex-1 px-4 py-3  transition-all duration-200 ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}
                 style={{
@@ -574,7 +575,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={isLoading || !inputMessage.trim()}
-                className="p-3 rounded-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="p-3  hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{
                   background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
                   color: '#0B0C0C',
@@ -592,7 +593,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
             <div className="flex justify-center gap-6">
               <button
-                className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
+                className="text-xs px-3 py-2  transition-all duration-200"
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.amber;
@@ -612,7 +613,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 Nueva Conversación
               </button>
               <button
-                className="text-xs px-3 py-2 rounded-lg transition-all duration-200"
+                className="text-xs px-3 py-2  transition-all duration-200"
                 style={{ color: QUIET_LUXURY.textMuted }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = QUIET_LUXURY.amber;
@@ -692,12 +693,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
         div::-webkit-scrollbar-track {
           background: rgba(22, 24, 29, 0.5);
-          border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb {
           background: rgba(56, 189, 248, 0.4);
-          border-radius: 3px;
         }
 
         div::-webkit-scrollbar-thumb:hover {

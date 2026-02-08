@@ -244,7 +244,7 @@ const CRITICAL_NAVIGATION_CSS = `
     line-height: 1.4;
   }
 
-  /* BOTÓN CTA - ELEGANCIA CINÉTICA AMBER */
+  /* BOTÓN CTA - GEOMETRÍA INDUSTRIAL */
   .strategic-cta-button {
     display: none;
     align-items: center;
@@ -257,7 +257,7 @@ const CRITICAL_NAVIGATION_CSS = `
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 0.625rem 1.25rem;
-    border-radius: 0.75rem;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
     border: 1px solid rgba(251, 191, 36, 0.4);
     text-decoration: none;
     transition: all 0.3s ease;
@@ -430,7 +430,7 @@ const CRITICAL_NAVIGATION_CSS = `
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1rem;
-    border-radius: 0.75rem;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     border: 1px solid rgba(251, 191, 36, 0.4);
     text-decoration: none;
     transition: all 0.3s ease;

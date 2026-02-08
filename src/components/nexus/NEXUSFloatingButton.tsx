@@ -218,11 +218,12 @@ const NEXUSFloatingButton: React.FC = () => {
           }`}
         >
           <div
-            className="pl-4 pr-2 py-2.5 rounded-xl shadow-xl flex items-center gap-2"
+            className="pl-4 pr-2 py-2.5 shadow-xl flex items-center gap-2"
             style={{
               background: QUIET_LUXURY.bgSurface,
               border: `1px solid rgba(229, 194, 121, 0.3)`,
-              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(229, 194, 121, 0.15)`
+              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(229, 194, 121, 0.15)`,
+              clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)'
             }}
           >
             <span
@@ -238,7 +239,7 @@ const NEXUSFloatingButton: React.FC = () => {
                 setShowTooltip(false);
                 setHasInteracted(true); // No vuelve a aparecer
               }}
-              className="ml-1 p-1 rounded-full transition-colors"
+              className="ml-1 p-1 transition-colors"
               style={{ color: QUIET_LUXURY.textMuted }}
               onMouseEnter={(e) => e.currentTarget.style.color = QUIET_LUXURY.gold}
               onMouseLeave={(e) => e.currentTarget.style.color = QUIET_LUXURY.textMuted}
@@ -252,11 +253,15 @@ const NEXUSFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Button */}
+      {/* Floating Button - Industrial Square */}
       <button
         data-nexus-button
-        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 rounded-2xl z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
-        style={getButtonStyles()}
+        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+        style={{
+          ...getButtonStyles(),
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          border: trackingState.isReady && !trackingState.hasError ? '1px solid rgba(56, 189, 248, 0.3)' : undefined
+        }}
         onMouseEnter={(e) => {
           if (trackingState.isReady && !trackingState.hasError) {
             e.currentTarget.style.boxShadow = `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 158, 11, 0.35)`;

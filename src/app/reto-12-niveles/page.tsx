@@ -4,7 +4,7 @@
  * Estrategia: Apple Aesthetic + Low Friction Form + High Authority.
  *
  * THE ARCHITECT'S SUITE - Bimetallic System v3.0
- * Gold (#C5A059): CTAs, Crown icons, achievements, highlights
+ * Gold (#E5C279): CTAs, Crown icons, achievements, highlights
  * Titanium (#94A3B8): Structural icons, navigation, muted text
  */
 
@@ -26,10 +26,10 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --carbon-deep: #0F1115;
-      --carbon-elevated: #15171C;
-      --carbon-card: #1A1D23;
-      --gold-primary: #C5A059;
+      --carbon-deep: #0B0C0C;
+      --carbon-elevated: #16181D;
+      --carbon-card: #16181D;
+      --gold-primary: #E5C279;
       --gold-hover: #D4AF37;
       --titanium-primary: #94A3B8;
       --titanium-muted: #64748B;
@@ -55,7 +55,7 @@ const GlobalStyles = () => (
     }
     .glass-card:hover {
       background: rgba(26, 29, 35, 0.95);
-      border-color: rgba(197, 160, 89, 0.3);
+      border-color: rgba(229, 194, 121, 0.3);
       transform: translateY(-2px);
     }
 
@@ -67,9 +67,9 @@ const GlobalStyles = () => (
       transition: all 0.3s ease;
     }
     .day-card.active {
-      background: rgba(197, 160, 89, 0.1);
-      border: 1px solid rgba(197, 160, 89, 0.4);
-      box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+      background: rgba(229, 194, 121, 0.1);
+      border: 1px solid rgba(229, 194, 121, 0.4);
+      box-shadow: 0 0 20px rgba(229, 194, 121, 0.2);
     }
 
     /* TABLA FINANCIERA (Estilo Bloomberg - Gold Milestones) */
@@ -80,8 +80,8 @@ const GlobalStyles = () => (
       background: rgba(255, 255, 255, 0.03);
     }
     .milestone-row {
-      background: rgba(197, 160, 89, 0.05);
-      border-left: 2px solid rgba(197, 160, 89, 0.5);
+      background: rgba(229, 194, 121, 0.05);
+      border-left: 2px solid rgba(229, 194, 121, 0.5);
     }
 
     /* FORMULARIO (Bimetallic) */
@@ -92,8 +92,8 @@ const GlobalStyles = () => (
       transition: all 0.3s;
     }
     .input-premium:focus {
-      border-color: #C5A059;
-      box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.2);
+      border-color: #E5C279;
+      box-shadow: 0 0 0 2px rgba(229, 194, 121, 0.2);
     }
   `}</style>
 );
@@ -133,7 +133,7 @@ const challengeDays = [
 
 const StatCard = ({ icon, value, label, sublabel }: any) => (
   <div className="glass-card p-6 rounded-2xl text-center">
-    <div className="mb-3 flex justify-center text-[#C5A059]">{icon}</div>
+    <div className="mb-3 flex justify-center text-[#E5C279]">{icon}</div>
     <p className="text-3xl font-bold text-white mb-1 tracking-tight">{value}</p>
     <p className="text-sm font-semibold text-[#A3A3A3]">{label}</p>
     <p className="text-xs text-[#64748B] mt-1">{sublabel}</p>
@@ -146,7 +146,7 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, isPaused, on
   const getIcon = () => {
     if (isCompleted) return <CheckCircle className="w-3 h-3 text-emerald-400" />;
     if (isActive && isPaused) return <Pause className="w-3 h-3 text-[#94A3B8]" />;
-    if (isActive) return <Flame className="w-3 h-3 text-[#C5A059]" />;
+    if (isActive) return <Flame className="w-3 h-3 text-[#E5C279]" />;
     return <Calendar className="w-3 h-3 text-[#64748B]" />;
   };
   return (
@@ -160,7 +160,7 @@ const ChallengeDay = ({ day, action, people, isActive, isCompleted, isPaused, on
     >
       <div className="flex items-center justify-center gap-1 mb-1">
         {getIcon()}
-        <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive && isPaused ? 'text-[#94A3B8]' : isActive ? 'text-[#C5A059]' : isCompleted ? 'text-emerald-400' : 'text-[#64748B]'}`}>Ciclo {day}</span>
+        <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive && isPaused ? 'text-[#94A3B8]' : isActive ? 'text-[#E5C279]' : isCompleted ? 'text-emerald-400' : 'text-[#64748B]'}`}>Ciclo {day}</span>
       </div>
       <p className={`text-xl font-bold ${isActive ? 'text-white' : 'text-[#A3A3A3]'}`}>{people}</p>
       <p className="text-[10px] text-[#64748B] mt-1">{action}</p>
@@ -231,21 +231,21 @@ export default function Reto12DiasPage() {
   return (
     <>
       <GlobalStyles />
-      <div className="bg-[#0F1115] text-[#E5E5E5] min-h-screen font-sans selection:bg-[#C5A059]/30">
+      <div className="bg-[#0B0C0C] text-[#E5E5E5] min-h-screen font-sans selection:bg-[#E5C279]/30">
         <StrategicNavigation />
 
         {/* --- HERO: PROTOCOLO DE CRECIMIENTO --- */}
         <section className="relative pt-32 pb-20 overflow-hidden">
             {/* Fondo Sutil (Bimetallic Gold Glow) */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#C5A059]/8 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#E5C279]/8 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container mx-auto px-4 relative z-10 text-center">
                 <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
 
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1D23]/80 border border-[rgba(197,160,89,0.2)] text-[#C5A059] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/80 border border-[rgba(197,160,89,0.2)] text-[#E5C279] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
                         <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5C279] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E5C279]"></span>
                         </span>
                         Protocolo de Ejecución 2026
                     </div>
@@ -261,11 +261,11 @@ export default function Reto12DiasPage() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link href="#reservar" className="px-8 py-4 bg-[#C5A059] text-[#0F1115] font-bold rounded-full hover:bg-[#D4AF37] transition-all shadow-[0_0_20px_-5px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2">
+                        <Link href="#reservar" className="px-8 py-4 bg-[#E5C279] text-[#0B0C0C] font-bold rounded-full hover:bg-[#D4AF37] transition-all shadow-[0_0_20px_-5px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2">
                             Iniciar Protocolo <ArrowRight size={18} />
                         </Link>
-                        <div className="px-6 py-4 rounded-full border border-[rgba(255,255,255,0.1)] bg-[#1A1D23]/80 backdrop-blur-md flex items-center justify-center gap-2 text-sm text-[#A3A3A3]">
-                            <Crown size={16} className="text-[#C5A059]" />
+                        <div className="px-6 py-4 rounded-full border border-[rgba(255,255,255,0.1)] bg-[#16181D]/80 backdrop-blur-md flex items-center justify-center gap-2 text-sm text-[#A3A3A3]">
+                            <Crown size={16} className="text-[#E5C279]" />
                             <span>Solo <strong>150 Cupos</strong> Fundador</span>
                         </div>
                     </div>
@@ -275,7 +275,7 @@ export default function Reto12DiasPage() {
         </section>
 
         {/* --- VISUALIZACIÓN DEL RETO (GRID) --- */}
-        <section ref={challengeSectionRef} className="py-20 border-t border-white/5 bg-[#15171C]/80">
+        <section ref={challengeSectionRef} className="py-20 border-t border-white/5 bg-[#16181D]/80">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="text-center mb-10">
                     <h2 className="text-2xl font-bold text-white mb-2">Visualización del Algoritmo 2x2</h2>
@@ -299,7 +299,7 @@ export default function Reto12DiasPage() {
         </section>
 
         {/* --- LOS 3 GIGANTES (REFINADO) --- */}
-        <section className="py-24 bg-[#0F1115] relative">
+        <section className="py-24 bg-[#0B0C0C] relative">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Tu ecosistema de respaldo</h2>
@@ -317,7 +317,7 @@ export default function Reto12DiasPage() {
                     <div className="glass-card p-10 rounded-3xl relative overflow-hidden group border-[rgba(197,160,89,0.2)] bg-[rgba(197,160,89,0.05)]">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Database size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">2. SISTEMA</h3>
-                        <p className="text-xs font-bold text-[#C5A059] uppercase tracking-widest mb-6">La Inteligencia</p>
+                        <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-6">La Inteligencia</p>
                         <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>CreaTuActivo AI</strong> explica el negocio, filtra a los curiosos y cierra a los interesados. Trabaja 24/7 por ti.</p>
                     </div>
 
@@ -332,7 +332,7 @@ export default function Reto12DiasPage() {
         </section>
 
         {/* --- MATEMÁTICA FINANCIERA (TABLA BLOOMBERG) --- */}
-        <section className="py-24 bg-[#15171C] border-y border-white/5">
+        <section className="py-24 bg-[#16181D] border-y border-white/5">
             <div className="container mx-auto px-4 max-w-4xl">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-white mb-4">Proyección Financiera</h2>
@@ -342,7 +342,7 @@ export default function Reto12DiasPage() {
                 <div className="glass-card rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="bg-[#0F1115]/80 border-b border-white/10">
+                            <thead className="bg-[#0B0C0C]/80 border-b border-white/10">
                                 <tr>
                                     <th className="py-4 px-4 text-xs font-bold text-[#64748B] uppercase tracking-wider">Ciclo / Nivel</th>
                                     <th className="py-4 px-4 text-xs font-bold text-[#64748B] uppercase tracking-wider text-center">Socios Activos</th>
@@ -364,7 +364,7 @@ export default function Reto12DiasPage() {
         </section>
 
         {/* --- FAQ ESTRATÉGICO --- */}
-        <section className="py-20 bg-[#0F1115]">
+        <section className="py-20 bg-[#0B0C0C]">
             <div className="container mx-auto px-4 max-w-2xl">
                 <h2 className="text-3xl font-bold text-white mb-10 text-center">Resolviendo Dudas</h2>
                 <div className="space-y-2">
@@ -399,13 +399,13 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
         </section>
 
         {/* --- FORMULARIO DE ALTA CONVERSIÓN (LOW FRICTION) --- */}
-        <section id="reservar" className="py-24 bg-[#15171C] relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#C5A059]/5 rounded-full blur-[100px]"></div>
+        <section id="reservar" className="py-24 bg-[#16181D] relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#E5C279]/5 rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto px-4 relative z-10 max-w-xl">
                 <div className="glass-card p-8 md:p-12 rounded-3xl border border-[rgba(197,160,89,0.2)] shadow-2xl">
                     <div className="text-center mb-8">
-                        <Crown className="w-12 h-12 text-[#C5A059] mx-auto mb-4" />
+                        <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
                         <h2 className="text-3xl font-bold text-white mb-2">Reserva tu Posición</h2>
                         <p className="text-[#A3A3A3] text-sm">
                             Paso 1: Pre-registro. <br/>
@@ -493,16 +493,16 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-4 bg-[#C5A059] text-[#0F1115] font-bold rounded-xl text-lg hover:bg-[#D4AF37] transition-all shadow-lg shadow-[#C5A059]/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-[#E5C279] text-[#0B0C0C] font-bold rounded-xl text-lg hover:bg-[#D4AF37] transition-all shadow-lg shadow-[#E5C279]/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? (
                                     <>
-                                        <div className="w-5 h-5 border-2 border-[#0F1115]/30 border-t-[#0F1115] rounded-full animate-spin" />
+                                        <div className="w-5 h-5 border-2 border-[#0B0C0C]/30 border-t-[#0B0C0C] rounded-full animate-spin" />
                                         Enviando...
                                     </>
                                 ) : (
                                     <>
-                                        <Zap className="w-5 h-5 text-[#0F1115] fill-current" />
+                                        <Zap className="w-5 h-5 text-[#0B0C0C] fill-current" />
                                         Asegurar mi Cupo Ahora
                                     </>
                                 )}

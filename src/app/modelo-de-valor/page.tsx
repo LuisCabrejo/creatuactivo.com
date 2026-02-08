@@ -21,8 +21,8 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --creatuactivo-blue: #1E40AF;
-      --creatuactivo-purple: #7C3AED;
+      --creatuactivo-blue: #38BDF8;
+      --creatuactivo-purple: #E5C279;
       --creatuactivo-gold: #F59E0B;
     }
 
@@ -137,7 +137,7 @@ export default function ModeloDeValorPage() {
                             <PhaseCard
                                 phase="Fase 1: Corto Plazo"
                                 title="Capitalización"
-                                icon={<DollarSign className="w-8 h-8 text-blue-400" />}
+                                icon={<DollarSign className="w-8 h-8 text-[#38BDF8]" />}
                                 description="El objetivo es validar el modelo y generar un retorno sobre tu inversión inicial de forma ágil, demostrando la efectividad del sistema desde el principio."
                                 incomeTypes={[
                                     "Bonos por Activación de Nuevos Constructores (GEN 1-5)",
@@ -147,7 +147,7 @@ export default function ModeloDeValorPage() {
                             <PhaseCard
                                 phase="Fase 2: Mediano Plazo"
                                 title="Expansión"
-                                icon={<TrendingUp className="w-8 h-8 text-purple-400" />}
+                                icon={<TrendingUp className="w-8 h-8 text-[#E5C279]" />}
                                 description="Aquí comienza la verdadera construcción de tu activo. El sistema te recompensa por el volumen de valor que fluye a través de todo tu canal de distribución."
                                 incomeTypes={[
                                     "Valor Residual por Consumo del Canal (Binario Recurrente)",
@@ -176,14 +176,14 @@ export default function ModeloDeValorPage() {
                             <div className="text-center md:text-left">
                                 <h2 className="creatuactivo-h2-component text-3xl md:text-4xl font-bold">Visualiza tu Potencial</h2>
                                 <p className="text-slate-300 mt-4 mb-6">La mejor forma de entender el modelo es verlo en acción. Nuestra página de Presentación incluye un simulador interactivo donde puedes proyectar los dos flujos de valor principales: la capitalización y el ingreso residual.</p>
-                                <Link href="/presentacion-empresarial" className="font-bold text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center">
+                                <Link href="/presentacion-empresarial" className="font-bold text-[#38BDF8] hover:text-[#7DD3FA] transition-colors inline-flex items-center">
                                     Ir al Simulador Interactivo <ArrowRight className="w-4 h-4 ml-2" />
                                 </Link>
                             </div>
                             <div className="flex items-center justify-center">
                                 {/* Placeholder para una imagen o animación del simulador */}
                                 <div className="w-full aspect-video bg-slate-900/50 rounded-lg border border-white/10 flex items-center justify-center">
-                                    <BarChart3 className="w-24 h-24 text-purple-400/50" />
+                                    <BarChart3 className="w-24 h-24 text-[#E5C279]/50" />
                                 </div>
                             </div>
                          </div>

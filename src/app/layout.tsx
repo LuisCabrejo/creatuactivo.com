@@ -353,7 +353,7 @@ export default function RootLayout({
                         <div class="bg-slate-900/98 backdrop-blur-xl border-t border-white/10 h-full overflow-y-auto">
                           <div class="px-4 py-6 space-y-4">
                             <div class="py-2">
-                              <a href="/fundadores" class="w-full block text-center py-4 px-6 rounded-lg font-bold text-lg" style="background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%); color: white;">
+                              <a href="/fundadores" class="w-full block text-center py-4 px-6 rounded-lg font-bold text-lg" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: #0B0C0C;">
                                 Sé Fundador
                               </a>
                             </div>

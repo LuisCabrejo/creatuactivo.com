@@ -21,8 +21,8 @@ import { useHydration } from '@/hooks/useHydration'
 const GlobalStyles = () => (
   <style jsx global>{`
     :root {
-      --creatuactivo-blue: #1E40AF;
-      --creatuactivo-purple: #7C3AED;
+      --creatuactivo-blue: #38BDF8;
+      --creatuactivo-purple: #E5C279;
       --creatuactivo-gold: #F59E0B;
       --creatuactivo-green: #10B981;
     }
@@ -132,11 +132,11 @@ const PlanCard = ({
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                         <p className="text-slate-400">Constructores en Red</p>
-                        <p className="font-bold text-blue-400">{networkSize}</p>
+                        <p className="font-bold text-[#38BDF8]">{networkSize}</p>
                     </div>
                     <div>
                         <p className="text-slate-400">Límite NEXUS</p>
-                        <p className="font-bold text-purple-400">{timeLimit}</p>
+                        <p className="font-bold text-[#E5C279]">{timeLimit}</p>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@ const PlanCard = ({
             </ul>
             <Link href={ctaLink} className={`w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto ${
               free ? 'bg-green-600 text-white hover:bg-green-500' :
-              recommended ? 'bg-[var(--creatuactivo-purple)] text-white hover:bg-purple-500' :
+              recommended ? 'bg-[var(--creatuactivo-purple)] text-white hover:bg-[#E5C279]' :
               'bg-slate-700/70 text-white hover:bg-slate-700'
             }`}>
                 {ctaText}
@@ -222,7 +222,7 @@ export default function PlanesTecnologicosPage() {
 
                                 {/* Plan Cimiento */}
                                 <PlanCard
-                                    icon={<Zap className="w-8 h-8 text-blue-400"/>}
+                                    icon={<Zap className="w-8 h-8 text-[#38BDF8]"/>}
                                     title="Plan Cimiento"
                                     price="25"
                                     priceCOP="112.500"
@@ -244,7 +244,7 @@ export default function PlanesTecnologicosPage() {
 
                                 {/* Plan Estructura */}
                                 <PlanCard
-                                    icon={<Rocket className="w-8 h-8 text-purple-400"/>}
+                                    icon={<Rocket className="w-8 h-8 text-[#E5C279]"/>}
                                     title="Plan Estructura"
                                     price="49"
                                     priceCOP="220.500"
@@ -305,12 +305,12 @@ export default function PlanesTecnologicosPage() {
                                     <p className="text-slate-300">30 prospectos son suficientes para probar el método probado y ver resultados reales.</p>
                                 </div>
                                 <div className="bg-slate-800/50 p-6 rounded-xl border border-purple-500/20">
-                                    <MessageSquare className="w-12 h-12 text-purple-400 mx-auto mb-4"/>
+                                    <MessageSquare className="w-12 h-12 text-[#E5C279] mx-auto mb-4"/>
                                     <h3 className="text-xl font-bold text-white mb-3">Experimenta NEXUS</h3>
                                     <p className="text-slate-300">30 conversaciones mensuales para entender el poder de tu copiloto de IA.</p>
                                 </div>
                                 <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20">
-                                    <BarChart3 className="w-12 h-12 text-blue-400 mx-auto mb-4"/>
+                                    <BarChart3 className="w-12 h-12 text-[#38BDF8] mx-auto mb-4"/>
                                     <h3 className="text-xl font-bold text-white mb-3">Acceso a la Aplicación</h3>
                                     <p className="text-slate-300">30 minutos diarios en tu centro de comando para gestionar tu operación.</p>
                                 </div>

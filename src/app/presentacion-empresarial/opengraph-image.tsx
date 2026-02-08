@@ -49,7 +49,7 @@ export default async function Image() {
           style={{
             fontSize: 78,
             fontWeight: 900,
-            background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #F59E0B 100%)',
+            background: 'linear-gradient(135deg, #0B0C0C 0%, #16181D 50%, #F59E0B 100%)',
             backgroundClip: 'text',
             color: 'transparent',
             textAlign: 'center',

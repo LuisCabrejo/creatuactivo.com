@@ -65,10 +65,18 @@ function HeroSection() {
         backgroundImage: "url('/images/servilleta/turbina.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        filter: 'grayscale(80%) contrast(120%) brightness(50%)',
-        opacity: 0.55,
-        WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-        maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        filter: 'grayscale(70%) contrast(1.1) brightness(0.4)',
+        opacity: 0.75,
+        WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* Overlay oscuro adicional para igualar /nosotros */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to bottom, rgba(11,12,12,0.3) 0%, rgba(11,12,12,0.5) 60%, transparent 100%)',
         pointerEvents: 'none',
       }} />
 
@@ -180,14 +188,17 @@ function ProblemSection() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '40px' }}>
           {steps.map((item) => (
             <div key={item.num} style={{
-              padding: '24px', borderRadius: '12px', textAlign: 'center',
+              padding: '24px', textAlign: 'center',
               background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(0,229,255,0.15)',
               backdropFilter: 'blur(4px)',
+              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}>
               <div style={{
-                width: 48, height: 48, borderRadius: '50%', margin: '0 auto 16px',
+                width: 48, height: 48, margin: '0 auto 16px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: 'rgba(0,229,255,0.1)',
+                background: 'transparent',
+                border: `2px solid ${C.cyan}`,
+                clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
               }}>
                 <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 700 }}>{item.num}</span>
               </div>
@@ -198,9 +209,10 @@ function ProblemSection() {
         </div>
 
         <div style={{
-          padding: '32px', borderRadius: '12px', textAlign: 'center',
+          padding: '32px', textAlign: 'center',
           background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
           backdropFilter: 'blur(4px)',
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
             <span style={{ color: C.textMuted }}>El problema no es que trabajes duro.</span>
@@ -235,9 +247,10 @@ function SolutionPreview() {
         </p>
 
         <div style={{
-          display: 'inline-block', padding: '24px 40px', borderRadius: '12px',
+          display: 'inline-block', padding: '24px 40px',
           background: 'rgba(0,0,0,0.65)', border: `1px solid ${C.gold}30`,
           backdropFilter: 'blur(4px)', marginBottom: '32px',
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
           <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1.1rem', color: C.cyan }}>
             Ahorros ÷ Gastos Mensuales = Días de Libertad

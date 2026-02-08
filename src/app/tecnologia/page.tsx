@@ -51,11 +51,11 @@ export default function TecnologiaPage() {
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255, 255, 255, 0.05)',
-                borderRadius: '1rem',
                 padding: 'clamp(1.5rem, 4vw, 3rem)',
                 marginTop: '-2rem',
                 position: 'relative',
                 zIndex: 10,
+                clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
               }}
             >
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
@@ -78,7 +78,7 @@ export default function TecnologiaPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="p-6 rounded-2xl bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
+                <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
                   <h3 className="text-xl font-semibold mb-3">&quot;No sé vender&quot;</h3>
                   <p className="text-[#A3A3A3]">
@@ -87,7 +87,7 @@ export default function TecnologiaPage() {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
+                <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
                   <h3 className="text-xl font-semibold mb-3">&quot;No tengo tiempo&quot;</h3>
                   <p className="text-[#A3A3A3]">
@@ -97,7 +97,7 @@ export default function TecnologiaPage() {
                 </div>
               </div>
 
-              <div className="p-8 rounded-2xl bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
+              <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
                   <span className="text-[#E5C279] font-semibold">Queswa elimina estos dos problemas de raíz.</span>
                 </p>
@@ -119,8 +119,8 @@ export default function TecnologiaPage() {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Educa 24/7 */}
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#E5C279]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Educa 24/7</h3>
@@ -128,8 +128,8 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Filtra Prospectos */}
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#E5C279]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Filtra Prospectos</h3>
@@ -137,8 +137,8 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Captura Datos */}
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <BarChart3 className="w-7 h-7 text-[#E5C279]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Captura Datos</h3>
@@ -146,8 +146,8 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Duplicación */}
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#E5C279]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Duplicación</h3>
@@ -193,8 +193,15 @@ export default function TecnologiaPage() {
                   }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6 items-start">
-                    <div className="w-12 h-12 rounded-full bg-[#F59E0B] flex items-center justify-center flex-shrink-0">
-                      <span className="text-[#0B0C0C] font-bold text-lg">{item.step}</span>
+                    <div
+                      className="w-12 h-12 flex items-center justify-center flex-shrink-0"
+                      style={{
+                        background: 'transparent',
+                        border: '2px solid #F59E0B',
+                        clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+                      }}
+                    >
+                      <span className="font-bold text-lg" style={{ color: '#F59E0B' }}>{item.step}</span>
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
@@ -220,7 +227,7 @@ export default function TecnologiaPage() {
 
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Sin Queswa */}
-                <div className="p-8 rounded-2xl bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] opacity-60">
+                <div className="p-8  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] opacity-60">
                   <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Método Tradicional</h3>
                   <ul className="space-y-4 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
@@ -243,7 +250,7 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Con Queswa */}
-                <div className="p-8 rounded-2xl bg-[#16181D] border border-[#C5A059]/30 shadow-lg shadow-[#C5A059]/5">
+                <div className="p-8  bg-[#16181D] border border-[#C5A059]/30 shadow-lg shadow-[#C5A059]/5">
                   <h3 className="text-xl font-semibold mb-6 text-[#E5C279]">Con Queswa</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
@@ -281,7 +288,10 @@ export default function TecnologiaPage() {
 
               <Link
                 href="/reto-5-dias"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
+                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
+                style={{
+                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                }}
               >
                 Unirme al Reto de 5 Días
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

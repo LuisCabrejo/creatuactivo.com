@@ -12,14 +12,14 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 
 // THE ARCHITECT'S SUITE - Quiet Luxury Colors
 const COLORS = {
-  gold: '#C5A059',
-  bgDeep: '#0F1115',
-  bgSurface: '#1A1D23',
-  bgCard: '#1A1D23',
+  gold: '#E5C279',
+  bgDeep: '#0B0C0C',
+  bgSurface: '#16181D',
+  bgCard: '#16181D',
   textPrimary: '#E5E5E5',
   textSecondary: '#A3A3A3',
   textMuted: '#6B7280',
-  border: 'rgba(197, 160, 89, 0.15)',
+  border: 'rgba(229, 194, 121, 0.15)',
 };
 
 export default function WebinarSalaPage() {

@@ -4,7 +4,7 @@
  * Protocolo Funnel v4
  *
  * THE ARCHITECT'S SUITE - Bimetallic System v3.0
- * Gold (#C5A059): CTAs, progress bar, highlights
+ * Gold (#E5C279): CTAs, progress bar, highlights
  * Titanium (#94A3B8): Structural elements
  * Semaphore colors for status indicators
  */
@@ -20,10 +20,10 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 // ============================================================================
 
 const COLORS = {
-  bg: { main: '#0F1115', card: '#1A1D23' },
-  gold: { primary: '#C5A059', hover: '#D4AF37', bronze: '#B38B59' },
+  bg: { main: '#0B0C0C', card: '#16181D' },
+  gold: { primary: '#E5C279', hover: '#F59E0B', bronze: '#D97706' },
   text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3' },
-  border: { subtle: 'rgba(197, 160, 89, 0.2)', card: 'rgba(197, 160, 89, 0.1)' },
+  border: { subtle: 'rgba(229, 194, 121, 0.2)', card: 'rgba(229, 194, 121, 0.1)' },
   // Semáforo
   semaphore: {
     red: '#dc2626',
@@ -288,7 +288,7 @@ export default function CalculadoraPage() {
             <div className="max-w-md mx-auto text-center">
               <div
                 className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"
-                style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }}
+                style={{ backgroundColor: 'rgba(229, 194, 121, 0.1)' }}
               >
                 <svg
                   className="w-10 h-10"
@@ -507,7 +507,7 @@ export default function CalculadoraPage() {
                         style={{
                           backgroundColor: COLORS.gold.primary,
                           color: COLORS.bg.main,
-                          boxShadow: '0 0 20px rgba(197, 160, 89, 0.2)',
+                          boxShadow: '0 0 20px rgba(229, 194, 121, 0.2)',
                         }}
                       >
                         Ver la Solución (Reto 5 Días)

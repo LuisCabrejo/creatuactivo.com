@@ -4,7 +4,7 @@
  *
  * PAQUETES - THE ARCHITECT'S SUITE
  * BIMETALLIC DESIGN SYSTEM v3.0
- * Gold (#C5A059): CTAs, prices, achievements
+ * Gold (#E5C279): CTAs, prices, achievements
  * Titanium (#94A3B8): Icons, navigation, structural borders
  */
 
@@ -20,8 +20,8 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 // ============================================================================
 
 const COLORS = {
-  bg: { main: '#0F1115', elevated: '#15171C', card: '#1A1D23' },
-  gold: { primary: '#C5A059', hover: '#D4AF37' },
+  bg: { main: '#0B0C0C', elevated: '#16181D', card: '#16181D' },
+  gold: { primary: '#E5C279', hover: '#F59E0B' },
   titanium: { primary: '#94A3B8', muted: '#64748B' },
   text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3' },
   border: { titanium: 'rgba(148, 163, 184, 0.2)', glass: 'rgba(255, 255, 255, 0.1)' },
@@ -36,9 +36,9 @@ function PackageCard({ title, priceUSD, priceCOP, features, bonusMonths, bonusPl
   bonusMonths: number; bonusPlan: string; bonusIcon: React.ReactNode; ctaText?: string;
 }) {
   return (
-    <div className="h-full flex flex-col rounded-2xl transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(197,160,89,0.15)]"
+    <div className="h-full flex flex-col rounded-2xl transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(229,194,121,0.15)]"
       style={{ background: COLORS.bg.card, border: `1px solid ${COLORS.border.glass}` }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(197, 160, 89, 0.4)')}
+      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.4)')}
       onMouseLeave={e => (e.currentTarget.style.borderColor = COLORS.border.glass)}
     >
       <div className="p-8 flex-grow flex flex-col">
@@ -49,7 +49,7 @@ function PackageCard({ title, priceUSD, priceCOP, features, bonusMonths, bonusPl
           <p className="text-sm" style={{ color: COLORS.titanium.muted }}>~ ${priceCOP} COP</p>
         </div>
 
-        <div className="p-4 rounded-lg mb-6" style={{ background: COLORS.bg.main, border: `1px solid rgba(197, 160, 89, 0.2)` }}>
+        <div className="p-4 rounded-lg mb-6" style={{ background: COLORS.bg.main, border: `1px solid rgba(229, 194, 121, 0.2)` }}>
           <div className="flex items-center gap-3">
             <div style={{ color: COLORS.gold.primary }}>{bonusIcon}</div>
             <div>
@@ -139,14 +139,14 @@ export default function PaquetesPage() {
 
       {/* Background gradient - subtle gold glow (same as homepage) */}
       <div className="fixed inset-0 pointer-events-none z-0"
-        style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(197, 160, 89, 0.04) 0%, transparent 60%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(229, 194, 121, 0.04) 0%, transparent 60%)' }}
       />
 
       <main className="relative z-10 p-4 lg:p-8">
 
         {/* HERO */}
         <section className="text-center max-w-4xl mx-auto py-20 lg:py-28 pt-20 animate-fadeIn">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Georgia, serif', color: COLORS.text.primary }}>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', color: COLORS.text.primary }}>
             Tu Punto de Entrada a la{' '}
             <span style={{ color: COLORS.gold.primary }}>Arquitectura.</span>
           </h1>
@@ -256,7 +256,7 @@ export default function PaquetesPage() {
               Has visto el valor, la transparencia y el potencial. El siguiente paso es unirte al grupo de pioneros que están definiendo esta nueva categoría.
             </p>
             <Link href="/fundadores"
-              className="inline-flex items-center gap-2 text-lg font-bold px-10 py-5 rounded-xl transition-all duration-300 hover:-translate-y-1 shadow-[0_6px_20px_rgba(197,160,89,0.3)] hover:shadow-[0_12px_35px_rgba(197,160,89,0.4)]"
+              className="inline-flex items-center gap-2 text-lg font-bold px-10 py-5 rounded-xl transition-all duration-300 hover:-translate-y-1 shadow-[0_6px_20px_rgba(229,194,121,0.3)] hover:shadow-[0_12px_35px_rgba(229,194,121,0.4)]"
               style={{ background: COLORS.gold.primary, color: COLORS.bg.main }}
             >
               Convertirme en Fundador <ArrowRight size={20} />

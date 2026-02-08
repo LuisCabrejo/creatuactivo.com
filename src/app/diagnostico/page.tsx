@@ -38,22 +38,22 @@ const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
   :root {
-    --gold: #C5A059;
-    --gold-light: #D4AF37;
-    --gold-dark: #B38B59;
+    --gold: #E5C279;
+    --gold-light: #F59E0B;
+    --gold-dark: #D97706;
     --gold-muted: #A3A3A3;
 
-    --bg-deep: #0F1115;
-    --bg-surface: #1A1D23;
-    --bg-card: #1A1D23;
+    --bg-deep: #0B0C0C;
+    --bg-surface: #16181D;
+    --bg-card: #16181D;
     --bg-elevated: #22252B;
 
     --text-primary: #E5E5E5;
     --text-secondary: #A3A3A3;
     --text-muted: #6B7280;
 
-    --border: rgba(197, 160, 89, 0.15);
-    --border-subtle: rgba(197, 160, 89, 0.1);
+    --border: rgba(229, 194, 121, 0.15);
+    --border-subtle: rgba(229, 194, 121, 0.1);
 
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', -apple-system, sans-serif;

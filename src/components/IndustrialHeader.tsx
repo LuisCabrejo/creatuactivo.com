@@ -32,10 +32,10 @@ export function IndustrialHeader({
         fill
         style={{
           objectFit: 'cover',
-          filter: 'grayscale(90%) contrast(1.15) brightness(0.6)',
-          opacity: 0.85,
-          WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+          filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
+          opacity: 0.9,
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
         priority
       />
@@ -45,7 +45,7 @@ export function IndustrialHeader({
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(11,12,12,0.3) 0%, rgba(11,12,12,0.5) 60%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(11,12,12,0.2) 0%, rgba(11,12,12,0.35) 60%, transparent 100%)',
         }}
       />
 

@@ -74,6 +74,13 @@ git push origin main
 # ALWAYS verify on GitHub that changes uploaded
 ```
 
+**Commit Convention** (Conventional Commits):
+- `feat(scope):` - New features
+- `fix(scope):` - Bug fixes
+- `style(scope):` - Visual/style changes
+- `content(scope):` - Content updates
+- `refactor(scope):` - Code refactoring
+
 ## Architecture Overview
 
 ### Core System: Framework IAA
@@ -84,6 +91,8 @@ Three-stage funnel methodology:
 3. **ACTIVAR** (Activate) - Escalation to human consultant
 
 ### 1. NEXUS AI Chatbot
+
+**Naming**: User-facing brand is "Queswa" (since v15.0). Code/components still use "NEXUS" prefix (no refactor planned). Use "Queswa" in UI text, "NEXUS" in code references.
 
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
@@ -285,6 +294,13 @@ src/app/
 ├── diagnostico/                     # Lead magnet "Mi Auditoría"
 ├── paquetes/                        # Product packages
 │   └── [ref]/page.tsx
+├── servilleta/                      # 🎯 "The Industrial Deck" v5.1 (4-slide presentation)
+├── servilleta-2/                    # "Industrial Realism" scroll storytelling
+├── servilleta-3/                    # "Bento Grid Industrial" layout
+├── servilleta-4/                    # "Engineering Copywriting" narrative
+├── modelo-de-valor/                 # Value model page
+├── paises/brasil/                   # Brazil-specific landing
+├── planes/                          # Plans page
 ├── privacidad/                      # Privacy policy
 ├── offline/                         # PWA offline fallback
 └── api/
@@ -299,7 +315,7 @@ src/app/
 - **noindex pages** (funnel interno):
   - `/reto-5-dias/*` → Squeeze/Bridge para ADS
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
-  - `/productos` → Duplicado, SEO en `/sistema/productos`
+  - `/productos` → 301 redirect to `/infraestructura` (page renamed)
 
 **Removed Pages** (with 301 redirects in next.config.js):
 - `/soluciones/*` → `/reto-5-dias` (6 persona pages eliminated)
@@ -307,7 +323,7 @@ src/app/
 - `/fundadores-network` → `/fundadores`
 - `/fundadores-profesionales` → `/fundadores`
 - `/sistema/framework-iaa` → `/reto-5-dias`
-- `/sistema/tecnologia` → `/tecnologia`
+- `/sistema/tecnologia` → `/reto-5-dias`
 - `/reto-12-dias` → `/reto-12-niveles`
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
@@ -317,6 +333,21 @@ src/app/
 - **Mobile CTA**: "Unirme al Reto" → /reto-5-dias
 - **Removed from menu**: Soluciones, Ecosistema, Presentación, Auditoría
 - **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
+
+### Servilleta Digital - Interactive Presentations
+
+Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" design (turbines, gears, concrete imagery) distinct from the main site's Quiet Luxury.
+
+| Version | Route | Style |
+|---------|-------|-------|
+| v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
+| v2.0 | `/servilleta-2` | Scroll storytelling, Unsplash industrial images |
+| v3.0 | `/servilleta-3` | Bento grid layout |
+| v4.0 | `/servilleta-4` | Enhanced narrative with animations |
+
+**Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
+**Typography**: Rajdhani (headings) + Roboto Mono (data)
+**Color Palette**: Industrial (#2C3E50 steel, #009FDF cyan, #E57200 safety orange)
 
 ## Environment Variables
 
@@ -344,7 +375,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v14.x series)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v18.x series)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
@@ -484,7 +515,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 // All imports starting with @/ resolve to src/*
 ```
 
-**Custom Hooks**:
+**Custom Hooks** (in `src/hooks/`):
 - `useHydration.tsx` - Prevents hydration mismatches
 - `useTracking.ts` - React wrapper for tracking API
 
@@ -607,18 +638,27 @@ window.nexusProspect?: { id: string }           // Current prospect
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter spec
 - [PITCHES_ARQUITECTO_EMPRESARIAL_V3.md](PITCHES_ARQUITECTO_EMPRESARIAL_V3.md) - Sales pitches
 
+**Handoff & Context**:
+- [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) - Complete business context for onboarding
+- [HANDOFF_QUESWA_TECNICO.md](HANDOFF_QUESWA_TECNICO.md) - Technical handoff for Queswa chatbot
+- [EPIPHANY_BRIDGE_OFICIAL.md](EPIPHANY_BRIDGE_OFICIAL.md) - Luis Cabrejo's story (master doc for all storytelling)
+
+**Research** (in `public/investigaciones/`):
+- Reducir Fricción Cognitiva en Presentación Servilleta - Cognitive science behind industrial design
+- Desarrollo Web Diseño Industrial Técnico - Industrial design implementation
+
 **Security**:
 - [scripts/diagnostico-seguridad-supabase.sql](scripts/diagnostico-seguridad-supabase.sql) - RLS diagnostic
 - [scripts/fix-rls-seguridad-supabase.sql](scripts/fix-rls-seguridad-supabase.sql) - RLS fix script
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~48 scripts)
+**Location**: `scripts/` directory (~35 scripts)
 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v17.x series)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v18.x series)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

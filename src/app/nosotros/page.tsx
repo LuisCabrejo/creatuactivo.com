@@ -43,7 +43,7 @@ export default function ManifiestoPage() {
             title="MANIFIESTO DEL ARQUITECTO"
             refCode="DOCUMENTO_FUNDACIONAL_V1"
             imageSrc="/images/header-manifiesto.jpg"
-            imageAlt="Planos arquitectónicos - Manifiesto CreaTuActivo"
+            imageAlt=""
           />
 
           {/* ═══════════════════════════════════════════════════════════════

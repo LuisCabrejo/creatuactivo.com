@@ -2,12 +2,12 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ * CATÁLOGO BIO-INTELIGENTE - Clinical Luxury Edition v1.0
+ * Estética: Pharma-Teal + Bio-Emerald (Lab/Clinical spectrum)
+ * Geometría: Hard Surface (ZERO border-radius)
  *
- * THE ARCHITECT'S SUITE - Bimetallic System v3.0
- * Gold (#E5C279): CTAs, prices, achievements
- * Titanium (#94A3B8): Icons, navigation, structural borders
+ * Color Transition: Amber (construcción) → Emerald (quirófano/biolab)
+ * Justificación científica: Ver "Estética Clinical Luxury para E-commerce Oscuro.md"
  *
  * Para consultas de licenciamiento: legal@creatuactivo.com
  */
@@ -18,6 +18,21 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Shield, Brain, Users, Rocket } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
+import { IndustrialHeader } from '@/components/IndustrialHeader'
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CLINICAL LUXURY - Color Palette (Bio-Lab Spectrum)
+// ═══════════════════════════════════════════════════════════════════════════
+const C = {
+  bioEmerald: '#50C878',        // Acento Clinical (reemplaza amber/gold)
+  pharmaTeal: '#0F2E2F',        // Fondo tarjetas (90% opacity)
+  whatsappLux: '#25D366',       // WhatsApp Luxury green
+  obsidian: '#0B0C0C',          // Background principal
+  gunmetal: '#16181D',          // Secondary surfaces
+  textMain: '#E5E5E5',          // Texto principal
+  textMuted: '#A3A3A3',         // Texto secundario
+  textDim: '#6b6b75',           // Texto terciario
+}
 
 // Interfaces mejoradas con campos estratégicos
 interface Product {
@@ -785,44 +800,136 @@ export default function CatalogoEstrategico() {
   )
 
   return (
-    <div className="min-h-screen bg-[#0B0C0C]">
-          <StrategicNavigation />
+    <>
+      <style dangerouslySetInnerHTML={{__html: `
+        .clinical-btn {
+          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+          transition: all 0.2s ease;
+        }
+        .clinical-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px ${C.bioEmerald}40;
+        }
+        .whatsapp-hybrid {
+          background: ${C.obsidian};
+          color: ${C.whatsappLux};
+          border: 2px solid ${C.whatsappLux}66;
+          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+          transition: all 0.3s ease;
+        }
+        .whatsapp-hybrid:hover {
+          background: ${C.whatsappLux};
+          color: #000;
+          border-color: ${C.whatsappLux};
+        }
+      `}} />
 
-      {/* Botón carrito flotante - Quiet Luxury */}
-      <button
-        onClick={() => setCartOpen(true)}
-        aria-label="Abrir carrito de compras con productos seleccionados"
-        className="fixed top-24 right-4 z-40 bg-[#F59E0B] text-[#0B0C0C] p-3 rounded-full shadow-lg hover:bg-[#F59E0B] transition-all"
-      >
-        <ShoppingCart className="h-6 w-6" />
-        {cart.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-[#F59E0B] text-[#0B0C0C] text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
-            {cart.reduce((sum, item) => sum + item.quantity, 0)}
-          </span>
-        )}
-      </button>
+      <div className="min-h-screen" style={{ background: C.obsidian }}>
+        <StrategicNavigation />
 
-      {/* Modal Los Más Vendidos - Quiet Luxury */}
+        {/* ═══════════════════════════════════════════════════════════════
+            INDUSTRIAL HEADER - Clinical Biolab
+            ═══════════════════════════════════════════════════════════════ */}
+        <IndustrialHeader
+          title="CATÁLOGO BIO-INTELIGENTE"
+          subtitle="Nutrición Celular con Ingeniería de Extracción"
+          refCode="CLINICAL_CATALOG_V1"
+          imageSrc="/images/header-productos.jpg"
+          imageAlt="Catálogo Bio-Inteligente Gano Excel"
+        />
+
+        {/* Botón carrito flotante - Hard Surface + Bio-Emerald */}
+        <button
+          onClick={() => setCartOpen(true)}
+          aria-label="Abrir carrito de compras con productos seleccionados"
+          style={{
+            position: 'fixed',
+            top: '6rem',
+            right: '1rem',
+            zIndex: 40,
+            background: C.bioEmerald,
+            color: C.obsidian,
+            padding: '0.75rem',
+            boxShadow: '0 4px 16px rgba(80, 200, 120, 0.3)',
+          }}
+          className="transition-all hover:scale-110"
+        >
+          <ShoppingCart className="h-6 w-6" />
+          {cart.length > 0 && (
+            <span
+              style={{
+                position: 'absolute',
+                top: '-0.5rem',
+                right: '-0.5rem',
+                background: C.bioEmerald,
+                color: C.obsidian,
+                fontSize: '0.75rem',
+                width: '1.5rem',
+                height: '1.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              {cart.reduce((sum, item) => sum + item.quantity, 0)}
+            </span>
+          )}
+        </button>
+
+      {/* Modal Los Más Vendidos - Clinical Luxury */}
       {showTopSelling && (
         <div
           className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => handleOverlayClick(e, () => setShowTopSelling(false))}
         >
-          <div className="w-full max-w-5xl bg-[#16181D] border border-[#E5C279]/30 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-[#E5C279]/20">
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '80rem',
+              background: `rgba(15, 46, 47, 0.95)`,
+              border: `1px solid ${C.bioEmerald}40`,
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '1.5rem',
+                borderBottom: `1px solid ${C.bioEmerald}30`,
+              }}
+            >
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-[#F59E0B]/20 rounded-full flex items-center justify-center">
-                  <Trophy className="h-6 w-6 text-[#E5C279]" />
+                <div
+                  style={{
+                    width: '3rem',
+                    height: '3rem',
+                    background: `${C.bioEmerald}20`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Trophy className="h-6 w-6" style={{ color: C.bioEmerald }} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-serif font-bold text-[#E5E5E5]">Productos Más Vendidos</h2>
-                  <p className="text-[#A3A3A3]">Los favoritos de nuestra comunidad</p>
+                  <h2 className="text-2xl font-serif font-bold" style={{ color: C.textMain }}>Productos Más Vendidos</h2>
+                  <p style={{ color: C.textMuted }}>Los favoritos de nuestra comunidad</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowTopSelling(false)}
                 aria-label="Cerrar ventana de productos más vendidos"
-                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors rounded-lg hover:bg-[#0B0C0C]"
+                style={{
+                  padding: '0.5rem',
+                  color: C.textMuted,
+                  background: C.obsidian,
+                }}
+                className="transition-colors hover:scale-110"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -833,14 +940,45 @@ export default function CatalogoEstrategico() {
                 {topSellingProducts.map((productId, index) => {
                   const product = productData[productId]
                   return (
-                    <div key={productId} className="group relative overflow-hidden rounded-2xl border border-[#E5C279]/20 hover:border-[#E5C279]/50 transition-all duration-300 bg-[#0B0C0C]">
-                      <div className="absolute top-4 left-4 bg-[#F59E0B] text-[#0B0C0C] px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
+                    <div
+                      key={productId}
+                      style={{
+                        position: 'relative',
+                        overflow: 'hidden',
+                        border: `1px solid ${C.bioEmerald}30`,
+                        borderTop: `3px solid ${C.bioEmerald}`,
+                        background: C.obsidian,
+                      }}
+                      className="group transition-all duration-300"
+                    >
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '1rem',
+                          left: '1rem',
+                          background: C.bioEmerald,
+                          color: C.obsidian,
+                          padding: '0.25rem 0.75rem',
+                          fontSize: '0.875rem',
+                          fontWeight: 'bold',
+                          zIndex: 10,
+                        }}
+                      >
                         Top #{index + 1}
                       </div>
 
                       <div className="p-6">
                         <div className="relative mb-6">
-                          <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[320px]">
+                          <div
+                            style={{
+                              background: C.obsidian,
+                              padding: '1rem',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              height: '320px',
+                            }}
+                          >
                             <Image
                               src={product.image}
                               alt={`${product.name} - ${product.taglineEstrategico}`}
@@ -849,18 +987,39 @@ export default function CatalogoEstrategico() {
                               className="object-contain max-h-[18rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                             />
                           </div>
-                          <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '1rem',
+                              right: '1rem',
+                              background: C.bioEmerald,
+                              color: C.obsidian,
+                              padding: '0.5rem 1rem',
+                              fontSize: '1.125rem',
+                              fontWeight: 'bold',
+                            }}
+                          >
                             ${product.price.toLocaleString()}
                           </div>
                         </div>
 
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
-                        <p className="text-sm text-[#E5C279] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
-                        <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed line-clamp-2">{product.shortDescription}</p>
+                        <h3 className="text-lg font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
+                        <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
+                        <p className="text-sm mb-6 leading-relaxed line-clamp-2" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                         <div className="flex flex-wrap gap-2 mb-6">
                           {product.goals.map((goal) => (
-                            <span key={goal} className="bg-[#F59E0B]/10 border border-[#E5C279]/30 px-3 py-1 rounded-full text-xs text-[#E5C279] font-medium">
+                            <span
+                              key={goal}
+                              style={{
+                                background: `${C.bioEmerald}15`,
+                                border: `1px solid ${C.bioEmerald}40`,
+                                padding: '0.25rem 0.75rem',
+                                fontSize: '0.75rem',
+                                color: C.bioEmerald,
+                                fontWeight: 500,
+                              }}
+                            >
                               {goal}
                             </span>
                           ))}
@@ -872,18 +1031,37 @@ export default function CatalogoEstrategico() {
                               setSelectedProduct(product)
                               setShowTopSelling(false)
                             }}
-                            className="flex-1 bg-[#16181D] border border-[#E5C279]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                            style={{
+                              flex: 1,
+                              background: C.gunmetal,
+                              border: `2px solid ${C.bioEmerald}60`,
+                              color: C.bioEmerald,
+                              padding: '0.75rem 1rem',
+                              fontSize: '0.875rem',
+                              fontWeight: 600,
+                              letterSpacing: '0.05em',
+                              fontFamily: "'Rajdhani', sans-serif",
+                            }}
+                            className="transition-all hover:scale-105"
                           >
-                            Ver Detalles
+                            ANALIZAR
                           </button>
                           <button
                             onClick={() => {
                               addToCart(productId)
                               setShowTopSelling(false)
                             }}
-                            className="flex-1 bg-[#F59E0B] text-[#0B0C0C] py-3 px-4 rounded-xl hover:bg-[#F59E0B] transition-all text-sm font-medium shadow-lg"
+                            style={{
+                              flex: 1,
+                              background: C.bioEmerald,
+                              color: C.obsidian,
+                              padding: '0.75rem 1rem',
+                              fontSize: '0.875rem',
+                              fontWeight: 600,
+                            }}
+                            className="transition-all hover:scale-105"
                           >
-                            Añadir al carrito
+                            Añadir
                           </button>
                         </div>
                       </div>
@@ -896,21 +1074,46 @@ export default function CatalogoEstrategico() {
         </div>
       )}
 
-      {/* Panel del carrito mejorado */}
+      {/* Panel del carrito - Clinical Luxury */}
       {cartOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
           onClick={(e) => handleOverlayClick(e, () => setCartOpen(false))}
         >
-          {/* BIMETALLIC: Cart panel with carbon backgrounds */}
-          <div className="absolute right-0 top-0 h-full w-96 bg-[#16181D]/98 backdrop-blur-xl border-l border-[rgba(148,163,184,0.2)] shadow-2xl">
+          {/* Clinical Cart Panel */}
+          <div
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              height: '100%',
+              width: '24rem',
+              background: `rgba(15, 46, 47, 0.98)`,
+              backdropFilter: 'blur(16px)',
+              borderLeft: `1px solid ${C.bioEmerald}30`,
+              boxShadow: '-4px 0 24px rgba(0,0,0,0.5)',
+            }}
+          >
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between p-6 border-b border-[rgba(148,163,184,0.2)]">
-                <h2 className="text-xl font-bold text-[#E5E5E5]">Tu Sistema de Bienestar</h2>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '1.5rem',
+                  borderBottom: `1px solid ${C.bioEmerald}30`,
+                }}
+              >
+                <h2 className="text-xl font-bold" style={{ color: C.textMain }}>Tu Sistema de Bienestar</h2>
                 <button
                   onClick={() => setCartOpen(false)}
                   aria-label="Cerrar carrito de compras"
-                  className="p-2 text-[#94A3B8] hover:text-[#E5C279] transition-colors rounded-lg hover:bg-[#0B0C0C]"
+                  style={{
+                    padding: '0.5rem',
+                    color: C.textMuted,
+                    background: C.obsidian,
+                  }}
+                  className="transition-colors hover:scale-110"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -919,25 +1122,38 @@ export default function CatalogoEstrategico() {
               <div className="flex-1 overflow-y-auto p-6">
                 {cart.length === 0 ? (
                   <div className="text-center py-12">
-                    <ShoppingCart className="h-16 w-16 text-[#64748B] mx-auto mb-4" />
-                    <p className="text-[#A3A3A3]">Tu sistema está vacío</p>
-                    <p className="text-[#6B7280] text-sm mt-2">Comienza agregando productos estrella</p>
+                    <ShoppingCart className="h-16 w-16 mx-auto mb-4" style={{ color: C.textDim }} />
+                    <p style={{ color: C.textMuted }}>Tu sistema está vacío</p>
+                    <p className="text-sm mt-2" style={{ color: C.textDim }}>Comienza agregando productos estrella</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {cart.map((item) => (
-                      <div key={item.id} className="bg-[#16181D] border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+                      <div
+                        key={item.id}
+                        style={{
+                          background: C.gunmetal,
+                          border: `1px solid ${C.bioEmerald}20`,
+                          padding: '1rem',
+                        }}
+                      >
                         <div className="flex items-center space-x-4">
                           <Image
                             src={item.image}
                             alt={item.name}
                             width={64}
                             height={64}
-                            className="w-16 h-16 rounded-lg object-contain bg-white/10 p-1"
+                            style={{
+                              width: '4rem',
+                              height: '4rem',
+                              objectFit: 'contain',
+                              background: 'rgba(255,255,255,0.05)',
+                              padding: '0.25rem',
+                            }}
                           />
                           <div className="flex-1">
-                            <h3 className="text-[#E5E5E5] font-medium text-sm">{item.name}</h3>
-                            <p className="text-[#E5C279] text-sm">${item.price.toLocaleString()}</p>
+                            <h3 className="font-medium text-sm" style={{ color: C.textMain }}>{item.name}</h3>
+                            <p className="text-sm" style={{ color: C.bioEmerald }}>${item.price.toLocaleString()}</p>
                           </div>
                         </div>
                         <div className="flex items-center justify-between mt-4">
@@ -945,15 +1161,35 @@ export default function CatalogoEstrategico() {
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               aria-label="Disminuir cantidad"
-                              className="w-8 h-8 bg-[#0B0C0C] border border-[rgba(148,163,184,0.2)] rounded-lg flex items-center justify-center text-[#94A3B8] hover:text-[#E5C279] hover:border-[#E5C279]/30 transition-colors"
+                              style={{
+                                width: '2rem',
+                                height: '2rem',
+                                background: C.obsidian,
+                                border: `1px solid ${C.bioEmerald}30`,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: C.textMuted,
+                              }}
+                              className="transition-colors hover:scale-110"
                             >
                               -
                             </button>
-                            <span className="text-[#E5E5E5] w-8 text-center font-medium">{item.quantity}</span>
+                            <span className="w-8 text-center font-medium" style={{ color: C.textMain }}>{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               aria-label="Aumentar cantidad"
-                              className="w-8 h-8 bg-[#0B0C0C] border border-[rgba(148,163,184,0.2)] rounded-lg flex items-center justify-center text-[#94A3B8] hover:text-[#E5C279] hover:border-[#E5C279]/30 transition-colors"
+                              style={{
+                                width: '2rem',
+                                height: '2rem',
+                                background: C.obsidian,
+                                border: `1px solid ${C.bioEmerald}30`,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: C.textMuted,
+                              }}
+                              className="transition-colors hover:scale-110"
                             >
                               +
                             </button>
@@ -973,34 +1209,65 @@ export default function CatalogoEstrategico() {
               </div>
 
               {cart.length > 0 && (
-                <div className="border-t border-[rgba(148,163,184,0.2)] p-6 space-y-4">
-                  <div className="space-y-2 text-[#E5E5E5]">
+                <div
+                  style={{
+                    borderTop: `1px solid ${C.bioEmerald}30`,
+                    padding: '1.5rem',
+                  }}
+                  className="space-y-4"
+                >
+                  <div className="space-y-2" style={{ color: C.textMain }}>
                     <div className="flex justify-between">
-                      <span className="text-[#A3A3A3]">Subtotal:</span>
+                      <span style={{ color: C.textMuted }}>Subtotal:</span>
                       <span className="font-medium">${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#A3A3A3]">Envío:</span>
+                      <span style={{ color: C.textMuted }}>Envío:</span>
                       <span className="font-medium">$12.000</span>
                     </div>
-                    <div className="flex justify-between font-bold text-lg border-t border-[rgba(148,163,184,0.2)] pt-2">
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontWeight: 'bold',
+                        fontSize: '1.125rem',
+                        borderTop: `1px solid ${C.bioEmerald}30`,
+                        paddingTop: '0.5rem',
+                      }}
+                    >
                       <span>Total:</span>
-                      <span className="text-[#E5C279]">${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 12000).toLocaleString()}</span>
+                      <span style={{ color: C.bioEmerald }}>${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 12000).toLocaleString()}</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#F59E0B]/10 border border-[#E5C279]/30 rounded-xl p-3">
-                    <p className="text-[#E5C279] text-xs font-medium mb-1">Siguiente Paso:</p>
-                    <p className="text-[#E5E5E5] text-sm">Confirma tu pedido y recibe tu sistema de bienestar</p>
+                  <div
+                    style={{
+                      background: `${C.bioEmerald}15`,
+                      border: `1px solid ${C.bioEmerald}40`,
+                      padding: '0.75rem',
+                    }}
+                  >
+                    <p className="text-xs font-medium mb-1" style={{ color: C.bioEmerald }}>Siguiente Paso:</p>
+                    <p className="text-sm" style={{ color: C.textMain }}>Confirma tu pedido y recibe tu sistema de bienestar</p>
                   </div>
 
                   <a
                     href={`https://wa.me/${(distributor?.whatsapp || '+573102066593').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-[#F59E0B] text-[#0B0C0C] py-3 rounded-xl font-medium hover:bg-[#F59E0B] transition-all text-center block"
+                    className="whatsapp-hybrid"
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      display: 'block',
+                      letterSpacing: '0.05em',
+                      fontFamily: "'Rajdhani', sans-serif",
+                      fontSize: '1rem',
+                    }}
                   >
-                    Finalizar por WhatsApp
+                    FINALIZAR POR WHATSAPP
                   </a>
                 </div>
               )}
@@ -1012,94 +1279,217 @@ export default function CatalogoEstrategico() {
       {/* Contenido principal */}
       <div className="container mx-auto px-4 py-8">
 
-        {/* Header estratégico - Quiet Luxury */}
+        {/* Header estratégico - Clinical Luxury */}
         <div className="text-center mb-12 pt-8">
-  <div className="inline-block bg-[#F59E0B]/10 border border-[#E5C279]/30 rounded-full px-6 py-2 mb-6">
-    <span className="text-[#E5C279] font-medium text-sm tracking-wider uppercase">Catálogo Oficial Gano Excel</span>
-  </div>
+          <div
+            style={{
+              display: 'inline-block',
+              background: `${C.bioEmerald}15`,
+              border: `1px solid ${C.bioEmerald}40`,
+              padding: '0.5rem 1.5rem',
+              marginBottom: '1.5rem',
+            }}
+          >
+            <span
+              style={{
+                color: C.bioEmerald,
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                fontFamily: "'Roboto Mono', monospace",
+              }}
+            >
+              Catálogo Oficial Gano Excel
+            </span>
+          </div>
 
-  <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 text-[#E5E5E5]">
-    Siéntete Bien <span className="text-[#E5C279]">Cada Día</span>
-  </h1>
+          <h1
+            className="text-4xl md:text-6xl font-serif font-bold mb-4"
+            style={{ color: C.textMain }}
+          >
+            Siéntete Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
+          </h1>
 
-  <p className="text-[#A3A3A3] text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
-    Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo <span className="text-[#E5C279]">Ganoderma</span>: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
-  </p>
+          <p
+            className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
+            style={{ color: C.textMuted }}
+          >
+            Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
+          </p>
 
-  {distributor && (
-    <div className="inline-flex items-center bg-[#16181D] border border-[#E5C279]/20 rounded-full px-6 py-3 mb-8">
-      <Rocket className="h-4 w-4 text-[#E5C279] mr-2 animate-pulse" />
-      <span className="text-[#A3A3A3]">
-        Especialista en bienestar: <span className="font-bold text-[#E5C279]">{distributor.nombre}</span>
-      </span>
-    </div>
-  )}
-</div>
+          {distributor && (
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                background: `rgba(15, 46, 47, 0.70)`,
+                border: `1px solid ${C.bioEmerald}30`,
+                padding: '0.75rem 1.5rem',
+                marginBottom: '2rem',
+              }}
+            >
+              <Rocket className="h-4 w-4 mr-2 animate-pulse" style={{ color: C.bioEmerald }} />
+              <span style={{ color: C.textMuted }}>
+                Especialista en bienestar: <span className="font-bold" style={{ color: C.bioEmerald }}>{distributor.nombre}</span>
+              </span>
+            </div>
+          )}
+        </div>
 
-{/* Nueva Sección: La Ventaja Competitiva - Quiet Luxury */}
+{/* Nueva Sección: La Ventaja Competitiva - Clinical Luxury */}
 <section className="mb-16">
   <div className="text-center mb-12">
-    <div className="inline-block bg-[#F59E0B]/10 border border-[#E5C279]/30 rounded-full px-6 py-2 mb-6">
-      <span className="text-[#E5C279] font-medium text-sm tracking-wider uppercase">Lo Mejor del Ganoderma</span>
+    <div
+      style={{
+        display: 'inline-block',
+        background: `${C.bioEmerald}15`,
+        border: `1px solid ${C.bioEmerald}40`,
+        padding: '0.5rem 1.5rem',
+        marginBottom: '1.5rem',
+      }}
+    >
+      <span
+        style={{
+          color: C.bioEmerald,
+          fontWeight: 500,
+          fontSize: '0.875rem',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          fontFamily: "'Roboto Mono', monospace",
+        }}
+      >
+        Lo Mejor del Ganoderma
+      </span>
     </div>
 
-    <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#E5E5E5] mb-6 leading-tight">
-      Nutrición que Tu Cuerpo <span className="text-[#E5C279]">Realmente Aprovecha</span>
+    <h2
+      className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight"
+      style={{ color: C.textMain }}
+    >
+      Nutrición que Tu Cuerpo <span style={{ color: C.bioEmerald }}>Realmente Aprovecha</span>
     </h2>
 
-    <p className="text-[#A3A3A3] text-lg max-w-4xl mx-auto">
+    <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
       No basta con tener buenos ingredientes, tu cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
-          {/* Estadísticas de impacto - Dark Cards */}
+          {/* Estadísticas de impacto - Pharma Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
-            <div className="bg-[#16181D] border border-[#E5C279]/20 rounded-2xl p-8 text-center group hover:border-[#E5C279]/40 hover:scale-105 transition-all">
-              <div className="text-5xl font-serif font-bold text-[#E5C279] mb-2">
+            <div
+              style={{
+                background: `rgba(15, 46, 47, 0.90)`,
+                border: `1px solid ${C.bioEmerald}30`,
+                borderTop: `3px solid ${C.bioEmerald}`,
+                padding: '2rem',
+                textAlign: 'center',
+              }}
+              className="group hover:scale-105 transition-all"
+            >
+              <div
+                className="text-5xl font-serif font-bold mb-2"
+                style={{ color: C.bioEmerald }}
+              >
                 200+
               </div>
-              <div className="text-[#E5E5E5] font-semibold">Nutrientes Naturales</div>
-              <div className="text-[#6B7280] text-sm mt-2">En cada producto</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Nutrientes Naturales</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>En cada producto</div>
             </div>
 
-            <div className="bg-[#16181D] border border-[#E5C279]/20 rounded-2xl p-8 text-center group hover:border-[#E5C279]/40 hover:scale-105 transition-all">
-              <div className="text-5xl font-serif font-bold text-[#E5C279] mb-2">
+            <div
+              style={{
+                background: `rgba(15, 46, 47, 0.90)`,
+                border: `1px solid ${C.bioEmerald}30`,
+                borderTop: `3px solid ${C.bioEmerald}`,
+                padding: '2rem',
+                textAlign: 'center',
+              }}
+              className="group hover:scale-105 transition-all"
+            >
+              <div
+                className="text-5xl font-serif font-bold mb-2"
+                style={{ color: C.bioEmerald }}
+              >
                 100%
               </div>
-              <div className="text-[#E5E5E5] font-semibold">Fácil de Absorber</div>
-              <div className="text-[#6B7280] text-sm mt-2">Tu cuerpo lo aprovecha completo</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Fácil de Absorber</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>Tu cuerpo lo aprovecha completo</div>
             </div>
 
-            <div className="bg-[#16181D] border border-[#E5C279]/20 rounded-2xl p-8 text-center group hover:border-[#E5C279]/40 hover:scale-105 transition-all">
-              <div className="text-5xl font-serif font-bold text-[#E5C279] mb-2">
+            <div
+              style={{
+                background: `rgba(15, 46, 47, 0.90)`,
+                border: `1px solid ${C.bioEmerald}30`,
+                borderTop: `3px solid ${C.bioEmerald}`,
+                padding: '2rem',
+                textAlign: 'center',
+              }}
+              className="group hover:scale-105 transition-all"
+            >
+              <div
+                className="text-5xl font-serif font-bold mb-2"
+                style={{ color: C.bioEmerald }}
+              >
                 6
               </div>
-              <div className="text-[#E5E5E5] font-semibold">Tipos de Ganoderma</div>
-              <div className="text-[#6B7280] text-sm mt-2">Unidos en una fórmula única</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Tipos de Ganoderma</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>Unidos en una fórmula única</div>
             </div>
           </div>
 
           <div className="text-center">
             <button
               onClick={() => setShowTopSelling(true)}
-              className="bg-[#F59E0B] text-[#0B0C0C] px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#F59E0B] transition-all inline-flex items-center gap-3"
+              className="clinical-btn inline-flex items-center gap-3"
+              style={{
+                background: C.bioEmerald,
+                color: C.obsidian,
+                padding: '1rem 2rem',
+                fontWeight: 700,
+                fontSize: '1.125rem',
+                fontFamily: "'Rajdhani', sans-serif",
+                letterSpacing: '0.05em',
+              }}
             >
               <Trophy className="h-5 w-5" />
-              Ver Productos Más Vendidos
+              VER PRODUCTOS MÁS VENDIDOS
             </button>
           </div>
         </section>
 
-        {/* Nueva Sección: Sistemas de Bienestar - Quiet Luxury */}
+        {/* Nueva Sección: Sistemas de Bienestar - Clinical Luxury */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <div className="inline-block bg-[#F59E0B]/10 border border-[#E5C279]/30 rounded-full px-6 py-2 mb-6">
-              <span className="text-[#E5C279] font-medium text-sm tracking-wider uppercase">Encuentra lo que Necesitas</span>
+            <div
+              style={{
+                display: 'inline-block',
+                background: `${C.bioEmerald}15`,
+                border: `1px solid ${C.bioEmerald}40`,
+                padding: '0.5rem 1.5rem',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <span
+                style={{
+                  color: C.bioEmerald,
+                  fontWeight: 500,
+                  fontSize: '0.875rem',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  fontFamily: "'Roboto Mono', monospace",
+                }}
+              >
+                Encuentra lo que Necesitas
+              </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E5E5E5] mb-6">
+            <h2
+              className="text-3xl md:text-4xl font-serif font-bold mb-6"
+              style={{ color: C.textMain }}
+            >
               Productos para Cada Momento de Tu Vida
             </h2>
-            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
               Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a tu familia, verte mejor o disfrutar un buen café.
             </p>
           </div>
@@ -1109,15 +1499,51 @@ export default function CatalogoEstrategico() {
               <div
                 key={key}
                 onClick={() => setSelectedSystem(key)}
-                className="bg-[#16181D] border border-[#E5C279]/20 rounded-2xl p-6 cursor-pointer group hover:border-[#E5C279]/50 transition-all"
+                style={{
+                  background: `rgba(15, 46, 47, 0.80)`,
+                  border: `1px solid ${C.bioEmerald}30`,
+                  padding: '1.5rem',
+                  cursor: 'pointer',
+                }}
+                className="group transition-all hover:scale-105"
               >
-                <div className="w-16 h-16 bg-[#F59E0B]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#F59E0B]/20 group-hover:scale-110 transition-all text-[#E5C279]">
+                <div
+                  style={{
+                    width: '4rem',
+                    height: '4rem',
+                    background: `${C.bioEmerald}15`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 1rem',
+                    color: C.bioEmerald,
+                  }}
+                  className="group-hover:scale-110 transition-all"
+                >
                   {system.icono}
                 </div>
-                <h3 className="text-lg font-bold text-[#E5E5E5] mb-2 text-center">{system.nombre}</h3>
-                <p className="text-[#A3A3A3] text-sm text-center mb-4">{system.descripcion}</p>
+                <h3
+                  className="text-lg font-bold mb-2 text-center"
+                  style={{ color: C.textMain }}
+                >
+                  {system.nombre}
+                </h3>
+                <p
+                  className="text-sm text-center mb-4"
+                  style={{ color: C.textMuted }}
+                >
+                  {system.descripcion}
+                </p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  <span className="text-xs bg-[#0B0C0C] border border-[#E5C279]/30 px-3 py-1 rounded-full text-[#E5C279]">
+                  <span
+                    style={{
+                      fontSize: '0.75rem',
+                      background: C.obsidian,
+                      border: `1px solid ${C.bioEmerald}40`,
+                      padding: '0.25rem 0.75rem',
+                      color: C.bioEmerald,
+                    }}
+                  >
                     {system.productos.length} productos
                   </span>
                 </div>
@@ -1126,18 +1552,43 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Productos por categorías tradicionales - Quiet Luxury */}
+        {/* Productos por categorías tradicionales - Clinical Luxury */}
         <section id="bebidas" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Bebidas Saludables</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#E5C279]/50 to-transparent ml-8"></div>
+            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Bebidas Saludables</h2>
+            <div
+              style={{
+                height: '1px',
+                flex: 1,
+                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
+                marginLeft: '2rem',
+              }}
+            />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {bebidas.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#E5C279]/20 hover:border-[#E5C279]/50 transition-all duration-300 bg-[#16181D]">
+              <div
+                key={id}
+                style={{
+                  background: `rgba(15, 46, 47, 0.85)`,
+                  border: `1px solid ${C.bioEmerald}30`,
+                  borderTop: `3px solid ${C.bioEmerald}`,
+                  overflow: 'hidden',
+                }}
+                className="group transition-all duration-300"
+              >
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div
+                      style={{
+                        background: C.obsidian,
+                        padding: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '400px',
+                      }}
+                    >
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1146,21 +1597,42 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.5rem 1rem',
+                        fontSize: '1.125rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-[#E5C279] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed line-clamp-3">{product.shortDescription}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-6 leading-relaxed line-clamp-3" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-[#F59E0B]/10 border border-[#E5C279]/30 px-3 py-1 rounded-full text-xs text-[#E5C279] font-medium">
+                      <span
+                        key={goal}
+                        style={{
+                          background: `${C.bioEmerald}15`,
+                          border: `1px solid ${C.bioEmerald}40`,
+                          padding: '0.25rem 0.75rem',
+                          fontSize: '0.75rem',
+                          color: C.bioEmerald,
+                          fontWeight: 500,
+                        }}
+                      >
                         {goal}
                       </span>
                     ))}
@@ -1169,13 +1641,35 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-[#0B0C0C] border border-[#E5C279]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                      style={{
+                        flex: 1,
+                        background: C.obsidian,
+                        border: `2px solid ${C.bioEmerald}60`,
+                        color: C.bioEmerald,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        fontFamily: "'Rajdhani', sans-serif",
+                      }}
+                      className="transition-all hover:scale-105"
                     >
-                      Ver Detalles
+                      ANALIZAR
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-[#F59E0B] text-[#0B0C0C] py-3 px-4 rounded-xl hover:bg-[#F59E0B] transition-all text-sm font-medium shadow-lg inline-flex items-center justify-center"
+                      style={{
+                        flex: 1,
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      className="transition-all hover:scale-105"
                     >
                       <Gift className="h-4 w-4 mr-2" />
                       Agregar
@@ -1187,18 +1681,44 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección Luvoco Premium - Quiet Luxury */}
+        {/* Sección Luvoco Premium - Clinical Luxury */}
         <section id="luvoco" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Experiencia Luvoco Premium</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#E5C279]/50 to-transparent ml-8"></div>
+            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Experiencia Luvoco Premium</h2>
+            <div
+              style={{
+                height: '1px',
+                flex: 1,
+                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
+                marginLeft: '2rem',
+              }}
+            />
           </div>
 
           <div className="text-center mb-12">
-            <div className="inline-block bg-[#F59E0B]/10 border border-[#E5C279]/30 rounded-full px-6 py-2 mb-6">
-              <span className="text-[#E5C279] font-medium text-sm tracking-wider uppercase">Love of Coffee - Sistema Premium</span>
+            <div
+              style={{
+                display: 'inline-block',
+                background: `${C.bioEmerald}15`,
+                border: `1px solid ${C.bioEmerald}40`,
+                padding: '0.5rem 1.5rem',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <span
+                style={{
+                  color: C.bioEmerald,
+                  fontWeight: 500,
+                  fontSize: '0.875rem',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  fontFamily: "'Roboto Mono', monospace",
+                }}
+              >
+                Love of Coffee - Sistema Premium
+              </span>
             </div>
-            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
               Sistema de cápsulas con tecnología de 15 bares. El ancla perfecta para clientes de alto valor
               que garantiza compra recurrente y construye tu activo mes a mes.
             </p>
@@ -1206,10 +1726,28 @@ export default function CatalogoEstrategico() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8">
             {luvoco.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#E5C279]/20 hover:border-[#E5C279]/50 transition-all duration-300 bg-[#16181D]">
+              <div
+                key={id}
+                style={{
+                  background: `rgba(15, 46, 47, 0.85)`,
+                  border: `1px solid ${C.bioEmerald}30`,
+                  borderTop: `3px solid ${C.bioEmerald}`,
+                  overflow: 'hidden',
+                }}
+                className="group transition-all duration-300"
+              >
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div
+                      style={{
+                        background: C.obsidian,
+                        padding: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '400px',
+                      }}
+                    >
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1218,21 +1756,42 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.5rem 1rem',
+                        fontSize: '1.125rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-[#E5C279] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-[#6B7280] text-sm mb-3">Certificación: {product.invima}</p>
-                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>Certificación: {product.invima}</p>
+                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-[#F59E0B]/10 border border-[#E5C279]/30 px-3 py-1 rounded-full text-xs text-[#E5C279] font-medium">
+                      <span
+                        key={goal}
+                        style={{
+                          background: `${C.bioEmerald}15`,
+                          border: `1px solid ${C.bioEmerald}40`,
+                          padding: '0.25rem 0.75rem',
+                          fontSize: '0.75rem',
+                          color: C.bioEmerald,
+                          fontWeight: 500,
+                        }}
+                      >
                         {goal}
                       </span>
                     ))}
@@ -1242,13 +1801,32 @@ export default function CatalogoEstrategico() {
                     <div className="flex space-x-3">
                       <button
                         onClick={() => setSelectedProduct(product)}
-                        className="flex-1 bg-[#0B0C0C] border border-[#E5C279]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                        style={{
+                          flex: 1,
+                          background: C.obsidian,
+                          border: `2px solid ${C.bioEmerald}60`,
+                          color: C.bioEmerald,
+                          padding: '0.75rem 1rem',
+                          fontSize: '0.875rem',
+                          fontWeight: 600,
+                          letterSpacing: '0.05em',
+                          fontFamily: "'Rajdhani', sans-serif",
+                        }}
+                        className="transition-all hover:scale-105"
                       >
-                        Ver Detalles
+                        ANALIZAR
                       </button>
                       <button
                         onClick={() => addToCart(id)}
-                        className="flex-1 bg-[#F59E0B] text-[#0B0C0C] py-3 px-4 rounded-xl hover:bg-[#F59E0B] transition-all text-sm font-medium shadow-lg"
+                        style={{
+                          flex: 1,
+                          background: C.bioEmerald,
+                          color: C.obsidian,
+                          padding: '0.75rem 1rem',
+                          fontSize: '0.875rem',
+                          fontWeight: 600,
+                        }}
+                        className="transition-all hover:scale-105"
                       >
                         Agregar Premium
                       </button>
@@ -1260,7 +1838,19 @@ export default function CatalogoEstrategico() {
                           href="https://drive.google.com/file/d/13C_CQyXnmeNPqzrsm34GNCIysE-T4p2k/view?usp=drive_link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full bg-[#16181D] border border-[#E5C279]/30 text-[#E5C279] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '100%',
+                            background: C.gunmetal,
+                            border: `1px solid ${C.bioEmerald}40`,
+                            color: C.bioEmerald,
+                            padding: '0.75rem 1rem',
+                            fontSize: '0.875rem',
+                            fontWeight: 500,
+                          }}
+                          className="transition-all hover:scale-105"
                         >
                           <Download className="h-4 w-4 mr-2" />
                           Descargar Ficha de Producto
@@ -1269,7 +1859,19 @@ export default function CatalogoEstrategico() {
                           href="https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full bg-[#16181D] border border-[#E5C279]/30 text-[#E5C279] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '100%',
+                            background: C.gunmetal,
+                            border: `1px solid ${C.bioEmerald}40`,
+                            color: C.bioEmerald,
+                            padding: '0.75rem 1rem',
+                            fontSize: '0.875rem',
+                            fontWeight: 500,
+                          }}
+                          className="transition-all hover:scale-105"
                         >
                           <Download className="h-4 w-4 mr-2" />
                           Descargar Especificaciones Técnicas
@@ -1811,16 +2413,32 @@ export default function CatalogoEstrategico() {
           className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => handleOverlayClick(e, () => setSelectedProduct(null))}
         >
-          <div className="bg-[#16181D]/95 backdrop-blur-xl border border-[#E5C279]/30 rounded-2xl p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+          <div
+            style={{
+              background: `rgba(15, 46, 47, 0.95)`,
+              backdropFilter: 'blur(16px)',
+              border: `1px solid ${C.bioEmerald}40`,
+              padding: '1.5rem',
+              maxWidth: '80rem',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+            }}
+          >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-[#E5E5E5]">{selectedProduct.name}</h2>
-                <p className="text-[#E5C279] font-medium italic mt-1">"{selectedProduct.taglineEstrategico}"</p>
+                <h2 className="text-2xl font-bold" style={{ color: C.textMain }}>{selectedProduct.name}</h2>
+                <p className="font-medium italic mt-1" style={{ color: C.bioEmerald }}>"{selectedProduct.taglineEstrategico}"</p>
               </div>
               <button
                 onClick={() => setSelectedProduct(null)}
                 aria-label="Cerrar detalle del producto"
-                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors rounded-lg hover:bg-[#0B0C0C]"
+                style={{
+                  padding: '0.5rem',
+                  color: C.textMuted,
+                  background: C.obsidian,
+                }}
+                className="transition-colors hover:scale-110"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -1828,7 +2446,13 @@ export default function CatalogoEstrategico() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <div className="bg-[#0A0A0E] rounded-2xl p-6 mb-6">
+                <div
+                  style={{
+                    background: C.obsidian,
+                    padding: '1.5rem',
+                    marginBottom: '1.5rem',
+                  }}
+                >
                   <Image
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
@@ -1838,41 +2462,53 @@ export default function CatalogoEstrategico() {
                   />
                 </div>
                 <div className="text-center">
-                  <span className="text-3xl font-bold text-[#E5E5E5]">${selectedProduct.price.toLocaleString()}</span>
-                  <p className="text-[#A3A3A3] text-sm mt-1">Precio constructor</p>
+                  <span className="text-3xl font-bold" style={{ color: C.bioEmerald }}>${selectedProduct.price.toLocaleString()}</span>
+                  <p className="text-sm mt-1" style={{ color: C.textMuted }}>Precio constructor</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 {/* Tabs de navegación */}
-                <div className="flex space-x-2 border-b border-[#E5C279]/30">
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    borderBottom: `1px solid ${C.bioEmerald}30`,
+                  }}
+                >
                   <button
                     onClick={() => setActiveTab('beneficios')}
-                    className={`px-4 py-2 font-medium transition-all ${
-                      activeTab === 'beneficios'
-                        ? 'text-[#E5C279] border-b-2 border-[#E5C279]'
-                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
-                    }`}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      fontWeight: 500,
+                      color: activeTab === 'beneficios' ? C.bioEmerald : C.textMuted,
+                      borderBottom: activeTab === 'beneficios' ? `2px solid ${C.bioEmerald}` : 'none',
+                    }}
+                    className="transition-all"
                   >
                     Beneficios
                   </button>
                   <button
                     onClick={() => setActiveTab('ciencia')}
-                    className={`px-4 py-2 font-medium transition-all ${
-                      activeTab === 'ciencia'
-                        ? 'text-[#E5C279] border-b-2 border-[#E5C279]'
-                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
-                    }`}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      fontWeight: 500,
+                      color: activeTab === 'ciencia' ? C.bioEmerald : C.textMuted,
+                      borderBottom: activeTab === 'ciencia' ? `2px solid ${C.bioEmerald}` : 'none',
+                    }}
+                    className="transition-all"
                   >
                     Ciencia
                   </button>
                   <button
                     onClick={() => setActiveTab('constructor')}
-                    className={`px-4 py-2 font-medium transition-all ${
-                      activeTab === 'constructor'
-                        ? 'text-[#E5C279] border-b-2 border-[#E5C279]'
-                        : 'text-[#A3A3A3] hover:text-[#E5E5E5]'
-                    }`}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      fontWeight: 500,
+                      color: activeTab === 'constructor' ? C.bioEmerald : C.textMuted,
+                      borderBottom: activeTab === 'constructor' ? `2px solid ${C.bioEmerald}` : 'none',
+                    }}
+                    className="transition-all"
                   >
                     Guía de Uso Avanzado
                   </button>
@@ -1883,25 +2519,33 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'beneficios' && (
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Beneficios Clave</h3>
+                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Beneficios Clave</h3>
                         <ul className="space-y-2">
                           {selectedProduct.benefits.map((benefit, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-[#E5C279] mr-2">✓</span>
-                              <span className="text-[#A3A3A3]">{benefit}</span>
+                              <span className="mr-2" style={{ color: C.bioEmerald }}>✓</span>
+                              <span style={{ color: C.textMuted }}>{benefit}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Perfil Ideal</h3>
-                        <p className="text-[#A3A3A3] bg-[#0B0C0C] p-3 rounded-lg">{selectedProduct.perfilIdeal}</p>
+                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Perfil Ideal</h3>
+                        <p
+                          style={{
+                            color: C.textMuted,
+                            background: C.obsidian,
+                            padding: '0.75rem',
+                          }}
+                        >
+                          {selectedProduct.perfilIdeal}
+                        </p>
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Momento de Consumo</h3>
-                        <p className="text-[#A3A3A3]">{selectedProduct.momentoConsumo}</p>
+                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Momento de Consumo</h3>
+                        <p style={{ color: C.textMuted }}>{selectedProduct.momentoConsumo}</p>
                       </div>
                     </div>
                   )}
@@ -1909,20 +2553,26 @@ export default function CatalogoEstrategico() {
                   {activeTab === 'ciencia' && (
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Componentes Clave</h3>
+                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Componentes Clave</h3>
                         <ul className="space-y-1">
                           {selectedProduct.ingredients.map((ingredient, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-[#E5C279] mr-2">•</span>
-                              <span className="text-[#A3A3A3]">{ingredient}</span>
+                              <span className="mr-2" style={{ color: C.bioEmerald }}>•</span>
+                              <span style={{ color: C.textMuted }}>{ingredient}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      <div className="bg-[#0B0C0C] p-4 rounded-xl border border-[#E5C279]/30">
-                        <h4 className="font-bold text-[#E5C279] mb-2">Nuestra Ventaja Tecnológica</h4>
-                        <p className="text-[#A3A3A3] text-sm">
+                      <div
+                        style={{
+                          background: C.obsidian,
+                          padding: '1rem',
+                          border: `1px solid ${C.bioEmerald}40`,
+                        }}
+                      >
+                        <h4 className="font-bold mb-2" style={{ color: C.bioEmerald }}>Nuestra Ventaja Tecnológica</h4>
+                        <p className="text-sm" style={{ color: C.textMuted }}>
                           Este producto contiene nuestro extracto exclusivo 100% hidrosoluble de Ganoderma Lucidum.
                           Una fusión de 6 variedades que aporta más de 200 fitonutrientes biodisponibles,
                           imposible de replicar por la competencia.
@@ -1930,12 +2580,20 @@ export default function CatalogoEstrategico() {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Modo de Uso</h3>
-                        <p className="text-[#A3A3A3] bg-[#0B0C0C] p-3 rounded-lg">{selectedProduct.usage}</p>
+                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Modo de Uso</h3>
+                        <p
+                          style={{
+                            color: C.textMuted,
+                            background: C.obsidian,
+                            padding: '0.75rem',
+                          }}
+                        >
+                          {selectedProduct.usage}
+                        </p>
                       </div>
 
                       <div>
-                        <p className="text-[#A3A3A3] text-sm">
+                        <p className="text-sm" style={{ color: C.textMuted }}>
                           <strong>Registro INVIMA:</strong> {selectedProduct.invima}
                         </p>
                       </div>
@@ -1944,13 +2602,19 @@ export default function CatalogoEstrategico() {
 
                   {activeTab === 'constructor' && (
                     <div className="space-y-4">
-                      <div className="bg-[#0B0C0C] p-4 rounded-xl border border-[#E5C279]/30">
-                        <h4 className="font-bold text-[#E5C279] mb-3">💡 Consejos de Uso Óptimo</h4>
+                      <div
+                        style={{
+                          background: C.obsidian,
+                          padding: '1rem',
+                          border: `1px solid ${C.bioEmerald}40`,
+                        }}
+                      >
+                        <h4 className="font-bold mb-3" style={{ color: C.bioEmerald }}>💡 Consejos de Uso Óptimo</h4>
                         <ul className="space-y-2">
                           {selectedProduct.puntosConversacion.map((punto, index) => (
                             <li key={index} className="flex items-start">
-                              <span className="text-[#E5C279] mr-2">•</span>
-                              <span className="text-[#A3A3A3] text-sm">{punto}</span>
+                              <span className="mr-2" style={{ color: C.bioEmerald }}>•</span>
+                              <span className="text-sm" style={{ color: C.textMuted }}>{punto}</span>
                             </li>
                           ))}
                         </ul>
@@ -2035,6 +2699,7 @@ export default function CatalogoEstrategico() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   )
 }

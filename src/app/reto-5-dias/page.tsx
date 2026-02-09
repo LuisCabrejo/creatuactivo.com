@@ -1,11 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * RETO 5 DÍAS - SQUEEZE PAGE (Russell Brunson Style)
+ * RETO 5 DÍAS - SQUEEZE PAGE
+ * v2.0 - INDUSTRIAL LUXURY (Hard Surface + Hangar Header)
  * Página minimalista de captura para tráfico frío (ads/redes)
- *
- * THE ARCHITECT'S SUITE - Bimetallic System v3.0
- * Gold (#C5A059): CTAs, highlights, accents
- * Titanium (#94A3B8): Structural elements
  */
 
 'use client';
@@ -14,6 +11,17 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+
+const C = {
+  gold: '#E5C279',
+  amber: '#F59E0B',
+  cyan: '#38BDF8',
+  obsidian: '#0B0C0C',
+  gunmetal: '#16181D',
+  textMain: '#E5E5E5',
+  textMuted: '#A3A3A3',
+  textDim: '#64748B',
+};
 
 export default function Reto5DiasPage() {
   const router = useRouter();
@@ -56,168 +64,404 @@ export default function Reto5DiasPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0C0C] text-[#E5E5E5] flex flex-col">
-      {/* Gradient Background */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.07) 0%, transparent 50%)'
-        }}
-      />
+    <>
+      <style dangerouslySetInnerHTML={{__html: `
+        .terminal-input {
+          width: 100%;
+          padding: 16px;
+          background: ${C.gunmetal};
+          border: 0;
+          border-bottom: 2px solid ${C.amber};
+          color: ${C.textMain};
+          font-size: 1rem;
+          font-family: 'Rajdhani', sans-serif;
+          letter-spacing: 0.05em;
+          transition: all 0.2s ease;
+        }
+        .terminal-input::placeholder {
+          color: ${C.textDim};
+          text-transform: uppercase;
+          font-size: 0.875rem;
+          letter-spacing: 0.1em;
+        }
+        .terminal-input:focus {
+          outline: none;
+          border-bottom-color: ${C.gold};
+          box-shadow: 0 4px 12px ${C.amber}20;
+        }
+        .btn-industrial {
+          width: 100%;
+          padding: 18px 32px;
+          background: linear-gradient(135deg, ${C.amber}, #E9A23B);
+          color: #000;
+          font-weight: 700;
+          font-size: 1rem;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          border: 0;
+          cursor: pointer;
+          font-family: 'Rajdhani', sans-serif;
+          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+          transition: all 0.2s ease;
+        }
+        .btn-industrial:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px ${C.amber}40;
+        }
+        .btn-industrial:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+      `}} />
 
-      {/* Main Content - Centered */}
-      <div className="flex-1 flex items-center justify-center px-4 py-12 relative z-10">
-        <div className="w-full max-w-lg">
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
-              <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-oswald), sans-serif' }}>CreaTuActivo</span>
+      <main
+        style={{
+          minHeight: '100vh',
+          color: C.textMain,
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')`,
+          backgroundSize: 'cover, 600px 600px',
+          backgroundRepeat: 'no-repeat, repeat',
+          backgroundAttachment: 'scroll, scroll',
+        }}
+      >
+        {/* ═══════════════════════════════════════════════════════════════
+            HEADER: El Hangar (Dramático)
+            ═══════════════════════════════════════════════════════════════ */}
+        <section style={{ height: '40vh', position: 'relative', overflow: 'hidden' }}>
+          {/* Imagen del Hangar con fade inferior */}
+          <Image
+            src="/images/header-reto.jpg"
+            alt=""
+            fill
+            style={{
+              objectFit: 'cover',
+              filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
+              opacity: 0.9,
+              WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+            }}
+            priority
+          />
+
+          {/* Overlay sutil */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to bottom, rgba(11,12,12,0.2) 0%, rgba(11,12,12,0.35) 60%, transparent 100%)',
+            }}
+          />
+
+          {/* Logo flotante */}
+          <div style={{ position: 'relative', zIndex: 10, padding: '1.5rem' }}>
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
+              <span style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', fontFamily: "'Oswald', sans-serif" }}>
+                CreaTuActivo
+              </span>
             </Link>
           </div>
 
-          {/* Card */}
-          <div className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-2xl p-8 sm:p-10">
-            {/* PRE-TITULAR - Cualificación del Lead */}
-            <div className="text-center mb-6">
-              <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)]">
-                <span className="w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
-                Para profesionales que buscan diversificación inteligente
-              </span>
-            </div>
-
-            {/* TITULAR (HOOK) - Identity Shift */}
+          {/* Título del Header */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '2rem',
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              textAlign: 'center',
+              padding: '0 1.5rem',
+            }}
+          >
             <h1
-              className="text-2xl sm:text-3xl text-center leading-tight mb-4 font-serif"
+              style={{
+                fontSize: 'clamp(1.75rem, 5vw, 2.75rem)',
+                color: C.gold,
+                lineHeight: 1.1,
+                marginBottom: '0.75rem',
+                fontFamily: "'Playfair Display', Georgia, serif",
+              }}
             >
-              Pasa de <span className="text-[#A3A3A3]">DEPENDIENTE</span> a{' '}
-              <span className="text-[#E5C279]">SOBERANO</span>
+              RETO 5 DÍAS
             </h1>
+            <div style={{ width: '3rem', height: '1px', background: C.cyan, margin: '0 auto 0.5rem' }} />
+            <span
+              style={{
+                fontSize: '0.7rem',
+                color: C.cyan,
+                letterSpacing: '0.15em',
+                fontFamily: "'Roboto Mono', monospace",
+              }}
+            >
+              REF: SQUEEZE_HANGAR_V2
+            </span>
+          </div>
+        </section>
 
-            {/* SUB-TITULAR - Mecanismo Único */}
-            <p className="text-center text-[#A3A3A3] mb-6 text-sm sm:text-base">
-              El Plan de 5 Días para construir tu{' '}
-              <span className="text-[#E5E5E5] font-medium">Cartera de Activos Híbrida</span>.
-              <br className="hidden sm:block" />
-              <span className="text-[#E5C279]">Modelo Tri-Modal</span> + Tecnología de IA Propietaria.
-            </p>
+        {/* ═══════════════════════════════════════════════════════════════
+            FORM CONTAINER: Card Industrial con Glassmorphism
+            ═══════════════════════════════════════════════════════════════ */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '3rem 1rem',
+            position: 'relative',
+            zIndex: 10,
+          }}
+        >
+          <div style={{ width: '100%', maxWidth: '540px' }}>
+            {/* Card Principal - RECTANGULAR (no rounded) */}
+            <div
+              style={{
+                background: 'rgba(22, 24, 29, 0.80)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: `1px solid ${C.gold}26`,
+                padding: 'clamp(2rem, 5vw, 2.5rem)',
+              }}
+            >
+              {/* Pre-titular - Cuadrado (no rounded-full) */}
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    fontSize: '0.875rem',
+                    color: C.textMuted,
+                    background: C.gunmetal,
+                    padding: '0.5rem 1rem',
+                    border: `1px solid ${C.gold}26`,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      background: C.amber,
+                      animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }}
+                  />
+                  Para profesionales que buscan diversificación inteligente
+                </span>
+              </div>
 
-            {/* HISTORIA (MICRO) - Epiphany Bridge */}
-            <div className="p-4 rounded-xl bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)] mb-6">
-              <p className="text-sm text-[#A3A3A3] italic text-center leading-relaxed">
-                &quot;A los 40 años descubrí que había comprado un empleo, no construido un activo.
-                Esta es la hoja de ruta matemática para salir de la trampa.&quot;
-              </p>
-              <p className="text-xs text-[#64748B] text-center mt-2">
-                — Luis Cabrejo, Arquitecto de Activos
-              </p>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                placeholder="Tu nombre"
-                value={formData.nombre}
-                onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
-                required
-                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#E5C279] transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Tu mejor email"
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                required
-                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#E5C279] transition-colors"
-              />
-              <input
-                type="tel"
-                placeholder="Tu WhatsApp (+57 300...)"
-                value={formData.whatsapp}
-                onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
-                required
-                className="w-full px-4 py-4 bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-xl text-[#E5E5E5] placeholder-[#64748B] focus:outline-none focus:border-[#E5C279] transition-colors"
-              />
-
-              {error && (
-                <p className="text-red-400 text-sm text-center">{error}</p>
-              )}
-
-              {/* CTA - Micro-compromiso */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
+              {/* Titular - Identity Shift */}
+              <h2
+                style={{
+                  fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+                  textAlign: 'center',
+                  lineHeight: 1.2,
+                  marginBottom: '1rem',
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                }}
               >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Reservando...
-                  </span>
-                ) : (
-                  'Reservar mi Cupo GRATIS'
-                )}
-              </button>
-            </form>
+                Pasa de <span style={{ color: C.textMuted }}>DEPENDIENTE</span> a{' '}
+                <span style={{ color: C.gold }}>SOBERANO</span>
+              </h2>
 
-            {/* ANTI-GANCHOS - Manejo objeciones preventivo */}
-            <div className="mt-6 pt-6 border-t border-[rgba(229, 194, 121, 0.15)]">
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#64748B]">
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#E5C279]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              {/* Subtitular */}
+              <p style={{ textAlign: 'center', color: C.textMuted, marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+                El Plan de 5 Días para construir tu{' '}
+                <span style={{ color: C.textMain, fontWeight: 500 }}>Cartera de Activos Híbrida</span>.
+                <br />
+                <span style={{ color: C.gold }}>Modelo Tri-Modal</span> + Tecnología de IA Propietaria.
+              </p>
+
+              {/* Micro Historia - RECTANGULAR */}
+              <div
+                style={{
+                  padding: '1rem',
+                  background: C.obsidian,
+                  border: `1px solid ${C.gold}26`,
+                  marginBottom: '1.5rem',
+                }}
+              >
+                <p style={{ fontSize: '0.875rem', color: C.textMuted, fontStyle: 'italic', textAlign: 'center', lineHeight: 1.6 }}>
+                  &quot;A los 40 años descubrí que había comprado un empleo, no construido un activo.
+                  Esta es la hoja de ruta matemática para salir de la trampa.&quot;
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.75rem',
+                    color: C.textDim,
+                    textAlign: 'center',
+                    marginTop: '0.5rem',
+                    fontFamily: "'Roboto Mono', monospace",
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  — LUIS CABREJO · ARQUITECTO DE ACTIVOS
+                </p>
+              </div>
+
+              {/* FORMULARIO - Estilo Terminal */}
+              <form onSubmit={handleSubmit} style={{ marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <input
+                    type="text"
+                    placeholder="TU NOMBRE"
+                    value={formData.nombre}
+                    onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                    required
+                    className="terminal-input"
+                  />
+                  <input
+                    type="email"
+                    placeholder="TU MEJOR EMAIL"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    required
+                    className="terminal-input"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="TU WHATSAPP (+57 300...)"
+                    value={formData.whatsapp}
+                    onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
+                    required
+                    className="terminal-input"
+                  />
+                </div>
+
+                {error && (
+                  <p style={{ color: '#F43F5E', fontSize: '0.875rem', textAlign: 'center', marginTop: '1rem' }}>{error}</p>
+                )}
+
+                {/* CTA Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-industrial"
+                  style={{ marginTop: '1.5rem' }}
+                >
+                  {isSubmitting ? (
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                      <svg style={{ animation: 'spin 1s linear infinite', width: '20px', height: '20px' }} viewBox="0 0 24 24" fill="none">
+                        <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Reservando...
+                    </span>
+                  ) : (
+                    'Reservar mi Cupo GRATIS'
+                  )}
+                </button>
+              </form>
+
+              {/* Anti-Ganchos */}
+              <div style={{ paddingTop: '1.5rem', borderTop: `1px solid ${C.gold}26` }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '1rem 1.5rem',
+                    fontSize: '0.75rem',
+                    color: C.textDim,
+                  }}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <svg style={{ width: '14px', height: '14px', color: C.gold }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Sin perseguir amigos
+                  </span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <svg style={{ width: '14px', height: '14px', color: C.gold }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Sin inventario en casa
+                  </span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <svg style={{ width: '14px', height: '14px', color: C.gold }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Sin ventas de los 90
+                  </span>
+                </div>
+              </div>
+
+              {/* Trust Elements */}
+              <div
+                style={{
+                  marginTop: '1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '1rem',
+                  fontSize: '0.75rem',
+                  color: C.textDim,
+                  fontFamily: "'Roboto Mono', monospace",
+                }}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <svg style={{ width: '16px', height: '16px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
-                  Sin perseguir amigos
+                  SIN SPAM
                 </span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#E5C279]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Sin inventario en casa
-                </span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#E5C279]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Sin ventas de los 90
-                </span>
+                <span>•</span>
+                <span>100% GRATIS</span>
+                <span>•</span>
+                <span>5 DÍAS WHATSAPP</span>
               </div>
             </div>
 
-            {/* Trust Elements */}
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-[#64748B]">
-              <span className="flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                Sin spam
-              </span>
-              <span>•</span>
-              <span>100% gratis</span>
-              <span>•</span>
-              <span>5 días por WhatsApp</span>
-            </div>
+            {/* Social Proof */}
+            <p
+              style={{
+                textAlign: 'center',
+                color: C.textDim,
+                fontSize: '0.875rem',
+                marginTop: '1.5rem',
+                fontFamily: "'Roboto Mono', monospace",
+                letterSpacing: '0.05em',
+              }}
+            >
+              +2,400 PERSONAS YA TOMARON EL RETO
+            </p>
           </div>
-
-          {/* Social Proof */}
-          <p className="text-center text-[#64748B] text-sm mt-6">
-            +2,400 personas ya tomaron el reto
-          </p>
         </div>
-      </div>
 
-      {/* Minimal Footer */}
-      <footer className="py-4 text-center text-[#64748B] text-xs relative z-10">
-        <Link href="/privacidad" className="hover:text-[#A3A3A3] transition-colors">
-          Política de Privacidad
-        </Link>
-        <span className="mx-2">•</span>
-        <span>© 2026 CreaTuActivo.com</span>
-      </footer>
-    </main>
+        {/* ═══════════════════════════════════════════════════════════════
+            FOOTER
+            ═══════════════════════════════════════════════════════════════ */}
+        <footer
+          style={{
+            padding: '1rem',
+            textAlign: 'center',
+            color: C.textDim,
+            fontSize: '0.75rem',
+            position: 'relative',
+            zIndex: 10,
+            fontFamily: "'Roboto Mono', monospace",
+          }}
+        >
+          <Link
+            href="/privacidad"
+            style={{
+              color: C.textDim,
+              textDecoration: 'none',
+              transition: 'color 0.2s ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = C.textMuted}
+            onMouseLeave={(e) => e.currentTarget.style.color = C.textDim}
+          >
+            POLÍTICA DE PRIVACIDAD
+          </Link>
+          <span style={{ margin: '0 0.5rem' }}>•</span>
+          <span>© 2026 CREATUACTIVO.COM</span>
+        </footer>
+      </main>
+    </>
   );
 }

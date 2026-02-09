@@ -1885,18 +1885,43 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Suplementos - Quiet Luxury */}
+        {/* Suplementos - Clinical Luxury */}
         <section id="suplementos" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Suplementos Naturales</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#E5C279]/50 to-transparent ml-8"></div>
+            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Suplementos Naturales</h2>
+            <div
+              style={{
+                height: '1px',
+                flex: 1,
+                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
+                marginLeft: '2rem',
+              }}
+            />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {suplementos.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#E5C279]/20 hover:border-[#E5C279]/50 transition-all duration-300 bg-[#16181D]">
+              <div
+                key={id}
+                style={{
+                  background: `rgba(15, 46, 47, 0.85)`,
+                  border: `1px solid ${C.bioEmerald}30`,
+                  borderTop: `3px solid ${C.bioEmerald}`,
+                  overflow: 'hidden',
+                }}
+                className="group transition-all duration-300"
+              >
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div
+                      style={{
+                        background: C.obsidian,
+                        padding: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '400px',
+                      }}
+                    >
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1905,21 +1930,42 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.5rem 1rem',
+                        fontSize: '1.125rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-[#E5C279] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-[#F59E0B]/10 border border-[#E5C279]/30 px-3 py-1 rounded-full text-xs text-[#E5C279] font-medium">
+                      <span
+                        key={goal}
+                        style={{
+                          background: `${C.bioEmerald}15`,
+                          border: `1px solid ${C.bioEmerald}40`,
+                          padding: '0.25rem 0.75rem',
+                          fontSize: '0.75rem',
+                          color: C.bioEmerald,
+                          fontWeight: 500,
+                        }}
+                      >
                         {goal}
                       </span>
                     ))}
@@ -1928,14 +1974,37 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-[#0B0C0C] border border-[#E5C279]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                      style={{
+                        flex: 1,
+                        background: C.obsidian,
+                        border: `2px solid ${C.bioEmerald}60`,
+                        color: C.bioEmerald,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        fontFamily: "'Rajdhani', sans-serif",
+                      }}
+                      className="transition-all hover:scale-105"
                     >
-                      Ver Detalles
+                      ANALIZAR
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-[#F59E0B] text-[#0B0C0C] py-3 px-4 rounded-xl hover:bg-[#F59E0B] transition-all text-sm font-medium shadow-lg"
+                      style={{
+                        flex: 1,
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      className="transition-all hover:scale-105"
                     >
+                      <Gift className="h-4 w-4 mr-2" />
                       Agregar
                     </button>
                   </div>
@@ -1945,18 +2014,43 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Cuidado Personal - Quiet Luxury */}
+        {/* Cuidado Personal - Clinical Luxury */}
         <section id="cuidado-personal" className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold text-[#E5E5E5]">Cuidado Personal</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#E5C279]/50 to-transparent ml-8"></div>
+            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Cuidado Personal</h2>
+            <div
+              style={{
+                height: '1px',
+                flex: 1,
+                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
+                marginLeft: '2rem',
+              }}
+            />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {cuidadoPersonal.map(([id, product]) => (
-              <div key={id} className="group relative overflow-hidden rounded-2xl border border-[#E5C279]/20 hover:border-[#E5C279]/50 transition-all duration-300 bg-[#16181D]">
+              <div
+                key={id}
+                style={{
+                  background: `rgba(15, 46, 47, 0.85)`,
+                  border: `1px solid ${C.bioEmerald}30`,
+                  borderTop: `3px solid ${C.bioEmerald}`,
+                  overflow: 'hidden',
+                }}
+                className="group transition-all duration-300"
+              >
                 <div className="p-6">
                   <div className="relative mb-6">
-                    <div className="bg-[#0A0A0E] rounded-2xl p-4 flex items-center justify-center h-[400px]">
+                    <div
+                      style={{
+                        background: C.obsidian,
+                        padding: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '400px',
+                      }}
+                    >
                       <Image
                         src={product.image}
                         alt={`${product.name} - ${product.shortDescription}`}
@@ -1965,21 +2059,42 @@ export default function CatalogoEstrategico() {
                         className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
                       />
                     </div>
-                    <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] px-4 py-2 rounded-full text-lg font-bold shadow-lg">
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.5rem 1rem',
+                        fontSize: '1.125rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       ${product.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#E5E5E5] mb-2">{product.name}</h3>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm text-[#E5C279] font-medium mb-3 italic">"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-[#6B7280] text-sm mb-3">INVIMA: {product.invima}</p>
-                  <p className="text-[#A3A3A3] text-sm mb-6 leading-relaxed">{product.shortDescription}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {product.goals.map((goal) => (
-                      <span key={goal} className="bg-[#F59E0B]/10 border border-[#E5C279]/30 px-3 py-1 rounded-full text-xs text-[#E5C279] font-medium">
+                      <span
+                        key={goal}
+                        style={{
+                          background: `${C.bioEmerald}15`,
+                          border: `1px solid ${C.bioEmerald}40`,
+                          padding: '0.25rem 0.75rem',
+                          fontSize: '0.75rem',
+                          color: C.bioEmerald,
+                          fontWeight: 500,
+                        }}
+                      >
                         {goal}
                       </span>
                     ))}
@@ -1988,14 +2103,37 @@ export default function CatalogoEstrategico() {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 bg-[#0B0C0C] border border-[#E5C279]/30 text-[#E5E5E5] py-3 px-4 rounded-xl hover:border-[#E5C279]/60 transition-all text-sm font-medium"
+                      style={{
+                        flex: 1,
+                        background: C.obsidian,
+                        border: `2px solid ${C.bioEmerald}60`,
+                        color: C.bioEmerald,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        fontFamily: "'Rajdhani', sans-serif",
+                      }}
+                      className="transition-all hover:scale-105"
                     >
-                      Ver Detalles
+                      ANALIZAR
                     </button>
                     <button
                       onClick={() => addToCart(id)}
-                      className="flex-1 bg-[#F59E0B] text-[#0B0C0C] py-3 px-4 rounded-xl hover:bg-[#F59E0B] transition-all text-sm font-medium shadow-lg"
+                      style={{
+                        flex: 1,
+                        background: C.bioEmerald,
+                        color: C.obsidian,
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      className="transition-all hover:scale-105"
                     >
+                      <Gift className="h-4 w-4 mr-2" />
                       Agregar
                     </button>
                   </div>

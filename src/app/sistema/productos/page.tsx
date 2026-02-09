@@ -810,9 +810,9 @@ export default function CatalogoEstrategico() {
           transform: translateY(-2px);
           box-shadow: 0 8px 24px ${C.bioEmerald}40;
         }
-        .ghost-lab-btn:hover {
-          background: ${C.bioEmerald} !important;
-          color: #000 !important;
+        .titanium-btn:hover {
+          border-color: #ffffff !important;
+          color: #ffffff !important;
         }
         .whatsapp-hybrid {
           background: ${C.obsidian};
@@ -891,8 +891,8 @@ export default function CatalogoEstrategico() {
             style={{
               width: '100%',
               maxWidth: '80rem',
-              background: `rgba(15, 46, 47, 0.95)`,
-              border: `1px solid ${C.bioEmerald}40`,
+              background: '#18181b',
+              border: '1px solid #3f3f46',
               boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
               maxHeight: '90vh',
               overflowY: 'auto',
@@ -949,9 +949,8 @@ export default function CatalogoEstrategico() {
                       style={{
                         position: 'relative',
                         overflow: 'hidden',
-                        border: `1px solid ${C.bioEmerald}30`,
-                        borderTop: `3px solid ${C.bioEmerald}`,
-                        background: C.obsidian,
+                        border: '1px solid #3f3f46',
+                              background: C.obsidian,
                       }}
                       className="group transition-all duration-300"
                     >
@@ -1017,7 +1016,7 @@ export default function CatalogoEstrategico() {
                               key={goal}
                               style={{
                                 background: `${C.bioEmerald}15`,
-                                border: `1px solid ${C.bioEmerald}40`,
+                                border: '1px solid #3f3f46',
                                 padding: '0.25rem 0.75rem',
                                 fontSize: '0.75rem',
                                 color: C.bioEmerald,
@@ -1170,7 +1169,7 @@ export default function CatalogoEstrategico() {
                                 width: '2rem',
                                 height: '2rem',
                                 background: C.obsidian,
-                                border: `1px solid ${C.bioEmerald}30`,
+                                border: '1px solid #3f3f46',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -1188,7 +1187,7 @@ export default function CatalogoEstrategico() {
                                 width: '2rem',
                                 height: '2rem',
                                 background: C.obsidian,
-                                border: `1px solid ${C.bioEmerald}30`,
+                                border: '1px solid #3f3f46',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -1248,7 +1247,7 @@ export default function CatalogoEstrategico() {
                   <div
                     style={{
                       background: `${C.bioEmerald}15`,
-                      border: `1px solid ${C.bioEmerald}40`,
+                      border: '1px solid #3f3f46',
                       padding: '0.75rem',
                     }}
                   >
@@ -1290,7 +1289,7 @@ export default function CatalogoEstrategico() {
             style={{
               display: 'inline-block',
               background: `${C.bioEmerald}15`,
-              border: `1px solid ${C.bioEmerald}40`,
+              border: '1px solid #3f3f46',
               padding: '0.5rem 1.5rem',
               marginBottom: '1.5rem',
             }}
@@ -1384,7 +1383,7 @@ export default function CatalogoEstrategico() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
             <div
               style={{
-                background: `rgba(15, 46, 47, 0.90)`,
+                background: '#18181b',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1404,7 +1403,7 @@ export default function CatalogoEstrategico() {
 
             <div
               style={{
-                background: `rgba(15, 46, 47, 0.90)`,
+                background: '#18181b',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1424,7 +1423,7 @@ export default function CatalogoEstrategico() {
 
             <div
               style={{
-                background: `rgba(15, 46, 47, 0.90)`,
+                background: '#18181b',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1470,7 +1469,7 @@ export default function CatalogoEstrategico() {
               style={{
                 display: 'inline-block',
                 background: `${C.bioEmerald}15`,
-                border: `1px solid ${C.bioEmerald}40`,
+                border: '1px solid #3f3f46',
                 padding: '0.5rem 1.5rem',
                 marginBottom: '1.5rem',
               }}
@@ -1505,8 +1504,8 @@ export default function CatalogoEstrategico() {
                 key={key}
                 onClick={() => setSelectedSystem(key)}
                 style={{
-                  background: `rgba(15, 46, 47, 0.80)`,
-                  border: `1px solid ${C.bioEmerald}30`,
+                  background: '#18181b',
+                  border: '1px solid #3f3f46',
                   padding: '1.5rem',
                   cursor: 'pointer',
                 }}
@@ -1544,7 +1543,7 @@ export default function CatalogoEstrategico() {
                     style={{
                       fontSize: '0.75rem',
                       background: C.obsidian,
-                      border: `1px solid ${C.bioEmerald}40`,
+                      border: '1px solid #3f3f46',
                       padding: '0.25rem 0.75rem',
                       color: C.bioEmerald,
                     }}
@@ -1575,12 +1574,11 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: `rgba(15, 46, 47, 0.85)`,
-                  border: `1px solid ${C.bioEmerald}30`,
-                  borderTop: `3px solid ${C.bioEmerald}`,
+                  background: '#18181b',
+                  border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
-                className="group transition-all duration-300"
+                className="group transition-all duration-300 hover:border-zinc-600"
               >
                 <div className="p-6">
                   <div className="relative mb-6">
@@ -1607,11 +1605,12 @@ export default function CatalogoEstrategico() {
                         position: 'absolute',
                         top: '1rem',
                         right: '1rem',
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: 'transparent',
+                        color: '#E5C279',
                         padding: '0.5rem 1rem',
-                        fontSize: '1.125rem',
+                        fontSize: '1.25rem',
                         fontWeight: 'bold',
+                        fontFamily: "'Roboto Mono', monospace",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -1620,7 +1619,7 @@ export default function CatalogoEstrategico() {
 
                   <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
                   <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed line-clamp-3" style={{ color: C.textMuted }}>{product.shortDescription}</p>
@@ -1630,11 +1629,11 @@ export default function CatalogoEstrategico() {
                       <span
                         key={goal}
                         style={{
-                          background: `${C.bioEmerald}15`,
-                          border: `1px solid ${C.bioEmerald}40`,
+                          background: 'transparent',
+                          border: '1px solid #3f3f46',
                           padding: '0.25rem 0.75rem',
                           fontSize: '0.75rem',
-                          color: C.bioEmerald,
+                          color: '#71717a',
                           fontWeight: 500,
                         }}
                       >
@@ -1649,8 +1648,8 @@ export default function CatalogoEstrategico() {
                       style={{
                         flex: 1,
                         background: 'transparent',
-                        border: `1px solid ${C.bioEmerald}`,
-                        color: '#FFFFFF',
+                        border: '1px solid #52525b',
+                        color: '#a1a1aa',
                         padding: '0.75rem 1rem',
                         fontSize: '0.75rem',
                         fontWeight: 500,
@@ -1658,7 +1657,7 @@ export default function CatalogoEstrategico() {
                         textTransform: 'uppercase',
                         fontFamily: "'Roboto Mono', monospace",
                       }}
-                      className="ghost-lab-btn transition-all"
+                      className="titanium-btn transition-all"
                     >
                       ESPECIFICACIONES
                     </button>
@@ -1666,8 +1665,8 @@ export default function CatalogoEstrategico() {
                       onClick={() => addToCart(id)}
                       style={{
                         flex: 1,
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: '#60ABAE',
+                        color: '#000',
                         padding: '0.75rem 1rem',
                         fontSize: '0.875rem',
                         fontWeight: 600,
@@ -1675,7 +1674,7 @@ export default function CatalogoEstrategico() {
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}
-                      className="transition-all hover:scale-105"
+                      className="transition-all hover:scale-105 hover:brightness-110"
                     >
                       <Gift className="h-4 w-4 mr-2" />
                       Agregar
@@ -1774,7 +1773,7 @@ export default function CatalogoEstrategico() {
               style={{
                 display: 'inline-block',
                 background: `${C.bioEmerald}15`,
-                border: `1px solid ${C.bioEmerald}40`,
+                border: '1px solid #3f3f46',
                 padding: '0.5rem 1.5rem',
                 marginBottom: '1.5rem',
               }}
@@ -1803,9 +1802,8 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: `rgba(15, 46, 47, 0.85)`,
-                  border: `1px solid ${C.bioEmerald}30`,
-                  borderTop: `3px solid ${C.bioEmerald}`,
+                  background: '#18181b',
+                  border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
                 className="group transition-all duration-300"
@@ -1835,11 +1833,12 @@ export default function CatalogoEstrategico() {
                         position: 'absolute',
                         top: '1rem',
                         right: '1rem',
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: 'transparent',
+                        color: '#E5C279',
                         padding: '0.5rem 1rem',
-                        fontSize: '1.125rem',
+                        fontSize: '1.25rem',
                         fontWeight: 'bold',
+                        fontFamily: "'Roboto Mono', monospace",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -1848,7 +1847,7 @@ export default function CatalogoEstrategico() {
 
                   <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
                   <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>Certificación: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
@@ -1858,11 +1857,11 @@ export default function CatalogoEstrategico() {
                       <span
                         key={goal}
                         style={{
-                          background: `${C.bioEmerald}15`,
-                          border: `1px solid ${C.bioEmerald}40`,
+                          background: 'transparent',
+                          border: '1px solid #3f3f46',
                           padding: '0.25rem 0.75rem',
                           fontSize: '0.75rem',
-                          color: C.bioEmerald,
+                          color: '#71717a',
                           fontWeight: 500,
                         }}
                       >
@@ -1919,7 +1918,7 @@ export default function CatalogoEstrategico() {
                             justifyContent: 'center',
                             width: '100%',
                             background: C.gunmetal,
-                            border: `1px solid ${C.bioEmerald}40`,
+                            border: '1px solid #3f3f46',
                             color: C.bioEmerald,
                             padding: '0.75rem 1rem',
                             fontSize: '0.875rem',
@@ -1940,7 +1939,7 @@ export default function CatalogoEstrategico() {
                             justifyContent: 'center',
                             width: '100%',
                             background: C.gunmetal,
-                            border: `1px solid ${C.bioEmerald}40`,
+                            border: '1px solid #3f3f46',
                             color: C.bioEmerald,
                             padding: '0.75rem 1rem',
                             fontSize: '0.875rem',
@@ -1978,9 +1977,8 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: `rgba(15, 46, 47, 0.85)`,
-                  border: `1px solid ${C.bioEmerald}30`,
-                  borderTop: `3px solid ${C.bioEmerald}`,
+                  background: '#18181b',
+                  border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
                 className="group transition-all duration-300"
@@ -2010,11 +2008,12 @@ export default function CatalogoEstrategico() {
                         position: 'absolute',
                         top: '1rem',
                         right: '1rem',
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: 'transparent',
+                        color: '#E5C279',
                         padding: '0.5rem 1rem',
-                        fontSize: '1.125rem',
+                        fontSize: '1.25rem',
                         fontWeight: 'bold',
+                        fontFamily: "'Roboto Mono', monospace",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -2023,7 +2022,7 @@ export default function CatalogoEstrategico() {
 
                   <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
                   <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
@@ -2033,11 +2032,11 @@ export default function CatalogoEstrategico() {
                       <span
                         key={goal}
                         style={{
-                          background: `${C.bioEmerald}15`,
-                          border: `1px solid ${C.bioEmerald}40`,
+                          background: 'transparent',
+                          border: '1px solid #3f3f46',
                           padding: '0.25rem 0.75rem',
                           fontSize: '0.75rem',
-                          color: C.bioEmerald,
+                          color: '#71717a',
                           fontWeight: 500,
                         }}
                       >
@@ -2052,8 +2051,8 @@ export default function CatalogoEstrategico() {
                       style={{
                         flex: 1,
                         background: 'transparent',
-                        border: `1px solid ${C.bioEmerald}`,
-                        color: '#FFFFFF',
+                        border: '1px solid #52525b',
+                        color: '#a1a1aa',
                         padding: '0.75rem 1rem',
                         fontSize: '0.75rem',
                         fontWeight: 500,
@@ -2061,7 +2060,7 @@ export default function CatalogoEstrategico() {
                         textTransform: 'uppercase',
                         fontFamily: "'Roboto Mono', monospace",
                       }}
-                      className="ghost-lab-btn transition-all"
+                      className="titanium-btn transition-all"
                     >
                       ESPECIFICACIONES
                     </button>
@@ -2069,8 +2068,8 @@ export default function CatalogoEstrategico() {
                       onClick={() => addToCart(id)}
                       style={{
                         flex: 1,
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: '#60ABAE',
+                        color: '#000',
                         padding: '0.75rem 1rem',
                         fontSize: '0.875rem',
                         fontWeight: 600,
@@ -2078,7 +2077,7 @@ export default function CatalogoEstrategico() {
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}
-                      className="transition-all hover:scale-105"
+                      className="transition-all hover:scale-105 hover:brightness-110"
                     >
                       <Gift className="h-4 w-4 mr-2" />
                       Agregar
@@ -2108,9 +2107,8 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: `rgba(15, 46, 47, 0.85)`,
-                  border: `1px solid ${C.bioEmerald}30`,
-                  borderTop: `3px solid ${C.bioEmerald}`,
+                  background: '#18181b',
+                  border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
                 className="group transition-all duration-300"
@@ -2140,11 +2138,12 @@ export default function CatalogoEstrategico() {
                         position: 'absolute',
                         top: '1rem',
                         right: '1rem',
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: 'transparent',
+                        color: '#E5C279',
                         padding: '0.5rem 1rem',
-                        fontSize: '1.125rem',
+                        fontSize: '1.25rem',
                         fontWeight: 'bold',
+                        fontFamily: "'Roboto Mono', monospace",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -2153,7 +2152,7 @@ export default function CatalogoEstrategico() {
 
                   <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
                   {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: C.bioEmerald }}>"{product.taglineEstrategico}"</p>
+                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
                   <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
@@ -2163,11 +2162,11 @@ export default function CatalogoEstrategico() {
                       <span
                         key={goal}
                         style={{
-                          background: `${C.bioEmerald}15`,
-                          border: `1px solid ${C.bioEmerald}40`,
+                          background: 'transparent',
+                          border: '1px solid #3f3f46',
                           padding: '0.25rem 0.75rem',
                           fontSize: '0.75rem',
-                          color: C.bioEmerald,
+                          color: '#71717a',
                           fontWeight: 500,
                         }}
                       >
@@ -2182,8 +2181,8 @@ export default function CatalogoEstrategico() {
                       style={{
                         flex: 1,
                         background: 'transparent',
-                        border: `1px solid ${C.bioEmerald}`,
-                        color: '#FFFFFF',
+                        border: '1px solid #52525b',
+                        color: '#a1a1aa',
                         padding: '0.75rem 1rem',
                         fontSize: '0.75rem',
                         fontWeight: 500,
@@ -2191,7 +2190,7 @@ export default function CatalogoEstrategico() {
                         textTransform: 'uppercase',
                         fontFamily: "'Roboto Mono', monospace",
                       }}
-                      className="ghost-lab-btn transition-all"
+                      className="titanium-btn transition-all"
                     >
                       ESPECIFICACIONES
                     </button>
@@ -2199,8 +2198,8 @@ export default function CatalogoEstrategico() {
                       onClick={() => addToCart(id)}
                       style={{
                         flex: 1,
-                        background: C.bioEmerald,
-                        color: C.obsidian,
+                        background: '#60ABAE',
+                        color: '#000',
                         padding: '0.75rem 1rem',
                         fontSize: '0.875rem',
                         fontWeight: 600,
@@ -2208,7 +2207,7 @@ export default function CatalogoEstrategico() {
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}
-                      className="transition-all hover:scale-105"
+                      className="transition-all hover:scale-105 hover:brightness-110"
                     >
                       <Gift className="h-4 w-4 mr-2" />
                       Agregar
@@ -2630,9 +2629,9 @@ export default function CatalogoEstrategico() {
         >
           <div
             style={{
-              background: `rgba(15, 46, 47, 0.95)`,
+              background: '#18181b',
               backdropFilter: 'blur(16px)',
-              border: `1px solid ${C.bioEmerald}40`,
+              border: '1px solid #3f3f46',
               padding: '1.5rem',
               maxWidth: '80rem',
               width: '100%',
@@ -2783,7 +2782,7 @@ export default function CatalogoEstrategico() {
                         style={{
                           background: C.obsidian,
                           padding: '1rem',
-                          border: `1px solid ${C.bioEmerald}40`,
+                          border: '1px solid #3f3f46',
                         }}
                       >
                         <h4 className="font-bold mb-2" style={{ color: C.bioEmerald }}>Nuestra Ventaja Tecnológica</h4>
@@ -2821,7 +2820,7 @@ export default function CatalogoEstrategico() {
                         style={{
                           background: C.obsidian,
                           padding: '1rem',
-                          border: `1px solid ${C.bioEmerald}40`,
+                          border: '1px solid #3f3f46',
                         }}
                       >
                         <h4 className="font-bold mb-3" style={{ color: C.bioEmerald }}>💡 Consejos de Uso Óptimo</h4>

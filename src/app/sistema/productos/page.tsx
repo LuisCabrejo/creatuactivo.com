@@ -599,6 +599,7 @@ export default function CatalogoEstrategico() {
   const [showTopSelling, setShowTopSelling] = useState(false)
   const [selectedSystem, setSelectedSystem] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'beneficios' | 'ciencia' | 'constructor'>('beneficios')
+  const [visibleSection, setVisibleSection] = useState<string>('default') // Para header dinámico Luvoco
 
   // Productos destacados y más vendidos
   const featuredProducts = ['bebida-colageno-reskine', 'maquina-luvoco', 'ganocafe-3-en-1', 'capsulas-excellium']
@@ -701,6 +702,34 @@ export default function CatalogoEstrategico() {
       }
     }
   }, [cartOpen])
+
+  // Detectar sección visible para cambiar header dinámicamente (Luvoco = Café)
+  useEffect(() => {
+    const sections = ['bebidas', 'luvoco', 'suplementos', 'cuidado-personal']
+    const observerOptions = {
+      root: null,
+      rootMargin: '-200px 0px -400px 0px', // Header se activa antes de que la sección esté completamente visible
+      threshold: 0.3
+    }
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id
+          setVisibleSection(sectionId === 'luvoco' ? 'luvoco' : 'default')
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId)
+      if (element) observer.observe(element)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   // Funciones del carrito
   const addToCart = (productId: string) => {
@@ -832,14 +861,14 @@ export default function CatalogoEstrategico() {
         <StrategicNavigation />
 
         {/* ═══════════════════════════════════════════════════════════════
-            INDUSTRIAL HEADER - Clinical Biolab
+            INDUSTRIAL HEADER - Dinámico (Biolab → Café Lounge)
             ═══════════════════════════════════════════════════════════════ */}
         <IndustrialHeader
-          title="CATÁLOGO BIO-INTELIGENTE"
-          subtitle="Nutrición Celular con Ingeniería de Extracción"
-          refCode="CLINICAL_CATALOG_V1"
-          imageSrc="/images/header-productos.jpg"
-          imageAlt="Catálogo Bio-Inteligente Gano Excel"
+          title={visibleSection === 'luvoco' ? "EXPERIENCIA BARISTA LUVOCO" : "CATÁLOGO BIO-INTELIGENTE"}
+          subtitle={visibleSection === 'luvoco' ? "Alquimia del Café con Tecnología de 15 Bares" : "Nutrición Celular con Ingeniería de Extracción"}
+          refCode={visibleSection === 'luvoco' ? "LUVOCO_PREMIUM_V1" : "CLINICAL_CATALOG_V1"}
+          imageSrc={visibleSection === 'luvoco' ? "/productos/header-cafe.jpg" : "/images/header-productos.jpg"}
+          imageAlt={visibleSection === 'luvoco' ? "Experiencia Barista Luvoco Premium" : "Catálogo Bio-Inteligente Gano Excel"}
         />
 
         {/* Botón carrito flotante - Hard Surface + Bio-Emerald */}

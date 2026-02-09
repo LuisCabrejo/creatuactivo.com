@@ -599,7 +599,6 @@ export default function CatalogoEstrategico() {
   const [showTopSelling, setShowTopSelling] = useState(false)
   const [selectedSystem, setSelectedSystem] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'beneficios' | 'ciencia' | 'constructor'>('beneficios')
-  const [visibleSection, setVisibleSection] = useState<string>('default') // Para header dinámico Luvoco
 
   // Productos destacados y más vendidos
   const featuredProducts = ['bebida-colageno-reskine', 'maquina-luvoco', 'ganocafe-3-en-1', 'capsulas-excellium']
@@ -702,34 +701,6 @@ export default function CatalogoEstrategico() {
       }
     }
   }, [cartOpen])
-
-  // Detectar sección visible para cambiar header dinámicamente (Luvoco = Café)
-  useEffect(() => {
-    const sections = ['bebidas', 'luvoco', 'suplementos', 'cuidado-personal']
-    const observerOptions = {
-      root: null,
-      rootMargin: '-200px 0px -400px 0px', // Header se activa antes de que la sección esté completamente visible
-      threshold: 0.3
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id
-          setVisibleSection(sectionId === 'luvoco' ? 'luvoco' : 'default')
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
-
-    sections.forEach(sectionId => {
-      const element = document.getElementById(sectionId)
-      if (element) observer.observe(element)
-    })
-
-    return () => observer.disconnect()
-  }, [])
 
   // Funciones del carrito
   const addToCart = (productId: string) => {
@@ -861,14 +832,14 @@ export default function CatalogoEstrategico() {
         <StrategicNavigation />
 
         {/* ═══════════════════════════════════════════════════════════════
-            INDUSTRIAL HEADER - Dinámico (Biolab → Café Lounge)
+            INDUSTRIAL HEADER - Clinical Biolab
             ═══════════════════════════════════════════════════════════════ */}
         <IndustrialHeader
-          title={visibleSection === 'luvoco' ? "EXPERIENCIA BARISTA LUVOCO" : "CATÁLOGO BIO-INTELIGENTE"}
-          subtitle={visibleSection === 'luvoco' ? "Alquimia del Café con Tecnología de 15 Bares" : "Nutrición Celular con Ingeniería de Extracción"}
-          refCode={visibleSection === 'luvoco' ? "LUVOCO_PREMIUM_V1" : "CLINICAL_CATALOG_V1"}
-          imageSrc={visibleSection === 'luvoco' ? "/productos/header-cafe.jpg" : "/images/header-productos.jpg"}
-          imageAlt={visibleSection === 'luvoco' ? "Experiencia Barista Luvoco Premium" : "Catálogo Bio-Inteligente Gano Excel"}
+          title="CATÁLOGO BIO-INTELIGENTE"
+          subtitle="Nutrición Celular con Ingeniería de Extracción"
+          refCode="CLINICAL_CATALOG_V1"
+          imageSrc="/images/header-productos.jpg"
+          imageAlt="Catálogo Bio-Inteligente Gano Excel"
         />
 
         {/* Botón carrito flotante - Hard Surface + Bio-Emerald */}
@@ -1728,6 +1699,74 @@ export default function CatalogoEstrategico() {
                 marginLeft: '2rem',
               }}
             />
+          </div>
+
+          {/* Banner Luvoco - Alquimia del Café */}
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '300px',
+              marginBottom: '3rem',
+              overflow: 'hidden',
+              border: `1px solid ${C.bioEmerald}30`,
+              borderTop: `3px solid ${C.bioEmerald}`,
+            }}
+          >
+            <Image
+              src="/productos/header-cafe.jpg"
+              alt="Experiencia Barista Luvoco - Alquimia del Café"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              priority={false}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to right, rgba(11,12,12,0.85), rgba(11,12,12,0.3))',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '2rem 3rem',
+              }}
+            >
+              <div>
+                <h3
+                  style={{
+                    color: C.bioEmerald,
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: "'Roboto Mono', monospace",
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  Love of Coffee
+                </h3>
+                <p
+                  style={{
+                    color: C.textMain,
+                    fontSize: '2rem',
+                    fontWeight: 700,
+                    fontFamily: "'Rajdhani', sans-serif",
+                    letterSpacing: '0.05em',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  ALQUIMIA DEL CAFÉ
+                </p>
+                <p
+                  style={{
+                    color: C.textMuted,
+                    fontSize: '1rem',
+                    maxWidth: '500px',
+                  }}
+                >
+                  Tecnología de extracción de 15 bares. Experiencia barista premium en tu hogar.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="text-center mb-12">

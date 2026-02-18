@@ -161,8 +161,17 @@ const NEXUSFloatingButton: React.FC = () => {
     return () => window.removeEventListener('toggle-queswa', handleDemoToggle);
   }, []);
 
-  // Hide Queswa on servilleta page (a menos que esté en modo demo)
-  if (pathname === '/servilleta' && !demoActivated) return null;
+  // Detectar desktop (≥1024px) para servilleta: siempre visible en desktop
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // En servilleta: desktop siempre muestra / mobile solo con triple clic
+  if (pathname === '/servilleta' && !demoActivated && !isDesktop) return null;
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {
@@ -219,7 +228,7 @@ const NEXUSFloatingButton: React.FC = () => {
       {/* 🎨 Quiet Luxury TOOLTIP - Alineado con navegación */}
       {!isOpen && trackingState.isReady && !trackingState.hasError && (
         <div
-          className={`fixed bottom-24 right-3 sm:right-5 lg:right-7 z-40 transition-all duration-500 ${
+          className={`fixed bottom-24 right-3 sm:right-5 lg:right-7 z-[200] transition-all duration-500 ${
             showTooltip
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-4 pointer-events-none'
@@ -264,7 +273,7 @@ const NEXUSFloatingButton: React.FC = () => {
       {/* Floating Button - Industrial Square */}
       <button
         data-nexus-button
-        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 z-40 flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 z-[200] flex items-center justify-center transition-all duration-300 hover:scale-105 group"
         style={{
           ...getButtonStyles(),
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',

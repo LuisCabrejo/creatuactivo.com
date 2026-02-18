@@ -915,7 +915,7 @@ export default function ServilletaPage() {
                     <span style={{ color: 'var(--cyan)' }}>2. QUESWA:</span> Nuestra Plataforma Digital Propietaria.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>3. T&Uacute;:</span> Direcci&oacute;n y Expansi&oacute;n.
+                    <span style={{ color: 'var(--cyan)' }}>3. Metodolog&iacute;a:</span> Comprobada.
                   </div>
                 </div>
               </div>

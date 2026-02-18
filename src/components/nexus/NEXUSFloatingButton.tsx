@@ -49,6 +49,7 @@ const NEXUSFloatingButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [demoActivated, setDemoActivated] = useState(false);
   const [trackingState, setTrackingState] = useState<TrackingState>({
     isReady: true, // ✅ FIX: Empezar como "ready" para no bloquear UI
     hasError: false,
@@ -153,8 +154,15 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   }, [hasInteracted, isOpen]);
 
-  // Hide Queswa on servilleta page (after all hooks)
-  if (pathname === '/servilleta') return null;
+  // Escuchar evento de demo (triple clic en servilleta)
+  useEffect(() => {
+    const handleDemoToggle = () => setDemoActivated(prev => !prev);
+    window.addEventListener('toggle-queswa', handleDemoToggle);
+    return () => window.removeEventListener('toggle-queswa', handleDemoToggle);
+  }, []);
+
+  // Hide Queswa on servilleta page (a menos que esté en modo demo)
+  if (pathname === '/servilleta' && !demoActivated) return null;
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {

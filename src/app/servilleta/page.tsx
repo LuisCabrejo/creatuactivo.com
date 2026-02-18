@@ -18,6 +18,8 @@ export default function ServilletaPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const tripleClickCount = React.useRef(0);
+  const tripleClickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Cargar fuentes dinámicamente
   useEffect(() => {
@@ -70,12 +72,24 @@ export default function ServilletaPage() {
     }
   }, []);
 
-  // Click-to-advance (single clic) / Fullscreen (double clic)
+  // Click-to-advance (single clic) / Fullscreen (double clic) / Queswa demo (triple clic)
   const handleSlideClick = useCallback((e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.closest('button, a, input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons')) {
       return;
     }
+
+    // Triple click → toggle Queswa (puerta trasera para demos)
+    tripleClickCount.current += 1;
+    if (tripleClickTimer.current) clearTimeout(tripleClickTimer.current);
+    if (tripleClickCount.current >= 3) {
+      tripleClickCount.current = 0;
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null; }
+      window.dispatchEvent(new CustomEvent('toggle-queswa'));
+      return;
+    }
+    tripleClickTimer.current = setTimeout(() => { tripleClickCount.current = 0; }, 600);
+
     // Si hay timer pendiente → es double-click → fullscreen
     if (clickTimer.current) {
       clearTimeout(clickTimer.current);

@@ -270,10 +270,10 @@ const NEXUSFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Button - Industrial Square */}
+      {/* Floating Button - Industrial Square (oculto cuando el chat está abierto) */}
       <button
         data-nexus-button
-        className="fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 z-[200] flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+        className={`fixed bottom-6 right-4 sm:right-6 lg:right-8 w-14 h-14 z-[200] flex items-center justify-center transition-all duration-300 hover:scale-105 group${isOpen ? ' hidden' : ''}`}
         style={{
           ...getButtonStyles(),
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',

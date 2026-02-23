@@ -139,39 +139,26 @@ export default function GraciasPage() {
               </p>
             </div>
 
-            {/* Video Placeholder - RECTANGULAR (no rounded) */}
+            {/* Video Epifanía - Bridge Page */}
             <div
               style={{
                 aspectRatio: '16/9',
-                background: C.gunmetal,
+                background: C.obsidian,
                 border: `1px solid ${C.gold}26`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 marginBottom: '2rem',
+                overflow: 'hidden',
               }}
             >
-              <div className="text-center">
-                <div
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'rgba(245, 158, 11, 0.15)',
-                    margin: '0 auto 1rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <svg className="w-10 h-10" style={{ color: C.gold }} fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-                <p style={{ color: C.textDim, fontSize: '0.875rem' }}>Video del Puente de Epifanía</p>
-                <p style={{ color: C.textDim, fontSize: '0.75rem', marginTop: '0.25rem', fontFamily: "'Roboto Mono', monospace" }}>
-                  (PRÓXIMAMENTE)
-                </p>
-              </div>
+              <video
+                controls
+                preload="none"
+                poster={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_POSTER}
+                playsInline
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              >
+                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_1080P} type="video/mp4" />
+                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_720P} type="video/mp4" />
+              </video>
             </div>
 
             {/* WhatsApp VIP CTA - INDUSTRIAL BUTTON */}

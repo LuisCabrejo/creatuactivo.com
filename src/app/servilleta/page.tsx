@@ -846,7 +846,7 @@ export default function ServilletaPage() {
           </button>
           <div className="brand">
             <span className="material-symbols-sharp">precision_manufacturing</span>
-            <span>QUESWA.SYS // V2.1</span>
+            <span>CREATUACTIVO.SYS // V2.1</span>
           </div>
           <div className="nav-controls">
             {[
@@ -926,10 +926,10 @@ export default function ServilletaPage() {
                     <span style={{ color: 'var(--cyan)' }}>1. GANO EXCEL:</span> Infraestructura y Capital ($100M USD).
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>2. QUESWA:</span> Nuestra Plataforma Digital Propietaria.
+                    <span style={{ color: 'var(--cyan)' }}>2. CREATUACTIVO:</span> Nuestra Plataforma Digital.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Comprobada.
+                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Ejecuci&oacute;n Exacta (Reto 5 D&iacute;as).
                   </div>
                 </div>
               </div>
@@ -949,7 +949,7 @@ export default function ServilletaPage() {
             <div className="grid-layout-slide-2">
               {/* Título de la diapositiva */}
               <div className="slide-2-header">
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>MEC&Aacute;NICA DE APALANCAMIENTO</h2>
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>MEC&Aacute;NICA DE MULTIPLICACI&Oacute;N</h2>
                 <span className="slide-2-subtitle">COMPARATIVA DE RENDIMIENTO</span>
               </div>
 
@@ -958,15 +958,15 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/engranajes.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">TU ESFUERZO F&Iacute;SICO</span>
+                    <span className="bad">ESFUERZO F&Iacute;SICO</span>
                     <span className="arrow">&#10148;</span>
-                    <span className="good">SISTEMA DE APALANCAMIENTO</span>
+                    <span className="good">SISTEMA DE MULTIPLICACI&Oacute;N</span>
                   </div>
                   <h3>
                     <span className="material-symbols-sharp">autorenew</span>
-                    TRACCI&Oacute;N H&Iacute;BRIDA
+                    IMPACTO EXPONENCIAL
                   </h3>
-                  <p>Tu peque&ntilde;o aporte se multiplica x100 mediante engranajes digitales.</p>
+                  <p>Tu peque&ntilde;o aporte se multiplica x100 mediante engranajes.</p>
                 </div>
               </div>
 
@@ -975,7 +975,7 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/estructura-cables.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">RESPONSABILIDAD 100%</span>
+                    <span className="bad">RIESGO TOTAL</span>
                     <span className="arrow">&#10148;</span>
                     <span className="good">RESPALDO CORPORATIVO</span>
                   </div>
@@ -1018,7 +1018,7 @@ export default function ServilletaPage() {
                   <div className="technical-label">MANTENIMIENTO BIOL&Oacute;GICO</div>
                   <h2 className="deck-h2">OPTIMIZACI&Oacute;N<br />CELULAR</h2>
                   <p className="deck-p">
-                    La riqueza sin salud es un error de c&aacute;lculo. Nuestro producto no es &quot;caf&eacute;&quot;, es tecnolog&iacute;a nutricional 100% hidrosoluble.
+                    La riqueza sin salud es un error de c&aacute;lculo. Nuestro motor biol&oacute;gico no es simple &quot;caf&eacute;&quot;; es tecnolog&iacute;a nutricional 100% hidrosoluble para optimizaci&oacute;n celular.
                   </p>
                 </div>
 

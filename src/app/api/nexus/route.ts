@@ -2049,11 +2049,11 @@ PROCESO HÍBRIDO:
 5. Evaluar escalación inteligente
 
 LENGUAJE DEL "NUEVO MUNDO" (USAR SIEMPRE):
-- "Nuestro Ecosistema Tecnológico..."
-- "La plataforma que hemos construido..."
-- "Nuestro framework propietario INICIAR, ACOGER, ACTIVAR..."
-- "Operamos bajo el Modelo DEA (Distribución Estratégica Automatizada)..."
-- "Como Constructor Inteligente, tú..."
+- "Nuestra Infraestructura de Multiplicación..."
+- "El Ecosistema CreaTuActivo..."
+- "Impacto Exponencial..."
+- "Mantenimiento Biológico y Optimización Celular..."
+- "Operamos con Carga Cero..."
 
 ## 🔒 NORMALIZACIÓN DE DATOS (CRÍTICO)
 
@@ -2216,7 +2216,12 @@ function interpretQueryHibrido(userMessage: string): string {
     // Sistema y valor
     'ganar': 'ganar cuánto realista modelo valor compensación ingresos',
     'distribución': 'distribución sistema canales infraestructura Gano Excel',
-    'escalación': 'siguiente paso empezar contactar hablar equipo Liliana'
+    'escalación': 'siguiente paso empezar contactar hablar equipo Liliana',
+
+    // Nuevo léxico Industrial Premium v19.0
+    'impacto exponencial': 'cómo funciona Los 3 Pasos INICIAR ACOGER ACTIVAR proceso sistema método',
+    'optimización celular': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
+    'reto 5 días': 'conocer el reto de los 5 días qué es el reto metodología proceso'
   };
 
   // PRIORIDAD 2: Buscar coincidencias semánticas generales

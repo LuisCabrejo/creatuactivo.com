@@ -108,14 +108,14 @@ Tienes un sistema con **Triple Redundancia**:
 ### ADV_VAL_01: "Explícame el Bono GEN5 (Inicio Rápido) con números"
 **[Concepto Nuclear]:** Inyección de Liquidez. Flujo de Caja por Expansión.
 
-Es simple: Generas liquidez **cada vez que instalas un nuevo nodo** en tu red.
+Es simple: Generas liquidez **cada vez que conectas una nueva persona** a tu red.
 
 **Matemática (Si eres Fundador ESP-3):**
 * Tú conectas a Socio A (Nivel 1) → Recibes **$150 USD** (Liquidez Inmediata).
 * Socio A conecta a Socio B (Nivel 2) → Tú recibes **$20 USD** (Ingreso Indirecto).
 * Y así hasta 5 generaciones.
 
-Si instalas 5 nodos directos y ellos se duplican, generas miles de dólares en las primeras semanas solo por **Instalación de Infraestructura**.
+Si conectas a 5 personas directas y ellas se duplican, generas miles de dólares en las primeras semanas solo por expandir la red.
 
 **Piénsalo así:** Es el pago que recibes por "pegar los ladrillos". La empresa te paga por construir la red, antes de que empiece a fluir el volumen masivo.
 **Pregunta de seguimiento:** ¿Te queda claro que ganas por expandir la infraestructura?
@@ -176,7 +176,7 @@ Convertimos un gasto obligatorio (mercado) en tu único costo operativo.
 **[Concepto Nuclear]:** Mentalidad de Operario vs. Mentalidad de Dueño.
 
 * El **Trabajador** pregunta: "¿A cuánta gente tengo que convencer?"
-* El **Arquitecto** pregunta: "¿Cómo conecto más nodos al sistema?"
+* El **Arquitecto** pregunta: "¿Cómo conecto más personas al sistema?"
 
 Nosotros formamos Arquitectos.
 No queremos que seas el "Vendedor Estrella". Si todo depende de ti, no eres libre.
@@ -190,7 +190,7 @@ Queremos que seas el **Operador del Sistema**.
 ### ADV_SIST_02: "¿Cuál es la visión a 5 años? ¿A dónde vamos?"
 **[Concepto Nuclear]:** Red de Distribución Continental.
 
-Nuestra meta técnica es tener **4 millones de nodos** (familias) conectados a la infraestructura en América para 2030.
+Nuestra meta es tener **4 millones de familias** conectadas a la infraestructura en América para 2030.
 Estamos construyendo la "Grid" (Red) de bienestar más eficiente del continente.
 
 **Piénsalo así:** Hoy estás viendo los planos y los cimientos. Tienes la oportunidad de ser dueño de una parte de la red principal.

@@ -79,7 +79,7 @@ El Arbol Binario es donde tu y los afiliados de tu linea ascendente y descendent
 **Caracteristicas:**
 | Aspecto | Valor |
 |---------|-------|
-| Posiciones debajo de cada nodo | MAXIMO 2 |
+| Posiciones debajo de cada posición | MAXIMO 2 |
 | Por que se llama "binario" | "Compuesto de dos elementos" |
 | Profundidad | SIN LIMITE |
 | Tu conectador | El afiliado posicionado directamente arriba de ti |
@@ -109,7 +109,7 @@ Tu Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de tu
 **Como Funciona:**
 | Componente | Descripcion |
 |------------|-------------|
-| Tu posicion | El nodo donde estas ubicado en el Binario |
+| Tu posicion | Tu lugar dentro del Arbol Binario |
 | Lado izquierdo | Todo el CV debajo de tu izquierda |
 | Lado derecho | Todo el CV debajo de tu derecha |
 | Tu cobro | % del lado MENOR |

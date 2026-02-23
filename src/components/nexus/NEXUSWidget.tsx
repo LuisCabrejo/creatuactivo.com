@@ -374,7 +374,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
                     </p>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      Aquí diseñamos la salida: tu propia <strong style={{ color: QUIET_LUXURY.gold }}>Infraestructura de Soberanía</strong>.
+                      Aquí diseñamos tu salida.
                     </p>
                     <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
                       ¿Cuál es tu situación actual?

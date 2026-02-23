@@ -60,7 +60,7 @@ El Ganoderma lucidum tiene más de 2,000 estudios científicos publicados.
 
 La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
 
-Aquí diseñamos la salida: tu propia **Infraestructura de Soberanía**.
+Aquí diseñamos tu salida.
 
 ¿Cuál es tu situación actual?
 

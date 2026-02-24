@@ -1,4 +1,4 @@
-de/**
+/**
  * Copyright © 2026 CreaTuActivo.com
  * Homepage v10.0 - INDUSTRIAL LUXURY (Layer Management)
  * Capa 0: Hormigón global en <main> (fijo, siempre visible)

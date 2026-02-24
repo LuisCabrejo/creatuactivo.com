@@ -46,10 +46,27 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Soluciones → Reto 5 días (funnel principal)
+      // ✅ PIVOTE V3.0: Reto 5 Días → El Mapa de Salida
+      {
+        source: '/reto-5-dias',
+        destination: '/mapa-de-salida',
+        permanent: true,
+      },
+      {
+        source: '/reto-5-dias/gracias',
+        destination: '/mapa-de-salida/gracias',
+        permanent: true,
+      },
+      {
+        source: '/reto-5-dias/:path*',
+        destination: '/mapa-de-salida',
+        permanent: true,
+      },
+
+      // Soluciones → El Mapa de Salida (funnel principal)
       {
         source: '/soluciones/:path*',
-        destination: '/reto-5-dias',
+        destination: '/mapa-de-salida',
         permanent: true,
       },
 
@@ -75,27 +92,27 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Ecosistema → Reto 5 días
+      // Ecosistema → El Mapa de Salida
       {
         source: '/ecosistema',
-        destination: '/reto-5-dias',
+        destination: '/mapa-de-salida',
         permanent: true,
       },
       {
         source: '/ecosistema/:path*',
-        destination: '/reto-5-dias',
+        destination: '/mapa-de-salida',
         permanent: true,
       },
 
-      // Sistema páginas eliminadas → Reto 5 días
+      // Sistema páginas eliminadas → El Mapa de Salida
       {
         source: '/sistema/framework-iaa',
-        destination: '/reto-5-dias',
+        destination: '/mapa-de-salida',
         permanent: true,
       },
       {
         source: '/sistema/tecnologia',
-        destination: '/reto-5-dias',
+        destination: '/mapa-de-salida',
         permanent: true,
       },
 

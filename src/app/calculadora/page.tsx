@@ -519,11 +519,11 @@ export default function CalculadoraPage() {
                         className="text-lg mb-6"
                         style={{ color: COLORS.text.muted }}
                       >
-                        ¿Quieres cambiar estos números?
+                        ¿Listo para reescribir esta matemática?
                       </p>
 
                       <Link
-                        href="/reto-5-dias"
+                        href="/mapa-de-salida"
                         className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
                         style={{
                           backgroundColor: COLORS.gold.primary,
@@ -532,7 +532,7 @@ export default function CalculadoraPage() {
                           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                         }}
                       >
-                        Ver la Solución (Reto 5 Días)
+                        Obtener el Mapa de Salida
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -542,7 +542,7 @@ export default function CalculadoraPage() {
                         className="mt-6 text-sm"
                         style={{ color: COLORS.text.muted }}
                       >
-                        100% gratis. Sin compromiso. Descubre si este modelo es para ti.
+                        Auditoría 100% gratuita. Traza tu ruta de escape del &ldquo;Plan por Defecto&rdquo;.
                       </p>
                     </div>
                   </>

@@ -1,4 +1,4 @@
-/**
+de/**
  * Copyright © 2026 CreaTuActivo.com
  * Homepage v10.0 - INDUSTRIAL LUXURY (Layer Management)
  * Capa 0: Hormigón global en <main> (fijo, siempre visible)
@@ -153,8 +153,8 @@ function HeroSection() {
 
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.textMuted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
           ¿Ya hiciste la auditoría?{' '}
-          <Link href="/reto-5-dias" style={{ color: C.gold, textDecoration: 'none' }}>
-            Ir al Reto de 5 Días →
+          <Link href="/mapa-de-salida" style={{ color: C.gold, textDecoration: 'none' }}>
+            Obtener el Mapa de Salida →
           </Link>
         </p>
       </div>
@@ -295,11 +295,11 @@ function FinalCTASection() {
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
-          5 Días para Diseñar tu Salida del Sistema Tradicional
+          El Mapa de Salida: 5 Días para Escapar del &ldquo;Plan por Defecto&rdquo;
         </h2>
 
         <p style={{ color: C.textMuted, maxWidth: '560px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-          Después del diagnóstico, únete al Reto de 5 Días. Descubre si este modelo es para ti. Sin compromiso.
+          Después de auditar tus números, solicita acceso al Mapa de Salida. Descubre la arquitectura de nuestro modelo y traza tu ruta. Sin compromisos.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
@@ -318,7 +318,7 @@ function FinalCTASection() {
             Hacer el Diagnóstico Primero
           </Link>
           <Link
-            href="/reto-5-dias"
+            href="/mapa-de-salida"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: 'transparent', border: `1px solid ${C.gold}`,
@@ -329,7 +329,7 @@ function FinalCTASection() {
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}
           >
-            Ya lo hice, ir al Reto
+            Ya lo audité, Obtener el Mapa
           </Link>
         </div>
       </div>

@@ -559,10 +559,10 @@ export default function StrategicNavigation() {
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
-              {/* BOTÓN RETO DESKTOP - Entrada al Funnel Principal */}
-              <Link href="/reto-5-dias" className="strategic-cta-button">
+              {/* BOTÓN CTA DESKTOP - Entrada al Funnel Principal */}
+              <Link href="/mapa-de-salida" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
-                Reto 5 Días
+                Obtener el Mapa
               </Link>
 
               {/* MOBILE TOGGLE */}
@@ -632,11 +632,11 @@ export default function StrategicNavigation() {
             ))}
           </div>
 
-          {/* Mobile CTA - Reto 5 Días */}
+          {/* Mobile CTA - El Mapa de Salida */}
           <div className="strategic-mobile-cta">
-            <Link href="/reto-5-dias" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+            <Link href="/mapa-de-salida" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Target className="w-4 h-4" />
-              Unirme al Reto
+              Obtener el Mapa
             </Link>
           </div>
         </div>

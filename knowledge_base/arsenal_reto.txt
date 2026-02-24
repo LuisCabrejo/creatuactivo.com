@@ -36,23 +36,23 @@ No vienes a 'aprender' teorías, vienes a auditar un modelo logístico. Desglosa
 ## 2. LOGÍSTICA Y FORMATO
 
 ### RETO_03: "¿Tiene algún costo participar?" / "¿Es gratis?"
-**[Concepto Nuclear]:** Acceso de Validación. Inversión de Tiempo, no de Dinero.
+**[Concepto Nuclear]:** Inversión de Tiempo, no de Dinero.
 
-El acceso al Simulador tiene un valor de mercado de $97 USD, pero hoy tienes un **Cupo de Validación al 100%**.
+El Mapa de Salida tiene un valor de mercado de $97 USD, pero hoy el acceso es **completamente gratuito**.
 No cobramos la entrada porque nuestro negocio no es vender cursos; nuestro negocio es encontrar Socios Operativos.
 
 Queremos eliminar la barrera de entrada para que tu única inversión sea **Atención**.
-Si el sistema funciona para ti en la simulación, sabemos que querrás operarlo en la realidad.
+Si los planos tienen sentido para ti después de los 5 días, sabrás si quieres construir.
 
 ---
 
 ### RETO_04: "¿Es en vivo o grabado?" / "Tengo horarios complicados"
 **[Concepto Nuclear]:** Ejecución Asíncrona.
 
-Respetamos tu agenda productiva. El protocolo es **Híbrido**:
+Respetamos tu agenda. El formato es **Híbrido**:
 
-1.  **Módulos Estratégicos (Grabados):** Cada mañana se libera un informe de video (15-20 min). Lo estudias a tu ritmo.
-2.  **Soporte Táctico (En Vivo):** Tienes línea directa por WhatsApp para resolver dudas de ingeniería en tiempo real.
+1.  **Videos de instrucción (Grabados):** Cada mañana se libera un video de 15-20 min. Lo estudias a tu ritmo.
+2.  **Soporte Táctico (En Vivo):** Tienes línea directa por WhatsApp para resolver dudas en tiempo real.
 
 No tienes que "estar" a una hora. Tienes que "ejecutar" en tu tiempo.
 
@@ -74,29 +74,29 @@ No pedimos dinero ni tarjetas de crédito para entregarte El Mapa de Salida, sol
 ## 3. CIERRE AL RETO
 
 ### RETO_06: "¿Cómo me registro?" / "¿Cómo empiezo?"
-**[Concepto Nuclear]:** Iniciar Protocolo.
+**[Concepto Nuclear]:** Acceso Inmediato.
 
-El despliegue es inmediato:
+El registro es inmediato:
 
-1.  Toca el botón **"Iniciar Simulación"**.
-2.  Confirmas tu credencial (WhatsApp).
-3.  El sistema te libera el **Módulo 1** al instante.
+1.  Toca el botón para comenzar.
+2.  Confirmas tu WhatsApp.
+3.  Recibes el primer día al instante.
 
-No esperes al lunes. La ingeniería no espera.
+No esperes al lunes. El mapa ya está listo.
 
 ---
 
 ### RETO_07: "No estoy seguro..." / "Tengo dudas"
 **[Concepto Nuclear]:** Validación Empírica. Datos mata opinión.
 
-Es normal tener dudas. Por eso existe el Simulador.
+Es normal tener dudas. Por eso diseñamos El Mapa de Salida.
 No te pido que confíes ciegamente. Te pido que **verifiques**.
 
-Entra, revisa los planos, prueba el sistema.
-Si la lógica no se sostiene, te retiras sin costo.
+Entra, revisa los planos, analiza la lógica.
+Si los números no se sostienen, te retiras sin costo.
 Pero no tomes una decisión basada en suposiciones. Tómala basada en datos.
 
-**Piénsalo así:** ¿Rechazarías probar un Ferrari gratis solo porque dudas si sabes manejarlo? Súbete y prueba.
+**Piénsalo así:** ¿Rechazarías revisar los planos de un proyecto gratis solo porque tienes dudas? Revísalos primero. Luego decides.
 
 ---
 
@@ -106,9 +106,13 @@ Pero no tomes una decisión basada en suposiciones. Tómala basada en datos.
 * RETO_01: "Protocolo de Simulación" → "Auditoría Logística y Plan de Escape"
 * RETO_02: "Despliegue Modular" → "Ingeniería de Creencias y Tracción Híbrida"
 * RETO_02: 5 módulos técnicos → 5 fases de revelación (Jobs-Style)
+* RETO_03: "Simulador" + "Cupo de Validación" → acceso gratuito a "El Mapa de Salida"
+* RETO_04: "Módulos Estratégicos" → "Videos de instrucción"
 * RETO_05: "Ancho de Banda Mental" como Concepto Nuclear → "Fricción Valiosa y Ancho de Banda Mental"
+* RETO_06: "Iniciar Simulación" + "Módulo 1" → "Acceso Inmediato" (lenguaje directo)
+* RETO_07: "Por eso existe el Simulador" → "Por eso diseñamos El Mapa de Salida"
 * Header: Reto de 5 Días rebautizado como **"El Mapa de Salida"** (v3.0)
-* Eliminado: Hardware, Software, Protocolo de Simulación, Despliegue Modular del cuerpo del texto
+* Eliminado: Simulador, Cupo de Validación, Módulos Estratégicos, Iniciar Protocolo de todo el cuerpo del texto
 
 ### v2.0 INDUSTRIAL (02 Febrero 2026)
 * Cambio de metáfora: "Test Drive" → **"Simulador de Infraestructura"**.

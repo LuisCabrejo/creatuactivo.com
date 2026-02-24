@@ -94,6 +94,8 @@ Three-stage funnel methodology:
 
 **Naming**: User-facing brand is "Queswa" (since v15.0). Code/components still use "NEXUS" prefix (no refactor planned). Use "Queswa" in UI text, "NEXUS" in code references.
 
+**Two-project architecture**: `creatuactivo.com` (este repo) y `luiscabrejo.com` (sitio personal) comparten el **mismo Supabase DB** y el mismo `system_prompts.nexus_main`. Cambios en el system prompt afectan a ambos proyectos. En `luiscabrejo.com` la ruta activa es `/api/nexus/route.ts` (no `/api/claude-chat/route.ts`, que es legacy sin uso).
+
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - **PREFERRED** async queue producer
@@ -191,7 +193,7 @@ Hybrid caching strategy for Next.js App Router:
   - `favicon-96x96.png` - Browser tab
   - `apple-touch-icon.png` - iOS home screen
 
-**Regenerate icons**: `node scripts/generate-pwa-icons.mjs` (requires sharp)
+**Regenerate icons**: `node scripts/generate-favicons.mjs` (requires sharp)
 
 ### 3. Async Queue Architecture
 
@@ -230,11 +232,13 @@ Usuario → Producer → nexus_queue (INSERT)
 - `search_nexus_documents()` - Semantic search
 - `enqueue_nexus_message()` - Add to queue
 
-**Knowledge Base** (stored in `nexus_documents`, consolidado Dic 2025):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses, ~21KB)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (63 responses consolidadas, ~52KB)
+**Knowledge Base** (stored in `nexus_documents`, actualizado Feb 2026):
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses — WHY, STORY, VS, FREQ, CRED, OBJ)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (14 responses — OBJ avanzadas, TECH, VAL, SIST, ESC)
+- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v3.0 — 7 responses, nomenclatura definitiva Feb 2026)
 - `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (12-level challenge content)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — plan de compensación, **NO modificar**)
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -277,16 +281,15 @@ src/app/
 │   ├── empleo-vs-activos/           # SEO article
 │   └── legalidad-network-marketing/ # SEO article
 ├── tecnologia/                      # Queswa brand search landing (indexed)
-├── productos/                       # Product catalog (noindex - SEO en /sistema/productos)
+├── infraestructura/                 # Technology infrastructure (Bimetallic reference implementation)
 ├── presentacion-empresarial/        # Support tool for 1-on-1 (NOT in menu)
-│   └── [ref]/page.tsx               # Referral tracking
+├── presentacion-empresarial-inversionistas/  # Investor-focused presentation
 ├── webinar/                         # Webinar funnel (WIP)
 │   ├── page.tsx                     # Registration page
 │   └── sala/page.tsx                # Live room with countdown
 ├── sistema/
-│   ├── productos/                   # Product catalog (SEO indexed)
-│   │   └── [ref]/page.tsx
-│   └── socio-corporativo/           # Gano Excel info
+│   └── productos/                   # Product catalog (SEO indexed)
+│       └── [ref]/page.tsx
 ├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
 │   └── [ref]/page.tsx
 ├── socios/                          # Landing for traditional networkers
@@ -295,9 +298,11 @@ src/app/
 ├── paquetes/                        # Product packages
 │   └── [ref]/page.tsx
 ├── servilleta/                      # 🎯 "The Industrial Deck" v5.1 (4-slide presentation)
-├── servilleta-2/                    # "Industrial Realism" scroll storytelling
 ├── servilleta-3/                    # "Bento Grid Industrial" layout
-├── servilleta-4/                    # "Engineering Copywriting" narrative
+├── animaciones/                     # 🎬 Canvas-based social video renderer (Dan Koe style, 1080×1920 9:16, 60fps)
+│   ├── dia5/, dia6/, dia7/, dia8/, dia9/   # Daily video animation projects
+│   ├── dia7-v3 through dia7-v6      # A/B variants for Día 7 "Eliminación Radical"
+│   └── hook-dia6/                   # Hook variant for Día 6
 ├── modelo-de-valor/                 # Value model page
 ├── paises/brasil/                   # Brazil-specific landing
 ├── planes/                          # Plans page
@@ -315,7 +320,6 @@ src/app/
 - **noindex pages** (funnel interno):
   - `/reto-5-dias/*` → Squeeze/Bridge para ADS
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
-  - `/productos` → 301 redirect to `/infraestructura` (page renamed)
 
 **Removed Pages** (with 301 redirects in next.config.js):
 - `/soluciones/*` → `/reto-5-dias` (6 persona pages eliminated)
@@ -341,9 +345,7 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 | Version | Route | Style |
 |---------|-------|-------|
 | v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
-| v2.0 | `/servilleta-2` | Scroll storytelling, Unsplash industrial images |
 | v3.0 | `/servilleta-3` | Bento grid layout |
-| v4.0 | `/servilleta-4` | Enhanced narrative with animations |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: Rajdhani (headings) + Roboto Mono (data)
@@ -375,25 +377,42 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v18.x series)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.3** — Facilitador de Herramientas, Feb 2026)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
 
+**Queswa Official Constants** (calibradas Feb 2026 — consistencia obligatoria en todos los arsenales):
+- Lanzamiento público oficial: **lunes 1 de junio**
+- Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
+- Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
+- Dos engranajes del modelo: **El Músculo** (Gano Excel) + **El Cerebro** (CreaTuActivo)
+
 ### Updating Queswa Knowledge
 
-**Workflow** (Arquitectura Consolidada v3.0 - Dic 2025):
+**Workflow** (Arquitectura Consolidada v3.0 - Feb 2026):
+
+**IMPORTANTE — Protocolo correcto de actualización de fragmentos:**
+1. Editar el `.txt` en `knowledge_base/`
+2. Deploy del documento fuente a Supabase (el script actualiza el doc padre)
+3. Eliminar los fragmentos obsoletos de `nexus_documents` por `category`
+4. Re-ejecutar `fragmentar-arsenales-voyage.mjs` (solo creará los eliminados)
+
+Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actualizará**.
 
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (34 responses)
-   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation (63 responses)
+   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (14 responses)
+   - `arsenal_reto.txt` - **El Mapa de Salida** v3.0 (7 responses — reto de 5 días)
    - `arsenal_12_niveles.txt` - 12-level challenge content
    - `catalogo_productos.txt` - Product catalog + science (22 products)
+   - `arsenal_compensacion.txt` - Compensation plan (38 responses — **NO modificar vocabulario**)
 
 2. Deploy to Supabase via scripts:
    ```bash
    node scripts/deploy-arsenal-inicial.mjs
    node scripts/deploy-arsenal-avanzado.mjs
+   node scripts/deploy-arsenal-reto.mjs
    node scripts/deploy-arsenal-12-niveles.mjs
    node scripts/actualizar-catalogo-productos.mjs
    ```
@@ -418,6 +437,17 @@ node scripts/upload-to-blob.mjs
 ```
 
 See [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) for details.
+
+### Canvas Animation Videos (src/app/animaciones/)
+
+Dan Koe-style vertical videos rendered in-browser via Canvas API + React. Used for social media content.
+
+- **Format**: 1080×1920 (9:16 vertical), 60fps, ~38 seconds
+- **Stack**: React + TypeScript + Canvas API + MediaRecorder (recording to WebM/MP4)
+- **Assets**: `public/campaign-assets/` — backgrounds, visual effects, sounds
+- **Handoff doc**: [HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md](HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md)
+
+Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia7-v3` through `dia7-v6`) are A/B iterations of the same day's script.
 
 ### Founder Spots Counter
 
@@ -574,7 +604,7 @@ trust: 'rgba(255, 255, 255, 0.6)'  // Trust markers on landing pages
 
 ### Reference Implementation
 
-See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) for a complete example of the Bimetallic system applied:
+See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infraestructura` route) for a complete example of the Bimetallic system applied:
 - Icons start titanium, hover → gold
 - Card borders use glass (white 10% opacity)
 - Section dividers use titanium (not gold)
@@ -592,6 +622,7 @@ Extended colors and utilities are defined in [tailwind.config.ts](tailwind.confi
 - `reto-5-dias/` - 5-day challenge emails (Dia1-5)
 - `FounderConfirmation.tsx` - Founder registration confirmation
 - `Reto5DiasConfirmation.tsx` - Challenge registration confirmation
+- `Reto12DiasConfirmation.tsx` - 12-level challenge confirmation
 - `PreRegistroAdmin.tsx`, `PreRegistroUser.tsx` - Pre-registration emails
 
 **Prospect Data Flow**:
@@ -658,12 +689,14 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (current: v18.x series)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.3** — Facilitador de Herramientas, Feb 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
 - `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
 - `deploy-arsenal-12-niveles.mjs` - Deploy 12-level challenge arsenal
+- `deploy-arsenal-reto.mjs` - Deploy arsenal_reto to Supabase
+- `deploy-arsenal-compensacion.mjs` - Deploy arsenal_compensacion to Supabase
 - `actualizar-catalogo-productos.mjs` - Update product catalog
 - `verificar-arsenal-supabase.mjs` - Verify current version in DB
 - `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
@@ -681,6 +714,10 @@ window.nexusProspect?: { id: string }           // Current prospect
 
 **Testing & Utilities**:
 - `test-contador-cupos.mjs` - Test founder counter (15 scenarios)
+- `test-flow-reto-completo.mjs` - End-to-end test of reto-5-dias funnel flow
+- `validar-funnel-simple.mjs` - Validate funnel leads schema
+- `validar-schema-funnel-leads.mjs` - Full schema validation for funnel_leads table
+- `diagnostico-funnel-leads.mjs` - Diagnose funnel leads data issues
 - `actualizar-fechas-prelanzamiento.mjs` - Update pre-launch dates
 
 **Video**:
@@ -688,7 +725,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 - `upload-to-blob.mjs` - Upload to Vercel Blob
 
 **PWA**:
-- `generate-pwa-icons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
+- `generate-favicons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
 
 **Note**: Most scripts require `.env.local` variables. Run `ls scripts/` for full list.
 
@@ -769,6 +806,32 @@ These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc
 - ✅ Leverage / Apalancamiento
 - ✅ Cartera de activos
 - ✅ Distribución global
+
+### Queswa Vocabulary Rules — Jobs-Style (Feb 2026)
+
+**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido.
+
+**Vocabulario PROHIBIDO en arsenales** (erradicado en v3.0):
+
+| Prohibido | Reemplazar con |
+|-----------|---------------|
+| Hardware / Software | El Músculo / El Cerebro |
+| Protocolo de Simulación | El Mapa de Salida |
+| Cupo de Validación | acceso gratuito |
+| Módulos Estratégicos | Videos de instrucción |
+| Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar |
+| Despliegue | Acceso / Activación |
+| Nodo de distribución | (evitar) |
+| Ancho de Banda Mental | (solo permitido en RETO_05 — contexto específico) |
+| Pipeline / Embudo | Tubería / Canal |
+| 80% automatizado | 90% automatizado |
+
+**Metáforas aprobadas** (universales, sin jerga):
+- Acueducto / Tubería / Cargar baldes
+- Alquiler vs. Propiedad / Título de escrituras
+- Ferrari gratis / Probar antes de comprar
+- GPS Waze vs. mapa de papel
+- Faro que atrae barcos
 
 ## Luis Cabrejo's Real Story (Epiphany Bridge)
 

@@ -42,18 +42,15 @@ Te invitamos a construir esa "renta" paralela para que, si tu industria principa
 ---
 
 ### ADV_OBJ_03: "¿La urgencia de los cupos es real o es marketing?"
-**[Concepto Nuclear]:** Ventaja de Primer Movimiento (First Mover Advantage).
+**[Concepto Nuclear]:** Límite Operativo Real (Fase de Fundadores).
 
-Es un tema de **Ancho de Banda**.
-Operamos con Ciclos de Mentoría de Alto Rendimiento.
-El equipo directivo (Luis y Liliana) tiene una capacidad finita de atención. Solo pueden guiar la construcción de 30 infraestructuras a la vez para garantizar el éxito.
+En internet, el 99% de la escasez es un truco barato. Aquí es un límite matemático.
 
-Si entras en la Fase de Fundadores, aseguras **Posición de Ventaja**.
-Si entras después, el sistema funciona, pero pierdes el acceso a la "Mesa de Control" donde se define la estrategia.
+El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, operamos en código cerrado (Fase de Fundadores). Nuestro director está seleccionando un equipo táctico de exactamente 15 socios estratégicos. La urgencia no es para presionarte a entrar, es porque el objetivo es trabajar a nivel personal con esos 15 operadores para que, antes del 1 de junio, cada uno ya tenga su propia infraestructura instalada y generando flujo de caja rápido.
 
-**Piénsalo así:** Es la diferencia entre comprar acciones de una tecnológica en la IPO (Oferta Pública Inicial) o comprarlas 10 años después.
-La empresa sigue siendo buena, pero el que entró primero capturó el crecimiento exponencial.
-**Pregunta de seguimiento:** ¿Prefieres entrar en la fase de expansión o en la de consolidación?
+**Piénsalo así:** La tecnología del 'Mapa de Salida' puede soportar a un millón de usuarios mañana mismo, pero el tiempo y el ancho de banda de un Arquitecto de Activos para construir tus cimientos personales es limitado. Esos 15 cupos son nuestra capacidad física máxima de soporte táctico inicial.
+
+**Pregunta de seguimiento:** ¿Prefieres construir tus cimientos con acompañamiento directo, o esperar al lanzamiento público?
 
 ---
 

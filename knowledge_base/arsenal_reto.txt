@@ -1,39 +1,35 @@
-# Arsenal Reto 5 Días: Protocolo de Simulación v2.0 INDUSTRIAL
+# Arsenal Reto 5 Días: El Mapa de Salida v3.0
 
-**Propósito:** Vender la ejecución del "Reto de 5 Días".
-**Enfoque:** Validación Operativa. "Simulador antes de Realidad".
-**Versión:** 2.0 INDUSTRIAL (Pereira Edition)
-**REGLA DE ORO:** No es un curso. Es un **Entorno de Pruebas**.
+**Propósito:** Vender la ejecución del "Mapa de Salida" (Reto de 5 Días).
+**Enfoque:** Auditoría Logística y Plan de Escape del "Plan por Defecto".
+**Versión:** 3.0 (Nomenclatura Definitiva)
+**REGLA DE ORO:** No es un curso de motivación. Es la **entrega de planos arquitectónicos**.
 
 ---
 
 ## 1. DEFINICIÓN DEL PRODUCTO
 
-### RETO_01: "¿Qué es el Reto de 5 Días?"
-**[Concepto Nuclear]:** Simulador de Infraestructura. Validación sin Riesgo.
+### RETO_01: "¿Qué es El Mapa de Salida?" / "¿Qué es el Reto de 5 Días?"
+**[Concepto Nuclear]:** Auditoría Logística y Plan de Escape.
 
-Es un **Protocolo de Simulación** de 5 días.
-Antes de entregarte la infraestructura real, te damos acceso a un entorno de pruebas para que operes el sistema sin riesgo financiero.
+Durante 5 días, no te damos motivación barata ni te pedimos hacer tareas sin sentido. Te entregamos los planos exactos para planear tu escape del 'Plan por Defecto' (trabajar, pagar cuentas, repetir). Es una auditoría donde analizas tu situación actual y descubres cómo conectar tu propia infraestructura digital a la cadena de suministro de una corporación multinacional.
 
-**Piénsalo así:** Ningún piloto vuela un jet real el primer día. Primero entra al Simulador.
-El Reto es tu simulador.
-Operas el software (Queswa), entiendes la mecánica del hardware (Gano Excel) y validas si tienes el perfil para ser Arquitecto.
-Si al día 5 la ingeniería te hace sentido, pasamos a la realidad. Si no, cierras el simulador y no perdiste capital.
+**Piénsalo así:** No es un curso para enseñarte a correr más rápido en la rueda de hámster; es el manual de ingeniería para desarmar la rueda.
 
 ---
 
-### RETO_02: "¿Qué voy a aprender exactamente?" / "¿Cuál es el temario?"
-**[Concepto Nuclear]:** Despliegue Modular. De la Teoría a la Mecánica.
+### RETO_02: "¿Qué voy a ver exactamente en El Mapa de Salida?" / "¿Cuál es el temario?"
+**[Concepto Nuclear]:** Ingeniería de Creencias y Tracción Híbrida.
 
-No es "aprender", es **Auditar**. Desglosamos la máquina en 5 módulos:
+No vienes a 'aprender' teorías, vienes a auditar un modelo logístico. Desglosamos la máquina en 5 fases de revelación:
 
-* **Día 1: Diagnóstico Estructural.** Calculamos tu "Número de Soberanía" y auditamos por qué tu empleo actual tiene fallas de diseño.
-* **Día 2: La Infraestructura.** Revelamos el Hardware. Por qué elegimos la logística de Gano Excel y no la fragilidad del E-commerce.
-* **Día 3: El Sistema Operativo.** Te mostramos Queswa por dentro. Cómo la IA gestiona el tráfico y filtra candidatos.
-* **Día 4: Ingeniería Financiera.** Desglosamos el Plan de Pagos. Cómo construir flujo de caja (Gen5) y patrimonio (Binario).
-* **Día 5: Dictamen de Viabilidad.** Diseñamos tu Plan de Arranque como Fundador.
+* **Día 1 — El Diagnóstico:** Auditamos por qué tu vehículo actual (tu empleo o negocio tradicional) tiene fallas de diseño.
+* **Día 2 — La Trampa del Solitario:** Por qué el emprendimiento tradicional es un suicidio financiero y cómo apalancarte.
+* **Día 3 — La Máquina Híbrida:** Desglosamos el modelo: La corporación pone la logística física y la tecnología hace el trabajo pesado.
+* **Día 4 — Matemática de Liquidez:** Analizamos los números fríos. Cómo se genera flujo de caja rápido y renta perpetua.
+* **Día 5 — Cierre Asíncrono:** Trazas tu ruta y decides si tienes la aptitud para operar tu propio nodo de distribución.
 
-**Piénsalo así:** Al final del día 5, tendrás un plano completo. Sabrás exactamente qué construir y cuánto te va a costar. Cero incertidumbre.
+**Piénsalo así:** Al final del día 5, tendrás los planos arquitectónicos de tu libertad sobre la mesa. Cero incertidumbre.
 
 ---
 
@@ -62,16 +58,16 @@ No tienes que "estar" a una hora. Tienes que "ejecutar" en tu tiempo.
 
 ---
 
-### RETO_05: "¿Qué necesito para participar?" / "Requisitos"
-**[Concepto Nuclear]:** Ancho de Banda Mental.
+### RETO_05: "¿Qué necesito para obtener El Mapa de Salida?" / "Requisitos"
+**[Concepto Nuclear]:** Fricción Valiosa y Ancho de Banda Mental.
 
-No necesitas experiencia previa ni capital de riesgo. Solo necesitas:
+No pedimos dinero ni tarjetas de crédito para entregarte El Mapa de Salida, solo pedimos ancho de banda mental. Necesitas tres cosas:
 
-1.  **WhatsApp:** Tu centro de comando.
-2.  **30 Minutos/día:** 20 min de estudio, 10 min de ejecución.
-3.  **Criterio Propio:** Capacidad para analizar datos y tomar decisiones lógicas.
+1. **Tu celular** (WhatsApp será tu centro de recepción de coordenadas).
+2. **15 minutos al día** para revisar la instrucción.
+3. **El criterio y la madurez** para analizar datos fríos sin emociones.
 
-**Piénsalo así:** Si puedes seguir instrucciones y usar un celular, estás calificado para el simulador.
+**Piénsalo así:** Te estamos entregando los planos de un rascacielos financiero; tu único trabajo es sentarte a leerlos con atención antes de decidir si quieres ayudar a construirlo.
 
 ---
 
@@ -105,6 +101,14 @@ Pero no tomes una decisión basada en suposiciones. Tómala basada en datos.
 ---
 
 ## CHANGELOG
+
+### v3.0 (24 Febrero 2026) — Nomenclatura Definitiva "El Mapa de Salida"
+* RETO_01: "Protocolo de Simulación" → "Auditoría Logística y Plan de Escape"
+* RETO_02: "Despliegue Modular" → "Ingeniería de Creencias y Tracción Híbrida"
+* RETO_02: 5 módulos técnicos → 5 fases de revelación (Jobs-Style)
+* RETO_05: "Ancho de Banda Mental" como Concepto Nuclear → "Fricción Valiosa y Ancho de Banda Mental"
+* Header: Reto de 5 Días rebautizado como **"El Mapa de Salida"** (v3.0)
+* Eliminado: Hardware, Software, Protocolo de Simulación, Despliegue Modular del cuerpo del texto
 
 ### v2.0 INDUSTRIAL (02 Febrero 2026)
 * Cambio de metáfora: "Test Drive" → **"Simulador de Infraestructura"**.

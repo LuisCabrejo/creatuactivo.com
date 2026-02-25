@@ -929,7 +929,7 @@ export default function ServilletaPage() {
                     <span style={{ color: 'var(--cyan)' }}>2. CREATUACTIVO:</span> Nuestra Plataforma Digital.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Ejecuci&oacute;n Exacta (Reto 5 D&iacute;as).
+                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Ejecuci&oacute;n Exacta (El Mapa de Salida).
                   </div>
                 </div>
               </div>
@@ -1177,15 +1177,15 @@ export default function ServilletaPage() {
                       INICIAR EJECUCI&Oacute;N
                     </a>
 
-                    {/* CTA Secundario: Auditar → /reto-5-dias */}
+                    {/* CTA Secundario: Auditar → /mapa-de-salida */}
                     <a
-                      href="https://creatuactivo.com/reto-5-dias"
+                      href="https://creatuactivo.com/mapa-de-salida"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"
                     >
                       <span className="material-symbols-sharp">verified_user</span>
-                      AUDITAR EL MODELO (RETO 5 D&Iacute;AS)
+                      AUDITAR EL MODELO (MAPA DE SALIDA)
                     </a>
                   </div>
                 </div>

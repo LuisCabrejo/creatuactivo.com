@@ -377,7 +377,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.3** — Facilitador de Herramientas, Feb 2026)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.4** — El Mapa de Salida, Feb 2026)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
@@ -689,7 +689,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.3** — Facilitador de Herramientas, Feb 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.4** — El Mapa de Salida, Feb 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

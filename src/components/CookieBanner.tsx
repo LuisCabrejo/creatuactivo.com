@@ -64,11 +64,12 @@ export default function CookieBanner() {
           <div className="flex gap-2 shrink-0 w-full sm:w-auto">
             <button
               onClick={handleReject}
-              className="flex-1 sm:flex-none px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-colors"
+              className="flex-1 sm:flex-none px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors"
               style={{
                 color: '#94A3B8',
                 background: 'rgba(148, 163, 184, 0.08)',
                 border: '1px solid rgba(148, 163, 184, 0.25)',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
               }}
             >
               Rechazar

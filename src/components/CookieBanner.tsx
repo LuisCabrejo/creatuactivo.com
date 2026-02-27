@@ -75,13 +75,17 @@ export default function CookieBanner() {
             </button>
             <button
               onClick={handleAccept}
-              className="flex-1 sm:flex-none px-5 sm:px-7 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-full transition-all"
+              className="flex-1 sm:flex-none px-5 sm:px-7 py-1.5 sm:py-2 text-xs sm:text-sm font-bold transition-all"
               style={{
-                background: 'linear-gradient(135deg, #C5A059 0%, #B38B59 100%)',
-                color: '#0F1115',
-                letterSpacing: '0.04em',
+                background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+                color: '#0B0C0C',
+                fontFamily: 'var(--font-rajdhani), sans-serif',
+                fontWeight: 700,
+                letterSpacing: '0.05em',
                 textTransform: 'uppercase',
-                boxShadow: '0 2px 10px rgba(197, 160, 89, 0.25)',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                border: '1px solid rgba(251, 191, 36, 0.4)',
+                boxShadow: '0 2px 8px rgba(245, 158, 11, 0.2)',
               }}
             >
               Aceptar

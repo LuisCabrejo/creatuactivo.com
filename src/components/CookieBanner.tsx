@@ -64,26 +64,24 @@ export default function CookieBanner() {
           <div className="flex gap-2 shrink-0 w-full sm:w-auto">
             <button
               onClick={handleReject}
-              className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors"
+              className="flex-1 sm:flex-none px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-colors"
               style={{
                 color: '#94A3B8',
                 background: 'rgba(148, 163, 184, 0.08)',
-                border: '1px solid rgba(148, 163, 184, 0.2)',
+                border: '1px solid rgba(148, 163, 184, 0.25)',
               }}
             >
               Rechazar
             </button>
             <button
               onClick={handleAccept}
-              className="flex-1 sm:flex-none px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-all"
+              className="flex-1 sm:flex-none px-5 sm:px-7 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-full transition-all"
               style={{
-                background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-                color: '#0B0C0C',
-                fontFamily: 'var(--font-rajdhani), sans-serif',
-                fontWeight: 700,
-                letterSpacing: '0.05em',
+                background: 'linear-gradient(135deg, #C5A059 0%, #B38B59 100%)',
+                color: '#0F1115',
+                letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                boxShadow: '0 2px 8px rgba(245, 158, 11, 0.2)',
+                boxShadow: '0 2px 10px rgba(197, 160, 89, 0.25)',
               }}
             >
               Aceptar

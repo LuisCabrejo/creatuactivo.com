@@ -83,12 +83,12 @@ git push origin main
 
 ## Architecture Overview
 
-### Core System: Framework IAA
+### Core System: El Tridente EAM
 
-Three-stage funnel methodology:
-1. **INICIAR** (Initiate) - Landing pages, prospect identification
-2. **ACOGER** (Welcome) - NEXUS AI engagement, data capture
-3. **ACTIVAR** (Activate) - Escalation to human consultant
+Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
+1. **EXPANSIÓN** - Generación de tráfico y distribución del Mapa de Salida
+2. **ACTIVACIÓN** - Queswa AI filtra prospectos; constructor cierra con quienes levantaron la mano
+3. **MAESTRÍA** - Academia: mentalidad de dueño de ecosistema
 
 ### 1. NEXUS AI Chatbot
 
@@ -377,7 +377,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.4** — El Mapa de Salida, Feb 2026)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.5** — Tridente EAM, Mar 2026)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).

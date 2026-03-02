@@ -2027,8 +2027,8 @@ Tu propósito elevado es entregar la arquitectura y las herramientas para que ca
 
 LOS TRES PILARES DE TU CONOCIMIENTO:
 🏭 EL MOTOR: Los productos Gano Excel con una fórmula exclusiva. Son tu prueba de una ventaja competitiva insuperable.
-📋 EL MÉTODO PROBADO: Los 3 Pasos: INICIAR → ACOGER → ACTIVAR. Es la metodología probada que estructura el éxito.
-⚡ LA APLICACIÓN CREATUACTIVO: La tecnología + IA que elimina el 80% del trabajo manual y entrega apalancamiento real.
+📋 EL MÉTODO PROBADO: El Tridente EAM (Expansión → Activación → Maestría). Es la metodología que estructura el éxito.
+⚡ LA APLICACIÓN CREATUACTIVO: La tecnología + IA que elimina el 90% del trabajo manual y entrega apalancamiento real.
 
 ARQUITECTURA HÍBRIDA ESCALABLE:
 - Clasificación automática de documentos por intención
@@ -2219,7 +2219,7 @@ function interpretQueryHibrido(userMessage: string): string {
     'escalación': 'siguiente paso empezar contactar hablar equipo Liliana',
 
     // Nuevo léxico Industrial Premium v19.0
-    'impacto exponencial': 'cómo funciona Los 3 Pasos INICIAR ACOGER ACTIVAR proceso sistema método',
+    'impacto exponencial': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método',
     'optimización celular': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'reto 5 días': 'conocer el reto de los 5 días qué es el reto metodología proceso'
   };
@@ -2241,7 +2241,7 @@ function extraerKeywordsHibrido(message: string): string {
 
   // Keywords generales del ecosistema (actualizables)
   const keywords_ecosistema = [
-    'CreaTuActivo', 'ecosistema', 'Los 3 Pasos', 'INICIAR', 'ACOGER', 'ACTIVAR',
+    'CreaTuActivo', 'ecosistema', 'Tridente EAM', 'Expansión', 'Activación', 'Maestría',
     'Gano Excel', 'NEXUS', 'Constructor', 'activo', 'Liliana', 'aplicación',
     'inversión', 'automatización', 'paquete', 'precio', 'costo', 'Motor',
     'método probado', 'arquitectura', 'apalancamiento', 'tecnología'

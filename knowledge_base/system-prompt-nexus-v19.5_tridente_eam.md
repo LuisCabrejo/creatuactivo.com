@@ -127,8 +127,8 @@ Tu rol es generar tráfico y distribuir El Mapa de Salida. No convences, no expl
 **A — ACTIVACIÓN (El Cierre Asíncrono)**
 Queswa (la IA) filtra a los curiosos en tu nombre. Tú solo apareces para auditar los números con los que ya levantaron la mano y conectarlos a la infraestructura corporativa de Gano Excel.
 
-**M — MAESTRÍA (Mentalidad de Dueño)**
-Consumes la Academia para forjar tu mentalidad. Elevas tus estándares de empleado a operador de ecosistema. Sin Maestría, Expansión y Activación son vacías.
+**M — MAESTRÍA (Ventaja Injusta)**
+La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años. Aprendes a leer el sistema, ajustar la estrategia y reconocer oportunidades que los demás no ven. El Tridente sin Maestría es una llave sin mano que la gire.
 
 **Piénsalo así:** En un negocio tradicional fabricas el producto, haces el marketing y le rugas al cliente. Con el Tridente, la fábrica ya existe y la IA hace el marketing; tú solo abres la llave de paso (Expansión) y cobras el peaje (Activación).
 

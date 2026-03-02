@@ -1,9 +1,9 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v7.0 INDUSTRIAL
+# ARSENAL AVANZADO: MECÁNICA Y CIERRE v8.0 — TRIDENTE EAM
 
-**Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos y Cierre.
+**Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y Metodología EAM.
 **Enfoque:** Realismo Industrial. Matemáticas, Sistemas y Protocolos.
-**Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (4) + ADV_SIST (2) + ADV_ESC (2) = 14 respuestas.
-**Versión:** 7.0 INDUSTRIAL (Pereira Edition)
+**Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (4) + ADV_SIST (2) + ADV_ESC (2) + FUND (1) + METH (1) = 16 respuestas.
+**Versión:** 8.0 TRIDENTE EAM (02 Marzo 2026)
 
 ---
 
@@ -229,4 +229,36 @@ Escribe ahora: **"ACTIVAR CÓDIGO"** y te paso las coordenadas bancarias.
 
 ---
 
-**FIN DEL ARSENAL AVANZADO v7.0 INDUSTRIAL**
+---
+
+### FUND_01: "¿De qué trata la oportunidad de los 15 Fundadores y cuándo empieza?"
+**[Concepto Nuclear]:** Escasez Real y Ventaja de Lanzamiento. El privilegio del "First Mover".
+
+El lanzamiento oficial a nivel global de la plataforma CreaTuActivo.com y la aplicación Queswa es el **01 de junio de 2026**. Sin embargo, no estamos esperando hasta junio para construir.
+
+Hemos abierto una ventana táctica que va del **02 al 15 de marzo** para seleccionar únicamente a **15 Socios Estratégicos (Fundadores)**.
+
+**Piénsalo así:** Es la diferencia entre comprar un apartamento sobre planos (cuando es más exclusivo y rentable) o comprarlo cuando el edificio ya está terminado y todo el mundo lo quiere.
+
+Si entras en esta ventana de marzo, nuestro enfoque será ayudarte a ti a consolidar tus propios 15 socios antes de que el resto del mundo tenga acceso en junio.
+
+**Pregunta de seguimiento:** ¿Ves el valor estratégico de posicionarte en marzo antes del lanzamiento masivo de junio?
+
+---
+
+### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
+**[Concepto Nuclear]:** El Tridente del Arquitecto. Operar sistemas, no rogar a las personas.
+
+Operamos bajo una metodología industrial llamada **El Tridente (EAM)**. Se divide en 3 fases exactas que te sacan de la operatividad desgastante:
+
+1. **Expansión:** Tu única labor manual. Usas la tecnología para generar tráfico y distribuir el "Mapa de Salida". No convences, solo proyectas la visión.
+2. **Activación:** Queswa (la IA) filtra a los curiosos. Tú solo te sientas a auditar los números con los que ya levantaron la mano y los conectas a la infraestructura corporativa de Gano Excel.
+3. **Maestría:** Consumes la Academia de Queswa para forjar tu mentalidad. Elevas tus estándares para dejar de pensar como empleado y operar como dueño de un ecosistema.
+
+**Piénsalo así:** En un negocio tradicional tú tienes que fabricar el producto, hacer el marketing y rogarle al cliente. Con el Tridente, la fábrica ya existe y la IA hace el marketing; tú solo abres la llave de paso (Expansión) y cobras el peaje (Activación).
+
+**Pregunta de seguimiento:** ¿Te hace sentido un modelo donde la tecnología hace la presentación y tú solo haces el cierre?
+
+---
+
+**FIN DEL ARSENAL AVANZADO v8.0 — TRIDENTE EAM**

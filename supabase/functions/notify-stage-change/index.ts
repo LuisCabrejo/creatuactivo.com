@@ -173,7 +173,7 @@ serve(async (req) => {
     <div class="footer">
       <p>Este es un email automatizado de <strong>CreaTuActivo</strong></p>
       <p style="font-size: 12px; color: #9ca3af;">
-        Enviado por NEXUS AI | Framework IAA (Iniciar → Acoger → Activar)
+        Enviado por Queswa AI | Tridente EAM (Expansión → Activación → Maestría)
       </p>
     </div>
   </div>

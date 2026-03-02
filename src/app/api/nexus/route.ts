@@ -69,7 +69,7 @@ function removeNullValues(obj: Record<string, any>): Record<string, any> {
 }
 
 // ========================================
-// FRAMEWORK IAA - CAPTURA INTELIGENTE
+// CAPTURA INTELIGENTE DE PROSPECTOS (Tridente EAM)
 // ========================================
 interface ProspectData {
   name?: string;
@@ -2202,8 +2202,8 @@ function interpretQueryHibrido(userMessage: string): string {
     'esp 3': 'inversión para empezar construir Constructor Visionario',
 
     // Conceptos fundamentales
-    'arquitectura': 'Los 3 Pasos IAA NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
-    'funcionamiento': 'cómo funciona Los 3 Pasos INICIAR ACOGER ACTIVAR proceso sistema método probado',
+    'arquitectura': 'Tridente EAM Expansión Activación Maestría NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
+    'funcionamiento': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método probado',
     'productos': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'contacto': 'Liliana Moreno contacto WhatsApp escalación constructor mentor',
 
@@ -2662,7 +2662,7 @@ ${summaryParts.join('\n')}
       console.warn('⚠️ [NEXUS] No hay fingerprint - no se puede cargar historial');
     }
 
-    // FRAMEWORK IAA - CAPTURA INTELIGENTE (solo del mensaje actual)
+    // CAPTURA INTELIGENTE DE PROSPECTOS - Tridente EAM (solo del mensaje actual)
     const prospectData = await captureProspectData(
       latestUserMessage,
       sessionId || 'anonymous',

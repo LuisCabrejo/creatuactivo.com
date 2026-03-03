@@ -282,6 +282,21 @@ export default function ServilletaPage() {
           backdrop-filter: blur(4px);
         }
 
+        /* H1 Slide 1: placa oscura + sombra para máxima legibilidad */
+        #slide-1 .deck-h1 {
+          text-shadow:
+            0 0 4px rgba(0,0,0,1),
+            0 0 15px rgba(0,0,0,1),
+            0 0 35px rgba(0,0,0,0.9),
+            2px 2px 0 rgba(0,0,0,1),
+            -2px -2px 0 rgba(0,0,0,1);
+          background: rgba(0, 0, 0, 0.45);
+          padding: 12px 28px;
+          backdrop-filter: blur(6px);
+          border-radius: 4px;
+          margin-bottom: 24px;
+        }
+
         /* LISTA DE COMPONENTES (Slide 1) */
         .components-list {
           text-align: left; display: inline-block; margin-top: 20px;
@@ -295,11 +310,13 @@ export default function ServilletaPage() {
         /* BOTÓN SIGUIENTE */
         .btn-next {
           margin-top: 30px; padding: 15px 30px;
-          background: transparent; border: 1px solid var(--text-main); color: var(--text-main);
+          background: rgba(0, 0, 0, 0.6); border: 1px solid var(--text-main); color: var(--text-main);
           font-family: var(--font-head); font-size: 1.2rem; cursor: pointer;
           display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;
+          backdrop-filter: blur(6px);
+          text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
-        .btn-next:hover { background: var(--text-main); color: #000; }
+        .btn-next:hover { background: var(--text-main); color: #000; text-shadow: none; }
 
         /* --- SLIDE 2: GRID LAYOUT --- */
         .slide-2-header {

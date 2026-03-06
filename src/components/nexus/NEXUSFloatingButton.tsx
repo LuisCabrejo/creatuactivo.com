@@ -171,17 +171,8 @@ const NEXUSFloatingButton: React.FC = () => {
     return () => window.removeEventListener('open-queswa', handleOpenQueswa);
   }, []);
 
-  // Detectar desktop (≥1024px) para servilleta: siempre visible en desktop
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // En servilleta: desktop siempre muestra / mobile solo con triple clic
-  if (pathname === '/servilleta' && !demoActivated && !isDesktop) return null;
+  // En servilleta: oculta por defecto en todos los dispositivos — solo activa con triple clic o botón demo
+  if (pathname === '/servilleta' && !demoActivated) return null;
 
   const handleButtonClick = () => {
     if (!trackingState.isReady) {

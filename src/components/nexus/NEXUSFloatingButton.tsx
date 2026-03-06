@@ -332,7 +332,7 @@ const NEXUSFloatingButton: React.FC = () => {
       {trackingState.isReady && (
         <NEXUSWidget
           isOpen={isOpen}
-          onClose={() => { setIsOpen(false); if (pathname === '/servilleta') setDemoActivated(false); }}
+          onClose={() => { setIsOpen(false); if (pathname === '/servilleta') { setDemoActivated(false); window.dispatchEvent(new CustomEvent('close-queswa')); } }}
         />
       )}
 

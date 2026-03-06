@@ -16,6 +16,7 @@ export default function ServilletaPage() {
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [queswaOpen, setQueswaOpen] = useState(false);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -140,6 +141,18 @@ export default function ServilletaPage() {
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
+  }, []);
+
+  // Ocultar nav mobile cuando Queswa está abierto
+  useEffect(() => {
+    const open = () => setQueswaOpen(true);
+    const close = () => setQueswaOpen(false);
+    window.addEventListener('open-queswa', open);
+    window.addEventListener('close-queswa', close);
+    return () => {
+      window.removeEventListener('open-queswa', open);
+      window.removeEventListener('close-queswa', close);
+    };
   }, []);
 
   return (
@@ -764,11 +777,17 @@ export default function ServilletaPage() {
         /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
         /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
         @media (max-width: 768px) {
-          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile */
+          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile + scroll habilitado */
+          :fullscreen .slide {
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
           :fullscreen .grid-layout-slide-2 {
             padding: 60px 20px 40px !important;
             gap: 20px !important;
-            grid-template-rows: auto 1fr 1fr !important;
+            grid-template-rows: unset !important;
+            height: auto !important;
+            min-height: 100% !important;
           }
           :fullscreen .card-industrial {
             min-height: 45vh !important;  /* MÁS grande que los 220px default */
@@ -893,7 +912,7 @@ export default function ServilletaPage() {
         </nav>
 
         {/* MOBILE BOTTOM NAV */}
-        <div className="mobile-nav">
+        <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
               { id: 1, icon: 'bolt', label: 'Infra' },

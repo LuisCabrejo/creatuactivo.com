@@ -957,67 +957,83 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: MECÁNICA (Oscilaciones Duarte/Jobs) ===== */}
+          {/* ===== SLIDE 2: VENTAJA INJUSTA (AI-first) ===== */}
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
             <div
               className="bg-image"
               style={{ backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')", opacity: 0.4 }}
             />
             <div className="grid-layout-slide-2">
-              {/* Título de la diapositiva */}
+              {/* Título */}
               <div className="slide-2-header">
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>MEC&Aacute;NICA DE MULTIPLICACI&Oacute;N</h2>
-                <span className="slide-2-subtitle">COMPARATIVA DE RENDIMIENTO</span>
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                  &iquest;DIF&Iacute;CIL? ESO ERA ANTES.
+                </h2>
+                <span className="slide-2-subtitle">QUESWA CAMBI&Oacute; LAS REGLAS &mdash; SOLO EN CREATUACTIVO</span>
               </div>
 
-              {/* Tracción Híbrida */}
+              {/* Tarjeta 1: TIEMPO LIBERADO */}
               <div className="card-industrial">
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/engranajes.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">ESFUERZO F&Iacute;SICO</span>
+                    <span className="bad">SACAR CITAS &middot; PRESENTAR &middot; VENDER &middot; INVITAR</span>
                     <span className="arrow">&#10148;</span>
-                    <span className="good">SISTEMA DE MULTIPLICACI&Oacute;N</span>
+                    <span className="good">EXPANDIR &middot; ACTIVAR &middot; DESARROLLAR MAESTR&Iacute;A</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">autorenew</span>
-                    IMPACTO EXPONENCIAL
+                    <span className="material-symbols-sharp">timer_off</span>
+                    TIEMPO LIBERADO
                   </h3>
-                  <p>Tu peque&ntilde;o aporte se multiplica x100 mediante engranajes.</p>
+                  <p>Queswa hace el 90% del trabajo pesado. Tu hora diaria se enfoca en lo que produce, no en lo que agota.</p>
                 </div>
               </div>
 
-              {/* Carga Cero */}
+              {/* Tarjeta 2: EL iPHONE DEL NEGOCIO */}
               <div className="card-industrial">
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/estructura-cables.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">RIESGO TOTAL</span>
+                    <span className="bad">&ldquo;&iquest;Y SI NO S&Eacute; QU&Eacute; RESPONDER?&rdquo;</span>
                     <span className="arrow">&#10148;</span>
-                    <span className="good">RESPALDO CORPORATIVO</span>
+                    <span className="good">QUESWA LO SABE TODO &middot; EN TU CELULAR &middot; SIEMPRE</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">engineering</span>
-                    CARGA CERO
+                    <span className="material-symbols-sharp">smartphone</span>
+                    EL iPHONE DEL NEGOCIO
                   </h3>
-                  <p>La log&iacute;stica y legalidad descansan sobre tensores de acero, no sobre tu espalda.</p>
+                  <p>Preguntan por el producto &rarr; Queswa responde. Por el plan &rarr; Queswa responde. Nunca m&aacute;s quedar&aacute;s en blanco.</p>
+                  <button
+                    style={{
+                      marginTop: 10, background: 'transparent',
+                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
+                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
+                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
+                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('toggle-queswa')); }}
+                  >
+                    PREGÚNTALE ALGO EN VIVO ›
+                  </button>
                 </div>
               </div>
 
-              {/* Patrimonio Real */}
+              {/* Tarjeta 3: ESCALA AUTÓNOMA */}
               <div className="card-industrial full-width">
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/riqueza-boveda.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">INGRESO LINEAL</span>
+                    <span className="bad">TU RED SABE QUE TE NECESITA &mdash; T&Uacute; ERES EL CUELLO DE BOTELLA</span>
                     <span className="arrow">&#10148;</span>
-                    <span className="good">ACTIVO HEREDABLE</span>
+                    <span className="good">QUESWA &gt; MAESTR&Iacute;A DUPLICA POR TI</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">lock</span>
-                    PATRIMONIO REAL
+                    <span className="material-symbols-sharp">account_tree</span>
+                    ESCALA AUT&Oacute;NOMA
                   </h3>
-                  <p>No construyes para fin de mes. Construyes un c&oacute;digo transferible a tu familia.</p>
+                  <p>Tus nuevos constructores se desarrollan solos. La red crece sin que t&uacute; seas el l&iacute;mite.</p>
                 </div>
               </div>
             </div>

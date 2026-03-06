@@ -22,23 +22,8 @@ export default function ServilletaPage() {
   const tripleClickCount = React.useRef(0);
   const tripleClickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Cargar fuentes dinámicamente
-  useEffect(() => {
-    const fontLink = document.createElement('link');
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap';
-    fontLink.rel = 'stylesheet';
-    document.head.appendChild(fontLink);
-
-    const iconLink = document.createElement('link');
-    iconLink.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0';
-    iconLink.rel = 'stylesheet';
-    document.head.appendChild(iconLink);
-
-    return () => {
-      document.head.removeChild(fontLink);
-      document.head.removeChild(iconLink);
-    };
-  }, []);
+  // Fuentes: Rajdhani + Roboto Mono ya cargadas via next/font en layout.tsx
+  // Material Symbols Sharp cargado en layout.tsx — no se necesita useEffect aquí
 
   // Navegación por teclado
   useEffect(() => {
@@ -878,7 +863,7 @@ export default function ServilletaPage() {
         <div className="noise-overlay" />
 
         {/* TOP HUD - Desktop */}
-        <nav className="top-hud">
+        <nav className="top-hud" style={queswaOpen ? { display: 'none' } : undefined}>
           <button className="btn-fullscreen btn-fullscreen-mobile" onClick={toggleFullscreen} title="Pantalla completa (F)">
             <span className="material-symbols-sharp">
               {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}

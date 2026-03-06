@@ -171,6 +171,20 @@ const NEXUSFloatingButton: React.FC = () => {
     return () => window.removeEventListener('open-queswa', handleOpenQueswa);
   }, []);
 
+  // Cerrar Queswa al entrar fullscreen en /servilleta
+  useEffect(() => {
+    if (pathname !== '/servilleta') return;
+    const onFsChange = () => {
+      if (document.fullscreenElement) {
+        setIsOpen(false);
+        setDemoActivated(false);
+        window.dispatchEvent(new CustomEvent('close-queswa'));
+      }
+    };
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, [pathname]);
+
   // En servilleta: oculta por defecto en todos los dispositivos — solo activa con triple clic o botón demo
   if (pathname === '/servilleta' && !demoActivated) return null;
 

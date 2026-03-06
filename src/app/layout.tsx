@@ -258,6 +258,8 @@ export default function RootLayout({
         {/* Preconnect fallback (para crawlers que no ejecutan JS) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Material Symbols Sharp — usado en /servilleta y otros */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
         <link rel="dns-prefetch" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
 

@@ -154,11 +154,21 @@ const NEXUSFloatingButton: React.FC = () => {
     };
   }, [hasInteracted, isOpen]);
 
-  // Escuchar evento de demo (triple clic en servilleta)
+  // Escuchar evento de demo (triple clic en servilleta — muestra botón en mobile)
   useEffect(() => {
     const handleDemoToggle = () => setDemoActivated(prev => !prev);
     window.addEventListener('toggle-queswa', handleDemoToggle);
     return () => window.removeEventListener('toggle-queswa', handleDemoToggle);
+  }, []);
+
+  // Abrir chat directamente (botón "PREGÚNTALE ALGO EN VIVO" y triple clic desktop)
+  useEffect(() => {
+    const handleOpenQueswa = () => {
+      setDemoActivated(true);
+      setIsOpen(true);
+    };
+    window.addEventListener('open-queswa', handleOpenQueswa);
+    return () => window.removeEventListener('open-queswa', handleOpenQueswa);
   }, []);
 
   // Detectar desktop (≥1024px) para servilleta: siempre visible en desktop

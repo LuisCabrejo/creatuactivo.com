@@ -85,7 +85,7 @@ export default function ServilletaPage() {
     if (tripleClickCount.current >= 3) {
       tripleClickCount.current = 0;
       if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null; }
-      window.dispatchEvent(new CustomEvent('toggle-queswa'));
+      window.dispatchEvent(new CustomEvent('open-queswa'));
       return;
     }
     tripleClickTimer.current = setTimeout(() => { tripleClickCount.current = 0; }, 600);
@@ -371,8 +371,10 @@ export default function ServilletaPage() {
           gap: 5px;
         }
         .oscillation-text .bad {
-          color: #777;
+          color: #b8b8b8;
           text-decoration: line-through;
+          text-decoration-color: rgba(255,80,80,0.7);
+          text-decoration-thickness: 2px;
           font-size: 0.7rem;
         }
         .oscillation-text .arrow {
@@ -659,15 +661,17 @@ export default function ServilletaPage() {
 
         /* -- SLIDE 2: Constrain grid, center, taller cards -- */
         :fullscreen .grid-layout-slide-2 {
-          padding: 80px 60px 40px;
-          gap: 25px;
+          padding: 70px 60px 30px;
+          gap: 18px;
           grid-template-rows: auto 1fr 1fr;
           max-width: 1200px;
           margin: 0 auto;
+          height: 100%;
+          align-content: stretch;
         }
         :fullscreen .card-industrial {
           height: auto;
-          min-height: 35vh;
+          min-height: 28vh;
         }
         :fullscreen .card-bg {
           background-size: cover;
@@ -675,7 +679,7 @@ export default function ServilletaPage() {
         }
         :fullscreen .full-width {
           height: auto;
-          min-height: 25vh;
+          min-height: 28vh;
         }
 
         /* -- SLIDE 3: Center content vertically, scale up -- */
@@ -817,11 +821,11 @@ export default function ServilletaPage() {
           }
           .card-industrial {
             height: auto;
-            min-height: 35vh;
+            min-height: 28vh;
           }
           .full-width {
             height: auto;
-            min-height: 25vh;
+            min-height: 28vh;
           }
 
           /* -- SLIDE 4 -- */
@@ -1002,7 +1006,7 @@ export default function ServilletaPage() {
                     <span className="material-symbols-sharp">smartphone</span>
                     EL iPHONE DEL NEGOCIO
                   </h3>
-                  <p>Preguntan por el producto &rarr; Queswa responde. Por el plan &rarr; Queswa responde. Nunca m&aacute;s quedar&aacute;s en blanco.</p>
+                  <p>Preguntan por el producto &rarr; Queswa responde. Por el plan &rarr; Queswa responde. Siempre sabr&aacute;s qu&eacute; responder.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1013,7 +1017,7 @@ export default function ServilletaPage() {
                     }}
                     onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
                     onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
-                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('toggle-queswa')); }}
+                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
                   >
                     PREGÚNTALE ALGO EN VIVO ›
                   </button>
@@ -1025,7 +1029,7 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/riqueza-boveda.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">TU RED SABE QUE TE NECESITA &mdash; T&Uacute; ERES EL CUELLO DE BOTELLA</span>
+                    <span className="bad">ESCALAR ERA EL CUELLO DE BOTELLA</span>
                     <span className="arrow">&#10148;</span>
                     <span className="good">QUESWA &gt; MAESTR&Iacute;A DUPLICA POR TI</span>
                   </div>

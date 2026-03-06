@@ -814,6 +814,45 @@ export default function ServilletaPage() {
             font-size: 1.2rem !important;
             padding: 18px 35px !important;
           }
+
+          /* HIDE NAV IN FULLSCREEN (both orientations) */
+          :fullscreen .top-hud { display: none !important; }
+          :fullscreen .mobile-nav { display: none !important; }
+
+          /* SLIDE 3: mobile vertical fullscreen — evitar overflow */
+          :fullscreen #slide-3 { overflow-y: auto !important; }
+          :fullscreen .slide-3-layout {
+            align-items: flex-start !important;
+            overflow-y: auto !important;
+            padding-top: 20px !important;
+          }
+          :fullscreen .slide-3-bottom {
+            flex-direction: column !important;
+            padding: 20px 20px 40px !important;
+            margin-left: 0 !important;
+            max-width: 100% !important;
+            border-radius: 0 !important;
+            gap: 15px !important;
+          }
+          :fullscreen .bio-text-panel { max-width: 100% !important; }
+          :fullscreen .bio-text-panel .deck-h2 { font-size: 2rem !important; }
+          :fullscreen .bio-text-panel .deck-p { font-size: 0.85rem !important; line-height: 1.5 !important; }
+          :fullscreen .bio-metrics-container { max-width: 100% !important; }
+          :fullscreen .bio-metrics-panel { padding: 15px 18px !important; }
+          :fullscreen .metric-value { font-size: 1rem !important; }
+          :fullscreen .metric-label { font-size: 0.65rem !important; }
+          :fullscreen .progress-bar { height: 6px !important; }
+        }
+
+        /* === LANDSCAPE MOBILE FULLSCREEN === */
+        /* Phones in landscape are 844–926px wide — outside max-width:768px, need separate rule */
+        @media (orientation: landscape) and (max-width: 1024px) {
+          :fullscreen .slide {
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+          :fullscreen .top-hud { display: none !important; }
+          :fullscreen .mobile-nav { display: none !important; }
         }
 
         /* === LARGE SCREEN OVERRIDES (same as fullscreen, for manual resize) === */

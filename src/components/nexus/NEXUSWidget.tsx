@@ -93,8 +93,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Hook balanceado: slide effect + scroll accesible
-  const { offset, registerNode, isUserScrolling } = useSlidingViewport(messages, scrollContainerRef);
+  // Hook de scroll suave — sin transform, scroll nativo
+  const { registerNode, isUserScrolling, bottomAnchorRef } = useSlidingViewport(messages, scrollContainerRef);
 
   // Track del último mensaje para aplicar fade-in animation
   const [lastMessageId, setLastMessageId] = useState<string | null>(null);
@@ -305,36 +305,22 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎨 Quiet Luxury CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
+          {/* SCROLL CONTAINER — scroll nativo suave, sin transform */}
           <div
             ref={scrollContainerRef}
             className="flex-grow overflow-y-auto relative"
             style={{
-              // Scrollbar personalizado - dorado sutil
+              scrollBehavior: 'smooth',
               scrollbarWidth: 'thin',
               scrollbarColor: `rgba(56, 189, 248, 0.4) rgba(22, 24, 29, 0.5)`
             }}
           >
-            {/* 🔑 CONTENEDOR CON TRANSFORM + PADDING COMPENSATORIO */}
             <div
               className={`w-full space-y-4 ${
                 isExpanded
                   ? 'p-6'
                   : 'p-4 md:p-4'
               }`}
-              style={{
-                // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
-                transform: `translateY(-${offset}px)`,
-
-                // 🎯 SIN TRANSICIÓN: Ascenso instantáneo como rayo de luz (como Claude.ai)
-                transition: 'none',
-
-                // 🔑 HARDWARE ACCELERATION: Fuerza GPU rendering para eliminar parpadeos
-                willChange: 'transform',
-
-                // 🔑 PADDING COMPENSATORIO: Hace que el contenido transformado sea accesible por scroll
-                paddingTop: `${offset + 20}px`
-              }}
             >
 
               {/* 🎨 Quiet Luxury MENSAJE DE BIENVENIDA */}
@@ -400,11 +386,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     ref={registerNode(message.id)}
                     className={`flex message-item ${message.role === 'user' ? 'justify-end' : ''}`}
                     style={{
-                      animation: isLastUserMessage
-                        ? 'claudeFadeIn 400ms ease-out 150ms both' // 🎯 Fade-in como Claude.ai con delay
-                        : messageAppearing === message.role
-                        ? 'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
-                        : 'fadeInUp 300ms ease-out'
+                      animation: 'msgIn 280ms cubic-bezier(0.22, 1, 0.36, 1) both'
                     }}
                   >
                     <div
@@ -534,8 +516,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {/* ESPACIADOR FINAL */}
-              <div className="h-8" />
+              {/* ANCHOR: scroll target para scrollIntoView */}
+              <div ref={bottomAnchorRef} className="h-4" />
 
             </div>
           </div>
@@ -634,56 +616,22 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
       {/* CSS ANIMATIONS */}
       <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        /* Entrada de mensajes: fade + slide suave con spring easing */
+        @keyframes msgIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* Apertura del widget */
         @keyframes slideInFromBottom {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(20px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes messageSlideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
+        /* Indicador de typing */
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        /* 🎯 ANIMACIÓN CLAUDE.AI: Fade-in suave para ocultar ascenso */
-        @keyframes claudeFadeIn {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
 
         /* 🎨 Quiet Luxury SCROLLBAR */

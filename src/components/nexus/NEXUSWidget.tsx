@@ -127,7 +127,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
   const containerClasses = isExpanded
     ? "w-full max-w-4xl h-[95vh]"
-    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98vh] md:h-[85vh] lg:h-[80vh]";
+    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98dvh] md:h-[85vh] lg:h-[80vh]";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
@@ -400,11 +400,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                     ref={registerNode(message.id)}
                     className={`flex message-item ${message.role === 'user' ? 'justify-end' : ''}`}
                     style={{
-                      animation: isLastUserMessage
-                        ? 'claudeFadeIn 400ms ease-out 150ms both' // 🎯 Fade-in como Claude.ai con delay
-                        : messageAppearing === message.role
-                        ? 'messageSlideIn 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
-                        : 'fadeInUp 300ms ease-out'
+                      animation: 'msgIn 260ms cubic-bezier(0.22, 1, 0.36, 1) both'
                     }}
                   >
                     <div
@@ -634,49 +630,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
       {/* CSS ANIMATIONS */}
       <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        /* Entrada de mensajes — spring easing, igual que iOS/ChatGPT/Gemini */
+        @keyframes msgIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* Apertura del widget */
         @keyframes slideInFromBottom {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(20px) scale(0.95); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes messageSlideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
+        /* Typing indicator */
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
 
-        /* 🎯 ANIMACIÓN CLAUDE.AI: Fade-in suave para ocultar ascenso */
+        /* Legado — mantenido por compatibilidad */
         @keyframes claudeFadeIn {
           0% {
             opacity: 0;

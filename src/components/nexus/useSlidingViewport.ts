@@ -146,16 +146,19 @@ export const useSlidingViewport = (
       requestAnimationFrame(() => {
         const newOffset = calculateOffset();
 
-        // Actualizar estado - ascenso instantáneo
+        // Paso 1: actualizar estado → React re-renderiza con nuevo transform
         setOffset(newOffset);
         setIsUserScrolling(false);
 
-        // Scroll aplicado inmediatamente después del offset
-        const scrollContainer = scrollContainerRef.current;
-        if (scrollContainer) {
-          programmaticScrollRef.current = true;
-          scrollContainer.scrollTop = newOffset;
-        }
+        // Paso 2: segundo RAF — espera a que React pinte el nuevo transform
+        // antes de mover scrollTop. Elimina el brinco por race condition.
+        requestAnimationFrame(() => {
+          const scrollContainer = scrollContainerRef.current;
+          if (scrollContainer) {
+            programmaticScrollRef.current = true;
+            scrollContainer.scrollTop = newOffset;
+          }
+        });
       });
     }
 

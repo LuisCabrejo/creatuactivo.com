@@ -1021,7 +1021,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}
               <div className="card-industrial">
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/estructura-cables.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">&ldquo;&iquest;Y SI NO S&Eacute; QU&Eacute; RESPONDER?&rdquo;</span>
@@ -1052,7 +1052,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 2 (derecha): TIEMPO LIBERADO */}
               <div className="card-industrial">
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/engranajes.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">SACAR CITAS &middot; PRESENTAR &middot; VENDER &middot; INVITAR</span>
@@ -1069,7 +1069,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3: ESCALA AUTÓNOMA */}
               <div className="card-industrial full-width">
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/riqueza-boveda.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">ESCALAR ERA EL CUELLO DE BOTELLA</span>

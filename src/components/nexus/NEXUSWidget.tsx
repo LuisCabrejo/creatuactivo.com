@@ -108,20 +108,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     }
   }, [messages]);
 
-  // Visual Viewport: mantiene el widget visible cuando el teclado mobile está abierto.
-  // En páginas con body overflow:hidden (ej. /servilleta), el browser no puede scrollar
-  // para subir el input — necesitamos ajustar la posición del overlay manualmente.
-  const [visualVh, setVisualVh] = useState<number>(() =>
-    typeof window !== 'undefined' ? (window.visualViewport?.height ?? window.innerHeight) : 600
-  );
-  useEffect(() => {
-    const vp = window.visualViewport;
-    if (!vp) return;
-    const update = () => setVisualVh(vp.height);
-    vp.addEventListener('resize', update);
-    return () => vp.removeEventListener('resize', update);
-  }, []);
-
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
       setInputMessage('');
@@ -144,18 +130,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98vh] md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div
-      className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center p-2 md:p-4 bg-black/20 backdrop-blur-sm"
-      style={{
-        top: typeof window !== 'undefined' ? `${window.innerHeight - visualVh}px` : 0,
-        paddingTop: '8px'
-      }}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
       <div
         className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
         style={{
-          animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)',
-          maxHeight: `${visualVh - 16}px`
+          animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
         }}
       >
         <div
@@ -569,9 +548,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
                 type="text"
-                autoComplete="off"
-                autoCorrect="off"
-                spellCheck={false}
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="_ Escribe tu consulta..."

@@ -129,14 +129,25 @@ export default function ServilletaPage() {
   }, []);
 
   // Ocultar nav mobile cuando Queswa está abierto
+  // También libera body overflow para que el teclado virtual no tape el input
   useEffect(() => {
-    const open = () => setQueswaOpen(true);
-    const close = () => setQueswaOpen(false);
+    const open = () => {
+      setQueswaOpen(true);
+      document.body.style.overflow = 'auto';
+      document.body.style.height = 'auto';
+    };
+    const close = () => {
+      setQueswaOpen(false);
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+    };
     window.addEventListener('open-queswa', open);
     window.addEventListener('close-queswa', close);
     return () => {
       window.removeEventListener('open-queswa', open);
       window.removeEventListener('close-queswa', close);
+      document.body.style.overflow = '';
+      document.body.style.height = '';
     };
   }, []);
 

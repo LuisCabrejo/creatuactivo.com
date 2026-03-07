@@ -9,10 +9,10 @@
  */
 
 // src/components/nexus/useSlidingViewport.ts
-// v2.0: Scroll suave nativo — elimina sistema transform/offset que causaba saltos
+// SOLUCIÓN SIMPLIFICADA: Prioriza auto-scroll para nuevos mensajes
 'use client';
 
-import { useState, useRef, RefObject, useCallback, useEffect } from 'react';
+import { useState, useLayoutEffect, useRef, RefObject, useCallback, useEffect } from 'react';
 
 interface Message {
   id: string;
@@ -22,6 +22,10 @@ interface Message {
   isStreaming?: boolean;
 }
 
+/**
+ * Hook simplificado que prioriza el auto-scroll a nuevos mensajes.
+ * Mantiene el transform para el efecto slide pero asegura que nuevos mensajes sean siempre visibles.
+ */
 export const useSlidingViewport = (
   messages: Message[],
   scrollContainerRef: RefObject<HTMLDivElement>
@@ -31,74 +35,177 @@ export const useSlidingViewport = (
   isUserScrolling: boolean;
   scrollToLatest: () => void;
   messageCount: number;
-  bottomAnchorRef: RefObject<HTMLDivElement>;
 } => {
+  const [offset, setOffset] = useState(0);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
-  const bottomAnchorRef = useRef<HTMLDivElement>(null);
-  const lastMessageCountRef = useRef(0);
-  const userScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const programmaticRef = useRef(false);
 
-  // Detectar si el usuario se alejó del fondo
+  // Map para mantener referencias a los nodos DOM
+  const messageNodesRef = useRef<Map<string, HTMLElement>>(new Map());
+
+  // Referencias para control de scroll
+  const lastMessageCountRef = useRef(0);
+  const programmaticScrollRef = useRef(false);
+  const manualScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Función para calcular offset (simplificada)
+  const calculateOffset = useCallback(() => {
+    if (messages.length <= 2) {
+      return 0;
+    }
+
+    // Solo calcular altura de mensajes que no sean los últimos 2
+    const messagesToHide = messages.slice(0, -2);
+    let totalHeight = 0;
+
+    messagesToHide.forEach(msg => {
+      const node = messageNodesRef.current.get(msg.id);
+      if (node) {
+        totalHeight += node.offsetHeight + 16; // 16px de margen
+      }
+    });
+
+    return totalHeight;
+  }, [messages]);
+
+  // Función para scroll a la conversación actual
+  const scrollToLatest = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    programmaticScrollRef.current = true;
+
+    // Scroll a la posición que compensa el transform
+    const targetPosition = offset;
+
+    container.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+
+    console.log(`🎯 SCROLL A CONVERSACIÓN ACTUAL: ${targetPosition}px`);
+
+    // Resetear estado de scroll manual después de auto-scroll
+    setIsUserScrolling(false);
+  }, [offset]);
+
+  // Detectar scroll manual (SIMPLIFICADO)
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const onScroll = () => {
-      if (programmaticRef.current) {
-        programmaticRef.current = false;
+    const handleScroll = () => {
+      if (programmaticScrollRef.current) {
+        programmaticScrollRef.current = false;
         return;
       }
-      const distFromBottom =
-        container.scrollHeight - container.scrollTop - container.clientHeight;
 
-      if (distFromBottom > 80) {
+      // Solo considerar como "scroll manual" si se aleja significativamente de la posición esperada
+      const currentPosition = container.scrollTop;
+      const expectedPosition = offset;
+      const difference = Math.abs(currentPosition - expectedPosition);
+
+      // UMBRAL MÁS ALTO para ser menos sensible
+      if (difference > 100) {
+        console.log(`📜 SCROLL MANUAL DETECTADO: diff=${difference}px`);
         setIsUserScrolling(true);
-        if (userScrollTimeoutRef.current) clearTimeout(userScrollTimeoutRef.current);
-        userScrollTimeoutRef.current = setTimeout(
-          () => setIsUserScrolling(false),
-          2500
-        );
-      } else {
-        setIsUserScrolling(false);
+
+        // Clear timeout anterior
+        if (manualScrollTimeoutRef.current) {
+          clearTimeout(manualScrollTimeoutRef.current);
+        }
+
+        // Timeout corto - queremos volver rápido al auto-scroll
+        manualScrollTimeoutRef.current = setTimeout(() => {
+          console.log('⏰ TIMEOUT - Reactivando auto-scroll');
+          setIsUserScrolling(false);
+        }, 1500); // Solo 1.5 segundos
       }
     };
 
-    container.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      container.removeEventListener('scroll', onScroll);
-      if (userScrollTimeoutRef.current) clearTimeout(userScrollTimeoutRef.current);
-    };
-  }, [scrollContainerRef]);
+    container.addEventListener('scroll', handleScroll, { passive: true });
 
-  // Scroll suave al fondo — para nuevo mensaje
-  const scrollToLatest = useCallback(() => {
-    programmaticRef.current = true;
-    bottomAnchorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      if (manualScrollTimeoutRef.current) {
+        clearTimeout(manualScrollTimeoutRef.current);
+      }
+    };
+  }, [offset]);
+
+  // PRIORIDAD: Auto-scroll para nuevos mensajes
+  // useLayoutEffect ejecuta DESPUÉS de que registerNode haya capturado los nodos
+  // pero ANTES del primer paint
+  useLayoutEffect(() => {
+    // Si hay nuevos mensajes, SIEMPRE hacer auto-scroll
+    if (messages.length > lastMessageCountRef.current) {
+      console.log(`📬 NUEVO MENSAJE: ${messages.length} (anterior: ${lastMessageCountRef.current})`);
+
+      // ⚡ FIX CRÍTICO: requestAnimationFrame NECESARIO para que los nodos se registren
+      // El problema era que calculateOffset() se ejecutaba ANTES de que registerNode capturara los nodos
+      // RAF retrasa la ejecución hasta el siguiente frame, cuando los nodos ya están en el Map
+      requestAnimationFrame(() => {
+        const newOffset = calculateOffset();
+
+        // Actualizar estado - ascenso instantáneo
+        setOffset(newOffset);
+        setIsUserScrolling(false);
+
+        // Scroll aplicado inmediatamente después del offset
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+          programmaticScrollRef.current = true;
+          scrollContainer.scrollTop = newOffset;
+        }
+      });
+    }
+
+    lastMessageCountRef.current = messages.length;
+  }, [messages.length, calculateOffset]);
+
+  // Actualizar offset cuando cambia el contenido (streaming)
+  useLayoutEffect(() => {
+    if (messages.length > 0 && !isUserScrolling) {
+      const newOffset = calculateOffset();
+      if (Math.abs(newOffset - offset) > 10) {
+        // Actualizar estado - ascenso instantáneo
+        setOffset(newOffset);
+
+        // ✅ SCROLL SÍNCRONO: Aplicado directamente, sin requestAnimationFrame
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+          programmaticScrollRef.current = true;
+          scrollContainer.scrollTop = newOffset;
+        }
+      }
+    }
+  }, [messages, calculateOffset, offset, isUserScrolling]);
+
+  // Función para registrar nodos DOM
+  const registerNode = useCallback((messageId: string) => (node: HTMLElement | null) => {
+    const map = messageNodesRef.current;
+
+    if (node) {
+      node.dataset.messageId = messageId;
+      map.set(messageId, node);
+    } else {
+      map.delete(messageId);
+    }
   }, []);
 
-  // Nuevo mensaje: scroll suave
+  // Cleanup
   useEffect(() => {
-    if (messages.length > lastMessageCountRef.current) {
-      setIsUserScrolling(false);
-      requestAnimationFrame(scrollToLatest);
-    }
-    lastMessageCountRef.current = messages.length;
-  }, [messages.length, scrollToLatest]);
-
-  // Streaming: mantener pegado al fondo (instantáneo para no rezagarse)
-  useEffect(() => {
-    if (isUserScrolling) return;
-    programmaticRef.current = true;
-    bottomAnchorRef.current?.scrollIntoView({ behavior: 'instant', block: 'end' });
-  }, [messages, isUserScrolling]);
+    return () => {
+      if (manualScrollTimeoutRef.current) {
+        clearTimeout(manualScrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return {
-    offset: 0,                    // Sin transform — mantenido por compatibilidad de API
-    registerNode: () => () => {}, // No-op — mantenido por compatibilidad de API
+    offset,
+    registerNode,
     isUserScrolling,
     scrollToLatest,
-    messageCount: messages.length,
-    bottomAnchorRef,
+    messageCount: messages.length // Exportar para detectar nuevos mensajes en el componente
   };
 };

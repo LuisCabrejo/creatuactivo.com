@@ -4,9 +4,10 @@
  * Usa Voyage AI para generar embeddings de alta calidad.
  * Los embeddings de documentos se almacenan en Supabase (pgvector).
  *
- * Fecha: 25 Nov 2025
+ * Fecha: 25 Nov 2025 (actualizado 2026-03-09)
  * Modelo: voyage-3-lite (512 dimensiones)
- * Precisión: 90% con embeddings Voyage AI
+ * Columna DB: embedding_512 vector(512) — ver scripts/migration-voyage-vector-512.sql
+ * Precisión: 90% con embeddings Voyage AI + pgvector cosine similarity
  */
 
 // Keywords que indican objeciones (para enriquecer queries cortas)
@@ -93,6 +94,66 @@ export interface VectorSearchResult {
   content: string;
   similarity: number;
   metadata?: Record<string, unknown>;
+}
+
+// ============================================================================
+// BÚSQUEDA VECTORIAL VÍA SUPABASE RPC (match_documents)
+// Más eficiente que in-memory — pgvector hace la similitud coseno en DB
+// Requiere: columna embedding_512 vector(512) en nexus_documents
+// Sincronizado desde Dashboard 2026-03-09
+// ============================================================================
+
+export interface MatchDocumentsOptions {
+  matchThreshold?: number;
+  matchCount?: number;
+  filterCategory?: string;
+}
+
+/**
+ * Búsqueda vectorial nativa en Supabase usando pgvector + match_documents RPC.
+ * Más eficiente que traer todos los documentos y comparar en memoria.
+ */
+export async function matchDocumentsRPC(
+  queryEmbedding: number[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabaseClient: any,
+  options: MatchDocumentsOptions = {}
+): Promise<VectorSearchResult[]> {
+  const { matchThreshold = 0.3, matchCount = 5, filterCategory = null } = options;
+
+  const { data, error } = await supabaseClient.rpc('match_documents', {
+    query_embedding: queryEmbedding,
+    match_threshold: matchThreshold,
+    match_count: matchCount,
+    filter_category: filterCategory,
+  });
+
+  if (error) {
+    throw new Error(`match_documents RPC error: ${error.message}`);
+  }
+
+  return (data ?? []).map((row: { category: string; title: string; content: string; similarity: number; metadata?: Record<string, unknown> }) => ({
+    category: row.category,
+    title: row.title,
+    content: row.content,
+    similarity: row.similarity,
+    metadata: row.metadata,
+  }));
+}
+
+/**
+ * Pipeline completo: Voyage AI embedding → pgvector match_documents RPC
+ * Un solo call: genera embedding + busca en DB en 2 pasos, sin traer todos los docs.
+ */
+export async function voyageMatchDocuments(
+  query: string,
+  voyageApiKey: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabaseClient: any,
+  options: MatchDocumentsOptions = {}
+): Promise<VectorSearchResult[]> {
+  const embedding = await generateVoyageEmbedding(query, voyageApiKey, 'query');
+  return matchDocumentsRPC(embedding, supabaseClient, options);
 }
 
 export interface DocumentWithEmbedding {
@@ -251,11 +312,9 @@ export async function vectorSearch(
   options: VectorSearchOptions = {}
 ): Promise<VectorSearchResult[]> {
   const { threshold = 0.3, maxResults = 3, debug = false } = options;
-  let useVoyage = false;
 
   try {
     if (voyageApiKey) {
-      useVoyage = true;
       const results = await vectorSearchVoyage(query, documents, voyageApiKey, threshold, maxResults);
 
       if (debug) {

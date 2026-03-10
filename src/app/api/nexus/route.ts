@@ -791,21 +791,21 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
   try {
     const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
-      .select('category, title, content, embedding, metadata')
+      .select('category, title, content, embedding_512, metadata')
       .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion', 'arsenal_reto'])
-      .not('embedding', 'is', null);
+      .not('embedding_512', 'is', null);
 
     if (error) {
       console.error('[VectorSearch] Error loading documents:', error);
       return [];
     }
 
-    const rawDocs = data as Array<{ category: string; title: string; content: string; embedding: number[]; metadata: Record<string, unknown> }> | null;
-    const docs = (rawDocs || []).map(doc => ({
+    const rawDocs = data as Array<{ category: string; title: string; content: string; embedding_512: string; metadata: Record<string, unknown> }> | null;
+    const docs: DocumentWithEmbedding[] = (rawDocs || []).map(doc => ({
       category: doc.category,
       title: doc.title,
       content: doc.content,
-      embedding: doc.embedding,
+      embedding: String(doc.embedding_512),
       metadata: doc.metadata
     }));
 
@@ -843,9 +843,9 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
   try {
     const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
-      .select('category, title, content, embedding, metadata')
+      .select('category, title, content, embedding_512, metadata')
       .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, etc.
-      .not('embedding', 'is', null);
+      .not('embedding_512', 'is', null);
 
     if (error) {
       console.error('[Fragments] Error loading fragments:', error);
@@ -856,12 +856,12 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
       category: string;
       title: string;
       content: string;
-      embedding: number[] | string;
+      embedding_512: string;
       metadata: Record<string, unknown>;
     }> | null;
 
     // Filtrar solo fragmentos (tienen metadata.is_fragment = true)
-    const fragments = (rawDocs || [])
+    const fragments: DocumentWithEmbedding[] = (rawDocs || [])
       .filter(doc => {
         const meta = doc.metadata as { is_fragment?: boolean };
         return meta?.is_fragment === true;
@@ -870,8 +870,7 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
         category: doc.category,
         title: doc.title,
         content: doc.content,
-        // ✅ FIX: pgvector devuelve string, convertir a string si es array
-        embedding: typeof doc.embedding === 'string' ? doc.embedding : `[${doc.embedding.join(',')}]`,
+        embedding: String(doc.embedding_512),
         metadata: doc.metadata
       }));
 

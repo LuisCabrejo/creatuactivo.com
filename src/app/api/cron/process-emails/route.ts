@@ -128,9 +128,10 @@ export async function GET(request: NextRequest) {
         .replace('{{firstName}}', firstName);
 
       try {
+        const trackingUrl = `https://creatuactivo.com/api/email-open?e=${Buffer.from(lead.email.toLowerCase()).toString('base64')}&id=${nextEmail.id}`
         // Renderizar email a HTML (igual que reto-12-niveles)
         const emailHtml = await render(
-          Component({ firstName, freedomDays: lead.freedom_days || 0 })
+          Component({ firstName, freedomDays: lead.freedom_days || 0, trackingUrl })
         );
 
         const { data: emailResult, error: emailError } = await getResendClient().emails.send({

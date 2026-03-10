@@ -12,6 +12,7 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -20,9 +21,10 @@ import {
 
 interface Dia5Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
-export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
+export const Dia5Invitacion = ({ firstName = 'Hola', trackingUrl }: Dia5Props) => {
   const previewText = `Tu turno de cumplir promesas`;
 
   return (
@@ -143,6 +145,9 @@ export const Dia5Invitacion = ({ firstName = 'Hola' }: Dia5Props) => {
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

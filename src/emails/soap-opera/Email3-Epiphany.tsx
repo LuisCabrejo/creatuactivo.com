@@ -20,10 +20,12 @@ import {
 
 interface Email3Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
 export const Email3Epiphany = ({
   firstName = 'Hola',
+  trackingUrl,
 }: Email3Props) => {
   const previewText = `${firstName}, la pregunta que cambió todo`;
 
@@ -129,6 +131,9 @@ export const Email3Epiphany = ({
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

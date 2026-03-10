@@ -20,10 +20,12 @@ import {
 
 interface Email2Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
 export const Email2Wall = ({
   firstName = 'Hola',
+  trackingUrl,
 }: Email2Props) => {
   const previewText = `${firstName}, el techo que nadie te muestra`;
 
@@ -119,6 +121,9 @@ export const Email2Wall = ({
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

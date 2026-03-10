@@ -18,6 +18,20 @@ const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886';
 
+const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
+
+// Eventos que son solo tracking de página (no requieren email)
+const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo']
+
+// Notifica al constructor en el dashboard (fire-and-forget)
+async function notifyConstructor(constructorId: string, title: string, body: string, url = '/inteligencia/primer-iniciar') {
+  fetch(`${DASHBOARD_URL}/api/push/send`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ constructorId, type: 'new_prospect', title, body, url }),
+  }).catch(() => { /* silencioso */ })
+}
+
 // Lazy initialization de Resend client
 let resendClient: Resend | null = null;
 function getResendClient(): Resend {
@@ -64,21 +78,59 @@ function getSupabaseClient() {
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
+    const isPageViewEvent = PAGE_VIEW_STEPS.includes(data.step)
 
-    // Validaciones básicas
-    if (!data.email) {
-      return NextResponse.json(
-        { error: 'Email es requerido' },
-        { status: 400 }
-      );
+    // Los eventos de tracking de página solo necesitan fingerprint, no email
+    if (!isPageViewEvent) {
+      if (!data.email) {
+        return NextResponse.json(
+          { error: 'Email es requerido' },
+          { status: 400 }
+        );
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.email)) {
+        return NextResponse.json(
+          { error: 'Formato de email inválido' },
+          { status: 400 }
+        );
+      }
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-      return NextResponse.json(
-        { error: 'Formato de email inválido' },
-        { status: 400 }
-      );
+    // ── Notificaciones push al constructor ───────────────────────────────────
+    const constructorRef: string | null = data.constructor_ref || null
+
+    if (data.step === 'mapa_registered' && constructorRef) {
+      const nombre = data.name?.split(' ')[0] || 'Un prospecto'
+      notifyConstructor(
+        constructorRef,
+        `🎯 ¡Nuevo prospecto en tu mapa!`,
+        `${nombre} acaba de registrarse en El Mapa de Salida.`
+      )
+    }
+
+    if (data.step === 'vio_pagina_gracias' && constructorRef) {
+      notifyConstructor(
+        constructorRef,
+        `👀 ¡Tu prospecto está en la página de confirmación!`,
+        `Alguien llegó a tu página de gracias del Mapa de Salida. Momento de contactar.`
+      )
+    }
+
+    if (data.step === 'vio_catalogo' && constructorRef) {
+      notifyConstructor(
+        constructorRef,
+        `🛍️ ¡Un prospecto está viendo tu catálogo!`,
+        `Alguien está revisando los productos de Gano Excel en tu enlace.`
+      )
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // Si es solo evento de página (sin email), registrar y salir
+    if (isPageViewEvent) {
+      console.log('📍 [FUNNEL] Page view:', data.step, '| fingerprint:', data.fingerprint, '| ref:', constructorRef)
+      return NextResponse.json({ success: true, message: 'Evento de página registrado' })
     }
 
     console.log('🎯 [FUNNEL] Lead:', data.email, '| step:', data.step);
@@ -417,8 +469,9 @@ async function sendFirstEmail(
   const firstName = name?.split(' ')[0] || 'Hola';
 
   try {
+    const trackingUrl = `https://creatuactivo.com/api/email-open?e=${Buffer.from(email.toLowerCase()).toString('base64')}&id=1`
     const emailHtml = await render(
-      Email1Backstory({ firstName, freedomDays: freedomDays || 0 })
+      Email1Backstory({ firstName, freedomDays: freedomDays || 0, trackingUrl })
     );
 
     const { data, error } = await getResendClient().emails.send({

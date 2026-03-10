@@ -11,6 +11,7 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -19,9 +20,10 @@ import {
 
 interface Dia2Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
-export const Dia2Vehiculos = ({ firstName = 'Hola' }: Dia2Props) => {
+export const Dia2Vehiculos = ({ firstName = 'Hola', trackingUrl }: Dia2Props) => {
   const previewText = `Día 2: ${firstName}, por qué tu plan no funciona`;
 
   return (
@@ -134,6 +136,9 @@ export const Dia2Vehiculos = ({ firstName = 'Hola' }: Dia2Props) => {
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

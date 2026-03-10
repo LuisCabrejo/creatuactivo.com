@@ -48,6 +48,7 @@ export default function MapaDeSalidaPage() {
           whatsapp: formData.whatsapp,
           source: 'mapa-de-salida',
           step: 'mapa_registered',
+          constructor_ref: localStorage.getItem('constructor_ref') || undefined,
         }),
       });
 

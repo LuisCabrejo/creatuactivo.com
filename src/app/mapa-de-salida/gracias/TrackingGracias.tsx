@@ -21,6 +21,7 @@ export default function TrackingGracias() {
           source: 'mapa-de-salida-gracias',
           step: 'vio_pagina_gracias',
           fingerprint,
+          constructor_ref: localStorage.getItem('constructor_ref') || null,
         }),
       }).catch(() => {/* silencioso — no bloqueante */})
     }

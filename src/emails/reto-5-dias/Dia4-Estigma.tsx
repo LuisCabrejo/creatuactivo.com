@@ -11,6 +11,7 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -19,9 +20,10 @@ import {
 
 interface Dia4Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
-export const Dia4Estigma = ({ firstName = 'Hola' }: Dia4Props) => {
+export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
   const previewText = `Gané dinero, pero perdí mi vida (La verdad del E-commerce)`;
 
   return (
@@ -162,6 +164,9 @@ export const Dia4Estigma = ({ firstName = 'Hola' }: Dia4Props) => {
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

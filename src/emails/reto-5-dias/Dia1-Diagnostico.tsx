@@ -16,6 +16,7 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -24,9 +25,10 @@ import {
 
 interface Dia1Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
-export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
+export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) => {
   const previewText = `Sobre el número que acabas de ver... (El Diagnóstico)`;
 
   return (
@@ -161,6 +163,9 @@ export const Dia1Diagnostico = ({ firstName = 'Hola' }: Dia1Props) => {
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

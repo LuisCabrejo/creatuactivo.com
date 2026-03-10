@@ -11,6 +11,7 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -19,9 +20,10 @@ import {
 
 interface Dia3Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
-export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
+export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
   const previewText = `Las 3 promesas que le hice a mi esposa (y las 2 que rompí)`;
 
   return (
@@ -156,6 +158,9 @@ export const Dia3Modelo = ({ firstName = 'Hola' }: Dia3Props) => {
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

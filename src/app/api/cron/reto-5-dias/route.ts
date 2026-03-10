@@ -159,7 +159,9 @@ export async function GET(request: NextRequest) {
       }
 
       try {
-        const emailHtml = await render(Component({ firstName }));
+        // id 11-15 para distinguir la secuencia reto vs soap-opera (id 1-5)
+        const trackingUrl = `https://creatuactivo.com/api/email-open?e=${Buffer.from(lead.email.toLowerCase()).toString('base64')}&id=${10 + nextDay}`
+        const emailHtml = await render(Component({ firstName, trackingUrl }));
 
         const { error: emailError } = await getResendClient().emails.send({
           from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',

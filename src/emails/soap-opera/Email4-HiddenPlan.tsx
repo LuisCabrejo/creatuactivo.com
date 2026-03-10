@@ -20,10 +20,12 @@ import {
 
 interface Email4Props {
   firstName?: string;
+  trackingUrl?: string;
 }
 
 export const Email4HiddenPlan = ({
   firstName = 'Hola',
+  trackingUrl,
 }: Email4Props) => {
   const previewText = `${firstName}, por qué tardé 2.5 años (y tú no tienes que)`;
 
@@ -132,6 +134,9 @@ export const Email4HiddenPlan = ({
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

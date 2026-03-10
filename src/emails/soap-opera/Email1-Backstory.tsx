@@ -21,11 +21,13 @@ import {
 interface Email1Props {
   firstName?: string;
   freedomDays?: number;
+  trackingUrl?: string;
 }
 
 export const Email1Backstory = ({
   firstName = 'Hola',
   freedomDays = 0,
+  trackingUrl,
 }: Email1Props) => {
   const previewText = `${firstName}, tu resultado + una confesión`;
 
@@ -132,6 +134,9 @@ export const Email1Backstory = ({
             </Text>
           </Section>
         </Container>
+        {trackingUrl && (
+          <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
+        )}
       </Body>
     </Html>
   );

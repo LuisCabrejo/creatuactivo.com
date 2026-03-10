@@ -664,6 +664,22 @@ export default function CatalogoEstrategico() {
     const constructorRef = localStorage.getItem('constructor_ref')
     console.log('🎯 [Productos] Constructor ref desde localStorage:', constructorRef)
 
+    // Tracking: prospecto vio el catálogo de productos
+    const fingerprint =
+      (window as any).FrameworkIAA?.fingerprint ||
+      localStorage.getItem('iaa_fingerprint') ||
+      null
+    fetch('/api/funnel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: 'catalogo-productos',
+        step: 'vio_catalogo',
+        fingerprint,
+        constructor_ref: constructorRef,
+      }),
+    }).catch(() => {/* silencioso — no bloqueante */})
+
     buscarDistribuidor(constructorRef).then(profile => {
       setDistributor(profile || {
         nombre: 'Liliana Moreno',

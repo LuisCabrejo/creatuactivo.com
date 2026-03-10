@@ -5,6 +5,7 @@
  */
 
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import TrackingGracias from './TrackingGracias';
 
 export const metadata = {
   title: 'Acceso Confirmado | El Mapa de Salida - CreaTuActivo',
@@ -26,6 +27,7 @@ const C = {
 export default function MapaGraciasPage() {
   return (
     <>
+      <TrackingGracias />
       <style dangerouslySetInnerHTML={{__html: `
         .whatsapp-cta-btn {
           display: inline-flex;

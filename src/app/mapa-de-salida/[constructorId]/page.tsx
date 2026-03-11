@@ -8,15 +8,9 @@
  */
 
 import MapaDeSalidaPage from '../page'
-import { ConstructorRefSetter } from './_setter'
 
-export default function MapaDeSalidaWithConstructorPage({ params }: { params: { constructorId: string } }) {
-  return (
-    <>
-      <ConstructorRefSetter constructorId={params.constructorId} />
-      <MapaDeSalidaPage />
-    </>
-  )
+export default function MapaDeSalidaWithConstructorPage() {
+  return <MapaDeSalidaPage />
 }
 
 export async function generateMetadata({ params }: { params: { constructorId: string } }) {

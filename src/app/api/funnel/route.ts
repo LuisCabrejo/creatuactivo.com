@@ -12,6 +12,7 @@ import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
 import { Reto5DiasConfirmationEmail } from '@/emails/Reto5DiasConfirmation';
+import { MapaDeSalidaConfirmationEmail } from '@/emails/MapaDeSalidaConfirmation';
 
 // Twilio configuration
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
@@ -21,7 +22,7 @@ const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+1415
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
 
 // Eventos que son solo tracking de página (no requieren email)
-const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo']
+const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo', 'vio_calculadora']
 
 // Notifica al constructor en el dashboard (fire-and-forget)
 async function notifyConstructor(constructorId: string, title: string, body: string, url = '/inteligencia/primer-iniciar') {
@@ -125,6 +126,23 @@ export async function POST(request: NextRequest) {
         `Alguien está revisando los productos de Gano Excel en tu enlace.`
       )
     }
+
+    if (data.step === 'vio_calculadora' && constructorRef) {
+      notifyConstructor(
+        constructorRef,
+        `🧮 ¡Tu prospecto está calculando su libertad!`,
+        `Alguien referido por ti está usando la Calculadora de Días de Libertad.`
+      )
+    }
+
+    if (data.step === 'calculator_completed' && constructorRef) {
+      const nombre = data.name?.split(' ')[0] || 'Un prospecto'
+      notifyConstructor(
+        constructorRef,
+        `✅ ¡${nombre} completó la Calculadora!`,
+        `${nombre} acaba de ver su número de Días de Libertad y entró al embudo.`
+      )
+    }
     // ─────────────────────────────────────────────────────────────────────────
 
     // Si es solo evento de página (sin email), registrar y salir
@@ -166,6 +184,10 @@ export async function POST(request: NextRequest) {
       prospectData.interest_level = 8;
       prospectData.reto_registered = true;
       prospectData.reto_registered_at = new Date().toISOString();
+    } else if (data.step === 'mapa_registered') {
+      prospectData.interest_level = 8;
+      prospectData.mapa_registered = true;
+      prospectData.mapa_registered_at = new Date().toISOString();
     } else if (data.step === 'calculator_completed') {
       prospectData.interest_level = 6;
       prospectData.calculator_completed = true;
@@ -174,13 +196,28 @@ export async function POST(request: NextRequest) {
       prospectData.interest_level = 4;
     }
 
+    // Resolver el UUID del constructor a partir del constructorRef (slug)
+    let constructorUUID: string | null = null
+    if (constructorRef) {
+      const { data: userData } = await getSupabaseClient()
+        .from('private_users')
+        .select('id')
+        .eq('constructor_id', constructorRef)
+        .maybeSingle()
+      constructorUUID = (userData as any)?.id || null
+      if (constructorUUID) {
+        console.log('✅ [FUNNEL] Constructor UUID resuelto:', constructorUUID, 'para ref:', constructorRef)
+      } else {
+        console.warn('⚠️ [FUNNEL] No se encontró UUID para constructorRef:', constructorRef)
+      }
+    }
 
     // Llamar al RPC update_prospect_data
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: rpcResult, error: rpcError } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
       p_fingerprint_id: fingerprint,
       p_data: prospectData,
-      p_constructor_id: null // Sin constructor específico para el funnel general
+      p_constructor_id: constructorUUID
     });
 
     if (rpcError) {
@@ -259,6 +296,15 @@ export async function POST(request: NextRequest) {
         await sendRetoWelcomeEmail(data.email, data.name, data.whatsapp || null);
       } catch (err) {
         console.error('❌ [FUNNEL] Error Email Reto:', err);
+      }
+    }
+
+    // Enviar email de confirmación para Mapa de Salida
+    if (data.step === 'mapa_registered' && data.email) {
+      try {
+        await sendMapaWelcomeEmail(data.email, data.name);
+      } catch (err) {
+        console.error('❌ [FUNNEL] Error Email Mapa:', err);
       }
     }
 
@@ -390,6 +436,40 @@ async function sendRetoWelcomeEmail(
 
   } catch (err) {
     console.error('❌ [EMAIL RETO] Exception:', err);
+  }
+}
+
+// Función para enviar email de bienvenida al Mapa de Salida
+async function sendMapaWelcomeEmail(
+  email: string,
+  name: string | null
+) {
+  const firstName = name?.split(' ')[0] || 'Hola';
+
+  try {
+    const emailHtml = await render(
+      MapaDeSalidaConfirmationEmail({ firstName })
+    );
+
+    const result = await withRetry(async () => {
+      const { data, error } = await getResendClient().emails.send({
+        from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
+        to: [email],
+        replyTo: 'hola@creatuactivo.com',
+        subject: `${firstName}, tu Mapa de Salida está listo`,
+        html: emailHtml,
+      });
+
+      if (error) {
+        throw new Error(error.message || 'Error enviando email');
+      }
+
+      return data;
+    }, 3, 1000);
+
+    console.log('📧 [EMAIL MAPA] Enviado a', email, '| ID:', result?.id);
+  } catch (err) {
+    console.error('❌ [EMAIL MAPA] Exception:', err);
   }
 }
 

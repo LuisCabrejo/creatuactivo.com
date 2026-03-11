@@ -1814,6 +1814,23 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     console.warn('[VectorSearch] Failed, using pattern fallback:', error);
   }
 
+  // PASO 0.5: OVERRIDE CRÍTICO — Previene falsos positivos del vector search
+  // El vector confunde "cómo funciona el negocio" con arsenal_compensacion
+  // porque COMP_MODELO_01 también responde "cómo funciona el plan de compensación"
+  const queryLower = expandedMessage.toLowerCase();
+  const overridesAInicial = [
+    /c[oó]mo\s+funciona\s+(el\s+)?negocio/i,
+    /c[oó]mo\s+funciona\s+(el\s+)?modelo/i,
+    /explicar\s+(el\s+)?sistema/i,           // expansión del menú opción 'b'
+    /qu[eé]\s+es\s+creatuactivo/i,
+    /de\s+qu[eé]\s+trata\s+(el\s+)?negocio/i,
+    /en\s+qu[eé]\s+consiste\s+(el\s+)?negocio/i,
+  ];
+  if (overridesAInicial.some(p => p.test(queryLower)) && documentType !== 'arsenal_inicial') {
+    console.log(`🔒 [Override WHY→inicial] "${documentType}" → arsenal_inicial`);
+    documentType = 'arsenal_inicial';
+  }
+
   // PASO 1: Fallback a clasificación por patrones si vector no encontró match
   if (!documentType) {
     documentType = clasificarDocumentoHibrido(expandedMessage);

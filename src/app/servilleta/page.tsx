@@ -779,22 +779,34 @@ export default function ServilletaPage() {
             -webkit-overflow-scrolling: touch !important;
           }
           :fullscreen .grid-layout-slide-2 {
-            padding: 60px 20px 40px !important;
-            gap: 20px !important;
+            padding: 20px 15px 40px !important;
+            gap: 15px !important;
             grid-template-rows: unset !important;
             height: auto !important;
             min-height: 100% !important;
           }
+          :fullscreen .slide-2-header {
+            padding-bottom: 0 !important;
+          }
+          :fullscreen .slide-2-header .deck-h2 {
+            font-size: 1.6rem !important;
+            margin-bottom: 2px !important;
+          }
+          :fullscreen .slide-2-subtitle {
+            font-size: 0.6rem !important;
+          }
           :fullscreen .card-industrial {
-            min-height: 45vh !important;  /* MÁS grande que los 220px default */
+            /* Imagen domina — texto queda en la franja inferior */
+            min-height: 65vh !important;
             height: auto !important;
           }
           :fullscreen .full-width {
-            min-height: 35vh !important;  /* MÁS grande que los 200px default */
+            min-height: 52vh !important;
             height: auto !important;
           }
-          :fullscreen .slide-2-header .deck-h2 {
-            font-size: 2rem !important;
+          /* Desbloquear imagen al hover/tap en fullscreen mobile */
+          :fullscreen .card-industrial .card-bg {
+            filter: grayscale(60%) brightness(50%) !important;
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */

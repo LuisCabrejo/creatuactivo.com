@@ -110,7 +110,7 @@ Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 3 arsenales consolidados con Voyage AI embeddings (93% token reduction):
    - `arsenal_inicial` - Initial business questions (34 responses)
-   - `arsenal_avanzado` - Objections + System + Value + Escalation + Compensation (63 responses)
+   - `arsenal_avanzado` - Objections + System + Value + Escalation + Activation (22 responses)
    - `catalogo_productos` - Product catalog (22 products + science)
 
 2. **Data Capture** - `captureProspectData()` extracts:
@@ -377,7 +377,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 2. Use helper scripts:
    - `leer-system-prompt.mjs` - Read current prompt
    - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.5** — Tridente EAM, Mar 2026)
+   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar, Mar 2026)
 3. Clear cache (restart dev server or wait 5 minutes)
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
@@ -426,6 +426,8 @@ Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actua
 
 ### Working with Video Content
 
+#### Flujo estándar (video ya editado)
+
 ```bash
 # 1. Optimize video (creates 720p, 1080p, 4K + poster)
 ./scripts/optimize-video.sh /path/to/video.mp4
@@ -438,6 +440,49 @@ node scripts/upload-to-blob.mjs
 
 See [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) for details.
 
+#### Color Grade — Naval Ravikant / Dan Koe Style (DaVinci Resolve)
+
+Videos de la Epifanía, Mapa de Salida y Fundadores requieren un color grade específico para el estilo editorial premium.
+
+**Setup físico requerido** (sin esto el software no puede compensar):
+- Softbox LED bicolor 5600K (daylight) — elimina el tono cálido/sepia de LEDs de habitación
+- Fondo negro/gris oscuro para look #050505 de Dan Koe
+- Sin esto, cualquier corrección de software distorsiona los tonos de piel
+
+**Flujo con DaVinci Resolve** (requiere DaVinci instalado y abierto):
+
+```bash
+# Paso 1 — Generar LUT de color grade (solo la primera vez o si se borra)
+python3 scripts/generate_lut.py
+# → Genera scripts/naval_style.cube
+
+# Paso 2 — Procesar video con DaVinci (automatizado vía Python API)
+# DaVinci debe estar ABIERTO antes de correr el script
+python3 scripts/davinci_naval.py \
+  --input ~/Desktop/epifania-raw.mp4 \
+  --name epifania
+# → Genera public/videos/epifania-1080p.mp4, epifania-720p.mp4, epifania-poster.jpg
+
+# Paso 3 — Subir a Vercel Blob
+node scripts/upload-to-blob.mjs
+```
+
+**Ajuste manual requerido en DaVinci** (si el script no puede aplicar LUT vía API):
+1. Color page → clic derecho en nodo → Apply LUT → `scripts/naval_style.cube`
+2. Verificar skin tones en el scatterplot (deben estar en zona neutra, no cálida)
+
+**Nombres de video esperados en `public/videos/`**:
+- `epifania-1080p.mp4` / `epifania-720p.mp4` / `epifania-poster.jpg`
+- `mapa-salida-1080p.mp4` / `mapa-salida-720p.mp4` / `mapa-salida-poster.jpg`
+- `fundadores-1080p.mp4` / `fundadores-720p.mp4` / `fundadores-poster.jpg`
+
+**Correcciones que aplica el LUT** (`scripts/naval_style.cube`):
+- Temperatura 3200K → 5000K (neutraliza tono sepia de LED cálido)
+- Black crush (negros más profundos, look cinematic)
+- Curva S suave (contraste editorial)
+- Desaturación 10% (look premium, no saturado)
+- Gamma 0.93 (imagen levemente más rica/oscura)
+
 ### Canvas Animation Videos (src/app/animaciones/)
 
 Dan Koe-style vertical videos rendered in-browser via Canvas API + React. Used for social media content.
@@ -445,7 +490,10 @@ Dan Koe-style vertical videos rendered in-browser via Canvas API + React. Used f
 - **Format**: 1080×1920 (9:16 vertical), 60fps, ~38 seconds
 - **Stack**: React + TypeScript + Canvas API + MediaRecorder (recording to WebM/MP4)
 - **Assets**: `public/campaign-assets/` — backgrounds, visual effects, sounds
+- **Exported videos**: `public/animaciones/` — rendered WebM/HTML exports (static, not source code)
+- **Static graphics**: `public/codigo/` — SVG assets and code visuals for animations
 - **Handoff doc**: [HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md](HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md)
+- **Día 8 post-producción**: [HANDOFF-DIA8-POSTPRODUCCION.md](HANDOFF-DIA8-POSTPRODUCCION.md) — audio, SFX, subtítulos spec para `dia8-v2`
 
 Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia7-v3` through `dia7-v6`) are A/B iterations of the same day's script.
 
@@ -664,6 +712,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **Video & Media**:
 - [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) - Video implementation
 - [QUICK_START_VIDEO.md](QUICK_START_VIDEO.md) - Quick start guide
+- [HANDOFF-VIDEO-NAVAL-DAVINCI.md](HANDOFF-VIDEO-NAVAL-DAVINCI.md) - DaVinci Resolve color grade handoff
 
 **Business Logic**:
 - [CONTADOR_CUPOS_FUNDADORES.md](CONTADOR_CUPOS_FUNDADORES.md) - Spots counter spec
@@ -689,7 +738,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.4** — El Mapa de Salida, Feb 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar, Mar 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
@@ -723,6 +772,9 @@ window.nexusProspect?: { id: string }           // Current prospect
 **Video**:
 - `optimize-video.sh` - Optimize to multiple resolutions (requires FFmpeg)
 - `upload-to-blob.mjs` - Upload to Vercel Blob
+- `generate_lut.py` - Genera `naval_style.cube` — 3D LUT estilo Naval/Dan Koe (temperatura + contraste + blacks)
+- `davinci_naval.py` - Automatización DaVinci Resolve: importa video, aplica LUT, exporta 1080p + 720p + poster
+- `naval_style.cube` - LUT 3D generado (33×33×33). Re-generar con `generate_lut.py` si se borra
 
 **PWA**:
 - `generate-favicons.mjs` - Generate PNG icons from favicon.svg (requires sharp)

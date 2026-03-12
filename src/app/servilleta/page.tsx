@@ -724,6 +724,20 @@ export default function ServilletaPage() {
             border-radius: 0;
             gap: 30px !important;
           }
+          #slide-3 .slide-3-bottom {
+            gap: 40px !important;
+            padding-bottom: 60px !important;
+          }
+          #slide-3 .bio-text-panel .deck-p {
+            font-size: 1.05rem !important;
+            line-height: 1.6 !important;
+          }
+          #slide-3 .metric-label {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            letter-spacing: 1.5px !important;
+            color: #B0BEC5 !important;
+          }
           .bio-text-panel { max-width: 100%; }
           .bio-metrics-container { max-width: 100%; }
 

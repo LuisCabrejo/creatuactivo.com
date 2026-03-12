@@ -683,8 +683,13 @@ export default function ServilletaPage() {
           }
           .slide-2-header { text-align: center; padding-bottom: 0; }
           .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          .card-industrial { height: 220px; flex-shrink: 0; }
-          .full-width { height: 220px; }
+          .card-industrial { min-height: 40vh !important; height: auto !important; flex-shrink: 0; }
+          .full-width { min-height: 40vh !important; height: auto !important; }
+          .card-content {
+            background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 45%, transparent 100%) !important;
+            justify-content: flex-end;
+            padding-top: 40px !important;
+          }
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -843,11 +848,11 @@ export default function ServilletaPage() {
           }
           :fullscreen .card-industrial {
             /* Imagen domina — texto queda en la franja inferior */
-            min-height: 65vh !important;
+            min-height: 40vh !important;
             height: auto !important;
           }
           :fullscreen .full-width {
-            min-height: 65vh !important;
+            min-height: 40vh !important;
             height: auto !important;
           }
           /* Desbloquear imagen al hover/tap en fullscreen mobile */
@@ -1099,7 +1104,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">&ldquo;&iquest;Y SI NO S&Eacute; QU&Eacute; RESPONDER?&rdquo;</span>
@@ -1130,7 +1135,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 2 (derecha): TIEMPO LIBERADO */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">SACAR CITAS &middot; PRESENTAR &middot; VENDER &middot; INVITAR</span>
@@ -1147,7 +1152,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3: ESCALA AUTÓNOMA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad">ESCALAR ERA EL CUELLO DE BOTELLA</span>

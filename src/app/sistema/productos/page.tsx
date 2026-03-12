@@ -690,9 +690,27 @@ export default function CatalogoEstrategico() {
       })
     })
 
-    const savedCart = localStorage.getItem('cart')
-    if (savedCart) {
-      setCart(JSON.parse(savedCart))
+    // Pre-cargar productos desde URL param ?carrito=id1,id2 (Generador de Protocolos)
+    const urlParams = new URLSearchParams(window.location.search)
+    const carritoParam = urlParams.get('carrito')
+    if (carritoParam) {
+      const productIds = carritoParam.split(',').filter(id => productData[id])
+      if (productIds.length > 0) {
+        const urlCartItems: CartItem[] = productIds.map(id => ({
+          id,
+          name: productData[id].name,
+          price: productData[id].price,
+          quantity: 1,
+          image: productData[id].image,
+        }))
+        setCart(urlCartItems)
+        setCartOpen(true)
+      }
+    } else {
+      const savedCart = localStorage.getItem('cart')
+      if (savedCart) {
+        setCart(JSON.parse(savedCart))
+      }
     }
   }, [])
 

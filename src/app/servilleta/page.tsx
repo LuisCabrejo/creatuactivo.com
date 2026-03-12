@@ -117,12 +117,14 @@ export default function ServilletaPage() {
   const currentCOP = (currentUSD * TRM).toLocaleString();
 
   const getLifestyleTranslation = (usd: number) => {
-    if (usd < 100) return "Cubre factura de celular e internet.";
-    if (usd <= 300) return "Cubre todos los servicios del hogar.";
-    if (usd < 600) return "Paga la cuota de un vehículo gama media.";
-    if (usd < 1000) return "Cubre un arriendo en zona exclusiva.";
-    if (usd < 2000) return "Libertad de la presión financiera mensual.";
-    return "Estilo de vida de abundancia (Top 5% ingresos).";
+    if (usd < 100) return "Neutraliza costos operativos digitales (Suscripciones, Telecomunicaciones).";
+    if (usd <= 300) return "Cubre la carga base de mantenimiento estructural del hogar.";
+    if (usd <= 600) return "Libera capital para movilidad premium o upgrade de vivienda.";
+    if (usd <= 1200) return "Punto de Equilibrio: Supera el ingreso de un profesional corporativo.";
+    if (usd <= 2500) return "Soberanía Táctica: Elimina presión mensual. Permite delegar y reinvertir.";
+    if (usd <= 5000) return "Arquitectura de Riqueza: Ingresos Top 1%. Aceleración en adquisición de activos.";
+    if (usd <= 10000) return "Posición de Inversor: Flujo de capital masivo para diversificación y expansión.";
+    return "Soberanía Absoluta: El ecosistema opera con máxima eficiencia. Libertad total.";
   };
 
   const showSlide = useCallback((index: number) => {
@@ -564,7 +566,12 @@ export default function ServilletaPage() {
           text-transform: uppercase; font-weight: bold; transition: all 0.3s;
         }
         .pkg-btn:hover { border-color: #888; color: #aaa; }
-        .pkg-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
+        .pkg-btn.active {
+          background: rgba(0, 229, 255, 0.1);
+          color: var(--cyan);
+          border-color: var(--cyan);
+          box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.2);
+        }
 
         .controls-container label {
           display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; margin-bottom: 10px;

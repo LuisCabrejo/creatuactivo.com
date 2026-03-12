@@ -867,9 +867,16 @@ export default function ServilletaPage() {
             flex-direction: column;
             justify-content: flex-end;
           }
-          /* Desbloquear imagen al hover/tap en fullscreen mobile */
+          /* Base en fullscreen mobile — la tarjeta activa lo sobreescribe abajo */
           :fullscreen .card-industrial .card-bg {
-            filter: grayscale(60%) brightness(50%) !important;
+            filter: grayscale(100%) brightness(40%) !important;
+          }
+          :fullscreen .card-industrial.card-active .card-bg {
+            filter: grayscale(0%) brightness(70%) !important;
+            transform: scale(1.05);
+          }
+          :fullscreen .card-industrial.card-active {
+            border-color: var(--cyan);
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
@@ -978,10 +985,14 @@ export default function ServilletaPage() {
         }
 
         /* === MOBILE SCROLL-ACTIVATED CARD HIGHLIGHT === */
+        /* Mismo efecto que el hover en desktop: imagen a color completo + scale */
         @media (max-width: 1024px) {
           .card-industrial.card-active .card-bg {
-            filter: grayscale(20%) brightness(65%) !important;
-            transform: scale(1.02);
+            filter: grayscale(0%) brightness(70%) !important;
+            transform: scale(1.05);
+          }
+          .card-industrial.card-active {
+            border-color: var(--cyan);
           }
         }
 

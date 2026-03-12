@@ -353,15 +353,21 @@ export default function ServilletaPage() {
 
         /* BOTÓN SIGUIENTE */
         .btn-next {
-          margin-top: 30px; padding: 15px 30px;
-          background: rgba(0, 0, 0, 0.6); border: 1px solid var(--text-main); color: var(--text-main);
-          border-bottom: 2px solid var(--orange);
-          font-family: var(--font-head); font-size: 1.2rem; cursor: pointer;
-          display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;
+          margin-top: 30px;
+          padding: 15px 30px;
+          background: rgba(10, 10, 10, 0.8);
+          border: 1px solid var(--orange);
+          color: var(--orange);
+          font-family: var(--font-head);
+          font-size: 1.2rem;
+          cursor: pointer;
+          display: inline-flex; align-items: center; gap: 10px;
+          transition: all 0.3s ease;
           backdrop-filter: blur(6px);
-          text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+          text-shadow: none;
+          border-radius: 0;
         }
-        .btn-next:hover { background: var(--text-main); color: #000; text-shadow: none; }
+        .btn-next:hover { background: var(--orange); color: #000; }
 
         /* --- SLIDE 2: GRID LAYOUT --- */
         .slide-2-header {

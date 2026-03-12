@@ -17,6 +17,7 @@ export default function ServilletaPage() {
   const [binarioParejas, setBinarioParejas] = useState(50);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [queswaOpen, setQueswaOpen] = useState(false);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -127,6 +128,40 @@ export default function ServilletaPage() {
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
   }, []);
+
+  // Reset tarjeta activa al entrar a slide 2
+  useEffect(() => {
+    if (activeSlide === 2) setActiveCardIndex(0);
+  }, [activeSlide]);
+
+  // Scroll-activated card highlight — solo mobile/tablet
+  useEffect(() => {
+    if (activeSlide !== 2) return;
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth > 1024) return;
+
+    const grid = document.querySelector<HTMLElement>('#slide-2 .grid-layout-slide-2');
+    const cards = document.querySelectorAll<HTMLElement>('#slide-2 .card-industrial');
+    if (!cards.length || !grid) return;
+
+    const observers: IntersectionObserver[] = [];
+    cards.forEach((card, index) => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              setActiveCardIndex(index);
+            }
+          });
+        },
+        { root: grid, threshold: 0.5 }
+      );
+      observer.observe(card);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, [activeSlide]);
 
   // Ocultar nav mobile cuando Queswa está abierto
   // También libera body overflow para que el teclado virtual no tape el input
@@ -914,6 +949,14 @@ export default function ServilletaPage() {
           }
         }
 
+        /* === MOBILE SCROLL-ACTIVATED CARD HIGHLIGHT === */
+        @media (max-width: 1024px) {
+          .card-industrial.card-active .card-bg {
+            filter: grayscale(20%) brightness(65%) !important;
+            transform: scale(1.02);
+          }
+        }
+
         /* SCROLLBAR */
         .industrial-theme {
           scrollbar-width: thin;
@@ -1043,7 +1086,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}
-              <div className="card-industrial">
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
@@ -1074,7 +1117,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* Tarjeta 2 (derecha): TIEMPO LIBERADO */}
-              <div className="card-industrial">
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
@@ -1091,7 +1134,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* Tarjeta 3: ESCALA AUTÓNOMA */}
-              <div className="card-industrial full-width">
+              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')" }} />
                 <div className="card-content">
                   <div className="oscillation-text">

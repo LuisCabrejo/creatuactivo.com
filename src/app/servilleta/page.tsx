@@ -683,12 +683,25 @@ export default function ServilletaPage() {
           }
           .slide-2-header { text-align: center; padding-bottom: 0; }
           .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          .card-industrial { min-height: 40vh !important; height: auto !important; flex-shrink: 0; }
-          .full-width { min-height: 40vh !important; height: auto !important; }
-          .card-content {
-            background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 45%, transparent 100%) !important;
+          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
+          .card-industrial, .full-width {
+            min-height: 55vh !important;
+            height: auto !important;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
             justify-content: flex-end;
-            padding-top: 40px !important;
+          }
+          .card-bg {
+            height: 50% !important;
+            top: 0;
+            background-position: center !important;
+          }
+          .card-content {
+            height: 55% !important;
+            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
+            padding: 20px 20px 30px !important;
+            justify-content: flex-end;
           }
 
           .slide-3-layout { align-items: flex-end; }
@@ -846,14 +859,13 @@ export default function ServilletaPage() {
           :fullscreen .slide-2-subtitle {
             font-size: 0.6rem !important;
           }
-          :fullscreen .card-industrial {
-            /* Imagen domina — texto queda en la franja inferior */
-            min-height: 40vh !important;
-            height: auto !important;
-          }
+          :fullscreen .card-industrial,
           :fullscreen .full-width {
-            min-height: 40vh !important;
+            min-height: 55vh !important;
             height: auto !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
           }
           /* Desbloquear imagen al hover/tap en fullscreen mobile */
           :fullscreen .card-industrial .card-bg {
@@ -1099,7 +1111,22 @@ export default function ServilletaPage() {
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
                   &iquest;DIF&Iacute;CIL? ESO ERA ANTES.
                 </h2>
-                <span className="slide-2-subtitle">QUESWA CAMBI&Oacute; LAS REGLAS &mdash; SOLO EN CREATUACTIVO</span>
+                <span className="slide-2-subtitle">
+                  QUESWA CAMBI&Oacute; LAS REGLAS &mdash;{' '}
+                </span>
+                <div className="exclusive-badge" style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  letterSpacing: '2px',
+                  color: '#90A4AE',
+                  border: '1px solid #3f3f46',
+                  display: 'inline-block',
+                  padding: '4px 8px',
+                  marginTop: '10px',
+                  marginLeft: '8px',
+                }}>
+                  EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
+                </div>
               </div>
 
               {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}

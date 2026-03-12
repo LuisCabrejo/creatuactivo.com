@@ -479,6 +479,7 @@ export default function ServilletaPage() {
           border: 1px solid #333;
           padding: 20px 25px;
           backdrop-filter: blur(10px);
+          border-radius: 0;
         }
 
         .bio-metrics-panel .panel-title {
@@ -503,10 +504,16 @@ export default function ServilletaPage() {
         }
         .metric-label { font-size: 0.7rem; color: #888; letter-spacing: 1px; }
         .metric-value { font-family: var(--font-head); color: var(--cyan); font-size: 1.1rem; font-weight: 600; }
-        .metric-value.warning-text { color: var(--orange); font-size: 0.75rem; }
+        .metric-value.warning-text {
+          color: var(--orange);
+          font-size: 0.85rem;
+          letter-spacing: 0.5px;
+          font-family: var(--font-mono);
+          font-weight: 500;
+        }
         .progress-bar { width: 100%; height: 8px; background: #333; }
-        .fill { height: 100%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); transition: width 1s ease; }
-        .fill.warning { background: var(--orange); box-shadow: 0 0 10px var(--orange); }
+        .fill { height: 100%; background: var(--cyan); box-shadow: 0 0 4px var(--cyan); transition: width 1s ease; }
+        .fill.warning { background: var(--orange); box-shadow: 0 0 4px var(--orange); }
 
         /* --- SLIDE 4: SIMULADOR --- */
         .simulator-layout {
@@ -715,7 +722,7 @@ export default function ServilletaPage() {
             margin-left: 0;
             max-width: 100%;
             border-radius: 0;
-            gap: 20px;
+            gap: 30px !important;
           }
           .bio-text-panel { max-width: 100%; }
           .bio-metrics-container { max-width: 100%; }

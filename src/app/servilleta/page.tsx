@@ -140,13 +140,9 @@ export default function ServilletaPage() {
     if (typeof window === 'undefined') return;
     if (window.innerWidth > 1024) return;
 
-    // In fullscreen, the .slide element is the scroll container (overflow-y: auto via CSS)
-    // In normal mobile, .grid-layout-slide-2 is the scroll container
-    const scrollRoot = document.fullscreenElement
-      ? document.querySelector<HTMLElement>('#slide-2')
-      : document.querySelector<HTMLElement>('#slide-2 .grid-layout-slide-2');
+    const grid = document.querySelector<HTMLElement>('#slide-2 .grid-layout-slide-2');
     const cards = document.querySelectorAll<HTMLElement>('#slide-2 .card-industrial');
-    if (!cards.length || !scrollRoot) return;
+    if (!cards.length || !grid) return;
 
     const observers: IntersectionObserver[] = [];
     cards.forEach((card, index) => {
@@ -158,14 +154,14 @@ export default function ServilletaPage() {
             }
           });
         },
-        { root: scrollRoot, threshold: 0.5 }
+        { root: grid, threshold: 0.5 }
       );
       observer.observe(card);
       observers.push(observer);
     });
 
     return () => observers.forEach(o => o.disconnect());
-  }, [activeSlide, isFullscreen]);
+  }, [activeSlide]);
 
   // Ocultar nav mobile cuando Queswa está abierto
   // También libera body overflow para que el teclado virtual no tape el input
@@ -390,11 +386,6 @@ export default function ServilletaPage() {
           transition: border-color 0.3s;
         }
         .card-industrial:hover { border-color: var(--cyan); }
-        /* Disable hover on touch devices — touch triggers :hover on tap, conflicting with scroll highlight */
-        @media (hover: none) {
-          .card-industrial:hover { border-color: transparent; }
-          .card-industrial:hover .card-bg { filter: grayscale(100%) brightness(40%); transform: none; }
-        }
         .full-width { grid-column: span 2; height: 200px; }
 
         .card-bg {

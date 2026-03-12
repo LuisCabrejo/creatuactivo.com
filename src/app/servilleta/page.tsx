@@ -247,7 +247,7 @@ export default function ServilletaPage() {
         .nav-btn {
           background: transparent; border: 1px solid transparent; color: #555;
           font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
-          padding: 8px 12px; transition: all 0.3s; border-radius: 4px;
+          padding: 8px 12px; transition: all 0.3s; border-radius: 0;
         }
         .nav-btn:hover { color: var(--text-main); background: #222; }
         .nav-btn.active { color: var(--cyan); background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.2); }
@@ -255,7 +255,7 @@ export default function ServilletaPage() {
         /* Fullscreen button */
         .btn-fullscreen {
           background: transparent; border: 1px solid #444; color: #666;
-          cursor: pointer; padding: 6px 8px; border-radius: 4px;
+          cursor: pointer; padding: 6px 8px; border-radius: 0;
           display: flex; align-items: center; justify-content: center;
           transition: all 0.3s; margin-left: 10px; flex-shrink: 0;
         }
@@ -322,7 +322,7 @@ export default function ServilletaPage() {
         .contrast-plate {
           background: rgba(0, 0, 0, 0.7);
           padding: 20px 25px;
-          border-radius: 6px;
+          border-radius: 0;
           backdrop-filter: blur(4px);
         }
 
@@ -337,7 +337,7 @@ export default function ServilletaPage() {
           background: rgba(0, 0, 0, 0.45);
           padding: 12px 28px;
           backdrop-filter: blur(6px);
-          border-radius: 4px;
+          border-radius: 0;
           margin-bottom: 24px;
         }
 
@@ -406,7 +406,7 @@ export default function ServilletaPage() {
         .oscillation-text {
           background: rgba(0,0,0,0.4);
           padding: 8px;
-          border-radius: 4px;
+          border-radius: 0;
           margin-bottom: 10px;
           font-family: var(--font-mono);
           font-size: 0.75rem;
@@ -449,7 +449,7 @@ export default function ServilletaPage() {
           margin-left: 10%;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
-          border-radius: 8px;
+          border-radius: 0;
         }
 
         .bio-text-panel {
@@ -506,7 +506,7 @@ export default function ServilletaPage() {
 
         .simulator-panel {
           flex: 1; background: #1a1a1a; border: 1px solid #444;
-          padding: 30px; border-radius: 4px;
+          padding: 30px; border-radius: 0;
           box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
@@ -736,7 +736,7 @@ export default function ServilletaPage() {
           margin-left: 10%;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
-          border-radius: 8px;
+          border-radius: 0;
         }
         :fullscreen .bio-text-panel {
           max-width: 500px;

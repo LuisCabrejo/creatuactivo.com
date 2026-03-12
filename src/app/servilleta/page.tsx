@@ -195,7 +195,7 @@ export default function ServilletaPage() {
           --concrete: #1e1e1e;
           --steel: #37474f;
           --cyan: #00e5ff;
-          --orange: #ff3d00;
+          --orange: #EB4F27;
           --text-main: #e0e0e0;
           --text-muted: #9e9e9e;
           --font-head: 'Rajdhani', sans-serif;
@@ -355,6 +355,7 @@ export default function ServilletaPage() {
         .btn-next {
           margin-top: 30px; padding: 15px 30px;
           background: rgba(0, 0, 0, 0.6); border: 1px solid var(--text-main); color: var(--text-main);
+          border-bottom: 2px solid var(--orange);
           font-family: var(--font-head); font-size: 1.2rem; cursor: pointer;
           display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;
           backdrop-filter: blur(6px);
@@ -626,7 +627,7 @@ export default function ServilletaPage() {
         /* RESPONSIVE */
         @media (max-width: 768px) {
           body { overflow: hidden; }
-          .deck-h1 { font-size: 2.5rem; }
+          .deck-h1 { font-size: 2rem !important; line-height: 1.1; margin-bottom: 25px !important; }
           .deck-h2 { font-size: 2rem; }
           .content-overlay { padding: 0 25px; }
           .side-focus { padding: 30px 25px; max-width: 100%; }
@@ -657,9 +658,13 @@ export default function ServilletaPage() {
           #slide-1 .content-overlay {
             height: auto;
             justify-content: flex-start;
-            padding-top: 30px;
+            padding-top: 60px;
             padding-bottom: 20px;
             will-change: transform;
+          }
+          .contrast-plate {
+            margin-bottom: 40px !important;
+            padding: 30px 24px !important;
           }
 
           .grid-layout-slide-2 {
@@ -1042,7 +1047,8 @@ export default function ServilletaPage() {
             <div className="content-overlay center-focus">
               <div className="technical-label">REF: APALANCAMIENTO_100X</div>
               <h1 className="deck-h1">
-                INFRAESTRUCTURA<br />DE MULTIPLICACI&Oacute;N
+                INFRAESTRUCTURA<br />
+                <span style={{ color: 'var(--orange)' }}>DE MULTIPLICACI&Oacute;N</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>

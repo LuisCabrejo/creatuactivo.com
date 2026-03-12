@@ -673,7 +673,7 @@ export default function ServilletaPage() {
           .slide-2-header { text-align: center; padding-bottom: 0; }
           .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
           .card-industrial { height: 220px; flex-shrink: 0; }
-          .full-width { height: 200px; }
+          .full-width { height: 220px; }
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -836,7 +836,7 @@ export default function ServilletaPage() {
             height: auto !important;
           }
           :fullscreen .full-width {
-            min-height: 52vh !important;
+            min-height: 65vh !important;
             height: auto !important;
           }
           /* Desbloquear imagen al hover/tap en fullscreen mobile */

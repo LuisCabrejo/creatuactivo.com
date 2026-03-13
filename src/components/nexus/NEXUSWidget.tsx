@@ -126,7 +126,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-full md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center md:items-center p-2 pb-0 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-start justify-center md:items-center md:p-4 md:bg-black/20 md:backdrop-blur-sm">
       <div
         className={`${containerClasses} z-50 relative`}
         style={{
@@ -134,13 +134,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }}
       >
         <div
-          className="h-full flex flex-col shadow-2xl overflow-hidden relative"
+          className="h-full flex flex-col overflow-hidden relative md:shadow-2xl"
           style={{
-            background: `rgba(11, 12, 12, 0.97)`,
-            backdropFilter: 'blur(32px)',
-            border: `1px solid rgba(255, 255, 255, 0.07)`,
-            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.6)`,
-            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)'
+            background: '#0B0C0C',
+            border: `1px solid rgba(255, 255, 255, 0.06)`,
           }}
         >
 
@@ -229,9 +226,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
           {/* 🤖 Terminal HEADER MOBILE */}
           <div
-            className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center"
+            className="md:hidden flex-shrink-0 px-4 py-2 flex justify-between items-center"
             style={{
-              background: QUIET_LUXURY.bgSurface,
+              background: '#0B0C0C',
               borderBottom: `1px solid rgba(255, 255, 255, 0.06)`
             }}
           >
@@ -345,8 +342,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         border: '1px solid rgba(245, 158, 11, 0.3)',
                         borderRadius: '12px 4px 4px 12px'
                       } : {
-                        background: QUIET_LUXURY.bgSurface,
-                        color: QUIET_LUXURY.textSecondary,
+                        color: QUIET_LUXURY.textPrimary,
                         borderRadius: '4px 12px 12px 12px'
                       }}
                     >

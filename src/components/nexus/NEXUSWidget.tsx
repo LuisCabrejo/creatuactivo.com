@@ -83,7 +83,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     streamingComplete,
     progressiveReplies,
     sendMessage,
-    resetChat
   } = useNEXUSChat();
 
   const [inputMessage, setInputMessage] = useState('');
@@ -240,24 +239,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               borderBottom: `1px solid rgba(56, 189, 248, 0.1)`
             }}
           >
-            <div className="flex items-center gap-2">
-              <div
-                className="w-8 h-8  flex items-center justify-center"
-                style={{
-                  background: `rgba(56, 189, 248, 0.12)`,
-                  border: `1px solid rgba(56, 189, 248, 0.3)`,
-                  boxShadow: `0 2px 8px rgba(56, 189, 248, 0.1)`
-                }}
-              >
-                <svg className="w-4 h-4" style={{ color: QUIET_LUXURY.cyan }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-              </div>
-              <div>
-                <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
-                <p className="text-[10px] font-mono" style={{ color: QUIET_LUXURY.cyan }}>TERMINAL ACTIVA</p>
-              </div>
-            </div>
+            <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
 
             <button
               className="w-9 h-9 flex items-center justify-center  transition-all duration-200"
@@ -341,8 +323,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
               {messages.map((message, index) => {
-                // Detectar si es el último mensaje user para aplicar animación especial Claude.ai
                 const isLastUserMessage = message.role === 'user' && message.id === lastMessageId;
+                const isInitialGreeting = message.id === 'initial-greeting' || message.id === 'initial-greeting-products';
+                const isOnlyMessage = messages.length === 1;
+
+                // Saludo inicial — texto centrado estilo Claude
+                if (isInitialGreeting && isOnlyMessage) {
+                  return (
+                    <div
+                      key={message.id}
+                      ref={registerNode(message.id)}
+                      className="flex flex-col items-center justify-center flex-1 text-center px-6 py-16"
+                      style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
+                    >
+                      <p className="text-2xl font-semibold leading-snug" style={{ color: QUIET_LUXURY.textPrimary }}>
+                        {message.content}
+                      </p>
+                    </div>
+                  );
+                }
 
                 return (
                   <div
@@ -535,46 +534,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </form>
           </div>
 
-          {/* 🎨 Quiet Luxury FOOTER */}
-          <div className={`${isExpanded ? 'px-6 pb-4' : 'px-4 pb-3'}`}>
-            <div className="flex justify-center gap-6">
-              <button
-                className="text-xs px-3 py-2  transition-all duration-200"
-                style={{ color: QUIET_LUXURY.textMuted }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.amber;
-                  e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.textMuted;
-                  e.currentTarget.style.background = 'transparent';
-                }}
-                onClick={() => {
-                  resetChat();
-                  if (scrollContainerRef.current) {
-                    scrollContainerRef.current.scrollTop = 0;
-                  }
-                }}
-              >
-                Nueva Conversación
-              </button>
-              <button
-                className="text-xs px-3 py-2  transition-all duration-200"
-                style={{ color: QUIET_LUXURY.textMuted }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.amber;
-                  e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = QUIET_LUXURY.textMuted;
-                  e.currentTarget.style.background = 'transparent';
-                }}
-                onClick={() => handleSendMessage('Quiero hablar con Liliana Moreno')}
-              >
-                Hablar con un Estratega
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 

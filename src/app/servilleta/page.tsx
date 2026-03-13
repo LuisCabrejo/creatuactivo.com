@@ -29,6 +29,9 @@ export default function ServilletaPage() {
   // Navegación por teclado
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable;
+      if (isEditable) return;
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
         setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
@@ -650,7 +653,7 @@ export default function ServilletaPage() {
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-          body { overflow: hidden; }
+          .deck-container { overflow: hidden; }
           .deck-h1 { font-size: 2rem !important; line-height: 1.1; margin-bottom: 25px !important; }
           .deck-h2 { font-size: 2rem; }
           .content-overlay { padding: 0 25px; }

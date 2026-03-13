@@ -37,7 +37,7 @@ export default function RetoAnaliticoPage() {
           name: formData.nombre,
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias-analitico',
-          step: 'reto_registered',
+          step: 'mapa_registered',
           variant: 'B_analitico',
         }),
       });

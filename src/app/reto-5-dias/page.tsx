@@ -47,7 +47,7 @@ export default function Reto5DiasPage() {
           name: formData.nombre,
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias',
-          step: 'reto_registered',
+          step: 'mapa_registered',
         }),
       });
 

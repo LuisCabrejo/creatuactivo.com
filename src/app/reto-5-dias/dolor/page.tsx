@@ -37,7 +37,7 @@ export default function RetoDolorPage() {
           name: formData.nombre,
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias-dolor',
-          step: 'reto_registered',
+          step: 'mapa_registered',
           variant: 'A_dolor',
         }),
       });

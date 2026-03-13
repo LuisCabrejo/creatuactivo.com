@@ -39,7 +39,7 @@ export default function RetoGlobalPage() {
           name: formData.nombre,
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias-global',
-          step: 'reto_registered',
+          step: 'mapa_registered',
           variant: 'C_global',
         }),
       });

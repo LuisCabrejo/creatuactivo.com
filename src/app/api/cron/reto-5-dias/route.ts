@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
     const { data: leads, error } = await getSupabaseClient()
       .from('funnel_leads')
       .select('*')
-      .eq('source', 'reto-5-dias')
+      .eq('step', 'mapa_registered')
       .or('reto_email_day.is.null,reto_email_day.lt.5')
       .order('created_at', { ascending: true });
 

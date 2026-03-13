@@ -148,6 +148,27 @@ export async function POST(request: NextRequest) {
     // Si es solo evento de página (sin email), registrar y salir
     if (isPageViewEvent) {
       console.log('📍 [FUNNEL] Page view:', data.step, '| fingerprint:', data.fingerprint, '| ref:', constructorRef)
+
+      // Para vio_calculadora: actualizar DB para disparar Supabase Realtime → bell del dashboard
+      if (data.step === 'vio_calculadora' && data.fingerprint && constructorRef) {
+        ;(async () => {
+          const { data: uuidData } = await getSupabaseClient()
+            .from('private_users')
+            .select('id')
+            .eq('constructor_id', constructorRef)
+            .maybeSingle()
+          const uuid = (uuidData as any)?.id
+          if (uuid) {
+            await (getSupabaseClient().rpc as any)('update_prospect_data', {
+              p_fingerprint_id: data.fingerprint,
+              p_data: { interest_level: 5 },
+              p_constructor_id: uuid,
+            })
+            console.log('✅ [FUNNEL] Prospect actualizado por vio_calculadora')
+          }
+        })().catch(() => {})
+      }
+
       return NextResponse.json({ success: true, message: 'Evento de página registrado' })
     }
 
@@ -468,6 +489,9 @@ async function sendMapaWelcomeEmail(
     }, 3, 1000);
 
     console.log('📧 [EMAIL MAPA] Enviado a', email, '| ID:', result?.id);
+
+    // Notificar al admin (igual que en Reto 5 Días)
+    await sendAdminNotification(email, name, null);
   } catch (err) {
     console.error('❌ [EMAIL MAPA] Exception:', err);
   }

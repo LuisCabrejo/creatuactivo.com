@@ -49,7 +49,7 @@ export default function Reto5DiasRefPage() {
           name: formData.nombre,
           whatsapp: formData.whatsapp,
           source: 'reto-5-dias',
-          step: 'reto_registered',
+          step: 'mapa_registered',
           referrer: ref, // Tracking del constructor
         }),
       });

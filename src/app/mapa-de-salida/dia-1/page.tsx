@@ -7,11 +7,48 @@
  * noindex — funnel interno
  */
 
+import { useRef, useEffect } from 'react';
+
 const VIDEO_1080P = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/videos/mapa-dia1-1080p.mp4';
 const VIDEO_720P  = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/videos/mapa-dia1-720p.mp4';
 const POSTER      = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/videos/mapa-dia1-poster.jpg';
 
+function trackEvent(event: string) {
+  try {
+    const fp = (window as any).FrameworkIAA?.fingerprint;
+    fetch('/api/nexus', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event, page: 'mapa-salida-dia-1', fingerprint: fp }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+
 export default function Coordenada1Page() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const completedRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const onPlay = () => trackEvent('video_play_dia1');
+    const onTimeUpdate = () => {
+      if (!completedRef.current && video.duration > 0 && video.currentTime / video.duration >= 0.8) {
+        completedRef.current = true;
+        trackEvent('video_completed_80_dia1');
+      }
+    };
+
+    video.addEventListener('play', onPlay);
+    video.addEventListener('timeupdate', onTimeUpdate);
+    return () => {
+      video.removeEventListener('play', onPlay);
+      video.removeEventListener('timeupdate', onTimeUpdate);
+    };
+  }, []);
+
   return (
     <main style={{ backgroundColor: '#0F1115', minHeight: '100vh', fontFamily: "'Inter', sans-serif" }}>
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: '48px 20px 80px' }}>
@@ -40,6 +77,7 @@ export default function Coordenada1Page() {
           boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
         }}>
           <video
+            ref={videoRef}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             poster={POSTER}
             controls

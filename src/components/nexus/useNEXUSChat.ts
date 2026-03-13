@@ -24,53 +24,28 @@ interface Message {
 export const useNEXUSChat = () => {
 // 🎯 MENSAJE INICIAL CONTEXTUAL DE NEXUS
 const getInitialGreeting = (): Message => {
-  // Detectar si estamos en la página de productos
   const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+  const savedName = typeof window !== 'undefined' ? localStorage.getItem('nexus_prospect_name') : null;
+  const greeting = savedName ? `Hola, ${savedName}` : 'Hola';
 
   if (isProductsPage) {
-    // Saludo especializado para página de productos (bienestar y salud)
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `Soy Queswa 🪢
+      content: `${greeting} 🪢
 
-Tu asesor de bienestar en CreaTuActivo.
-
-El Ganoderma lucidum tiene más de 2,000 estudios científicos publicados.
-
-¿Qué te gustaría explorar?
-
-**A)** 🌿 Beneficios de los productos
-
-**B)** 🔬 Estudios científicos
-
-**C)** 💰 Precios y presentaciones
-
-**D)** 📋 Cómo tomar los productos`,
+¿En qué puedo ayudarte hoy?`,
       timestamp: new Date(),
       isStreaming: false
     };
   }
 
-  // Saludo genérico - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola, soy Queswa 🪢
+    content: `${greeting} 🪢
 
-La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
-
-Aquí diseñamos tu salida.
-
-¿Cuál es tu situación actual?
-
-**A)** 🏗️ Quiero construir algo propio
-
-**B)** 💭 Me siento estancado y busco un cambio
-
-**C)** 🔍 Solo estoy explorando, sin compromiso
-
-**D)** 🧠 Quiero entender el Modelo de Negocio`,
+¿En qué puedo ayudarte?`,
     timestamp: new Date(),
     isStreaming: false
   };
@@ -296,11 +271,12 @@ const sendMessage = useCallback(async (content: string) => {
 
       setStreamingComplete(true);
 
-      // 🆕 Marcar que el usuario ya vio el primer saludo (si es el primer mensaje)
-      if (messages.length === 0 && !hasSeenGreeting) {
-        localStorage.setItem('nexus_first_greeting_shown', 'true');
-        localStorage.setItem('nexus_first_greeting_timestamp', Date.now().toString());
-        console.log('✅ [NEXUS] Primer saludo mostrado, marcado en localStorage');
+      // Persistir nombre si el usuario lo mencionó en este mensaje
+      if (!localStorage.getItem('nexus_prospect_name')) {
+        const nameMatch = userMessage.content.match(
+          /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i
+        );
+        if (nameMatch) localStorage.setItem('nexus_prospect_name', nameMatch[1]);
       }
 
     } else {

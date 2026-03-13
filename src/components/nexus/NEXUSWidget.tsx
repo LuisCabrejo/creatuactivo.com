@@ -338,57 +338,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               }}
             >
 
-              {/* 🎨 Quiet Luxury MENSAJE DE BIENVENIDA */}
-              {messages.length === 0 && (
-                <div className="flex message-item">
-                  <div
-                    className="flex-1 p-4"
-                    style={{
-                      background: QUIET_LUXURY.bgSurface,
-                      borderLeft: `2px solid rgba(56, 189, 248, 0.5)`,
-                      borderRadius: '4px 12px 12px 12px',
-                      color: QUIET_LUXURY.textSecondary
-                    }}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div
-                        className="w-10 h-10  flex items-center justify-center"
-                        style={{
-                          background: `rgba(56, 189, 248, 0.12)`,
-                          border: `1px solid rgba(56, 189, 248, 0.3)`,
-                          boxShadow: `0 4px 12px rgba(56, 189, 248, 0.15)`
-                        }}
-                      >
-                        <svg className="w-5 h-5" style={{ color: QUIET_LUXURY.cyan }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-semibold font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5  animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
-                          <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>CONECTADO</p>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
-                      La mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.
-                    </p>
-                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      Aquí diseñamos tu salida.
-                    </p>
-                    <p className="mb-3 leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
-                      ¿Cuál es tu situación actual?
-                    </p>
-                    <ul className="list-none mb-4 space-y-2 text-sm" style={{ color: QUIET_LUXURY.textPrimary }}>
-                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>A)</strong> 🏗️ Quiero construir algo propio</li>
-                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>B)</strong> 💭 Me siento estancado y busco un cambio</li>
-                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>C)</strong> 🔍 Solo estoy explorando, sin compromiso</li>
-                      <li><strong className="font-mono" style={{ color: QUIET_LUXURY.amber }}>D)</strong> 🧠 Quiero entender el Modelo de Negocio</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
               {messages.map((message, index) => {

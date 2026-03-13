@@ -10,7 +10,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
@@ -80,14 +80,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const {
     messages,
     isLoading,
-    streamingComplete,
-    progressiveReplies,
     sendMessage,
   } = useNEXUSChat();
 
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
-  const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
 
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -110,9 +107,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
       setInputMessage('');
-      setMessageAppearing('user');
-
-      setTimeout(() => setMessageAppearing(null), 400);
       await sendMessage(message);
     }
   };
@@ -142,10 +136,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         <div
           className="h-full flex flex-col shadow-2xl overflow-hidden relative"
           style={{
-            background: `rgba(11, 12, 12, 0.95)`,
+            background: `rgba(11, 12, 12, 0.97)`,
             backdropFilter: 'blur(32px)',
-            border: `1px solid rgba(56, 189, 248, 0.15)`,
-            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.07)`,
+            border: `1px solid rgba(255, 255, 255, 0.07)`,
+            boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.6)`,
             clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)'
           }}
         >
@@ -154,7 +148,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           <div className="hidden md:flex flex-shrink-0 p-4 justify-between items-center border-b"
                style={{
                  background: QUIET_LUXURY.bgSurface,
-                 borderColor: `rgba(56, 189, 248, 0.1)`
+                 borderColor: `rgba(255, 255, 255, 0.06)`
                }}>
             <div className="flex items-center gap-3">
               <div
@@ -238,7 +232,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className="md:hidden flex-shrink-0 px-4 py-3 flex justify-between items-center"
             style={{
               background: QUIET_LUXURY.bgSurface,
-              borderBottom: `1px solid rgba(56, 189, 248, 0.1)`
+              borderBottom: `1px solid rgba(255, 255, 255, 0.06)`
             }}
           >
             <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
@@ -264,7 +258,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className="hidden md:block px-4 py-2"
             style={{
               background: `rgba(11, 12, 12, 0.6)`,
-              borderBottom: `1px solid rgba(56, 189, 248, 0.06)`
+              borderBottom: `1px solid rgba(255, 255, 255, 0.04)`
             }}
           >
             <div className="flex items-center gap-2">
@@ -309,7 +303,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className="flex-grow overflow-y-auto relative"
             style={{
               scrollbarWidth: 'thin',
-              scrollbarColor: `rgba(56, 189, 248, 0.4) rgba(22, 24, 29, 0.5)`
+              scrollbarColor: `rgba(255, 255, 255, 0.15) transparent`
             }}
           >
             {/* 🔑 CONTENEDOR CON TRANSFORM + PADDING COMPENSATORIO */}
@@ -327,9 +321,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
               }}
             >
 
-              {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
-              {messages.map((message, index) => {
-                const isLastUserMessage = message.role === 'user' && message.id === lastMessageId;
+              {/* MESSAGES CON REGISTRO PARA CÁLCULOS (saludo inicial excluido) */}
+              {messages.filter(m => m.id !== 'initial-greeting' && m.id !== 'initial-greeting-products').map((message) => {
 
                 return (
                   <div
@@ -354,7 +347,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       } : {
                         background: QUIET_LUXURY.bgSurface,
                         color: QUIET_LUXURY.textSecondary,
-                        borderLeft: `2px solid rgba(56, 189, 248, 0.5)`,
                         borderRadius: '4px 12px 12px 12px'
                       }}
                     >
@@ -477,7 +469,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           {/* 🎨 Quiet Luxury INPUT */}
           <div
             className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
-            style={{ borderTop: `1px solid rgba(56, 189, 248, 0.1)` }}
+            style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
             <form className="flex items-center gap-2" onSubmit={handleSubmit}>
               <input
@@ -566,11 +558,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
         }
 
         div::-webkit-scrollbar-thumb {
-          background: rgba(56, 189, 248, 0.4);
+          background: rgba(255, 255, 255, 0.15);
         }
 
         div::-webkit-scrollbar-thumb:hover {
-          background: rgba(56, 189, 248, 0.6);
+          background: rgba(255, 255, 255, 0.25);
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

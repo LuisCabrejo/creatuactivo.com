@@ -469,7 +469,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           >
             <form className="flex items-center gap-2" onSubmit={handleSubmit} autoComplete="off">
               <input
-                type="text"
+                type="search"
+                enterKeyHint="send"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="_ Escribe tu consulta..."
@@ -563,6 +564,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
         div::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Ocultar botón clear de type="search" en iOS/Safari */
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-decoration {
+          display: none;
+          -webkit-appearance: none;
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

@@ -337,13 +337,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                           : 'flex-1 overflow-hidden'
                       }`}
                       style={message.role === 'user' ? {
-                        background: 'rgba(245, 158, 11, 0.08)',
+                        background: '#16181D',
                         color: QUIET_LUXURY.textPrimary,
-                        border: '1px solid rgba(245, 158, 11, 0.3)',
-                        borderRadius: '12px 4px 4px 12px'
+                        border: '1px solid rgba(245, 158, 11, 0.25)',
+                        borderRadius: 0
                       } : {
                         color: QUIET_LUXURY.textPrimary,
-                        borderRadius: '4px 12px 12px 12px'
+                        borderRadius: 0
                       }}
                     >
                       <ReactMarkdown
@@ -467,12 +467,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
             style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
-            <form className="flex items-center gap-2" onSubmit={handleSubmit}>
+            <form className="flex items-center gap-2" onSubmit={handleSubmit} autoComplete="off">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="_ Escribe tu consulta..."
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
                 className={`flex-1 px-4 py-3  transition-all duration-200 ${
                   isExpanded ? 'text-base' : 'text-sm'
                 }`}

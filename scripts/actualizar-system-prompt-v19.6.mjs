@@ -1,11 +1,9 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Actualizar System Prompt a v19.6 (Consultor de Lifestyle & Bienestar y Bienestar)
- * - Regla: preguntas sobre productos → comportamiento de asesor de salud
- * - NO comparar precios vs competencia en consultas de producto
- * - NO mezclar terminología de negocio en respuestas de producto
- * - Cafeína: proporción 13:1 vs café convencional
+ * Actualizar System Prompt a v19.6 (Lifestyle Bienestar — Corrección v3.2)
  * Lee el contenido desde knowledge_base/system-prompt-nexus-v19.6_lifestyle_bienestar.md
+ *
+ * Cambios v3.2: Bienvenida sin sesgo corporativo + opciones A-D actualizadas
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -35,7 +33,7 @@ async function actualizarSystemPrompt() {
     .from('system_prompts')
     .update({
       prompt: promptContent,
-      version: 'v19.6_lifestyle_bienestar',
+      version: 'v19.6_lifestyle_bienestar_v3.2',
       updated_at: new Date().toISOString(),
     })
     .eq('name', 'nexus_main')
@@ -43,20 +41,12 @@ async function actualizarSystemPrompt() {
     .single();
 
   if (error) {
-    console.error('❌ Error al actualizar:', error.message);
+    console.error('❌ Error:', error.message);
     process.exit(1);
   }
 
-  console.log('✅ System prompt actualizado en Supabase:');
-  console.log(`   Versión: ${data.version}`);
-  console.log(`   Longitud: ${data.prompt.length} caracteres`);
-  console.log(`   Updated at: ${data.updated_at}`);
-  console.log('');
-  console.log('✅ v19.6 activo — Consultor de Lifestyle & Bienestar operativo.');
-  console.log('   · Preguntas de producto → asesor de salud (sin términos de negocio)');
-  console.log('   · Sin comparación de precios vs competencia');
-  console.log('   · Cafeína: proporción 13:1 documentada');
-  console.log('   · El caché expira en 5 min (o reinicia el servidor).');
+  console.log('✅ System prompt actualizado:', data.version);
+  console.log('📅 Actualizado:', data.updated_at);
 }
 
 actualizarSystemPrompt();

@@ -132,9 +132,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center p-2 pb-0 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
       <div
-        className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
+        className={`${containerClasses} z-50 relative`}
         style={{
-          animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)'
+          animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          transition: 'height 220ms cubic-bezier(0.22, 1, 0.36, 1)'
         }}
       >
         <div

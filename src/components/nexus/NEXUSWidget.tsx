@@ -124,17 +124,19 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  const isInitialState = messages.length === 1 &&
+    (messages[0].id === 'initial-greeting' || messages[0].id === 'initial-greeting-products');
+
   const containerClasses = isExpanded
     ? "w-full max-w-4xl h-[95vh]"
-    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98dvh] md:h-[85vh] lg:h-[80vh]";
+    : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-full md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center p-2 pb-0 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-start justify-center md:items-center p-2 pb-0 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
       <div
         className={`${containerClasses} z-50 relative`}
         style={{
           animation: 'slideInFromBottom 400ms cubic-bezier(0.25, 0.8, 0.25, 1)',
-          transition: 'height 220ms cubic-bezier(0.22, 1, 0.36, 1)'
         }}
       >
         <div
@@ -288,12 +290,24 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 🎨 Quiet Luxury CONTENEDOR BALANCEADO: SLIDE + SCROLL ACCESIBLE */}
+          {/* 🎨 Estado inicial: saludo estático sin scroll container */}
+          {isInitialState && (
+            <div
+              className="flex-1 flex flex-col items-center text-center px-8 pt-16 md:pt-24"
+              style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
+            >
+              <p className="text-2xl font-semibold leading-snug" style={{ color: QUIET_LUXURY.textPrimary }}>
+                {messages[0].content}
+              </p>
+            </div>
+          )}
+
+          {/* 🎨 Quiet Luxury CONTENEDOR: SLIDE + SCROLL (solo con conversación activa) */}
+          {!isInitialState && (
           <div
             ref={scrollContainerRef}
             className="flex-grow overflow-y-auto relative"
             style={{
-              // Scrollbar personalizado - dorado sutil
               scrollbarWidth: 'thin',
               scrollbarColor: `rgba(56, 189, 248, 0.4) rgba(22, 24, 29, 0.5)`
             }}
@@ -306,42 +320,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                   : 'p-4 md:p-4'
               }`}
               style={{
-                // 🎯 TRANSFORM: Empuja conversaciones anteriores hacia arriba (efecto slide)
                 transform: `translateY(-${offset}px)`,
-
-                // 🎯 SIN TRANSICIÓN: Ascenso instantáneo como rayo de luz (como Claude.ai)
                 transition: 'none',
-
-                // 🔑 HARDWARE ACCELERATION: Fuerza GPU rendering para eliminar parpadeos
                 willChange: 'transform',
-
-                // 🔑 PADDING COMPENSATORIO: Hace que el contenido transformado sea accesible por scroll
                 paddingTop: `${offset + 20}px`
               }}
             >
 
-
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS */}
               {messages.map((message, index) => {
                 const isLastUserMessage = message.role === 'user' && message.id === lastMessageId;
-                const isInitialGreeting = message.id === 'initial-greeting' || message.id === 'initial-greeting-products';
-                const isOnlyMessage = messages.length === 1;
-
-                // Saludo inicial — texto centrado estilo Claude
-                if (isInitialGreeting && isOnlyMessage) {
-                  return (
-                    <div
-                      key={message.id}
-                      ref={registerNode(message.id)}
-                      className="flex flex-col items-center justify-center flex-1 text-center px-6 py-16"
-                      style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
-                    >
-                      <p className="text-2xl font-semibold leading-snug" style={{ color: QUIET_LUXURY.textPrimary }}>
-                        {message.content}
-                      </p>
-                    </div>
-                  );
-                }
 
                 return (
                   <div
@@ -484,6 +472,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
 
             </div>
           </div>
+          )} {/* fin !isInitialState */}
 
           {/* 🎨 Quiet Luxury INPUT */}
           <div

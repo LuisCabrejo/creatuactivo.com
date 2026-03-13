@@ -218,6 +218,9 @@ export default function ServilletaPage() {
           background-color: var(--bg-dark);
           color: var(--text-main);
           font-family: var(--font-mono);
+        }
+
+        .deck-container {
           height: 100vh;
           overflow: hidden;
         }
@@ -653,7 +656,6 @@ export default function ServilletaPage() {
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-          .deck-container { overflow: hidden; }
           .deck-h1 { font-size: 2rem !important; line-height: 1.1; margin-bottom: 25px !important; }
           .deck-h2 { font-size: 2rem; }
           .content-overlay { padding: 0 25px; }

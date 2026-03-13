@@ -159,6 +159,24 @@ export async function GET(request: NextRequest) {
       }
 
       try {
+        // Optimistic lock: reclamar el registro antes de enviar
+        // Si otro proceso ya envió este día, el update devuelve 0 filas → skip
+        const { data: claimed } = await getSupabaseClient()
+          .from('funnel_leads')
+          .update({
+            reto_email_day: nextDay,
+            reto_last_email_at: new Date().toISOString(),
+          })
+          .eq('id', lead.id)
+          .eq('reto_email_day', lastEmailDay)
+          .select('id') as { data: { id: string }[] | null };
+
+        if (!claimed || claimed.length === 0) {
+          console.log(`⏭️ [RETO-CRON] Día ${nextDay} ya fue reclamado por otro proceso para ${lead.email}`);
+          skipped++;
+          continue;
+        }
+
         // id 11-15 para distinguir la secuencia reto vs soap-opera (id 1-5)
         const trackingUrl = `https://creatuactivo.com/api/email-open?e=${Buffer.from(lead.email.toLowerCase()).toString('base64')}&id=${10 + nextDay}`
         const emailHtml = await render(Component({ firstName, trackingUrl }));
@@ -173,18 +191,14 @@ export async function GET(request: NextRequest) {
 
         if (emailError) {
           console.error(`❌ [RETO-CRON] Error enviando día ${nextDay} a ${lead.email}:`, emailError);
+          // Revertir el claim si el email falló
+          await getSupabaseClient()
+            .from('funnel_leads')
+            .update({ reto_email_day: lastEmailDay })
+            .eq('id', lead.id);
           errors++;
           continue;
         }
-
-        // Actualizar tracking
-        await getSupabaseClient()
-          .from('funnel_leads')
-          .update({
-            reto_email_day: nextDay,
-            reto_last_email_at: new Date().toISOString(),
-          })
-          .eq('id', lead.id);
 
         console.log(`✅ [RETO-CRON] Día ${nextDay} enviado a ${lead.email}`);
         processed++;

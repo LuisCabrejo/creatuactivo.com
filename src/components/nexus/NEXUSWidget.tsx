@@ -89,6 +89,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [messageAppearing, setMessageAppearing] = useState<string | null>(null);
+  const [vvHeight, setVvHeight] = useState<string>('100dvh');
+
+  // Ajusta la altura del backdrop al visual viewport (excluye teclado virtual en móvil)
+  useEffect(() => {
+    const update = () => {
+      const vv = window.visualViewport;
+      setVvHeight(vv ? `${vv.height}px` : '100dvh');
+    };
+    update();
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener('resize', update);
+      return () => vv.removeEventListener('resize', update);
+    }
+  }, []);
 
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -130,7 +145,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
     : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-[98dvh] md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm">
+    <div
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-2 pt-[36px] md:p-4 bg-black/20 backdrop-blur-sm"
+      style={{ height: vvHeight }}
+    >
       <div
         className={`${containerClasses} z-50 transition-all duration-500 ease-out relative`}
         style={{

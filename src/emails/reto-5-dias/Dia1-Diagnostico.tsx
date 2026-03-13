@@ -1,11 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 1: El Diagnóstico
- * "Sobre el número que acabas de ver..."
- *
- * FLUJO HÍBRIDO: Funciona para usuarios que:
- * 1. Ya usaron la Calculadora en Home (valida su dolor)
- * 2. Entraron directo al Reto (los invita a calcular)
+ * Mapa de Salida - Coordenada 1
+ * "Por qué sudas mucho, pero no avanzas"
  */
 
 import * as React from 'react';
@@ -26,10 +22,11 @@ import {
 interface Dia1Props {
   firstName?: string;
   trackingUrl?: string;
+  videoUrl?: string;
 }
 
-export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) => {
-  const previewText = `Sobre el número que acabas de ver... (El Diagnóstico)`;
+export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'https://creatuactivo.com/mapa-de-salida/dia-1' }: Dia1Props) => {
+  const previewText = `Coordenada 1: Por qué sudas mucho, pero no avanzas`;
 
   return (
     <Html lang="es">
@@ -39,7 +36,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) 
       <Preview>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Header - Simple text for email compatibility */}
+          {/* Header */}
           <Section style={header}>
             <Text style={{
               margin: 0,
@@ -56,7 +53,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) 
 
           {/* Day Badge */}
           <Section style={dayBadge}>
-            <Text style={dayNumber}>DÍA 1</Text>
+            <Text style={dayNumber}>COORDENADA 1 DE 5</Text>
             <Text style={dayTitle}>El Diagnóstico</Text>
           </Section>
 
@@ -65,87 +62,60 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) 
             <Heading style={h1}>Hola {firstName},</Heading>
 
             <Text style={paragraph}>
-              Te damos la bienvenida al Día 1 del Reto.
+              Ayer, apenas confirmaste tu acceso al mapa, te conté la historia de mi promesa en el mirador Buena Vista. Te hablé de esa frustrante sensación de estar en una bicicleta estática: pedaleando con todas tus fuerzas, agotado, pero terminando el mes en el mismo exacto lugar.
             </Text>
 
             <Text style={paragraph}>
-              Si llegaste aquí a través de nuestra página de inicio, es probable que ya hayas pasado por la <strong style={{ color: '#C5A059' }}>Calculadora de Libertad</strong> y hayas visto tu número.
-            </Text>
-
-            <Text style={inlineLink}>
-              (Si aún no lo has hecho, <a href="https://creatuactivo.com/calculadora?source=reto-dia1" style={link}>calcula tu número aquí</a> antes de seguir leyendo.)
+              Hoy empezamos oficialmente tu ruta de escape.
             </Text>
 
             <Text style={paragraph}>
-              Ahora, hablemos con la verdad sobre ese número.
-            </Text>
-
-            <Text style={highlightBox}>
-              Para la gran mayoría de personas, el resultado es <strong>menos de 30 días</strong>. Eso significa que estás a un solo mes de distancia de la quiebra técnica si tu ingreso principal se detiene.
+              El primer paso no es darte motivación vacía ni decirte que "te esfuerces más". El primer paso es <strong style={{ color: '#E5E5E5' }}>auditar tu realidad actual usando matemáticas</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Ese número no es para juzgarte. <strong style={{ color: '#E5E5E5' }}>Es para despertarte.</strong>
+              En el breve video de hoy (tu Coordenada 1), te voy a explicar por qué el <strong style={{ color: '#C5A059' }}>"Plan por Defecto"</strong> que la sociedad nos vendió tiene una falla de diseño estructural. Vas a descubrir por qué intercambiar tiempo por dinero es un modelo inherentemente frágil, y por qué trabajar más duro no te hará más libre si estás operando el vehículo equivocado.
             </Text>
 
-            <Text style={paragraph}>
-              Yo estuve ahí. Tenía lo que muchos llamarían "estabilidad", pero mis Días de Libertad eran casi cero. Vivía en lo que llamo la <strong style={{ color: '#C5A059' }}>Zona de Peligro</strong>: corriendo cada vez más rápido solo para quedarme en el mismo lugar.
-            </Text>
-
-            <Text style={paragraph}>
-              La razón por la que tu número es bajo no es porque gastes mucho o ganes poco. Es porque estás operando bajo el <strong style={{ color: '#E5E5E5' }}>"Plan por Defecto"</strong>.
-            </Text>
-
-            <Text style={paragraph}>
-              El sistema tradicional (empleo o autoempleo lineal) está diseñado matemáticamente para que tus gastos crezcan a la par de tus ingresos, manteniéndote atrapado en ese ciclo de 30 días.
-            </Text>
-
-            <Text style={highlightBox}>
-              <strong>La buena noticia:</strong> No necesitas "ahorrar más" (eso es lento y doloroso). Necesitas <strong style={{ color: '#C5A059' }}>cambiar de vehículo</strong>.
-            </Text>
-
-            <Text style={paragraph}>
-              Mañana, en el Día 2, te voy a mostrar por qué tu vehículo actual tiene un "motor defectuoso" para crear libertad, y cuál es la alternativa que usan los verdaderos Arquitectos de Activos.
-            </Text>
-
-            <Text style={paragraph}>
-              <strong style={{ color: '#C5A059' }}>Tu viaje para cambiar ese número rojo a verde acaba de empezar.</strong>
-            </Text>
-
-            {/* WhatsApp VIP CTA */}
-            <Section style={whatsappBox}>
-              <Text style={{ margin: '0 0 12px', color: '#C5A059', fontSize: '14px', fontWeight: '600', textAlign: 'center' as const }}>
-                ACCESO VIP
-              </Text>
-              <Text style={{ margin: '0 0 16px', color: '#A3A3A3', fontSize: '14px', lineHeight: '1.6', textAlign: 'center' as const }}>
-                Para asegurarme de que recibas el video de mañana y poder resolver tus dudas personalmente, he abierto un canal directo en mi WhatsApp.
-              </Text>
+            {/* Video CTA */}
+            <Section style={videoCta}>
               <table width="100%" cellPadding={0} cellSpacing={0}>
                 <tr>
                   <td align="center">
                     <Button
-                      href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Estoy listo para el Reto de 5 Días.`)}`}
+                      href={videoUrl}
                       style={{
-                        backgroundColor: '#25D366',
-                        color: '#FFFFFF',
-                        padding: '14px 28px',
+                        backgroundColor: '#C5A059',
+                        color: '#0F1115',
+                        padding: '16px 32px',
                         borderRadius: '8px',
                         textDecoration: 'none',
-                        fontWeight: '600',
-                        fontSize: '15px',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+                        fontWeight: '700',
+                        fontSize: '16px',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+                        letterSpacing: '0.5px',
                       }}
                     >
-                      CONFIRMAR MI CUPO EN WHATSAPP
+                      👉 VER COORDENADA 1
                     </Button>
                   </td>
                 </tr>
               </table>
             </Section>
 
+            <Text style={highlightBox}>
+              Al final del video te daré las instrucciones para calcular tu <strong>"Número de Fragilidad"</strong>. Es un ejercicio de 2 minutos que te dará total claridad sobre dónde estás parado hoy.
+            </Text>
+
+            <Text style={paragraph}>
+              Haz clic en el enlace, mira el video y haz el cálculo.
+            </Text>
+
+            <Text style={paragraph}>
+              Te veo dentro,
+            </Text>
+
             <Text style={signature}>
-              Hacia tu soberanía,
-              <br /><br />
               Luis Cabrejo
               <br />
               <span style={signatureTitle}>Arquitecto de Activos</span>
@@ -159,7 +129,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl }: Dia1Props) 
             <Text style={footerText}>
               © 2025 CreaTuActivo.com
               <br />
-              Reto 5 Días - Día 1 de 5
+              Mapa de Salida — Coordenada 1 de 5
             </Text>
           </Section>
         </Container>
@@ -196,9 +166,9 @@ const dayBadge = {
 
 const dayNumber = {
   color: '#C5A059',
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: '600',
-  letterSpacing: '2px',
+  letterSpacing: '3px',
   margin: '0 0 4px',
 };
 
@@ -240,25 +210,8 @@ const highlightBox = {
   borderRadius: '0 8px 8px 0',
 };
 
-const whatsappBox = {
-  backgroundColor: '#1A1D23',
-  border: '1px solid rgba(197, 160, 89, 0.3)',
-  padding: '24px',
+const videoCta = {
   margin: '32px 0',
-  borderRadius: '12px',
-};
-
-const inlineLink = {
-  color: '#A3A3A3',
-  fontSize: '15px',
-  lineHeight: '1.6',
-  margin: '0 0 24px',
-  fontStyle: 'italic' as const,
-};
-
-const link = {
-  color: '#C5A059',
-  textDecoration: 'underline',
 };
 
 const signature = {

@@ -1419,7 +1419,7 @@ export default function ServilletaPage() {
                     {/* CTA Secundario: SovereignSlider → /mapa-de-salida */}
                     <div style={{ width: '100%', maxWidth: 400 }}>
                       <SovereignSlider
-                        label="DESLIZAR PARA OBTENER MAPA"
+                        label="OBTENER MAPA"
                         onComplete={() => window.open('https://creatuactivo.com/mapa-de-salida', '_blank')}
                         accentColor="cyan"
                       />

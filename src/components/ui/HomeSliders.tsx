@@ -14,7 +14,7 @@ export function HeroDiagnosticSlider() {
   const router = useRouter();
   return (
     <SovereignSlider
-      label="DESLIZAR PARA INICIAR DIAGNÓSTICO"
+      label="INICIAR DIAGNÓSTICO"
       onComplete={() => router.push('/calculadora')}
       accentColor="gold"
     />
@@ -26,7 +26,7 @@ export function MapaSlider() {
   const router = useRouter();
   return (
     <SovereignSlider
-      label="DESLIZAR PARA OBTENER MAPA"
+      label="OBTENER MAPA"
       onComplete={() => router.push('/mapa-de-salida')}
       accentColor="cyan"
     />

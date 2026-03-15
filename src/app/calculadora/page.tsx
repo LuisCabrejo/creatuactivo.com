@@ -386,7 +386,7 @@ export default function CalculadoraPage() {
                   }}
                 />
                 <SovereignSlider
-                  label="DESLIZAR PARA VER RESULTADO"
+                  label="VER MI RESULTADO"
                   onComplete={submitCapture}
                   disabled={!formData.email || isSubmitting}
                   accentColor="gold"
@@ -535,7 +535,7 @@ export default function CalculadoraPage() {
                       </p>
 
                       <SovereignSlider
-                        label="DESLIZAR PARA OBTENER MAPA DE SALIDA"
+                        label="OBTENER MAPA DE SALIDA"
                         onComplete={() => router.push('/mapa-de-salida')}
                         accentColor="cyan"
                       />

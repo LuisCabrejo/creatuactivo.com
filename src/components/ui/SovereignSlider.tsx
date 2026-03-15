@@ -1,42 +1,34 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * SovereignSlider — Interruptor Deslizante de Doble Etapa
- * UX "Lujo Silencioso + Realismo Industrial"
+ * SovereignSlider v2 — Hold-to-Execute ("Ignición de Motor")
  *
- * Stage 1 (Drag): Arrastrar thumb de izquierda a derecha con resistencia spring.
- * Stage 2 (Hold): Mantener presionado 1 segundo. Anillo de progreso + edge lighting.
- * Complete: "ACCESO CONCEDIDO" efímero → dispara onComplete().
+ * Un solo gesto deliberado: mantener presionado 1.5 segundos.
+ * Llenado de izquierda a derecha + edge glow + háptica progresiva.
+ * Si se suelta antes → retreat fluido a cero.
  */
 
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { motion, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Types & Constants
+// Types & constants
 // ─────────────────────────────────────────────────────────────────────────────
 
-type Phase = 'idle' | 'armed' | 'holding' | 'complete';
+type Phase = 'idle' | 'holding' | 'complete';
 
-const THUMB_W  = 108;   // px — ancho del bloque deslizable
-const TRACK_H  = 60;    // px — alto total del riel
-const HOLD_MS  = 1000;  // ms — duración del hold requerido
+const HOLD_MS = 1500;
 
 export interface SovereignSliderProps {
   label: string;
   onComplete: () => void;
-  /** Cuando es true, el thumb regresa al inicio si se suelta antes del final */
   disabled?: boolean;
   accentColor?: 'cyan' | 'gold';
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────────────────────────────────────
-
 function tryVibrate(pattern: number | number[]) {
-  try { navigator.vibrate?.(pattern); } catch (_) { /* no-op en browsers sin soporte */ }
+  try { navigator.vibrate?.(pattern); } catch (_) { /* no-op */ }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -49,112 +41,80 @@ export default function SovereignSlider({
   disabled = false,
   accentColor = 'cyan',
 }: SovereignSliderProps) {
-  const trackRef      = useRef<HTMLDivElement>(null);
-  const [phase, setPhase]           = useState<Phase>('idle');
-  const [holdProgress, setHoldProgress] = useState(0);
-  const [trackWidth, setTrackWidth] = useState(440);
-
-  const x             = useMotionValue(0);
-  const animFrameRef  = useRef<number | null>(null);
-  const holdStartRef  = useRef<number | null>(null);
-  const lastHapticX   = useRef(0);
-  const phaseRef      = useRef<Phase>('idle');
+  const [phase, setPhase]   = useState<Phase>('idle');
+  const fillProgress        = useMotionValue(0);       // 0 → 1
+  const animFrameRef        = useRef<number | null>(null);
+  const holdStartRef        = useRef<number | null>(null);
+  const hapticIntervalRef   = useRef<ReturnType<typeof setInterval> | null>(null);
+  const phaseRef            = useRef<Phase>('idle');
 
   const ACCENT = accentColor === 'cyan' ? '#00e5ff' : '#E5C279';
-  const maxX   = Math.max(0, trackWidth - THUMB_W - 4); // 4 = 2px border cada lado
 
-  // Sync ref so event handlers always see current phase without stale closure
+  // fillWidth: '0%' → '100%', drives the fill container
+  const fillWidth = useTransform(fillProgress, [0, 1], ['0%', '100%']);
+
   useEffect(() => { phaseRef.current = phase; }, [phase]);
 
-  // Track width via ResizeObserver
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    setTrackWidth(el.offsetWidth);
-    const ro = new ResizeObserver(([entry]) => setTrackWidth(entry.contentRect.width));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  // Reset if disabled changes while thumb is out of idle
-  useEffect(() => {
-    if (disabled && phase !== 'idle' && phase !== 'complete') {
-      if (animFrameRef.current !== null) {
-        cancelAnimationFrame(animFrameRef.current);
-        animFrameRef.current = null;
-      }
-      animate(x, 0, { type: 'spring', stiffness: 500, damping: 30 });
-      setPhase('idle');
-      setHoldProgress(0);
-    }
-  }, [disabled, phase, x]);
-
-  // Cleanup rAF on unmount
+  // Cleanup on unmount
   useEffect(() => () => {
     if (animFrameRef.current !== null) cancelAnimationFrame(animFrameRef.current);
+    if (hapticIntervalRef.current !== null) clearInterval(hapticIntervalRef.current);
   }, []);
 
-  // ── Drag handlers ──────────────────────────────────────────────────────────
-
-  const handleDrag = useCallback(() => {
-    const curr = x.get();
-    // Micro-vibración cada 22px — simula engranajes mecánicos
-    if (Math.abs(curr - lastHapticX.current) >= 22) {
-      tryVibrate([10]);
-      lastHapticX.current = curr;
-    }
-  }, [x]);
-
-  const handleDragEnd = useCallback(() => {
-    const curr = x.get();
-    if (!disabled && curr >= maxX * 0.88) {
-      // Snap al extremo derecho → fase "armada"
-      animate(x, maxX, { type: 'spring', stiffness: 900, damping: 45 });
-      setPhase('armed');
-      tryVibrate([10, 20, 10]);
-    } else {
-      // Spring de vuelta → idle
-      animate(x, 0, { type: 'spring', stiffness: 500, damping: 30 });
-      setPhase('idle');
-    }
-  }, [x, maxX, disabled]);
-
-  // ── Hold handlers ──────────────────────────────────────────────────────────
+  // ── Start hold ─────────────────────────────────────────────────────────────
 
   const startHold = useCallback((e: React.PointerEvent) => {
-    if (phaseRef.current !== 'armed') return;
+    if (disabled || phaseRef.current !== 'idle') return;
     e.preventDefault();
+
     setPhase('holding');
     holdStartRef.current = performance.now();
+
+    // Háptica rítmica mientras se carga — simula ignición del motor
+    hapticIntervalRef.current = setInterval(() => tryVibrate([8]), 150);
 
     const tick = () => {
       const elapsed  = performance.now() - (holdStartRef.current ?? 0);
       const progress = Math.min(elapsed / HOLD_MS, 1);
-      setHoldProgress(progress);
+      fillProgress.set(progress);
 
       if (progress < 1) {
         animFrameRef.current = requestAnimationFrame(tick);
       } else {
-        // ¡Hold completo!
+        // ¡Ignición completa!
+        if (hapticIntervalRef.current !== null) {
+          clearInterval(hapticIntervalRef.current);
+          hapticIntervalRef.current = null;
+        }
         tryVibrate([50, 50, 100]);
         setPhase('complete');
-        setTimeout(() => onComplete(), 750);
+        setTimeout(() => onComplete(), 600);
       }
     };
+
     animFrameRef.current = requestAnimationFrame(tick);
-  }, [onComplete]);
+  }, [disabled, fillProgress, onComplete]);
+
+  // ── Cancel hold (suelta antes de completar) ────────────────────────────────
 
   const cancelHold = useCallback(() => {
     if (phaseRef.current !== 'holding') return;
+
     if (animFrameRef.current !== null) {
       cancelAnimationFrame(animFrameRef.current);
       animFrameRef.current = null;
     }
-    setHoldProgress(0);
-    setPhase('armed');
-  }, []);
+    if (hapticIntervalRef.current !== null) {
+      clearInterval(hapticIntervalRef.current);
+      hapticIntervalRef.current = null;
+    }
 
-  // Cancelar hold si se suelta el puntero en cualquier parte de la ventana
+    // Retreat fluido hacia cero
+    animate(fillProgress, 0, { duration: 0.5, ease: 'easeOut' });
+    setPhase('idle');
+  }, [fillProgress]);
+
+  // Escuchar pointerup globalmente para no perder el cancel
   useEffect(() => {
     const up = () => cancelHold();
     window.addEventListener('pointerup', up);
@@ -165,191 +125,120 @@ export default function SovereignSlider({
     };
   }, [cancelHold]);
 
-  // ── Derived visuals ────────────────────────────────────────────────────────
-
-  const glowAlpha = phase === 'complete' ? 1 : holdProgress;
-  const glowHex   = Math.round(glowAlpha * 90).toString(16).padStart(2, '0');
-  const glowSize  = Math.round(glowAlpha * 20);
-
-  const isArmed   = phase === 'armed' || phase === 'holding';
-  const trackText = phase === 'complete'
-    ? '✓  ACCESO CONCEDIDO'
-    : isArmed ? 'MANTENER PARA EJECUTAR' : label;
-
-  const thumbText = phase === 'complete' ? '✓' : isArmed ? '◼◼' : '▶▶';
-
-  // SVG border progress on thumb
-  const thumbH = TRACK_H - 4;
-  const svgW   = THUMB_W + 4;
-  const svgH   = thumbH + 4;
-  const perim  = 2 * ((THUMB_W + 2) + (thumbH + 2));
-
   // ── Render ─────────────────────────────────────────────────────────────────
 
+  const isComplete = phase === 'complete';
+  const isHolding  = phase === 'holding';
+
   return (
-    <div
-      ref={trackRef}
+    <motion.div
+      onPointerDown={startHold}
+
+      // Pulso idle — invita a la acción como un motor en espera
+      animate={
+        phase === 'idle' ? {
+          boxShadow: [
+            `0 0 0 0px ${ACCENT}00`,
+            `0 0 0 4px ${ACCENT}1A`,
+            `0 0 0 0px ${ACCENT}00`,
+          ],
+        } : isComplete ? {
+          boxShadow: `0 0 24px ${ACCENT}55`,
+        } : {
+          boxShadow: `0 0 0 1px ${ACCENT}35`,
+        }
+      }
+      transition={
+        phase === 'idle'
+          ? { duration: 2.2, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }
+          : { duration: 0.2 }
+      }
+
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: 500,
-        height: TRACK_H,
+        maxWidth: 400,
+        height: 56,
         background: '#0A0B0C',
-        border: '1px solid rgba(255,255,255,0.10)',
+        border: '1px solid rgba(255,255,255,0.12)',
         borderRadius: 2,
         overflow: 'hidden',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         userSelect: 'none',
         WebkitUserSelect: 'none',
         opacity: disabled ? 0.45 : 1,
+        touchAction: 'none',
         transition: 'opacity 0.25s ease',
-        boxShadow: glowAlpha > 0
-          ? `0 0 0 1px ${ACCENT}${glowHex}, 0 0 ${glowSize}px ${ACCENT}${Math.round(glowAlpha * 40).toString(16).padStart(2, '0')}`
-          : 'none',
       }}
     >
-      {/* ── Fondo de llenado durante el hold ─────────────────────────────── */}
-      {holdProgress > 0 && (
+      {/* ── Llenado de color (izquierda → derecha) ───────────────────────── */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: fillWidth,
+        }}
+      >
+        {/* Área de relleno con gradiente */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to right, ${ACCENT}12 ${holdProgress * 100}%, transparent ${holdProgress * 100}%)`,
-          pointerEvents: 'none',
+          background: `linear-gradient(90deg, ${ACCENT}12 0%, ${ACCENT}28 70%, ${ACCENT}45 100%)`,
         }} />
-      )}
 
-      {/* ── Barra de progreso inferior (durante hold) ─────────────────────── */}
-      {phase === 'holding' && (
-        <div style={{
+        {/* Borde derecho luminoso — "filo del avance" */}
+        {isHolding && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            right: 0,
+            width: 2,
+            background: ACCENT,
+            boxShadow: `0 0 10px ${ACCENT}, 0 0 20px ${ACCENT}80`,
+          }} />
+        )}
+      </motion.div>
+
+      {/* ── Línea de progreso inferior ───────────────────────────────────── */}
+      <motion.div
+        style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
+          right: 0,
           height: 2,
-          width: `${holdProgress * 100}%`,
           background: ACCENT,
-          boxShadow: `0 0 8px ${ACCENT}`,
-          pointerEvents: 'none',
-          zIndex: 20,
-        }} />
-      )}
+          boxShadow: `0 0 6px ${ACCENT}`,
+          scaleX: fillProgress,
+          transformOrigin: 'left',
+          opacity: isHolding || isComplete ? 1 : 0,
+          transition: 'opacity 0.1s ease',
+        }}
+      />
 
-      {/* ── Texto del riel ────────────────────────────────────────────────── */}
+      {/* ── Texto centrado ───────────────────────────────────────────────── */}
       <div style={{
         position: 'absolute',
         inset: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        // Texto visible a la derecha del thumb (idle) o a la izquierda (armed)
-        paddingLeft:  phase === 'idle' ? THUMB_W + 12 : 12,
-        paddingRight: isArmed          ? THUMB_W + 12 : 12,
         fontFamily: "'Roboto Mono', 'Courier New', monospace",
-        fontSize: '0.68rem',
+        fontSize: '0.82rem',
         letterSpacing: '0.18em',
-        color: phase === 'complete' ? ACCENT : 'rgba(255,255,255,0.28)',
-        fontWeight: phase === 'complete' ? 700 : 400,
-        pointerEvents: 'none',
+        fontWeight: 700,
+        color: isComplete ? ACCENT : 'rgba(255,255,255,0.85)',
         userSelect: 'none',
-        textAlign: 'center',
+        pointerEvents: 'none',
+        textShadow: '0 1px 6px rgba(0,0,0,0.9)',
         transition: 'color 0.2s ease',
         whiteSpace: 'nowrap',
-        overflow: 'hidden',
       }}>
-        {trackText}
+        {isComplete ? `✓  ${label}` : label}
       </div>
-
-      {/* ── Thumb deslizable ─────────────────────────────────────────────── */}
-      <motion.div
-        drag={phase === 'idle' ? 'x' : false}
-        dragConstraints={{ left: 0, right: maxX }}
-        dragElastic={0}
-        dragMomentum={false}
-        onDrag={handleDrag}
-        onDragEnd={handleDragEnd}
-        onPointerDown={startHold}
-
-        // Pulso de "tap para ejecutar" cuando está armado
-        animate={phase === 'armed' ? {
-          boxShadow: [
-            'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0px rgba(0,229,255,0)',
-            `inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 4px ${ACCENT}20`,
-            'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0px rgba(0,229,255,0)',
-          ],
-        } : {
-          boxShadow: phase === 'holding'
-            ? `inset 0 1px 0 rgba(255,255,255,0.08), 0 0 14px ${ACCENT}55`
-            : 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)',
-        }}
-        transition={phase === 'armed' ? {
-          duration: 1.3,
-          repeat: Infinity,
-          repeatType: 'loop',
-          ease: 'easeInOut',
-        } : { duration: 0.15 }}
-
-        style={{
-          x,
-          position: 'absolute',
-          top: 2,
-          bottom: 2,
-          left: 2,
-          width: THUMB_W,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: phase === 'idle' ? 'grab' : (phase === 'armed' ? 'pointer' : 'default'),
-          touchAction: 'none',
-          zIndex: 10,
-          background: phase === 'complete'
-            ? ACCENT
-            : 'linear-gradient(160deg, #22252C 0%, #181A1F 55%, #101215 100%)',
-          borderRadius: 1,
-          overflow: 'visible',
-          // box-shadow controlado por `animate` arriba (framer-motion lo maneja)
-        }}
-      >
-        {/* SVG: anillo de progreso alrededor del thumb (armed + holding) */}
-        {isArmed && (
-          <svg
-            style={{
-              position: 'absolute',
-              top: -2,
-              left: -2,
-              width: svgW,
-              height: svgH,
-              pointerEvents: 'none',
-              overflow: 'visible',
-            }}
-            viewBox={`0 0 ${svgW} ${svgH}`}
-          >
-            <rect
-              x={1} y={1}
-              width={svgW - 2}
-              height={svgH - 2}
-              rx={1}
-              fill="none"
-              stroke={ACCENT}
-              strokeWidth={1.5}
-              strokeDasharray={perim}
-              strokeDashoffset={perim * (1 - holdProgress)}
-              strokeLinecap="butt"
-            />
-          </svg>
-        )}
-
-        {/* Etiqueta del thumb */}
-        <span style={{
-          fontFamily: "'Roboto Mono', 'Courier New', monospace",
-          fontSize: '0.9rem',
-          color: phase === 'complete' ? '#000' : (phase === 'holding' ? ACCENT : 'rgba(255,255,255,0.60)'),
-          fontWeight: 700,
-          userSelect: 'none',
-          pointerEvents: 'none',
-          letterSpacing: '0.05em',
-          transition: 'color 0.2s ease',
-        }}>
-          {thumbText}
-        </span>
-      </motion.div>
-    </div>
+    </motion.div>
   );
 }

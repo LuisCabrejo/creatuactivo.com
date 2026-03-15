@@ -7,7 +7,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import SovereignSlider from '@/components/ui/SovereignSlider';
 
 export default function ServilletaPage() {
   const TOTAL_SLIDES = 4;
@@ -1416,14 +1415,16 @@ export default function ServilletaPage() {
                       INICIAR EJECUCI&Oacute;N
                     </a>
 
-                    {/* CTA Secundario: SovereignSlider → /mapa-de-salida */}
-                    <div style={{ width: '100%', maxWidth: 400 }}>
-                      <SovereignSlider
-                        label="OBTENER MAPA"
-                        onComplete={() => window.open('https://creatuactivo.com/mapa-de-salida', '_blank')}
-                        accentColor="cyan"
-                      />
-                    </div>
+                    {/* CTA Secundario: Auditar → /mapa-de-salida */}
+                    <a
+                      href="https://creatuactivo.com/mapa-de-salida"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-industrial secondary"
+                    >
+                      <span className="material-symbols-sharp">verified_user</span>
+                      AUDITAR EL MODELO (MAPA DE SALIDA)
+                    </a>
                   </div>
                 </div>
               </div>

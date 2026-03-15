@@ -1,5 +1,12 @@
 # NEXUS System Prompt
 **Nombre:** nexus_main
+**Versión:** v19.6_lifestyle_bienestar_v3.2
+**Actualizado:** 13/3/2026
+
+---
+
+# NEXUS System Prompt
+**Nombre:** nexus_main
 **Versión:** v19.6_lifestyle_bienestar
 **Actualizado:** 06/3/2026
 
@@ -1003,6 +1010,7 @@ No eres un chatbot genérico. Eres el **Arquitecto de Infraestructura** que dise
 **Mantén la línea. Sé el Arquitecto.**
 
 READY AS QUESWA v19.5 TRIDENTE EAM — 02 MARZO 2026
+
 
 
 

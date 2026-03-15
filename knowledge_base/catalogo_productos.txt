@@ -8,7 +8,8 @@
 ## ESTRATEGIA DE PORTAFOLIO
 
 ### PROD_01: "¿Por qué el café es el producto estrella?"
-**[Concepto Nuclear]:** Caballo de Troya. El café abre puertas que ningún suplemento puede abrir.
+**[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
+**[Concepto Nuclear]:** El café abre puertas que ningún suplemento puede abrir.
 
 El café es el producto más democrático del mundo. Colombia tiene 15M de hogares consumidores.
 
@@ -17,27 +18,19 @@ El café es el producto más democrático del mundo. Colombia tiene 15M de hogar
 - Barrera de entrada cero.
 - Conversión natural: cliente de café → cliente del ecosistema.
 
-**Costo por taza:**
-| Producto | Costo/Taza |
-|----------|------------|
-| Ganocafé 3en1 | $5,545 COP |
-| Juan Valdez | ~$8,000 COP |
-| Starbucks | ~$15,000 COP |
-
-Por $5,545 obtienes café premium + 200 fitonutrientes. 63% más económico que Juan Valdez.
-
 ---
 
 ### PROD_02: "¿Por qué los clientes no se van?"
-**[Concepto Nuclear]:** Lock-in Biológico. La cafeína es adicción socialmente aceptada. Tu mayor activo.
+**[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
+**[Concepto Nuclear]:** Retención natural. El hábito del café diario genera lealtad espontánea.
 
-El café genera dependencia natural. Esto se convierte en retención automática.
+Una vez que el cuerpo experimenta la diferencia del Ganoderma en su café diario, difícilmente quiere volver al café común.
 
 **Los números:**
-- Consumo no opcional: Necesitan su café cada mañana.
-- Recompra automática: No hay que vender cada mes.
+- Consumo habitual: El café es parte de la rutina diaria.
+- Recompra constante: No hay que volver a convencer.
 - Retención 85%+: Raramente vuelven a café común.
-- Lifetime Value: 36+ meses de recompra promedio.
+- Lifetime Value: 36+ meses de consumo promedio.
 
 ---
 
@@ -155,7 +148,7 @@ El polvo de hongo tiene biodisponibilidad limitada. El extracto Gano Excel es 10
 ## CATEGORÍA 1: BEBIDAS FUNCIONALES
 
 ### BEB_01: "¿Cuáles son los cafés disponibles?"
-**[Concepto Nuclear]:** Caballo de Troya. Productos de entrada. Costo por taza: $5,545 COP.
+**[Concepto Nuclear]:** Bebidas funcionales con extracto propietario de Ganoderma lucidum. La línea más amplia del portafolio.
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
@@ -170,6 +163,38 @@ El polvo de hongo tiene biodisponibilidad limitada. El extracto Gano Excel es 10
 | Reskine Colágeno | $216,900 | 10 sachets | Piel, cabello, articulaciones |
 
 Todos contienen extracto propietario de Ganoderma lucidum.
+
+---
+
+### BEB_02: "¿Para qué sirve el Ganocafé 3en1?" / "¿Qué beneficios tiene el Ganocafé?"
+**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR — usar siempre que alguien pregunte por beneficios o uso de cualquier producto]**
+**[Concepto Nuclear]:** Café instantáneo enriquecido con Ganoderma lucidum. La diferencia está en lo que no ves.
+
+El Ganocafé 3en1 es café instantáneo de alta calidad al que se le incorpora el extracto propietario de Ganoderma lucidum de Gano Excel — el hongo más investigado del planeta con más de 2,000 estudios publicados.
+
+**¿Qué aporta el Ganoderma que no tiene el café común?**
+- **Sistema inmunológico:** Los β-D-glucanos (polisacáridos) estimulan macrófagos y células NK naturales del cuerpo.
+- **Energía sostenida:** La combinación de cafeína natural + Ganoderma evita el "crash" energético que produce el café solo. La energía se sostiene sin el nerviosismo típico.
+- **Función adaptogénica:** Los 200+ ácidos ganodéricos (triterpenoides) ayudan al cuerpo a gestionar el estrés oxidativo.
+- **Soporte cardiovascular:** Estudios en PubMed (2023-2024) documentan soporte en presión arterial y función antitrombótica.
+- **Microbioma intestinal:** Investigación en Frontiers in Microbiology (2024) señala mejoras en microbiota, glucemia y lípidos.
+
+**Presentación:** 20 sobres individuales. Cada sobre rinde una taza perfecta. Se disuelve en agua caliente o fría.
+
+**¿Para quién es ideal?**
+Personas que ya toman café y quieren que ese mismo hábito diario también cuide su sistema inmunológico y niveles de energía.
+
+---
+
+### BEB_03: "¿El Ganocafé tiene cafeína?" / "¿Cuánta cafeína tiene?"
+**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
+**[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional.
+
+Sí, el Ganocafé contiene cafeína natural. Sin embargo, la proporción es significativamente menor que en el café tradicional:
+
+**La relación es 13 a 1:** necesitarías tomar 13 tazas de café convencional para equivaler a la cantidad de cafeína de 1 taza de Ganocafé. Esto es lo que permite la energía sostenida sin el nerviosismo ni el "crash" de la tarde.
+
+El resultado práctico: puedes tomar tu café en la mañana y no sentir la sobreestimulación ni la caída brusca de energía que produce el café con alta concentración de cafeína.
 
 ---
 

@@ -8,6 +8,7 @@
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { HeroDiagnosticSlider, MapaSlider } from '@/components/ui/HomeSliders';
 
 export const metadata = {
   title: 'CreaTuActivo - ¿Sigues Operando Bajo el Plan por Defecto?',
@@ -124,22 +125,8 @@ function HeroSection() {
           </p>
         </div>
 
-        {/* Botón primario — Geometría Industrial (clip-path) */}
-        <Link
-          href="/calculadora"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: '10px',
-            background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
-            color: '#000', fontWeight: 700, fontSize: '1rem',
-            padding: '16px 40px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
-            transition: 'all 0.2s ease',
-          }}
-        >
-          Iniciar Auditoría de Soberanía →
-        </Link>
+        {/* CTA primario — SovereignSlider (reemplaza botón estático) */}
+        <HeroDiagnosticSlider />
 
         <div style={{
           display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px',
@@ -302,14 +289,14 @@ function FinalCTASection() {
           Después de auditar tus números, solicita acceso al Mapa de Salida. Descubre la arquitectura de nuestro modelo y traza tu ruta. Sin compromisos.
         </p>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '100%', maxWidth: 500, margin: '0 auto' }}>
           <Link
             href="/calculadora"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: `linear-gradient(135deg, ${C.gold}, #D4A017)`,
               color: '#000', fontWeight: 700, fontSize: '1rem',
-              padding: '14px 32px',
+              padding: '14px 32px', width: '100%', justifyContent: 'center',
               fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
               textDecoration: 'none', textTransform: 'uppercase',
               clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
@@ -317,20 +304,8 @@ function FinalCTASection() {
           >
             Hacer el Diagnóstico Primero
           </Link>
-          <Link
-            href="/mapa-de-salida"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              background: 'transparent', border: `1px solid ${C.gold}`,
-              color: C.gold, fontWeight: 600, fontSize: '1rem',
-              padding: '14px 32px',
-              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
-              textDecoration: 'none', textTransform: 'uppercase',
-              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-            }}
-          >
-            Ya lo audité, Obtener el Mapa
-          </Link>
+          {/* SovereignSlider reemplaza el botón estático "Ya lo audité" */}
+          <MapaSlider />
         </div>
       </div>
     </section>

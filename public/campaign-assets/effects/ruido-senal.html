@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruido vs Señal - Campaign Asset</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { overflow: hidden; background: #000; }
+        canvas { display: block; }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: system-ui, sans-serif;
+            transition: transform 0.1s;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-record {
+            background: #C5A059;
+            color: #0F1115;
+        }
+        .btn-record.recording {
+            background: #F43F5E;
+            color: #fff;
+            animation: pulse 1s infinite;
+        }
+        .btn-hide {
+            background: rgba(255,255,255,0.1);
+            color: #A3A3A3;
+            font-size: 12px;
+        }
+        .status {
+            color: #10B981;
+            font-size: 12px;
+            font-family: system-ui, sans-serif;
+            text-align: right;
+        }
+        .timer {
+            color: #F5C518;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            text-align: right;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .hidden { display: none !important; }
+        .info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+            color: #A3A3A3;
+            font-family: system-ui, sans-serif;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls" id="controls">
+        <button class="btn btn-record" id="recordBtn" onclick="toggleRecord()">GRABAR 15s</button>
+        <button class="btn btn-hide" onclick="document.getElementById('controls').classList.add('hidden'); document.getElementById('info').classList.add('hidden');">OCULTAR UI</button>
+        <div class="timer" id="timer"></div>
+        <div class="status" id="status"></div>
+    </div>
+    <div class="info" id="info">
+        Ruido Rojo (Competencia) vs Señal Azul (Tú)
+    </div>
+
+<script>
+// === p5.js Sketch ===
+let particles = [];
+const particleCount = 100;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    for(let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+}
+
+function draw() {
+    background(0, 20);
+
+    // FASE 1: El Ruido Rojo (Competencia)
+    for(let i = 0; i < particles.length; i++) {
+        particles[i].move();
+        particles[i].display();
+    }
+
+    // FASE 2: La Señal Azul (Tú) - Pulso Central
+    noFill();
+    stroke(0, 255, 255, 150);
+    strokeWeight(2);
+    let pulse = (frameCount % 100) * 5;
+    ellipse(width/2, height/2, pulse, pulse);
+
+    // Núcleo sólido
+    fill(0, 255, 255);
+    noStroke();
+    ellipse(width/2, height/2, 20, 20);
+}
+
+class Particle {
+    constructor() {
+        this.x = random(width);
+        this.y = random(height);
+        this.vx = random(-2, 2);
+        this.vy = random(-2, 2);
+        this.alpha = random(100, 255);
+    }
+
+    move() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+    }
+
+    display() {
+        noStroke();
+        fill(255, 50, 50, this.alpha);
+        ellipse(this.x, this.y, 4, 4);
+    }
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+// === Grabación WebM ===
+let mediaRecorder;
+let recordedChunks = [];
+let isRecording = false;
+let countdownInterval;
+
+function toggleRecord() {
+    if (isRecording) {
+        stopRecord();
+    } else {
+        startRecord();
+    }
+}
+
+function startRecord() {
+    const canvas = document.querySelector('canvas');
+    const stream = canvas.captureStream(30);
+    recordedChunks = [];
+
+    mediaRecorder = new MediaRecorder(stream, {
+        mimeType: getSupportedMimeType(),
+        videoBitsPerSecond: 8000000
+    });
+
+    mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ruido-senal-15s.webm';
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById('status').textContent = 'Descargado. Importa en CapCut.';
+        setTimeout(() => { document.getElementById('status').textContent = ''; }, 4000);
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+
+    const btn = document.getElementById('recordBtn');
+    btn.textContent = 'DETENER GRABACIÓN';
+    btn.classList.add('recording');
+
+    let elapsed = 0;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = '0s / 15s';
+    document.getElementById('status').textContent = 'Grabando...';
+
+    countdownInterval = setInterval(() => {
+        elapsed++;
+        timerEl.textContent = `${elapsed}s / 15s`;
+        if (elapsed >= 15) {
+            stopRecord();
+        }
+    }, 1000);
+}
+
+function stopRecord() {
+    if (!isRecording) return;
+
+    clearInterval(countdownInterval);
+    mediaRecorder.stop();
+    isRecording = false;
+
+    const btn = document.getElementById('recordBtn');
+    btn.textContent = 'GRABAR 15s';
+    btn.classList.remove('recording');
+    document.getElementById('status').textContent = 'Procesando...';
+    document.getElementById('timer').textContent = '';
+}
+
+function getSupportedMimeType() {
+    const types = [
+        'video/webm;codecs=vp9',
+        'video/webm;codecs=vp8',
+        'video/webm'
+    ];
+    for (const type of types) {
+        if (MediaRecorder.isTypeSupported(type)) return type;
+    }
+    return 'video/webm';
+}
+</script>
+</body>
+</html>

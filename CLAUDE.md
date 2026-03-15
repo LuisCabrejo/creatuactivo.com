@@ -123,6 +123,17 @@ Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
 
+**UI Design Decisions** (Mar 2026 — no revertir sin justificación):
+- **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
+- **Viewport keyboard**: `interactiveWidget: 'resizes-content'` en `src/app/layout.tsx` → fix Chrome 108+ double-jump. Sin esto el área de escritura salta dos veces al abrir teclado.
+- **Input type**: `type="search"` + `enterKeyHint="send"` en el textarea → elimina la barra de autofill (🔑💳📍) de SwiftKey/Chrome en Android. NO cambiar a `type="text"`.
+- **Saludo inicial**: Texto grande centrado (estilo Claude.ai) cuando es el único mensaje. Desaparece al enviar el primer mensaje del usuario. Implementado en `NEXUSWidget.tsx` como caso especial `isInitialGreeting && isOnlyMessage`.
+- **Nombre persistido**: Se extrae del mensaje del usuario con regex (`me llamo / mi nombre es / soy`) y se guarda en `localStorage('nexus_prospect_name')`. El saludo siguiente lo usa: `"Hola, {nombre} 🪢"`.
+- **Header mobile**: Solo `Queswa 🪢` + botón X. Sin ícono, sin subtítulo "TERMINAL ACTIVA".
+- **Fondo**: Panel sobre fondo oscuro puro (`#0F1115`), sin secciones ni cards intermedias. Respuestas sobre el mismo fondo — no agregar `background` a los mensajes del bot.
+- **Burbujas usuario**: Sin border-radius (`borderRadius: 0`) — branding Industrial Luxury, 90 grados. Color `#16181D`.
+- **Servilleta + Queswa**: La servilleta usa eventos custom (`open-queswa` / `close-queswa`) para comunicarse con `NEXUSFloatingButton`. Al abrir Queswa en servilleta, el `body.style.overflow = 'auto'` se restaura temporalmente para que el teclado funcione. El deck-container mantiene `overflow: hidden` independientemente.
+
 **API Endpoints**:
 - **Production**: Always use `/api/nexus/producer` (async queue)
 - **Cron fallback**: `/api/nexus/consumer-cron` (processes queue without triggers)
@@ -143,6 +154,10 @@ Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
 | `/api/cron/reto-5-dias` | Node | 60s | 5-day challenge emails |
 | `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
 | `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
+| `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
+| `/api/fundadores/registro-diciembre` | Node | 10s | Legacy December registration |
+| `/api/email-open` | Node | — | Email open pixel tracker |
+| `/api/test-resend`, `/api/test-reto-email`, `/api/debug-email` | Node | — | Dev/debug only (not for production use) |
 
 **Vercel Cron Schedules** (vercel.json):
 ```
@@ -264,7 +279,7 @@ Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
 src/app/
 ├── page.tsx                         # Homepage (Funnel Hub, Quiet Luxury style)
 ├── layout.tsx                       # Root layout (tracking + Queswa chatbot)
-├── reto-5-dias/                     # 🎯 MAIN FUNNEL ENTRY (noindex)
+├── reto-5-dias/                     # 🎯 FUNNEL ENTRY v1 (noindex)
 │   ├── page.tsx                     # Squeeze page (minimal, form only)
 │   ├── layout.tsx                   # noindex metadata
 │   ├── gracias/page.tsx             # Bridge page (Epiphany Bridge story)
@@ -272,6 +287,13 @@ src/app/
 │   ├── dolor/page.tsx               # A/B variant: emotional pain
 │   ├── analitico/page.tsx           # A/B variant: analytical approach
 │   └── global/page.tsx              # A/B variant: global opportunity
+├── mapa-de-salida/                  # 🎯 FUNNEL ENTRY v3.0 (noindex) — "Auditoría de 5 Fases"
+│   ├── page.tsx                     # Squeeze page (email capture, Autoridad Epistémica style)
+│   ├── layout.tsx                   # noindex metadata
+│   ├── gracias/page.tsx             # Thank you + tracking pixel
+│   ├── [constructorId]/page.tsx     # Constructor-specific squeeze page
+│   ├── dia-1/page.tsx               # Coordenada 1 — video page for Day 1 email
+│   └── dia-1/[ref]/page.tsx         # Personalized Day 1 link (constructor ref in OG + tracking)
 ├── fundadores/                      # Main founder signup (oferta)
 │   └── [ref]/page.tsx               # Referral tracking
 ├── nosotros/                        # Epiphany Bridge Story (noindex - SEO en luiscabrejo.com)
@@ -298,10 +320,10 @@ src/app/
 ├── paquetes/                        # Product packages
 │   └── [ref]/page.tsx
 ├── servilleta/                      # 🎯 "The Industrial Deck" v5.1 (4-slide presentation)
-├── servilleta-3/                    # "Bento Grid Industrial" layout
 ├── animaciones/                     # 🎬 Canvas-based social video renderer (Dan Koe style, 1080×1920 9:16, 60fps)
 │   ├── dia5/, dia6/, dia7/, dia8/, dia9/   # Daily video animation projects
 │   ├── dia7-v3 through dia7-v6      # A/B variants for Día 7 "Eliminación Radical"
+│   ├── dia8-v2/                     # Post-production variant for Día 8
 │   └── hook-dia6/                   # Hook variant for Día 6
 ├── modelo-de-valor/                 # Value model page
 ├── paises/brasil/                   # Brazil-specific landing
@@ -318,7 +340,8 @@ src/app/
 **SEO Strategy** (Dic 2025):
 - **Indexed pages**: `/`, `/fundadores`, `/socios`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
 - **noindex pages** (funnel interno):
-  - `/reto-5-dias/*` → Squeeze/Bridge para ADS
+  - `/reto-5-dias/*` → Squeeze/Bridge para ADS (v1)
+  - `/mapa-de-salida/*` → Squeeze/Bridge para ADS (v3.0 — "Auditoría 5 Fases")
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
 
 **Removed Pages** (with 301 redirects in next.config.js):
@@ -345,7 +368,6 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 | Version | Route | Style |
 |---------|-------|-------|
 | v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
-| v3.0 | `/servilleta-3` | Bento grid layout |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: Rajdhani (headings) + Roboto Mono (data)

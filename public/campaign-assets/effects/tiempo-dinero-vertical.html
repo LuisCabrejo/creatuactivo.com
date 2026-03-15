@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TIEMPO = DINERO (Tachado) - Vertical Reel</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .text {
+            color: #FFFFFF;
+            font-size: 10vw;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: appear 0.1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .strike {
+            position: absolute;
+            top: 50%;
+            left: -5%;
+            width: 0%;
+            height: 15px;
+            background-color: #FF0000;
+            transform: translateY(-50%) rotate(-5deg);
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            animation: strikeThrough 0.15s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes appear {
+            0% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes strikeThrough {
+            0% { width: 0%; }
+            100% { width: 110%; }
+        }
+
+        /* Controles */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: system-ui, sans-serif;
+        }
+        .btn-record { background: #C5A059; color: #0F1115; }
+        .btn-record.recording { background: #F43F5E; color: #fff; animation: pulse 1s infinite; }
+        .btn-hide { background: rgba(255,255,255,0.1); color: #A3A3A3; font-size: 12px; }
+        .status { color: #10B981; font-size: 12px; font-family: system-ui, sans-serif; text-align: right; max-width: 300px; }
+        .timer { color: #F5C518; font-size: 18px; font-family: 'Courier New', monospace; text-align: right; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="controls" id="controls">
+        <button class="btn btn-record" id="recordBtn" onclick="startRecord()">GRABAR 7s (9:16)</button>
+        <button class="btn btn-hide" onclick="hideAndRecord()">OCULTAR UI + GRABAR</button>
+        <div class="timer" id="timer"></div>
+        <div class="status" id="status">
+            0.5s golpe → 1.5s lectura → 2s ¡ZAS! tachado → 5s freeze tachado
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text" id="mainText">TIEMPO = DINERO</div>
+        <div class="strike" id="strike"></div>
+    </div>
+
+<script>
+    const DURATION = 7; // 0.5 appear + 1.5 read + 0.15 strike + 5s freeze
+    let mediaRecorder;
+    let recordedChunks = [];
+    let countdownInterval;
+    let captureFrameId;
+    let animStartTime = 0;
+
+    function hideAndRecord() {
+        document.getElementById('controls').classList.add('hidden');
+        setTimeout(startRecord, 300);
+    }
+
+    function resetAnimation() {
+        const textEl = document.getElementById('mainText');
+        const strikeEl = document.getElementById('strike');
+        textEl.style.animation = 'none';
+        strikeEl.style.animation = 'none';
+        void textEl.offsetHeight;
+        textEl.style.animation = '';
+        strikeEl.style.animation = '';
+    }
+
+    function startRecord() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 1080;
+        canvas.height = 1920;
+
+        const stream = canvas.captureStream(30);
+        recordedChunks = [];
+        animStartTime = Date.now();
+
+        // Reset DOM animation
+        resetAnimation();
+
+        function drawFrame() {
+            const elapsed = (Date.now() - animStartTime) / 1000;
+
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const text = 'TIEMPO = DINERO';
+            const fontSize = Math.floor(canvas.width * 0.1);
+            ctx.font = `900 ${fontSize}px 'Arial Black', Impact, sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // 0.5s: Texto aparece con golpe seco (instantáneo, 0.1s)
+            if (elapsed >= 0.5) {
+                const appearDuration = 0.1;
+                const appearProgress = Math.min(1, (elapsed - 0.5) / appearDuration);
+                const scale = 1.05 - 0.05 * appearProgress;
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.scale(scale, scale);
+                ctx.globalAlpha = appearProgress;
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillText(text, 0, 0);
+                ctx.globalAlpha = 1;
+                ctx.restore();
+
+                // 2.0s: ¡ZAS! Línea roja violenta (0.15s)
+                if (elapsed >= 2.0) {
+                    const strikeDuration = 0.15;
+                    const strikeProgress = Math.min(1, (elapsed - 2.0) / strikeDuration);
+                    const eased = 1 - Math.pow(1 - strikeProgress, 3);
+
+                    const textMetrics = ctx.measureText(text);
+                    const textWidth = textMetrics.width;
+                    const lineWidth = textWidth * 1.1 * eased;
+
+                    ctx.save();
+                    ctx.translate(centerX, centerY);
+                    ctx.rotate(-5 * Math.PI / 180);
+
+                    ctx.shadowColor = 'rgba(255, 0, 0, 0.8)';
+                    ctx.shadowBlur = 10;
+                    ctx.fillStyle = '#FF0000';
+                    ctx.fillRect(-textWidth * 0.55, -7.5, lineWidth, 15);
+
+                    ctx.shadowBlur = 0;
+                    ctx.restore();
+                }
+            }
+
+            captureFrameId = requestAnimationFrame(drawFrame);
+        }
+
+        drawFrame();
+
+        const mimeType = getSupportedMimeType();
+        mediaRecorder = new MediaRecorder(stream, {
+            mimeType: mimeType,
+            videoBitsPerSecond: 8000000
+        });
+
+        mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            cancelAnimationFrame(captureFrameId);
+
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tiempo-dinero-7s.webm';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const controls = document.getElementById('controls');
+            controls.classList.remove('hidden');
+            document.getElementById('status').textContent = 'Descargado. Modo "Pantalla/Screen" en CapCut para quitar fondo negro.';
+            document.getElementById('timer').textContent = '';
+            const btn = document.getElementById('recordBtn');
+            btn.textContent = 'GRABAR 7s (9:16)';
+            btn.classList.remove('recording');
+        };
+
+        const btn = document.getElementById('recordBtn');
+        btn.textContent = 'GRABANDO...';
+        btn.classList.add('recording');
+
+        mediaRecorder.start(500);
+        let elapsed = 0;
+        const timerEl = document.getElementById('timer');
+
+        countdownInterval = setInterval(() => {
+            elapsed++;
+            timerEl.textContent = `${elapsed}s / ${DURATION}s`;
+            if (elapsed >= DURATION) clearInterval(countdownInterval);
+        }, 1000);
+
+        setTimeout(() => {
+            clearInterval(countdownInterval);
+            if (mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+        }, DURATION * 1000);
+    }
+
+    function getSupportedMimeType() {
+        const types = [
+            'video/webm;codecs=vp9',
+            'video/webm;codecs=vp8',
+            'video/webm'
+        ];
+        for (const type of types) {
+            if (MediaRecorder.isTypeSupported(type)) return type;
+        }
+        return 'video/webm';
+    }
+</script>
+</body>
+</html>

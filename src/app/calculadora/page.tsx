@@ -11,9 +11,10 @@
 
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import SovereignSlider from '@/components/ui/SovereignSlider';
 
 // ============================================================================
 // THE ARCHITECT'S SUITE - COLOR PALETTE
@@ -77,11 +78,27 @@ const questions = [
 type Step = 'quiz' | 'capture' | 'results';
 
 export default function CalculadoraPage() {
+  const router = useRouter();
   const [step, setStep] = useState<Step>('quiz');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const fingerprint = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('iaa_fingerprint') || null
+    const constructorRef = localStorage.getItem('constructor_ref') || null
+    fetch('/api/funnel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: 'calculadora',
+        step: 'vio_calculadora',
+        fingerprint,
+        constructor_ref: constructorRef,
+      }),
+    }).catch(() => {})
+  }, [])
 
   const handleAnswer = (questionId: string, value: number | string) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
@@ -109,15 +126,11 @@ export default function CalculadoraPage() {
     };
   };
 
-  const handleCapture = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const submitCapture = async () => {
     if (!formData.email) return;
-
     setIsSubmitting(true);
-
     try {
       const results = calculateResults();
-
       await fetch('/api/funnel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -130,14 +143,19 @@ export default function CalculadoraPage() {
           monthlyExpenses: results.monthlyExpenses,
           savings: results.savings,
           freedomDays: results.freedomDays,
+          constructor_ref: localStorage.getItem('constructor_ref') || undefined,
         }),
       });
     } catch (error) {
       console.error('Error:', error);
     }
-
     setIsSubmitting(false);
     setStep('results');
+  };
+
+  const handleCapture = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submitCapture();
   };
 
   const results = step === 'results' ? calculateResults() : null;
@@ -367,18 +385,12 @@ export default function CalculadoraPage() {
                     clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                   }}
                 />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-8 py-4  font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60 uppercase tracking-wide"
-                  style={{
-                    backgroundColor: COLORS.gold.primary,
-                    color: COLORS.bg.main,
-                    clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-                  }}
-                >
-                  {isSubmitting ? 'Procesando...' : 'Ver Mi Resultado'}
-                </button>
+                <SovereignSlider
+                  label="DESLIZAR PARA VER RESULTADO"
+                  onComplete={submitCapture}
+                  disabled={!formData.email || isSubmitting}
+                  accentColor="gold"
+                />
               </form>
 
               <p
@@ -522,21 +534,11 @@ export default function CalculadoraPage() {
                         ¿Listo para reescribir esta matemática?
                       </p>
 
-                      <Link
-                        href="/mapa-de-salida"
-                        className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
-                        style={{
-                          backgroundColor: COLORS.gold.primary,
-                          color: COLORS.bg.main,
-                          boxShadow: '0 0 20px rgba(229, 194, 121, 0.2)',
-                          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-                        }}
-                      >
-                        Obtener el Mapa de Salida
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </Link>
+                      <SovereignSlider
+                        label="DESLIZAR PARA OBTENER MAPA DE SALIDA"
+                        onComplete={() => router.push('/mapa-de-salida')}
+                        accentColor="cyan"
+                      />
 
                       <p
                         className="mt-6 text-sm"

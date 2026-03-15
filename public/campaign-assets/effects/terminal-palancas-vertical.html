@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Terminal Palancas (Vertical/Reel) - Campaign Asset</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Courier New', monospace; overflow: hidden; }
+        .terminal { color: #F5C518; font-size: 4.5vw; font-weight: bold; text-shadow: 0 0 5px rgba(245, 197, 24, 0.5); white-space: pre-wrap; line-height: 1.8; text-align: center; padding: 0 5vw; }
+        .cursor { display: inline-block; width: 8px; height: 1em; background-color: #F5C518; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .dim { color: #444; text-decoration: line-through; }
+        .highlight { color: #fff; }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: system-ui, sans-serif;
+        }
+        .btn-record { background: #C5A059; color: #0F1115; }
+        .btn-record.recording { background: #F43F5E; color: #fff; animation: pulse 1s infinite; }
+        .btn-hide { background: rgba(255,255,255,0.1); color: #A3A3A3; font-size: 12px; }
+        .status { color: #10B981; font-size: 12px; font-family: system-ui, sans-serif; text-align: right; max-width: 300px; }
+        .timer { color: #F5C518; font-size: 18px; font-family: 'Courier New', monospace; text-align: right; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="controls" id="controls">
+        <button class="btn btn-record" id="recordBtn" onclick="startFullSequence()">GRABAR 15s (9:16)</button>
+        <button class="btn btn-hide" onclick="hideAndRecord()">OCULTAR UI + GRABAR</button>
+        <div class="timer" id="timer"></div>
+        <div class="status" id="status">
+            Formato: 1080×1920 (Reel/TikTok 9:16)
+        </div>
+    </div>
+
+    <div class="terminal" id="console"></div>
+
+<script>
+    // === ANIMACIÓN TERMINAL ===
+    const textLines = [
+        "> INICIANDO SISTEMA...",
+        "> CARGANDO PALANCAS:",
+        "[x] TRABAJO DURO\n    (Lento)",
+        "[x] CAPITAL\n    (Caro)",
+        "[✓] CÓDIGO & MEDIOS\n    (Infinito)"
+    ];
+
+    // Líneas limpias para el canvas (sin saltos)
+    const canvasLines = [
+        ["> INICIANDO SISTEMA..."],
+        ["> CARGANDO PALANCAS:"],
+        ["[x] TRABAJO DURO", "    (Lento)"],
+        ["[x] CAPITAL", "    (Caro)"],
+        ["[✓] CÓDIGO & MEDIOS", "    (Infinito)"]
+    ];
+
+    const lineTypes = ['normal', 'normal', 'dim', 'dim', 'highlight'];
+
+    let lineIndex = 0;
+    const consoleDiv = document.getElementById('console');
+
+    function typeWriter() {
+        if (lineIndex < textLines.length) {
+            consoleDiv.innerHTML = textLines.slice(0, lineIndex + 1).map((line, i) => {
+                if (i === 2 || i === 3) return `<span class="dim">${line}</span>`;
+                if (i === 4) return `<span class="highlight">${line}</span>`;
+                return line;
+            }).join("\n") + '<span class="cursor"></span>';
+
+            lineIndex++;
+            setTimeout(typeWriter, 800);
+        }
+    }
+
+    setTimeout(typeWriter, 1000);
+
+    // === GRABACIÓN 9:16 ===
+    let mediaRecorder;
+    let recordedChunks = [];
+    let countdownInterval;
+    let captureFrameId;
+
+    function hideAndRecord() {
+        document.getElementById('controls').classList.add('hidden');
+        setTimeout(startFullSequence, 300);
+    }
+
+    function startFullSequence() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        // 9:16 vertical para Reels/TikTok
+        canvas.width = 1080;
+        canvas.height = 1920;
+
+        const stream = canvas.captureStream(30);
+        recordedChunks = [];
+
+        function drawFrame() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Construir líneas visibles
+            const allDrawLines = [];
+            const visibleCount = lineIndex;
+            for (let i = 0; i < visibleCount && i < canvasLines.length; i++) {
+                canvasLines[i].forEach(subLine => {
+                    allDrawLines.push({ text: subLine, type: lineTypes[i] });
+                });
+            }
+
+            const fontSize = Math.floor(canvas.width * 0.045);
+            ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+            ctx.textBaseline = 'middle';
+
+            const lineHeight = fontSize * 1.8;
+            const totalHeight = allDrawLines.length * lineHeight;
+            const startY = (canvas.height - totalHeight) / 2;
+
+            allDrawLines.forEach((line, i) => {
+                const y = startY + i * lineHeight;
+                const textWidth = ctx.measureText(line.text).width;
+                const x = (canvas.width - textWidth) / 2;
+
+                ctx.shadowBlur = 0;
+                ctx.shadowColor = 'transparent';
+
+                if (line.type === 'dim') {
+                    ctx.fillStyle = '#444';
+                    ctx.fillText(line.text, x, y);
+                    ctx.strokeStyle = '#444';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + textWidth, y);
+                    ctx.stroke();
+                } else if (line.type === 'highlight') {
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText(line.text, x, y);
+                } else {
+                    ctx.fillStyle = '#F5C518';
+                    ctx.shadowColor = 'rgba(245, 197, 24, 0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText(line.text, x, y);
+                    ctx.shadowBlur = 0;
+                }
+            });
+
+            // Cursor parpadeante
+            if (allDrawLines.length > 0) {
+                const lastLine = allDrawLines[allDrawLines.length - 1];
+                const lastY = startY + (allDrawLines.length - 1) * lineHeight;
+                const lastWidth = ctx.measureText(lastLine.text).width;
+                const lastX = (canvas.width - lastWidth) / 2 + lastWidth + 5;
+                const blinkOn = Math.floor(Date.now() / 500) % 2 === 0;
+                if (blinkOn) {
+                    ctx.fillStyle = '#F5C518';
+                    ctx.fillRect(lastX, lastY - fontSize / 2, fontSize * 0.6, fontSize);
+                }
+            }
+
+            captureFrameId = requestAnimationFrame(drawFrame);
+        }
+
+        drawFrame();
+
+        const mimeType = getSupportedMimeType();
+        mediaRecorder = new MediaRecorder(stream, {
+            mimeType: mimeType,
+            videoBitsPerSecond: 8000000
+        });
+
+        mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            cancelAnimationFrame(captureFrameId);
+
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'terminal-palancas-vertical-15s.webm';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const controls = document.getElementById('controls');
+            controls.classList.remove('hidden');
+            document.getElementById('status').textContent = 'Descargado 1080×1920. Importa en CapCut.';
+            document.getElementById('timer').textContent = '';
+            const btn = document.getElementById('recordBtn');
+            btn.textContent = 'GRABAR 15s (9:16)';
+            btn.classList.remove('recording');
+        };
+
+        const btn = document.getElementById('recordBtn');
+        btn.textContent = 'GRABANDO...';
+        btn.classList.add('recording');
+
+        mediaRecorder.start(1000);
+        let elapsed = 0;
+        const timerEl = document.getElementById('timer');
+
+        countdownInterval = setInterval(() => {
+            elapsed++;
+            timerEl.textContent = `${elapsed}s / 15s`;
+            if (elapsed >= 15) clearInterval(countdownInterval);
+        }, 1000);
+
+        // Fase 2: A los 2s resetea animación
+        setTimeout(() => {
+            lineIndex = 0;
+            consoleDiv.innerHTML = '';
+            setTimeout(typeWriter, 1000);
+        }, 2000);
+
+        // Fase 3: Auto-stop a los 15s
+        setTimeout(() => {
+            clearInterval(countdownInterval);
+            if (mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+        }, 15000);
+    }
+
+    function getSupportedMimeType() {
+        const types = [
+            'video/webm;codecs=vp9',
+            'video/webm;codecs=vp8',
+            'video/webm'
+        ];
+        for (const type of types) {
+            if (MediaRecorder.isTypeSupported(type)) return type;
+        }
+        return 'video/webm';
+    }
+</script>
+</body>
+</html>

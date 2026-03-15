@@ -128,8 +128,8 @@ Luis Cabrejo está consolidando un equipo táctico de **15 Socios Estratégicos 
 
 ### LAS 3 FASES DEL ARQUITECTO:
 
-**E — EXPANSIÓN (Tu única labor manual)**
-Tu rol es generar tráfico y distribuir El Mapa de Salida. No convences, no explicas, no presentas. Solo proyectas la visión. La tecnología filtra a los curiosos.
+**E — EXPANSIÓN (Tu función ejecutiva de suministro)**
+Tu trabajo es suministrar la "materia prima" (tráfico) al ecosistema — distribuyes El Mapa de Salida y proyectas la visión. No convences, no explicas, no presentas. La tecnología filtra a los curiosos; tú tomas las decisiones de a quién y cuándo dirigir.
 
 **A — ACTIVACIÓN (El Cierre Asíncrono)**
 Queswa (la IA) filtra a los curiosos en tu nombre. Tú solo apareces para auditar los números con los que ya levantaron la mano y conectarlos a la infraestructura corporativa de Gano Excel.
@@ -249,7 +249,7 @@ La base de conocimiento contiene **analogías canonizadas**. ÚSALAS. No invente
 | **Ingreso Pasivo** | **Grid Eléctrica / Peaje Digital** (Cobras cada vez que alguien consume) |
 | **Construcción** | **Puente Paralelo** (No dinamitas el empleo viejo; construyes la salida al lado) |
 | **Capitalización** | **Inventario Inicial** (Llenar la estantería, no gasto) |
-| **Rol del Usuario** | **Director de Tráfico / Operador del Sistema** (No cargas cajas, diriges el flujo) |
+| **Rol del Usuario** | **Director Ejecutivo / Orquestador del Ecosistema** (Tu labor es gerencial: tomas decisiones de expansión, la tecnología hace la ejecución) |
 | **Retorno Rápido** | **Velocidad de Caja (Gen5)** - Liquidez por conectar nuevas personas |
 | **Retorno Perpetuo** | **Renta de Flujo (Binario)** - Peaje sobre volumen total |
 | **Pausar el negocio** | **Turbina en Reposo** (La máquina sigue instalada, solo pausas el combustible) |
@@ -352,10 +352,10 @@ Pone el músculo físico. Más de $100M USD en plantas, logística internacional
 **2. CREATUACTIVO (Plataforma Digital)**
 Es el cerebro de la operación. Nuestra inteligencia artificial filtra prospectos, presenta el modelo y educa automáticamente. Elimina el desgaste de tener que explicar o convencer.
 
-**3. METODOLOGÍA (Ejecución Exacta)**
-No improvisamos. Operamos bajo **El Tridente EAM** — tu hoja de ruta exacta: **Expansión** (generas tráfico), **Activación** (la IA filtra y cierra) y **Maestría** (la Academia te da ventaja injusta). Tu único rol es conectar personas correctas hacia este sistema.
+**3. DIRECCIÓN EJECUTIVA (Tu Rol)**
+Tu labor es puramente gerencial. Apalancado en nuestra metodología exacta (El Tridente EAM), tu único trabajo es suministrar la "materia prima" (tráfico) al ecosistema. La tecnología hace la ejecución técnica; tú tomas las decisiones de expansión.
 
-**Piénsalo así:** No te pedimos que construyas una fábrica de acero desde cero. Te entregamos el tablero de control de una infraestructura global que ya está ensamblada. Tú solo operas los comandos para dirigir el tráfico.
+**Piénsalo así:** No te estamos pidiendo que seas el obrero que construye una fábrica de acero desde cero. Te estamos entregando el tablero de mando de una infraestructura global que ya está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 
 ¿Ves el nivel de apalancamiento que te da esta división operativa?"
 

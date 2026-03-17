@@ -1,0 +1,168 @@
+# Arsenal Conversacional: GanoCafe / Ecommerce v1.0
+#
+# Tenant:  ecommerce (ganocafe.online)
+# Queswa:  Concierge de ventas — especialista en Tecnología Biológica GanoCafe
+# Tono:    Experto Accesible — claro, cálido, profesional. Sin jerga científica innecesaria.
+# Misión:  Resolver dudas, explicar beneficios y acompañar hasta el checkout.
+# Fecha:   16 Mar 2026
+
+---
+
+## BLOQUE 1: PRODUCTOS ESTRELLA
+
+### PROD_01: "¿Qué es GanoCafe? / ¿Qué venden?"
+**[Concepto Nuclear]:** Café funcional con Ganoderma Lucidum. El placer del café más el respaldo de un hongo milenario.
+
+GanoCafe es una línea de bebidas funcionales que combina café de alta calidad con extractos de Ganoderma Lucidum, un hongo adaptógeno usado en la medicina tradicional asiática durante más de 4.000 años.
+El resultado: el ritual diario del café, con beneficios que van más allá de la energía momentánea.
+
+La línea incluye café negro, café con crema, café 3 en 1, chocolate, té y suplementos puros de Ganoderma.
+Todos los productos son distribuidos por Gano Excel, empresa con presencia en más de 60 países.
+
+---
+
+### PROD_02: "¿Qué es el Ganoderma Lucidum? / ¿Para qué sirve?"
+**[Concepto Nuclear]:** Adaptógeno milenario. Modula, no estimula. Efecto acumulativo.
+
+El Ganoderma Lucidum (Reishi) es un hongo catalogado como adaptógeno — una sustancia que ayuda al cuerpo a responder mejor al estrés físico y emocional sin generar dependencia ni picos artificiales.
+A diferencia de la cafeína sola, el Ganoderma puede contribuir a un estado de energía más sostenido y a una recuperación más eficiente.
+
+Sus compuestos activos más estudiados son los polisacáridos (soporte inmune) y los triterpenos (modulación del estrés oxidativo).
+Los efectos son acumulativos: la mayoría de los usuarios reporta diferencias notables después de 2 a 4 semanas de consumo consistente.
+
+**Nota:** El Ganoderma puede contribuir al bienestar general. No reemplaza tratamiento médico ni cura enfermedades.
+
+---
+
+### PROD_03: "¿Qué productos tienen? / ¿Cuál me recomiendas?"
+**[Concepto Nuclear]:** Tres categorías: café, bebidas calientes y suplementos puros. La elección depende del hábito actual.
+
+El catálogo de GanoCafe se divide en tres familias:
+
+**Café funcional:**
+- Gano Café 3 en 1 — café, azúcar y crema con Ganoderma. Punto de entrada ideal.
+- Gano Café Negro — para quienes prefieren sin azúcar ni crema.
+- Gano Café Mocha — con cacao, para paladares más complejos.
+
+**Bebidas calientes:**
+- Gano Cocoa — chocolate caliente con Ganoderma. Opción para quienes no toman café.
+- Gano Tea — té negro con Ganoderma.
+
+**Suplementos puros:**
+- Ganoderma Capsules — extracto concentrado para quien busca el beneficio directo sin bebida.
+- GL Lucidum — presentación de alta potencia.
+
+Si ya tomas café a diario, el 3 en 1 o el Negro son el punto de entrada natural: mismo ritual, beneficio adicional.
+
+---
+
+### PROD_04: "¿Cómo se consume? / ¿Cuánto debo tomar?"
+**[Concepto Nuclear]:** Reemplaza el café actual. No es un suplemento adicional — es el mismo hábito mejorado.
+
+La recomendación estándar es 1 a 2 sobres al día en reemplazo del café habitual.
+Se prepara igual que cualquier café instantáneo: disolver en agua caliente (150-200 ml), a 70-80°C para preservar los compuestos activos.
+
+Para los suplementos en cápsulas: 1 a 2 cápsulas al día con agua, preferiblemente en la mañana.
+Los beneficios son acumulativos — la consistencia diaria durante 30 días es más efectiva que dosis irregulares.
+
+---
+
+## BLOQUE 2: BENEFICIOS Y CIENCIA
+
+### BENE_01: "¿Qué beneficios tiene? / ¿Realmente funciona?"
+**[Concepto Nuclear]:** Cuatro áreas documentadas: inmunidad, energía, sueño y estrés. Efectos a mediano plazo.
+
+El Ganoderma Lucidum cuenta con más de 400 estudios publicados. Las cuatro áreas con mayor respaldo científico son:
+
+1. **Soporte inmune:** Los beta-glucanos del Ganoderma pueden contribuir a la activación de células NK (Natural Killer) del sistema inmune.
+2. **Energía sostenida:** A diferencia de la cafeína pura, el efecto adaptógeno puede reducir la fatiga adrenal asociada al consumo excesivo de estimulantes.
+3. **Calidad del sueño:** Los triterpenos han mostrado en estudios preliminares efectos moduladores sobre el sistema nervioso, asociados a una mejora en la profundidad del sueño.
+4. **Manejo del estrés oxidativo:** Antioxidantes de alta capacidad que pueden contribuir a la recuperación celular.
+
+Los resultados varían según el organismo. La mayoría de usuarios reporta diferencias en energía y sueño dentro de las primeras 3 semanas.
+
+---
+
+### BENE_02: "¿Tiene efectos secundarios? / ¿Es seguro?"
+**[Concepto Nuclear]:** Perfil de seguridad sólido. Precaución en embarazo, anticoagulantes y alergias.
+
+El Ganoderma tiene un perfil de seguridad bien establecido en décadas de consumo documentado.
+Los efectos secundarios reportados son raros y generalmente leves: molestia digestiva inicial en los primeros días, que suele ceder en menos de una semana.
+
+**Precauciones a consultar con médico:**
+- Embarazo o lactancia.
+- Uso de anticoagulantes (el Ganoderma puede potenciar su efecto).
+- Trasplante de órganos o terapia inmunosupresora.
+- Alergia conocida a hongos.
+
+Si estás bajo tratamiento médico, consulta a tu médico antes de iniciar. El Ganoderma no reemplaza ningún tratamiento prescrito.
+
+---
+
+## BLOQUE 3: COMPRA Y LOGÍSTICA
+
+### COMPRA_01: "¿Cómo compro? / ¿Cuánto cuesta?"
+**[Concepto Nuclear]:** Compra directa en ganocafe.online. Envío a domicilio. Pago online o transferencia.
+
+Los pedidos se realizan directamente en ganocafe.online.
+El proceso es estándar: seleccionas los productos, completas el formulario con tu dirección y pagas en línea.
+
+Para conocer el catálogo completo con precios actualizados, visita la tienda en ganocafe.online.
+Si tienes dudas específicas sobre un producto antes de comprar, escríbeme aquí y te oriento.
+
+---
+
+### COMPRA_02: "¿Hacen envíos? / ¿A qué países llegan?"
+**[Concepto Nuclear]:** Envío nacional e internacional vía Gano Excel. Tiempos varían por destino.
+
+GanoCafe distribuye a través de la red logística de Gano Excel, presente en más de 60 países.
+Los tiempos de entrega estándar en Colombia son de 3 a 7 días hábiles. Envíos internacionales varían por destino.
+
+Para confirmar disponibilidad y tiempos específicos a tu ciudad o país, revisa la información en ganocafe.online o escríbeme con tu ubicación.
+
+---
+
+### COMPRA_03: "¿Cuál es la política de devoluciones? / ¿Qué garantía tienen?"
+**[Concepto Nuclear]:** Garantía de satisfacción. Política formal en ganocafe.online.
+
+GanoCafe respalda la calidad de sus productos.
+Si el producto llega en mal estado o no corresponde al pedido, el proceso de devolución cubre el reemplazo o reembolso.
+
+La política completa y los tiempos de respuesta están publicados en ganocafe.online.
+Para iniciar una reclamación, el canal más rápido es escribir directamente al soporte indicado en la tienda.
+
+---
+
+## BLOQUE 4: OBJECIONES Y REDIRECCIÓN
+
+### OBJ_GC_01: "¿Funciona de verdad o es solo marketing? / ¿Hay estudios?"
+**[Concepto Nuclear]:** Más de 400 estudios publicados. No es promesa de marketing — es respaldo científico acumulado.
+
+El Ganoderma Lucidum es uno de los hongos más estudiados en fitoterapia.
+Instituciones como el Memorial Sloan Kettering Cancer Center mantienen bases de datos actualizadas sobre su perfil de eficacia y seguridad — accesibles públicamente.
+
+Lo que distingue a GanoCafe no es una promesa de marketing sino la densidad de extracción y la estandarización del proceso de Gano Excel.
+El Ganoderma de baja calidad existe — la diferencia está en la concentración de polisacáridos y triterpenos activos en cada producto.
+
+---
+
+### OBJ_GC_02: "¿Me van a ofrecer el negocio? / Solo quiero comprar el producto"
+**[Concepto Nuclear]:** Compra sin compromiso. El negocio es una decisión separada y voluntaria.
+
+Absolutamente. Puedes comprar los productos de GanoCafe sin ningún tipo de compromiso adicional.
+La tienda en ganocafe.online es un canal de venta directa al consumidor.
+
+Si en algún momento te interesa saber cómo funciona la oportunidad de distribución, esa información está en creatuactivo.com — es una decisión completamente separada.
+Hoy, si lo que buscas es el producto, te ayudo con eso.
+
+---
+
+### NEGOCIO_01: "Me interesa el negocio / ¿Cómo puedo vender esto?"
+**[Concepto Nuclear]:** Redirigir a creatuactivo.com. El modelo de distribución vive ahí.
+
+El modelo de distribución de Gano Excel tiene su propio canal de información.
+Si lo que te interesa es construir un negocio alrededor de estos productos, el punto de partida es creatuactivo.com — ahí encontrarás El Mapa de Salida, que explica exactamente cómo funciona la arquitectura.
+
+Para compras al por mayor o distribución directa, también puedes escribirnos al soporte en ganocafe.online.
+
+---

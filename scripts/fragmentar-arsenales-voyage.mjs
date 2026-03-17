@@ -142,8 +142,7 @@ const ARSENAL_TENANT_MAP = {
   arsenal_12_niveles:     'creatuactivo_marketing',
   arsenal_reto:           'creatuactivo_marketing',
   arsenal_marca_personal: 'marca_personal',
-  // Futuros:
-  // arsenal_ganocafe:    'ecommerce',
+  arsenal_ganocafe:       'ecommerce',
 };
 
 /**
@@ -265,6 +264,8 @@ async function main() {
     'arsenal_reto',            // 7 respuestas (v1.0 - Reto de 5 Días Challenge Funnel)
     // tenant: marca_personal (luiscabrejo.com)
     'arsenal_marca_personal',  // 11 respuestas (v1.0 - Marca Personal Luis Cabrejo)
+    // tenant: ecommerce (ganocafe.online)
+    'arsenal_ganocafe',        // 13 respuestas (v1.0 - Catálogo + Beneficios + Compra)
   ];
 
   const results = {};

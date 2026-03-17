@@ -115,6 +115,13 @@ CREATE POLICY "Service role full access" ON nexus_documents
 -- de aplicación (complementa RLS — no depende de set_app_tenant).
 -- ============================================================================
 
+-- Drop todas las versiones existentes (pueden tener firmas distintas)
+DROP FUNCTION IF EXISTS search_nexus_documents(TEXT);
+DROP FUNCTION IF EXISTS search_nexus_documents(TEXT, INT);
+DROP FUNCTION IF EXISTS search_nexus_documents(TEXT, INT, TEXT);
+DROP FUNCTION IF EXISTS search_nexus_documents(search_query TEXT, match_count INT);
+DROP FUNCTION IF EXISTS search_nexus_documents(search_query TEXT, match_count INT, p_tenant_id TEXT);
+
 CREATE OR REPLACE FUNCTION search_nexus_documents(
   search_query   TEXT,
   match_count    INT     DEFAULT 5,

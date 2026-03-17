@@ -1147,7 +1147,7 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: LA VENTAJA INJUSTA ===== */}
+          {/* ===== SLIDE 2: VENTAJA INJUSTA (AI-first) ===== */}
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
             <div
               className="bg-image"
@@ -1157,10 +1157,10 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  LA VENTAJA INJUSTA.
+                  &iquest;DIF&Iacute;CIL? ESO ERA ANTES.
                 </h2>
                 <span className="slide-2-subtitle">
-                  EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
+                  QUESWA CAMBI&Oacute; LAS REGLAS &mdash;{' '}
                 </span>
                 <div className="exclusive-badge" style={{
                   fontFamily: 'var(--font-mono)',
@@ -1177,18 +1177,20 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
+              {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="good">COGNICI&Oacute;N AUT&Oacute;NOMA EN TU BOLSILLO</span>
+                    <span className="bad">&ldquo;&iquest;Y SI NO S&Eacute; QU&Eacute; RESPONDER?&rdquo;</span>
+                    <span className="arrow">&#10148;</span>
+                    <span className="good">QUESWA LO SABE TODO &middot; EN TU CELULAR &middot; SIEMPRE</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">memory</span>
-                    EL MOTOR QUESWA AI
+                    <span className="material-symbols-sharp">smartphone</span>
+                    EL iPHONE DEL NEGOCIO
                   </h3>
-                  <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
+                  <p>Preguntan por el producto &rarr; Queswa responde. Por el plan &rarr; Queswa responde. Siempre sabr&aacute;s qu&eacute; responder.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1206,33 +1208,37 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
+              {/* Tarjeta 2 (derecha): TIEMPO LIBERADO */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
+                    <span className="bad">SACAR CITAS &middot; PRESENTAR &middot; VENDER &middot; INVITAR</span>
+                    <span className="arrow">&#10148;</span>
+                    <span className="good">EXPANDIR &middot; ACTIVAR &middot; DESARROLLAR MAESTR&Iacute;A</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">manage_accounts</span>
-                    DIRECCI&Oacute;N, NO EJECUCI&Oacute;N
+                    <span className="material-symbols-sharp">timer_off</span>
+                    TIEMPO LIBERADO
                   </h3>
-                  <p>La Inteligencia Artificial hace el 90% del trabajo desgastante. Tu hora de trabajo diaria se eleva de nivel: dejas de ser el vendedor que ruega, para ser el arquitecto que orquesta el tr&aacute;fico.</p>
+                  <p>Queswa hace el 90% del trabajo pesado. Tu hora diaria se enfoca en lo que produce, no en lo que agota.</p>
                 </div>
               </div>
 
-              {/* Tarjeta 3 (full-width): ESCALABILIDAD ALGORÍTMICA */}
+              {/* Tarjeta 3: ESCALA AUTÓNOMA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="good">PROTOCOLO E.A.M. &mdash; EXPANSI&Oacute;N &middot; ACTIVACI&Oacute;N &middot; MAESTR&Iacute;A</span>
+                    <span className="bad">ESCALAR ERA EL CUELLO DE BOTELLA</span>
+                    <span className="arrow">&#10148;</span>
+                    <span className="good">QUESWA &gt; MAESTR&Iacute;A DUPLICA POR TI</span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">hub</span>
-                    ESCALABILIDAD ALGOR&Iacute;TMICA
+                    <span className="material-symbols-sharp">account_tree</span>
+                    ESCALA AUT&Oacute;NOMA
                   </h3>
-                  <p>El cuello de botella en los negocios tradicionales eres t&uacute;. Aqu&iacute;, tus nuevos constructores se desarrollan, educan y duplican guiados directamente por nuestra plataforma. La red crece sin que tu tiempo sea el l&iacute;mite.</p>
+                  <p>Tus nuevos constructores se desarrollan solos. La red crece sin que t&uacute; seas el l&iacute;mite.</p>
                 </div>
               </div>
             </div>

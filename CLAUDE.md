@@ -465,9 +465,8 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Lanzamiento público oficial: **lunes 1 de junio**
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
-- Dos engranajes del modelo: **El Músculo** (Gano Excel) + **El Cerebro** (CreaTuActivo)
+- Tres componentes Máquina Híbrida: **GANO EXCEL** (músculo/infraestructura) + **CREATUACTIVO** (cerebro/plataforma) + **DIRECCIÓN EJECUTIVA** (metodología/el héroe)
 - Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
-- Tres componentes de la Máquina Híbrida: **GANO EXCEL** + **CREATUACTIVO** + **DIRECCIÓN EJECUTIVA (METODOLOGÍA)**
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 
 ### Updating Queswa Knowledge

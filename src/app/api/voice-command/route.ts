@@ -194,26 +194,39 @@ function stageLabel(stage: string): string {
   return map[stage] ?? stage
 }
 
-// ─── ElevenLabs TTS ───────────────────────────────────────────────────────────
+// ─── TTS con fallback ElevenLabs → OpenAI ────────────────────────────────────
 async function textToSpeech(text: string): Promise<Uint8Array> {
-  const res = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
-    {
-      method: 'POST',
-      headers: {
-        'xi-api-key': ELEVENLABS_KEY,
-        'Content-Type': 'application/json',
-        Accept: 'audio/mpeg',
+  // Intento primario: ElevenLabs
+  if (ELEVENLABS_KEY) {
+    const res = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
+      {
+        method: 'POST',
+        headers: {
+          'xi-api-key': ELEVENLABS_KEY,
+          'Content-Type': 'application/json',
+          Accept: 'audio/mpeg',
+        },
+        body: JSON.stringify({
+          text,
+          model_id: 'eleven_multilingual_v2',
+          voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true },
+        }),
       },
-      body: JSON.stringify({
-        text,
-        model_id: 'eleven_multilingual_v2',
-        voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true },
-      }),
-    },
-  )
-  if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`)
-  return new Uint8Array(await res.arrayBuffer())
+    )
+    if (res.ok) return new Uint8Array(await res.arrayBuffer())
+    const err = await res.text()
+    console.warn(`[Voice] ElevenLabs ${res.status} — fallback a OpenAI TTS:`, err.substring(0, 120))
+  }
+
+  // Fallback: OpenAI TTS (tts-1, voz onyx — profunda, autoridad de marca)
+  const mp3 = await getOpenAI().audio.speech.create({
+    model: 'tts-1',
+    voice: 'onyx',
+    input: text,
+    response_format: 'mp3',
+  })
+  return new Uint8Array(await mp3.arrayBuffer())
 }
 
 // ─── POST handler ─────────────────────────────────────────────────────────────

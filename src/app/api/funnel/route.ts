@@ -330,27 +330,34 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Disparar plantilla WhatsApp acceso_mapa_salida via SendPulse (fire-and-forget)
+    // Disparar plantilla WhatsApp acceso_mapa_salida via SendPulse
+    // ⚠️ AWAIT obligatorio — Vercel termina la función en el return y no espera fire-and-forget
     if (data.step === 'mapa_registered' && data.whatsapp && constructorRef) {
-      const { data: constructorUser } = await getSupabaseClient()
-        .from('private_users')
-        .select('name, whatsapp')
-        .eq('constructor_id', constructorRef)
-        .maybeSingle()
+      try {
+        const { data: constructorUser } = await getSupabaseClient()
+          .from('private_users')
+          .select('name, whatsapp')
+          .eq('constructor_id', constructorRef)
+          .maybeSingle()
 
-      sendWhatsAppTemplate(
-        {
-          name:     data.name?.trim() ?? 'Prospecto',
-          whatsapp: data.whatsapp.trim(),
-          email:    data.email?.toLowerCase().trim(),
-        },
-        {
-          constructorId: constructorRef,
-          name:     (constructorUser as any)?.name     ?? constructorRef,
-          whatsapp: (constructorUser as any)?.whatsapp ?? undefined,
-        },
-      ).then(r => console.log(`✅ [FUNNEL] WhatsApp Mapa sent=${r.whatsappSent}`))
-       .catch(err => console.error('❌ [FUNNEL] WhatsApp Mapa:', err))
+        const waResult = await sendWhatsAppTemplate(
+          {
+            name:     data.name?.trim() ?? 'Prospecto',
+            whatsapp: data.whatsapp.trim(),
+            email:    data.email?.toLowerCase().trim(),
+          },
+          {
+            constructorId: constructorRef,
+            name:     (constructorUser as any)?.name     ?? constructorRef,
+            whatsapp: (constructorUser as any)?.whatsapp ?? undefined,
+          },
+        )
+        console.log(`✅ [FUNNEL] WhatsApp acceso_mapa_salida → sent=${waResult.whatsappSent} contactId=${waResult.contactId} error=${waResult.error ?? 'none'}`)
+      } catch (err) {
+        console.error('❌ [FUNNEL] WhatsApp Mapa error:', err)
+      }
+    } else if (data.step === 'mapa_registered') {
+      console.warn(`⚠️ [FUNNEL] WhatsApp omitido — whatsapp=${!!data.whatsapp} constructorRef=${constructorRef}`)
     }
 
     return NextResponse.json({

@@ -48,7 +48,7 @@ const promptCache = new Map<string, { content: string; ts: number }>()
 const PROMPT_TTL  = 5 * 60 * 1000 // 5 minutos
 
 // Fallback si la RPC no devuelve prompt para el tenant
-const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz del dashboard de socios. Hablas en español colombiano formal (usted). Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.'
+const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz de CreaTuActivo. Hablas en español colombiano formal (usted). Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.'
 
 async function getTenantSystemPrompt(tenantId: string): Promise<string> {
   const cached = promptCache.get(tenantId)
@@ -250,19 +250,24 @@ export async function POST(request: NextRequest) {
   // 3. CEREBRO — Claude + herramientas
   let replyText = ''
   try {
-    const tenantId    = request.headers.get('x-tenant-id') ?? 'queswa_dashboard'
+    const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
     const basePrompt  = await getTenantSystemPrompt(tenantId)
-    // Dato dinámico: constructor_id de sesión (no se cachea con el prompt base)
-    const system      = `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.`
+    const isDashboard = tenantId === 'queswa_dashboard'
+    // Dato dinámico: constructor_id de sesión (solo relevante en dashboard)
+    const system      = isDashboard
+      ? `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.`
+      : basePrompt
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
     let response = await getAnthropic().messages.create({
-      model: 'claude-sonnet-4-6', max_tokens: 256, system, tools: TOOLS, messages,
+      model: 'claude-sonnet-4-6', max_tokens: 256, system,
+      ...(isDashboard ? { tools: TOOLS } : {}),
+      messages,
     })
 
     let turns = 0
-    while (response.stop_reason === 'tool_use' && turns < 3) {
+    while (isDashboard && response.stop_reason === 'tool_use' && turns < 3) {
       turns++
       const toolResults: Anthropic.ToolResultBlockParam[] = []
       for (const block of response.content) {

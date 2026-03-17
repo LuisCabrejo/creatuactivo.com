@@ -18,7 +18,6 @@ export default function ServilletaPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [queswaOpen, setQueswaOpen] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const [ctaVisible, setCtaVisible] = useState(false);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -171,29 +170,6 @@ export default function ServilletaPage() {
     });
 
     return () => observers.forEach(o => o.disconnect());
-  }, [activeSlide, isFullscreen]);
-
-  // IntersectionObserver: reveal CTA panel de slide 4 al scrollear hacia él
-  useEffect(() => {
-    if (activeSlide !== 4) return;
-    if (typeof window === 'undefined') return;
-    if (window.innerWidth > 1024) return;
-
-    setCtaVisible(false);
-    const scrollRoot = document.querySelector<HTMLElement>('#slide-4');
-    const cta = document.querySelector<HTMLElement>('#slide-4 .cta-panel');
-    if (!cta || !scrollRoot) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          setCtaVisible(entry.isIntersecting && entry.intersectionRatio >= 0.4);
-        });
-      },
-      { root: scrollRoot, threshold: 0.4 }
-    );
-    observer.observe(cta);
-    return () => observer.disconnect();
   }, [activeSlide, isFullscreen]);
 
   // Ocultar nav mobile cuando Queswa está abierto
@@ -378,26 +354,14 @@ export default function ServilletaPage() {
         }
 
         /* LISTA DE COMPONENTES (Slide 1) */
-        @keyframes bootSequence {
-          to { opacity: 1; transform: translateY(0); }
-        }
         .components-list {
-          width: 100%; margin-top: 25px; display: flex; flex-direction: column; gap: 15px;
+          text-align: left; display: inline-block; margin-top: 20px;
           font-family: var(--font-head); font-size: 1.1rem; color: var(--text-main);
         }
         .components-list .comp-row {
-          background: rgba(15, 15, 15, 0.85);
-          border: 1px solid #222;
-          padding: 18px 20px;
-          border-radius: 0;
-          border-left: 3px solid var(--cyan);
-          opacity: 0;
-          transform: translateY(15px);
-          animation: bootSequence 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 10px;
         }
-        .components-list .comp-row:nth-child(1) { animation-delay: 0.2s; border-left-color: var(--cyan); }
-        .components-list .comp-row:nth-child(2) { animation-delay: 0.4s; border-left-color: var(--cyan); }
-        .components-list .comp-row:nth-child(3) { animation-delay: 0.6s; border-left-color: var(--orange); }
+        .components-list .comp-row:last-child { border-bottom: none; margin-bottom: 0; }
 
         /* BOTÓN SIGUIENTE */
         .btn-next {
@@ -590,12 +554,10 @@ export default function ServilletaPage() {
         .digital-display {
           font-family: var(--font-head); text-align: center;
           font-size: 4rem; color: var(--text-main); margin: 20px 0;
-          display: flex !important; align-items: baseline !important;
-          justify-content: center !important; gap: 5px;
         }
-        .digital-display .currency { color: #666; font-size: 2rem; margin-top: 0 !important; vertical-align: baseline !important; }
+        .digital-display .currency { color: #666; font-size: 2rem; vertical-align: top; }
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
-        .cop-ref { text-align: center; color: #90A4AE; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1rem; font-weight: 500; }
+        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 0.85rem; }
 
         .lifestyle-insight {
           text-align: center; padding: 10px 15px; margin-bottom: 25px;
@@ -622,7 +584,7 @@ export default function ServilletaPage() {
         }
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
-        .insight-text { font-size: 0.85rem !important; color: #90A4AE !important; margin-top: 15px !important; text-align: center; }
+        .insight-text { font-size: 0.7rem; color: #555; margin-top: 10px; text-align: center; }
 
         .cta-panel {
           flex: 1; position: relative; height: 450px;
@@ -632,12 +594,6 @@ export default function ServilletaPage() {
           position: absolute; width: 100%; height: 100%;
           background-size: cover; background-position: center;
           filter: grayscale(50%) brightness(60%);
-          transition: filter 0.8s ease-in-out;
-        }
-        /* Reveal: imagen toma color cuando cta-revealed (scroll) o hover/active */
-        .cta-panel.cta-revealed .bg-image-cta,
-        .cta-panel:hover .bg-image-cta {
-          filter: grayscale(0%) brightness(80%);
         }
         .cta-overlay {
           position: relative; z-index: 2; height: 100%;
@@ -740,83 +696,36 @@ export default function ServilletaPage() {
             padding: 30px 24px !important;
           }
 
-          #slide-2 { overflow: hidden; padding-bottom: 0 !important; }
           .grid-layout-slide-2 {
-            grid-template-columns: 1fr !important;
-            display: block !important;
-            overflow-y: scroll !important;
-            scroll-snap-type: y mandatory !important;
-            height: 100vh !important;
-            padding: 60px 0 0 0 !important;
-            gap: 0 !important;
-            -webkit-overflow-scrolling: touch;
+            grid-template-columns: 1fr;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 70px 15px 80px;
+            gap: 15px;
           }
-          /* Todas las cards: snap directo, mismas reglas base */
+          .slide-2-header { text-align: center; padding-bottom: 0; }
+          .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
+          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
           .card-industrial, .full-width {
-            scroll-snap-align: start !important;
-            height: 100vh !important;
-            min-height: 100vh !important;
-            border-left: none !important;
-            border-right: none !important;
-            border-bottom: 2px solid #222 !important;
+            min-height: 55vh !important;
+            height: auto !important;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
           }
-          /* Card-1: descuenta el padding-top del grid (60px nav) */
-          #slide-2 .card-industrial:first-child {
-            height: calc(100vh - 60px) !important;
-            min-height: calc(100vh - 60px) !important;
-          }
-          .oscillation-text { font-size: 0.85rem !important; padding: 12px !important; }
-          .oscillation-text .bad { font-size: 0.8rem !important; }
-          /* Imagen: 38% — deja espacio para el H2 + contenido */
           .card-bg {
-            height: 38% !important;
+            height: 50% !important;
             top: 0;
             background-position: center !important;
           }
-          /* Contenido: 67% — cubre imagen con gradiente + espacio para título */
           .card-content {
-            height: 67% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-start !important;
-            background: linear-gradient(to top, #121212 82%, rgba(18,18,18,0.5) 100%) !important;
-            padding: 20px 20px 80px !important;
-            gap: 8px;
-            overflow-y: auto;
+            height: 55% !important;
+            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
+            padding: 20px 20px 30px !important;
+            justify-content: flex-end;
           }
-          /* H2 del slide dentro de card-content */
-          #slide-2 .card-1-title {
-            font-family: var(--font-head);
-            font-size: 1.6rem !important;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 0.95;
-            color: #fff;
-            margin: 0 0 2px 0;
-          }
-          #slide-2 .card-1-subtitle {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            color: var(--cyan);
-            margin: 0 0 6px 0;
-            text-transform: uppercase;
-          }
-          #slide-2 .card-content h3 {
-            font-size: 1rem !important;
-            margin: 0 !important;
-          }
-          #slide-2 .card-content p {
-            font-size: 0.88rem !important;
-            line-height: 1.5 !important;
-            margin: 0 !important;
-            color: #CFD8DC !important;
-          }
-          #slide-2 .oscillation-text { margin-bottom: 0 !important; }
-
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -844,78 +753,16 @@ export default function ServilletaPage() {
           .bio-text-panel { max-width: 100%; }
           .bio-metrics-container { max-width: 100%; }
 
-          /* Slide 4: scroll-snap container */
-          #slide-4 {
-            overflow-y: scroll !important;
-            scroll-snap-type: y mandatory !important;
-            height: 100vh !important;
-            padding-bottom: 0 !important;
-            -webkit-overflow-scrolling: touch;
-          }
-          /* Wrapper sin interferir en el scroll */
           .simulator-layout {
             flex-direction: column;
-            height: auto !important;
-            overflow-y: visible !important;
-            padding: 0 !important;
-            gap: 0 !important;
+            height: auto;
+            overflow-y: visible;
+            padding: 70px 15px 80px;
+            gap: 20px;
             align-items: stretch;
           }
-          /* Panel 1: simulador — pantalla completa */
-          .simulator-panel {
-            height: 100vh !important;
-            min-height: 100vh !important;
-            width: 100% !important;
-            flex-shrink: 0;
-            scroll-snap-align: start !important;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 60px 15px 60px !important;
-            overflow-y: auto;
-          }
-          /* Panel 2: CTA — segunda pantalla completa */
-          .cta-panel {
-            height: 100vh !important;
-            min-height: 100vh !important;
-            scroll-snap-align: start !important;
-            position: relative;
-            border-radius: 0 !important;
-            width: 100%;
-            flex-shrink: 0;
-          }
-          /* Imagen superior — gris por defecto */
-          .bg-image-cta {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 50% !important;
-            filter: grayscale(100%) brightness(40%) !important;
-            transition: filter 0.8s ease-in-out !important;
-            background-position: center center !important;
-          }
-          /* Efecto revelación al tocar */
-          .cta-panel:active .bg-image-cta,
-          .cta-panel:hover .bg-image-cta {
-            filter: grayscale(0%) brightness(100%) !important;
-          }
-          /* Texto y botones — mitad inferior exacta (sin solapamiento ambiguo) */
-          .cta-overlay {
-            position: absolute !important;
-            top: 50% !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            height: auto !important;
-            background: linear-gradient(to bottom, rgba(18,18,18,0.95) 0%, #121212 20%) !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-            padding: 20px 20px 80px !important;
-            text-align: center !important;
-          }
+          .simulator-panel { width: 100%; flex-shrink: 0; }
+          .cta-panel { width: 100%; height: 350px; flex-shrink: 0; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }
@@ -1027,24 +874,20 @@ export default function ServilletaPage() {
         /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
         /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
         @media (max-width: 768px) {
-          /* SLIDE 2: Scroll-snap full-bleed en fullscreen mobile */
-          :fullscreen #slide-2 { overflow: hidden !important; padding-bottom: 0 !important; }
+          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile + scroll habilitado */
           :fullscreen .slide {
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch !important;
           }
           :fullscreen .grid-layout-slide-2 {
-            grid-template-columns: 1fr !important;
-            display: block !important;
-            overflow-y: scroll !important;
-            scroll-snap-type: y mandatory !important;
-            height: 100vh !important;
-            padding: 60px 0 0 0 !important;
-            gap: 0 !important;
-            -webkit-overflow-scrolling: touch;
+            padding: 20px 15px 40px !important;
+            gap: 15px !important;
+            grid-template-rows: unset !important;
+            height: auto !important;
+            min-height: 100% !important;
           }
           :fullscreen .slide-2-header {
-            padding: 0 20px 20px !important;
+            padding-bottom: 0 !important;
           }
           :fullscreen .slide-2-header .deck-h2 {
             font-size: 1.6rem !important;
@@ -1055,12 +898,8 @@ export default function ServilletaPage() {
           }
           :fullscreen .card-industrial,
           :fullscreen .full-width {
-            scroll-snap-align: start !important;
-            height: 100vh !important;
-            min-height: 100vh !important;
-            border-left: none !important;
-            border-right: none !important;
-            border-bottom: 2px solid #222 !important;
+            min-height: 55vh !important;
+            height: auto !important;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -1077,41 +916,26 @@ export default function ServilletaPage() {
             border-color: var(--cyan);
           }
 
-          /* SLIDE 4 fullscreen mobile: scroll-snap igual que slide 2 */
-          :fullscreen #slide-4 {
-            overflow-y: scroll !important;
-            scroll-snap-type: y mandatory !important;
-            height: 100vh !important;
-            padding-bottom: 0 !important;
-            -webkit-overflow-scrolling: touch;
-          }
-          :fullscreen #slide-4 .simulator-layout {
+          /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
+          :fullscreen .simulator-layout {
+            padding: 60px 20px 40px !important;
             flex-direction: column !important;
-            height: auto !important;
-            overflow-y: visible !important;
-            padding: 0 !important;
-            gap: 0 !important;
-            align-items: stretch !important;
+            gap: 30px !important;
           }
-          :fullscreen #slide-4 .simulator-panel {
-            height: 100vh !important;
-            min-height: 100vh !important;
+          :fullscreen .simulator-panel {
+            padding: 30px 20px !important;
             width: 100% !important;
-            flex: none !important;
-            scroll-snap-align: start !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            padding: 60px 20px 60px !important;
-            overflow-y: auto !important;
           }
-          :fullscreen #slide-4 .cta-panel {
-            height: 100vh !important;
-            min-height: 100vh !important;
-            scroll-snap-align: start !important;
-            flex: none !important;
+          :fullscreen .cta-panel {
+            min-height: 60vh !important;  /* Aprovechar pantalla completa */
             width: 100% !important;
-            border-radius: 0 !important;
+          }
+          :fullscreen .cta-overlay {
+            padding: 40px 25px !important;
+          }
+          :fullscreen .cta-overlay h2 {
+            font-size: 2rem !important;
+            letter-spacing: 2px !important;
           }
           :fullscreen .digital-display {
             font-size: 3rem !important;
@@ -1328,14 +1152,33 @@ export default function ServilletaPage() {
               style={{ backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')", opacity: 0.4 }}
             />
             <div className="grid-layout-slide-2">
+              {/* Título */}
+              <div className="slide-2-header">
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                  LA VENTAJA INJUSTA.
+                </h2>
+                <span className="slide-2-subtitle">
+                  EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
+                </span>
+                <div className="exclusive-badge" style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  letterSpacing: '2px',
+                  color: '#90A4AE',
+                  border: '1px solid #3f3f46',
+                  display: 'inline-block',
+                  padding: '4px 8px',
+                  marginTop: '10px',
+                  marginLeft: '8px',
+                }}>
+                  EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
+                </div>
+              </div>
 
-              {/* Tarjeta 1: EL MOTOR QUESWA AI — título del slide integrado dentro */}
+              {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
-                  {/* H1 del slide dentro de la tarjeta */}
-                  <p className="card-1-title">LA VENTAJA INJUSTA.</p>
-                  <p className="card-1-subtitle">EL FIN DE LA FRICCI&Oacute;N OPERATIVA —</p>
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
@@ -1346,17 +1189,17 @@ export default function ServilletaPage() {
                   <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
                   <button
                     style={{
-                      marginTop: 'auto', background: 'transparent',
+                      marginTop: 10, background: 'transparent',
                       border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
                       fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                      padding: '6px 12px', cursor: 'pointer', letterSpacing: 1,
-                      transition: 'all 0.2s', alignSelf: 'flex-start',
+                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
+                      transition: 'all 0.2s',
                     }}
-                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; }}
-                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; }}
+                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
+                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
                     onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
                   >
-                    PREG&Uacute;NTALE ALGO EN VIVO ›
+                    PREGÚNTALE ALGO EN VIVO ›
                   </button>
                 </div>
               </div>
@@ -1543,7 +1386,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* Panel CTA - Doble acción */}
-              <div className={`cta-panel${ctaVisible ? ' cta-revealed' : ''}`}>
+              <div className="cta-panel">
                 <div
                   className="bg-image-cta"
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}

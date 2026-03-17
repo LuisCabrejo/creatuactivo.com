@@ -354,14 +354,26 @@ export default function ServilletaPage() {
         }
 
         /* LISTA DE COMPONENTES (Slide 1) */
+        @keyframes bootSequence {
+          to { opacity: 1; transform: translateY(0); }
+        }
         .components-list {
-          text-align: left; display: inline-block; margin-top: 20px;
+          width: 100%; margin-top: 25px; display: flex; flex-direction: column; gap: 15px;
           font-family: var(--font-head); font-size: 1.1rem; color: var(--text-main);
         }
         .components-list .comp-row {
-          border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 10px;
+          background: rgba(15, 15, 15, 0.85);
+          border: 1px solid #222;
+          padding: 18px 20px;
+          border-radius: 0;
+          border-left: 3px solid var(--cyan);
+          opacity: 0;
+          transform: translateY(15px);
+          animation: bootSequence 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-        .components-list .comp-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .components-list .comp-row:nth-child(1) { animation-delay: 0.2s; border-left-color: var(--cyan); }
+        .components-list .comp-row:nth-child(2) { animation-delay: 0.4s; border-left-color: var(--cyan); }
+        .components-list .comp-row:nth-child(3) { animation-delay: 0.6s; border-left-color: var(--orange); }
 
         /* BOTÓN SIGUIENTE */
         .btn-next {
@@ -554,10 +566,12 @@ export default function ServilletaPage() {
         .digital-display {
           font-family: var(--font-head); text-align: center;
           font-size: 4rem; color: var(--text-main); margin: 20px 0;
+          display: flex !important; align-items: baseline !important;
+          justify-content: center !important; gap: 5px;
         }
-        .digital-display .currency { color: #666; font-size: 2rem; vertical-align: top; }
+        .digital-display .currency { color: #666; font-size: 2rem; margin-top: 0 !important; vertical-align: baseline !important; }
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
-        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 0.85rem; }
+        .cop-ref { text-align: center; color: #90A4AE; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1rem; font-weight: 500; }
 
         .lifestyle-insight {
           text-align: center; padding: 10px 15px; margin-bottom: 25px;
@@ -584,7 +598,7 @@ export default function ServilletaPage() {
         }
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
-        .insight-text { font-size: 0.7rem; color: #555; margin-top: 10px; text-align: center; }
+        .insight-text { font-size: 0.85rem !important; color: #90A4AE !important; margin-top: 15px !important; text-align: center; }
 
         .cta-panel {
           flex: 1; position: relative; height: 450px;
@@ -696,25 +710,33 @@ export default function ServilletaPage() {
             padding: 30px 24px !important;
           }
 
+          #slide-2 { overflow: hidden; padding-bottom: 0 !important; }
           .grid-layout-slide-2 {
-            grid-template-columns: 1fr;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 70px 15px 80px;
-            gap: 15px;
+            grid-template-columns: 1fr !important;
+            display: block !important;
+            overflow-y: scroll !important;
+            scroll-snap-type: y mandatory !important;
+            height: 100vh !important;
+            padding: 60px 0 0 0 !important;
+            gap: 0 !important;
+            -webkit-overflow-scrolling: touch;
           }
-          .slide-2-header { text-align: center; padding-bottom: 0; }
+          .slide-2-header { text-align: center; padding: 0 20px 20px !important; }
           .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
           .card-industrial, .full-width {
-            min-height: 55vh !important;
-            height: auto !important;
+            scroll-snap-align: start !important;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: 2px solid #222 !important;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
           }
+          .oscillation-text { font-size: 0.85rem !important; padding: 12px !important; }
+          .oscillation-text .bad { font-size: 0.8rem !important; }
           .card-bg {
             height: 50% !important;
             top: 0;
@@ -762,7 +784,31 @@ export default function ServilletaPage() {
             align-items: stretch;
           }
           .simulator-panel { width: 100%; flex-shrink: 0; }
-          .cta-panel { width: 100%; height: 350px; flex-shrink: 0; }
+          .cta-panel {
+            width: 100%;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+          }
+          .bg-image-cta {
+            height: 50% !important;
+            top: 0 !important;
+            filter: grayscale(100%) brightness(50%) !important;
+            transition: filter 0.8s ease-in-out !important;
+          }
+          .cta-panel:active .bg-image-cta,
+          .cta-panel:hover .bg-image-cta {
+            filter: grayscale(0%) brightness(100%) !important;
+          }
+          .cta-overlay {
+            height: 55% !important;
+            top: 45% !important;
+            background: linear-gradient(to top, #121212 90%, transparent 100%) !important;
+            justify-content: flex-end !important;
+            padding: 30px 20px 80px !important;
+          }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }
@@ -874,20 +920,24 @@ export default function ServilletaPage() {
         /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
         /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
         @media (max-width: 768px) {
-          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile + scroll habilitado */
+          /* SLIDE 2: Scroll-snap full-bleed en fullscreen mobile */
+          :fullscreen #slide-2 { overflow: hidden !important; padding-bottom: 0 !important; }
           :fullscreen .slide {
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch !important;
           }
           :fullscreen .grid-layout-slide-2 {
-            padding: 20px 15px 40px !important;
-            gap: 15px !important;
-            grid-template-rows: unset !important;
-            height: auto !important;
-            min-height: 100% !important;
+            grid-template-columns: 1fr !important;
+            display: block !important;
+            overflow-y: scroll !important;
+            scroll-snap-type: y mandatory !important;
+            height: 100vh !important;
+            padding: 60px 0 0 0 !important;
+            gap: 0 !important;
+            -webkit-overflow-scrolling: touch;
           }
           :fullscreen .slide-2-header {
-            padding-bottom: 0 !important;
+            padding: 0 20px 20px !important;
           }
           :fullscreen .slide-2-header .deck-h2 {
             font-size: 1.6rem !important;
@@ -898,8 +948,12 @@ export default function ServilletaPage() {
           }
           :fullscreen .card-industrial,
           :fullscreen .full-width {
-            min-height: 55vh !important;
-            height: auto !important;
+            scroll-snap-align: start !important;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: 2px solid #222 !important;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;

@@ -60,11 +60,20 @@ async function generateVoyageEmbedding(text) {
 }
 
 /**
- * Convierte embedding a formato pgvector (512 -> 1536 con padding)
+ * Convierte embedding a formato pgvector — columna embedding (1536 con padding)
+ * Mantener para compatibilidad con match_documents RPC (vector(1536))
  */
-function formatForPgvector(embedding) {
+function formatForPgvector1536(embedding) {
   const padded = [...embedding, ...new Array(1536 - embedding.length).fill(0)];
   return '[' + padded.join(',') + ']';
+}
+
+/**
+ * Convierte embedding a formato pgvector — columna embedding_512 (512-dim nativo)
+ * Usado por getArsenalFragments() en nexus/route.ts
+ */
+function formatForPgvector512(embedding) {
+  return '[' + embedding.join(',') + ']';
 }
 
 /**
@@ -185,16 +194,22 @@ async function processArsenal(arsenalCategory) {
       // Incluir pregunta en el texto para mejor matching semántico
       const textForEmbedding = `${response.question}\n\n${response.content}`;
       const embedding = await generateVoyageEmbedding(textForEmbedding);
-      const formattedEmbedding = formatForPgvector(embedding);
+      const embedding1536 = formatForPgvector1536(embedding);  // columna embedding (compat.)
+      const embedding512  = formatForPgvector512(embedding);   // columna embedding_512 (route.ts)
 
-      // Insertar en Supabase (sin columna 'source' - no existe en el schema)
+      // Insertar en Supabase
+      // - embedding:     vector(1536) — para match_documents RPC (backward compat.)
+      // - embedding_512: vector(512)  — para getArsenalFragments() en nexus/route.ts
+      // - tenant_id:     multi-tenant FASE C
       const { error: insertError } = await supabase
         .from('nexus_documents')
         .insert({
           category: fragmentCategory,
           title: response.question,
           content: response.fullSection,
-          embedding: formattedEmbedding,
+          embedding: embedding1536,
+          embedding_512: embedding512,
+          tenant_id: 'creatuactivo_marketing',
           metadata: {
             response_id: response.id,
             parent_arsenal: arsenalCategory,

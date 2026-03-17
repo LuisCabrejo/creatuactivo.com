@@ -51,10 +51,14 @@ export async function POST(req: Request) {
     // Parsear y validar payload
     const payload: ProducerMessage = await req.json();
 
+    // Capa 3.3: tenant_id inyectado por middleware.ts
+    const tenantId = (req as Request & { headers: Headers }).headers.get('x-tenant-id') ?? 'creatuactivo_marketing';
+
     console.log('🔵 [PRODUCTOR] Mensaje recibido:', {
       messageCount: payload.messages.length,
       hasFingerprint: !!payload.fingerprint,
-      sessionId: payload.sessionId
+      sessionId: payload.sessionId,
+      tenantId
     });
 
     // Validación básica
@@ -81,11 +85,12 @@ export async function POST(req: Request) {
       console.warn('⚠️ [PRODUCTOR] Mensaje sin fingerprint - Datos personales no se asociarán correctamente');
     }
 
-    // Enriquecer metadata
+    // Enriquecer metadata (tenant_id viaja en metadata → queue processor lo propaga al Edge Function)
     const metadata = {
       ...payload.metadata,
       enqueuedAt: new Date().toISOString(),
       producerVersion: '2.0.0-db-queue',
+      tenant_id: tenantId,
       url: payload.metadata?.url || req.headers.get('referer') || 'unknown',
       userAgent: payload.metadata?.userAgent || req.headers.get('user-agent') || 'unknown'
     };

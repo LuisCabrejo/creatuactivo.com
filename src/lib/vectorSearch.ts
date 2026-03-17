@@ -107,6 +107,7 @@ export interface MatchDocumentsOptions {
   matchThreshold?: number;
   matchCount?: number;
   filterCategory?: string;
+  tenantId?: string;  // Capa 4.1: aislamiento multi-tenant en búsqueda vectorial RPC
 }
 
 /**
@@ -119,13 +120,14 @@ export async function matchDocumentsRPC(
   supabaseClient: any,
   options: MatchDocumentsOptions = {}
 ): Promise<VectorSearchResult[]> {
-  const { matchThreshold = 0.3, matchCount = 5, filterCategory = null } = options;
+  const { matchThreshold = 0.3, matchCount = 5, filterCategory = null, tenantId = 'creatuactivo_marketing' } = options;
 
   const { data, error } = await supabaseClient.rpc('match_documents', {
     query_embedding: queryEmbedding,
     match_threshold: matchThreshold,
     match_count: matchCount,
     filter_category: filterCategory,
+    filter_tenant_id: tenantId,
   });
 
   if (error) {

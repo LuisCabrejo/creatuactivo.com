@@ -119,8 +119,8 @@ export default function UnifiedQueswaOrb() {
     const show = setTimeout(() => {
       if (hasInteracted || isOpen) return
       setShowTooltip(true)
-      setTimeout(() => { setShowTooltip(false); setHasInteracted(true) }, 15000)
-    }, 15000)
+      setTimeout(() => { setShowTooltip(false); setHasInteracted(true) }, 12000)
+    }, 2000)
     return () => clearTimeout(show)
   }, [hasInteracted, isOpen])
 
@@ -305,12 +305,16 @@ export default function UnifiedQueswaOrb() {
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     )
-    // Estado idle — orbe abstracto Queswa
+    // Estado idle — AudioLines (ondas de voz IA)
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="4" fill="rgba(212,175,55,0.9)"/>
-        <circle cx="12" cy="12" r="8" stroke="rgba(212,175,55,0.35)" strokeWidth="1"/>
-        <circle cx="12" cy="12" r="11" stroke="rgba(212,175,55,0.12)" strokeWidth="0.5"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="#D4AF37" strokeWidth="2" strokeLinecap="round">
+        <line x1="2"  y1="11" x2="2"  y2="13"/>
+        <line x1="6"  y1="7"  x2="6"  y2="17"/>
+        <line x1="10" y1="4"  x2="10" y2="20"/>
+        <line x1="14" y1="8"  x2="14" y2="16"/>
+        <line x1="18" y1="5"  x2="18" y2="19"/>
+        <line x1="22" y1="11" x2="22" y2="13"/>
       </svg>
     )
   }
@@ -330,19 +334,21 @@ export default function UnifiedQueswaOrb() {
               bottom: 'calc(5rem + env(safe-area-inset-bottom, 24px) + 64px)',
               right: '1rem',
               zIndex: 199,
-              background: 'rgba(15,17,21,0.92)',
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(212,175,55,0.25)',
-              borderRadius: 4,
-              padding: '8px 14px',
-              maxWidth: 200,
+              background: 'rgba(8,9,12,0.96)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212,175,55,0.55)',
+              boxShadow: '0 0 12px rgba(212,175,55,0.15), 0 4px 16px rgba(0,0,0,0.6)',
+              borderRadius: 6,
+              padding: '10px 16px',
+              maxWidth: 210,
               pointerEvents: 'none',
             }}
           >
-            <p style={{ fontSize: 12, color: '#E5E5E5', margin: 0, lineHeight: 1.5, fontFamily: 'monospace' }}>
+            <p style={{ fontSize: 12, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
               ¿Iniciamos tu Auditoría?
             </p>
-            <p style={{ fontSize: 10, color: C.titanium, margin: '4px 0 0', fontFamily: 'monospace' }}>
+            <p style={{ fontSize: 10, color: C.gold, margin: '4px 0 0', fontFamily: 'monospace', opacity: 0.85 }}>
               Toca · Mantén para hablar
             </p>
           </motion.div>
@@ -410,7 +416,11 @@ export default function UnifiedQueswaOrb() {
           WebkitTapHighlightColor: 'transparent',
           userSelect: 'none',
           touchAction: 'none',
-          animation: isRecording ? 'orbPulse 1.2s ease-in-out infinite' : 'none',
+          animation: isRecording
+          ? 'orbPulse 1.2s ease-in-out infinite'
+          : (!isVoiceActive && !isOpen)
+            ? 'orbBreath 3s ease-in-out infinite'
+            : 'none',
         }}
       >
         <OrbIcon />
@@ -432,6 +442,10 @@ export default function UnifiedQueswaOrb() {
         @keyframes orbPulse {
           0%, 100% { box-shadow: 0 0 0 4px rgba(212,175,55,0.18), 0 0 0 8px rgba(212,175,55,0.08); }
           50%       { box-shadow: 0 0 0 10px rgba(212,175,55,0.22), 0 0 0 20px rgba(212,175,55,0.08); }
+        }
+        @keyframes orbBreath {
+          0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0px rgba(212,175,55,0), 0 8px 32px rgba(0,0,0,0.5); }
+          50%       { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(212,175,55,0.12), 0 0 20px rgba(212,175,55,0.18), 0 8px 32px rgba(0,0,0,0.5); }
         }
       `}</style>
     </>

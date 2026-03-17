@@ -327,7 +327,7 @@ export default function UnifiedQueswaOrb() {
     <>
       {/* ── Tooltip "Concierge" ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {showTooltip && !isOpen && (
+        {showTooltip && !isOpen && orbVisible && (
           <motion.div
             initial={{ opacity: 0, y: 8, x: 8 }}
             animate={{ opacity: 1, y: 0, x: 0 }}

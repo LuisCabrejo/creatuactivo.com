@@ -776,9 +776,9 @@ export default function ServilletaPage() {
             height: 55% !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: flex-end !important;
+            justify-content: flex-start !important;
             background: linear-gradient(to top, #121212 88%, rgba(18,18,18,0.6) 100%) !important;
-            padding: 20px 20px 30px !important;
+            padding: 16px 20px 20px !important;
             gap: 10px;
           }
           #slide-2 .card-content h3 {

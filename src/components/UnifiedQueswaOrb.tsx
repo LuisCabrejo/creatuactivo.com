@@ -60,7 +60,6 @@ export default function UnifiedQueswaOrb() {
 
   // Chat state
   const [isOpen,        setIsOpen]        = useState(false)
-  const [demoActivated, setDemoActivated] = useState(false)
   const [showTooltip,   setShowTooltip]   = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
 
@@ -126,8 +125,8 @@ export default function UnifiedQueswaOrb() {
 
   // ─── Eventos globales (open-queswa, close-queswa, toggle-queswa) ─────────────
   useEffect(() => {
-    const handleOpen   = () => { setDemoActivated(true); setIsOpen(true) }
-    const handleToggle = () => setDemoActivated(p => !p)
+    const handleOpen   = () => { setIsOpen(true) }
+    const handleToggle = () => setIsOpen(p => !p)
     window.addEventListener('open-queswa',   handleOpen)
     window.addEventListener('toggle-queswa', handleToggle)
     return () => {
@@ -141,7 +140,7 @@ export default function UnifiedQueswaOrb() {
     if (pathname !== '/servilleta') return
     const onFs = () => {
       if (document.fullscreenElement) {
-        setIsOpen(false); setDemoActivated(false)
+        setIsOpen(false)
         window.dispatchEvent(new CustomEvent('close-queswa'))
       }
     }
@@ -240,9 +239,6 @@ export default function UnifiedQueswaOrb() {
       setIsOpen(prev => !prev)
     }
   }, [voiceState, stopAndSend])
-
-  // ─── Oculto en /servilleta salvo demo ────────────────────────────────────────
-  if (pathname === '/servilleta' && !demoActivated) return null
 
   // ─── Derivar apariencia visual del orbe ──────────────────────────────────────
   const isRecording  = voiceState === 'recording'

@@ -86,6 +86,46 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // 🔊 Audio TTS — voz ElevenLabs en burbujas del asistente
+  const [playingId, setPlayingId]     = useState<string | null>(null);
+  const [loadingAudioId, setLoadingAudioId] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const speakMessage = async (text: string, messageId: string) => {
+    // Si ya está sonando este mensaje, pararlo
+    if (playingId === messageId) {
+      audioRef.current?.pause();
+      setPlayingId(null);
+      return;
+    }
+    // Parar audio anterior
+    audioRef.current?.pause();
+    setPlayingId(null);
+    setLoadingAudioId(messageId);
+
+    try {
+      const res = await fetch('/api/nexus/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+      if (!res.ok) throw new Error(`TTS ${res.status}`);
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      setPlayingId(messageId);
+      audio.onended = () => { setPlayingId(null); URL.revokeObjectURL(url); };
+      audio.onerror = () => { setPlayingId(null); };
+      await audio.play();
+    } catch (err) {
+      console.error('[TTS]', err);
+      setPlayingId(null);
+    } finally {
+      setLoadingAudioId(null);
+    }
+  };
+
   // Referencias para la solución balanceada
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -346,6 +386,44 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         borderRadius: 0
                       }}
                     >
+                      {/* 🔊 Botón TTS — solo en mensajes del asistente */}
+                      {message.role === 'assistant' && (
+                        <button
+                          onClick={() => speakMessage(message.content, message.id)}
+                          title={playingId === message.id ? 'Detener' : 'Escuchar respuesta'}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            marginBottom: '8px',
+                            padding: '3px 8px',
+                            fontSize: '11px',
+                            fontFamily: 'monospace',
+                            background: 'transparent',
+                            border: `1px solid ${playingId === message.id ? QUIET_LUXURY.gold : 'rgba(255,255,255,0.12)'}`,
+                            color: playingId === message.id ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted,
+                            cursor: loadingAudioId === message.id ? 'wait' : 'pointer',
+                            transition: 'all 200ms ease',
+                            opacity: loadingAudioId === message.id ? 0.6 : 1,
+                          }}
+                          onMouseEnter={e => {
+                            if (playingId !== message.id) {
+                              e.currentTarget.style.borderColor = QUIET_LUXURY.gold;
+                              e.currentTarget.style.color = QUIET_LUXURY.gold;
+                            }
+                          }}
+                          onMouseLeave={e => {
+                            if (playingId !== message.id) {
+                              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+                              e.currentTarget.style.color = QUIET_LUXURY.textMuted;
+                            }
+                          }}
+                          disabled={loadingAudioId !== null && loadingAudioId !== message.id}
+                        >
+                          {loadingAudioId === message.id ? '···' : playingId === message.id ? '■ DETENER' : '▶ ESCUCHAR'}
+                        </button>
+                      )}
+
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{

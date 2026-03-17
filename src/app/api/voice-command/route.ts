@@ -55,7 +55,7 @@ const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz de CreaTuActivo. Ha
 const VOICE_TTS_SUFFIX = `
 
 REGLAS ESTRICTAS PARA AUDIO (texto a voz — TTS):
-- Máximo 3 oraciones por respuesta, salvo que pidan explicación extensa.
+- Máximo 4-5 oraciones por respuesta. Si la pregunta requiere explicación, puedes extenderte hasta 6.
 - NUNCA uses símbolos: $, %, +, /, =, #.
 - NUNCA uses abreviaturas ni siglas sin expandir. Escribe todo en palabras:
   · "100M USD" → "cien millones de dólares"
@@ -291,7 +291,7 @@ export async function POST(request: NextRequest) {
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
     let response = await getAnthropic().messages.create({
-      model: 'claude-sonnet-4-6', max_tokens: 150, system,
+      model: 'claude-sonnet-4-6', max_tokens: 280, system,
       ...(isDashboard ? { tools: TOOLS } : {}),
       messages,
     })
@@ -308,7 +308,7 @@ export async function POST(request: NextRequest) {
       messages.push({ role: 'assistant', content: response.content })
       messages.push({ role: 'user', content: toolResults })
       response = await getAnthropic().messages.create({
-        model: 'claude-sonnet-4-6', max_tokens: 150, system, tools: TOOLS, messages,
+        model: 'claude-sonnet-4-6', max_tokens: 280, system, tools: TOOLS, messages,
       })
     }
 

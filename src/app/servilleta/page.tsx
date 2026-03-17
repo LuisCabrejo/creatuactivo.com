@@ -751,28 +751,8 @@ export default function ServilletaPage() {
             gap: 0 !important;
             -webkit-overflow-scrolling: touch;
           }
-          /* Panel 1: header + card-1 agrupados como una sola pantalla snap */
-          .slide-2-first-panel {
-            display: flex !important;
-            flex-direction: column !important;
-            height: 100vh !important;
-            scroll-snap-align: start !important;
-            flex-shrink: 0;
-          }
-          .slide-2-first-panel .slide-2-header {
-            flex-shrink: 0;
-            padding: 15px 20px 10px !important;
-            text-align: left !important;
-          }
-          .slide-2-first-panel .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          .slide-2-first-panel .card-industrial {
-            flex: 1 !important;
-            height: auto !important;
-            min-height: 0 !important;
-            scroll-snap-align: none !important;
-          }
-          /* Cards 2 y 3: snaps independientes */
-          .card-industrial:not(.slide-2-first-panel .card-industrial), .full-width {
+          /* Todas las cards: snap directo, mismas reglas base */
+          .card-industrial, .full-width {
             scroll-snap-align: start !important;
             height: 100vh !important;
             min-height: 100vh !important;
@@ -782,37 +762,60 @@ export default function ServilletaPage() {
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+          }
+          /* Card-1: descuenta el padding-top del grid (60px nav) */
+          #slide-2 .card-industrial:first-child {
+            height: calc(100vh - 60px) !important;
+            min-height: calc(100vh - 60px) !important;
           }
           .oscillation-text { font-size: 0.85rem !important; padding: 12px !important; }
           .oscillation-text .bad { font-size: 0.8rem !important; }
+          /* Imagen: 38% — deja espacio para el H2 + contenido */
           .card-bg {
-            height: 50% !important;
+            height: 38% !important;
             top: 0;
             background-position: center !important;
           }
+          /* Contenido: 67% — cubre imagen con gradiente + espacio para título */
           .card-content {
-            height: 55% !important;
+            height: 67% !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: flex-start !important;
-            background: linear-gradient(to top, #121212 88%, rgba(18,18,18,0.6) 100%) !important;
-            padding: 28px 20px 20px !important;
-            gap: 10px;
+            background: linear-gradient(to top, #121212 82%, rgba(18,18,18,0.5) 100%) !important;
+            padding: 20px 20px 80px !important;
+            gap: 8px;
+            overflow-y: auto;
+          }
+          /* H2 del slide dentro de card-content */
+          #slide-2 .card-1-title {
+            font-family: var(--font-head);
+            font-size: 1.6rem !important;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.95;
+            color: #fff;
+            margin: 0 0 2px 0;
+          }
+          #slide-2 .card-1-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
           }
           #slide-2 .card-content h3 {
-            font-size: 1.1rem !important;
+            font-size: 1rem !important;
             margin: 0 !important;
           }
           #slide-2 .card-content p {
-            font-size: 0.95rem !important;
+            font-size: 0.88rem !important;
             line-height: 1.5 !important;
             margin: 0 !important;
             color: #CFD8DC !important;
           }
-          #slide-2 .oscillation-text {
-            margin-bottom: 0 !important;
-          }
+          #slide-2 .oscillation-text { margin-bottom: 0 !important; }
 
 
           .slide-3-layout { align-items: flex-end; }
@@ -1326,59 +1329,37 @@ export default function ServilletaPage() {
             />
             <div className="grid-layout-slide-2">
 
-              {/* Panel 1: header + card-1 como una sola pantalla snap */}
-              <div className="slide-2-first-panel">
-                <div className="slide-2-header">
-                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                    LA VENTAJA INJUSTA.
-                  </h2>
-                  <span className="slide-2-subtitle">
-                    EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
-                  </span>
-                  <div className="exclusive-badge" style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    letterSpacing: '2px',
-                    color: '#90A4AE',
-                    border: '1px solid #3f3f46',
-                    display: 'inline-block',
-                    padding: '4px 8px',
-                    marginTop: '10px',
-                    marginLeft: '8px',
-                  }}>
-                    EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
+              {/* Tarjeta 1: EL MOTOR QUESWA AI — título del slide integrado dentro */}
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <div className="card-content">
+                  {/* H1 del slide dentro de la tarjeta */}
+                  <p className="card-1-title">LA VENTAJA INJUSTA.</p>
+                  <p className="card-1-subtitle">EL FIN DE LA FRICCI&Oacute;N OPERATIVA —</p>
+                  <div className="oscillation-text">
+                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
+                  <h3>
+                    <span className="material-symbols-sharp">memory</span>
+                    EL MOTOR QUESWA AI
+                  </h3>
+                  <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
+                  <button
+                    style={{
+                      marginTop: 'auto', background: 'transparent',
+                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
+                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                      padding: '6px 12px', cursor: 'pointer', letterSpacing: 1,
+                      transition: 'all 0.2s', alignSelf: 'flex-start',
+                    }}
+                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; }}
+                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; }}
+                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
+                  >
+                    PREG&Uacute;NTALE ALGO EN VIVO ›
+                  </button>
                 </div>
-
-                {/* Tarjeta 1: EL MOTOR QUESWA AI */}
-                <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
-                  <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
-                  <div className="card-content">
-                    <div className="oscillation-text">
-                      <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
-                    </div>
-                    <h3>
-                      <span className="material-symbols-sharp">memory</span>
-                      EL MOTOR QUESWA AI
-                    </h3>
-                    <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
-                    <button
-                      style={{
-                        marginTop: 'auto', background: 'transparent',
-                        border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
-                        fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                        padding: '6px 12px', cursor: 'pointer', letterSpacing: 1,
-                        transition: 'all 0.2s', alignSelf: 'flex-start',
-                      }}
-                      onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; }}
-                      onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; }}
-                      onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
-                    >
-                      PREG&Uacute;NTALE ALGO EN VIVO ›
-                    </button>
-                  </div>
-                </div>
-              </div>{/* /slide-2-first-panel */}
+              </div>
 
               {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>

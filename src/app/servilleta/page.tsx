@@ -774,16 +774,25 @@ export default function ServilletaPage() {
           }
           .card-content {
             height: 55% !important;
-            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-end !important;
+            background: linear-gradient(to top, #121212 88%, rgba(18,18,18,0.6) 100%) !important;
             padding: 20px 20px 30px !important;
-            justify-content: flex-end;
+            gap: 10px;
+          }
+          #slide-2 .card-content h3 {
+            font-size: 1.1rem !important;
+            margin: 0 !important;
           }
           #slide-2 .card-content p {
             font-size: 0.95rem !important;
             line-height: 1.5 !important;
-            margin-top: 15px !important;
-            margin-bottom: 25px !important;
+            margin: 0 !important;
             color: #CFD8DC !important;
+          }
+          #slide-2 .oscillation-text {
+            margin-bottom: 0 !important;
           }
 
 

@@ -1180,7 +1180,7 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="good">COGNICI&Oacute;N AUT&Oacute;NOMA EN TU BOLSILLO</span>
+                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>
                     <span className="material-symbols-sharp">memory</span>
@@ -1224,7 +1224,7 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="good">PROTOCOLO E.A.M. &mdash; EXPANSI&Oacute;N &middot; ACTIVACI&Oacute;N &middot; MAESTR&Iacute;A</span>
+                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>SER EL CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>
                     <span className="material-symbols-sharp">hub</span>

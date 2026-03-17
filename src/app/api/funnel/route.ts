@@ -13,6 +13,7 @@ import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
 import { Reto5DiasConfirmationEmail } from '@/emails/Reto5DiasConfirmation';
 import { MapaDeSalidaConfirmationEmail } from '@/emails/MapaDeSalidaConfirmation';
+import { sendWhatsAppTemplate } from '@/lib/sendpulse';
 
 // Twilio configuration
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
@@ -327,6 +328,29 @@ export async function POST(request: NextRequest) {
       } catch (err) {
         console.error('❌ [FUNNEL] Error Email Mapa:', err);
       }
+    }
+
+    // Disparar plantilla WhatsApp acceso_mapa_salida via SendPulse (fire-and-forget)
+    if (data.step === 'mapa_registered' && data.whatsapp && constructorRef) {
+      const { data: constructorUser } = await getSupabaseClient()
+        .from('private_users')
+        .select('name, whatsapp')
+        .eq('constructor_id', constructorRef)
+        .maybeSingle()
+
+      sendWhatsAppTemplate(
+        {
+          name:     data.name?.trim() ?? 'Prospecto',
+          whatsapp: data.whatsapp.trim(),
+          email:    data.email?.toLowerCase().trim(),
+        },
+        {
+          constructorId: constructorRef,
+          name:     (constructorUser as any)?.name     ?? constructorRef,
+          whatsapp: (constructorUser as any)?.whatsapp ?? undefined,
+        },
+      ).then(r => console.log(`✅ [FUNNEL] WhatsApp Mapa sent=${r.whatsappSent}`))
+       .catch(err => console.error('❌ [FUNNEL] WhatsApp Mapa:', err))
     }
 
     return NextResponse.json({

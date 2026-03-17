@@ -7,7 +7,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,13 +25,21 @@ const C = {
 
 export default function MapaDeSalidaPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    whatsapp: ''
-  });
+  const [formData, setFormData] = useState({ nombre: '', email: '', whatsapp: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [constructorRef, setConstructorRef] = useState<string | null>(null);
+
+  // Extraer constructorId del pathname y persistir en localStorage
+  useEffect(() => {
+    const match = window.location.pathname.match(/\/mapa-de-salida\/([^/?#]+)/);
+    const ref = match?.[1] ?? localStorage.getItem('constructor_ref') ?? null;
+    if (ref) {
+      setConstructorRef(ref);
+      localStorage.setItem('constructor_ref', ref);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,15 +56,17 @@ export default function MapaDeSalidaPage() {
           whatsapp: formData.whatsapp,
           source: 'mapa-de-salida',
           step: 'mapa_registered',
-          constructor_ref: localStorage.getItem('constructor_ref') || undefined,
+          constructor_ref: constructorRef ?? localStorage.getItem('constructor_ref') ?? undefined,
         }),
       });
 
       if (!response.ok) throw new Error('Error');
 
-      router.push('/mapa-de-salida/gracias');
+      // Mostrar estado de éxito brevemente antes de redirigir
+      setIsSuccess(true);
+      setTimeout(() => router.push('/mapa-de-salida/gracias'), 1200);
     } catch {
-      // Aún así redirigir para no frustrar al prospecto
+      // Redirigir igual para no frustrar al prospecto
       router.push('/mapa-de-salida/gracias');
     } finally {
       setIsSubmitting(false);
@@ -334,11 +344,18 @@ export default function MapaDeSalidaPage() {
                 {/* CTA Button */}
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isSuccess}
                   className="btn-industrial"
-                  style={{ marginTop: '1.5rem' }}
+                  style={{ marginTop: '1.5rem', background: isSuccess ? 'linear-gradient(135deg,#10B981,#059669)' : undefined }}
                 >
-                  {isSubmitting ? (
+                  {isSuccess ? (
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                      <svg style={{ width: '20px', height: '20px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      ¡Acceso enviado a tu WhatsApp!
+                    </span>
+                  ) : isSubmitting ? (
                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                       <svg style={{ animation: 'spin 1s linear infinite', width: '20px', height: '20px' }} viewBox="0 0 24 24" fill="none">
                         <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

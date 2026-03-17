@@ -748,6 +748,19 @@ export default function ServilletaPage() {
             padding: 20px 20px 30px !important;
             justify-content: flex-end;
           }
+          #slide-2 .card-content p {
+            font-size: 0.95rem !important;
+            line-height: 1.5 !important;
+            margin-top: 15px !important;
+            margin-bottom: 25px !important;
+            color: #CFD8DC !important;
+          }
+          #slide-2 .btn-queswa-live,
+          #slide-2 .card-content a,
+          #slide-2 .card-content button {
+            margin-top: auto !important;
+            margin-bottom: 10px !important;
+          }
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -775,39 +788,74 @@ export default function ServilletaPage() {
           .bio-text-panel { max-width: 100%; }
           .bio-metrics-container { max-width: 100%; }
 
+          /* Slide 4: scroll-snap container */
+          #slide-4 {
+            overflow-y: scroll !important;
+            scroll-snap-type: y mandatory !important;
+            height: 100vh !important;
+            padding-bottom: 0 !important;
+            -webkit-overflow-scrolling: touch;
+          }
+          /* Wrapper sin interferir en el scroll */
           .simulator-layout {
             flex-direction: column;
-            height: auto;
-            overflow-y: visible;
-            padding: 70px 15px 80px;
-            gap: 20px;
+            height: auto !important;
+            overflow-y: visible !important;
+            padding: 0 !important;
+            gap: 0 !important;
             align-items: stretch;
           }
-          .simulator-panel { width: 100%; flex-shrink: 0; }
-          .cta-panel {
-            width: 100%;
+          /* Panel 1: simulador — pantalla completa */
+          .simulator-panel {
             height: 100vh !important;
             min-height: 100vh !important;
+            width: 100% !important;
             flex-shrink: 0;
+            scroll-snap-align: start !important;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            padding: 60px 15px 60px !important;
+            overflow-y: auto;
           }
+          /* Panel 2: CTA — segunda pantalla completa */
+          .cta-panel {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            scroll-snap-align: start !important;
+            position: relative;
+            border-radius: 0 !important;
+            width: 100%;
+            flex-shrink: 0;
+          }
+          /* Imagen superior — gris por defecto */
           .bg-image-cta {
-            height: 50% !important;
+            position: absolute !important;
             top: 0 !important;
-            filter: grayscale(100%) brightness(50%) !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 50% !important;
+            filter: grayscale(100%) brightness(40%) !important;
             transition: filter 0.8s ease-in-out !important;
+            background-position: center center !important;
           }
+          /* Efecto revelación al tocar */
           .cta-panel:active .bg-image-cta,
           .cta-panel:hover .bg-image-cta {
             filter: grayscale(0%) brightness(100%) !important;
           }
+          /* Texto y botones — mitad inferior con solapamiento 5% */
           .cta-overlay {
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
             height: 55% !important;
-            top: 45% !important;
-            background: linear-gradient(to top, #121212 90%, transparent 100%) !important;
+            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
+            display: flex !important;
+            flex-direction: column !important;
             justify-content: flex-end !important;
-            padding: 30px 20px 80px !important;
+            padding: 20px 20px 100px !important;
           }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }

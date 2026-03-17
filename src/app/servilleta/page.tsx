@@ -220,14 +220,15 @@ export default function ServilletaPage() {
   }, []);
 
   // Scroll-hide del orbe en servilleta (contenedores internos no mueven window.scrollY)
+  // Lógica: ocultar al iniciar scroll, mostrar 600ms después de que se detiene (snap settled)
   useEffect(() => {
-    let lastY = 0;
-    const handleScroll = (e: Event) => {
-      const el = e.currentTarget as HTMLElement;
-      const delta = el.scrollTop - lastY;
-      lastY = el.scrollTop;
-      if (delta > 30) window.dispatchEvent(new CustomEvent('hide-queswa-orb'));
-      else if (delta < -30) window.dispatchEvent(new CustomEvent('show-queswa-orb'));
+    let showTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleScroll = () => {
+      window.dispatchEvent(new CustomEvent('hide-queswa-orb'));
+      if (showTimer) clearTimeout(showTimer);
+      showTimer = setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('show-queswa-orb'));
+      }, 600);
     };
     const id = requestAnimationFrame(() => {
       const containers = [
@@ -238,6 +239,7 @@ export default function ServilletaPage() {
     });
     return () => {
       cancelAnimationFrame(id);
+      if (showTimer) clearTimeout(showTimer);
       [document.querySelector('.grid-layout-slide-2'), document.getElementById('slide-4')]
         .filter(Boolean).forEach(el => (el as HTMLElement).removeEventListener('scroll', handleScroll));
     };

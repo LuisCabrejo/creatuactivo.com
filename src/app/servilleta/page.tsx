@@ -1123,20 +1123,18 @@ export default function ServilletaPage() {
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  El &quot;Plan por Defecto&quot; tiene una falla estructural: depende de tu presencia f&iacute;sica.
-                  <br /><br />
-                  Hemos construido una m&aacute;quina h&iacute;brida de 3 componentes:
+                  El &quot;Plan por Defecto&quot; falla porque exige tu presencia f&iacute;sica. Hemos ensamblado una m&aacute;quina h&iacute;brida de 3 componentes que elimina esa falla:
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>1. GANO EXCEL:</span> Infraestructura y Capital ($100M USD).
+                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO</span><span style={{ color: '#90A4AE' }}> (Gano Excel):</span> Infraestructura y Capital ($100M USD). La log&iacute;stica global est&aacute; resuelta. T&uacute; no fabricas, no almacenas, no env&iacute;as.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>2. CREATUACTIVO:</span> Nuestra Plataforma Digital.
+                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO</span><span style={{ color: '#90A4AE' }}> (Queswa AI):</span> Tecnolog&iacute;a de 11 Estrellas. Nuestra Inteligencia Artificial asume el trabajo pesado: filtra prospectos, presenta el modelo y educa autom&aacute;ticamente.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Ejecuci&oacute;n Exacta (El Mapa de Salida).
+                    <span style={{ color: 'var(--orange)' }}>LA DIRECCI&Oacute;N</span><span style={{ color: '#90A4AE' }}> (Tu Rol):</span> Labor puramente gerencial. Guiado por la metodolog&iacute;a EAM, tu &uacute;nico trabajo es suministrar la &ldquo;materia prima&rdquo; (tr&aacute;fico) al ecosistema. La m&aacute;quina ejecuta; t&uacute; diriges.
                   </div>
                 </div>
               </div>

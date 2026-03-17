@@ -1,11 +1,14 @@
 /**
  * /api/voice-command — Motor Cognitivo de Voz
- * Queswa.app — FASE B
+ * Queswa Ecosystem — Multi-Tenant (FASE C)
  *
  * Pipeline:
  *   1. 🎙 OÍDO     → Whisper (OpenAI) — audio a texto
  *   2. 🧠 CEREBRO  → Claude Sonnet — intención + herramientas Supabase
  *   3. 🔊 VOZ      → ElevenLabs TTS — texto a audio
+ *
+ * Multi-tenant: x-tenant-id inyectado por middleware.ts
+ * System prompt cargado dinámicamente desde get_tenant_system_prompt RPC
  *
  * Devuelve: audio/mpeg
  * Headers extra: x-transcript, x-reply
@@ -39,6 +42,34 @@ const supabase = createClient(
 
 const ELEVENLABS_KEY      = process.env.ELEVENLABS_API_KEY ?? ''
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL'
+
+// ─── System prompt cache (particionado por tenant) ────────────────────────────
+const promptCache = new Map<string, { content: string; ts: number }>()
+const PROMPT_TTL  = 5 * 60 * 1000 // 5 minutos
+
+// Fallback si la RPC no devuelve prompt para el tenant
+const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz del dashboard de socios. Hablas en español colombiano formal (usted). Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.'
+
+async function getTenantSystemPrompt(tenantId: string): Promise<string> {
+  const cached = promptCache.get(tenantId)
+  if (cached && (Date.now() - cached.ts) < PROMPT_TTL) return cached.content
+
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (supabase.rpc as any)(
+      'get_tenant_system_prompt',
+      { p_tenant_id: tenantId }
+    )
+    const row = Array.isArray(data) ? data[0] : data
+    const prompt: string = (!error && row?.prompt) ? String(row.prompt) : FALLBACK_VOICE_PROMPT
+    if (error) console.warn(`[Voice] prompt RPC error (${tenantId}):`, error.message)
+    promptCache.set(tenantId, { content: prompt, ts: Date.now() })
+    return prompt
+  } catch (err) {
+    console.error('[Voice] getTenantSystemPrompt exception:', err)
+    return FALLBACK_VOICE_PROMPT
+  }
+}
 
 // ─── Herramientas para Claude ─────────────────────────────────────────────────
 const TOOLS: Anthropic.Tool[] = [
@@ -219,7 +250,11 @@ export async function POST(request: NextRequest) {
   // 3. CEREBRO — Claude + herramientas
   let replyText = ''
   try {
-    const system = `Eres Queswa, asistente de voz del dashboard de Queswa.app. Hablas en español colombiano formal (usted). El constructor actual tiene ID: ${constructorId}. Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.`
+    const tenantId    = request.headers.get('x-tenant-id') ?? 'queswa_dashboard'
+    const basePrompt  = await getTenantSystemPrompt(tenantId)
+    // Dato dinámico: constructor_id de sesión (no se cachea con el prompt base)
+    const system      = `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.`
+    console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
     let response = await getAnthropic().messages.create({

@@ -85,16 +85,60 @@ git push origin main
 
 ### Core System: El Tridente EAM
 
-Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
+Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 1. **EXPANSIÓN** - Generación de tráfico y distribución del Mapa de Salida
 2. **ACTIVACIÓN** - Queswa AI filtra prospectos; constructor cierra con quienes levantaron la mano
-3. **MAESTRÍA** - Academia: mentalidad de dueño de ecosistema
+3. **MAESTRÍA** - La Academia es la ventaja injusta del constructor. Cada semana de aprendizaje acorta la curva que a otros les tomó años.
+
+**Rol del héroe — DIRECCIÓN EJECUTIVA** (elevado en v19.6, Mar 2026):
+- La labor del constructor es **puramente gerencial**: suministra la "materia prima" (tráfico) al ecosistema
+- La tecnología hace la ejecución técnica; el constructor toma las decisiones de expansión
+- **Lenguaje aprobado**: "Director de Expansión", "Dirección Ejecutiva", "orquesta los comandos"
+- **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
+- En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
+
+**Respuesta canónica WHY_02 — "¿Cómo funciona el negocio?"**:
+```
+GANO EXCEL (Infraestructura y Capital): Pone el músculo físico. Más de $100M USD en plantas,
+logística internacional y riesgo financiero. Tú no fabricas, no almacenas y no envías.
+
+CREATUACTIVO (Plataforma Digital): Es el cerebro de la operación. Nuestra inteligencia
+artificial asume el trabajo pesado: filtra prospectos, presenta el modelo y educa
+automáticamente. Elimina el desgaste de tener que explicar o convencer.
+
+DIRECCIÓN EJECUTIVA (Tu Rol): Tu labor es puramente gerencial. Apalancado en nuestra
+metodología exacta (El Tridente EAM), tu único trabajo es suministrar la "materia prima"
+(tráfico) al ecosistema. La tecnología hace la ejecución técnica; tú tomas las decisiones
+de expansión.
+
+Piénsalo así: No te estamos pidiendo que seas el obrero que construye una fábrica de acero
+desde cero. Te estamos entregando el tablero de mando de una infraestructura global que ya
+está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
+```
 
 ### 1. NEXUS AI Chatbot
 
 **Naming**: User-facing brand is "Queswa" (since v15.0). Code/components still use "NEXUS" prefix (no refactor planned). Use "Queswa" in UI text, "NEXUS" in code references.
 
-**Two-project architecture**: `creatuactivo.com` (este repo) y `luiscabrejo.com` (sitio personal) comparten el **mismo Supabase DB** y el mismo `system_prompts.nexus_main`. Cambios en el system prompt afectan a ambos proyectos. En `luiscabrejo.com` la ruta activa es `/api/nexus/route.ts` (no `/api/claude-chat/route.ts`, que es legacy sin uso).
+**Ecosistema de proyectos** (todos comparten el mismo Supabase DB):
+
+| Proyecto | Rol de Queswa | System Prompt | Estado |
+|----------|---------------|---------------|--------|
+| `creatuactivo.com` | Filtrar prospectos para funnel Fundadores | `nexus_main` | Activo |
+| `luiscabrejo.com` | Mismo chatbot, tráfico SEO personal | `nexus_main` | Activo |
+| `Queswa.app` | Branding comercial del producto | `nexus_main` | Activo |
+| `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` (pendiente) | Próximamente |
+
+**Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta `creatuactivo.com` Y `luiscabrejo.com` simultáneamente (caché 5 min). Para `ganocafe.online` se requiere row separado `name='ganocafe_main'` y route.ts propio.
+
+**En `luiscabrejo.com`**: ruta activa es `/api/nexus/route.ts`. La ruta `/api/claude-chat/route.ts` es legacy sin uso.
+
+**Plan de integración ganocafe.online** (cuando llegue el momento):
+1. Crear row `system_prompts` con `name = 'ganocafe_main'`
+2. Crear `knowledge_base/arsenal_ganocafe.txt` con foco en producto (no en oportunidad de negocio)
+3. Modificar `route.ts` de ganocafe para leer `ganocafe_main`
+4. Widget, tracking y embeddings se reutilizan sin cambios
+5. Prospectos quedan en la misma DB — útil para cruzar datos con el funnel principal
 
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
@@ -108,20 +152,33 @@ Metodología oficial v19.5 (Directriz Master v45 — reemplaza Framework IAA):
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) - 3 arsenales consolidados con Voyage AI embeddings (93% token reduction):
-   - `arsenal_inicial` - Initial business questions (34 responses)
-   - `arsenal_avanzado` - Objections + System + Value + Escalation + Activation (22 responses)
-   - `catalogo_productos` - Product catalog (22 products + science)
+1. **Fragmented Vector Search** (v14.9) - 6 arsenales con Voyage AI embeddings (95% token reduction, 108 fragmentos):
+   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones básicas (34 responses)
+   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación, METH_01 (14 responses)
+   - `arsenal_reto` - El Mapa de Salida v3.0 (7 responses)
+   - `arsenal_12_niveles` - Desafío de 12 niveles (12 blocks)
+   - `catalogo_productos` - Product catalog + science (22 products)
+   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**)
 
-2. **Data Capture** - `captureProspectData()` extracts:
+2. **Clasificación de documentos — 3 capas + override**:
+   - **PASO -1 (MenuExpansion)**: Opciones a/b/c/d del menú inicial se expanden a queries semánticas
+   - **PASO 0 (Vector)**: Voyage AI embedding → similitud coseno → threshold 0.4 mínimo
+   - **PASO 0.5 (Override crítico)**: Previene falsos positivos vectoriales. Si el vector devuelve `arsenal_compensacion` pero la query es "cómo funciona el negocio" o variante → fuerza `arsenal_inicial`. Ver `route.ts` línea ~1817.
+   - **PASO 1 (Patrones)**: Fallback regex si vector no alcanza threshold
+
+   **Falso positivo conocido (resuelto Mar 2026)**: `COMP_MODELO_01` tiene "¿Cómo funciona el negocio?" como trigger → el vector lo confundía con WHY_02. El override en PASO 0.5 lo corrige.
+
+3. **Data Capture** - `captureProspectData()` extracts:
    - Personal info (name, email, phone, occupation)
    - Interest level (0-10 score)
    - Objections (price, time, trust, MLM concerns)
    - Archetype classification
 
-3. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
+4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
+   - Versión activa: **v19.6 "Lifestyle Bienestar"** (Mar 2026)
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
+   - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
@@ -404,11 +461,14 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 **DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
 
-**Queswa Official Constants** (calibradas Feb 2026 — consistencia obligatoria en todos los arsenales):
+**Queswa Official Constants** (calibradas Mar 2026 — consistencia obligatoria en todos los arsenales):
 - Lanzamiento público oficial: **lunes 1 de junio**
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
 - Dos engranajes del modelo: **El Músculo** (Gano Excel) + **El Cerebro** (CreaTuActivo)
+- Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
+- Tres componentes de la Máquina Híbrida: **GANO EXCEL** + **CREATUACTIVO** + **DIRECCIÓN EJECUTIVA (METODOLOGÍA)**
+- Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 
 ### Updating Queswa Knowledge
 

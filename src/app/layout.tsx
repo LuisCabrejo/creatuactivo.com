@@ -7,12 +7,11 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Montserrat, Oswald, Rajdhani, Roboto_Mono } from 'next/font/google';
 import './globals.css';
-import { NEXUSFloatingButton } from '@/components/nexus';
 import CookieBanner from '@/components/CookieBanner';
 import dynamic from 'next/dynamic';
 
-const VoiceCommandButton = dynamic(
-  () => import('@/components/VoiceCommandButton'),
+const UnifiedQueswaOrb = dynamic(
+  () => import('@/components/UnifiedQueswaOrb'),
   { ssr: false, loading: () => null },
 );
 
@@ -340,7 +339,7 @@ export default function RootLayout({
           }}
         />
 
-        <NEXUSFloatingButton />
+        <UnifiedQueswaOrb />
 
         {/* Menú Móvil Legacy - Mantenido por compatibilidad */}
         <script
@@ -404,7 +403,6 @@ export default function RootLayout({
         />
 
         <CookieBanner />
-        <VoiceCommandButton bottom="80px" />
       </body>
     </html>
   );

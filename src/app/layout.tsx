@@ -9,6 +9,12 @@ import { Playfair_Display, Montserrat, Oswald, Rajdhani, Roboto_Mono } from 'nex
 import './globals.css';
 import { NEXUSFloatingButton } from '@/components/nexus';
 import CookieBanner from '@/components/CookieBanner';
+import dynamic from 'next/dynamic';
+
+const VoiceCommandButton = dynamic(
+  () => import('@/components/VoiceCommandButton'),
+  { ssr: false, loading: () => null },
+);
 
 // THE ARCHITECT'S SUITE - Typography System
 // Playfair Display: Títulos, citas, encabezados (evoca autoridad editorial)
@@ -398,6 +404,7 @@ export default function RootLayout({
         />
 
         <CookieBanner />
+        <VoiceCommandButton bottom="80px" />
       </body>
     </html>
   );

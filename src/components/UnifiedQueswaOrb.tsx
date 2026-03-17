@@ -79,18 +79,6 @@ export default function UnifiedQueswaOrb() {
     prevScrollY.current = latest
   })
 
-  // Escucha eventos de scroll de contenedores internos (ej. /servilleta)
-  useEffect(() => {
-    const hide = () => setOrbVisible(false)
-    const show = () => setOrbVisible(true)
-    window.addEventListener('hide-queswa-orb', hide)
-    window.addEventListener('show-queswa-orb', show)
-    return () => {
-      window.removeEventListener('hide-queswa-orb', hide)
-      window.removeEventListener('show-queswa-orb', show)
-    }
-  }, [])
-
   // Long press detection
   const longPressTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isLongPress     = useRef(false)
@@ -331,11 +319,14 @@ export default function UnifiedQueswaOrb() {
     )
   }
 
+  // Oculto en /servilleta — el botón "Pregúntale en vivo" maneja la apertura
+  if (pathname === '/servilleta') return null
+
   return (
     <>
       {/* ── Tooltip "Concierge" ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {showTooltip && !isOpen && orbVisible && pathname !== '/servilleta' && (
+        {showTooltip && !isOpen && orbVisible && (
           <motion.div
             initial={{ opacity: 0, y: 8, x: 8 }}
             animate={{ opacity: 1, y: 0, x: 0 }}

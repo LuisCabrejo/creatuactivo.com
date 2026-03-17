@@ -219,32 +219,6 @@ export default function ServilletaPage() {
     };
   }, []);
 
-  // Scroll-hide del orbe en servilleta (contenedores internos no mueven window.scrollY)
-  // Lógica: ocultar al iniciar scroll, mostrar 600ms después de que se detiene (snap settled)
-  useEffect(() => {
-    let showTimer: ReturnType<typeof setTimeout> | null = null;
-    const handleScroll = () => {
-      window.dispatchEvent(new CustomEvent('hide-queswa-orb'));
-      if (showTimer) clearTimeout(showTimer);
-      showTimer = setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('show-queswa-orb'));
-      }, 600);
-    };
-    const id = requestAnimationFrame(() => {
-      const containers = [
-        document.querySelector('.grid-layout-slide-2'),
-        document.getElementById('slide-4'),
-      ].filter(Boolean) as HTMLElement[];
-      containers.forEach(el => el.addEventListener('scroll', handleScroll, { passive: true }));
-    });
-    return () => {
-      cancelAnimationFrame(id);
-      if (showTimer) clearTimeout(showTimer);
-      [document.querySelector('.grid-layout-slide-2'), document.getElementById('slide-4')]
-        .filter(Boolean).forEach(el => (el as HTMLElement).removeEventListener('scroll', handleScroll));
-    };
-  }, []);
-
   return (
     <>
       <style>{`
@@ -777,9 +751,28 @@ export default function ServilletaPage() {
             gap: 0 !important;
             -webkit-overflow-scrolling: touch;
           }
-          .slide-2-header { text-align: center; padding: 0 20px 20px !important; }
-          .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          .card-industrial, .full-width {
+          /* Panel 1: header + card-1 agrupados como una sola pantalla snap */
+          .slide-2-first-panel {
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100vh !important;
+            scroll-snap-align: start !important;
+            flex-shrink: 0;
+          }
+          .slide-2-first-panel .slide-2-header {
+            flex-shrink: 0;
+            padding: 15px 20px 10px !important;
+            text-align: left !important;
+          }
+          .slide-2-first-panel .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
+          .slide-2-first-panel .card-industrial {
+            flex: 1 !important;
+            height: auto !important;
+            min-height: 0 !important;
+            scroll-snap-align: none !important;
+          }
+          /* Cards 2 y 3: snaps independientes */
+          .card-industrial:not(.slide-2-first-panel .card-industrial), .full-width {
             scroll-snap-align: start !important;
             height: 100vh !important;
             min-height: 100vh !important;
@@ -1332,43 +1325,60 @@ export default function ServilletaPage() {
               style={{ backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')", opacity: 0.4 }}
             />
             <div className="grid-layout-slide-2">
-              {/* Título */}
-              <div className="slide-2-header">
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  LA VENTAJA INJUSTA.
-                </h2>
-                <span className="slide-2-subtitle">
-                  EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
-                </span>
-                <div className="exclusive-badge" style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '2px',
-                  color: '#90A4AE',
-                  border: '1px solid #3f3f46',
-                  display: 'inline-block',
-                  padding: '4px 8px',
-                  marginTop: '10px',
-                  marginLeft: '8px',
-                }}>
-                  EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
-                </div>
-              </div>
 
-              {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
-              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
-                <div className="card-content">
-                  <div className="oscillation-text">
-                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
+              {/* Panel 1: header + card-1 como una sola pantalla snap */}
+              <div className="slide-2-first-panel">
+                <div className="slide-2-header">
+                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                    LA VENTAJA INJUSTA.
+                  </h2>
+                  <span className="slide-2-subtitle">
+                    EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
+                  </span>
+                  <div className="exclusive-badge" style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.75rem',
+                    letterSpacing: '2px',
+                    color: '#90A4AE',
+                    border: '1px solid #3f3f46',
+                    display: 'inline-block',
+                    padding: '4px 8px',
+                    marginTop: '10px',
+                    marginLeft: '8px',
+                  }}>
+                    EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
                   </div>
-                  <h3>
-                    <span className="material-symbols-sharp">memory</span>
-                    EL MOTOR QUESWA AI
-                  </h3>
-                  <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
                 </div>
-              </div>
+
+                {/* Tarjeta 1: EL MOTOR QUESWA AI */}
+                <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
+                  <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                  <div className="card-content">
+                    <div className="oscillation-text">
+                      <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
+                    </div>
+                    <h3>
+                      <span className="material-symbols-sharp">memory</span>
+                      EL MOTOR QUESWA AI
+                    </h3>
+                    <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
+                    <button
+                      style={{
+                        marginTop: 'auto', background: 'transparent',
+                        border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
+                        fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                        padding: '6px 12px', cursor: 'pointer', letterSpacing: 1,
+                        transition: 'all 0.2s', alignSelf: 'flex-start',
+                      }}
+                      onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; }}
+                      onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; }}
+                      onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
+                    >
+                      PREG&Uacute;NTALE ALGO EN VIVO ›
+                    </button>
+                  </div>
+                </div>
+              </div>{/* /slide-2-first-panel */}
 
               {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>

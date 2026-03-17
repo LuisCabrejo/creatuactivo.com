@@ -1,25 +1,23 @@
 /**
- * Webhook — Prospect Capture → SendPulse CRM + WhatsApp
- * Queswa.app — FASE A
+ * Webhook — Prospect Capture → WhatsApp Template
+ * Queswa.app
  *
- * Recibe señal cuando un prospecto solicita el Mapa de Salida (o completa
- * cualquier evento de captura de alto valor), luego:
- *   1. Resuelve datos del constructor desde Supabase
- *   2. Llama a sendpulse.createDealAndTriggerWhatsApp()
+ * Recibe señal cuando un prospecto solicita el Mapa de Salida,
+ * resuelve datos del constructor desde Supabase y dispara
+ * la plantilla WhatsApp `acceso_mapa_salida` via SendPulse.
  *
- * Configurar en Supabase / Marketing site / Landing pages como POST webhook.
  * Header requerido: x-webhook-secret = {WEBHOOK_SECRET}
  *
- * Body esperado (JSON):
+ * Body esperado:
  * {
  *   prospect: { name, whatsapp, email?, archetype?, mapaUrl?, fingerprint? },
- *   constructorId: "luis-cabrejo-1288"          // slug del constructor
+ *   constructorId: "luis-cabrejo-1288"
  * }
  */
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient }              from '@supabase/supabase-js'
-import { createDealAndTriggerWhatsApp, type ProspectData, type ConstructorInfo } from '@/lib/sendpulse'
+import { sendWhatsAppTemplate, type ProspectData, type ConstructorInfo } from '@/lib/sendpulse'
 
 export const runtime = 'nodejs'
 
@@ -32,11 +30,7 @@ const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET?.trim()
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 export async function GET() {
-  return NextResponse.json({
-    ok: true,
-    endpoint: 'webhooks/prospect-capture',
-    version: '1.0',
-  })
+  return NextResponse.json({ ok: true, endpoint: 'webhooks/prospect-capture', version: '2.0' })
 }
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
@@ -78,33 +72,27 @@ export async function POST(request: NextRequest) {
   }
 
   // 3. Resolver datos del constructor desde Supabase
-  const { data: user, error: userErr } = await supabase
+  const { data: user } = await supabase
     .from('private_users')
     .select('name, whatsapp')
     .eq('constructor_id', constructorSlug)
     .single()
 
-  if (userErr || !user) {
+  if (!user) {
     console.warn(`⚠️ [prospect-capture] Constructor not found: ${constructorSlug}`)
-    // Continuamos de todas formas con datos mínimos para no perder el prospecto
   }
 
   const constructor: ConstructorInfo = {
     constructorId: constructorSlug,
-    name:          (user as any)?.name      ?? constructorSlug,
-    whatsapp:      (user as any)?.whatsapp  ?? undefined,
+    name:      (user as any)?.name     ?? constructorSlug,
+    whatsapp:  (user as any)?.whatsapp ?? undefined,
   }
 
-  // 4. Disparar SendPulse
-  try {
-    const result = await createDealAndTriggerWhatsApp(prospect, constructor)
+  // 4. Disparar plantilla WhatsApp
+  const result = await sendWhatsAppTemplate(prospect, constructor)
 
-    console.log(`✅ [prospect-capture] ${prospect.name} → deal=${result.dealId} wa=${result.whatsappSent}`)
-    return NextResponse.json({ ok: true, ...result })
-  } catch (err) {
-    console.error('❌ [prospect-capture] SendPulse error:', err)
-    return NextResponse.json({ error: 'SendPulse integration failed' }, { status: 500 })
-  }
+  console.log(`✅ [prospect-capture] ${prospect.name} → whatsapp=${result.whatsappSent}`)
+  return NextResponse.json({ ok: true, ...result })
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

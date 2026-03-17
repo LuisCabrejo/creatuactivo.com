@@ -219,6 +219,30 @@ export default function ServilletaPage() {
     };
   }, []);
 
+  // Scroll-hide del orbe en servilleta (contenedores internos no mueven window.scrollY)
+  useEffect(() => {
+    let lastY = 0;
+    const handleScroll = (e: Event) => {
+      const el = e.currentTarget as HTMLElement;
+      const delta = el.scrollTop - lastY;
+      lastY = el.scrollTop;
+      if (delta > 30) window.dispatchEvent(new CustomEvent('hide-queswa-orb'));
+      else if (delta < -30) window.dispatchEvent(new CustomEvent('show-queswa-orb'));
+    };
+    const id = requestAnimationFrame(() => {
+      const containers = [
+        document.querySelector('.grid-layout-slide-2'),
+        document.getElementById('slide-4'),
+      ].filter(Boolean) as HTMLElement[];
+      containers.forEach(el => el.addEventListener('scroll', handleScroll, { passive: true }));
+    });
+    return () => {
+      cancelAnimationFrame(id);
+      [document.querySelector('.grid-layout-slide-2'), document.getElementById('slide-4')]
+        .filter(Boolean).forEach(el => (el as HTMLElement).removeEventListener('scroll', handleScroll));
+    };
+  }, []);
+
   return (
     <>
       <style>{`
@@ -778,7 +802,7 @@ export default function ServilletaPage() {
             flex-direction: column !important;
             justify-content: flex-start !important;
             background: linear-gradient(to top, #121212 88%, rgba(18,18,18,0.6) 100%) !important;
-            padding: 16px 20px 20px !important;
+            padding: 28px 20px 20px !important;
             gap: 10px;
           }
           #slide-2 .card-content h3 {

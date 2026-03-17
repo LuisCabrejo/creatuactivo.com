@@ -1369,7 +1369,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      RED DE CONSUMO (PERSONAS):
+                      HOGARES FIDELIZADOS:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -1380,7 +1380,7 @@ export default function ServilletaPage() {
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Ingreso semanal recurrente por consumo de caf&eacute;.</p>
+                    <p className="insight-text">Flujo de caja semanal generado por el volumen de consumo.</p>
                   </div>
                 )}
               </div>

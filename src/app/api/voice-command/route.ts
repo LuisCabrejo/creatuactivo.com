@@ -50,6 +50,23 @@ const PROMPT_TTL  = 5 * 60 * 1000 // 5 minutos
 // Fallback si la RPC no devuelve prompt para el tenant
 const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz de CreaTuActivo. Hablas en español colombiano formal (usted). Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.'
 
+// ─── Sufijo TTS — se añade a TODO system prompt de voz ───────────────────────
+// Garantiza fonética natural y brevedad independientemente del prompt base
+const VOICE_TTS_SUFFIX = `
+
+REGLAS ESTRICTAS PARA AUDIO (texto a voz — TTS):
+- Máximo 3 oraciones por respuesta, salvo que pidan explicación extensa.
+- NUNCA uses símbolos: $, %, +, /, =, #.
+- NUNCA uses abreviaturas ni siglas sin expandir. Escribe todo en palabras:
+  · "100M USD" → "cien millones de dólares"
+  · "$110.990 COP" → "ciento diez mil novecientos noventa pesos colombianos"
+  · "E.A.M." → "E A M" (pausa entre letras)
+  · "%" → "por ciento"
+  · "km²" → "kilómetros cuadrados"
+- Escribe los números completos cuando sean clave (no "100M", sí "cien millones").
+- Habla de forma conversacional y fluida, como si explicaras en persona.
+- Sin viñetas, sin listas, sin markdown de ningún tipo.`
+
 async function getTenantSystemPrompt(tenantId: string): Promise<string> {
   const cached = promptCache.get(tenantId)
   if (cached && (Date.now() - cached.ts) < PROMPT_TTL) return cached.content
@@ -253,15 +270,15 @@ export async function POST(request: NextRequest) {
     const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
     const basePrompt  = await getTenantSystemPrompt(tenantId)
     const isDashboard = tenantId === 'queswa_dashboard'
-    // Dato dinámico: constructor_id de sesión (solo relevante en dashboard)
+    // Sufijo TTS siempre presente + constructor_id solo en dashboard
     const system      = isDashboard
-      ? `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.`
-      : basePrompt
+      ? `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.${VOICE_TTS_SUFFIX}`
+      : `${basePrompt}${VOICE_TTS_SUFFIX}`
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
     let response = await getAnthropic().messages.create({
-      model: 'claude-sonnet-4-6', max_tokens: 256, system,
+      model: 'claude-sonnet-4-6', max_tokens: 150, system,
       ...(isDashboard ? { tools: TOOLS } : {}),
       messages,
     })
@@ -278,7 +295,7 @@ export async function POST(request: NextRequest) {
       messages.push({ role: 'assistant', content: response.content })
       messages.push({ role: 'user', content: toolResults })
       response = await getAnthropic().messages.create({
-        model: 'claude-sonnet-4-6', max_tokens: 256, system, tools: TOOLS, messages,
+        model: 'claude-sonnet-4-6', max_tokens: 150, system, tools: TOOLS, messages,
       })
     }
 

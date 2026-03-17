@@ -1245,10 +1245,10 @@ export default function ServilletaPage() {
             <div className="slide-3-layout">
               <div className="slide-3-bottom">
                 <div className="bio-text-panel">
-                  <div className="technical-label">MANTENIMIENTO BIOL&Oacute;GICO</div>
+                  <div className="technical-label">HARDWARE EJECUTIVO</div>
                   <h2 className="deck-h2">OPTIMIZACI&Oacute;N<br />CELULAR</h2>
                   <p className="deck-p">
-                    La riqueza sin salud es un error de c&aacute;lculo. Nuestro motor biol&oacute;gico no es simple &quot;caf&eacute;&quot;; es tecnolog&iacute;a nutricional 100% hidrosoluble para optimizaci&oacute;n celular.
+                    El apalancamiento financiero exige un veh&iacute;culo f&iacute;sico capaz de sostenerlo. Nuestro activo f&iacute;sico no es una &quot;bebida tradicional&quot;; es tecnolog&iacute;a nutricional de alt&iacute;sima absorci&oacute;n (100% hidrosoluble) dise&ntilde;ada para blindar el sistema inmune y garantizar el alto rendimiento cognitivo del constructor.
                   </p>
                 </div>
 
@@ -1351,7 +1351,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      SOCIOS DIRECTOS:
+                      SOCIOS ACTIVADOS POR EL ECOSISTEMA:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1361,7 +1361,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Pago &uacute;nico por expansi&oacute;n de infraestructura.</p>
+                    <p className="insight-text">Capitalizaci&oacute;n generada a partir del tr&aacute;fico suministrado a la plataforma.</p>
                   </div>
                 )}
 
@@ -1392,11 +1392,11 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <h2>INICIAR ACTUALIZACI&Oacute;N</h2>
-                  <p>Dos caminos para activar tu c&oacute;digo:</p>
+                  <h2>TOMA EL MANDO OPERATIVO</h2>
+                  <p>Dos rutas para asumir tu posici&oacute;n en la junta:</p>
 
                   <div className="cta-buttons">
-                    {/* CTA Principal: Iniciar → /paquetes */}
+                    {/* CTA Principal: Asumir Dirección → /paquetes */}
                     <a
                       href="https://creatuactivo.com/paquetes"
                       target="_blank"
@@ -1404,10 +1404,10 @@ export default function ServilletaPage() {
                       className="btn-industrial"
                     >
                       <span className="material-symbols-sharp">rocket_launch</span>
-                      INICIAR EJECUCI&Oacute;N
+                      🚀 ASUMIR DIRECCI&Oacute;N
                     </a>
 
-                    {/* CTA Secundario: Auditar → /mapa-de-salida */}
+                    {/* CTA Secundario: Auditar Infraestructura → /mapa-de-salida */}
                     <a
                       href="https://creatuactivo.com/mapa-de-salida"
                       target="_blank"
@@ -1415,7 +1415,7 @@ export default function ServilletaPage() {
                       className="btn-industrial secondary"
                     >
                       <span className="material-symbols-sharp">verified_user</span>
-                      AUDITAR EL MODELO (MAPA DE SALIDA)
+                      🛡️ AUDITAR INFRAESTRUCTURA (MAPA DE SALIDA)
                     </a>
                   </div>
                 </div>

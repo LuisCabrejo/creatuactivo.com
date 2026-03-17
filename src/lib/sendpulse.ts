@@ -105,7 +105,7 @@ export async function sendWhatsAppTemplate(
   const mapaLink = prospect.mapaUrl
     ?? `https://creatuactivo.com/mapa-de-salida/${constructor.constructorId}`
 
-  // ── Paso 1: Enrolamiento ─────────────────────────────────────────────────
+  // ── Paso 1: Obtener contact_id (enroll o lookup si ya existe) ────────────
   let contactId: string
   try {
     const botId = await getWhatsAppBotId()
@@ -118,18 +118,35 @@ export async function sendWhatsAppTemplate(
     console.log(`📲 [SendPulse] Enroll response: ${enroll.raw}`)
 
     const enrolled = enroll.data as any
-    // SendPulse puede devolver el id en diferentes rutas según la versión de API
     contactId =
-      enrolled?.data?.id        ??
+      enrolled?.data?.id         ??
       enrolled?.data?.contact_id ??
       enrolled?.id               ??
       enrolled?.contact_id       ??
       null
 
+    // Contacto ya existía → buscarlo por teléfono
     if (!contactId) {
-      return { whatsappSent: false, error: `Enroll sin contact_id: ${enroll.raw}` }
+      const alreadyExists = (enrolled?.errors?.phone ?? [])
+        .some((e: string) => e.toLowerCase().includes('already exists'))
+
+      if (alreadyExists) {
+        console.log(`🔍 [SendPulse] Contacto ya existe — lookup por teléfono...`)
+        const lookup = await spGet(
+          `/whatsapp/contacts?phone=${encodeURIComponent(prospect.whatsapp)}&bot_id=${botId}`,
+        )
+        console.log(`🔍 [SendPulse] Lookup: ${JSON.stringify(lookup.data)}`)
+
+        const ld = lookup.data as any
+        const list: any[] = Array.isArray(ld?.data) ? ld.data : Array.isArray(ld) ? ld : [ld]
+        contactId = list[0]?.id ?? list[0]?.contact_id ?? null
+      }
     }
-    console.log(`✅ [SendPulse] Suscriptor registrado — contact_id: ${contactId}`)
+
+    if (!contactId) {
+      return { whatsappSent: false, error: `Sin contact_id: ${enroll.raw}` }
+    }
+    console.log(`✅ [SendPulse] contact_id: ${contactId}`)
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
     console.error('❌ [SendPulse] Enroll error:', msg)

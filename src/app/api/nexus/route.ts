@@ -793,6 +793,7 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
       .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion', 'arsenal_reto'])
+      .eq('tenant_id', 'creatuactivo_marketing')  // Capa 3.2: aislamiento multi-tenant
       .not('embedding_512', 'is', null);
 
     if (error) {
@@ -845,6 +846,7 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
       .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, etc.
+      .eq('tenant_id', 'creatuactivo_marketing')  // Capa 3.2: aislamiento multi-tenant
       .not('embedding_512', 'is', null);
 
     if (error) {
@@ -1969,45 +1971,52 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   }
 }
 
-// ✅ OPTIMIZACIÓN v11.9: Función para obtener system prompt CON cache inteligente
-async function getSystemPrompt(): Promise<string> {
-  const cacheKey = 'system_prompt_main';
+/// ✅ MULTI-TENANT v15.0: getSystemPrompt acepta tenantId inyectado por middleware.ts
+// Cache particionado por tenant — cada dominio tiene su propia entrada en memoria
+async function getSystemPrompt(tenantId: string = 'creatuactivo_marketing'): Promise<string> {
+  const cacheKey = `system_prompt_${tenantId}`;
   const cached = systemPromptCache.get(cacheKey);
 
   // Verificar cache válido
   if (cached && (Date.now() - cached.timestamp) < SYSTEM_PROMPT_CACHE_TTL) {
-    console.log(`✅ System prompt ${cached.version} desde cache (TTL: ${Math.round((SYSTEM_PROMPT_CACHE_TTL - (Date.now() - cached.timestamp)) / 1000)}s restantes)`);
+    console.log(`✅ System prompt [${tenantId}] ${cached.version} desde cache (${Math.round((SYSTEM_PROMPT_CACHE_TTL - (Date.now() - cached.timestamp)) / 1000)}s restantes)`);
     return cached.content;
   }
 
-  console.log('🔄 Recargando system prompt desde Supabase...');
+  console.log(`🔄 Recargando system prompt para tenant [${tenantId}]...`);
 
   try {
-    const { data, error } = await getSupabaseClient()
-      .from('system_prompts')
-      .select('prompt, version')
-      .eq('name', 'nexus_main')
-      .single();
+    // Usar RPC get_tenant_system_prompt para resolución por tenant_id
+    // Fallback: si el tenant no tiene prompt propio, usar nexus_main (creatuactivo_marketing)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: rpcData, error: rpcError } = await (getSupabaseClient().rpc as any)(
+      'get_tenant_system_prompt',
+      { p_tenant_id: tenantId }
+    );
 
-    if (error) {
-      console.error('Error leyendo system prompt de Supabase:', error);
-      // Si hay cache expirado, úsalo como fallback antes del hardcoded
-      if (cached) {
-        console.warn('⚠️ Usando cache expirado como fallback');
-        return cached.content;
-      }
-      return getFallbackSystemPrompt();
+    let promptData: { prompt: string; version: string } | null = null;
+
+    if (!rpcError && rpcData && Array.isArray(rpcData) && rpcData.length > 0) {
+      promptData = rpcData[0] as { prompt: string; version: string };
+    } else if (!rpcError && rpcData && !Array.isArray(rpcData)) {
+      promptData = rpcData as { prompt: string; version: string };
+    } else {
+      // Tenant sin prompt propio → fallback a nexus_main
+      console.warn(`⚠️ [${tenantId}] sin prompt en DB, fallback a nexus_main`);
+      const { data: fallbackData } = await getSupabaseClient()
+        .from('system_prompts')
+        .select('prompt, version')
+        .eq('name', 'nexus_main')
+        .single();
+      promptData = fallbackData as { prompt: string; version: string } | null;
     }
 
-    const promptData = data as { prompt: string; version: string } | null;
     const systemPrompt = promptData?.prompt || getFallbackSystemPrompt();
 
-    // ⚠️ Validar longitud para detectar prompts excesivos
     if (systemPrompt.length > 50000) {
-      console.warn(`⚠️ System prompt muy largo: ${systemPrompt.length} caracteres (>50k)`);
+      console.warn(`⚠️ System prompt muy largo: ${systemPrompt.length} chars`);
     }
 
-    // Cachear el prompt con metadata
     systemPromptCache.set(cacheKey, {
       content: systemPrompt,
       timestamp: Date.now(),
@@ -2015,16 +2024,12 @@ async function getSystemPrompt(): Promise<string> {
       length: systemPrompt.length
     });
 
-    console.log(`✅ System prompt ${promptData?.version} cargado y cacheado (${systemPrompt.length} chars, TTL: 5min)`);
+    console.log(`✅ [${tenantId}] ${promptData?.version} cacheado (${systemPrompt.length} chars)`);
     return systemPrompt;
 
   } catch (error) {
-    console.error('Error conectando system prompt:', error);
-    // Fallback a cache expirado si existe
-    if (cached) {
-      console.warn('⚠️ Error crítico - usando cache expirado');
-      return cached.content;
-    }
+    console.error(`Error cargando system prompt [${tenantId}]:`, error);
+    if (cached) return cached.content;
     return getFallbackSystemPrompt();
   }
 }
@@ -2484,6 +2489,12 @@ async function logConversationHibrida(
 export async function POST(req: Request) {
   const startTime = Date.now();
 
+  // ── MULTI-TENANT v15.0: leer tenant inyectado por middleware.ts ──────────────
+  // middleware.ts resuelve el dominio de origen y propaga x-tenant-id en <1ms
+  // Valores: creatuactivo_marketing | marca_personal | queswa_dashboard | ecommerce
+  const tenantId = req.headers.get('x-tenant-id') ?? 'creatuactivo_marketing';
+  console.log(`🏢 [Tenant] ${tenantId}`);
+
   try {
     const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext } = await req.json();
 
@@ -2752,8 +2763,8 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       console.log('Contexto híbrido del prospecto incluido:', mergedProspectData.momento_optimo);
     }
 
-    // ✅ OPTIMIZACIÓN: System prompt CON CACHE de Anthropic + Historial
-    let baseSystemPrompt = await getSystemPrompt();
+    // ✅ MULTI-TENANT v15.0: carga el prompt del tenant activo (inyectado por middleware.ts)
+    let baseSystemPrompt = await getSystemPrompt(tenantId);
 
     // 🧠 Agregar resumen de historial al System Prompt (si existe)
     if (conversationSummary) {

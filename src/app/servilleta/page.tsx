@@ -1404,7 +1404,7 @@ export default function ServilletaPage() {
                       className="btn-industrial"
                     >
                       <span className="material-symbols-sharp">rocket_launch</span>
-                      🚀 ASUMIR DIRECCI&Oacute;N
+                      ASUMIR DIRECCI&Oacute;N
                     </a>
 
                     {/* CTA Secundario: Auditar Infraestructura → /mapa-de-salida */}
@@ -1415,7 +1415,7 @@ export default function ServilletaPage() {
                       className="btn-industrial secondary"
                     >
                       <span className="material-symbols-sharp">verified_user</span>
-                      🛡️ AUDITAR INFRAESTRUCTURA (MAPA DE SALIDA)
+                      AUDITAR INFRAESTRUCTURA (MAPA DE SALIDA)
                     </a>
                   </div>
                 </div>

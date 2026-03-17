@@ -18,6 +18,7 @@ export default function ServilletaPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [queswaOpen, setQueswaOpen] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [ctaVisible, setCtaVisible] = useState(false);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -170,6 +171,29 @@ export default function ServilletaPage() {
     });
 
     return () => observers.forEach(o => o.disconnect());
+  }, [activeSlide, isFullscreen]);
+
+  // IntersectionObserver: reveal CTA panel de slide 4 al scrollear hacia él
+  useEffect(() => {
+    if (activeSlide !== 4) return;
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth > 1024) return;
+
+    setCtaVisible(false);
+    const scrollRoot = document.querySelector<HTMLElement>('#slide-4');
+    const cta = document.querySelector<HTMLElement>('#slide-4 .cta-panel');
+    if (!cta || !scrollRoot) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          setCtaVisible(entry.isIntersecting && entry.intersectionRatio >= 0.4);
+        });
+      },
+      { root: scrollRoot, threshold: 0.4 }
+    );
+    observer.observe(cta);
+    return () => observer.disconnect();
   }, [activeSlide, isFullscreen]);
 
   // Ocultar nav mobile cuando Queswa está abierto
@@ -608,6 +632,12 @@ export default function ServilletaPage() {
           position: absolute; width: 100%; height: 100%;
           background-size: cover; background-position: center;
           filter: grayscale(50%) brightness(60%);
+          transition: filter 0.8s ease-in-out;
+        }
+        /* Reveal: imagen toma color cuando cta-revealed (scroll) o hover/active */
+        .cta-panel.cta-revealed .bg-image-cta,
+        .cta-panel:hover .bg-image-cta {
+          filter: grayscale(0%) brightness(80%);
         }
         .cta-overlay {
           position: relative; z-index: 2; height: 100%;
@@ -844,18 +874,21 @@ export default function ServilletaPage() {
           .cta-panel:hover .bg-image-cta {
             filter: grayscale(0%) brightness(100%) !important;
           }
-          /* Texto y botones — mitad inferior con solapamiento 5% */
+          /* Texto y botones — mitad inferior exacta (sin solapamiento ambiguo) */
           .cta-overlay {
             position: absolute !important;
-            bottom: 0 !important;
+            top: 50% !important;
             left: 0 !important;
-            width: 100% !important;
-            height: 55% !important;
-            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            height: auto !important;
+            background: linear-gradient(to bottom, rgba(18,18,18,0.95) 0%, #121212 20%) !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: flex-end !important;
-            padding: 20px 20px 100px !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 20px 20px 80px !important;
+            text-align: center !important;
           }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
@@ -1018,26 +1051,41 @@ export default function ServilletaPage() {
             border-color: var(--cyan);
           }
 
-          /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
-          :fullscreen .simulator-layout {
-            padding: 60px 20px 40px !important;
+          /* SLIDE 4 fullscreen mobile: scroll-snap igual que slide 2 */
+          :fullscreen #slide-4 {
+            overflow-y: scroll !important;
+            scroll-snap-type: y mandatory !important;
+            height: 100vh !important;
+            padding-bottom: 0 !important;
+            -webkit-overflow-scrolling: touch;
+          }
+          :fullscreen #slide-4 .simulator-layout {
             flex-direction: column !important;
-            gap: 30px !important;
+            height: auto !important;
+            overflow-y: visible !important;
+            padding: 0 !important;
+            gap: 0 !important;
+            align-items: stretch !important;
           }
-          :fullscreen .simulator-panel {
-            padding: 30px 20px !important;
+          :fullscreen #slide-4 .simulator-panel {
+            height: 100vh !important;
+            min-height: 100vh !important;
             width: 100% !important;
+            flex: none !important;
+            scroll-snap-align: start !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            padding: 60px 20px 60px !important;
+            overflow-y: auto !important;
           }
-          :fullscreen .cta-panel {
-            min-height: 60vh !important;  /* Aprovechar pantalla completa */
+          :fullscreen #slide-4 .cta-panel {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            scroll-snap-align: start !important;
+            flex: none !important;
             width: 100% !important;
-          }
-          :fullscreen .cta-overlay {
-            padding: 40px 25px !important;
-          }
-          :fullscreen .cta-overlay h2 {
-            font-size: 2rem !important;
-            letter-spacing: 2px !important;
+            border-radius: 0 !important;
           }
           :fullscreen .digital-display {
             font-size: 3rem !important;
@@ -1488,7 +1536,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* Panel CTA - Doble acción */}
-              <div className="cta-panel">
+              <div className={`cta-panel${ctaVisible ? ' cta-revealed' : ''}`}>
                 <div
                   className="bg-image-cta"
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}

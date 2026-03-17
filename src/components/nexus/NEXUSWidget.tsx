@@ -386,41 +386,51 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         borderRadius: 0
                       }}
                     >
-                      {/* 🔊 Botón TTS — solo en mensajes del asistente */}
+                      {/* 🔊 Botón TTS — iconografía pura, sin bordes rígidos */}
                       {message.role === 'assistant' && (
                         <button
                           onClick={() => speakMessage(message.content, message.id)}
                           title={playingId === message.id ? 'Detener' : 'Escuchar respuesta'}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            marginBottom: '8px',
-                            padding: '3px 8px',
-                            fontSize: '11px',
-                            fontFamily: 'monospace',
-                            background: 'transparent',
-                            border: `1px solid ${playingId === message.id ? QUIET_LUXURY.gold : 'rgba(255,255,255,0.12)'}`,
-                            color: playingId === message.id ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted,
-                            cursor: loadingAudioId === message.id ? 'wait' : 'pointer',
-                            transition: 'all 200ms ease',
-                            opacity: loadingAudioId === message.id ? 0.6 : 1,
-                          }}
-                          onMouseEnter={e => {
-                            if (playingId !== message.id) {
-                              e.currentTarget.style.borderColor = QUIET_LUXURY.gold;
-                              e.currentTarget.style.color = QUIET_LUXURY.gold;
-                            }
-                          }}
-                          onMouseLeave={e => {
-                            if (playingId !== message.id) {
-                              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                              e.currentTarget.style.color = QUIET_LUXURY.textMuted;
-                            }
-                          }}
                           disabled={loadingAudioId !== null && loadingAudioId !== message.id}
+                          className="group flex items-center gap-1.5 mb-3 transition-all duration-200 hover:scale-105"
+                          style={{
+                            background: 'transparent',
+                            border: 'none',
+                            padding: '2px 0',
+                            cursor: loadingAudioId === message.id ? 'wait' : 'pointer',
+                            opacity: loadingAudioId !== null && loadingAudioId !== message.id ? 0.25 : 1,
+                          }}
                         >
-                          {loadingAudioId === message.id ? '···' : playingId === message.id ? '■ DETENER' : '▶ ESCUCHAR'}
+                          {/* Ícono dinámico */}
+                          {loadingAudioId === message.id ? (
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={QUIET_LUXURY.gold} strokeWidth="2.5" strokeLinecap="round" style={{ opacity: 0.7 }}>
+                              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+                                <animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/>
+                              </path>
+                            </svg>
+                          ) : playingId === message.id ? (
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={QUIET_LUXURY.gold} strokeWidth="2.5" strokeLinecap="round">
+                              <rect x="6" y="4" width="4" height="16" fill={QUIET_LUXURY.gold} stroke="none"/>
+                              <rect x="14" y="4" width="4" height="16" fill={QUIET_LUXURY.gold} stroke="none"/>
+                            </svg>
+                          ) : (
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={QUIET_LUXURY.textMuted} strokeWidth="2" strokeLinecap="round"
+                              className="group-hover:stroke-cyan-400 transition-colors duration-200">
+                              <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                          )}
+                          <span style={{
+                            fontSize: '9px',
+                            letterSpacing: '0.12em',
+                            textTransform: 'uppercase',
+                            color: playingId === message.id ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted,
+                            fontFamily: 'monospace',
+                            transition: 'color 200ms',
+                          }}
+                          className={playingId === message.id ? '' : 'group-hover:text-cyan-400'}
+                          >
+                            {loadingAudioId === message.id ? '···' : playingId === message.id ? 'Detener' : 'Escuchar'}
+                          </span>
                         </button>
                       )}
 

@@ -785,12 +785,7 @@ export default function ServilletaPage() {
             margin-bottom: 25px !important;
             color: #CFD8DC !important;
           }
-          #slide-2 .btn-queswa-live,
-          #slide-2 .card-content a,
-          #slide-2 .card-content button {
-            margin-top: auto !important;
-            margin-bottom: 10px !important;
-          }
+
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -1337,20 +1332,6 @@ export default function ServilletaPage() {
                     EL MOTOR QUESWA AI
                   </h3>
                   <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
-                  <button
-                    style={{
-                      marginTop: 10, background: 'transparent',
-                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
-                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
-                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
-                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
-                  >
-                    PREGÚNTALE ALGO EN VIVO ›
-                  </button>
                 </div>
               </div>
 

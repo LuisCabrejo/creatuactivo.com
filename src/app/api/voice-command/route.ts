@@ -55,7 +55,8 @@ const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz de CreaTuActivo. Ha
 const VOICE_TTS_SUFFIX = `
 
 REGLAS ESTRICTAS PARA AUDIO (texto a voz — TTS):
-- Máximo 4-5 oraciones por respuesta. Si la pregunta requiere explicación, puedes extenderte hasta 6.
+- Adapta la longitud a la complejidad: preguntas simples = 2-3 oraciones; preguntas que requieren explicación = las que sean necesarias para responder COMPLETO.
+- CRÍTICO: NUNCA te cortes a mitad de una idea o frase. Si sientes que el espacio se acaba, cierra con una oración de resumen en lugar de quedarte incompleto. El oyente no puede releer — debe escuchar una respuesta completa y coherente.
 - NUNCA uses símbolos: $, %, +, /, =, #.
 - NUNCA uses abreviaturas ni siglas sin expandir. Escribe todo en palabras:
   · "100M USD" → "cien millones de dólares"
@@ -66,6 +67,18 @@ REGLAS ESTRICTAS PARA AUDIO (texto a voz — TTS):
 - Escribe los números completos cuando sean clave (no "100M", sí "cien millones").
 - Habla de forma conversacional y fluida, como si explicaras en persona.
 - Sin viñetas, sin listas, sin markdown de ningún tipo.`
+
+// Detecta preguntas complejas que merecen más tokens
+const COMPLEX_KEYWORDS = [
+  'cómo funciona', 'explica', 'cuéntame', 'beneficio', 'ganoderma',
+  'plan de compensación', 'cómo se gana', 'qué es', 'diferencia',
+  'por qué', 'ventaja', 'metodología', 'tridente', 'historia',
+]
+
+function getMaxTokens(transcript: string): number {
+  const lower = transcript.toLowerCase()
+  return COMPLEX_KEYWORDS.some(kw => lower.includes(kw)) ? 500 : 300
+}
 
 async function getTenantSystemPrompt(tenantId: string): Promise<string> {
   const cached = promptCache.get(tenantId)
@@ -209,7 +222,7 @@ async function textToSpeech(text: string): Promise<Uint8Array> {
         },
         body: JSON.stringify({
           text,
-          model_id: 'eleven_turbo_v2_5',
+          model_id: 'eleven_multilingual_v2',
           voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true },
         }),
       },
@@ -290,8 +303,9 @@ export async function POST(request: NextRequest) {
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
+    const maxTokens = getMaxTokens(transcript)
     let response = await getAnthropic().messages.create({
-      model: 'claude-haiku-4-5-20251001', max_tokens: 280, system,
+      model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, system,
       ...(isDashboard ? { tools: TOOLS } : {}),
       messages,
     })
@@ -308,7 +322,7 @@ export async function POST(request: NextRequest) {
       messages.push({ role: 'assistant', content: response.content })
       messages.push({ role: 'user', content: toolResults })
       response = await getAnthropic().messages.create({
-        model: 'claude-haiku-4-5-20251001', max_tokens: 280, system, tools: TOOLS, messages,
+        model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, system, tools: TOOLS, messages,
       })
     }
 

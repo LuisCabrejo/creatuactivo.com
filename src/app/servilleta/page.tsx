@@ -139,6 +139,13 @@ export default function ServilletaPage() {
     if (activeSlide === 2) setActiveCardIndex(0);
   }, [activeSlide]);
 
+  // Orbe Queswa visible solo en slide 2, card 1
+  useEffect(() => {
+    const visible = activeSlide === 2 && activeCardIndex === 0;
+    window.dispatchEvent(new CustomEvent(visible ? 'show-queswa-orb' : 'hide-queswa-orb'));
+    return () => { window.dispatchEvent(new CustomEvent('hide-queswa-orb')); };
+  }, [activeSlide, activeCardIndex]);
+
   // Scroll-activated card highlight — solo mobile/tablet
   useEffect(() => {
     if (activeSlide !== 2) return;
@@ -355,13 +362,26 @@ export default function ServilletaPage() {
 
         /* LISTA DE COMPONENTES (Slide 1) */
         .components-list {
-          text-align: left; display: inline-block; margin-top: 20px;
+          width: 100%; margin-top: 25px;
+          display: flex; flex-direction: column; gap: 15px;
           font-family: var(--font-head); font-size: 1.1rem; color: var(--text-main);
         }
         .components-list .comp-row {
-          border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 10px;
+          background: rgba(15, 15, 15, 0.85);
+          border: 1px solid #222;
+          padding: 18px 20px;
+          border-radius: 0;
+          border-left: 3px solid var(--cyan);
+          opacity: 0;
+          transform: translateY(15px);
+          animation: bootSequence 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-        .components-list .comp-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .components-list .comp-row:nth-child(1) { animation-delay: 0.2s; border-left-color: var(--cyan); }
+        .components-list .comp-row:nth-child(2) { animation-delay: 0.4s; border-left-color: var(--cyan); }
+        .components-list .comp-row:nth-child(3) { animation-delay: 0.6s; border-left-color: var(--orange); }
+        @keyframes bootSequence {
+          to { opacity: 1; transform: translateY(0); }
+        }
 
         /* BOTÓN SIGUIENTE */
         .btn-next {
@@ -418,8 +438,8 @@ export default function ServilletaPage() {
           position: relative; z-index: 2; padding: 20px;
           background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); width: 100%;
         }
-        .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 5px 0; color: var(--text-main); font-size: 1.1rem; }
-        .card-content p { font-size: 0.8rem; margin: 0; color: #aaa; line-height: 1.4; }
+        .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
+        .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
 
         /* OSCILACIONES DUARTE (Slide 2) */
         .oscillation-text {
@@ -706,9 +726,9 @@ export default function ServilletaPage() {
           }
           .slide-2-header { text-align: center; padding-bottom: 0; }
           .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
+          /* Split layout: imagen arriba 50%, texto abajo 55% */
           .card-industrial, .full-width {
-            min-height: 55vh !important;
+            min-height: 70vh !important;
             height: auto !important;
             flex-shrink: 0;
             display: flex;
@@ -723,9 +743,11 @@ export default function ServilletaPage() {
           .card-content {
             height: 55% !important;
             background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
-            padding: 20px 20px 30px !important;
+            padding: 70px 20px 30px !important;
             justify-content: flex-end;
           }
+          #slide-2 .card-content h3 { font-size: 1.15rem !important; margin: 0 0 6px !important; }
+          #slide-2 .card-content p { font-size: 0.95rem !important; line-height: 1.6 !important; color: #CFD8DC !important; }
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -1187,20 +1209,6 @@ export default function ServilletaPage() {
                     EL MOTOR QUESWA AI
                   </h3>
                   <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
-                  <button
-                    style={{
-                      marginTop: 10, background: 'transparent',
-                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
-                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
-                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
-                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
-                  >
-                    PREGÚNTALE ALGO EN VIVO ›
-                  </button>
                 </div>
               </div>
 

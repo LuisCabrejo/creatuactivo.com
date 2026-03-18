@@ -123,6 +123,20 @@ export default function UnifiedQueswaOrb() {
     return () => clearTimeout(show)
   }, [hasInteracted, isOpen])
 
+  // ─── Visibilidad en /servilleta (solo card-1 slide-2) ───────────────────────
+  const [visibleInServilleta, setVisibleInServilleta] = useState(false)
+  useEffect(() => {
+    if (pathname !== '/servilleta') return
+    const show = () => setVisibleInServilleta(true)
+    const hide = () => { setVisibleInServilleta(false); setIsOpen(false) }
+    window.addEventListener('show-queswa-orb', show)
+    window.addEventListener('hide-queswa-orb', hide)
+    return () => {
+      window.removeEventListener('show-queswa-orb', show)
+      window.removeEventListener('hide-queswa-orb', hide)
+    }
+  }, [pathname])
+
   // ─── Eventos globales (open-queswa, close-queswa, toggle-queswa) ─────────────
   useEffect(() => {
     const handleOpen   = () => { setIsOpen(true) }
@@ -319,14 +333,14 @@ export default function UnifiedQueswaOrb() {
     )
   }
 
-  // Oculto en /servilleta — el botón "Pregúntale en vivo" maneja la apertura
-  if (pathname === '/servilleta') return null
+  // En /servilleta solo visible cuando card-1 de slide-2 está activa
+  if (pathname === '/servilleta' && !visibleInServilleta) return null
 
   return (
     <>
       {/* ── Tooltip "Concierge" ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {showTooltip && !isOpen && orbVisible && (
+        {showTooltip && !isOpen && orbVisible && pathname !== '/servilleta' && (
           <motion.div
             initial={{ opacity: 0, y: 8, x: 8 }}
             animate={{ opacity: 1, y: 0, x: 0 }}

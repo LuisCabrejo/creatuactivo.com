@@ -2857,11 +2857,10 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // ✅ MULTI-TENANT v15.0: ya cargado en paralelo
     let baseSystemPrompt = baseSystemPromptRaw;
 
-    // 🧠 Agregar resumen de historial al System Prompt (si existe)
-    if (conversationSummary) {
-      baseSystemPrompt = baseSystemPrompt + conversationSummary;
-      console.log('✅ [NEXUS] Resumen de historial agregado al System Prompt');
-    }
+    // ⚡ CACHE FIX: conversationSummary NO se inyecta en baseSystemPrompt
+    // Razón: cualquier dato dinámico (fechas, nombres, historial) en el Bloque 1
+    // invalida el cache_control ephemeral de Anthropic → prefill completo en cada request
+    // conversationSummary se inyecta en sessionInstructions (Bloque 3, no cacheable)
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
     const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
@@ -2947,7 +2946,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
-📊 PROSPECTO:
+${conversationSummary}📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
 ${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
@@ -3025,6 +3024,16 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
       top_p: 0.9,                    // Consistencia mejorada
       messages: recentMessages,      // ⚡ OPTIMIZADO: últimos 6 mensajes (antes: todos)
     });
+
+    // ⚡ LOG DE CACHÉ: Verificar si Anthropic está usando prompt cache
+    const cacheReadTokens = (response as any).usage?.cache_read_input_tokens ?? 0;
+    const cacheCreationTokens = (response as any).usage?.cache_creation_input_tokens ?? 0;
+    const inputTokens = (response as any).usage?.input_tokens ?? 0;
+    if (cacheReadTokens > 0) {
+      console.log(`✅ [CACHE HIT] cache_read=${cacheReadTokens} tokens | cache_creation=${cacheCreationTokens} | input=${inputTokens}`);
+    } else {
+      console.warn(`⚠️ [CACHE MISS] cache_read=0 | cache_creation=${cacheCreationTokens} | input=${inputTokens} — Cold start, próximo request debería hacer hit`);
+    }
 
     // Stream optimizado para arquitectura híbrida
     const stream = AnthropicStream(response as any, {

@@ -579,7 +579,7 @@ export default function ServilletaPage() {
         }
         .digital-display .currency { color: #666; font-size: 2rem; vertical-align: top; }
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
-        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 0.85rem; }
+        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1.05rem; }
 
         .lifestyle-insight {
           text-align: center; padding: 10px 15px; margin-bottom: 25px;
@@ -606,7 +606,7 @@ export default function ServilletaPage() {
         }
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
-        .insight-text { font-size: 0.7rem; color: #555; margin-top: 10px; text-align: center; }
+        .insight-text { font-size: 0.9rem; color: #555; margin-top: 10px; text-align: center; }
 
         .cta-panel {
           flex: 1; position: relative; height: 450px;
@@ -1239,7 +1239,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "85%", backgroundRepeat: "no-repeat" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
@@ -1254,7 +1254,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3 (full-width): ESCALABILIDAD ALGORÍTMICA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "65%", backgroundRepeat: "no-repeat" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>SER EL CUELLO DE BOTELLA</s></span>

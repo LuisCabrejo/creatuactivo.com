@@ -348,7 +348,7 @@ export default function UnifiedQueswaOrb() {
             transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(5rem + env(safe-area-inset-bottom, 24px) + 64px)',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px)',
               right: '1rem',
               zIndex: 199,
               background: 'rgba(8,9,12,0.96)',
@@ -381,7 +381,7 @@ export default function UnifiedQueswaOrb() {
             exit={{ opacity: 0 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(5rem + env(safe-area-inset-bottom, 24px) + 62px)',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 62px)',
               right: '1rem',
               zIndex: 201,
               fontSize: 10,
@@ -414,7 +414,7 @@ export default function UnifiedQueswaOrb() {
         }
         style={{
           position: 'fixed',
-          bottom: 'calc(5rem + env(safe-area-inset-bottom, 24px))',
+          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
           right: '1rem',
           zIndex: 200,
           width: 56,

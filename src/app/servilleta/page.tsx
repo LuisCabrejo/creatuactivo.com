@@ -838,7 +838,7 @@ export default function ServilletaPage() {
             position: absolute;
             top: 0; left: 0; right: 0;
             width: 100%;
-            height: 50%;
+            height: 40%;
             background-size: cover;
             background-position: center;
             filter: grayscale(100%) brightness(50%);
@@ -849,16 +849,19 @@ export default function ServilletaPage() {
           }
           .cta-overlay {
             position: absolute;
-            top: 50%; left: 0; right: 0; bottom: 0;
+            top: 40%; left: 0; right: 0; bottom: 0;
             height: auto;
             background: #111;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            padding: 24px 24px 100px;
+            padding: 20px 24px 100px;
             text-align: center;
           }
+          .cta-overlay h2 { font-size: 1.5rem !important; line-height: 1.15 !important; margin: 0 0 8px !important; }
+          .cta-overlay p { margin: 0 0 16px !important; font-size: 0.82rem !important; }
+          .cta-buttons { gap: 12px !important; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }
@@ -1014,7 +1017,8 @@ export default function ServilletaPage() {
           :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
           :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
           :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
-          :fullscreen #slide-4 .cta-overlay { padding: 24px 24px 60px !important; }
+          :fullscreen #slide-4 .bg-image-cta { height: 40% !important; }
+          :fullscreen #slide-4 .cta-overlay { top: 40% !important; justify-content: flex-start !important; padding: 20px 24px 60px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;

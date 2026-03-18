@@ -414,7 +414,9 @@ export default function UnifiedQueswaOrb() {
         }
         style={{
           position: 'fixed',
-          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
+          bottom: isOpen
+            ? 'calc(5rem + env(safe-area-inset-bottom, 24px))'
+            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
           right: '1rem',
           zIndex: 200,
           width: 56,

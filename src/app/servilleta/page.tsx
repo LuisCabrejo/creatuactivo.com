@@ -911,8 +911,6 @@ export default function ServilletaPage() {
             gap: 0 !important;
             grid-template-rows: unset !important;
           }
-          :fullscreen #slide-2 .slide-2-header { display: none !important; }
-
           :fullscreen .card-industrial,
           :fullscreen .full-width {
             scroll-snap-align: start !important;

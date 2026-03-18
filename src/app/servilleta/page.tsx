@@ -897,25 +897,28 @@ export default function ServilletaPage() {
         /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
         /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
         @media (max-width: 768px) {
-          /* SLIDE 2: Ventanas deben CRECER en fullscreen mobile + scroll habilitado */
-          :fullscreen .slide {
-            overflow-y: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-          }
+          /* SLIDE 2: Ventanas en fullscreen mobile */
           :fullscreen .grid-layout-slide-2 {
-            overflow-y: scroll !important;
-            scroll-snap-type: y mandatory !important;
-            -webkit-overflow-scrolling: touch !important;
-            height: 100vh !important;
-            padding: 0 !important;
-            gap: 0 !important;
+            padding: 20px 15px 40px !important;
+            gap: 15px !important;
             grid-template-rows: unset !important;
+            height: auto !important;
+            min-height: 100% !important;
+          }
+          :fullscreen .slide-2-header {
+            padding-bottom: 0 !important;
+          }
+          :fullscreen .slide-2-header .deck-h2 {
+            font-size: 1.6rem !important;
+            margin-bottom: 2px !important;
+          }
+          :fullscreen .slide-2-subtitle {
+            font-size: 0.6rem !important;
           }
           :fullscreen .card-industrial,
           :fullscreen .full-width {
-            scroll-snap-align: start !important;
-            height: 100vh !important;
-            min-height: 100vh !important;
+            min-height: 55vh !important;
+            height: auto !important;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;

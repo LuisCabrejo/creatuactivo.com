@@ -616,16 +616,19 @@ export default function ServilletaPage() {
           position: absolute; width: 100%; height: 100%;
           background-size: cover; background-position: center;
           filter: grayscale(100%) brightness(50%);
-          transition: filter 1.2s ease;
         }
         #slide-4.active .bg-image-cta {
-          filter: grayscale(0%) brightness(75%);
+          animation: ctaRevealColor 1.4s ease 0.4s forwards;
+        }
+        @keyframes ctaRevealColor {
+          from { filter: grayscale(100%) brightness(50%); }
+          to   { filter: grayscale(0%) brightness(90%); }
         }
         .cta-overlay {
           position: relative; z-index: 2; height: 100%;
           display: flex; flex-direction: column; justify-content: center; align-items: center;
           gap: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px; text-align: center;
+          background: linear-gradient(to top, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.3) 100%); padding: 40px; text-align: center;
         }
         .cta-buttons { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
         .cta-overlay h2 {
@@ -1438,7 +1441,7 @@ export default function ServilletaPage() {
                       className="btn-industrial secondary"
                     >
                       <span className="material-symbols-sharp">verified_user</span>
-                      AUDITAR INFRAESTRUCTURA (MAPA DE SALIDA)
+                      AUDITAR INFRAESTRUCTURA
                     </a>
                   </div>
                 </div>

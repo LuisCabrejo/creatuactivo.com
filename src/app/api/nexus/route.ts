@@ -2592,26 +2592,54 @@ export async function POST(req: Request) {
 
     const latestUserMessage = messages[messages.length - 1].content;
 
-    // 🔑 EXTRAER CONSTRUCTOR UUID (para tracking correcto por constructor)
-    let constructorUUID: string | null = null;
-    if (constructorId) {
-      try {
-        // Usar RPC function con SECURITY DEFINER para bypasear RLS
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data: uuid, error } = await (getSupabaseClient().rpc as any)('get_constructor_uuid', { p_constructor_id: constructorId });
+    // 🔑 EXTRAER CONSTRUCTOR UUID + DATOS PROSPECTO + HISTORIAL + SYSTEM PROMPT — EN PARALELO
+    // ⚡ OPTIMIZACIÓN: Ejecutar todas las llamadas independientes simultáneamente
+    const constructorUUIDPromise = constructorId
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (getSupabaseClient().rpc as any)('get_constructor_uuid', { p_constructor_id: constructorId })
+          .then(({ data, error }: any) => {
+            if (error) console.error(`❌ [NEXUS] Error al buscar constructor "${constructorId}":`, error);
+            else if (data) console.log(`✅ [NEXUS] Constructor encontrado: ${constructorId} → UUID: ${data}`);
+            else console.warn(`⚠️ [NEXUS] Constructor no encontrado: ${constructorId}`);
+            return data as string | null;
+          })
+          .catch((err: any) => { console.error('❌ [NEXUS] Error buscando constructor:', err); return null; })
+      : Promise.resolve(null);
 
-        if (error) {
-          console.error(`❌ [NEXUS] Error al buscar constructor "${constructorId}":`, error);
-        } else if (uuid) {
-          constructorUUID = uuid;
-          console.log(`✅ [NEXUS] Constructor encontrado: ${constructorId} → UUID: ${constructorUUID}`);
-        } else {
-          console.warn(`⚠️ [NEXUS] Constructor no encontrado: ${constructorId}`);
-        }
-      } catch (error) {
-        console.error('❌ [NEXUS] Error buscando constructor:', error);
-      }
-    }
+    const prospectPromise: Promise<{ data: any; error: any }> = fingerprint
+      ? Promise.resolve(
+          getSupabaseClient()
+            .from('prospects')
+            .select('id, device_info')
+            .eq('fingerprint_id', fingerprint)
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .single()
+        ).then(({ data, error }: any) => ({ data, error }))
+         .catch(() => ({ data: null, error: null }))
+      : Promise.resolve({ data: null, error: null });
+
+    const conversationsPromise: Promise<{ data: any; error: any }> = fingerprint
+      ? Promise.resolve(
+          getSupabaseClient()
+            .from('nexus_conversations')
+            .select('messages, created_at')
+            .eq('fingerprint_id', fingerprint)
+            .order('created_at', { ascending: true })
+            .limit(5) // ⚡ Reducido de 10 → 5 para menor latencia
+        ).then(({ data, error }: any) => ({ data, error }))
+         .catch((err: any) => { console.error('❌ [NEXUS] Error cargando historial:', err); return { data: null, error: err }; })
+      : Promise.resolve({ data: null, error: null });
+
+    const systemPromptPromise = getSystemPrompt(tenantId);
+
+    // ⚡ Todas las llamadas de BD + system prompt corren en paralelo
+    const [constructorUUID, prospectResult, conversationsResult, baseSystemPromptRaw] = await Promise.all([
+      constructorUUIDPromise,
+      prospectPromise,
+      conversationsPromise,
+      systemPromptPromise,
+    ]);
 
     // ========================================
     // ✅ LOGGING DETALLADO DEL REQUEST
@@ -2630,35 +2658,24 @@ export async function POST(req: Request) {
       console.error('❌ [NEXUS API] Verificar que tracking.js se haya cargado antes de la conversación');
     }
 
-    // 🔵 CONSULTAR DATOS YA GUARDADOS DEL PROSPECTO (para evitar re-pedir)
+    // 🔵 DATOS DEL PROSPECTO — ya cargados en paralelo
     let existingProspectData: any = {};
     let prospectId: string | null = null;
-    if (fingerprint) {
-      try {
-        const { data: prospectDataRaw, error: prospectError } = await getSupabaseClient()
-          .from('prospects')
-          .select('id, device_info')
-          .eq('fingerprint_id', fingerprint)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .single();
-
-        const prospectData = prospectDataRaw as { id: string; device_info: Record<string, unknown> } | null;
-        if (prospectData && prospectData.device_info) {
-          prospectId = prospectData.id;
-          existingProspectData = prospectData.device_info;
-          console.log('📊 [NEXUS] Datos existentes del prospecto:', {
-            tiene_nombre: !!existingProspectData.name,
-            tiene_email: !!existingProspectData.email,
-            tiene_whatsapp: !!existingProspectData.whatsapp,
-            tiene_archetype: !!existingProspectData.archetype,
-            tiene_consentimiento: !!existingProspectData.consent_granted,
-            consent_modal_shown_count: existingProspectData.consent_modal_shown_count || 0,
-            consentGivenFromLocalStorage: consentGiven
-          });
-        }
-      } catch (error) {
-        // Si no existe, no pasa nada (primera interacción)
+    {
+      const prospectRaw = prospectResult.data as { id: string; device_info: Record<string, unknown> } | null;
+      if (prospectRaw && prospectRaw.device_info) {
+        prospectId = prospectRaw.id;
+        existingProspectData = prospectRaw.device_info;
+        console.log('📊 [NEXUS] Datos existentes del prospecto:', {
+          tiene_nombre: !!existingProspectData.name,
+          tiene_email: !!existingProspectData.email,
+          tiene_whatsapp: !!existingProspectData.whatsapp,
+          tiene_archetype: !!existingProspectData.archetype,
+          tiene_consentimiento: !!existingProspectData.consent_granted,
+          consent_modal_shown_count: existingProspectData.consent_modal_shown_count || 0,
+          consentGivenFromLocalStorage: consentGiven
+        });
+      } else {
         console.log('ℹ️ [NEXUS] Primera interacción - sin datos previos');
       }
     }
@@ -2680,19 +2697,12 @@ export async function POST(req: Request) {
     });
 
 
-    // �� CARGAR HISTORIAL DE CONVERSACIONES PREVIAS (Memory a largo plazo)
+    // 🧠 HISTORIAL DE CONVERSACIONES PREVIAS — ya cargado en paralelo
     let conversationSummary = '';
 
     if (fingerprint) {
       try {
-        console.log('🔍 [NEXUS] Cargando historial de conversaciones para fingerprint:', fingerprint.substring(0, 30) + '...');
-
-        const { data: conversations, error: convError } = await getSupabaseClient()
-          .from('nexus_conversations')
-          .select('messages, created_at')
-          .eq('fingerprint_id', fingerprint)
-          .order('created_at', { ascending: true })
-          .limit(10); // Últimas 10 conversaciones
+        const { data: conversations, error: convError } = conversationsResult;
 
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
@@ -2702,7 +2712,7 @@ export async function POST(req: Request) {
             // Generar resumen del historial para el System Prompt
             const summaryParts: string[] = [];
 
-            conversations.forEach((conv, index) => {
+            conversations.forEach((conv: any, _index: number) => {
               const messages = conv.messages || [];
               const userMessages = messages.filter((m: any) => m.role === 'user').map((m: any) => m.content);
               const assistantMessages = messages.filter((m: any) => m.role === 'assistant').map((m: any) => m.content);
@@ -2844,8 +2854,8 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       console.log('Contexto híbrido del prospecto incluido:', mergedProspectData.momento_optimo);
     }
 
-    // ✅ MULTI-TENANT v15.0: carga el prompt del tenant activo (inyectado por middleware.ts)
-    let baseSystemPrompt = await getSystemPrompt(tenantId);
+    // ✅ MULTI-TENANT v15.0: ya cargado en paralelo
+    let baseSystemPrompt = baseSystemPromptRaw;
 
     // 🧠 Agregar resumen de historial al System Prompt (si existe)
     if (conversationSummary) {

@@ -748,36 +748,31 @@ export default function ServilletaPage() {
           .card-content {
             height: 55% !important;
             background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
-            padding: 60px 20px 30px !important;
-            justify-content: flex-end;
+            padding: 16px 20px 30px !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
           }
-          /* H1 en la parte superior de card-1 */
+          /* H1 en-flujo dentro de card-content */
           #slide-2 .card-1-slide-title {
             display: block !important;
-            position: absolute !important;
-            top: 60px !important; left: 20px !important; right: 20px !important;
-            z-index: 5;
+            position: static !important;
             font-family: var(--font-head);
-            font-size: 2rem !important;
+            font-size: 1.8rem !important;
             font-weight: 900;
             text-transform: uppercase;
             line-height: 1;
             color: #fff;
             margin: 0;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
           }
           #slide-2 .card-1-slide-sub {
             display: block !important;
-            position: absolute !important;
-            top: calc(60px + 2.2rem) !important; left: 20px !important; right: 20px !important;
-            z-index: 5;
+            position: static !important;
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             letter-spacing: 2px;
             color: var(--cyan);
-            margin: 0;
+            margin: 0 0 6px;
             text-transform: uppercase;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.9);
           }
           #slide-2 .card-content h3 { font-size: 1.15rem !important; margin: 0 0 6px !important; }
           #slide-2 .card-content p { font-size: 0.95rem !important; line-height: 1.6 !important; color: #CFD8DC !important; }
@@ -944,8 +939,7 @@ export default function ServilletaPage() {
             grid-template-rows: unset !important;
           }
           :fullscreen #slide-2 .slide-2-header { display: none !important; }
-          :fullscreen #slide-2 .card-1-slide-title { top: 20px !important; }
-          :fullscreen #slide-2 .card-1-slide-sub { top: calc(20px + 2.2rem) !important; }
+
           :fullscreen .card-industrial,
           :fullscreen .full-width {
             scroll-snap-align: start !important;
@@ -1229,9 +1223,9 @@ export default function ServilletaPage() {
               {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
-                <p className="card-1-slide-title">LA VENTAJA INJUSTA.</p>
-                <p className="card-1-slide-sub">EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;</p>
                 <div className="card-content">
+                  <p className="card-1-slide-title">LA VENTAJA INJUSTA.</p>
+                  <p className="card-1-slide-sub">EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;</p>
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>

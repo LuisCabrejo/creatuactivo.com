@@ -861,7 +861,9 @@ export default function ServilletaPage() {
           }
           .cta-overlay h2 { font-size: 1.5rem !important; line-height: 1.15 !important; margin: 0 0 8px !important; }
           .cta-overlay p { margin: 0 0 16px !important; font-size: 0.82rem !important; }
-          .cta-buttons { gap: 12px !important; }
+          .cta-buttons { gap: 10px !important; }
+          .cta-buttons .btn-industrial:not(.secondary) { width: 100% !important; justify-content: center !important; font-size: 1.1rem !important; padding: 16px 24px !important; }
+          .cta-buttons .btn-industrial.secondary { font-size: 0.65rem !important; padding: 10px 20px !important; width: auto !important; letter-spacing: 1.5px !important; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }

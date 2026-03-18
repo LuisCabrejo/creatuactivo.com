@@ -2795,12 +2795,32 @@ ${summaryParts.join('\n')}
       ...prospectData // Los nuevos sobrescriben los viejos
     };
 
-    // CONSULTA HÍBRIDA ESCALABLE
-    const searchQuery = interpretQueryHibrido(latestUserMessage);
-    console.log('Query híbrido generado:', searchQuery);
+    // ⚡ ROUTER ANTICIPADO: Clasificar ANTES del vector search para saltarlo en queries simples
+    const userMessageCount = messages.filter((m: any) => m.role === 'user').length;
+    const isSimpleQueryEarly = (() => {
+      const msg = latestUserMessage.toLowerCase().trim();
+      const wordCount = msg.split(/\s+/).length;
+      // Primer mensaje real del usuario (widget pre-popula un greeting, de ahí userMessageCount)
+      if (userMessageCount === 1) return true;
+      // Saludos y cierres breves
+      if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra
+      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
+      return false;
+    })();
 
-    const relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
-    console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+    console.log(`⚡ [ROUTER EARLY] ${isSimpleQueryEarly ? 'SIMPLE → skip vector search' : 'COMPLEJA → vector search'} (userMsg #${userMessageCount}, "${latestUserMessage.substring(0, 40)}")`);
+
+    // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas
+    let relevantDocuments: any[] = [];
+    if (!isSimpleQueryEarly) {
+      const searchQuery = interpretQueryHibrido(latestUserMessage);
+      console.log('Query híbrido generado:', searchQuery);
+      relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
+      console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+    } else {
+      console.log('⚡ [ROUTER] Vector search omitido para query simple');
+    }
 
     // 🔧 CONSTRUCCIÓN DE CONTEXTO MEJORADA - FIX APLICADO
     let context = '';
@@ -2995,19 +3015,8 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
     console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
 
-    // ⚡ FASE 2 — HAIKU ROUTER: Respuesta inmediata para queries simples
-    // Haiku TTFT ~0.6s vs Sonnet ~3-5s en cache hit, ~19s en cold start
-    const isSimpleQuery = (() => {
-      const msg = latestUserMessage.toLowerCase().trim();
-      const wordCount = msg.split(/\s+/).length;
-      // Primer mensaje de la conversación (casi siempre un saludo)
-      if (messages.length === 1) return true;
-      // Saludos y cierres breves
-      if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
-      // Mensajes muy cortos sin intención de compra
-      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
-      return false;
-    })();
+    // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
+    const isSimpleQuery = isSimpleQueryEarly;
 
     const HAIKU_SYSTEM_PROMPT = `Eres Queswa, el asistente de IA de CreaTuActivo.com. Representas una oportunidad de negocio con Gano Excel en Colombia.
 

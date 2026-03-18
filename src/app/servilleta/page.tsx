@@ -203,10 +203,16 @@ export default function ServilletaPage() {
     };
   }, []);
 
-  // CTA reveal: grayscale → color cuando el panel entra en viewport (mobile)
+  // CTA reveal: grayscale → color
   useEffect(() => {
-    if (activeSlide !== 4) return;
-    if (typeof window === 'undefined' || window.innerWidth > 1024) return;
+    if (activeSlide !== 4) { setCtaVisible(false); return; }
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth > 1024) {
+      // Desktop: activa color con delay al llegar a slide 4
+      const t = setTimeout(() => setCtaVisible(true), 400);
+      return () => clearTimeout(t);
+    }
+    // Mobile: IntersectionObserver cuando el panel hace scroll-snap
     setCtaVisible(false);
     const scrollRoot = document.querySelector('#slide-4');
     const cta = document.querySelector('#slide-4 .cta-panel');
@@ -632,11 +638,11 @@ export default function ServilletaPage() {
         .bg-image-cta {
           position: absolute; width: 100%; height: 100%;
           background-size: cover; background-position: center;
-          filter: grayscale(50%) brightness(60%);
-          transition: filter 0.8s ease-in-out;
+          filter: grayscale(100%) brightness(55%);
+          transition: filter 1s ease-in-out;
         }
         .cta-panel.cta-revealed .bg-image-cta,
-        .cta-panel:hover .bg-image-cta { filter: grayscale(0%) brightness(80%); }
+        .cta-panel:hover .bg-image-cta { filter: grayscale(0%) brightness(85%); }
         .cta-overlay {
           position: relative; z-index: 2; height: 100%;
           display: flex; flex-direction: column; justify-content: center; align-items: center;

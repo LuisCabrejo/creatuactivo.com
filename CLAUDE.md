@@ -424,11 +424,39 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 
 | Version | Route | Style |
 |---------|-------|-------|
-| v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
+| v5.2 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: Rajdhani (headings) + Roboto Mono (data)
 **Color Palette**: Industrial (#2C3E50 steel, #009FDF cyan, #E57200 safety orange)
+
+#### Arquitectura Mobile (Mar 2026 — no revertir)
+
+**Slide 1**: Tres `.comp-row` con animación `bootSequence` en cascada (delays 0.2s, 0.4s, 0.6s). Border-left cyan para GANO EXCEL/CREATUACTIVO, naranja para DIRECCIÓN EJECUTIVA.
+
+**Slide 2**: Grid de 3 tarjetas (`.card-industrial`) con layout split imagen/texto:
+- `.card-bg`: `position: absolute; top: 0; height: 50%` — imagen pura, sin texto superpuesto
+- `.card-content`: `position: absolute; bottom: 0; height: 55%; background: gradient` — zona oscura con texto
+- Mobile: scroll vertical dentro del grid (`overflow-y: auto`), tarjetas con `min-height: 55vh`
+- Fullscreen mobile: tarjetas con `min-height: 55vh`, scroll normal (NO scroll-snap en slide 2)
+- Imágenes: `tech-servers.jpg` (card-1, `cover`), `tech-console.jpg` (card-2, `100% auto`), `tech-duplication.jpg` (card-3, `100% auto`)
+- Cards inactivas: `grayscale(100%) brightness(40%)` → activa: `grayscale(0%) brightness(70%)` con `transform: scale(1.05)`
+- Botón "PREGÚNTALE ALGO EN VIVO" en card-1 → dispara `open-queswa` CustomEvent
+
+**Slide 4**: Scroll-snap vertical en mobile — dos snap items de `100vh`:
+1. `.simulator-panel` — calculadora de flujo financiero (GEN5 / Renta Vitalicia)
+2. `.cta-panel` — imagen `boton-accion.jpg` (top 40%) + zona texto (bottom 60%)
+   - `.bg-image-cta`: `position: absolute; top:0; height: 40%; grayscale(100%)` por defecto
+   - `.cta-overlay`: `position: absolute; top: 40%; bottom: 0; height: auto; background: #111`
+   - `ctaVisible` state + IntersectionObserver (mobile) / setTimeout 400ms (desktop) → clase `cta-revealed` → transición a color 1s
+   - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
+   - Botón primario "ASUMIR DIRECCIÓN": `width: 100%`, naranja dominante
+   - Botón secundario "AUDITAR INFRAESTRUCTURA": `width: auto`, `font-size: 0.65rem`, más angosto
+
+**Queswa en Servilleta**:
+- `UnifiedQueswaOrb` retorna `null` en `/servilleta` (orbe completamente oculto)
+- Card-1 de slide-2 tiene botón inline que dispara `window.dispatchEvent(new CustomEvent('open-queswa'))`
+- El `body.style.overflow = 'auto'` se restaura temporalmente al abrir Queswa para que el teclado funcione
 
 ## Environment Variables
 

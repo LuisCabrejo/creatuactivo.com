@@ -802,7 +802,7 @@ export default function ServilletaPage() {
           .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; position: relative; width: 100%; flex-shrink: 0; border-left: none !important; border-right: none !important; }
           .bg-image-cta { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 50% !important; filter: grayscale(100%) brightness(40%) !important; transition: filter 0.8s ease-in-out !important; }
           .cta-panel.cta-revealed .bg-image-cta { filter: grayscale(0%) brightness(90%) !important; }
-          .cta-overlay { position: absolute !important; top: 50% !important; left: 0 !important; right: 0 !important; bottom: 0 !important; height: auto !important; background: linear-gradient(to bottom, rgba(18,18,18,0.95) 0%, #121212 20%) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; padding: 20px 20px 80px !important; text-align: center !important; }
+          .cta-overlay { position: absolute !important; top: 50% !important; left: 0 !important; right: 0 !important; bottom: 0 !important; height: auto !important; background: linear-gradient(to bottom, rgba(18,18,18,0.95) 0%, #121212 20%) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; padding: 20px 20px 110px !important; text-align: center !important; }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }
@@ -953,7 +953,7 @@ export default function ServilletaPage() {
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
-          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding-top: 0 !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch; }
           :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; overflow-y: visible !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
           :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 60px 20px 60px !important; overflow-y: auto !important; }
           :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; }

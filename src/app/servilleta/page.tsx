@@ -440,6 +440,8 @@ export default function ServilletaPage() {
         }
         .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
         .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
+        /* Oculto en desktop — solo visible en mobile dentro de card-1 */
+        .card-1-slide-title, .card-1-slide-sub { display: none; }
 
         /* OSCILACIONES DUARTE (Slide 2) */
         .oscillation-text {
@@ -716,20 +718,24 @@ export default function ServilletaPage() {
             padding: 30px 24px !important;
           }
 
+          /* Scroll-snap: cada tarjeta ocupa pantalla completa */
+          #slide-2 { overflow: hidden; }
           .grid-layout-slide-2 {
-            grid-template-columns: 1fr;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 70px 15px 80px;
-            gap: 15px;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            height: 100vh;
+            padding: 0;
+            gap: 0;
           }
-          .slide-2-header { text-align: center; padding-bottom: 0; }
-          .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          /* Split layout: imagen arriba 50%, texto abajo 55% */
+          /* Header oculto — H1 vive dentro de card-1 */
+          #slide-2 .slide-2-header { display: none !important; }
           .card-industrial, .full-width {
-            min-height: 70vh !important;
-            height: auto !important;
+            scroll-snap-align: start;
+            height: 100vh !important;
+            min-height: 100vh !important;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -745,6 +751,34 @@ export default function ServilletaPage() {
             background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
             padding: 70px 20px 30px !important;
             justify-content: flex-end;
+          }
+          /* H1 en la parte superior de card-1 */
+          #slide-2 .card-1-slide-title {
+            display: block !important;
+            position: absolute !important;
+            top: 60px !important; left: 20px !important; right: 20px !important;
+            z-index: 5;
+            font-family: var(--font-head);
+            font-size: 2rem !important;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #fff;
+            margin: 0;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+          }
+          #slide-2 .card-1-slide-sub {
+            display: block !important;
+            position: absolute !important;
+            top: calc(60px + 2.2rem) !important; left: 20px !important; right: 20px !important;
+            z-index: 5;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.9);
           }
           #slide-2 .card-content h3 { font-size: 1.15rem !important; margin: 0 0 6px !important; }
           #slide-2 .card-content p { font-size: 0.95rem !important; line-height: 1.6 !important; color: #CFD8DC !important; }
@@ -1200,6 +1234,8 @@ export default function ServilletaPage() {
               {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <p className="card-1-slide-title">LA VENTAJA INJUSTA.</p>
+                <p className="card-1-slide-sub">EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;</p>
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>

@@ -719,14 +719,13 @@ export default function ServilletaPage() {
           }
 
           /* Scroll-snap: cada tarjeta ocupa pantalla completa */
-          #slide-2 { overflow: hidden; }
           .grid-layout-slide-2 {
             display: flex;
             flex-direction: column;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             -webkit-overflow-scrolling: touch;
-            height: 100vh;
+            height: calc(100vh - 60px);
             padding: 0;
             gap: 0;
           }
@@ -734,8 +733,8 @@ export default function ServilletaPage() {
           #slide-2 .slide-2-header { display: none !important; }
           .card-industrial, .full-width {
             scroll-snap-align: start;
-            height: 100vh !important;
-            min-height: 100vh !important;
+            height: calc(100vh - 60px) !important;
+            min-height: calc(100vh - 60px) !important;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -945,6 +944,8 @@ export default function ServilletaPage() {
             grid-template-rows: unset !important;
           }
           :fullscreen #slide-2 .slide-2-header { display: none !important; }
+          :fullscreen #slide-2 .card-1-slide-title { top: 20px !important; }
+          :fullscreen #slide-2 .card-1-slide-sub { top: calc(20px + 2.2rem) !important; }
           :fullscreen .card-industrial,
           :fullscreen .full-width {
             scroll-snap-align: start !important;

@@ -953,22 +953,11 @@ export default function ServilletaPage() {
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
-          :fullscreen .simulator-layout {
-            padding: 60px 20px 40px !important;
-            flex-direction: column !important;
-            gap: 30px !important;
-          }
-          :fullscreen .simulator-panel {
-            padding: 30px 20px !important;
-            width: 100% !important;
-          }
-          :fullscreen .cta-panel {
-            min-height: 60vh !important;
-            width: 100% !important;
-          }
-          :fullscreen .cta-overlay {
-            padding: 40px 25px !important;
-          }
+          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; overflow-y: visible !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
+          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 60px 20px 60px !important; overflow-y: auto !important; }
+          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; }
+          :fullscreen #slide-4 .cta-overlay { padding: 20px 25px 80px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;

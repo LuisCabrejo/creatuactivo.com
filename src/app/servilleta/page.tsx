@@ -441,7 +441,7 @@ export default function ServilletaPage() {
         .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
         .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
         /* Oculto en desktop — solo visible en mobile dentro de card-1 */
-        .card-1-slide-title, .card-1-slide-sub { display: none; }
+
 
         /* OSCILACIONES DUARTE (Slide 2) */
         .oscillation-text {
@@ -720,21 +720,19 @@ export default function ServilletaPage() {
 
           /* Scroll-snap: cada tarjeta ocupa pantalla completa */
           .grid-layout-slide-2 {
+            grid-template-columns: 1fr;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-            height: calc(100vh - 60px);
-            padding: 0;
-            gap: 0;
+            padding: 70px 15px 80px;
+            gap: 15px;
           }
-          /* Header oculto — H1 vive dentro de card-1 */
-          #slide-2 .slide-2-header { display: none !important; }
+          .slide-2-header { text-align: center; padding-bottom: 0; }
+          .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
+          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
           .card-industrial, .full-width {
-            scroll-snap-align: start;
-            height: calc(100vh - 60px) !important;
-            min-height: calc(100vh - 60px) !important;
+            min-height: 55vh !important;
+            height: auto !important;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -748,34 +746,9 @@ export default function ServilletaPage() {
           .card-content {
             height: 55% !important;
             background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
-            padding: 16px 20px 30px !important;
-            justify-content: flex-start !important;
-            gap: 8px !important;
+            padding: 20px 20px 30px !important;
+            justify-content: flex-end;
           }
-          /* H1 en-flujo dentro de card-content */
-          #slide-2 .card-1-slide-title {
-            display: block !important;
-            position: static !important;
-            font-family: var(--font-head);
-            font-size: 2.2rem !important;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1;
-            color: #fff;
-            margin: 0;
-          }
-          #slide-2 .card-1-slide-sub {
-            display: block !important;
-            position: static !important;
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            letter-spacing: 2px;
-            color: var(--cyan);
-            margin: 0 0 6px;
-            text-transform: uppercase;
-          }
-          #slide-2 .card-content h3 { font-size: 1.15rem !important; margin: 0 0 6px !important; }
-          #slide-2 .card-content p { font-size: 0.95rem !important; line-height: 1.6 !important; color: #CFD8DC !important; }
 
           .slide-3-layout { align-items: flex-end; }
           .slide-3-bottom {
@@ -1224,8 +1197,6 @@ export default function ServilletaPage() {
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
-                  <p className="card-1-slide-title">LA VENTAJA INJUSTA.</p>
-                  <p className="card-1-slide-sub">EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;</p>
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
@@ -1234,12 +1205,26 @@ export default function ServilletaPage() {
                     EL MOTOR QUESWA AI
                   </h3>
                   <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
+                  <button
+                    style={{
+                      marginTop: 10, background: 'transparent',
+                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
+                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
+                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
+                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
+                  >
+                    PREGÚNTALE ALGO EN VIVO ›
+                  </button>
                 </div>
               </div>
 
               {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center top", backgroundSize: "100% auto", backgroundRepeat: "no-repeat" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
@@ -1254,7 +1239,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3 (full-width): ESCALABILIDAD ALGORÍTMICA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center top", backgroundSize: "100% auto", backgroundRepeat: "no-repeat" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>SER EL CUELLO DE BOTELLA</s></span>

@@ -796,13 +796,69 @@ export default function ServilletaPage() {
           .bio-text-panel { max-width: 100%; }
           .bio-metrics-container { max-width: 100%; }
 
-          #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch; }
-          .simulator-layout { flex-direction: column; height: auto !important; overflow-y: visible !important; padding: 0 !important; gap: 0 !important; align-items: stretch; }
-          .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex-shrink: 0; scroll-snap-align: start !important; display: flex; flex-direction: column; justify-content: center; padding: 60px 15px 60px !important; overflow-y: auto; }
-          .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; position: relative; width: 100%; flex-shrink: 0; border-left: none !important; border-right: none !important; }
-          .bg-image-cta { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 50% !important; filter: grayscale(100%) brightness(40%) !important; transition: filter 0.8s ease-in-out !important; }
-          .cta-panel.cta-revealed .bg-image-cta { filter: grayscale(0%) brightness(90%) !important; }
-          .cta-overlay { position: absolute !important; top: 50% !important; left: 0 !important; right: 0 !important; bottom: 0 !important; height: auto !important; background: linear-gradient(to bottom, rgba(18,18,18,0.95) 0%, #121212 20%) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; padding: 20px 20px 110px !important; text-align: center !important; }
+          /* ── Slide 4 mobile: scroll-snap vertical ── */
+          #slide-4 {
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-top: 0;
+          }
+          .simulator-layout {
+            flex-direction: column;
+            height: auto;
+            padding: 0;
+            gap: 0;
+            align-items: stretch;
+          }
+          .simulator-panel {
+            height: 100vh;
+            min-height: 100vh;
+            width: 100%;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 70px 20px 90px;
+            overflow-y: auto;
+            box-sizing: border-box;
+          }
+          .cta-panel {
+            height: 100vh;
+            min-height: 100vh;
+            width: 100%;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+            border-left: none;
+            border-right: none;
+          }
+          .bg-image-cta {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            width: 100%;
+            height: 50%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(50%);
+            transition: filter 0.8s ease-in-out;
+          }
+          .cta-panel.cta-revealed .bg-image-cta {
+            filter: grayscale(0%) brightness(90%);
+          }
+          .cta-overlay {
+            position: absolute;
+            top: 50%; left: 0; right: 0; bottom: 0;
+            height: auto;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 24px 100px;
+            text-align: center;
+          }
           .digital-display { font-size: 3rem; }
           .btn-industrial { font-size: 1rem; padding: 12px 20px; }
         }
@@ -953,11 +1009,12 @@ export default function ServilletaPage() {
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
-          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding-top: 0 !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch; }
-          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; overflow-y: visible !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 60px 20px 60px !important; overflow-y: auto !important; }
-          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; }
-          :fullscreen #slide-4 .cta-overlay { padding: 20px 25px 80px !important; }
+          /* ── Slide 4 fullscreen mobile ── */
+          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
+          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
+          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
+          :fullscreen #slide-4 .cta-overlay { padding: 24px 24px 60px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;

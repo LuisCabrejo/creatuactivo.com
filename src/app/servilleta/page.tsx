@@ -757,7 +757,7 @@ export default function ServilletaPage() {
             display: block !important;
             position: static !important;
             font-family: var(--font-head);
-            font-size: 1.8rem !important;
+            font-size: 2.2rem !important;
             font-weight: 900;
             text-transform: uppercase;
             line-height: 1;

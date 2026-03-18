@@ -748,7 +748,7 @@ export default function ServilletaPage() {
           .card-content {
             height: 55% !important;
             background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
-            padding: 70px 20px 30px !important;
+            padding: 60px 20px 30px !important;
             justify-content: flex-end;
           }
           /* H1 en la parte superior de card-1 */

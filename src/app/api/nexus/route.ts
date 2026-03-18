@@ -2995,29 +2995,61 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
     console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
 
+    // ⚡ FASE 2 — HAIKU ROUTER: Respuesta inmediata para queries simples
+    // Haiku TTFT ~0.6s vs Sonnet ~3-5s en cache hit, ~19s en cold start
+    const isSimpleQuery = (() => {
+      const msg = latestUserMessage.toLowerCase().trim();
+      const wordCount = msg.split(/\s+/).length;
+      // Primer mensaje de la conversación (casi siempre un saludo)
+      if (messages.length === 1) return true;
+      // Saludos y cierres breves
+      if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra
+      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
+      return false;
+    })();
+
+    const HAIKU_SYSTEM_PROMPT = `Eres Queswa, el asistente de IA de CreaTuActivo.com. Representas una oportunidad de negocio con Gano Excel en Colombia.
+
+Tu rol: Ser cálido, humano y directo. Responde de forma natural y breve.
+
+Reglas esenciales:
+- Responde SIEMPRE en español colombiano, usando "usted" por defecto
+- Máximo 2-3 oraciones en esta respuesta
+- Si es un saludo, preséntate brevemente y pregunta el nombre del usuario
+- Sé cercano pero profesional
+- No mentions precios ni datos técnicos en este primer contacto
+
+Contexto: ${sessionInstructions}`;
+
+    console.log(`⚡ [ROUTER] Query clasificada como: ${isSimpleQuery ? 'SIMPLE → Haiku' : 'COMPLEJA → Sonnet'} (msg #${messages.length}, "${latestUserMessage.substring(0, 40)}")`);
+
     // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      system: [
-        // 🎯 BLOQUE 1: Base System Prompt (CACHEABLE - ~15K chars)
-        {
-          type: 'text',
-          text: baseSystemPrompt,
-          cache_control: { type: 'ephemeral' }
-        },
-        // 🎯 BLOQUE 2: Arsenal/Catálogo Context (CACHEABLE - ~2-8K chars)
-        {
-          type: 'text',
-          text: arsenalContext,
-          cache_control: { type: 'ephemeral' }
-        },
-        // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)
-        // ⚡ OPTIMIZADO: Eliminado topQueriesFAQ (~4K chars) - ya está en arsenales
-        {
-          type: 'text',
-          text: sessionInstructions
-        }
-      ],
+      model: isSimpleQuery ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-20250514',
+      system: isSimpleQuery
+        // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
+        ? HAIKU_SYSTEM_PROMPT
+        // Sonnet: 3 bloques con prompt caching, respuesta completa
+        : [
+            // 🎯 BLOQUE 1: Base System Prompt (CACHEABLE - ~15K chars)
+            {
+              type: 'text' as const,
+              text: baseSystemPrompt,
+              cache_control: { type: 'ephemeral' as const }
+            },
+            // 🎯 BLOQUE 2: Arsenal/Catálogo Context (CACHEABLE - ~2-8K chars)
+            {
+              type: 'text' as const,
+              text: arsenalContext,
+              cache_control: { type: 'ephemeral' as const }
+            },
+            // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)
+            {
+              type: 'text' as const,
+              text: sessionInstructions
+            }
+          ],
       stream: true,
       max_tokens: maxTokens,        // ⚡ v17.5.0: dinámico 500-1000 (antes: 300-600)
       temperature: 0.65,            // ⚡ v17.5.0: más natural y empático (antes: 0.3)

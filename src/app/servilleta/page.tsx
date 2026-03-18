@@ -615,7 +615,11 @@ export default function ServilletaPage() {
         .bg-image-cta {
           position: absolute; width: 100%; height: 100%;
           background-size: cover; background-position: center;
-          filter: grayscale(50%) brightness(60%);
+          filter: grayscale(100%) brightness(50%);
+          transition: filter 1.2s ease;
+        }
+        #slide-4.active .bg-image-cta {
+          filter: grayscale(0%) brightness(75%);
         }
         .cta-overlay {
           position: relative; z-index: 2; height: 100%;

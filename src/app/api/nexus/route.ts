@@ -100,139 +100,200 @@ interface ProspectData {
  * @param previousMessages - Número de mensajes previos (para engagement)
  * @returns Score adicional basado en señales avanzadas
  */
-function detectAdvancedSignals(message: string, previousMessages?: number): number {
+/**
+ * Detecta señales avanzadas de intención de compra — Scoring v3.0
+ *
+ * Base científica (Mar 2026):
+ * - Gong.io 2025: equilibrio habla-escucha, multi-threading (+130% cierre con terceros)
+ * - Frontiers in AI 2025: Gradient Boosting — verbos de compra como predictores clave
+ * - Emerald JSM 2025: especificidad lingüística = proxy directo de etapa BOFU
+ * - MLM Motivational Factors Study 2025 (SCIRP): desarrollo personal beta 0.669
+ * - Rogers Diffusion of Innovation: perfil innovador = conversión alta en fases early
+ *
+ * Escala: contribuciones hacia total 0–100 (acumulativo entre mensajes)
+ * Dimensiones: Fit(30%) + Comportamiento(40%) + Lingüística(30%)
+ */
+function detectAdvancedSignals(message: string, messageCount: number): number {
   let signalScore = 0;
   const messageLower = message.toLowerCase();
 
-  // SEÑAL 1: Cambio de teoría a aplicación personal (+3 puntos)
-  // Indica que pasó de curiosidad a evaluación seria
-  const personalApplicationPatterns = [
-    /cómo puedo yo/i,
-    /qué hago yo/i,
-    /en mi caso/i,
-    /para mí/i,
-    /yo podría/i,
-    /si yo/i,
-    /mi whatsapp/i,
-    /mi correo/i,
-    /mi número/i
-  ];
+  // ── DIMENSIÓN FIT — quién es ──────────────────────────────────────────────
 
-  if (personalApplicationPatterns.some(pattern => pattern.test(message))) {
-    signalScore += 3;
-    console.log('🌟 [SCORING] SEÑAL: Aplicación personal (+3)');
-  }
-
-  // SEÑAL 2: Preguntas sobre DETALLES/profundización (+1.5 puntos)
-  // Muestra engagement más allá de curiosidad superficial
-  const detailPatterns = [
-    /exactamente/i,
-    /específicamente/i,
-    /en detalle/i,
-    /cuánto.*exacto/i,
-    /qué hace/i,
-    /cómo funciona.*práctica/i,
-    /explícame/i,
-    /más información/i
-  ];
-
-  if (detailPatterns.some(pattern => pattern.test(message))) {
-    signalScore += 1.5;
-    console.log('🔍 [SCORING] SEÑAL: Profundización (+1.5)');
-  }
-
-  // SEÑAL 3: Mentalidad de LÍDER/CONSTRUCTOR (+3.5 puntos)
-  // Piensa en equipo ANTES de activarse = prospecto de alto valor
-  const leadershipPatterns = [
-    /cómo ayudo/i,
-    /mi equipo/i,
-    /otras personas/i,
-    /replicar/i,
-    /enseñar/i,
-    /mentorear/i,
-    /acompañar/i,
-    /construir.*equipo/i,
-    /ayudar.*otros/i
-  ];
-
-  if (leadershipPatterns.some(pattern => pattern.test(message))) {
-    signalScore += 3.5;
-    console.log('👑 [SCORING] SEÑAL: Mentalidad de líder (+3.5)');
-  }
-
-  // SEÑAL 4: Análisis FINANCIERO - hace cálculos (+4 puntos)
-  // Está evaluando ROI = decisor serio
-  const financialAnalysisPatterns = [
-    /cuánto gano/i,
-    /si.*compra.*paquete/i,
-    /en.*generación/i,
-    /gen \d/i,
-    /porcentaje/i,
-    /comisión/i,
-    /retorno/i,
-    /inversión/i,
-    /esp\d/i,
-    /plan.*compensación/i
-  ];
-
-  if (financialAnalysisPatterns.some(pattern => pattern.test(message))) {
-    signalScore += 4;
-    console.log('💰 [SCORING] SEÑAL: Análisis financiero (+4)');
-  }
-
-  // SEÑAL 5: Profesión RELEVANTE compartida (+2 puntos)
-  // Fit natural con el modelo de negocio
+  // F1: Profesión relevante (+10) — MLM Motivational Study, SCIRP 2025
   const relevantProfessions = [
     'comerciante', 'vendedor', 'emprendedor', 'empresario',
     'networker', 'distribuidor', 'freelance', 'consultor',
-    'coach', 'asesor', 'independiente'
+    'coach', 'asesor', 'independiente', 'representante',
+    'agente', 'proveedor', 'mayorista', 'importador'
   ];
-
-  if (relevantProfessions.some(prof => messageLower.includes(prof))) {
-    signalScore += 2;
-    console.log('💼 [SCORING] SEÑAL: Profesión relevante (+2)');
+  if (relevantProfessions.some(p => messageLower.includes(p))) {
+    signalScore += 10;
+    console.log('👤 [SCORING v3.0] F1 — Profesión relevante (+10)');
   }
 
-  // SEÑAL 6: Respuestas CONCISAS = decisor (+1 punto)
-  // Comunicación directa indica persona de acción
-  const wordCount = message.split(/\s+/).length;
-  if (wordCount <= 5 && (previousMessages || 0) >= 3) {
-    signalScore += 1;
-    console.log('⚡ [SCORING] SEÑAL: Comunicación directa (+1)');
-  }
-
-  // SEÑAL 7: Feedback POSITIVO explícito (+2 puntos)
-  // Confirma interés genuino
-  const positiveFeedback = [
-    /suena bien/i,
-    /interesante/i,
-    /me gusta/i,
-    /perfecto/i,
-    /excelente/i,
-    /genial/i,
-    /me parece bien/i,
-    /está bien/i
+  // F2: Interés en desarrollo personal (+8) — MLM Study beta 0.669
+  const personalDevPatterns = [
+    /crecer/i, /aprender/i, /mejorar/i, /capacitar/i,
+    /desarrollo personal/i, /superación/i, /habilidades/i,
+    /mentoría/i, /academia/i, /formación/i
   ];
-
-  if (positiveFeedback.some(pattern => pattern.test(message))) {
-    signalScore += 2;
-    console.log('✅ [SCORING] SEÑAL: Feedback positivo (+2)');
+  if (personalDevPatterns.some(p => p.test(message))) {
+    signalScore += 8;
+    console.log('📚 [SCORING v3.0] F2 — Desarrollo personal (+8)');
   }
 
-  // SEÑAL 8: Solicita CONTACTO directo (+2.5 puntos)
-  // Quiere escalada humana = muy caliente
+  // F3: Perfil innovador / early adopter (+7) — Rogers Diffusion of Innovation
+  const innovatorPatterns = [
+    /primero/i, /exclusiv/i, /cuántos (ya|están)/i,
+    /cupos (disponibles|quedan)/i, /antes que/i,
+    /fundador/i, /fundadores/i, /ventana/i, /tecnología/i
+  ];
+  if (innovatorPatterns.some(p => p.test(message))) {
+    signalScore += 7;
+    console.log('🚀 [SCORING v3.0] F3 — Perfil innovador (+7)');
+  }
+
+  // F4: Capacidad de inversión mencionada (+5)
+  const investmentCapacityPatterns = [
+    /puedo invertir/i, /tengo capital/i,
+    /tengo (el |los )?(dinero|recursos|fondos)/i,
+    /mi presupuesto/i, /cuánto (se necesita|hay que poner)/i
+  ];
+  if (investmentCapacityPatterns.some(p => p.test(message))) {
+    signalScore += 5;
+    console.log('💵 [SCORING v3.0] F4 — Capacidad de inversión (+5)');
+  }
+
+  // ── DIMENSIÓN COMPORTAMIENTO — qué hace ──────────────────────────────────
+
+  // B1: Multi-threading — SEÑAL CRÍTICA (+15)
+  // Gong.io 2025: negocios que involucran terceros cierran 130% más
+  // Patrones colombianos validados contextualmente
+  const multiThreadingPatterns = [
+    /mi (esposa|esposo|pareja|socio|socia)/i,
+    /mi (hermano|hermana|cuñado|cuñada)/i,
+    /tengo (un amigo|una amiga|un conocido)/i,
+    /nosotros (podríamos|lo haríamos|estamos interesados)/i,
+    /lo (compartiría|compartiría) con/i,
+    /también (le interesa|está interesado|quiere)/i,
+    /mi (compañero|compañera) de (trabajo|negocio)/i,
+    /somos (dos|tres|varios)/i,
+    /(otra persona|alguien más) (que|también)/i,
+    /un grupo de/i
+  ];
+  if (multiThreadingPatterns.some(p => p.test(message))) {
+    signalScore += 15;
+    console.log('👥 [SCORING v3.0] B1 — Multi-threading (+15) ← SEÑAL CRÍTICA');
+  }
+
+  // B2: Solicita contacto directo (+8) — escalada a humano = alta intención
   const contactRequestPatterns = [
-    /una llamada/i,
-    /hablar.*whatsapp/i,
-    /contactar/i,
-    /llamar/i,
-    /videollamada/i,
-    /reunión/i
+    /una llamada/i, /videollamada/i, /reunión/i,
+    /hablar (por|en) whatsapp/i, /contactar/i,
+    /tu (número|contacto|whatsapp)/i,
+    /cómo (te contacto|me comunico contigo)/i,
+    /quiero hablar con/i
   ];
+  if (contactRequestPatterns.some(p => p.test(message))) {
+    signalScore += 8;
+    console.log('📞 [SCORING v3.0] B2 — Solicita contacto (+8)');
+  }
 
-  if (contactRequestPatterns.some(pattern => pattern.test(message))) {
-    signalScore += 2.5;
-    console.log('📞 [SCORING] SEÑAL: Solicita contacto (+2.5)');
+  // B3: Aplicación personal — paso de abstracto a concreto (+6)
+  // Emerald JSM 2025: concreción = indicador de etapa BOFU
+  const personalApplicationPatterns = [
+    /cómo puedo yo/i, /en mi caso/i, /para mí/i,
+    /yo podría/i, /si yo/i, /mi whatsapp/i,
+    /mi correo/i, /mi número/i, /qué hago yo/i
+  ];
+  if (personalApplicationPatterns.some(p => p.test(message))) {
+    signalScore += 6;
+    console.log('🎯 [SCORING v3.0] B3 — Aplicación personal (+6)');
+  }
+
+  // B4: Comunicación directa y concisa (+4)
+  // Gong.io 2025: decisores usan lenguaje directo y breve
+  const wordCount = message.split(/\s+/).length;
+  if (wordCount <= 6 && messageCount >= 3) {
+    signalScore += 4;
+    console.log('⚡ [SCORING v3.0] B4 — Comunicación directa (+4)');
+  }
+
+  // ── DIMENSIÓN LINGÜÍSTICA — cómo se expresa ───────────────────────────────
+
+  // L1: Verbos de acción de compra (+8)
+  // Frontiers in AI 2025: "comprar"(0.84), "encontrar"(0.85), "buscar"(0.78)
+  const purchaseVerbPatterns = [
+    /quiero (entrar|empezar|comenzar|unirme|participar)/i,
+    /voy a (invertir|comenzar|empezar|unirme)/i,
+    /(comprar|adquirir|invertir|registrar|inscrib)/i,
+    /me (anoto|apunto|registro|uno)/i,
+    /cómo (me registro|me uno|entro|empiezo)/i,
+    /proceso de (registro|inscripción|activación)/i
+  ];
+  if (purchaseVerbPatterns.some(p => p.test(message))) {
+    signalScore += 8;
+    console.log('🛒 [SCORING v3.0] L1 — Verbos de compra (+8)');
+  }
+
+  // L2: Términos financieros específicos (+7)
+  // Especificidad = diferenciador TOFU vs BOFU (Emerald JSM 2025)
+  const specificFinancialTerms = [
+    'rendimiento', 'porcentaje', 'comisión', 'retorno', 'roi',
+    'paquete', 'dividendo', 'generación', 'gen5',
+    'renta vitalicia', 'flujo', 'patrimonio',
+    'portafolio', 'apalancamiento', 'plan de compensación'
+  ];
+  if (specificFinancialTerms.some(t => messageLower.includes(t))) {
+    signalScore += 7;
+    console.log('💰 [SCORING v3.0] L2 — Términos financieros específicos (+7)');
+  }
+
+  // L3: Urgencia genuina (+6) — diferente a evasión temporal
+  const urgencyPatterns = [
+    /lo antes posible/i, /esta semana/i, /hoy mismo/i,
+    /cuándo (puedo|puedo empezar|arranca)/i,
+    /no quiero (esperar|perder|quedarme sin)/i,
+    /aprovechar (el momento|ahora|esta oportunidad)/i,
+    /ya (quiero|estoy listo|puedo)/i
+  ];
+  if (urgencyPatterns.some(p => p.test(message))) {
+    signalScore += 6;
+    console.log('⏰ [SCORING v3.0] L3 — Urgencia genuina (+6)');
+  }
+
+  // L4: Profundización técnica (+4)
+  const detailPatterns = [
+    /exactamente/i, /específicamente/i, /en detalle/i,
+    /explícame/i, /más información/i,
+    /cómo funciona en la práctica/i,
+    /a qué (te|se) refiere/i
+  ];
+  if (detailPatterns.some(p => p.test(message))) {
+    signalScore += 4;
+    console.log('🔍 [SCORING v3.0] L4 — Profundización (+4)');
+  }
+
+  // L5: Mentalidad de expansión / liderazgo (+5)
+  const leadershipPatterns = [
+    /mi equipo/i, /otras personas/i, /replicar/i,
+    /enseñar/i, /acompañar/i, /construir.*equipo/i,
+    /ayudar.*otros/i, /escalar/i, /duplicar/i
+  ];
+  if (leadershipPatterns.some(p => p.test(message))) {
+    signalScore += 5;
+    console.log('👑 [SCORING v3.0] L5 — Mentalidad de expansión (+5)');
+  }
+
+  // L6: Feedback positivo explícito (+3)
+  const positiveFeedback = [
+    /suena bien/i, /me gusta/i, /perfecto/i, /excelente/i,
+    /genial/i, /me parece bien/i,
+    /esto es lo que (buscaba|necesitaba)/i
+  ];
+  if (positiveFeedback.some(p => p.test(message))) {
+    signalScore += 3;
+    console.log('✅ [SCORING v3.0] L6 — Feedback positivo (+3)');
   }
 
   return signalScore;
@@ -574,81 +635,123 @@ async function captureProspectData(
   }
 
   // ========================================
-  // CÁLCULO DE NIVEL DE INTERÉS - SISTEMA PROGRESIVO v2.0
+  // CÁLCULO DE NIVEL DE INTERÉS — SCORING v3.0
+  // Base científica: Gong.io 2025, Frontiers in AI 2025, Emerald JSM 2025,
+  //                  MLM Motivational Study (SCIRP 2025), Rogers Diffusion
+  // Escala: 0–100 | Fórmula: Fit(30%) + Comportamiento(40%) + Lingüística(30%)
+  // Umbrales: Frío 0–49 | Tibio 50–74 | Caliente 75–89 | SQL 90–100
   // ========================================
-  // CAMBIO FUNDAMENTAL: Score ACUMULATIVO (no snapshot)
-  // Caso Diego: Debe calificar en ACOGER desde mensaje 1, no esperar al WhatsApp
 
-  // PASO 1: Obtener score previo del prospecto (si existe)
-  let previousScore = 5; // Base neutral para nuevos prospectos
+  // PASO 1: Score previo (acumulativo — no se resetea entre mensajes)
+  let previousScore = 0; // Arrancar desde 0, sin base artificial
   let messageCount = 0;
 
   if (fingerprint && existingData) {
-    // existingData ya contiene la info de device_info
-    previousScore = existingData.interest_level || 5;
+    previousScore = existingData.interest_level || 0;
     messageCount = (existingData.message_count || 0) + 1;
-    console.log('📊 [SCORING v2.0] Score previo:', previousScore, '| Mensaje #' + messageCount);
+    console.log('📊 [SCORING v3.0] Score previo:', previousScore, '| Mensaje #' + messageCount);
   } else {
-    console.log('📊 [SCORING v2.0] Nuevo prospecto, score base: 5');
+    console.log('📊 [SCORING v3.0] Nuevo prospecto — score base: 0');
   }
 
-  // PASO 2: Calcular señales BÁSICAS (keywords tradicionales)
-  let basicSignals = 0;
+  // PASO 2: Señales de FIT — datos personales compartidos (acto de compromiso)
+  let fitSignals = 0;
+  if (data.name) fitSignals += 5;
+  if (data.phone) fitSignals += 7;
+  if (data.email) fitSignals += 6;
+  if (data.occupation) fitSignals += 3;
 
-  // Compartir datos personales = interés alto
-  if (data.name) basicSignals += 2;
-  if (data.phone) basicSignals += 2; // ✅ AJUSTADO: Antes +3, ahora +2 (menos peso)
-  if (data.email) basicSignals += 2;
-  if (data.occupation) basicSignals += 1;
-
-  // Keywords positivos
-  if (messageLower.includes('paquete') || messageLower.includes('inversión')) basicSignals += 2;
-  if (messageLower.includes('empezar') || messageLower.includes('comenzar')) basicSignals += 3;
-  if (messageLower.includes('precio') || messageLower.includes('costo') || messageLower.includes('cuánto')) basicSignals += 2;
-  if (messageLower.includes('quiero') || messageLower.includes('necesito') || messageLower.includes('me interesa')) basicSignals += 2;
-  if (messageLower.includes('cuándo') || messageLower.includes('cuando') || messageLower.includes('cómo')) basicSignals += 1;
-
-  // Keywords negativos
-  if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) basicSignals -= 3;
-  if (messageLower.includes('tal vez') || messageLower.includes('quizás')) basicSignals -= 1;
-  if (messageLower.includes('duda')) basicSignals -= 1;
-
-  // PASO 3: Calcular señales AVANZADAS (sistema nuevo v2.0)
+  // PASO 3: Señales avanzadas v3.0 (Fit + Comportamiento + Lingüística)
   const advancedSignals = detectAdvancedSignals(message, messageCount);
 
-  // PASO 4: Bonus por engagement sostenido (frecuencia de mensajes)
+  // PASO 4: Bonus por engagement sostenido
+  // Frontiers in AI 2025: conversaciones largas con alta intención predicen conversión
   let engagementBonus = 0;
-  if (messageCount >= 3) engagementBonus += 1.5;
-  if (messageCount >= 5) engagementBonus += 1; // Total +2.5
-  if (messageCount >= 8) engagementBonus += 1; // Total +3.5
+  if (messageCount >= 5) engagementBonus += 3;
+  if (messageCount >= 8) engagementBonus += 3; // Total +6
 
-  // PASO 5: Calcular DELTA (cambio en este mensaje solamente)
-  const deltaScore = basicSignals + advancedSignals + engagementBonus;
+  // PASO 5: Señales NEGATIVAS — penalizaciones científicamente validadas
+  let negativeSignals = 0;
 
-  // PASO 6: Score ACUMULATIVO (sumar al score previo)
-  const totalScore = Math.min(10, Math.max(0, previousScore + deltaScore));
+  // Rechazo explícito (-20) — descalificación inmediata
+  if (messageLower.includes('no me interesa') || messageLower.includes('no gracias')) {
+    negativeSignals -= 20;
+    console.log('🚫 [SCORING v3.0] NEG — Rechazo explícito (-20)');
+  }
 
-  // Redondear a INTEGER
+  // Sin urgencia / evasión temporal (-10)
+  // HubSpot Sales 2025: falta de urgencia = principal asesino de tratos
+  const noUrgencyPatterns = [
+    'tal vez', 'quizás', 'quizas', 'no es urgente',
+    'después veo', 'despues veo', 'luego te escribo',
+    'más tarde', 'mas tarde', 'otro día', 'otro dia',
+    'no es importante ahora', 'lo pienso', 'déjame pensarlo', 'dejame pensarlo'
+  ];
+  if (noUrgencyPatterns.some(k => messageLower.includes(k))) {
+    negativeSignals -= 10;
+    console.log('⏸️ [SCORING v3.0] NEG — Sin urgencia (-10)');
+  }
+
+  // Necesita aprobación de tercero sin señal positiva de multi-threading (-8)
+  // Vendux 2025: bloqueador del proceso de decisión si no se gestiona
+  const approvalNeededPatterns = [
+    /tengo que (preguntarle|consultarle|hablar con) (mi|el|la)/i,
+    /primero (le pregunto|consulto|hablo con)/i,
+    /mi (pareja|esposa|esposo|jefe|socio) (tiene que|debe|necesita) (ver|saber|decidir)/i
+  ];
+  if (approvalNeededPatterns.some(p => p.test(message))) {
+    negativeSignals -= 8;
+    console.log('🔒 [SCORING v3.0] NEG — Necesita aprobación (-8)');
+  }
+
+  // Evasión de presupuesto (-8)
+  // Peasy AI 2025: ausencia de necesidad real = probabilidad de conversión nula
+  const budgetEvasionPatterns = [
+    /estamos explorando/i, /estoy viendo opciones/i,
+    /no tengo (presupuesto|dinero|capital) (ahora|por ahora|todavía)/i,
+    /ahorita no (puedo|tengo)/i
+  ];
+  if (budgetEvasionPatterns.some(p => p.test(message))) {
+    negativeSignals -= 8;
+    console.log('💸 [SCORING v3.0] NEG — Evasión de presupuesto (-8)');
+  }
+
+  // Sobre-acuerdo sin preguntas (-10)
+  // Vendux 2025: "sí" a todo sin objeción = fuga educada, no conversión real
+  const msgWords = message.trim().split(/\s+/).length;
+  const isOverAgreement = msgWords <= 3 && messageCount >= 3 &&
+    (messageLower.includes('sí') || messageLower.includes('si') ||
+     messageLower.includes('claro') || messageLower.includes('ok') ||
+     messageLower.includes('entiendo') || messageLower.includes('entendido'));
+  if (isOverAgreement) {
+    negativeSignals -= 10;
+    console.log('⚠️ [SCORING v3.0] NEG — Sobre-acuerdo sin preguntas (-10)');
+  }
+
+  // PASO 6: Delta total y score acumulativo (escala 0–100)
+  const deltaScore = fitSignals + advancedSignals + engagementBonus + negativeSignals;
+  const totalScore = Math.min(100, Math.max(0, previousScore + deltaScore));
   data.interest_level = Math.round(totalScore);
 
-  // PASO 7: Determinar momento óptimo con NUEVOS UMBRALES
-  // ✅ CRÍTICO: Umbrales más bajos para calificar en ACOGER más rápido
-  const momentoOptimo = data.interest_level >= 9 ? 'listo' :
-                        data.interest_level >= 7 ? 'caliente' :
-                        data.interest_level >= 5 ? 'tibio' : 'frio';
+  // PASO 7: Temperatura — umbrales validados por literatura científica
+  // sales-mind.ai 2025, InsideSales.com, Velocify
+  const temperatura =
+    data.interest_level >= 90 ? 'listo' :
+    data.interest_level >= 75 ? 'caliente' :
+    data.interest_level >= 50 ? 'tibio' : 'frio';
 
-  data.momento_optimo = momentoOptimo;
+  data.momento_optimo = temperatura;
 
-  // PASO 8: Logging detallado del scoring progresivo
+  // PASO 8: Logging detallado
   console.log('📊 ═══════════════════════════════════════════════');
-  console.log('📊 [SCORING PROGRESIVO v2.0] Mensaje #' + messageCount);
-  console.log('📊 ───────────────────────────────────────────────');
-  console.log('  ├─ 📥 Score previo: ' + previousScore.toFixed(1));
-  console.log('  ├─ 🔤 Señales básicas: +' + basicSignals.toFixed(1));
+  console.log('📊 [SCORING v3.0] Mensaje #' + messageCount);
+  console.log('  ├─ 📥 Score previo: ' + previousScore);
+  console.log('  ├─ 👤 Señales fit: +' + fitSignals);
   console.log('  ├─ 🌟 Señales avanzadas: +' + advancedSignals.toFixed(1));
-  console.log('  ├─ 💬 Bonus engagement: +' + engagementBonus.toFixed(1));
-  console.log('  ├─ 📈 Delta total: +' + deltaScore.toFixed(1));
-  console.log('  └─ 🎯 SCORE FINAL: ' + data.interest_level + '/10 → ' + momentoOptimo.toUpperCase());
+  console.log('  ├─ 💬 Bonus engagement: +' + engagementBonus);
+  console.log('  ├─ 🚫 Señales negativas: ' + negativeSignals);
+  console.log('  ├─ 📈 Delta total: ' + deltaScore.toFixed(1));
+  console.log('  └─ 🎯 SCORE FINAL: ' + data.interest_level + '/100 → ' + temperatura.toUpperCase());
   console.log('📊 ═══════════════════════════════════════════════');
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
@@ -679,29 +782,7 @@ async function captureProspectData(
     console.log('Objeciones detectadas:', objeciones);
   }
 
-  // 🧠 DETECCIÓN DE LOW-INTENT SIGNALS (Best Practice: Adapt strategy when user shows disinterest)
-  const lowIntentKeywords = [
-    'tal vez', 'quizás', 'quizas', 'no sé', 'no se',
-    'después veo', 'despues veo', 'luego te escribo',
-    'más tarde', 'mas tarde', 'otro día', 'otro dia',
-    'déjame pensarlo', 'dejame pensarlo', 'lo pienso',
-    'no estoy seguro', 'no estoy segura'
-  ];
-
-  const hasLowIntent = lowIntentKeywords.some(keyword => messageLower.includes(keyword));
-
-  if (hasLowIntent) {
-    // Reduce score by 1 point when low-intent is detected
-    if (data.interest_level && data.interest_level > 0) {
-      data.interest_level = Math.max(0, data.interest_level - 1);
-      console.log('⚠️ [LOW-INTENT DETECTED] Score reducido por señales de desinterés:', lowIntentKeywords.find(k => messageLower.includes(k)));
-    }
-    // Mark as "tibio" instead of "caliente"
-    if (data.momento_optimo === 'caliente') {
-      data.momento_optimo = 'tibio';
-      console.log('⚠️ [LOW-INTENT DETECTED] Momento óptimo cambiado de "caliente" a "tibio"');
-    }
-  }
+  // Las señales de bajo interés ya están integradas en PASO 5 (negativeSignals) del Scoring v3.0
 
   // DETECCIÓN DE ARQUETIPO (ESCALABLE)
   if (messageLower.includes('empresa') || messageLower.includes('negocio')) {

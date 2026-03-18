@@ -936,26 +936,20 @@ export default function ServilletaPage() {
             -webkit-overflow-scrolling: touch !important;
           }
           :fullscreen .grid-layout-slide-2 {
-            padding: 20px 15px 40px !important;
-            gap: 15px !important;
+            overflow-y: scroll !important;
+            scroll-snap-type: y mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            height: 100vh !important;
+            padding: 0 !important;
+            gap: 0 !important;
             grid-template-rows: unset !important;
-            height: auto !important;
-            min-height: 100% !important;
           }
-          :fullscreen .slide-2-header {
-            padding-bottom: 0 !important;
-          }
-          :fullscreen .slide-2-header .deck-h2 {
-            font-size: 1.6rem !important;
-            margin-bottom: 2px !important;
-          }
-          :fullscreen .slide-2-subtitle {
-            font-size: 0.6rem !important;
-          }
+          :fullscreen #slide-2 .slide-2-header { display: none !important; }
           :fullscreen .card-industrial,
           :fullscreen .full-width {
-            min-height: 55vh !important;
-            height: auto !important;
+            scroll-snap-align: start !important;
+            height: 100vh !important;
+            min-height: 100vh !important;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;

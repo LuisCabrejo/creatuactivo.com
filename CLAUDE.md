@@ -143,22 +143,27 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - **PREFERRED** async queue producer
-- [src/lib/vectorSearch.ts](src/lib/vectorSearch.ts) - Voyage AI embeddings + semantic search
+- [src/app/api/nexus/tts/route.ts](src/app/api/nexus/tts/route.ts) - TTS endpoint (ElevenLabs → OpenAI fallback, Edge, 30s)
+- [src/app/api/voice-command/route.ts](src/app/api/voice-command/route.ts) - Voice pipeline: Whisper → Claude Haiku → ElevenLabs (Node, 60s)
+- [src/lib/vectorSearch.ts](src/lib/vectorSearch.ts) - Voyage AI embeddings + semantic search (multi-tenant: `tenantId` param)
+- [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx) - **Orbe unificado** (reemplaza NEXUSFloatingButton + VoiceCommandButton)
 - [src/components/nexus/useNEXUSChat.ts](src/components/nexus/useNEXUSChat.ts) - React hook for chat state
-- [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI container
-- [src/components/nexus/NEXUSFloatingButton.tsx](src/components/nexus/NEXUSFloatingButton.tsx) - Floating chat trigger
+- [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) - Chat UI container (incluye botón TTS por mensaje)
+- [src/components/nexus/NEXUSFloatingButton.tsx](src/components/nexus/NEXUSFloatingButton.tsx) - Legacy (ya no usado en layout, conservado para servilleta events)
 - [src/components/nexus/Chat.tsx](src/components/nexus/Chat.tsx) - Chat message rendering
 - [src/components/nexus/NEXUSDataCaptureCard.tsx](src/components/nexus/NEXUSDataCaptureCard.tsx) - Data capture UI
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) - 6 arsenales con Voyage AI embeddings (95% token reduction, 108 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones básicas (34 responses)
-   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación, METH_01 (14 responses)
-   - `arsenal_reto` - El Mapa de Salida v3.0 (7 responses)
-   - `arsenal_12_niveles` - Desafío de 12 niveles (12 blocks)
-   - `catalogo_productos` - Product catalog + science (22 products)
-   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**)
+1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
+   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing`
+   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (17 responses) — tenant: `creatuactivo_marketing`
+   - `arsenal_reto` - El Mapa de Salida v3.0 (7 responses) — tenant: `creatuactivo_marketing`
+   - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
+   - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing`
+   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing`
+   - `arsenal_marca_personal` - Identidad, historia, metodología Luis Cabrejo (11 responses) — tenant: `marca_personal`
+   - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (12 responses) — tenant: `ecommerce`
 
 2. **Clasificación de documentos — 3 capas + override**:
    - **PASO -1 (MenuExpansion)**: Opciones a/b/c/d del menú inicial se expanden a queries semánticas
@@ -189,7 +194,14 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 - **Header mobile**: Solo `Queswa 🪢` + botón X. Sin ícono, sin subtítulo "TERMINAL ACTIVA".
 - **Fondo**: Panel sobre fondo oscuro puro (`#0F1115`), sin secciones ni cards intermedias. Respuestas sobre el mismo fondo — no agregar `background` a los mensajes del bot.
 - **Burbujas usuario**: Sin border-radius (`borderRadius: 0`) — branding Industrial Luxury, 90 grados. Color `#16181D`.
-- **Servilleta + Queswa**: La servilleta usa eventos custom (`open-queswa` / `close-queswa`) para comunicarse con `NEXUSFloatingButton`. Al abrir Queswa en servilleta, el `body.style.overflow = 'auto'` se restaura temporalmente para que el teclado funcione. El deck-container mantiene `overflow: hidden` independientemente.
+- **UnifiedQueswaOrb** (Mar 2026 — reemplaza NEXUSFloatingButton + VoiceCommandButton):
+- Tap corto = abre chat Queswa. Long press 300ms = activa micrófono de voz.
+- Posición: `bottom: 1.5rem` cuando chat cerrado, `5rem` cuando chat abierto (evita tapar input). **Excepción queswa.app**: siempre `5rem` para no solapar bottom nav de 64px.
+- Glassmorphism + Framer Motion spring scroll hide/show. Safe-area iOS.
+- Haptic feedback: `navigator.vibrate(50)` al iniciar, `vibrate(30)` al detener grabación.
+- Fuente: [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx)
+
+**Servilleta + Queswa**: La servilleta usa eventos custom (`open-queswa` / `close-queswa`) para comunicarse con `NEXUSFloatingButton`. Al abrir Queswa en servilleta, el `body.style.overflow = 'auto'` se restaura temporalmente para que el teclado funcione. El deck-container mantiene `overflow: hidden` independientemente.
 
 **API Endpoints**:
 - **Production**: Always use `/api/nexus/producer` (async queue)
@@ -203,6 +215,8 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 |-------|---------|---------|---------|
 | `/api/nexus` | Edge | 60s | NEXUS AI main (streaming) |
 | `/api/nexus/producer` | Edge | 10s | DB Queue producer |
+| `/api/nexus/tts` | Edge | 30s | TTS: ElevenLabs → OpenAI fallback |
+| `/api/voice-command` | Node | 60s | Voice pipeline: Whisper → Haiku → ElevenLabs |
 | `/api/nexus/consumer-cron` | Edge | 60s | Legacy queue consumer |
 | `/api/funnel` | Node | 10s | Reto 5 Días + Webinar forms |
 | `/api/fundadores` | Node | 10s | Founder registration |
@@ -288,6 +302,21 @@ Usuario → Producer → nexus_queue (INSERT)
 - `nexus-consumer` - Legacy: Kafka consumer (deprecated, kept for reference)
 - `notify-stage-change` - Sends email notifications when prospects advance stages
 
+### 3.1. Multi-Tenant Architecture (FASE C - Mar 2026)
+
+Aislamiento por tenant_id en todas las capas: Middleware (x-tenant-id header) -> vectorSearch (filter_tenant_id) -> system_prompt (get_tenant_system_prompt RPC) -> nexus_queue (metadata.tenant_id).
+
+Tenants activos: creatuactivo_marketing (creatuactivo.com), marca_personal (luiscabrejo.com), queswa_dashboard (queswa.app), ecommerce (ganocafe.online pendiente).
+
+SQL migration: supabase/migrations/20260316_match_documents_tenant_filter.sql
+
+### 3.2. Voice Pipeline (Mar 2026)
+
+Cadena: Whisper (~2s) -> Claude Haiku (~1s, max 450 tokens) -> ElevenLabs turbo_v2_5 (~2s) = ~5-8s total.
+Ruta: /api/voice-command (Node, maxDuration=60, Vercel Pro requerido).
+TTS inline: /api/nexus/tts (boton ESCUCHAR en mensajes del chat).
+Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
+
 ### 4. Supabase Schema
 
 **Key Tables**:
@@ -304,13 +333,15 @@ Usuario → Producer → nexus_queue (INSERT)
 - `search_nexus_documents()` - Semantic search
 - `enqueue_nexus_message()` - Add to queue
 
-**Knowledge Base** (stored in `nexus_documents`, actualizado Feb 2026):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (34 responses — WHY, STORY, VS, FREQ, CRED, OBJ)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (14 responses — OBJ avanzadas, TECH, VAL, SIST, ESC)
+**Knowledge Base** (stored in `nexus_documents`, actualizado Mar 2026):
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (37 responses — WHY, STORY, VS, FREQ, CRED, OBJ + WHY_PROD_01, WHY_ROL_01, CTA_01 — WHY, STORY, VS, FREQ, CRED, OBJ)
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (17 responses — OBJ avanzadas, TECH, VAL, SIST, ESC)
 - `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v3.0 — 7 responses, nomenclatura definitiva Feb 2026)
-- `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (12-level challenge content)
+- `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — plan de compensación, **NO modificar**)
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar**) — tenant: `creatuactivo_marketing`
+- `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal`
+- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (12 responses — PROD, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -424,7 +455,8 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 
 | Version | Route | Style |
 |---------|-------|-------|
-| v5.2 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
+| v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
+| v5.1 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: Rajdhani (headings) + Roboto Mono (data)

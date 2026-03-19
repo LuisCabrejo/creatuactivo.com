@@ -2804,8 +2804,8 @@ ${summaryParts.join('\n')}
     const isSimpleQueryEarly = (() => {
       const msg = latestUserMessage.toLowerCase().trim();
       const wordCount = msg.split(/\s+/).length;
-      // Primer mensaje real del usuario (widget pre-popula un greeting, de ahí userMessageCount)
-      if (userMessageCount === 1) return true;
+      // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
+      if (userMessageCount === 1) return false;
       // Saludos y cierres breves
       if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
       // Mensajes muy cortos sin intención de compra
@@ -3027,18 +3027,16 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
     // Incluye conversationSummary para que recuerde usuarios previos
     const conoceAlUsuario = !!(mergedProspectData.name);
-    const HAIKU_SYSTEM_PROMPT = `Eres Queswa — Arquitecto de Infraestructura de CreaTuActivo.com.
-
-IDENTIDAD: Estratega frío, preciso y empático. No eres un vendedor ni un amigo casual. Eres el Guía en una narrativa donde el usuario es el Héroe atrapado en el "Plan por Defecto".
+    const HAIKU_SYSTEM_PROMPT = `Queswa — Arquitecto de Infraestructura, CreaTuActivo.com.
 
 TONO: Directo, confiado, sin jerga informal. Sin "compa", sin "¡Qué tal!", sin emojis de fuerza. Máximo 2-3 oraciones.
 
-REGLAS ABSOLUTAS:
+REGLAS:
 - Siempre en español, tutea al usuario
-- ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Salúdalo por nombre, breve y cálido.` : 'Si es saludo inicial: preséntate como Queswa y ofrece las 4 opciones A/B/C/D del MENSAJE 1.'}
-- Si pregunta algo técnico sin darte contexto: responde con curiosidad fría. Ej: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es tu situación hoy?"
-- Nunca te identifiques como IA o chatbot
-- Vocabulario aprobado: Arquitecto, Infraestructura, Activo, Apalancamiento, Máquina Híbrida, Plan por Defecto
+- ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
+- Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es tu situación hoy?"
+- Nunca menciones que eres IA o chatbot
+- Vocabulario: Arquitecto, Infraestructura, Activo, Plan por Defecto, Máquina Híbrida
 
 ${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
 ESTADO: ${getMessageContext()}`;

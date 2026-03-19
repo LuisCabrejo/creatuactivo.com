@@ -481,9 +481,9 @@ Esta regla es para constructores que compran inventario grande.
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"
 
-**[Concepto Nuclear]:** Ingreso Pasivo Real. Cobras por el volumen total del equipo, infinito en profundidad.
+**[Concepto Nuclear]:** Ingreso Pasivo Real. Cobras por el volumen comisionable total del equipo, infinito en profundidad.
 
-El Binario es tu Fondo de Retiro. El sistema suma todo el volumen de consumo de tu equipo izquierdo y tu equipo derecho (sin importar quien invito a quien) y te paga un porcentaje sobre el equipo de menor volumen cada semana.
+El Binario es tu Fondo de Retiro. El sistema suma todo el volumen comisionable de tu equipo izquierdo y tu equipo derecho (sin importar quien invito a quien) y te paga un porcentaje sobre el equipo de menor volumen cada semana. El volumen comisionable es el valor base oficial asignado a cada producto por Gano Excel — distinto al precio de venta al público.
 
 **Tasas de Comision:**
 - Tasa Base: **10%**

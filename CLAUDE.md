@@ -347,19 +347,21 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 
 ### 5. Page Structure & Funnel Architecture
 
-**Funnel Strategy** (Russell Brunson methodology - Dic 2025):
+**Funnel Strategy** (Russell Brunson methodology - actualizado Mar 2026):
 ```
-Tráfico Frío (Ads/Redes) → /reto-5-dias (Squeeze Page)
+Tráfico Frío (Ads/Redes) → /mapa-de-salida (Squeeze Page — ENTRY v3.0 activo)
                               ↓
-                         /reto-5-dias/gracias (Bridge Page)
+                         /mapa-de-salida/gracias (Bridge Page)
                               ↓
-                         WhatsApp 5 días (Nurture)
+                         WhatsApp 5 días — El Mapa de Salida (Nurture)
                               ↓
                          /fundadores (Oferta)
 
 Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
                               ↓
-                         /reto-5-dias o /fundadores
+                         /mapa-de-salida o /fundadores
+
+Nota: /reto-5-dias/* sigue activo como ENTRY v1 (legacy, no eliminar — tráfico existente)
 ```
 
 **Active Pages**:
@@ -444,8 +446,8 @@ src/app/
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
 **Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx)):
-- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Reto 5 Días" CTA
-- **Mobile CTA**: "Unirme al Reto" → /reto-5-dias
+- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Mapa de Salida" CTA
+- **Mobile CTA**: "Unirme al Reto" → /mapa-de-salida
 - **Removed from menu**: Soluciones, Ecosistema, Presentación, Auditoría
 - **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
 
@@ -960,7 +962,7 @@ The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funn
 
 ```
 [NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
-30 videos de valor puro      →    Squeeze Page /reto-5-dias
+30 videos de valor puro      →    Squeeze Page /mapa-de-salida
          ↓                               ↓
 "¿Cómo lo hago?"             →    Soap Opera Emails (5)
          ↓                               ↓
@@ -1035,14 +1037,14 @@ These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc
 | Duration | Use Case |
 |----------|----------|
 | 60 seconds | Reels, TikTok, Squeeze Page |
-| 3 minutes | Bridge Page (`/reto-5-dias/gracias`) |
+| 3 minutes | Bridge Page (`/mapa-de-salida/gracias`) |
 | 7 minutes | Webinar, Presentations |
 
 ### Two Different Audiences
 
 | Audience | Villain | Page |
 |----------|---------|------|
-| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /reto-5-dias, /fundadores |
+| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /mapa-de-salida, /fundadores |
 | **Traditional networkers** (know MLM) | "Haz una lista de 100" | /socios |
 
 **Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".

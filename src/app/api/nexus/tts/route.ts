@@ -12,7 +12,34 @@ export const runtime     = 'edge';
 export const maxDuration = 30;
 
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL';
-const OPENAI_TTS_VOICE    = 'onyx'; // Deep, authoritative — coherente con la marca
+const OPENAI_TTS_VOICE    = 'onyx';
+
+// ─── Caché en memoria — evita llamadas duplicadas a ElevenLabs ────────────────
+const CACHE_TTL = 60 * 60 * 1000 // 1 hora
+const CACHE_MAX = 50              // máx entradas (evita memory leak)
+
+const ttsCache = new Map<string, { buf: ArrayBuffer; ts: number }>()
+
+function djb2(str: string): string {
+  let h = 5381
+  for (let i = 0; i < str.length; i++) h = (((h << 5) + h) ^ str.charCodeAt(i)) >>> 0
+  return h.toString(36)
+}
+
+function cacheGet(key: string): ArrayBuffer | null {
+  const entry = ttsCache.get(key)
+  if (!entry) return null
+  if (Date.now() - entry.ts > CACHE_TTL) { ttsCache.delete(key); return null }
+  return entry.buf
+}
+
+function cacheSet(key: string, buf: ArrayBuffer) {
+  if (ttsCache.size >= CACHE_MAX) {
+    // Elimina la entrada más antigua
+    ttsCache.delete(ttsCache.keys().next().value!)
+  }
+  ttsCache.set(key, { buf, ts: Date.now() })
+}
 
 // Limpia markdown antes de enviar a TTS
 function stripMarkdown(text: string): string {
@@ -98,9 +125,21 @@ export async function POST(req: Request) {
     });
   }
 
-  const cleanText     = stripMarkdown(text).substring(0, 2500);
-  const elevenKey     = process.env.ELEVENLABS_API_KEY ?? '';
-  const openaiKey     = process.env.OPENAI_API_KEY     ?? '';
+  const cleanText = stripMarkdown(text).substring(0, 2500);
+  const cacheKey  = djb2(cleanText);
+
+  // ── Caché hit — sin llamada a ElevenLabs ──────────────────────────────────
+  const cached = cacheGet(cacheKey);
+  if (cached) {
+    console.log(`[TTS] cache hit (${cacheKey})`);
+    return new Response(cached, {
+      status: 200,
+      headers: { 'Content-Type': 'audio/mpeg', 'Content-Length': String(cached.byteLength), 'Cache-Control': 'no-store' },
+    });
+  }
+
+  const elevenKey = process.env.ELEVENLABS_API_KEY ?? '';
+  const openaiKey = process.env.OPENAI_API_KEY     ?? '';
 
   try {
     let audioBuffer: ArrayBuffer | null = null;
@@ -119,6 +158,8 @@ export async function POST(req: Request) {
       }
       audioBuffer = await openAITTS(cleanText, openaiKey);
     }
+
+    cacheSet(cacheKey, audioBuffer);
 
     return new Response(audioBuffer, {
       status: 200,

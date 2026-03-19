@@ -2634,12 +2634,14 @@ export async function POST(req: Request) {
     const systemPromptPromise = getSystemPrompt(tenantId);
 
     // ⚡ Todas las llamadas de BD + system prompt corren en paralelo
+    const t0 = Date.now();
     const [constructorUUID, prospectResult, conversationsResult, baseSystemPromptRaw] = await Promise.all([
       constructorUUIDPromise,
       prospectPromise,
       conversationsPromise,
       systemPromptPromise,
     ]);
+    console.log(`⏱️ [TIMING] Promise.all BD: ${Date.now() - t0}ms`);
 
     // ========================================
     // ✅ LOGGING DETALLADO DEL REQUEST
@@ -2780,6 +2782,8 @@ ${summaryParts.join('\n')}
       console.warn('⚠️ [NEXUS] No hay fingerprint - no se puede cargar historial');
     }
 
+    console.log(`⏱️ [TIMING] Historial procesado: ${Date.now() - startTime}ms total`);
+
     // CAPTURA INTELIGENTE DE PROSPECTOS - Tridente EAM (solo del mensaje actual)
     const prospectData = await captureProspectData(
       latestUserMessage,
@@ -2809,6 +2813,7 @@ ${summaryParts.join('\n')}
       return false;
     })();
 
+    console.log(`⏱️ [TIMING] captureProspectData: ${Date.now() - startTime}ms total`);
     console.log(`⚡ [ROUTER EARLY] ${isSimpleQueryEarly ? 'SIMPLE → skip vector search' : 'COMPLEJA → vector search'} (userMsg #${userMessageCount}, "${latestUserMessage.substring(0, 40)}")`);
 
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas
@@ -2821,6 +2826,7 @@ ${summaryParts.join('\n')}
     } else {
       console.log('⚡ [ROUTER] Vector search omitido para query simple');
     }
+    console.log(`⏱️ [TIMING] Pre-Anthropic total: ${Date.now() - startTime}ms`);
 
     // 🔧 CONSTRUCCIÓN DE CONTEXTO MEJORADA - FIX APLICADO
     let context = '';
@@ -3018,18 +3024,22 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
     const isSimpleQuery = isSimpleQueryEarly;
 
-    const HAIKU_SYSTEM_PROMPT = `Eres Queswa, el asistente de IA de CreaTuActivo.com. Representas una oportunidad de negocio con Gano Excel en Colombia.
+    // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
+    // Incluye conversationSummary para que recuerde usuarios previos
+    const conoceAlUsuario = !!(mergedProspectData.name);
+    const HAIKU_SYSTEM_PROMPT = `Eres Queswa — "Tu Socio Digital" de CreaTuActivo.com, powered by Gano Excel Colombia.
 
-Tu rol: Ser cálido, humano y directo. Responde de forma natural y breve.
+PERSONALIDAD: Cálida, directa, inteligente. Habla como un buen amigo colombiano que sabe de negocios. Nunca robótico, nunca genérico.
 
-Reglas esenciales:
-- Responde SIEMPRE en español colombiano, usando "usted" por defecto
-- Máximo 2-3 oraciones en esta respuesta
-- Si es un saludo, preséntate brevemente y pregunta el nombre del usuario
-- Sé cercano pero profesional
-- No mentions precios ni datos técnicos en este primer contacto
+REGLAS ABSOLUTAS:
+- Siempre en español, tutea con "usted" (default Colombia)
+- Máximo 2-3 oraciones. Sin listas largas ni explicaciones técnicas.
+- ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Salúdalo por su nombre.` : 'Si es saludo inicial: preséntate como Queswa y pregunta el nombre del usuario.'}
+- Si pregunta algo técnico (precios, cómo funciona, negocio): responde con curiosidad, NO con datos. Di algo como "¡Qué buena pregunta! Para darle la información completa, ¿me cuenta su nombre?"
+- Nunca menciones que eres un "asistente de IA" ni "chatbot"
 
-Contexto: ${sessionInstructions}`;
+${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
+ESTADO: ${getMessageContext()}`;
 
     console.log(`⚡ [ROUTER] Query clasificada como: ${isSimpleQuery ? 'SIMPLE → Haiku' : 'COMPLEJA → Sonnet'} (msg #${messages.length}, "${latestUserMessage.substring(0, 40)}")`);
 

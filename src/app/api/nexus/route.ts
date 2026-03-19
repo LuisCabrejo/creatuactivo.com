@@ -3070,10 +3070,9 @@ ESTADO: ${getMessageContext()}`;
             }
           ],
       stream: true,
-      max_tokens: maxTokens,        // ⚡ v17.5.0: dinámico 500-1000 (antes: 300-600)
-      temperature: 0.65,            // ⚡ v17.5.0: más natural y empático (antes: 0.3)
-      top_p: 0.9,                    // Consistencia mejorada
-      messages: recentMessages,      // ⚡ OPTIMIZADO: últimos 6 mensajes (antes: todos)
+      max_tokens: maxTokens,
+      temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
+      messages: recentMessages,
     });
 
     // ⚡ LOG DE CACHÉ: Verificar si Anthropic está usando prompt cache

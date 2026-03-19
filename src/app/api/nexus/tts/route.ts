@@ -125,7 +125,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const cleanText = stripMarkdown(text).substring(0, 2500);
+  const cleanText = stripMarkdown(text).substring(0, 600);
   const cacheKey  = djb2(cleanText);
 
   // ── Caché hit — sin llamada a ElevenLabs ──────────────────────────────────

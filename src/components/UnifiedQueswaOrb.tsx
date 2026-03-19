@@ -170,6 +170,8 @@ export default function UnifiedQueswaOrb() {
 
   // ─── Motor de voz ────────────────────────────────────────────────────────────
   const startRecording = useCallback(async () => {
+    setShowTooltip(false)
+    setHasInteracted(true)
     setErrorMsg(null)
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -381,7 +383,9 @@ export default function UnifiedQueswaOrb() {
             exit={{ opacity: 0 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 62px)',
+              bottom: isOpen
+                ? 'calc(5rem + env(safe-area-inset-bottom, 24px) + 64px)'
+                : 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px)',
               right: '1rem',
               zIndex: 201,
               fontSize: 10,

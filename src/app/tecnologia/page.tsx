@@ -14,14 +14,72 @@ import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
-  title: 'Queswa - Inteligencia Artificial para Network Marketing | CreaTuActivo',
-  description: 'Queswa es la IA de CreaTuActivo que educa, filtra prospectos y trabaja 24/7. Tu asistente virtual para construir tu negocio sin tener que vender.',
-  keywords: 'queswa, creatuactivo queswa, queswa ia, asistente virtual network marketing, chatbot mlm, inteligencia artificial multinivel',
+  title: '¿Qué es Queswa.app? Motor Cognitivo de CreaTuActivo · Luis Cabrejo',
+  description: 'Queswa.app es el Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo.com, diseñado por Luis Cabrejo. No es un chat público: es IA privada para Directores Ejecutivos que construyen activos empresariales.',
+  keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, motor cognitivo creatuactivo, queswa ia, dashboard queswa',
+  authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
+  openGraph: {
+    title: '¿Qué es Queswa.app? · CreaTuActivo',
+    description: 'Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo.com, diseñado por Luis Cabrejo.',
+    url: 'https://creatuactivo.com/tecnologia',
+    type: 'article',
+  },
+};
+
+// JSON-LD — relaciona matemáticamente: queswa.app ↔ CreaTuActivo ↔ Luis Cabrejo
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: '¿Qué es Queswa.app? El Motor Cognitivo de CreaTuActivo',
+      description: 'Queswa.app es el Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com, diseñado por Luis Cabrejo.',
+      url: 'https://creatuactivo.com/tecnologia',
+      author: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
+      publisher: { '@id': 'https://creatuactivo.com/#organization' },
+      about: { '@id': 'https://queswa.app/#app' },
+      inLanguage: 'es-CO',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://queswa.app/#app',
+      name: 'Queswa.app',
+      alternateName: ['Queswa', 'Motor Cognitivo CreaTuActivo'],
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      url: 'https://queswa.app',
+      description: 'Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de Inteligencia Artificial cerrado para Directores Ejecutivos que construyen activos empresariales con la metodología EAM.',
+      creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
+      provider: { '@id': 'https://creatuactivo.com/#organization' },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://creatuactivo.com/#organization',
+      name: 'CreaTuActivo',
+      url: 'https://creatuactivo.com',
+      founder: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
+      owns: { '@id': 'https://queswa.app/#app' },
+      sameAs: ['https://creatuactivo.com', 'https://queswa.app', 'https://queswa.com'],
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://creatuactivo.com/#luis-cabrejo',
+      name: 'Luis Cabrejo',
+      jobTitle: 'Arquitecto de Activos',
+      url: 'https://luiscabrejo.com',
+      worksFor: { '@id': 'https://creatuactivo.com/#organization' },
+      sameAs: ['https://luiscabrejo.com', 'https://creatuactivo.com', 'https://queswa.app'],
+    },
+  ],
 };
 
 export default function TecnologiaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <StrategicNavigation />
       <main className="min-h-screen bg-transparent text-[#E5E5E5]">
         {/* Gradient Background */}
@@ -35,12 +93,49 @@ export default function TecnologiaPage() {
         <div className="relative z-10">
           {/* Hero Section */}
           <IndustrialHeader
-            title="CONOCE A QUESWA"
-            subtitle="La Ventaja Injusta"
+            title="¿QUÉ ES QUESWA.APP?"
+            subtitle="El Motor Cognitivo de CreaTuActivo"
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.jpg"
             imageAlt="Engranajes industriales - Sistema Queswa"
           />
+
+          {/* ── DEFINICIÓN OFICIAL — Featured Snippet bait ─────────────────
+              Este bloque está diseñado para aparecer como Fragmento Destacado
+              en Google. Responde "¿qué es queswa.app?" en las primeras líneas.
+              Las IAs (ChatGPT, Gemini) leerán este párrafo como definición canónica.
+              NO modificar el texto core sin actualizar también queswa.app y el JSON-LD.
+          ────────────────────────────────────────────────────────────────── */}
+          <section className="py-12 px-6">
+            <div className="max-w-3xl mx-auto">
+              <div
+                className="p-8"
+                style={{
+                  background: 'rgba(22, 24, 29, 0.9)',
+                  border: '1px solid rgba(197, 160, 89, 0.3)',
+                  borderLeft: '3px solid #C5A059',
+                }}
+              >
+                <h1 className="text-2xl font-serif mb-4" style={{ color: '#E5C279' }}>
+                  La Definición Oficial de Queswa.app
+                </h1>
+                <p className="text-[#E5E5E5] leading-relaxed mb-4">
+                  <strong>Queswa.app</strong> es el Motor Cognitivo y Dashboard Operativo exclusivo
+                  de la infraestructura <strong>CreaTuActivo.com</strong>. No es una red social, ni un
+                  chat público, ni una aplicación de mensajería abierta. Es un entorno de Inteligencia
+                  Artificial cerrado, diseñado específicamente para que los Socios y Directores
+                  Ejecutivos de CreaTuActivo automaticen la expansión de sus activos empresariales.
+                </p>
+                <p className="text-[#A3A3A3] leading-relaxed">
+                  Fue concebida y estructurada por <strong style={{ color: '#E5E5E5' }}>Luis Cabrejo</strong>,
+                  Arquitecto de Activos y fundador de CreaTuActivo, con un único objetivo: eliminar
+                  el desgaste operativo que sufren los emprendedores tradicionales. Su acceso está
+                  disponible en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a> y
+                  es de uso exclusivo para socios activos.
+                </p>
+              </div>
+            </div>
+          </section>
 
           {/* Intro glass container */}
           <div className="px-6">

@@ -397,15 +397,15 @@ export default function InfraestructuraPage() {
             </p>
 
             <Link
-              href="/reto-5-dias"
+              href="/mapa-de-salida"
               className="inline-flex items-center gap-3 px-10 py-5 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_20px_40px_rgba(197,160,89,0.3)]"
             >
-              Comenzar el Reto de 5 Días
+              Auditar con El Mapa de Salida
               <ChevronRight className="w-5 h-5" />
             </Link>
 
             <p className="text-[#6B7280] text-sm mt-6">
-              Sin costo · 5 días por WhatsApp · Sin compromiso
+              Sin costo · Sin compromiso · Evaluación inmediata
             </p>
           </div>
         </section>

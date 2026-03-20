@@ -186,17 +186,17 @@ export default function WebinarSalaPage() {
               ¿Listo para dar el siguiente paso?
             </h2>
             <p className="mb-8" style={{ color: COLORS.textSecondary }}>
-              Únete al Reto de 5 Días y empieza a construir tu activo digital.
+              Audita tu situación con El Mapa de Salida y empieza a construir tu activo digital.
             </p>
             <Link
-              href="/reto-5-dias"
+              href="/mapa-de-salida"
               className="inline-block px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300"
               style={{
                 backgroundColor: COLORS.gold,
                 color: COLORS.bgDeep,
               }}
             >
-              Unirme al Reto de 5 Días
+              Auditar con El Mapa de Salida
             </Link>
           </div>
         </section>

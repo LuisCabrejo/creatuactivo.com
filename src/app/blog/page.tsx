@@ -178,16 +178,16 @@ export default function BlogPage() {
                 ¿Listo para pasar de la teoría a la práctica?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                El Reto de 5 Días te muestra cómo aplicar estos conceptos en tu vida real.
+                El Mapa de Salida te muestra cómo aplicar estos conceptos en tu vida real.
               </p>
               <Link
-                href="/reto-5-dias"
+                href="/mapa-de-salida"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
                   clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
                 }}
               >
-                Unirme al Reto de 5 Días →
+                Auditar con El Mapa de Salida →
               </Link>
             </div>
           </section>

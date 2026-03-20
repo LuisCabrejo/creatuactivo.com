@@ -268,18 +268,18 @@ export default function EmpleoVsActivosPage() {
                   ¿Quieres aprender a construir activos?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En el Reto de 5 Días te explico paso a paso cómo funciona un sistema
+                  En El Mapa de Salida te explico paso a paso cómo funciona un sistema
                   diseñado para que personas sin capital ni experiencia puedan empezar
                   a construir ingresos residuales.
                 </p>
                 <Link
-                  href="/reto-5-dias"
+                  href="/mapa-de-salida"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
                   style={{
                     clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                   }}
                 >
-                  Unirme al Reto Gratis
+                  Auditar con El Mapa de Salida
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

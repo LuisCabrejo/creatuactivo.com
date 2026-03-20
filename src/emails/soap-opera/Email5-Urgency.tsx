@@ -84,7 +84,7 @@ export const Email5Urgency = ({
             </Section>
 
             <Text style={paragraph}>
-              Te invito al <strong>Reto de 5 Días</strong>.
+              Te invito a auditar tu situación con <strong>El Mapa de Salida</strong>.
             </Text>
 
             <Text style={paragraph}>
@@ -104,16 +104,16 @@ export const Email5Urgency = ({
             {/* CTA Principal */}
             <Section style={ctaSection}>
               <Button
-                href="https://creatuactivo.com/reto-5-dias?source=email-sequence"
+                href="https://creatuactivo.com/mapa-de-salida?source=email-sequence"
                 style={ctaButton}
               >
-                Quiero unirme al Reto
+                Auditar con El Mapa de Salida
               </Button>
             </Section>
 
             <Text style={urgencyText}>
-              El próximo reto inicia pronto. Los cupos son limitados
-              porque cada persona recibe acompañamiento real.
+              El Mapa de Salida está disponible ahora. Cada semana que pasa es
+              una semana más operando sin la arquitectura correcta.
             </Text>
 
             <Text style={signature}>

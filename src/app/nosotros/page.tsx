@@ -259,7 +259,7 @@ export default function ManifiestoPage() {
               <div className="p-8  bg-[#16181D] border border-[#C5A059]/20 mb-12">
                 <p className="text-[#A3A3A3] mb-6">
                   Si quieres ver los planos exactos de cómo construimos estos activos
-                  sin inventarios y sin perseguir amigos, he preparado un entrenamiento de 5 días.
+                  sin inventarios y sin perseguir amigos, he preparado El Mapa de Salida.
                 </p>
                 <p className="text-[#E5E5E5] font-medium">
                   Es la condensación de 14 años de prueba y error.
@@ -267,7 +267,7 @@ export default function ManifiestoPage() {
               </div>
 
               <Link
-                href="/reto-5-dias"
+                href="/mapa-de-salida"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5  transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
                   clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',

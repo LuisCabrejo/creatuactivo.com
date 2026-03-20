@@ -725,7 +725,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </p>
 
           <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-            He diseñado el <strong style={{ color: 'var(--gold)' }}>Protocolo Soberanía (Reto de 5 Días)</strong> específicamente
+            He diseñado el <strong style={{ color: 'var(--gold)' }}>El Mapa de Salida</strong> específicamente
             para perfiles de alto rendimiento que necesitan transicionar de{' '}
             <em>Operadores</em> a <em>Arquitectos</em>.
           </p>
@@ -768,7 +768,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </p>
 
           <Link
-            href="/reto-5-dias"
+            href="/mapa-de-salida"
             className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
             style={{
               backgroundColor: 'var(--gold)',

@@ -377,25 +377,25 @@ export default function TecnologiaPage() {
                 ¿Quieres experimentar Queswa?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Únete al Reto de 5 Días y descubre cómo esta tecnología
-                puede transformar tu forma de construir un activo.
+                Audita el modelo de negocio con El Mapa de Salida y descubre
+                cómo esta tecnología puede transformar tu forma de construir un activo.
               </p>
 
               <Link
-                href="/reto-5-dias"
+                href="/mapa-de-salida"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
                   clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                 }}
               >
-                Unirme al Reto de 5 Días
+                Auditar con El Mapa de Salida
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
 
               <p className="text-sm mt-6 text-[#64748B]">
-                Gratis · Sin compromiso · 5 días por WhatsApp
+                Gratis · Sin compromiso · Evaluación inmediata
               </p>
             </div>
           </section>

@@ -127,7 +127,7 @@ export default function TecnologiaPage() {
                   Ejecutivos de CreaTuActivo automaticen la expansión de sus activos empresariales.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
-                  Fue concebida y estructurada por <strong style={{ color: '#E5E5E5' }}>Luis Cabrejo</strong>,
+                  Fue concebida y estructurada por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#E5E5E5', fontWeight: 600, textDecoration: 'none' }} onMouseEnter={e => (e.currentTarget.style.color = '#C5A059')} onMouseLeave={e => (e.currentTarget.style.color = '#E5E5E5')}>Luis Cabrejo</a>,
                   Arquitecto de Activos y fundador de CreaTuActivo, con un único objetivo: eliminar
                   el desgaste operativo que sufren los emprendedores tradicionales. Su acceso está
                   disponible en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a> y

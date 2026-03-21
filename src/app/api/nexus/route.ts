@@ -1883,18 +1883,29 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   }
 
   // ============================================================================
-  // PASO 0: BÚSQUEDA VECTORIAL (90% precisión con Voyage AI)
+  // PASO 0: CLASIFICACIÓN — Patrones primero (0ms), Voyage AI solo si es necesario
   // ============================================================================
-  // Intenta clasificación semántica primero, fallback a patrones si no hay match
+  // ⚡ OPTIMIZACIÓN LATENCIA: el pattern matcher cubre ~80% de los casos comunes
+  // (saludos, preguntas de precio, objeciones frecuentes) en 0ms.
+  // Solo se llama a Voyage AI cuando los patrones no resuelven la ruta.
   let documentType: string | null = null;
 
-  try {
-    documentType = await clasificarDocumentoVectorial(expandedMessage);
-    if (documentType) {
-      console.log(`🧠 [VectorSearch] Clasificación vectorial: ${documentType}`);
+  // Cortocircuito: patrones rápidos primero
+  documentType = clasificarDocumentoHibrido(expandedMessage);
+  if (documentType) {
+    console.log(`📋 [Patterns] Clasificación rápida (0ms): ${documentType}`);
+  }
+
+  // Solo si los patrones no resolvieron, usar Voyage AI
+  if (!documentType) {
+    try {
+      documentType = await clasificarDocumentoVectorial(expandedMessage);
+      if (documentType) {
+        console.log(`🧠 [VectorSearch] Clasificación vectorial: ${documentType}`);
+      }
+    } catch (error) {
+      console.warn('[VectorSearch] Failed, using pattern fallback:', error);
     }
-  } catch (error) {
-    console.warn('[VectorSearch] Failed, using pattern fallback:', error);
   }
 
   // PASO 0.5: OVERRIDE CRÍTICO — Previene falsos positivos del vector search

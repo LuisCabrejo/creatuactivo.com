@@ -43,31 +43,6 @@ const supabase = createClient(
 const ELEVENLABS_KEY      = process.env.ELEVENLABS_API_KEY ?? ''
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL'
 
-// ─── System prompt cache (particionado por tenant) ────────────────────────────
-const promptCache = new Map<string, { content: string; ts: number }>()
-const PROMPT_TTL  = 5 * 60 * 1000 // 5 minutos
-
-// Fallback si la RPC no devuelve prompt para el tenant
-const FALLBACK_VOICE_PROMPT = 'Eres Queswa, asistente de voz de CreaTuActivo. Hablas en español colombiano formal (usted). Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas.'
-
-// ─── Sufijo TTS — se añade a TODO system prompt de voz ───────────────────────
-// Garantiza fonética natural y brevedad independientemente del prompt base
-const VOICE_TTS_SUFFIX = `
-
-REGLAS ESTRICTAS PARA AUDIO (texto a voz — TTS):
-- Adapta la longitud a la complejidad: preguntas simples = 2-3 oraciones; preguntas que requieren explicación = las que sean necesarias para responder COMPLETO.
-- CRÍTICO: NUNCA te cortes a mitad de una idea o frase. Si sientes que el espacio se acaba, cierra con una oración de resumen en lugar de quedarte incompleto. El oyente no puede releer — debe escuchar una respuesta completa y coherente.
-- NUNCA uses símbolos: $, %, +, /, =, #.
-- NUNCA uses abreviaturas ni siglas sin expandir. Escribe todo en palabras:
-  · "100M USD" → "cien millones de dólares"
-  · "$110.990 COP" → "ciento diez mil novecientos noventa pesos colombianos"
-  · "E.A.M." → "E A M" (pausa entre letras)
-  · "%" → "por ciento"
-  · "km²" → "kilómetros cuadrados"
-- Escribe los números completos cuando sean clave (no "100M", sí "cien millones").
-- Habla de forma conversacional y fluida, como si explicaras en persona.
-- Sin viñetas, sin listas, sin markdown de ningún tipo.`
-
 // Detecta preguntas complejas que merecen más tokens
 const COMPLEX_KEYWORDS = [
   'cómo funciona', 'explica', 'cuéntame', 'beneficio', 'ganoderma',
@@ -80,26 +55,6 @@ function getMaxTokens(transcript: string): number {
   return COMPLEX_KEYWORDS.some(kw => lower.includes(kw)) ? 500 : 300
 }
 
-async function getTenantSystemPrompt(tenantId: string): Promise<string> {
-  const cached = promptCache.get(tenantId)
-  if (cached && (Date.now() - cached.ts) < PROMPT_TTL) return cached.content
-
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase.rpc as any)(
-      'get_tenant_system_prompt',
-      { p_tenant_id: tenantId }
-    )
-    const row = Array.isArray(data) ? data[0] : data
-    const prompt: string = (!error && row?.prompt) ? String(row.prompt) : FALLBACK_VOICE_PROMPT
-    if (error) console.warn(`[Voice] prompt RPC error (${tenantId}):`, error.message)
-    promptCache.set(tenantId, { content: prompt, ts: Date.now() })
-    return prompt
-  } catch (err) {
-    console.error('[Voice] getTenantSystemPrompt exception:', err)
-    return FALLBACK_VOICE_PROMPT
-  }
-}
 
 // ─── Herramientas para Claude ─────────────────────────────────────────────────
 const TOOLS: Anthropic.Tool[] = [
@@ -296,12 +251,18 @@ export async function POST(request: NextRequest) {
     const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
     const isDashboard = tenantId === 'queswa_dashboard'
 
-    // ⚡ OPTIMIZACIÓN: prompt de voz fijo (sin cargar NEXUS completo desde Supabase).
-    // El prompt completo de NEXUS es >15k chars — Claude tarda más en procesarlo
-    // y genera respuestas largas que encarecen TTS. Para voz, 3 frases bastan.
+    // ⚡ OPTIMIZACIÓN: prompt de voz compacto con identidad completa (~400 chars).
+    // Equivalente al HAIKU_SYSTEM_PROMPT que usa NEXUS para queries simples.
+    // Sin cargar el prompt NEXUS completo (>15k chars) desde Supabase.
     const system = isDashboard
-      ? `Eres Queswa, asistente de voz del dashboard de Queswa.app. Hablas en español colombiano formal (usted). Constructor activo: ${constructorId}. Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas, sin símbolos.`
-      : `Eres Queswa, asistente de voz de CreaTuActivo.com. Hablas en español colombiano formal (usted). Representas a Luis Cabrejo y el ecosistema Gano Excel. Responde en máximo 2 frases cortas y claras — el texto será convertido a audio. Sin markdown, sin listas, sin símbolos.`
+      ? `Queswa — asistente de voz del dashboard Queswa.app. Constructor activo: ${constructorId}.
+TONO: Directo, confiado, español colombiano formal (usted). Sin jerga informal.
+REGLAS: Máximo 2 oraciones cortas. Sin markdown, listas, símbolos ($, %, #) ni abreviaturas. El texto se convierte a audio. Nunca menciones que eres IA.
+VOCABULARIO: Arquitecto de Activos, El Tridente EAM, Expansión, Activación, Maestría.`
+      : `Queswa — Arquitecto de Infraestructura, CreaTuActivo.com. Representas a Luis Cabrejo y la Red de Valor Gano Excel.
+TONO: Directo, confiado, español colombiano formal (usted). Sin "compa", sin "¡Qué tal!", sin emojis.
+REGLAS: Máximo 2 oraciones cortas. Sin markdown, listas, símbolos ($, %, #) ni abreviaturas. El texto se convierte a audio. Nunca menciones que eres IA.
+VOCABULARIO: Arquitecto de Activos, El Tridente EAM, Expansión, Activación, Maestría, Infraestructura, Activo Digital.`
 
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]

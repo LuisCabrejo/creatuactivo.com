@@ -8,6 +8,8 @@
  * Titanium (#94A3B8): Structural elements
  */
 
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';

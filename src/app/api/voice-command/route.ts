@@ -294,12 +294,15 @@ export async function POST(request: NextRequest) {
   let replyText = ''
   try {
     const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
-    const basePrompt  = await getTenantSystemPrompt(tenantId)
     const isDashboard = tenantId === 'queswa_dashboard'
-    // Sufijo TTS siempre presente + constructor_id solo en dashboard
-    const system      = isDashboard
-      ? `${basePrompt}\n\nConstructor activo en sesión: ${constructorId}.${VOICE_TTS_SUFFIX}`
-      : `${basePrompt}${VOICE_TTS_SUFFIX}`
+
+    // ⚡ OPTIMIZACIÓN: prompt de voz fijo (sin cargar NEXUS completo desde Supabase).
+    // El prompt completo de NEXUS es >15k chars — Claude tarda más en procesarlo
+    // y genera respuestas largas que encarecen TTS. Para voz, 3 frases bastan.
+    const system = isDashboard
+      ? `Eres Queswa, asistente de voz del dashboard de Queswa.app. Hablas en español colombiano formal (usted). Constructor activo: ${constructorId}. Responde en máximo 2 frases cortas — el texto será convertido a audio. Sin markdown, sin listas, sin símbolos.`
+      : `Eres Queswa, asistente de voz de CreaTuActivo.com. Hablas en español colombiano formal (usted). Representas a Luis Cabrejo y el ecosistema Gano Excel. Responde en máximo 2 frases cortas y claras — el texto será convertido a audio. Sin markdown, sin listas, sin símbolos.`
+
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
     const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 

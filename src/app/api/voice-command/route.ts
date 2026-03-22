@@ -61,15 +61,16 @@ Queswa.app es el dashboard privado para Arquitectos de Activos activos.`
 async function getMarketingPrompt(): Promise<string> {
   if (_promptCache && Date.now() - _promptCacheTime < PROMPT_TTL) return _promptCache
   try {
+    // La columna se llama 'prompt' (no 'content') — coincide con el RPC get_tenant_system_prompt
     const { data } = await supabase
       .from('system_prompts')
-      .select('content')
+      .select('prompt')
       .eq('name', 'nexus_main')
       .single()
-    if (data?.content) {
-      _promptCache = data.content
+    if (data?.prompt) {
+      _promptCache = data.prompt
       _promptCacheTime = Date.now()
-      console.log(`✅ [Voice] Prompt entrenado cargado (${data.content.length} chars)`)
+      console.log(`✅ [Voice] Prompt entrenado cargado (${data.prompt.length} chars)`)
       return _promptCache!
     }
   } catch (e) {
@@ -121,19 +122,29 @@ function classifyVoiceQuery(msg: string): 'arsenal_inicial' | 'arsenal_compensac
 }
 
 // ─── Fetch del fragmento más relevante de nexus_documents ────────────────────
+// Para catálogo de productos: se trae el documento completo sin textSearch
+// (la tabla de precios puede ser >1200 chars — truncar causa respuestas inconsistentes).
+// Para otros arsenales: textSearch primero, fallback al primer documento de la categoría.
 async function fetchArsenalFragment(category: string, query: string): Promise<string> {
-  try {
-    const { data } = await supabase
-      .from('nexus_documents')
-      .select('title, content')
-      .like('category', `${category}%`)
-      .textSearch('content', query.split(' ').filter(w => w.length > 3).slice(0, 5).join(' | '), { config: 'spanish' })
-      .limit(1)
-      .single()
-    if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, 1200)}`
-  } catch { /* fallback silencioso */ }
+  const isCatalog = category === 'catalogo_productos'
+  const CHAR_LIMIT = isCatalog ? 3000 : 1400
 
-  // Si textSearch no encuentra, traer el primero de esa categoría
+  if (!isCatalog) {
+    // textSearch para arsenal_inicial / arsenal_compensacion
+    try {
+      const { data } = await supabase
+        .from('nexus_documents')
+        .select('title, content')
+        .like('category', `${category}%`)
+        .textSearch('content', query.split(' ').filter(w => w.length > 3).slice(0, 5).join(' | '), { config: 'spanish' })
+        .limit(1)
+        .single()
+      if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, CHAR_LIMIT)}`
+    } catch { /* fallback silencioso */ }
+  }
+
+  // Catálogo: traer directamente el documento de precios (más confiable que textSearch)
+  // Otros: fallback al primer documento de la categoría si textSearch falló
   try {
     const { data } = await supabase
       .from('nexus_documents')
@@ -141,7 +152,7 @@ async function fetchArsenalFragment(category: string, query: string): Promise<st
       .like('category', `${category}%`)
       .limit(1)
       .single()
-    if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, 1200)}`
+    if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, CHAR_LIMIT)}`
   } catch { /* sin fragmento */ }
 
   return ''

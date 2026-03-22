@@ -286,6 +286,32 @@ function stageLabel(stage: string): string {
   return map[stage] ?? stage
 }
 
+// ─── Normalización de texto para TTS ─────────────────────────────────────────
+// Convierte símbolos y abreviaturas a palabras antes de enviar a ElevenLabs.
+// ElevenLabs lee "$200 USD" como "dollar sign 200 U-S-D" — incorrecto para audio.
+function normalizarParaVoz(text: string): string {
+  return text
+    // Millones en dólares: $100M USD / 100M USD → "100 millones de dólares"
+    .replace(/\$?([\d.]+)M\s*USD/gi, (_, n) => `${n} millones de dólares`)
+    // Miles en dólares: $200K USD / 200K USD → "200 mil dólares"
+    .replace(/\$?([\d.]+)K\s*USD/gi, (_, n) => `${n} mil dólares`)
+    // Dólares simples: $200 USD / 500 USD / $1,000 USD → "200 dólares"
+    .replace(/\$?([\d,]+)\s*USD/gi, (_, n) => `${n.replace(/,/g, '')} dólares`)
+    // Millones en pesos: $2.25M COP → "2.25 millones de pesos colombianos"
+    .replace(/\$?([\d.]+)M\s*COP/gi, (_, n) => `${n} millones de pesos colombianos`)
+    // Miles en pesos: $900K COP → "900 mil pesos colombianos"
+    .replace(/\$?([\d.]+)K\s*COP/gi, (_, n) => `${n} mil pesos colombianos`)
+    // Pesos simples: $900 COP → "900 pesos colombianos"
+    .replace(/\$?([\d,]+)\s*COP/gi, (_, n) => `${n.replace(/,/g, '')} pesos colombianos`)
+    // USD / COP solos que hayan quedado
+    .replace(/\bUSD\b/gi, 'dólares')
+    .replace(/\bCOP\b/gi, 'pesos colombianos')
+    // Signo $ suelto antes de número
+    .replace(/\$([\d])/g, '$1')
+    // % solo
+    .replace(/%/g, ' por ciento')
+}
+
 // ─── TTS con fallback ElevenLabs → OpenAI ────────────────────────────────────
 async function textToSpeech(text: string): Promise<Uint8Array> {
   if (ELEVENLABS_KEY) {
@@ -479,7 +505,7 @@ Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipelin
   // 4. VOZ — ElevenLabs → OpenAI fallback
   let audioBytes: Uint8Array
   try {
-    audioBytes = await textToSpeech(replyText)
+    audioBytes = await textToSpeech(normalizarParaVoz(replyText))
     console.log(`🔊 [Voice] TTS ${audioBytes.length} bytes`)
   } catch (err) {
     console.error('❌ [Voice] TTS:', err)

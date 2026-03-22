@@ -419,9 +419,9 @@ async function sendWhatsAppMessage(
           // Mensaje directo para sandbox (no requiere template aprobado)
           Body: `¡Hola ${firstName}! 👋
 
-Bienvenido al Reto 5 Días de CreaTuActivo.
+Bienvenido al Mapa de Salida de CreaTuActivo.
 
-Tu registro está confirmado. Mañana recibirás el Día 1: "El Diagnóstico".
+Tu acceso está confirmado. Mañana recibirás la Coordenada 1: "El Diagnóstico".
 
 Guarda este número para no perderte ningún mensaje.
 
@@ -461,7 +461,7 @@ async function sendRetoWelcomeEmail(
         from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
         to: [email],
         replyTo: 'hola@creatuactivo.com',
-        subject: `¡${firstName}, tu registro al Reto 5 Días está confirmado!`,
+        subject: `¡${firstName}, tu Mapa de Salida está activado!`,
         html: emailHtml,
       });
 
@@ -545,7 +545,7 @@ async function sendAdminNotification(
   const adminHtml = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 20px; background-color: #0f172a; color: #f8fafc;">
       <div style="margin-bottom: 24px;">
-        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Reto 5 Días</span>
+        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Mapa de Salida</span>
         <h1 style="margin: 8px 0 0; color: #f8fafc; font-size: 28px; font-weight: 700;">Nuevo Registro</h1>
         <p style="margin: 8px 0 0; color: #64748b; font-size: 14px;">${fechaRegistro}</p>
       </div>
@@ -565,7 +565,7 @@ async function sendAdminNotification(
 
       ${phoneClean ? `
       <div style="margin-bottom: 24px;">
-        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Reto%20de%205%20D%C3%ADas.%20%C2%BFTienes%20alguna%20pregunta%3F"
+        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Mapa%20de%20Salida.%20%C2%BFTienes%20alguna%20pregunta%3F"
            style="display: block; background-color: #22c55e; color: #ffffff; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; text-align: center;">
           Contactar por WhatsApp
         </a>
@@ -581,7 +581,7 @@ async function sendAdminNotification(
     const { error } = await getResendClient().emails.send({
       from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
       to: ['luiscabrejo7@gmail.com', 'notificaciones@creatuactivo.com'],
-      subject: `🎯 Nuevo registro Reto 5 Días: ${firstName}`,
+      subject: `🗺️ Nuevo registro Mapa de Salida: ${firstName}`,
       html: adminHtml,
     });
 

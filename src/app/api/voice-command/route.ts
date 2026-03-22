@@ -4,11 +4,12 @@
  *
  * Pipeline:
  *   1. 🎙 OÍDO     → Whisper (OpenAI) — audio a texto
- *   2. 🧠 CEREBRO  → Claude Sonnet — intención + herramientas Supabase
- *   3. 🔊 VOZ      → ElevenLabs TTS — texto a audio
+ *   2. 🧠 CEREBRO  → Claude — entrenamiento NEXUS + reglas de voz + fragmento RAG
+ *   3. 🔊 VOZ      → ElevenLabs TTS → OpenAI TTS fallback → audio
  *
- * Multi-tenant: x-tenant-id inyectado por middleware.ts
- * System prompt cargado dinámicamente desde get_tenant_system_prompt RPC
+ * Arquitectura del system prompt (basada en investigación de latencia):
+ *   Bloque 1 — Prompt entrenado de Supabase (estático, cacheado por Anthropic)
+ *   Bloque 2 — Reglas de voz + fragmento RAG + vars dinámicas (no cacheado)
  *
  * Devuelve: audio/mpeg
  * Headers extra: x-transcript, x-reply
@@ -22,7 +23,7 @@ import { createClient }               from '@supabase/supabase-js'
 export const runtime     = 'nodejs'
 export const maxDuration = 60
 
-// ─── Clientes lazy (no se instancian en build) ────────────────────────────────
+// ─── Clientes lazy ────────────────────────────────────────────────────────────
 let _openai: OpenAI | null = null
 function getOpenAI(): OpenAI {
   if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY ?? '' })
@@ -43,20 +44,121 @@ const supabase = createClient(
 const ELEVENLABS_KEY      = process.env.ELEVENLABS_API_KEY ?? ''
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL'
 
-// Detecta preguntas complejas que merecen más tokens
+// ─── Caché de módulo para el system prompt entrenado ─────────────────────────
+// En serverless, persiste mientras la instancia esté caliente (minutos/horas).
+// Cold start: 1 query a Supabase (~150-300ms). Warm: 0ms.
+let _promptCache: string | null = null
+let _promptCacheTime = 0
+const PROMPT_TTL = 5 * 60 * 1000 // 5 minutos
+
+const FALLBACK_PROMPT = `Eres Queswa, asistente de CreaTuActivo.com y la Red de Valor Gano Excel.
+CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel como motor de distribución.
+Gano Excel distribuye productos de bienestar con Ganoderma lucidum (hongo reishi): cafés, suplementos, nutrición. Son consumibles de alta rotación.
+El Tridente EAM es la metodología: Expansión (invitar, abrir puertas) → Activación (consultoría, comprometidos) → Maestría (onboarding, duplicación).
+Los paquetes de inicio son ESP-1, ESP-2 y ESP-3. No es un esquema piramidal: los ingresos vienen del consumo real de productos.
+Queswa.app es el dashboard privado para Arquitectos de Activos activos.`
+
+async function getMarketingPrompt(): Promise<string> {
+  if (_promptCache && Date.now() - _promptCacheTime < PROMPT_TTL) return _promptCache
+  try {
+    const { data } = await supabase
+      .from('system_prompts')
+      .select('content')
+      .eq('name', 'nexus_main')
+      .single()
+    if (data?.content) {
+      _promptCache = data.content
+      _promptCacheTime = Date.now()
+      console.log(`✅ [Voice] Prompt entrenado cargado (${data.content.length} chars)`)
+      return _promptCache!
+    }
+  } catch (e) {
+    console.warn('⚠️ [Voice] No se pudo cargar prompt de Supabase, usando fallback:', e)
+  }
+  return FALLBACK_PROMPT
+}
+
+// ─── Clasificador de intención de voz ────────────────────────────────────────
+function classifyVoiceQuery(msg: string): 'arsenal_inicial' | 'arsenal_compensacion' | 'catalogo_productos' | null {
+  const m = msg.toLowerCase()
+
+  // Catálogo primero — preguntas de precio de producto individual son muy específicas
+  const catalogo = [
+    /precio.*cordygold/i, /cordygold.*precio/i, /cuánto.*cordygold/i,
+    /precio.*excellium/i, /excellium.*precio/i, /cuánto.*excellium/i,
+    /precio.*ganocafé/i, /precio.*gano.*cafe/i, /cuánto.*ganocafé/i,
+    /precio.*shoko/i, /precio.*chocolate/i, /precio.*luxxe/i,
+    /precio.*black/i, /precio.*3-in-1/i, /precio.*mocha/i,
+    /precio.*ukon/i, /precio.*soap/i, /precio.*spirulina/i,
+    /cuánto.*cuesta.*producto/i, /precio.*producto/i, /lista.*precio/i,
+    /precio.*caja/i, /precio.*bolsa/i,
+  ]
+  if (catalogo.some(p => p.test(m))) return 'catalogo_productos'
+
+  const compensacion = [
+    /cuánto.*ganar/i, /cuánto.*gana/i, /cómo.*se.*gana/i, /ingreso/i,
+    /comision/i, /comisión/i, /bono/i, /porcentaje/i, /plan.*pago/i,
+    /plan.*compensacion/i, /reto.*12/i, /12.*nivel/i, /niveles/i,
+    /cuánto.*cuesta.*empezar/i, /inversión/i, /inversion/i,
+    /paquete/i, /esp-1/i, /esp-2/i, /esp-3/i, /sist_11/i,
+    /gano.*dinero/i, /negocio.*rentable/i, /retorno/i,
+  ]
+  if (compensacion.some(p => p.test(m))) return 'arsenal_compensacion'
+
+  const inicial = [
+    /qué es.*creatuactivo/i, /qué es.*queswa/i, /qué es.*ecosistema/i,
+    /cómo funciona/i, /de qué trata/i, /en qué consiste/i,
+    /es.*piramide/i, /es.*pirámide/i, /es.*mlm/i, /es.*multinivel/i,
+    /es.*legitimo/i, /es.*legítimo/i, /es.*confiable/i, /es.*estafa/i,
+    /quién.*luis/i, /quién.*detrás/i, /quién.*fundador/i,
+    /gano.*excel/i, /ganoderma/i, /productos/i, /beneficio/i,
+    /tridente.*eam/i, /expansión/i, /activación/i, /maestría/i,
+    /cómo.*empez/i, /primer.*paso/i, /siguiente.*paso/i,
+  ]
+  if (inicial.some(p => p.test(m))) return 'arsenal_inicial'
+
+  return null
+}
+
+// ─── Fetch del fragmento más relevante de nexus_documents ────────────────────
+async function fetchArsenalFragment(category: string, query: string): Promise<string> {
+  try {
+    const { data } = await supabase
+      .from('nexus_documents')
+      .select('title, content')
+      .like('category', `${category}%`)
+      .textSearch('content', query.split(' ').filter(w => w.length > 3).slice(0, 5).join(' | '), { config: 'spanish' })
+      .limit(1)
+      .single()
+    if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, 1200)}`
+  } catch { /* fallback silencioso */ }
+
+  // Si textSearch no encuentra, traer el primero de esa categoría
+  try {
+    const { data } = await supabase
+      .from('nexus_documents')
+      .select('title, content')
+      .like('category', `${category}%`)
+      .limit(1)
+      .single()
+    if (data?.content) return `FUENTE DE VERDAD (${data.title}):\n${data.content.substring(0, 1200)}`
+  } catch { /* sin fragmento */ }
+
+  return ''
+}
+
+// Detecta preguntas que merecen más tokens
 const COMPLEX_KEYWORDS = [
   'cómo funciona', 'explica', 'cuéntame', 'beneficio', 'ganoderma',
   'plan de compensación', 'cómo se gana', 'qué es', 'diferencia',
   'por qué', 'ventaja', 'metodología', 'tridente', 'historia',
 ]
-
 function getMaxTokens(transcript: string): number {
   const lower = transcript.toLowerCase()
   return COMPLEX_KEYWORDS.some(kw => lower.includes(kw)) ? 500 : 300
 }
 
-
-// ─── Herramientas para Claude ─────────────────────────────────────────────────
+// ─── Herramientas para Claude (solo dashboard) ────────────────────────────────
 const TOOLS: Anthropic.Tool[] = [
   {
     name: 'move_prospect_to_stage',
@@ -103,19 +205,15 @@ async function executeTool(name: string, input: Record<string, unknown>): Promis
   if (name === 'move_prospect_to_stage') {
     const nameQuery = String(input.name_query)
     const stage     = String(input.target_stage)
-
     const { data: matches } = await supabase
       .from('device_info')
       .select('fingerprint, name')
       .eq('invited_by', constructorId)
       .ilike('name', `%${nameQuery}%`)
       .limit(3)
-
     if (!matches?.length) return `No encontré ningún prospecto con nombre "${nameQuery}".`
-
     const fp = (matches[0] as { fingerprint: string; name: string }).fingerprint
     const { error } = await supabase.from('nexus_prospects').update({ stage }).eq('fingerprint', fp)
-
     if (error) return `Error al mover: ${error.message}`
     return `Listo. ${(matches[0] as { name: string }).name} fue movido a ${stageLabel(stage)}.`
   }
@@ -164,17 +262,12 @@ function stageLabel(stage: string): string {
 
 // ─── TTS con fallback ElevenLabs → OpenAI ────────────────────────────────────
 async function textToSpeech(text: string): Promise<Uint8Array> {
-  // Intento primario: ElevenLabs
   if (ELEVENLABS_KEY) {
     const res = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
       {
         method: 'POST',
-        headers: {
-          'xi-api-key': ELEVENLABS_KEY,
-          'Content-Type': 'application/json',
-          Accept: 'audio/mpeg',
-        },
+        headers: { 'xi-api-key': ELEVENLABS_KEY, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
         body: JSON.stringify({
           text,
           model_id: 'eleven_multilingual_v2',
@@ -187,12 +280,8 @@ async function textToSpeech(text: string): Promise<Uint8Array> {
     console.warn(`[Voice] ElevenLabs ${res.status} — fallback a OpenAI TTS:`, err.substring(0, 120))
   }
 
-  // Fallback: OpenAI TTS (tts-1, voz onyx — profunda, autoridad de marca)
   const mp3 = await getOpenAI().audio.speech.create({
-    model: 'tts-1',
-    voice: 'onyx',
-    input: text,
-    response_format: 'mp3',
+    model: 'tts-1', voice: 'onyx', input: text, response_format: 'mp3',
   })
   return new Uint8Array(await mp3.arrayBuffer())
 }
@@ -207,6 +296,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'FormData inválido' }, { status: 400 })
   }
   if (!audioBlob) return NextResponse.json({ error: 'Campo "audio" requerido' }, { status: 400 })
+
+  const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
+  const isDashboard = tenantId === 'queswa_dashboard'
 
   // Resolver constructor_id desde cookie de sesión
   const sessionToken = request.cookies.get('session_token')?.value
@@ -245,41 +337,87 @@ export async function POST(request: NextRequest) {
 
   if (!transcript) return NextResponse.json({ error: 'No se detectó voz' }, { status: 400 })
 
-  // 3. CEREBRO — Claude + herramientas
+  // 3. CEREBRO — Claude con prompt de 2 bloques
   let replyText = ''
   try {
-    const tenantId    = request.headers.get('x-tenant-id') ?? 'creatuactivo_marketing'
-    const isDashboard = tenantId === 'queswa_dashboard'
-
-    // ⚡ OPTIMIZACIÓN: prompt de voz con identidad + conocimiento clave (~1200 chars).
-    // Sin cargar el prompt NEXUS completo (>15k chars) desde Supabase.
-    const VOICE_KNOWLEDGE = `
-CONOCIMIENTO ESENCIAL:
-- CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel como motor de distribución.
-- Gano Excel distribuye productos de bienestar con Ganoderma lucidum (hongo reishi) — cafés, suplementos, nutrición. Son consumibles de alta rotación, no inventario especulativo.
-- El Tridente EAM es la metodología: Expansión (invitar y abrir puertas) → Activación (consultoría y comprometidos) → Maestría (onboarding y duplicación). Reemplaza el modelo MLM tradicional.
-- Los paquetes de inicio son ESP-1, ESP-2 y ESP-3 — diferentes niveles de inversión inicial en productos.
-- Queswa.app es el dashboard privado para Arquitectos de Activos activos: gestión de prospectos, IA, herramientas de duplicación.
-- No es un esquema piramidal: los ingresos vienen del consumo real de productos, no del reclutamiento.`
-
-    const system = isDashboard
-      ? `Queswa — asistente de voz del dashboard Queswa.app. Constructor activo: ${constructorId}.
-TONO: Directo, confiado, español colombiano formal (usted). Sin jerga informal. Nunca menciones que eres IA.
-REGLAS DE AUDIO: Máximo 2 oraciones. Sin markdown, listas, símbolos ($, %, #) ni abreviaturas — escribe números y siglas en palabras.
-VOCABULARIO: Arquitecto de Activos, El Tridente EAM, Expansión, Activación, Maestría.
-${VOICE_KNOWLEDGE}`
-      : `Queswa — Arquitecto de Infraestructura, CreaTuActivo.com. Representas a Luis Cabrejo y la Red de Valor Gano Excel.
-TONO: Directo, confiado, español colombiano formal (usted). Sin "compa", sin "¡Qué tal!", sin emojis. Nunca menciones que eres IA.
-REGLAS DE AUDIO: Máximo 2 oraciones. Sin markdown, listas, símbolos ($, %, #) ni abreviaturas — escribe números y siglas en palabras.
-VOCABULARIO: Arquitecto de Activos, El Tridente EAM, Expansión, Activación, Maestría, Infraestructura, Activo Digital.
-${VOICE_KNOWLEDGE}`
-
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
-    const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
 
+    // Clasificar + traer fragmento relevante (en paralelo con lo que sigue)
+    const arsenalCategory = classifyVoiceQuery(transcript)
+    const arsenalFragment = arsenalCategory && !isDashboard
+      ? await fetchArsenalFragment(arsenalCategory, transcript)
+      : ''
+    if (arsenalCategory) console.log(`🎯 [Voice] category=${arsenalCategory} fragment=${arsenalFragment.length}chars`)
+
+    // ── Construcción del system prompt en 2 bloques ──────────────────────────
+    //
+    // BLOQUE 1 — Contenido entrenado (estático, Anthropic lo cachea)
+    //   Marketing: prompt nexus_main desde Supabase (caché de módulo, 5 min TTL)
+    //   Dashboard: instrucciones de gestión de pipeline
+    //
+    // BLOQUE 2 — Reglas de voz + vars dinámicas (no se cachea, cambia por request)
+    //   Anula las instrucciones de formato del bloque 1 (markdown → audio plano)
+    //   Agrega el fragmento RAG relevante cuando aplica
+    //   Agrega el constructorId y tenant al final (evita invalidar caché del bloque 1)
+
+    let systemBlocks: Anthropic.TextBlockParam[]
+
+    if (isDashboard) {
+      // Dashboard: no necesita el prompt de marketing, usa instrucciones directas
+      systemBlocks = [
+        {
+          type: 'text',
+          text: `Queswa — asistente de voz del dashboard Queswa.app.
+Constructor activo ID: ${constructorId}.
+Tu función: gestión de pipeline EAM, consultas de prospectos y resúmenes de actividad.
+Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipeline.`,
+          cache_control: { type: 'ephemeral' },
+        },
+        {
+          type: 'text',
+          text: `REGLAS ABSOLUTAS DE VOZ:
+- Máximo 2 oraciones. Una idea por oración.
+- Sin markdown, sin asteriscos, sin guiones de lista.
+- Escribe "pesos" no "$", "por ciento" no "%".
+- Tono directo, español colombiano formal (usted). Nunca menciones que eres IA.`,
+        },
+      ]
+    } else {
+      // Marketing: bloque 1 = prompt entrenado completo desde Supabase (cacheado por Anthropic)
+      const trainedPrompt = await getMarketingPrompt()
+      const voiceOverride = [
+        `── MODO VOZ ACTIVO ── (estas reglas prevalecen sobre cualquier instrucción de formato anterior)`,
+        `- Responde en MÁXIMO 2 oraciones cortas. Una sola idea por oración.`,
+        `- Sin markdown, sin asteriscos, sin guiones, sin listas, sin emojis.`,
+        `- Escribe "pesos" no "$", "por ciento" no "%", "Expansión" no "EXPANSIÓN".`,
+        `- Tono: directo, español colombiano formal (usted). Nunca menciones que eres IA.`,
+        arsenalFragment
+          ? `\nFUENTE DE VERDAD PARA ESTA CONSULTA (úsala exactamente):\n${arsenalFragment}`
+          : '',
+        `\nContexto: tenant=${tenantId}`,
+      ].filter(Boolean).join('\n')
+
+      systemBlocks = [
+        {
+          type: 'text',
+          text: trainedPrompt,
+          cache_control: { type: 'ephemeral' }, // Anthropic cachea este bloque
+        },
+        {
+          type: 'text',
+          text: voiceOverride,
+          // Sin cache_control: este bloque tiene vars dinámicas (arsenalFragment, tenantId)
+        },
+      ]
+    }
+
+    const messages: Anthropic.MessageParam[] = [{ role: 'user', content: transcript }]
     const maxTokens = getMaxTokens(transcript)
+
     let response = await getAnthropic().messages.create({
-      model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, system,
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: maxTokens,
+      system: systemBlocks,
       ...(isDashboard ? { tools: TOOLS } : {}),
       messages,
     })
@@ -296,7 +434,7 @@ ${VOICE_KNOWLEDGE}`
       messages.push({ role: 'assistant', content: response.content })
       messages.push({ role: 'user', content: toolResults })
       response = await getAnthropic().messages.create({
-        model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, system, tools: TOOLS, messages,
+        model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, system: systemBlocks, tools: TOOLS, messages,
       })
     }
 
@@ -312,25 +450,24 @@ ${VOICE_KNOWLEDGE}`
     return NextResponse.json({ error: 'Error de procesamiento' }, { status: 500 })
   }
 
-  // 4. VOZ — ElevenLabs
+  // 4. VOZ — ElevenLabs → OpenAI fallback
   let audioBytes: Uint8Array
   try {
     audioBytes = await textToSpeech(replyText)
     console.log(`🔊 [Voice] TTS ${audioBytes.length} bytes`)
   } catch (err) {
-    console.error('❌ [Voice] ElevenLabs:', err)
+    console.error('❌ [Voice] TTS:', err)
     return NextResponse.json({ error: 'Error de síntesis', fallback_reply: replyText }, { status: 500 })
   }
 
-  // 5. Devolver audio + metadata en headers
   return new NextResponse(audioBytes.buffer as ArrayBuffer, {
     status: 200,
     headers: {
-      'Content-Type': 'audio/mpeg',
+      'Content-Type':   'audio/mpeg',
       'Content-Length': String(audioBytes.length),
-      'x-transcript': encodeURIComponent(transcript),
-      'x-reply':      encodeURIComponent(replyText),
-      'Cache-Control': 'no-store',
+      'x-transcript':   encodeURIComponent(transcript),
+      'x-reply':        encodeURIComponent(replyText),
+      'Cache-Control':  'no-store',
     },
   })
 }

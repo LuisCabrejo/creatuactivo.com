@@ -505,7 +505,9 @@ Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipelin
   // 4. VOZ — ElevenLabs → OpenAI fallback
   let audioBytes: Uint8Array
   try {
-    audioBytes = await textToSpeech(normalizarParaVoz(replyText))
+    const ttsText = normalizarParaVoz(replyText)
+    console.log(`🔤 [Voice] TTS input: "${ttsText}"`)
+    audioBytes = await textToSpeech(ttsText)
     console.log(`🔊 [Voice] TTS ${audioBytes.length} bytes`)
   } catch (err) {
     console.error('❌ [Voice] TTS:', err)

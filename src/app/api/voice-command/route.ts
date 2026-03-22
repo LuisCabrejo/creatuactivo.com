@@ -44,39 +44,54 @@ const supabase = createClient(
 const ELEVENLABS_KEY      = process.env.ELEVENLABS_API_KEY ?? ''
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL'
 
-// ─── Caché de módulo para el system prompt entrenado ─────────────────────────
-// En serverless, persiste mientras la instancia esté caliente (minutos/horas).
-// Cold start: 1 query a Supabase (~150-300ms). Warm: 0ms.
-let _promptCache: string | null = null
-let _promptCacheTime = 0
+// ─── Caché de módulo por tenant ───────────────────────────────────────────────
+// Map keyed by tenantId — cada tenant carga y cachea su propio prompt.
+// Cold start: 1 query a Supabase (~150-300ms). Warm (mismo tenant): 0ms.
 const PROMPT_TTL = 5 * 60 * 1000 // 5 minutos
+const _promptCache = new Map<string, { content: string; ts: number }>()
 
-const FALLBACK_PROMPT = `Eres Queswa, asistente de CreaTuActivo.com y la Red de Valor Gano Excel.
-CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel como motor de distribución.
-Gano Excel distribuye productos de bienestar con Ganoderma lucidum (hongo reishi): cafés, suplementos, nutrición. Son consumibles de alta rotación.
-El Tridente EAM es la metodología: Expansión (invitar, abrir puertas) → Activación (consultoría, comprometidos) → Maestría (onboarding, duplicación).
-Los paquetes de inicio son ESP-1, ESP-2 y ESP-3. No es un esquema piramidal: los ingresos vienen del consumo real de productos.
-Queswa.app es el dashboard privado para Arquitectos de Activos activos.`
+// Mapa tenant_id → nombre del prompt en system_prompts
+// Permite que cada proyecto cargue su propio entrenamiento.
+const TENANT_PROMPT_NAME: Record<string, string> = {
+  creatuactivo_marketing: 'nexus_main',
+  marca_personal:         'luiscabrejo_main',
+  ecommerce:              'ganocafe_main',
+  queswa_dashboard:       'queswa_dashboard',
+}
 
-async function getMarketingPrompt(): Promise<string> {
-  if (_promptCache && Date.now() - _promptCacheTime < PROMPT_TTL) return _promptCache
+const FALLBACK_PROMPTS: Record<string, string> = {
+  creatuactivo_marketing: `Eres Queswa, asistente de CreaTuActivo.com y la Red de Valor Gano Excel.
+CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel.
+El Tridente EAM: Expansión → Activación → Maestría. Paquetes ESP-1, ESP-2, ESP-3.`,
+  marca_personal: `Eres el asistente de voz de Luis Cabrejo en luiscabrejo.com.
+Luis Cabrejo es emprendedor, creador del ecosistema CreaTuActivo y arquitecto de activos digitales.
+Responde sobre su filosofía, contenido y propuesta de valor personal.`,
+  ecommerce: `Eres el asistente de Ganocafé, tienda online de productos Gano Excel.
+Ayudas a los visitantes a conocer los productos, precios y cómo realizar su pedido.`,
+}
+
+async function getPromptForTenant(tenantId: string): Promise<string> {
+  const cached = _promptCache.get(tenantId)
+  if (cached && Date.now() - cached.ts < PROMPT_TTL) return cached.content
+
+  const promptName = TENANT_PROMPT_NAME[tenantId] ?? 'nexus_main'
+
   try {
-    // La columna se llama 'prompt' (no 'content') — coincide con el RPC get_tenant_system_prompt
     const { data } = await supabase
       .from('system_prompts')
       .select('prompt')
-      .eq('name', 'nexus_main')
+      .eq('name', promptName)
       .single()
     if (data?.prompt) {
-      _promptCache = data.prompt
-      _promptCacheTime = Date.now()
-      console.log(`✅ [Voice] Prompt entrenado cargado (${data.prompt.length} chars)`)
-      return _promptCache!
+      _promptCache.set(tenantId, { content: data.prompt, ts: Date.now() })
+      console.log(`✅ [Voice] Prompt cargado tenant=${tenantId} name=${promptName} (${data.prompt.length} chars)`)
+      return data.prompt
     }
   } catch (e) {
-    console.warn('⚠️ [Voice] No se pudo cargar prompt de Supabase, usando fallback:', e)
+    console.warn(`⚠️ [Voice] Prompt load failed tenant=${tenantId}:`, e)
   }
-  return FALLBACK_PROMPT
+
+  return FALLBACK_PROMPTS[tenantId] ?? FALLBACK_PROMPTS.creatuactivo_marketing
 }
 
 // ─── Clasificador de intención de voz ────────────────────────────────────────
@@ -395,7 +410,7 @@ Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipelin
       ]
     } else {
       // Marketing: bloque 1 = prompt entrenado completo desde Supabase (cacheado por Anthropic)
-      const trainedPrompt = await getMarketingPrompt()
+      const trainedPrompt = await getPromptForTenant(tenantId)
       const voiceOverride = [
         `── MODO VOZ ACTIVO ── (estas reglas prevalecen sobre cualquier instrucción de formato anterior)`,
         `- Responde en MÁXIMO 2 oraciones cortas. Una sola idea por oración.`,

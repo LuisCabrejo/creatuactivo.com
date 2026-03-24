@@ -926,8 +926,9 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
     const { data, error } = await getSupabaseClient()
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
-      .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, etc.
-      .eq('tenant_id', 'creatuactivo_marketing')  // Capa 3.2: aislamiento multi-tenant
+      .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, arsenal_ganocafe_PROD_01, etc.
+      // Sin filtro de tenant: se carga todos los fragmentos (creatuactivo_marketing + ecommerce + marca_personal)
+      // El filtro real ocurre en searchArsenalFragments → filter(f => f.category.startsWith(arsenalType))
       .not('embedding_512', 'is', null);
 
     if (error) {
@@ -2862,10 +2863,43 @@ ${summaryParts.join('\n')}
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas
     let relevantDocuments: any[] = [];
     if (!isSimpleQueryEarly) {
-      const searchQuery = interpretQueryHibrido(latestUserMessage);
-      console.log('Query híbrido generado:', searchQuery);
-      relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
-      console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+      if (tenantId === 'ecommerce') {
+        // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
+        // Siempre usar arsenal_ganocafe — ignora clasificación de creatuactivo
+        console.log('🛒 [GanoCafe] Routing directo a arsenal_ganocafe');
+        const gcFragments = await searchArsenalFragments(latestUserMessage, 'arsenal_ganocafe', 5);
+        if (gcFragments.length > 0) {
+          const gcContent = gcFragments.map(f => f.content).join('\n\n---\n\n');
+          console.log(`✅ [GanoCafe] ${gcFragments.length} fragmentos encontrados`);
+          relevantDocuments = [{
+            id: 'arsenal_ganocafe_fragments',
+            title: 'Arsenal GanoCafe — fragmentos relevantes',
+            content: gcContent,
+            category: 'arsenal_ganocafe',
+            metadata: { is_fragment_result: true, fragment_count: gcFragments.length },
+            search_method: 'fragment_vector_search'
+          }];
+        } else {
+          // Fallback: cargar arsenal completo si no hay fragmentos
+          console.log('⚠️ [GanoCafe] Sin fragmentos, usando arsenal completo');
+          const { data: gcData } = await getSupabaseClient()
+            .from('nexus_documents')
+            .select('id, title, content, category, metadata')
+            .eq('category', 'arsenal_ganocafe')
+            .limit(1);
+          if (gcData && gcData.length > 0) {
+            relevantDocuments = (gcData as any[]).map(doc => ({
+              ...doc,
+              search_method: 'full_arsenal_fallback'
+            }));
+          }
+        }
+      } else {
+        const searchQuery = interpretQueryHibrido(latestUserMessage);
+        console.log('Query híbrido generado:', searchQuery);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
+        console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+      }
     } else {
       console.log('⚡ [ROUTER] Vector search omitido para query simple');
     }

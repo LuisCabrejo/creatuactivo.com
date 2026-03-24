@@ -2578,12 +2578,41 @@ async function logConversationHibrida(
 // ========================================
 // FUNCIÓN PRINCIPAL API - ARQUITECTURA HÍBRIDA CORREGIDA + CATÁLOGO FIX
 // ========================================
+// ── CORS: dominios externos autorizados a consumir este API ───────────────────
+const ALLOWED_ORIGINS = [
+  'https://ganocafe.online',
+  'https://www.ganocafe.online',
+  'https://creatuactivo.com',
+  'https://www.creatuactivo.com',
+  'https://luiscabrejo.com',
+  'https://www.luiscabrejo.com',
+  'https://queswa.app',
+  'https://www.queswa.app',
+];
+
+function getCorsHeaders(origin: string | null): Record<string, string> {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowed,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, x-tenant-id',
+    'Access-Control-Max-Age': '86400',
+  };
+}
+
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get('origin');
+  return new Response(null, { status: 204, headers: getCorsHeaders(origin) });
+}
+
 export async function POST(req: Request) {
   const startTime = Date.now();
+  const origin = req.headers.get('origin');
 
   // ── MULTI-TENANT v15.0: leer tenant inyectado por middleware.ts ──────────────
   // middleware.ts resuelve el dominio de origen y propaga x-tenant-id en <1ms
   // Valores: creatuactivo_marketing | marca_personal | queswa_dashboard | ecommerce
+  // Para widgets externos (ganocafe.online) el tenant viene en el header x-tenant-id del widget
   const tenantId = req.headers.get('x-tenant-id') ?? 'creatuactivo_marketing';
   console.log(`🏢 [Tenant] ${tenantId}`);
 
@@ -3156,7 +3185,7 @@ ESTADO: ${getMessageContext()}`;
       }
     });
 
-    return new StreamingTextResponse(stream);
+    return new StreamingTextResponse(stream, { headers: getCorsHeaders(origin) });
 
   } catch (error) {
     const totalTime = Date.now() - startTime;
@@ -3179,7 +3208,7 @@ Información disponible:
       error: fallbackResponse
     }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...getCorsHeaders(origin) }
     });
   }
 }

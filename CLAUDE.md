@@ -125,13 +125,13 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 | Proyecto | Rol de Queswa | System Prompt | Estado |
 |----------|---------------|---------------|--------|
 | `creatuactivo.com` | Filtrar prospectos para funnel Fundadores | `nexus_main` | Activo |
-| `luiscabrejo.com` | Mismo chatbot, tráfico SEO personal | `nexus_main` | Activo |
-| `Queswa.app` | Branding comercial del producto | `nexus_main` | Activo |
+| `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
+| `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` (pendiente) | Próximamente |
 
-**Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta `creatuactivo.com` Y `luiscabrejo.com` simultáneamente (caché 5 min). Para `ganocafe.online` se requiere row separado `name='ganocafe_main'` y route.ts propio.
+**Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
-**En `luiscabrejo.com`**: ruta activa es `/api/nexus/route.ts`. La ruta `/api/claude-chat/route.ts` es legacy sin uso.
+**En `luiscabrejo.com`**: tenant hardcodeado como `marca_personal` en `route.ts` (sin middleware — repo siempre es ese tenant). La ruta `/api/claude-chat/route.ts` es legacy sin uso.
 
 **Plan de integración ganocafe.online** (cuando llegue el momento):
 1. Crear row `system_prompts` con `name = 'ganocafe_main'`
@@ -514,14 +514,18 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 **CRITICAL**: Update database, not code.
 
-1. Update `system_prompts` table in Supabase (name: `nexus_main`)
-2. Use helper scripts:
-   - `leer-system-prompt.mjs` - Read current prompt
-   - `descargar-system-prompt.mjs` - Download prompt to local file
-   - `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar, Mar 2026)
+1. Update `system_prompts` table in Supabase
+2. Use helper scripts por dominio:
+
+| Dominio | Prompt name | Script de actualización |
+|---------|-------------|------------------------|
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v19.6**) |
+| `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
+| `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
+
 3. Clear cache (restart dev server or wait 5 minutes)
 
-**DO NOT** modify fallback system prompt in [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
+**DO NOT** modify fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
 
 **Queswa Official Constants** (calibradas Mar 2026 — consistencia obligatoria en todos los arsenales):
 - Lanzamiento público oficial: **lunes 1 de junio**
@@ -530,6 +534,38 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Tres componentes Máquina Híbrida: **GANO EXCEL** (músculo/infraestructura) + **CREATUACTIVO** (cerebro/plataforma) + **DIRECCIÓN EJECUTIVA** (metodología/el héroe)
 - Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
+
+### Lead Scoring v3.0 (Base Científica — Mar 2026)
+
+**Escala**: 0–100 (migrado desde 0–10 en Mar 2026). Score base: 0 (sin artificiales).
+
+**Umbrales de temperatura** (respaldados por literatura de ventas 2025):
+| Score | Temperatura | Acción |
+|-------|-------------|--------|
+| 0–49 | Frío | Nutrición automatizada, sin contacto humano |
+| 50–74 | Tibio | Monitorear actividad, enviar casos de estudio |
+| 75–89 | Caliente | Mensaje personalizado en < 24 h |
+| 90–100 | SQL (listo) | Contacto directo en < 2 h |
+
+**Señales positivas** (17 señales totales):
+- Datos personales: nombre +5, WhatsApp +8, email +5, ocupación +3
+- Multi-threading (menciona cónyuge/socio/tercero) +15 — Gong.io 2025: +130% cierre
+- Verbos de compra ("invertir", "adquirir", "comprar") +8
+- Términos financieros específicos ("rendimiento", "flujo", "activo") +7
+- Perfil innovador Rogers ("primero", "exclusivo", "vanguardia") +7
+- Preguntas sobre precio/costo +6, sobre inicio/proceso +8
+- Engagement sostenido: 3+ mensajes +5, 5+ mensajes +3, 8+ mensajes +3
+
+**Señales negativas**:
+- Sobre-acuerdo sin preguntas ("sí sí, entendido") -10 — Vendux 2025: señal de fuga
+- Sin urgencia ("no es importante ahora") -10
+- Evasión de inversión ("solo estoy mirando") -8
+- No me interesa / no gracias -15
+- Baja intención ("tal vez", "quizás", "lo pienso") -5
+
+**Reset histórico**: Mar 2026 — 10,112 registros reseteados a NULL. Los nuevos scores se construyen desde 0 con datos reales.
+
+**Fuentes**: Gong.io 2025, Frontiers in AI 2025 (AUC-ROC 0.9891), Emerald JSM 2025, SCIRP MLM Study 2025.
 
 ### Updating Queswa Knowledge
 

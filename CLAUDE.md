@@ -133,12 +133,30 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 
 **En `luiscabrejo.com`**: tenant hardcodeado como `marca_personal` en `route.ts` (sin middleware — repo siempre es ese tenant). La ruta `/api/claude-chat/route.ts` es legacy sin uso.
 
-**Plan de integración ganocafe.online** (cuando llegue el momento):
-1. Crear row `system_prompts` con `name = 'ganocafe_main'`
-2. Crear `knowledge_base/arsenal_ganocafe.txt` con foco en producto (no en oportunidad de negocio)
-3. Modificar `route.ts` de ganocafe para leer `ganocafe_main`
-4. Widget, tracking y embeddings se reutilizan sin cambios
-5. Prospectos quedan en la misma DB — útil para cruzar datos con el funnel principal
+**Estado integración ganocafe.online** (Mar 2026 — fase piloto activa):
+- ✅ `system_prompts` row `ganocafe_main` (v1.0_ganocafe_ecommerce) — en Supabase
+- ✅ `knowledge_base/arsenal_ganocafe.txt` — 12 respuestas (productos, beneficios, compra, objeciones)
+- ✅ `nexus_documents` — 13 fragmentos con embeddings Voyage AI, tenant `ecommerce`
+- ✅ `scripts/deploy-arsenal-ganocafe.mjs` — script de deploy listo
+- ✅ **CORS habilitado** en `/api/nexus/route.ts` — ganocafe.online autorizado como origen externo
+- ✅ Widget JS embebido en landing `/cafe-3en1/index.html` (cPanel) — piloto Google Ads Colombia
+- ⏳ **Precios pendientes de actualizar** — los precios en ganocafe.online difieren del arsenal actual
+- ⏳ Rollout a todo el sitio WordPress — pendiente validación del piloto
+
+**Arquitectura widget externo** (ganocafe.online → creatuactivo.com API):
+```
+ganocafe.online/cafe-3en1/index.html
+  └─ widget JS llama POST https://creatuactivo.com/api/nexus
+       └─ headers: { 'x-tenant-id': 'ecommerce', 'Content-Type': 'application/json' }
+            └─ Supabase carga ganocafe_main + arsenal_ganocafe (tenant: ecommerce)
+```
+
+**CORS config** (`src/app/api/nexus/route.ts`):
+- Handler `OPTIONS` para preflight (status 204)
+- `getCorsHeaders()` en respuesta POST y error fallback
+- Dominios permitidos: ganocafe.online, creatuactivo.com, luiscabrejo.com, queswa.app
+
+**Handoff doc para agente widget**: `public/investigaciones/HANDOFF-GANOCAFE-WIDGET.md`
 
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)

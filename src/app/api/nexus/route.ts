@@ -2630,7 +2630,7 @@ export async function POST(req: Request) {
         error: 'Request inválido: se requiere array de mensajes'
       }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...getCorsHeaders(origin) }
       });
     }
 

@@ -2866,8 +2866,8 @@ ${summaryParts.join('\n')}
       if (userMessageCount === 1) return false;
       // Saludos y cierres breves
       if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
-      // Mensajes muy cortos sin intención de compra
-      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra ni consulta de producto
+      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme|cereal|rooibos|espirulina|spirulina|\bt[eé]\b|colágeno|suplemento|cápsula|chocolate|schokoladde|luvoco|spirulina|oleaf|reskine/i.test(msg)) return true;
       return false;
     })();
 

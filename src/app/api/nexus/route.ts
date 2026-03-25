@@ -2860,14 +2860,19 @@ ${summaryParts.join('\n')}
     // ⚡ ROUTER ANTICIPADO: Clasificar ANTES del vector search para saltarlo en queries simples
     const userMessageCount = messages.filter((m: any) => m.role === 'user').length;
     const isSimpleQueryEarly = (() => {
+      // Para ecommerce (ganocafe.online): siempre hacer vector search.
+      // Cualquier query puede ser sobre un producto — "el té", "algún cereal",
+      // "jabón", "capuchino" — no hay queries "simples" en una tienda de productos.
+      if (tenantId === 'ecommerce') return false;
+
       const msg = latestUserMessage.toLowerCase().trim();
       const wordCount = msg.split(/\s+/).length;
       // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
       if (userMessageCount === 1) return false;
       // Saludos y cierres breves
       if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
-      // Mensajes muy cortos sin intención de compra ni consulta de producto
-      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme|cereal|rooibos|espirulina|spirulina|\bt[eé]\b|colágeno|suplemento|cápsula|chocolate|schokoladde|luvoco|spirulina|oleaf|reskine/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra
+      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
       return false;
     })();
 

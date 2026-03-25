@@ -1385,7 +1385,21 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /ventaja.*productos/i,
     /fórmula.*exclusiva|proceso.*único|secreto.*industrial/i,
     /proceso.*extracción/i,
-    /biodisponibilidad/i
+    /biodisponibilidad/i,
+
+    // Nombres coloquiales de productos específicos (sin requerir precio)
+    /rooibos/i,                                             // Oleaf Gano Rooibos
+    /\bcereal\b/i,                                          // Gano C'Real Spirulina
+    /c['`]?real/i,                                         // "c'real", "gano creal"
+    /espirulina|spirulina/i,                                // Gano C'Real Spirulina
+    /schokoladde/i,                                         // Gano Schokoladde (sin precio)
+    /(?:tienen|tienes|hay|tiene).*\bt[eé]\b/i,             // "tienen algún té", "hay té"
+    /\bt[eé]\b.*(?:gano|ganoderma|funcional)/i,            // "té con ganoderma"
+    /háblame.*(?:del?\s+t[eé]|rooibos|cereal|espirulina)/i, // "háblame del té/cereal"
+    /(?:colágeno|colageno).*(?:bebida|drink|gano)/i,        // colágeno como bebida
+    /reskine/i,                                             // Reskine Collagen (sin precio)
+    /oleaf/i,                                               // Oleaf (sin precio)
+    /luvoco.*(?:cápsula|beneficio|para.*qué|sirve)/i        // Luvoco sin precio
   ];
 
   // PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)

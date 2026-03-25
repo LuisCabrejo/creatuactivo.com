@@ -35,24 +35,72 @@ Los efectos son acumulativos: la mayoría de los usuarios reporta diferencias no
 ---
 
 ### PROD_03: "¿Qué productos tienen? / ¿Cuál me recomiendas?"
-**[Concepto Nuclear]:** Tres categorías: café, bebidas calientes y suplementos puros. La elección depende del hábito actual.
+**[Concepto Nuclear]:** Cuatro categorías: cafés, otras bebidas, suplementos y cuidado personal. La elección depende del hábito actual.
 
-El catálogo de GanoCafe se divide en tres familias:
+El catálogo completo con precios en ganocafe.online (precio al público oficial Gano Excel entre paréntesis):
 
-**Café funcional:**
-- Gano Café 3 en 1 — café, azúcar y crema con Ganoderma. Punto de entrada ideal.
-- Gano Café Negro — para quienes prefieren sin azúcar ni crema.
-- Gano Café Mocha — con cacao, para paladares más complejos.
+**Cafés con Ganoderma:**
+- **Gano Café 3 en 1** — café, azúcar y crema. Punto de entrada ideal. Promo actual: $135.900 por caja (p.p. $147.900)
+- **Gano Café Clásico** — sin azúcar ni crema. $120.900 (p.p. $147.900)
+- **Ganorico Mocha Rico** — con cacao. $129.900 (p.p. $156.900)
+- **Ganorico Latte Rico** — con leche. $166.900 (p.p. $156.900)
+- **Ganorico Shoko Rico** — chocolate premium. $134.900 (p.p. $166.500)
 
-**Bebidas calientes:**
-- Gano Cocoa — chocolate caliente con Ganoderma. Opción para quienes no toman café.
-- Gano Tea — té negro con Ganoderma.
+**Otras bebidas:**
+- **Gano Schokolade** — chocolate caliente con Ganoderma. $134.900 (p.p. $166.500)
+- **Oleaf Gano Rooibos** — té rooibos con Ganoderma. $129.900 (p.p. $156.900)
+- **Gano C Real Spirulina** — espirulina + Ganoderma. $129.900 (p.p. $156.900)
+- **Reskine Collagen Drink** — colágeno marino + Ganoderma. $226.900 (p.p. $276.900)
 
-**Suplementos puros:**
-- Ganoderma Capsules — extracto concentrado para quien busca el beneficio directo sin bebida.
-- GL Lucidum — presentación de alta potencia.
+**Suplementos:**
+- **Ganoderma Cápsulas** — extracto concentrado puro. $282.500 (p.p. $332.500)
+- **Excellium Cápsulas** — fórmula potenciada. $282.500 (p.p. $332.500)
+- **CordyGold Cápsulas** — Cordyceps + Ganoderma, alta potencia. $346.900 (p.p. $424.500)
 
-Si ya tomas café a diario, el 3 en 1 o el Negro son el punto de entrada natural: mismo ritual, beneficio adicional.
+**Cuidado personal:**
+- **Gano Soap / Gano Transparent Soap** — $83.900 / $88.500 (p.p. $96.900 / $101.500)
+- **Gano Fresh Toothpaste** — crema dental sin flúor. $83.900 (p.p. $96.900)
+- **Piel&Brillo Shampoo / Acondicionador / Exfoliante** — $83.900 c/u (p.p. $96.900)
+
+**Luvoco (masajeador de cuero cabelludo):**
+- **Luvoco** (suave / medio / fuerte) — $120.900 (p.p. $147.900)
+- **Máquina Luvoco** — disponible solo en Gano Excel directamente: $1.026.000
+
+Si ya tomas café a diario, el **3 en 1** o el **Clásico** son el punto de entrada natural: mismo ritual, beneficio adicional — y con un ahorro real respecto al precio de lista oficial.
+
+---
+
+### PROD_05: "¿Tienen algún té? / háblame del té / ¿qué es el Rooibos? / té con Ganoderma / bebida sin cafeína"
+**[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. Sin cafeína. Para quienes no toman café o quieren variedad.
+
+El **Oleaf Gano Rooibos** es la infusión de la línea GanoCafé, y la opción perfecta para quien quiere los beneficios del Ganoderma sin cafeína.
+
+El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el extracto propietario de Ganoderma lucidum de Gano Excel, el resultado es una bebida funcional de sabor suave que puede tomarse en cualquier momento del día, incluso en la noche.
+
+**¿Por qué elegirlo?**
+- Sin cafeína: ideal para la noche o personas sensibles a la cafeína
+- Antioxidantes dobles: Rooibos + Ganoderma lucidum
+- Sabor suave y natural — sin el amargor del café
+
+**Precio:** $129.900 (precio al público: $156.900)
+**Presentación:** 20 sobres por caja
+**Envío gratis** comprando 2 o más unidades — pedidos en ganocafe.online
+
+---
+
+### PROD_06: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
+**[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal funcional" de la línea. Spirulina + Ganoderma. El desayuno inteligente.
+
+El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantánea de desayuno que combina:
+- **Spirulina:** alga con alta densidad proteica, rica en hierro, vitamina B12 y clorofila
+- **Ganoderma Lucidum:** el adaptógeno milenario de Gano Excel
+
+**¿Para quién es ideal?**
+Personas activas, deportistas, o quien quiere un desayuno funcional sin recurrir a cápsulas adicionales.
+
+**Precio:** $129.900 (precio al público: $156.900)
+**Presentación:** 15 sobres por caja
+**Envío gratis** comprando 2 o más unidades — pedidos en ganocafe.online
 
 ---
 
@@ -102,13 +150,18 @@ Si estás bajo tratamiento médico, consulta a tu médico antes de iniciar. El G
 ## BLOQUE 3: COMPRA Y LOGÍSTICA
 
 ### COMPRA_01: "¿Cómo compro? / ¿Cuánto cuesta?"
-**[Concepto Nuclear]:** Compra directa en ganocafe.online. Envío a domicilio. Pago online o transferencia.
+**[Concepto Nuclear]:** Precio menor al público oficial. Envío gratis comprando 2+ unidades. Pago 100% online.
 
 Los pedidos se realizan directamente en ganocafe.online.
-El proceso es estándar: seleccionas los productos, completas el formulario con tu dirección y pagas en línea.
+Proceso: seleccionas los productos → ingresas tu dirección → pagas en línea (tarjeta, PSE, Nequi).
 
-Para conocer el catálogo completo con precios actualizados, visita la tienda en ganocafe.online.
-Si tienes dudas específicas sobre un producto antes de comprar, escríbeme aquí y te oriento.
+**Ventaja de precio:** Todos los productos en ganocafe.online tienen un precio por debajo del precio al público oficial de Gano Excel.
+Por ejemplo, el **Gano Café Clásico** tiene un precio al público de $147.900 — en ganocafe.online lo tienes por **$120.900**. Un ahorro de $27.000 por caja.
+
+**Envío gratis** en compras de 2 o más unidades de cualquier producto (aplica a toda Colombia).
+Para 1 unidad aplica tarifa de envío estándar según tu ciudad.
+
+Si tienes dudas sobre qué producto se ajusta mejor a tu situación, cuéntame y te oriento antes de comprar.
 
 ---
 
@@ -164,5 +217,58 @@ El modelo de distribución de Gano Excel tiene su propio canal de información.
 Si lo que te interesa es construir un negocio alrededor de estos productos, el punto de partida es creatuactivo.com — ahí encontrarás El Mapa de Salida, que explica exactamente cómo funciona la arquitectura.
 
 Para compras al por mayor o distribución directa, también puedes escribirnos al soporte en ganocafe.online.
+
+---
+
+## BLOQUE 5: CÓDIGO DISTRIBUIDOR
+
+### CODIGO_01: "¿Qué beneficios tiene tener código? / ¿Cómo compro al precio de distribuidor?"
+**[Concepto Nuclear]:** Con código propio compras al precio de lista interna — el precio más bajo posible — y puedes participar del plan de compensación.
+
+Tener tu propio código de distribuidor Gano Excel te da tres ventajas concretas:
+
+1. **Precio de distribuidor:** Compras todos los productos al precio de lista interna. Por ejemplo, el Gano Café Clásico lo adquieres a **$110.900** en lugar de $120.900 en ganocafe.online, y muy por debajo del precio al público de $147.900.
+
+2. **Beneficios en fletes:** Los distribuidores activos acceden a condiciones preferenciales de envío directo desde Gano Excel, especialmente en pedidos de volumen.
+
+3. **Plan de compensación:** Puedes participar del modelo de distribución y generar ingresos adicionales construyendo una red de consumidores o distribuidores.
+
+**¿Cómo activar el código?**
+Necesitas una compra inicial que alcance **50 PV (Puntos de Volumen)**. Cada producto tiene un PV y un CV asignado:
+
+| Producto | PV | CV |
+|----------|----|----|
+| Gano Café 3 en 1 | 15 | 14 |
+| Gano Café Clásico | 15 | 14 |
+| Ganorico Mocha Rico | 17 | 15 |
+| Ganorico Latte Rico | 17 | 15 |
+| Ganorico Shoko Rico | 17 | 15.6 |
+| Gano Schokolade | 17 | 15.6 |
+| Oleaf Gano Rooibos | 17 | 15 |
+| Gano C Real Spirulina | 17 | 15 |
+| Reskine Collagen Drink | 31 | 27.6 |
+| Ganoderma Cápsulas | 41 | 34.5 |
+| Excellium Cápsulas | 41 | 34.5 |
+| CordyGold Cápsulas | 49 | 43 |
+| Gano Soap | 10.4 | 8.9 |
+| Gano Transparent Soap | 12 | 10 |
+| Gano Fresh Toothpaste | 11 | 9.5 |
+| Piel&Brillo Shampoo | 11 | 9 |
+| Piel&Brillo Acondicionador | 11 | 9 |
+| Piel&Brillo Exfoliante | 11 | 9 |
+| Luvoco (suave/medio/fuerte) | 15 | 14 |
+| Máquina Luvoco | 0 | 0 (no genera PV ni CV) |
+
+**Ejemplos para alcanzar 50 PV:**
+- 4 cajas Gano Café 3 en 1 = **60 PV** ✓ ($443.600 al precio distribuidor)
+- 4 cajas Gano Café Clásico = **60 PV** ✓
+- 2 unidades Ganoderma Cápsulas = **82 PV** ✓ ($545.000)
+- 1 CordyGold + 1 café = **64 PV** ✓
+- 1 Reskine + 1 café + 1 café = **61 PV** ✓
+
+**PV vs CV:** El PV determina tu calificación y rango en el plan. El CV es la base sobre la cual se calculan las comisiones reales. Siempre van juntos pero son valores distintos.
+
+Si tu consumo mensual ya justifica 4 cajas de café, el código se paga solo desde el primer pedido.
+Para conocer el modelo completo de distribución y el plan de compensación: **creatuactivo.com**
 
 ---

@@ -321,16 +321,15 @@ export default function UnifiedQueswaOrb() {
         <line x1="8"  y1="23" x2="16" y2="23"/>
       </svg>
     )
-    // Estado idle — AudioLines (ondas de voz IA)
+    // Estado idle — barras de voz animadas (equalizer)
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="#D4AF37" strokeWidth="2" strokeLinecap="round">
-        <line x1="2"  y1="11" x2="2"  y2="13"/>
-        <line x1="6"  y1="7"  x2="6"  y2="17"/>
-        <line x1="10" y1="4"  x2="10" y2="20"/>
-        <line x1="14" y1="8"  x2="14" y2="16"/>
-        <line x1="18" y1="5"  x2="18" y2="19"/>
-        <line x1="22" y1="11" x2="22" y2="13"/>
+      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill="#D4AF37">
+        <rect className="qb1" x="1"  y="10" width="2" height="4"  rx="1"/>
+        <rect className="qb2" x="5"  y="6"  width="2" height="12" rx="1"/>
+        <rect className="qb3" x="9"  y="3"  width="2" height="18" rx="1"/>
+        <rect className="qb4" x="13" y="7"  width="2" height="10" rx="1"/>
+        <rect className="qb5" x="17" y="4"  width="2" height="16" rx="1"/>
+        <rect className="qb6" x="21" y="10" width="2" height="4"  rx="1"/>
       </svg>
     )
   }
@@ -470,6 +469,16 @@ export default function UnifiedQueswaOrb() {
           0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0px rgba(212,175,55,0), 0 8px 32px rgba(0,0,0,0.5); }
           50%       { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(212,175,55,0.12), 0 0 20px rgba(212,175,55,0.18), 0 8px 32px rgba(0,0,0,0.5); }
         }
+        @keyframes qwBar {
+          0%, 100% { transform: scaleY(0.3); opacity: 0.45; }
+          50%       { transform: scaleY(1);   opacity: 1;    }
+        }
+        .qw-orb-bars .qb1 { animation: qwBar 1.25s ease-in-out infinite 0.00s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb2 { animation: qwBar 1.25s ease-in-out infinite 0.20s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb3 { animation: qwBar 1.25s ease-in-out infinite 0.40s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb4 { animation: qwBar 1.25s ease-in-out infinite 0.28s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb5 { animation: qwBar 1.25s ease-in-out infinite 0.14s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb6 { animation: qwBar 1.25s ease-in-out infinite 0.42s; transform-origin: center; transform-box: fill-box; }
       `}</style>
     </>
   )

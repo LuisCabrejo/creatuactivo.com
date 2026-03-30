@@ -1455,7 +1455,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Capitalizaci&oacute;n generada a partir del tr&aacute;fico suministrado a la plataforma.</p>
+                    <p className="insight-text">Inyecci&oacute;n de liquidez inmediata dise&ntilde;ada para capitalizarte y neutralizar costos operativos.</p>
                   </div>
                 )}
 
@@ -1474,7 +1474,7 @@ export default function ServilletaPage() {
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Flujo de caja semanal generado por el volumen de consumo.</p>
+                    <p className="insight-text">Renta vitalicia: Construcci&oacute;n de un activo financiero heredable basado en consumo involuntario.</p>
                   </div>
                 )}
               </div>
@@ -1487,7 +1487,7 @@ export default function ServilletaPage() {
                 />
                 <div className="cta-overlay">
                   <h2>TOMA EL MANDO OPERATIVO</h2>
-                  <p>Dos rutas para asumir tu posici&oacute;n en la junta:</p>
+                  <p>El sistema est&aacute; encendido y esperando tus &oacute;rdenes. Elige tu ruta:</p>
 
                   <div className="cta-buttons">
                     {/* CTA Principal: Asumir Dirección → /paquetes */}

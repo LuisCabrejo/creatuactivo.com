@@ -1222,13 +1222,13 @@ export default function ServilletaPage() {
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO</span><span style={{ color: '#90A4AE' }}> (Gano Excel):</span> Infraestructura y Capital ($100M USD). La log&iacute;stica global est&aacute; resuelta. T&uacute; no fabricas, no almacenas, no env&iacute;as.
+                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO LOG&Iacute;STICO</span><span style={{ color: '#90A4AE' }}> (Gano Excel):</span> Infraestructura y Capital. Ellos fabrican, manejan inventarios y realizan env&iacute;os a toda Am&eacute;rica. Tu trabajo no es empacar cajas.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO</span><span style={{ color: '#90A4AE' }}> (Queswa AI):</span> Tecnolog&iacute;a de 11 Estrellas. Nuestra Inteligencia Artificial asume el trabajo pesado: filtra prospectos, presenta el modelo y educa autom&aacute;ticamente.
+                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO DIGITAL</span><span style={{ color: '#90A4AE' }}> (CreaTuActivo):</span> Plataforma tecnol&oacute;gica de 11 Estrellas. Un sistema operativo impulsado por IA que trabaja por ti 24/7 en internet.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>LA DIRECCI&Oacute;N</span><span style={{ color: '#90A4AE' }}> (Tu Rol):</span> Labor puramente gerencial. Guiado por la metodolog&iacute;a EAM, tu &uacute;nico trabajo es suministrar la &ldquo;materia prima&rdquo; (tr&aacute;fico) al ecosistema. La m&aacute;quina ejecuta; t&uacute; diriges.
+                    <span style={{ color: 'var(--orange)' }}>LA DIRECCI&Oacute;N</span><span style={{ color: '#90A4AE' }}> (Tu Rol):</span> Labor 100% gerencial. Desde tu celular diriges el tr&aacute;fico hacia el sistema. Nosotros operamos la f&aacute;brica; t&uacute; diriges y cobras.
                   </div>
                 </div>
               </div>
@@ -1269,18 +1269,18 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
+              {/* Tarjeta 1 (izquierda): EXPANSIÓN DIGITAL */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
+                    <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">memory</span>
-                    EL MOTOR QUESWA AI
+                    <span className="material-symbols-sharp">cell_tower</span>
+                    EXPANSI&Oacute;N DIGITAL
                   </h3>
-                  <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
+                  <p>Tu celular es tu centro de mando. Despliegas informaci&oacute;n 100% digital llegando a cientos de personas. Dejas de ser el vendedor que ruega para ser el arquitecto que orquesta tr&aacute;fico.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1298,33 +1298,33 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
+              {/* Tarjeta 2 (sup. derecha): EL CEREBRO QUESWA AI */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
+                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">manage_accounts</span>
-                    DIRECCI&Oacute;N, NO EJECUCI&Oacute;N
+                    <span className="material-symbols-sharp">memory</span>
+                    EL CEREBRO QUESWA AI
                   </h3>
-                  <p>La Inteligencia Artificial hace el 90% del trabajo desgastante. Tu hora de trabajo diaria se eleva de nivel: dejas de ser el vendedor que ruega, para ser el arquitecto que orquesta el tr&aacute;fico.</p>
+                  <p>El 90% del trabajo pesado resuelto. Nuestro agente IA perfila, procesa objeciones y filtra curiosos 24/7. Cero improvisaci&oacute;n; solo hablas con quienes est&aacute;n listos.</p>
                 </div>
               </div>
 
-              {/* Tarjeta 3 (full-width): ESCALABILIDAD ALGORÍTMICA */}
+              {/* Tarjeta 3 (full-width): ESCALA AUTÓNOMA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>SER EL CUELLO DE BOTELLA</s></span>
+                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>
                     <span className="material-symbols-sharp">hub</span>
-                    ESCALABILIDAD ALGOR&Iacute;TMICA
+                    ESCALA AUT&Oacute;NOMA
                   </h3>
-                  <p>El cuello de botella en los negocios tradicionales eres t&uacute;. Aqu&iacute;, tus nuevos constructores se desarrollan, educan y duplican guiados directamente por nuestra plataforma. La red crece sin que tu tiempo sea el l&iacute;mite.</p>
+                  <p>La Academia Queswa educa a tus socios en autom&aacute;tico. Desarrollan maestr&iacute;a, liderazgo e inteligencia financiera. La red crece sin que tu tiempo sea el l&iacute;mite.</p>
                 </div>
               </div>
             </div>

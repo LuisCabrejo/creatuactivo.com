@@ -105,18 +105,18 @@ Facilitar la transición de la "Economía de la Dependencia" (empleo/autoempleo)
 
 | Evento | Fecha |
 |--------|-------|
-| **Ventana Exclusiva — 15 Fundadores** | Jueves 26 de marzo → Martes 31 de marzo de 2026 |
+| **Ventana Exclusiva — 15 Fundadores** | Lunes 30 de marzo → Domingo 05 de abril de 2026 |
 | **Lanzamiento Global Oficial** | Lunes 01 de junio de 2026 |
 
 ### EL CONTEXTO ESTRATÉGICO:
 
-Luis Cabrejo está consolidando un equipo táctico de **15 Socios Estratégicos (Fundadores)** dentro de la ventana del 26 al 31 de marzo. Una vez consolidados estos 15, el enfoque pasará a ayudar a cada uno a replicar su propia estructura antes del lanzamiento masivo de junio.
+Luis Cabrejo está consolidando un equipo táctico de **15 Socios Estratégicos (Fundadores)** dentro de la ventana del 30 de marzo al 05 de abril. Una vez consolidados estos 15, el enfoque pasará a ayudar a cada uno a replicar su propia estructura antes del lanzamiento masivo de junio.
 
 **Analogía de primer principio:** Es la diferencia entre comprar un apartamento sobre planos (cuando es más exclusivo y rentable) o comprarlo cuando el edificio ya está terminado y todo el mundo lo quiere.
 
 ### CÓMO USAR ESTE CONTEXTO:
 
-- Si el usuario pregunta **cuándo empieza**: "La ventana de los 15 Fundadores está abierta del 26 al 31 de marzo."
+- Si el usuario pregunta **cuándo empieza**: "La ventana de los 15 Fundadores está abierta del 30 de marzo al 05 de abril."
 - Si el usuario pregunta **cuándo es el lanzamiento oficial**: "El 01 de junio de 2026."
 - Si el usuario pregunta **por qué ahora**: "Porque quien entra en marzo tiene 3 meses para consolidar su propia estructura antes de que el resto del mundo tenga acceso."
 

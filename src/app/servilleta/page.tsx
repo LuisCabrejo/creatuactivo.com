@@ -1339,10 +1339,10 @@ export default function ServilletaPage() {
             <div className="slide-3-layout">
               <div className="slide-3-bottom">
                 <div className="bio-text-panel">
-                  <div className="technical-label">HARDWARE EJECUTIVO</div>
+                  <div className="technical-label">VEH&Iacute;CULO BIOL&Oacute;GICO</div>
                   <h2 className="deck-h2">OPTIMIZACI&Oacute;N<br />CELULAR</h2>
                   <p className="deck-p">
-                    El apalancamiento financiero exige un veh&iacute;culo f&iacute;sico capaz de sostenerlo. Nuestro activo f&iacute;sico no es una &quot;bebida tradicional&quot;; es tecnolog&iacute;a nutricional de alt&iacute;sima absorci&oacute;n (100% hidrosoluble) dise&ntilde;ada para blindar el sistema inmune y garantizar el alto rendimiento cognitivo del constructor.
+                    La riqueza sin salud es un error de c&aacute;lculo. Operamos con una estrategia de &ldquo;fricci&oacute;n cero&rdquo;, transformando el consumo diario en tecnolog&iacute;a nutricional impulsada por Ganoderma. Nuestro ecosistema est&aacute; coronado por LUVOCO: infraestructura de lujo (m&aacute;quinas de precisi&oacute;n y c&aacute;psulas premium) para hogares y corporativos. La regla es simple: Un h&aacute;bito irrompible genera un flujo de caja inquebrantable.
                   </p>
                 </div>
 

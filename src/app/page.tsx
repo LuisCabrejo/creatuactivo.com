@@ -28,12 +28,12 @@ const C = {
 export default function HomePage() {
   return (
     <>
-      {/* Preload del recurso LCP — fondo-global-hormigon es el background del <main>, elemento LCP real */}
+      {/* Preload del recurso LCP — hormigon-tile es el background del <main> (2 KB, carga instantánea) */}
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <link
         rel="preload"
         as="image"
-        href="/images/servilleta/fondo-global-hormigon.webp"
+        href="/images/servilleta/hormigon-tile.webp"
         type="image/webp"
         // @ts-ignore
         fetchPriority="high"
@@ -45,7 +45,7 @@ export default function HomePage() {
         // Capa 0: dark tint (60%) + hormigón debajo (40% visible)
         backgroundImage: `
           linear-gradient(rgba(12,12,12,0.60), rgba(12,12,12,0.60)),
-          url('/images/servilleta/fondo-global-hormigon.webp')
+          url('/images/servilleta/hormigon-tile.webp')
         `,
         backgroundSize: 'cover, 600px 600px',
         backgroundRepeat: 'no-repeat, repeat',

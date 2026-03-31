@@ -12,20 +12,29 @@ const nextConfig = {
     ],
   },
 
-  // ✅ Headers para Service Worker PWA
+  // ✅ Headers de cache y Service Worker
   async headers() {
     return [
+      // Service Worker — nunca cachear
       {
         source: '/sw.js',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate',
-          },
-          {
-            key: 'Service-Worker-Allowed',
-            value: '/',
-          },
+          { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+          { key: 'Service-Worker-Allowed', value: '/' },
+        ],
+      },
+      // API routes — sin cache
+      {
+        source: '/api/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store' },
+        ],
+      },
+      // Páginas HTML estáticas — cache CDN 24h, stale 7 días
+      {
+        source: '/((?!api|_next/static|_next/image|favicon|sw\\.js).*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
         ],
       },
     ]

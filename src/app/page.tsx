@@ -63,7 +63,7 @@ function HeroSection() {
         pointerEvents: 'none',
       }}>
         <Image
-          src="/images/servilleta/turbina.jpg"
+          src="/images/turbina.webp"
           alt=""
           fill
           priority

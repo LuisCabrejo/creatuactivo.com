@@ -221,12 +221,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
-        {/* ⚡ Preconnects — máx 3 orígenes críticos */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
-        <link rel="dns-prefetch" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
-        {/* Material Symbols Sharp — carga diferida (no bloqueante) */}
+        {/* Material Symbols Sharp — carga diferida, sin preconnect (async no se beneficia) */}
         <link
           rel="preload"
           as="style"

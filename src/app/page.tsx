@@ -192,7 +192,6 @@ function ProblemSection() {
             <div key={item.num} style={{
               padding: '24px', textAlign: 'center',
               background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(0,229,255,0.15)',
-              backdropFilter: 'blur(4px)',
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}>
               <div style={{
@@ -213,7 +212,6 @@ function ProblemSection() {
         <div style={{
           padding: '32px', textAlign: 'center',
           background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
-          backdropFilter: 'blur(4px)',
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
@@ -251,7 +249,7 @@ function SolutionPreview() {
         <div style={{
           display: 'inline-block', padding: '24px 40px',
           background: 'rgba(0,0,0,0.65)', border: `1px solid ${C.gold}30`,
-          backdropFilter: 'blur(4px)', marginBottom: '32px',
+          marginBottom: '32px',
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
           <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1.1rem', color: C.cyan }}>
@@ -349,7 +347,6 @@ function Footer() {
       padding: '40px 24px',
       borderTop: '1px solid rgba(148, 163, 184, 0.12)',
       background: 'rgba(0,0,0,0.5)',
-      backdropFilter: 'blur(4px)',
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>

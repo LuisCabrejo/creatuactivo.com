@@ -159,7 +159,7 @@ export default function Reto5DiasPage() {
           <div style={{ position: 'relative', zIndex: 10, padding: '1.5rem' }}>
             <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
               <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
-              <span style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', fontFamily: "'Oswald', sans-serif" }}>
+              <span style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', fontFamily: "'Rajdhani', sans-serif" }}>
                 CreaTuActivo
               </span>
             </Link>

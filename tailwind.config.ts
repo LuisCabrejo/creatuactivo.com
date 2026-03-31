@@ -54,7 +54,7 @@ const config: Config = {
       },
       fontFamily: {
         serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Montserrat', 'Inter', '-apple-system', 'sans-serif'],
+        sans: ['system-ui', '-apple-system', "'Segoe UI'", 'Roboto', 'sans-serif'],
         industrial: ['var(--font-rajdhani)', 'Rajdhani', 'sans-serif'],
         mono: ['var(--font-roboto-mono)', 'Roboto Mono', 'monospace'],
       },

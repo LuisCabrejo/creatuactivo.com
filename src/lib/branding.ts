@@ -97,7 +97,7 @@ export const BRAND = {
     sans: 'Montserrat, Inter, -apple-system, sans-serif', // Body text
     industrial: 'Rajdhani, sans-serif',                   // "La Máquina"
     mono: 'Roboto Mono, monospace',                       // "La Evidencia"
-    logo: 'Oswald, sans-serif',
+    logo: "'Rajdhani', sans-serif",
     stack: 'Montserrat, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif'
   },
 

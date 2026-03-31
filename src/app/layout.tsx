@@ -5,7 +5,7 @@
  */
 
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Montserrat, Oswald, Rajdhani, Roboto_Mono } from 'next/font/google';
+import { Playfair_Display, Rajdhani, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
 import dynamic from 'next/dynamic';
@@ -21,22 +21,6 @@ const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Montserrat: Cuerpo, botones, navegación (limpio, moderno)
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-montserrat',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Oswald: Logo y branding (condensada, bold, industrial)
-const oswald = Oswald({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-oswald',
   weight: ['400', '500', '600', '700'],
 });
 
@@ -279,7 +263,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${montserrat.variable} ${playfair.variable} ${oswald.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+      <body className={`${playfair.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
         {/* Film grain global */}
         <div className="noise-overlay" aria-hidden="true" />
         <main className="relative">

@@ -109,7 +109,7 @@ const CRITICAL_NAVIGATION_CSS = `
 
   /* THE ARCHITECT'S SUITE - Brand Text (Oswald Bold) */
   .strategic-logo-text {
-    font-family: var(--font-oswald), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-rajdhani), -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 1.375rem;
     font-weight: 700;
     color: #FFFFFF;

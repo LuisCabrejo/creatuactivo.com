@@ -28,13 +28,14 @@ const C = {
 export default function HomePage() {
   return (
     <>
-      {/* Preload de imagen LCP — turbina hero, fetchpriority high para PSI */}
+      {/* Preload del recurso LCP — fondo-global-hormigon es el background del <main>, elemento LCP real */}
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <link
         rel="preload"
         as="image"
-        href="/images/servilleta/turbina.jpg"
-        // @ts-ignore — fetchPriority es válido en HTML5 pero los tipos aún no lo recogen
+        href="/images/servilleta/fondo-global-hormigon.webp"
+        type="image/webp"
+        // @ts-ignore
         fetchPriority="high"
       />
       <StrategicNavigation />
@@ -44,7 +45,7 @@ export default function HomePage() {
         // Capa 0: dark tint (60%) + hormigón debajo (40% visible)
         backgroundImage: `
           linear-gradient(rgba(12,12,12,0.60), rgba(12,12,12,0.60)),
-          url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')
+          url('/images/servilleta/fondo-global-hormigon.webp')
         `,
         backgroundSize: 'cover, 600px 600px',
         backgroundRepeat: 'no-repeat, repeat',
@@ -71,7 +72,7 @@ function HeroSection() {
       <div style={{
         position: 'absolute',
         top: 0, left: 0, width: '100%', height: '100%',
-        backgroundImage: "url('/images/servilleta/turbina.jpg')",
+        backgroundImage: "url('/images/servilleta/turbina.webp')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         filter: 'grayscale(70%) contrast(1.1) brightness(0.4)',

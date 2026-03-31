@@ -7,6 +7,7 @@
  */
 
 import Link from 'next/link';
+import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const metadata = {
@@ -28,28 +29,11 @@ const C = {
 export default function HomePage() {
   return (
     <>
-      {/* Preload del recurso LCP — hormigon-tile es el background del <main> (2 KB, carga instantánea) */}
-      {/* eslint-disable-next-line @next/next/no-head-element */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/servilleta/hormigon-tile.webp"
-        type="image/webp"
-        // @ts-ignore
-        fetchPriority="high"
-      />
       <StrategicNavigation />
       <main style={{
         position: 'relative',
         color: C.textMain,
-        // Capa 0: dark tint (60%) + hormigón debajo (40% visible)
-        backgroundImage: `
-          linear-gradient(rgba(12,12,12,0.60), rgba(12,12,12,0.60)),
-          url('/images/servilleta/hormigon-tile.webp')
-        `,
-        backgroundSize: 'cover, 600px 600px',
-        backgroundRepeat: 'no-repeat, repeat',
-        backgroundAttachment: 'scroll, scroll',
+        backgroundColor: '#0C0C0C',
       }}>
         <HeroSection />
         <ProblemSection />
@@ -68,19 +52,25 @@ export default function HomePage() {
 function HeroSection() {
   return (
     <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 80px' }}>
-      {/* Turbina con fade suave hacia abajo → revela hormigón */}
+      {/* Turbina con fade suave hacia abajo — next/image maneja WebP + fetchpriority automáticamente */}
       <div style={{
         position: 'absolute',
         top: 0, left: 0, width: '100%', height: '100%',
-        backgroundImage: "url('/images/servilleta/turbina.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
         filter: 'grayscale(70%) contrast(1.1) brightness(0.4)',
         opacity: 0.75,
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         pointerEvents: 'none',
-      }} />
+      }}>
+        <Image
+          src="/images/servilleta/turbina.jpg"
+          alt=""
+          fill
+          priority
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          sizes="100vw"
+        />
+      </div>
 
       {/* Overlay oscuro adicional para igualar /nosotros */}
       <div style={{

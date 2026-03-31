@@ -7,7 +7,6 @@
  */
 
 import Link from 'next/link';
-import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 export const dynamic = 'force-static';
@@ -54,31 +53,11 @@ export default function HomePage() {
 function HeroSection() {
   return (
     <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 80px' }}>
-      {/* Turbina con fade suave hacia abajo — next/image maneja WebP + fetchpriority automáticamente */}
-      <div style={{
-        position: 'absolute',
-        top: 0, left: 0, width: '100%', height: '100%',
-        filter: 'grayscale(70%) contrast(1.1) brightness(0.55)',
-        opacity: 0.75,
-        WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-        maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-        pointerEvents: 'none',
-      }}>
-        <Image
-          src="/images/turbina.webp"
-          alt=""
-          fill
-          priority
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
-          sizes="100vw"
-        />
-      </div>
-
-      {/* Overlay oscuro adicional para igualar /nosotros */}
+      {/* Fondo CSS puro — sin solicitud de red adicional */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(to bottom, rgba(11,12,12,0.3) 0%, rgba(11,12,12,0.5) 60%, transparent 100%)',
+        background: 'radial-gradient(ellipse at 60% 40%, rgba(0,229,255,0.04) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(229,194,121,0.04) 0%, transparent 60%)',
         pointerEvents: 'none',
       }} />
 

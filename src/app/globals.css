@@ -5,27 +5,24 @@
 
 /* ========================================
    CSS VARIABLES - ELEGANCIA CINÉTICA v1.0
-   "Ingeniería de Lujo" - Industrial + Quiet Luxury
    ======================================== */
 :root {
-  /* === ELEGANCIA CINÉTICA === */
-
   /* Fondos (Atmósfera) */
-  --bg-obsidian: #0B0C0C;       /* Fondo principal (casi negro, toque cálido) */
-  --bg-gunmetal: #16181D;       /* Tarjetas/Módulos */
-  --bg-glass: rgba(22, 24, 29, 0.7); /* Glassmorphism */
+  --bg-obsidian: #0B0C0C;
+  --bg-gunmetal: #16181D;
+  --bg-glass: rgba(22, 24, 29, 0.7);
 
   /* Metales (Lujo & Técnica) */
-  --gold-champagne: #E5C279;    /* Títulos principales (más suave) */
-  --gold-metallic: #D4AF37;     /* Bordes / Detalles finos */
-  --steel-blue: #94A3B8;        /* Textos secundarios / Estructura */
+  --gold-champagne: #E5C279;
+  --gold-metallic: #D4AF37;
+  --steel-blue: #94A3B8;
 
   /* Energía (Interactividad) */
-  --amber-industrial: #F59E0B;  /* Call to Action */
-  --amber-dark: #D97706;        /* CTA gradient bottom */
-  --cyan-data: #38BDF8;         /* Gráficos / Datos / Biometría */
+  --amber-industrial: #F59E0B;
+  --amber-dark: #D97706;
+  --cyan-data: #38BDF8;
 
-  /* === BACKWARD COMPAT (legacy aliases) === */
+  /* Legacy aliases */
   --bg-main: #0F1115;
   --bg-card: #1A1D23;
   --gold-primary: #C5A059;
@@ -40,102 +37,15 @@
 }
 
 /* ========================================
-   BASE STYLES - QUIET LUXURY
+   BASE STYLES
    ======================================== */
 body {
   background-color: var(--bg-obsidian);
   color: var(--text-main);
 }
 
-/* Títulos con Playfair Display */
 h1, h2, h3, .quote-text, .font-serif {
-  color: #FFFFFF; /* Títulos en blanco puro para jerarquía */
-}
-
-/* ========================================
-   COMPONENT CLASSES - ARCHITECT'S SUITE
-   ======================================== */
-
-/* Botón Dorado Principal */
-.btn-gold {
-  background-color: var(--gold-primary);
-  color: #0F1115;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 12px 30px;
-  border: 1px solid var(--gold-primary);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.btn-gold:hover {
-  background-color: transparent;
-  color: var(--gold-primary);
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
-}
-
-/* Botón Dorado Outline */
-.btn-gold-outline {
-  background-color: transparent;
-  color: var(--gold-primary);
-  font-weight: 600;
-  padding: 12px 30px;
-  border: 1px solid var(--gold-primary);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.btn-gold-outline:hover {
-  background-color: var(--gold-primary);
-  color: #0F1115;
-}
-
-/* Cita Destacada Editorial */
-.highlight-quote {
-  border-left: 3px solid var(--gold-primary);
-  padding-left: 20px;
-  font-style: italic;
-  font-size: 1.25rem;
-  color: var(--text-main);
-  background: linear-gradient(90deg, rgba(197,160,89,0.05) 0%, rgba(0,0,0,0) 100%);
-}
-
-/* Tarjeta con estilo arquitectónico */
-.architect-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.architect-card:hover {
-  border-color: var(--border-subtle);
-  box-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
-}
-
-/* Líneas arquitectónicas (blueprint lines) */
-.architect-line {
-  height: 1px;
-  background-color: rgba(197, 160, 89, 0.1);
-}
-
-.architect-line-vertical {
-  width: 1px;
-  background-color: rgba(197, 160, 89, 0.1);
-}
-
-/* ========================================
-   PROSE DROP CAP - NOSOTROS PAGE
-   ======================================== */
-.prose-drop-cap > p:first-of-type::first-letter {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-size: 4rem;
-  font-weight: 700;
-  color: #E5C279;
-  float: left;
-  line-height: 0.8;
-  margin: 0.1em 0.15em 0 0;
+  color: #FFFFFF;
 }
 
 /* ========================================
@@ -160,92 +70,21 @@ h1, h2, h3, .quote-text, .font-serif {
 }
 
 /* ========================================
-   NAVIGATION & LAYOUT
+   PROSE DROP CAP - NOSOTROS PAGE
    ======================================== */
-.navigation-container {
-  min-height: 80px;
-}
-
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background-color: rgba(15, 17, 21, 0.9);
-  border-bottom: 1px solid var(--border-subtle);
-  will-change: transform;
-}
-
-/* ========================================
-   NEXUS WIDGET STYLES
-   ======================================== */
-.nexus-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.nexus-scroll::-webkit-scrollbar-track {
-  background: rgba(26, 29, 35, 0.5);
-  border-radius: 3px;
-}
-
-.nexus-scroll::-webkit-scrollbar-thumb {
-  background: var(--gold-primary);
-  border-radius: 3px;
-}
-
-.nexus-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-hover);
-}
-
-@keyframes nexus-slide-in {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.nexus-slide-in {
-  animation: nexus-slide-in 0.3s ease-out;
-}
-
-@keyframes nexus-typing {
-  0%, 60%, 100% {
-    transform: scale(0.8);
-    opacity: 0.5;
-  }
-  30% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.nexus-typing-dot {
-  animation: nexus-typing 1.4s infinite;
+.prose-drop-cap > p:first-of-type::first-letter {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #E5C279;
+  float: left;
+  line-height: 0.8;
+  margin: 0.1em 0.15em 0 0;
 }
 
 /* ========================================
    ANIMATIONS
    ======================================== */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -258,30 +97,14 @@ h1, h2, h3, .quote-text, .font-serif {
 /* ========================================
    UTILITY CLASSES
    ======================================== */
-.motion-safe {
-  transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
-}
-
 .hydration-safe {
   opacity: 1;
   transform: none;
 }
 
-/* Text gradient for special headings */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #FFFFFF 0%, var(--gold-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ========================================
-   ELEGANCIA CINÉTICA - Industrial Utilities
+   NOISE OVERLAY - Film grain texture
    ======================================== */
-
-/* Noise Overlay - Film grain texture */
 .noise-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -291,7 +114,9 @@ h1, h2, h3, .quote-text, .font-serif {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Haptic Button - Industrial 3D gradient */
+/* ========================================
+   HAPTIC BUTTON - Industrial 3D gradient
+   ======================================== */
 .btn-haptic {
   background: linear-gradient(180deg, var(--amber-industrial) 0%, var(--amber-dark) 100%);
   color: var(--bg-obsidian);
@@ -320,41 +145,8 @@ h1, h2, h3, .quote-text, .font-serif {
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Haptic Outline variant */
-.btn-haptic-outline {
-  background: transparent;
-  color: var(--gold-champagne);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  padding: 14px 32px;
-  border: 1px solid var(--gold-metallic);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.btn-haptic-outline:hover {
-  background: rgba(229, 194, 121, 0.08);
-  border-color: var(--gold-champagne);
-  box-shadow: 0 0 15px rgba(229, 194, 121, 0.15);
-}
-
-/* Spring-in animation (Bento card entry) */
-@keyframes spring-in {
-  0% { opacity: 0; transform: translateY(30px) scale(0.97); }
-  60% { opacity: 1; transform: translateY(-4px) scale(1.01); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-.animate-spring-in {
-  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
 /* ========================================
-   LEGACY COMPATIBILITY (deprecated)
+   LEGACY (usado en planes + modelo-de-valor)
    ======================================== */
 .creatuactivo-cta-ecosystem {
   background: var(--gold-primary);

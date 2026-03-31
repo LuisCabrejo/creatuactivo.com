@@ -405,6 +405,7 @@ export default function UnifiedQueswaOrb() {
       {/* ── Orbe principal ───────────────────────────────────────────────────── */}
       <motion.button
         data-nexus-button
+        aria-label="Abrir asistente Queswa"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerLeave={isRecording ? handlePointerUp : undefined}

@@ -28,6 +28,15 @@ const C = {
 export default function HomePage() {
   return (
     <>
+      {/* Preload de imagen LCP — turbina hero, fetchpriority high para PSI */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/servilleta/turbina.jpg"
+        // @ts-ignore — fetchPriority es válido en HTML5 pero los tipos aún no lo recogen
+        fetchPriority="high"
+      />
       <StrategicNavigation />
       <main style={{
         position: 'relative',

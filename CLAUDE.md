@@ -12,6 +12,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Dev server | `npm run dev` |
+| Check active system prompt | `node scripts/leer-system-prompt.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v19.6.mjs` |
+| Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
+| Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
+| Deploy Supabase edge function | `npx supabase functions deploy nexus-queue-processor` |
+| NEXUS health check | `curl http://localhost:3000/api/nexus` |
+| Verify arsenal in Supabase | `node scripts/verificar-arsenal-supabase.mjs` |
+
+**Multi-tenant prompt names**: `nexus_main` (creatuactivo.com) · `marca_personal_v1.0` (luiscabrejo.com) · `ganocafe_main` (ganocafe.online) · hardcoded in `dashboard-ai/route.ts` (queswa.app)
+
 ## Development Commands
 
 ```bash
@@ -127,20 +142,22 @@ está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
 | `creatuactivo.com` | Filtrar prospectos para funnel Fundadores | `nexus_main` | Activo |
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
-| `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` (pendiente) | Próximamente |
+| `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
 **En `luiscabrejo.com`**: tenant hardcodeado como `marca_personal` en `route.ts` (sin middleware — repo siempre es ese tenant). La ruta `/api/claude-chat/route.ts` es legacy sin uso.
 
 **Estado integración ganocafe.online** (Mar 2026 — fase piloto activa):
-- ✅ `system_prompts` row `ganocafe_main` (v1.0_ganocafe_ecommerce) — en Supabase
-- ✅ `knowledge_base/arsenal_ganocafe.txt` — 12 respuestas (productos, beneficios, compra, objeciones)
-- ✅ `nexus_documents` — 13 fragmentos con embeddings Voyage AI, tenant `ecommerce`
+- ✅ `system_prompts` row `ganocafe_main` **v1.5_ganocafe_alias_coloquiales** — en Supabase
+- ✅ `knowledge_base/arsenal_ganocafe.txt` — **14 respuestas** (PROD_01–06, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
+- ✅ `nexus_documents` — fragmentos con embeddings Voyage AI, tenant `ecommerce` (incluye PROD_05 Rooibos + PROD_06 Spirulina)
 - ✅ `scripts/deploy-arsenal-ganocafe.mjs` — script de deploy listo
 - ✅ **CORS habilitado** en `/api/nexus/route.ts` — ganocafe.online autorizado como origen externo
 - ✅ Widget JS embebido en landing `/cafe-3en1/index.html` (cPanel) — piloto Google Ads Colombia
-- ⏳ **Precios pendientes de actualizar** — los precios en ganocafe.online difieren del arsenal actual
+- ✅ **`isSimpleQueryEarly` siempre `false` para tenant `ecommerce`** — todas las queries pasan por vector search, sin atajos por longitud de mensaje
+- ✅ **System prompt v1.5** incluye sección `## NOMBRES COLOQUIALES` — mapeo explícito alias → producto (cereal, té, chocolate, capuchino, etc.) para evitar "no tenemos ese producto"
+- ✅ **Widget UX** (Mar 2026): orbe con barras ecualizador animadas + anillos de pulso, quick replies rediseñados (catálogo/beneficios/pedido), tarjeta de pedido inline con links directos al carrito WooCommerce + WhatsApp, flecha de envío →, saludo en tercio superior
 - ⏳ Rollout a todo el sitio WordPress — pendiente validación del piloto
 
 **Arquitectura widget externo** (ganocafe.online → creatuactivo.com API):
@@ -181,7 +198,7 @@ ganocafe.online/cafe-3en1/index.html
    - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing`
    - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing`
    - `arsenal_marca_personal` - Identidad, historia, metodología Luis Cabrejo (11 responses) — tenant: `marca_personal`
-   - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (12 responses) — tenant: `ecommerce`
+   - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (14 responses — incluye PROD_05 Oleaf Rooibos + PROD_06 Gano C'Real Spirulina) — tenant: `ecommerce`
 
 2. **Clasificación de documentos — 3 capas + override**:
    - **PASO -1 (MenuExpansion)**: Opciones a/b/c/d del menú inicial se expanden a queries semánticas
@@ -191,6 +208,8 @@ ganocafe.online/cafe-3en1/index.html
 
    **Falso positivo conocido (resuelto Mar 2026)**: `COMP_MODELO_01` tiene "¿Cómo funciona el negocio?" como trigger → el vector lo confundía con WHY_02. El override en PASO 0.5 lo corrige.
 
+   **Excepción ecommerce (Mar 2026)**: `isSimpleQueryEarly` retorna siempre `false` cuando `tenantId === 'ecommerce'`. En ganocafe.online cualquier query puede ser sobre un producto — no hay queries "simples". Esto garantiza que mensajes de 1–3 palabras ("el té", "cereal", "jabón") igualmente pasen por vector search.
+
 3. **Data Capture** - `captureProspectData()` extracts:
    - Personal info (name, email, phone, occupation)
    - Interest level (0-10 score)
@@ -198,10 +217,11 @@ ganocafe.online/cafe-3en1/index.html
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v19.6 "Lifestyle Bienestar"** (Mar 2026)
+   - Versión activa: **v19.6 "Lifestyle Bienestar" v3.2** (Mar 2026)
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
+   - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
@@ -217,6 +237,7 @@ ganocafe.online/cafe-3en1/index.html
 - Posición: `bottom: 1.5rem` cuando chat cerrado, `5rem` cuando chat abierto (evita tapar input). **Excepción queswa.app**: siempre `5rem` para no solapar bottom nav de 64px.
 - Glassmorphism + Framer Motion spring scroll hide/show. Safe-area iOS.
 - Haptic feedback: `navigator.vibrate(50)` al iniciar, `vibrate(30)` al detener grabación.
+- **Icono idle**: 6 barras SVG `<rect>` doradas con animación `scaleY` escalonada (efecto ecualizador de audio, delays 0–0.42s). Complementa `orbBreath` (scale + glow). En estados recording/processing/speaking/error se muestran iconos dedicados.
 - Fuente: [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx)
 
 **Servilleta + Queswa**: La servilleta usa eventos custom (`open-queswa` / `close-queswa`) para comunicarse con `NEXUSFloatingButton`. Al abrir Queswa en servilleta, el `body.style.overflow = 'auto'` se restaura temporalmente para que el teclado funcione. El deck-container mantiene `overflow: hidden` independientemente.
@@ -359,7 +380,7 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
 - `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar**) — tenant: `creatuactivo_marketing`
 - `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal`
-- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (12 responses — PROD, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
+- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (14 responses — PROD_01–06, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -537,8 +558,9 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v19.6**) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v19.6** — `actualizar-system-prompt-v19.6.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
+| `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
 
 3. Clear cache (restart dev server or wait 5 minutes)
@@ -935,7 +957,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar, Mar 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar v3.2, Mar 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

@@ -237,37 +237,22 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
-        {/* ⚡ CRITICAL: Preconnects FIRST - Inyectados al inicio del head para PageSpeed */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var head = document.head;
-                var first = head.firstChild;
-                var origins = [
-                  ['https://fonts.googleapis.com', false],
-                  ['https://fonts.gstatic.com', true],
-                  ['https://cvadzbmdypnbrbnkznpb.supabase.co', false]
-                ];
-                origins.forEach(function(o) {
-                  var link = document.createElement('link');
-                  link.rel = 'preconnect';
-                  link.href = o[0];
-                  if (o[1]) link.crossOrigin = '';
-                  head.insertBefore(link, first);
-                });
-              })();
-            `
-          }}
-        />
-
-        {/* Preconnect fallback (para crawlers que no ejecutan JS) */}
+        {/* ⚡ Preconnects — máx 3 orígenes críticos */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* Material Symbols Sharp — usado en /servilleta y otros */}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link rel="preconnect" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
         <link rel="dns-prefetch" href="https://cvadzbmdypnbrbnkznpb.supabase.co" />
+        {/* Material Symbols Sharp — carga diferida (no bloqueante) */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0"
+          // @ts-ignore
+          onLoad="this.onload=null;this.rel='stylesheet'"
+        />
+        <noscript>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
+        </noscript>
 
         {/* Favicons - v3 con cache-busting */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5" />

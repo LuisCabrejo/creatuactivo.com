@@ -8,12 +8,7 @@ import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Rajdhani, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
-import dynamic from 'next/dynamic';
-
-const UnifiedQueswaOrb = dynamic(
-  () => import('@/components/UnifiedQueswaOrb'),
-  { ssr: false, loading: () => null },
-);
+import DeferredOrb from '@/components/DeferredOrb';
 
 // THE ARCHITECT'S SUITE - Typography System
 // Playfair Display: Títulos, citas, encabezados (evoca autoridad editorial)
@@ -303,7 +298,7 @@ export default function RootLayout({
           }}
         />
 
-        <UnifiedQueswaOrb />
+        <DeferredOrb />
 
         {/* Menú Móvil Legacy - Mantenido por compatibilidad */}
         <script

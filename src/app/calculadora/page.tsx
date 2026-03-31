@@ -210,7 +210,7 @@ export default function CalculadoraPage() {
         style={{
           backgroundImage: `
             linear-gradient(rgba(12,12,12,0.70), rgba(12,12,12,0.70)),
-            url('/images/servilleta/fondo-global-hormigon.jpg?v=20260208')
+            url('/images/servilleta/hormigon-tile.webp')
           `,
           backgroundSize: 'cover, 600px 600px',
           backgroundRepeat: 'no-repeat, repeat',

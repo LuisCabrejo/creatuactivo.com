@@ -1243,7 +1243,7 @@ export default function ServilletaPage() {
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
             <div
               className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')", opacity: 0.4 }}
+              style={{ backgroundImage: "url('/images/servilleta/hormigon-tile.webp')", opacity: 0.4 }}
             />
             <div className="grid-layout-slide-2">
               {/* Título */}
@@ -1389,7 +1389,7 @@ export default function ServilletaPage() {
           <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
             <div
               className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/fondo-global-hormigon.jpg')", opacity: 0.3 }}
+              style={{ backgroundImage: "url('/images/servilleta/hormigon-tile.webp')", opacity: 0.3 }}
             />
             <div className="simulator-layout">
               {/* Panel del Simulador */}

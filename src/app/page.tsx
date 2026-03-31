@@ -10,6 +10,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
+export const dynamic = 'force-static';
+
 export const metadata = {
   title: 'CreaTuActivo - ¿Sigues Operando Bajo el Plan por Defecto?',
   description: 'Descubre cuántos días de libertad real tienes antes de que se acabe el dinero. Calculadora gratuita de Días de Libertad.',
@@ -56,7 +58,7 @@ function HeroSection() {
       <div style={{
         position: 'absolute',
         top: 0, left: 0, width: '100%', height: '100%',
-        filter: 'grayscale(70%) contrast(1.1) brightness(0.4)',
+        filter: 'grayscale(70%) contrast(1.1) brightness(0.55)',
         opacity: 0.75,
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',

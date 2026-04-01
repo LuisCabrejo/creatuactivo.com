@@ -5,6 +5,7 @@
  */
 
 import TrackingGracias from './TrackingGracias';
+import CopyLinkButton from './CopyLinkButton';
 
 export const metadata = {
   title: 'Tu mapa está en camino | CreaTuActivo',
@@ -180,8 +181,8 @@ export default function MapaGraciasPage() {
               >
                 Compartir por WhatsApp
               </a>
-              <button
-                onClick={() => navigator.clipboard?.writeText(shareUrl)}
+              <CopyLinkButton
+                url={shareUrl}
                 style={{
                   display: 'inline-flex', alignItems: 'center',
                   background: 'none', border: 'none',
@@ -189,9 +190,7 @@ export default function MapaGraciasPage() {
                   fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
                   padding: '12px 4px',
                 }}
-              >
-                Copiar el link
-              </button>
+              />
             </div>
           </div>
 

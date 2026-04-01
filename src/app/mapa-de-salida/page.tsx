@@ -1,8 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * EL MAPA DE SALIDA — SQUEEZE PAGE
- * v3.0 — Pivote semántico: Auditoría de 5 Fases para escapar del Plan por Defecto
- * Estética: Autoridad Epistémica + Lujo Industrial
+ * EL MAPA DE SALIDA — SQUEEZE PAGE v4.0
+ * Brief Maestro Abril 2026: distraction-free, form 3 campos, copy StoryBrand
  */
 
 'use client';
@@ -13,14 +12,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const C = {
-  gold: '#E5C279',
-  amber: '#F59E0B',
-  cyan: '#38BDF8',
-  obsidian: '#0B0C0C',
-  gunmetal: '#16181D',
-  textMain: '#E5E5E5',
-  textMuted: '#A3A3A3',
-  textDim: '#64748B',
+  gold: '#C8A84B',
+  white: '#F5F5F0',
+  muted: '#6B6B5A',
+  bg: '#080808',
+  bgCard: '#0d0d0d',
+  bgCardBorder: '#1a1a1a',
+  cyan: '#22D3EE',
 };
 
 export default function MapaDeSalidaPage() {
@@ -28,10 +26,8 @@ export default function MapaDeSalidaPage() {
   const [formData, setFormData] = useState({ nombre: '', email: '', whatsapp: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
   const [constructorRef, setConstructorRef] = useState<string | null>(null);
 
-  // Extraer constructorId del pathname y persistir en localStorage
   useEffect(() => {
     const match = window.location.pathname.match(/\/mapa-de-salida\/([^/?#]+)/);
     const ref = match?.[1] ?? localStorage.getItem('constructor_ref') ?? null;
@@ -44,7 +40,6 @@ export default function MapaDeSalidaPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
 
     try {
       const response = await fetch('/api/funnel', {
@@ -61,12 +56,9 @@ export default function MapaDeSalidaPage() {
       });
 
       if (!response.ok) throw new Error('Error');
-
-      // Mostrar estado de éxito brevemente antes de redirigir
       setIsSuccess(true);
-      setTimeout(() => router.push('/mapa-de-salida/gracias'), 1200);
+      setTimeout(() => router.push('/mapa-de-salida/gracias'), 1000);
     } catch {
-      // Redirigir igual para no frustrar al prospecto
       router.push('/mapa-de-salida/gracias');
     } finally {
       setIsSubmitting(false);
@@ -75,38 +67,36 @@ export default function MapaDeSalidaPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
-        .terminal-input {
+      <style dangerouslySetInnerHTML={{ __html: `
+        .mapa-input {
           width: 100%;
           padding: 16px;
-          background: ${C.gunmetal};
+          background: #111;
           border: 0;
-          border-bottom: 2px solid ${C.amber};
-          color: ${C.textMain};
+          border-bottom: 2px solid #333;
+          color: ${C.white};
           font-size: 1rem;
           font-family: 'Rajdhani', sans-serif;
-          letter-spacing: 0.05em;
-          transition: all 0.2s ease;
+          letter-spacing: 0.03em;
+          transition: border-color 0.2s ease;
+          box-sizing: border-box;
         }
-        .terminal-input::placeholder {
-          color: ${C.textDim};
-          text-transform: uppercase;
-          font-size: 0.875rem;
-          letter-spacing: 0.1em;
+        .mapa-input::placeholder {
+          color: ${C.muted};
+          font-size: 0.9rem;
         }
-        .terminal-input:focus {
+        .mapa-input:focus {
           outline: none;
           border-bottom-color: ${C.gold};
-          box-shadow: 0 4px 12px ${C.amber}20;
         }
-        .btn-industrial {
+        .mapa-btn {
           width: 100%;
           padding: 18px 32px;
-          background: linear-gradient(135deg, ${C.amber}, #E9A23B);
+          background: linear-gradient(135deg, ${C.gold}, #A8881F);
           color: #000;
           font-weight: 700;
           font-size: 1rem;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           border: 0;
           cursor: pointer;
@@ -114,353 +104,175 @@ export default function MapaDeSalidaPage() {
           clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
           transition: all 0.2s ease;
         }
-        .btn-industrial:hover:not(:disabled) {
+        .mapa-btn:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px ${C.amber}40;
+          box-shadow: 0 8px 24px rgba(200,168,75,0.35);
         }
-        .btn-industrial:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
+        .mapa-btn:disabled { opacity: 0.7; cursor: not-allowed; }
       `}} />
 
-      <main
-        style={{
-          minHeight: '100vh',
-          color: C.textMain,
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/hormigon-tile.webp')`,
-          backgroundSize: 'cover, 600px 600px',
-          backgroundRepeat: 'no-repeat, repeat',
-          backgroundAttachment: 'scroll, scroll',
-        }}
-      >
-        {/* ═══════════════════════════════════════════════════════════════
-            HEADER: El Hangar (Dramático)
-            ═══════════════════════════════════════════════════════════════ */}
-        <section style={{ height: '40vh', position: 'relative', overflow: 'hidden' }}>
-          <Image
-            src="/images/header-reto.jpg"
-            alt=""
-            fill
-            style={{
-              objectFit: 'cover',
-              filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
-              opacity: 0.9,
-              WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-            }}
-            priority
-          />
-
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, rgba(11,12,12,0.2) 0%, rgba(11,12,12,0.35) 60%, transparent 100%)',
-            }}
-          />
-
-          {/* Logo flotante */}
-          <div style={{ position: 'relative', zIndex: 10, padding: '1.5rem' }}>
-            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
-              <span style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', fontFamily: "'Rajdhani', sans-serif" }}>
-                CreaTuActivo
-              </span>
-            </Link>
-          </div>
-
-          {/* Título del Header */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '2rem',
-              left: 0,
-              right: 0,
-              zIndex: 10,
-              textAlign: 'center',
-              padding: '0 1.5rem',
-            }}
-          >
-            <h1
-              style={{
-                fontSize: 'clamp(1.75rem, 5vw, 2.75rem)',
-                color: C.gold,
-                lineHeight: 1.1,
-                marginBottom: '0.75rem',
-                fontFamily: "'Playfair Display', Georgia, serif",
-              }}
-            >
-              EL MAPA DE SALIDA
-            </h1>
-            <div style={{ width: '3rem', height: '1px', background: C.cyan, margin: '0 auto 0.5rem' }} />
-            <span
-              style={{
-                fontSize: '0.7rem',
-                color: C.cyan,
-                letterSpacing: '0.15em',
-                fontFamily: "'Roboto Mono', monospace",
-              }}
-            >
-              REF: SQUEEZE_MAPA_V3
+      <main style={{
+        minHeight: '100vh',
+        backgroundColor: C.bg,
+        color: C.white,
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
+        {/* HEADER — logo centrado, sin nav */}
+        <header style={{ padding: '1.5rem', textAlign: 'center', borderBottom: `1px solid ${C.bgCardBorder}` }}>
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+            <Image src="/header.png" alt="CreaTuActivo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: C.white, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em' }}>
+              CreaTuActivo
             </span>
-          </div>
-        </section>
+          </Link>
+        </header>
 
-        {/* ═══════════════════════════════════════════════════════════════
-            FORM CONTAINER
-            ═══════════════════════════════════════════════════════════════ */}
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '3rem 1rem',
-            position: 'relative',
-            zIndex: 10,
-          }}
-        >
-          <div style={{ width: '100%', maxWidth: '540px' }}>
-            <div
-              style={{
-                background: 'rgba(22, 24, 29, 0.80)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: `1px solid ${C.gold}26`,
-                padding: 'clamp(2rem, 5vw, 2.5rem)',
-              }}
-            >
-              {/* Pre-titular */}
-              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontSize: '0.875rem',
-                    color: C.textMuted,
-                    background: C.gunmetal,
-                    padding: '0.5rem 1rem',
-                    border: `1px solid ${C.gold}26`,
-                  }}
-                >
-                  <span
-                    style={{
-                      width: '6px',
-                      height: '6px',
-                      background: C.amber,
-                      animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }}
-                  />
-                  Para profesionales que buscan soberanía financiera real
-                </span>
-              </div>
+        {/* FORM AREA */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '3rem 1.25rem',
+        }}>
+          <div style={{ width: '100%', maxWidth: '520px' }}>
 
-              {/* Titular */}
-              <h2
-                style={{
-                  fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-                  textAlign: 'center',
-                  lineHeight: 1.2,
-                  marginBottom: '1rem',
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                }}
-              >
-                Pasa de <span style={{ color: C.textMuted }}>DEPENDIENTE</span> a{' '}
-                <span style={{ color: C.gold }}>SOBERANO</span>
-              </h2>
+            {/* Eyebrow */}
+            <p style={{
+              fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace",
+              letterSpacing: '0.2em', textTransform: 'uppercase',
+              color: C.cyan, textAlign: 'center', marginBottom: '20px',
+            }}>
+              Tu primer paso
+            </p>
 
-              {/* Subtitular */}
-              <p style={{ textAlign: 'center', color: C.textMuted, marginBottom: '1.5rem', fontSize: '0.95rem' }}>
-                <span style={{ color: C.textMain, fontWeight: 500 }}>5 días para planear tu escape del &ldquo;Plan por Defecto&rdquo;.</span>
-                <br />
-                Audita nuestra <span style={{ color: C.gold }}>Logística Híbrida</span> sin riesgo.
+            {/* H1 */}
+            <h1 style={{
+              fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontWeight: 600, color: C.white,
+              textAlign: 'center', lineHeight: 1.2,
+              marginBottom: '16px',
+            }}>
+              Tu Mapa de Salida está listo.
+            </h1>
+
+            {/* Subtítulo */}
+            <p style={{
+              textAlign: 'center', color: C.muted,
+              fontSize: '1rem', lineHeight: 1.7,
+              marginBottom: '32px', maxWidth: '420px', margin: '0 auto 32px',
+            }}>
+              5 días para entender si existe una salida del Plan por Defecto para alguien con tu perfil.
+              Sin compromisos. Sin presión. Solo información.
+            </p>
+
+            {/* Lo que recibirás */}
+            <div style={{
+              background: C.bgCard, border: `1px solid ${C.bgCardBorder}`,
+              padding: '20px 24px', marginBottom: '28px',
+              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+            }}>
+              <p style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '14px' }}>
+                Lo que recibirás
               </p>
+              {[
+                { tiempo: 'Hoy', texto: 'El Mapa de Salida — la arquitectura completa del modelo, directo a tu WhatsApp.' },
+                { tiempo: 'Días 1–5', texto: 'Una secuencia que explica cómo funciona el modelo, qué resultados están logrando personas con tu perfil, y qué necesitarías para empezar.' },
+                { tiempo: 'Tú decides', texto: 'Al final tienes la información completa para decidir si esto es para ti.' },
+              ].map((item) => (
+                <div key={item.tiempo} style={{ display: 'flex', gap: '12px', marginBottom: '12px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", color: C.gold, fontWeight: 700, flexShrink: 0, paddingTop: '2px', minWidth: '56px' }}>
+                    {item.tiempo}
+                  </span>
+                  <span style={{ color: C.muted, fontSize: '0.875rem', lineHeight: 1.5 }}>{item.texto}</span>
+                </div>
+              ))}
+            </div>
 
-              {/* Micro Historia */}
-              <div
-                style={{
-                  padding: '1rem',
-                  background: C.obsidian,
-                  border: `1px solid ${C.gold}26`,
-                  marginBottom: '1.5rem',
-                }}
-              >
-                <p style={{ fontSize: '0.875rem', color: C.textMuted, fontStyle: 'italic', textAlign: 'center', lineHeight: 1.6 }}>
-                  &ldquo;A los 40 años descubrí que había comprado un empleo, no construido un activo.
-                  Este mapa es la hoja de ruta matemática para salir de la trampa.&rdquo;
-                </p>
-                <p
-                  style={{
-                    fontSize: '0.75rem',
-                    color: C.textDim,
-                    textAlign: 'center',
-                    marginTop: '0.5rem',
-                    fontFamily: "'Roboto Mono', monospace",
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  — LUIS CABREJO · ARQUITECTO DE ACTIVOS
-                </p>
-              </div>
-
-              {/* FORMULARIO */}
-              <form onSubmit={handleSubmit} style={{ marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {/* FORMULARIO */}
+            <form onSubmit={handleSubmit}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: C.muted, marginBottom: '6px', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.05em' }}>
+                    Tu nombre
+                  </label>
                   <input
                     type="text"
-                    placeholder="TU NOMBRE"
+                    placeholder="Como quieres que te llamemos"
                     value={formData.nombre}
                     onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
                     required
-                    className="terminal-input"
+                    className="mapa-input"
                   />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: C.muted, marginBottom: '6px', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.05em' }}>
+                    Tu correo electrónico
+                  </label>
                   <input
                     type="email"
-                    placeholder="TU MEJOR EMAIL"
+                    placeholder="correo@ejemplo.com"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                     required
-                    className="terminal-input"
+                    className="mapa-input"
                   />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: C.muted, marginBottom: '6px', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.05em' }}>
+                    Tu WhatsApp (con código de país)
+                  </label>
                   <input
                     type="tel"
-                    placeholder="TU WHATSAPP (+57 300...)"
+                    placeholder="+57 300 000 0000"
                     value={formData.whatsapp}
                     onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
                     required
-                    className="terminal-input"
+                    className="mapa-input"
                   />
                 </div>
-
-                {error && (
-                  <p style={{ color: '#F43F5E', fontSize: '0.875rem', textAlign: 'center', marginTop: '1rem' }}>{error}</p>
-                )}
-
-                {/* CTA Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting || isSuccess}
-                  className="btn-industrial"
-                  style={{ marginTop: '1.5rem', background: isSuccess ? 'linear-gradient(135deg,#10B981,#059669)' : undefined }}
-                >
-                  {isSuccess ? (
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                      <svg style={{ width: '20px', height: '20px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      ¡Acceso enviado a tu WhatsApp!
-                    </span>
-                  ) : isSubmitting ? (
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                      <svg style={{ animation: 'spin 1s linear infinite', width: '20px', height: '20px' }} viewBox="0 0 24 24" fill="none">
-                        <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Generando tu acceso...
-                    </span>
-                  ) : (
-                    'OBTENER EL MAPA (100% GRATIS)'
-                  )}
-                </button>
-              </form>
-
-              {/* Anti-Ganchos */}
-              <div style={{ paddingTop: '1.5rem', borderTop: `1px solid ${C.gold}26` }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '1rem 1.5rem',
-                    fontSize: '0.75rem',
-                    color: C.textDim,
-                  }}
-                >
-                  {[
-                    'Sin perseguir amigos',
-                    'Sin inventario en casa',
-                    'Sin ventas de los 90',
-                  ].map((item) => (
-                    <span key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                      <svg style={{ width: '14px', height: '14px', color: C.gold }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {item}
-                    </span>
-                  ))}
-                </div>
               </div>
 
-              {/* Trust Elements */}
-              <div
-                style={{
-                  marginTop: '1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '1rem',
-                  fontSize: '0.75rem',
-                  color: C.textDim,
-                  fontFamily: "'Roboto Mono', monospace",
-                }}
+              <button
+                type="submit"
+                disabled={isSubmitting || isSuccess}
+                className="mapa-btn"
+                style={isSuccess ? { background: 'linear-gradient(135deg,#16a34a,#15803d)' } : undefined}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <svg style={{ width: '16px', height: '16px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  SIN SPAM
-                </span>
-                <span>•</span>
-                <span>AUDITORÍA GRATIS</span>
-                <span>•</span>
-                <span>5 COORDENADAS</span>
-              </div>
-            </div>
+                {isSuccess ? (
+                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <svg style={{ width: '18px', height: '18px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    ¡Mapa enviado!
+                  </span>
+                ) : isSubmitting ? 'Enviando...' : 'Enviarme el Mapa →'}
+              </button>
+            </form>
 
-            {/* Social Proof */}
-            <p
-              style={{
-                textAlign: 'center',
-                color: C.textDim,
-                fontSize: '0.875rem',
-                marginTop: '1.5rem',
-                fontFamily: "'Roboto Mono', monospace",
-                letterSpacing: '0.05em',
-              }}
-            >
-              +2,400 PERSONAS YA TRAZARON SU RUTA DE SALIDA
+            {/* Trust copy */}
+            <p style={{
+              textAlign: 'center', fontSize: '0.78rem', color: C.muted,
+              marginTop: '16px', lineHeight: 1.6,
+            }}>
+              Sin spam. Sin listas masivas. Solo el mapa y los 5 días.
+              <br />Puedes salirte en cualquier momento.
             </p>
           </div>
         </div>
 
-        {/* FOOTER */}
-        <footer
-          style={{
-            padding: '1rem',
-            textAlign: 'center',
-            color: C.textDim,
-            fontSize: '0.75rem',
-            position: 'relative',
-            zIndex: 10,
-            fontFamily: "'Roboto Mono', monospace",
-          }}
-        >
-          <Link
-            href="/privacidad"
-            style={{ color: C.textDim, textDecoration: 'none', transition: 'color 0.2s ease' }}
-            onMouseEnter={(e) => e.currentTarget.style.color = C.textMuted}
-            onMouseLeave={(e) => e.currentTarget.style.color = C.textDim}
-          >
-            POLÍTICA DE PRIVACIDAD
-          </Link>
-          <span style={{ margin: '0 0.5rem' }}>•</span>
-          <span>© 2026 CREATUACTIVO.COM</span>
+        {/* FOOTER MÍNIMO */}
+        <footer style={{
+          padding: '1.25rem',
+          textAlign: 'center',
+          color: C.muted,
+          fontSize: '0.72rem',
+          fontFamily: "'Roboto Mono', monospace",
+          borderTop: `1px solid ${C.bgCardBorder}`,
+        }}>
+          © 2026 CreaTuActivo
         </footer>
       </main>
     </>

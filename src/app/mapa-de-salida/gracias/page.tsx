@@ -1,368 +1,201 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * EL MAPA DE SALIDA — BRIDGE PAGE / CONFIRMACIÓN
- * v3.0 — Las coordenadas están en camino. 5 Fases de Auditoría.
+ * EL MAPA DE SALIDA — BRIDGE PAGE / CONFIRMACIÓN v4.0
+ * Brief Maestro Abril 2026: warm-up post-registro, tono personal Luis, timeline
  */
 
-import { IndustrialHeader } from '@/components/IndustrialHeader';
 import TrackingGracias from './TrackingGracias';
 
 export const metadata = {
-  title: 'Acceso Confirmado | El Mapa de Salida - CreaTuActivo',
-  description: 'Confirmación de acceso al Mapa de Salida y coordenadas de Soberanía Financiera.',
+  title: 'Tu mapa está en camino | CreaTuActivo',
+  description: 'Confirmación de registro al Mapa de Salida.',
   robots: 'noindex, nofollow',
 };
 
 const C = {
-  gold: '#E5C279',
-  amber: '#F59E0B',
-  cyan: '#38BDF8',
-  obsidian: '#0B0C0C',
-  gunmetal: '#16181D',
-  textMain: '#E5E5E5',
-  textMuted: '#A3A3A3',
-  textDim: '#6b6b75',
+  gold: '#C8A84B',
+  white: '#F5F5F0',
+  muted: '#6B6B5A',
+  bg: '#080808',
+  bgCard: '#0d0d0d',
+  bgCardBorder: '#1a1a1a',
+  cyan: '#22D3EE',
 };
 
 export default function MapaGraciasPage() {
+  const waShareUrl = 'https://wa.me/?text=Acabo+de+recibir+el+Mapa+de+Salida+de+CreaTuActivo.+Si+estás+buscando+una+salida+al+Plan+por+Defecto%2C+míralo:+creatuactivo.com%2Fmapa-de-salida';
+  const shareUrl = 'https://creatuactivo.com/mapa-de-salida';
+
   return (
     <>
       <TrackingGracias />
-      <style dangerouslySetInnerHTML={{__html: `
-        .whatsapp-cta-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          padding: 16px 32px;
-          background: linear-gradient(135deg, ${C.amber}, #E9A23B);
-          color: #000;
-          font-weight: 700;
-          font-size: 0.95rem;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          text-decoration: none;
-          font-family: 'Rajdhani', sans-serif;
-          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-          transition: all 0.2s ease;
-        }
-        .whatsapp-cta-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px ${C.amber}40;
-        }
-      `}} />
-      <main
-        className="min-h-screen text-[#E5E5E5]"
-        style={{
-          position: 'relative',
-          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/hormigon-tile.webp')`,
-          backgroundSize: 'cover, 600px 600px',
-          backgroundRepeat: 'no-repeat, repeat',
-          backgroundAttachment: 'scroll, scroll',
-        }}
-      >
-      <div className="relative z-10">
-        {/* HEADER */}
-        <IndustrialHeader
-          title="ACCESO CONFIRMADO"
-          subtitle="Tu Mapa de Salida ha sido generado exitosamente"
-          refCode="MAPA_SALIDA_BRIDGE_V3"
-          imageSrc="/images/header-gracias.jpg"
-          imageAlt=""
-        />
+      <main style={{
+        minHeight: '100vh',
+        backgroundColor: C.bg,
+        color: C.white,
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
 
-        {/* SUCCESS MESSAGE */}
-        <section className="py-12 px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <div
-              style={{
-                width: '80px',
-                height: '80px',
-                margin: '0 auto 1.5rem',
-                background: 'rgba(245, 158, 11, 0.15)',
-                clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <svg className="w-10 h-10" style={{ color: C.gold }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
+        {/* HEADER — logo centrado */}
+        <header style={{ padding: '1.5rem', textAlign: 'center', borderBottom: `1px solid ${C.bgCardBorder}` }}>
+          <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+            <img src="/header.png" alt="CreaTuActivo" width={36} height={36} style={{ objectFit: 'contain' }} />
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: C.white, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em' }}>
+              CreaTuActivo
+            </span>
+          </a>
+        </header>
 
-            <h1
-              className="text-4xl sm:text-5xl mb-4"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: C.gold }}
-            >
-              Coordenadas Listas
-            </h1>
+        {/* CONTENIDO PRINCIPAL */}
+        <div style={{ flex: 1, padding: '3rem 1.25rem', maxWidth: '640px', margin: '0 auto', width: '100%' }}>
 
-            <p className="text-xl mb-4" style={{ color: C.textMuted }}>
-              Tu acceso a las 5 fases del Mapa de Salida está confirmado.
+          {/* Eyebrow */}
+          <p style={{
+            fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace",
+            letterSpacing: '0.2em', textTransform: 'uppercase',
+            color: C.cyan, textAlign: 'center', marginBottom: '16px',
+          }}>
+            Todo listo
+          </p>
+
+          {/* H1 */}
+          <h1 style={{
+            fontSize: 'clamp(2rem, 5vw, 2.8rem)',
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontWeight: 600, color: C.white,
+            textAlign: 'center', lineHeight: 1.2,
+            marginBottom: '16px',
+          }}>
+            Tu mapa está en camino.
+          </h1>
+
+          {/* Instrucción inmediata */}
+          <p style={{
+            textAlign: 'center', color: C.muted,
+            fontSize: '1.05rem', lineHeight: 1.6,
+            marginBottom: '48px',
+          }}>
+            Revisa tu WhatsApp — te llegará en los próximos minutos.
+          </p>
+
+          {/* TIMELINE */}
+          <div style={{
+            background: C.bgCard, border: `1px solid ${C.bgCardBorder}`,
+            padding: '24px 28px', marginBottom: '40px',
+            clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          }}>
+            <p style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '20px' }}>
+              Qué esperar
             </p>
-            <p className="text-sm" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em' }}>
-              ESTADO: PROTOCOLO ACTIVO · FASES: 5
+            {[
+              { cuando: 'Hoy', texto: 'El Mapa de Salida llega a tu WhatsApp.' },
+              { cuando: 'Mañana', texto: 'Día 1 de tu recorrido — el contexto que lo cambia todo.' },
+              { cuando: 'En 5 días', texto: 'Tendrás la información completa para decidir si esto es para ti.' },
+            ].map((item, i) => (
+              <div key={item.cuando} style={{
+                display: 'flex', gap: '16px', alignItems: 'flex-start',
+                paddingBottom: i < 2 ? '16px' : '0',
+                borderBottom: i < 2 ? `1px solid ${C.bgCardBorder}` : 'none',
+                marginBottom: i < 2 ? '16px' : '0',
+              }}>
+                <span style={{
+                  fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace",
+                  color: C.gold, fontWeight: 700, flexShrink: 0, paddingTop: '2px', minWidth: '64px',
+                }}>
+                  {item.cuando}
+                </span>
+                <span style={{ color: C.muted, fontSize: '0.9rem', lineHeight: 1.5 }}>{item.texto}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* MENSAJE DE LUIS */}
+          <div style={{
+            borderLeft: `3px solid rgba(200,168,75,0.4)`,
+            padding: '24px 28px', marginBottom: '40px',
+            background: 'rgba(200,168,75,0.04)',
+          }}>
+            <p style={{
+              fontSize: '1rem', lineHeight: 1.8, color: C.muted,
+              fontStyle: 'italic', marginBottom: '16px',
+            }}>
+              &ldquo;Tomar este primer paso ya dice algo de ti. La mayoría sigue en el Plan por Defecto, no porque no quieran salir — sino porque nunca se detuvieron a hacerse la pregunta correcta. Tú la hiciste. Nos vemos adentro.&rdquo;
+            </p>
+            <p style={{ fontSize: '0.78rem', fontFamily: "'Roboto Mono', monospace", color: C.gold, letterSpacing: '0.05em' }}>
+              — Luis Cabrejo · Arquitecto de Activos
             </p>
           </div>
-        </section>
 
-        {/* BRIDGE SECTION: Epiphany Bridge Story */}
-        <section className="py-16 px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <span
+          {/* SECCIÓN COMPARTIR */}
+          <div style={{
+            background: C.bgCard, border: `1px solid ${C.bgCardBorder}`,
+            padding: '24px 28px', marginBottom: '40px',
+            clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+          }}>
+            <p style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '12px' }}>
+              ¿Conoces a alguien más?
+            </p>
+            <p style={{ color: C.muted, fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '20px' }}>
+              Si hay alguien en tu vida que también está atrapado en el Plan por Defecto, este puede ser su momento.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              <a
+                href={waShareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.2em',
-                  color: `${C.gold}B3`,
-                  fontFamily: "'Roboto Mono', monospace",
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '12px 20px',
+                  border: `1px solid rgba(200,168,75,0.4)`,
+                  color: C.gold, fontSize: '0.85rem', fontWeight: 600,
+                  fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
+                  textDecoration: 'none', textTransform: 'uppercase',
+                  clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
                 }}
               >
-                Auditoría Inicial...
-              </span>
-              <h2
-                className="text-3xl sm:text-4xl mt-4 mb-4"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif", color: C.textMain }}
+                Compartir por WhatsApp
+              </a>
+              <button
+                onClick={() => navigator.clipboard?.writeText(shareUrl)}
+                style={{
+                  display: 'inline-flex', alignItems: 'center',
+                  background: 'none', border: 'none',
+                  color: C.muted, fontSize: '0.85rem', cursor: 'pointer',
+                  fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em',
+                  padding: '12px 4px',
+                }}
               >
-                Por qué diseñamos este Mapa
-              </h2>
-              <p style={{ color: C.textMuted }}>
-                Un reporte confidencial de 3 minutos que destruye el &ldquo;Plan por Defecto&rdquo;
-              </p>
-            </div>
-
-            {/* Video Epifanía */}
-            <div
-              style={{
-                aspectRatio: '16/9',
-                background: C.obsidian,
-                border: `1px solid ${C.gold}26`,
-                marginBottom: '2rem',
-                overflow: 'hidden',
-              }}
-            >
-              <video
-                controls
-                preload="none"
-                poster={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_POSTER}
-                playsInline
-                style={{ width: '100%', height: '100%', display: 'block' }}
-              >
-                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_1080P} type="video/mp4" />
-                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_720P} type="video/mp4" />
-              </video>
-            </div>
-
-            {/* WhatsApp VIP CTA */}
-            <div
-              style={{
-                background: 'rgba(22, 24, 29, 0.75)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: `1px solid ${C.gold}40`,
-                padding: '2rem',
-                marginBottom: '2rem',
-              }}
-            >
-              <div className="text-center">
-                <h3
-                  className="text-xl font-medium mb-4"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                  <span style={{ color: C.gold }}>Paso Final</span>
-                </h3>
-                <p className="mb-6" style={{ color: C.textMuted }}>
-                  Para garantizar que recibas las coordenadas de cada fase cada día
-                  (y evitar que caigan en spam), he habilitado un canal directo en WhatsApp.
-                </p>
-                <p className="text-sm mb-6" style={{ color: C.textDim }}>
-                  Haz clic abajo para confirmar tu acceso y recibir tu primera instrucción.
-                </p>
-                <a
-                  href="https://wa.me/573215193909?text=Hola%20Luis,%20ya%20vi%20el%20video%20de%20la%20epifan%C3%ADa%20y%20quiero%20recibir%20mis%20coordenadas%20del%20Mapa%20de%20Salida."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="whatsapp-cta-btn"
-                >
-                  <span>👉</span>
-                  ACTIVAR RECEPCIÓN DE COORDENADAS (VIP)
-                </a>
-              </div>
-            </div>
-
-            {/* Story Summary */}
-            <div
-              style={{
-                background: 'rgba(22, 24, 29, 0.70)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                padding: '2rem',
-                border: `1px solid ${C.gold}26`,
-              }}
-            >
-              <h3
-                className="text-2xl mb-6"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                Mi historia (versión corta)
-              </h3>
-
-              <div className="space-y-4" style={{ color: C.textMuted }}>
-                <p>
-                  Cuando estaba de novio con mi esposa, la llevé a un mirador en los Llanos que se llama{' '}
-                  <strong style={{ color: C.textMain }}>Buena Vista</strong>. Ahí le hice tres promesas:
-                  una casa de campo, compras sin mirar la etiqueta, y tres hijos.
-                </p>
-                <p>
-                  <strong style={{ color: C.textMain }}>Catorce años después...</strong> de las tres promesas,
-                  solo le había cumplido con los tres hijos.
-                </p>
-                <p>
-                  No era por falta de esfuerzo. Mi vida se había convertido en lo que llamo el{' '}
-                  <span style={{ color: C.gold, fontWeight: 500 }}>&quot;Plan por Defecto&quot;</span>: trabajar como loco
-                  para pagar las cuentas, y repetir al mes siguiente.
-                </p>
-                <p>
-                  Encontré un modelo diferente. En 2.5 años, fui el #1 de mi organización. Pero mi éxito no se duplicaba.
-                  Lo que para mí era natural, para otros era una lucha constante.
-                </p>
-                <p>
-                  <strong style={{ color: C.textMain }}>Esa fue mi primera epifanía:</strong> un sistema que solo funciona
-                  para algunos no es una solución real.
-                </p>
-                <p>
-                  Después vino el e-commerce. Otra vez funcionó para mí, pero requería saber de marketing, SEO, logística...{' '}
-                  <strong style={{ color: C.textMain }}>Segunda epifanía:</strong> el problema no era la gente, era el modelo.
-                </p>
-                <p style={{ color: C.gold, fontWeight: 500, fontSize: '1.125rem', marginTop: '1.5rem' }}>
-                  &quot;La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra.&quot;
-                </p>
-              </div>
+                Copiar el link
+              </button>
             </div>
           </div>
-        </section>
 
-        {/* LAS 5 FASES DEL MAPA */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2
-                className="text-3xl mb-4"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                Tus 5 Fases de Auditoría
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-5 gap-4">
-              {[
-                { dia: 1, titulo: 'El Diagnóstico', desc: 'Fallas de tu vehículo actual' },
-                { dia: 2, titulo: 'La Trampa Solitaria', desc: 'El error del emprendedor' },
-                { dia: 3, titulo: 'Máquina Híbrida', desc: 'Tecnología + Logística Física' },
-                { dia: 4, titulo: 'Matemática de Liquidez', desc: 'Los números fríos del modelo' },
-                { dia: 5, titulo: 'Cierre Asíncrono', desc: 'Tu plan de escape trazado' },
-              ].map((item) => (
-                <div
-                  key={item.dia}
-                  style={{
-                    background: 'rgba(22, 24, 29, 0.80)',
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                    border: `1px solid ${C.gold}26`,
-                    borderTop: `3px solid ${C.cyan}`,
-                    padding: '1rem',
-                    textAlign: 'center',
-                  }}
-                >
-                  <div
-                    className="text-sm font-medium mb-2"
-                    style={{
-                      color: C.gold,
-                      fontFamily: "'Roboto Mono', monospace",
-                      letterSpacing: '0.1em',
-                    }}
-                  >
-                    FASE {item.dia}
-                  </div>
-                  <div className="font-medium mb-1" style={{ color: C.textMain }}>{item.titulo}</div>
-                  <div className="text-xs" style={{ color: C.textDim }}>{item.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PASOS A SEGUIR */}
-        <section
-          className="py-16 px-4"
-          style={{
-            background: 'rgba(22, 24, 29, 0.5)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-          }}
-        >
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-8">
-              <h2
-                className="text-2xl mb-4"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                Mientras tanto, haz esto:
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { num: 1, text: 'Activa tu recepción de coordenadas en WhatsApp (botón arriba)' },
-                { num: 2, text: 'Revisa tu correo y asegúrate de que no caigamos en spam' },
-                { num: 3, text: 'Bloquea 15 minutos al día para auditar tu mapa' },
-              ].map((item) => (
-                <div
-                  key={item.num}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    background: C.obsidian,
-                    border: `1px solid ${C.gold}26`,
-                    padding: '1rem',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      background: C.amber,
-                      color: C.obsidian,
-                      fontWeight: 700,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      fontFamily: "'Rajdhani', sans-serif",
-                      fontSize: '1.25rem',
-                    }}
-                  >
-                    {item.num}
-                  </div>
-                  <span style={{ color: C.textMuted }}>{item.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <footer className="py-8 px-4 text-center text-sm" style={{ color: C.textDim }}>
-          <p>¿Preguntas? Escríbenos al WhatsApp</p>
-          <p className="mt-4" style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-            © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
+          {/* CTA QUESWA */}
+          <p style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <a
+              href="https://queswa.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: C.gold, fontSize: '0.9rem', textDecoration: 'none', fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.05em' }}
+            >
+              Mientras tanto, descubre Queswa →
+            </a>
           </p>
+        </div>
+
+        {/* FOOTER MÍNIMO */}
+        <footer style={{
+          padding: '1.25rem',
+          textAlign: 'center',
+          color: C.muted,
+          fontSize: '0.72rem',
+          fontFamily: "'Roboto Mono', monospace",
+          borderTop: `1px solid ${C.bgCardBorder}`,
+        }}>
+          © 2026 CreaTuActivo
         </footer>
-      </div>
-    </main>
+      </main>
     </>
   );
 }

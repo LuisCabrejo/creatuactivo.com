@@ -110,6 +110,30 @@ export default function MapaGraciasPage() {
             ))}
           </div>
 
+          {/* VIDEO EPIFANÍA */}
+          <div style={{ marginBottom: '40px' }}>
+            <p style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '12px' }}>
+              Por qué diseñamos este mapa
+            </p>
+            <div style={{
+              aspectRatio: '16/9',
+              background: C.bgCard,
+              border: `1px solid ${C.bgCardBorder}`,
+              overflow: 'hidden',
+            }}>
+              <video
+                controls
+                preload="none"
+                poster={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_POSTER}
+                playsInline
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              >
+                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_1080P} type="video/mp4" />
+                <source src={process.env.NEXT_PUBLIC_VIDEO_EPIFANIA_720P} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
           {/* MENSAJE DE LUIS */}
           <div style={{
             borderLeft: `3px solid rgba(200,168,75,0.4)`,

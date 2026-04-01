@@ -19,6 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
 | Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v19.6.mjs` |
+| Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
 | Deploy Supabase edge function | `npx supabase functions deploy nexus-queue-processor` |
@@ -468,7 +469,8 @@ src/app/
 │   └── sala/page.tsx                # Live room with countdown
 ├── sistema/
 │   └── productos/                   # Product catalog (SEO indexed)
-│       └── [ref]/page.tsx
+│       ├── [ref]/page.tsx
+│       └── catalogo-productos.tsx   # 🚧 WIP — "Clinical Luxury" e-commerce catalog (Pharma-Teal aesthetic, shopping cart, wishlist, ingredient science) — untracked, not yet in page.tsx
 ├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
 │   └── [ref]/page.tsx
 ├── socios/                          # Landing for traditional networkers

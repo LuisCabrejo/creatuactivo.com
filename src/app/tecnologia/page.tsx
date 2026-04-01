@@ -98,7 +98,7 @@ export default function TecnologiaPage() {
             title="¿QUÉ ES QUESWA.APP?"
             subtitle="El Motor Cognitivo de CreaTuActivo"
             refCode="SISTEMA_QUESWA_V3"
-            imageSrc="/images/servilleta/engranajes.jpg"
+            imageSrc="/images/engranajes.webp"
             imageAlt="Engranajes industriales - Sistema Queswa"
           />
 

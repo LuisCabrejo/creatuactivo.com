@@ -1147,15 +1147,14 @@ export default function ServilletaPage() {
             </span>
           </button>
           <div className="brand">
-            <span className="material-symbols-sharp">precision_manufacturing</span>
-            <span>CREATUACTIVO.SYS // V2.1</span>
+            <span>CreaTuActivo</span>
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 INFRAESTRUCTURA' },
-              { id: 2, label: '02 MEC\u00c1NICA' },
-              { id: 3, label: '03 BIO-METR\u00cdA' },
-              { id: 4, label: '04 SIMULACI\u00d3N' },
+              { id: 1, label: '01 LA M\u00c1QUINA' },
+              { id: 2, label: '02 METODOLOG\u00cdA' },
+              { id: 3, label: '03 EL PRODUCTO' },
+              { id: 4, label: '04 SIMULADOR' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -1177,10 +1176,10 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, icon: 'bolt', label: 'Infra' },
-              { id: 2, icon: 'autorenew', label: 'Mec\u00e1nica' },
-              { id: 3, icon: 'biotech', label: 'Bio' },
-              { id: 4, icon: 'calculate', label: 'Simular' },
+              { id: 1, icon: 'settings', label: 'La M\u00e1quina' },
+              { id: 2, icon: 'hub', label: 'Metodolog\u00eda' },
+              { id: 3, icon: 'eco', label: 'El Producto' },
+              { id: 4, icon: 'bar_chart', label: 'Simulador' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -1388,7 +1387,7 @@ export default function ServilletaPage() {
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
-                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE FLUJO</h3>
+                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE PATRIMONIO PARALELO</h3>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">

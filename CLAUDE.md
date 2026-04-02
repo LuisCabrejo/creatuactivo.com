@@ -526,16 +526,39 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 
 | Version | Route | Style |
 |---------|-------|-------|
-| v5.1 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
-| v5.1 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
+| v6.0 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
+| v6.0 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: Rajdhani (headings) + Roboto Mono (data)
 **Color Palette**: Industrial (#2C3E50 steel, #009FDF cyan, #E57200 safety orange)
 
-#### Arquitectura Mobile (Mar 2026 — no revertir)
+#### Contenido y copy (Abr 2026 — versión final aprobada)
 
-**Slide 1**: Tres `.comp-row` con animación `bootSequence` en cascada (delays 0.2s, 0.4s, 0.6s). Border-left cyan para GANO EXCEL/CREATUACTIVO, naranja para DIRECCIÓN EJECUTIVA.
+**Nav desktop**: Brand `CreaTuActivo` (sin ícono). Menú: `01 LA MÁQUINA · 02 METODOLOGÍA · 03 EL PRODUCTO · 04 SIMULADOR`
+**Nav mobile**: Labels sin número — `La Máquina · Metodología · El Producto · Simulador` (sin íconos Material Symbols — renderizan como texto literal)
+
+**Slide 1 — LA MÁQUINA**: REF `PATRIMONIO_PARALELO`. H1 "CONSTRUCCIÓN DE PATRIMONIO PARALELO". Tres `.comp-row`: EL MÚSCULO (Gano Excel) / EL CEREBRO (CreaTuActivo y Queswa) / TU ROL (La dirección). CTA → Slide 2.
+
+**Slide 2 — LA METODOLOGÍA EAM**: Tres cards con textos de 2 líneas (pantalla = soporte, voz = detalle):
+- EXPANDIR: "Tu celular es tu centro de mando. / Diriges tráfico digital — sin perseguir a nadie."
+- ACTIVAR: "Queswa presenta, responde y filtra por ti. / Tú solo hablas con quienes ya decidieron."
+- MAESTRÍA: "La Academia forma a tu equipo sola — por niveles. / Tu red crece sin que tu tiempo sea el límite."
+- Tachadas: PERSEGUIR·INCOMODAR·MICROGESTIONAR / IMPROVISAR·MEMORIZAR GUIONES·TITUBEAR / CAPACITAR MANUALMENTE·MICROGESTIONAR·CUELLO DE BOTELLA
+- CTA "VER EL PRODUCTO →" al fondo del grid (`gridColumn: '1 / -1'`), no en el header
+- Botón "PREGÚNTALE ALGO EN VIVO" en card-1 → dispara `open-queswa` CustomEvent
+
+**Slide 3 — EL PRODUCTO**: Eyebrow "EL PRODUCTO". H2 "UN HÁBITO / QUE NO CAMBIA". Cuerpo 2 líneas. Panel métricas "GANODERMA LUCIDUM" (barras VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%). CTA "VER LOS NÚMEROS →" al fondo. Layout mobile: `.slide-3-layout` es `flex-direction: column` en mobile para que el CTA apile debajo del contenido.
+
+**Slide 4 — SIMULADOR DE PATRIMONIO PARALELO**:
+- Tabs: INGRESO INMEDIATO / INGRESO RECURRENTE (no GEN5 / Renta Vitalicia)
+- Labels: PERSONAS EN TU RED / HOGARES EN TU RED
+- `getLifestyleTranslation`: 8 strings en lenguaje héroe (sin jerga financiera/MLM)
+- Panel CTA: eyebrow cyan "CONSTRUCCIÓN DE PATRIMONIO PARALELO" → párrafo "El costo más caro..." (solo mobile, `.cta-inaccion { display: none }` en desktop) → `¿QUÉ DECIDES?` → botones
+- Botón primario: "INICIAR HOY →" → `/paquetes`
+- Botón secundario: "VER EL MAPA DE SALIDA →" → `/mapa-de-salida`
+
+#### Arquitectura Mobile (Abr 2026 — no revertir)
 
 **Slide 2**: Grid de 3 tarjetas (`.card-industrial`) con layout split imagen/texto:
 - `.card-bg`: `position: absolute; top: 0; height: 50%` — imagen pura, sin texto superpuesto
@@ -544,17 +567,26 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 - Fullscreen mobile: tarjetas con `min-height: 55vh`, scroll normal (NO scroll-snap en slide 2)
 - Imágenes: `tech-servers.jpg` (card-1, `cover`), `tech-console.jpg` (card-2, `100% auto`), `tech-duplication.jpg` (card-3, `100% auto`)
 - Cards inactivas: `grayscale(100%) brightness(40%)` → activa: `grayscale(0%) brightness(70%)` con `transform: scale(1.05)`
-- Botón "PREGÚNTALE ALGO EN VIVO" en card-1 → dispara `open-queswa` CustomEvent
+
+**Slide 3**: `.slide-3-layout` es `flex-direction: column; justify-content: flex-end` en mobile — slide-3-bottom y CTA apilan verticalmente (NO flex-direction: row que hace flotar el CTA a la derecha).
 
 **Slide 4**: Scroll-snap vertical en mobile — dos snap items de `100vh`:
-1. `.simulator-panel` — calculadora de flujo financiero (GEN5 / Renta Vitalicia)
+1. `.simulator-panel` — calculadora (INGRESO INMEDIATO / INGRESO RECURRENTE)
 2. `.cta-panel` — imagen `boton-accion.jpg` (top 40%) + zona texto (bottom 60%)
-   - `.bg-image-cta`: `position: absolute; top:0; height: 40%; grayscale(100%)` por defecto
-   - `.cta-overlay`: `position: absolute; top: 40%; bottom: 0; height: auto; background: #111`
-   - `ctaVisible` state + IntersectionObserver (mobile) / setTimeout 400ms (desktop) → clase `cta-revealed` → transición a color 1s
+   - `.bg-image-cta`: `grayscale(100%) brightness(50%)` por defecto
+   - Desktop: imagen queda gris hasta hover (CSS `:hover` puro — NO setTimeout auto-reveal, fue eliminado porque impedía ver la transición)
+   - Mobile: `ctaVisible` state + IntersectionObserver → `cta-revealed` → color al scroll-snap
    - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
-   - Botón primario "ASUMIR DIRECCIÓN": `width: 100%`, naranja dominante
-   - Botón secundario "AUDITAR INFRAESTRUCTURA": `width: auto`, `font-size: 0.65rem`, más angosto
+   - Botón primario "INICIAR HOY →": `width: 100%`, naranja dominante
+   - Botón secundario "VER EL MAPA DE SALIDA →": outline, más angosto
+
+#### Reglas de iconos Material Symbols en Servilleta (NO revertir)
+
+**Problema conocido**: Los íconos Material Symbols Sharp cargan de forma asíncrona. Si un nombre de ícono aparece como string dentro de `<span className="material-symbols-sharp">nombre</span>`, renderiza como texto literal en inglés hasta que la fuente carga.
+
+**Solución aplicada**: Eliminar el span completo y usar texto Unicode `→` o dejar el elemento sin ícono. Íconos eliminados: `precision_manufacturing`, `calculate`, `cell_tower`, `memory`, `hub`, `rocket_launch`, `verified_user`, `biotech`, `bolt`, `autorenew`, `settings`, `eco`, `bar_chart`.
+
+**Íconos que SÍ funcionan** (cargados síncronos): `fullscreen`, `fullscreen_exit` (en botón fullscreen del nav — usan el font ya cargado en layout.tsx).
 
 **Queswa en Servilleta**:
 - `UnifiedQueswaOrb` retorna `null` en `/servilleta` (orbe completamente oculto)

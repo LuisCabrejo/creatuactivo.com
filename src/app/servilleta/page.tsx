@@ -584,8 +584,9 @@ export default function ServilletaPage() {
 
         .simulator-panel h3 {
           font-family: var(--font-head);
-          display: flex; align-items: center; gap: 10px;
+          display: flex; align-items: center; justify-content: center; gap: 10px;
           margin: 0 0 20px 0; font-size: 1.3rem; color: var(--text-main);
+          text-align: center;
         }
 
         .sim-tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 30px; }

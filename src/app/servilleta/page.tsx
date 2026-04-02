@@ -651,6 +651,7 @@ export default function ServilletaPage() {
           gap: 0;
           background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px; text-align: center;
         }
+        .cta-inaccion { display: none; }
         .cta-buttons { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
         .cta-overlay h2 {
           font-family: var(--font-head); font-size: 2rem; text-transform: uppercase;
@@ -869,6 +870,7 @@ export default function ServilletaPage() {
           }
           .cta-overlay h2 { font-size: 1.5rem !important; line-height: 1.15 !important; margin: 0 0 8px !important; }
           .cta-overlay p { margin: 0 0 16px !important; font-size: 0.82rem !important; }
+          .cta-inaccion { display: block !important; }
           .cta-buttons { gap: 20px !important; }
           .cta-buttons .btn-industrial:not(.secondary) { width: 100% !important; justify-content: center !important; font-size: 1.1rem !important; padding: 16px 24px !important; }
           .cta-buttons .btn-industrial.secondary { font-size: 0.65rem !important; padding: 10px 20px !important; width: auto !important; letter-spacing: 1.5px !important; }
@@ -1478,8 +1480,8 @@ export default function ServilletaPage() {
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
                     CONSTRUCCI&Oacute;N DE PATRIMONIO PARALELO
                   </p>
-                  <p style={{ fontSize: '0.78rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 20, fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
-                    El costo m&aacute;s caro es el de la inacci&oacute;n.<br /><br />
+                  <p className="cta-inaccion" style={{ fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.5)', marginBottom: 20, fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
+                    El costo m&aacute;s caro es el de la inacci&oacute;n.<br />
                     Es el que mantiene a las personas en el Plan por Defecto,<br />
                     pagando con su vida el ingreso de cada mes.<br />
                     Lunes tras lunes. A&ntilde;o tras a&ntilde;o.

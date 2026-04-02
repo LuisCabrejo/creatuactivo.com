@@ -1324,18 +1324,18 @@ export default function ServilletaPage() {
             <div className="slide-3-layout">
               <div className="slide-3-bottom">
                 <div className="bio-text-panel">
-                  <div className="technical-label">VEH&Iacute;CULO BIOL&Oacute;GICO</div>
-                  <h2 className="deck-h2">OPTIMIZACI&Oacute;N<br />CELULAR</h2>
+                  <div className="technical-label">EL PRODUCTO</div>
+                  <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
                   <p className="deck-p">
-                    La riqueza sin salud es un error de c&aacute;lculo. Operamos con una estrategia de &ldquo;fricci&oacute;n cero&rdquo;, transformando el consumo diario en tecnolog&iacute;a nutricional impulsada por Ganoderma. Nuestro ecosistema est&aacute; coronado por LUVOCO: infraestructura de lujo (m&aacute;quinas de precisi&oacute;n y c&aacute;psulas premium) para hogares y corporativos. La regla es simple: Un h&aacute;bito irrompible genera un flujo de caja inquebrantable.
+                    Bebidas enriquecidas, suplementos y cuidado personal.<br />
+                    Consumo diario que ya existe — ahora con Ganoderma integrado.
                   </p>
                 </div>
 
                 <div className="bio-metrics-container">
                   <div className="bio-metrics-panel">
                     <div className="panel-title">
-                      <span className="material-symbols-sharp" style={{ fontSize: 18 }}>biotech</span>
-                      SCAN: BIO-METR&Iacute;A
+                      GANODERMA LUCIDUM
                     </div>
                     <div className="metric-row">
                       <div className="metric-header-row">
@@ -1366,6 +1366,13 @@ export default function ServilletaPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* CTA al fondo del slide */}
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1.5rem', paddingBottom: '0.5rem' }}>
+                <button className="btn-next" onClick={() => showSlide(4)}>
+                  VER LOS N&Uacute;MEROS →
+                </button>
               </div>
             </div>
           </section>

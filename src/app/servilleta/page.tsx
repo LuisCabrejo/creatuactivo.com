@@ -778,10 +778,10 @@ export default function ServilletaPage() {
             justify-content: flex-end;
           }
 
-          .slide-3-layout { align-items: flex-end; }
+          .slide-3-layout { flex-direction: column; align-items: stretch; justify-content: flex-end; }
           .slide-3-bottom {
             flex-direction: column;
-            padding: 0 20px 80px;
+            padding: 0 20px 20px;
             margin-left: 0;
             max-width: 100%;
             border-radius: 0;
@@ -1369,7 +1369,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* CTA al fondo del slide */}
-              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1.5rem', paddingBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 20px 80px' }}>
                 <button className="btn-next" onClick={() => showSlide(4)}>
                   VER LOS N&Uacute;MEROS →
                 </button>

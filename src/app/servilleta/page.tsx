@@ -1475,8 +1475,14 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 12 }}>
+                  <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
                     CONSTRUCCI&Oacute;N DE PATRIMONIO PARALELO
+                  </p>
+                  <p style={{ fontSize: '0.78rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 20, fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
+                    El costo m&aacute;s caro es el de la inacci&oacute;n.<br /><br />
+                    Es el que mantiene a las personas en el Plan por Defecto,<br />
+                    pagando con su vida el ingreso de cada mes.<br />
+                    Lunes tras lunes. A&ntilde;o tras a&ntilde;o.
                   </p>
                   <h2>&iquest;QU&Eacute; DECIDES?</h2>
                   <p>Tienes toda la informaci&oacute;n. Elige tu camino.</p>

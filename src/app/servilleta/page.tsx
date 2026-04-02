@@ -1176,17 +1176,16 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, icon: 'settings', label: 'La M\u00e1quina' },
-              { id: 2, icon: 'hub', label: 'Metodolog\u00eda' },
-              { id: 3, icon: 'eco', label: 'El Producto' },
-              { id: 4, icon: 'bar_chart', label: 'Simulador' },
+              { id: 1, label: 'La M\u00e1quina' },
+              { id: 2, label: 'Metodolog\u00eda' },
+              { id: 3, label: 'El Producto' },
+              { id: 4, label: 'Simulador' },
             ].map((s) => (
               <button
                 key={s.id}
                 className={`mobile-nav-btn ${activeSlide === s.id ? 'active' : ''}`}
                 onClick={() => showSlide(s.id)}
               >
-                <span className="material-symbols-sharp nav-icon">{s.icon}</span>
                 <span className="nav-label">{s.label}</span>
               </button>
             ))}

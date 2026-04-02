@@ -1503,9 +1503,6 @@ export default function ServilletaPage() {
                     </a>
                   </div>
 
-                  <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', marginTop: 20, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em' }}>
-                    Eso es lo que est&aacute;s decidiendo construir. Empieza hoy.
-                  </p>
                 </div>
               </div>
             </div>

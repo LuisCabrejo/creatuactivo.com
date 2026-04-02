@@ -1254,9 +1254,6 @@ export default function ServilletaPage() {
                 <span className="slide-2-subtitle">
                   Tres movimientos. Un sistema.
                 </span>
-                <button className="btn-next" onClick={() => showSlide(3)} style={{ marginTop: 12 }}>
-                  VER EL PRODUCTO →
-                </button>
               </div>
 
               {/* Tarjeta 1: EXPANDIR */}
@@ -1267,8 +1264,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>PERSEGUIR</s> &middot; <s>INCOMODAR</s> &middot; <s>MICROGESTIONAR</s></span>
                   </div>
                   <h3>EXPANDIR</h3>
-                  <p>En los modelos tradicionales te ver&aacute;s obligado a perseguir a tu c&iacute;rculo &iacute;ntimo — es inc&oacute;modo, hay que aguantar silencios, adem&aacute;s de moverte mucho y hacer seguimiento manual uno por uno. Eso no es un negocio. Es desgaste.</p>
-                  <p style={{ marginTop: 8 }}>Con CreaTuActivo, tu celular se convierte en tu centro de mando. Despliegas la informaci&oacute;n de forma 100% digital, alcanzas a personas con precisi&oacute;n, desde donde est&eacute;s. Dejas de ser el vendedor que ruega. Te conviertes en el Constructor que dirige el tr&aacute;fico.</p>
+                  <p>Tu celular es tu centro de mando.<br />Diriges tr&aacute;fico digital — sin perseguir a nadie.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1294,8 +1290,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>ACTIVAR</h3>
-                  <p>El mayor miedo al iniciar es no saber qu&eacute; decir. C&oacute;mo explicar un modelo de este nivel sin sonar a vendedor, sin improvisar, sin perder la credibilidad que te cost&oacute; a&ntilde;os construir.</p>
-                  <p style={{ marginTop: 8 }}>Queswa, nuestra plataforma de inteligencia artificial, presenta el modelo, responde las preguntas y detecta qui&eacute;n est&aacute; listo para avanzar. Las 24 horas. Los 7 d&iacute;as. T&uacute; solo inviertes tu tiempo en hablar con quienes ya decidieron. Cero improvisaci&oacute;n.</p>
+                  <p>Queswa presenta, responde y filtra por ti.<br />T&uacute; solo hablas con quienes ya decidieron.</p>
                 </div>
               </div>
 
@@ -1307,9 +1302,15 @@ export default function ServilletaPage() {
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>MAESTR&Iacute;A</h3>
-                  <p>En cualquier negocio, si tienes que capacitar a cada persona que llega, escalar se vuelve imposible. T&uacute; te conviertes en el cuello de botella.</p>
-                  <p style={{ marginTop: 8 }}>Con la Academia Queswa, t&uacute; y tu equipo desarrollar&aacute;n maestr&iacute;a en relaciones interpersonales, manejo del tiempo, marketing, liderazgo, crecimiento personal, habilidades de comunicaci&oacute;n, administraci&oacute;n del dinero y desarrollo de marca personal. Todo estructurado por niveles — como en los videojuegos, cada nivel que subes desbloqueas m&aacute;s. Tu red crece guiada por la plataforma.</p>
+                  <p>La Academia forma a tu equipo sola — por niveles.<br />Tu red crece sin que tu tiempo sea el l&iacute;mite.</p>
                 </div>
+              </div>
+
+              {/* CTA al fondo — después de las tres cards */}
+              <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                <button className="btn-next" onClick={() => showSlide(3)}>
+                  VER EL PRODUCTO →
+                </button>
               </div>
             </div>
           </section>

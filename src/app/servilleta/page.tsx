@@ -1387,7 +1387,7 @@ export default function ServilletaPage() {
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
-                <h3>SIMULADOR DE FLUJO</h3>
+                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE FLUJO</h3>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">

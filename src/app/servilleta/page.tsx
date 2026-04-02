@@ -121,14 +121,14 @@ export default function ServilletaPage() {
   const currentCOP = (currentUSD * TRM).toLocaleString();
 
   const getLifestyleTranslation = (usd: number) => {
-    if (usd < 100) return "Neutraliza costos operativos digitales (Suscripciones, Telecomunicaciones).";
-    if (usd <= 300) return "Cubre la carga base de mantenimiento estructural del hogar.";
-    if (usd <= 600) return "Libera capital para movilidad premium o upgrade de vivienda.";
-    if (usd <= 1200) return "Punto de Equilibrio: Supera el ingreso de un profesional corporativo.";
-    if (usd <= 2500) return "Soberanía Táctica: Elimina presión mensual. Permite delegar y reinvertir.";
-    if (usd <= 5000) return "Arquitectura de Riqueza: Ingresos Top 1%. Aceleración en adquisición de activos.";
-    if (usd <= 10000) return "Posición de Inversor: Flujo de capital masivo para diversificación y expansión.";
-    return "Soberanía Absoluta: El ecosistema opera con máxima eficiencia. Libertad total.";
+    if (usd < 100) return "Cubre las suscripciones y el teléfono del mes.";
+    if (usd <= 300) return "Paga un servicio del hogar — luz, agua o internet.";
+    if (usd <= 600) return "Cubre el arriendo o la cuota del carro.";
+    if (usd <= 1200) return "Supera el sueldo de un empleo de tiempo completo.";
+    if (usd <= 2500) return "Elimina la presión del mes. Empiezas a escoger, no a aguantar.";
+    if (usd <= 5000) return "Puedes dejar de depender del trabajo sin sentirte en riesgo.";
+    if (usd <= 10000) return "Tu patrimonio paralelo ya trabaja solo. Tú decides qué sigue.";
+    return "Construcción de patrimonio paralelo completada. El Plan por Defecto quedó atrás.";
   };
 
   const showSlide = useCallback((index: number) => {
@@ -1386,10 +1386,7 @@ export default function ServilletaPage() {
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
-                <h3>
-                  <span className="material-symbols-sharp">calculate</span>
-                  SIMULADOR DE FLUJO
-                </h3>
+                <h3>SIMULADOR DE FLUJO</h3>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">
@@ -1397,13 +1394,13 @@ export default function ServilletaPage() {
                     className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
                     onClick={() => setSimMode('gen5')}
                   >
-                    CAPITAL R&Aacute;PIDO (GEN5)
+                    INGRESO INMEDIATO
                   </button>
                   <button
                     className={`sim-tab ${simMode === 'binario' ? 'active' : ''}`}
                     onClick={() => setSimMode('binario')}
                   >
-                    RENTA VITALICIA
+                    INGRESO RECURRENTE
                   </button>
                 </div>
 
@@ -1437,7 +1434,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      SOCIOS ACTIVADOS POR EL ECOSISTEMA:
+                      PERSONAS EN TU RED:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1447,7 +1444,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Inyecci&oacute;n de liquidez inmediata dise&ntilde;ada para capitalizarte y neutralizar costos operativos.</p>
+                    <p className="insight-text">Dise&ntilde;ado para que algo mejore pronto — desde las primeras semanas.</p>
                   </div>
                 )}
 
@@ -1455,7 +1452,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      HOGARES FIDELIZADOS:
+                      HOGARES EN TU RED:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -1466,7 +1463,7 @@ export default function ServilletaPage() {
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Renta vitalicia: Construcci&oacute;n de un activo financiero heredable basado en consumo involuntario.</p>
+                    <p className="insight-text">Ingreso que crece con tu red — mientras duermes, mientras trabajas.</p>
                   </div>
                 )}
               </div>
@@ -1478,30 +1475,36 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <h2>TOMA EL MANDO OPERATIVO</h2>
-                  <p>El sistema est&aacute; encendido y esperando tus &oacute;rdenes. Elige tu ruta:</p>
+                  <p style={{ fontSize: '0.78rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.45)', marginBottom: '1.5rem', fontFamily: 'var(--font-mono)' }}>
+                    El pr&oacute;ximo lunes llega en unos d&iacute;as.<br />
+                    Las cuentas tambi&eacute;n.<br />
+                    <br />
+                    La pregunta no es si quieres cambiar algo.<br />
+                    La pregunta es si vas a esperar otro lunes para empezar.
+                  </p>
+
+                  <h2>&iquest;QU&Eacute; DECIDES?</h2>
+                  <p>Tienes toda la informaci&oacute;n. Elige tu camino.</p>
 
                   <div className="cta-buttons">
-                    {/* CTA Principal: Asumir Dirección → /paquetes */}
+                    {/* CTA Principal → /paquetes */}
                     <a
                       href="https://creatuactivo.com/paquetes"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      <span className="material-symbols-sharp">rocket_launch</span>
-                      ASUMIR DIRECCI&Oacute;N
+                      INICIAR HOY →
                     </a>
 
-                    {/* CTA Secundario: Auditar Infraestructura → /mapa-de-salida */}
+                    {/* CTA Secundario → /mapa-de-salida */}
                     <a
                       href="https://creatuactivo.com/mapa-de-salida"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"
                     >
-                      <span className="material-symbols-sharp">verified_user</span>
-                      AUDITAR INFRAESTRUCTURA
+                      VER EL MAPA DE SALIDA →
                     </a>
                   </div>
                 </div>

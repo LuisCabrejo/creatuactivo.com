@@ -1239,7 +1239,7 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: LA VENTAJA INJUSTA ===== */}
+          {/* ===== SLIDE 2: LA METODOLOGÍA EAM ===== */}
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
             <div
               className="bg-image"
@@ -1249,38 +1249,26 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  LA VENTAJA INJUSTA.
+                  LA METODOLOG&Iacute;A EAM
                 </h2>
                 <span className="slide-2-subtitle">
-                  EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
+                  Tres movimientos. Un sistema.
                 </span>
-                <div className="exclusive-badge" style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '2px',
-                  color: '#90A4AE',
-                  border: '1px solid #3f3f46',
-                  display: 'inline-block',
-                  padding: '4px 8px',
-                  marginTop: '10px',
-                  marginLeft: '8px',
-                }}>
-                  EXCLUSIVO: <span style={{ color: 'var(--orange)', fontWeight: 'bold' }}>C.T.A.</span>
-                </div>
+                <button className="btn-next" onClick={() => showSlide(3)} style={{ marginTop: 12 }}>
+                  VER EL PRODUCTO →
+                </button>
               </div>
 
-              {/* Tarjeta 1 (izquierda): EXPANSIÓN DIGITAL */}
+              {/* Tarjeta 1: EXPANDIR */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
+                    <span className="bad"><s>PERSEGUIR</s> &middot; <s>INCOMODAR</s> &middot; <s>MICROGESTIONAR</s></span>
                   </div>
-                  <h3>
-                    <span className="material-symbols-sharp">cell_tower</span>
-                    EXPANSI&Oacute;N DIGITAL
-                  </h3>
-                  <p>Tu celular es tu centro de mando. Despliegas informaci&oacute;n 100% digital llegando a cientos de personas. Dejas de ser el vendedor que ruega para ser el arquitecto que orquesta tr&aacute;fico.</p>
+                  <h3>EXPANDIR</h3>
+                  <p>En los modelos tradicionales te ver&aacute;s obligado a perseguir a tu c&iacute;rculo &iacute;ntimo — es inc&oacute;modo, hay que aguantar silencios, adem&aacute;s de moverte mucho y hacer seguimiento manual uno por uno. Eso no es un negocio. Es desgaste.</p>
+                  <p style={{ marginTop: 8 }}>Con CreaTuActivo, tu celular se convierte en tu centro de mando. Despliegas la informaci&oacute;n de forma 100% digital, alcanzas a personas con precisi&oacute;n, desde donde est&eacute;s. Dejas de ser el vendedor que ruega. Te conviertes en el Constructor que dirige el tr&aacute;fico.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1298,33 +1286,29 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 2 (sup. derecha): EL CEREBRO QUESWA AI */}
+              {/* Tarjeta 2: ACTIVAR */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
-                  <h3>
-                    <span className="material-symbols-sharp">memory</span>
-                    EL CEREBRO QUESWA AI
-                  </h3>
-                  <p>El 90% del trabajo pesado resuelto. Nuestro agente IA perfila, procesa objeciones y filtra curiosos 24/7. Cero improvisaci&oacute;n; solo hablas con quienes est&aacute;n listos.</p>
+                  <h3>ACTIVAR</h3>
+                  <p>El mayor miedo al iniciar es no saber qu&eacute; decir. C&oacute;mo explicar un modelo de este nivel sin sonar a vendedor, sin improvisar, sin perder la credibilidad que te cost&oacute; a&ntilde;os construir.</p>
+                  <p style={{ marginTop: 8 }}>Queswa, nuestra plataforma de inteligencia artificial, presenta el modelo, responde las preguntas y detecta qui&eacute;n est&aacute; listo para avanzar. Las 24 horas. Los 7 d&iacute;as. T&uacute; solo inviertes tu tiempo en hablar con quienes ya decidieron. Cero improvisaci&oacute;n.</p>
                 </div>
               </div>
 
-              {/* Tarjeta 3 (full-width): ESCALA AUTÓNOMA */}
+              {/* Tarjeta 3 (full-width): MAESTRÍA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
+                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
-                  <h3>
-                    <span className="material-symbols-sharp">hub</span>
-                    ESCALA AUT&Oacute;NOMA
-                  </h3>
-                  <p>La Academia Queswa educa a tus socios en autom&aacute;tico. Desarrollan maestr&iacute;a, liderazgo e inteligencia financiera. La red crece sin que tu tiempo sea el l&iacute;mite.</p>
+                  <h3>MAESTR&Iacute;A</h3>
+                  <p>En cualquier negocio, si tienes que capacitar a cada persona que llega, escalar se vuelve imposible. T&uacute; te conviertes en el cuello de botella.</p>
+                  <p style={{ marginTop: 8 }}>Con la Academia Queswa, t&uacute; y tu equipo desarrollar&aacute;n maestr&iacute;a en relaciones interpersonales, manejo del tiempo, marketing, liderazgo, crecimiento personal, habilidades de comunicaci&oacute;n, administraci&oacute;n del dinero y desarrollo de marca personal. Todo estructurado por niveles — como en los videojuegos, cada nivel que subes desbloqueas m&aacute;s. Tu red crece guiada por la plataforma.</p>
                 </div>
               </div>
             </div>

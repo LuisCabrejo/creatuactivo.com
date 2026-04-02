@@ -1210,31 +1210,31 @@ export default function ServilletaPage() {
               style={{ backgroundImage: "url('/images/servilleta/turbina.jpg')" }}
             />
             <div className="content-overlay center-focus">
-              <div className="technical-label">REF: APALANCAMIENTO_100X</div>
+              <div className="technical-label">REF: PATRIMONIO_PARALELO</div>
               <h1 className="deck-h1">
-                INFRAESTRUCTURA<br />
-                <span style={{ color: 'var(--orange)' }}>DE MULTIPLICACI&Oacute;N</span>
+                CONSTRUCCI&Oacute;N DE PATRIMONIO<br />
+                <span style={{ color: 'var(--orange)' }}>PARALELO</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  El &quot;Plan por Defecto&quot; falla porque exige tu presencia f&iacute;sica. Hemos ensamblado una m&aacute;quina h&iacute;brida de 3 componentes que elimina esa falla:
+                  El &quot;Plan por Defecto&quot; —trabajar, pagar cuentas y repetir— falla porque depende de tu presencia. Esta m&aacute;quina de tres partes cambia esa ecuaci&oacute;n:
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO LOG&Iacute;STICO</span><span style={{ color: '#90A4AE' }}> (Gano Excel):</span> Infraestructura y Capital. Ellos fabrican, manejan inventarios y realizan env&iacute;os a toda Am&eacute;rica. Tu trabajo no es empacar cajas.
+                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Fabrican el producto, manejan los inventarios, hacen los env&iacute;os y depositan las comisiones cada viernes. T&uacute; no empacas cajas.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO DIGITAL</span><span style={{ color: '#90A4AE' }}> (CreaTuActivo):</span> Plataforma tecnol&oacute;gica de 11 Estrellas. Un sistema operativo impulsado por IA que trabaja por ti 24/7 en internet.
+                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> La plataforma tecnol&oacute;gica con inteligencia artificial que trabaja por ti las 24 horas. Tu sistema operativo de patrimonio paralelo.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>LA DIRECCI&Oacute;N</span><span style={{ color: '#90A4AE' }}> (Tu Rol):</span> Labor 100% gerencial. Desde tu celular diriges el tr&aacute;fico hacia el sistema. Nosotros operamos la f&aacute;brica; t&uacute; diriges y cobras.
+                    <span style={{ color: 'var(--orange)' }}>TU ROL</span><span style={{ color: '#90A4AE' }}> — La direcci&oacute;n:</span> Desde tu celular diriges el tr&aacute;fico hacia el sistema. Nosotros operamos la f&aacute;brica. T&uacute; diriges y cobras.
                   </div>
                 </div>
               </div>
 
               <button className="btn-next" onClick={() => showSlide(2)}>
-                ANALIZAR MEC&Aacute;NICA <span className="material-symbols-sharp">arrow_forward</span>
+                VER C&Oacute;MO SE DIRIGE →
               </button>
             </div>
           </section>

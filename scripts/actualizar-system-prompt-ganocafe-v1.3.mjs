@@ -44,7 +44,7 @@ async function deploy() {
       .from('system_prompts')
       .update({
         prompt: promptContent,
-        version: 'v1.4_ganocafe_bullet_format',
+        version: 'v1.5_ganocafe_alias_coloquiales',
         updated_at: new Date().toISOString(),
       })
       .eq('name', 'ganocafe_main')
@@ -63,7 +63,7 @@ async function deploy() {
         name: 'ganocafe_main',
         tenant_id: 'ecommerce',
         prompt: promptContent,
-        version: 'v1.4_ganocafe_bullet_format',
+        version: 'v1.5_ganocafe_alias_coloquiales',
         updated_at: new Date().toISOString(),
       })
       .select()

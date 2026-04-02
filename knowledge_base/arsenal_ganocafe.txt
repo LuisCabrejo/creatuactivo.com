@@ -43,7 +43,7 @@ El catálogo completo con precios en ganocafe.online (precio al público oficial
 - **Gano Café 3 en 1** — café, azúcar y crema. Punto de entrada ideal. Promo actual: $135.900 por caja (p.p. $147.900)
 - **Gano Café Clásico** — sin azúcar ni crema. $120.900 (p.p. $147.900)
 - **Ganorico Mocha Rico** — con cacao. $129.900 (p.p. $156.900)
-- **Ganorico Latte Rico** — con leche. $166.900 (p.p. $156.900)
+- **Ganorico Latte Rico** — con leche. $129.900 (p.p. $156.900)
 - **Ganorico Shoko Rico** — chocolate premium. $134.900 (p.p. $166.500)
 
 **Otras bebidas:**
@@ -223,52 +223,60 @@ Para compras al por mayor o distribución directa, también puedes escribirnos a
 ## BLOQUE 5: CÓDIGO DISTRIBUIDOR
 
 ### CODIGO_01: "¿Qué beneficios tiene tener código? / ¿Cómo compro al precio de distribuidor?"
-**[Concepto Nuclear]:** Con código propio compras al precio de lista interna — el precio más bajo posible — y puedes participar del plan de compensación.
+**[Concepto Nuclear]:** SOLO activar cuando la persona manifiesta interés explícito en tener código. Presentarlo como una excelente decisión con beneficios concretos y sugerir combinaciones personalizadas de 50 PV según lo que ya consume.
 
-Tener tu propio código de distribuidor Gano Excel te da tres ventajas concretas:
+Tener tu propio código de distribuidor Gano Excel es una excelente decisión — y no lo decimos por decir. Estos son los beneficios reales:
 
-1. **Precio de distribuidor:** Compras todos los productos al precio de lista interna. Por ejemplo, el Gano Café Clásico lo adquieres a **$110.900** en lugar de $120.900 en ganocafe.online, y muy por debajo del precio al público de $147.900.
+1. **Precio de distribuidor siempre:** Cada compra futura la haces al precio de lista interna, el más bajo posible. El ahorro se acumula pedido a pedido.
 
-2. **Beneficios en fletes:** Los distribuidores activos acceden a condiciones preferenciales de envío directo desde Gano Excel, especialmente en pedidos de volumen.
+2. **Beneficios en fletes:** Condiciones preferenciales de envío directo desde Gano Excel, especialmente en pedidos de volumen. Menos costo logístico en cada reposición.
 
-3. **Plan de compensación:** Puedes participar del modelo de distribución y generar ingresos adicionales construyendo una red de consumidores o distribuidores.
+3. **Acceso a promociones exclusivas:** Gano Excel lanza periódicamente promociones, combos y ofertas solo disponibles para distribuidores activos.
+
+4. **Sugerencias personalizadas de pedido:** Te ayudamos a armar cada pedido de la forma más eficiente según lo que consumes, para que siempre aproveches al máximo cada peso invertido.
+
+5. **Plan de compensación opcional:** Si en algún momento quieres construir un negocio alrededor de los productos, ya tienes el acceso. No es obligatorio — muchos distribuidores simplemente compran para consumo propio.
+
+**Precio al distribuidor vs. precio ganocafe.online:**
+
+• Gano Café 3 en 1 — distribuidor **$110.900** (ganocafe.online $135.900) — ahorro $25.000 por caja
+• Gano Café Clásico — distribuidor **$110.900** (ganocafe.online $120.900) — ahorro $10.000
+• Ganorico (Mocha, Latte, Shoko) — distribuidor **$119.900** (ganocafe.online $129.900) — ahorro $10.000
+• Gano Schokolade — distribuidor **$124.900** (ganocafe.online $134.900) — ahorro $10.000
+• Oleaf Gano Rooibos — distribuidor **$119.900** (ganocafe.online $129.900) — ahorro $10.000
+• Gano C Real Spirulina — distribuidor **$119.900** (ganocafe.online $129.900) — ahorro $10.000
+• Reskine Collagen Drink — distribuidor **$216.900** (ganocafe.online $226.900) — ahorro $10.000
+• Ganoderma Cápsulas — distribuidor **$272.500** (ganocafe.online $282.500) — ahorro $10.000
+• Excellium Cápsulas — distribuidor **$272.500** (ganocafe.online $282.500) — ahorro $10.000
+• CordyGold Cápsulas — distribuidor **$336.900** (ganocafe.online $346.900) — ahorro $10.000
+• Jabón / Pasta dental / Cuidado personal — distribuidor **$73.900** (ganocafe.online $83.900) — ahorro $10.000
 
 **¿Cómo activar el código?**
-Necesitas una compra inicial que alcance **50 PV (Puntos de Volumen)**. Cada producto tiene un PV y un CV asignado:
+Se requiere una compra inicial de mínimo **50 PV (Puntos de Volumen)**. Cada producto tiene PV asignado:
 
-| Producto | PV | CV |
-|----------|----|----|
-| Gano Café 3 en 1 | 15 | 14 |
-| Gano Café Clásico | 15 | 14 |
-| Ganorico Mocha Rico | 17 | 15 |
-| Ganorico Latte Rico | 17 | 15 |
-| Ganorico Shoko Rico | 17 | 15.6 |
-| Gano Schokolade | 17 | 15.6 |
-| Oleaf Gano Rooibos | 17 | 15 |
-| Gano C Real Spirulina | 17 | 15 |
-| Reskine Collagen Drink | 31 | 27.6 |
-| Ganoderma Cápsulas | 41 | 34.5 |
-| Excellium Cápsulas | 41 | 34.5 |
-| CordyGold Cápsulas | 49 | 43 |
-| Gano Soap | 10.4 | 8.9 |
-| Gano Transparent Soap | 12 | 10 |
-| Gano Fresh Toothpaste | 11 | 9.5 |
-| Piel&Brillo Shampoo | 11 | 9 |
-| Piel&Brillo Acondicionador | 11 | 9 |
-| Piel&Brillo Exfoliante | 11 | 9 |
-| Luvoco (suave/medio/fuerte) | 15 | 14 |
-| Máquina Luvoco | 0 | 0 (no genera PV ni CV) |
+| Producto | PV | Precio distribuidor |
+|----------|----|---------------------|
+| Gano Café 3 en 1 | 15 | $110.900 |
+| Gano Café Clásico | 15 | $110.900 |
+| Ganorico (Mocha / Latte / Shoko) | 17 | $119.900 |
+| Gano Schokolade | 17 | $124.900 |
+| Oleaf Gano Rooibos | 17 | $119.900 |
+| Gano C Real Spirulina | 17 | $119.900 |
+| Reskine Collagen Drink | 31 | $216.900 |
+| Ganoderma Cápsulas | 41 | $272.500 |
+| Excellium Cápsulas | 41 | $272.500 |
+| CordyGold Cápsulas | 49 | $336.900 |
+| Jabón / Pasta / Cuidado personal | 10-12 | $73.900 |
+| Luvoco | 15 | $110.900 |
 
-**Ejemplos para alcanzar 50 PV:**
-- 4 cajas Gano Café 3 en 1 = **60 PV** ✓ ($443.600 al precio distribuidor)
-- 4 cajas Gano Café Clásico = **60 PV** ✓
-- 2 unidades Ganoderma Cápsulas = **82 PV** ✓ ($545.000)
-- 1 CordyGold + 1 café = **64 PV** ✓
-- 1 Reskine + 1 café + 1 café = **61 PV** ✓
+**Combinaciones sugeridas para llegar a 50 PV** (adaptar según lo que la persona ya consume):
+- 4 × Gano Café 3 en 1 = **60 PV** — $443.600 distribuidor (ahorro $100.000 vs. ganocafe.online)
+- 3 × Ganorico + 1 × Jabón = **61 PV** — $433.600 distribuidor
+- 2 × Ganoderma Cápsulas = **82 PV** — $545.000 distribuidor
+- 1 × CordyGold + 1 × Ganorico + 1 × Café = **81 PV** — $576.700 distribuidor
+- 1 × Reskine + 2 × Ganorico = **65 PV** — $455.700 distribuidor
 
-**PV vs CV:** El PV determina tu calificación y rango en el plan. El CV es la base sobre la cual se calculan las comisiones reales. Siempre van juntos pero son valores distintos.
-
-Si tu consumo mensual ya justifica 4 cajas de café, el código se paga solo desde el primer pedido.
-Para conocer el modelo completo de distribución y el plan de compensación: **creatuactivo.com**
+Si ya consumes 3-4 productos mensualmente, el código se paga solo desde el primer pedido con el ahorro acumulado.
+Para el modelo completo de distribución y plan de compensación: **creatuactivo.com**
 
 ---

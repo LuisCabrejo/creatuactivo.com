@@ -26,7 +26,7 @@ interface Dia1Props {
 }
 
 export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'https://creatuactivo.com/mapa-de-salida/dia-1' }: Dia1Props) => {
-  const previewText = `Coordenada 1: Por qué sudas mucho, pero no avanzas`;
+  const previewText = `Tu ruta de escape del "Plan por Defecto" comienza hoy.`;
 
   return (
     <Html lang="es">
@@ -54,7 +54,6 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
           {/* Day Badge */}
           <Section style={dayBadge}>
             <Text style={dayNumber}>COORDENADA 1 DE 5</Text>
-            <Text style={dayTitle}>El Diagnóstico</Text>
           </Section>
 
           {/* Content */}
@@ -62,7 +61,11 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
             <Heading style={h1}>Hola {firstName},</Heading>
 
             <Text style={paragraph}>
-              Ayer, apenas confirmaste tu acceso al mapa, te conté la historia de mi promesa en el mirador Buena Vista. Te hablé de esa frustrante sensación de estar en una bicicleta estática: pedaleando con todas tus fuerzas, agotado, pero terminando el mes en el mismo exacto lugar.
+              Ayer, apenas confirmaste tu acceso al mapa, te conté la historia de mi promesa en el mirador Buena Vista.
+            </Text>
+
+            <Text style={paragraph}>
+              Te hablé de esa frustrante sensación de estar en una bicicleta estática: pedaleando con todas tus fuerzas, agotado, pero terminando el mes en el mismo exacto lugar financiero.
             </Text>
 
             <Text style={paragraph}>
@@ -70,11 +73,15 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
             </Text>
 
             <Text style={paragraph}>
-              El primer paso no es darte motivación vacía ni decirte que "te esfuerces más". El primer paso es <strong style={{ color: '#E5E5E5' }}>auditar tu realidad actual usando matemáticas</strong>.
+              El primer paso de este protocolo no es darte motivación vacía ni decirte que "te esfuerces más". El primer paso es <strong style={{ color: '#E5E5E5' }}>auditar tu realidad actual usando matemáticas frías</strong>.
             </Text>
 
             <Text style={paragraph}>
-              En el breve video de hoy (tu Coordenada 1), te voy a explicar por qué el <strong style={{ color: '#C5A059' }}>"Plan por Defecto"</strong> que la sociedad nos vendió tiene una falla de diseño estructural. Vas a descubrir por qué intercambiar tiempo por dinero es un modelo inherentemente frágil, y por qué trabajar más duro no te hará más libre si estás operando el vehículo equivocado.
+              En el breve video de hoy (tu Coordenada 1), te voy a explicar por qué el <strong style={{ color: '#C5A059' }}>"Plan por Defecto"</strong> que la sociedad te vendió tiene una falla de diseño estructural.
+            </Text>
+
+            <Text style={paragraph}>
+              Vas a descubrir por qué intercambiar tiempo por dinero es un modelo inherentemente frágil, y por qué trabajar más duro jamás te hará libre si estás operando el vehículo equivocado.
             </Text>
 
             {/* Video CTA */}
@@ -96,7 +103,7 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
                         letterSpacing: '0.5px',
                       }}
                     >
-                      👉 VER COORDENADA 1
+                      👉 VER COORDENADA 1: LA FALLA ESTRUCTURAL
                     </Button>
                   </td>
                 </tr>
@@ -104,11 +111,11 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
             </Section>
 
             <Text style={highlightBox}>
-              Al final del video te daré las instrucciones para calcular tu <strong>"Número de Fragilidad"</strong>. Es un ejercicio de 2 minutos que te dará total claridad sobre dónde estás parado hoy.
+              Al final del video te daré las instrucciones exactas para calcular tu <strong>"Número de Fragilidad"</strong>. Es un ejercicio de 2 minutos que te dará total claridad sobre el terreno en el que estás parado hoy.
             </Text>
 
             <Text style={paragraph}>
-              Haz clic en el enlace, mira el video y haz el cálculo.
+              Haz clic en el enlace, mira el diagnóstico y ejecuta el cálculo.
             </Text>
 
             <Text style={paragraph}>
@@ -172,13 +179,6 @@ const dayNumber = {
   margin: '0 0 4px',
 };
 
-const dayTitle = {
-  color: '#f5f5f5',
-  fontSize: '24px',
-  fontWeight: '500',
-  margin: '0',
-  fontFamily: "Georgia, serif",
-};
 
 const content = {
   padding: '0 20px',

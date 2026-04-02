@@ -1123,20 +1123,18 @@ export default function ServilletaPage() {
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  El &quot;Plan por Defecto&quot; tiene una falla estructural: depende de tu presencia f&iacute;sica.
-                  <br /><br />
-                  Hemos construido una m&aacute;quina h&iacute;brida de 3 componentes:
+                  El &quot;Plan por Defecto&quot; falla porque exige tu presencia f&iacute;sica. Hemos ensamblado una m&aacute;quina h&iacute;brida de 3 componentes que elimina esa falla:
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>1. GANO EXCEL:</span> Infraestructura y Capital ($100M USD).
+                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO</span><span style={{ color: '#90A4AE' }}> (Gano Excel):</span> Infraestructura y Capital ($100M USD). La log&iacute;stica global est&aacute; resuelta. T&uacute; no fabricas, no almacenas, no env&iacute;as.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>2. CREATUACTIVO:</span> Nuestra Plataforma Digital.
+                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO</span><span style={{ color: '#90A4AE' }}> (Queswa AI):</span> Tecnolog&iacute;a de 11 Estrellas. Nuestra Inteligencia Artificial asume el trabajo pesado: filtra prospectos, presenta el modelo y educa autom&aacute;ticamente.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>3. METODOLOG&Iacute;A:</span> Ejecuci&oacute;n Exacta (El Mapa de Salida).
+                    <span style={{ color: 'var(--orange)' }}>LA DIRECCI&Oacute;N</span><span style={{ color: '#90A4AE' }}> (Tu Rol):</span> Labor puramente gerencial. Guiado por la metodolog&iacute;a EAM, tu &uacute;nico trabajo es suministrar la &ldquo;materia prima&rdquo; (tr&aacute;fico) al ecosistema. La m&aacute;quina ejecuta; t&uacute; diriges.
                   </div>
                 </div>
               </div>
@@ -1147,7 +1145,7 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: VENTAJA INJUSTA (AI-first) ===== */}
+          {/* ===== SLIDE 2: LA VENTAJA INJUSTA ===== */}
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
             <div
               className="bg-image"
@@ -1157,10 +1155,10 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  &iquest;DIF&Iacute;CIL? ESO ERA ANTES.
+                  LA VENTAJA INJUSTA.
                 </h2>
                 <span className="slide-2-subtitle">
-                  QUESWA CAMBI&Oacute; LAS REGLAS &mdash;{' '}
+                  EL FIN DE LA FRICCI&Oacute;N OPERATIVA &mdash;{' '}
                 </span>
                 <div className="exclusive-badge" style={{
                   fontFamily: 'var(--font-mono)',
@@ -1177,20 +1175,18 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 1 (izquierda): EL iPHONE DEL NEGOCIO */}
+              {/* Tarjeta 1 (izquierda): EL MOTOR QUESWA AI */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">&ldquo;&iquest;Y SI NO S&Eacute; QU&Eacute; RESPONDER?&rdquo;</span>
-                    <span className="arrow">&#10148;</span>
-                    <span className="good">QUESWA LO SABE TODO &middot; EN TU CELULAR &middot; SIEMPRE</span>
+                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">smartphone</span>
-                    EL iPHONE DEL NEGOCIO
+                    <span className="material-symbols-sharp">memory</span>
+                    EL MOTOR QUESWA AI
                   </h3>
-                  <p>Preguntan por el producto &rarr; Queswa responde. Por el plan &rarr; Queswa responde. Siempre sabr&aacute;s qu&eacute; responder.</p>
+                  <p>No es un simple asistente. Es un operador de negocio hiper-entrenado. Preguntan por el plan o los productos &rarr; Queswa procesa la objeci&oacute;n, perfila al prospecto y responde con exactitud t&aacute;ctica. Cero improvisaci&oacute;n.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1208,37 +1204,33 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 2 (derecha): TIEMPO LIBERADO */}
+              {/* Tarjeta 2 (sup. derecha): DIRECCIÓN, NO EJECUCIÓN */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">SACAR CITAS &middot; PRESENTAR &middot; VENDER &middot; INVITAR</span>
-                    <span className="arrow">&#10148;</span>
-                    <span className="good">EXPANDIR &middot; ACTIVAR &middot; DESARROLLAR MAESTR&Iacute;A</span>
+                    <span className="bad"><s>ROGAR</s> &middot; <s>CONVENCER</s> &middot; <s>PERSEGUIR</s></span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">timer_off</span>
-                    TIEMPO LIBERADO
+                    <span className="material-symbols-sharp">manage_accounts</span>
+                    DIRECCI&Oacute;N, NO EJECUCI&Oacute;N
                   </h3>
-                  <p>Queswa hace el 90% del trabajo pesado. Tu hora diaria se enfoca en lo que produce, no en lo que agota.</p>
+                  <p>La Inteligencia Artificial hace el 90% del trabajo desgastante. Tu hora de trabajo diaria se eleva de nivel: dejas de ser el vendedor que ruega, para ser el arquitecto que orquesta el tr&aacute;fico.</p>
                 </div>
               </div>
 
-              {/* Tarjeta 3: ESCALA AUTÓNOMA */}
+              {/* Tarjeta 3 (full-width): ESCALABILIDAD ALGORÍTMICA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad">ESCALAR ERA EL CUELLO DE BOTELLA</span>
-                    <span className="arrow">&#10148;</span>
-                    <span className="good">QUESWA &gt; MAESTR&Iacute;A DUPLICA POR TI</span>
+                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROMANEJAR</s> &middot; <s>SER EL CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>
-                    <span className="material-symbols-sharp">account_tree</span>
-                    ESCALA AUT&Oacute;NOMA
+                    <span className="material-symbols-sharp">hub</span>
+                    ESCALABILIDAD ALGOR&Iacute;TMICA
                   </h3>
-                  <p>Tus nuevos constructores se desarrollan solos. La red crece sin que t&uacute; seas el l&iacute;mite.</p>
+                  <p>El cuello de botella en los negocios tradicionales eres t&uacute;. Aqu&iacute;, tus nuevos constructores se desarrollan, educan y duplican guiados directamente por nuestra plataforma. La red crece sin que tu tiempo sea el l&iacute;mite.</p>
                 </div>
               </div>
             </div>
@@ -1253,10 +1245,10 @@ export default function ServilletaPage() {
             <div className="slide-3-layout">
               <div className="slide-3-bottom">
                 <div className="bio-text-panel">
-                  <div className="technical-label">MANTENIMIENTO BIOL&Oacute;GICO</div>
+                  <div className="technical-label">HARDWARE EJECUTIVO</div>
                   <h2 className="deck-h2">OPTIMIZACI&Oacute;N<br />CELULAR</h2>
                   <p className="deck-p">
-                    La riqueza sin salud es un error de c&aacute;lculo. Nuestro motor biol&oacute;gico no es simple &quot;caf&eacute;&quot;; es tecnolog&iacute;a nutricional 100% hidrosoluble para optimizaci&oacute;n celular.
+                    El apalancamiento financiero exige un veh&iacute;culo f&iacute;sico capaz de sostenerlo. Nuestro activo f&iacute;sico no es una &quot;bebida tradicional&quot;; es tecnolog&iacute;a nutricional de alt&iacute;sima absorci&oacute;n (100% hidrosoluble) dise&ntilde;ada para blindar el sistema inmune y garantizar el alto rendimiento cognitivo del constructor.
                   </p>
                 </div>
 
@@ -1359,7 +1351,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      SOCIOS DIRECTOS:
+                      SOCIOS ACTIVADOS POR EL ECOSISTEMA:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1369,7 +1361,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Pago &uacute;nico por expansi&oacute;n de infraestructura.</p>
+                    <p className="insight-text">Capitalizaci&oacute;n generada a partir del tr&aacute;fico suministrado a la plataforma.</p>
                   </div>
                 )}
 
@@ -1377,7 +1369,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      RED DE CONSUMO (PERSONAS):
+                      HOGARES FIDELIZADOS:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -1388,7 +1380,7 @@ export default function ServilletaPage() {
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Ingreso semanal recurrente por consumo de caf&eacute;.</p>
+                    <p className="insight-text">Flujo de caja semanal generado por el volumen de consumo.</p>
                   </div>
                 )}
               </div>
@@ -1400,11 +1392,11 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <h2>INICIAR ACTUALIZACI&Oacute;N</h2>
-                  <p>Dos caminos para activar tu c&oacute;digo:</p>
+                  <h2>TOMA EL MANDO OPERATIVO</h2>
+                  <p>Dos rutas para asumir tu posici&oacute;n en la junta:</p>
 
                   <div className="cta-buttons">
-                    {/* CTA Principal: Iniciar → /paquetes */}
+                    {/* CTA Principal: Asumir Dirección → /paquetes */}
                     <a
                       href="https://creatuactivo.com/paquetes"
                       target="_blank"
@@ -1412,10 +1404,10 @@ export default function ServilletaPage() {
                       className="btn-industrial"
                     >
                       <span className="material-symbols-sharp">rocket_launch</span>
-                      INICIAR EJECUCI&Oacute;N
+                      ASUMIR DIRECCI&Oacute;N
                     </a>
 
-                    {/* CTA Secundario: Auditar → /mapa-de-salida */}
+                    {/* CTA Secundario: Auditar Infraestructura → /mapa-de-salida */}
                     <a
                       href="https://creatuactivo.com/mapa-de-salida"
                       target="_blank"
@@ -1423,7 +1415,7 @@ export default function ServilletaPage() {
                       className="btn-industrial secondary"
                     >
                       <span className="material-symbols-sharp">verified_user</span>
-                      AUDITAR EL MODELO (MAPA DE SALIDA)
+                      AUDITAR INFRAESTRUCTURA (MAPA DE SALIDA)
                     </a>
                   </div>
                 </div>

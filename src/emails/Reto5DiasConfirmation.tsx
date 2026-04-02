@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Email de Confirmación de Registro
+ * Mapa de Salida - Email de Confirmación de Registro
  * Diseño Quiet Luxury (gold + dark)
  */
 
@@ -26,7 +26,7 @@ interface Reto5DiasConfirmationProps {
 export const Reto5DiasConfirmationEmail = ({
   firstName = 'Hola',
 }: Reto5DiasConfirmationProps) => {
-  const previewText = `¡${firstName}, tu registro al Reto 5 Días está confirmado!`;
+  const previewText = `¡${firstName}, tu Mapa de Salida está activado!`;
 
   // Quiet Luxury palette
   const colors = {
@@ -127,7 +127,7 @@ export const Reto5DiasConfirmationEmail = ({
                 textAlign: 'center' as const
               }}
             >
-              Tu registro al <span style={{ color: colors.gold, fontWeight: '600' }}>Reto de 5 Días</span> está confirmado.
+              Tu acceso al <span style={{ color: colors.gold, fontWeight: '600' }}>Mapa de Salida</span> está confirmado.
             </Text>
 
             <Text
@@ -158,7 +158,7 @@ export const Reto5DiasConfirmationEmail = ({
                 fontWeight: '500'
               }}
             >
-              Mañana recibirás el Día 1: "El Diagnóstico"
+              Mañana recibirás la Coordenada 1: "El Diagnóstico"
             </Text>
           </Section>
 
@@ -177,7 +177,7 @@ export const Reto5DiasConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Confirmo mi asistencia al Reto de 5 Días.`)}`}
+                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso al Mapa de Salida.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -222,7 +222,7 @@ export const Reto5DiasConfirmationEmail = ({
                 fontSize: '15px',
                 lineHeight: '24px'
               }}>
-                <span style={{ color: colors.gold, marginRight: '12px' }}>Día {item.day}</span>
+                <span style={{ color: colors.gold, marginRight: '12px' }}>Coordenada {item.day}</span>
                 <span style={{ color: colors.text }}>{item.title}</span>
                 <span style={{ color: colors.textSubtle }}> — {item.desc}</span>
               </Text>
@@ -317,7 +317,7 @@ export const Reto5DiasConfirmationEmail = ({
               color: colors.textSubtle,
               fontSize: '11px'
             }}>
-              Recibes este correo porque te registraste en el Reto de 5 Días
+              Recibes este correo porque solicitaste acceso al Mapa de Salida
             </Text>
             <Link
               href="https://wa.me/573215193909"

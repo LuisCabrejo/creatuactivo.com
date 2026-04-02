@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 5: La Invitación
+ * Mapa de Salida — Coordenada 5: La Invitación
  * "Tu turno de cumplir promesas"
  */
 
@@ -59,7 +59,7 @@ export const Dia5Invitacion = ({ firstName = 'Hola', trackingUrl }: Dia5Props) =
           </Section>
 
           <Section style={dayBadge}>
-            <Text style={dayNumber}>DÍA 5</Text>
+            <Text style={dayNumber}>COORDENADA 5 DE 5</Text>
             <Text style={dayTitle}>La Invitación</Text>
           </Section>
 
@@ -71,13 +71,13 @@ export const Dia5Invitacion = ({ firstName = 'Hola', trackingUrl }: Dia5Props) =
             </Text>
 
             <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>•</span> El empleo no te dará libertad <span style={{ color: '#6b6b75' }}>(Día 1 & 2)</span>
+              <span style={{ color: '#D4AF37' }}>•</span> El empleo no te dará libertad <span style={{ color: '#6b6b75' }}>(Coordenada 1 & 2)</span>
             </Text>
             <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>•</span> El MLM tradicional es difícil de duplicar <span style={{ color: '#6b6b75' }}>(Día 3)</span>
+              <span style={{ color: '#D4AF37' }}>•</span> El MLM tradicional es difícil de duplicar <span style={{ color: '#6b6b75' }}>(Coordenada 3)</span>
             </Text>
             <Text style={featureItem}>
-              <span style={{ color: '#D4AF37' }}>•</span> El E-commerce es una cárcel operativa <span style={{ color: '#6b6b75' }}>(Día 4)</span>
+              <span style={{ color: '#D4AF37' }}>•</span> El E-commerce es una cárcel operativa <span style={{ color: '#6b6b75' }}>(Coordenada 4)</span>
             </Text>
 
             <Text style={paragraph}>
@@ -141,7 +141,7 @@ export const Dia5Invitacion = ({ firstName = 'Hola', trackingUrl }: Dia5Props) =
             <Text style={footerText}>
               © 2025 CreaTuActivo.com
               <br />
-              Reto 5 Días - Día 5 de 5 (Final)
+              Mapa de Salida — Coordenada 5 de 5 (Final)
             </Text>
           </Section>
         </Container>

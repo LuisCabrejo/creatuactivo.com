@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 4: La Doble Trampa
+ * Mapa de Salida — Coordenada 4: La Doble Trampa
  * "Gané dinero, pero perdí mi vida (La verdad del E-commerce)"
  */
 
@@ -58,7 +58,7 @@ export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
           </Section>
 
           <Section style={dayBadge}>
-            <Text style={dayNumber}>DÍA 4</Text>
+            <Text style={dayNumber}>COORDENADA 4 DE 5</Text>
             <Text style={dayTitle}>La Doble Trampa</Text>
           </Section>
 
@@ -160,7 +160,7 @@ export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
             <Text style={footerText}>
               © 2025 CreaTuActivo.com
               <br />
-              Reto 5 Días - Día 4 de 5
+              Mapa de Salida — Coordenada 4 de 5
             </Text>
           </Section>
         </Container>

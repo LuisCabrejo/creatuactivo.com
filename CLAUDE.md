@@ -56,6 +56,8 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
 - ❌ **NO agregar** `backdropFilter: blur()` en cards del homepage — elimina GPU compositing en paint inicial
 - ❌ **NO agregar** `priority` a imágenes decorativas del hero — usar `loading="lazy"` para que no compitan con LCP
+- ❌ **NO editar** archivos `*.tsx.bak` — son respaldos inactivos, no fuente viva
+- ⚠️ `queswa.app` es un **repositorio separado** — su código no está en este repo. No buscar `dashboard-ai/route.ts` aquí
 
 ## Performance — Estado Actual (Abr 2026)
 

@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 3: El Modelo
+ * Mapa de Salida — Coordenada 3: El Modelo
  * "Las 3 promesas que le hice a mi esposa (y las 2 que rompí)"
  */
 
@@ -58,7 +58,7 @@ export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
           </Section>
 
           <Section style={dayBadge}>
-            <Text style={dayNumber}>DÍA 3</Text>
+            <Text style={dayNumber}>COORDENADA 3 DE 5</Text>
             <Text style={dayTitle}>El Modelo</Text>
           </Section>
 
@@ -154,7 +154,7 @@ export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
             <Text style={footerText}>
               © 2025 CreaTuActivo.com
               <br />
-              Reto 5 Días - Día 3 de 5
+              Mapa de Salida — Coordenada 3 de 5
             </Text>
           </Section>
         </Container>

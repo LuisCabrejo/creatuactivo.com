@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Reto 5 Días - Día 2: Los Vehículos
+ * Mapa de Salida — Coordenada 2: Los Vehículos
  * "Por qué tu plan no funciona"
  */
 
@@ -24,7 +24,7 @@ interface Dia2Props {
 }
 
 export const Dia2Vehiculos = ({ firstName = 'Hola', trackingUrl }: Dia2Props) => {
-  const previewText = `Día 2: ${firstName}, por qué tu plan no funciona`;
+  const previewText = `Coordenada 2: Por qué tu plan no funciona`;
 
   return (
     <Html lang="es">
@@ -58,7 +58,7 @@ export const Dia2Vehiculos = ({ firstName = 'Hola', trackingUrl }: Dia2Props) =>
           </Section>
 
           <Section style={dayBadge}>
-            <Text style={dayNumber}>DÍA 2</Text>
+            <Text style={dayNumber}>COORDENADA 2 DE 5</Text>
             <Text style={dayTitle}>Los Vehículos</Text>
           </Section>
 
@@ -132,7 +132,7 @@ export const Dia2Vehiculos = ({ firstName = 'Hola', trackingUrl }: Dia2Props) =>
             <Text style={footerText}>
               © 2025 CreaTuActivo.com
               <br />
-              Reto 5 Días - Día 2 de 5
+              Mapa de Salida — Coordenada 2 de 5
             </Text>
           </Section>
         </Container>

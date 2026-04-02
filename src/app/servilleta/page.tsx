@@ -204,13 +204,14 @@ export default function ServilletaPage() {
   }, []);
 
   // CTA reveal: grayscale → color
+  // Desktop: solo CSS :hover (sin auto-reveal) — el usuario decide con el mouse
+  // Mobile: IntersectionObserver activa color al hacer scroll-snap al panel CTA
   useEffect(() => {
     if (activeSlide !== 4) { setCtaVisible(false); return; }
     if (typeof window === 'undefined') return;
     if (window.innerWidth > 1024) {
-      // Desktop: activa color con delay al llegar a slide 4
-      const t = setTimeout(() => setCtaVisible(true), 400);
-      return () => clearTimeout(t);
+      // Desktop: imagen queda gris hasta hover — el CSS :hover lo maneja
+      return;
     }
     // Mobile: IntersectionObserver cuando el panel hace scroll-snap
     setCtaVisible(false);
@@ -1444,7 +1445,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Dise&ntilde;ado para que algo mejore pronto — desde las primeras semanas.</p>
+                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: que mejores tu vida r&aacute;pido, desde la arrancada.</p>
                   </div>
                 )}
 
@@ -1475,14 +1476,9 @@ export default function ServilletaPage() {
                   style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
                 />
                 <div className="cta-overlay">
-                  <p style={{ fontSize: '0.78rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.45)', marginBottom: '1.5rem', fontFamily: 'var(--font-mono)' }}>
-                    El pr&oacute;ximo lunes llega en unos d&iacute;as.<br />
-                    Las cuentas tambi&eacute;n.<br />
-                    <br />
-                    La pregunta no es si quieres cambiar algo.<br />
-                    La pregunta es si vas a esperar otro lunes para empezar.
+                  <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 12 }}>
+                    CONSTRUCCI&Oacute;N DE PATRIMONIO PARALELO
                   </p>
-
                   <h2>&iquest;QU&Eacute; DECIDES?</h2>
                   <p>Tienes toda la informaci&oacute;n. Elige tu camino.</p>
 
@@ -1507,6 +1503,10 @@ export default function ServilletaPage() {
                       VER EL MAPA DE SALIDA →
                     </a>
                   </div>
+
+                  <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', marginTop: 20, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em' }}>
+                    Eso es lo que est&aacute;s decidiendo construir. Empieza hoy.
+                  </p>
                 </div>
               </div>
             </div>

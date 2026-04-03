@@ -458,6 +458,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         components={{
                           strong: ({children}) => <strong style={{ fontWeight: 600, color: QUIET_LUXURY.gold }}>{children}</strong>,
                           em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.textSecondary }}>{children}</em>,
+                          del: ({children}) => <span>{children}</span>,
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
                           li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>,

@@ -40,12 +40,28 @@ const getInitialGreeting = (): Message => {
     };
   }
 
+  // Usuario que regresa — saludo personalizado sin repetir el pitch
+  if (savedName) {
+    return {
+      id: 'initial-greeting',
+      role: 'assistant',
+      content: `Hola, ${savedName} 🪢
+
+¿En qué puedo ayudarte?`,
+      timestamp: new Date(),
+      isStreaming: false
+    };
+  }
+
+  // Primera visita — saludo con propuesta de valor + pregunta de situación
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `${greeting} 🪢
+    content: `Hola 🪢 Soy Queswa, el sistema de asesoría de CreaTuActivo.
 
-¿En qué puedo ayudarte?`,
+Ayudamos a personas a construir Patrimonio Paralelo — ingresos que llegan aunque no estés trabajando, sin dejar lo que ya tienes.
+
+¿Cuál es tu situación hoy — tienes empleo, negocio propio, trabajas de forma independiente, o tu situación es diferente?`,
     timestamp: new Date(),
     isStreaming: false
   };

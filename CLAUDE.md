@@ -623,12 +623,12 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
-- Sub-perfiles del Constructor: **Esposas de Oro / Trampa Operativa / Creador de Ingreso Lineal** (actualizado Abr 2026 — no usar "microempresario, empleado, pensionado")
+- Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
 
 **Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
 - Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
 - Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Tracción Inbound, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso
-- Vocabulario prohibido adicional: "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada (Liliana Moreno, nombres de ciudad específicos)
+- Vocabulario prohibido adicional: "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada (Liliana Moreno, nombres de ciudad específicos), etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
 

@@ -1,0 +1,69 @@
+
+<style>
+.w{padding:1rem 0;font-family:var(--font-sans)}
+.row{display:grid;grid-template-columns:160px 1fr;gap:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:10px}
+.rlabel{padding:14px;background:var(--color-background-secondary);border-right:0.5px solid var(--color-border-tertiary);font-size:12px;font-weight:500;color:var(--color-text-secondary)}
+.rbody{padding:14px}
+.finding{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.finding:last-child{border-bottom:none}
+.dot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.ok{background:var(--color-text-success)}
+.warn{background:var(--color-text-warning)}
+.bad{background:var(--color-text-danger)}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:1px 7px;border-radius:4px;margin-left:4px;vertical-align:middle}
+.tok{background:var(--color-background-success);color:var(--color-text-success)}
+.twarn{background:var(--color-background-warning);color:var(--color-text-warning)}
+.tbad{background:var(--color-background-danger);color:var(--color-text-danger)}
+.root{margin-top:12px;padding:12px 14px;border-radius:var(--border-radius-md);background:var(--color-background-secondary);border-left:3px solid var(--color-border-warning);font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.root strong{color:var(--color-text-primary);font-weight:500}
+</style>
+<div class="w">
+
+<div class="row">
+  <div class="rlabel">¿Qué es esto?</div>
+  <div class="rbody">
+    <div class="finding"><div class="dot ok"></div><div>Identidad correcta — "Motor Cognitivo del ecosistema CreaTuActivo" <span class="tag tok">✓ handoff aplicado</span></div></div>
+    <div class="finding"><div class="dot ok"></div><div>Pregunta de calificación conversacional al final — sin menú A/B/C/D <span class="tag tok">✓ handoff aplicado</span></div></div>
+    <div class="finding"><div class="dot warn"></div><div>"La gran mayoría opera un sistema con una falla estructural letal" — entra al problema antes de saludar con calidez. El héroe recibe un diagnóstico antes de que Queswa le haya preguntado nada.</div></div>
+    <div class="finding"><div class="dot warn"></div><div>Falta el nombre del héroe — la respuesta no intenta capturarlo en ningún momento.</div></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="rlabel">¿Qué tendría que hacer yo?</div>
+  <div class="rbody">
+    <div class="finding"><div class="dot bad"></div><div><strong>"Aquí hay cero ventas puerta a puerta y cero persuasión"</strong> — defensa anticipada prohibida. El héroe no preguntó sobre ventas. <span class="tag tbad">regla 4 violada</span></div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"Tu rol no es convencer a nadie"</strong> — segunda defensa anticipada en la misma respuesta. Planta la idea de "convencer" donde no existía.</div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"¿Te hace sentido operar desde esta postura de tranquilidad?"</strong> — pregunta de cierre forzada e interna. "Postura de tranquilidad" no es lenguaje del héroe. Ningún microempresario de 45 años habla así.</div></div>
+    <div class="finding"><div class="dot warn"></div><div>Esta respuesta viene del WHY_ROL_01 del arsenal que NO fue actualizado. El chunk embedido aún tiene el copy viejo con lenguaje defensivo.</div></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="rlabel">¿Cómo funciona el negocio?</div>
+  <div class="rbody">
+    <div class="finding"><div class="dot bad"></div><div>La respuesta aprobada en el handoff v20.1 NO está siendo usada. El WHY_02 del arsenal no fue actualizado antes del re-embedding. <span class="tag tbad">copy no actualizado</span></div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"Esa es la pregunta del millón"</strong> — frase de relleno. Activa F2 porque suena a script de vendedor.</div></div>
+    <div class="finding"><div class="dot warn"></div><div>Estructura correcta (3 partes), pero falta la apertura desde el problema del héroe. El héroe escucha el modelo antes de sentirse comprendido.</div></div>
+    <div class="finding"><div class="dot warn"></div><div><strong>"¿Ves el nivel de apalancamiento que te da esta división operativa?"</strong> — pregunta de cierre corporativa. "División operativa" es lenguaje interno.</div></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="rlabel">¿Cuál es la ventaja de CreaTuActivo?</div>
+  <div class="rbody">
+    <div class="finding"><div class="dot bad"></div><div><strong>"automatización cognitiva"</strong> — término que no existe en ningún arsenal. Queswa lo generó por su cuenta, no lo recuperó del RAG. <span class="tag tbad">alucinación</span></div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"Cero desgaste, cero persecución, cero rechazo"</strong> — tercera instancia de lenguaje defensivo. Planta persecución y rechazo sin que nadie los mencionara.</div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"La diferencia es brutal"</strong> — tono agresivo, no alineado con el modelo Faro (atracción, no ataque).</div></div>
+    <div class="finding"><div class="dot bad"></div><div><strong>"¿Prefieres ser el que explica o el que orquesta?"</strong> — pregunta binaria que presiona al héroe a elegir entre dos identidades. Formato de cierre de manual de ventas.</div></div>
+    <div class="finding"><div class="dot warn"></div><div>El arsenal tiene FREQ_15 con la respuesta correcta ("Excavadora Industrial") — Queswa no la recuperó. Recuperó una respuesta inventada.</div></div>
+  </div>
+</div>
+
+<div class="root">
+  <strong>Diagnóstico raíz — por qué siguen apareciendo estos problemas:</strong><br><br>
+  El system prompt fue actualizado (v20.0) con las reglas correctas. Pero el <strong>arsenal_inicial.txt</strong> no fue actualizado antes del re-embedding. Los chunks que Queswa recupera del RAG (WHY_ROL_01, WHY_02) todavía tienen el copy viejo con lenguaje defensivo. Las reglas del system prompt no pueden sobreescribir lo que el RAG ya embedió. Y para "¿cuál es la ventaja de CreaTuActivo?", ningún chunk del RAG respondía esa pregunta exacta — Queswa improvisó en lugar de recuperar FREQ_15.<br><br>
+  <strong>Conclusión:</strong> El problema no es solo de reglas — es de qué está embedido. Hasta que arsenal_inicial.txt sea actualizado y re-embedido con el copy aprobado, las respuestas van a seguir mezclando copy viejo y defensivo.
+</div>
+
+</div>

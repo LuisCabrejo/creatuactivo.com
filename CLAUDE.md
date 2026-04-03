@@ -143,24 +143,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 - **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
 - En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
 
-**Respuesta canónica WHY_02 — "¿Cómo funciona el negocio?"**:
-```
-GANO EXCEL (Infraestructura y Capital): Pone el músculo físico. Más de $100M USD en plantas,
-logística internacional y riesgo financiero. Tú no fabricas, no almacenas y no envías.
-
-CREATUACTIVO (Plataforma Digital): Es el cerebro de la operación. Nuestra inteligencia
-artificial asume el trabajo pesado: filtra prospectos, presenta el modelo y educa
-automáticamente. Elimina el desgaste de tener que explicar o convencer.
-
-DIRECCIÓN EJECUTIVA (Tu Rol): Tu labor es puramente gerencial. Apalancado en nuestra
-metodología exacta (El Tridente EAM), tu único trabajo es suministrar la "materia prima"
-(tráfico) al ecosistema. La tecnología hace la ejecución técnica; tú tomas las decisiones
-de expansión.
-
-Piénsalo así: No te estamos pidiendo que seas el obrero que construye una fábrica de acero
-desde cero. Te estamos entregando el tablero de mando de una infraestructura global que ya
-está ensamblada. Tú solo orquestas los comandos para que la máquina opere.
-```
+**Respuesta canónica WHY_02** — ver `knowledge_base/arsenal_inicial.txt` (fragmento WHY_02). Los tres componentes son: GANO EXCEL (músculo/infraestructura) + CREATUACTIVO (cerebro/plataforma) + DIRECCIÓN EJECUTIVA (metodología/héroe). Nunca como "Tu Rol" aislado — siempre bajo METODOLOGÍA.
 
 ### 1. NEXUS AI Chatbot
 
@@ -639,37 +622,9 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 
-### Lead Scoring v3.0 (Base Científica — Mar 2026)
+### Lead Scoring v3.0
 
-**Escala**: 0–100 (migrado desde 0–10 en Mar 2026). Score base: 0 (sin artificiales).
-
-**Umbrales de temperatura** (respaldados por literatura de ventas 2025):
-| Score | Temperatura | Acción |
-|-------|-------------|--------|
-| 0–49 | Frío | Nutrición automatizada, sin contacto humano |
-| 50–74 | Tibio | Monitorear actividad, enviar casos de estudio |
-| 75–89 | Caliente | Mensaje personalizado en < 24 h |
-| 90–100 | SQL (listo) | Contacto directo en < 2 h |
-
-**Señales positivas** (17 señales totales):
-- Datos personales: nombre +5, WhatsApp +8, email +5, ocupación +3
-- Multi-threading (menciona cónyuge/socio/tercero) +15 — Gong.io 2025: +130% cierre
-- Verbos de compra ("invertir", "adquirir", "comprar") +8
-- Términos financieros específicos ("rendimiento", "flujo", "activo") +7
-- Perfil innovador Rogers ("primero", "exclusivo", "vanguardia") +7
-- Preguntas sobre precio/costo +6, sobre inicio/proceso +8
-- Engagement sostenido: 3+ mensajes +5, 5+ mensajes +3, 8+ mensajes +3
-
-**Señales negativas**:
-- Sobre-acuerdo sin preguntas ("sí sí, entendido") -10 — Vendux 2025: señal de fuga
-- Sin urgencia ("no es importante ahora") -10
-- Evasión de inversión ("solo estoy mirando") -8
-- No me interesa / no gracias -15
-- Baja intención ("tal vez", "quizás", "lo pienso") -5
-
-**Reset histórico**: Mar 2026 — 10,112 registros reseteados a NULL. Los nuevos scores se construyen desde 0 con datos reales.
-
-**Fuentes**: Gong.io 2025, Frontiers in AI 2025 (AUC-ROC 0.9891), Emerald JSM 2025, SCIRP MLM Study 2025.
+**Escala**: 0–100. Implementado en `captureProspectData()` dentro de [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts). Umbrales: 0–49 frío, 50–74 tibio, 75–89 caliente, 90–100 SQL. Las señales con mayor peso son: multi-threading +15, WhatsApp +8, verbos de compra +8, preguntas sobre inicio +8. Señal más negativa: "no me interesa" -15.
 
 ### Updating Queswa Knowledge
 
@@ -725,46 +680,7 @@ See [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) for details
 
 #### Color Grade — Naval Ravikant / Dan Koe Style (DaVinci Resolve)
 
-Videos de la Epifanía, Mapa de Salida y Fundadores requieren un color grade específico para el estilo editorial premium.
-
-**Setup físico requerido** (sin esto el software no puede compensar):
-- Softbox LED bicolor 5600K (daylight) — elimina el tono cálido/sepia de LEDs de habitación
-- Fondo negro/gris oscuro para look #050505 de Dan Koe
-- Sin esto, cualquier corrección de software distorsiona los tonos de piel
-
-**Flujo con DaVinci Resolve** (requiere DaVinci instalado y abierto):
-
-```bash
-# Paso 1 — Generar LUT de color grade (solo la primera vez o si se borra)
-python3 scripts/generate_lut.py
-# → Genera scripts/naval_style.cube
-
-# Paso 2 — Procesar video con DaVinci (automatizado vía Python API)
-# DaVinci debe estar ABIERTO antes de correr el script
-python3 scripts/davinci_naval.py \
-  --input ~/Desktop/epifania-raw.mp4 \
-  --name epifania
-# → Genera public/videos/epifania-1080p.mp4, epifania-720p.mp4, epifania-poster.jpg
-
-# Paso 3 — Subir a Vercel Blob
-node scripts/upload-to-blob.mjs
-```
-
-**Ajuste manual requerido en DaVinci** (si el script no puede aplicar LUT vía API):
-1. Color page → clic derecho en nodo → Apply LUT → `scripts/naval_style.cube`
-2. Verificar skin tones en el scatterplot (deben estar en zona neutra, no cálida)
-
-**Nombres de video esperados en `public/videos/`**:
-- `epifania-1080p.mp4` / `epifania-720p.mp4` / `epifania-poster.jpg`
-- `mapa-salida-1080p.mp4` / `mapa-salida-720p.mp4` / `mapa-salida-poster.jpg`
-- `fundadores-1080p.mp4` / `fundadores-720p.mp4` / `fundadores-poster.jpg`
-
-**Correcciones que aplica el LUT** (`scripts/naval_style.cube`):
-- Temperatura 3200K → 5000K (neutraliza tono sepia de LED cálido)
-- Black crush (negros más profundos, look cinematic)
-- Curva S suave (contraste editorial)
-- Desaturación 10% (look premium, no saturado)
-- Gamma 0.93 (imagen levemente más rica/oscura)
+Ver [HANDOFF-VIDEO-NAVAL-DAVINCI.md](HANDOFF-VIDEO-NAVAL-DAVINCI.md) para el flujo completo. Resumen: `python3 scripts/generate_lut.py` genera `naval_style.cube`, luego `python3 scripts/davinci_naval.py --input video.mp4 --name nombre` exporta 1080p + 720p + poster. DaVinci debe estar abierto antes de correr el script.
 
 ### Canvas Animation Videos (src/app/animaciones/)
 

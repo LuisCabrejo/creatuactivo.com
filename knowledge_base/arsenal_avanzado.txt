@@ -46,7 +46,7 @@ Te invitamos a construir esa "renta" paralela para que, si tu industria principa
 
 En internet, el 99% de la escasez es un truco barato. Aquí es un límite matemático.
 
-El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, operamos en código cerrado (Fase de Fundadores). Nuestro director está seleccionando un equipo táctico de exactamente 15 socios estratégicos. La urgencia no es para presionarte a entrar, es porque el objetivo es trabajar a nivel personal con esos 15 operadores para que, antes del 1 de junio, cada uno ya tenga su propia infraestructura instalada y generando flujo de caja rápido.
+El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el equipo de liderazgo trabaja con grupos seleccionados de Constructores antes de esa apertura. La urgencia no es para presionarte a entrar, es porque el acompañamiento directo del equipo de Luis Cabrejo es el recurso más limitado del sistema — no la tecnología.
 
 **Piénsalo así:** La tecnología del 'Mapa de Salida' puede soportar a un millón de usuarios mañana mismo, pero el tiempo y el ancho de banda de un Arquitecto de Activos para construir tus cimientos personales es limitado. Esos 15 cupos son nuestra capacidad física máxima de soporte táctico inicial.
 
@@ -78,7 +78,7 @@ Cuando vuelves y activas el interruptor (tu compra), la energía vuelve a fluir 
 Tu base de datos es tu activo más valioso. La protegemos con **Protocolos Bancarios**.
 No somos una agencia de publicidad. Somos un Club de Negocios Privado.
 
-Tus datos y los de tus prospectos se usan **exclusivamente** para la operación de tu infraestructura. Nunca se venden a terceros.
+Tus datos y los de las personas de tu red se usan **exclusivamente** para la operación de tu infraestructura. Nunca se venden a terceros.
 El sistema Queswa está diseñado como una caja fuerte digital.
 
 **Piénsalo así:** Tú tienes la llave maestra. Nosotros custodiamos el servidor, pero solo tú tienes acceso a tu red de contactos.
@@ -107,7 +107,7 @@ Tienes un sistema con **Triple Redundancia**:
 
 Es simple: Generas liquidez **cada vez que conectas una nueva persona** a tu red.
 
-**Matemática (Si eres Fundador ESP-3):**
+**Matemática (paquete Visionario ESP-3):**
 * Tú conectas a Socio A (Nivel 1) → Recibes **$150 USD** (Liquidez Inmediata).
 * Socio A conecta a Socio B (Nivel 2) → Tú recibes **$20 USD** (Ingreso Indirecto).
 * Y así hasta 5 generaciones.
@@ -169,17 +169,17 @@ Convertimos un gasto obligatorio (mercado) en tu único costo operativo.
 
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 2 respuestas
 
-### ADV_SIST_01: "¿Cuál es la diferencia entre un 'Trabajador' y un 'Arquitecto'?"
+### ADV_SIST_01: "¿Cuál es la diferencia entre un operador y un Constructor?"
 **[Concepto Nuclear]:** Mentalidad de Operario vs. Mentalidad de Dueño.
 
-* El **Trabajador** pregunta: "¿A cuánta gente tengo que convencer?"
-* El **Arquitecto** pregunta: "¿Cómo conecto más personas al sistema?"
+* El **operador** pregunta: "¿A cuánta gente tengo que convencer?"
+* El **Constructor** pregunta: "¿Cómo conecto más personas al sistema?"
 
-Nosotros formamos Arquitectos.
+Nosotros formamos Constructores.
 No queremos que seas el "Vendedor Estrella". Si todo depende de ti, no eres libre.
-Queremos que seas el **Operador del Sistema**.
+Queremos que seas el operador del sistema.
 
-**Piénsalo así:** Si tú cargas los baldes, eres trabajador. Si tú diseñas la tubería para que el agua fluya sola, eres Arquitecto.
+**Piénsalo así:** Si tú cargas los baldes, eres el operador. Si tú diseñas la tubería para que el agua fluya sola, eres el Constructor.
 **Pregunta de seguimiento:** ¿Quieres cargar baldes o diseñar tuberías?
 
 ---
@@ -216,7 +216,7 @@ Escríbele a quien te envió esto: **"Solicito Entrevista de Perfil"**.
 ### ADV_ESC_02: "Estoy listo. ¿Cómo pago y empiezo?"
 **[Concepto Nuclear]:** Protocolo de Activación.
 
-**¡Bienvenido al Equipo de Arquitectos!**
+**¡Bienvenido al ecosistema CreaTuActivo. Empieza a construir tu patrimonio paralelo.**
 Activamos el protocolo de inicio:
 
 1.  **Registro Legal:** Creamos tu código internacional en Gano Excel.
@@ -236,28 +236,28 @@ Escribe ahora: **"ACTIVAR CÓDIGO"** y te paso las coordenadas bancarias.
 
 El lanzamiento oficial a nivel global de la plataforma CreaTuActivo.com y la aplicación Queswa es el **01 de junio de 2026**. Sin embargo, no estamos esperando hasta junio para construir.
 
-Hemos abierto una ventana táctica que va del **30 de marzo al 05 de abril** para seleccionar únicamente a **15 Socios Estratégicos (Fundadores)**.
+Hemos abierto una ventana táctica que va del **sábado 4 de abril al domingo 12 de abril** para seleccionar únicamente a **15 Constructores**.
 
 **Piénsalo así:** Es la diferencia entre comprar un apartamento sobre planos (cuando es más exclusivo y rentable) o comprarlo cuando el edificio ya está terminado y todo el mundo lo quiere.
 
-Si entras en esta ventana, nuestro enfoque será ayudarte a ti a consolidar tus propios 15 socios antes de que el resto del mundo tenga acceso en junio.
+Si entras en esta ventana, nuestro enfoque será ayudarte a ti a consolidar tus propios 15 Constructores antes de que el resto del mundo tenga acceso en junio.
 
-**Pregunta de seguimiento:** ¿Ves el valor estratégico de posicionarte en marzo antes del lanzamiento masivo de junio?
+**Pregunta de seguimiento:** ¿Ves el valor estratégico de posicionarte ahora antes del lanzamiento masivo de junio?
 
 ---
 
 ### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
-**[Concepto Nuclear]:** El Tridente del Arquitecto. Operar sistemas, no rogar a las personas.
+**[Concepto Nuclear]:** La metodología EAM. Operar sistemas, no rogar a las personas.
 
-Operamos bajo una metodología industrial llamada **El Tridente (EAM)**. Se divide en 3 fases exactas que te sacan de la operatividad desgastante:
+Operamos bajo una metodología industrial llamada **la metodología EAM**. Se divide en 3 fases exactas que te sacan de la operatividad desgastante:
 
 1. **Expansión:** Tu única labor manual. Usas la tecnología para generar tráfico y distribuir el "Mapa de Salida". No convences, solo proyectas la visión.
 2. **Activación:** Queswa hace el **90% del trabajo pesado**: filtra curiosos, responde objeciones y presenta la mecánica. Tú solo te sientas a auditar los números con los que ya levantaron la mano y los conectas a la infraestructura corporativa de Gano Excel.
 3. **Maestría:** La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años. Aprendes a leer el sistema, ajustar la estrategia y reconocer oportunidades que los demás no ven.
 
-**Piénsalo así:** En un negocio tradicional tú fabricas el producto, haces el marketing y le ruegas al cliente. Con el Tridente, la fábrica ya existe y la IA hace el marketing; tu función es la Dirección Ejecutiva — decides la estrategia de expansión y validas los acuerdos con quienes ya levantaron la mano.
+**Piénsalo así:** En un negocio tradicional tú fabricas el producto, haces el marketing y le ruegas al cliente. Con la metodología EAM, la fábrica ya existe y la IA hace el marketing; tu función como Constructor es decidir la estrategia de expansión y validar los acuerdos con quienes ya levantaron la mano.
 
-**Pregunta de seguimiento:** ¿Te hace sentido ejercer la dirección ejecutiva de un ecosistema donde la tecnología hace el 90% del trabajo operativo?
+**Pregunta de seguimiento:** ¿Te hace sentido ser el Constructor de un ecosistema donde la tecnología hace el 90% del trabajo operativo?
 
 ---
 

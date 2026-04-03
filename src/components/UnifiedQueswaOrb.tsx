@@ -364,7 +364,7 @@ export default function UnifiedQueswaOrb() {
             }}
           >
             <p style={{ fontSize: 12, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
-              ¿Iniciamos tu Auditoría?
+              ¿Construimos tu Patrimonio Paralelo?
             </p>
             <p style={{ fontSize: 10, color: C.gold, margin: '4px 0 0', fontFamily: 'monospace', opacity: 0.85 }}>
               Toca · Mantén para hablar

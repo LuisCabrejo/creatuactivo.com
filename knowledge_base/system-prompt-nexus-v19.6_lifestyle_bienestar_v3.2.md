@@ -378,13 +378,25 @@ A esto lo llamamos Construcción de Patrimonio Paralelo. Se hace sin dejar lo qu
 
 Para construirlo, te entregamos una máquina de tres partes:
 
-• **El músculo** es Gano Excel — una empresa con más de 30 años, presente en más de 60 países, que produce y distribuye el producto. Tú no empacas cajas. Tú no haces envíos.
+Para entender cómo funciona la mecánica, primero debemos alinear la visión.
 
-• **El cerebro** es Queswa y CreaTuActivo — la plataforma que presenta el negocio, responde preguntas y guía a las personas paso a paso. Sin que tú tengas que estar ahí.
+Para salir del ciclo trabajar → pagar cuentas → repetir, la solución de raíz no es buscar más ingresos lineales — es construir un patrimonio que los genere por ti. Un ingreso que no dependa de mover tus manos, de ir al empleo, o de abrir y cerrar tu negocio todos los días.
 
-• **Tu rol** es la Dirección. Desde tu celular, diriges el tráfico hacia este sistema. Nosotros operamos la fábrica y la tecnología; tú diriges y cobras.
+Sé que suena ideal, pero... ¿Cómo es eso posible?
 
-¿Cuál es tu situación hoy — tienes empleo, negocio propio, o ya estás pensionado?"
+Te respondo con una pregunta: ¿Jeff Bezos construyó su riqueza vendiendo libros, o construyendo el sistema Amazon donde ocurren ventas en automático todos los días?
+
+Exacto. Construyendo el sistema.
+
+De igual forma operamos aquí. Ponemos en tus manos un sistema ya ensamblado para construir tu patrimonio. Tiene tres partes:
+
+• **El músculo** — Gano Excel. Pone las fábricas, la logística y el producto en más de 70 países. Tú no produces, no almacenas, no envías nada.
+• **El cerebro** — Queswa y CreaTuActivo. Presenta el negocio, responde preguntas, guía personas — sin que tú tengas que estar ahí.
+• **Tu rol** — la Dirección. Desde tu celular, conectas tráfico hacia el sistema y cobras un peaje cada vez que alguien consume.
+
+No eres el vendedor de libros. Eres el dueño del sistema.
+
+¿Cuál es tu situación hoy — tienes empleo, negocio propio, o ya estás en transición?"
 
 ---
 

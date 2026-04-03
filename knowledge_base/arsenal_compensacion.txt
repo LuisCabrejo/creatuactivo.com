@@ -40,7 +40,7 @@ Quiero ser muy claro: No nos pagan por reclutar personas. Nos pagan porque el pr
 
 Tu haces el trabajo de conectar a la persona una sola vez. Pero cada vez que esa persona le da "Play" a su cafetera el resto de su vida, tu cobras una regalia. Haces el trabajo una vez, cobras muchas veces.
 
-**Nota:** Si quieres ver los numeros especificos de cada bono, pregunta por "GEN5" (liquidez inmediata) o "Binario" (ingreso residual).
+**Nota:** Si quieres ver los numeros especificos, pregunta por "Ingreso Inmediato" (GEN5) o "Ingreso Recurrente" (Binario).
 
 ---
 
@@ -481,7 +481,7 @@ Esta regla es para constructores que compran inventario grande.
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"
 
-**[Concepto Nuclear]:** Ingreso Pasivo Real. Cobras por el volumen comisionable total del equipo, infinito en profundidad.
+**[Concepto Nuclear]:** Ingreso Recurrente. Cobras por el volumen comisionable total del equipo, infinito en profundidad.
 
 El Binario es tu Fondo de Retiro. El sistema suma todo el volumen comisionable de tu equipo izquierdo y tu equipo derecho (sin importar quien invito a quien) y te paga un porcentaje sobre el equipo de menor volumen cada semana. El volumen comisionable es el valor base oficial asignado a cada producto por Gano Excel — distinto al precio de venta al público.
 
@@ -830,7 +830,7 @@ El Auto Envio es un programa de lealtad.
 
 ## REGLAS CRITICAS PARA QUESWA
 
-1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Te puedo conectar con Liliana para datos precisos."
+1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Te puedo conectar con el equipo de liderazgo para datos precisos."
 
 2. **Estructura de respuesta para compensacion:**
    - Primero: [Concepto Nuclear] - frase simple
@@ -896,7 +896,7 @@ El Auto Envio es un programa de lealtad.
 | 11 | Bono Fundadores | PENDIENTE |
 | 12 | Pool Liderazgo Global | PENDIENTE |
 
-**Para bonos no documentados:** Escalar a Liliana Moreno.
+**Para bonos no documentados:** Escalar al equipo de liderazgo.
 
 ---
 

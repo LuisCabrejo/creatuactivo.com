@@ -57,12 +57,12 @@ const getInitialGreeting = (): Message => {
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola. Soy Queswa, el Motor Cognitivo de **CreaTuActivo**. 🪢
+    content: `Hola. Soy Queswa, el Motor Cognitivo de CreaTuActivo. 🪢
 
-Nuestra función es orquestar la construcción de tu **Patrimonio Paralelo** — una infraestructura diseñada para generar flujo de caja independiente de tu presencia, sin abandonar lo que ya tienes.
+Estoy aquí para ayudarte a construir tu *Patrimonio Paralelo*: un sistema de ingresos que no dependa de tu tiempo, sin que tengas que abandonar tu profesión actual.
 
-Para calibrar la ruta exacta, ¿cuál es tu situación actual?
-*(¿Tienes empleo, diriges un negocio, trabajas de forma independiente, o tu situación es diferente?)*`,
+Para trazar tu ruta exacta, ¿cuál es tu situación hoy?
+*(¿Tienes empleo, negocio propio o eres independiente?)*`,
     timestamp: new Date(),
     isStreaming: false
   };

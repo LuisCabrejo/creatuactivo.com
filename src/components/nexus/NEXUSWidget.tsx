@@ -322,25 +322,35 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* 🎨 Estado inicial: saludo estático sin scroll container */}
-          {isInitialState && (
-            <div
-              className="flex-1 flex flex-col items-center text-center px-8 pt-16 md:pt-24"
-              style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
-            >
-              <div className="text-2xl font-semibold leading-snug" style={{ color: QUIET_LUXURY.textPrimary }}>
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    strong: ({children}) => <strong style={{ fontWeight: 700, color: QUIET_LUXURY.gold }}>{children}</strong>,
-                    em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.textSecondary }}>{children}</em>,
-                    p: ({children}) => <p className="mb-4 leading-snug">{children}</p>,
-                  }}
-                >
-                  {messages[0].content}
-                </ReactMarkdown>
+          {isInitialState && (() => {
+            const [firstPara, ...rest] = messages[0].content.split('\n\n');
+            const restContent = rest.join('\n\n');
+            return (
+              <div
+                className="flex-1 flex flex-col items-center text-center px-8 pt-8 md:pt-16"
+                style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
+              >
+                {/* Primera línea — grande */}
+                <p className="text-lg md:text-xl font-semibold leading-snug mb-5" style={{ color: QUIET_LUXURY.textPrimary }}>
+                  {firstPara}
+                </p>
+                {/* Resto — tamaño normal, palabras clave en oro */}
+                {restContent && (
+                  <div className="text-sm leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.gold }}>{children}</em>,
+                        p: ({children}) => <p className="mb-3">{children}</p>,
+                      }}
+                    >
+                      {restContent}
+                    </ReactMarkdown>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* 🎨 Quiet Luxury CONTENEDOR: SLIDE + SCROLL (solo con conversación activa) */}
           {!isInitialState && (

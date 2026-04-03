@@ -18,7 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v19.6.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v20.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -205,9 +205,9 @@ ganocafe.online/cafe-3en1/index.html
 
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing`
-   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (17 responses) — tenant: `creatuactivo_marketing`
-   - `arsenal_reto` - El Mapa de Salida v3.0 (7 responses) — tenant: `creatuactivo_marketing`
+   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing` — **v20.1 Lujo Clínico** (Abr 2026)
+   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (17 responses) — tenant: `creatuactivo_marketing` — **v8.2** (Abr 2026)
+   - `arsenal_reto` - El Mapa de Salida v3.1 (7 responses) — tenant: `creatuactivo_marketing` — **v3.1** (Abr 2026)
    - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
    - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing`
    - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing`
@@ -231,11 +231,12 @@ ganocafe.online/cafe-3en1/index.html
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v19.6 "Lifestyle Bienestar" v3.2** (Mar 2026)
+   - Versión activa: **v20.0 "Constructor Patrimonio"** (Abr 2026)
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
+   - **v20.0 fixes (Abr 2026):** bullets `•` en WHY_02 (El músculo/cerebro/rol), frase "La única forma de resolver..." VERBATIM obligatoria, bloqueo absoluto de alucinación en cifras de compensación (GEN5 Gen1=$150, Gen2-4=$20, Gen5=$40; Binario=CV×17%×$1), few-shot Pregunta 2 con tablas reales de Ingreso Inmediato/Recurrente.
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
@@ -392,8 +393,8 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v3.0 — 7 responses, nomenclatura definitiva Feb 2026)
 - `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar**) — tenant: `creatuactivo_marketing`
-- `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal`
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v5.3** (Abr 2026)
+- `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal` — **v1.1** (Abr 2026)
 - `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (14 responses — PROD_01–06, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
@@ -605,7 +606,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v19.6** — `actualizar-system-prompt-v19.6.mjs`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v20.0** — `actualizar-system-prompt-v20.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -621,6 +622,15 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Tres componentes Máquina Híbrida: **GANO EXCEL** (músculo/infraestructura) + **CREATUACTIVO** (cerebro/plataforma) + **DIRECCIÓN EJECUTIVA** (metodología/el héroe)
 - Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
+- Gano Excel presencia global: **70 países** (oficial — no usar 60)
+- Sub-perfiles del Constructor: **Esposas de Oro / Trampa Operativa / Creador de Ingreso Lineal** (actualizado Abr 2026 — no usar "microempresario, empleado, pensionado")
+
+**Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
+- Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
+- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Tracción Inbound, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso
+- Vocabulario prohibido adicional: "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada (Liliana Moreno, nombres de ciudad específicos)
+- Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
+- Referencias geográficas: pan-americanas — no Colombia-only
 
 ### Lead Scoring v3.0
 
@@ -937,7 +947,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v19.6** — Lifestyle Bienestar v3.2, Mar 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v20.0** — Constructor Patrimonio, Abr 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

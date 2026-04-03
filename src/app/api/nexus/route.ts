@@ -2333,22 +2333,22 @@ function interpretQueryHibrido(userMessage: string): string {
     'arquitectura': 'Tridente EAM Expansión Activación Maestría NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
     'funcionamiento': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método probado',
     'productos': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
-    'contacto': 'Liliana Moreno contacto WhatsApp escalación constructor mentor',
+    'contacto': 'contacto WhatsApp escalación constructor mentor equipo liderazgo',
 
     // Objeciones comunes
     'mlm': 'MLM multinivel pirámide legítimo diferenciación nueva categoría',
-    'tiempo': 'tiempo dedicar automatización 80% trabajo estratégico apalancamiento',
+    'tiempo': 'tiempo dedicar automatización 90% trabajo estratégico apalancamiento',
     'experiencia': 'experiencia ventas arquitecto operador sistema formación',
     'confianza': 'confianza credibilidad legítimo real funciona resultados',
 
     // Sistema y valor
     'ganar': 'ganar cuánto realista modelo valor compensación ingresos',
     'distribución': 'distribución sistema canales infraestructura Gano Excel',
-    'escalación': 'siguiente paso empezar contactar hablar equipo Liliana',
+    'escalación': 'siguiente paso empezar contactar hablar equipo liderazgo',
 
     // Nuevo léxico Industrial Premium v19.0
     'impacto exponencial': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método',
-    'optimización celular': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
+    'demanda biológica': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'reto 5 días': 'conocer el reto de los 5 días qué es el reto metodología proceso'
   };
 
@@ -2370,7 +2370,7 @@ function extraerKeywordsHibrido(message: string): string {
   // Keywords generales del ecosistema (actualizables)
   const keywords_ecosistema = [
     'CreaTuActivo', 'ecosistema', 'Tridente EAM', 'Expansión', 'Activación', 'Maestría',
-    'Gano Excel', 'NEXUS', 'Constructor', 'activo', 'Liliana', 'aplicación',
+    'Gano Excel', 'NEXUS', 'Constructor', 'activo', 'Queswa', 'aplicación',
     'inversión', 'automatización', 'paquete', 'precio', 'costo', 'Motor',
     'método probado', 'arquitectura', 'apalancamiento', 'tecnología'
   ];
@@ -3247,18 +3247,9 @@ ESTADO: ${getMessageContext()}`;
     const totalTime = Date.now() - startTime;
     console.error(`Error NEXUS híbrido después de ${totalTime}ms:`, error);
 
-    const fallbackResponse = `Experimentamos alta demanda. Arquitectura híbrida activando contacto directo.
+    const fallbackResponse = `Estamos experimentando alta demanda en este momento. Por favor intenta de nuevo en unos segundos.
 
-**Contacto inmediato disponible:**
-Liliana Moreno - Consultora Senior
-WhatsApp: +573102066593
-Horario: 8:00 AM - 8:00 PM (GMT-5)
-
-Información disponible:
-- Arquitectura CreaTuActivo.com completa
-- Paquetes y opciones personalizadas
-- Proceso de activación paso a paso
-- Consultoría estratégica completa`;
+Si el problema persiste, puedes continuar la conversación directamente en **creatuactivo.com** o escribirle a quien te compartió este acceso.`;
 
     return new Response(JSON.stringify({
       error: fallbackResponse

@@ -59,10 +59,10 @@ const getInitialGreeting = (): Message => {
     role: 'assistant',
     content: `Hola. Soy Queswa, el Motor Cognitivo de CreaTuActivo. 🪢
 
-Estoy aquí para ayudarte a construir tu *Patrimonio Paralelo*: un sistema de ingresos que no dependa de tu tiempo, sin que tengas que abandonar tu profesión actual.
+Estoy aquí para ayudarte a construir tu *Patrimonio Paralelo*: un sistema de ingresos que no dependa de tu tiempo, sin que tengas que abandonar tu actividad actual.
 
 Para trazar tu ruta exacta, ¿cuál es tu situación hoy?
-*(¿Tienes empleo, negocio propio o eres independiente?)*`,
+*(¿Tienes empleo, negocio propio, eres independiente, u otro?)*`,
     timestamp: new Date(),
     isStreaming: false
   };

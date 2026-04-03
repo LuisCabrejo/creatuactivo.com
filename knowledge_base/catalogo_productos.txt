@@ -11,7 +11,7 @@
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
 **[Concepto Nuclear]:** El café abre puertas que ningún suplemento puede abrir.
 
-El café es el producto más democrático del mundo. Colombia tiene 15M de hogares consumidores.
+El café es el producto más democrático del mundo. Es el hábito diario de millones de hogares en América.
 
 **La lógica es simple:**
 - No cambias hábitos. Los mejoras.
@@ -28,7 +28,7 @@ Una vez que el cuerpo experimenta la diferencia del Ganoderma en su café diario
 
 **Los números:**
 - Consumo habitual: El café es parte de la rutina diaria.
-- Recompra constante: No hay que volver a convencer.
+- Recompra constante: No hay que volver a presentar el producto.
 - Retención 85%+: Raramente vuelven a café común.
 - Lifetime Value: 36+ meses de consumo promedio.
 
@@ -159,7 +159,7 @@ El polvo de hongo tiene biodisponibilidad limitada. El extracto Gano Excel es 10
 | Ganorico Shoko Rico | $124,900 | 20 sobres | Toda la familia |
 | Gano C'Real Spirulina | $119,900 | 15 sobres | Desayuno inteligente |
 | Oleaf Gano Rooibos | $119,900 | 20 sobres | Sin cafeína, antioxidantes |
-| Gano Schokoladde | $124,900 | 20 sobres | Chocolate premium |
+| Gano Schokolade | $124,900 | 20 sobres | Chocolate premium |
 | Reskine Colágeno | $216,900 | 10 sachets | Piel, cabello, articulaciones |
 
 Todos contienen extracto propietario de Ganoderma lucidum.

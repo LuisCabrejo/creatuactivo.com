@@ -528,84 +528,99 @@ async function captureProspectData(
 
   // ✅ CAPTURA DE PAQUETE (Multi-estrategia: directa + semántica + contexto)
   const packageMap: Record<string, string> = {
-    // Nombres completos
-    'constructor inicial': 'inicial',
-    'constructor estratégico': 'estrategico',
-    'constructor visionario': 'visionario',
-    'prefiero asesoría personalizada': 'asesoria',
-    'asesoría personalizada': 'asesoria',
+    // Abreviaciones ESP (nomenclatura actual)
+    'esp-1': 'ESP-1',
+    'esp1': 'ESP-1',
+    'esp 1': 'ESP-1',
+    'esp-2': 'ESP-2',
+    'esp2': 'ESP-2',
+    'esp 2': 'ESP-2',
+    'esp-3': 'ESP-3',
+    'esp3': 'ESP-3',
+    'esp 3': 'ESP-3',
 
-    // Abreviaciones ESP
-    'esp1': 'inicial',
-    'esp 1': 'inicial',
-    'esp2': 'estrategico',
-    'esp 2': 'estrategico',
-    'esp3': 'visionario',
-    'esp 3': 'visionario',
+    // Nombres completos ESP
+    'esp-1 inicial': 'ESP-1',
+    'esp-2 empresarial': 'ESP-2',
+    'esp-3 visionario': 'ESP-3',
+    'inicial': 'ESP-1',
+    'empresarial': 'ESP-2',
+    'visionario': 'ESP-3',
 
-    // Precios mencionados
-    '$2,000': 'inicial',
-    '2000 usd': 'inicial',
-    '2.250.000': 'inicial',
-    '$3,500': 'estrategico',
-    '3500 usd': 'estrategico',
-    '3.500.000': 'estrategico',
-    '$4,500': 'visionario',
-    '4500 usd': 'visionario',
-    '4.500.000': 'visionario',
+    // Precios actuales (USD)
+    '$200': 'ESP-1',
+    '200 usd': 'ESP-1',
+    'usd 200': 'ESP-1',
+    '$500': 'ESP-2',
+    '500 usd': 'ESP-2',
+    'usd 500': 'ESP-2',
+    '$1,000': 'ESP-3',
+    '$1000': 'ESP-3',
+    '1000 usd': 'ESP-3',
+    'usd 1.000': 'ESP-3',
+    'usd 1000': 'ESP-3',
+    'mil dólares': 'ESP-3',
+    'el de mil': 'ESP-3',
+    'los mil': 'ESP-3',
 
-    // Solo palabras clave
-    'inicial': 'inicial',
-    'estratégico': 'estrategico',
-    'estrategico': 'estrategico',
-    'visionario': 'visionario',
+    // Precios COP actuales
+    '900.000': 'ESP-1',
+    '900000': 'ESP-1',
+    '2.250.000': 'ESP-2',
+    '2250000': 'ESP-2',
+    '4.500.000': 'ESP-3',
+    '4500000': 'ESP-3',
 
-    // ✅ LENGUAJE NATURAL (cómo la gente realmente habla)
-    // Tamaño relativo
-    'el más grande': 'visionario',
-    'el grande': 'visionario',
-    'el mayor': 'visionario',
-    'el más completo': 'visionario',
-    'el más caro': 'visionario',
-    'el premium': 'visionario',
-    'el top': 'visionario',
-    'el mejor': 'visionario',
+    // Lenguaje natural — tamaño relativo
+    'el más grande': 'ESP-3',
+    'el grande': 'ESP-3',
+    'el mayor': 'ESP-3',
+    'el más completo': 'ESP-3',
+    'el más caro': 'ESP-3',
+    'el premium': 'ESP-3',
+    'el top': 'ESP-3',
+    'el mejor': 'ESP-3',
+    'el máximo': 'ESP-3',
+    'nivel máximo': 'ESP-3',
+    'nivel directivo': 'ESP-3',
+    'el de mayor rentabilidad': 'ESP-3',
+    'el de 17%': 'ESP-3',
 
-    'el pequeño': 'inicial',
-    'el más pequeño': 'inicial',
-    'el chico': 'inicial',
-    'el básico': 'inicial',
-    'el económico': 'inicial',
-    'el barato': 'inicial',
-    'el más barato': 'inicial',
-    'el de entrada': 'inicial',
-    'para empezar': 'inicial',
+    'el pequeño': 'ESP-1',
+    'el más pequeño': 'ESP-1',
+    'el chico': 'ESP-1',
+    'el básico': 'ESP-1',
+    'el económico': 'ESP-1',
+    'el barato': 'ESP-1',
+    'el más barato': 'ESP-1',
+    'el de entrada': 'ESP-1',
+    'el de 15%': 'ESP-1',
 
-    'el de la mitad': 'estrategico',
-    'el del medio': 'estrategico',
-    'el mediano': 'estrategico',
-    'el intermedio': 'estrategico',
-    'el estándar': 'estrategico',
-    'el normal': 'estrategico',
+    'el de la mitad': 'ESP-2',
+    'el del medio': 'ESP-2',
+    'el mediano': 'ESP-2',
+    'el intermedio': 'ESP-2',
+    'el estándar': 'ESP-2',
+    'el normal': 'ESP-2',
+    'nivel ejecutivo': 'ESP-2',
+    'el de 16%': 'ESP-2',
 
     // Cantidad de productos
-    'el de 7 productos': 'inicial',
-    'el de siete productos': 'inicial',
-    'el de 7': 'inicial',
-    'con 7 productos': 'inicial',
+    'el de 7 productos': 'ESP-1',
+    'el de siete productos': 'ESP-1',
+    'con 7 productos': 'ESP-1',
+    'el de 18 productos': 'ESP-2',
+    'el de 35 productos': 'ESP-3',
+    'el de treinta y cinco': 'ESP-3',
+    'el que tiene más productos': 'ESP-3',
+    'el que trae más': 'ESP-3',
 
-    'el de 35 productos': 'visionario',
-    'el de treinta y cinco': 'visionario',
-    'el de 35': 'visionario',
-    'con 35 productos': 'visionario',
-
-    'el que tiene más productos': 'visionario',
-    'el que trae más': 'visionario',
-
-    // Variaciones coloquiales
-    'ese': 'estrategico',  // "¿Cuál prefieres?" → "Ese" (contexto depende de última mención)
-    'este': 'estrategico',
-    'aquel': 'estrategico'
+    // Legado (nombres anteriores — mantener compatibilidad)
+    'constructor inicial': 'ESP-1',
+    'constructor estratégico': 'ESP-2',
+    'constructor visionario': 'ESP-3',
+    'estratégico': 'ESP-2',
+    'estrategico': 'ESP-2',
   };
 
   for (const [label, value] of Object.entries(packageMap)) {

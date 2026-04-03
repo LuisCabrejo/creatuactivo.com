@@ -46,9 +46,9 @@ Te invitamos a construir esa "renta" paralela para que, si tu industria principa
 
 En internet, el 99% de la escasez es un truco barato. Aquí es un límite matemático.
 
-El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el equipo de liderazgo trabaja con grupos seleccionados de Constructores antes de esa apertura. La urgencia no es para presionarte a entrar, es porque el acompañamiento directo del equipo de Luis Cabrejo es el recurso más limitado del sistema — no la tecnología.
+El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el equipo de liderazgo trabaja con grupos seleccionados de Constructores antes de esa apertura. La urgencia no es para presionarte a entrar — es porque el tiempo del equipo de liderazgo para acompañamiento táctico inicial es el recurso más limitado del sistema, no la tecnología.
 
-**Piénsalo así:** La tecnología del 'Mapa de Salida' puede soportar a un millón de usuarios mañana mismo, pero el tiempo y el ancho de banda de un Arquitecto de Activos para construir tus cimientos personales es limitado. Esos 15 cupos son nuestra capacidad física máxima de soporte táctico inicial.
+**Piénsalo así:** La plataforma puede soportar a un millón de usuarios mañana mismo. Pero la capacidad del equipo de liderazgo para construir tus cimientos personales es finita. Esos 15 cupos son ese límite.
 
 **Pregunta de seguimiento:** ¿Prefieres construir tus cimientos con acompañamiento directo, o esperar al lanzamiento público?
 
@@ -102,7 +102,7 @@ Tienes un sistema con **Triple Redundancia**:
 
 ## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
 
-### ADV_VAL_01: "Explícame el Bono GEN5 (Inicio Rápido) con números"
+### ADV_VAL_01: "Explícame el Ingreso Inmediato con números"
 **[Concepto Nuclear]:** Inyección de Liquidez. Flujo de Caja por Expansión.
 
 Es simple: Generas liquidez **cada vez que conectas una nueva persona** a tu red.
@@ -119,12 +119,12 @@ Si conectas a 5 personas directas y ellas se duplican, generas miles de dólares
 
 ---
 
-### ADV_VAL_02: "Explícame el Bono Binario (Regalías) con números"
+### ADV_VAL_02: "Explícame el Ingreso Recurrente con números"
 **[Concepto Nuclear]:** Renta Perpetua. Ingreso por Volumen, no por gente.
 
-Este es el objetivo final. El **Ingreso Pasivo Real**.
+Este es el objetivo estructural. El ingreso que no depende de tu presencia.
 El sistema suma el **Volumen Total** (puntos) de tu lado izquierdo y derecho.
-No importa quién invitó a quién. Si el volumen pasa por tu código, tú cobras.
+No importa quién invitó a quién. Si el volumen pasa por tu posición, tú cobras.
 
 Te pagan hasta el **17%** del volumen de tu equipo de cobro.
 **La Ecuación:** 1,000 personas consumiendo café = Volumen Masivo recurrente.
@@ -132,7 +132,7 @@ Te pagan hasta el **17%** del volumen de tu equipo de cobro.
 **Piénsalo así:** Es como cobrar un "Peaje Digital".
 Tú no fabricas el auto ni conduces el auto. Tú eres el dueño de la caseta.
 Cada vez que alguien pasa (toma una taza), tú cobras. De por vida.
-**Pregunta de seguimiento:** ¿Entiendes por qué este bono es el que genera la verdadera libertad?
+**Pregunta de seguimiento:** ¿Ves por qué este flujo es el que construye el patrimonio paralelo de largo plazo?
 
 ---
 
@@ -149,7 +149,7 @@ Si entras con un paquete pequeño, estás dejando dinero sobre la mesa. Haces el
 
 **Piénsalo así:** Es como tener dos contratos idénticos. Uno paga $15 la hora, el otro $17. ¿Por qué firmarías el de $15 si puedes firmar el de $17?
 El ESP-3 es la vía rápida para recuperar tu capital.
-**Pregunta de seguimiento:** ¿Prefieres cobrar al 15% o al 17%?
+**Pregunta de seguimiento:** ¿Tienes claridad sobre qué nivel de capitalización inicial se alinea mejor con tu perfil?
 
 ---
 
@@ -161,7 +161,7 @@ Para mantener tu infraestructura activa, debes mover 50 Puntos al mes (~$100 USD
 1.  **Garantía de Flujo:** Si tú recompras, tu red recompra. Eso garantiza tu cheque mensual.
 2.  **Autoconsumo:** No es un gasto de oficina. Es el café y suplementos que consumes en casa.
 
-**Piénsalo así:** El "arriendo" de tu negocio multinacional es tu propio desayuno.
+**Piénsalo así:** El costo operativo de tu activo es tu propio desayuno.
 Convertimos un gasto obligatorio (mercado) en tu único costo operativo.
 **Pregunta de seguimiento:** ¿Ya gastas $100 USD en café y salud al mes de todas formas?
 
@@ -172,7 +172,7 @@ Convertimos un gasto obligatorio (mercado) en tu único costo operativo.
 ### ADV_SIST_01: "¿Cuál es la diferencia entre un operador y un Constructor?"
 **[Concepto Nuclear]:** Mentalidad de Operario vs. Mentalidad de Dueño.
 
-* El **operador** pregunta: "¿A cuánta gente tengo que convencer?"
+* El **operador** pregunta: "¿A cuántas personas tengo que llegar?"
 * El **Constructor** pregunta: "¿Cómo conecto más personas al sistema?"
 
 Nosotros formamos Constructores.
@@ -193,22 +193,22 @@ Estamos construyendo la "Grid" (Red) de bienestar más eficiente del continente.
 **Piénsalo así:** Hoy estás viendo los planos y los cimientos. Tienes la oportunidad de ser dueño de una parte de la red principal.
 En 5 años, ya no invitaremos a construir la red; invitaremos a usarla.
 Hoy te invitamos a ser dueño del cableado, no solo usuario de la electricidad.
-**Pregunta de seguimiento:** ¿Prefieres ser dueño del cableado hoy o pagar la factura de luz mañana?
+**Pregunta de seguimiento:** ¿En qué parte de la red quieres posicionarte — en la infraestructura o en el consumo?
 
 ---
 
 ## 🚀 CIERRE Y ESCALACIÓN - 2 respuestas
 
 ### ADV_ESC_01: "Me interesa, pero necesito hablar con un humano."
-**[Concepto Nuclear]:** Validación de Calidad. Entrevista de Acceso.
+**[Concepto Nuclear]:** Validación de Calidad. Sesión de Diagnóstico Directo.
 
-Entendido. Las alianzas estratégicas requieren confianza.
-Si ya validaste la lógica y los números, te voy a conectar con la **Dirección Estratégica** (Liliana Moreno o Luis Cabrejo).
+Entendido. Las alianzas estratégicas requieren conversación directa.
 
-No es una llamada de ventas. Es una **Entrevista de Perfilamiento**.
-Queremos validar si tienes la mentalidad correcta para ser Fundador.
+Si ya validaste la lógica y los números, te conecto con el equipo de liderazgo.
 
-Escríbele a quien te envió esto: **"Solicito Entrevista de Perfil"**.
+No es una llamada de ventas. Es una sesión de diagnóstico para entender tu situación específica y definir el punto de entrada correcto.
+
+Escríbele a quien te envió esto: **"Solicito sesión con el equipo"**.
 **Pregunta de seguimiento:** ¿Prefieres agendar llamada o videollamada?
 
 ---
@@ -216,16 +216,15 @@ Escríbele a quien te envió esto: **"Solicito Entrevista de Perfil"**.
 ### ADV_ESC_02: "Estoy listo. ¿Cómo pago y empiezo?"
 **[Concepto Nuclear]:** Protocolo de Activación.
 
-**¡Bienvenido al ecosistema CreaTuActivo. Empieza a construir tu patrimonio paralelo.**
-Activamos el protocolo de inicio:
+Bienvenido al ecosistema CreaTuActivo. El proceso de inicio es directo:
 
-1.  **Registro Legal:** Creamos tu código internacional en Gano Excel.
-2.  **Capitalización:** Adquieres tu Inventario Inicial (Recomendado ESP-3).
-3.  **Pago Seguro:** Transacción directa a la compañía (Blindaje financiero).
-4.  **Activación Digital:** Te damos acceso a Queswa y agendamos tu Sesión de Estrategia.
+1.  **Registro:** Creamos tu posición internacional en Gano Excel.
+2.  **Capitalización:** Seleccionas tu paquete de entrada (recomendado ESP-3).
+3.  **Pago:** Transacción directa a la compañía — sin intermediarios.
+4.  **Acceso:** Activamos tu entrada a la plataforma y agendamos tu primera sesión de estrategia.
 
-Escribe ahora: **"ACTIVAR CÓDIGO"** y te paso las coordenadas bancarias.
-**Pregunta de seguimiento:** ¿Listo para iniciar la construcción?
+Escríbele a quien te envió esto: **"Quiero empezar"** y te pasan las instrucciones de activación.
+**Pregunta de seguimiento:** ¿Tienes claridad sobre qué paquete de entrada se alinea con tu perfil?
 
 ---
 
@@ -236,7 +235,7 @@ Escribe ahora: **"ACTIVAR CÓDIGO"** y te paso las coordenadas bancarias.
 
 El lanzamiento oficial a nivel global de la plataforma CreaTuActivo.com y la aplicación Queswa es el **01 de junio de 2026**. Sin embargo, no estamos esperando hasta junio para construir.
 
-Hemos abierto una ventana táctica que va del **sábado 4 de abril al domingo 12 de abril** para seleccionar únicamente a **15 Constructores**.
+Hemos abierto una ventana táctica de pre-lanzamiento para seleccionar únicamente a **15 Constructores** antes de la apertura pública.
 
 **Piénsalo así:** Es la diferencia entre comprar un apartamento sobre planos (cuando es más exclusivo y rentable) o comprarlo cuando el edificio ya está terminado y todo el mundo lo quiere.
 
@@ -251,7 +250,7 @@ Si entras en esta ventana, nuestro enfoque será ayudarte a ti a consolidar tus 
 
 Operamos bajo una metodología industrial llamada **la metodología EAM**. Se divide en 3 fases exactas que te sacan de la operatividad desgastante:
 
-1. **Expansión:** Tu única labor manual. Usas la tecnología para generar tráfico y distribuir el "Mapa de Salida". No convences, solo proyectas la visión.
+1. **Expansión:** Tu única labor manual. Usas la tecnología para generar tráfico y distribuir el "Mapa de Salida". No es persuasión — es visibilidad. Llevas el acceso a quienes ya están buscando una salida.
 2. **Activación:** Queswa hace el **90% del trabajo pesado**: filtra curiosos, responde objeciones y presenta la mecánica. Tú solo te sientas a auditar los números con los que ya levantaron la mano y los conectas a la infraestructura corporativa de Gano Excel.
 3. **Maestría:** La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años. Aprendes a leer el sistema, ajustar la estrategia y reconocer oportunidades que los demás no ven.
 

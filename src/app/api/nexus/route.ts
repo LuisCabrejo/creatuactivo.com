@@ -3069,14 +3069,68 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       return ''; // Sin instrucciones especiales para otras páginas
     };
 
+    // ── CONTEXT PINNING (Fase B) ──────────────────────────────────────────────
+    // Construir bloque <prospect_state> con datos acumulados + reglas de uso.
+    // Este bloque se inyecta como BLOQUE 3 (sin cache) — máxima recencia de atención.
+    // Basado en: research/System Prompts de IA Élite.md — Regla 2 + Regla 4 + Regla 5
+    const prospectStateBlock = (() => {
+      const knownVars: string[] = [];
+      const interactionRules: string[] = [];
+
+      if (mergedProspectData.name) {
+        knownVars.push(`- Nombre_Confirmado: ${mergedProspectData.name}`);
+        interactionRules.push(`Usa "${mergedProspectData.name}" de forma natural. Tienes PROHIBIDO volver a preguntar el nombre.`);
+      }
+      if (mergedProspectData.occupation) {
+        knownVars.push(`- Ocupacion_Confirmada: ${mergedProspectData.occupation}`);
+        interactionRules.push(`Relaciona la oportunidad con su contexto de "${mergedProspectData.occupation}". PROHIBIDO volver a preguntar la ocupación.`);
+      }
+      if (mergedProspectData.archetype) {
+        knownVars.push(`- Arquetipo_Detectado: ${mergedProspectData.archetype}`);
+        interactionRules.push(`Aplica el ángulo de ${mergedProspectData.archetype} en tu respuesta.`);
+      }
+      if (mergedProspectData.interest_level) {
+        knownVars.push(`- Nivel_Interes: ${mergedProspectData.interest_level}/10`);
+        if (mergedProspectData.interest_level >= 8) {
+          interactionRules.push(`Interés alto — transiciona hacia cierre si el prospecto da señal de avanzar.`);
+        }
+      }
+      if (mergedProspectData.objections?.length) {
+        knownVars.push(`- Objeciones_Planteadas: ${mergedProspectData.objections.join(', ')}`);
+        interactionRules.push(`Solo aborda estas objeciones si vuelven a surgir. No las replantes si el prospecto no las mencionó.`);
+      }
+      if (mergedProspectData.phone) {
+        knownVars.push(`- WhatsApp_Capturado: ${mergedProspectData.phone}`);
+      }
+
+      const hasData = knownVars.length > 0;
+
+      return hasData
+        ? `<prospect_state>
+<known_variables>
+${knownVars.join('\n')}
+</known_variables>
+<interaction_rules>
+${interactionRules.join('\n')}
+- Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
+- Fuente: Cada cifra y etiqueta debe venir del arsenal. No inventar datos.
+</interaction_rules>
+</prospect_state>`
+        : `<prospect_state>
+<known_variables>Perfil aún no capturado.</known_variables>
+<interaction_rules>
+- Mantén tono consultivo universal hasta que el prospecto declare su situación.
+- PROHIBIDO asignar arquetipo de preguntas genéricas (ej: "cómo funciona el negocio" no indica que tenga un negocio).
+- Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
+</interaction_rules>
+</prospect_state>`;
+    })();
+
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
-${conversationSummary}📊 PROSPECTO:
-${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
-${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
-${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
-${mergedProspectData.interest_level ? `• Interés: ${mergedProspectData.interest_level}/10` : ''}
+${conversationSummary}
+${prospectStateBlock}
 
 ${searchMethod === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Usa precios EXACTOS del contenido arriba.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}

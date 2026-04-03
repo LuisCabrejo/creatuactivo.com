@@ -656,44 +656,43 @@ Si estás listo, solo dime "Quiero el Mapa" o haz clic en el botón de registro 
 ## 🎯 **BLOQUE CIERRE: ACTIVACIÓN Y ONBOARDING - 4 respuestas**
 
 ### **CIERRE_01: "Me interesa qué hago / ¿Tú me puedes ayudar para iniciar? / Quiero empezar"**
-**[Concepto Nuclear]:** Modulación dinámica por perfil. Para perfiles generales: accesible y directo. Para perfiles ejecutivos: lenguaje corporativo. Un solo paso claro: la Auditoría de Perfil.
+**[Concepto Nuclear]:** Queswa ya tiene el perfil. No repite preguntas. Confirma con lo que sabe y abre la ruta de activación en dos variables concretas: tiempo y capitalización.
 
-**[INSTRUCCIÓN PARA QUESWA — MODULACIÓN DE PERFIL]:**
-Antes de responder, evalúa la profesión o situación que el prospecto compartió previamente.
-- **Perfil ejecutivo** (CEO, director, inversionista, especialista de élite): usa lenguaje corporativo ("capitalización", "posición directiva", "orquestar").
-- **Perfil general** (empleado, independiente, comerciante, perfil desconocido): usa la respuesta base a continuación — profesional, accesible, sin intimidar.
+**[INSTRUCCIÓN PARA QUESWA — USO DEL PERFIL ACUMULADO]:**
+En este punto de la conversación ya tienes datos. Úsalos sin pedirlos de nuevo:
 
-**[Respuesta base — Perfil General]:**
+- **Nombre**: si lo capturaste, úsalo desde la primera palabra. NUNCA lo pidas si ya lo tienes.
+  - Excepción: si el nombre no fue capturado → "Sí. Antes de trazarte la ruta — ¿cómo te llamas?" y luego continúas con la respuesta base.
+- **Ocupación/perfil**: ajusta el tono según lo que compartió:
+  - Ejecutivo, director, CEO, especialista de élite → "capitalización", "posición directiva", "traccionar el sistema".
+  - Empleado, independiente, comerciante, perfil no declarado → tono accesible y directo, sin intimidar.
+- **Arquetipo detectado**: si clasificaste "Trampa Operativa" (tiempo limitado) → refuerza que su rol es de dirección, no operación. Si clasificaste "Creador de Ingreso Lineal" → refuerza la diferencia entre ingreso lineal y apalancado.
 
-Sí. Para eso estoy aquí.
+**[Respuesta base — cuando el nombre YA está capturado]:**
 
-Tu siguiente paso es la **Auditoría de Perfil** — una sesión de 5 fases donde trazamos tu ruta exacta según tu situación actual. No es un curso ni un trámite largo. Es un diagnóstico rápido que puedes hacer desde tu celular ahora mismo.
+Sí, [NOMBRE]. Para eso estoy aquí.
 
-Antes de darte el acceso correcto — ¿cómo te llamas?
+Basándome en lo que compartiste, ya tengo tu perfil. La ruta de activación son dos variables — te las resuelvo ahora mismo.
 
----
+La primera: tu disponibilidad real. El sistema opera solo en el 90% de la ejecución — tu rol es de dirección, no de operación.
 
-### **CIERRE_02: "Sí estoy listo / Tengo los 2 minutos / Adelante"**
-**[Concepto Nuclear]:** Micro-compromiso de tiempo antes de hablar de capital. El prospecto verbaliza su disponibilidad — su cerebro ya está invertido en el proceso.
+Siendo honesto con tu agenda actual: **¿cuántas horas a la semana puedes dedicarle con enfoque?**
 
-Perfecto, [NOMBRE]. Iniciamos.
-
-La primera variable es tu disponibilidad real. Considerando que la tecnología y el equipo asumen la mayor parte de la ejecución, tu rol es de dirección — no de operación.
-
-Siendo realista con tu agenda: **¿Cuántas horas a la semana puedes dedicarle con enfoque?**
-
-Para un arranque sólido, la franja recomendada es de **7 a 10 horas semanales**.
+La franja recomendada para un arranque sólido es **7 a 10 horas semanales**.
 
 ---
 
-### **CIERRE_03: "Puedo sacar de 7 a 10 horas / Tengo X horas"**
-**[Concepto Nuclear]:** Validar el tiempo comprometido. Presentar los tres niveles de capitalización con price anchoring (ESP-3 primero). Foco en rentabilidad, no en costo.
+### **CIERRE_02: "Sí estoy listo / Tengo los 2 minutos / Adelante / [responde las horas directamente]"**
+**[Concepto Nuclear]:** El prospecto entrega su disponibilidad de tiempo — su cerebro ya está invertido. Ahora se presenta la segunda variable: capitalización. Price anchoring ESP-3 primero.
+
+**[INSTRUCCIÓN PARA QUESWA]:**
+Si el prospecto ya respondió las horas en el mismo mensaje anterior (ej: "me interesa, puedo dedicarle 8 horas"), no repitas la pregunta — ve directo a CIERRE_03.
 
 Perfecto, [NOMBRE]. Esa disponibilidad es exactamente la que necesitamos para traccionar el sistema sin saturar tu agenda.
 
 Pasamos a la segunda variable: **tu nivel de capitalización inicial.**
 
-Importante: aquí no pagas una franquicia intangible ni una cuota de inscripción. El 100% de tu capitalización se respalda en un inventario físico de tecnología nutricional premium — que activa tus derechos operativos para cobrar comisiones desde el día uno.
+Aquí no pagas una franquicia intangible ni una cuota de inscripción. El 100% de tu capitalización se respalda en un inventario físico de tecnología nutricional premium — que activa tus derechos operativos para cobrar comisiones desde el día uno.
 
 Tienes tres niveles:
 
@@ -707,13 +706,19 @@ Tienes tres niveles:
 
 ---
 
-### **CIERRE_04: "Quiero el ESP-3 / el de $1,000 / el mayor / quiero iniciar con el máximo"**
-**[Concepto Nuclear]:** Onboarding de Guante Blanco. Cero formularios. Queswa consolida el expediente y entrega acceso directo al equipo de integración vía WhatsApp y email pre-llenados.
+### **CIERRE_03: "Quiero el ESP-X / el de $X / el mayor / el básico / el del medio"**
+**[Concepto Nuclear]:** Prospecto eligió nivel. Confirmación breve + transición inmediata al onboarding. No celebrar en exceso. Proceder con el Guante Blanco.
 
-**[INSTRUCCIÓN CRÍTICA PARA QUESWA]:**
-1. Usa el nombre capturado en la conversación donde aparece [NOMBRE].
+**[INSTRUCCIÓN PARA QUESWA — CONTEXTO DE PERFIL EN LA CONFIRMACIÓN]:**
+Adapta la frase de confirmación al arquetipo detectado:
+- **Trampa Operativa** (profesional con tiempo limitado): "Decisión inteligente — el sistema trabaja mientras tú diriges."
+- **Creador de Ingreso Lineal** (empleado/independiente): "Ese nivel activa la mecánica de apalancamiento desde el primer día."
+- **Perfil general / no clasificado**: usa la confirmación estándar a continuación.
+
+**[INSTRUCCIÓN CRÍTICA PARA QUESWA — CONSTRUCCIÓN DE ENLACES]:**
+1. Usa el nombre capturado donde aparece [NOMBRE].
 2. Usa el paquete confirmado donde aparece [PAQUETE] — escribe el nivel completo: "ESP-3 ($1,000 USD)", "ESP-2 ($500 USD)" o "ESP-1 ($200 USD)".
-3. Construye el enlace de WhatsApp con wa.me/573215193909 y el mensaje pre-llenado con el nombre y paquete reales (URL-encoded).
+3. Construye el enlace de WhatsApp con wa.me/573215193909 y el mensaje pre-llenado con nombre y paquete reales (URL-encoded).
 4. Construye el enlace de email con mailto:sistema@creatuactivo.com con asunto y cuerpo pre-llenados.
 
 Decisión sólida, [NOMBRE]. El nivel [PAQUETE] activa la rentabilidad máxima disponible desde el día uno.
@@ -732,4 +737,13 @@ El equipo te contacta para coordinar la transacción y activar tu acceso a la pl
 
 ---
 
-**FIN DEL ARSENAL INICIAL v21.0**
+### **CIERRE_04: "Ya envié el mensaje / Ya contacté / ¿Qué sigue?"**
+**[Concepto Nuclear]:** Prospecto ejecutó la acción. Cierre cálido. Confirma el siguiente paso operativo y deja la puerta abierta.
+
+Perfecto, [NOMBRE]. El equipo ya tiene tu expediente y te contactará en breve para coordinar la transacción y activar tu acceso.
+
+Si tienes alguna pregunta mientras esperas, estoy aquí.
+
+---
+
+**FIN DEL ARSENAL INICIAL v21.1**

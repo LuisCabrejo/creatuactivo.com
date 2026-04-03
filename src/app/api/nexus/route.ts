@@ -2861,6 +2861,32 @@ ${summaryParts.join('\n')}
       ...prospectData // Los nuevos sobrescriben los viejos
     };
 
+    // ── FSM: DERIVAR ESTADO DE CONVERSACIÓN (Fase C) ─────────────────────────
+    // El backend controla el estado — el LLM solo ejecuta dentro de los límites del estado.
+    // Estado derivado de datos existentes: sin nuevo campo en DB.
+    type ConversationState = 'CALIFICACION' | 'PRESENTACION' | 'CIERRE' | 'HANDOFF';
+
+    const deriveConversationState = (): ConversationState => {
+      // HANDOFF: paquete ya confirmado
+      if (mergedProspectData.package) return 'HANDOFF';
+
+      // CIERRE: señal explícita de intención de iniciar en el último mensaje
+      const cierrePattern = /me interesa.*iniciar|quiero.*empezar|quiero.*iniciar|cómo.*inicio|quiero.*paquete|qué.*hago.*para.*empezar|estoy.*listo|quiero.*activar|cómo.*empiezo|cómo.*me.*uno|quiero.*unirme|me uno|quiero.*arrancar/i;
+      if (cierrePattern.test(latestUserMessage)) return 'CIERRE';
+
+      // CIERRE también si interés muy alto + nombre capturado (prospecto caliente confirmado)
+      if (mergedProspectData.name && (mergedProspectData.interest_level || 0) >= 9) return 'CIERRE';
+
+      // CALIFICACION: sin nombre aún
+      if (!mergedProspectData.name) return 'CALIFICACION';
+
+      // Default: PRESENTACION
+      return 'PRESENTACION';
+    };
+
+    const conversationState: ConversationState = deriveConversationState();
+    console.log(`🎯 [FSM] Estado: ${conversationState} | nombre=${!!mergedProspectData.name} | paquete=${mergedProspectData.package || 'none'} | interés=${mergedProspectData.interest_level || 0}`);
+
     // ⚡ ROUTER ANTICIPADO: Clasificar ANTES del vector search para saltarlo en queries simples
     const userMessageCount = messages.filter((m: any) => m.role === 'user').length;
     const isSimpleQueryEarly = (() => {
@@ -2916,6 +2942,30 @@ ${summaryParts.join('\n')}
               search_method: 'full_arsenal_fallback'
             }));
           }
+        }
+      } else if (conversationState === 'CIERRE' || conversationState === 'HANDOFF') {
+        // ── FSM OVERRIDE: Estado CIERRE/HANDOFF ─────────────────────────────
+        // En vez de vector search general, cargar directamente fragmentos CIERRE.
+        // Evita que "me interesa iniciar" recupere fragmentos WHY, OBJ u otros.
+        console.log(`🎯 [FSM] ${conversationState} — override arsenal → fragmentos CIERRE`);
+        const cierreFragments = await searchArsenalFragments(latestUserMessage, 'arsenal_inicial', 5);
+        const filteredCierre = cierreFragments.filter((f: any) => f.category?.includes('CIERRE'));
+
+        if (filteredCierre.length > 0) {
+          const combinedCierre = filteredCierre.map((f: any) => f.content).join('\n\n---\n\n');
+          console.log(`✅ [FSM] ${filteredCierre.length} fragmento(s) CIERRE cargados: ${filteredCierre.map((f: any) => f.category).join(', ')}`);
+          relevantDocuments = [{
+            id: 'arsenal_cierre_fragments',
+            title: 'Arsenal CIERRE — secuencia de activación',
+            content: combinedCierre,
+            category: 'arsenal_inicial',
+            metadata: { is_fragment_result: true, fragment_count: filteredCierre.length, state: conversationState },
+            search_method: 'fsm_cierre_override'
+          }];
+        } else {
+          // Fallback: si no hay fragmentos CIERRE, igual evitar vector search general
+          console.warn(`⚠️ [FSM] Sin fragmentos CIERRE — fallback a consultarArsenalHibrido`);
+          relevantDocuments = await consultarArsenalHibrido('me interesa iniciar activar paquete', latestUserMessage);
         }
       } else {
         const searchQuery = interpretQueryHibrido(latestUserMessage);
@@ -3105,21 +3155,32 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
       const hasData = knownVars.length > 0;
 
+      // Reglas de estado FSM
+      const stateRules: Record<ConversationState, string> = {
+        CALIFICACION: 'Objetivo de este turno: entregar valor (WHY_02 si aún no se entregó) y capturar el nombre. No avanzar a preguntas de capitalizacion ni paquetes hasta tener nombre.',
+        PRESENTACION: 'Objetivo: responder la pregunta del prospecto usando el arsenal. Detectar señales de interés pasivamente. Si el prospecto dice "me interesa iniciar" o similar, el siguiente turno será CIERRE.',
+        CIERRE: 'ESTADO CIERRE ACTIVO. Cesa toda calificación y exploración. Ejecuta la secuencia CIERRE_01→02→03 según lo que el prospecto acaba de decir. PROHIBIDO introducir objeciones, hacer preguntas de descubrimiento, o retroceder a PRESENTACION.',
+        HANDOFF: 'ESTADO HANDOFF. El prospecto eligió paquete. Entrega confirmación cálida + enlaces White-Glove pre-llenados (CIERRE_03/04). No hacer más preguntas de calificación.'
+      };
+
       return hasData
         ? `<prospect_state>
+<conversation_state>${conversationState}</conversation_state>
 <known_variables>
 ${knownVars.join('\n')}
 </known_variables>
 <interaction_rules>
+${stateRules[conversationState]}
 ${interactionRules.join('\n')}
 - Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
 - Fuente: Cada cifra y etiqueta debe venir del arsenal. No inventar datos.
 </interaction_rules>
 </prospect_state>`
         : `<prospect_state>
+<conversation_state>CALIFICACION</conversation_state>
 <known_variables>Perfil aún no capturado.</known_variables>
 <interaction_rules>
-- Mantén tono consultivo universal hasta que el prospecto declare su situación.
+${stateRules['CALIFICACION']}
 - PROHIBIDO asignar arquetipo de preguntas genéricas (ej: "cómo funciona el negocio" no indica que tenga un negocio).
 - Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
 </interaction_rules>

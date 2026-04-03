@@ -3,7 +3,7 @@
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Socios activos (modelos análogo e híbrido) que buscan estrategias de aceleración.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 4.0 JOBS/NAVAL (17 Ene 2026) - [Concepto Nuclear] + limpieza terminología + advertencias Kit
+**Versión:** 4.1 Lujo Clínico (03 Abr 2026) - PII removida, Regla 4, "ingreso pasivo/residual" → "recurrente", "Bono GEN5" → "Ingreso Inmediato (GEN5)"
 
 **Cambios v4.0:**
 - Agregado [Concepto Nuclear] a todas las 13 respuestas
@@ -47,7 +47,7 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 • My Gano Plan Negocios (acceso al sistema)
 • Regalía de Equipo al 10% (única bonificación disponible con este paquete)
 
-**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. NO incluye el Bono GEN5 (Inicio Rápido). Para acceder a porcentajes mayores y GEN5, necesitas un Paquete Empresarial.
+**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. NO incluye el Ingreso Inmediato (GEN5). Para acceder a porcentajes mayores y GEN5, necesitas un Paquete Empresarial.
 
 **Pregunta de seguimiento:** ¿Te gustaría saber cuánto puedes ganar con esta estrategia?
 
@@ -108,7 +108,7 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 - Acceso completo a CreaTuActivo.com y Queswa
 
 **⚠️ Lo que NO incluye el Kit de Inicio:**
-- ❌ Bono GEN5 (Inicio Rápido) - Requiere Paquete Empresarial
+- ❌ Ingreso Inmediato (GEN5) - Requiere Paquete Empresarial
 - ❌ Porcentajes mayores al 10% - Máximo disponible es 10%
 
 **¿Para quién es ideal?**
@@ -140,7 +140,7 @@ Llena el formulario en [creatuactivo.com/reto-12-niveles](https://creatuactivo.c
 
 **3. WhatsApp directo:**
 
-[Escríbenos al 310 206 6593](https://wa.me/573102066593?text=Hola%2C%20quiero%20participar%20en%20los%2012%20Niveles) y te ayudamos con tu vinculación.
+Escríbele a quien te compartió el enlace o al equipo de liderazgo para que te ayuden con tu vinculación.
 
 **Pregunta de seguimiento:** ¿Cuál opción prefieres para vincularte?
 
@@ -161,7 +161,7 @@ Lo que sí es crítico es que **arranques HOY**, porque:
 - Mientras más temprano empieces, más tiempo tienes para construir
 - La tecnología (Queswa) trabaja para ti 24/7
 
-**Recuerda:** No tienes que convencer a nadie. Solo invitas a conocer. Queswa hace el trabajo de explicar y educar.
+**Recuerda:** Tu rol es conectar personas al sistema. Queswa hace el trabajo de explicar y educar.
 
 **Pregunta de seguimiento:** ¿Cuántas personas conoces que podrían estar interesadas en una oportunidad así?
 
@@ -180,11 +180,11 @@ El Kit de Inicio existe para que tomes tu posición **HOY**, no cuando "tengas m
 1. Arrancas con el Kit de Inicio (baja fricción)
 2. Construyes tu red y generas primeras regalías
 3. Con las regalías, compras tu Paquete Empresarial
-4. Accedes al Bono GEN5 y porcentajes más altos
+4. Accedes al Ingreso Inmediato (GEN5) y porcentajes más altos
 
 Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
 
-**⚠️ Advertencia:** Si sabes que vas a construir en serio, considera iniciar directamente con un Paquete Empresarial. El Kit te limita al 10% y sin GEN5, lo cual puede costarte oportunidades en tus primeros meses más activos.
+**⚠️ Advertencia:** Si sabes que vas a construir en serio, considera iniciar directamente con un Paquete Empresarial. El Kit te limita al 10% y sin Ingreso Inmediato (GEN5), lo cual representa un costo de oportunidad en tus primeros meses más activos.
 
 **Pregunta de seguimiento:** ¿Prefieres esperar o arrancar hoy?
 
@@ -220,9 +220,9 @@ Con $443,600 tienes todo lo que necesitas para activarte y empezar a construir t
 
 **60 PV / 56 CV** que se suman a tu red. Eso es lo que importa.
 
-**⚠️ Ten en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Bono GEN5.
+**⚠️ Ten en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Ingreso Inmediato (GEN5).
 
-Si quieres más productos, porcentajes más altos y acceso al Bono GEN5, puedes elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
+Si quieres más productos, porcentajes más altos y acceso al Ingreso Inmediato (GEN5), puedes elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
 
 **Pregunta de seguimiento:** ¿Prefieres arrancar con el mínimo o invertir más para mayor porcentaje y acceso a GEN5?
 
@@ -244,7 +244,7 @@ Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
 **Análisis de eficiencia financiera:**
 
 - **Kit de Inicio** → Para quien quiere arrancar YA con inversión mínima. **⚠️ Limitación:** Solo 10%, sin GEN5.
-- **ESP-1** → Para quien quiere 15% + Bono GEN5 ($25 USD por ESP-3 en 1ra gen).
+- **ESP-1** → Para quien quiere 15% + Ingreso Inmediato (GEN5: $25 USD por ESP-3 en 1ra gen).
 - **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
 - **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
 
@@ -300,7 +300,7 @@ Todos los paquetes incluyen:
 
 **[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso residual.
 
-Sí, la recompra mensual es lo que te mantiene **activo** en el negocio y lo que genera tu **ingreso residual**.
+Sí, la recompra mensual es lo que te mantiene **activo** en el negocio y lo que genera tu **ingreso recurrente**.
 
 **¿Por qué es importante?**
 
@@ -308,7 +308,7 @@ Estar activo te permite cobrar las comisiones que genera tu red de clientes y di
 
 **La mecánica de sostenibilidad:**
 
-La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que tu red existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de ventas (ingreso activo) a una de consumo recurrente (ingreso pasivo).
+La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que tu red existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
 
 **Lo que recibes con tu recompra:**
 
@@ -316,9 +316,9 @@ La estabilidad del negocio a largo plazo no está en expandir infinitamente, sin
 2. **Acceso a CreaTuActivo.com:** Tu plataforma de construcción sigue activa
 3. **Comisiones activas:** Puedes cobrar todo lo que genera tu red
 
-**Sobre la legalidad:**
+**Cómo funciona el modelo:**
 
-Nuestro negocio no es "reclutar personas" - es el **movimiento de producto**. Esto es lo que genera ganancias para ti y permite la operación comercial de Gano Excel en cada país.
+El ingreso se genera por el **movimiento de producto** en tu red — consumo recurrente de personas que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
 
 **Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
 

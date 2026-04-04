@@ -2981,9 +2981,62 @@ ${summaryParts.join('\n')}
             search_method: 'fsm_cierre_override'
           }];
         } else {
-          // Fallback: si no hay fragmentos CIERRE, igual evitar vector search general
-          console.warn(`⚠️ [FSM] Sin fragmentos CIERRE — fallback a consultarArsenalHibrido`);
-          relevantDocuments = await consultarArsenalHibrido('me interesa iniciar activar paquete', latestUserMessage);
+          // Fallback: fragmentos CIERRE no existen en Supabase como vectores.
+          // Inyectar CIERRE_01–04 directamente desde el arsenal para garantizar
+          // que Claude tenga el contenido exacto sin depender de Supabase.
+          console.warn(`⚠️ [FSM] Sin fragmentos CIERRE — usando CIERRE hardcodeado del arsenal`);
+          relevantDocuments = [{
+            id: 'cierre_hardcoded',
+            title: 'BLOQUE CIERRE: ACTIVACIÓN Y ONBOARDING',
+            content: `### CIERRE_01: "Me interesa qué hago / Quiero empezar"
+Sí, [NOMBRE]. Para eso estoy aquí.
+
+Basándome en lo que compartiste, ya tengo tu perfil. La ruta de activación son dos variables — te las resuelvo ahora mismo.
+
+La primera: tu disponibilidad real. El sistema opera solo en el 90% de la ejecución — tu rol es de dirección, no de operación.
+
+Siendo honesto con tu agenda actual: **¿cuántas horas a la semana puedes dedicarle con enfoque?**
+
+La franja recomendada para un arranque sólido es **7 a 10 horas semanales**.
+
+---
+
+### CIERRE_02: "Sí estoy listo / [responde las horas]"
+Perfecto, [NOMBRE]. Esa disponibilidad es exactamente la que necesitamos.
+
+Pasamos a la segunda variable: **tu nivel de capitalización inicial.**
+
+El 100% de tu capitalización se respalda en un inventario físico de tecnología nutricional premium — activa tus derechos operativos para cobrar comisiones desde el día uno.
+
+| Nivel | Capitalización | Rentabilidad |
+|-------|---------------|--------------|
+| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — máximo** |
+| **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% |
+| **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% |
+
+¿Con cuál nivel deseas activar tu posición?
+
+---
+
+### CIERRE_03: "Quiero el ESP-X / el de $X"
+Decisión sólida, [NOMBRE]. El nivel [PAQUETE] activa la rentabilidad máxima disponible desde el día uno.
+
+He consolidado tu expediente de activación. Tu único paso es transferir la orden al equipo:
+
+**Opción 1 — WhatsApp (respuesta en minutos):**
+[Enviar orden de activación](https://wa.me/573215193909?text=Hola+CreaTuActivo.+Soy+[NOMBRE].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
+
+**Opción 2 — Email:**
+[Enviar por correo](mailto:sistema@creatuactivo.com?subject=Activación+[NOMBRE]+—+[PAQUETE]&body=Hola+equipo+CreaTuActivo.+Soy+[NOMBRE].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
+
+---
+
+### CIERRE_04: "Ya envié el mensaje / ¿Qué sigue?"
+Perfecto, [NOMBRE]. El equipo ya tiene tu expediente y te contactará en breve para coordinar la transacción y activar tu acceso.`,
+            category: 'arsenal_inicial',
+            metadata: { is_fragment_result: false, source: 'hardcoded_cierre_fallback' },
+            search_method: 'fsm_cierre_hardcoded'
+          }];
         }
       } else {
         const searchQuery = isExplanationAcceptance

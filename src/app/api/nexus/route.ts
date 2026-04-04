@@ -41,6 +41,19 @@ function getSupabaseClient() {
   return supabaseClient;
 }
 
+// Cliente admin (service role) — solo para lectura de nexus_documents con embeddings.
+// RLS bloquea la lectura directa con anon key silenciosamente (retorna 0 sin error).
+// Las demás operaciones (prospects, conversaciones) siguen usando anon key.
+let supabaseAdmin: ReturnType<typeof createClient> | null = null;
+function getSupabaseAdmin() {
+  if (!supabaseAdmin) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
+  }
+  return supabaseAdmin;
+}
+
 export const runtime = 'edge';
 export const maxDuration = 60; // ✅ FIX: Aumentado de 30→60s para lista de precios completa (22 productos)
 
@@ -892,7 +905,7 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
   }
 
   try {
-    const { data, error } = await getSupabaseClient()
+    const { data, error } = await getSupabaseAdmin()
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
       .in('category', ['arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion', 'arsenal_reto'])
@@ -945,7 +958,7 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
   }
 
   try {
-    const { data, error } = await getSupabaseClient()
+    const { data, error } = await getSupabaseAdmin()
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
       .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, arsenal_ganocafe_PROD_01, etc.

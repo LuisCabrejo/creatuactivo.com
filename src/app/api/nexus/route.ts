@@ -3311,14 +3311,14 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
         return (words.length <= 3 && /^[A-ZÁÉÍÓÚÑ]/u.test(firstWord)) ? firstWord : null;
       })();
       const nameIsValid = rawName && rawName.length >= 2 && rawName.length <= 20 && /^[A-Za-záéíóúÁÉÍÓÚñÑ]+$/i.test(rawName);
-      const prefillText = nameIsValid ? `Perfecto, ${rawName}. ` : 'Perfecto. ';
+      const prefillText = nameIsValid ? `Perfecto, ${rawName}.` : 'Perfecto.';
       messagesForClaude = [...recentMessages, { role: 'assistant' as const, content: prefillText }];
       console.log(`🎯 [M3 PREFILL] Anti-interrogatorio activado: "${prefillText}"`);
     } else if (isExplanationAcceptance) {
       // WHY-TRIGGER PREFILL: Forzar inicio de WHY_02 verbatim.
       // El vector search ya apunta a WHY_02 — el prefill garantiza que el modelo
       // comience exactamente con la mecánica del sistema (no con coaching genérico).
-      const prefillWHY02 = 'Para entender cómo funciona la mecánica, primero debemos alinear la visión.\n\n**El ciclo que la mayoría conoce:**\nTrabajar → pagar cuentas → repetir. Año tras año.\n\nLa solución de raíz no es buscar más ingresos lineales — es construir ';
+      const prefillWHY02 = 'Para entender cómo funciona la mecánica, primero debemos alinear la visión.\n\n**El ciclo que la mayoría conoce:**\nTrabajar → pagar cuentas → repetir. Año tras año.\n\nLa solución de raíz no es buscar más ingresos lineales — es construir';
       messagesForClaude = [...recentMessages, { role: 'assistant' as const, content: prefillWHY02 }];
       console.log(`🎯 [WHY-TRIGGER PREFILL] Inicio de WHY_02 inyectado`);
     }

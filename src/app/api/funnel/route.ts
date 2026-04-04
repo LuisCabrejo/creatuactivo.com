@@ -13,7 +13,7 @@ import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
 import { Reto5DiasConfirmationEmail } from '@/emails/Reto5DiasConfirmation';
 import { MapaDeSalidaConfirmationEmail } from '@/emails/MapaDeSalidaConfirmation';
-import { sendWhatsAppTemplate } from '@/lib/sendpulse';
+import { sendWhatsAppTemplate } from '@/lib/whatsapp-meta';
 
 // Twilio configuration
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;

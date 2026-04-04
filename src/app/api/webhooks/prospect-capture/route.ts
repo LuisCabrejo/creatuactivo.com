@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient }              from '@supabase/supabase-js'
-import { sendWhatsAppTemplate, type ProspectData, type ConstructorInfo } from '@/lib/sendpulse'
+import { sendWhatsAppTemplate, type ProspectData, type ConstructorInfo } from '@/lib/whatsapp-meta'
 
 export const runtime = 'nodejs'
 

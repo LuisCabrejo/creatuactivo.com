@@ -153,11 +153,13 @@ async function processArsenal(arsenalCategory) {
   console.log(`📦 Procesando: ${arsenalCategory}`);
   console.log('='.repeat(60));
 
-  // Obtener arsenal original
+  // Obtener arsenal original (filtrar por tenant para evitar PGRST116 cuando hay duplicados)
+  const tenantId = ARSENAL_TENANT_MAP[arsenalCategory] || 'creatuactivo_marketing';
   const { data: arsenal, error } = await supabase
     .from('nexus_documents')
     .select('id, category, content, metadata')
     .eq('category', arsenalCategory)
+    .eq('tenant_id', tenantId)
     .single();
 
   if (error || !arsenal) {

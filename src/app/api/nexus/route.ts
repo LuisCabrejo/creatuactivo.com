@@ -2861,47 +2861,8 @@ ${summaryParts.join('\n')}
       ...prospectData // Los nuevos sobrescriben los viejos
     };
 
-    // ── FSM: DERIVAR ESTADO DE CONVERSACIÓN (Fase C) ─────────────────────────
-    // El backend controla el estado — el LLM solo ejecuta dentro de los límites del estado.
-    // Estado derivado de datos existentes: sin nuevo campo en DB.
-    type ConversationState = 'CALIFICACION' | 'PRESENTACION' | 'CIERRE' | 'HANDOFF';
-
-    const deriveConversationState = (): ConversationState => {
-      // HANDOFF: paquete ya confirmado
-      if (mergedProspectData.package) return 'HANDOFF';
-
-      // CIERRE: señal explícita de intención de iniciar en el último mensaje
-      const cierrePattern = /me interesa.*iniciar|quiero.*empezar|quiero.*iniciar|cómo.*inicio|quiero.*paquete|qué.*hago.*para.*empezar|estoy.*listo|quiero.*activar|cómo.*empiezo|cómo.*me.*uno|quiero.*unirme|me uno|quiero.*arrancar/i;
-      if (cierrePattern.test(latestUserMessage)) return 'CIERRE';
-
-      // CIERRE también si interés muy alto + nombre capturado (prospecto caliente confirmado)
-      if (mergedProspectData.name && (mergedProspectData.interest_level || 0) >= 9) return 'CIERRE';
-
-      // CALIFICACION: sin nombre aún
-      if (!mergedProspectData.name) return 'CALIFICACION';
-
-      // Default: PRESENTACION
-      return 'PRESENTACION';
-    };
-
-    const conversationState: ConversationState = deriveConversationState();
-    console.log(`🎯 [FSM] Estado: ${conversationState} | nombre=${!!mergedProspectData.name} | paquete=${mergedProspectData.package || 'none'} | interés=${mergedProspectData.interest_level || 0}`);
-
     // ⚡ ROUTER ANTICIPADO: Clasificar ANTES del vector search para saltarlo en queries simples
     const userMessageCount = messages.filter((m: any) => m.role === 'user').length;
-
-    // 🎯 WHY-TRIGGER: Detectar cuando el usuario acepta la propuesta de explicación del sistema.
-    // El vector search sobre "sí" no encuentra WHY_02 → el modelo alucina coaching genérico.
-    // Solución: expandir la query semánticamente y forzar el prefill de WHY_02.
-    const isShortAffirmation = /^(sí|si|claro|dale|ok|bueno|listo|de acuerdo|genial|exacto|por supuesto|adelante|empieza|cuéntame|dime|cuéntame|va|vamos|perfecto)[\s!.?]*$/i.test(latestUserMessage.trim());
-    const previousAssistantContent = [...messages].reverse().find((m: any) => m.role === 'assistant')?.content?.toLowerCase() || '';
-    const isExplanationAcceptance = isShortAffirmation &&
-      userMessageCount <= 5 && // Solo turnos tempranos — después WHY_02 ya fue entregado
-      /cómo funciona|cómo opera|empezamos por entender|entender cómo|explicar el sistema|conocer el sistema|te cuento cómo/i.test(previousAssistantContent);
-    if (isExplanationAcceptance) {
-      console.log(`🎯 [WHY-TRIGGER] Aceptación de explicación detectada → forzar WHY_02`);
-    }
-
     const isSimpleQueryEarly = (() => {
       // Para ecommerce (ganocafe.online): siempre hacer vector search.
       // Cualquier query puede ser sobre un producto — "el té", "algún cereal",
@@ -2912,11 +2873,6 @@ ${summaryParts.join('\n')}
       const wordCount = msg.split(/\s+/).length;
       // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
       if (userMessageCount === 1) return false;
-      // M2 (nombre): El prospecto da su nombre — momento crítico de confianza, siempre Sonnet
-      // NOTA: el saludo inicial hardcodeado cuenta como assistant[0], por eso el nombre llega en userCount=2
-      if (userMessageCount === 2) return false;
-      // WHY-TRIGGER: Aceptación de explicación del sistema → siempre Sonnet (WHY_02 requiere system prompt completo)
-      if (isExplanationAcceptance) return false;
       // Saludos y cierres breves
       if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
       // Mensajes muy cortos sin intención de compra
@@ -2961,89 +2917,10 @@ ${summaryParts.join('\n')}
             }));
           }
         }
-      } else if (conversationState === 'CIERRE' || conversationState === 'HANDOFF') {
-        // ── FSM OVERRIDE: Estado CIERRE/HANDOFF ─────────────────────────────
-        // En vez de vector search general, cargar directamente fragmentos CIERRE.
-        // Evita que "me interesa iniciar" recupere fragmentos WHY, OBJ u otros.
-        console.log(`🎯 [FSM] ${conversationState} — override arsenal → fragmentos CIERRE`);
-        const cierreFragments = await searchArsenalFragments(latestUserMessage, 'arsenal_inicial', 5);
-        const filteredCierre = cierreFragments.filter((f: any) => f.category?.includes('CIERRE'));
-
-        if (filteredCierre.length > 0) {
-          const combinedCierre = filteredCierre.map((f: any) => f.content).join('\n\n---\n\n');
-          console.log(`✅ [FSM] ${filteredCierre.length} fragmento(s) CIERRE cargados: ${filteredCierre.map((f: any) => f.category).join(', ')}`);
-          relevantDocuments = [{
-            id: 'arsenal_cierre_fragments',
-            title: 'Arsenal CIERRE — secuencia de activación',
-            content: combinedCierre,
-            category: 'arsenal_inicial',
-            metadata: { is_fragment_result: true, fragment_count: filteredCierre.length, state: conversationState },
-            search_method: 'fsm_cierre_override'
-          }];
-        } else {
-          // Fallback: fragmentos CIERRE no existen en Supabase como vectores.
-          // Inyectar CIERRE_01–04 directamente desde el arsenal para garantizar
-          // que Claude tenga el contenido exacto sin depender de Supabase.
-          console.warn(`⚠️ [FSM] Sin fragmentos CIERRE — usando CIERRE hardcodeado del arsenal`);
-          relevantDocuments = [{
-            id: 'cierre_hardcoded',
-            title: 'BLOQUE CIERRE: ACTIVACIÓN Y ONBOARDING',
-            content: `### CIERRE_01: "Me interesa qué hago / Quiero empezar"
-Sí, [NOMBRE]. Para eso estoy aquí.
-
-Basándome en lo que compartiste, ya tengo tu perfil. La ruta de activación son dos variables — te las resuelvo ahora mismo.
-
-La primera: tu disponibilidad real. El sistema opera solo en el 90% de la ejecución — tu rol es de dirección, no de operación.
-
-Siendo honesto con tu agenda actual: **¿cuántas horas a la semana puedes dedicarle con enfoque?**
-
-La franja recomendada para un arranque sólido es **7 a 10 horas semanales**.
-
----
-
-### CIERRE_02: "Sí estoy listo / [responde las horas]"
-Perfecto, [NOMBRE]. Esa disponibilidad es exactamente la que necesitamos.
-
-Pasamos a la segunda variable: **tu nivel de capitalización inicial.**
-
-El 100% de tu capitalización se respalda en un inventario físico de tecnología nutricional premium — activa tus derechos operativos para cobrar comisiones desde el día uno.
-
-| Nivel | Capitalización | Rentabilidad |
-|-------|---------------|--------------|
-| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — máximo** |
-| **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% |
-| **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% |
-
-¿Con cuál nivel deseas activar tu posición?
-
----
-
-### CIERRE_03: "Quiero el ESP-X / el de $X"
-Decisión sólida, [NOMBRE]. El nivel [PAQUETE] activa la rentabilidad máxima disponible desde el día uno.
-
-He consolidado tu expediente de activación. Tu único paso es transferir la orden al equipo:
-
-**Opción 1 — WhatsApp (respuesta en minutos):**
-[Enviar orden de activación](https://wa.me/573215193909?text=Hola+CreaTuActivo.+Soy+[NOMBRE].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
-
-**Opción 2 — Email:**
-[Enviar por correo](mailto:sistema@creatuactivo.com?subject=Activación+[NOMBRE]+—+[PAQUETE]&body=Hola+equipo+CreaTuActivo.+Soy+[NOMBRE].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
-
----
-
-### CIERRE_04: "Ya envié el mensaje / ¿Qué sigue?"
-Perfecto, [NOMBRE]. El equipo ya tiene tu expediente y te contactará en breve para coordinar la transacción y activar tu acceso.`,
-            category: 'arsenal_inicial',
-            metadata: { is_fragment_result: false, source: 'hardcoded_cierre_fallback' },
-            search_method: 'fsm_cierre_hardcoded'
-          }];
-        }
       } else {
-        const searchQuery = isExplanationAcceptance
-          ? 'cómo funciona el negocio patrimonio paralelo Gano Excel CreaTuActivo Bezos sistema'
-          : interpretQueryHibrido(latestUserMessage);
+        const searchQuery = interpretQueryHibrido(latestUserMessage);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, isExplanationAcceptance ? searchQuery : latestUserMessage);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
@@ -3192,116 +3069,14 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       return ''; // Sin instrucciones especiales para otras páginas
     };
 
-    // ── CONTEXT PINNING (Fase B) ──────────────────────────────────────────────
-    // Construir bloque <prospect_state> con datos acumulados + reglas de uso.
-    // Este bloque se inyecta como BLOQUE 3 (sin cache) — máxima recencia de atención.
-    // Basado en: research/System Prompts de IA Élite.md — Regla 2 + Regla 4 + Regla 5
-    const prospectStateBlock = (() => {
-      const knownVars: string[] = [];
-      const interactionRules: string[] = [];
-
-      // ── Detección de turnos críticos dentro del scope de prospectStateBlock ──
-      // userMessageCount e isExplanationAcceptance ya están definidos en este punto.
-      const isM3Context = userMessageCount === 2 && !mergedProspectData.name;
-      const isWHYContext = isExplanationAcceptance;
-
-      // M3: el nombre acaba de llegar en este mensaje — extraerlo directamente
-      if (isM3Context) {
-        const m = latestUserMessage.trim();
-        const match = m.match(/(?:me llamo|soy|mi nombre es)\s+([A-Za-záéíóúÁÉÍÓÚñÑ]+)/i);
-        const nameNow = match ? match[1] : (m.split(/\s+/).length <= 3 ? m.split(/\s+/)[0] : null);
-        if (nameNow && /^[A-Za-záéíóúÁÉÍÓÚñÑ]+$/i.test(nameNow) && nameNow.length <= 20) {
-          knownVars.push(`- Nombre_Recibido_Ahora: ${nameNow}`);
-          interactionRules.push(
-            `TURNO M3 — NOMBRE ACABA DE DARSE: Confirma a "${nameNow}" con calidez en 1 frase corta. ` +
-            `Luego propone avanzar a entender cómo funciona el sistema (1 pregunta abierta). ` +
-            `PROHIBIDO ABSOLUTO: preguntas sobre tiempo disponible, capital, experiencia previa, ` +
-            `fuentes de ingreso o cualquier calificación operativa en este mensaje.`
-          );
-        }
-      }
-
-      // WHY-TRIGGER: el prospecto acaba de aceptar la explicación del sistema
-      if (isWHYContext) {
-        interactionRules.push(
-          `TURNO WHY-TRIGGER — PROSPECTO ACEPTÓ EXPLICACIÓN: Entrega WHY_02 completo y verbatim ` +
-          `(ciclo → solución → Bezos → tres partes: músculo/cerebro/rol). ` +
-          `PROHIBIDO inventar marcos teóricos ("máquina de tiempo", "fricción del negocio", etc.). ` +
-          `USA EXCLUSIVAMENTE el contenido del arsenal inyectado en este turno.`
-        );
-      }
-
-      if (mergedProspectData.name) {
-        knownVars.push(`- Nombre_Confirmado: ${mergedProspectData.name}`);
-        interactionRules.push(`Usa "${mergedProspectData.name}" de forma natural. Tienes PROHIBIDO volver a preguntar el nombre.`);
-      }
-      if (mergedProspectData.occupation) {
-        knownVars.push(`- Ocupacion_Confirmada: ${mergedProspectData.occupation}`);
-        interactionRules.push(`Relaciona la oportunidad con su contexto de "${mergedProspectData.occupation}". PROHIBIDO volver a preguntar la ocupación.`);
-      }
-      if (mergedProspectData.archetype) {
-        knownVars.push(`- Arquetipo_Detectado: ${mergedProspectData.archetype}`);
-        interactionRules.push(`Aplica el ángulo de ${mergedProspectData.archetype} en tu respuesta.`);
-      }
-      if (mergedProspectData.interest_level) {
-        knownVars.push(`- Nivel_Interes: ${mergedProspectData.interest_level}/10`);
-        if (mergedProspectData.interest_level >= 8) {
-          interactionRules.push(`Interés alto — transiciona hacia cierre si el prospecto da señal de avanzar.`);
-        }
-      }
-      if (mergedProspectData.objections?.length) {
-        knownVars.push(`- Objeciones_Planteadas: ${mergedProspectData.objections.join(', ')}`);
-        interactionRules.push(`Solo aborda estas objeciones si vuelven a surgir. No las replantes si el prospecto no las mencionó.`);
-      }
-      if (mergedProspectData.phone) {
-        knownVars.push(`- WhatsApp_Capturado: ${mergedProspectData.phone}`);
-      }
-
-      const hasData = knownVars.length > 0;
-
-      // Reglas de estado FSM — con override específico para turnos críticos
-      const calificacionRule = isM3Context
-        ? 'TURNO M3: El nombre acaba de ser proporcionado. Ver interaction_rules para instrucciones exactas.'
-        : isWHYContext
-          ? 'TURNO WHY-TRIGGER: El prospecto aceptó la explicación. Entregar WHY_02 verbatim del arsenal.'
-          : 'Objetivo de este turno: entregar valor (WHY_02 si aún no se entregó) y capturar el nombre. No avanzar a preguntas de capitalizacion ni paquetes hasta tener nombre.';
-
-      const stateRules: Record<ConversationState, string> = {
-        CALIFICACION: calificacionRule,
-        PRESENTACION: 'Objetivo: responder la pregunta del prospecto usando el arsenal. Detectar señales de interés pasivamente. Si el prospecto dice "me interesa iniciar" o similar, el siguiente turno será CIERRE.',
-        CIERRE: 'ESTADO CIERRE ACTIVO. Cesa toda calificación y exploración. Ejecuta la secuencia CIERRE_01→02→03 según lo que el prospecto acaba de decir. PROHIBIDO introducir objeciones, hacer preguntas de descubrimiento, o retroceder a PRESENTACION.',
-        HANDOFF: 'ESTADO HANDOFF. El prospecto eligió paquete. Entrega confirmación cálida + enlaces White-Glove pre-llenados (CIERRE_03/04). No hacer más preguntas de calificación.'
-      };
-
-      return hasData
-        ? `<prospect_state>
-<conversation_state>${conversationState}</conversation_state>
-<known_variables>
-${knownVars.join('\n')}
-</known_variables>
-<interaction_rules>
-${stateRules[conversationState]}
-${interactionRules.join('\n')}
-- Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
-- Fuente: Cada cifra y etiqueta debe venir del arsenal. No inventar datos.
-</interaction_rules>
-</prospect_state>`
-        : `<prospect_state>
-<conversation_state>${isM3Context || isWHYContext ? conversationState : 'CALIFICACION'}</conversation_state>
-<known_variables>${isM3Context || isWHYContext ? knownVars.join('\n') || 'Nombre recibido en este turno.' : 'Perfil aún no capturado.'}</known_variables>
-<interaction_rules>
-${stateRules[conversationState]}
-${interactionRules.length > 0 ? interactionRules.join('\n') : '- PROHIBIDO asignar arquetipo de preguntas genéricas (ej: "cómo funciona el negocio" no indica que tenga un negocio).'}
-- Tono: Lujo Clínico — consultor senior, prosa fluida, cero menús no autorizados.
-</interaction_rules>
-</prospect_state>`;
-    })();
-
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
-${conversationSummary}
-${prospectStateBlock}
+${conversationSummary}📊 PROSPECTO:
+${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
+${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
+${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
+${mergedProspectData.interest_level ? `• Interés: ${mergedProspectData.interest_level}/10` : ''}
 
 ${searchMethod === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Usa precios EXACTOS del contenido arriba.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
@@ -3345,36 +3120,6 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     // El historial se inyecta como RESUMEN en el System Prompt (no como mensajes)
     const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
     console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
-
-    // 🎯 M3 PREFILL: El system prompt no puede vencer el comportamiento por defecto del modelo.
-    // El prefill fuerza el inicio de la respuesta — Claude TIENE que continuar desde ahí,
-    // lo que hace gramaticalmente imposible abrir con una pregunta de calificación.
-    // isM3: solo dispara cuando es msg #2 Y NO es una aceptación WHY (evita conflicto if/else if)
-    const isM3 = userMessageCount === 2 && !isExplanationAcceptance;
-    let messagesForClaude = recentMessages;
-    if (isM3) {
-      const rawName = mergedProspectData.name || (() => {
-        const m = latestUserMessage.trim();
-        const match = m.match(/(?:me llamo|soy|mi nombre es)\s+([A-Za-záéíóúÁÉÍÓÚñÑ]+)/i);
-        if (match) return match[1];
-        // Requiere que el primer carácter sea mayúscula — heurística para nombres propios
-        // Evita extraer palabras comunes como "tengo", "si", "empleo"
-        const words = m.split(/\s+/);
-        const firstWord = words[0];
-        return (words.length <= 3 && /^[A-ZÁÉÍÓÚÑ]/u.test(firstWord)) ? firstWord : null;
-      })();
-      const nameIsValid = rawName && rawName.length >= 2 && rawName.length <= 20 && /^[A-Za-záéíóúÁÉÍÓÚñÑ]+$/i.test(rawName);
-      const prefillText = nameIsValid ? `Perfecto, ${rawName}.` : 'Perfecto.';
-      messagesForClaude = [...recentMessages, { role: 'assistant' as const, content: prefillText }];
-      console.log(`🎯 [M3 PREFILL] Anti-interrogatorio activado: "${prefillText}"`);
-    } else if (isExplanationAcceptance) {
-      // WHY-TRIGGER PREFILL: Forzar inicio de WHY_02 verbatim.
-      // El vector search ya apunta a WHY_02 — el prefill garantiza que el modelo
-      // comience exactamente con la mecánica del sistema (no con coaching genérico).
-      const prefillWHY02 = 'Para entender cómo funciona la mecánica, primero debemos alinear la visión.\n\n**El ciclo que la mayoría conoce:**\nTrabajar → pagar cuentas → repetir. Año tras año.\n\nLa solución de raíz no es buscar más ingresos lineales — es construir';
-      messagesForClaude = [...recentMessages, { role: 'assistant' as const, content: prefillWHY02 }];
-      console.log(`🎯 [WHY-TRIGGER PREFILL] Inicio de WHY_02 inyectado`);
-    }
 
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
     const isSimpleQuery = isSimpleQueryEarly;
@@ -3427,7 +3172,7 @@ ESTADO: ${getMessageContext()}`;
       stream: true,
       max_tokens: maxTokens,
       temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
-      messages: messagesForClaude,
+      messages: recentMessages,
     });
 
     // ⚡ LOG DE CACHÉ: Verificar si Anthropic está usando prompt cache

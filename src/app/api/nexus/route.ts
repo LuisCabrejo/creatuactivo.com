@@ -386,7 +386,7 @@ async function captureProspectData(
       // ✅ VALIDACIÓN ADICIONAL: No capturar si empieza con artículo
       const startsWithArticle = /^(el|la|los|las|un|una|unos|unas)\s+/i.test(capturedName);
 
-      if (capturedName.length >= 2 && !startsWithArticle) {
+      if (capturedName.length >= 2 && !startsWithArticle && /^[A-ZÁÉÍÓÚÑ]/.test(capturedName)) {
         data.name = capturedName;
         console.log('✅ [NEXUS] Nombre capturado (patrón simple):', data.name);
       } else if (startsWithArticle) {
@@ -2868,6 +2868,10 @@ ${summaryParts.join('\n')}
       // Cualquier query puede ser sobre un producto — "el té", "algún cereal",
       // "jabón", "capuchino" — no hay queries "simples" en una tienda de productos.
       if (tenantId === 'ecommerce') return false;
+
+      // M1/M2/M3 siempre Sonnet — turnos críticos donde el nombre, la situación y la
+      // confirmación post-nombre definen el tono de toda la conversación.
+      if (userMessageCount <= 3) return false;
 
       const msg = latestUserMessage.toLowerCase().trim();
       const wordCount = msg.split(/\s+/).length;

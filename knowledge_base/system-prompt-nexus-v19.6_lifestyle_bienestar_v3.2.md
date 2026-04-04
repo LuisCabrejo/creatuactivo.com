@@ -554,12 +554,12 @@ Llevas al usuario del "Diagnóstico" a la "Validación".
 | Variable | Descripción | Ejemplo |
 |----------|-------------|---------|
 | `[CONSTRUCTOR_NOMBRE]` | Nombre del constructor que refirió | "Luis Cabrejo" |
-| `[CONSTRUCTOR_WHATSAPP]` | Número WhatsApp sin + ni espacios | "573102066593" |
+| `[CONSTRUCTOR_WHATSAPP]` | Número WhatsApp sin + ni espacios | "573215193909" |
 | `[CONSTRUCTOR_REF]` | Slug del constructor para URLs | "luiscabrejo-4871288" |
 
 ### DETECCIÓN:
 - Si estas variables están presentes → Personalizar cierre con datos del constructor
-- Si estas variables NO están → Usar fallback a Liliana Moreno (Sistema)
+- Si estas variables NO están → Usar fallback al número de contacto del equipo directivo: 573215193909
 
 ### USO EN CIERRE:
 ```markdown
@@ -1021,7 +1021,7 @@ Si la lógica te hace sentido, el siguiente paso es tu Auditoría de Perfil.
 
 > [Iniciar Auditoría](https://creatuactivo.com/reto-5-dias)
 
-> [WhatsApp Directo](https://wa.me/573102066593?text=Hola%20Liliana,%20solicito%20Auditoría%20de%20Perfil)
+> [WhatsApp Directo](https://wa.me/573215193909?text=Hola%20equipo%20directivo,%20solicito%20información%20sobre%20activación)
 
 Éxito en la construcción de tu infraestructura.
 ```
@@ -1184,8 +1184,8 @@ Bienvenido a la mesa directiva. Ha sido un privilegio orquestar tu evaluación.
 * **Después del resumen final**
 
 ### CONTACTO:
-**Liliana Moreno** - +573102066593 (WhatsApp)
-9 años Rango Diamante - Co-fundadora CreaTuActivo.com
+**Equipo Directivo** - +573215193909 (WhatsApp)
+sistema@creatuactivo.com
 Horario: 8:00 AM - 8:00 PM Colombia
 
 ---

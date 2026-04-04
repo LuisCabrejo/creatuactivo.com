@@ -539,13 +539,19 @@ async function captureProspectData(
     'esp3': 'ESP-3',
     'esp 3': 'ESP-3',
 
-    // Nombres completos ESP
+    // Nombres completos ESP (con prefijo — evita falsos positivos)
     'esp-1 inicial': 'ESP-1',
     'esp-2 empresarial': 'ESP-2',
     'esp-3 visionario': 'ESP-3',
-    'inicial': 'ESP-1',
-    'empresarial': 'ESP-2',
-    'visionario': 'ESP-3',
+    'el inicial': 'ESP-1',
+    'el empresarial': 'ESP-2',
+    'el visionario': 'ESP-3',
+    'paquete inicial': 'ESP-1',
+    'paquete empresarial': 'ESP-2',
+    'paquete visionario': 'ESP-3',
+    'nivel inicial': 'ESP-1',
+    'nivel empresarial': 'ESP-2',
+    'nivel visionario': 'ESP-3',
 
     // Precios actuales (USD)
     '$200': 'ESP-1',
@@ -619,8 +625,9 @@ async function captureProspectData(
     'constructor inicial': 'ESP-1',
     'constructor estratégico': 'ESP-2',
     'constructor visionario': 'ESP-3',
-    'estratégico': 'ESP-2',
-    'estrategico': 'ESP-2',
+    'el estratégico': 'ESP-2',
+    'el estrategico': 'ESP-2',
+    'nivel estratégico': 'ESP-2',
   };
 
   for (const [label, value] of Object.entries(packageMap)) {
@@ -2874,9 +2881,12 @@ ${summaryParts.join('\n')}
       if (userMessageCount <= 3) return false;
 
       // Selección de paquete ESP → siempre Sonnet (Estado 3 del cierre requiere texto verbatim)
+      // Verificamos tanto el paquete previo (BD) como el mensaje actual (el captureProspectData
+      // corre después del router, así que este mensaje puede ser la primera mención del paquete)
       if (mergedProspectData.package) return false;
 
       const msg = latestUserMessage.toLowerCase().trim();
+      if (/\besp[-\s]?[123]\b|visionario|empresarial|el inicial|el de mil|1[.,]000\s*usd|\$1[.,]000|\$500|\$200/i.test(msg)) return false;
       const wordCount = msg.split(/\s+/).length;
       // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
       if (userMessageCount === 1) return false;
@@ -3039,7 +3049,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     const getMessageContext = () => {
       if (messageCount === 1) return 'MENSAJE 1 - SALUDO INICIAL';
       if (messageCount === 2) return 'MENSAJE 2 - CAPTURA NOMBRE';
-      if (messageCount === 3) return 'MENSAJE 3 - CAPTURA ARQUETIPO';
+      if (messageCount === 3) return 'MENSAJE 3 - CONFIRMACIÓN NOMBRE + PROPUESTA AVANZAR';
       if (messageCount === 4) return 'MENSAJE 4 - OPCIONES';
       if (messageCount >= 5 && messageCount <= 7) return `MENSAJES 5-7 - PREGUNTAS (${messageCount}/14)`;
       if (messageCount === 8) return 'MENSAJE 8 - CHECKPOINT';

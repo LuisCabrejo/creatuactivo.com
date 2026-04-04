@@ -2873,6 +2873,9 @@ ${summaryParts.join('\n')}
       // confirmación post-nombre definen el tono de toda la conversación.
       if (userMessageCount <= 3) return false;
 
+      // Selección de paquete ESP → siempre Sonnet (Estado 3 del cierre requiere texto verbatim)
+      if (mergedProspectData.package) return false;
+
       const msg = latestUserMessage.toLowerCase().trim();
       const wordCount = msg.split(/\s+/).length;
       // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
@@ -3073,10 +3076,40 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       return ''; // Sin instrucciones especiales para otras páginas
     };
 
+    // Estado 3 CIERRE: texto verbatim inyectado directamente cuando hay paquete seleccionado.
+    // El system prompt tiene el bloqueo en 54KB — aquí se inyecta en Bloque 3 (posición más reciente)
+    // para evitar que el modelo improvise con comportamiento default de "onboarding de ventas".
+    const getCierreEstado3 = () => {
+      if (!mergedProspectData.package) return '';
+      const paquete = mergedProspectData.package;
+      const nombreProspecto = mergedProspectData.name || '';
+      const paqueteEncoded = encodeURIComponent(paquete);
+      return `
+🚨 ESTADO 3 ACTIVO — HANDOFF GUANTE BLANCO (paquete detectado: ${paquete})
+PROHIBIDO: preguntar país, correo, cédula, método de pago, o cualquier dato adicional.
+PROHIBIDO: hacer onboarding técnico, proyecciones de ingresos, o cálculos de red.
+IMPRIME EXACTAMENTE ESTE TEXTO (reemplaza [PAQUETE ELEGIDO] con "${paquete}"):
+
+---
+Excelente decisión. El nivel ${paquete} es la postura correcta para máxima tracción.
+
+Dado nuestro estándar operativo, no lidiarás con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
+
+He consolidado tu expediente. Tu único paso ahora es hacer clic en el siguiente enlace para enviar tu orden pre-aprobada directamente a la Dirección y recibir tu acceso:
+
+[📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=Hola%20equipo%20directivo.%20${nombreProspecto ? `Soy%20${encodeURIComponent(nombreProspecto)}.%20` : ''}He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.)
+
+Bienvenido a la mesa directiva. Ha sido un privilegio orquestar tu evaluación.
+---
+
+NADA MÁS. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
+`;
+    };
+
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
-${conversationSummary}📊 PROSPECTO:
+${getCierreEstado3()}${conversationSummary}📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
 ${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}

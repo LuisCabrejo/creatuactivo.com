@@ -14,7 +14,7 @@
 **Cambios v3.0:**
 - Terminología Asset-Light integrada
 - Tabla de paquetes con columna de elegibilidad GEN5
-- Mecánica de sostenibilidad (50 PV) con contexto de ingreso residual
+- Mecánica de sostenibilidad (50 PV) con contexto de ingreso recurrente
 
 ---
 
@@ -38,8 +38,8 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 - Tú invitas personas a conocer el negocio
 - Cada persona que se vincula genera puntos (CV)
-- Los puntos de tu red generan regalías semanales
-- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en regalías
+- Los puntos de tu red generan ingreso recurrente semanal
+- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso recurrente
 
 **Contenido del Kit de Inicio ($443,600 COP):**
 
@@ -55,7 +55,7 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles?" / "¿Cuánto puedo ganar?" / "¿Cómo funciona el plan de ganancias?"**
 
-**[Concepto Nuclear]:** Las Regalías de Equipo se pagan semanalmente sobre el volumen de tu red.
+**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de tu red.
 
 En Los 12 Niveles con Kit de Inicio, ganas a través de la **Regalía de Equipo al 10%**.
 
@@ -63,7 +63,7 @@ En Los 12 Niveles con Kit de Inicio, ganas a través de la **Regalía de Equipo 
 
 Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de tu red y te paga el 10% semanal.
 
-**Proyección de regalías con Kit de Inicio (10%):**
+**Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
 | Nivel | Personas | CV/lado | Regalía semanal 10% | Acumulado |
 |-------|----------|---------|---------------------|-----------|
@@ -75,16 +75,16 @@ Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit
 | 10 | 1,024 | 28,672 | $12,902,400 | $25,776,600 |
 | 12 | 4,096 | 114,688 | $51,609,600 | **$103,177,800** |
 
-**Potencial acumulado al nivel 12:** Más de $103 millones COP en regalías.
+**Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente.
 
 **Con paquetes empresariales (mayor %):**
 
 | Tu Paquete | Regalía Equipo | Diferencia vs Kit |
 |------------|----------------|-------------------|
 | Kit de Inicio | 10% | Base |
-| ESP-1 | 15% | +50% más regalías |
-| ESP-2 | 16% | +60% más regalías |
-| ESP-3 | 17% | +70% más regalías |
+| ESP-1 | 15% | +50% más ingreso recurrente |
+| ESP-2 | 16% | +60% más ingreso recurrente |
+| ESP-3 | 17% | +70% más ingreso recurrente |
 
 **Se paga:** Semanalmente los viernes.
 
@@ -178,8 +178,8 @@ El Kit de Inicio existe para que tomes tu posición **HOY**, no cuando "tengas m
 **La estrategia Asset-Light:**
 
 1. Arrancas con el Kit de Inicio (baja fricción)
-2. Construyes tu red y generas primeras regalías
-3. Con las regalías, compras tu Paquete Empresarial
+2. Construyes tu red y generas tu primer ingreso recurrente
+3. Con ese ingreso recurrente, compras tu Paquete Empresarial
 4. Accedes al Ingreso Inmediato (GEN5) y porcentajes más altos
 
 Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
@@ -258,7 +258,7 @@ Recuerda: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 
 ### **INV_03: "¿Qué recibo con cada paquete?"**
 
-**[Concepto Nuclear]:** La inversión determina tu porcentaje de regalías y acceso al Bono GEN5.
+**[Concepto Nuclear]:** La inversión determina tu porcentaje de ingreso recurrente y acceso al Bono GEN5.
 
 Todos los paquetes incluyen:
 
@@ -298,13 +298,13 @@ Todos los paquetes incluyen:
 
 ### **INV_04: "¿Todos los meses debo hacer recompra?" / "¿Debo comprar productos cada mes?"**
 
-**[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso residual.
+**[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente.
 
 Sí, la recompra mensual es lo que te mantiene **activo** en el negocio y lo que genera tu **ingreso recurrente**.
 
 **¿Por qué es importante?**
 
-Estar activo te permite cobrar las comisiones que genera tu red de clientes y distribuidores. Sin actividad, no corren tus regalías.
+Estar activo te permite cobrar las comisiones que genera tu red de clientes y distribuidores. Sin actividad, no fluye tu ingreso recurrente.
 
 **La mecánica de sostenibilidad:**
 

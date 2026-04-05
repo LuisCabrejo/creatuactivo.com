@@ -453,6 +453,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                         </button>
                       )}
 
+                      {/* Render dual: plain text durante streaming para evitar AST jank.
+                          ReactMarkdown solo cuando el mensaje está completo.
+                          Fuente: Shopify Sidekick streaming architecture + ReactMarkdown AST reparse issue. */}
+                      {isLoading && message === messages[messages.length - 1] && message.role === 'assistant' ? (
+                        <p className="leading-relaxed whitespace-pre-wrap" style={{ color: QUIET_LUXURY.textPrimary }}>
+                          {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}
+                        </p>
+                      ) : (
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -529,6 +537,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
                       >
                         {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}
                       </ReactMarkdown>
+                      )}
                     </div>
                   </div>
                 );

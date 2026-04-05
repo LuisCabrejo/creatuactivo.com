@@ -2982,31 +2982,48 @@ ${summaryParts.join('\n')}
       const doc = relevantDocuments[0];
       searchMethod = doc.search_method || 'unknown';
 
-      context = 'ARSENAL CONVERSACIONAL MVP - CONTEXTO HÍBRIDO:\n\n';
+      // ── XML WRAPPING (investigación RAG Formato Markdown) ────────────────────
+      // Sin etiquetas XML, el LLM confunde datos con instrucciones → paráfrasis.
+      // Con <documents>, el mecanismo de atención trata el contenido como
+      // "artefacto de solo lectura" separado de la lógica de control.
+      // Fuente: Anthropic prompting best practices + VerbatimRAG pattern.
+      context = `<instructions>
+REGLAS DE FORMATO ABSOLUTAS (encuadre positivo — extracción, no síntesis):
+1. EXTRACCIÓN VERBATIM: Localiza la información relevante en <documents> y extráela palabra por palabra.
+2. PRESERVACIÓN ESTRUCTURAL: Reproduce la topología exacta del fragmento — **negritas**, listas 1. 2. 3., tablas |col|, bullets •. No aplanar, no reformatear.
+3. TABLAS PARA COMISIONES: Cuando el usuario pida ejemplos de GEN5 o Binario, usa tablas Markdown (|col|col|). Son superiores cognitivamente a párrafos.
+4. SÍNTESIS NARRATIVA: Puedes usar lenguaje transicional al inicio/final, pero el núcleo de datos va intacto de su fuente.
+5. PROHIBICIÓN DE PARÁFRASIS: No resumas ni abstraigas estructuras — actúa como conducto de alta fidelidad.
+</instructions>
+
+<documents>
+<document index="1">
+`;
 
       if (doc.search_method === 'catalogo_productos') {
-        // 🔧 NUEVA INSTRUCCIÓN ESPECÍFICA PARA CATÁLOGO - FIX APLICADO
-        context += `[CATÁLOGO DE PRODUCTOS GANO EXCEL - PRECIOS OFICIALES VERIFICADOS]
-[MÉTODO: CONSULTA CATÁLOGO ESPECÍFICO]
+        context += `<metadata>tipo: catalogo_productos | método: consulta_directa</metadata>
+<document_content>
+${doc.title}
 
-⚠️ INSTRUCCIÓN CRÍTICA: Usa EXACTAMENTE los precios que aparecen en este catálogo. No inventes precios ni uses información de otras fuentes.
-
-${doc.title}:
 ${doc.content}
-
-🔥 RECORDATORIO IMPORTANTE: Los precios en este catálogo son la fuente de verdad absoluta para productos individuales.
-
-`;
+</document_content>`;
       } else {
-        // Lógica arsenal original sin cambios
         const docType = doc.category?.replace('arsenal_', '').toUpperCase();
         const respuestas = doc.metadata?.respuestas_totales || 'N/A';
-        const metodo = doc.search_method === 'hibrid_classification' ? 'CLASIFICACIÓN AUTOMÁTICA' : 'BÚSQUEDA SEMÁNTICA';
+        const metodo = doc.search_method === 'hibrid_classification' ? 'clasificacion_automatica' : 'busqueda_semantica';
+        context += `<metadata>arsenal: ${docType} | fragmentos: ${respuestas} | método: ${metodo}</metadata>
+<document_content>
+${doc.title}
 
-        context += `[ARSENAL ${docType} - ${respuestas} respuestas] [MÉTODO: ${metodo}]\n${doc.title}:\n${doc.content}\n\n`;
+${doc.content}
+</document_content>`;
       }
 
-      context += '---\n\n';
+      context += `
+</document>
+</documents>
+
+`;
       documentsUsed.push(doc.source || doc.category);
     }
 
@@ -3271,27 +3288,20 @@ Ingreso Inmediato se llama "Bono GEN5". Solo aplica con Paquetes Empresariales (
 El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anteriores.`;
     };
 
-    // ── FIDELIDAD VERBATIM (Opción B): cuando el fragmento tiene markdown estructurado
-    // (negritas, numeración, bullets), inyecta la instrucción explícita en Bloque 3.
-    // El LLM interpreta "usa el arsenal" como "inspírate en él" → parafrasea y pierde formato.
-    // La instrucción verbatim en Bloque 3 cierra ese gap semántico.
-    const getVerbatimDirective = (): string => {
-      // No aplica durante flujo de cierre (el FSM ya controla el output)
-      if (closingState === 1 || closingState === 2 || closingState === 3) return '';
-      // No aplica para catálogo (ya tiene su propia instrucción de fidelidad de precios)
-      if (searchMethod === 'catalogo_productos') return '';
-      if (!relevantDocuments.length) return '';
-      const doc = relevantDocuments[0];
-      // Solo para fragmentos de arsenal conversacional (no catálogo, no otros)
-      if (!doc.category?.includes('arsenal_')) return '';
+    // ── TABLA DE COMISIONES (investigación: tablas > párrafos para comprensión cognitiva)
+    const getTablasComisiones = (): string => {
+      const pidePaquetes = closingState === 2;
+      const pideEjemploComision = /ejemplo.*(gen5?|binario|velocidad|comisi|ingreso|gana)|dame.*(gen5?|binario|velocidad|número|cifra|cuánto)|gen5?.*(ejemplo|gráfico|número)|binario.*(ejemplo|gráfico|número)/i.test(latestUserMessage);
+      if (!pideEjemploComision && !pidePaquetes) return '';
       return `
-🔒 FIDELIDAD DE FORMATO OBLIGATORIA
-El fragmento en Bloque 2 contiene markdown estructurado. REGLA ABSOLUTA:
-- Reproduce **negritas** exactamente donde aparecen — NO las elimines ni las muevas
-- Reproduce listas numeradas (1. 2. 3.) exactamente como están — NO las conviertas en párrafos
-- Reproduce bullets (•) exactamente como están
-- NO parafrasees. NO resumas. NO reformatees la estructura.
-El texto del arsenal es el output — no la fuente de inspiración.`;
+📊 FORMATO TABLA OBLIGATORIO: Para ejemplos de comisiones GEN5 o Binario, usa SIEMPRE tablas Markdown con | separadores. Ejemplo de estructura:
+
+| Generación | ESP-3 ($1,000) | ESP-2 ($500) | ESP-1 ($200) |
+|---|---|---|---|
+| Gen 1 (directo) | $150 USD | $75 USD | $50 USD |
+| Gen 2 | $20 USD | $10 USD | $7 USD |
+
+Adapta con los números del caso que estás explicando. Las tablas son superiores cognitivamente a párrafos para datos numéricos.`;
     };
 
     const sessionInstructions = `
@@ -3300,7 +3310,7 @@ ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado3()}
 ${getPinCifrasGEN5()}
-${getVerbatimDirective()}
+${getTablasComisiones()}
 ${conversationSummary}📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}

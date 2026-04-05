@@ -3145,6 +3145,14 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
         return 1;
       }
 
+      // Estado 2 directo: el usuario pregunta por los paquetes (quiere VER opciones, no calificar)
+      // Skip Estado 1 (horas) — quien pregunta "los paquetes" ya mostró intención suficiente
+      const triggerPaquetes = /háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada|capitalización)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cuánto hay que (invertir|poner|meter)|qué necesito (invertir|poner)/i;
+      if (triggerPaquetes.test(latestUserMessage)) {
+        console.log('🔀 [FSM] closing_state=2 directo — usuario pregunta por paquetes');
+        return 2;
+      }
+
       // Estado 1: trigger de intención de iniciar en el mensaje ACTUAL del usuario
       // Estas son las frases que activan la máquina de estados
       const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i;

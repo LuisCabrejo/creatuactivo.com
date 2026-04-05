@@ -2913,9 +2913,24 @@ ${summaryParts.join('\n')}
     console.log(`⏱️ [TIMING] captureProspectData: ${Date.now() - startTime}ms total`);
     console.log(`⚡ [ROUTER EARLY] ${isSimpleQueryEarly ? 'SIMPLE → skip vector search' : 'COMPLEJA → vector search'} (userMsg #${userMessageCount}, "${latestUserMessage.substring(0, 40)}")`);
 
-    // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas
+    // Early FSM check: skip Voyage AI cuando estamos en flujo de cierre (estados 1/2/3)
+    // El arsenal no se usa en esos estados — evita el round-trip innecesario a Voyage AI (~300ms)
+    const isClosingFlowEarly = (() => {
+      if (mergedProspectData.package) return true; // Estado 3: paquete ya elegido
+      const botMessages = messages.filter((m: any) => m.role === 'assistant');
+      const lastBotMsg: string = botMessages[botMessages.length - 1]?.content || '';
+      if (/ancho de banda operativo|horas a la semana|cuántas horas/i.test(lastBotMsg)) return true; // Estado 1→2
+      if (/háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar)|cuánto hay que (invertir|poner)|qué necesito (invertir|poner)/i.test(latestUserMessage)) return true;
+      if (/cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i.test(latestUserMessage)) return true;
+      return false;
+    })();
+    if (isClosingFlowEarly) {
+      console.log(`🔀 [FSM EARLY] Flujo de cierre detectado — Voyage AI suprimido`);
+    }
+
+    // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas y fuera del flujo de cierre
     let relevantDocuments: any[] = [];
-    if (!isSimpleQueryEarly) {
+    if (!isSimpleQueryEarly && !isClosingFlowEarly) {
       if (tenantId === 'ecommerce') {
         // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
         // Siempre usar arsenal_ganocafe — ignora clasificación de creatuactivo

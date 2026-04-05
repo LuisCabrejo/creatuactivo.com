@@ -3134,52 +3134,46 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
     // ── DETECCIÓN DE closing_state POR CÓDIGO ────────────────────────────────
     // Lee el historial de mensajes — el LLM no decide el estado, el código sí.
-    const detectClosingState = (): 0 | 1 | 2 | 3 => {
+    // `directPaquetes`: true cuando llegamos a Estado 2 sin pasar por Estado 1 (horas).
+    // Cuando es true, el micro-prompt de Estado 2 NO menciona horas (nadie las declaró).
+    const { closingState, directPaquetes } = (() => {
       // Estado 3: paquete ya elegido (detectado por packageMap en captureProspectData)
-      if (mergedProspectData.package) return 3;
+      if (mergedProspectData.package) return { closingState: 3 as const, directPaquetes: false };
 
       const botMessages = messages.filter((m: any) => m.role === 'assistant');
       const lastBotMessage: string = botMessages[botMessages.length - 1]?.content || '';
       const currentUserMsg = latestUserMessage.toLowerCase().trim();
 
       // Estado 2: el último mensaje del bot fue el Estado 1 (pregunta de horas)
-      // Señal inequívoca: el bot preguntó por "ancho de banda operativo" / "horas a la semana"
       const botPreguntóHoras = /ancho de banda operativo|horas a la semana|cuántas horas|horas.*semana|semana.*horas/i.test(lastBotMessage);
       if (botPreguntóHoras) {
-        // El usuario respondió con un número de horas → avanzar a Estado 2
-        // Generative Parsing liviano: regex extrae el compromiso de tiempo
         const horasMatch = currentUserMsg.match(/\b([1-9]|1[0-9]|20)\b.*h(ora|r)?s?|(\d+)\s*h/i)
-          || currentUserMsg.match(/^(\d{1,2})$/)  // solo un número
-          || /puedo|tengo|dispongo|asigno|dedico/i.test(currentUserMsg); // confirmación verbal
+          || currentUserMsg.match(/^(\d{1,2})$/)
+          || /puedo|tengo|dispongo|asigno|dedico/i.test(currentUserMsg);
         if (horasMatch || /\d/.test(currentUserMsg)) {
           console.log('🔀 [FSM] closing_state=2 detectado — bot preguntó horas, usuario respondió con número');
-          return 2;
+          return { closingState: 2 as const, directPaquetes: false };
         }
-        // El usuario no respondió con horas → seguir en Estado 1
         console.log('🔀 [FSM] closing_state=1 sostenido — bot preguntó horas, usuario no dio número');
-        return 1;
+        return { closingState: 1 as const, directPaquetes: false };
       }
 
-      // Estado 2 directo: el usuario pregunta por los paquetes (quiere VER opciones, no calificar)
-      // Skip Estado 1 (horas) — quien pregunta "los paquetes" ya mostró intención suficiente
+      // Estado 2 directo: el usuario pregunta por los paquetes sin haber pasado por Estado 1
       const triggerPaquetes = /háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada|capitalización)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cuánto hay que (invertir|poner|meter)|qué necesito (invertir|poner)/i;
       if (triggerPaquetes.test(latestUserMessage)) {
-        console.log('🔀 [FSM] closing_state=2 directo — usuario pregunta por paquetes');
-        return 2;
+        console.log('🔀 [FSM] closing_state=2 directo — usuario pregunta por paquetes (sin Estado 1)');
+        return { closingState: 2 as const, directPaquetes: true };
       }
 
-      // Estado 1: trigger de intención de iniciar en el mensaje ACTUAL del usuario
-      // Estas son las frases que activan la máquina de estados
+      // Estado 1: trigger de intención de iniciar
       const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i;
       if (triggerInicio.test(latestUserMessage)) {
         console.log('🔀 [FSM] closing_state=1 detectado — trigger de inicio en mensaje del usuario');
-        return 1;
+        return { closingState: 1 as const, directPaquetes: false };
       }
 
-      return 0;
-    };
-
-    const closingState = detectClosingState();
+      return { closingState: 0 as const, directPaquetes: false };
+    })();
     console.log(`🔀 [FSM] closing_state=${closingState} | package="${mergedProspectData.package || 'none'}" | msg="${latestUserMessage.substring(0, 40)}"`);
 
     // ── MICRO-PROMPTS POR ESTADO (Graph Prompting) ───────────────────────────
@@ -3202,13 +3196,17 @@ STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espe
       }
 
       if (closingState === 2) {
+        // Cuando llegamos directamente desde una pregunta por paquetes (sin Estado 1),
+        // el usuario NO declaró horas — omitir cualquier referencia a tiempo.
+        const apertura = directPaquetes
+          ? `La variable clave es tu nivel de capitalización.`
+          : `Ese ancho de banda es exacto para traccionar. La segunda y última variable es tu nivel de capitalización.`;
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 ESTADO 2 — CAPITALIZACIÓN
-El prospecto confirmó disponibilidad de tiempo. Tu única tarea: presentar la tabla de niveles.
-Imprime EXACTAMENTE este texto (adapta la primera línea con las horas que mencionó):
+Tu única tarea: presentar la tabla de niveles. Imprime EXACTAMENTE este texto:
 
-Perfecto. Ese tiempo es exacto para traccionar. La segunda y última variable es tu nivel de capitalización. Tu capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando tus derechos operativos. Tienes tres niveles:
+${apertura} Tu capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando tus derechos operativos. Tienes tres niveles:
 
 • **ESP-3 Visionario:** $1,000 USD — 17% de rentabilidad sobre el consumo de la infraestructura (máxima velocidad)
 
@@ -3273,12 +3271,36 @@ Ingreso Inmediato se llama "Bono GEN5". Solo aplica con Paquetes Empresariales (
 El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anteriores.`;
     };
 
+    // ── FIDELIDAD VERBATIM (Opción B): cuando el fragmento tiene markdown estructurado
+    // (negritas, numeración, bullets), inyecta la instrucción explícita en Bloque 3.
+    // El LLM interpreta "usa el arsenal" como "inspírate en él" → parafrasea y pierde formato.
+    // La instrucción verbatim en Bloque 3 cierra ese gap semántico.
+    const getVerbatimDirective = (): string => {
+      // No aplica durante flujo de cierre (el FSM ya controla el output)
+      if (closingState === 1 || closingState === 2 || closingState === 3) return '';
+      // No aplica para catálogo (ya tiene su propia instrucción de fidelidad de precios)
+      if (searchMethod === 'catalogo_productos') return '';
+      if (!relevantDocuments.length) return '';
+      const doc = relevantDocuments[0];
+      // Solo para fragmentos de arsenal conversacional (no catálogo, no otros)
+      if (!doc.category?.includes('arsenal_')) return '';
+      return `
+🔒 FIDELIDAD DE FORMATO OBLIGATORIA
+El fragmento en Bloque 2 contiene markdown estructurado. REGLA ABSOLUTA:
+- Reproduce **negritas** exactamente donde aparecen — NO las elimines ni las muevas
+- Reproduce listas numeradas (1. 2. 3.) exactamente como están — NO las conviertas en párrafos
+- Reproduce bullets (•) exactamente como están
+- NO parafrasees. NO resumas. NO reformatees la estructura.
+El texto del arsenal es el output — no la fuente de inspiración.`;
+    };
+
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado3()}
 ${getPinCifrasGEN5()}
+${getVerbatimDirective()}
 ${conversationSummary}📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}

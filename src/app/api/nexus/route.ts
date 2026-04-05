@@ -3099,21 +3099,120 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       return ''; // Sin instrucciones especiales para otras páginas
     };
 
-    // Estado 3 CIERRE: texto verbatim inyectado directamente cuando hay paquete seleccionado.
-    // El system prompt tiene el bloqueo en 54KB — aquí se inyecta en Bloque 3 (posición más reciente)
-    // para evitar que el modelo improvise con comportamiento default de "onboarding de ventas".
-    const getCierreEstado3 = () => {
-      if (!mergedProspectData.package) return '';
+    // ─────────────────────────────────────────────────────────────────────────
+    // FSM DE CIERRE — ARQUITECTURA BASADA EN INVESTIGACIÓN
+    //
+    // PRINCIPIO (Investigación "Máquinas de Estado Conversacional"):
+    //   El LLM actúa como procesador semántico, NO como tomador de decisiones.
+    //   El backend (este código) detecta y controla el estado — no el model.
+    //   Patrón: Graph Prompting (Bland AI / 11x.ai / Salesforce Atlas)
+    //   Cada estado recibe SOLO el micro-prompt de su nodo. El modelo es
+    //   "localmente omnisciente pero globalmente ignorante" — no puede alucinar
+    //   pasos que no existen en su topología inmediata.
+    //
+    // ESTADOS:
+    //   0 = conversación normal
+    //   1 = trigger detectado → preguntar horas (Estado 1)
+    //   2 = horas recibidas → presentar tabla ESP (Estado 2)
+    //   3 = paquete elegido → handoff WhatsApp (Estado 3) ← ya funcionaba
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // ── DETECCIÓN DE closing_state POR CÓDIGO ────────────────────────────────
+    // Lee el historial de mensajes — el LLM no decide el estado, el código sí.
+    const detectClosingState = (): 0 | 1 | 2 | 3 => {
+      // Estado 3: paquete ya elegido (detectado por packageMap en captureProspectData)
+      if (mergedProspectData.package) return 3;
+
+      const botMessages = messages.filter((m: any) => m.role === 'assistant');
+      const lastBotMessage: string = botMessages[botMessages.length - 1]?.content || '';
+      const currentUserMsg = latestUserMessage.toLowerCase().trim();
+
+      // Estado 2: el último mensaje del bot fue el Estado 1 (pregunta de horas)
+      // Señal inequívoca: el bot preguntó por "ancho de banda operativo" / "horas a la semana"
+      const botPreguntóHoras = /ancho de banda operativo|horas a la semana|cuántas horas|horas.*semana|semana.*horas/i.test(lastBotMessage);
+      if (botPreguntóHoras) {
+        // El usuario respondió con un número de horas → avanzar a Estado 2
+        // Generative Parsing liviano: regex extrae el compromiso de tiempo
+        const horasMatch = currentUserMsg.match(/\b([1-9]|1[0-9]|20)\b.*h(ora|r)?s?|(\d+)\s*h/i)
+          || currentUserMsg.match(/^(\d{1,2})$/)  // solo un número
+          || /puedo|tengo|dispongo|asigno|dedico/i.test(currentUserMsg); // confirmación verbal
+        if (horasMatch || /\d/.test(currentUserMsg)) {
+          console.log('🔀 [FSM] closing_state=2 detectado — bot preguntó horas, usuario respondió con número');
+          return 2;
+        }
+        // El usuario no respondió con horas → seguir en Estado 1
+        console.log('🔀 [FSM] closing_state=1 sostenido — bot preguntó horas, usuario no dio número');
+        return 1;
+      }
+
+      // Estado 1: trigger de intención de iniciar en el mensaje ACTUAL del usuario
+      // Estas son las frases que activan la máquina de estados
+      const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i;
+      if (triggerInicio.test(latestUserMessage)) {
+        console.log('🔀 [FSM] closing_state=1 detectado — trigger de inicio en mensaje del usuario');
+        return 1;
+      }
+
+      return 0;
+    };
+
+    const closingState = detectClosingState();
+    console.log(`🔀 [FSM] closing_state=${closingState} | package="${mergedProspectData.package || 'none'}" | msg="${latestUserMessage.substring(0, 40)}"`);
+
+    // ── MICRO-PROMPTS POR ESTADO (Graph Prompting) ───────────────────────────
+    // Cada estado recibe SOLO las instrucciones de su nodo.
+    // El modelo no conoce los estados vecinos → imposible alucinar pasos futuros.
+    const nombre = mergedProspectData.name || 'prospecto';
+
+    const getMicroPromptCierre = (): string => {
+      if (closingState === 1) {
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 1 — VALIDACIÓN DE ARRANQUE
+Tu única tarea en este turno: hacer UNA sola pregunta sobre disponibilidad de tiempo.
+Imprime EXACTAMENTE este texto (reemplaza [NOMBRE] con "${nombre}"):
+
+${nombre}, perfecto. La postura directiva es la correcta. Tu paso inmediato es una Validación de Arranque rápida. La primera variable es tu ancho de banda operativo: ¿cuántas horas a la semana puedes asignar con total enfoque para orquestar este activo? (Sugerimos de 7 a 10 horas).
+
+STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espera la respuesta.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
+
+      if (closingState === 2) {
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 2 — CAPITALIZACIÓN
+El prospecto confirmó disponibilidad de tiempo. Tu única tarea: presentar la tabla de niveles.
+Imprime EXACTAMENTE este texto (adapta la primera línea con las horas que mencionó):
+
+Perfecto. Ese tiempo es exacto para traccionar. La segunda y última variable es tu nivel de capitalización. Tu capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando tus derechos operativos. Tienes tres niveles:
+
+• **ESP-3 Visionario:** $1,000 USD — 17% de rentabilidad sobre el consumo de la infraestructura (máxima velocidad)
+
+• **ESP-2 Empresarial:** $500 USD — 16% de rentabilidad
+
+• **ESP-1 Inicial:** $200 USD — 15% de rentabilidad
+
+Evaluando tu flujo de caja, ¿con cuál de estos niveles deseas habilitar tu posición?
+
+STOP. No pidas correo, nombre, país ni ningún otro dato. No expliques el onboarding. Espera que elija un nivel.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
+
+      return '';
+    };
+
+    // ── ESTADO 3: Handoff verbatim (mismo patrón que ya funcionaba) ──────────
+    const getCierreEstado3 = (): string => {
+      if (closingState !== 3 || !mergedProspectData.package) return '';
       const paquete = mergedProspectData.package;
       const nombreProspecto = mergedProspectData.name || '';
       const paqueteEncoded = encodeURIComponent(paquete);
       return `
-🚨 ESTADO 3 ACTIVO — HANDOFF GUANTE BLANCO (paquete detectado: ${paquete})
-PROHIBIDO: preguntar país, correo, cédula, método de pago, o cualquier dato adicional.
-PROHIBIDO: hacer onboarding técnico, proyecciones de ingresos, o cálculos de red.
-IMPRIME EXACTAMENTE ESTE TEXTO (reemplaza [PAQUETE ELEGIDO] con "${paquete}"):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 3 — HANDOFF GUANTE BLANCO (paquete: ${paquete})
+Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
----
 Excelente decisión. El nivel ${paquete} es la postura correcta para máxima tracción.
 
 Dado nuestro estándar operativo, no lidiarás con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
@@ -3123,16 +3222,41 @@ He consolidado tu expediente. Tu único paso ahora es hacer clic en el siguiente
 [📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=Hola%20equipo%20directivo.%20${nombreProspecto ? `Soy%20${encodeURIComponent(nombreProspecto)}.%20` : ''}He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.)
 
 Bienvenido a la mesa directiva. Ha sido un privilegio orquestar tu evaluación.
----
 
-NADA MÁS. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
-`;
+STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+    };
+
+    // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
+    // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
+    // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
+    const arsenalParaCierre = (closingState === 1 || closingState === 2)
+      ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
+      : arsenalContext;
+
+    // ── INYECCIÓN DE CIFRAS GEN5 VERIFICADAS (anti-alucinación financiera) ──────
+    // Cuando el usuario pregunta sobre ingreso inmediato / cuánto se gana / GEN5,
+    // inyectamos las cifras exactas del plan de compensación directamente en Bloque 3.
+    // Patrón: mismo que getCierreEstado3 — código controla los números, no el LLM.
+    const getPinCifrasGEN5 = (): string => {
+      const preguntaSobreCifras = /cuánto (gano|gana|se gana|cobra|genera)|ingreso inmediato|gen.?5|bono.*gen|comisión.*esp|cuánto.*paga|ejemplo.*número|números.*reales|cifras|cuánto.*entrada|cuánto.*primera|ganancia.*persona/i;
+      if (!preguntaSobreCifras.test(latestUserMessage)) return '';
+      return `
+📌 CIFRAS VERIFICADAS GEN5 — USA SOLO ESTOS NÚMEROS (fuente: plan de compensación oficial):
+Ingreso Inmediato se llama "Bono GEN5". Solo aplica con Paquetes Empresariales (ESP-1/2/3).
+• ESP-3 Visionario ($1,000 USD): Gen1=$150 | Gen2=$20 | Gen3=$20 | Gen4=$20 | Gen5=$40
+• ESP-2 Empresarial ($500 USD):  Gen1=$75  | Gen2=$10 | Gen3=$10 | Gen4=$10 | Gen5=$20
+• ESP-1 Inicial ($200 USD):      Gen1=$50  | Gen2=$7  | Gen3=$7  | Gen4=$7  | Gen5=$14
+El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anteriores.`;
     };
 
     const sessionInstructions = `
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
-${getCierreEstado3()}${conversationSummary}📊 PROSPECTO:
+${getMicroPromptCierre()}
+${getCierreEstado3()}
+${getPinCifrasGEN5()}
+${conversationSummary}📊 PROSPECTO:
 ${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
 ${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
 ${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
@@ -3153,7 +3277,7 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     }
     console.log('📝 System prompt base (primeros 100 chars):',
       baseSystemPrompt.substring(0, 100) + '...');
-    console.log('📝 Arsenal context length:', arsenalContext.length, 'chars');
+    console.log('📝 Arsenal context length:', arsenalParaCierre.length, 'chars', closingState > 0 ? `[FSM state=${closingState}]` : '');
     console.log('📝 Session instructions length:', sessionInstructions.length, 'chars');
 
     console.log('Enviando request Claude con contexto híbrido + CACHE...');
@@ -3218,9 +3342,10 @@ ESTADO: ${getMessageContext()}`;
               cache_control: { type: 'ephemeral' as const }
             },
             // 🎯 BLOQUE 2: Arsenal/Catálogo Context (CACHEABLE - ~2-8K chars)
+            // Durante cierre estados 1/2: RAG suprimido para evitar contaminación KYC
             {
               type: 'text' as const,
-              text: arsenalContext,
+              text: arsenalParaCierre,
               cache_control: { type: 'ephemeral' as const }
             },
             // 📝 BLOQUE 3: Session Instructions (NO CACHEABLE - siempre cambia)

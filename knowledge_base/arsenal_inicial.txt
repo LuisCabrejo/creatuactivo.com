@@ -245,7 +245,7 @@ Este activo es tuyo legalmente, como una casa o un terreno.
 
 **Piénsalo así:** Tu empleo es como vivir en una casa alquilada. Es bonita, pero si dejas de pagar con tu tiempo, te echan. No le puedes dejar las llaves a tus hijos.
 
-Construir este negocio es como construir un edificio de apartamentos, ladrillo a ladrillo. Es tuyo. Tienes las escrituras. El día que faltes, tus hijos heredan el edificio y siguen cobrando las rentas (las regalías del café) de por vida.
+Construir este negocio es como construir un edificio de apartamentos, ladrillo a ladrillo. Es tuyo. Tienes las escrituras. El día que faltes, tus hijos heredan el edificio y siguen cobrando las rentas (el ingreso recurrente del café) de por vida.
 
 No trabajamos para sobrevivir el mes, trabajamos para dejar un apellido.
 
@@ -342,7 +342,7 @@ Tú te quedas exclusivamente con la construcción del activo comercial: el ecosi
 
 **Piénsalo así:** Construir un negocio tradicional es como intentar montar una nueva aerolínea desde cero: tienes que comprar los aviones, contratar a los pilotos y pagar el mantenimiento constante. Es un desgaste absoluto.
 
-Construir este modelo es como ser dueño de la plataforma de reservas tecnológicas (como Booking o Expedia). Tú no compras ni mantienes un solo avión — tu única labor es orquestar el flujo de usuarios hacia la infraestructura que ya existe, cobrando regalías por cada transacción.
+Construir este modelo es como ser dueño de la plataforma de reservas tecnológicas (como Booking o Expedia). Tú no compras ni mantienes un solo avión — tu única labor es orquestar el flujo de usuarios hacia la infraestructura que ya existe, cobrando un peaje por cada transacción.
 
 Eliminamos el dolor de cabeza logístico para que puedas enfocarte 100% en la dirección y la rentabilidad del sistema.
 
@@ -351,19 +351,19 @@ Eliminamos el dolor de cabeza logístico para que puedas enfocarte 100% en la di
 ---
 
 ### **FREQ_11: "¿Cómo se genera el dinero exactamente?"**
-**[Concepto Nuclear]:** Regalías por Facturación Orgánica. Ganamos por el volumen de consumo cautivo, no por el ingreso transaccional de personas.
+**[Concepto Nuclear]:** Ingreso Recurrente por Facturación Orgánica. Ganamos por el volumen de consumo cautivo, no por el ingreso transaccional de personas.
 
-El modelo de monetización se basa estrictamente en la facturación orgánica. El corporativo no liquida comisiones por el simple ingreso de personas al sistema — nos pagan regalías por el volumen de consumo real que se genera.
+El modelo de monetización se basa estrictamente en la facturación orgánica. El corporativo no liquida comisiones por el simple ingreso de personas al sistema — nos pagan por el volumen de consumo real que se genera.
 
-Nuestra función directiva es construir un ecosistema de consumidores y socios comerciales que adoptan esta tecnología nutricional en su rutina diaria. Cada vez que alguien dentro de tu ecosistema (que puede escalar a miles de usuarios en toda América) consume el producto en su casa, tú generas una regalía.
+Nuestra función directiva es construir un ecosistema de consumidores y socios comerciales que adoptan esta tecnología nutricional en su rutina diaria. Cada vez que alguien dentro de tu ecosistema (que puede escalar a miles de usuarios en toda América) consume el producto en su casa, tú generas ingreso recurrente.
 
 **Piénsalo así:** Es exactamente el mismo modelo económico de plataformas como Spotify o Netflix.
 
-Spotify no factura por registrar a un artista en la plataforma — factura cada vez que un usuario le da "Play" a la canción. Tú, como Director de este activo, haces el trabajo estratégico de conectar a la persona a la infraestructura corporativa una sola vez. Pero cada vez que esa persona le da "Play" a su cafetera todos los días por el resto de su vida, el sistema te liquida una regalía automática.
+Spotify no factura por registrar a un artista en la plataforma — factura cada vez que un usuario le da "Play" a la canción. Tú, como Director de este activo, haces el trabajo estratégico de conectar a la persona a la infraestructura corporativa una sola vez. Pero cada vez que esa persona le da "Play" a su cafetera todos los días por el resto de su vida, el sistema te liquida un ingreso recurrente automático.
 
 Haces el trabajo de integración una sola vez, y cobras de forma vitalicia por el consumo recurrente.
 
-**Pregunta de seguimiento:** A nivel financiero, ¿en tus negocios actuales dependes de un ingreso lineal donde cobras una sola vez por tu esfuerzo, o ya cuentas con un modelo de regalías que te pague repetidamente por un trabajo bien hecho?
+**Pregunta de seguimiento:** A nivel financiero, ¿en tus negocios actuales dependes de un ingreso lineal donde cobras una sola vez por tu esfuerzo, o ya cuentas con un modelo de ingreso recurrente que te pague repetidamente por un trabajo bien hecho?
 
 ---
 
@@ -395,7 +395,7 @@ Un esquema piramidal o Ponzi es fraude financiero porque es un juego de suma cer
 
 Nuestra infraestructura es un modelo de Distribución Logística Real, regulado por las comisiones federales de comercio de los países donde operamos (como la FTC en EE. UU. y las superintendencias mercantiles en América Latina).
 
-Aquí, la liquidez proviene 100% del movimiento de un producto físico de alta rotación. Si mañana mismo cerramos las puertas y no ingresa un solo socio nuevo a tu organización, pero tu ecosistema actual de usuarios enciende su cafetera y consume el producto, el corporativo te sigue liquidando tus regalías intactas.
+Aquí, la liquidez proviene 100% del movimiento de un producto físico de alta rotación. Si mañana mismo cerramos las puertas y no ingresa un solo socio nuevo a tu organización, pero tu ecosistema actual de usuarios enciende su cafetera y consume el producto, el corporativo te sigue liquidando tu ingreso recurrente intacto.
 
 **Piénsalo así:** Es la diferencia entre meter tu dinero a un "fondo de inversión fantasma" donde le pagan a los primeros con el dinero de los últimos, versus ser dueño de una infraestructura logística como Amazon, donde cobras un margen comercial real por cada producto físico que sale de la bodega hacia el consumidor final.
 
@@ -427,7 +427,7 @@ Absolutamente. De hecho, esa es la filosofía central de nuestra infraestructura
 
 La industria tradicional suele vender la ilusión de "renunciar a tu empleo" o "cerrar tu negocio". Nosotros no operamos así. Si eres un especialista de élite, un ejecutivo o un empresario exitoso, nuestra visión no es que abandones tu profesión actual.
 
-El objetivo de esta infraestructura no es reemplazar cuánto ganas — sino transformar cómo sostienes tu riqueza: pasar de depender 100% de tu presencia física, a construir un ecosistema de regalías que opere en paralelo.
+El objetivo de esta infraestructura no es reemplazar cuánto ganas — sino transformar cómo sostienes tu riqueza: pasar de depender 100% de tu presencia física, a construir un ecosistema de ingreso recurrente que opere en paralelo.
 
 **Piénsalo así:** Una corporación exitosa no cierra sus operaciones principales cuando decide abrir una nueva división de negocios. Simplemente aprovecha su credibilidad para construir una línea de ingresos paralela.
 
@@ -457,7 +457,7 @@ Con nuestro ecosistema ocurre exactamente lo mismo. Mientras los seres humanos y
 
 La liquidación de tu patrimonio se realiza 100% con liquidez financiera real y bancarizada. En nuestra infraestructura no operamos con "puntos de plataforma", "bonos de descuento", ni canjes obligatorios por producto.
 
-Nuestro músculo corporativo ejecuta cortes financieros semanales. Cada viernes, las regalías generadas por tu activo se depositan directamente mediante transferencia a la cuenta bancaria que tú designes, en la moneda legal del país donde resides (dólares, pesos, etc.).
+Nuestro músculo corporativo ejecuta cortes financieros semanales. Cada viernes, el ingreso recurrente generado por tu activo se deposita directamente mediante transferencia a la cuenta bancaria que tú designes, en la moneda legal del país donde resides (dólares, pesos, etc.).
 
 **Piénsalo así:** A nivel contable, funciona exactamente como recibir la liquidación de dividendos de un portafolio de acciones, pero con dos ventajas operativas clave:
 
@@ -500,10 +500,10 @@ Si decides trasladar tu residencia a Estados Unidos, México o cualquier otro pa
 
 ## 📊 **BLOQUE 5: CONFIANZA Y AUTORIDAD (CRED) - 4 respuestas**
 
-### **CRED_01: "¿Quién está detrás de esto? ¿Quiénes son Luis y Liliana?"**
+### **CRED_01: "¿Quién está detrás de esto? ¿Quién es Luis Cabrejo?"**
 **[Concepto Nuclear]:** Skin in the game. Orquestadores vs. Teóricos. La dirección corporativa opera la misma tecnología que el héroe; no hay asimetría de riesgo.
 
-Detrás de mi inteligencia artificial hay una dirección humana con resultados auditables. Ellos son Luis Cabrejo y Liliana Moreno, los Directores y orquestadores de esta infraestructura.
+Detrás de mi inteligencia artificial hay una dirección humana con resultados auditables. Luis Cabrejo y su equipo directivo son los orquestadores de esta infraestructura.
 
 No son teóricos digitales vendiendo cursos, ni "gurús" de internet — son operadores directos. Llevan más de una década construyendo y expandiendo este ecosistema, consolidando una de las posiciones corporativas de mayor rentabilidad en toda la multinacional.
 

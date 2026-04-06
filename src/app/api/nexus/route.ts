@@ -2903,10 +2903,12 @@ ${summaryParts.join('\n')}
       const wordCount = msg.split(/\s+/).length;
       // Primer mensaje real del usuario → Sonnet (MENSAJE 1 es el momento de marca más crítico)
       if (userMessageCount === 1) return false;
-      // Saludos y cierres breves
-      if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|ok|listo|entendido|perfecto|genial|dale|de acuerdo|claro|sí|no|👋|😊)[\s!.?]*$/i.test(msg)) return true;
-      // Mensajes muy cortos sin intención de compra
-      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|ganar|negocio|unirme/i.test(msg)) return true;
+      // Saludos terminales simples (no señales de avance conversacional)
+      // REMOVIDO: "de acuerdo" — es señal de aceptación del pitch → requiere WHY_02 (Sonnet)
+      if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|👋|😊)[\s!.?]*$/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra ni avance conversacional
+      // EXPANDIDO: gana/ganas/ganar, iniciar/inicio/empezar cubren queries de ingreso y cierre
+      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|gana|ganar|negocio|unirme|iniciar|inicio|empezar|empiezo|cómo|funciona/i.test(msg)) return true;
       return false;
     })();
 
@@ -2916,9 +2918,17 @@ ${summaryParts.join('\n')}
     // Early FSM check: skip Voyage AI cuando estamos en flujo de cierre (estados 1/2/3)
     // El arsenal no se usa en esos estados — evita el round-trip innecesario a Voyage AI (~300ms)
     const isClosingFlowEarly = (() => {
-      if (mergedProspectData.package) return true; // Estado 3: paquete ya elegido
-      const botMessages = messages.filter((m: any) => m.role === 'assistant');
-      const lastBotMsg: string = botMessages[botMessages.length - 1]?.content || '';
+      // ── DETECCIÓN POST-ESTADO 3 ──────────────────────────────────────────────
+      // Si Estado 3 ya fue entregado en esta conversación, el prospecto puede seguir
+      // haciendo preguntas (precios, compensación, productos). Permitir flujo normal.
+      const botMsgs = messages.filter((m: any) => m.role === 'assistant');
+      const estadoTresYaEntregado = botMsgs.some((m: any) =>
+        /He consolidado tu expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+      );
+      if (estadoTresYaEntregado) return false; // Estado 3 ya entregado → flujo normal
+
+      if (mergedProspectData.package) return true; // Estado 3 pendiente: paquete elegido pero no entregado aún
+      const lastBotMsg: string = botMsgs[botMsgs.length - 1]?.content || '';
       if (/ancho de banda operativo|horas a la semana|cuántas horas/i.test(lastBotMsg)) return true; // Estado 1→2
       if (/háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar)|cuánto hay que (invertir|poner)|qué necesito (invertir|poner)/i.test(latestUserMessage)) return true;
       if (/cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i.test(latestUserMessage)) return true;
@@ -3154,6 +3164,13 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // `directPaquetes`: true cuando llegamos a Estado 2 sin pasar por Estado 1 (horas).
     // Cuando es true, el micro-prompt de Estado 2 NO menciona horas (nadie las declaró).
     const { closingState, directPaquetes } = (() => {
+      // ── POST-ESTADO 3: si el handoff ya fue entregado esta sesión → flujo normal ──
+      const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
+      const estadoTresEntregado = allBotMsgs.some((m: any) =>
+        /He consolidado tu expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+      );
+      if (estadoTresEntregado) return { closingState: 0 as const, directPaquetes: false };
+
       // Estado 3: paquete ya elegido (detectado por packageMap en captureProspectData)
       if (mergedProspectData.package) return { closingState: 3 as const, directPaquetes: false };
 
@@ -3311,11 +3328,14 @@ ${getMicroPromptCierre()}
 ${getCierreEstado3()}
 ${getPinCifrasGEN5()}
 ${getTablasComisiones()}
-${conversationSummary}📊 PROSPECTO:
-${mergedProspectData.name ? `• Nombre: ${mergedProspectData.name}` : ''}
-${mergedProspectData.archetype ? `• Arquetipo: ${mergedProspectData.archetype}` : ''}
-${mergedProspectData.phone ? `• WhatsApp: ${mergedProspectData.phone}` : ''}
-${mergedProspectData.interest_level ? `• Interés: ${mergedProspectData.interest_level}/10` : ''}
+${conversationSummary}<prospect_state>
+${mergedProspectData.name ? `  <nombre>${mergedProspectData.name}</nombre>` : '  <nombre>no_capturado</nombre>'}
+${mergedProspectData.archetype ? `  <arquetipo>${mergedProspectData.archetype}</arquetipo>` : ''}
+${mergedProspectData.phone ? `  <whatsapp_confirmado>${mergedProspectData.phone}</whatsapp_confirmado>` : ''}
+${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.interest_level}_de_10</nivel_interes>` : ''}
+  <turno_actual>${interaccionActual}</turno_actual>
+  <estado_fsm>${closingState}</estado_fsm>
+</prospect_state>
 
 ${searchMethod === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Usa precios EXACTOS del contenido arriba.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
@@ -3361,7 +3381,9 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
 
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
-    const isSimpleQuery = isSimpleQueryEarly;
+    // FIX: Si isClosingFlowEarly=true, SIEMPRE usar Sonnet — el FSM (getMicroPromptCierre)
+    // solo existe en el path Sonnet (Bloque 3 sessionInstructions). Haiku no lo recibe nunca.
+    const isSimpleQuery = isClosingFlowEarly ? false : isSimpleQueryEarly;
 
     // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
     // Incluye conversationSummary para que recuerde usuarios previos

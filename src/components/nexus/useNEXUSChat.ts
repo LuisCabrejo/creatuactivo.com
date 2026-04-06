@@ -23,9 +23,20 @@ interface Message {
 
 export const useNEXUSChat = () => {
 // 🎯 MENSAJE INICIAL CONTEXTUAL DE NEXUS
+// Palabras que NO son nombres propios — se capturan por el regex "soy X" pero son profesiones/arquetipos
+const NOMBRE_BLACKLIST = /^(empleado|independiente|gerente|director|ejecutivo|médico|doctor|abogado|ingeniero|contador|consultor|freelance|emprendedor|empresario|dueño|dueno|pensionado|jubilado|estudiante|otro|ninguno|nada|hola|ok|sí|no|si)$/i;
+
+const isValidName = (name: string | null): boolean => {
+  if (!name) return false;
+  if (NOMBRE_BLACKLIST.test(name.trim())) return false;
+  // Nombre válido: al menos 2 chars y empieza con letra
+  return name.trim().length >= 2 && /^[A-ZÀ-ÿa-z]/i.test(name.trim());
+};
+
 const getInitialGreeting = (): Message => {
   const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
-  const savedName = typeof window !== 'undefined' ? localStorage.getItem('nexus_prospect_name') : null;
+  const rawSavedName = typeof window !== 'undefined' ? localStorage.getItem('nexus_prospect_name') : null;
+  const savedName = isValidName(rawSavedName) ? rawSavedName : null;
   const greeting = savedName ? `Hola, ${savedName}` : 'Hola';
 
   if (isProductsPage) {
@@ -291,9 +302,12 @@ const sendMessage = useCallback(async (content: string) => {
       // Persistir nombre si el usuario lo mencionó en este mensaje
       if (!localStorage.getItem('nexus_prospect_name')) {
         const nameMatch = userMessage.content.match(
-          /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i
+          /(?:me llamo|mi nombre es)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i
         );
-        if (nameMatch) localStorage.setItem('nexus_prospect_name', nameMatch[1]);
+        // Validar que lo capturado sea un nombre real, no una profesión/arquetipo
+        if (nameMatch && isValidName(nameMatch[1])) {
+          localStorage.setItem('nexus_prospect_name', nameMatch[1]);
+        }
       }
 
     } else {

@@ -3474,8 +3474,11 @@ STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
     // inyectamos las cifras exactas del plan de compensación directamente en Bloque 3.
     // Patrón: mismo que getCierreEstado3 — código controla los números, no el LLM.
     const getPinCifrasGEN5 = (): string => {
-      const preguntaSobreCifras = /cuánto (gano|gana|se gana|cobra|genera)|ingreso inmediato|gen.?5|bono.*gen|comisión.*esp|cuánto.*paga|ejemplo.*número|números.*reales|cifras|cuánto.*entrada|cuánto.*primera|ganancia.*persona/i;
-      if (!preguntaSobreCifras.test(latestUserMessage)) return '';
+      // Disparar si la query es sobre cifras/ganancias O si el doc recuperado es de compensación
+      const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
+        || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bgen[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
+      if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage)) return '';
       return `
 📌 CIFRAS VERIFICADAS GEN5 — USA SOLO ESTOS NÚMEROS (fuente: plan de compensación oficial):
 Ingreso Inmediato se llama "Bono GEN5". Solo aplica con Paquetes Empresariales (ESP-1/2/3).
@@ -3487,9 +3490,12 @@ El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anter
 
     // ── TABLA DE COMISIONES (investigación: tablas > párrafos para comprensión cognitiva)
     const getTablasComisiones = (): string => {
-      const pidePaquetes = closingState === 2;
-      const pideEjemploComision = /ejemplo.*(gen5?|binario|velocidad|comisi|ingreso|gana)|dame.*(gen5?|binario|velocidad|número|cifra|cuánto)|gen5?.*(ejemplo|gráfico|número)|binario.*(ejemplo|gráfico|número)/i.test(latestUserMessage);
-      if (!pideEjemploComision && !pidePaquetes) return '';
+      // Disparar cuando: se pide ejemplo explícito, O el doc recuperado es de compensación GEN5/Binario
+      const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
+        || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
+      const pideEjemploComision = /ejemplo.*(gen5?|binario|velocidad|comisi|ingreso|gana)|dame.*(gen5?|binario|velocidad|n[uú]mero|cifra|cu[aá]nto)|gen5?.*(ejemplo|gr[aá]fico|n[uú]mero)|binario.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
+      const esConsultaCompensacion = esDocCompensacion && /gen[\s.-]?5|binario|bono|comisi[oó]n|ingreso\s*(inmediato|recurrente)|cu[aá]nto\s*(gano|se\s*gana|paga)|ganancias|n[uú]meros/i.test(latestUserMessage);
+      if (!pideEjemploComision && !esConsultaCompensacion && closingState !== 2) return '';
       return `
 📊 FORMATO TABLA OBLIGATORIO para GEN5 y Binario. Reglas:
 

@@ -1138,11 +1138,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:reskine|colágeno)/i,
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:espirulina|c'real)/i,
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:rooibos|oleaf)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*schokoladde/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*schokolade/i,
 
     // ===== CUIDADO PERSONAL =====
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:pasta.*dientes|gano fresh)/i,
-    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:jabón|champú|acondicionador|exfoliante)/i,
+    /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:jabón|gano\s*soap|soap\s*gano|jabón\s*gano|champú|acondicionador|exfoliante)/i,
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:piel.*brillo|piel&brillo)/i,
 
     // ===== PATRONES GENERALES DE PRODUCTOS =====
@@ -1154,9 +1154,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // ===== PATRONES ESPECÍFICOS POR MARCA =====
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:gano excel|dxn)/i,
 
-    // ===== CRÍTICO: Precios de productos individuales con nombre explícito =====
-    // NOTA: Catch-alls genéricos removidos — regex con .* + lookahead son siempre true.
-    // Las queries sin producto específico caen al vector search (mejor resultado).
+    // ===== FÓRMULAS NATURALES DE CONSULTA DE PRECIO =====
+    // "qué precio tiene X", "cuánto es el X", "cuánto sale el X", "a cuánto está X"
+    /qu[eé]\s*precio\s*(?:tiene|cuesta|vale)\s+(?:el|la|los|las)?\s*(?:gano|caf[eé]|schokolade|cordygold|luvoco|reskine|col[aá]geno|espirulina|rooibos|jab[oó]n|soap|shampoo|acondicionador|exfoliante|excellium|c[aá]psulas)/i,
+    /cu[aá]nto\s+(?:es|sale|está|esta)\s+(?:el|la|los|las)?\s*(?:gano|caf[eé]|schokolade|cordygold|luvoco|reskine|col[aá]geno|espirulina|rooibos|jab[oó]n|soap|shampoo|acondicionador|exfoliante|excellium|c[aá]psulas)/i,
+    /a\s*cu[aá]nto\s*(?:est[aá]n?)\s+(?:el|la|los|las)?\s*(?:gano|caf[eé]|schokolade|cordygold|luvoco|reskine|jab[oó]n|soap)/i,
   ];
 
   // 🎯 NUEVA CLASIFICACIÓN: LOS 12 NIVELES (arsenal_12_niveles v4.0)

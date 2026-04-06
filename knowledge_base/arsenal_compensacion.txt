@@ -418,45 +418,86 @@ Son dos metricas diferentes con propositos diferentes:
 | PV | Puntos de Volumen Personal | Activarte (50-100 PV) | TU con tus compras |
 | CV | Volumen Comisional | Calcular Bono Binario | TU EQUIPO con sus compras |
 
-**Relacion entre PV y CV:**
-| Producto | PV (tu activacion) | CV (comision binaria) |
-|----------|--------------------|-----------------------|
-| Ganocafe 3en1 | 15 PV | 14 CV |
-| Gano Schokolade | 17 PV | 16 CV |
-| Ganorico (todos) | 17 PV | 16 CV |
-| Ganoderma Caps | 41 PV | 38 CV |
-| Excellium Caps | 41 PV | 38 CV |
-| Cordygold Caps | 49 PV | 46 CV |
+**Relacion entre PV y CV (tabla oficial vigente 2026):**
+| Cod. | Producto | PV | CV |
+|------|----------|-----|-----|
+| 501 | Ganocafe 3 en 1 | 15 | 14 |
+| 505 | Gano Cafe Classic | 15 | 14 |
+| 502 | Gano Schokolade | 17 | 15.6 |
+| 507 | Gano C'Real Spirulina | 17 | 15 |
+| 504 | Oleaf Gano Rooibos | 17 | 15 |
+| 503 | Ganorico Mocha Rico | 17 | 15 |
+| 509 | Ganorico Latte Rico | 17 | 15 |
+| 512 | Ganorico Shoko Rico | 17 | 15.6 |
+| 530 | Reskine Collagen Drink | 31 | 27.6 |
+| 801 | Ganoderma Capsulas | 41 | 34.5 |
+| 803 | Excellium Capsulas | 41 | 34.5 |
+| 805 | Cordygold Capsulas | 49 | 43 |
+| 816 | Luvoco Suave (capsula) | 15 | 14 |
+| 817 | Luvoco Medio (capsula) | 15 | 14 |
+| 818 | Luvoco Fuerte (capsula) | 15 | 14 |
+| 997 | Luvoco Premium Maquina | 0 | 0 |
+| 301 | Gano Soap | 10.4 | 8.9 |
+| 302 | Gano Fresh Toothpaste | 11 | 9.5 |
+| 303 | Gano Transparent Soap | 12 | 10 |
+| 305 | Piel8Brillo Shampoo | 11 | 9 |
+| 306 | Piel8Brillo Acondicionador | 11 | 9 |
+| 307 | Piel8Brillo Exfoliante | 11 | 9 |
+| 897 | ESP-1 (paquete) | 100 | 100 |
+| 898 | ESP-2 (paquete) | 250 | 250 |
+| 899 | ESP-3 (paquete) | 500 | 500 |
 
-**Regla practica:** CV ≈ PV - 1 a 3 puntos (varia por producto).
+**Regla practica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, segun categoria). Excepcion: Maquina LUVOCO da 0 PV y 0 CV — el negocio esta en las capsulas, no en la maquina.
 
 **Insight:** Cuando calculas tu activacion personal, usa PV. Cuando calculas ganancias del Binario, usa CV de tu equipo.
 
 ---
 
-### COMP_PV_06: "Cuantos PV genera cada producto?"
+### COMP_PV_06: "Cuantos PV genera cada producto?" / "Que PV tiene el cafe?" / "PV del cordygold" / "cuantos puntos da el rooibos"
 
-**[Concepto Nuclear]:** Los cafes dan 15-17 PV. Los suplementos dan 41-49 PV.
+**[Concepto Nuclear]:** Cafes/capuchinos: 15-17 PV. Reskine: 31 PV. Suplementos: 41-49 PV. Cuidado personal: 10-12 PV.
 
-**Productos Principales (PV y Precio):**
-| Producto | PV | Precio COP |
-|----------|-----|------------|
-| Ganocafe 3en1 | 15 | $110,900 |
-| Gano Schokolade | 17 | $124,900 |
-| Ganorico (todos) | 17 | $119,900 |
-| Ganoderma Caps | 41 | $272,500 |
-| Excellium Caps | 41 | $272,500 |
-| Cordygold Caps | 49 | $336,900 |
-| Jabon/Pasta | 10-12 | $73,900 |
+**Tabla completa PV, CV y Precio (vigente 2026):**
+| Cod. | Producto | PV | CV | Precio COP |
+|------|----------|-----|-----|------------|
+| 501 | Ganocafe 3 en 1 | 15 | 14 | $110,900 |
+| 505 | Gano Cafe Classic | 15 | 14 | $110,900 |
+| 502 | Gano Schokolade | 17 | 15.6 | $124,900 |
+| 507 | Gano C'Real Spirulina | 17 | 15 | $119,900 |
+| 504 | Oleaf Gano Rooibos | 17 | 15 | $119,900 |
+| 503 | Ganorico Mocha Rico | 17 | 15 | $119,900 |
+| 509 | Ganorico Latte Rico | 17 | 15 | $119,900 |
+| 512 | Ganorico Shoko Rico | 17 | 15.6 | $124,900 |
+| 530 | Reskine Collagen Drink | 31 | 27.6 | $216,900 |
+| 801 | Ganoderma Capsulas | 41 | 34.5 | $272,500 |
+| 803 | Excellium Capsulas | 41 | 34.5 | $272,500 |
+| 805 | Cordygold Capsulas | 49 | 43 | $336,900 |
+| 816 | Luvoco Suave (capsula) | 15 | 14 | $110,900 |
+| 817 | Luvoco Medio (capsula) | 15 | 14 | $110,900 |
+| 818 | Luvoco Fuerte (capsula) | 15 | 14 | $110,900 |
+| 997 | Luvoco Premium Maquina | 0 | 0 | $1,026,000 |
+| 301 | Gano Soap | 10.4 | 8.9 | $73,900 |
+| 302 | Gano Fresh Toothpaste | 11 | 9.5 | $73,900 |
+| 303 | Gano Transparent Soap | 12 | 10 | $78,500 |
+| 305 | Piel8Brillo Shampoo | 11 | 9 | $73,900 |
+| 306 | Piel8Brillo Acondicionador | 11 | 9 | $73,900 |
+| 307 | Piel8Brillo Exfoliante | 11 | 9 | $73,900 |
 
-**Ejemplo para llegar a 50 PV (~$350,000):**
-| Productos | PV |
-|-----------|-----|
-| 3x Ganocafe 3en1 | 45 PV |
-| 1x Jabon | 10.4 PV |
-| **Total** | **55.4 PV** ✓ |
+**Ejemplo para llegar a 50 PV (activacion minima):**
+| Productos | PV | Costo aprox. |
+|-----------|-----|--------------|
+| 3x Ganocafe 3en1 | 45 PV | $332,700 |
+| 1x Gano Soap | 10.4 PV | $73,900 |
+| **Total** | **55.4 PV** ✓ | ~$406,600 |
 
-**Insight:** Con ~$350,000 en productos llegas a 50 PV. Con ~$550,000 llegas a 100 PV.
+**Ejemplo para llegar a 100 PV (Premium Activo — Gen5 doble):**
+| Productos | PV | Costo aprox. |
+|-----------|-----|--------------|
+| 6x Ganocafe 3en1 | 90 PV | $665,400 |
+| 1x Gano Schokolade | 17 PV | $124,900 |
+| **Total** | **107 PV** ✓ | ~$790,300 |
+
+**Insight:** La maquina LUVOCO no da PV ni CV — el negocio esta en las capsulas (15 PV c/u). Con 7 cajas de capsulas Luvoco llegas a 105 PV Premium.
 
 ---
 

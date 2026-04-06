@@ -2140,6 +2140,42 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
+  // ⚡ ROUTING DIRECTO: PAQUETES DE INVERSIÓN (compensación)
+  // "háblame de los paquetes", "que trae el ESP-2", etc. → COMP_PAQ_01-04 directamente
+  // Evita fallos de vector search cuando la query no alcanza threshold 0.30
+  if (documentType === 'arsenal_compensacion') {
+    const msgLc = userMessage.toLowerCase();
+    const esPaqueteQuery = /paquete|esp[-\s]?[123]|qu[eé].*trae|qu[eé].*incluye|composici[oó]n|inventario.*esp|contenido.*esp|inversion.*inicial|cuánto.*cuesta.*emp|precio.*esp/i.test(msgLc);
+    if (esPaqueteQuery) {
+      const esESP1 = /esp[-\s]?1|inicial|200\s*usd/i.test(msgLc);
+      const esESP2 = /esp[-\s]?2|empresarial|500\s*usd/i.test(msgLc);
+      const esESP3 = /esp[-\s]?3|visionario|1[,.]?000\s*usd/i.test(msgLc);
+      // Si pide uno específico → PAQ_01 + el específico; si pide todos → PAQ_01,02,03,04
+      const paqIds: string[] = ['arsenal_compensacion_COMP_PAQ_01'];
+      if (esESP1 || (!esESP2 && !esESP3)) paqIds.push('arsenal_compensacion_COMP_PAQ_02');
+      if (esESP2 || (!esESP1 && !esESP3)) paqIds.push('arsenal_compensacion_COMP_PAQ_03');
+      if (esESP3 || (!esESP1 && !esESP2)) paqIds.push('arsenal_compensacion_COMP_PAQ_04');
+
+      const allFragments = await getArsenalFragments();
+      const paqFrags = allFragments.filter(f => paqIds.includes(f.category));
+      console.log(`🎯 [Paquetes] Routing directo: ${paqFrags.map(f => f.category).join(', ')}`);
+      if (paqFrags.length > 0) {
+        const combinedContent = paqFrags.map(f => f.content).join('\n\n---\n\n');
+        const result = [{
+          id: 'arsenal_compensacion_paquetes',
+          title: 'Paquetes de Inversión — COMP_PAQ_01-04',
+          content: combinedContent,
+          category: 'arsenal_compensacion',
+          metadata: { is_paquetes: true, fragment_count: paqFrags.length },
+          source: '/knowledge_base/arsenal_compensacion.txt',
+          search_method: 'paquete_direct'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+    }
+  }
+
   // ⚡ LÓGICA OPTIMIZADA v14.9: FRAGMENTOS DE ARSENALES
   // Reduce tokens de entrada de ~60K a ~3K por request (95% ahorro)
   if (documentType && documentType.startsWith('arsenal_')) {
@@ -3522,13 +3558,18 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
 
     // ⚡ v17.5.0: Tokens aumentados para respuestas más cálidas y completas
     const pideTablaCVPV = /\bcv\b.*\bpv\b|\bpv\b.*\bcv\b|tabla.*(?:cv|pv)|todos.*(?:cv|pv)|(?:cv|pv).*todos/i.test(lastUserMessage);
-    const maxTokens = pideListaPrecios || pideTablaCVPV
-      ? 1000  // Lista completa de 22 productos o tabla CV/PV (22 filas)
+    const esCatalogoCompleto = searchMethod === 'price_table_fragments' || searchMethod === 'category_direct';
+    const maxTokens = pideTablaCVPV
+      ? 1200  // Tabla CV/PV (22 filas)
+      : pideListaPrecios || esCatalogoCompleto
+      ? 1500  // Lista completa 22 productos (4 tablas por categoría)
+      : searchMethod === 'paquete_direct'
+      ? 1200  // Paquetes: tabla comparativa + composición ESP-1/2/3
       : searchMethod === 'catalogo_productos'
-      ? 500   // Consultas de precios = espacio para contexto (antes: 400)
+      ? 600   // Consulta de producto individual
       : prospectData.momento_optimo === 'caliente'
-      ? 700   // Prospecto caliente = cierre cálido detallado (antes: 500)
-      : 700;  // Default: espacio para empatía + analogías (antes: 600)
+      ? 700
+      : 700;
 
     console.log(`⚡ max_tokens dinámico: ${maxTokens} (${searchMethod}, pideListaPrecios=${pideListaPrecios})`);
 

@@ -3412,7 +3412,7 @@ STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
 Ingreso Inmediato se llama "Bono GEN5". Solo aplica con Paquetes Empresariales (ESP-1/2/3).
 • ESP-3 Visionario ($1,000 USD): Gen1=$150 | Gen2=$20 | Gen3=$20 | Gen4=$20 | Gen5=$40
 • ESP-2 Empresarial ($500 USD):  Gen1=$75  | Gen2=$10 | Gen3=$10 | Gen4=$10 | Gen5=$20
-• ESP-1 Inicial ($200 USD):      Gen1=$50  | Gen2=$7  | Gen3=$7  | Gen4=$7  | Gen5=$14
+• ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10
 El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anteriores.`;
     };
 
@@ -3426,8 +3426,8 @@ El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anter
 
 | Generación | ESP-3 ($1,000) | ESP-2 ($500) | ESP-1 ($200) |
 |---|---|---|---|
-| Gen 1 (directo) | $150 USD | $75 USD | $50 USD |
-| Gen 2 | $20 USD | $10 USD | $7 USD |
+| Gen 1 (directo) | $150 USD | $75 USD | $25 USD |
+| Gen 2 | $20 USD | $10 USD | $5 USD |
 
 Adapta con los números del caso que estás explicando. Las tablas son superiores cognitivamente a párrafos para datos numéricos.
 🚫 PROHIBIDO: NO uses árboles ASCII, diagramas de árbol ni representaciones jerárquicas visuales (texto con guiones/barras para simular un árbol genealógico). Parecen pirámides. Solo tablas Markdown.`;
@@ -3449,7 +3449,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
   <estado_fsm>${closingState}</estado_fsm>
 </prospect_state>
 
-${relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Extrae el precio exacto del fragmento recuperado. No estimes ni calcules.` : ''}
+${relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
 ${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar/i.test(latestUserMessage) ? `💰 PAQUETES: SIEMPRE muestra precio en AMBAS monedas: USD y COP. Formato obligatorio: "$200 USD / $900,000 COP", "$500 USD / $2,250,000 COP", "$1,000 USD / $4,500,000 COP". Tasa corporativa fija: $4,500 COP por USD. NUNCA solo USD sin COP.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}

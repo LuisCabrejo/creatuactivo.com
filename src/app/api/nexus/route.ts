@@ -1472,6 +1472,15 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'arsenal_compensacion';
   }
 
+  // PRIORIDAD 1.6: GEN5 / Bonos / Plan de Compensación → arsenal_compensacion
+  // FIX 2026-04-06: patrones_cierre incluye /gen5/i, /bono/i, /comision/i pero devuelve
+  // arsenal_avanzado — GEN5 content está en COMP_GEN5_01 de arsenal_compensacion.
+  const esGEN5oCompensacion = /\bgen[\s-]?5\b|\bgen5\b|bono.*inici|inici.*r[aá]pid|plan\s*de?\s*compensac|compensac.*plan|c[oó]mo\s*(se\s*)?(gana|paga|distribuye)\s*(el\s*)?dinero|qu[eé]\s*gano\s*cuando|cu[aá]nto\s*gano\s*(por|en|a\s*la?\s*(semana|mes))|velocidad\s*de\s*inici|pago\s*semanal|tabla\s*de\s*generac|bono\s*de\s*inici/i.test(messageLower);
+  if (esGEN5oCompensacion) {
+    console.log('💰 Clasificación: GEN5/Bono/Compensación → arsenal_compensacion (COMP_GEN5_*)');
+    return 'arsenal_compensacion';
+  }
+
   // PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
   if (patrones_productos.some(patron => patron.test(messageLower)) ||
       patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
@@ -2020,11 +2029,37 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
   // NUEVA LÓGICA: CONSULTA DE CATÁLOGO DE PRODUCTOS (fragmentada)
   if (documentType === 'catalogo_productos') {
-    // Queries de "lista completa" → doc monolítico (fragmentos cubren solo 5 categorías,
-    // el modelo alucinaprecios para las categorías no recuperadas)
-    const esListaCompleta = /catálogo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto/i.test(userMessage.toLowerCase());
+    // Queries de "lista completa" → recuperar las 4 tablas de precios explícitamente
+    // BEB_01 + LUV_01 + SUP_01 + PERS_01 tienen TODAS las tablas de precios del catálogo
+    // El doc monolítico (14,748 chars) causaba alucinaciones de precio por atención dispersa
+    const esListaCompleta = /cat[aá]logo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto/i.test(userMessage.toLowerCase());
     if (esListaCompleta) {
-      console.log('📋 [Catálogo] Lista completa detectada → doc completo (no fragmentos)');
+      console.log('📋 [Catálogo] Lista completa → recuperando tablas de precio (BEB_01+LUV_01+SUP_01+PERS_01)');
+      const allFragments = await getArsenalFragments();
+      const precioIds = [
+        'catalogo_productos_BEB_01',
+        'catalogo_productos_LUV_01',
+        'catalogo_productos_SUP_01',
+        'catalogo_productos_PERS_01'
+      ];
+      const precioFragments = allFragments.filter(f => precioIds.includes(f.category));
+      console.log(`📋 [Catálogo] Tablas de precio recuperadas: ${precioFragments.map(f => f.category).join(', ')}`);
+      if (precioFragments.length >= 2) {
+        const combinedContent = precioFragments.map(f => f.content).join('\n\n---\n\n');
+        const result = [{
+          id: 'catalogo_productos_price_tables',
+          title: 'Tablas de precios — Catálogo completo',
+          content: combinedContent,
+          category: 'catalogo_productos',
+          metadata: { is_price_tables: true, fragment_count: precioFragments.length },
+          source: '/knowledge_base/catalogo_productos.txt',
+          search_method: 'price_table_fragments'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+      // Fallback: si los fragmentos no están disponibles, usar doc monolítico
+      console.log('⚠️ [Catálogo] Fragmentos de precio no disponibles → fallback doc completo');
       const catalogoResult = await consultarCatalogoProductos(query);
       if (catalogoResult.length > 0) {
         searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
@@ -3394,7 +3429,8 @@ El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anter
 | Gen 1 (directo) | $150 USD | $75 USD | $50 USD |
 | Gen 2 | $20 USD | $10 USD | $7 USD |
 
-Adapta con los números del caso que estás explicando. Las tablas son superiores cognitivamente a párrafos para datos numéricos.`;
+Adapta con los números del caso que estás explicando. Las tablas son superiores cognitivamente a párrafos para datos numéricos.
+🚫 PROHIBIDO: NO uses árboles ASCII, diagramas de árbol ni representaciones jerárquicas visuales (texto con guiones/barras para simular un árbol genealógico). Parecen pirámides. Solo tablas Markdown.`;
     };
 
     const sessionInstructions = `
@@ -3414,6 +3450,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
 </prospect_state>
 
 ${relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Extrae el precio exacto del fragmento recuperado. No estimes ni calcules.` : ''}
+${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar/i.test(latestUserMessage) ? `💰 PAQUETES: SIEMPRE muestra precio en AMBAS monedas: USD y COP. Formato obligatorio: "$200 USD / $900,000 COP", "$500 USD / $2,250,000 COP", "$1,000 USD / $4,500,000 COP". Tasa corporativa fija: $4,500 COP por USD. NUNCA solo USD sin COP.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;

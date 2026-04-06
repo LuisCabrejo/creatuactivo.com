@@ -1181,19 +1181,6 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /443[,.]?600/i,                      // "$443,600" o "443.600"
     /443\s*mil/i,                        // "443 mil"
     /cuatrocientos.*cuarenta.*tres/i,    // escrito en palabras
-
-    // ===== FIX: QUÉ PRODUCTOS TRAE/INCLUYE CADA PAQUETE =====
-    // Datos en arsenal_12_niveles (INV_02, INV_03) — no en arsenal_avanzado
-    /qu[eé].*(?:productos|viene|trae|incluye|contiene|recibo).*paquete/i,
-    /qu[eé].*(?:productos|viene|trae|incluye|contiene|recibo).*esp/i,
-    /cu[aá]ntos.*productos.*(paquete|esp|inicial|empresarial|visionario)/i,
-    /paquete.*(trae|incluye|contiene|recibo|viene)/i,
-    /esp.*(trae|incluye|contiene|recibo|viene)/i,
-    /productos.*(?:paquete|esp|inicial|empresarial|visionario)/i,
-    /inventario.*paquete/i,
-    /listado.*productos.*paquete/i,
-    /desglose.*paquete/i,
-    /composici[oó]n.*paquete/i,
   ];
 
   // 🔥 CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN GENERAL (arsenal_compensacion)
@@ -1293,21 +1280,28 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(?:cv|pv|puntos).*luvoco/i,       // "CV luvoco", "puntos luvoco"
     /(?:cv|pv|puntos).*m[aá]quina/i,   // "CV máquina", "puntos máquina"
 
-    // ===== FIX: PRECIO Y DISPONIBILIDAD DE PAQUETES EMPRESARIALES =====
-    // Datos en arsenal_compensacion (COMP_PAQ_01) — no en arsenal_avanzado
+    // ===== FIX: TODO LO RELACIONADO CON PAQUETES =====
+    // COMP_PAQ_01 (precios), COMP_PAQ_02/03/04 (contenido) — todos en arsenal_compensacion
     /precio.*paquete/i,                // "precio de los paquetes"
     /paquete.*precio/i,                // "paquete empresarial precio"
-    /cu[aá]nto.*cuesta.*(paquete|esp|empezar|activar|entrar)/i, // "cuánto cuesta el ESP-2"
-    /cu[aá]nto.*vale.*(paquete|esp)/i, // "cuánto vale el ESP-3"
-    /paquetes.*disponibles/i,          // "paquetes disponibles"
-    /cu[aá]les.*(?:son.*)?(?:los\s+)?paquetes/i, // "cuáles son los paquetes"
-    /qu[eé].*paquetes.*(?:hay|tienen|ofrecen)/i, // "qué paquetes hay"
-    /h[aá]blame.*(?:de\s+)?(?:los\s+)?paquetes/i, // "háblame de los paquetes"
-    /info.*(?:de\s+)?(?:los\s+)?paquetes/i, // "info de los paquetes"
-    /informaci[oó]n.*paquetes/i,       // "información de paquetes"
-    /tipos.*(?:de\s+)?paquetes/i,      // "tipos de paquetes"
-    /\besp[\s-]?[123]\b/i,             // "ESP-1", "ESP 2", "ESP3" (cualquiera)
-    /paquete\s*(?:inicial|empresarial|visionario)/i, // nombres de paquetes
+    /cu[aá]nto.*cuesta.*(paquete|esp|empezar|activar|entrar)/i,
+    /cu[aá]nto.*vale.*(paquete|esp)/i,
+    /paquetes.*disponibles/i,
+    /cu[aá]les.*(?:son.*)?(?:los\s+)?paquetes/i,
+    /qu[eé].*paquetes.*(?:hay|tienen|ofrecen)/i,
+    /h[aá]blame.*(?:de\s+)?(?:los\s+)?paquetes/i,
+    /informaci[oó]n.*paquetes/i,
+    /tipos.*(?:de\s+)?paquetes/i,
+    /\besp[\s-]?[123]\b/i,             // "ESP-1", "ESP 2", "ESP3"
+    /paquete\s*(?:inicial|empresarial|visionario)/i,
+    // Contenido por paquete (COMP_PAQ_02/03/04)
+    /qu[eé].*(?:trae|incluye|contiene|recibo|viene).*(?:paquete|esp)/i,
+    /(?:paquete|esp).*(?:trae|incluye|contiene|recibo|viene)/i,
+    /cu[aá]ntos.*productos.*(paquete|esp)/i,
+    /qu[eé].*productos.*(paquete|esp)/i,
+    /desglose.*paquete/i,
+    /composici[oó]n.*paquete/i,
+    /inventario.*paquete/i,
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)

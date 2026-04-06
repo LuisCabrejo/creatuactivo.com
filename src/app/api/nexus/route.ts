@@ -1465,13 +1465,16 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /luvoco.*(?:cápsula|beneficio|para.*qué|sirve)/i        // Luvoco sin precio
   ];
 
-  // PRIORIDAD 1.5: CV/PV de productos → arsenal_compensacion (ANTES que catálogo)
-  // Sin este override, queries como "¿cuántos PV tiene el Rooibos?" van a catalogo_productos
-  // porque /rooibos/i matchea patrones_beneficios_productos → no encuentra PV/CV ahí.
-  // COMP_PV_06 tiene la tabla completa PV/CV/precio de todos los productos.
+  // PRIORIDAD 1.5: CV/PV de productos O lista completa de precios → arsenal_compensacion
+  // COMP_PV_06 es la fuente única de verdad: 22 productos × {Cod|PV|CV|Precio COP vigente 2026}.
+  // Los fragmentos de catalogo_productos (BEB_01 etc.) tienen precios correctos en el TXT
+  // pero el modelo los ignora y usa precios de entrenamiento (~2023). COMP_PV_06 tiene
+  // códigos oficiales de producto que el modelo no puede "sustituir" con datos viejos.
   const esCVoPVQuery = /\bcv\b|\bpv\b|puntos\s*(de\s*)?volumen|volumen\s*personal|cu[aá]ntos?\s*(pv|cv)|valor(es)?\s*(pv|cv)|(pv|cv)\s*(tiene|del?|de\s+la?|por|da|aporta|genera)/i.test(messageLower);
-  if (esCVoPVQuery) {
-    console.log('📊 Clasificación: CV/PV PRODUCTOS → arsenal_compensacion (COMP_PV_06)');
+  // "dame los precios" / "lista completa" / "todos los precios" → también COMP_PV_06
+  const esListaPreciosGlobal = /lista.*precio|precio.*lista|todos.*(?:los\s*)?precio|precios.*(?:de\s*todos|completo)|dame.*(?:los\s*)?precio|cu[aá]les.*(?:son.*)?(?:los\s*)?precio|precio.*producto|catálogo.*precio|22.*producto/i.test(messageLower);
+  if (esCVoPVQuery || esListaPreciosGlobal) {
+    console.log('📊 Clasificación: CV/PV / LISTA PRECIOS → arsenal_compensacion (COMP_PV_06)');
     return 'arsenal_compensacion';
   }
 
@@ -2140,6 +2143,33 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     if (catalogoResult.length > 0) {
       searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
       return catalogoResult;
+    }
+  }
+
+  // ⚡ ROUTING DIRECTO: TABLA DE PRECIOS COMPLETA → COMP_PV_06
+  // COMP_PV_06 = 22 productos × {Cod|PV|CV|Precio COP vigente 2026}. Es la fuente canónica.
+  // Los fragmentos de catalogo_productos (BEB_01 etc.) son ignorados por el modelo que usa
+  // precios de entrenamiento pre-2026. COMP_PV_06 tiene códigos oficiales que anclan el modelo.
+  if (documentType === 'arsenal_compensacion') {
+    const msgLp = userMessage.toLowerCase();
+    const esListaPrecios = /lista.*precio|precio.*lista|todos.*precio|precios.*(?:de\s*todos|completo|producto)|dame.*precio|cu[aá]les.*precio|22.*producto|catálogo.*precio|\bcv\b.*\bpv\b|\bpv\b.*\bcv\b|cv.*pv.*precio|tabla.*precio|precios.*caf[eé]/i.test(msgLp);
+    if (esListaPrecios) {
+      console.log('📊 [COMP_PV_06] Routing directo → tabla completa precios+CV+PV');
+      const allFragments = await getArsenalFragments();
+      const pvFrags = allFragments.filter(f => f.category === 'arsenal_compensacion_COMP_PV_06');
+      if (pvFrags.length > 0) {
+        const result = [{
+          id: 'arsenal_compensacion_COMP_PV_06',
+          title: 'Tabla completa PV, CV y Precio — 22 productos vigente 2026',
+          content: pvFrags[0].content,
+          category: 'arsenal_compensacion',
+          metadata: { is_pv_table: true },
+          source: '/knowledge_base/arsenal_compensacion.txt',
+          search_method: 'comp_pv06_direct'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
     }
   }
 
@@ -3537,7 +3567,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
   <estado_fsm>${closingState}</estado_fsm>
 </prospect_state>
 
-${relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
+${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — COMP_PV_06: Copia la tabla EXACTAMENTE como aparece en el contexto. NO inventes categorías ni nombres de sección ("Cafés con Ganoderma", "Bebidas Premium", etc.) — esas categorías no existen en la tabla oficial. NO uses precios de tu entrenamiento. Los precios correctos para Colombia 2026 están en la columna "Precio COP" del contexto recuperado.` : relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
 ${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar/i.test(latestUserMessage) ? `💰 PAQUETES: SIEMPRE muestra precio en AMBAS monedas: USD y COP. Formato obligatorio: "$200 USD / $900,000 COP", "$500 USD / $2,250,000 COP", "$1,000 USD / $4,500,000 COP". Tasa corporativa fija: $4,500 COP por USD. NUNCA solo USD sin COP.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
@@ -3567,8 +3597,10 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
 
     // ⚡ v17.5.0: Tokens aumentados para respuestas más cálidas y completas
     const pideTablaCVPV = /\bcv\b.*\bpv\b|\bpv\b.*\bcv\b|tabla.*(?:cv|pv)|todos.*(?:cv|pv)|(?:cv|pv).*todos/i.test(lastUserMessage);
-    const esCatalogoCompleto = searchMethod === 'price_table_fragments' || searchMethod === 'category_direct';
-    const maxTokens = pideTablaCVPV
+    const esCatalogoCompleto = searchMethod === 'price_table_fragments' || searchMethod === 'category_direct' || searchMethod === 'comp_pv06_direct';
+    const maxTokens = searchMethod === 'comp_pv06_direct'
+      ? 1200  // COMP_PV_06: tabla 22 filas + 2 ejemplos de activación
+      : pideTablaCVPV
       ? 1200  // Tabla CV/PV (22 filas)
       : pideListaPrecios || esCatalogoCompleto
       ? 1500  // Lista completa 22 productos (4 tablas por categoría)

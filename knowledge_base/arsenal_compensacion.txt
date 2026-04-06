@@ -757,9 +757,9 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Paquete | Inversion (USD) | Inversion (COP) | Productos | % Binario | GEN5? |
 |---------|-----------------|-----------------|-----------|-----------|-------|
 | Kit Inicio | ~$100 USD | ~$443,600 COP | Variable | 10% | NO |
-| ESP-1 | $200 USD | ~$900K COP | 7 | 15% (2 meses) | SI |
-| ESP-2 | $500 USD | ~$2.25M COP | 18 | 16% (4 meses) | SI |
-| ESP-3 | $1,000 USD | ~$4.5M COP | 35 | 17% (6 meses) | SI |
+| ESP-1 | $200 USD | $900,000 COP | 7 | 15% (2 meses) | SI |
+| ESP-2 | $500 USD | $2,250,000 COP | 18 | 16% (4 meses) | SI |
+| ESP-3 | $1,000 USD | $4,500,000 COP | 35 | 17% (6 meses) | SI |
 
 **Bono GEN5 Gen 1 (socio directo):**
 | Tu Paquete | Nuevo ESP-3 | Nuevo ESP-2 | Nuevo ESP-1 |
@@ -776,7 +776,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 **[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
 
-**Contenido ESP-1 ($200 USD / ~$900K COP):**
+**Contenido ESP-1 ($200 USD / $900,000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 1 |
@@ -796,7 +796,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 **[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
 
-**Contenido ESP-2 ($500 USD / ~$2.25M COP):**
+**Contenido ESP-2 ($500 USD / $2,250,000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 3 |
@@ -822,7 +822,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
 
-**Contenido ESP-3 ($1,000 USD / ~$4.5M COP) — vigente desde 25 marzo 2026:**
+**Contenido ESP-3 ($1,000 USD / $4,500,000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 9 |

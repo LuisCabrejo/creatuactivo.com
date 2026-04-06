@@ -1462,6 +1462,16 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /luvoco.*(?:cápsula|beneficio|para.*qué|sirve)/i        // Luvoco sin precio
   ];
 
+  // PRIORIDAD 1.5: CV/PV de productos → arsenal_compensacion (ANTES que catálogo)
+  // Sin este override, queries como "¿cuántos PV tiene el Rooibos?" van a catalogo_productos
+  // porque /rooibos/i matchea patrones_beneficios_productos → no encuentra PV/CV ahí.
+  // COMP_PV_06 tiene la tabla completa PV/CV/precio de todos los productos.
+  const esCVoPVQuery = /\bcv\b|\bpv\b|puntos\s*(de\s*)?volumen|volumen\s*personal|cu[aá]ntos?\s*(pv|cv)|valor(es)?\s*(pv|cv)|(pv|cv)\s*(tiene|del?|de\s+la?|por|da|aporta|genera)/i.test(messageLower);
+  if (esCVoPVQuery) {
+    console.log('📊 Clasificación: CV/PV PRODUCTOS → arsenal_compensacion (COMP_PV_06)');
+    return 'arsenal_compensacion';
+  }
+
   // PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
   if (patrones_productos.some(patron => patron.test(messageLower)) ||
       patrones_beneficios_productos.some(patron => patron.test(messageLower))) {

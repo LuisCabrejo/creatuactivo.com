@@ -2020,6 +2020,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
   // NUEVA LÓGICA: CONSULTA DE CATÁLOGO DE PRODUCTOS (fragmentada)
   if (documentType === 'catalogo_productos') {
+    // Queries de "lista completa" → doc monolítico (fragmentos cubren solo 5 categorías,
+    // el modelo alucinaprecios para las categorías no recuperadas)
+    const esListaCompleta = /catálogo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto/i.test(userMessage.toLowerCase());
+    if (esListaCompleta) {
+      console.log('📋 [Catálogo] Lista completa detectada → doc completo (no fragmentos)');
+      const catalogoResult = await consultarCatalogoProductos(query);
+      if (catalogoResult.length > 0) {
+        searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
+        return catalogoResult;
+      }
+    }
+
     console.log('🛒 Consulta fragmentada: CATÁLOGO DE PRODUCTOS');
 
     // Intentar primero con fragmentos Voyage AI (igual que arsenales)
@@ -3429,8 +3441,9 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     console.log(`🔍 DEBUG PRECIOS: mensaje="${lastUserMessage.substring(0, 80)}", detectado=${pideListaPrecios}`);
 
     // ⚡ v17.5.0: Tokens aumentados para respuestas más cálidas y completas
-    const maxTokens = pideListaPrecios
-      ? 1000  // Lista completa de 22 productos (optimizado)
+    const pideTablaCVPV = /\bcv\b.*\bpv\b|\bpv\b.*\bcv\b|tabla.*(?:cv|pv)|todos.*(?:cv|pv)|(?:cv|pv).*todos/i.test(lastUserMessage);
+    const maxTokens = pideListaPrecios || pideTablaCVPV
+      ? 1000  // Lista completa de 22 productos o tabla CV/PV (22 filas)
       : searchMethod === 'catalogo_productos'
       ? 500   // Consultas de precios = espacio para contexto (antes: 400)
       : prospectData.momento_optimo === 'caliente'

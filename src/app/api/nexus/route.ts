@@ -1307,6 +1307,16 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /desglose.*paquete/i,
     /composici[oó]n.*paquete/i,
     /inventario.*paquete/i,
+    // Conformación — "cómo están conformados los paquetes", "qué productos incluye el empresarial"
+    /conformad[ao]s?\s*(?:los\s*)?paquetes?/i,
+    /paquetes?\s*conformad[ao]s?/i,
+    /c[oó]mo\s+est[aá]n?\s+conformad[ao]s?/i,
+    /con\s+qu[eé]\s+productos/i,
+    /qu[eé]\s+productos\s+(est[aá]|trae|incluye|contiene|viene)/i,
+    // Inicio del negocio — "cómo se inicia", "cómo empiezo", "para empezar" → paquetes
+    /c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])/i,
+    /c[oó]mo\s+empe[zc][ao]r/i,
+    /para\s+(empezar|iniciar|arrancar|activar|entrar)\s*(al?\s+)?(negocio|sistema|plataforma|esto)?/i,
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)
@@ -2178,7 +2188,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // Evita fallos de vector search cuando la query no alcanza threshold 0.30
   if (documentType === 'arsenal_compensacion') {
     const msgLc = userMessage.toLowerCase();
-    const esPaqueteQuery = /paquete|esp[-\s]?[123]|qu[eé].*trae|qu[eé].*incluye|composici[oó]n|inventario.*esp|contenido.*esp|inversion.*inicial|cuánto.*cuesta.*emp|precio.*esp/i.test(msgLc);
+    const esPaqueteQuery = /paquete|esp[-\s]?[123]|qu[eé].*trae|qu[eé].*incluye|composici[oó]n|inventario.*esp|contenido.*esp|inversion.*inicial|cu[aá]nto.*cuesta.*emp|precio.*esp|conformad[ao]s?|con\s+qu[eé]\s+productos|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)/i.test(msgLc);
     if (esPaqueteQuery) {
       const esESP1 = /esp[-\s]?1|inicial|200\s*usd/i.test(msgLc);
       const esESP2 = /esp[-\s]?2|empresarial|500\s*usd/i.test(msgLc);
@@ -3568,7 +3578,11 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
 </prospect_state>
 
 ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — COMP_PV_06: Copia la tabla EXACTAMENTE como aparece en el contexto. NO inventes categorías ni nombres de sección ("Cafés con Ganoderma", "Bebidas Premium", etc.) — esas categorías no existen en la tabla oficial. NO uses precios de tu entrenamiento. Los precios correctos para Colombia 2026 están en la columna "Precio COP" del contexto recuperado.` : relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
-${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar/i.test(latestUserMessage) ? `💰 PAQUETES: SIEMPRE muestra precio en AMBAS monedas: USD y COP. Formato obligatorio: "$200 USD / $900,000 COP", "$500 USD / $2,250,000 COP", "$1,000 USD / $4,500,000 COP". Tasa corporativa fija: $4,500 COP por USD. NUNCA solo USD sin COP.` : ''}
+${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez/i.test(latestUserMessage) ? `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
+• ESP-1 Inicial = $200 USD / $900,000 COP (NO $250 USD — ese precio no existe)
+• ESP-2 Empresarial = $500 USD / $2,250,000 COP
+• ESP-3 Visionario = $1,000 USD / $4,500,000 COP
+SIEMPRE muestra precio en AMBAS monedas. NUNCA uses precios de tu entrenamiento. Los precios de entrenamiento son INCORRECTOS (datos 2023).` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;

@@ -731,7 +731,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 ---
 
-### COMP_PAQ_02: "Que trae el ESP-1?"
+### COMP_PAQ_02: "Que trae el ESP-1? / Como esta conformado el ESP-1? / Que incluye el paquete Inicial? / Que productos vienen en el ESP-1? / Composicion paquete Inicial"
 
 **[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
 
@@ -751,7 +751,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 ---
 
-### COMP_PAQ_03: "Que trae el ESP-2?"
+### COMP_PAQ_03: "Que trae el ESP-2? / Como esta conformado el ESP-2? / Que incluye el paquete Empresarial? / Que productos vienen en el ESP-2? / Composicion paquete Empresarial"
 
 **[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
 
@@ -777,7 +777,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 ---
 
-### COMP_PAQ_04: "Que trae el ESP-3?"
+### COMP_PAQ_04: "Que trae el ESP-3? / Como esta conformado el ESP-3? / Que incluye el paquete Visionario? / Que productos vienen en el ESP-3? / Composicion paquete Visionario / Inventario ESP-3"
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
 

@@ -2953,7 +2953,10 @@ ${summaryParts.join('\n')}
       if (mergedProspectData.package) return true; // Estado 3 pendiente: paquete elegido pero no entregado aún
       const lastBotMsg: string = botMsgs[botMsgs.length - 1]?.content || '';
       if (/ancho de banda operativo|horas a la semana|cuántas horas/i.test(lastBotMsg)) return true; // Estado 1→2
-      if (/háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar)|cuánto hay que (invertir|poner)|qué necesito (invertir|poner)/i.test(latestUserMessage)) return true;
+      // FIX: Solo señales de INTENCIÓN DE COMPRA activan el FSM — NO preguntas informativas.
+      // "los paquetes / cuánto cuesta el ESP-2" → necesitan RAG (arsenal_compensacion).
+      // "cuánto cuesta empezar / qué necesito poner" → intención de iniciar → FSM correcto.
+      if (/cu[aá]nto\s*(cuesta|vale|es)\s*(iniciar|entrar|empezar|activar)|cu[aá]nto\s*hay\s*que\s*(invertir|poner|meter)|qu[eé]\s*necesito\s*(invertir|poner|para\s+iniciar|para\s+empezar)/i.test(latestUserMessage)) return true;
       if (/cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i.test(latestUserMessage)) return true;
       return false;
     })();

@@ -1041,8 +1041,11 @@ async function searchArsenalFragments(
     console.log(`⚡ [Fragments] Buscando en ${arsenalFragments.length} fragmentos de ${arsenalType}...`);
 
     // Buscar fragmentos similares
+    // Threshold 0.40: equilibrio entre recall y precisión. Con 0.30 había falsos positivos
+    // (query de catálogo matcheaba compensación con similitud 0.31-0.38).
+    // Los routing directos (paquetes, suplementos, categorías) bypassean este threshold.
     const results = await vectorSearch(userMessage, arsenalFragments, voyageApiKey, {
-      threshold: 0.30,  // Umbral más bajo para fragmentos específicos
+      threshold: 0.40,
       maxResults,
       debug: false
     });

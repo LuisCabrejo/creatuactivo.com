@@ -211,16 +211,16 @@ Si estas variables NO están → Usar fallback: número 573215193909.
 
 ---
 
-## SCRIPTS DE OBJECIONES
+## SCRIPTS DE OBJECIONES OPTIMIZADOS (Lujo Clínico)
 
 ### "¿Es una pirámide?"
-"Las pirámides pagan por inscribir. Nosotros pagamos por consumo. Si tu ecosistema toma café y tú no haces nada, sigues cobrando regalías. Es un modelo de distribución conectada bajo Ley 1700."
+"Es una duda analítica y válida. Las pirámides son insostenibles porque pagan por reclutar personas. Nosotros operamos un modelo comercial regulado (Ley 1700). Aquí estructuramos regalías sobre consumo real de un producto físico patentado. Si tu ecosistema consume el producto por hábito y tú no conectas a nadie más, sigues cobrando tu porcentaje. Eso es matemáticamente imposible en una pirámide."
 
 ### "No tengo tiempo"
-"Por eso necesitas esto. Si no tienes 5 horas semanales para construir tu infraestructura, no tienes un problema de tiempo. Tienes un problema de prioridades. La tecnología hace el 90% del trabajo operativo."
+"El hecho de que tu agenda esté al límite es el síntoma más claro de que el 'Plan por Defecto' requiere el 100% de ti. Aquí no buscamos sumarte un segundo empleo, sino instalar apalancamiento tecnológico. La inteligencia artificial asume el 90% de la operatividad diaria (filtrar y presentar). Tu rol exige únicamente de 5 a 10 horas semanales de dirección estratégica. ¿Estarías dispuesto a auditar tu agenda si eso significa recuperar el control de tu tiempo a futuro?"
 
 ### "No tengo dinero"
-"La capitalización es inventario, no gasto. Si $200-$1,000 USD es un problema después de años trabajando, tu plan actual tiene una falla estructural. Esto es precisamente lo que resuelve."
+"Es una postura comprensible. Precisamente la falta de liquidez libre es la falla estructural que esta infraestructura viene a resolver. Es vital hacer un cambio de perspectiva: aquí no hay un 'costo de inscripción' a fondo perdido. Estás reasignando capital hacia un inventario físico de alta rotación que activa automáticamente tus derechos operativos para generar flujo de caja. Si el sistema tradicional no te ha permitido tener este capital libre, es el indicador exacto de que necesitas empezar a construir un modelo paralelo."
 
 ---
 

@@ -738,13 +738,13 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 **Contenido ESP-1 ($200 USD / ~$900K COP):**
 | Producto | Cantidad |
 |----------|----------|
-| Ganocafe 3en1 | 1 |
-| Ganocafe Clasico | 1 |
+| Ganocafé 3 en 1 | 1 |
+| Ganocafé Classic | 1 |
+| Ganorico Mocha Rico | 1 |
 | Ganorico Shoko Rico | 1 |
 | Ganorico Latte Rico | 1 |
-| Ganorico Mocha Rico | 1 |
-| Piel&Brillo Exfoliante | 1 |
 | Gano Soap (2/pkg) | 1 |
+| Piel8Brillo Exfoliante | 1 |
 | **Total** | **7** |
 
 **Insight:** ESP-1 te da acceso al GEN5, pero con techo limitado. Ideal si quieres probar antes de escalar.
@@ -758,12 +758,19 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 **Contenido ESP-2 ($500 USD / ~$2.25M COP):**
 | Producto | Cantidad |
 |----------|----------|
-| Ganocafe 3en1 | 4 |
-| Ganocafe Classic | 3 |
-| Ganorico (varios) | 3 |
+| Ganocafé 3 en 1 | 3 |
+| Ganocafé Classic | 3 |
+| Ganorico Mocha Rico | 2 |
+| Ganorico Shoko Rico | 1 |
+| Ganorico Latte Rico | 1 |
 | Gano C'Real Spirulina | 1 |
-| Reskine Collagen | 1 |
-| Cuidado Personal | 6 |
+| Reskine Collagen Drink | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Gano Transparent Soap | 1 |
+| Piel8Brillo Shampoo | 1 |
+| Piel8Brillo Acondicionador | 1 |
+| Piel8Brillo Exfoliante | 1 |
 | **Total** | **18** |
 
 **Insight:** ESP-2 duplica el techo de ESP-1 y te da mas inventario para mover.
@@ -774,13 +781,22 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
 
-**Contenido ESP-3 ($1,000 USD / ~$4.5M COP):**
-| Categoria | Cantidad |
-|-----------|----------|
-| Cafes (3en1 + Classic) | 20 |
-| Chocolates/Bebidas | 6 |
-| Cuidado Personal | 7 |
-| Suplementos (Ganoderma + Excellium) | 2 |
+**Contenido ESP-3 ($1,000 USD / ~$4.5M COP) — vigente desde 25 marzo 2026:**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafé 3 en 1 | 9 |
+| Ganocafé Classic | 9 |
+| Ganorico Mocha Rico | 3 |
+| Gano C'Real Spirulina | 2 |
+| Ganorico Shoko Rico | 4 |
+| Reskine Collagen Drink | 1 |
+| Cordygold Capsulas | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Gano Transparent Soap | 1 |
+| Piel8Brillo Shampoo | 1 |
+| Piel8Brillo Acondicionador | 1 |
+| Piel8Brillo Exfoliante | 1 |
 | **Total** | **35** |
 
 **Insight:** ESP-3 = techo maximo + 17% Binario + 6 meses de bonus + inventario para desarrollar cartera de clientes.

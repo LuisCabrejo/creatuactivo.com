@@ -2067,6 +2067,39 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       }
     }
 
+    // Routing directo por categoría — evita fallos de vector search en consultas por categoría
+    // "dame el precio de los suplementos" → SUP_01 directamente sin depender de similitud vectorial
+    const msgL = userMessage.toLowerCase();
+    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
+    const esSuplementoCat    = /suplemento|cápsula|capsula|ganoderma caps|excellium|cordygold/i.test(msgL);
+    const esLuvocoCat        = /luvoco|m[aá]quina.*caf[eé]|caf[eé].*m[aá]quina/i.test(msgL);
+    const esCuidadoPersonal  = /cuidado.*personal|jabón|jabon|shampoo|acondicionador|exfoliante|pasta.*diente|toothpaste|gano\s*soap/i.test(msgL);
+    const categoriasDirectas: string[] = [];
+    if (esBebidaCategoria) categoriasDirectas.push('catalogo_productos_BEB_01');
+    if (esSuplementoCat)   categoriasDirectas.push('catalogo_productos_SUP_01');
+    if (esLuvocoCat)       categoriasDirectas.push('catalogo_productos_LUV_01');
+    if (esCuidadoPersonal) categoriasDirectas.push('catalogo_productos_PERS_01');
+
+    if (categoriasDirectas.length > 0) {
+      console.log(`🎯 [Catálogo] Routing directo por categoría: ${categoriasDirectas.join(', ')}`);
+      const allFragments = await getArsenalFragments();
+      const directFrags = allFragments.filter(f => categoriasDirectas.includes(f.category));
+      if (directFrags.length > 0) {
+        const combinedContent = directFrags.map(f => f.content).join('\n\n---\n\n');
+        const result = [{
+          id: 'catalogo_productos_direct',
+          title: 'Catálogo — categoría específica',
+          content: combinedContent,
+          category: 'catalogo_productos',
+          metadata: { categories: categoriasDirectas },
+          source: '/knowledge_base/catalogo_productos.txt',
+          search_method: 'category_direct'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+    }
+
     console.log('🛒 Consulta fragmentada: CATÁLOGO DE PRODUCTOS');
 
     // Intentar primero con fragmentos Voyage AI (igual que arsenales)
@@ -3422,15 +3455,25 @@ El pago es semanal cada viernes. PROHIBIDO inventar cifras distintas a las anter
       const pideEjemploComision = /ejemplo.*(gen5?|binario|velocidad|comisi|ingreso|gana)|dame.*(gen5?|binario|velocidad|número|cifra|cuánto)|gen5?.*(ejemplo|gráfico|número)|binario.*(ejemplo|gráfico|número)/i.test(latestUserMessage);
       if (!pideEjemploComision && !pidePaquetes) return '';
       return `
-📊 FORMATO TABLA OBLIGATORIO: Para ejemplos de comisiones GEN5 o Binario, usa SIEMPRE tablas Markdown con | separadores. Ejemplo de estructura:
+📊 FORMATO TABLA OBLIGATORIO para GEN5 y Binario. Reglas:
 
+GEN5 — usa exactamente esta estructura (adapta números al caso):
 | Generación | ESP-3 ($1,000) | ESP-2 ($500) | ESP-1 ($200) |
 |---|---|---|---|
 | Gen 1 (directo) | $150 USD | $75 USD | $25 USD |
 | Gen 2 | $20 USD | $10 USD | $5 USD |
+| Gen 3 | $20 USD | $10 USD | $5 USD |
+| Gen 4 | $20 USD | $10 USD | $5 USD |
+| Gen 5 (100+ PV) | $40 USD | $20 USD | $10 USD |
 
-Adapta con los números del caso que estás explicando. Las tablas son superiores cognitivamente a párrafos para datos numéricos.
-🚫 PROHIBIDO: NO uses árboles ASCII, diagramas de árbol ni representaciones jerárquicas visuales (texto con guiones/barras para simular un árbol genealógico). Parecen pirámides. Solo tablas Markdown.`;
+BINARIO — usa exactamente esta estructura (tabla de COMP_BIN_02):
+| Paquete | Cálculo | Comisión Semanal |
+|---|---|---|
+| Kit Inicio | CV × 10% × $1 | ejemplo USD |
+| ESP-3 | CV × 17% × $1 | ejemplo USD |
+
+🚫 PROHIBIDO en Binario: NO añadas columnas de "Ingreso Mensual", "Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) a menos que el usuario las pida explícitamente. Una tabla simple de 2-3 filas es suficiente.
+🚫 PROHIBIDO en GEN5: NO uses árboles ASCII ni diagramas jerárquicos. Solo tablas Markdown.`;
     };
 
     const sessionInstructions = `

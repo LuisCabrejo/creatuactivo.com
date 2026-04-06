@@ -961,7 +961,7 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
     const { data, error } = await getSupabaseAdmin()
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
-      .like('category', 'arsenal_%_%')  // Match arsenal_inicial_WHY_01, arsenal_ganocafe_PROD_01, etc.
+      .or('category.like.arsenal_%_%, category.like.catalogo_productos_%')  // Match arsenal_inicial_WHY_01, catalogo_productos_BEB_01, etc.
       // Sin filtro de tenant: se carga todos los fragmentos (creatuactivo_marketing + ecommerce + marca_personal)
       // El filtro real ocurre en searchArsenalFragments → filter(f => f.category.startsWith(arsenalType))
       .not('embedding_512', 'is', null);
@@ -2008,18 +2008,44 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // NUEVA LÓGICA: CONSULTA DE CATÁLOGO DE PRODUCTOS
+  // NUEVA LÓGICA: CONSULTA DE CATÁLOGO DE PRODUCTOS (fragmentada)
   if (documentType === 'catalogo_productos') {
-    console.log('🛒 Consulta dirigida: CATÁLOGO DE PRODUCTOS');
+    console.log('🛒 Consulta fragmentada: CATÁLOGO DE PRODUCTOS');
 
+    // Intentar primero con fragmentos Voyage AI (igual que arsenales)
+    const fragments = await searchArsenalFragments(userMessage, 'catalogo_productos', 5);
+
+    if (fragments.length > 0) {
+      const totalFragmentChars = fragments.reduce((sum, f) => sum + f.content.length, 0);
+      console.log(`✅ [Fragments] ${fragments.length} fragmentos catálogo (${totalFragmentChars} chars vs ~14,748 doc completo)`);
+
+      const combinedContent = fragments.map(f => f.content).join('\n\n---\n\n');
+
+      const result = [{
+        id: 'catalogo_productos_fragments',
+        title: 'Fragmentos relevantes de catálogo de productos',
+        content: combinedContent,
+        category: 'catalogo_productos',
+        metadata: {
+          is_fragment_result: true,
+          fragment_count: fragments.length,
+          fragment_categories: fragments.map(f => f.category),
+          total_chars: totalFragmentChars
+        },
+        source: '/knowledge_base/catalogo_productos.txt',
+        search_method: 'fragment_vector_search'
+      }];
+
+      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      return result;
+    }
+
+    // Fallback: sin fragmentos todavía → usar doc completo (comportamiento anterior)
+    console.log('⚠️ [Catálogo] Sin fragmentos — usando doc completo como fallback');
     const catalogoResult = await consultarCatalogoProductos(query);
 
     if (catalogoResult.length > 0) {
-      searchCache.set(cacheKey, {
-        data: catalogoResult,
-        timestamp: Date.now()
-      });
-
+      searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
       return catalogoResult;
     }
   }
@@ -3365,7 +3391,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
   <estado_fsm>${closingState}</estado_fsm>
 </prospect_state>
 
-${searchMethod === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Usa precios EXACTOS del contenido arriba.` : ''}
+${relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Extrae el precio exacto del fragmento recuperado. No estimes ni calcules.` : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;

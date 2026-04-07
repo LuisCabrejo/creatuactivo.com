@@ -651,7 +651,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   autoCorrect="on"
                   autoCapitalize="sentences"
                   spellCheck={true}
-                  className={`w-full pl-4 pr-11 py-3 transition-all duration-200 resize-none ${
+                  className={`w-full pl-4 pr-14 transition-all duration-200 resize-none ${
                     isExpanded ? 'text-base' : 'text-sm'
                   }`}
                   style={{
@@ -662,8 +662,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
                     outline: 'none',
                     lineHeight: '1.5',
+                    minHeight: '52px',
                     maxHeight: '120px',
                     overflowY: 'auto',
+                    paddingTop: '14px',
+                    paddingBottom: '14px',
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
@@ -675,14 +678,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   }}
                 />
 
-                {/* Mic ↔ enviar — dentro del textarea, esquina inferior derecha */}
-                <div className="absolute right-2 bottom-2.5">
+                {/* Mic ↔ enviar — touch target 48×48px, esquina inferior derecha */}
+                <div className="absolute right-1 bottom-1">
                   {inputMessage.trim() ? (
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="transition-all duration-150 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
-                      style={{ background: 'transparent', border: 'none', padding: '3px', cursor: 'pointer' }}
+                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed active:scale-90"
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '50%',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(229,194,121,0.10)'}
+                      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >
                       <svg className="w-5 h-5" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -696,8 +706,15 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         else if (voiceState === 'idle') onStartVoice?.();
                       }}
                       disabled={voiceState === 'processing' || voiceState === 'speaking'}
-                      className="transition-all duration-150 hover:scale-110 disabled:opacity-30"
-                      style={{ background: 'transparent', border: 'none', padding: '3px', cursor: 'pointer' }}
+                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-30 active:scale-90"
+                      style={{
+                        background: voiceState === 'recording' ? 'rgba(212,175,55,0.12)' : 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '50%',
+                      }}
+                      onMouseEnter={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
+                      onMouseLeave={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'transparent' }}
                     >
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
                         stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}

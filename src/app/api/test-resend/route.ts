@@ -12,6 +12,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
+  // 🔒 Protegido — solo para uso interno con CRON_SECRET
+  const secret = request.headers.get('x-admin-secret') || request.nextUrl.searchParams.get('secret')
+  if (!process.env.CRON_SECRET || secret !== process.env.CRON_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     console.log('🧪 Iniciando test Resend...');
 

@@ -25,6 +25,12 @@ const emailComponents = {
 };
 
 export async function GET(request: NextRequest) {
+  // 🔒 Protegido — solo para uso interno con CRON_SECRET
+  const secret = request.headers.get('x-admin-secret') || request.nextUrl.searchParams.get('secret')
+  if (!process.env.CRON_SECRET || secret !== process.env.CRON_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const { searchParams } = new URL(request.url);
   const day = parseInt(searchParams.get('day') || '1');
   const email = searchParams.get('email') || 'luiscabrejo7@gmail.com';

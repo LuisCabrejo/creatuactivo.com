@@ -580,7 +580,7 @@ async function sendAdminNotification(
   try {
     const { error } = await getResendClient().emails.send({
       from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
-      to: ['luiscabrejo7@gmail.com', 'notificaciones@creatuactivo.com'],
+      to: ['notificaciones@creatuactivo.com'],
       subject: `🗺️ Nuevo registro Mapa de Salida: ${firstName}`,
       html: adminHtml,
     });

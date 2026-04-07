@@ -20,7 +20,7 @@
  */
 
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import NEXUSWidget from './nexus/NEXUSWidget'
 
@@ -66,18 +66,6 @@ export default function UnifiedQueswaOrb() {
   // Voice state
   const [voiceState,  setVoiceState]  = useState<VoiceState>('idle')
   const [errorMsg,    setErrorMsg]    = useState<string | null>(null)
-
-  // Scroll-based visibility
-  const [orbVisible, setOrbVisible] = useState(true)
-  const prevScrollY = useRef(0)
-  const { scrollY }  = useScroll()
-
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    const delta = latest - prevScrollY.current
-    if (delta > 12)       setOrbVisible(false)
-    else if (delta < -12) setOrbVisible(true)
-    prevScrollY.current = latest
-  })
 
   // Long press detection
   const longPressTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -264,24 +252,22 @@ export default function UnifiedQueswaOrb() {
   const isVoiceActive = isRecording || isProcessing || isSpeaking
 
   const orbBorder = isError
-    ? `1px solid ${C.error}`
+    ? `1.5px solid ${C.error}`
     : isVoiceActive
       ? `1.5px solid ${C.goldBorder}`
-      : isOpen
-        ? `1px solid rgba(212,175,55,0.35)`
-        : `1px solid rgba(255,255,255,0.20)`
+      : `1.5px solid rgba(180,130,20,0.8)`
 
   const orbBg = isError
     ? C.errorDim
-    : isRecording
-      ? C.goldDim
-      : 'rgba(15, 17, 21, 0.72)'
+    : isVoiceActive
+      ? 'rgba(15, 17, 21, 0.88)'
+      : C.gold
 
   const orbShadow = isRecording
     ? `0 0 0 8px ${C.goldGlow}, 0 0 0 16px rgba(212,175,55,0.08), 0 8px 32px rgba(0,0,0,0.5)`
     : isSpeaking
       ? `0 0 0 6px rgba(212,175,55,0.12), 0 8px 32px rgba(0,0,0,0.5)`
-      : `0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)`
+      : `0 4px 20px rgba(212,175,55,0.45), 0 8px 32px rgba(0,0,0,0.35)`
 
   // ─── Icono central del orbe ───────────────────────────────────────────────────
   function OrbIcon() {
@@ -312,9 +298,9 @@ export default function UnifiedQueswaOrb() {
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
     )
-    // Estado idle — barras de voz animadas (equalizer)
+    // Estado idle — barras de voz animadas (equalizer) — oscuras sobre fondo dorado
     return (
-      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill="#D4AF37">
+      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill="#0F1115">
         <rect className="qb1" x="1"  y="10" width="2" height="4"  rx="1"/>
         <rect className="qb2" x="5"  y="6"  width="2" height="12" rx="1"/>
         <rect className="qb3" x="9"  y="3"  width="2" height="18" rx="1"/>
@@ -332,7 +318,7 @@ export default function UnifiedQueswaOrb() {
     <>
       {/* ── Tooltip "Concierge" ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {showTooltip && !isOpen && orbVisible && pathname !== '/servilleta' && (
+        {showTooltip && !isOpen && pathname !== '/servilleta' && (
           <motion.div
             initial={{ opacity: 0, y: 8, x: 8 }}
             animate={{ opacity: 1, y: 0, x: 0 }}
@@ -350,15 +336,12 @@ export default function UnifiedQueswaOrb() {
               boxShadow: '0 0 12px rgba(212,175,55,0.15), 0 4px 16px rgba(0,0,0,0.6)',
               borderRadius: 6,
               padding: '10px 16px',
-              maxWidth: 210,
+              maxWidth: 220,
               pointerEvents: 'none',
             }}
           >
-            <p style={{ fontSize: 12, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
+            <p style={{ fontSize: 13, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
               ¿Construimos tu Patrimonio Paralelo?
-            </p>
-            <p style={{ fontSize: 10, color: C.gold, margin: '4px 0 0', fontFamily: 'monospace', opacity: 0.85 }}>
-              Toca · Mantén para hablar
             </p>
           </motion.div>
         )}
@@ -401,12 +384,9 @@ export default function UnifiedQueswaOrb() {
         onPointerUp={handlePointerUp}
         onPointerLeave={isRecording ? handlePointerUp : undefined}
         disabled={isProcessing || isSpeaking}
-        animate={(orbVisible && !isOpen) ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
-        transition={
-          orbVisible
-            ? { type: 'spring', damping: 20, stiffness: 260 }
-            : { duration: 0.22, ease: 'easeIn' }
-        }
+        initial={{ y: 80, opacity: 0 }}
+        animate={!isOpen ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
+        transition={{ type: 'spring', damping: 20, stiffness: 260 }}
         style={{
           position: 'fixed',
           bottom: isOpen
@@ -426,7 +406,7 @@ export default function UnifiedQueswaOrb() {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: (isProcessing || isSpeaking) ? 'default' : 'pointer',
-          pointerEvents: (!isOpen && orbVisible) ? 'auto' : 'none',
+          pointerEvents: !isOpen ? 'auto' : 'none',
           outline: 'none',
           WebkitTapHighlightColor: 'transparent',
           userSelect: 'none',

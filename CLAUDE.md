@@ -26,7 +26,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | NEXUS health check | `curl http://localhost:3000/api/nexus` |
 | Verify arsenal in Supabase | `node scripts/verificar-arsenal-supabase.mjs` |
 
-**Multi-tenant prompt names**: `nexus_main` (creatuactivo.com) · `marca_personal_v1.0` (luiscabrejo.com) · `ganocafe_main` (ganocafe.online) · hardcoded in `dashboard-ai/route.ts` (queswa.app)
+**Multi-tenant prompt names**: `nexus_main` (creatuactivo.com) · `marca_personal_v1.0` (luiscabrejo.com) · `ganocafe_main` (ganocafe.online) · hardcoded in `dashboard-ai/route.ts` (queswa.app) · `queswa_whatsapp` (WABA WhatsApp — tenant: `whatsapp`)
 
 ## Development Commands
 
@@ -157,6 +157,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
+| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v1.1 | Activo Abr 2026 — modo desarrollo (pendiente verificación negocio Meta) |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
@@ -188,6 +189,40 @@ ganocafe.online/cafe-3en1/index.html
 - Dominios permitidos: ganocafe.online, creatuactivo.com, luiscabrejo.com, queswa.app
 
 **Handoff doc para agente widget**: `public/investigaciones/HANDOFF-GANOCAFE-WIDGET.md`
+
+**Estado integración WABA WhatsApp** (Abr 2026 — pipeline activo):
+- ✅ Webhook `/api/whatsapp/webhook` — Node runtime, maxDuration 30s
+- ✅ WABA número: `+573215193909` | Phone Number ID: `1115546358301373`
+- ✅ System User Token permanente: `WHATSAPP_SYSTEM_TOKEN` en `.env.local` + Vercel
+- ✅ System prompt `queswa_whatsapp` v1.1 — tenant `whatsapp` en Supabase
+- ✅ Arsenal inicial clonado al tenant `whatsapp` — 39 fragmentos RAG en `nexus_documents`
+- ✅ CTWA detectado: `referral` de anuncios Meta guardado en `device_info` (ctwa_clid, ad_id, ad_headline)
+- ✅ `src/lib/whatsapp-meta.ts` — reemplaza SendPulse (misma interfaz `sendWhatsAppTemplate`)
+- ✅ `funnel/route.ts` + `webhooks/prospect-capture/route.ts` migrados a `whatsapp-meta`
+- ⏳ Meta business verification — pendiente para salir de modo desarrollo (solo acepta números de prueba)
+- ⏳ Plantilla `acceso_mapa_salida` — por crear y aprobar en Meta WhatsApp Manager
+- ⏳ 5 templates secuencia de días — Fase 6 del handoff original
+- ⏳ Eliminar credenciales SendPulse de `.env.local` y Vercel — tras aprobar plantillas
+
+**Flujo WABA:**
+```
+WhatsApp (orgánico o CTWA anuncio)
+  └─ POST https://creatuactivo.com/api/whatsapp/webhook
+       └─ extrae número, texto, referral CTWA
+       └─ INSERT en prospects (fingerprint: "wa_{phone}", source: whatsapp_inbound/ctwa)
+       └─ POST /api/nexus { x-tenant-id: whatsapp, fingerprint: wa_{phone} }
+            └─ system prompt queswa_whatsapp + arsenal_inicial RAG
+            └─ StreamingTextResponse consumida completa
+       └─ POST graph.facebook.com/v22.0/{PHONE_NUMBER_ID}/messages
+```
+
+**Regla crítica WABA**: NO modificar `/api/nexus/route.ts`. El webhook es solo adaptador de canal. Toda lógica de IA vive en el motor existente.
+
+**Scripts WABA:**
+- `node scripts/actualizar-system-prompt-whatsapp-v1.mjs` — actualiza system prompt WhatsApp en Supabase
+- `node scripts/clonar-arsenal-whatsapp.mjs` — clona fragmentos arsenal_inicial al tenant whatsapp
+
+**Handoff doc WABA completo**: `public/contexto/handoff/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`
 
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
@@ -231,19 +266,23 @@ ganocafe.online/cafe-3en1/index.html
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v20.0 "Constructor Patrimonio"** (Abr 2026)
+   - Versión activa: **v22.0 "Premium Accesible"** (Abr 2026) — tráfico orgánico (95%)
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
+   - **Bifurcación de embudos (Abr 2026)**: `nexus_main` v22.0 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` ("Lujo Clínico") cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
+   - **v22.0 Premium Accesible (Abr 2026)**: Zero data capture antes del Handoff. Principio de Reciprocidad (Cialdini) para captura de nombre. M1 con propuesta de valor pan-americana (Colombia, México, USA, LATAM). 4 Quick Reply Chips en frontend. Protocolo Transparencia Radical (pirámide, inversión, "meter gente"). Handoff pide "nombre completo, ciudad y país". Sin referencias Colombia-exclusivas.
+   - **Archivo fuente**: `knowledge_base/system-prompt-nexus-main-v22.0.md` — deploy: `node scripts/actualizar-system-prompt-v22.mjs`
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
-   - **v20.0 fixes (Abr 2026):** bullets `•` en WHY_02 (El músculo/cerebro/rol), frase "La única forma de resolver..." VERBATIM obligatoria, bloqueo absoluto de alucinación en cifras de compensación (GEN5 Gen1=$150, Gen2-4=$20, Gen5=$40; Binario=CV×17%×$1), few-shot Pregunta 2 con tablas reales de Ingreso Inmediato/Recurrente.
-   - **Bug activo sin resolver (Abr 2026):** MENSAJE 3 — después de recibir el nombre, el modelo ignora el bloqueo absoluto y cae en preguntas de calificación ("¿cuánto tiempo tienes?", "¿tienes capital?", "partimos desde cero?"). Se han aplicado múltiples bloqueos absolutos y ejemplos literales en el system prompt sin éxito. El problema puede ser estructural: el model behavior por defecto de Claude para "consultor de ventas" incluye calificación post-nombre. Línea de investigación para el próximo chat: few-shot negativo explícito con el error exacto + respuesta correcta, o mover la lógica a código (route.ts) en lugar de instrucción de lenguaje natural. Ver handoff: `public/investigaciones/HANDOFF-QUESWA-UX-M3-BUG.md`
-   - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — Queswa da precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y los precios de paquetes en USD sin mostrar COP. El problema persiste a pesar de múltiples fixes en esta sesión (ver detalles en `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`). Causa raíz más probable: `catalogo_productos` no está fragmentado — se entrega como documento único de 14,748 chars, el modelo recibe 22 productos en contexto y puede ignorar o confundir precios específicos. Los arsenales CV/PV (COMP_CV_01, COMP_PV_06) ya fueron corregidos con valores oficiales Gano Excel 2026. Pendiente: fragmentar catalogo_productos igual que los arsenales.
+   - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — Queswa da precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y los precios de paquetes en USD sin mostrar COP. Causa raíz más probable: `catalogo_productos` no está fragmentado — se entrega como documento único de 14,748 chars. Pendiente: fragmentar catalogo_productos igual que los arsenales. Ver handoff: `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
 - **Viewport keyboard**: `interactiveWidget: 'resizes-content'` en `src/app/layout.tsx` → fix Chrome 108+ double-jump. Sin esto el área de escritura salta dos veces al abrir teclado.
-- **Input type**: `type="search"` + `enterKeyHint="send"` en el textarea → elimina la barra de autofill (🔑💳📍) de SwiftKey/Chrome en Android. NO cambiar a `type="text"`.
+- **Input**: `<textarea>` con auto-resize (max 120px), `autoCorrect="on"`, `autoCapitalize="sentences"`, `spellCheck`. Enter=enviar, Shift+Enter=salto de línea. Botones (mic/enviar) anclados al `bottom-3` del contenedor. Acepta sustituciones de texto del sistema operativo.
+- **Mic integrado en input** (Abr 2026): el ícono mic y el botón enviar comparten la misma posición — toggle según `voiceState`. Patrón idéntico a Claude/Gemini. El orbe NO muestra ícono de mic cuando el chat está abierto (`isOpen`).
+- **Quick Reply Chips** (Abr 2026 — solo `creatuactivo.com`, NO en `queswa.app`): 4 chips en estado inicial (antes de que el usuario escriba). Llaman `handleSendMessage()` directamente. Eliminan el "área muerta" móvil y bajan la barrera de articulación. Chips: `📦 Los productos`, `💼 El negocio`, `🤔 ¿Es para mí?`, `⚡ Quiero empezar`.
+- **Orbe pointer events** (Abr 2026): `pointerEvents: (!isOpen && orbVisible) ? 'auto' : 'none'` — evita que el orbe invisible (opacity:0, zIndex:200) intercepte clics sobre el widget (z-50).
 - **Saludo inicial**: Texto grande centrado (estilo Claude.ai) cuando es el único mensaje. Desaparece al enviar el primer mensaje del usuario. Implementado en `NEXUSWidget.tsx` como caso especial `isInitialGreeting && isOnlyMessage`.
 - **Nombre persistido**: Se extrae del mensaje del usuario con regex (`me llamo / mi nombre es / soy`) y se guarda en `localStorage('nexus_prospect_name')`. El saludo siguiente lo usa: `"Hola, {nombre} 🪢"`.
 - **Header mobile**: Solo `Queswa 🪢` + botón X. Sin ícono, sin subtítulo "TERMINAL ACTIVA".
@@ -608,7 +647,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v20.0** — `actualizar-system-prompt-v20.mjs`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v22.0** — `actualizar-system-prompt-v22.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -949,7 +988,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v20.0** — Constructor Patrimonio, Abr 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v22.0** — Premium Accesible, Abr 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

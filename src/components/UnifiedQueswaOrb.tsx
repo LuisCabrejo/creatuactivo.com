@@ -289,22 +289,23 @@ export default function UnifiedQueswaOrb() {
   const isVoiceActive = isRecording || isProcessing || isSpeaking
 
   const orbBorder = isError
-    ? `1.5px solid ${C.error}`
-    : isVoiceActive
-      ? `1.5px solid ${C.goldBorder}`
-      : `1.5px solid rgba(180,130,20,0.8)`
+    ? `2px solid ${C.error}`
+    : isRecording
+      ? `2px solid ${C.goldBorder}`
+      : `2px solid rgba(212,175,55,0.5)`  // idle: ring dorado sutil, siempre visible
 
+  // Idle = oscuro (pasivo). Grabando = dorado (activo inequívoco).
   const orbBg = isError
     ? C.errorDim
-    : isVoiceActive
-      ? 'rgba(15, 17, 21, 0.88)'
-      : C.gold
+    : isRecording
+      ? C.gold                   // GRABANDO: dorado brillante = señal de acción
+      : '#0F1115'                // IDLE / procesando / hablando: oscuro = calma
 
   const orbShadow = isRecording
     ? `0 0 0 8px ${C.goldGlow}, 0 0 0 16px rgba(212,175,55,0.08), 0 8px 32px rgba(0,0,0,0.5)`
     : isSpeaking
       ? `0 0 0 6px rgba(212,175,55,0.12), 0 8px 32px rgba(0,0,0,0.5)`
-      : `0 4px 20px rgba(212,175,55,0.45), 0 8px 32px rgba(0,0,0,0.35)`
+      : `0 4px 16px rgba(0,0,0,0.55)`  // idle: sombra mínima, sin glow dorado permanente
 
   // ─── Icono central del orbe ───────────────────────────────────────────────────
   function OrbIcon() {
@@ -323,7 +324,7 @@ export default function UnifiedQueswaOrb() {
       </svg>
     )
     if (isRecording) return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.gold} strokeWidth="2" strokeLinecap="round">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1115" strokeWidth="2" strokeLinecap="round">
         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
         <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
         <line x1="12" y1="19" x2="12" y2="23"/>
@@ -335,9 +336,9 @@ export default function UnifiedQueswaOrb() {
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
     )
-    // Estado idle — barras de voz animadas (equalizer) — oscuras sobre fondo dorado
+    // Estado idle — barras de voz animadas (equalizer) — doradas sobre fondo oscuro
     return (
-      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill="#0F1115">
+      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill={C.gold}>
         <rect className="qb1" x="1"  y="10" width="2" height="4"  rx="1"/>
         <rect className="qb2" x="5"  y="6"  width="2" height="12" rx="1"/>
         <rect className="qb3" x="9"  y="3"  width="2" height="18" rx="1"/>
@@ -425,6 +426,8 @@ export default function UnifiedQueswaOrb() {
         disabled={isProcessing || isSpeaking}
         initial={{ y: 80, opacity: 0 }}
         animate={!isOpen ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
+        whileHover={voiceState === 'idle' ? { scale: 1.08 } : {}}
+        whileTap={voiceState === 'idle' ? { scale: 0.94 } : {}}
         transition={{ type: 'spring', damping: 20, stiffness: 260 }}
         style={{
           position: 'fixed',
@@ -483,19 +486,22 @@ export default function UnifiedQueswaOrb() {
           50%       { box-shadow: 0 0 0 10px rgba(212,175,55,0.22), 0 0 0 20px rgba(212,175,55,0.08); }
         }
         @keyframes orbBreath {
-          0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0px rgba(212,175,55,0), 0 8px 32px rgba(0,0,0,0.5); }
-          50%       { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(212,175,55,0.12), 0 0 20px rgba(212,175,55,0.18), 0 8px 32px rgba(0,0,0,0.5); }
+          /* Sin scale — solo glow de borde. whileHover maneja la escala */
+          0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 0px rgba(212,175,55,0); }
+          50%       { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 7px rgba(212,175,55,0.09), 0 0 22px rgba(212,175,55,0.13); }
         }
         @keyframes qwBar {
-          0%, 100% { transform: scaleY(0.3); opacity: 0.45; }
-          50%       { transform: scaleY(1);   opacity: 1;    }
+          /* Amplitud reducida y ritmo más lento — decorativo, no urgente */
+          0%, 100% { transform: scaleY(0.45); opacity: 0.55; }
+          50%       { transform: scaleY(0.85); opacity: 0.9;  }
         }
-        .qw-orb-bars .qb1 { animation: qwBar 1.25s ease-in-out infinite 0.00s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb2 { animation: qwBar 1.25s ease-in-out infinite 0.20s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb3 { animation: qwBar 1.25s ease-in-out infinite 0.40s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb4 { animation: qwBar 1.25s ease-in-out infinite 0.28s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb5 { animation: qwBar 1.25s ease-in-out infinite 0.14s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb6 { animation: qwBar 1.25s ease-in-out infinite 0.42s; transform-origin: center; transform-box: fill-box; }
+        /* Velocidades individuales — efecto respiración orgánica, no metronómica */
+        .qw-orb-bars .qb1 { animation: qwBar 2.8s ease-in-out infinite 0.00s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb2 { animation: qwBar 2.4s ease-in-out infinite 0.35s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb3 { animation: qwBar 2.2s ease-in-out infinite 0.70s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb4 { animation: qwBar 2.6s ease-in-out infinite 0.20s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb5 { animation: qwBar 2.4s ease-in-out infinite 0.55s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb6 { animation: qwBar 2.8s ease-in-out infinite 0.15s; transform-origin: center; transform-box: fill-box; }
       `}</style>
     </>
   )

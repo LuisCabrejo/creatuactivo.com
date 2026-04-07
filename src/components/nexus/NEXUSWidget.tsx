@@ -42,6 +42,9 @@ interface Message {
 interface NEXUSWidgetProps {
   isOpen: boolean;
   onClose: () => void;
+  voiceState?: 'idle' | 'recording' | 'processing' | 'speaking' | 'error';
+  onStartVoice?: () => void;
+  onStopVoice?: () => void;
 }
 
 // 🎯 Función para resaltar preguntas de captura en negrilla
@@ -76,7 +79,7 @@ const highlightCaptureQuestions = (text: string) => {
   return highlighted;
 };
 
-const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
+const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState = 'idle', onStartVoice, onStopVoice }) => {
   const {
     messages,
     isLoading,
@@ -577,52 +580,75 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose }) => {
             className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
             style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
-            <form className="flex items-center gap-2" onSubmit={handleSubmit} autoComplete="off">
-              <input
-                type="search"
-                enterKeyHint="send"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="_ Escribe tu consulta..."
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-                className={`flex-1 px-4 py-3  transition-all duration-200 ${
-                  isExpanded ? 'text-base' : 'text-sm'
-                }`}
-                style={{
-                  background: QUIET_LUXURY.bgSurface,
-                  color: QUIET_LUXURY.textPrimary,
-                  border: `1px solid rgba(229, 194, 121, 0.15)`,
-                  fontFamily: 'var(--font-roboto-mono)',
-                  boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
-                  outline: 'none'
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
-                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
-                  e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
-                }}
-              />
+            <form className="flex items-center" onSubmit={handleSubmit} autoComplete="off">
+              <div className="relative flex-1">
+                <input
+                  type="search"
+                  enterKeyHint="send"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  placeholder="_ Escribe tu consulta..."
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
+                  className={`w-full pl-4 pr-12 py-3 transition-all duration-200 ${
+                    isExpanded ? 'text-base' : 'text-sm'
+                  }`}
+                  style={{
+                    background: QUIET_LUXURY.bgSurface,
+                    color: QUIET_LUXURY.textPrimary,
+                    border: `1px solid rgba(229, 194, 121, 0.15)`,
+                    fontFamily: 'var(--font-roboto-mono)',
+                    boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
+                    outline: 'none'
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
+                    e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
+                    e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
+                  }}
+                />
 
-              <button
-                type="submit"
-                disabled={isLoading || !inputMessage.trim()}
-                className="p-3  hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                style={{
-                  background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-                  color: '#0B0C0C',
-                  boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)'
-                }}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-              </button>
+                {/* Acción derecha: mic (vacío) ↔ enviar (con texto) */}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  {inputMessage.trim() ? (
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="transition-all duration-150 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
+                      style={{ background: 'transparent', border: 'none', padding: '2px', cursor: 'pointer' }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (voiceState === 'recording') onStopVoice?.();
+                        else if (voiceState === 'idle') onStartVoice?.();
+                      }}
+                      disabled={voiceState === 'processing' || voiceState === 'speaking'}
+                      className="transition-all duration-150 hover:scale-110 disabled:opacity-30"
+                      style={{ background: 'transparent', border: 'none', padding: '2px', cursor: 'pointer' }}
+                    >
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                        stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}
+                        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
             </form>
           </div>
 

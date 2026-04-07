@@ -88,6 +88,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
 
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // 🔊 Audio TTS — voz ElevenLabs en burbujas del asistente
   const [playingId, setPlayingId]     = useState<string | null>(null);
@@ -150,6 +151,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   const handleSendMessage = async (message: string) => {
     if (message.trim()) {
       setInputMessage('');
+      // Reset textarea height after send
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
       await sendMessage(message);
     }
   };
@@ -157,6 +162,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSendMessage(inputMessage);
+  };
+
+  // Auto-resize textarea al cambiar el contenido
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputMessage(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+  };
+
+  // Enter = enviar, Shift+Enter = salto de línea
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage(inputMessage);
+    }
   };
 
   if (!isOpen) return null;
@@ -582,17 +602,19 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
           >
             <form className="flex items-center" onSubmit={handleSubmit} autoComplete="off">
               <div className="relative flex-1">
-                <input
-                  type="search"
+                <textarea
+                  ref={textareaRef}
                   enterKeyHint="send"
+                  rows={1}
                   value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
+                  onChange={handleTextareaChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="_ Escribe tu consulta..."
                   autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  className={`w-full pl-4 pr-12 py-3 transition-all duration-200 ${
+                  autoCorrect="on"
+                  autoCapitalize="sentences"
+                  spellCheck={true}
+                  className={`w-full pl-4 pr-12 py-3 transition-all duration-200 resize-none ${
                     isExpanded ? 'text-base' : 'text-sm'
                   }`}
                   style={{
@@ -601,7 +623,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     border: `1px solid rgba(229, 194, 121, 0.15)`,
                     fontFamily: 'var(--font-roboto-mono)',
                     boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
-                    outline: 'none'
+                    outline: 'none',
+                    lineHeight: '1.5',
+                    maxHeight: '120px',
+                    overflowY: 'auto',
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
@@ -614,7 +639,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 />
 
                 {/* Acción derecha: mic (vacío) ↔ enviar (con texto) */}
-                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                <div className="absolute right-3 bottom-3">
                   {inputMessage.trim() ? (
                     <button
                       type="submit"
@@ -700,13 +725,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
 
         div::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.25);
-        }
-
-        /* Ocultar botón clear de type="search" en iOS/Safari */
-        input[type="search"]::-webkit-search-cancel-button,
-        input[type="search"]::-webkit-search-decoration {
-          display: none;
-          -webkit-appearance: none;
         }
 
         /* RESPETO POR PREFERENCIAS DE ACCESIBILIDAD */

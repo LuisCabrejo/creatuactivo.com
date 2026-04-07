@@ -371,6 +371,41 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     </ReactMarkdown>
                   </div>
                 )}
+
+                {/* Quick Reply Chips — eliminan fricción de articulación */}
+                <div className="w-full mt-6 grid grid-cols-2 gap-2 px-0">
+                  {[
+                    { emoji: '⚙️', label: 'Cómo funciona el modelo' },
+                    { emoji: '📊', label: 'Proyección de ingresos'  },
+                    { emoji: '📦', label: 'El vehículo (Productos)' },
+                    { emoji: '👤', label: 'Evaluar viabilidad'      },
+                  ].map(({ emoji, label }) => (
+                    <button
+                      key={label}
+                      onClick={() => handleSendMessage(`${emoji} ${label}`)}
+                      disabled={isLoading}
+                      className="flex items-center gap-2 px-3 py-2.5 text-left text-xs transition-all duration-200 disabled:opacity-40"
+                      style={{
+                        background: QUIET_LUXURY.bgSurface,
+                        border: `1px solid rgba(229, 194, 121, 0.2)`,
+                        color: QUIET_LUXURY.textSecondary,
+                        fontFamily: 'var(--font-roboto-mono)',
+                        borderRadius: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = `rgba(229, 194, 121, 0.55)`;
+                        e.currentTarget.style.color = QUIET_LUXURY.gold;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = `rgba(229, 194, 121, 0.2)`;
+                        e.currentTarget.style.color = QUIET_LUXURY.textSecondary;
+                      }}
+                    >
+                      <span className="text-base leading-none flex-shrink-0">{emoji}</span>
+                      <span className="leading-tight">{label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             );
           })()}

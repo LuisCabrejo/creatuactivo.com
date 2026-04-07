@@ -2146,10 +2146,36 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       return result;
     }
 
-    // Fallback: sin fragmentos todavía → usar doc completo (comportamiento anterior)
-    console.log('⚠️ [Catálogo] Sin fragmentos — usando doc completo como fallback');
-    const catalogoResult = await consultarCatalogoProductos(query);
+    // Fallback inteligente: 4 tablas de precio (~2K chars) en lugar del doc monolítico (14K)
+    // Cubre productos como "Reskine" que no tienen fragmento propio pero sí aparecen en BEB_01
+    console.log('⚠️ [Catálogo] Vector search sin resultados → fallback tablas de precio (BEB_01+SUP_01+LUV_01+PERS_01)');
+    const allFragsFallback = await getArsenalFragments();
+    const precioTableIds = [
+      'catalogo_productos_BEB_01',
+      'catalogo_productos_SUP_01',
+      'catalogo_productos_LUV_01',
+      'catalogo_productos_PERS_01'
+    ];
+    const precioTableFrags = allFragsFallback.filter(f => precioTableIds.includes(f.category));
+    if (precioTableFrags.length >= 2) {
+      console.log(`📋 [Catálogo] Tablas de precio recuperadas: ${precioTableFrags.map(f => f.category).join(', ')}`);
+      const combinedPrices = precioTableFrags.map(f => f.content).join('\n\n---\n\n');
+      const result = [{
+        id: 'catalogo_productos_price_tables_fallback',
+        title: 'Tablas de precios — productos sin fragmento específico',
+        content: combinedPrices,
+        category: 'catalogo_productos',
+        metadata: { is_price_tables_fallback: true, fragment_count: precioTableFrags.length },
+        source: '/knowledge_base/catalogo_productos.txt',
+        search_method: 'price_table_fallback'
+      }];
+      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      return result;
+    }
 
+    // Último recurso: doc completo (solo si las tablas de precio no están disponibles)
+    console.log('⚠️ [Catálogo] Tablas de precio no disponibles → doc completo (último recurso)');
+    const catalogoResult = await consultarCatalogoProductos(query);
     if (catalogoResult.length > 0) {
       searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
       return catalogoResult;

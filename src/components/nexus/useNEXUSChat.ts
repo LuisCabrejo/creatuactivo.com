@@ -298,14 +298,22 @@ const sendMessage = useCallback(async (content: string) => {
 
       setStreamingComplete(true);
 
-      // Persistir nombre si el usuario lo mencionó en este mensaje
+      // Persistir nombre para saludo personalizado en visitas futuras
       if (!localStorage.getItem('nexus_prospect_name')) {
-        const nameMatch = userMessage.content.match(
-          /(?:me llamo|mi nombre es)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i
+        // Patrón 1: frases explícitas de presentación
+        const explicitMatch = userMessage.content.match(
+          /(?:me llamo|mi nombre es|puedes llamarme|me puedes llamar|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i
         );
-        // Validar que lo capturado sea un nombre real, no una profesión/arquetipo
-        if (nameMatch && isValidName(nameMatch[1])) {
-          localStorage.setItem('nexus_prospect_name', nameMatch[1]);
+        if (explicitMatch && isValidName(explicitMatch[1])) {
+          localStorage.setItem('nexus_prospect_name', explicitMatch[1]);
+        } else {
+          // Patrón 2: respuesta contextual — el bot preguntó el nombre y el usuario respondió con 1-3 palabras
+          const lastBotMsg = [...messages].reverse().find(m => m.role === 'assistant');
+          const botAskedName = /nombre|llamarte|cómo te llamas|cómo puedo llamar|¿y tú\?/i.test(lastBotMsg?.content ?? '');
+          const looksLikeName = /^[A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+){0,2}$/.test(userMessage.content.trim());
+          if (botAskedName && looksLikeName && isValidName(userMessage.content.trim())) {
+            localStorage.setItem('nexus_prospect_name', userMessage.content.trim());
+          }
         }
       }
 

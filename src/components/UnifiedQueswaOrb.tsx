@@ -421,19 +421,17 @@ export default function UnifiedQueswaOrb() {
         <OrbIcon />
       </motion.button>
 
-      {/* ── Panel de chat de texto ───────────────────────────────────────────── */}
-      {isOpen && (
-        <NEXUSWidget
-          isOpen={isOpen}
-          onClose={() => {
-            setIsOpen(false)
-            window.dispatchEvent(new CustomEvent('close-queswa'))
-          }}
-          voiceState={voiceState}
-          onStartVoice={startRecording}
-          onStopVoice={stopAndSend}
-        />
-      )}
+      {/* ── Panel de chat — siempre montado, show/hide con CSS para preservar historial ── */}
+      <NEXUSWidget
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false)
+          window.dispatchEvent(new CustomEvent('close-queswa'))
+        }}
+        voiceState={voiceState}
+        onStartVoice={startRecording}
+        onStopVoice={stopAndSend}
+      />
 
       {/* ── CSS keyframes ────────────────────────────────────────────────────── */}
       <style>{`

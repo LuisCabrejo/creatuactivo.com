@@ -179,8 +179,6 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
     }
   };
 
-  if (!isOpen) return null;
-
   const isInitialState = messages.length === 1 &&
     (messages[0].id === 'initial-greeting' || messages[0].id === 'initial-greeting-products');
 
@@ -189,7 +187,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
     : "w-full max-w-lg md:max-w-xl lg:max-w-2xl h-full md:h-[85vh] lg:h-[80vh]";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center md:items-center md:p-4 md:bg-black/20 md:backdrop-blur-sm">
+    // display:none oculta el widget sin desmontarlo — el historial de mensajes sobrevive al cerrar
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center md:items-center md:p-4 md:bg-black/20 md:backdrop-blur-sm"
+      style={{ display: isOpen ? undefined : 'none' }}
+    >
       <div
         className={`${containerClasses} z-50 relative`}
         style={{

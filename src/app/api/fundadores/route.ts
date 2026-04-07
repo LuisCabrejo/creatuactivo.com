@@ -257,7 +257,7 @@ export async function POST(request: NextRequest) {
             success: false,
             error: 'Error al guardar tu solicitud. Por favor intenta de nuevo o contáctanos por WhatsApp.',
             technicalDetails: insertError.message,
-            whatsapp: '+573102066593'
+            whatsapp: '+573215193909'
           },
           { status: 500 }
         );
@@ -613,7 +613,7 @@ export async function POST(request: NextRequest) {
           <td style="background-color: ${BRAND.colors.dark}; padding: 24px 20px; text-align: center;
                      border-top: 1px solid rgba(255,255,255,0.1);" class="mobile-padding">
             <p style="margin: 0 0 8px; color: ${BRAND.colors.gray[400]}; font-size: 14px;">
-              Luis Cabrejo & Liliana Moreno
+              Luis Cabrejo
             </p>
             <p style="margin: 0 0 16px; color: ${BRAND.colors.gray[500]}; font-size: 12px;">
               Co-Fundadores de CreaTuActivo

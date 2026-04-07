@@ -382,11 +382,9 @@ const sendMessage = useCallback(async (content: string) => {
     if (error.name === 'AbortError') {
       errorMessage = `Parece que estoy tardando más de lo esperado en responder. Esto puede pasar cuando hay mucho tráfico.
 
-¿Te gustaría intentar de nuevo o prefieres hablar directamente con **Liliana Moreno**?
+¿Te gustaría intentar de nuevo o prefieres escribirnos directamente?
 
-Ella es nuestra Estratega Senior y puede resolver tu consulta de inmediato:
-→ [WhatsApp](https://wa.me/573102066593)
-→ Horario: 8:00 AM - 8:00 PM (Colombia)`;
+→ [WhatsApp](https://wa.me/573215193909)`;
 
     } else if (error.message?.includes('500') || error.message?.includes('servidor')) {
       errorMessage = error.message;
@@ -394,20 +392,16 @@ Ella es nuestra Estratega Senior y puede resolver tu consulta de inmediato:
     } else if (error.message?.includes('fetch')) {
       errorMessage = `Parece que perdimos la conexión por un momento.
 
-Mientras tanto, te comparto los puntos de entrada disponibles:
-• **Inicial:** $200 USD (~$900K COP) - Acceso completo
-• **Empresarial:** $500 USD (~$2.25M COP) - El más popular
-• **Visionario:** $1,000 USD (~$4.5M COP) - Máxima rentabilidad
+Puedes escribirnos directamente y con gusto te atendemos:
+→ [WhatsApp](https://wa.me/573215193909)
 
-¿Quieres que lo intentemos de nuevo o prefieres hablar con **Liliana**?
-→ [WhatsApp](https://wa.me/573102066593)`;
+¿O prefieres que lo intentemos de nuevo?`;
 
     } else {
       errorMessage = `Estoy teniendo dificultades técnicas en este momento.
 
-La buena noticia: puedes hablar directamente con **Liliana Moreno**, nuestra Estratega Senior. Ella puede resolver cualquier duda sobre el modelo de negocio.
-
-→ [Hablar con Liliana](https://wa.me/573102066593)
+Puedes escribirnos directamente por WhatsApp y te atendemos de inmediato:
+→ [WhatsApp](https://wa.me/573215193909)
 
 ¿O prefieres que intentemos de nuevo en unos segundos?`;
     }
@@ -455,26 +449,13 @@ const contactLiliana = useCallback(() => {
   const contactMessage: Message = {
     id: generateId(),
     role: 'assistant',
-    content: `🏗️ **Consultoría Estratégica Disponible**
+    content: `📲 **Contacto Directo**
 
-**Liliana Moreno - Arquitecta Senior**
-**WhatsApp:** +573102066593
-**Horario:** 8:00 AM - 8:00 PM (GMT-5)
-**Experiencia:** 9 años consecutivos líder en arquitectura de activos
+Escríbenos por WhatsApp y nuestro equipo te atiende personalmente:
 
-**Especialidades de la consultoría:**
-• Diseño completo de la arquitectura personalizada para tu perfil
-• Análisis de cuál punto de entrada optimiza tu situación específica
-• Implementación paso a paso del método probado
-• Mentoring estratégico para construcción de activo patrimonial
+→ [WhatsApp](https://wa.me/573215193909)
 
-**Tu consultoría estratégica incluye:**
-✓ Evaluación de tu situación actual y objetivos
-✓ Diseño de arquitectura personalizada Motor+Plano+Maquinaria
-✓ Plan de implementación con cronograma específico
-✓ Soporte continuo durante la construcción de tu activo
-
-**¿Te gustaría que prepare algunos puntos estratégicos antes de tu consultoría?**`,
+**¿Te gustaría que prepare algunos puntos antes de esa conversación?**`,
     timestamp: new Date(),
     isStreaming: false
   };

@@ -15,7 +15,7 @@ import { useHydration } from '@/hooks/useHydration'
 import Image from 'next/image'
 
 // Enlace de WhatsApp Configurado (Solo para cierre final)
-const WA_LINK = "https://wa.me/573102066593?text=Ol%C3%A1%2C%20tenho%20interesse%20nos%20produtos%20e%20pacotes%20da%20Gano%20Excel%20no%20Brasil";
+const WA_LINK = "https://wa.me/573215193909?text=Ol%C3%A1%2C%20tenho%20interesse%20nos%20produtos%20e%20pacotes%20da%20Gano%20Excel%20no%20Brasil";
 
 // --- DICCIONARIO DE CONTENIDO (ES / PT) ---
 const content = {

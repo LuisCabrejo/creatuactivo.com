@@ -143,7 +143,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({
       error: 'Failed to queue message',
       details: error instanceof Error ? error.message : String(error),
-      fallback: 'Contact support: +573102066593'
+      fallback: 'Contact support: +573215193909'
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }

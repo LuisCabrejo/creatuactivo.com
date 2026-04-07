@@ -292,7 +292,7 @@ export const FounderConfirmationEmail = ({
               lineHeight: '24px'
             }}>
               Atentamente,<br />
-              <strong>Luis Cabrejo & Liliana Moreno</strong><br />
+              <strong>Luis Cabrejo</strong><br />
               <span style={{ color: BRAND.colors.gray[400], fontSize: '14px' }}>
                 Co-Fundadores de CreaTuActivo
               </span>

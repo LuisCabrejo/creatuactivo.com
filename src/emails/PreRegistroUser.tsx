@@ -268,7 +268,7 @@ export const PreRegistroUserEmail = ({
               fontSize: '11px'
             }}>
               <Link
-                href="https://wa.me/573102066593"
+                href="https://wa.me/573215193909"
                 style={{ color: colors.textMuted, textDecoration: 'none' }}
               >
                 WhatsApp: +57 310 206 6593

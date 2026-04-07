@@ -342,7 +342,7 @@ export const Reto12DiasConfirmationEmail = ({
               lineHeight: '24px'
             }}>
               ¡Nos vemos en la cima!<br /><br />
-              <strong>Luis Cabrejo & Liliana Moreno</strong><br />
+              <strong>Luis Cabrejo</strong><br />
               <span style={{ color: colors.textSubtle, fontSize: '13px' }}>
                 Co-Fundadores de CreaTuActivo
               </span>
@@ -392,7 +392,7 @@ export const Reto12DiasConfirmationEmail = ({
               }}
             >
               <Link
-                href="https://wa.me/573102066593"
+                href="https://wa.me/573215193909"
                 style={{ color: colors.textMuted, textDecoration: 'none' }}
               >
                 WhatsApp: +57 310 206 6593

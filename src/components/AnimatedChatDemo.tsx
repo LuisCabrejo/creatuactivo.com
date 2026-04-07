@@ -91,7 +91,7 @@ const defaultConversation: Message[] = [
   {
     id: 11,
     role: 'assistant',
-    content: '¡Excelente María! Te agendo una llamada con Liliana Moreno, Diamante de Gano Excel, para resolver todas tus dudas personalmente.',
+    content: '¡Excelente María! Nuestro equipo directivo te contactará para resolver todas tus dudas personalmente.',
     delay: 1500,
   },
 ];

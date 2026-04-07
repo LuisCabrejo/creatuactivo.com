@@ -634,82 +634,81 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
 
           {/* 🎨 Quiet Luxury INPUT */}
           <div
-            className={`${isExpanded ? 'p-4 pt-3' : 'p-3'}`}
+            className={`${isExpanded ? 'px-3 py-3' : 'px-2 py-2'}`}
             style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
-            <form className="flex items-center" onSubmit={handleSubmit} autoComplete="off">
-              <div className="relative flex-1">
-                <textarea
-                  ref={textareaRef}
-                  enterKeyHint="send"
-                  rows={1}
-                  value={inputMessage}
-                  onChange={handleTextareaChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="_ Escribe tu consulta..."
-                  autoComplete="off"
-                  autoCorrect="on"
-                  autoCapitalize="sentences"
-                  spellCheck={true}
-                  className={`w-full pl-4 pr-12 py-3 transition-all duration-200 resize-none ${
-                    isExpanded ? 'text-base' : 'text-sm'
-                  }`}
-                  style={{
-                    background: QUIET_LUXURY.bgSurface,
-                    color: QUIET_LUXURY.textPrimary,
-                    border: `1px solid rgba(229, 194, 121, 0.15)`,
-                    fontFamily: 'var(--font-roboto-mono)',
-                    boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
-                    outline: 'none',
-                    lineHeight: '1.5',
-                    maxHeight: '120px',
-                    overflowY: 'auto',
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
-                    e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
-                    e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
-                  }}
-                />
+            <form className="flex items-end gap-2" onSubmit={handleSubmit} autoComplete="off">
+              {/* Textarea — ocupa todo el ancho disponible sin ceder espacio al botón */}
+              <textarea
+                ref={textareaRef}
+                enterKeyHint="send"
+                rows={1}
+                value={inputMessage}
+                onChange={handleTextareaChange}
+                onKeyDown={handleKeyDown}
+                placeholder="_ Escribe tu consulta..."
+                autoComplete="off"
+                autoCorrect="on"
+                autoCapitalize="sentences"
+                spellCheck={true}
+                className={`flex-1 min-w-0 px-4 py-3 transition-all duration-200 resize-none ${
+                  isExpanded ? 'text-base' : 'text-sm'
+                }`}
+                style={{
+                  background: QUIET_LUXURY.bgSurface,
+                  color: QUIET_LUXURY.textPrimary,
+                  border: `1px solid rgba(229, 194, 121, 0.15)`,
+                  fontFamily: 'var(--font-roboto-mono)',
+                  boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
+                  outline: 'none',
+                  lineHeight: '1.5',
+                  maxHeight: '120px',
+                  overflowY: 'auto',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
+                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
+                }}
+              />
 
-                {/* Acción derecha: mic (vacío) ↔ enviar (con texto) */}
-                <div className="absolute right-3 bottom-3">
-                  {inputMessage.trim() ? (
-                    <button
-                      type="submit"
-                      disabled={isLoading}
-                      className="transition-all duration-150 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
-                      style={{ background: 'transparent', border: 'none', padding: '2px', cursor: 'pointer' }}
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                      </svg>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (voiceState === 'recording') onStopVoice?.();
-                        else if (voiceState === 'idle') onStartVoice?.();
-                      }}
-                      disabled={voiceState === 'processing' || voiceState === 'speaking'}
-                      className="transition-all duration-150 hover:scale-110 disabled:opacity-30"
-                      style={{ background: 'transparent', border: 'none', padding: '2px', cursor: 'pointer' }}
-                    >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
-                        stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}
-                        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                        <line x1="12" y1="19" x2="12" y2="23"/>
-                        <line x1="8" y1="23" x2="16" y2="23"/>
-                      </svg>
-                    </button>
-                  )}
-                </div>
+              {/* Botón mic ↔ enviar — fuera del textarea, target grande para pulgar */}
+              <div className="flex-shrink-0 flex items-center justify-center pb-2.5">
+                {inputMessage.trim() ? (
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-10 h-10 flex items-center justify-center transition-all duration-150 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
+                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (voiceState === 'recording') onStopVoice?.();
+                      else if (voiceState === 'idle') onStartVoice?.();
+                    }}
+                    disabled={voiceState === 'processing' || voiceState === 'speaking'}
+                    className="w-10 h-10 flex items-center justify-center transition-all duration-150 hover:scale-110 disabled:opacity-30"
+                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                  >
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                      stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}
+                      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                      <line x1="12" y1="19" x2="12" y2="23"/>
+                      <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                  </button>
+                )}
               </div>
             </form>
           </div>

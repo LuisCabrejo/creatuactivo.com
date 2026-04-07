@@ -401,7 +401,7 @@ export default function UnifiedQueswaOrb() {
         onPointerUp={handlePointerUp}
         onPointerLeave={isRecording ? handlePointerUp : undefined}
         disabled={isProcessing || isSpeaking}
-        animate={(orbVisible || isOpen) ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
+        animate={(orbVisible && !isOpen) ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
         transition={
           orbVisible
             ? { type: 'spring', damping: 20, stiffness: 260 }

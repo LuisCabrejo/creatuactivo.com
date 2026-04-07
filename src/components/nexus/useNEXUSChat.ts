@@ -58,22 +58,21 @@ const getInitialGreeting = (): Message => {
       role: 'assistant',
       content: `Hola, ${savedName} 🪢
 
-¿En qué puedo ayudarte?`,
+¿En qué puedo ayudarte hoy?`,
       timestamp: new Date(),
       isStreaming: false
     };
   }
 
-  // Primera visita — saludo con propuesta de valor + pregunta de situación
+  // Primera visita — texto Premium Accesible v22.0
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola. Soy Queswa, el Motor Cognitivo de CreaTuActivo. 🪢
+    content: `Hola. Soy Queswa, el motor de asistencia virtual de CreaTuActivo.com. 🪢
 
-Estoy aquí para ayudarte a construir tu *Patrimonio Paralelo*: un sistema de ingresos que no dependa de tu tiempo, sin que tengas que abandonar tu actividad actual.
+Entendemos que tu tiempo es escaso y valioso. Nuestro propósito es explicarte cómo profesionales y comerciantes estructuran un **Patrimonio Paralelo**. Este sistema funciona mediante una franquicia digital híbrida diseñada para no interferir con tu empleo o negocio actual.
 
-Para trazar tu ruta exacta, ¿cuál es tu situación hoy?
-*(¿Tienes empleo, negocio propio, eres independiente, u otro?)*`,
+Para ir directo al grano y no hacerte perder tiempo, selecciona abajo qué aspecto del sistema te gustaría evaluar primero:`,
     timestamp: new Date(),
     isStreaming: false
   };

@@ -68,11 +68,11 @@ const getInitialGreeting = (): Message => {
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola. Soy Queswa, el motor de asistencia virtual de CreaTuActivo.com. 🪢
+    content: `Hola. Soy Queswa 🪢, el asistente de CreaTuActivo.com.
 
-Entendemos que tu tiempo es escaso y valioso. Nuestro propósito es explicarte cómo profesionales y comerciantes estructuran un **Patrimonio Paralelo**. Este sistema funciona mediante una franquicia digital híbrida diseñada para no interferir con tu empleo o negocio actual.
+Entendemos que tu tiempo es escaso y valioso. Nuestro propósito es explicarte cómo profesionales y comerciantes estructuran un **Patrimonio Paralelo** — una fuente de ingresos adicional diseñada para no interferir con tu empleo o negocio actual.
 
-Para ir directo al grano y no hacerte perder tiempo, selecciona abajo qué aspecto del sistema te gustaría evaluar primero:`,
+Selecciona abajo qué aspecto te gustaría evaluar primero:`,
     timestamp: new Date(),
     isStreaming: false
   };

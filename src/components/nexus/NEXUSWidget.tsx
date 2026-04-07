@@ -350,21 +350,21 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
             const restContent = rest.join('\n\n');
             return (
               <div
-                className="flex-1 flex flex-col items-center text-center px-8 pt-8 md:pt-16"
+                className="flex-1 flex flex-col px-5 pt-6 overflow-y-auto"
                 style={{ animation: 'msgIn 400ms cubic-bezier(0.22, 1, 0.36, 1) both' }}
               >
-                {/* Primera línea — grande */}
-                <p className="text-lg md:text-xl font-semibold leading-snug mb-5" style={{ color: QUIET_LUXURY.textPrimary }}>
+                {/* Primera línea — grande, izquierda */}
+                <p className="text-base md:text-lg font-semibold leading-snug mb-4" style={{ color: QUIET_LUXURY.textPrimary }}>
                   {firstPara}
                 </p>
-                {/* Resto — tamaño normal, palabras clave en oro */}
+                {/* Resto — tamaño normal, alineado a la izquierda */}
                 {restContent && (
                   <div className="text-sm leading-relaxed" style={{ color: QUIET_LUXURY.textSecondary }}>
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
                         em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.gold }}>{children}</em>,
-                        p: ({children}) => <p className="mb-3">{children}</p>,
+                        p: ({children}) => <p className="mb-4">{children}</p>,
                       }}
                     >
                       {restContent}
@@ -372,8 +372,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   </div>
                 )}
 
-                {/* Quick Reply Chips — eliminan fricción de articulación */}
-                <div className="w-full mt-6 grid grid-cols-2 gap-2 px-0">
+                {/* Quick Reply Chips — columna única, touch targets grandes */}
+                <div className="w-full mt-4 mb-4 flex flex-col gap-2">
                   {[
                     { emoji: '⚙️', label: 'Cómo funciona el modelo' },
                     { emoji: '📊', label: 'Proyección de ingresos'  },
@@ -384,7 +384,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                       key={label}
                       onClick={() => handleSendMessage(`${emoji} ${label}`)}
                       disabled={isLoading}
-                      className="flex items-center gap-2 px-3 py-2.5 text-left text-xs transition-all duration-200 disabled:opacity-40"
+                      className="w-full flex items-center gap-3 px-4 py-4 text-left text-sm transition-all duration-200 disabled:opacity-40"
                       style={{
                         background: QUIET_LUXURY.bgSurface,
                         border: `1px solid rgba(229, 194, 121, 0.2)`,
@@ -401,8 +401,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         e.currentTarget.style.color = QUIET_LUXURY.textSecondary;
                       }}
                     >
-                      <span className="text-base leading-none flex-shrink-0">{emoji}</span>
-                      <span className="leading-tight">{label}</span>
+                      <span className="text-lg leading-none flex-shrink-0">{emoji}</span>
+                      <span className="leading-snug">{label}</span>
                     </button>
                   ))}
                 </div>

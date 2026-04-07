@@ -369,7 +369,7 @@ async function captureProspectData(
 
   // Blacklist de palabras que NO son nombres (incluye paquetes, arquetipos y opciones)
   // ✅ v12.3: Expandida para prevenir captura de paquetes como "visionario"
-  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio)$/i;
+  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame)$/i;
 
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
@@ -390,8 +390,8 @@ async function captureProspectData(
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
 
-    // ⚠️ BLACKLIST EXPANDIDA v12.3: Evitar capturar paquetes, arquetipos o respuestas como nombres
-    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio)$/i;
+    // ⚠️ BLACKLIST EXPANDIDA v12.4: Evitar capturar paquetes, arquetipos, ocupaciones o respuestas como nombres
+    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame)$/i;
 
     if (simpleNameMatch && !messageLower.match(nameBlacklist)) {
       const capturedName = simpleNameMatch[1].trim();
@@ -883,6 +883,38 @@ async function captureProspectData(
   }
 
   return data;
+}
+
+// ============================================================================
+// EXTRACCIÓN DE NOMBRE PARA HANDOFF (Estado 3a → Estado 4)
+// Más permisiva que captureProspectData: el contexto es explícito (bot preguntó el nombre)
+// ============================================================================
+function extractNameFromHandoffReply(message: string): string | null {
+  const cleanMsg = message.trim();
+
+  // Rechazar si el usuario declina dar su nombre
+  const declines = /no\s+(quiero|tengo|doy|d[eé]|quiero\s+dar)|prefiero\s+no|an[oó]nimo|sin\s+nombre|no\s+importa|da\s+igual|como\s+quieras|no\s+es\s+necesario|s[aá]ltalo|omite/i;
+  if (declines.test(cleanMsg)) return null;
+
+  // Blacklist de ocupaciones/comandos que no son nombres de persona
+  const occupationBlacklist = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO|hola|gracias|si|s[ií]|no|ok|bien|claro|perfecto|excelente|acepto|dame|quiero|necesito|mu[eé]strame|h[aá]blame|cu[eé]ntame|expl[ií]came|vamos|adelante)$/i;
+
+  // Patrones para extraer el nombre
+  const namePatterns = [
+    /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)[,.]?\s*$/,  // Solo el nombre (con puntuación opcional al final)
+  ];
+
+  for (const pattern of namePatterns) {
+    const match = cleanMsg.match(pattern);
+    if (match) {
+      const candidate = match[1].trim();
+      if (candidate.length >= 2 && !occupationBlacklist.test(candidate)) {
+        return candidate;
+      }
+    }
+  }
+  return null;
 }
 
 // ============================================================================
@@ -3413,14 +3445,20 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // `directPaquetes`: true cuando llegamos a Estado 2 sin pasar por Estado 1 (horas).
     // Cuando es true, el micro-prompt de Estado 2 NO menciona horas (nadie las declaró).
     const { closingState, directPaquetes } = (() => {
-      // ── POST-ESTADO 3: si el handoff ya fue entregado esta sesión → flujo normal ──
+      // ── POST-ESTADO 4: si el link WA ya fue entregado esta sesión → flujo normal ──
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
-      const estadoTresEntregado = allBotMsgs.some((m: any) =>
+      const waLinkEntregado = allBotMsgs.some((m: any) =>
         /He consolidado tu expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
       );
-      if (estadoTresEntregado) return { closingState: 0 as const, directPaquetes: false };
+      if (waLinkEntregado) return { closingState: 0 as const, directPaquetes: false };
 
-      // Estado 3: paquete ya elegido (detectado por packageMap en captureProspectData)
+      // Estado 4: Estado 3 (solicitud de nombre) ya entregado → entregar link WA
+      const nombreSolicitado = allBotMsgs.some((m: any) =>
+        /bajo qu[eé] nombre|registrar.*evaluaci[oó]n|ensamblar.*expediente|expediente de activaci[oó]n/i.test(m.content || '')
+      );
+      if (nombreSolicitado && mergedProspectData.package) return { closingState: 4 as const, directPaquetes: false };
+
+      // Estado 3: paquete elegido → solicitar nombre (White-Glove, flujo 2-pasos)
       if (mergedProspectData.package) return { closingState: 3 as const, directPaquetes: false };
 
       const botMessages = messages.filter((m: any) => m.role === 'assistant');
@@ -3503,27 +3541,55 @@ STOP. No pidas correo, nombre, país ni ningún otro dato. No expliques el onboa
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
+      if (closingState === 3) {
+        const paquete = mergedProspectData.package || 'seleccionado';
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 3 — SOLICITUD DE NOMBRE (Guante Blanco)
+Tu única tarea en este turno: confirmar la elección y pedir el nombre. Imprime EXACTAMENTE:
+
+Excelente decisión. El nivel ${paquete} es la postura correcta para máxima tracción.
+
+Para ensamblar su expediente de activación, ¿bajo qué nombre debo registrarlo?
+
+STOP. No preguntes correo, teléfono ni ciudad. No expliques el proceso de onboarding. Espera el nombre.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
+
       return '';
     };
 
-    // ── ESTADO 3: Handoff verbatim (mismo patrón que ya funcionaba) ──────────
-    const getCierreEstado3 = (): string => {
-      if (closingState !== 3 || !mergedProspectData.package) return '';
+    // ── ESTADO 4: Handoff verbatim con nombre real capturado ─────────────────
+    const getCierreEstado4 = (): string => {
+      if (closingState !== 4 || !mergedProspectData.package) return '';
       const paquete = mergedProspectData.package;
-      const nombreProspecto = mergedProspectData.name || '';
       const paqueteEncoded = encodeURIComponent(paquete);
+
+      // Prioridad: (1) nombre de la respuesta actual (directa a "¿bajo qué nombre?"),
+      // (2) nombre en BD si no es una ocupación, (3) sin nombre
+      const nombreDesdeRespuesta = extractNameFromHandoffReply(latestUserMessage);
+      const occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
+      const existingNameIsValid = mergedProspectData.name && !occupationCheck.test(mergedProspectData.name);
+      const nombreFinal = nombreDesdeRespuesta || (existingNameIsValid ? mergedProspectData.name : '');
+
+      const waText = nombreFinal
+        ? `Hola%20equipo%20directivo.%20Soy%20${encodeURIComponent(nombreFinal)}.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.`
+        : `Hola%20equipo%20directivo.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.`;
+
+      console.log(`🎯 [ESTADO 4] nombre="${nombreFinal || '(sin nombre)'}" paquete="${paquete}"`);
+
       return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 3 — HANDOFF GUANTE BLANCO (paquete: ${paquete})
+🎯 ESTADO 4 — HANDOFF GUANTE BLANCO (paquete: ${paquete}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-Excelente decisión. El nivel ${paquete} es la postura correcta para máxima tracción.
+${nombreFinal ? `Gracias, ${nombreFinal}.` : ''} Su expediente está consolidado.
 
 Dado nuestro estándar operativo, no lidiarás con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
 
 He consolidado tu expediente. Tu único paso ahora es hacer clic en el siguiente enlace para enviar tu orden pre-aprobada directamente a la Dirección y recibir tu acceso:
 
-[📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=Hola%20equipo%20directivo.%20${nombreProspecto ? `Soy%20${encodeURIComponent(nombreProspecto)}.%20` : ''}He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.)
+[📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=${waText})
 
 Bienvenido a la mesa directiva. Ha sido un privilegio orquestar tu evaluación.
 
@@ -3534,7 +3600,7 @@ STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
     // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
     // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
     // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
-    const arsenalParaCierre = (closingState === 1 || closingState === 2)
+    const arsenalParaCierre = (closingState === 1 || closingState === 2 || closingState === 3 || closingState === 4)
       ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
       : arsenalContext;
 
@@ -3591,7 +3657,7 @@ BINARIO — usa exactamente esta estructura (tabla de COMP_BIN_02):
 📍 ${getMessageContext()}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
-${getCierreEstado3()}
+${getCierreEstado4()}
 ${getPinCifrasGEN5()}
 ${getTablasComisiones()}
 ${conversationSummary}<prospect_state>

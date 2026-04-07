@@ -498,6 +498,7 @@ export default function StrategicNavigation() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
     setActiveDropdown(null)
+    window.dispatchEvent(new CustomEvent('mobile-menu-close'))
   }
 
   const handleLinkClick = () => {
@@ -567,7 +568,7 @@ export default function StrategicNavigation() {
 
               {/* MOBILE TOGGLE */}
               <button
-                onClick={() => setIsMobileMenuOpen(true)}
+                onClick={() => { setIsMobileMenuOpen(true); window.dispatchEvent(new CustomEvent('mobile-menu-open')) }}
                 className="strategic-mobile-toggle"
                 aria-label="Abrir menú"
               >

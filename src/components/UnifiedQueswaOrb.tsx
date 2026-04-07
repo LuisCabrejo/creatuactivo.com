@@ -62,6 +62,7 @@ export default function UnifiedQueswaOrb() {
   const [isOpen,        setIsOpen]        = useState(false)
   const [showTooltip,   setShowTooltip]   = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [isMenuOpen,    setIsMenuOpen]    = useState(false)
 
   // Voice state
   const [voiceState,  setVoiceState]  = useState<VoiceState>('idle')
@@ -150,10 +151,41 @@ export default function UnifiedQueswaOrb() {
     return () => document.removeEventListener('fullscreenchange', onFs)
   }, [pathname])
 
-  // Auto-cerrar el chat al navegar entre páginas
+  // Auto-cerrar el chat al navegar entre páginas + resetear estado de voz
   useEffect(() => {
     setIsOpen(false)
+    setVoiceState('idle')
+    mediaRecorderRef.current?.state !== 'inactive' && mediaRecorderRef.current?.stop()
+    streamRef.current?.getTracks().forEach(t => t.stop())
+    audioRef.current?.pause()
   }, [pathname])
+
+  // Ocultar orbe cuando el menú mobile está abierto
+  useEffect(() => {
+    const onOpen  = () => setIsMenuOpen(true)
+    const onClose = () => setIsMenuOpen(false)
+    window.addEventListener('mobile-menu-open',  onOpen)
+    window.addEventListener('mobile-menu-close', onClose)
+    return () => {
+      window.removeEventListener('mobile-menu-open',  onOpen)
+      window.removeEventListener('mobile-menu-close', onClose)
+    }
+  }, [])
+
+  // Botón atrás del navegador cierra el chat en lugar de salir del sitio
+  useEffect(() => {
+    if (!isOpen) return
+    history.pushState({ queswaOpen: true }, '')
+    const onPopState = () => {
+      setIsOpen(false)
+      setVoiceState('idle')
+      mediaRecorderRef.current?.state !== 'inactive' && mediaRecorderRef.current?.stop()
+      streamRef.current?.getTracks().forEach(t => t.stop())
+      audioRef.current?.pause()
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [isOpen])
 
   // Cleanup audio/stream al desmontar
   useEffect(() => () => {
@@ -241,8 +273,8 @@ export default function UnifiedQueswaOrb() {
         navigator.vibrate?.(30)
         stopAndSend()
       }
-    } else {
-      // Toque corto → abrir/cerrar chat
+    } else if (voiceState === 'idle') {
+      // Toque corto → abrir/cerrar chat (solo si voz está inactiva)
       setHasInteracted(true)
       setShowTooltip(false)
       setIsOpen(prev => !prev)
@@ -318,6 +350,8 @@ export default function UnifiedQueswaOrb() {
 
   // En /servilleta solo visible cuando card-1 de slide-2 está activa
   if (pathname === '/servilleta' && !visibleInServilleta) return null
+  // Ocultar mientras el menú mobile está abierto
+  if (isMenuOpen) return null
 
   return (
     <>
@@ -431,6 +465,10 @@ export default function UnifiedQueswaOrb() {
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false)
+          setVoiceState('idle')
+          if (mediaRecorderRef.current?.state !== 'inactive') mediaRecorderRef.current?.stop()
+          streamRef.current?.getTracks().forEach(t => t.stop())
+          audioRef.current?.pause()
           window.dispatchEvent(new CustomEvent('close-queswa'))
         }}
         voiceState={voiceState}

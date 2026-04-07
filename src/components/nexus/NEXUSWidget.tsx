@@ -637,96 +637,110 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
             className={`${isExpanded ? 'p-3' : 'p-2'}`}
             style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
-            <form className="flex items-center" onSubmit={handleSubmit} autoComplete="off">
-              <div className="relative flex-1">
-                <textarea
-                  ref={textareaRef}
-                  enterKeyHint="send"
-                  rows={1}
-                  value={inputMessage}
-                  onChange={handleTextareaChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="_ Escribe tu consulta..."
-                  autoComplete="off"
-                  autoCorrect="on"
-                  autoCapitalize="sentences"
-                  spellCheck={true}
-                  className={`w-full pl-4 pr-14 transition-all duration-200 resize-none ${
-                    isExpanded ? 'text-base' : 'text-sm'
-                  }`}
-                  style={{
-                    background: QUIET_LUXURY.bgSurface,
-                    color: QUIET_LUXURY.textPrimary,
-                    border: `1px solid rgba(229, 194, 121, 0.15)`,
-                    fontFamily: 'var(--font-roboto-mono)',
-                    boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
-                    outline: 'none',
-                    lineHeight: '1.5',
-                    minHeight: '52px',
-                    maxHeight: '120px',
-                    overflowY: 'auto',
-                    paddingTop: '14px',
-                    paddingBottom: '14px',
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
-                    e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
-                    e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
-                  }}
-                />
+            <form className="flex flex-col" onSubmit={handleSubmit} autoComplete="off">
+              {/* Textarea — ancho completo, sin padding asimétrico */}
+              <textarea
+                ref={textareaRef}
+                enterKeyHint="send"
+                rows={1}
+                value={inputMessage}
+                onChange={handleTextareaChange}
+                onKeyDown={handleKeyDown}
+                placeholder="_ Escribe tu consulta..."
+                autoComplete="off"
+                autoCorrect="on"
+                autoCapitalize="sentences"
+                spellCheck={true}
+                className={`w-full px-4 transition-all duration-200 resize-none ${
+                  isExpanded ? 'text-base' : 'text-sm'
+                }`}
+                style={{
+                  background: QUIET_LUXURY.bgSurface,
+                  color: QUIET_LUXURY.textPrimary,
+                  border: `1px solid rgba(229, 194, 121, 0.15)`,
+                  borderBottom: 'none',
+                  borderRadius: '8px 8px 0 0',
+                  fontFamily: 'var(--font-roboto-mono)',
+                  boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
+                  outline: 'none',
+                  lineHeight: '1.5',
+                  minHeight: '52px',
+                  maxHeight: '120px',
+                  overflowY: 'auto',
+                  paddingTop: '14px',
+                  paddingBottom: '10px',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
+                  e.currentTarget.style.boxShadow = `inset 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(56, 189, 248, 0.12)`;
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(229, 194, 121, 0.15)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
+                }}
+              />
 
-                {/* Mic ↔ enviar — touch target 48×48px, esquina inferior derecha */}
-                <div className="absolute right-1 bottom-1">
-                  {inputMessage.trim() ? (
-                    <button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed active:scale-90"
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        borderRadius: '50%',
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(229,194,121,0.10)'}
-                      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                      </svg>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (voiceState === 'recording') onStopVoice?.();
-                        else if (voiceState === 'idle') onStartVoice?.();
-                      }}
-                      disabled={voiceState === 'processing' || voiceState === 'speaking'}
-                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-30 active:scale-90"
-                      style={{
-                        background: voiceState === 'recording' ? 'rgba(212,175,55,0.12)' : 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        borderRadius: '50%',
-                      }}
-                      onMouseEnter={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
-                      onMouseLeave={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'transparent' }}
-                    >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
-                        stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}
-                        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                        <line x1="12" y1="19" x2="12" y2="23"/>
-                        <line x1="8" y1="23" x2="16" y2="23"/>
-                      </svg>
-                    </button>
-                  )}
-                </div>
+              {/* Toolbar — fila inferior, misma burbuja visual */}
+              <div
+                className="flex items-center justify-end"
+                style={{
+                  background: QUIET_LUXURY.bgSurface,
+                  border: `1px solid rgba(229, 194, 121, 0.15)`,
+                  borderTop: `1px solid rgba(255,255,255,0.05)`,
+                  borderRadius: '0 0 8px 8px',
+                  paddingRight: '4px',
+                  paddingBottom: '4px',
+                  paddingTop: '2px',
+                  minHeight: '44px',
+                }}
+              >
+                {/* Mic ↔ enviar — touch target 48×48px */}
+                {inputMessage.trim() ? (
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed active:scale-90"
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(229,194,121,0.10)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke={QUIET_LUXURY.gold} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (voiceState === 'recording') onStopVoice?.();
+                      else if (voiceState === 'idle') onStartVoice?.();
+                    }}
+                    disabled={voiceState === 'processing' || voiceState === 'speaking'}
+                    className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-30 active:scale-90"
+                    style={{
+                      background: voiceState === 'recording' ? 'rgba(212,175,55,0.12)' : 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                    }}
+                    onMouseEnter={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
+                    onMouseLeave={e => { if (voiceState !== 'recording') e.currentTarget.style.background = 'transparent' }}
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                      stroke={voiceState === 'recording' ? QUIET_LUXURY.gold : QUIET_LUXURY.textMuted}
+                      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                      <line x1="12" y1="19" x2="12" y2="23"/>
+                      <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                  </button>
+                )}
               </div>
             </form>
           </div>

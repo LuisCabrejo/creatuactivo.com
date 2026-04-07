@@ -150,6 +150,11 @@ export default function UnifiedQueswaOrb() {
     return () => document.removeEventListener('fullscreenchange', onFs)
   }, [pathname])
 
+  // Auto-cerrar el chat al navegar entre páginas
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
+
   // Cleanup audio/stream al desmontar
   useEffect(() => () => {
     streamRef.current?.getTracks().forEach(t => t.stop())
@@ -347,9 +352,9 @@ export default function UnifiedQueswaOrb() {
         )}
       </AnimatePresence>
 
-      {/* ── Estado de voz (label flotante sobre el orbe) ─────────────────────── */}
+      {/* ── Estado de voz (label flotante sobre el orbe) — solo cuando chat cerrado ── */}
       <AnimatePresence>
-        {isVoiceActive && (
+        {isVoiceActive && !isOpen && (
           <motion.span
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}

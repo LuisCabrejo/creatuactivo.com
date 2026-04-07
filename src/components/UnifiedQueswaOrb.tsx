@@ -426,6 +426,7 @@ export default function UnifiedQueswaOrb() {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: (isProcessing || isSpeaking) ? 'default' : 'pointer',
+          pointerEvents: (!isOpen && orbVisible) ? 'auto' : 'none',
           outline: 'none',
           WebkitTapHighlightColor: 'transparent',
           userSelect: 'none',

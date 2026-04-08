@@ -332,9 +332,19 @@ export default function UnifiedQueswaOrb() {
       const res = await fetch('/api/voice-command', { method: 'POST', body: fd })
       if (!res.ok) throw new Error('Error del servidor')
 
-      // Leer transcripción del header (disponible en la API)
-      const transcript = res.headers.get('x-transcript')
-      if (transcript) setLiveTranscript(decodeURIComponent(transcript))
+      // Leer transcripción y respuesta de texto de los headers
+      const rawTranscript = res.headers.get('x-transcript')
+      const rawReply      = res.headers.get('x-reply')
+      const transcript    = rawTranscript ? decodeURIComponent(rawTranscript) : ''
+      const reply         = rawReply      ? decodeURIComponent(rawReply)      : ''
+      if (transcript) setLiveTranscript(transcript)
+
+      // Inyectar intercambio de voz en el historial del chat
+      if (transcript || reply) {
+        window.dispatchEvent(new CustomEvent('queswa-voice-exchange', {
+          detail: { transcript, reply }
+        }))
+      }
 
       const audioBlob = await res.blob()
       setVoiceState('speaking')
@@ -638,16 +648,17 @@ export default function UnifiedQueswaOrb() {
           0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 0px rgba(212,175,55,0); }
           50%       { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 7px rgba(212,175,55,0.09), 0 0 22px rgba(212,175,55,0.13); }
         }
+        /* Idle: solo pulso de opacidad — sin scale, sin movimiento → no parece "activo" */
         @keyframes qwBar {
-          0%, 100% { transform: scaleY(0.45); opacity: 0.55; }
-          50%       { transform: scaleY(0.85); opacity: 0.9;  }
+          0%, 100% { opacity: 0.35; }
+          50%       { opacity: 0.65; }
         }
-        .qw-orb-bars .qb1 { animation: qwBar 2.8s ease-in-out infinite 0.00s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb2 { animation: qwBar 2.4s ease-in-out infinite 0.35s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb3 { animation: qwBar 2.2s ease-in-out infinite 0.70s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb4 { animation: qwBar 2.6s ease-in-out infinite 0.20s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb5 { animation: qwBar 2.4s ease-in-out infinite 0.55s; transform-origin: center; transform-box: fill-box; }
-        .qw-orb-bars .qb6 { animation: qwBar 2.8s ease-in-out infinite 0.15s; transform-origin: center; transform-box: fill-box; }
+        .qw-orb-bars .qb1 { animation: qwBar 3.2s ease-in-out infinite 0.00s; }
+        .qw-orb-bars .qb2 { animation: qwBar 3.6s ease-in-out infinite 0.50s; }
+        .qw-orb-bars .qb3 { animation: qwBar 3.0s ease-in-out infinite 1.00s; }
+        .qw-orb-bars .qb4 { animation: qwBar 3.8s ease-in-out infinite 0.25s; }
+        .qw-orb-bars .qb5 { animation: qwBar 3.4s ease-in-out infinite 0.75s; }
+        .qw-orb-bars .qb6 { animation: qwBar 3.2s ease-in-out infinite 0.40s; }
         /* Puntos animados para "Escuchando..." */
         @keyframes qwDots { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
         .qw-dots { animation: qwDots 1.1s ease-in-out infinite; }

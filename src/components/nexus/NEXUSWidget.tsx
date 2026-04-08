@@ -90,6 +90,32 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   const [isExpanded, setIsExpanded] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // ── Intercambios de voz — mensajes de voz inyectados en el historial ────────
+  const [voiceMessages, setVoiceMessages] = useState<Message[]>([]);
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { transcript, reply } = (e as CustomEvent).detail ?? {};
+      if (!transcript && !reply) return;
+      const ts = new Date();
+      const newMsgs: Message[] = [];
+      if (transcript) newMsgs.push({
+        id: `voice-user-${Date.now()}`,
+        role: 'user',
+        content: transcript,
+        timestamp: ts,
+      });
+      if (reply) newMsgs.push({
+        id: `voice-ai-${Date.now() + 1}`,
+        role: 'assistant',
+        content: reply,
+        timestamp: new Date(ts.getTime() + 1),
+      });
+      setVoiceMessages(prev => [...prev, ...newMsgs]);
+    };
+    window.addEventListener('queswa-voice-exchange', handler);
+    return () => window.removeEventListener('queswa-voice-exchange', handler);
+  }, []);
+
   // 🔊 Audio TTS — voz ElevenLabs en burbujas del asistente
   const [playingId, setPlayingId]     = useState<string | null>(null);
   const [loadingAudioId, setLoadingAudioId] = useState<string | null>(null);
@@ -437,8 +463,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
               }}
             >
 
-              {/* MESSAGES CON REGISTRO PARA CÁLCULOS (saludo inicial excluido) */}
-              {messages.filter(m => m.id !== 'initial-greeting' && m.id !== 'initial-greeting-products').map((message) => {
+              {/* MESSAGES CON REGISTRO PARA CÁLCULOS (saludo inicial excluido + intercambios de voz) */}
+              {[...messages.filter(m => m.id !== 'initial-greeting' && m.id !== 'initial-greeting-products'), ...voiceMessages]
+                .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
+                .map((message) => {
 
                 return (
                   <div
@@ -632,6 +660,45 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
           </div>
           )} {/* fin !isInitialState */}
 
+          {/* ── Banner de estado de voz (visible solo cuando voiceState activo) ── */}
+          {voiceState !== 'idle' && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '6px 16px',
+              background: voiceState === 'error'
+                ? 'rgba(239,68,68,0.08)'
+                : 'rgba(212,175,55,0.07)',
+              borderTop: `1px solid ${voiceState === 'error' ? 'rgba(239,68,68,0.2)' : 'rgba(212,175,55,0.15)'}`,
+            }}>
+              {/* Indicador pulsante */}
+              <span style={{
+                display: 'inline-block',
+                width: 7,
+                height: 7,
+                borderRadius: '50%',
+                background: voiceState === 'error' ? '#ef4444' : '#D4AF37',
+                animation: voiceState === 'recording' ? 'qwVoiceDot 0.9s ease-in-out infinite' : 'none',
+                opacity: voiceState === 'recording' ? undefined : 0.7,
+                flexShrink: 0,
+              }} />
+              <span style={{
+                fontSize: 11,
+                fontFamily: 'monospace',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: voiceState === 'error' ? '#ef4444' : '#D4AF37',
+              }}>
+                {voiceState === 'recording'  && 'Escuchando — habla ahora'}
+                {voiceState === 'processing' && 'Procesando tu mensaje...'}
+                {voiceState === 'speaking'   && 'Respondiendo en audio'}
+                {voiceState === 'error'      && 'No te escuché — intenta de nuevo'}
+              </span>
+            </div>
+          )}
+
           {/* 🎨 Quiet Luxury INPUT */}
           <div
             className={`${isExpanded ? 'p-3' : 'p-2'}`}
@@ -751,6 +818,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
       {/* CSS ANIMATIONS */}
       <style jsx>{`
         /* Entrada de mensajes — spring easing, igual que iOS/ChatGPT/Gemini */
+        @keyframes qwVoiceDot {
+          0%, 100% { opacity: 0.2; transform: scale(0.8); }
+          50%       { opacity: 1;   transform: scale(1.2); }
+        }
         @keyframes msgIn {
           from { opacity: 0; transform: translateY(10px); }
           to   { opacity: 1; transform: translateY(0); }

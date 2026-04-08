@@ -79,6 +79,19 @@ export default function UnifiedQueswaOrb() {
   const audioRef         = useRef<HTMLAudioElement | null>(null)
   const streamRef        = useRef<MediaStream | null>(null)
 
+  // VAD + reactive bars refs
+  const audioContextRef  = useRef<AudioContext | null>(null)
+  const analyserRef      = useRef<AnalyserNode | null>(null)
+  const animFrameRef     = useRef<number | null>(null)
+  const vadTimerRef      = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hadSoundRef      = useRef(false)           // VAD activa solo tras primera voz
+  const stopAndSendRef   = useRef<() => void>(() => {})  // ref estable para RAF closure
+
+  // Barras reactivas al audio (6 valores 0.25–1.0)
+  const [barHeights,    setBarHeights]    = useState<number[]>([0.45, 0.45, 0.45, 0.45, 0.45, 0.45])
+  // Transcripción del usuario (post-procesamiento Whisper)
+  const [liveTranscript, setLiveTranscript] = useState('')
+
   // ─── Tracking (preservado de NEXUSFloatingButton) ───────────────────────────
   const [trackingReady, setTrackingReady] = useState(true)
 
@@ -155,6 +168,12 @@ export default function UnifiedQueswaOrb() {
   useEffect(() => {
     setIsOpen(false)
     setVoiceState('idle')
+    setLiveTranscript('')
+    if (animFrameRef.current)  { cancelAnimationFrame(animFrameRef.current); animFrameRef.current = null }
+    if (vadTimerRef.current)   { clearTimeout(vadTimerRef.current);          vadTimerRef.current  = null }
+    audioContextRef.current?.close().catch(() => {})
+    audioContextRef.current = null
+    analyserRef.current     = null
     mediaRecorderRef.current?.state !== 'inactive' && mediaRecorderRef.current?.stop()
     streamRef.current?.getTracks().forEach(t => t.stop())
     audioRef.current?.pause()
@@ -194,35 +213,117 @@ export default function UnifiedQueswaOrb() {
   }, [])
 
   // ─── Motor de voz ────────────────────────────────────────────────────────────
+
+  // Análisis de audio: VAD + barras reactivas
+  const startAudioAnalysis = useCallback((stream: MediaStream) => {
+    try {
+      const ctx      = new AudioContext()
+      const analyser = ctx.createAnalyser()
+      analyser.fftSize        = 256
+      analyser.smoothingTimeConstant = 0.7
+      const source   = ctx.createMediaStreamSource(stream)
+      source.connect(analyser)
+      audioContextRef.current = ctx
+      analyserRef.current     = analyser
+
+      const bins      = analyser.frequencyBinCount // 128
+      const dataArray = new Uint8Array(bins)
+
+      // VAD: umbrales
+      const SILENCE_THRESHOLD = 12   // 0-255; debajo = silencio
+      const SILENCE_HOLD_MS   = 900  // ms de silencio sostenido → auto-stop
+      const MIN_RECORD_MS     = 800  // no activar VAD antes de este tiempo
+      hadSoundRef.current     = false
+      const recordStart       = Date.now()
+
+      const loop = () => {
+        if (!analyserRef.current) return
+        analyser.getByteFrequencyData(dataArray)
+
+        // ── Barras reactivas (6 bandas de frecuencia) ─────────────────────────
+        const step = Math.floor(bins / 6)
+        const heights = Array.from({ length: 6 }, (_, i) => {
+          const slice = dataArray.slice(i * step, (i + 1) * step)
+          const avg   = Array.from(slice).reduce((a, b) => a + b, 0) / slice.length
+          return Math.max(0.25, Math.min(1.0, 0.25 + (avg / 200) * 0.75))
+        })
+        setBarHeights(heights)
+
+        // ── VAD silencio ──────────────────────────────────────────────────────
+        const overall = Array.from(dataArray).reduce((a, b) => a + b, 0) / dataArray.length
+        if (overall > 25) hadSoundRef.current = true  // primera voz detectada
+
+        const elapsed = Date.now() - recordStart
+        if (hadSoundRef.current && elapsed > MIN_RECORD_MS) {
+          if (overall < SILENCE_THRESHOLD) {
+            if (!vadTimerRef.current) {
+              vadTimerRef.current = setTimeout(() => {
+                // Auto-stop por silencio sostenido
+                if (mediaRecorderRef.current?.state === 'recording') {
+                  navigator.vibrate?.([30, 50, 30])
+                  stopAndSendRef.current()
+                }
+              }, SILENCE_HOLD_MS)
+            }
+          } else {
+            // Voz detectada: cancelar timer de silencio
+            if (vadTimerRef.current) {
+              clearTimeout(vadTimerRef.current)
+              vadTimerRef.current = null
+            }
+          }
+        }
+
+        animFrameRef.current = requestAnimationFrame(loop)
+      }
+      animFrameRef.current = requestAnimationFrame(loop)
+    } catch {
+      // AudioContext no soportado — sin VAD ni barras reactivas, flujo normal
+    }
+  }, [])
+
+  const stopAudioAnalysis = useCallback(() => {
+    if (animFrameRef.current) { cancelAnimationFrame(animFrameRef.current); animFrameRef.current = null }
+    if (vadTimerRef.current)  { clearTimeout(vadTimerRef.current);          vadTimerRef.current  = null }
+    audioContextRef.current?.close().catch(() => {})
+    audioContextRef.current = null
+    analyserRef.current     = null
+    hadSoundRef.current     = false
+    setBarHeights([0.45, 0.45, 0.45, 0.45, 0.45, 0.45])
+  }, [])
+
   const startRecording = useCallback(async () => {
     setShowTooltip(false)
     setHasInteracted(true)
     setErrorMsg(null)
+    setLiveTranscript('')
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      streamRef.current  = stream
+      streamRef.current      = stream
       audioChunksRef.current = []
       const mr = new MediaRecorder(stream, { mimeType: getSupportedMimeType() })
       mr.ondataavailable = e => { if (e.data.size > 0) audioChunksRef.current.push(e.data) }
       mr.start(250)
       mediaRecorderRef.current = mr
       setVoiceState('recording')
+      startAudioAnalysis(stream)                          // VAD + barras reactivas
     } catch {
       setErrorMsg('Sin acceso al micrófono')
       setVoiceState('error')
       setTimeout(() => setVoiceState('idle'), 3000)
     }
-  }, [])
+  }, [startAudioAnalysis])
 
   const stopAndSend = useCallback(async () => {
     const mr = mediaRecorderRef.current
     if (!mr || mr.state === 'inactive') return
+    stopAudioAnalysis()                                   // detener VAD + barras
     setVoiceState('processing')
     await new Promise<void>(resolve => { mr.onstop = () => resolve(); mr.stop() })
     streamRef.current?.getTracks().forEach(t => t.stop())
 
     const mimeType = getSupportedMimeType()
-    const blob = new Blob(audioChunksRef.current, { type: mimeType })
+    const blob     = new Blob(audioChunksRef.current, { type: mimeType })
     if (blob.size < 1000) { setVoiceState('idle'); return }
 
     try {
@@ -231,21 +332,38 @@ export default function UnifiedQueswaOrb() {
       const res = await fetch('/api/voice-command', { method: 'POST', body: fd })
       if (!res.ok) throw new Error('Error del servidor')
 
+      // Leer transcripción del header (disponible en la API)
+      const transcript = res.headers.get('x-transcript')
+      if (transcript) setLiveTranscript(decodeURIComponent(transcript))
+
       const audioBlob = await res.blob()
       setVoiceState('speaking')
+      navigator.vibrate?.([20, 30, 20, 30, 40])          // háptico ascendente: respuesta lista
       const url   = URL.createObjectURL(audioBlob)
       const audio = new Audio(url)
       audioRef.current = audio
-      audio.onended = () => { setVoiceState('idle'); URL.revokeObjectURL(url) }
-      audio.onerror = () => { setVoiceState('idle'); URL.revokeObjectURL(url) }
+      audio.onended = () => {
+        setVoiceState('idle')
+        setLiveTranscript('')
+        URL.revokeObjectURL(url)
+      }
+      audio.onerror = () => {
+        setVoiceState('idle')
+        setLiveTranscript('')
+        URL.revokeObjectURL(url)
+      }
       audio.play().catch(() => setVoiceState('idle'))
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Error de conexión'
       setErrorMsg(msg)
+      setLiveTranscript('')
       setVoiceState('error')
       setTimeout(() => setVoiceState('idle'), 3000)
     }
-  }, [])
+  }, [stopAudioAnalysis])
+
+  // Ref estable para que el RAF loop pueda llamar stopAndSend sin closure stale
+  useEffect(() => { stopAndSendRef.current = stopAndSend }, [stopAndSend])
 
   // ─── Mecánica dual: pointer events ───────────────────────────────────────────
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
@@ -323,20 +441,23 @@ export default function UnifiedQueswaOrb() {
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
       </svg>
     )
-    if (isRecording) return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1115" strokeWidth="2" strokeLinecap="round">
-        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-        <line x1="12" y1="19" x2="12" y2="23"/>
-        <line x1="8"  y1="23" x2="16" y2="23"/>
-      </svg>
-    )
+    if (isRecording) {
+      // Barras reactivas al audio real (oscuras sobre fondo dorado)
+      const maxH = 18
+      const bars = barHeights.map((h, i) => {
+        const px  = Math.round(h * maxH)
+        const y   = Math.round((maxH - px) / 2) + 3
+        const x   = 1 + i * 4
+        return <rect key={i} x={x} y={y} width="2" height={px} rx="1" />
+      })
+      return <svg width="22" height="22" viewBox="0 0 24 24" fill="#0F1115">{bars}</svg>
+    }
     if (isError) return (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.error} strokeWidth="2" strokeLinecap="round">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
     )
-    // Estado idle — barras de voz animadas (equalizer) — doradas sobre fondo oscuro
+    // Estado idle — barras de voz animadas (CSS, decorativas) — doradas sobre fondo oscuro
     return (
       <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill={C.gold}>
         <rect className="qb1" x="1"  y="10" width="2" height="4"  rx="1"/>
@@ -387,32 +508,58 @@ export default function UnifiedQueswaOrb() {
         )}
       </AnimatePresence>
 
-      {/* ── Estado de voz (label flotante sobre el orbe) — solo cuando chat cerrado ── */}
+      {/* ── Microcopy contextual + transcripción (cuando chat cerrado) ────────── */}
       <AnimatePresence>
-        {isVoiceActive && !isOpen && (
-          <motion.span
-            initial={{ opacity: 0, y: 4 }}
+        {!isOpen && (isVoiceActive || isError || liveTranscript) && (
+          <motion.div
+            key="voice-microcopy"
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.2 }}
             style={{
               position: 'fixed',
-              bottom: isOpen
-                ? 'calc(5rem + env(safe-area-inset-bottom, 24px) + 64px)'
-                : 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px)',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px)',
               right: '1rem',
               zIndex: 201,
-              fontSize: 10,
-              fontWeight: 700,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: isError ? C.error : C.gold,
-              fontFamily: 'monospace',
-              textAlign: 'right',
               pointerEvents: 'none',
+              textAlign: 'right',
+              maxWidth: 200,
             }}
           >
-            {isRecording ? 'GRABANDO' : isProcessing ? 'PROCESANDO' : isSpeaking ? 'ESCUCHA' : ''}
-          </motion.span>
+            {/* Label de estado */}
+            <div style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              fontFamily: 'monospace',
+              color: isError ? C.error : C.gold,
+              marginBottom: liveTranscript ? 4 : 0,
+            }}>
+              {isRecording   && <span>Escuchando<span className="qw-dots">...</span></span>}
+              {isProcessing  && 'Procesando...'}
+              {isSpeaking    && 'Respondiendo'}
+              {isError       && (errorMsg || 'No te escuché — intenta de nuevo')}
+            </div>
+
+            {/* Transcripción Whisper (aparece durante speaking) */}
+            {liveTranscript && (
+              <div style={{
+                fontSize: 11,
+                color: 'rgba(255,255,255,0.55)',
+                fontFamily: 'monospace',
+                lineHeight: 1.4,
+                maxWidth: 190,
+                overflow: 'hidden',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+              }}>
+                "{liveTranscript}"
+              </div>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -469,6 +616,8 @@ export default function UnifiedQueswaOrb() {
         onClose={() => {
           setIsOpen(false)
           setVoiceState('idle')
+          setLiveTranscript('')
+          stopAudioAnalysis()
           if (mediaRecorderRef.current?.state !== 'inactive') mediaRecorderRef.current?.stop()
           streamRef.current?.getTracks().forEach(t => t.stop())
           audioRef.current?.pause()
@@ -486,22 +635,22 @@ export default function UnifiedQueswaOrb() {
           50%       { box-shadow: 0 0 0 10px rgba(212,175,55,0.22), 0 0 0 20px rgba(212,175,55,0.08); }
         }
         @keyframes orbBreath {
-          /* Sin scale — solo glow de borde. whileHover maneja la escala */
           0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 0px rgba(212,175,55,0); }
           50%       { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 7px rgba(212,175,55,0.09), 0 0 22px rgba(212,175,55,0.13); }
         }
         @keyframes qwBar {
-          /* Amplitud reducida y ritmo más lento — decorativo, no urgente */
           0%, 100% { transform: scaleY(0.45); opacity: 0.55; }
           50%       { transform: scaleY(0.85); opacity: 0.9;  }
         }
-        /* Velocidades individuales — efecto respiración orgánica, no metronómica */
         .qw-orb-bars .qb1 { animation: qwBar 2.8s ease-in-out infinite 0.00s; transform-origin: center; transform-box: fill-box; }
         .qw-orb-bars .qb2 { animation: qwBar 2.4s ease-in-out infinite 0.35s; transform-origin: center; transform-box: fill-box; }
         .qw-orb-bars .qb3 { animation: qwBar 2.2s ease-in-out infinite 0.70s; transform-origin: center; transform-box: fill-box; }
         .qw-orb-bars .qb4 { animation: qwBar 2.6s ease-in-out infinite 0.20s; transform-origin: center; transform-box: fill-box; }
         .qw-orb-bars .qb5 { animation: qwBar 2.4s ease-in-out infinite 0.55s; transform-origin: center; transform-box: fill-box; }
         .qw-orb-bars .qb6 { animation: qwBar 2.8s ease-in-out infinite 0.15s; transform-origin: center; transform-box: fill-box; }
+        /* Puntos animados para "Escuchando..." */
+        @keyframes qwDots { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+        .qw-dots { animation: qwDots 1.1s ease-in-out infinite; }
       `}</style>
     </>
   )

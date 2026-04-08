@@ -363,7 +363,7 @@ async function captureProspectData(
     /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*-/i,                  // Nombre (1 o más palabras) + guión: "Luis - precio" o "Juan Pérez - precio"
-    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|dame|precio|cuánto|quiero|necesito|empezar|iniciar|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|precio|cuánto|empezar|iniciar|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores (sin "dame"/"quiero"/"necesito" — capturan verbos imperativos)
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 
@@ -3219,9 +3219,37 @@ ${summaryParts.join('\n')}
       console.log(`🔀 [FSM EARLY] Flujo de cierre detectado — Voyage AI suprimido`);
     }
 
+    // 🔍 Detectar si pide precios — declarado aquí para uso en bypass y sessionInstructions
+    const lastUserMessageForPrices = latestUserMessage.toLowerCase();
+    const pideListaPreciosEarly = /^precios?$|lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa|cu[aá]nto.*cuesta|cu[aá]nto.*vale|cu[aá]nto.*son|cu[aá]nto.*cobran|qu[eé].*precio|precios.*cat[aá]logo|ver.*precios?|mostrar.*precios?/i.test(lastUserMessageForPrices);
+    console.log(`🚨 DETECCIÓN PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, msg="${lastUserMessageForPrices.substring(0, 50)}"`);
+
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas y fuera del flujo de cierre
     let relevantDocuments: any[] = [];
-    if (!isSimpleQueryEarly && !isClosingFlowEarly) {
+
+    // ⚡ BYPASS PRECIOS: cualquier query de precios → COMP_PV_06 directamente
+    // Evita que "precios", "cuánto cuestan" etc. vayan al vector search y recuperen
+    // documentos de compensación o paquetes en vez del catálogo con precios COP
+    const isPreciosQuery = pideListaPreciosEarly && tenantId !== 'ecommerce';
+    if (isPreciosQuery) {
+      console.log('📊 [BYPASS PRECIOS] Query de precios → COMP_PV_06 directo');
+      const allFrags = await getArsenalFragments();
+      const pvFrag = allFrags.find(f => f.category === 'arsenal_compensacion_COMP_PV_06');
+      if (pvFrag) {
+        relevantDocuments = [{
+          id: 'arsenal_compensacion_COMP_PV_06',
+          title: 'Tabla completa PV, CV y Precio — 22 productos vigente 2026',
+          content: pvFrag.content,
+          category: 'arsenal_compensacion',
+          metadata: { is_pv_table: true },
+          source: '/knowledge_base/arsenal_compensacion.txt',
+          search_method: 'comp_pv06_direct'
+        }];
+        console.log('✅ [BYPASS PRECIOS] COMP_PV_06 cargado correctamente');
+      }
+    }
+
+    if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       if (tenantId === 'ecommerce') {
         // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
         // Siempre usar arsenal_ganocafe — ignora clasificación de creatuactivo
@@ -3371,14 +3399,6 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
     // 🎯 FLUJO DE 14 MENSAJES v13.0 - Progressive Profiling + Captura Temprana
     const messageCount = messages.length;
-
-    // 🔍 Detectar si pide lista de precios COMPLETA (para excepción de concisión)
-    // ⚠️ IMPORTANTE: Solo activar para lista completa, NO para precios individuales
-    const lastUserMessageForPrices = messages[messages.length - 1]?.content?.toLowerCase() || '';
-    const pideListaPreciosEarly = /lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa/i.test(lastUserMessageForPrices);
-
-    // 🚨 LOG CRÍTICO: Verificar detección de lista de precios
-    console.log(`🚨🚨🚨 DETECCIÓN LISTA PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, mensaje="${lastUserMessageForPrices.substring(0, 50)}"`);
 
     // ⚡ OPTIMIZADO v14.8: sessionInstructions reducido de ~7K a ~1.5K chars
     // Eliminado: 14 condicionales redundantes, tabla precios duplicada, instrucciones repetitivas

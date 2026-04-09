@@ -52,7 +52,6 @@ function getSupportedMimeType(): string {
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 
-const LONG_PRESS_MS = 700
 
 // ─── Componente principal ─────────────────────────────────────────────────────
 export default function UnifiedQueswaOrb() {
@@ -67,11 +66,6 @@ export default function UnifiedQueswaOrb() {
   // Voice state
   const [voiceState,  setVoiceState]  = useState<VoiceState>('idle')
   const [errorMsg,    setErrorMsg]    = useState<string | null>(null)
-
-  // Long press detection
-  const longPressTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const isLongPress     = useRef(false)
-  const pointerIsDown   = useRef(false)
 
   // Audio/media refs
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
@@ -375,39 +369,12 @@ export default function UnifiedQueswaOrb() {
   // Ref estable para que el RAF loop pueda llamar stopAndSend sin closure stale
   useEffect(() => { stopAndSendRef.current = stopAndSend }, [stopAndSend])
 
-  // ─── Mecánica dual: pointer events ───────────────────────────────────────────
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    e.preventDefault()
-    if (voiceState !== 'idle') return
-    pointerIsDown.current  = true
-    isLongPress.current    = false
-
-    longPressTimer.current = setTimeout(() => {
-      if (!pointerIsDown.current) return
-      isLongPress.current = true
-      navigator.vibrate?.(50)
-      startRecording()
-    }, LONG_PRESS_MS)
-  }, [voiceState, startRecording])
-
-  const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    e.preventDefault()
-    pointerIsDown.current = false
-    clearTimeout(longPressTimer.current!)
-
-    if (isLongPress.current) {
-      // Long press → detener grabación
-      if (voiceState === 'recording') {
-        navigator.vibrate?.(30)
-        stopAndSend()
-      }
-    } else if (voiceState === 'idle') {
-      // Toque corto → abrir/cerrar chat (solo si voz está inactiva)
-      setHasInteracted(true)
-      setShowTooltip(false)
-      setIsOpen(prev => !prev)
-    }
-  }, [voiceState, stopAndSend])
+  // ─── Tap simple: abrir/cerrar chat ───────────────────────────────────────────
+  const handleOrbClick = useCallback(() => {
+    setHasInteracted(true)
+    setShowTooltip(false)
+    setIsOpen(prev => !prev)
+  }, [])
 
   // ─── Derivar apariencia visual del orbe ──────────────────────────────────────
   const isRecording  = voiceState === 'recording'
@@ -577,14 +544,11 @@ export default function UnifiedQueswaOrb() {
       <motion.button
         data-nexus-button
         aria-label="Abrir asistente Queswa"
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={isRecording ? handlePointerUp : undefined}
-        disabled={isProcessing || isSpeaking}
+        onClick={handleOrbClick}
         initial={{ y: 80, opacity: 0 }}
         animate={!isOpen ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
-        whileHover={voiceState === 'idle' ? { scale: 1.08 } : {}}
-        whileTap={voiceState === 'idle' ? { scale: 0.94 } : {}}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
         transition={{ type: 'spring', damping: 20, stiffness: 260 }}
         style={{
           position: 'fixed',

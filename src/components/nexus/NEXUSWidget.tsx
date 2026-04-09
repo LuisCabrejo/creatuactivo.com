@@ -824,8 +824,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 onStartVoice={onStartVoice}
               />
             ) : (
-              <form className="flex flex-col" onSubmit={handleSubmit} autoComplete="off">
-                {/* Textarea — ancho completo */}
+              <form onSubmit={handleSubmit} autoComplete="off" style={{ position: 'relative' }}>
                 <textarea
                   ref={textareaRef}
                   enterKeyHint="send"
@@ -838,24 +837,25 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   autoCorrect="on"
                   autoCapitalize="sentences"
                   spellCheck={true}
-                  className={`w-full px-4 transition-all duration-200 resize-none ${
+                  className={`w-full transition-all duration-200 resize-none ${
                     isExpanded ? 'text-base' : 'text-sm'
                   }`}
                   style={{
                     background: QUIET_LUXURY.bgSurface,
                     color: QUIET_LUXURY.textPrimary,
                     border: `1px solid rgba(229, 194, 121, 0.15)`,
-                    borderBottom: 'none',
-                    borderRadius: '8px 8px 0 0',
+                    borderRadius: '10px',
                     fontFamily: 'var(--font-roboto-mono)',
                     boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.2)',
                     outline: 'none',
-                    lineHeight: '1.5',
-                    minHeight: '52px',
-                    maxHeight: '120px',
+                    lineHeight: '1.6',
+                    minHeight: '80px',
+                    maxHeight: '160px',
                     overflowY: 'auto',
                     paddingTop: '14px',
-                    paddingBottom: '10px',
+                    paddingBottom: '48px',
+                    paddingLeft: '16px',
+                    paddingRight: '56px',
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = QUIET_LUXURY.cyan;
@@ -866,25 +866,13 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     e.currentTarget.style.boxShadow = 'inset 0 1px 4px rgba(0, 0, 0, 0.2)';
                   }}
                 />
-                {/* Toolbar — fila inferior */}
-                <div
-                  className="flex items-center justify-end"
-                  style={{
-                    background: QUIET_LUXURY.bgSurface,
-                    border: `1px solid rgba(229, 194, 121, 0.15)`,
-                    borderTop: `1px solid rgba(255,255,255,0.05)`,
-                    borderRadius: '0 0 8px 8px',
-                    paddingRight: '4px',
-                    paddingBottom: '4px',
-                    paddingTop: '2px',
-                    minHeight: '44px',
-                  }}
-                >
+                {/* Botón mic/send — flotante dentro del textarea, esquina inferior derecha */}
+                <div style={{ position: 'absolute', bottom: 8, right: 6 }}>
                   {inputMessage.trim() ? (
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed active:scale-90"
+                      className="w-10 h-10 flex items-center justify-center transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed active:scale-90"
                       style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%' }}
                       onMouseEnter={e => e.currentTarget.style.background = 'rgba(229,194,121,0.10)'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
@@ -897,7 +885,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     <button
                       type="button"
                       onClick={() => onStartVoice?.()}
-                      className="w-12 h-12 flex items-center justify-center transition-all duration-150 active:scale-90"
+                      className="w-10 h-10 flex items-center justify-center transition-all duration-150 active:scale-90"
                       style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%' }}
                       onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}

@@ -52,7 +52,7 @@ function getSupportedMimeType(): string {
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 
-const LONG_PRESS_MS = 300
+const LONG_PRESS_MS = 700
 
 // ─── Componente principal ─────────────────────────────────────────────────────
 export default function UnifiedQueswaOrb() {

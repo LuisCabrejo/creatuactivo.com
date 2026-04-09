@@ -48,7 +48,6 @@ export default function CookieBanner() {
           {/* Texto */}
           <div className="flex-1 text-xs sm:text-sm" style={{ color: '#A3A3A3' }}>
             <p className="leading-tight">
-              Usamos cookies para mejorar tu experiencia.{' '}
               <Link
                 href="/privacidad"
                 className="underline"
@@ -57,6 +56,7 @@ export default function CookieBanner() {
               >
                 Política de Privacidad
               </Link>
+              {' — '}Usamos cookies para mejorar tu experiencia.
             </p>
           </div>
 

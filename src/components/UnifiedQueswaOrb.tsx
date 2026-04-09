@@ -92,22 +92,6 @@ export default function UnifiedQueswaOrb() {
   // Transcripción del usuario (post-procesamiento Whisper)
   const [liveTranscript, setLiveTranscript] = useState('')
 
-  // ─── Cookie banner visible — eleva el orbe para evitar solapamiento ──────────
-  const [cookieBannerVisible, setCookieBannerVisible] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !localStorage.getItem('cookie_consent')
-  })
-  useEffect(() => {
-    const handler = () => {
-      setCookieBannerVisible(!localStorage.getItem('cookie_consent'))
-    }
-    window.addEventListener('storage', handler)
-    // Polling corto por si el banner se cierra desde el mismo tab
-    const interval = setInterval(handler, 500)
-    setTimeout(() => clearInterval(interval), 30_000) // para tras 30s
-    return () => { window.removeEventListener('storage', handler); clearInterval(interval) }
-  }, [])
-
   // ─── Tracking (preservado de NEXUSFloatingButton) ───────────────────────────
   const [trackingReady, setTrackingReady] = useState(true)
 
@@ -606,9 +590,7 @@ export default function UnifiedQueswaOrb() {
           position: 'fixed',
           bottom: isOpen
             ? 'calc(5rem + env(safe-area-inset-bottom, 24px))'
-            : cookieBannerVisible
-              ? 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 72px)'
-              : 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
+            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
           right: '1rem',
           zIndex: 200,
           width: 56,

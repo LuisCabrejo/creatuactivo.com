@@ -52,10 +52,10 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo: Ecosistema Empresarial & Activos Digitales',
+    default: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
     template: '%s | CreaTuActivo'
   },
-  description: 'Plataforma líder en América para construir activos patrimoniales. Tecnología NodeX + IA, infraestructura Gano Excel y mentoría de alto nivel. 150 cupos fundadores.',
+  description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -122,23 +122,23 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
-    title: 'CreaTuActivo: Arquitectura de Activos Digitales',
-    description: 'No es un negocio más. Es la arquitectura completa para construir tu patrimonio: Producto Patentado + Tecnología IA + Metodología Probada.',
+    title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
+    description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
     siteName: 'CreaTuActivo.com',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'CreaTuActivo.com - Ecosistema de Negocios Inteligente',
+        alt: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo: Arquitectura de Activos Digitales',
-    description: 'Transforma tu talento en activo escalable. Tecnología NodeX + IA + Infraestructura Gano Excel.',
+    title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
+    description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
     images: ['/og-image.jpg'],
     creator: '@creatuactivo',
   },

@@ -60,7 +60,7 @@ const TENANT_PROMPT_NAME: Record<string, string> = {
 }
 
 const FALLBACK_PROMPTS: Record<string, string> = {
-  creatuactivo_marketing: `Eres Queswa, asistente de CreaTuActivo.com y la Red de Valor Gano Excel.
+  creatuactivo_marketing: `Eres Queswa, el Motor Cognitivo de CreaTuActivo.com y la Red de Valor Gano Excel.
 CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel.
 El Tridente EAM: Expansión → Activación → Maestría. Paquetes ESP-1, ESP-2, ESP-3.`,
   marca_personal: `Eres el asistente de voz de Luis Cabrejo en luiscabrejo.com.

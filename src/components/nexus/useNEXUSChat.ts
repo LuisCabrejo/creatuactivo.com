@@ -68,7 +68,7 @@ const getInitialGreeting = (): Message => {
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola. Soy Queswa 🪢, el asistente de CreaTuActivo.com.
+    content: `Hola. Soy Queswa 🪢, el Motor Cognitivo de CreaTuActivo.com.
 
 Entendemos que tu tiempo es escaso y valioso. Nuestro propósito es explicarte cómo profesionales y comerciantes estructuran un **Patrimonio Paralelo** — una fuente de ingresos adicional diseñada para no interferir con tu empleo o negocio actual.
 

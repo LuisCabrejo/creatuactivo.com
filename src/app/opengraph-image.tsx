@@ -7,7 +7,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo - Estrategia de Soberanía Financiera'
+export const alt = 'CreaTuActivo | Construcción de Patrimonio Paralelo'
 export const size = {
   width: 1200,
   height: 630,
@@ -61,7 +61,7 @@ export default async function Image() {
         {/* Título principal */}
         <div
           style={{
-            fontSize: 72,
+            fontSize: 68,
             fontWeight: 300,
             color: '#E5E5E5',
             textAlign: 'center',
@@ -73,23 +73,24 @@ export default async function Image() {
             fontFamily: 'Georgia, serif',
           }}
         >
-          <span style={{ display: 'flex' }}>Estrategia de</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Soberanía Financiera</span>
+          <span style={{ display: 'flex' }}>Construcción de</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Patrimonio Paralelo</span>
         </div>
 
-        {/* Tagline */}
+        {/* Descripción */}
         <div
           style={{
-            fontSize: 28,
+            fontSize: 26,
             fontWeight: 400,
             color: '#A3A3A3',
             textAlign: 'center',
             display: 'flex',
             marginTop: 30,
-            maxWidth: 800,
+            maxWidth: 820,
+            lineHeight: 1.5,
           }}
         >
-          Construye el chasis que te permita detenerte sin que todo colapse.
+          Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.
         </div>
 
         {/* Footer - Byline */}
@@ -110,7 +111,7 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            Luis Cabrejo · Arquitecto de Activos
+            Luis Cabrejo Parra — Dirección Corporativa
           </div>
           <div
             style={{
@@ -128,7 +129,7 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            Presencia en 70+ Países
+            Operación en 70 países
           </div>
         </div>
       </div>

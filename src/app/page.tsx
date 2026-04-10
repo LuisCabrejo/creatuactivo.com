@@ -431,7 +431,7 @@ function QueswaDiferenciadorSection() {
             La primera plataforma en América Latina para construir patrimonio paralelo.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-            Queswa gestiona tu red, tus métricas y tu crecimiento — con inteligencia artificial. Lo que antes requería un equipo completo, ahora lo hace la plataforma. Tú solo tienes que iniciar.
+            Queswa es el motor de IA que automatiza tu logística. Mientras tú conservas tu empleo actual, nuestra tecnología califica prospectos y los acopla a una cadena de suministro física y corporativa que despacha por ti.
           </p>
         </div>
 

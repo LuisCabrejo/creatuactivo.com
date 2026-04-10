@@ -125,21 +125,12 @@ export const metadata: Metadata = {
     title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
     description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
     siteName: 'CreaTuActivo.com',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-      },
-    ],
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
     description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
-    images: ['/og-image.jpg'],
     creator: '@creatuactivo',
   },
 

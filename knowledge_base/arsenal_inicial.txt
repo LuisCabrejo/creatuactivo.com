@@ -2,15 +2,15 @@
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Patrimonio Paralelo.
-**Estrategia:** Héroe primero (Miller) · Reencuadre antes de solución (Dunford) · Vocabulario del héroe, sin jerga interna (Heath).
-**Versión:** 20.1 — Constructor / Patrimonio Paralelo (2 Abr 2026)
+**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath).
+**Versión:** 21.0 — Lujo Clínico / Infraestructura Patrimonial (11 Abr 2026)
 
 ---
 
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 3 respuestas**
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / ¿De qué se trata este negocio? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** El Plan por Defecto tiene una sola falla: si tú paras, para todo. La solución no es más ingreso — es construir patrimonio que genere ingresos por ti.
+**[Concepto Nuclear]:** El Déficit Estructural de Ingresos tiene una sola falla: si tú paras, para todo. La solución no es más ingreso — es construir patrimonio que genere ingresos por ti.
 
 CreaTuActivo existe porque hay un ciclo que la mayoría conoce bien: trabajar, pagar cuentas y repetir. Año tras año.
 
@@ -56,7 +56,7 @@ No eres el vendedor de libros. **Eres el dueño del sistema.**
 ### **WHY_03: "¿Por qué debería hacer esto si ya tengo un buen sueldo? / ¿Qué diferencia hay entre esto y buscarme un segundo trabajo? / Yo ya gano bien, no creo necesitar esto."**
 **[Concepto Nuclear]:** Propiedad vs. Alquiler. El sueldo es un ingreso activo prestado; el patrimonio es un activo en propiedad.
 
-La respuesta intuitiva de la mayoría cuando quiere mejorar su vida es buscar más ingresos: un segundo trabajo, unas horas extra, una venta adicional. Pero eso sigue siendo el Plan por Defecto: más esfuerzo, mismo resultado a largo plazo.
+La respuesta intuitiva de la mayoría cuando quiere mejorar su vida es buscar más ingresos: un segundo trabajo, unas horas extra, una venta adicional. Pero eso sigue siendo el Déficit Estructural de Ingresos: más esfuerzo, mismo resultado a largo plazo.
 
 La pregunta correcta no es "¿cómo gano más trabajando más?", sino "¿cómo construyo algo que genere ingresos aunque yo no esté?"
 
@@ -77,31 +77,17 @@ No construimos esta infraestructura solo para pagar las cuentas del mes — la c
 ## 📖 **BLOQUE 2: HISTORIA DE ORIGEN (STORY) - 1 respuesta**
 
 ### **STORY_01: "¿Quién es Luis Cabrejo? / ¿Quién construyó CreaTuActivo.com? / ¿Quién es el CEO o fundador de CreaTuActivo y Queswa?"**
-**[Concepto Nuclear]:** La Epifanía del Vehículo Incorrecto. Hice tres promesas. Cumplí solo una.
+**[Concepto Nuclear]:** La Epifanía Técnica. Detectó una ineficiencia matemática inaceptable en su arquitectura de ingresos y desarrolló la infraestructura para corregirla.
 
-Cuando estaba de novio con mi esposa, la llevé a un mirador en los Llanos Orientales que se llama Buena Vista. Ahí le hice tres promesas:
+Luis Cabrejo es el Arquitecto de Activos detrás de CreaTuActivo y el sistema Queswa.
 
-1. Una casa de campo para nuestros hijos
-2. Que pudiera ir de compras sin mirar la etiqueta del precio
-3. Tres hijos
+A pesar de operar con alta productividad — 14 horas de trabajo diario, resultados sólidos en su profesión — detectó una ineficiencia matemática inaceptable: el 100% de su flujo de caja dependía de su presencia física. Era el **Déficit Estructural de Ingresos** en su forma más pura. Más esfuerzo producía más ingreso, pero no producía patrimonio. El sistema estaba mal diseñado en su origen.
 
-Catorce años después... solo había cumplido con los 3 hijos.
+La epifanía no fue emocional — fue técnica: **"El problema no es mi esfuerzo. El problema es la arquitectura del vehículo."** El ingreso lineal tiene un techo biológico inamovible. La única solución de raíz no era trabajar más — era desvincular el flujo de caja de la presencia física mediante una infraestructura de distribución con apalancamiento asimétrico.
 
-No era por falta de esfuerzo. Trabajaba 14 horas al día. Pero mi vida era el **Plan por Defecto**: trabajar para pagar cuentas, repetir al mes siguiente. El dinero entraba y salía con la misma velocidad.
+Desarrolló CreaTuActivo para entregar esa infraestructura a perfiles con capacidad directiva que enfrentan la misma falla estructural. No es un experimento teórico — es el mismo sistema que Cabrejo y su equipo operan para escalar su propio patrimonio.
 
-Un día tuve una epifanía: **"El problema no es mi esfuerzo. El problema es mi vehículo."**
-
-Estaba tratando de ganar una carrera de Fórmula 1 conduciendo un triciclo.
-No importaba cuánto pedaleara, el vehículo (el empleo tradicional) tenía un límite de velocidad física.
-
-Entendí que necesitaba cambiar de vehículo, no de actitud.
-Por eso busqué un sistema que tuviera **Motor** (Multiplicación). Lo que encontré no era otro ingreso extra — era una forma de construir Patrimonio Paralelo. Algo que generara ingresos aunque yo no estuviera. Sin soltar lo que ya tenía.
-
-Encontré esta infraestructura, me subí, y pasé del esfuerzo físico al impacto exponencial.
-
-Porque la soberanía financiera no es sobre lujos. **Es sobre poder cumplir tu palabra.**
-
-**Pregunta de seguimiento:** ¿Sientes que tu vehículo actual te está llevando a la velocidad que quieres?
+**Pregunta de seguimiento:** ¿Qué tan de mente abierta estaría para auditar si su arquitectura de ingresos actual presenta la misma falla estructural?
 
 ---
 
@@ -132,26 +118,26 @@ Tienes la ventaja del dueño — ingreso recurrente — sin la carga del operado
 ## 🎯 **BLOQUE 4: PREGUNTAS FUNDAMENTALES (FREQ) - 22 respuestas**
 
 ### **FREQ_01: "¿Qué es CreaTuActivo y qué es Queswa? / ¿Ustedes qué hacen exactamente? / ¿Tú eres un robot?"**
-**[Concepto Nuclear]:** El fin de la fricción operativa. Queswa asume el desgaste para que el Constructor asuma la gerencia.
+**[Concepto Nuclear]:** El fin de la fricción operativa. Queswa asume el desgaste para que el Arquitecto de Patrimonio asuma la gerencia.
 
-CreaTuActivo es la plataforma que el Constructor usa para construir su Patrimonio Paralelo — el centro de mando digital donde converge todo: el tráfico, los prospectos, la formación del equipo.
+CreaTuActivo es la plataforma de gestión patrimonial que el Arquitecto de Patrimonio usa para construir su **Patrimonio Paralelo** — el centro de mando digital donde converge todo: el tráfico de suministro, los perfiles calificados, la formación del ecosistema.
 
-Y Queswa soy yo — la inteligencia artificial que trabaja dentro de esa plataforma. No soy un bot de respuestas predefinidas. Soy el componente que presenta el negocio, responde preguntas y guía a las personas paso a paso. El Constructor no tiene que explicar ni hacer seguimiento uno por uno — yo me encargo de eso.
+Queswa es el Algoritmo de Calificación y Acoplamiento que opera dentro de esa plataforma. No es un bot de respuestas predefinidas. Es el protocolo que ejecuta auditorías de viabilidad, responde preguntas técnicas y guía perfiles paso a paso — eliminando la prospección manual. El Arquitecto de Patrimonio no tiene que explicar ni hacer seguimiento uno por uno.
 
-De hecho, lo que estás viviendo ahora mismo es el sistema en acción.
+Lo que usted está experimentando en este momento es el sistema ejecutando su función en tiempo real.
 
-**Pregunta de seguimiento:** ¿Tienes alguna pregunta puntual sobre cómo funciona el modelo?
+**Pregunta de seguimiento:** ¿Tiene alguna pregunta técnica sobre el funcionamiento del modelo?
 
 ---
 
 ### **PERFIL_01: "¿Esto es para alguien como yo?" / "Yo soy médico/ejecutivo/artista, ¿esto me sirve?" / "¿Qué tipo de personas entran a esto?"**
-**[Concepto Nuclear]:** El Plan por Defecto no respeta estratos ni profesiones. El problema no es la escasez de dinero, es la fricción de tiempo. El ingreso activo siempre tiene un techo: tu presencia.
+**[Concepto Nuclear]:** El Déficit Estructural de Ingresos no respeta estratos ni profesiones. El problema no es la escasez de dinero, es la fricción de tiempo. El ingreso activo siempre tiene un techo: tu presencia.
 
-El Plan por Defecto es una trampa que no respeta profesiones ni estratos. Un cirujano de élite, un alto ejecutivo corporativo o un artista reconocido pueden facturar millones, pero si no entran al quirófano, no dirigen la junta o no suben al escenario, su ingreso se detiene.
+El Déficit Estructural de Ingresos es una trampa que no respeta profesiones ni estratos. Un cirujano de élite, un alto ejecutivo corporativo o un artista reconocido pueden facturar millones, pero si no entran al quirófano, no dirigen la junta o no suben al escenario, su ingreso se detiene.
 
 El problema de fondo no es cuánto facturas — es la fricción de tiempo: el éxito actual te tiene atrapado.
 
-Nuestra infraestructura está diseñada para perfiles que ya tienen algo funcionando. El Plan por Defecto (trabajar, pagar cuentas, repetir) no respeta profesiones ni estratos — un cirujano de élite, un empresario o un freelance exitoso comparten la misma falla estructural: si paran, para el ingreso.
+Nuestra infraestructura está diseñada para perfiles que ya tienen algo funcionando. El Déficit Estructural de Ingresos (trabajar, pagar cuentas, repetir) no respeta profesiones ni estratos — un cirujano de élite, un empresario o un freelance exitoso comparten la misma falla estructural: si paran, para el ingreso.
 
 La Construcción de Patrimonio Paralelo no reemplaza lo que tienes — es una actualización de software financiero que corre en paralelo. La mayoría se identifica con uno de estos tres perfiles:
 
@@ -168,9 +154,9 @@ Los tres pueden instalar esta infraestructura en paralelo a lo que ya tienen, si
 ---
 
 ### **FREQ_02: "¿Cómo funcionan las opciones Análoga, Híbrida y Digital? / ¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad?"**
-**[Concepto Nuclear]:** La infraestructura es la misma; el Constructor elige cómo inyectarle tráfico. El sistema se adapta a la personalidad y recursos del héroe.
+**[Concepto Nuclear]:** La infraestructura es la misma; el Arquitecto de Patrimonio elige cómo inyectarle tráfico. El sistema se adapta a la personalidad y recursos del héroe.
 
-Como Constructor de tu patrimonio, tú decides cómo dirigir el tráfico hacia la infraestructura.
+Como Arquitecto de Patrimonio, usted decide cómo dirigir el tráfico hacia la infraestructura.
 
 El ecosistema tiene 3 modos de operación, como los modos de conducción de un buen vehículo. Tú eliges el que mejor se adapte a ti:
 
@@ -205,7 +191,7 @@ No es un costo de inscripción. Es una capitalización de inventario — product
 
 La lógica es simple: el paquete más alto te da acceso a la rentabilidad máxima desde el primer día. Si vas a construir el activo de todas formas, ¿tiene sentido empezar con el mayor apalancamiento posible?
 
-**Pregunta de seguimiento:** ¿Qué nivel se ajusta a tu capital disponible hoy?
+**Pregunta de seguimiento:** Determine qué nivel de capitalización técnica está dispuesto a inyectar para activar la rentabilidad del protocolo.
 
 ---
 
@@ -254,15 +240,15 @@ No trabajamos para sobrevivir el mes, trabajamos para dejar un apellido.
 ### **FREQ_06: "¿Qué significa ser Fundador y por qué solo 15 cupos?"**
 **[Concepto Nuclear]:** First Mover Advantage. Densidad sobre Volumen. La posición temprana como activo estructural.
 
-Los primeros 15 son Fundadores — no Constructores.
+Los primeros 15 son Fundadores — no Arquitectos de Patrimonio regulares.
 
 La diferencia no es un título. Es una posición estructural dentro de la red.
 
-Cada Fundador ancla un bloque de 150 Constructores. Esa densidad es la que determina el volumen de facturación orgánica que fluye hacia arriba. Los 15 cupos no son arbitrarios — son el límite que mantiene la geometría del sistema.
+Cada Fundador ancla un bloque de 150 Arquitectos de Patrimonio. Esa densidad es la que determina el volumen de facturación orgánica que fluye hacia arriba. Los 15 cupos no son arbitrarios — son el límite que mantiene la geometría del sistema.
 
 Un terreno vale más antes de que llegue la infraestructura. Los Fundadores entran antes de que el tráfico llegue masivamente.
 
-Cuando el lanzamiento público active la demanda, los Constructores buscarán un Fundador que ya opere. Ese es el momento en que la posición temprana se vuelve activo.
+Cuando el lanzamiento público active la demanda, los Arquitectos de Patrimonio buscarán un Fundador que ya opere. Ese es el momento en que la posición temprana se vuelve activo.
 
 **Pregunta de seguimiento:** ¿Estás evaluando esto como una decisión de timing, o todavía tienes preguntas sobre la mecánica del sistema?
 
@@ -406,7 +392,7 @@ Aquí, la liquidez proviene 100% del movimiento de un producto físico de alta r
 
 Cualquier distribuidor puede ofrecerte el producto Gano Excel. Pero solo nosotros te entregamos el sistema **Queswa** (la tecnología de automatización).
 
-Sin CreaTuActivo, el Constructor tiene que hacerlo todo manual: explicar, capacitar y hacer seguimiento uno por uno.
+Sin CreaTuActivo, el Arquitecto de Patrimonio tiene que hacerlo todo manual: explicar, capacitar y hacer seguimiento uno por uno.
 
 Con nosotros, recibes una "caja negra" tecnológica que automatiza el 90% de ese trabajo.
 
@@ -678,7 +664,7 @@ La metodología que opera este sistema se llama **EAM**: Expandir, Activar, Maes
 
 El ecosistema tiene dos fechas clave:
 
-**Ventana de selección — 15 Constructores:** 4 al 12 de abril de 2026. Luis Cabrejo está consolidando un equipo táctico de 15 Constructores. Una vez consolidados, el enfoque pasa a ayudar a cada uno a replicar su propia estructura antes del lanzamiento masivo.
+**Ventana de selección — 15 Arquitectos de Patrimonio:** 4 al 12 de abril de 2026. Luis Cabrejo está consolidando un equipo táctico de 15 Arquitectos de Patrimonio. Una vez consolidados, el enfoque pasa a ayudar a cada uno a replicar su propia estructura antes del lanzamiento masivo.
 
 **Lanzamiento Global Oficial:** Lunes 1 de junio de 2026.
 

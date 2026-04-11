@@ -13,6 +13,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Settings2, BarChart3, Package, ScanLine } from 'lucide-react';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 
@@ -554,14 +555,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 {/* Quick Reply Chips — columna única, touch targets grandes */}
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
                   {[
-                    { emoji: '⚙️', label: 'Matriz Operativa del Sistema'       },
-                    { emoji: '📊', label: 'Simulación de Flujo y Amortización' },
-                    { emoji: '📦', label: 'Capa Logística de Consumo Masivo'   },
-                    { emoji: '👤', label: 'Iniciar Auditoría de Calificación'  },
-                  ].map(({ emoji, label }) => (
+                    { icon: <Settings2 size={15} strokeWidth={1.5} />, label: 'Matriz Operativa del Sistema'       },
+                    { icon: <BarChart3  size={15} strokeWidth={1.5} />, label: 'Simulación de Flujo y Amortización' },
+                    { icon: <Package   size={15} strokeWidth={1.5} />, label: 'Capa Logística de Consumo Masivo'   },
+                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Calificación'  },
+                  ].map(({ icon, label }) => (
                     <button
                       key={label}
-                      onClick={() => handleSendMessage(`${emoji} ${label}`)}
+                      onClick={() => handleSendMessage(label)}
                       disabled={isLoading}
                       className="w-full flex items-center gap-3 px-4 py-4 text-left text-sm transition-all duration-200 disabled:opacity-40"
                       style={{
@@ -580,7 +581,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         e.currentTarget.style.color = QUIET_LUXURY.textSecondary;
                       }}
                     >
-                      <span className="text-lg leading-none flex-shrink-0">{emoji}</span>
+                      <span className="flex-shrink-0 opacity-70">{icon}</span>
                       <span className="leading-snug">{label}</span>
                     </button>
                   ))}

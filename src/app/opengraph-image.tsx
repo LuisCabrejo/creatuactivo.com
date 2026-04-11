@@ -7,7 +7,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo | Construcción de Patrimonio Paralelo'
+export const alt = 'CreaTuActivo | Auditoría de Infraestructura Patrimonial'
 export const size = {
   width: 1200,
   height: 630,
@@ -90,7 +90,7 @@ export default async function Image() {
             lineHeight: 1.5,
           }}
         >
-          Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.
+          Detección de fallas estructurales en el flujo de caja personal.
         </div>
 
         {/* Footer - Byline */}

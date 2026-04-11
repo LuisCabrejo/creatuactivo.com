@@ -52,10 +52,10 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
+    default: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
     template: '%s | CreaTuActivo'
   },
-  description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
+  description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -122,15 +122,15 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
-    title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-    description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
+    title: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
+    description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-    description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
+    title: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
+    description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
     creator: '@creatuactivo',
   },
 

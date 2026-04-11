@@ -1,8 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v11.0 — StoryBrand 4-Step (Dunford + Miller)
- * Brief Maestro Abril 2026: Hero + Problema + Perfiles + Soluciones Fallidas
- *                           + Días de Libertad + Queswa + CTA Final
+ * Homepage v12.0 — Arquitectura Patrimonial (Lujo Clínico / McKinsey Tone)
+ * Brief Abril 2026: Consultoría de Gestión de Activos — Brendan Kane + Eugene Schwartz + Oren Klaff
  */
 
 import Link from 'next/link';
@@ -12,8 +11,8 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'CreaTuActivo — El Plan por Defecto no te va a fallar de golpe',
-  description: 'Construye tu primer activo paralelo sin dejar lo que tienes. Para microempresarios, empleados públicos y pensionados que quieren más que el plan por defecto.',
+  title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
+  description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
 };
 
 const C = {
@@ -82,7 +81,7 @@ function HeroSection() {
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
           <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.muted, fontFamily: "'Roboto Mono', monospace" }}>
-            Estrategia de Patrimonio Paralelo
+            Infraestructura de Patrimonio Paralelo
           </span>
         </div>
 
@@ -94,8 +93,8 @@ function HeroSection() {
           fontWeight: 600, color: '#ffffff',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          El Plan por Defecto no te va a fallar de golpe.{' '}
-          <span style={{ color: C.gold }}>Te va a fallar poco a poco.</span>
+          Tu modelo de ingresos actual tiene un error de arquitectura:{' '}
+          <span style={{ color: C.gold }}>el 100% de tu flujo de caja depende de tu agotamiento biológico.</span>
         </h1>
 
         {/* Subtítulo */}
@@ -104,11 +103,11 @@ function HeroSection() {
           borderLeft: `2px solid rgba(200,168,75,0.3)`,
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.muted, maxWidth: '600px', margin: '0 auto 12px' }}>
-            Años de trabajo, esfuerzo, cuentas pagadas. Y si tú paras, el ingreso para.{' '}
-            <span style={{ color: C.white, fontWeight: 500 }}>Eso no es un plan — es una trampa. Existe una salida. Sin dejar lo que tienes.</span>
+            Años de productividad invertidos en un sistema diseñado para el déficit operativo personal.{' '}
+            <span style={{ color: C.white, fontWeight: 500 }}>Queswa es la infraestructura de IA diseñada para desvincular tu patrimonio de tu presencia física.</span>
           </p>
           <p style={{ fontSize: '0.85rem', margin: 0, fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
-            Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Arquitecto de Activos</span>
+            Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Dirección Corporativa</span>
           </p>
         </div>
 
@@ -123,7 +122,7 @@ function HeroSection() {
           clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           transition: 'all 0.2s ease',
         }}>
-          Quiero mi Mapa de Salida →
+          Iniciar Auditoría de Viabilidad Patrimonial →
         </Link>
 
         {/* Anchors */}
@@ -138,9 +137,9 @@ function HeroSection() {
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-          ¿Ya tienes el mapa?{' '}
+          ¿Nodo activo?{' '}
           <Link href="https://queswa.app" style={{ color: C.gold, textDecoration: 'none' }}>
-            Acceder a Queswa →
+            Ingresar al Protocolo Queswa →
           </Link>
         </p>
       </div>
@@ -149,14 +148,14 @@ function HeroSection() {
 }
 
 // ============================================================================
-// PROBLEMA — "La Trampa del Plan por Defecto"
+// PROBLEMA — "Déficit Estructural"
 // ============================================================================
 
 function ProblemSection() {
   const steps = [
-    { num: '01', title: 'Trabajar', desc: '40+ horas semanales' },
-    { num: '02', title: 'Pagar Cuentas', desc: 'El dinero entra y sale' },
-    { num: '03', title: 'Repetir', desc: 'Hasta... ¿cuándo?' },
+    { num: '01', title: 'Carga Horaria Incremental', desc: '40+ horas semanales' },
+    { num: '02', title: 'Liquidación de Pasivos Operativos', desc: 'El dinero entra y sale' },
+    { num: '03', title: 'Ciclo de Obsolescencia Patrimonial', desc: 'Hasta... ¿cuándo?' },
   ];
 
   return (
@@ -164,10 +163,10 @@ function ProblemSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            El Problema
+            Diagnóstico Estructural
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            La Trampa del Plan por Defecto
+            Déficit Estructural: El Límite de la Capacidad Humana
           </h2>
         </div>
 
@@ -199,14 +198,11 @@ function ProblemSection() {
           marginBottom: '32px',
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
-            <span style={{ color: C.muted }}>El problema no es que trabajes duro.</span>
-            <br />
-            <span style={{ color: '#fff' }}>El problema es que </span>
-            <span style={{ color: C.gold, fontWeight: 600 }}>el activo eres TÚ</span>
-            <span style={{ color: '#fff' }}>.</span>
+            <span style={{ color: C.white }}>El error técnico: </span>
+            <span style={{ color: C.gold, fontWeight: 600 }}>Tú eres el único motor logístico de tu sistema.</span>
           </p>
           <p style={{ fontSize: '0.85rem', marginTop: '16px', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
-            Si tú te detienes, el sistema colapsa.
+            Si te detienes, el flujo colapsa instantáneamente.
           </p>
         </div>
 
@@ -220,24 +216,24 @@ function ProblemSection() {
 }
 
 // ============================================================================
-// PERFILES — "¿Te reconoces aquí?"
+// PERFILES — "Análisis de Riesgo por Perfil de Ingresos"
 // ============================================================================
 
 function PerfilesSection() {
   const perfiles = [
     {
       label: 'Microempresario · 1–5 empleados',
-      dolor: '"Si cierro el negocio una semana, pierdo la semana. Trabajo para el negocio — no al revés."',
+      dolor: 'Déficit Operativo de Tiempo: El dueño es el empleado más barato de su propia logística.',
       exito: 'Ingresos que llegan aunque el local esté cerrado. Un activo que crece mientras operas.',
     },
     {
-      label: 'Empleado Público · Alcaldía · Gobernación',
-      dolor: '"Tengo estabilidad. Pero el sueldo no crece. En 10 años ganaré lo mismo — y todo costará el doble."',
+      label: 'Empleado Público · Ejecutivo',
+      dolor: 'Brecha Pensional de Estatus: Proyección de pérdida del 60% del poder adquisitivo al retiro.',
       exito: 'Una segunda fuente en paralelo, sin arriesgar el puesto fijo.',
     },
     {
       label: 'Pensionado · Después de 30 años',
-      dolor: '"La pensión llegó. Alcanza para lo básico. No era lo que esperaba después de tanto tiempo trabajando."',
+      dolor: 'Fragilidad de Activo Único: Dependencia total de un sistema de seguridad social en déficit estructural.',
       exito: 'Un activo que genera en paralelo. Algo que los hijos puedan heredar.',
     },
   ];
@@ -247,10 +243,10 @@ function PerfilesSection() {
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            ¿Te reconoces aquí?
+            Diagnóstico por Perfil
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            El Plan por Defecto tiene muchas caras.
+            Análisis de Riesgo por Perfil de Ingresos
           </h2>
         </div>
 
@@ -267,9 +263,9 @@ function PerfilesSection() {
                 {p.label}
               </p>
 
-              {/* Dolor */}
+              {/* Diagnóstico */}
               <div style={{ borderLeft: `2px solid rgba(239,68,68,0.4)`, paddingLeft: '16px', marginBottom: '20px' }}>
-                <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: C.muted, fontStyle: 'italic' }}>
+                <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: C.muted }}>
                   {p.dolor}
                 </p>
               </div>
@@ -277,7 +273,7 @@ function PerfilesSection() {
               {/* Separador */}
               <div style={{ height: '1px', background: C.bgCardBorder, marginBottom: '20px' }} />
 
-              {/* Éxito */}
+              {/* Corrección */}
               <div style={{ borderLeft: `2px solid rgba(34,197,94,0.4)`, paddingLeft: '16px' }}>
                 <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: C.white }}>
                   {p.exito}
@@ -292,15 +288,15 @@ function PerfilesSection() {
 }
 
 // ============================================================================
-// SOLUCIONES FALLIDAS — "No fallaste tú"
+// SOLUCIONES FALLIDAS — "Modelos sin arquitectura"
 // ============================================================================
 
 function SolucionesFallidasSection() {
   const items = [
-    { num: '01', titulo: '"Trabajar más horas"', desc: 'Más ingreso activo. El techo no cambia.' },
-    { num: '02', titulo: '"Ahorrar más"', desc: 'La inflación lo erosiona. Sin activos reales, el ahorro es un balde con agujero.' },
-    { num: '03', titulo: '"Buscar mejor empleo"', desc: 'El ingreso sube. Los gastos también. El modelo sigue igual.' },
-    { num: '04', titulo: '"Poner otro negocio"', desc: 'Sin sistema ni tecnología, requiere más tiempo del que tienes.' },
+    { num: '01', titulo: 'Maximización de Horas Hombre', desc: 'Techo operativo inamovible.' },
+    { num: '02', titulo: 'Reserva Pasiva Erosionable', desc: 'La inflación devora el ahorro estático.' },
+    { num: '03', titulo: 'Migración de Nómina', desc: 'Mismo modelo, distinta entidad.' },
+    { num: '04', titulo: 'Diversificación Operativa Manual', desc: 'Aumento de riesgo y fatiga sin apalancamiento.' },
   ];
 
   return (
@@ -308,7 +304,7 @@ function SolucionesFallidasSection() {
       <div style={{ maxWidth: '760px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            El problema no eres tú
+            Análisis de Modelos Previos
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
             No fallaste tú. Fallaron los modelos.
@@ -339,8 +335,8 @@ function SolucionesFallidasSection() {
           padding: '24px', borderLeft: `3px solid rgba(200,168,75,0.2)`,
           background: 'rgba(0,0,0,0.4)',
         }}>
-          El problema no es el esfuerzo. Es que ninguno de esos caminos fue diseñado para{' '}
-          <span style={{ color: C.white }}>construirte activos reales en paralelo a lo que ya tienes.</span>
+          El problema no es el esfuerzo. Es que ninguno de esos modelos fue diseñado para{' '}
+          <span style={{ color: C.white }}>construir activos reales en paralelo a lo que ya tienes.</span>
         </p>
       </div>
     </section>
@@ -415,9 +411,9 @@ function SolutionPreview() {
 
 function QueswaDiferenciadorSection() {
   const capacidades = [
-    { titulo: 'IA que responde por ti 24/7', desc: 'Tu asistente en WhatsApp nunca duerme.' },
-    { titulo: 'Dashboard de activos en tiempo real', desc: 'Ve crecer tu patrimonio mes a mes.' },
-    { titulo: 'Arsenal de contenido', desc: 'Material listo para que tu red comparta y crezca.' },
+    { titulo: 'Gestión de Nodos 24/7', desc: 'IA califica y acopla demanda sin intervención humana.' },
+    { titulo: 'Dashboard de Activos en Tiempo Real', desc: 'Monitoreo clínico de flujos recurrentes.' },
+    { titulo: 'Protocolo de Expansión', desc: 'Material de ingeniería para escalabilidad de red.' },
   ];
 
   return (
@@ -425,10 +421,10 @@ function QueswaDiferenciadorSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Tecnología que cambia el juego
+            Capa Tecnológica
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            La primera plataforma en América Latina para construir patrimonio paralelo.
+            Protocolo Queswa: Capa tecnológica de automatización sobre infraestructura logística global.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
             Queswa es el motor de IA que automatiza tu logística. Mientras tú conservas tu empleo actual, nuestra tecnología califica prospectos y los acopla a una cadena de suministro física y corporativa que despacha por ti.
@@ -462,7 +458,7 @@ function QueswaDiferenciadorSection() {
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
           }}>
-            Ver Queswa en acción →
+            Solicitar Demostración Técnica →
           </Link>
         </div>
       </div>
@@ -471,7 +467,7 @@ function QueswaDiferenciadorSection() {
 }
 
 // ============================================================================
-// CTA FINAL — Mapa de Salida como PRIMARIO
+// CTA FINAL
 // ============================================================================
 
 function FinalCTASection() {
@@ -479,19 +475,19 @@ function FinalCTASection() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
-          El Siguiente Paso
+          Protocolo de Acceso
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
-          El Mapa de Salida: 5 Días para Escapar del &ldquo;Plan por Defecto&rdquo;
+          El Mapa de Salida: Auditoría de 5 Fases para Corregir el Error de Arquitectura
         </h2>
 
         <p style={{ color: C.muted, maxWidth: '560px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-          Después de entender el problema, el siguiente paso es ver la arquitectura del modelo. Solicita tu mapa. Descubre si existe una salida para alguien con tu perfil. Sin compromisos.
+          Después de diagnosticar el problema, el siguiente paso es evaluar la viabilidad del modelo para tu perfil específico.{' '}
+          <span style={{ color: C.white }}>Acceso restringido a perfiles con capacidad de gestión operativa. Se requiere validación de datos en 48 horas.</span>
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
-          {/* PRIMARIO — Mapa de Salida */}
           <Link href="/mapa-de-salida" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
@@ -501,9 +497,8 @@ function FinalCTASection() {
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           }}>
-            Quiero mi Mapa de Salida →
+            Iniciar Auditoría de Viabilidad Patrimonial →
           </Link>
-          {/* SECUNDARIO — Calculadora */}
           <Link href="/calculadora" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: 'transparent', border: `1px solid rgba(200,168,75,0.3)`,
@@ -535,7 +530,7 @@ function Footer() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>
           <p style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
-          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>Sistema de Arquitectura de Activos</p>
+          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>Infraestructura de Patrimonio Paralelo</p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>

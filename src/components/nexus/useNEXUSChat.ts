@@ -68,11 +68,11 @@ const getInitialGreeting = (): Message => {
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Hola. Soy Queswa 🪢, el Motor Cognitivo de CreaTuActivo.com.
+    content: `Protocolo Queswa activo. 🪢
 
-Entendemos que tu tiempo es escaso y valioso. Nuestro propósito es explicarte cómo profesionales y comerciantes estructuran un **Patrimonio Paralelo** — una fuente de ingresos adicional diseñada para no interferir con tu empleo o negocio actual.
+Mi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.
 
-Selecciona abajo qué aspecto te gustaría evaluar primero:`,
+Selecciona el módulo de análisis:`,
     timestamp: new Date(),
     isStreaming: false
   };

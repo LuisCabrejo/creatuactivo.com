@@ -563,7 +563,7 @@ export default function StrategicNavigation() {
               {/* BOTÓN CTA DESKTOP - Entrada al Funnel Principal */}
               <Link href="/mapa-de-salida" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
-                Obtener el Mapa
+                Auditar Activos
               </Link>
 
               {/* MOBILE TOGGLE */}
@@ -637,7 +637,7 @@ export default function StrategicNavigation() {
           <div className="strategic-mobile-cta">
             <Link href="/mapa-de-salida" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Target className="w-4 h-4" />
-              Obtener el Mapa
+              Auditar Activos
             </Link>
           </div>
         </div>

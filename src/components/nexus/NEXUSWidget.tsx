@@ -554,10 +554,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 {/* Quick Reply Chips — columna única, touch targets grandes */}
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
                   {[
-                    { emoji: '⚙️', label: 'Cómo funciona el modelo' },
-                    { emoji: '📊', label: 'Proyección de ingresos'  },
-                    { emoji: '📦', label: 'El vehículo (Productos)' },
-                    { emoji: '👤', label: 'Evaluar viabilidad'      },
+                    { emoji: '⚙️', label: 'Matriz Operativa del Sistema'       },
+                    { emoji: '📊', label: 'Simulación de Flujo y Amortización' },
+                    { emoji: '📦', label: 'Capa Logística de Consumo Masivo'   },
+                    { emoji: '👤', label: 'Iniciar Auditoría de Calificación'  },
                   ].map(({ emoji, label }) => (
                     <button
                       key={label}

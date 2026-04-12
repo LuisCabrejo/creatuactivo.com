@@ -18,7 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v20.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v22.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -51,6 +51,8 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
+- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v22.0.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()` o `getCierreEstado4()` en `route.ts`
+- ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar el regex de detección Estado 4 en las líneas ~3204 y ~3471 de `route.ts` — si el texto cambia y el regex no, el FSM genera handoffs duplicados
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
@@ -157,7 +159,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
-| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v1.1 | Activo Abr 2026 — modo desarrollo (pendiente verificación negocio Meta) |
+| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v1.2 | Activo Abr 2026 — modo desarrollo (pendiente verificación negocio Meta) |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
@@ -165,8 +167,9 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 
 **Estado integración ganocafe.online** (Mar 2026 — fase piloto activa):
 - ✅ `system_prompts` row `ganocafe_main` **v1.5_ganocafe_alias_coloquiales** — en Supabase
-- ✅ `knowledge_base/arsenal_ganocafe.txt` — **14 respuestas** (PROD_01–06, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
-- ✅ `nexus_documents` — fragmentos con embeddings Voyage AI, tenant `ecommerce` (incluye PROD_05 Rooibos + PROD_06 Spirulina)
+- ✅ `knowledge_base/arsenal_ganocafe.txt` — **16 respuestas** (PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
+- ✅ `nexus_documents` — 16 fragmentos con embeddings Voyage AI, tenant `ecommerce` (incluye PROD_05 Rooibos, PROD_06 Spirulina, PROD_07 Luvoco)
+- ⚠️ **`ganocafe_main` tiene catálogo de precios hardcodeado** en el system prompt (línea "NUNCA uses otros precios") — esto hace que el model ignore el vector search para precios. Al cambiar precios en el arsenal, **también actualizar el system prompt** con `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs`. Los dos deben estar sincronizados.
 - ✅ `scripts/deploy-arsenal-ganocafe.mjs` — script de deploy listo
 - ✅ **CORS habilitado** en `/api/nexus/route.ts` — ganocafe.online autorizado como origen externo
 - ✅ Widget JS embebido en landing `/cafe-3en1/index.html` (cPanel) — piloto Google Ads Colombia
@@ -192,15 +195,18 @@ ganocafe.online/cafe-3en1/index.html
 
 **Estado integración WABA WhatsApp** (Abr 2026 — pipeline activo):
 - ✅ Webhook `/api/whatsapp/webhook` — Node runtime, maxDuration 30s
-- ✅ WABA número: `+573215193909` | Phone Number ID: `1115546358301373`
+- ✅ WABA número: `+573215193909` | Phone Number ID: `1115546358301373` | WABA ID: `1436663504253230`
 - ✅ System User Token permanente: `WHATSAPP_SYSTEM_TOKEN` en `.env.local` + Vercel
-- ✅ System prompt `queswa_whatsapp` v1.1 — tenant `whatsapp` en Supabase
+- ✅ `WHATSAPP_WABA_ID=1436663504253230` — en `.env.local` + Vercel (Abr 2026)
+- ✅ System prompt `queswa_whatsapp` **v1.2** — tenant `whatsapp` en Supabase (Abr 2026)
+  - v1.2 cambios: flujo post-nombre sin redirección web, Constructor como naming, tono de filtro reemplazado, cupos/fechas no hardcodeados
 - ✅ Arsenal inicial clonado al tenant `whatsapp` — 39 fragmentos RAG en `nexus_documents`
 - ✅ CTWA detectado: `referral` de anuncios Meta guardado en `device_info` (ctwa_clid, ad_id, ad_headline)
 - ✅ `src/lib/whatsapp-meta.ts` — reemplaza SendPulse (misma interfaz `sendWhatsAppTemplate`)
 - ✅ `funnel/route.ts` + `webhooks/prospect-capture/route.ts` migrados a `whatsapp-meta`
 - ⏳ Meta business verification — pendiente para salir de modo desarrollo (solo acepta números de prueba)
 - ⏳ Plantilla `acceso_mapa_salida` — por crear y aprobar en Meta WhatsApp Manager
+  - Copy aprobado: `Hola {{1}}, tu acceso al *Mapa de Salida* está listo...` | `{{2}}` = enlace personalizado
 - ⏳ 5 templates secuencia de días — Fase 6 del handoff original
 - ⏳ Eliminar credenciales SendPulse de `.env.local` y Vercel — tras aprobar plantillas
 
@@ -225,7 +231,7 @@ WhatsApp (orgánico o CTWA anuncio)
 **Handoff doc WABA completo**: `public/contexto/handoff/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`
 
 **Key Files**:
-- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, fragmented architecture)
+- [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, FSM architecture — backend como dictador absoluto Abr 2026)
 - [src/app/api/nexus/producer/route.ts](src/app/api/nexus/producer/route.ts) - **PREFERRED** async queue producer
 - [src/app/api/nexus/tts/route.ts](src/app/api/nexus/tts/route.ts) - TTS endpoint (ElevenLabs → OpenAI fallback, Edge, 30s)
 - [src/app/api/voice-command/route.ts](src/app/api/voice-command/route.ts) - Voice pipeline: Whisper → Claude Haiku → ElevenLabs (Node, 60s)
@@ -266,12 +272,12 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v22.0 "Premium Accesible"** (Abr 2026) — tráfico orgánico (95%)
+   - Versión activa: **v25.0 "perfil_puro"** (Abr 2026) — perfil de personalidad puro, backend controla todo el flujo
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
-   - **Bifurcación de embudos (Abr 2026)**: `nexus_main` v22.0 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` ("Lujo Clínico") cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
-   - **v22.0 Premium Accesible (Abr 2026)**: Zero data capture antes del Handoff. Principio de Reciprocidad (Cialdini) para captura de nombre. M1 con propuesta de valor pan-americana (Colombia, México, USA, LATAM). 4 Quick Reply Chips en frontend. Protocolo Transparencia Radical (pirámide, inversión, "meter gente"). Handoff pide "nombre completo, ciudad y país". Sin referencias Colombia-exclusivas.
+   - **Bifurcación de embudos (Abr 2026)**: `nexus_main` v25.0 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
+   - **v25.0 perfil_puro (Abr 2026)**: System Prompt reducido a identidad + tono + diccionario anti-MLM. Todo el flujo (apertura M1, cierre Estados 1–4) controlado por `route.ts`. Eliminados: FEW-SHOT, MANEJO DE CHIPS, PROTOCOLO HANDOFF verbatim, FLUJO DE CONVERSACIÓN, 5 BLOQUEOS ABSOLUTOS redundantes. 15,762 chars (−40% vs v22.0).
    - **Archivo fuente**: `knowledge_base/system-prompt-nexus-main-v22.0.md` — deploy: `node scripts/actualizar-system-prompt-v22.mjs`
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
    - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — Queswa da precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y los precios de paquetes en USD sin mostrar COP. Causa raíz más probable: `catalogo_productos` no está fragmentado — se entrega como documento único de 14,748 chars. Pendiente: fragmentar catalogo_productos igual que los arsenales. Ver handoff: `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`
@@ -436,7 +442,7 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
 - `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v5.3** (Abr 2026)
 - `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal` — **v1.1** (Abr 2026)
-- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (14 responses — PROD_01–06, BENE, COMPRA, OBJ_GC, NEGOCIO) — tenant: `ecommerce`
+- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (16 responses — PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
 
 **Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
 
@@ -647,9 +653,9 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v22.0** — `actualizar-system-prompt-v22.mjs`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v25.0** — `actualizar-system-prompt-v22.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
-| `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) |
+| `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
 
 3. Clear cache (restart dev server or wait 5 minutes)
@@ -673,6 +679,31 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
 
+### Arquitectura FSM — Backend como Dictador Absoluto (Abr 2026)
+
+Principio: el LLM es un **procesador semántico**, no un tomador de decisiones de flujo. El backend (`route.ts`) detecta el estado y controla todos los textos verbatim. Patrón: Graph Prompting (Salesforce Atlas / Bland AI / 11x.ai).
+
+**Funciones de micro-prompt en `route.ts`** (cada estado recibe SOLO instrucciones de su nodo):
+
+| Función | Condición de disparo | Qué controla |
+|---------|---------------------|--------------|
+| `getMicroPromptApertura()` | `messageCount === 1` | Saludo inicial verbatim — M1 |
+| `getMicroPromptCierre()` Estado 1 | `closingState === 1` | Pregunta horas disponibles |
+| `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Presentación tabla ESP (3 niveles) |
+| `getMicroPromptCierre()` Estado 3 | `closingState === 3` | Solicitud nombre para expediente |
+| `getCierreEstado4()` | `closingState === 4` | Entrega link WhatsApp — cierre final |
+
+**`sessionInstructions` (Bloque 3 — no cacheable):**
+- M1: inyecta `getMicroPromptApertura()` (texto verbatim, ignora Pirámide McKinsey)
+- M2+: inyecta `📍 ${getMessageContext()}` para orientación del modelo
+- Siempre incluye: `getPageContextInstructions()`, `getMicroPromptCierre()`, `getCierreEstado4()`, `<prospect_state>`
+
+**Regla crítica**: NO agregar textos de flujo al System Prompt. El System Prompt es perfil de personalidad puro (identidad + tono + diccionario). Cualquier texto que el modelo deba imprimir verbatim va en las funciones de micro-prompt del backend.
+
+**Detección Estado 4**: regex `/He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i` en líneas ~3204 y ~3471 de `route.ts`. Si se modifica el texto de `getCierreEstado4()`, actualizar el regex en ambas líneas.
+
+**Tratamiento**: Siempre `Usted` — nunca tuteo. Auditado en todos los micro-prompts (Abr 2026).
+
 ### Lead Scoring v3.0
 
 **Escala**: 0–100. Implementado en `captureProspectData()` dentro de [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts). Umbrales: 0–49 frío, 50–74 tibio, 75–89 caliente, 90–100 SQL. Las señales con mayor peso son: multi-threading +15, WhatsApp +8, verbos de compra +8, preguntas sobre inicio +8. Señal más negativa: "no me interesa" -15.
@@ -688,6 +719,8 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 4. Re-ejecutar `fragmentar-arsenales-voyage.mjs` (solo creará los eliminados)
 
 Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actualizará**.
+
+**Atajo para ediciones pequeñas** (1–3 respuestas modificadas): `node scripts/actualizar-fragmentos-modificados.mjs` — detecta y actualiza solo los fragmentos que cambiaron, sin purgar todo el arsenal. Más rápido que el flujo completo.
 
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (34 responses)
@@ -976,6 +1009,17 @@ window.nexusProspect?: { id: string }           // Current prospect
 **Research** (in `public/investigaciones/`):
 - Reducir Fricción Cognitiva en Presentación Servilleta - Cognitive science behind industrial design
 - Desarrollo Web Diseño Industrial Técnico - Industrial design implementation
+- Sistema Lead Scoring Científico Digital - Lead scoring v3.0 design rationale
+- HANDOFF-QUESWA-PRECIOS-CVPV.md - Active bug: incorrect prices/CV/PV from unfragmented `catalogo_productos`
+- HANDOFF-QUESWA-UX-M3-BUG.md - UX bug handoff for M3 flow
+
+**Research — Posicionamiento & UX** (in `public/contexto/investigaciones/`):
+- System Prompts de IA Élite - Reference for elite AI system prompt patterns
+- Investigación LLM: Máquinas de Estado Conversacional - State machine architecture for conversational AI
+- RAG: Formato Markdown Consistente - RAG formatting consistency research
+- UX Conversacional para Clase Media Latinoamericana / Servicio Premium - UX research for target audience
+- Mejora UX Voz Agente Conversacional - Voice UX improvements research
+- Posicionamiento de Producto (Obviously Awesome) / Ideas que Pegan / Storytelling - Positioning & messaging research
 
 **Security**:
 - [scripts/diagnostico-seguridad-supabase.sql](scripts/diagnostico-seguridad-supabase.sql) - RLS diagnostic
@@ -988,7 +1032,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v22.0** — Premium Accesible, Abr 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v25.0** — perfil_puro, Abr 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
@@ -1002,9 +1046,13 @@ window.nexusProspect?: { id: string }           // Current prospect
 
 **Embeddings** (Voyage AI):
 - `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks with embeddings
+- `actualizar-fragmentos-modificados.mjs` - Update only changed fragments (faster than full regeneration — use after editing individual responses)
+- `purgar-fragmentos-duplicados.mjs` - Remove duplicate fragments from `nexus_documents`
+- `refragmentar-3-arsenales.mjs` - Refragment specific arsenales (arsenal_inicial, arsenal_avanzado, arsenal_compensacion)
 - `regenerar-12-niveles-fragments.mjs` - Regenerate 12-level challenge embeddings
 - `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
 - `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
+- `audit-completo.mjs` - Full system audit: counts fragments per arsenal, detects orphans and missing embeddings
 
 **Database**:
 - `verificar-esquema-completo.mjs` - Verify complete database schema

@@ -391,7 +391,7 @@ export default function PaquetesPage() {
                   subsidyMonths={1}
                   icon={<Layers size={22} />}
                   borderColor={C.bronze}
-                  waPackage="ESP-1 Arquitectura Inicial ($200 USD)"
+                  waPackage="ESP-1 Arquitectura Inicial ($200 USD / $900.000 COP)"
                   features={[
                     'Derechos Operativos Globales — 70 países',
                     'Protocolo EAM de Gestión',
@@ -408,7 +408,7 @@ export default function PaquetesPage() {
                   subsidyMonths={2}
                   icon={<Cpu size={22} />}
                   borderColor={C.silver}
-                  waPackage="ESP-2 Despliegue Empresarial ($500 USD)"
+                  waPackage="ESP-2 Despliegue Empresarial ($500 USD / $2.250.000 COP)"
                   highlighted={true}
                   features={[
                     'Todo lo del ESP-1 +',
@@ -426,7 +426,7 @@ export default function PaquetesPage() {
                   subsidyMonths={3}
                   icon={<BarChart2 size={22} />}
                   borderColor={C.goldDark}
-                  waPackage="ESP-3 Consolidación Visionaria ($1,000 USD)"
+                  waPackage="ESP-3 Consolidación Visionaria ($1.000 USD / $4.500.000 COP)"
                   features={[
                     'Todo lo del ESP-2 +',
                     'Apalancamiento Asimétrico Máximo (17%)',

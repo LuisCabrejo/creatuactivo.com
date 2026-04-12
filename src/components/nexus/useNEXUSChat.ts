@@ -43,7 +43,7 @@ const getInitialGreeting = (): Message => {
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `${greeting} 🪢
+      content: `${greeting}
 
 ¿En qué puedo ayudarte hoy?`,
       timestamp: new Date(),
@@ -56,7 +56,7 @@ const getInitialGreeting = (): Message => {
     return {
       id: 'initial-greeting',
       role: 'assistant',
-      content: `Hola, ${savedName} 🪢
+      content: `Hola, ${savedName}
 
 ¿En qué puedo ayudarte hoy?`,
       timestamp: new Date(),
@@ -68,11 +68,11 @@ const getInitialGreeting = (): Message => {
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Protocolo Queswa activo. 🪢
+    content: `Protocolo Queswa activo.
 
 Mi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.
 
-Selecciona el módulo de análisis:`,
+Seleccione el módulo de análisis:`,
     timestamp: new Date(),
     isStreaming: false
   };

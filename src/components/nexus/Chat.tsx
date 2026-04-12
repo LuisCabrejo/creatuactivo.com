@@ -33,7 +33,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
         id: 'welcome',
         role: 'assistant',
         // 🔧 MENSAJE INICIAL Queswa - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
-        content: 'Hola, soy Queswa 🪢\n\nLa mayoría de personas son rehenes del "Plan por Defecto": trabajar, pagar cuentas, repetir.\n\nAquí diseñamos tu salida.\n\n¿Cuál es tu situación actual?\n\n**A)** 🏗️ Quiero construir algo propio\n**B)** 💭 Me siento estancado y busco un cambio\n**C)** 🔍 Solo estoy explorando, sin compromiso\n**D)** 🧠 Quiero entender el Modelo de Negocio'
+        content: 'Protocolo Queswa activo.\n\nMi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.\n\nSeleccione el módulo de análisis:'
       }
     ]
   });
@@ -68,7 +68,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
             <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
           <div>
-            <h3 className="font-semibold">Queswa 🪢</h3>
+            <h3 className="font-semibold">Queswa</h3>
             <p className="text-xs opacity-90">Asesor de Soberanía Financiera</p>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
 
         {/* Footer info */}
         <div className="mt-2 text-xs text-gray-500 text-center">
-          Queswa 🪢 • Asesor de Soberanía Financiera • CreaTuActivo.com
+          Queswa • Asesor de Soberanía Financiera • CreaTuActivo.com
         </div>
       </div>
     </div>

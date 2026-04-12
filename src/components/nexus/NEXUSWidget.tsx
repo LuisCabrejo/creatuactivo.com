@@ -404,7 +404,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 </svg>
               </div>
               <div>
-                <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
+                <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa</p>
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5  animate-pulse" style={{ background: QUIET_LUXURY.cyan }}></div>
                   <p className="text-xs font-mono" style={{ color: QUIET_LUXURY.cyan }}>SISTEMA EN LÍNEA</p>
@@ -475,7 +475,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
               borderBottom: `1px solid rgba(255, 255, 255, 0.06)`
             }}
           >
-            <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa 🪢</p>
+            <p className="font-semibold text-sm font-industrial" style={{ color: QUIET_LUXURY.textPrimary }}>Queswa</p>
 
             <button
               className="w-9 h-9 flex items-center justify-center  transition-all duration-200"

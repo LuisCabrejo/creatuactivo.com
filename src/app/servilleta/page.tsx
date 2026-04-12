@@ -121,14 +121,14 @@ export default function ServilletaPage() {
   const currentCOP = (currentUSD * TRM).toLocaleString();
 
   const getLifestyleTranslation = (usd: number) => {
-    if (usd < 100) return "Cubre las suscripciones y el teléfono del mes.";
-    if (usd <= 300) return "Paga un servicio del hogar — luz, agua o internet.";
-    if (usd <= 600) return "Cubre el arriendo o la cuota del carro.";
-    if (usd <= 1200) return "Supera el sueldo de un empleo de tiempo completo.";
-    if (usd <= 2500) return "Elimina la presión del mes. Empiezas a escoger, no a aguantar.";
-    if (usd <= 5000) return "Puedes dejar de depender del trabajo sin sentirte en riesgo.";
-    if (usd <= 10000) return "Tu patrimonio paralelo ya trabaja solo. Tú decides qué sigue.";
-    return "Construcción de patrimonio paralelo completada. El Plan por Defecto quedó atrás.";
+    if (usd < 100) return "Amortización de Pasivos Fijos Operativos.";
+    if (usd <= 300) return "Auto-Sustentabilidad del Nodo Logístico (Carga Base Cubierta).";
+    if (usd <= 600) return "Flujo de Caja Equivalente a Ingreso Base Profesional.";
+    if (usd <= 1200) return "Consolidación de Activo Directivo (Independencia Operativa).";
+    if (usd <= 2500) return "Arquitectura de Patrimonio Diamante (Independencia Financiera Global).";
+    if (usd <= 5000) return "Portafolio de Activos Recurrentes con Tracción Multinacional Activa.";
+    if (usd <= 10000) return "Arquitectura Patrimonial de Alto Rendimiento — Velocidad de Crucero.";
+    return "Infraestructura de patrimonio paralelo operativa. El Déficit Estructural de Ingresos ha sido corregido.";
   };
 
   const showSlide = useCallback((index: number) => {
@@ -1219,18 +1219,18 @@ export default function ServilletaPage() {
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  El &quot;Plan por Defecto&quot; —trabajar, pagar cuentas y repetir— falla porque depende de tu presencia. Esta m&aacute;quina de tres partes cambia esa ecuaci&oacute;n:
+                  El modelo de ingreso lineal falla porque depende de la presencia f&iacute;sica. Si su actividad se detiene, el flujo de caja colapsa. Esta m&aacute;quina de tres capas corrige ese D&eacute;ficit Estructural de Ingresos:
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL M&Uacute;SCULO</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Fabrican el producto, manejan los inventarios, hacen los env&iacute;os y depositan las comisiones cada viernes. T&uacute; no empacas cajas.
+                    <span style={{ color: 'var(--cyan)' }}>CAPA LOG&Iacute;STICA</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Asume el 100% de los pasivos operativos: manufactura, inventarios, env&iacute;os y liquidaci&oacute;n de comisiones cada viernes. Usted no empaca cajas.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>EL CEREBRO</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> La plataforma tecnol&oacute;gica con inteligencia artificial que trabaja por ti las 24 horas. Tu sistema operativo de patrimonio paralelo.
+                    <span style={{ color: 'var(--cyan)' }}>CAPA TECNOL&Oacute;GICA</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> Plataforma de inteligencia artificial que opera 24 horas. Automatiza la presentaci&oacute;n, el filtrado de perfiles y la conversi&oacute;n sin intervenci&oacute;n manual.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>TU ROL</span><span style={{ color: '#90A4AE' }}> — La direcci&oacute;n:</span> Desde tu celular diriges el tr&aacute;fico hacia el sistema. Nosotros operamos la f&aacute;brica. T&uacute; diriges y cobras.
+                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted orquesta el flujo de tr&aacute;fico hacia el sistema desde su dispositivo. La infraestructura opera. Usted dirige y cobra.
                   </div>
                 </div>
               </div>
@@ -1263,10 +1263,10 @@ export default function ServilletaPage() {
                 <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
-                    <span className="bad"><s>PERSEGUIR</s> &middot; <s>INCOMODAR</s> &middot; <s>MICROGESTIONAR</s></span>
+                    <span className="bad"><s>PROSPECCI&Oacute;N MANUAL</s> &middot; <s>FRICCI&Oacute;N OPERATIVA</s> &middot; <s>DEPENDENCIA LINEAL</s></span>
                   </div>
                   <h3>EXPANDIR</h3>
-                  <p>Tu celular es tu centro de mando.<br />Diriges tr&aacute;fico digital — sin perseguir a nadie.</p>
+                  <p>Su terminal m&oacute;vil es su centro de mando.<br />Usted dirige tr&aacute;fico digital hacia el sistema — sin gesti&oacute;n manual.</p>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1292,7 +1292,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>ACTIVAR</h3>
-                  <p>Queswa presenta, responde y filtra por ti.<br />T&uacute; solo hablas con quienes ya decidieron.</p>
+                  <p>Queswa presenta, responde y filtra por usted.<br />Usted solo habla con quienes ya decidieron activar.</p>
                 </div>
               </div>
 
@@ -1304,7 +1304,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>MAESTR&Iacute;A</h3>
-                  <p>La Academia forma a tu equipo sola — por niveles.<br />Tu red crece sin que tu tiempo sea el l&iacute;mite.</p>
+                  <p>La Academia capacita su red de forma aut&oacute;noma — por niveles.<br />Su organizaci&oacute;n escala sin que su tiempo sea el cuello de botella.</p>
                 </div>
               </div>
 
@@ -1431,12 +1431,12 @@ export default function ServilletaPage() {
                           className={`pkg-btn ${gen5Package === pkg ? 'active' : ''}`}
                           onClick={() => setGen5Package(pkg)}
                         >
-                          {pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Pro' : 'Visionario'}
+                          {pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Empresarial' : 'Visionario'}
                         </button>
                       ))}
                     </div>
                     <label>
-                      PERSONAS EN TU RED:
+                      PERSONAS EN SU RED:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1446,7 +1446,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: que mejores tu vida r&aacute;pido, desde la arrancada.</p>
+                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimice su flujo de caja desde la primera semana de activaci&oacute;n.</p>
                   </div>
                 )}
 
@@ -1454,7 +1454,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      HOGARES EN TU RED:
+                      HOGARES EN SU RED:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -1465,7 +1465,7 @@ export default function ServilletaPage() {
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Ingreso que crece con tu red — mientras duermes, mientras trabajas.</p>
+                    <p className="insight-text">Ingreso recurrente que escala con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
                   </div>
                 )}
               </div>
@@ -1482,12 +1482,12 @@ export default function ServilletaPage() {
                   </p>
                   <p className="cta-inaccion" style={{ fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.5)', marginBottom: 20, fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
                     El costo m&aacute;s caro es el de la inacci&oacute;n.<br />
-                    Es el que mantiene a las personas en el Plan por Defecto,<br />
-                    pagando con su vida el ingreso de cada mes.<br />
+                    Es el que perpetúa el D&eacute;ficit Estructural de Ingresos:<br />
+                    el ciclo trabajar, pagar cuentas, repetir.<br />
                     Lunes tras lunes. A&ntilde;o tras a&ntilde;o.
                   </p>
-                  <h2>&iquest;QU&Eacute; DECIDES?</h2>
-                  <p>Tienes toda la informaci&oacute;n. Elige tu camino.</p>
+                  <h2>&iquest;QU&Eacute; DECIDE?</h2>
+                  <p>Usted tiene los datos. La decisi&oacute;n es suya.</p>
 
                   <div className="cta-buttons">
                     {/* CTA Principal → /paquetes */}
@@ -1507,7 +1507,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"
                     >
-                      VER EL MAPA DE SALIDA →
+                      VER LA AUDITOR&Iacute;A DE 5 D&Iacute;AS →
                     </a>
                   </div>
 

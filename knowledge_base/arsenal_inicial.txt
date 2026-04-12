@@ -124,21 +124,21 @@ Usted asume el rol de Director y determina el vector de tráfico hacia la infrae
 ---
 
 ### **FREQ_03: "¿Cuánto cuesta iniciar? ¿Cuál es la inversión? / ¿Cuánto dinero necesito para empezar?"**
-**[Concepto Nuclear]:** Capitalización Estructural. La inyección de capital se blinda 100% en activos tangibles, anulando el riesgo de evaporación financiera.
+**[Concepto Nuclear]:** Asignación de Capital para la Activación de Infraestructura. La inyección se blinda 100% en activos tangibles — sin cuotas de inscripción ni membresías intangibles.
 
-En esta infraestructura no existen cobros de inscripción, pagos por derechos de software ni membresías intangibles. Usted ejecuta una capitalización inicial de inventario, adquiriendo bienes físicos de consumo masivo para activar su plataforma logística.
+En esta infraestructura no existen cobros de inscripción, pagos por derechos de software ni membresías intangibles. Su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística desde el primer ciclo operativo.
 
-El sistema ofrece tres niveles de capitalización, los cuales determinan el margen de rentabilidad máxima al que usted accede desde el primer ciclo operativo:
+Usted tiene tres niveles de capitalización operativa:
 
-| Paquete | Inversión |
-|---------|-----------|
-| **Visionario (ESP-3)** | $1,000 USD (~$4.5M COP) |
-| **Empresarial (ESP-2)** | $500 USD (~$2.25M COP) |
-| **Inicial (ESP-1)** | $200 USD (~$900K COP) |
+| Nivel | Asignación de Capital | Rentabilidad |
+|-------|----------------------|--------------|
+| **Visionario (ESP-3)** | $1,000 USD (~$4.5M COP) | 17% — apalancamiento asimétrico máximo |
+| **Empresarial (ESP-2)** | $500 USD (~$2.25M COP) | 16% — crecimiento sostenido |
+| **Inicial (ESP-1)** | $200 USD (~$900K COP) | 15% — validación de flujo |
 
-El capital se respalda instantáneamente en tecnología nutricional de alta rotación, reduciendo el riesgo financiero a cero.
+No es posible determinar desde aquí cuál nivel se alinea con su arquitectura patrimonial actual, pero la pregunta técnica correcta es: ¿cuál de estas tres rutas de capitalización se ajusta mejor a su objetivo de flujo recurrente para este trimestre?
 
-**Pregunta de seguimiento:** Determine qué nivel de capitalización técnica está dispuesto a inyectar para activar la rentabilidad máxima del protocolo.
+**Pregunta de seguimiento:** Determine usted el nivel de Asignación de Capital que su estructura requiere para activar la infraestructura hoy.
 
 ---
 
@@ -548,15 +548,17 @@ Si el prospecto ya respondió las horas en el mismo mensaje anterior (ej: "me in
 
 Parámetro de tiempo registrado. Esa disponibilidad es suficiente para traccionar el sistema de forma asimétrica.
 
-Procedemos con la segunda variable: **su nivel de capitalización estructural.** Su inyección de capital está 100% respaldada en inventario físico y determina el porcentaje de rentabilidad máxima al que usted accede desde el primer ciclo operativo.
+Procedemos con la segunda variable: **su nivel de Asignación de Capital para la Activación de Infraestructura.** En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística.
 
-| Nivel | Capitalización | Rentabilidad |
-|-------|---------------|--------------|
-| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — máximo** |
-| **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% |
-| **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% |
+Usted tiene tres niveles de capitalización operativa:
 
-Indique qué nivel de inventario inyectará para consolidar su expediente.
+| Nivel | Asignación de Capital | Rentabilidad |
+|-------|----------------------|--------------|
+| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — apalancamiento asimétrico máximo** |
+| **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% — crecimiento sostenido |
+| **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% — validación de flujo |
+
+No estoy seguro de si su arquitectura patrimonial está lista para el nivel máximo hoy, pero determine usted: ¿cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente para este trimestre?
 
 ---
 

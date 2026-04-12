@@ -3560,22 +3560,22 @@ STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espe
         // Cuando llegamos directamente desde una pregunta por paquetes (sin Estado 1),
         // el usuario NO declaró horas — omitir cualquier referencia a tiempo.
         const apertura = directPaquetes
-          ? `La variable clave es su nivel de capitalización.`
-          : `Ese ancho de banda es exacto para traccionar. La segunda y última variable es su nivel de capitalización.`;
+          ? `La variable operativa central es su nivel de Asignación de Capital para la Activación de Infraestructura.`
+          : `Ese ancho de banda es exacto para traccionar. La segunda variable es su nivel de Asignación de Capital para la Activación de Infraestructura.`;
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 2 — CAPITALIZACIÓN
-Tu única tarea: presentar la tabla de niveles. Imprime EXACTAMENTE este texto:
+🎯 ESTADO 2 — CAPITALIZACIÓN (Phil Jones + Klaff Prize Frame)
+Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-${apertura} Su capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando sus derechos operativos. Tiene tres niveles:
+${apertura} En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística. Usted tiene tres niveles de capitalización operativa:
 
-• **ESP-3 Visionario:** $1,000 USD — 17% de rentabilidad sobre el consumo de la infraestructura (máxima velocidad)
+• **ESP-3 — Visionario:** $1,000 USD (~$4.5M COP) — Apalancamiento asimétrico máximo (17% de rentabilidad)
 
-• **ESP-2 Empresarial:** $500 USD — 16% de rentabilidad
+• **ESP-2 — Empresarial:** $500 USD (~$2.25M COP) — Crecimiento sostenido con rentabilidad intermedia (16%)
 
-• **ESP-1 Inicial:** $200 USD — 15% de rentabilidad
+• **ESP-1 — Inicial:** $200 USD (~$900K COP) — Capitalización básica para validación de flujo (15%)
 
-Evaluando su flujo de caja, ¿con cuál de estos niveles desea habilitar su posición?
+No estoy seguro de si su arquitectura patrimonial está lista para el nivel máximo hoy, pero determine usted: ¿cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente para este trimestre?
 
 STOP. No pidas correo, nombre, país ni ningún otro dato. No expliques el onboarding. Espera que elija un nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;

@@ -915,6 +915,13 @@ export default function ServilletaPage() {
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
         }
+        :fullscreen .slide-3-cta {
+          position: absolute;
+          bottom: 2rem;
+          left: 0; right: 0;
+          display: flex;
+          justify-content: center;
+        }
         :fullscreen .bio-text-panel {
           max-width: 500px;
         }
@@ -1370,7 +1377,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* CTA al fondo del slide */}
-              <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 20px 80px' }}>
+              <div className="slide-3-cta" style={{ display: 'flex', justifyContent: 'center', padding: '1rem 20px 80px' }}>
                 <button className="btn-next" onClick={() => showSlide(4)}>
                   VER LOS N&Uacute;MEROS →
                 </button>
@@ -1478,12 +1485,6 @@ export default function ServilletaPage() {
                 <div className="cta-overlay">
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
                     CONSTRUCCI&Oacute;N DE PATRIMONIO PARALELO
-                  </p>
-                  <p className="cta-inaccion" style={{ fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.5)', marginBottom: 20, fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
-                    El costo m&aacute;s caro es el de la inacci&oacute;n.<br />
-                    Es el que perpetúa el D&eacute;ficit Estructural de Ingresos:<br />
-                    el ciclo trabajar, pagar cuentas, repetir.<br />
-                    Lunes tras lunes. A&ntilde;o tras a&ntilde;o.
                   </p>
                   <h2>Protocolo de Selecci&oacute;n Directiva</h2>
                   <p>Los datos t&eacute;cnicos est&aacute;n expuestos. Determine usted el nivel de integraci&oacute;n que su arquitectura patrimonial requiere hoy.</p>

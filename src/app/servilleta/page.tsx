@@ -122,7 +122,7 @@ export default function ServilletaPage() {
 
   const getLifestyleTranslation = (usd: number) => {
     if (usd < 100) return "Amortización de Pasivos Fijos Operativos.";
-    if (usd <= 300) return "Auto-Sustentabilidad del Nodo Logístico (Carga Base Cubierta).";
+    if (usd <= 300) return "Auto-Sustentabilidad de su Unidad de Suministro (Carga Operativa Cubierta).";
     if (usd <= 600) return "Flujo de Caja Equivalente a Ingreso Base Profesional.";
     if (usd <= 1200) return "Consolidación de Activo Directivo (Independencia Operativa).";
     if (usd <= 2500) return "Arquitectura de Patrimonio Diamante (Independencia Financiera Global).";
@@ -1292,7 +1292,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>ACTIVAR</h3>
-                  <p>Queswa presenta, responde y filtra por usted.<br />Usted solo habla con quienes ya decidieron activar.</p>
+                  <p>Usted no presenta el modelo. El Protocolo de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7.</p>
                 </div>
               </div>
 
@@ -1304,7 +1304,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>MAESTR&Iacute;A</h3>
-                  <p>La Academia capacita su red de forma aut&oacute;noma — por niveles.<br />Su organizaci&oacute;n escala sin que su tiempo sea el cuello de botella.</p>
+                  <p>La infraestructura acad&eacute;mica ejecuta la transferencia de protocolos t&aacute;cticos de forma aut&oacute;noma por niveles.<br />Su activo escala eliminando el tiempo humano como cuello de botella operativo.</p>
                 </div>
               </div>
 
@@ -1329,8 +1329,7 @@ export default function ServilletaPage() {
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
                   <p className="deck-p">
-                    Bebidas enriquecidas, suplementos y cuidado personal.<br />
-                    Consumo diario que ya existe — ahora con Ganoderma integrado.
+                    Optimizaci&oacute;n de h&aacute;bitos preexistentes mediante tecnolog&iacute;a nutricional patentada con Ganoderma Lucidum.
                   </p>
                 </div>
 
@@ -1486,8 +1485,8 @@ export default function ServilletaPage() {
                     el ciclo trabajar, pagar cuentas, repetir.<br />
                     Lunes tras lunes. A&ntilde;o tras a&ntilde;o.
                   </p>
-                  <h2>&iquest;QU&Eacute; DECIDE?</h2>
-                  <p>Usted tiene los datos. La decisi&oacute;n es suya.</p>
+                  <h2>Protocolo de Selecci&oacute;n Directiva</h2>
+                  <p>Los datos t&eacute;cnicos est&aacute;n expuestos. Determine usted el nivel de integraci&oacute;n que su arquitectura patrimonial requiere hoy.</p>
 
                   <div className="cta-buttons">
                     {/* CTA Principal → /paquetes */}
@@ -1497,7 +1496,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      INICIAR HOY →
+                      ACTIVACI&Oacute;N DE UNIDAD DE SUMINISTRO →
                     </a>
 
                     {/* CTA Secundario → /mapa-de-salida */}

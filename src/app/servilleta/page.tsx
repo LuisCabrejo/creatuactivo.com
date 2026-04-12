@@ -915,13 +915,6 @@ export default function ServilletaPage() {
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
         }
-        :fullscreen .slide-3-cta {
-          position: absolute;
-          bottom: 2rem;
-          left: 0; right: 0;
-          display: flex;
-          justify-content: center;
-        }
         :fullscreen .bio-text-panel {
           max-width: 500px;
         }
@@ -1373,14 +1366,13 @@ export default function ServilletaPage() {
                       </div>
                     </div>
                   </div>
+                  {/* CTA debajo del panel de métricas — fluye con el contenido en todos los modos */}
+                  <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                    <button className="btn-next" onClick={() => showSlide(4)}>
+                      VER LOS N&Uacute;MEROS →
+                    </button>
+                  </div>
                 </div>
-              </div>
-
-              {/* CTA al fondo del slide */}
-              <div className="slide-3-cta" style={{ display: 'flex', justifyContent: 'center', padding: '1rem 20px 80px' }}>
-                <button className="btn-next" onClick={() => showSlide(4)}>
-                  VER LOS N&Uacute;MEROS →
-                </button>
               </div>
             </div>
           </section>

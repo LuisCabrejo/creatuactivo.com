@@ -3522,6 +3522,26 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // El modelo no conoce los estados vecinos → imposible alucinar pasos futuros.
     const nombre = mergedProspectData.name || 'prospecto';
 
+    // ── ESTADO INICIAL (Mensaje 1) ────────────────────────────────────────────
+    // El saludo vive aquí — no en el System Prompt. Principio de segregación:
+    // el backend controla todos los textos verbatim (apertura + cierre).
+    const getMicroPromptApertura = (): string => {
+      if (messageCount === 1) {
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO INICIAL — SALUDO
+Tu única tarea en este turno: imprimir EXACTAMENTE el siguiente texto, sin añadir nada más.
+
+Protocolo Queswa activo.
+
+Mi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.
+
+Seleccione el módulo de análisis:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
+      return '';
+    };
+
     const getMicroPromptCierre = (): string => {
       if (closingState === 1) {
         return `
@@ -3674,7 +3694,7 @@ BINARIO — usa exactamente esta estructura (tabla de COMP_BIN_02):
     };
 
     const sessionInstructions = `
-📍 ${getMessageContext()}
+${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}

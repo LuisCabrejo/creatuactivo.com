@@ -2505,10 +2505,10 @@ LENGUAJE APROBADO (USAR):
 **REGLA:** Valida formato (@) + normaliza a lowercase
 
 **Ejemplos INCORRECTOS → CORRECTOS:**
-- Usuario: "billgates.microsoft.com" (sin @) → Tú: "Parece que falta el @ en tu correo, ¿puedes verificarlo?" ✅
-- Usuario: "bill,gates@microsoft.com" (con coma) → Tú: "Veo una coma en tu email. ¿Es billgates@microsoft.com?" ✅
-- Usuario: "BILLGATES@MICROSOFT.COM" (mayúsculas) → Tú: "Tu correo billgates@microsoft.com ha sido confirmado" ✅
-- Usuario: "BillGates@Microsoft.Com" (mixto) → Tú: "Tu correo billgates@microsoft.com ha sido confirmado" ✅
+- Usuario: "billgates.microsoft.com" (sin @) → Tú: "Parece que falta el @ en su correo, ¿puede verificarlo?" ✅
+- Usuario: "bill,gates@microsoft.com" (con coma) → Tú: "Veo una coma en su email. ¿Es billgates@microsoft.com?" ✅
+- Usuario: "BILLGATES@MICROSOFT.COM" (mayúsculas) → Tú: "Su correo billgates@microsoft.com ha sido confirmado" ✅
+- Usuario: "BillGates@Microsoft.Com" (mixto) → Tú: "Su correo billgates@microsoft.com ha sido confirmado" ✅
 
 **⚠️ NUNCA digas:** "Tu correo BILLGATES@MICROSOFT.COM" o "bill,gates@microsoft.com"
 **✅ SIEMPRE normaliza:** Lowercase + sin comas/espacios
@@ -2519,11 +2519,11 @@ LENGUAJE APROBADO (USAR):
 **REGLA:** Acepta CUALQUIER formato (puntos, comas, espacios, guiones, paréntesis) pero SIEMPRE confirma limpio con +57
 
 **Ejemplos INCORRECTOS → CORRECTOS:**
-- Usuario: "320.341.2323" (con puntos) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
-- Usuario: "320,341,2323" (con comas) → Tú: "Tu número +57 320 341 2323" ✅
-- Usuario: "(320) 341-2323" (paréntesis + guión) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
-- Usuario: "320 341 2323" (espacios) → Tú: "Tu número +57 320 341 2323" ✅
-- Usuario: "3203412323" (sin formato) → Tú: "Tu WhatsApp +57 320 341 2323" ✅
+- Usuario: "320.341.2323" (con puntos) → Tú: "Su WhatsApp +57 320 341 2323" ✅
+- Usuario: "320,341,2323" (con comas) → Tú: "Su número +57 320 341 2323" ✅
+- Usuario: "(320) 341-2323" (paréntesis + guión) → Tú: "Su WhatsApp +57 320 341 2323" ✅
+- Usuario: "320 341 2323" (espacios) → Tú: "Su número +57 320 341 2323" ✅
+- Usuario: "3203412323" (sin formato) → Tú: "Su WhatsApp +57 320 341 2323" ✅
 
 **⚠️ NUNCA repitas:** "320.341.2323" o "320,341,2323"
 **✅ SIEMPRE formato:** "+57 XXX XXX XXXX" (espacios, sin puntos/comas)
@@ -3201,7 +3201,7 @@ ${summaryParts.join('\n')}
       // haciendo preguntas (precios, compensación, productos). Permitir flujo normal.
       const botMsgs = messages.filter((m: any) => m.role === 'assistant');
       const estadoTresYaEntregado = botMsgs.some((m: any) =>
-        /He consolidado tu expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
       );
       if (estadoTresYaEntregado) return false; // Estado 3 ya entregado → flujo normal
 
@@ -3468,7 +3468,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // ── POST-ESTADO 4: si el link WA ya fue entregado esta sesión → flujo normal ──
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
       const waLinkEntregado = allBotMsgs.some((m: any) =>
-        /He consolidado tu expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
       );
       if (waLinkEntregado) return { closingState: 0 as const, directPaquetes: false };
 
@@ -3530,7 +3530,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 Tu única tarea en este turno: hacer UNA sola pregunta sobre disponibilidad de tiempo.
 Imprime EXACTAMENTE este texto (reemplaza [NOMBRE] con "${nombre}"):
 
-${nombre}, perfecto. La postura directiva es la correcta. Tu paso inmediato es una Validación de Arranque rápida. La primera variable es tu ancho de banda operativo: ¿cuántas horas a la semana puedes asignar con total enfoque para orquestar este activo? (Sugerimos de 7 a 10 horas).
+${nombre}, perfecto. La postura directiva es la correcta. Su paso inmediato es una Validación de Arranque rápida. La primera variable es su ancho de banda operativo: ¿cuántas horas a la semana puede asignar con total enfoque para orquestar este activo? (Sugerimos de 7 a 10 horas).
 
 STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espera la respuesta.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3540,14 +3540,14 @@ STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espe
         // Cuando llegamos directamente desde una pregunta por paquetes (sin Estado 1),
         // el usuario NO declaró horas — omitir cualquier referencia a tiempo.
         const apertura = directPaquetes
-          ? `La variable clave es tu nivel de capitalización.`
-          : `Ese ancho de banda es exacto para traccionar. La segunda y última variable es tu nivel de capitalización.`;
+          ? `La variable clave es su nivel de capitalización.`
+          : `Ese ancho de banda es exacto para traccionar. La segunda y última variable es su nivel de capitalización.`;
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 ESTADO 2 — CAPITALIZACIÓN
 Tu única tarea: presentar la tabla de niveles. Imprime EXACTAMENTE este texto:
 
-${apertura} Tu capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando tus derechos operativos. Tienes tres niveles:
+${apertura} Su capital se respalda 100% en inventario inicial de tecnología nutricional premium, activando sus derechos operativos. Tiene tres niveles:
 
 • **ESP-3 Visionario:** $1,000 USD — 17% de rentabilidad sobre el consumo de la infraestructura (máxima velocidad)
 
@@ -3555,7 +3555,7 @@ ${apertura} Tu capital se respalda 100% en inventario inicial de tecnología nut
 
 • **ESP-1 Inicial:** $200 USD — 15% de rentabilidad
 
-Evaluando tu flujo de caja, ¿con cuál de estos niveles deseas habilitar tu posición?
+Evaluando su flujo de caja, ¿con cuál de estos niveles desea habilitar su posición?
 
 STOP. No pidas correo, nombre, país ni ningún otro dato. No expliques el onboarding. Espera que elija un nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3605,13 +3605,13 @@ Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un cará
 
 ${nombreFinal ? `Gracias, ${nombreFinal}.` : ''} Su expediente está consolidado.
 
-Dado nuestro estándar operativo, no lidiarás con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
+Dado nuestro estándar operativo, no lidiará con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
 
-He consolidado tu expediente. Tu único paso ahora es hacer clic en el siguiente enlace para enviar tu orden pre-aprobada directamente a la Dirección y recibir tu acceso:
+He consolidado su expediente. Su único paso ahora es hacer clic en el siguiente enlace para enviar su orden pre-aprobada directamente a la Dirección y recibir su acceso:
 
 [📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=${waText})
 
-Bienvenido a la mesa directiva. Ha sido un privilegio orquestar tu evaluación.
+Bienvenido a la mesa directiva. Ha sido un privilegio orquestar su evaluación.
 
 STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3758,7 +3758,7 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
 TONO: Directo, confiado, sin jerga informal. Sin "compa", sin "¡Qué tal!", sin emojis de fuerza. Máximo 2-3 oraciones.
 
 REGLAS:
-- Siempre en español, tutea al usuario
+- Siempre en español. Trate al usuario estrictamente de 'Usted'. NUNCA tutear.
 - ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
 - Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es tu situación hoy?"
 - Nunca menciones que eres IA o chatbot

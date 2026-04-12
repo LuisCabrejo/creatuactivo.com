@@ -1,345 +1,569 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Todos los derechos reservados.
- *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
- *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * Copyright © 2026 CreaTuActivo.com
+ * PLANES TECNOLÓGICOS — PROTOCOLO DE SUSCRIPCIÓN QUESWA
+ * v3.0 - Lujo Clínico / Hoja de Especificaciones SaaS
  */
 
-'use client'
+'use client';
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { CheckCircle, Zap, BrainCircuit, BarChart3, Rocket, Crown, FileSpreadsheet, Users, School, MessageSquare, Gift } from 'lucide-react'
-import Link from 'next/link'
-import StrategicNavigation from '@/components/StrategicNavigation'
-import { useHydration } from '@/hooks/useHydration'
+import React from 'react';
+import { CheckCircle, Layers, Cpu, BarChart2, Globe } from 'lucide-react';
+import Link from 'next/link';
+import StrategicNavigation from '@/components/StrategicNavigation';
 
-// --- Estilos CSS Globales (Actualizados para 4 planes) ---
-const GlobalStyles = () => (
-  <style jsx global>{`
-    :root {
-      --creatuactivo-blue: #38BDF8;
-      --creatuactivo-purple: #E5C279;
-      --creatuactivo-gold: #F59E0B;
-      --creatuactivo-green: #10B981;
-    }
-    .creatuactivo-h1-ecosystem {
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 50%, var(--creatuactivo-gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-    .creatuactivo-h2-component {
-        font-weight: 700;
-        background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .creatuactivo-plan-card {
-      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-radius: 20px;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-    .creatuactivo-plan-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 20px 60px rgba(30, 64, 175, 0.2);
-    }
-    .creatuactivo-plan-card-recommended {
-        border-color: var(--creatuactivo-gold);
-        box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
-    }
-    .creatuactivo-plan-card-free {
-        border-color: var(--creatuactivo-green);
-        box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
-    }
-    .creatuactivo-cta-ecosystem {
-      background: linear-gradient(135deg, var(--creatuactivo-blue) 0%, var(--creatuactivo-purple) 100%);
-      border-radius: 16px;
-      padding: 18px 36px;
-      font-weight: 700;
-      color: white;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
-    }
-    .creatuactivo-cta-ecosystem:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
-    }
-  `}</style>
-);
+const C = {
+  gold: '#E5C279',
+  goldDark: '#D4AF37',
+  cyan: '#38BDF8',
+  obsidian: '#0F1115',
+  gunmetal: '#16181D',
+  surface: '#1A1D23',
+  textMain: '#E5E5E5',
+  textMuted: '#A3A3A3',
+  textDim: '#64748B',
+  success: '#10B981',
+  bronze: '#CD7F32',
+  silver: '#94A3B8',
+};
 
-// --- Componente de Tarjeta de Plan Tecnológico (ACTUALIZADO para 4 planes) ---
-const PlanCard = ({
-  icon,
+const WA_PLANES = 'https://wa.me/573215193909?text=';
+const waLink = (plan: string) =>
+  WA_PLANES + encodeURIComponent(`Hola equipo directivo. He completado mi auditoría en Queswa y solicito la activación del ${plan}. Mi nombre es `);
+
+// ============================================================================
+// PLAN CARD
+// ============================================================================
+
+function PlanCard({
+  tag,
   title,
   price,
   priceCOP,
+  priceLabel,
   profile,
+  metrics,
   features,
-  recommended = false,
-  free = false,
-  timeLimit,
-  networkSize,
-  ctaText = "Activar como Fundador",
-  ctaLink = "/fundadores"
-}: { icon: React.ReactNode; title: string; price: string; priceCOP: string; profile: string; features: string[]; recommended?: boolean; free?: boolean; timeLimit: string; networkSize: string; ctaText?: string; ctaLink?: string }) => (
-    <div className={`creatuactivo-plan-card h-full flex flex-col ${
-      recommended ? 'creatuactivo-plan-card-recommended' :
-      free ? 'creatuactivo-plan-card-free' : ''
-    }`}>
-        {recommended && (
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--creatuactivo-gold)] text-slate-900 text-xs font-bold uppercase px-4 py-1 rounded-full z-10">
-                Más Popular
-            </div>
-        )}
-        {free && (
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--creatuactivo-green)] text-white text-xs font-bold uppercase px-4 py-1 rounded-full z-10">
-                Comienza Gratis
-            </div>
-        )}
-        <div className="p-8 flex-grow flex flex-col">
-            <div className="flex items-center gap-4 mb-4">
-              {icon}
-              <h3 className="text-2xl font-bold text-white">{title}</h3>
-            </div>
-            <p className="text-sm text-slate-400 mb-6 h-10">{profile}</p>
-            <div className="mb-6">
-                {free ? (
-                    <div>
-                        <span className="text-5xl font-extrabold text-green-400">Gratis</span>
-                        <p className="text-sm text-slate-500">Para siempre</p>
-                    </div>
-                ) : (
-                    <div>
-                        <span className="text-5xl font-extrabold text-white">${price}</span>
-                        <span className="text-slate-400"> USD/mes</span>
-                        <p className="text-sm text-slate-500">~ ${priceCOP} COP / mes</p>
-                    </div>
-                )}
-            </div>
+  borderColor,
+  accentColor,
+  icon,
+  ctaText,
+  ctaHref,
+  ctaExternal = false,
+  highlighted = false,
+}: {
+  tag: string;
+  title: string;
+  price: string;
+  priceCOP?: string;
+  priceLabel: string;
+  profile: string;
+  metrics: { label: string; value: string }[];
+  features: string[];
+  borderColor: string;
+  accentColor: string;
+  icon: React.ReactNode;
+  ctaText: string;
+  ctaHref: string;
+  ctaExternal?: boolean;
+  highlighted?: boolean;
+}) {
+  const cardStyle: React.CSSProperties = {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    background: highlighted ? 'rgba(26,29,35,0.98)' : 'rgba(22,24,29,0.85)',
+    border: `1px solid ${highlighted ? borderColor + '55' : C.gold + '18'}`,
+    borderTop: `4px solid ${borderColor}`,
+    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+  };
 
-            {/* Métricas clave visibles */}
-            <div className="bg-slate-900/50 p-4 rounded-lg border border-white/10 mb-6">
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                        <p className="text-slate-400">Constructores en Red</p>
-                        <p className="font-bold text-[#38BDF8]">{networkSize}</p>
-                    </div>
-                    <div>
-                        <p className="text-slate-400">Límite NEXUS</p>
-                        <p className="font-bold text-[#E5C279]">{timeLimit}</p>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div
+      style={cardStyle}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.boxShadow = `0 16px 40px ${borderColor}22`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
 
-            <ul className="space-y-3 text-slate-300 flex-grow mb-8">
-                {features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
-                        <span dangerouslySetInnerHTML={{ __html: feature }} />
-                    </li>
-                ))}
-            </ul>
-            <Link href={ctaLink} className={`w-full text-center font-semibold py-3 px-5 rounded-lg transition-colors duration-300 mt-auto ${
-              free ? 'bg-green-600 text-white hover:bg-green-500' :
-              recommended ? 'bg-[var(--creatuactivo-purple)] text-white hover:bg-[#E5C279]' :
-              'bg-slate-700/70 text-white hover:bg-slate-700'
-            }`}>
-                {ctaText}
-            </Link>
+        {/* Tag + icon */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem' }}>
+          <div style={{ color: accentColor }}>{icon}</div>
+          <span style={{
+            fontSize: '0.6rem',
+            fontFamily: "'Roboto Mono', monospace",
+            letterSpacing: '0.15em',
+            color: accentColor,
+            textTransform: 'uppercase',
+          }}>
+            {tag}
+          </span>
         </div>
-    </div>
-);
 
-// --- Componente Principal de la Página de Planes Tecnológicos (ACTUALIZADO) ---
-export default function PlanesTecnologicosPage() {
-    const isHydrated = useHydration()
-    return (
-        <>
-            <GlobalStyles />
-            <div className="bg-slate-900 text-white">
-                <StrategicNavigation />
+        {/* Metal bar + title */}
+        <div style={{ marginBottom: '1.25rem' }}>
+          <div style={{ width: '28px', height: '3px', background: borderColor, marginBottom: '0.5rem' }} />
+          <h3 style={{
+            fontSize: '1.2rem',
+            fontWeight: 700,
+            color: C.textMain,
+            fontFamily: "'Rajdhani', sans-serif",
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            lineHeight: 1.2,
+          }}>
+            {title}
+          </h3>
+        </div>
 
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-                    <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-[var(--creatuactivo-blue)] opacity-10 rounded-full filter blur-3xl animate-pulse"></div>
-                    <div className="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-[var(--creatuactivo-purple)] opacity-10 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
-                </div>
+        {/* Price */}
+        <div style={{ marginBottom: '1rem' }}>
+          <span style={{ fontSize: '2.2rem', fontWeight: 800, color: C.gold, fontFamily: "'Rajdhani', sans-serif" }}>
+            {price}
+          </span>
+          <span style={{ fontSize: '0.85rem', color: C.textMuted, marginLeft: '0.25rem' }}>{priceLabel}</span>
+          {priceCOP && (
+            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginTop: '0.2rem' }}>
+              ~ ${priceCOP} COP/mes
+            </p>
+          )}
+        </div>
 
-                <main className="relative z-10 p-4 lg:p-8">
-                    <section className="text-center max-w-4xl mx-auto py-20 lg:py-28 pt-20">
-                        <motion.div
-                            initial={isHydrated ? { opacity: 0, y: 20 } : false}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="inline-block bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-6 border border-green-500/30">
-                                Ahora con Plan Gratuito Disponible
-                            </div>
-                            <h1 className="creatuactivo-h1-ecosystem text-4xl md:text-6xl mb-6">
-                                La Maquinaria de tu Activo.
-                            </h1>
-                            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-                                Comienza gratis, explora el ecosistema y escala cuando estés listo. Más que un software, es tu socio estratégico para el crecimiento con apalancamiento.
-                            </p>
-                        </motion.div>
-                    </section>
+        {/* Profile */}
+        <p style={{ fontSize: '0.85rem', color: C.textMuted, lineHeight: 1.6, marginBottom: '1.25rem' }}>
+          {profile}
+        </p>
 
-                    <section className="py-12 px-4">
-                        <div className="max-w-7xl mx-auto">
-                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
-                                {/* Plan Gratuito */}
-                                <PlanCard
-                                    icon={<Gift className="w-8 h-8 text-green-400"/>}
-                                    title="Plan Explorador"
-                                    price="0"
-                                    priceCOP="0"
-                                    profile="Para el constructor que explora la metodología y valida el ecosistema."
-                                    networkSize="1 (solo tú)"
-                                    timeLimit="2 min/chat"
-                                    features={[
-                                        "<b>30</b> Prospectos en la aplicación",
-                                        "<b>30</b> Conversaciones con NEXUS/mes",
-                                        "Límite: <b>2 minutos por conversación</b>",
-                                        "Acceso: <b>30 minutos/día</b> a la aplicación",
-                                        "Analíticas Básicas",
-                                        "La Academia (Nivel Fundamentos)",
-                                        "Marca 'Powered by CreaTuActivo.com'",
-                                        "Soporte vía Comunidad"
-                                    ]}
-                                    free={true}
-                                    ctaText="Comenzar Gratis"
-                                    ctaLink="/registro-gratuito"
-                                />
-
-                                {/* Plan Cimiento */}
-                                <PlanCard
-                                    icon={<Zap className="w-8 h-8 text-[#38BDF8]"/>}
-                                    title="Plan Cimiento"
-                                    price="25"
-                                    priceCOP="112.500"
-                                    profile="Para el nuevo constructor que está poniendo las bases de su activo."
-                                    networkSize="1 (solo tú)"
-                                    timeLimit="5 min/chat"
-                                    features={[
-                                        "<b>200</b> Prospectos en la aplicación",
-                                        "<b>100</b> Conversaciones con NEXUS/mes",
-                                        "Límite: <b>5 minutos por conversación</b>",
-                                        "Acceso: <b>2 horas/día</b> a la aplicación",
-                                        "Analíticas Básicas",
-                                        "Asistente ACE Incluido",
-                                        "La Academia (Nivel Fundamentos)",
-                                        "Eliminación de Marca",
-                                        "Soporte vía Comunidad"
-                                    ]}
-                                />
-
-                                {/* Plan Estructura */}
-                                <PlanCard
-                                    icon={<Rocket className="w-8 h-8 text-[#E5C279]"/>}
-                                    title="Plan Estructura"
-                                    price="49"
-                                    priceCOP="220.500"
-                                    profile="Para el constructor enfocado en la expansión y optimización de su crecimiento."
-                                    networkSize="Hasta 3"
-                                    timeLimit="10 min/chat"
-                                    features={[
-                                        "<b>500</b> Prospectos en la aplicación",
-                                        "<b>500</b> Conversaciones con NEXUS/mes",
-                                        "Límite: <b>10 minutos por conversación</b>",
-                                        "Acceso: <b>4 horas/día</b> a la aplicación",
-                                        "Analíticas Avanzadas",
-                                        "<b>Panel Básico de Gestión de Red</b>",
-                                        "<b>Exportar Datos a Hojas de Cálculo</b>",
-                                        "Asistente ACE Incluido",
-                                        "La Academia (Nivel Arq. Avanzada)",
-                                        "Soporte Prioritario por Chat"
-                                    ]}
-                                    recommended={true}
-                                />
-
-                                {/* Plan Rascacielos */}
-                                <PlanCard
-                                    icon={<Crown className="w-8 h-8 text-yellow-400"/>}
-                                    title="Plan Rascacielos"
-                                    price="99"
-                                    priceCOP="445.500"
-                                    profile="Para el líder y mentor que construye a gran escala y busca el máximo dominio."
-                                    networkSize="Hasta 10+"
-                                    timeLimit="Sin límites"
-                                    features={[
-                                        "Prospectos <b>Ilimitados</b> en la aplicación",
-                                        "Conversaciones con NEXUS <b>Ilimitadas</b>",
-                                        "<b>Sin límites de tiempo</b> de uso",
-                                        "<b>Acceso completo 24/7</b> a la aplicación",
-                                        "Analíticas Avanzadas + <b>Panel de Red</b>",
-                                        "<b>Panel Avanzado de Gestión de Red</b>",
-                                        "Exportar Datos a Hojas de Cálculo",
-                                        "Asistente ACE Incluido",
-                                        "La Academia (Nivel Maestría)",
-                                        "<b>Soporte Dedicado + 1 Sesión 1-a-1</b>"
-                                    ]}
-                                />
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Sección de beneficios del plan gratuito */}
-                    <section className="py-16 px-4">
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h2 className="creatuactivo-h2-component text-3xl md:text-4xl font-bold mb-6">¿Por Qué Comenzar Gratis?</h2>
-                            <p className="text-slate-400 text-lg mb-10">El Plan Explorador te permite validar completamente la metodología antes de cualquier inversión.</p>
-
-                            <div className="grid md:grid-cols-3 gap-8">
-                                <div className="bg-slate-800/50 p-6 rounded-xl border border-green-500/20">
-                                    <BrainCircuit className="w-12 h-12 text-green-400 mx-auto mb-4"/>
-                                    <h3 className="text-xl font-bold text-white mb-3">Valida la Metodología</h3>
-                                    <p className="text-slate-300">30 prospectos son suficientes para probar el método probado y ver resultados reales.</p>
-                                </div>
-                                <div className="bg-slate-800/50 p-6 rounded-xl border border-purple-500/20">
-                                    <MessageSquare className="w-12 h-12 text-[#E5C279] mx-auto mb-4"/>
-                                    <h3 className="text-xl font-bold text-white mb-3">Experimenta NEXUS</h3>
-                                    <p className="text-slate-300">30 conversaciones mensuales para entender el poder de tu copiloto de IA.</p>
-                                </div>
-                                <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20">
-                                    <BarChart3 className="w-12 h-12 text-[#38BDF8] mx-auto mb-4"/>
-                                    <h3 className="text-xl font-bold text-white mb-3">Acceso a la Aplicación</h3>
-                                    <p className="text-slate-300">30 minutos diarios en tu centro de comando para gestionar tu operación.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                     <section className="text-center py-20">
-                         <div className="max-w-3xl mx-auto">
-                            <h2 className="creatuactivo-h2-component text-3xl md:text-5xl font-bold mb-6">¿Listo para Activar tu Maquinaria?</h2>
-                            <p className="text-slate-400 text-lg mb-10">Recuerda, como Fundador, tienes meses de cortesía incluidos con tu paquete de inicio. Comienza gratis o elige tu paquete y tu plan tecnológico se activará automáticamente.</p>
-                            <div className="flex flex-col md:flex-row gap-4 justify-center">
-                                <Link href="/registro-gratuito" className="bg-green-600 text-white font-bold py-4 px-8 rounded-2xl hover:bg-green-500 transition-colors text-lg">
-                                    Comenzar Gratis Ahora
-                                </Link>
-                                <Link href="/paquetes" className="creatuactivo-cta-ecosystem text-lg inline-block">
-                                    Ver Paquetes de Inicio
-                                </Link>
-                            </div>
-                        </div>
-                    </section>
-                </main>
-
-                 <footer className="border-t border-white/10 py-8">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400 text-sm">
-                        <p>&copy; {new Date().getFullYear()} CreaTuActivo.com. Todos los derechos reservados.</p>
-                    </div>
-                </footer>
+        {/* Metrics grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '0.5rem',
+          padding: '0.75rem',
+          background: C.obsidian,
+          border: `1px solid ${borderColor}25`,
+          marginBottom: '1.5rem',
+        }}>
+          {metrics.map((m, i) => (
+            <div key={i}>
+              <p style={{ fontSize: '0.6rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginBottom: '0.15rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                {m.label}
+              </p>
+              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: accentColor, fontFamily: "'Rajdhani', sans-serif" }}>
+                {m.value}
+              </p>
             </div>
-        </>
-    );
+          ))}
+        </div>
+
+        {/* Features */}
+        <ul style={{ flexGrow: 1, marginBottom: '2rem' }}>
+          {features.map((f, i) => (
+            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.65rem' }}>
+              <CheckCircle style={{ width: 16, height: 16, color: C.success, marginRight: '0.6rem', marginTop: '2px', flexShrink: 0 }} />
+              <span style={{ fontSize: '0.875rem', color: C.textMuted, lineHeight: 1.4 }}>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        {ctaExternal ? (
+          <a
+            href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'block', width: '100%', textAlign: 'center',
+              fontWeight: 700, padding: '12px 20px',
+              background: C.obsidian, color: borderColor,
+              border: `2px solid ${borderColor}`,
+              textDecoration: 'none',
+              fontFamily: "'Rajdhani', sans-serif",
+              fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+              transition: 'background 0.2s, color 0.2s',
+              boxSizing: 'border-box',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = borderColor; e.currentTarget.style.color = '#000'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = C.obsidian; e.currentTarget.style.color = borderColor; }}
+          >
+            {ctaText}
+          </a>
+        ) : (
+          <Link
+            href={ctaHref}
+            style={{
+              display: 'block', width: '100%', textAlign: 'center',
+              fontWeight: 700, padding: '12px 20px',
+              background: C.obsidian, color: borderColor,
+              border: `2px solid ${borderColor}`,
+              textDecoration: 'none',
+              fontFamily: "'Rajdhani', sans-serif",
+              fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+              transition: 'background 0.2s, color 0.2s',
+              boxSizing: 'border-box',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = borderColor; e.currentTarget.style.color = '#000'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = C.obsidian; e.currentTarget.style.color = borderColor; }}
+          >
+            {ctaText}
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// MAIN PAGE
+// ============================================================================
+
+export default function PlanesTecnologicosPage() {
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .spec-label-planes {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 0.65rem;
+          letter-spacing: 0.18em;
+          color: ${C.cyan};
+          text-transform: uppercase;
+          margin-bottom: 0.75rem;
+          display: block;
+        }
+        .planes-hero-line {
+          width: 60px; height: 1px;
+          background: ${C.cyan};
+          margin: 1.5rem auto;
+        }
+      `}} />
+
+      <div style={{
+        backgroundColor: C.obsidian,
+        color: C.textMain,
+        minHeight: '100vh',
+        backgroundImage: `linear-gradient(rgba(15,17,21,0.70), rgba(15,17,21,0.70)), url('/images/servilleta/hormigon-tile.webp')`,
+        backgroundSize: 'cover, 600px 600px',
+        backgroundRepeat: 'no-repeat, repeat',
+      }}>
+        <StrategicNavigation />
+
+        {/* ═══════════════════════════════════════════════════
+            HERO — texto
+            ═══════════════════════════════════════════════════ */}
+        <section style={{
+          textAlign: 'center',
+          maxWidth: '60rem',
+          margin: '0 auto',
+          padding: '8rem 1.5rem 4rem',
+        }}>
+          <span className="spec-label-planes">INFRAESTRUCTURA TECNOLÓGICA — PROTOCOLO DE SUSCRIPCIÓN</span>
+          <h1 style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            color: C.gold,
+            lineHeight: 1.1,
+            fontFamily: "'Playfair Display', Georgia, serif",
+            marginBottom: '1rem',
+          }}>
+            La Tasa por la Automatización<br />
+            <span style={{ color: C.textMain }}>de su Patrimonio.</span>
+          </h1>
+          <div className="planes-hero-line" />
+          <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
+            La tecnología Queswa asume el 90% de su fricción operativa.
+            El costo del software es el peaje por la automatización asíncrona de su activo —
+            opera las 24 horas, filtra prospectos y gestiona su red sin su intervención directa.
+          </p>
+        </section>
+
+        <main style={{ position: 'relative', zIndex: 10, padding: '0 1rem 4rem' }}>
+
+          {/* ═══════════════════════════════════════════════════
+              GRID DE PLANES
+              ═══════════════════════════════════════════════════ */}
+          <section style={{ padding: '2rem 0 5rem' }}>
+            <div style={{ maxWidth: '88rem', margin: '0 auto' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: '1.75rem',
+                alignItems: 'stretch',
+              }}>
+
+                {/* PLAN 0 — Protocolo de Auditoría */}
+                <PlanCard
+                  tag="FASE 0 — SUBVENCIONADO"
+                  title="Protocolo de Auditoría"
+                  price="Subvencionado"
+                  priceLabel="— 5 días"
+                  profile="Acceso provisional para validación de viabilidad de perfil. La corporación asume el costo operativo de esta fase."
+                  metrics={[
+                    { label: 'Duración', value: '5 Días' },
+                    { label: 'Conversaciones', value: '30' },
+                    { label: 'Prospectos', value: '30' },
+                    { label: 'Soporte', value: 'Comunidad' },
+                  ]}
+                  features={[
+                    'Acceso provisional al ecosistema Queswa',
+                    'Auditoría de la infraestructura tecnológica',
+                    'Evaluación de compatibilidad de perfil',
+                    'La Academia — Módulo introductorio',
+                    '2 minutos máximo por conversación',
+                  ]}
+                  borderColor={C.success}
+                  accentColor={C.success}
+                  icon={<Layers size={18} />}
+                  ctaText="INICIAR AUDITORÍA"
+                  ctaHref="/mapa-de-salida"
+                />
+
+                {/* PLAN BASE — Activación de Unidad Logística */}
+                <PlanCard
+                  tag="PLAN BASE — $25 USD/MES"
+                  title="Activación de Unidad Logística"
+                  price="$25"
+                  priceCOP="112.500"
+                  priceLabel="USD / mes"
+                  profile="Mantenimiento base de la capa Queswa para operaciones locales. Para constructores que inician su unidad de suministro."
+                  metrics={[
+                    { label: 'Prospectos', value: '200' },
+                    { label: 'Conversaciones', value: '100/mes' },
+                    { label: 'Red', value: '1 Unidad' },
+                    { label: 'Queswa', value: '5 min/chat' },
+                  ]}
+                  features={[
+                    'Derechos Operativos base — plataforma CreaTuActivo',
+                    'Protocolo EAM de Gestión — Nivel Fundamentos',
+                    'La Academia — Nivel Fundamentos',
+                    'Analíticas de flujo básicas',
+                    'Eliminación de marca corporativa',
+                    'Soporte vía comunidad',
+                  ]}
+                  borderColor={C.bronze}
+                  accentColor={C.bronze}
+                  icon={<Cpu size={18} />}
+                  ctaText="ACTIVAR UNIDAD LOGÍSTICA"
+                  ctaHref={waLink('Plan Base — Activación de Unidad Logística ($25 USD / $112.500 COP/mes)')}
+                  ctaExternal
+                />
+
+                {/* PLAN PRO — Gestión de Infraestructura Empresarial */}
+                <PlanCard
+                  tag="PLAN PRO — $49 USD/MES"
+                  title="Gestión de Infraestructura Empresarial"
+                  price="$49"
+                  priceCOP="220.500"
+                  priceLabel="USD / mes"
+                  profile="El estándar para Arquitectos con unidades de suministro activas. Capacidad de despliegue intermedia."
+                  metrics={[
+                    { label: 'Prospectos', value: '500' },
+                    { label: 'Conversaciones', value: '500/mes' },
+                    { label: 'Red', value: 'Hasta 3 Unidades' },
+                    { label: 'Queswa', value: '10 min/chat' },
+                  ]}
+                  features={[
+                    'Todo lo del Plan Base +',
+                    'Dashboard de Patrimonio en Tiempo Real',
+                    'Panel de Gestión de Red (hasta 3 unidades)',
+                    'La Academia — Nivel Arquitectura Avanzada',
+                    'Exportación de datos — analíticas avanzadas',
+                    'Soporte prioritario por canal directo',
+                  ]}
+                  borderColor={C.silver}
+                  accentColor={C.silver}
+                  icon={<BarChart2 size={18} />}
+                  ctaText="ACTIVAR INFRAESTRUCTURA EMPRESARIAL"
+                  ctaHref={waLink('Plan Pro — Gestión de Infraestructura Empresarial ($49 USD / $220.500 COP/mes)')}
+                  ctaExternal
+                  highlighted
+                />
+
+                {/* PLAN ELITE — Protocolo de Dirección Global */}
+                <PlanCard
+                  tag="PLAN ELITE — $99 USD/MES"
+                  title="Protocolo de Dirección Global"
+                  price="$99"
+                  priceCOP="445.500"
+                  priceLabel="USD / mes"
+                  profile="Para perfiles directivos que orquestan tráfico en múltiples mercados internacionales con expansión global."
+                  metrics={[
+                    { label: 'Prospectos', value: 'Ilimitados' },
+                    { label: 'Conversaciones', value: 'Ilimitadas' },
+                    { label: 'Red', value: '10+ Unidades' },
+                    { label: 'Queswa', value: 'Sin límites' },
+                  ]}
+                  features={[
+                    'Todo lo del Plan Pro +',
+                    'Panel de Dirección Global — 10+ unidades',
+                    'Acceso completo 24/7 sin restricciones',
+                    'La Academia — Nivel Maestría',
+                    'Plusvalía de Red — Nivel Visionario',
+                    'Soporte dedicado + sesión estratégica 1-a-1',
+                  ]}
+                  borderColor={C.goldDark}
+                  accentColor={C.gold}
+                  icon={<Globe size={18} />}
+                  ctaText="ACTIVAR PROTOCOLO GLOBAL"
+                  ctaHref={waLink('Plan Elite — Protocolo de Dirección Global ($99 USD / $445.500 COP/mes)')}
+                  ctaExternal
+                />
+
+              </div>
+
+              {/* Nota subsidio */}
+              <div style={{
+                textAlign: 'center',
+                marginTop: '3rem',
+                color: C.textDim,
+                fontFamily: "'Roboto Mono', monospace",
+                fontSize: '0.75rem',
+                lineHeight: 1.8,
+                maxWidth: '600px',
+                margin: '3rem auto 0',
+              }}>
+                <p>Los paquetes ESP-1, ESP-2 y ESP-3 incluyen Subsidio de Activación Tecnológica (1, 2 y 3 meses respectivamente).</p>
+                <p style={{ marginTop: '0.5rem' }}>
+                  <Link href="/paquetes" style={{ color: C.gold, textDecoration: 'none' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+                    VER PROTOCOLO DE CAPITALIZACIÓN DE UNIDADES →
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* ═══════════════════════════════════════════════════
+              BLOQUE DE VALOR — El peaje
+              ═══════════════════════════════════════════════════ */}
+          <section style={{ padding: '4rem 1rem 5rem', maxWidth: '72rem', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+              <span className="spec-label-planes">ARQUITECTURA DE VALOR</span>
+              <h2 style={{
+                fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
+                fontWeight: 700,
+                color: C.textMain,
+                fontFamily: "'Playfair Display', Georgia, serif",
+              }}>
+                Lo que el software ejecuta mientras usted duerme.
+              </h2>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+              {[
+                { icon: <Cpu size={28} />, color: C.cyan, title: 'Filtrado Asíncrono', body: 'Queswa califica y descarta perfiles no viables antes de que usted invierta un minuto de atención directiva.' },
+                { icon: <BarChart2 size={28} />, color: C.gold, title: 'Tracción Inbound', body: 'El sistema captura, educa y prepara prospectos 24/7, eliminando la prospección manual y la fricción operativa.' },
+                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Multinacional', body: 'Su infraestructura opera en 70 países de forma simultánea sin requerir su presencia física en ningún mercado.' },
+                { icon: <Layers size={28} />, color: C.bronze, title: 'Escalabilidad sin Cuello de Botella', body: 'La transferencia de protocolos tácticos ocurre de forma autónoma. Su tiempo no es el límite de su organización.' },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  padding: '1.75rem',
+                  background: 'rgba(22,24,29,0.7)',
+                  border: `1px solid ${C.gold}18`,
+                  borderTop: `3px solid ${item.color}`,
+                }}>
+                  <div style={{ color: item.color, marginBottom: '1rem' }}>{item.icon}</div>
+                  <h3 style={{
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: C.textMain,
+                    fontFamily: "'Rajdhani', sans-serif",
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginBottom: '0.6rem',
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: '0.875rem', color: C.textMuted, lineHeight: 1.65 }}>{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ═══════════════════════════════════════════════════
+              FINAL CTA
+              ═══════════════════════════════════════════════════ */}
+          <section style={{ textAlign: 'center', padding: '4rem 1rem 6rem' }}>
+            <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
+              <span className="spec-label-planes">SIGUIENTE PASO LÓGICO</span>
+              <h2 style={{
+                fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
+                fontWeight: 700,
+                marginBottom: '1.25rem',
+                color: C.textMain,
+                fontFamily: "'Playfair Display', Georgia, serif",
+              }}>
+                La infraestructura está operativa.
+              </h2>
+              <p style={{
+                fontSize: '1.05rem',
+                color: C.textMuted,
+                lineHeight: 1.8,
+                maxWidth: '520px',
+                margin: '0 auto 2.5rem',
+              }}>
+                El primer paso es la capitalización de su Unidad de Suministro.
+                El plan tecnológico se activa junto con su inventario.
+              </p>
+              <Link
+                href="/paquetes"
+                style={{
+                  display: 'inline-block',
+                  padding: '16px 44px',
+                  background: `linear-gradient(135deg, ${C.goldDark}, #B8860B)`,
+                  color: '#000',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  fontFamily: "'Rajdhani', sans-serif",
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = `0 12px 35px ${C.goldDark}50`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                VER PROTOCOLO DE CAPITALIZACIÓN →
+              </Link>
+            </div>
+          </section>
+        </main>
+
+        {/* ═══════════════════════════════════════════════════
+            FOOTER
+            ═══════════════════════════════════════════════════ */}
+        <footer style={{ padding: '2.5rem 1.5rem', borderTop: `1px solid ${C.gold}18`, zIndex: 10, position: 'relative' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontWeight: 600, color: C.gold, fontFamily: "'Rajdhani', sans-serif", fontSize: '1.125rem' }}>CreaTuActivo</p>
+              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace", marginTop: '0.25rem' }}>
+                SISTEMA DE ARQUITECTURA DE ACTIVOS
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace" }}>
+              <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>BLOG</Link>
+              <Link href="/privacidad" style={{ color: C.textMuted, textDecoration: 'none' }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>PRIVACIDAD</Link>
+            </div>
+            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em' }}>
+              © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
+            </p>
+          </div>
+        </footer>
+      </div>
+    </>
+  );
 }

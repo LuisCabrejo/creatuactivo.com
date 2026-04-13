@@ -131,6 +131,11 @@ const nextConfig = {
         destination: '/auditoria-patrimonial',
         permanent: true,
       },
+      {
+        source: '/mapa-de-salida/gracias',
+        destination: '/auditoria-confirmada',
+        permanent: true,
+      },
 
       // Productos → Infraestructura (página renombrada)
       {

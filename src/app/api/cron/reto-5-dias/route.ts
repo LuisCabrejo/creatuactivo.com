@@ -44,7 +44,7 @@ const RETO_5_DIAS_SEQUENCE = [
   { day: 2, subject: '[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)', component: 'Dia2Vehiculos' },
   { day: 3, subject: '[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)', component: 'Dia3Modelo' },
   { day: 4, subject: '[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)', component: 'Dia4Estigma' },
-  { day: 5, subject: 'Tu turno de cumplir promesas', component: 'Dia5Invitacion' },
+  { day: 5, subject: '[COORDENADA 05] Protocolo de Activación (Decisión Directiva)', component: 'Dia5Invitacion' },
 ];
 
 // Mapeo de componentes

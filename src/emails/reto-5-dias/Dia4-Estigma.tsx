@@ -1,15 +1,16 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Mapa de Salida — Coordenada 4: La Doble Trampa
- * "Gané dinero, pero perdí mi vida (La verdad del E-commerce)"
+ * Copyright © 2026 CreaTuActivo.com
+ * Auditoría de Arquitectura Patrimonial — Coordenada 04
+ * "[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)"
+ * Lujo Clínico — Due Diligence framing
  */
 
 import * as React from 'react';
 import {
   Body,
+  Button,
   Container,
   Head,
-  Heading,
   Html,
   Img,
   Preview,
@@ -21,10 +22,15 @@ import {
 interface Dia4Props {
   firstName?: string;
   trackingUrl?: string;
+  videoUrl?: string;
 }
 
-export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
-  const previewText = `Gané dinero, pero perdí mi vida (La verdad del E-commerce)`;
+export const Dia4Estigma = ({
+  firstName: _firstName,
+  trackingUrl,
+  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-4',
+}: Dia4Props) => {
+  const previewText = `Módulo 04 habilitado. La Matriz de Amortización está lista para auditoría.`;
 
   return (
     <Html lang="es">
@@ -34,135 +40,94 @@ export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
       <Preview>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
+
+          {/* Header */}
           <Section style={header}>
-            <div style={{
-              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
-              fontSize: '28px',
-              fontWeight: '400',
-              letterSpacing: '0.05em',
-              color: '#E5E5E5',
-              lineHeight: '1.2'
-            }}>
-              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
-            </div>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '9px',
-              letterSpacing: '2.5px',
-              color: 'rgba(255, 255, 255, 0.5)',
-              marginTop: '8px',
-              textTransform: 'uppercase' as const
-            }}>
-              The Architect's Suite
-            </div>
+            <Text style={brandText}>
+              CreaTu<span style={{ fontWeight: '700', color: '#C8A84B' }}>Activo</span>
+            </Text>
           </Section>
 
-          <Section style={dayBadge}>
-            <Text style={dayNumber}>COORDENADA 4 DE 5</Text>
-            <Text style={dayTitle}>La Doble Trampa</Text>
+          {/* Coordenada badge */}
+          <Section style={badgeSection}>
+            <Text style={badgeLabel}>COORDENADA 04 — ANÁLISIS EN CURSO</Text>
           </Section>
 
+          {/* Content */}
           <Section style={content}>
-            <Heading style={h1}>{firstName},</Heading>
 
-            <Text style={paragraph}>
-              Ayer te dejé con un cliffhanger: Era el #1, pero algo estaba mal.
+            <Text style={openingLine}>
+              Ayer analizamos el Acoplamiento Híbrido: la unión de una infraestructura logística global y nuestro motor de Inteligencia Artificial.
             </Text>
 
             <Text style={paragraph}>
-              La verdad es esta: <strong style={{ color: '#f5f5f5' }}>Mi éxito no se duplicaba.</strong>
+              La barrera restante que detiene a la mayoría de los ejecutivos es el{' '}
+              <strong style={{ color: '#E5E5E5' }}>capital intensivo de entrada</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Lo que para mí era natural (hablar, liderar, vender), para mi equipo era una tortura. Veía a gente buena esforzándose y fracasando. El modelo tradicional de "perseguir gente" funcionaba para mí, pero no para ellos.
+              En el módulo de hoy, le presentaré la{' '}
+              <strong style={{ color: '#E5E5E5' }}>Matriz de Amortización</strong>: el mecanismo por el cual la Asignación de Capital inicial se liquida a través de dos velocidades de retorno simultáneas.
             </Text>
 
             <Text style={paragraph}>
-              Me sentí culpable. Así que busqué la "salida fácil". Pensé:
+              La primera velocidad genera{' '}
+              <strong style={{ color: '#E5E5E5' }}>capital operativo inmediato</strong>. La segunda construye{' '}
+              <strong style={{ color: '#E5E5E5' }}>regalías perpetuas</strong>{' '}
+              — un flujo recurrente que opera independientemente de su intervención directa.
             </Text>
 
-            <Text style={highlightBox}>
-              "El problema es la gente. Me iré al E-commerce. Venderé productos por internet sin hablar con nadie."
-            </Text>
+            {/* Protocolo de Ejecución */}
+            <Section style={protocolBox}>
+              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              {[
+                'Aísle 15 minutos de atención analítica.',
+                'Ingrese a la sala de datos.',
+                'Audite la matemática de liquidación del activo.',
+              ].map((step, i) => (
+                <Text key={i} style={protocolStep}>
+                  <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
+                    0{i + 1}
+                  </span>
+                  {step}
+                </Text>
+              ))}
+            </Section>
 
-            <Text style={paragraph}>
-              Usé mis habilidades técnicas. Monté una tienda online. Empezamos a vender por todo el continente durante la pandemia.
-            </Text>
+            {/* CTA */}
+            <Section style={ctaSection}>
+              <table width="100%" cellPadding={0} cellSpacing={0}>
+                <tr>
+                  <td align="center">
+                    <Button href={videoUrl} style={ctaButton}>
+                      ACCEDER AL MÓDULO 04: MATRIZ DE AMORTIZACIÓN →
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
 
-            <Text style={paragraph}>
-              ¡Los números subían! Pensé que había encontrado el Santo Grial.
-            </Text>
-
-            <Text style={paragraph}>
-              <strong style={{ color: '#D4AF37' }}>Pero entonces llegó la segunda bofetada:</strong>
-            </Text>
-
-            <Text style={paragraph}>
-              El E-commerce tradicional es una <strong style={{ color: '#f5f5f5' }}>pesadilla logística</strong>.
-            </Text>
-
-            <Text style={listItem}>• Pasé de "perseguir prospectos" a "perseguir paquetes".</Text>
-            <Text style={listItem}>• Estaba despierto a las 3:00 AM resolviendo problemas de aduanas.</Text>
-            <Text style={listItem}>• Mis márgenes se los comía la publicidad y el inventario.</Text>
-
-            <Text style={paragraph}>
-              Había cambiado un jefe por mil jefes (los clientes). Seguía sin tiempo para mi esposa y mis promesas.
-            </Text>
-
-            <Text style={paragraph}>
-              En ese momento de desesperación, comparé mis dos fracasos y tuve la <strong style={{ color: '#D4AF37' }}>revelación final</strong>:
-            </Text>
-
-            <Text style={modelItem}>
-              <span style={{ color: '#D4AF37', fontWeight: '600' }}>1. Red de Mercadeo</span>
-              <br />
-              La logística era perfecta (Gano Excel ponía todo), pero el sistema de ventas era arcaico.
-            </Text>
-
-            <Text style={modelItem}>
-              <span style={{ color: '#D4AF37', fontWeight: '600' }}>2. E-commerce</span>
-              <br />
-              El sistema de ventas era genial (digital), pero la logística era un infierno.
-            </Text>
-
-            <Text style={paragraph}>
-              Me hice la pregunta del millón:
-            </Text>
-
-            <Text style={highlightBox}>
-              ¿Qué pasaría si uniera la LOGÍSTICA de Gano Excel (ellos ponen los millones y el inventario) con la TECNOLOGÍA del E-commerce (atracción automática)?
-            </Text>
-
-            <Text style={paragraph}>
-              Eso, {firstName}, no es MLM tradicional. Y tampoco es E-commerce.
-            </Text>
-
-            <Text style={paragraph}>
-              Es una <strong style={{ color: '#D4AF37' }}>Arquitectura de Activos</strong>.
-            </Text>
-
-            <Text style={paragraph}>
-              Mañana te invito a ver los planos de esta nueva categoría.
+            <Text style={closingLine}>
+              El expediente está actualizado. Inicie la auditoría financiera.
             </Text>
 
             <Text style={signature}>
-              Hacia tu soberanía,
-              <br /><br />
-              Luis Cabrejo
+              Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Arquitecto de Activos</span>
+              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
             </Text>
           </Section>
 
           <Hr style={hr} />
 
-          <Section style={footer}>
+          <Section style={footerSection}>
             <Text style={footerText}>
-              © 2025 CreaTuActivo.com
+              © 2026 CreaTuActivo.com
               <br />
-              Mapa de Salida — Coordenada 4 de 5
+              Auditoría de Arquitectura Patrimonial — Coordenada 04 de 05
             </Text>
           </Section>
+
         </Container>
         {trackingUrl && (
           <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
@@ -174,115 +139,28 @@ export const Dia4Estigma = ({ firstName = 'Hola', trackingUrl }: Dia4Props) => {
 
 export default Dia4Estigma;
 
+/* ─── Styles ─── */
+
 const main = {
-  backgroundColor: '#0a0a0f',
-  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  backgroundColor: '#080808',
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 };
-
-const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  maxWidth: '580px',
-};
-
-const header = {
-  padding: '32px 20px',
-  textAlign: 'center' as const,
-};
-
-const dayBadge = {
-  textAlign: 'center' as const,
-  marginBottom: '24px',
-};
-
-const dayNumber = {
-  color: '#D4AF37',
-  fontSize: '14px',
-  fontWeight: '600',
-  letterSpacing: '2px',
-  margin: '0 0 4px',
-};
-
-const dayTitle = {
-  color: '#f5f5f5',
-  fontSize: '24px',
-  fontWeight: '500',
-  margin: '0',
-  fontFamily: "Georgia, serif",
-};
-
-const content = {
-  padding: '0 20px',
-};
-
-const h1 = {
-  color: '#f5f5f5',
-  fontSize: '28px',
-  fontWeight: '500',
-  margin: '0 0 24px',
-  fontFamily: "Georgia, serif",
-};
-
-const paragraph = {
-  color: '#a0a0a8',
-  fontSize: '16px',
-  lineHeight: '1.7',
-  margin: '0 0 20px',
-};
-
-const listItem = {
-  color: '#a0a0a8',
-  fontSize: '16px',
-  lineHeight: '1.7',
-  margin: '0 0 8px',
-  paddingLeft: '8px',
-};
-
-const highlightBox = {
-  backgroundColor: '#12121a',
-  borderLeft: '4px solid #D4AF37',
-  padding: '20px 24px',
-  color: '#f5f5f5',
-  fontSize: '18px',
-  lineHeight: '1.6',
-  margin: '24px 0',
-  borderRadius: '0 8px 8px 0',
-};
-
-const modelItem = {
-  color: '#a0a0a8',
-  fontSize: '15px',
-  lineHeight: '1.6',
-  margin: '0 0 16px',
-  padding: '16px',
-  backgroundColor: '#12121a',
-  borderRadius: '8px',
-};
-
-const signature = {
-  color: '#f5f5f5',
-  fontSize: '16px',
-  lineHeight: '1.6',
-  margin: '32px 0 0',
-};
-
-const signatureTitle = {
-  color: '#D4AF37',
-  fontSize: '14px',
-};
-
-const hr = {
-  borderColor: '#2a2a35',
-  margin: '32px 20px',
-};
-
-const footer = {
-  padding: '0 20px',
-};
-
-const footerText = {
-  color: '#6b6b75',
-  fontSize: '12px',
-  lineHeight: '1.6',
-  textAlign: 'center' as const,
-};
+const container = { margin: '0 auto', padding: '20px 0 48px', maxWidth: '580px' };
+const header = { padding: '32px 20px 24px', textAlign: 'center' as const, borderBottom: '1px solid #1c1c1c' };
+const brandText = { margin: 0, fontFamily: 'Georgia, serif', fontSize: '22px', fontWeight: '400' as const, color: '#E5E5E5', lineHeight: '1.2', textAlign: 'center' as const };
+const badgeSection = { textAlign: 'center' as const, padding: '24px 20px 0' };
+const badgeLabel = { color: '#C8A84B', fontSize: '11px', fontWeight: '600' as const, letterSpacing: '3px', margin: 0, fontFamily: "'Courier New', monospace" };
+const content = { padding: '28px 28px 0' };
+const openingLine = { color: '#F5F5F0', fontSize: '18px', lineHeight: '1.6', margin: '0 0 20px', fontWeight: '500' as const };
+const paragraph = { color: '#8A8A7A', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' };
+const protocolBox = { backgroundColor: '#0d0d0d', border: '1px solid #1c1c1c', borderLeft: '2px solid #C8A84B', padding: '20px 24px', margin: '24px 0' };
+const protocolTitle = { color: '#C8A84B', fontSize: '10px', letterSpacing: '3px', fontFamily: "'Courier New', monospace", margin: '0 0 16px' };
+const protocolStep = { color: '#8A8A7A', fontSize: '14px', lineHeight: '1.7', margin: '0 0 10px' };
+const ctaSection = { margin: '32px 0' };
+const ctaButton = { backgroundColor: '#C8A84B', color: '#000000', padding: '16px 28px', textDecoration: 'none', fontWeight: '800' as const, fontSize: '13px', fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif", letterSpacing: '1px', display: 'inline-block' as const };
+const closingLine = { color: '#6B6B5A', fontSize: '14px', lineHeight: '1.7', margin: '0 0 28px', fontStyle: 'italic' as const };
+const signature = { color: '#F5F5F0', fontSize: '15px', lineHeight: '1.6', margin: '0' };
+const signatureTitle = { color: '#C8A84B', fontSize: '12px', letterSpacing: '1px' };
+const hr = { borderColor: '#1c1c1c', margin: '32px 20px' };
+const footerSection = { padding: '0 20px' };
+const footerText = { color: '#444', fontSize: '11px', lineHeight: '1.6', textAlign: 'center' as const, fontFamily: "'Courier New', monospace", letterSpacing: '0.5px' };

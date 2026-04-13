@@ -43,7 +43,7 @@ const RETO_5_DIAS_SEQUENCE = [
   { day: 1, subject: '[COORDENADA 01] Diagnóstico Estructural Habilitado', component: 'Dia1Diagnostico' },
   { day: 2, subject: '[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)', component: 'Dia2Vehiculos' },
   { day: 3, subject: '[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)', component: 'Dia3Modelo' },
-  { day: 4, subject: 'Gané dinero, pero perdí mi vida (La verdad del E-commerce)', component: 'Dia4Estigma' },
+  { day: 4, subject: '[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)', component: 'Dia4Estigma' },
   { day: 5, subject: 'Tu turno de cumplir promesas', component: 'Dia5Invitacion' },
 ];
 

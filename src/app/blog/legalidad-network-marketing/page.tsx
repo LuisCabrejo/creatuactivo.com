@@ -159,7 +159,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Énfasis en reclutamiento sobre ventas</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si te dicen que la única forma de ganar es &quot;meter gente&quot;, cuidado.
+                            Si le dicen que la única forma de ganar es &quot;meter gente&quot;, cuidado.
                           </p>
                         </div>
                       </div>
@@ -171,7 +171,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costos de entrada excesivos</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si te piden miles de dólares para &quot;unirte&quot; sin un producto equivalente, alerta.
+                            Si le piden miles de dólares para &quot;unirte&quot; sin un producto equivalente, alerta.
                           </p>
                         </div>
                       </div>
@@ -195,7 +195,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Compras obligatorias mensuales altas</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si te obligan a comprar grandes cantidades de inventario cada mes, señal de alerta.
+                            Si le obligan a comprar grandes cantidades de inventario cada mes, señal de alerta.
                           </p>
                         </div>
                       </div>
@@ -207,7 +207,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Promesas de ingresos garantizados</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si te garantizan que ganarás X cantidad en Y tiempo, desconfía. Ningún negocio real puede garantizar ingresos.
+                            Si le garantizan que ganarás X cantidad en Y tiempo, desconfía. Ningún negocio real puede garantizar ingresos.
                           </p>
                         </div>
                       </div>
@@ -242,7 +242,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costo de entrada razonable</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            El costo inicial corresponde a producto real que tú mismo consumes.
+                            El costo inicial corresponde a producto real que usted mismo consumes.
                           </p>
                         </div>
                       </div>
@@ -295,7 +295,7 @@ export default function LegalidadNetworkMarketingPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Preguntas que debes hacer
+                    Preguntas que debe hacer
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
                     Antes de unirte a cualquier oportunidad de network marketing:
@@ -337,7 +337,7 @@ export default function LegalidadNetworkMarketingPage() {
                     fachada para transferir dinero de nuevos participantes a los de arriba.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia es fácil de detectar si haces las preguntas correctas.
+                    La diferencia es fácil de detectar si hace las preguntas correctas.
                   </p>
                 </section>
               </div>
@@ -345,11 +345,11 @@ export default function LegalidadNetworkMarketingPage() {
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Quieres evaluar una oportunidad real?
+                  ¿Desea evaluar una oportunidad real?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida te presento un modelo con 28+ años de operación,
-                  presente en 60+ países, y te explico exactamente cómo funciona el plan
+                  En El Mapa de Salida le presento un modelo con 28+ años de operación,
+                  presente en 60+ países, y le explico exactamente cómo funciona el plan
                   de compensación. Sin presión, solo información.
                 </p>
                 <Link

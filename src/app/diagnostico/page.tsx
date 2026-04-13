@@ -79,7 +79,7 @@ const styles = `
 const quizQuestions = [
   {
     id: 'autonomia',
-    question: 'Si por una razón de fuerza mayor dejaras de trabajar físicamente durante 6 meses, ¿qué sucedería con tus ingresos?',
+    question: 'Si por una razón de fuerza mayor dejaras de trabajar físicamente durante 6 meses, ¿qué sucedería con sus ingresos?',
     options: [
       { value: 10, label: 'Se detienen inmediatamente', sublabel: 'Dependo 100% de mi trabajo activo' },
       { value: 50, label: 'Se mantienen al 50-70% por un tiempo', sublabel: 'Tengo algo de colchón pero decaen' },
@@ -88,7 +88,7 @@ const quizQuestions = [
   },
   {
     id: 'resiliencia',
-    question: '¿Qué porcentaje de tu patrimonio y fuentes de ingreso está atado a una ubicación geográfica específica?',
+    question: '¿Qué porcentaje de su patrimonio y fuentes de ingreso está atado a una ubicación geográfica específica?',
     options: [
       { value: 10, label: '100% - Todo depende de donde vivo', sublabel: 'Mi economía no es portátil' },
       { value: 50, label: '50% - Tengo inversiones diversificadas', sublabel: 'Pero mi ingreso principal es local' },
@@ -97,7 +97,7 @@ const quizQuestions = [
   },
   {
     id: 'eficiencia',
-    question: 'Cuando revisas la relación entre lo que generaste (bruto) y lo que retuviste en activos reales, ¿cómo te sientes?',
+    question: 'Cuando revisas la relación entre lo que generaste (bruto) y lo que retuviste en activos reales, ¿cómo le sientes?',
     options: [
       { value: 20, label: 'Frustrado', sublabel: '"Soy un canal de paso para el dinero; entra y sale"' },
       { value: 50, label: 'Conforme', sublabel: '"Ahorré algo, pero no lo suficiente para cambiar mi vida"' },
@@ -106,7 +106,7 @@ const quizQuestions = [
   },
   {
     id: 'apalancamiento',
-    question: '¿Tu estrategia actual para duplicar tus ingresos requiere duplicar tu esfuerzo personal o tu tiempo?',
+    question: '¿Su estrategia actual para duplicar sus ingresos requiere duplicar su esfuerzo personal o su tiempo?',
     options: [
       { value: 20, label: 'Sí, es una relación lineal', sublabel: 'Más dinero = Más trabajo' },
       { value: 50, label: 'Parcialmente', sublabel: 'Tengo equipo pero sigo siendo el cuello de botella' },
@@ -115,7 +115,7 @@ const quizQuestions = [
   },
   {
     id: 'pazMental',
-    question: 'En una escala del 1 al 10, ¿cuánta paz mental te da la arquitectura financiera que has construido hasta hoy?',
+    question: 'En una escala del 1 al 10, ¿cuánta paz mental le da la arquitectura financiera que has construido hasta hoy?',
     options: [
       { value: 20, label: '1-3: Muy poca', sublabel: 'Vivo con ansiedad financiera constante' },
       { value: 50, label: '4-6: Regular', sublabel: 'Hay días buenos y días de preocupación' },
@@ -136,11 +136,11 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
     return {
       name: 'EL GIGANTE DE PIES DE BARRO',
       subtitle: 'Alto Rendimiento / Motor Solitario',
-      description: 'Los datos indican que tienes una capacidad excepcional para generar flujo de efectivo. Eres el motor indiscutible de tu economía. Ese es tu superpoder, pero paradójicamente, es tu mayor riesgo.',
-      insight: 'Tu gráfico muestra una "Arquitectura Asimétrica". Has optimizado todo tu sistema para el Ingreso Activo (dependiente de ti), pero has descuidado peligrosamente la Infraestructura de Soporte.',
-      truth: 'Actualmente, no posees un activo; el activo eres TÚ. Si tú te detienes, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
-      metaphor: 'Tienes el motor de un Ferrari montado en el chasis de una bicicleta.',
-      need: 'Lo que te falta no es más dinero. Te falta un Chasis.',
+      description: 'Los datos indican que tiene una capacidad excepcional para generar flujo de efectivo. Eres el motor indiscutible de su economía. Ese es su superpoder, pero paradójicamente, es su mayor riesgo.',
+      insight: 'Su gráfico muestra una "Arquitectura Asimétrica". Has optimizado todo su sistema para el Ingreso Activo (dependiente de ti), pero has descuidado peligrosamente la Infraestructura de Soporte.',
+      truth: 'Actualmente, no posees un activo; el activo eres TÚ. Si usted le detienes, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
+      metaphor: 'Tiene el motor de un Ferrari montado en el chasis de una bicicleta.',
+      need: 'Lo que le falta no es más dinero. Le falta un Chasis.',
     };
   }
 
@@ -148,21 +148,21 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
     return {
       name: 'EL OPERADOR AGOTADO',
       subtitle: 'Negocio Propio / Sin Tiempo',
-      description: 'Has construido algo, pero te has convertido en esclavo de tu propia creación. Tu negocio no funciona sin ti, lo que significa que no tienes un negocio: tienes un trabajo disfrazado.',
-      insight: 'Todos los ejes de tu gráfico dependen de tu presencia física. No has logrado separar tu tiempo de tu ingreso.',
+      description: 'Has construido algo, pero le has convertido en esclavo de su propia creación. Su negocio no funciona sin ti, lo que significa que no tiene un negocio: tiene un trabajo disfrazado.',
+      insight: 'Todos los ejes de su gráfico dependen de su presencia física. No has logrado separar su tiempo de su ingreso.',
       truth: 'Si cierras la puerta mañana, dejas de ganar. Eso no es un activo, es una trampa operativa.',
-      metaphor: 'Eres el motor, el volante y los frenos. Si te enfermas, el carro se detiene.',
-      need: 'Necesitas sistemas que operen sin tu presencia constante.',
+      metaphor: 'Eres el motor, el volante y los frenos. Si le enfermas, el carro se detiene.',
+      need: 'Necesitas sistemas que operen sin su presencia constante.',
     };
   }
 
   return {
     name: 'EL CONSTRUCTOR EN PROGRESO',
     subtitle: 'En Camino / Con Potencial',
-    description: 'Tienes algunos elementos de estructura, pero aún no has logrado la independencia operativa completa. Estás mejor que la mayoría, pero lejos de la Soberanía.',
-    insight: 'Tu gráfico muestra áreas de oportunidad claras. No estás en crisis, pero tampoco estás protegido.',
-    truth: 'Con los ajustes correctos, podrías acelerar significativamente tu camino hacia la autonomía.',
-    metaphor: 'Tienes los planos, pero la construcción está a medias.',
+    description: 'Tiene algunos elementos de estructura, pero aún no has logrado la independencia operativa completa. Estás mejor que la mayoría, pero lejos de la Soberanía.',
+    insight: 'Su gráfico muestra áreas de oportunidad claras. No estás en crisis, pero tampoco estás protegido.',
+    truth: 'Con los ajustes correctos, podrías acelerar significativamente su camino hacia la autonomía.',
+    metaphor: 'Tiene los planos, pero la construcción está a medias.',
     need: 'Necesitas completar la infraestructura que ya empezaste.',
   };
 };
@@ -332,7 +332,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
           <br className="hidden sm:block" />
           <span style={{ color: 'var(--text-primary)' }}>
-            Realiza esta auditoría para visualizar las grietas invisibles en tu modelo actual.
+            Realiza esta auditoría para visualizar las grietas invisibles en su modelo actual.
           </span>
         </p>
 
@@ -506,17 +506,17 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
           className="text-2xl sm:text-3xl mb-4"
           style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
         >
-          Tu análisis está listo
+          Su análisis está listo
         </h2>
 
         <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
-          ¿A dónde enviamos tu informe detallado y el gráfico de arquitectura?
+          ¿A dónde enviamos su informe detallado y el gráfico de arquitectura?
         </p>
 
         <form onSubmit={onSubmit} className="space-y-4">
           <input
             type="email"
-            placeholder="Tu email"
+            placeholder="Su email"
             value={data.email}
             onChange={(e) => onChange({ ...data, email: e.target.value })}
             required
@@ -577,7 +577,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
             )}
             <input
               type="tel"
-              placeholder="Tu número de WhatsApp"
+              placeholder="Su número de WhatsApp"
               value={data.phoneNumber}
               onChange={(e) => onChange({ ...data, phoneNumber: e.target.value.replace(/\D/g, '') })}
               required
@@ -603,7 +603,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
         </form>
 
         <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-          Tus datos están protegidos. Sin spam, solo tu auditoría.
+          Sus datos están protegidos. Sin spam, solo su auditoría.
         </p>
       </div>
     </section>
@@ -641,7 +641,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-3xl sm:text-4xl mt-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            Tu Arquitectura Financiera
+            Su Arquitectura Financiera
           </h1>
         </div>
 
@@ -713,13 +713,13 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-xl sm:text-2xl mb-6"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            La brecha entre tu situación actual y la Soberanía
+            La brecha entre su situación actual y la Soberanía
             <br />
             <span style={{ color: 'var(--gold)' }}>no es cuestión de esfuerzo. Es cuestión de Diseño.</span>
           </h3>
 
           <p className="text-lg mb-6 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            La mayoría intenta corregir este gráfico trabajando más duro. Pero no puedes solucionar
+            La mayoría intenta corregir este gráfico trabajando más duro. Pero no puede solucionar
             un problema estructural con más esfuerzo operativo. Eso es como tratar de arreglar
             una fuga de agua abriendo más el grifo.
           </p>
@@ -744,11 +744,11 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 2:</span>
-                <span>Desmantelaremos los vehículos obsoletos que consumen tu tiempo</span>
+                <span>Desmantelaremos los vehículos obsoletos que consumen su tiempo</span>
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 3:</span>
-                <span>Te entregaré los planos de la infraestructura de socios (El Nuevo Modelo)</span>
+                <span>Le entregaré los planos de la infraestructura de socios (El Nuevo Modelo)</span>
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 4:</span>
@@ -756,15 +756,15 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 5:</span>
-                <span>Te entregaré las llaves de tu soberanía (La Invitación)</span>
+                <span>Le entregaré las llaves de su soberanía (La Invitación)</span>
               </li>
             </ul>
           </div>
 
           <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Tu auditoría dice que estás listo para escalar,
+            Su auditoría dice que estás listo para escalar,
             <br />
-            pero tu estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
+            pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
           </p>
 
           <Link
@@ -782,7 +782,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </Link>
 
           <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-            Trae tu gráfico de resultados al Día 1. Será nuestro punto de partida.
+            Trae su gráfico de resultados al Día 1. Será nuestro punto de partida.
           </p>
         </div>
 

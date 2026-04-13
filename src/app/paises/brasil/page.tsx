@@ -23,7 +23,7 @@ const content = {
     badge: "Lanzamiento Oficial 2026",
     hero_title_1: "El Gigante ha Despertado.",
     hero_title_2: "Brasil es Territorio Gano Excel.",
-    hero_desc: "La economía número 1 de América Latina abre sus puertas. La infraestructura física ya está en São Paulo. La infraestructura digital está en tus manos con CreaTuActivo.",
+    hero_desc: "La economía número 1 de América Latina abre sus puertas. La infraestructura física ya está en São Paulo. La infraestructura digital está en sus manos con CreaTuActivo.",
     btn_products: "Ver Promociones", // Ahora lleva a la sección, no a WA
     btn_expand: "Cómo Afiliarse",
 
@@ -39,10 +39,10 @@ const content = {
     promo_1_desc: "En referencias seleccionadas de Café Trufado.",
 
     promo_2_title: "PRODUCTOS GRATIS",
-    promo_2_desc: "Recibe cajas extra de regalo al comprar tu Paquete Empresarial (ESP 1, 2 o 3).",
+    promo_2_desc: "Recibe cajas extra de regalo al comprar su Paquete Empresarial (ESP 1, 2 o 3).",
 
     promo_3_title: "NUEVO KIT VISIÓN",
-    promo_3_desc: "Tu puerta de entrada accesible por solo R$ 190,00 (aprox).",
+    promo_3_desc: "Su puerta de entrada accesible por solo R$ 190,00 (aprox).",
 
     strategy_title: "La Estrategia 'Trufada':",
     strategy_subtitle: "Lujo y Exclusividad",
@@ -55,8 +55,8 @@ const content = {
 
     // --- SECCIÓN AFILIACIÓN ---
     affiliate_title: "¿Cómo Afiliarse a Gano Excel Brasil?",
-    affiliate_subtitle: "Elige tu nivel de entrada al mercado más grande de LATAM.",
-    affiliate_step_1: "Elige tu Paquete",
+    affiliate_subtitle: "Elige su nivel de entrada al mercado más grande de LATAM.",
+    affiliate_step_1: "Elige su Paquete",
     affiliate_step_2: "Registro Oficial",
     affiliate_step_3: "Activación Digital",
 
@@ -82,7 +82,7 @@ const content = {
 
     infra_title_1: "Infraestructura Física",
     infra_title_2: "Ya Instalada.",
-    infra_desc: "Gano Excel no llegó a 'probar suerte'. Llegó con infraestructura corporativa completa. Tú no tienes que invertir en oficinas ni logística.",
+    infra_desc: "Gano Excel no llegó a 'probar suerte'. Llegó con infraestructura corporativa completa. Usted no tiene que invertir en oficinas ni logística.",
     hq_title: "Sede Corporativa São Paulo",
     hq_desc: "Av. Rebouças 2455, Pinheiros. El corazón financiero de Brasil.",
     legal_title: "Legalidad Total",
@@ -96,7 +96,7 @@ const content = {
 
     cta_title_1: "No necesitas vivir en Brasil",
     cta_title_2: "para ganar en Brasil.",
-    cta_desc: "Construye tu equipo internacional usando la arquitectura digital de CreaTuActivo.",
+    cta_desc: "Construye su equipo internacional usando la arquitectura digital de CreaTuActivo.",
     cta_btn: "Iniciar Expansión Ahora",
 
     products: [

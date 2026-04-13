@@ -99,7 +99,7 @@ export default function EmpleoVsActivosPage() {
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
                     Pero hay un problema matemático con este plan: la pensión típica reemplaza
-                    solo el 40% de tu último ingreso. Un ingreso que, siendo honestos,
+                    solo el 40% de su último ingreso. Un ingreso que, siendo honestos,
                     ya no alcanzaba mientras lo ganabas completo.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
@@ -138,11 +138,11 @@ export default function EmpleoVsActivosPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-red-400">✕</span>
-                          <span>Techo limitado por tus horas disponibles</span>
+                          <span>Techo limitado por sus horas disponibles</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-red-400">✕</span>
-                          <span>No heredable (muere contigo)</span>
+                          <span>No heredable (muere con usted)</span>
                         </li>
                       </ul>
                     </div>
@@ -156,7 +156,7 @@ export default function EmpleoVsActivosPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-[#E5C279]">✓</span>
-                          <span className="text-[#E5E5E5]">El sistema trabaja sin tu presencia</span>
+                          <span className="text-[#E5E5E5]">El sistema trabaja sin su presencia</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-[#E5C279]">✓</span>
@@ -164,7 +164,7 @@ export default function EmpleoVsActivosPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-[#E5C279]">✓</span>
-                          <span className="text-[#E5E5E5]">Heredable a tu familia</span>
+                          <span className="text-[#E5E5E5]">Heredable a su familia</span>
                         </li>
                       </ul>
                     </div>
@@ -176,7 +176,7 @@ export default function EmpleoVsActivosPage() {
                     Ejemplos de activos que generan ingreso residual
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Un activo es algo que pones a trabajar y sigue generando valor sin tu
+                    Un activo es algo que pone a trabajar y sigue generando valor sin su
                     intervención constante:
                   </p>
                   <ul className="space-y-4 mb-6">
@@ -185,7 +185,7 @@ export default function EmpleoVsActivosPage() {
                       <div>
                         <strong className="text-[#E5E5E5]">Bienes raíces</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Compras una propiedad, la rentas, recibes ingresos mensuales.
+                          Compras una propiedad, la rentas, recibe ingresos mensuales.
                           (Requiere capital inicial alto)
                         </p>
                       </div>
@@ -195,7 +195,7 @@ export default function EmpleoVsActivosPage() {
                       <div>
                         <strong className="text-[#E5E5E5]">Dividendos de acciones</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Inviertes en empresas, recibes porcentaje de ganancias.
+                          Inviertes en empresas, recibe porcentaje de ganancias.
                           (Requiere ahorro significativo)
                         </p>
                       </div>
@@ -228,12 +228,12 @@ export default function EmpleoVsActivosPage() {
                     La pregunta correcta
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    La pregunta no es &quot;¿cuánto ganas?&quot; sino &quot;¿qué pasaría con tus ingresos
+                    La pregunta no es &quot;¿cuánto ganas?&quot; sino &quot;¿qué pasaría con sus ingresos
                     si dejas de trabajar por 6 meses?&quot;
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Si la respuesta es &quot;desaparecerían&quot;, entonces no tienes activos.
-                    Tienes un empleo bien pagado—pero sigues en la carrera de la rata.
+                    Si la respuesta es &quot;desaparecerían&quot;, entonces no tiene activos.
+                    Tiene un empleo bien pagado—pero sigues en la carrera de la rata.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     La libertad financiera no se trata de cuánto ganas. Se trata de cuántos
@@ -255,7 +255,7 @@ export default function EmpleoVsActivosPage() {
                     <li>• Negocio propio: necesitas capital, empleados, local</li>
                   </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Pero hay un tipo de activo que puedes empezar a construir con menos de $200
+                    Pero hay un tipo de activo que puede empezar a construir con menos de $200
                     y unas pocas horas semanales: una red de distribución. No es el único
                     camino, pero es el más accesible para quien empieza desde cero.
                   </p>
@@ -265,10 +265,10 @@ export default function EmpleoVsActivosPage() {
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Quieres aprender a construir activos?
+                  ¿Desea aprender a construir activos?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida te explico paso a paso cómo funciona un sistema
+                  En El Mapa de Salida le explico paso a paso cómo funciona un sistema
                   diseñado para que personas sin capital ni experiencia puedan empezar
                   a construir ingresos residuales.
                 </p>

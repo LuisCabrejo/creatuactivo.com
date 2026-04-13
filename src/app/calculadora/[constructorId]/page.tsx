@@ -16,6 +16,6 @@ export default function CalculadoraWithConstructorPage() {
 export async function generateMetadata({ params }: { params: { constructorId: string } }) {
   return {
     title: 'Calculadora de Días de Libertad | CreaTuActivo',
-    description: `¿Cuántos días de libertad financiera tienes? Descubre tu número real con esta calculadora. Compartido por ${params.constructorId}.`,
+    description: `¿Cuántos días de libertad financiera tiene? Descubre su número real con esta calculadora. Compartido por ${params.constructorId}.`,
   }
 }

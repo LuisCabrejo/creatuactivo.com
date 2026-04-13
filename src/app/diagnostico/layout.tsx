@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Auditoría de Soberanía Financiera | CreaTuActivo',
-  description: 'Descubre si tu estrategia financiera está construida sobre bases sólidas o si estás atrapado en el Plan por Defecto.',
+  description: 'Descubre si su estrategia financiera está construida sobre bases sólidas o si estás atrapado en el Plan por Defecto.',
   robots: {
     index: false,
     follow: false,

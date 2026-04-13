@@ -39,8 +39,8 @@ const COLORS = {
 const questions = [
   {
     id: 'situation',
-    question: '¿Cuál es tu situación actual?',
-    subtext: 'Esto nos ayuda a personalizar tu resultado',
+    question: '¿Cuál es su situación actual?',
+    subtext: 'Esto nos ayuda a personalizar su resultado',
     options: [
       { value: 'empleado', label: 'Empleado' },
       { value: 'emprendedor', label: 'Emprendedor/Dueño de negocio' },
@@ -62,7 +62,7 @@ const questions = [
   },
   {
     id: 'savings',
-    question: '¿Cuánto tienes ahorrado ahora mismo?',
+    question: '¿Cuánto tiene ahorrado ahora mismo?',
     subtext: 'Cuentas de ahorro, inversiones líquidas, colchón de emergencia',
     options: [
       { value: 0, label: '$0 - No tengo ahorros' },
@@ -166,23 +166,23 @@ export default function CalculadoraPage() {
   const getMessage = (days: number) => {
     if (days === 0) {
       return {
-        title: 'Dependes 100% de tu trabajo.',
-        body: 'Si mañana no puedes trabajar—por enfermedad, despido, o cualquier imprevisto—no tienes ni un solo día de respaldo.',
+        title: 'Dependes 100% de su trabajo.',
+        body: 'Si mañana no puede trabajar—por enfermedad, despido, o cualquier imprevisto—no tiene ni un solo día de respaldo.',
       };
     } else if (days < 30) {
       return {
         title: `Solo ${days} días de respaldo.`,
-        body: 'Menos de un mes. Una emergencia, una reestructuración, y tu situación cambia completamente.',
+        body: 'Menos de un mes. Una emergencia, una reestructuración, y su situación cambia completamente.',
       };
     } else if (days < 90) {
       return {
         title: `${days} días. Algo es algo.`,
-        body: 'Tienes algo construido, pero aún estás lejos de la libertad real. ¿Qué pasaría si pudieras duplicar este número en 12 meses?',
+        body: 'Tiene algo construido, pero aún estás lejos de la libertad real. ¿Qué pasaría si pudieras duplicar este número en 12 meses?',
       };
     } else if (days < 180) {
       return {
         title: `${days} días. Vas por buen camino.`,
-        body: 'Ya entiendes el concepto. La pregunta es: ¿cómo aceleras para llegar a 365 días de soberanía total?',
+        body: 'Ya entiende el concepto. La pregunta es: ¿cómo aceleras para llegar a 365 días de soberanía total?',
       };
     } else {
       return {
@@ -320,14 +320,14 @@ export default function CalculadoraPage() {
                 className="text-2xl sm:text-3xl mb-4 font-serif"
                 style={{ color: COLORS.text.primary }}
               >
-                Tu diagnóstico está listo
+                Su diagnóstico está listo
               </h2>
 
               <p
                 className="text-lg mb-8"
                 style={{ color: COLORS.text.muted }}
               >
-                ¿A dónde enviamos tu reporte de libertad y el plan de acción?
+                ¿A dónde enviamos su reporte de libertad y el plan de acción?
               </p>
 
               <form
@@ -342,7 +342,7 @@ export default function CalculadoraPage() {
               >
                 <input
                   type="text"
-                  placeholder="Tu nombre"
+                  placeholder="Su nombre"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-5 py-4  focus:outline-none transition-all duration-300"
@@ -355,7 +355,7 @@ export default function CalculadoraPage() {
                 />
                 <input
                   type="email"
-                  placeholder="Tu email"
+                  placeholder="Su email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   required
@@ -385,7 +385,7 @@ export default function CalculadoraPage() {
                 className="text-sm mt-6"
                 style={{ color: COLORS.text.muted }}
               >
-                Tus datos están protegidos. Sin spam.
+                Sus datos están protegidos. Sin spam.
               </p>
             </div>
           </section>
@@ -401,7 +401,7 @@ export default function CalculadoraPage() {
                   className="text-sm uppercase tracking-wider mb-4"
                   style={{ color: COLORS.gold.primary }}
                 >
-                  Tu Resultado
+                  Su Resultado
                 </p>
                 <h1
                   className="text-3xl md:text-4xl font-medium font-serif"
@@ -542,7 +542,7 @@ export default function CalculadoraPage() {
                         className="mt-6 text-sm"
                         style={{ color: COLORS.text.muted }}
                       >
-                        Auditoría 100% gratuita. Traza tu ruta de escape del &ldquo;Plan por Defecto&rdquo;.
+                        Auditoría 100% gratuita. Traza su ruta de escape del &ldquo;Plan por Defecto&rdquo;.
                       </p>
                     </div>
                   </>

@@ -12,7 +12,7 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
-  title: 'Blog - Recursos para Construir tu Soberanía Financiera | CreaTuActivo',
+  title: 'Blog - Recursos para Construir su Soberanía Financiera | CreaTuActivo',
   description: 'Artículos y guías sobre activos digitales, network marketing moderno, y estrategias para construir ingresos residuales desde casa.',
 };
 
@@ -21,7 +21,7 @@ const articles = [
     slug: 'network-marketing-obsoleto',
     image: '/images/blog/thumb-blog-problem.jpg',
     label: 'ANÁLISIS DE RIESGO',
-    cardTitle: '¿Es tu plan financiero una trampa?',
+    cardTitle: '¿Es su plan financiero una trampa?',
     excerpt: 'El modelo de los 90s murió. Descubre por qué evolucionamos hacia un sistema de construcción de activos.',
     category: 'Industria',
     readTime: '6 min',
@@ -178,7 +178,7 @@ export default function BlogPage() {
                 ¿Listo para pasar de la teoría a la práctica?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                El Mapa de Salida te muestra cómo aplicar estos conceptos en tu vida real.
+                El Mapa de Salida le muestra cómo aplicar estos conceptos en su vida real.
               </p>
               <Link
                 href="/mapa-de-salida"

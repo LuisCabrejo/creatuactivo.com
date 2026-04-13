@@ -266,11 +266,11 @@ const DualIncomeCalculator = () => {
                             </div>
 
                             <div className="bg-[#F59E0B]/10 border border-[#C5A059]/20 rounded-2xl p-8 text-center">
-                                <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-2">Tu Ganancia Inmediata</p>
+                                <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-2">Su Ganancia Inmediata</p>
                                 <div className="text-5xl font-bold text-white mb-2 tracking-tight">
                                     ${activeIncome} <span className="text-lg text-[#64748B]">USD</span>
                                 </div>
-                                <p className="text-xs text-[#64748B]">Pagado semanalmente a tu cuenta.</p>
+                                <p className="text-xs text-[#64748B]">Pagado semanalmente a su cuenta.</p>
                             </div>
                         </div>
                     </div>
@@ -284,7 +284,7 @@ const DualIncomeCalculator = () => {
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div className="space-y-6">
                                 <div className="relative">
-                                    <label className="block text-xs text-[#64748B] uppercase font-bold mb-3">Personas en tu Lado Menor (aprox.):</label>
+                                    <label className="block text-xs text-[#64748B] uppercase font-bold mb-3">Personas en su Lado Menor (aprox.):</label>
                                     <div className="flex items-center gap-4">
                                         <input
                                             type="range" min="10" max="1000" step="10" value={teamSize} // Slider de 10 a 1000 personas por lado
@@ -305,7 +305,7 @@ const DualIncomeCalculator = () => {
                             </div>
 
                             <div className="bg-emerald-900/20 border border-emerald-500/20 rounded-2xl p-8 text-center">
-                                <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2">Tu Renta Mensual</p>
+                                <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2">Su Renta Mensual</p>
                                 <div className="text-5xl font-bold text-white mb-2 tracking-tight">
                                     ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-lg text-[#64748B]">USD</span>
                                 </div>
@@ -360,7 +360,7 @@ export default function PresentacionEmpresarialPage() {
         {/* 2. LA GRAN DIFERENCIA (EDUCACIÓN) */}
         <section id="diferencia" className="py-24 bg-[#0B0C0C] border-t border-white/5">
             <div className="container mx-auto px-4">
-                <SectionHeader title="El Juego ha Cambiado" subtitle="No te invitamos a ganar dinero (lineal). Te invitamos a construir libertad (exponencial)." />
+                <SectionHeader title="El Juego ha Cambiado" subtitle="No le invitamos a ganar dinero (lineal). Le invitamos a construir libertad (exponencial)." />
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Tarjeta Roja: Empleo */}
@@ -371,7 +371,7 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                         <ul className="space-y-4 text-sm text-[#A3A3A3]">
                             <li className="flex gap-3"><span className="text-red-500">✕</span> Cambias tiempo por dinero (1:1).</li>
-                            <li className="flex gap-3"><span className="text-red-500">✕</span> Si te detienes, el ingreso cae a cero.</li>
+                            <li className="flex gap-3"><span className="text-red-500">✕</span> Si le detienes, el ingreso cae a cero.</li>
                             <li className="flex gap-3"><span className="text-red-500">✕</span> Techo de ingresos limitado.</li>
                         </ul>
                     </div>
@@ -383,7 +383,7 @@ export default function PresentacionEmpresarialPage() {
                             <h3 className="text-xl font-bold text-white">Ingreso Residual</h3>
                         </div>
                         <ul className="space-y-4 text-sm text-white">
-                            <li className="flex gap-3"><CheckCircle size={18} className="text-emerald-400 shrink-0"/> El sistema trabaja sin tu presencia.</li>
+                            <li className="flex gap-3"><CheckCircle size={18} className="text-emerald-400 shrink-0"/> El sistema trabaja sin su presencia.</li>
                             <li className="flex gap-3"><CheckCircle size={18} className="text-emerald-400 shrink-0"/> Crece exponencialmente (Red).</li>
                             <li className="flex gap-3"><CheckCircle size={18} className="text-emerald-400 shrink-0"/> Sin techo financiero.</li>
                         </ul>
@@ -407,7 +407,7 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Distribución Masiva</h3>
                         <p className="text-[#A3A3A3] text-sm font-light leading-relaxed">
-                            Creamos canales digitales por donde fluyen productos de consumo masivo (Gano Excel) en toda América. Sin bodegas en tu casa.
+                            Creamos canales digitales por donde fluyen productos de consumo masivo (Gano Excel) en toda América. Sin bodegas en su casa.
                         </p>
                     </div>
                     <div className="text-center p-6 border-x border-white/5">
@@ -416,7 +416,7 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Propiedad del Activo</h3>
                         <p className="text-[#A3A3A3] text-sm font-light leading-relaxed">
-                            El mercado que construyes queda codificado a tu nombre legalmente. Es un activo heredable, vendible y vitalicio.
+                            El mercado que construyes queda codificado a su nombre legalmente. Es un activo heredable, vendible y vitalicio.
                         </p>
                     </div>
                     <div className="text-center p-6">
@@ -425,7 +425,7 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Renta Recurrente</h3>
                         <p className="text-[#A3A3A3] text-sm font-light leading-relaxed">
-                            Haces el trabajo de conexión una vez, y cobras regalías cada vez que alguien se toma un Gano café en tu red.
+                            Hace el trabajo de conexión una vez, y cobra regalías cada vez que alguien se toma un Gano café en su red.
                         </p>
                     </div>
                 </div>
@@ -445,10 +445,10 @@ export default function PresentacionEmpresarialPage() {
                      </div>
 
                      <div className="order-1 lg:order-2">
-                        <span className="text-[#E5C279] font-bold tracking-widest uppercase text-xs mb-4 block">Tu Ventaja Injusta</span>
+                        <span className="text-[#E5C279] font-bold tracking-widest uppercase text-xs mb-4 block">Su Ventaja Injusta</span>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
-                            Tú vives tu vida. <br/>
-                            <span className="text-[#64748B]">La IA construye tu negocio.</span>
+                            Usted vive su vida. <br/>
+                            <span className="text-[#64748B]">La IA construye su negocio.</span>
                         </h2>
                         <p className="text-[#A3A3A3] text-lg mb-8 font-light">
                             La razón #1 del fracaso es "no saber vender" o "no tener tiempo".
@@ -459,7 +459,7 @@ export default function PresentacionEmpresarialPage() {
                             {[
                                 "Explica el negocio con datos precisos 24/7.",
                                 "Filtra a los curiosos sin intención de compra.",
-                                "Entrena a tu equipo nuevo (Duplicación Automática).",
+                                "Entrena a su equipo nuevo (Duplicación Automática).",
                                 "Opera mientras duermes o viajas."
                             ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-4">
@@ -479,7 +479,7 @@ export default function PresentacionEmpresarialPage() {
         <section id="como-funciona" className="py-32 bg-[#0B0C0C]">
              <div className="container mx-auto px-4">
                 <SectionHeader
-                    title="Tu Equipo de Poder"
+                    title="Su Equipo de Poder"
                     subtitle="No estás solo. Una alianza estratégica diseñada para minimizar el riesgo."
                 />
 
@@ -489,14 +489,14 @@ export default function PresentacionEmpresarialPage() {
                         icon={<Users size={28} />}
                         title="1. TÚ"
                         role="La Visión"
-                        description="Tu único rol es conectar. No tienes que convencer, solo invitar a las personas a evaluar el sistema. Tú pones la dirección y las relaciones."
+                        description="Su único rol es conectar. No tiene que convencer, solo invitar a las personas a evaluar el sistema. Usted pone la dirección y las relaciones."
                     />
                     <TriadCard
                         colorClass="bg-[#F59E0B]/10 text-[#E5C279]"
                         icon={<Cpu size={28} />}
                         title="2. CreaTuActivo"
                         role="La Tecnología"
-                        description="Nosotros ponemos el software. Nuestra IA educa, filtra y cierra. Te entregamos la infraestructura digital llave en mano."
+                        description="Nosotros ponemos el software. Nuestra IA educa, filtra y cierra. Le entregamos la infraestructura digital llave en mano."
                     />
                     <TriadCard
                         colorClass="bg-emerald-500/10 text-emerald-500"
@@ -584,8 +584,8 @@ export default function PresentacionEmpresarialPage() {
         <section className="py-32 bg-[#0B0C0C]">
             <div className="container mx-auto px-4">
                 <SectionHeader
-                    title="Elige tu Nivel de Entrada"
-                    subtitle="Esto es un negocio real de distribución de productos físicos. Tu inversión te entrega inventario inmediato."
+                    title="Elige su Nivel de Entrada"
+                    subtitle="Esto es un negocio real de distribución de productos físicos. Su inversión le entrega inventario inmediato."
                 />
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-end">
@@ -639,7 +639,7 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="mt-16 text-center">
                     <p className="text-xs text-[#64748B] max-w-2xl mx-auto">
-                        * Garantía de Legalidad: El pago se realiza directamente a las cuentas bancarias corporativas de Gano Excel S.A. (Gran Contribuyente). Recibes factura legal y producto físico respaldando el 100% de tu capital.
+                        * Garantía de Legalidad: El pago se realiza directamente a las cuentas bancarias corporativas de Gano Excel S.A. (Gran Contribuyente). Recibe factura legal y producto físico respaldando el 100% de su capital.
                     </p>
                 </div>
             </div>
@@ -649,9 +649,9 @@ export default function PresentacionEmpresarialPage() {
         <section className="py-24 bg-[#16181D]">
             <div className="container mx-auto px-4 max-w-3xl">
                 <h2 className="text-3xl font-bold text-white mb-12 text-center">Preguntas Frecuentes</h2>
-                <FAQItem question="¿Tengo que vender puerta a puerta?" answer="No. Usamos tecnología de atracción. La IA se encarga de explicar. Tú solo conectas." />
-                <FAQItem question="¿Es seguro y legal?" answer="100%. Operamos con Gano Excel (Gran Contribuyente DIAN) y bajo la Ley 1700. Tu inversión es en producto físico real." />
-                <FAQItem question="No tengo experiencia, ¿puedo hacerlo?" answer="Sí. El sistema está diseñado para 'Cero Fricción'. Si usas WhatsApp, puedes usar esto. Además tienes mentoría." />
+                <FAQItem question="¿Tengo que vender puerta a puerta?" answer="No. Usamos tecnología de atracción. La IA se encarga de explicar. Usted solo conectas." />
+                <FAQItem question="¿Es seguro y legal?" answer="100%. Operamos con Gano Excel (Gran Contribuyente DIAN) y bajo la Ley 1700. Su inversión es en producto físico real." />
+                <FAQItem question="No tengo experiencia, ¿puedo hacerlo?" answer="Sí. El sistema está diseñado para 'Cero Fricción'. Si usas WhatsApp, puede usar esto. Además tiene mentoría." />
                 <FAQItem question="¿Por qué hay cupos limitados?" answer="Porque ofrecemos mentoría personalizada. No es un curso grabado, es una sociedad de trabajo." />
             </div>
         </section>
@@ -663,10 +663,10 @@ export default function PresentacionEmpresarialPage() {
                 <div className="max-w-3xl mx-auto">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
                         La infraestructura está lista. <br/>
-                        Solo falta tu decisión.
+                        Solo falta su decisión.
                     </h2>
                     <p className="text-xl text-[#A3A3A3] mb-12 font-light">
-                        No dejes que el escepticismo te robe la oportunidad de ser pionero en la digitalización de esta industria.
+                        No dejes que el escepticismo le robe la oportunidad de ser pionero en la digitalización de esta industria.
                     </p>
 
                     <Link

@@ -99,7 +99,7 @@ export default function NetworkMarketingObsoletoPage() {
                     mensajes incómodos en Facebook.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Y tienes razón. Ese modelo <strong className="text-[#E5E5E5]">está obsoleto</strong>.
+                    Y tiene razón. Ese modelo <strong className="text-[#E5E5E5]">está obsoleto</strong>.
                     Era un sistema diseñado para una era sin internet, sin smartphones, sin
                     inteligencia artificial.
                   </p>
@@ -173,9 +173,9 @@ export default function NetworkMarketingObsoletoPage() {
                   </div>
 
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia fundamental: en el modelo tradicional, <em>tú eres el motor</em>.
-                    En la Arquitectura de Activos, <em>tú eres el arquitecto</em> de un sistema
-                    que funciona sin tu presencia constante.
+                    La diferencia fundamental: en el modelo tradicional, <em>usted eres el motor</em>.
+                    En la Arquitectura de Activos, <em>usted eres el arquitecto</em> de un sistema
+                    que funciona sin su presencia constante.
                   </p>
                 </section>
 
@@ -192,7 +192,7 @@ export default function NetworkMarketingObsoletoPage() {
                           <h4 className="font-semibold text-[#E5E5E5] mb-2">Tecnología como multiplicador</h4>
                           <p className="text-[#A3A3A3] text-sm">
                             IA conversacional (Queswa) que responde preguntas, maneja objeciones
-                            y califica prospectos—mientras tú duermes.
+                            y califica prospectos—mientras usted duermes.
                           </p>
                         </div>
                       </div>
@@ -249,13 +249,13 @@ export default function NetworkMarketingObsoletoPage() {
                   <p className="text-[#A3A3A3] leading-relaxed">
                     La Arquitectura de Activos elimina ambos problemas. La IA hace el trabajo
                     de &quot;vender&quot; (educar, filtrar, responder objeciones). Y los sistemas
-                    automatizados trabajan 24/7—no dependen de tu tiempo.
+                    automatizados trabajan 24/7—no dependen de su tiempo.
                   </p>
                 </section>
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    ¿Es esto para ti?
+                    ¿Es esto para usted?
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
                     La Arquitectura de Activos funciona para personas que:
@@ -280,7 +280,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     No es dinero rápido. Es construcción sistemática de algo que siga
-                    generando cuando tú no estés presente.
+                    generando cuando usted no estés presente.
                   </p>
                 </section>
               </div>
@@ -288,12 +288,12 @@ export default function NetworkMarketingObsoletoPage() {
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Quieres ver cómo funciona en la práctica?
+                  ¿Desea ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida te muestro exactamente cómo hemos evolucionado
+                  En El Mapa de Salida le muestro exactamente cómo hemos evolucionado
                   del network marketing tradicional a la Arquitectura de Activos—y
-                  cómo puedes empezar a construir el tuyo.
+                  cómo puede empezar a construir el tuyo.
                 </p>
                 <Link
                   href="/mapa-de-salida"

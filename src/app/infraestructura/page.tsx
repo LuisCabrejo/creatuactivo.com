@@ -146,7 +146,7 @@ export default function InfraestructuraPage() {
 
                 <p className="text-[#A3A3A3] leading-relaxed">
                   No buscábamos velocidad. Buscábamos la <strong className="text-[#E5E5E5]">estandarización de la potencia biológica</strong>.
-                  Hoy, esa paciencia es tu patente.
+                  Hoy, esa paciencia es su patente.
                 </p>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function InfraestructuraPage() {
                 <p className="text-sm text-[#64748B] mb-4">Logística Global Propia</p>
                 <p className="text-[#A3A3A3] text-sm leading-relaxed">
                   Inmunidad ante la fluctuación de precios de materias primas.
-                  Tu margen está protegido desde la raíz.
+                  Su margen está protegido desde la raíz.
                 </p>
               </div>
             </div>
@@ -247,7 +247,7 @@ export default function InfraestructuraPage() {
                 <p className="text-[#A3A3A3] leading-relaxed">
                   Nuestra infraestructura atraviesa fronteras, monedas y ciclos políticos.
                   Desde los rascacielos de los Emiratos Árabes hasta el mercado masivo de las Américas,
-                  tu activo se asienta sobre una <strong className="text-[#E5E5E5]">plataforma transcontinental diversificada</strong>.
+                  su activo se asienta sobre una <strong className="text-[#E5E5E5]">plataforma transcontinental diversificada</strong>.
                 </p>
               </div>
 
@@ -389,7 +389,7 @@ export default function InfraestructuraPage() {
             <h2 className="font-serif text-3xl sm:text-4xl mb-6">
               Esta es la infraestructura sobre la que
               <br />
-              <span className="text-[#C5A059]">construirás tu patrimonio</span>
+              <span className="text-[#C5A059]">construirá su patrimonio</span>
             </h2>
 
             <p className="text-[#A3A3A3] mb-10 text-lg">

@@ -137,7 +137,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          Infraestructura Física Lista. Infraestructura Digital en tus manos.
+          Infraestructura Física Lista. Infraestructura Digital en sus manos.
         </div>
 
         {/* Footer Branding */}

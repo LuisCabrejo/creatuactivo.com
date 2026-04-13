@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 
   // Verificación
   verification: {
-    // google: 'tu-codigo-de-verificacion-aqui', // Opcional
+    // google: 'su-codigo-de-verificacion-aqui', // Opcional
   },
 }
 
@@ -140,7 +140,7 @@ export default function ProductosLayout({
         "name": "¿Cómo se toma el Gano Café 3 en 1?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Para preparar el Gano Café 3 en 1 correctamente: 1) Vierte 1 sobre (21g) en tu taza favorita, 2) Agrega 150ml de agua caliente (no hirviendo, aprox. 80-85°C), 3) Revuelve bien hasta disolver completamente, 4) Disfruta inmediatamente para aprovechar todos los nutrientes. Mejor momento: por la mañana o media tarde. Frecuencia ideal: 1-2 tazas al día. Puede tomarse frío con agua fría y hielo en verano."
+          "text": "Para preparar el Gano Café 3 en 1 correctamente: 1) Vierte 1 sobre (21g) en su taza favorita, 2) Agrega 150ml de agua caliente (no hirviendo, aprox. 80-85°C), 3) Revuelve bien hasta disolver completamente, 4) Disfruta inmediatamente para aprovechar todos los nutrientes. Mejor momento: por la mañana o media tarde. Frecuencia ideal: 1-2 tazas al día. Puede tomarse frío con agua fría y hielo en verano."
         }
       },
       {
@@ -148,7 +148,7 @@ export default function ProductosLayout({
         "name": "¿El Gano Café está disponible en toda Latinoamérica?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sí, Gano Excel distribuye sus productos, incluyendo el Gano Café, en más de 15 países de Latinoamérica: Colombia, México, Perú, Ecuador, Chile, Argentina, Guatemala, Honduras, El Salvador, Costa Rica, Panamá, Venezuela y Bolivia. Nuestro asistente NEXUS IA conversacional puede ayudarte a encontrar distribuidores en tu país, calcular envíos internacionales y recomendar productos ideales para tu perfil."
+          "text": "Sí, Gano Excel distribuye sus productos, incluyendo el Gano Café, en más de 15 países de Latinoamérica: Colombia, México, Perú, Ecuador, Chile, Argentina, Guatemala, Honduras, El Salvador, Costa Rica, Panamá, Venezuela y Bolivia. Nuestro asistente NEXUS IA conversacional puede ayudarle a encontrar distribuidores en su país, calcular envíos internacionales y recomendar productos ideales para su perfil."
         }
       }
     ]

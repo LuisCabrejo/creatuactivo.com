@@ -61,7 +61,7 @@ export default async function Image() {
             letterSpacing: '-0.02em',
           }}
         >
-          <span style={{ display: 'flex' }}>Construye tu Activo Digital</span>
+          <span style={{ display: 'flex' }}>Construya su Activo Digital</span>
           <span style={{ display: 'flex' }}>y Genera Ingreso Residual</span>
         </div>
 

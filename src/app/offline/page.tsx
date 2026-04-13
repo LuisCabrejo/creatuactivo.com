@@ -27,8 +27,8 @@ export default function OfflinePage() {
 
         {/* Descripción */}
         <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-          Parece que no tienes conexión a internet.
-          Verifica tu conexión e intenta nuevamente.
+          Parece que no tiene conexión a internet.
+          Verifica su conexión e intenta nuevamente.
         </p>
 
         {/* Botones de acción */}

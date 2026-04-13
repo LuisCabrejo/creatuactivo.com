@@ -209,7 +209,7 @@ export default function FundadoresPage() {
         }
       } catch (error) {
         console.error('Error:', error)
-        alert('Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.')
+        alert('Hubo un error al enviar su solicitud. Por favor intenta de nuevo.')
       } finally {
         setIsSubmitting(false)
       }
@@ -322,7 +322,7 @@ export default function FundadoresPage() {
                     <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                       <PlayCircle size={80} className="text-white/50 mb-4" />
                       <p className="text-white mb-4">
-                        Tu navegador no soporta la reproducción de video.
+                        Su navegador no soporta la reproducción de video.
                       </p>
                       {process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_1080P && (
                         <a
@@ -380,7 +380,7 @@ export default function FundadoresPage() {
                     </div>
 
                     <p className="mt-10 text-slate-400 italic">
-                        "Nosotros te entregamos el sistema. Tú no vendes puerta a puerta, tú operas la infraestructura."
+                        "Nosotros le entregamos el sistema. Usted no vendes puerta a puerta, usted operas la infraestructura."
                     </p>
                  </div>
             </div>
@@ -390,7 +390,7 @@ export default function FundadoresPage() {
         <section className="py-24 bg-[#0B0C0C]">
              <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <span className="text-[#F59E0B] font-bold uppercase tracking-widest text-xs mb-2 block">Tu Franquicia Digital Incluye</span>
+                    <span className="text-[#F59E0B] font-bold uppercase tracking-widest text-xs mb-2 block">Su Franquicia Digital Incluye</span>
                     <h2 className="text-3xl md:text-5xl font-bold text-white">El "Amazon" llave en mano</h2>
                     <p className="text-slate-400 mt-4">Las 3 piezas listas para operar desde el Día 1.</p>
                 </div>
@@ -417,7 +417,7 @@ export default function FundadoresPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">2. La App (Tecnología)</h3>
                         <p className="text-sm text-[#E5E5E5] mb-4 leading-relaxed">
-                            CreaTuActivo.com es tu aplicación inteligente. Tiene una IA que educa, filtra y cierra el negocio por ti las 24 horas.
+                            CreaTuActivo.com es su aplicación inteligente. Tiene una IA que educa, filtra y cierra el negocio por usted las 24 horas.
                         </p>
                         <p className="text-xs font-bold text-[#E5C279] uppercase">Trabaja mientras duermes</p>
                     </div>
@@ -483,8 +483,8 @@ export default function FundadoresPage() {
                     <div className="p-10 rounded-3xl border border-red-500/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
                         <div className="flex items-center gap-4 mb-8 text-red-500"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
                         <div className="space-y-6">
-                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Tu Rol</span><span className="text-red-400 text-sm text-right">❌ Vendedor manual</span></div>
-                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Tu Tiempo</span><span className="text-red-400 text-sm text-right">❌ Reuniones físicas</span></div>
+                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-red-400 text-sm text-right">❌ Vendedor manual</span></div>
+                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Tiempo</span><span className="text-red-400 text-sm text-right">❌ Reuniones físicas</span></div>
                             <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-red-400 text-sm text-right">❌ Ingreso Lineal</span></div>
                         </div>
                     </div>
@@ -492,8 +492,8 @@ export default function FundadoresPage() {
                     <div className="p-10 rounded-3xl border border-emerald-500/30 bg-emerald-500/10 shadow-2xl shadow-emerald-500/5 transform md:-translate-y-4">
                         <div className="flex items-center gap-4 mb-8 text-emerald-400"><TrendingUp size={24}/><h3 className="text-xl font-bold text-white">Ecosistema Digital</h3></div>
                         <div className="space-y-6">
-                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Tu Rol</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Dueño de Sistema</span></div>
-                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Tu Tiempo</span><span className="text-emerald-400 text-sm text-right font-bold">✅ 15 min/día (App)</span></div>
+                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Su Rol</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Dueño de Sistema</span></div>
+                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Su Tiempo</span><span className="text-emerald-400 text-sm text-right font-bold">✅ 15 min/día (App)</span></div>
                             <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Resultado</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Renta Vitalicia</span></div>
                         </div>
                     </div>
@@ -515,7 +515,7 @@ export default function FundadoresPage() {
 
                 <div className="grid md:grid-cols-4 gap-6">
                     {[
-                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es un vehículo para transformar tu realidad.", ini: "LM"},
+                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es un vehículo para transformar su realidad.", ini: "LM"},
                         {name: "Andrés G.", role: "Sector Salud", quote: "Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D.", ini: "AG"},
                         {name: "Dr. Jonathan", role: "Médico", quote: "Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.", ini: "JM"},
                         {name: "Juan Pablo", role: "Ex-Bancario", quote: "La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba.", ini: "JP"}
@@ -555,7 +555,7 @@ export default function FundadoresPage() {
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-2">¡Aplicación Enviada!</h3>
                             <p className="text-slate-400 mb-6">
-                                Tu perfil ha entrado en revisión prioritaria. Te contactaremos por WhatsApp en breve.
+                                Su perfil ha entrado en revisión prioritaria. Le contactaremos por WhatsApp en breve.
                             </p>
                         </div>
                     ) : (
@@ -563,7 +563,7 @@ export default function FundadoresPage() {
                             {formStep === 1 && (
                                 <div className="space-y-5 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Tu Nombre</label>
+                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Su Nombre</label>
                                         <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" />
                                     </div>
                                     <div className="space-y-2">
@@ -581,7 +581,7 @@ export default function FundadoresPage() {
                             {formStep === 2 && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
                                     <div>
-                                        <h3 className="text-lg font-bold text-white mb-4">¿Qué perfil te describe mejor?</h3>
+                                        <h3 className="text-lg font-bold text-white mb-4">¿Qué perfil le describe mejor?</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             {arquetipos.map((arq) => (
                                                 <div key={arq.id} onClick={() => setFormData({...formData, arquetipo: arq.title})} className={`p-3 rounded-xl border cursor-pointer transition-all hover:bg-white/5 ${formData.arquetipo === arq.title ? 'border-[#F59E0B] bg-[#F59E0B]/10' : 'border-white/10 bg-[#16181D]/50'}`}>

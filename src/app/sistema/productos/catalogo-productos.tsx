@@ -100,14 +100,14 @@ const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
   },
   'rendimiento-avanzado': {
     nombre: 'Para Mantenerte Activo',
-    descripcion: 'Ideal si caminas, haces ejercicio o simplemente quieres sentirte con más vitalidad',
+    descripcion: 'Ideal si caminas, haces ejercicio o simplemente desea sentirte con más vitalidad',
     productos: ['capsulas-cordygold', 'capsulas-ganoderma', 'espirulina-gano-creal'],
     icono: <Target className="h-6 w-6" />,
     color: 'from-red-500 to-pink-500'
   },
   'belleza-holistica': {
-    nombre: 'Para Tu Piel y Belleza',
-    descripcion: 'Cuida tu piel desde adentro con colágeno, y por fuera con jabones naturales',
+    nombre: 'Para Su Piel y Belleza',
+    descripcion: 'Cuida su piel desde adentro con colágeno, y por fuera con jabones naturales',
     productos: ['bebida-colageno-reskine', 'jabon-gano', 'jabon-transparente-gano', 'exfoliante-piel-brillo'],
     icono: <Sparkles className="h-6 w-6" />,
     color: 'from-purple-500 to-pink-500'
@@ -130,10 +130,10 @@ const productData: ProductData = {
     invima: 'SD2012-0002589',
     goals: ['Energía', 'Defensas', 'Digestivo'],
     shortDescription: 'Una deliciosa mezcla de café premium con Ganoderma Lucidum, cremoso y azúcar',
-    taglineEstrategico: 'Tu ritual diario con beneficios reales',
+    taglineEstrategico: 'Su ritual diario con beneficios reales',
     usage: 'Mezcla 1 sobre (21g) en 150ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café soluble premium', 'Cremora vegetal', 'Azúcar'],
-    benefits: ['Aporta energía y vitalidad para tu día', 'Apoya las defensas naturales del cuerpo', 'Contribuye a la reducción del estrés y la fatiga', 'Promueve un estado de ánimo positivo', 'Disfruta de un delicioso y nutritivo sabor cremoso'],
+    benefits: ['Aporta energía y vitalidad para su día', 'Apoya las defensas naturales del cuerpo', 'Contribuye a la reducción del estrés y la fatiga', 'Promueve un estado de ánimo positivo', 'Disfruta de un delicioso y nutritivo sabor cremoso'],
     perfilIdeal: 'Personas que valoran su salud y buscan energía sostenida para su día',
     momentoConsumo: 'Ideal para comenzar la mañana o media tarde cuando necesitas un impulso',
     puntosConversacion: [
@@ -154,7 +154,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Café negro potenciado con inteligencia nutricional',
     usage: 'Mezcla 1 sobre (4.5g) en 150ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café soluble 100% puro', 'Sabor natural a café'],
-    benefits: ['Ideal para los amantes del café negro (tinto)', 'Potenciado con nutrientes para apoyar tu salud', 'Perfecto para iniciar el día con enfoque y claridad', 'Contribuye a la protección antioxidante del cuerpo', 'Apoya un metabolismo saludable'],
+    benefits: ['Ideal para los amantes del café negro (tinto)', 'Potenciado con nutrientes para apoyar su salud', 'Perfecto para iniciar el día con enfoque y claridad', 'Contribuye a la protección antioxidante del cuerpo', 'Apoya un metabolismo saludable'],
     perfilIdeal: 'Puristas del café que valoran la salud sin comprometer el sabor auténtico',
     momentoConsumo: 'Perfecto para la mañana o durante reuniones importantes',
     puntosConversacion: [
@@ -175,7 +175,7 @@ const productData: ProductData = {
     taglineEstrategico: 'El latte que merece cada pausa',
     usage: 'Disuelve 1 sobre (25g) en 180ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Leche en polvo', 'Cremora natural'],
-    benefits: ['Disfruta de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita tus sentidos', 'Un gusto enriquecido para tu bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
+    benefits: ['Disfruta de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita sus sentidos', 'Un gusto enriquecido para su bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
     perfilIdeal: 'Amantes del café con leche que buscan una experiencia gourmet saludable',
     momentoConsumo: 'Perfecto para media mañana o como postre después del almuerzo',
     puntosConversacion: [
@@ -196,7 +196,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Donde el placer del chocolate se encuentra con el poder del Ganoderma',
     usage: 'Mezcla 1 sobre (25g) en 180ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Cacao natural', 'Leche en polvo', 'Azúcar de caña'],
-    benefits: ['La combinación perfecta de café y cacao saludable', 'Un sabor indulgente que apoya tu bienestar', 'Con betaglucanos para apoyar tus defensas', 'Promueve la sensación de saciedad', 'Ideal para recargar energías a media tarde', 'Sin endulzante'],
+    benefits: ['La combinación perfecta de café y cacao saludable', 'Un sabor indulgente que apoya su bienestar', 'Con betaglucanos para apoyar sus defensas', 'Promueve la sensación de saciedad', 'Ideal para recargar energías a media tarde', 'Sin endulzante'],
     perfilIdeal: 'Personas que buscan una alternativa saludable a las bebidas azucaradas',
     momentoConsumo: 'Ideal como merienda o cuando necesitas un momento de indulgencia',
     puntosConversacion: [
@@ -235,7 +235,7 @@ const productData: ProductData = {
     invima: 'NSA-0012963-2022',
     goals: ['Energía', 'Digestivo', 'Defensas'],
     shortDescription: 'Un cereal nutritivo que combina Spirulina y Ganoderma',
-    taglineEstrategico: 'El desayuno que alimenta tu día',
+    taglineEstrategico: 'El desayuno que alimenta su día',
     usage: 'Mezcla 2 cucharadas (30g) con leche, yogur o agua',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Spirulina orgánica', 'Cereales integrales', 'Fibra natural', 'Vitaminas y minerales'],
     benefits: ['Alto contenido de fibra para la salud digestiva', 'Excelente fuente de proteína vegetal', 'Promueve una nutrición completa y balanceada', 'Rico en vitaminas y minerales esenciales', 'Apoya la desintoxicación natural del organismo'],
@@ -252,7 +252,7 @@ const productData: ProductData = {
   'bebida-oleaf-gano-rooibos': {
     name: 'BEBIDA DE OLEAF GANO ROOIBOS',
     price: 119900,
-    image: '/productos/bebidas/te-rooibos-gano-excel-min.png',
+    image: '/productos/bebidas/le-rooibos-gano-excel-min.png',
     invima: 'NSA-0012962-2022',
     goals: ['Relajación', 'Defensas', 'Digestivo'],
     shortDescription: 'Té rooibos sudafricano naturalmente libre de cafeína, enriquecido con Ganoderma',
@@ -299,7 +299,7 @@ const productData: ProductData = {
     invima: 'NSA-0012959-2022',
     goals: ['Belleza'],
     shortDescription: 'Bebida revolucionaria que combina colágeno marino con Ganoderma',
-    taglineEstrategico: 'Colágeno + Ganoderma para tu piel radiante',
+    taglineEstrategico: 'Colágeno + Ganoderma para su piel radiante',
     usage: 'Disuelve 1 sobre en agua fría o al tiempo',
     ingredients: ['Colágeno marino', 'Gano Plus', 'Vitamina C', 'Sabor natural a frutas'],
     benefits: ['Apoya la elasticidad y firmeza de la piel', 'Fortalece el cabello y las uñas', 'Contribuye a una apariencia más juvenil', 'Ayuda a mantener la salud de articulaciones', 'Fórmula única con Colágeno y Gano Plus'],
@@ -341,7 +341,7 @@ const productData: ProductData = {
     invima: 'NSA-0012958-2022',
     goals: ['Concentración', 'Energía'],
     shortDescription: 'Conocido como el "tónico cerebral", contiene extracto del micelio joven del Ganoderma',
-    taglineEstrategico: 'Claridad mental para tu día a día',
+    taglineEstrategico: 'Claridad mental para su día a día',
     usage: 'Tomar 1-2 cápsulas al día con agua',
     ingredients: ['Extracto de micelio de Ganoderma', 'Germanio orgánico', 'Cápsula vegetal', 'Aminoácidos esenciales'],
     benefits: ['Apoya la función cerebral, memoria y concentración', 'Conocido como el "tónico para el cerebro"', 'Ayuda a mantener un sistema nervioso saludable', 'Promueve una óptima oxigenación celular', 'Contribuye al desarrollo y función del cerebro'],
@@ -1144,7 +1144,7 @@ export default function CatalogoEstrategico() {
                   borderBottom: `1px solid ${C.bioEmerald}30`,
                 }}
               >
-                <h2 className="text-xl font-bold" style={{ color: C.textMain }}>Tu Sistema de Bienestar</h2>
+                <h2 className="text-xl font-bold" style={{ color: C.textMain }}>Su Sistema de Bienestar</h2>
                 <button
                   onClick={() => setCartOpen(false)}
                   aria-label="Cerrar carrito de compras"
@@ -1163,7 +1163,7 @@ export default function CatalogoEstrategico() {
                 {cart.length === 0 ? (
                   <div className="text-center py-12">
                     <ShoppingCart className="h-16 w-16 mx-auto mb-4" style={{ color: C.textDim }} />
-                    <p style={{ color: C.textMuted }}>Tu sistema está vacío</p>
+                    <p style={{ color: C.textMuted }}>Su sistema está vacío</p>
                     <p className="text-sm mt-2" style={{ color: C.textDim }}>Comienza agregando productos estrella</p>
                   </div>
                 ) : (
@@ -1288,7 +1288,7 @@ export default function CatalogoEstrategico() {
                     }}
                   >
                     <p className="text-xs font-medium mb-1" style={{ color: C.bioEmerald }}>Siguiente Paso:</p>
-                    <p className="text-sm" style={{ color: C.textMain }}>Confirma tu pedido y recibe tu sistema de bienestar</p>
+                    <p className="text-sm" style={{ color: C.textMain }}>Confirma su pedido y recibe su sistema de bienestar</p>
                   </div>
 
                   <a
@@ -1355,7 +1355,7 @@ export default function CatalogoEstrategico() {
             className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
             style={{ color: C.textMuted }}
           >
-            Imagina empezar tu mañana con un café que además de despertarte, cuida tu salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que tu cuerpo aprovecha fácilmente.
+            Imagina empezar su mañana con un café que además de despertarte, cuida su salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que su cuerpo aprovecha fácilmente.
           </p>
 
           {distributor && (
@@ -1407,11 +1407,11 @@ export default function CatalogoEstrategico() {
       className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight"
       style={{ color: C.textMain }}
     >
-      Nutrición que Tu Cuerpo <span style={{ color: C.bioEmerald }}>Realmente Aprovecha</span>
+      Nutrición que Su Cuerpo <span style={{ color: C.bioEmerald }}>Realmente Aprovecha</span>
     </h2>
 
     <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
-      No basta con tener buenos ingredientes, tu cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
+      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
@@ -1454,7 +1454,7 @@ export default function CatalogoEstrategico() {
                 100%
               </div>
               <div className="font-semibold" style={{ color: C.textMain }}>Fácil de Absorber</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>Tu cuerpo lo aprovecha completo</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>Su cuerpo lo aprovecha completo</div>
             </div>
 
             <div
@@ -1527,10 +1527,10 @@ export default function CatalogoEstrategico() {
               className="text-3xl md:text-4xl font-serif font-bold mb-6"
               style={{ color: C.textMain }}
             >
-              Productos para Cada Momento de Tu Vida
+              Productos para Cada Momento de Su Vida
             </h2>
             <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
-              Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a tu familia, verte mejor o disfrutar un buen café.
+              Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a su familia, verte mejor o disfrutar un buen café.
             </p>
           </div>
 
@@ -1798,7 +1798,7 @@ export default function CatalogoEstrategico() {
                     maxWidth: '500px',
                   }}
                 >
-                  Tecnología de extracción de 15 bares. Experiencia barista premium en tu hogar.
+                  Tecnología de extracción de 15 bares. Experiencia barista premium en su hogar.
                 </p>
               </div>
             </div>
@@ -1829,7 +1829,7 @@ export default function CatalogoEstrategico() {
             </div>
             <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
               Sistema de cápsulas con tecnología de 15 bares. El ancla perfecta para clientes de alto valor
-              que garantiza compra recurrente y construye tu activo mes a mes.
+              que garantiza compra recurrente y construye su activo mes a mes.
             </p>
           </div>
 
@@ -2255,15 +2255,15 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección CTA Final: Construye tu Sistema - Quiet Luxury */}
+        {/* Sección CTA Final: Construye su Sistema - Quiet Luxury */}
         <section className="mb-16 mt-20">
           <div className="bg-[#16181D] border border-[#E5C279]/20  p-12 text-center">
             <Shield className="w-16 h-16 text-[#E5C279] mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E5E5E5] mb-6">
-              ¿Te Interesa Emprender con Productos de Bienestar?
+              ¿Le Interesa Emprender con Productos de Bienestar?
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
-              Si quieres conocer más sobre cómo estos productos pueden ayudarte, o te interesa compartirlos con otros, estamos aquí para ayudarte.
+              Si desea conocer más sobre cómo estos productos pueden ayudarle, o le interesa compartirlos con otros, estamos aquí para ayudarle.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
@@ -2346,7 +2346,7 @@ export default function CatalogoEstrategico() {
                   <li><strong>Apoyar la digestión</strong>: Con más de 200 fitonutrientes bioactivos</li>
                 </ul>
                 <p className="mt-4 text-[#E5C279] font-medium">
-                  💡 A diferencia del café tradicional, el Gano Café transforma tu ritual diario en una inversión de salud.
+                  💡 A diferencia del café tradicional, el Gano Café transforma su ritual diario en una inversión de salud.
                 </p>
               </div>
             </details>
@@ -2361,7 +2361,7 @@ export default function CatalogoEstrategico() {
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto natural de Ganoderma Lucidum</strong> que tu cuerpo absorbe fácilmente:
+                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto natural de Ganoderma Lucidum</strong> que su cuerpo absorbe fácilmente:
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
@@ -2441,7 +2441,7 @@ export default function CatalogoEstrategico() {
                   La forma correcta de preparar el <strong>Gano Café 3 en 1</strong> es:
                 </p>
                 <ol className="list-decimal pl-6 space-y-3 mb-4">
-                  <li><strong>Vierte 1 sobre (21g)</strong> en tu taza favorita</li>
+                  <li><strong>Vierte 1 sobre (21g)</strong> en su taza favorita</li>
                   <li><strong>Agrega 150ml de agua caliente</strong> (no hirviendo, aprox. 80-85°C)</li>
                   <li><strong>Revuelve bien</strong> hasta disolver completamente</li>
                   <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
@@ -2458,7 +2458,7 @@ export default function CatalogoEstrategico() {
                 <div className="bg-[#0B0C0C] border border-red-500/30 p-4 ">
                   <p className="font-bold text-red-400 mb-2">⚠️ Contraindicaciones</p>
                   <p className="text-sm text-[#A3A3A3]">
-                    No recomendado para mujeres embarazadas o en lactancia. Si tomas anticoagulantes o tienes condiciones médicas especiales, consulta a tu médico antes de consumir.
+                    No recomendado para mujeres embarazadas o en lactancia. Si toma anticoagulantes o tiene condiciones médicas especiales, consulta a su médico antes de consumir.
                   </p>
                 </div>
               </div>
@@ -2499,8 +2499,8 @@ export default function CatalogoEstrategico() {
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
                   <p className="font-bold text-[#E5C279] mb-2">🤖 Consulta con Queswa IA</p>
                   <p className="text-sm text-[#A3A3A3]">
-                    Nuestro asistente de IA conversacional puede ayudarte a encontrar distribuidores en tu país,
-                    calcular envíos internacionales y recomendarte los productos ideales para tu perfil.
+                    Nuestro asistente de IA conversacional puede ayudarle a encontrar distribuidores en su país,
+                    calcular envíos internacionales y recomendarte los productos ideales para su perfil.
                     <strong className="text-[#E5C279]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
                 </div>
@@ -2525,21 +2525,21 @@ export default function CatalogoEstrategico() {
                     <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">1</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + Queswa IA</p>
-                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar tu negocio 24/7</p>
+                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar su negocio 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes tu red</p>
+                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes su red</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">3</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
-                      <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de tu red</p>
+                      <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de su red</p>
                     </div>
                   </div>
                 </div>
@@ -2563,7 +2563,7 @@ export default function CatalogoEstrategico() {
               ¿Listo para probar el <span className="text-[#E5C279]">Gano Café</span>?
             </h3>
             <p className="text-lg mb-6 text-[#A3A3A3]">
-              Habla con <strong className="text-[#E5C279]">Queswa IA</strong> y descubre qué productos son ideales para tu estilo de vida
+              Habla con <strong className="text-[#E5C279]">Queswa IA</strong> y descubre qué productos son ideales para su estilo de vida
             </p>
             <button
               onClick={() => {
@@ -2875,7 +2875,7 @@ export default function CatalogoEstrategico() {
                       {selectedProduct.combinacionSugerida && (
                         <div>
                           <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">🔗 Combina con estos productos</h3>
-                          <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar tus resultados, prueba combinarlo con:</p>
+                          <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar sus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
                               <span key={productoId} className="bg-[#F59E0B]/20 text-[#E5C279] px-3 py-1  text-sm">
@@ -2887,10 +2887,10 @@ export default function CatalogoEstrategico() {
                       )}
 
                       <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/30">
-                        <h4 className="font-bold text-[#E5C279] mb-2">✨ Ideal para ti si...</h4>
+                        <h4 className="font-bold text-[#E5C279] mb-2">✨ Ideal para usted si...</h4>
                         <p className="text-[#A3A3A3] text-sm">
                           Este producto es perfecto para: {selectedProduct.perfilIdeal}.
-                          Maximiza tus beneficios explorando el catálogo completo y descubriendo combinaciones que se adapten a tus objetivos.
+                          Maximiza sus beneficios explorando el catálogo completo y descubriendo combinaciones que se adapten a sus objetivos.
                         </p>
                       </div>
 

@@ -125,6 +125,13 @@ const nextConfig = {
         permanent: true,
       },
 
+      // ✅ PIVOTE v4.0: Mapa de Salida → Auditoría de Arquitectura Patrimonial
+      {
+        source: '/mapa-de-salida',
+        destination: '/auditoria-patrimonial',
+        permanent: true,
+      },
+
       // Productos → Infraestructura (página renombrada)
       {
         source: '/productos',

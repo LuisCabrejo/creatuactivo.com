@@ -41,7 +41,7 @@ function getSupabaseClient() {
 // Configuración de la secuencia (Soap Opera Sequence optimizada v4)
 const RETO_5_DIAS_SEQUENCE = [
   { day: 1, subject: '[COORDENADA 01] Diagnóstico Estructural Habilitado', component: 'Dia1Diagnostico' },
-  { day: 2, subject: 'Por qué trabajar duro no te hará rico', component: 'Dia2Vehiculos' },
+  { day: 2, subject: '[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)', component: 'Dia2Vehiculos' },
   { day: 3, subject: 'Las 3 promesas que le hice a mi esposa (y las 2 que rompí)', component: 'Dia3Modelo' },
   { day: 4, subject: 'Gané dinero, pero perdí mi vida (La verdad del E-commerce)', component: 'Dia4Estigma' },
   { day: 5, subject: 'Tu turno de cumplir promesas', component: 'Dia5Invitacion' },

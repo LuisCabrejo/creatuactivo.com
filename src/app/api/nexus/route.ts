@@ -3790,7 +3790,10 @@ ESTADO: ${getMessageContext()}`;
     console.log(`⚡ [ROUTER] Query clasificada como: ${isSimpleQuery ? 'SIMPLE → Haiku' : 'COMPLEJA → Sonnet'} (msg #${messages.length}, "${latestUserMessage.substring(0, 40)}")`);
 
     // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
-    const response = await anthropic.messages.create({
+    // 🔁 Retry automático en overloaded_error (HTTP 529) — 1 reintento con 1.5s de espera
+    const callAnthropic = async (attempt = 0): Promise<any> => {
+      try {
+        return await anthropic.messages.create({
       model: isSimpleQuery ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-20250514',
       system: isSimpleQuery
         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
@@ -3820,7 +3823,18 @@ ESTADO: ${getMessageContext()}`;
       max_tokens: maxTokens,
       temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
       messages: recentMessages,
-    });
+        });
+      } catch (err: any) {
+        const isOverloaded = err?.message?.includes('overloaded_error') || err?.status === 529 || err?.error?.type === 'overloaded_error';
+        if (attempt < 1 && isOverloaded) {
+          console.warn(`⚠️ [NEXUS] Anthropic overloaded (intento ${attempt + 1}), reintentando en 1.5s...`);
+          await new Promise(r => setTimeout(r, 1500));
+          return callAnthropic(attempt + 1);
+        }
+        throw err;
+      }
+    };
+    const response = await callAnthropic();
 
     // ⚡ LOG DE CACHÉ: Verificar si Anthropic está usando prompt cache
     const cacheReadTokens = (response as any).usage?.cache_read_input_tokens ?? 0;
@@ -3898,9 +3912,9 @@ ESTADO: ${getMessageContext()}`;
     const totalTime = Date.now() - startTime;
     console.error(`Error NEXUS híbrido después de ${totalTime}ms:`, error);
 
-    const fallbackResponse = `Estamos experimentando alta demanda en este momento. Por favor intenta de nuevo en unos segundos.
+    const fallbackResponse = `Estamos experimentando alta demanda en este momento. Por favor intente de nuevo en unos segundos.
 
-Si el problema persiste, puedes continuar la conversación directamente en **creatuactivo.com** o escribirle a quien te compartió este acceso.`;
+Si el problema persiste, puede continuar la conversación directamente en **creatuactivo.com** o escribirle a quien le compartió este acceso.`;
 
     return new Response(JSON.stringify({
       error: fallbackResponse

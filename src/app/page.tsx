@@ -12,7 +12,7 @@ export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-  description: 'Sal del ciclo de trabajar para pagar cuentas. Acóplate a una cadena de suministro física operada por Inteligencia Artificial, sin dejar tu profesión actual.',
+  description: 'Salga del ciclo de trabajar para pagar cuentas. Acopléese a una cadena de suministro física operada por Inteligencia Artificial, sin dejar su profesión actual.',
 };
 
 const C = {
@@ -93,8 +93,8 @@ function HeroSection() {
           fontWeight: 600, color: '#ffffff',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          Tu modelo de ingresos actual tiene un error de arquitectura:{' '}
-          <span style={{ color: C.gold }}>el 100% de tu flujo de caja depende de tu agotamiento biológico.</span>
+          Su modelo de ingresos actual tiene un error de arquitectura:{' '}
+          <span style={{ color: C.gold }}>el 100% de su flujo de caja depende de su agotamiento biológico.</span>
         </h1>
 
         {/* Subtítulo */}
@@ -104,7 +104,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.muted, maxWidth: '600px', margin: '0 auto 12px' }}>
             Años de productividad invertidos en un sistema diseñado para el déficit operativo personal.{' '}
-            <span style={{ color: C.white, fontWeight: 500 }}>Queswa es la infraestructura de IA diseñada para desvincular tu patrimonio de tu presencia física.</span>
+            <span style={{ color: C.white, fontWeight: 500 }}>Queswa es la infraestructura de IA diseñada para desvincular su patrimonio de su presencia física.</span>
           </p>
           <p style={{ fontSize: '0.85rem', margin: 0, fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
             Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Dirección Corporativa</span>
@@ -130,9 +130,9 @@ function HeroSection() {
           display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px',
           fontSize: '0.8rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          <span>○ Sin renunciar a tu trabajo</span>
-          <span>○ Sin cerrar tu negocio</span>
-          <span>○ Sin tocar tu pensión</span>
+          <span>○ Sin renunciar a su trabajo</span>
+          <span>○ Sin cerrar su negocio</span>
+          <span>○ Sin tocar su pensión</span>
         </div>
 
         {/* Link secundario */}
@@ -199,10 +199,10 @@ function ProblemSection() {
         }}>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
             <span style={{ color: C.white }}>El error técnico: </span>
-            <span style={{ color: C.gold, fontWeight: 600 }}>Tú eres el único motor logístico de tu sistema.</span>
+            <span style={{ color: C.gold, fontWeight: 600 }}>Usted es el único motor logístico de su sistema.</span>
           </p>
           <p style={{ fontSize: '0.85rem', marginTop: '16px', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
-            Si te detienes, el flujo colapsa instantáneamente.
+            Si usted se detiene, el flujo colapsa instantáneamente.
           </p>
         </div>
 
@@ -307,7 +307,7 @@ function SolucionesFallidasSection() {
             Análisis de Modelos Previos
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            No fallaste tú. Fallaron los modelos.
+            No falló usted. Fallaron los modelos.
           </h2>
         </div>
 
@@ -336,7 +336,7 @@ function SolucionesFallidasSection() {
           background: 'rgba(0,0,0,0.4)',
         }}>
           El problema no es el esfuerzo. Es que ninguno de esos modelos fue diseñado para{' '}
-          <span style={{ color: C.white }}>construir activos reales en paralelo a lo que ya tienes.</span>
+          <span style={{ color: C.white }}>construir activos reales en paralelo a lo que ya posee.</span>
         </p>
       </div>
     </section>
@@ -352,7 +352,7 @@ function SolutionPreview() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
-          ¿Cuántos días sobrevivirías sin trabajar?
+          ¿Cuántos días sobreviviría sin trabajar?
         </h2>
 
         <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px' }}>
@@ -427,7 +427,7 @@ function QueswaDiferenciadorSection() {
             Protocolo Queswa: Capa tecnológica de automatización sobre infraestructura logística global.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-            Queswa es el motor de IA que automatiza tu logística. Mientras tú conservas tu empleo actual, nuestra tecnología califica prospectos y los acopla a una cadena de suministro física y corporativa que despacha por ti.
+            Queswa es el motor de IA que automatiza su logística. Mientras usted conserva su empleo actual, nuestra tecnología califica prospectos y los acopla a una cadena de suministro física y corporativa que despacha por usted.
           </p>
         </div>
 
@@ -483,7 +483,7 @@ function FinalCTASection() {
         </h2>
 
         <p style={{ color: C.muted, maxWidth: '560px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-          Después de diagnosticar el problema, el siguiente paso es evaluar la viabilidad del modelo para tu perfil específico.{' '}
+          Después de diagnosticar el problema, el siguiente paso es evaluar la viabilidad del modelo para su perfil específico.{' '}
           <span style={{ color: C.white }}>Acceso restringido a perfiles con capacidad de gestión operativa. Se requiere validación de datos en 48 horas.</span>
         </p>
 

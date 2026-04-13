@@ -148,7 +148,7 @@ export default function ManifiestoPage() {
 
                   <p>
                     Hoy, dirijo CreaTuActivo, una firma de educación e implementación
-                    donde transferimos protocolos de ingeniería financiera a profesionales para:
+                    donde transferimos protocolos de ingeniería financiera a quienes comprenden que el Plan por Defecto es insostenible, para:
                   </p>
                 </div>
 

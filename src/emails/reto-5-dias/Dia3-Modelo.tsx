@@ -1,15 +1,16 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Mapa de Salida — Coordenada 3: El Modelo
- * "Las 3 promesas que le hice a mi esposa (y las 2 que rompí)"
+ * Copyright © 2026 CreaTuActivo.com
+ * Auditoría de Arquitectura Patrimonial — Coordenada 03
+ * "[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)"
+ * Lujo Clínico — Due Diligence framing
  */
 
 import * as React from 'react';
 import {
   Body,
+  Button,
   Container,
   Head,
-  Heading,
   Html,
   Img,
   Preview,
@@ -21,10 +22,15 @@ import {
 interface Dia3Props {
   firstName?: string;
   trackingUrl?: string;
+  videoUrl?: string;
 }
 
-export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
-  const previewText = `Las 3 promesas que le hice a mi esposa (y las 2 que rompí)`;
+export const Dia3Modelo = ({
+  firstName: _firstName,
+  trackingUrl,
+  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-3',
+}: Dia3Props) => {
+  const previewText = `Módulo 03 habilitado. Los planos de la Máquina Híbrida están listos.`;
 
   return (
     <Html lang="es">
@@ -34,129 +40,91 @@ export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
       <Preview>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
+
+          {/* Header */}
           <Section style={header}>
-            <div style={{
-              fontFamily: 'Montserrat, Inter, -apple-system, sans-serif',
-              fontSize: '28px',
-              fontWeight: '400',
-              letterSpacing: '0.05em',
-              color: '#E5E5E5',
-              lineHeight: '1.2'
-            }}>
-              CreaTu<span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: '700', color: '#C5A059', letterSpacing: '0.02em' }}>Activo</span>
-            </div>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '9px',
-              letterSpacing: '2.5px',
-              color: 'rgba(255, 255, 255, 0.5)',
-              marginTop: '8px',
-              textTransform: 'uppercase' as const
-            }}>
-              The Architect's Suite
-            </div>
+            <Text style={brandText}>
+              CreaTu<span style={{ fontWeight: '700', color: '#C8A84B' }}>Activo</span>
+            </Text>
           </Section>
 
-          <Section style={dayBadge}>
-            <Text style={dayNumber}>COORDENADA 3 DE 5</Text>
-            <Text style={dayTitle}>El Modelo</Text>
+          {/* Coordenada badge */}
+          <Section style={badgeSection}>
+            <Text style={badgeLabel}>COORDENADA 03 — ANÁLISIS EN CURSO</Text>
           </Section>
 
+          {/* Content */}
           <Section style={content}>
-            <Heading style={h1}>{firstName},</Heading>
 
-            <Text style={paragraph}>
-              Voy a contarte algo personal.
+            <Text style={openingLine}>
+              Ayer usted calculó su Techo Técnico y comprendió la urgencia de integrar apalancamiento asimétrico a su economía.
             </Text>
 
             <Text style={paragraph}>
-              Cuando estaba de novio con mi esposa, la llevé a un mirador en los Llanos que se llama Buena Vista. Y ahí le hice tres promesas:
-            </Text>
-
-            <Text style={listItem}>• Una casa de campo para que los niños corrieran</Text>
-            <Text style={listItem}>• Que pudiera ir de compras sin mirar la etiqueta</Text>
-            <Text style={listItem}>• Tres hijos</Text>
-
-            <Text style={paragraph}>
-              Catorce años después...
-            </Text>
-
-            <Text style={highlightBox}>
-              De las tres promesas, solo había cumplido con los tres hijos.
+              La barrera histórica es que construir infraestructura corporativa desde cero exige un{' '}
+              <strong style={{ color: '#E5E5E5' }}>capital intensivo y genera una fricción operativa extrema</strong>.
             </Text>
 
             <Text style={paragraph}>
-              No era por falta de esfuerzo. Trabajaba sin descanso. Pero mi vida se había convertido en el <strong style={{ color: '#f5f5f5' }}>Plan por Defecto</strong>: trabajar, pagar cuentas, repetir.
+              La solución directiva moderna no consiste en construir la infraestructura; consiste en{' '}
+              <strong style={{ color: '#E5E5E5' }}>acoplarse a una que ya existe</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Entonces entendí algo crucial:
+              En el módulo de hoy, le entregaré los planos de la "Máquina Híbrida": el ecosistema donde una corporación transnacional y un motor de Inteligencia Artificial se fusionan para trabajar bajo su dirección.
             </Text>
 
-            <Text style={paragraph}>
-              <strong style={{ color: '#D4AF37' }}>El problema no era mi esfuerzo. Era el vehículo.</strong>
-            </Text>
+            {/* Protocolo de Ejecución */}
+            <Section style={protocolBox}>
+              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              {[
+                'Aísle 15 minutos de ancho de banda mental.',
+                'Ingrese a la sala de coordenadas.',
+                'Evalúe la lógica operativa de las dos capas de apalancamiento.',
+              ].map((step, i) => (
+                <Text key={i} style={protocolStep}>
+                  <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
+                    0{i + 1}
+                  </span>
+                  {step}
+                </Text>
+              ))}
+            </Section>
 
-            <Text style={paragraph}>
-              Necesitaba un modelo que funcionara matemáticamente diferente. Un modelo con tres características:
-            </Text>
+            {/* CTA */}
+            <Section style={ctaSection}>
+              <table width="100%" cellPadding={0} cellSpacing={0}>
+                <tr>
+                  <td align="center">
+                    <Button href={videoUrl} style={ctaButton}>
+                      ACCEDER AL MÓDULO 03: ACOPLAMIENTO HÍBRIDO →
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
 
-            <Text style={modelItem}>
-              <span style={{ color: '#D4AF37', fontWeight: '600' }}>1. Ingresos Recurrentes</span>
-              <br />
-              No vender una vez, sino crear clientes que paguen mes a mes.
-            </Text>
-
-            <Text style={modelItem}>
-              <span style={{ color: '#D4AF37', fontWeight: '600' }}>2. Apalancamiento</span>
-              <br />
-              Que mi trabajo de hoy siga generando resultados mañana.
-            </Text>
-
-            <Text style={modelItem}>
-              <span style={{ color: '#D4AF37', fontWeight: '600' }}>3. Duplicación</span>
-              <br />
-              Que otros puedan replicar el sistema sin ser expertos.
-            </Text>
-
-            <Text style={paragraph}>
-              Encontré ese modelo en la industria de la distribución. Trabajé 2 horas extra al día.
-            </Text>
-
-            <Text style={paragraph}>
-              En 2.5 años, pasé de cero a ser el #1 de mi organización. Viajes, premios, reconocimiento.
-            </Text>
-
-            <Text style={paragraph}>
-              Parecía que lo había logrado. Parecía que iba a cumplir las promesas.
-            </Text>
-
-            <Text style={highlightBox}>
-              Pero aunque ganaba dinero, no tenía libertad real, y mi conciencia no estaba tranquila.
-            </Text>
-
-            <Text style={paragraph}>
-              Mañana te cuento por qué mi "éxito" se sentía como un fracaso.
+            <Text style={closingLine}>
+              El expediente está actualizado. Analice los datos.
             </Text>
 
             <Text style={signature}>
-              Hacia tu soberanía,
-              <br /><br />
-              Luis Cabrejo
+              Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Arquitecto de Activos</span>
+              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
             </Text>
           </Section>
 
           <Hr style={hr} />
 
-          <Section style={footer}>
+          <Section style={footerSection}>
             <Text style={footerText}>
-              © 2025 CreaTuActivo.com
+              © 2026 CreaTuActivo.com
               <br />
-              Mapa de Salida — Coordenada 3 de 5
+              Auditoría de Arquitectura Patrimonial — Coordenada 03 de 05
             </Text>
           </Section>
+
         </Container>
         {trackingUrl && (
           <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
@@ -168,115 +136,28 @@ export const Dia3Modelo = ({ firstName = 'Hola', trackingUrl }: Dia3Props) => {
 
 export default Dia3Modelo;
 
+/* ─── Styles ─── */
+
 const main = {
-  backgroundColor: '#0a0a0f',
-  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  backgroundColor: '#080808',
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 };
-
-const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  maxWidth: '580px',
-};
-
-const header = {
-  padding: '32px 20px',
-  textAlign: 'center' as const,
-};
-
-const dayBadge = {
-  textAlign: 'center' as const,
-  marginBottom: '24px',
-};
-
-const dayNumber = {
-  color: '#D4AF37',
-  fontSize: '14px',
-  fontWeight: '600',
-  letterSpacing: '2px',
-  margin: '0 0 4px',
-};
-
-const dayTitle = {
-  color: '#f5f5f5',
-  fontSize: '24px',
-  fontWeight: '500',
-  margin: '0',
-  fontFamily: "Georgia, serif",
-};
-
-const content = {
-  padding: '0 20px',
-};
-
-const h1 = {
-  color: '#f5f5f5',
-  fontSize: '28px',
-  fontWeight: '500',
-  margin: '0 0 24px',
-  fontFamily: "Georgia, serif",
-};
-
-const paragraph = {
-  color: '#a0a0a8',
-  fontSize: '16px',
-  lineHeight: '1.7',
-  margin: '0 0 20px',
-};
-
-const listItem = {
-  color: '#a0a0a8',
-  fontSize: '16px',
-  lineHeight: '1.7',
-  margin: '0 0 8px',
-  paddingLeft: '8px',
-};
-
-const highlightBox = {
-  backgroundColor: '#12121a',
-  borderLeft: '4px solid #D4AF37',
-  padding: '20px 24px',
-  color: '#f5f5f5',
-  fontSize: '18px',
-  lineHeight: '1.6',
-  margin: '24px 0',
-  borderRadius: '0 8px 8px 0',
-};
-
-const modelItem = {
-  color: '#a0a0a8',
-  fontSize: '15px',
-  lineHeight: '1.6',
-  margin: '0 0 16px',
-  padding: '16px',
-  backgroundColor: '#12121a',
-  borderRadius: '8px',
-};
-
-const signature = {
-  color: '#f5f5f5',
-  fontSize: '16px',
-  lineHeight: '1.6',
-  margin: '32px 0 0',
-};
-
-const signatureTitle = {
-  color: '#D4AF37',
-  fontSize: '14px',
-};
-
-const hr = {
-  borderColor: '#2a2a35',
-  margin: '32px 20px',
-};
-
-const footer = {
-  padding: '0 20px',
-};
-
-const footerText = {
-  color: '#6b6b75',
-  fontSize: '12px',
-  lineHeight: '1.6',
-  textAlign: 'center' as const,
-};
+const container = { margin: '0 auto', padding: '20px 0 48px', maxWidth: '580px' };
+const header = { padding: '32px 20px 24px', textAlign: 'center' as const, borderBottom: '1px solid #1c1c1c' };
+const brandText = { margin: 0, fontFamily: 'Georgia, serif', fontSize: '22px', fontWeight: '400' as const, color: '#E5E5E5', lineHeight: '1.2', textAlign: 'center' as const };
+const badgeSection = { textAlign: 'center' as const, padding: '24px 20px 0' };
+const badgeLabel = { color: '#C8A84B', fontSize: '11px', fontWeight: '600' as const, letterSpacing: '3px', margin: 0, fontFamily: "'Courier New', monospace" };
+const content = { padding: '28px 28px 0' };
+const openingLine = { color: '#F5F5F0', fontSize: '18px', lineHeight: '1.6', margin: '0 0 20px', fontWeight: '500' as const };
+const paragraph = { color: '#8A8A7A', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' };
+const protocolBox = { backgroundColor: '#0d0d0d', border: '1px solid #1c1c1c', borderLeft: '2px solid #C8A84B', padding: '20px 24px', margin: '24px 0' };
+const protocolTitle = { color: '#C8A84B', fontSize: '10px', letterSpacing: '3px', fontFamily: "'Courier New', monospace", margin: '0 0 16px' };
+const protocolStep = { color: '#8A8A7A', fontSize: '14px', lineHeight: '1.7', margin: '0 0 10px' };
+const ctaSection = { margin: '32px 0' };
+const ctaButton = { backgroundColor: '#C8A84B', color: '#000000', padding: '16px 28px', textDecoration: 'none', fontWeight: '800' as const, fontSize: '13px', fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif", letterSpacing: '1px', display: 'inline-block' as const };
+const closingLine = { color: '#6B6B5A', fontSize: '14px', lineHeight: '1.7', margin: '0 0 28px', fontStyle: 'italic' as const };
+const signature = { color: '#F5F5F0', fontSize: '15px', lineHeight: '1.6', margin: '0' };
+const signatureTitle = { color: '#C8A84B', fontSize: '12px', letterSpacing: '1px' };
+const hr = { borderColor: '#1c1c1c', margin: '32px 20px' };
+const footerSection = { padding: '0 20px' };
+const footerText = { color: '#444', fontSize: '11px', lineHeight: '1.6', textAlign: 'center' as const, fontFamily: "'Courier New', monospace", letterSpacing: '0.5px' };

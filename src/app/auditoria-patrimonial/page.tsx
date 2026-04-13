@@ -98,9 +98,9 @@ export default function AuditoriaPatrimonialPage() {
       });
       if (!response.ok) throw new Error('Error');
       setIsSuccess(true);
-      setTimeout(() => router.push('/mapa-de-salida/gracias'), 1000);
+      setTimeout(() => router.push('/auditoria-confirmada'), 1000);
     } catch {
-      router.push('/mapa-de-salida/gracias');
+      router.push('/auditoria-confirmada');
     } finally {
       setIsSubmitting(false);
     }

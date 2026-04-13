@@ -1,7 +1,8 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Mapa de Salida - Coordenada 1
- * "Por qué sudas mucho, pero no avanzas"
+ * Copyright © 2026 CreaTuActivo.com
+ * Auditoría de Arquitectura Patrimonial — Coordenada 01
+ * "[COORDENADA 01] Diagnóstico Estructural Habilitado"
+ * Lujo Clínico — Due Diligence framing
  */
 
 import * as React from 'react';
@@ -10,7 +11,6 @@ import {
   Button,
   Container,
   Head,
-  Heading,
   Html,
   Img,
   Preview,
@@ -25,8 +25,12 @@ interface Dia1Props {
   videoUrl?: string;
 }
 
-export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'https://creatuactivo.com/mapa-de-salida/dia-1' }: Dia1Props) => {
-  const previewText = `Tu ruta de escape del "Plan por Defecto" comienza hoy.`;
+export const Dia1Diagnostico = ({
+  firstName: _firstName,
+  trackingUrl,
+  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-1',
+}: Dia1Props) => {
+  const previewText = `Módulo 01 habilitado. Su auditoría estructural comienza ahora.`;
 
   return (
     <Html lang="es">
@@ -36,109 +40,89 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
       <Preview>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
+
           {/* Header */}
           <Section style={header}>
-            <Text style={{
-              margin: 0,
-              fontFamily: 'Georgia, serif',
-              fontSize: '24px',
-              fontWeight: '400',
-              color: '#E5E5E5',
-              lineHeight: '1.2',
-              textAlign: 'center' as const
-            }}>
-              CreaTu<span style={{ fontWeight: '700', color: '#C5A059' }}>Activo</span>
+            <Text style={brandText}>
+              CreaTu<span style={{ fontWeight: '700', color: '#C8A84B' }}>Activo</span>
             </Text>
           </Section>
 
-          {/* Day Badge */}
-          <Section style={dayBadge}>
-            <Text style={dayNumber}>COORDENADA 1 DE 5</Text>
+          {/* Coordenada badge */}
+          <Section style={badgeSection}>
+            <Text style={badgeLabel}>COORDENADA 01 — ACCESO HABILITADO</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
-            <Heading style={h1}>Hola {firstName},</Heading>
 
-            <Text style={paragraph}>
-              Ayer, apenas confirmaste tu acceso al mapa, te conté la historia de mi promesa en el mirador Buena Vista.
+            <Text style={openingLine}>
+              El sistema ha habilitado su primer módulo de auditoría.
             </Text>
 
             <Text style={paragraph}>
-              Te hablé de esa frustrante sensación de estar en una bicicleta estática: pedaleando con todas tus fuerzas, agotado, pero terminando el mes en el mismo exacto lugar financiero.
+              A partir de este momento, usted deja de ser un espectador y asume la postura de un <strong style={{ color: '#E5E5E5' }}>analista de riesgos</strong>.
             </Text>
 
             <Text style={paragraph}>
-              Hoy empezamos oficialmente tu ruta de escape.
+              El objetivo de la sesión de hoy no es presentarle nuestro ecosistema, sino someter a estrés su infraestructura financiera actual. Vamos a auditar la matemática detrás de su flujo de caja y a medir su nivel de exposición al riesgo.
             </Text>
 
-            <Text style={paragraph}>
-              El primer paso de este protocolo no es darte motivación vacía ni decirte que "te esfuerces más". El primer paso es <strong style={{ color: '#E5E5E5' }}>auditar tu realidad actual usando matemáticas frías</strong>.
-            </Text>
+            {/* Protocolo de Ejecución */}
+            <Section style={protocolBox}>
+              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              {[
+                'Aísle 15 minutos de ancho de banda mental.',
+                'Ingrese al enlace seguro a continuación.',
+                'Ejecute el cálculo de caducidad financiera que se expone en el informe.',
+              ].map((step, i) => (
+                <Text key={i} style={protocolStep}>
+                  <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
+                    0{i + 1}
+                  </span>
+                  {step}
+                </Text>
+              ))}
+            </Section>
 
-            <Text style={paragraph}>
-              En el breve video de hoy (tu Coordenada 1), te voy a explicar por qué el <strong style={{ color: '#C5A059' }}>"Plan por Defecto"</strong> que la sociedad te vendió tiene una falla de diseño estructural.
-            </Text>
-
-            <Text style={paragraph}>
-              Vas a descubrir por qué intercambiar tiempo por dinero es un modelo inherentemente frágil, y por qué trabajar más duro jamás te hará libre si estás operando el vehículo equivocado.
-            </Text>
-
-            {/* Video CTA */}
-            <Section style={videoCta}>
+            {/* CTA */}
+            <Section style={ctaSection}>
               <table width="100%" cellPadding={0} cellSpacing={0}>
                 <tr>
                   <td align="center">
                     <Button
                       href={videoUrl}
-                      style={{
-                        backgroundColor: '#C5A059',
-                        color: '#0F1115',
-                        padding: '16px 32px',
-                        borderRadius: '8px',
-                        textDecoration: 'none',
-                        fontWeight: '700',
-                        fontSize: '16px',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-                        letterSpacing: '0.5px',
-                      }}
+                      style={ctaButton}
                     >
-                      👉 VER COORDENADA 1: LA FALLA ESTRUCTURAL
+                      ACCEDER AL MÓDULO 01: DIAGNÓSTICO ESTRUCTURAL →
                     </Button>
                   </td>
                 </tr>
               </table>
             </Section>
 
-            <Text style={highlightBox}>
-              Al final del video te daré las instrucciones exactas para calcular tu <strong>"Número de Fragilidad"</strong>. Es un ejercicio de 2 minutos que te dará total claridad sobre el terreno en el que estás parado hoy.
-            </Text>
-
-            <Text style={paragraph}>
-              Haz clic en el enlace, mira el diagnóstico y ejecuta el cálculo.
-            </Text>
-
-            <Text style={paragraph}>
-              Te veo dentro,
+            <Text style={closingLine}>
+              El escrutinio técnico ha comenzado. Nos vemos en la sala de análisis.
             </Text>
 
             <Text style={signature}>
-              Luis Cabrejo
+              Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Arquitecto de Activos</span>
+              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
             </Text>
           </Section>
 
           <Hr style={hr} />
 
           {/* Footer */}
-          <Section style={footer}>
+          <Section style={footerSection}>
             <Text style={footerText}>
-              © 2025 CreaTuActivo.com
+              © 2026 CreaTuActivo.com
               <br />
-              Mapa de Salida — Coordenada 1 de 5
+              Auditoría de Arquitectura Patrimonial — Coordenada 01 de 05
             </Text>
           </Section>
+
         </Container>
         {trackingUrl && (
           <Img src={trackingUrl} width={1} height={1} alt="" style={{ display: 'block', border: 'none' }} />
@@ -150,9 +134,11 @@ export const Dia1Diagnostico = ({ firstName = 'Hola', trackingUrl, videoUrl = 'h
 
 export default Dia1Diagnostico;
 
+/* ─── Styles ─── */
+
 const main = {
-  backgroundColor: '#0F1115',
-  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  backgroundColor: '#080808',
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 };
 
 const container = {
@@ -162,82 +148,128 @@ const container = {
 };
 
 const header = {
-  padding: '32px 20px',
+  padding: '32px 20px 24px',
+  textAlign: 'center' as const,
+  borderBottom: '1px solid #1c1c1c',
+};
+
+const brandText = {
+  margin: 0,
+  fontFamily: 'Georgia, serif',
+  fontSize: '22px',
+  fontWeight: '400' as const,
+  color: '#E5E5E5',
+  lineHeight: '1.2',
   textAlign: 'center' as const,
 };
 
-const dayBadge = {
+const badgeSection = {
   textAlign: 'center' as const,
-  marginBottom: '24px',
+  padding: '24px 20px 0',
 };
 
-const dayNumber = {
-  color: '#C5A059',
-  fontSize: '12px',
-  fontWeight: '600',
+const badgeLabel = {
+  color: '#C8A84B',
+  fontSize: '11px',
+  fontWeight: '600' as const,
   letterSpacing: '3px',
-  margin: '0 0 4px',
+  margin: 0,
+  fontFamily: "'Courier New', monospace",
 };
-
 
 const content = {
-  padding: '0 20px',
+  padding: '28px 28px 0',
 };
 
-const h1 = {
-  color: '#f5f5f5',
-  fontSize: '28px',
-  fontWeight: '500',
-  margin: '0 0 24px',
-  fontFamily: "Georgia, serif",
+const openingLine = {
+  color: '#F5F5F0',
+  fontSize: '18px',
+  lineHeight: '1.6',
+  margin: '0 0 20px',
+  fontWeight: '500' as const,
 };
 
 const paragraph = {
-  color: '#a0a0a8',
-  fontSize: '16px',
-  lineHeight: '1.7',
+  color: '#8A8A7A',
+  fontSize: '15px',
+  lineHeight: '1.8',
   margin: '0 0 20px',
 };
 
-const highlightBox = {
-  backgroundColor: '#1A1D23',
-  borderLeft: '4px solid #C5A059',
+const protocolBox = {
+  backgroundColor: '#0d0d0d',
+  border: '1px solid #1c1c1c',
+  borderLeft: '2px solid #C8A84B',
   padding: '20px 24px',
-  color: '#E5E5E5',
-  fontSize: '17px',
-  lineHeight: '1.6',
   margin: '24px 0',
-  borderRadius: '0 8px 8px 0',
 };
 
-const videoCta = {
+const protocolTitle = {
+  color: '#C8A84B',
+  fontSize: '10px',
+  letterSpacing: '3px',
+  fontFamily: "'Courier New', monospace",
+  margin: '0 0 16px',
+};
+
+const protocolStep = {
+  color: '#8A8A7A',
+  fontSize: '14px',
+  lineHeight: '1.7',
+  margin: '0 0 10px',
+};
+
+const ctaSection = {
   margin: '32px 0',
 };
 
+const ctaButton = {
+  backgroundColor: '#C8A84B',
+  color: '#000000',
+  padding: '16px 28px',
+  textDecoration: 'none',
+  fontWeight: '800' as const,
+  fontSize: '13px',
+  fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
+  letterSpacing: '1px',
+  display: 'inline-block' as const,
+};
+
+const closingLine = {
+  color: '#6B6B5A',
+  fontSize: '14px',
+  lineHeight: '1.7',
+  margin: '0 0 28px',
+  fontStyle: 'italic' as const,
+};
+
 const signature = {
-  color: '#f5f5f5',
-  fontSize: '16px',
+  color: '#F5F5F0',
+  fontSize: '15px',
   lineHeight: '1.6',
-  margin: '32px 0 0',
+  margin: '0',
 };
 
 const signatureTitle = {
-  color: '#C5A059',
-  fontSize: '14px',
+  color: '#C8A84B',
+  fontSize: '12px',
+  letterSpacing: '1px',
 };
 
 const hr = {
-  borderColor: '#2a2a35',
+  borderColor: '#1c1c1c',
   margin: '32px 20px',
 };
 
-const footer = {
+const footerSection = {
   padding: '0 20px',
 };
 
 const footerText = {
-  color: '#6b6b75',
-  fontSize: '12px',
+  color: '#444',
+  fontSize: '11px',
   lineHeight: '1.6',
   textAlign: 'center' as const,
+  fontFamily: "'Courier New', monospace",
+  letterSpacing: '0.5px',
 };

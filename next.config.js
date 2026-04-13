@@ -136,6 +136,16 @@ const nextConfig = {
         destination: '/auditoria-confirmada',
         permanent: true,
       },
+      {
+        source: '/mapa-de-salida/dia-1',
+        destination: '/auditoria-patrimonial/dia-1',
+        permanent: true,
+      },
+      {
+        source: '/mapa-de-salida/dia-1/:ref',
+        destination: '/auditoria-patrimonial/dia-1/:ref',
+        permanent: true,
+      },
 
       // Productos → Infraestructura (página renombrada)
       {

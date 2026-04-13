@@ -17,7 +17,7 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: '¿Qué es Queswa.app? Motor Cognitivo de CreaTuActivo · Luis Cabrejo',
-  description: 'Queswa.app es el Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo.com, diseñado por Luis Cabrejo. No es un chat público: es IA privada para Directores Ejecutivos que construyen activos empresariales.',
+  description: 'De una promesa personal a la ingeniería de activos digitales. El diagnóstico técnico del porqué el esfuerzo manual no escala, y cómo usted puede auditar nuestro modelo.',
   keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, motor cognitivo creatuactivo, queswa ia, dashboard queswa',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
@@ -95,7 +95,7 @@ export default function TecnologiaPage() {
         <div className="relative z-10">
           {/* Hero Section */}
           <IndustrialHeader
-            title="¿QUÉ ES QUESWA.APP?"
+            title="MEMORÁNDUM DIRECTIVO"
             subtitle="El Motor Cognitivo de CreaTuActivo"
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.webp"
@@ -156,8 +156,8 @@ export default function TecnologiaPage() {
               }}
             >
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
-                La inteligencia artificial que trabaja 24/7 para que tú no tengas que
-                &quot;vender&quot;. El sistema que hace el 80% del trabajo que tú odias.
+                El ecosistema de Inteligencia Artificial que opera 24/7 para erradicar
+                la fricción comercial. La infraestructura que asume el 90% del desgaste operativo.
               </p>
             </div>
           </div>
@@ -170,39 +170,39 @@ export default function TecnologiaPage() {
                   El Problema
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Por qué el 95% fracasa en Network Marketing?
+                  ¿Por qué colapsan los modelos de distribución manuales?
                 </h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
-                  <h3 className="text-xl font-semibold mb-3">&quot;No sé vender&quot;</h3>
+                  <h3 className="text-xl font-semibold mb-3">Fricción Operativa</h3>
                   <p className="text-[#A3A3A3]">
-                    La mayoría de las personas odian vender. No quieren molestar amigos,
-                    no saben qué decir, les da vergüenza.
+                    Los modelos tradicionales exigen persecución manual y persuasión. Un desgaste
+                    táctico que destruye la autoridad del operador y quema su círculo relacional.
                   </p>
                 </div>
 
                 <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
-                  <h3 className="text-xl font-semibold mb-3">&quot;No tengo tiempo&quot;</h3>
+                  <h3 className="text-xl font-semibold mb-3">Ausencia de Apalancamiento</h3>
                   <p className="text-[#A3A3A3]">
-                    Entre el trabajo, la familia y otras responsabilidades,
-                    no hay tiempo para hacer presentaciones constantemente.
+                    Si la presentación del modelo depende exclusivamente de la disponibilidad
+                    física del operador, la escalabilidad es matemáticamente imposible.
                   </p>
                 </div>
               </div>
 
               <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
-                  <span className="text-[#E5C279] font-semibold">Queswa elimina estos dos problemas de raíz.</span>
+                  <span className="text-[#E5C279] font-semibold">El Protocolo Queswa corrige ambas fallas estructurales.</span>
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Qué es Queswa */}
+          {/* Qué hace Queswa */}
           <section className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
@@ -210,7 +210,7 @@ export default function TecnologiaPage() {
                   La Solución
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Qué hace Queswa por ti?
+                  ¿Qué hace Queswa por usted?
                 </h2>
               </div>
 
@@ -220,8 +220,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#E5C279]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Educa 24/7</h3>
-                  <p className="text-sm text-[#A3A3A3]">Responde preguntas sobre el negocio con datos precisos mientras tú duermes.</p>
+                  <h3 className="text-lg font-semibold mb-2">Instrucción Asíncrona</h3>
+                  <p className="text-sm text-[#A3A3A3]">Presenta el modelo y responde objeciones con datos fríos, sin depender de su horario físico.</p>
                 </div>
 
                 {/* Filtra Prospectos */}
@@ -229,8 +229,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#E5C279]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Filtra Prospectos</h3>
-                  <p className="text-sm text-[#A3A3A3]">Identifica quién tiene interés real y quién solo tiene curiosidad pasajera.</p>
+                  <h3 className="text-lg font-semibold mb-2">Filtrado de Perfiles</h3>
+                  <p className="text-sm text-[#A3A3A3]">Identifica intención operativa real vs. curiosidad, ejecutando un proceso de Due Diligence automatizado.</p>
                 </div>
 
                 {/* Captura Datos */}
@@ -238,8 +238,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <BarChart3 className="w-7 h-7 text-[#E5C279]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Captura Datos</h3>
-                  <p className="text-sm text-[#A3A3A3]">Recoge información de contacto y nivel de interés automáticamente.</p>
+                  <h3 className="text-lg font-semibold mb-2">Extracción de Coordenadas</h3>
+                  <p className="text-sm text-[#A3A3A3]">Recopila información de contacto y califica el nivel de interés mediante algoritmos predictivos.</p>
                 </div>
 
                 {/* Duplicación */}
@@ -247,8 +247,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#E5C279]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Duplicación</h3>
-                  <p className="text-sm text-[#A3A3A3]">Entrena a tu equipo nuevo. La IA sabe todo lo que tú no puedes memorizar.</p>
+                  <h3 className="text-lg font-semibold mb-2">Escalabilidad Autónoma</h3>
+                  <p className="text-sm text-[#A3A3A3]">Transfiere el protocolo técnico a su red global. La IA posee todo el conocimiento que un humano no puede memorizar.</p>
                 </div>
               </div>
             </div>
@@ -270,23 +270,23 @@ export default function TecnologiaPage() {
                 {[
                   {
                     step: '1',
-                    title: 'Tú compartes un enlace',
-                    description: 'Solo necesitas enviar tu link personal a quien tenga curiosidad. Sin presentaciones. Sin presión.'
+                    title: 'Usted habilita un punto de acceso',
+                    description: 'Solo requiere direccionar tráfico digital hacia el sistema. Sin presentaciones. Sin fricción manual.'
                   },
                   {
                     step: '2',
-                    title: 'Queswa educa y responde',
-                    description: 'La IA explica el modelo, responde objeciones, muestra datos. Está entrenada con toda la información del sistema.'
+                    title: 'La IA audita e instruye',
+                    description: 'El protocolo presenta la arquitectura, resuelve dudas técnicas y expone la matemática del modelo con precisión clínica.'
                   },
                   {
                     step: '3',
-                    title: 'El prospecto se autoselecciona',
-                    description: 'Si tiene interés real, Queswa te avisa. Si solo era curioso, no pierdes tiempo.'
+                    title: 'El perfil se autoselecciona',
+                    description: 'Si el nivel de interés es alto, el sistema lo notifica. El desgaste de lidiar con el escepticismo queda automatizado.'
                   },
                   {
                     step: '4',
-                    title: 'Tú cierras con humanos',
-                    description: 'Solo hablas con personas que ya entienden el modelo y quieren más información. El trabajo pesado ya está hecho.'
+                    title: 'Usted asume la Dirección',
+                    description: 'Usted invierte tiempo exclusivamente en auditar perfiles que ya decidieron activar su infraestructura. El trabajo pesado está hecho.'
                   }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6 items-start">
@@ -329,19 +329,19 @@ export default function TecnologiaPage() {
                   <ul className="space-y-4 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Hacer presentaciones una por una</span>
+                      <span>Ejecutar presentaciones manuales</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Memorizar respuestas a objeciones</span>
+                      <span>Depender de guiones de persuasión</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Disponibilidad limitada a tu tiempo</span>
+                      <span>Sometido a su disponibilidad biológica</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Difícil de duplicar (depende de tu habilidad)</span>
+                      <span>Cuello de botella operativo (no escalable)</span>
                     </li>
                   </ul>
                 </div>
@@ -352,19 +352,19 @@ export default function TecnologiaPage() {
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
-                      <span>La IA presenta por ti, 24/7</span>
+                      <span>El protocolo presenta 24/7</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
-                      <span>Respuestas perfectas a cada objeción</span>
+                      <span>Respuestas con precisión de Base de Conocimiento</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
-                      <span>Trabaja mientras duermes, viajas o trabajas</span>
+                      <span>Opera de forma asíncrona a nivel global</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
-                      <span>100% duplicable (tu equipo tiene lo mismo)</span>
+                      <span>Apalancamiento asimétrico absoluto</span>
                     </li>
                   </ul>
                 </div>
@@ -376,28 +376,25 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6 bg-[#16181D]">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl sm:text-4xl font-serif mb-6">
-                ¿Quieres experimentar Queswa?
+                ¿Desea auditar esta tecnología?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Audita el modelo de negocio con El Mapa de Salida y descubre
-                cómo esta tecnología puede transformar tu forma de construir un activo.
+                Inicie la Auditoría Patrimonial de 5 Días y compruebe empíricamente cómo este
+                motor cognitivo corrige el Déficit Estructural de Ingresos.
               </p>
 
               <Link
-                href="/mapa-de-salida"
+                href="/auditoria-patrimonial"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
                   clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                 }}
               >
-                Auditar con El Mapa de Salida
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                SOLICITAR AUDITORÍA TÉCNICA →
               </Link>
 
               <p className="text-sm mt-6 text-[#64748B]">
-                Gratis · Sin compromiso · Evaluación inmediata
+                5 Días · Subvencionado · Escrutinio Clínico
               </p>
             </div>
           </section>

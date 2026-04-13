@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Mapa de Salida - Email de Confirmación de Registro
- * Diseño Quiet Luxury (gold + dark)
+ * Auditoría de Arquitectura Patrimonial — Email de Confirmación de Registro v4.0
+ * Diseño Lujo Clínico (gold + dark)
  */
 
 import * as React from 'react';
@@ -24,11 +24,11 @@ interface Reto5DiasConfirmationProps {
 }
 
 export const Reto5DiasConfirmationEmail = ({
-  firstName = 'Hola',
+  firstName = 'Director',
 }: Reto5DiasConfirmationProps) => {
-  const previewText = `¡${firstName}, tu Mapa de Salida está activado!`;
+  const previewText = `${firstName}, su Auditoría de Arquitectura Patrimonial está activada.`;
 
-  // Quiet Luxury palette
+  // Lujo Clínico palette
   const colors = {
     bg: '#0a0a0f',
     cardBg: '#12121a',
@@ -76,7 +76,7 @@ export const Reto5DiasConfirmationEmail = ({
           }}
         >
 
-          {/* Logo - Simple text for email compatibility */}
+          {/* Logo */}
           <Section style={{ textAlign: 'center' as const, marginBottom: '24px', padding: '16px 0' }}>
             <Text style={{
               margin: 0,
@@ -87,6 +87,20 @@ export const Reto5DiasConfirmationEmail = ({
               lineHeight: '1.2'
             }}>
               CreaTu<span style={{ fontWeight: '700', color: '#C5A059' }}>Activo</span>
+            </Text>
+          </Section>
+
+          {/* Eyebrow */}
+          <Section style={{ textAlign: 'center' as const, marginBottom: '8px' }}>
+            <Text style={{
+              margin: 0,
+              color: colors.gold,
+              fontSize: '11px',
+              letterSpacing: '2px',
+              textTransform: 'uppercase' as const,
+              fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+            }}>
+              AUDITORÍA DE ARQUITECTURA PATRIMONIAL — ACCESO CONFIRMADO
             </Text>
           </Section>
 
@@ -102,7 +116,7 @@ export const Reto5DiasConfirmationEmail = ({
                 lineHeight: '1.3'
               }}
             >
-              ¡Hola {firstName}, te damos la bienvenida!
+              {firstName}, le damos la bienvenida.
             </Heading>
           </Section>
 
@@ -127,7 +141,7 @@ export const Reto5DiasConfirmationEmail = ({
                 textAlign: 'center' as const
               }}
             >
-              Tu acceso al <span style={{ color: colors.gold, fontWeight: '600' }}>Mapa de Salida</span> está confirmado.
+              Su acceso a la <span style={{ color: colors.gold, fontWeight: '600' }}>Auditoría de Arquitectura Patrimonial</span> está confirmado.
             </Text>
 
             <Text
@@ -140,7 +154,7 @@ export const Reto5DiasConfirmationEmail = ({
                 textAlign: 'center' as const
               }}
             >
-              Durante los próximos 5 días, te mostraré exactamente cómo construir un activo que genere sin tu presencia constante.
+              Durante los próximos 5 días, le mostraré exactamente cómo construir un activo que genere sin su presencia constante.
             </Text>
 
             <Hr style={{
@@ -158,11 +172,11 @@ export const Reto5DiasConfirmationEmail = ({
                 fontWeight: '500'
               }}
             >
-              Mañana recibirás la Coordenada 1: "El Diagnóstico"
+              Mañana recibirá la Coordenada 01: "Diagnóstico Estructural"
             </Text>
           </Section>
 
-          {/* WhatsApp CTA - Click-to-Chat */}
+          {/* WhatsApp CTA */}
           <Section style={{ marginBottom: '24px', textAlign: 'center' as const }}>
             <Text style={{
               margin: '0 0 16px',
@@ -170,14 +184,14 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '14px',
               lineHeight: '24px'
             }}>
-              Para asegurar que recibas todos los materiales,<br />
-              confírmame tu asistencia por WhatsApp:
+              Para garantizar la entrega de todos los módulos,<br />
+              confirme su registro por WhatsApp:
             </Text>
             <table width="100%" cellPadding={0} cellSpacing={0} style={{ margin: '0 auto' }}>
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso al Mapa de Salida.`)}`}
+                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso a la Auditoría Patrimonial.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -196,7 +210,7 @@ export const Reto5DiasConfirmationEmail = ({
             </table>
           </Section>
 
-          {/* Lo que aprenderás */}
+          {/* Hoja de ruta de coordenadas */}
           <Section style={{ marginBottom: '24px', padding: '0 4px' }}>
             <Text style={{
               margin: '0 0 16px',
@@ -204,17 +218,18 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '13px',
               textTransform: 'uppercase' as const,
               letterSpacing: '1px',
-              textAlign: 'center' as const
+              textAlign: 'center' as const,
+              fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }}>
-              Lo que aprenderás
+              Hoja de ruta — 5 coordenadas
             </Text>
 
             {[
-              { day: '1', title: 'El Diagnóstico', desc: 'Tu métrica más importante' },
-              { day: '2', title: 'Los Vehículos', desc: 'Por qué tu plan no funciona' },
-              { day: '3', title: 'El Modelo', desc: 'La fórmula matemática' },
-              { day: '4', title: 'El Estigma', desc: 'La verdad sobre el network' },
-              { day: '5', title: 'La Invitación', desc: 'Tu siguiente paso' },
+              { day: '01', title: 'Diagnóstico Estructural', desc: 'Análisis de su modelo actual' },
+              { day: '02', title: 'El Techo Técnico', desc: 'Análisis de Escalabilidad' },
+              { day: '03', title: 'Acoplamiento Híbrido', desc: 'La Máquina Operativa' },
+              { day: '04', title: 'Matriz de Amortización', desc: 'Ingeniería de Liquidez' },
+              { day: '05', title: 'Protocolo de Activación', desc: 'Decisión Directiva' },
             ].map((item) => (
               <Text key={item.day} style={{
                 margin: '0 0 8px',
@@ -265,9 +280,10 @@ export const Reto5DiasConfirmationEmail = ({
               color: colors.gold,
               fontSize: '13px',
               fontWeight: '600',
-              textAlign: 'center' as const
+              textAlign: 'center' as const,
+              fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }}>
-              IMPORTANTE: Para no perderte ningún email
+              IMPORTANTE: Para no perder ningún módulo
             </Text>
             <Text style={{
               margin: 0,
@@ -275,9 +291,9 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '13px',
               lineHeight: '20px'
             }}>
-              • Si este correo llegó a <strong style={{ color: colors.text }}>Promociones</strong> o <strong style={{ color: colors.text }}>Importantes</strong>, muévelo a tu bandeja <strong style={{ color: colors.text }}>Principal</strong><br />
-              • Agrega <strong style={{ color: colors.text }}>hola@creatuactivo.com</strong> a tus contactos<br />
-              • Esto entrena a Gmail para que los próximos correos lleguen directo a tu inbox
+              • Si este correo llegó a <strong style={{ color: colors.text }}>Promociones</strong> o <strong style={{ color: colors.text }}>Importantes</strong>, muévalo a su bandeja <strong style={{ color: colors.text }}>Principal</strong><br />
+              • Agregue <strong style={{ color: colors.text }}>hola@creatuactivo.com</strong> a sus contactos<br />
+              • Esto entrena a Gmail para que los próximos módulos lleguen directamente a su bandeja principal
             </Text>
           </Section>
 
@@ -289,7 +305,7 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '15px',
               lineHeight: '24px'
             }}>
-              Hacia tu soberanía,<br /><br />
+              Hacia su soberanía,<br /><br />
               <strong>Luis Cabrejo</strong><br />
               <span style={{ color: colors.gold, fontSize: '13px' }}>
                 Arquitecto de Activos
@@ -317,7 +333,7 @@ export const Reto5DiasConfirmationEmail = ({
               color: colors.textSubtle,
               fontSize: '11px'
             }}>
-              Recibes este correo porque solicitaste acceso al Mapa de Salida
+              Recibe este correo porque solicitó acceso a la Auditoría de Arquitectura Patrimonial
             </Text>
             <Link
               href="https://wa.me/573215193909"

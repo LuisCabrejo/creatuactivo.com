@@ -1492,9 +1492,9 @@ export default function ServilletaPage() {
                       ACTIVACI&Oacute;N DE UNIDAD DE SUMINISTRO →
                     </a>
 
-                    {/* CTA Secundario → /mapa-de-salida */}
+                    {/* CTA Secundario → /auditoria-patrimonial */}
                     <a
-                      href="https://creatuactivo.com/mapa-de-salida"
+                      href="https://creatuactivo.com/auditoria-patrimonial"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"

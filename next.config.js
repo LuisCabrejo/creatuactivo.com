@@ -126,14 +126,10 @@ const nextConfig = {
       },
 
       // ✅ PIVOTE v4.0: Mapa de Salida → Auditoría de Arquitectura Patrimonial
+      // IMPORTANTE: reglas específicas ANTES del wildcard :constructorId
       {
         source: '/mapa-de-salida',
         destination: '/auditoria-patrimonial',
-        permanent: true,
-      },
-      {
-        source: '/mapa-de-salida/:constructorId',
-        destination: '/auditoria-patrimonial/:constructorId',
         permanent: true,
       },
       {
@@ -142,13 +138,39 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/mapa-de-salida/dia-1/:ref',
+        destination: '/auditoria-patrimonial/dia-1/:ref',
+        permanent: true,
+      },
+      {
         source: '/mapa-de-salida/dia-1',
         destination: '/auditoria-patrimonial/dia-1',
         permanent: true,
       },
       {
-        source: '/mapa-de-salida/dia-1/:ref',
-        destination: '/auditoria-patrimonial/dia-1/:ref',
+        source: '/mapa-de-salida/dia-2',
+        destination: '/auditoria-patrimonial/dia-2',
+        permanent: true,
+      },
+      {
+        source: '/mapa-de-salida/dia-3',
+        destination: '/auditoria-patrimonial/dia-3',
+        permanent: true,
+      },
+      {
+        source: '/mapa-de-salida/dia-4',
+        destination: '/auditoria-patrimonial/dia-4',
+        permanent: true,
+      },
+      {
+        source: '/mapa-de-salida/dia-5',
+        destination: '/auditoria-patrimonial/dia-5',
+        permanent: true,
+      },
+      // Wildcard al final — captura refs de constructorId no cubiertos arriba
+      {
+        source: '/mapa-de-salida/:constructorId',
+        destination: '/auditoria-patrimonial/:constructorId',
         permanent: true,
       },
 

@@ -3790,11 +3790,14 @@ ESTADO: ${getMessageContext()}`;
     console.log(`⚡ [ROUTER] Query clasificada como: ${isSimpleQuery ? 'SIMPLE → Haiku' : 'COMPLEJA → Sonnet'} (msg #${messages.length}, "${latestUserMessage.substring(0, 40)}")`);
 
     // ✅ Generar respuesta con Claude usando Prompt Caching + Optimizaciones FASE 1 + FASE 1.5
-    // 🔁 Retry automático en overloaded_error (HTTP 529) — 1 reintento con 1.5s de espera
+    // 🔁 Retry automático en overloaded_error (HTTP 529)
+    // Intento 0: Sonnet normal | Intento 1: Sonnet retry (1.5s) | Intento 2: Haiku fallback
     const callAnthropic = async (attempt = 0): Promise<any> => {
       try {
+        // En intento 2 (último), degradar a Haiku para evitar otro overload en Sonnet
+        const useHaiku = isSimpleQuery || attempt >= 2;
         return await anthropic.messages.create({
-      model: isSimpleQuery ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-20250514',
+      model: useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6',
       system: isSimpleQuery
         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
         ? HAIKU_SYSTEM_PROMPT
@@ -3826,9 +3829,10 @@ ESTADO: ${getMessageContext()}`;
         });
       } catch (err: any) {
         const isOverloaded = err?.message?.includes('overloaded_error') || err?.status === 529 || err?.error?.type === 'overloaded_error';
-        if (attempt < 1 && isOverloaded) {
-          console.warn(`⚠️ [NEXUS] Anthropic overloaded (intento ${attempt + 1}), reintentando en 1.5s...`);
-          await new Promise(r => setTimeout(r, 1500));
+        if (attempt < 2 && isOverloaded) {
+          const delay = attempt === 0 ? 1500 : 3000;
+          console.warn(`⚠️ [NEXUS] Anthropic overloaded (intento ${attempt + 1}/2), reintentando en ${delay}ms${attempt >= 1 ? ' con Haiku fallback' : ''}...`);
+          await new Promise(r => setTimeout(r, delay));
           return callAnthropic(attempt + 1);
         }
         throw err;

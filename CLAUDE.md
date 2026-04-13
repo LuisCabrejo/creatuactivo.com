@@ -246,12 +246,12 @@ WhatsApp (orgánico o CTWA anuncio)
 
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing` — **v20.1 Lujo Clínico** (Abr 2026)
+   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing` — **v21.1 Lujo Clínico** (Abr 2026) — FREQ_03 "Asignación de Capital" + CIERRE_02 alineado con FSM Estado 2
    - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (17 responses) — tenant: `creatuactivo_marketing` — **v8.2** (Abr 2026)
-   - `arsenal_reto` - El Mapa de Salida v3.1 (7 responses) — tenant: `creatuactivo_marketing` — **v3.1** (Abr 2026)
+   - `arsenal_reto` - El Mapa de Salida v4.0 (7 responses) — tenant: `creatuactivo_marketing` — **v4.0** (Abr 2026) — "Auditoría de Arquitectura Patrimonial", nomenclatura Lujo Clínico
    - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
-   - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing`
-   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing`
+   - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing` — **v7.0** (Abr 2026) — Lujo Clínico
+   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing` — **v6.0** (Abr 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad", COMP_MONEDA_01 "tasa blindada"
    - `arsenal_marca_personal` - Identidad, historia, metodología Luis Cabrejo (11 responses) — tenant: `marca_personal`
    - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (14 responses — incluye PROD_05 Oleaf Rooibos + PROD_06 Gano C'Real Spirulina) — tenant: `ecommerce`
 
@@ -319,11 +319,11 @@ WhatsApp (orgánico o CTWA anuncio)
 | `/api/nexus/tts` | Edge | 30s | TTS: ElevenLabs → OpenAI fallback |
 | `/api/voice-command` | Node | 60s | Voice pipeline: Whisper → Haiku → ElevenLabs |
 | `/api/nexus/consumer-cron` | Edge | 60s | Legacy queue consumer |
-| `/api/funnel` | Node | 10s | Reto 5 Días + Webinar forms |
+| `/api/funnel` | Node | 10s | Auditoría Patrimonial + Reto 5 Días + Webinar forms |
 | `/api/fundadores` | Node | 10s | Founder registration |
 | `/api/diagnostico` | Edge | 30s | Audit/self-assessment |
 | `/api/cron/process-emails` | Node | 60s | Soap Opera sequence |
-| `/api/cron/reto-5-dias` | Node | 60s | 5-day challenge emails |
+| `/api/cron/reto-5-dias` | Node | 60s | Secuencia Auditoría Patrimonial — Coordenadas 01–05 |
 | `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
 | `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
 | `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
@@ -338,6 +338,22 @@ WhatsApp (orgánico o CTWA anuncio)
 ```
 
 **Important**: Cron routes require `CRON_SECRET` env var for authorization.
+
+**Secuencia Auditoría Patrimonial** (`/api/cron/reto-5-dias` — `RETO_5_DIAS_SEQUENCE`):
+| Día | Subject | Componente | URL destino |
+|-----|---------|-----------|-------------|
+| 1 | `[COORDENADA 01] Diagnóstico Estructural Habilitado` | `Dia1Diagnostico` | `/auditoria-patrimonial/dia-1` |
+| 2 | `[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)` | `Dia2Vehiculos` | `/auditoria-patrimonial/dia-2` |
+| 3 | `[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)` | `Dia3Modelo` | `/auditoria-patrimonial/dia-3` |
+| 4 | `[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)` | `Dia4Estigma` | `/auditoria-patrimonial/dia-4` |
+| 5 | `[COORDENADA 05] Protocolo de Activación (Decisión Directiva)` | `Dia5Invitacion` | `/auditoria-patrimonial/dia-5` |
+
+**`/api/funnel` — `PAGE_VIEW_STEPS`** (eventos de tracking que no requieren email):
+`vio_pagina_gracias`, `vio_catalogo`, `vio_calculadora`, `vio_bridge_auditoria`
+
+**Tracking events de video** (páginas `dia-1` a `dia-5`, reportan a `/api/nexus`):
+- `video_play_moduloXX` — al iniciar reproducción
+- `video_completed_80_moduloXX` — al llegar al 80% del video
 
 ### 2. Prospect Tracking
 
@@ -360,13 +376,13 @@ window.reidentifyProspect()         // Force re-identification
 
 ### 2.1. PWA & Service Worker
 
-**Location**: [public/sw.js](public/sw.js) (v1.1.0)
+**Location**: [public/sw.js](public/sw.js) (v1.2.0)
 
 Hybrid caching strategy for Next.js App Router:
 - **Cache-first**: HTML navigation, static assets (JS, CSS, images)
 - **Network-first**: Dynamic data, APIs
 - **Auto-cache**: Client-side navigation via RSC (`?_rsc=` params)
-- **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services
+- **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services, `/mapa-de-salida`, `/reto-5-dias` (legacy URLs redirigidas — siempre van a red para que los 301 funcionen)
 
 **Registered in**: [src/app/layout.tsx](src/app/layout.tsx) via inline script
 
@@ -435,12 +451,12 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `enqueue_nexus_message()` - Add to queue
 
 **Knowledge Base** (stored in `nexus_documents`, actualizado Mar 2026):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (37 responses — WHY, STORY, VS, FREQ, CRED, OBJ + WHY_PROD_01, WHY_ROL_01, CTA_01 — WHY, STORY, VS, FREQ, CRED, OBJ)
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (37 responses — WHY, STORY, VS, FREQ, CRED, OBJ + WHY_PROD_01, WHY_ROL_01, CTA_01) — **v21.1** (Abr 2026) — FREQ_03 "Asignación de Capital para la Activación de Infraestructura" + CIERRE_02 alineado con FSM Estado 2 (Phil Jones + Klaff)
 - `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (17 responses — OBJ avanzadas, TECH, VAL, SIST, ESC)
-- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v3.0 — 7 responses, nomenclatura definitiva Feb 2026)
+- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v4.0 — 7 responses — "Auditoría de Arquitectura Patrimonial", nomenclatura Lujo Clínico, Abr 2026)
 - `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB)
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v5.3** (Abr 2026)
+- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB) — **v7.0** (Abr 2026) — Lujo Clínico
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.0** (Abr 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad", COMP_MONEDA_01 "tasa blindada"
 - `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal` — **v1.1** (Abr 2026)
 - `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (16 responses — PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
 
@@ -450,19 +466,20 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 
 **Funnel Strategy** (Russell Brunson methodology - actualizado Mar 2026):
 ```
-Tráfico Frío (Ads/Redes) → /mapa-de-salida (Squeeze Page — ENTRY v3.0 activo)
+Tráfico Frío (Ads/Redes) → /auditoria-patrimonial (Squeeze Page — ENTRY v4.0 activo)
                               ↓
-                         /mapa-de-salida/gracias (Bridge Page)
+                         /auditoria-confirmada (Bridge Page)
                               ↓
-                         WhatsApp 5 días — El Mapa de Salida (Nurture)
+                         Email Secuencia 5 Días — Auditoría Patrimonial (Nurture)
+                         5 videos: /auditoria-patrimonial/dia-1 … dia-5
                               ↓
                          /fundadores (Oferta)
 
 Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
                               ↓
-                         /mapa-de-salida o /fundadores
+                         /auditoria-patrimonial o /fundadores
 
-Nota: /reto-5-dias/* sigue activo como ENTRY v1 (legacy, no eliminar — tráfico existente)
+Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.0)
 ```
 
 **Active Pages**:
@@ -470,7 +487,7 @@ Nota: /reto-5-dias/* sigue activo como ENTRY v1 (legacy, no eliminar — tráfic
 src/app/
 ├── page.tsx                         # Homepage (Funnel Hub, Quiet Luxury style)
 ├── layout.tsx                       # Root layout (tracking + Queswa chatbot)
-├── reto-5-dias/                     # 🎯 FUNNEL ENTRY v1 (noindex)
+├── reto-5-dias/                     # 🎯 FUNNEL ENTRY v1 (noindex — legacy, redirige a v4.0)
 │   ├── page.tsx                     # Squeeze page (minimal, form only)
 │   ├── layout.tsx                   # noindex metadata
 │   ├── gracias/page.tsx             # Bridge page (Epiphany Bridge story)
@@ -478,13 +495,24 @@ src/app/
 │   ├── dolor/page.tsx               # A/B variant: emotional pain
 │   ├── analitico/page.tsx           # A/B variant: analytical approach
 │   └── global/page.tsx              # A/B variant: global opportunity
-├── mapa-de-salida/                  # 🎯 FUNNEL ENTRY v3.0 (noindex) — "Auditoría de 5 Fases"
-│   ├── page.tsx                     # Squeeze page (email capture, Autoridad Epistémica style)
+├── auditoria-patrimonial/           # 🎯 FUNNEL ENTRY v4.0 (noindex) — "Auditoría de Arquitectura Patrimonial"
+│   ├── page.tsx                     # Squeeze page (Lujo Clínico, 3 campos: nombre/email/WA)
 │   ├── layout.tsx                   # noindex metadata
-│   ├── gracias/page.tsx             # Thank you + tracking pixel
-│   ├── [constructorId]/page.tsx     # Constructor-specific squeeze page
-│   ├── dia-1/page.tsx               # Coordenada 1 — video page for Day 1 email
-│   └── dia-1/[ref]/page.tsx         # Personalized Day 1 link (constructor ref in OG + tracking)
+│   ├── [constructorId]/page.tsx     # Constructor-specific squeeze page (re-exporta page.tsx)
+│   ├── dia-1/page.tsx               # Coordenada 01 — Diagnóstico Estructural (video + tracking modulo01)
+│   ├── dia-1/[ref]/page.tsx         # Variante con ref de distribuidor
+│   ├── dia-2/page.tsx               # Coordenada 02 — El Techo Técnico (video + tracking modulo02)
+│   ├── dia-2/[ref]/page.tsx         # Variante con ref de distribuidor
+│   ├── dia-3/page.tsx               # Coordenada 03 — Acoplamiento Híbrido (video + tracking modulo03)
+│   ├── dia-3/[ref]/page.tsx         # Variante con ref de distribuidor
+│   ├── dia-4/page.tsx               # Coordenada 04 — Matriz de Amortización (video + tracking modulo04)
+│   ├── dia-4/[ref]/page.tsx         # Variante con ref de distribuidor
+│   ├── dia-5/page.tsx               # Coordenada 05 — Protocolo de Activación (video + tracking modulo05)
+│   └── dia-5/[ref]/page.tsx         # Variante con ref de distribuidor
+├── auditoria-confirmada/            # Bridge Page v4.0 (noindex) — post-registro
+│   ├── page.tsx                     # Confirmación + video epifanía + hoja de ruta + WA CTA
+│   ├── layout.tsx                   # noindex/nofollow
+│   └── TrackingConfirmada.tsx       # 'use client' — dispara evento `vio_bridge_auditoria`
 ├── fundadores/                      # Main founder signup (oferta)
 │   └── [ref]/page.tsx               # Referral tracking
 ├── nosotros/                        # Epiphany Bridge Story (noindex - SEO en luiscabrejo.com)
@@ -509,9 +537,10 @@ src/app/
 ├── socios/                          # Landing for traditional networkers
 ├── calculadora/                     # Business calculator tool
 ├── diagnostico/                     # Lead magnet "Mi Auditoría"
-├── paquetes/                        # Product packages
+├── paquetes/                        # Protocolo de Capitalización v3.0 (Lujo Clínico) — paquetes: Arquitectura Inicial / Despliegue Empresarial / Consolidación Visionaria — CTAs → WhatsApp pre-filled con nombre+USD+COP — Subsidio de Activación Tecnológica (reemplaza Bono Tecnológico)
 │   └── [ref]/page.tsx
-├── servilleta/                      # 🎯 "The Industrial Deck" v5.1 (4-slide presentation)
+├── planes/                          # Planes de suscripción v3.0 (Lujo Clínico) — 4 planes: Protocolo de Auditoría (gratis) / Activación de Unidad Logística ($25) / Gestión de Infraestructura Empresarial ($49) / Protocolo de Dirección Global ($99) — sin Framer Motion ni blur
+├── servilleta/                      # 🎯 "The Industrial Deck" v6.0 (4-slide presentation)
 ├── animaciones/                     # 🎬 Canvas-based social video renderer (Dan Koe style, 1080×1920 9:16, 60fps)
 │   ├── dia5/, dia6/, dia7/, dia8/, dia9/   # Daily video animation projects
 │   ├── dia7-v3 through dia7-v6      # A/B variants for Día 7 "Eliminación Radical"
@@ -532,13 +561,14 @@ src/app/
 **SEO Strategy** (Dic 2025):
 - **Indexed pages**: `/`, `/fundadores`, `/socios`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
 - **noindex pages** (funnel interno):
-  - `/reto-5-dias/*` → Squeeze/Bridge para ADS (v1)
-  - `/mapa-de-salida/*` → Squeeze/Bridge para ADS (v3.0 — "Auditoría 5 Fases")
+  - `/reto-5-dias/*` → Squeeze/Bridge para ADS (v1 — legacy, 301 → v4.0)
+  - `/auditoria-patrimonial/*` → Squeeze + 5 páginas de video (v4.0 — "Auditoría de Arquitectura Patrimonial")
+  - `/auditoria-confirmada` → Bridge Page v4.0
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
 
 **Removed Pages** (with 301 redirects in next.config.js):
-- `/soluciones/*` → `/reto-5-dias` (6 persona pages eliminated)
-- `/ecosistema/*` → `/reto-5-dias` (community, academia pages eliminated)
+- `/soluciones/*` → `/mapa-de-salida` → `/auditoria-patrimonial` (chain, 6 persona pages)
+- `/ecosistema/*` → `/mapa-de-salida` → `/auditoria-patrimonial` (chain)
 - `/fundadores-network` → `/fundadores`
 - `/fundadores-profesionales` → `/fundadores`
 - `/sistema/framework-iaa` → `/reto-5-dias`
@@ -548,8 +578,8 @@ src/app/
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
 **Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx)):
-- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Mapa de Salida" CTA
-- **Mobile CTA**: "Unirme al Reto" → /mapa-de-salida
+- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Auditoría Patrimonial" CTA
+- **Mobile CTA**: "Unirme al Reto" → /auditoria-patrimonial
 - **Removed from menu**: Soluciones, Ecosistema, Presentación, Auditoría
 - **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
 
@@ -571,25 +601,34 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 **Nav desktop**: Brand `CreaTuActivo` (sin ícono). Menú: `01 LA MÁQUINA · 02 METODOLOGÍA · 03 EL PRODUCTO · 04 SIMULADOR`
 **Nav mobile**: Labels sin número — `La Máquina · Metodología · El Producto · Simulador` (sin íconos Material Symbols — renderizan como texto literal)
 
-**Slide 1 — LA MÁQUINA**: REF `PATRIMONIO_PARALELO`. H1 "CONSTRUCCIÓN DE PATRIMONIO PARALELO". Tres `.comp-row`: EL MÚSCULO (Gano Excel) / EL CEREBRO (CreaTuActivo y Queswa) / TU ROL (La dirección). CTA → Slide 2.
+**Slide 1 — LA MÁQUINA**: REF `PATRIMONIO_PARALELO`. H1 "CONSTRUCCIÓN DE PATRIMONIO PARALELO". Tres `.comp-row`: CAPA LOGÍSTICA (Gano Excel) / CAPA TECNOLÓGICA (CreaTuActivo y Queswa) / DIRECCIÓN EJECUTIVA (La dirección). CTA → Slide 2.
 
-**Slide 2 — LA METODOLOGÍA EAM**: Tres cards con textos de 2 líneas (pantalla = soporte, voz = detalle):
-- EXPANDIR: "Tu celular es tu centro de mando. / Diriges tráfico digital — sin perseguir a nadie."
-- ACTIVAR: "Queswa presenta, responde y filtra por ti. / Tú solo hablas con quienes ya decidieron."
-- MAESTRÍA: "La Academia forma a tu equipo sola — por niveles. / Tu red crece sin que tu tiempo sea el límite."
-- Tachadas: PERSEGUIR·INCOMODAR·MICROGESTIONAR / IMPROVISAR·MEMORIZAR GUIONES·TITUBEAR / CAPACITAR MANUALMENTE·MICROGESTIONAR·CUELLO DE BOTELLA
+**Slide 2 — LA METODOLOGÍA EAM**: Tres cards Lujo Clínico (pantalla = soporte, voz = detalle):
+- EXPANDIR: "Su terminal móvil es su centro de mando. / Usted dirige tráfico digital hacia el sistema — sin gestión manual." Tachadas: `PROSPECCIÓN MANUAL · FRICCIÓN OPERATIVA · DEPENDENCIA LINEAL`
+- ACTIVAR: "Usted no presenta el modelo. / El Protocolo de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7." Tachadas: `IMPROVISAR · MEMORIZAR GUIONES · TITUBEAR`
+- MAESTRÍA: "La infraestructura académica ejecuta la transferencia de protocolos tácticos de forma autónoma por niveles. / Su activo escala eliminando el tiempo humano como cuello de botella operativo." Tachadas: `CAPACITAR MANUALMENTE · MICROGESTIONAR · CUELLO DE BOTELLA`
 - CTA "VER EL PRODUCTO →" al fondo del grid (`gridColumn: '1 / -1'`), no en el header
 - Botón "PREGÚNTALE ALGO EN VIVO" en card-1 → dispara `open-queswa` CustomEvent
 
-**Slide 3 — EL PRODUCTO**: Eyebrow "EL PRODUCTO". H2 "UN HÁBITO / QUE NO CAMBIA". Cuerpo 2 líneas. Panel métricas "GANODERMA LUCIDUM" (barras VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%). CTA "VER LOS NÚMEROS →" al fondo. Layout mobile: `.slide-3-layout` es `flex-direction: column` en mobile para que el CTA apile debajo del contenido.
+**Slide 3 — EL PRODUCTO**: Eyebrow "EL PRODUCTO". H2 "UN HÁBITO / QUE NO CAMBIA". Cuerpo: "Optimización de hábitos preexistentes mediante tecnología nutricional patentada con Ganoderma Lucidum." Panel métricas "GANODERMA LUCIDUM" (barras VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%). CTA "VER LOS NÚMEROS →" dentro del `.bio-metrics-container` (no posición absoluta — evita overlap sobre RECUPERACIÓN en fullscreen). Layout mobile: `.slide-3-layout` es `flex-direction: column` en mobile.
 
 **Slide 4 — SIMULADOR DE PATRIMONIO PARALELO**:
-- Tabs: INGRESO INMEDIATO / INGRESO RECURRENTE (no GEN5 / Renta Vitalicia)
-- Labels: PERSONAS EN TU RED / HOGARES EN TU RED
-- `getLifestyleTranslation`: 8 strings en lenguaje héroe (sin jerga financiera/MLM)
-- Panel CTA: eyebrow cyan "CONSTRUCCIÓN DE PATRIMONIO PARALELO" → párrafo "El costo más caro..." (solo mobile, `.cta-inaccion { display: none }` en desktop) → `¿QUÉ DECIDES?` → botones
-- Botón primario: "INICIAR HOY →" → `/paquetes`
-- Botón secundario: "VER EL MAPA DE SALIDA →" → `/mapa-de-salida`
+- Tabs: INGRESO INMEDIATO / INGRESO RECURRENTE
+- Labels: PERSONAS EN SU RED / HOGARES EN SU RED (`Usted` — no tuteo)
+- Package selector: ESP-1 / ESP-2 / **Empresarial** (no "Pro")
+- `getLifestyleTranslation`: 8 strings McKinsey/BCG (Lujo Clínico — sin jerga MLM):
+  - <$100: "Amortización de Pasivos Fijos Operativos."
+  - ≤$300: "Auto-Sustentabilidad de su Unidad de Suministro (Carga Operativa Cubierta)."
+  - ≤$600: "Flujo de Caja Equivalente a Ingreso Base Profesional."
+  - ≤$1,200: "Consolidación de Activo Directivo (Independencia Operativa)."
+  - ≤$2,500: "Arquitectura de Patrimonio Diamante (Independencia Financiera Global)."
+  - ≤$5,000: "Portafolio de Activos Recurrentes con Tracción Multinacional Activa."
+  - ≤$10,000: "Arquitectura Patrimonial de Alto Rendimiento — Velocidad de Crucero."
+  - >$10,000: "Infraestructura de patrimonio paralelo operativa. El Déficit Estructural de Ingresos ha sido corregido."
+- Panel CTA: eyebrow cyan "CONSTRUCCIÓN DE PATRIMONIO PARALELO" → H3 "Protocolo de Selección Directiva" → párrafo "Los datos técnicos están expuestos. Determine usted el nivel de integración que su arquitectura patrimonial requiere hoy." → botones
+- **NO hay párrafo `.cta-inaccion`** — eliminado (residuo de mentalidad de escasez)
+- Botón primario: "ACTIVACIÓN DE UNIDAD DE SUMINISTRO →" → `/paquetes`
+- Botón secundario: "VER LA AUDITORÍA DE 5 DÍAS →" → `/auditoria-patrimonial`
 
 #### Arquitectura Mobile (Abr 2026 — no revertir)
 
@@ -610,8 +649,8 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
    - Desktop: imagen queda gris hasta hover (CSS `:hover` puro — NO setTimeout auto-reveal, fue eliminado porque impedía ver la transición)
    - Mobile: `ctaVisible` state + IntersectionObserver → `cta-revealed` → color al scroll-snap
    - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
-   - Botón primario "INICIAR HOY →": `width: 100%`, naranja dominante
-   - Botón secundario "VER EL MAPA DE SALIDA →": outline, más angosto
+   - Botón primario "ACTIVACIÓN DE UNIDAD DE SUMINISTRO →": `width: 100%`, naranja dominante → `/paquetes`
+   - Botón secundario "VER LA AUDITORÍA DE 5 DÍAS →": outline, más angosto → `/auditoria-patrimonial`
 
 #### Reglas de iconos Material Symbols en Servilleta (NO revertir)
 
@@ -674,7 +713,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 **Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
 - Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
-- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Tracción Inbound, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso
+- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Tracción Inbound, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Unidad de Suministro** (reemplaza "Nodo Logístico" en copy público), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
 - Vocabulario prohibido adicional: "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada (Liliana Moreno, nombres de ciudad específicos), etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
@@ -689,7 +728,7 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 |---------|---------------------|--------------|
 | `getMicroPromptApertura()` | `messageCount === 1` | Saludo inicial verbatim — M1 |
 | `getMicroPromptCierre()` Estado 1 | `closingState === 1` | Pregunta horas disponibles |
-| `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Presentación tabla ESP (3 niveles) |
+| `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Tabla ESP (3 niveles) — **"Asignación de Capital para la Activación de Infraestructura"** — Phil Jones Three Options + Klaff Prize Frame ("No estoy seguro de si su arquitectura patrimonial está lista para el nivel máximo hoy") |
 | `getMicroPromptCierre()` Estado 3 | `closingState === 3` | Solicitud nombre para expediente |
 | `getCierreEstado4()` | `closingState === 4` | Entrega link WhatsApp — cierre final |
 
@@ -950,7 +989,12 @@ Extended colors and utilities are defined in [tailwind.config.ts](tailwind.confi
 
 **Email Templates** (in `src/emails/`):
 - `soap-opera/` - Soap Opera sequence (Dia1-5)
-- `reto-5-dias/` - 5-day challenge emails (Dia1-5)
+- `reto-5-dias/` - Secuencia Auditoría Patrimonial — Coordenadas 01–05 (Lujo Clínico, Abr 2026)
+  - `Dia1-Diagnostico.tsx` — Coordenada 01, URL `/auditoria-patrimonial/dia-1`
+  - `Dia2-Vehiculos.tsx`   — Coordenada 02, URL `/auditoria-patrimonial/dia-2`
+  - `Dia3-Modelo.tsx`      — Coordenada 03, URL `/auditoria-patrimonial/dia-3`
+  - `Dia4-Estigma.tsx`     — Coordenada 04, URL `/auditoria-patrimonial/dia-4`
+  - `Dia5-Invitacion.tsx`  — Coordenada 05, URL `/auditoria-patrimonial/dia-5`
 - `FounderConfirmation.tsx` - Founder registration confirmation
 - `Reto5DiasConfirmation.tsx` - Challenge registration confirmation
 - `Reto12DiasConfirmation.tsx` - 12-level challenge confirmation
@@ -1117,7 +1161,7 @@ The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funn
 
 ```
 [NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
-30 videos de valor puro      →    Squeeze Page /mapa-de-salida
+30 videos de valor puro      →    Squeeze Page /auditoria-patrimonial
          ↓                               ↓
 "¿Cómo lo hago?"             →    Soap Opera Emails (5)
          ↓                               ↓
@@ -1192,14 +1236,14 @@ These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc
 | Duration | Use Case |
 |----------|----------|
 | 60 seconds | Reels, TikTok, Squeeze Page |
-| 3 minutes | Bridge Page (`/mapa-de-salida/gracias`) |
+| 3 minutes | Bridge Page (`/auditoria-confirmada`) |
 | 7 minutes | Webinar, Presentations |
 
 ### Two Different Audiences
 
 | Audience | Villain | Page |
 |----------|---------|------|
-| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /mapa-de-salida, /fundadores |
+| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /auditoria-patrimonial, /fundadores |
 | **Traditional networkers** (know MLM) | "Haz una lista de 100" | /socios |
 
 **Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".

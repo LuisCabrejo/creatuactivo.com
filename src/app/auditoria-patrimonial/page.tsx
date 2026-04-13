@@ -352,21 +352,6 @@ export default function AuditoriaPatrimonialPage() {
               </button>
             </form>
 
-            {/* Social proof */}
-            <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              gap: '10px', marginTop: '20px',
-            }}>
-              <div style={{ height: '1px', flex: 1, background: C.divider }} />
-              <p style={{
-                fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
-                letterSpacing: '0.15em', textTransform: 'uppercase',
-                color: C.muted, whiteSpace: 'nowrap',
-              }}>
-                +2,400 perfiles han ejecutado esta auditoría técnica
-              </p>
-              <div style={{ height: '1px', flex: 1, background: C.divider }} />
-            </div>
           </div>
         </section>
 

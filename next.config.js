@@ -132,6 +132,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/mapa-de-salida/:constructorId',
+        destination: '/auditoria-patrimonial/:constructorId',
+        permanent: true,
+      },
+      {
         source: '/mapa-de-salida/gracias',
         destination: '/auditoria-confirmada',
         permanent: true,

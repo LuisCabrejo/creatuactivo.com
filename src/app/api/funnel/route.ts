@@ -23,7 +23,7 @@ const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+1415
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
 
 // Eventos que son solo tracking de página (no requieren email)
-const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo', 'vio_calculadora']
+const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo', 'vio_calculadora', 'vio_bridge_auditoria']
 
 // Notifica al constructor en el dashboard (fire-and-forget)
 async function notifyConstructor(constructorId: string, title: string, body: string, url = '/inteligencia/primer-iniciar') {

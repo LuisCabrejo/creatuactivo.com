@@ -11,7 +11,7 @@
  * Basado en Dashboard SW v1.0.9 (2025-12-17)
  */
 
-const CACHE_VERSION = '1.1.0';
+const CACHE_VERSION = '1.2.0';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache
@@ -28,7 +28,10 @@ const BYPASS_CACHE_PATTERNS = [
   '/tracking.js',  // Siempre fresh para fingerprinting
   'supabase.co',
   'anthropic.com',
-  'placehold.co'   // Imágenes placeholder externas
+  'placehold.co',   // Imágenes placeholder externas
+  // URLs legacy redirigidas (301 en next.config.js) — siempre ir a red
+  '/mapa-de-salida',
+  '/reto-5-dias',
 ];
 
 // ============================================================================

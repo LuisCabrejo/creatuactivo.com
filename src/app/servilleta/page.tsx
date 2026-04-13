@@ -1230,7 +1230,7 @@ export default function ServilletaPage() {
                     <span style={{ color: 'var(--cyan)' }}>CAPA TECNOL&Oacute;GICA</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> Plataforma de inteligencia artificial que opera 24 horas. Automatiza la presentaci&oacute;n, el filtrado de perfiles y la conversi&oacute;n sin intervenci&oacute;n manual.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted orquesta el flujo de tr&aacute;fico hacia el sistema desde su dispositivo. La infraestructura opera. Usted dirige y cobra.
+                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted dirige el flujo de tr&aacute;fico hacia el sistema desde su dispositivo. La infraestructura opera. Usted decide y cobra.
                   </div>
                 </div>
               </div>

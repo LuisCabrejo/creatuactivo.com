@@ -389,7 +389,7 @@ export default function PlanesTecnologicosPage() {
                   price="$99"
                   priceCOP="445.500"
                   priceLabel="USD / mes"
-                  profile="Para perfiles directivos que orquestan tráfico en múltiples mercados internacionales con expansión global."
+                  profile="Para perfiles directivos que gestionan tráfico en múltiples mercados internacionales con expansión global."
                   metrics={[
                     { label: 'Prospectos', value: 'Ilimitados' },
                     { label: 'Conversaciones', value: 'Ilimitadas' },

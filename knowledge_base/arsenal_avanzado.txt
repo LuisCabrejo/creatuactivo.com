@@ -14,7 +14,7 @@
 
 La percepción de anomalía es el resultado natural de evaluar una infraestructura digital utilizando los parámetros de un negocio analógico.
 
-En el entorno comercial tradicional, la expansión exige fricción: adquisición de bodegas, escalabilidad de nóminas y gestión de inventario físico. En nuestra arquitectura, la corporación matriz absorbe el 100% de la carga logística, mientras que el algoritmo de inteligencia artificial asume la prospección y filtrado de datos. Su intervención como orquestador se limita estrictamente a la dirección estratégica y la conexión de perfiles calificados.
+En el entorno comercial tradicional, la expansión exige fricción: adquisición de bodegas, escalabilidad de nóminas y gestión de inventario físico. En nuestra arquitectura, la corporación matriz absorbe el 100% de la carga logística, mientras que el algoritmo de inteligencia artificial asume la prospección y filtrado de datos. Su intervención como Director se limita estrictamente a la dirección estratégica y la conexión de perfiles calificados.
 
 La optimización algorítmica siempre parecerá irreal para quien está acostumbrado a absorber el pasivo operativo.
 
@@ -54,7 +54,7 @@ El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En 
 ## ⚙️ MECÁNICA TÉCNICA (Lo que pasa tras bambalinas) - 3 respuestas
 
 ### ADV_TECH_01: "¿Puedo pausar mi negocio si me enfermo o viajo?"
-**[Concepto Nuclear]:** Inercia Operativa Estructural. El activo opera bajo descentralización; la ausencia biológica del orquestador no detiene el ciclo logístico.
+**[Concepto Nuclear]:** Inercia Operativa Estructural. El activo opera bajo descentralización; la ausencia biológica del Director no detiene el ciclo logístico.
 
 La ventaja técnica de un sistema distribuido es que la facturación no posee un interruptor central. Usted puede pausar su dirección operativa, pero su infraestructura no se detiene.
 
@@ -86,7 +86,7 @@ El ecosistema está diseñado sin un punto único de falla. Opera bajo un modelo
 
 **Capa Directiva:** La mesa de Arquitectos de Activos interviene de forma directa y exclusiva para resolver contingencias complejas de estrategia y escalabilidad.
 
-**Pregunta de cierre:** Al proyectar la expansión de su nodo, ¿le proporciona certidumbre delegar la operación sobre un sistema blindado por tres niveles independientes de soporte?
+**Pregunta de cierre:** Al proyectar la expansión de su Unidad Operativa, ¿le proporciona certidumbre delegar la operación sobre un sistema blindado por tres niveles independientes de soporte?
 
 ---
 
@@ -99,8 +99,8 @@ La primera velocidad del sistema está diseñada para generar inyecciones de liq
 
 Al operar con un calibre de capitalización ESP-3 (Visionario), la matemática de acoplamiento liquida de la siguiente manera:
 
-- Por cada Unidad de Ingreso (nodo directo) que usted acopla al ecosistema, la corporación le liquida **$150 USD**.
-- Por cada nodo indirecto (generado por la expansión de su red) usted percibe **$20 USD**, extendiéndose hasta la quinta generación de su estructura.
+- Por cada Unidad de Ingreso (unidad directa) que usted acopla al ecosistema, la corporación le liquida **$150 USD**.
+- Por cada Unidad Operativa indirecta (generado por la expansión de su red) usted percibe **$20 USD**, extendiéndose hasta la quinta generación de su estructura.
 
 **Pregunta de cierre:** A nivel de flujo de caja corporativo, ¿le resulta clara la mecánica de inyección de capital durante la fase de cimentación de su red?
 
@@ -111,9 +111,9 @@ Al operar con un calibre de capitalización ESP-3 (Visionario), la matemática d
 
 La segunda velocidad del modelo es el objetivo estructural: ingresos desvinculados de su presencia física.
 
-El ecosistema tecnológico audita el volumen global de su red en ambos frentes logísticos (izquierdo y derecho) sin importar la profundidad de la conexión. La corporación le liquida hasta el **17%** sobre su nodo de facturación recurrente. Si 1,000 personas consumen la tecnología en el continente, usted factura por todas ellas.
+El ecosistema tecnológico audita el volumen global de su red en ambos frentes logísticos (izquierdo y derecho) sin importar la profundidad de la conexión. La corporación le liquida hasta el **17%** sobre su Unidad Operativa de facturación recurrente. Si 1,000 personas consumen la tecnología en el continente, usted factura por todas ellas.
 
-Opera estrictamente como un peaje logístico: usted no fabrica la tecnología, no la empaca y no la transporta; simplemente es el orquestador de la plataforma por donde fluye el consumo cautivo diario.
+Opera estrictamente como un peaje logístico: usted no fabrica la tecnología, no la empaca y no la transporta; simplemente es el Director de la plataforma por donde fluye el consumo cautivo diario.
 
 **Pregunta de cierre:** ¿Visualiza la diferencia financiera entre cobrar una sola vez por su tiempo y percibir regalías perpetuas por el tráfico de un ecosistema operativo?
 
@@ -148,11 +148,11 @@ Convierte su consumo biológico preventivo en el único costo de mantenimiento d
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 2 respuestas
 
 ### ADV_SIST_01: "¿Cuál es la diferencia entre un operador y un Constructor?"
-**[Concepto Nuclear]:** Dirección vs. Micro-gestión Operativa. La transición de la ejecución manual a la orquestación de infraestructura.
+**[Concepto Nuclear]:** Dirección vs. Micro-gestión Operativa. La transición de la ejecución manual a la dirección de infraestructura.
 
 La diferencia es estrictamente estructural. En el entorno corporativo, el operador se enfoca en la transacción manual: ejecuta labores físicas para generar rentabilidad inmediata, limitando su liquidez a su resistencia biológica.
 
-El Arquitecto de Patrimonio, por el contrario, audita la infraestructura: diseña e implementa sistemas automatizados para procesar tráfico sin su intervención directa. Nuestra plataforma no forja operadores de ventas; transfiere la tecnología para formar orquestadores de nodos logísticos.
+El Arquitecto de Patrimonio, por el contrario, audita la infraestructura: diseña e implementa sistemas automatizados para procesar tráfico sin su intervención directa. Nuestra plataforma no forja operadores de ventas; transfiere la tecnología para formar Directores de Unidades Operativas.
 
 **Pregunta de cierre:** A nivel de estrategia profesional, ¿su objetivo actual es aumentar sus horas de operación manual en el mercado, o diseñar la arquitectura de un flujo de caja automatizado?
 
@@ -163,7 +163,7 @@ El Arquitecto de Patrimonio, por el contrario, audita la infraestructura: diseñ
 
 La proyección corporativa a cinco años establece la interconexión de 4 millones de usuarios en América, consolidando la "Grid" de distribución de tecnología nutricional más eficiente del continente.
 
-En esta fase de cimentación, el objetivo no es captar consumidores finales; es estructurar los nodos directivos que formarán el cableado de la red. Para 2030, el mercado masivo transaccionará a través de esta infraestructura de forma orgánica. Hoy, la posición que se transfiere es la concesión matriz sobre esos rieles.
+En esta fase de cimentación, el objetivo no es captar consumidores finales; es estructurar las Unidades Operativas directivas que formarán el cableado de la red. Para 2030, el mercado masivo transaccionará a través de esta infraestructura de forma orgánica. Hoy, la posición que se transfiere es la concesión matriz sobre esos rieles.
 
 **Pregunta de cierre:** Como analista de tendencias, ¿su portafolio busca integrarse en la fase madura como un consumidor de tecnología, o prefiere adquirir los derechos logísticos durante su fase de despliegue?
 
@@ -202,9 +202,9 @@ Para optimizar su tiempo, evitar redundancia de datos y enlazar su expediente co
 ### FUND_01: "¿De qué trata la oportunidad de los 15 Fundadores y cuándo empieza?"
 **[Concepto Nuclear]:** Posicionamiento de Anclaje ("Activación sobre Planos"). Ejecución de tracción logística anticipada antes del lanzamiento orgánico.
 
-La apertura logística global de la plataforma operará el **01 de junio de 2026**. La actual validación de 15 Nodos de Anclaje obedece a una ventana técnica de tracción anticipada.
+La apertura logística global de la plataforma operará el **01 de junio de 2026**. La actual validación de 15 Unidades de Anclaje obedece a una ventana técnica de tracción anticipada.
 
-La mecánica es idéntica a la adquisición de propiedad raíz: la estructuración sobre planos garantiza exclusividad logística y margen corporativo máximo. Estos 15 orquestadores recibirán la transferencia técnica para cimentar sus propias redes de suministro en un entorno controlado, antes de que el tráfico masivo sea inyectado al servidor.
+La mecánica es idéntica a la adquisición de propiedad raíz: la estructuración sobre planos garantiza exclusividad logística y margen corporativo máximo. Estos 15 Directores recibirán la transferencia técnica para cimentar sus propias redes de suministro en un entorno controlado, antes de que el tráfico masivo sea inyectado al servidor.
 
 **Pregunta de cierre:** A nivel de proyección ejecutiva, ¿su estrategia es asegurar la plusvalía del posicionamiento en fase de cimentación, o evaluará el modelo en su fase de apertura pública?
 
@@ -221,7 +221,7 @@ La operativa se rige por la Metodología EAM, un protocolo diseñado estrictamen
 
 **Maestría:** Adquisición continua de inteligencia patrimonial a través del ecosistema académico, elevando la eficiencia de sus decisiones de dirección.
 
-**Pregunta de cierre:** ¿Identifica la superioridad operativa de orquestar un sistema de filtrado automatizado en lugar de ejecutar la persuasión directa en frío?
+**Pregunta de cierre:** ¿Identifica la superioridad operativa de dirigir un sistema de filtrado automatizado en lugar de ejecutar la persuasión directa en frío?
 
 ---
 
@@ -230,7 +230,7 @@ La operativa se rige por la Metodología EAM, un protocolo diseñado estrictamen
 
 La dependencia formativa es una falla estructural en los modelos de negocio tradicionales. Si la expansión de su ecosistema demanda su presencia física para capacitar a los nuevos perfiles, usted no posee un negocio automatizado; posee un empleo de mentoría.
 
-Nuestra infraestructura neutraliza ese pasivo delegando la capacitación a la tecnología. Su función se limita a la dirección del nodo; la Academia funciona como una plataforma de forja industrial que transfiere la inteligencia financiera a su organización, mientras que este motor algorítmico asume el soporte operativo 24/7.
+Nuestra infraestructura neutraliza ese pasivo delegando la capacitación a la tecnología. Su función se limita a la dirección de la Unidad Operativa; la Academia funciona como una plataforma de forja industrial que transfiere la inteligencia financiera a su organización, mientras que este motor algorítmico asume el soporte operativo 24/7.
 
 **Pregunta de cierre:** ¿Visualiza la escalabilidad financiera que proporciona un ecosistema donde la curva de aprendizaje de sus ramificaciones logísticas no requiere absorber su agenda diaria?
 

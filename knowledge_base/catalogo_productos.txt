@@ -1,5 +1,5 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v6.0 JOBS/NAVAL
-**Precios Verificados 2026**
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.0
+**Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
 
 **[Concepto Nuclear]:** Ganoderma Lucidum con tecnología de extracción propietaria. 30+ años de investigación. 200+ compuestos bioactivos. Biodisponibilidad 100%.
 
@@ -9,28 +9,21 @@
 
 ### PROD_01: "¿Por qué el café es el producto estrella?"
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
-**[Concepto Nuclear]:** El café abre puertas que ningún suplemento puede abrir.
+**[Concepto Nuclear]:** Penetración Logística sin Fricción. Monetización de un hábito biológico inquebrantable.
 
-El café es el producto más democrático del mundo. Es el hábito diario de millones de hogares en América.
+A nivel de diseño de negocios, el vehículo de distribución primario es el café porque posee barrera de entrada cero. No requiere modificar la conducta del mercado.
 
-**La lógica es simple:**
-- No cambias hábitos. Los mejoras.
-- Barrera de entrada cero.
-- Conversión natural: cliente de café → cliente del ecosistema.
+La lógica operativa es matemática: en lugar de educar a un cliente para que adquiera un nuevo hábito, usted integra tecnología celular de grado médico en una bebida que el mercado ya consume por necesidad biológica diaria. La conversión de consumidor tradicional a usuario del ecosistema ocurre de forma orgánica.
 
 ---
 
 ### PROD_02: "¿Por qué los clientes no se van?"
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
-**[Concepto Nuclear]:** Retención natural. El hábito del café diario genera lealtad espontánea.
+**[Concepto Nuclear]:** Retención Orgánica y Re-consumo Automático.
 
-Una vez que el cuerpo experimenta la diferencia del Ganoderma en su café diario, difícilmente quiere volver al café común.
+La estabilidad del flujo de caja se fundamenta en la alta tasa de retención de la infraestructura (superior al 85%).
 
-**Los números:**
-- Consumo habitual: El café es parte de la rutina diaria.
-- Recompra constante: No hay que volver a presentar el producto.
-- Retención 85%+: Raramente vuelven a café común.
-- Lifetime Value: 36+ meses de consumo promedio.
+Una vez que el sistema metabólico del usuario experimenta la diferencia biológica del Ganoderma lucidum frente al café convencional, la transición es definitiva. El re-consumo no depende de persuasión comercial ni de recordatorios; se ejecuta automáticamente como parte de la rutina diaria del usuario. Esto garantiza que el Director perciba regalías ininterrumpidas (Lifetime Value superior a 36 meses) por un esfuerzo de acoplamiento ejecutado una sola vez.
 
 ---
 
@@ -45,23 +38,25 @@ La línea de cuidado personal abre otra puerta:
 ---
 
 ### PROD_04: "¿Cómo funciona el modelo LUVOCO?"
-**[Concepto Nuclear]:** Razor & Blade. El negocio está en las cápsulas, no en la máquina.
+**[Concepto Nuclear]:** Modelo de Consumo Recurrente por Ecosistema Cerrado. El ingreso reside en las cápsulas, no en la terminal de preparación.
 
-Igual que Nespresso:
-- Máquina LUVOCO: $1,026,000 (una vez)
-- Cápsulas mensuales: $110,900 × 12 = $1,330,800/año
-- En 12 meses: 2.3x el valor de la máquina en cápsulas
-- Exclusividad: Solo funcionan en máquina LUVOCO
+La lógica financiera opera en dos capas:
+
+- **Terminal de activación (única):** Máquina LUVOCO $1,026,000 — inversión de una sola vez
+- **Consumo recurrente:** Cápsulas $110,900/mes × 12 = $1,330,800/año
+- **Retorno sobre terminal:** En 12 meses el consumo de cápsulas supera 2.3x el valor de la máquina
+- **Exclusividad de insumo:** Las cápsulas son de uso exclusivo con la terminal LUVOCO
 
 ---
 
-### PROD_05: "¿Cuál es el upsell natural?"
-**[Concepto Nuclear]:** Alto Margen. De café a suplementos. El upgrade lógico.
+### PROD_05: "¿Cuál es la progresión natural del portafolio?"
+**[Concepto Nuclear]:** Escalada de Concentración. La lógica de progresión del consumidor es técnicamente predecible.
 
-Una vez confían en los cafés, los suplementos son el siguiente paso:
-- Margen superior en cápsulas concentradas.
-- Venta consultiva: "Si el café te ayudó, imagina las cápsulas puras."
-- Ticket promedio: De $110K → $380K/mes.
+Una vez que el usuario valida la respuesta biológica a las bebidas funcionales, la transición a suplementos concentrados es consecuencia natural — no requiere persuasión comercial:
+
+- **Concentración superior:** Las cápsulas contienen la dosis activa sin dilución en líquido
+- **Lógica de escalada documentada:** El usuario que experimenta respuesta en bebidas busca optimización de dosis
+- **Progresión de inversión mensual:** De $110,900 (bebidas) → $272,500–$336,900 (suplementos concentrados)
 
 ---
 
@@ -122,7 +117,7 @@ Una vez confían en los cafés, los suplementos son el siguiente paso:
 - Spray Drying: Extracto 100% hidrosoluble
 
 **Diferencia clave:**
-El polvo de hongo tiene biodisponibilidad limitada. El extracto Gano Excel es 100% hidrosoluble. Es como masticar granos de café vs. tomar un espresso perfectamente extraído.
+El polvo de hongo tiene biodisponibilidad limitada por la pared celular de quitina no digerida. El extracto Gano Excel es 100% hidrosoluble: la tecnología de extracción dual elimina la barrera de absorción y garantiza asimilación completa por el sistema gastrointestinal.
 
 ---
 
@@ -194,7 +189,7 @@ Sí, el Ganocafé contiene cafeína natural. Sin embargo, la proporción es sign
 
 **La relación es 13 a 1:** necesitarías tomar 13 tazas de café convencional para equivaler a la cantidad de cafeína de 1 taza de Ganocafé. Esto es lo que permite la energía sostenida sin el nerviosismo ni el "crash" de la tarde.
 
-El resultado práctico: puedes tomar tu café en la mañana y no sentir la sobreestimulación ni la caída brusca de energía que produce el café con alta concentración de cafeína.
+El resultado práctico: puede tomar su café en la mañana y no sentir la sobreestimulación ni la caída brusca de energía que produce el café con alta concentración de cafeína.
 
 ---
 
@@ -256,7 +251,7 @@ Profesionales mayores de 30 que quieren que su rutina diaria también cuide su p
 ## CATEGORÍA 2: LÍNEA LUVOCO
 
 ### LUV_01: "¿Qué es el sistema LUVOCO?"
-**[Concepto Nuclear]:** Razor & Blade. Máquina italiana + cápsulas exclusivas.
+**[Concepto Nuclear]:** Ecosistema Cerrado de Consumo Recurrente. Terminal italiana de precisión + insumo exclusivo propietario.
 
 | Producto | Precio COP | Descripción |
 |----------|------------|-------------|
@@ -272,7 +267,7 @@ Cápsulas exclusivas para máquina LUVOCO. No compatibles con Nespresso.
 ## CATEGORÍA 3: SUPLEMENTOS AVANZADOS
 
 ### SUP_01: "¿Cuáles son los suplementos concentrados?"
-**[Concepto Nuclear]:** Alto Margen. Máxima concentración de Ganoderma. Upsell natural.
+**[Concepto Nuclear]:** Dosis Terapéutica de Máxima Concentración. Tecnología activa sin dilución.
 
 | Producto | Precio COP | Duración | Enfoque |
 |----------|------------|----------|---------|
@@ -312,22 +307,24 @@ Ganoderma tiene seguridad documentada:
 - Efectos secundarios: Raros y leves (<5% usuarios)
 
 **Consultar médico si:**
-- Tomas anticoagulantes
-- Usas inmunosupresores
-- Tienes cirugía programada (suspender 2 semanas antes)
+- Toma anticoagulantes
+- Usa inmunosupresores
+- Tiene cirugía programada (suspender 2 semanas antes)
 
 ---
 
 ### FAQ_02: "¿Cuánto tiempo para notar beneficios?"
-**[Concepto Nuclear]:** No es estimulante. Trabaja a nivel celular. Consistencia es clave.
+**[Concepto Nuclear]:** Acumulación Celular vs. Estimulación Artificial.
 
-| Plazo | Beneficios |
-|-------|------------|
-| Días-2 semanas | Energía, claridad mental, mejor sueño |
-| 4-8 semanas | Soporte inmune, mejor digestión |
-| 3-6 meses | Sistema inmune fuerte, balance metabólico |
+La tecnología celular del Ganoderma no opera bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
 
-Ganoderma no da un "rush" inmediato. Es como ir al gimnasio: los beneficios se acumulan.
+| Plazo | Proceso Biológico |
+|-------|-------------------|
+| Días–2 semanas | Estabilización energética, claridad mental, optimización del ciclo de sueño |
+| 4–8 semanas | Soporte inmunológico documentado, optimización de procesos digestivos |
+| 3–6 meses | Fortalecimiento de respuesta inmune y balance metabólico sostenido |
+
+Los beneficios biológicos se acumulan y consolidan mediante el consumo consistente, respaldados por la absorción del 100% de su extracto hidrosoluble.
 
 ---
 
@@ -345,7 +342,7 @@ Ganoderma no da un "rush" inmediato. Es como ir al gimnasio: los beneficios se a
 
 ---
 
-### FAQ_04: "¿Qué producto recomiendas por perfil?"
+### FAQ_04: "¿Qué producto sugiere por perfil de usuario?"
 **[Concepto Nuclear]:** Productos para cada estilo de vida.
 
 | Perfil | Productos |

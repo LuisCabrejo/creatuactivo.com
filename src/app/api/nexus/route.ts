@@ -3201,7 +3201,7 @@ ${summaryParts.join('\n')}
       // haciendo preguntas (precios, compensación, productos). Permitir flujo normal.
       const botMsgs = messages.filter((m: any) => m.role === 'assistant');
       const estadoTresYaEntregado = botMsgs.some((m: any) =>
-        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio dirigir/i.test(m.content || '')
       );
       if (estadoTresYaEntregado) return false; // Estado 3 ya entregado → flujo normal
 
@@ -3449,7 +3449,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     //   El LLM actúa como procesador semántico, NO como tomador de decisiones.
     //   El backend (este código) detecta y controla el estado — no el model.
     //   Patrón: Graph Prompting (Bland AI / 11x.ai / Salesforce Atlas)
-    //   Cada estado recibe SOLO el micro-prompt de su nodo. El modelo es
+    //   Cada estado recibe SOLO el micro-prompt de su Unidad. El modelo es
     //   "localmente omnisciente pero globalmente ignorante" — no puede alucinar
     //   pasos que no existen en su topología inmediata.
     //
@@ -3468,7 +3468,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // ── POST-ESTADO 4: si el link WA ya fue entregado esta sesión → flujo normal ──
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
       const waLinkEntregado = allBotMsgs.some((m: any) =>
-        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i.test(m.content || '')
+        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio dirigir/i.test(m.content || '')
       );
       if (waLinkEntregado) return { closingState: 0 as const, directPaquetes: false };
 
@@ -3518,7 +3518,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     console.log(`🔀 [FSM] closing_state=${closingState} | package="${mergedProspectData.package || 'none'}" | msg="${latestUserMessage.substring(0, 40)}"`);
 
     // ── MICRO-PROMPTS POR ESTADO (Graph Prompting) ───────────────────────────
-    // Cada estado recibe SOLO las instrucciones de su nodo.
+    // Cada estado recibe SOLO las instrucciones de su Unidad.
     // El modelo no conoce los estados vecinos → imposible alucinar pasos futuros.
     const nombre = mergedProspectData.name || 'prospecto';
 
@@ -3550,7 +3550,7 @@ Seleccione el módulo de análisis:
 Tu única tarea en este turno: hacer UNA sola pregunta sobre disponibilidad de tiempo.
 Imprime EXACTAMENTE este texto (reemplaza [NOMBRE] con "${nombre}"):
 
-${nombre}, perfecto. La postura directiva es la correcta. Su paso inmediato es una Validación de Arranque rápida. La primera variable es su ancho de banda operativo: ¿cuántas horas a la semana puede asignar con total enfoque para orquestar este activo? (Sugerimos de 7 a 10 horas).
+${nombre}, perfecto. La postura directiva es la correcta. Su paso inmediato es una Validación de Arranque rápida. La primera variable es su ancho de banda operativo: ¿cuántas horas a la semana puede asignar con total enfoque para dirigir este activo? (Sugerimos de 7 a 10 horas).
 
 STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espera la respuesta.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3631,7 +3631,7 @@ He consolidado su expediente. Su único paso ahora es hacer clic en el siguiente
 
 [📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=${waText})
 
-Bienvenido a la mesa directiva. Ha sido un privilegio orquestar su evaluación.
+Bienvenido a la mesa directiva. Ha sido un privilegio dirigir su evaluación.
 
 STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;

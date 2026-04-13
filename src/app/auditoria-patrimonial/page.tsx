@@ -286,7 +286,7 @@ export default function AuditoriaPatrimonialPage() {
                     fontFamily: "'Roboto Mono', monospace",
                     letterSpacing: '0.12em', textTransform: 'uppercase',
                   }}>
-                    Nombre del Orquestador
+                    Nombre del Director
                   </label>
                   <input
                     type="text"

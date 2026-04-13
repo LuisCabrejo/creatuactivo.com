@@ -137,7 +137,7 @@ function HeroSection() {
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-          ¿Nodo activo?{' '}
+          ¿Unidad Operativa activa?{' '}
           <Link href="https://queswa.app" style={{ color: C.gold, textDecoration: 'none' }}>
             Ingresar al Protocolo Queswa →
           </Link>
@@ -411,7 +411,7 @@ function SolutionPreview() {
 
 function QueswaDiferenciadorSection() {
   const capacidades = [
-    { titulo: 'Gestión de Nodos 24/7', desc: 'IA califica y acopla demanda sin intervención humana.' },
+    { titulo: 'Gestión de Unidades Operativas 24/7', desc: 'IA califica y acopla demanda sin intervención humana.' },
     { titulo: 'Dashboard de Activos en Tiempo Real', desc: 'Monitoreo clínico de flujos recurrentes.' },
     { titulo: 'Protocolo de Expansión', desc: 'Material de ingeniería para escalabilidad de red.' },
   ];

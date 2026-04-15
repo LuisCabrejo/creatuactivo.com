@@ -17,14 +17,16 @@ const supabase = createClient(
 
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
-  'presentacion': (id) => `/presentacion-empresarial/${id}`,
-  'reto':         (id) => `/reto-12-niveles/${id}`,
-  'fundadores':   (id) => `/fundadores/${id}`,
+  'auditoria':     (id) => `/auditoria-patrimonial?ref=${id}`,
+  'productos':     (id) => `/sistema/productos/${id}`,
+  'servilleta':    (id) => `/servilleta/${id}`,
+  'fundadores':    (id) => `/fundadores/${id}`,
   'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
-  'red':          (id) => `/fundadores-network/${id}`,
-  'productos':    (id) => `/sistema/productos/${id}`,
-  'activacion':   (id) => `/auditoria-patrimonial?ref=${id}`,
-  'servilleta':   (id) => `/servilleta/${id}`,
+  'red':           (id) => `/fundadores-network/${id}`,
+  // Legado — siguen funcionando si alguien tiene el link guardado
+  'presentacion':  (id) => `/presentacion-empresarial/${id}`,
+  'reto':          (id) => `/reto-12-niveles/${id}`,
+  'activacion':    (id) => `/auditoria-patrimonial?ref=${id}`,
 }
 
 export default async function DestinoRedirect({
@@ -55,11 +57,7 @@ export default async function DestinoRedirect({
 }
 
 // Metadata mínima para el período entre request y redirect
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string; destino: string }
-}) {
+export async function generateMetadata() {
   return {
     title: 'Redirigiendo... | CreaTuActivo',
     robots: { index: false },

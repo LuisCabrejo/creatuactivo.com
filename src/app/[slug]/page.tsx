@@ -9,7 +9,6 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,11 +17,9 @@ const supabase = createClient(
 
 // Destinos disponibles con su label y emoji
 const DESTINOS = [
-  { key: 'presentacion', label: 'Ver la presentación del negocio', emoji: '📊', desc: 'El modelo completo en 10 minutos' },
-  { key: 'reto',         label: 'Reto 12 Niveles',                 emoji: '🔥', desc: 'El reto de activación rápida' },
-  { key: 'productos',    label: 'Ver los productos',                emoji: '📦', desc: 'Catálogo Gano Excel completo' },
-  { key: 'servilleta',   label: 'La servilleta digital',            emoji: '🗺️', desc: 'El modelo en 4 diapositivas' },
-  { key: 'activacion',   label: 'Quiero empezar',                   emoji: '⚡', desc: 'Activa tu acceso ahora' },
+  { key: 'auditoria', label: 'Auditoría Patrimonial',   emoji: '🎯', desc: 'Descubre tu punto de partida' },
+  { key: 'productos',  label: 'Ver los productos',       emoji: '📦', desc: 'Catálogo Gano Excel completo' },
+  { key: 'servilleta', label: 'La servilleta digital',   emoji: '🗺️', desc: 'El modelo en 4 diapositivas' },
 ]
 
 async function getConstructorBySlug(slug: string) {
@@ -145,7 +142,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
         {DESTINOS.map((d) => (
           <a
             key={d.key}
-            href={`/creatuactivo.com/${slug}/${d.key}`}
+            href={`/${slug}/${d.key}`}
             style={{
               display: 'flex', alignItems: 'center', gap: '14px',
               padding: '16px 20px',

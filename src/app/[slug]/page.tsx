@@ -33,14 +33,21 @@ async function getConstructorBySlug(slug: string) {
 
   if (!slugData) return null
 
-  // Traer affiliationLink desde private_users
+  // Traer affiliation_link y profile_photo_url desde private_users
   const { data: userData } = await supabase
     .from('private_users')
-    .select('affiliationLink')
+    .select('affiliation_link, profile_photo_url')
     .eq('constructor_id', slugData.constructor_id)
     .single()
 
-  return { ...slugData, affiliationLink: userData?.affiliationLink ?? null }
+  // foto_url: preferir la del slug (ya sincronizada), fallback a profile_photo_url
+  const foto_url = slugData.foto_url || userData?.profile_photo_url || null
+
+  return {
+    ...slugData,
+    foto_url,
+    affiliationLink: userData?.affiliation_link ?? null,
+  }
 }
 
 // ── Metadata dinámica (Open Graph para WhatsApp) ───────────────

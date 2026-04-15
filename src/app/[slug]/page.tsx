@@ -25,12 +25,22 @@ const DESTINOS = [
 ]
 
 async function getConstructorBySlug(slug: string) {
-  const { data } = await supabase
+  const { data: slugData } = await supabase
     .from('constructor_slugs')
     .select('slug, display_name, foto_url, frase_personal, whatsapp, constructor_id')
     .eq('slug', slug)
     .single()
-  return data
+
+  if (!slugData) return null
+
+  // Traer affiliationLink desde private_users
+  const { data: userData } = await supabase
+    .from('private_users')
+    .select('affiliationLink')
+    .eq('constructor_id', slugData.constructor_id)
+    .single()
+
+  return { ...slugData, affiliationLink: userData?.affiliationLink ?? null }
 }
 
 // ── Metadata dinámica (Open Graph para WhatsApp) ───────────────
@@ -68,7 +78,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
   const constructor = await getConstructorBySlug(params.slug)
   if (!constructor) notFound()
 
-  const { slug, display_name, foto_url, frase_personal, whatsapp } = constructor
+  const { slug, display_name, foto_url, frase_personal, whatsapp, affiliationLink } = constructor
   const nombre = display_name || slug
   const initials = nombre.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
   const waUrl = whatsapp
@@ -164,6 +174,30 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
             <span style={{ color: '#C8A84B', fontSize: '1rem' }}>→</span>
           </a>
         ))}
+
+        {/* Activación Directa */}
+        {affiliationLink && (
+          <a
+            href={affiliationLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '14px',
+              padding: '16px 20px',
+              background: '#0d0d0d',
+              border: '1px solid rgba(200,168,75,0.25)',
+              color: '#F5F5F0', textDecoration: 'none',
+              clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+            }}
+          >
+            <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>⚡</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.03em' }}>Activación</div>
+              <div style={{ fontSize: '0.75rem', color: '#6B6B5A', marginTop: '2px' }}>Únete directamente a mi equipo</div>
+            </div>
+            <span style={{ color: '#C8A84B', fontSize: '1rem' }}>→</span>
+          </a>
+        )}
 
         {/* WhatsApp directo */}
         {waUrl && (

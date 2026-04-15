@@ -17,9 +17,11 @@ const supabase = createClient(
 
 // Destinos disponibles con su label y emoji
 const DESTINOS = [
-  { key: 'auditoria', label: 'Auditoría Patrimonial',   emoji: '🎯', desc: 'Descubre tu punto de partida' },
-  { key: 'productos',  label: 'Ver los productos',       emoji: '📦', desc: 'Catálogo Gano Excel completo' },
-  { key: 'servilleta', label: 'La servilleta digital',   emoji: '🗺️', desc: 'El modelo en 4 diapositivas' },
+  { key: 'auditoria',   label: 'Auditoría Patrimonial',      emoji: '🎯', desc: 'Descubre tu punto de partida' },
+  { key: 'calculadora', label: 'Calculadora de Ingresos',    emoji: '🧮', desc: 'Proyecta tu potencial' },
+  { key: 'productos',   label: 'Ver los productos',          emoji: '📦', desc: 'Catálogo Gano Excel completo' },
+  { key: 'servilleta',  label: 'La servilleta digital',      emoji: '🗺️', desc: 'El modelo en 4 diapositivas' },
+  { key: 'home',        label: 'CreaTuActivo.com',           emoji: '🏠', desc: 'Conoce la plataforma' },
 ]
 
 async function getConstructorBySlug(slug: string) {

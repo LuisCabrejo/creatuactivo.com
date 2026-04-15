@@ -18,8 +18,10 @@ const supabase = createClient(
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'auditoria':     (id) => `/auditoria-patrimonial?ref=${id}`,
+  'calculadora':   (id) => `/calculadora/${id}`,
   'productos':     (id) => `/sistema/productos/${id}`,
   'servilleta':    (id) => `/servilleta/${id}`,
+  'home':          (id) => `/?ref=${id}`,
   'fundadores':    (id) => `/fundadores/${id}`,
   'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
   'red':           (id) => `/fundadores-network/${id}`,

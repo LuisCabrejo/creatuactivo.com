@@ -57,7 +57,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   const nombre = constructor.display_name || params.slug
   const frase = constructor.frase_personal || 'Construyendo patrimonio paralelo.'
-  const foto = constructor.foto_url
+  // Stripping query params (?t=...) — WhatsApp OG scraper rejects images with query strings
+  const foto = constructor.foto_url?.split('?')[0] || null
 
   return {
     title: `${nombre} | CreaTuActivo`,

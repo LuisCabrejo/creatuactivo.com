@@ -25,13 +25,28 @@ const C = {
   divider: '#222',
 };
 
+const DIA = 1;
+
 function trackEvent(event: string) {
   try {
     const fp = (window as any).FrameworkIAA?.fingerprint;
     fetch('/api/nexus', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event, page: 'auditoria-dia-1', fingerprint: fp }),
+      body: JSON.stringify({ event, page: `auditoria-dia-${DIA}`, fingerprint: fp }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+
+function trackVideoProgress(dia: number, evento: 'play' | 'completado_80') {
+  try {
+    const fp = (window as any).FrameworkIAA?.fingerprint;
+    if (!fp) return;
+    fetch('/api/track/video', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint: fp, dia, evento }),
       keepalive: true,
     }).catch(() => {});
   } catch {}
@@ -45,11 +60,15 @@ export default function Modulo01Page() {
     const video = videoRef.current;
     if (!video) return;
 
-    const onPlay = () => trackEvent('video_play_modulo01');
+    const onPlay = () => {
+      trackEvent('video_play_modulo01');
+      trackVideoProgress(DIA, 'play');
+    };
     const onTimeUpdate = () => {
       if (!completedRef.current && video.duration > 0 && video.currentTime / video.duration >= 0.8) {
         completedRef.current = true;
         trackEvent('video_completed_80_modulo01');
+        trackVideoProgress(DIA, 'completado_80');
       }
     };
 

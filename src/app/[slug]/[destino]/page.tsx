@@ -25,6 +25,12 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'fundadores':    (id) => `/fundadores/${id}`,
   'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
   'red':           (id) => `/fundadores-network/${id}`,
+  // Auditoría — días individuales
+  'dia-1': (id) => `/auditoria-patrimonial/dia-1?ref=${id}`,
+  'dia-2': (id) => `/auditoria-patrimonial/dia-2?ref=${id}`,
+  'dia-3': (id) => `/auditoria-patrimonial/dia-3?ref=${id}`,
+  'dia-4': (id) => `/auditoria-patrimonial/dia-4?ref=${id}`,
+  'dia-5': (id) => `/auditoria-patrimonial/dia-5?ref=${id}`,
   // Legado — siguen funcionando si alguien tiene el link guardado
   'presentacion':  (id) => `/presentacion-empresarial/${id}`,
   'reto':          (id) => `/reto-12-niveles/${id}`,

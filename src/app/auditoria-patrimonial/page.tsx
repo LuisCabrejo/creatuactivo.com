@@ -320,12 +320,6 @@ export default function AuditoriaPatrimonialPage() {
                       required
                       className="ap-input"
                     />
-                    <p style={{
-                      fontSize: '0.65rem', color: C.muted, marginTop: '6px',
-                      fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
-                    }}>
-                      Recibirá las coordenadas de acceso aquí.
-                    </p>
                   </div>
                   <div>
                     <label style={{
@@ -344,12 +338,6 @@ export default function AuditoriaPatrimonialPage() {
                       required
                       className="ap-input"
                     />
-                    <p style={{
-                      fontSize: '0.65rem', color: C.muted, marginTop: '6px',
-                      fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
-                    }}>
-                      Solo para coordinar su acceso. Sin spam.
-                    </p>
                   </div>
                 </div>
 
@@ -370,13 +358,6 @@ export default function AuditoriaPatrimonialPage() {
                 </button>
               </div>
 
-              <p style={{
-                fontSize: '0.62rem', color: C.muted, textAlign: 'center',
-                marginTop: '14px', fontFamily: "'Roboto Mono', monospace",
-                letterSpacing: '0.08em',
-              }}>
-                Sin compromisos. Acceso inmediato. Sin tarjeta de crédito.
-              </p>
             </form>
 
           </div>

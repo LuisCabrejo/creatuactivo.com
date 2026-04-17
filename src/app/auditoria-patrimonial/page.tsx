@@ -111,27 +111,27 @@ export default function AuditoriaPatrimonialPage() {
       <style dangerouslySetInnerHTML={{ __html: `
         .ap-input {
           width: 100%;
-          padding: 14px 0;
-          background: transparent;
-          border: 0;
-          border-bottom: 1px solid ${C.divider};
+          padding: 14px 16px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 2px;
           color: ${C.white};
           font-size: 0.95rem;
           font-family: 'Rajdhani', sans-serif;
           letter-spacing: 0.04em;
-          transition: border-color 0.2s ease;
+          transition: border-color 0.2s ease, background 0.2s ease;
           box-sizing: border-box;
         }
         .ap-input::placeholder {
-          color: ${C.muted};
+          color: rgba(107,107,90,0.6);
           font-size: 0.85rem;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          font-family: 'Roboto Mono', monospace;
+          letter-spacing: 0.04em;
+          font-family: 'Rajdhani', sans-serif;
         }
         .ap-input:focus {
           outline: none;
-          border-bottom-color: ${C.gold};
+          border-color: rgba(200,168,75,0.5);
+          background: rgba(200,168,75,0.04);
         }
         .ap-btn-primary {
           width: 100%;
@@ -278,78 +278,105 @@ export default function AuditoriaPatrimonialPage() {
 
             {/* FORMULARIO */}
             <form onSubmit={handleSubmit}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '28px' }}>
-                <div>
-                  <label style={{
-                    display: 'block', fontSize: '0.62rem',
-                    color: C.muted, marginBottom: '2px',
-                    fontFamily: "'Roboto Mono', monospace",
-                    letterSpacing: '0.12em', textTransform: 'uppercase',
-                  }}>
-                    Nombre del Director
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Identificación"
-                    value={formData.nombre}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
-                    required
-                    className="ap-input"
-                  />
+              <div style={{
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                padding: '28px 24px 24px',
+                marginBottom: '0',
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.62rem',
+                      color: '#94A3B8', marginBottom: '8px',
+                      fontFamily: "'Roboto Mono', monospace",
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                    }}>
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ej. Carlos Mendoza"
+                      value={formData.nombre}
+                      onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                      required
+                      className="ap-input"
+                    />
+                  </div>
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.62rem',
+                      color: '#94A3B8', marginBottom: '8px',
+                      fontFamily: "'Roboto Mono', monospace",
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                    }}>
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="correo@dominio.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      required
+                      className="ap-input"
+                    />
+                    <p style={{
+                      fontSize: '0.65rem', color: C.muted, marginTop: '6px',
+                      fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
+                    }}>
+                      Recibirá las coordenadas de acceso aquí.
+                    </p>
+                  </div>
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.62rem',
+                      color: '#94A3B8', marginBottom: '8px',
+                      fontFamily: "'Roboto Mono', monospace",
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                    }}>
+                      WhatsApp
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="+57 300 000 0000"
+                      value={formData.whatsapp}
+                      onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
+                      required
+                      className="ap-input"
+                    />
+                    <p style={{
+                      fontSize: '0.65rem', color: C.muted, marginTop: '6px',
+                      fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
+                    }}>
+                      Solo para coordinar su acceso. Sin spam.
+                    </p>
+                  </div>
                 </div>
-                <div style={{ marginTop: '20px' }}>
-                  <label style={{
-                    display: 'block', fontSize: '0.62rem',
-                    color: C.muted, marginBottom: '2px',
-                    fontFamily: "'Roboto Mono', monospace",
-                    letterSpacing: '0.12em', textTransform: 'uppercase',
-                  }}>
-                    Correo Electrónico — Coordenadas de Recepción
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="correo@dominio.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    required
-                    className="ap-input"
-                  />
-                </div>
-                <div style={{ marginTop: '20px' }}>
-                  <label style={{
-                    display: 'block', fontSize: '0.62rem',
-                    color: C.muted, marginBottom: '2px',
-                    fontFamily: "'Roboto Mono', monospace",
-                    letterSpacing: '0.12em', textTransform: 'uppercase',
-                  }}>
-                    WhatsApp — Línea de Soporte Táctico
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+57 300 000 0000"
-                    value={formData.whatsapp}
-                    onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
-                    required
-                    className="ap-input"
-                  />
-                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting || isSuccess}
+                  className="ap-btn-primary"
+                  style={isSuccess ? { background: 'linear-gradient(135deg,#16a34a,#15803d)' } : undefined}
+                >
+                  {isSuccess ? (
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      <svg style={{ width: '16px', height: '16px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Acceso Procesado
+                    </span>
+                  ) : isSubmitting ? 'Procesando...' : 'Solicitar Acceso a la Auditoría →'}
+                </button>
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting || isSuccess}
-                className="ap-btn-primary"
-                style={isSuccess ? { background: 'linear-gradient(135deg,#16a34a,#15803d)' } : undefined}
-              >
-                {isSuccess ? (
-                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                    <svg style={{ width: '16px', height: '16px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    Acceso Procesado
-                  </span>
-                ) : isSubmitting ? 'Procesando...' : 'Solicitar Acceso a la Auditoría →'}
-              </button>
+              <p style={{
+                fontSize: '0.62rem', color: C.muted, textAlign: 'center',
+                marginTop: '14px', fontFamily: "'Roboto Mono', monospace",
+                letterSpacing: '0.08em',
+              }}>
+                Sin compromisos. Acceso inmediato. Sin tarjeta de crédito.
+              </p>
             </form>
 
           </div>

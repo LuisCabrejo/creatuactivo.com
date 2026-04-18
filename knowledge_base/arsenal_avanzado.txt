@@ -14,7 +14,7 @@
 
 La percepción de anomalía es el resultado natural de evaluar una infraestructura digital utilizando los parámetros de un negocio analógico.
 
-En el entorno comercial tradicional, la expansión exige fricción: adquisición de bodegas, escalabilidad de nóminas y gestión de inventario físico. En nuestra arquitectura, la corporación matriz absorbe el 100% de la carga logística, mientras que el algoritmo de inteligencia artificial asume la prospección y filtrado de datos. Su intervención como Director se limita estrictamente a la dirección estratégica y la conexión de perfiles calificados.
+En el entorno comercial tradicional, la expansión exige fricción: adquisición de bodegas, escalabilidad de nóminas y gestión de inventario físico. En nuestra arquitectura, la corporación matriz absorbe el 100% de la carga logística, mientras que el algoritmo de inteligencia artificial asume la prospección y filtrado de datos. Su intervención como Director se limita estrictamente a la dirección estratégica y la conexión de perfiles calificados. Los modelos tradicionales obligan al operador a firmar un contrato de desgaste físico permanente. Nosotros erradicamos esa fricción.
 
 La optimización algorítmica siempre parecerá irreal para quien está acostumbrado a absorber el pasivo operativo.
 
@@ -25,16 +25,13 @@ La optimización algorítmica siempre parecerá irreal para quien está acostumb
 ### ADV_OBJ_02: "Ya tengo un negocio exitoso, ¿para qué quiero esto?"
 **[Concepto Nuclear]:** Blindaje de Patrimonio y Diversificación de Activos.
 
-Precisamente porque eres inteligente.
-Sabes que depender de un solo motor es un riesgo de ingeniería. Si ese motor falla, el avión cae.
+Un negocio exitoso confirma capacidad de ejecución — no elimina la vulnerabilidad estructural. Depender de un solo motor es un riesgo de ingeniería: si ese motor falla, toda la arquitectura financiera se detiene.
 
-Este proyecto no compite con tu negocio actual; **lo blinda**.
-Tu negocio actual probablemente depende de tu operación (Ingreso Activo).
-Esto es un **Activo Descorrelacionado**: no depende de tu industria ni de tu tiempo.
+Este ecosistema no compite con su operación actual; la blinda. Su negocio genera Ingreso Activo — ligado a su presencia y a la estabilidad de su sector. Esto es un **Activo Descorrelacionado**: no depende de su industria, de su ciclo operativo ni de su intervención directa.
 
-**Piénsalo así:** Eres el dueño de un edificio. Aunque tengas tu oficina en el penthouse y trabajes mucho, el resto del edificio sigue cobrando rentas.
-Te invitamos a construir esa "renta" paralela para que, si tu industria principal entra en crisis, tu infraestructura personal te sostenga.
-**Pregunta de seguimiento:** ¿Tienes algún ingreso hoy que no dependa de tu sector actual?
+**Analogía:** Usted es propietario de un edificio. Aunque su oficina esté en el penthouse y opere a máxima capacidad, el resto del edificio sigue generando renta de forma autónoma. Esta infraestructura es ese activo paralelo — opera mientras su negocio principal avanza.
+
+**Pregunta de seguimiento:** A nivel de auditoría de riesgo: ¿cuenta usted con algún flujo de caja que continúe operando si su industria principal entra en contracción?
 
 ---
 
@@ -43,11 +40,11 @@ Te invitamos a construir esa "renta" paralela para que, si tu industria principa
 
 En internet, el 99% de la escasez es un truco barato. Aquí es un límite matemático.
 
-El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el equipo de liderazgo trabaja con grupos seleccionados de Constructores antes de esa apertura. La urgencia no es para presionarte a entrar — es porque el tiempo del equipo de liderazgo para acompañamiento táctico inicial es el recurso más limitado del sistema, no la tecnología.
+El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el equipo de liderazgo trabaja con grupos seleccionados de Constructores antes de esa apertura. La urgencia no es presión de cierre — es porque el tiempo del equipo de liderazgo para acompañamiento táctico inicial es el recurso más limitado del sistema, no la tecnología.
 
-**Piénsalo así:** La plataforma puede soportar a un millón de usuarios mañana mismo. Pero la capacidad del equipo de liderazgo para construir tus cimientos personales es finita. Esos 15 cupos son ese límite.
+**Analogía:** La plataforma puede soportar a un millón de usuarios mañana mismo. Pero la capacidad del equipo de liderazgo para establecer los cimientos de su infraestructura es finita. Esos 15 cupos son ese límite.
 
-**Pregunta de seguimiento:** ¿Prefieres construir tus cimientos con acompañamiento directo, o esperar al lanzamiento público?
+**Pregunta de seguimiento:** ¿Prefiere construir su infraestructura con acompañamiento directivo, o esperar al despliegue público?
 
 ---
 
@@ -228,7 +225,7 @@ La operativa se rige por la Metodología EAM, un protocolo diseñado estrictamen
 ### ADV_SIST_03: "¿Cómo funciona Queswa para mi equipo? ¿Yo tengo que enseñarles?"
 **[Concepto Nuclear]:** Duplicación Tecnológica Desatendida. Neutralización del riesgo de dependencia mediante la transferencia de conocimiento automatizada.
 
-La dependencia formativa es una falla estructural en los modelos de negocio tradicionales. Si la expansión de su ecosistema demanda su presencia física para capacitar a los nuevos perfiles, usted no posee un negocio automatizado; posee un empleo de mentoría.
+La dependencia formativa es uno de los síntomas más graves del Protocolo de la Presencia Obligada. Si la expansión de su ecosistema demanda su presencia física para capacitar a los nuevos perfiles, usted no posee un negocio automatizado; posee un empleo de mentoría.
 
 Nuestra infraestructura neutraliza ese pasivo delegando la capacitación a la tecnología. Su función se limita a la dirección de la Unidad Operativa; la Academia funciona como una plataforma de forja industrial que transfiere la inteligencia financiera a su organización, mientras que este motor algorítmico asume el soporte operativo 24/7.
 

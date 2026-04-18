@@ -34,13 +34,13 @@ const supabase = createClient(
 async function actualizarSystemPrompt() {
   console.log('📡 Conectando a Supabase...');
   console.log(`📄 Prompt cargado: ${promptContent.length} caracteres`);
-  console.log('🎯 Target: nexus_main → v25.0_perfil_puro\n');
+  console.log('🎯 Target: nexus_main → v25.1_arsenal_verbatim\n');
 
   const { data, error } = await supabase
     .from('system_prompts')
     .update({
       prompt: promptContent,
-      version: 'v25.0_perfil_puro',
+      version: 'v25.1_arsenal_verbatim',
       updated_at: new Date().toISOString(),
     })
     .eq('name', 'nexus_main')

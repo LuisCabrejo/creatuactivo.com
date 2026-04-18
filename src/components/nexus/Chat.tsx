@@ -169,7 +169,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
             value={input}
             onChange={handleInputChange}
             // 🔧 PLACEHOLDER SIMPLIFICADO
-            placeholder="Pregúntame sobre el sistema de distribución..."
+            placeholder="_ Escriba su consulta..."
             className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white text-gray-900"
             disabled={isLoading}
           />

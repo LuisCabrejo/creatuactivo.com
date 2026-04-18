@@ -62,9 +62,13 @@ El catálogo completo con precios en ganocafe.online (precio al público oficial
 - **Gano Fresh Toothpaste** — crema dental sin flúor. $73.900 (p.p. $96.900)
 - **Piel&Brillo Shampoo / Acondicionador / Exfoliante** — $73.900 c/u (p.p. $96.900)
 
-**Luvoco (masajeador de cuero cabelludo):**
-- **Luvoco** (suave / medio / fuerte) — $110.900 (p.p. $147.900)
-- **Máquina Luvoco** — disponible solo en Gano Excel directamente: $1.026.000
+**Luvoco (café en cápsulas con Ganoderma — sistema compatible con Máquina Luvoco):**
+- **Luvoco Suave** — Café Tostado Suave, suave y ligero. 15 cápsulas de 8g. $110.900 (p.p. $147.900)
+- **Luvoco Medio** — Café Tostado Mediano, refinado y distinto. 15 cápsulas de 8g. $110.900 (p.p. $147.900)
+- **Luvoco Fuerte** — Café Tostado Oscuro, rico e intenso. 15 cápsulas de 8g. $110.900 (p.p. $147.900)
+- **Máquina Luvoco** — cafetera para cápsulas Luvoco. $1.026.000 (disponible solo en Gano Excel directamente)
+
+Todas las cápsulas incluyen betaglucanos de Ganoderma lucidum, buena fuente de fibra, sin edulcorantes artificiales, sin sodio añadido.
 
 Si ya tomas café a diario, el **3 en 1** o el **Clásico** son el punto de entrada natural: mismo ritual, beneficio adicional — y con un ahorro real respecto al precio de lista oficial.
 
@@ -101,6 +105,29 @@ Personas activas, deportistas, o quien quiere un desayuno funcional sin recurrir
 **Precio:** $119.900 (precio al público: $156.900)
 **Presentación:** 15 sobres por caja
 Pedidos en ganocafe.online — envío express, despacho el mismo día.
+
+---
+
+### PROD_07: "¿Qué es Luvoco? / ¿cómo funciona? / ¿tienen cápsulas de café? / café en cápsulas / Luvoco suave / medio / fuerte"
+**[Concepto Nuclear]:** Luvoco — café en cápsulas con Ganoderma lucidum. Sistema propio de Gano Excel. Tres intensidades de tostado.
+
+**Luvoco** es la línea de café en cápsulas de Gano Excel, diseñada para prepararse en la **Máquina Luvoco** (cafetera de cápsulas propia de la marca).
+
+Cada cápsula combina café tostado de alta calidad con **betaglucanos de Ganoderma lucidum** — el mismo adaptógeno milenario presente en toda la línea GanoCafe, ahora en formato espresso.
+
+**Las tres intensidades:**
+- **Luvoco Suave** — Café Tostado Suave. "Suave y Ligero." Para quienes prefieren un café de sabor suave, sin amargor.
+- **Luvoco Medio** — Café Tostado Mediano. "Refinado y Distinto." El equilibrio entre cuerpo y suavidad.
+- **Luvoco Fuerte** — Café Tostado Oscuro. "Rico e Intenso." Para los amantes del espresso potente.
+
+**Presentación:** 15 cápsulas de 8g por caja — 120g neto, 15 porciones.
+**Sin edulcorantes artificiales. Sin sodio añadido. Buena fuente de fibra.**
+
+**Precios:**
+- Cápsulas (Suave / Medio / Fuerte): **$110.900** por caja (p.p. $147.900)
+- Máquina Luvoco: **$1.026.000** — disponible solo a través de Gano Excel directamente.
+
+Si te interesa el sistema completo (máquina + cápsulas), el proceso de adquisición de la máquina va directo con Gano Excel. Las cápsulas puedes pedirlas aquí en ganocafe.online. ¿Qué intensidad te llama más?
 
 ---
 
@@ -150,7 +177,7 @@ Si estás bajo tratamiento médico, consulta a tu médico antes de iniciar. El G
 ## BLOQUE 3: COMPRA Y LOGÍSTICA
 
 ### COMPRA_01: "¿Cómo compro? / ¿Cuánto cuesta?"
-**[Concepto Nuclear]:** Precio menor al público oficial. Envío gratis comprando 2+ unidades. Pago 100% online.
+**[Concepto Nuclear]:** Precio por debajo del precio al público oficial. Envío express nacional, despacho el mismo día. Pago 100% online.
 
 Los pedidos se realizan directamente en ganocafe.online.
 Proceso: seleccionas los productos → ingresas tu dirección → pagas en línea (tarjeta, PSE, Nequi).
@@ -267,7 +294,7 @@ Se requiere una compra inicial de mínimo **50 PV (Puntos de Volumen)**. Cada pr
 | Excellium Cápsulas | 41 | $272.500 |
 | CordyGold Cápsulas | 49 | $336.900 |
 | Jabón / Pasta / Cuidado personal | 10-12 | $73.900 |
-| Luvoco | 15 | $110.900 |
+| Luvoco (cápsulas Suave / Medio / Fuerte) | 15 | $110.900 |
 
 **Combinaciones sugeridas para llegar a 50 PV** (adaptar según lo que la persona ya consume):
 - 4 × Gano Café 3 en 1 = **60 PV** — $443.600 (ahorro $148.000 vs. p.p.)

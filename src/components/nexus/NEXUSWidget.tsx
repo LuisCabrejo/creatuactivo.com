@@ -50,23 +50,23 @@ interface NEXUSWidgetProps {
 
 // 🎯 Función para resaltar preguntas de captura en negrilla
 const highlightCaptureQuestions = (text: string) => {
-  // Patrones de preguntas de captura (nombre, ocupación, WhatsApp)
+  // Patrones de preguntas de captura (nombre, ocupación, WhatsApp) — tratamiento Usted
   const patterns = [
     // Nombre
-    /¿[Cc]ómo te llamas\?/g,
-    /¿[Cc]uál es tu nombre\?/g,
-    /¿[Mm]e compartes tu nombre\?/g,
-    /¿[Cc]ómo puedo llamarte\?/g,
-    // Ocupación (incluyendo variaciones con nombres)
-    /¿[Aa] qué te dedicas actualmente[^?]*\?/g, // Captura "¿A qué te dedicas actualmente, Federico?"
-    /¿[Cc]uál es tu ocupación[^?]*\?/g,
-    /¿[Aa] qué te dedicas\?/g,
-    /¿[Qq]ué haces\?/g,
+    /¿[Cc]ómo se llama[^?]*\?/g,
+    /¿[Cc]uál es su nombre[^?]*\?/g,
+    /¿[Bb]ajo qué nombre debo registrarlo[^?]*\?/g,
+    /¿[Cc]ómo debo registrarlo[^?]*\?/g,
+    // Ocupación
+    /¿[Aa] qué se dedica[^?]*\?/g,
+    /¿[Cc]uál es su ocupación[^?]*\?/g,
+    /¿[Cc]uál es su actividad[^?]*\?/g,
+    /¿[Ee]n qué sector opera[^?]*\?/g,
     // WhatsApp / Teléfono
-    /¿[Cc]uál es tu número de [Ww]hats[Aa]pp\?/g,
-    /¿[Mm]e compartes tu [Ww]hats[Aa]pp\?/g,
-    /¿[Cc]uál es tu teléfono\?/g,
-    /¿[Mm]e das tu contacto\?/g
+    /¿[Cc]uál es su número de [Ww]hats[Aa]pp[^?]*\?/g,
+    /¿[Mm]e comparte su [Ww]hats[Aa]pp[^?]*\?/g,
+    /¿[Cc]uál es su teléfono[^?]*\?/g,
+    /¿[Mm]e comparte su contacto[^?]*\?/g
   ];
 
   let highlighted = text;
@@ -833,7 +833,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   value={inputMessage}
                   onChange={handleTextareaChange}
                   onKeyDown={handleKeyDown}
-                  placeholder="_ Escribe tu consulta..."
+                  placeholder="_ Escriba su consulta..."
                   autoComplete="off"
                   autoCorrect="on"
                   autoCapitalize="sentences"

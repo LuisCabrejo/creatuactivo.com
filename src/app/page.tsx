@@ -7,6 +7,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import CognitiveLoadComparator from '@/components/CognitiveLoadComparator';
 
 export const dynamic = 'force-static';
 
@@ -87,27 +88,35 @@ function HeroSection() {
 
         {/* H1 */}
         <h1 style={{
-          fontSize: 'clamp(1.8rem, 5vw, 3.2rem)', lineHeight: 1.15,
-          marginBottom: '24px',
-          fontFamily: "'Playfair Display', Georgia, serif",
-          fontWeight: 600, color: '#ffffff',
+          fontSize: 'clamp(1.6rem, 4.5vw, 2.8rem)', lineHeight: 1.1,
+          marginBottom: '20px',
+          fontFamily: "'Rajdhani', sans-serif",
+          fontWeight: 700, color: C.gold,
+          letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          Su modelo de ingresos actual tiene un error de arquitectura:{' '}
-          <span style={{ color: C.gold }}>el 100% de su flujo de caja depende de su agotamiento biológico.</span>
+          Arquitectura de Patrimonio Paralelo
         </h1>
 
-        {/* Subtítulo */}
+        {/* Hook de diagnóstico */}
+        <p style={{
+          fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', lineHeight: 1.4,
+          marginBottom: '28px', color: C.white, fontWeight: 500,
+          fontFamily: "'Playfair Display', Georgia, serif",
+          textShadow: '0 2px 10px rgba(0,0,0,0.9)',
+        }}>
+          Usted no tiene un problema de ingresos;{' '}
+          <span style={{ color: C.gold }}>usted opera bajo el Protocolo de la Presencia Obligada.</span>
+        </p>
+
+        {/* Cuerpo */}
         <div style={{
           background: 'rgba(0,0,0,0.70)', padding: '20px 28px', marginBottom: '32px',
           borderLeft: `2px solid rgba(200,168,75,0.3)`,
         }}>
-          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.muted, maxWidth: '600px', margin: '0 auto 12px' }}>
-            Años de productividad invertidos en un sistema diseñado para el déficit operativo personal.{' '}
-            <span style={{ color: C.white, fontWeight: 500 }}>Queswa es la infraestructura de IA diseñada para desvincular su patrimonio de su presencia física.</span>
-          </p>
-          <p style={{ fontSize: '0.85rem', margin: 0, fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
-            Diseñado por Luis Cabrejo · <span style={{ color: C.gold }}>Dirección Corporativa</span>
+          <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
+            Diagnostique la falla sistémica de su vehículo financiero y desvincule su liquidez de su agotamiento biológico.{' '}
+            <span style={{ color: C.white }}>Acóplese a una infraestructura de suministro global dirigida por Inteligencia Artificial, sin comprometer su operación actual.</span>
           </p>
         </div>
 
@@ -122,18 +131,17 @@ function HeroSection() {
           clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           transition: 'all 0.2s ease',
         }}>
-          Iniciar Auditoría de Viabilidad Patrimonial →
+          Solicitar Auditoría Técnica →
         </Link>
 
-        {/* Anchors */}
-        <div style={{
-          display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px', marginTop: '40px',
-          fontSize: '0.8rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)',
+        {/* Micro-copy */}
+        <p style={{
+          marginTop: '16px', fontSize: '0.78rem', color: C.muted,
+          fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em',
+          textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          <span>○ Sin renunciar a su trabajo</span>
-          <span>○ Sin cerrar su negocio</span>
-          <span>○ Sin tocar su pensión</span>
-        </div>
+          5 Días · Subvencionado · Escrutinio de Ingeniería Patrimonial
+        </p>
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
@@ -152,10 +160,22 @@ function HeroSection() {
 // ============================================================================
 
 function ProblemSection() {
-  const steps = [
-    { num: '01', title: 'Carga Horaria Incremental', desc: '40+ horas semanales' },
-    { num: '02', title: 'Liquidación de Pasivos Operativos', desc: 'El dinero entra y sale' },
-    { num: '03', title: 'Ciclo de Obsolescencia Patrimonial', desc: 'Hasta... ¿cuándo?' },
+  const cards = [
+    {
+      num: '01',
+      title: 'Prueba de Estrés',
+      desc: 'Someter su arquitectura a un escrutinio es simple: si su ausencia de 30 días detiene el flujo de caja, usted no posee un activo en propiedad; usted opera bajo un arrendamiento biológico de su propia libertad.',
+    },
+    {
+      num: '02',
+      title: 'El Techo Técnico',
+      desc: 'La hiper-optimización de su tiempo tiene un límite innegociable. Usted puede elevar sus honorarios o trabajar más horas, pero es matemáticamente imposible escalar su propia biología.',
+    },
+    {
+      num: '03',
+      title: 'El Gravamen Táctico',
+      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el carcelero de su propia matriz financiera.',
+    },
   ];
 
   return (
@@ -163,53 +183,47 @@ function ProblemSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Diagnóstico Estructural
+            El Diagnóstico Clínico
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            Déficit Estructural: El Límite de la Capacidad Humana
+            El Protocolo de la Presencia Obligada.
           </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '40px' }}>
-          {steps.map((item) => (
+        {/* Párrafo introductorio */}
+        <div style={{
+          padding: '28px 32px', marginBottom: '40px',
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+        }}>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
+            Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de su desgaste físico o su gestión constante.{' '}
+            <span style={{ color: C.white }}>Al financiar su estilo de vida intercambiando tiempo por liquidez, usted ha firmado un contrato de vigilancia permanente sobre su propia vida.</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>Si usted se detiene, el sistema colapsa.</span>
+          </p>
+        </div>
+
+        {/* 3 Tarjetas */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+          {cards.map((item) => (
             <div key={item.num} style={{
-              padding: '24px', textAlign: 'center',
+              padding: '28px 24px',
               background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(34,211,238,0.15)`,
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}>
               <div style={{
-                width: 48, height: 48, margin: '0 auto 16px',
+                width: 40, height: 40, marginBottom: '16px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 border: `2px solid ${C.cyan}`,
                 clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
               }}>
-                <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 700 }}>{item.num}</span>
+                <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 700, fontSize: '0.8rem' }}>{item.num}</span>
               </div>
-              <h3 style={{ color: '#fff', marginBottom: '8px', fontFamily: "'Rajdhani', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em' }}>{item.title}</h3>
-              <p style={{ color: C.muted, fontSize: '0.85rem' }}>{item.desc}</p>
+              <h3 style={{ color: C.gold, marginBottom: '12px', fontFamily: "'Rajdhani', sans-serif", fontSize: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{item.title}</h3>
+              <p style={{ color: C.muted, fontSize: '0.88rem', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
             </div>
           ))}
         </div>
-
-        <div style={{
-          padding: '32px', textAlign: 'center',
-          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
-          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-          marginBottom: '32px',
-        }}>
-          <p style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
-            <span style={{ color: C.white }}>El error técnico: </span>
-            <span style={{ color: C.gold, fontWeight: 600 }}>Usted es el único motor logístico de su sistema.</span>
-          </p>
-          <p style={{ fontSize: '0.85rem', marginTop: '16px', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
-            Si usted se detiene, el flujo colapsa instantáneamente.
-          </p>
-        </div>
-
-        {/* Línea puente */}
-        <p style={{ textAlign: 'center', fontSize: '1rem', color: C.muted, fontStyle: 'italic' }}>
-          Y lo que intentaste antes tampoco lo resolvió.
-        </p>
       </div>
     </section>
   );
@@ -292,71 +306,102 @@ function PerfilesSection() {
 // ============================================================================
 
 function SolucionesFallidasSection() {
-  const items = [
-    { num: '01', titulo: 'Maximización de Horas Hombre', desc: 'Techo operativo inamovible.' },
-    { num: '02', titulo: 'Reserva Pasiva Erosionable', desc: 'La inflación devora el ahorro estático.' },
-    { num: '03', titulo: 'Migración de Nómina', desc: 'Mismo modelo, distinta entidad.' },
-    { num: '04', titulo: 'Diversificación Operativa Manual', desc: 'Aumento de riesgo y fatiga sin apalancamiento.' },
+  const opciones = [
+    {
+      num: '01',
+      titulo: 'Tolerancia al Déficit',
+      subtitulo: 'Status Quo',
+      desc: 'Continuar operando bajo el Protocolo de la Presencia Obligada. Usted acepta que su liquidez posee una fecha de caducidad biológica y asume el riesgo de un colapso si su capacidad operativa se detiene.',
+      destacada: false,
+    },
+    {
+      num: '02',
+      titulo: 'El Gravamen Táctico',
+      subtitulo: 'Negocio Tradicional',
+      desc: 'Intentar escapar asumiendo riesgos logísticos y operativos. Usted compra una ilusión de soberanía, pero termina convirtiéndose en el vigilante permanente de su propia matriz comercial.',
+      destacada: false,
+    },
+    {
+      num: '03',
+      titulo: 'Apalancamiento Asimétrico',
+      subtitulo: 'Infraestructura Híbrida',
+      desc: 'Acoplarse a una Unidad de Suministro global. Una corporación asume la logística y un algoritmo de IA asume el desgaste operativo. Usted solo ejerce la dirección ejecutiva.',
+      destacada: true,
+    },
   ];
 
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Análisis de Modelos Previos
+          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
+            La Arquitectura de Decisiones
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            No falló usted. Fallaron los modelos.
+            Usted tiene tres opciones operativas frente a este déficit.
           </h2>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' }}>
-          {items.map((item) => (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+          {opciones.map((item) => (
             <div key={item.num} style={{
-              display: 'flex', gap: '20px', alignItems: 'flex-start',
-              padding: '20px 24px',
-              background: C.bgCard, border: `1px solid ${C.bgCardBorder}`,
-              clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+              padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: '12px',
+              background: item.destacada ? 'rgba(200,168,75,0.06)' : 'rgba(0,0,0,0.65)',
+              border: item.destacada ? `1px solid ${C.gold}` : `1px solid rgba(255,255,255,0.07)`,
+              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}>
-              <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.gold, fontWeight: 700, fontSize: '0.9rem', flexShrink: 0, marginTop: '2px' }}>
-                {item.num}
-              </span>
-              <div>
-                <p style={{ color: C.white, fontWeight: 600, marginBottom: '4px' }}>{item.titulo}</p>
-                <p style={{ color: C.muted, fontSize: '0.9rem', lineHeight: 1.5 }}>{item.desc}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{
+                  fontFamily: "'Roboto Mono', monospace", fontSize: '0.75rem', fontWeight: 700,
+                  color: item.destacada ? C.gold : C.muted,
+                }}>
+                  {item.num}
+                </span>
+                <span style={{
+                  fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em',
+                  textTransform: 'uppercase', color: item.destacada ? C.gold : C.muted,
+                  opacity: 0.7,
+                }}>
+                  {item.subtitulo}
+                </span>
               </div>
+              <h3 style={{
+                fontFamily: "'Rajdhani', sans-serif", fontSize: '1.1rem',
+                letterSpacing: '0.06em', textTransform: 'uppercase',
+                color: item.destacada ? C.gold : C.white,
+                margin: 0,
+              }}>
+                {item.titulo}
+              </h3>
+              <p style={{ color: C.muted, fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>
+                {item.desc}
+              </p>
             </div>
           ))}
         </div>
-
-        <p style={{
-          textAlign: 'center', fontSize: '1rem', lineHeight: 1.7, color: C.muted,
-          padding: '24px', borderLeft: `3px solid rgba(200,168,75,0.2)`,
-          background: 'rgba(0,0,0,0.4)',
-        }}>
-          El problema no es el esfuerzo. Es que ninguno de esos modelos fue diseñado para{' '}
-          <span style={{ color: C.white }}>construir activos reales en paralelo a lo que ya posee.</span>
-        </p>
       </div>
     </section>
   );
 }
 
 // ============================================================================
-// DÍAS DE LIBERTAD
+// PRUEBA DE ESTRÉS PATRIMONIAL
 // ============================================================================
 
 function SolutionPreview() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
-          ¿Cuántos días sobreviviría sin trabajar?
+        <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+          La Prueba de Estrés Patrimonial
+        </span>
+
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
+          ¿Cuál es el Índice de Caducidad de su liquidez actual?
         </h2>
 
-        <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px' }}>
-          La fórmula es simple:
+        <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px', lineHeight: 1.7 }}>
+          La ecuación para diagnosticar el impacto del Protocolo de la Presencia Obligada es clínica y binaria:
         </p>
 
         <div style={{
@@ -365,39 +410,41 @@ function SolutionPreview() {
           marginBottom: '32px',
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
-          <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1.1rem', color: C.cyan }}>
-            Ahorros ÷ Gastos Mensuales = Días de Libertad
+          <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1rem', color: C.cyan, margin: 0, lineHeight: 1.8 }}>
+            Reservas Líquidas ÷ Carga Operativa Mensual{' '}
+            <span style={{ color: C.muted }}>=</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 700 }}>Autonomía Estructural (Días)</span>
           </p>
         </div>
 
-        <p style={{ color: C.muted, marginBottom: '40px' }}>
-          La mayoría descubre que tiene{' '}
-          <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 500 }}>menos de 30 días</span>
-          . Algunos, cero.
+        <p style={{ color: C.muted, marginBottom: '40px', maxWidth: '580px', margin: '0 auto 40px', lineHeight: 1.75 }}>
+          Apuesto a que usted es alguien que controla sus finanzas, pero el escrutinio revela que la mayoría de ejecutivos operan con una{' '}
+          <span style={{ color: C.white, fontWeight: 500 }}>Autonomía Estructural inferior a 30 días</span>.{' '}
+          Si su resultado es crítico, no necesita motivación; necesita acoplarse a una nueva infraestructura.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
           <Link href="/calculadora" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'transparent', border: `1px solid ${C.gold}`,
-            color: C.gold, fontWeight: 600, fontSize: '1rem',
+            background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
+            color: '#000', fontWeight: 700, fontSize: '0.95rem',
             padding: '14px 32px',
             fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
           }}>
-            Calcular mis días →
+            Ejecutar Simulador Técnico →
           </Link>
-          <Link href="/mapa-de-salida" style={{
+          <Link href="/auditoria-patrimonial" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: 'transparent', border: `1px solid rgba(200,168,75,0.3)`,
-            color: C.muted, fontWeight: 500, fontSize: '0.9rem',
+            color: C.muted, fontWeight: 500, fontSize: '0.85rem',
             padding: '14px 24px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.07em',
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
           }}>
-            Ya lo sé — quiero la salida →
+            Omitir Simulación e Iniciar Auditoría →
           </Link>
         </div>
       </div>
@@ -411,9 +458,18 @@ function SolutionPreview() {
 
 function QueswaDiferenciadorSection() {
   const capacidades = [
-    { titulo: 'Gestión de Unidades Operativas 24/7', desc: 'IA califica y acopla demanda sin intervención humana.' },
-    { titulo: 'Dashboard de Activos en Tiempo Real', desc: 'Monitoreo clínico de flujos recurrentes.' },
-    { titulo: 'Protocolo de Expansión', desc: 'Material de ingeniería para escalabilidad de red.' },
+    {
+      titulo: 'Gestión de Unidades Operativas 24/7',
+      desc: 'Filtrado y acoplamiento de demanda sin intervención humana ni desgaste cognitivo.',
+    },
+    {
+      titulo: 'Dashboard de Inteligencia Patrimonial',
+      desc: 'Monitoreo clínico de flujos, amortización y rendimientos en tiempo real.',
+    },
+    {
+      titulo: 'Protocolos de Transferencia Técnica',
+      desc: 'Sistemas de escalabilidad autónoma para la expansión de su infraestructura global.',
+    },
   ];
 
   return (
@@ -421,13 +477,16 @@ function QueswaDiferenciadorSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Capa Tecnológica
+            El Motor Cognitivo
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            Protocolo Queswa: Capa tecnológica de automatización sobre infraestructura logística global.
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+            Protocolo Queswa: El Motor de Soberanía.
           </h2>
-          <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-            Queswa es el motor de IA que automatiza su logística. Mientras usted conserva su empleo actual, nuestra tecnología califica prospectos y los acopla a una cadena de suministro física y corporativa que despacha por usted.
+          <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
+            Queswa es la arquitectura de IA diseñada para neutralizar su Presencia Obligada.{' '}
+            <span style={{ color: C.white }}>Mientras usted ejerce su dirección ejecutiva, nuestra tecnología califica la demanda y la acopla a una infraestructura transnacional que asume el</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>90% del desgaste operativo</span>{' '}
+            <span style={{ color: C.white }}>por usted.</span>
           </p>
         </div>
 
@@ -440,12 +499,20 @@ function QueswaDiferenciadorSection() {
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: C.gold, marginBottom: '16px' }} />
-              <h3 style={{ color: C.white, fontFamily: "'Rajdhani', sans-serif", fontSize: '1rem', letterSpacing: '0.05em', marginBottom: '8px' }}>
+              <h3 style={{
+                color: C.white, fontFamily: "'Rajdhani', sans-serif",
+                fontSize: '0.95rem', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '10px',
+              }}>
                 {cap.titulo}
               </h3>
-              <p style={{ color: C.muted, fontSize: '0.85rem', lineHeight: 1.5 }}>{cap.desc}</p>
+              <p style={{ color: C.muted, fontSize: '0.85rem', lineHeight: 1.6, margin: 0 }}>{cap.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* Comparador de Carga Cognitiva interactivo */}
+        <div style={{ marginBottom: '40px' }}>
+          <CognitiveLoadComparator />
         </div>
 
         <div style={{ textAlign: 'center' }}>
@@ -474,41 +541,54 @@ function FinalCTASection() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
-          Protocolo de Acceso
+        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: '16px' }}>
+          Protocolo de Integración
         </p>
 
-        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '24px' }}>
-          El Mapa de Salida: Auditoría de 5 Fases para Corregir el Error de Arquitectura
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '12px' }}>
+          Auditoría de Arquitectura Patrimonial
         </h2>
 
-        <p style={{ color: C.muted, maxWidth: '560px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-          Después de diagnosticar el problema, el siguiente paso es evaluar la viabilidad del modelo para su perfil específico.{' '}
-          <span style={{ color: C.white }}>Acceso restringido a perfiles con capacidad de gestión operativa. Se requiere validación de datos en 48 horas.</span>
+        <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "'Playfair Display', Georgia, serif" }}>
+          Escrutinio de 5 Días para Neutralizar el Protocolo de la Presencia Obligada.
         </p>
 
+        <div style={{
+          padding: '24px 32px', marginBottom: '40px',
+          background: 'rgba(0,0,0,0.5)', borderLeft: `2px solid rgba(200,168,75,0.3)`,
+          textAlign: 'left',
+        }}>
+          <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
+            Identificada la falla sistémica en su vehículo financiero, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
+            <span style={{ color: C.white }}>Esta infraestructura no es de acceso masivo; está restringida a perfiles con capacidad de dirección ejecutiva.</span>{' '}
+            Su expediente requiere una validación de datos en un periodo máximo de{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>48 horas</span>{' '}
+            para asegurar la integridad del ecosistema.
+          </p>
+        </div>
+
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
-          <Link href="/mapa-de-salida" style={{
+          <Link href="/auditoria-patrimonial" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
             color: '#000', fontWeight: 700, fontSize: '1rem',
             padding: '16px 40px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           }}>
-            Iniciar Auditoría de Viabilidad Patrimonial →
+            Iniciar Auditoría Técnica →
           </Link>
           <Link href="/calculadora" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: 'transparent', border: `1px solid rgba(200,168,75,0.3)`,
-            color: C.muted, fontWeight: 500, fontSize: '0.85rem',
+            color: C.muted, fontWeight: 500, fontSize: '0.82rem',
             padding: '14px 24px',
             fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
           }}>
-            Primero quiero calcular mis días →
+            Ejecutar Prueba de Estrés Patrimonial →
           </Link>
         </div>
       </div>

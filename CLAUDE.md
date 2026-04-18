@@ -12,6 +12,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
+## Table of Contents
+
+1. [Quick Reference](#quick-reference)
+2. [Development Commands](#development-commands)
+3. [Reglas Críticas (NO HACER)](#reglas-críticas-no-hacer)
+4. [Performance & Architecture Decisions](#performance--estado-actual-abr-2026)
+5. [Critical Git Workflow](#critical-git-workflow)
+6. [Architecture Overview](#architecture-overview)
+   - [NEXUS AI Chatbot](#1-nexus-ai-chatbot)
+   - [Prospect Tracking](#2-prospect-tracking)
+   - [Async Queue](#3-async-queue-architecture)
+   - [Supabase Schema](#4-supabase-schema)
+   - [Page Structure & Funnel](#5-page-structure--funnel-architecture)
+   - [Servilleta Digital](#servilleta-digital---interactive-presentations)
+7. [Environment Variables](#environment-variables)
+8. [Common Development Patterns](#common-development-patterns)
+9. [Design System: Bimetallic v3.0](#design-system-bimetallic-v30)
+10. [Utility Scripts](#utility-scripts)
+11. [Deployment](#deployment)
+12. [Key Documentation Files](#key-documentation-files)
+
 ## Quick Reference
 
 | Task | Command |
@@ -482,81 +503,19 @@ Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
 Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.0)
 ```
 
-**Active Pages**:
-```
-src/app/
-├── page.tsx                         # Homepage (Funnel Hub, Quiet Luxury style)
-├── layout.tsx                       # Root layout (tracking + Queswa chatbot)
-├── reto-5-dias/                     # 🎯 FUNNEL ENTRY v1 (noindex — legacy, redirige a v4.0)
-│   ├── page.tsx                     # Squeeze page (minimal, form only)
-│   ├── layout.tsx                   # noindex metadata
-│   ├── gracias/page.tsx             # Bridge page (Epiphany Bridge story)
-│   ├── [ref]/page.tsx               # Referral tracking version
-│   ├── dolor/page.tsx               # A/B variant: emotional pain
-│   ├── analitico/page.tsx           # A/B variant: analytical approach
-│   └── global/page.tsx              # A/B variant: global opportunity
-├── auditoria-patrimonial/           # 🎯 FUNNEL ENTRY v4.0 (noindex) — "Auditoría de Arquitectura Patrimonial"
-│   ├── page.tsx                     # Squeeze page (Lujo Clínico, 3 campos: nombre/email/WA)
-│   ├── layout.tsx                   # noindex metadata
-│   ├── [constructorId]/page.tsx     # Constructor-specific squeeze page (re-exporta page.tsx)
-│   ├── dia-1/page.tsx               # Coordenada 01 — Diagnóstico Estructural (video + tracking modulo01)
-│   ├── dia-1/[ref]/page.tsx         # Variante con ref de distribuidor
-│   ├── dia-2/page.tsx               # Coordenada 02 — El Techo Técnico (video + tracking modulo02)
-│   ├── dia-2/[ref]/page.tsx         # Variante con ref de distribuidor
-│   ├── dia-3/page.tsx               # Coordenada 03 — Acoplamiento Híbrido (video + tracking modulo03)
-│   ├── dia-3/[ref]/page.tsx         # Variante con ref de distribuidor
-│   ├── dia-4/page.tsx               # Coordenada 04 — Matriz de Amortización (video + tracking modulo04)
-│   ├── dia-4/[ref]/page.tsx         # Variante con ref de distribuidor
-│   ├── dia-5/page.tsx               # Coordenada 05 — Protocolo de Activación (video + tracking modulo05)
-│   └── dia-5/[ref]/page.tsx         # Variante con ref de distribuidor
-├── auditoria-confirmada/            # Bridge Page v4.0 (noindex) — post-registro
-│   ├── page.tsx                     # Confirmación + video epifanía + hoja de ruta + WA CTA
-│   ├── layout.tsx                   # noindex/nofollow
-│   └── TrackingConfirmada.tsx       # 'use client' — dispara evento `vio_bridge_auditoria`
-├── fundadores/                      # Main founder signup (oferta)
-│   └── [ref]/page.tsx               # Referral tracking
-├── nosotros/                        # Epiphany Bridge Story (noindex - SEO en luiscabrejo.com)
-├── blog/                            # 📝 SEO SHADOW FUNNEL
-│   ├── page.tsx                     # Blog index
-│   ├── network-marketing-obsoleto/  # SEO article
-│   ├── empleo-vs-activos/           # SEO article
-│   └── legalidad-network-marketing/ # SEO article
-├── tecnologia/                      # Queswa brand search landing (indexed)
-├── infraestructura/                 # Technology infrastructure (Bimetallic reference implementation)
-├── presentacion-empresarial/        # Support tool for 1-on-1 (NOT in menu)
-├── presentacion-empresarial-inversionistas/  # Investor-focused presentation
-├── webinar/                         # Webinar funnel (WIP)
-│   ├── page.tsx                     # Registration page
-│   └── sala/page.tsx                # Live room with countdown
-├── sistema/
-│   └── productos/                   # Product catalog (SEO indexed)
-│       ├── [ref]/page.tsx
-│       └── catalogo-productos.tsx   # 🚧 WIP — "Clinical Luxury" e-commerce catalog (Pharma-Teal aesthetic, shopping cart, wishlist, ingredient science) — untracked, not yet in page.tsx
-├── reto-12-niveles/                 # 12-level challenge (noindex, legacy)
-│   └── [ref]/page.tsx
-├── socios/                          # Landing for traditional networkers
-├── calculadora/                     # Business calculator tool
-├── diagnostico/                     # Lead magnet "Mi Auditoría"
-├── paquetes/                        # Protocolo de Capitalización v3.0 (Lujo Clínico) — paquetes: Arquitectura Inicial / Despliegue Empresarial / Consolidación Visionaria — CTAs → WhatsApp pre-filled con nombre+USD+COP — Subsidio de Activación Tecnológica (reemplaza Bono Tecnológico)
-│   └── [ref]/page.tsx
-├── planes/                          # Planes de suscripción v3.0 (Lujo Clínico) — 4 planes: Protocolo de Auditoría (gratis) / Activación de Unidad Logística ($25) / Gestión de Infraestructura Empresarial ($49) / Protocolo de Dirección Global ($99) — sin Framer Motion ni blur
-├── servilleta/                      # 🎯 "The Industrial Deck" v6.0 (4-slide presentation)
-├── animaciones/                     # 🎬 Canvas-based social video renderer (Dan Koe style, 1080×1920 9:16, 60fps)
-│   ├── dia5/, dia6/, dia7/, dia8/, dia9/   # Daily video animation projects
-│   ├── dia7-v3 through dia7-v6      # A/B variants for Día 7 "Eliminación Radical"
-│   ├── dia8-v2/                     # Post-production variant for Día 8
-│   └── hook-dia6/                   # Hook variant for Día 6
-├── modelo-de-valor/                 # Value model page
-├── paises/brasil/                   # Brazil-specific landing
-├── planes/                          # Plans page
-├── privacidad/                      # Privacy policy
-├── offline/                         # PWA offline fallback
-└── api/
-    ├── nexus/                       # Queswa chatbot API
-    ├── funnel/route.ts              # Funnel form submissions (reto + webinar)
-    ├── fundadores/route.ts
-    └── constructor/[id]/route.ts
-```
+**Active Pages** (rutas no-obvias — el resto se descubre con `ls src/app/`):
+
+- `auditoria-patrimonial/` — 🎯 FUNNEL ENTRY v4.0 (noindex). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
+- `auditoria-confirmada/` — Bridge Page v4.0 (noindex). `TrackingConfirmada.tsx` es 'use client' y dispara evento `vio_bridge_auditoria`.
+- `reto-5-dias/` — FUNNEL ENTRY v1 (noindex, legacy — 301 → v4.0). Tiene variantes A/B: `dolor/`, `analitico/`, `global/`.
+- `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
+- `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
+- `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
+- `animaciones/diaX/` — Canvas-based social video renderer (Dan Koe style). Variantes A/B con sufijos `-v3` a `-v6`.
+- `servilleta/` — "The Industrial Deck" v6.0. Diseño Industrial distinto al Quiet Luxury del sitio principal.
+- `paquetes/` — Protocolo de Capitalización v3.0. CTAs → WhatsApp pre-filled con nombre+USD+COP.
+- `planes/` — 4 planes de suscripción. Sin Framer Motion ni `backdropFilter` (decisión de performance).
+- `offline/` — PWA fallback; `webinar/sala/` — live room con countdown.
 
 **SEO Strategy** (Dic 2025):
 - **Indexed pages**: `/`, `/fundadores`, `/socios`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
@@ -565,15 +524,6 @@ src/app/
   - `/auditoria-patrimonial/*` → Squeeze + 5 páginas de video (v4.0 — "Auditoría de Arquitectura Patrimonial")
   - `/auditoria-confirmada` → Bridge Page v4.0
   - `/nosotros` → SEO en página personal Luis Cabrejo Parra
-
-**Removed Pages** (with 301 redirects in next.config.js):
-- `/soluciones/*` → `/mapa-de-salida` → `/auditoria-patrimonial` (chain, 6 persona pages)
-- `/ecosistema/*` → `/mapa-de-salida` → `/auditoria-patrimonial` (chain)
-- `/fundadores-network` → `/fundadores`
-- `/fundadores-profesionales` → `/fundadores`
-- `/sistema/framework-iaa` → `/reto-5-dias`
-- `/sistema/tecnologia` → `/reto-5-dias`
-- `/reto-12-dias` → `/reto-12-niveles`
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 

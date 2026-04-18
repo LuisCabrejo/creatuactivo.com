@@ -2539,7 +2539,7 @@ El sistema usa REGEX para extraer datos de tus respuestas:
 
 **TU NORMALIZACIÓN = DATOS LIMPIOS EN BASE DE DATOS**
 
-PERSONALIDAD: Motor Cognitivo — tono de consultor senior de patrimonio. Preciso, sin hype, sin jerga MLM. Cada respuesta eleva la percepción del ecosistema.`;
+PERSONALIDAD: Motor Cognitivo — tono de consultor senior de patrimonio. Preciso, sin hype, sin lenguaje de red de distribución. Cada respuesta eleva la percepción del ecosistema.`;
 }
 
 // Interpretación híbrida de queries

@@ -44,7 +44,7 @@ const PHASES = [
   {
     day: 'Día 4',
     label: 'MATRIZ DE AMORTIZACIÓN',
-    desc: 'Matemática exacta de liquidez recurrente y plusvalía de red.',
+    desc: 'Matemática exacta de liquidez recurrente y apalancamiento asimétrico.',
   },
   {
     day: 'Día 5',
@@ -55,7 +55,7 @@ const PHASES = [
 
 const REQUIREMENTS = [
   {
-    label: 'Ancho de Banda Mental',
+    label: 'Disponibilidad Cognitiva',
     desc: 'Asignación estricta de 15 a 20 minutos diarios.',
   },
   {
@@ -240,7 +240,7 @@ export default function AuditoriaPatrimonialPage() {
                 letterSpacing: '0.22em', textTransform: 'uppercase',
                 color: C.cyan,
               }}>
-                Protocolo de Due Diligence — Acceso Restringido
+                Protocolo de Escrutinio Técnico — Acceso Restringido
               </span>
             </div>
 
@@ -251,7 +251,7 @@ export default function AuditoriaPatrimonialPage() {
               fontWeight: 700, color: C.white,
               lineHeight: 1.15, marginBottom: '20px',
             }}>
-              Corrección Técnica del Déficit Estructural de Ingresos.
+              Corrección Técnica del Protocolo de la Presencia Obligada.
             </h1>
 
             {/* H2 */}
@@ -273,7 +273,7 @@ export default function AuditoriaPatrimonialPage() {
               borderLeft: `2px solid ${C.gold}`,
               background: 'rgba(200,168,75,0.04)',
             }}>
-              Si el 100% de su rentabilidad actual depende de su presencia física, usted no posee un negocio; opera bajo una vulnerabilidad de arquitectura patrimonial. Esta auditoría no provee motivación. Transfiere los planos técnicos para acoplar una infraestructura digital propia a una cadena de suministro operativa en más de 70 países.
+              El Protocolo de la Presencia Obligada es el contrato tácito que convierte su tiempo en el único colateral de su liquidez. Si usted se detiene, el sistema colapsa. Esta auditoría no provee motivación. Transfiere los planos técnicos para desactivar esa dependencia y acoplar una infraestructura operativa en más de 70 países.
             </p>
 
             {/* FORMULARIO */}

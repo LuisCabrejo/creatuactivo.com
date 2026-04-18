@@ -1214,29 +1214,29 @@ export default function ServilletaPage() {
             <div className="content-overlay center-focus">
               <div className="technical-label">REF: PATRIMONIO_PARALELO</div>
               <h1 className="deck-h1">
-                CONSTRUCCI&Oacute;N DE PATRIMONIO<br />
+                ARQUITECTURA DE PATRIMONIO<br />
                 <span style={{ color: 'var(--orange)' }}>PARALELO</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  El modelo de ingreso lineal falla porque depende de la presencia f&iacute;sica. Si su actividad se detiene, el flujo de caja colapsa. Esta m&aacute;quina de tres capas corrige ese D&eacute;ficit Estructural de Ingresos:
+                  Usted opera actualmente bajo el Protocolo de la Presencia Obligada: una falla de arquitectura donde el 100% de su flujo de caja depende de su agotamiento biol&oacute;gico. Esto no es una simple crisis de agenda; es la confirmaci&oacute;n de que usted firm&oacute; un contrato de vigilancia permanente sobre su propia vida. Esta m&aacute;quina de tres capas corrige ese D&eacute;ficit Estructural de Ingresos:
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>CAPA LOG&Iacute;STICA</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Asume el 100% de los pasivos operativos: manufactura, inventarios, env&iacute;os y liquidaci&oacute;n de comisiones cada viernes. Usted no empaca cajas.
+                    <span style={{ color: 'var(--cyan)' }}>CAPA LOG&Iacute;STICA</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Asume el 100% de los pasivos operativos: manufactura, inventarios y distribuci&oacute;n global. Usted no empaca cajas; usted gestiona el activo.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>CAPA TECNOL&Oacute;GICA</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> Plataforma de inteligencia artificial que opera 24 horas. Automatiza la presentaci&oacute;n, el filtrado de perfiles y la conversi&oacute;n sin intervenci&oacute;n manual.
+                    <span style={{ color: 'var(--cyan)' }}>CAPA TECNOL&Oacute;GICA</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> Motor de Inteligencia Artificial que gestiona el filtrado y la calificaci&oacute;n de perfiles las 24 horas. Automatizaci&oacute;n absoluta del desgaste operativo.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted dirige el flujo de tr&aacute;fico hacia el sistema desde su dispositivo. La infraestructura opera. Usted decide y cobra.
+                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted no vende, usted dirige. Su funci&oacute;n es gestionar el flujo de datos hacia el sistema y supervisar la expansi&oacute;n de su infraestructura.
                   </div>
                 </div>
               </div>
 
               <button className="btn-next" onClick={() => showSlide(2)}>
-                VER C&Oacute;MO SE DIRIGE →
+                ¿C&oacute;mo asumo el control de esta m&aacute;quina sin que se convierta en otra carga operativa? →
               </button>
             </div>
           </section>
@@ -1434,7 +1434,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PERSONAS EN SU RED:
+                      PERSONAS EN SU INFRAESTRUCTURA:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1452,7 +1452,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      HOGARES EN SU RED:
+                      HOGARES EN SU INFRAESTRUCTURA:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input

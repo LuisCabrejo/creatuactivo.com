@@ -13,7 +13,7 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Blog - Recursos para Construir su Soberanía Financiera | CreaTuActivo',
-  description: 'Artículos y guías sobre activos digitales, network marketing moderno, y estrategias para construir ingresos residuales desde casa.',
+  description: 'Artículos y guías sobre arquitectura de activos, apalancamiento asimétrico y estrategias para construir flujos de caja autosustentables.',
 };
 
 const articles = [
@@ -29,9 +29,9 @@ const articles = [
   {
     slug: 'empleo-vs-activos',
     image: '/images/blog/thumb-blog-system.jpg',
-    label: 'SISTEMAS DISTRIBUIDOS',
-    cardTitle: 'La ingeniería detrás del ingreso pasivo',
-    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de ingreso residual y cómo construir activos.',
+    label: 'ARQUITECTURA DE ACTIVOS',
+    cardTitle: 'La ingeniería detrás del flujo de caja autosustentable',
+    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de apalancamiento asimétrico y cómo construir activos.',
     category: 'Educación Financiera',
     readTime: '6 min',
   },
@@ -175,19 +175,19 @@ export default function BlogPage() {
           <section className="py-20 px-6">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-6">
-                ¿Listo para pasar de la teoría a la práctica?
+                ¿Listo para ejecutar el diagnóstico en su arquitectura patrimonial?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                El Mapa de Salida le muestra cómo aplicar estos conceptos en su vida real.
+                La Auditoría Patrimonial de 5 Días le muestra cómo aplicar estos principios en su modelo de ingresos actual.
               </p>
               <Link
-                href="/mapa-de-salida"
+                href="/auditoria-patrimonial"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
                   clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
                 }}
               >
-                Auditar con El Mapa de Salida →
+                Iniciar Auditoría Patrimonial →
               </Link>
             </div>
           </section>

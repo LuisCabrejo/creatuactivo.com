@@ -14,8 +14,8 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
-  description: 'Por qué trabajar más horas no es la respuesta. Descubre la diferencia entre ingreso lineal e ingreso residual y cómo construir una cartera de activos.',
-  keywords: 'análisis financiero, cartera de activos, ingreso residual, libertad financiera, independencia financiera, ingresos pasivos, empleo vs activos',
+  description: 'Por qué trabajar más horas no es la respuesta. La diferencia entre ingreso lineal e ingreso recurrente y cómo construir una cartera de activos autosustentables.',
+  keywords: 'análisis financiero, cartera de activos, ingreso recurrente, soberanía financiera, independencia financiera, apalancamiento asimétrico, empleo vs activos',
 };
 
 export default function EmpleoVsActivosPage() {
@@ -83,8 +83,8 @@ export default function EmpleoVsActivosPage() {
               </h1>
 
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
-                Por qué trabajar más horas no es la respuesta. El concepto de ingreso
-                residual explicado de forma simple.
+                Por qué trabajar más horas no es la respuesta. El concepto de
+                apalancamiento asimétrico explicado de forma simple.
               </p>
 
               {/* Content */}
@@ -100,7 +100,7 @@ export default function EmpleoVsActivosPage() {
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
                     Pero hay un problema matemático con este plan: la pensión típica reemplaza
                     solo el 40% de su último ingreso. Un ingreso que, siendo honestos,
-                    ya no alcanzaba mientras lo ganabas completo.
+                    ya no alcanzaba mientras usted lo percibía completo.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Y peor aún: si dejas de trabajar antes de tiempo—por enfermedad, por recortes,
@@ -148,7 +148,7 @@ export default function EmpleoVsActivosPage() {
                     </div>
 
                     <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[#C5A059]/30">
-                      <h3 className="text-lg font-semibold mb-4 text-[#E5C279]">Ingreso Residual</h3>
+                      <h3 className="text-lg font-semibold mb-4 text-[#E5C279]">Ingreso Recurrente</h3>
                       <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-2">
                           <span className="text-[#E5C279]">✓</span>
@@ -173,7 +173,7 @@ export default function EmpleoVsActivosPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Ejemplos de activos que generan ingreso residual
+                    Ejemplos de activos que generan ingreso recurrente
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
                     Un activo es algo que pone a trabajar y sigue generando valor sin su
@@ -213,9 +213,9 @@ export default function EmpleoVsActivosPage() {
                     <li className="flex items-start gap-3">
                       <span className="text-[#E5C279] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Redes de distribución</strong>
+                        <strong className="text-[#E5E5E5]">Infraestructuras de consumo recurrente</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Construyes un canal de consumidores, el consumo recurrente genera comisiones.
+                          Se construye un canal de demanda sostenida; el consumo habitual genera flujo de caja autosustentable.
                           (Requiere tiempo y sistema correcto)
                         </p>
                       </div>
@@ -228,16 +228,16 @@ export default function EmpleoVsActivosPage() {
                     La pregunta correcta
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    La pregunta no es &quot;¿cuánto ganas?&quot; sino &quot;¿qué pasaría con sus ingresos
-                    si dejas de trabajar por 6 meses?&quot;
+                    La pregunta no es &quot;¿cuánto gana?&quot; sino &quot;¿qué pasaría con sus ingresos
+                    si usted deja de trabajar por 6 meses?&quot;
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
                     Si la respuesta es &quot;desaparecerían&quot;, entonces no tiene activos.
-                    Tiene un empleo bien pagado—pero sigues en la carrera de la rata.
+                    Tiene un empleo bien pagado—pero sigue usted en el ciclo de ingresos lineal.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La libertad financiera no se trata de cuánto ganas. Se trata de cuántos
-                    meses podrías vivir sin trabajar. Y eso solo se logra construyendo activos.
+                    La soberanía financiera no se trata de cuánto se gana. Se trata de cuántos
+                    meses puede operar sin su presencia. Y eso solo se logra construyendo activos.
                   </p>
                 </section>
 
@@ -255,9 +255,10 @@ export default function EmpleoVsActivosPage() {
                     <li>• Negocio propio: necesitas capital, empleados, local</li>
                   </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Pero hay un tipo de activo que puede empezar a construir con menos de $200
-                    y unas pocas horas semanales: una red de distribución. No es el único
-                    camino, pero es el más accesible para quien empieza desde cero.
+                    Existe un tipo de activo que puede construirse con una inversión de activación
+                    menor a $200 y unas pocas horas semanales: una infraestructura de consumo
+                    recurrente con logística externalizada. No es el único camino, pero elimina
+                    las barreras de capital y operación que frenan a la mayoría.
                   </p>
                 </section>
               </div>
@@ -268,18 +269,18 @@ export default function EmpleoVsActivosPage() {
                   ¿Desea aprender a construir activos?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida le explico paso a paso cómo funciona un sistema
-                  diseñado para que personas sin capital ni experiencia puedan empezar
-                  a construir ingresos residuales.
+                  En la Auditoría Patrimonial le mostramos paso a paso cómo funciona un sistema
+                  diseñado para que perfiles sin capital inicial puedan iniciar la construcción
+                  de flujo de caja autosustentable.
                 </p>
                 <Link
-                  href="/mapa-de-salida"
+                  href="/auditoria-patrimonial"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
                   style={{
                     clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                   }}
                 >
-                  Auditar con El Mapa de Salida
+                  Iniciar Auditoría Patrimonial
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

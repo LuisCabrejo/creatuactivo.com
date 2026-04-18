@@ -162,7 +162,7 @@ export default function AuditoriaConfirmadaPage() {
               maxWidth: '480px', margin: '0 auto',
               fontFamily: "'Rajdhani', sans-serif",
             }}>
-              Su solicitud de auditoría técnica ha sido procesada con éxito. El despliegue de los planos de Arquitectura Patrimonial iniciará en menos de 24 horas.
+              Su solicitud de auditoría técnica ha sido procesada con éxito. La activación de los planos de Arquitectura Patrimonial iniciará en menos de 24 horas.
             </p>
           </section>
 

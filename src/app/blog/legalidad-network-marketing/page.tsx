@@ -103,7 +103,7 @@ export default function LegalidadNetworkMarketingPage() {
                     que operan legalmente en más de 100 países.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia es clara si sabes qué buscar.
+                    La diferencia es clara si usted sabe qué buscar.
                   </p>
                 </section>
 
@@ -171,7 +171,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costos de entrada excesivos</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le piden miles de dólares para &quot;unirte&quot; sin un producto equivalente, alerta.
+                            Si le piden miles de dólares para &quot;unirse&quot; sin un producto equivalente, alerta.
                           </p>
                         </div>
                       </div>
@@ -207,7 +207,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Promesas de ingresos garantizados</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le garantizan que ganarás X cantidad en Y tiempo, desconfía. Ningún negocio real puede garantizar ingresos.
+                            Si le garantizan que usted ganará X cantidad en Y tiempo, desconfíe. Ningún negocio real puede garantizar ingresos.
                           </p>
                         </div>
                       </div>
@@ -242,7 +242,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costo de entrada razonable</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            El costo inicial corresponde a producto real que usted mismo consumes.
+                            El costo inicial corresponde a producto real que usted mismo consume.
                           </p>
                         </div>
                       </div>
@@ -254,7 +254,7 @@ export default function LegalidadNetworkMarketingPage() {
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Sin inventario obligatorio</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
-                            La empresa envía directamente a clientes. No necesitas garage lleno de productos.
+                            La empresa envía directamente a clientes. No requiere usted mantener inventario en su domicilio.
                           </p>
                         </div>
                       </div>
@@ -298,7 +298,7 @@ export default function LegalidadNetworkMarketingPage() {
                     Preguntas que debe hacer
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Antes de unirte a cualquier oportunidad de network marketing:
+                    Antes de vincularse a cualquier oportunidad de este modelo:
                   </p>
                   <ol className="space-y-3 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
@@ -348,18 +348,18 @@ export default function LegalidadNetworkMarketingPage() {
                   ¿Desea evaluar una oportunidad real?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida le presento un modelo con 28+ años de operación,
-                  presente en 60+ países, y le explico exactamente cómo funciona el plan
-                  de compensación. Sin presión, solo información.
+                  En la Auditoría Patrimonial le presentamos un modelo con décadas de operación
+                  y presencia global comprobable, con el plan de compensación explicado en
+                  detalle. Sin presión, solo información técnica.
                 </p>
                 <Link
-                  href="/mapa-de-salida"
+                  href="/auditoria-patrimonial"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
                   style={{
                     clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                   }}
                 >
-                  Auditar con El Mapa de Salida
+                  Iniciar Auditoría Patrimonial
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

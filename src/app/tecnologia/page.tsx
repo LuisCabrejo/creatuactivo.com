@@ -125,7 +125,7 @@ export default function TecnologiaPage() {
                   <strong>Queswa.app</strong> es el Motor Cognitivo y Dashboard Operativo exclusivo
                   de la infraestructura <strong>CreaTuActivo.com</strong>. No es una red social, ni un
                   chat público, ni una aplicación de mensajería abierta. Es un entorno de Inteligencia
-                  Artificial cerrado, diseñado específicamente para que los Socios y Directores
+                  Artificial cerrado, diseñado específicamente para que los Directores
                   Ejecutivos de CreaTuActivo automaticen la expansión de sus activos empresariales.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
@@ -133,7 +133,7 @@ export default function TecnologiaPage() {
                   Arquitecto de Activos y fundador de CreaTuActivo, con un único objetivo: eliminar
                   el desgaste operativo que sufren los emprendedores tradicionales. Su acceso está
                   disponible en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a> y
-                  es de uso exclusivo para socios activos.
+                  es de uso exclusivo para Directores Ejecutivos activos.
                 </p>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function TecnologiaPage() {
                   El Problema
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Por qué colapsan los modelos de distribución manuales?
+                  ¿Por qué colapsan los modelos de operación manual?
                 </h2>
               </div>
 
@@ -248,7 +248,7 @@ export default function TecnologiaPage() {
                     <Users className="w-7 h-7 text-[#E5C279]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Escalabilidad Autónoma</h3>
-                  <p className="text-sm text-[#A3A3A3]">Transfiere el protocolo técnico a su red global. La IA posee todo el conocimiento que un humano no puede memorizar.</p>
+                  <p className="text-sm text-[#A3A3A3]">Replica el protocolo técnico a escala global. La infraestructura de IA posee todo el conocimiento que un operador individual no puede sostener.</p>
                 </div>
               </div>
             </div>
@@ -380,7 +380,7 @@ export default function TecnologiaPage() {
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
                 Inicie la Auditoría Patrimonial de 5 Días y compruebe empíricamente cómo este
-                motor cognitivo corrige el Déficit Estructural de Ingresos.
+                motor cognitivo neutraliza el Protocolo de la Presencia Obligada.
               </p>
 
               <Link

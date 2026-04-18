@@ -14,8 +14,8 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos | CreaTuActivo Blog',
-  description: 'El network marketing tradicional está muriendo. Descubre por qué evolucionamos hacia un modelo de Arquitectura de Activos con tecnología y sistemas automatizados.',
-  keywords: 'network marketing obsoleto, arquitectura de activos, MLM moderno, multinivel 2026, sistema de activos, ingresos residuales, network marketing con IA',
+  description: 'El modelo de distribución de los años 90 está obsoleto. Por qué evolucionamos hacia Arquitectura de Activos con tecnología y sistemas autosustentables.',
+  keywords: 'network marketing obsoleto, arquitectura de activos, distribución moderna, multinivel 2026, sistema de activos, flujo de caja autosustentable, IA para negocios',
 };
 
 export default function NetworkMarketingObsoletoPage() {
@@ -173,8 +173,8 @@ export default function NetworkMarketingObsoletoPage() {
                   </div>
 
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia fundamental: en el modelo tradicional, <em>usted eres el motor</em>.
-                    En la Arquitectura de Activos, <em>usted eres el arquitecto</em> de un sistema
+                    La diferencia fundamental: en el modelo tradicional, <em>usted es el motor</em>.
+                    En la Arquitectura de Activos, <em>usted es el arquitecto</em> de un sistema
                     que funciona sin su presencia constante.
                   </p>
                 </section>
@@ -192,7 +192,7 @@ export default function NetworkMarketingObsoletoPage() {
                           <h4 className="font-semibold text-[#E5E5E5] mb-2">Tecnología como multiplicador</h4>
                           <p className="text-[#A3A3A3] text-sm">
                             IA conversacional (Queswa) que responde preguntas, maneja objeciones
-                            y califica prospectos—mientras usted duermes.
+                            y califica prospectos de forma autónoma, sin requerir su disponibilidad.
                           </p>
                         </div>
                       </div>
@@ -263,7 +263,7 @@ export default function NetworkMarketingObsoletoPage() {
                   <ul className="space-y-2 text-[#A3A3A3] mb-6">
                     <li className="flex items-start gap-2">
                       <span className="text-[#E5C279]">→</span>
-                      <span>Buscan ingresos residuales, no otro empleo</span>
+                      <span>Buscan flujo de caja autosustentable, no otro empleo</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-[#E5C279]">→</span>
@@ -280,7 +280,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     No es dinero rápido. Es construcción sistemática de algo que siga
-                    generando cuando usted no estés presente.
+                    generando cuando usted no esté presente.
                   </p>
                 </section>
               </div>
@@ -291,18 +291,18 @@ export default function NetworkMarketingObsoletoPage() {
                   ¿Desea ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En El Mapa de Salida le muestro exactamente cómo hemos evolucionado
-                  del network marketing tradicional a la Arquitectura de Activos—y
-                  cómo puede empezar a construir el tuyo.
+                  En la Auditoría Patrimonial le mostramos exactamente cómo hemos evolucionado
+                  del modelo de distribución manual a la Arquitectura de Activos—y
+                  cómo puede iniciar la construcción del suyo.
                 </p>
                 <Link
-                  href="/mapa-de-salida"
+                  href="/auditoria-patrimonial"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
                   style={{
                     clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
                   }}
                 >
-                  Auditar con El Mapa de Salida
+                  Iniciar Auditoría Patrimonial
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

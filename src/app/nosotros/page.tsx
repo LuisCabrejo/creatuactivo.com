@@ -148,7 +148,7 @@ export default function ManifiestoPage() {
 
                   <p>
                     Hoy, dirijo CreaTuActivo, una firma de educación e implementación
-                    donde transferimos protocolos de ingeniería financiera a quienes comprenden que el Plan por Defecto es insostenible, para:
+                    donde transferimos protocolos de ingeniería financiera a quienes comprenden que operar bajo el Protocolo de la Presencia Obligada es estructuralmente insostenible, para:
                   </p>
                 </div>
 

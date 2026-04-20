@@ -392,7 +392,7 @@ export const Reto12DiasConfirmationEmail = ({
               }}
             >
               <Link
-                href="https://wa.me/573215193909"
+                href="https://wa.me/573206805737"
                 style={{ color: colors.textMuted, textDecoration: 'none' }}
               >
                 WhatsApp: +57 310 206 6593

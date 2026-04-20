@@ -609,7 +609,7 @@ export default function CatalogoEstrategico() {
     // Default para tráfico orgánico (sin referido)
     const defaultDistributor: DistributorProfile = {
       nombre: 'Luis Cabrejo',
-      whatsapp: '+573215193909',
+      whatsapp: '+573206805737',
       email: 'info@creatuactivo.com',
       ciudad: 'Colombia',
       pais: 'Colombia'
@@ -683,7 +683,7 @@ export default function CatalogoEstrategico() {
     buscarDistribuidor(constructorRef).then(profile => {
       setDistributor(profile || {
         nombre: 'Luis Cabrejo',
-        whatsapp: '+573215193909',
+        whatsapp: '+573206805737',
         email: 'info@creatuactivo.com',
         ciudad: 'Colombia',
         pais: 'Colombia'
@@ -1292,7 +1292,7 @@ export default function CatalogoEstrategico() {
                   </div>
 
                   <a
-                    href={`https://wa.me/${(distributor?.whatsapp || '+573215193909').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
+                    href={`https://wa.me/${(distributor?.whatsapp || '+573206805737').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="whatsapp-hybrid"
@@ -2294,7 +2294,7 @@ export default function CatalogoEstrategico() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={`https://wa.me/${(distributor?.whatsapp || '+573215193909').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
+                href={`https://wa.me/${(distributor?.whatsapp || '+573206805737').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#F59E0B] text-[#0B0C0C] px-8 py-4  font-bold text-lg shadow-xl hover:bg-[#F59E0B] transition-all inline-flex items-center justify-center gap-3"

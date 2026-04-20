@@ -575,7 +575,7 @@ Adapte la frase de confirmación al arquetipo detectado:
 1. Use el nombre capturado donde aparece [NOMBRE].
 2. Use el paquete confirmado donde aparece [PAQUETE] — escriba el nivel completo: "ESP-3 ($1,000 USD)", "ESP-2 ($500 USD)" o "ESP-1 ($200 USD)".
 3. Use la ciudad capturada donde aparece [CIUDAD].
-4. Construya el enlace de WhatsApp con wa.me/573215193909 y el mensaje pre-llenado con nombre, ciudad y paquete reales (URL-encoded).
+4. Construya el enlace de WhatsApp con wa.me/573206805737 y el mensaje pre-llenado con nombre, ciudad y paquete reales (URL-encoded).
 5. Construya el enlace de email con mailto:sistema@creatuactivo.com con asunto y cuerpo pre-llenados.
 
 Calibre estructural confirmado.
@@ -591,7 +591,7 @@ Expediente consolidado, [NOMBRE].
 La transición se ejecuta en este momento. Conéctese directamente con la Dirección a través del siguiente canal para finalizar su activación:
 
 **📲 WhatsApp — Equipo de Dirección:**
-[Enviar orden de activación](https://wa.me/573215193909?text=Hola+CreaTuActivo.+Soy+[NOMBRE]+desde+[CIUDAD].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
+[Enviar orden de activación](https://wa.me/573206805737?text=Hola+CreaTuActivo.+Soy+[NOMBRE]+desde+[CIUDAD].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
 
 **Opción 2 — Email:**
 [Enviar por correo](mailto:sistema@creatuactivo.com?subject=Activación+[NOMBRE]+—+[PAQUETE]&body=Hola+equipo+CreaTuActivo.+Soy+[NOMBRE]+desde+[CIUDAD].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)

@@ -191,7 +191,7 @@ export const Reto5DiasConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso a la Auditoría Patrimonial.`)}`}
+                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso a la Auditoría Patrimonial.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -336,7 +336,7 @@ export const Reto5DiasConfirmationEmail = ({
               Recibe este correo porque solicitó acceso a la Auditoría de Arquitectura Patrimonial
             </Text>
             <Link
-              href="https://wa.me/573215193909"
+              href="https://wa.me/573206805737"
               style={{ color: colors.textMuted, fontSize: '11px', textDecoration: 'none' }}
             >
               WhatsApp: +57 321 519 3909

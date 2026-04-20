@@ -257,7 +257,7 @@ export async function POST(request: NextRequest) {
             success: false,
             error: 'Error al guardar tu solicitud. Por favor intenta de nuevo o contáctanos por WhatsApp.',
             technicalDetails: insertError.message,
-            whatsapp: '+573215193909'
+            whatsapp: '+573206805737'
           },
           { status: 500 }
         );

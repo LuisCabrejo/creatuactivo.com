@@ -187,7 +187,7 @@ export default function GraciasPage() {
                   Haz clic abajo para confirmar tu cupo y recibir tu primera instrucción personal.
                 </p>
                 <a
-                  href="https://wa.me/573215193909?text=Hola%20Luis,%20ya%20vi%20el%20video%20y%20quiero%20activar%20mi%20acceso%20al%20Reto."
+                  href="https://wa.me/573206805737?text=Hola%20Luis,%20ya%20vi%20el%20video%20y%20quiero%20activar%20mi%20acceso%20al%20Reto."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="whatsapp-cta-btn"

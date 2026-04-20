@@ -422,7 +422,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             <p className="text-[#A3A3A3] mb-6">
                                 Tu pre-reserva está en el sistema. Revisa tu correo electrónico y un asesor Fundador te contactará en breve vía WhatsApp.
                             </p>
-                            <a href="https://wa.me/573215193909" className="inline-flex items-center gap-2 text-[#10B981] font-bold hover:underline">
+                            <a href="https://wa.me/573206805737" className="inline-flex items-center gap-2 text-[#10B981] font-bold hover:underline">
                                 Agilizar proceso por WhatsApp <ArrowRight size={16} />
                             </a>
                         </div>

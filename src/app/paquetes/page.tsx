@@ -31,7 +31,7 @@ const C = {
 // WA LINKS
 // ============================================================================
 
-const WA_BASE = 'https://wa.me/573215193909?text=';
+const WA_BASE = 'https://wa.me/573206805737?text=';
 const waLink = (pkg: string) =>
   WA_BASE +
   encodeURIComponent(

@@ -175,7 +175,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de completar mi Mapa de Salida.`)}`}
+                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de completar mi Mapa de Salida.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -261,7 +261,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               Recibes este correo porque completaste el Mapa de Salida
             </Text>
             <Link
-              href="https://wa.me/573215193909"
+              href="https://wa.me/573206805737"
               style={{ color: colors.textMuted, fontSize: '11px', textDecoration: 'none' }}
             >
               WhatsApp: +57 321 519 3909

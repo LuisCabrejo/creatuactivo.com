@@ -3629,7 +3629,7 @@ Dado nuestro estándar operativo, no lidiará con formularios burocráticos. Nue
 
 He consolidado su expediente. Su único paso ahora es hacer clic en el siguiente enlace para enviar su orden pre-aprobada directamente a la Dirección y recibir su acceso:
 
-[📲 **WhatsApp Directo de Activación**](https://wa.me/573215193909?text=${waText})
+[📲 **WhatsApp Directo de Activación**](https://wa.me/573206805737?text=${waText})
 
 Bienvenido a la mesa directiva. Ha sido un privilegio dirigir su evaluación.
 

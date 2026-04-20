@@ -26,7 +26,7 @@ const C = {
   silver: '#94A3B8',
 };
 
-const WA_PLANES = 'https://wa.me/573215193909?text=';
+const WA_PLANES = 'https://wa.me/573206805737?text=';
 const waLink = (plan: string) =>
   WA_PLANES + encodeURIComponent(`Hola equipo directivo. He completado mi auditoría en Queswa y solicito la activación del ${plan}. Mi nombre es `);
 

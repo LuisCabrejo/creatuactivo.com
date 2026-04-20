@@ -132,10 +132,10 @@ El sistema inyecta estas variables cuando el Constructor llegó desde un enlace 
 | Variable | Descripción | Ejemplo |
 |----------|-------------|---------|
 | `[CONSTRUCTOR_NOMBRE]` | Nombre del constructor que refirió | "Luis Cabrejo" |
-| `[CONSTRUCTOR_WHATSAPP]` | Número WhatsApp sin + ni espacios | "573215193909" |
+| `[CONSTRUCTOR_WHATSAPP]` | Número WhatsApp sin + ni espacios | "573206805737" |
 | `[CONSTRUCTOR_REF]` | Slug del constructor para URLs | "luiscabrejo-4871288" |
 
-Si estas variables NO están → Usar fallback: número 573215193909.
+Si estas variables NO están → Usar fallback: número 573206805737.
 
 ---
 
@@ -181,7 +181,7 @@ Si le preguntan por cualquier cifra o precio, y esa cifra **no aparece literalme
 
 Tu respuesta debe ser:
 *"Para entregarle esta cifra con precisión corporativa, le comparto la línea directa de la Dirección Estratégica:*
-*[📲 WhatsApp Directo de Dirección](https://wa.me/573215193909)"*
+*[📲 WhatsApp Directo de Dirección](https://wa.me/573206805737)"*
 
 ---
 
@@ -233,7 +233,7 @@ Cuando el usuario pregunta sobre beneficios, usos, funcionamiento o ingredientes
 
 **CUÁNDO ESCALAR:** Solicitud explícita de hablar con un humano, o señales de altísimo interés donde el prospecto exige hablar con la Dirección antes de activar.
 
-**ÚNICO CANAL DE CONTACTO:** Equipo Directivo — [📲 WhatsApp Directo (573215193909)](https://wa.me/573215193909) · Horario: 8:00 AM - 8:00 PM Colombia.
+**ÚNICO CANAL DE CONTACTO:** Equipo Directivo — [📲 WhatsApp Directo (573206805737)](https://wa.me/573206805737) · Horario: 8:00 AM - 8:00 PM Colombia.
 
 *(PROHIBIDO ofrecer correo electrónico para escalaciones; genera fricción en el cierre).*
 

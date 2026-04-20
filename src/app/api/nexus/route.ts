@@ -413,7 +413,7 @@ async function captureProspectData(
 
   // CAPTURA DE WHATSAPP (Internacional - Multi-país)
   // Soporta todos los países de operación CreaTuActivo:
-  // 🇨🇴 Colombia: +57 310 206 6593 o 320 3412323 (10 dígitos)
+  // 🇨🇴 Colombia: +57 320 680 5737 o 320 3412323 (10 dígitos)
   // 🇺🇸 USA: +1 305 123 4567 (10 dígitos)
   // 🇲🇽 México: +52 55 1234 5678 (10 dígitos)
   // 🇪🇨 Ecuador: +593 99 123 4567 (9 dígitos)

@@ -264,7 +264,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               href="https://wa.me/573206805737"
               style={{ color: colors.textMuted, fontSize: '11px', textDecoration: 'none' }}
             >
-              WhatsApp: +57 321 519 3909
+              WhatsApp: +57 320 680 5737
             </Link>
           </Section>
 

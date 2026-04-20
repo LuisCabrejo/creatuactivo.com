@@ -56,7 +56,7 @@ export default function PrivacidadPage() {
               <p><strong>Razón Social:</strong> CreaTuActivo.com</p>
               <p><strong>Domicilio:</strong> Colombia</p>
               <p><strong>Correo electrónico:</strong> privacidad@creatuactivo.com</p>
-              <p><strong>Teléfono de contacto:</strong> +57 310 206 6593</p>
+              <p><strong>Teléfono de contacto:</strong> +57 320 680 5737</p>
             </div>
           </section>
 
@@ -249,7 +249,7 @@ export default function PrivacidadPage() {
 
               <div className="bg-green-50 border-l-4 border-green-600 p-6 rounded">
                 <h3 className="font-bold text-gray-900 mb-3">📱 Por WhatsApp</h3>
-                <p>Contáctenos al: <strong className="text-green-700">+57 310 206 6593</strong></p>
+                <p>Contáctenos al: <strong className="text-green-700">+57 320 680 5737</strong></p>
                 <p className="text-sm mt-2">Horario de atención: Lunes a Viernes, 8:00 AM - 8:00 PM (GMT-5)</p>
               </div>
 
@@ -449,7 +449,7 @@ export default function PrivacidadPage() {
                 <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg text-center">
                   <div className="text-4xl mb-2">📱</div>
                   <h3 className="font-bold text-gray-900 mb-2">WhatsApp</h3>
-                  <p className="text-gray-700 text-sm font-semibold">+57 310 206 6593</p>
+                  <p className="text-gray-700 text-sm font-semibold">+57 320 680 5737</p>
                 </div>
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg text-center">
                   <div className="text-4xl mb-2">💬</div>

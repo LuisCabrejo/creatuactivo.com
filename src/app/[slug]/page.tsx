@@ -18,11 +18,11 @@ const supabase = createClient(
 
 // Destinos disponibles — orden: Home primero, Auditoría destacada, resto secundarios
 const DESTINOS = [
-  { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false },
-  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Descubre tu punto de partida',         highlight: true  },
-  { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecta tu potencial',                highlight: false },
-  { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false },
-  { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false },
+  { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false, color: '#7B8FA6' },
+  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Descubre tu punto de partida',         highlight: true,  color: '#C9A96E' },
+  { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecta tu potencial',                highlight: false, color: '#7A9E8A' },
+  { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false, color: '#9E8A7A' },
+  { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false, color: '#8A7A9E' },
 ]
 
 async function getConstructorBySlug(slug: string) {
@@ -158,18 +158,17 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
         {frase_personal}
       </p>
 
-      {/* Micro-contexto */}
-      <p style={{
-        fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase',
-        color: '#4a4a3a', marginBottom: '14px', alignSelf: 'flex-start',
-        maxWidth: '400px', width: '100%',
-        fontFamily: 'var(--font-roboto-mono), monospace',
-      }}>
-        Elige por dónde empezar:
-      </p>
-
       {/* Links */}
       <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+        {/* Micro-contexto */}
+        <p style={{
+          fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase',
+          color: '#4a4a3a', margin: '0 0 6px 0',
+          fontFamily: 'var(--font-roboto-mono), monospace',
+        }}>
+          Elige por dónde empezar:
+        </p>
         {DESTINOS.map((d) => {
           const isHighlight = d.highlight
           return (
@@ -187,7 +186,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
             >
               <d.Icon
                 size={isHighlight ? 22 : 20}
-                color={isHighlight ? '#E8E8E0' : '#505050'}
+                color={d.color}
                 style={{ flexShrink: 0 }}
               />
               <div style={{ flex: 1 }}>
@@ -221,7 +220,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
             }}
           >
-            <Zap size={20} color='#505050' style={{ flexShrink: 0 }} />
+            <Zap size={20} color='#A69E7A' style={{ flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '0.9rem', fontWeight: 400, letterSpacing: '0.02em', color: '#8A8A80' }}>Activación Directa</div>
               <div style={{ fontSize: '0.72rem', color: '#484840', marginTop: '2px' }}>Únete directamente a mi equipo</div>

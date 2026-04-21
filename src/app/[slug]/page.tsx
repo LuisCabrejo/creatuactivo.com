@@ -179,29 +179,29 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               style={{
                 display: 'flex', alignItems: 'center', gap: '14px',
                 padding: isHighlight ? '18px 20px' : '14px 20px',
-                background: isHighlight ? 'rgba(200,168,75,0.07)' : '#0d0d0d',
-                border: `1px solid ${isHighlight ? 'rgba(200,168,75,0.4)' : '#1a1a1a'}`,
+                background: isHighlight ? '#111111' : '#0d0d0d',
+                border: `1px solid ${isHighlight ? '#2e2e2e' : '#181818'}`,
                 color: '#F5F5F0', textDecoration: 'none',
                 clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
               }}
             >
               <d.Icon
-                size={isHighlight ? 18 : 16}
-                color={isHighlight ? '#C8A84B' : '#6B6B5A'}
+                size={isHighlight ? 22 : 20}
+                color={isHighlight ? '#E8E8E0' : '#505050'}
                 style={{ flexShrink: 0 }}
               />
               <div style={{ flex: 1 }}>
                 <div style={{
                   fontSize: isHighlight ? '1rem' : '0.9rem',
-                  fontWeight: isHighlight ? 700 : 500,
-                  letterSpacing: '0.03em',
-                  color: isHighlight ? '#F5F5F0' : '#C8C8C0',
+                  fontWeight: isHighlight ? 600 : 400,
+                  letterSpacing: '0.02em',
+                  color: isHighlight ? '#F5F5F0' : '#8A8A80',
                 }}>
                   {d.label}
                 </div>
-                <div style={{ fontSize: '0.72rem', color: '#6B6B5A', marginTop: '2px' }}>{d.desc}</div>
+                <div style={{ fontSize: '0.72rem', color: '#484840', marginTop: '2px' }}>{d.desc}</div>
               </div>
-              <ChevronRight size={14} color={isHighlight ? '#C8A84B' : '#3a3a3a'} style={{ flexShrink: 0 }} />
+              <ChevronRight size={14} color={isHighlight ? '#606058' : '#2a2a2a'} style={{ flexShrink: 0 }} />
             </a>
           )
         })}
@@ -221,12 +221,12 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
             }}
           >
-            <Zap size={16} color='#C8A84B' style={{ flexShrink: 0 }} />
+            <Zap size={20} color='#505050' style={{ flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.03em', color: '#C8C8C0' }}>Activación Directa</div>
-              <div style={{ fontSize: '0.72rem', color: '#6B6B5A', marginTop: '2px' }}>Únete directamente a mi equipo</div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 400, letterSpacing: '0.02em', color: '#8A8A80' }}>Activación Directa</div>
+              <div style={{ fontSize: '0.72rem', color: '#484840', marginTop: '2px' }}>Únete directamente a mi equipo</div>
             </div>
-            <ChevronRight size={14} color='#3a3a3a' style={{ flexShrink: 0 }} />
+            <ChevronRight size={14} color='#2a2a2a' style={{ flexShrink: 0 }} />
           </a>
         )}
 
@@ -245,7 +245,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}
           >
-            <MessageCircle size={16} color='#000' />
+            <MessageCircle size={20} color='#000' />
             Hablar con {nombre.split(' ')[0]}
           </a>
         )}

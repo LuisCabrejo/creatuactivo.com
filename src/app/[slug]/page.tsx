@@ -9,19 +9,20 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
+import { Home, Target, Calculator, Package, Map, Zap, ChevronRight, MessageCircle } from 'lucide-react'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-// Destinos disponibles con su label y emoji
+// Destinos disponibles — orden: Home primero, Auditoría destacada, resto secundarios
 const DESTINOS = [
-  { key: 'auditoria',   label: 'Auditoría Patrimonial',      emoji: '🎯', desc: 'Descubre tu punto de partida' },
-  { key: 'calculadora', label: 'Calculadora de Patrimonio',  emoji: '🧮', desc: 'Proyecta tu potencial' },
-  { key: 'productos',   label: 'Ver los productos',          emoji: '📦', desc: 'Catálogo Gano Excel completo' },
-  { key: 'servilleta',  label: 'La servilleta digital',      emoji: '🗺️', desc: 'El modelo en 4 diapositivas' },
-  { key: 'home',        label: 'CreaTuActivo.com',           emoji: '🏠', desc: 'Conoce la plataforma' },
+  { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false },
+  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Descubre tu punto de partida',         highlight: true  },
+  { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecta tu potencial',                highlight: false },
+  { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false },
+  { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false },
 ]
 
 async function getConstructorBySlug(slug: string) {
@@ -157,31 +158,53 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
         {frase_personal}
       </p>
 
+      {/* Micro-contexto */}
+      <p style={{
+        fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase',
+        color: '#4a4a3a', marginBottom: '14px', alignSelf: 'flex-start',
+        maxWidth: '400px', width: '100%',
+        fontFamily: 'var(--font-roboto-mono), monospace',
+      }}>
+        Elige por dónde empezar:
+      </p>
+
       {/* Links */}
-      <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {DESTINOS.map((d) => (
-          <a
-            key={d.key}
-            href={`/${slug}/${d.key}`}
-            style={{
-              display: 'flex', alignItems: 'center', gap: '14px',
-              padding: '16px 20px',
-              background: '#0d0d0d',
-              border: '1px solid #1a1a1a',
-              color: '#F5F5F0', textDecoration: 'none',
-              clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
-              transition: 'border-color 0.2s, background 0.2s',
-            }}
-            onMouseEnter={undefined}
-          >
-            <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>{d.emoji}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.03em' }}>{d.label}</div>
-              <div style={{ fontSize: '0.75rem', color: '#6B6B5A', marginTop: '2px' }}>{d.desc}</div>
-            </div>
-            <span style={{ color: '#C8A84B', fontSize: '1rem' }}>→</span>
-          </a>
-        ))}
+      <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {DESTINOS.map((d) => {
+          const isHighlight = d.highlight
+          return (
+            <a
+              key={d.key}
+              href={`/${slug}/${d.key}`}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '14px',
+                padding: isHighlight ? '18px 20px' : '14px 20px',
+                background: isHighlight ? 'rgba(200,168,75,0.07)' : '#0d0d0d',
+                border: `1px solid ${isHighlight ? 'rgba(200,168,75,0.4)' : '#1a1a1a'}`,
+                color: '#F5F5F0', textDecoration: 'none',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+              }}
+            >
+              <d.Icon
+                size={isHighlight ? 18 : 16}
+                color={isHighlight ? '#C8A84B' : '#6B6B5A'}
+                style={{ flexShrink: 0 }}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontSize: isHighlight ? '1rem' : '0.9rem',
+                  fontWeight: isHighlight ? 700 : 500,
+                  letterSpacing: '0.03em',
+                  color: isHighlight ? '#F5F5F0' : '#C8C8C0',
+                }}>
+                  {d.label}
+                </div>
+                <div style={{ fontSize: '0.72rem', color: '#6B6B5A', marginTop: '2px' }}>{d.desc}</div>
+              </div>
+              <ChevronRight size={14} color={isHighlight ? '#C8A84B' : '#3a3a3a'} style={{ flexShrink: 0 }} />
+            </a>
+          )
+        })}
 
         {/* Activación Directa */}
         {affiliationLink && (
@@ -191,19 +214,19 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
             rel="noopener noreferrer"
             style={{
               display: 'flex', alignItems: 'center', gap: '14px',
-              padding: '16px 20px',
+              padding: '14px 20px',
               background: '#0d0d0d',
-              border: '1px solid rgba(200,168,75,0.25)',
+              border: '1px solid rgba(200,168,75,0.2)',
               color: '#F5F5F0', textDecoration: 'none',
               clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
             }}
           >
-            <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>⚡</span>
+            <Zap size={16} color='#C8A84B' style={{ flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.03em' }}>Activación</div>
-              <div style={{ fontSize: '0.75rem', color: '#6B6B5A', marginTop: '2px' }}>Únete directamente a mi equipo</div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.03em', color: '#C8C8C0' }}>Activación Directa</div>
+              <div style={{ fontSize: '0.72rem', color: '#6B6B5A', marginTop: '2px' }}>Únete directamente a mi equipo</div>
             </div>
-            <span style={{ color: '#C8A84B', fontSize: '1rem' }}>→</span>
+            <ChevronRight size={14} color='#3a3a3a' style={{ flexShrink: 0 }} />
           </a>
         )}
 
@@ -218,11 +241,12 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               padding: '16px 20px', marginTop: '8px',
               background: 'linear-gradient(135deg, #C8A84B, #A8881F)',
               color: '#000', textDecoration: 'none', fontWeight: 700,
-              fontSize: '0.95rem', letterSpacing: '0.08em', textTransform: 'uppercase',
+              fontSize: '0.9rem', letterSpacing: '0.08em', textTransform: 'uppercase',
               clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
             }}
           >
-            💬 Hablar con {nombre.split(' ')[0]}
+            <MessageCircle size={16} color='#000' />
+            Hablar con {nombre.split(' ')[0]}
           </a>
         )}
       </div>

@@ -1,19 +1,21 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v12.0 — Arquitectura Patrimonial (Lujo Clínico / McKinsey Tone)
- * Brief Abril 2026: Consultoría de Gestión de Activos — Brendan Kane + Eugene Schwartz + Oren Klaff
+ * Homepage v13.0 — Unificación cross-canal Tridente EAM + Tres Pilares + Diáspora (May 2026)
+ * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
+ * Aliado canónico: Guion Maestro Servilleta v2 + System Prompt v26.1 + Arsenal Inicial v24.0
  */
 
 import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import CognitiveLoadComparator from '@/components/CognitiveLoadComparator';
+import TridenteAphorisms from '@/components/TridenteAphorisms';
 
 export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-  description: 'Salga del ciclo de trabajar para pagar cuentas. Acopléese a una cadena de suministro física operada por Inteligencia Artificial, sin dejar su profesión actual.',
+  description: 'Salga del ciclo de trabajar, pagar cuentas y repetir. Acople su Base Operativa al ecosistema de tres pilares — la matriz física de Gano Excel, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.',
 };
 
 const C = {
@@ -37,6 +39,8 @@ export default function HomePage() {
         <ProblemSection />
         <PerfilesSection />
         <SolucionesFallidasSection />
+        <TridenteAphorisms />
+        <ProductoFisicoSection />
         <SolutionPreview />
         <QueswaDiferenciadorSection />
         <FinalCTASection />
@@ -115,8 +119,8 @@ function HeroSection() {
           borderLeft: `2px solid rgba(200,168,75,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
-            Diagnostique la falla sistémica de su vehículo financiero y desvincule su liquidez de su agotamiento biológico.{' '}
-            <span style={{ color: C.white }}>Acóplese a una infraestructura de suministro global dirigida por Inteligencia Artificial, sin comprometer su operación actual.</span>
+            Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de su agotamiento biológico.{' '}
+            <span style={{ color: C.white }}>Acople su Base Operativa al ecosistema de tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando propietario, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
           </p>
         </div>
 
@@ -131,7 +135,7 @@ function HeroSection() {
           clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           transition: 'all 0.2s ease',
         }}>
-          Solicitar Auditoría Técnica →
+          Iniciar Auditoría Técnica →
         </Link>
 
         {/* Micro-copy */}
@@ -145,9 +149,9 @@ function HeroSection() {
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-          ¿Unidad Operativa activa?{' '}
+          ¿Base Operativa activa?{' '}
           <Link href="https://queswa.app" style={{ color: C.gold, textDecoration: 'none' }}>
-            Ingresar al Protocolo Queswa →
+            Ingresar a su Centro de Mando →
           </Link>
         </p>
       </div>
@@ -174,7 +178,7 @@ function ProblemSection() {
     {
       num: '03',
       title: 'El Gravamen Táctico',
-      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el carcelero de su propia matriz financiera.',
+      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el carcelero de su propia arquitectura financiera.',
     },
   ];
 
@@ -199,7 +203,7 @@ function ProblemSection() {
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
             Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de su desgaste físico o su gestión constante.{' '}
             <span style={{ color: C.white }}>Al financiar su estilo de vida intercambiando tiempo por liquidez, usted ha firmado un contrato de vigilancia permanente sobre su propia vida.</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>Si usted se detiene, el sistema colapsa.</span>
+            <span style={{ color: C.gold, fontWeight: 600 }}>Si usted se detiene, el sistema colapsa, generando inestabilidad estructural en su liquidez.</span>
           </p>
         </div>
 
@@ -237,18 +241,23 @@ function PerfilesSection() {
   const perfiles = [
     {
       label: 'Microempresario · 1–5 empleados',
-      dolor: 'Déficit Operativo de Tiempo: El dueño es el empleado más barato de su propia logística.',
-      exito: 'Ingresos que llegan aunque el local esté cerrado. Un activo que crece mientras operas.',
+      dolor: 'Inestabilidad Estructural por Presencia Obligada: El dueño es el empleado más barato de su propia logística.',
+      exito: 'Ingresos que llegan aunque el local esté cerrado. Una Base Operativa que escala mientras usted opera su negocio actual.',
     },
     {
       label: 'Empleado Público · Ejecutivo',
       dolor: 'Brecha Pensional de Estatus: Proyección de pérdida del 60% del poder adquisitivo al retiro.',
-      exito: 'Una segunda fuente en paralelo, sin arriesgar el puesto fijo.',
+      exito: 'Patrimonio Paralelo en construcción, sin comprometer su posición profesional actual.',
     },
     {
       label: 'Pensionado · Después de 30 años',
       dolor: 'Fragilidad de Activo Único: Dependencia total de un sistema de seguridad social en déficit estructural.',
-      exito: 'Un activo que genera en paralelo. Algo que los hijos puedan heredar.',
+      exito: 'Un activo legal 100% transferible a su familia. Algo que sus hijos puedan heredar.',
+    },
+    {
+      label: 'Latino en el Extranjero · Diáspora Global',
+      dolor: 'Soberanía Geográfica Atrofiada: Construcción patrimonial limitada a su país de residencia, sin canal para capitalizar mercado natal.',
+      exito: 'Base Operativa anclada al país natal, organización en 15 países de América, dirigida desde su lugar de residencia a través de Queswa.',
     },
   ];
 
@@ -324,8 +333,8 @@ function SolucionesFallidasSection() {
     {
       num: '03',
       titulo: 'Apalancamiento Asimétrico',
-      subtitulo: 'Infraestructura Híbrida',
-      desc: 'Acoplarse a una Unidad de Suministro global. Una corporación asume la logística y un algoritmo de IA asume el desgaste operativo. Usted solo ejerce la dirección ejecutiva.',
+      subtitulo: 'Ecosistema de Tres Pilares',
+      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y usted ejerce la gobernanza como Arquitecto de Patrimonio.',
       destacada: true,
     },
   ];
@@ -338,7 +347,7 @@ function SolucionesFallidasSection() {
             La Arquitectura de Decisiones
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            Usted tiene tres opciones operativas frente a este déficit.
+            Usted tiene tres opciones operativas frente a esta inestabilidad estructural.
           </h2>
         </div>
 
@@ -385,6 +394,52 @@ function SolucionesFallidasSection() {
 }
 
 // ============================================================================
+// PRODUCTO FÍSICO — Aterrizaje del consumo recurrente tangible
+// ============================================================================
+
+function ProductoFisicoSection() {
+  return (
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+            La Capa Logística de Consumo Recurrente
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+            Todo activo financiero sólido requiere un motor de alta rotación.
+          </h2>
+        </div>
+
+        <div style={{
+          padding: '32px 36px', marginBottom: '32px',
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+        }}>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
+            Su Base Operativa monetiza un hábito biológico innegociable:{' '}
+            <span style={{ color: C.white }}>el consumo masivo de bebidas enriquecidas y suplementos de alta gama.</span>{' '}
+            No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología propietaria de extracción dual respaldada por décadas de investigación en biotecnología asiática</span>.
+          </p>
+        </div>
+
+        <div style={{
+          padding: '24px 32px',
+          background: 'rgba(200,168,75,0.04)',
+          border: `1px solid rgba(200,168,75,0.2)`,
+          textAlign: 'center',
+          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+        }}>
+          <p style={{ fontSize: '1rem', lineHeight: 1.7, color: C.white, margin: 0, fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic' }}>
+            Un hábito biológico que no cambia genera un flujo de caja que no se detiene.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
 // PRUEBA DE ESTRÉS PATRIMONIAL
 // ============================================================================
 
@@ -418,9 +473,9 @@ function SolutionPreview() {
         </div>
 
         <p style={{ color: C.muted, marginBottom: '40px', maxWidth: '580px', margin: '0 auto 40px', lineHeight: 1.75 }}>
-          Apuesto a que usted es alguien que controla sus finanzas, pero el escrutinio revela que la mayoría de ejecutivos operan con una{' '}
+          Usted controla sus finanzas con disciplina; sin embargo, el escrutinio técnico revela que la mayoría de ejecutivos operan con una{' '}
           <span style={{ color: C.white, fontWeight: 500 }}>Autonomía Estructural inferior a 30 días</span>.{' '}
-          Si su resultado es crítico, no necesita motivación; necesita acoplarse a una nueva infraestructura.
+          Si su resultado es crítico, no necesita motivación; necesita acoplar su Base Operativa al ecosistema canónico.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
@@ -444,7 +499,7 @@ function SolutionPreview() {
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
           }}>
-            Omitir Simulación e Iniciar Auditoría →
+            Omitir Simulación e Iniciar Auditoría Técnica →
           </Link>
         </div>
       </div>
@@ -459,16 +514,16 @@ function SolutionPreview() {
 function QueswaDiferenciadorSection() {
   const capacidades = [
     {
-      titulo: 'Gestión de Unidades Operativas 24/7',
-      desc: 'Filtrado y acoplamiento de demanda sin intervención humana ni desgaste cognitivo.',
+      titulo: 'EXPANDIR — Despliegue de Tráfico Calificado',
+      desc: 'Usted no explica — Queswa explica. Su dispositivo se convierte en centro de mando; toda la información ya está estructurada y se despliega con precisión quirúrgica.',
     },
     {
-      titulo: 'Dashboard de Inteligencia Patrimonial',
-      desc: 'Monitoreo clínico de flujos, amortización y rendimientos en tiempo real.',
+      titulo: 'ACTIVAR — Filtrado y Calificación 24/7',
+      desc: 'Usted no convence; usted audita y autoriza. Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted.',
     },
     {
-      titulo: 'Protocolos de Transferencia Técnica',
-      desc: 'Sistemas de escalabilidad autónoma para la expansión de su infraestructura global.',
+      titulo: 'MAESTRÍA — Escalamiento Automatizado',
+      desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Arquitecto de Patrimonio desde el día uno.',
     },
   ];
 
@@ -477,14 +532,14 @@ function QueswaDiferenciadorSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            El Motor Cognitivo
+            El Centro de Mando
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            Protocolo Queswa: El Motor de Soberanía.
+            Queswa: Su Centro de Mando para la Soberanía Patrimonial.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Queswa es la arquitectura de IA diseñada para neutralizar su Presencia Obligada.{' '}
-            <span style={{ color: C.white }}>Mientras usted ejerce su dirección ejecutiva, nuestra tecnología califica la demanda y la acopla a una infraestructura transnacional que asume el</span>{' '}
+            Queswa es la plataforma propietaria de IA diseñada para neutralizar el Protocolo de la Presencia Obligada bajo la metodología <span style={{ color: C.gold, fontWeight: 600 }}>El Tridente EAM</span>.{' '}
+            <span style={{ color: C.white }}>Mientras usted ejerce gobernanza, Queswa califica la demanda y la acopla a la matriz física de Gano Excel —presencia en 70 países, red de sedes operativas locales y soporte presencial— que asume el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del desgaste operativo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>
@@ -559,8 +614,8 @@ function FinalCTASection() {
           textAlign: 'left',
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
-            Identificada la falla sistémica en su vehículo financiero, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
-            <span style={{ color: C.white }}>Esta infraestructura no es de acceso masivo; está restringida a perfiles con capacidad de dirección ejecutiva.</span>{' '}
+            Identificada la falla sistémica en su arquitectura financiera, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
+            <span style={{ color: C.white }}>Esta infraestructura no es de acceso masivo; está restringida a perfiles con capacidad de gobernanza directiva.</span>{' '}
             Su expediente requiere una validación de datos en un periodo máximo de{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>48 horas</span>{' '}
             para asegurar la integridad del ecosistema.

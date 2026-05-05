@@ -479,7 +479,7 @@ export default function UnifiedQueswaOrb() {
             }}
           >
             <p style={{ fontSize: 13, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
-              ¿Construimos tu Patrimonio Paralelo?
+              ¿Construimos su Patrimonio Paralelo?
             </p>
           </motion.div>
         )}

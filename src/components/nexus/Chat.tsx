@@ -33,7 +33,7 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
         id: 'welcome',
         role: 'assistant',
         // 🔧 MENSAJE INICIAL Queswa - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
-        content: 'Protocolo Queswa activo.\n\nMi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.\n\nSeleccione el módulo de análisis:'
+        content: 'Protocolo Queswa activo.\n\nMi función es gestionar la auditoría técnica de perfiles para la integración al ecosistema CreaTuActivo. Opero bajo el Tridente EAM — usted no explica, Queswa explica.\n\nSeleccione el módulo de análisis:'
       }
     ]
   });

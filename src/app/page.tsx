@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.0 — Unificación cross-canal Tridente EAM + Tres Pilares + Diáspora (May 2026)
+ * Homepage v13.1 — Refinamientos cognitivos + Caballo de Troya Base Operativa + Imagen 3 Pilares (May 2026)
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
  * Aliado canónico: Guion Maestro Servilleta v2 + System Prompt v26.1 + Arsenal Inicial v24.0
  */
@@ -15,7 +15,7 @@ export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-  description: 'Salga del ciclo de trabajar, pagar cuentas y repetir. Acople su Base Operativa al ecosistema de tres pilares — la matriz física de Gano Excel, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.',
+  description: 'Salga del ciclo de trabajar, pagar cuentas y repetir. Construya un Patrimonio Paralelo apalancado en tres pilares — la matriz física de Gano Excel, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.',
 };
 
 const C = {
@@ -64,7 +64,7 @@ function HeroSection() {
         pointerEvents: 'none',
       }} />
 
-      {/* Turbina lazy */}
+      {/* Hero image lazy */}
       <div style={{
         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
         filter: 'grayscale(70%) contrast(1.1) brightness(0.55)',
@@ -73,7 +73,7 @@ function HeroSection() {
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         pointerEvents: 'none',
       }}>
-        <Image src="/images/turbina.webp" alt="" fill loading="lazy"
+        <Image src="/images/3-pilares.webp" alt="" fill loading="lazy" priority
           style={{ objectFit: 'cover', objectPosition: 'center' }} sizes="100vw" />
       </div>
 
@@ -120,7 +120,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de su agotamiento biológico.{' '}
-            <span style={{ color: C.white }}>Acople su Base Operativa al ecosistema de tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando propietario, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
+            <span style={{ color: C.white }}>Construya un <strong style={{ color: C.gold }}>Patrimonio Paralelo</strong> apalancado en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
           </p>
         </div>
 
@@ -403,7 +403,7 @@ function ProductoFisicoSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            La Capa Logística de Consumo Recurrente
+            Pilar 1 — La Matriz Física de Consumo Recurrente
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
             Todo activo financiero sólido requiere un motor de alta rotación.
@@ -615,7 +615,7 @@ function FinalCTASection() {
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Identificada la falla sistémica en su arquitectura financiera, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
-            <span style={{ color: C.white }}>Esta infraestructura no es de acceso masivo; está restringida a perfiles con capacidad de gobernanza directiva.</span>{' '}
+            <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de gobernanza directiva.</span>{' '}
             Su expediente requiere una validación de datos en un periodo máximo de{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>48 horas</span>{' '}
             para asegurar la integridad del ecosistema.

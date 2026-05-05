@@ -70,7 +70,7 @@ const getInitialGreeting = (): Message => {
     role: 'assistant',
     content: `Protocolo Queswa activo.
 
-Mi función es gestionar la auditoría técnica de perfiles para la integración a la infraestructura CreaTuActivo.com. Opero bajo lógica de gestión patrimonial, eliminando la prospección manual.
+Mi función es gestionar la auditoría técnica de perfiles para la integración al ecosistema CreaTuActivo. Opero bajo el Tridente EAM — usted no explica, Queswa explica.
 
 Seleccione el módulo de análisis:`,
     timestamp: new Date(),

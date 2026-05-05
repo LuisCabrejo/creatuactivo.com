@@ -555,10 +555,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 {/* Quick Reply Chips — columna única, touch targets grandes */}
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
                   {[
-                    { icon: <Settings2 size={15} strokeWidth={1.5} />, label: 'Matriz Operativa del Sistema'       },
-                    { icon: <BarChart3  size={15} strokeWidth={1.5} />, label: 'Simulación de Flujo y Amortización' },
-                    { icon: <Package   size={15} strokeWidth={1.5} />, label: 'Capa Logística de Consumo Masivo'   },
-                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Calificación'  },
+                    { icon: <Settings2 size={15} strokeWidth={1.5} />, label: 'Arquitectura del Ecosistema (Tres Pilares)' },
+                    { icon: <BarChart3  size={15} strokeWidth={1.5} />, label: 'Simulación de Flujo y Amortización'         },
+                    { icon: <Package   size={15} strokeWidth={1.5} />, label: 'Pilar Logístico — Consumo Recurrente'        },
+                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Calificación'           },
                   ].map(({ icon, label }) => (
                     <button
                       key={label}

@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.1 — Refinamientos cognitivos + Caballo de Troya Base Operativa + Imagen 3 Pilares (May 2026)
+ * Homepage v13.2 — Retrofit léxico canónico Glosario v1.4: Estructura Patrimonial + descripción operativa villano + frame Software Financiero + Comandos Tridente EAM (May 2026)
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
- * Aliado canónico: Guion Maestro Servilleta v2 + System Prompt v26.1 + Arsenal Inicial v24.0
+ * Aliado canónico: Servilleta v3 + Reel A Corporate v2.2 + Glosario v1.4 + System Prompt v26.2 + Arsenal Inicial v24.0
  */
 
 import Link from 'next/link';
@@ -14,8 +14,8 @@ import TridenteAphorisms from '@/components/TridenteAphorisms';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'CreaTuActivo | Construcción de Patrimonio Paralelo',
-  description: 'Salga del ciclo de trabajar, pagar cuentas y repetir. Construya un Patrimonio Paralelo apalancado en tres pilares — la matriz física de Gano Excel, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.',
+  title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
+  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio.',
 };
 
 const C = {
@@ -86,7 +86,7 @@ function HeroSection() {
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
           <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.muted, fontFamily: "'Roboto Mono', monospace" }}>
-            Infraestructura de Patrimonio Paralelo
+            Construcción de Estructura Patrimonial
           </span>
         </div>
 
@@ -99,7 +99,7 @@ function HeroSection() {
           letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          Arquitectura de Patrimonio Paralelo
+          Construcción de Estructura Patrimonial
         </h1>
 
         {/* Hook de diagnóstico */}
@@ -109,8 +109,8 @@ function HeroSection() {
           fontFamily: "'Playfair Display', Georgia, serif",
           textShadow: '0 2px 10px rgba(0,0,0,0.9)',
         }}>
-          Usted no tiene un problema de ingresos;{' '}
-          <span style={{ color: C.gold }}>usted opera bajo el Protocolo de la Presencia Obligada.</span>
+          Usted no tiene un problema de ingresos.{' '}
+          <span style={{ color: C.gold }}>Tiene una trampa estructural: si para de trabajar, para de ganar.</span>
         </p>
 
         {/* Cuerpo */}
@@ -119,8 +119,8 @@ function HeroSection() {
           borderLeft: `2px solid rgba(200,168,75,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
-            Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de su agotamiento biológico.{' '}
-            <span style={{ color: C.white }}>Construya un <strong style={{ color: C.gold }}>Patrimonio Paralelo</strong> apalancado en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
+            Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de sus horas de vida.{' '}
+            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>Estructura Patrimonial</strong> apalancada en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
           </p>
         </div>
 
@@ -135,7 +135,7 @@ function HeroSection() {
           clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           transition: 'all 0.2s ease',
         }}>
-          Iniciar Auditoría Técnica →
+          Iniciar Auditoría de Viabilidad →
         </Link>
 
         {/* Micro-copy */}
@@ -144,7 +144,7 @@ function HeroSection() {
           fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          5 Días · Subvencionado · Escrutinio de Ingeniería Patrimonial
+          5 Días · Sin Costo · Escrutinio de Ingeniería Patrimonial
         </p>
 
         {/* Link secundario */}
@@ -168,7 +168,7 @@ function ProblemSection() {
     {
       num: '01',
       title: 'Prueba de Estrés',
-      desc: 'Someter su arquitectura a un escrutinio es simple: si su ausencia de 30 días detiene el flujo de caja, usted no posee un activo en propiedad; usted opera bajo un arrendamiento biológico de su propia libertad.',
+      desc: 'Someter su arquitectura a un escrutinio es simple: si su ausencia de 30 días detiene el flujo de caja, usted no posee un activo en propiedad; usted opera bajo un arrendamiento de sus horas de vida.',
     },
     {
       num: '02',
@@ -178,7 +178,7 @@ function ProblemSection() {
     {
       num: '03',
       title: 'El Gravamen Táctico',
-      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el carcelero de su propia arquitectura financiera.',
+      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el operador subordinado de su propia arquitectura financiera.',
     },
   ];
 
@@ -190,7 +190,7 @@ function ProblemSection() {
             El Diagnóstico Clínico
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
-            El Protocolo de la Presencia Obligada.
+            La Trampa Estructural.
           </h2>
         </div>
 
@@ -201,8 +201,8 @@ function ProblemSection() {
           clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de su desgaste físico o su gestión constante.{' '}
-            <span style={{ color: C.white }}>Al financiar su estilo de vida intercambiando tiempo por liquidez, usted ha firmado un contrato de vigilancia permanente sobre su propia vida.</span>{' '}
+            Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de sus horas de vida o su gestión constante.{' '}
+            <span style={{ color: C.white }}>Al financiar su estilo de vida intercambiando tiempo por dinero, usted ha firmado un contrato de vigilancia permanente sobre su propia vida.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Si usted se detiene, el sistema colapsa, generando inestabilidad estructural en su liquidez.</span>
           </p>
         </div>
@@ -241,13 +241,13 @@ function PerfilesSection() {
   const perfiles = [
     {
       label: 'Microempresario · 1–5 empleados',
-      dolor: 'Inestabilidad Estructural por Presencia Obligada: El dueño es el empleado más barato de su propia logística.',
+      dolor: 'Inestabilidad Estructural por Modelo de Presencia: El dueño es el empleado más barato de su propia logística.',
       exito: 'Ingresos que llegan aunque el local esté cerrado. Una Base Operativa que escala mientras usted opera su negocio actual.',
     },
     {
       label: 'Empleado Público · Ejecutivo',
       dolor: 'Brecha Pensional de Estatus: Proyección de pérdida del 60% del poder adquisitivo al retiro.',
-      exito: 'Patrimonio Paralelo en construcción, sin comprometer su posición profesional actual.',
+      exito: 'Estructura Patrimonial en construcción, sin comprometer su posición profesional actual.',
     },
     {
       label: 'Pensionado · Después de 30 años',
@@ -320,7 +320,7 @@ function SolucionesFallidasSection() {
       num: '01',
       titulo: 'Tolerancia al Déficit',
       subtitulo: 'Status Quo',
-      desc: 'Continuar operando bajo el Protocolo de la Presencia Obligada. Usted acepta que su liquidez posee una fecha de caducidad biológica y asume el riesgo de un colapso si su capacidad operativa se detiene.',
+      desc: 'Continuar operando bajo el modelo del intercambio lineal de tiempo por dinero. Usted acepta que su liquidez posee una fecha de caducidad atada a sus horas de vida y asume el riesgo de un colapso si su capacidad operativa se detiene.',
       destacada: false,
     },
     {
@@ -334,7 +334,7 @@ function SolucionesFallidasSection() {
       num: '03',
       titulo: 'Apalancamiento Asimétrico',
       subtitulo: 'Ecosistema de Tres Pilares',
-      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y usted ejerce la gobernanza como Arquitecto de Patrimonio.',
+      desc: 'Una actualización de su software financiero: acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y usted ejerce la gobernanza como Arquitecto de Patrimonio.',
       destacada: true,
     },
   ];
@@ -419,7 +419,7 @@ function ProductoFisicoSection() {
             Su Base Operativa monetiza un hábito biológico innegociable:{' '}
             <span style={{ color: C.white }}>el consumo masivo de bebidas enriquecidas y suplementos de alta gama.</span>{' '}
             No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología propietaria de extracción dual respaldada por décadas de investigación en biotecnología asiática</span>.
+            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología celular propietaria respaldada por décadas de investigación en biotecnología asiática</span>.
           </p>
         </div>
 
@@ -452,11 +452,11 @@ function SolutionPreview() {
         </span>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
-          ¿Cuál es el Índice de Caducidad de su liquidez actual?
+          ¿Cuál es la Autonomía Estructural de su liquidez actual?
         </h2>
 
         <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px', lineHeight: 1.7 }}>
-          La ecuación para diagnosticar el impacto del Protocolo de la Presencia Obligada es clínica y binaria:
+          La ecuación para diagnosticar la vulnerabilidad de su modelo actual es clínica y binaria:
         </p>
 
         <div style={{
@@ -499,7 +499,7 @@ function SolutionPreview() {
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
           }}>
-            Omitir Simulación e Iniciar Auditoría Técnica →
+            Omitir Simulación e Iniciar Auditoría de Viabilidad →
           </Link>
         </div>
       </div>
@@ -514,15 +514,15 @@ function SolutionPreview() {
 function QueswaDiferenciadorSection() {
   const capacidades = [
     {
-      titulo: 'EXPANDIR — Despliegue de Tráfico Calificado',
+      titulo: 'COMANDO EXPANDIR — Despliegue de Tráfico Calificado',
       desc: 'Usted no explica — Queswa explica. Su dispositivo se convierte en centro de mando; toda la información ya está estructurada y se despliega con precisión quirúrgica.',
     },
     {
-      titulo: 'ACTIVAR — Filtrado y Calificación 24/7',
+      titulo: 'COMANDO ACTIVAR — Filtrado y Calificación 24/7',
       desc: 'Usted no convence; usted audita y autoriza. Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted.',
     },
     {
-      titulo: 'MAESTRÍA — Escalamiento Automatizado',
+      titulo: 'COMANDO MAESTRÍA — Escalamiento Automatizado',
       desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Arquitecto de Patrimonio desde el día uno.',
     },
   ];
@@ -538,7 +538,7 @@ function QueswaDiferenciadorSection() {
             Queswa: Su Centro de Mando para la Soberanía Patrimonial.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Queswa es la plataforma propietaria de IA diseñada para neutralizar el Protocolo de la Presencia Obligada bajo la metodología <span style={{ color: C.gold, fontWeight: 600 }}>El Tridente EAM</span>.{' '}
+            Queswa es la plataforma propietaria de IA que opera bajo la metodología <span style={{ color: C.gold, fontWeight: 600 }}>El Tridente EAM — tres comandos automatizados</span> que neutralizan la fricción del modelo actual.{' '}
             <span style={{ color: C.white }}>Mientras usted ejerce gobernanza, Queswa califica la demanda y la acopla a la matriz física de Gano Excel —presencia en 70 países, red de sedes operativas locales y soporte presencial— que asume el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del desgaste operativo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
@@ -605,7 +605,7 @@ function FinalCTASection() {
         </h2>
 
         <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "'Playfair Display', Georgia, serif" }}>
-          Escrutinio de 5 Días para Neutralizar el Protocolo de la Presencia Obligada.
+          Escrutinio de 5 Días para Diagnosticar la Vulnerabilidad de su Modelo Actual.
         </p>
 
         <div style={{
@@ -616,9 +616,7 @@ function FinalCTASection() {
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Identificada la falla sistémica en su arquitectura financiera, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
             <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de gobernanza directiva.</span>{' '}
-            Su expediente requiere una validación de datos en un periodo máximo de{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>48 horas</span>{' '}
-            para asegurar la integridad del ecosistema.
+            <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su arquitectura patrimonial requiere este nivel hoy.</span>
           </p>
         </div>
 
@@ -632,7 +630,7 @@ function FinalCTASection() {
             textDecoration: 'none', textTransform: 'uppercase',
             clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
           }}>
-            Iniciar Auditoría Técnica →
+            Iniciar Auditoría de Viabilidad →
           </Link>
           <Link href="/calculadora" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -665,7 +663,7 @@ function Footer() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>
           <p style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
-          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>Infraestructura de Patrimonio Paralelo</p>
+          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>Construcción de Estructura Patrimonial</p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>

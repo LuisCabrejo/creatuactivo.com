@@ -1,5 +1,6 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.0
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.1
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+**v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
 
 **[Concepto Nuclear]:** Ganoderma Lucidum con tecnología de extracción propietaria. 30+ años de investigación. 200+ compuestos bioactivos. Biodisponibilidad 100%.
 
@@ -13,7 +14,7 @@
 
 A nivel de diseño de negocios, el vehículo de distribución primario es el café porque posee barrera de entrada cero. No requiere modificar la conducta del mercado.
 
-La lógica operativa es matemática: en lugar de educar a un cliente para que adquiera un nuevo hábito, usted integra tecnología celular de grado médico en una bebida que el mercado ya consume por necesidad biológica diaria. La conversión de consumidor tradicional a usuario del ecosistema ocurre de forma orgánica.
+La lógica operativa es matemática: en lugar de educar a un cliente para que adquiera un nuevo hábito, usted integra tecnología propietaria de bioactivación de grado médico en una bebida que el mercado ya consume por necesidad biológica diaria. La conversión de consumidor tradicional a usuario del ecosistema ocurre de forma orgánica.
 
 ---
 
@@ -314,9 +315,9 @@ Ganoderma tiene seguridad documentada:
 ---
 
 ### FAQ_02: "¿Cuánto tiempo para notar beneficios?"
-**[Concepto Nuclear]:** Acumulación Celular vs. Estimulación Artificial.
+**[Concepto Nuclear]:** Acumulación Metabólica vs. Estimulación Artificial.
 
-La tecnología celular del Ganoderma no opera bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
+La tecnología de bioactivación del Ganoderma no opera bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
 
 | Plazo | Proceso Biológico |
 |-------|-------------------|

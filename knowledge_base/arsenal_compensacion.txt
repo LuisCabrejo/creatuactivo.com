@@ -1,7 +1,7 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v6.2
+# Arsenal de Compensacion: Infraestructura de Ingresos v6.3
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Lujo Clinico / Usted — Arquitectura Patrimonial (No MLM tradicional)
-**Version:** 6.2 (04 May 2026) — Nomenclatura canónica: Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario); "su organización" reemplaza "su equipo/red"; "Arquitectos de Patrimonio" reemplaza "constructores"; Analogía del Acueducto eliminada
+**Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
 **REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: GEN5=Capitalización Inmediata, Binario=Renta Vitalicia, colectivo=su organización.
 
 ---
@@ -534,7 +534,7 @@ El Binario es su activo real a largo plazo. El sistema suma todo el volumen comi
 - Tasa Base: **10%**
 - Tasa Fundador (ESP-3): **17%** (El estandar recomendado)
 
-**Mecanica:** Mientras el mercado demande la biotecnologia celular por habito innegociable, el consumo fluye y el ecosistema liquida regalias recurrentes cada viernes, operando de forma automatica sin requerir su intervencion manual.
+**Mecanica:** Mientras el mercado demande la biotecnologia de bioactivacion por habito innegociable, el consumo fluye y el ecosistema liquida regalias recurrentes cada viernes, operando de forma automatica sin requerir su intervencion manual.
 
 **Nota:** Si desea ver la proyeccion de crecimiento, pregunte "deme la proyeccion binario".
 

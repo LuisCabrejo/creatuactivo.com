@@ -1,16 +1,16 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v11.0 — LUJO CLÍNICO
+# ARSENAL AVANZADO: MECÁNICA Y CIERRE v11.1 — LUJO CLÍNICO
 
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Tridente EAM.
 **Enfoque:** Ingeniería Patrimonial. Diagnóstico Primero (McKinsey). Vocabulario de Consultoría de Activos.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
-**Versión:** 11.0 — Alineación Glosario v1.4: Estructura Patrimonial + descripción operativa villano + Comandos Tridente EAM completo (09 May 2026)
+**Versión:** 11.1 — Alineación SP v26.4: dirección estratégica + apalancamiento estratégico — fricción nivel 5 eliminada según investigaciones canónicas (10 May 2026)
 
 ---
 
 ## 🔧 OBJECIONES DE ALTO NIVEL (Deep Dive) - 3 respuestas
 
 ### ADV_OBJ_01: "¿Es esto demasiado bueno para ser verdad? ¿Dónde está el truco?"
-**[Concepto Nuclear]:** Eficiencia Tecnológica vs. Fricción Analógica. La ausencia de pasivos no es un "truco", es apalancamiento asimétrico.
+**[Concepto Nuclear]:** Eficiencia Tecnológica vs. Fricción Analógica. La ausencia de pasivos no es un "truco", es apalancamiento estratégico.
 
 La percepción de anomalía es el resultado natural de evaluar una infraestructura digital utilizando los parámetros de un negocio analógico.
 
@@ -176,9 +176,9 @@ El Arquitecto de Patrimonio, por el contrario, audita la infraestructura: diseñ
 
 La proyección corporativa a cinco años establece la interconexión de 4 millones de usuarios en América, consolidando el ecosistema de distribución de bebidas enriquecidas y suplementos de alta gama más eficiente del continente.
 
-En esta fase de cimentación, el objetivo primario no es captar al consumidor final; es estructurar y habilitar las Bases Operativas que formarán la arquitectura central. Para 2030, el flujo masivo del mercado transaccionará a través de este ecosistema de forma orgánica, fidelizado mediante nuestra biotecnología asiática. Hoy, la posición que se le transfiere es la gobernanza estratégica sobre esta expansión continental.
+En esta fase de cimentación, el objetivo primario no es captar al consumidor final; es estructurar y habilitar las Bases Operativas que formarán la arquitectura central. Para 2030, el flujo masivo del mercado transaccionará a través de este ecosistema de forma orgánica, fidelizado mediante nuestra biotecnología asiática. Hoy, la posición que se le transfiere es la dirección estratégica sobre esta expansión continental.
 
-**Pregunta de seguimiento:** A nivel de proyección patrimonial, ¿reconoce usted la diferencia matemática entre integrarse en la fase madura como un consumidor cautivo, frente a asegurar la gobernanza logística durante la fase de despliegue continental?
+**Pregunta de seguimiento:** A nivel de proyección patrimonial, ¿reconoce usted la diferencia matemática entre integrarse en la fase madura como un consumidor cautivo, frente a asegurar la dirección logística durante la fase de despliegue continental?
 
 ---
 

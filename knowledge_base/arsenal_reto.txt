@@ -1,8 +1,8 @@
-# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.2
+# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.3
 
 **Propósito:** Vender la ejecución de la "Auditoría de Arquitectura Patrimonial" (Auditoría de 5 Días).
 **Enfoque:** Due Diligence y Re-Arquitectura del modelo donde el ingreso depende 100% de la presencia física del Arquitecto, y su consecuencia directa: el Déficit Estructural de Ingresos.
-**Versión:** 4.2 (09 May 2026) — Alineación Glosario v1.4: descripción operativa villano (eliminado PPO + agotamiento biológico)
+**Versión:** 4.3 (10 May 2026) — Alineación SP v26.4: "decisión de dirección" → "decisión de dirección" (fricción nivel 5 eliminada)
 **REGLA DE ORO:** No es un curso de motivación. Es un protocolo de escrutinio técnico y entrega de planos arquitectónicos.
 
 ---
@@ -31,7 +31,7 @@ Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logís
 * **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y plusvalía de su Base Operativa.
 * **Día 5 — Protocolo de Activación:** Decisión directiva y asignación de activos.
 
-Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de gobernanza, sin suposiciones ni fricción emocional.
+Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de dirección, sin suposiciones ni fricción emocional.
 
 ---
 
@@ -101,6 +101,10 @@ Si los números de la arquitectura no se sostienen ante su escrutinio analítico
 
 ## CHANGELOG
 
+### v4.3 (10 May 2026) — Alineación SP v26.4
+* RETO_02 cierre: "decisión de gobernanza" → "decisión de dirección" (eliminación fricción nivel 5 documentada en investigación Léxico Financiero Reels)
+* Coherencia cross-canal con: Arsenal Inicial v25.1, Arsenal Avanzado v11.1, System Prompt v26.4
+
 ### v4.2 (09 May 2026) — Alineación Glosario v1.4
 * Header: "Re-Arquitectura del Protocolo de la Presencia Obligada" → "modelo donde el ingreso depende 100% de la presencia física" (regla v1.2: villano sin etiqueta)
 * RETO_01: eliminado "Protocolo de la Presencia Obligada" + "agotamiento biológico" → descripción operativa pura
@@ -108,7 +112,7 @@ Si los números de la arquitectura no se sostienen ante su escrutinio analítico
 
 ### v4.1 (04 May 2026) — Unificación Léxico Canónico
 * RETO_01: "Director" → "Arquitecto"; cadena causal completa Protocolo → Inestabilidad → Déficit; "infraestructura digital" → "Base Operativa digital"
-* RETO_02: Día 1 "vehículo" → "arquitectura"; Día 3 "Capa Logística" → "Matriz Física (Pilar 1) / Centro de Mando (Pilar 2)"; Día 4 "plusvalía de red" → "plusvalía de su Base Operativa"; cierre "decisión directiva" → "decisión de gobernanza"
+* RETO_02: Día 1 "vehículo" → "arquitectura"; Día 3 "Capa Logística" → "Matriz Física (Pilar 1) / Centro de Mando (Pilar 2)"; Día 4 "plusvalía de red" → "plusvalía de su Base Operativa"; cierre "decisión directiva" → "decisión de dirección"
 * RETO_03: "auditoría técnica" → "escrutinio técnico"; "Directores de Unidad Operativa" → "Arquitectos de Patrimonio"
 * RETO_07: "director patrimonial" → "Arquitecto de Patrimonio"
 

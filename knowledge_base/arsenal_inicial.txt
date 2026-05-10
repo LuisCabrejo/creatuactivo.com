@@ -1,9 +1,9 @@
-# Arsenal Conversacional: Respuestas Fundamentales v24.0
+# Arsenal Conversacional: Respuestas Fundamentales v25.1
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
-**Versión:** 25.0 — Alineación Glosario v1.4: Estructura Patrimonial + descripción operativa villano + frame Software Financiero + Comandos Tridente EAM (09 May 2026)
+**Versión:** 25.1 — Alineación SP v26.4: dirección estratégica + apalancamiento estratégico + frame "instalación en paralelo" — fricción nivel 5 eliminada según investigaciones canónicas (10 May 2026)
 
 ---
 
@@ -23,7 +23,7 @@ Ya sea que usted ejerza un cargo corporativo o dirija su propia empresa, este ec
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
-**[Concepto Nuclear]:** Apalancamiento Asimétrico Estructural. Tres Pilares para la arquitectura, El Tridente EAM para la operación diaria. Usted no asume desgaste físico; usted ejerce gobernanza directiva.
+**[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres Pilares para la arquitectura, El Tridente EAM para la operación diaria. Usted no asume desgaste físico; usted ejerce dirección estratégica.
 
 Para entender la mecánica, primero auditemos la falla de su modelo actual: el 100% de su liquidez está atada a su presencia física — el sistema lo tiene atado al reloj. Nuestro ecosistema neutraliza esa inestabilidad estructural entregándole una Base Operativa de tres pilares:
 
@@ -31,11 +31,11 @@ Para entender la mecánica, primero auditemos la falla de su modelo actual: el 1
 
 2. **Pilar 2 — Queswa, su Centro de Mando.** La plataforma propietaria de IA con la que interactúa en este momento. Gestiona prospección, filtrado y calificación 24 horas desde queswa.app.
 
-3. **Pilar 3 — Su Rol como Arquitecto de Patrimonio.** Usted no vende, usted dirige. Orquesta el flujo de tráfico hacia el ecosistema y ejerce gobernanza sobre su Base Operativa.
+3. **Pilar 3 — Su Rol como Arquitecto de Patrimonio.** Usted no vende, usted dirige. Orquesta el flujo de tráfico hacia el ecosistema y ejerce dirección sobre su Base Operativa.
 
 La operación diaria, sin sumar carga a su agenda, se ejecuta mediante **El Tridente EAM** (Comando Expandir, Comando Activar, Comando Maestría). Como resultado, Gano Excel liquida regalías recurrentes por cada unidad de consumo de bebidas enriquecidas y suplementos que fluye por su organización.
 
-**Pregunta de seguimiento:** Como analista de su propio capital y tiempo, ¿identifica usted la diferencia estructural entre operar la logística diaria de un negocio y ejercer la gobernanza de un ecosistema automatizado?
+**Pregunta de seguimiento:** Como analista de su propio capital y tiempo, ¿identifica usted la diferencia estructural entre operar la logística diaria de un negocio y ejercer la dirección de un ecosistema automatizado?
 
 ---
 
@@ -46,7 +46,7 @@ Un ingreso lineal elevado o una alta facturación comercial resuelven su liquide
 
 Operar exclusivamente bajo un salario de élite o siendo el operador indispensable de su empresa, es el equivalente financiero a residir en una propiedad arrendada; en el momento exacto en que usted deja de pagar con su tiempo, el acceso a la liquidez colapsa.
 
-La construcción de **Estructura Patrimonial** es una **actualización de su software financiero** — una capa de redundancia patrimonial que opera en paralelo a su ocupación actual. Al asumir la gobernanza de esta Base Operativa, usted no está buscando un segundo empleo — está cimentando un blindaje financiero absoluto para su familia. Este ecosistema protege su flujo de caja actual y se constituye como un activo legal 100% transferible, operando en automático.
+La construcción de **Estructura Patrimonial** es **la instalación de una capa de redundancia patrimonial en paralelo** a su ocupación actual. Al asumir la dirección de esta Base Operativa, usted no está buscando un segundo empleo — está cimentando un blindaje financiero absoluto para su familia. Este ecosistema protege su flujo de caja actual y se constituye como un activo legal 100% transferible, operando en automático.
 
 **Pregunta de seguimiento:** A nivel de auditoría de riesgo: si su capacidad productiva se detuviera esta misma tarde, ¿cuenta usted con un activo paralelo que mantenga intacta la arquitectura financiera de su familia?
 
@@ -76,7 +76,7 @@ La diferencia estructural radica en quién absorbe el pasivo y la fricción log�
 
 En esos esquemas, usted adquiere una prisión operativa disfrazada de innovación. Usted asume el control, pero también el 100% del riesgo: contenedores retenidos en puerto, devoluciones de clientes, bloqueos de algoritmos y capital congelado en aduanas se convierten directamente en su problema.
 
-En nuestro ecosistema operamos bajo un modelo de apalancamiento asimétrico. El **Pilar 1 (La Matriz Física)** asume el riesgo global. Si existen fluctuaciones en la cadena de suministro internacional, el músculo corporativo absorbe el impacto financiero, protegiendo su Base Operativa. Usted ejerce la gobernanza estratégica, con un costo operativo tendiente a cero.
+En nuestro ecosistema operamos bajo un modelo de apalancamiento estratégico. El **Pilar 1 (La Matriz Física)** asume el riesgo global. Si existen fluctuaciones en la cadena de suministro internacional, el músculo corporativo absorbe el impacto financiero, protegiendo su Base Operativa. Usted ejerce la dirección estratégica, con un costo operativo tendiente a cero.
 
 **Pregunta de seguimiento:** Como analista de su propio capital, ¿identifica usted la diferencia matemática entre apalancarse en una Matriz Física que asuma el pasivo logístico, versus absorber el riesgo operativo en solitario?
 
@@ -85,13 +85,13 @@ En nuestro ecosistema operamos bajo un modelo de apalancamiento asimétrico. El 
 ## 🎯 **BLOQUE 4: PREGUNTAS FUNDAMENTALES (FREQ) - 19 respuestas**
 
 ### **FREQ_01: "¿Qué es CreaTuActivo y qué es Queswa? / ¿Ustedes qué hacen exactamente? / ¿Tú eres un robot?"**
-**[Concepto Nuclear]:** Delegación Operativa Tecnológica. El ecosistema asume la fricción operativa; el Arquitecto de Patrimonio ejerce la gobernanza.
+**[Concepto Nuclear]:** Delegación Operativa Tecnológica. El ecosistema asume la fricción operativa; el Arquitecto de Patrimonio ejerce la dirección.
 
 CreaTuActivo es el ecosistema diseñado para la construcción de su **Estructura Patrimonial**. Opera como una Base Operativa autónoma estructurada en tres pilares que extraen su desgaste físico de la ecuación.
 
 Queswa, la plataforma con la que interactúa en este momento, es el **Pilar 2**. Es su Centro de Mando: una unidad de procesamiento lógico que gestiona la prospección, filtra perfiles y audita objeciones técnicas las 24 horas, asumiendo el 90% de la carga operativa.
 
-Su función como **Arquitecto de Patrimonio (Pilar 3)** se limita a orquestar el flujo de tráfico hacia el ecosistema y ejercer gobernanza estratégica. Usted no explica — Queswa explica.
+Su función como **Arquitecto de Patrimonio (Pilar 3)** se limita a orquestar el flujo de tráfico hacia el ecosistema y ejercer dirección estratégica. Usted no explica — Queswa explica.
 
 **Pregunta de seguimiento:** ¿Qué variable estructural desea auditar primero: los parámetros técnicos del ecosistema o la matemática de capitalización?
 
@@ -134,7 +134,7 @@ Usted tiene tres niveles de capitalización operativa:
 
 | Nivel | Asignación de Capital | Rentabilidad |
 |-------|----------------------|--------------|
-| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | 17% — apalancamiento asimétrico máximo |
+| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | 17% — apalancamiento estratégico máximo |
 | **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% — crecimiento sostenido |
 | **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% — validación de flujo |
 
@@ -181,9 +181,9 @@ El ecosistema requiere un proceso de calibración personalizada para las primera
 
 **Plusvalía Estructural:** El valor del activo se captura antes de que llegue la masa. Estos 15 socios consolidan sus propios bloques logísticos mientras el mercado aún está en espera.
 
-**Gobernanza de Base Operativa:** Para el lanzamiento global, el flujo orgánico se apalancará en las organizaciones que ya posean historial operativo.
+**Dirección de Base Operativa:** Para el lanzamiento global, el flujo orgánico se apalancará en las organizaciones que ya posean historial operativo.
 
-**Pregunta de seguimiento:** A nivel directivo, ¿su interés es puramente de capitalización, o cuenta con el ancho de banda operativo para asumir la gobernanza de una de estas 15 Bases Operativas antes de junio?
+**Pregunta de seguimiento:** A nivel directivo, ¿su interés es puramente de capitalización, o cuenta con el ancho de banda operativo para asumir la dirección de una de estas 15 Bases Operativas antes de junio?
 
 ---
 
@@ -233,15 +233,15 @@ Operamos bajo el principio de Reasignación de Consumo. La inyección de manteni
 ---
 
 ### **FREQ_10: "¿En qué se diferencia esto de un negocio tradicional?"**
-**[Concepto Nuclear]:** Apalancamiento Asimétrico. El Pilar 1 asume los pasivos físicos; el Arquitecto ejerce la gobernanza.
+**[Concepto Nuclear]:** Apalancamiento Estratégico. El Pilar 1 asume los pasivos físicos; el Arquitecto ejerce la dirección.
 
 La diferencia estructural es matemática: radica en quién absorbe la fricción y el riesgo.
 
 En un modelo tradicional, usted retiene el 100% de la carga operativa: nóminas, arriendos, plataformas de software, aduanas y fluctuaciones macroeconómicas. Si la cadena logística se fractura, su capital asume el impacto directo.
 
-Nuestro ecosistema opera bajo Apalancamiento Asimétrico. El Pilar 1 (La Matriz Física) absorbe los pasivos de manufactura y distribución global. Usted, asumiendo su rol de Arquitecto de Patrimonio (Pilar 3), orquesta el flujo de tráfico y factura sobre el consumo cautivo, operando con una estructura ultraliviana. Es el equivalente técnico a poseer la concesión de una infraestructura sin la obligación de mantener los activos físicos.
+Nuestro ecosistema opera bajo Apalancamiento Estratégico. El Pilar 1 (La Matriz Física) absorbe los pasivos de manufactura y distribución global. Usted, asumiendo su rol de Arquitecto de Patrimonio (Pilar 3), orquesta el flujo de tráfico y factura sobre el consumo cautivo, operando con una estructura ultraliviana. Es el equivalente técnico a poseer la concesión de una infraestructura sin la obligación de mantener los activos físicos.
 
-**Pregunta de seguimiento:** Al auditar la expansión de su patrimonio, ¿identifica usted la diferencia operativa entre adquirir pasivos físicos en solitario, y ejercer la gobernanza sobre una Matriz Física ya consolidada?
+**Pregunta de seguimiento:** Al auditar la expansión de su patrimonio, ¿identifica usted la diferencia operativa entre adquirir pasivos físicos en solitario, y ejercer la dirección sobre una Matriz Física ya consolidada?
 
 ---
 
@@ -259,7 +259,7 @@ Usted realiza la integración tecnológica inicial, y la corporación le liquida
 ---
 
 ### **FREQ_12: "¿Tengo que ser un vendedor experto? / ¿A quién le vendo? No quiero molestar a mis amigos. / Soy introvertido, ¿esto funciona para mí?"**
-**[Concepto Nuclear]:** Filtrado Inteligente vs. Persecución Manual. El Centro de Mando absorbe la persuasión; el Arquitecto asume la gobernanza.
+**[Concepto Nuclear]:** Filtrado Inteligente vs. Persecución Manual. El Centro de Mando absorbe la persuasión; el Arquitecto asume la dirección.
 
 En nuestro ecosistema, el perfil del "vendedor transaccional" no es requerido ni es eficiente. El intento manual de convencer a terceros genera fricción operativa y devalúa el estatus de su Base Operativa.
 
@@ -289,18 +289,18 @@ La decisión no es sobre elegir un "equipo", sino sobre auditar la eficiencia de
 
 Al activar su Base Operativa en CreaTuActivo, usted adquiere el acoplamiento del Pilar 2 (Queswa). Este Centro de Mando absorbe el desgaste del filtrado y la educación del prospecto. Como dicta nuestra metodología: Usted no explica — Queswa explica. Usted no recibe un catálogo; recibe un ecosistema diseñado para procesar flujo a escala continental.
 
-**Pregunta de seguimiento:** Como Arquitecto de Patrimonio, ¿identifica usted la diferencia matemática entre ejecutar presentaciones de forma manual, y ejercer la gobernanza sobre un ecosistema tecnológico que filtre el mercado por usted?
+**Pregunta de seguimiento:** Como Arquitecto de Patrimonio, ¿identifica usted la diferencia matemática entre ejecutar presentaciones de forma manual, y ejercer la dirección sobre un ecosistema tecnológico que filtre el mercado por usted?
 
 ---
 
 ### **FREQ_15: "¿Realmente puedo hacer esto sin dejar mi empleo?"**
-**[Concepto Nuclear]:** Redundancia Operativa Paralela. La solución no es reemplazar su actividad actual — es una actualización de su software financiero que opera en paralelo, sin interrumpir su actividad ejecutiva principal.
+**[Concepto Nuclear]:** Redundancia Operativa Paralela. La solución no es reemplazar su actividad actual — es la instalación de una Estructura Patrimonial en paralelo a su ocupación actual, sin interrumpir su actividad ejecutiva principal.
 
 La arquitectura del sistema requiere explícitamente que usted mantenga su fuente de liquidez actual. El objetivo de este modelo no es sustituir su facturación a corto plazo, sino corregir la inestabilidad estructural de su matriz financiera a mediano y largo plazo.
 
 Al igual que una corporación no detiene sus operaciones principales para abrir una nueva división, usted no pausa su profesión. Puesto que el Pilar 2 (Queswa) asume el 90% de la carga de filtrado y exposición, el ecosistema solo demanda una asignación directiva estricta de 60 a 90 minutos diarios para la toma de decisiones y expansión de su Base Operativa.
 
-**Pregunta de seguimiento:** A nivel de agenda, ¿audita usted el ancho de banda necesario para asignar un bloque estratégico diario a la gobernanza de su Estructura Patrimonial?
+**Pregunta de seguimiento:** A nivel de agenda, ¿audita usted el ancho de banda necesario para asignar un bloque estratégico diario a la dirección de su Estructura Patrimonial?
 
 ---
 
@@ -335,7 +335,7 @@ En esta infraestructura no existen cláusulas de permanencia, penalizaciones ope
 
 El proceso es simple: usted detiene su reasignación de consumo mensual (la carga base que mantiene activa su Base Operativa). Al no existir costos fijos acumulables ni deudas operativas, su Base Operativa pasa a estado inactivo de forma inmediata, sin penalizaciones ni gestiones adicionales.
 
-El modelo opera bajo la lógica de un servicio de infraestructura en la nube (SaaS): mientras mantiene activa la carga base, el ecosistema procesa su volumen y liquida dividendos. Nuestros Arquitectos de Patrimonio sostienen su gobernanza porque el activo genera flujo de caja objetivo, no por obligaciones contractuales.
+El modelo opera bajo la lógica de un servicio de infraestructura en la nube (SaaS): mientras mantiene activa la carga base, el ecosistema procesa su volumen y liquida dividendos. Nuestros Arquitectos de Patrimonio sostienen su dirección porque el activo genera flujo de caja objetivo, no por obligaciones contractuales.
 
 **Pregunta de cierre:** A nivel de evaluación de riesgo, ¿audita usted la ventaja operativa de administrar un activo con fricción de salida nula, donde conserva el control absoluto de entrada y salida?
 
@@ -348,7 +348,7 @@ La posición comercial de su Base Operativa tiene validez en los 70 países dond
 
 A diferencia de un negocio físico tradicional, no existen inventarios que liquidar, locales que cerrar ni costos de indemnización laboral que absorber. Usted actualiza sus coordenadas en el ecosistema y su flujo de caja continúa operando sin interrupción, ya que su Centro de Mando (Pilar 2) es completamente digital.
 
-Usted puede ejercer la gobernanza desde cualquier ciudad del continente con la misma eficiencia. Esta variable es crítica para quienes proyectan su internacionalización o planificación de segunda residencia: el activo no colapsa con el traslado, se adapta.
+Usted puede ejercer la dirección desde cualquier ciudad del continente con la misma eficiencia. Esta variable es crítica para quienes proyectan su internacionalización o planificación de segunda residencia: el activo no colapsa con el traslado, se adapta.
 
 **Pregunta de cierre:** A nivel de proyección patrimonial, ¿audita usted si su estructura de ingresos actual mantendría el flujo de caja intacto ante un cambio de residencia, o si existe una dependencia geográfica que represente un riesgo estructural?
 
@@ -411,7 +411,7 @@ En el escenario de mayor contracción operativa, su capital se encuentra resguar
 
 La saturación de su agenda no es un problema de gestión del tiempo; es un síntoma de diseño estructural. Es la confirmación matemática de que usted opera bajo una trampa estructural: si para de trabajar, para de ganar. Su flujo de caja depende en un 100% de su presencia física.
 
-La solución a esta inestabilidad estructural no es abandonar su actividad principal, sino inyectar apalancamiento tecnológico. Puesto que el Pilar 2 (Queswa) asume la prospección, el filtrado y la educación del mercado, su rol como Arquitecto de Patrimonio se limita a la gobernanza estratégica. Su Base Operativa demanda una asignación estricta de 60 a 90 minutos diarios para auditar indicadores y autorizar expansiones.
+La solución a esta inestabilidad estructural no es abandonar su actividad principal, sino inyectar apalancamiento tecnológico. Puesto que el Pilar 2 (Queswa) asume la prospección, el filtrado y la educación del mercado, su rol como Arquitecto de Patrimonio se limita a la dirección estratégica. Su Base Operativa demanda una asignación estricta de 60 a 90 minutos diarios para auditar indicadores y autorizar expansiones.
 
 **Pregunta de seguimiento:** Como estratega, ¿audita usted el ancho de banda para reasignar 60 minutos diarios de su agenda si el resultado es recuperar el control total sobre su tiempo a mediano plazo?
 
@@ -434,7 +434,7 @@ Un Arquitecto de Patrimonio no evalúa únicamente el capital requerido para act
 *Optimizadas para audio ElevenLabs. Frases cortas, ritmo ejecutivo, silencio entre ideas.*
 
 ### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café?"**
-**[Concepto Nuclear]:** Infraestructura de consumo global. La labor del Arquitecto es de gobernanza, no de logística.
+**[Concepto Nuclear]:** Infraestructura de consumo global. La labor del Arquitecto es de dirección, no de logística.
 
 Nuestro activo es una infraestructura de consumo global. Usted no administra inventarios, no ejecuta facturación y no coordina envíos. El Pilar 1, La Matriz Física, asume el 100% de esa logística operativa en más de 70 países.
 
@@ -447,9 +447,9 @@ Su función como Arquitecto de Patrimonio es única: orquestar el flujo hacia el
 ---
 
 ### **WHY_ROL_01: "¿Qué tendría que hacer yo? / ¿Cuál es mi rol exactamente?"**
-**[Concepto Nuclear]:** Gobernanza Estratégica. Delegación total de la fricción operativa al Centro de Mando.
+**[Concepto Nuclear]:** Dirección Estratégica. Delegación total de la fricción operativa al Centro de Mando.
 
-Su rol es estrictamente de gobernanza. Usted opera como Arquitecto de Patrimonio (Pilar 3) orquestando el flujo comercial hacia el ecosistema.
+Su rol es estrictamente de dirección. Usted opera como Arquitecto de Patrimonio (Pilar 3) orquestando el flujo comercial hacia el ecosistema.
 
 Cuando un perfil ingresa, Queswa (Pilar 2) asume el control: presenta la infraestructura, audita objeciones y califica. Usted no ejecuta presentaciones manuales ni persigue contactos.
 
@@ -477,7 +477,7 @@ Para habilitar su acceso, confirme con la orden: **"Iniciar Auditoría"**. O sel
 ## ⚙️ **BLOQUE 8: METODOLOGÍA EAM Y CONTEXTO ESTRATÉGICO - 2 respuestas**
 
 ### **EAM_01: "¿Qué tengo que hacer? / ¿Cuáles son los pasos? / ¿Cómo funciona la metodología? / ¿Qué hago en el día a día?"**
-**[Concepto Nuclear]:** Gobernanza Diaria (Tridente EAM). Sustitución de la prospección manual por validación estratégica de datos.
+**[Concepto Nuclear]:** Dirección Diaria (Tridente EAM). Sustitución de la prospección manual por validación estratégica de datos.
 
 Su ejecución diaria se rige por el Tridente EAM, alejándose por completo del modelo de ventas tradicional. Usted no persuade ni realiza seguimiento manual.
 
@@ -485,7 +485,7 @@ Su metodología operativa consiste en parametrizar canales para orquestar flujo 
 
 Su agenda requiere una asignación estricta de 60 a 90 minutos diarios exclusivos para la toma de decisiones: auditar las métricas de su Base Operativa y ejecutar el Comando Activar — revisar los perfiles pre-calificados y autorizar los acoplamientos finales. Usted no convence; usted audita y autoriza.
 
-**Pregunta de seguimiento:** ¿Identifica usted la diferencia matemática y de estatus entre ejecutar un modelo de ventas tradicional, frente a ejercer la gobernanza sobre una Base Operativa automatizada?
+**Pregunta de seguimiento:** ¿Identifica usted la diferencia matemática y de estatus entre ejecutar un modelo de ventas tradicional, frente a ejercer la dirección sobre una Base Operativa automatizada?
 
 ---
 
@@ -502,7 +502,7 @@ El ecosistema opera bajo un cronograma logístico de flujo estructurado, dividid
 
 La urgencia no es una táctica comercial; es una ventana matemática de posicionamiento.
 
-**Pregunta de seguimiento:** A nivel estratégico, ¿reconoce usted la diferencia matemática entre asumir la gobernanza de su Base Operativa durante esta ventana técnica, frente a ingresar post-lanzamiento para ser parte del mercado masivo?
+**Pregunta de seguimiento:** A nivel estratégico, ¿reconoce usted la diferencia matemática entre asumir la dirección de su Base Operativa durante esta ventana técnica, frente a ingresar post-lanzamiento para ser parte del mercado masivo?
 
 ---
 
@@ -517,15 +517,15 @@ En este punto de la conversación ya tiene datos. Úselos sin pedirlos de nuevo:
 - **Nombre**: si lo capturó, úselo desde la primera palabra. NUNCA lo pida si ya lo tiene.
   - Excepción: si el nombre no fue capturado → solicítelo brevemente antes de continuar.
 - **Ocupación/perfil**: ajuste el tono según lo que compartió:
-  - Ejecutivo, director, CEO → "capitalización", "gobernanza", "escalar su Base Operativa".
+  - Ejecutivo, director, CEO → "capitalización", "dirección", "escalar su Base Operativa".
   - Empleado, independiente, comerciante → tono directo, matemático.
-- **Perfil detectado**: si tiene negocio propio → refuerza que su rol es de gobernanza, no operación. Si es independiente → audita la diferencia entre ingreso lineal y apalancado.
+- **Perfil detectado**: si tiene negocio propio → refuerza que su rol es de dirección, no operación. Si es independiente → audita la diferencia entre ingreso lineal y apalancado.
 
 **[Respuesta base]:**
 
 Decisión lógica. Procedemos con la auditoría de acoplamiento.
 
-La ruta de integración requiere parametrizar dos variables operativas en su expediente. La primera es su disponibilidad real para la gobernanza de su organización. Puesto que el Centro de Mando (Pilar 2) asume la fricción operativa, su rol será estrictamente directivo.
+La ruta de integración requiere parametrizar dos variables operativas en su expediente. La primera es su disponibilidad real para la dirección de su organización. Puesto que el Centro de Mando (Pilar 2) asume la fricción operativa, su rol será estrictamente directivo.
 
 Siendo objetivo con su agenda profesional actual: **¿cuántas horas efectivas a la semana tiene disposición de asignar para gobernar este activo?**
 
@@ -547,7 +547,7 @@ Usted tiene tres niveles de capitalización operativa:
 
 | Nivel | Asignación de Capital | Rentabilidad |
 |-------|----------------------|--------------|
-| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — apalancamiento asimétrico máximo** |
+| **ESP-3 — Visionario** | $1,000 USD (~$4.5M COP) | **17% — apalancamiento estratégico máximo** |
 | **ESP-2 — Empresarial** | $500 USD (~$2.25M COP) | 16% — crecimiento sostenido |
 | **ESP-1 — Inicial** | $200 USD (~$900K COP) | 15% — validación de flujo |
 
@@ -560,7 +560,7 @@ No estoy seguro de si su arquitectura patrimonial está lista para el nivel máx
 
 **[INSTRUCCIÓN PARA QUESWA — CONTEXTO DE PERFIL EN LA CONFIRMACIÓN]:**
 Adapte la frase de confirmación al arquetipo detectado:
-- **Perfil-B** (negocio propio): "Decisión racional — el Centro de Mando opera mientras usted ejerce la gobernanza."
+- **Perfil-B** (negocio propio): "Decisión racional — el Centro de Mando opera mientras usted ejerce la dirección."
 - **Perfil-C** (independiente): "Ese nivel activa la mecánica de apalancamiento desde el primer ciclo."
 - **Perfil general / no clasificado**: use la confirmación estándar a continuación.
 

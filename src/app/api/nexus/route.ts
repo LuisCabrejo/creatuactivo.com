@@ -24,7 +24,7 @@ import {
   type DocumentWithEmbedding,
   type VectorSearchResult
 } from '@/lib/vectorSearch';
-import { getInitialGreeting } from '@/lib/queswa-greeting';
+import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -2006,15 +2006,19 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   }
 
   // ============================================================================
-  // PASO -1: EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d)
+  // PASO -1: EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d) + CHIPS QUESWA
   // ============================================================================
-  // Cuando el usuario responde "a", "b", "c" o "d" al menú inicial, expandimos
-  // el mensaje para que la búsqueda vectorial encuentre el contenido correcto.
+  // Cuando el usuario responde "a", "b", "c" o "d" al menú inicial (legacy), o hace
+  // clic en uno de los 4 chips canónicos del saludo Queswa, expandimos el mensaje
+  // para que la búsqueda vectorial recupere el fragmento canónico correcto.
+  // Sin esta expansión, los chips con frases premium ("Quiero entender la lógica...")
+  // no recuperan WHY_02 — el modelo improvisa y pierde el formato Markdown.
   const menuExpansion: Record<string, string> = {
     'a': 'conocer el reto de los 12 días qué es el reto',
     'b': 'cómo funciona el negocio explicar el sistema',
     'c': 'qué productos distribuimos catálogo Gano Excel',
-    'd': 'inversión y ganancias cuánto cuesta empezar'
+    'd': 'inversión y ganancias cuánto cuesta empezar',
+    ...QUESWA_QUICK_REPLIES_EXPANSION,
   };
 
   const trimmedMessage = userMessage.trim().toLowerCase();
@@ -2548,12 +2552,15 @@ PERSONALIDAD: Motor Cognitivo — tono de consultor senior de patrimonio. Precis
 function interpretQueryHibrido(userMessage: string): string {
   const messageLower = userMessage.toLowerCase().trim();
 
-  // 🔥 EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d)
+  // 🔥 EXPANSIÓN DE OPCIONES DEL MENÚ INICIAL (a, b, c, d) + CHIPS QUESWA
+  // Los chips canónicos del saludo (4 preguntas reales del avatar) se expanden
+  // a queries semánticas óptimas para que el RAG recupere los fragmentos correctos.
   const menuExpansion: Record<string, string> = {
     'a': 'reto de los 12 días qué es el reto cómo funciona',
     'b': 'cómo funciona el negocio sistema distribución',
     'c': 'productos Gano Excel catálogo qué distribuimos',
-    'd': 'inversión ganancias cuánto cuesta empezar paquetes'
+    'd': 'inversión ganancias cuánto cuesta empezar paquetes',
+    ...QUESWA_QUICK_REPLIES_EXPANSION,
   };
 
   if (menuExpansion[messageLower]) {

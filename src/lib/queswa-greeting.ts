@@ -54,6 +54,42 @@ export const QUESWA_QUICK_REPLIES = [
 export const QUESWA_CTA_LABEL = 'Iniciar Auditoría de Viabilidad';
 
 /**
+ * Mapa de expansión de chips → queries semánticas óptimas para el RAG.
+ *
+ * PROBLEMA QUE RESUELVE:
+ * Los chips usan frases largas con vocabulario premium ("Quiero entender la lógica:
+ * ¿cómo funciona esta Estructura Patrimonial?"). Estos embeddings no recuperan los
+ * fragmentos canónicos del arsenal con la misma confianza que las preguntas literales
+ * del avatar. Sin recuperación correcta del fragmento, el modelo improvisa una respuesta
+ * sin formato Markdown (sin viñetas, negritas, numeración).
+ *
+ * SOLUCIÓN:
+ * route.ts (líneas ~2013 y ~2552) detecta cuando el mensaje del usuario coincide
+ * exactamente con uno de los 4 chips (lowercase trim) y expande la query interna
+ * a la formulación que SÍ recupera los fragmentos canónicos correctos:
+ *
+ * Chip 1 → WHY_02 ("¿Cómo funciona el negocio?")
+ * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Arquitecto, metodología EAM)
+ * Chip 3 → WHY_PROD_01 + catalogo_productos (qué se vende)
+ * Chip 4 → FREQ_04 / FREQ_11 + arsenal_compensacion (cómo se gana)
+ *
+ * El usuario ve el chip premium (vocabulario McKinsey).
+ * El RAG recibe la query semántica óptima que recupera el fragmento con formato.
+ *
+ * Las keys deben estar en lowercase (route.ts hace .toLowerCase().trim() antes del match).
+ */
+export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
+  'quiero entender la lógica: ¿cómo funciona esta estructura patrimonial?':
+    'cómo funciona el negocio sistema distribución tres pilares arquitectura',
+  '¿cuál es la metodología operativa? ¿qué hago yo en el día a día?':
+    'qué tengo que hacer cuál es mi rol metodología tridente EAM día a día',
+  '¿cuál es el producto? ¿sobre qué activo físico se sostiene este flujo de caja?':
+    'qué productos venden catálogo qué distribuimos Ganoderma Gano Excel',
+  'quiero ver los números: ¿cómo se monetiza y cuáles son las vías de liquidez?':
+    'cómo se gana cuánto se gana ingreso compensación capitalización inmediata renta vitalicia',
+};
+
+/**
  * Saludo de primera visita (sin nombre persistido en localStorage).
  * Usado por Chat.tsx, useNEXUSChat.ts (rama 3) y route.ts (M1 micro-prompt FSM).
  */

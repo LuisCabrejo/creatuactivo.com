@@ -2961,6 +2961,12 @@ export async function POST(req: Request) {
 
     const latestUserMessage = messages[messages.length - 1].content;
 
+    // 🎯 DETECCIÓN: ¿el mensaje viene de uno de los 4 chips canónicos del saludo Queswa?
+    // Si SÍ, el modelo debe entregar el fragmento del arsenal recuperado VERBATIM con formato Markdown
+    // (sin aplicar la instrucción genérica de "concisión" que truncaría WHY_02 y otros fragmentos largos).
+    // Sin esta detección, los chips reciben respuestas resumidas sin viñetas/negritas/numeración.
+    const isQuickReplyChip = QUESWA_QUICK_REPLIES_EXPANSION[latestUserMessage.trim().toLowerCase()] !== undefined;
+
     // 🔑 EXTRAER CONSTRUCTOR UUID + DATOS PROSPECTO + HISTORIAL + SYSTEM PROMPT — EN PARALELO
     // ⚡ OPTIMIZACIÓN: Ejecutar todas las llamadas independientes simultáneamente
     const constructorUUIDPromise = constructorId
@@ -3720,7 +3726,7 @@ ${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paq
 • ESP-2 Empresarial = $500 USD / $2,250,000 COP
 • ESP-3 Visionario = $1,000 USD / $4,500,000 COP
 SIEMPRE muestra precio en AMBAS monedas. NUNCA uses precios de tu entrenamiento. Los precios de entrenamiento son INCORRECTOS (datos 2023).` : ''}
-${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
+${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (Tres Pilares, Tridente EAM, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;
 

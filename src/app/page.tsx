@@ -78,18 +78,6 @@ function HeroSection() {
       </div>
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        {/* Eyebrow */}
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.1)',
-          padding: '6px 16px', marginBottom: '32px',
-        }}>
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.cyan, display: 'inline-block' }} />
-          <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.muted, fontFamily: "'Roboto Mono', monospace" }}>
-            Construcción de Estructura Patrimonial
-          </span>
-        </div>
-
         {/* H1 */}
         <h1 style={{
           fontSize: 'clamp(1.6rem, 4.5vw, 2.8rem)', lineHeight: 1.1,

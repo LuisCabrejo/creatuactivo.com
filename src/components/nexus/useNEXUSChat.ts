@@ -45,7 +45,7 @@ const getInitialGreeting = (): Message => {
       role: 'assistant',
       content: `${greeting}
 
-¿En qué puedo ayudarte hoy?`,
+¿En qué puedo ayudarle hoy?`,
       timestamp: new Date(),
       isStreaming: false
     };
@@ -58,7 +58,7 @@ const getInitialGreeting = (): Message => {
       role: 'assistant',
       content: `Hola, ${savedName}
 
-¿En qué puedo ayudarte hoy?`,
+¿En qué puedo ayudarle hoy?`,
       timestamp: new Date(),
       isStreaming: false
     };

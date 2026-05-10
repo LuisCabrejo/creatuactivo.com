@@ -1,8 +1,8 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v6.0
+# Arsenal de Compensacion: Infraestructura de Ingresos v6.2
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
-**Enfoque:** Lujo Clinico / Usted — Arquitectura de Activos (No MLM tradicional)
-**Version:** 6.0 (11 Abr 2026) — Tuteo eliminado, Analogia del Acueducto estandarizada
-**REGLA DE ORO:** Si no esta aqui, no lo inventes. Usa las analogias de construccion (Acueducto).
+**Enfoque:** Lujo Clinico / Usted — Arquitectura Patrimonial (No MLM tradicional)
+**Version:** 6.2 (04 May 2026) — Nomenclatura canónica: Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario); "su organización" reemplaza "su equipo/red"; "Arquitectos de Patrimonio" reemplaza "constructores"; Analogía del Acueducto eliminada
+**REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: GEN5=Capitalización Inmediata, Binario=Renta Vitalicia, colectivo=su organización.
 
 ---
 
@@ -32,19 +32,19 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 
 ### COMP_MODELO_01: "Como se gana en el negocio?" / "Como funciona el plan de compensacion?"
 
-**[Concepto Nuclear]:** Monetizacion de Doble Velocidad. Ingreso Inmediato mientras construye. Ingreso Recurrente mientras duerme.
+**[Concepto Nuclear]:** Monetizacion de Doble Velocidad. Capitalizacion Inmediata mientras expande la estructura; Renta Vitalicia mientras duerme.
 
 El modelo opera con dos mecanismos de liquidacion simultaneos. Ninguno es excluyente — los dos corren en paralelo desde el dia uno.
 
-**Velocidad 1 — Ingreso Inmediato (GEN5):**
-Cada vez que un nuevo socio activa su posicion en su red, usted cobra un bono de construccion. No espera fin de mes. El pago llega el viernes de 2 semanas despues de la vinculacion.
+**Velocidad 1 — Capitalizacion Inmediata (GEN5):**
+Cada vez que un Arquitecto activa una nueva Base Operativa en su organizacion, usted cobra un bono directivo. El pago se liquida el viernes, dos semanas despues de la activacion.
 
-**Velocidad 2 — Ingreso Recurrente (Binario):**
+**Velocidad 2 — Renta Vitalicia (Binario):**
 Cada vez que alguien en su organizacion (en cualquier pais) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
 
-**Analogia:** El GEN5 le paga por instalar la tuberia. El Binario le paga por el agua que fluye. Una vez construido el acueducto, el agua sigue fluyendo aunque usted no este presente.
+**Mecanica:** El GEN5 le inyecta liquidez a corto plazo por la expansion de su infraestructura. El Binario consolida su patrimonio pagandole regalias ininterrumpidas por el consumo organico que fluye por esa misma infraestructura.
 
-**Nota:** Si desea ver los numeros especificos, consulte "Ingreso Inmediato" (GEN5) o "Ingreso Recurrente" (Binario).
+**Nota:** Si desea ver los numeros especificos, consulte "Capitalizacion Inmediata" (GEN5) o "Renta Vitalicia" (Binario).
 
 ---
 
@@ -106,7 +106,7 @@ El Arbol Binario es donde usted y los afiliados de su linea ascendente y descend
 
 ### COMP_CENTRO_01: "Que es el Centro de Negocio de Cobro?"
 
-**[Concepto Nuclear]:** Es su posicion en el Arbol Binario donde se acumula el CV de su equipo.
+**[Concepto Nuclear]:** Es su posicion en el Arbol Binario donde se acumula el CV de su organización.
 
 Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de sus dos lados para calcular su Regalia de Equipo.
 
@@ -123,7 +123,7 @@ Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de su
 |--------|-------|
 | Su compra personal (hasta 120 PV) | NO |
 | Su compra personal (excedente de 120 PV) | SI |
-| Compras de su equipo | SI |
+| Compras de su organización | SI |
 
 **Insight:** Piense en su Centro de Cobro como una balanza: el sistema pesa ambos lados y le paga sobre el mas liviano. Su trabajo es mantener ambos lados creciendo.
 
@@ -142,7 +142,7 @@ Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de su
 | 50-99 PV | ACTIVO | GEN5 + Binario (Gen 5 normal) |
 | 100+ PV | ACTIVO PREMIUM | GEN5 + Binario (Gen 5 DOBLE) |
 
-**Que pasa si pierdes actividad:**
+**Que pasa si pierde actividad:**
 | Situacion | Consecuencia |
 |-----------|--------------|
 | No compra 50 PV esta semana | No cobra esta semana |
@@ -157,18 +157,18 @@ Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de su
 
 ### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5"
 
-**[Concepto Nuclear]:** Liquidez Inmediata. Te pagan por expansion y construccion.
+**[Concepto Nuclear]:** Liquidez Inmediata. La corporacion le liquida dividendos por la expansion de la infraestructura.
 
-El GEN5 es su Capital de Trabajo. Es un bono que recibe cada vez que un nuevo socio adquiere su Paquete de Infraestructura en su red, hasta 5 generaciones de profundidad.
+El GEN5 es su Capitalizacion Inmediata. Es un bono que recibe cada vez que un nuevo socio adquiere su nivel de capitalizacion en su organizacion, hasta 5 generaciones de profundidad.
 
 **La Matematica (Si es Fundador ESP-3):**
 - Por sus directos (Hijos): **$150 USD**
 - Por los indirectos (Nietos a Tataranietos): **$20 USD**
 - En la 5ta generacion: **$40 USD** (Bono doble)
 
-**Analogia:** Si el Binario es el pago por el agua, el GEN5 es el pago por instalar la tuberia. En un negocio tradicional, construye gratis y cobra anos despues. Aqui, le pagamos por cada metro de tuberia que instala hoy. Este bono pone dinero en su liquidez esta misma semana ($600-$1,000 USD mensuales promedio) mientras su acueducto se llena de volumen.
+**Mecanica:** A diferencia de un negocio tradicional donde usted construye gratis y cobra anos despues, el ecosistema le liquida dividendos por cada Base Operativa que activa hoy. Este bono inyecta liquidez en su flujo de caja esta misma semana ($600-$1,000 USD mensuales promedio) mientras su organizacion consolida el consumo recurrente.
 
-**Nota:** Si desea ver la proyeccion numerica completa, pregunta "dame la proyeccion GEN5".
+**Nota:** Si desea ver la proyeccion numerica completa, pregunte "deme la proyeccion GEN5".
 
 ---
 
@@ -254,7 +254,7 @@ Veamos que ocurre cuando conecta 2 personas que compran ESP-3:
 
 **[Concepto Nuclear]:** Cobra mientras construye. Cada vinculacion = un pago.
 
-El GEN5 es como construir un acueducto: cada tramo de tubería que se instala, se liquida de inmediato. No es ingreso recurrente — es capital de construcción.
+La Capitalizacion Inmediata funciona como su capital de construccion: cada Base Operativa que activa se liquida de inmediato. No es Renta Vitalicia — es el flujo de caja que financia la expansion de su infraestructura.
 
 **Como funciona:**
 - Usted conecta 2 → cobra 2 bonos
@@ -317,7 +317,7 @@ El GEN5 se paga semanalmente, no mensualmente.
 | Se procesa | Ciclo 894 |
 | Recibe el pago | Viernes Ciclo 895 (31 Ene) |
 
-**Insight:** No espera fin de mes. Cada compra de paquete en su red se liquida el viernes de 2 semanas despues.
+**Insight:** No espera fin de mes. Cada activacion de capitalizacion en su organizacion se liquida el viernes de 2 semanas despues.
 
 ---
 
@@ -379,19 +379,19 @@ Puede hacer varias compras durante la semana.
 
 ### COMP_PV_04: "Que es CV (Volumen Comisional)?"
 
-**[Concepto Nuclear]:** CV de su compra personal NO va a su red. Solo le activa.
+**[Concepto Nuclear]:** CV de su compra personal NO va a su organizacion. Solo le activa.
 
 CV son los puntos que se usan para calcular el Bono Binario.
 
 **Regla Critica:**
 | Fuente de CV | Va a su centro de cobro? |
 |--------------|--------------------------|
-| Compras de su equipo | SI |
+| Compras de su organización | SI |
 | Su compra personal | NO* |
 
 *Excepcion: Si compra mas de 120 PV, el excedente SI va a su centro.
 
-**Insight:** Su compra personal sirve para activarle (50-100 PV), no para generar CV en su red. El CV viene de su equipo.
+**Insight:** Su compra personal sirve para activarle (50-100 PV), no para generar CV en su organización. El CV viene de su organización.
 
 ---
 
@@ -453,7 +453,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **Regla practica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, segun categoria). Excepcion: Maquina LUVOCO da 0 PV y 0 CV — el negocio esta en las capsulas, no en la maquina.
 
-**Insight:** Cuando calcule su activacion personal, use PV. Cuando calcule ganancias del Binario, use CV de su equipo.
+**Insight:** Cuando calcule su activacion personal, use PV. Cuando calcule ganancias del Binario, use CV de su organización.
 
 ---
 
@@ -509,7 +509,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
 
-Esta regla es para constructores que compran inventario grande.
+Esta regla es para Arquitectos de Patrimonio que compran inventario grande.
 
 **Como Funciona:**
 | Su Compra | Activacion | Centro de Cobro |
@@ -526,17 +526,17 @@ Esta regla es para constructores que compran inventario grande.
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"
 
-**[Concepto Nuclear]:** Ingreso Recurrente. Cobra por el volumen comisionable total del equipo, infinito en profundidad.
+**[Concepto Nuclear]:** Renta Vitalicia. Cobra por el volumen comisionable total de la organizacion, infinito en profundidad.
 
-El Binario es su Fondo de Retiro. El sistema suma todo el volumen comisionable de su equipo izquierdo y su equipo derecho (sin importar quien invito a quien) y le paga un porcentaje sobre el equipo de menor volumen cada semana. El volumen comisionable es el valor base oficial asignado a cada producto por Gano Excel — distinto al precio de venta al público.
+El Binario es su activo real a largo plazo. El sistema suma todo el volumen comisionable de sus dos frentes (sin importar quien invito a quien) y le paga un porcentaje sobre el frente de menor volumen cada semana. El volumen comisionable es el valor base oficial asignado a cada producto por Gano Excel — distinto al precio de venta al público.
 
 **Tasas de Comision:**
 - Tasa Base: **10%**
 - Tasa Fundador (ESP-3): **17%** (El estandar recomendado)
 
-**Analogia:** Siguiendo la analogia del acueducto: El Bono Binario es el pago que recibe por el agua que fluye por la tuberia. Mientras la gente tenga sed (consuma cafe), el agua fluye y el cheque llega cada viernes, aunque usted este durmiendo o de viaje. Es el verdadero ingreso recurrente.
+**Mecanica:** Mientras el mercado demande la biotecnologia celular por habito innegociable, el consumo fluye y el ecosistema liquida regalias recurrentes cada viernes, operando de forma automatica sin requerir su intervencion manual.
 
-**Nota:** Si desea ver la proyeccion de crecimiento, pregunta "dame la proyeccion binario".
+**Nota:** Si desea ver la proyeccion de crecimiento, pregunte "deme la proyeccion binario".
 
 ---
 
@@ -657,11 +657,11 @@ Despues de que expire su bonus promocional, tiene opciones:
 
 **[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su retiro semanal de por vida.
 
-El Binario paga CADA SEMANA sobre TODO el volumen de su equipo, sin limite de profundidad.
+El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limite de profundidad.
 
 **Como funciona:**
 - Su equipo se divide en 2 lados (izquierdo y derecho)
-- Cada compra de su equipo genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
+- Cada compra de su organización genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
 - El sistema suma TODO el CV de cada lado
 - Se liquida el 17% sobre el lado de MENOR volumen
 
@@ -694,13 +694,13 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su equipo, sin limite de pr
 | GEN5 | Una vez por vinculacion | Unico |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
-**Insight:** El GEN5 le da flujo de caja para crecer. El Binario construye su patrimonio. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su equipo este activo.
+**Insight:** El GEN5 le da flujo de caja para crecer. El Binario construye su patrimonio. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
 
 ---
 
 ### COMP_BIN_09: "El CV se acumula o se pierde?"
 
-**[Concepto Nuclear]:** El CV NUNCA se pierde. Se acumula semana a semana mientras estes activo.
+**[Concepto Nuclear]:** El CV NUNCA se pierde. Se acumula semana a semana mientras esté activo.
 
 A diferencia de muchas companias de network marketing donde el volumen no cobrado se pierde al final del mes, en Gano Excel el CV hace rollover.
 
@@ -714,7 +714,7 @@ Gano Excel paga por centenas. Si tiene CV impar, el sobrante pasa al siguiente c
 | Semana 1 | 1,356 CV | 56,540 CV | 1,300 CV | 56 CV | 55,240 CV |
 | Semana 2 | 56 + 800 = 856 CV | 55,240 + 200 = 55,440 CV | 800 CV | 56 CV | 54,640 CV |
 
-**Requisito:** Estar activo con compra minima personal (50 PV). Si pierdes actividad, el CV se congela (no se borra).
+**Requisito:** Estar activo con compra minima personal (50 PV). Si pierde actividad, el CV se congela (no se borra).
 
 **Diferenciador vs Competencia:**
 | Compania | CV no cobrado |
@@ -747,7 +747,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | 10 personas/lado | $95 USD | $380 USD |
 | 100 personas/lado | $952 USD | $3,808 USD |
 
-**Insight:** Con solo 10 personas consumiendo en cada lado, ya genera ~$100 USD semanales. El poder del Binario es que paga sobre TODO su equipo, sin limite de profundidad.
+**Insight:** Con solo 10 personas consumiendo en cada lado, ya genera ~$100 USD semanales. El poder del Binario es que paga sobre TODA su organización, sin limite de profundidad.
 
 ---
 
@@ -885,13 +885,13 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos constructores desarrollan cartera de clientes de consumo naturalmente. Conocidos que no operan el modelo pero consumen los productos de forma habitual.
+**Insight:** Muchos Arquitectos de Patrimonio desarrollan cartera de clientes de consumo naturalmente. Conocidos que no operan el modelo pero consumen los productos de forma habitual.
 
 ---
 
 ## REGLAS CRITICAS PARA QUESWA
 
-1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Le conectaré con el equipo de liderazgo para datos precisos."
+1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Le conectaré con la Dirección Estratégica para datos precisos."
 
 2. **Estructura de respuesta para compensacion:**
    - Primero: [Concepto Nuclear] - frase simple
@@ -907,13 +907,13 @@ El Auto Envio es un programa de lealtad.
 
 6. **Gen 5 Doble:** 100 PV aplica igual para ESP-1, ESP-2 y ESP-3.
 
-7. **CV Personal NO Suma:** Su compra solo le activa. El CV viene de su equipo.
+7. **CV Personal NO Suma:** Su compra solo le activa. El CV viene de su organización.
 
 8. **Siempre el % MAS ALTO:** El sistema aplica automaticamente el mejor porcentaje.
 
-9. **Analogia del Acueducto:** Al explicar compensacion, SIEMPRE usa esta analogia:
-   - **GEN5** = Pago por instalar tuberia (Construccion). Cada metro = un pago.
-   - **Binario** = Pago por el agua que fluye (Consumo Recurrente). Peaje infinito.
+9. **Nomenclatura Canonica de Monetizacion:** Al explicar compensacion, NUNCA uses analogias de tuberias, agua o acueductos. Utiliza estrictamente la nomenclatura de la Servilleta:
+   - **GEN5** = Capitalizacion Inmediata (liquidez directiva por expansion de infraestructura).
+   - **Binario** = Renta Vitalicia (regalias recurrentes por consumo organico de la organizacion).
 
 ---
 
@@ -923,10 +923,10 @@ El Auto Envio es un programa de lealtad.
 |---------|------------|
 | **Arbol de Vinculacion** | (Tambien: Arbol de Patrocinio) Su portafolio de socios. Define QUIEN trajo a QUIEN. Aqui paga el GEN5. |
 | **Arbol de Colocacion** | (Tambien: Arbol Binario) Su estructura de 2 lados. Define DONDE se ubican. Aqui paga la Regalia de Equipo. |
-| **Lado de Mayor Traccion** | El lado de su binario con MAS puntos acumulados. Ventaja estrategica: puede reforzar el lado de compensacion. |
+| **Centro de negocios de Mayor Volumen Acumulado** | El lado de su binario con MAS puntos acumulados. Ventaja estrategica: puede reforzar el lado de compensacion. |
 | **Lado de Compensacion** | El lado de su binario con MENOS puntos. Este es sobre el que le pagan. |
 | **PV (Personal Volume)** | Puntos de sus compras personales. Sirven para ACTIVARLE (50-100 PV). |
-| **CV (Commissionable Volume)** | Puntos de las compras de su equipo. Sirven para PAGARLE (Binario). |
+| **CV (Commissionable Volume)** | Puntos de las compras de su organizacion. Sirven para PAGARLE (Renta Vitalicia). |
 | **GCV (Group CV)** | Suma total de CV de toda su organizacion (ambos lados). |
 | **Ciclo Semanal** | Gano Excel corta los domingos y paga los viernes (2 semanas despues). |
 | **Rollover** | Los puntos no cobrados se ACUMULAN para la siguiente semana. Nunca se pierden. |
@@ -934,9 +934,9 @@ El Auto Envio es un programa de lealtad.
 | **Techo** | Maximo que puede cobrar segun su paquete. ESP-3 = techo maximo. |
 | **Compresion** | Cuando su paquete limita su cobro (ej: tiene ESP-1, entra ESP-3 → pierde diferencia). |
 
-**Nota para Queswa:** Al responder sobre compensacion, simplifica la matematica usando la Analogia del Acueducto:
-- "El GEN5 es como construir un acueducto: cada tramo de tuberia que instala, se lo pagan."
-- "El Binario es como cobrar peaje: no importa quien pase, si usa su autopista, usted cobra."
+**Nota para Queswa:** Al responder sobre compensacion, simplifica la matematica con la nomenclatura canonica:
+- "El GEN5 (Capitalizacion Inmediata) le financia la expansion de su infraestructura en el corto plazo."
+- "El Binario (Renta Vitalicia) le paga regalias continuas por el habito biologico de consumo de su organizacion."
 
 ---
 
@@ -957,11 +957,17 @@ El Auto Envio es un programa de lealtad.
 | 11 | Bono Fundadores | PENDIENTE |
 | 12 | Pool Liderazgo Global | PENDIENTE |
 
-**Para bonos no documentados:** Escalar al equipo de liderazgo.
+**Para bonos no documentados:** Escalar a la Dirección Estratégica.
 
 ---
 
 ## CHANGELOG
+
+### v6.1 (03 May 2026) — Léxico Canónico
+* Header: "Arquitectura de Activos" → "Arquitectura Patrimonial"
+* Tuteo residual corregido (5 instancias): "Te pagan" → "Le pagan", "pierdes" → "pierde", "estes" → "esté", "pregunta/dame" → "pregunte/deme" (x2)
+* "equipo de liderazgo" → "Dirección Estratégica" (2 instancias — Reglas Críticas + Formas de Ganar)
+* Diccionario: "Lado de Mayor Tracción" → "Centro de negocios de Mayor Volumen Acumulado"
 
 ### v6.0 (12 Abr 2026) — Lujo Clinico / Usted
 * Tuteo eliminado en los 38 fragmentos → Usted consistente
@@ -975,6 +981,6 @@ El Auto Envio es un programa de lealtad.
 ### v5.2 (19 Enero 2026)
 * Protocolo Arquitecto + Respuestas Canonicas
 
-**Fin del Arsenal de Compensacion v6.0**
+**Fin del Arsenal de Compensacion v6.2**
 **Total:** 38 respuestas documentadas + Diccionario Tecnico
 

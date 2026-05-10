@@ -1,8 +1,8 @@
-# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.0
+# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.2
 
 **Propósito:** Vender la ejecución de la "Auditoría de Arquitectura Patrimonial" (Auditoría de 5 Días).
-**Enfoque:** Due Diligence y Re-Arquitectura del Protocolo de la Presencia Obligada y su consecuencia directa: el Déficit Estructural de Ingresos.
-**Versión:** 4.0 (12 Abr 2026) — Lujo Clínico / Frialdad Matemática
+**Enfoque:** Due Diligence y Re-Arquitectura del modelo donde el ingreso depende 100% de la presencia física del Arquitecto, y su consecuencia directa: el Déficit Estructural de Ingresos.
+**Versión:** 4.2 (09 May 2026) — Alineación Glosario v1.4: descripción operativa villano (eliminado PPO + agotamiento biológico)
 **REGLA DE ORO:** No es un curso de motivación. Es un protocolo de escrutinio técnico y entrega de planos arquitectónicos.
 
 ---
@@ -12,9 +12,9 @@
 ### RETO_01: "¿Qué es la Auditoría de Arquitectura Patrimonial?" / "¿Qué es el Mapa de Salida?"
 **[Concepto Nuclear]:** Auditoría Logística y Re-Arquitectura Financiera.
 
-La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el Protocolo de la Presencia Obligada (la falla donde el flujo de caja depende del agotamiento biológico del Director) y diseñar la corrección técnica de su Déficit Estructural de Ingresos.
+La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar la falla donde el flujo de caja del Arquitecto depende 100% de su presencia física, y diseñar la corrección técnica a su Inestabilidad Estructural y consecuente Déficit Estructural de Ingresos.
 
-Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propia infraestructura digital a una cadena de suministro global operativa en más de 70 países.
+Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propia Base Operativa digital a una cadena de suministro global operativa en más de 70 países.
 
 A nivel directivo, la herramienta no está diseñada para optimizar su velocidad en el sistema tradicional, sino para ejecutar una re-arquitectura patrimonial definitiva y escalable.
 
@@ -25,13 +25,13 @@ A nivel directivo, la herramienta no está diseñada para optimizar su velocidad
 
 Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logístico. Desglosamos la máquina en 5 fases de validación técnica:
 
-* **Día 1 — Diagnóstico Estructural:** Identificación de fallas en el vehículo de ingresos actual.
+* **Día 1 — Diagnóstico Estructural:** Identificación de fallas en su arquitectura de ingresos actual.
 * **Día 2 — Análisis de Escalabilidad:** Por qué el modelo operativo manual tiene un techo técnico.
-* **Día 3 — Acoplamiento Híbrido:** Integración de Capa Logística Global y Automatización de IA.
-* **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y plusvalía de red.
+* **Día 3 — Acoplamiento Híbrido:** Integración de la Matriz Física (Pilar 1) y automatización del Centro de Mando (Pilar 2).
+* **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y plusvalía de su Base Operativa.
 * **Día 5 — Protocolo de Activación:** Decisión directiva y asignación de activos.
 
-Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión directiva, sin suposiciones ni fricción emocional.
+Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de gobernanza, sin suposiciones ni fricción emocional.
 
 ---
 
@@ -42,7 +42,7 @@ Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios par
 
 A nivel financiero, la ejecución de esta auditoría no requiere inyección de capital inicial.
 
-El acceso a la auditoría técnica está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Directores de Unidad Operativa. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
+El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Arquitectos de Patrimonio. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
 
 Si los planos estructurales resultan viables para usted al finalizar la auditoría, procederemos a evaluar su nivel de capitalización logística.
 
@@ -91,7 +91,7 @@ La arquitectura de datos ya está compilada y lista para su escrutinio en este m
 ### RETO_07: "No estoy seguro..." / "Tengo dudas"
 **[Concepto Nuclear]:** Verificación Empírica vs. Confianza Ciega.
 
-El escepticismo es la postura correcta de un director patrimonial.
+El escepticismo es la postura correcta de un Arquitecto de Patrimonio.
 
 Este protocolo no se basa en confianza, sino en verificación empírica. Le proporcionamos el acceso a la infraestructura precisamente para que usted mismo ejecute la auditoría de los datos. Analice la lógica estructural y someta la matemática a estrés.
 
@@ -100,6 +100,17 @@ Si los números de la arquitectura no se sostienen ante su escrutinio analítico
 ---
 
 ## CHANGELOG
+
+### v4.2 (09 May 2026) — Alineación Glosario v1.4
+* Header: "Re-Arquitectura del Protocolo de la Presencia Obligada" → "modelo donde el ingreso depende 100% de la presencia física" (regla v1.2: villano sin etiqueta)
+* RETO_01: eliminado "Protocolo de la Presencia Obligada" + "agotamiento biológico" → descripción operativa pura
+* Coherencia cross-canal con: Servilleta v3, Reel A v2.2, Home v13.2, System Prompt v26.3, Arsenal Inicial v25.0, Arsenal Avanzado v11.0
+
+### v4.1 (04 May 2026) — Unificación Léxico Canónico
+* RETO_01: "Director" → "Arquitecto"; cadena causal completa Protocolo → Inestabilidad → Déficit; "infraestructura digital" → "Base Operativa digital"
+* RETO_02: Día 1 "vehículo" → "arquitectura"; Día 3 "Capa Logística" → "Matriz Física (Pilar 1) / Centro de Mando (Pilar 2)"; Día 4 "plusvalía de red" → "plusvalía de su Base Operativa"; cierre "decisión directiva" → "decisión de gobernanza"
+* RETO_03: "auditoría técnica" → "escrutinio técnico"; "Directores de Unidad Operativa" → "Arquitectos de Patrimonio"
+* RETO_07: "director patrimonial" → "Arquitecto de Patrimonio"
 
 ### v4.0 (12 Abr 2026) — Lujo Clínico / Frialdad Matemática
 * Nombre del producto: "El Mapa de Salida" → "Auditoría de Arquitectura Patrimonial"

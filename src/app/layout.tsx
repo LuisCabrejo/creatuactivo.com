@@ -52,22 +52,24 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
+    default: 'CreaTuActivo | Construcción de Estructura Patrimonial',
     template: '%s | CreaTuActivo'
   },
-  description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
+  description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
     'creatuactivo',
-    'activos digitales',
-    'ingresos pasivos reales',
-    'franquicia digital',
-    'sistema de distribución',
+    'estructura patrimonial',
+    'arquitecto de patrimonio',
+    'auditoría patrimonial',
+    'apalancamiento asimétrico',
+    'flujo de caja recurrente',
+    'queswa ia',
+    'queswa app',
     'gano excel latinoamerica',
-    'luis cabrejo mentor',
-    'nexus ia',
-    'nodex dashboard'
+    'sistema de distribución',
+    'luis cabrejo'
   ],
 
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
@@ -122,15 +124,15 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
-    title: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
-    description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
+    title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
+    description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Auditoría de Infraestructura Patrimonial',
-    description: 'Protocolo de automatización logística para la creación de ingresos recurrentes. Desvincule su flujo de caja de su presencia física mediante la Capa Tecnológica Queswa.',
+    title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
+    description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
     creator: '@creatuactivo',
   },
 
@@ -175,7 +177,7 @@ export default function RootLayout({
       },
       {
         "@type": "SoftwareApplication",
-        "name": "NodeX Dashboard",
+        "name": "Queswa",
         "operatingSystem": "Web",
         "applicationCategory": "BusinessApplication",
         "offers": {
@@ -183,7 +185,7 @@ export default function RootLayout({
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": "Plataforma de gestión inteligente para constructores de redes de distribución Gano Excel.",
+        "description": "Plataforma propietaria con motor de Inteligencia Artificial. Centro de Mando de los Arquitectos de Patrimonio del ecosistema CreaTuActivo. Filtra, califica y prepara contactos las 24 horas (queswa.app).",
         "author": {
           "@id": `${baseUrl}/#organization`
         }

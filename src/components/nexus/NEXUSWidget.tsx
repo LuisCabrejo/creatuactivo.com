@@ -168,7 +168,7 @@ const VoicePanel: React.FC<{
           </path>
         </svg>
         <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D4AF37' }}>
-          Procesando tu mensaje...
+          Procesando su mensaje...
         </span>
       </div>
     );
@@ -558,7 +558,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     { icon: <Settings2 size={15} strokeWidth={1.5} />, label: 'Arquitectura del Ecosistema (Tres Pilares)' },
                     { icon: <BarChart3  size={15} strokeWidth={1.5} />, label: 'Simulación de Flujo y Amortización'         },
                     { icon: <Package   size={15} strokeWidth={1.5} />, label: 'Pilar Logístico — Consumo Recurrente'        },
-                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Calificación'           },
+                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Viabilidad'              },
                   ].map(({ icon, label }) => (
                     <button
                       key={label}

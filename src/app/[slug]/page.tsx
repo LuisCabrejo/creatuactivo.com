@@ -19,8 +19,8 @@ const supabase = createClient(
 // Destinos disponibles — orden: Home primero, Auditoría destacada, resto secundarios
 const DESTINOS = [
   { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false, color: '#7B8FA6' },
-  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Descubre tu punto de partida',         highlight: true,  color: '#C9A96E' },
-  { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecta tu potencial',                highlight: false, color: '#7A9E8A' },
+  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Audite su punto de partida',           highlight: true,  color: '#C9A96E' },
+  { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecte su potencial',                highlight: false, color: '#7A9E8A' },
   { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false, color: '#9E8A7A' },
   { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false, color: '#8A7A9E' },
 ]
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!constructor) return { title: 'CreaTuActivo' }
 
   const nombre = constructor.display_name || params.slug
-  const frase = constructor.frase_personal || 'Construyendo patrimonio paralelo.'
+  const frase = constructor.frase_personal || 'Construyendo Estructura Patrimonial.'
   // Stripping query params (?t=...) — WhatsApp OG scraper rejects images with query strings
   const foto = constructor.foto_url?.split('?')[0] || null
 
@@ -91,7 +91,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
   const nombre = display_name || slug
   const initials = nombre.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
   const waUrl = whatsapp
-    ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${nombre.split(' ')[0]}, vi tu perfil en CreaTuActivo 👋`)}`
+    ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${nombre.split(' ')[0]}, llegué a su perfil desde CreaTuActivo.`)}`
     : null
 
   return (
@@ -167,7 +167,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
           color: '#4a4a3a', margin: '0 0 6px 0',
           fontFamily: 'var(--font-roboto-mono), monospace',
         }}>
-          Elige por dónde empezar:
+          Elija por dónde empezar:
         </p>
         {DESTINOS.map((d) => {
           const isHighlight = d.highlight
@@ -223,7 +223,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
             <Zap size={20} color='#A69E7A' style={{ flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '0.9rem', fontWeight: 400, letterSpacing: '0.02em', color: '#8A8A80' }}>Activación Directa</div>
-              <div style={{ fontSize: '0.72rem', color: '#484840', marginTop: '2px' }}>Únete directamente a mi equipo</div>
+              <div style={{ fontSize: '0.72rem', color: '#484840', marginTop: '2px' }}>Únase directamente a mi organización</div>
             </div>
             <ChevronRight size={14} color='#2a2a2a' style={{ flexShrink: 0 }} />
           </a>

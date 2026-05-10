@@ -73,7 +73,7 @@ function HeroSection() {
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         pointerEvents: 'none',
       }}>
-        <Image src="/images/3-pilares.webp" alt="" fill loading="lazy" priority
+        <Image src="/images/3-pilares.webp" alt="" fill loading="lazy"
           style={{ objectFit: 'cover', objectPosition: 'center' }} sizes="100vw" />
       </div>
 

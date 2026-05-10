@@ -39,7 +39,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v22.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v26.4.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -72,7 +72,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
-- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v22.0.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()` o `getCierreEstado4()` en `route.ts`
+- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v26_4.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()` o `getCierreEstado4()` en `route.ts`
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar el regex de detección Estado 4 en las líneas ~3204 y ~3471 de `route.ts` — si el texto cambia y el regex no, el FSM genera handoffs duplicados
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
@@ -155,7 +155,7 @@ git push origin main
 ### Core System: El Tridente EAM
 
 Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
-1. **EXPANSIÓN** - Generación de tráfico y distribución del Mapa de Salida
+1. **EXPANSIÓN** - Generación de tráfico y distribución de la Auditoría Patrimonial
 2. **ACTIVACIÓN** - Queswa AI filtra prospectos; constructor cierra con quienes levantaron la mano
 3. **MAESTRÍA** - La Academia es la ventaja injusta del constructor. Cada semana de aprendizaje acorta la curva que a otros les tomó años.
 
@@ -166,7 +166,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 - **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
 - En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
 
-**Respuesta canónica WHY_02** — ver `knowledge_base/arsenal_inicial.txt` (fragmento WHY_02). Los tres componentes son: GANO EXCEL (músculo/infraestructura) + CREATUACTIVO (cerebro/plataforma) + DIRECCIÓN EJECUTIVA (metodología/héroe). Nunca como "Tu Rol" aislado — siempre bajo METODOLOGÍA.
+**Respuesta canónica WHY_02** — ver `knowledge_base/arsenal_inicial.txt` (fragmento WHY_02). Los tres pilares canónicos son: **Pilar 1 — La Matriz Física** (Gano Excel / músculo logístico) · **Pilar 2 — Queswa, su Centro de Mando** (plataforma IA propietaria) · **Pilar 3 — Su Rol como Arquitecto de Patrimonio** (gobernanza estratégica). Nunca "capas" ni "Máquina Híbrida" — siempre "pilares" y "Base Operativa".
 
 ### 1. NEXUS AI Chatbot
 
@@ -226,8 +226,8 @@ ganocafe.online/cafe-3en1/index.html
 - ✅ `src/lib/whatsapp-meta.ts` — reemplaza SendPulse (misma interfaz `sendWhatsAppTemplate`)
 - ✅ `funnel/route.ts` + `webhooks/prospect-capture/route.ts` migrados a `whatsapp-meta`
 - ⏳ Meta business verification — pendiente para salir de modo desarrollo (solo acepta números de prueba)
-- ⏳ Plantilla `acceso_mapa_salida` — por crear y aprobar en Meta WhatsApp Manager
-  - Copy aprobado: `Hola {{1}}, tu acceso al *Mapa de Salida* está listo...` | `{{2}}` = enlace personalizado
+- ⏳ Plantilla `acceso_auditoria_patrimonial` — por crear y aprobar en Meta WhatsApp Manager
+  - Copy aprobado: `Hola {{1}}, tu acceso a la *Auditoría Patrimonial* está listo...` | `{{2}}` = enlace personalizado
 - ⏳ 5 templates secuencia de días — Fase 6 del handoff original
 - ⏳ Eliminar credenciales SendPulse de `.env.local` y Vercel — tras aprobar plantillas
 
@@ -267,12 +267,12 @@ WhatsApp (orgánico o CTWA anuncio)
 
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, FAQ, objeciones + WHY_PROD_01, WHY_ROL_01, CTA_01 (37 responses) — tenant: `creatuactivo_marketing` — **v21.1 Lujo Clínico** (Abr 2026) — FREQ_03 "Asignación de Capital" + CIERRE_02 alineado con FSM Estado 2
-   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (17 responses) — tenant: `creatuactivo_marketing` — **v8.2** (Abr 2026)
-   - `arsenal_reto` - El Mapa de Salida v4.0 (7 responses) — tenant: `creatuactivo_marketing` — **v4.0** (Abr 2026) — "Auditoría de Arquitectura Patrimonial", nomenclatura Lujo Clínico
+   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v24.0** (May 2026) — Bloque DIASPORA_01-03 (800M latinos en diáspora, anclaje transnacional, protocolo 3 requisitos); Tres Pilares, Base Operativa, Arquitecto de Patrimonio, aforismos Tridente EAM, verbos de paridad; FREQ_07 sin "patente mundial"; FREQ_09 COP; CIERRE_03 "Decisión racional"
+   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (18 responses) — tenant: `creatuactivo_marketing` — **v10.0** (May 2026) — ADV_VAL_05 nueva (incentivos corporativos Gano Excel); **Tridente EAM con Comandos canónicos en METH_01** (Comando Expandir / Comando Activar / Comando Maestría + aforismos); Patrimonio Paralelo en OBJ_02; Queswa nombrado en OBJ_01; USD/COP unificado VAL_01/VAL_04; **ADV_TECH_03 con "Queswa, el Centro de Mando" + "sistemas de contingencia"** (Capas — no Pilares); ADV_SIST_02 "Infraestructura Continental"; ADV_SIST_03 reordenado
+   - `arsenal_reto` - Auditoría Patrimonial (7 responses) — tenant: `creatuactivo_marketing` — **v4.1** (May 2026) — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, Pilares 1/2 en Día 3, Base Operativa digital
    - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
    - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing` — **v7.0** (Abr 2026) — Lujo Clínico
-   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario**) — tenant: `creatuactivo_marketing` — **v6.0** (Abr 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad", COMP_MONEDA_01 "tasa blindada"
+   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.2** (May 2026) — Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario); "su organización" reemplaza "su equipo/red"; Arquitectos de Patrimonio; Analogía del Acueducto eliminada
    - `arsenal_marca_personal` - Identidad, historia, metodología Luis Cabrejo (11 responses) — tenant: `marca_personal`
    - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (14 responses — incluye PROD_05 Oleaf Rooibos + PROD_06 Gano C'Real Spirulina) — tenant: `ecommerce`
 
@@ -293,13 +293,21 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v25.0 "perfil_puro"** (Abr 2026) — perfil de personalidad puro, backend controla todo el flujo
+   - Versión activa: **v26.4 "retrofit_friccion_nivel_5_actualizacion_eliminada"** (10 May 2026) — identidad + tono + diccionario anti-MLM + arquitectura canónica de Tres Pilares + Base Operativa + blindaje WHY_02 verbatim + Comandos Tridente EAM + retrofit léxico contra investigaciones canónicas. 26,311 chars.
    - Cached in-memory for 5 minutes
-   - **DO NOT modify hardcoded fallback** - update database instead
+   - **DO NOT modify hardcoded fallback** - update database instead (fallback ya alineado a v26.4 en `route.ts` líneas 2460-2487)
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
-   - **Bifurcación de embudos (Abr 2026)**: `nexus_main` v25.0 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
-   - **v25.0 perfil_puro (Abr 2026)**: System Prompt reducido a identidad + tono + diccionario anti-MLM. Todo el flujo (apertura M1, cierre Estados 1–4) controlado por `route.ts`. Eliminados: FEW-SHOT, MANEJO DE CHIPS, PROTOCOLO HANDOFF verbatim, FLUJO DE CONVERSACIÓN, 5 BLOQUEOS ABSOLUTOS redundantes. 15,762 chars (−40% vs v22.0).
-   - **Archivo fuente**: `knowledge_base/system-prompt-nexus-main-v22.0.md` — deploy: `node scripts/actualizar-system-prompt-v22.mjs`
+   - **Bifurcación de embudos**: `nexus_main` v26.4 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
+   - **v26.0 unificacion_servilleta (May 2026)**: Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz Física + Queswa Centro de Mando + Arquitecto de Patrimonio), Base Operativa como activo del Arquitecto, diccionario industrial completo, bloqueo de datos de entrenamiento Gano Excel obsoletos.
+   - **v26.1 blindaje_why02 (May 2026)**: Añade instrucción explícita en sección LÍMITE DE RESPUESTA para entregar WHY_02 verbatim desde RAG (sin reescritura creativa). WHY_02 reformulado: pilares numerados 1/2/3, "Gano Excel" explícito, gerundios EAM (Expandir/Activar/Maestría), "Usted no vende, usted dirige", nueva pregunta de cierre como analista de capital.
+   - **v26.2 comandos_tridente (May 2026)**: Resuelve conflicto semántico — "Protocolo" quedaba reservado al villano (PPO) y a procesos técnicos genéricos, pero también se usaba para el Tridente. Ahora los tres elementos del Tridente EAM se llaman **Comandos** (Comando Expandir · Comando Activar · Comando Maestría). Trinidad resultante: Centro de Mando (Queswa) → emite Comandos (Tridente EAM) → sobre la Base Operativa.
+   - **v26.3 alineacion_glosario_v14 (09 May 2026)**: Alineación con Glosario Léxico Canónico v1.4 — `Patrimonio Paralelo` (sustantivo) → `Estructura Patrimonial` (fricción nivel 3 documentada en Léxico Reels), recategorización canónica `Trampa Estructural`, jerarquía causal Modelo→Inestabilidad→Déficit, vocabulario MLM tradicional colombiano prohibido (`La salida es / Escape de / Sal del`).
+   - **v26.4 retrofit_friccion_nivel_5 (10 May 2026)**: Retrofit léxico contra 4 investigaciones canónicas (`public/contexto/investigaciones/`). 11 ediciones quirúrgicas: (1) eliminación frame `actualización de software financiero` × 6 instancias → `instalación de Estructura Patrimonial en paralelo` (sesgo WEIRD/tech-noir documentado); (2) `apalancamiento asimétrico` → `apalancamiento estratégico` (fricción nivel 5/5 Wall Street/Anglo); (3) `gobernanza estratégica/de activos` → `dirección estratégica/dirigir activo` (fricción nivel 5/5 corporativo); (4) eliminación negaciones discursivas (`NO es reemplazo. NO es escape.` × 2 + 3 antiejemplos en Directrices de Voz) — aplica regla v26.3 línea 25 "Describe qué ES — no qué NO ES".
+   - **Archivo fuente v26.4**: `knowledge_base/system-prompt-nexus-main-v26_4.md` — deploy: `node scripts/actualizar-system-prompt-v26.4.mjs`
+   - **Archivo fuente v26.3**: `knowledge_base/system-prompt-nexus-main-v26_3.md` — conservar como referencia histórica
+   - **Archivo fuente v26.2**: `knowledge_base/system-prompt-nexus-main-v26_2.md` — conservar como referencia histórica
+   - **Archivo fuente v26.1**: `knowledge_base/system-prompt-nexus-main-v26_1.md` — conservar como referencia histórica
+   - **Archivo fuente v26.0**: `knowledge_base/system-prompt-nexus-main-v26_0.md` — conservar como referencia histórica
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
    - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — Queswa da precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y los precios de paquetes en USD sin mostrar COP. Causa raíz más probable: `catalogo_productos` no está fragmentado — se entrega como documento único de 14,748 chars. Pendiente: fragmentar catalogo_productos igual que los arsenales. Ver handoff: `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`
 
@@ -349,7 +357,9 @@ WhatsApp (orgánico o CTWA anuncio)
 | `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
 | `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
 | `/api/fundadores/registro-diciembre` | Node | 10s | Legacy December registration |
+| `/api/track/video` | Edge | — | Video progress tracker — registra `play`/`completado_80` para dias 1–5 de la Auditoría; dispara webhook Supabase → push en queswa.app |
 | `/api/email-open` | Node | — | Email open pixel tracker |
+| `/api/webhooks/prospect-capture` | Node | — | Webhook Supabase → captura prospectos desde triggers externos |
 | `/api/test-resend`, `/api/test-reto-email`, `/api/debug-email` | Node | — | Dev/debug only (not for production use) |
 
 **Vercel Cron Schedules** (vercel.json):
@@ -464,6 +474,8 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `nexus_conversations` - Chat history
 - `system_prompts` - Dynamic NEXUS prompts
 - `nexus_queue` - Async message queue
+- `constructor_slugs` - Mini-landing slugs (slug, display_name, foto_url, frase_personal, whatsapp, constructor_id)
+- `private_users` - Constructor profile data (affiliation_link, profile_photo_url)
 
 **Key RPC Functions**:
 - `identify_prospect()` - Create/update prospect
@@ -472,12 +484,12 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `enqueue_nexus_message()` - Add to queue
 
 **Knowledge Base** (stored in `nexus_documents`, actualizado Mar 2026):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (37 responses — WHY, STORY, VS, FREQ, CRED, OBJ + WHY_PROD_01, WHY_ROL_01, CTA_01) — **v21.1** (Abr 2026) — FREQ_03 "Asignación de Capital para la Activación de Infraestructura" + CIERRE_02 alineado con FSM Estado 2 (Phil Jones + Klaff)
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (17 responses — OBJ avanzadas, TECH, VAL, SIST, ESC)
-- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**El Mapa de Salida** v4.0 — 7 responses — "Auditoría de Arquitectura Patrimonial", nomenclatura Lujo Clínico, Abr 2026)
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (43 fragmentos — 42 respuestas activas + PERFIL_01) — **v24.0** (May 2026) — Bloque DIASPORA_01-03: mercado 800M latinos diáspora, anclaje transnacional, protocolo 3 requisitos; Tres Pilares, Base Operativa, Arquitecto de Patrimonio, aforismos Tridente EAM ("Usted no explica — Queswa explica", "Usted no enseña; Queswa escala"), verbos de paridad en todos los cierres, vocabulario MLM extirpado
+- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (18 responses — OBJ avanzadas, TECH, VAL + ADV_VAL_05, SIST, ESC) — **v10.0** (May 2026)
+- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**Auditoría Patrimonial** v4.1 — 7 responses — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, May 2026)
 - `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
 - `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB) — **v7.0** (Abr 2026) — Lujo Clínico
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.0** (Abr 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad", COMP_MONEDA_01 "tasa blindada"
+- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.2** (May 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad / Capitalización Inmediata / Renta Vitalicia"; "su organización"; Análogía del Acueducto eliminada
 - `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal` — **v1.1** (Abr 2026)
 - `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (16 responses — PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
 
@@ -507,7 +519,12 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 
 - `auditoria-patrimonial/` — 🎯 FUNNEL ENTRY v4.0 (noindex). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
 - `auditoria-confirmada/` — Bridge Page v4.0 (noindex). `TrackingConfirmada.tsx` es 'use client' y dispara evento `vio_bridge_auditoria`.
-- `reto-5-dias/` — FUNNEL ENTRY v1 (noindex, legacy — 301 → v4.0). Tiene variantes A/B: `dolor/`, `analitico/`, `global/`.
+- `reto-5-dias/` — FUNNEL ENTRY v1 (noindex, legacy). Redirect chain: `/reto-5-dias` → `/mapa-de-salida` → `/auditoria-patrimonial` (dos saltos 301 en `next.config.js`). Tiene variantes A/B: `dolor/`, `analitico/`, `global/`.
+- `mapa-de-salida/` — Página Next.js aún activa (con `[constructorId]/`, `layout.tsx`, `opengraph-image.tsx`). Redirige 301 → `/auditoria-patrimonial`. El SW bypass incluye ambas URLs (`/mapa-de-salida` y `/reto-5-dias`) para que los 301 funcionen correctamente.
+- `calculadora/` — Calculadora de ingresos (indexada).
+- `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
+- `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
+- `[slug]/[destino]/` — Redirect con tracking de referral. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`.
 - `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
 - `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
@@ -642,7 +659,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v*.mjs` (latest: **v25.0** — `actualizar-system-prompt-v22.mjs`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v26.4.mjs` (latest: **v26.4** — apunta a `system-prompt-nexus-main-v26_4.md`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -655,16 +672,17 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Lanzamiento público oficial: **lunes 1 de junio**
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
-- Tres componentes Máquina Híbrida: **GANO EXCEL** (músculo/infraestructura) + **CREATUACTIVO** (cerebro/plataforma) + **DIRECCIÓN EJECUTIVA** (metodología/el héroe)
-- Rol del héroe: **DIRECCIÓN EJECUTIVA** — labor puramente gerencial, no operativa
+- Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — Arquitecto de Patrimonio** (gobernanza estratégica del usuario)
+- Activo del Arquitecto: **Base Operativa** — unidad replicable que se escala activando nuevas Bases Operativas
+- Rol del héroe: **Arquitecto de Patrimonio** — labor puramente gerencial/directiva, no operativa
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
 
 **Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
 - Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
-- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Tracción Inbound, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Unidad de Suministro** (reemplaza "Nodo Logístico" en copy público), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
-- Vocabulario prohibido adicional: "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada (Liliana Moreno, nombres de ciudad específicos), etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
+- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Base Operativa** (activo del Arquitecto), **Tres Pilares** (arquitectura canónica), **Arquitecto de Patrimonio** (rol del usuario), **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Unidad de Suministro** (reemplaza "Nodo Logístico" en copy público), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
+- Vocabulario prohibido adicional: "tracción" (reemplazar por "dirección asimétrica" o "gobernanza"), "ancho de banda operativo" (reemplazar por "disponibilidad real para la dirección"), "Máquina Híbrida" (reemplazar por "Base Operativa" o "los tres pilares"), "capas" en contexto de arquitectura de negocio (usar "pilares"), "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada, etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
 
@@ -712,9 +730,9 @@ Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actua
 **Atajo para ediciones pequeñas** (1–3 respuestas modificadas): `node scripts/actualizar-fragmentos-modificados.mjs` — detecta y actualiza solo los fragmentos que cambiaron, sin purgar todo el arsenal. Más rápido que el flujo completo.
 
 1. Edit `.txt` files in `knowledge_base/`:
-   - `arsenal_inicial.txt` - Initial questions (34 responses)
-   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (14 responses)
-   - `arsenal_reto.txt` - **El Mapa de Salida** v3.0 (7 responses — reto de 5 días)
+   - `arsenal_inicial.txt` - Initial questions (43 fragmentos — 42 activas + PERFIL_01)
+   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (18 responses)
+   - `arsenal_reto.txt` - **Auditoría Patrimonial** v4.1 (7 responses — auditoria-patrimonial/dia-1 a dia-5)
    - `arsenal_12_niveles.txt` - 12-level challenge content
    - `catalogo_productos.txt` - Product catalog + science (22 products)
    - `arsenal_compensacion.txt` - Compensation plan (38 responses — **NO modificar vocabulario**)
@@ -872,6 +890,8 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Shared Libraries** (in `src/lib/`):
 - `branding.ts` - Centralized branding v3.0 (COLORS, BRAND, ICON_COLORS, emailStyles)
 - `vectorSearch.ts` - Voyage AI embeddings + cosine similarity for semantic search
+- `whatsapp-meta.ts` - Envío de mensajes WhatsApp via Meta Graph API (reemplaza SendPulse)
+- `sendpulse.ts` - **LEGACY** — migrado a `whatsapp-meta.ts` (Abr 2026). Pendiente eliminar tras aprobar plantillas Meta WhatsApp
 
 ## Design System: Bimetallic v3.0
 
@@ -976,6 +996,76 @@ window.nexusProspect?: { id: string }           // Current prospect
 
 **Never** store PII in localStorage (only fingerprint/session IDs).
 
+## Insights Estratégicos — Calibración May 2026
+
+> **⚠️ Activos competitivos no documentados previamente.** Esta sección captura insights estratégicos de venta consolidados en sesión Luis Cabrejo + Claude (04 May 2026). Referencia para equipo de marketing, desarrollo de contenido y onboarding.
+
+### Insight 1: Diáspora Latina como mercado no capitalizado
+
+**Tamaño del mercado:** 800+ millones de hispanohablantes residiendo fuera de sus países de origen.
+
+**Por qué el modelo tradicional no lo ha capitalizado:** El paradigma del marketing de redes tradicional exige reuniones presenciales y proximidad física. Esto excluye estructuralmente al latino residente en Europa, Asia, Norteamérica, etc.
+
+**Cómo CreaTuActivo lo neutraliza:** Queswa permite construir patrimonio paralelo desde cualquier ubicación geográfica con anclaje al país natal del Arquitecto. Un colombiano en España, un peruano en Japón, un mexicano en Alemania — todos pueden desarrollar su Base Operativa en los 15 países operativos de América.
+
+**Marco mental clave:** *"Un colombiano viviendo en España puede ser propietario de una empresa en Colombia y operarla a distancia. Esta lógica aplica idénticamente al desarrollo de patrimonio paralelo."*
+
+**Referencia operativa:** Bloque DIÁSPORA en `arsenal_inicial.txt` v24.0 (DIASPORA_01, DIASPORA_02, DIASPORA_03).
+
+### Insight 2: Caso Países Sin Operación Directa (Cuba, Venezuela, Argentina)
+
+**El error común:** El prospecto originario de un país sin operación directa de Gano Excel asume que no puede participar.
+
+**La realidad operativa:** Existen Arquitectos en posición Diamante originarios de Cuba, Venezuela y Argentina, registrados bajo Colombia, desarrollando organizaciones consistentes. Registro bajo código de país operativo cercano (típicamente Colombia).
+
+**Referencia operativa:** DIASPORA_02 en `arsenal_inicial.txt` v24.0.
+
+### Insight 3: Requisitos Operativos Transnacionales
+
+Para activar Base Operativa con anclaje internacional: (1) Documento de identificación del país natal, (2) Dirección de correspondencia en el país de registro (puede ser de familiar autorizado), (3) Cuenta bancaria del país de registro.
+
+**Referencia operativa:** DIASPORA_03 en `arsenal_inicial.txt` v24.0.
+
+### Insight 4: Incentivos Corporativos como Activo de Retención
+
+Gano Excel ejecuta dos eventos corporativos internacionales al año, financiados íntegramente por la corporación: Evento Continental Americano (15 países) + Evento Continental Asia-Europa (sede rotativa). El Arquitecto los promueve sin asumir pasivo financiero — corporación absorbe 100% costos.
+
+**⚠️ Pendiente validación:** Confirmar con Gano Excel datos exactos de eventos 2026 antes de publicar ampliamente.
+
+**Referencia operativa:** ADV_VAL_05 en `arsenal_avanzado.txt` v10.0.
+
+### Insight 5: Diferenciación "Quién Paga Las Comisiones"
+
+**Activo de venta crítico:** Las comisiones las paga directamente **Gano Excel**, no CreaTuActivo. Reduce significativamente fricción cognitiva sobre estabilidad del modelo.
+
+**Referencia operativa:** ADV_VAL_02 reformulado en `arsenal_avanzado.txt` v10.0.
+
+### Insight 6: Distinción "Continental" vs "Internacional"
+
+- **Operación Continental:** 15 países de América donde Gano Excel opera comercialmente (capacidad operativa del Arquitecto)
+- **Operación Internacional / Global:** 70 países donde Gano Excel tiene presencia corporativa (Matriz Física)
+- Evitar "70 países" cuando se habla de la distribución del Arquitecto — eso es presencia corporativa, no su capacidad operativa.
+
+**Referencia operativa:** ADV_SIST_02 en `arsenal_avanzado.txt` v10.0.
+
+### Insight 7: WHY_02 como pregunta de máximo apalancamiento (80% del tráfico)
+
+**Hallazgo clave:** La pregunta "¿Cómo funciona el negocio?" (WHY_02) es la consulta que concentra la mayor fracción del tráfico conversacional con prospectos. Es el momento de mayor palanca para fijar la arquitectura conceptual: Tres Pilares + Tridente EAM + Rol Arquitecto.
+
+**Cambio de doctrina aplicado (v26.1):** WHY_02 fue reformulado para:
+1. Usar formato numerado 1./2./3. (más legible y más memorable en pantalla móvil)
+2. Nombrar explícitamente "Gano Excel" en Pilar 1 (evita ambigüedad sobre quién opera la Matriz Física)
+3. Nombrar "bebidas enriquecidas y suplementos" (evita "productos" genérico; refuerza Lujo Clínico)
+4. Verbos en gerundio "Expandir, Activar, Maestría" en el Tridente EAM
+5. Afirmación "Usted no vende, usted dirige" en Pilar 3 (máxima de posicionamiento ejecutivo)
+6. Nueva pregunta de seguimiento: "Como analista de su propio capital y tiempo..." (reemplaza "Al auditar su carga de trabajo actual")
+
+**Impacto doctrinal:** System Prompt v26.2 (`blindaje_why02_comandos_tridente`) incluyó instrucción explícita de entregar WHY_02 verbatim desde el RAG sin reescritura creativa del LLM, y consolidó el vocabulario Comandos del Tridente EAM. Heredado por v26.3 (Glosario v1.4) y v26.4 (retrofit fricción nivel 5).
+
+**Referencia operativa:** WHY_02 en `arsenal_inicial.txt` v24.0; System Prompt `nexus_main` **v26.4** en Supabase.
+
+---
+
 ## Key Documentation Files
 
 **Architecture & Deploy**:
@@ -1026,7 +1116,7 @@ window.nexusProspect?: { id: string }           // Current prospect
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v25.0** — perfil_puro, Abr 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v26.4** — retrofit_friccion_nivel_5, 10 May 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
@@ -1067,6 +1157,8 @@ window.nexusProspect?: { id: string }           // Current prospect
 - `generate_lut.py` - Genera `naval_style.cube` — 3D LUT estilo Naval/Dan Koe (temperatura + contraste + blacks)
 - `davinci_naval.py` - Automatización DaVinci Resolve: importa video, aplica LUT, exporta 1080p + 720p + poster
 - `naval_style.cube` - LUT 3D generado (33×33×33). Re-generar con `generate_lut.py` si se borra
+- `dankoe-video/process_video.py` - **Fase 1**: elimina fondo (rembg + BiRefNet + CoreML M1), compone sobre negro cinematográfico con gradiente radial y color grading moody. Salida 1080×1920 (9:16). Uso: `cd scripts/dankoe-video && .venv/bin/python process_video.py [input/archivo.mp4]`
+- `dankoe-video/add_subtitles.py` - **Fase 2**: subtítulos kinéticos word-by-word estilo Dan Koe. faster-whisper transcribe con timestamps por palabra → agrupa en chunks de 2 palabras → genera ASS → FFmpeg quema captions (amarillo mostaza `#D4A017`, Georgia Bold 88px, fade-in 80ms). Uso: `.venv/bin/python add_subtitles.py [output/video_dankoe.mp4] [idioma]`. Setup: `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt` (BiRefNet ~973MB primera vez → `~/.u2net/`; Whisper descarga modelo `base` ~145MB → `~/.cache/`)
 
 **PWA**:
 - `generate-favicons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
@@ -1115,7 +1207,7 @@ The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funn
          ↓                               ↓
 "¿Cómo lo hago?"             →    Soap Opera Emails (5)
          ↓                               ↓
-CTA sutil a CreaTuActivo     →    Reto 5 Días (5 videos)
+CTA sutil a CreaTuActivo     →    Auditoría Patrimonial (5 videos)
                                          ↓
                                    Webinar (Perfect Webinar)
                                          ↓
@@ -1160,7 +1252,7 @@ These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc
 | Prohibido | Reemplazar con |
 |-----------|---------------|
 | Hardware / Software | El Músculo / El Cerebro |
-| Protocolo de Simulación | El Mapa de Salida |
+| Protocolo de Simulación | Auditoría Patrimonial |
 | Cupo de Validación | acceso gratuito |
 | Módulos Estratégicos | Videos de instrucción |
 | Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar |

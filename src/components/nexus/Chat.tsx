@@ -16,6 +16,7 @@
 import { useChat } from 'ai/react'; // Importación clásica para ai@2.2.37
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Minimize2, X } from 'lucide-react';
+import { getInitialGreeting } from '@/lib/queswa-greeting';
 
 interface NexusChatProps {
   onClose?: () => void;
@@ -32,8 +33,8 @@ export default function NexusChat({ onClose, isMinimized = false }: NexusChatPro
       {
         id: 'welcome',
         role: 'assistant',
-        // 🔧 MENSAJE INICIAL Queswa - Ataque al Villano "Plan por Defecto" + Calidez v17.5.0
-        content: 'Protocolo Queswa activo.\n\nMi función es gestionar la auditoría técnica de perfiles para la integración al ecosistema CreaTuActivo. Opero bajo el Tridente EAM — usted no explica, Queswa explica.\n\nSeleccione el módulo de análisis:'
+        // 🔧 MENSAJE INICIAL Queswa — saludo canónico desde @/lib/queswa-greeting (single source of truth, may 2026)
+        content: getInitialGreeting()
       }
     ]
   });

@@ -13,9 +13,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Settings2, BarChart3, Package, ScanLine } from 'lucide-react';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
+import { QUESWA_QUICK_REPLIES, QUESWA_CTA_LABEL } from '@/lib/queswa-greeting';
 
 // 🤖 ELEGANCIA CINÉTICA - Terminal de Comando Avanzada (FASE F)
 const QUIET_LUXURY = {
@@ -552,19 +552,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   </div>
                 )}
 
-                {/* Quick Reply Chips — columna única, touch targets grandes */}
+                {/* Quick Reply Chips — las 4 preguntas del avatar (canónico desde @/lib/queswa-greeting) */}
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
-                  {[
-                    { icon: <Settings2 size={15} strokeWidth={1.5} />, label: 'Arquitectura del Ecosistema (Tres Pilares)' },
-                    { icon: <BarChart3  size={15} strokeWidth={1.5} />, label: 'Simulación de Flujo y Amortización'         },
-                    { icon: <Package   size={15} strokeWidth={1.5} />, label: 'Pilar Logístico — Consumo Recurrente'        },
-                    { icon: <ScanLine  size={15} strokeWidth={1.5} />, label: 'Iniciar Auditoría de Viabilidad'              },
-                  ].map(({ icon, label }) => (
+                  {QUESWA_QUICK_REPLIES.map((label) => (
                     <button
                       key={label}
                       onClick={() => handleSendMessage(label)}
                       disabled={isLoading}
-                      className="w-full flex items-center gap-3 px-4 py-4 text-left text-sm transition-all duration-200 disabled:opacity-40"
+                      className="w-full px-4 py-4 text-left text-sm transition-all duration-200 disabled:opacity-40"
                       style={{
                         background: QUIET_LUXURY.bgSurface,
                         border: `1px solid rgba(229, 194, 121, 0.2)`,
@@ -581,10 +576,33 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         e.currentTarget.style.color = QUIET_LUXURY.textSecondary;
                       }}
                     >
-                      <span className="flex-shrink-0 opacity-70">{icon}</span>
                       <span className="leading-snug">{label}</span>
                     </button>
                   ))}
+
+                  {/* CTA conversión — botón secundario diferenciado (no es pregunta del avatar) */}
+                  <button
+                    key={QUESWA_CTA_LABEL}
+                    onClick={() => handleSendMessage(QUESWA_CTA_LABEL)}
+                    disabled={isLoading}
+                    className="w-full mt-2 px-4 py-4 text-center text-sm font-medium transition-all duration-200 disabled:opacity-40"
+                    style={{
+                      background: 'transparent',
+                      border: `1px solid ${QUIET_LUXURY.gold}`,
+                      color: QUIET_LUXURY.gold,
+                      fontFamily: 'var(--font-roboto-mono)',
+                      borderRadius: 0,
+                      letterSpacing: '0.02em',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = `rgba(229, 194, 121, 0.08)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    {QUESWA_CTA_LABEL}
+                  </button>
                 </div>
               </div>
             );

@@ -12,6 +12,7 @@
 // 🎯 SIMPLIFICADO - Sin lógica de scroll (movida al componente)
 'use client';
 import { useState, useCallback, useEffect } from 'react';
+import { getInitialGreeting as getCanonicalGreeting } from '@/lib/queswa-greeting';
 
 interface Message {
  id: string;
@@ -64,15 +65,11 @@ const getInitialGreeting = (): Message => {
     };
   }
 
-  // Primera visita — texto Premium Accesible v22.0
+  // Primera visita — saludo canónico desde @/lib/queswa-greeting (single source of truth, may 2026)
   return {
     id: 'initial-greeting',
     role: 'assistant',
-    content: `Protocolo Queswa activo.
-
-Mi función es gestionar la auditoría técnica de perfiles para la integración al ecosistema CreaTuActivo. Opero bajo el Tridente EAM — usted no explica, Queswa explica.
-
-Seleccione el módulo de análisis:`,
+    content: getCanonicalGreeting(),
     timestamp: new Date(),
     isStreaming: false
   };

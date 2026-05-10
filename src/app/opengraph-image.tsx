@@ -1,5 +1,5 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * OpenGraph Image - Quiet Luxury Branding
  * Estilo: Private Equity / Banca Privada
  */
@@ -7,7 +7,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo | Auditoría de Infraestructura Patrimonial'
+export const alt = 'CreaTuActivo | Construcción de Estructura Patrimonial'
 export const size = {
   width: 1200,
   height: 630,
@@ -74,7 +74,7 @@ export default async function Image() {
           }}
         >
           <span style={{ display: 'flex' }}>Construcción de</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Patrimonio Paralelo</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Estructura Patrimonial</span>
         </div>
 
         {/* Descripción */}

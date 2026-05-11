@@ -11,6 +11,11 @@ import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
 import { Home, Target, Calculator, Package, Map, Zap, ChevronRight, MessageCircle } from 'lucide-react'
 
+// Revalida cada 60s — los datos del constructor (foto, frase, links) pueden cambiar
+// en Supabase sin requerir redeploy. Sin esto, Next.js cachea indefinidamente y
+// updates de constructor_slugs.frase_personal no se reflejan en la URL pública.
+export const revalidate = 60
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!

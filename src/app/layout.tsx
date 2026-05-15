@@ -94,15 +94,15 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: '/favicon-32x32.png?v=5', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-96x96.png?v=5', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon-16x16.png?v=5', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png?v=6', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-96x96.png?v=6', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-16x16.png?v=6', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png?v=5', sizes: '180x180', type: 'image/png' }
+      { url: '/apple-touch-icon.png?v=6', sizes: '180x180', type: 'image/png' }
     ],
     shortcut: [
-      { url: '/favicon-32x32.png?v=5' }
+      { url: '/favicon-32x32.png?v=6' }
     ],
   },
   manifest: '/site.webmanifest',
@@ -222,10 +222,10 @@ export default function RootLayout({
         </noscript>
 
         {/* Favicons - v3 con cache-busting */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5" />
-        <link rel="manifest" href="/site.webmanifest?v=5" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6" />
+        <link rel="manifest" href="/site.webmanifest?v=6" />
 
         {/* Configuración Tracking */}
         <script
@@ -247,8 +247,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${playfair.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
-        {/* Film grain global */}
-        <div className="noise-overlay" aria-hidden="true" />
         <main className="relative">
           {children}
         </main>

@@ -1,7 +1,14 @@
 /**
- * SERVILLETA DIGITAL v5.1 - THE INDUSTRIAL DECK
+ * SERVILLETA DIGITAL v6.1 - THE INDUSTRIAL DECK
  * 4-Slide Interactive Presentation (Slide Deck)
- * v2.1: Oscilaciones Duarte/Jobs + Bio-Metría consolidada + Doble CTA
+ *
+ * v6.1 (15 May 2026) — Retrofit léxico v26.5 + presentación deck-friendly:
+ *  - Slide 1: reescritura (texto reducido 78%, ~207 → ~45 palabras) + imagen 3-pilares.webp
+ *  - Slide 1: léxico — "Patrimonio Paralelo" → "Estructura Patrimonial"; "tres capas" → "tres pilares"
+ *  - Slide 1: Pilar 3 = La Metodología Automatizada (Tridente EAM) — el Arquitecto dirige los pilares
+ *  - Slide 2: "Tres movimientos" → "Tres comandos" + "Protocolo de IA Queswa" → "Motor de IA Queswa"
+ *  - Slide 3: "tecnología patentada" → "tecnología propietaria"
+ *  - Slide 4: SIMULADOR + panels + getLifestyleTranslation alineados a Estructura Patrimonial / Organización / Dirección Continental
  */
 
 'use client';
@@ -126,9 +133,9 @@ export default function ServilletaPage() {
     if (usd <= 600) return "Flujo de Caja Equivalente a Ingreso Base Profesional.";
     if (usd <= 1200) return "Consolidación de Activo Directivo (Independencia Operativa).";
     if (usd <= 2500) return "Arquitectura de Patrimonio Diamante (Independencia Financiera Global).";
-    if (usd <= 5000) return "Portafolio de Activos Recurrentes con Tracción Multinacional Activa.";
+    if (usd <= 5000) return "Portafolio de Activos Recurrentes con Dirección Continental Activa.";
     if (usd <= 10000) return "Arquitectura Patrimonial de Alto Rendimiento — Velocidad de Crucero.";
-    return "Infraestructura de patrimonio paralelo operativa. El Déficit Estructural de Ingresos ha sido corregido.";
+    return "Estructura Patrimonial operativa. El Déficit Estructural de Ingresos ha sido corregido.";
   };
 
   const showSlide = useCallback((index: number) => {
@@ -1205,38 +1212,42 @@ export default function ServilletaPage() {
           onTouchEnd={handleTouchEnd}
         >
 
-          {/* ===== SLIDE 1: INFRAESTRUCTURA ===== */}
+          {/* ===== SLIDE 1: ESTRUCTURA PATRIMONIAL ===== */}
           <section id="slide-1" className={`slide ${activeSlide === 1 ? 'active' : ''}`}>
             <div
               className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/turbina.jpg')" }}
+              style={{ backgroundImage: "url('/images/3-pilares.webp')" }}
             />
             <div className="content-overlay center-focus">
-              <div className="technical-label">REF: PATRIMONIO_PARALELO</div>
+              <div className="technical-label">REF: ESTRUCTURA_PATRIMONIAL</div>
               <h1 className="deck-h1">
-                ARQUITECTURA DE PATRIMONIO<br />
-                <span style={{ color: 'var(--orange)' }}>PARALELO</span>
+                CONSTRUCCI&Oacute;N DE<br />
+                <span style={{ color: 'var(--orange)' }}>ESTRUCTURA PATRIMONIAL</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  Usted opera actualmente bajo el Protocolo de la Presencia Obligada: una falla de arquitectura donde el 100% de su flujo de caja depende de su agotamiento biol&oacute;gico. Esto no es una simple crisis de agenda; es la confirmaci&oacute;n de que usted firm&oacute; un contrato de vigilancia permanente sobre su propia vida. Esta m&aacute;quina de tres capas corrige ese D&eacute;ficit Estructural de Ingresos:
+                  Si usted se detiene, el flujo se detiene. Esta es la correcci&oacute;n.
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>CAPA LOG&Iacute;STICA</span><span style={{ color: '#90A4AE' }}> — Gano Excel:</span> Asume el 100% de los pasivos operativos: manufactura, inventarios y distribuci&oacute;n global. Usted no empaca cajas; usted gestiona el activo.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: '#90A4AE' }}> · La Matriz F&iacute;sica:</span> Gano Excel · 70 pa&iacute;ses · asume el 100% de los pasivos operativos.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>CAPA TECNOL&Oacute;GICA</span><span style={{ color: '#90A4AE' }}> — CreaTuActivo y Queswa:</span> Motor de Inteligencia Artificial que gestiona el filtrado y la calificaci&oacute;n de perfiles las 24 horas. Automatizaci&oacute;n absoluta del desgaste operativo.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: '#90A4AE' }}> · Queswa, su Centro de Mando:</span> Motor de IA propietaria · filtra y califica perfiles 24/7.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>DIRECCI&Oacute;N EJECUTIVA</span><span style={{ color: '#90A4AE' }}> — Su rol:</span> Usted no vende, usted dirige. Su funci&oacute;n es gestionar el flujo de datos hacia el sistema y supervisar la expansi&oacute;n de su infraestructura.
+                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: '#90A4AE' }}> · La Metodolog&iacute;a Automatizada:</span> El Tridente EAM · protocolo que erradica el ensayo y error.
                   </div>
                 </div>
+
+                <p className="deck-p" style={{ textAlign: 'center', margin: '1rem auto 0', fontStyle: 'italic', opacity: 0.85 }}>
+                  Usted dirige los tres pilares como Arquitecto de Patrimonio.
+                </p>
               </div>
 
               <button className="btn-next" onClick={() => showSlide(2)}>
-                ¿C&oacute;mo asumo el control de esta m&aacute;quina sin que se convierta en otra carga operativa? →
+                Ver la metodolog&iacute;a →
               </button>
             </div>
           </section>
@@ -1254,7 +1265,7 @@ export default function ServilletaPage() {
                   LA METODOLOG&Iacute;A EAM
                 </h2>
                 <span className="slide-2-subtitle">
-                  Tres movimientos. Un sistema.
+                  Tres comandos.
                 </span>
               </div>
 
@@ -1292,7 +1303,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>ACTIVAR</h3>
-                  <p>Usted no presenta el modelo. El Protocolo de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7.</p>
+                  <p>Usted no presenta el modelo. El Motor de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7.</p>
                 </div>
               </div>
 
@@ -1329,7 +1340,7 @@ export default function ServilletaPage() {
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
                   <p className="deck-p">
-                    Optimizaci&oacute;n de h&aacute;bitos preexistentes mediante tecnolog&iacute;a nutricional patentada con Ganoderma Lucidum.
+                    Optimizaci&oacute;n de h&aacute;bitos preexistentes mediante tecnolog&iacute;a nutricional propietaria con Ganoderma Lucidum.
                   </p>
                 </div>
 
@@ -1386,7 +1397,7 @@ export default function ServilletaPage() {
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
-                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE PATRIMONIO PARALELO</h3>
+                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE ESTRUCTURA PATRIMONIAL</h3>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">
@@ -1434,7 +1445,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PERSONAS EN SU INFRAESTRUCTURA:
+                      PERSONAS EN SU ORGANIZACI&Oacute;N:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -1452,7 +1463,7 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     <label>
-                      HOGARES EN SU INFRAESTRUCTURA:
+                      HOGARES EN SU ORGANIZACI&Oacute;N:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -1476,7 +1487,7 @@ export default function ServilletaPage() {
                 />
                 <div className="cta-overlay">
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
-                    CONSTRUCCI&Oacute;N DE PATRIMONIO PARALELO
+                    CONSTRUCCI&Oacute;N DE ESTRUCTURA PATRIMONIAL
                   </p>
                   <h2>Protocolo de Selecci&oacute;n Directiva</h2>
                   <p>Los datos t&eacute;cnicos est&aacute;n expuestos. Determine usted el nivel de integraci&oacute;n que su arquitectura patrimonial requiere hoy.</p>

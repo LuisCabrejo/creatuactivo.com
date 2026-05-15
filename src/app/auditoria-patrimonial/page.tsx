@@ -205,7 +205,7 @@ export default function AuditoriaPatrimonialPage() {
           borderBottom: `1px solid ${C.bgCardBorder}`,
         }}>
           <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-            <Image src="/header.png" alt="CreaTuActivo" width={32} height={32} priority style={{ objectFit: 'contain' }} />
+            <Image src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo" width={32} height={32} priority style={{ objectFit: 'contain' }} />
             <span style={{
               fontSize: '1rem', fontWeight: 700, color: C.white,
               fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',

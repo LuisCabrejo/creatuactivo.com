@@ -109,7 +109,7 @@ const CRITICAL_NAVIGATION_CSS = `
 
   /* THE ARCHITECT'S SUITE - Brand Text (Oswald Bold) */
   .strategic-logo-text {
-    font-family: var(--font-rajdhani), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 1.375rem;
     font-weight: 700;
     color: #FFFFFF;
@@ -244,24 +244,23 @@ const CRITICAL_NAVIGATION_CSS = `
     line-height: 1.4;
   }
 
-  /* BOTÓN CTA - GEOMETRÍA INDUSTRIAL */
+  /* BOTÓN CTA - LUJO SILENCIOSO (Primario: Carbón + Borde Dorado + Texto Dorado) */
   .strategic-cta-button {
     display: none;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-    color: #0B0C0C;
-    font-family: var(--font-rajdhani), sans-serif;
-    font-weight: 700;
+    background: var(--color-bg-elevated);
+    color: var(--color-brand);
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: 0.875rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 0.625rem 1.25rem;
-    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: var(--radius-action);
+    border: 1px solid var(--color-brand);
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
 
   @media (min-width: 768px) {
@@ -271,9 +270,9 @@ const CRITICAL_NAVIGATION_CSS = `
   }
 
   .strategic-cta-button:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+    background: var(--color-bg-surface);
+    border-color: var(--color-brand-hover);
+    color: var(--color-brand-hover);
   }
 
   /* MOBILE BUTTON - IMMEDIATE RENDER */
@@ -422,25 +421,24 @@ const CRITICAL_NAVIGATION_CSS = `
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-    color: #0B0C0C;
-    font-family: var(--font-rajdhani), sans-serif;
-    font-weight: 700;
+    background: var(--color-bg-elevated);
+    color: var(--color-brand);
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: 1rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 1rem;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: var(--radius-action);
+    border: 1px solid var(--color-brand);
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
 
   .strategic-mobile-cta-button:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+    background: var(--color-bg-surface);
+    border-color: var(--color-brand-hover);
+    color: var(--color-brand-hover);
   }
 
   /* HABILITACIÓN DE TRANSICIONES POST-HIDRATACIÓN */
@@ -526,10 +524,10 @@ export default function StrategicNavigation() {
             {/* ✅ LOGO SECTION - THE ARCHITECT'S SUITE */}
             <div className="strategic-logo-container">
               <Link href="/" className="strategic-logo-link">
-                {/* Logo Icon PNG - Optimized for dark backgrounds */}
+                {/* Isotipo 3D Dorado Champán - Estructura Patrimonial */}
                 <div className="strategic-logo-icon">
                   <Image
-                    src="/header.png"
+                    src="/images/logotipo-CreaTuActivo.com.webp"
                     alt="CreaTuActivo Logo"
                     width={40}
                     height={40}
@@ -590,10 +588,10 @@ export default function StrategicNavigation() {
         {/* Mobile Header */}
         <div className="strategic-mobile-header">
           <Link href="/" className="strategic-logo-link" onClick={handleLinkClick}>
-            {/* Logo Icon PNG - Optimized for dark backgrounds */}
+            {/* Isotipo 3D Dorado Champán - Estructura Patrimonial */}
             <div className="strategic-logo-icon">
               <Image
-                src="/header.png"
+                src="/images/logotipo-CreaTuActivo.com.webp"
                 alt="CreaTuActivo Logo"
                 width={40}
                 height={40}

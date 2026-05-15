@@ -104,7 +104,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
       minHeight: '100vh',
       backgroundColor: '#080808',
       color: '#F5F5F0',
-      fontFamily: 'var(--font-rajdhani), sans-serif',
+      fontFamily: 'var(--font-inter), sans-serif',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

@@ -109,7 +109,7 @@ export default function AuditoriaConfirmadaPage() {
           borderBottom: `1px solid ${C.bgCardBorder}`,
         }}>
           <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-            <img src="/header.png" alt="CreaTuActivo" width={32} height={32} style={{ objectFit: 'contain' }} />
+            <img src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo" width={32} height={32} style={{ objectFit: 'contain' }} />
             <span style={{
               fontSize: '1rem', fontWeight: 700, color: C.white,
               fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',

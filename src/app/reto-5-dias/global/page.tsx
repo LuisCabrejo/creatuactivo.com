@@ -69,8 +69,8 @@ export default function RetoGlobalPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
-              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
-              <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-rajdhani), sans-serif' }}>CreaTuActivo</span>
+              <Image src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo Logo" width={40} height={40} priority className="object-contain" />
+              <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>CreaTuActivo</span>
             </Link>
           </div>
 

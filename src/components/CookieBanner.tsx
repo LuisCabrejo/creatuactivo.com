@@ -80,7 +80,7 @@ export default function CookieBanner() {
               style={{
                 background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
                 color: '#0B0C0C',
-                fontFamily: 'var(--font-rajdhani), sans-serif',
+                fontFamily: 'var(--font-inter), sans-serif',
                 fontWeight: 700,
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',

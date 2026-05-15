@@ -158,7 +158,7 @@ export default function Reto5DiasPage() {
           {/* Logo flotante */}
           <div style={{ position: 'relative', zIndex: 10, padding: '1.5rem' }}>
             <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-              <Image src="/header.png" alt="CreaTuActivo Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
+              <Image src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
               <span style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', fontFamily: "'Rajdhani', sans-serif" }}>
                 CreaTuActivo
               </span>

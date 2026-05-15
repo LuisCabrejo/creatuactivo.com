@@ -18,16 +18,20 @@ export const metadata = {
   description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y la metodología automatizada del Tridente EAM. Usted dirige.',
 };
 
+// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
 const C = {
-  gold: '#C8A84B',
-  cyan: '#22D3EE',
-  white: '#F5F5F0',
-  muted: '#6B6B5A',
-  bg: '#080808',
-  bgCard: '#0d0d0d',
-  bgCardBorder: '#1a1a1a',
-  danger: '#ef4444',
-  success: '#22c55e',
+  gold: 'var(--color-brand)',              // #C5A059
+  goldHover: 'var(--color-brand-hover)',   // #D4AF37
+  cyan: '#22D3EE',                         // Acento data/labels técnicos (no en handoff, conservado)
+  white: 'var(--color-text-primary)',      // #FFFFFF
+  body: 'var(--color-text-body)',          // #E5E5E5
+  muted: 'var(--color-text-muted)',        // #A3A3A3
+  bg: 'var(--color-bg-primary)',           // #0F1115
+  bgElevated: 'var(--color-bg-elevated)',  // #15171C
+  bgCard: 'var(--color-bg-surface)',       // #1A1D23
+  bgCardBorder: 'rgba(255,255,255,0.08)',
+  danger: 'var(--color-error)',            // #9E2A3A
+  success: 'var(--color-success)',         // #408A71
 };
 
 export default function HomePage() {
@@ -82,7 +86,7 @@ function HeroSection() {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 4.5vw, 2.8rem)', lineHeight: 1.1,
           marginBottom: '20px',
-          fontFamily: "'Rajdhani', sans-serif",
+          fontFamily: "var(--font-sans)",
           fontWeight: 700, color: C.gold,
           letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
@@ -94,7 +98,7 @@ function HeroSection() {
         <p style={{
           fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', lineHeight: 1.4,
           marginBottom: '28px', color: C.white, fontWeight: 500,
-          fontFamily: "'Playfair Display', Georgia, serif",
+          fontFamily: "var(--font-serif)",
           textShadow: '0 2px 10px rgba(0,0,0,0.9)',
         }}>
           Usted no tiene un problema de ingresos.{' '}
@@ -112,24 +116,15 @@ function HeroSection() {
           </p>
         </div>
 
-        {/* CTA primario */}
-        <Link href="/mapa-de-salida" style={{
-          display: 'inline-flex', alignItems: 'center', gap: '10px',
-          background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
-          color: '#000', fontWeight: 700, fontSize: '1rem',
-          padding: '16px 40px',
-          fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
-          textDecoration: 'none', textTransform: 'uppercase',
-          clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
-          transition: 'all 0.2s ease',
-        }}>
+        {/* CTA primario — Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */}
+        <Link href="/mapa-de-salida" className="cta-base cta-primary">
           Iniciar Auditoría de Viabilidad →
         </Link>
 
         {/* Micro-copy */}
         <p style={{
           marginTop: '16px', fontSize: '0.78rem', color: C.muted,
-          fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em',
+          fontFamily: "var(--font-mono)", letterSpacing: '0.1em',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
           5 Días · Sin Costo · Escrutinio de Ingeniería Patrimonial
@@ -174,10 +169,10 @@ function ProblemSection() {
     <section style={{ position: 'relative', padding: '80px 24px' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
             El Diagnóstico Clínico
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             La Trampa Estructural.
           </h2>
         </div>
@@ -186,7 +181,7 @@ function ProblemSection() {
         <div style={{
           padding: '28px 32px', marginBottom: '40px',
           background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
-          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
             Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de sus horas de vida o su gestión constante.{' '}
@@ -201,7 +196,7 @@ function ProblemSection() {
             <div key={item.num} style={{
               padding: '28px 24px',
               background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(34,211,238,0.15)`,
-              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+              borderRadius: 'var(--radius-container)',
             }}>
               <div style={{
                 width: 40, height: 40, marginBottom: '16px',
@@ -209,9 +204,9 @@ function ProblemSection() {
                 border: `2px solid ${C.cyan}`,
                 clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
               }}>
-                <span style={{ fontFamily: "'Roboto Mono', monospace", color: C.cyan, fontWeight: 700, fontSize: '0.8rem' }}>{item.num}</span>
+                <span style={{ fontFamily: "var(--font-mono)", color: C.cyan, fontWeight: 700, fontSize: '0.8rem' }}>{item.num}</span>
               </div>
-              <h3 style={{ color: C.gold, marginBottom: '12px', fontFamily: "'Rajdhani', sans-serif", fontSize: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{item.title}</h3>
+              <h3 style={{ color: C.gold, marginBottom: '12px', fontFamily: "var(--font-sans)", fontSize: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{item.title}</h3>
               <p style={{ color: C.muted, fontSize: '0.88rem', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
             </div>
           ))}
@@ -253,10 +248,10 @@ function PerfilesSection() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
             Diagnóstico por Perfil
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Análisis de Riesgo por Perfil de Ingresos
           </h2>
         </div>
@@ -267,10 +262,10 @@ function PerfilesSection() {
               padding: '28px',
               background: C.bgCard,
               border: `1px solid ${C.bgCardBorder}`,
-              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+              borderRadius: 'var(--radius-container)',
             }}>
               {/* Label */}
-              <p style={{ fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
+              <p style={{ fontSize: '0.7rem', fontFamily: "var(--font-mono)", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.cyan, marginBottom: '16px' }}>
                 {p.label}
               </p>
 
@@ -331,10 +326,10 @@ function SolucionesFallidasSection() {
     <section style={{ position: 'relative', padding: '80px 24px' }}>
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
             La Arquitectura de Decisiones
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Usted tiene tres opciones operativas frente a esta inestabilidad estructural.
           </h2>
         </div>
@@ -345,17 +340,17 @@ function SolucionesFallidasSection() {
               padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: '12px',
               background: item.destacada ? 'rgba(200,168,75,0.06)' : 'rgba(0,0,0,0.65)',
               border: item.destacada ? `1px solid ${C.gold}` : `1px solid rgba(255,255,255,0.07)`,
-              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+              borderRadius: 'var(--radius-container)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span style={{
-                  fontFamily: "'Roboto Mono', monospace", fontSize: '0.75rem', fontWeight: 700,
+                  fontFamily: "var(--font-mono)", fontSize: '0.75rem', fontWeight: 700,
                   color: item.destacada ? C.gold : C.muted,
                 }}>
                   {item.num}
                 </span>
                 <span style={{
-                  fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.15em',
+                  fontSize: '0.7rem', fontFamily: "var(--font-mono)", letterSpacing: '0.15em',
                   textTransform: 'uppercase', color: item.destacada ? C.gold : C.muted,
                   opacity: 0.7,
                 }}>
@@ -363,7 +358,7 @@ function SolucionesFallidasSection() {
                 </span>
               </div>
               <h3 style={{
-                fontFamily: "'Rajdhani', sans-serif", fontSize: '1.1rem',
+                fontFamily: "var(--font-sans)", fontSize: '1.1rem',
                 letterSpacing: '0.06em', textTransform: 'uppercase',
                 color: item.destacada ? C.gold : C.white,
                 margin: 0,
@@ -390,10 +385,10 @@ function ProductoFisicoSection() {
     <section style={{ position: 'relative', padding: '80px 24px' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
             Pilar 1 — La Matriz Física de Consumo Recurrente
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Todo activo financiero sólido requiere un motor de alta rotación.
           </h2>
         </div>
@@ -401,7 +396,7 @@ function ProductoFisicoSection() {
         <div style={{
           padding: '32px 36px', marginBottom: '32px',
           background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
-          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
             Su Base Operativa monetiza un hábito biológico innegociable:{' '}
@@ -416,9 +411,9 @@ function ProductoFisicoSection() {
           background: 'rgba(200,168,75,0.04)',
           border: `1px solid rgba(200,168,75,0.2)`,
           textAlign: 'center',
-          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          borderRadius: 'var(--radius-container)',
         }}>
-          <p style={{ fontSize: '1rem', lineHeight: 1.7, color: C.white, margin: 0, fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic' }}>
+          <p style={{ fontSize: '1rem', lineHeight: 1.7, color: C.white, margin: 0, fontFamily: "var(--font-serif)", fontStyle: 'italic' }}>
             Un hábito biológico que no cambia genera un flujo de caja que no se detiene.
           </p>
         </div>
@@ -435,11 +430,11 @@ function SolutionPreview() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+        <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
           La Prueba de Estrés Patrimonial
         </span>
 
-        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "var(--font-serif)", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
           ¿Cuál es la Autonomía Estructural de su liquidez actual?
         </h2>
 
@@ -451,9 +446,9 @@ function SolutionPreview() {
           display: 'inline-block', padding: '24px 40px',
           background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(200,168,75,0.3)`,
           marginBottom: '32px',
-          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+          borderRadius: 'var(--radius-container)',
         }}>
-          <p style={{ fontFamily: "'Roboto Mono', monospace", fontSize: '1rem', color: C.cyan, margin: 0, lineHeight: 1.8 }}>
+          <p style={{ fontFamily: "var(--font-mono)", fontSize: '1rem', color: C.cyan, margin: 0, lineHeight: 1.8 }}>
             Reservas Líquidas ÷ Carga Operativa Mensual{' '}
             <span style={{ color: C.muted }}>=</span>{' '}
             <span style={{ color: C.gold, fontWeight: 700 }}>Autonomía Estructural (Días)</span>
@@ -467,26 +462,10 @@ function SolutionPreview() {
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
-          <Link href="/calculadora" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
-            color: '#000', fontWeight: 700, fontSize: '0.95rem',
-            padding: '14px 32px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-          }}>
+          <Link href="/calculadora" className="cta-base cta-primary">
             Ejecutar Simulador Técnico →
           </Link>
-          <Link href="/auditoria-patrimonial" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'transparent', border: `1px solid rgba(200,168,75,0.3)`,
-            color: C.muted, fontWeight: 500, fontSize: '0.85rem',
-            padding: '14px 24px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.07em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
-          }}>
+          <Link href="/auditoria-patrimonial" className="cta-base cta-secondary">
             Omitir Simulación e Iniciar Auditoría de Viabilidad →
           </Link>
         </div>
@@ -519,10 +498,10 @@ function QueswaDiferenciadorSection() {
     <section style={{ position: 'relative', padding: '80px 24px' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
             El Centro de Mando
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Queswa: Su Centro de Mando para la Soberanía Patrimonial.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
@@ -539,11 +518,11 @@ function QueswaDiferenciadorSection() {
               padding: '24px',
               background: C.bgCard,
               border: `1px solid rgba(200,168,75,0.15)`,
-              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+              borderRadius: 'var(--radius-container)',
             }}>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: C.gold, marginBottom: '16px' }} />
               <h3 style={{
-                color: C.white, fontFamily: "'Rajdhani', sans-serif",
+                color: C.white, fontFamily: "var(--font-sans)",
                 fontSize: '0.95rem', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '10px',
               }}>
                 {cap.titulo}
@@ -559,15 +538,7 @@ function QueswaDiferenciadorSection() {
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <Link href="https://queswa.app" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'transparent', border: `1px solid rgba(200,168,75,0.4)`,
-            color: C.gold, fontWeight: 600, fontSize: '0.9rem',
-            padding: '12px 28px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
-          }}>
+          <Link href="https://queswa.app" className="cta-base cta-secondary">
             Solicitar Demostración Técnica →
           </Link>
         </div>
@@ -584,15 +555,15 @@ function FinalCTASection() {
   return (
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: '16px' }}>
+        <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: '16px' }}>
           Protocolo de Integración
         </p>
 
-        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "'Playfair Display', Georgia, serif", color: '#fff', marginBottom: '12px' }}>
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '12px' }}>
           Auditoría de Arquitectura Patrimonial
         </h2>
 
-        <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "'Playfair Display', Georgia, serif" }}>
+        <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "var(--font-serif)" }}>
           Escrutinio de 5 Días para Diagnosticar la Vulnerabilidad de su Modelo Actual.
         </p>
 
@@ -609,26 +580,10 @@ function FinalCTASection() {
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
-          <Link href="/auditoria-patrimonial" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: `linear-gradient(135deg, ${C.gold}, #B8941F)`,
-            color: '#000', fontWeight: 700, fontSize: '1rem',
-            padding: '16px 40px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
-          }}>
+          <Link href="/auditoria-patrimonial" className="cta-base cta-primary">
             Iniciar Auditoría de Viabilidad →
           </Link>
-          <Link href="/calculadora" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'transparent', border: `1px solid rgba(200,168,75,0.3)`,
-            color: C.muted, fontWeight: 500, fontSize: '0.82rem',
-            padding: '14px 24px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
-          }}>
+          <Link href="/calculadora" className="cta-base cta-secondary">
             Ejecutar Prueba de Estrés Patrimonial →
           </Link>
         </div>
@@ -650,15 +605,15 @@ function Footer() {
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>
-          <p style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
-          <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>Construcción de Estructura Patrimonial</p>
+          <p style={{ fontFamily: "var(--font-sans)", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
+          <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>Construcción de Estructura Patrimonial</p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>
           <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>Privacidad</Link>
           <Link href="/tecnologia" style={{ color: C.muted, textDecoration: 'none' }}>Tecnología</Link>
         </div>
-        <p style={{ fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
+        <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>
           © 2026 CreaTuActivo.com
         </p>
       </div>

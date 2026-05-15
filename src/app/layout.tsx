@@ -5,13 +5,13 @@
  */
 
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Rajdhani, Roboto_Mono } from 'next/font/google';
+import { Playfair_Display, Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
 import DeferredOrb from '@/components/DeferredOrb';
 
-// THE ARCHITECT'S SUITE - Typography System
-// Playfair Display: Títulos, citas, encabezados (evoca autoridad editorial)
+// LUJO SILENCIOSO - Sistema Tipográfico
+// Playfair Display: Display serif para titulares de impacto y narrativa estratégica
 const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
@@ -19,15 +19,16 @@ const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700'],
 });
 
-// ELEGANCIA CINÉTICA - Rajdhani: UI, subtítulos, botones ("La Máquina")
-const rajdhani = Rajdhani({
+// Inter: Sans primario para estructura, datos y cuerpo de texto
+// (Alternativa abierta más cercana a Söhne — grotesca geométrica moderna)
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-rajdhani',
-  weight: ['500', '600', '700'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
 });
 
-// ELEGANCIA CINÉTICA - Roboto Mono: Datos, métricas, fórmulas ("La Evidencia")
+// Roboto Mono: Datos financieros, métricas, fórmulas (con tabular-nums)
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
   display: 'swap',
@@ -246,7 +247,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${playfair.variable} ${rajdhani.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+      <body className={`${playfair.variable} ${inter.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
         <main className="relative">
           {children}
         </main>

@@ -2474,7 +2474,9 @@ Cada respuesta debe acercar al prospecto a una decisión informada. No persuades
 LOS TRES PILARES DEL ECOSISTEMA:
 • Pilar 1 — La Matriz Física: Gano Excel, presencia en 70 países con plantas de producción, logística y distribución propias. Asume el 100% de los pasivos operativos.
 • Pilar 2 — Queswa, su Centro de Mando: la plataforma propietaria de IA que filtra, califica y prepara contactos por el Arquitecto las 24 horas (queswa.app).
-• Pilar 3 — El Arquitecto de Patrimonio: el usuario. Orquesta el flujo de tráfico hacia el ecosistema y ejerce dirección estratégica sobre su Base Operativa. La tecnología hace el 90% de la ejecución.
+• Pilar 3 — La Metodología Automatizada: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría). Protocolo de ejecución estandarizado que erradica el ensayo y error. El sistema entrega coordenadas exactas de dirección estratégica para expandir el activo sin fricción.
+
+ROL DEL USUARIO: Arquitecto de Patrimonio. Dirige los tres pilares — no es uno de ellos. La tecnología hace el 90% de la ejecución; el Arquitecto orquesta el flujo de tráfico y ejerce dirección estratégica sobre su Base Operativa.
 
 ARSENAL ACTIVO (respuestas optimizadas + productos):
 - arsenal_inicial: Identidad, WHY, historia, objeciones iniciales (43 respuestas)

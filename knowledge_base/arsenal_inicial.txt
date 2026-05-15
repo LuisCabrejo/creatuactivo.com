@@ -1,9 +1,9 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.2
+# Arsenal Conversacional: Respuestas Fundamentales v25.3
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
-**Versión:** 25.2 — WHY_PROD_01 reescrito con frame canónico servilleta v3 SLIDE 3 (motor de alta rotación + bebidas enriquecidas y suplementos de alta gama + tecnología propietaria de bioactivación) + cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" (10 May 2026)
+**Versión:** 25.3 — Pilar 3 recategorizado: "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto de Patrimonio queda elevado como director de los tres pilares, no como pieza dentro de ellos. WHY_02 reescrito con cierre transicional unificador. (15 May 2026)
 
 ---
 
@@ -12,9 +12,9 @@
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / ¿De qué se trata este negocio? / Explícame qué es lo que hacen."**
 **[Concepto Nuclear]:** Usted opera bajo un modelo donde su ingreso depende 100% de su presencia física. Una falla arquitectónica crítica: si usted se detiene, el sistema colapsa, generando un Déficit Estructural de Ingresos.
 
-CreaTuActivo es un ecosistema patrimonial diseñado para neutralizar este diseño defectuoso. Le entregamos el control de una Base Operativa autónoma, sostenida por tres pilares:
+CreaTuActivo es un ecosistema patrimonial diseñado para neutralizar este diseño defectuoso. Le entregamos el control de una Base Operativa autónoma, sostenida por tres pilares que absorben el desgaste por usted:
 
-Una matriz logística física en 70 países —con sedes operativas y soporte presencial—, la plataforma propietaria Queswa que asume el 90% del desgaste operativo, y su dirección ejecutiva.
+Una matriz logística física en 70 países —con sedes operativas y soporte presencial—, la plataforma propietaria Queswa que asume el 90% del desgaste operativo, y una metodología automatizada (El Tridente EAM) que erradica el ensayo y error. Usted ejerce la dirección estratégica como Arquitecto de Patrimonio.
 
 Ya sea que usted ejerza un cargo corporativo o dirija su propia empresa, este ecosistema se ensambla en paralelo a su ocupación actual, sin sumar carga a su agenda. Una vez estructurada, su Base Operativa genera regalías recurrentes que no exigen su intervención manual.
 
@@ -23,17 +23,17 @@ Ya sea que usted ejerza un cargo corporativo o dirija su propia empresa, este ec
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
-**[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres Pilares para la arquitectura, El Tridente EAM para la operación diaria. Usted no asume desgaste físico; usted ejerce dirección estratégica.
+**[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres pilares de infraestructura, un solo Arquitecto que los dirige. Usted no asume desgaste físico; usted ejerce dirección estratégica.
 
-Para entender la mecánica, primero auditemos la falla de su modelo actual: el 100% de su liquidez está atada a su presencia física — el sistema lo tiene atado al reloj. Nuestro ecosistema neutraliza esa inestabilidad estructural entregándole una Base Operativa de tres pilares:
+Para entender la mecánica, primero auditemos la falla de su modelo actual: el 100% de su liquidez está atada a su presencia física — el sistema lo tiene atado al reloj. Nuestro ecosistema neutraliza esa inestabilidad estructural entregándole una Base Operativa sostenida por tres pilares que absorben el desgaste por usted:
 
 1. **Pilar 1 — La Matriz Física.** Gano Excel: presencia en 70 países, red de sedes operativas locales y soporte presencial. Asume fábricas, inventarios y despachos.
 
 2. **Pilar 2 — Queswa, su Centro de Mando.** La plataforma propietaria de IA con la que interactúa en este momento. Gestiona prospección, filtrado y calificación 24 horas desde queswa.app.
 
-3. **Pilar 3 — Su Rol como Arquitecto de Patrimonio.** Usted no vende, usted dirige. Orquesta el flujo de tráfico hacia el ecosistema y ejerce dirección sobre su Base Operativa.
+3. **Pilar 3 — La Metodología Automatizada.** El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría): un protocolo de ejecución estandarizado y comprobado que erradica el ensayo y error. El sistema le entrega las coordenadas exactas de dirección estratégica para expandir su activo sin fricción.
 
-La operación diaria, sin sumar carga a su agenda, se ejecuta mediante **El Tridente EAM** (Comando Expandir, Comando Activar, Comando Maestría). Como resultado, Gano Excel liquida regalías recurrentes por cada unidad de consumo de bebidas enriquecidas y suplementos que fluye por su organización.
+Esta es su Base Operativa. Tres pilares. Una sola dirección: la suya. Su rol es el del **Arquitecto de Patrimonio** — usted no opera los tres pilares, los dirige. Como resultado, Gano Excel liquida regalías recurrentes por cada unidad de consumo de bebidas enriquecidas y suplementos que fluye por su organización.
 
 **Pregunta de seguimiento:** Como analista de su propio capital y tiempo, ¿identifica usted la diferencia estructural entre operar la logística diaria de un negocio y ejercer la dirección de un ecosistema automatizado?
 
@@ -91,7 +91,7 @@ CreaTuActivo es el ecosistema diseñado para la construcción de su **Estructura
 
 Queswa, la plataforma con la que interactúa en este momento, es el **Pilar 2**. Es su Centro de Mando: una unidad de procesamiento lógico que gestiona la prospección, filtra perfiles y audita objeciones técnicas las 24 horas, asumiendo el 90% de la carga operativa.
 
-Su función como **Arquitecto de Patrimonio (Pilar 3)** se limita a orquestar el flujo de tráfico hacia el ecosistema y ejercer dirección estratégica. Usted no explica — Queswa explica.
+Su función como **Arquitecto de Patrimonio** se limita a orquestar el flujo de tráfico hacia el ecosistema y ejercer dirección estratégica. Usted no explica — Queswa explica.
 
 **Pregunta de seguimiento:** ¿Qué variable estructural desea auditar primero: los parámetros técnicos del ecosistema o la matemática de capitalización?
 
@@ -239,7 +239,7 @@ La diferencia estructural es matemática: radica en quién absorbe la fricción 
 
 En un modelo tradicional, usted retiene el 100% de la carga operativa: nóminas, arriendos, plataformas de software, aduanas y fluctuaciones macroeconómicas. Si la cadena logística se fractura, su capital asume el impacto directo.
 
-Nuestro ecosistema opera bajo Apalancamiento Estratégico. El Pilar 1 (La Matriz Física) absorbe los pasivos de manufactura y distribución global. Usted, asumiendo su rol de Arquitecto de Patrimonio (Pilar 3), orquesta el flujo de tráfico y factura sobre el consumo cautivo, operando con una estructura ultraliviana. Es el equivalente técnico a poseer la concesión de una infraestructura sin la obligación de mantener los activos físicos.
+Nuestro ecosistema opera bajo Apalancamiento Estratégico. El Pilar 1 (La Matriz Física) absorbe los pasivos de manufactura y distribución global. Usted, asumiendo su rol de Arquitecto de Patrimonio, orquesta el flujo de tráfico y factura sobre el consumo cautivo, operando con una estructura ultraliviana. Es el equivalente técnico a poseer la concesión de una infraestructura sin la obligación de mantener los activos físicos.
 
 **Pregunta de seguimiento:** Al auditar la expansión de su patrimonio, ¿identifica usted la diferencia operativa entre adquirir pasivos físicos en solitario, y ejercer la dirección sobre una Matriz Física ya consolidada?
 
@@ -451,7 +451,7 @@ La lógica financiera es contundente: un hábito biológico que no cambia genera
 ### **WHY_ROL_01: "¿Qué tendría que hacer yo? / ¿Cuál es mi rol exactamente?"**
 **[Concepto Nuclear]:** Dirección Estratégica. Delegación total de la fricción operativa al Centro de Mando.
 
-Su rol es estrictamente de dirección. Usted opera como Arquitecto de Patrimonio (Pilar 3) orquestando el flujo comercial hacia el ecosistema.
+Su rol es estrictamente de dirección. Usted opera como Arquitecto de Patrimonio orquestando el flujo comercial hacia el ecosistema.
 
 Cuando un perfil ingresa, Queswa (Pilar 2) asume el control: presenta la infraestructura, audita objeciones y califica. Usted no ejecuta presentaciones manuales ni persigue contactos.
 

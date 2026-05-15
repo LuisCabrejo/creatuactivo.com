@@ -39,7 +39,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v26.4.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v26.5.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -72,7 +72,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
-- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v26_4.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()` o `getCierreEstado4()` en `route.ts`
+- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v26_5.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()` o `getCierreEstado4()` en `route.ts`
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar el regex de detección Estado 4 en las líneas ~3204 y ~3471 de `route.ts` — si el texto cambia y el regex no, el FSM genera handoffs duplicados
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
@@ -166,7 +166,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 - **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
 - En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
 
-**Respuesta canónica WHY_02** — ver `knowledge_base/arsenal_inicial.txt` (fragmento WHY_02). Los tres pilares canónicos son: **Pilar 1 — La Matriz Física** (Gano Excel / músculo logístico) · **Pilar 2 — Queswa, su Centro de Mando** (plataforma IA propietaria) · **Pilar 3 — Su Rol como Arquitecto de Patrimonio** (gobernanza estratégica). Nunca "capas" ni "Máquina Híbrida" — siempre "pilares" y "Base Operativa".
+**Respuesta canónica WHY_02** — ver `knowledge_base/arsenal_inicial.txt` (fragmento WHY_02). Los tres pilares canónicos son: **Pilar 1 — La Matriz Física** (Gano Excel / músculo logístico) · **Pilar 2 — Queswa, su Centro de Mando** (plataforma IA propietaria) · **Pilar 3 — La Metodología Automatizada** (El Tridente EAM: protocolo de ejecución estandarizado que erradica el ensayo y error). El **rol del usuario** es **Arquitecto de Patrimonio** — dirige los tres pilares, NO es uno de ellos. Recategorización aplicada en v26.5 (May 2026): el Arquitecto queda elevado como director; el tercer pilar es un componente entregado por el sistema, no el rol del receptor. Nunca "capas" ni "Máquina Híbrida" — siempre "pilares" y "Base Operativa".
 
 ### 1. NEXUS AI Chatbot
 
@@ -267,7 +267,7 @@ WhatsApp (orgánico o CTWA anuncio)
 
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v24.0** (May 2026) — Bloque DIASPORA_01-03 (800M latinos en diáspora, anclaje transnacional, protocolo 3 requisitos); Tres Pilares, Base Operativa, Arquitecto de Patrimonio, aforismos Tridente EAM, verbos de paridad; FREQ_07 sin "patente mundial"; FREQ_09 COP; CIERRE_03 "Decisión racional"
+   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v25.3** (15 May 2026) — Pilar 3 recategorizado a "La Metodología Automatizada (Tridente EAM)"; Arquitecto elevado como director, no como pilar. Bloque DIASPORA_01-03, Tres Pilares, Base Operativa, aforismos Tridente EAM, verbos de paridad
    - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (18 responses) — tenant: `creatuactivo_marketing` — **v10.0** (May 2026) — ADV_VAL_05 nueva (incentivos corporativos Gano Excel); **Tridente EAM con Comandos canónicos en METH_01** (Comando Expandir / Comando Activar / Comando Maestría + aforismos); Patrimonio Paralelo en OBJ_02; Queswa nombrado en OBJ_01; USD/COP unificado VAL_01/VAL_04; **ADV_TECH_03 con "Queswa, el Centro de Mando" + "sistemas de contingencia"** (Capas — no Pilares); ADV_SIST_02 "Infraestructura Continental"; ADV_SIST_03 reordenado
    - `arsenal_reto` - Auditoría Patrimonial (7 responses) — tenant: `creatuactivo_marketing` — **v4.1** (May 2026) — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, Pilares 1/2 en Día 3, Base Operativa digital
    - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
@@ -293,17 +293,19 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v26.4 "retrofit_friccion_nivel_5_actualizacion_eliminada"** (10 May 2026) — identidad + tono + diccionario anti-MLM + arquitectura canónica de Tres Pilares + Base Operativa + blindaje WHY_02 verbatim + Comandos Tridente EAM + retrofit léxico contra investigaciones canónicas. 26,311 chars.
+   - Versión activa: **v26.5 "pilar3_metodologia_automatizada"** (15 May 2026) — Pilar 3 recategorizado: "Su Rol como Arquitecto" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto queda elevado como director de los tres pilares, no como pieza dentro de ellos. Resuelve disonancia arquitectónica (si Pilar 3 = usuario, solo se entregan 2 pilares). 26,816 chars.
    - Cached in-memory for 5 minutes
-   - **DO NOT modify hardcoded fallback** - update database instead (fallback ya alineado a v26.4 en `route.ts` líneas 2460-2487)
+   - **DO NOT modify hardcoded fallback** - update database instead (fallback ya alineado a v26.5 en `route.ts` líneas 2460-2487)
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
-   - **Bifurcación de embudos**: `nexus_main` v26.4 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
+   - **Bifurcación de embudos**: `nexus_main` v26.5 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
    - **v26.0 unificacion_servilleta (May 2026)**: Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz Física + Queswa Centro de Mando + Arquitecto de Patrimonio), Base Operativa como activo del Arquitecto, diccionario industrial completo, bloqueo de datos de entrenamiento Gano Excel obsoletos.
    - **v26.1 blindaje_why02 (May 2026)**: Añade instrucción explícita en sección LÍMITE DE RESPUESTA para entregar WHY_02 verbatim desde RAG (sin reescritura creativa). WHY_02 reformulado: pilares numerados 1/2/3, "Gano Excel" explícito, gerundios EAM (Expandir/Activar/Maestría), "Usted no vende, usted dirige", nueva pregunta de cierre como analista de capital.
    - **v26.2 comandos_tridente (May 2026)**: Resuelve conflicto semántico — "Protocolo" quedaba reservado al villano (PPO) y a procesos técnicos genéricos, pero también se usaba para el Tridente. Ahora los tres elementos del Tridente EAM se llaman **Comandos** (Comando Expandir · Comando Activar · Comando Maestría). Trinidad resultante: Centro de Mando (Queswa) → emite Comandos (Tridente EAM) → sobre la Base Operativa.
    - **v26.3 alineacion_glosario_v14 (09 May 2026)**: Alineación con Glosario Léxico Canónico v1.4 — `Patrimonio Paralelo` (sustantivo) → `Estructura Patrimonial` (fricción nivel 3 documentada en Léxico Reels), recategorización canónica `Trampa Estructural`, jerarquía causal Modelo→Inestabilidad→Déficit, vocabulario MLM tradicional colombiano prohibido (`La salida es / Escape de / Sal del`).
    - **v26.4 retrofit_friccion_nivel_5 (10 May 2026)**: Retrofit léxico contra 4 investigaciones canónicas (`public/contexto/investigaciones/`). 11 ediciones quirúrgicas: (1) eliminación frame `actualización de software financiero` × 6 instancias → `instalación de Estructura Patrimonial en paralelo` (sesgo WEIRD/tech-noir documentado); (2) `apalancamiento asimétrico` → `apalancamiento estratégico` (fricción nivel 5/5 Wall Street/Anglo); (3) `gobernanza estratégica/de activos` → `dirección estratégica/dirigir activo` (fricción nivel 5/5 corporativo); (4) eliminación negaciones discursivas (`NO es reemplazo. NO es escape.` × 2 + 3 antiejemplos en Directrices de Voz) — aplica regla v26.3 línea 25 "Describe qué ES — no qué NO ES".
-   - **Archivo fuente v26.4**: `knowledge_base/system-prompt-nexus-main-v26_4.md` — deploy: `node scripts/actualizar-system-prompt-v26.4.mjs`
+   - **v26.5 pilar3_metodologia_automatizada (15 May 2026)**: Resolución de disonancia arquitectónica. **Pilar 3** recategorizado de "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (El Tridente EAM)". Si Pilar 3 = el usuario, solo se entregan 2 pilares de infraestructura (Matriz Física + Queswa), no 3. El tercer pilar debe ser un componente entregado por el sistema, no el rol del receptor. El **Arquitecto de Patrimonio** queda elevado como **director de los tres pilares**, no como pieza dentro de ellos. Cross-canal: servilleta v3.1 (cierre transicional "Esta es su Base Operativa. Tres pilares. Una sola dirección: la suya." + SLIDE 2 intro reformulado), arsenal_inicial v25.3 (WHY_02 reescrito + 3 referencias `(Pilar 3)` eliminadas), home v13.3 (3 instancias + cleanup "tecnología celular"), fallback route.ts sincronizado.
+   - **Archivo fuente v26.5**: `knowledge_base/system-prompt-nexus-main-v26_5.md` — deploy: `node scripts/actualizar-system-prompt-v26.5.mjs`
+   - **Archivo fuente v26.4**: `knowledge_base/system-prompt-nexus-main-v26_4.md` — conservar como referencia histórica
    - **Archivo fuente v26.3**: `knowledge_base/system-prompt-nexus-main-v26_3.md` — conservar como referencia histórica
    - **Archivo fuente v26.2**: `knowledge_base/system-prompt-nexus-main-v26_2.md` — conservar como referencia histórica
    - **Archivo fuente v26.1**: `knowledge_base/system-prompt-nexus-main-v26_1.md` — conservar como referencia histórica
@@ -484,7 +486,7 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `enqueue_nexus_message()` - Add to queue
 
 **Knowledge Base** (stored in `nexus_documents`, actualizado Mar 2026):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (43 fragmentos — 42 respuestas activas + PERFIL_01) — **v24.0** (May 2026) — Bloque DIASPORA_01-03: mercado 800M latinos diáspora, anclaje transnacional, protocolo 3 requisitos; Tres Pilares, Base Operativa, Arquitecto de Patrimonio, aforismos Tridente EAM ("Usted no explica — Queswa explica", "Usted no enseña; Queswa escala"), verbos de paridad en todos los cierres, vocabulario MLM extirpado
+- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (43 fragmentos — 42 respuestas activas + PERFIL_01) — **v25.3** (15 May 2026) — Pilar 3 recategorizado: "Su Rol como Arquitecto" → "La Metodología Automatizada (Tridente EAM)"; Arquitecto elevado como director de los tres pilares. Bloque DIASPORA_01-03, Tres Pilares, Base Operativa, aforismos Tridente EAM ("Usted no explica — Queswa explica", "Usted no enseña; Queswa escala"), verbos de paridad en todos los cierres, vocabulario MLM extirpado
 - `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (18 responses — OBJ avanzadas, TECH, VAL + ADV_VAL_05, SIST, ESC) — **v10.0** (May 2026)
 - `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**Auditoría Patrimonial** v4.1 — 7 responses — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, May 2026)
 - `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
@@ -659,7 +661,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v26.4.mjs` (latest: **v26.4** — apunta a `system-prompt-nexus-main-v26_4.md`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v26.5.mjs` (latest: **v26.5** — apunta a `system-prompt-nexus-main-v26_5.md`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -672,9 +674,9 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Lanzamiento público oficial: **lunes 1 de junio**
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
-- Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — Arquitecto de Patrimonio** (gobernanza estratégica del usuario)
+- Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — La Metodología Automatizada** (El Tridente EAM: protocolo de ejecución estandarizado que erradica el ensayo y error) — recategorización aplicada en v26.5 (May 2026)
 - Activo del Arquitecto: **Base Operativa** — unidad replicable que se escala activando nuevas Bases Operativas
-- Rol del héroe: **Arquitecto de Patrimonio** — labor puramente gerencial/directiva, no operativa
+- Rol del usuario: **Arquitecto de Patrimonio** — dirige los tres pilares, NO es uno de ellos. Labor puramente gerencial/directiva, no operativa.
 - Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
@@ -1060,9 +1062,9 @@ Gano Excel ejecuta dos eventos corporativos internacionales al año, financiados
 5. Afirmación "Usted no vende, usted dirige" en Pilar 3 (máxima de posicionamiento ejecutivo)
 6. Nueva pregunta de seguimiento: "Como analista de su propio capital y tiempo..." (reemplaza "Al auditar su carga de trabajo actual")
 
-**Impacto doctrinal:** System Prompt v26.2 (`blindaje_why02_comandos_tridente`) incluyó instrucción explícita de entregar WHY_02 verbatim desde el RAG sin reescritura creativa del LLM, y consolidó el vocabulario Comandos del Tridente EAM. Heredado por v26.3 (Glosario v1.4) y v26.4 (retrofit fricción nivel 5).
+**Impacto doctrinal:** System Prompt v26.2 (`blindaje_why02_comandos_tridente`) incluyó instrucción explícita de entregar WHY_02 verbatim desde el RAG sin reescritura creativa del LLM, y consolidó el vocabulario Comandos del Tridente EAM. Heredado por v26.3 (Glosario v1.4), v26.4 (retrofit fricción nivel 5) y v26.5 (Pilar 3 = Metodología Automatizada).
 
-**Referencia operativa:** WHY_02 en `arsenal_inicial.txt` v24.0; System Prompt `nexus_main` **v26.4** en Supabase.
+**Referencia operativa:** WHY_02 en `arsenal_inicial.txt` v25.3; System Prompt `nexus_main` **v26.5** en Supabase.
 
 ---
 
@@ -1116,7 +1118,7 @@ Gano Excel ejecuta dos eventos corporativos internacionales al año, financiados
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v26.4** — retrofit_friccion_nivel_5, 10 May 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v26.5** — pilar3_metodologia_automatizada, 15 May 2026)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

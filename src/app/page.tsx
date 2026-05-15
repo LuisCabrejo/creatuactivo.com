@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.2 — Retrofit léxico canónico Glosario v1.4: Estructura Patrimonial + descripción operativa villano + frame Software Financiero + Comandos Tridente EAM (May 2026)
+ * Homepage v13.3 — Retrofit Pilar 3: "Su Rol como Arquitecto" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto queda elevado como director de los tres pilares. Cleanup "tecnología celular" → "tecnología propietaria de bioactivación". (15 May 2026)
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
- * Aliado canónico: Servilleta v3 + Reel A Corporate v2.2 + Glosario v1.4 + System Prompt v26.2 + Arsenal Inicial v24.0
+ * Aliado canónico: Servilleta v3.1 + System Prompt v26.5 + Arsenal Inicial v25.3
  */
 
 import Link from 'next/link';
@@ -15,7 +15,7 @@ export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio.',
+  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y la metodología automatizada del Tridente EAM. Usted dirige.',
 };
 
 const C = {
@@ -108,7 +108,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de sus horas de vida.{' '}
-            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>Estructura Patrimonial</strong> apalancada en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio — sin abandonar su ocupación actual.</span>
+            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>Estructura Patrimonial</strong> apalancada en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y la metodología automatizada del Tridente EAM — sin abandonar su ocupación actual. Usted dirige.</span>
           </p>
         </div>
 
@@ -322,7 +322,7 @@ function SolucionesFallidasSection() {
       num: '03',
       titulo: 'Apalancamiento Asimétrico',
       subtitulo: 'Ecosistema de Tres Pilares',
-      desc: 'Una actualización de su software financiero: acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y usted ejerce la gobernanza como Arquitecto de Patrimonio.',
+      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y el Tridente EAM le entrega las coordenadas exactas de dirección. Usted ejerce la gobernanza como Arquitecto de Patrimonio.',
       destacada: true,
     },
   ];
@@ -407,7 +407,7 @@ function ProductoFisicoSection() {
             Su Base Operativa monetiza un hábito biológico innegociable:{' '}
             <span style={{ color: C.white }}>el consumo masivo de bebidas enriquecidas y suplementos de alta gama.</span>{' '}
             No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología celular propietaria respaldada por décadas de investigación en biotecnología asiática</span>.
+            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología propietaria de bioactivación respaldada por décadas de investigación en biotecnología asiática</span>.
           </p>
         </div>
 

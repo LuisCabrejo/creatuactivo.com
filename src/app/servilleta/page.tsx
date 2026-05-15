@@ -129,7 +129,7 @@ export default function ServilletaPage() {
 
   const getLifestyleTranslation = (usd: number) => {
     if (usd < 100) return "Amortización de Pasivos Fijos Operativos.";
-    if (usd <= 300) return "Auto-Sustentabilidad de su Unidad de Suministro (Carga Operativa Cubierta).";
+    if (usd <= 300) return "Auto-Sustentabilidad de su Base Operativa (Carga Operativa Cubierta).";
     if (usd <= 600) return "Flujo de Caja Equivalente a Ingreso Base Profesional.";
     if (usd <= 1200) return "Consolidación de Activo Directivo (Independencia Operativa).";
     if (usd <= 2500) return "Arquitectura de Patrimonio Diamante (Independencia Financiera Global).";
@@ -367,6 +367,15 @@ export default function ServilletaPage() {
         .deck-h1 { font-size: 4rem; }
         .deck-h2 { font-size: 3rem; }
         .deck-p { color: #ccc; line-height: 1.6; max-width: 600px; margin: 0; text-shadow: 0px 1px 3px black; }
+
+        /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
+           del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
+        #slide-1 .bg-image {
+          filter: grayscale(70%) contrast(110%) brightness(55%);
+          opacity: 0.75;
+          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
 
         /* PLACA DE CONTRASTE (Slide 1 readability) */
         .contrast-plate {
@@ -1254,10 +1263,6 @@ export default function ServilletaPage() {
 
           {/* ===== SLIDE 2: LA METODOLOGÍA EAM ===== */}
           <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
-            <div
-              className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/hormigon-tile.webp')", opacity: 0.4 }}
-            />
             <div className="grid-layout-slide-2">
               {/* Título */}
               <div className="slide-2-header">
@@ -1390,10 +1395,6 @@ export default function ServilletaPage() {
 
           {/* ===== SLIDE 4: SIMULACIÓN + DOBLE CTA ===== */}
           <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
-            <div
-              className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/hormigon-tile.webp')", opacity: 0.3 }}
-            />
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
@@ -1489,7 +1490,6 @@ export default function ServilletaPage() {
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
                     CONSTRUCCI&Oacute;N DE ESTRUCTURA PATRIMONIAL
                   </p>
-                  <h2>Protocolo de Selecci&oacute;n Directiva</h2>
                   <p>Los datos t&eacute;cnicos est&aacute;n expuestos. Determine usted el nivel de integraci&oacute;n que su arquitectura patrimonial requiere hoy.</p>
 
                   <div className="cta-buttons">
@@ -1500,7 +1500,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      ACTIVACI&Oacute;N DE UNIDAD DE SUMINISTRO →
+                      ACTIVAR SU BASE OPERATIVA →
                     </a>
 
                     {/* CTA Secundario → /auditoria-patrimonial */}

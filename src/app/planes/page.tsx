@@ -328,7 +328,7 @@ export default function PlanesTecnologicosPage() {
                   price="$25"
                   priceCOP="112.500"
                   priceLabel="USD / mes"
-                  profile="Mantenimiento base de la capa Queswa para operaciones locales. Para constructores que inician su unidad de suministro."
+                  profile="Mantenimiento base de Queswa para operaciones locales. Para constructores que inician su Base Operativa."
                   metrics={[
                     { label: 'Prospectos', value: '200' },
                     { label: 'Conversaciones', value: '100/mes' },
@@ -506,7 +506,7 @@ export default function PlanesTecnologicosPage() {
                 maxWidth: '520px',
                 margin: '0 auto 2.5rem',
               }}>
-                El primer paso es la capitalización de su Unidad de Suministro.
+                El primer paso es la capitalización de su Base Operativa.
                 El plan tecnológico se activa junto con su inventario.
               </p>
               <Link

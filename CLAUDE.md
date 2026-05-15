@@ -587,7 +587,7 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 - Package selector: ESP-1 / ESP-2 / **Empresarial** (no "Pro")
 - `getLifestyleTranslation`: 8 strings McKinsey/BCG (Lujo Clínico — sin jerga MLM):
   - <$100: "Amortización de Pasivos Fijos Operativos."
-  - ≤$300: "Auto-Sustentabilidad de su Unidad de Suministro (Carga Operativa Cubierta)."
+  - ≤$300: "Auto-Sustentabilidad de su Base Operativa (Carga Operativa Cubierta)."
   - ≤$600: "Flujo de Caja Equivalente a Ingreso Base Profesional."
   - ≤$1,200: "Consolidación de Activo Directivo (Independencia Operativa)."
   - ≤$2,500: "Arquitectura de Patrimonio Diamante (Independencia Financiera Global)."
@@ -683,8 +683,8 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 **Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
 - Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
-- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Base Operativa** (activo del Arquitecto), **Tres Pilares** (arquitectura canónica), **Arquitecto de Patrimonio** (rol del usuario), **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Unidad de Suministro** (reemplaza "Nodo Logístico" en copy público), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
-- Vocabulario prohibido adicional: "tracción" (reemplazar por "dirección asimétrica" o "gobernanza"), "ancho de banda operativo" (reemplazar por "disponibilidad real para la dirección"), "Máquina Híbrida" (reemplazar por "Base Operativa" o "los tres pilares"), "capas" en contexto de arquitectura de negocio (usar "pilares"), "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada, etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
+- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Base Operativa** (activo del Arquitecto — unidad canónica que reemplaza "Unidad de Suministro" y "Nodo Logístico" desde 15 May 2026), **Tres Pilares** (arquitectura canónica), **Arquitecto de Patrimonio** (rol del usuario), **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
+- Vocabulario prohibido adicional: "tracción" (reemplazar por "dirección asimétrica" o "gobernanza"), "ancho de banda operativo" (reemplazar por "disponibilidad real para la dirección"), "Máquina Híbrida" (reemplazar por "Base Operativa" o "los tres pilares"), "capas" en contexto de arquitectura de negocio (usar "pilares"), "Unidad de Suministro" / "Nodo Logístico" (retirados 15 May 2026 — eufemismos opacos; reemplazar por "Base Operativa"), "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada, etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
 

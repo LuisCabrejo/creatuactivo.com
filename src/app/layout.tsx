@@ -96,17 +96,17 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       // SVG vector master — preferido por browsers modernos (Chrome 80+, Firefox 41+, Edge, Safari 9+)
-      { url: '/favicon.svg?v=7', type: 'image/svg+xml' },
+      { url: '/favicon.svg?v=8', type: 'image/svg+xml' },
       // PNG fallback para browsers legacy
-      { url: '/favicon-32x32.png?v=7', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-96x96.png?v=7', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon-16x16.png?v=7', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png?v=8', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-96x96.png?v=8', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-16x16.png?v=8', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png?v=7', sizes: '180x180', type: 'image/png' }
+      { url: '/apple-touch-icon.png?v=8', sizes: '180x180', type: 'image/png' }
     ],
     shortcut: [
-      { url: '/favicon.svg?v=7' }
+      { url: '/favicon.svg?v=8' }
     ],
   },
   manifest: '/site.webmanifest',
@@ -226,11 +226,11 @@ export default function RootLayout({
         </noscript>
 
         {/* Favicons — SVG vector master + PNG fallbacks */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=7" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=7" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
-        <link rel="manifest" href="/site.webmanifest?v=7" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=8" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=8" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=8" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=8" />
+        <link rel="manifest" href="/site.webmanifest?v=8" />
 
         {/* Configuración Tracking */}
         <script

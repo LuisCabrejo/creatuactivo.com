@@ -167,10 +167,11 @@ export default function ServilletaPage() {
   const currentUSD = simMode === 'gen5' ? gen5Income : binarioIncomeUSD;
   const currentCOP = (currentUSD * TRM).toLocaleString();
 
-  // Snowball metaphor: white circle that grows with the recurring income.
-  // Range: 10 hogares (50 USD) → 1000 hogares (4760 USD).
-  // Visual: 56px (small initial flake) → 280px (large rolling boulder).
-  const snowballSize = Math.round(56 + (binarioParejas / 1000) * 224);
+  // Snowball metaphor — el thumb del slider de INGRESO RECURRENTE crece a
+  // medida que el usuario lo desliza hacia más hogares (más ingreso recurrente).
+  // Visualiza la metáfora literal: bola de nieve rodando montaña abajo.
+  // Rango: 14px (10 hogares, ~$50) → 90px (1000 hogares, ~$4,760).
+  const snowballSize = Math.round(14 + (binarioParejas / 1000) * 76);
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
@@ -649,29 +650,6 @@ export default function ServilletaPage() {
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
         .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1.05rem; }
 
-        /* Snowball — héroe visual del ingreso recurrente.
-           Metáfora: bola de nieve que rueda montaña abajo y crece con el tiempo.
-           Eco visual con los reels Dan-Koe donde el círculo blanco = el Arquitecto.
-           Transición suave para que el cambio de tamaño se sienta orgánico al
-           mover el slider de hogares. */
-        .snowball-stage {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 290px;
-          margin: 12px 0 8px;
-        }
-        .snowball {
-          border-radius: 50%;
-          background: radial-gradient(circle at 32% 28%, #FFFFFF 0%, #F2F2EE 55%, #D9D8D2 100%);
-          box-shadow:
-            0 0 32px rgba(255, 255, 255, 0.12),
-            0 8px 24px rgba(0, 0, 0, 0.35),
-            inset 0 -12px 28px rgba(0, 0, 0, 0.08);
-          transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                      height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                      box-shadow 0.35s ease;
-        }
 
         .pkg-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
         .pkg-btn {
@@ -692,6 +670,62 @@ export default function ServilletaPage() {
         }
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
+
+        /* Snowball slider — INGRESO RECURRENTE.
+           Metáfora visual: el thumb es la "bola de nieve" que rueda sobre
+           la línea (track) y crece a medida que avanza hacia más hogares.
+           Track unificado #3B3B3B en mobile y desktop (sin default blanco OS). */
+        .snowball-slider {
+          -webkit-appearance: none;
+          appearance: none;
+          background: transparent;
+          margin: 18px 0;
+          /* margen vertical generoso porque el thumb crece hasta 90px y
+             podría tocar elementos vecinos sin este aire */
+          padding: 45px 0;
+          cursor: pointer;
+        }
+        /* Track — la línea sobre la que rueda la bola */
+        .snowball-slider::-webkit-slider-runnable-track {
+          height: 4px;
+          background: #3B3B3B;
+          border-radius: 2px;
+        }
+        .snowball-slider::-moz-range-track {
+          height: 4px;
+          background: #3B3B3B;
+          border-radius: 2px;
+          border: none;
+        }
+        /* Thumb — la bola de nieve blanca que crece */
+        .snowball-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: var(--thumb-size, 14px);
+          height: var(--thumb-size, 14px);
+          border-radius: 50%;
+          background: #FFFFFF;
+          border: none;
+          margin-top: calc((4px - var(--thumb-size, 14px)) / 2);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35),
+                      0 0 0 1px rgba(255, 255, 255, 0.05);
+          transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                      height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                      margin-top 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+          cursor: grab;
+        }
+        .snowball-slider::-webkit-slider-thumb:active { cursor: grabbing; }
+        .snowball-slider::-moz-range-thumb {
+          width: var(--thumb-size, 14px);
+          height: var(--thumb-size, 14px);
+          border-radius: 50%;
+          background: #FFFFFF;
+          border: none;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+          transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                      height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+          cursor: grab;
+        }
         .insight-text { font-size: 0.9rem; color: #555; margin-top: 10px; text-align: center; }
 
         .cta-panel {
@@ -1533,16 +1567,6 @@ export default function ServilletaPage() {
                   </button>
                 </div>
 
-                {/* Snowball: solo en INGRESO RECURRENTE — crece con su organización */}
-                {simMode === 'binario' && (
-                  <div className="snowball-stage">
-                    <div
-                      className="snowball"
-                      style={{ width: `${snowballSize}px`, height: `${snowballSize}px` }}
-                    />
-                  </div>
-                )}
-
                 {/* Display Digital */}
                 <div className="digital-display">
                   <span className="currency">$</span>
@@ -1596,6 +1620,8 @@ export default function ServilletaPage() {
                       step={10}
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
+                      className="snowball-slider"
+                      style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
                     />
                     <p className="insight-text">Ingreso recurrente que escala con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
                   </div>

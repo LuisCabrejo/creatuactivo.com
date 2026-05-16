@@ -40,19 +40,29 @@ export default function ServilletaPage() {
       const tag = (e.target as HTMLElement)?.tagName;
       const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable;
       if (isEditable) return;
+      // Slide 2 fullscreen: avanza/retrocede entre cards antes de cambiar de slide
+      const inSlide2Fs = activeSlide === 2 && isFullscreen;
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
-        setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+        if (inSlide2Fs && activeCardIndex < 2) {
+          setActiveCardIndex((prev) => prev + 1);
+        } else {
+          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+        }
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        setActiveSlide((prev) => Math.max(prev - 1, 1));
+        if (inSlide2Fs && activeCardIndex > 0) {
+          setActiveCardIndex((prev) => prev - 1);
+        } else {
+          setActiveSlide((prev) => Math.max(prev - 1, 1));
+        }
       } else if (e.key === 'f' || e.key === 'F') {
         toggleFullscreen();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [activeSlide, isFullscreen, activeCardIndex]);
 
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
@@ -98,9 +108,14 @@ export default function ServilletaPage() {
     // Single click → esperar 300ms para confirmar que no es double
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null;
-      setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
+      // Slide 2 fullscreen: avanza entre cards antes de cambiar de slide
+      if (activeSlide === 2 && isFullscreen && activeCardIndex < 2) {
+        setActiveCardIndex((prev) => prev + 1);
+      } else {
+        setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
+      }
     }, 300);
-  }, [toggleFullscreen]);
+  }, [toggleFullscreen, activeSlide, isFullscreen, activeCardIndex]);
 
   // Touch swipe para mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -904,27 +919,33 @@ export default function ServilletaPage() {
 
         /* === FULLSCREEN OVERRIDES === */
 
-        /* -- SLIDE 2: Constrain grid, center, taller cards -- */
+        /* -- SLIDE 2 fullscreen: ONE CARD AT A TIME --
+           En fullscreen, solo la card .card-active es visible y ocupa todo
+           el canvas. El usuario avanza con click/teclado/swipe. Esto resuelve
+           el "apiñado" visual y convierte slide-2 en una secuencia narrativa
+           (Comando Expandir → Activar → Maestría) antes de pasar a slide-3. */
         :fullscreen .grid-layout-slide-2 {
           padding: 70px 60px 30px;
           gap: 18px;
-          grid-template-rows: auto 1fr 1fr;
-          max-width: 1200px;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr;
+          max-width: 1400px;
           margin: 0 auto;
           height: 100%;
           align-content: stretch;
         }
-        :fullscreen .card-industrial {
+        :fullscreen #slide-2 .card-industrial:not(.card-active) {
+          display: none;
+        }
+        :fullscreen #slide-2 .card-industrial.card-active,
+        :fullscreen #slide-2 .full-width.card-active {
+          grid-column: 1 / -1;
           height: auto;
-          min-height: 28vh;
+          min-height: 70vh;
         }
         :fullscreen .card-bg {
           background-size: cover;
           background-position: center;
-        }
-        :fullscreen .full-width {
-          height: auto;
-          min-height: 28vh;
         }
 
         /* -- SLIDE 3: Center content vertically, scale up -- */
@@ -1277,7 +1298,7 @@ export default function ServilletaPage() {
                   LA METODOLOG&Iacute;A EAM
                 </h2>
                 <span className="slide-2-subtitle">
-                  Tres comandos.
+                  Tres comandos.{isFullscreen && ` · 0${activeCardIndex + 1} / 03`}
                 </span>
               </div>
 
@@ -1309,7 +1330,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 2: ACTIVAR */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-console.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/acceso.webp')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
@@ -1321,7 +1342,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3 (full-width): MAESTRÍA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-duplication.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/maestria.webp')", backgroundPosition: "center center", backgroundSize: "cover" }} />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
@@ -1331,12 +1352,14 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* CTA al fondo — después de las tres cards */}
-              <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                <button className="btn-next" onClick={() => showSlide(3)}>
-                  VER EL PRODUCTO →
-                </button>
-              </div>
+              {/* CTA al fondo — en fullscreen, solo cuando se llegó a la 3ra card */}
+              {(!isFullscreen || activeCardIndex === 2) && (
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                  <button className="btn-next" onClick={() => showSlide(3)}>
+                    VER EL PRODUCTO →
+                  </button>
+                </div>
+              )}
             </div>
           </section>
 

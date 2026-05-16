@@ -15,7 +15,7 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 export const metadata = {
   title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
   description: 'Por qué trabajar más horas no es la respuesta. La diferencia entre ingreso lineal e ingreso recurrente y cómo construir una cartera de activos autosustentables.',
-  keywords: 'análisis financiero, cartera de activos, ingreso recurrente, soberanía financiera, independencia financiera, apalancamiento asimétrico, empleo vs activos',
+  keywords: 'análisis financiero, cartera de activos, ingreso recurrente, soberanía financiera, independencia financiera, apalancamiento estratégico, empleo vs activos',
 };
 
 export default function EmpleoVsActivosPage() {
@@ -84,7 +84,7 @@ export default function EmpleoVsActivosPage() {
 
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
                 Por qué trabajar más horas no es la respuesta. El concepto de
-                apalancamiento asimétrico explicado de forma simple.
+                apalancamiento estratégico explicado de forma simple.
               </p>
 
               {/* Content */}

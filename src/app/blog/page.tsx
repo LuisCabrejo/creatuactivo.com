@@ -13,7 +13,7 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: 'Blog - Recursos para Construir su Soberanía Financiera | CreaTuActivo',
-  description: 'Artículos y guías sobre arquitectura de activos, apalancamiento asimétrico y estrategias para construir flujos de caja autosustentables.',
+  description: 'Artículos y guías sobre arquitectura de activos, apalancamiento estratégico y estrategias para construir flujos de caja autosustentables.',
 };
 
 const articles = [
@@ -31,7 +31,7 @@ const articles = [
     image: '/images/blog/thumb-blog-system.jpg',
     label: 'ARQUITECTURA DE ACTIVOS',
     cardTitle: 'La ingeniería detrás del flujo de caja autosustentable',
-    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de apalancamiento asimétrico y cómo construir activos.',
+    excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de apalancamiento estratégico y cómo construir activos.',
     category: 'Educación Financiera',
     readTime: '6 min',
   },

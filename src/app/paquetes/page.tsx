@@ -12,19 +12,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
+// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
 const C = {
-  gold: '#E5C279',
-  goldDark: '#D4AF37',
-  cyan: '#38BDF8',
-  obsidian: '#0F1115',
-  gunmetal: '#16181D',
-  surface: '#1A1D23',
-  textMain: '#E5E5E5',
-  textMuted: '#A3A3A3',
-  textDim: '#64748B',
-  bronze: '#CD7F32',
-  silver: '#94A3B8',
-  success: '#10B981',
+  gold: 'var(--color-brand)',              // #C5A059
+  goldDark: 'var(--color-brand-hover)',    // #D4AF37
+  cyan: '#22D3EE',                         // Acento data/labels (consistente con homepage)
+  obsidian: 'var(--color-bg-primary)',     // #0F1115
+  gunmetal: 'var(--color-bg-elevated)',    // #15171C
+  surface: 'var(--color-bg-surface)',      // #1A1D23
+  textMain: 'var(--color-text-body)',      // #C8C7C2
+  textMuted: 'var(--color-text-muted)',    // #878681
+  textDim: 'var(--color-titanium-dark)',   // #475569
+  bronze: 'var(--color-brand-muted)',      // #B38B59 (reemplaza el cobrizo industrial)
+  silver: 'var(--color-titanium)',         // #94A3B8
+  success: 'var(--color-success)',         // #408A71 Salvia desaturado
 };
 
 // ============================================================================
@@ -97,7 +98,7 @@ function PackageCard({
             fontSize: '1.3rem',
             fontWeight: 700,
             color: C.textMain,
-            fontFamily: "'Rajdhani', sans-serif",
+            fontFamily: "var(--font-sans)",
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             lineHeight: 1.2,
@@ -107,7 +108,7 @@ function PackageCard({
           <span style={{
             fontSize: '0.65rem',
             color: borderColor,
-            fontFamily: "'Roboto Mono', monospace",
+            fontFamily: "var(--font-mono)",
             letterSpacing: '0.12em',
           }}>
             {esp}
@@ -116,11 +117,11 @@ function PackageCard({
 
         {/* Price */}
         <div style={{ marginBottom: '1.25rem' }}>
-          <span style={{ fontSize: '2.5rem', fontWeight: 800, color: C.gold, fontFamily: "'Rajdhani', sans-serif" }}>
+          <span style={{ fontSize: '2.5rem', fontWeight: 800, color: C.gold, fontFamily: "var(--font-sans)" }}>
             ${priceUSD}
           </span>
           <span style={{ color: C.textMuted, fontSize: '1rem' }}> USD</span>
-          <p style={{ fontSize: '0.8rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginTop: '0.2rem' }}>
+          <p style={{ fontSize: '0.8rem', color: C.textDim, fontFamily: "var(--font-mono)", marginTop: '0.2rem' }}>
             ~ ${priceCOP} COP
           </p>
         </div>
@@ -136,7 +137,7 @@ function PackageCard({
           marginBottom: '1.25rem',
         }}>
           <BarChart2 style={{ width: 16, height: 16, color: borderColor, flexShrink: 0 }} />
-          <span style={{ fontSize: '0.8rem', fontFamily: "'Roboto Mono', monospace", color: C.textMuted }}>
+          <span style={{ fontSize: '0.8rem', fontFamily: "var(--font-mono)", color: C.textMuted }}>
             Rentabilidad: <span style={{ color: borderColor, fontWeight: 700 }}>{rentabilidad}</span>
           </span>
         </div>
@@ -155,7 +156,7 @@ function PackageCard({
                 fontWeight: 700,
                 color: C.textMain,
                 fontSize: '0.8rem',
-                fontFamily: "'Rajdhani', sans-serif",
+                fontFamily: "var(--font-sans)",
                 letterSpacing: '0.04em',
               }}>
                 SUBSIDIO DE ACTIVACIÓN TECNOLÓGICA
@@ -191,7 +192,7 @@ function PackageCard({
             color: borderColor,
             border: `2px solid ${borderColor}`,
             textDecoration: 'none',
-            fontFamily: "'Rajdhani', sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: '0.9rem',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
@@ -241,7 +242,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
           fontWeight: 600,
           fontSize: '1.05rem',
           color: C.textMain,
-          fontFamily: "'Rajdhani', sans-serif",
+          fontFamily: "var(--font-sans)",
           letterSpacing: '0.02em',
         }}>
           {question}
@@ -272,28 +273,31 @@ export default function PaquetesPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
+        /* CTA primario Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */
         .wa-cta-final {
           display: inline-flex;
           align-items: center;
           gap: 12px;
           padding: 18px 44px;
-          background: linear-gradient(135deg, ${C.goldDark}, #B8860B);
-          color: #000;
-          font-weight: 700;
+          background: var(--color-bg-elevated);
+          color: var(--color-brand);
+          font-weight: 600;
           font-size: 1rem;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
           text-decoration: none;
-          font-family: 'Rajdhani', sans-serif;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-          border: none;
+          font-family: var(--font-sans);
+          border: 1px solid var(--color-brand);
+          border-radius: var(--radius-action);
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .wa-cta-final:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 35px ${C.goldDark}50;
+          background: var(--color-bg-surface);
+          border-color: var(--color-brand-hover);
+          color: var(--color-brand-hover);
         }
         .spec-label {
-          font-family: 'Roboto Mono', monospace;
+          font-family: var(--font-mono);
           font-size: 0.65rem;
           letter-spacing: 0.18em;
           color: ${C.cyan};
@@ -339,7 +343,7 @@ export default function PaquetesPage() {
               fontSize: 'clamp(1.6rem, 4.5vw, 3rem)',
               color: C.gold,
               lineHeight: 1.1,
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               maxWidth: '800px',
             }}>
               PROTOCOLO DE CAPITALIZACIÓN<br />DE UNIDADES DE SUMINISTRO
@@ -358,7 +362,7 @@ export default function PaquetesPage() {
               fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
               fontWeight: 600,
               marginBottom: '1.5rem',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               color: C.textMain,
             }}>
               El capital inyectado no es un gasto operativo.
@@ -441,7 +445,7 @@ export default function PaquetesPage() {
                 textAlign: 'center',
                 marginTop: '3rem',
                 color: C.textDim,
-                fontFamily: "'Roboto Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 fontSize: '0.75rem',
                 lineHeight: 1.8,
               }}>
@@ -466,11 +470,11 @@ export default function PaquetesPage() {
                   fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
                   fontWeight: 700,
                   color: C.textMain,
-                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontFamily: "var(--font-serif)",
                 }}>
                   Variables Técnicas de la Capitalización
                 </h2>
-                <p style={{ marginTop: '0.5rem', color: C.textMuted, fontSize: '0.9rem', fontFamily: "'Roboto Mono', monospace" }}>
+                <p style={{ marginTop: '0.5rem', color: C.textMuted, fontSize: '0.9rem', fontFamily: "var(--font-mono)" }}>
                   Auditoría de transparencia sobre la estructura financiera.
                 </p>
               </div>
@@ -506,7 +510,7 @@ export default function PaquetesPage() {
                 fontWeight: 700,
                 marginBottom: '1.25rem',
                 color: C.textMain,
-                fontFamily: "'Playfair Display', Georgia, serif",
+                fontFamily: "var(--font-serif)",
               }}>
                 Los datos técnicos están expuestos.
               </h2>
@@ -539,14 +543,14 @@ export default function PaquetesPage() {
         <footer style={{ padding: '2.5rem 1.5rem', borderTop: `1px solid ${C.gold}20`, position: 'relative', zIndex: 10 }}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
-              <p style={{ fontWeight: 600, color: C.gold, fontFamily: "'Rajdhani', sans-serif", fontSize: '1.125rem' }}>
+              <p style={{ fontWeight: 600, color: C.gold, fontFamily: "var(--font-sans)", fontSize: '1.125rem' }}>
                 CreaTuActivo
               </p>
-              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace", marginTop: '0.25rem' }}>
+              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "var(--font-mono)", marginTop: '0.25rem' }}>
                 SISTEMA DE ARQUITECTURA DE ACTIVOS
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace" }}>
+            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: "var(--font-mono)" }}>
               <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
@@ -558,7 +562,7 @@ export default function PaquetesPage() {
                 PRIVACIDAD
               </Link>
             </div>
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em' }}>
+            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "var(--font-mono)", letterSpacing: '0.1em' }}>
               © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
             </p>
           </div>

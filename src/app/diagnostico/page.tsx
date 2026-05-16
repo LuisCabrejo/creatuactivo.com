@@ -34,29 +34,29 @@ interface CaptureData {
 // CSS VARIABLES
 // ============================================================================
 
+// Variables locales del quiz redirigidas a tokens del Sistema (Lujo Silencioso v1.0).
+// Las fuentes Playfair + Inter ya las carga next/font en layout.tsx — sin @import.
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
   :root {
-    --gold: #E5C279;
-    --gold-light: #F59E0B;
-    --gold-dark: #D97706;
-    --gold-muted: #A3A3A3;
+    --gold: var(--color-brand);
+    --gold-light: var(--color-brand-hover);
+    --gold-dark: var(--color-brand-muted);
+    --gold-muted: var(--color-text-muted);
 
-    --bg-deep: #0B0C0C;
-    --bg-surface: #16181D;
-    --bg-card: #16181D;
-    --bg-elevated: #22252B;
+    --bg-deep: var(--color-bg-primary);
+    --bg-surface: var(--color-bg-elevated);
+    --bg-card: var(--color-bg-elevated);
+    --bg-elevated: var(--color-bg-surface);
 
-    --text-primary: #E5E5E5;
-    --text-secondary: #A3A3A3;
-    --text-muted: #6B7280;
+    --text-primary: var(--color-text-body);
+    --text-secondary: var(--color-text-muted);
+    --text-muted: rgba(255, 255, 255, 0.4);
 
-    --border: rgba(229, 194, 121, 0.15);
-    --border-subtle: rgba(229, 194, 121, 0.1);
+    --border: rgba(197, 160, 89, 0.2);
+    --border-subtle: rgba(197, 160, 89, 0.1);
 
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-display: var(--font-serif);
+    --font-body: var(--font-sans);
   }
 
   .quiz-option {
@@ -68,7 +68,7 @@ const styles = `
   }
   .quiz-option.selected {
     border-color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(197, 160, 89, 0.1);
   }
 `;
 
@@ -286,7 +286,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
       <div
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 50%)',
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)',
         }}
       />
 
@@ -336,14 +336,11 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           </span>
         </p>
 
-        {/* CTA Button */}
+        {/* CTA Button — Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */}
         <button
           onClick={onStart}
-          className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
-          style={{
-            backgroundColor: 'var(--gold)',
-            color: 'var(--bg-deep)',
-          }}
+          className="cta-base cta-primary"
+          style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
         >
           Iniciar Auditoría Gratuita
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -495,7 +492,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
       <div className="max-w-md mx-auto w-full text-center">
         <div
           className="w-20 h-20 rounded-lg flex items-center justify-center mx-auto mb-8"
-          style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }}
+          style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }}
         >
           <svg className="w-10 h-10" style={{ color: 'var(--gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
@@ -592,11 +589,8 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60"
-            style={{
-              backgroundColor: 'var(--gold)',
-              color: 'var(--bg-deep)',
-            }}
+            className="cta-base cta-primary w-full disabled:opacity-60"
+            style={{ padding: '1.125rem 2rem', fontSize: '0.95rem' }}
           >
             {isSubmitting ? 'Procesando...' : 'Ver Mi Auditoría'}
           </button>
@@ -662,7 +656,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             <span
               className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
               style={{
-                backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                backgroundColor: 'rgba(197, 160, 89, 0.1)',
                 color: 'var(--gold)',
               }}
             >
@@ -705,8 +699,8 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
         <div
           className="rounded-lg p-8 sm:p-10 text-center"
           style={{
-            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%)',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
+            background: 'linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, rgba(197, 160, 89, 0.02) 100%)',
+            border: '1px solid rgba(197, 160, 89, 0.2)',
           }}
         >
           <h3
@@ -768,12 +762,9 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </p>
 
           <Link
-            href="/mapa-de-salida"
-            className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
-            style={{
-              backgroundColor: 'var(--gold)',
-              color: 'var(--bg-deep)',
-            }}
+            href="/auditoria-patrimonial"
+            className="cta-base cta-primary"
+            style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
           >
             Unirme al Protocolo Soberanía
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

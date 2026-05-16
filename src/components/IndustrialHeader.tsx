@@ -67,7 +67,7 @@ export function IndustrialHeader({
           className="font-serif"
           style={{
             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            color: '#E5C279',
+            color: 'var(--color-brand)',
             lineHeight: 1.1,
             marginBottom: '1rem',
           }}
@@ -77,19 +77,19 @@ export function IndustrialHeader({
 
         {subtitle && (
           <p style={{
-            color: '#E5E5E5',
+            color: 'var(--color-text-body)',
             marginBottom: '1rem',
             fontSize: '1rem',
             textShadow: '0 2px 8px rgba(0,0,0,0.9)',
           }}>{subtitle}</p>
         )}
 
-        {/* Línea técnica */}
+        {/* Línea técnica — cyan acento data, consistente con homepage */}
         <div
           style={{
             width: '3rem',
             height: '1px',
-            background: '#38BDF8',
+            background: '#22D3EE',
             margin: '0 auto 0.75rem',
           }}
         />
@@ -97,7 +97,7 @@ export function IndustrialHeader({
           className="font-mono"
           style={{
             fontSize: '0.7rem',
-            color: '#38BDF8',
+            color: '#22D3EE',
             letterSpacing: '0.15em',
           }}
         >

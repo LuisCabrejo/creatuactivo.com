@@ -362,10 +362,10 @@ export default function FundadoresPage() {
                     <h2 className="text-3xl font-bold text-white mb-10">El Secreto de los Activos Digitales</h2>
 
                     <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="bg-red-500/5 p-8 rounded-lg border border-red-500/10 opacity-70 hover:opacity-100 transition-opacity">
+                        <div className="bg-red-500/5 p-8 rounded-lg border border-[#9E2A3A]/10 opacity-70 hover:opacity-100 transition-opacity">
                             <h3 className="text-xl font-bold text-white mb-4">Jeff Bezos...</h3>
                             <p className="text-sm text-slate-400 mb-6">¿Se hizo rico vendiendo libros puerta a puerta?</p>
-                            <div className="flex items-center justify-center gap-2 text-red-500 font-bold bg-red-500/10 py-2 rounded-lg">
+                            <div className="flex items-center justify-center gap-2 text-[#9E2A3A] font-bold bg-[#9E2A3A]/10 py-2 rounded-lg">
                                 <span>❌</span> ¡NO!
                             </div>
                         </div>
@@ -480,12 +480,12 @@ export default function FundadoresPage() {
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Rojo */}
-                    <div className="p-10 rounded-xl border border-red-500/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
-                        <div className="flex items-center gap-4 mb-8 text-red-500"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
+                    <div className="p-10 rounded-xl border border-[#9E2A3A]/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-4 mb-8 text-[#9E2A3A]"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
                         <div className="space-y-6">
-                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-red-400 text-sm text-right">❌ Vendedor manual</span></div>
-                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Tiempo</span><span className="text-red-400 text-sm text-right">❌ Reuniones físicas</span></div>
-                            <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-red-400 text-sm text-right">❌ Ingreso Lineal</span></div>
+                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-[#9E2A3A] text-sm text-right">❌ Vendedor manual</span></div>
+                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Tiempo</span><span className="text-[#9E2A3A] text-sm text-right">❌ Reuniones físicas</span></div>
+                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-[#9E2A3A] text-sm text-right">❌ Ingreso Lineal</span></div>
                         </div>
                     </div>
                     {/* Verde */}

@@ -209,7 +209,7 @@ export default function ManifiestoPage() {
                     <span className="text-[#C5A059] font-serif text-lg">02</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Apalancamiento Tecnológico</h3>
+                    <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Apalancamiento Estratégico</h3>
                     <p className="text-[#A3A3A3] leading-relaxed">
                       Si su infraestructura depende de su carisma o presencia física, no es escalable.
                       El sistema asume el 90% del desgaste operativo; usted aporta la dirección estratégica.

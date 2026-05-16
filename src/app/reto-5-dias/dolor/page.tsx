@@ -88,7 +88,7 @@ export default function RetoDolorPage() {
               style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
             >
               Hace unos años cometí un error que{' '}
-              <span className="text-red-400">me costó 20 años de mi vida</span>
+              <span className="text-[#9E2A3A]">me costó 20 años de mi vida</span>
             </h1>
 
             {/* SUB-TITULAR */}

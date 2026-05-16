@@ -126,22 +126,22 @@ export default function EmpleoVsActivosPage() {
                   {/* Comparison Cards */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)] opacity-70">
-                      <h3 className="text-lg font-semibold mb-4 text-red-400">Ingreso Lineal</h3>
+                      <h3 className="text-lg font-semibold mb-4 text-[#9E2A3A]">Ingreso Lineal</h3>
                       <ul className="space-y-3 text-sm text-[#A3A3A3]">
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Cambias 1 hora de trabajo por $X</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Si no trabajas, no ganas</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Techo limitado por sus horas disponibles</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>No heredable (muere con usted)</span>
                         </li>
                       </ul>

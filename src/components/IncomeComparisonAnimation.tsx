@@ -190,8 +190,8 @@ const ComparisonCard = ({
     red: {
       border: 'border-red-500/30',
       bg: 'bg-red-900/20',
-      title: 'text-red-400',
-      icon: 'text-red-400',
+      title: 'text-[#9E2A3A]',
+      icon: 'text-[#9E2A3A]',
     },
     green: {
       border: 'border-green-500/30',

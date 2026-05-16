@@ -153,9 +153,9 @@ export default function LegalidadNetworkMarketingPage() {
                   </p>
 
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-red-400 text-xl">1</span>
+                        <span className="text-[#9E2A3A] text-xl">1</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Énfasis en reclutamiento sobre ventas</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -165,9 +165,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-red-400 text-xl">2</span>
+                        <span className="text-[#9E2A3A] text-xl">2</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Costos de entrada excesivos</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -177,9 +177,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-red-400 text-xl">3</span>
+                        <span className="text-[#9E2A3A] text-xl">3</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Producto sin valor real</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -189,9 +189,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-red-400 text-xl">4</span>
+                        <span className="text-[#9E2A3A] text-xl">4</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Compras obligatorias mensuales altas</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">
@@ -201,9 +201,9 @@ export default function LegalidadNetworkMarketingPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#16181D] border border-red-500/20">
+                    <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
-                        <span className="text-red-400 text-xl">5</span>
+                        <span className="text-[#9E2A3A] text-xl">5</span>
                         <div>
                           <h4 className="font-medium text-[#E5E5E5]">Promesas de ingresos garantizados</h4>
                           <p className="text-[#A3A3A3] text-sm mt-1">

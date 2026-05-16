@@ -364,15 +364,15 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Tarjeta Roja: Empleo */}
-                    <div className="p-8 rounded-xl border border-red-500/10 bg-red-500/5 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+                    <div className="p-8 rounded-xl border border-[#9E2A3A]/10 bg-red-500/5 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500">
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="p-3 bg-red-500/10 rounded-xl text-red-500"><BarChart3 size={24}/></div>
+                            <div className="p-3 bg-[#9E2A3A]/10 rounded-xl text-[#9E2A3A]"><BarChart3 size={24}/></div>
                             <h3 className="text-xl font-bold text-white">Ingreso Lineal</h3>
                         </div>
                         <ul className="space-y-4 text-sm text-[#A3A3A3]">
-                            <li className="flex gap-3"><span className="text-red-500">✕</span> Cambias tiempo por dinero (1:1).</li>
-                            <li className="flex gap-3"><span className="text-red-500">✕</span> Si le detienes, el ingreso cae a cero.</li>
-                            <li className="flex gap-3"><span className="text-red-500">✕</span> Techo de ingresos limitado.</li>
+                            <li className="flex gap-3"><span className="text-[#9E2A3A]">✕</span> Cambias tiempo por dinero (1:1).</li>
+                            <li className="flex gap-3"><span className="text-[#9E2A3A]">✕</span> Si le detienes, el ingreso cae a cero.</li>
+                            <li className="flex gap-3"><span className="text-[#9E2A3A]">✕</span> Techo de ingresos limitado.</li>
                         </ul>
                     </div>
 

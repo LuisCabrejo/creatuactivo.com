@@ -2459,7 +2459,7 @@ export default function CatalogoEstrategico() {
                   </ul>
                 </div>
                 <div className="bg-[#0B0C0C] border border-red-500/30 p-4 ">
-                  <p className="font-bold text-red-400 mb-2">⚠️ Contraindicaciones</p>
+                  <p className="font-bold text-[#C6A76B] mb-2">⚠️ Contraindicaciones</p>
                   <p className="text-sm text-[#A3A3A3]">
                     No recomendado para mujeres embarazadas o en lactancia. Si tomas anticoagulantes o tiene condiciones médicas especiales, consulta a su médico antes de consumir.
                   </p>

@@ -128,22 +128,22 @@ export default function NetworkMarketingObsoletoPage() {
                   {/* Comparison */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div className="p-5 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)] opacity-70">
-                      <h3 className="text-lg font-semibold mb-3 text-red-400">Network Marketing Tradicional</h3>
+                      <h3 className="text-lg font-semibold mb-3 text-[#9E2A3A]">Network Marketing Tradicional</h3>
                       <ul className="space-y-2 text-sm text-[#A3A3A3]">
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Vender productos a conocidos</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Hacer reuniones presenciales</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Memorizar guiones de ventas</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-red-400">✕</span>
+                          <span className="text-[#9E2A3A]">✕</span>
                           <span>Perseguir prospectos</span>
                         </li>
                       </ul>
@@ -238,11 +238,11 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-start gap-3 text-[#A3A3A3]">
-                      <span className="text-red-400 font-bold">1.</span>
+                      <span className="text-[#9E2A3A] font-bold">1.</span>
                       <span><strong className="text-[#E5E5E5]">&quot;No sé vender&quot;</strong> — Odian la idea de presionar a amigos y familia.</span>
                     </li>
                     <li className="flex items-start gap-3 text-[#A3A3A3]">
-                      <span className="text-red-400 font-bold">2.</span>
+                      <span className="text-[#9E2A3A] font-bold">2.</span>
                       <span><strong className="text-[#E5E5E5]">&quot;No tengo tiempo&quot;</strong> — Entre el trabajo y la familia, no hay horas para presentaciones.</span>
                     </li>
                   </ul>

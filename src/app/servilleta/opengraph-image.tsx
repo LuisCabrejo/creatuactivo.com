@@ -29,8 +29,8 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#121212',
-          backgroundImage: 'radial-gradient(#37474f 1px, transparent 1px)',
+          backgroundColor: '#0F1115',
+          backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
           backgroundSize: '40px 40px',
           fontFamily: 'sans-serif',
           position: 'relative',
@@ -44,7 +44,7 @@ export default async function Image() {
             left: '20px',
             right: '20px',
             bottom: '20px',
-            border: '1px solid #37474f',
+            border: '1px solid #475569',
             borderRadius: '0px',
             opacity: 0.5,
             display: 'flex',
@@ -58,15 +58,15 @@ export default async function Image() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '8px 16px',
-            backgroundColor: 'rgba(0, 229, 255, 0.1)',
-            border: '1px solid rgba(0, 229, 255, 0.3)',
+            backgroundColor: 'rgba(34, 211, 238, 0.1)',
+            border: '1px solid rgba(34, 211, 238, 0.3)',
             borderRadius: '4px',
             marginBottom: '40px',
           }}
         >
           <span
             style={{
-              color: '#00e5ff',
+              color: '#22D3EE',
               fontSize: 14,
               letterSpacing: '0.2em',
               fontWeight: 700,
@@ -90,7 +90,7 @@ export default async function Image() {
           <span
             style={{
               fontSize: 90,
-              color: '#e0e0e0',
+              color: '#E0DFDB',
               margin: 0,
               lineHeight: 0.9,
               fontWeight: 900,
@@ -105,7 +105,7 @@ export default async function Image() {
           <span
             style={{
               fontSize: 90,
-              color: '#e0e0e0',
+              color: '#E0DFDB',
               margin: 0,
               lineHeight: 0.9,
               fontWeight: 900,
@@ -123,10 +123,10 @@ export default async function Image() {
             style={{
               width: '100px',
               height: '4px',
-              backgroundColor: '#00e5ff',
+              backgroundColor: '#22D3EE',
               marginTop: '30px',
               marginBottom: '30px',
-              boxShadow: '0 0 15px rgba(0, 229, 255, 0.4)',
+              boxShadow: '0 0 15px rgba(34, 211, 238, 0.4)',
               display: 'flex',
             }}
           />
@@ -134,7 +134,7 @@ export default async function Image() {
           <span
             style={{
               fontSize: 28,
-              color: '#9e9e9e',
+              color: '#878681',
               margin: 0,
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
@@ -154,7 +154,7 @@ export default async function Image() {
             display: 'flex',
             width: '100%',
             justifyContent: 'center',
-            color: '#37474f',
+            color: '#475569',
             fontSize: 16,
             letterSpacing: '0.1em',
           }}

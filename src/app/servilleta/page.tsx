@@ -237,16 +237,19 @@ export default function ServilletaPage() {
     <>
       <style>{`
         /* --- VARIABLES INDUSTRIALES --- */
+        /* Servilleta — migrada al Sistema de Diseño Lujo Silencioso (15 May 2026).
+           Variables locales mantienen sus nombres legacy (--bg-dark, --concrete, etc.)
+           pero apuntan a los tokens globales para coherencia con homepage + funnel. */
         :root {
-          --bg-dark: #121212;
-          --concrete: #1e1e1e;
-          --steel: #37474f;
-          --cyan: #00e5ff;
-          --orange: #EB4F27;
-          --text-main: #e0e0e0;
-          --text-muted: #9e9e9e;
-          --font-head: 'Rajdhani', sans-serif;
-          --font-mono: 'Roboto Mono', monospace;
+          --bg-dark: var(--color-bg-primary);          /* #0F1115 */
+          --concrete: var(--color-bg-elevated);        /* #15171C */
+          --steel: var(--color-titanium-dark);         /* #475569 */
+          --cyan: #22D3EE;                             /* Acento data/labels técnicos (consistente con homepage) */
+          --orange: var(--color-brand);                /* #C5A059 Dorado Champán — reemplaza el safety orange industrial */
+          --text-main: var(--color-text-primary);      /* #E0DFDB titanium-light */
+          --text-muted: var(--color-text-muted);       /* #878681 titanium-core */
+          --font-head: var(--font-sans);
+          --font-mono: var(--font-mono);
         }
 
         * { box-sizing: border-box; }
@@ -665,28 +668,43 @@ export default function ServilletaPage() {
         }
         .cta-overlay p { font-size: 0.85rem; color: #aaa; margin: 0 0 25px 0; line-height: 1.5; }
 
+        /* Botón primario Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */
         .btn-industrial {
-          background: var(--orange); color: #000; text-decoration: none;
-          padding: 18px 36px; font-family: var(--font-head); font-weight: 700;
-          font-size: 1.3rem; display: inline-flex; align-items: center; gap: 10px;
-          clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-          transition: all 0.2s; border: none; cursor: pointer;
-          box-shadow: 0 0 20px rgba(255, 61, 0, 0.3);
+          background: var(--color-bg-elevated);
+          color: var(--color-brand);
+          text-decoration: none;
+          padding: 16px 36px;
+          font-family: var(--font-sans);
+          font-weight: 600;
+          font-size: 1rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          border: 1px solid var(--color-brand);
+          border-radius: var(--radius-action);
+          cursor: pointer;
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
-        .btn-industrial:hover { transform: scale(1.05); background: #ff6d00; box-shadow: 0 0 30px rgba(255, 61, 0, 0.5); }
+        .btn-industrial:hover {
+          background: var(--color-bg-surface);
+          border-color: var(--color-brand-hover);
+          color: var(--color-brand-hover);
+        }
 
-        /* Botón Secundario (Outline Cyan - menos prominente) */
+        /* Botón secundario Lujo Silencioso (transparente + borde titanio) */
         .btn-industrial.secondary {
           background: transparent;
-          border: 1px solid rgba(0, 229, 255, 0.5);
-          color: var(--cyan);
-          clip-path: none;
+          border: 1px solid var(--color-titanium-muted);
+          color: var(--color-titanium);
           padding: 12px 24px;
           font-size: 0.9rem;
-          box-shadow: none;
         }
         .btn-industrial.secondary:hover {
-          background: rgba(0, 229, 255, 0.1);
+          background: rgba(148, 163, 184, 0.06);
+          border-color: var(--color-titanium);
+          color: var(--color-text-body);
           border-color: var(--cyan);
           transform: scale(1.02);
         }
@@ -1229,13 +1247,13 @@ export default function ServilletaPage() {
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: '#90A4AE' }}> · La Matriz F&iacute;sica:</span> Gano Excel · 70 pa&iacute;ses · asume el 100% de los pasivos operativos.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · La Matriz F&iacute;sica:</span> Gano Excel · 70 pa&iacute;ses · asume el 100% de los pasivos operativos.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: '#90A4AE' }}> · Queswa, su Centro de Mando:</span> Motor de IA propietaria · filtra y califica perfiles 24/7.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> Motor de IA propietaria · filtra y califica perfiles 24/7.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: '#90A4AE' }}> · La Metodolog&iacute;a Automatizada:</span> El Tridente EAM · protocolo que erradica el ensayo y error.
+                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · La Metodolog&iacute;a Automatizada:</span> El Tridente EAM · protocolo que erradica el ensayo y error.
                   </div>
                 </div>
 

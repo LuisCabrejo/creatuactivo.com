@@ -19,19 +19,20 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 // THE ARCHITECT'S SUITE - COLOR PALETTE
 // ============================================================================
 
+// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
 const COLORS = {
-  bg: { main: '#0B0C0C', card: '#16181D' },
-  gold: { primary: '#E5C279', hover: '#F59E0B', bronze: '#D97706' },
-  text: { primary: '#FFFFFF', main: '#E5E5E5', muted: '#A3A3A3' },
-  border: { subtle: 'rgba(229, 194, 121, 0.2)', card: 'rgba(229, 194, 121, 0.1)' },
-  // Semáforo
+  bg: { main: 'var(--color-bg-primary)', card: 'var(--color-bg-elevated)', surface: 'var(--color-bg-surface)' },
+  gold: { primary: 'var(--color-brand)', hover: 'var(--color-brand-hover)', bronze: 'var(--color-brand-muted)' },
+  text: { primary: 'var(--color-text-primary)', main: 'var(--color-text-body)', muted: 'var(--color-text-muted)' },
+  border: { subtle: 'rgba(197, 160, 89, 0.25)', card: 'rgba(255, 255, 255, 0.08)' },
+  // Semáforo desaturado (Lujo Clínico: evita aberración óptica sobre Carbón Profundo)
   semaphore: {
-    red: '#dc2626',
-    redBg: 'rgba(220, 38, 38, 0.15)',
-    yellow: '#eab308',
-    yellowBg: 'rgba(234, 179, 8, 0.15)',
-    green: '#22c55e',
-    greenBg: 'rgba(34, 197, 94, 0.15)',
+    red: 'var(--color-error)',                  // #9E2A3A Carmesí
+    redBg: 'rgba(158, 42, 58, 0.15)',
+    yellow: 'var(--color-warning)',             // #C6A76B Ámbar
+    yellowBg: 'rgba(198, 167, 107, 0.15)',
+    green: 'var(--color-success)',              // #408A71 Salvia
+    greenBg: 'rgba(64, 138, 113, 0.15)',
   }
 };
 
@@ -216,7 +217,7 @@ export default function CalculadoraPage() {
           backgroundRepeat: 'no-repeat, repeat',
           backgroundAttachment: 'scroll, scroll',
           color: COLORS.text.main,
-          fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
+          fontFamily: "var(--font-sans)",
         }}
       >
         {/* Progress Bar */}
@@ -226,7 +227,7 @@ export default function CalculadoraPage() {
               className="h-1  overflow-hidden"
               style={{
                 backgroundColor: COLORS.bg.card,
-                clipPath: 'polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)',
+                borderRadius: 'var(--radius-micro)',
               }}
             >
               <div
@@ -255,7 +256,7 @@ export default function CalculadoraPage() {
                 style={{
                   backgroundColor: COLORS.bg.card,
                   border: `1px solid ${COLORS.border.card}`,
-                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 <h2
@@ -281,7 +282,7 @@ export default function CalculadoraPage() {
                         backgroundColor: COLORS.bg.main,
                         border: `1px solid ${answers[questions[currentQuestion].id] === option.value ? COLORS.gold.primary : COLORS.border.card}`,
                         color: COLORS.text.main,
-                        clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                        borderRadius: 'var(--radius-action)',
                       }}
                     >
                       {option.label}
@@ -301,7 +302,7 @@ export default function CalculadoraPage() {
                 className="w-20 h-20  flex items-center justify-center mx-auto mb-8"
                 style={{
                   backgroundColor: 'rgba(229, 194, 121, 0.1)',
-                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 <svg
@@ -337,7 +338,7 @@ export default function CalculadoraPage() {
                   backgroundColor: COLORS.bg.card,
                   border: `1px solid ${COLORS.border.card}`,
                   padding: '24px',
-                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 <input
@@ -350,7 +351,7 @@ export default function CalculadoraPage() {
                     backgroundColor: COLORS.bg.main,
                     border: `1px solid ${COLORS.border.card}`,
                     color: COLORS.text.main,
-                    clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                    borderRadius: 'var(--radius-action)',
                   }}
                 />
                 <input
@@ -364,18 +365,14 @@ export default function CalculadoraPage() {
                     backgroundColor: COLORS.bg.main,
                     border: `1px solid ${COLORS.border.card}`,
                     color: COLORS.text.main,
-                    clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                    borderRadius: 'var(--radius-action)',
                   }}
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-8 py-4  font-semibold text-lg transition-all duration-300 hover:opacity-90 disabled:opacity-60 uppercase tracking-wide"
-                  style={{
-                    backgroundColor: COLORS.gold.primary,
-                    color: COLORS.bg.main,
-                    clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-                  }}
+                  className="cta-base cta-primary w-full disabled:opacity-60"
+                  style={{ padding: '1.125rem 2rem', fontSize: '0.9rem' }}
                 >
                   {isSubmitting ? 'Procesando...' : 'Ver Mi Resultado'}
                 </button>
@@ -424,7 +421,7 @@ export default function CalculadoraPage() {
                       style={{
                         backgroundColor: semaphore.bg,
                         border: `2px solid ${semaphore.color}`,
-                        clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
+                        borderRadius: 'var(--radius-container)',
                       }}
                     >
                       <div className="text-6xl mb-2">{semaphore.emoji}</div>
@@ -454,7 +451,7 @@ export default function CalculadoraPage() {
                       style={{
                         backgroundColor: COLORS.bg.card,
                         border: `1px solid ${COLORS.border.card}`,
-                        clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                        borderRadius: 'var(--radius-container)',
                       }}
                     >
                       <h2
@@ -478,7 +475,7 @@ export default function CalculadoraPage() {
                         style={{
                           backgroundColor: COLORS.bg.card,
                           border: `1px solid ${COLORS.border.card}`,
-                          clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                          borderRadius: 'var(--radius-action)',
                         }}
                       >
                         <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
@@ -498,7 +495,7 @@ export default function CalculadoraPage() {
                         style={{
                           backgroundColor: COLORS.bg.card,
                           border: `1px solid ${COLORS.border.card}`,
-                          clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                          borderRadius: 'var(--radius-action)',
                         }}
                       >
                         <p style={{ color: COLORS.text.muted, fontSize: '0.875rem' }}>
@@ -524,13 +521,8 @@ export default function CalculadoraPage() {
 
                       <Link
                         href="/mapa-de-salida"
-                        className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] uppercase tracking-wide"
-                        style={{
-                          backgroundColor: COLORS.gold.primary,
-                          color: COLORS.bg.main,
-                          boxShadow: '0 0 20px rgba(229, 194, 121, 0.2)',
-                          clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-                        }}
+                        className="cta-base cta-primary"
+                        style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
                       >
                         Obtener el Mapa de Salida
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -531,7 +531,7 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
 - `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
 - `animaciones/diaX/` — Canvas-based social video renderer (Dan Koe style). Variantes A/B con sufijos `-v3` a `-v6`.
-- `servilleta/` — "The Industrial Deck" v6.0. Diseño Industrial distinto al Quiet Luxury del sitio principal.
+- `servilleta/` — Deck interactivo v6.0 de 4 slides. **Migrado al sistema Lujo Silencioso (15 May 2026)** — usa los mismos tokens que el resto del sitio (`--color-brand`, `--color-bg-elevated`, `--font-sans`, etc.). La paleta industrial previa (steel/safety-orange/cyan eléctrico) fue retirada.
 - `paquetes/` — Protocolo de Capitalización v3.0. CTAs → WhatsApp pre-filled con nombre+USD+COP.
 - `planes/` — 4 planes de suscripción. Sin Framer Motion ni `backdropFilter` (decisión de performance).
 - `offline/` — PWA fallback; `webinar/sala/` — live room con countdown.
@@ -554,7 +554,7 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 
 ### Servilleta Digital - Interactive Presentations
 
-Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" design (turbines, gears, concrete imagery) distinct from the main site's Quiet Luxury.
+Sales presentation tools for 1-on-1 conversations. **Desde 15 May 2026 usa el mismo sistema de diseño Lujo Silencioso del sitio principal** (no más "Industrial Realism" / paleta steel-orange). La servilleta hereda tokens semánticos via las variables locales `--bg-dark`, `--concrete`, `--steel`, `--orange` que ahora apuntan a tokens globales (`--color-bg-primary`, `--color-bg-elevated`, `--color-titanium-dark`, `--color-brand`).
 
 | Version | Route | Style |
 |---------|-------|-------|
@@ -562,8 +562,8 @@ Sales presentation tools for 1-on-1 conversations. Uses "Industrial Realism" des
 | v6.0 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
-**Typography**: Rajdhani (headings) + Roboto Mono (data)
-**Color Palette**: Industrial (#2C3E50 steel, #009FDF cyan, #E57200 safety orange)
+**Typography**: `var(--font-sans)` Inter (headings) + `var(--font-mono)` Roboto Mono (data) — unificado con homepage
+**Color Palette**: Lujo Silencioso (Carbón `#0F1115` + Dorado Champán `#C5A059` + Titanio + Cyan `#22D3EE` como acento data)
 
 #### Contenido y copy (Abr 2026 — versión final aprobada)
 

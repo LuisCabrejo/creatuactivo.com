@@ -7,19 +7,21 @@
 
 import TrackingConfirmada from './TrackingConfirmada';
 
+// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
 const C = {
-  gold: '#C8A84B',
-  goldDim: '#A8881F',
-  white: '#F5F5F0',
-  muted: '#6B6B5A',
-  mutedLight: '#8A8A7A',
-  bg: '#080808',
-  bgCard: '#0d0d0d',
-  bgCardBorder: '#1c1c1c',
-  bgSectionAlt: '#0a0a0a',
+  gold: 'var(--color-brand)',              // #C5A059
+  goldDim: 'var(--color-brand-muted)',     // #B38B59
+  white: 'var(--color-text-primary)',      // #FFFFFF
+  muted: 'var(--color-text-muted)',        // #A3A3A3
+  mutedLight: 'var(--color-titanium-muted)', // #878681
+  bg: 'var(--color-bg-primary)',           // #0F1115
+  bgElevated: 'var(--color-bg-elevated)',  // #15171C
+  bgCard: 'var(--color-bg-surface)',       // #1A1D23
+  bgCardBorder: 'rgba(255,255,255,0.08)',
+  bgSectionAlt: 'var(--color-bg-elevated)',
   cyan: '#22D3EE',
-  amber: '#F59E0B',
-  divider: '#222',
+  amber: 'var(--color-warning)',           // #C6A76B
+  divider: 'rgba(255,255,255,0.08)',
 };
 
 const WA_SALA =
@@ -67,22 +69,23 @@ export default function AuditoriaConfirmadaPage() {
           gap: 10px;
           width: 100%;
           padding: 20px 32px;
-          background: linear-gradient(135deg, ${C.gold}, ${C.goldDim});
-          color: #000;
-          font-weight: 800;
-          font-size: 0.85rem;
-          letter-spacing: 0.15em;
+          background: var(--color-bg-elevated);
+          color: var(--color-brand);
+          font-weight: 600;
+          font-size: 0.9rem;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          border: 0;
+          border: 1px solid var(--color-brand);
+          border-radius: var(--radius-action);
           cursor: pointer;
-          font-family: 'Rajdhani', sans-serif;
-          clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+          font-family: var(--font-sans);
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .ap-btn-wa:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 32px rgba(200,168,75,0.45);
+          background: var(--color-bg-surface);
+          border-color: var(--color-brand-hover);
+          color: var(--color-brand-hover);
         }
         .step-row {
           display: flex;
@@ -112,7 +115,7 @@ export default function AuditoriaConfirmadaPage() {
             <img src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo" width={32} height={32} style={{ objectFit: 'contain' }} />
             <span style={{
               fontSize: '1rem', fontWeight: 700, color: C.white,
-              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
+              fontFamily: "var(--font-sans)", letterSpacing: '0.08em',
               textTransform: 'uppercase',
             }}>
               CreaTuActivo
@@ -135,7 +138,7 @@ export default function AuditoriaConfirmadaPage() {
             }}>
               <span className="status-dot" />
               <span style={{
-                fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+                fontSize: '0.65rem', fontFamily: "var(--font-mono)",
                 letterSpacing: '0.2em', textTransform: 'uppercase',
                 color: C.gold,
               }}>
@@ -146,7 +149,7 @@ export default function AuditoriaConfirmadaPage() {
             {/* H1 */}
             <h1 style={{
               fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
-              fontFamily: "'Rajdhani', sans-serif",
+              fontFamily: "var(--font-sans)",
               fontWeight: 800, color: C.white,
               letterSpacing: '0.08em',
               lineHeight: 1, marginBottom: '24px',
@@ -160,7 +163,7 @@ export default function AuditoriaConfirmadaPage() {
               fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
               color: C.mutedLight, lineHeight: 1.7,
               maxWidth: '480px', margin: '0 auto',
-              fontFamily: "'Rajdhani', sans-serif",
+              fontFamily: "var(--font-sans)",
             }}>
               Su solicitud de auditoría técnica ha sido procesada con éxito. La activación de los planos de Arquitectura Patrimonial iniciará en menos de 24 horas.
             </p>
@@ -179,7 +182,7 @@ export default function AuditoriaConfirmadaPage() {
             }}>
               <span style={{ fontSize: '0.9rem' }}>⚠</span>
               <span style={{
-                fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+                fontSize: '0.62rem', fontFamily: "var(--font-mono)",
                 letterSpacing: '0.18em', textTransform: 'uppercase',
                 color: C.amber,
               }}>
@@ -190,7 +193,7 @@ export default function AuditoriaConfirmadaPage() {
             {/* Block title */}
             <h2 style={{
               fontSize: 'clamp(1.2rem, 3.5vw, 1.6rem)',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               fontWeight: 700, color: C.white,
               marginBottom: '14px', lineHeight: 1.25,
             }}>
@@ -229,7 +232,7 @@ export default function AuditoriaConfirmadaPage() {
           <section style={{ marginBottom: '5rem' }}>
 
             <p style={{
-              fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+              fontSize: '0.62rem', fontFamily: "var(--font-mono)",
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
@@ -238,7 +241,7 @@ export default function AuditoriaConfirmadaPage() {
 
             <h2 style={{
               fontSize: 'clamp(1.4rem, 4vw, 1.9rem)',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               fontWeight: 700, color: C.white,
               marginBottom: '32px', lineHeight: 1.2,
             }}>
@@ -251,7 +254,7 @@ export default function AuditoriaConfirmadaPage() {
                   {/* Step number */}
                   <div style={{ flexShrink: 0 }}>
                     <span style={{
-                      fontSize: '1.8rem', fontFamily: "'Roboto Mono', monospace",
+                      fontSize: '1.8rem', fontFamily: "var(--font-mono)",
                       fontWeight: 700, color: 'rgba(200,168,75,0.25)',
                       lineHeight: 1, display: 'block',
                     }}>
@@ -261,7 +264,7 @@ export default function AuditoriaConfirmadaPage() {
                   {/* Content */}
                   <div style={{ paddingTop: '4px' }}>
                     <p style={{
-                      fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+                      fontSize: '0.65rem', fontFamily: "var(--font-mono)",
                       letterSpacing: '0.14em', textTransform: 'uppercase',
                       color: C.mutedLight, marginBottom: '8px',
                     }}>
@@ -285,7 +288,7 @@ export default function AuditoriaConfirmadaPage() {
               background: 'rgba(200,168,75,0.03)',
             }}>
               <p style={{
-                fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+                fontSize: '0.62rem', fontFamily: "var(--font-mono)",
                 letterSpacing: '0.2em', textTransform: 'uppercase',
                 color: C.cyan, marginBottom: '14px',
               }}>
@@ -294,7 +297,7 @@ export default function AuditoriaConfirmadaPage() {
 
               <h2 style={{
                 fontSize: 'clamp(1.2rem, 3.5vw, 1.6rem)',
-                fontFamily: "'Playfair Display', Georgia, serif",
+                fontFamily: "var(--font-serif)",
                 fontWeight: 700, color: C.white,
                 marginBottom: '16px', lineHeight: 1.25,
               }}>
@@ -320,7 +323,7 @@ export default function AuditoriaConfirmadaPage() {
 
               <p style={{
                 textAlign: 'center', fontSize: '0.65rem',
-                fontFamily: "'Roboto Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 color: C.muted, marginTop: '14px',
                 letterSpacing: '0.08em',
               }}>
@@ -342,7 +345,7 @@ export default function AuditoriaConfirmadaPage() {
           flexWrap: 'wrap',
         }}>
           <p style={{
-            fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+            fontSize: '0.65rem', fontFamily: "var(--font-mono)",
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: C.muted,
           }}>
@@ -357,7 +360,7 @@ export default function AuditoriaConfirmadaPage() {
             </a>
           </p>
           <p style={{
-            fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+            fontSize: '0.65rem', fontFamily: "var(--font-mono)",
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: C.muted,
           }}>

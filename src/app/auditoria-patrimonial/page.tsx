@@ -11,18 +11,20 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
 const C = {
-  gold: '#C8A84B',
-  goldDim: '#A8881F',
-  white: '#F5F5F0',
-  muted: '#6B6B5A',
-  mutedLight: '#8A8A7A',
-  bg: '#080808',
-  bgCard: '#0d0d0d',
-  bgCardBorder: '#1c1c1c',
-  bgSectionAlt: '#0a0a0a',
+  gold: 'var(--color-brand)',              // #C5A059
+  goldDim: 'var(--color-brand-muted)',     // #B38B59
+  white: 'var(--color-text-primary)',      // #FFFFFF
+  muted: 'var(--color-text-muted)',        // #A3A3A3
+  mutedLight: 'var(--color-titanium-muted)', // #878681
+  bg: 'var(--color-bg-primary)',           // #0F1115
+  bgElevated: 'var(--color-bg-elevated)',  // #15171C
+  bgCard: 'var(--color-bg-surface)',       // #1A1D23
+  bgCardBorder: 'rgba(255,255,255,0.08)',
+  bgSectionAlt: 'var(--color-bg-elevated)',
   cyan: '#22D3EE',
-  divider: '#222',
+  divider: 'rgba(255,255,255,0.08)',
 };
 
 const PHASES = [
@@ -117,7 +119,7 @@ export default function AuditoriaPatrimonialPage() {
           border-radius: 2px;
           color: ${C.white};
           font-size: 0.95rem;
-          font-family: 'Rajdhani', sans-serif;
+          font-family: var(--font-sans);
           letter-spacing: 0.04em;
           transition: border-color 0.2s ease, background 0.2s ease;
           box-sizing: border-box;
@@ -126,7 +128,7 @@ export default function AuditoriaPatrimonialPage() {
           color: rgba(107,107,90,0.6);
           font-size: 0.85rem;
           letter-spacing: 0.04em;
-          font-family: 'Rajdhani', sans-serif;
+          font-family: var(--font-sans);
         }
         .ap-input:focus {
           outline: none;
@@ -136,41 +138,43 @@ export default function AuditoriaPatrimonialPage() {
         .ap-btn-primary {
           width: 100%;
           padding: 18px 32px;
-          background: linear-gradient(135deg, ${C.gold}, ${C.goldDim});
-          color: #000;
-          font-weight: 800;
-          font-size: 0.85rem;
-          letter-spacing: 0.15em;
+          background: var(--color-bg-elevated);
+          color: var(--color-brand);
+          font-weight: 600;
+          font-size: 0.9rem;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          border: 0;
+          border: 1px solid var(--color-brand);
+          border-radius: var(--radius-action);
           cursor: pointer;
-          font-family: 'Rajdhani', sans-serif;
-          clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-          transition: all 0.2s ease;
+          font-family: var(--font-sans);
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .ap-btn-primary:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 28px rgba(200,168,75,0.4);
+          background: var(--color-bg-surface);
+          border-color: var(--color-brand-hover);
+          color: var(--color-brand-hover);
         }
         .ap-btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
         .ap-btn-secondary {
           width: 100%;
-          padding: 18px 32px;
+          padding: 16px 32px;
           background: transparent;
-          color: ${C.gold};
-          font-weight: 700;
+          color: var(--color-titanium);
+          font-weight: 600;
           font-size: 0.85rem;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          border: 1px solid ${C.gold};
+          border: 1px solid var(--color-titanium-muted);
+          border-radius: var(--radius-action);
           cursor: pointer;
-          font-family: 'Rajdhani', sans-serif;
-          clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-          transition: all 0.2s ease;
+          font-family: var(--font-sans);
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .ap-btn-secondary:hover {
-          background: rgba(200,168,75,0.08);
-          transform: translateY(-2px);
+          background: rgba(148, 163, 184, 0.06);
+          border-color: var(--color-titanium);
+          color: var(--color-text-body);
         }
         .phase-card {
           display: flex;
@@ -208,7 +212,7 @@ export default function AuditoriaPatrimonialPage() {
             <Image src="/images/logotipo-CreaTuActivo.com.webp" alt="CreaTuActivo" width={32} height={32} priority style={{ objectFit: 'contain' }} />
             <span style={{
               fontSize: '1rem', fontWeight: 700, color: C.white,
-              fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.08em',
+              fontFamily: "var(--font-sans)", letterSpacing: '0.08em',
               textTransform: 'uppercase',
             }}>
               CreaTuActivo
@@ -236,7 +240,7 @@ export default function AuditoriaPatrimonialPage() {
                 background: C.cyan, borderRadius: '50%',
               }} />
               <span style={{
-                fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+                fontSize: '0.65rem', fontFamily: "var(--font-mono)",
                 letterSpacing: '0.22em', textTransform: 'uppercase',
                 color: C.cyan,
               }}>
@@ -247,7 +251,7 @@ export default function AuditoriaPatrimonialPage() {
             {/* H1 */}
             <h1 style={{
               fontSize: 'clamp(2rem, 5.5vw, 3rem)',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               fontWeight: 700, color: C.white,
               lineHeight: 1.15, marginBottom: '20px',
             }}>
@@ -259,7 +263,7 @@ export default function AuditoriaPatrimonialPage() {
               fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
               color: C.mutedLight, lineHeight: 1.65,
               marginBottom: '28px',
-              fontFamily: "'Rajdhani', sans-serif",
+              fontFamily: "var(--font-sans)",
               letterSpacing: '0.02em',
             }}>
               Un escrutinio logístico de 5 días para desvincular definitivamente su flujo de caja de su desgaste biológico.
@@ -289,7 +293,7 @@ export default function AuditoriaPatrimonialPage() {
                     <label style={{
                       display: 'block', fontSize: '0.62rem',
                       color: '#94A3B8', marginBottom: '8px',
-                      fontFamily: "'Roboto Mono', monospace",
+                      fontFamily: "var(--font-mono)",
                       letterSpacing: '0.12em', textTransform: 'uppercase',
                     }}>
                       Nombre
@@ -307,7 +311,7 @@ export default function AuditoriaPatrimonialPage() {
                     <label style={{
                       display: 'block', fontSize: '0.62rem',
                       color: '#94A3B8', marginBottom: '8px',
-                      fontFamily: "'Roboto Mono', monospace",
+                      fontFamily: "var(--font-mono)",
                       letterSpacing: '0.12em', textTransform: 'uppercase',
                     }}>
                       Correo Electrónico
@@ -325,7 +329,7 @@ export default function AuditoriaPatrimonialPage() {
                     <label style={{
                       display: 'block', fontSize: '0.62rem',
                       color: '#94A3B8', marginBottom: '8px',
-                      fontFamily: "'Roboto Mono', monospace",
+                      fontFamily: "var(--font-mono)",
                       letterSpacing: '0.12em', textTransform: 'uppercase',
                     }}>
                       WhatsApp
@@ -373,7 +377,7 @@ export default function AuditoriaPatrimonialPage() {
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
 
             <p style={{
-              fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+              fontSize: '0.62rem', fontFamily: "var(--font-mono)",
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
@@ -382,7 +386,7 @@ export default function AuditoriaPatrimonialPage() {
 
             <h2 style={{
               fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               fontWeight: 700, color: C.white,
               marginBottom: '16px', lineHeight: 1.2,
             }}>
@@ -402,7 +406,7 @@ export default function AuditoriaPatrimonialPage() {
                   {/* Day indicator */}
                   <div style={{ flexShrink: 0, minWidth: '64px' }}>
                     <span style={{
-                      fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+                      fontSize: '0.62rem', fontFamily: "var(--font-mono)",
                       letterSpacing: '0.12em', textTransform: 'uppercase',
                       color: C.gold, fontWeight: 700,
                       display: 'block',
@@ -413,7 +417,7 @@ export default function AuditoriaPatrimonialPage() {
                   {/* Content */}
                   <div>
                     <p style={{
-                      fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace",
+                      fontSize: '0.7rem', fontFamily: "var(--font-mono)",
                       letterSpacing: '0.12em', textTransform: 'uppercase',
                       color: C.mutedLight, marginBottom: '6px',
                     }}>
@@ -434,7 +438,7 @@ export default function AuditoriaPatrimonialPage() {
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
 
             <p style={{
-              fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+              fontSize: '0.62rem', fontFamily: "var(--font-mono)",
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
@@ -443,7 +447,7 @@ export default function AuditoriaPatrimonialPage() {
 
             <h2 style={{
               fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "var(--font-serif)",
               fontWeight: 700, color: C.white,
               marginBottom: '16px', lineHeight: 1.2,
             }}>
@@ -471,7 +475,7 @@ export default function AuditoriaPatrimonialPage() {
                   }} />
                   <div>
                     <p style={{
-                      fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace",
+                      fontSize: '0.7rem', fontFamily: "var(--font-mono)",
                       letterSpacing: '0.1em', textTransform: 'uppercase',
                       color: C.white, marginBottom: '4px',
                     }}>
@@ -516,7 +520,7 @@ export default function AuditoriaPatrimonialPage() {
           textAlign: 'center',
           color: C.muted,
           fontSize: '0.65rem',
-          fontFamily: "'Roboto Mono', monospace",
+          fontFamily: "var(--font-mono)",
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           borderTop: `1px solid ${C.bgCardBorder}`,

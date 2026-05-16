@@ -100,6 +100,16 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // ── Alias de retrocompatibilidad ─────────────────────────────────────────
+    // El squeeze page actual (/auditoria-patrimonial) y el quiz (/diagnostico)
+    // envían step='auditoria_registered', pero toda la lógica downstream
+    // (email Resend, WhatsApp template, persistencia, notifyConstructor) está
+    // mapeada a step='mapa_registered' (legacy del nombre original del funnel).
+    // Normalizamos aquí para que ambos disparen el mismo flow sin duplicar código.
+    if (data.step === 'auditoria_registered') {
+      data.step = 'mapa_registered';
+    }
+
     // ── Notificaciones push al constructor ───────────────────────────────────
     const constructorRef: string | null = data.constructor_ref || null
 

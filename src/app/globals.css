@@ -159,16 +159,20 @@ h1, h2, h3, .quote-text, .font-serif {
   transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-/* Primario: Carbón Brillante + borde fino dorado + texto dorado */
+/* Primario: Tinte Dorado sutil + borde dorado + texto dorado.
+   El tinte rgba(197,160,89,0.07) sobre cualquier fondo carbón eleva la
+   luminancia justo lo necesario para que el botón se perciba como elemento
+   distintivo, sin caer en bloque agresivo. Border 1.5px refuerza la
+   geometría del CTA frente a la sutileza del fill. */
 .cta-primary {
-  background: var(--color-bg-elevated);
+  background: rgba(197, 160, 89, 0.07);
   color: var(--color-brand);
-  border: 1px solid var(--color-brand);
+  border: 1.5px solid var(--color-brand);
   padding: 0.875rem 2rem;
   font-size: 0.9rem;
 }
 .cta-primary:hover {
-  background: var(--color-bg-surface);
+  background: rgba(197, 160, 89, 0.14);
   border-color: var(--color-brand-hover);
   color: var(--color-brand-hover);
 }

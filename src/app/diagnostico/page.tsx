@@ -115,7 +115,7 @@ const quizQuestions = [
   },
   {
     id: 'pazMental',
-    question: 'En una escala del 1 al 10, ¿cuánta paz mental le da la arquitectura financiera que has construido hasta hoy?',
+    question: 'En una escala del 1 al 10, ¿cuánta paz mental le da la arquitectura financiera que ha construido hasta hoy?',
     options: [
       { value: 20, label: '1-3: Muy poca', sublabel: 'Vivo con ansiedad financiera constante' },
       { value: 50, label: '4-6: Regular', sublabel: 'Hay días buenos y días de preocupación' },
@@ -136,9 +136,9 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
     return {
       name: 'EL GIGANTE DE PIES DE BARRO',
       subtitle: 'Alto Rendimiento / Motor Solitario',
-      description: 'Los datos indican que tiene una capacidad excepcional para generar flujo de efectivo. Eres el motor indiscutible de su economía. Ese es su superpoder, pero paradójicamente, es su mayor riesgo.',
-      insight: 'Su gráfico muestra una "Arquitectura Asimétrica". Has optimizado todo su sistema para el Ingreso Activo (dependiente de ti), pero has descuidado peligrosamente la Infraestructura de Soporte.',
-      truth: 'Actualmente, no posees un activo; el activo eres TÚ. Si usted le detienes, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
+      description: 'Los datos indican que tiene una capacidad excepcional para generar flujo de efectivo. Usted es el motor indiscutible de su economía. Ese es su superpoder, pero paradójicamente, es su mayor riesgo.',
+      insight: 'Su gráfico muestra una "Arquitectura Asimétrica". Ha optimizado todo su sistema para el Ingreso Activo (dependiente de usted), pero ha descuidado peligrosamente la Infraestructura de Soporte.',
+      truth: 'Actualmente, no posee un activo; el activo es USTED. Si usted se detiene, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
       metaphor: 'Tiene el motor de un Ferrari montado en el chasis de una bicicleta.',
       need: 'Lo que le falta no es más dinero. Le falta un Chasis.',
     };
@@ -148,22 +148,22 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
     return {
       name: 'EL OPERADOR AGOTADO',
       subtitle: 'Negocio Propio / Sin Tiempo',
-      description: 'Has construido algo, pero le has convertido en esclavo de su propia creación. Su negocio no funciona sin ti, lo que significa que no tiene un negocio: tiene un trabajo disfrazado.',
-      insight: 'Todos los ejes de su gráfico dependen de su presencia física. No has logrado separar su tiempo de su ingreso.',
-      truth: 'Si cierras la puerta mañana, dejas de ganar. Eso no es un activo, es una trampa operativa.',
-      metaphor: 'Eres el motor, el volante y los frenos. Si le enfermas, el carro se detiene.',
-      need: 'Necesitas sistemas que operen sin su presencia constante.',
+      description: 'Ha construido algo, pero se ha convertido en esclavo de su propia creación. Su negocio no funciona sin usted, lo que significa que no tiene un negocio: tiene un trabajo disfrazado.',
+      insight: 'Todos los ejes de su gráfico dependen de su presencia física. No ha logrado separar su tiempo de su ingreso.',
+      truth: 'Si cierra la puerta mañana, deja de ganar. Eso no es un activo, es una trampa operativa.',
+      metaphor: 'Usted es el motor, el volante y los frenos. Si se enferma, el carro se detiene.',
+      need: 'Necesita sistemas que operen sin su presencia constante.',
     };
   }
 
   return {
     name: 'EL CONSTRUCTOR EN PROGRESO',
     subtitle: 'En Camino / Con Potencial',
-    description: 'Tiene algunos elementos de estructura, pero aún no has logrado la independencia operativa completa. Estás mejor que la mayoría, pero lejos de la Soberanía.',
-    insight: 'Su gráfico muestra áreas de oportunidad claras. No estás en crisis, pero tampoco estás protegido.',
-    truth: 'Con los ajustes correctos, podrías acelerar significativamente su camino hacia la autonomía.',
+    description: 'Tiene algunos elementos de estructura, pero aún no ha logrado la independencia operativa completa. Está mejor que la mayoría, pero lejos de la Soberanía.',
+    insight: 'Su gráfico muestra áreas de oportunidad claras. No está en crisis, pero tampoco está protegido.',
+    truth: 'Con los ajustes correctos, podría acelerar significativamente su camino hacia la autonomía.',
     metaphor: 'Tiene los planos, pero la construcción está a medias.',
-    need: 'Necesitas completar la infraestructura que ya empezaste.',
+    need: 'Necesita completar la infraestructura que ya empezó.',
   };
 };
 
@@ -208,21 +208,38 @@ export default function DiagnosticoPage() {
 
     setIsSubmitting(true);
 
-    try {
-      await fetch('/api/diagnostico', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: captureData.email,
-          whatsapp,
-          answers,
-          timestamp: new Date().toISOString(),
-          page: 'diagnostico-landing',
-        }),
-      });
-    } catch (error) {
+    // Dos llamadas en paralelo:
+    // 1) /api/diagnostico — guarda quiz + arquetipo en Supabase
+    // 2) /api/funnel — dispara email de confirmación + inscribe en secuencia
+    //    Auditoría Patrimonial 5 días (Resend + cron diario)
+    const persistDiagnostico = fetch('/api/diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: captureData.email,
+        whatsapp,
+        answers,
+        timestamp: new Date().toISOString(),
+        page: 'diagnostico-landing',
+      }),
+    }).catch((error) => {
       console.error('Error guardando diagnóstico:', error);
-    }
+    });
+
+    const triggerFunnel = fetch('/api/funnel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: captureData.email,
+        whatsapp,
+        source: 'diagnostico',
+        step: 'auditoria_registered',
+      }),
+    }).catch((error) => {
+      console.error('Error inscribiendo al funnel:', error);
+    });
+
+    await Promise.allSettled([persistDiagnostico, triggerFunnel]);
 
     setIsSubmitting(false);
     setStep('result');
@@ -756,7 +773,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </div>
 
           <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Su auditoría dice que estás listo para escalar,
+            Su auditoría dice que está listo para escalar,
             <br />
             pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
           </p>

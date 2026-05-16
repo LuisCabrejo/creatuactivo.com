@@ -132,8 +132,8 @@ export default function AuditoriaPatrimonialPage() {
         }
         .ap-input:focus {
           outline: none;
-          border-color: rgba(200,168,75,0.5);
-          background: rgba(200,168,75,0.04);
+          border-color: rgba(197, 160, 89,0.5);
+          background: rgba(197, 160, 89,0.04);
         }
         .ap-btn-primary {
           width: 100%;
@@ -275,7 +275,7 @@ export default function AuditoriaPatrimonialPage() {
               marginBottom: '40px',
               padding: '20px 24px',
               borderLeft: `2px solid ${C.gold}`,
-              background: 'rgba(200,168,75,0.04)',
+              background: 'rgba(197, 160, 89,0.04)',
             }}>
               El Protocolo de la Presencia Obligada es el contrato tácito que convierte su tiempo en el único colateral de su liquidez. Si usted se detiene, el sistema colapsa. Esta auditoría no provee motivación. Transfiere los planos técnicos para desactivar esa dependencia y acoplar una infraestructura operativa en más de 70 países.
             </p>

@@ -100,7 +100,7 @@ export default function Modulo03Page() {
           </video>
         </div>
 
-        <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(200,168,75,0.04)' }}>
+        <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(197, 160, 89,0.04)' }}>
           <p style={{ color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>
             Evalúe la lógica operativa de las <strong>dos capas de apalancamiento</strong>. Construir infraestructura desde cero es el error histórico — acoplarse a una que ya existe es la solución directiva moderna.
           </p>

@@ -82,7 +82,7 @@ export default function GraciasPage() {
                 width: '80px',
                 height: '80px',
                 margin: '0 auto 1.5rem',
-                background: 'rgba(245, 158, 11, 0.15)',
+                background: 'rgba(198, 167, 107, 0.15)',
                 clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                 display: 'flex',
                 alignItems: 'center',

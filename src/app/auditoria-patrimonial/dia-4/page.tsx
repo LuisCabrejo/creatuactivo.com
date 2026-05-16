@@ -100,7 +100,7 @@ export default function Modulo04Page() {
           </video>
         </div>
 
-        <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(200,168,75,0.04)' }}>
+        <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(197, 160, 89,0.04)' }}>
           <p style={{ color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>
             Audite la matemática de liquidación del activo. La <strong>Matriz de Amortización</strong> opera en dos velocidades simultáneas: capital operativo inmediato y regalías perpetuas — independientemente de su intervención directa.
           </p>

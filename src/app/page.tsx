@@ -64,7 +64,7 @@ function HeroSection() {
       {/* Fondo CSS puro */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: `radial-gradient(ellipse at 60% 40%, rgba(34,211,238,0.04) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(200,168,75,0.04) 0%, transparent 60%)`,
+        background: `radial-gradient(ellipse at 60% 40%, rgba(34,211,238,0.04) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(197, 160, 89,0.04) 0%, transparent 60%)`,
         pointerEvents: 'none',
       }} />
 
@@ -108,7 +108,7 @@ function HeroSection() {
         {/* Cuerpo */}
         <div style={{
           background: 'rgba(0,0,0,0.70)', padding: '20px 28px', marginBottom: '32px',
-          borderLeft: `2px solid rgba(200,168,75,0.3)`,
+          borderLeft: `2px solid rgba(197, 160, 89,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de sus horas de vida.{' '}
@@ -338,7 +338,7 @@ function SolucionesFallidasSection() {
           {opciones.map((item) => (
             <div key={item.num} style={{
               padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: '12px',
-              background: item.destacada ? 'rgba(200,168,75,0.06)' : 'rgba(0,0,0,0.65)',
+              background: item.destacada ? 'rgba(197, 160, 89,0.06)' : 'rgba(0,0,0,0.65)',
               border: item.destacada ? `1px solid ${C.gold}` : `1px solid rgba(255,255,255,0.07)`,
               borderRadius: 'var(--radius-container)',
             }}>
@@ -408,8 +408,8 @@ function ProductoFisicoSection() {
 
         <div style={{
           padding: '24px 32px',
-          background: 'rgba(200,168,75,0.04)',
-          border: `1px solid rgba(200,168,75,0.2)`,
+          background: 'rgba(197, 160, 89,0.04)',
+          border: `1px solid rgba(197, 160, 89,0.2)`,
           textAlign: 'center',
           borderRadius: 'var(--radius-container)',
         }}>
@@ -444,7 +444,7 @@ function SolutionPreview() {
 
         <div style={{
           display: 'inline-block', padding: '24px 40px',
-          background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(200,168,75,0.3)`,
+          background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(197, 160, 89,0.3)`,
           marginBottom: '32px',
           borderRadius: 'var(--radius-container)',
         }}>
@@ -517,7 +517,7 @@ function QueswaDiferenciadorSection() {
             <div key={cap.titulo} style={{
               padding: '24px',
               background: C.bgCard,
-              border: `1px solid rgba(200,168,75,0.15)`,
+              border: `1px solid rgba(197, 160, 89,0.15)`,
               borderRadius: 'var(--radius-container)',
             }}>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: C.gold, marginBottom: '16px' }} />
@@ -569,7 +569,7 @@ function FinalCTASection() {
 
         <div style={{
           padding: '24px 32px', marginBottom: '40px',
-          background: 'rgba(0,0,0,0.5)', borderLeft: `2px solid rgba(200,168,75,0.3)`,
+          background: 'rgba(0,0,0,0.5)', borderLeft: `2px solid rgba(197, 160, 89,0.3)`,
           textAlign: 'left',
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>

@@ -129,14 +129,14 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
             style={{
               width: 96, height: 96, borderRadius: '50%',
               objectFit: 'cover',
-              border: '2px solid rgba(200,168,75,0.4)',
+              border: '2px solid rgba(197, 160, 89,0.4)',
             }}
           />
         ) : (
           <div style={{
             width: 96, height: 96, borderRadius: '50%',
             background: 'linear-gradient(135deg, #1a1a1a, #2a2a2a)',
-            border: '2px solid rgba(200,168,75,0.4)',
+            border: '2px solid rgba(197, 160, 89,0.4)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: '2rem', fontWeight: 700, color: '#C8A84B',
             fontFamily: 'var(--font-playfair), Georgia, serif',
@@ -220,7 +220,7 @@ export default async function SlugMiniLanding({ params }: { params: { slug: stri
               display: 'flex', alignItems: 'center', gap: '14px',
               padding: '14px 20px',
               background: '#0d0d0d',
-              border: '1px solid rgba(200,168,75,0.2)',
+              border: '1px solid rgba(197, 160, 89,0.2)',
               color: '#F5F5F0', textDecoration: 'none',
               clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
             }}

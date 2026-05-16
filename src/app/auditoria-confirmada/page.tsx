@@ -132,8 +132,8 @@ export default function AuditoriaConfirmadaPage() {
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
               padding: '8px 16px',
-              border: `1px solid rgba(200,168,75,0.3)`,
-              background: 'rgba(200,168,75,0.05)',
+              border: `1px solid rgba(197, 160, 89,0.3)`,
+              background: 'rgba(197, 160, 89,0.05)',
               marginBottom: '32px',
             }}>
               <span className="status-dot" />
@@ -176,8 +176,8 @@ export default function AuditoriaConfirmadaPage() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: '10px',
               padding: '10px 16px',
-              background: 'rgba(245,158,11,0.08)',
-              border: `1px solid rgba(245,158,11,0.25)`,
+              background: 'rgba(198, 167, 107,0.08)',
+              border: `1px solid rgba(198, 167, 107,0.25)`,
               marginBottom: '20px',
             }}>
               <span style={{ fontSize: '0.9rem' }}>⚠</span>
@@ -255,7 +255,7 @@ export default function AuditoriaConfirmadaPage() {
                   <div style={{ flexShrink: 0 }}>
                     <span style={{
                       fontSize: '1.8rem', fontFamily: "var(--font-mono)",
-                      fontWeight: 700, color: 'rgba(200,168,75,0.25)',
+                      fontWeight: 700, color: 'rgba(197, 160, 89,0.25)',
                       lineHeight: 1, display: 'block',
                     }}>
                       {step.num}
@@ -284,8 +284,8 @@ export default function AuditoriaConfirmadaPage() {
 
             <div style={{
               padding: '36px 32px',
-              border: `1px solid rgba(200,168,75,0.2)`,
-              background: 'rgba(200,168,75,0.03)',
+              border: `1px solid rgba(197, 160, 89,0.2)`,
+              background: 'rgba(197, 160, 89,0.03)',
             }}>
               <p style={{
                 fontSize: '0.62rem', fontFamily: "var(--font-mono)",

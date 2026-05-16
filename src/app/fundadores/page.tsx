@@ -129,7 +129,7 @@ function PhaseNode({ title, date, spots, isActive, isPast }: any) {
       {/* BIMETALLIC: Unidad activa usa dorado, inactivo usa titanio */}
       <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-4 mb-4 transition-all duration-500 bg-[#0B0C0C] ${
         isActive
-          ? 'border-[#F59E0B] shadow-[0_0_30px_rgba(245,158,11,0.5)] text-white'
+          ? 'border-[#F59E0B] shadow-[0_0_30px_rgba(198, 167, 107,0.5)] text-white'
           : isPast
             ? 'border-[#64748B] bg-[#16181D] text-[#94A3B8]'
             : 'border-[#475569] bg-[#16181D] text-[#64748B]'
@@ -410,9 +410,9 @@ export default function FundadoresPage() {
                     </div>
 
                     {/* Pieza 2 - DESTACADA con dorado */}
-                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group border-[rgba(198, 167, 107,0.3)] bg-[rgba(198, 167, 107,0.05)]">
                         <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
-                        <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center text-[#0B0C0C] mb-6 shadow-lg shadow-[rgba(245,158,11,0.3)]">
+                        <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center text-[#0B0C0C] mb-6 shadow-lg shadow-[rgba(198, 167, 107,0.3)]">
                             <Bot size={24} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">2. La App (Tecnología)</h3>
@@ -458,7 +458,7 @@ export default function FundadoresPage() {
                 </div>
 
                 {/* BIMETALLIC: Countdown card con borde dorado */}
-                <div className="mt-16 glass-card p-8 rounded-xl max-w-2xl mx-auto text-center border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                <div className="mt-16 glass-card p-8 rounded-xl max-w-2xl mx-auto text-center border-[rgba(198, 167, 107,0.3)] bg-[rgba(198, 167, 107,0.05)]">
                     <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
                     <div className="grid grid-cols-4 gap-4">
                         <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
@@ -535,7 +535,7 @@ export default function FundadoresPage() {
         {/* --- 8. FORMULARIO DE ADMISIÓN --- */}
         {/* BIMETALLIC: Spotlight dorado sutil */}
         <section id="aplicacion" className="py-24 bg-[#16181D] relative overflow-hidden" ref={formTopRef}>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(245,158,11,0.05)] rounded-full blur-[100px]"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(198, 167, 107,0.05)] rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto px-4 relative z-10 max-w-2xl">
                 {/* BIMETALLIC: Crown dorado (es premio) */}
@@ -599,7 +599,7 @@ export default function FundadoresPage() {
                                               'Empresarial 2 - $4,500,000 COP (~$1,000 USD)',
                                               'Necesito asesoría financiera'
                                             ].map((opt) => (
-                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-[#F59E0B] bg-[rgba(245,158,11,0.1)] text-white' : 'border-[rgba(255,255,255,0.1)] bg-[#16181D]/50 text-[#A3A3A3]'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-[#E5C279]"/>}</div>
+                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-[#F59E0B] bg-[rgba(198, 167, 107,0.1)] text-white' : 'border-[rgba(255,255,255,0.1)] bg-[#16181D]/50 text-[#A3A3A3]'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-[#E5C279]"/>}</div>
                                             ))}
                                         </div>
                                     </div>

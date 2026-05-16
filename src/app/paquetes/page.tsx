@@ -399,7 +399,7 @@ export default function PaquetesPage() {
                   features={[
                     'Derechos Operativos Globales — 70 países',
                     'Protocolo EAM de Gestión',
-                    'Capa Logística Gano Excel activa',
+                    'Matriz Física Gano Excel activa',
                     'Dashboard de Patrimonio en Tiempo Real',
                   ]}
                 />
@@ -423,7 +423,7 @@ export default function PaquetesPage() {
                 />
                 <PackageCard
                   title="Consolidación Visionaria"
-                  esp="ESP-3 — APALANCAMIENTO ASIMÉTRICO MÁXIMO"
+                  esp="ESP-3 — APALANCAMIENTO ESTRATÉGICO MÁXIMO"
                   priceUSD="1,000"
                   priceCOP="4.500.000"
                   rentabilidad="17% — máximo"
@@ -433,7 +433,7 @@ export default function PaquetesPage() {
                   waPackage="ESP-3 Consolidación Visionaria ($1.000 USD / $4.500.000 COP)"
                   features={[
                     'Todo lo del ESP-2 +',
-                    'Apalancamiento Asimétrico Máximo (17%)',
+                    'Apalancamiento Estratégico Máximo (17%)',
                     'Consultoría de Arquitectura VIP',
                     'Plusvalía de Red — Nivel Visionario',
                   ]}

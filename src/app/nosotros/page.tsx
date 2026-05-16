@@ -101,7 +101,7 @@ export default function ManifiestoPage() {
 
               {/* La Falla del Vehículo */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-6">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
                   La Falla del Vehículo
                 </h2>
                 <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
@@ -123,7 +123,7 @@ export default function ManifiestoPage() {
 
               {/* El Pivote */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-6">
+                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
                   El Pivote
                 </h2>
                 <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
@@ -142,7 +142,7 @@ export default function ManifiestoPage() {
                       La solución no era convertirse en un mejor vendedor,
                       <br />
                       sino en un
-                      <span className="text-[#E5C279]"> Arquitecto de Patrimonio</span>.
+                      <span className="text-[#C5A059]"> Arquitecto de Patrimonio</span>.
                     </p>
                   </div>
 
@@ -154,19 +154,19 @@ export default function ManifiestoPage() {
 
                 <ul className="space-y-4 my-8 text-lg">
                   <li className="flex items-start gap-4">
-                    <span className="text-[#E5C279] text-xl mt-0.5">1</span>
+                    <span className="text-[#C5A059] text-xl mt-0.5">1</span>
                     <span className="text-[#E5E5E5]">
                       Utilizar infraestructuras existentes para eliminar el riesgo logístico.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#E5C279] text-xl mt-0.5">2</span>
+                    <span className="text-[#C5A059] text-xl mt-0.5">2</span>
                     <span className="text-[#E5E5E5]">
                       Utilizar sistemas digitales para eliminar la fricción operativa.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#E5C279] text-xl mt-0.5">3</span>
+                    <span className="text-[#C5A059] text-xl mt-0.5">3</span>
                     <span className="text-[#E5E5E5]">
                       Construir flujos de caja que no dependan de su reloj.
                     </span>
@@ -181,7 +181,7 @@ export default function ManifiestoPage() {
               ═══════════════════════════════════════════════════════════════ */}
           <section className="py-20 px-6" style={{ background: 'rgba(16,18,22,0.75)', backdropFilter: 'blur(6px)' }}>
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-sm uppercase tracking-[0.15em] text-[#E5C279] mb-4 text-center">
+              <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-4 text-center">
                 Nuestros Principios Operativos
               </h2>
               <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-16 text-center">
@@ -192,7 +192,7 @@ export default function ManifiestoPage() {
                 {/* Principio 1 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#E5C279] font-serif text-lg">01</span>
+                    <span className="text-[#C5A059] font-serif text-lg">01</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Matemática sobre Motivación</h3>
@@ -206,7 +206,7 @@ export default function ManifiestoPage() {
                 {/* Principio 2 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#E5C279] font-serif text-lg">02</span>
+                    <span className="text-[#C5A059] font-serif text-lg">02</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Apalancamiento Tecnológico</h3>
@@ -220,7 +220,7 @@ export default function ManifiestoPage() {
                 {/* Principio 3 */}
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 border border-[#C5A059]/30 flex items-center justify-center">
-                    <span className="text-[#E5C279] font-serif text-lg">03</span>
+                    <span className="text-[#C5A059] font-serif text-lg">03</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-[#E5E5E5] mb-2">Soberanía de Tiempo</h3>
@@ -259,7 +259,7 @@ export default function ManifiestoPage() {
                 href="/auditoria-patrimonial"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
-                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 SOLICITAR AUDITORÍA TÉCNICA →

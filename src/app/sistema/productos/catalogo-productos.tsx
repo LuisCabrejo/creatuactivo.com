@@ -21,17 +21,20 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 import { IndustrialHeader } from '@/components/IndustrialHeader'
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CLINICAL LUXURY - Color Palette (Bio-Lab Spectrum)
+// CLINICAL LUXURY - Bio-Lab Spectrum (sub-marca del vertical e-commerce de salud)
 // ═══════════════════════════════════════════════════════════════════════════
+// Fondos + textos heredan del sistema Lujo Silencioso (coherencia ecosistema).
+// Los acentos cromáticos (emerald + teal + whatsapp) se preservan: son
+// decisión arquitectónica del vertical Clinical, no del funnel financiero.
 const C = {
-  bioEmerald: '#50C878',        // Acento Clinical (reemplaza amber/gold)
-  pharmaTeal: '#0F2E2F',        // Fondo tarjetas (90% opacity)
-  whatsappLux: '#25D366',       // WhatsApp Luxury green
-  obsidian: '#0B0C0C',          // Background principal
-  gunmetal: '#16181D',          // Secondary surfaces
-  textMain: '#E5E5E5',          // Texto principal
-  textMuted: '#A3A3A3',         // Texto secundario
-  textDim: '#6b6b75',           // Texto terciario
+  bioEmerald: '#50C878',                          // Acento Clinical (verde lab)
+  pharmaTeal: '#0F2E2F',                          // Fondo card Clinical
+  whatsappLux: '#25D366',                         // CTA WhatsApp
+  obsidian: 'var(--color-bg-primary)',            // #0F1115 — del sistema
+  gunmetal: 'var(--color-bg-elevated)',           // #15171C — del sistema
+  textMain: 'var(--color-text-body)',             // #C8C7C2
+  textMuted: 'var(--color-text-muted)',           // #878681
+  textDim: 'rgba(255,255,255,0.4)',
 }
 
 // Interfaces mejoradas con campos estratégicos
@@ -1035,7 +1038,7 @@ export default function CatalogoEstrategico() {
                               padding: '0.5rem 1rem',
                               fontSize: '1.25rem',
                               fontWeight: 'bold',
-                              fontFamily: "'Roboto Mono', monospace",
+                              fontFamily: "var(--font-mono)",
                             }}
                           >
                             ${product.price.toLocaleString()}
@@ -1080,7 +1083,7 @@ export default function CatalogoEstrategico() {
                               fontWeight: 500,
                               letterSpacing: '0.15em',
                               textTransform: 'uppercase',
-                              fontFamily: "'Roboto Mono', monospace",
+                              fontFamily: "var(--font-mono)",
                             }}
                             className="titanium-btn transition-all"
                           >
@@ -1303,7 +1306,7 @@ export default function CatalogoEstrategico() {
                       textAlign: 'center',
                       display: 'block',
                       letterSpacing: '0.05em',
-                      fontFamily: "'Rajdhani', sans-serif",
+                      fontFamily: "var(--font-sans)",
                       fontSize: '1rem',
                     }}
                   >
@@ -1337,7 +1340,7 @@ export default function CatalogoEstrategico() {
                 fontSize: '0.875rem',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                fontFamily: "'Roboto Mono', monospace",
+                fontFamily: "var(--font-mono)",
               }}
             >
               Catálogo Oficial Gano Excel
@@ -1396,7 +1399,7 @@ export default function CatalogoEstrategico() {
           fontSize: '0.875rem',
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
-          fontFamily: "'Roboto Mono', monospace",
+          fontFamily: "var(--font-mono)",
         }}
       >
         Lo Mejor del Ganoderma
@@ -1488,7 +1491,7 @@ export default function CatalogoEstrategico() {
                 padding: '1rem 2rem',
                 fontWeight: 700,
                 fontSize: '1.125rem',
-                fontFamily: "'Rajdhani', sans-serif",
+                fontFamily: "var(--font-sans)",
                 letterSpacing: '0.05em',
               }}
             >
@@ -1517,7 +1520,7 @@ export default function CatalogoEstrategico() {
                   fontSize: '0.875rem',
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  fontFamily: "'Roboto Mono', monospace",
+                  fontFamily: "var(--font-mono)",
                 }}
               >
                 Encuentra lo que Necesitas
@@ -1646,7 +1649,7 @@ export default function CatalogoEstrategico() {
                         padding: '0.5rem 1rem',
                         fontSize: '1.25rem',
                         fontWeight: 'bold',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -1657,7 +1660,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed line-clamp-3" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -1691,7 +1694,7 @@ export default function CatalogoEstrategico() {
                         fontWeight: 500,
                         letterSpacing: '0.15em',
                         textTransform: 'uppercase',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                       className="titanium-btn transition-all"
                     >
@@ -1773,7 +1776,7 @@ export default function CatalogoEstrategico() {
                     fontWeight: 500,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
-                    fontFamily: "'Roboto Mono', monospace",
+                    fontFamily: "var(--font-mono)",
                     marginBottom: '0.5rem',
                   }}
                 >
@@ -1784,7 +1787,7 @@ export default function CatalogoEstrategico() {
                     color: C.textMain,
                     fontSize: '2rem',
                     fontWeight: 700,
-                    fontFamily: "'Rajdhani', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     letterSpacing: '0.05em',
                     marginBottom: '0.5rem',
                   }}
@@ -1821,7 +1824,7 @@ export default function CatalogoEstrategico() {
                   fontSize: '0.875rem',
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  fontFamily: "'Roboto Mono', monospace",
+                  fontFamily: "var(--font-mono)",
                 }}
               >
                 Love of Coffee - Sistema Premium
@@ -1874,7 +1877,7 @@ export default function CatalogoEstrategico() {
                         padding: '0.5rem 1rem',
                         fontSize: '1.25rem',
                         fontWeight: 'bold',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -1885,7 +1888,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>Certificación: {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>Certificación: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -1920,7 +1923,7 @@ export default function CatalogoEstrategico() {
                           fontWeight: 500,
                           letterSpacing: '0.15em',
                           textTransform: 'uppercase',
-                          fontFamily: "'Roboto Mono', monospace",
+                          fontFamily: "var(--font-mono)",
                         }}
                         className="titanium-btn transition-all"
                       >
@@ -2049,7 +2052,7 @@ export default function CatalogoEstrategico() {
                         padding: '0.5rem 1rem',
                         fontSize: '1.25rem',
                         fontWeight: 'bold',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -2060,7 +2063,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -2094,7 +2097,7 @@ export default function CatalogoEstrategico() {
                         fontWeight: 500,
                         letterSpacing: '0.15em',
                         textTransform: 'uppercase',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                       className="titanium-btn transition-all"
                     >
@@ -2179,7 +2182,7 @@ export default function CatalogoEstrategico() {
                         padding: '0.5rem 1rem',
                         fontSize: '1.25rem',
                         fontWeight: 'bold',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                     >
                       ${product.price.toLocaleString()}
@@ -2190,7 +2193,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "'Roboto Mono', monospace" }}>INVIMA: {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>INVIMA: {product.invima}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -2224,7 +2227,7 @@ export default function CatalogoEstrategico() {
                         fontWeight: 500,
                         letterSpacing: '0.15em',
                         textTransform: 'uppercase',
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                       }}
                       className="titanium-btn transition-all"
                     >

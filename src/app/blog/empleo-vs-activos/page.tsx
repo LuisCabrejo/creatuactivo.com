@@ -70,7 +70,7 @@ export default function EmpleoVsActivosPage() {
 
               {/* Meta */}
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-xs text-[#E5C279] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
+                <span className="text-xs text-[#C5A059] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
                   Educación Financiera
                 </span>
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
@@ -79,7 +79,7 @@ export default function EmpleoVsActivosPage() {
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
                 Análisis Financiero:
-                <span className="text-[#E5C279]"> Empleo vs. Cartera de Activos</span>
+                <span className="text-[#C5A059]"> Empleo vs. Cartera de Activos</span>
               </h1>
 
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
@@ -111,7 +111,7 @@ export default function EmpleoVsActivosPage() {
                 <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;El empleado gana dinero. El constructor de activos
-                    <span className="text-[#E5C279]"> construye máquinas que generan dinero.</span>&quot;
+                    <span className="text-[#C5A059]"> construye máquinas que generan dinero.</span>&quot;
                   </p>
                 </div>
 
@@ -148,22 +148,22 @@ export default function EmpleoVsActivosPage() {
                     </div>
 
                     <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[#C5A059]/30">
-                      <h3 className="text-lg font-semibold mb-4 text-[#E5C279]">Ingreso Recurrente</h3>
+                      <h3 className="text-lg font-semibold mb-4 text-[#C5A059]">Ingreso Recurrente</h3>
                       <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#E5C279]">✓</span>
+                          <span className="text-[#C5A059]">✓</span>
                           <span className="text-[#E5E5E5]">Trabajo una vez, ganas repetidamente</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#E5C279]">✓</span>
+                          <span className="text-[#C5A059]">✓</span>
                           <span className="text-[#E5E5E5]">El sistema trabaja sin su presencia</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#E5C279]">✓</span>
+                          <span className="text-[#C5A059]">✓</span>
                           <span className="text-[#E5E5E5]">Sin techo teórico de ingresos</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#E5C279]">✓</span>
+                          <span className="text-[#C5A059]">✓</span>
                           <span className="text-[#E5E5E5]">Heredable a su familia</span>
                         </li>
                       </ul>
@@ -181,7 +181,7 @@ export default function EmpleoVsActivosPage() {
                   </p>
                   <ul className="space-y-4 mb-6">
                     <li className="flex items-start gap-3">
-                      <span className="text-[#E5C279] mt-1">→</span>
+                      <span className="text-[#C5A059] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Bienes raíces</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -191,7 +191,7 @@ export default function EmpleoVsActivosPage() {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#E5C279] mt-1">→</span>
+                      <span className="text-[#C5A059] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Dividendos de acciones</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -201,7 +201,7 @@ export default function EmpleoVsActivosPage() {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#E5C279] mt-1">→</span>
+                      <span className="text-[#C5A059] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Propiedad intelectual</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -211,7 +211,7 @@ export default function EmpleoVsActivosPage() {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-[#E5C279] mt-1">→</span>
+                      <span className="text-[#C5A059] mt-1">→</span>
                       <div>
                         <strong className="text-[#E5E5E5]">Infraestructuras de consumo recurrente</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
@@ -277,7 +277,7 @@ export default function EmpleoVsActivosPage() {
                   href="/auditoria-patrimonial"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
                   style={{
-                    clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                    borderRadius: 'var(--radius-container)',
                   }}
                 >
                   Iniciar Auditoría Patrimonial
@@ -291,7 +291,7 @@ export default function EmpleoVsActivosPage() {
               <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
                 <Link
                   href="/blog"
-                  className="text-[#A3A3A3] hover:text-[#E5C279] transition-colors inline-flex items-center gap-2"
+                  className="text-[#A3A3A3] hover:text-[#C5A059] transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />

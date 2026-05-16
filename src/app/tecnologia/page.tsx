@@ -118,7 +118,7 @@ export default function TecnologiaPage() {
                   borderLeft: '3px solid #C5A059',
                 }}
               >
-                <h1 className="text-2xl font-serif mb-4" style={{ color: '#E5C279' }}>
+                <h1 className="text-2xl font-serif mb-4" style={{ color: '#C5A059' }}>
                   La Definición Oficial de Queswa.app
                 </h1>
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
@@ -152,7 +152,7 @@ export default function TecnologiaPage() {
                 marginTop: '-2rem',
                 position: 'relative',
                 zIndex: 10,
-                clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                borderRadius: 'var(--radius-container)',
               }}
             >
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
@@ -166,7 +166,7 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6 bg-[#16181D]">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#E5C279]">
+                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
                   El Problema
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
@@ -196,7 +196,7 @@ export default function TecnologiaPage() {
 
               <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
-                  <span className="text-[#E5C279] font-semibold">El Protocolo Queswa corrige ambas fallas estructurales.</span>
+                  <span className="text-[#C5A059] font-semibold">El Protocolo Queswa corrige ambas fallas estructurales.</span>
                 </p>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#E5C279]">
+                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
                   La Solución
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
@@ -218,7 +218,7 @@ export default function TecnologiaPage() {
                 {/* Educa 24/7 */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
-                    <Bot className="w-7 h-7 text-[#E5C279]" />
+                    <Bot className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Instrucción Asíncrona</h3>
                   <p className="text-sm text-[#A3A3A3]">Presenta el modelo y responde objeciones con datos fríos, sin depender de su horario físico.</p>
@@ -227,7 +227,7 @@ export default function TecnologiaPage() {
                 {/* Filtra Prospectos */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-7 h-7 text-[#E5C279]" />
+                    <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Filtrado de Perfiles</h3>
                   <p className="text-sm text-[#A3A3A3]">Identifica intención operativa real vs. curiosidad, ejecutando un proceso de Due Diligence automatizado.</p>
@@ -236,7 +236,7 @@ export default function TecnologiaPage() {
                 {/* Captura Datos */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
-                    <BarChart3 className="w-7 h-7 text-[#E5C279]" />
+                    <BarChart3 className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Extracción de Coordenadas</h3>
                   <p className="text-sm text-[#A3A3A3]">Recopila información de contacto y califica el nivel de interés mediante algoritmos predictivos.</p>
@@ -245,7 +245,7 @@ export default function TecnologiaPage() {
                 {/* Duplicación */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-7 h-7 text-[#E5C279]" />
+                    <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Escalabilidad Autónoma</h3>
                   <p className="text-sm text-[#A3A3A3]">Replica el protocolo técnico a escala global. La infraestructura de IA posee todo el conocimiento que un operador individual no puede sostener.</p>
@@ -258,7 +258,7 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6 bg-[#16181D]">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#E5C279]">
+                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
                   El Proceso
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
@@ -314,7 +314,7 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#E5C279]">
+                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
                   La Diferencia
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
@@ -348,22 +348,22 @@ export default function TecnologiaPage() {
 
                 {/* Con Queswa */}
                 <div className="p-8  bg-[#16181D] border border-[#C5A059]/30 shadow-lg shadow-[#C5A059]/5">
-                  <h3 className="text-xl font-semibold mb-6 text-[#E5C279]">Con Queswa</h3>
+                  <h3 className="text-xl font-semibold mb-6 text-[#C5A059]">Con Queswa</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
                       <span>El protocolo presenta 24/7</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
                       <span>Respuestas con precisión de Base de Conocimiento</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
                       <span>Opera de forma asíncrona a nivel global</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#E5C279] flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
                       <span>Apalancamiento asimétrico absoluto</span>
                     </li>
                   </ul>
@@ -387,7 +387,7 @@ export default function TecnologiaPage() {
                 href="/auditoria-patrimonial"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
-                  clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 SOLICITAR AUDITORÍA TÉCNICA →

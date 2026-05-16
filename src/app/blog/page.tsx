@@ -127,7 +127,7 @@ export default function BlogPage() {
                       }} />
                       <div style={{
                         position: 'absolute', top: 12, left: 12,
-                        fontFamily: "'Roboto Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                         fontSize: '0.65rem', letterSpacing: '0.15em',
                         color: '#00e5ff',
                         background: 'rgba(0,0,0,0.7)',
@@ -142,14 +142,14 @@ export default function BlogPage() {
                     <div style={{ padding: '20px' }}>
                       <div style={{
                         display: 'flex', gap: '12px', marginBottom: '10px',
-                        fontSize: '0.7rem', fontFamily: "'Roboto Mono', monospace", color: '#64748B',
+                        fontSize: '0.7rem', fontFamily: "var(--font-mono)", color: '#64748B',
                       }}>
                         <span>{article.category}</span>
                         <span>·</span>
                         <span>{article.readTime} lectura</span>
                       </div>
                       <h2
-                        className="group-hover:text-[#E5C279]"
+                        className="group-hover:text-[#C5A059]"
                         style={{
                           fontSize: '1rem',
                           fontWeight: 600,
@@ -184,7 +184,7 @@ export default function BlogPage() {
                 href="/auditoria-patrimonial"
                 className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
                 style={{
-                  clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
+                  borderRadius: 'var(--radius-container)',
                 }}
               >
                 Iniciar Auditoría Patrimonial →

@@ -398,7 +398,7 @@ export default function PaquetesPage() {
                   waPackage="ESP-1 Arquitectura Inicial ($200 USD / $900.000 COP)"
                   features={[
                     'Derechos Operativos Globales — 70 países',
-                    'Protocolo EAM de Gestión',
+                    'Tridente EAM activo',
                     'Matriz Física Gano Excel activa',
                     'Dashboard de Patrimonio en Tiempo Real',
                   ]}
@@ -418,7 +418,7 @@ export default function PaquetesPage() {
                     'Todo lo del ESP-1 +',
                     'Capacidad de Despliegue Intermedia',
                     'Consultoría de Arquitectura Prioritaria',
-                    'Plusvalía de Red — Nivel Empresarial',
+                    'Capitalización de Organización — Nivel Empresarial',
                   ]}
                 />
                 <PackageCard
@@ -435,7 +435,7 @@ export default function PaquetesPage() {
                     'Todo lo del ESP-2 +',
                     'Apalancamiento Estratégico Máximo (17%)',
                     'Consultoría de Arquitectura VIP',
-                    'Plusvalía de Red — Nivel Visionario',
+                    'Capitalización de Organización — Nivel Visionario',
                   ]}
                 />
               </div>
@@ -489,7 +489,7 @@ export default function PaquetesPage() {
                 />
                 <FaqItem
                   question="¿Es posible escalar el nivel de capitalización?"
-                  answer="Sí. La arquitectura está diseñada para la escalabilidad progresiva. Usted puede iniciar con ESP-1 para validar el flujo operativo y, a medida que su activo genera retornos, ejecutar una capitalización adicional hacia ESP-2 o ESP-3 para acceder a los niveles de rentabilidad superiores y maximizar la Plusvalía de Red."
+                  answer="Sí. La arquitectura está diseñada para la escalabilidad progresiva. Usted puede iniciar con ESP-1 para validar el flujo operativo y, a medida que su activo genera retornos, ejecutar una capitalización adicional hacia ESP-2 o ESP-3 para acceder a los niveles de rentabilidad superiores y maximizar la Capitalización de Organización."
                 />
                 <FaqItem
                   question="¿Existen costos ocultos o estructuras de comisión no declaradas?"

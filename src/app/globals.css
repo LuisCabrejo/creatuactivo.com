@@ -24,9 +24,10 @@
   --color-titanium-dark: #475569;
 
   /* --- TEXTO --- */
-  --color-text-primary: #FFFFFF;
-  --color-text-body: #E5E5E5;
-  --color-text-muted: #A3A3A3;
+  /* titanium-light tinte cálido: evita el resplandor hostil del #FFF puro sobre Carbón Profundo en sesiones largas */
+  --color-text-primary: #E0DFDB;
+  --color-text-body: #C8C7C2;
+  --color-text-muted: #878681;
 
   /* --- SEMÁNTICOS --- */
   --color-success: #408A71;        /* Verde Salvia */
@@ -72,6 +73,11 @@
 body {
   background-color: var(--bg-obsidian);
   color: var(--text-main);
+  /* Microtipografía financiera (Lujo Clínico):
+     - 'case' alinea %/−/+/–/() con la altura de las mayúsculas
+     - tabular-nums aplica ancho fijo a dígitos para tablas y balances que se actualizan en tiempo real */
+  font-feature-settings: 'case' 1;
+  font-variant-numeric: tabular-nums;
 }
 
 h1, h2, h3, .quote-text, .font-serif {

@@ -66,10 +66,10 @@ export default function CookieBanner() {
               onClick={handleReject}
               className="flex-1 sm:flex-none px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors"
               style={{
-                color: '#94A3B8',
-                background: 'rgba(148, 163, 184, 0.08)',
-                border: '1px solid rgba(148, 163, 184, 0.25)',
-                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                color: 'var(--color-titanium)',
+                background: 'transparent',
+                border: '1px solid var(--color-titanium-muted)',
+                borderRadius: 'var(--radius-action)',
               }}
             >
               Rechazar
@@ -78,15 +78,14 @@ export default function CookieBanner() {
               onClick={handleAccept}
               className="flex-1 sm:flex-none px-5 sm:px-7 py-1.5 sm:py-2 text-xs sm:text-sm font-bold transition-all"
               style={{
-                background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-                color: '#0B0C0C',
-                fontFamily: 'var(--font-inter), sans-serif',
-                fontWeight: 700,
-                letterSpacing: '0.05em',
+                background: 'var(--color-bg-elevated)',
+                color: 'var(--color-brand)',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
-                border: '1px solid rgba(251, 191, 36, 0.4)',
-                boxShadow: '0 2px 8px rgba(245, 158, 11, 0.2)',
+                borderRadius: 'var(--radius-action)',
+                border: '1px solid var(--color-brand)',
               }}
             >
               Aceptar

@@ -54,7 +54,7 @@ export default function CognitiveLoadComparator() {
     <div style={{
       background: BG,
       border: `1px solid rgba(200,168,75,0.2)`,
-      clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)',
+      borderRadius: 'var(--radius-container)',
       padding: '36px 32px',
       maxWidth: '760px',
       margin: '0 auto',
@@ -193,14 +193,14 @@ export default function CognitiveLoadComparator() {
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
             padding: '14px 36px',
-            background: activo ? 'rgba(200,168,75,0.08)' : `linear-gradient(135deg, ${GOLD}, #B8941F)`,
-            border: activo ? `1px solid ${GOLD}` : 'none',
-            color: activo ? GOLD : '#000',
-            fontFamily: "'Rajdhani', sans-serif", fontWeight: 700,
-            fontSize: '0.9rem', letterSpacing: '0.14em', textTransform: 'uppercase',
-            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
+            background: 'var(--color-bg-elevated)',
+            border: `1px solid var(--color-brand)`,
+            color: 'var(--color-brand)',
+            fontFamily: 'var(--font-sans)', fontWeight: 600,
+            fontSize: '0.9rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+            borderRadius: 'var(--radius-action)',
             cursor: 'pointer',
-            transition: 'background 0.4s ease-in-out, color 0.4s ease-in-out, border 0.4s ease-in-out',
+            transition: 'background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease',
           }}
         >
           {activo ? (

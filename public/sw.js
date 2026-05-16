@@ -11,7 +11,7 @@
  * Basado en Dashboard SW v1.0.9 (2025-12-17)
  */
 
-const CACHE_VERSION = '1.2.0';
+const CACHE_VERSION = '1.3.0';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

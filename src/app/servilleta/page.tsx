@@ -142,16 +142,10 @@ export default function ServilletaPage() {
   const currentUSD = simMode === 'gen5' ? gen5Income : binarioIncomeUSD;
   const currentCOP = (currentUSD * TRM).toLocaleString();
 
-  const getLifestyleTranslation = (usd: number) => {
-    if (usd < 100) return "Amortización de Pasivos Fijos Operativos.";
-    if (usd <= 300) return "Auto-Sustentabilidad de su Base Operativa (Carga Operativa Cubierta).";
-    if (usd <= 600) return "Flujo de Caja Equivalente a Ingreso Base Profesional.";
-    if (usd <= 1200) return "Consolidación de Activo Directivo (Independencia Operativa).";
-    if (usd <= 2500) return "Arquitectura de Patrimonio Diamante (Independencia Financiera Global).";
-    if (usd <= 5000) return "Portafolio de Activos Recurrentes con Dirección Continental Activa.";
-    if (usd <= 10000) return "Arquitectura Patrimonial de Alto Rendimiento — Velocidad de Crucero.";
-    return "Estructura Patrimonial operativa. El Déficit Estructural de Ingresos ha sido corregido.";
-  };
+  // Snowball metaphor: white circle that grows with the recurring income.
+  // Range: 10 hogares (50 USD) → 1000 hogares (4760 USD).
+  // Visual: 56px (small initial flake) → 280px (large rolling boulder).
+  const snowballSize = Math.round(56 + (binarioParejas / 1000) * 224);
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
@@ -630,10 +624,28 @@ export default function ServilletaPage() {
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
         .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1.05rem; }
 
-        .lifestyle-insight {
-          text-align: center; padding: 10px 15px; margin-bottom: 25px;
-          background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.15);
-          font-size: 0.75rem; color: var(--cyan);
+        /* Snowball — héroe visual del ingreso recurrente.
+           Metáfora: bola de nieve que rueda montaña abajo y crece con el tiempo.
+           Eco visual con los reels Dan-Koe donde el círculo blanco = el Arquitecto.
+           Transición suave para que el cambio de tamaño se sienta orgánico al
+           mover el slider de hogares. */
+        .snowball-stage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 290px;
+          margin: 12px 0 8px;
+        }
+        .snowball {
+          border-radius: 50%;
+          background: radial-gradient(circle at 32% 28%, #FFFFFF 0%, #F2F2EE 55%, #D9D8D2 100%);
+          box-shadow:
+            0 0 32px rgba(255, 255, 255, 0.12),
+            0 8px 24px rgba(0, 0, 0, 0.35),
+            inset 0 -12px 28px rgba(0, 0, 0, 0.08);
+          transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                      height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                      box-shadow 0.35s ease;
         }
 
         .pkg-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
@@ -1446,6 +1458,16 @@ export default function ServilletaPage() {
                   </button>
                 </div>
 
+                {/* Snowball: solo en INGRESO RECURRENTE — crece con su organización */}
+                {simMode === 'binario' && (
+                  <div className="snowball-stage">
+                    <div
+                      className="snowball"
+                      style={{ width: `${snowballSize}px`, height: `${snowballSize}px` }}
+                    />
+                  </div>
+                )}
+
                 {/* Display Digital */}
                 <div className="digital-display">
                   <span className="currency">$</span>
@@ -1454,11 +1476,6 @@ export default function ServilletaPage() {
                 </div>
                 <div className="cop-ref">
                   &asymp; ${currentCOP} COP
-                </div>
-
-                {/* Insight de Estilo de Vida */}
-                <div className="lifestyle-insight">
-                  {getLifestyleTranslation(currentUSD)}
                 </div>
 
                 {/* Controles GEN5 */}
@@ -1486,7 +1503,7 @@ export default function ServilletaPage() {
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                     />
-                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimice su flujo de caja desde la primera semana de activaci&oacute;n.</p>
+                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimizar su flujo de caja desde la primera semana de activaci&oacute;n.</p>
                   </div>
                 )}
 
@@ -1520,7 +1537,6 @@ export default function ServilletaPage() {
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
                     CONSTRUCCI&Oacute;N DE ESTRUCTURA PATRIMONIAL
                   </p>
-                  <p>Los datos t&eacute;cnicos est&aacute;n expuestos. Determine usted el nivel de integraci&oacute;n que su arquitectura patrimonial requiere hoy.</p>
 
                   <div className="cta-buttons">
                     {/* CTA Principal → /paquetes */}

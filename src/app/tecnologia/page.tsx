@@ -364,7 +364,7 @@ export default function TecnologiaPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Apalancamiento asimétrico absoluto</span>
+                      <span>Apalancamiento estratégico absoluto</span>
                     </li>
                   </ul>
                 </div>

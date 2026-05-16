@@ -36,7 +36,7 @@ const STEPS = [
   {
     num: '02',
     label: 'PROCESAR LOS DATOS DE LA INFRAESTRUCTURA',
-    desc: 'Cada módulo exige entre 15 y 20 minutos de análisis riguroso. Este protocolo no es material de fondo; requiere su atención aislada para comprender el apalancamiento asimétrico.',
+    desc: 'Cada módulo exige entre 15 y 20 minutos de análisis riguroso. Este protocolo no es material de fondo; requiere su atención aislada para comprender el apalancamiento estratégico.',
   },
   {
     num: '03',

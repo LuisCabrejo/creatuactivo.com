@@ -46,7 +46,7 @@ const PHASES = [
   {
     day: 'Día 4',
     label: 'MATRIZ DE AMORTIZACIÓN',
-    desc: 'Matemática exacta de liquidez recurrente y apalancamiento asimétrico.',
+    desc: 'Matemática exacta de liquidez recurrente y apalancamiento estratégico.',
   },
   {
     day: 'Día 5',

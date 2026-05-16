@@ -143,7 +143,7 @@ export default function Modulo02Page() {
           <p style={{
             color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0,
           }}>
-            Evalúe el <strong>límite matemático de su modelo operativo manual</strong>. La respuesta instintiva de trabajar más horas es matemáticamente defectuosa — este módulo demuestra por qué, y cuantifica la urgencia de integrar apalancamiento asimétrico.
+            Evalúe el <strong>límite matemático de su modelo operativo manual</strong>. La respuesta instintiva de trabajar más horas es matemáticamente defectuosa — este módulo demuestra por qué, y cuantifica la urgencia de integrar apalancamiento estratégico.
           </p>
         </div>
 

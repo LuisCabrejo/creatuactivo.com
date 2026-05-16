@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     'estructura patrimonial',
     'arquitecto de patrimonio',
     'auditoría patrimonial',
-    'apalancamiento asimétrico',
+    'apalancamiento estratégico',
     'flujo de caja recurrente',
     'queswa ia',
     'queswa app',

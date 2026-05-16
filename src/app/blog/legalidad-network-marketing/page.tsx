@@ -31,15 +31,7 @@ export default function LegalidadNetworkMarketingPage() {
         }
       `}} />
       <StrategicNavigation />
-      <main
-        className="min-h-screen text-[#E5E5E5]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(12,12,12,0.62), rgba(12,12,12,0.62)), url('/images/servilleta/hormigon-tile.webp')`,
-          backgroundSize: 'cover, 600px 600px',
-          backgroundRepeat: 'no-repeat, repeat',
-          backgroundAttachment: 'scroll, scroll',
-        }}
-      >
+      <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
             title="La verdad sobre la legalidad de los negocios digitales"

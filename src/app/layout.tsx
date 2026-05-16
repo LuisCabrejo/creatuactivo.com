@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     default: 'CreaTuActivo | Construcción de Estructura Patrimonial',
     template: '%s | CreaTuActivo'
   },
-  description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
+  description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -129,14 +129,14 @@ export const metadata: Metadata = {
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
     title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-    description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
+    description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-    description: 'Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y su rol como Arquitecto de Patrimonio. Una actualización de su software financiero, sin abandonar su ocupación actual.',
+    description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
     creator: '@creatuactivo',
   },
 

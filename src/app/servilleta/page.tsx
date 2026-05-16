@@ -23,6 +23,7 @@ export default function ServilletaPage() {
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [queswaOpen, setQueswaOpen] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [ctaVisible, setCtaVisible] = useState(false);
@@ -34,41 +35,21 @@ export default function ServilletaPage() {
   // Fuentes: Rajdhani + Roboto Mono ya cargadas via next/font en layout.tsx
   // Material Symbols Sharp cargado en layout.tsx — no se necesita useEffect aquí
 
-  // Navegación por teclado
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName;
-      const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable;
-      if (isEditable) return;
-      // Slide 2 fullscreen: avanza/retrocede entre cards antes de cambiar de slide
-      const inSlide2Fs = activeSlide === 2 && isFullscreen;
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        if (inSlide2Fs && activeCardIndex < 2) {
-          setActiveCardIndex((prev) => prev + 1);
-        } else {
-          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
-        }
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        if (inSlide2Fs && activeCardIndex > 0) {
-          setActiveCardIndex((prev) => prev - 1);
-        } else {
-          setActiveSlide((prev) => Math.max(prev - 1, 1));
-        }
-      } else if (e.key === 'f' || e.key === 'F') {
-        toggleFullscreen();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSlide, isFullscreen, activeCardIndex]);
-
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
     const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', onFsChange);
     return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  // Detectar viewport mobile/tablet — define el modo one-card-at-a-time
+  // en slide 2 (mismo modelo que fullscreen desktop). Breakpoint 1024px coincide
+  // con el ya usado en el observer de cards activas (línea ~161).
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   // Fullscreen toggle (Mac + Windows)
@@ -79,6 +60,39 @@ export default function ServilletaPage() {
       document.exitFullscreen().catch(() => {});
     }
   }, []);
+
+  // one-card-mode: ambos contextos donde slide 2 muestra una card a la vez
+  const oneCardMode = activeSlide === 2 && (isFullscreen || isMobile);
+
+  // Navegación por teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable;
+      if (isEditable) return;
+      // Slide 2 one-card-mode (fullscreen desktop o mobile):
+      // avanza/retrocede entre cards antes de cambiar de slide
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        if (oneCardMode && activeCardIndex < 2) {
+          setActiveCardIndex((prev) => prev + 1);
+        } else {
+          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (oneCardMode && activeCardIndex > 0) {
+          setActiveCardIndex((prev) => prev - 1);
+        } else {
+          setActiveSlide((prev) => Math.max(prev - 1, 1));
+        }
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [oneCardMode, activeCardIndex, toggleFullscreen]);
 
   // Click-to-advance (single clic) / Fullscreen (double clic) / Queswa demo (triple clic)
   const handleSlideClick = useCallback((e: React.MouseEvent) => {
@@ -108,14 +122,15 @@ export default function ServilletaPage() {
     // Single click → esperar 300ms para confirmar que no es double
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null;
-      // Slide 2 fullscreen: avanza entre cards antes de cambiar de slide
-      if (activeSlide === 2 && isFullscreen && activeCardIndex < 2) {
+      // Slide 2 one-card-mode (fullscreen desktop o mobile):
+      // avanza entre cards antes de cambiar de slide
+      if (oneCardMode && activeCardIndex < 2) {
         setActiveCardIndex((prev) => prev + 1);
       } else {
         setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
       }
     }, 300);
-  }, [toggleFullscreen, activeSlide, isFullscreen, activeCardIndex]);
+  }, [toggleFullscreen, oneCardMode, activeCardIndex]);
 
   // Touch swipe para mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -126,12 +141,22 @@ export default function ServilletaPage() {
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 60) {
       if (diff > 0) {
-        setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+        // swipe izquierda → avanzar
+        if (oneCardMode && activeCardIndex < 2) {
+          setActiveCardIndex((prev) => prev + 1);
+        } else {
+          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+        }
       } else {
-        setActiveSlide((prev) => Math.max(prev - 1, 1));
+        // swipe derecha → retroceder
+        if (oneCardMode && activeCardIndex > 0) {
+          setActiveCardIndex((prev) => prev - 1);
+        } else {
+          setActiveSlide((prev) => Math.max(prev - 1, 1));
+        }
       }
     }
-  }, []);
+  }, [oneCardMode, activeCardIndex]);
 
   // Lógica del Simulador
   const TRM = 4500;
@@ -931,13 +956,12 @@ export default function ServilletaPage() {
 
         /* === FULLSCREEN OVERRIDES === */
 
-        /* -- SLIDE 2 fullscreen: ONE CARD AT A TIME --
-           En fullscreen, solo la card .card-active es visible y ocupa todo
-           el canvas. El usuario avanza con click/teclado/swipe. Esto resuelve
-           el "apiñado" visual y convierte slide-2 en una secuencia narrativa
-           (Comando Expandir → Activar → Maestría) antes de pasar a slide-3. */
-        :fullscreen .grid-layout-slide-2 {
-          padding: 70px 60px 30px;
+        /* -- SLIDE 2: ONE CARD AT A TIME --
+           Activado en fullscreen desktop Y en mobile (<1024px) vía la clase
+           .one-card-mode (toggle JS-driven). Solo la card .card-active es
+           visible y ocupa todo el canvas. El usuario avanza con
+           click/teclado/swipe izquierda y retrocede con swipe derecha. */
+        #slide-2.one-card-mode .grid-layout-slide-2 {
           gap: 18px;
           grid-template-columns: 1fr;
           grid-template-rows: auto 1fr;
@@ -945,19 +969,54 @@ export default function ServilletaPage() {
           margin: 0 auto;
           height: 100%;
           align-content: stretch;
+          overflow-y: visible;
+          display: grid;
+          flex-direction: initial;
         }
-        :fullscreen #slide-2 .card-industrial:not(.card-active) {
-          display: none;
+        /* Padding amplio solo en desktop fullscreen — en mobile hereda el del @media */
+        :fullscreen #slide-2.one-card-mode .grid-layout-slide-2 {
+          padding: 70px 60px 30px;
         }
-        :fullscreen #slide-2 .card-industrial.card-active,
-        :fullscreen #slide-2 .full-width.card-active {
+        #slide-2.one-card-mode .card-industrial:not(.card-active) {
+          display: none !important;
+        }
+        #slide-2.one-card-mode .card-industrial.card-active,
+        #slide-2.one-card-mode .full-width.card-active {
           grid-column: 1 / -1;
-          height: auto;
-          min-height: 70vh;
+          height: auto !important;
+          min-height: 70vh !important;
+          display: flex !important;
         }
         :fullscreen .card-bg {
           background-size: cover;
           background-position: center;
+        }
+
+        /* Dots indicador — solo visible en one-card-mode (mobile + fullscreen).
+           Patrón visual estándar de carousel ejecutivo, sutil pero discoverable. */
+        .card-dots {
+          display: flex;
+          gap: 14px;
+          justify-content: center;
+          margin: 14px 0 0;
+        }
+        .card-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.18);
+          border: 1px solid rgba(255, 255, 255, 0.32);
+          padding: 0;
+          cursor: pointer;
+          transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .card-dot:hover {
+          background: rgba(255, 255, 255, 0.35);
+        }
+        .card-dot.active {
+          background: var(--cyan);
+          border-color: var(--cyan);
+          transform: scale(1.25);
         }
 
         /* -- SLIDE 3: Center content vertically, scale up -- */
@@ -1302,7 +1361,10 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 2: LA METODOLOGÍA EAM ===== */}
-          <section id="slide-2" className={`slide ${activeSlide === 2 ? 'active' : ''}`}>
+          <section
+            id="slide-2"
+            className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
+          >
             <div className="grid-layout-slide-2">
               {/* Título */}
               <div className="slide-2-header">
@@ -1310,8 +1372,21 @@ export default function ServilletaPage() {
                   LA METODOLOG&Iacute;A EAM
                 </h2>
                 <span className="slide-2-subtitle">
-                  Tres comandos.{isFullscreen && ` · 0${activeCardIndex + 1} / 03`}
+                  Tres comandos.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
                 </span>
+                {/* Dots indicador — visibles solo en one-card-mode */}
+                {oneCardMode && (
+                  <div className="card-dots">
+                    {[0, 1, 2].map((i) => (
+                      <button
+                        key={i}
+                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
+                        aria-label={`Comando ${i + 1} de 3`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Tarjeta 1: EXPANDIR */}
@@ -1364,8 +1439,8 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* CTA al fondo — en fullscreen, solo cuando se llegó a la 3ra card */}
-              {(!isFullscreen || activeCardIndex === 2) && (
+              {/* CTA al fondo — en one-card-mode, solo cuando se llegó a la 3ra card */}
+              {(!oneCardMode || activeCardIndex === 2) && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(3)}>
                     VER EL PRODUCTO →

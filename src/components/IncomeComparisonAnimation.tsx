@@ -208,7 +208,7 @@ const ComparisonCard = ({
       initial={{ opacity: 0, y: 30 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.6 }}
-      className={`${classes.bg} ${classes.border} border rounded-2xl p-5 md:p-6`}
+      className={`${classes.bg} ${classes.border} border rounded-lg p-5 md:p-6`}
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
@@ -311,7 +311,7 @@ export default function IncomeComparisonAnimation() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={showConclusion ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.6, type: "spring" }}
-        className="text-center p-6 bg-gradient-to-r from-green-900/30 to-purple-900/30 border border-green-500/30 rounded-2xl"
+        className="text-center p-6 bg-gradient-to-r from-green-900/30 to-purple-900/30 border border-green-500/30 rounded-lg"
       >
         <motion.p
           initial={{ opacity: 0 }}

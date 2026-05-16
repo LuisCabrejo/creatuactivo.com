@@ -103,8 +103,8 @@ const SectionHeader = ({ title, subtitle }: { title: string, subtitle: string })
 );
 
 const TriadCard = ({ icon, title, role, description, colorClass }: { icon: React.ReactNode, title: string, role: string, description: string, colorClass: string }) => (
-  <div className="glass-card p-8 rounded-3xl relative overflow-hidden group h-full hover:bg-white/5 transition-all duration-500">
-    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${colorClass}`}>
+  <div className="glass-card p-8 rounded-xl relative overflow-hidden group h-full hover:bg-white/5 transition-all duration-500">
+    <div className={`w-14 h-14 rounded-lg flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${colorClass}`}>
       {icon}
     </div>
     <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
@@ -166,7 +166,7 @@ const PackageCard = ({
 const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="glass-card rounded-2xl overflow-hidden mb-4 transition-all duration-300">
+    <div className="glass-card rounded-lg overflow-hidden mb-4 transition-all duration-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -211,7 +211,7 @@ const DualIncomeCalculator = () => {
     }, [packageCount, packageType, teamSize]);
 
     return (
-        <div className="glass-card p-1 rounded-3xl overflow-hidden border border-white/10">
+        <div className="glass-card p-1 rounded-xl overflow-hidden border border-white/10">
             {/* Tabs */}
             <div className="grid grid-cols-2 bg-[#0B0C0C]/50 p-1 rounded-t-3xl">
                 <button
@@ -265,7 +265,7 @@ const DualIncomeCalculator = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-[#F59E0B]/10 border border-[#C5A059]/20 rounded-2xl p-8 text-center">
+                            <div className="bg-[#F59E0B]/10 border border-[#C5A059]/20 rounded-lg p-8 text-center">
                                 <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-2">Su Ganancia Inmediata</p>
                                 <div className="text-5xl font-bold text-white mb-2 tracking-tight">
                                     ${activeIncome} <span className="text-lg text-[#64748B]">USD</span>
@@ -304,7 +304,7 @@ const DualIncomeCalculator = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-emerald-900/20 border border-emerald-500/20 rounded-2xl p-8 text-center">
+                            <div className="bg-emerald-900/20 border border-emerald-500/20 rounded-lg p-8 text-center">
                                 <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2">Su Renta Mensual</p>
                                 <div className="text-5xl font-bold text-white mb-2 tracking-tight">
                                     ${monthlyIncomeUSD.toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-lg text-[#64748B]">USD</span>
@@ -364,7 +364,7 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Tarjeta Roja: Empleo */}
-                    <div className="p-8 rounded-3xl border border-red-500/10 bg-red-500/5 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+                    <div className="p-8 rounded-xl border border-red-500/10 bg-red-500/5 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="p-3 bg-red-500/10 rounded-xl text-red-500"><BarChart3 size={24}/></div>
                             <h3 className="text-xl font-bold text-white">Ingreso Lineal</h3>
@@ -377,7 +377,7 @@ export default function PresentacionEmpresarialPage() {
                     </div>
 
                     {/* Tarjeta Verde: Activo */}
-                    <div className="p-8 rounded-3xl border border-emerald-500/30 bg-emerald-500/10 shadow-lg shadow-emerald-500/5 transform md:-translate-y-4">
+                    <div className="p-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 shadow-lg shadow-emerald-500/5 transform md:-translate-y-4">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="p-3 bg-emerald-500/20 rounded-xl text-emerald-400"><TrendingUp size={24}/></div>
                             <h3 className="text-xl font-bold text-white">Ingreso Residual</h3>
@@ -402,7 +402,7 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <div className="text-center p-6">
-                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
+                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-lg flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
                             <Globe size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Distribución Masiva</h3>
@@ -411,7 +411,7 @@ export default function PresentacionEmpresarialPage() {
                         </p>
                     </div>
                     <div className="text-center p-6 border-x border-white/5">
-                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-2xl flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
+                        <div className="w-16 h-16 mx-auto bg-[#94A3B8]/10 rounded-lg flex items-center justify-center text-[#94A3B8] mb-6 transition-colors hover:text-[#E5C279]">
                             <Database size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Propiedad del Activo</h3>
@@ -420,7 +420,7 @@ export default function PresentacionEmpresarialPage() {
                         </p>
                     </div>
                     <div className="text-center p-6">
-                        <div className="w-16 h-16 mx-auto bg-[#F59E0B]/10 rounded-2xl flex items-center justify-center text-[#E5C279] mb-6">
+                        <div className="w-16 h-16 mx-auto bg-[#F59E0B]/10 rounded-lg flex items-center justify-center text-[#E5C279] mb-6">
                             <TrendingUp size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Renta Recurrente</h3>
@@ -523,7 +523,7 @@ export default function PresentacionEmpresarialPage() {
                             Pequeños consumos de café multiplicados por miles de personas = Libertad.
                         </p>
 
-                        <div className="glass-card p-6 rounded-2xl border-l-4 border-[#C5A059] bg-[#F59E0B]/5 mb-8">
+                        <div className="glass-card p-6 rounded-lg border-l-4 border-[#C5A059] bg-[#F59E0B]/5 mb-8">
                             <p className="text-[#E5E5E5] italic text-sm">
                                 "Prefiero el 1% del esfuerzo de 100 personas, que el 100% de mi propio esfuerzo." <br/>
                                 <span className="text-white font-bold not-italic mt-2 block">- J. Paul Getty</span>
@@ -544,7 +544,7 @@ export default function PresentacionEmpresarialPage() {
 
                 <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     {/* Testimonio 1 */}
-                    <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div className="glass-card p-8 rounded-lg hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">LM</div>
                             <div>
@@ -555,7 +555,7 @@ export default function PresentacionEmpresarialPage() {
                         <p className="text-[#A3A3A3] text-sm italic">"Pasé años intentando vender manualmente sin éxito. Con este sistema, construí el patrimonio de mis hijas desde casa."</p>
                     </div>
                      {/* Testimonio 2 */}
-                     <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
+                     <div className="glass-card p-8 rounded-lg hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">AG</div>
                             <div>
@@ -566,7 +566,7 @@ export default function PresentacionEmpresarialPage() {
                         <p className="text-[#A3A3A3] text-sm italic">"Como profesional de salud no tenía tiempo. La IA hace el 80% del trabajo aburrido que yo odiaba."</p>
                     </div>
                      {/* Testimonio 3 */}
-                     <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-colors">
+                     <div className="glass-card p-8 rounded-lg hover:bg-white/5 transition-colors">
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-12 h-12 bg-[#16181D] rounded-full flex items-center justify-center text-xs font-bold text-white">JM</div>
                             <div>

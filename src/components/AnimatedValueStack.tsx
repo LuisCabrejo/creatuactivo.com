@@ -219,7 +219,7 @@ export default function AnimatedValueStack() {
 
   return (
     <section ref={ref} className="max-w-4xl mx-auto mb-24 lg:mb-32">
-      <div className="creatuactivo-component-card rounded-3xl p-1 border-t border-purple-500/50">
+      <div className="creatuactivo-component-card rounded-xl p-1 border-t border-purple-500/50">
         <div className="bg-slate-900/90 rounded-[22px] p-6 md:p-8 lg:p-12">
           {/* Header */}
           <motion.div

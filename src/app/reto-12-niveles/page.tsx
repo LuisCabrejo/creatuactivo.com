@@ -132,7 +132,7 @@ const challengeDays = [
 // --- COMPONENTES ---
 
 const StatCard = ({ icon, value, label, sublabel }: any) => (
-  <div className="glass-card p-6 rounded-2xl text-center">
+  <div className="glass-card p-6 rounded-lg text-center">
     <div className="mb-3 flex justify-center text-[#E5C279]">{icon}</div>
     <p className="text-3xl font-bold text-white mb-1 tracking-tight">{value}</p>
     <p className="text-sm font-semibold text-[#A3A3A3]">{label}</p>
@@ -307,21 +307,21 @@ export default function Reto12DiasPage() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    <div className="glass-card p-10 rounded-3xl relative overflow-hidden group">
+                    <div className="glass-card p-10 rounded-xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Users size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">1. TÚ</h3>
                         <p className="text-xs font-bold text-[#94A3B8] uppercase tracking-widest mb-6">El Conector</p>
                         <p className="text-[#A3A3A3] text-sm leading-relaxed">Tu único rol es conectar personas con el sistema. No vendes, no convences. Solo invitas a evaluar.</p>
                     </div>
 
-                    <div className="glass-card p-10 rounded-3xl relative overflow-hidden group border-[rgba(197,160,89,0.2)] bg-[rgba(197,160,89,0.05)]">
+                    <div className="glass-card p-10 rounded-xl relative overflow-hidden group border-[rgba(197,160,89,0.2)] bg-[rgba(197,160,89,0.05)]">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Database size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">2. SISTEMA</h3>
                         <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-6">La Inteligencia</p>
                         <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>CreaTuActivo AI</strong> explica el negocio, filtra a los curiosos y cierra a los interesados. Trabaja 24/7 por ti.</p>
                     </div>
 
-                    <div className="glass-card p-10 rounded-3xl relative overflow-hidden group">
+                    <div className="glass-card p-10 rounded-xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Globe size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">3. SOCIO</h3>
                         <p className="text-xs font-bold text-[#10B981] uppercase tracking-widest mb-6">El Capital</p>
@@ -339,7 +339,7 @@ export default function Reto12DiasPage() {
                     <p className="text-[#A3A3A3] text-sm">Basado en el modelo de duplicación perfecta 2x2. Cifras en COP.</p>
                 </div>
 
-                <div className="glass-card rounded-2xl overflow-hidden">
+                <div className="glass-card rounded-lg overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead className="bg-[#0B0C0C]/80 border-b border-white/10">
@@ -403,7 +403,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#E5C279]/5 rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto px-4 relative z-10 max-w-xl">
-                <div className="glass-card p-8 md:p-12 rounded-3xl border border-[rgba(197,160,89,0.2)] shadow-2xl">
+                <div className="glass-card p-8 md:p-12 rounded-xl border border-[rgba(197,160,89,0.2)] shadow-2xl">
                     <div className="text-center mb-8">
                         <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
                         <h2 className="text-3xl font-bold text-white mb-2">Reserva tu Posición</h2>

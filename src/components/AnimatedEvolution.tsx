@@ -40,7 +40,7 @@ const EvolutionCard = ({
       initial={{ opacity: 0, y: 30 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: baseDelay, duration: 0.5 }}
-      className={`bg-slate-900/50 border rounded-2xl p-6 text-center relative overflow-hidden group transition-colors ${
+      className={`bg-slate-900/50 border rounded-lg p-6 text-center relative overflow-hidden group transition-colors ${
         item.highlight
           ? 'border-purple-500/50 shadow-lg shadow-purple-500/10'
           : 'border-slate-800 hover:border-blue-500/30'

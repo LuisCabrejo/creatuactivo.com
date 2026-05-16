@@ -239,7 +239,7 @@ export default function AnimatedTimeline() {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="creatuactivo-component-card rounded-3xl p-1 border-t border-amber-500/50"
+        className="creatuactivo-component-card rounded-xl p-1 border-t border-amber-500/50"
       >
         <div className="bg-slate-900/90 rounded-[22px] p-6 md:p-10">
           {/* Header */}
@@ -294,7 +294,7 @@ export default function AnimatedTimeline() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6 }}
-            className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50"
+            className="bg-slate-800/50 rounded-lg p-6 border border-slate-700/50"
           >
             <div className="text-center mb-4">
               <p className="text-slate-400 text-sm">

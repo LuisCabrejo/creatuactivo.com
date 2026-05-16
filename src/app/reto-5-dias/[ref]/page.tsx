@@ -95,7 +95,7 @@ export default function Reto5DiasRefPage() {
           )}
 
           {/* Card */}
-          <div className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-2xl p-8">
+          <div className="bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] rounded-lg p-8">
             {/* Badge - Urgencia */}
             <div className="text-center mb-6">
               <span className="inline-flex items-center gap-2 text-sm text-[#A3A3A3] bg-[#16181D] px-4 py-2 rounded-full border border-[rgba(229, 194, 121, 0.15)]">

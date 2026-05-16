@@ -348,7 +348,7 @@ export default function BrasilLaunchPage() {
           {/* SECCIÓN ACTUALIZADA: OPORTUNIDADES FLASH */}
           <section id="promociones" className="py-10 px-4">
             <div className="max-w-5xl mx-auto">
-              <div className="bg-gradient-to-r from-green-900/40 to-slate-900 border border-green-500/30 rounded-2xl p-8 relative overflow-hidden">
+              <div className="bg-gradient-to-r from-green-900/40 to-slate-900 border border-green-500/30 rounded-lg p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-4 -mr-4 bg-yellow-500 text-black font-bold text-xs px-4 py-2 rounded-full transform rotate-12 shadow-lg">
                   {t.promo_subtitle}
                 </div>
@@ -583,7 +583,7 @@ export default function BrasilLaunchPage() {
                 </div>
 
                 {/* Mapa Placeholder */}
-                <div className="relative h-[500px] bg-slate-800 rounded-2xl overflow-hidden border border-white/10 group">
+                <div className="relative h-[500px] bg-slate-800 rounded-lg overflow-hidden border border-white/10 group">
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-green-900/20 to-slate-900">
                     <div className="text-center">
                       <MapPin className="w-16 h-16 text-green-500 mx-auto mb-4 animate-bounce" />

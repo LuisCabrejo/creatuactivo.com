@@ -259,8 +259,8 @@ export default function AnimatedChatDemo({
   };
 
   return (
-    <div className="creatuactivo-component-card p-4 rounded-3xl border border-slate-700 shadow-2xl max-w-sm mx-auto">
-      <div className="bg-slate-900 rounded-2xl overflow-hidden h-[580px] flex flex-col relative">
+    <div className="creatuactivo-component-card p-4 rounded-xl border border-slate-700 shadow-2xl max-w-sm mx-auto">
+      <div className="bg-slate-900 rounded-lg overflow-hidden h-[580px] flex flex-col relative">
         {/* Header */}
         <div className="bg-slate-800 p-4 flex items-center gap-3 border-b border-slate-700">
           <div className="relative">
@@ -357,7 +357,7 @@ export default function AnimatedChatDemo({
         </div>
 
         {/* Decorative gradient overlay */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-900/20 via-transparent to-slate-900/20 rounded-2xl" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-900/20 via-transparent to-slate-900/20 rounded-lg" />
       </div>
     </div>
   );

@@ -182,7 +182,7 @@ export default function InfraestructuraPage() {
             {/* 3 Cards - BIMETALLIC: Íconos titanio, bordes glass, hover → dorado */}
             <div className="grid md:grid-cols-3 gap-6">
               {/* Card 1: La Fuente */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+              <div className="group p-8 rounded-lg bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
                 <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
                   <Leaf className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
@@ -195,7 +195,7 @@ export default function InfraestructuraPage() {
               </div>
 
               {/* Card 2: La Ciencia */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+              <div className="group p-8 rounded-lg bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
                 <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
                   <Factory className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
@@ -208,7 +208,7 @@ export default function InfraestructuraPage() {
               </div>
 
               {/* Card 3: El Resultado */}
-              <div className="group p-8 rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
+              <div className="group p-8 rounded-lg bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(197,160,89,0.3)] transition-all duration-300">
                 <div className="w-14 h-14 rounded-xl bg-[rgba(148,163,184,0.1)] flex items-center justify-center mb-6 group-hover:bg-[rgba(197,160,89,0.15)] transition-colors">
                   <Globe className="w-7 h-7 text-[#94A3B8] group-hover:text-[#C5A059] transition-colors" />
                 </div>
@@ -253,7 +253,7 @@ export default function InfraestructuraPage() {
 
               {/* Right: Stylized map representation - BIMETALLIC: Glass border */}
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] p-8 overflow-hidden">
+                <div className="aspect-[4/3] rounded-lg bg-[#1A1D23] border border-[rgba(255,255,255,0.1)] p-8 overflow-hidden">
                   {/* Simplified world representation with dots */}
                   <div className="relative w-full h-full">
                     {/* Grid pattern */}
@@ -346,7 +346,7 @@ export default function InfraestructuraPage() {
               </div>
 
               {/* Result */}
-              <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-[#1A1D23] to-[#0F1115] border border-[#C5A059]">
+              <div className="text-center p-8 rounded-lg bg-gradient-to-br from-[#1A1D23] to-[#0F1115] border border-[#C5A059]">
                 <TrendingUp className="w-12 h-12 text-[#C5A059] mx-auto mb-4" />
                 <p className="text-xs text-[#C5A059] uppercase tracking-wider mb-2">La Frecuencia</p>
                 <p className="text-2xl text-[#E5E5E5] font-serif">Consumo diario, reposición automática</p>

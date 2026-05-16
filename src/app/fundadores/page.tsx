@@ -275,7 +275,7 @@ export default function FundadoresPage() {
                 <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-3">Manifiesto del Fundador</h2>
                 <p className="text-center text-slate-400 mb-8">Descubre la visión detrás del ecosistema.</p>
 
-                <div className="relative aspect-video bg-slate-800/50 rounded-2xl border border-white/10 shadow-2xl overflow-hidden video-glow group">
+                <div className="relative aspect-video bg-slate-800/50 rounded-lg border border-white/10 shadow-2xl overflow-hidden video-glow group">
                   <video
                     className="w-full h-full object-cover"
                     poster={process.env.NEXT_PUBLIC_VIDEO_FUNDADORES_POSTER || "https://placehold.co/1920x1080/0f172a/94a3b8?text=Manifiesto+del+Fundador"}
@@ -358,11 +358,11 @@ export default function FundadoresPage() {
         {/* --- 3. ANALOGÍA BEZOS (RECUPERADA) --- */}
         <section className="py-24 bg-[#16181D]/50 border-t border-white/5">
             <div className="container mx-auto px-4 max-w-4xl">
-                 <div className="glass-card p-10 md:p-14 rounded-3xl text-center">
+                 <div className="glass-card p-10 md:p-14 rounded-xl text-center">
                     <h2 className="text-3xl font-bold text-white mb-10">El Secreto de los Activos Digitales</h2>
 
                     <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="bg-red-500/5 p-8 rounded-2xl border border-red-500/10 opacity-70 hover:opacity-100 transition-opacity">
+                        <div className="bg-red-500/5 p-8 rounded-lg border border-red-500/10 opacity-70 hover:opacity-100 transition-opacity">
                             <h3 className="text-xl font-bold text-white mb-4">Jeff Bezos...</h3>
                             <p className="text-sm text-slate-400 mb-6">¿Se hizo rico vendiendo libros puerta a puerta?</p>
                             <div className="flex items-center justify-center gap-2 text-red-500 font-bold bg-red-500/10 py-2 rounded-lg">
@@ -370,7 +370,7 @@ export default function FundadoresPage() {
                             </div>
                         </div>
 
-                        <div className="bg-emerald-500/5 p-8 rounded-2xl border border-emerald-500/10 shadow-lg shadow-emerald-500/5">
+                        <div className="bg-emerald-500/5 p-8 rounded-lg border border-emerald-500/10 shadow-lg shadow-emerald-500/5">
                             <h3 className="text-xl font-bold text-white mb-4">Él construyó el SISTEMA</h3>
                             <p className="text-sm text-slate-300 mb-6">Creó la plataforma (Amazon) donde millones de transacciones ocurren sin él.</p>
                             <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold bg-emerald-500/10 py-2 rounded-lg">
@@ -398,7 +398,7 @@ export default function FundadoresPage() {
                 {/* BIMETALLIC: Íconos titanio, hover → dorado, tarjeta central destacada con dorado */}
                 <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     {/* Pieza 1 */}
-                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group">
                         <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
                             <Box size={24} />
                         </div>
@@ -410,7 +410,7 @@ export default function FundadoresPage() {
                     </div>
 
                     {/* Pieza 2 - DESTACADA con dorado */}
-                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
                         <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
                         <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center text-[#0B0C0C] mb-6 shadow-lg shadow-[rgba(245,158,11,0.3)]">
                             <Bot size={24} />
@@ -423,7 +423,7 @@ export default function FundadoresPage() {
                     </div>
 
                     {/* Pieza 3 */}
-                    <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group">
                         <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
                             <Globe size={24} />
                         </div>
@@ -458,7 +458,7 @@ export default function FundadoresPage() {
                 </div>
 
                 {/* BIMETALLIC: Countdown card con borde dorado */}
-                <div className="mt-16 glass-card p-8 rounded-3xl max-w-2xl mx-auto text-center border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
+                <div className="mt-16 glass-card p-8 rounded-xl max-w-2xl mx-auto text-center border-[rgba(245,158,11,0.3)] bg-[rgba(245,158,11,0.05)]">
                     <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
                     <div className="grid grid-cols-4 gap-4">
                         <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
@@ -480,7 +480,7 @@ export default function FundadoresPage() {
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Rojo */}
-                    <div className="p-10 rounded-3xl border border-red-500/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
+                    <div className="p-10 rounded-xl border border-red-500/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
                         <div className="flex items-center gap-4 mb-8 text-red-500"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
                         <div className="space-y-6">
                             <div className="flex justify-between border-b border-red-500/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-red-400 text-sm text-right">❌ Vendedor manual</span></div>
@@ -489,7 +489,7 @@ export default function FundadoresPage() {
                         </div>
                     </div>
                     {/* Verde */}
-                    <div className="p-10 rounded-3xl border border-emerald-500/30 bg-emerald-500/10 shadow-2xl shadow-emerald-500/5 transform md:-translate-y-4">
+                    <div className="p-10 rounded-xl border border-emerald-500/30 bg-emerald-500/10 shadow-2xl shadow-emerald-500/5 transform md:-translate-y-4">
                         <div className="flex items-center gap-4 mb-8 text-emerald-400"><TrendingUp size={24}/><h3 className="text-xl font-bold text-white">Ecosistema Digital</h3></div>
                         <div className="space-y-6">
                             <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Su Rol</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Dueño de Sistema</span></div>
@@ -520,7 +520,7 @@ export default function FundadoresPage() {
                         {name: "Dr. Jonathan", role: "Médico", quote: "Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.", ini: "JM"},
                         {name: "Juan Pablo", role: "Ex-Bancario", quote: "La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba.", ini: "JP"}
                     ].map((lider, i) => (
-                        <div key={i} className="glass-card p-6 rounded-2xl hover:bg-white/5">
+                        <div key={i} className="glass-card p-6 rounded-lg hover:bg-white/5">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">{lider.ini}</div>
                                 <div><p className="font-bold text-white text-sm">{lider.name}</p><p className="text-[10px] text-slate-500 uppercase">{lider.role}</p></div>
@@ -539,7 +539,7 @@ export default function FundadoresPage() {
 
             <div className="container mx-auto px-4 relative z-10 max-w-2xl">
                 {/* BIMETALLIC: Crown dorado (es premio) */}
-                <div className="glass-card p-8 md:p-12 rounded-3xl border border-[rgba(255,255,255,0.1)] shadow-2xl">
+                <div className="glass-card p-8 md:p-12 rounded-xl border border-[rgba(255,255,255,0.1)] shadow-2xl">
                     <div className="text-center mb-10">
                         <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
                         <h2 className="text-3xl font-bold text-white mb-2">Solicitud de Admisión</h2>

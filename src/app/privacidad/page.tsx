@@ -45,7 +45,7 @@ export default function PrivacidadPage() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div className="bg-white rounded-lg shadow-xl p-8 md:p-12">
 
           {/* Información del Responsable */}
           <section className="mb-10">

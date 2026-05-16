@@ -110,7 +110,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </p>
                 </section>
 
-                <div className="p-6 rounded-2xl bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
+                <div className="p-6 rounded-lg bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
                     &quot;No eliminamos el network marketing.
                     <span className="text-[#E5C279]"> Lo evolucionamos a Arquitectura de Activos.</span>&quot;

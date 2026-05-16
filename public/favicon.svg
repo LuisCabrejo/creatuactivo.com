@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>CreaTuActivo</title>
+  <desc>Isotipo: hexagono central con doble anillo concentrico. Dorado champan C5A059.</desc>
+  <g fill="none" stroke="#C5A059" stroke-width="36">
+    <circle cx="256" cy="256" r="222"/>
+  </g>
+  <g fill="none" stroke="#C5A059" stroke-width="28">
+    <circle cx="256" cy="256" r="148"/>
+  </g>
+  <polygon points="256,156 343,206 343,306 256,356 169,306 169,206" fill="#C5A059"/>
+</svg>

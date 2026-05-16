@@ -95,15 +95,18 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: '/favicon-32x32.png?v=6', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-96x96.png?v=6', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon-16x16.png?v=6', sizes: '16x16', type: 'image/png' },
+      // SVG vector master — preferido por browsers modernos (Chrome 80+, Firefox 41+, Edge, Safari 9+)
+      { url: '/favicon.svg?v=7', type: 'image/svg+xml' },
+      // PNG fallback para browsers legacy
+      { url: '/favicon-32x32.png?v=7', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-96x96.png?v=7', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-16x16.png?v=7', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png?v=6', sizes: '180x180', type: 'image/png' }
+      { url: '/apple-touch-icon.png?v=7', sizes: '180x180', type: 'image/png' }
     ],
     shortcut: [
-      { url: '/favicon-32x32.png?v=6' }
+      { url: '/favicon.svg?v=7' }
     ],
   },
   manifest: '/site.webmanifest',
@@ -222,11 +225,12 @@ export default function RootLayout({
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
         </noscript>
 
-        {/* Favicons - v3 con cache-busting */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6" />
-        <link rel="manifest" href="/site.webmanifest?v=6" />
+        {/* Favicons — SVG vector master + PNG fallbacks */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=7" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=7" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
+        <link rel="manifest" href="/site.webmanifest?v=7" />
 
         {/* Configuración Tracking */}
         <script

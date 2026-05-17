@@ -1,573 +1,613 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * PAQUETES - PROTOCOLO DE CAPITALIZACIÓN DE UNIDADES DE SUMINISTRO
- * v3.0 - Lujo Clínico / Hoja de Especificaciones Técnicas
+ * /paquetes — Activación de su Base Operativa v4.0
+ *
+ * Rediseño desde cero (16 May 2026) — estilo Home con léxico canónico v26.5:
+ *  - H1: "ACTIVACIÓN DE SU BASE OPERATIVA" (reemplaza "Protocolo de Capitalización de Unidades de Suministro")
+ *  - Hero: imagen "Pacto Patrimonial" (apretón institucional) con tratamiento home
+ *  - Cards: estilo Home (clip-path geométrico, paleta carbón/dorado/cyan)
+ *  - Léxico: "bebidas enriquecidas y suplementos Gano Excel" (no "tecnología nutricional")
+ *  - Léxico: "15 países de América" (Operación Continental) — no 70 países
+ *  - Sin fondo hormigón, sin frase "Los datos técnicos están expuestos"
+ *  - CTAs: "ACTIVAR ESP-X →" (más directos que "INICIAR CAPITALIZACIÓN")
+ *  - "Decisión Directiva" reemplaza "Protocolo de Selección Directiva"
  */
 
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle, HelpCircle, ChevronDown, BarChart2, Layers, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { CheckCircle, ChevronDown, BarChart2 } from 'lucide-react';
 
-// Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
+// Paleta alineada al sistema Home
 const C = {
-  gold: 'var(--color-brand)',              // #C5A059
-  goldDark: 'var(--color-brand-hover)',    // #D4AF37
-  cyan: '#22D3EE',                         // Acento data/labels (consistente con homepage)
-  obsidian: 'var(--color-bg-primary)',     // #0F1115
-  gunmetal: 'var(--color-bg-elevated)',    // #15171C
-  surface: 'var(--color-bg-surface)',      // #1A1D23
-  textMain: 'var(--color-text-body)',      // #C8C7C2
-  textMuted: 'var(--color-text-muted)',    // #878681
-  textDim: 'var(--color-titanium-dark)',   // #475569
-  bronze: 'var(--color-brand-muted)',      // #B38B59 (reemplaza el cobrizo industrial)
-  silver: 'var(--color-titanium)',         // #94A3B8
-  success: 'var(--color-success)',         // #408A71 Salvia desaturado
+  gold: '#C8A84B',
+  goldDark: '#B8941F',
+  cyan: '#22D3EE',
+  white: '#F5F5F0',
+  muted: '#6B6B5A',
+  mutedDark: '#484840',
+  bg: '#080808',
+  bgCard: '#0d0d0d',
+  bgCardBorder: '#1a1a1a',
+  success: '#22c55e',
+  bronze: '#A69E7A',
+  silver: '#94A3B8',
 };
 
-// ============================================================================
-// WA LINKS
-// ============================================================================
+// CLIP-PATH HOME — chamfer 6px en esquinas no-adyacentes (top-left + bottom-right)
+const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
+const CLIP_CTA = 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)';
 
+// WhatsApp link factory
 const WA_BASE = 'https://wa.me/573206805737?text=';
 const waLink = (pkg: string) =>
-  WA_BASE +
-  encodeURIComponent(
-    `Hola equipo directivo. He completado mi auditoría y solicito la capitalización del paquete ${pkg}. Mi nombre es `
+  WA_BASE + encodeURIComponent(
+    `Hola equipo directivo. He completado mi auditoría y solicito la activación de mi Base Operativa con el paquete ${pkg}. Mi nombre es `
   );
 
 // ============================================================================
-// PACKAGE CARD — Hoja de Especificaciones Técnicas
+// HERO — Pacto Patrimonial
 // ============================================================================
-
-function PackageCard({
-  title,
-  esp,
-  priceUSD,
-  priceCOP,
-  rentabilidad,
-  features,
-  subsidyMonths,
-  icon,
-  borderColor,
-  waPackage,
-  highlighted = false,
-}: {
-  title: string;
-  esp: string;
-  priceUSD: string;
-  priceCOP: string;
-  rentabilidad: string;
-  features: string[];
-  subsidyMonths: number;
-  icon: React.ReactNode;
-  borderColor: string;
-  waPackage: string;
-  highlighted?: boolean;
-}) {
+function Hero() {
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        background: highlighted ? 'rgba(26,29,35,0.98)' : 'rgba(22,24,29,0.85)',
-        border: `1px solid ${highlighted ? borderColor + '60' : C.gold + '20'}`,
-        borderTop: `4px solid ${borderColor}`,
-        transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-        position: 'relative',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.boxShadow = `0 16px 40px ${borderColor}25`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = 'none';
-      }}
-    >
-      <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+    <section style={{ position: 'relative', padding: '120px 24px 80px', overflow: 'hidden' }}>
+      {/* Hero image (lazy) con mask gradient — misma técnica que home */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+        filter: 'grayscale(70%) contrast(1.1) brightness(0.55)',
+        opacity: 0.75,
+        WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        pointerEvents: 'none',
+      }}>
+        <Image
+          src="/images/paquetes/pacto-patrimonial.webp"
+          alt=""
+          fill
+          loading="lazy"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          sizes="100vw"
+        />
+      </div>
 
-        {/* Metal indicator + title */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <div style={{ display: 'inline-block', width: '32px', height: '3px', background: borderColor, marginBottom: '0.6rem' }} />
-          <h3 style={{
-            fontSize: '1.3rem',
-            fontWeight: 700,
-            color: C.textMain,
-            fontFamily: "var(--font-sans)",
-            textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            lineHeight: 1.2,
-          }}>
-            {title}
-          </h3>
-          <span style={{
-            fontSize: '0.65rem',
-            color: borderColor,
-            fontFamily: "var(--font-mono)",
-            letterSpacing: '0.12em',
-          }}>
-            {esp}
-          </span>
-        </div>
+      {/* Radial gradient atmosférico (caso fallback si la imagen aún no cargó) */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: `radial-gradient(ellipse at 50% 30%, rgba(34,211,238,0.05) 0%, transparent 60%),
+                     radial-gradient(ellipse at 30% 70%, rgba(200,168,75,0.05) 0%, transparent 60%)`,
+        pointerEvents: 'none',
+      }} />
 
-        {/* Price */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <span style={{ fontSize: '2.5rem', fontWeight: 800, color: C.gold, fontFamily: "var(--font-sans)" }}>
-            ${priceUSD}
-          </span>
-          <span style={{ color: C.textMuted, fontSize: '1rem' }}> USD</span>
-          <p style={{ fontSize: '0.8rem', color: C.textDim, fontFamily: "var(--font-mono)", marginTop: '0.2rem' }}>
-            ~ ${priceCOP} COP
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+        {/* Eyebrow */}
+        <p style={{
+          fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+          color: C.cyan, fontFamily: "'Roboto Mono', monospace",
+          marginBottom: '24px',
+          textShadow: '0 1px 8px rgba(0,0,0,0.9)',
+        }}>
+          REF · ACTIVACION_BASE_OPERATIVA
+        </p>
+
+        {/* H1 */}
+        <h1 style={{
+          fontSize: 'clamp(1.8rem, 5vw, 3.2rem)', lineHeight: 1.1,
+          marginBottom: '24px',
+          fontFamily: "'Rajdhani', sans-serif", fontWeight: 700,
+          color: C.gold, letterSpacing: '0.06em', textTransform: 'uppercase',
+          textShadow: '0 2px 14px rgba(0,0,0,0.95)',
+        }}>
+          Activación de<br />su Base Operativa
+        </h1>
+
+        {/* Subtítulo */}
+        <p style={{
+          fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', lineHeight: 1.6,
+          color: C.white, maxWidth: '640px', margin: '0 auto 16px',
+          fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic',
+          textShadow: '0 1px 10px rgba(0,0,0,0.9)',
+        }}>
+          Tres niveles de capitalización · Inventario premium Gano Excel · 15 países de América.
+        </p>
+
+        {/* Micro-copy */}
+        <p style={{
+          fontSize: '0.78rem', color: C.muted,
+          fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em',
+          marginTop: '32px',
+          textShadow: '0 1px 8px rgba(0,0,0,1)',
+        }}>
+          ↓ Auditoría completa de las variables técnicas
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// FRAMING — Qué pasa con el capital
+// ============================================================================
+function Framing() {
+  return (
+    <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.6)' }}>
+      <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+        <span style={{
+          fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+          letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold,
+        }}>
+          Asignación de Capital
+        </span>
+        <h2 style={{
+          fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '28px',
+          fontFamily: "'Playfair Display', Georgia, serif", color: C.white, lineHeight: 1.25,
+        }}>
+          Su capital se convierte en{' '}
+          <span style={{ color: C.gold }}>inventario tangible</span>.
+          <br />
+          No es una membresía. No es software de pago.
+        </h2>
+        <div style={{
+          padding: '24px 32px',
+          background: 'rgba(0,0,0,0.55)',
+          borderLeft: `2px solid rgba(200,168,75,0.35)`,
+        }}>
+          <p style={{ fontSize: '1.02rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
+            Su capital se transfiere íntegramente a inventario premium de{' '}
+            <span style={{ color: C.white }}>bebidas enriquecidas y suplementos Gano Excel</span>{' '}
+            — un activo tangible que activa sus derechos de cobro en{' '}
+            <span style={{ color: C.white, fontWeight: 600 }}>15 países de América</span>.
+            La Matriz Física (Pilar 1) absorbe la operación; usted dirige.
           </p>
         </div>
-
-        {/* Rentabilidad row */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.6rem',
-          padding: '0.6rem 0.75rem',
-          background: `${borderColor}12`,
-          border: `1px solid ${borderColor}30`,
-          marginBottom: '1.25rem',
-        }}>
-          <BarChart2 style={{ width: 16, height: 16, color: borderColor, flexShrink: 0 }} />
-          <span style={{ fontSize: '0.8rem', fontFamily: "var(--font-mono)", color: C.textMuted }}>
-            Rentabilidad: <span style={{ color: borderColor, fontWeight: 700 }}>{rentabilidad}</span>
-          </span>
-        </div>
-
-        {/* Subsidio de Activación */}
-        <div style={{
-          padding: '0.875rem 1rem',
-          background: C.obsidian,
-          border: `1px solid ${borderColor}35`,
-          marginBottom: '1.5rem',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ color: borderColor, flexShrink: 0 }}>{icon}</div>
-            <div>
-              <p style={{
-                fontWeight: 700,
-                color: C.textMain,
-                fontSize: '0.8rem',
-                fontFamily: "var(--font-sans)",
-                letterSpacing: '0.04em',
-              }}>
-                SUBSIDIO DE ACTIVACIÓN TECNOLÓGICA
-              </p>
-              <p style={{ fontSize: '0.8rem', color: C.textMuted, marginTop: '0.15rem' }}>
-                <span style={{ fontWeight: 600, color: borderColor }}>{subsidyMonths} {subsidyMonths === 1 ? 'Mes' : 'Meses'} de Operación Subvencionada</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Features */}
-        <ul style={{ marginBottom: '2rem', flexGrow: 1 }}>
-          {features.map((f, i) => (
-            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.7rem' }}>
-              <CheckCircle style={{ width: 18, height: 18, color: C.success, marginRight: '0.65rem', marginTop: '2px', flexShrink: 0 }} />
-              <span style={{ fontSize: '0.9rem', color: C.textMuted, lineHeight: 1.4 }}>{f}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA → WhatsApp */}
-        <a
-          href={waLink(waPackage)}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            width: '100%',
-            textAlign: 'center',
-            fontWeight: 700,
-            padding: '14px 24px',
-            background: C.obsidian,
-            color: borderColor,
-            border: `2px solid ${borderColor}`,
-            textDecoration: 'none',
-            fontFamily: "var(--font-sans)",
-            fontSize: '0.9rem',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            transition: 'background 0.2s ease, color 0.2s ease',
-            display: 'block',
-            boxSizing: 'border-box',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = borderColor;
-            e.currentTarget.style.color = '#000';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = C.obsidian;
-            e.currentTarget.style.color = borderColor;
-          }}
-        >
-          INICIAR CAPITALIZACIÓN
-        </a>
       </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// PACKAGE CARD — Estilo Home
+// ============================================================================
+function PackageCard({
+  esp, title, priceUSD, priceCOP, rentabilidad, subsidyMonths,
+  features, borderColor, accentLabel, highlighted, waPackage,
+}: {
+  esp: string; title: string; priceUSD: string; priceCOP: string;
+  rentabilidad: string; subsidyMonths: number; features: string[];
+  borderColor: string; accentLabel: string; highlighted?: boolean; waPackage: string;
+}) {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        position: 'relative',
+        background: highlighted ? 'rgba(200,168,75,0.04)' : 'rgba(0,0,0,0.65)',
+        border: highlighted ? `1px solid ${C.gold}` : `1px solid rgba(255,255,255,0.07)`,
+        borderTop: `3px solid ${borderColor}`,
+        padding: '32px 28px',
+        display: 'flex', flexDirection: 'column', gap: '20px',
+        clipPath: CLIP_CARD,
+        transform: hover ? 'translateY(-4px)' : 'translateY(0)',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+        boxShadow: hover ? `0 18px 40px ${borderColor}30` : 'none',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Etiqueta destacada */}
+      {highlighted && (
+        <div style={{
+          position: 'absolute', top: 12, right: 12,
+          fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+          letterSpacing: '0.15em', textTransform: 'uppercase',
+          color: C.bg, background: C.gold, padding: '4px 8px', fontWeight: 700,
+        }}>
+          ★ DESTACADO
+        </div>
+      )}
+
+      {/* ESP code */}
+      <div style={{
+        fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+        letterSpacing: '0.18em', textTransform: 'uppercase',
+        color: borderColor,
+      }}>
+        {esp}
+      </div>
+
+      {/* Title */}
+      <h3 style={{
+        fontFamily: "'Rajdhani', sans-serif", fontSize: '1.25rem',
+        letterSpacing: '0.08em', textTransform: 'uppercase',
+        color: C.white, fontWeight: 600, margin: 0, lineHeight: 1.2,
+      }}>
+        {title}
+      </h3>
+
+      {/* Price */}
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+        <span style={{
+          fontFamily: "'Playfair Display', Georgia, serif",
+          fontSize: '2.6rem', fontWeight: 700, color: C.gold, lineHeight: 1,
+        }}>
+          ${priceUSD}
+        </span>
+        <span style={{ fontSize: '0.85rem', color: C.muted, fontFamily: "'Roboto Mono', monospace" }}>
+          USD
+        </span>
+      </div>
+      <p style={{
+        fontSize: '0.72rem', color: C.mutedDark,
+        fontFamily: "'Roboto Mono', monospace", margin: '-12px 0 0',
+        letterSpacing: '0.05em',
+      }}>
+        ≈ ${priceCOP} COP
+      </p>
+
+      {/* Rentabilidad */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: '10px',
+        padding: '12px 14px',
+        background: `${borderColor}10`,
+        border: `1px solid ${borderColor}25`,
+      }}>
+        <BarChart2 size={16} color={borderColor} />
+        <span style={{ fontSize: '0.8rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
+          Rentabilidad{' '}
+          <span style={{ color: borderColor, fontWeight: 700 }}>{rentabilidad}</span>
+        </span>
+      </div>
+
+      {/* Subsidio */}
+      <div style={{
+        padding: '14px 16px',
+        background: C.bg,
+        border: `1px solid ${borderColor}30`,
+      }}>
+        <div style={{ fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+                       letterSpacing: '0.12em', color: borderColor, marginBottom: '4px' }}>
+          {accentLabel}
+        </div>
+        <div style={{ fontSize: '0.85rem', color: C.white, fontWeight: 500 }}>
+          {subsidyMonths} {subsidyMonths === 1 ? 'mes' : 'meses'} de operación subvencionada
+        </div>
+      </div>
+
+      {/* Features */}
+      <ul style={{
+        listStyle: 'none', padding: 0, margin: 0,
+        display: 'flex', flexDirection: 'column', gap: '10px', flex: 1,
+      }}>
+        {features.map((f, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+            <CheckCircle size={16} color={C.success} style={{ flexShrink: 0, marginTop: '3px' }} />
+            <span style={{ fontSize: '0.88rem', color: C.muted, lineHeight: 1.55 }}>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* CTA */}
+      <a
+        href={waLink(waPackage)}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+          background: highlighted
+            ? `linear-gradient(135deg, ${C.gold}, ${C.goldDark})`
+            : 'transparent',
+          color: highlighted ? C.bg : borderColor,
+          border: highlighted ? 'none' : `1.5px solid ${borderColor}`,
+          fontWeight: 700, fontSize: '0.85rem',
+          padding: '14px 24px',
+          fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
+          textDecoration: 'none', textTransform: 'uppercase',
+          clipPath: CLIP_CTA,
+          transition: 'all 0.2s ease',
+          marginTop: 'auto',
+        }}
+      >
+        Activar {esp.split(' —')[0]} →
+      </a>
     </div>
   );
 }
 
 // ============================================================================
-// FAQ ITEM
+// 3 NIVELES
 // ============================================================================
-
-function FaqItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
+function Niveles() {
   return (
-    <div style={{ borderBottom: `1px solid ${C.gold}20` }}>
+    <section style={{ padding: '80px 24px', position: 'relative' }}>
+      <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{
+            fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+            letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
+          }}>
+            Los tres niveles
+          </span>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
+            fontFamily: "'Playfair Display', Georgia, serif", color: C.white,
+          }}>
+            Elija el nivel que su arquitectura patrimonial requiere hoy.
+          </h2>
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px', alignItems: 'stretch',
+        }}>
+          <PackageCard
+            esp="ESP-1"
+            title="Inicial"
+            priceUSD="200"
+            priceCOP="900.000"
+            rentabilidad="15%"
+            subsidyMonths={1}
+            accentLabel="SUBSIDIO DE ACTIVACIÓN"
+            borderColor={C.bronze}
+            waPackage="ESP-1 Inicial ($200 USD / $900.000 COP)"
+            features={[
+              'Derechos Operativos Continentales — 15 países de América',
+              'Matriz Física Gano Excel activa',
+              'Tridente EAM operativo',
+              'Dashboard de Patrimonio en Tiempo Real',
+            ]}
+          />
+          <PackageCard
+            esp="ESP-2"
+            title="Empresarial"
+            priceUSD="500"
+            priceCOP="2.250.000"
+            rentabilidad="16%"
+            subsidyMonths={2}
+            accentLabel="SUBSIDIO DE ACTIVACIÓN"
+            borderColor={C.silver}
+            waPackage="ESP-2 Empresarial ($500 USD / $2.250.000 COP)"
+            features={[
+              'Todo lo del ESP-1',
+              'Capacidad de despliegue intermedia',
+              'Consultoría de arquitectura prioritaria',
+              'Capitalización de Organización — Nivel Empresarial',
+            ]}
+          />
+          <PackageCard
+            esp="ESP-3"
+            title="Visionario"
+            priceUSD="1,000"
+            priceCOP="4.500.000"
+            rentabilidad="17% máx"
+            subsidyMonths={3}
+            accentLabel="SUBSIDIO DE ACTIVACIÓN"
+            borderColor={C.gold}
+            waPackage="ESP-3 Visionario ($1.000 USD / $4.500.000 COP)"
+            features={[
+              'Todo lo del ESP-2',
+              'Apalancamiento estratégico máximo (17%)',
+              'Consultoría de arquitectura VIP',
+              'Capitalización de Organización — Nivel Visionario',
+            ]}
+          />
+        </div>
+
+        {/* Micro-copy transparencia */}
+        <div style={{
+          textAlign: 'center', marginTop: '40px',
+          color: C.mutedDark, fontFamily: "'Roboto Mono', monospace",
+          fontSize: '0.72rem', lineHeight: 1.8, letterSpacing: '0.05em',
+        }}>
+          <p style={{ margin: '0 0 4px' }}>
+            La asignación de capital se transfiere íntegramente a inventario biológico tangible.
+          </p>
+          <p style={{ margin: 0 }}>
+            Queswa gestiona la automatización operativa para eliminar la fricción manual.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// FAQ
+// ============================================================================
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: `1px solid rgba(200,168,75,0.15)` }}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setOpen(!open)}
         style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          textAlign: 'left',
-          padding: '1.25rem 0',
-          background: 'transparent',
-          border: 0,
-          cursor: 'pointer',
+          width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          textAlign: 'left', padding: '20px 0', background: 'transparent', border: 0, cursor: 'pointer',
+          color: C.white, fontFamily: "'Playfair Display', Georgia, serif",
+          fontSize: '1.02rem',
         }}
       >
-        <span style={{
-          fontWeight: 600,
-          fontSize: '1.05rem',
-          color: C.textMain,
-          fontFamily: "var(--font-sans)",
-          letterSpacing: '0.02em',
-        }}>
-          {question}
-        </span>
-        <div style={{ marginLeft: '1rem', transition: 'transform 0.3s ease', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-          <ChevronDown style={{ width: 20, height: 20, color: C.cyan }} />
-        </div>
+        <span>{q}</span>
+        <ChevronDown
+          size={18} color={C.cyan}
+          style={{ marginLeft: '1rem', transition: 'transform 0.3s ease',
+                   transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}
+        />
       </button>
       <div style={{
         overflow: 'hidden',
+        maxHeight: open ? '500px' : '0',
+        opacity: open ? 1 : 0,
         transition: 'max-height 0.3s ease, opacity 0.3s ease',
-        maxHeight: isOpen ? '500px' : '0',
-        opacity: isOpen ? 1 : 0,
       }}>
-        <div style={{ paddingBottom: '1.25rem', color: C.textMuted, lineHeight: 1.75, fontSize: '0.95rem' }}>
-          {answer}
-        </div>
+        <p style={{
+          paddingBottom: '20px', color: C.muted, lineHeight: 1.75,
+          fontSize: '0.92rem', margin: 0,
+        }}>
+          {a}
+        </p>
       </div>
     </div>
+  );
+}
+
+function Faq() {
+  return (
+    <section style={{ padding: '80px 24px', background: 'rgba(13,13,13,0.6)' }}>
+      <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{
+            fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+            letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
+          }}>
+            Variables Técnicas
+          </span>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
+            fontFamily: "'Playfair Display', Georgia, serif", color: C.white,
+          }}>
+            Auditoría de transparencia.
+          </h2>
+        </div>
+        <div>
+          <FaqItem
+            q="¿Qué cubre exactamente la asignación de capital inicial?"
+            a="Su asignación de capital es una adquisición de inventario físico de bebidas enriquecidas y suplementos Gano Excel — productos de alta rotación. No existe cuota de membresía ni pago por derechos de software. La activación incluye el acceso vitalicio al ecosistema CreaTuActivo y a la plataforma Queswa, sin costos adicionales."
+          />
+          <FaqItem
+            q="¿Cuál es la carga operativa recurrente mensual?"
+            a="Para mantener su Base Operativa activa, se requiere un consumo mensual de 50 CV (puntos de volumen), equivalente a aproximadamente $450.000 COP. No es una cuota de software — es la adquisición de producto de igual valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
+          />
+          <FaqItem
+            q="¿Es posible escalar el nivel de activación posteriormente?"
+            a="Sí. La arquitectura permite escalabilidad progresiva. Usted puede iniciar con ESP-1 para validar el flujo operativo y, a medida que su activo genera retornos, ejecutar una capitalización adicional hacia ESP-2 o ESP-3 para acceder a niveles superiores de rentabilidad y maximizar la Capitalización de Organización."
+          />
+          <FaqItem
+            q="¿Existen costos ocultos o estructuras de comisión no declaradas?"
+            a="No. La estructura opera con transparencia total. No existen costos de renovación, mantenimiento de infraestructura tecnológica, hosting ni herramientas adicionales. Su asignación de capital inicial y su consumo mensual recurrente constituyen la totalidad del requisito operativo para acceder al 100% del ecosistema."
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// CTA FINAL
+// ============================================================================
+function CtaFinal() {
+  return (
+    <section style={{ padding: '100px 24px', textAlign: 'center' }}>
+      <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+        <span style={{
+          fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+          letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
+        }}>
+          Decisión Directiva
+        </span>
+        <h2 style={{
+          fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', marginTop: '16px', marginBottom: '20px',
+          fontFamily: "'Playfair Display', Georgia, serif", color: C.white, lineHeight: 1.3,
+        }}>
+          Los tres niveles están definidos.
+          <br />
+          <span style={{ color: C.gold }}>Su elección es directiva.</span>
+        </h2>
+        <p style={{
+          fontSize: '1rem', color: C.muted, lineHeight: 1.75, marginBottom: '36px',
+        }}>
+          Determine el nivel que su arquitectura patrimonial requiere hoy.
+          La Dirección asume la fricción administrativa — su único paso es la autorización.
+        </p>
+        <a
+          href={waLink('el nivel que corresponde a mi perfil')}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '10px',
+            background: `linear-gradient(135deg, ${C.gold}, ${C.goldDark})`,
+            color: C.bg, fontWeight: 700, fontSize: '0.95rem',
+            padding: '18px 44px',
+            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
+            textDecoration: 'none', textTransform: 'uppercase',
+            clipPath: CLIP_CTA,
+            transition: 'transform 0.2s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+        >
+          Solicitar activación →
+        </a>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// FOOTER SIMPLE
+// ============================================================================
+function Footer() {
+  return (
+    <footer style={{
+      padding: '40px 24px', borderTop: `1px solid rgba(200,168,75,0.15)`,
+      textAlign: 'center',
+    }}>
+      <p style={{
+        fontFamily: "'Rajdhani', sans-serif", color: C.gold,
+        fontSize: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700,
+        margin: '0 0 6px',
+      }}>
+        CreaTuActivo
+      </p>
+      <p style={{
+        fontFamily: "'Roboto Mono', monospace", color: C.muted,
+        fontSize: '0.7rem', letterSpacing: '0.08em', marginBottom: '20px',
+      }}>
+        Construcción de Estructura Patrimonial
+      </p>
+      <div style={{
+        display: 'flex', justifyContent: 'center', gap: '32px',
+        fontSize: '0.78rem', fontFamily: "'Roboto Mono', monospace",
+        marginBottom: '16px',
+      }}>
+        <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>BLOG</Link>
+        <Link href="/auditoria-patrimonial" style={{ color: C.muted, textDecoration: 'none' }}>AUDITORÍA</Link>
+        <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>PRIVACIDAD</Link>
+      </div>
+      <p style={{
+        fontFamily: "'Roboto Mono', monospace", color: C.mutedDark,
+        fontSize: '0.65rem', letterSpacing: '0.1em', margin: 0,
+      }}>
+        © 2026 CREATUACTIVO.COM
+      </p>
+    </footer>
   );
 }
 
 // ============================================================================
 // MAIN PAGE
 // ============================================================================
-
 export default function PaquetesPage() {
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        /* CTA primario Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */
-        .wa-cta-final {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          padding: 18px 44px;
-          background: var(--color-bg-elevated);
-          color: var(--color-brand);
-          font-weight: 600;
-          font-size: 1rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          text-decoration: none;
-          font-family: var(--font-sans);
-          border: 1px solid var(--color-brand);
-          border-radius: var(--radius-action);
-          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-        }
-        .wa-cta-final:hover {
-          background: var(--color-bg-surface);
-          border-color: var(--color-brand-hover);
-          color: var(--color-brand-hover);
-        }
-        .spec-label {
-          font-family: var(--font-mono);
-          font-size: 0.65rem;
-          letter-spacing: 0.18em;
-          color: ${C.cyan};
-          text-transform: uppercase;
-          margin-bottom: 0.75rem;
-          display: block;
-        }
-      `}} />
-
-      <div style={{
-        backgroundColor: C.obsidian,
-        color: C.textMain,
-        backgroundImage: `linear-gradient(rgba(15,17,21,0.65), rgba(15,17,21,0.65)), url('/images/servilleta/hormigon-tile.webp')`,
-        backgroundSize: 'cover, 600px 600px',
-        backgroundRepeat: 'no-repeat, repeat',
-      }}>
-        <StrategicNavigation />
-
-        {/* ═══════════════════════════════════════════════════════
-            HERO
-            ═══════════════════════════════════════════════════════ */}
-        <section style={{ height: '45vh', position: 'relative', overflow: 'hidden' }}>
-          <Image
-            src="/images/header-paquetes.jpg"
-            alt=""
-            fill
-            style={{
-              objectFit: 'cover',
-              filter: 'grayscale(55%) contrast(1.15) brightness(0.8)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-            }}
-            priority
-          />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(15,17,21,0.25) 0%, rgba(15,17,21,0.45) 60%, transparent 100%)' }} />
-          <div style={{
-            position: 'relative', zIndex: 10,
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            height: '100%', padding: '0 1.5rem', textAlign: 'center',
-          }}>
-            <span className="spec-label">REF: CAPITALIZACIÓN_UNIDADES_SUMINISTRO_V3</span>
-            <h1 style={{
-              fontSize: 'clamp(1.6rem, 4.5vw, 3rem)',
-              color: C.gold,
-              lineHeight: 1.1,
-              fontFamily: "var(--font-serif)",
-              maxWidth: '800px',
-            }}>
-              PROTOCOLO DE CAPITALIZACIÓN<br />DE UNIDADES DE SUMINISTRO
-            </h1>
-          </div>
-        </section>
-
-        <main style={{ position: 'relative', zIndex: 10, padding: '0 1rem 2rem' }}>
-
-          {/* ═══════════════════════════════════════════════════════
-              INTRO
-              ═══════════════════════════════════════════════════════ */}
-          <section style={{ textAlign: 'center', maxWidth: '56rem', margin: '0 auto', padding: '5rem 1rem 3rem' }}>
-            <span className="spec-label">DIAGNÓSTICO ESTRUCTURAL</span>
-            <h2 style={{
-              fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
-              fontWeight: 600,
-              marginBottom: '1.5rem',
-              fontFamily: "var(--font-serif)",
-              color: C.textMain,
-            }}>
-              El capital inyectado no es un gasto operativo.
-              <br />
-              <span style={{ color: C.gold }}>Es la adquisición de un activo biológico tangible.</span>
-            </h2>
-            <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.8, maxWidth: '640px', margin: '0 auto' }}>
-              Su Asignación de Capital se transfiere íntegramente a inventario físico de tecnología nutricional
-              que activa sus derechos de cobro en 70 países. No existe cuota de inscripción ni membresía intangible.
-            </p>
-          </section>
-
-          {/* ═══════════════════════════════════════════════════════
-              PRICING TABLES
-              ═══════════════════════════════════════════════════════ */}
-          <section style={{ padding: '2rem 0 4rem' }}>
-            <div style={{ maxWidth: '84rem', margin: '0 auto' }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem',
-                alignItems: 'stretch',
-              }}>
-                <PackageCard
-                  title="Arquitectura Inicial"
-                  esp="ESP-1 — CAPITALIZACIÓN BÁSICA"
-                  priceUSD="200"
-                  priceCOP="900.000"
-                  rentabilidad="15%"
-                  subsidyMonths={1}
-                  icon={<Layers size={22} />}
-                  borderColor={C.bronze}
-                  waPackage="ESP-1 Arquitectura Inicial ($200 USD / $900.000 COP)"
-                  features={[
-                    'Derechos Operativos Globales — 70 países',
-                    'Tridente EAM activo',
-                    'Matriz Física Gano Excel activa',
-                    'Dashboard de Patrimonio en Tiempo Real',
-                  ]}
-                />
-                <PackageCard
-                  title="Despliegue Empresarial"
-                  esp="ESP-2 — CRECIMIENTO SOSTENIDO"
-                  priceUSD="500"
-                  priceCOP="2.250.000"
-                  rentabilidad="16%"
-                  subsidyMonths={2}
-                  icon={<Cpu size={22} />}
-                  borderColor={C.silver}
-                  waPackage="ESP-2 Despliegue Empresarial ($500 USD / $2.250.000 COP)"
-                  highlighted={true}
-                  features={[
-                    'Todo lo del ESP-1 +',
-                    'Capacidad de Despliegue Intermedia',
-                    'Consultoría de Arquitectura Prioritaria',
-                    'Capitalización de Organización — Nivel Empresarial',
-                  ]}
-                />
-                <PackageCard
-                  title="Consolidación Visionaria"
-                  esp="ESP-3 — APALANCAMIENTO ESTRATÉGICO MÁXIMO"
-                  priceUSD="1,000"
-                  priceCOP="4.500.000"
-                  rentabilidad="17% — máximo"
-                  subsidyMonths={3}
-                  icon={<BarChart2 size={22} />}
-                  borderColor={C.goldDark}
-                  waPackage="ESP-3 Consolidación Visionaria ($1.000 USD / $4.500.000 COP)"
-                  features={[
-                    'Todo lo del ESP-2 +',
-                    'Apalancamiento Estratégico Máximo (17%)',
-                    'Consultoría de Arquitectura VIP',
-                    'Capitalización de Organización — Nivel Visionario',
-                  ]}
-                />
-              </div>
-
-              {/* Micro-copia inferior */}
-              <div style={{
-                textAlign: 'center',
-                marginTop: '3rem',
-                color: C.textDim,
-                fontFamily: "var(--font-mono)",
-                fontSize: '0.75rem',
-                lineHeight: 1.8,
-              }}>
-                <p>
-                  La inyección de capital se transfiere íntegramente a inventario biológico tangible.
-                </p>
-                <p>
-                  El software Queswa gestiona la automatización logística para eliminar la operación manual.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ═══════════════════════════════════════════════════════
-              FAQ
-              ═══════════════════════════════════════════════════════ */}
-          <section style={{ padding: '4rem 1rem 5rem' }}>
-            <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                <HelpCircle style={{ width: 44, height: 44, margin: '0 auto 1rem', color: C.cyan }} />
-                <h2 style={{
-                  fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
-                  fontWeight: 700,
-                  color: C.textMain,
-                  fontFamily: "var(--font-serif)",
-                }}>
-                  Variables Técnicas de la Capitalización
-                </h2>
-                <p style={{ marginTop: '0.5rem', color: C.textMuted, fontSize: '0.9rem', fontFamily: "var(--font-mono)" }}>
-                  Auditoría de transparencia sobre la estructura financiera.
-                </p>
-              </div>
-              <div>
-                <FaqItem
-                  question="¿Qué cubre exactamente la Asignación de Capital inicial?"
-                  answer="Su Asignación de Capital es una adquisición de inventario físico de tecnología nutricional de alta rotación. No existe cuota de membresía ni pago por derechos de software. Adicionalmente, esta capitalización activa el acceso vitalicio al ecosistema tecnológico CreaTuActivo, incluyendo la plataforma Queswa y el motor de IA, sin costos adicionales."
-                />
-                <FaqItem
-                  question="¿Cuál es la carga operativa recurrente mensual?"
-                  answer="Para mantener su unidad operativa, se requiere un consumo personal mensual de 50 CV (puntos de volumen), equivalente a aproximadamente $450,000 COP. Esta no es una cuota de software; es una adquisición de producto de igual valor que usted y su estructura pueden consumir, manteniendo el flujo de volumen activo en su canal de distribución."
-                />
-                <FaqItem
-                  question="¿Es posible escalar el nivel de capitalización?"
-                  answer="Sí. La arquitectura está diseñada para la escalabilidad progresiva. Usted puede iniciar con ESP-1 para validar el flujo operativo y, a medida que su activo genera retornos, ejecutar una capitalización adicional hacia ESP-2 o ESP-3 para acceder a los niveles de rentabilidad superiores y maximizar la Capitalización de Organización."
-                />
-                <FaqItem
-                  question="¿Existen costos ocultos o estructuras de comisión no declaradas?"
-                  answer="No. La estructura opera bajo total transparencia financiera. No existen costos de renovación, mantenimiento de infraestructura tecnológica, hosting ni herramientas adicionales. Su Asignación de Capital inicial y su consumo mensual recurrente (a cambio de producto) constituyen la totalidad del requisito operativo para acceder al 100% de las herramientas y derechos."
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* ═══════════════════════════════════════════════════════
-              FINAL CTA
-              ═══════════════════════════════════════════════════════ */}
-          <section style={{ textAlign: 'center', padding: '4rem 1rem 6rem' }}>
-            <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
-              <span className="spec-label">PROTOCOLO DE SELECCIÓN DIRECTIVA</span>
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
-                fontWeight: 700,
-                marginBottom: '1.25rem',
-                color: C.textMain,
-                fontFamily: "var(--font-serif)",
-              }}>
-                Los datos técnicos están expuestos.
-              </h2>
-              <p style={{
-                fontSize: '1.05rem',
-                marginBottom: '2.5rem',
-                color: C.textMuted,
-                lineHeight: 1.8,
-                maxWidth: '520px',
-                margin: '0 auto 2.5rem',
-              }}>
-                Determine usted el nivel de integración que su arquitectura patrimonial requiere hoy.
-                La Dirección asume la fricción administrativa — su único paso es la autorización.
-              </p>
-              <a
-                href={waLink('el nivel que corresponde a su perfil')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="wa-cta-final"
-              >
-                SOLICITAR ASIGNACIÓN DE INVENTARIO →
-              </a>
-            </div>
-          </section>
-        </main>
-
-        {/* ═══════════════════════════════════════════════════════
-            FOOTER
-            ═══════════════════════════════════════════════════════ */}
-        <footer style={{ padding: '2.5rem 1.5rem', borderTop: `1px solid ${C.gold}20`, position: 'relative', zIndex: 10 }}>
-          <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ fontWeight: 600, color: C.gold, fontFamily: "var(--font-sans)", fontSize: '1.125rem' }}>
-                CreaTuActivo
-              </p>
-              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "var(--font-mono)", marginTop: '0.25rem' }}>
-                SISTEMA DE ARQUITECTURA DE ACTIVOS
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: "var(--font-mono)" }}>
-              <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-                BLOG
-              </Link>
-              <Link href="/privacidad" style={{ color: C.textMuted, textDecoration: 'none' }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-                PRIVACIDAD
-              </Link>
-            </div>
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "var(--font-mono)", letterSpacing: '0.1em' }}>
-              © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
-            </p>
-          </div>
-        </footer>
-      </div>
-    </>
+    <div style={{
+      backgroundColor: C.bg,
+      color: C.white,
+      fontFamily: "'Rajdhani', sans-serif",
+      minHeight: '100vh',
+    }}>
+      <StrategicNavigation />
+      <main>
+        <Hero />
+        <Framing />
+        <Niveles />
+        <Faq />
+        <CtaFinal />
+      </main>
+      <Footer />
+    </div>
   );
 }

@@ -1,8 +1,10 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.3
+# Arsenal Conversacional: Respuestas Fundamentales v25.4
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
+**Versión:** 25.4 — WHY_01 recalibrado con lógica causal corregida: el Déficit Estructural de Ingresos es la CAUSA (falla de diseño), no la consecuencia. La consecuencia matemática es el colapso del flujo de caja cuando el operador se detiene. (17 May 2026)
+
 **Versión:** 25.3 — Pilar 3 recategorizado: "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto de Patrimonio queda elevado como director de los tres pilares, no como pieza dentro de ellos. WHY_02 reescrito con cierre transicional unificador. (15 May 2026)
 
 ---
@@ -10,7 +12,7 @@
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 3 respuestas**
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / ¿De qué se trata este negocio? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** Usted opera bajo un modelo donde su ingreso depende 100% de su presencia física. Una falla arquitectónica crítica: si usted se detiene, el sistema colapsa, generando un Déficit Estructural de Ingresos.
+**[Concepto Nuclear]:** Su arquitectura financiera actual opera con un déficit estructural de diseño: su ingreso depende al 100% de su presencia física. La consecuencia matemática de esta falla es que, si usted se detiene, su flujo de caja colapsa.
 
 CreaTuActivo es un ecosistema patrimonial diseñado para neutralizar este diseño defectuoso. Le entregamos el control de una Base Operativa autónoma, sostenida por tres pilares que absorben el desgaste por usted:
 

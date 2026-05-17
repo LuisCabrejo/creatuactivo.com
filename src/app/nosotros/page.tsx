@@ -70,7 +70,7 @@ export default function ManifiestoPage() {
                   </p>
                   <p>
                     Catorce años después, la matemática de mi vida no cuadraba.
-                    <span className="text-[#E5E5E5]"> Solo había cumplido con los hijos.</span>
+                    <span className="text-[#E5E5E5]"> Solo había cumplido con los tres hijos.</span>
                   </p>
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default function ManifiestoPage() {
                 <p className="text-lg text-[#A3A3A3] leading-relaxed mb-6">
                   No era por falta de esfuerzo. Mi perfil era el del &quot;buen profesional&quot;.
                   Trabajaba e invertía horas, pero mi liquidez no escalaba.
-                  Operaba bajo un <span className="text-[#E5E5E5]">Déficit Estructural de Ingresos</span>.
+                  Vivía en el ciclo <span className="text-[#E5E5E5]">trabajar, pagar cuentas y repetir</span>.
                 </p>
 
                 <div className="p-8 bg-[#16181D] border-l-2 border-[#C5A059] my-10">
@@ -107,8 +107,8 @@ export default function ManifiestoPage() {
                   </p>
                   <p>
                     Al evaluar modelos tradicionales y de comercio electrónico, detecté dos fallas
-                    críticas: primero, la fricción operativa de perseguir prospectos manualmente;
-                    y segundo, convertirse en el esclavo de la propia logística.
+                    críticas: primero, la fricción operativa de filtrar prospectos manualmente;
+                    y segundo, convertirse en el operador permanente de la propia logística.
                   </p>
                 </div>
               </div>
@@ -139,8 +139,11 @@ export default function ManifiestoPage() {
                   </div>
 
                   <p>
-                    Hoy, dirijo CreaTuActivo, una firma de educación e implementación
-                    donde transferimos protocolos de ingeniería financiera a quienes comprenden que operar bajo el Protocolo de la Presencia Obligada es estructuralmente insostenible, para:
+                    Hoy, dirijo CreaTuActivo: una infraestructura de Ingeniería Patrimonial
+                    diseñada para desvincular la generación de ingresos del agotamiento físico
+                    de las personas. No es un canal educativo, ni un equipo de ventas, ni una
+                    red de mercadeo. Es una plataforma de dirección de activos,
+                    sostenida por tres pilares:
                   </p>
                 </div>
 
@@ -148,19 +151,19 @@ export default function ManifiestoPage() {
                   <li className="flex items-start gap-4">
                     <span className="text-[#C5A059] text-xl mt-0.5">1</span>
                     <span className="text-[#E5E5E5]">
-                      Utilizar infraestructuras existentes para eliminar el riesgo logístico.
+                      <span className="text-[#C5A059]">Pilar 1 — La Matriz Física</span> (Gano Excel, 70 países) elimina el riesgo logístico.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
                     <span className="text-[#C5A059] text-xl mt-0.5">2</span>
                     <span className="text-[#E5E5E5]">
-                      Utilizar sistemas digitales para eliminar la fricción operativa.
+                      <span className="text-[#C5A059]">Pilar 2 — El Centro de Mando Queswa</span> (motor de IA propietaria) elimina la fricción operativa.
                     </span>
                   </li>
                   <li className="flex items-start gap-4">
                     <span className="text-[#C5A059] text-xl mt-0.5">3</span>
                     <span className="text-[#E5E5E5]">
-                      Construir flujos de caja que no dependan de su reloj.
+                      <span className="text-[#C5A059]">Pilar 3 — La Metodología Automatizada</span> (El Tridente EAM) construye flujos de caja que no dependen de su reloj.
                     </span>
                   </li>
                 </ul>
@@ -243,7 +246,7 @@ export default function ManifiestoPage() {
                   físicos propios y sin fricción manual, hemos liberado nuestra evaluación técnica.
                 </p>
                 <p className="text-[#E5E5E5] font-medium">
-                  Es la condensación de 14 años de ingeniería de negocios.
+                  Es la condensación de 12 años de ingeniería patrimonial.
                 </p>
               </div>
 
@@ -252,11 +255,11 @@ export default function ManifiestoPage() {
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
-                SOLICITAR AUDITORÍA TÉCNICA →
+                INICIAR AUDITORÍA PATRIMONIAL →
               </Link>
 
               <p className="text-sm mt-6 text-[#6B7280]">
-                5 Días · Subvencionado · Escrutinio Técnico
+                5 Días · Sin Costo · Escrutinio Patrimonial
               </p>
             </div>
           </section>

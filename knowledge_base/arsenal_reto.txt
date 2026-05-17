@@ -1,7 +1,8 @@
-# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.3
+# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.4
 
 **Propósito:** Vender la ejecución de la "Auditoría de Arquitectura Patrimonial" (Auditoría de 5 Días).
-**Enfoque:** Due Diligence y Re-Arquitectura del modelo donde el ingreso depende 100% de la presencia física del Arquitecto, y su consecuencia directa: el Déficit Estructural de Ingresos.
+**Enfoque:** Due Diligence y Re-Arquitectura del **Déficit Estructural de Ingresos**: la falla de diseño en los cimientos donde el ingreso del Arquitecto depende 100% de su presencia física. La consecuencia matemática de esta falla —el colapso del flujo de caja al detenerse— es lo que se neutraliza.
+**Versión:** 4.4 (17 May 2026) — Alineación SP v26.6: jerarquía causal corregida. El Déficit Estructural de Ingresos pasa de "consecuencia directa" a CAUSA RAÍZ de diseño. La consecuencia es el colapso del flujo de caja.
 **Versión:** 4.3 (10 May 2026) — Alineación SP v26.4: "decisión de dirección" → "decisión de dirección" (fricción nivel 5 eliminada)
 **REGLA DE ORO:** No es un curso de motivación. Es un protocolo de escrutinio técnico y entrega de planos arquitectónicos.
 
@@ -12,7 +13,7 @@
 ### RETO_01: "¿Qué es la Auditoría de Arquitectura Patrimonial?" / "¿Qué es el Mapa de Salida?"
 **[Concepto Nuclear]:** Auditoría Logística y Re-Arquitectura Financiera.
 
-La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar la falla donde el flujo de caja del Arquitecto depende 100% de su presencia física, y diseñar la corrección técnica a su Inestabilidad Estructural y consecuente Déficit Estructural de Ingresos.
+La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Arquitecto depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
 
 Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propia Base Operativa digital a una cadena de suministro global operativa en más de 70 países.
 

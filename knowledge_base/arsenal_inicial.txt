@@ -1,8 +1,10 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.4
+# Arsenal Conversacional: Respuestas Fundamentales v25.5
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
+**Versión:** 25.5 — Extensión sistémica de la corrección causal a STORY_01 y PERFIL_01 (alineación con SP v26.6). Nueva jerarquía: Déficit Estructural de Ingresos (causa raíz de diseño) → modelo de presencia obligada (manifestación operativa) → colapso del flujo de caja al detenerse (consecuencia matemática). (17 May 2026)
+
 **Versión:** 25.4 — WHY_01 recalibrado con lógica causal corregida: el Déficit Estructural de Ingresos es la CAUSA (falla de diseño), no la consecuencia. La consecuencia matemática es el colapso del flujo de caja cuando el operador se detiene. (17 May 2026)
 
 **Versión:** 25.3 — Pilar 3 recategorizado: "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto de Patrimonio queda elevado como director de los tres pilares, no como pieza dentro de ellos. WHY_02 reescrito con cierre transicional unificador. (15 May 2026)
@@ -61,7 +63,7 @@ La construcción de **Estructura Patrimonial** es **la instalación de una capa 
 
 Luis Cabrejo es el Arquitecto de Activos detrás de la plataforma Queswa y el ecosistema CreaTuActivo. Su desarrollo no surgió de una motivación teórica, sino de una auditoría estricta sobre su propio riesgo financiero.
 
-A pesar de sostener niveles de productividad de alto rendimiento, detectó una ineficiencia matemática crítica. Su flujo de caja dependía 100% de su presencia física — el modelo del intercambio lineal de tiempo por dinero. Esto generaba una **Inestabilidad Estructural** inmediata, cuya manifestación matemática era un **Déficit Estructural de Ingresos**. Comprendió que la falla no residía en su ética de trabajo, sino en un error de arquitectura.
+A pesar de sostener niveles de productividad de alto rendimiento, detectó una ineficiencia matemática crítica: su arquitectura financiera operaba con un **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde su flujo de caja dependía 100% de su presencia física, el modelo del intercambio lineal de tiempo por dinero—. La consecuencia matemática era inevitable: si pausaba el esfuerzo, el flujo de caja colapsaba. Comprendió que la falla no residía en su ética de trabajo, sino en un error de diseño estructural.
 
 La solución requería extraer la fricción física de la ecuación. Por ello, ensambló el Centro de Mando Queswa con una Matriz Física transnacional, permitiendo la construcción de **Estructura Patrimonial** en paralelo a su ocupación actual. No es un marco académico; es la Base Operativa exacta que la dirección utiliza hoy para escalar sus propios activos.
 
@@ -102,7 +104,7 @@ Su función como **Arquitecto de Patrimonio** se limita a orquestar el flujo de 
 ### **PERFIL_01: "¿Esto es para alguien como yo?" / "Yo soy médico/ejecutivo/artista, ¿esto me sirve?" / "¿Qué tipo de personas entran a esto?"**
 **[Concepto Nuclear]:** Vulnerabilidad Transversal. La inestabilidad del flujo de caja dependiente afecta de manera idéntica a microempresarios y a altos ejecutivos.
 
-El ecosistema está diseñado exclusivamente para perfiles que ya sostienen un flujo de caja —empleados, empresarios o especialistas— pero que operan bajo un modelo donde el ingreso depende 100% de su presencia física. Su facturación está atada a sus horas de vida, lo que genera una **Inestabilidad Estructural** inmediata y, como consecuencia, un **Déficit Estructural de Ingresos**.
+El ecosistema está diseñado exclusivamente para perfiles que ya sostienen un flujo de caja —empleados, empresarios o especialistas— pero que operan con un **Déficit Estructural de Ingresos**: una arquitectura financiera donde el ingreso depende 100% de su presencia física. Su facturación está atada a sus horas de vida, y la consecuencia matemática es directa — si pausa el esfuerzo, el flujo de caja colapsa.
 
 Si usted opera un comercio local o ejerce como empleado, la Base Operativa le proporciona redundancia financiera para contrarrestar la inflación, ejecutándose en paralelo a su ocupación actual.
 

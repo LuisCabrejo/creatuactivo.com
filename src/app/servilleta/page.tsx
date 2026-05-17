@@ -27,6 +27,7 @@ export default function ServilletaPage() {
   const [queswaOpen, setQueswaOpen] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [ctaVisible, setCtaVisible] = useState(false);
+  const [productCatalogOpen, setProductCatalogOpen] = useState(false);
   const touchStartX = React.useRef(0);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -51,6 +52,16 @@ export default function ServilletaPage() {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+
+  // Cerrar modal catálogo con tecla Escape
+  useEffect(() => {
+    if (!productCatalogOpen) return;
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setProductCatalogOpen(false);
+    };
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [productCatalogOpen]);
 
   // Fullscreen toggle (Mac + Windows)
   const toggleFullscreen = useCallback(() => {
@@ -170,8 +181,8 @@ export default function ServilletaPage() {
   // Snowball metaphor — el thumb del slider de INGRESO RECURRENTE crece a
   // medida que el usuario lo desliza hacia más hogares (más ingreso recurrente).
   // Visualiza la metáfora literal: bola de nieve rodando montaña abajo.
-  // Rango: 14px (10 hogares, ~$50) → 90px (1000 hogares, ~$4,760).
-  const snowballSize = Math.round(14 + (binarioParejas / 1000) * 76);
+  // Rango: 20px (10 hogares, ~$50) → 50px (1000 hogares, ~$4,760).
+  const snowballSize = Math.round(20 + (binarioParejas / 1000) * 30);
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
@@ -671,62 +682,96 @@ export default function ServilletaPage() {
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
 
-        /* Snowball slider — INGRESO RECURRENTE.
-           Metáfora visual: el thumb es la "bola de nieve" que rueda sobre
-           la línea (track) y crece a medida que avanza hacia más hogares.
-           Track unificado #3B3B3B en mobile y desktop (sin default blanco OS). */
-        .snowball-slider {
+        /* AMBOS sliders del simulador (gen5 + binario) usan el MISMO padding
+           vertical → así la "caja" del controls-container tiene altura idéntica
+           al alternar entre INGRESO INMEDIATO ↔ INGRESO RECURRENTE.
+           El padding es necesario para que el thumb del snowball (hasta 50px)
+           no se choque con elementos vecinos. Al aplicarlo también al slider
+           de gen5 (thumb default ~16px), ambos ocupan el mismo espacio
+           vertical y el layout no salta. */
+        .controls-container input[type=range] {
+          padding: 25px 0;
+          margin: 8px 0;
+          display: block;
+          box-sizing: content-box;
+        }
+
+        /* ----- SIMULATOR SLIDERS — TRACK + THUMB BASE COMPARTIDO -----
+           Ambos sliders (gen5 + binario) usan .sim-slider para garantizar
+           EXACTAMENTE el mismo grosor del track y mismo thumb base.
+           Sin esto, el accent-color del default OS variaba el grosor visible. */
+        .sim-slider {
           -webkit-appearance: none;
           appearance: none;
           background: transparent;
-          margin: 18px 0;
-          /* margen vertical generoso porque el thumb crece hasta 90px y
-             podría tocar elementos vecinos sin este aire */
-          padding: 45px 0;
           cursor: pointer;
         }
-        /* Track — la línea sobre la que rueda la bola */
-        .snowball-slider::-webkit-slider-runnable-track {
-          height: 4px;
+        /* Track — idéntico en gen5 y binario. 6px + 2 × 1px borde = 8px total */
+        .sim-slider::-webkit-slider-runnable-track {
+          height: 6px;
           background: #3B3B3B;
-          border-radius: 2px;
+          border-radius: 3px;
+          border: 1px solid rgba(255, 255, 255, 0.45);
         }
-        .snowball-slider::-moz-range-track {
-          height: 4px;
+        .sim-slider::-moz-range-track {
+          height: 6px;
           background: #3B3B3B;
-          border-radius: 2px;
-          border: none;
+          border-radius: 3px;
+          border: 1px solid rgba(255, 255, 255, 0.45);
         }
-        /* Thumb — la bola de nieve blanca que crece */
-        .snowball-slider::-webkit-slider-thumb {
+        /* Thumb base — blanco, 20px, mismo estilo en ambos sliders */
+        .sim-slider::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
-          width: var(--thumb-size, 14px);
-          height: var(--thumb-size, 14px);
+          width: 20px;
+          height: 20px;
           border-radius: 50%;
           background: #FFFFFF;
           border: none;
-          margin-top: calc((4px - var(--thumb-size, 14px)) / 2);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35),
-                      0 0 0 1px rgba(255, 255, 255, 0.05);
+          margin-top: -7px; /* (8 - 20) / 2 + ajuste fino */
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4),
+                      0 0 0 1px rgba(255, 255, 255, 0.1);
+          cursor: grab;
+        }
+        .sim-slider::-webkit-slider-thumb:active { cursor: grabbing; }
+        .sim-slider::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          border: none;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+          cursor: grab;
+        }
+
+        /* Snowball-slider — extiende .sim-slider con thumb DINÁMICO (binario).
+           Solo sobrescribe el tamaño del thumb usando --thumb-size inline.
+           Track y resto del thumb hereda de .sim-slider (idéntico al de gen5). */
+        .snowball-slider::-webkit-slider-thumb {
+          width: var(--thumb-size, 20px);
+          height: var(--thumb-size, 20px);
+          margin-top: calc((8px - var(--thumb-size, 20px)) / 2);
           transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                       height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                       margin-top 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-          cursor: grab;
         }
-        .snowball-slider::-webkit-slider-thumb:active { cursor: grabbing; }
         .snowball-slider::-moz-range-thumb {
-          width: var(--thumb-size, 14px);
-          height: var(--thumb-size, 14px);
-          border-radius: 50%;
-          background: #FFFFFF;
-          border: none;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+          width: var(--thumb-size, 20px);
+          height: var(--thumb-size, 20px);
           transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                       height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-          cursor: grab;
         }
-        .insight-text { font-size: 0.9rem; color: #555; margin-top: 10px; text-align: center; }
+        .insight-text {
+          font-size: 0.9rem;
+          color: #555;
+          margin-top: 10px;
+          text-align: center;
+          /* min-height igual a la altura del texto MÁS largo (gen5 = 3 líneas).
+             El insight-text de binario (2 líneas) se rellena con whitespace.
+             Esto elimina el "salto" al alternar entre INGRESO INMEDIATO ↔ RECURRENTE. */
+          min-height: 4.2em;
+          line-height: 1.5;
+        }
 
         .cta-panel {
           flex: 1; position: relative; height: 450px;
@@ -1286,6 +1331,108 @@ export default function ServilletaPage() {
           scrollbar-width: thin;
           scrollbar-color: #333 #1a1a1a;
         }
+
+        /* ============ CATÁLOGO DE PRODUCTOS — MODAL OVERLAY ============
+           Trigger: link clickable debajo del texto del Slide 3.
+           Despliega imagen del catálogo en overlay sin sacar al prospecto
+           del deck. Cierre: X arriba derecha, click backdrop, tecla Escape. */
+
+        /* Trigger: link clickable estilo Lujo Clínico */
+        .catalog-trigger {
+          display: inline-block;
+          background: transparent;
+          border: none;
+          color: var(--cyan);
+          font-family: var(--font-mono);
+          font-size: 0.85rem;
+          letter-spacing: 0.05em;
+          margin-top: 14px;
+          padding: 4px 0;
+          cursor: pointer;
+          text-decoration: underline;
+          text-decoration-thickness: 1px;
+          text-underline-offset: 5px;
+          transition: color 0.25s ease, text-underline-offset 0.25s ease;
+        }
+        .catalog-trigger:hover {
+          color: var(--orange);
+          text-underline-offset: 7px;
+        }
+
+        /* Overlay — fondo carbón translúcido con blur sutil */
+        .product-catalog-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(15, 17, 21, 0.92);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 24px;
+          animation: catalogFadeIn 0.25s ease;
+        }
+        @keyframes catalogFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* Modal container — limita ancho y respeta viewport */
+        .product-catalog-modal {
+          position: relative;
+          max-width: 1100px;
+          width: 100%;
+          max-height: 90vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .catalog-image {
+          width: 100%;
+          height: auto;
+          max-height: 88vh;
+          object-fit: contain;
+          display: block;
+        }
+
+        /* Botón cerrar — círculo titanio arriba-derecha */
+        .catalog-close {
+          position: absolute;
+          top: -18px;
+          right: -18px;
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: var(--bg-dark, #121212);
+          border: 1px solid #878681;
+          color: #FFFFFF;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          transition: all 0.2s ease;
+          padding: 0;
+        }
+        .catalog-close:hover {
+          border-color: var(--cyan);
+          color: var(--cyan);
+          transform: scale(1.08);
+        }
+
+        /* Mobile: cerrar dentro del frame para no quedar fuera de viewport */
+        @media (max-width: 768px) {
+          .product-catalog-overlay { padding: 20px 12px; }
+          .catalog-close {
+            top: 8px;
+            right: 8px;
+            width: 36px;
+            height: 36px;
+          }
+        }
       `}</style>
 
       <div className="industrial-theme">
@@ -1498,6 +1645,13 @@ export default function ServilletaPage() {
                   <p className="deck-p">
                     Optimizaci&oacute;n de h&aacute;bitos preexistentes mediante tecnolog&iacute;a nutricional propietaria con Ganoderma Lucidum.
                   </p>
+                  <button
+                    type="button"
+                    className="catalog-trigger"
+                    onClick={(e) => { e.stopPropagation(); setProductCatalogOpen(true); }}
+                  >
+                    Ver los productos →
+                  </button>
                 </div>
 
                 <div className="bio-metrics-container">
@@ -1601,6 +1755,7 @@ export default function ServilletaPage() {
                       max={10}
                       value={gen5Socios}
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
+                      className="sim-slider"
                     />
                     <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimizar su flujo de caja desde la primera semana de activaci&oacute;n.</p>
                   </div>
@@ -1609,6 +1764,13 @@ export default function ServilletaPage() {
                 {/* Controles Binario */}
                 {simMode === 'binario' && (
                   <div className="controls-container">
+                    {/* Placeholder invisible: ocupa el mismo espacio que el
+                        pkg-selector de INGRESO INMEDIATO para que label, slider
+                        e insight-text queden EXACTAMENTE en la misma posición
+                        vertical al alternar entre tabs (sin saltos de layout). */}
+                    <div className="pkg-selector" aria-hidden="true" style={{ visibility: 'hidden' }}>
+                      <button className="pkg-btn" tabIndex={-1}>·</button>
+                    </div>
                     <label>
                       HOGARES EN SU ORGANIZACI&Oacute;N:
                       <span className="highlight-text">{binarioParejas}</span>
@@ -1620,7 +1782,7 @@ export default function ServilletaPage() {
                       step={10}
                       value={binarioParejas}
                       onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
-                      className="snowball-slider"
+                      className="sim-slider snowball-slider"
                       style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
                     />
                     <p className="insight-text">Ingreso recurrente que escala con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
@@ -1667,6 +1829,32 @@ export default function ServilletaPage() {
           </section>
 
         </main>
+
+        {/* MODAL CATÁLOGO DE PRODUCTOS — opcional, abre desde Slide 3.
+            Permite mostrar la línea Gano Excel sin sacar al prospecto del deck. */}
+        {productCatalogOpen && (
+          <div
+            className="product-catalog-overlay"
+            onClick={() => setProductCatalogOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Catálogo de productos"
+          >
+            <div className="product-catalog-modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="catalog-close"
+                onClick={() => setProductCatalogOpen(false)}
+                aria-label="Cerrar catálogo"
+              >×</button>
+              <img
+                src="/productos/productos.webp"
+                alt="Catálogo Queswa — productos Gano Excel"
+                className="catalog-image"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

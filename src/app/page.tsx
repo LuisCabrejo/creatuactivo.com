@@ -224,7 +224,7 @@ function PerfilesSection() {
   const perfiles = [
     {
       label: 'Microempresario · 1–5 empleados',
-      dolor: 'Inestabilidad Estructural por Modelo de Presencia: El dueño es el empleado más barato de su propia logística.',
+      dolor: 'Arquitectura con Déficit Estructural: El dueño es el empleado más barato de su propia logística.',
       exito: 'Ingresos que llegan aunque el local esté cerrado. Una Base Operativa que escala mientras usted opera su negocio actual.',
     },
     {

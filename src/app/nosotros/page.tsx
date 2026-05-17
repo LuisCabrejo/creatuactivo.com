@@ -125,7 +125,7 @@ export default function ManifiestoPage() {
                 <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
                     La obsesión se convirtió en una pregunta técnica: ¿Existe una forma de construir
-                    un activo que tenga la logística de una multinacional pero la libertad de un
+                    un activo que tenga la logística de una corporación global pero la libertad de un
                     inversionista?
                   </p>
 

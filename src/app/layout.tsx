@@ -161,7 +161,7 @@ export default function RootLayout({
         "url": baseUrl,
         "logo": {
           "@type": "ImageObject",
-          "url": `${baseUrl}/logo.png`,
+          "url": `${baseUrl}/web-app-manifest-512x512.png`,
           "width": 512,
           "height": 512
         },

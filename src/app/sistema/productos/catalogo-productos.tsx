@@ -2300,7 +2300,8 @@ export default function CatalogoEstrategico() {
                 href={`https://wa.me/${(distributor?.whatsapp || '+573206805737').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#F59E0B] text-[#0B0C0C] px-8 py-4  font-bold text-lg shadow-xl hover:bg-[#F59E0B] transition-all inline-flex items-center justify-center gap-3"
+                className="cta-base cta-primary"
+                style={{ padding: '1rem 2rem', fontSize: '1rem' }}
               >
                 <MessageCircle className="h-5 w-5" />
                 Quiero Ser Constructor
@@ -2525,21 +2526,21 @@ export default function CatalogoEstrategico() {
                 </p>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">1</div>
+                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + Queswa IA</p>
                       <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar su negocio 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">2</div>
+                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
                       <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes su red</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#F59E0B]  flex items-center justify-center text-[#0B0C0C] font-bold flex-shrink-0">3</div>
+                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">3</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
                       <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de su red</p>
@@ -2551,7 +2552,8 @@ export default function CatalogoEstrategico() {
                   <p className="mb-4 text-[#A3A3A3]">Válido hasta el 04 de Enero 2026</p>
                   <a
                     href="/fundadores"
-                    className="inline-block bg-[#F59E0B] text-[#0B0C0C] font-bold py-3 px-8  hover:bg-[#F59E0B] transition-all shadow-lg"
+                    className="cta-base cta-primary"
+                    style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
                   >
                     Únete como Fundador →
                   </a>
@@ -2574,7 +2576,8 @@ export default function CatalogoEstrategico() {
                 const nexusButton = document.querySelector('[data-nexus-trigger]') as HTMLButtonElement
                 if (nexusButton) nexusButton.click()
               }}
-              className="bg-[#F59E0B] text-[#0B0C0C] font-bold py-4 px-8  hover:bg-[#F59E0B] transition-all shadow-lg inline-flex items-center space-x-2"
+              className="cta-base cta-primary"
+              style={{ padding: '1rem 2rem', fontSize: '1rem' }}
             >
               <Bot className="h-5 w-5" />
               <span>Hablar con Queswa IA</span>
@@ -2881,7 +2884,7 @@ export default function CatalogoEstrategico() {
                           <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar sus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
-                              <span key={productoId} className="bg-[#F59E0B]/20 text-[#E5C279] px-3 py-1  text-sm">
+                              <span key={productoId} className="bg-[#C5A059]/20 text-[#C5A059] px-3 py-1  text-sm">
                                 {productData[productoId]?.name || productoId}
                               </span>
                             ))}
@@ -2932,7 +2935,8 @@ export default function CatalogoEstrategico() {
                       if (productId) addToCart(productId)
                       setSelectedProduct(null)
                     }}
-                    className="w-full bg-[#F59E0B] text-[#0B0C0C] py-4  hover:bg-[#F59E0B] transition-all font-medium text-lg shadow-lg"
+                    className="cta-base cta-primary w-full"
+                    style={{ padding: '1rem 2rem', fontSize: '0.95rem' }}
                   >
                     Agregar al Sistema de Bienestar
                   </button>
@@ -2942,7 +2946,8 @@ export default function CatalogoEstrategico() {
                       href={selectedProduct.downloadUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center bg-[#F59E0B]/80 text-[#0B0C0C] py-4  hover:bg-[#F59E0B] transition-all font-medium text-lg shadow-lg"
+                      className="cta-base cta-secondary w-full"
+                      style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
                     >
                       <Download className="h-5 w-5 mr-2" />
                       Descargar Guía del Producto (PDF)

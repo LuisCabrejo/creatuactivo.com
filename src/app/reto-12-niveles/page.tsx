@@ -231,21 +231,21 @@ export default function Reto12DiasPage() {
   return (
     <>
       <GlobalStyles />
-      <div className="bg-[#0B0C0C] text-[#E5E5E5] min-h-screen font-sans selection:bg-[#E5C279]/30">
+      <div className="bg-[#0B0C0C] text-[#E5E5E5] min-h-screen font-sans selection:bg-[#C5A059]/30">
         <StrategicNavigation />
 
         {/* --- HERO: PROTOCOLO DE CRECIMIENTO --- */}
         <section className="relative pt-32 pb-20 overflow-hidden">
             {/* Fondo Sutil (Bimetallic Gold Glow) */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#E5C279]/8 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#C5A059]/8 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container mx-auto px-4 relative z-10 text-center">
                 <motion.div initial={isHydrated ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
 
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/80 border border-[rgba(197,160,89,0.2)] text-[#E5C279] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
                         <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5C279] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E5C279]"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]"></span>
                         </span>
                         Protocolo de Ejecución 2026
                     </div>
@@ -261,7 +261,7 @@ export default function Reto12DiasPage() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link href="#reservar" className="px-8 py-4 bg-[#E5C279] text-[#0B0C0C] font-bold rounded-full hover:bg-[#D4AF37] transition-all shadow-[0_0_20px_-5px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2">
+                        <Link href="#reservar" className="cta-base cta-primary" style={{ padding: '1rem 2rem', fontSize: '0.9rem' }}>
                             Iniciar Protocolo <ArrowRight size={18} />
                         </Link>
                         <div className="px-6 py-4 rounded-full border border-[rgba(255,255,255,0.1)] bg-[#16181D]/80 backdrop-blur-md flex items-center justify-center gap-2 text-sm text-[#A3A3A3]">
@@ -400,7 +400,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
 
         {/* --- FORMULARIO DE ALTA CONVERSIÓN (LOW FRICTION) --- */}
         <section id="reservar" className="py-24 bg-[#16181D] relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#E5C279]/5 rounded-full blur-[100px]"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#C5A059]/5 rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto px-4 relative z-10 max-w-xl">
                 <div className="glass-card p-8 md:p-12 rounded-xl border border-[rgba(197,160,89,0.2)] shadow-2xl">
@@ -493,16 +493,17 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-4 bg-[#E5C279] text-[#0B0C0C] font-bold rounded-xl text-lg hover:bg-[#D4AF37] transition-all shadow-lg shadow-[#E5C279]/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="cta-base cta-primary w-full disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                                style={{ padding: '1rem 2rem', fontSize: '1rem' }}
                             >
                                 {isSubmitting ? (
                                     <>
-                                        <div className="w-5 h-5 border-2 border-[#0B0C0C]/30 border-t-[#0B0C0C] rounded-full animate-spin" />
+                                        <div className="w-5 h-5 border-2 border-current opacity-30 border-t-current rounded-full animate-spin" />
                                         Enviando...
                                     </>
                                 ) : (
                                     <>
-                                        <Zap className="w-5 h-5 text-[#0B0C0C] fill-current" />
+                                        <Zap className="w-5 h-5 fill-current" />
                                         Asegurar mi Cupo Ahora
                                     </>
                                 )}

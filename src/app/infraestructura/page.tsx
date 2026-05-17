@@ -397,8 +397,9 @@ export default function InfraestructuraPage() {
             </p>
 
             <Link
-              href="/mapa-de-salida"
-              className="inline-flex items-center gap-3 px-10 py-5 bg-[#C5A059] hover:bg-[#D4AF37] text-[#0F1115] font-semibold text-lg rounded-xl transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_20px_40px_rgba(197,160,89,0.3)]"
+              href="/auditoria-patrimonial"
+              className="cta-base cta-primary"
+              style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
             >
               Auditar con El Mapa de Salida
               <ChevronRight className="w-5 h-5" />

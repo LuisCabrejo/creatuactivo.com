@@ -62,7 +62,7 @@ export default function EmpleoVsActivosPage() {
 
               {/* Meta */}
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-xs text-[#C5A059] bg-[#F59E0B]/10 px-3 py-1 rounded-full">
+                <span className="text-xs text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 rounded-full">
                   Educación Financiera
                 </span>
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
@@ -267,10 +267,8 @@ export default function EmpleoVsActivosPage() {
                 </p>
                 <Link
                   href="/auditoria-patrimonial"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#0B0C0C] font-semibold hover:bg-[#E8C547] transition-colors"
-                  style={{
-                    borderRadius: 'var(--radius-container)',
-                  }}
+                  className="cta-base cta-primary"
+                  style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >
                   Iniciar Auditoría Patrimonial
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

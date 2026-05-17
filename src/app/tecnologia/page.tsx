@@ -217,7 +217,7 @@ export default function TecnologiaPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Educa 24/7 */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Instrucción Asíncrona</h3>
@@ -226,7 +226,7 @@ export default function TecnologiaPage() {
 
                 {/* Filtra Prospectos */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Filtrado de Perfiles</h3>
@@ -235,7 +235,7 @@ export default function TecnologiaPage() {
 
                 {/* Captura Datos */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <BarChart3 className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Extracción de Coordenadas</h3>
@@ -244,7 +244,7 @@ export default function TecnologiaPage() {
 
                 {/* Duplicación */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14  bg-[#F59E0B]/10 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Escalabilidad Autónoma</h3>
@@ -385,10 +385,8 @@ export default function TecnologiaPage() {
 
               <Link
                 href="/auditoria-patrimonial"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5  transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F59E0B] text-[#0B0C0C]"
-                style={{
-                  borderRadius: 'var(--radius-container)',
-                }}
+                className="cta-base cta-primary"
+                style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
                 SOLICITAR AUDITORÍA TÉCNICA →
               </Link>

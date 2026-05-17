@@ -249,10 +249,8 @@ export default function ManifiestoPage() {
 
               <Link
                 href="/auditoria-patrimonial"
-                className="inline-flex items-center justify-center gap-3 font-semibold text-lg px-12 py-5 transition-all duration-300 hover:translate-y-[-2px] bg-[#F59E0B] text-[#0B0C0C]"
-                style={{
-                  borderRadius: 'var(--radius-container)',
-                }}
+                className="cta-base cta-primary"
+                style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
                 SOLICITAR AUDITORÍA TÉCNICA →
               </Link>

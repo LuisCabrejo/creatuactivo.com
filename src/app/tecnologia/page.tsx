@@ -17,7 +17,7 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
   title: '¿Qué es Queswa.app? Motor Cognitivo de CreaTuActivo · Luis Cabrejo',
-  description: 'De una promesa personal a la ingeniería de activos digitales. El diagnóstico técnico del porqué el esfuerzo manual no escala, y cómo usted puede auditar nuestro modelo.',
+  description: 'Queswa es el Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo. Una infraestructura de IA cerrada que asume el 90% del desgaste operativo del Arquitecto de Patrimonio.',
   keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, motor cognitivo creatuactivo, queswa ia, dashboard queswa',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
@@ -50,7 +50,7 @@ const jsonLd = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de Inteligencia Artificial cerrado para Directores Ejecutivos que construyen activos empresariales con la metodología EAM.',
+      description: 'Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de Inteligencia Artificial cerrado para Arquitectos de Patrimonio que construyen su Base Operativa con el Tridente EAM.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },
@@ -126,7 +126,7 @@ export default function TecnologiaPage() {
                   de la infraestructura <strong>CreaTuActivo.com</strong>. No es una red social, ni un
                   chat público, ni una aplicación de mensajería abierta. Es un entorno de Inteligencia
                   Artificial cerrado, diseñado específicamente para que los Directores
-                  Ejecutivos de CreaTuActivo automaticen la expansión de sus activos empresariales.
+                  Ejecutivos de CreaTuActivo automaticen la expansión de su Base Operativa.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
                   Fue concebida y estructurada por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
@@ -179,8 +179,9 @@ export default function TecnologiaPage() {
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
                   <h3 className="text-xl font-semibold mb-3">Fricción Operativa</h3>
                   <p className="text-[#A3A3A3]">
-                    Los modelos tradicionales exigen persecución manual y persuasión. Un desgaste
-                    táctico que destruye la autoridad del operador y quema su círculo relacional.
+                    Los modelos tradicionales exigen filtrado manual y presentación cara a cara.
+                    Un desgaste táctico que consume la disponibilidad real del operador y la
+                    convierte en cuello de botella.
                   </p>
                 </div>
 
@@ -196,7 +197,7 @@ export default function TecnologiaPage() {
 
               <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
-                  <span className="text-[#C5A059] font-semibold">El Protocolo Queswa corrige ambas fallas estructurales.</span>
+                  <span className="text-[#C5A059] font-semibold">Queswa, el Centro de Mando, corrige ambas fallas estructurales.</span>
                 </p>
               </div>
             </div>
@@ -333,11 +334,11 @@ export default function TecnologiaPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Depender de guiones de persuasión</span>
+                      <span>Memorización de guiones repetitivos</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Sometido a su disponibilidad biológica</span>
+                      <span>Sometido a su disponibilidad física</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
@@ -380,7 +381,8 @@ export default function TecnologiaPage() {
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
                 Inicie la Auditoría Patrimonial de 5 Días y compruebe empíricamente cómo este
-                motor cognitivo neutraliza el Protocolo de la Presencia Obligada.
+                motor cognitivo neutraliza la falla de diseño donde su ingreso depende 100% de
+                su presencia física.
               </p>
 
               <Link
@@ -388,11 +390,11 @@ export default function TecnologiaPage() {
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
-                SOLICITAR AUDITORÍA TÉCNICA →
+                INICIAR AUDITORÍA PATRIMONIAL →
               </Link>
 
               <p className="text-sm mt-6 text-[#64748B]">
-                5 Días · Subvencionado · Escrutinio Clínico
+                5 Días · Sin Costo · Escrutinio Clínico
               </p>
             </div>
           </section>

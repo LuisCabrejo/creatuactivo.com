@@ -25,6 +25,7 @@ import {
   type VectorSearchResult
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
+import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -2962,6 +2963,46 @@ export async function POST(req: Request) {
     }
 
     const latestUserMessage = messages[messages.length - 1].content;
+
+    // ════════════════════════════════════════════════════════════════════════════
+    // ⚡ CAMINO A — BACKEND DICTADOR (VERBATIM_LOCK Master Responses)
+    // ════════════════════════════════════════════════════════════════════════════
+    // Si el mensaje coincide EXACTO con los chips canónicos 1 o 2, el backend
+    // entrega la respuesta Master del Director Académico verbatim, sin pasar
+    // por Voyage AI ni Anthropic. Beneficios:
+    //   ✓ 100% de fidelidad al copy calibrado (cero paráfrasis del LLM)
+    //   ✓ $0 en tokens de Anthropic para ~80% del tráfico inicial
+    //   ✓ Latencia ~50ms vs ~2s del flujo completo
+    // Los chips 3 y 4 + WHY_01 natural language siguen el flujo RAG normal
+    // (Camino B con marcador [VERBATIM_LOCK] en arsenal_inicial.txt v25.7).
+    // Mismo patrón arquitectónico que getMicroPromptApertura / getCierreEstado4.
+    // ════════════════════════════════════════════════════════════════════════════
+    const respuestaMaestra = typeof latestUserMessage === 'string'
+      ? getRespuestaMaestra(latestUserMessage)
+      : null;
+
+    if (respuestaMaestra) {
+      const bypassStartTime = Date.now();
+      console.log(`⚡ [VERBATIM_LOCK] Chip canónico detectado → respuesta Master directa (${respuestaMaestra.length} chars, $0 tokens)`);
+
+      // Log conversación en paralelo (no bloquear la respuesta)
+      if (sessionId && fingerprint) {
+        logConversationHibrida(
+          latestUserMessage,
+          respuestaMaestra,
+          ['VERBATIM_LOCK_BACKEND_DICTATOR'],
+          'backend_dictador_master',
+          sessionId,
+          fingerprint,
+          {}
+        ).catch((err) => console.error('❌ [VERBATIM_LOCK] Error logging conversación:', err));
+      }
+
+      const stream = buildVerbatimStream(respuestaMaestra);
+      console.log(`⏱️ [VERBATIM_LOCK] Setup en ${Date.now() - bypassStartTime}ms — stream iniciado`);
+
+      return new StreamingTextResponse(stream, { headers: getCorsHeaders(origin) });
+    }
 
     // 🎯 DETECCIÓN: ¿el mensaje viene de uno de los 4 chips canónicos del saludo Queswa?
     // Si SÍ, el modelo debe entregar el fragmento del arsenal recuperado VERBATIM con formato Markdown

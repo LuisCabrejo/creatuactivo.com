@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 - **Prospect Tracking** - Browser fingerprinting with multi-layer identification
 - **Async Processing** - Database queue with Edge Functions for scalable message handling
 - **Dynamic Content** - Founder spots counter, video hosting, email automation
-- **Framework IAA** - Three-stage funnel (Iniciar, Acoger, Activar)
+- **El Tridente EAM** - Three-stage funnel (Expansión, Activación, Maestría)
 
 ## Project Structure
 

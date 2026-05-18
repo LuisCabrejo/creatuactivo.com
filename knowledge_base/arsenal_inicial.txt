@@ -1,8 +1,10 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.5
+# Arsenal Conversacional: Respuestas Fundamentales v25.6
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
+**Versión:** 25.6 — WHY_01 reorientado a definición categórica ("qué es CreaTuActivo") en lugar de mezclar "por qué existe" + "qué somos" en la misma respuesta. Léxico distintivo vs WHY_02 (no detalla los 3 pilares; usa "infraestructura de Ingeniería Patrimonial / arquitectura híbrida"). WHY_02: ajuste mínimo del contexto inicial — "Base Operativa ya ensamblada" elimina redundancia. Resuelve confusión de fragment search donde WHY_01 y WHY_02 compartían 70% del vocabulario denso. (17 May 2026)
+
 **Versión:** 25.5 — Extensión sistémica de la corrección causal a STORY_01 y PERFIL_01 (alineación con SP v26.6). Nueva jerarquía: Déficit Estructural de Ingresos (causa raíz de diseño) → modelo de presencia obligada (manifestación operativa) → colapso del flujo de caja al detenerse (consecuencia matemática). (17 May 2026)
 
 **Versión:** 25.4 — WHY_01 recalibrado con lógica causal corregida: el Déficit Estructural de Ingresos es la CAUSA (falla de diseño), no la consecuencia. La consecuencia matemática es el colapso del flujo de caja cuando el operador se detiene. (17 May 2026)
@@ -13,23 +15,23 @@
 
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 3 respuestas**
 
-### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / ¿De qué se trata este negocio? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** Su arquitectura financiera actual opera con un déficit estructural de diseño: su ingreso depende al 100% de su presencia física. La consecuencia matemática de esta falla es que, si usted se detiene, su flujo de caja colapsa.
+### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
+**[Concepto Nuclear]:** CreaTuActivo es una infraestructura de Ingeniería Patrimonial que desvincula la generación de ingresos del desgaste físico, mediante una arquitectura híbrida —logística global + automatización por IA— que neutraliza la falla de diseño donde su flujo de caja depende de su presencia.
 
-CreaTuActivo es un ecosistema patrimonial diseñado para neutralizar este diseño defectuoso. Le entregamos el control de una Base Operativa autónoma, sostenida por tres pilares que absorben el desgaste por usted:
+CreaTuActivo es una **infraestructura de Ingeniería Patrimonial** diseñada para desvincular la generación de ingresos del desgaste físico. No es un curso, ni un equipo de ventas, ni una red de mercadeo. Es una plataforma de dirección de activos.
 
-Una matriz logística física en 70 países —con sedes operativas y soporte presencial—, la plataforma propietaria Queswa que asume el 90% del desgaste operativo, y una metodología automatizada (El Tridente EAM) que erradica el ensayo y error. Usted ejerce la dirección estratégica como Arquitecto de Patrimonio.
+Existe porque el modelo bajo el cual operan la mayoría de los profesionales y empresarios tiene una falla de diseño silenciosa: el 100% de su flujo de caja depende de que usted esté presente. Sin importar el cargo o el sueldo, su estabilidad descansa en una sola variable de alto riesgo — que su empresa o su empleador sigan requiriendo su presencia diaria.
 
-Ya sea que usted ejerza un cargo corporativo o dirija su propia empresa, este ecosistema se ensambla en paralelo a su ocupación actual, sin sumar carga a su agenda. Una vez estructurada, su Base Operativa genera regalías recurrentes que no exigen su intervención manual.
+Lo que CreaTuActivo entrega es una **Estructura Patrimonial paralela**: una arquitectura híbrida que combina una infraestructura logística global con una capa de automatización por Inteligencia Artificial. Su rol es estrictamente directivo — usted dirige la arquitectura, no la opera. El resultado es un activo que factura regalías recurrentes sin requerir su intervención diaria, ensamblándose junto a su ocupación actual sin sumar carga a su agenda.
 
-**Pregunta de seguimiento:** Para auditar cómo se acopla esta Base Operativa a su agenda, ¿podría indicar si actualmente su flujo de caja proviene de un empleo corporativo, o si usted ya dirige su propia operación comercial?
+**Pregunta de seguimiento:** ¿Su prioridad ahora es entender la mecánica operativa del modelo (los componentes y cómo se integran), o el tipo de retorno financiero que produce este activo?
 
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
 **[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres pilares de infraestructura, un solo Arquitecto que los dirige. Usted no asume desgaste físico; usted ejerce dirección estratégica.
 
-Para entender la mecánica, primero auditemos la falla de su modelo actual: el 100% de su liquidez está atada a su presencia física — el sistema lo tiene atado al reloj. Nuestro ecosistema neutraliza esa inestabilidad estructural entregándole una Base Operativa sostenida por tres pilares que absorben el desgaste por usted:
+Para entender la mecánica, primero auditemos la falla de su modelo actual: el 100% de su liquidez está atada a su presencia física — el sistema lo tiene atado al reloj. Nuestro ecosistema neutraliza esa inestabilidad estructural entregándole una Base Operativa ya ensamblada y sostenida por tres pilares:
 
 1. **Pilar 1 — La Matriz Física.** Gano Excel: presencia en 70 países, red de sedes operativas locales y soporte presencial. Asume fábricas, inventarios y despachos.
 

@@ -262,7 +262,7 @@ const NEXUSFloatingButton: React.FC = () => {
               className="text-sm font-medium whitespace-nowrap"
               style={{ color: QUIET_LUXURY.textPrimary }}
             >
-              ¿Iniciamos su <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }} className="font-industrial">Auditoría</span>?
+              ¿Iniciamos su <span style={{ color: QUIET_LUXURY.gold, fontWeight: 600 }} className="font-sans">Auditoría</span>?
             </span>
             {/* Botón para cerrar el tooltip */}
             <button

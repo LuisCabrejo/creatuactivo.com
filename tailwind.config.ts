@@ -53,9 +53,15 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['system-ui', '-apple-system', "'Segoe UI'", 'Roboto', 'sans-serif'],
-        industrial: ['var(--font-rajdhani)', 'Rajdhani', 'sans-serif'],
+        // Conectado al sistema next/font (layout.tsx). Las variables
+        // --font-playfair, --font-inter, --font-roboto-mono apuntan a las
+        // fuentes self-hosted por Next.js con nombres opacos generados.
+        // Sin estas variables, las clases Tailwind 'font-serif' y 'font-sans'
+        // caen al fallback del OS (Georgia / system-ui), no a las fuentes
+        // self-hosted, creando inconsistencia visual con styles inline que
+        // sí usan var(--font-*).
+        serif: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
+        sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['var(--font-roboto-mono)', 'Roboto Mono', 'monospace'],
       },
       borderColor: {

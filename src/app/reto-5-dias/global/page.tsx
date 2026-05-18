@@ -156,7 +156,7 @@ export default function RetoGlobalPage() {
                 {/* CTA para mostrar form */}
                 <button
                   onClick={() => setShowForm(true)}
-                  className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300"
+                  className="btn-haptic w-full py-4 font-sans font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300"
                 >
                   Quiero Saber Cómo Funciona
                 </button>
@@ -203,7 +203,7 @@ export default function RetoGlobalPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
+                    className="btn-haptic w-full py-4 font-sans font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">

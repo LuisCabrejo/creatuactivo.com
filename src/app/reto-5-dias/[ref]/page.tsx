@@ -150,7 +150,7 @@ export default function Reto5DiasRefPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-haptic w-full py-4 font-industrial font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
+                className="btn-haptic w-full py-4 font-sans font-bold text-lg tracking-widest uppercase rounded-xl transition-all duration-300 disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

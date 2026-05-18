@@ -82,7 +82,7 @@ export function NEXUSDataCaptureCard({
                 >
                   📝
                 </motion.span>
-                <h3 className="font-semibold text-xs sm:text-sm font-industrial" style={{ color: '#38BDF8' }}>
+                <h3 className="font-semibold text-xs sm:text-sm font-sans" style={{ color: '#38BDF8' }}>
                   Conociendo tu perfil
                 </h3>
               </div>

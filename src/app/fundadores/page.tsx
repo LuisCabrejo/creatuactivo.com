@@ -259,7 +259,7 @@ export default function FundadoresPage() {
 
                 {/* BIMETALLIC: CTA dorado (es premio) */}
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onClick={scrollToForm} className="btn-haptic px-8 py-4 font-industrial font-bold uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <button onClick={scrollToForm} className="btn-haptic px-8 py-4 font-sans font-bold uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
                         Aplicar a Fundador <ArrowRight size={18} />
                     </button>
                     <div className="flex items-center gap-2 px-6 py-4 text-[#A3A3A3] text-sm border border-[rgba(255,255,255,0.1)] rounded-full bg-[rgba(255,255,255,0.05)]">
@@ -574,7 +574,7 @@ export default function FundadoresPage() {
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
                                         <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
                                     </div>
-                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="btn-haptic w-full py-4 mt-4 font-industrial font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
+                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="btn-haptic w-full py-4 mt-4 font-sans font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
                                 </div>
                             )}
 
@@ -603,7 +603,7 @@ export default function FundadoresPage() {
                                             ))}
                                         </div>
                                     </div>
-                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="btn-haptic w-full py-4 font-industrial font-bold uppercase tracking-widest rounded-xl text-lg transition-all flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
+                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="btn-haptic w-full py-4 font-sans font-bold uppercase tracking-widest rounded-xl text-lg transition-all flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
                                 </div>
                             )}
                         </form>

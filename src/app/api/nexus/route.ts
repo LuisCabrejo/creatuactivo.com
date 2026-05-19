@@ -645,11 +645,33 @@ async function captureProspectData(
     'nivel estratégico': 'ESP-2',
   };
 
-  for (const [label, value] of Object.entries(packageMap)) {
-    if (messageLower.includes(label)) {
-      data.package = value;
-      console.log('✅ [NEXUS] Paquete capturado:', value, 'desde label:', label);
-      break;
+  // 🆕 FIX B (19 May 2026): guard de intención antes de capturar paquete.
+  // Razón: queries como "cuál es el contenido del paquete ESP-2", "explícame el ESP-3",
+  // "diferencia entre ESP-1 y ESP-2" son INFORMATIVAS. El sistema asumía
+  // "mencionar = elegir" y guardaba data.package = "ESP-2", lo cual activaba
+  // Estado 3 del FSM (solicitud de nombre) en el siguiente turno, tratando al
+  // prospecto como si hubiera decidido comprar. Bug silencioso multi-sesión
+  // (el package quedaba persistido en BD entre visitas).
+  //
+  // Patrones que indican INTENCIÓN INFORMATIVA (no selección):
+  //   - "qué es / qué contiene / qué incluye / qué trae / qué tiene"
+  //   - "cómo es / cómo funciona"
+  //   - "cuánto cuesta / cuánto vale / cuánto sale"
+  //   - "cuál es el contenido / precio / nivel / paquete"
+  //   - "háblame de / explícame / cuéntame / me puedes decir"
+  //   - "diferencia entre / comparar / versus / vs"
+  //   - "para entender / para saber / me gustaría saber / quisiera saber"
+  const esPreguntaInformativa = /qu[eé] (es|contiene|incluye|trae|tiene|hay en)|c[oó]mo (es|funciona)|cu[aá]nto (cuesta|vale|sale|es)|cu[aá]l es el (contenido|precio|nivel|paquete)|h[aá]blame|expl[ií]came|cu[eé]ntame|me (puedes|podr[ií]as) (decir|explicar|contar|aclarar)|diferencia entre|comparar|versus|\svs\s|para (entender|saber)|me gustar[ií]a saber|quisiera saber|antes de decidir|si.*decido|si.*elijo|supongamos/i.test(messageLower);
+
+  if (esPreguntaInformativa) {
+    console.log('🚫 [NEXUS] Mención de paquete en pregunta informativa — NO capturar como selección');
+  } else {
+    for (const [label, value] of Object.entries(packageMap)) {
+      if (messageLower.includes(label)) {
+        data.package = value;
+        console.log('✅ [NEXUS] Paquete capturado:', value, 'desde label:', label);
+        break;
+      }
     }
   }
 
@@ -3609,10 +3631,20 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       }
 
       // Estado 1: trigger de intención de iniciar
+      // 🆕 FIX A (19 May 2026): descartar queries con prefijos condicionales/hipotéticos
+      // antes de evaluar el trigger. Razón: queries como "si decido entrar, cuál es el
+      // primer paso" son INFORMATIVAS (modo subjuntivo), no declarativas. El prospecto
+      // pregunta qué pasaría, no anuncia que va a entrar. Sin este guard, el FSM
+      // saltaba a Estado 1 (validación de horas) ante una consulta informativa.
+      const esCondicionalHipotetico = /^(si\s|supongamos|imaginemos|en caso de|hipotética|y si\b|qué pasa si|qué pasaría si|asumiendo que|en el caso|para entender|para saber|me gustaría saber|quisiera saber|antes de decidir)/i.test(latestUserMessage.trim());
+
       const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i;
-      if (triggerInicio.test(latestUserMessage)) {
+      if (!esCondicionalHipotetico && triggerInicio.test(latestUserMessage)) {
         console.log('🔀 [FSM] closing_state=1 detectado — trigger de inicio en mensaje del usuario');
         return { closingState: 1 as const, directPaquetes: false };
+      }
+      if (esCondicionalHipotetico && triggerInicio.test(latestUserMessage)) {
+        console.log('🚫 [FSM] trigger de inicio matcheado pero query es condicional/hipotética — flujo normal (Estado 0)');
       }
 
       return { closingState: 0 as const, directPaquetes: false };

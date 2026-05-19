@@ -133,11 +133,16 @@ async function actualizarFragmento(categoryId, nuevoContenido) {
 }
 
 /**
- * Extrae una sección ### CODIGO: ... hasta el siguiente `---` separador.
- * Funciona para WHY_01, WHY_02, EAM_01 que terminan con --- delimitando el bloque.
+ * Extrae una sección ### CODIGO: ... incluyendo todo el bloque hasta </verbatim_lock>.
+ *
+ * Usa el cierre XML `</verbatim_lock>` como delimitador, NO el separador Markdown `---`.
+ * Razón: a partir de v25.9 los bloques incluyen separadores `---` internos para mejorar
+ * la legibilidad visual (Markdown rules). El regex original que buscaba `---` truncaba
+ * los fragments en el primer separador interno, perdiendo el cierre y la pregunta de
+ * seguimiento. Bug detectado 19 May 2026 al re-fragmentar v25.9.
  */
 function extraerSeccion(arsenalContent, codigo) {
-  const regex = new RegExp(`### \\*\\*${codigo}:[\\s\\S]*?(?=\\n---)`);
+  const regex = new RegExp(`### \\*\\*${codigo}:[\\s\\S]*?</verbatim_lock>`);
   const match = arsenalContent.match(regex);
   return match ? match[0].trim() : null;
 }

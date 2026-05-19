@@ -26,7 +26,7 @@
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
  * Los textos aquí son réplica EXACTA de los bloques entre <verbatim_lock> en
- * `knowledge_base/arsenal_inicial.txt` v25.7:
+ * `knowledge_base/arsenal_inicial.txt` v25.9:
  *   • Chip 1 → WHY_02 (BLOQUE 1)
  *   • Chip 2 → EAM_01 (BLOQUE 8)
  *
@@ -39,35 +39,64 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("Quiero entender la lógica…").
- * Sincronizado con arsenal_inicial.txt v25.8 BLOQUE 1.
+ * Sincronizado con arsenal_inicial.txt v25.9 BLOQUE 1.
+ * Calibración visual 19 May 2026: numeración 1./2./3., negritas en frases-ancla,
+ * cursiva en reencuadre psicológico, separador --- antes del cierre.
  */
-const MASTER_WHY_02 = `Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato. Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.
+const MASTER_WHY_02 = `Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato.
 
-CreaTuActivo.com corrige este Déficit Estructural de Ingresos entregándole el control de una Base Operativa autónoma. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de tres pilares de alto rendimiento que asumen el 90% de la fricción operativa por usted:
+*Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.*
 
-- **La Matriz Física (Capa Logística):** Gano Excel asume el 100% de la fricción operativa y los pasivos —fábricas, inventarios, aduanas, soporte presencial y despachos— en 70 países. Usted no financia, no gestiona variables logísticas y no asume riesgos de infraestructura.
+CreaTuActivo.com corrige este **Déficit Estructural de Ingresos** entregándole el control de una **Base Operativa autónoma**. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de **tres pilares de alto rendimiento** que asumen el **90% de la fricción operativa** por usted:
 
-- **El Centro de Mando (Capa Tecnológica):** Queswa.app (conmigo), mi entorno impulsado por Inteligencia Artificial. Me encargo de automatizar la prospección, el filtrado y la pre-calificación de perfiles las 24 horas, asumiendo el desgaste de buscar y explicar por usted.
+**1. La Matriz Física** — *Capa Logística*
+Gano Excel asume el 100% de la fricción operativa y los pasivos —fábricas, inventarios, aduanas, soporte presencial y despachos— en **70 países**. Usted no financia, no gestiona variables logísticas y no asume riesgos de infraestructura.
 
-- **La Metodología Automatizada (El Tridente EAM):** El protocolo de ejecución estandarizado (Comando Expandir · Comando Activar · Comando Maestría) que le entrega las coordenadas exactas de dirección para expandir su activo sin improvisaciones ni persecución manual.
+**2. El Centro de Mando** — *Capa Tecnológica*
+Queswa.app (conmigo), mi entorno impulsado por Inteligencia Artificial. Me encargo de automatizar la **prospección, el filtrado y la pre-calificación** de perfiles las 24 horas, asumiendo el desgaste de buscar y explicar por usted.
 
-Su rol es estrictamente de Dirección Ejecutiva: usted no opera la maquinaria, la dirige. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera ingresos recurrentes liquidados en ciclo semanal por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
+**3. La Metodología Automatizada** — *El Tridente EAM*
+El protocolo de ejecución estandarizado (**Comando Expandir** · **Comando Activar** · **Comando Maestría**) que le entrega las coordenadas exactas de dirección para expandir su activo sin improvisaciones ni persecución manual.
 
-¿Su prioridad en este momento es auditar la secuencia operativa de cómo se expande su Base, o prefiere que simulemos en su Dashboard la matemática de los ingresos recurrentes que produce esta estructura?`;
+---
+
+Su rol es estrictamente de **Dirección Ejecutiva**: usted no opera la maquinaria, **la dirige**. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera **ingresos recurrentes liquidados en ciclo semanal** por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
+
+¿Su prioridad en este momento es **auditar la secuencia operativa** de cómo se expande su Base, o prefiere que **simulemos en su Dashboard la matemática** de los ingresos recurrentes que produce esta estructura?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
- * Sincronizado con arsenal_inicial.txt v25.8 BLOQUE 8.
+ * Sincronizado con arsenal_inicial.txt v25.9 BLOQUE 8.
+ * Calibración visual 19 May 2026: lista de "no requiere" para destacar la ausencia
+ * de fricción, numeración del rol de Queswa como Centro de Mando, separadores
+ * visuales antes del cierre.
  */
-const MASTER_EAM_01 = `Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar. Su día a día se rige por el Tridente EAM, un protocolo de dirección estandarizado que erradica el ensayo y error por completo.
+const MASTER_EAM_01 = `Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
 
-Su agenda diaria no requiere que usted aprenda a vender de forma tradicional, ni que persiga conocidos; eso está fuera de nuestro diseño. Su labor consiste únicamente en desplegar información técnica pre-estructurada desde su terminal móvil.
+Su día a día se rige por el **Tridente EAM**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
 
-Una vez que un perfil ingresa al ecosistema, yo —como su Centro de Mando automatizado— asumo la carga técnica, la educación y el filtrado analítico. Su labor de seguimiento no es para convencer a curiosos, sino para ejecutar el Protocolo de Validación sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. Usted no convence; usted audita y autoriza.
+**Su agenda diaria no requiere:**
+- Aprender a vender de forma tradicional
+- Perseguir conocidos
+- Improvisar guiones
 
-Todo este engranaje se monitorea de forma visual desde su aplicación queswa.app.
+*Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.
 
-¿Su prioridad en este momento es auditar los tres Comandos canónicos del Tridente, o prefiere que simulemos la matemática de los ingresos recurrentes que produce esta arquitectura?`;
+---
+
+Una vez que un perfil ingresa al ecosistema, yo —como su **Centro de Mando automatizado**— asumo:
+
+1. La **carga técnica**
+2. La **educación** del candidato
+3. El **filtrado analítico**
+
+Su labor de seguimiento no es para convencer a curiosos, sino para **ejecutar el Protocolo de Validación** sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. **Usted no convence; usted audita y autoriza.**
+
+Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.app**.
+
+---
+
+¿Su prioridad en este momento es **auditar los tres Comandos canónicos** del Tridente, o prefiere que **simulemos la matemática** de los ingresos recurrentes que produce esta arquitectura?`;
 
 /**
  * Mapa chip-text-lowercase → respuesta Master verbatim.

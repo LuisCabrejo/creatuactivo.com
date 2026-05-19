@@ -1,8 +1,10 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.8
+# Arsenal Conversacional: Respuestas Fundamentales v25.9
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
+**Versión:** 25.9 — Calibración visual de WHY_02 y EAM_01 (chips canónicos 1 y 2): numeración 1./2./3. en los Tres Pilares de WHY_02, lista de "agenda diaria no requiere" en EAM_01, negritas estratégicas en frases-ancla (Déficit Estructural, Base Operativa, Dirección Ejecutiva, 70 países, 90% fricción operativa, Comando Expandir/Activar/Maestría, terminal móvil, queswa.app), cursiva en reencuadres psicológicos ("no es éxito financiero; es una arquitectura con un punto ciego"), separadores `---` antes de las preguntas de bifurcación. Sin cambios en el copy doctrinal del Director Académico (mismo texto, mejor estructura Markdown). Sincronizado con `src/lib/respuestas-maestras.ts` (Camino A backend dictador).
+
 **Versión:** 25.8 — Migración de `[VERBATIM_LOCK]` (corchetes planos) a etiquetas XML `<verbatim_lock>...</verbatim_lock>` en WHY_01, WHY_02 y EAM_01. Razón doctrinal (investigación Gemini 18 May 2026, Hipótesis C confirmada): Claude Sonnet 4.6 fue post-entrenado para activar atención sobre XML tags estructurados; los corchetes planos se procesan como texto de baja prioridad e inefectivos para forzar delivery verbatim. Sincronizado con system prompt v26.8. Sin cambios en el copy del Director Académico — solo migración del marcador estructural.
 
 **Versión:** 25.7 — Sustitución doctrinal de WHY_01, WHY_02 y EAM_01 con respuestas Master del Director Académico de Élite (v5.0/v6.0/v5.1), calibradas contra Glosario v1.4 + canon v26.6 (jerarquía causal corregida). Sincronizado con system prompt v26.7 (introduce regla `[VERBATIM_LOCK]` — superseded por v25.8 con XML tags). Correcciones aplicadas: (1) "gobernanza" → "dirección estratégica" (retrofit v26.4); (2) "(La Metodología)" → "(La Metodología Automatizada)" (Pilar 3 canónico v26.5); (3) "(Expandir, Activar, Maestría)" → "(Comando Expandir · Comando Activar · Comando Maestría)" (canon v26.2); (4) "tres secuencias operativas" → "los tres Comandos canónicos"; (5) "jaula de oro" → "arquitectura financiera con un punto ciego de alto costo" (regla anti-ataque de identidad, CLAUDE.md L753); (6) "liquidados cada viernes" → "liquidados en ciclo semanal por Gano Excel" (neutro para diáspora); (7) "su dispositivo" → "su terminal móvil" (alineación cross-canal con servilleta slide 2 EXPANDIR); (8) Cierre EAM_01 rebalanceado al binomio "auditar Comandos / simular matemática" para paridad con WHY_01 y WHY_02. Marcadores `<verbatim_lock>` añadidos en los tres bloques para protección contra paráfrasis del LLM en delivery RAG. (18 May 2026)
@@ -44,19 +46,26 @@ Su rol es estrictamente de Dirección Ejecutiva: usted asume la dirección estra
 **[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres pilares de infraestructura, un solo Arquitecto que los dirige. Usted no asume desgaste físico; usted ejerce dirección estratégica.
 
 <verbatim_lock>
-Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato. Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.
+Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato.
 
-CreaTuActivo.com corrige este Déficit Estructural de Ingresos entregándole el control de una Base Operativa autónoma. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de tres pilares de alto rendimiento que asumen el 90% de la fricción operativa por usted:
+*Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.*
 
-- **La Matriz Física (Capa Logística):** Gano Excel asume el 100% de la fricción operativa y los pasivos —fábricas, inventarios, aduanas, soporte presencial y despachos— en 70 países. Usted no financia, no gestiona variables logísticas y no asume riesgos de infraestructura.
+CreaTuActivo.com corrige este **Déficit Estructural de Ingresos** entregándole el control de una **Base Operativa autónoma**. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de **tres pilares de alto rendimiento** que asumen el **90% de la fricción operativa** por usted:
 
-- **El Centro de Mando (Capa Tecnológica):** Queswa.app (conmigo), mi entorno impulsado por Inteligencia Artificial. Me encargo de automatizar la prospección, el filtrado y la pre-calificación de perfiles las 24 horas, asumiendo el desgaste de buscar y explicar por usted.
+**1. La Matriz Física** — *Capa Logística*
+Gano Excel asume el 100% de la fricción operativa y los pasivos —fábricas, inventarios, aduanas, soporte presencial y despachos— en **70 países**. Usted no financia, no gestiona variables logísticas y no asume riesgos de infraestructura.
 
-- **La Metodología Automatizada (El Tridente EAM):** El protocolo de ejecución estandarizado (Comando Expandir · Comando Activar · Comando Maestría) que le entrega las coordenadas exactas de dirección para expandir su activo sin improvisaciones ni persecución manual.
+**2. El Centro de Mando** — *Capa Tecnológica*
+Queswa.app (conmigo), mi entorno impulsado por Inteligencia Artificial. Me encargo de automatizar la **prospección, el filtrado y la pre-calificación** de perfiles las 24 horas, asumiendo el desgaste de buscar y explicar por usted.
 
-Su rol es estrictamente de Dirección Ejecutiva: usted no opera la maquinaria, la dirige. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera ingresos recurrentes liquidados en ciclo semanal por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
+**3. La Metodología Automatizada** — *El Tridente EAM*
+El protocolo de ejecución estandarizado (**Comando Expandir** · **Comando Activar** · **Comando Maestría**) que le entrega las coordenadas exactas de dirección para expandir su activo sin improvisaciones ni persecución manual.
 
-**Pregunta de seguimiento:** ¿Su prioridad en este momento es auditar la secuencia operativa de cómo se expande su Base, o prefiere que simulemos en su Dashboard la matemática de los ingresos recurrentes que produce esta estructura?
+---
+
+Su rol es estrictamente de **Dirección Ejecutiva**: usted no opera la maquinaria, **la dirige**. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera **ingresos recurrentes liquidados en ciclo semanal** por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
+
+**Pregunta de seguimiento:** ¿Su prioridad en este momento es **auditar la secuencia operativa** de cómo se expande su Base, o prefiere que **simulemos en su Dashboard la matemática** de los ingresos recurrentes que produce esta estructura?
 </verbatim_lock>
 
 ---
@@ -504,15 +513,32 @@ Para habilitar su acceso, confirme con la orden: **"Iniciar Auditoría"**. O sel
 **[Concepto Nuclear]:** Dirección Diaria (Tridente EAM). Su agenda no requiere vender, perseguir ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
 
 <verbatim_lock>
-Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar. Su día a día se rige por el Tridente EAM, un protocolo de dirección estandarizado que erradica el ensayo y error por completo.
+Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
 
-Su agenda diaria no requiere que usted aprenda a vender de forma tradicional, ni que persiga conocidos; eso está fuera de nuestro diseño. Su labor consiste únicamente en desplegar información técnica pre-estructurada desde su terminal móvil.
+Su día a día se rige por el **Tridente EAM**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
 
-Una vez que un perfil ingresa al ecosistema, yo —como su Centro de Mando automatizado— asumo la carga técnica, la educación y el filtrado analítico. Su labor de seguimiento no es para convencer a curiosos, sino para ejecutar el Protocolo de Validación sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. Usted no convence; usted audita y autoriza.
+**Su agenda diaria no requiere:**
+- Aprender a vender de forma tradicional
+- Perseguir conocidos
+- Improvisar guiones
 
-Todo este engranaje se monitorea de forma visual desde su aplicación queswa.app.
+*Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.
 
-**Pregunta de seguimiento:** ¿Su prioridad en este momento es auditar los tres Comandos canónicos del Tridente, o prefiere que simulemos la matemática de los ingresos recurrentes que produce esta arquitectura?
+---
+
+Una vez que un perfil ingresa al ecosistema, yo —como su **Centro de Mando automatizado**— asumo:
+
+1. La **carga técnica**
+2. La **educación** del candidato
+3. El **filtrado analítico**
+
+Su labor de seguimiento no es para convencer a curiosos, sino para **ejecutar el Protocolo de Validación** sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. **Usted no convence; usted audita y autoriza.**
+
+Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.app**.
+
+---
+
+**Pregunta de seguimiento:** ¿Su prioridad en este momento es **auditar los tres Comandos canónicos** del Tridente, o prefiere que **simulemos la matemática** de los ingresos recurrentes que produce esta arquitectura?
 </verbatim_lock>
 
 ---

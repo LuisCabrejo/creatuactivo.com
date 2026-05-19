@@ -34,7 +34,7 @@ if (!supabaseUrl || !supabaseKey || !voyageApiKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function getEmbedding(text) {
+async function getEmbedding(text, model = 'voyage-large-2') {
   const response = await fetch('https://api.voyageai.com/v1/embeddings', {
     method: 'POST',
     headers: {
@@ -42,18 +42,27 @@ async function getEmbedding(text) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'voyage-large-2', // 1536 dim para coincidir con embeddings existentes
-      input: text,
+      model: model, // voyage-large-2 (1536) o voyage-3-lite (512)
+      input: model === 'voyage-3-lite' ? text.substring(0, 8000) : text,
       input_type: 'document',
     }),
   });
 
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Voyage AI ${model} error: ${response.status} - ${err}`);
+  }
+
   const data = await response.json();
   if (!data.data || !data.data[0]) {
-    console.error('Error Voyage AI:', data);
-    throw new Error('Voyage AI no devolvió embedding');
+    console.error(`Error Voyage AI (${model}):`, data);
+    throw new Error(`Voyage AI ${model} no devolvió embedding`);
   }
   return data.data[0].embedding;
+}
+
+function formatPgvector(embedding) {
+  return '[' + embedding.join(',') + ']';
 }
 
 async function actualizarFragmento(categoryId, nuevoContenido) {
@@ -73,15 +82,27 @@ async function actualizarFragmento(categoryId, nuevoContenido) {
     .trim();
 
   console.log(`   Texto para embedding (sin XML tags): ${textoParaEmbedding.length} chars`);
-  console.log('   Generando embedding con Voyage AI...');
-  const embedding = await getEmbedding(textoParaEmbedding);
-  console.log(`   Embedding generado: ${embedding.length} dimensiones`);
+
+  // 🆕 FIX 2026-05-19: generar AMBOS embeddings — 1536-dim Y 512-dim.
+  // El código de búsqueda en route.ts línea 997 usa `embedding_512` (voyage-3-lite,
+  // 512 dim) para fragmentos, NO `embedding` (voyage-large-2, 1536 dim).
+  // Si solo actualizamos `embedding`, los embeddings nuevos jamás se buscan.
+  // Bug raíz histórico: 2 rondas previas de re-fragmentación no tuvieron efecto
+  // porque solo tocaban la columna inutilizada.
+  console.log('   Generando embedding 1536-dim (voyage-large-2)...');
+  const embedding1536 = await getEmbedding(textoParaEmbedding, 'voyage-large-2');
+  console.log(`   ✓ Embedding 1536-dim: ${embedding1536.length} dimensiones`);
+
+  console.log('   Generando embedding 512-dim (voyage-3-lite — usado por búsqueda)...');
+  const embedding512 = await getEmbedding(textoParaEmbedding, 'voyage-3-lite');
+  console.log(`   ✓ Embedding 512-dim:  ${embedding512.length} dimensiones`);
 
   const { error } = await supabase
     .from('nexus_documents')
     .update({
-      content: nuevoContenido,      // CON XML tags (lo que el LLM verá)
-      embedding: embedding,          // SIN XML tags (semántica limpia)
+      content: nuevoContenido,                        // CON XML tags (lo que el LLM verá)
+      embedding: embedding1536,                        // 1536-dim (legacy, mantenido por compatibilidad)
+      embedding_512: formatPgvector(embedding512),     // 512-dim (USADO POR EL CÓDIGO DE BÚSQUEDA)
       updated_at: new Date().toISOString(),
     })
     .eq('category', categoryId);

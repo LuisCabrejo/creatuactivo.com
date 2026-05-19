@@ -122,7 +122,11 @@ export function getRespuestaMaestra(userMessage: string): string | null {
  *
  * Compatible con `StreamingTextResponse` del paquete `ai`.
  */
-const INITIAL_THINKING_DELAY_MS = 400;
+// Calibración 19 May 2026: thinking inicial 2700ms para matchear el tiempo
+// promedio de respuesta de Queswa via Anthropic (~2.7s entre query y primer token).
+// Sin esta pausa el bypass de Camino A se siente "instantáneo" — UX inconsistente
+// con el resto de las respuestas del chatbot.
+const INITIAL_THINKING_DELAY_MS = 2700;
 const BASE_DELAY_MS = 28;
 const SENTENCE_END_DELAY_MS = 160;
 const COMMA_DELAY_MS = 70;

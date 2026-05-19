@@ -60,15 +60,28 @@ async function actualizarFragmento(categoryId, nuevoContenido) {
   console.log(`\n🔄 Actualizando: ${categoryId}`);
   console.log(`   Longitud: ${nuevoContenido.length} caracteres`);
 
+  // 🆕 FIX 2026-05-19: limpiar XML tags <verbatim_lock> del texto enviado a Voyage
+  // El embedding debe representar la SEMÁNTICA del contenido, no los marcadores
+  // estructurales. Las tags se conservan en `content` (lo que el LLM ve cuando se
+  // recupera el fragmento), pero NO se incluyen en el embedding porque agregan
+  // ruido al vector y reducen la similitud con queries coloquiales del usuario.
+  // Razón doctrinal: Hipótesis B+C de investigación Gemini (18 May 2026).
+  const textoParaEmbedding = nuevoContenido
+    .replace(/<verbatim_lock>/g, '')
+    .replace(/<\/verbatim_lock>/g, '')
+    .replace(/\n{3,}/g, '\n\n')  // colapsar saltos múltiples residuales
+    .trim();
+
+  console.log(`   Texto para embedding (sin XML tags): ${textoParaEmbedding.length} chars`);
   console.log('   Generando embedding con Voyage AI...');
-  const embedding = await getEmbedding(nuevoContenido);
+  const embedding = await getEmbedding(textoParaEmbedding);
   console.log(`   Embedding generado: ${embedding.length} dimensiones`);
 
   const { error } = await supabase
     .from('nexus_documents')
     .update({
-      content: nuevoContenido,
-      embedding: embedding,
+      content: nuevoContenido,      // CON XML tags (lo que el LLM verá)
+      embedding: embedding,          // SIN XML tags (semántica limpia)
       updated_at: new Date().toISOString(),
     })
     .eq('category', categoryId);

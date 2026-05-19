@@ -1075,11 +1075,16 @@ async function searchArsenalFragments(
     console.log(`⚡ [Fragments] Buscando en ${arsenalFragments.length} fragmentos de ${arsenalType}...`);
 
     // Buscar fragmentos similares
-    // Threshold 0.40: equilibrio entre recall y precisión. Con 0.30 había falsos positivos
-    // (query de catálogo matcheaba compensación con similitud 0.31-0.38).
+    // Threshold 0.30: bajado de 0.40 (2026-05-19) para queries coloquiales del usuario
+    // ("cómo funciona el negocio", "qué hago yo", "si inicio mis tareas") que no
+    // alcanzaban 0.40 contra el copy premium del Director Académico. El falso positivo
+    // anterior (catálogo vs compensación 0.31-0.38) está mitigado por:
+    //   1. Routing directo de patrones específicos antes de llegar aquí (pre-filter)
+    //   2. Embeddings de WHY_01/WHY_02/EAM_01 ahora se generan SIN XML tags (script
+    //      actualizar-fragmentos-master), por lo que la similitud verdadera mejoró.
     // Los routing directos (paquetes, suplementos, categorías) bypassean este threshold.
     const results = await vectorSearch(userMessage, arsenalFragments, voyageApiKey, {
-      threshold: 0.40,
+      threshold: 0.30,
       maxResults,
       debug: false
     });
@@ -1696,6 +1701,41 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /qué es.*plataforma/i,                 // "¿Qué es la plataforma?"
     /información.*básica/i,                // "Información básica"
     /información.*general/i,               // "Información general"
+
+    // 🆕 FIX 2026-05-19: WHY_02 — "¿Cómo funciona el negocio?" y variantes
+    // Razón: queries como "cómo funciona el negocio", "explícame el negocio"
+    // antes caían a fallback léxico (full-text Postgres) que devolvía 0 docs
+    // porque el copy Master usa vocabulario premium sin overlap con queries informales.
+    /cómo.*funciona.*negocio/i,            // "cómo funciona el negocio"
+    /cómo.*funciona.*sistema/i,            // "cómo funciona el sistema"
+    /cómo.*funciona.*ecosistema/i,         // "cómo funciona el ecosistema"
+    /cómo.*funciona.*estructura/i,         // "cómo funciona esta estructura patrimonial"
+    /cómo.*funciona.*patrimoni/i,          // "cómo funciona el patrimonio"
+    /entender.*lógica/i,                   // "quiero entender la lógica"
+    /explíca.*negocio/i,                   // "explícame el negocio"
+    /explíca.*sistema/i,                   // "explícame el sistema"
+    /explica.*funciona/i,                  // "explica cómo funciona"
+    /^cómo es.*negocio/i,                  // "cómo es el negocio"
+    /en qué consiste/i,                    // "en qué consiste esto"
+
+    // 🆕 FIX 2026-05-19: EAM_01 — "Metodología operativa / día a día / tareas"
+    // Razón: queries sobre el rol operativo del Arquitecto caían a fallback léxico.
+    /metodolog/i,                          // "metodología", "metodológico"
+    /día a día/i,                          // "día a día"
+    /d[ií]a a d[ií]a/i,                    // sin tildes
+    /qué.*hago.*yo/i,                      // "qué hago yo"
+    /qué.*haría.*yo/i,                     // "qué haría yo"
+    /qué.*tengo que hacer/i,               // "qué tengo que hacer"
+    /qué.*haré/i,                          // "qué haré"
+    /qué.*tareas/i,                        // "qué tareas", "cuáles son las tareas"
+    /cu[áa]les.*tareas/i,                  // "cuáles serían mis tareas"
+    /serían mis tareas/i,                  // "cuáles serían mis tareas"
+    /si.*inicio/i,                         // "si inicio", "si empiezo"
+    /tareas.*diaria/i,                     // "tareas diarias"
+    /mi rol/i,                             // "cuál es mi rol"
+    /^qué.*hago$/i,                        // "qué hago"
+    /tridente.*eam/i,                      // "tridente EAM", "el tridente"
+    /comando.*expandir|comando.*activar|comando.*maestr/i, // referencias directas
   ];
 
   const patrones_manejo = [

@@ -96,23 +96,70 @@ export function getRespuestaMaestra(userMessage: string): string | null {
 }
 
 /**
- * Construye un ReadableStream que emite el texto verbatim simulando streaming natural.
- * Cada chunk lleva ~3 palabras + whitespace; ~15ms entre chunks → ~3s total para 250 palabras.
+ * Construye un ReadableStream que emite el texto verbatim simulando el ritmo
+ * conversacional de Claude Sonnet streaming (~30 palabras/segundo).
+ *
+ * Calibración UX (May 2026):
+ * - El bypass de Camino A entrega el texto sin pasar por Anthropic, por lo que sin
+ *   throttle adecuado el delivery se siente como un "dump" instantáneo de texto,
+ *   no como una respuesta conversacional. Los usuarios perciben que el chatbot
+ *   está roto cuando la respuesta aparece más rápido que el ojo puede leer.
+ *
+ * - Patrón emulado:
+ *   1. Pausa inicial de 400ms ("thinking") — Queswa procesa la consulta antes
+ *      de empezar a responder. Apenas perceptible pero clave para la sensación
+ *      de conversación.
+ *   2. Token por token (palabra + whitespace adyacente), 28ms base.
+ *   3. Pausas variables en puntuación:
+ *      - Fin de oración (. ! ?): 160ms — respiración natural
+ *      - Coma / punto y coma / dos puntos: 70ms — pausa breve
+ *      - Salto de párrafo (\n\n): 200ms — descanso conceptual
+ *      - Salto de línea simple (\n): 100ms
+ *
+ * Resultado: respuesta de ~250 palabras toma ~7-8 segundos, comparable al
+ * streaming real de Claude. Si Luis quiere ajustar el ritmo, modificar las
+ * constantes BASE_DELAY_MS y los delays de puntuación.
  *
  * Compatible con `StreamingTextResponse` del paquete `ai`.
  */
+const INITIAL_THINKING_DELAY_MS = 400;
+const BASE_DELAY_MS = 28;
+const SENTENCE_END_DELAY_MS = 160;
+const COMMA_DELAY_MS = 70;
+const PARAGRAPH_DELAY_MS = 200;
+const LINEBREAK_DELAY_MS = 100;
+
 export function buildVerbatimStream(text: string): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
-  const chunks = text.split(/(\s+)/); // preserva whitespace como chunks separados
+  // Split conservando whitespace como tokens separados
+  // Resultado: ["Para", " ", "entender", " ", "la", ...]
+  const tokens = text.split(/(\s+)/);
 
   return new ReadableStream({
     async start(controller) {
-      for (let i = 0; i < chunks.length; i++) {
-        controller.enqueue(encoder.encode(chunks[i]));
-        // Throttle cada 3 chunks para feel humano sin latencia excesiva
-        if (i % 3 === 0 && i > 0) {
-          await new Promise((r) => setTimeout(r, 12));
+      // Pausa "thinking" — emula el momento de procesamiento antes de empezar
+      await new Promise((r) => setTimeout(r, INITIAL_THINKING_DELAY_MS));
+
+      for (const token of tokens) {
+        if (token === '') continue;
+        controller.enqueue(encoder.encode(token));
+
+        // Determinar delay según contenido del token
+        const trimmed = token.trim();
+        let delay = BASE_DELAY_MS;
+
+        if (trimmed === '') {
+          // Token de whitespace puro — analizar saltos de línea
+          if (token.includes('\n\n')) delay = PARAGRAPH_DELAY_MS;
+          else if (token.includes('\n')) delay = LINEBREAK_DELAY_MS;
+          else delay = BASE_DELAY_MS;
+        } else if (/[.!?]$/.test(trimmed)) {
+          delay = SENTENCE_END_DELAY_MS;
+        } else if (/[,;:]$/.test(trimmed)) {
+          delay = COMMA_DELAY_MS;
         }
+
+        await new Promise((r) => setTimeout(r, delay));
       }
       controller.close();
     },

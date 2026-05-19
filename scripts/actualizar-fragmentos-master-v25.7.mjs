@@ -97,12 +97,28 @@ async function actualizarFragmento(categoryId, nuevoContenido) {
   const embedding512 = await getEmbedding(textoParaEmbedding, 'voyage-3-lite');
   console.log(`   ✓ Embedding 512-dim:  ${embedding512.length} dimensiones`);
 
+  // 🆕 FIX 2026-05-19: leer metadata existente y asegurar que is_fragment=true esté presente.
+  // El cache de route.ts:1018 filtra por metadata.is_fragment === true. Si no está, el
+  // fragmento queda invisible al RAG. Hubo regresión histórica donde 111 fragments
+  // quedaron sin este flag (reparados con scripts/reparar-is-fragment-flag.mjs).
+  const { data: existing } = await supabase
+    .from('nexus_documents')
+    .select('metadata')
+    .eq('category', categoryId)
+    .single();
+
+  const metadataActualizado = {
+    ...(existing?.metadata || {}),
+    is_fragment: true, // GARANTIZAR que sea visible al cache de fragmentos
+  };
+
   const { error } = await supabase
     .from('nexus_documents')
     .update({
       content: nuevoContenido,                        // CON XML tags (lo que el LLM verá)
       embedding: embedding1536,                        // 1536-dim (legacy, mantenido por compatibilidad)
       embedding_512: formatPgvector(embedding512),     // 512-dim (USADO POR EL CÓDIGO DE BÚSQUEDA)
+      metadata: metadataActualizado,                   // preserva metadata + garantiza is_fragment
       updated_at: new Date().toISOString(),
     })
     .eq('category', categoryId);

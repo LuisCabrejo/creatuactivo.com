@@ -3242,9 +3242,13 @@ ${summaryParts.join('\n')}
       // Saludos terminales simples (no señales de avance conversacional)
       // REMOVIDO: "de acuerdo" — es señal de aceptación del pitch → requiere WHY_02 (Sonnet)
       if (/^(hola|buenas|hey|hi|buenos|saludos|gracias|👋|😊)[\s!.?]*$/i.test(msg)) return true;
-      // Mensajes muy cortos sin intención de compra ni avance conversacional
-      // EXPANDIDO: gana/ganas/ganar, iniciar/inicio/empezar cubren queries de ingreso y cierre
-      if (wordCount <= 3 && !/precio|costo|cuánto|paquete|invertir|gana|ganar|negocio|unirme|iniciar|inicio|empezar|empiezo|cómo|funciona/i.test(msg)) return true;
+      // Mensajes muy cortos sin intención de compra, avance conversacional NI demanda de definición
+      // EXPANDIDO (Fase 1 — May 2026): agregadas palabras interrogativas (qué|cuál|quién|por qué|para qué|dónde|cuándo)
+      // y sustantivos doctrinales (creatuactivo|queswa|producto|metodología|sistema|estructura|patrimonio|arquitecto).
+      // Razón: queries de 3 palabras como "qué es CreaTuActivo" se clasificaban erróneamente como SIMPLE
+      // y se saltaban el vector search, dejando al modelo respondiendo solo desde el system prompt
+      // sin recuperar WHY_01/WHY_02/EAM_01. Bug raíz documentado en investigación Gemini (Hipótesis A).
+      if (wordCount <= 3 && !/precio|costo|cuánto|cuanto|paquete|invertir|gana|ganar|negocio|unirme|iniciar|inicio|empezar|empiezo|cómo|como|funciona|qué|que|cuál|cual|quién|quien|por qué|porqué|para qué|paraqué|dónde|donde|cuándo|cuando|creatuactivo|queswa|producto|metodolog|sistema|estructura|patrimoni|arquitecto|d[ií]a|tridente/i.test(msg)) return true;
       return false;
     })();
 

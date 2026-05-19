@@ -119,9 +119,14 @@ async function main() {
     console.log(`\n📄 ${codigo}:`);
     console.log('   Preview:', contenido.substring(0, 150).replace(/\n/g, ' ') + '...');
 
-    // Verificar que contenga el marcador VERBATIM_LOCK
-    if (!contenido.includes('[VERBATIM_LOCK]')) {
-      console.warn(`   ⚠️  ${codigo} no contiene marcador [VERBATIM_LOCK] — revise arsenal_inicial.txt`);
+    // Verificar que contenga el marcador <verbatim_lock> (XML tags desde v25.8)
+    // o el legacy [VERBATIM_LOCK] (corchetes planos, deprecated)
+    const tieneXML = contenido.includes('<verbatim_lock>');
+    const tieneLegacy = contenido.includes('[VERBATIM_LOCK]');
+    if (!tieneXML && !tieneLegacy) {
+      console.warn(`   ⚠️  ${codigo} no contiene marcador <verbatim_lock> ni [VERBATIM_LOCK] — revise arsenal_inicial.txt`);
+    } else if (tieneLegacy && !tieneXML) {
+      console.warn(`   ⚠️  ${codigo} usa marcador legacy [VERBATIM_LOCK] — migre a <verbatim_lock> XML (canon v25.8+)`);
     }
 
     const ok = await actualizarFragmento(category, contenido);

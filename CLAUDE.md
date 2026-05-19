@@ -39,8 +39,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v26.7.mjs` |
-| Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v26.8.mjs` |
+| Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -73,8 +73,9 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
-- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v26_7.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01)
-- ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `[VERBATIM_LOCK]` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
+- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v26_8.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01)
+- ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `<verbatim_lock>...</verbatim_lock>` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
+- ❌ **NO regresar** los marcadores XML `<verbatim_lock>` a corchetes planos `[VERBATIM_LOCK]`. La investigación Gemini (18 May 2026) confirmó que Claude Sonnet 4.6 reconoce XML tags como señales de activación de atención, mientras que los corchetes planos son texto inerte. Migración aplicada en v25.8/v26.8.
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar el regex de detección Estado 4 en las líneas ~3204 y ~3471 de `route.ts` — si el texto cambia y el regex no, el FSM genera handoffs duplicados
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
@@ -269,7 +270,7 @@ WhatsApp (orgánico o CTWA anuncio)
 
 **How It Works**:
 1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v25.7** (18 May 2026) — Sustitución doctrinal de WHY_01, WHY_02 y EAM_01 con respuestas Master del Director Académico de Élite, calibradas contra Glosario v1.4 + canon v26.6. Marcadores `[VERBATIM_LOCK]` añadidos en esos 3 bloques. Pilar 3 recategorizado a "La Metodología Automatizada (Tridente EAM)" (v25.3); Arquitecto elevado como director. Jerarquía causal corregida (v25.5): Déficit Estructural = CAUSA, no consecuencia. Bloque DIASPORA_01-03, Tres Pilares, Base Operativa, aforismos Tridente EAM, verbos de paridad
+   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v25.8** (18 May 2026) — Migración estructural `[VERBATIM_LOCK]` → `<verbatim_lock>` (XML tags) en WHY_01, WHY_02, EAM_01. Razón: investigación Gemini confirmó que Claude Sonnet 4.6 reconoce XML tags como señal de atención, los corchetes planos no. Respuestas Master del Director Académico (v25.7) preservadas sin cambios de copy. Pilar 3 recategorizado (v25.3); Arquitecto elevado como director. Jerarquía causal corregida (v25.5).
    - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (18 responses) — tenant: `creatuactivo_marketing` — **v10.0** (May 2026) — ADV_VAL_05 nueva (incentivos corporativos Gano Excel); **Tridente EAM con Comandos canónicos en METH_01** (Comando Expandir / Comando Activar / Comando Maestría + aforismos); Patrimonio Paralelo en OBJ_02; Queswa nombrado en OBJ_01; USD/COP unificado VAL_01/VAL_04; **ADV_TECH_03 con "Queswa, el Centro de Mando" + "sistemas de contingencia"** (Capas — no Pilares); ADV_SIST_02 "Infraestructura Continental"; ADV_SIST_03 reordenado
    - `arsenal_reto` - Auditoría Patrimonial (7 responses) — tenant: `creatuactivo_marketing` — **v4.1** (May 2026) — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, Pilares 1/2 en Día 3, Base Operativa digital
    - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
@@ -295,11 +296,11 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v26.7 "verbatim_lock_master_responses"** (18 May 2026) — Introduce regla estructural `[VERBATIM_LOCK]`: cualquier fragmento RAG envuelto entre `[VERBATIM_LOCK]...[/VERBATIM_LOCK]` se entrega carácter por carácter, sin parafraseo. Sobrescribe el límite de 150 palabras y la directriz "Prioriza la idea del [Concepto Nuclear]". Razón: v26.5/v26.6 protegían solo WHY_02 verbatim por línea natural-language, pero empíricamente esa protección se diluía contra los 27KB del system prompt. El marcador estructural es resistente al drift del LLM. Paralelamente, chip-triggers de WHY_02 y EAM_01 entran por backend dictador (`src/lib/respuestas-maestras.ts`, ver sección Camino A más abajo). 29,937 chars.
+   - Versión activa: **v26.8 "xml_verbatim_lock"** (18 May 2026) — Migración crítica: `[VERBATIM_LOCK]` (corchetes planos) → `<verbatim_lock>...</verbatim_lock>` (XML tags) en TODA la doctrina. Razón: investigación Gemini (Hipótesis C confirmada) demostró que Claude Sonnet 4.6 fue post-entrenado para activar atención sobre XML tags estructurados; los corchetes planos se procesan como texto de baja prioridad e inefectivos. Esto explica por qué v26.7 falló empíricamente al forzar delivery verbatim — el marcador era invisible al mecanismo de atención. Sincronizado con arsenal_inicial v25.8.
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** - update database instead (fallback ya alineado a v26.5 en `route.ts` líneas 2460-2487; v26.6 y v26.7 actualizan vía Supabase únicamente)
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
-   - **Bifurcación de embudos**: `nexus_main` v26.7 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
+   - **Bifurcación de embudos**: `nexus_main` v26.8 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
    - **v26.0 unificacion_servilleta (May 2026)**: Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz Física + Queswa Centro de Mando + Arquitecto de Patrimonio), Base Operativa como activo del Arquitecto, diccionario industrial completo, bloqueo de datos de entrenamiento Gano Excel obsoletos.
    - **v26.1 blindaje_why02 (May 2026)**: Añade instrucción explícita en sección LÍMITE DE RESPUESTA para entregar WHY_02 verbatim desde RAG (sin reescritura creativa). WHY_02 reformulado: pilares numerados 1/2/3, "Gano Excel" explícito, gerundios EAM (Expandir/Activar/Maestría), "Usted no vende, usted dirige", nueva pregunta de cierre como analista de capital.
    - **v26.2 comandos_tridente (May 2026)**: Resuelve conflicto semántico — "Protocolo" quedaba reservado al villano (PPO) y a procesos técnicos genéricos, pero también se usaba para el Tridente. Ahora los tres elementos del Tridente EAM se llaman **Comandos** (Comando Expandir · Comando Activar · Comando Maestría). Trinidad resultante: Centro de Mando (Queswa) → emite Comandos (Tridente EAM) → sobre la Base Operativa.
@@ -307,8 +308,10 @@ WhatsApp (orgánico o CTWA anuncio)
    - **v26.4 retrofit_friccion_nivel_5 (10 May 2026)**: Retrofit léxico contra 4 investigaciones canónicas (`public/contexto/investigaciones/`). 11 ediciones quirúrgicas: (1) eliminación frame `actualización de software financiero` × 6 instancias → `instalación de Estructura Patrimonial en paralelo` (sesgo WEIRD/tech-noir documentado); (2) `apalancamiento asimétrico` → `apalancamiento estratégico` (fricción nivel 5/5 Wall Street/Anglo); (3) `gobernanza estratégica/de activos` → `dirección estratégica/dirigir activo` (fricción nivel 5/5 corporativo); (4) eliminación negaciones discursivas (`NO es reemplazo. NO es escape.` × 2 + 3 antiejemplos en Directrices de Voz) — aplica regla v26.3 línea 25 "Describe qué ES — no qué NO ES".
    - **v26.5 pilar3_metodologia_automatizada (15 May 2026)**: Resolución de disonancia arquitectónica. **Pilar 3** recategorizado de "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (El Tridente EAM)". Si Pilar 3 = el usuario, solo se entregan 2 pilares de infraestructura (Matriz Física + Queswa), no 3. El tercer pilar debe ser un componente entregado por el sistema, no el rol del receptor. El **Arquitecto de Patrimonio** queda elevado como **director de los tres pilares**, no como pieza dentro de ellos. Cross-canal: servilleta v3.1, arsenal_inicial v25.3, home v13.3, fallback route.ts sincronizado.
    - **v26.6 jerarquia_causal_corregida (17 May 2026)**: Corrección semántica doctrinal — **Déficit Estructural de Ingresos** ahora es CAUSA RAÍZ DE DISEÑO (no consecuencia). Modelo de presencia obligada = MANIFESTACIÓN OPERATIVA. Colapso del flujo de caja al detenerse = CONSECUENCIA matemática cuantificable. Razón semántica: el adjetivo "estructural" denota cualidad de los cimientos → causa. Sincronizado con arsenal_inicial v25.5 (WHY_01 + STORY_01 + PERFIL_01).
-   - **v26.7 verbatim_lock_master_responses (18 May 2026)**: Introduce **regla estructural `[VERBATIM_LOCK]`** — cualquier fragmento RAG envuelto entre `[VERBATIM_LOCK]...[/VERBATIM_LOCK]` se entrega carácter por carácter, sin parafraseo. Sobrescribe el límite de 150 palabras y la directriz "Prioriza la idea del [Concepto Nuclear]". Razón: v26.5/v26.6 protegían solo WHY_02 verbatim por instrucción natural-language; empíricamente esa protección se diluía contra los 27KB del system prompt y el modelo parafraseaba igual. El marcador estructural es más resistente al drift del LLM. WHY_01, WHY_02 y EAM_01 en arsenal_inicial v25.7 llevan ese marcador (respuestas Master del Director Académico de Élite). Paralelamente, chip-triggers de WHY_02 y EAM_01 se sirven desde `src/lib/respuestas-maestras.ts` (Camino A — backend dictador, $0 tokens, 100% fidelidad). Ver sección "Camino A: Respuestas Master del Director Académico" más abajo.
-   - **Archivo fuente v26.7**: `knowledge_base/system-prompt-nexus-main-v26_7.md` — deploy: `node scripts/actualizar-system-prompt-v26.7.mjs`
+   - **v26.7 verbatim_lock_master_responses (18 May 2026)**: Introducción del marcador `[VERBATIM_LOCK]` (corchetes planos) como mecanismo de delivery verbatim. **Falló empíricamente** — el modelo seguía parafraseando porque los corchetes planos son texto inerte para el mecanismo de atención de Claude Sonnet 4.6. Superseded por v26.8.
+   - **v26.8 xml_verbatim_lock (18 May 2026)**: Migración `[VERBATIM_LOCK]` → `<verbatim_lock>` (XML real). Cinco sub-reglas en la sección "REGLA `<verbatim_lock>` — INVIOLABLE" — incluyendo la quinta que apela explícitamente al post-entrenamiento del modelo ("las etiquetas `<verbatim_lock>` son XML reales, no decoración. Tu mecanismo de atención está post-entrenado para reconocerlas como señal de máxima prioridad"). Fundamento técnico: literatura técnica de Anthropic + verificación empírica en producción (Reddit r/artificial, blog ingeniería Anthropic). Esta es la **Fase 2** de la implementación basada en investigación Gemini (Hipótesis C confirmada). Paralelamente, la **Fase 1** corrigió un bug en `isSimpleQueryEarly()` que clasificaba "qué es CreaTuActivo" como SIMPLE → saltaba vector search → modelo respondía sin RAG.
+   - **Archivo fuente v26.8**: `knowledge_base/system-prompt-nexus-main-v26_8.md` — deploy: `node scripts/actualizar-system-prompt-v26.8.mjs`
+   - **Archivo fuente v26.7**: `knowledge_base/system-prompt-nexus-main-v26_7.md` — conservar como referencia histórica (intento fallido con corchetes planos)
    - **Archivo fuente v26.6**: `knowledge_base/system-prompt-nexus-main-v26_6.md` — conservar como referencia histórica
    - **Archivo fuente v26.5**: `knowledge_base/system-prompt-nexus-main-v26_5.md` — conservar como referencia histórica
    - **Archivo fuente v26.4**: `knowledge_base/system-prompt-nexus-main-v26_4.md` — conservar como referencia histórica
@@ -332,7 +335,10 @@ Patrón arquitectónico: mismo que `getMicroPromptApertura()` / `getCierreEstado
 
 **Fuente dual de verdad — regla inviolable**: Los textos en `src/lib/respuestas-maestras.ts` deben coincidir carácter por carácter con los bloques `[VERBATIM_LOCK]...[/VERBATIM_LOCK]` en `knowledge_base/arsenal_inicial.txt` (WHY_02 en BLOQUE 1, EAM_01 en BLOQUE 8). El arsenal es la doctrina viva; el módulo TS es el caché operativo del backend. Si edita uno, sincronice el otro.
 
-**Camino B (RAG con marcador) — fallback para queries naturales**: WHY_01 ("¿Qué es CreaTuActivo?") y queries naturales que coincidan semánticamente con WHY_02/EAM_01 entran por el flujo RAG normal. El marcador `[VERBATIM_LOCK]` envuelve el cuerpo de los 3 fragmentos en el arsenal; la regla "REGLA [VERBATIM_LOCK] — INVIOLABLE" en el system prompt v26.7 ordena al LLM entregar el contenido exacto entre los marcadores. Reliability ~85-95% (no 100% — limitación conocida de instrucciones natural-language en prompts grandes).
+**Camino B (RAG con marcador XML) — fallback para queries naturales**: WHY_01 ("¿Qué es CreaTuActivo?") y queries naturales que coincidan semánticamente con WHY_02/EAM_01 entran por el flujo RAG normal. Las etiquetas XML `<verbatim_lock>...</verbatim_lock>` envuelven el cuerpo de los 3 fragmentos en el arsenal; la sección "REGLA `<verbatim_lock>` — INVIOLABLE" en el system prompt v26.8 ordena al LLM entregar el contenido exacto entre las etiquetas. Reliability esperada ~95-99% (XML tags activan atención post-entrenada en Claude Sonnet 4.6; investigación Gemini Hipótesis C).
+
+**Histórico de fallos doctrinales (no repetir)**:
+- v26.7 introdujo `[VERBATIM_LOCK]` con corchetes planos como marcador estructural. Falló empíricamente — modelo seguía parafraseando. Razón: literatura técnica de Anthropic confirma que los corchetes planos son procesados como texto de baja prioridad; solo etiquetas XML genuinas activan el mecanismo de atención post-entrenado. Migración aplicada en v26.8.
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
@@ -683,7 +689,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v26.7.mjs` (latest: **v26.7 verbatim_lock_master_responses** — apunta a `system-prompt-nexus-main-v26_7.md`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v26.8.mjs` (latest: **v26.8 xml_verbatim_lock** — apunta a `system-prompt-nexus-main-v26_8.md`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -1094,8 +1100,8 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v26.7** — verbatim_lock_master_responses, 18 May 2026)
-- `actualizar-fragmentos-master-v25.7.mjs` - Re-fragmenta WHY_01/WHY_02/EAM_01 con embeddings Voyage AI (post-edit del arsenal Master)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v26.8** — xml_verbatim_lock, 18 May 2026)
+- `actualizar-fragmentos-master-v25.7.mjs` - Re-fragmenta WHY_01/WHY_02/EAM_01 con embeddings Voyage AI (genérico — lee del arsenal vivo, válido para cualquier vXX.Y subsiguiente)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

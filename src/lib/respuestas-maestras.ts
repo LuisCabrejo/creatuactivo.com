@@ -19,13 +19,13 @@
  *
  * El tercer texto Master (WHY_01 "¿Qué es CreaTuActivo?") NO se sirve aquí porque
  * no es chip — entra por queries naturales y se entrega via RAG con marcador
- * [VERBATIM_LOCK] en arsenal_inicial.txt (Camino B, sin bypass del LLM).
+ * <verbatim_lock> en arsenal_inicial.txt (Camino B, sin bypass del LLM).
  *
  * ┌─────────────────────────────────────────────────────────────────────────────┐
  * │ SINCRONIZACIÓN — REGLA INVIOLABLE                                           │
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
- * Los textos aquí son réplica EXACTA de los bloques entre [VERBATIM_LOCK] en
+ * Los textos aquí son réplica EXACTA de los bloques entre <verbatim_lock> en
  * `knowledge_base/arsenal_inicial.txt` v25.7:
  *   • Chip 1 → WHY_02 (BLOQUE 1)
  *   • Chip 2 → EAM_01 (BLOQUE 8)
@@ -39,7 +39,7 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("Quiero entender la lógica…").
- * Sincronizado con arsenal_inicial.txt v25.7 BLOQUE 1.
+ * Sincronizado con arsenal_inicial.txt v25.8 BLOQUE 1.
  */
 const MASTER_WHY_02 = `Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato. Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.
 
@@ -57,7 +57,7 @@ Su rol es estrictamente de Dirección Ejecutiva: usted no opera la maquinaria, l
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
- * Sincronizado con arsenal_inicial.txt v25.7 BLOQUE 8.
+ * Sincronizado con arsenal_inicial.txt v25.8 BLOQUE 8.
  */
 const MASTER_EAM_01 = `Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar. Su día a día se rige por el Tridente EAM, un protocolo de dirección estandarizado que erradica el ensayo y error por completo.
 
@@ -84,7 +84,7 @@ const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
  *
  * El match es estricto sobre `trim().toLowerCase()` — sin similitud semántica.
  * Para queries naturales que coincidan semánticamente con WHY_02 o EAM_01, el
- * delivery va por RAG con [VERBATIM_LOCK] (Camino B), no por esta función.
+ * delivery va por RAG con <verbatim_lock> (Camino B), no por esta función.
  *
  * @param userMessage - Mensaje crudo del usuario (puede tener whitespace o casing variable)
  * @returns Texto verbatim de la respuesta Master, o null si no es chip-trigger

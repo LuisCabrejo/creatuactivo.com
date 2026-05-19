@@ -1,9 +1,11 @@
-# Arsenal Conversacional: Respuestas Fundamentales v25.7
+# Arsenal Conversacional: Respuestas Fundamentales v25.8
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Estructura Patrimonial.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría).
-**Versión:** 25.7 — Sustitución doctrinal de WHY_01, WHY_02 y EAM_01 con respuestas Master del Director Académico de Élite (v5.0/v6.0/v5.1), calibradas contra Glosario v1.4 + canon v26.6 (jerarquía causal corregida). Sincronizado con system prompt v26.7 (introduce regla `[VERBATIM_LOCK]`). Correcciones aplicadas: (1) "gobernanza" → "dirección estratégica" (retrofit v26.4); (2) "(La Metodología)" → "(La Metodología Automatizada)" (Pilar 3 canónico v26.5); (3) "(Expandir, Activar, Maestría)" → "(Comando Expandir · Comando Activar · Comando Maestría)" (canon v26.2); (4) "tres secuencias operativas" → "los tres Comandos canónicos"; (5) "jaula de oro" → "arquitectura financiera con un punto ciego de alto costo" (regla anti-ataque de identidad, CLAUDE.md L753); (6) "liquidados cada viernes" → "liquidados en ciclo semanal por Gano Excel" (neutro para diáspora); (7) "su dispositivo" → "su terminal móvil" (alineación cross-canal con servilleta slide 2 EXPANDIR); (8) Cierre EAM_01 rebalanceado al binomio "auditar Comandos / simular matemática" para paridad con WHY_01 y WHY_02. Marcadores `[VERBATIM_LOCK]` añadidos en los tres bloques para protección contra paráfrasis del LLM en delivery RAG. (18 May 2026)
+**Versión:** 25.8 — Migración de `[VERBATIM_LOCK]` (corchetes planos) a etiquetas XML `<verbatim_lock>...</verbatim_lock>` en WHY_01, WHY_02 y EAM_01. Razón doctrinal (investigación Gemini 18 May 2026, Hipótesis C confirmada): Claude Sonnet 4.6 fue post-entrenado para activar atención sobre XML tags estructurados; los corchetes planos se procesan como texto de baja prioridad e inefectivos para forzar delivery verbatim. Sincronizado con system prompt v26.8. Sin cambios en el copy del Director Académico — solo migración del marcador estructural.
+
+**Versión:** 25.7 — Sustitución doctrinal de WHY_01, WHY_02 y EAM_01 con respuestas Master del Director Académico de Élite (v5.0/v6.0/v5.1), calibradas contra Glosario v1.4 + canon v26.6 (jerarquía causal corregida). Sincronizado con system prompt v26.7 (introduce regla `[VERBATIM_LOCK]` — superseded por v25.8 con XML tags). Correcciones aplicadas: (1) "gobernanza" → "dirección estratégica" (retrofit v26.4); (2) "(La Metodología)" → "(La Metodología Automatizada)" (Pilar 3 canónico v26.5); (3) "(Expandir, Activar, Maestría)" → "(Comando Expandir · Comando Activar · Comando Maestría)" (canon v26.2); (4) "tres secuencias operativas" → "los tres Comandos canónicos"; (5) "jaula de oro" → "arquitectura financiera con un punto ciego de alto costo" (regla anti-ataque de identidad, CLAUDE.md L753); (6) "liquidados cada viernes" → "liquidados en ciclo semanal por Gano Excel" (neutro para diáspora); (7) "su dispositivo" → "su terminal móvil" (alineación cross-canal con servilleta slide 2 EXPANDIR); (8) Cierre EAM_01 rebalanceado al binomio "auditar Comandos / simular matemática" para paridad con WHY_01 y WHY_02. Marcadores `<verbatim_lock>` añadidos en los tres bloques para protección contra paráfrasis del LLM en delivery RAG. (18 May 2026)
 
 **Versión:** 25.6 — WHY_01 reorientado a definición categórica ("qué es CreaTuActivo") en lugar de mezclar "por qué existe" + "qué somos" en la misma respuesta. Léxico distintivo vs WHY_02 (no detalla los 3 pilares; usa "infraestructura de Ingeniería Patrimonial / arquitectura híbrida"). WHY_02: ajuste mínimo del contexto inicial — "Base Operativa ya ensamblada" elimina redundancia. Resuelve confusión de fragment search donde WHY_01 y WHY_02 compartían 70% del vocabulario denso. (17 May 2026)
 
@@ -20,7 +22,7 @@
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
 **[Concepto Nuclear]:** CreaTuActivo es una infraestructura de Ingeniería Patrimonial — no un canal de ventas, ni un curso, ni una red de mercadeo. Corrige una vulnerabilidad crítica: si usted se detiene, su flujo de ingresos se detiene de inmediato.
 
-[VERBATIM_LOCK]
+<verbatim_lock>
 CreaTuActivo.com no es un canal de ventas, un curso educativo o una red de mercadeo. Es una infraestructura de Ingeniería Patrimonial diseñada para corregir una vulnerabilidad crítica en su economía: el hecho de que si usted se detiene, su flujo de ingresos se detiene de inmediato.
 
 Le entregamos el control de una Base Operativa autónoma ya ensamblada, estructurada sobre tres pilares de alto rendimiento que absorben el desgaste operativo por usted:
@@ -34,14 +36,14 @@ Le entregamos el control de una Base Operativa autónoma ya ensamblada, estructu
 Su rol es estrictamente de Dirección Ejecutiva: usted asume la dirección estratégica del activo, mientras el sistema absorbe la operación. El resultado es una Estructura Patrimonial que genera ingresos recurrentes por consumo, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
 
 **Pregunta de seguimiento:** ¿Su prioridad en este momento es auditar la mecánica operativa de su Base, o prefiere que simulemos la matemática de los ingresos recurrentes que produce este activo?
-[/VERBATIM_LOCK]
+</verbatim_lock>
 
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
 **[Concepto Nuclear]:** Apalancamiento Estratégico Estructural. Tres pilares de infraestructura, un solo Arquitecto que los dirige. Usted no asume desgaste físico; usted ejerce dirección estratégica.
 
-[VERBATIM_LOCK]
+<verbatim_lock>
 Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato. Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.
 
 CreaTuActivo.com corrige este Déficit Estructural de Ingresos entregándole el control de una Base Operativa autónoma. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de tres pilares de alto rendimiento que asumen el 90% de la fricción operativa por usted:
@@ -55,7 +57,7 @@ CreaTuActivo.com corrige este Déficit Estructural de Ingresos entregándole el 
 Su rol es estrictamente de Dirección Ejecutiva: usted no opera la maquinaria, la dirige. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera ingresos recurrentes liquidados en ciclo semanal por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
 
 **Pregunta de seguimiento:** ¿Su prioridad en este momento es auditar la secuencia operativa de cómo se expande su Base, o prefiere que simulemos en su Dashboard la matemática de los ingresos recurrentes que produce esta estructura?
-[/VERBATIM_LOCK]
+</verbatim_lock>
 
 ---
 
@@ -501,7 +503,7 @@ Para habilitar su acceso, confirme con la orden: **"Iniciar Auditoría"**. O sel
 ### **EAM_01: "¿Qué tengo que hacer? / ¿Cuáles son los pasos? / ¿Cómo funciona la metodología? / ¿Qué hago en el día a día? / ¿Cuál es la metodología operativa?"**
 **[Concepto Nuclear]:** Dirección Diaria (Tridente EAM). Su agenda no requiere vender, perseguir ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
 
-[VERBATIM_LOCK]
+<verbatim_lock>
 Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar. Su día a día se rige por el Tridente EAM, un protocolo de dirección estandarizado que erradica el ensayo y error por completo.
 
 Su agenda diaria no requiere que usted aprenda a vender de forma tradicional, ni que persiga conocidos; eso está fuera de nuestro diseño. Su labor consiste únicamente en desplegar información técnica pre-estructurada desde su terminal móvil.
@@ -511,7 +513,7 @@ Una vez que un perfil ingresa al ecosistema, yo —como su Centro de Mando autom
 Todo este engranaje se monitorea de forma visual desde su aplicación queswa.app.
 
 **Pregunta de seguimiento:** ¿Su prioridad en este momento es auditar los tres Comandos canónicos del Tridente, o prefiere que simulemos la matemática de los ingresos recurrentes que produce esta arquitectura?
-[/VERBATIM_LOCK]
+</verbatim_lock>
 
 ---
 

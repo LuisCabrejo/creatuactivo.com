@@ -643,6 +643,47 @@ async function captureProspectData(
     'el estratégico': 'ESP-2',
     'el estrategico': 'ESP-2',
     'nivel estratégico': 'ESP-2',
+
+    // 🆕 FIX E (19 May 2026): Niveles numéricos genéricos.
+    // Caso detectado en QA: usuario escribió "en nivel 3" tras ver la tabla ESP
+    // y el sistema no capturó el paquete → FSM permaneció en Estado 2 → modelo
+    // improvisó un flujo KYC inventado (cédula, nóminas, referencias).
+    // Estos labels son seguros porque el Fix B (guard de pregunta informativa)
+    // ya filtra menciones en queries del tipo "qué es el nivel 3" o "explícame el 3".
+    'nivel 1': 'ESP-1',
+    'nivel 2': 'ESP-2',
+    'nivel 3': 'ESP-3',
+    'en nivel 1': 'ESP-1',
+    'en nivel 2': 'ESP-2',
+    'en nivel 3': 'ESP-3',
+    'el nivel 1': 'ESP-1',
+    'el nivel 2': 'ESP-2',
+    'el nivel 3': 'ESP-3',
+
+    // Referencias por orden ("el primero", "el segundo", "el tercero")
+    'primer nivel': 'ESP-1',
+    'segundo nivel': 'ESP-2',
+    'tercer nivel': 'ESP-3',
+    'el primero': 'ESP-1',
+    'el segundo': 'ESP-2',
+    'el tercero': 'ESP-3',
+    'la primera': 'ESP-1',
+    'la segunda': 'ESP-2',
+    'la tercera': 'ESP-3',
+
+    // Referencias por "opción" / "ruta" / "alternativa"
+    'opción 1': 'ESP-1',
+    'opción 2': 'ESP-2',
+    'opción 3': 'ESP-3',
+    'opcion 1': 'ESP-1',
+    'opcion 2': 'ESP-2',
+    'opcion 3': 'ESP-3',
+    'la opción 1': 'ESP-1',
+    'la opción 2': 'ESP-2',
+    'la opción 3': 'ESP-3',
+    'ruta 1': 'ESP-1',
+    'ruta 2': 'ESP-2',
+    'ruta 3': 'ESP-3',
   };
 
   // 🆕 FIX B (19 May 2026): guard de intención antes de capturar paquete.
@@ -3638,7 +3679,11 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // saltaba a Estado 1 (validación de horas) ante una consulta informativa.
       const esCondicionalHipotetico = /^(si\s|supongamos|imaginemos|en caso de|hipotética|y si\b|qué pasa si|qué pasaría si|asumiendo que|en el caso|para entender|para saber|me gustaría saber|quisiera saber|antes de decidir)/i.test(latestUserMessage.trim());
 
-      const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i;
+      // 🆕 FIX D (19 May 2026): ampliado con verbos coloquiales que el avatar usa para
+      // declarar intención de proceder. Casos detectados en QA: "hagámoslo", "dale",
+      // "adelante", "procedamos", "ok vamos". Sin estos, el modelo improvisaba un
+      // texto similar al canónico de Estado 1 pero perdía la calibración Phil Jones.
+      const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar|hag[aá]moslo|hag[aá]mos\s?lo|hagamos eso|hac[eé]lo|h[aá]zlo|^dale\b|^dale,|adelante|procedamos|proced[aá]|ok vamos|listo proced|empecemos|comencemos|ya proced|listo (vamos|adelante|empez)/i;
       if (!esCondicionalHipotetico && triggerInicio.test(latestUserMessage)) {
         console.log('🔀 [FSM] closing_state=1 detectado — trigger de inicio en mensaje del usuario');
         return { closingState: 1 as const, directPaquetes: false };

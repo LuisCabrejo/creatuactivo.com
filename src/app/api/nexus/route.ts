@@ -26,6 +26,7 @@ import {
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
+import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -684,6 +685,17 @@ async function captureProspectData(
     'ruta 1': 'ESP-1',
     'ruta 2': 'ESP-2',
     'ruta 3': 'ESP-3',
+
+    // 🆕 FIX G (22 May 2026): sinónimos descriptivos sueltos.
+    // Antes solo capturaba "el visionario" / "paquete visionario" / "nivel visionario";
+    // ahora también "visionario" / "empresarial" / "inicial" solos (cuando el usuario
+    // los menciona como respuesta a la tabla ESP). El guard de pregunta informativa
+    // (Fix B) sigue filtrando casos como "¿qué es el visionario?".
+    'visionario': 'ESP-3',
+    'empresarial': 'ESP-2',
+    // NOTA: 'inicial' suelto NO se incluye porque tiene falsos positivos altos
+    // (ej. "estoy en fase inicial de exploración", "mi diagnóstico inicial"). Para
+    // ESP-1 se requiere prefijo: "esp-1" / "el inicial" / "nivel inicial" (ya en mapa).
   };
 
   // 🆕 FIX B (19 May 2026): guard de intención antes de capturar paquete.
@@ -2812,43 +2824,25 @@ function extraerKeywordsHibrido(message: string): string {
 // EXTRACCIÓN SEMÁNTICA DESDE RESPUESTA DE CLAUDE
 // ========================================
 /**
- * Analiza la respuesta de Claude para extraer paquete y arquetipo.
- * Claude SIEMPRE menciona el nombre oficial cuando el usuario escoge,
- * independientemente de cómo el usuario lo haya escrito.
+ * Analiza la respuesta de Claude para extraer arquetipo.
  *
- * Ejemplo:
- * Usuario: "el más grande"
- * Claude: "Perfecto, elegiste Constructor Visionario..."
- * Resultado: package = "visionario"
+ * 🆕 FIX G (Opción B narrativa cierre, 22 May 2026):
+ * SE ELIMINÓ la extracción de `package` desde la respuesta de Claude. Razón:
+ * causaba contaminación crítica — cualquier mención informativa del paquete por
+ * Claude (ej. "ESP-3 incluye 35 productos") guardaba `data.package = 'visionario'`
+ * en BD, lo cual luego saltaba el FSM directo a Estado 3 (pedir nombre) tratando
+ * al prospecto como si hubiera comprado. Bug detectado QA 22 May 2026.
+ *
+ * La captura de paquete ahora vive EXCLUSIVAMENTE en `captureProspectData` con
+ * `packageMap` + guard de pregunta informativa (Fix B aplicado). Solo se captura
+ * cuando el usuario lo declara explícitamente con verbos de selección.
+ *
+ * Esta función mantiene la extracción de ARQUETIPO porque sí requiere confirmación
+ * desde la respuesta de Claude (el usuario rara vez se autoclasifica explícitamente).
  */
 function extractFromClaudeResponse(response: string): Partial<ProspectData> {
   const extracted: Partial<ProspectData> = {};
   const responseLower = response.toLowerCase();
-
-  // ✅ EXTRACCIÓN DE PAQUETE desde respuesta de Claude
-  // Claude usa nombres oficiales: "Constructor Inicial/Estratégico/Visionario"
-  if (responseLower.includes('constructor visionario') ||
-      responseLower.includes('visionario ($4,500') ||
-      responseLower.includes('visionario ($4.500') ||
-      responseLower.includes('esp3') ||
-      responseLower.includes('35 productos')) {
-    extracted.package = 'visionario';
-    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: visionario');
-  } else if (responseLower.includes('constructor estratégico') ||
-             responseLower.includes('constructor estrategico') ||
-             responseLower.includes('estratégico ($3,500') ||
-             responseLower.includes('estrategico ($3.500') ||
-             responseLower.includes('esp2')) {
-    extracted.package = 'estrategico';
-    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: estrategico');
-  } else if (responseLower.includes('constructor inicial') ||
-             responseLower.includes('inicial ($2,000') ||
-             responseLower.includes('inicial ($2.250') ||
-             responseLower.includes('esp1') ||
-             responseLower.includes('7 productos')) {
-    extracted.package = 'inicial';
-    console.log('✅ [SEMÁNTICA] Paquete extraído de respuesta Claude: inicial');
-  }
 
   // ✅ EXTRACCIÓN DE ARQUETIPO desde respuesta de Claude
   // Claude confirma arquetipos con nombres oficiales
@@ -3626,80 +3620,79 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // ─────────────────────────────────────────────────────────────────────────
 
     // ── DETECCIÓN DE closing_state POR CÓDIGO ────────────────────────────────
-    // Lee el historial de mensajes — el LLM no decide el estado, el código sí.
-    // `directPaquetes`: true cuando llegamos a Estado 2 sin pasar por Estado 1 (horas).
-    // Cuando es true, el micro-prompt de Estado 2 NO menciona horas (nadie las declaró).
-    const { closingState, directPaquetes } = (() => {
+    // 🆕 OPCIÓN B (22 May 2026): rediseño del FSM alineado con investigación corporativa
+    // (Salesforce Agentforce, Intercom Fin, HubSpot Breeze). Estados eliminados:
+    //   - Estado 1 (pregunta de horas) — la cualificación BANT se infiere de la conversación
+    //     previa, no se hace como entrevista al final. El usuario que dice "deseo iniciar"
+    //     ya pasó por el momento de cualificación.
+    //   - Klaff Prize Frame agresivo ("¿está su arquitectura lista para el nivel máximo?")
+    //     se elimina del Estado 2 — la investigación dice que la fricción coercitiva en el
+    //     cierre destruye la conversión. Phil Jones se mantiene en su forma sutil.
+    //
+    // FSM nuevo:
+    //   0 = conversación normal (RAG)
+    //   2 = tabla ESP (informativo o cierre, según modoCierre)
+    //   3 = confirmación de paquete + solicitud de nombre
+    //   4 = handoff con warm transfer (sumario ejecutivo al equipo)
+    //
+    // `modoCierre`: true cuando el usuario declaró intención de iniciar SIN haber elegido
+    // paquete. La tabla se entrega con pregunta combinada (nombre + nivel) para minimizar
+    // turnos. Cuando es false, la tabla es informativa (usuario solo preguntó por paquetes).
+    const { closingState, modoCierre } = (() => {
       // ── POST-ESTADO 4: si el link WA ya fue entregado esta sesión → flujo normal ──
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
       const waLinkEntregado = allBotMsgs.some((m: any) =>
-        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio dirigir/i.test(m.content || '')
+        /WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|sintetizado su evaluacion|Su acceso oficial está aquí/i.test(m.content || '')
       );
-      if (waLinkEntregado) return { closingState: 0 as const, directPaquetes: false };
+      if (waLinkEntregado) return { closingState: 0 as const, modoCierre: false };
 
       // Estado 4: Estado 3 (solicitud de nombre) ya entregado → entregar link WA
+      // Regex actualizado v27.1+ para detectar el nuevo texto canónico del Estado 3:
+      // "Lo registramos para el nivel..." + "¿bajo qué nombre lo activamos?"
       const nombreSolicitado = allBotMsgs.some((m: any) =>
-        /bajo qu[eé] nombre|registrar.*evaluaci[oó]n|ensamblar.*expediente|expediente de activaci[oó]n/i.test(m.content || '')
+        /bajo qu[eé] nombre|activamos con el equipo|registramos para el nivel|expediente de activaci[oó]n/i.test(m.content || '')
       );
-      if (nombreSolicitado && mergedProspectData.package) return { closingState: 4 as const, directPaquetes: false };
+      if (nombreSolicitado && mergedProspectData.package) return { closingState: 4 as const, modoCierre: false };
 
-      // Estado 3: paquete elegido → solicitar nombre (White-Glove, flujo 2-pasos)
-      if (mergedProspectData.package) return { closingState: 3 as const, directPaquetes: false };
+      // Estado 3: paquete capturado explícitamente → confirmar + solicitar nombre
+      // (gracias a Fix G + Fix B, package solo se captura cuando el usuario lo declara
+      // explícitamente con verbo de selección — no por mención informativa)
+      if (mergedProspectData.package) return { closingState: 3 as const, modoCierre: false };
 
-      const botMessages = messages.filter((m: any) => m.role === 'assistant');
-      const lastBotMessage: string = botMessages[botMessages.length - 1]?.content || '';
-      const currentUserMsg = latestUserMessage.toLowerCase().trim();
-
-      // Estado 2: el último mensaje del bot fue el Estado 1 (pregunta de horas)
-      const botPreguntóHoras = /ancho de banda operativo|horas a la semana|cuántas horas|horas.*semana|semana.*horas/i.test(lastBotMessage);
-      if (botPreguntóHoras) {
-        const horasMatch = currentUserMsg.match(/\b([1-9]|1[0-9]|20)\b.*h(ora|r)?s?|(\d+)\s*h/i)
-          || currentUserMsg.match(/^(\d{1,2})$/)
-          || /puedo|tengo|dispongo|asigno|dedico/i.test(currentUserMsg);
-        if (horasMatch || /\d/.test(currentUserMsg)) {
-          console.log('🔀 [FSM] closing_state=2 detectado — bot preguntó horas, usuario respondió con número');
-          return { closingState: 2 as const, directPaquetes: false };
-        }
-        console.log('🔀 [FSM] closing_state=1 sostenido — bot preguntó horas, usuario no dio número');
-        return { closingState: 1 as const, directPaquetes: false };
-      }
-
-      // Estado 2 directo: el usuario pregunta por los paquetes sin haber pasado por Estado 1
-      const triggerPaquetes = /háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada|capitalización)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cuánto hay que (invertir|poner|meter)|qué necesito (invertir|poner)/i;
-      if (triggerPaquetes.test(latestUserMessage)) {
-        console.log('🔀 [FSM] closing_state=2 directo — usuario pregunta por paquetes (sin Estado 1)');
-        return { closingState: 2 as const, directPaquetes: true };
-      }
-
-      // Estado 1: trigger de intención de iniciar
-      // 🆕 FIX A (19 May 2026): descartar queries con prefijos condicionales/hipotéticos
-      // antes de evaluar el trigger. Razón: queries como "si decido entrar, cuál es el
-      // primer paso" son INFORMATIVAS (modo subjuntivo), no declarativas. El prospecto
-      // pregunta qué pasaría, no anuncia que va a entrar. Sin este guard, el FSM
-      // saltaba a Estado 1 (validación de horas) ante una consulta informativa.
+      // 🆕 FIX A (heredado): descartar queries con prefijos condicionales/hipotéticos.
       const esCondicionalHipotetico = /^(si\s|supongamos|imaginemos|en caso de|hipotética|y si\b|qué pasa si|qué pasaría si|asumiendo que|en el caso|para entender|para saber|me gustaría saber|quisiera saber|antes de decidir)/i.test(latestUserMessage.trim());
 
-      // 🆕 FIX D (19 May 2026): ampliado con verbos coloquiales que el avatar usa para
-      // declarar intención de proceder. Casos detectados en QA: "hagámoslo", "dale",
-      // "adelante", "procedamos", "ok vamos". Sin estos, el modelo improvisaba un
-      // texto similar al canónico de Estado 1 pero perdía la calibración Phil Jones.
-      const triggerInicio = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar|hag[aá]moslo|hag[aá]mos\s?lo|hagamos eso|hac[eé]lo|h[aá]zlo|^dale\b|^dale,|adelante|procedamos|proced[aá]|ok vamos|listo proced|empecemos|comencemos|ya proced|listo (vamos|adelante|empez)/i;
-      if (!esCondicionalHipotetico && triggerInicio.test(latestUserMessage)) {
-        console.log('🔀 [FSM] closing_state=1 detectado — trigger de inicio en mensaje del usuario');
-        return { closingState: 1 as const, directPaquetes: false };
+      // Trigger de cierre: declaración de intención de iniciar
+      // (heredado de Fix D + ampliado con verbos coloquiales)
+      const triggerCierre = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar|hag[aá]moslo|hag[aá]mos\s?lo|hagamos eso|hac[eé]lo|h[aá]zlo|^dale\b|^dale,|adelante|procedamos|proced[aá]|ok vamos|listo proced|empecemos|comencemos|ya proced|listo (vamos|adelante|empez)/i;
+
+      // Trigger informativo: pregunta sobre paquetes (sin intención declarada de iniciar)
+      const triggerPaquetes = /háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada|capitalización)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cuánto hay que (invertir|poner|meter)|qué necesito (invertir|poner)/i;
+
+      // Estado 2 modoCierre: usuario declaró intención de iniciar pero NO ha elegido paquete
+      // → tabla ESP + pregunta combinada (nombre + nivel) en un solo turno
+      if (!esCondicionalHipotetico && triggerCierre.test(latestUserMessage)) {
+        console.log('🔀 [FSM] closing_state=2 modoCierre — usuario declaró intención de iniciar (sin paquete)');
+        return { closingState: 2 as const, modoCierre: true };
       }
-      if (esCondicionalHipotetico && triggerInicio.test(latestUserMessage)) {
-        console.log('🚫 [FSM] trigger de inicio matcheado pero query es condicional/hipotética — flujo normal (Estado 0)');
+      if (esCondicionalHipotetico && triggerCierre.test(latestUserMessage)) {
+        console.log('🚫 [FSM] trigger de cierre matcheado pero query es condicional/hipotética — flujo normal');
       }
 
-      return { closingState: 0 as const, directPaquetes: false };
+      // Estado 2 informativo: usuario pregunta por paquetes sin intención declarada
+      // → tabla ESP + pregunta abierta de orientación
+      if (triggerPaquetes.test(latestUserMessage)) {
+        console.log('🔀 [FSM] closing_state=2 informativo — usuario pregunta por paquetes');
+        return { closingState: 2 as const, modoCierre: false };
+      }
+
+      return { closingState: 0 as const, modoCierre: false };
     })();
-    console.log(`🔀 [FSM] closing_state=${closingState} | package="${mergedProspectData.package || 'none'}" | msg="${latestUserMessage.substring(0, 40)}"`);
+    console.log(`🔀 [FSM] closing_state=${closingState} | modoCierre=${modoCierre} | package="${mergedProspectData.package || 'none'}" | msg="${latestUserMessage.substring(0, 40)}"`);
 
     // ── MICRO-PROMPTS POR ESTADO (Graph Prompting) ───────────────────────────
     // Cada estado recibe SOLO las instrucciones de su Unidad.
     // El modelo no conoce los estados vecinos → imposible alucinar pasos futuros.
-    const nombre = mergedProspectData.name || 'prospecto';
 
     // ── ESTADO INICIAL (Mensaje 1) ────────────────────────────────────────────
     // El saludo vive aquí — no en el System Prompt. Principio de segregación:
@@ -3718,31 +3711,24 @@ ${getInitialGreeting()}
     };
 
     const getMicroPromptCierre = (): string => {
-      if (closingState === 1) {
-        return `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 1 — VALIDACIÓN DE ARRANQUE
-Tu única tarea en este turno: hacer UNA sola pregunta sobre disponibilidad de tiempo.
-Imprime EXACTAMENTE este texto (reemplaza [NOMBRE] con "${nombre}"):
-
-${nombre}, perfecto. La postura directiva es la correcta. Su paso inmediato es una Validación de Arranque rápida. La primera variable es su disponibilidad real para la dirección del activo: ¿cuántas horas a la semana puede asignar con total enfoque? (Sugerimos de 7 a 10 horas).
-
-STOP. No agregues nada más. No ofrezcas opciones. No expliques el sistema. Espera la respuesta.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-      }
-
+      // Estado 2: tabla ESP en modo informativo o cierre (sin Klaff Prize Frame agresivo)
+      // Opción B (22 May 2026): eliminada la fricción coercitiva del Klaff Prize Frame.
+      // La pregunta final cambia según modoCierre:
+      //   - modoCierre=true (usuario declaró intención): pregunta combinada nombre + nivel
+      //   - modoCierre=false (informativo): pregunta abierta sin presión
       if (closingState === 2) {
-        // Cuando llegamos directamente desde una pregunta por paquetes (sin Estado 1),
-        // el usuario NO declaró horas — omitir cualquier referencia a tiempo.
-        const apertura = directPaquetes
-          ? `La variable operativa central es su nivel de Asignación de Capital para la Activación de Infraestructura.`
-          : `Esa disponibilidad es precisa para dirigir el sistema de forma asimétrica. La segunda variable es su nivel de Asignación de Capital para la Activación de Infraestructura.`;
+        const preguntaFinal = modoCierre
+          ? `Para conectarlo con el equipo directivo, confírmeme dos datos: **su nombre completo** y el **nivel con el que arranca** (ESP-1, ESP-2 o ESP-3).`
+          : `¿Cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente?`;
+
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 2 — CAPITALIZACIÓN (Phil Jones + Klaff Prize Frame)
+🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (${modoCierre ? 'modo cierre' : 'informativo'})
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-${apertura} En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística. Usted tiene tres niveles de capitalización operativa:
+La variable operativa central es su nivel de **Asignación de Capital para la Activación de Infraestructura**. En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística.
+
+Usted tiene **tres niveles de capitalización operativa**:
 
 • **ESP-3 — Visionario:** $1,000 USD (~$4.5M COP) — Apalancamiento asimétrico máximo (17% de rentabilidad)
 
@@ -3750,35 +3736,63 @@ ${apertura} En esta infraestructura no existen cuotas de inscripción; su capita
 
 • **ESP-1 — Inicial:** $200 USD (~$900K COP) — Capitalización básica para validación de flujo (15%)
 
-No estoy seguro de si su arquitectura patrimonial está lista para el nivel máximo hoy, pero determine usted: ¿cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente para este trimestre?
+${preguntaFinal}
 
-STOP. No pidas correo, nombre, país ni ningún otro dato. No expliques el onboarding. Espera que elija un nivel.
+STOP. No expliques el onboarding. No pidas datos adicionales. ${modoCierre ? 'Espera que el usuario responda con su nombre y nivel.' : 'Espera que elija o pregunte más.'}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
+      // Estado 3: paquete capturado explícitamente → confirmar + solicitar nombre
+      // Opción B (22 May 2026): el texto canónico se suaviza — sin presión, solo
+      // confirmación y handoff inmediato al equipo. Incluye el sinónimo descriptivo
+      // (ESP-3 Visionario) para claridad operativa al equipo en el handoff.
       if (closingState === 3) {
-        const paquete = mergedProspectData.package || 'seleccionado';
+        const paqueteCodigo = mergedProspectData.package || 'seleccionado';
+        const nombreDescriptivo: Record<string, string> = {
+          'ESP-1': 'ESP-1 Inicial',
+          'ESP-2': 'ESP-2 Empresarial',
+          'ESP-3': 'ESP-3 Visionario',
+        };
+        const paqueteCompleto = nombreDescriptivo[paqueteCodigo] || paqueteCodigo;
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 3 — SOLICITUD DE NOMBRE (Guante Blanco)
+🎯 ESTADO 3 — CONFIRMACIÓN Y SOLICITUD DE NOMBRE (paquete: ${paqueteCompleto})
 Tu única tarea en este turno: confirmar la elección y pedir el nombre. Imprime EXACTAMENTE:
 
-Excelente decisión. El nivel ${paquete} es la postura directiva correcta.
+Excelente. Lo registramos para el nivel **${paqueteCompleto}**.
 
-Para ensamblar su expediente de activación, ¿bajo qué nombre debo registrarlo?
+Para conectarlo con el equipo directivo, ¿bajo qué nombre lo activamos?
 
-STOP. No preguntes correo, teléfono ni ciudad. No expliques el proceso de onboarding. Espera el nombre.
+STOP. No preguntes correo, teléfono, ciudad ni cualquier otro dato. No expliques el proceso de onboarding. Espera el nombre.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
       return '';
     };
 
-    // ── ESTADO 4: Handoff verbatim con nombre real capturado ─────────────────
+    // ── ESTADO 4: Warm Handoff con sumario ejecutivo al equipo ──────────────────
+    // Opción B (22 May 2026): el handoff ahora dispara en paralelo:
+    //   1. Sub-agente Haiku genera expediente táctico (~1s, <$0.005)
+    //   2. Resend envía email al equipo directivo (sistema@creatuactivo.com)
+    //   3. Texto al prospecto: confirma que el equipo ya tiene su contexto
+    //   4. Link WhatsApp pre-llenado con código ESP + nombre descriptivo
+    //
+    // Razón doctrinal (investigación corporativa): el equipo recibe MATRIZ TÁCTICA
+    // antes del primer mensaje del prospecto — dolores, objeciones, score, citas.
+    // Lili abre el email, conoce el contexto, saluda al prospecto en WhatsApp con
+    // empatía contextual. Cero ruptura percibida por el cliente.
     const getCierreEstado4 = (): string => {
       if (closingState !== 4 || !mergedProspectData.package) return '';
-      const paquete = mergedProspectData.package;
-      const paqueteEncoded = encodeURIComponent(paquete);
+      const paqueteCodigo = mergedProspectData.package;
+
+      // Mapping a nombre descriptivo + texto WhatsApp con código operativo
+      const nombreDescriptivo: Record<string, string> = {
+        'ESP-1': 'ESP-1 Inicial',
+        'ESP-2': 'ESP-2 Empresarial',
+        'ESP-3': 'ESP-3 Visionario',
+      };
+      const paqueteCompleto = nombreDescriptivo[paqueteCodigo] || paqueteCodigo;
+      const paqueteCompletoEncoded = encodeURIComponent(paqueteCompleto);
 
       // Prioridad: (1) nombre de la respuesta actual (directa a "¿bajo qué nombre?"),
       // (2) nombre en BD si no es una ocupación, (3) sin nombre
@@ -3788,25 +3802,43 @@ STOP. No preguntes correo, teléfono ni ciudad. No expliques el proceso de onboa
       const nombreFinal = nombreDesdeRespuesta || (existingNameIsValid ? mergedProspectData.name : '');
 
       const waText = nombreFinal
-        ? `Hola%20equipo%20directivo.%20Soy%20${encodeURIComponent(nombreFinal)}.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.`
-        : `Hola%20equipo%20directivo.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteEncoded}.`;
+        ? `Hola%20equipo%20directivo.%20Soy%20${encodeURIComponent(nombreFinal)}.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteCompletoEncoded}.`
+        : `Hola%20equipo%20directivo.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteCompletoEncoded}.`;
 
-      console.log(`🎯 [ESTADO 4] nombre="${nombreFinal || '(sin nombre)'}" paquete="${paquete}"`);
+      console.log(`🎯 [ESTADO 4] nombre="${nombreFinal || '(sin nombre)'}" paquete="${paqueteCompleto}"`);
+
+      // 🆕 WARM HANDOFF (Opción B, 22 May 2026): disparar pipeline fire-and-forget
+      // Genera expediente táctico con Haiku + envía email al equipo via Resend.
+      // No bloquea el delivery del texto al prospecto (la promesa se ejecuta en paralelo).
+      ejecutarWarmHandoff(
+        messages.map((m: { role: string; content: string }) => ({
+          role: m.role === 'user' || m.role === 'assistant' ? (m.role as 'user' | 'assistant') : 'user',
+          content: m.content,
+        })),
+        {
+          name: nombreFinal || undefined,
+          package: paqueteCodigo,
+          archetype: mergedProspectData.archetype,
+          interest_level: mergedProspectData.interest_level,
+          email: mergedProspectData.email,
+          whatsapp: mergedProspectData.whatsapp,
+        }
+      ).catch((err) => console.error('❌ [ESTADO 4] Warm handoff falló (no bloqueante):', err));
 
       return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 4 — HANDOFF GUANTE BLANCO (paquete: ${paquete}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'})
+🎯 ESTADO 4 — WARM HANDOFF (paquete: ${paqueteCompleto}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-${nombreFinal ? `Gracias, ${nombreFinal}.` : ''} Su expediente está consolidado.
+${nombreFinal ? `Gracias, ${nombreFinal}.` : 'Gracias.'} He sintetizado su evaluación al **equipo directivo**.
 
-Dado nuestro estándar operativo, no lidiará con formularios burocráticos. Nuestro equipo asume la fricción administrativa.
+Ya conocen su perfil, el nivel que eligió (**${paqueteCompleto}**) y los puntos que evaluamos juntos. No tendrá que repetir nada.
 
-He consolidado su expediente. Su único paso ahora es hacer clic en el siguiente enlace para enviar su orden pre-aprobada directamente a la Dirección y recibir su acceso:
+Su acceso oficial está aquí:
 
 [📲 **WhatsApp Directo de Activación**](https://wa.me/573206805737?text=${waText})
 
-Bienvenido a la mesa directiva. Ha sido un privilegio dirigir su evaluación.
+Bienvenido a la mesa directiva.
 
 STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3815,7 +3847,7 @@ STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
     // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
     // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
     // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
-    const arsenalParaCierre = (closingState === 1 || closingState === 2 || closingState === 3 || closingState === 4)
+    const arsenalParaCierre = (closingState === 2 || closingState === 3 || closingState === 4)
       ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
       : arsenalContext;
 

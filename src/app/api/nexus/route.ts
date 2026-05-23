@@ -3652,7 +3652,35 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       const nombreSolicitado = allBotMsgs.some((m: any) =>
         /bajo qu[eé] nombre|activamos con el equipo|registramos para el nivel|expediente de activaci[oó]n/i.test(m.content || '')
       );
-      if (nombreSolicitado && mergedProspectData.package) return { closingState: 4 as const, modoCierre: false };
+
+      // 🆕 FIX BUG 1+2 (22 May 2026): NO disparar Estado 4 solo porque el bot pidió nombre.
+      // Caso real detectado en QA: usuario respondió a "¿bajo qué nombre lo activamos?" con
+      // "espera más despacio, cómo se gana en el negocio". El FSM viejo asumió que el usuario
+      // dio nombre → disparó Estado 4 → handoff con nombre vacío + email basura a Lili.
+      //
+      // Lógica correcta: Estado 4 solo si:
+      //   (a) el usuario respondió en este turno con algo que se parece a un nombre, O
+      //   (b) ya hay un nombre válido capturado en BD de turnos anteriores
+      // Si ninguna se cumple → Estado 0 (responder pregunta libre, mantener package guardado).
+      // Próximo turno, si el usuario da nombre → el FSM evaluará de nuevo y disparará Estado 4.
+      if (nombreSolicitado && mergedProspectData.package) {
+        const nombreExtraidoAhora = extractNameFromHandoffReply(latestUserMessage);
+        const occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
+        const nombreYaCapturado = mergedProspectData.name && !occupationCheck.test(mergedProspectData.name);
+
+        if (nombreExtraidoAhora || nombreYaCapturado) {
+          console.log(`🔀 [FSM] closing_state=4 — usuario dio nombre (ahora: "${nombreExtraidoAhora || mergedProspectData.name}")`);
+          return { closingState: 4 as const, modoCierre: false };
+        }
+
+        // El usuario hizo otra cosa (preguntó, pidió pausar, etc.) → no avanzar.
+        // Permitir respuesta libre. El package permanece guardado en BD para el próximo intento.
+        console.log(`🚫 [FSM] Bot pidió nombre pero usuario respondió otra cosa: "${latestUserMessage.substring(0, 60)}" — Estado 0 (responder pregunta natural)`);
+        // Importante: retornamos Estado 0, NO Estado 3, para que el RAG responda libremente
+        // la pregunta del usuario. El package sigue guardado en BD; si el usuario da nombre
+        // en el próximo turno, el FSM volverá a evaluar y disparará Estado 4.
+        return { closingState: 0 as const, modoCierre: false };
+      }
 
       // Estado 3: paquete capturado explícitamente → confirmar + solicitar nombre
       // (gracias a Fix G + Fix B, package solo se captura cuando el usuario lo declara

@@ -80,6 +80,8 @@ export interface ExpedienteTactico {
   paqueteNombre: string; // ESP-X Visionario
   arquetipo: string;
   score: number;
+  whatsapp?: string; // capturado pasivamente durante la conversación (opcional)
+  email?: string;
   dolores_expresados: string[]; // 2-3 dolores citados textualmente
   objeciones_manejadas: string[]; // qué objeciones planteó y cómo se resolvieron
   mensajes_clave: string[]; // 2-3 frases textuales del prospecto
@@ -158,6 +160,8 @@ Sé conciso. Cada elemento de los arrays máximo 120 caracteres. El JSON debe se
       paqueteNombre,
       arquetipo: prospectData.archetype || 'no_detectado',
       score: prospectData.interest_level ?? 0,
+      whatsapp: prospectData.whatsapp,
+      email: prospectData.email,
       dolores_expresados: sumarioParsed.dolores_expresados || [],
       objeciones_manejadas: sumarioParsed.objeciones_manejadas || [],
       mensajes_clave: sumarioParsed.mensajes_clave || [],
@@ -174,6 +178,8 @@ Sé conciso. Cada elemento de los arrays máximo 120 caracteres. El JSON debe se
       paqueteNombre,
       arquetipo: prospectData.archetype || 'no_detectado',
       score: prospectData.interest_level ?? 0,
+      whatsapp: prospectData.whatsapp,
+      email: prospectData.email,
       dolores_expresados: [],
       objeciones_manejadas: [],
       mensajes_clave: [],
@@ -218,6 +224,7 @@ function renderExpedienteHTML(expediente: ExpedienteTactico): string {
         <tr><td style="color:#A3A3A3;padding:4px 0;width:40%">Nombre</td><td style="color:#FFFFFF;font-weight:600">${expediente.nombre}</td></tr>
         <tr><td style="color:#A3A3A3;padding:4px 0">Paquete</td><td style="color:#C5A059;font-weight:600">${expediente.paqueteNombre}</td></tr>
         ${paqueteInfo ? `<tr><td style="color:#A3A3A3;padding:4px 0">Inversión</td><td style="color:#FFFFFF">${paqueteInfo.precioUSD} · ${paqueteInfo.precioCOP} · Rentabilidad ${paqueteInfo.rentabilidad}</td></tr>` : ''}
+        ${expediente.whatsapp ? `<tr><td style="color:#A3A3A3;padding:4px 0">WhatsApp</td><td style="color:#C5A059;font-weight:600">${expediente.whatsapp}</td></tr>` : `<tr><td style="color:#A3A3A3;padding:4px 0">WhatsApp</td><td style="color:#A3A3A3;font-style:italic">no capturado (esperando contacto del prospecto vía link)</td></tr>`}
         <tr><td style="color:#A3A3A3;padding:4px 0">Score de interés</td><td style="color:#FFFFFF">${expediente.score}/100</td></tr>
         <tr><td style="color:#A3A3A3;padding:4px 0">Arquetipo</td><td style="color:#FFFFFF">${expediente.arquetipo}</td></tr>
         <tr><td style="color:#A3A3A3;padding:4px 0">Duración conversación</td><td style="color:#FFFFFF">~${expediente.duracion_conversacion_min} min</td></tr>

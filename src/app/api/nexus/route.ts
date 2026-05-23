@@ -366,13 +366,13 @@ async function captureProspectData(
     /(?:me llamo|mi nombre es|soy)\s+([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)/i,
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*-/i,                  // Nombre (1 o más palabras) + guión: "Luis - precio" o "Juan Pérez - precio"
-    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|precio|cuánto|empezar|iniciar|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores (sin "dame"/"quiero"/"necesito" — capturan verbos imperativos)
+    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|precio|cuánto|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores (eliminados "empezar"/"iniciar" — capturaban "Deseo iniciar" como nombre "Deseo")
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
   ];
 
   // Blacklist de palabras que NO son nombres (incluye paquetes, arquetipos y opciones)
   // ✅ v12.3: Expandida para prevenir captura de paquetes como "visionario"
-  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame)$/i;
+  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
 
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
@@ -394,7 +394,7 @@ async function captureProspectData(
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
 
     // ⚠️ BLACKLIST EXPANDIDA v12.4: Evitar capturar paquetes, arquetipos, ocupaciones o respuestas como nombres
-    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame)$/i;
+    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
 
     if (simpleNameMatch && !messageLower.match(nameBlacklist)) {
       const capturedName = simpleNameMatch[1].trim();
@@ -3741,17 +3741,37 @@ ${getInitialGreeting()}
     const getMicroPromptCierre = (): string => {
       // Estado 2: tabla ESP en modo informativo o cierre (sin Klaff Prize Frame agresivo)
       // Opción B (22 May 2026): eliminada la fricción coercitiva del Klaff Prize Frame.
-      // La pregunta final cambia según modoCierre:
-      //   - modoCierre=true (usuario declaró intención): pregunta combinada nombre + nivel
-      //   - modoCierre=false (informativo): pregunta abierta sin presión
-      if (closingState === 2) {
-        const preguntaFinal = modoCierre
-          ? `Para conectarlo con el equipo directivo, confírmeme dos datos: **su nombre completo** y el **nivel con el que arranca** (ESP-1, ESP-2 o ESP-3).`
-          : `¿Cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente?`;
-
+      // Versión cálida del Director Académico (22 May 2026): cuando el usuario declara
+      // intención evidente (modoCierre=true), el texto acompaña su energía hablando de
+      // ACCIÓN ("para activar...iniciar hoy mismo") en lugar de variables abstractas.
+      // El texto informativo (modoCierre=false) conserva tono técnico de orientación.
+      if (closingState === 2 && modoCierre) {
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (${modoCierre ? 'modo cierre' : 'informativo'})
+🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
+Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
+
+Para activar su **Base Operativa** e iniciar hoy mismo, el único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar. En nuestro diseño **no existen cuotas de inscripción ni cobros por afiliación**; su capital se convierte íntegramente en producto físico que respalda su posición logística.
+
+Usted cuenta con **tres niveles de inicio** para activar sus comisiones:
+
+- **Nivel 3 — ESP-3 Visionario:** $1,000 USD (~$4.5M COP) — máxima velocidad de ganancias y acceso total a todas las formas de ingreso recurrente (17% de rentabilidad Binario, GEN5 activo desde el primer día).
+
+- **Nivel 2 — ESP-2 Empresarial:** $500 USD (~$2.25M COP) — velocidad intermedia de ganancias y crecimiento sostenido (16% de rentabilidad Binario, GEN5 activo desde el primer día).
+
+- **Nivel 1 — ESP-1 Inicial:** $200 USD (~$900K COP) — opción básica para validar el funcionamiento del sistema y el flujo de caja (15% de rentabilidad Binario, GEN5 activo desde el primer día).
+
+Para formalizar su registro y conectarlo con el equipo directivo, confírmeme dos datos: **su nombre completo** y el **nivel de inicio que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
+
+STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respuesta del usuario con nombre + nivel.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
+
+      // Estado 2 modo informativo: tabla técnica sin invitación al cierre
+      if (closingState === 2 && !modoCierre) {
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
 La variable operativa central es su nivel de **Asignación de Capital para la Activación de Infraestructura**. En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística.
@@ -3764,9 +3784,9 @@ Usted tiene **tres niveles de capitalización operativa**:
 
 • **ESP-1 — Inicial:** $200 USD (~$900K COP) — Capitalización básica para validación de flujo (15%)
 
-${preguntaFinal}
+¿Cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente?
 
-STOP. No expliques el onboarding. No pidas datos adicionales. ${modoCierre ? 'Espera que el usuario responda con su nombre y nivel.' : 'Espera que elija o pregunte más.'}
+STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o pregunte más.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
@@ -3849,13 +3869,25 @@ STOP. No preguntes correo, teléfono, ciudad ni cualquier otro dato. No explique
           archetype: mergedProspectData.archetype,
           interest_level: mergedProspectData.interest_level,
           email: mergedProspectData.email,
-          whatsapp: mergedProspectData.whatsapp,
+          // captureProspectData guarda en data.phone (campo principal)
+          // mergedProspectData.whatsapp es un alias legacy; preferimos phone
+          whatsapp: mergedProspectData.phone || mergedProspectData.whatsapp,
         }
       ).catch((err) => console.error('❌ [ESTADO 4] Warm handoff falló (no bloqueante):', err));
 
+      // 🆕 Fix #5B (22 May 2026): si el WhatsApp del prospecto NO fue capturado pasivamente
+      // durante la conversación, agregar una línea opcional que ofrezca canal alternativo.
+      // Razón: si el prospecto no clickea el link de WhatsApp, no tenemos forma de contactarlo
+      // proactivamente. Esta línea ofrece la inversa (el equipo lo contacta a él) sin agregar
+      // fricción al flujo principal.
+      const tieneWhatsAppCapturado = !!mergedProspectData.phone;
+      const lineaContactoAlternativo = tieneWhatsAppCapturado
+        ? '' // ya tenemos su número → no pedir nada
+        : '\n\nO si prefiere que la **Dirección** lo contacte primero, déjeme aquí su número de WhatsApp y le escribirán directamente.';
+
       return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 4 — WARM HANDOFF (paquete: ${paqueteCompleto}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'})
+🎯 ESTADO 4 — WARM HANDOFF (paquete: ${paqueteCompleto}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'}${tieneWhatsAppCapturado ? ', WhatsApp: capturado' : ', sin WhatsApp'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
 ${nombreFinal ? `Gracias, ${nombreFinal}.` : 'Gracias.'} He sintetizado su evaluación al **equipo directivo**.
@@ -3866,9 +3898,9 @@ Su acceso oficial está aquí:
 
 [📲 **WhatsApp Directo de Activación**](https://wa.me/573206805737?text=${waText})
 
-Bienvenido a la mesa directiva.
+Bienvenido a la mesa directiva.${lineaContactoAlternativo}
 
-STOP. Sin preguntas de seguimiento. Sin cálculos. Sin pasos adicionales.
+STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicionales.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
     };
 

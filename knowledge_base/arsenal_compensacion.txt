@@ -1,8 +1,35 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v6.3
+# Arsenal de Compensacion: Infraestructura de Ingresos v6.4
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Lujo Clinico / Usted — Arquitectura Patrimonial (No MLM tradicional)
+**Version:** 6.4 (22 May 2026) — Distinción canónica 70 vs 15 países: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los 15 países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (70 países = matriz física) con la capacidad operativa del Arquitecto (15 países América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
 **Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
 **REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: GEN5=Capitalización Inmediata, Binario=Renta Vitalicia, colectivo=su organización.
+
+---
+
+## REGLA CANÓNICA: COBERTURA GEOGRÁFICA (LEER ANTES DE GENERAR CUALQUIER RESPUESTA)
+
+**DISTINCIÓN INVIOLABLE — 70 vs 15 países:**
+
+- **Matriz Física (Gano Excel — Pilar 1):** presencia corporativa en **70 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "70 países".
+
+- **Capacidad operativa del Arquitecto (su organización):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su organización**", "donde el Arquitecto opera", "expansión del Arquitecto", "volumen de consumo de su organización", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
+
+- **Diáspora latina:** los Arquitectos residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su organización en los 15 países, dirigiendo todo desde Queswa.
+
+**REGLA AL CONSTRUIR PREGUNTAS DE CIERRE O VECTORES TÉCNICOS:**
+
+NUNCA digas "su organización en 70 países" — ese es vocabulario incorrecto y mezcla los conceptos.
+
+Frases canónicas válidas:
+- "su organización en los 15 países operativos de América"
+- "una organización con capacidad operativa en 15 países"
+- "el volumen de consumo de su organización" (sin número específico si no se necesita)
+
+Frases canónicas válidas para Matriz Física Gano Excel:
+- "Gano Excel opera en 70 países"
+- "la cadena de suministro global presente en 70 países"
+- "la matriz física tiene cobertura en 70 países"
 
 ---
 
@@ -40,7 +67,7 @@ El modelo opera con dos mecanismos de liquidacion simultaneos. Ninguno es excluy
 Cada vez que un Arquitecto activa una nueva Base Operativa en su organizacion, usted cobra un bono directivo. El pago se liquida el viernes, dos semanas despues de la activacion.
 
 **Velocidad 2 — Renta Vitalicia (Binario):**
-Cada vez que alguien en su organizacion (en cualquier pais) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
+Cada vez que alguien en su organizacion (en cualquiera de los 15 paises operativos de America) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
 
 **Mecanica:** El GEN5 le inyecta liquidez a corto plazo por la expansion de su infraestructura. El Binario consolida su patrimonio pagandole regalias ininterrumpidas por el consumo organico que fluye por esa misma infraestructura.
 
@@ -844,7 +871,13 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Piel8Brillo Exfoliante | 1 |
 | **Total** | **35** |
 
-**Insight:** ESP-3 = techo maximo + 17% Binario + 6 meses de bonus + inventario para desarrollar cartera de clientes de consumo.
+**Insight:** ESP-3 = techo maximo + 17% Binario (con bonus de 6 meses al 17%, luego baja a base 10% si no recompra) + GEN5 activo desde el primer día (sin término) + inventario para desarrollar cartera de clientes de consumo.
+
+**IMPORTANTE — Duración de los componentes (evitar confusión):**
+- **Binario al porcentaje alto** (17% ESP-3 / 16% ESP-2 / 15% ESP-1): TIENE término — 6/4/2 meses respectivamente. Después baja a base 10% si no recompra.
+- **GEN5 (Capitalización Inmediata):** SIN término de meses — activo desde el primer día y permanece mientras la Base Operativa esté activa.
+
+NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del Binario al porcentaje alto.
 
 ---
 

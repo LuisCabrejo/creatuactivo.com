@@ -76,7 +76,9 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v27_1.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01)
 - ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `<verbatim_lock>...</verbatim_lock>` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
 - ❌ **NO regresar** los marcadores XML `<verbatim_lock>` a corchetes planos `[VERBATIM_LOCK]`. La investigación Gemini (18 May 2026) confirmó que Claude Sonnet 4.6 reconoce XML tags como señales de activación de atención, mientras que los corchetes planos son texto inerte. Migración aplicada en v25.8/v26.8.
-- ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar el regex de detección Estado 4 en las líneas ~3204 y ~3471 de `route.ts` — si el texto cambia y el regex no, el FSM genera handoffs duplicados
+- ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts`: `waLinkEntregado` (línea ~3636) y `nombreSolicitado` (línea ~3641) — si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado
+- ❌ **NO re-introducir** la extracción de `package` desde `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Causaba contaminación silenciosa de `data.package` cada vez que Claude mencionaba el paquete en una respuesta informativa ("ESP-3 incluye 35 productos"). La captura debe venir **exclusivamente** del usuario con `packageMap` + guard de pregunta informativa.
+- ❌ **NO disparar Estado 4 sin validar nombre** — el FSM debe verificar con `extractNameFromHandoffReply()` que el usuario respondió con un nombre. Si responde con pregunta o pide pausar, mantener Estado 0 (responder libre) y conservar `package` en BD para el próximo intento. Bug crítico documentado QA 22 May 2026.
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
@@ -347,6 +349,19 @@ Patrón arquitectónico: mismo que `getMicroPromptApertura()` / `getCierreEstado
 
 **Histórico de fallos doctrinales (no repetir)**:
 - v26.7 introdujo `[VERBATIM_LOCK]` con corchetes planos como marcador estructural. Falló empíricamente — modelo seguía parafraseando. Razón: literatura técnica de Anthropic confirma que los corchetes planos son procesados como texto de baja prioridad; solo etiquetas XML genuinas activan el mecanismo de atención post-entrenado. Migración aplicada en v26.8.
+- Bloque `package` en `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Razón: extraía `data.package` desde la respuesta de Claude basado en menciones informativas ("ESP-3 incluye 35 productos") y contaminaba la BD. El FSM luego saltaba a Estado 3 tratando al prospecto como si hubiera comprado. La captura de paquete ahora vive EXCLUSIVAMENTE en `captureProspectData` con `packageMap` + guard de pregunta informativa.
+
+**Warm Handoff con sumario ejecutivo (Opción B, 22 May 2026)**:
+
+Cuando entra Estado 4 del FSM, [src/lib/handoff-sumario.ts](src/lib/handoff-sumario.ts) ejecuta en paralelo (fire-and-forget):
+
+1. `generarSumarioEjecutivo()` — sub-agente Claude Haiku procesa los últimos 15 turnos + `prospectData` y genera JSON estructurado: `{dolores_expresados, objeciones_manejadas, mensajes_clave, next_best_action}`. Latencia ~1s, costo <$0.005 por handoff.
+2. `enviarExpedienteEquipo()` — Resend envía email HTML estilo Quiet Luxury a `EQUIPO_DIRECTIVO_EMAIL` (default: `sistema@creatuactivo.com`). Asunto: `[Handoff Queswa] {Nombre} → ESP-X Visionario (Score X/100)`.
+3. El prospecto recibe texto contextual ("Ya conocen su perfil, el nivel que eligió...") + link WhatsApp con `texto` pre-llenado que incluye el nombre descriptivo completo del paquete.
+
+Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso es el momento de mayor abandono — el equipo humano debe recibir matriz táctica ANTES del primer mensaje del prospecto, no después de saludarlo.
+
+**Variable de entorno opcional**: `EQUIPO_DIRECTIVO_EMAIL` (default hardcoded `sistema@creatuactivo.com`). Reutiliza `ANTHROPIC_API_KEY` y `RESEND_API_KEY` ya configuradas.
 
 **UI Design Decisions** (Mar 2026 — no revertir sin justificación):
 - **Layout mobile**: Panel anclado al `bottom` con `items-end` (no centrado). Patrón elite apps (Claude, Gemini).
@@ -683,6 +698,7 @@ Copia `.env.example` a `.env.local` y configura. Servicios requeridos:
 
 **Production-only variables** (set in Vercel Dashboard, not in .env.example):
 - `CRON_SECRET` - Authorization for Vercel cron jobs
+- `EQUIPO_DIRECTIVO_EMAIL` - **Opcional** (default hardcoded `sistema@creatuactivo.com`). Destinatario del warm handoff cuando entra Estado 4 del FSM. Sirve para override sin redeploy (ej. testing con otra dirección)
 
 Ver [.env.example](.env.example) para la lista completa con instrucciones de configuración.
 
@@ -724,19 +740,20 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
 - Referencias geográficas: pan-americanas — no Colombia-only
 
-### Arquitectura FSM — Backend como Dictador Absoluto (Abr 2026)
+### Arquitectura FSM — Backend como Dictador Absoluto (rediseñado Opción B, 22 May 2026)
 
-Principio: el LLM es un **procesador semántico**, no un tomador de decisiones de flujo. El backend (`route.ts`) detecta el estado y controla todos los textos verbatim. Patrón: Graph Prompting (Salesforce Atlas / Bland AI / 11x.ai).
+Principio: el LLM es un **procesador semántico**, no un tomador de decisiones de flujo. El backend (`route.ts`) detecta el estado y controla todos los textos verbatim. Patrón: Graph Prompting (Salesforce Agentforce / Intercom Fin / HubSpot Breeze).
+
+**Rediseño Opción B (22 May 2026):** se ELIMINARON Estado 1 (pregunta de horas) y Klaff Prize Frame agresivo. Razón: la investigación corporativa documentó que la entrevista de cualificación al final del flujo destruye conversión — la cualificación BANT debe inferirse de la conversación previa, no preguntarse explícitamente.
 
 **Funciones de micro-prompt en `route.ts`** (cada estado recibe SOLO instrucciones de su nodo):
 
 | Función | Condición de disparo | Qué controla |
 |---------|---------------------|--------------|
 | `getMicroPromptApertura()` | `messageCount === 1` | Saludo inicial verbatim — M1 |
-| `getMicroPromptCierre()` Estado 1 | `closingState === 1` | Pregunta horas disponibles |
-| `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Tabla ESP (3 niveles) — **"Asignación de Capital para la Activación de Infraestructura"** — Phil Jones Three Options + Klaff Prize Frame ("No estoy seguro de si su arquitectura patrimonial está lista para el nivel máximo hoy") |
-| `getMicroPromptCierre()` Estado 3 | `closingState === 3` | Solicitud nombre para expediente |
-| `getCierreEstado4()` | `closingState === 4` | Entrega link WhatsApp — cierre final |
+| `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Tabla ESP (3 niveles). **Modo dual**: `modoCierre=true` (pregunta combinada nombre+nivel cuando trigger cierre sin paquete) · `modoCierre=false` (pregunta abierta cuando solo es informativo) |
+| `getMicroPromptCierre()` Estado 3 | `closingState === 3` | Confirmación + solicitud de nombre. Usa nombre descriptivo completo (ESP-3 Visionario) |
+| `getCierreEstado4()` | `closingState === 4` | Texto al prospecto contextual + dispara warm handoff (sumario ejecutivo Haiku + Resend al equipo) |
 
 **`sessionInstructions` (Bloque 3 — no cacheable):**
 - M1: inyecta `getMicroPromptApertura()` (texto verbatim, ignora Pirámide McKinsey)
@@ -745,9 +762,20 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **Regla crítica**: NO agregar textos de flujo al System Prompt. El System Prompt es perfil de personalidad puro (identidad + tono + diccionario). Cualquier texto que el modelo deba imprimir verbatim va en las funciones de micro-prompt del backend.
 
-**Detección Estado 4**: regex `/He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio orquestar/i` en líneas ~3204 y ~3471 de `route.ts`. Si se modifica el texto de `getCierreEstado4()`, actualizar el regex en ambas líneas.
+**Lógica del FSM (route.ts:3625+):**
+1. `waLinkEntregado` (link WhatsApp ya entregado en sesión) → Estado 0
+2. `nombreSolicitado && package && (usuario dio nombre válido O nombre ya capturado)` → Estado 4
+3. `nombreSolicitado && package && usuario NO dio nombre` → Estado 0 (responder pregunta libre, package permanece guardado para próximo intento)
+4. `package` capturado explícitamente → Estado 3 (confirmar + pedir nombre)
+5. `triggerCierre` ("deseo iniciar", "hagámoslo", "dale", "procedamos") sin paquete → Estado 2 `modoCierre=true`
+6. `triggerPaquetes` ("háblame de los paquetes") → Estado 2 `modoCierre=false` (informativo)
+7. Default → Estado 0 (conversación normal con RAG)
 
-**Tratamiento**: Siempre `Usted` — nunca tuteo. Auditado en todos los micro-prompts (Abr 2026).
+**Detección Estado 4 (regex):** `/WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|Su acceso oficial está aquí/i`. Si se modifica el texto de `getCierreEstado4()`, actualizar el regex.
+
+**Validación de nombre (Fix Bug 1+2, 22 May 2026):** Antes de disparar Estado 4, el FSM valida con `extractNameFromHandoffReply()` que el usuario efectivamente respondió con un nombre. Si la respuesta del usuario es una pregunta nueva o pide pausar, NO se dispara Estado 4 — el sistema responde libremente y el package permanece guardado para que el próximo turno (cuando el usuario dé el nombre) sí dispare el handoff.
+
+**Tratamiento**: Siempre `Usted` — nunca tuteo. Auditado en todos los micro-prompts.
 
 ### Lead Scoring v3.0
 
@@ -928,6 +956,9 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 **Shared Libraries** (in `src/lib/`):
 - `branding.ts` - Centralized branding v3.0 (COLORS, BRAND, ICON_COLORS, emailStyles)
 - `vectorSearch.ts` - Voyage AI embeddings + cosine similarity for semantic search
+- `respuestas-maestras.ts` - **Camino A backend dictador** — textos verbatim WHY_02 + EAM_01 servidos directo sin pasar por Anthropic cuando matchea chip canónico. Sincronizar carácter por carácter con `<verbatim_lock>` en arsenal_inicial.txt
+- `handoff-sumario.ts` - **Warm handoff** — sub-agente Haiku genera expediente táctico + envía email HTML al equipo directivo (sistema@creatuactivo.com) via Resend cuando entra Estado 4 del FSM. Fire-and-forget, no bloquea handoff al prospecto
+- `queswa-greeting.ts` - Saludo canónico de Queswa + chips `QUESWA_QUICK_REPLIES` (single source of truth — antes duplicado en 4 lugares)
 - `whatsapp-meta.ts` - Envío de mensajes WhatsApp via Meta Graph API (reemplaza SendPulse)
 - `sendpulse.ts` - **LEGACY** — migrado a `whatsapp-meta.ts` (Abr 2026). Pendiente eliminar tras aprobar plantillas Meta WhatsApp
 

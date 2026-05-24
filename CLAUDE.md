@@ -1311,7 +1311,11 @@ Vocabulario completo (aprobado + prohibido) → ver tabla canónica en sección 
 | Pipeline / Embudo | Tubería / Canal | Jerga tech |
 | Asignación de Capital para la Activación de Infraestructura | Selección del nivel de inventario / capital se convierte en productos físicos | v5.2 (May 2026) — opacidad en cierre |
 | Apalancamiento Asimétrico / Apalancamiento Estratégico Máximo | Apalancamiento estratégico (a secas, sin "asimétrico/máximo") | v26.4 — fricción nivel 5/5 Wall Street |
-| Tecnología nutricional | Productos físicos / productos | v5.2 (May 2026) — opacidad |
+| Tecnología nutricional | Productos físicos / bebidas enriquecidas y suplementos Gano Excel | v5.2 (May 2026) — opacidad |
+| Su arquitectura actual (en preguntas de cierre/seguimiento) | Su modelo de ingresos / Su Estructura Patrimonial | v5.3 (24 May 2026) — claridad para avatar de primera visita |
+| 100% / íntegramente (al describir transferencia de capital a productos) | Su capital se transfiere a productos físicos (sin cuantificador absoluto) | v5.3 — México tiene cobros pequeños de afiliación (~$10 USD); afirmar 100% es factualmente impreciso y auditable |
+| "No existen cuotas de inscripción ni cobros por afiliación" | (omitir esta frase) | v5.3 — falsa en México |
+| Tabla Binario con columna "Cálculo CV × % × $1" | Tabla Binario simplificada (Paquete + Rentabilidad %) | v5.3 — la fórmula técnica añade fricción al prospecto que recién entiende Base Operativa. Solo servirla si el usuario pregunta explícitamente "¿cómo se calcula?" |
 | Auditoría de acoplamiento | (eliminado) | Klaff Prize Frame zombi |
 | 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
 | Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |

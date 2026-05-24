@@ -137,7 +137,7 @@ Si usted opera un comercio local o ejerce como empleado, la Base Operativa le pr
 
 Si usted es un ejecutivo o dueño de una empresa consolidada, le permite cimentar una **Estructura Patrimonial** para proteger su estatus pensional y transferir el riesgo logístico a una corporación global.
 
-**Pregunta de seguimiento:** Al auditar su arquitectura actual, ¿identifica usted la necesidad operativa de optimizar sus horas diarias, o su prioridad es construir una reserva contra la erosión de la moneda?
+**Pregunta de seguimiento:** Al auditar su modelo de ingresos, ¿identifica usted la necesidad operativa de optimizar sus horas diarias, o su prioridad es construir una reserva contra la erosión de la moneda?
 
 ---
 
@@ -160,9 +160,9 @@ Usted asume el rol de **Arquitecto de Patrimonio** y determina el vector de trá
 **[Concepto Nuclear]:** Cierre simple y directo. El prospecto que pregunta cómo se inicia ya está en momento de decisión — el proceso debe ser sencillo: los tres niveles + pregunta de selección. Sin entrevista de horas, sin frase de "equipo logístico", sin jerga financiera opaca.
 
 <verbatim_lock>
-El proceso para activar su Base Operativa es directo. El único paso operativo es seleccionar el nivel de inventario con el que desea iniciar.
+El proceso para activar su Base Operativa es directo. El único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar.
 
-No existen cuotas de inscripción ni cobros por afiliación — su capital se convierte en los productos físicos que respaldan su operación.
+Su capital se transfiere a productos físicos — bebidas enriquecidas y suplementos Gano Excel — que respaldan su operación.
 
 Usted tiene tres niveles disponibles:
 
@@ -180,7 +180,7 @@ Usted tiene tres niveles disponibles:
 
 ---
 
-¿Cuál de los tres niveles se alinea con su decisión hoy?
+¿Cuál de estas tres opciones se alinea mejor con la liquidez que desea inyectar a su Estructura Patrimonial este mes?
 </verbatim_lock>
 
 ---
@@ -194,7 +194,7 @@ Su Base Operativa genera dividendos en dos velocidades simultáneas:
 
 **Velocidad 2 — Renta Vitalicia:** Es el activo real. Un porcentaje sobre cada gramo de consumo que fluya por su organización global, mientras usted duerme. Usted percibe esta facturación ininterrumpida por cada consumo orgánico, sin intervenir en la transacción.
 
-**Pregunta de seguimiento:** A nivel financiero, ¿desea auditar primero la matemática de la Capitalización Inmediata o la proyección estructural de la Renta Vitalicia?
+**Pregunta de seguimiento:** ¿Desea profundizar primero en la Capitalización Inmediata (cómo se genera la liquidez semanal) o en la Renta Vitalicia (cómo se consolida el flujo recurrente)?
 
 ---
 
@@ -241,7 +241,7 @@ La industria tradicional de la salud fracasa porque le exige al cliente cambiar 
 
 Nosotros no cambiamos hábitos. Los optimizamos.
 
-La gente ya toma café — es la segunda bebida más consumida del mundo. Nosotros tomamos tecnología nutricional de altísima absorción y la integramos exactamente dentro de ese hábito biológico innegociable.
+La gente ya toma café — es la segunda bebida más consumida del mundo. Nosotros tomamos productos premium de altísima absorción y los integramos exactamente dentro de ese hábito biológico innegociable.
 
 Es rendimiento y salud preventiva dentro de un hábito diario. Por eso el modelo financiero es tan robusto: nadie necesita que le recuerden tomarse su café cada mañana.
 
@@ -267,7 +267,7 @@ Usted no enseña; Queswa escala. Usted crece.
 
 A diferencia de una franquicia tradicional o un modelo comercial típico, en nuestro ecosistema el costo de mantenimiento logístico —la "carga base" para sostener activa su Base Operativa— no es una tarifa administrativa ni un gasto irrecuperable.
 
-Operamos bajo el principio de Reasignación de Consumo. La inyección de mantenimiento ($100 USD / ~$450,000 COP a tasa Gano Excel) se transfiere en su totalidad a la adquisición de tecnología nutricional premium que usted consume por necesidad biológica. Usted toma un capital que ya destinaba a bienes de menor eficiencia y lo reasigna como combustible para mantener operativo su activo.
+Operamos bajo el principio de Reasignación de Consumo. La inyección de mantenimiento ($100 USD / ~$450,000 COP a tasa Gano Excel) se transfiere a la adquisición de bebidas enriquecidas y suplementos Gano Excel que usted consume por necesidad biológica. Usted toma un capital que ya destinaba a bienes de menor eficiencia y lo reasigna como combustible para mantener operativo su activo.
 
 **Pregunta de seguimiento:** Como administrador de recursos, ¿audita usted la eficiencia matemática de sostener una infraestructura transnacional sin inyectar pasivos fijos adicionales a su flujo de caja?
 
@@ -291,7 +291,7 @@ Nuestro ecosistema opera bajo Apalancamiento Estratégico. El Pilar 1 (La Matriz
 
 La monetización de este activo se audita estrictamente sobre el volumen de facturación física.
 
-La corporación no liquida dividendos por la simple inserción de perfiles al sistema. Su función directiva es gestionar un ecosistema de suministro. Una vez que un usuario o Unidad Operativa adopta la tecnología nutricional en su ciclo diario, el protocolo registra cada reposición de inventario en su red.
+La corporación no liquida dividendos por la simple inserción de perfiles al sistema. Su función directiva es gestionar un ecosistema de suministro. Una vez que un usuario o Unidad Operativa adopta los productos físicos en su ciclo diario, el protocolo registra cada reposición de inventario en su red.
 
 Usted realiza la integración tecnológica inicial, y la corporación le liquida regalías continuas por cada unidad de consumo subsecuente que el mercado demande por hábito.
 
@@ -350,7 +350,7 @@ Al igual que una corporación no detiene sus operaciones principales para abrir 
 
 La saturación de mercado es un riesgo cuantificable en esquemas especulativos o bienes de un solo uso, donde la demanda es artificial y depende de la percepción del mercado. Nuestro ecosistema opera sobre una variable estructuralmente distinta: la optimización de un hábito biológico inquebrantable.
 
-La demanda del usuario final se reinicia automáticamente a cero cada 24 horas, independientemente de las fluctuaciones macroeconómicas o del número de Bases Operativas activas. El continente americano consume cientos de millones de tazas diarias, y nuestra penetración en tecnología nutricional sigue siendo inferior al 1%. La pregunta correcta no es si el mercado se va a saturar, sino cuántos ciclos de consumo diario se pueden capturar antes de que el siguiente operador lo haga.
+La demanda del usuario final se reinicia automáticamente a cero cada 24 horas, independientemente de las fluctuaciones macroeconómicas o del número de Bases Operativas activas. El continente americano consume cientos de millones de tazas diarias, y nuestra penetración en este mercado sigue siendo inferior al 1%. La pregunta correcta no es si el mercado se va a saturar, sino cuántos ciclos de consumo diario se pueden capturar antes de que el siguiente operador lo haga.
 
 **Pregunta de cierre:** A nivel comercial, ¿reconoce usted la diferencia estratégica entre monetizar un ciclo biológico que se reinicia orgánicamente cada día, frente al riesgo de posicionarse en una tendencia con fecha de caducidad?
 
@@ -437,7 +437,7 @@ Si este Centro de Mando tiene la capacidad técnica de captar su atención e iny
 
 Desde la perspectiva de una auditoría financiera, su exposición a la pérdida de capital en este ecosistema es matemáticamente cero.
 
-Operamos bajo una estricta política de respaldo físico. Su capitalización inicial no se destina a promesas de rendimiento especulativo ni a plataformas intangibles. El 100% de los fondos se transfiere inmediatamente a tecnología nutricional premium gestionada por la Matriz Física (Pilar 1) — un activo con valor de mercado auditable y demanda orgánica comprobada.
+Operamos bajo una estricta política de respaldo físico. Su capitalización inicial no se destina a promesas de rendimiento especulativo ni a plataformas intangibles. Su capital se transfiere a productos físicos premium — bebidas enriquecidas y suplementos Gano Excel — gestionados por la Matriz Física (Pilar 1), un activo con valor de mercado auditable y demanda orgánica comprobada.
 
 En el escenario de mayor contracción operativa, su capital se encuentra resguardado en inventario de consumo de clase mundial. La evaporación de capital que caracteriza a los esquemas especulativos sin respaldo tangible no es aplicable a nuestra arquitectura.
 
@@ -463,11 +463,11 @@ La solución a esta inestabilidad estructural no es abandonar su actividad princ
 
 La evaluación financiera correcta audita el costo de oportunidad. En nuestro ecosistema, su capital de inyección no se evapora en cuotas administrativas, membresías intangibles o promesas especulativas.
 
-El 100% de su capitalización se transfiere inmediatamente a tecnología nutricional premium soportada por la Matriz Física (Pilar 1). Es una Reasignación de Consumo: usted toma un presupuesto que ya existía y lo redirige hacia un inventario tangible, el cual activa los derechos de expansión de su Base Operativa global.
+Su capital se transfiere a productos físicos premium — bebidas enriquecidas y suplementos Gano Excel — soportados por la Matriz Física (Pilar 1). Es una Reasignación de Consumo: usted toma un presupuesto que ya existía y lo redirige hacia un inventario tangible, el cual activa los derechos de expansión de su Base Operativa global.
 
 Un Arquitecto de Patrimonio no evalúa únicamente el capital requerido para activar un activo; evalúa el costo mensual irrecuperable de no poseerlo.
 
-**Pregunta de seguimiento:** Al auditar sus finanzas, ¿reconoce usted qué nivel de capitalización técnica (ESP-1, ESP-2 o ESP-3) se alinea con la liquidez que su arquitectura actual requiere para activar el ecosistema hoy?
+**Pregunta de seguimiento:** ¿Cuál de estas tres opciones (ESP-1, ESP-2 o ESP-3) se alinea mejor con la liquidez que desea inyectar a su Estructura Patrimonial este mes?
 
 ---
 

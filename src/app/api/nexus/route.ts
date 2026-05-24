@@ -3774,17 +3774,17 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-La variable operativa central es su nivel de **Asignación de Capital para la Activación de Infraestructura**. En esta infraestructura no existen cuotas de inscripción; su capital se transfiere íntegramente a inventario físico de tecnología nutricional que respalda su posición logística.
+La activación de su Base Operativa es directa. El único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar. Su capital se transfiere a productos físicos — bebidas enriquecidas y suplementos Gano Excel.
 
-Usted tiene **tres niveles de capitalización operativa**:
+Usted tiene **tres niveles para iniciar**:
 
-• **ESP-3 — Visionario:** $1,000 USD (~$4.5M COP) — Apalancamiento asimétrico máximo (17% de rentabilidad)
+• **ESP-3 — Visionario:** $1,000 USD (~$4.5M COP) — Apalancamiento estratégico (17% rentabilidad)
 
-• **ESP-2 — Empresarial:** $500 USD (~$2.25M COP) — Crecimiento sostenido con rentabilidad intermedia (16%)
+• **ESP-2 — Empresarial:** $500 USD (~$2.25M COP) — Crecimiento sostenido (16%)
 
-• **ESP-1 — Inicial:** $200 USD (~$900K COP) — Capitalización básica para validación de flujo (15%)
+• **ESP-1 — Inicial:** $200 USD (~$900K COP) — Nivel de entrada (15%)
 
-¿Cuál de estas tres rutas de capitalización se alinea mejor con su objetivo de flujo recurrente?
+¿Cuál de estas tres opciones se alinea mejor con la liquidez que desea inyectar a su Estructura Patrimonial este mes?
 
 STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o pregunte más.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -3950,13 +3950,14 @@ GEN5 — usa exactamente esta estructura (adapta números al caso):
 | Gen 4 | $20 USD | $10 USD | $5 USD |
 | Gen 5 (100+ PV) | $40 USD | $20 USD | $10 USD |
 
-BINARIO — usa exactamente esta estructura (tabla de COMP_BIN_02):
-| Paquete | Cálculo | Comisión Semanal |
-|---|---|---|
-| Kit Inicio | CV × 10% × $1 | ejemplo USD |
-| ESP-3 | CV × 17% × $1 | ejemplo USD |
+BINARIO — usa exactamente esta estructura simplificada (sin columna técnica de cálculo):
+| Paquete | Rentabilidad |
+|---|---|
+| ESP-3 Visionario | 17% |
+| ESP-2 Empresarial | 16% |
+| ESP-1 Inicial | 15% |
 
-🚫 PROHIBIDO en Binario: NO añadas columnas de "Ingreso Mensual", "Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) a menos que el usuario las pida explícitamente. Una tabla simple de 2-3 filas es suficiente.
+🚫 PROHIBIDO en Binario: NO añadas columna "Cálculo CV × % × $1" — añade fricción técnica innecesaria al prospecto que recién entiende Base Operativa y Estructura Patrimonial. La fórmula solo se explica si el usuario pregunta explícitamente "¿cómo se calcula la comisión semanal?". NO añadas columnas de "Ingreso Mensual"/"Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) salvo solicitud explícita.
 🚫 PROHIBIDO en GEN5: NO uses árboles ASCII ni diagramas jerárquicos. Solo tablas Markdown.`;
     };
 

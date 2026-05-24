@@ -41,6 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
 | Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.1.mjs` |
 | Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
+| Actualizar FREQ_03 cierre + purgar CIERRE_01/02 obsoletos | `node scripts/actualizar-fragmentos-cierre-v5.2.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -271,15 +272,20 @@ WhatsApp (orgánico o CTWA anuncio)
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) - 8 arsenales con Voyage AI embeddings (95% token reduction, 135 fragmentos):
-   - `arsenal_inicial` - WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA (42 respuestas activas + PERFIL_01 = 43 fragmentos) — tenant: `creatuactivo_marketing` — **v25.8** (18 May 2026) — Migración estructural `[VERBATIM_LOCK]` → `<verbatim_lock>` (XML tags) en WHY_01, WHY_02, EAM_01. Razón: investigación Gemini confirmó que Claude Sonnet 4.6 reconoce XML tags como señal de atención, los corchetes planos no. Respuestas Master del Director Académico (v25.7) preservadas sin cambios de copy. Pilar 3 recategorizado (v25.3); Arquitecto elevado como director. Jerarquía causal corregida (v25.5).
-   - `arsenal_avanzado` - Objeciones complejas, sistema, valor, escalación (18 responses) — tenant: `creatuactivo_marketing` — **v10.0** (May 2026) — ADV_VAL_05 nueva (incentivos corporativos Gano Excel); **Tridente EAM con Comandos canónicos en METH_01** (Comando Expandir / Comando Activar / Comando Maestría + aforismos); Patrimonio Paralelo en OBJ_02; Queswa nombrado en OBJ_01; USD/COP unificado VAL_01/VAL_04; **ADV_TECH_03 con "Queswa, el Centro de Mando" + "sistemas de contingencia"** (Capas — no Pilares); ADV_SIST_02 "Infraestructura Continental"; ADV_SIST_03 reordenado
-   - `arsenal_reto` - Auditoría Patrimonial (7 responses) — tenant: `creatuactivo_marketing` — **v4.1** (May 2026) — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, Pilares 1/2 en Día 3, Base Operativa digital
-   - `arsenal_12_niveles` - Desafío de 12 niveles (13 blocks) — tenant: `creatuactivo_marketing`
-   - `catalogo_productos` - Product catalog + science (22 products) — tenant: `creatuactivo_marketing` — **v7.0** (Abr 2026) — Lujo Clínico
-   - `arsenal_compensacion` - Plan de compensación (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.2** (May 2026) — Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario); "su organización" reemplaza "su equipo/red"; Arquitectos de Patrimonio; Analogía del Acueducto eliminada
-   - `arsenal_marca_personal` - Identidad, historia, metodología Luis Cabrejo (11 responses) — tenant: `marca_personal`
-   - `arsenal_ganocafe` - Productos GanoCafe, beneficios, compra, objeciones (14 responses — incluye PROD_05 Oleaf Rooibos + PROD_06 Gano C'Real Spirulina) — tenant: `ecommerce`
+1. **Fragmented Vector Search** (v14.9) — 8 arsenales con Voyage AI embeddings (95% token reduction, ~135 fragmentos):
+
+| Arsenal | Tenant | Versión actual | Contenido |
+|---------|--------|----------------|-----------|
+| `arsenal_inicial` | creatuactivo_marketing | **v5.2** (22 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 41 respuestas + PERFIL_01. Cierre simplificado: FREQ_03 absorbe CIERRE_01/02 con `<verbatim_lock>`. |
+| `arsenal_avanzado` | creatuactivo_marketing | **v10.0** (May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. |
+| `arsenal_reto` | creatuactivo_marketing | **v4.1** (May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). |
+| `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
+| `catalogo_productos` | creatuactivo_marketing | **v7.0** (Abr 2026) | 22 productos + ciencia (Lujo Clínico). ⚠️ NO fragmentado — bug activo de precios COP/CV/PV. |
+| `arsenal_compensacion` | creatuactivo_marketing | **v6.4** (22 May 2026) | Plan de compensación (38 respuestas). **NO modificar vocabulario ni cifras.** |
+| `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
+| `arsenal_ganocafe` | ecommerce | **v1.5** (Mar 2026) | Productos GanoCafe (16 respuestas) — para ganocafe.online. |
+
+**Historial completo de cambios por arsenal** → [knowledge_base/CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md)
 
 2. **Clasificación de documentos — 3 capas + override**:
    - **PASO -1 (MenuExpansion)**: Opciones a/b/c/d del menú inicial se expanden a queries semánticas
@@ -298,39 +304,16 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - Versión activa: **v27.1 "limpieza_redundancias"** (22 May 2026) — Ola 1 de auditoría de redundancia (auditoría Gemini sobre prompt monolítico). Sin cambios de comportamiento — solo limpieza estructural. Reducción 45,940 → 35,354 chars (~23%). Cambios: (1) Changelogs históricos extraídos a `knowledge_base/CHANGELOG-system-prompts.md`; (2) Vectores técnicos de cierre repetidos 3× → 1 lugar (TONO Y VOZ); (3) Sección ACTIVACIÓN QUESWA colapsada (era resumen de todo el prompt anterior); (4) Vocabulario prohibido unificado en 2 tablas maestras (TÉCNICO vs DOCTRINAL) dentro de PROTOCOLO ANTI-MLM; (5) Reglas A/B/C/D del bloque histórico ahora son casos específicos con referencia cruzada a E/F/G/H elevadas al inicio; (6) Referencias de versión sincronizadas. Tamaño: 35,354 chars.
-   - Versión previa: **v27.0 "recursos_imperativos_bloqueo_kyc"** (22 May 2026) — Bump de versión mayor (v26 → v27). Tres cambios doctrinales: (1) sección RECURSOS DE LEGIBILIDAD COGNITIVA elevada al **inicio del prompt** (primacy effect) — empíricamente v26.9 no logró aplicación consistente de las Reglas E/F/G/H porque vivían al final del prompt 41KB y competían contra reglas más viejas (Pirámide McKinsey, frialdad matemática) ubicadas en líneas tempranas; (2) **REGLA IMPERATIVA — 2 DE 4 RECURSOS OBLIGATORIOS** para respuestas de 100+ palabras (reemplaza la regla subjetiva v26.9 "si aporta legibilidad" con mínimo cuantificable: negritas + cursiva + separador `---` + lista — al menos 2 de los 4); (3) **BLOQUEO ABSOLUTO — KYC / DOCUMENTACIÓN INVENTADA** anti-alucinación crítica. Bug raíz detectado QA 19 May 2026: cuando FSM no capturaba paquete del usuario ("nivel 3" no estaba en packageMap → Fix E paralelo), modelo improvisaba flujo bancario tóxico pidiendo cédula, comprobantes de ingresos (nóminas), referencias formales LinkedIn, e inventaba "Reporte de Auditoría Técnica" inexistente. v27.0 cierra esa puerta con bloqueo explícito + texto canónico de respuesta. Tamaño: 44,943 chars.
-   - Versión previa: **v26.9 "recursos_legibilidad_cognitiva"** (19 May 2026) — Resuelve contradicción doctrinal sobre formato visual. Antes, el PROTOCOLO DE AUDITORÍA paso 3 ordenaba *"reescribir como prosa fluida"* todas las listas/viñetas, anulando las REGLAS DE FORMATO VISUAL que sí las permitían. Empíricamente la auditoría destructiva ganaba — respuestas naturales quedaban planas mientras el frontend (`react-markdown + remark-gfm`) podía renderizar negritas champagne, cursivas titanio, listas, tablas y separadores. v26.9 reescribe el paso 3 (audita aprovechamiento, no destrucción), agrega 4 reglas nuevas (Regla E negritas en frases-ancla, Regla F cursiva en reencuadres psicológicos, Regla G separador `---` antes del cierre, Regla H sub-listas para enumeraciones), matiza la regla "máximo 3 párrafos" (aplica solo a queries de orientación; respuestas estructurales pueden extenderse), y agrega nueva sección **"## RECURSOS DE LEGIBILIDAD COGNITIVA"** que explica el *propósito* (escaneabilidad, modelado mental, retención) de cada recurso Markdown. Sincronizado con arsenal_inicial v25.9 (chips canónicos ya con formato enriquecido).
+   - **Versión activa: v27.1 "limpieza_redundancias"** (22 May 2026) — Ola 1 de auditoría de redundancia (Gemini sobre prompt monolítico). Reducción 45,940 → 35,354 chars (~23%) sin cambios de comportamiento.
+   - **Versión previa: v27.0 "recursos_imperativos_bloqueo_kyc"** (22 May 2026) — Bump mayor. (1) RECURSOS DE LEGIBILIDAD elevada al inicio (primacy effect); (2) Regla "2 de 4 recursos obligatorios" para respuestas 100+ palabras; (3) **BLOQUEO ABSOLUTO KYC** anti-alucinación crítica (modelo había inventado flujo bancario pidiendo cédula/nóminas/LinkedIn cuando FSM no capturaba paquete).
+   - **Historial completo v19.x → v27.1** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md)
+   - Archivos fuente: `knowledge_base/system-prompt-nexus-main-vXX_Y.md` (todos conservados como referencia histórica)
    - Cached in-memory for 5 minutes
-   - **DO NOT modify hardcoded fallback** - update database instead (fallback ya alineado a v26.5 en `route.ts` líneas 2460-2487; v26.6 y v26.7 actualizan vía Supabase únicamente)
+   - **DO NOT modify hardcoded fallback** en `route.ts` — actualizar en Supabase. Fallback alineado a v26.5.
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
-   - **Bifurcación de embudos**: `nexus_main` v27.1 sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya la landing `/executive` o `/private`. No crear aún — pendiente.
-   - **v26.0 unificacion_servilleta (May 2026)**: Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz Física + Queswa Centro de Mando + Arquitecto de Patrimonio), Base Operativa como activo del Arquitecto, diccionario industrial completo, bloqueo de datos de entrenamiento Gano Excel obsoletos.
-   - **v26.1 blindaje_why02 (May 2026)**: Añade instrucción explícita en sección LÍMITE DE RESPUESTA para entregar WHY_02 verbatim desde RAG (sin reescritura creativa). WHY_02 reformulado: pilares numerados 1/2/3, "Gano Excel" explícito, gerundios EAM (Expandir/Activar/Maestría), "Usted no vende, usted dirige", nueva pregunta de cierre como analista de capital.
-   - **v26.2 comandos_tridente (May 2026)**: Resuelve conflicto semántico — "Protocolo" quedaba reservado al villano (PPO) y a procesos técnicos genéricos, pero también se usaba para el Tridente. Ahora los tres elementos del Tridente EAM se llaman **Comandos** (Comando Expandir · Comando Activar · Comando Maestría). Trinidad resultante: Centro de Mando (Queswa) → emite Comandos (Tridente EAM) → sobre la Base Operativa.
-   - **v26.3 alineacion_glosario_v14 (09 May 2026)**: Alineación con Glosario Léxico Canónico v1.4 — `Patrimonio Paralelo` (sustantivo) → `Estructura Patrimonial` (fricción nivel 3 documentada en Léxico Reels), recategorización canónica `Trampa Estructural`, jerarquía causal Modelo→Inestabilidad→Déficit, vocabulario MLM tradicional colombiano prohibido (`La salida es / Escape de / Sal del`).
-   - **v26.4 retrofit_friccion_nivel_5 (10 May 2026)**: Retrofit léxico contra 4 investigaciones canónicas (`public/contexto/investigaciones/`). 11 ediciones quirúrgicas: (1) eliminación frame `actualización de software financiero` × 6 instancias → `instalación de Estructura Patrimonial en paralelo` (sesgo WEIRD/tech-noir documentado); (2) `apalancamiento asimétrico` → `apalancamiento estratégico` (fricción nivel 5/5 Wall Street/Anglo); (3) `gobernanza estratégica/de activos` → `dirección estratégica/dirigir activo` (fricción nivel 5/5 corporativo); (4) eliminación negaciones discursivas (`NO es reemplazo. NO es escape.` × 2 + 3 antiejemplos en Directrices de Voz) — aplica regla v26.3 línea 25 "Describe qué ES — no qué NO ES".
-   - **v26.5 pilar3_metodologia_automatizada (15 May 2026)**: Resolución de disonancia arquitectónica. **Pilar 3** recategorizado de "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (El Tridente EAM)". Si Pilar 3 = el usuario, solo se entregan 2 pilares de infraestructura (Matriz Física + Queswa), no 3. El tercer pilar debe ser un componente entregado por el sistema, no el rol del receptor. El **Arquitecto de Patrimonio** queda elevado como **director de los tres pilares**, no como pieza dentro de ellos. Cross-canal: servilleta v3.1, arsenal_inicial v25.3, home v13.3, fallback route.ts sincronizado.
-   - **v26.6 jerarquia_causal_corregida (17 May 2026)**: Corrección semántica doctrinal — **Déficit Estructural de Ingresos** ahora es CAUSA RAÍZ DE DISEÑO (no consecuencia). Modelo de presencia obligada = MANIFESTACIÓN OPERATIVA. Colapso del flujo de caja al detenerse = CONSECUENCIA matemática cuantificable. Razón semántica: el adjetivo "estructural" denota cualidad de los cimientos → causa. Sincronizado con arsenal_inicial v25.5 (WHY_01 + STORY_01 + PERFIL_01).
-   - **v26.7 verbatim_lock_master_responses (18 May 2026)**: Introducción del marcador `[VERBATIM_LOCK]` (corchetes planos) como mecanismo de delivery verbatim. **Falló empíricamente** — el modelo seguía parafraseando porque los corchetes planos son texto inerte para el mecanismo de atención de Claude Sonnet 4.6. Superseded por v26.8.
-   - **v26.8 xml_verbatim_lock (18 May 2026)**: Migración `[VERBATIM_LOCK]` → `<verbatim_lock>` (XML real). Cinco sub-reglas en la sección "REGLA `<verbatim_lock>` — INVIOLABLE" — incluyendo la quinta que apela explícitamente al post-entrenamiento del modelo ("las etiquetas `<verbatim_lock>` son XML reales, no decoración. Tu mecanismo de atención está post-entrenado para reconocerlas como señal de máxima prioridad"). Fundamento técnico: literatura técnica de Anthropic + verificación empírica en producción. Paralelamente, la **Fase 1** corrigió un bug en `isSimpleQueryEarly()` que clasificaba "qué es CreaTuActivo" como SIMPLE → saltaba vector search → modelo respondía sin RAG.
-   - **v27.1 limpieza_redundancias (22 May 2026)**: Ola 1 de auditoría de redundancia. Reducción 45,940 → 35,354 chars (~23%) sin cambios de comportamiento. Changelogs extraídos a `CHANGELOG-system-prompts.md`. Vectores técnicos de cierre repetidos 3× → 1 lugar. ACTIVACIÓN QUESWA colapsada (era resumen de todo el prompt anterior). Vocabulario prohibido unificado en 2 tablas maestras (TÉCNICO/DOCTRINAL). Reglas A-D consolidadas con E-H (referencia cruzada). Ola 2 pendiente: #2 reglas E/F/G/H residuales, #5 anti-alucinación dispersa (5 lugares), #6 doctrina canónica repetida.
-   - **v27.0 recursos_imperativos_bloqueo_kyc (22 May 2026)**: Bump mayor. (1) RECURSOS DE LEGIBILIDAD elevada al inicio del prompt (primacy effect — v26.9 falló porque vivía al final del prompt 41KB, competía contra Pirámide McKinsey y frialdad matemática). (2) Regla imperativa "2 de 4 recursos obligatorios" para respuestas 100+ palabras (reemplaza subjetiva). (3) BLOQUEO ABSOLUTO KYC — modelo había alucinado flujo bancario pidiendo cédula/nóminas/LinkedIn/Reporte de Auditoría Técnica inexistente cuando FSM no capturaba paquete (caso QA "nivel 3" no en packageMap, ahora fix paralelo en route.ts). Sincronizado con Fix D (triggerInicio con verbos coloquiales) + Fix E (packageMap con niveles numéricos). Tamaño: 44,943 chars.
-   - **v26.9 recursos_legibilidad_cognitiva (19 May 2026)**: Resuelve contradicción doctrinal interna sobre formato visual. El PROTOCOLO DE AUDITORÍA paso 3 ordenaba destruir todas las listas/viñetas convirtiéndolas en prosa fluida, anulando las REGLAS DE FORMATO VISUAL. Empíricamente la auditoría destructiva ganaba. Cambios: (1) paso 3 reescrito (audita aprovechamiento, no destrucción); (2) 4 reglas nuevas (E negritas en frases-ancla + datos numéricos + sustantivos doctrinales; F cursiva en reencuadres psicológicos; G separador `---` antes del cierre; H sub-listas para 2-5 elementos paralelos); (3) regla "máximo 3 párrafos" matizada (solo queries de orientación; respuestas estructurales pueden extenderse hasta ~350 palabras con recursos visuales); (4) nueva sección **"## RECURSOS DE LEGIBILIDAD COGNITIVA"** que explica el *propósito* de cada recurso Markdown (escaneabilidad, modelado mental, retención), con tabla decisorial de qué recurso aplicar según la intención. **Nivel 1** del plan de mejora de legibilidad (sin tocar arsenales). Sincronizado con arsenal_inicial v25.9 (chips canónicos ya tienen formato enriquecido). Tamaño: 41,441 chars.
-   - **Archivo fuente v27.1**: `knowledge_base/system-prompt-nexus-main-v27_1.md` — deploy: `node scripts/actualizar-system-prompt-v27.1.mjs`
-   - **Archivo fuente v27.0**: `knowledge_base/system-prompt-nexus-main-v27_0.md` — conservar como referencia histórica
-   - **Archivo fuente v26.9**: `knowledge_base/system-prompt-nexus-main-v26_9.md` — conservar como referencia histórica
-   - **Archivo fuente v26.8**: `knowledge_base/system-prompt-nexus-main-v26_8.md` — conservar como referencia histórica
-   - **Archivo fuente v26.7**: `knowledge_base/system-prompt-nexus-main-v26_7.md` — conservar como referencia histórica (intento fallido con corchetes planos)
-   - **Archivo fuente v26.6**: `knowledge_base/system-prompt-nexus-main-v26_6.md` — conservar como referencia histórica
-   - **Archivo fuente v26.5**: `knowledge_base/system-prompt-nexus-main-v26_5.md` — conservar como referencia histórica
-   - **Archivo fuente v26.4**: `knowledge_base/system-prompt-nexus-main-v26_4.md` — conservar como referencia histórica
-   - **Archivo fuente v26.3**: `knowledge_base/system-prompt-nexus-main-v26_3.md` — conservar como referencia histórica
-   - **Archivo fuente v26.2**: `knowledge_base/system-prompt-nexus-main-v26_2.md` — conservar como referencia histórica
-   - **Archivo fuente v26.1**: `knowledge_base/system-prompt-nexus-main-v26_1.md` — conservar como referencia histórica
-   - **Archivo fuente v26.0**: `knowledge_base/system-prompt-nexus-main-v26_0.md` — conservar como referencia histórica
+   - **Bifurcación de embudos**: `nexus_main` sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya `/executive` o `/private`. Pendiente.
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
-   - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — Queswa da precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y los precios de paquetes en USD sin mostrar COP. Causa raíz más probable: `catalogo_productos` no está fragmentado — se entrega como documento único de 14,748 chars. Pendiente: fragmentar catalogo_productos igual que los arsenales. Ver handoff: `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`
+   - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — `catalogo_productos` no está fragmentado, se entrega como documento único de ~15KB → Queswa devuelve precios COP incorrectos, CV/PV faltantes, paquetes USD sin COP. Pendiente fragmentar. Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
 
 **Camino A — Backend Dictador para chip-triggers (May 2026)**:
 
@@ -535,17 +518,18 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `search_nexus_documents()` - Semantic search
 - `enqueue_nexus_message()` - Add to queue
 
-**Knowledge Base** (stored in `nexus_documents`, actualizado Mar 2026):
-- `arsenal_inicial` - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt) (43 fragmentos — 42 respuestas activas + PERFIL_01) — **v25.7** (18 May 2026) — Respuestas Master del Director Académico de Élite aplicadas en WHY_01, WHY_02 y EAM_01 con marcadores `[VERBATIM_LOCK]` (ver Camino A en sección "NEXUS AI Chatbot"). Pilar 3 recategorizado (v25.3) + jerarquía causal corregida (v25.5). Bloque DIASPORA_01-03, Tres Pilares, Base Operativa, aforismos Tridente EAM, verbos de paridad
-- `arsenal_avanzado` - [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt) (18 responses — OBJ avanzadas, TECH, VAL + ADV_VAL_05, SIST, ESC) — **v10.0** (May 2026)
-- `arsenal_reto` - [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt) (**Auditoría Patrimonial** v4.1 — 7 responses — Arquitecto de Patrimonio, jerarquía causal Protocolo→Inestabilidad→Déficit, May 2026)
-- `arsenal_12_niveles` - [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt) (13 blocks)
-- `catalogo_productos` - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt) (22 products + science, ~20KB) — **v7.0** (Abr 2026) — Lujo Clínico
-- `arsenal_compensacion` - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt) (38 responses — **NO modificar vocabulario ni cifras**) — tenant: `creatuactivo_marketing` — **v6.2** (May 2026) — COMP_MODELO_01 "Monetización de Doble Velocidad / Capitalización Inmediata / Renta Vitalicia"; "su organización"; Análogía del Acueducto eliminada
-- `arsenal_marca_personal` - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt) (11 responses — QUIEN, HIST, VISION, METOD, ACTIVO, OBJ, CONTACTO) — tenant: `marca_personal` — **v1.1** (Abr 2026)
-- `arsenal_ganocafe` - [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt) (16 responses — PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
+**Knowledge Base** (almacenado en `nexus_documents`): ver la tabla de arsenales y versiones actuales en la sección [NEXUS AI Chatbot — Fragmented Vector Search](#1-nexus-ai-chatbot) arriba. Archivos fuente:
 
-**Note**: Ver [knowledge_base/README.md](knowledge_base/README.md) para documentación completa de arsenales.
+- [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt)
+- [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt)
+- [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt)
+- [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt)
+- [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
+- [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt)
+- [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt)
+- [knowledge_base/arsenal_ganocafe.txt](knowledge_base/arsenal_ganocafe.txt)
+
+**Documentación completa**: [knowledge_base/README.md](knowledge_base/README.md) · **Historial de cambios**: [knowledge_base/CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md)
 
 ### 5. Page Structure & Funnel Architecture
 
@@ -733,12 +717,10 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
 
-**Estándar Lujo Clínico** (Abr 2026 — auditado en todos los arsenales):
-- Audiencia objetivo: CEOs, cirujanos, ejecutivos — toda América (USA, México, Colombia)
-- Vocabulario aprobado: Apalancamiento Asimétrico, Demanda Biológica, Ingreso Inmediato/Recurrente, Portabilidad Patrimonial, Prueba Ácida Empírica, costo de oportunidad silencioso, **Base Operativa** (activo del Arquitecto — unidad canónica que reemplaza "Unidad de Suministro" y "Nodo Logístico" desde 15 May 2026), **Tres Pilares** (arquitectura canónica), **Arquitecto de Patrimonio** (rol del usuario), **Asignación de Capital para la Activación de Infraestructura** (reemplaza "compra"/"inversión"), **Subsidio de Activación Tecnológica** (reemplaza "Bono Tecnológico"/"Meses Cortesía"), **Monetización de Doble Velocidad** (Inmediata + Recurrente), **Déficit Estructural de Ingresos** (el villano sistémico)
-- Vocabulario prohibido adicional: "tracción" (reemplazar por "dirección asimétrica" o "gobernanza"), "ancho de banda operativo" (reemplazar por "disponibilidad real para la dirección"), "Máquina Híbrida" (reemplazar por "Base Operativa" o "los tres pilares"), "capas" en contexto de arquitectura de negocio (usar "pilares"), "Unidad de Suministro" / "Nodo Logístico" (retirados 15 May 2026 — eufemismos opacos; reemplazar por "Base Operativa"), "perseguir", "convencer", "multinacional" (en contexto MLM), "pasivo" (reemplazar por "recurrente"), "libertad financiera", "ingreso pasivo", "reclutamiento", PII hardcodeada, etiquetas de sub-perfil antiguas ("Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal")
-- Regla 4: NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó
-- Referencias geográficas: pan-americanas — no Colombia-only
+**Audiencia objetivo + reglas lingüísticas** → ver tabla canónica unificada en sección [Queswa Vocabulary — Tabla Canónica](#queswa-vocabulary--tabla-canónica-unificada). Reglas clave:
+- Audiencia mixta pan-americana (USA, México, Colombia) — vocabulario respetuoso pero accesible (test "abuela de 75 años"). El target original "CEOs/cirujanos" del Lujo Clínico se amplió en v5.2 (May 2026) tras el insight del Director Cabrejo: "el arquitecto no precipita el cierre, pero cuando llega los procesos son sencillos".
+- NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó.
+- Referencias geográficas pan-americanas — no Colombia-only.
 
 ### Arquitectura FSM — Backend como Dictador Absoluto (rediseñado Opción B, 22 May 2026)
 
@@ -960,7 +942,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `handoff-sumario.ts` - **Warm handoff** — sub-agente Haiku genera expediente táctico + envía email HTML al equipo directivo (sistema@creatuactivo.com) via Resend cuando entra Estado 4 del FSM. Fire-and-forget, no bloquea handoff al prospecto
 - `queswa-greeting.ts` - Saludo canónico de Queswa + chips `QUESWA_QUICK_REPLIES` (single source of truth — antes duplicado en 4 lugares)
 - `whatsapp-meta.ts` - Envío de mensajes WhatsApp via Meta Graph API (reemplaza SendPulse)
-- `sendpulse.ts` - **LEGACY** — migrado a `whatsapp-meta.ts` (Abr 2026). Pendiente eliminar tras aprobar plantillas Meta WhatsApp
+- `sendpulse.ts` - Legacy → ver tabla [Heredado / Pendiente de eliminación](#heredado--pendiente-de-eliminación)
 
 ## Design System: Bimetallic v3.0
 
@@ -1251,47 +1233,76 @@ These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc
 
 ### Key Marketing Constraints
 
-**Words to AVOID** (activate MLM filter):
-- ❌ MLM, network marketing, multinivel
-- ❌ "Oportunidad de negocio"
-- ❌ Reclutar, downline, upline
-- ❌ "Sé tu propio jefe", "Trabaja desde casa"
-- ❌ "Ingresos pasivos", "Libertad financiera" (overused)
+Vocabulario completo (aprobado + prohibido) → ver tabla canónica en sección **[Queswa Vocabulary — Tabla Canónica Unificada](#queswa-vocabulary--tabla-canónica-unificada)** abajo.
 
-**Words to USE** (new category positioning):
-- ✅ Arquitectura de Activos
-- ✅ Soberanía financiera
-- ✅ Construir patrimonio
-- ✅ El plan por defecto (villain)
-- ✅ Leverage / Apalancamiento
-- ✅ Cartera de activos
-- ✅ Distribución global
+**Términos adicionales para positioning de tráfico orgánico** (TRAFFIC, no funnel de venta):
+- ✅ Arquitectura de Activos · Soberanía financiera · Cartera de activos · Distribución global
+- ✅ El plan por defecto (el villano universal cross-arsenal)
 
-### Queswa Vocabulary Rules — Jobs-Style (Feb 2026)
+### Queswa Vocabulary — Tabla Canónica Unificada
 
-**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido.
+**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. Esta sección es la **única fuente de verdad** sobre vocabulario aprobado y prohibido — versiones consolidadas Feb 2026 (Jobs-Style) + Abr 2026 (Lujo Clínico) + May 2026 (v5.2 cierre simplificado).
 
-**Vocabulario PROHIBIDO en arsenales** (erradicado en v3.0):
+#### Vocabulario APROBADO (doctrina canónica)
 
-| Prohibido | Reemplazar con |
-|-----------|---------------|
-| Hardware / Software | El Músculo / El Cerebro |
-| Protocolo de Simulación | Auditoría Patrimonial |
-| Cupo de Validación | acceso gratuito |
-| Módulos Estratégicos | Videos de instrucción |
-| Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar |
-| Despliegue | Acceso / Activación |
-| Nodo de distribución | (evitar) |
-| Ancho de Banda Mental | (solo permitido en RETO_05 — contexto específico) |
-| Pipeline / Embudo | Tubería / Canal |
-| 80% automatizado | 90% automatizado |
+| Término | Uso | Razón |
+|---------|-----|-------|
+| **Tres Pilares** | Arquitectura del sistema — NUNCA "capas" ni "Máquina Híbrida" | Doctrina v26.0 |
+| **Pilar 1 — La Matriz Física** | Gano Excel + músculo logístico | — |
+| **Pilar 2 — Queswa, su Centro de Mando** | Plataforma IA propietaria | — |
+| **Pilar 3 — La Metodología Automatizada** | El Tridente EAM (no "Su Rol") | Recategorización v26.5 |
+| **Arquitecto de Patrimonio** | Rol del usuario — director de los 3 pilares, NO uno de ellos | — |
+| **Base Operativa** | Activo del Arquitecto (reemplaza "Unidad de Suministro" / "Nodo Logístico") | Retirados 15 May 2026 |
+| **Tridente EAM** | Comando Expandir · Comando Activar · Comando Maestría | v26.2 — "Comandos" no "Protocolos" |
+| **Déficit Estructural de Ingresos** | El villano sistémico (causa raíz, no consecuencia) | v26.6 — jerarquía causal |
+| **Monetización de Doble Velocidad** | Capitalización Inmediata (GEN5) + Renta Vitalicia (Binario) | v26.2 |
+| **Estructura Patrimonial** | Sustantivo doctrinal — reemplaza "Patrimonio Paralelo" | v26.3 — Glosario v1.4 |
+| **El Tridente EAM** | Reemplaza "Framework IAA" (eliminado) | v19.6 |
+| **90% automatizado** | NO usar "80% automatizado" | Doctrina actual |
+| **70 países** | Gano Excel presencia global — NO usar 60 | Oficial |
+| **15 países operativos** | CreaTuActivo cobertura geográfica — NO confundir con 70 | v6.4 compensación |
+| **Cupos Fundadores: 15** | Base fundacional inicial | — |
+| **Acueducto / Alquiler vs. Propiedad / Ferrari gratis / Waze / Faro** | Metáforas universales aprobadas | Jobs-Style Feb 2026 |
 
-**Metáforas aprobadas** (universales, sin jerga):
-- Acueducto / Tubería / Cargar baldes
-- Alquiler vs. Propiedad / Título de escrituras
-- Ferrari gratis / Probar antes de comprar
-- GPS Waze vs. mapa de papel
-- Faro que atrae barcos
+#### Vocabulario PROHIBIDO (no usar bajo ninguna circunstancia)
+
+| Prohibido | Reemplazar con | Razón de prohibición |
+|-----------|---------------|---------------------|
+| Hardware / Software | El Músculo / El Cerebro | Jerga técnica |
+| Protocolo de Simulación | Auditoría Patrimonial | Test abuela falla |
+| Cupo de Validación | acceso gratuito | Test abuela falla |
+| Módulos Estratégicos | Videos de instrucción | Test abuela falla |
+| Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar | Test abuela falla |
+| Despliegue | Acceso / Activación | Jerga técnica |
+| Nodo de distribución | Base Operativa | Eufemismo opaco |
+| Ancho de Banda Mental | (solo permitido en RETO_05) | Contexto específico únicamente |
+| Pipeline / Embudo | Tubería / Canal | Jerga tech |
+| Asignación de Capital para la Activación de Infraestructura | Selección del nivel de inventario / capital se convierte en productos físicos | v5.2 (May 2026) — opacidad en cierre |
+| Apalancamiento Asimétrico / Apalancamiento Estratégico Máximo | Apalancamiento estratégico (a secas, sin "asimétrico/máximo") | v26.4 — fricción nivel 5/5 Wall Street |
+| Tecnología nutricional | Productos físicos / productos | v5.2 (May 2026) — opacidad |
+| Auditoría de acoplamiento | (eliminado) | Klaff Prize Frame zombi |
+| 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
+| Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |
+| Ancho de banda operativo | disponibilidad real para la dirección | Jerga tech |
+| Máquina Híbrida | Base Operativa / los tres pilares | v26.0 |
+| Capas (arquitectura de negocio) | Pilares | Doctrina |
+| Unidad de Suministro / Nodo Logístico | Base Operativa | Retirados 15 May 2026 |
+| Gobernanza estratégica/de activos | dirección estratégica/dirigir activo | v26.4 — fricción nivel 5/5 corporativo |
+| Actualización de software financiero | instalación de Estructura Patrimonial en paralelo | v26.4 — sesgo WEIRD/tech-noir |
+| Perseguir, convencer | (eliminar) | Plantar objeciones inexistentes |
+| Multinacional (contexto MLM) | (evitar) | Asociación negativa |
+| Pasivo | recurrente | — |
+| Libertad financiera, ingreso pasivo, reclutamiento | (eliminar) | Filtra como MLM |
+| Esposas de Oro / Trampa Operativa / Creador de Ingreso Lineal | (eliminado) | Atacaban identidad del prospecto |
+| Sé tu propio jefe / Trabaja desde casa | (eliminar) | Filtra como MLM |
+| Oportunidad de negocio | (eliminar) | Filtra como MLM |
+| "Haz una lista de 100" | (eliminar — contexto: viejo MLM) | — |
+| La salida es / Escape de / Sal del | (eliminar) | MLM tradicional colombiano |
+| NO es reemplazo. NO es escape. | (eliminar — describir qué ES) | v26.3 |
+| Tu Rol (El Director) como tercer elemento plano | METODOLOGÍA (Ejecución Exacta) | v19.6 |
+| PII hardcodeada en arsenales | (nunca) | Seguridad |
+
+**Cierre v5.2 (May 2026) — frase canónica única**: cuando el prospecto pregunta cómo se inicia, Queswa entrega FREQ_03 (los 3 niveles ESP + pregunta de selección) en `<verbatim_lock>`. Sin entrevista BANT, sin "equipo de Dirección Estratégica", sin "Asignación de Capital". El FSM avanza a Estado 3 (nombre) → Estado 4 (warm handoff automático).
 
 ## Luis Cabrejo's Real Story (Epiphany Bridge)
 

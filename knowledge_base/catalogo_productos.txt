@@ -141,24 +141,55 @@ El polvo de hongo tiene biodisponibilidad limitada por la pared celular de quiti
 
 ---
 
+### PROD_OVERVIEW: "¿Cómo se estructura el portafolio? / ¿Cuáles son las categorías de productos? / ¿Qué tipo de productos tienen? / ¿Cuál es el producto? / vista general del portafolio / dame un resumen de los productos"
+**[Concepto Nuclear]:** Vista global del portafolio. **CRÍTICO: el portafolio se estructura en CUATRO categorías — NUNCA omitir Suplementos ni LUVOCO al describir el portafolio.**
+
+<verbatim_lock>
+El portafolio del ecosistema se estructura en **cuatro categorías** de consumo, todas con extracto propietario de Ganoderma lucidum de Gano Excel:
+
+**1. Bebidas funcionales** — 9 productos
+> Ganocafés (3 en 1, Clásico), Ganoricos (Latte, Mocha, Shoko), Gano C'Real Spirulina, Oleaf Gano Rooibos, Gano Schokolade, Reskine Colágeno. Rango: $110,900 — $216,900 COP.
+
+**2. Sistema LUVOCO** — 4 productos
+> Máquina italiana de 15 bares + 3 intensidades de cápsulas exclusivas (Suave, Medio, Fuerte). Máquina: $1,026,000 COP · Cápsulas: $110,900 COP cada presentación.
+
+**3. Suplementos Avanzados** — 3 productos
+> Cápsulas concentradas de dosis terapéutica: Ganoderma (inmunológico), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272,500 — $336,900 COP.
+
+**4. Cuidado Personal** — 6 productos
+> Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73,900 — $78,500 COP.
+
+---
+
+**Total: 22 productos.** La lógica operativa no es vender productos individuales — es reasignar el consumo diario obligatorio del hogar hacia un activo con flujo de caja recurrente. El consumo en Cuidado Personal y Bebidas se ejecuta automáticamente sin persuasión comercial.
+</verbatim_lock>
+
+---
+
 ## CATEGORÍA 1: BEBIDAS FUNCIONALES
 
-### BEB_01: "¿Cuáles son los cafés disponibles?"
-**[Concepto Nuclear]:** Bebidas funcionales con extracto propietario de Ganoderma lucidum. La línea más amplia del portafolio.
+### BEB_01: "¿Cuáles son los cafés disponibles? / ¿Cuáles son sus bebidas? / ¿Qué productos tienen? / Háblame de los productos / ¿Cuáles son los productos?"
+**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **NO inventar productos fuera de esta tabla** — los únicos productos de bebidas disponibles son los 9 listados.
+
+<verbatim_lock>
+La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — todos contienen extracto propietario de Ganoderma lucidum de Gano Excel:
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
-| Ganocafé 3 en 1 | $110,900 | 20 sobres | Energía sin nerviosismo |
-| Ganocafé Clásico | $110,900 | 30 sobres | Claridad mental |
-| Ganorico Latte Rico | $119,900 | 20 sobres | Café gourmet funcional |
-| Ganorico Mocha Rico | $119,900 | 20 sobres | Satisface sin culpas |
-| Ganorico Shoko Rico | $124,900 | 20 sobres | Toda la familia |
-| Gano C'Real Spirulina | $119,900 | 15 sobres | Desayuno inteligente |
-| Oleaf Gano Rooibos | $119,900 | 20 sobres | Sin cafeína, antioxidantes |
-| Gano Schokolade | $124,900 | 20 sobres | Chocolate premium |
-| Reskine Colágeno | $216,900 | 10 sachets | Piel, cabello, articulaciones |
+| **Ganocafé 3 en 1** | $110,900 | 20 sobres | Energía sin nerviosismo |
+| **Ganocafé Clásico** | $110,900 | 30 sobres | Claridad mental |
+| **Ganorico Latte Rico** | $119,900 | 20 sobres | Café gourmet funcional |
+| **Ganorico Mocha Rico** | $119,900 | 20 sobres | Satisface sin culpas |
+| **Ganorico Shoko Rico** | $124,900 | 20 sobres | Toda la familia |
+| **Gano C'Real Spirulina** | $119,900 | 15 sobres | Desayuno inteligente |
+| **Oleaf Gano Rooibos** | $119,900 | 20 sobres | Sin cafeína, antioxidantes |
+| **Gano Schokolade** | $124,900 | 20 sobres | Chocolate premium |
+| **Reskine Colágeno** | $216,900 | 10 sachets | Piel, cabello, articulaciones |
 
-Todos contienen extracto propietario de Ganoderma lucidum.
+El té de la línea es **Oleaf Gano Rooibos** (no existe ningún producto llamado "Ganotea").
+El chocolate de la línea es **Gano Schokolade** (no existe ningún producto llamado "Gano Cocoa").
+El café puro es **Ganocafé Clásico** (no existe ningún producto llamado "Ganocafé Negro").
+</verbatim_lock>
 
 ---
 
@@ -251,50 +282,60 @@ Profesionales mayores de 30 que quieren que su rutina diaria también cuide su p
 
 ## CATEGORÍA 2: LÍNEA LUVOCO
 
-### LUV_01: "¿Qué es el sistema LUVOCO?"
+### LUV_01: "¿Qué es el sistema LUVOCO? / ¿Cuánto cuesta la máquina LUVOCO? / ¿Qué cápsulas hay?"
 **[Concepto Nuclear]:** Ecosistema Cerrado de Consumo Recurrente. Terminal italiana de precisión + insumo exclusivo propietario.
+
+<verbatim_lock>
+El sistema **LUVOCO** es un ecosistema cerrado: máquina italiana + cápsulas exclusivas. La línea completa son **4 productos**:
 
 | Producto | Precio COP | Descripción |
 |----------|------------|-------------|
-| Máquina LUVOCO | $1,026,000 | Diseño italiano, 15 bares, garantía 12 meses |
-| Cápsulas Suave x15 | $110,900 | Intensidad 4/10 |
-| Cápsulas Medio x15 | $110,900 | Intensidad 6/10 |
-| Cápsulas Fuerte x15 | $110,900 | Intensidad 8/10 |
+| **Máquina LUVOCO** | $1,026,000 | Diseño italiano, 15 bares, garantía 12 meses |
+| **Cápsulas Suave x15** | $110,900 | Intensidad 4/10 |
+| **Cápsulas Medio x15** | $110,900 | Intensidad 6/10 |
+| **Cápsulas Fuerte x15** | $110,900 | Intensidad 8/10 |
 
-Cápsulas exclusivas para máquina LUVOCO. No compatibles con Nespresso.
+Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nespresso.
+</verbatim_lock>
 
 ---
 
 ## CATEGORÍA 3: SUPLEMENTOS AVANZADOS
 
-### SUP_01: "¿Cuáles son los suplementos concentrados?"
-**[Concepto Nuclear]:** Dosis Terapéutica de Máxima Concentración. Tecnología activa sin dilución.
+### SUP_01: "¿Cuáles son los suplementos? / ¿Tienen suplementos dietarios? / ¿Qué cápsulas hay? / suplementos concentrados / suplemento dietario"
+**[Concepto Nuclear]:** Dosis Terapéutica de Máxima Concentración. Tecnología activa sin dilución. **Es una de las 4 categorías del portafolio — NUNCA omitir cuando se listan categorías**.
+
+<verbatim_lock>
+La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrados en cápsulas, dosis terapéutica:
 
 | Producto | Precio COP | Duración | Enfoque |
 |----------|------------|----------|---------|
-| Cápsulas Ganoderma | $272,500 | 90 caps (3 meses) | Soporte inmunológico máximo |
-| Cápsulas Excellium | $272,500 | 90 caps (3 meses) | Claridad mental, enfoque |
-| Cápsulas Cordygold | $336,900 | 90 caps (3 meses) | Rendimiento físico |
+| **Cápsulas Ganoderma** | $272,500 | 90 caps (3 meses) | Soporte inmunológico máximo |
+| **Cápsulas Excellium** | $272,500 | 90 caps (3 meses) | Claridad mental, enfoque |
+| **Cápsulas Cordygold** | $336,900 | 90 caps (3 meses) | Rendimiento físico |
 
-Dosis: 1 cápsula diaria. Combinables con bebidas.
+Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea. No existe ningún producto llamado "Gano Supreme".
+</verbatim_lock>
 
 ---
 
 ## CATEGORÍA 4: CUIDADO PERSONAL
 
-### PERS_01: "¿Qué productos hay para cuidado personal?"
-**[Concepto Nuclear]:** Mercado Invisible. Captura hogares sin café. Consumo obligatorio.
+### PERS_01: "¿Qué productos hay para cuidado personal? / ¿Tienen jabón? / ¿Tienen pasta de dientes? / ¿Tienen shampoo? / cuidado personal"
+**[Concepto Nuclear]:** Mercado Invisible. Captura hogares sin café. Consumo obligatorio diario.
+
+<verbatim_lock>
+La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea contiene extracto propietario de Ganoderma lucidum:
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
-| Gano Fresh (Pasta dental) | $73,900 | 150g | Sin flúor, encías saludables |
-| Jabón Gano | $73,900 | 2 barras 100g | Hidratación, anti-inflamatorio |
-| Jabón Transparente | $78,500 | 1 barra 100g | Pieles sensibles |
-| Shampoo Piel&Brillo | $73,900 | 250ml | Reduce caída |
-| Acondicionador Piel&Brillo | $73,900 | 250ml | Hidratación profunda |
-| Exfoliante Piel&Brillo | $73,900 | 200g | Renovación celular |
-
-Toda la línea contiene extracto propietario de Ganoderma.
+| **Gano Fresh** (pasta dental) | $73,900 | 150g | Sin flúor, encías saludables |
+| **Jabón Gano** | $73,900 | 2 barras 100g | Hidratación, anti-inflamatorio |
+| **Jabón Transparente** | $78,500 | 1 barra 100g | Pieles sensibles |
+| **Shampoo Piel&Brillo** | $73,900 | 250ml | Reduce caída |
+| **Acondicionador Piel&Brillo** | $73,900 | 250ml | Hidratación profunda |
+| **Exfoliante Piel&Brillo** | $73,900 | 200g | Renovación celular |
+</verbatim_lock>
 
 ---
 

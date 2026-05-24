@@ -42,6 +42,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.1.mjs` |
 | Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
 | Actualizar FREQ_03 cierre + purgar CIERRE_01/02 obsoletos | `node scripts/actualizar-fragmentos-cierre-v5.2.mjs` |
+| Actualizar catálogo productos (BEB_01/LUV_01/SUP_01/PERS_01 + PROD_OVERVIEW) | `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -80,6 +81,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts`: `waLinkEntregado` (línea ~3636) y `nombreSolicitado` (línea ~3641) — si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado
 - ❌ **NO re-introducir** la extracción de `package` desde `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Causaba contaminación silenciosa de `data.package` cada vez que Claude mencionaba el paquete en una respuesta informativa ("ESP-3 incluye 35 productos"). La captura debe venir **exclusivamente** del usuario con `packageMap` + guard de pregunta informativa.
 - ❌ **NO disparar Estado 4 sin validar nombre** — el FSM debe verificar con `extractNameFromHandoffReply()` que el usuario respondió con un nombre. Si responde con pregunta o pide pausar, mantener Estado 0 (responder libre) y conservar `package` en BD para el próximo intento. Bug crítico documentado QA 22 May 2026.
+- ❌ **NO eliminar `<verbatim_lock>` de PROD_OVERVIEW/BEB_01/LUV_01/SUP_01/PERS_01** en `catalogo_productos.txt`. Sin él, el modelo aluciona nombres simplificados ("Ganotea" en lugar de Oleaf Gano Rooibos, "Gano Cocoa" en lugar de Gano Schokolade, "Gano Supreme" inexistente) y omite categorías enteras (mencionando solo 2 de 4). Bug confirmado QA 22 May 2026, resuelto con v7.2.
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
@@ -283,7 +285,7 @@ WhatsApp (orgánico o CTWA anuncio)
 | `arsenal_avanzado` | creatuactivo_marketing | **v10.0** (May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. |
 | `arsenal_reto` | creatuactivo_marketing | **v4.1** (May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
-| `catalogo_productos` | creatuactivo_marketing | **v7.0** (Abr 2026) | 22 productos + ciencia (Lujo Clínico). ⚠️ NO fragmentado — bug activo de precios COP/CV/PV. |
+| `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_compensacion` | creatuactivo_marketing | **v6.4** (22 May 2026) | Plan de compensación (38 respuestas). **NO modificar vocabulario ni cifras.** |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
 | `arsenal_ganocafe` | ecommerce | **v1.5** (Mar 2026) | Productos GanoCafe (16 respuestas) — para ganocafe.online. |
@@ -316,7 +318,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
    - **Bifurcación de embudos**: `nexus_main` sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya `/executive` o `/private`. Pendiente.
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente.
-   - **Bug activo sin resolver (Abr 2026):** PRECIOS Y CV/PV — `catalogo_productos` no está fragmentado, se entrega como documento único de ~15KB → Queswa devuelve precios COP incorrectos, CV/PV faltantes, paquetes USD sin COP. Pendiente fragmentar. Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
+   - **Bug parcialmente resuelto (22 May 2026):** PRECIOS Y CV/PV — `catalogo_productos` v7.2 ya está fragmentado (25 fragments + doc maestro). Las tablas canónicas (PROD_OVERVIEW, BEB_01, LUV_01, SUP_01, PERS_01) ahora tienen `<verbatim_lock>` que erradica alucinaciones de nombres ("Ganotea", "Gano Cocoa", "Gano Supreme") y omisión de la categoría Suplementos. **Bug pendiente parcial**: CV/PV todavía faltantes en respuestas individuales por producto. Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
 
 **Camino A — Backend Dictador para chip-triggers (May 2026)**:
 

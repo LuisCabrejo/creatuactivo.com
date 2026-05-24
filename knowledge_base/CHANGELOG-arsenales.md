@@ -85,11 +85,26 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.2 — Verbatim lock en tablas + PROD_OVERVIEW (22 May 2026)
+
+Causa: ante "¿Cuál es el producto?" Queswa alucinaba nombres simplificados ("Ganotea" en lugar de **Oleaf Gano Rooibos**, "Gano Cocoa" en lugar de **Gano Schokolade**, "Gano Supreme" inexistente, "Ganocafé Negro" en lugar de **Ganocafé Clásico**) y omitía la categoría completa de **Suplementos** (mencionando solo 2 de 4 categorías reales).
+
+Diagnóstico: el catálogo SÍ estaba fragmentado (25 fragments en Supabase + doc maestro de 17,664 chars). La nota previa en CLAUDE.md decía que "no está fragmentado" — era falsa. El problema real: las tablas canónicas no tenían `<verbatim_lock>`, así que el modelo parafraseaba con nombres simplificados aunque tuviera la tabla exacta en contexto.
+
+**Cambios v7.2:**
+- **PROD_OVERVIEW (NUEVO)**: vista global de las 4 categorías canónicas en `<verbatim_lock>` — responde "vista general del portafolio", "categorías de productos", "¿cuál es el producto?". **Crítico: NUNCA omitir Suplementos ni LUVOCO.**
+- **BEB_01**: tabla 9 bebidas envuelta en `<verbatim_lock>` + triggers ampliados ("productos", "bebidas") + nota explícita de productos inexistentes (Ganotea/Gano Cocoa/Ganocafé Negro).
+- **LUV_01**: tabla sistema LUVOCO (4 productos) en `<verbatim_lock>`.
+- **SUP_01**: tabla 3 suplementos en `<verbatim_lock>` + nota "es 1 de 4 categorías — NUNCA omitir" + aclaración "no existe Gano Supreme".
+- **PERS_01**: tabla 6 cuidado personal en `<verbatim_lock>`.
+
+Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments actualizados con embeddings duales (voyage-large-2 + voyage-3-lite) y `metadata.is_fragment = true`.
+
+**Bug pendiente parcial:** CV/PV todavía faltantes en respuestas individuales por producto (PROD_*, BEB_02-06). Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
+
 ### v7.0 — Lujo Clínico (Abr 2026)
 
-22 productos + ciencia (Ganoderma Lucidum, Cordyceps), audiencia premium pan-americana. ~20KB total.
-
-**⚠️ Bug activo sin resolver:** `catalogo_productos` NO está fragmentado — se entrega como documento único de ~15KB. Esto causa que Queswa devuelva precios incorrectos de productos individuales en COP, CV/PV incorrectos/faltantes, y precios de paquetes en USD sin mostrar COP. Pendiente fragmentar igual que los arsenales. Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
+22 productos + ciencia (Ganoderma Lucidum, Cordyceps), audiencia premium pan-americana. ~20KB total. Estructura por categorías: Bebidas funcionales (9), LUVOCO (4), Suplementos (3), Cuidado Personal (6).
 
 ---
 

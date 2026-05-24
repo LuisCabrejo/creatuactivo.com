@@ -43,6 +43,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
 | Actualizar FREQ_03 cierre + purgar CIERRE_01/02 obsoletos | `node scripts/actualizar-fragmentos-cierre-v5.2.mjs` |
 | Actualizar catálogo productos (BEB_01/LUV_01/SUP_01/PERS_01 + PROD_OVERVIEW) | `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs` |
+| Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
+| POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
 | Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
@@ -82,6 +84,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO re-introducir** la extracción de `package` desde `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Causaba contaminación silenciosa de `data.package` cada vez que Claude mencionaba el paquete en una respuesta informativa ("ESP-3 incluye 35 productos"). La captura debe venir **exclusivamente** del usuario con `packageMap` + guard de pregunta informativa.
 - ❌ **NO disparar Estado 4 sin validar nombre** — el FSM debe verificar con `extractNameFromHandoffReply()` que el usuario respondió con un nombre. Si responde con pregunta o pide pausar, mantener Estado 0 (responder libre) y conservar `package` en BD para el próximo intento. Bug crítico documentado QA 22 May 2026.
 - ❌ **NO eliminar `<verbatim_lock>` de PROD_OVERVIEW/BEB_01/LUV_01/SUP_01/PERS_01** en `catalogo_productos.txt`. Sin él, el modelo aluciona nombres simplificados ("Ganotea" en lugar de Oleaf Gano Rooibos, "Gano Cocoa" en lugar de Gano Schokolade, "Gano Supreme" inexistente) y omite categorías enteras (mencionando solo 2 de 4). Bug confirmado QA 22 May 2026, resuelto con v7.2.
+- ❌ **NO re-implementar Anthropic Prompt Caching** — ya está activo en `route.ts:4072-4090` con 3 bloques (system base + arsenal + session instructions). Logging activo en `route.ts:4110-4118` (`cache_read` vs `cache_creation`). Gemini lo propuso como "Fase 3" en investigación May 2026 sin saber que ya existe — verificado en Fase 0 (23 May 2026). Solo medir hit rate cuando llegue tráfico real.
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
@@ -1128,7 +1131,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 - Reducir Fricción Cognitiva en Presentación Servilleta - Cognitive science behind industrial design
 - Desarrollo Web Diseño Industrial Técnico - Industrial design implementation
 - Sistema Lead Scoring Científico Digital - Lead scoring v3.0 design rationale
-- HANDOFF-QUESWA-PRECIOS-CVPV.md - Active bug: incorrect prices/CV/PV from unfragmented `catalogo_productos`
+- HANDOFF-QUESWA-PRECIOS-CVPV.md - Bug parcialmente resuelto (22 May 2026): nombres de productos + categorías ya correctos (catálogo v7.2 con `<verbatim_lock>`); CV/PV individuales todavía pendientes en BEB_02-06 y PROD_*
 - HANDOFF-QUESWA-UX-M3-BUG.md - UX bug handoff for M3 flow
 
 **Research — Posicionamiento & UX** (in `public/contexto/investigaciones/`):

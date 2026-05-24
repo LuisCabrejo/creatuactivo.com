@@ -839,24 +839,30 @@ export default function CatalogoEstrategico() {
   return (
     <>
       <style dangerouslySetInnerHTML={{__html: `
+        /* CTA Clinical (Lujo Silencioso adaptado al vertical e-commerce):
+           tinte 7% del bioEmerald + borde + texto verde lab.
+           Sin clip-path biselado (anti-investigación). */
         .clinical-btn {
-          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-          transition: all 0.2s ease;
+          background: ${C.bioEmerald}14;
+          color: ${C.bioEmerald};
+          border: 1.5px solid ${C.bioEmerald};
+          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .clinical-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px ${C.bioEmerald}40;
+          background: ${C.bioEmerald}26;
+          border-color: ${C.bioEmerald};
         }
         .titanium-btn:hover {
           border-color: #ffffff !important;
           color: #ffffff !important;
         }
+        /* WhatsApp hybrid: mantiene su identidad (verde WhatsApp + carbón obsidian)
+           porque es un brand-button, pero sin clip-path biselado. */
         .whatsapp-hybrid {
           background: ${C.obsidian};
           color: ${C.whatsappLux};
           border: 2px solid ${C.whatsappLux}66;
-          clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-          transition: all 0.3s ease;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         .whatsapp-hybrid:hover {
           background: ${C.whatsappLux};
@@ -928,7 +934,7 @@ export default function CatalogoEstrategico() {
             style={{
               width: '100%',
               maxWidth: '80rem',
-              background: '#18181b',
+              background: 'var(--color-bg-surface)',
               border: '1px solid #3f3f46',
               boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
               maxHeight: '90vh',
@@ -1347,12 +1353,12 @@ export default function CatalogoEstrategico() {
             </span>
           </div>
 
-          <h1
+          <h2
             className="text-4xl md:text-6xl font-serif font-bold mb-4"
             style={{ color: C.textMain }}
           >
             Siéntete Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
-          </h1>
+          </h2>
 
           <p
             className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
@@ -1422,7 +1428,7 @@ export default function CatalogoEstrategico() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
             <div
               style={{
-                background: '#18181b',
+                background: 'var(--color-bg-surface)',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1442,7 +1448,7 @@ export default function CatalogoEstrategico() {
 
             <div
               style={{
-                background: '#18181b',
+                background: 'var(--color-bg-surface)',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1462,7 +1468,7 @@ export default function CatalogoEstrategico() {
 
             <div
               style={{
-                background: '#18181b',
+                background: 'var(--color-bg-surface)',
                 border: `1px solid ${C.bioEmerald}30`,
                 borderTop: `3px solid ${C.bioEmerald}`,
                 padding: '2rem',
@@ -1486,17 +1492,16 @@ export default function CatalogoEstrategico() {
               onClick={() => setShowTopSelling(true)}
               className="clinical-btn inline-flex items-center gap-3"
               style={{
-                background: C.bioEmerald,
-                color: C.obsidian,
-                padding: '1rem 2rem',
-                fontWeight: 700,
-                fontSize: '1.125rem',
+                padding: '0.875rem 2rem',
+                fontWeight: 600,
+                fontSize: '1rem',
                 fontFamily: "var(--font-sans)",
-                letterSpacing: '0.05em',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
               }}
             >
               <Trophy className="h-5 w-5" />
-              VER PRODUCTOS MÁS VENDIDOS
+              Ver Productos Más Vendidos
             </button>
           </div>
         </section>
@@ -1543,7 +1548,7 @@ export default function CatalogoEstrategico() {
                 key={key}
                 onClick={() => setSelectedSystem(key)}
                 style={{
-                  background: '#18181b',
+                  background: 'var(--color-bg-surface)',
                   border: '1px solid #3f3f46',
                   padding: '1.5rem',
                   cursor: 'pointer',
@@ -1613,7 +1618,7 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: '#18181b',
+                  background: 'var(--color-bg-surface)',
                   border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
@@ -1841,7 +1846,7 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: '#18181b',
+                  background: 'var(--color-bg-surface)',
                   border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
@@ -2016,7 +2021,7 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: '#18181b',
+                  background: 'var(--color-bg-surface)',
                   border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
@@ -2146,7 +2151,7 @@ export default function CatalogoEstrategico() {
               <div
                 key={id}
                 style={{
-                  background: '#18181b',
+                  background: 'var(--color-bg-surface)',
                   border: '1px solid #3f3f46',
                   overflow: 'hidden',
                 }}
@@ -2261,8 +2266,8 @@ export default function CatalogoEstrategico() {
         {/* Sección CTA Final: Construye su Sistema - Quiet Luxury */}
         <section className="mb-16 mt-20">
           <div className="bg-[#16181D] border border-[#E5C279]/20  p-12 text-center">
-            <Shield className="w-16 h-16 text-[#E5C279] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E5E5E5] mb-6">
+            <Shield className="w-16 h-16 text-[color:var(--color-brand)] mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[color:var(--color-text-primary)] mb-6">
               ¿Le Interesa Emprender con Productos de Bienestar?
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
@@ -2271,24 +2276,24 @@ export default function CatalogoEstrategico() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
               <div className="bg-[#0B0C0C] border border-[#E5C279]/20  p-6">
-                <div className="text-2xl font-serif font-bold text-[#E5C279] mb-2">Constructor Inicial</div>
-                <p className="text-[#E5E5E5] font-semibold mb-2">$200 USD</p>
+                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Inicial</div>
+                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$200 USD</p>
                 <p className="text-[#A3A3A3] text-sm">~$900.000 COP</p>
                 <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
                 <p className="text-[#6B7280] text-xs">2 meses cortesía Plan Cimiento</p>
               </div>
 
               <div className="bg-[#0B0C0C] border border-[#E5C279]/30  p-6">
-                <div className="text-2xl font-serif font-bold text-[#E5C279] mb-2">Constructor Empresarial</div>
-                <p className="text-[#E5E5E5] font-semibold mb-2">$500 USD</p>
+                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Empresarial</div>
+                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$500 USD</p>
                 <p className="text-[#A3A3A3] text-sm">~$2.250.000 COP</p>
                 <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
                 <p className="text-[#6B7280] text-xs">4 meses cortesía Plan Estructura</p>
               </div>
 
               <div className="bg-[#0B0C0C] border border-[#E5C279]/40  p-6">
-                <div className="text-2xl font-serif font-bold text-[#E5C279] mb-2">Constructor Visionario</div>
-                <p className="text-[#E5E5E5] font-semibold mb-2">$1,000 USD</p>
+                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Visionario</div>
+                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$1,000 USD</p>
                 <p className="text-[#A3A3A3] text-sm">~$4.500.000 COP</p>
                 <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
                 <p className="text-[#6B7280] text-xs">6 meses cortesía Plan Rascacielos</p>
@@ -2309,7 +2314,7 @@ export default function CatalogoEstrategico() {
 
               <button
                 onClick={() => window.open('https://creatuactivo.com/servilleta', '_blank')}
-                className="bg-[#0B0C0C] border border-[#E5C279]/30 text-[#E5E5E5] px-8 py-4  font-bold text-lg hover:border-[#E5C279]/60 transition-all inline-flex items-center justify-center gap-3"
+                className="bg-[#0B0C0C] border border-[#E5C279]/30 text-[color:var(--color-text-primary)] px-8 py-4  font-bold text-lg hover:border-[#E5C279]/60 transition-all inline-flex items-center justify-center gap-3"
               >
                 <Brain className="h-5 w-5" />
                 Ver Presentación del Ecosistema
@@ -2321,8 +2326,8 @@ export default function CatalogoEstrategico() {
         {/* Sección FAQ - Quiet Luxury */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-[#E5E5E5]">
-              Preguntas Frecuentes sobre <span className="text-[#E5C279]">Gano Café</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-[color:var(--color-text-primary)]">
+              Preguntas Frecuentes sobre <span className="text-[color:var(--color-brand)]">Gano Café</span>
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
               Descubre todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
@@ -2333,10 +2338,10 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 1 */}
             <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
                   ¿Para qué sirve el Gano Café?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
@@ -2349,7 +2354,7 @@ export default function CatalogoEstrategico() {
                   <li><strong>Mejorar concentración</strong>: Combinación de cafeína natural y nutrientes del hongo</li>
                   <li><strong>Apoyar la digestión</strong>: Con más de 200 fitonutrientes bioactivos</li>
                 </ul>
-                <p className="mt-4 text-[#E5C279] font-medium">
+                <p className="mt-4 text-[color:var(--color-brand)] font-medium">
                   💡 A diferencia del café tradicional, el Gano Café transforma su ritual diario en una inversión de salud.
                 </p>
               </div>
@@ -2358,10 +2363,10 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 2 */}
             <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
                   ¿Cuáles son los beneficios del Gano Café 3 en 1?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
@@ -2369,19 +2374,19 @@ export default function CatalogoEstrategico() {
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[#E5C279] mb-2">🛡️ Sistema Inmunológico</h4>
+                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🛡️ Sistema Inmunológico</h4>
                     <p className="text-sm">Fortalece defensas naturales con betaglucanos</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[#E5C279] mb-2">⚡ Energía Sostenida</h4>
+                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">⚡ Energía Sostenida</h4>
                     <p className="text-sm">Vitalidad sin nerviosismo ni caídas de energía</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[#E5C279] mb-2">🧘 Reducción de Estrés</h4>
+                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🧘 Reducción de Estrés</h4>
                     <p className="text-sm">Ayuda a manejar el estrés del día a día</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[#E5C279] mb-2">🎯 Concentración</h4>
+                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🎯 Concentración</h4>
                     <p className="text-sm">Mejora claridad mental y enfoque</p>
                   </div>
                 </div>
@@ -2394,10 +2399,10 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 3 */}
             <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
                   ¿Cuál es el precio del Gano Café en Colombia 2026?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
@@ -2406,24 +2411,24 @@ export default function CatalogoEstrategico() {
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center justify-between bg-[#0B0C0C] p-4  border border-[#E5C279]/30">
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Gano Café 3 en 1</p>
+                      <p className="font-bold text-[color:var(--color-text-primary)]">Gano Café 3 en 1</p>
                       <p className="text-sm text-[#A3A3A3]">Caja con 20 sobres x 21g</p>
                     </div>
-                    <p className="text-2xl font-bold text-[#E5C279]">$110.900 COP</p>
+                    <p className="text-2xl font-bold text-[color:var(--color-brand)]">$110.900 COP</p>
                   </div>
                   <div className="flex items-center justify-between bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Gano Café Clásico (Negro)</p>
+                      <p className="font-bold text-[color:var(--color-text-primary)]">Gano Café Clásico (Negro)</p>
                       <p className="text-sm text-[#A3A3A3]">Caja con 30 sobres x 4.5g</p>
                     </div>
-                    <p className="text-2xl font-bold text-[#E5C279]">$110.900 COP</p>
+                    <p className="text-2xl font-bold text-[color:var(--color-brand)]">$110.900 COP</p>
                   </div>
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
-                  <p className="font-bold text-[#E5C279] mb-2">💰 Precios de Distribuidor Mayorista</p>
+                  <p className="font-bold text-[color:var(--color-brand)] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-[#A3A3A3]">
                     Como <strong>Fundador CreaTuActivo</strong>, accedes a precios mayoristas con descuento de hasta 35% sobre precio público.
-                    <a href="/fundadores" className="text-[#E5C279] hover:text-[#F59E0B] font-medium ml-1 underline">Ver detalles de afiliación →</a>
+                    <a href="/fundadores" className="text-[color:var(--color-brand)] hover:text-[#F59E0B] font-medium ml-1 underline">Ver detalles de afiliación →</a>
                   </p>
                 </div>
                 <p className="text-sm text-[#A3A3A3] mt-4">
@@ -2435,10 +2440,10 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 4 */}
             <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
                   ¿Cómo se toma el Gano Café 3 en 1?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
@@ -2451,7 +2456,7 @@ export default function CatalogoEstrategico() {
                   <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
                 </ol>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4  mb-4">
-                  <p className="font-bold text-[#E5C279] mb-2">✅ Recomendaciones de Consumo</p>
+                  <p className="font-bold text-[color:var(--color-brand)] mb-2">✅ Recomendaciones de Consumo</p>
                   <ul className="text-sm text-[#A3A3A3] space-y-1">
                     <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
                     <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
@@ -2471,10 +2476,10 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 5 */}
             <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5E5E5] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
                   ¿El Gano Café está disponible en toda Latinoamérica?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
@@ -2482,30 +2487,30 @@ export default function CatalogoEstrategico() {
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇨🇴 Colombia</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇨🇴 Colombia</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇲🇽 México</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇲🇽 México</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇵🇪 Perú</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇵🇪 Perú</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇪🇨 Ecuador</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇪🇨 Ecuador</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇨🇱 Chile</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇨🇱 Chile</p>
                   </div>
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[#E5E5E5]">🇦🇷 Argentina</p>
+                    <p className="font-medium text-[color:var(--color-text-primary)]">🇦🇷 Argentina</p>
                   </div>
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
-                  <p className="font-bold text-[#E5C279] mb-2">🤖 Consulta con Queswa IA</p>
+                  <p className="font-bold text-[color:var(--color-brand)] mb-2">🤖 Consulta con Queswa IA</p>
                   <p className="text-sm text-[#A3A3A3]">
                     Nuestro asistente de IA conversacional puede ayudarte a encontrar distribuidores en su país,
                     calcular envíos internacionales y recomendarte los productos ideales para su perfil.
-                    <strong className="text-[#E5C279]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
+                    <strong className="text-[color:var(--color-brand)]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
                 </div>
               </div>
@@ -2514,41 +2519,41 @@ export default function CatalogoEstrategico() {
             {/* Pregunta 6 - Bonus - Quiet Luxury */}
             <details className="group bg-[#16181D]  border-2 border-[#E5C279]/40 hover:border-[#E5C279]/70 transition-all overflow-hidden">
               <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[#E5C279] pr-4">
+                <h3 className="text-xl font-bold text-[color:var(--color-brand)] pr-4">
                   🚀 ¿Cómo puedo comprar Gano Café y otros productos al mayorista?
                 </h3>
-                <span className="text-[#E5C279] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  Con <strong className="text-[#E5C279]">CreaTuActivo</strong>, no solo compras productos premium al <strong className="text-[#E5E5E5]">precio de distribuidor mayorista</strong>
-                  (35% de descuento), también accedes a un <strong className="text-[#E5E5E5]">ecosistema completo</strong>:
+                  Con <strong className="text-[color:var(--color-brand)]">CreaTuActivo</strong>, no solo compras productos premium al <strong className="text-[color:var(--color-text-primary)]">precio de distribuidor mayorista</strong>
+                  (35% de descuento), también accedes a un <strong className="text-[color:var(--color-text-primary)]">ecosistema completo</strong>:
                 </p>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + Queswa IA</p>
+                      <p className="font-bold text-[color:var(--color-text-primary)]">Aplicación CreaTuActivo + Queswa IA</p>
                       <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar su negocio 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
+                      <p className="font-bold text-[color:var(--color-text-primary)]">Mentoría Personalizada 1:150</p>
                       <p className="text-sm text-[#A3A3A3]">Como Fundador, recibe mentoría directa y construyes su red</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">3</div>
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
+                      <p className="font-bold text-[color:var(--color-text-primary)]">Ingresos Residuales</p>
                       <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de su red</p>
                     </div>
                   </div>
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-6 ">
-                  <p className="text-xl font-bold text-[#E5C279] mb-2">🎯 Solo 150 Cupos Fundadores</p>
+                  <p className="text-xl font-bold text-[color:var(--color-brand)] mb-2">🎯 Solo 150 Cupos Fundadores</p>
                   <p className="mb-4 text-[#A3A3A3]">Válido hasta el 04 de Enero 2026</p>
                   <a
                     href="/fundadores"
@@ -2564,11 +2569,11 @@ export default function CatalogoEstrategico() {
 
           {/* CTA Final después del FAQ - Quiet Luxury */}
           <div className="mt-12 text-center bg-[#16181D] border border-[#E5C279]/30  p-8">
-            <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 text-[#E5E5E5]">
-              ¿Listo para probar el <span className="text-[#E5C279]">Gano Café</span>?
+            <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 text-[color:var(--color-text-primary)]">
+              ¿Listo para probar el <span className="text-[color:var(--color-brand)]">Gano Café</span>?
             </h3>
             <p className="text-lg mb-6 text-[#A3A3A3]">
-              Habla con <strong className="text-[#E5C279]">Queswa IA</strong> y descubre qué productos son ideales para su estilo de vida
+              Habla con <strong className="text-[color:var(--color-brand)]">Queswa IA</strong> y descubre qué productos son ideales para su estilo de vida
             </p>
             <button
               onClick={() => {
@@ -2599,14 +2604,14 @@ export default function CatalogoEstrategico() {
                   {sistemasDebienestar[selectedSystem].icono}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-[#E5E5E5]">{sistemasDebienestar[selectedSystem].nombre}</h2>
+                  <h2 className="text-2xl font-bold text-[color:var(--color-text-primary)]">{sistemasDebienestar[selectedSystem].nombre}</h2>
                   <p className="text-[#A3A3A3]">{sistemasDebienestar[selectedSystem].descripcion}</p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedSystem(null)}
                 aria-label="Cerrar detalle del sistema de bienestar"
-                className="p-2 text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors  hover:bg-[#0B0C0C]"
+                className="p-2 text-[#A3A3A3] hover:text-[color:var(--color-text-primary)] transition-colors  hover:bg-[#0B0C0C]"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -2625,11 +2630,11 @@ export default function CatalogoEstrategico() {
                         className="w-24 h-24 object-contain  bg-[#0A0A0E] p-2"
                       />
                       <div className="flex-1">
-                        <h3 className="font-bold text-[#E5E5E5] mb-1">{product.name}</h3>
+                        <h3 className="font-bold text-[color:var(--color-text-primary)] mb-1">{product.name}</h3>
                         <p className="text-[#90A4AE] text-xs italic mb-2">"{product.taglineEstrategico}"</p>
                         <p className="text-[#A3A3A3] text-sm mb-3">{product.shortDescription}</p>
                         <div className="flex items-center justify-between">
-                          <span className="text-lg font-bold text-[#E5C279]">${product.price.toLocaleString()}</span>
+                          <span className="text-lg font-bold text-[color:var(--color-brand)]">${product.price.toLocaleString()}</span>
                           <button
                             onClick={() => {
                               addToCart(product.id)
@@ -2673,7 +2678,7 @@ export default function CatalogoEstrategico() {
         >
           <div
             style={{
-              background: '#18181b',
+              background: 'var(--color-bg-surface)',
               backdropFilter: 'blur(16px)',
               border: '1px solid #3f3f46',
               padding: '1.5rem',
@@ -2880,7 +2885,7 @@ export default function CatalogoEstrategico() {
 
                       {selectedProduct.combinacionSugerida && (
                         <div>
-                          <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">🔗 Combina con estos productos</h3>
+                          <h3 className="text-lg font-bold text-[color:var(--color-text-primary)] mb-3">🔗 Combina con estos productos</h3>
                           <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar sus resultados, prueba combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
@@ -2893,7 +2898,7 @@ export default function CatalogoEstrategico() {
                       )}
 
                       <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/30">
-                        <h4 className="font-bold text-[#E5C279] mb-2">✨ Ideal para usted si...</h4>
+                        <h4 className="font-bold text-[color:var(--color-brand)] mb-2">✨ Ideal para usted si...</h4>
                         <p className="text-[#A3A3A3] text-sm">
                           Este producto es perfecto para: {selectedProduct.perfilIdeal}.
                           Maximiza sus beneficios explorando el catálogo completo y descubriendo combinaciones que se adapten a sus objetivos.
@@ -2902,7 +2907,7 @@ export default function CatalogoEstrategico() {
 
                       {selectedProduct.sistemaRecomendado && (
                         <div>
-                          <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">Sistema Recomendado</h3>
+                          <h3 className="text-lg font-bold text-[color:var(--color-text-primary)] mb-3">Sistema Recomendado</h3>
                           <button
                             onClick={() => {
                               setSelectedProduct(null)
@@ -2912,14 +2917,14 @@ export default function CatalogoEstrategico() {
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="font-semibold text-[#E5C279]">
+                                <p className="font-semibold text-[color:var(--color-brand)]">
                                   {sistemasDebienestar[selectedProduct.sistemaRecomendado].nombre}
                                 </p>
                                 <p className="text-[#A3A3A3] text-sm">
                                   {sistemasDebienestar[selectedProduct.sistemaRecomendado].descripcion}
                                 </p>
                               </div>
-                              <Rocket className="h-6 w-6 text-[#E5C279]" />
+                              <Rocket className="h-6 w-6 text-[color:var(--color-brand)]" />
                             </div>
                           </button>
                         </div>

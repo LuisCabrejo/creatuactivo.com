@@ -34,10 +34,11 @@ export default function NetworkMarketingObsoletoPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title="¿Es el Network Marketing un modelo obsoleto?"
+            title={<>¿Es el Network Marketing un modelo obsoleto?<span style={{ color: '#C5A059' }}> Por qué evolucionamos a la Arquitectura de Activos</span></>}
             refCode="ARTICLE_PROBLEM_V1"
             imageSrc="/images/blog/thumb-blog-problem.jpg"
             imageAlt=""
+            variant="editorial"
           />
 
           {/* Article Content */}
@@ -68,12 +69,7 @@ export default function NetworkMarketingObsoletoPage() {
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
-                ¿Es el Network Marketing un modelo obsoleto?
-                <span className="text-[#C5A059]"> Por qué evolucionamos a la Arquitectura de Activos</span>
-              </h1>
-
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
                 El modelo de los 90s murió. Pero no lo reemplazamos con &quot;algo mejor&quot;—lo
                 transformamos en un sistema de construcción de activos.

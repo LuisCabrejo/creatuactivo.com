@@ -58,9 +58,9 @@ export default function ManifiestoPage() {
             >
               {/* Opening */}
               <div className="mb-20">
-                <p className="text-3xl sm:text-4xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                <h2 className="text-3xl sm:text-4xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
                   La arquitectura estaba fracturada.
-                </p>
+                </h2>
 
                 <div className="prose-drop-cap space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
@@ -93,12 +93,12 @@ export default function ManifiestoPage() {
 
               {/* La Falla del Vehículo */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
                   La Falla del Vehículo
-                </h2>
-                <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                  El problema no era el esfuerzo. Era el vehículo.
                 </p>
+                <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                  El problema no era el esfuerzo. Era el vehículo.
+                </h2>
 
                 <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
@@ -115,12 +115,12 @@ export default function ManifiestoPage() {
 
               {/* El Pivote */}
               <div className="mb-20">
-                <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
+                <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
                   El Pivote
-                </h2>
-                <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                  La Reingeniería
                 </p>
+                <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
+                  La Reingeniería
+                </h2>
 
                 <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                   <p>
@@ -176,12 +176,12 @@ export default function ManifiestoPage() {
               ═══════════════════════════════════════════════════════════════ */}
           <section className="py-20 px-6" style={{ background: 'rgba(16,18,22,0.75)', backdropFilter: 'blur(6px)' }}>
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-4 text-center">
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-4 text-center">
                 Nuestros Principios Operativos
-              </h2>
-              <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-16 text-center">
-                Lo que creemos (y no negociamos)
               </p>
+              <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-16 text-center">
+                Lo que creemos (y no negociamos)
+              </h2>
 
               <div className="space-y-12">
                 {/* Principio 1 */}
@@ -234,9 +234,9 @@ export default function ManifiestoPage() {
               ═══════════════════════════════════════════════════════════════ */}
           <section className="py-24 px-6">
             <div className="max-w-2xl mx-auto text-center">
-              <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-8 leading-relaxed">
+              <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-8 leading-relaxed">
                 No estoy aquí para persuadirle.
-              </p>
+              </h2>
 
               <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 mb-12">
                 <p className="text-[#A3A3A3] mb-6 leading-relaxed">

@@ -86,6 +86,9 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO agregar** `backdropFilter: blur()` en cards del homepage — elimina GPU compositing en paint inicial
 - ❌ **NO agregar** `priority` a imágenes decorativas del hero — usar `loading="lazy"` para que no compitan con LCP
 - ❌ **NO editar** archivos `*.tsx.bak` — son respaldos inactivos, no fuente viva
+- ❌ **NO declarar** un segundo `<h1>` en el cuerpo si la página ya usa `<IndustrialHeader>` — rompe SEO/a11y. Si necesitas un título visualmente prominente, usa `<h2>` con `font-serif`. Bug recurrente — ver [Typography Hierarchy](#typography-hierarchy-23-may-2026)
+- ❌ **NO usar** `fontFamily` con fuentes que no estén cargadas en [src/app/layout.tsx](src/app/layout.tsx) — el navegador hará fallback genérico y el H1 se verá distinto al resto del sitio (caso histórico: Rajdhani en `/paquetes`)
+- ❌ **NO usar** `clip-path: polygon(...)` biselado en botones — viola la investigación de branding ("estética cyberpunk antitética a la construcción de patrimonio"). Border-radius del sistema es suficiente
 - ⚠️ `queswa.app` es un **repositorio separado** — su código no está en este repo. No buscar `dashboard-ai/route.ts` aquí
 
 ## Performance — Estado Actual (Abr 2026)
@@ -1000,6 +1003,30 @@ See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infr
 - Card borders use glass (white 10% opacity)
 - Section dividers use titanium (not gold)
 - Only CTAs, numbers, and achievements use gold
+
+### Typography Hierarchy (23 May 2026)
+
+Regla unificada aplicada en Home, Nosotros, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Origen: [Diseño de Branding Premium Institucional.md](Diseño%20de%20Branding%20Premium%20Institucional.md) — sección "Arquitectura Tipográfica".
+
+**H1 institucional** (páginas con título corto): `var(--font-sans)` Inter, `font-weight: 700`, `text-transform: uppercase`, `letter-spacing: 0.08em`, color `var(--color-brand)`. Ejemplos: "MEMORÁNDUM DIRECTIVO", "CATÁLOGO BIO-INTELIGENTE", "CONSTRUCCIÓN DE ESTRUCTURA PATRIMONIAL".
+
+**H1 editorial** (artículos largos `/blog/*`): `var(--font-serif)` Playfair, `font-weight: 600`, natural case, `letter-spacing: -0.01em`. Aplicado vía `<IndustrialHeader variant="editorial" />`.
+
+**H2** — siempre `var(--font-serif)` Playfair natural case (títulos narrativos, citas de tesis: "La Trampa Estructural.", "La arquitectura estaba fracturada.").
+
+**Eyebrows uppercase** — `<p>` con `text-sm uppercase tracking-[0.15em]`. **NUNCA** usar `<h2>` para eyebrows pequeños (rompe estructura DOM).
+
+**Componente canónico**: [src/components/IndustrialHeader.tsx](src/components/IndustrialHeader.tsx) — acepta `variant: 'institutional' | 'editorial'` (default: institutional) y `title: ReactNode` (para preservar `<span>` con highlight dorado en artículos). Renderiza el único `<h1>` de la página.
+
+**Fuentes cargadas en `layout.tsx`** (next/font/google): Playfair Display, Inter, Roboto Mono. Cualquier otra fuente (Rajdhani, Oswald, Söhne, Financier, Montserrat) hace fallback al sistema → usar `var(--font-sans)`, `var(--font-serif)`, `var(--font-mono)`.
+
+**Tokens canónicos** (no hex hardcoded):
+- Texto primario → `var(--color-text-primary)` (no `#E5E5E5`)
+- Marca dorada → `var(--color-brand)` (no `#E5C279` ni `#C8A84B`)
+- Background card → `var(--color-bg-surface)` (no `#18181b` ni `#0d0d0d`)
+- Background elevado → `var(--color-bg-elevated)` (no `#15171C` literal)
+
+**CTAs** — usar clases canónicas `.cta-primary` / `.cta-secondary` / `.cta-ghost` de [src/app/globals.css](src/app/globals.css). Para sub-marcas con identidad propia (Clinical Luxury bioEmerald, WhatsApp), el patrón es: fondo con tinte 7-14% del color de acento + borde 1.5-2px + texto del color de acento. **Nunca** fondo sólido + texto invertido en botones primarios.
 
 ### Tailwind Config
 

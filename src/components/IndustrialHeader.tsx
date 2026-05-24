@@ -7,13 +7,21 @@
  */
 
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 
 interface IndustrialHeaderProps {
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   refCode: string;
   imageSrc: string;
   imageAlt: string;
+  /**
+   * institutional (default): Inter uppercase letter-spacing — para títulos cortos institucionales
+   *   (Memorándum Directivo, Insights Estratégicos, Construcción de Estructura Patrimonial).
+   * editorial: Playfair serif natural case — para titulares masivos editoriales (artículos de blog).
+   * Regla derivada de "Diseño de Branding Premium Institucional.md" — sección Arquitectura Tipográfica.
+   */
+  variant?: 'institutional' | 'editorial';
 }
 
 export function IndustrialHeader({
@@ -22,7 +30,10 @@ export function IndustrialHeader({
   refCode,
   imageSrc,
   imageAlt,
+  variant = 'institutional',
 }: IndustrialHeaderProps) {
+  const isEditorial = variant === 'editorial';
+
   return (
     <section style={{ height: '45vh', position: 'relative', overflow: 'hidden' }}>
       {/* Imagen B&W con fade inferior (mask-image) */}
@@ -64,12 +75,16 @@ export function IndustrialHeader({
         }}
       >
         <h1
-          className="font-serif"
           style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontFamily: isEditorial ? 'var(--font-serif)' : 'var(--font-sans)',
+            fontSize: isEditorial ? 'clamp(1.875rem, 4.5vw, 3.25rem)' : 'clamp(1.75rem, 4.5vw, 3rem)',
+            fontWeight: isEditorial ? 600 : 700,
+            letterSpacing: isEditorial ? '-0.01em' : '0.08em',
+            textTransform: isEditorial ? 'none' : 'uppercase',
             color: 'var(--color-brand)',
             lineHeight: 1.1,
             marginBottom: '1rem',
+            textShadow: '0 2px 12px rgba(0,0,0,0.9)',
           }}
         >
           {title}

@@ -34,10 +34,11 @@ export default function LegalidadNetworkMarketingPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title="La verdad sobre la legalidad de los negocios digitales"
+            title={<>La verdad sobre la legalidad de los<span style={{ color: '#C5A059' }}> negocios digitales en América</span></>}
             refCode="ARTICLE_SOVEREIGNTY_V1"
             imageSrc="/images/blog/thumb-blog-sovereignty.jpg"
             imageAlt=""
+            variant="editorial"
           />
 
           {/* Article Content */}
@@ -68,12 +69,7 @@ export default function LegalidadNetworkMarketingPage() {
                 <span className="text-xs text-[#6B7280]">7 min de lectura</span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
-                La verdad sobre la legalidad de los
-                <span className="text-[#C5A059]"> negocios digitales en América</span>
-              </h1>
-
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
                 Cómo distinguir un negocio legítimo de un esquema piramidal.
                 Criterios de la FTC explicados de forma clara.

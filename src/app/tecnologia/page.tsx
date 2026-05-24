@@ -118,9 +118,9 @@ export default function TecnologiaPage() {
                   borderLeft: '3px solid #C5A059',
                 }}
               >
-                <h1 className="text-2xl font-serif mb-4" style={{ color: '#C5A059' }}>
+                <h2 className="text-2xl font-serif mb-4" style={{ color: '#C5A059' }}>
                   La Definición Oficial de Queswa.app
-                </h1>
+                </h2>
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
                   <strong>Queswa.app</strong> es el Motor Cognitivo y Dashboard Operativo exclusivo
                   de la infraestructura <strong>CreaTuActivo.com</strong>. No es una red social, ni un

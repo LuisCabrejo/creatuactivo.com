@@ -34,10 +34,11 @@ export default function EmpleoVsActivosPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title="Análisis Financiero: Empleo vs. Cartera de Activos"
+            title={<>Análisis Financiero:<span style={{ color: '#C5A059' }}> Empleo vs. Cartera de Activos</span></>}
             refCode="ARTICLE_SYSTEM_V1"
             imageSrc="/images/blog/thumb-blog-system.jpg"
             imageAlt=""
+            variant="editorial"
           />
 
           {/* Article Content */}
@@ -68,12 +69,7 @@ export default function EmpleoVsActivosPage() {
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8 font-serif">
-                Análisis Financiero:
-                <span className="text-[#C5A059]"> Empleo vs. Cartera de Activos</span>
-              </h1>
-
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
                 Por qué trabajar más horas no es la respuesta. El concepto de
                 apalancamiento estratégico explicado de forma simple.

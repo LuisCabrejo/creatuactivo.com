@@ -21,25 +21,28 @@ import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { CheckCircle, ChevronDown, BarChart2 } from 'lucide-react';
 
-// Paleta alineada al sistema Home
+// Caché local sincronizado con tokens del sistema (globals.css)
+// Razón de no usar var(--…) directo: los hex se concatenan con alpha (ej. `${C.gold}30`)
+// para opacidades calculadas, lo cual no funciona con CSS custom properties.
+// Si los tokens cambian en globals.css, actualizar también aquí.
 const C = {
-  gold: '#C8A84B',
-  goldDark: '#B8941F',
-  cyan: '#22D3EE',
-  white: '#F5F5F0',
-  muted: '#6B6B5A',
-  mutedDark: '#484840',
-  bg: '#080808',
-  bgCard: '#0d0d0d',
-  bgCardBorder: '#1a1a1a',
-  success: '#22c55e',
-  bronze: '#A69E7A',
-  silver: '#94A3B8',
+  gold: '#C5A059',                       // var(--color-brand)
+  goldHover: '#D4AF37',                  // var(--color-brand-hover)
+  cyan: '#22D3EE',                       // Acento data (consistente con Home; sin token equivalente)
+  white: '#E0DFDB',                      // var(--color-text-primary) — titanio claro cálido
+  muted: '#878681',                      // var(--color-text-muted)
+  mutedDark: '#475569',                  // var(--color-titanium-dark)
+  bg: '#0F1115',                         // var(--color-bg-primary)
+  bgCard: '#1A1D23',                     // var(--color-bg-surface)
+  bgCardBorder: 'rgba(255,255,255,0.08)',
+  success: '#408A71',                    // var(--color-success) — verde salvia (desaturado)
+  bronze: '#B38B59',                     // var(--color-brand-muted) — borde ESP-1
+  silver: '#94A3B8',                     // var(--color-titanium) — borde ESP-2
 };
 
-// CLIP-PATH HOME — chamfer 6px en esquinas no-adyacentes (top-left + bottom-right)
+// CLIP-PATH para cards (chamfer 8px asimétrico — geometría arquitectónica)
+// NO se usa en botones: la investigación prohíbe biseles agresivos en CTAs (estética cyberpunk)
 const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
-const CLIP_CTA = 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)';
 
 // WhatsApp link factory
 const WA_BASE = 'https://wa.me/573206805737?text=';
@@ -85,19 +88,19 @@ function Hero() {
         {/* Eyebrow */}
         <p style={{
           fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase',
-          color: C.cyan, fontFamily: "'Roboto Mono', monospace",
+          color: C.cyan, fontFamily: 'var(--font-mono)',
           marginBottom: '24px',
           textShadow: '0 1px 8px rgba(0,0,0,0.9)',
         }}>
           REF · ACTIVACION_BASE_OPERATIVA
         </p>
 
-        {/* H1 */}
+        {/* H1 — alineado a la regla unificada (Inter uppercase letter-spacing 0.08em, token --color-brand) */}
         <h1 style={{
           fontSize: 'clamp(1.8rem, 5vw, 3.2rem)', lineHeight: 1.1,
           marginBottom: '24px',
-          fontFamily: "'Rajdhani', sans-serif", fontWeight: 700,
-          color: C.gold, letterSpacing: '0.06em', textTransform: 'uppercase',
+          fontFamily: 'var(--font-sans)', fontWeight: 700,
+          color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 14px rgba(0,0,0,0.95)',
         }}>
           Activación de<br />su Base Operativa
@@ -107,7 +110,7 @@ function Hero() {
         <p style={{
           fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', lineHeight: 1.6,
           color: C.white, maxWidth: '640px', margin: '0 auto 16px',
-          fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic',
+          fontFamily: 'var(--font-serif)', fontStyle: 'italic',
           textShadow: '0 1px 10px rgba(0,0,0,0.9)',
         }}>
           Tres niveles de capitalización · Inventario premium Gano Excel · 15 países de América.
@@ -116,7 +119,7 @@ function Hero() {
         {/* Micro-copy */}
         <p style={{
           fontSize: '0.78rem', color: C.muted,
-          fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em',
+          fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
           marginTop: '32px',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
@@ -135,14 +138,14 @@ function Framing() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.6)' }}>
       <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <span style={{
-          fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+          fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold,
         }}>
           Asignación de Capital
         </span>
         <h2 style={{
           fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '28px',
-          fontFamily: "'Playfair Display', Georgia, serif", color: C.white, lineHeight: 1.25,
+          fontFamily: 'var(--font-serif)', color: C.white, lineHeight: 1.25,
         }}>
           Su capital se convierte en{' '}
           <span style={{ color: C.gold }}>inventario tangible</span>.
@@ -203,7 +206,7 @@ function PackageCard({
       {highlighted && (
         <div style={{
           position: 'absolute', top: 12, right: 12,
-          fontSize: '0.62rem', fontFamily: "'Roboto Mono', monospace",
+          fontSize: '0.62rem', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.15em', textTransform: 'uppercase',
           color: C.bg, background: C.gold, padding: '4px 8px', fontWeight: 700,
         }}>
@@ -213,7 +216,7 @@ function PackageCard({
 
       {/* ESP code */}
       <div style={{
-        fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+        fontSize: '0.65rem', fontFamily: 'var(--font-mono)',
         letterSpacing: '0.18em', textTransform: 'uppercase',
         color: borderColor,
       }}>
@@ -222,7 +225,7 @@ function PackageCard({
 
       {/* Title */}
       <h3 style={{
-        fontFamily: "'Rajdhani', sans-serif", fontSize: '1.25rem',
+        fontFamily: 'var(--font-sans)', fontSize: '1.25rem',
         letterSpacing: '0.08em', textTransform: 'uppercase',
         color: C.white, fontWeight: 600, margin: 0, lineHeight: 1.2,
       }}>
@@ -232,18 +235,18 @@ function PackageCard({
       {/* Price */}
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
         <span style={{
-          fontFamily: "'Playfair Display', Georgia, serif",
+          fontFamily: 'var(--font-serif)',
           fontSize: '2.6rem', fontWeight: 700, color: C.gold, lineHeight: 1,
         }}>
           ${priceUSD}
         </span>
-        <span style={{ fontSize: '0.85rem', color: C.muted, fontFamily: "'Roboto Mono', monospace" }}>
+        <span style={{ fontSize: '0.85rem', color: C.muted, fontFamily: 'var(--font-mono)' }}>
           USD
         </span>
       </div>
       <p style={{
         fontSize: '0.72rem', color: C.mutedDark,
-        fontFamily: "'Roboto Mono', monospace", margin: '-12px 0 0',
+        fontFamily: 'var(--font-mono)', margin: '-12px 0 0',
         letterSpacing: '0.05em',
       }}>
         ≈ ${priceCOP} COP
@@ -257,7 +260,7 @@ function PackageCard({
         border: `1px solid ${borderColor}25`,
       }}>
         <BarChart2 size={16} color={borderColor} />
-        <span style={{ fontSize: '0.8rem', fontFamily: "'Roboto Mono', monospace", color: C.muted }}>
+        <span style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: C.muted }}>
           Rentabilidad{' '}
           <span style={{ color: borderColor, fontWeight: 700 }}>{rentabilidad}</span>
         </span>
@@ -269,7 +272,7 @@ function PackageCard({
         background: C.bg,
         border: `1px solid ${borderColor}30`,
       }}>
-        <div style={{ fontSize: '0.65rem', fontFamily: "'Roboto Mono', monospace",
+        <div style={{ fontSize: '0.65rem', fontFamily: 'var(--font-mono)',
                        letterSpacing: '0.12em', color: borderColor, marginBottom: '4px' }}>
           {accentLabel}
         </div>
@@ -291,25 +294,23 @@ function PackageCard({
         ))}
       </ul>
 
-      {/* CTA */}
+      {/* CTA — Lujo Silencioso (carbón + borde color del nivel + texto color del nivel)
+          Destacado: borde de 2px + glow sutil. Sin gradient sólido. Sin clip-path biselado. */}
       <a
         href={waLink(waPackage)}
         target="_blank"
         rel="noopener noreferrer"
+        className="cta-base"
         style={{
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
           background: highlighted
-            ? `linear-gradient(135deg, ${C.gold}, ${C.goldDark})`
+            ? `${borderColor}12`  // tinte 7% del color del nivel
             : 'transparent',
-          color: highlighted ? C.bg : borderColor,
-          border: highlighted ? 'none' : `1.5px solid ${borderColor}`,
-          fontWeight: 700, fontSize: '0.85rem',
-          padding: '14px 24px',
-          fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
-          textDecoration: 'none', textTransform: 'uppercase',
-          clipPath: CLIP_CTA,
-          transition: 'all 0.2s ease',
+          color: borderColor,
+          border: highlighted ? `2px solid ${borderColor}` : `1.5px solid ${borderColor}`,
+          padding: '0.875rem 1.75rem',
+          fontSize: '0.85rem',
           marginTop: 'auto',
+          boxShadow: highlighted ? `0 0 24px ${borderColor}20` : 'none',
         }}
       >
         Activar {esp.split(' —')[0]} →
@@ -327,14 +328,14 @@ function Niveles() {
       <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{
-            fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+            fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
             letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
           }}>
             Los tres niveles
           </span>
           <h2 style={{
             fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
-            fontFamily: "'Playfair Display', Georgia, serif", color: C.white,
+            fontFamily: 'var(--font-serif)', color: C.white,
           }}>
             Elija el nivel que su arquitectura patrimonial requiere hoy.
           </h2>
@@ -400,7 +401,7 @@ function Niveles() {
         {/* Micro-copy transparencia */}
         <div style={{
           textAlign: 'center', marginTop: '40px',
-          color: C.mutedDark, fontFamily: "'Roboto Mono', monospace",
+          color: C.mutedDark, fontFamily: 'var(--font-mono)',
           fontSize: '0.72rem', lineHeight: 1.8, letterSpacing: '0.05em',
         }}>
           <p style={{ margin: '0 0 4px' }}>
@@ -427,7 +428,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         style={{
           width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           textAlign: 'left', padding: '20px 0', background: 'transparent', border: 0, cursor: 'pointer',
-          color: C.white, fontFamily: "'Playfair Display', Georgia, serif",
+          color: C.white, fontFamily: 'var(--font-serif)',
           fontSize: '1.02rem',
         }}
       >
@@ -461,14 +462,14 @@ function Faq() {
       <div style={{ maxWidth: '760px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{
-            fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+            fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
             letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
           }}>
             Variables Técnicas
           </span>
           <h2 style={{
             fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
-            fontFamily: "'Playfair Display', Georgia, serif", color: C.white,
+            fontFamily: 'var(--font-serif)', color: C.white,
           }}>
             Auditoría de transparencia.
           </h2>
@@ -504,14 +505,14 @@ function CtaFinal() {
     <section style={{ padding: '100px 24px', textAlign: 'center' }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
         <span style={{
-          fontSize: '0.75rem', fontFamily: "'Roboto Mono', monospace",
+          fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
         }}>
           Decisión Directiva
         </span>
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', marginTop: '16px', marginBottom: '20px',
-          fontFamily: "'Playfair Display', Georgia, serif", color: C.white, lineHeight: 1.3,
+          fontFamily: 'var(--font-serif)', color: C.white, lineHeight: 1.3,
         }}>
           Los tres niveles están definidos.
           <br />
@@ -527,18 +528,8 @@ function CtaFinal() {
           href={waLink('el nivel que corresponde a mi perfil')}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: '10px',
-            background: `linear-gradient(135deg, ${C.gold}, ${C.goldDark})`,
-            color: C.bg, fontWeight: 700, fontSize: '0.95rem',
-            padding: '18px 44px',
-            fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.12em',
-            textDecoration: 'none', textTransform: 'uppercase',
-            clipPath: CLIP_CTA,
-            transition: 'transform 0.2s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+          className="cta-base cta-primary"
+          style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
         >
           Solicitar activación →
         </a>
@@ -557,21 +548,21 @@ function Footer() {
       textAlign: 'center',
     }}>
       <p style={{
-        fontFamily: "'Rajdhani', sans-serif", color: C.gold,
+        fontFamily: 'var(--font-sans)', color: C.gold,
         fontSize: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700,
         margin: '0 0 6px',
       }}>
         CreaTuActivo
       </p>
       <p style={{
-        fontFamily: "'Roboto Mono', monospace", color: C.muted,
+        fontFamily: 'var(--font-mono)', color: C.muted,
         fontSize: '0.7rem', letterSpacing: '0.08em', marginBottom: '20px',
       }}>
         Construcción de Estructura Patrimonial
       </p>
       <div style={{
         display: 'flex', justifyContent: 'center', gap: '32px',
-        fontSize: '0.78rem', fontFamily: "'Roboto Mono', monospace",
+        fontSize: '0.78rem', fontFamily: 'var(--font-mono)',
         marginBottom: '16px',
       }}>
         <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>BLOG</Link>
@@ -579,7 +570,7 @@ function Footer() {
         <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>PRIVACIDAD</Link>
       </div>
       <p style={{
-        fontFamily: "'Roboto Mono', monospace", color: C.mutedDark,
+        fontFamily: 'var(--font-mono)', color: C.mutedDark,
         fontSize: '0.65rem', letterSpacing: '0.1em', margin: 0,
       }}>
         © 2026 CREATUACTIVO.COM
@@ -596,7 +587,7 @@ export default function PaquetesPage() {
     <div style={{
       backgroundColor: C.bg,
       color: C.white,
-      fontFamily: "'Rajdhani', sans-serif",
+      fontFamily: 'var(--font-sans)',
       minHeight: '100vh',
     }}>
       <StrategicNavigation />

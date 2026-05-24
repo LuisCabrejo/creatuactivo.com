@@ -107,7 +107,7 @@ const CRITICAL_NAVIGATION_CSS = `
     }
   }
 
-  /* THE ARCHITECT'S SUITE - Brand Text (Oswald Bold) */
+  /* THE ARCHITECT'S SUITE - Brand Text (Inter Bold) */
   .strategic-logo-text {
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 1.375rem;
@@ -535,7 +535,7 @@ export default function StrategicNavigation() {
                     className="object-contain md:w-14 md:h-14"
                   />
                 </div>
-                {/* Brand Text - Oswald Bold */}
+                {/* Brand Text - Inter Bold */}
                 <span className="strategic-logo-text">
                   CreaTuActivo
                 </span>
@@ -598,7 +598,7 @@ export default function StrategicNavigation() {
                 className="object-contain"
               />
             </div>
-            {/* Brand Text - Oswald Bold */}
+            {/* Brand Text - Inter Bold */}
             <span className="strategic-logo-text">
               CreaTuActivo
             </span>

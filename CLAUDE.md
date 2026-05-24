@@ -284,9 +284,9 @@ WhatsApp (orgánico o CTWA anuncio)
 
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.2** (22 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 41 respuestas + PERFIL_01. Cierre simplificado: FREQ_03 absorbe CIERRE_01/02 con `<verbatim_lock>`. |
-| `arsenal_avanzado` | creatuactivo_marketing | **v10.0** (May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. |
-| `arsenal_reto` | creatuactivo_marketing | **v4.1** (May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). |
+| `arsenal_inicial` | creatuactivo_marketing | **v5.4** (24 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 41 respuestas + PERFIL_01. v5.4 introduce: FREQ_02 reescrita (Conexión Directa/Asistida/Automatizada), FREQ_06 reescrita (sin "Plusvalía Estructural"/"ancho de banda"), híbrido contextual de voz Queswa (primera persona Nivel 3, tercera persona Niveles 1+2), limpieza léxico residual (plusvalía/ancho de banda/vector/global selectivo). |
+| `arsenal_avanzado` | creatuactivo_marketing | **v10.1** (24 May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. v10.1: 4 instancias migradas a primera persona ("yo asumo/proceso/opero") según híbrido contextual v5.4. |
+| `arsenal_reto` | creatuactivo_marketing | **v4.2** (24 May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). v4.2: "plusvalía" → "valor patrimonial", "ancho de banda ejecutivo" → "agenda ejecutiva". |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_compensacion` | creatuactivo_marketing | **v6.4** (22 May 2026) | Plan de compensación (38 respuestas). **NO modificar vocabulario ni cifras.** |
@@ -777,13 +777,34 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **IMPORTANTE — Protocolo correcto de actualización de fragmentos:**
 1. Editar el `.txt` en `knowledge_base/`
-2. Deploy del documento fuente a Supabase (el script actualiza el doc padre)
-3. Eliminar los fragmentos obsoletos de `nexus_documents` por `category`
-4. Re-ejecutar `fragmentar-arsenales-voyage.mjs` (solo creará los eliminados)
+2. Deploy del documento fuente a Supabase: `node scripts/deploy-arsenal-<nombre>.mjs`
+3. **Purgar fragmentos obsoletos** por prefijo (NO basta con saltar este paso — el fragmentador lo detecta y skipea: `⏭️  arsenal_inicial_FREQ_03 ya existe, saltando…`)
+4. Re-ejecutar `fragmentar-arsenales-voyage.mjs` (regenera solo los purgados — los demás se saltan)
+5. Verificar con `node scripts/audit-completo.mjs`
 
-Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actualizará**.
+**Patrón validado para purgar (24 May 2026, v5.4 deploy):**
 
-**Atajo para ediciones pequeñas** (1–3 respuestas modificadas): `node scripts/actualizar-fragmentos-modificados.mjs` — detecta y actualiza solo los fragmentos que cambiaron, sin purgar todo el arsenal. Más rápido que el flujo completo.
+```bash
+# Purgar fragments de uno o varios arsenales padre (tenant creatuactivo_marketing)
+node -e "
+import('dotenv').then(d => { d.config({path: '.env.local'}); return import('@supabase/supabase-js'); })
+  .then(({createClient}) => {
+    const s = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+    return Promise.all([
+      s.from('nexus_documents').select('id').like('category', 'arsenal_inicial_%').eq('tenant_id', 'creatuactivo_marketing'),
+      // … repetir por cada arsenal afectado
+    ]).then(async ([r]) => {
+      const ids = r.data.map(x => x.id);
+      await s.from('nexus_documents').delete().in('id', ids);
+      console.log('Purgados:', ids.length);
+    });
+  });
+"
+```
+
+**⚠️ NO confiar en `actualizar-fragmentos-modificados.mjs` como herramienta genérica** — tiene fragmentos HARDCODED (COMP_MODELO_01, COMP_BIN_08). Sirvió para ediciones puntuales históricas, pero NO detecta cambios actuales por hash/diff. Para v5.3+ usar el patrón purgar+re-fragmentar de arriba.
+
+**Atajo solo si el script genérico cubre tu caso**: `node scripts/fragmentar-arsenales-voyage.mjs` — si los fragments no existen, los crea. Si existen, los salta. Útil cuando se añaden respuestas NUEVAS sin modificar existentes.
 
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (43 fragmentos — 42 activas + PERFIL_01)
@@ -807,7 +828,14 @@ Si saltas el paso 3, el script detectará fragmentos existentes y **NO los actua
    node scripts/fragmentar-arsenales-voyage.mjs    # Creates fragments with Voyage AI embeddings
    ```
 
-4. Verify: `node scripts/verificar-arsenal-supabase.mjs`
+4. Verify: `node scripts/audit-completo.mjs` (preferido — `verificar-arsenal-supabase.mjs` tiene bug PGRST116)
+
+**Falsa alarma del audit — `desconocido: 40 fragmentos`**: el script `audit-completo.mjs` clasifica fragments por `metadata.parent_arsenal`. Cuando ese campo no está poblado, los etiqueta "desconocido" aunque la `category` esté bien (ej. `arsenal_compensacion_COMP_PV_06`). Los 40 actuales son:
+- 14 fragments individuales de `arsenal_compensacion` (COMP_GEN5_*, COMP_PAQ_*, COMP_PV_*, COMP_VENTA_01, COMP_MONEDA_01) — útiles, son respuestas reales
+- 6 docs maestros padre (`arsenal_inicial`, `arsenal_ganocafe`, `arsenal_reto`, `arsenal_marca_personal`, `catalogo_productos`) — **NO ELIMINAR**, el fragmentador los necesita para parsear (`.eq('category', arsenalCategory)`)
+- 1 `catalogo_productos_PROD_OVERVIEW` — verbatim_lock activo
+
+Eliminar cualquiera rompe funcionalidad. Si quieres limpiar el warning, enriquece `metadata.parent_arsenal` en esos fragments (cosmético, no operativo).
 
 ### Working with Video Content
 

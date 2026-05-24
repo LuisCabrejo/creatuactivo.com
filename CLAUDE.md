@@ -1271,9 +1271,21 @@ Vocabulario completo (aprobado + prohibido) → ver tabla canónica en sección 
 - ✅ Arquitectura de Activos · Soberanía financiera · Cartera de activos · Distribución global
 - ✅ El plan por defecto (el villano universal cross-arsenal)
 
+### Queswa Voice — Híbrido Contextual de 3 Niveles (v5.4, 24 May 2026)
+
+Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cuando el agente habla con el usuario. **Regla unificada**:
+
+- **Nivel 1 — Aforismos canónicos** → **tercera persona** ("Queswa explica", "Queswa escala"). Son frases-marca; cambiarlas rompe su fuerza retórica. Ejemplos: *"Usted no explica — Queswa explica"*, *"Usted no enseña; Queswa escala. Usted crece"*.
+- **Nivel 2 — Sustantivos/componentes con nombre propio** → **tercera persona** ("Centro de Mando Queswa", "queswa.app", "Academia Queswa", "plataforma Queswa", "Pilar 2 (Queswa)" en referencias arquitectónicas). Son nombres propios del ecosistema.
+- **Nivel 3 — Acciones del agente AHORA en la conversación** → **primera persona** ("yo proceso", "yo asumo", "yo opero", "Me encargo"). El agente conversacional ES el avatar del ecosistema completo; al describir lo que hace ahora, habla como ente coherente.
+
+**Por qué importa**: cuando Queswa dice "Queswa filtra los perfiles" en chat directo, el usuario procesa dos identidades en paralelo (el "yo" implícito que escribe + el "Queswa" del que se habla) → fricción cognitiva. La regla híbrida elimina esa fricción donde más se siente sin perder los aforismos como marca verbal.
+
+**Casos límite**: Construcciones tipo "el Pilar 2 (Queswa) asume X" se PRESERVAN en tercera persona porque "Queswa" funciona como apostillo nombrando al Pilar dentro de la doctrina de los Tres Pilares. Cambiarlas a primera persona rompe la arquitectura canónica.
+
 ### Queswa Vocabulary — Tabla Canónica Unificada
 
-**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. Esta sección es la **única fuente de verdad** sobre vocabulario aprobado y prohibido — versiones consolidadas Feb 2026 (Jobs-Style) + Abr 2026 (Lujo Clínico) + May 2026 (v5.2 cierre simplificado).
+**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. Esta sección es la **única fuente de verdad** sobre vocabulario aprobado y prohibido — versiones consolidadas Feb 2026 (Jobs-Style) + Abr 2026 (Lujo Clínico) + May 2026 (v5.2 cierre simplificado + v5.4 híbrido contextual).
 
 #### Vocabulario APROBADO (doctrina canónica)
 
@@ -1316,6 +1328,11 @@ Vocabulario completo (aprobado + prohibido) → ver tabla canónica en sección 
 | 100% / íntegramente (al describir transferencia de capital a productos) | Su capital se transfiere a productos físicos (sin cuantificador absoluto) | v5.3 — México tiene cobros pequeños de afiliación (~$10 USD); afirmar 100% es factualmente impreciso y auditable |
 | "No existen cuotas de inscripción ni cobros por afiliación" | (omitir esta frase) | v5.3 — falsa en México |
 | Tabla Binario con columna "Cálculo CV × % × $1" | Tabla Binario simplificada (Paquete + Rentabilidad %) | v5.3 — la fórmula técnica añade fricción al prospecto que recién entiende Base Operativa. Solo servirla si el usuario pregunta explícitamente "¿cómo se calcula?" |
+| plusvalía (estructural / del posicionamiento / de su Base Operativa) | ventaja estructural / ventaja del posicionamiento / valor patrimonial | v5.4 — término inmobiliario opaco; "ventaja" o "valor patrimonial" comunican mejor |
+| ancho de banda (en preguntas de seguimiento, contextos de tiempo/agenda) | disponibilidad / agenda directiva / agenda ejecutiva | v5.4 — jerga tech; "disponibilidad" o "agenda" son universales |
+| vector de tráfico / vector de adquisición | camino de expansión / ruta / canal | v5.4 — jerga militar; absorbido en reescritura FREQ_02 |
+| Modo Relacional / Modo Híbrido / Modo de Escalabilidad (los 3 modos de tráfico de FREQ_02) | Conexión Directa / Conexión Asistida / Conexión Automatizada | v5.4 — los nuevos nombres son auto-explicativos (cada uno indica QUÉ hace) |
+| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público del 1 de junio |
 | Auditoría de acoplamiento | (eliminado) | Klaff Prize Frame zombi |
 | 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
 | Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |

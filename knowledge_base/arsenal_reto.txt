@@ -29,7 +29,7 @@ Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logís
 * **Día 1 — Diagnóstico Estructural:** Identificación de fallas en su arquitectura de ingresos actual.
 * **Día 2 — Análisis de Escalabilidad:** Por qué el modelo operativo manual tiene un techo técnico.
 * **Día 3 — Acoplamiento Híbrido:** Integración de la Matriz Física (Pilar 1) y automatización del Centro de Mando (Pilar 2).
-* **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y plusvalía de su Base Operativa.
+* **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y valor patrimonial de su Base Operativa.
 * **Día 5 — Protocolo de Activación:** Decisión directiva y asignación de activos.
 
 Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de dirección, sin suposiciones ni fricción emocional.
@@ -52,7 +52,7 @@ Si los planos estructurales resultan viables para usted al finalizar la auditor�
 ### RETO_04: "¿Es en vivo o grabado?" / "Tengo horarios complicados"
 **[Concepto Nuclear]:** Ejecución Asíncrona Directiva.
 
-La auditoría respeta su ancho de banda ejecutivo. El formato es estrictamente híbrido:
+La auditoría respeta su agenda ejecutiva. El formato es estrictamente híbrido:
 
 1. **Transferencia Técnica (Asíncrona):** Cada mañana el sistema libera un módulo de instrucción de 15 a 20 minutos. Usted lo audita a su propio ritmo logístico.
 2. **Soporte Táctico (Sincrónico):** Dispone de una línea directa vía WhatsApp para la resolución de variables técnicas en tiempo real.

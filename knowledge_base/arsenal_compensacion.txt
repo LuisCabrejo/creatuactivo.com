@@ -706,7 +706,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 
 **Nota sobre Mes 18:** Ejemplo de equipos desbalanceados (200 vs 100). Lado Menor = 5,600 CV.
 
-**⚠️ QUESWA: USA SIEMPRE ESTA TABLA. Formula: Lado Menor × 17% × $1 USD. NO IMPROVISES NUMEROS.**
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula matemática al prospecto** (ej. "Lado Menor × 17% × $1 USD" o variantes). El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde: *"El sistema toma el volumen acumulado de su pierna más débil y aplica la rentabilidad de su paquete"* — sin fórmula explícita. NO improvises números.
 
 **Lo que significa Rango Diamante:**
 | Periodo | Binario (USD) | Binario (COP) |
@@ -766,7 +766,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | 100 | 56 CV | $952 USD | ~$4.3M COP |
 | 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
 
-**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Formula: Personas × 56 CV × 17% × $1 USD.**
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula al prospecto** (ej. "Personas × 56 CV × 17% × $1 USD" o variantes). Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas.
 
 **Lo que significa en la practica:**
 | Escenario | Semanal (USD) | Mensual (USD) |

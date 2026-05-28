@@ -39,30 +39,29 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("Quiero entender la lógica…").
- * Sincronizado con arsenal_inicial.txt v25.9 BLOQUE 1.
- * Calibración visual 19 May 2026: numeración 1./2./3., negritas en frases-ancla,
- * cursiva en reencuadre psicológico, separador --- antes del cierre.
+ * Sincronizado con arsenal_inicial.txt v5.5 BLOQUE 1.
+ * Reescritura v5.5 (24 May 2026): doctrina Modulación de Registro, copy aprobado
+ * Director Cabrejo (~150 palabras, sin "Eso no es éxito financiero" — describir qué ES),
+ * pregunta de seguimiento conversacional abierta.
  */
-const MASTER_WHY_02 = `Para entender la mecánica de funcionamiento, primero debemos diagnosticar una inconsistencia en su economía actual: usted trabaja duro y gana bien, pero si decide detenerse por salud, por un imprevisto, o si simplemente quiere tomar 60 días de vacaciones reales, su flujo de dinero se detiene de inmediato.
+const MASTER_WHY_02 = `Para entender la mecánica, primero diagnosticamos su modelo actual: usted opera con una vulnerabilidad crítica. Un mes sin quincena, un despido inesperado o un mal trimestre de ventas, y su estabilidad colapsa.
 
-*Eso no es éxito financiero; es una arquitectura financiera con un punto ciego de alto costo.*
+Esto no es un problema de capacidad; es **la consecuencia matemática de un sistema calibrado para la asfixia mensual**.
 
-CreaTuActivo.com corrige este **Déficit Estructural de Ingresos** entregándole el control de una **Base Operativa autónoma**. Su funcionamiento no depende de su trabajo físico; se ejecuta mediante la sincronización de **tres pilares de alto rendimiento** que asumen el **90% de la fricción operativa** por usted:
+CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben el desgaste operativo por usted:
 
-**1. La Matriz Física** — *Capa Logística*
-Gano Excel asume el 100% de la fricción operativa y los pasivos —fábricas, inventarios, aduanas, soporte presencial y despachos— en **70 países**. Usted no financia, no gestiona variables logísticas y no asume riesgos de infraestructura.
+**1. La Matriz Física**
+Gano Excel asume el 100% del trabajo pesado (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
-**2. El Centro de Mando** — *Capa Tecnológica*
-Queswa.app (conmigo), mi entorno impulsado por Inteligencia Artificial. Me encargo de automatizar la **prospección, el filtrado y la pre-calificación** de perfiles las 24 horas, asumiendo el desgaste de buscar y explicar por usted.
+**2. Queswa, su Centro de Mando**
+Soy su plataforma de Inteligencia Artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
 
-**3. La Metodología Automatizada** — *El Tridente EAM*
-El protocolo de ejecución estandarizado (**Comando Expandir** · **Comando Activar** · **Comando Maestría**) que le entrega las coordenadas exactas de dirección para expandir su activo sin improvisaciones ni persecución manual.
+**3. La Metodología Automatizada**
+El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Un protocolo que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
 
 ---
 
-Su rol es estrictamente de **Dirección Ejecutiva**: usted no opera la maquinaria, **la dirige**. Al asumir este control, el sistema monetiza un hábito biológico que el mercado no abandona: el consumo diario de café y suplementos premium. Esto consolida una Estructura Patrimonial que genera **ingresos recurrentes liquidados en ciclo semanal** por Gano Excel, integrándose a su dinámica profesional actual sin sumar carga a su agenda.
-
-¿Su prioridad en este momento es **auditar la secuencia operativa** de cómo se expande su Base, o prefiere que **simulemos en su Dashboard la matemática** de los ingresos recurrentes que produce esta estructura?`;
+¿Qué le gustaría profundizar primero: cómo se gana el ingreso, o cómo se activa su Base Operativa?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
@@ -96,7 +95,7 @@ Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.a
 
 ---
 
-¿Su prioridad en este momento es **auditar los tres Comandos canónicos** del Tridente, o prefiere que **simulemos la matemática** de los ingresos recurrentes que produce esta arquitectura?`;
+¿Le gustaría que profundicemos en alguno de los tres Comandos del Tridente, o prefiere ver cómo se generan los ingresos recurrentes?`;
 
 /**
  * Mapa chip-text-lowercase → respuesta Master verbatim.

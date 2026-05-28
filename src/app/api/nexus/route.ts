@@ -26,7 +26,11 @@ import {
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
-import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
+// import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
+// ↑ Eliminado en Ola 4 (25 May 2026). El flujo de cierre ahora es 100% por WhatsApp:
+// el equipo recibe el mensaje pre-llenado del usuario (nombre + WhatsApp + paquete +
+// intención) directo via wa.me. Sin email intermedio. El archivo handoff-sumario.ts
+// se conserva por si en el futuro se reactiva el email pre-handoff.
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -991,6 +995,53 @@ function extractNameFromHandoffReply(message: string): string | null {
       }
     }
   }
+  return null;
+}
+
+/**
+ * Extrae número de WhatsApp del mensaje del usuario (Ola 4 — 25 May 2026).
+ *
+ * Patrones aceptados:
+ *   - "+57 300 123 4567"  → +573001234567
+ *   - "+573001234567"     → +573001234567
+ *   - "3001234567"        → +573001234567 (asume Colombia por longitud 10 + prefijo 3)
+ *   - "(57) 300 1234567"  → +573001234567
+ *   - "300-123-4567"      → +573001234567
+ *   - "+1 555 123 4567"   → +15551234567 (internacional)
+ *
+ * Retorna `null` si NO encuentra un patrón válido — mensajes como "luego te lo doy",
+ * "no tengo a la mano" se rechazan correctamente.
+ */
+function extractWhatsAppFromMessage(message: string): string | null {
+  if (!message) return null;
+
+  // Limpiar: quitar espacios, guiones, puntos, paréntesis (conservar dígitos y +)
+  const cleaned = message.replace(/[\s\-.()]/g, '');
+
+  // Buscar secuencia de 10-15 dígitos (con opcional + al inicio)
+  const match = cleaned.match(/\+?\d{10,15}/);
+  if (!match) return null;
+
+  const raw = match[0];
+  const digits = raw.replace(/^\+/, '');
+
+  // Validación adicional: si el mensaje tiene MUY pocos dígitos en total, rechazar
+  // (evita falsos positivos en mensajes largos con códigos sueltos como "ESP-3")
+  const totalDigitsInMessage = (message.match(/\d/g) || []).length;
+  if (totalDigitsInMessage < 10) return null;
+
+  // Normalizar a formato internacional con prefijo +
+  if (digits.length === 10 && digits.startsWith('3')) {
+    // Colombia móvil sin código país
+    return '+57' + digits;
+  }
+  if (digits.length === 12 && digits.startsWith('57')) {
+    return '+' + digits;
+  }
+  if (digits.length >= 10) {
+    return '+' + digits;
+  }
+
   return null;
 }
 
@@ -3639,55 +3690,65 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // paquete. La tabla se entrega con pregunta combinada (nombre + nivel) para minimizar
     // turnos. Cuando es false, la tabla es informativa (usuario solo preguntó por paquetes).
     const { closingState, modoCierre } = (() => {
-      // ── POST-ESTADO 4: si el handoff completo ya fue entregado esta sesión → flujo normal ──
-      // v5.5: distinguimos entre HANDOFF COMPLETO (Estado 4 final, sin más caminos) y
-      // DOBLE OFERTA del Estado 3 (link entregado como opción (b), pero el flujo puede
-      // seguir si usuario elige opción (a) dando nombre). Si fue handoff completo →
-      // Estado 0 absoluto. Si fue doble oferta → permitimos que FSM evalúe Estado 4
-      // cuando el usuario responda con nombre.
+      // ── Ola 4 (25 May 2026): FSM refactor MAYOR ──────────────────────────────
+      // Nuevo flujo de cierre humano (insight Director Cabrejo):
+      //   Estado 3  → pedir nombre completo (sin link, sin doble oferta)
+      //   Estado 3b → pedir WhatsApp (después de capturar nombre)
+      //   Estado 4  → DOBLE OFERTA FINAL DE ACTIVACIÓN (a) activar ahora / (b) ser contactado
+      //
+      // Ambos caminos del Estado 4 son links a WhatsApp con texto pre-llenado distinto.
+      // Se ELIMINA el warm handoff con email (Resend) — el equipo recibe contacto
+      // directo por WhatsApp con todos los datos del prospecto pre-llenados.
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
+
+      // HANDOFF COMPLETO: Estado 4 ya entregado (doble oferta final) → Estado 0
       const handoffCompletado = allBotMsgs.some((m: any) =>
-        /WhatsApp Directo de Activación|sintetizado su evaluación|sintetizado su evaluacion|Su acceso oficial está aquí|mesa directiva/i.test(m.content || '')
+        /Activar ahora.*Que el equipo me contacte|finalizar la activaci[oó]n de su Base Operativa|Para finalizar la activaci[oó]n/i.test(m.content || '')
       );
       if (handoffCompletado) return { closingState: 0 as const, modoCierre: false };
 
-      // Estado 4: Estado 3 (solicitud de nombre) ya entregado → entregar link WA
-      // Regex actualizado v27.1+ para detectar el nuevo texto canónico del Estado 3:
-      // "Lo registramos para el nivel..." + "¿bajo qué nombre lo activamos?"
-      const nombreSolicitado = allBotMsgs.some((m: any) =>
-        /bajo qu[eé] nombre|activamos con el equipo|registramos para el nivel|expediente de activaci[oó]n/i.test(m.content || '')
+      const occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
+
+      // Estado 3b YA ENTREGADO (bot pidió WhatsApp) → procesar respuesta del usuario
+      const whatsappSolicitado = allBotMsgs.some((m: any) =>
+        /cu[aá]l es su (n[uú]mero de )?WhatsApp|su WhatsApp para coordinar|n[uú]mero de WhatsApp para/i.test(m.content || '')
       );
 
-      // 🆕 FIX BUG 1+2 (22 May 2026): NO disparar Estado 4 solo porque el bot pidió nombre.
-      // Caso real detectado en QA: usuario respondió a "¿bajo qué nombre lo activamos?" con
-      // "espera más despacio, cómo se gana en el negocio". El FSM viejo asumió que el usuario
-      // dio nombre → disparó Estado 4 → handoff con nombre vacío + email basura a Lili.
-      //
-      // Lógica correcta: Estado 4 solo si:
-      //   (a) el usuario respondió en este turno con algo que se parece a un nombre, O
-      //   (b) ya hay un nombre válido capturado en BD de turnos anteriores
-      // Si ninguna se cumple → Estado 0 (responder pregunta libre, mantener package guardado).
-      // Próximo turno, si el usuario da nombre → el FSM evaluará de nuevo y disparará Estado 4.
-      if (nombreSolicitado && mergedProspectData.package) {
-        const nombreExtraidoAhora = extractNameFromHandoffReply(latestUserMessage);
-        const occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
-        const nombreYaCapturado = mergedProspectData.name && !occupationCheck.test(mergedProspectData.name);
+      if (whatsappSolicitado && mergedProspectData.package && mergedProspectData.name && !occupationCheck.test(mergedProspectData.name)) {
+        const whatsappExtraidoAhora = extractWhatsAppFromMessage(latestUserMessage);
+        const whatsappYaCapturado = mergedProspectData.phone || mergedProspectData.whatsapp;
 
-        if (nombreExtraidoAhora || nombreYaCapturado) {
-          console.log(`🔀 [FSM] closing_state=4 — usuario dio nombre (ahora: "${nombreExtraidoAhora || mergedProspectData.name}")`);
+        if (whatsappExtraidoAhora || whatsappYaCapturado) {
+          console.log(`🔀 [FSM] closing_state=4 — usuario dio WhatsApp (ahora: "${whatsappExtraidoAhora || whatsappYaCapturado}")`);
           return { closingState: 4 as const, modoCierre: false };
         }
 
-        // El usuario hizo otra cosa (preguntó, pidió pausar, etc.) → no avanzar.
-        // Permitir respuesta libre. El package permanece guardado en BD para el próximo intento.
-        console.log(`🚫 [FSM] Bot pidió nombre pero usuario respondió otra cosa: "${latestUserMessage.substring(0, 60)}" — Estado 0 (responder pregunta natural)`);
-        // Importante: retornamos Estado 0, NO Estado 3, para que el RAG responda libremente
-        // la pregunta del usuario. El package sigue guardado en BD; si el usuario da nombre
-        // en el próximo turno, el FSM volverá a evaluar y disparará Estado 4.
+        // No dio WhatsApp → Estado 0 (responder libre, mantener package + name guardados)
+        console.log(`🚫 [FSM] Bot pidió WhatsApp pero usuario respondió otra cosa: "${latestUserMessage.substring(0, 60)}" — Estado 0`);
         return { closingState: 0 as const, modoCierre: false };
       }
 
-      // Estado 3: paquete capturado explícitamente → confirmar + solicitar nombre
+      // Estado 3a YA ENTREGADO (bot pidió nombre) → procesar respuesta del usuario
+      const nombreSolicitado = allBotMsgs.some((m: any) =>
+        /bajo qu[eé] nombre|registramos para el nivel|ind[ií]queme su nombre completo|para coordinarlo.*nombre/i.test(m.content || '')
+      );
+
+      if (nombreSolicitado && mergedProspectData.package) {
+        const nombreExtraidoAhora = extractNameFromHandoffReply(latestUserMessage);
+        const nombreYaCapturado = mergedProspectData.name && !occupationCheck.test(mergedProspectData.name);
+
+        if (nombreExtraidoAhora || nombreYaCapturado) {
+          // Avanzar a Estado 3b: pedir WhatsApp
+          console.log(`🔀 [FSM] closing_state=3b — usuario dio nombre (ahora: "${nombreExtraidoAhora || mergedProspectData.name}"), siguiente: pedir WhatsApp`);
+          return { closingState: '3b' as const, modoCierre: false };
+        }
+
+        // No dio nombre → Estado 0 (responder libre, mantener package)
+        console.log(`🚫 [FSM] Bot pidió nombre pero usuario respondió otra cosa: "${latestUserMessage.substring(0, 60)}" — Estado 0`);
+        return { closingState: 0 as const, modoCierre: false };
+      }
+
+      // Estado 3a: paquete capturado pero NO se ha pedido nombre → solicitar nombre
       // (gracias a Fix G + Fix B, package solo se captura cuando el usuario lo declara
       // explícitamente con verbo de selección — no por mención informativa)
       if (mergedProspectData.package) return { closingState: 3 as const, modoCierre: false };
@@ -3756,9 +3817,7 @@ ${getInitialGreeting()}
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Para activar su **Base Operativa**, el único paso operativo es seleccionar el nivel de inventario con el que desea iniciar. No existen cuotas de inscripción ni cobros por afiliación — su capital se convierte en los productos físicos que respaldan su operación.
-
-Usted tiene **tres niveles disponibles**:
+Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital se transfiere directamente a productos físicos — bebidas enriquecidas y suplementos Gano Excel:
 
 **ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -3766,11 +3825,11 @@ Usted tiene **tres niveles disponibles**:
 
 **ESP-2 — Empresarial** · $500 USD (~$2.25M COP)
 > 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
-> Crecimiento sostenido con buen balance.
+> Crecimiento sostenido con buen balance de inventario y velocidad.
 
 **ESP-1 — Inicial** · $200 USD (~$900K COP)
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
-> Validación del flujo del sistema.
+> Para iniciar rápido.
 
 ---
 
@@ -3811,13 +3870,11 @@ STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
-      // Estado 3: paquete capturado explícitamente → DOBLE OFERTA (v5.5, 24 May 2026)
-      // Insight de campo Director Cabrejo: queswa debe ser perspicaz cuando el usuario
-      // manifiesta interés en iniciar, ofrecer DOS caminos sin presión:
-      //   (a) tomar datos → equipo contacta a la brevedad (warm handoff vía Estado 4)
-      //   (b) link directo al WhatsApp del equipo (acción inmediata si el usuario prefiere)
-      // Esto elimina la sensación de "presión" que generaba el "¿bajo qué nombre?" inmediato
-      // detectado en QA 24 May 2026.
+      // Estado 3a: paquete capturado → solicitar NOMBRE (Ola 4, 25 May 2026)
+      // Nuevo flujo humano del Director Cabrejo:
+      //   3a (este) → pedir nombre completo
+      //   3b → pedir WhatsApp
+      //   4 → doble oferta final (a) activar ahora / (b) ser contactado
       if (closingState === 3) {
         const paqueteCodigo = mergedProspectData.package || 'seleccionado';
         const nombreDescriptivo: Record<string, string> = {
@@ -3826,121 +3883,103 @@ STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o
           'ESP-3': 'ESP-3 Visionario',
         };
         const paqueteCompleto = nombreDescriptivo[paqueteCodigo] || paqueteCodigo;
-        const paqueteEncoded = encodeURIComponent(paqueteCompleto);
-        const waTextDirecto = `Hola%20equipo%20directivo.%20Vengo%20desde%20Queswa%20y%20deseo%20activar%20el%20inventario%20${paqueteEncoded}.`;
 
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 3 — CONFIRMACIÓN + DOBLE OFERTA (paquete: ${paqueteCompleto})
-Tu única tarea en este turno: confirmar la elección y ofrecer las dos vías de activación. Imprime EXACTAMENTE:
+🎯 ESTADO 3a — SOLICITUD DE NOMBRE (paquete: ${paqueteCompleto})
+Tu única tarea en este turno: confirmar la elección y pedir el nombre completo. Imprime EXACTAMENTE:
 
 Excelente. Lo registramos para el nivel **${paqueteCompleto}**.
 
-Para coordinar su activación con el **equipo directivo**, tiene dos formas:
+Para coordinar su activación con el equipo directivo, indíqueme **su nombre completo**.
 
-**(a)** Indíqueme su nombre aquí — el equipo lo contacta a la brevedad con el detalle operativo, ya con su contexto sintetizado.
+STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta aún. NO preguntes correo ni ciudad. Solo espera el nombre. El siguiente paso (pedir WhatsApp y la doble oferta de activación) lo gestiona el FSM en turnos posteriores.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      }
 
-**(b)** Si prefiere conectarse directamente ahora: [📲 WhatsApp Directo del Equipo](https://wa.me/573206805737?text=${waTextDirecto})
+      // Estado 3b: nombre ya capturado → solicitar WhatsApp (Ola 4)
+      if (closingState === '3b') {
+        const nombre = mergedProspectData.name || 'amigo';
+        const primerNombre = nombre.split(' ')[0];
+        return `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ESTADO 3b — SOLICITUD DE WHATSAPP (nombre: ${primerNombre})
+Tu única tarea en este turno: agradecer brevemente y pedir el número de WhatsApp. Imprime EXACTAMENTE:
 
-¿Cuál prefiere?
+Gracias, **${primerNombre}**.
 
-STOP. No preguntes correo, teléfono, ciudad ni cualquier otro dato. No expliques el proceso de onboarding. Espera la elección del usuario (nombre o decisión de usar el link directo).
+¿Cuál es su **número de WhatsApp** para que el equipo coordine su activación?
+
+STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques nada más. Solo espera el número.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
       return '';
     };
 
-    // ── ESTADO 4: Warm Handoff con sumario ejecutivo al equipo ──────────────────
-    // Opción B (22 May 2026): el handoff ahora dispara en paralelo:
-    //   1. Sub-agente Haiku genera expediente táctico (~1s, <$0.005)
-    //   2. Resend envía email al equipo directivo (sistema@creatuactivo.com)
-    //   3. Texto al prospecto: confirma que el equipo ya tiene su contexto
-    //   4. Link WhatsApp pre-llenado con código ESP + nombre descriptivo
+    // ── ESTADO 4: DOBLE OFERTA DE ACTIVACIÓN FINAL (Ola 4 — 25 May 2026) ─────────
+    // Reemplaza el Warm Handoff con email Resend (Opción B / 22 May 2026).
     //
-    // Razón doctrinal (investigación corporativa): el equipo recibe MATRIZ TÁCTICA
-    // antes del primer mensaje del prospecto — dolores, objeciones, score, citas.
-    // Lili abre el email, conoce el contexto, saluda al prospecto en WhatsApp con
-    // empatía contextual. Cero ruptura percibida por el cliente.
+    // Nuevo flujo (insight Director Cabrejo): el handoff humano es por WhatsApp.
+    // El equipo recibe el mensaje pre-llenado del usuario con su nombre + WhatsApp +
+    // paquete + intención (activar ahora o ser contactado). Sin email intermedio —
+    // el canal de contacto único es WhatsApp.
+    //
+    // El usuario elige:
+    //   (a) ACTIVAR AHORA — link con texto "confirmo activación inmediata"
+    //   (b) SER CONTACTADO — link con texto "espero contacto del equipo"
+    //
+    // Ambos caminos son links a wa.me/573206805737 con texto pre-llenado distinto.
     const getCierreEstado4 = (): string => {
       if (closingState !== 4 || !mergedProspectData.package) return '';
       const paqueteCodigo = mergedProspectData.package;
 
-      // Mapping a nombre descriptivo + texto WhatsApp con código operativo
       const nombreDescriptivo: Record<string, string> = {
         'ESP-1': 'ESP-1 Inicial',
         'ESP-2': 'ESP-2 Empresarial',
         'ESP-3': 'ESP-3 Visionario',
       };
       const paqueteCompleto = nombreDescriptivo[paqueteCodigo] || paqueteCodigo;
-      const paqueteCompletoEncoded = encodeURIComponent(paqueteCompleto);
+      const paqueteEncoded = encodeURIComponent(paqueteCompleto);
 
-      // Prioridad: (1) nombre de la respuesta actual (directa a "¿bajo qué nombre?"),
-      // (2) nombre en BD si no es una ocupación, (3) sin nombre
-      const nombreDesdeRespuesta = extractNameFromHandoffReply(latestUserMessage);
+      // Nombre: prioridad (1) BD, (2) extracción del mensaje actual
       const occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
       const existingNameIsValid = mergedProspectData.name && !occupationCheck.test(mergedProspectData.name);
-      const nombreFinal = nombreDesdeRespuesta || (existingNameIsValid ? mergedProspectData.name : '');
+      const nombreFinal = (existingNameIsValid ? mergedProspectData.name : '') || extractNameFromHandoffReply(latestUserMessage) || '';
+      const primerNombre = nombreFinal ? nombreFinal.split(' ')[0] : '';
+      const nombreEncoded = encodeURIComponent(nombreFinal);
 
-      const waText = nombreFinal
-        ? `Hola%20equipo%20directivo.%20Soy%20${encodeURIComponent(nombreFinal)}.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteCompletoEncoded}.`
-        : `Hola%20equipo%20directivo.%20He%20completado%20mi%20auditoria%20con%20Queswa%20y%20autorizo%20mi%20activacion%20con%20el%20inventario%20${paqueteCompletoEncoded}.`;
+      // WhatsApp: prioridad (1) BD, (2) extracción del mensaje actual
+      const whatsappFinal = mergedProspectData.phone || mergedProspectData.whatsapp || extractWhatsAppFromMessage(latestUserMessage) || '';
+      const whatsappEncoded = encodeURIComponent(whatsappFinal);
 
-      console.log(`🎯 [ESTADO 4] nombre="${nombreFinal || '(sin nombre)'}" paquete="${paqueteCompleto}"`);
+      // Mensajes WhatsApp pre-llenados para cada opción
+      const waTextActivar = `Hola%20equipo%20directivo.%20Soy%20${nombreEncoded}%20(WhatsApp%3A%20${whatsappEncoded}).%20Confirmo%20mi%20activaci%C3%B3n%20inmediata%20con%20el%20inventario%20${paqueteEncoded}.%20Quedo%20a%20la%20espera%20de%20las%20instrucciones%20de%20pago.`;
+      const waTextContactar = `Hola%20equipo%20directivo.%20Soy%20${nombreEncoded}%20(WhatsApp%3A%20${whatsappEncoded}).%20Vengo%20desde%20Queswa%20y%20espero%20que%20el%20equipo%20me%20contacte%20para%20coordinar%20la%20activaci%C3%B3n%20de%20mi%20Base%20Operativa%20${paqueteEncoded}.`;
 
-      // 🆕 WARM HANDOFF (Opción B, 22 May 2026): disparar pipeline fire-and-forget
-      // Genera expediente táctico con Haiku + envía email al equipo via Resend.
-      // No bloquea el delivery del texto al prospecto (la promesa se ejecuta en paralelo).
-      ejecutarWarmHandoff(
-        messages.map((m: { role: string; content: string }) => ({
-          role: m.role === 'user' || m.role === 'assistant' ? (m.role as 'user' | 'assistant') : 'user',
-          content: m.content,
-        })),
-        {
-          name: nombreFinal || undefined,
-          package: paqueteCodigo,
-          archetype: mergedProspectData.archetype,
-          interest_level: mergedProspectData.interest_level,
-          email: mergedProspectData.email,
-          // captureProspectData guarda en data.phone (campo principal)
-          // mergedProspectData.whatsapp es un alias legacy; preferimos phone
-          whatsapp: mergedProspectData.phone || mergedProspectData.whatsapp,
-        }
-      ).catch((err) => console.error('❌ [ESTADO 4] Warm handoff falló (no bloqueante):', err));
-
-      // 🆕 Fix #5B (22 May 2026): si el WhatsApp del prospecto NO fue capturado pasivamente
-      // durante la conversación, agregar una línea opcional que ofrezca canal alternativo.
-      // Razón: si el prospecto no clickea el link de WhatsApp, no tenemos forma de contactarlo
-      // proactivamente. Esta línea ofrece la inversa (el equipo lo contacta a él) sin agregar
-      // fricción al flujo principal.
-      const tieneWhatsAppCapturado = !!mergedProspectData.phone;
-      const lineaContactoAlternativo = tieneWhatsAppCapturado
-        ? '' // ya tenemos su número → no pedir nada
-        : '\n\nO si prefiere que la **Dirección** lo contacte primero, déjeme aquí su número de WhatsApp y le escribirán directamente.';
+      console.log(`🎯 [ESTADO 4 — DOBLE OFERTA FINAL] nombre="${nombreFinal}" paquete="${paqueteCompleto}" whatsapp="${whatsappFinal}"`);
 
       return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 4 — WARM HANDOFF (paquete: ${paqueteCompleto}${nombreFinal ? `, nombre: ${nombreFinal}` : ', sin nombre'}${tieneWhatsAppCapturado ? ', WhatsApp: capturado' : ', sin WhatsApp'})
+🎯 ESTADO 4 — DOBLE OFERTA DE ACTIVACIÓN FINAL (paquete: ${paqueteCompleto}, nombre: ${nombreFinal || '(sin nombre)'}, WhatsApp: ${whatsappFinal || '(sin WhatsApp)'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-${nombreFinal ? `Gracias, ${nombreFinal}.` : 'Gracias.'} He sintetizado su evaluación al **equipo directivo**.
+Perfecto, ${primerNombre || 'Arquitecto'}. Para finalizar la activación de su Base Operativa **${paqueteCompleto}**, elija cómo desea continuar:
 
-Ya conocen su perfil, el nivel que eligió (**${paqueteCompleto}**) y los puntos que evaluamos juntos. No tendrá que repetir nada.
+**(a)** [📲 **Activar ahora**](https://wa.me/573206805737?text=${waTextActivar}) — confirma su activación inmediata con el equipo directivo. Le entregan instrucciones de pago directamente.
 
-Su acceso oficial está aquí:
+**(b)** [📲 **Que el equipo me contacte**](https://wa.me/573206805737?text=${waTextContactar}) — el equipo le escribe a su WhatsApp para coordinar la activación con calma.
 
-[📲 **WhatsApp Directo de Activación**](https://wa.me/573206805737?text=${waText})
+¿Cuál prefiere?
 
-Bienvenido a la mesa directiva.${lineaContactoAlternativo}
-
-STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicionales.
+STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicionales. NO menciones que enviaste correo (no se envía correo en este flujo). El handoff es directo por WhatsApp.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
     };
 
     // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
     // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
     // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
-    const arsenalParaCierre = (closingState === 2 || closingState === 3 || closingState === 4)
+    const arsenalParaCierre = (closingState === 2 || closingState === 3 || closingState === '3b' || closingState === 4)
       ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
       : arsenalContext;
 
@@ -4030,7 +4069,7 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     }
     console.log('📝 System prompt base (primeros 100 chars):',
       baseSystemPrompt.substring(0, 100) + '...');
-    console.log('📝 Arsenal context length:', arsenalParaCierre.length, 'chars', closingState > 0 ? `[FSM state=${closingState}]` : '');
+    console.log('📝 Arsenal context length:', arsenalParaCierre.length, 'chars', closingState !== 0 ? `[FSM state=${closingState}]` : '');
     console.log('📝 Session instructions length:', sessionInstructions.length, 'chars');
 
     console.log('Enviando request Claude con contexto híbrido + CACHE...');

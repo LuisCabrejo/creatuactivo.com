@@ -52,16 +52,16 @@ Para entender la mecánica, primero diagnosticamos su modelo actual: usted opera
 
 Esto no es un problema de capacidad; es **la consecuencia matemática de un sistema calibrado para la asfixia mensual**.
 
-CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben el desgaste operativo por usted:
+CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben la carga operativa por usted:
 
 **1. La Matriz Física**
-Gano Excel asume el 100% del trabajo pesado (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+Gano Excel asume la operación logística completa (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
 **2. Queswa, su Centro de Mando**
 Soy su plataforma de Inteligencia Artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
 
 **3. La Metodología Automatizada**
-El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Un protocolo que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
+El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Una metodología paso a paso que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
 
 ---
 
@@ -164,11 +164,7 @@ Como dicta nuestra metodología: usted no explica, Queswa explica.
 **[Concepto Nuclear]:** Cierre simple y directo. El prospecto que pregunta cómo se inicia ya está en momento de decisión — el proceso debe ser sencillo: los tres niveles + pregunta de selección. Sin entrevista de horas, sin frase de "equipo logístico", sin jerga financiera opaca.
 
 <verbatim_lock>
-El proceso para activar su Base Operativa es directo. El único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar.
-
-Su capital se transfiere a productos físicos — bebidas enriquecidas y suplementos Gano Excel — que respaldan su operación.
-
-Usted tiene tres niveles disponibles:
+Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital se transfiere directamente a productos físicos — bebidas enriquecidas y suplementos Gano Excel:
 
 **ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -180,7 +176,7 @@ Usted tiene tres niveles disponibles:
 
 **ESP-1 — Inicial** · $200 USD (~$900K COP)
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
-> Validación del flujo del sistema.
+> Para iniciar rápido.
 
 ---
 
@@ -193,12 +189,13 @@ Usted tiene tres niveles disponibles:
 **[Concepto Nuclear]:** 12 velocidades canónicas, 2 principales que cubren corto, mediano y largo plazo. Doctrina v5.5: tablas siempre, listas nunca, fórmulas prohibidas. Respuesta directa al punto, sin preámbulos.
 
 <verbatim_lock>
-Su Base Operativa genera dividendos en **12 velocidades**. Hoy analicemos las dos principales — cubren su flujo de corto, mediano y largo plazo:
+Su Base Operativa monetiza a través de **12 formas diferentes**. Analicemos dos — cubren su flujo de corto, mediano y largo plazo:
 
 ---
 
 **1. Bono GEN5 — Ingreso Inmediato**
-Cada vez que su organización activa una nueva Base, usted recibe una comisión liquidada el siguiente viernes:
+
+Cada vez que su organización activa una nueva Base Operativa, usted recibe una comisión por cinco generaciones de profundidad:
 
 | Generación | Comisión por activación |
 |------------|-------------------------|
@@ -208,26 +205,25 @@ Cada vez que su organización activa una nueva Base, usted recibe una comisión 
 | Gen 4 | $20 USD |
 | Gen 5 | $40 USD |
 
-El GEN5 premia la expansión — la velocidad con que su estructura crece.
+Los pagos se liquidan los viernes. El GEN5 acelera su liquidez en el corto plazo cada vez que la estructura se expande.
 
 ---
 
-**2. Binario — Flujo de Caja Recurrente**
-Su organización genera consumo continuo cada semana. El sistema toma el volumen de su pierna más débil y aplica la rentabilidad de su paquete:
+**2. Renta Vitalicia (Flujo Binario)**
 
-| Paquete | Rentabilidad sobre pierna débil |
-|---------|--------------------------------|
+Este es el activo real. Usted percibe un margen de hasta **17%** sobre el **Volumen Comisionable (CV)** de las bebidas y suplementos que fluyen por su organización internacional. El sistema toma el volumen acumulado de su **centro de negocios de pago** (la rama de menor volumen) y aplica la rentabilidad de su paquete:
+
+| Paquete | Margen sobre el centro de negocios de pago |
+|---------|---------------------------------------------|
 | ESP-3 Visionario | 17% |
 | ESP-2 Empresarial | 16% |
 | ESP-1 Inicial | 15% |
 
-El Binario premia la profundidad — el consumo acumulado de toda su organización, independiente de nuevas activaciones.
+Opera como un **peaje logístico**: usted factura cada vez que el mercado consume, mientras usted duerme y sin intervenir en la transacción. Es la profundidad — el consumo acumulado — lo que sostiene este flujo, no nuevas activaciones.
 
 ---
 
-La matemática es clara: el GEN5 acelera su liquidez en el corto plazo. El Binario consolida su renta recurrente en el mediano y largo. Las otras 10 velocidades se activan a medida que su organización escala — las recibe documentadas al iniciar su Base Operativa.
-
-¿Qué le interesa explorar primero: un ejemplo concreto del GEN5 o cómo proyecta su renta recurrente del Binario?
+¿Desea profundizar en el ingreso inmediato o en la renta vitalicia?
 </verbatim_lock>
 
 ---

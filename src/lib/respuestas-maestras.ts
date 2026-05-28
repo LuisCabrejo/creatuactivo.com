@@ -48,16 +48,16 @@ const MASTER_WHY_02 = `Para entender la mecánica, primero diagnosticamos su mod
 
 Esto no es un problema de capacidad; es **la consecuencia matemática de un sistema calibrado para la asfixia mensual**.
 
-CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben el desgaste operativo por usted:
+CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben la carga operativa por usted:
 
 **1. La Matriz Física**
-Gano Excel asume el 100% del trabajo pesado (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+Gano Excel asume la operación logística completa (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
 **2. Queswa, su Centro de Mando**
 Soy su plataforma de Inteligencia Artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
 
 **3. La Metodología Automatizada**
-El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Un protocolo que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
+El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Una metodología paso a paso que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
 
 ---
 

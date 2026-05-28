@@ -3639,12 +3639,17 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // paquete. La tabla se entrega con pregunta combinada (nombre + nivel) para minimizar
     // turnos. Cuando es false, la tabla es informativa (usuario solo preguntó por paquetes).
     const { closingState, modoCierre } = (() => {
-      // ── POST-ESTADO 4: si el link WA ya fue entregado esta sesión → flujo normal ──
+      // ── POST-ESTADO 4: si el handoff completo ya fue entregado esta sesión → flujo normal ──
+      // v5.5: distinguimos entre HANDOFF COMPLETO (Estado 4 final, sin más caminos) y
+      // DOBLE OFERTA del Estado 3 (link entregado como opción (b), pero el flujo puede
+      // seguir si usuario elige opción (a) dando nombre). Si fue handoff completo →
+      // Estado 0 absoluto. Si fue doble oferta → permitimos que FSM evalúe Estado 4
+      // cuando el usuario responda con nombre.
       const allBotMsgs = messages.filter((m: any) => m.role === 'assistant');
-      const waLinkEntregado = allBotMsgs.some((m: any) =>
-        /WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|sintetizado su evaluacion|Su acceso oficial está aquí/i.test(m.content || '')
+      const handoffCompletado = allBotMsgs.some((m: any) =>
+        /WhatsApp Directo de Activación|sintetizado su evaluación|sintetizado su evaluacion|Su acceso oficial está aquí|mesa directiva/i.test(m.content || '')
       );
-      if (waLinkEntregado) return { closingState: 0 as const, modoCierre: false };
+      if (handoffCompletado) return { closingState: 0 as const, modoCierre: false };
 
       // Estado 4: Estado 3 (solicitud de nombre) ya entregado → entregar link WA
       // Regex actualizado v27.1+ para detectar el nuevo texto canónico del Estado 3:
@@ -3751,49 +3756,68 @@ ${getInitialGreeting()}
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Para activar su **Base Operativa** e iniciar hoy mismo, el único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar. En nuestro diseño **no existen cuotas de inscripción ni cobros por afiliación**; su capital se convierte íntegramente en producto físico que respalda su posición logística.
+Para activar su **Base Operativa**, el único paso operativo es seleccionar el nivel de inventario con el que desea iniciar. No existen cuotas de inscripción ni cobros por afiliación — su capital se convierte en los productos físicos que respaldan su operación.
 
-Usted cuenta con **tres niveles de inicio** para activar sus comisiones:
+Usted tiene **tres niveles disponibles**:
 
-- **Nivel 3 — ESP-3 Visionario:** $1,000 USD (~$4.5M COP) — máxima velocidad de ganancias y acceso total a todas las formas de ingreso recurrente (17% de rentabilidad Binario, GEN5 activo desde el primer día).
+**ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
+> 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
+> Máxima velocidad de capitalización.
 
-- **Nivel 2 — ESP-2 Empresarial:** $500 USD (~$2.25M COP) — velocidad intermedia de ganancias y crecimiento sostenido (16% de rentabilidad Binario, GEN5 activo desde el primer día).
+**ESP-2 — Empresarial** · $500 USD (~$2.25M COP)
+> 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
+> Crecimiento sostenido con buen balance.
 
-- **Nivel 1 — ESP-1 Inicial:** $200 USD (~$900K COP) — opción básica para validar el funcionamiento del sistema y el flujo de caja (15% de rentabilidad Binario, GEN5 activo desde el primer día).
+**ESP-1 — Inicial** · $200 USD (~$900K COP)
+> 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
+> Validación del flujo del sistema.
 
-Para formalizar su registro y conectarlo con el equipo directivo, confírmeme dos datos: **su nombre completo** y el **nivel de inicio que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
+---
+
+Para coordinar su activación con el equipo directivo, indíqueme dos datos: **su nombre completo** y el **nivel que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
 
 STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respuesta del usuario con nombre + nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
       // Estado 2 modo informativo: tabla técnica sin invitación al cierre
+      // v5.5 (24 May 2026): eliminada regresión léxica "liquidez/Estructura Patrimonial este mes"
+      // + "Apalancamiento estratégico" como descripción opaca. Alineado con FREQ_03 v5.2.
       if (closingState === 2 && !modoCierre) {
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-La activación de su Base Operativa es directa. El único paso que debe dar es seleccionar el nivel de inventario con el que desea comenzar. Su capital se transfiere a productos físicos — bebidas enriquecidas y suplementos Gano Excel.
+Usted tiene **tres niveles disponibles** para activar su Base Operativa. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
 
-Usted tiene **tres niveles para iniciar**:
+**ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
+> 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
+> Máxima velocidad de capitalización.
 
-• **ESP-3 — Visionario:** $1,000 USD (~$4.5M COP) — Apalancamiento estratégico (17% rentabilidad)
+**ESP-2 — Empresarial** · $500 USD (~$2.25M COP)
+> 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
+> Crecimiento sostenido con buen balance.
 
-• **ESP-2 — Empresarial:** $500 USD (~$2.25M COP) — Crecimiento sostenido (16%)
+**ESP-1 — Inicial** · $200 USD (~$900K COP)
+> 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
+> Validación del flujo del sistema.
 
-• **ESP-1 — Inicial:** $200 USD (~$900K COP) — Nivel de entrada (15%)
+---
 
-¿Cuál de estas tres opciones se alinea mejor con la liquidez que desea inyectar a su Estructura Patrimonial este mes?
+¿Cuál de los tres niveles se alinea con su decisión hoy?
 
 STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o pregunte más.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
-      // Estado 3: paquete capturado explícitamente → confirmar + solicitar nombre
-      // Opción B (22 May 2026): el texto canónico se suaviza — sin presión, solo
-      // confirmación y handoff inmediato al equipo. Incluye el sinónimo descriptivo
-      // (ESP-3 Visionario) para claridad operativa al equipo en el handoff.
+      // Estado 3: paquete capturado explícitamente → DOBLE OFERTA (v5.5, 24 May 2026)
+      // Insight de campo Director Cabrejo: queswa debe ser perspicaz cuando el usuario
+      // manifiesta interés en iniciar, ofrecer DOS caminos sin presión:
+      //   (a) tomar datos → equipo contacta a la brevedad (warm handoff vía Estado 4)
+      //   (b) link directo al WhatsApp del equipo (acción inmediata si el usuario prefiere)
+      // Esto elimina la sensación de "presión" que generaba el "¿bajo qué nombre?" inmediato
+      // detectado en QA 24 May 2026.
       if (closingState === 3) {
         const paqueteCodigo = mergedProspectData.package || 'seleccionado';
         const nombreDescriptivo: Record<string, string> = {
@@ -3802,16 +3826,25 @@ STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o
           'ESP-3': 'ESP-3 Visionario',
         };
         const paqueteCompleto = nombreDescriptivo[paqueteCodigo] || paqueteCodigo;
+        const paqueteEncoded = encodeURIComponent(paqueteCompleto);
+        const waTextDirecto = `Hola%20equipo%20directivo.%20Vengo%20desde%20Queswa%20y%20deseo%20activar%20el%20inventario%20${paqueteEncoded}.`;
+
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ESTADO 3 — CONFIRMACIÓN Y SOLICITUD DE NOMBRE (paquete: ${paqueteCompleto})
-Tu única tarea en este turno: confirmar la elección y pedir el nombre. Imprime EXACTAMENTE:
+🎯 ESTADO 3 — CONFIRMACIÓN + DOBLE OFERTA (paquete: ${paqueteCompleto})
+Tu única tarea en este turno: confirmar la elección y ofrecer las dos vías de activación. Imprime EXACTAMENTE:
 
 Excelente. Lo registramos para el nivel **${paqueteCompleto}**.
 
-Para conectarlo con el equipo directivo, ¿bajo qué nombre lo activamos?
+Para coordinar su activación con el **equipo directivo**, tiene dos formas:
 
-STOP. No preguntes correo, teléfono, ciudad ni cualquier otro dato. No expliques el proceso de onboarding. Espera el nombre.
+**(a)** Indíqueme su nombre aquí — el equipo lo contacta a la brevedad con el detalle operativo, ya con su contexto sintetizado.
+
+**(b)** Si prefiere conectarse directamente ahora: [📲 WhatsApp Directo del Equipo](https://wa.me/573206805737?text=${waTextDirecto})
+
+¿Cuál prefiere?
+
+STOP. No preguntes correo, teléfono, ciudad ni cualquier otro dato. No expliques el proceso de onboarding. Espera la elección del usuario (nombre o decisión de usar el link directo).
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 

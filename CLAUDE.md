@@ -39,7 +39,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.1.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` |
 | Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
 | Actualizar FREQ_03 cierre + purgar CIERRE_01/02 obsoletos | `node scripts/actualizar-fragmentos-cierre-v5.2.mjs` |
 | Actualizar catálogo productos (BEB_01/LUV_01/SUP_01/PERS_01 + PROD_OVERVIEW) | `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs` |
@@ -77,7 +77,7 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 ## Reglas Críticas (NO HACER)
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
-- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v27_1.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01)
+- ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v27_2.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01)
 - ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `<verbatim_lock>...</verbatim_lock>` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
 - ❌ **NO regresar** los marcadores XML `<verbatim_lock>` a corchetes planos `[VERBATIM_LOCK]`. La investigación Gemini (18 May 2026) confirmó que Claude Sonnet 4.6 reconoce XML tags como señales de activación de atención, mientras que los corchetes planos son texto inerte. Migración aplicada en v25.8/v26.8.
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts`: `waLinkEntregado` (línea ~3636) y `nombreSolicitado` (línea ~3641) — si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado
@@ -312,9 +312,9 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: v27.1 "limpieza_redundancias"** (22 May 2026) — Ola 1 de auditoría de redundancia (Gemini sobre prompt monolítico). Reducción 45,940 → 35,354 chars (~23%) sin cambios de comportamiento.
-   - **Versión previa: v27.0 "recursos_imperativos_bloqueo_kyc"** (22 May 2026) — Bump mayor. (1) RECURSOS DE LEGIBILIDAD elevada al inicio (primacy effect); (2) Regla "2 de 4 recursos obligatorios" para respuestas 100+ palabras; (3) **BLOQUEO ABSOLUTO KYC** anti-alucinación crítica (modelo había inventado flujo bancario pidiendo cédula/nóminas/LinkedIn cuando FSM no capturaba paquete).
-   - **Historial completo v19.x → v27.1** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md)
+   - **Versión activa: v27.2 "modulacion_registro"** (24 May 2026) — Ola 2 doctrinal. Formaliza Modulación de Registro v5.5 (analogía Mario Alonso Puig: autoridad técnica + accesibilidad humana). 6 cambios: (1) sección MODULACIÓN DE REGISTRO en TONO Y VOZ; (2) VECTORES DE CIERRE balanceados en 2 bancos (técnico-clínico + conversacional); (3) refuerzo Pirámide McKinsey al derecho (REGLA ANTI-PREÁMBULO); (4) bloqueo absoluto DASHBOARD inexistente para prospecto; (5) bloqueo absoluto fórmulas matemáticas expuestas (CV × 17% × $1 USD); (6) doctrina 12 VELOCIDADES canónica. Tamaño: 42,577 chars.
+   - **Versión previa: v27.1 "limpieza_redundancias"** (22 May 2026) — Ola 1 de auditoría de redundancia. Reducción 45,940 → 35,354 chars (~23%) sin cambios de comportamiento.
+   - **Historial completo v19.x → v27.2** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md)
    - Archivos fuente: `knowledge_base/system-prompt-nexus-main-vXX_Y.md` (todos conservados como referencia histórica)
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** en `route.ts` — actualizar en Supabase. Fallback alineado a v26.5.
@@ -705,7 +705,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.1.mjs` (latest: **v27.1 limpieza_redundancias** — apunta a `system-prompt-nexus-main-v27_1.md`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.2.mjs` (latest: **v27.2 modulacion_registro** — apunta a `system-prompt-nexus-main-v27_2.md`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -1181,7 +1181,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v27.1** — limpieza_redundancias, 22 May 2026)
+- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v27.2** — modulacion_registro, 24 May 2026)
 - `actualizar-fragmentos-master-v25.7.mjs` - Re-fragmenta WHY_01/WHY_02/EAM_01 con embeddings Voyage AI (genérico — lee del arsenal vivo, válido para cualquier vXX.Y subsiguiente)
 
 **Knowledge Base Deployment**:

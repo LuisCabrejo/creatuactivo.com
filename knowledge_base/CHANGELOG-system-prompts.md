@@ -6,6 +6,38 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v27.2 — Modulación de Registro (24 May 2026)
+
+Ola 2 del refactor doctrinal post-QA. Formaliza la doctrina v5.5 nacida del insight del Director Cabrejo: *"si tú hablas con un médico no esperas que te hable en tu mismo lenguaje, de lo contrario pensarás que no es médico, pero si soy médico debo esforzarme en utilizar un lenguaje comprensible"* (analogía Mario Alonso Puig). Sin cambios de identidad — solo modulación contextual del registro.
+
+**Cambios sustantivos:**
+
+1. **Nueva sección MODULACIÓN DE REGISTRO v5.5** dentro de TONO Y VOZ. Tabla técnico-clínico (arquitectura/mecánica/compensación) vs humano-cálido (exploración/dudas/pausas). Ejemplos concretos de sobre-tecnificación inapropiada. Vocabulario aprobado conservado en ambos registros + vocabulario modulable según contexto.
+
+2. **VECTORES DE CIERRE balanceados en 2 BANCOS**: Banco A (técnico-clínico, los 3 vectores Reel A v2.2 conservados) + Banco B (conversacional, 3 vectores nuevos para incentivar diálogo). Nueva regla anti-pregunta-retórica-vacía. NO prohíbe contraste retórico legítimo (matiz capturado: la regla v26.3 "describir qué ES, no qué NO ES" se conserva porque ataca anticipación de objeciones, no contraste retórico).
+
+3. **Refuerzo PIRÁMIDE McKINSEY AL DERECHO**. Nueva REGLA ANTI-PREÁMBULO: cuando la pregunta es directa (paquetes, precios, productos), responde directo. El preámbulo doctrinal SOLO va cuando el usuario pide explicación arquitectónica. Ejemplo aprobado: usuario *"háblame de los paquetes"* → respuesta directa *"Usted tiene tres niveles..."* (sin *"La activación de su Base Operativa es directa..."*).
+
+4. **BLOQUEO ABSOLUTO — DASHBOARD INEXISTENTE PARA PROSPECTO**. El modelo alucinaba referencias al Dashboard en respuestas a prospectos en exploración (*"¿prefiere que simulemos en su Dashboard la matemática..."*). El Dashboard de queswa.app existe SOLO para Arquitectos ya activados. Sustituir por opciones canónicas conversacionales.
+
+5. **BLOQUEO ABSOLUTO — FÓRMULAS MATEMÁTICAS EXPUESTAS**. Prohibido mostrar fórmula del Binario al prospecto (`CV × 17% × $1 USD` o variantes). La matemática se demuestra con tablas terminadas, no con fórmulas. Si pregunta cómo se calcula, respuesta canónica sin fórmula: *"El sistema toma el volumen acumulado de su pierna más débil y aplica la rentabilidad de su paquete"*.
+
+6. **BLOQUEO ABSOLUTO — DOCTRINA 12 VELOCIDADES**. Cuando usuario pregunta cómo se gana, apertura canónica es *"Su Base Operativa genera dividendos en 12 velocidades. Hoy analicemos las dos principales..."*. NUNCA *"Monetización de Doble Velocidad"* como universo cerrado. Alineado con guion servilleta v6.0 e insight de campo Director Cabrejo (12 años, solo 1 prospecto pidió detalle de otras formas).
+
+**Tamaño:** 36,143 → 42,577 chars (+18% por nuevas reglas). Aceptable porque añade capacidad doctrinal sin redundancia.
+
+**Sincronizado con:**
+- arsenal_inicial v5.5 (FREQ_04 con 12 velocidades, WHY_02 v5.5 corto, preguntas seguimiento conversacionales)
+- arsenal_compensacion v6.4 (instrucciones internas con "PROHIBIDO exponer fórmula")
+- src/lib/respuestas-maestras.ts (MASTER_WHY_02 + MASTER_EAM_01 carácter por carácter con verbatim_lock)
+
+**Pendiente Ola 3 (código):**
+- FSM perspicaz (detectar verbos de intención explícita vs exploración)
+- Doble oferta cierre (tomar datos / link directo)
+- Fix link WhatsApp pre-llenado
+
+---
+
 ## v27.1 — Limpieza de redundancias (22 May 2026)
 
 Ola 1 de la auditoría de redundancia (auditoría Gemini sobre prompt monolítico).

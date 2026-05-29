@@ -615,7 +615,11 @@ export default function FundadoresPage() {
         {/* --- FOOTER --- */}
         <footer className="py-12 text-center text-[#64748B] text-sm border-t border-[rgba(148,163,184,0.15)]">
             <p className="font-bold text-white mb-2">CreaTuActivo.com</p>
-            <a href="/privacidad" className="text-xs underline hover:text-white transition-colors">Política de Privacidad</a>
+            <p className="text-xs">
+              <a href="/privacidad" className="underline hover:text-white transition-colors">Política de Privacidad</a>
+              <span className="mx-2 opacity-40">·</span>
+              <a href="/terminos" className="underline hover:text-white transition-colors">Términos y Condiciones</a>
+            </p>
             <p className="mt-4 text-xs opacity-50">&copy; 2026 Todos los derechos reservados.</p>
         </footer>
       </div>

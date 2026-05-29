@@ -611,6 +611,7 @@ function Footer() {
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>
           <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>Privacidad</Link>
+          <Link href="/terminos" style={{ color: C.muted, textDecoration: 'none' }}>Términos</Link>
           <Link href="/tecnologia" style={{ color: C.muted, textDecoration: 'none' }}>Tecnología</Link>
         </div>
         <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>

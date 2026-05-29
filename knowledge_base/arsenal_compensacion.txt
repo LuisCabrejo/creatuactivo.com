@@ -948,6 +948,26 @@ El Auto Envio es un programa de lealtad.
 
 ---
 
+### COMP_VIP_01: "¿El Cliente VIP también debe comprar un paquete empresarial? / ¿Cuánto cuesta activar un Cliente VIP? / ¿El VIP paga inscripción? / ¿El Consumidor VIP debe hacer compras mínimas mensuales?"
+
+**[Concepto Nuclear]:** NO. El Consumidor VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
+
+NO. El Consumidor VIP no requiere adquirir un Paquete Empresarial.
+
+**Activación inicial:**
+Para activar su código y acceder al precio de distribuidor, el VIP realiza una compra inicial mínima de **50 PV (Puntos de Volumen)** en productos Gano Excel. Esa misma compra ES su activación y su primera adquisición a precio preferencial.
+
+**Compras recurrentes:**
+El Consumidor VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
+
+**Diferencia operativa con el Arquitecto de Patrimonio:**
+- El Arquitecto adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su Base Operativa con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+- El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
+
+**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de Base Operativa. Eventualmente, estos códigos pueden hacer upgrade a Arquitecto cuando el perfil madura.
+
+---
+
 ## REGLAS CRITICAS PARA QUESWA
 
 1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Le conectaré con la Dirección Estratégica para datos precisos."

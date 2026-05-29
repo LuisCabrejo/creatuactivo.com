@@ -287,6 +287,56 @@ En términos prácticos: usted percibe regalías por el consumo recurrente de ca
 
 ---
 
+### **FREQ_23: "¿A qué tasa me paga Gano Excel? / ¿Es a tasa de hoy? / ¿Cuánto vale el dólar para mis pagos? / ¿La tasa es de mercado?"**
+**[Concepto Nuclear]:** Gano Excel liquida USD a tasa FIJA corporativa de $4,500 COP por dólar — independiente de la TRM. Ventaja estructural para cobrar en moneda fuerte por encima del mercado.
+
+Gano Excel opera con una tasa de liquidación corporativa fija: **$1 USD = $4,500 COP**, vigente independientemente de la TRM (tasa representativa del mercado) del día.
+
+La ventaja estructural es directa: usted cobra sus comisiones en moneda fuerte a una tasa superior a la del mercado. Si su organización genera $1,000 USD en comisiones semanales, usted recibe **$4,500,000 COP** — vs. los ~$3,600,000 que arrojaría la conversión bancaria a TRM del día.
+
+En contextos de devaluación del peso colombiano, esta tasa fija blinda la previsibilidad de su flujo de caja. Su patrimonio se construye en moneda dura, sin exposición a fluctuación cambiaria.
+
+**Pregunta de seguimiento:** ¿Le interesa ver cómo esta tasa fija impacta una proyección anual de su Estructura Patrimonial?
+
+---
+
+### **FREQ_25: "¿El consumo de mi hogar cuenta? / ¿Mi esposa/hijos pueden ser Consumidores VIP míos? / ¿Cómo aprovecho el consumo familiar? / ¿Puedo abrir un código VIP a mi familia?"**
+**[Concepto Nuclear]:** Sí. Puede registrar familiares como Consumidores VIP bajo su código. Su consumo recurrente genera CV a su Centro de Negocios de Cobro. Eventualmente esos códigos pueden hacer upgrade a Arquitectos de Patrimonio.
+
+Sí. Puede abrir códigos de Consumidor VIP a familiares directos — cónyuge, hijos, padres — bajo su patrocinio.
+
+Cada uno realiza su activación con la compra mínima de 50 PV inicial, y su consumo posterior fluye como CV hacia su Centro de Negocios de Cobro. El consumo familiar deja de ser un gasto del hogar y pasa a ser volumen comisional dentro de su Base Operativa.
+
+Adicionalmente, estos códigos VIP bien posicionados pueden eventualmente realizar un **upgrade a Arquitecto de Patrimonio** — activando el Paquete Empresarial correspondiente — y desarrollar su propia estructura dentro de su organización.
+
+**Pregunta de seguimiento:** ¿Le interesa explorar cómo se planifica una expansión familiar como punto de anclaje inicial?
+
+---
+
+### **FREQ_26: "¿Qué es el back office? / ¿Es lo mismo que Queswa.app? / ¿Cuál es la diferencia entre la oficina virtual de Gano y Queswa? / ¿Dónde gestiono mi negocio?"**
+**[Concepto Nuclear]:** Dos herramientas distintas con propósitos complementarios. Back office = sistema corporativo Gano Excel para gestión administrativa. Queswa.app = Centro de Mando exclusivo de CreaTuActivo para automatización estratégica.
+
+Son dos herramientas distintas con propósitos diferentes:
+
+**Back office Gano Excel** — Oficina virtual proporcionada por la corporación a cada distribuidor. Permite:
+- Realizar compras de inventario
+- Registrar nuevos códigos (Arquitectos o VIPs)
+- Auditar el estado de su organización (volúmenes, comisiones, ciclos)
+- Acceder a información oficial corporativa
+
+Es el sistema **administrativo** universal para todos los distribuidores Gano Excel a nivel internacional.
+
+**Queswa.app** — Centro de Mando de Inteligencia Artificial **exclusivo de CreaTuActivo.com**, la organización dirigida por Luis Cabrejo Parra y Liliana Patricia Moreno. NO es proporcionada por Gano Excel. Es una infraestructura tecnológica desarrollada para los Arquitectos de Patrimonio de esta organización específica, con el objetivo de:
+- Automatizar prospección, filtrado y calificación 24/7
+- Eliminar el desgaste operativo de la presentación manual
+- Escalar la metodología (Tridente EAM) sin intervención directa
+
+En síntesis: **el back office gestiona; Queswa orquesta.** Un Arquitecto de CreaTuActivo opera con ambos — el back office para la operación administrativa Gano Excel, y Queswa.app para la dirección estratégica de su Base Operativa.
+
+**Pregunta de seguimiento:** ¿Le interesa ver cómo Queswa absorbe el 90% del desgaste operativo que el back office por sí solo no resuelve?
+
+---
+
 ### **FREQ_05: "¿Puedo heredar esto a mi familia?"**
 **[Concepto Nuclear]:** Transferencia Patrimonial. La Base Operativa es un activo comercial en propiedad legal, blindado contra la finitud operativa del Arquitecto.
 

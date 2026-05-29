@@ -721,6 +721,15 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
                           ol: ({children}) => <ol className="list-decimal list-outside ml-4 mb-2 space-y-1">{children}</ol>,
                           li: ({children}) => <li className="mb-1 leading-relaxed">{children}</li>,
+                          // Separador horizontal — respiración generosa (24px vertical)
+                          // para que las secciones (Velocidad 1, Velocidad 2, pregunta cierre)
+                          // no se vean pegadas al `---` markdown del modelo.
+                          hr: () => (
+                            <hr
+                              className="my-6 border-0 border-t"
+                              style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+                            />
+                          ),
                           a: ({href, children}) => (
                             <a
                               href={href}

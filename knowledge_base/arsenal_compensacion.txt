@@ -590,6 +590,32 @@ El Binario es su activo real a largo plazo. El sistema suma todo el volumen comi
 
 ---
 
+### COMP_BIN_LIQUIDACION: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje?"
+
+**[Concepto Nuclear]:** Liquidación basada en GCV (Volumen Comisionable Grupal), NO en precio de venta. % aplicado según paquete o rango activo — automáticamente el más alto disponible.
+
+Gano Excel liquida cada semana así:
+
+1. Suma el **Volumen Comisionable (CV)** de TODOS los productos consumidos por la organización (el CV es un valor asignado por Gano Excel a cada producto — distinto al precio de venta al público).
+2. Calcula el **GCV (Group CV)** acumulado de su **Centro de Negocios de Cobro** (el centro con MENOR volumen acumulado entre los dos frentes).
+3. Aplica el porcentaje del paquete o rango activo — automáticamente el más alto disponible.
+
+**Origen del porcentaje:**
+| Fuente | Porcentaje |
+|--------|-----------|
+| ESP-3 Visionario (vigente 6 meses) | 17% |
+| ESP-2 Empresarial (vigente 4 meses) | 16% |
+| ESP-1 Inicial (vigente 2 meses) | 15% |
+| Aprendiz / sin rango | 10% |
+| Bronce → Diamante | 11% → 15% (escala por volumen acumulado) |
+| Promoción corporativa | 17-20% (~2 al año) |
+
+**Insight:** El sistema aplica AUTOMÁTICAMENTE el porcentaje más alto disponible entre paquete activo, rango actual y promoción vigente. El usuario no elige cuál usar — el sistema lo optimiza por defecto.
+
+**Pregunta de seguimiento:** ¿Le interesa explorar las estrategias para mantener el porcentaje alto después de que expire el bonus de su paquete?
+
+---
+
 ### COMP_BIN_03: "Como mantengo el porcentaje alto despues de los 6 meses?"
 
 **[Concepto Nuclear]:** 3 estrategias: Recompra, Rango, o Promociones.
@@ -706,7 +732,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 
 **Nota sobre Mes 18:** Ejemplo de equipos desbalanceados (200 vs 100). Lado Menor = 5,600 CV.
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula matemática al prospecto** (ej. "Lado Menor × 17% × $1 USD" o variantes). El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde: *"El sistema toma el volumen acumulado de su pierna más débil y aplica la rentabilidad de su paquete"* — sin fórmula explícita. NO improvises números.
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula matemática al prospecto** (ej. "Lado Menor × 17% × $1 USD" o variantes). El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde: *"El sistema toma el GCV (Volumen Comisionable Grupal) acumulado de su Centro de Negocios de Cobro y aplica la rentabilidad de su paquete"* — sin fórmula explícita. NUNCA uses *"pierna débil/fuerte"* — la doctrina es *"Centro de Negocios de Cobro"* (menor volumen) y *"Centro de Negocios de Mayor Tracción"* (mayor volumen). NO improvises números.
 
 **Lo que significa Rango Diamante:**
 | Periodo | Binario (USD) | Binario (COP) |

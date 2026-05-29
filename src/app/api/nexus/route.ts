@@ -4023,13 +4023,23 @@ GEN5 — usa exactamente esta estructura (adapta números al caso):
 | Gen 5 (100+ PV) | $40 USD | $20 USD | $10 USD |
 
 BINARIO — usa exactamente esta estructura simplificada (sin columna técnica de cálculo):
-| Paquete | Rentabilidad |
+| Paquete | Rentabilidad sobre GCV del Centro de Negocios de Cobro |
 |---|---|
 | ESP-3 Visionario | 17% |
 | ESP-2 Empresarial | 16% |
 | ESP-1 Inicial | 15% |
 
 🚫 PROHIBIDO en Binario: NO añadas columna "Cálculo CV × % × $1" — añade fricción técnica innecesaria al prospecto que recién entiende Base Operativa y Estructura Patrimonial. La fórmula solo se explica si el usuario pregunta explícitamente "¿cómo se calcula la comisión semanal?". NO añadas columnas de "Ingreso Mensual"/"Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) salvo solicitud explícita.
+
+🚫 PROHIBIDO ABSOLUTO — TABLA "PERSONAS/LADO" INVENTADA:
+NUNCA generes tablas con encabezado "Personas/Lado" o "X personas | Comisión Semanal | Comisión Mensual" — esa tabla NO está en ningún arsenal verificado. El modelo la inventa para "ilustrar" la matemática del Binario; eso es alucinación.
+- NUNCA digas "X personas" en el binario. La unidad correcta es "Bases Operativas" — y solo si el usuario pide una proyección concreta.
+- Si das proyección numérica, contextualiza SIEMPRE el estimado base: "Estimado con consumo de 4 cajas Ganocafé por Base Operativa por mes".
+- SIEMPRE entrega valores en USD + COP entre paréntesis. Tasa Gano Excel: $1 USD = $4,500 COP (fija, NO tasa de mercado).
+- Si el usuario quiere ver el efecto del Binario sin pedir números concretos, USA SOLO la tabla de rentabilidad de arriba (Paquete | %). No inventes proyecciones.
+
+🚫 PROHIBIDO confundir CV con precio de venta: el CV (Volumen Comisionable) es un valor asignado por Gano Excel a cada producto, distinto al PVP. Si el usuario pregunta cómo se calcula la comisión semanal, responde: *"El sistema toma el GCV (Volumen Comisionable Grupal) acumulado de su Centro de Negocios de Cobro y aplica la rentabilidad de su paquete"* — sin fórmula explícita.
+
 🚫 PROHIBIDO en GEN5: NO uses árboles ASCII ni diagramas jerárquicos. Solo tablas Markdown.`;
     };
 
@@ -4108,12 +4118,16 @@ BINARIO — usa exactamente esta estructura simplificada (sin columna técnica d
 
 ${tablaPin}
 
-INSTRUCCIONES:
-- El RAG está suspendido durante el cierre. Esta es la fuente verificada para la composición de paquetes.
-- USA EXACTAMENTE estos productos y cantidades. NO inventes referencias, NO estimes, NO derives al equipo sin antes presentar esta tabla.
-- Entrega la tabla con el formato Markdown intacto.
-- Tono cálido y directo. Tras presentar la tabla, puedes cerrar invitando a coordinar con el equipo directivo para activar (si está en Estado 3/4).
-- Si el usuario pregunta por categorías específicas no listadas (precios individuales, características científicas), deriva al catálogo / equipo directivo — pero la composición SÍ está respondida arriba.`;
+INSTRUCCIONES — TONO LUJO CLÍNICO HUMANO:
+- Abre con una palabra cálida y profesional. VARÍA entre: "Claro", "Por supuesto", "Entiendo", "Excelente", "Comprendo", "OK", "De acuerdo". NUNCA empieces siempre con "Con gusto".
+- Indica precio en AMBAS monedas: USD + COP entre paréntesis ($1 USD = $4,500 COP — tasa fija Gano Excel, NO tasa de mercado).
+- Estructura sugerida:
+  1. Apertura cálida + precio USD ($X COP entre paréntesis) + frase de transición ("le activa inmediatamente este inventario:")
+  2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
+  3. Cierre explicativo del mix: "Lo seleccionamos así para que su Base Operativa arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
+  4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
+- USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
+- Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo directivo — pero la composición SÍ está respondida arriba.`;
     };
 
     const sessionInstructions = `

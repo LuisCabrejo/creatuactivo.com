@@ -284,12 +284,12 @@ WhatsApp (orgánico o CTWA anuncio)
 
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.4** (24 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 41 respuestas + PERFIL_01. v5.4 introduce: FREQ_02 reescrita (Conexión Directa/Asistida/Automatizada), FREQ_06 reescrita (sin "Plusvalía Estructural"/"ancho de banda"), híbrido contextual de voz Queswa (primera persona Nivel 3, tercera persona Niveles 1+2), limpieza léxico residual (plusvalía/ancho de banda/vector/global selectivo). |
+| `arsenal_inicial` | creatuactivo_marketing | **v5.5** (29 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 44 respuestas + PERFIL_01. v5.5 introduce: 3 nuevas FREQ (FREQ_04_PERSONAS "paga por meter personas", FREQ_04_BASES "ganancias por Bases Operativas", FREQ_04_VIP "Consumidor VIP"). Doctrina: cuando el modelo comete errores repetidos, se añade respuesta dedicada al arsenal para que recupere doctrina verificada en RAG. |
 | `arsenal_avanzado` | creatuactivo_marketing | **v10.1** (24 May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. v10.1: 4 instancias migradas a primera persona ("yo asumo/proceso/opero") según híbrido contextual v5.4. |
 | `arsenal_reto` | creatuactivo_marketing | **v4.2** (24 May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). v4.2: "plusvalía" → "valor patrimonial", "ancho de banda ejecutivo" → "agenda ejecutiva". |
+| `arsenal_compensacion` | creatuactivo_marketing | **v6.5** (29 May 2026) | Plan de compensación (39 respuestas — agregada COMP_BIN_LIQUIDACION "¿Cómo liquida Gano Excel las comisiones binarias?"). v6.5: explicita rol del GCV vs PVP en liquidación binaria (anti-malentendido "17% de $100M = $17M"). **NO modificar vocabulario ni cifras restantes.** |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
-| `arsenal_compensacion` | creatuactivo_marketing | **v6.4** (22 May 2026) | Plan de compensación (38 respuestas). **NO modificar vocabulario ni cifras.** |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
 | `arsenal_ganocafe` | ecommerce | **v1.5** (Mar 2026) | Productos GanoCafe (16 respuestas) — para ganocafe.online. |
 
@@ -1361,6 +1361,12 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 | vector de tráfico / vector de adquisición | camino de expansión / ruta / canal | v5.4 — jerga militar; absorbido en reescritura FREQ_02 |
 | Modo Relacional / Modo Híbrido / Modo de Escalabilidad (los 3 modos de tráfico de FREQ_02) | Conexión Directa / Conexión Asistida / Conexión Automatizada | v5.4 — los nuevos nombres son auto-explicativos (cada uno indica QUÉ hace) |
 | global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público del 1 de junio |
+| pierna fuerte / pierna débil (Binario) | Centro de Negocios de Mayor Tracción / Centro de Negocios de Cobro | v5.5 — "pierna" suena a cosa, no a Lujo Clínico. "Centro de Negocios" eleva el status |
+| "las dos principales" (al introducir GEN5 + Binario) | "Analicemos dos" (sin jerarquía) | v5.5 — "las dos principales" implica jerarquía falsa sobre las otras 10 velocidades. Apertura canónica: *"Su Base Operativa genera ganancias en 12 velocidades que cubren su flujo de corto, mediano y largo plazo. Analicemos dos:"* |
+| "17% sobre la pierna débil" / "17% sobre el Centro de Negocios de Cobro" (sin GCV) | "17% del GCV sobre el Centro de Negocios de Cobro" | v5.5 — sin "GCV" el usuario puede asumir 17% sobre $100M de venta = $17M (absurdo). El GCV es valor comisionable asignado por Gano Excel, distinto al PVP |
+| Tabla "Personas/Lado" en Binario (alucinación del modelo) | Tabla con "Bases Operativas" + contexto de estimado (4 cajas Ganocafé/Base/mes) | v5.5 — el modelo inventa esta tabla para "ilustrar" matemática. Refuerza paradigma MLM "ganas por meter gente". Prohibida en `getTablasComisiones()` |
+| "Con gusto" (apertura única repetitiva) | Banco rotativo: Claro / Por supuesto / Entiendo / Excelente / OK / Comprendo / De acuerdo | v5.5 — repetir "Con gusto" suena a guion comercial. Documentado en system prompt v27.2 sección Modulación de Registro |
+| USD sin COP entre paréntesis | USD ($X COP) — SIEMPRE ambas monedas con tasa fija Gano Excel ($1 USD = $4,500 COP) | v5.5 — la tasa Gano es FIJA, NO de mercado. Sin COP el usuario asume tasa representativa (~$3,631) y subestima la liquidación |
 | Auditoría de acoplamiento | (eliminado) | Klaff Prize Frame zombi |
 | 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
 | Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |

@@ -234,10 +234,56 @@ Opera como un **peaje logístico**: usted factura cada vez que el mercado consum
 <verbatim_lock>
 Existen 10 velocidades adicionales al GEN5 y al Binario. Están diseñadas para escalar conforme su organización gana profundidad — bonos de liderazgo, premios por volumen, reconocimientos por consistencia, entre otros.
 
-Las recibe documentadas completas al activar su Base Operativa — junto con el plan oficial de Gano Excel. La razón es práctica: las dos principales (GEN5 + Binario) ya cubren su flujo de corto, mediano y largo plazo. Las otras 10 son aceleradores que aplican a partir de ciertos volúmenes de organización.
+Las recibe documentadas completas al activar su Base Operativa — junto con el plan oficial de Gano Excel. La razón es práctica: estas dos (GEN5 + Binario) ya cubren su flujo de corto, mediano y largo plazo. Las otras 10 son aceleradores que aplican a partir de ciertos volúmenes de organización.
 
-¿Prefiere que profundicemos en cómo se genera el flujo con las dos principales, o pasamos a revisar los niveles de activación?
+¿Prefiere que profundicemos en cómo se genera el flujo con estas dos, o pasamos a revisar los niveles de activación?
 </verbatim_lock>
+
+---
+
+### **FREQ_04_PERSONAS: "¿Gano Excel paga por meter personas? / ¿Esto es por inscribir? / ¿Cuanta más gente meta más gano? / ¿Es un esquema piramidal?"**
+**[Concepto Nuclear]:** Comisión por consumo, NO por inscripción. El binario audita movimiento de inventario, no inserción de perfiles. Distinción canónica anti-MLM tradicional.
+
+NO. Esa es una característica de los esquemas piramidales — no del modelo operativo de Gano Excel.
+
+En esta arquitectura, su Base Operativa percibe regalías exclusivamente por el **volumen de producto consumido** que fluye por su organización internacional. Si activa 1,000 perfiles que no consumen, su comisión es cero. Si activa 50 perfiles que mantienen un consumo recurrente, su flujo de caja es sostenido y predecible.
+
+El binario premia movimiento de inventario.
+
+**Pregunta de seguimiento:** ¿Le explico cómo Gano Excel audita el volumen comisionable (GCV) que liquida sus regalías?
+
+---
+
+### **FREQ_04_BASES: "¿Las ganancias son generadas únicamente por las Bases Operativas? / ¿Solo gano si mi gente desarrolla? / ¿Si la gente solo consume, también me genera ingresos?"**
+**[Concepto Nuclear]:** Una Base Operativa es la unidad de construcción patrimonial. Cada Base contiene Arquitectos de Patrimonio Y Consumidores VIP. El sistema audita el consumo de TODOS los integrantes.
+
+Sí. Pero conviene aclarar qué incluye una Base Operativa.
+
+Una Base Operativa es la unidad estructural de su construcción patrimonial. Cada Base Operativa puede contener:
+
+- Otros **Arquitectos de Patrimonio** que se incorporan para desarrollar su propia estructura dentro de su organización.
+- **Consumidores VIP** — personas registradas para acceder al producto Gano Excel a precio de distribuidor, sin requisito de desarrollar Base Operativa propia.
+
+El sistema audita el volumen de producto consumido por **todos** los integrantes de cada Base Operativa, sumando tanto el consumo recurrente de los Arquitectos como el de los Consumidores VIP. Su comisión refleja ese movimiento total de inventario.
+
+**Pregunta de seguimiento:** ¿Le explico el rol específico del Consumidor VIP dentro de la arquitectura?
+
+---
+
+### **FREQ_04_VIP: "¿Qué es un Consumidor VIP? / ¿Quiénes son los VIP? / ¿Cómo se diferencia un Consumidor VIP de un Arquitecto?"**
+**[Concepto Nuclear]:** Consumidor VIP = perfil registrado para acceder a producto a precio de distribuidor, sin requisito de desarrollar Base Operativa propia. Aporta volumen, no construye estructura.
+
+El Consumidor VIP es el perfil que se incorpora a su organización únicamente para acceder al producto Gano Excel a precio de distribuidor — sin el compromiso de desarrollar una construcción patrimonial.
+
+A diferencia del Arquitecto de Patrimonio:
+
+- El Consumidor VIP **NO** desarrolla su propia estructura.
+- El Consumidor VIP **NO** percibe comisiones de Gano Excel.
+- El Consumidor VIP **SÍ** aporta volumen de producto consumido a su Base Operativa.
+
+En términos prácticos: usted percibe regalías por el consumo recurrente de cada Consumidor VIP, igual que por el de cada Arquitecto activo. La diferencia es operativa, no comisional.
+
+**Pregunta de seguimiento:** ¿Le interesa profundizar en cómo se proyecta el flujo de caja con una mezcla de Arquitectos y Consumidores VIP?
 
 ---
 

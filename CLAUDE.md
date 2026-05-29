@@ -315,7 +315,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - **Versión activa: v27.2 "modulacion_registro"** (24 May 2026) — Ola 2 doctrinal. Formaliza Modulación de Registro v5.5 (analogía Mario Alonso Puig: autoridad técnica + accesibilidad humana). 6 cambios: (1) sección MODULACIÓN DE REGISTRO en TONO Y VOZ; (2) VECTORES DE CIERRE balanceados en 2 bancos (técnico-clínico + conversacional); (3) refuerzo Pirámide McKinsey al derecho (REGLA ANTI-PREÁMBULO); (4) bloqueo absoluto DASHBOARD inexistente para prospecto; (5) bloqueo absoluto fórmulas matemáticas expuestas (CV × 17% × $1 USD); (6) doctrina 12 VELOCIDADES canónica. Tamaño: 42,577 chars.
    - **Versión previa: v27.1 "limpieza_redundancias"** (22 May 2026) — Ola 1 de auditoría de redundancia. Reducción 45,940 → 35,354 chars (~23%) sin cambios de comportamiento.
    - **Historial completo v19.x → v27.2** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md)
-   - Archivos fuente: `knowledge_base/system-prompt-nexus-main-vXX_Y.md` (todos conservados como referencia histórica)
+   - Archivo fuente actual: `knowledge_base/system-prompt-nexus-main-v27_2.md`. Versiones anteriores eliminadas — el historial vive en git + [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md). Si necesita una versión histórica: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** en `route.ts` — actualizar en Supabase. Fallback alineado a v26.5.
    - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)

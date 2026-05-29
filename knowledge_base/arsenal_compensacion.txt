@@ -549,6 +549,39 @@ Esta regla es para Arquitectos de Patrimonio que compran inventario grande.
 
 ---
 
+### COMP_PV_08: "¿Qué productos compro para mis 50 PV mensuales? / ¿Cómo completo mi recompra mensual? / ¿Con qué productos llego a 50 PV? / ¿Qué combinaciones existen para activarme?"
+
+**[Concepto Nuclear]:** 50 PV mensuales = productos reales que consume o comparte, no cuotas administrativas. Múltiples combinaciones disponibles.
+
+Tiene varias opciones para completar sus 50 PV mensuales — todas en productos reales que consume o comparte con su organización:
+
+**Opción 1 — Solo café (la más popular):**
+- 4 cajas de Gano Café 3 en 1 = 60 PV ✓
+
+**Opción 2 — Café + Suplemento:**
+- 2 cajas Gano Café 3 en 1 (30 PV) + 1 Ganoderma Cápsulas (41 PV) = 71 PV ✓
+
+**Opción 3 — Suplementos:**
+- 1 Ganoderma Cápsulas (41 PV) + 1 Gano Soap (10 PV) = 51 PV ✓
+
+**Opción 4 — Mix variado:**
+- 2 cajas Gano Café (30 PV) + 2 cápsulas Luvoco (30 PV) = 60 PV ✓
+
+**Catálogo PV/CV de referencia (vigente 2026):**
+| Producto | PV | CV |
+|---|---|---|
+| Gano Café 3 en 1 | 15 | 14 |
+| Gano Café Classic | 15 | 14 |
+| Cápsulas Luvoco | 15 | 14 |
+| Ganorico Mocha / Latte / Shoko | 17 | 15 |
+| Gano Schokolade | 17 | 15.6 |
+| Ganoderma Cápsulas | 41 | 30 |
+| Gano Soap | 10 | 8 |
+
+**Insight:** Lo que importa es llegar a 50 PV al cierre del ciclo (domingo). No tiene que ser una sola compra ni un solo producto. Combine según lo que ya consume habitualmente.
+
+---
+
 ## REGALIA DE EQUIPO (BONO BINARIO)
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"

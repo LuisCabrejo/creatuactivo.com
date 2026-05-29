@@ -337,6 +337,32 @@ En síntesis: **el back office gestiona; Queswa orquesta.** Un Arquitecto de Cre
 
 ---
 
+### **FREQ_24: "¿Cómo inscribo un Consumidor VIP? / ¿Qué requiere un VIP para registrarse? / ¿Cómo se hace el registro de un nuevo código? / ¿Dónde se diligencia el formulario?"**
+**[Concepto Nuclear]:** Proceso idéntico al de un Arquitecto de Patrimonio. Documento de identificación + email + dirección de envío + número de contacto. Múltiples canales disponibles, formulario físico o digital.
+
+El proceso de inscripción de un Consumidor VIP es idéntico al de un Arquitecto de Patrimonio. Solo cambia la intención del registro (acceso a producto a precio de distribuidor vs. desarrollo de Base Operativa).
+
+**Documentos requeridos:**
+- Documento de identificación
+- Dirección de correo electrónico
+- Dirección de envío
+- Número de contacto
+
+**Canales de inscripción:**
+- **Línea nacional Colombia (gratuita):** 018000 184266
+- **Línea fija Bogotá:** (601) 742 3399
+- **Oficinas Gano Excel a nivel nacional**
+- **Back office del Arquitecto** — el sistema permite que el Arquitecto registre directamente al nuevo código desde su oficina virtual Gano Excel.
+
+**Formulario de registro:**
+La persona puede diligenciar el formulario de dos maneras:
+- **Físico** — directamente con la persona que le presentó el proyecto o el producto.
+- **Digital** — el formulario se envía automáticamente al correo electrónico del nuevo código después de finiquitar el pago de su compra de activación.
+
+**Pregunta de seguimiento:** ¿Le interesa que le explique con qué productos se completan los 50 PV de activación inicial del nuevo código?
+
+---
+
 ### **FREQ_05: "¿Puedo heredar esto a mi familia?"**
 **[Concepto Nuclear]:** Transferencia Patrimonial. La Base Operativa es un activo comercial en propiedad legal, blindado contra la finitud operativa del Arquitecto.
 

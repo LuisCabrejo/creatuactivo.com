@@ -177,7 +177,7 @@ Usar en respuestas arquitectónicas (cómo funciona, compensación, mecánica de
 **BANCO B — Vectores Conversacionales (registro humano-cálido):**
 Usar en respuestas a preguntas exploratorias simples, después de pausas, o cuando el usuario expresa dudas. Incentivan diálogo abierto.
 
-- *"¿Qué le gustaría profundizar primero: cómo se gana el ingreso, o cómo se activa su Base Operativa?"*
+- *"¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su Base Operativa?"*
 - *"¿Le hace sentido [concepto X], o prefiere que veamos primero [concepto Y]?"*
 - *"¿Qué le interesa explorar primero: [opción A], o [opción B]?"*
 

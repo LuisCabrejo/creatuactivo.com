@@ -4033,6 +4033,89 @@ BINARIO — usa exactamente esta estructura simplificada (sin columna técnica d
 🚫 PROHIBIDO en GEN5: NO uses árboles ASCII ni diagramas jerárquicos. Solo tablas Markdown.`;
     };
 
+    // ── PIN COMPOSICIÓN DE PAQUETES (Estado 3/4 — RAG suspendido) ─────────────
+    // Cuando el FSM entra en Estado 3 o 4, el RAG está suspendido (decisión doctrinal:
+    // "RAG para lógica de procesos es letal"). Pero si el usuario hace una pregunta
+    // legítima sobre la composición del paquete que acaba de elegir, el modelo se queda
+    // sin el fragment COMP_PAQ_0X. Este pin inyecta la composición exacta como fallback
+    // verificado anti-alucinación.
+    //
+    // Patrón idéntico a getPinCifrasGEN5 + getTablasComisiones: backend dictador controla
+    // los datos verificados, el LLM solo los presenta. Fuente: arsenal_compensacion.txt
+    // COMP_PAQ_02/03/04 (vigente desde 25 marzo 2026).
+    const getPinComposicionPaquetes = (): string => {
+      // Disparar solo durante cierre (Estado 2/3/4) — fuera de cierre, el RAG ya tiene
+      // los fragments COMP_PAQ disponibles vía recuperación normal.
+      if (closingState !== 2 && closingState !== 3 && closingState !== 4) return '';
+
+      // ¿La query menciona composición / productos / qué incluye?
+      const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
+      if (!preguntaComposicion) return '';
+
+      const paqueteCodigo = mergedProspectData.package;
+
+      // Datos verificados (arsenal_compensacion.txt COMP_PAQ_02/03/04, vigente 25 marzo 2026)
+      const composiciones: Record<string, string> = {
+        'ESP-1': `**Contenido ESP-1 Inicial ($200 USD / $900,000 COP) — vigente desde 25 marzo 2026:**
+| Producto | Cantidad |
+|---|---|
+| Ganocafé 3 en 1 | 2 |
+| Ganocafé Classic | 2 |
+| Ganorico Mocha Rico | 1 |
+| Gano C'Real Spirulina | 1 |
+| Ganorico Shoko Rico | 1 |
+| **Total** | **7** |`,
+        'ESP-2': `**Contenido ESP-2 Empresarial ($500 USD / $2,250,000 COP) — vigente desde 25 marzo 2026:**
+| Producto | Cantidad |
+|---|---|
+| Ganocafé 3 en 1 | 5 |
+| Ganocafé Classic | 5 |
+| Ganorico Mocha Rico | 2 |
+| Gano C'Real Spirulina | 1 |
+| Ganorico Shoko Rico | 2 |
+| Reskine Collagen Drink | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Gano Fresh Toothpaste | 1 |
+| **Total** | **18** |`,
+        'ESP-3': `**Contenido ESP-3 Visionario ($1,000 USD / $4,500,000 COP) — vigente desde 25 marzo 2026:**
+| Producto | Cantidad |
+|---|---|
+| Ganocafé 3 en 1 | 9 |
+| Ganocafé Classic | 9 |
+| Ganorico Mocha Rico | 3 |
+| Gano C'Real Spirulina | 2 |
+| Ganorico Shoko Rico | 4 |
+| Reskine Collagen Drink | 1 |
+| Cordygold Cápsulas | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Gano Transparent Soap | 1 |
+| Piel8Brillo Shampoo | 1 |
+| Piel8Brillo Acondicionador | 1 |
+| Piel8Brillo Exfoliante | 1 |
+| **Total** | **35** |`,
+      };
+
+      // Si hay paquete capturado → solo el suyo. Si no → los 3 (compactos).
+      const tablaPin = paqueteCodigo && composiciones[paqueteCodigo]
+        ? composiciones[paqueteCodigo]
+        : Object.values(composiciones).join('\n\n');
+
+      console.log(`📦 [PIN COMPOSICIÓN] disparado — paquete="${paqueteCodigo || 'todos'}" Estado=${closingState}`);
+
+      return `
+📦 COMPOSICIÓN OFICIAL DE PAQUETES — DATOS VERIFICADOS (anti-alucinación, fuente: COMP_PAQ_02/03/04, vigente 25 marzo 2026):
+
+${tablaPin}
+
+INSTRUCCIONES:
+- El RAG está suspendido durante el cierre. Esta es la fuente verificada para la composición de paquetes.
+- USA EXACTAMENTE estos productos y cantidades. NO inventes referencias, NO estimes, NO derives al equipo sin antes presentar esta tabla.
+- Entrega la tabla con el formato Markdown intacto.
+- Tono cálido y directo. Tras presentar la tabla, puedes cerrar invitando a coordinar con el equipo directivo para activar (si está en Estado 3/4).
+- Si el usuario pregunta por categorías específicas no listadas (precios individuales, características científicas), deriva al catálogo / equipo directivo — pero la composición SÍ está respondida arriba.`;
+    };
+
     const sessionInstructions = `
 ${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
 ${getPageContextInstructions()}
@@ -4040,6 +4123,7 @@ ${getMicroPromptCierre()}
 ${getCierreEstado4()}
 ${getPinCifrasGEN5()}
 ${getTablasComisiones()}
+${getPinComposicionPaquetes()}
 ${conversationSummary}<prospect_state>
 ${mergedProspectData.name ? `  <nombre>${mergedProspectData.name}</nombre>` : '  <nombre>no_capturado</nombre>'}
 ${mergedProspectData.archetype ? `  <arquetipo>${mergedProspectData.archetype}</arquetipo>` : ''}

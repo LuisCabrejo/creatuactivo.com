@@ -61,7 +61,7 @@ El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). 
 
 ---
 
-¿Qué le gustaría profundizar primero: cómo se gana el ingreso, o cómo se activa su Base Operativa?`;
+¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su Base Operativa?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

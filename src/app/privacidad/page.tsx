@@ -1,5 +1,5 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
  * Este software es propiedad privada y confidencial de CreaTuActivo.com.
@@ -53,9 +53,9 @@ export default function PrivacidadPage() {
               1. Identificación del Responsable
             </h2>
             <div className="space-y-3 text-gray-700">
-              <p><strong>Razón Social:</strong> CreaTuActivo.com</p>
-              <p><strong>Domicilio:</strong> Colombia</p>
-              <p><strong>Correo electrónico:</strong> privacidad@creatuactivo.com</p>
+              <p><strong>Responsable del Tratamiento:</strong> Luis Cabrejo Parra</p>
+              <p><strong>Domicilio:</strong> Villavicencio, Meta, Colombia</p>
+              <p><strong>Correo electrónico:</strong> luiscabrejo@creatuactivo.com</p>
               <p><strong>Teléfono de contacto:</strong> +57 320 680 5737</p>
             </div>
           </section>
@@ -76,7 +76,7 @@ export default function PrivacidadPage() {
                 Esta Política de Tratamiento de Datos Personales establece los términos y condiciones
                 bajo los cuales recolectamos, almacenamos, usamos, circulamos, procesamos y eliminamos
                 los datos personales que usted nos proporciona a través de nuestra plataforma web y
-                asistente conversacional NEXUS.
+                asistente conversacional Queswa.
               </p>
               <p>
                 Al utilizar nuestros servicios y proporcionar sus datos personales, usted acepta
@@ -152,7 +152,7 @@ export default function PrivacidadPage() {
             <div className="space-y-3 text-gray-700">
               <p>Los datos personales recolectados serán utilizados exclusivamente para las siguientes finalidades legítimas:</p>
               <ul className="list-decimal list-inside space-y-2 ml-4">
-                <li><strong>Personalización del servicio:</strong> Adaptar la experiencia del asistente conversacional NEXUS a sus necesidades e intereses específicos.</li>
+                <li><strong>Personalización del servicio:</strong> Adaptar la experiencia del asistente conversacional Queswa a sus necesidades e intereses específicos.</li>
                 <li><strong>Gestión de la relación comercial:</strong> Procesar su solicitud de información sobre el ecosistema CreaTuActivo.com y el modelo de construcción de activos.</li>
                 <li><strong>Comunicaciones:</strong> Enviarle información sobre productos, servicios, novedades, recursos educativos y oportunidades del ecosistema.</li>
                 <li><strong>Calificación y seguimiento:</strong> Evaluar su nivel de interés y momento óptimo para ofrecerle la mejor asesoría posible.</li>
@@ -224,20 +224,20 @@ export default function PrivacidadPage() {
               <p>Usted puede ejercer sus derechos de manera sencilla y gratuita a través de los siguientes canales:</p>
 
               <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
-                <h3 className="font-bold text-gray-900 mb-3">💬 A través del Asistente NEXUS (Recomendado)</h3>
-                <p className="mb-2">Durante cualquier conversación con NEXUS, puede escribir las siguientes palabras clave:</p>
+                <h3 className="font-bold text-gray-900 mb-3">💬 A través del Asistente Queswa (Recomendado)</h3>
+                <p className="mb-2">Durante cualquier conversación con Queswa, puede escribir las siguientes palabras clave:</p>
                 <div className="bg-white p-3 rounded border border-blue-200">
                   <code className="text-blue-700">"mis datos"</code> |
                   <code className="text-blue-700"> "privacidad"</code> |
                   <code className="text-blue-700"> "actualizar información"</code> |
                   <code className="text-blue-700"> "eliminar datos"</code>
                 </div>
-                <p className="mt-2 text-sm">NEXUS le guiará a través de un menú interactivo para gestionar su información.</p>
+                <p className="mt-2 text-sm">Queswa le guiará a través de un menú interactivo para gestionar su información.</p>
               </div>
 
               <div className="bg-purple-50 border-l-4 border-purple-600 p-6 rounded">
                 <h3 className="font-bold text-gray-900 mb-3">📧 Por Correo Electrónico</h3>
-                <p>Envíe su solicitud a: <a href="mailto:privacidad@creatuactivo.com" className="text-purple-700 underline font-semibold">privacidad@creatuactivo.com</a></p>
+                <p>Envíe su solicitud a: <a href="mailto:luiscabrejo@creatuactivo.com" className="text-purple-700 underline font-semibold">luiscabrejo@creatuactivo.com</a></p>
                 <p className="text-sm mt-2">Incluya en su solicitud:</p>
                 <ul className="list-disc list-inside text-sm ml-4 mt-1">
                   <li>Nombre completo</li>
@@ -314,10 +314,64 @@ export default function PrivacidadPage() {
             </div>
           </section>
 
+          {/* Proveedores Tecnológicos y Transferencia Internacional */}
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
+              10. Proveedores Tecnológicos y Transferencia Internacional de Datos
+            </h2>
+            <div className="space-y-4 text-gray-700">
+              <p>
+                Para garantizar el funcionamiento de la plataforma bajo los más altos estándares de
+                calidad, compartimos datos con sub-procesadores tecnológicos estratégicos. Al aceptar
+                esta política, el usuario autoriza expresamente la transferencia internacional de sus
+                datos (conforme al <strong>Artículo 26 de la Ley 1581 de 2012</strong>) a servidores
+                ubicados en Estados Unidos y otras jurisdicciones seguras, operados por:
+              </p>
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Supabase</strong> — Base de datos</li>
+                  <li><strong>Vercel</strong> — Hosting y servidores</li>
+                  <li><strong>Anthropic / Claude</strong> — Procesamiento de Inteligencia Artificial</li>
+                  <li><strong>Meta Platforms / WhatsApp Business</strong> — Infraestructura de mensajería</li>
+                  <li><strong>Voyage AI</strong> — Vectores y embeddings</li>
+                  <li><strong>Resend</strong> — Infraestructura de correo</li>
+                  <li><strong>ElevenLabs / OpenAI</strong> — Síntesis de voz</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Uso de WhatsApp Business y Mensajería Automatizada */}
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
+              11. Uso de WhatsApp Business y Mensajería Automatizada
+            </h2>
+            <div className="space-y-4 text-gray-700">
+              <p>
+                Nuestra plataforma utiliza la <strong>API oficial de WhatsApp Business (Meta)</strong>.
+                Al interactuar con nuestro número oficial o hacer clic en nuestros anuncios dirigidos
+                a WhatsApp, el usuario acepta de manera explícita recibir respuestas y mensajes
+                automatizados operados por nuestro asistente de inteligencia artificial
+                (<strong>Queswa</strong>). Los datos recopilados a través de este canal incluyen:
+                número de teléfono, nombre de perfil y el contenido de los mensajes, para fines de
+                procesamiento de la solicitud.
+              </p>
+              <div className="bg-green-50 border-l-4 border-green-600 p-4 rounded">
+                <h3 className="font-bold text-gray-900 mb-2">Derecho de exclusión (Opt-out)</h3>
+                <p>
+                  El usuario puede revocar su consentimiento y detener cualquier comunicación
+                  automatizada en cualquier momento enviando la palabra{' '}
+                  <code className="text-green-700 font-semibold">STOP</code> o{' '}
+                  <code className="text-green-700 font-semibold">BAJA</code> al mismo chat de WhatsApp.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Cookies */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              10. Uso de Cookies y Tecnologías Similares
+              12. Uso de Cookies y Tecnologías Similares
             </h2>
             <div className="space-y-4 text-gray-700">
               <p>
@@ -342,7 +396,7 @@ export default function PrivacidadPage() {
           {/* Retención */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              11. Tiempo de Retención de Datos
+              13. Tiempo de Retención de Datos
             </h2>
             <div className="space-y-3 text-gray-700">
               <p>
@@ -364,7 +418,7 @@ export default function PrivacidadPage() {
           {/* Menores */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              12. Tratamiento de Datos de Menores de Edad
+              14. Tratamiento de Datos de Menores de Edad
             </h2>
             <div className="space-y-3 text-gray-700 bg-red-50 border-l-4 border-red-600 p-6 rounded">
               <p className="font-bold text-red-900">
@@ -382,7 +436,7 @@ export default function PrivacidadPage() {
           {/* Cambios */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              13. Modificaciones a esta Política
+              15. Modificaciones a esta Política
             </h2>
             <div className="space-y-3 text-gray-700">
               <p>
@@ -396,11 +450,11 @@ export default function PrivacidadPage() {
               <ul className="list-disc list-inside ml-4 space-y-1">
                 <li>Notificación en nuestra página web</li>
                 <li>Correo electrónico a los usuarios registrados</li>
-                <li>Mensaje en el asistente NEXUS al inicio de la conversación</li>
+                <li>Mensaje en el asistente Queswa al inicio de la conversación</li>
               </ul>
               <p className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mt-4">
-                <strong>Fecha de última actualización:</strong> 19 de octubre de 2025<br/>
-                <strong>Versión:</strong> 1.0 (Compliance Ley 1581/2012)
+                <strong>Fecha de última actualización:</strong> 28 de mayo de 2026<br/>
+                <strong>Versión:</strong> 2.0 - Compliance Ley 1581 + WhatsApp Business API
               </p>
             </div>
           </section>
@@ -408,7 +462,7 @@ export default function PrivacidadPage() {
           {/* Autoridad de Control */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              14. Autoridad de Control y Reclamos
+              16. Autoridad de Control y Reclamos
             </h2>
             <div className="space-y-4 text-gray-700">
               <p>
@@ -431,7 +485,7 @@ export default function PrivacidadPage() {
           {/* Contacto */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              15. Contacto
+              17. Contacto
             </h2>
             <div className="space-y-4 text-gray-700">
               <p>
@@ -442,8 +496,8 @@ export default function PrivacidadPage() {
                 <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg text-center">
                   <div className="text-4xl mb-2">📧</div>
                   <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-                  <a href="mailto:privacidad@creatuactivo.com" className="text-blue-700 underline text-sm">
-                    privacidad@creatuactivo.com
+                  <a href="mailto:luiscabrejo@creatuactivo.com" className="text-blue-700 underline text-sm">
+                    luiscabrejo@creatuactivo.com
                   </a>
                 </div>
                 <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg text-center">
@@ -453,7 +507,7 @@ export default function PrivacidadPage() {
                 </div>
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg text-center">
                   <div className="text-4xl mb-2">💬</div>
-                  <h3 className="font-bold text-gray-900 mb-2">Chat NEXUS</h3>
+                  <h3 className="font-bold text-gray-900 mb-2">Chat Queswa</h3>
                   <p className="text-gray-700 text-sm">Disponible 24/7 en nuestro sitio web</p>
                 </div>
               </div>
@@ -480,7 +534,7 @@ export default function PrivacidadPage() {
 
         {/* Footer */}
         <div className="text-center mt-8 text-gray-600 text-sm">
-          <p>© 2025 CreaTuActivo.com - Todos los derechos reservados</p>
+          <p>© 2026 CreaTuActivo.com - Todos los derechos reservados</p>
           <p className="mt-1">
             Esta política cumple con la <strong>Ley Estatutaria 1581 de 2012</strong> y el
             <strong> Decreto 1377 de 2013</strong> de Colombia

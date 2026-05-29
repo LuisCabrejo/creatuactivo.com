@@ -15,6 +15,10 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
+  const logoData = await fetch(
+    new URL('../../../../public/images/logotipo.png', import.meta.url)
+  ).then((res) => res.arrayBuffer())
+
   return new ImageResponse(
     (
       // Contenedor Principal (Fondo Oscuro Premium)
@@ -147,9 +151,11 @@ export default async function Image() {
             bottom: '50px',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '14px',
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img width={44} height={44} src={logoData as unknown as string} alt="" />
           <span style={{ fontSize: 24, color: '#64748b' }}>Potenciado por</span>
           <span style={{ fontSize: 26, color: 'white', fontWeight: 700 }}>CreaTuActivo.com</span>
         </div>

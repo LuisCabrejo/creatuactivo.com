@@ -27,25 +27,17 @@ export const metadata: Metadata = {
     description: '¿Para qué sirve el Gano Café? Descubre beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo con envío a Latinoamérica. IA conversacional para asesorarte.',
     url: `${siteUrl}/sistema/productos`,
     siteName: 'CreaTuActivo',
-    images: [
-      {
-        url: `${siteUrl}/creatuactivo-redes-productos-card-2400x1260.png`,
-        width: 2400,
-        height: 1260,
-        alt: 'CreaTuActivo - Un Producto Único respaldado por una fórmula exclusiva',
-        type: 'image/png',
-      }
-    ],
+    // Imagen OG: la genera el archivo colocado src/app/sistema/productos/opengraph-image.tsx
+    // (convención file-based de Next.js, 1200×630). No declarar images aquí para no sobrescribirlo.
     locale: 'es_CO',
     type: 'website',
   },
 
-  // Twitter Card
+  // Twitter Card — usa la misma opengraph-image.tsx colocada
   twitter: {
     card: 'summary_large_image',
     title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo',
     description: '¿Para qué sirve el Gano Café? Beneficios del Ganoderma, precios, cómo tomarlo. Catálogo + IA conversacional.',
-    images: [`${siteUrl}/creatuactivo-redes-productos-card-2400x1260.png`],
     creator: '@creatuactivo',
   },
 
@@ -160,7 +152,7 @@ export default function ProductosLayout({
     "name": "CreaTuActivo.com",
     "alternateName": "CreaTuActivo",
     "url": siteUrl,
-    "logo": `${siteUrl}/logo.png`,
+    "logo": `${siteUrl}/web-app-manifest-512x512.png`,
     "description": "Plataforma de emprendimiento digital que combina productos premium Gano Excel con la aplicación CreaTuActivo y asesoría IA conversacional (NEXUS) para construir activos empresariales escalables.",
     "contactPoint": {
       "@type": "ContactPoint",

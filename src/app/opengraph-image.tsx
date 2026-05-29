@@ -15,6 +15,11 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
+  // Logo 3D bimetálico — bundled vía import.meta.url para que esté disponible en build/edge
+  const logoData = await fetch(
+    new URL('../../public/images/logotipo.png', import.meta.url)
+  ).then((res) => res.arrayBuffer())
+
   return new ImageResponse(
     (
       <div
@@ -43,13 +48,23 @@ export default async function Image() {
           }}
         />
 
-        {/* Logo marca */}
+        {/* Logo 3D bimetálico */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          width={108}
+          height={108}
+          src={logoData as unknown as string}
+          alt="CreaTuActivo"
+          style={{ marginBottom: 20 }}
+        />
+
+        {/* Wordmark */}
         <div
           style={{
             fontSize: 24,
             fontWeight: 500,
             color: '#A3A3A3',
-            marginBottom: 50,
+            marginBottom: 32,
             letterSpacing: '0.3em',
             display: 'flex',
             textTransform: 'uppercase',
@@ -61,7 +76,7 @@ export default async function Image() {
         {/* Título principal */}
         <div
           style={{
-            fontSize: 68,
+            fontSize: 60,
             fontWeight: 300,
             color: '#E5E5E5',
             textAlign: 'center',
@@ -85,7 +100,7 @@ export default async function Image() {
             color: '#A3A3A3',
             textAlign: 'center',
             display: 'flex',
-            marginTop: 30,
+            marginTop: 18,
             maxWidth: 820,
             lineHeight: 1.5,
           }}

@@ -590,7 +590,7 @@ El Binario es su activo real a largo plazo. El sistema suma todo el volumen comi
 
 ---
 
-### COMP_BIN_LIQUIDACION: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje?"
+### COMP_BIN_11: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje?"
 
 **[Concepto Nuclear]:** Liquidación basada en GCV (Volumen Comisionable Grupal), NO en precio de venta. % aplicado según paquete o rango activo — automáticamente el más alto disponible.
 

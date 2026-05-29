@@ -241,7 +241,7 @@ Las recibe documentadas completas al activar su Base Operativa — junto con el 
 
 ---
 
-### **FREQ_04_PERSONAS: "¿Gano Excel paga por meter personas? / ¿Esto es por inscribir? / ¿Cuanta más gente meta más gano? / ¿Es un esquema piramidal?"**
+### **FREQ_20: "¿Gano Excel paga por meter personas? / ¿Esto es por inscribir? / ¿Cuanta más gente meta más gano? / ¿Es un esquema piramidal?"**
 **[Concepto Nuclear]:** Comisión por consumo, NO por inscripción. El binario audita movimiento de inventario, no inserción de perfiles. Distinción canónica anti-MLM tradicional.
 
 NO. Esa es una característica de los esquemas piramidales — no del modelo operativo de Gano Excel.
@@ -254,7 +254,7 @@ El binario premia movimiento de inventario.
 
 ---
 
-### **FREQ_04_BASES: "¿Las ganancias son generadas únicamente por las Bases Operativas? / ¿Solo gano si mi gente desarrolla? / ¿Si la gente solo consume, también me genera ingresos?"**
+### **FREQ_21: "¿Las ganancias son generadas únicamente por las Bases Operativas? / ¿Solo gano si mi gente desarrolla? / ¿Si la gente solo consume, también me genera ingresos?"**
 **[Concepto Nuclear]:** Una Base Operativa es la unidad de construcción patrimonial. Cada Base contiene Arquitectos de Patrimonio Y Consumidores VIP. El sistema audita el consumo de TODOS los integrantes.
 
 Sí. Pero conviene aclarar qué incluye una Base Operativa.
@@ -270,7 +270,7 @@ El sistema audita el volumen de producto consumido por **todos** los integrantes
 
 ---
 
-### **FREQ_04_VIP: "¿Qué es un Consumidor VIP? / ¿Quiénes son los VIP? / ¿Cómo se diferencia un Consumidor VIP de un Arquitecto?"**
+### **FREQ_22: "¿Qué es un Consumidor VIP? / ¿Quiénes son los VIP? / ¿Cómo se diferencia un Consumidor VIP de un Arquitecto?"**
 **[Concepto Nuclear]:** Consumidor VIP = perfil registrado para acceder a producto a precio de distribuidor, sin requisito de desarrollar Base Operativa propia. Aporta volumen, no construye estructura.
 
 El Consumidor VIP es el perfil que se incorpora a su organización únicamente para acceder al producto Gano Excel a precio de distribuidor — sin el compromiso de desarrollar una construcción patrimonial.

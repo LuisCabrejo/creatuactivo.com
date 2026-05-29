@@ -14,6 +14,8 @@
 
 import sharp from 'sharp';
 import { readFileSync, statSync } from 'fs';
+import { execFileSync } from 'child_process';
+import { tmpdir } from 'os';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -69,6 +71,31 @@ try {
       .toFile(join(publicDir, name));
     const kb = Math.round(statSync(join(publicDir, name)).size / 1024);
     console.log(`  ✅ ${name} (${size}×${size}, ${kb}KB)`);
+  }
+
+  // favicon.ico multi-resolución desde el logo 3D.
+  // Lo piden navegadores y WebViews (WhatsApp) por convención en /favicon.ico,
+  // independiente de los <link>. Servirlo con 200 reemplaza el .ico viejo
+  // cacheado en la pantalla de carga del navegador interno de WhatsApp.
+  // Requiere ImageMagick (`magick`) — se omite con aviso si no está.
+  console.log('\n— favicon.ico (logo 3D, vía ImageMagick):');
+  try {
+    const icoSizes = [16, 32, 48, 64];
+    const tmpPngs = [];
+    for (const s of icoSizes) {
+      const p = join(tmpdir(), `cta-ico-${s}.png`);
+      await sharp(logoSource)
+        .resize(s, s, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .png()
+        .toFile(p);
+      tmpPngs.push(p);
+    }
+    execFileSync('magick', [...tmpPngs, join(publicDir, 'favicon.ico')]);
+    const kb = Math.round(statSync(join(publicDir, 'favicon.ico')).size / 1024);
+    console.log(`  ✅ favicon.ico (${icoSizes.join('/')}, ${kb}KB)`);
+  } catch (e) {
+    console.warn('  ⚠️  Omitido favicon.ico — ImageMagick (`magick`) no disponible.');
+    console.warn('     Instala con: brew install imagemagick');
   }
 
   console.log('\n🎉 Todos los iconos regenerados.');

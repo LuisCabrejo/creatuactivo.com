@@ -280,14 +280,14 @@ WhatsApp (orgánico o CTWA anuncio)
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) — 8 arsenales con Voyage AI embeddings (95% token reduction, ~135 fragmentos):
+1. **Fragmented Vector Search** (v14.9) — 8 arsenales con Voyage AI embeddings (95% token reduction, **179 fragments en Supabase**):
 
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.5** (29 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. 44 respuestas + PERFIL_01. v5.5 introduce: 3 nuevas FREQ (FREQ_04_PERSONAS "paga por meter personas", FREQ_04_BASES "ganancias por Bases Operativas", FREQ_04_VIP "Consumidor VIP"). Doctrina: cuando el modelo comete errores repetidos, se añade respuesta dedicada al arsenal para que recupere doctrina verificada en RAG. |
-| `arsenal_avanzado` | creatuactivo_marketing | **v10.1** (24 May 2026) | Objeciones complejas, sistema, valor, escalación (18 respuestas). Tridente EAM con Comandos canónicos. v10.1: 4 instancias migradas a primera persona ("yo asumo/proceso/opero") según híbrido contextual v5.4. |
-| `arsenal_reto` | creatuactivo_marketing | **v4.2** (24 May 2026) | Auditoría Patrimonial (7 respuestas para dias 1-5). v4.2: "plusvalía" → "valor patrimonial", "ancho de banda ejecutivo" → "agenda ejecutiva". |
-| `arsenal_compensacion` | creatuactivo_marketing | **v6.5** (29 May 2026) | Plan de compensación (39 respuestas — agregada COMP_BIN_LIQUIDACION "¿Cómo liquida Gano Excel las comisiones binarias?"). v6.5: explicita rol del GCV vs PVP en liquidación binaria (anti-malentendido "17% de $100M = $17M"). **NO modificar vocabulario ni cifras restantes.** |
+| `arsenal_inicial` | creatuactivo_marketing | **v5.6.1** (29 May 2026) | WHY, STORY, VS, FREQ, CRED, OBJ, EAM, CIERRE + DIASPORA. **48 fragments**. v5.5–v5.6.1 introducen 7 nuevas respuestas: FREQ_20 (paga por meter personas), FREQ_21 (ganancias por Bases Operativas), FREQ_22 (qué es Consumidor VIP), FREQ_23 (tasa fija Gano $4,500/USD), FREQ_24 (cómo inscribir VIP), FREQ_25 (consumo familiar), FREQ_26 (back office vs Queswa.app). Doctrina v5.5+: cuando el modelo comete errores repetidos, se añade respuesta dedicada al arsenal para que recupere doctrina verificada en RAG. |
+| `arsenal_avanzado` | creatuactivo_marketing | **v10.1** (24 May 2026) | Objeciones complejas, sistema, valor, escalación (18 fragments). Tridente EAM con Comandos canónicos. v10.1: 4 instancias migradas a primera persona ("yo asumo/proceso/opero") según híbrido contextual v5.4. |
+| `arsenal_reto` | creatuactivo_marketing | **v4.2** (24 May 2026) | Auditoría Patrimonial (7 fragments para días 1-5). v4.2: "plusvalía" → "valor patrimonial", "ancho de banda ejecutivo" → "agenda ejecutiva". |
+| `arsenal_compensacion` | creatuactivo_marketing | **v6.6** (29 May 2026) | Plan de compensación (**41 fragments**). v5.5+: añadidas COMP_BIN_11 (cómo liquida Gano las comisiones — GCV explícito, anti-malentendido "17% de $100M = $17M"), COMP_VIP_01 (VIP sin paquete ni compras mensuales obligatorias) y COMP_PV_08 (combinaciones para 50 PV mensuales, portado desde INV_06 vigente 2026). **NO modificar vocabulario ni cifras restantes.** Vocabulario prohibido: "PVP" (confunde al usuario; usar "precio de venta al público" si es absolutamente necesario, o evitar completamente). |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
@@ -807,12 +807,12 @@ import('dotenv').then(d => { d.config({path: '.env.local'}); return import('@sup
 **Atajo solo si el script genérico cubre tu caso**: `node scripts/fragmentar-arsenales-voyage.mjs` — si los fragments no existen, los crea. Si existen, los salta. Útil cuando se añaden respuestas NUEVAS sin modificar existentes.
 
 1. Edit `.txt` files in `knowledge_base/`:
-   - `arsenal_inicial.txt` - Initial questions (43 fragmentos — 42 activas + PERFIL_01)
-   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (18 responses)
-   - `arsenal_reto.txt` - **Auditoría Patrimonial** v4.1 (7 responses — auditoria-patrimonial/dia-1 a dia-5)
-   - `arsenal_12_niveles.txt` - 12-level challenge content
-   - `catalogo_productos.txt` - Product catalog + science (22 products)
-   - `arsenal_compensacion.txt` - Compensation plan (38 responses — **NO modificar vocabulario**)
+   - `arsenal_inicial.txt` - Initial questions (**48 fragments** — 47 activas + PERFIL_01)
+   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (18 fragments)
+   - `arsenal_reto.txt` - **Auditoría Patrimonial** v4.2 (7 fragments — auditoria-patrimonial/dia-1 a dia-5)
+   - `arsenal_12_niveles.txt` - 12-level challenge content (13 fragments — flujo Reto, NO accesible al chat principal creatuactivo.com)
+   - `catalogo_productos.txt` - Product catalog + science (22 products, 23 fragments)
+   - `arsenal_compensacion.txt` - Compensation plan (**41 fragments** — **NO modificar vocabulario**; PVP prohibido)
 
 2. Deploy to Supabase via scripts:
    ```bash

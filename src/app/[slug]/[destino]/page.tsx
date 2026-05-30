@@ -1,14 +1,15 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Redirección de destinos del Arquitecto de Patrimonio
+ * Segundo segmento del Arquitecto de Patrimonio — bifurca según el destino:
  *
- * Ruta: creatuactivo.com/luis-cabrejo/presentacion
- * → Resuelve el constructor_id del slug
- * → Redirige a la página real con el constructor_id para tracking
+ *  • destino ∈ REEL_NICHOS  → RENDER página de Reel (creatuactivo.com/{slug}/{nicho})
+ *  • resto                  → REDIRECT con tracking (creatuactivo.com/{slug}/auditoria → ?ref=)
  */
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound, redirect } from 'next/navigation'
+import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, type ReelNicho } from '@/lib/reels'
+import ReelPage from '@/components/ReelPage'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -37,13 +38,54 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'activacion':    (id) => `/auditoria-patrimonial?ref=${id}`,
 }
 
-export default async function DestinoRedirect({
+function isReelNicho(destino: string): destino is ReelNicho {
+  return (REEL_NICHOS as readonly string[]).includes(destino)
+}
+
+// Número orgánico de CreaTuActivo — fallback si el arquitecto no tiene WhatsApp
+// configurado en private_users (mismo default que /sistema/productos)
+const WHATSAPP_ORGANICO_DEFAULT = '+573206805737'
+
+export default async function DestinoRoute({
   params,
 }: {
   params: { slug: string; destino: string }
 }) {
   const { slug, destino } = params
 
+  // ── Caso Reel: renderiza la página (NO redirige) ───────────────
+  if (isReelNicho(destino)) {
+    const { data: c } = await supabase
+      .from('constructor_slugs')
+      .select('display_name, foto_url, constructor_id')
+      .eq('slug', slug)
+      .single()
+
+    if (!c) notFound()
+
+    // El WhatsApp del arquitecto es la fuente de verdad en private_users
+    // (igual que /api/constructor/[id]). Fallback al número orgánico.
+    const { data: pu } = await supabase
+      .from('private_users')
+      .select('whatsapp')
+      .eq('constructor_id', c.constructor_id)
+      .single()
+
+    return (
+      <ReelPage
+        slug={slug}
+        nicho={destino}
+        constructor={{
+          display_name: c.display_name,
+          foto_url: c.foto_url,
+          constructor_id: c.constructor_id,
+          whatsapp: pu?.whatsapp || WHATSAPP_ORGANICO_DEFAULT,
+        }}
+      />
+    )
+  }
+
+  // ── Caso redirect (comportamiento original) ────────────────────
   // 1. Resolver constructor_id desde el slug
   const { data: record } = await supabase
     .from('constructor_slugs')
@@ -60,12 +102,39 @@ export default async function DestinoRedirect({
     redirect(`/${slug}`)
   }
 
-  const destination = resolver(record.constructor_id)
-  redirect(destination)
+  redirect(resolver(record.constructor_id))
 }
 
-// Metadata mínima para el período entre request y redirect
-export async function generateMetadata() {
+// Metadata dinámica — OG de video para reels, mínima para redirects
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string; destino: string }
+}) {
+  const { slug, destino } = params
+
+  if (isReelNicho(destino)) {
+    const copy = REEL_COPY[destino]
+    const assets = REEL_ASSETS[destino]
+    const descripcion = copy.cuerpo.split('\n\n')[0]
+    // OG image scraper de WhatsApp rechaza query strings
+    const poster = assets.poster.split('?')[0]
+
+    return {
+      title: `${copy.titulo} | CreaTuActivo`,
+      description: descripcion,
+      robots: { index: false },
+      openGraph: {
+        title: copy.titulo,
+        description: descripcion,
+        url: `https://creatuactivo.com/${slug}/${destino}`,
+        siteName: 'CreaTuActivo.com',
+        videos: [{ url: assets.video, type: 'video/mp4', width: 1080, height: 1920 }],
+        images: [{ url: poster, width: 1080, height: 1920, alt: copy.titulo }],
+      },
+    }
+  }
+
   return {
     title: 'Redirigiendo... | CreaTuActivo',
     robots: { index: false },

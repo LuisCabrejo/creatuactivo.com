@@ -203,6 +203,22 @@ h1, h2, h3, .quote-text, .font-serif {
   color: var(--color-brand);
 }
 
+/* WhatsApp: borde verde WhatsApp + tinte sutil → se llena al hover.
+   Mismo patrón híbrido que /sistema/productos para que el canal de
+   contacto sea evidente (verde = WhatsApp). */
+.cta-whatsapp {
+  background: rgba(37, 211, 102, 0.08);
+  color: #25D366;
+  border: 1.5px solid rgba(37, 211, 102, 0.6);
+  padding: 0.875rem 2rem;
+  font-size: 0.9rem;
+}
+.cta-whatsapp:hover {
+  background: #25D366;
+  border-color: #25D366;
+  color: #0a0a0f;
+}
+
 /* ========================================
    HAPTIC BUTTON - Industrial 3D gradient
    ======================================== */

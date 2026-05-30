@@ -23,6 +23,7 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import NEXUSWidget from './nexus/NEXUSWidget'
+import { REEL_NICHOS } from '@/lib/reels'
 
 // ─── Paleta Quiet Luxury ──────────────────────────────────────────────────────
 const C = {
@@ -56,6 +57,13 @@ type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 // ─── Componente principal ─────────────────────────────────────────────────────
 export default function UnifiedQueswaOrb() {
   const pathname  = usePathname()
+
+  // Ruta de reel (/{slug}/{nicho}): el reel dispara su propia burbuja contextual
+  // al terminar/scrollear (ReelVideo), así que aquí suprimimos el tooltip genérico.
+  const isReelRoute = (() => {
+    const seg = pathname.split('/').filter(Boolean)
+    return seg.length === 2 && (REEL_NICHOS as readonly string[]).includes(seg[1])
+  })()
 
   // Chat state
   const [isOpen,        setIsOpen]        = useState(false)
@@ -109,15 +117,16 @@ export default function UnifiedQueswaOrb() {
   }, [])
 
   // ─── Tooltip "Concierge" (una sola vez) ─────────────────────────────────────
+  // En reels NO se dispara: el reel muestra su propia burbuja al terminar/scrollear.
   useEffect(() => {
-    if (hasInteracted || isOpen) return
+    if (hasInteracted || isOpen || isReelRoute) return
     const show = setTimeout(() => {
       if (hasInteracted || isOpen) return
       setShowTooltip(true)
       setTimeout(() => { setShowTooltip(false); setHasInteracted(true) }, 12000)
     }, 2000)
     return () => clearTimeout(show)
-  }, [hasInteracted, isOpen])
+  }, [hasInteracted, isOpen, isReelRoute])
 
   // ─── Visibilidad en /servilleta (solo card-1 slide-2) ───────────────────────
   const [visibleInServilleta, setVisibleInServilleta] = useState(false)

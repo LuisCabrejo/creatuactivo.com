@@ -3,12 +3,17 @@
  * Página de Reel por nicho — creatuactivo.com/{slug}/{nicho}
  *
  * Server Component. Estética Bimetálica v3.0 (tokens canónicos de globals.css).
- * Video 9:16 inline con preload="none" (no descarga hasta play — crítico en datos móviles).
- * 2 CTA: servilleta (modal YouTube) + WhatsApp del arquitecto.
+ * Jerarquía de conversión (no compite, secuencia):
+ *   1. Reel 9:16 (gancho) — alto en pantalla, ojos en el tercio superior
+ *   2. Copy del nicho
+ *   3. Queswa = vía rápida: al terminar/scrollear el reel, el orbe ofrece auditar (ReelVideo)
+ *   4. Tarjeta YouTube (presentación de 7 min) — vía reflexiva
+ *   5. Los 2 escenarios de cierre del video: Auditoría 5 Días + Activación (WhatsApp)
  */
 
 import { REEL_ASSETS, REEL_COPY, SERVILLETA_YOUTUBE_ID, type ReelNicho } from '@/lib/reels'
-import ServilletaCTA from '@/components/ServilletaCTA'
+import ReelVideo from '@/components/ReelVideo'
+import YouTubeFacade from '@/components/YouTubeFacade'
 
 interface ReelPageProps {
   slug: string
@@ -35,9 +40,13 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
     ? `(function(){try{var id=${JSON.stringify(refId)};localStorage.setItem('constructor_ref',id);var u=new URL(location.href);if(u.searchParams.get('ref')!==id){u.searchParams.set('ref',id);history.replaceState(null,'',u.toString());}}catch(e){}})();`
     : null
 
+  // Auditoría de 5 días (escenario 2 del cierre) — squeeze con atribución
+  const auditoriaUrl = refId ? `/auditoria-patrimonial?ref=${refId}` : '/auditoria-patrimonial'
+
+  // Activación inmediata (escenario 3) — WhatsApp del arquitecto, mensaje de decisión tomada
   const waUrl = constructor.whatsapp
     ? `https://wa.me/${constructor.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(
-        `Hola ${primerNombre}, vi el reel de CreaTuActivo y me gustaría conocer más. ¿Podemos conversar?`
+        `Hola ${primerNombre}, vi la presentación y quiero activar mi Base Operativa. ¿Cuál es el siguiente paso?`
       )}`
     : null
 
@@ -51,51 +60,32 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '40px 20px 64px',
+        padding: '12px 20px 64px',
       }}
     >
       {trackingScript && <script dangerouslySetInnerHTML={{ __html: trackingScript }} />}
 
-      {/* Wordmark */}
+      {/* Wordmark — compacto para subir el reel al tercio superior */}
       <a
         href="https://creatuactivo.com"
         style={{
-          fontSize: '0.65rem',
+          fontSize: '0.6rem',
           letterSpacing: '0.2em',
           textTransform: 'uppercase',
           color: 'var(--color-text-muted)',
           textDecoration: 'none',
-          marginBottom: '32px',
+          marginBottom: '12px',
           fontFamily: 'var(--font-mono)',
         }}
       >
         CreaTuActivo.com
       </a>
 
-      <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-        {/* Video 9:16 inline */}
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '9 / 16',
-            background: '#000',
-            borderRadius: '10px',
-            overflow: 'hidden',
-            border: '1px solid rgba(148, 163, 184, 0.18)',
-          }}
-        >
-          <video
-            controls
-            playsInline
-            preload="none"
-            poster={assets.poster}
-            src={assets.video}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
+      <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '26px' }}>
+        {/* 1 — Reel 9:16 + burbuja Queswa contextual (client) */}
+        <ReelVideo poster={assets.poster} src={assets.video} />
 
-        {/* Título */}
+        {/* 2 — Título */}
         <h1
           style={{
             fontFamily: 'var(--font-serif)',
@@ -115,31 +105,31 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
           {copy.cuerpo.split('\n\n').map((parrafo, i) => (
             <p
               key={i}
-              style={{
-                fontSize: '0.95rem',
-                lineHeight: 1.7,
-                color: 'var(--color-text-muted)',
-                margin: 0,
-              }}
+              style={{ fontSize: '0.95rem', lineHeight: 1.7, color: 'var(--color-text-muted)', margin: 0 }}
             >
               {parrafo}
             </p>
           ))}
         </div>
 
-        {/* CTAs */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '4px' }}>
-          <ServilletaCTA youtubeId={SERVILLETA_YOUTUBE_ID} />
+        {/* 4 — Presentación de 7 min (tarjeta YouTube) */}
+        <YouTubeFacade youtubeId={SERVILLETA_YOUTUBE_ID} label="La presentación completa · 7 min" />
+
+        {/* 5 — Los dos escenarios con que cierra la presentación */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
+            Iniciar la Auditoría de 5 Días
+          </a>
 
           {waUrl && (
             <a
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-base cta-secondary"
+              className="cta-base cta-whatsapp"
               style={{ width: '100%' }}
             >
-              Hablar con {primerNombre}
+              Activación Inmediata · WhatsApp
             </a>
           )}
         </div>
@@ -150,7 +140,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            marginTop: '12px',
+            marginTop: '4px',
             paddingTop: '20px',
             borderTop: '1px solid rgba(148, 163, 184, 0.12)',
           }}

@@ -11,6 +11,10 @@ export type ReelNicho = (typeof REEL_NICHOS)[number]
 
 export const SERVILLETA_YOUTUBE_ID = 'xHWZfg6prs8'
 
+// Poster único (branded) para el <video> de todos los reels — local en /public,
+// servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
+export const REEL_POSTER = '/videos/reels/poster.webp'
+
 export const REEL_ASSETS: Record<ReelNicho, { video: string; poster: string }> = {
   corporativo: {
     video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo.mp4',

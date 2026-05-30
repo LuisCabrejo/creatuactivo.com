@@ -11,7 +11,7 @@
  *   5. Los 2 escenarios de cierre del video: Auditoría 5 Días + Activación (WhatsApp)
  */
 
-import { REEL_ASSETS, REEL_COPY, SERVILLETA_YOUTUBE_ID, type ReelNicho } from '@/lib/reels'
+import { REEL_ASSETS, REEL_COPY, REEL_POSTER, SERVILLETA_YOUTUBE_ID, type ReelNicho } from '@/lib/reels'
 import ReelVideo from '@/components/ReelVideo'
 import YouTubeFacade from '@/components/YouTubeFacade'
 
@@ -83,7 +83,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
 
       <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '26px' }}>
         {/* 1 — Reel 9:16 + burbuja Queswa contextual (client) */}
-        <ReelVideo poster={assets.poster} src={assets.video} />
+        <ReelVideo poster={REEL_POSTER} src={assets.video} />
 
         {/* 2 — Título */}
         <h1

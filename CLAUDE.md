@@ -1039,7 +1039,7 @@ See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infr
 
 ### Typography Hierarchy (23 May 2026)
 
-Regla unificada aplicada en Home, Nosotros, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Origen: [Diseño de Branding Premium Institucional.md](Diseño%20de%20Branding%20Premium%20Institucional.md) — sección "Arquitectura Tipográfica".
+Regla unificada aplicada en Home, Nosotros, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Parámetros canónicos completos en [BRANDING.md](BRANDING.md) — sección "Tipografía".
 
 **H1 institucional** (páginas con título corto): `var(--font-sans)` Inter, `font-weight: 700`, `text-transform: uppercase`, `letter-spacing: 0.08em`, color `var(--color-brand)`. Ejemplos: "MEMORÁNDUM DIRECTIVO", "CATÁLOGO BIO-INTELIGENTE", "CONSTRUCCIÓN DE ESTRUCTURA PATRIMONIAL".
 

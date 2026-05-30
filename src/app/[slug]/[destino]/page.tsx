@@ -8,7 +8,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound, redirect } from 'next/navigation'
-import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, type ReelNicho } from '@/lib/reels'
+import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
 
 const supabase = createClient(
@@ -117,8 +117,6 @@ export async function generateMetadata({
     const copy = REEL_COPY[destino]
     const assets = REEL_ASSETS[destino]
     const descripcion = copy.cuerpo.split('\n\n')[0]
-    // OG image scraper de WhatsApp rechaza query strings
-    const poster = assets.poster.split('?')[0]
 
     return {
       title: `${copy.titulo} | CreaTuActivo`,
@@ -130,7 +128,8 @@ export async function generateMetadata({
         url: `https://creatuactivo.com/${slug}/${destino}`,
         siteName: 'CreaTuActivo.com',
         videos: [{ url: assets.video, type: 'video/mp4', width: 1080, height: 1920 }],
-        images: [{ url: poster, width: 1080, height: 1920, alt: copy.titulo }],
+        // Portada branded única (JPG) — los frames por-nicho se veían borrosos
+        images: [{ url: REEL_POSTER_OG, width: 540, height: 960, alt: copy.titulo }],
       },
     }
   }

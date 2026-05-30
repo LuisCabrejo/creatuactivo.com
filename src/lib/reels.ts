@@ -15,6 +15,10 @@ export const SERVILLETA_YOUTUBE_ID = 'xHWZfg6prs8'
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'
 
+// Misma portada en JPG para el OG image (preview al compartir el link en WhatsApp,
+// que no siempre renderiza WebP). metadataBase la resuelve a URL absoluta.
+export const REEL_POSTER_OG = '/videos/reels/poster.jpg'
+
 export const REEL_ASSETS: Record<ReelNicho, { video: string; poster: string }> = {
   corporativo: {
     video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo.mp4',

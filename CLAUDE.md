@@ -40,9 +40,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
 | Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` |
-| Re-fragmentar WHY_01/WHY_02/EAM_01 | `node scripts/actualizar-fragmentos-master-v25.7.mjs` (genérico, lee del arsenal vivo) |
-| Actualizar FREQ_03 cierre + purgar CIERRE_01/02 obsoletos | `node scripts/actualizar-fragmentos-cierre-v5.2.mjs` |
-| Actualizar catálogo productos (BEB_01/LUV_01/SUP_01/PERS_01 + PROD_OVERVIEW) | `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs` |
+| Re-fragmentar arsenal tras editar (genérico) | Patrón purgar + `node scripts/fragmentar-arsenales-voyage.mjs` (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)) |
 | Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
 | POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
@@ -1193,8 +1191,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v*.mjs` - Versioned update scripts (latest: **v27.2** — modulacion_registro, 24 May 2026)
-- `actualizar-fragmentos-master-v25.7.mjs` - Re-fragmenta WHY_01/WHY_02/EAM_01 con embeddings Voyage AI (genérico — lee del arsenal vivo, válido para cualquier vXX.Y subsiguiente)
+- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual a Supabase (única versión conservada; las anteriores viven en git)
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

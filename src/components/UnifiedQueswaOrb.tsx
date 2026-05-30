@@ -154,6 +154,11 @@ export default function UnifiedQueswaOrb() {
     }
   }, [])
 
+  // Notifica al abrir el chat — la burbuja contextual del reel se oculta con esto
+  useEffect(() => {
+    if (isOpen) window.dispatchEvent(new CustomEvent('queswa-opened'))
+  }, [isOpen])
+
   // Fullscreen en /servilleta cierra el orbe
   useEffect(() => {
     if (pathname !== '/servilleta') return

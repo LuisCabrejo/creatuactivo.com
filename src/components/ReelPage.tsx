@@ -60,7 +60,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '28px 20px 64px',
+        padding: '40px 20px 64px',
       }}
     >
       {trackingScript && <script dangerouslySetInnerHTML={{ __html: trackingScript }} />}
@@ -74,7 +74,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
           textTransform: 'uppercase',
           color: 'var(--color-text-muted)',
           textDecoration: 'none',
-          marginBottom: '12px',
+          marginBottom: '6px',
           fontFamily: 'var(--font-mono)',
         }}
       >
@@ -112,13 +112,29 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
           ))}
         </div>
 
-        {/* 4 — Presentación de 7 min (tarjeta YouTube) */}
-        <YouTubeFacade youtubeId={SERVILLETA_YOUTUBE_ID} label="La presentación completa · 7 min" />
+        {/* 4 — Presentación de 7 min (tarjeta YouTube full-bleed: todo el ancho en móvil) */}
+        <div style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
+          <div style={{ maxWidth: 680, margin: '0 auto' }}>
+            <p
+              style={{
+                fontSize: '0.7rem',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: 'var(--color-titanium-muted)',
+                fontFamily: 'var(--font-mono)',
+                margin: '0 16px 8px',
+              }}
+            >
+              La presentación completa · 7 min
+            </p>
+            <YouTubeFacade youtubeId={SERVILLETA_YOUTUBE_ID} />
+          </div>
+        </div>
 
         {/* 5 — Los dos escenarios con que cierra la presentación */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
-            Iniciar la Auditoría de 5 Días
+            Auditoría de 5 Días
           </a>
 
           {waUrl && (
@@ -127,9 +143,9 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="cta-base cta-whatsapp"
-              style={{ width: '100%' }}
+              style={{ width: '100%', whiteSpace: 'nowrap' }}
             >
-              Activación Inmediata · WhatsApp
+              Activar por WhatsApp
             </a>
           )}
         </div>

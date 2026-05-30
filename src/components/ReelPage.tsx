@@ -60,7 +60,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '12px 20px 64px',
+        padding: '28px 20px 64px',
       }}
     >
       {trackingScript && <script dangerouslySetInnerHTML={{ __html: trackingScript }} />}

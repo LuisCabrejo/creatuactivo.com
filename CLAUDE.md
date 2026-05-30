@@ -876,7 +876,7 @@ Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia
 **Jerarquía de conversión en la página** (secuencial, no compite — investigación CTA May 2026: un solo CTA por momento convierte mejor):
 1. **Reel 9:16** alto en pantalla (ojos en el tercio superior; `padding-top` mínimo).
 2. **Copy del nicho** (título serif + cuerpo).
-3. **Queswa = vía rápida**: al terminar el reel **o** al hacer scroll dejándolo atrás, el `ReelVideo` muestra una burbuja sobre el orbe — copy de interés *"¿Vemos si los números de su caso cuadran? Aquí mismo."* (eco del cierre del reel, sin ancla de tiempo) → dispara `open-queswa`.
+3. **Queswa = vía rápida**: al terminar el reel **o** al hacer scroll dejándolo atrás, el `ReelVideo` muestra una burbuja sobre el orbe — copy *"Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?"* (registro Modulación: autoridad clínica "auditar la viabilidad" + invitación accesible "¿Comenzamos?"; eco del reel, sin ancla de tiempo) → dispara `open-queswa`.
 4. **Tarjeta YouTube** (presentación de 7 min) — vía reflexiva, facade nativo.
 5. **Los 2 escenarios de cierre del video**: `Iniciar la Auditoría de 5 Días` (→ `/auditoria-patrimonial?ref`) + `Activación Inmediata · WhatsApp` (verde, → WhatsApp del arquitecto). La activación NO pasa por Queswa: quien ya decidió no debe encontrar preguntas de cualificación (analogía constructora/concesionario).
 

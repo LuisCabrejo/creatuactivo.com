@@ -12,7 +12,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-const PROMPT_MESSAGE = '¿Vemos si los números de su caso cuadran? Aquí mismo.'
+const PROMPT_MESSAGE = 'Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?'
 
 export default function ReelVideo({ poster, src }: { poster: string; src: string }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)

@@ -569,7 +569,7 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 - `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta Ads / Google Ads). Quiz de 5 dimensiones (autonomía, resiliencia, eficiencia, apalancamiento, paz mental) que perfila al prospecto en uno de 3 arquetipos (Gigante de Pies de Barro / Operador Agotado / Constructor en Progreso) y lo inyecta al funnel principal vía POST a `/api/funnel` con `step: 'auditoria_registered'` (aliased a `mapa_registered` en route.ts). Cero links internos hacia ella desde el sitio — entrada es solo URL directa desde campañas. Sin `<StrategicNavigation/>` (decisión deliberada: 0 fricción de navegación). API endpoint dedicado: `/api/diagnostico` guarda quiz + arquetipo en tabla `diagnosticos` (Supabase). CTA final → `/auditoria-patrimonial` (squeeze del funnel actual).
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
 - `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
-- `[slug]/[destino]/` — Redirect con tracking de referral. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`.
+- `[slug]/[destino]/` — Redirect con tracking de referral. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. ⚠️ **Reels por nicho** comparten este espacio de URL (`creatuactivo.com/{slug}/{nicho}`) — al construir las páginas de reel hay que **bifurcar** este segundo segmento: si `[destino]` ∈ `REEL_NICHOS` renderiza la página de reel, si no, ejecuta el redirect. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
 - `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
 - `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
@@ -869,7 +869,19 @@ Dan Koe-style vertical videos rendered in-browser via Canvas API + React. Used f
 - **Handoff doc**: [HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md](HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md)
 - **Día 8 post-producción**: [HANDOFF-DIA8-POSTPRODUCCION.md](HANDOFF-DIA8-POSTPRODUCCION.md) — audio, SFX, subtítulos spec para `dia8-v2`
 
-Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia7-v3` through `dia7-v6`) are A/B iterations of the same day's script.
+Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia7-v3` through `dia7-v6`) are A/B iterations of the same day's script. Algunas animaciones usan nombre de concepto en vez de `diaX` (`acoplamiento/`, `depreciacion-biologica/`, `laberinto-infinito/`, `turbina-prisionero/`).
+
+### Reels por Nicho (fase orgánica WhatsApp)
+
+5 reels verticales (uno por nicho de audiencia) que cada **Arquitecto de Patrimonio** comparte por WhatsApp a su mercado orgánico. Cada reel vive en `creatuactivo.com/{slug}/{nicho}` con video inline + copy del nicho + 2 CTA (servilleta YouTube unlisted `xHWZfg6prs8` + WhatsApp del arquitecto) + tracking de referido. **NO** se publica reel nativo en IG/TikTok en esta fase.
+
+- **Fuente de verdad**: [src/lib/reels.ts](src/lib/reels.ts) — `REEL_NICHOS` (`corporativo`, `empleados`, `empresarios`, `diaspora`, `informales`), `REEL_ASSETS` (URLs Vercel Blob de video + poster), `REEL_COPY` (título/cuerpo/audiencia, versión final aprobada por Luis).
+- **Estado**: assets optimizados (140MB→~24MB) y subidos a Blob; `reels.ts` creado. **Pendiente**: construir las páginas y bifurcar `[slug]/[destino]` (ver nota en esa ruta arriba). Handoff completo: `HANDOFF_REELS_PAGINAS.md`.
+- **Hosting**: Vercel Blob (migrar a Bunny Stream solo si el egress lo justifica). Servilleta NO se auto-hospeda → YouTube.
+- **Léxico del copy**: usted · Lujo Clínico · Estructura Patrimonial, Base Operativa, 3 pilares. Prohibido: vehículo, red (MLM), patrimonio paralelo, capas, Máquina Híbrida.
+- **Scripts** (en `scripts/`):
+  - `optimize-reels.sh` — `{nicho}.mp4` crudo → `{nicho}-web.mp4` (CRF 23, 1080×1920, faststart) + `{nicho}-poster.jpg` (<250KB, OG WhatsApp). Lee de `public/videos/reels/`.
+  - `upload-reels-to-blob.mjs` — sube `*-web.mp4` + `*-poster.jpg` a Blob (`reels/{nicho}.mp4`) e imprime el mapa `REEL_ASSETS`. Requiere `BLOB_READ_WRITE_TOKEN`.
 
 ### Founder Spots Counter
 

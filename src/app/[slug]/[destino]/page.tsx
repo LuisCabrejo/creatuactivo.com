@@ -10,6 +10,7 @@ import { createClient } from '@supabase/supabase-js'
 import { notFound, redirect } from 'next/navigation'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
+import ManifiestoDocument from '@/components/ManifiestoDocument'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -85,6 +86,20 @@ export default async function DestinoRoute({
     )
   }
 
+  // ── Caso Manifiesto: renderiza el Documento Fundacional (NO redirige) ──
+  // URL limpia /{slug}/manifiesto; el ref se inyecta a localStorage (sin ?ref).
+  if (destino === 'manifiesto') {
+    const { data: c } = await supabase
+      .from('constructor_slugs')
+      .select('constructor_id')
+      .eq('slug', slug)
+      .single()
+
+    if (!c) notFound()
+
+    return <ManifiestoDocument refId={c.constructor_id} slug={slug} />
+  }
+
   // ── Caso redirect (comportamiento original) ────────────────────
   // 1. Resolver constructor_id desde el slug
   const { data: record } = await supabase
@@ -133,6 +148,22 @@ export async function generateMetadata({
         videos: [{ url: assets.video, type: 'video/mp4', width: 1080, height: 1920 }],
         // Portada branded única (JPG) — los frames por-nicho se veían borrosos
         images: [{ url: REEL_POSTER_OG, width: 540, height: 960, alt: copy.titulo }],
+      },
+    }
+  }
+
+  if (destino === 'manifiesto') {
+    return {
+      title: 'Manifiesto de los Fundadores | CreaTuActivo',
+      description: 'Las cosas no pasan. Se hacen pasar. La historia, el principio y la doctrina detrás de CreaTuActivo — y de quién se requiere para construirlo.',
+      robots: { index: false },
+      alternates: { canonical: `https://creatuactivo.com/${slug}/manifiesto` },
+      openGraph: {
+        title: 'Las cosas no pasan. Se hacen pasar.',
+        description: 'El Manifiesto de los Fundadores de CreaTuActivo.',
+        url: `https://creatuactivo.com/${slug}/manifiesto`,
+        siteName: 'CreaTuActivo.com',
+        images: [{ url: 'https://creatuactivo.com/nosotros/opengraph-image', width: 1200, height: 630, alt: 'Manifiesto de los Fundadores' }],
       },
     }
   }

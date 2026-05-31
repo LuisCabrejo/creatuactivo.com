@@ -122,6 +122,9 @@ export async function generateMetadata({
       title: `${copy.titulo} | CreaTuActivo`,
       description: descripcion,
       robots: { index: false },
+      // Canonical propio (sobrescribe el global = homepage). Sin esto, el
+      // "Compartir" nativo del navegador arrastra solo creatuactivo.com.
+      alternates: { canonical: `https://creatuactivo.com/${slug}/${destino}` },
       openGraph: {
         title: copy.titulo,
         description: descripcion,

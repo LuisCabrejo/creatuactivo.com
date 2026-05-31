@@ -81,7 +81,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         CreaTuActivo.com
       </a>
 
-      <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '26px' }}>
+      <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '36px' }}>
         {/* 1 — Reel 9:16 + burbuja Queswa contextual (client) */}
         <ReelVideo poster={REEL_POSTER} src={assets.video} />
 
@@ -122,7 +122,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
                 textTransform: 'uppercase',
                 color: 'var(--color-titanium-muted)',
                 fontFamily: 'var(--font-mono)',
-                margin: '0 16px 8px',
+                margin: '0 16px 18px',
               }}
             >
               La presentación completa · 7 min
@@ -132,7 +132,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         </div>
 
         {/* 5 — Los dos escenarios con que cierra la presentación */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
             Auditoría de 5 Días
           </a>
@@ -156,8 +156,8 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            marginTop: '4px',
-            paddingTop: '20px',
+            marginTop: '8px',
+            paddingTop: '28px',
             borderTop: '1px solid rgba(148, 163, 184, 0.12)',
           }}
         >

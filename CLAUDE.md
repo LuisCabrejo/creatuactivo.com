@@ -713,7 +713,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 **DO NOT** modify fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts).
 
 **Queswa Official Constants** (calibradas Mar 2026 — consistencia obligatoria en todos los arsenales):
-- Lanzamiento público oficial: **lunes 1 de junio**
+- Lanzamiento público: **sin fecha dura** (decisión 31 May 2026). La fase de cimentación está **en curso** (selección de los 15); el despliegue público global llega **una vez consolidada la base fundacional**. La urgencia es la **banda directiva finita** (tiempo del núcleo para los 15), NO un calendario. ❌ No usar "1 de junio" ni ninguna fecha de lanzamiento en arsenales/Queswa.
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
 - Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — La Metodología Automatizada** (El Tridente EAM: protocolo de ejecución estandarizado que erradica el ensayo y error) — recategorización aplicada en v26.5 (May 2026)
@@ -1383,7 +1383,7 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 | ancho de banda (en preguntas de seguimiento, contextos de tiempo/agenda) | disponibilidad / agenda directiva / agenda ejecutiva | v5.4 — jerga tech; "disponibilidad" o "agenda" son universales |
 | vector de tráfico / vector de adquisición | camino de expansión / ruta / canal | v5.4 — jerga militar; absorbido en reescritura FREQ_02 |
 | Modo Relacional / Modo Híbrido / Modo de Escalabilidad (los 3 modos de tráfico de FREQ_02) | Conexión Directa / Conexión Asistida / Conexión Automatizada | v5.4 — los nuevos nombres son auto-explicativos (cada uno indica QUÉ hace) |
-| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público del 1 de junio |
+| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público global |
 | pierna fuerte / pierna débil (Binario) | Centro de Negocios de Mayor Tracción / Centro de Negocios de Cobro | v5.5 — "pierna" suena a cosa, no a Lujo Clínico. "Centro de Negocios" eleva el status |
 | "las dos principales" (al introducir GEN5 + Binario) | "Analicemos dos" (sin jerarquía) | v5.5 — "las dos principales" implica jerarquía falsa sobre las otras 10 velocidades. Apertura canónica: *"Su Base Operativa genera ganancias en 12 velocidades que cubren su flujo de corto, mediano y largo plazo. Analicemos dos:"* |
 | "17% sobre la pierna débil" / "17% sobre el Centro de Negocios de Cobro" (sin GCV) | "17% del GCV sobre el Centro de Negocios de Cobro" | v5.5 — sin "GCV" el usuario puede asumir 17% sobre $100M de venta = $17M (absurdo). El GCV es valor comisionable asignado por Gano Excel, distinto al PVP |

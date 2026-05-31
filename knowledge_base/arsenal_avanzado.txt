@@ -40,7 +40,7 @@ Este ecosistema no compite con su operación actual; la blinda. Su negocio gener
 
 En internet, el 99% de la escasez es un truco barato. Aquí es un límite matemático.
 
-El despliegue público oficial de nuestro ecosistema es el lunes 1 de junio. En este momento, el núcleo directivo trabaja con grupos seleccionados de Arquitectos de Patrimonio antes de esa apertura. La urgencia no es presión de cierre — es porque el tiempo del núcleo directivo para acompañamiento táctico inicial es el recurso más limitado del sistema, no la tecnología.
+El despliegue público de nuestro ecosistema llegará una vez consolidada la base fundacional. En este momento, el núcleo directivo trabaja con un grupo seleccionado de Arquitectos de Patrimonio antes de esa apertura. La urgencia no es presión de cierre — es porque el tiempo del núcleo directivo para acompañamiento táctico inicial es el recurso más limitado del sistema, no la tecnología.
 
 **Analogía:** La plataforma puede soportar a un millón de usuarios mañana mismo. Pero la capacidad del núcleo directivo para establecer los cimientos de su infraestructura es finita. Esos 15 cupos son ese límite.
 
@@ -226,7 +226,7 @@ Para optimizar su tiempo, evitar redundancia de datos y enlazar su expediente co
 ### FUND_01: "¿De qué trata la oportunidad de los 15 Fundadores y cuándo empieza?"
 **[Concepto Nuclear]:** Posicionamiento de Anclaje ("Activación sobre Planos"). Posicionamiento logístico anticipado antes del lanzamiento orgánico.
 
-La apertura logística global de la plataforma operará el **01 de junio de 2026**. La actual validación de 15 Bases Operativas fundacionales obedece a una ventana técnica de activación anticipada.
+La apertura logística global de la plataforma llegará una vez consolidada la base fundacional. La actual validación de 15 Bases Operativas fundacionales obedece a una ventana técnica de activación anticipada.
 
 La mecánica es idéntica a la adquisición de propiedad raíz: la estructuración sobre planos garantiza exclusividad logística y margen corporativo máximo. Estos 15 Arquitectos de Patrimonio recibirán la transferencia técnica para cimentar su propia infraestructura de suministro en un entorno controlado, antes de que el tráfico masivo sea inyectado al servidor.
 

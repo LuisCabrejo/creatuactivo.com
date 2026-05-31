@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Sube los reels optimizados + posters a Vercel Blob → imprime mapa de URLs.
+// Sube los reels optimizados a Vercel Blob → imprime mapa de URLs.
+// El poster es branded único (servido por la app Next, no por Blob), no se sube aquí.
 // Uso: node scripts/upload-reels-to-blob.mjs   (requiere correr antes optimize-reels.sh)
 import { put } from '@vercel/blob';
 import { createReadStream, existsSync, readFileSync, statSync } from 'fs';
@@ -23,19 +24,13 @@ if (!token) { console.error('❌ Falta BLOB_READ_WRITE_TOKEN (env o .env.local)'
 const urls = {};
 for (const nicho of NICHOS) {
   const video = `${DIR}/${nicho}-web.mp4`;
-  const poster = `${DIR}/${nicho}-poster.jpg`;
   if (!existsSync(video)) { console.error(`❌ Falta ${video} — corre optimize-reels.sh primero`); process.exit(1); }
   const mb = (statSync(video).size / 1048576).toFixed(1);
   console.log(`📤 ${nicho} (${mb}MB) ...`);
-  const v = await put(`reels/${nicho}.mp4`, createReadStream(video), { access: 'public', addRandomSuffix: false, token, contentType: 'video/mp4' });
-  let posterUrl = null;
-  if (existsSync(poster)) {
-    const p = await put(`reels/${nicho}-poster.jpg`, createReadStream(poster), { access: 'public', addRandomSuffix: false, token, contentType: 'image/jpeg' });
-    posterUrl = p.url;
-  }
-  urls[nicho] = { video: v.url, poster: posterUrl };
+  const v = await put(`reels/${nicho}.mp4`, createReadStream(video), { access: 'public', addRandomSuffix: false, allowOverwrite: true, token, contentType: 'video/mp4' });
+  urls[nicho] = { video: v.url };
   console.log(`   ✓ ${v.url}`);
 }
 
 console.log('\n━━━ MAPA DE URLS (pegar en src/lib/reels.ts) ━━━\n');
-console.log('export const REEL_ASSETS: Record<string, { video: string; poster: string | null }> = ' + JSON.stringify(urls, null, 2));
+console.log('export const REEL_ASSETS: Record<string, { video: string }> = ' + JSON.stringify(urls, null, 2));

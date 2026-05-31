@@ -19,27 +19,12 @@ export const REEL_POSTER = '/videos/reels/poster.webp'
 // que no siempre renderiza WebP). metadataBase la resuelve a URL absoluta.
 export const REEL_POSTER_OG = '/videos/reels/poster.jpg'
 
-export const REEL_ASSETS: Record<ReelNicho, { video: string; poster: string }> = {
-  corporativo: {
-    video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo.mp4',
-    poster: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo-poster.jpg',
-  },
-  empleados: {
-    video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empleados.mp4',
-    poster: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empleados-poster.jpg',
-  },
-  empresarios: {
-    video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empresarios.mp4',
-    poster: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empresarios-poster.jpg',
-  },
-  diaspora: {
-    video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/diaspora.mp4',
-    poster: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/diaspora-poster.jpg',
-  },
-  informales: {
-    video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/informales.mp4',
-    poster: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/informales-poster.jpg',
-  },
+export const REEL_ASSETS: Record<ReelNicho, { video: string }> = {
+  corporativo: { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo.mp4' },
+  empleados:   { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empleados.mp4' },
+  empresarios: { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empresarios.mp4' },
+  diaspora:    { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/diaspora.mp4' },
+  informales:  { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/informales.mp4' },
 }
 
 export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audiencia: string }> = {

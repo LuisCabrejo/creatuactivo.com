@@ -14,6 +14,7 @@
 import { REEL_ASSETS, REEL_COPY, REEL_POSTER, SERVILLETA_YOUTUBE_ID, type ReelNicho } from '@/lib/reels'
 import ReelVideo from '@/components/ReelVideo'
 import YouTubeFacade from '@/components/YouTubeFacade'
+import ShareButton from '@/components/ShareButton'
 
 interface ReelPageProps {
   slug: string
@@ -149,6 +150,9 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
             </a>
           )}
         </div>
+
+        {/* Compartir — vía nativa con URL limpia (mantiene atribución al slug) */}
+        <ShareButton title={copy.titulo} />
 
         {/* Pie — arquitecto */}
         <div

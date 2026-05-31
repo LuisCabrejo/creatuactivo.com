@@ -84,8 +84,11 @@ export const metadata: Metadata = {
   },
 
   // Configuración Internacional (Hreflang) - VITAL PARA BRASIL
+  // NO canonical global aquí: ponía canonical=homepage en TODA página que no lo
+  // sobrescriba → el "Compartir" del navegador (que usa el canonical) arrastraba
+  // solo creatuactivo.com, y SEO trataba cada página como duplicado de la home.
+  // Cada página declara su propio canonical; sin él, el share usa la URL real.
   alternates: {
-    canonical: baseUrl,
     languages: {
       'es': baseUrl,
       'pt-BR': `${baseUrl}/paises/brasil`,

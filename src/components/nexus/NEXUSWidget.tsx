@@ -715,7 +715,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         remarkPlugins={[remarkGfm]}
                         components={{
                           strong: ({children}) => <strong style={{ fontWeight: 600, color: QUIET_LUXURY.gold }}>{children}</strong>,
-                          em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.textSecondary }}>{children}</em>,
+                          em: ({children}) => <em style={{ fontStyle: 'italic', color: QUIET_LUXURY.gold }}>{children}</em>,
                           del: ({children}) => <span>{children}</span>,
                           p: ({children}) => <p className="mb-2 leading-relaxed">{children}</p>,
                           ul: ({children}) => <ul className="list-disc list-outside ml-4 mb-2 space-y-1">{children}</ul>,
@@ -726,8 +726,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                           // no se vean pegadas al `---` markdown del modelo.
                           hr: () => (
                             <hr
-                              className="my-6 border-0 border-t"
-                              style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+                              className="my-7 border-0 border-t"
+                              style={{ borderColor: 'rgba(197, 160, 89, 0.3)' }}
                             />
                           ),
                           a: ({href, children}) => (

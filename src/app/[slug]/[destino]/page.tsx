@@ -91,13 +91,27 @@ export default async function DestinoRoute({
   if (destino === 'manifiesto') {
     const { data: c } = await supabase
       .from('constructor_slugs')
-      .select('constructor_id')
+      .select('constructor_id, display_name')
       .eq('slug', slug)
       .single()
 
     if (!c) notFound()
 
-    return <ManifiestoDocument refId={c.constructor_id} slug={slug} />
+    // WhatsApp del arquitecto (fuente de verdad: private_users), fallback orgánico
+    const { data: pu } = await supabase
+      .from('private_users')
+      .select('whatsapp')
+      .eq('constructor_id', c.constructor_id)
+      .single()
+
+    return (
+      <ManifiestoDocument
+        refId={c.constructor_id}
+        slug={slug}
+        whatsapp={pu?.whatsapp || WHATSAPP_ORGANICO_DEFAULT}
+        architectName={c.display_name}
+      />
+    )
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────

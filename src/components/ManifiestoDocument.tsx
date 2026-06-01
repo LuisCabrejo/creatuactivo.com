@@ -7,27 +7,40 @@
  *   /manifiesto          → versión orgánica (menú), sin atribución.
  *   /{slug}/manifiesto   → versión del Arquitecto: inyecta su ref (vía slug) en
  *                          localStorage para que tracking.js atribuya la visita,
- *                          con URL LIMPIA (sin ?ref). El CTA lleva el ref a la
- *                          auditoría y el botón comparte /{slug}/manifiesto.
+ *                          con URL LIMPIA (sin ?ref). El CTA va al WhatsApp del
+ *                          arquitecto con un mensaje de acuerdo; el botón comparte
+ *                          /{slug}/manifiesto.
  */
 
-import Link from 'next/link'
 import { IndustrialHeader } from '@/components/IndustrialHeader'
 import ManifiestoShare from '@/components/ManifiestoShare'
+
+const WHATSAPP_ORGANICO = '+573206805737'
 
 interface ManifiestoDocumentProps {
   refId?: string | null
   slug?: string | null
+  whatsapp?: string | null
+  architectName?: string | null
 }
 
-export default function ManifiestoDocument({ refId = null, slug = null }: ManifiestoDocumentProps) {
+export default function ManifiestoDocument({
+  refId = null,
+  slug = null,
+  whatsapp = null,
+  architectName = null,
+}: ManifiestoDocumentProps) {
   // Inyecta el ref del arquitecto en localStorage ANTES del tracking.js diferido.
   // Sin ?ref en la URL: tracking.js lo toma de localStorage (fallback). URL limpia.
   const trackingScript = refId
     ? `(function(){try{localStorage.setItem('constructor_ref',${JSON.stringify(refId)});}catch(e){}})();`
     : null
 
-  const auditoriaHref = refId ? `/auditoria-patrimonial?ref=${refId}` : '/auditoria-patrimonial'
+  // CTA → WhatsApp. Enviar el mensaje ES la declaración de acuerdo.
+  const waNumber = (whatsapp || WHATSAPP_ORGANICO).replace(/\D/g, '')
+  const saludo = architectName ? `Hola ${architectName.split(' ')[0]}, ` : 'Hola, '
+  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi Base Operativa. ¿Cuál es el siguiente paso?`
+  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
     <main className="min-h-screen text-[#E5E5E5]">
@@ -134,12 +147,14 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
                 </div>
                 <p>
                   Hoy dirijo CreaTuActivo: una infraestructura diseñada para desvincular la
-                  generación de ingresos del agotamiento físico de las personas. No es un canal
-                  educativo, ni un equipo de ventas, ni una red de mercadeo.
+                  generación de ingresos del agotamiento físico. No es un canal educativo, ni un
+                  equipo de ventas, ni una red de mercadeo.
                 </p>
                 <p className="text-[#E5E5E5]">
-                  De esa reingeniería nació este documento. Esto es lo que vamos a hacer pasar —
-                  y lo que creemos.
+                  De esa reingeniería nació una filosofía — y este documento la contiene. Lo que
+                  sigue no es información para hojear: es el criterio que define quién está listo
+                  para dirigir una Base Operativa. Si usted va a asumir esa dirección, primero
+                  tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -158,20 +173,19 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Ningún patrimonio se construyó por inercia. Detrás de cada estructura que produce
-                  sin su dueño hubo una decisión — y detrás de esa decisión, una secuencia de
-                  <span className="text-[#E5E5E5]"> acciones consecuentes</span> que la hicieron existir.
-                  El azar no construye nada. La consecuencia, sí.
+                  Ninguna estructura patrimonial se construyó jamás por inercia o azar. Detrás de
+                  cada activo que produce de forma ininterrumpida, sin depender de su dueño, hubo una
+                  <span className="text-[#E5E5E5]"> decisión quirúrgica</span> y una secuencia de acciones
+                  consecuentes que la hicieron existir.
                 </p>
                 <p>
-                  Naval Ravikant, uno de los pensadores más respetados sobre la creación de riqueza
-                  en la era digital, lo resume en una idea que ya es ley: <span className="italic text-[#E5E5E5]">&ldquo;no se va a
-                  construir riqueza alquilando su tiempo.&rdquo;</span> Quien actúa con consecuencia el
-                  tiempo suficiente deja de depender del azar y se convierte en el lugar al que la
-                  oportunidad llega sola. Eso no es fortuna. Es <span className="text-[#C5A059]">destino construido</span>.
+                  La suerte ciega es para los apostadores. En la construcción de patrimonio, la suerte
+                  se diseña: se transmuta en un <span className="text-[#C5A059]">destino determinista</span> mediante
+                  infraestructuras inimitables y una reputación inquebrantable.
                 </p>
                 <p className="text-[#E5E5E5]">
-                  Los 15 no son espectadores de un proyecto. Son la causa de que exista.
+                  Esto no es una invitación a creer. Es la descripción de lo que vamos a hacer pasar —
+                  y del criterio que se requiere para dirigirlo.
                 </p>
               </div>
             </div>
@@ -184,19 +198,15 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  No es una cifra de campaña. Es la forma de una estructura que se replica: cada Base
-                  Operativa consolidada habilita las siguientes, y esas, las suyas. El crecimiento de
-                  un activo así no es lineal — es compuesto. Un número que hoy parece imposible es, en
-                  realidad, una curva que ya tiene su forma. Solo falta recorrerla con consecuencia.
+                  El mercado libre no es un pastel de suma cero donde, para que uno gane, otro deba
+                  perder. La verdadera innovación expande los recursos disponibles para todos.
                 </p>
                 <p>
-                  Y es un crecimiento que no le quita a nadie. Cada Base que se levanta no compite por
-                  una porción de un pastel fijo: agranda el sistema entero. Aquí la única manera de
-                  ganar es haciendo ganar a otros — lo contrario exacto del juego de suma cero que la
-                  gente asocia con esta industria.
-                </p>
-                <p className="text-[#E5E5E5]">
-                  Los 15 no se suben a una curva en marcha. Están en su origen.
+                  Nuestra estrella polar es la activación de cuatro millones de Bases Operativas a lo
+                  largo del continente americano. No competimos por una porción del mercado existente:
+                  estructuramos un ecosistema que suprime la fricción de distribución en 15 países de
+                  América, abriendo paso a la abundancia a través del <span className="text-[#E5E5E5]">consumo orgánico
+                  diario</span>. La única manera de ganar, aquí, es haciendo ganar a otros.
                 </p>
               </div>
             </div>
@@ -205,20 +215,26 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
             <div>
               <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">03 · El Cambio de Paradigma</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Dejar de alquilar el tiempo. Empezar a poseer un activo.
+                La desvinculación absoluta.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Y esto no me pasó solo a mí. Le pasa a casi todo el mundo: mientras su ingreso
-                  dependa de sus horas, tiene un techo y una condición silenciosa —
-                  <span className="text-[#E5E5E5]"> si usted se detiene, el ingreso se detiene</span>.
-                  Ese es el punto ciego de casi toda economía personal, por alta que sea.
+                  El intercambio lineal de horas de vida por dinero es la falla arquitectónica más
+                  grave en la economía de un profesional. El tiempo es finito e inelástico: si su
+                  ingreso depende de su presencia física, usted opera con una
+                  <span className="text-[#E5E5E5]"> vulnerabilidad crítica</span> en el diseño de su modelo.
                 </p>
                 <p>
-                  El patrimonio no nace de trabajar más horas, sino de <span className="text-[#E5E5E5]">poseer</span> algo
-                  que produce cuando usted no está presente. Ese es el cambio que proponemos, y es de
-                  fondo, no de grado: desvincular, de raíz, la generación de ingreso de su presencia
-                  física. A esa independencia la llamamos <span className="text-[#C5A059]">soberanía financiera</span>.
+                  Un ingreso constante —un sueldo fijo, la facturación de un comercio— resuelve la
+                  liquidez de hoy, pero no corrige la fragilidad de su mañana.
+                  <span className="text-[#E5E5E5]"> Ese es el punto ciego del exitoso.</span>
+                </p>
+                <p>
+                  La verdadera riqueza no es la exhibición de estatus: es la
+                  <span className="text-[#C5A059]"> soberanía financiera</span>, el control total sobre su tiempo. Y
+                  exige divorciar, de forma definitiva, la unidad de entrada —su reloj— de la unidad de
+                  salida —su rendimiento: instalar una Estructura Patrimonial en paralelo que opere de
+                  forma autónoma.
                 </p>
               </div>
             </div>
@@ -231,16 +247,17 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Una Base Operativa es un activo: una estructura de consumo real que produce ingreso
-                  recurrente — y que le pertenece. No vive de su esfuerzo diario. Vive del consumo de
-                  productos que las personas ya realizan, todos los días, exista usted o no. Mientras
-                  ese consumo ocurre, su estructura acumula volumen, y ese volumen le paga — semana
-                  tras semana, sin el techo de las horas y sin fecha de vencimiento.
+                  Una Base Operativa es el activo que materializa esa estructura: produce ingreso
+                  recurrente a partir del consumo real, y le pertenece. No vive de su esfuerzo diario.
+                  Vive del consumo de productos que las personas ya realizan, todos los días, exista
+                  usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen
+                  le paga — semana tras semana, sin el techo de las horas y sin fecha de vencimiento.
                 </p>
                 <p>
                   No se hace más grande trabajando más horas. Se hace más grande
                   <span className="text-[#E5E5E5]"> activando nuevas Bases Operativas</span>. Esa es la unidad que se
-                  replica — la pieza con la que 15 se convierten en una estructura de cuatro millones.
+                  replica — la pieza con la que un grupo pequeño se convierte en una estructura de
+                  cuatro millones.
                 </p>
                 <p>
                   Usted no la construye solo, ni desde cero. Llega montada sobre una máquina que ya
@@ -341,7 +358,7 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
                 </p>
               </div>
               <p className="text-lg text-[#E5E5E5] leading-relaxed">
-                Si esto lo describe, usted ya piensa como uno de los 15. Solo falta que lo decida.
+                Si esto lo describe, usted ya piensa como un fundador. Solo falta que lo decida.
               </p>
             </div>
 
@@ -378,32 +395,30 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
           </div>
         </section>
 
-        {/* ═══════════════ CTA ═══════════════ */}
+        {/* ═══════════════ CTA — acuerdo + contacto directo ═══════════════ */}
         <section className="py-24 px-6">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-8 leading-relaxed">
               No estoy aquí para persuadirle.
             </h2>
             <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 mb-12">
-              <p className="text-[#A3A3A3] mb-6 leading-relaxed">
-                Nuestra Dirección invierte tiempo exclusivamente en perfiles que ya entienden lo que
-                acaban de leer. Si usted desea auditar los planos exactos de cómo se construye una
-                Base Operativa —sin inventarios propios y sin fricción manual—, hemos liberado nuestra
-                evaluación técnica.
-              </p>
-              <p className="text-[#E5E5E5] font-medium">
-                Es la condensación de 12 años de ingeniería patrimonial.
+              <p className="text-[#A3A3A3] leading-relaxed">
+                Este documento es el criterio, no un folleto. Si lo leyó y se reconoce en él, el
+                siguiente paso no es pensarlo más — es decirlo. Confírmelo y comencemos la activación
+                de su Base Operativa.
               </p>
             </div>
-            <Link
-              href={auditoriaHref}
-              className="cta-base cta-primary"
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-base cta-whatsapp"
               style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
             >
-              INICIAR AUDITORÍA PATRIMONIAL →
-            </Link>
+              Estoy de acuerdo · Quiero iniciar →
+            </a>
             <p className="text-sm mt-6 text-[#6B7280]">
-              5 Días · Sin Costo · Escrutinio Patrimonial
+              Contacto directo por WhatsApp
             </p>
 
             {/* Compartir — solo en la versión del arquitecto (con slug) */}
@@ -420,9 +435,9 @@ export default function ManifiestoDocument({ refId = null, slug = null }: Manifi
           <div className="max-w-5xl mx-auto text-center">
             <p className="text-sm text-[#6B7280]">
               © 2026 CreaTuActivo.com ·
-              <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
+              <a href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                 Privacidad
-              </Link>
+              </a>
             </p>
           </div>
         </footer>

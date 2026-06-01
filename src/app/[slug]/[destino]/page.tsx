@@ -163,7 +163,7 @@ export async function generateMetadata({
         description: 'El Manifiesto de los Fundadores de CreaTuActivo.',
         url: `https://creatuactivo.com/${slug}/manifiesto`,
         siteName: 'CreaTuActivo.com',
-        images: [{ url: 'https://creatuactivo.com/nosotros/opengraph-image', width: 1200, height: 630, alt: 'Manifiesto de los Fundadores' }],
+        images: [{ url: 'https://creatuactivo.com/manifiesto/opengraph-image', width: 1200, height: 630, alt: 'Manifiesto de los Fundadores' }],
       },
     }
   }

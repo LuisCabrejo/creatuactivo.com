@@ -487,7 +487,7 @@ export default function StrategicNavigation() {
 
   // Links directos sin dropdown (Arquitectura de Activos - Quiet Luxury)
   const directLinks = [
-    { name: 'Manifiesto', href: '/nosotros' },
+    { name: 'Manifiesto', href: '/manifiesto' },
     { name: 'El Sistema', href: '/tecnologia' },
     { name: 'Herramientas', href: '/servilleta' },
     { name: 'Insights', href: '/blog' },

@@ -4,7 +4,7 @@
  * Fuente de copy: MANIFIESTO_FUNDADORES.md · Estética Bimetálica v3.0.
  *
  * Render compartido por dos rutas:
- *   /nosotros            → versión orgánica (menú), sin atribución.
+ *   /manifiesto          → versión orgánica (menú), sin atribución.
  *   /{slug}/manifiesto   → versión del Arquitecto: inyecta su ref (vía slug) en
  *                          localStorage para que tracking.js atribuya la visita,
  *                          con URL LIMPIA (sin ?ref). El CTA lleva el ref a la

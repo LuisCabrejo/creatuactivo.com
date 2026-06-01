@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * /nosotros — versión orgánica (menú) del Documento Fundacional.
+ * /manifiesto — versión orgánica (menú) del Documento Fundacional.
  * El cuerpo vive en <ManifiestoDocument/> (compartido con /{slug}/manifiesto,
  * la versión del Arquitecto con atribución).
  */

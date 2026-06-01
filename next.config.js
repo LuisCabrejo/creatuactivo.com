@@ -43,6 +43,13 @@ const nextConfig = {
   // ✅ Redirects permanentes (301)
   async redirects() {
     return [
+      // /nosotros → /manifiesto (renombrado por coherencia con /{slug}/manifiesto)
+      {
+        source: '/nosotros',
+        destination: '/manifiesto',
+        permanent: true,
+      },
+
       // Reto 12 días → 12 niveles
       {
         source: '/reto-12-dias',

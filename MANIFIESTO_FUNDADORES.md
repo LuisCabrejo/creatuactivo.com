@@ -1,7 +1,7 @@
 # Manifiesto de los Fundadores — CreaTuActivo
 
 > **Archivo maestro** (fuente de verdad). De aquí salen: la página web `creatuactivo.com/manifiesto` (noindex, Lujo Clínico) y, después, el PDF ceremonial para la mesa de 15.
-> **Voz:** Lujo Clínico — declarativa, clara, "test abuela". Naval se cita 1–2 veces como autoridad puntual, nunca como protagonista.
+> **Voz:** Lujo Clínico — declarativa, clara, registro elevado para público cálido. Naval Ravikant queda **absorbido** (sus principios), sin nombrarlo.
 > **Léxico:** patrimonio · estructura patrimonial · riqueza (construida) · soberanía financiera · Base Operativa · Arquitecto de Patrimonio. **Evitar:** hacerse rico, libertad financiera, ingreso pasivo (usar "recurrente"), reclutar, red/MLM.
 > **Uso:** con personas de interés marcado (profundizar convicción) o con quien acaba de iniciar (alinear).
 
@@ -24,13 +24,11 @@
 
 **Las cosas no pasan. Se hacen pasar.**
 
-Ningún patrimonio se construyó por inercia. Detrás de cada estructura que produce sin su dueño hubo una decisión — y detrás de esa decisión, una secuencia de **acciones consecuentes** que la hicieron existir. El azar no construye nada. La consecuencia, sí.
+Ninguna estructura patrimonial se construyó jamás por inercia o azar. Detrás de cada activo que produce de forma ininterrumpida, sin depender de su dueño, hubo una **decisión quirúrgica** y una secuencia de acciones consecuentes que la hicieron existir.
 
-Naval Ravikant, uno de los pensadores más respetados sobre la creación de riqueza en la era digital, lo resume sin adornos: **la suerte se fabrica.** Quien actúa con consecuencia el tiempo suficiente deja de depender del azar y se convierte en el lugar al que la oportunidad llega sola. Eso no es fortuna. Es **destino construido.**
+La suerte ciega es para los apostadores. En la construcción de patrimonio, la suerte se diseña: se transmuta en un **destino determinista** mediante infraestructuras inimitables y una reputación inquebrantable.
 
-Por eso esto no es una invitación a creer. Es la descripción de lo que vamos a **hacer pasar** — y de quién se requiere para hacerlo.
-
-Los 15 no son espectadores de un proyecto. Son la causa de que exista.
+Esto no es una invitación a creer. Es la descripción de lo que vamos a **hacer pasar** — y del criterio que se requiere para dirigirlo.
 
 ---
 
@@ -38,35 +36,29 @@ Los 15 no son espectadores de un proyecto. Son la causa de que exista.
 
 **Cuatro millones de Bases Operativas en los próximos 3 a 7 años.**
 
-No es una cifra de campaña. Es la forma de una estructura que se replica: cada Base Operativa consolidada habilita las siguientes, y esas, las suyas. El crecimiento de un activo así no es lineal — es compuesto. Por eso un número que hoy parece imposible es, en realidad, una curva que ya tiene su forma. Solo falta recorrerla con consecuencia.
+El mercado libre no es un pastel de suma cero donde, para que uno gane, otro deba perder. La verdadera innovación expande los recursos disponibles para todos.
 
-Y es un crecimiento que no le quita a nadie. Cada Base que se levanta no compite por una porción de un pastel fijo: agranda el sistema entero. Aquí la única manera de ganar es haciendo ganar a otros — lo contrario exacto del juego de suma cero que la gente asocia con esta industria.
-
-Por eso no miramos a los lados ni nos definimos contra nadie. Nos definimos contra esa cifra.
-
-Los 15 no se suben a una curva en marcha. Están en su origen — en el punto donde una sola decisión consecuente todavía mueve toda la estructura.
+Nuestra estrella polar es la activación de cuatro millones de Bases Operativas a lo largo del continente americano. No competimos por una porción del mercado existente: estructuramos un ecosistema que suprime la fricción de distribución en 15 países de América, abriendo paso a la abundancia a través del **consumo orgánico diario**. La única manera de ganar, aquí, es haciendo ganar a otros.
 
 ---
 
 ## 3 · El Cambio de Paradigma
 
-Casi todo el mundo alquila su tiempo. Cambia horas por dinero — y como las horas son finitas, su ingreso tiene un techo y una condición silenciosa: **si usted se detiene, el ingreso se detiene.** Ese es el punto ciego de casi toda economía personal, por alta que sea.
+**La desvinculación absoluta.**
 
-Naval Ravikant lo resume en una idea que ya es ley: *"no se va a construir riqueza alquilando su tiempo."* El patrimonio no nace de trabajar más horas, sino de **poseer** algo que produce cuando usted no está presente.
+El intercambio lineal de horas de vida por dinero es la falla arquitectónica más grave en la economía de un profesional. El tiempo es finito e inelástico: si su ingreso depende de su presencia física, usted opera con una **vulnerabilidad crítica** en el diseño de su modelo.
 
-Ese es el cambio que proponemos, y es de fondo, no de grado: dejar de **alquilar** su tiempo y empezar a **poseer** un activo. Desvincular, de raíz, la generación de ingreso de su presencia física. A esa independencia la llamamos **soberanía financiera.**
+Un ingreso constante —un sueldo fijo, la facturación de un comercio— resuelve la liquidez de hoy, pero no corrige la fragilidad de su mañana. **Ese es el punto ciego del exitoso.**
 
-A ese activo lo llamamos una **Base Operativa.** Y a diferencia de un empleo o de un negocio que depende de usted, una Base Operativa se construye una vez y trabaja después — con usted, o sin usted.
+La verdadera riqueza no es la exhibición de estatus: es la **soberanía financiera**, el control total sobre su tiempo. Y exige divorciar, de forma definitiva, la unidad de entrada —su reloj— de la unidad de salida —su rendimiento: instalar una Estructura Patrimonial en paralelo que opere de forma autónoma.
 
 ## 4 · Qué es una Base Operativa
 
-Una Base Operativa es un activo: una estructura de consumo real que produce ingreso recurrente — y que le pertenece.
+Una Base Operativa es el activo que materializa esa estructura: produce ingreso recurrente a partir del consumo real, y le pertenece. No vive de su esfuerzo diario. Vive del consumo de productos que las personas ya realizan, todos los días, exista usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen le paga — semana tras semana, sin el techo de las horas y sin fecha de vencimiento.
 
-No vive de su esfuerzo diario. Vive del consumo de productos que las personas ya realizan, todos los días, exista usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen le paga — semana tras semana, sin techo y sin fecha de vencimiento. No es una tendencia con caducidad; es un hábito que se reinicia cada mañana.
+No se hace más grande trabajando más horas. Se hace más grande **activando nuevas Bases Operativas.** Esa es la unidad que se replica — la pieza con la que un grupo pequeño se convierte en una estructura de cuatro millones.
 
-Y no se hace más grande trabajando más horas. Se hace más grande **activando nuevas Bases Operativas.** Esa es la unidad que se replica — la pieza con la que 15 se convierten en una estructura de cuatro millones.
-
-Usted no la construye solo, ni desde cero. Llega montada sobre una máquina que ya existe — y de eso trata lo que sigue.
+Usted no la construye solo, ni desde cero. Llega montada sobre una máquina que ya existe.
 
 ## 5 · La Máquina: los Tres Pilares
 
@@ -113,7 +105,7 @@ Quien entra a esta mesa comparte estas convicciones:
 
 Y por encima de todas, una sola: la **soberanía financiera no se trata de lujos.** Se trata de poder cumplir tu palabra — de estar presente para quienes amas, sin pedirle permiso a nadie. El patrimonio no se construye para presumirlo. Se construye para no volver a depender.
 
-Si esto lo describe, usted ya piensa como uno de los 15. Solo falta que lo decida.
+Si esto lo describe, usted ya piensa como un fundador. Solo falta que lo decida.
 
 ## 8 · Por qué 15, por qué ahora
 

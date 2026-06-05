@@ -104,7 +104,7 @@ function HeroSection() {
           textShadow: '0 2px 10px rgba(0,0,0,0.9)',
         }}>
           Usted no tiene un problema de ingresos.{' '}
-          <span style={{ color: C.gold }}>Tiene una trampa estructural: si para de trabajar, para de ganar.</span>
+          <span style={{ color: C.gold }}>Tiene un punto ciego — y casi nadie lo ve hasta que es tarde.</span>
         </p>
 
         {/* Presentación servilleta — facade YouTube (miniatura lazy; el iframe carga al click, no penaliza el LCP) */}
@@ -118,8 +118,8 @@ function HeroSection() {
           borderLeft: `2px solid rgba(197, 160, 89,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
-            Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de sus horas de vida.{' '}
-            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> apalancada en tres pilares — el Respaldo Operativo de Gano Excel en 70 países, Queswa como su Centro de Mando, y El Método Comprobado — sin abandonar su ocupación actual. Usted dirige.</span>
+            La solución no es trabajar más, ni dejar lo que hace hoy.{' '}
+            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong>: un ingreso que sigue llegando aunque usted no esté presente, apoyado en tres pilares que cargan el trabajo pesado por usted — Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema opera.</span>
           </p>
         </div>
 
@@ -134,7 +134,7 @@ function HeroSection() {
           fontFamily: "var(--font-mono)", letterSpacing: '0.1em',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          5 Días · Sin Costo · Escrutinio de su Modelo de Ingresos
+          5 Días · Sin Costo · Radiografía de su Modelo de Ingresos
         </p>
 
         {/* Link secundario */}
@@ -150,74 +150,65 @@ function HeroSection() {
 }
 
 // ============================================================================
-// PROBLEMA — "Déficit Estructural"
+// EL DIAGNÓSTICO — El villano narrado (estilo NuBank) + muro de datos
 // ============================================================================
 
 function ProblemSection() {
-  const cards = [
-    {
-      num: '01',
-      title: 'Prueba de Estrés',
-      desc: 'Someter su arquitectura a un escrutinio es simple: si su ausencia de 30 días detiene el flujo de caja, usted no posee un activo en propiedad; usted opera bajo un arrendamiento de sus horas de vida.',
-    },
-    {
-      num: '02',
-      title: 'El Techo Técnico',
-      desc: 'La hiper-optimización de su tiempo tiene un límite innegociable. Usted puede elevar sus honorarios o trabajar más horas, pero es matemáticamente imposible escalar su propia biología.',
-    },
-    {
-      num: '03',
-      title: 'El Gravamen Táctico',
-      desc: 'Intentar escapar mediante negocios tradicionales o ventas manuales solo transfiere el problema. Usted termina pagando el impuesto de la operatividad técnica, convirtiéndose en el operador subordinado de su propia arquitectura financiera.',
-    },
+  const cifras = [
+    <><strong style={{ color: C.white, fontWeight: 700 }}>1 de cada 4</strong> personas llega a pensionarse <span style={{ color: C.muted }}>(apenas el 12% de las mujeres)</span>.</>,
+    <><strong style={{ color: C.white, fontWeight: 700 }}>4 de cada 10</strong> despidos caen sobre los mayores de 45.</>,
+    <>Más de <strong style={{ color: C.white, fontWeight: 700 }}>la cuarta parte</strong> del ingreso de un hogar se va solo en pagar deudas.</>,
   ];
 
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            El Diagnóstico Clínico
+            El Diagnóstico
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            La Trampa Estructural.
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
+            Corregimos las ineficiencias de los modelos de ingresos tradicionales.
           </h2>
         </div>
 
-        {/* Párrafo introductorio */}
+        {/* Narración del villano (estilo NuBank: detalles vividos, sin etiqueta) */}
         <div style={{
-          padding: '28px 32px', marginBottom: '40px',
+          padding: '28px 32px', marginBottom: '24px',
           background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
           borderRadius: 'var(--radius-container)',
         }}>
-          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su modelo de ingresos actual posee un error de arquitectura crítico: la dependencia absoluta de sus horas de vida o su gestión constante.{' '}
-            <span style={{ color: C.white }}>Al financiar su estilo de vida intercambiando tiempo por dinero, usted ha firmado un contrato de vigilancia permanente sobre su propia vida.</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>Si usted se detiene, el sistema colapsa, generando inestabilidad estructural en su liquidez.</span>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
+            Usted se levanta temprano, cumple, da resultados. Y aun así, algo no cuadra: por más que avanza, <strong style={{ color: C.white, fontWeight: 600 }}>los créditos siempre le llevan la delantera</strong>. Llega fin de mes y <strong style={{ color: C.white, fontWeight: 600 }}>la plata no alcanza</strong>. El año que le fue bien no le asegura el que viene. Y de fondo, un ruido que no se apaga: <em style={{ color: C.body }}>¿qué pasa si me enfermo, si me despiden, si la pensión no llega?</em>
+          </p>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
+            Eso no es mala suerte ni falta de esfuerzo suyo. <strong style={{ color: C.white, fontWeight: 600 }}>El modelo se diseñó así</strong>: para mantenerlo remando, construyendo el patrimonio de otros <strong style={{ color: C.white, fontWeight: 600 }}>y no el suyo</strong>. Y funciona con una sola condición — <strong style={{ color: C.gold, fontWeight: 600 }}>que usted nunca deje de remar.</strong>
           </p>
         </div>
 
-        {/* 3 Tarjetas */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
-          {cards.map((item) => (
-            <div key={item.num} style={{
-              padding: '28px 24px',
-              background: 'rgba(0,0,0,0.65)', border: `1px solid rgba(34,211,238,0.15)`,
-              borderRadius: 'var(--radius-container)',
-            }}>
-              <div style={{
-                width: 40, height: 40, marginBottom: '16px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                border: `2px solid ${C.cyan}`,
-                clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-              }}>
-                <span style={{ fontFamily: "var(--font-mono)", color: C.cyan, fontWeight: 700, fontSize: '0.8rem' }}>{item.num}</span>
-              </div>
-              <h3 style={{ color: C.gold, marginBottom: '12px', fontFamily: "var(--font-sans)", fontSize: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{item.title}</h3>
-              <p style={{ color: C.muted, fontSize: '0.88rem', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
-            </div>
-          ))}
+        {/* Muro de datos — prueba */}
+        <div style={{
+          padding: '24px 28px', marginBottom: '32px',
+          background: 'rgba(0,0,0,0.5)', border: `1px solid rgba(34,211,238,0.2)`,
+          borderRadius: 'var(--radius-container)',
+        }}>
+          <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.12em', textTransform: 'uppercase', color: C.cyan, margin: '0 0 16px' }}>
+            No es una sensación suya — es lo que muestran las cifras
+          </p>
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {cifras.map((c, i) => (
+              <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'baseline', fontSize: '0.95rem', lineHeight: 1.5, color: C.muted }}>
+                <span style={{ color: C.cyan, fontFamily: "var(--font-mono)", flexShrink: 0 }}>›</span>
+                <span>{c}</span>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        {/* Cierre — el golpe */}
+        <p style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)', lineHeight: 1.6, color: C.white, textAlign: 'center', fontFamily: "var(--font-serif)", margin: 0 }}>
+          <strong style={{ color: C.gold, fontWeight: 600 }}>Piénselo por un instante:</strong> un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de <strong style={{ color: C.gold, fontWeight: 600 }}>meses</strong> descubrirá que <strong style={{ color: C.gold, fontWeight: 600 }}>sus bienes son más del banco que suyos.</strong>
+        </p>
       </div>
     </section>
   );
@@ -231,22 +222,22 @@ function PerfilesSection() {
   const perfiles = [
     {
       label: 'Microempresario · 1–5 empleados',
-      dolor: 'Arquitectura con Déficit Estructural: El dueño es el empleado más barato de su propia logística.',
+      dolor: 'El dueño termina siendo el empleado peor pagado de su propio negocio.',
       exito: 'Ingresos que llegan aunque el local esté cerrado. Una Base Operativa que escala mientras usted opera su negocio actual.',
     },
     {
       label: 'Empleado Público · Ejecutivo',
-      dolor: 'Brecha Pensional de Estatus: Proyección de pérdida del 60% del poder adquisitivo al retiro.',
+      dolor: 'Al jubilarse, puede perder hasta el 60% de su poder de compra.',
       exito: 'Estructura de ingresos recurrentes en construcción, sin comprometer su posición profesional actual.',
     },
     {
       label: 'Pensionado · Después de 30 años',
-      dolor: 'Fragilidad de Activo Único: Dependencia total de un sistema de seguridad social en déficit estructural.',
+      dolor: 'Todo depende de una sola fuente: una pensión que cada vez alcanza para menos.',
       exito: 'Un activo legal 100% transferible a su familia. Algo que sus hijos puedan heredar.',
     },
     {
       label: 'Latino en el Extranjero · Diáspora Global',
-      dolor: 'Soberanía Geográfica Atrofiada: Construcción patrimonial limitada a su país de residencia, sin canal para capitalizar mercado natal.',
+      dolor: 'Construye solo donde vive, sin una forma de generar ingresos en su país de origen.',
       exito: 'Base Operativa anclada al país natal, organización en 15 países de América, dirigida desde su lugar de residencia a través de Queswa.',
     },
   ];
@@ -259,7 +250,7 @@ function PerfilesSection() {
             Diagnóstico por Perfil
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Análisis de Riesgo por Perfil de Ingresos
+            ¿En cuál de estos se reconoce?
           </h2>
         </div>
 
@@ -308,23 +299,23 @@ function SolucionesFallidasSection() {
   const opciones = [
     {
       num: '01',
-      titulo: 'Tolerancia al Déficit',
+      titulo: 'Seguir igual',
       subtitulo: 'Status Quo',
-      desc: 'Continuar operando bajo el modelo del intercambio lineal de tiempo por dinero. Usted acepta que su liquidez posee una fecha de caducidad atada a sus horas de vida y asume el riesgo de un colapso si su capacidad operativa se detiene.',
+      desc: 'Seguir cambiando tiempo por dinero. El día que usted pare —por salud, por edad— el ingreso para con usted.',
       destacada: false,
     },
     {
       num: '02',
-      titulo: 'El Gravamen Táctico',
+      titulo: 'Montar otro negocio',
       subtitulo: 'Negocio Tradicional',
-      desc: 'Intentar escapar asumiendo riesgos logísticos y operativos. Usted compra una ilusión de soberanía, pero termina convirtiéndose en el vigilante permanente de su propia matriz comercial.',
+      desc: 'Empezar un negocio tradicional y terminar más atado que antes: ahora nada camina sin usted.',
       destacada: false,
     },
     {
       num: '03',
-      titulo: 'Apalancamiento Estratégico',
+      titulo: 'Construir su propio activo',
       subtitulo: 'Ecosistema de Tres Pilares',
-      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume el Respaldo Operativo en 70 países, Queswa asume el 90% del desgaste operativo, y El Método Comprobado le entrega las coordenadas exactas de dirección. Usted dirige como Propietario de su Base Operativa.',
+      desc: 'Apoyarse en un sistema ya construido. Gano Excel asume el Respaldo Operativo en 70 países, Queswa asume el 90% del trabajo, y El Método Comprobado le entrega los pasos exactos. Usted dirige como Propietario de su Base Operativa.',
       destacada: true,
     },
   ];
@@ -334,10 +325,10 @@ function SolucionesFallidasSection() {
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
-            La Arquitectura de Decisiones
+            Sus Tres Caminos
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Usted tiene tres opciones operativas frente a esta inestabilidad estructural.
+            Frente a esto, usted tiene tres caminos.
           </h2>
         </div>
 
@@ -396,7 +387,7 @@ function ProductoFisicoSection() {
             Pilar 1 — El Respaldo Operativo de Consumo Recurrente
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Todo activo financiero sólido requiere un motor de alta rotación.
+            Todo activo sólido necesita algo que la gente compre todos los días.
           </h2>
         </div>
 
@@ -406,10 +397,10 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su Base Operativa monetiza un hábito biológico innegociable:{' '}
+            Su Base Operativa se apoya en un hábito de todos los días:{' '}
             <span style={{ color: C.white }}>el consumo masivo de bebidas enriquecidas y suplementos de alta gama.</span>{' '}
             No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>tecnología propietaria de bioactivación respaldada por décadas de investigación en biotecnología asiática</span>.
+            <span style={{ color: C.gold, fontWeight: 600 }}>una tecnología propia respaldada por décadas de investigación científica</span>.
           </p>
         </div>
 
@@ -421,7 +412,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.7, color: C.white, margin: 0, fontFamily: "var(--font-serif)", fontStyle: 'italic' }}>
-            Un hábito biológico que no cambia genera un flujo de caja que no se detiene.
+            Un hábito que no cambia genera un ingreso que no se detiene.
           </p>
         </div>
       </div>
@@ -438,15 +429,15 @@ function SolutionPreview() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-          La Prueba de Estrés Patrimonial
+          La Prueba de Estrés
         </span>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "var(--font-serif)", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
-          ¿Cuál es la Autonomía Estructural de su liquidez actual?
+          ¿Cuántos meses sobreviviría si hoy dejara de trabajar?
         </h2>
 
         <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px', lineHeight: 1.7 }}>
-          La ecuación para diagnosticar la vulnerabilidad de su modelo actual es clínica y binaria:
+          La cuenta es simple:
         </p>
 
         <div style={{
@@ -456,24 +447,24 @@ function SolutionPreview() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontFamily: "var(--font-mono)", fontSize: '1rem', color: C.cyan, margin: 0, lineHeight: 1.8 }}>
-            Reservas Líquidas ÷ Carga Operativa Mensual{' '}
+            Ahorros ÷ Gastos del mes{' '}
             <span style={{ color: C.muted }}>=</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 700 }}>Autonomía Estructural (Días)</span>
+            <span style={{ color: C.gold, fontWeight: 700 }}>Meses que aguantaría</span>
           </p>
         </div>
 
         <p style={{ color: C.muted, marginBottom: '40px', maxWidth: '580px', margin: '0 auto 40px', lineHeight: 1.75 }}>
-          Usted controla sus finanzas con disciplina; sin embargo, el escrutinio técnico revela que la mayoría de ejecutivos operan con una{' '}
-          <span style={{ color: C.white, fontWeight: 500 }}>Autonomía Estructural inferior a 30 días</span>.{' '}
-          Si su resultado es crítico, no necesita motivación; necesita acoplar su Base Operativa al ecosistema canónico.
+          Usted maneja sus finanzas con disciplina; aun así, la mayoría no aguantaría{' '}
+          <span style={{ color: C.white, fontWeight: 500 }}>ni un mes</span> sin trabajar.{' '}
+          Si su número lo inquieta, no necesita motivación: necesita un ingreso que no dependa de usted.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
           <Link href="/calculadora" className="cta-base cta-primary">
-            Ejecutar Simulador Técnico →
+            Calcular mi número →
           </Link>
           <Link href="/auditoria-patrimonial" className="cta-base cta-secondary">
-            Omitir Simulación e Iniciar Auditoría de Viabilidad →
+            Omitir y empezar la Auditoría →
           </Link>
         </div>
       </div>
@@ -488,15 +479,15 @@ function SolutionPreview() {
 function QueswaDiferenciadorSection() {
   const capacidades = [
     {
-      titulo: 'COMANDO EXPANDIR — Despliegue de Tráfico Calificado',
+      titulo: 'COMANDO EXPANDIR — Llega a las personas correctas',
       desc: 'Usted no explica — Queswa explica. Su dispositivo se convierte en centro de mando; toda la información ya está estructurada y se despliega con precisión quirúrgica.',
     },
     {
-      titulo: 'COMANDO ACTIVAR — Filtrado y Calificación 24/7',
+      titulo: 'COMANDO ACTIVAR — Filtra y califica por usted, 24/7',
       desc: 'Usted no convence; usted audita y autoriza. Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted.',
     },
     {
-      titulo: 'COMANDO MAESTRÍA — Escalamiento Automatizado',
+      titulo: 'COMANDO MAESTRÍA — Multiplica sin que usted enseñe',
       desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Propietario de Base Operativa desde el día uno.',
     },
   ];
@@ -509,7 +500,7 @@ function QueswaDiferenciadorSection() {
             El Centro de Mando
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Queswa: Su Centro de Mando para la Soberanía Patrimonial.
+            Queswa: su Centro de Mando.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
             Queswa es la plataforma propietaria de IA que opera bajo <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado — tres comandos automatizados</span> que neutralizan la fricción del modelo actual.{' '}
@@ -546,7 +537,7 @@ function QueswaDiferenciadorSection() {
 
         <div style={{ textAlign: 'center' }}>
           <Link href="https://queswa.app" className="cta-base cta-secondary">
-            Solicitar Demostración Técnica →
+            Solicitar una Demostración →
           </Link>
         </div>
       </div>
@@ -563,7 +554,7 @@ function FinalCTASection() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: '16px' }}>
-          Protocolo de Integración
+          El siguiente paso
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '12px' }}>
@@ -571,7 +562,7 @@ function FinalCTASection() {
         </h2>
 
         <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "var(--font-serif)" }}>
-          Escrutinio de 5 Días para Diagnosticar la Vulnerabilidad de su Modelo Actual.
+          5 días para ver, con números, qué tan frágil es su modelo actual.
         </p>
 
         <div style={{
@@ -580,7 +571,7 @@ function FinalCTASection() {
           textAlign: 'left',
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
-            Identificada la falla sistémica en su arquitectura financiera, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
+            Si reconoció su punto ciego, el siguiente paso es ver si esto funciona para su caso.{' '}
             <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de dirección.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
@@ -591,7 +582,7 @@ function FinalCTASection() {
             Iniciar Auditoría de Viabilidad →
           </Link>
           <Link href="/calculadora" className="cta-base cta-secondary">
-            Ejecutar Prueba de Estrés Patrimonial →
+            Calcular mi número →
           </Link>
         </div>
       </div>

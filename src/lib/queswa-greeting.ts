@@ -28,7 +28,7 @@
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Mi función es ahorrarle tiempo, filtrar la información y ayudarle a diagnosticar si su arquitectura financiera actual requiere la integración de una Estructura Patrimonial.`;
+const MISION = `Mi función es ahorrarle tiempo, filtrar la información y ayudarle a diagnosticar si su modelo de ingresos actual requiere la integración de una estructura de ingresos recurrentes.`;
 
 const TRANSICION = `¿En qué fase del análisis se encuentra hoy?`;
 
@@ -41,7 +41,7 @@ const TRANSICION = `¿En qué fase del análisis se encuentra hoy?`;
  * 4. Slide 4 — Matemática de Amortización
  */
 export const QUESWA_QUICK_REPLIES = [
-  'Quiero entender la lógica: ¿cómo funciona esta Estructura Patrimonial?',
+  '¿Cómo funciona el negocio?',
   '¿Cuál es la metodología operativa? ¿Qué hago yo en el día a día?',
   '¿Cuál es el producto? ¿Sobre qué activo físico se sostiene este flujo de caja?',
   'Quiero ver los números: ¿cómo se monetiza y cuáles son las vías de liquidez?',
@@ -79,10 +79,10 @@ export const QUESWA_CTA_LABEL = 'Iniciar Auditoría de Viabilidad';
  * Las keys deben estar en lowercase (route.ts hace .toLowerCase().trim() antes del match).
  */
 export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
-  'quiero entender la lógica: ¿cómo funciona esta estructura patrimonial?':
-    'cómo funciona el negocio sistema distribución tres pilares arquitectura',
+  '¿cómo funciona el negocio?':
+    'cómo funciona el negocio sistema distribución tres pilares apalancamiento',
   '¿cuál es la metodología operativa? ¿qué hago yo en el día a día?':
-    'qué tengo que hacer cuál es mi rol metodología tridente EAM día a día',
+    'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',
   '¿cuál es el producto? ¿sobre qué activo físico se sostiene este flujo de caja?':
     'qué productos venden catálogo qué distribuimos Ganoderma Gano Excel',
   'quiero ver los números: ¿cómo se monetiza y cuáles son las vías de liquidez?':

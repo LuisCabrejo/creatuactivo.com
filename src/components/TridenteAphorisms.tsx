@@ -57,7 +57,7 @@ export default function TridenteAphorisms() {
           display: 'block',
           marginBottom: '16px',
         }}>
-          El Tridente EAM · {current.protocol}
+          El Método Comprobado · {current.protocol}
         </span>
         <p style={{
           fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',

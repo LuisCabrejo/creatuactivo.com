@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.3 — Retrofit Pilar 3: "Su Rol como Arquitecto" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto queda elevado como director de los tres pilares. Cleanup "tecnología celular" → "tecnología propietaria de bioactivación". (15 May 2026)
+ * Homepage v13.4 — Recalibración léxica accesible (jun 2026): "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario de Base Operativa", "gobernanza" → "dirige", "Apalancamiento Asimétrico" → "Apalancamiento Estratégico". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados. (Previo v13.3, 15 May 2026)
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
  * Aliado canónico: Servilleta v3.1 + System Prompt v26.5 + Arsenal Inicial v25.3
  */
@@ -16,8 +16,8 @@ import { SERVILLETA_YOUTUBE_ID } from '@/lib/reels';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una Estructura Patrimonial apalancada en tres pilares: Gano Excel en 70 países, Queswa como su Centro de Mando, y la metodología automatizada del Tridente EAM. Usted dirige.',
+  title: 'CreaTuActivo | Construcción de Ingresos Recurrentes',
+  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una estructura de ingresos recurrentes apalancada en tres pilares: el Respaldo Operativo de Gano Excel en 70 países, Queswa como su Centro de Mando, y El Método Comprobado. Usted dirige.',
 };
 
 // Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
@@ -93,7 +93,7 @@ function HeroSection() {
           letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          Construcción de Estructura Patrimonial
+          Construcción de Ingresos Recurrentes
         </h1>
 
         {/* Hook de diagnóstico */}
@@ -119,7 +119,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             Diagnostique la falla sistémica de su arquitectura financiera actual y desvincule su liquidez de sus horas de vida.{' '}
-            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>Estructura Patrimonial</strong> apalancada en tres pilares — la matriz física de Gano Excel en 70 países, Queswa como su Centro de Mando, y la metodología automatizada del Tridente EAM — sin abandonar su ocupación actual. Usted dirige.</span>
+            <span style={{ color: C.white }}>Construya una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> apalancada en tres pilares — el Respaldo Operativo de Gano Excel en 70 países, Queswa como su Centro de Mando, y El Método Comprobado — sin abandonar su ocupación actual. Usted dirige.</span>
           </p>
         </div>
 
@@ -134,7 +134,7 @@ function HeroSection() {
           fontFamily: "var(--font-mono)", letterSpacing: '0.1em',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          5 Días · Sin Costo · Escrutinio de Ingeniería Patrimonial
+          5 Días · Sin Costo · Escrutinio de su Modelo de Ingresos
         </p>
 
         {/* Link secundario */}
@@ -237,7 +237,7 @@ function PerfilesSection() {
     {
       label: 'Empleado Público · Ejecutivo',
       dolor: 'Brecha Pensional de Estatus: Proyección de pérdida del 60% del poder adquisitivo al retiro.',
-      exito: 'Estructura Patrimonial en construcción, sin comprometer su posición profesional actual.',
+      exito: 'Estructura de ingresos recurrentes en construcción, sin comprometer su posición profesional actual.',
     },
     {
       label: 'Pensionado · Después de 30 años',
@@ -322,9 +322,9 @@ function SolucionesFallidasSection() {
     },
     {
       num: '03',
-      titulo: 'Apalancamiento Asimétrico',
+      titulo: 'Apalancamiento Estratégico',
       subtitulo: 'Ecosistema de Tres Pilares',
-      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume la matriz física en 70 países, Queswa asume el 90% del desgaste operativo, y el Tridente EAM le entrega las coordenadas exactas de dirección. Usted ejerce la gobernanza como Arquitecto de Patrimonio.',
+      desc: 'Acoplar su Base Operativa al ecosistema canónico. Gano Excel asume el Respaldo Operativo en 70 países, Queswa asume el 90% del desgaste operativo, y El Método Comprobado le entrega las coordenadas exactas de dirección. Usted dirige como Propietario de su Base Operativa.',
       destacada: true,
     },
   ];
@@ -393,7 +393,7 @@ function ProductoFisicoSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Pilar 1 — La Matriz Física de Consumo Recurrente
+            Pilar 1 — El Respaldo Operativo de Consumo Recurrente
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Todo activo financiero sólido requiere un motor de alta rotación.
@@ -497,7 +497,7 @@ function QueswaDiferenciadorSection() {
     },
     {
       titulo: 'COMANDO MAESTRÍA — Escalamiento Automatizado',
-      desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Arquitecto de Patrimonio desde el día uno.',
+      desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Propietario de Base Operativa desde el día uno.',
     },
   ];
 
@@ -512,8 +512,8 @@ function QueswaDiferenciadorSection() {
             Queswa: Su Centro de Mando para la Soberanía Patrimonial.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Queswa es la plataforma propietaria de IA que opera bajo la metodología <span style={{ color: C.gold, fontWeight: 600 }}>El Tridente EAM — tres comandos automatizados</span> que neutralizan la fricción del modelo actual.{' '}
-            <span style={{ color: C.white }}>Mientras usted ejerce gobernanza, Queswa califica la demanda y la acopla a la matriz física de Gano Excel —presencia en 70 países, red de sedes operativas locales y soporte presencial— que asume el</span>{' '}
+            Queswa es la plataforma propietaria de IA que opera bajo <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado — tres comandos automatizados</span> que neutralizan la fricción del modelo actual.{' '}
+            <span style={{ color: C.white }}>Mientras usted dirige, Queswa califica la demanda y la acopla al Respaldo Operativo de Gano Excel —presencia en 70 países, red de sedes operativas locales y soporte presencial— que asume el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del desgaste operativo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>
@@ -581,8 +581,8 @@ function FinalCTASection() {
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Identificada la falla sistémica en su arquitectura financiera, el siguiente paso es ejecutar una validación de viabilidad técnica.{' '}
-            <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de gobernanza directiva.</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su arquitectura patrimonial requiere este nivel hoy.</span>
+            <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de dirección.</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
         </div>
 
@@ -613,7 +613,7 @@ function Footer() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
         <div>
           <p style={{ fontFamily: "var(--font-sans)", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
-          <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>Construcción de Estructura Patrimonial</p>
+          <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>Construcción de Ingresos Recurrentes</p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>

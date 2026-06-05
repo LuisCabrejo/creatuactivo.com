@@ -9,7 +9,7 @@
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
  * Las 2 chips canónicas que aquí se sirven concentran el ~80% del tráfico inicial:
- *   • Chip 1 ("Quiero entender la lógica…") → WHY_02 verbatim
+ *   • Chip 1 ("¿Cómo funciona el negocio?") → WHY_02 verbatim
  *   • Chip 2 ("¿Cuál es la metodología operativa…") → EAM_01 verbatim
  *
  * Servirlas verbatim desde el backend, antes del Voyage AI + Anthropic, garantiza:
@@ -38,28 +38,27 @@
  */
 
 /**
- * Texto Master WHY_02 — Chip 1 ("Quiero entender la lógica…").
- * Sincronizado con arsenal_inicial.txt v5.5 BLOQUE 1.
- * Reescritura v5.5 (24 May 2026): doctrina Modulación de Registro, copy aprobado
- * Director Cabrejo (~150 palabras, sin "Eso no es éxito financiero" — describir qué ES),
- * pregunta de seguimiento conversacional abierta.
+ * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el negocio?").
+ * Sincronizado con arsenal_inicial.txt v5.6 BLOQUE 1.
+ * Recalibración v5.6 (jun 2026): léxico servilleta-accesible (El Respaldo Operativo /
+ * El Método Comprobado, ya no "Matriz Física"/"Tridente EAM"), "Estructura Patrimonial"
+ * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
+ * "si se detiene se detiene", cierre que distingue "cómo se gana" (consumo recurrente).
  */
-const MASTER_WHY_02 = `Para entender la mecánica, primero diagnosticamos su modelo actual: usted opera con una vulnerabilidad crítica. Un mes sin quincena, un despido inesperado o un mal trimestre de ventas, y su estabilidad colapsa.
+const MASTER_WHY_02 = `Su modelo actual tiene una vulnerabilidad: depende de su presencia. Un mes sin trabajar, un despido o un mal trimestre… y su estabilidad queda expuesta. No es falta de capacidad — así está calibrado el sistema.
 
-Esto no es un problema de capacidad; es **la consecuencia matemática de un sistema calibrado para la asfixia mensual**.
+El negocio invierte esa lógica con **apalancamiento**: usted deja de cambiar su tiempo por dinero y pasa a **dirigir** una **estructura de ingresos recurrentes**. Asume el control de una **Base Operativa** apoyada en tres pilares que hacen el trabajo pesado por usted:
 
-CreaTuActivo.com rompe esta condena mediante la construcción de una **Estructura Patrimonial**. Usted asume el control de una **Base Operativa** apoyada en tres pilares que absorben la carga operativa por usted:
-
-**1. La Matriz Física**
-Gano Excel asume la operación logística completa (fábricas, inventarios, despachos) en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+**1. El Respaldo Operativo**
+Gano Excel asume la operación logística completa —fábricas, inventarios, despachos— en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
 **2. Queswa, su Centro de Mando**
-Soy su plataforma de Inteligencia Artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
+Soy su plataforma de inteligencia artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
 
-**3. La Metodología Automatizada**
-El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). Una metodología paso a paso que le entrega las coordenadas exactas de dirección estratégica para expandir sin improvisar.
+**3. El Método Comprobado**
+Un protocolo paso a paso (Comando Expandir · Activar · Maestría) que le entrega las coordenadas exactas para expandir sin improvisar.
 
----
+El ingreso nace del **consumo recurrente** que fluye por su organización: mientras el hábito se repite, su activo produce — esté usted presente o no.
 
 ¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su Base Operativa?`;
 
@@ -72,7 +71,7 @@ El **Tridente EAM** (Comando Expandir · Comando Activar · Comando Maestría). 
  */
 const MASTER_EAM_01 = `Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
 
-Su día a día se rige por el **Tridente EAM**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
+Su día a día se rige por **El Método Comprobado**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
 
 **Su agenda diaria no requiere:**
 - Aprender a vender de forma tradicional
@@ -95,14 +94,14 @@ Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.a
 
 ---
 
-¿Le gustaría que profundicemos en alguno de los tres Comandos del Tridente, o prefiere ver cómo se generan los ingresos recurrentes?`;
+¿Le gustaría que profundicemos en alguno de los tres Comandos del Método, o prefiere ver cómo se generan los ingresos recurrentes?`;
 
 /**
  * Mapa chip-text-lowercase → respuesta Master verbatim.
  * Las keys son las versiones lowercase de `QUESWA_QUICK_REPLIES` en queswa-greeting.ts.
  */
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
-  'quiero entender la lógica: ¿cómo funciona esta estructura patrimonial?': MASTER_WHY_02,
+  '¿cómo funciona el negocio?': MASTER_WHY_02,
   '¿cuál es la metodología operativa? ¿qué hago yo en el día a día?': MASTER_EAM_01,
 };
 

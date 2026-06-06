@@ -119,7 +119,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             La solución no es trabajar más, ni dejar lo que hace hoy.{' '}
-            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong>: un ingreso que sigue llegando aunque usted no esté presente, apoyado en tres pilares que cargan el trabajo pesado por usted — Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema opera.</span>
+            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> — un ingreso que sigue llegando aunque usted descanse, viaje o simplemente viva. Usted toma el control de una <strong style={{ color: C.gold }}>Base Operativa</strong> propia, lista para operar, sostenida por tres pilares que cargan el trabajo pesado: Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema opera.</span>
           </p>
         </div>
 
@@ -228,7 +228,7 @@ function PerfilesSection() {
     {
       label: 'Empleado Público · Ejecutivo',
       dolor: 'Al jubilarse, puede perder hasta el 60% de su poder de compra.',
-      exito: 'Estructura de ingresos recurrentes en construcción, sin comprometer su posición profesional actual.',
+      exito: 'Un ingreso propio que llega aunque la pensión no alcance — construido sin tocar su carrera.',
     },
     {
       label: 'Pensionado · Después de 30 años',
@@ -238,7 +238,7 @@ function PerfilesSection() {
     {
       label: 'Latino en el Extranjero · Diáspora Global',
       dolor: 'Construye solo donde vive, sin una forma de generar ingresos en su país de origen.',
-      exito: 'Base Operativa anclada al país natal, organización en 15 países de América, dirigida desde su lugar de residencia a través de Queswa.',
+      exito: 'Un ingreso anclado a su país de origen, que usted dirige desde donde vive.',
     },
   ];
 
@@ -247,7 +247,7 @@ function PerfilesSection() {
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Diagnóstico por Perfil
+            Según quién sea usted
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             ¿En cuál de estos se reconoce?
@@ -292,82 +292,51 @@ function PerfilesSection() {
 }
 
 // ============================================================================
-// SOLUCIONES FALLIDAS — "Modelos sin arquitectura"
+// TRES CAMINOS — dos salidas que fallan + el tercer camino (narrado, estilo servilleta)
 // ============================================================================
 
 function SolucionesFallidasSection() {
-  const opciones = [
-    {
-      num: '01',
-      titulo: 'Seguir igual',
-      subtitulo: 'Status Quo',
-      desc: 'Seguir cambiando tiempo por dinero. El día que usted pare —por salud, por edad— el ingreso para con usted.',
-      destacada: false,
-    },
-    {
-      num: '02',
-      titulo: 'Montar otro negocio',
-      subtitulo: 'Negocio Tradicional',
-      desc: 'Empezar un negocio tradicional y terminar más atado que antes: ahora nada camina sin usted.',
-      destacada: false,
-    },
-    {
-      num: '03',
-      titulo: 'Construir su propio activo',
-      subtitulo: 'Ecosistema de Tres Pilares',
-      desc: 'Apoyarse en un sistema ya construido. Gano Excel asume el Respaldo Operativo en 70 países, Queswa asume el 90% del trabajo, y El Método Comprobado le entrega los pasos exactos. Usted dirige como Propietario de su Base Operativa.',
-      destacada: true,
-    },
-  ];
-
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
-      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
-            Sus Tres Caminos
+            Tres Caminos
           </span>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Frente a esto, usted tiene tres caminos.
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
+            Frente a esto, casi todos toman el camino que no lleva a ningún lado.
           </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-          {opciones.map((item) => (
-            <div key={item.num} style={{
-              padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: '12px',
-              background: item.destacada ? 'rgba(197, 160, 89,0.06)' : 'rgba(0,0,0,0.65)',
-              border: item.destacada ? `1px solid ${C.gold}` : `1px solid rgba(255,255,255,0.07)`,
-              borderRadius: 'var(--radius-container)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{
-                  fontFamily: "var(--font-mono)", fontSize: '0.75rem', fontWeight: 700,
-                  color: item.destacada ? C.gold : C.muted,
-                }}>
-                  {item.num}
-                </span>
-                <span style={{
-                  fontSize: '0.7rem', fontFamily: "var(--font-mono)", letterSpacing: '0.15em',
-                  textTransform: 'uppercase', color: item.destacada ? C.gold : C.muted,
-                  opacity: 0.7,
-                }}>
-                  {item.subtitulo}
-                </span>
-              </div>
-              <h3 style={{
-                fontFamily: "var(--font-sans)", fontSize: '1.1rem',
-                letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: item.destacada ? C.gold : C.white,
-                margin: 0,
-              }}>
-                {item.titulo}
-              </h3>
-              <p style={{ color: C.muted, fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>
-                {item.desc}
-              </p>
-            </div>
-          ))}
+        {/* Las dos salidas que fallan (narrado) */}
+        <div style={{
+          padding: '28px 32px', marginBottom: '20px',
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid rgba(255,255,255,0.12)`,
+          borderRadius: 'var(--radius-container)',
+        }}>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
+            Cuando uno ve el problema, el instinto da dos respuestas — y las dos fallan.
+          </p>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
+            La primera: <strong style={{ color: C.white, fontWeight: 600 }}>trabajar más duro</strong>. Más horas, más clientes, más esfuerzo. Pero eso solo lo hace pedalear más rápido en la misma bicicleta: su ingreso sigue dependiendo de que usted esté ahí.
+          </p>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
+            La segunda: <strong style={{ color: C.white, fontWeight: 600 }}>montar otro negocio</strong>. Y casi siempre sale peor — cambia un jefe por mil clientes, y ahora ni el negocio camina sin usted.
+          </p>
+        </div>
+
+        {/* El tercer camino (destacado) */}
+        <div style={{
+          padding: '28px 32px',
+          background: 'rgba(197, 160, 89,0.06)', border: `1px solid ${C.gold}`,
+          borderRadius: 'var(--radius-container)',
+        }}>
+          <span style={{ fontSize: '0.7rem', fontFamily: "var(--font-mono)", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.gold, display: 'block', marginBottom: '12px' }}>
+            El tercer camino
+          </span>
+          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.white, margin: 0 }}>
+            Es el único que rompe la rueda. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir un activo que trabaje por usted</strong>: una <strong style={{ color: C.gold, fontWeight: 600 }}>Base Operativa</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
+          </p>
         </div>
       </div>
     </section>

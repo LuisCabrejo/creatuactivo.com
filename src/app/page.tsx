@@ -335,7 +335,7 @@ function SolucionesFallidasSection() {
             El tercer camino
           </span>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.white, margin: 0 }}>
-            Es el único que rompe la rueda. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir un activo que trabaje por usted</strong>: una <strong style={{ color: C.gold, fontWeight: 600 }}>Base Operativa</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
+            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir un activo que trabaje por usted</strong>: una <strong style={{ color: C.gold, fontWeight: 600 }}>Base Operativa</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
           </p>
         </div>
       </div>
@@ -356,7 +356,7 @@ function ProductoFisicoSection() {
             Pilar 1 · El Respaldo Operativo
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Todo activo sólido necesita algo que la gente compre todos los días.
+            Un activo sólido descansa siempre sobre un consumo que no se detiene.
           </h2>
         </div>
 
@@ -534,8 +534,8 @@ function FinalCTASection() {
           textAlign: 'left',
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
-            Si reconoció su punto ciego, el siguiente paso es ver si esto funciona para su caso.{' '}
-            <span style={{ color: C.white }}>La activación de su Base Operativa no es masiva: es para quien está listo para dirigir un activo, no para sumar otro empleo.</span>{' '}
+            Si reconoció su punto ciego, el siguiente paso es auditar sus propios números.{' '}
+            <span style={{ color: C.white }}>La activación de su Base Operativa no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
         </div>

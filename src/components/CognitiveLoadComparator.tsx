@@ -67,7 +67,7 @@ export default function CognitiveLoadComparator() {
           fontSize: '0.65rem', letterSpacing: '0.22em',
           textTransform: 'uppercase', color: MUTED, marginBottom: '8px',
         }}>
-          Comparador de Carga Operativa
+          Hacerlo a mano… o con Queswa
         </p>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -75,7 +75,7 @@ export default function CognitiveLoadComparator() {
             fontFamily: "'Roboto Mono', monospace", fontSize: '0.72rem',
             letterSpacing: '0.14em', color: MUTED,
           }}>
-            MODO ACTIVO:
+            ASÍ SE VE:
           </span>
           <span style={{
             fontFamily: "'Rajdhani', sans-serif", fontSize: '0.85rem',
@@ -83,7 +83,7 @@ export default function CognitiveLoadComparator() {
             color: activo ? GOLD : 'rgba(244,63,94,0.9)',
             transition: 'color 0.6s ease-in-out',
           }}>
-            {activo ? '▸ Protocolo Queswa' : '▸ Operación Tradicional'}
+            {activo ? '▸ Con Queswa · El Método Comprobado' : '▸ A mano, como siempre'}
           </span>
 
           {/* Métrica resumen */}
@@ -92,12 +92,12 @@ export default function CognitiveLoadComparator() {
             fontFamily: "'Roboto Mono', monospace", fontSize: '0.7rem',
             color: MUTED, letterSpacing: '0.1em',
           }}>
-            Fricción Operativa:{' '}
+            Trabajo sobre sus hombros:{' '}
             <span style={{
               color: activo ? CYAN : 'rgba(244,63,94,0.9)',
               fontWeight: 700, transition: 'color 0.6s ease-in-out',
             }}>
-              {activo ? 'MÍNIMA' : 'CRÍTICA'}
+              {activo ? 'CASI NADA' : 'TODO'}
             </span>
           </span>
         </div>
@@ -160,7 +160,7 @@ export default function CognitiveLoadComparator() {
                   transition: 'opacity 0.5s ease-in-out 0.4s, transform 0.5s ease-in-out 0.4s',
                   pointerEvents: 'none',
                 }}>
-                  ↳ Asumido por Infraestructura Híbrida
+                  ↳ Lo asume el sistema por usted
                 </p>
               )}
 
@@ -175,7 +175,7 @@ export default function CognitiveLoadComparator() {
                   transition: 'opacity 0.5s ease-in-out 0.5s, transform 0.5s ease-in-out 0.5s',
                   pointerEvents: 'none',
                 }}>
-                  ↳ Capacidad operativa total bajo su control directo
+                  ↳ Lo único que queda en sus manos: dirigir
                 </p>
               )}
             </div>
@@ -205,13 +205,13 @@ export default function CognitiveLoadComparator() {
         >
           {activo ? (
             <>
-              <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>✕</span>
-              Desactivar Protocolo Queswa
+              <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>←</span>
+              Volver a hacerlo a mano
             </>
           ) : (
             <>
               <span style={{ fontSize: '0.9rem' }}>▸</span>
-              Activar Protocolo Queswa
+              Ver con Queswa
             </>
           )}
         </button>

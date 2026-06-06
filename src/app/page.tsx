@@ -353,7 +353,7 @@ function ProductoFisicoSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Pilar 1 — El Respaldo Operativo de Consumo Recurrente
+            Pilar 1 · El Respaldo Operativo
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Todo activo sólido necesita algo que la gente compre todos los días.
@@ -366,10 +366,9 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su Base Operativa se apoya en un hábito de todos los días:{' '}
-            <span style={{ color: C.white }}>el consumo masivo de bebidas enriquecidas y suplementos de alta gama.</span>{' '}
-            No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>una tecnología propia respaldada por décadas de investigación científica</span>.
+            Su Base Operativa monetiza un hábito que la gente ya tiene:{' '}
+            <span style={{ color: C.white }}>el café de cada mañana.</span>{' '}
+            Solo que el nuestro lleva dentro <strong style={{ color: C.gold, fontWeight: 600 }}>Ganoderma</strong> —el hongo más estudiado del planeta—, en un extracto que el cuerpo asimila por completo. No le pedimos a nadie cambiar su rutina; solo que el café de siempre <span style={{ color: C.white }}>trabaje a su favor.</span> Y detrás está <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>: la empresa real que lo fabrica y lo entrega en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países.</strong>
           </p>
         </div>
 
@@ -398,16 +397,12 @@ function SolutionPreview() {
     <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
         <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-          La Prueba de Estrés
+          La cifra que pocos miran
         </span>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "var(--font-serif)", color: '#fff', marginTop: '16px', marginBottom: '24px' }}>
-          ¿Cuántos meses sobreviviría si hoy dejara de trabajar?
+          ¿Cuántos meses podría sostener su estilo de vida si dejara de trabajar hoy?
         </h2>
-
-        <p style={{ fontSize: '1.05rem', color: C.muted, marginBottom: '32px', lineHeight: 1.7 }}>
-          La cuenta es simple:
-        </p>
 
         <div style={{
           display: 'inline-block', padding: '24px 40px',
@@ -418,14 +413,13 @@ function SolutionPreview() {
           <p style={{ fontFamily: "var(--font-mono)", fontSize: '1rem', color: C.cyan, margin: 0, lineHeight: 1.8 }}>
             Ahorros ÷ Gastos del mes{' '}
             <span style={{ color: C.muted }}>=</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 700 }}>Meses que aguantaría</span>
+            <span style={{ color: C.gold, fontWeight: 700 }}>Meses de autonomía</span>
           </p>
         </div>
 
         <p style={{ color: C.muted, marginBottom: '40px', maxWidth: '580px', margin: '0 auto 40px', lineHeight: 1.75 }}>
-          Usted maneja sus finanzas con disciplina; aun así, la mayoría no aguantaría{' '}
-          <span style={{ color: C.white, fontWeight: 500 }}>ni un mes</span> sin trabajar.{' '}
-          Si su número lo inquieta, no necesita motivación: necesita un ingreso que no dependa de usted.
+          No lo deje a la intuición. Es una cifra exacta — y conocerla con precisión cambia las decisiones que tome desde hoy.{' '}
+          <span style={{ color: C.white, fontWeight: 500 }}>Le toma un minuto.</span>
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
@@ -466,15 +460,15 @@ function QueswaDiferenciadorSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            El Centro de Mando
+            Pilar 2 · El Centro de Mando
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Queswa: su Centro de Mando.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Queswa es la plataforma propietaria de IA que opera bajo <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado — tres comandos automatizados</span> que neutralizan la fricción del modelo actual.{' '}
-            <span style={{ color: C.white }}>Mientras usted dirige, Queswa califica la demanda y la acopla al Respaldo Operativo de Gano Excel —presencia en 70 países, red de sedes operativas locales y soporte presencial— que asume el</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>90% del desgaste operativo</span>{' '}
+            Queswa es la plataforma de inteligencia artificial que ejecuta <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado</span>: tres comandos que le quitan de encima el trabajo pesado.{' '}
+            <span style={{ color: C.white }}>Mientras usted dirige, Queswa atiende y filtra a los interesados las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>90% del trabajo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>
         </div>
@@ -527,7 +521,7 @@ function FinalCTASection() {
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '12px' }}>
-          Auditoría de Arquitectura Patrimonial
+          La Auditoría de 5 Días
         </h2>
 
         <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "var(--font-serif)" }}>
@@ -541,7 +535,7 @@ function FinalCTASection() {
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Si reconoció su punto ciego, el siguiente paso es ver si esto funciona para su caso.{' '}
-            <span style={{ color: C.white }}>La activación de su Base Operativa no es de acceso masivo; está restringida a perfiles con capacidad de dirección.</span>{' '}
+            <span style={{ color: C.white }}>La activación de su Base Operativa no es masiva: es para quien está listo para dirigir un activo, no para sumar otro empleo.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
         </div>

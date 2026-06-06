@@ -1,5 +1,5 @@
 /**
- * SERVILLETA DIGITAL v6.1 - THE INDUSTRIAL DECK
+ * SERVILLETA DIGITAL v6.2 — registro accesible (alineado a guion v4.0 + home)
  * 4-Slide Interactive Presentation (Slide Deck)
  *
  * v6.1 (15 May 2026) — Retrofit léxico v26.5 + presentación deck-friendly:
@@ -1508,30 +1508,30 @@ export default function ServilletaPage() {
               style={{ backgroundImage: "url('/images/3-pilares.webp')" }}
             />
             <div className="content-overlay center-focus">
-              <div className="technical-label">REF: ESTRUCTURA_PATRIMONIAL</div>
+              <div className="technical-label">REF: INGRESOS_RECURRENTES</div>
               <h1 className="deck-h1">
                 CONSTRUCCI&Oacute;N DE<br />
-                <span style={{ color: 'var(--orange)' }}>ESTRUCTURA PATRIMONIAL</span>
+                <span style={{ color: 'var(--orange)' }}>INGRESOS RECURRENTES</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  Si usted se detiene, el flujo se detiene. Esta es la correcci&oacute;n.
+                  Si usted se detiene, su ingreso se detiene. Esta es la correcci&oacute;n.
                 </p>
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · La Matriz F&iacute;sica:</span> Gano Excel · 70 pa&iacute;ses · asume el 100% de los pasivos operativos.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · El Respaldo Operativo:</span> Gano Excel · 70 pa&iacute;ses · asume toda la operaci&oacute;n pesada.
                   </div>
                   <div className="comp-row">
                     <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> Motor de IA propietaria · filtra y califica perfiles 24/7.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · La Metodolog&iacute;a Automatizada:</span> El Tridente EAM · protocolo que erradica el ensayo y error.
+                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · El M&eacute;todo Comprobado:</span> protocolo que erradica el ensayo y error.
                   </div>
                 </div>
 
                 <p className="deck-p" style={{ textAlign: 'center', margin: '1rem auto 0', fontStyle: 'italic', opacity: 0.85 }}>
-                  Usted dirige los tres pilares como Arquitecto de Patrimonio.
+                  Usted dirige los tres pilares. Usted es el Propietario.
                 </p>
               </div>
 
@@ -1550,7 +1550,7 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  LA METODOLOG&Iacute;A EAM
+                  EL M&Eacute;TODO COMPROBADO
                 </h2>
                 <span className="slide-2-subtitle">
                   Tres comandos.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
@@ -1604,7 +1604,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
                   </div>
                   <h3>ACTIVAR</h3>
-                  <p>Usted no presenta el modelo. El Motor de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7.</p>
+                  <p>Usted no presenta el modelo. El Motor de IA Queswa asume el 90% del trabajo pesado, filtrando y calificando perfiles 24/7.</p>
                 </div>
               </div>
 
@@ -1616,7 +1616,7 @@ export default function ServilletaPage() {
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
                   </div>
                   <h3>MAESTR&Iacute;A</h3>
-                  <p>La infraestructura acad&eacute;mica ejecuta la transferencia de protocolos t&aacute;cticos de forma aut&oacute;noma por niveles.<br />Su activo escala eliminando el tiempo humano como cuello de botella operativo.</p>
+                  <p>La Academia ense&ntilde;a por usted, paso a paso, a cada nuevo Propietario que se suma.<br />Su activo crece sin que su tiempo sea el l&iacute;mite.</p>
                 </div>
               </div>
 
@@ -1643,7 +1643,7 @@ export default function ServilletaPage() {
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
                   <p className="deck-p">
-                    Optimizaci&oacute;n de h&aacute;bitos preexistentes mediante tecnolog&iacute;a nutricional propietaria con Ganoderma Lucidum.
+                    El caf&eacute; de siempre — ahora con Ganoderma, el hongo m&aacute;s estudiado del planeta, en un extracto que el cuerpo asimila por completo.
                   </p>
                   <button
                     type="button"
@@ -1703,7 +1703,7 @@ export default function ServilletaPage() {
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
-                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE ESTRUCTURA PATRIMONIAL</h3>
+                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE INGRESOS RECURRENTES</h3>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">
@@ -1798,7 +1798,7 @@ export default function ServilletaPage() {
                 />
                 <div className="cta-overlay">
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
-                    CONSTRUCCI&Oacute;N DE ESTRUCTURA PATRIMONIAL
+                    CONSTRUCCI&Oacute;N DE INGRESOS RECURRENTES
                   </p>
 
                   <div className="cta-buttons">

@@ -95,8 +95,8 @@ export default function TecnologiaPage() {
         <div className="relative z-10">
           {/* Hero Section */}
           <IndustrialHeader
-            title="MEMORÁNDUM DIRECTIVO"
-            subtitle="El Motor Cognitivo de CreaTuActivo"
+            title="TECNOLOGÍA QUE TRABAJA POR USTED"
+            subtitle="Construya su estructura de ingresos recurrentes — usted dirige."
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.webp"
             imageAlt="Engranajes industriales - Sistema Queswa"

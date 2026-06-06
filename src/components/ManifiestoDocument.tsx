@@ -48,7 +48,8 @@ export default function ManifiestoDocument({
 
       <div className="relative z-10">
         <IndustrialHeader
-          title="MEMORÁNDUM DIRECTIVO"
+          title="NUESTRA FILOSOFÍA"
+          subtitle="Las cosas no pasan. Se hacen pasar."
           refCode="DOCUMENTO_FUNDACIONAL_V1"
           imageSrc="/images/header-manifiesto.jpg"
           imageAlt=""

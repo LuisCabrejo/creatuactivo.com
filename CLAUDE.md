@@ -399,6 +399,7 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 | `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
 | `/api/fundadores/registro-diciembre` | Node | 10s | Legacy December registration |
 | `/api/track/video` | Edge | — | Video progress tracker — registra `play`/`completado_80` para dias 1–5 de la Auditoría; dispara webhook Supabase → push en queswa.app |
+| `/api/track/engagement` | Edge | — | Reel engagement tracker — merge **sin retroceder** (`Math.max` numéricos / OR lógico bools) sobre `device_info` vía `update_prospect_data`; dispara webhook Supabase → push en queswa.app. Campos = contrato cerrado con el Dashboard (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)) |
 | `/api/email-open` | Node | — | Email open pixel tracker |
 | `/api/webhooks/prospect-capture` | Node | — | Webhook Supabase → captura prospectos desde triggers externos |
 | `/api/test-resend`, `/api/test-reto-email`, `/api/debug-email` | Node | — | Dev/debug only (not for production use) |
@@ -567,7 +568,8 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 - `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta Ads / Google Ads). Quiz de 5 dimensiones (autonomía, resiliencia, eficiencia, apalancamiento, paz mental) que perfila al prospecto en uno de 3 arquetipos (Gigante de Pies de Barro / Operador Agotado / Constructor en Progreso) y lo inyecta al funnel principal vía POST a `/api/funnel` con `step: 'auditoria_registered'` (aliased a `mapa_registered` en route.ts). Cero links internos hacia ella desde el sitio — entrada es solo URL directa desde campañas. Sin `<StrategicNavigation/>` (decisión deliberada: 0 fricción de navegación). API endpoint dedicado: `/api/diagnostico` guarda quiz + arquetipo en tabla `diagnosticos` (Supabase). CTA final → `/auditoria-patrimonial` (squeeze del funnel actual).
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
 - `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
-- `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. Los 5 slugs de nicho no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
+- `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
+- `manifiesto/` — **Página pública del Manifiesto de los Fundadores** (antes `/nosotros` — renombrada Jun 2026 para coherencia con `/{slug}/manifiesto`). Narrativa de posicionamiento (April Dunford/Gemini) + CTA al WhatsApp del arquitecto. `/nosotros` redirige aquí (301). Tiene `opengraph-image.tsx` propio. Rótulo en el menú: **Nosotros**. El cuerpo vive en [`<ManifiestoDocument/>`](src/components/ManifiestoDocument.tsx) (compartido con `/{slug}/manifiesto`); su H1 visible es **NUESTRA FILOSOFÍA** + lema *"Las cosas no pasan. Se hacen pasar."* (Jun 2026 — antes "MEMORÁNDUM DIRECTIVO"). ⚠️ "Manifiesto de los Fundadores" persiste como **nombre del documento** (OG image, texto pre-cargado de WhatsApp, etiquetas de sección §01–08), NO como H1 — es deliberado, no incoherencia.
 - `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
 - `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
@@ -583,15 +585,16 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
   - `/reto-5-dias/*` → Squeeze/Bridge para ADS (v1 — legacy, 301 → v4.0)
   - `/auditoria-patrimonial/*` → Squeeze + 5 páginas de video (v4.0 — "Auditoría de Arquitectura Patrimonial")
   - `/auditoria-confirmada` → Bridge Page v4.0
-  - `/nosotros` → SEO en página personal Luis Cabrejo Parra
+  - `/manifiesto` → Manifiesto de los Fundadores (antes `/nosotros`; `/nosotros` redirige 301 aquí)
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
-**Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx)):
-- **Desktop Menu**: Nosotros, Tecnología, Productos, Blog + "Auditoría Patrimonial" CTA
+**Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) — array `directLinks`):
+- **Desktop/Mobile Menu**: Nosotros (`/manifiesto`) · Tecnología (`/tecnologia`) · Presentación (`/servilleta`) · Insights (`/blog`) + "Auditoría Patrimonial" CTA
+- ⚠️ **Los rótulos NO coinciden con sus rutas a propósito** (decisión Jun 2026 — el menú nombra *qué encuentra el visitante*, no la ruta técnica): "Nosotros" abre la página Manifiesto; "Presentación" abre el deck Servilleta. Esto reemplazó "Manifiesto / El Sistema / Herramientas" (rótulos con fricción o ambiguos).
 - **Mobile CTA**: "Unirme al Reto" → /auditoria-patrimonial
-- **Removed from menu**: Soluciones, Ecosistema, Presentación, Auditoría
-- **Presentación Empresarial**: Kept as internal tool for partners, not in public menu
+- **Removed from menu**: Soluciones, Ecosistema, Auditoría
+- **Presentación Empresarial**: `/presentacion-empresarial` sigue siendo herramienta interna 1-on-1, fuera del menú. ⚠️ NO confundir con el item público "Presentación" → `/servilleta`
 
 ### Servilleta Digital - Interactive Presentations
 
@@ -886,6 +889,7 @@ Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia
 - **Orbe en reels**: [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx) suprime su tooltip "Concierge" automático (~2s) cuando `isReelRoute` (pathname `/{slug}/{nicho}` con nicho ∈ `REEL_NICHOS`) — el reel controla su propia burbuja. ⚠️ El orbe es global; el cambio está aislado por ruta para no afectar el resto del sitio.
 - **Tracking de referido**: como el reel se renderiza inline (no redirige), `ReelPage` resuelve `constructor_id` del slug e inyecta un `<script>` inline (corre **antes** del `tracking.js` diferido) que setea `?ref={constructor_id}` vía `history.replaceState` + `localStorage.constructor_ref`. Atribución idéntica a aterrizar en `/auditoria-patrimonial?ref=id`. Funciona para cualquier arquitecto (slug dinámico), no solo `luis-cabrejo`.
 - **CTA WhatsApp del arquitecto**: el número vive en **`private_users.whatsapp`** (fuente de verdad — igual que `/api/constructor/[id]` y `/sistema/productos`), **NO** en `constructor_slugs.whatsapp`. El branch del reel lo resuelve por `constructor_id` con fallback al número orgánico `+573206805737`. ⚠️ Bug histórico "cero inicial" en esos números (ver `whatsapp-validator.ts` del repo Dashboard) — el `.replace(/\D/g, '')` lo neutraliza.
+- **Engagement tracking** (Reels Engagement Fase 1, Jun 2026): [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) instrumenta el comportamiento del prospecto y reporta a [`/api/track/engagement`](src/app/api/track/engagement/route.ts) (que mergea sin retroceder en `device_info` → webhook Supabase → push al arquitecto en queswa.app). **Contrato de datos cerrado con el Dashboard — NO renombrar los campos**: `reel_nicho`, `reel_pct` (máx % visto), `reel_completed` (✅ push "Vio el reel completo"), `reel_time_s` (segundos activos), `queswa_opened` (✅ push "Abrió Queswa"), `queswa_messages`, `visit_count` (✅ push "Volvió a visitar"). **Anti-spam (CRÍTICO)**: cada escritura dispara el webhook → mantener **≤ ~6 escrituras por sesión**. Reportar solo en milestones del reel (25/50/75/100), `queswa_opened` una vez, y `reel_time_s`+`visit_count` en el beacon de salida (`navigator.sendBeacon`). NO escribir en cada `timeupdate` ni en heartbeats. Handoff: [HANDOFF_REELS_ENGAGEMENT_FASE1.md](HANDOFF_REELS_ENGAGEMENT_FASE1.md).
 - **Estado**: 5 videos (1080×1920·24fps·H.264, ~31-35MB) en Blob, páginas en producción. Handoff original: `HANDOFF_REELS_PAGINAS.md`.
 - **Hosting**: Vercel Blob (migrar a Bunny Stream solo si el egress lo justifica). Servilleta NO se auto-hospeda → YouTube. `public/videos/reels/` solo conserva `poster.webp`, `poster.jpg` y los `.md` — los `.mp4` (crudos + `-web`) son locales/intermedios y se borran tras subir (gitignored, no se sirven; el master vive en CapCut).
 - **Léxico del copy**: usted · Lujo Clínico · Estructura Patrimonial, Base Operativa, 3 pilares. Prohibido: vehículo, red (MLM), patrimonio paralelo, capas, Máquina Híbrida.
@@ -1063,9 +1067,9 @@ See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infr
 
 ### Typography Hierarchy (23 May 2026)
 
-Regla unificada aplicada en Home, Nosotros, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Parámetros canónicos completos en [BRANDING.md](BRANDING.md) — sección "Tipografía".
+Regla unificada aplicada en Home, Manifiesto, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Parámetros canónicos completos en [BRANDING.md](BRANDING.md) — sección "Tipografía".
 
-**H1 institucional** (páginas con título corto): `var(--font-sans)` Inter, `font-weight: 700`, `text-transform: uppercase`, `letter-spacing: 0.08em`, color `var(--color-brand)`. Ejemplos: "MEMORÁNDUM DIRECTIVO", "CATÁLOGO BIO-INTELIGENTE", "CONSTRUCCIÓN DE ESTRUCTURA PATRIMONIAL".
+**H1 institucional** (páginas con título corto): `var(--font-sans)` Inter, `font-weight: 700`, `text-transform: uppercase`, `letter-spacing: 0.08em`, color `var(--color-brand)`. Ejemplos: "NUESTRA FILOSOFÍA", "TECNOLOGÍA QUE TRABAJA POR USTED", "CATÁLOGO BIO-INTELIGENTE", "CONSTRUCCIÓN DE ESTRUCTURA PATRIMONIAL".
 
 **H1 editorial** (artículos largos `/blog/*`): `var(--font-serif)` Playfair, `font-weight: 600`, natural case, `letter-spacing: -0.01em`. Aplicado vía `<IndustrialHeader variant="editorial" />`.
 
@@ -1335,6 +1339,10 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 **Casos límite**: Construcciones tipo "el Pilar 2 (Queswa) asume X" se PRESERVAN en tercera persona porque "Queswa" funciona como apostillo nombrando al Pilar dentro de la doctrina de los Tres Pilares. Cambiarlas a primera persona rompe la arquitectura canónica.
 
 ### Queswa Vocabulary — Tabla Canónica Unificada
+
+> ⚠️ **MIGRACIÓN LÉXICO ACCESIBLE EN CURSO (Jun 2026) — leer antes de "corregir" textos.** El léxico premium/canónico se está reemplazando por léxico accesible (servilleta / Mario Alonso Puig). Mapa de reemplazo: `Estructura Patrimonial` → **estructura de ingresos recurrentes** · `La Matriz Física` → **El Respaldo Operativo** · `El Tridente EAM` → **El Método Comprobado** (subtítulo conserva "Comando Expandir · Activar · Maestría") · `Arquitecto de Patrimonio` → **Propietario de Base Operativa** · `Dirección Ejecutiva / gobernanza` → **dirige / dirección** · `Apalancamiento Asimétrico` → **Apalancamiento Estratégico**. Concepto nuclear de "¿qué es CreaTuActivo?" (modelo Waze, empatía primero): *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*.
+>
+> **Estado:** ✅ ya migrado en alto tráfico (home `page.tsx`, chips `queswa-greeting.ts`, Camino A `respuestas-maestras.ts`, WHY_01/WHY_02/EAM_01 de `arsenal_inicial.txt`) — **NO revertir hacia los términos viejos**. ⏳ pendiente: FREQ_04/FREQ_04_PUENTE/PERFIL_01, ~200 hits en arsenales + system prompt, y el deploy secuenciado a Supabase. La tabla de abajo aún refleja el canon viejo en los términos migrados; al editar copy de cara al usuario, preferir el léxico accesible. Detalle: `HANDOFF_RECALIBRACION_LEXICO_QUESWA.md`.
 
 **Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. Esta sección es la **única fuente de verdad** sobre vocabulario aprobado y prohibido — versiones consolidadas Feb 2026 (Jobs-Style) + Abr 2026 (Lujo Clínico) + May 2026 (v5.2 cierre simplificado + v5.4 híbrido contextual).
 

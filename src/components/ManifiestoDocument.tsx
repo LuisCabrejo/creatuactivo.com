@@ -5,7 +5,7 @@
  *
  * Render compartido por dos rutas:
  *   /manifiesto          → versión orgánica (menú), sin atribución.
- *   /{slug}/manifiesto   → versión del Arquitecto: inyecta su ref (vía slug) en
+ *   /{slug}/manifiesto   → versión del Propietario: inyecta su ref (vía slug) en
  *                          localStorage para que tracking.js atribuya la visita,
  *                          con URL LIMPIA (sin ?ref). El CTA va al WhatsApp del
  *                          arquitecto con un mensaje de acuerdo; el botón comparte
@@ -70,92 +70,96 @@ export default function ManifiestoDocument({
               zIndex: 10,
             }}
           >
-            {/* Opening */}
+            {/* Opening — la promesa */}
             <div className="mb-20">
               <h2 className="text-3xl sm:text-4xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                La arquitectura estaba fracturada.
+                La cuenta de mi vida no cuadraba.
               </h2>
               <div className="prose-drop-cap space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Hace años, llevé a mi novia (hoy mi esposa) a un lugar llamado Buena Vista.
-                  Mirando al horizonte, le hice tres promesas: una casa de campo,
-                  compras sin mirar el precio, y tres hijos.
+                  Hace años llevé a mi novia —hoy mi esposa— a un lugar llamado Buena Vista.
+                  Mirando el horizonte, le hice tres promesas: una casa de campo,
+                  poder comprar sin mirar el precio, y tres hijos.
                 </p>
                 <p>
-                  Catorce años después, la matemática de mi vida no cuadraba.
-                  <span className="text-[#E5E5E5]"> Solo había cumplido con los tres hijos.</span>
+                  Catorce años después, la cuenta no daba.
+                  <span className="text-[#E5E5E5]"> De las tres, solo había cumplido una: los tres hijos.</span>
                 </p>
               </div>
             </div>
 
-            {/* La Cinta Estática */}
+            {/* El sueldo y el negocio que esclaviza */}
             <div className="mb-20">
               <p className="text-lg text-[#A3A3A3] leading-relaxed mb-6">
-                No era por falta de esfuerzo. Mi perfil era el del &quot;buen profesional&quot;.
-                Trabajaba e invertía horas, pero mi liquidez no escalaba.
-                Vivía en el ciclo <span className="text-[#E5E5E5]">trabajar, pagar cuentas y repetir</span>.
+                Y no era por falta de trabajo. Empecé como empleado en el sector automotriz, donde
+                aprendí lo que es que el sueldo llegue… y a los quince días ya no quede nada. Después
+                monté empresas en varios sectores, y entendí algo duro:
+                <span className="text-[#E5E5E5]"> el éxito de hoy no garantiza el de mañana</span> —
+                impuestos que cambian, proveedores, nómina, cosas que uno no controla. La vida se
+                volvía el mismo círculo: trabajar, pagar cuentas y repetir.
               </p>
               <div className="p-8 bg-[#16181D] border-l-2 border-[#C5A059] my-10">
                 <p className="text-xl text-[#E5E5E5] font-serif italic">
-                  Era el equivalente a correr en una cinta estática: máxima fricción operativa,
-                  nulo desplazamiento financiero.
+                  Era como pedalear una bicicleta estática: mucho esfuerzo, y cero avance.
                 </p>
               </div>
             </div>
 
-            {/* La Falla Estructural */}
+            {/* La epifanía */}
             <div className="mb-20">
               <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
-                La Falla Estructural
+                La epifanía
               </p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                El problema no era el esfuerzo. Era la estructura.
+                El problema no era mi esfuerzo. Era el sistema.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Entendí que no importaba cuánto trabajara si la estructura sobre la
-                  que construía era matemáticamente ineficiente.
-                </p>
-                <p>
-                  Al evaluar modelos tradicionales y de comercio electrónico, detecté dos fallas
-                  críticas: primero, la fricción operativa de filtrar prospectos manualmente;
-                  y segundo, convertirse en el operador permanente de la propia logística.
+                  Un día caí en cuenta de algo: yo no estaba fallando. Estaba dentro de
+                  <span className="text-[#E5E5E5]"> un sistema diseñado para la asfixia mensual</span> —
+                  no para construir verdadera libertad financiera.
                 </p>
               </div>
             </div>
 
-            {/* El Pivote */}
+            {/* El pivote */}
             <div>
               <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">
-                El Pivote
+                El pivote
               </p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                La Reingeniería
+                Lo logré… y descubrí que no bastaba.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  La obsesión se convirtió en una pregunta técnica: ¿Existe una forma de construir
-                  un activo que tenga la logística de una corporación global pero la libertad de un
-                  inversionista?
+                  Buscando la salida, me apalancué en un gigante —Gano Excel— y en un producto de
+                  consumo diario presente en todo el continente. Funcionó: llegué a
+                  <span className="text-[#E5E5E5]"> Diamante en dos años y medio</span>, y alcancé lo que
+                  muchos buscan: independencia financiera y viajar por el mundo.
+                </p>
+                <p>
+                  Pero algo me confrontó: mi éxito no se reflejaba en mi equipo. A otros no les
+                  resultaba. Y al mismo tiempo veía cómo otras industrias daban el salto con
+                  tecnología —del mapa de papel a Waze, del correo al WhatsApp, de alquilar películas
+                  a Netflix.
                 </p>
                 <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 my-10">
                   <p className="text-xl text-[#E5E5E5] font-serif text-center">
-                    La solución no era convertirse en un mejor vendedor,
+                    Mi sueño de ayudar a cuatro millones de familias era posible.
                     <br />
-                    sino en un
-                    <span className="text-[#C5A059]"> Arquitecto de Patrimonio</span>.
+                    Pero necesitaba una herramienta que hiciera el éxito
+                    <span className="text-[#C5A059]"> replicable para todos</span>, no solo para los más hábiles.
                   </p>
                 </div>
                 <p>
-                  Hoy dirijo CreaTuActivo: una infraestructura diseñada para desvincular la
-                  generación de ingresos del agotamiento físico. No es un canal educativo, ni un
-                  equipo de ventas, ni una red de mercadeo.
+                  Así nacieron CreaTuActivo y Queswa: para que cualquiera pueda construir lo que yo
+                  construí, con la tecnología cargando el trabajo pesado. No es un canal educativo, ni
+                  un equipo de ventas, ni una red de mercadeo.
                 </p>
                 <p className="text-[#E5E5E5]">
-                  De esa reingeniería nació una filosofía — y este documento la contiene. Lo que
-                  sigue no es información para hojear: es el criterio que define quién está listo
-                  para dirigir una Base Operativa. Si usted va a asumir esa dirección, primero
-                  tiene que estar de acuerdo con esto.
+                  De ese camino nació una filosofía — y este documento la contiene. Lo que sigue no es
+                  información para hojear: es el criterio que define quién está listo para dirigir una
+                  Base Operativa. Si usted va a asumirla, primero tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -174,7 +178,7 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Ninguna estructura patrimonial se construyó jamás por inercia o azar. Detrás de
+                  Ninguna estructura de ingresos recurrentes se construyó jamás por inercia o azar. Detrás de
                   cada activo que produce de forma ininterrumpida, sin depender de su dueño, hubo una
                   <span className="text-[#E5E5E5]"> decisión quirúrgica</span> y una secuencia de acciones
                   consecuentes que la hicieron existir.
@@ -234,8 +238,8 @@ export default function ManifiestoDocument({
                   La verdadera riqueza no es la exhibición de estatus: es la
                   <span className="text-[#C5A059]"> soberanía financiera</span>, el control total sobre su tiempo. Y
                   exige divorciar, de forma definitiva, la unidad de entrada —su reloj— de la unidad de
-                  salida —su rendimiento: instalar una Estructura Patrimonial en paralelo que opere de
-                  forma autónoma.
+                  salida —su rendimiento: instalar una estructura de ingresos recurrentes en paralelo
+                  que opere de forma autónoma.
                 </p>
               </div>
             </div>
@@ -275,27 +279,27 @@ export default function ManifiestoDocument({
               </h2>
               <ul className="space-y-6 text-lg">
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
-                  <p className="text-[#C5A059] mb-2">Pilar 1 — La Matriz Física</p>
+                  <p className="text-[#C5A059] mb-2">Pilar 1 — El Respaldo Operativo</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Gano Excel: una corporación con presencia en 70 países que asume el músculo
-                    logístico — inventarios, despachos, pasivos, operación. El peso que hundiría a
-                    cualquier emprendedor ya está resuelto.
+                    Usted deja la operación pesada —fábricas, inventarios, despachos, pasivos— en
+                    manos de Gano Excel, una empresa real con presencia en 70 países. El peso que
+                    hundiría a cualquier emprendedor, usted no lo carga.
                   </p>
                 </li>
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
                   <p className="text-[#C5A059] mb-2">Pilar 2 — Queswa, su Centro de Mando</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Una inteligencia artificial propietaria que filtra y califica interesados las 24
-                    horas, los 7 días. Trabaja mientras usted duerme, viaja o vive. No pide permiso
-                    ni descansa.
+                    Usted deja lo que más desgasta —explicar, persuadir, filtrar— en manos de una
+                    inteligencia artificial propia que lo hace las 24 horas. Trabaja mientras usted
+                    duerme, viaja o vive. No pide permiso ni descansa.
                   </p>
                 </li>
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
-                  <p className="text-[#C5A059] mb-2">Pilar 3 — La Metodología Automatizada</p>
+                  <p className="text-[#C5A059] mb-2">Pilar 3 — El Método Comprobado</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    El Tridente EAM: un protocolo exacto de ejecución — Expandir, Activar, Maestría —
-                    que erradica el ensayo y el error. Quien sigue el método no reinventa nada; solo
-                    escala.
+                    Usted no improvisa el camino: lo deja en manos de un método ya probado —Expandir,
+                    Activar, Maestría— que erradica el ensayo y el error. Quien lo sigue no reinventa
+                    nada; solo escala.
                   </p>
                 </li>
               </ul>
@@ -307,16 +311,16 @@ export default function ManifiestoDocument({
               </p>
             </div>
 
-            {/* §6 — El Arquitecto de Patrimonio */}
+            {/* §6 — El Propietario de Base Operativa */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El Arquitecto de Patrimonio</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El Propietario de Base Operativa</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
                 Si la máquina ejecuta, usted dirige.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Ese es el rol — y el nombre. No es quien teclea, prospecta ni persigue. Es quien
-                  toma las decisiones de expansión y orquesta los tres pilares hacia un objetivo.
+                  Ese es el rol — y el nombre. No es quien teclea, ni presiona, ni anda detrás de nadie. Es quien
+                  toma las decisiones de expansión y dirige los tres pilares hacia un objetivo.
                   Labor de dirección, no de operación.
                 </p>
                 <p>
@@ -344,7 +348,7 @@ export default function ManifiestoDocument({
               </h2>
               <ul className="space-y-5 text-lg text-[#A3A3A3] leading-relaxed border-l-2 border-[#C5A059]/30 pl-6">
                 <li>Que el ingreso no debe depender de la presencia física de quien lo genera.</li>
-                <li>Que no se persigue: se construye. No se convence: se selecciona. Aquí nadie ruega; cada quien elige.</li>
+                <li>Que no se presiona: se construye. No se convence: se selecciona. Aquí nadie ruega; cada quien elige.</li>
                 <li>Que la tecnología ejecuta y nosotros dirigimos. La máquina hace el 90%; nuestro 10% es el que decide.</li>
                 <li>Que la maestría es la ventaja injusta: cada semana de aprendizaje acorta la curva que a otros les tomó años.</li>
                 <li>Que se construye en silencio. El estatus se pelea a la vista de todos; el patrimonio se levanta callado.</li>
@@ -422,7 +426,13 @@ export default function ManifiestoDocument({
               Contacto directo por WhatsApp
             </p>
 
-            {/* Compartir — solo en la versión del arquitecto (con slug) */}
+            {/* Firma del fundador */}
+            <div className="mt-16 pt-8 border-t border-[rgba(197,160,89,0.15)] max-w-sm mx-auto">
+              <p className="font-serif text-lg text-[#E5E5E5]">Luis Cabrejo Parra</p>
+              <p className="text-sm text-[#A3A3A3] mt-1">CEO y fundador de CreaTuActivo &amp; Queswa</p>
+            </div>
+
+            {/* Compartir — solo en la versión del Propietario (con slug) */}
             {slug && (
               <div className="max-w-sm mx-auto">
                 <ManifiestoShare slug={slug} />

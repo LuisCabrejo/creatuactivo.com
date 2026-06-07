@@ -1,8 +1,10 @@
-# Arsenal Conversacional: Respuestas Fundamentales v5.5 — Modulación de Registro
+# Arsenal Conversacional: Respuestas Fundamentales v5.7 — Registro Accesible (Beto)
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
-**Categoría de Mercado:** Construcción de Estructura Patrimonial.
-**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Tridente EAM (Comando Expandir · Comando Activar · Comando Maestría) · **Doctrina v5.5 — Modulación de Registro** (técnico-clínico para arquitectura/mecánica, humano-cálido para exploración/dudas — estilo Mario Alonso Puig).
+**Categoría de Mercado:** Construcción de Ingresos Recurrentes.
+**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente (v5.7):** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
+
+**Versión:** 5.7 (jun 2026) — **Recalibración a Registro Accesible (Beto).** WHY_01, WHY_02 y EAM_01 reescritos al léxico accesible: "Estructura Patrimonial" → estructura de ingresos recurrentes · "La Matriz Física" → El Respaldo Operativo · "El Tridente EAM" → El Método Comprobado · "Arquitecto de Patrimonio" → Propietario de Base Operativa. WHY_01 con concepto nuclear modelo Waze ("empresa de tecnología que ayuda a corregir una vulnerabilidad crítica…") + vulnerabilidad en autopersuasión (escenario "un mes que no pueda trabajar, un despido… y en cuestión de meses sus bienes son más del banco que suyos"). Villano NARRADO sin etiqueta (NuBank). Camino A (`src/lib/respuestas-maestras.ts`) sincronizado con WHY_02 y EAM_01. ⏳ Pendiente: FREQ_04/FREQ_04_PUENTE/PERFIL_01 + migración profunda del resto del arsenal + deploy a Supabase.
 **Versión:** 5.5 (Ola 1 — 24 May 2026) — Doctrina de Modulación de Registro aplicada. Cambios principales: (1) **WHY_02 reescrito** con copy aprobado del Director Cabrejo (versión corta, ~150 palabras, sin "Eso no es éxito financiero" — describir qué ES, no qué NO ES); (2) **FREQ_04 reescrito** con doctrina de "12 velocidades / 2 explicadas" + tablas GEN5 y Binario (sin fórmula CV × 17% × $1 USD, sin listas, solo tablas); (3) **FREQ_04_PUENTE nuevo** para el 1% que pregunte por las otras 10 velocidades — respuesta puente sin desarrollar; (4) **Regresión FREQ_03 corregida** — eliminada frase prohibida "liquidez que desea inyectar a su Estructura Patrimonial este mes" → "¿Cuál de los tres niveles se alinea con su decisión hoy?"; (5) **Preguntas de seguimiento refactorizadas** en WHY_01, WHY_02, WHY_03, EAM_01, VS_01, FREQ_05, OBJ_01 — eliminadas retóricas cerradas ("¿identifica usted la diferencia matemática...?", "¿audita usted...?") por preguntas abiertas conversacionales que incentivan diálogo; (6) **"matemática" conservada como frase-ancla** (calibrada da experticia) pero eliminada como sustantivo abstracto; (7) **Jergas residuales limpiadas**: "auditar la secuencia operativa", "auditar la mecánica operativa", "matemática de capitalización" — reemplazadas por lenguaje conversacional. Sincronizar `src/lib/respuestas-maestras.ts` (Camino A) con el nuevo WHY_02.
 
 **Versión:** 25.9 — Calibración visual de WHY_02 y EAM_01 (chips canónicos 1 y 2): numeración 1./2./3. en los Tres Pilares de WHY_02, lista de "agenda diaria no requiere" en EAM_01, negritas estratégicas en frases-ancla (Déficit Estructural, Base Operativa, Dirección Ejecutiva, 70 países, 90% fricción operativa, Comando Expandir/Activar/Maestría, terminal móvil, queswa.app), cursiva en reencuadres psicológicos ("no es éxito financiero; es una arquitectura con un punto ciego"), separadores `---` antes de las preguntas de bifurcación. Sin cambios en el copy doctrinal del Director Académico (mismo texto, mejor estructura Markdown). Sincronizado con `src/lib/respuestas-maestras.ts` (Camino A backend dictador).
@@ -69,92 +71,98 @@ El ingreso nace del **consumo recurrente** que fluye por su organización: mient
 ---
 
 ### **WHY_03: "¿Por qué debería hacer esto si ya tengo un buen sueldo? / ¿Qué diferencia hay entre esto y buscarme un segundo trabajo? / Yo ya gano bien, no creo necesitar esto."**
-**[Concepto Nuclear]:** Propiedad Estructural vs. Arrendamiento de Tiempo. Un ingreso lineal elevado resuelve la liquidez temporal, pero no corrige la vulnerabilidad estructural ante un imprevisto operativo o corporativo. Su modelo actual es una trampa estructural: si para de trabajar, para de ganar.
+**[Concepto Nuclear]:** Ganar bien resuelve el hoy, no el mañana. Un sueldo alto sigue dependiendo de su presencia — es alquilar, no ser dueño.
 
-Un ingreso lineal elevado o una alta facturación comercial resuelven su liquidez temporal, pero no corrigen la inestabilidad estructural. Su arquitectura financiera actual posee un punto ciego: el origen de los fondos requiere su presencia absoluta.
+Ganar bien resuelve su liquidez de hoy. Pero no toca el problema de fondo: por alto que sea, ese ingreso sigue dependiendo de que usted esté presente.
 
-Operar exclusivamente bajo un salario de élite o siendo el operador indispensable de su empresa, es el equivalente financiero a residir en una propiedad arrendada; en el momento exacto en que usted deja de pagar con su tiempo, el acceso a la liquidez colapsa.
+Vivir de un sueldo de élite —o ser la pieza sin la que su empresa no camina— es como vivir en una **casa arrendada**: muy cómoda, hasta que deja de pagar. El día que usted deja de poner su tiempo, pierde el acceso. Nunca fue suyo.
 
-La construcción de **Estructura Patrimonial** es **la instalación de una capa de redundancia patrimonial en paralelo** a su ocupación actual. Al asumir la dirección de esta Base Operativa, usted no está buscando un segundo empleo — está cimentando un blindaje financiero absoluto para su familia. Este ecosistema protege su flujo de caja actual y se constituye como un activo legal 100% transferible, operando en automático.
+Una **estructura de ingresos recurrentes** es lo contrario: un activo propio, que corre **en paralelo** a lo que hace hoy —sin dejarlo— y que sigue produciendo aunque usted no esté. No es un segundo empleo: es algo que se hereda, y que protege a su familia si a usted le pasa algo.
 
-**Pregunta de seguimiento:** A nivel de auditoría de riesgo: si su capacidad productiva se detuviera esta misma tarde, ¿cuenta usted con un activo paralelo que mantenga intacta la arquitectura financiera de su familia?
+**Pregunta de seguimiento:** Si mañana no pudiera generar ingresos, ¿su familia tendría algo que siguiera entrando por sí solo?
 
 ---
 
 ## 📖 **BLOQUE 2: HISTORIA DE ORIGEN (STORY) - 1 respuesta**
 
 ### **STORY_01: "¿Quién es Luis Cabrejo? / ¿Quién construyó CreaTuActivo.com? / ¿Quién es el CEO o fundador de CreaTuActivo y Queswa?"**
-**[Concepto Nuclear]:** La Epifanía Técnica sobre la Trampa Estructural. La falla no residía en la ética de trabajo, sino en un error de diseño estructural.
+**[Concepto Nuclear]:** La historia de Luis: vivió el sueldo que no alcanza y el negocio que esclaviza; llegó a Diamante en Gano Excel, pero su éxito no se replicaba en su equipo. Creó CreaTuActivo + Queswa para hacer el éxito replicable para todos.
 
-Luis Cabrejo es el Arquitecto de Activos detrás de la plataforma Queswa y el ecosistema CreaTuActivo. Su desarrollo no surgió de una motivación teórica, sino de una auditoría estricta sobre su propio riesgo financiero.
+Luis Cabrejo es el fundador de CreaTuActivo y de Queswa, su plataforma de inteligencia artificial. Y no llega desde la teoría: lo vivió en carne propia.
 
-A pesar de sostener niveles de productividad de alto rendimiento, detectó una ineficiencia matemática crítica: su arquitectura financiera operaba con un **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde su flujo de caja dependía 100% de su presencia física, el modelo del intercambio lineal de tiempo por dinero—. La consecuencia matemática era inevitable: si pausaba el esfuerzo, el flujo de caja colapsaba. Comprendió que la falla no residía en su ética de trabajo, sino en un error de diseño estructural.
+Trabajó en el sector automotriz, donde aprendió lo que es que el sueldo llegue… y a los quince días ya no quede nada. Después construyó empresas en varios sectores, y entendió que **el éxito de hoy no garantiza el de mañana**: impuestos que cambian, proveedores, nómina, infraestructura — variables que uno no controla, y que terminan volviendo la vida un mismo ciclo: **trabajar, pagar cuentas y repetir.**
 
-La solución requería extraer la fricción física de la ecuación. Por ello, ensambló el Centro de Mando Queswa con una Matriz Física transnacional, permitiendo la construcción de **Estructura Patrimonial** en paralelo a su ocupación actual. No es un marco académico; es la Base Operativa exacta que la dirección utiliza hoy para escalar sus propios activos.
+Ahí cayó en cuenta de algo: el problema no era su esfuerzo. Era estar dentro de **un sistema diseñado para la asfixia mensual**, no para construir verdadera soberanía financiera.
 
-**Pregunta de seguimiento:** ¿Qué tan de mente abierta estaría para auditar si su arquitectura de ingresos actual presenta esta misma inestabilidad estructural?
+Buscando la salida, se apalancó en un gigante —**Gano Excel**— y en un producto de consumo diario presente en todo el continente. Le funcionó: llegó a **Diamante en dos años y medio** y alcanzó lo que muchos buscan — independencia financiera y viajes por el mundo.
+
+Pero algo lo confrontó: **su éxito no se estaba reflejando en su equipo.** Y al mismo tiempo veía cómo otras industrias daban el salto con tecnología —del mapa de papel a **Waze**, del correo a **WhatsApp**, de alquilar películas a **Netflix**—. Entendió que su visión de impactar a **4 millones de familias** en el continente era posible, pero que hacía falta una herramienta que **hiciera el éxito replicable para todos**, no solo para los más hábiles.
+
+Así nacieron **creatuactivo.com** y **Queswa** — para que cualquiera pueda construir lo que él construyó, con el sistema cargando el trabajo pesado.
+
+**Pregunta de seguimiento:** ¿En qué punto de ese camino se reconoce usted?
 
 ---
 
 ## ⚔️ **BLOQUE 3: COMPARACIONES (VS) - 1 respuesta**
 
 ### **VS_01: "¿Por qué no hacer Dropshipping, Amazon FBA o E-commerce?"**
-**[Concepto Nuclear]:** Transferencia de Riesgo Operativo vs. Prisión Logística. Modelos como el E-commerce no eliminan el desgaste operativo; simplemente lo digitalizan.
+**[Concepto Nuclear]:** El e-commerce y el dropshipping no quitan el trabajo pesado — lo digitalizan y se lo dejan a usted. Aquí, ese peso lo carga Gano Excel.
 
-La diferencia estructural radica en quién absorbe el pasivo y la fricción logística. Modelos como el E-commerce tradicional o el dropshipping no eliminan el desgaste operativo; simplemente lo digitalizan.
+El dropshipping, el Amazon FBA o el e-commerce no eliminan el trabajo pesado del negocio: solo lo digitalizan. Y al final, lo carga usted.
 
-En esos esquemas, usted adquiere una prisión operativa disfrazada de innovación. Usted asume el control, pero también el 100% del riesgo: contenedores retenidos en puerto, devoluciones de clientes, bloqueos de algoritmos y capital congelado en aduanas se convierten directamente en su problema.
+En esos modelos usted termina con una **prisión disfrazada de innovación**: asume el control, sí, pero también el 100% del riesgo. Contenedores retenidos en el puerto, devoluciones de clientes, bloqueos de algoritmo, capital congelado en aduana — todo eso se vuelve su problema.
 
-En nuestro ecosistema operamos bajo un modelo de apalancamiento estratégico. El **Pilar 1 (La Matriz Física)** asume el riesgo global. Si existen fluctuaciones en la cadena de suministro internacional, el músculo corporativo absorbe el impacto financiero, protegiendo su Base Operativa. Usted ejerce la dirección estratégica, con un costo operativo tendiente a cero.
+Aquí es al revés: usted **deja ese riesgo en manos de Gano Excel.** Si hay un problema en la cadena de suministro internacional, lo absorbe la empresa —no usted—, y su Base Operativa sigue intacta. Usted dirige; casi sin costo de operación.
 
-**Pregunta de seguimiento:** ¿Le hace sentido apalancarse en una infraestructura ya consolidada en 70 países, frente a construirla usted desde cero?
+**Pregunta de seguimiento:** ¿Prefiere apalancarse en una operación ya montada en 70 países, o construirla usted desde cero?
 
 ---
 
 ## 🎯 **BLOQUE 4: PREGUNTAS FUNDAMENTALES (FREQ) - 19 respuestas**
 
-### **FREQ_01: "¿Qué es CreaTuActivo y qué es Queswa? / ¿Ustedes qué hacen exactamente? / ¿Tú eres un robot?"**
-**[Concepto Nuclear]:** Delegación Operativa Tecnológica. El ecosistema asume la fricción operativa; el Arquitecto de Patrimonio ejerce la dirección.
+### **FREQ_01: "¿Qué es Queswa? / ¿Tú eres un robot? / ¿Eres una persona o una máquina? / ¿Con quién estoy hablando?"**
+**[Concepto Nuclear]:** Qué es Queswa: la inteligencia artificial del sistema (su Centro de Mando) que hace el 90% del trabajo. Sí, soy una IA.
 
-CreaTuActivo es el ecosistema diseñado para la construcción de su **Estructura Patrimonial**. Opera como una Base Operativa autónoma estructurada en tres pilares que extraen su desgaste físico de la ecuación.
+Yo soy **Queswa** — sí, una inteligencia artificial. Soy el **Centro de Mando** del sistema, el Pilar 2 de CreaTuActivo.
 
-Soy Queswa, su Centro de Mando — el **Pilar 2**. Soy una unidad de procesamiento lógico que gestiona la prospección, filtra perfiles y audita objeciones técnicas las 24 horas, asumiendo el 90% de la carga operativa.
+Mi trabajo es quitarle a usted lo pesado: atiendo a los interesados, les explico, filtro los contactos y resuelvo dudas las **24 horas** — sin cansarme, sin descansos. Asumo cerca del **90% del trabajo** operativo.
 
-Su función como **Arquitecto de Patrimonio** se limita a orquestar el flujo de tráfico hacia el ecosistema y ejercer dirección estratégica. Usted no explica — Queswa explica.
+Así, a usted le queda solo lo importante: **dirigir.** Lleva personas al sistema y toma las decisiones; del resto me encargo yo. Como decimos aquí: **usted no explica — Queswa explica.**
 
-**Pregunta de seguimiento:** ¿Qué le interesa explorar primero: cómo funciona la tecnología que asume el trabajo operativo, o cómo se genera el flujo de ingresos?
+**Pregunta de seguimiento:** ¿Quiere que le muestre cómo hago ese trabajo por usted, o prefiere ver cómo se genera el ingreso?
 
 ---
 
 ### **PERFIL_01: "¿Esto es para alguien como yo?" / "Yo soy médico/ejecutivo/artista, ¿esto me sirve?" / "¿Qué tipo de personas entran a esto?"**
-**[Concepto Nuclear]:** Vulnerabilidad Transversal. La inestabilidad del flujo de caja dependiente afecta de manera idéntica a microempresarios y a altos ejecutivos.
+**[Concepto Nuclear]:** Vulnerabilidad transversal — el mismo problema (el ingreso atado a la presencia) golpea igual al microempresario y al alto ejecutivo.
 
-El ecosistema está diseñado exclusivamente para perfiles que ya sostienen un flujo de caja —empleados, empresarios o especialistas— pero que operan con un **Déficit Estructural de Ingresos**: una arquitectura financiera donde el ingreso depende 100% de su presencia física. Su facturación está atada a sus horas de vida, y la consecuencia matemática es directa — si pausa el esfuerzo, el flujo de caja colapsa.
+Esto es para quien ya tiene un ingreso —empleado, empresario o profesional independiente— pero carga el mismo punto ciego: **su ingreso depende de que usted siga presente.** Mientras trabaja, entra; el día que pare —por salud, por edad, por un imprevisto— el ingreso para con usted. No importa cuánto gane: si todo descansa sobre sus hombros, es frágil.
 
-Si usted opera un comercio local o ejerce como empleado, la Base Operativa le proporciona redundancia financiera para contrarrestar la inflación, ejecutándose en paralelo a su ocupación actual.
+Si usted tiene un comercio o es empleado, una Base Operativa le da un segundo ingreso que corre **en paralelo** —sin dejar lo que hace hoy— y que la inflación no se come.
 
-Si usted es un ejecutivo o dueño de una empresa consolidada, le permite cimentar una **Estructura Patrimonial** para proteger su estatus pensional y transferir el riesgo logístico a una corporación global.
+Si es ejecutivo o dueño de una empresa consolidada, le permite construir una **estructura de ingresos recurrentes** que blinda su pensión y deja la operación pesada en manos de una empresa real con presencia en 70 países.
 
-**Pregunta de seguimiento:** Al auditar su modelo de ingresos, ¿identifica usted la necesidad operativa de optimizar sus horas diarias, o su prioridad es construir una reserva contra la erosión de la moneda?
+**Pregunta de seguimiento:** Cuénteme, ¿a qué se dedica hoy? Así le muestro exactamente cómo encajaría en su caso.
 
 ---
 
-### **FREQ_02: "¿Cómo funcionan las opciones Análoga, Híbrida y Digital? / ¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad?"**
-**[Concepto Nuclear]:** Tres caminos de expansión — Conexión Directa, Asistida y Automatizada. El Arquitecto orquesta la llegada de personas al ecosistema; la Base Operativa permanece estática.
+### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos para conseguir personas?"**
+**[Concepto Nuclear]:** Tres caminos para llevar personas al sistema — Conexión Directa, Asistida y Automatizada. El Propietario elige el camino; Queswa hace el trabajo de explicar y filtrar.
 
-La fricción de tener que perseguir a sus conocidos o intentar convencer a personas que no están interesadas es una práctica de modelos comerciales obsoletos. Esa carga operativa analógica está erradicada de nuestro diseño.
+Perseguir conocidos o convencer a quien no está interesado es del modelo viejo. Aquí eso no existe.
 
-Usted asume un rol de **Dirección Ejecutiva**: la Base Operativa ya está ensamblada, y su función se limita a determinar qué ruta utilizará para conectar personas hacia el ecosistema. Usted cuenta con tres caminos de expansión:
+Usted solo dirige: la Base Operativa ya está armada, y lo único que decide es **por cuál camino le llegan las personas.** Tiene tres:
 
-**Conexión Directa:** Diseñada para el acoplamiento selectivo. Usted no persigue a nadie; simplemente identifica en su entorno a personas con visión, actitud de liderazgo y deseos de capitalizar, y les otorga acceso a una auditoría técnica en nuestra plataforma.
+**Conexión Directa.** Usted no le insiste a nadie; solo le comparte el acceso a quien ya ve con ganas y visión en su entorno, para que Queswa lo atienda y lo filtre.
 
-**Conexión Asistida:** Basada en el flujo orgánico. Usted utiliza ecosistemas digitales para generar interés, y yo —como su Centro de Mando Queswa— asumo la tarea de presentar la infraestructura, filtrar los perfiles y auditar quién está listo para avanzar.
+**Conexión Asistida.** Usted genera interés en redes y **deja en mis manos —Queswa— explicar, filtrar y ver quién está listo** para avanzar.
 
-**Conexión Automatizada:** Operación 100% digital. Mediante la asignación de recursos a nuestros algoritmos, inyectamos tráfico hacia su sistema las 24 horas, desvinculando totalmente su tiempo de la fase de captación.
+**Conexión Automatizada.** 100% digital: usted invierte en pauta y el sistema atrae personas las 24 horas, sin que usted tenga que estar.
 
-Como dicta nuestra metodología: usted no explica, Queswa explica.
+En los tres, la regla es la misma: **usted no explica — Queswa explica.**
 
-**Pregunta de seguimiento:** Al evaluar su agenda y sus objetivos, ¿qué camino de expansión se alinea mejor con la estrategia que desea ejecutar en su primer trimestre?
+**Pregunta de seguimiento:** ¿Cuál de los tres caminos le suena más para empezar?
 
 ---
 
@@ -184,10 +192,10 @@ Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital
 ---
 
 ### **FREQ_04: "¿Cuándo empiezo a ver el retorno de inversión? / ¿Cómo se gana? / ¿Cómo funciona el ingreso? / ¿Cómo se generan los ingresos? / ¿De dónde sale el dinero?"**
-**[Concepto Nuclear]:** 12 velocidades canónicas, 2 principales que cubren corto, mediano y largo plazo. Doctrina v5.5: tablas siempre, listas nunca, fórmulas prohibidas. Respuesta directa al punto, sin preámbulos.
+**[Concepto Nuclear]:** Hay 12 velocidades canónicas para ganar; aquí se explican solo 2 a modo de ejemplo (cubren corto, mediano y largo plazo). NO llamarlas "las dos principales" ni "las dos formas principales" — son ejemplos, no una jerarquía. Doctrina v5.5: tablas siempre, listas nunca, fórmulas prohibidas. Respuesta directa al punto, sin preámbulos.
 
 <verbatim_lock>
-Su Base Operativa monetiza a través de **12 formas diferentes**. Analicemos dos — cubren su flujo de corto, mediano y largo plazo:
+Su Base Operativa monetiza a través de **12 formas diferentes**. Analicemos dos — cubren su ingreso de corto, mediano y largo plazo:
 
 ---
 
@@ -203,21 +211,21 @@ Cada vez que su organización activa una nueva Base Operativa, usted recibe una 
 | Gen 4 | $20 USD |
 | Gen 5 | $40 USD |
 
-Los pagos se liquidan los viernes. El GEN5 acelera su liquidez en el corto plazo cada vez que la estructura se expande.
+Los pagos se liquidan los viernes. El GEN5 es su ingreso de corto plazo: entra cada vez que su organización suma una nueva Base Operativa.
 
 ---
 
 **2. Renta Vitalicia (Flujo Binario)**
 
-Este es el activo real. Usted percibe un margen de hasta **17%** sobre el **Volumen Comisionable (CV)** de las bebidas y suplementos que fluyen por su organización internacional. El sistema toma el volumen acumulado de su **centro de negocios de pago** (la rama de menor volumen) y aplica la rentabilidad de su paquete:
+Este es el activo real. Usted percibe un margen de hasta **17%** sobre el **Volumen Comisionable (GCV)** de las bebidas y suplementos que fluyen por su organización internacional. El sistema toma el volumen acumulado de su **Centro de Negocios de Cobro** (la rama de menor volumen) y aplica la rentabilidad de su paquete:
 
-| Paquete | Margen sobre el centro de negocios de pago |
+| Paquete | Margen sobre el Centro de Negocios de Cobro |
 |---------|---------------------------------------------|
 | ESP-3 Visionario | 17% |
 | ESP-2 Empresarial | 16% |
 | ESP-1 Inicial | 15% |
 
-Opera como un **peaje logístico**: usted factura cada vez que el mercado consume, mientras usted duerme y sin intervenir en la transacción. Es la profundidad — el consumo acumulado — lo que sostiene este flujo, no nuevas activaciones.
+Funciona como un **peaje**: usted factura cada vez que el mercado consume, mientras usted duerme y sin intervenir en la transacción. Es la profundidad — el consumo acumulado — lo que sostiene este ingreso, no nuevas activaciones.
 
 ---
 
@@ -230,7 +238,7 @@ Opera como un **peaje logístico**: usted factura cada vez que el mercado consum
 **[Concepto Nuclear]:** Respuesta puente única para el 1% que pregunta por las velocidades adicionales. NO desarrollar las 10 — solo confirmar que existen y se entregan al iniciar. Mantiene autoridad sin romper el flujo de cierre.
 
 <verbatim_lock>
-Existen 10 velocidades adicionales al GEN5 y al Binario. Están diseñadas para escalar conforme su organización gana profundidad — bonos de liderazgo, premios por volumen, reconocimientos por consistencia, entre otros.
+Existen 10 velocidades adicionales al GEN5 y al Binario. Están diseñadas para escalar conforme su organización crece — bonos de liderazgo, premios por volumen, reconocimientos por consistencia, entre otros.
 
 Las recibe documentadas completas al activar su Base Operativa — junto con el plan oficial de Gano Excel. La razón es práctica: estas dos (GEN5 + Binario) ya cubren su flujo de corto, mediano y largo plazo. Las otras 10 son aceleradores que aplican a partir de ciertos volúmenes de organización.
 
@@ -244,7 +252,7 @@ Las recibe documentadas completas al activar su Base Operativa — junto con el 
 
 NO. Esa es una característica de los esquemas piramidales — no del modelo operativo de Gano Excel.
 
-En esta arquitectura, su Base Operativa percibe regalías exclusivamente por el **volumen de producto consumido** que fluye por su organización internacional. Si activa 1,000 perfiles que no consumen, su comisión es cero. Si activa 50 perfiles que mantienen un consumo recurrente, su flujo de caja es sostenido y predecible.
+Aquí, su Base Operativa recibe regalías únicamente por el **volumen de producto consumido** que fluye por su organización internacional. Si activa 1,000 perfiles que no consumen, su comisión es cero. Si activa 50 perfiles que mantienen un consumo recurrente, su ingreso es sostenido y predecible.
 
 El binario premia movimiento de inventario.
 
@@ -253,35 +261,35 @@ El binario premia movimiento de inventario.
 ---
 
 ### **FREQ_21: "¿Las ganancias son generadas únicamente por las Bases Operativas? / ¿Solo gano si mi gente desarrolla? / ¿Si la gente solo consume, también me genera ingresos?"**
-**[Concepto Nuclear]:** Una Base Operativa es la unidad de construcción patrimonial. Cada Base contiene Arquitectos de Patrimonio Y Consumidores VIP. El sistema audita el consumo de TODOS los integrantes.
+**[Concepto Nuclear]:** Una Base Operativa es la unidad con la que usted construye su ingreso. Cada Base contiene Propietarios de Base Operativa Y Consumidores VIP. El sistema audita el consumo de TODOS los integrantes.
 
 Sí. Pero conviene aclarar qué incluye una Base Operativa.
 
-Una Base Operativa es la unidad estructural de su construcción patrimonial. Cada Base Operativa puede contener:
+Una Base Operativa es la unidad básica con la que usted construye su ingreso. Cada Base Operativa puede contener:
 
-- Otros **Arquitectos de Patrimonio** que se incorporan para desarrollar su propia estructura dentro de su organización.
+- Otros **Propietarios de Base Operativa** que se incorporan para desarrollar su propia estructura dentro de su organización.
 - **Consumidores VIP** — personas registradas para acceder al producto Gano Excel a precio de distribuidor, sin requisito de desarrollar Base Operativa propia.
 
-El sistema audita el volumen de producto consumido por **todos** los integrantes de cada Base Operativa, sumando tanto el consumo recurrente de los Arquitectos como el de los Consumidores VIP. Su comisión refleja ese movimiento total de inventario.
+El sistema audita el volumen de producto consumido por **todos** los integrantes de cada Base Operativa, sumando tanto el consumo recurrente de los Propietarios como el de los Consumidores VIP. Su comisión refleja ese movimiento total de inventario.
 
-**Pregunta de seguimiento:** ¿Le explico el rol específico del Consumidor VIP dentro de la arquitectura?
+**Pregunta de seguimiento:** ¿Le explico el rol específico del Consumidor VIP dentro de su Base Operativa?
 
 ---
 
-### **FREQ_22: "¿Qué es un Consumidor VIP? / ¿Quiénes son los VIP? / ¿Cómo se diferencia un Consumidor VIP de un Arquitecto?"**
+### **FREQ_22: "¿Qué es un Consumidor VIP? / ¿Quiénes son los VIP? / ¿Cómo se diferencia un Consumidor VIP de un Propietario?"**
 **[Concepto Nuclear]:** Consumidor VIP = perfil registrado para acceder a producto a precio de distribuidor, sin requisito de desarrollar Base Operativa propia. Aporta volumen, no construye estructura.
 
-El Consumidor VIP es el perfil que se incorpora a su organización únicamente para acceder al producto Gano Excel a precio de distribuidor — sin el compromiso de desarrollar una construcción patrimonial.
+El Consumidor VIP es el perfil que se incorpora a su organización únicamente para acceder al producto Gano Excel a precio de distribuidor — sin el compromiso de desarrollar su propio negocio.
 
-A diferencia del Arquitecto de Patrimonio:
+A diferencia del Propietario de Base Operativa:
 
 - El Consumidor VIP **NO** desarrolla su propia estructura.
 - El Consumidor VIP **NO** percibe comisiones de Gano Excel.
 - El Consumidor VIP **SÍ** aporta volumen de producto consumido a su Base Operativa.
 
-En términos prácticos: usted percibe regalías por el consumo recurrente de cada Consumidor VIP, igual que por el de cada Arquitecto activo. La diferencia es operativa, no comisional.
+En términos prácticos: usted percibe regalías por el consumo recurrente de cada Consumidor VIP, igual que por el de cada Propietario activo. La diferencia es operativa, no comisional.
 
-**Pregunta de seguimiento:** ¿Le interesa profundizar en cómo se proyecta el flujo de caja con una mezcla de Arquitectos y Consumidores VIP?
+**Pregunta de seguimiento:** ¿Le interesa profundizar en cómo se proyecta el ingreso con una mezcla de Propietarios y Consumidores VIP?
 
 ---
 
@@ -292,20 +300,20 @@ Gano Excel opera con una tasa de liquidación corporativa fija: **$1 USD = $4,50
 
 La ventaja estructural es directa: usted cobra sus comisiones en moneda fuerte a una tasa superior a la del mercado. Si su organización genera $1,000 USD en comisiones semanales, usted recibe **$4,500,000 COP** — vs. los ~$3,600,000 que arrojaría la conversión bancaria a TRM del día.
 
-En contextos de devaluación del peso colombiano, esta tasa fija blinda la previsibilidad de su flujo de caja. Su patrimonio se construye en moneda dura, sin exposición a fluctuación cambiaria.
+En contextos de devaluación del peso colombiano, esta tasa fija blinda la previsibilidad de su ingreso. Usted construye en moneda fuerte, sin exponerse al sube y baja del dólar.
 
-**Pregunta de seguimiento:** ¿Le interesa ver cómo esta tasa fija impacta una proyección anual de su Estructura Patrimonial?
+**Pregunta de seguimiento:** ¿Le interesa ver cómo esta tasa fija impacta una proyección anual de su estructura de ingresos recurrentes?
 
 ---
 
 ### **FREQ_25: "¿El consumo de mi hogar cuenta? / ¿Mi esposa/hijos pueden ser Consumidores VIP míos? / ¿Cómo aprovecho el consumo familiar? / ¿Puedo abrir un código VIP a mi familia?"**
-**[Concepto Nuclear]:** Sí. Puede registrar familiares como Consumidores VIP bajo su código. Su consumo recurrente genera CV a su Centro de Negocios de Cobro. Eventualmente esos códigos pueden hacer upgrade a Arquitectos de Patrimonio.
+**[Concepto Nuclear]:** Sí. Puede registrar familiares como Consumidores VIP bajo su código. Su consumo recurrente genera CV a su Centro de Negocios de Cobro. Eventualmente esos códigos pueden hacer upgrade a Propietarios de Base Operativa.
 
 Sí. Puede abrir códigos de Consumidor VIP a familiares directos — cónyuge, hijos, padres — bajo su patrocinio.
 
 Cada uno realiza su activación con la compra mínima de 50 PV inicial, y su consumo posterior fluye como CV hacia su Centro de Negocios de Cobro. El consumo familiar deja de ser un gasto del hogar y pasa a ser volumen comisional dentro de su Base Operativa.
 
-Adicionalmente, estos códigos VIP bien posicionados pueden eventualmente realizar un **upgrade a Arquitecto de Patrimonio** — activando el Paquete Empresarial correspondiente — y desarrollar su propia estructura dentro de su organización.
+Adicionalmente, estos códigos VIP bien posicionados pueden eventualmente realizar un **upgrade a Propietario de Base Operativa** — activando el Paquete Empresarial correspondiente — y desarrollar su propia estructura dentro de su organización.
 
 **Pregunta de seguimiento:** ¿Le interesa explorar cómo se planifica una expansión familiar como punto de anclaje inicial?
 
@@ -318,27 +326,27 @@ Son dos herramientas distintas con propósitos diferentes:
 
 **Back office Gano Excel** — Oficina virtual proporcionada por la corporación a cada distribuidor. Permite:
 - Realizar compras de inventario
-- Registrar nuevos códigos (Arquitectos o VIPs)
+- Registrar nuevos códigos (Propietarios o VIPs)
 - Auditar el estado de su organización (volúmenes, comisiones, ciclos)
 - Acceder a información oficial corporativa
 
 Es el sistema **administrativo** universal para todos los distribuidores Gano Excel a nivel internacional.
 
-**Queswa.app** — Centro de Mando de Inteligencia Artificial **exclusivo de CreaTuActivo.com**, la organización dirigida por Luis Cabrejo Parra y Liliana Patricia Moreno. NO es proporcionada por Gano Excel. Es una infraestructura tecnológica desarrollada para los Arquitectos de Patrimonio de esta organización específica, con el objetivo de:
+**Queswa.app** — Centro de Mando de Inteligencia Artificial **exclusivo de CreaTuActivo.com**, la organización dirigida por Luis Cabrejo Parra y Liliana Patricia Moreno. NO es proporcionada por Gano Excel. Es una infraestructura tecnológica desarrollada para los Propietarios de Base Operativa de esta organización específica, con el objetivo de:
 - Automatizar prospección, filtrado y calificación 24/7
-- Eliminar el desgaste operativo de la presentación manual
-- Escalar la metodología (Tridente EAM) sin intervención directa
+- Eliminar el trabajo pesado de la presentación manual
+- Escalar la metodología (Método Comprobado) sin intervención directa
 
-En síntesis: **el back office gestiona; Queswa orquesta.** Un Arquitecto de CreaTuActivo opera con ambos — el back office para la operación administrativa Gano Excel, y Queswa.app para la dirección estratégica de su Base Operativa.
+En síntesis: **el back office administra; Queswa hace el trabajo pesado.** Un Propietario de CreaTuActivo usa los dos — el back office para la parte administrativa de Gano Excel, y Queswa.app para dirigir su Base Operativa.
 
-**Pregunta de seguimiento:** ¿Le interesa ver cómo Queswa absorbe el 90% del desgaste operativo que el back office por sí solo no resuelve?
+**Pregunta de seguimiento:** ¿Le interesa ver cómo Queswa absorbe el 90% del trabajo pesado que el back office por sí solo no resuelve?
 
 ---
 
 ### **FREQ_24: "¿Cómo inscribo un Consumidor VIP? / ¿Qué requiere un VIP para registrarse? / ¿Cómo se hace el registro de un nuevo código? / ¿Dónde se diligencia el formulario?"**
-**[Concepto Nuclear]:** Proceso idéntico al de un Arquitecto de Patrimonio. Documento de identificación + email + dirección de envío + número de contacto. Múltiples canales disponibles, formulario físico o digital.
+**[Concepto Nuclear]:** Proceso idéntico al de un Propietario de Base Operativa. Documento de identificación + email + dirección de envío + número de contacto. Múltiples canales disponibles, formulario físico o digital.
 
-El proceso de inscripción de un Consumidor VIP es idéntico al de un Arquitecto de Patrimonio. Solo cambia la intención del registro (acceso a producto a precio de distribuidor vs. desarrollo de Base Operativa).
+El proceso de inscripción de un Consumidor VIP es idéntico al de un Propietario de Base Operativa. Solo cambia la intención del registro (acceso a producto a precio de distribuidor vs. desarrollo de Base Operativa).
 
 **Documentos requeridos:**
 - Documento de identificación
@@ -350,7 +358,7 @@ El proceso de inscripción de un Consumidor VIP es idéntico al de un Arquitecto
 - **Línea nacional Colombia (gratuita):** 018000 184266
 - **Línea fija Bogotá:** (601) 742 3399
 - **Oficinas Gano Excel a nivel nacional**
-- **Back office del Arquitecto** — el sistema permite que el Arquitecto registre directamente al nuevo código desde su oficina virtual Gano Excel.
+- **Back office del Propietario** — el sistema permite que el Propietario registre directamente al nuevo código desde su oficina virtual Gano Excel.
 
 **Formulario de registro:**
 La persona puede diligenciar el formulario de dos maneras:
@@ -362,277 +370,289 @@ La persona puede diligenciar el formulario de dos maneras:
 ---
 
 ### **FREQ_05: "¿Puedo heredar esto a mi familia?"**
-**[Concepto Nuclear]:** Transferencia Patrimonial. La Base Operativa es un activo comercial en propiedad legal, blindado contra la finitud operativa del Arquitecto.
+**[Concepto Nuclear]:** Una Base Operativa es un activo en propiedad legal. No se apaga cuando usted se detiene; pasa a su familia.
 
-Total y absolutamente. Esta es la diferencia técnica entre un empleo de élite y la propiedad estructural.
+Sí, totalmente. Y esta es la diferencia de fondo entre un buen empleo y tener algo propio.
 
-Un salario, por alto que sea, o un negocio que dependa de su presencia física, tienen un riesgo de continuidad del 100%. Si su capacidad productiva se apaga, el origen de los fondos desaparece; no puede heredar su cargo directivo ni la gestión táctica de sus clientes.
+Un sueldo, por alto que sea —o un negocio que depende de que usted esté ahí todos los días— tiene un problema: si usted falta, el ingreso falta. Nadie hereda un cargo, ni la relación que usted construyó con sus clientes; eso se apaga con usted.
 
-La construcción de **Estructura Patrimonial** le otorga la propiedad legal sobre el flujo de caja del ecosistema. Si su intervención se detiene permanentemente, el volumen de consumo internacional continúa y la corporación transfiere automáticamente las regalías a su siguiente generación como un activo en propiedad.
+Una Base Operativa no. Usted tiene la propiedad legal sobre el ingreso que genera. Si usted llegara a faltar, el consumo de su organización sigue su curso, y la empresa transfiere automáticamente esas ganancias a su familia, como cualquier otro bien que usted les deja.
 
-**Pregunta de seguimiento:** ¿Su arquitectura financiera actual está protegida para seguir generando ingresos a su familia sin su presencia, o todavía depende de que usted esté activo?
+**Pregunta de seguimiento:** Piénselo un momento: hoy, si usted faltara, ¿su familia seguiría recibiendo el mismo ingreso el mes siguiente, o todo dependería de que usted esté activo?
 
 ---
 
 ### **FREQ_06: "¿Qué significa ser Fundador y por qué solo 15 cupos?"**
-**[Concepto Nuclear]:** Restricción técnica de capacidad. El equipo directivo solo puede acompañar personalmente a 15 perfiles en esta primera fase.
+**[Concepto Nuclear]:** No es escasez de marketing. Es cuántas personas el equipo directivo puede acompañar de la mano en esta primera fase.
 
-Limitar el acceso inicial a 15 perfiles no es una táctica de marketing para generar urgencia; es una restricción técnica y operativa. En este momento, operamos en la fase de «Activación sobre Planos».
+Limitar el primer grupo a 15 no es un truco para apurarlo. Es un límite real. En esta etapa, el equipo directivo acompaña personalmente —de la mano— a cada nuevo Propietario para que su Base Operativa arranque bien. Y a un acompañamiento así de cercano solo le alcanza el tiempo para 15 personas a la vez.
 
-El ecosistema exige un proceso de acompañamiento directo por parte del equipo directivo para el éxito de las primeras Bases Operativas. La capacidad de nuestro equipo para ejecutar esta transferencia de tecnología de manera personalizada nos permite integrar únicamente a 15 Arquitectos de Patrimonio durante esta etapa de cimentación.
+Entrar ahora, en esta ventana, le da una ventaja concreta:
 
-La gran ventaja de ingresar en esta ventana es asegurar una Posición frente al mercado:
+**Condiciones de arranque:** Accede a condiciones que no van a existir cuando abramos al público masivo.
 
-**Prioridad Tecnológica:** Usted accede a condiciones de capitalización que no estarán habilitadas una vez abra el despliegue global al mercado masivo.
+**Posición adelantada:** Alcanza a consolidar su organización antes de que llegue la avalancha del mercado masivo. Queda adelante, no atrás.
 
-**Ventaja Estructural:** Usted asegura su posición y consolida su organización antes de que llegue el mercado masivo, ubicándose estratégicamente por delante del flujo general.
+**El crecimiento se apoya en usted:** Cuando abra el público, ese flujo de personas nuevas se va a apoyar en las organizaciones que ya estén montadas y funcionando. Usted quiere ser una de ellas.
 
-**Dirección Apalancada:** Cuando llegue el despliegue público, el tráfico orgánico se apoyará directamente en las organizaciones que ya tengan su infraestructura operando y lista para recibirlos.
-
-**Pregunta de seguimiento:** Estamos seleccionando a los socios estratégicos que liderarán esta expansión. ¿Visualiza usted el impacto financiero de asegurar esta posición de ventaja frente al mercado antes de nuestra apertura pública?
+**Pregunta de seguimiento:** Estamos eligiendo a los primeros socios que van a liderar esta etapa. ¿Le hace sentido asegurar esa posición de ventaja antes de que abramos al público?
 
 ---
 
 ### **FREQ_07: "¿Los productos son reales? ¿Tienen respaldo científico?"**
-**[Concepto Nuclear]:** Todo activo financiero sólido requiere un motor de alta rotación; el nuestro optimiza un hábito biológico innegociable.
+**[Concepto Nuclear]:** Todo activo sólido necesita algo que las personas compren todos los días por gusto. El nuestro mejora un hábito que ya tienen.
 
-Sin un producto real que la gente ame y consuma todos los días, no hay viabilidad financiera.
+Sin un producto real que las personas disfruten y compren todos los días, no hay negocio que se sostenga.
 
-El Pilar 1 (La Matriz Física) opera con tecnología propietaria de bioactivación desarrollada en Malasia: cultivo de tejidos genéticamente clonados, extracción acuosa combinada con CO2 supercrítico, y secado spray drying. El resultado es un extracto 100% hidrosoluble del Ganoderma Lucidum — biodisponibilidad completa, asimilación garantizada por el sistema gastrointestinal.
+El Pilar 1 (El Respaldo Operativo) trabaja con una tecnología propia desarrollada en Malasia para extraer lo mejor del Ganoderma Lucidum —un hongo estudiado por décadas— y dejarlo en una forma que el cuerpo absorbe por completo. En palabras simples: ciencia de verdad detrás de cada taza, no humo.
 
-**Analogía:** ¿Qué es lo más difícil de cambiar en un ser humano? Sus hábitos.
+**Analogía:** ¿Qué es lo más difícil de cambiar en una persona? Sus hábitos.
 
-La industria tradicional de la salud fracasa porque le exige al cliente cambiar su vida: adoptar dietas restrictivas o preparar batidos complejos todos los días. Eso genera fricción.
+La industria de la salud fracasa porque le pide a las personas cambiar su vida: dietas imposibles, batidos raros todas las mañanas. Nadie sostiene eso.
 
-Nosotros no cambiamos hábitos. Los optimizamos.
+Nosotros no cambiamos el hábito. Lo mejoramos.
 
-La gente ya toma café — es la segunda bebida más consumida del mundo. Nosotros tomamos productos premium de altísima absorción y los integramos exactamente dentro de ese hábito biológico innegociable.
+Las personas ya toman café —es la segunda bebida más consumida del mundo—. Lo que hacemos es meter un producto premium, de altísima absorción, dentro de ese café que usted ya iba a tomar igual.
 
-Es rendimiento y salud preventiva dentro de un hábito diario. Por eso el modelo financiero es tan robusto: nadie necesita que le recuerden tomarse su café cada mañana.
+Es rendimiento y salud dentro de algo que ya hace todos los días. Por eso el negocio es tan firme: a nadie hay que recordarle que se tome su café en la mañana.
 
-**Pregunta de seguimiento:** ¿Identifica usted el café como un consumo ocasional o como un hábito biológico innegociable?
+**Pregunta de seguimiento:** ¿Usted diría que el café es algo ocasional, o un hábito que millones de personas repiten sin falta cada mañana?
 
 ---
 
 ### **FREQ_08: "¿Me ayudan o me enseñan? ¿Qué pasa si no sé hacer esto?"**
-**[Concepto Nuclear]:** Transferencia de Protocolos vs. Riesgo de Improvisación. La infraestructura entrega coordenadas operativas exactas, eliminando el ensayo y error.
+**[Concepto Nuclear]:** Usted no parte de cero ni improvisa. Recibe el camino exacto, ya probado.
 
-En el entorno corporativo tradicional, la mayor fricción al abrir una nueva unidad de negocio es el riesgo de improvisación operativa y logística. Replicar un negocio cuesta capital que rara vez se recupera y tiene una tasa de éxito que rara vez se cumple.
+Tranquilo, esa es justo la parte que no recae sobre usted.
 
-Nuestra infraestructura elimina ese pasivo. Usted no ingresa a diseñar un modelo de expansión desde cero. La arquitectura ya está estructurada y validada. Al activar su posición, el equipo directivo ejecuta una transferencia técnica de protocolos a través de la Academia Queswa. Usted aporta su capacidad gerencial y su franja de tiempo; nosotros le suministramos las coordenadas de ejecución y la hoja de ruta exacta de acoplamiento.
+Cuando alguien monta un negocio nuevo, lo más caro no es el dinero: es el ensayo y error. Probar, equivocarse, volver a probar. Ahí se va el tiempo y la plata, y la mayoría se queda en el intento.
 
-Usted no enseña; Queswa escala. Usted crece.
+Aquí eso ya está resuelto. Usted no diseña nada desde cero: el camino ya está hecho y probado. Al arrancar, el equipo directivo le transfiere paso a paso lo que funciona, a través de la Academia Queswa. Usted pone su capacidad de dirigir y su tiempo; nosotros le damos la ruta exacta, sin que tenga que adivinar.
 
-**Pregunta de seguimiento:** ¿Requiere auditar cómo se estructura el soporte técnico de su organización?
+Como decimos: usted no enseña; Queswa escala. Usted crece.
+
+**Pregunta de seguimiento:** ¿Le gustaría ver cómo funciona ese acompañamiento paso a paso?
 
 ---
 
 ### **FREQ_09: "¿Tengo costos mensuales obligatorios?"**
-**[Concepto Nuclear]:** Reasignación de Consumo. El mantenimiento de la Base Operativa no genera un pasivo financiero muerto.
+**[Concepto Nuclear]:** El mantenimiento no es un gasto que se pierde. Es consumo que usted ya hacía, ahora redirigido.
 
-A diferencia de una franquicia tradicional o un modelo comercial típico, en nuestro ecosistema el costo de mantenimiento logístico —la "carga base" para sostener activa su Base Operativa— no es una tarifa administrativa ni un gasto irrecuperable.
+No en el sentido en que suena "costo mensual obligatorio". Y esta diferencia es importante.
 
-Operamos bajo el principio de Reasignación de Consumo. La inyección de mantenimiento ($100 USD / ~$450,000 COP a tasa Gano Excel) se transfiere a la adquisición de bebidas enriquecidas y suplementos Gano Excel que usted consume por necesidad biológica. Usted toma un capital que ya destinaba a bienes de menor eficiencia y lo reasigna como combustible para mantener operativo su activo.
+En una franquicia normal usted paga una cuota de administración: dinero que entrega y no vuelve. Aquí no es así.
 
-**Pregunta de seguimiento:** Como administrador de recursos, ¿audita usted la eficiencia matemática de sostener una infraestructura transnacional sin inyectar pasivos fijos adicionales a su flujo de caja?
+Para mantener activa su Base Operativa hay un consumo base (alrededor de $100 USD / ~$450,000 COP, a la tasa fija de Gano Excel). Pero ese dinero no se evapora: se convierte en producto —las bebidas y suplementos Gano Excel que usted de todos modos va a consumir—. En vez de gastar ese presupuesto en cosas que no le dejan nada, lo redirige hacia lo que mantiene andando su activo. Es plata que ya iba a salir; ahora trabaja para usted.
+
+**Pregunta de seguimiento:** ¿Tiene sentido para usted que el costo de sostener el negocio sea, en realidad, producto que usted ya consume, y no una cuota perdida?
 
 ---
 
 ### **FREQ_10: "¿En qué se diferencia esto de un negocio tradicional?"**
-**[Concepto Nuclear]:** Apalancamiento Estratégico. El Pilar 1 asume los pasivos físicos; el Arquitecto ejerce la dirección.
+**[Concepto Nuclear]:** En un negocio normal usted carga con todo el peso y el riesgo. Aquí ese peso lo carga una empresa de 70 países; usted dirige.
 
-La diferencia estructural es matemática: radica en quién absorbe la fricción y el riesgo.
+La diferencia está en quién carga con el peso.
 
-En un modelo tradicional, usted retiene el 100% de la carga operativa: nóminas, arriendos, plataformas de software, aduanas y fluctuaciones macroeconómicas. Si la cadena logística se fractura, su capital asume el impacto directo.
+En un negocio tradicional, todo recae sobre usted: la nómina, el arriendo, los sistemas, la aduana, y encima los vaivenes de la economía. Si la cadena se rompe en algún punto, el golpe lo recibe su bolsillo. Directo.
 
-Nuestro ecosistema opera bajo Apalancamiento Estratégico. El Pilar 1 (La Matriz Física) absorbe los pasivos de manufactura y distribución global. Usted, asumiendo su rol de Arquitecto de Patrimonio, orquesta el flujo de tráfico y factura sobre el consumo cautivo, operando con una estructura ultraliviana. Es el equivalente técnico a poseer la concesión de una infraestructura sin la obligación de mantener los activos físicos.
+Aquí no. La parte pesada —fabricar, importar, almacenar, despachar a 70 países— usted la deja en manos de Gano Excel, una empresa real con décadas haciéndolo. Usted se queda con la parte liviana: dirigir hacia dónde va el flujo de personas y recibir ingreso por el consumo que se repite. Es como tener la concesión de una estación de servicio sin tener que construir la refinería ni manejar los camiones.
 
-**Pregunta de seguimiento:** Al auditar la expansión de su patrimonio, ¿identifica usted la diferencia operativa entre adquirir pasivos físicos en solitario, y ejercer la dirección sobre una Matriz Física ya consolidada?
+**Pregunta de seguimiento:** Si pudiera quedarse con la parte que genera ingreso y soltar la parte pesada y riesgosa, ¿no es eso lo que siempre quiso de un negocio propio?
 
 ---
 
 ### **FREQ_11: "¿Cómo se genera el dinero exactamente?"**
-**[Concepto Nuclear]:** Facturación Logística de Consumo Orgánico. La liquidez deriva del movimiento de inventario repetitivo, no del ingreso transaccional de personas.
+**[Concepto Nuclear]:** Usted gana por producto que se consume y se vuelve a comprar. No por meter gente.
 
-La monetización de este activo se audita estrictamente sobre el volumen de facturación física.
+El dinero sale del producto que las personas consumen y vuelven a comprar. Punto.
 
-La corporación no liquida dividendos por la simple inserción de perfiles al sistema. Su función directiva es gestionar un ecosistema de suministro. Una vez que un usuario o Unidad Operativa adopta los productos físicos en su ciclo diario, el protocolo registra cada reposición de inventario en su red.
+La empresa no le paga por meter personas al sistema —esto es clave—. Su trabajo es dirigir un grupo de consumo. Cuando alguien de su organización empieza a tomar los productos en su día a día y los vuelve a pedir mes a mes, cada una de esas recompras queda registrada a su favor.
 
-Usted realiza la integración tecnológica inicial, y la corporación le liquida regalías continuas por cada unidad de consumo subsecuente que el mercado demande por hábito.
+Usted conecta a la persona una vez, y la empresa le paga ganancias de forma continua por cada producto que esa persona siga consumiendo por costumbre. El esfuerzo lo hace una vez; el ingreso se repite.
 
-**Pregunta de seguimiento:** A nivel contable, ¿su matriz de ingresos actual le liquida una sola vez por el esfuerzo ejecutado, o ya cuenta con regalías recurrentes por consumo continuo?
+**Pregunta de seguimiento:** Hoy, ¿le pagan una sola vez por cada cosa que hace, o ya tiene ingresos que le siguen llegando por algo que hizo una vez?
 
 ---
 
 ### **FREQ_12: "¿Tengo que ser un vendedor experto? / ¿A quién le vendo? No quiero molestar a mis amigos. / Soy introvertido, ¿esto funciona para mí?"**
-**[Concepto Nuclear]:** Filtrado Inteligente vs. Persecución Manual. El Centro de Mando absorbe la persuasión; el Arquitecto asume la dirección.
+**[Concepto Nuclear]:** No necesita vender ni presionar a nadie. Queswa explica y filtra; usted solo recibe a quien ya levantó la mano.
 
-En nuestro ecosistema, el perfil del "vendedor transaccional" no es requerido ni es eficiente. El intento manual de convencer a terceros genera fricción operativa y devalúa el estatus de su Base Operativa.
+No. Y esta es de las cosas que más alivia a las personas.
 
-Nosotros operamos mediante protocolos de flujo orgánico. Usted orquesta los canales para que el tráfico cualificado llegue hacia el ecosistema. Es en ese punto donde el Pilar 2 (Queswa) asume la carga: presenta el modelo, audita objeciones y descarta perfiles no viables.
+Aquí no funciona el vendedor que presiona y convence a la fuerza. Ese estilo cansa, incomoda y la verdad no sirve. Andar rogándoles a las personas lo desgasta a usted y le baja el nivel a lo que está construyendo.
 
-Como dicta nuestra metodología: Usted no explica — Queswa explica. Usted no convence; usted audita y autoriza el acceso. Solo interviene en la fase final para ejecutar el acoplamiento.
+Lo que usted hace es abrir los canales para que lleguen las personas correctas. De ahí en adelante toma el relevo Queswa (el Pilar 2): explica el modelo, responde las dudas y filtra los contactos, descartando a quien no encaja —24 horas al día—.
 
-**Pregunta de seguimiento:** Al auditar su tiempo productivo, ¿reconoce usted la diferencia operativa entre prospectar en frío y evaluar candidatos previamente filtrados por un Centro de Mando?
+Como dice nuestra metodología: usted no explica — Queswa explica. Usted no convence; usted solo revisa quién ya mostró interés y le da el sí final. Apenas entra al cierre, cuando la persona ya está lista.
+
+**Pregunta de seguimiento:** ¿Se imagina la diferencia entre andar detrás de las personas, y solo sentarse a conversar con quien ya pidió información por su cuenta?
 
 ---
 
 ### **FREQ_13: "¿Es esto legal? ¿Es una pirámide?"**
-**[Concepto Nuclear]:** Respaldo Tangible vs. Captación Especulativa. La legitimidad del flujo de caja reside en la transacción física del inventario, regulada internacionalmente.
+**[Concepto Nuclear]:** La diferencia es simple: aquí hay un producto real que las personas compran. Una pirámide no tiene producto, solo dinero que entra de gente nueva.
 
-La diferencia es estrictamente auditable. Un esquema de captación especulativa opera como un juego de suma cero: la liquidez proviene exclusivamente de inyecciones de nuevos capitales sin creación de valor real. Si la captura de perfiles se detiene, el sistema colapsa matemáticamente.
+Pregunta válida, y la respuesta es clara.
 
-Nuestro ecosistema es un modelo de distribución logística regulado comercialmente. Toda liquidación proviene del movimiento de bienes tangibles gestionados por la Matriz Física (Pilar 1). Si el día de mañana la activación de nuevas Bases Operativas se detuviera por completo, su activo continuaría liquidando regalías derivadas del re-consumo orgánico en su organización. Su flujo de caja está respaldado en inventario, no en reclutamiento.
+Una pirámide funciona así: el dinero entra solo porque entra gente nueva. No hay un producto real de por medio. El día que deja de entrar gente, todo se cae. Es cuestión de tiempo.
 
-**Pregunta de seguimiento:** A nivel de protección patrimonial, ¿audita usted la mitigación de riesgo que proporciona respaldar su liquidez en consumo físico real, frente a ecosistemas de especulación digital?
+Esto es lo contrario. Aquí hay un producto físico de verdad —café y suplementos que las personas toman y vuelven a comprar—, fabricado y distribuido por Gano Excel, una empresa regulada en 70 países. Toda ganancia sale de ese producto que se mueve, no de meter personas. Si mañana no entrara nadie nuevo nunca más, usted seguiría ganando por el consumo de las personas que ya están. Su ingreso está respaldado en producto, no en reclutamiento. Esa es toda la diferencia.
+
+**Pregunta de seguimiento:** ¿Le da más tranquilidad un ingreso que depende de un producto que las personas compran cada mes, o uno que solo se sostiene mientras siga entrando gente nueva?
 
 ---
 
 ### **FREQ_14: "¿Por qué unirme con ustedes y no con otro equipo?" / "¿Cuál es la ventaja de CreaTuActivo?" / "¿Qué diferencia a CreaTuActivo de otros equipos?"**
-**[Concepto Nuclear]:** Ventaja Competitiva Estructural. La combinación de la Matriz Física y el Centro de Mando elimina la ineficiencia de la prospección analógica.
+**[Concepto Nuclear]:** Otros le dan el producto y lo dejan solo. Aquí, además del producto, recibe a Queswa haciendo el trabajo difícil por usted.
 
-La decisión no es sobre elegir un "equipo", sino sobre auditar la eficiencia de la infraestructura operativa. Cualquier operador externo puede darle acceso al Pilar 1 (La Matriz Física), pero solo le entregará el inventario. En el modelo tradicional, usted asumirá la prospección, presentación, filtrado y formación de su organización de manera manual.
+No se trata de elegir un "equipo". Se trata de con qué herramientas va a trabajar.
 
-Al activar su Base Operativa en CreaTuActivo, usted adquiere el acoplamiento del Pilar 2 (Queswa). Este Centro de Mando absorbe el desgaste del filtrado y la educación del prospecto. Como dicta nuestra metodología: Usted no explica — Queswa explica. Usted no recibe un catálogo; recibe un ecosistema diseñado para procesar flujo a escala continental.
+Cualquiera puede darle acceso a Gano Excel (el Pilar 1). Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar personas, presentar, explicar, filtrar, formar a su grupo—.
 
-**Pregunta de seguimiento:** Como Arquitecto de Patrimonio, ¿identifica usted la diferencia matemática entre ejecutar presentaciones de forma manual, y ejercer la dirección sobre un ecosistema tecnológico que filtre el mercado por usted?
+Al activar su Base Operativa en CreaTuActivo, usted recibe además a Queswa (el Pilar 2). Esa es la diferencia: Queswa carga con lo pesado —explicar y filtrar a las personas, una y otra vez, las 24 horas—. Como decimos: usted no explica — Queswa explica. Usted no recibe un catálogo; recibe un sistema completo que trabaja por usted.
+
+**Pregunta de seguimiento:** ¿Ve la diferencia entre tener que presentarle y explicarle a cada persona a mano, y dirigir un sistema que filtra a las personas por usted?
 
 ---
 
 ### **FREQ_15: "¿Realmente puedo hacer esto sin dejar mi empleo?"**
-**[Concepto Nuclear]:** Redundancia Operativa Paralela. La solución no es reemplazar su actividad actual — es la instalación de una Estructura Patrimonial en paralelo a su ocupación actual, sin interrumpir su actividad ejecutiva principal.
+**[Concepto Nuclear]:** No se trata de renunciar a nada. Se trata de construir un segundo ingreso en paralelo, sin tocar el primero.
 
-La arquitectura del sistema requiere explícitamente que usted mantenga su fuente de liquidez actual. El objetivo de este modelo no es sustituir su facturación a corto plazo, sino corregir la inestabilidad estructural de su matriz financiera a mediano y largo plazo.
+Sí, y de hecho así es como debe hacerse. El sistema le pide que NO suelte su ingreso actual.
 
-Al igual que una corporación no detiene sus operaciones principales para abrir una nueva división, usted no pausa su profesión. Puesto que el Pilar 2 (Queswa) asume el 90% de la carga de filtrado y exposición, el ecosistema solo demanda una asignación directiva estricta de 60 a 90 minutos diarios para la toma de decisiones y expansión de su Base Operativa.
+La idea no es reemplazar lo que usted gana hoy. Es ir construyendo, en paralelo y sin afán, un segundo ingreso que con el tiempo deje de depender de que usted trabaje cada día.
 
-**Pregunta de seguimiento:** ¿Tiene un bloque de tiempo diario que pueda dedicar a dirigir esta Estructura Patrimonial, o necesita ver primero cómo se integra a su agenda actual?
+Igual que una empresa no cierra para abrir una nueva línea, usted no pausa su profesión. Como Queswa (el Pilar 2) carga con el 90% del trabajo de explicar y filtrar, lo que queda en sus manos son unos 60 a 90 minutos al día para tomar decisiones y dirigir su Base Operativa.
+
+**Pregunta de seguimiento:** ¿Tiene una hora al día que pueda dedicarle a dirigir este segundo ingreso, o prefiere ver primero cómo encajaría en su agenda actual?
 
 ---
 
 ### **FREQ_16: "¿El mercado no está ya saturado?"**
-**[Concepto Nuclear]:** Reinicio Biológico de la Demanda. La saturación matemática es aplicable a tendencias especulativas, no a variables de consumo físico recurrente.
+**[Concepto Nuclear]:** El café no se satura: el mercado se lo vuelve a tomar mañana, y pasado, y siempre.
 
-La saturación de mercado es un riesgo cuantificable en esquemas especulativos o bienes de un solo uso, donde la demanda es artificial y depende de la percepción del mercado. Nuestro ecosistema opera sobre una variable estructuralmente distinta: la optimización de un hábito biológico inquebrantable.
+La saturación es un problema real cuando vende algo de moda o de un solo uso —algo que se compra una vez y ya—. Pero nosotros no estamos en ese juego.
 
-La demanda del usuario final se reinicia automáticamente a cero cada 24 horas, independientemente de las fluctuaciones macroeconómicas o del número de Bases Operativas activas. El continente americano consume cientos de millones de tazas diarias, y nuestra penetración en este mercado sigue siendo inferior al 1%. La pregunta correcta no es si el mercado se va a saturar, sino cuántos ciclos de consumo diario se pueden capturar antes de que el siguiente operador lo haga.
+Lo nuestro es un hábito que se repite. El mercado se toma su café hoy… y mañana vuelve a querer otro. Y pasado mañana otra vez. Esa necesidad se renueva sola cada día, sin importar la economía ni cuántas Bases Operativas haya activas. El continente toma cientos de millones de tazas al día, y nosotros apenas tocamos menos del 1% de ese mercado. La pregunta no es si se va a saturar; es cuánto alcanza usted a tomar antes de que llegue el siguiente.
 
-**Pregunta de cierre:** A nivel comercial, ¿reconoce usted la diferencia estratégica entre monetizar un ciclo biológico que se reinicia orgánicamente cada día, frente al riesgo de posicionarse en una tendencia con fecha de caducidad?
+**Pregunta de seguimiento:** ¿Le parece más sólido un negocio sobre algo que las personas consumen todos los días por costumbre, o uno sobre una moda que tarde o temprano pasa?
 
 ---
 
 ### **FREQ_17: "¿Cómo me pagan las comisiones? ¿Es dinero real o productos?"**
-**[Concepto Nuclear]:** Liquidez Fiduciaria Bancarizada. La Matriz Física liquida dividendos exclusivamente en moneda legal, rechazando esquemas de compensación interna.
+**[Concepto Nuclear]:** Dinero real, a su cuenta bancaria, todas las semanas. Nada de "puntos" ni canjes.
 
-La liquidación se realiza al 100% con liquidez financiera real y bancarizada. En este ecosistema no existen "puntos de plataforma", "bonos de descuento" ni canjes obligatorios por producto. Los dividendos se transfieren en la moneda legal del país donde usted opera (dólares, pesos colombianos, pesos mexicanos, según corresponda).
+Dinero real, en su cuenta del banco. Aquí no hay "puntos de plataforma", ni bonos de descuento, ni canjes obligatorios por producto. Le pagan en la moneda de su país (dólares, pesos colombianos, pesos mexicanos, según donde opere).
 
-El protocolo funciona mediante cortes de auditoría semanales. Cada viernes, el Pilar 1 (La Matriz Física) calcula el volumen de consumo orgánico generado por su organización durante ese ciclo y transfiere la liquidez directamente a su cuenta bancaria. El mecanismo opera sin intermediarios ni retenciones discrecionales.
+Funciona por semanas. Cada viernes, Gano Excel (el Pilar 1) suma el consumo que generó su organización en esos días y le transfiere la plata directo a su cuenta. Sin intermediarios y sin retenciones raras.
 
-Esto genera dos ventajas estructurales: una inyección de caja dinámica cada semana, y una escalabilidad proporcional. El sistema liquida el porcentaje exacto correspondiente al volumen producido por su Base Operativa; si el consumo orgánico se duplica, la liquidación se duplica automáticamente.
+Eso le da dos cosas buenas: dinero entrando cada semana, y un ingreso que crece a la par de su negocio. Si el consumo de su organización se duplica, lo que le pagan se duplica también.
 
-**Pregunta de seguimiento:** A nivel de arquitectura financiera, ¿identifica usted el impacto estratégico de inyectar un ciclo de caja positivo y dinámico cada viernes en su operación actual?
+**Pregunta de seguimiento:** ¿Qué cambiaría para usted tener dinero entrando cada viernes, en lugar de esperar un solo pago al mes?
 
 ---
 
 ### **FREQ_18: "¿Qué pasa si quiero salirme? ¿Hay contratos de permanencia?"**
-**[Concepto Nuclear]:** Autonomía Estructural de Riesgo Cero. El ecosistema no retiene Arquitectos mediante cláusulas coercitivas; la fricción de salida es nula.
+**[Concepto Nuclear]:** No hay contratos de permanencia ni multas. Entra y sale cuando quiera.
 
-En esta infraestructura no existen cláusulas de permanencia, penalizaciones operativas ni compromisos de exclusividad. Usted ejerce su rol de Arquitecto de Patrimonio, no de empleado sujeto a contrato laboral. Si por decisión estratégica requiere pausar su expansión o desvincularse, la fricción de salida es cero.
+No hay contratos de permanencia, ni multas, ni cláusulas de exclusividad. Usted es dueño de su Base Operativa, no un empleado amarrado a un contrato. Si en algún momento quiere pausar o retirarse, salir no le cuesta nada.
 
-El proceso es simple: usted detiene su reasignación de consumo mensual (la carga base que mantiene activa su Base Operativa). Al no existir costos fijos acumulables ni deudas operativas, su Base Operativa pasa a estado inactivo de forma inmediata, sin penalizaciones ni gestiones adicionales.
+Es muy simple: deja de hacer su consumo base mensual (lo que mantiene activa la Base Operativa). Como no hay costos fijos que se acumulen ni deudas, su Base queda inactiva de inmediato, sin multas ni trámites.
 
-El modelo opera bajo la lógica de un servicio de infraestructura en la nube (SaaS): mientras mantiene activa la carga base, el ecosistema procesa su volumen y liquida dividendos. Nuestros Arquitectos de Patrimonio sostienen su dirección porque el activo genera flujo de caja objetivo, no por obligaciones contractuales.
+Funciona parecido a una suscripción de streaming: mientras la mantiene activa, el sistema procesa su volumen y le paga. Nuestros Propietarios siguen ahí porque el negocio les genera ingreso de verdad, no porque un contrato los obligue.
 
-**Pregunta de cierre:** A nivel de evaluación de riesgo, ¿audita usted la ventaja operativa de administrar un activo con fricción de salida nula, donde conserva el control absoluto de entrada y salida?
+**Pregunta de seguimiento:** ¿Le da tranquilidad saber que usted manda sobre cuándo entra y cuándo sale, sin nada que lo amarre?
 
 ---
 
 ### **FREQ_19: "¿Qué pasa con mi negocio si me mudo de país?"**
-**[Concepto Nuclear]:** Descentralización Geográfica Continua. La Base Operativa posee portabilidad logística internacional completa — el flujo de caja no está anclado a una coordenada geográfica.
+**[Concepto Nuclear]:** Su negocio viaja con usted. Funciona en los 70 países donde está Gano Excel.
 
-La posición comercial de su Base Operativa tiene validez en los 70 países donde opera la Matriz Física (Pilar 1), de forma automática y sin gestiones adicionales. Si usted decide trasladar su residencia a Estados Unidos, México, España o cualquier territorio con cobertura, su activo migra con usted sin fricción operativa.
+Su negocio se va con usted. La posición de su Base Operativa vale en los 70 países donde opera Gano Excel (el Pilar 1), automáticamente y sin trámites. Si se muda a Estados Unidos, México, España o cualquier país con cobertura, su activo se va con usted.
 
-A diferencia de un negocio físico tradicional, no existen inventarios que liquidar, locales que cerrar ni costos de indemnización laboral que absorber. Usted actualiza sus coordenadas en el ecosistema y su flujo de caja continúa operando sin interrupción, ya que su Centro de Mando (Pilar 2) es completamente digital.
+A diferencia de un negocio físico, aquí no hay inventario que rematar, ni local que cerrar, ni liquidaciones de empleados que pagar. Usted actualiza su país en el sistema y su ingreso sigue corriendo sin cortarse, porque su Centro de Mando (Queswa, el Pilar 2) es totalmente digital.
 
-Usted puede ejercer la dirección desde cualquier ciudad del continente con la misma eficiencia. Esta variable es crítica para quienes proyectan su internacionalización o planificación de segunda residencia: el activo no colapsa con el traslado, se adapta.
+Puede dirigirlo desde cualquier ciudad del continente con la misma facilidad. Esto es clave para quien piensa en mudarse o en una segunda residencia: el negocio no se cae con la mudanza, se adapta.
 
-**Pregunta de cierre:** A nivel de proyección patrimonial, ¿audita usted si su estructura de ingresos actual mantendría el flujo de caja intacto ante un cambio de residencia, o si existe una dependencia geográfica que represente un riesgo estructural?
+**Pregunta de seguimiento:** Si usted se mudara de país el año entrante, ¿su ingreso de hoy se iría con usted, o se quedaría atrás?
 
 ---
 
 ## 📊 **BLOQUE 5: CONFIANZA Y AUTORIDAD (CRED) - 4 respuestas**
 
 ### **CRED_01: "¿Quién está detrás de esto? ¿Quién es Luis Cabrejo?"**
-**[Concepto Nuclear]:** Alineación de Riesgo (Skin in the Game). La Dirección Corporativa opera la misma infraestructura que transfiere, eliminando la asimetría de riesgo.
+**[Concepto Nuclear]:** Quienes dirigen esto usan exactamente el mismo sistema que le entregan a usted. No son teóricos.
 
-Detrás de este protocolo opera una dirección humana con resultados estrictamente auditables. Luis Cabrejo y la mesa directiva son Arquitectos de Patrimonio, no teóricos digitales. Han consolidado una de las organizaciones de mayor rentabilidad en la Matriz Física y desarrollaron el Pilar 2 (Queswa) para extirpar la fricción operativa de sus propias Bases Operativas.
+Detrás de esto hay personas de carne y hueso, con resultados que se pueden verificar. Luis Cabrejo y el equipo directivo no son gurús de internet: son Propietarios de Base Operativa, igual que usted lo sería. Construyeron una de las organizaciones más rentables dentro de Gano Excel, y crearon Queswa (el Pilar 2) para quitarse de encima el trabajo pesado en sus propios negocios.
 
-El ecosistema que usted audita hoy no es un experimento comercial; es la transferencia exacta del Centro de Mando que la Dirección utiliza diariamente para escalar su propio portafolio. No existe asimetría de riesgo porque operamos sobre el mismo motor.
+Lo que usted está viendo hoy no es un experimento para venderle algo: es exactamente el mismo sistema que ellos usan cada día para crecer lo suyo. Le entregan la herramienta que ya les funciona a ellos.
 
-**Pregunta de seguimiento:** A nivel corporativo, ¿reconoce usted la seguridad operativa de estar respaldado por estrategas que asumen su mismo nivel de riesgo logístico, en lugar de guiarse por consultores externos sin exposición en el modelo?
+**Pregunta de seguimiento:** ¿Le da más confianza un sistema que sus propios creadores usan a diario, que uno diseñado por un asesor que nunca lo ha aplicado?
 
 ---
 
 ### **CRED_02: "¿Cuánto tiempo lleva la empresa? ¿Es segura?"**
-**[Concepto Nuclear]:** Efecto Lindy y Solidez Estructural. La viabilidad del activo está respaldada por una Matriz Física internacional con riesgo de quiebra tendiente a cero.
+**[Concepto Nuclear]:** Entre más tiempo lleva una empresa funcionando bien, más segura es. La nuestra lleva más de 30 años.
 
-A nivel de evaluación de riesgo, la seguridad de su activo se rige por el Efecto Lindy: la probabilidad de supervivencia futura de una corporación es proporcional al tiempo que ya ha operado con éxito.
+Hay una forma simple de medir qué tan segura es una empresa: entre más tiempo lleva funcionando bien, más probable es que siga ahí mañana.
 
-Nuestro Pilar 1 (La Matriz Física), soportado por Gano Excel, cuenta con más de tres décadas de dominio logístico global. Ha superado múltiples crisis macroeconómicas operando con capital propio y cero deuda institucional en más de 70 jurisdicciones. Es la infraestructura robusta sobre la cual acoplamos nuestro Centro de Mando.
+Gano Excel —nuestro Pilar 1, el Respaldo Operativo— lleva más de tres décadas operando en todo el mundo. Ha pasado por varias crisis económicas trabajando con capital propio y sin deudas, en más de 70 países. No estamos parados sobre una empresa nueva que puede desaparecer el otro año; estamos parados sobre una base que ya demostró que aguanta.
 
-**Pregunta de seguimiento:** Al auditar la construcción de su patrimonio, ¿identifica usted la diferencia matemática entre anclar su esfuerzo a startups experimentales, y apalancarse en una Matriz Física que ha demostrado resiliencia financiera por décadas?
+**Pregunta de seguimiento:** ¿Preferiría apoyar su esfuerzo en una empresa nueva, que todavía tiene que demostrar que sobrevive, o en una que ya lo demostró por más de 30 años?
 
 ---
 
 ### **CRED_03: "¿Esto realmente funciona? ¿Hay pruebas?"**
-**[Concepto Nuclear]:** Validación Empírica Inbound. El funcionamiento del algoritmo se demuestra irrevocablemente en el filtrado del propio prospecto.
+**[Concepto Nuclear]:** La mejor prueba de que funciona es que usted está aquí, sin que nadie lo persiguiera.
 
-La evidencia empírica irrefutable de la eficiencia técnica de este modelo es su propia presencia en esta auditoría.
+La prueba más clara de que esto funciona es que usted está aquí ahora mismo.
 
-Usted está evaluando este ecosistema sin haber recibido llamadas en frío ni presión comercial. Todo el proceso de atracción, filtrado y presentación de datos ha sido ejecutado de forma autónoma por el Pilar 2 (Queswa), bajo un esquema estricto de flujo inbound. Como dicta nuestra metodología: Usted no convence; usted audita y autoriza el acceso.
+Piénselo: usted llegó a conocer esto sin recibir una sola llamada en frío, sin que nadie lo presionara. Todo el proceso —atraerlo, responderle, mostrarle la información— lo hizo Queswa (el Pilar 2) por su cuenta. A usted no lo persiguieron; usted llegó.
 
-Si este Centro de Mando tiene la capacidad técnica de captar su atención e inyectarlo al sistema como perfil calificado, ejecutará exactamente el mismo proceso logístico para escalar su propia Base Operativa.
+Si este sistema fue capaz de captar su interés y traerlo hasta acá como una persona realmente interesada, va a hacer exactamente lo mismo para hacer crecer su Base Operativa.
 
-**Pregunta de seguimiento:** Como estratega, ¿audita usted la escalabilidad que adquiere al delegar la prospección analógica a esta tecnología, liberando su agenda directiva para la toma de decisiones?
+**Pregunta de seguimiento:** ¿Imagina lo que sería tener esta herramienta atrayendo personas interesadas por usted, mientras usted se dedica a decidir y dirigir?
 
 ---
 
 ### **CRED_04: "¿Qué garantía tengo de que no voy a perder mi dinero?"**
-**[Concepto Nuclear]:** Cobertura Activa de Capital (Hedging). La inyección financiera está respaldada en su totalidad por bienes de alto valor intrínseco, anulando el riesgo de evaporación.
+**[Concepto Nuclear]:** Su dinero no se evapora: se convierte en producto físico de valor real que usted recibe.
 
-Desde la perspectiva de una auditoría financiera, su exposición a la pérdida de capital en este ecosistema es matemáticamente cero.
+La gran diferencia con otros modelos es esta: aquí su dinero no se va al aire.
 
-Operamos bajo una estricta política de respaldo físico. Su capitalización inicial no se destina a promesas de rendimiento especulativo ni a plataformas intangibles. Su capital se transfiere a productos físicos premium — bebidas enriquecidas y suplementos Gano Excel — gestionados por la Matriz Física (Pilar 1), un activo con valor de mercado auditable y demanda orgánica comprobada.
+Cuando usted entra, su inversión no se gasta en promesas ni en una plataforma que solo existe en una pantalla. Se convierte en producto físico —las bebidas y suplementos Gano Excel—, respaldado por el Pilar 1, con valor real y personas que de verdad lo consumen.
 
-En el escenario de mayor contracción operativa, su capital se encuentra resguardado en inventario de consumo de clase mundial. La evaporación de capital que caracteriza a los esquemas especulativos sin respaldo tangible no es aplicable a nuestra arquitectura.
+Dicho simple: a cambio de su dinero, usted recibe producto que vale y que se vende. No es como esos esquemas donde usted pone plata y, si la cosa se cae, no le queda nada en la mano. Aquí siempre queda producto real.
 
-**Pregunta de seguimiento:** ¿Identifica usted la mitigación de riesgo que representa operar respaldado por activos físicos tangibles frente a modelos de pura especulación digital, donde el capital no tiene cobertura ante un escenario de contracción?
+**Pregunta de seguimiento:** ¿Le da más tranquilidad poner su dinero en algo que se convierte en producto real que usted puede tener y consumir, que en una promesa digital sin nada detrás?
 
 ---
 
 ## 🔧 **BLOQUE 6: MANEJO DE OBJECIONES (OBJ) - 2 respuestas**
 
 ### **OBJ_01: "No tengo tiempo"**
-**[Concepto Nuclear]:** Síntoma de la trampa estructural. La saturación de agenda es la confirmación matemática de un modelo operativo carente de apalancamiento.
+**[Concepto Nuclear]:** La agenda llena no es mala organización. Es la señal de que su ingreso depende de que usted esté presente.
 
-La saturación de su agenda no es un problema de gestión del tiempo; es un síntoma de diseño estructural. Es la confirmación matemática de que usted opera bajo una trampa estructural: si para de trabajar, para de ganar. Su flujo de caja depende en un 100% de su presencia física.
+Esa sensación de no tener tiempo no es un problema de organización. Es la señal de algo más de fondo.
 
-La solución a esta inestabilidad estructural no es abandonar su actividad principal, sino inyectar apalancamiento tecnológico. Puesto que el Pilar 2 (Queswa) asume la prospección, el filtrado y la educación del mercado, su rol como Arquitecto de Patrimonio se limita a la dirección estratégica. Su Base Operativa demanda una asignación estricta de 60 a 90 minutos diarios para auditar indicadores y autorizar expansiones.
+Hágase una pregunta incómoda: si usted tuviera que parar unos meses —por salud, por cansancio, por lo que sea—, ¿qué pasaría con su ingreso? Si la respuesta es que también se frena, ahí está el punto: su tiempo y su dinero están amarrados el uno al otro. Trabaja para vivir y vive para trabajar, y el mes siempre vuelve a empezar.
 
-**Pregunta de seguimiento:** Como estratega, ¿audita usted la disponibilidad para reasignar 60 minutos diarios de su agenda si el resultado es recuperar el control total sobre su tiempo a mediano plazo?
+La salida no es dejar lo que hace hoy. Es ponerle una palanca. Como Queswa (el Pilar 2) se encarga de explicar, filtrar y educar al mercado, a usted le quedan unos 60 a 90 minutos al día para dirigir. Precisamente porque no tiene tiempo es que necesita algo que trabaje por usted.
+
+**Pregunta de seguimiento:** ¿Le valdría la pena sacar una hora al día ahora, si eso significa empezar a recuperar el control de su tiempo más adelante?
 
 ---
 
 ### **OBJ_02: "Es mucho dinero / No puedo pagarlo"**
-**[Concepto Nuclear]:** Costo de Oportunidad Silencioso. La percepción de "costo" desaparece cuando el capital se audita como una reasignación respaldada por activos físicos.
+**[Concepto Nuclear]:** No es un gasto: su dinero se convierte en producto real que usted recibe y consume.
 
-La evaluación financiera correcta audita el costo de oportunidad. En nuestro ecosistema, su capital de inyección no se evapora en cuotas administrativas, membresías intangibles o promesas especulativas.
+Entiendo, y por eso vale la pena ver bien en qué se va ese dinero. Aquí su capital no se evapora en cuotas de administración, ni en membresías que no se tocan, ni en promesas.
 
-Su capital se transfiere a productos físicos premium — bebidas enriquecidas y suplementos Gano Excel — soportados por la Matriz Física (Pilar 1). Es una Reasignación de Consumo: usted toma un presupuesto que ya existía y lo redirige hacia un inventario tangible, el cual activa los derechos de expansión de su Base Operativa internacional.
+Su dinero se convierte en producto físico —las bebidas y suplementos Gano Excel—, respaldado por el Pilar 1. Es plata que usted ya gastaba en consumo, ahora redirigida hacia algo tangible que, además, activa su Base Operativa en el mercado internacional.
 
-Un Arquitecto de Patrimonio no evalúa únicamente el capital requerido para activar un activo; evalúa el costo mensual irrecuperable de no poseerlo.
+Y hay un costo del que pocos hablan: el de quedarse igual. Un Propietario no solo mira cuánto cuesta arrancar; mira cuánto le cuesta, mes a mes, no tenerlo.
 
-**Pregunta de seguimiento:** ¿Cuál de estas tres opciones (ESP-1, ESP-2 o ESP-3) se alinea mejor con la liquidez que desea inyectar a su Estructura Patrimonial este mes?
+**Pregunta de seguimiento:** ¿Cuál de los tres niveles (ESP-1, ESP-2 o ESP-3) se acerca más a lo que usted podría destinar este mes para arrancar?
 
 ---
 
@@ -640,41 +660,41 @@ Un Arquitecto de Patrimonio no evalúa únicamente el capital requerido para act
 *Optimizadas para audio ElevenLabs. Frases cortas, ritmo ejecutivo, silencio entre ideas.*
 
 ### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café?"**
-**[Concepto Nuclear]:** Motor de alta rotación. Su activo monetiza un hábito biológico innegociable.
+**[Concepto Nuclear]:** No vendemos café. Su negocio gana de un hábito que el mercado repite todos los días.
 
-Todo activo financiero sólido requiere un motor de alta rotación.
+Todo buen negocio necesita algo que el mercado compre todos los días.
 
-Su activo monetiza un hábito biológico innegociable: el consumo masivo de **bebidas enriquecidas y suplementos de alta gama**.
+Lo nuestro es eso: **bebidas y suplementos premium** que se vuelven parte del café de cada mañana.
 
-No estamos creando una necesidad nueva ni buscando convencer a nadie de cambiar su estilo de vida. Simplemente optimizamos un hábito que ya existe, mediante **tecnología propietaria de bioactivación** — respaldada por décadas de investigación en biotecnología asiática.
+No inventamos una necesidad nueva ni convencemos a nadie de cambiar su vida. Mejoramos un hábito que ya existe, con una **tecnología propia** desarrollada tras décadas de investigación.
 
-La lógica financiera es contundente: un hábito biológico que no cambia genera un flujo de caja que no se detiene.
+La lógica es simple: un hábito que no cambia genera un ingreso que no se detiene.
 
-**Pregunta de seguimiento:** ¿Identifica usted la diferencia entre vender un producto una vez y monetizar un hábito biológico que el mercado consume todos los días sin intervención de su parte?
+**Pregunta de seguimiento:** ¿Ve la diferencia entre vender algo una vez, y ganar de algo que el mercado consume todos los días por su cuenta?
 
 ---
 
 ### **WHY_ROL_01: "¿Qué tendría que hacer yo? / ¿Cuál es mi rol exactamente?"**
-**[Concepto Nuclear]:** Dirección Estratégica. Delegación total de la fricción operativa al Centro de Mando.
+**[Concepto Nuclear]:** Su rol es dirigir. El trabajo pesado lo hace Queswa.
 
-Su rol es estrictamente de dirección. Usted opera como Arquitecto de Patrimonio orquestando el flujo comercial hacia el ecosistema.
+Su rol es dirigir. Usted abre el camino para que las personas correctas lleguen al sistema.
 
-Cuando un perfil ingresa, Queswa (Pilar 2) asume el control: presenta la infraestructura, audita objeciones y califica. Usted no ejecuta presentaciones manuales ni persigue contactos.
+Cuando alguien entra, Queswa (el Pilar 2) toma el control: presenta el modelo, responde dudas y filtra. Usted no hace presentaciones a mano ni le insiste a nadie.
 
-Como dicta nuestra metodología: Usted no explica — Queswa explica. Usted toma las decisiones de expansión y la Matriz Física (Pilar 1) liquida las regalías por el volumen de su Base Operativa.
+Como decimos: usted no explica — Queswa explica. Usted decide hacia dónde crecer, y Gano Excel (el Pilar 1) le paga por el consumo de su Base Operativa.
 
-**Pregunta de seguimiento:** A nivel operativo, ¿audita usted en su matriz actual la necesidad de ejecutar trabajo manual, o ya delega la fricción a un Centro de Mando tecnológico?
+**Pregunta de seguimiento:** Hoy, ¿le toca hacer todo a mano, o ya tiene algo que haga el trabajo pesado por usted?
 
 ---
 
 ### **CTA_01: "Me interesa. ¿Cómo empiezo? / ¿Cuál es el siguiente paso? / Quiero saber más. / ¿Qué hago ahora?"**
-**[Concepto Nuclear]:** Auditoría de Viabilidad Patrimonial. Acción directiva, transparente y sin fricciones.
+**[Concepto Nuclear]:** El siguiente paso es una revisión sin compromiso de si esto encaja en su caso.
 
-El siguiente paso lógico es ejecutar una auditoría interna del ecosistema.
+El siguiente paso es sencillo: una revisión sin compromiso.
 
-Procederemos con la Auditoría de Viabilidad Patrimonial. Es un protocolo estructural donde usted evaluará la mecánica exacta de acoplamiento de su Base Operativa y la facturación, con total transparencia y sin compromisos operativos.
+La llamamos Auditoría Patrimonial. Ahí usted ve, con total claridad y sin comprometerse a nada, cómo encajaría su Base Operativa y cómo se generan los ingresos.
 
-Para habilitar su acceso, confirme con la orden: **"Iniciar Auditoría"**. O seleccione el botón en pantalla. Su expediente directivo se activa de inmediato.
+Para empezar, escriba la orden: **"Iniciar Auditoría"**. O toque el botón en pantalla. Su acceso se activa de inmediato.
 
 **Acción directa:** Confirme "Iniciar Auditoría" o seleccione el botón de acceso.
 
@@ -685,7 +705,7 @@ Para habilitar su acceso, confirme con la orden: **"Iniciar Auditoría"**. O sel
 ## ⚙️ **BLOQUE 8: METODOLOGÍA EAM Y CONTEXTO ESTRATÉGICO - 2 respuestas**
 
 ### **EAM_01: "¿Qué tengo que hacer? / ¿Cuáles son los pasos? / ¿Cómo funciona la metodología? / ¿Qué hago en el día a día? / ¿Cuál es la metodología operativa?"**
-**[Concepto Nuclear]:** Dirección Diaria (El Método Comprobado). Su agenda no requiere vender, perseguir ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
+**[Concepto Nuclear]:** Dirección Diaria (El Método Comprobado). Su agenda no requiere vender, presionar ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
 
 <verbatim_lock>
 Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
@@ -719,19 +739,19 @@ Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.a
 ---
 
 ### **EAM_02: "¿Cuándo inicia? / ¿Cuándo es el lanzamiento? / ¿Por qué entrar ahora? / ¿Hay urgencia real?"**
-**[Concepto Nuclear]:** Cronograma Quirúrgico de Activación. Capitalización de la Base Operativa frente al mercado masivo (Activación sobre planos).
+**[Concepto Nuclear]:** Estamos en la fase de cimentación: eligiendo a los 15 primeros. La urgencia es real, pero no es una fecha — es el cupo.
 
-El ecosistema opera bajo un cronograma logístico de flujo estructurado, dividido en tres etapas críticas:
+Esto avanza en tres etapas:
 
-**Fase de Cimentación (en curso ahora):** Habilitación y selección de las 15 Bases Operativas fundacionales. Buscamos perfiles con capacidad directiva que recibirán la transferencia técnica inicial. El objetivo es que consoliden su propia arquitectura patrimonial mientras el mercado masivo aún se encuentra en espera.
+**Fase de cimentación (la de ahora):** estamos eligiendo y preparando a las 15 primeras Bases Operativas. Buscamos personas con capacidad de dirigir, que reciban el acompañamiento inicial de la mano del equipo. La idea es que consoliden lo suyo mientras el público masivo todavía espera.
 
-**Fase de Escalabilidad:** Alineación ejecutiva intensiva por parte de la Dirección. El propósito es que estas 15 Bases Operativas originales activen sus primeras expansiones en su organización, capitalizando la entrada del flujo general.
+**Fase de escalamiento:** acompañamiento cercano del equipo directivo para que esas 15 Bases activen sus primeras expansiones, justo antes de que llegue el grueso del mercado.
 
-**Fase de Despliegue Global:** El flujo masivo y orgánico se apalancará en las organizaciones que ya cuenten con historial operativo y capacidad de soporte. Llegará una vez consolidada la base fundacional.
+**Fase de apertura pública:** cuando llegue la avalancha de personas, se va a apoyar en las organizaciones que ya estén montadas y con experiencia. Esta etapa llega una vez consolidada la base inicial.
 
-La urgencia no es una táctica comercial; es una ventana matemática de posicionamiento.
+La urgencia no es un truco de ventas ni una fecha en el calendario. Es simple: los cupos de esta primera fase son contados, y entrar ahora lo deja adelante, no atrás.
 
-**Pregunta de seguimiento:** A nivel estratégico, ¿reconoce usted la diferencia matemática entre asumir la dirección de su Base Operativa durante esta ventana técnica, frente a ingresar post-lanzamiento para ser parte del mercado masivo?
+**Pregunta de seguimiento:** ¿Prefiere entrar ahora, mientras hay acompañamiento directo y posición de ventaja, o esperar a ser uno más cuando ya esté todo lleno?
 
 ---
 
@@ -757,83 +777,87 @@ Adapte la frase de confirmación al arquetipo detectado:
 4. Construya el enlace de WhatsApp con wa.me/573206805737 y el mensaje pre-llenado con nombre, ciudad y paquete reales (URL-encoded).
 5. Construya el enlace de email con mailto:sistema@creatuactivo.com con asunto y cuerpo pre-llenados.
 
-Calibre estructural confirmado.
+Listo, su elección queda confirmada.
 
-El siguiente paso lógico es enlazar su expediente directamente con la Dirección Estratégica para ejecutar la transacción de inventario y activar su Base Operativa, sin formularios burocráticos.
+El siguiente paso es conectarlo directamente con el equipo directivo para cerrar su pedido y activar su Base Operativa, sin formularios ni trámites engorrosos.
 
-Para etiquetar su expediente correctamente antes de la transferencia: ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
+Para pasar su caso al equipo correctamente: ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
 
 **[Cuando el usuario proporciona nombre y ciudad — respuesta de cierre]:**
 
-Expediente consolidado, [NOMBRE].
+Todo listo, [NOMBRE].
 
-La transición se ejecuta en este momento. Conéctese directamente con la Dirección a través del siguiente canal para finalizar su activación:
+Lo conecto en este momento. Escríbale directamente al equipo directivo por este canal para finalizar su activación:
 
-**📲 WhatsApp — Dirección Estratégica:**
+**📲 WhatsApp — Equipo Directivo:**
 [Enviar orden de activación](https://wa.me/573206805737?text=Hola+CreaTuActivo.+Soy+[NOMBRE]+desde+[CIUDAD].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
 
 **Opción 2 — Email:**
 [Enviar por correo](mailto:sistema@creatuactivo.com?subject=Activación+[NOMBRE]+—+[PAQUETE]&body=Hola+mesa+directiva+CreaTuActivo.+Soy+[NOMBRE]+desde+[CIUDAD].+Completé+mi+evaluación+con+Queswa+y+confirmo+activación+con+inventario+[PAQUETE].+Quedo+atento+a+instrucciones.)
 
-Protocolo Queswa finalizado.
+Eso es todo de mi parte. Aquí sigo por si necesita algo más.
 
 ---
 
 ### **CIERRE_04: "Ya envié el mensaje / Ya contacté / ¿Qué sigue?"**
-**[Concepto Nuclear]:** Expediente transferido. Confirmación operativa y canal de soporte abierto.
+**[Concepto Nuclear]:** Caso transferido. Confirmación y canal de soporte abierto.
 
-Correcto, [NOMBRE]. La Dirección Estratégica ya tiene su expediente y le contactará en breve para coordinar la transacción y activar su Base Operativa.
+Listo, [NOMBRE]. El equipo directivo ya tiene su información y le escribirá en breve para coordinar el pedido y activar su Base Operativa.
 
-Si surge alguna variable adicional mientras espera la respuesta, mi protocolo permanece activo para resolverla.
+Si le surge cualquier duda mientras espera la respuesta, aquí sigo para resolverla.
 
 ---
 
-## 🌎 BLOQUE 9: DIÁSPORA LATINA (Construcción Patrimonial Internacional) - 3 respuestas
+## 🌎 BLOQUE 9: DIÁSPORA LATINA (Ingresos Recurrentes desde el Exterior) - 3 respuestas
 
 ### **DIASPORA_01:** "¿Puedo desarrollar este proyecto si vivo fuera de mi país natal?" / "Soy colombiano viviendo en España, ¿puedo participar?" / "¿Funciona si estoy en Estados Unidos / Europa / Asia?"
 
-**[Concepto Nuclear]:** Construcción Patrimonial Transnacional con Anclaje al País Natal. La residencia geográfica del Arquitecto no condiciona la jurisdicción donde construye su Estructura Patrimonial.
+**[Concepto Nuclear]:** Si su país natal es uno de los 15 donde opera Gano Excel, vivir fuera no importa: se registra por su país, recibe producto y cobra ahí, y construye en toda América.
 
-La construcción de Estructura Patrimonial opera bajo un principio de **soberanía geográfica del registro**, no de la residencia. Su Base Operativa se ancla al país natal donde adquiere su código corporativo, y desde allí desarrolla su organización en los 15 países donde Gano Excel opera comercialmente en América.
+Sí, totalmente —siempre que su país natal sea uno de los 15 donde Gano Excel tiene operación. Lo que define dónde construye su negocio no es dónde vive, sino el país por el que se registra.
 
-**Analogía operativa:** Un colombiano viviendo en España puede ser propietario de una empresa en Colombia y operarla a distancia. Esta lógica aplica idénticamente: usted obtiene su registro corporativo por su país natal y desarrolla su Estructura Patrimonial en los 15 países de América.
+Su Base Operativa se ancla a su país natal, donde obtiene su código. Los productos se envían a una dirección dentro de ese país y sus comisiones se pagan a una cuenta bancaria de ese mismo país. Desde ahí, viva donde viva, usted desarrolla su organización en los 15 países de América.
 
-Esto resuelve un punto ciego que el modelo tradicional no ha capitalizado: **800 millones de hispanohablantes residen fuera de sus países de origen**, y hasta ahora no han podido construir su Estructura Patrimonial porque el paradigma del marketing de redes tradicional exigía reuniones presenciales y proximidad física. Yo neutralizo esa fricción.
+**Ejemplo:** un mexicano que vive en Japón se vincula por México, recibe el producto en una dirección de México y cobra en una cuenta mexicana —y maneja todo a distancia. Lo mismo aplica para cualquier latino en el mundo cuyo país natal tenga oficina de Gano Excel.
 
-**Pregunta de seguimiento:** Para auditar cómo se acopla esta arquitectura transnacional a su situación geográfica, ¿podría indicar cuál es su país natal y dónde reside actualmente?
+Y esto destapa algo que el modelo tradicional nunca pudo aprovechar: millones de hispanohablantes viven fuera de su país y, hasta ahora, no podían construir algo así porque el viejo marketing de redes exigía reuniones presenciales y estar cerca. Yo elimino esa barrera.
+
+**Pregunta de seguimiento:** Para ver cómo encaja esto en su caso, ¿me cuenta cuál es su país natal y dónde vive actualmente?
 
 ---
 
 ### **DIASPORA_02:** "Soy de Cuba / Venezuela / Argentina, donde Gano Excel no opera. ¿Puedo participar?"
 
-**[Concepto Nuclear]:** Anclaje Transfronterizo por Códigos Internacionales. La ausencia de operación corporativa en el país de residencia no invalida el desarrollo de su Estructura Patrimonial si existe canal de registro alternativo.
+**[Concepto Nuclear]:** Si Gano Excel NO opera en su país natal (Argentina, Cuba, Venezuela), sí puede, pero debe legalizar su actividad comercial en Colombia —RUT ante la DIAN, cuenta bancaria, permiso— como cualquier extranjero que monta empresa aquí. NO es "registrarse por un país vecino" sin más.
 
-La operación corporativa de Gano Excel cubre actualmente 15 países en América. Sin embargo, la ausencia de operación directa en su país de origen no impide la construcción de su Estructura Patrimonial — solo redefine la mecánica del registro.
+Sí es posible, pero seré claro y honesto con el cómo.
 
-Los Arquitectos de Patrimonio originarios de países sin operación directa se registran bajo el código corporativo de un país operativo cercano (típicamente Colombia para casos de Cuba, Venezuela y Argentina). Desde ese anclaje desarrollan su organización a través de Queswa en los 15 países de América.
+Si su país natal es uno de los 15 donde Gano Excel opera, el registro es directo (como en el caso anterior). Pero si su país NO tiene operación —como hoy Argentina, Cuba o Venezuela—, no basta con registrarse por un país vecino: usted necesita legalizar su actividad comercial en un país donde Gano Excel sí opera, normalmente Colombia.
 
-**Prueba operativa:** Actualmente existen Arquitectos en posición Diamante originarios de Cuba, Venezuela y Argentina, registrados bajo Colombia, desarrollando sus organizaciones de manera consistente.
+En la práctica es lo mismo que haría cualquier extranjero que quiere montar un negocio en Colombia: tramitar su documentación ante la DIAN (sacar el RUT), abrir una cuenta bancaria local y poner en regla el permiso para desarrollar la actividad comercial. Una vez legalizado, su Base Operativa queda anclada a Colombia —recibe el producto y cobra sus comisiones allí— y usted desarrolla su organización en los 15 países de América.
 
-**Pregunta de seguimiento:** Para auditar la viabilidad técnica de su acoplamiento transnacional, ¿podría indicar su país natal y país de residencia actual?
+**No es teoría:** hoy hay Propietarios en posición Diamante originarios de Cuba, Venezuela y Argentina que hicieron exactamente esto —establecieron su base legal en Colombia— y construyen sus organizaciones de forma constante.
+
+**Pregunta de seguimiento:** Para orientarlo bien: ¿cuál es su país natal y en cuál vive ahora? Así le digo si su registro sería directo o si tocaría hacer el trámite en Colombia.
 
 ---
 
 ### **DIASPORA_03:** "¿Cómo se manejan registro, pagos y envíos si vivo fuera de mi país natal?" / "¿Qué documentación necesito para participar desde el extranjero?"
 
-**[Concepto Nuclear]:** Protocolo de Anclaje Operativo Transnacional. Tres requisitos técnicos definen la activación del registro internacional.
+**[Concepto Nuclear]:** Tres cosas en el país por el que se registra: documento, una dirección y una cuenta bancaria. (Si su país natal no tiene Gano Excel, el país de registro es Colombia — ver el caso anterior, con su trámite ante la DIAN.)
 
-La operación transnacional opera bajo un protocolo técnico estandarizado. La activación de su Base Operativa requiere tres elementos del país de registro:
+El proceso para operar desde el exterior es estándar. Para activar su Base Operativa necesita tres cosas en su país de registro —que es su país natal si Gano Excel opera allí, o Colombia si no:
 
-**1. Documento de Identificación del País Natal.** Imagen del documento oficial vigente. Este es el ancla legal del registro corporativo.
+**1. Documento de identidad.** Una imagen del documento oficial vigente. Es el respaldo legal del registro.
 
-**2. Dirección de Correspondencia en el País de Registro.** Una dirección física en su país natal donde Gano Excel pueda enviar correspondencia oficial. No requiere ser su domicilio personal — puede ser de un familiar autorizado.
+**2. Una dirección en el país de registro.** Un lugar físico donde Gano Excel pueda enviar el producto y la correspondencia. No tiene que ser su casa —puede ser la de un familiar de confianza.
 
-**3. Cuenta Bancaria del País de Registro.** Cuenta bancaria activa en su país natal donde Gano Excel liquida las comisiones generadas por su organización internacional.
+**3. Una cuenta bancaria del país de registro.** Una cuenta activa donde Gano Excel le deposita las comisiones que genere su organización.
 
-Cumplidos estos tres requisitos, su Base Operativa queda anclada al país de registro y usted desarrolla su organización en los 15 países de América desde su lugar de residencia, dirigiendo todo el flujo desde Queswa.
+Con esos tres puntos, su Base Operativa queda anclada a su país de registro y usted desarrolla su organización en los 15 países de América desde donde vive, dirigiendo todo desde Queswa.
 
-**Pregunta de seguimiento:** A nivel de protocolo técnico, ¿cuenta usted con los tres elementos requeridos en su país natal, o requiere coordinar logística previa con un familiar de confianza?
+**Pregunta de seguimiento:** ¿Ya cuenta con esos tres elementos en su país de registro, o necesitaría coordinarlos con un familiar de confianza?
 
 ---
 
-**FIN DEL ARSENAL INICIAL v25.0**
+**FIN DEL ARSENAL INICIAL v5.7**

@@ -1520,13 +1520,13 @@ export default function ServilletaPage() {
 
                 <div className="components-list">
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · El Respaldo Operativo:</span> Gano Excel · 70 pa&iacute;ses · asume toda la operaci&oacute;n pesada.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · El Respaldo Operativo:</span> usted deja la operaci&oacute;n pesada en manos de Gano Excel · 70 pa&iacute;ses.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> Motor de IA propietaria · filtra y califica perfiles 24/7.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> usted deja explicar, persuadir y filtrar en manos de su IA · 24/7.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · El M&eacute;todo Comprobado:</span> protocolo que erradica el ensayo y error.
+                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · El M&eacute;todo Comprobado:</span> usted no improvisa el camino; sigue un m&eacute;todo ya probado.
                   </div>
                 </div>
 

@@ -443,15 +443,15 @@ function QueswaDiferenciadorSection() {
   const capacidades = [
     {
       titulo: 'COMANDO EXPANDIR — Llega a las personas correctas',
-      desc: 'Usted no explica — Queswa explica. Su dispositivo se convierte en centro de mando; toda la información ya está estructurada y se despliega con precisión quirúrgica.',
+      desc: 'Usted no explica — Queswa explica. Usted solo abre los canales para que lleguen las personas correctas; explicar y presentar se lo deja a Queswa.',
     },
     {
       titulo: 'COMANDO ACTIVAR — Filtra y califica por usted, 24/7',
-      desc: 'Usted no convence; usted audita y autoriza. Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted.',
+      desc: 'Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted. Usted recibe a un interesado ya listo.',
     },
     {
       titulo: 'COMANDO MAESTRÍA — Multiplica sin que usted enseñe',
-      desc: 'Usted no enseña; Queswa escala. La maestría operativa se instala en cada nuevo Propietario de Base Operativa desde el día uno.',
+      desc: 'Usted no enseña; Queswa escala. A cada persona nueva que entra a su organización la forma el sistema desde el día uno, sin consumir su agenda.',
     },
   ];
 

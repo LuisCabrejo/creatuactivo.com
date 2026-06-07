@@ -115,9 +115,9 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Un día caí en cuenta de algo: yo no estaba fallando. Estaba dentro de
+                  Un día lo vi con claridad: yo no estaba fallando. Estaba dentro de
                   <span className="text-[#E5E5E5]"> un sistema diseñado para la asfixia mensual</span> —
-                  no para construir verdadera libertad financiera.
+                  no para construir verdadera soberanía financiera.
                 </p>
               </div>
             </div>
@@ -132,34 +132,32 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Buscando la salida, me apalancué en un gigante —Gano Excel— y en un producto de
-                  consumo diario presente en todo el continente. Funcionó: llegué a
+                  Buscando la salida, me apalancué en un gigante —Gano Excel— y en un producto que las
+                  personas consumen a diario en todo el continente. Funcionó: llegué a
                   <span className="text-[#E5E5E5]"> Diamante en dos años y medio</span>, y alcancé lo que
-                  muchos buscan: independencia financiera y viajar por el mundo.
+                  muchos buscan — independencia financiera y la libertad de viajar por el mundo.
                 </p>
                 <p>
-                  Pero algo me confrontó: mi éxito no se reflejaba en mi equipo. A otros no les
-                  resultaba. Y al mismo tiempo veía cómo otras industrias daban el salto con
-                  tecnología —del mapa de papel a Waze, del correo al WhatsApp, de alquilar películas
-                  a Netflix.
+                  Pero algo me confrontó: mi éxito no se reflejaba en mi equipo. Y al mismo tiempo
+                  veía cómo otras industrias daban el salto con tecnología — del mapa de papel a Waze,
+                  del correo al WhatsApp, de alquilar películas a Netflix.
                 </p>
                 <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 my-10">
                   <p className="text-xl text-[#E5E5E5] font-serif text-center">
                     Mi sueño de ayudar a cuatro millones de familias era posible.
                     <br />
-                    Pero necesitaba una herramienta que hiciera el éxito
-                    <span className="text-[#C5A059]"> replicable para todos</span>, no solo para los más hábiles.
+                    Solo faltaba una herramienta que hiciera el éxito
+                    <span className="text-[#C5A059]"> replicable para todos.</span>
                   </p>
                 </div>
                 <p>
-                  Así nacieron CreaTuActivo y Queswa: para que cualquiera pueda construir lo que yo
-                  construí, con la tecnología cargando el trabajo pesado. No es un canal educativo, ni
-                  un equipo de ventas, ni una red de mercadeo.
+                  Así nacieron CreaTuActivo y Queswa: para hacer asequible, a cualquier persona, la
+                  construcción de su propia soberanía financiera.
                 </p>
                 <p className="text-[#E5E5E5]">
-                  De ese camino nació una filosofía — y este documento la contiene. Lo que sigue no es
+                  De ese camino nació una filosofía. Y este documento la contiene. Lo que sigue no es
                   información para hojear: es el criterio que define quién está listo para dirigir una
-                  Base Operativa. Si usted va a asumirla, primero tiene que estar de acuerdo con esto.
+                  Base Operativa. Si va a asumirla, primero tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -178,19 +176,20 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Ninguna estructura de ingresos recurrentes se construyó jamás por inercia o azar. Detrás de
-                  cada activo que produce de forma ininterrumpida, sin depender de su dueño, hubo una
-                  <span className="text-[#E5E5E5]"> decisión quirúrgica</span> y una secuencia de acciones
-                  consecuentes que la hicieron existir.
+                  Ningún ingreso que dura se construyó por suerte ni por inercia. Detrás de cada
+                  activo que produce sin depender de su dueño hubo una
+                  <span className="text-[#E5E5E5]"> decisión clara</span> y una serie de acciones firmes
+                  que lo hicieron existir.
                 </p>
                 <p>
-                  La suerte ciega es para los apostadores. En la construcción de patrimonio, la suerte
-                  se diseña: se transmuta en un <span className="text-[#C5A059]">destino determinista</span> mediante
-                  infraestructuras inimitables y una reputación inquebrantable.
+                  La suerte ciega es para el que apuesta. Nosotros no apostamos: diseñamos. El
+                  resultado deja de ser azar cuando se apoya en una
+                  <span className="text-[#C5A059]"> ventaja que nadie puede copiar</span> y en una palabra
+                  que nadie pone en duda.
                 </p>
                 <p className="text-[#E5E5E5]">
                   Esto no es una invitación a creer. Es la descripción de lo que vamos a hacer pasar —
-                  y del criterio que se requiere para dirigirlo.
+                  y del criterio que se necesita para dirigirlo.
                 </p>
               </div>
             </div>
@@ -203,15 +202,15 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  El mercado libre no es un pastel de suma cero donde, para que uno gane, otro deba
-                  perder. La verdadera innovación expande los recursos disponibles para todos.
+                  La economía no es un pastel de tamaño fijo, donde para que uno gane otro tenga que
+                  perder. La verdadera innovación agranda el pastel para todos.
                 </p>
                 <p>
-                  Nuestra estrella polar es la activación de cuatro millones de Bases Operativas a lo
-                  largo del continente americano. No competimos por una porción del mercado existente:
-                  estructuramos un ecosistema que suprime la fricción de distribución en 15 países de
-                  América, abriendo paso a la abundancia a través del <span className="text-[#E5E5E5]">consumo orgánico
-                  diario</span>. La única manera de ganar, aquí, es haciendo ganar a otros.
+                  Nuestro norte es claro: activar cuatro millones de Bases Operativas a lo largo del
+                  continente americano. No peleamos por una tajada del mercado de hoy; construimos un
+                  sistema que elimina la fricción de la distribución en 15 países de América y abre
+                  paso a la abundancia a través del <span className="text-[#E5E5E5]">consumo diario</span>.
+                  Aquí, la única forma de ganar es haciendo ganar a otros.
                 </p>
               </div>
             </div>
@@ -220,26 +219,26 @@ export default function ManifiestoDocument({
             <div>
               <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">03 · El Cambio de Paradigma</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                La desvinculación absoluta.
+                Separe su ingreso de su tiempo.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  El intercambio lineal de horas de vida por dinero es la falla arquitectónica más
-                  grave en la economía de un profesional. El tiempo es finito e inelástico: si su
-                  ingreso depende de su presencia física, usted opera con una
-                  <span className="text-[#E5E5E5]"> vulnerabilidad crítica</span> en el diseño de su modelo.
+                  Cambiar horas de vida por dinero es la grieta más peligrosa en las finanzas de
+                  cualquier profesional. El tiempo no se estira: usted solo tiene las horas que tiene.
+                  Y si su ingreso depende de que esté presente, todo su modelo descansa sobre un
+                  <span className="text-[#E5E5E5]"> único punto frágil</span>.
                 </p>
                 <p>
-                  Un ingreso constante —un sueldo fijo, la facturación de un comercio— resuelve la
-                  liquidez de hoy, pero no corrige la fragilidad de su mañana.
-                  <span className="text-[#E5E5E5]"> Ese es el punto ciego del exitoso.</span>
+                  Un ingreso estable —un buen sueldo, la caja de un negocio— resuelve el mes, pero no
+                  corrige la fragilidad del mañana.
+                  <span className="text-[#E5E5E5]"> Ese es el punto ciego del que va bien.</span>
                 </p>
                 <p>
-                  La verdadera riqueza no es la exhibición de estatus: es la
-                  <span className="text-[#C5A059]"> soberanía financiera</span>, el control total sobre su tiempo. Y
-                  exige divorciar, de forma definitiva, la unidad de entrada —su reloj— de la unidad de
-                  salida —su rendimiento: instalar una estructura de ingresos recurrentes en paralelo
-                  que opere de forma autónoma.
+                  La verdadera riqueza no es mostrar estatus: es
+                  <span className="text-[#C5A059]"> soberanía financiera</span> — control real sobre su
+                  tiempo. Y eso exige una sola cosa: separar, de forma definitiva, lo que usted gana de
+                  las horas que entrega. Es decir, levantar en paralelo una estructura de ingresos que
+                  funcione sola.
                 </p>
               </div>
             </div>
@@ -319,22 +318,22 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Ese es el rol — y el nombre. No es quien teclea, ni presiona, ni anda detrás de nadie. Es quien
-                  toma las decisiones de expansión y dirige los tres pilares hacia un objetivo.
-                  Labor de dirección, no de operación.
+                  Ese es el rol — y el nombre. No es quien teclea, ni presiona, ni anda detrás de
+                  nadie. Es quien decide hacia dónde crecer y dirige los tres pilares hacia una meta.
+                  Es dirección, no operación.
                 </p>
                 <p>
-                  Cuando una fuerza se multiplica —y aquí la tecnología la multiplica— lo que decide
-                  el destino no es cuánto se esfuerza, sino hacia dónde apunta. Un grado de desviación
-                  en la dirección, amplificado por la máquina, separa una estructura sólida de un
-                  esfuerzo desperdiciado. El esfuerzo bruto es barato y abundante; el
-                  <span className="text-[#E5E5E5]"> juicio</span> —saber qué activar, cuándo y dónde— es la habilidad escasa.
+                  Cuando una fuerza se multiplica —y aquí la tecnología la multiplica— lo que define el
+                  resultado no es cuánto se empuja, sino hacia dónde se apunta. Por eso lo que más vale
+                  no es el esfuerzo: es el <span className="text-[#E5E5E5]">criterio</span> — saber qué
+                  activar, cuándo y dónde. Eso es lo que usted aporta, y es lo único que la máquina no
+                  puede poner por usted.
                 </p>
                 <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 my-4">
                   <p className="text-xl text-[#E5E5E5] font-serif text-center">
-                    No llega más lejos por remar más rápido.
+                    No se llega más lejos por trabajar más.
                     <br />
-                    Llega más lejos por gobernar mejor el timón.
+                    Se llega más lejos por dirigir mejor.
                   </p>
                 </div>
               </div>
@@ -351,14 +350,14 @@ export default function ManifiestoDocument({
                 <li>Que no se presiona: se construye. No se convence: se selecciona. Aquí nadie ruega; cada quien elige.</li>
                 <li>Que la tecnología ejecuta y nosotros dirigimos. La máquina hace el 90%; nuestro 10% es el que decide.</li>
                 <li>Que la maestría es la ventaja injusta: cada semana de aprendizaje acorta la curva que a otros les tomó años.</li>
-                <li>Que se construye en silencio. El estatus se pelea a la vista de todos; el patrimonio se levanta callado.</li>
+                <li>Que se construye en silencio. El estatus se pelea a la vista de todos; lo que de verdad importa se levanta callado.</li>
                 <li>Que el momento no se espera. El momento se hace.</li>
               </ul>
               <div className="p-8 bg-[#16181D] border border-[#C5A059]/20 my-10">
                 <p className="text-xl text-[#E5E5E5] font-serif leading-relaxed">
                   Y por encima de todas, una sola: la <span className="text-[#C5A059]">soberanía financiera no se trata de lujos</span>.
                   Se trata de poder cumplir tu palabra — de estar presente para quienes amas, sin
-                  pedirle permiso a nadie. El patrimonio no se construye para presumirlo. Se construye
+                  pedirle permiso a nadie. Lo que vale no se construye para presumirlo. Se construye
                   para no volver a depender.
                 </p>
               </div>

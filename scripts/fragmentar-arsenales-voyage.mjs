@@ -96,8 +96,18 @@ function parseArsenalIntoResponses(content, arsenalName) {
   // - Con alphanumeric: ### COMP_GEN5_01: (arsenal_compensacion v2.0)
   const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_\d+)/);
 
-  for (const section of sections) {
-    if (!section.trim() || !section.includes('###')) continue;
+  for (const rawSection of sections) {
+    if (!rawSection.trim() || !rawSection.includes('###')) continue;
+
+    // Opción B (jun 2026): el split parte en "### CODE", así que el CHANGELOG
+    // (y cualquier sección de documentación al pie del arsenal, marcada con "## ")
+    // se pega al ÚLTIMO fragmento. Lo cortamos para que esa metadata de dev
+    // —con términos de léxico viejo en notas de mapeo— no contamine el embedding
+    // ni el contenido servido al modelo. Las respuestas (### CODE) y sus tablas
+    // internas (separadas por ---) quedan intactas.
+    let section = rawSection;
+    const changelogIdx = section.search(/\n##\s+CHANGELOG/i);
+    if (changelogIdx > 0) section = section.slice(0, changelogIdx);
 
     // Extraer ID del header - soporta múltiples formatos
     // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion v1, arsenal_inicial)

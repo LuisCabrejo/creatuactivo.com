@@ -75,7 +75,7 @@ Su día a día se rige por **El Método Comprobado**, un protocolo de dirección
 
 **Su agenda diaria no requiere:**
 - Aprender a vender de forma tradicional
-- Perseguir conocidos
+- Insistir a conocidos
 - Improvisar guiones
 
 *Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.

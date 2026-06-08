@@ -150,7 +150,7 @@ Si es ejecutivo o dueño de una empresa consolidada, le permite construir una **
 ### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos para conseguir personas?"**
 **[Concepto Nuclear]:** Tres caminos para llevar personas al sistema — Conexión Directa, Asistida y Automatizada. El Propietario elige el camino; Queswa hace el trabajo de explicar y filtrar.
 
-Perseguir conocidos o convencer a quien no está interesado es del modelo viejo. Aquí eso no existe.
+Insistirles a conocidos o convencer a quien no está interesado es del modelo viejo. Aquí eso no existe.
 
 Usted solo dirige: la Base Operativa ya está armada, y lo único que decide es **por cuál camino le llegan las personas.** Tiene tres:
 
@@ -714,7 +714,7 @@ Su día a día se rige por **El Método Comprobado**, un protocolo de dirección
 
 **Su agenda diaria no requiere:**
 - Aprender a vender de forma tradicional
-- Perseguir conocidos
+- Insistir a conocidos
 - Improvisar guiones
 
 *Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.

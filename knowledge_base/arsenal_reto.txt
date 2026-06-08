@@ -1,7 +1,8 @@
-# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.4
+# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.5
 
 **Propósito:** Vender la ejecución de la "Auditoría de Arquitectura Patrimonial" (Auditoría de 5 Días).
-**Enfoque:** Due Diligence y Re-Arquitectura del **Déficit Estructural de Ingresos**: la falla de diseño en los cimientos donde el ingreso del Arquitecto depende 100% de su presencia física. La consecuencia matemática de esta falla —el colapso del flujo de caja al detenerse— es lo que se neutraliza.
+**Enfoque:** Due Diligence y Re-Arquitectura del **Déficit Estructural de Ingresos**: la falla de diseño en los cimientos donde el ingreso del Propietario depende 100% de su presencia física. La consecuencia matemática de esta falla —el colapso del flujo de caja al detenerse— es lo que se neutraliza.
+**Versión:** 4.5 (7 Jun 2026) — Swaps obvios de léxico accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Física → El Respaldo Operativo. Pendiente: migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico). Cifras/estructura intactas.
 **Versión:** 4.4 (17 May 2026) — Alineación SP v26.6: jerarquía causal corregida. El Déficit Estructural de Ingresos pasa de "consecuencia directa" a CAUSA RAÍZ de diseño. La consecuencia es el colapso del flujo de caja.
 **Versión:** 4.3 (10 May 2026) — Alineación SP v26.4: "decisión de dirección" → "decisión de dirección" (fricción nivel 5 eliminada)
 **REGLA DE ORO:** No es un curso de motivación. Es un protocolo de escrutinio técnico y entrega de planos arquitectónicos.
@@ -13,7 +14,7 @@
 ### RETO_01: "¿Qué es la Auditoría de Arquitectura Patrimonial?" / "¿Qué es el Mapa de Salida?"
 **[Concepto Nuclear]:** Auditoría Logística y Re-Arquitectura Financiera.
 
-La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Arquitecto depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
+La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Propietario depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
 
 Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propia Base Operativa digital a una cadena de suministro global operativa en más de 70 países.
 
@@ -28,7 +29,7 @@ Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logís
 
 * **Día 1 — Diagnóstico Estructural:** Identificación de fallas en su arquitectura de ingresos actual.
 * **Día 2 — Análisis de Escalabilidad:** Por qué el modelo operativo manual tiene un techo técnico.
-* **Día 3 — Acoplamiento Híbrido:** Integración de la Matriz Física (Pilar 1) y automatización del Centro de Mando (Pilar 2).
+* **Día 3 — Acoplamiento Híbrido:** Integración del Respaldo Operativo (Pilar 1) y automatización del Centro de Mando (Pilar 2).
 * **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y valor patrimonial de su Base Operativa.
 * **Día 5 — Protocolo de Activación:** Decisión directiva y asignación de activos.
 
@@ -43,7 +44,7 @@ Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios par
 
 A nivel financiero, la ejecución de esta auditoría no requiere inyección de capital inicial.
 
-El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Arquitectos de Patrimonio. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
+El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Propietarios de Base Operativa. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
 
 Si los planos estructurales resultan viables para usted al finalizar la auditoría, procederemos a evaluar su nivel de capitalización logística.
 
@@ -92,7 +93,7 @@ La arquitectura de datos ya está compilada y lista para su escrutinio en este m
 ### RETO_07: "No estoy seguro..." / "Tengo dudas"
 **[Concepto Nuclear]:** Verificación Empírica vs. Confianza Ciega.
 
-El escepticismo es la postura correcta de un Arquitecto de Patrimonio.
+El escepticismo es la postura correcta de un Propietario de Base Operativa.
 
 Este protocolo no se basa en confianza, sino en verificación empírica. Le proporcionamos el acceso a la infraestructura precisamente para que usted mismo ejecute la auditoría de los datos. Analice la lógica estructural y someta la matemática a estrés.
 

@@ -1,6 +1,7 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v6.4
+# Arsenal de Compensacion: Infraestructura de Ingresos v7.0
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
-**Enfoque:** Lujo Clinico / Usted — Arquitectura Patrimonial (No MLM tradicional)
+**Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
+**Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos que PERMITEN capitalizacion inmediata y renta vitalicia — NO "dos mecanismos/principales"). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
 **Version:** 6.4 (22 May 2026) — Distinción canónica 70 vs 15 países: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los 15 países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (70 países = matriz física) con la capacidad operativa del Arquitecto (15 países América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
 **Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
 **REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: GEN5=Capitalización Inmediata, Binario=Renta Vitalicia, colectivo=su organización.
@@ -11,11 +12,11 @@
 
 **DISTINCIÓN INVIOLABLE — 70 vs 15 países:**
 
-- **Matriz Física (Gano Excel — Pilar 1):** presencia corporativa en **70 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "70 países".
+- **Respaldo Operativo (Gano Excel — Pilar 1):** presencia corporativa en **70 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "70 países".
 
-- **Capacidad operativa del Arquitecto (su organización):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su organización**", "donde el Arquitecto opera", "expansión del Arquitecto", "volumen de consumo de su organización", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
+- **Capacidad operativa del Propietario (su organización):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su organización**", "donde el Propietario opera", "expansión del Propietario", "volumen de consumo de su organización", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
 
-- **Diáspora latina:** los Arquitectos residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su organización en los 15 países, dirigiendo todo desde Queswa.
+- **Diáspora latina:** los Propietarios residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su organización en los 15 países, dirigiendo todo desde Queswa.
 
 **REGLA AL CONSTRUIR PREGUNTAS DE CIERRE O VECTORES TÉCNICOS:**
 
@@ -26,10 +27,10 @@ Frases canónicas válidas:
 - "una organización con capacidad operativa en 15 países"
 - "el volumen de consumo de su organización" (sin número específico si no se necesita)
 
-Frases canónicas válidas para Matriz Física Gano Excel:
+Frases canónicas válidas para Respaldo Operativo Gano Excel:
 - "Gano Excel opera en 70 países"
 - "la cadena de suministro global presente en 70 países"
-- "la matriz física tiene cobertura en 70 países"
+- "el Respaldo Operativo tiene cobertura en 70 países"
 
 ---
 
@@ -59,29 +60,31 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 
 ### COMP_MODELO_01: "Como se gana en el negocio?" / "Como funciona el plan de compensacion?"
 
-**[Concepto Nuclear]:** Monetizacion de Doble Velocidad. Capitalizacion Inmediata mientras expande la estructura; Renta Vitalicia mientras duerme.
+**[Concepto Nuclear]:** El plan tiene 12 formas de ganar, estructuradas para dar ingresos de corto, mediano y largo plazo. Para los ejemplos se explican SOLO 2: (GEN5) y (Binario), que permiten Capitalizacion Inmediata y Renta Vitalicia. NO decir "dos mecanismos", "doble velocidad" ni "las dos principales" — son ejemplos, no el total.
 
-El modelo opera con dos mecanismos de liquidacion simultaneos. Ninguno es excluyente — los dos corren en paralelo desde el dia uno.
+Su Base Operativa genera ingresos a traves de **12 formas distintas**, estructuradas para darle flujo de caja de corto, mediano y largo plazo. En este ejemplo, veremos dos de ellas — que permiten capitalizacion inmediata y renta vitalicia. Ambas corren en paralelo desde el dia uno.
 
 **Velocidad 1 — Capitalizacion Inmediata (GEN5):**
-Cada vez que un Arquitecto activa una nueva Base Operativa en su organizacion, usted cobra un bono directivo. El pago se liquida el viernes, dos semanas despues de la activacion.
+Cada vez que un Propietario activa una nueva Base Operativa en su organizacion, usted cobra un bono directivo, hasta la 5a generacion. El pago se liquida el viernes, dos semanas despues de la activacion.
 
 **Velocidad 2 — Renta Vitalicia (Binario):**
 Cada vez que alguien en su organizacion (en cualquiera de los 15 paises operativos de America) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
 
-**Mecanica:** El GEN5 le inyecta liquidez a corto plazo por la expansion de su infraestructura. El Binario consolida su patrimonio pagandole regalias ininterrumpidas por el consumo organico que fluye por esa misma infraestructura.
+**Mecanica:** El GEN5 le inyecta flujo de caja por la expansion de las bases operativas. El Binario consolida sus ingresos pagandole regalias ininterrumpidas por el consumo organico que fluye por toda su organizacion.
 
-**Nota:** Si desea ver los numeros especificos, consulte "Capitalizacion Inmediata" (GEN5) o "Renta Vitalicia" (Binario).
+**Nota:** Estas son dos de las 12 formas. Si desea ver los numeros especificos, consulte "Capitalizacion Inmediata" (GEN5) o "Renta Vitalicia" (Binario).
 
 ---
 
 ## ESTRUCTURAS ORGANIZACIONALES
 
-### COMP_ESTRUCTURA_01: "Que es el Arbol de Vinculacion (Patrocinio)?"
+### COMP_ESTRUCTURA_01: "Que es el Patrocinio?" / "Quien es mi patrocinador?"
 
-**[Concepto Nuclear]:** Es su Portafolio de Socios. Define la paternidad del negocio. Aqui paga el GEN5.
+**[Concepto Nuclear]:** El Patrocinio define QUIEN invito directamente a una persona al proyecto. Sobre el Patrocinio se paga el GEN5.
 
-El Arbol de Patrocinio comienza con los afiliados que Usted vincula personalmente, y crece cuando ellos inscriben a otros.
+El Patrocinio define quien invito directamente a alguien al proyecto. En una conversacion es comun preguntar: "¿quien es su patrocinador?" — esa es la persona que lo trajo.
+
+Su patrocinio comienza con los socios que Usted vincula personalmente, y crece cuando ellos invitan a otros.
 
 **Caracteristicas:**
 | Aspecto | Valor |
@@ -89,70 +92,48 @@ El Arbol de Patrocinio comienza con los afiliados que Usted vincula personalment
 | Socios directos | SIN LIMITE |
 | Niveles de profundidad | SIN LIMITE |
 | Forma | Cualquier numero de posiciones por nivel |
-| Otro nombre | "Estructura Uninivel" |
+| Otro nombre tecnico | "Estructura Uninivel" |
 
 **Donde Aplica:**
-| Bono | Usa Arbol de Patrocinio? |
-|------|--------------------------|
+| Bono | Usa el Patrocinio? |
+|------|--------------------|
 | GEN5 | SI (hasta 5 generaciones) |
 | Binario | NO |
 
-**Insight:** En el Arbol de Patrocinio puede vincular infinitas personas directas. Cada una abre una nueva rama que crece independientemente.
+**Insight:** Usted puede invitar a infinitas personas directas. Cada una abre una nueva linea que crece de forma independiente.
 
 ---
 
-### COMP_ESTRUCTURA_02: "Que es el Arbol Binario (de Colocacion)?"
+### COMP_ESTRUCTURA_02: "Que es la Colocacion?" / "Donde queda ubicado un nuevo codigo?"
 
-**[Concepto Nuclear]:** Es su Centro de Distribucion. Define el volumen y las regalias. Aqui paga la Regalia de Equipo.
+**[Concepto Nuclear]:** La Colocacion define en que punto exacto de su estructura se ubica cada nuevo codigo. Organiza su estructura en dos lados; sobre ese volumen paga el Binario.
 
-El Arbol Binario es donde usted y los afiliados de su linea ascendente y descendente COLOCAN posiciones dentro de la organizacion.
+La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — una nueva Base Operativa o un nuevo Consumidor VIP.
 
-**Caracteristicas:**
+**Patrocinio vs Colocacion** (se definen al registrar a alguien en Gano Excel):
+| Concepto | Que define |
+|----------|------------|
+| Patrocinio | QUIEN lo invito al proyecto |
+| Colocacion | DONDE queda ubicado dentro de su estructura |
+
+Ejemplo: en una estructura grande, al registrar un codigo Usted indica exactamente en que punto de su organizacion va a quedar.
+
+**Caracteristicas de la Colocacion:**
 | Aspecto | Valor |
 |---------|-------|
-| Posiciones debajo de cada posición | MAXIMO 2 |
-| Por que se llama "binario" | "Compuesto de dos elementos" |
+| Posiciones debajo de cada posicion | MAXIMO 2 (dos lados) |
 | Profundidad | SIN LIMITE |
-| Su conectador | El afiliado posicionado directamente arriba de usted |
+| Sobre que paga | Volumen comisionable (GCV) de cada lado |
 
-**Donde Aplica:**
-| Bono | Usa Arbol Binario? |
-|------|-------------------|
-| Regalia de Equipo (Binario) | SI |
-| GEN5 | NO |
-
-**Diferencia Clave:**
-| Arbol | Forma | Paga |
-|-------|-------|------|
-| Patrocinio | Ancho ilimitado, profundo | GEN5 (5 gen) |
-| Binario | Solo 2 lados, profundo | Binario (lado menor) |
-
-**Insight:** Usted tiene DOS estructuras simultaneas. El Patrocinio define QUIEN inscribio. El Binario define DONDE los coloco. GEN5 paga por vinculaciones. Binario paga por volumen.
+**Insight:** El Patrocinio define QUIEN lo invito. La Colocacion define DONDE se ubica. El GEN5 paga por la compra de paquetes empresariales en sus Bases Operativas; el Binario —una de las 12 formas de ganar— le paga por el volumen comisionable (GCV) acumulado.
 
 ---
 
 ### COMP_CENTRO_01: "Que es el Centro de Negocio de Cobro?"
 
-**[Concepto Nuclear]:** Es su posicion en el Arbol Binario donde se acumula el CV de su organización.
+**[Concepto Nuclear]:** Es el centro de negocios donde, en el consolidado, hay menos volumen comisionable (GCV).
 
-Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de sus dos lados para calcular su Regalia de Equipo.
-
-**Como Funciona:**
-| Componente | Descripcion |
-|------------|-------------|
-| Su posicion | Su lugar dentro del Arbol Binario |
-| Lado izquierdo | Todo el CV debajo de su izquierda |
-| Lado derecho | Todo el CV debajo de su derecha |
-| Su cobro | % del lado MENOR |
-
-**Que NO suma a su Centro:**
-| Fuente | Suma? |
-|--------|-------|
-| Su compra personal (hasta 120 PV) | NO |
-| Su compra personal (excedente de 120 PV) | SI |
-| Compras de su organización | SI |
-
-**Insight:** Piense en su Centro de Cobro como una balanza: el sistema pesa ambos lados y le paga sobre el mas liviano. Su trabajo es mantener ambos lados creciendo.
+**Insight:** Piense en su Centro de Cobro como una balanza: el sistema pesa ambos lados y le paga sobre el mas liviano.
 
 ---
 
@@ -186,7 +167,7 @@ Su Centro de Negocio de Cobro es el punto donde el sistema suma todo el CV de su
 
 **[Concepto Nuclear]:** Liquidez Inmediata. La corporacion le liquida dividendos por la expansion de la infraestructura.
 
-El GEN5 es su Capitalizacion Inmediata. Es un bono que recibe cada vez que un nuevo socio adquiere su nivel de capitalizacion en su organizacion, hasta 5 generaciones de profundidad.
+El GEN5 es un bono que recibe cada vez que un nuevo socio adquiere su paquete de inventario inicial, paga hasta 5 generaciones de profundidad.
 
 **La Matematica (Si es Fundador ESP-3):**
 - Por sus directos (Hijos): **$150 USD**
@@ -536,7 +517,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
 
-Esta regla es para Arquitectos de Patrimonio que compran inventario grande.
+Esta regla es para Propietarios de Base Operativa que compran inventario grande.
 
 **Como Funciona:**
 | Su Compra | Activacion | Centro de Cobro |
@@ -780,7 +761,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 | GEN5 | Una vez por vinculacion | Unico |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
-**Insight:** El GEN5 le da flujo de caja para crecer. El Binario construye su patrimonio. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
+**Insight:** El GEN5 le da flujo de caja para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
 
 ---
 
@@ -977,7 +958,7 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos Arquitectos de Patrimonio desarrollan cartera de clientes de consumo naturalmente. Conocidos que no operan el modelo pero consumen los productos de forma habitual.
+**Insight:** Muchos Propietarios de Base Operativa desarrollan cartera de clientes de consumo naturalmente. Conocidos que no operan el modelo pero consumen los productos de forma habitual.
 
 ---
 
@@ -993,11 +974,11 @@ Para activar su código y acceder al precio de distribuidor, el VIP realiza una 
 **Compras recurrentes:**
 El Consumidor VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
-**Diferencia operativa con el Arquitecto de Patrimonio:**
-- El Arquitecto adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su Base Operativa con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+**Diferencia operativa con el Propietario de Base Operativa:**
+- El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su Base Operativa con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
-**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de Base Operativa. Eventualmente, estos códigos pueden hacer upgrade a Arquitecto cuando el perfil madura.
+**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de Base Operativa. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
 
 ---
 
@@ -1033,8 +1014,8 @@ El Consumidor VIP NO tiene obligación de compras mínimas mensuales para manten
 
 | Termino | Definicion |
 |---------|------------|
-| **Arbol de Vinculacion** | (Tambien: Arbol de Patrocinio) Su portafolio de socios. Define QUIEN trajo a QUIEN. Aqui paga el GEN5. |
-| **Arbol de Colocacion** | (Tambien: Arbol Binario) Su estructura de 2 lados. Define DONDE se ubican. Aqui paga la Regalia de Equipo. |
+| **Patrocinio** | Define QUIEN invito a QUIEN. Su red de socios directos e indirectos. Aqui paga el GEN5. |
+| **Colocacion** | Define DONDE se ubica cada codigo en su estructura (2 lados). Sobre ese volumen paga el Binario (Regalia de Equipo). |
 | **Centro de negocios de Mayor Volumen Acumulado** | El lado de su binario con MAS puntos acumulados. Ventaja estrategica: puede reforzar el lado de compensacion. |
 | **Lado de Compensacion** | El lado de su binario con MENOS puntos. Este es sobre el que le pagan. |
 | **PV (Personal Volume)** | Puntos de sus compras personales. Sirven para ACTIVARLE (50-100 PV). |

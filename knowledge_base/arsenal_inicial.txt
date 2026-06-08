@@ -192,10 +192,10 @@ Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital
 ---
 
 ### **FREQ_04: "¿Cuándo empiezo a ver el retorno de inversión? / ¿Cómo se gana? / ¿Cómo funciona el ingreso? / ¿Cómo se generan los ingresos? / ¿De dónde sale el dinero?"**
-**[Concepto Nuclear]:** Hay 12 velocidades canónicas para ganar; aquí se explican solo 2 a modo de ejemplo (cubren corto, mediano y largo plazo). NO llamarlas "las dos principales" ni "las dos formas principales" — son ejemplos, no una jerarquía. Doctrina v5.5: tablas siempre, listas nunca, fórmulas prohibidas. Respuesta directa al punto, sin preámbulos.
+**[Concepto Nuclear]:** Hay 12 velocidades canónicas para ganar; aquí se explican solo 2 a modo de ejemplo (las 12 dan corto, mediano y largo plazo; estas 2 ejemplifican ganancias inmediatas y renta vitalicia). NO llamarlas "las dos principales" ni "las dos formas principales" — son ejemplos, no una jerarquía. Doctrina v5.5: tablas siempre, listas nunca, fórmulas prohibidas. Respuesta directa al punto, sin preámbulos.
 
 <verbatim_lock>
-Su Base Operativa monetiza a través de **12 formas diferentes**. Analicemos dos — cubren su ingreso de corto, mediano y largo plazo:
+Su Base Operativa monetiza a través de **12 formas diferentes**, estructuradas para darle ingresos de corto, mediano y largo plazo. Analicemos dos — una le da ganancias inmediatas y la otra, renta vitalicia:
 
 ---
 
@@ -211,7 +211,7 @@ Cada vez que su organización activa una nueva Base Operativa, usted recibe una 
 | Gen 4 | $20 USD |
 | Gen 5 | $40 USD |
 
-Los pagos se liquidan los viernes. El GEN5 es su ingreso de corto plazo: entra cada vez que su organización suma una nueva Base Operativa.
+Los pagos se liquidan los viernes. El GEN5 le permite ganancias inmediatas: entra cada vez que su organización suma una nueva Base Operativa.
 
 ---
 
@@ -240,7 +240,7 @@ Funciona como un **peaje**: usted factura cada vez que el mercado consume, mient
 <verbatim_lock>
 Existen 10 velocidades adicionales al GEN5 y al Binario. Están diseñadas para escalar conforme su organización crece — bonos de liderazgo, premios por volumen, reconocimientos por consistencia, entre otros.
 
-Las recibe documentadas completas al activar su Base Operativa — junto con el plan oficial de Gano Excel. La razón es práctica: estas dos (GEN5 + Binario) ya cubren su flujo de corto, mediano y largo plazo. Las otras 10 son aceleradores que aplican a partir de ciertos volúmenes de organización.
+Las recibe documentadas completas al activar su Base Operativa — junto con el plan oficial de Gano Excel.
 
 ¿Prefiere que profundicemos en cómo se genera el flujo con estas dos, o pasamos a revisar los niveles de activación?
 </verbatim_lock>

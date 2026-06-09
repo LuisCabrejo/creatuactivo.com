@@ -2,8 +2,8 @@
 
 /**
  * Copyright © 2026 CreaTuActivo.com
- * AUDITORÍA DE ARQUITECTURA PATRIMONIAL — MÓDULO 02
- * El Techo Técnico — Análisis de Escalabilidad
+ * EL DIAGNÓSTICO DE 5 DÍAS — DÍA 2
+ * El Techo — por qué hacerlo todo a mano tiene límite
  * noindex — funnel interno
  */
 
@@ -91,7 +91,7 @@ export default function Modulo02Page() {
             letterSpacing: '3px', margin: '0 0 14px',
             fontFamily: "'Roboto Mono', monospace",
           }}>
-            COORDENADA 02 DE 05 — AUDITORÍA EN CURSO
+            DÍA 2 DE 5 · EL TECHO
           </p>
           <h1 style={{
             color: C.white,
@@ -100,13 +100,13 @@ export default function Modulo02Page() {
             fontFamily: "'Playfair Display', Georgia, serif",
             margin: '0 0 12px', lineHeight: 1.25,
           }}>
-            El Techo Técnico
+            El Techo
           </h1>
           <p style={{
             color: C.mutedLight, fontSize: '15px', margin: 0,
             fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.04em',
           }}>
-            Módulo 02 — Análisis del límite matemático de su modelo operativo manual
+            Día 2 — Por qué hacerlo todo a mano tiene un límite
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export default function Modulo02Page() {
           <p style={{
             color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0,
           }}>
-            Evalúe el <strong>límite matemático de su modelo operativo manual</strong>. La respuesta instintiva de trabajar más horas es matemáticamente defectuosa — este módulo demuestra por qué, y cuantifica la urgencia de integrar apalancamiento estratégico.
+Hoy verá por qué <strong>trabajar más horas no resuelve el fondo</strong> — y por qué el límite se rompe poniéndole una palanca a su tiempo, no más esfuerzo.
           </p>
         </div>
 
@@ -157,13 +157,13 @@ export default function Modulo02Page() {
             fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
-            La Coordenada 03 será inyectada en su bandeja de entrada mañana a las 8:00 AM.
+            El Día 3 le llega a su correo mañana a las 8:00 AM.
           </p>
           <p style={{
             color: '#333', fontSize: '11px', margin: 0,
             fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
           }}>
-            Auditoría de Arquitectura Patrimonial · CreaTuActivo.com
+            El Diagnóstico de 5 Días · CreaTuActivo.com
           </p>
         </div>
 

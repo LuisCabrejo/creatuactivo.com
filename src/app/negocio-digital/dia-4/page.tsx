@@ -2,8 +2,8 @@
 
 /**
  * Copyright © 2026 CreaTuActivo.com
- * AUDITORÍA DE ARQUITECTURA PATRIMONIAL — MÓDULO 04
- * Matriz de Amortización — Ingeniería de Liquidez
+ * EL DIAGNÓSTICO DE 5 DÍAS — DÍA 4
+ * Los Números — de dónde sale el ingreso recurrente
  * noindex — funnel interno
  */
 
@@ -83,13 +83,13 @@ export default function Modulo04Page() {
 
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <p style={{ color: C.gold, fontSize: '11px', fontWeight: 600, letterSpacing: '3px', margin: '0 0 14px', fontFamily: "'Roboto Mono', monospace" }}>
-            COORDENADA 04 DE 05 — AUDITORÍA EN CURSO
+            DÍA 4 DE 5 · LOS NÚMEROS
           </p>
           <h1 style={{ color: C.white, fontSize: 'clamp(22px, 4vw, 34px)', fontWeight: 700, fontFamily: "'Playfair Display', Georgia, serif", margin: '0 0 12px', lineHeight: 1.25 }}>
-            Matriz de Amortización
+            Los Números
           </h1>
           <p style={{ color: C.mutedLight, fontSize: '15px', margin: 0, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.04em' }}>
-            Módulo 04 — Ingeniería de Liquidez: capital operativo inmediato + regalías perpetuas
+            Día 4 — De dónde sale el ingreso: dinero pronto + un ingreso recurrente
           </p>
         </div>
 
@@ -102,16 +102,16 @@ export default function Modulo04Page() {
 
         <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(197, 160, 89,0.04)' }}>
           <p style={{ color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>
-            Audite la matemática de liquidación del activo. La <strong>Matriz de Amortización</strong> opera en dos velocidades simultáneas: capital operativo inmediato y regalías perpetuas — independientemente de su intervención directa.
+Mire los números con calma: su inversión <strong>se convierte en producto</strong> y vuelve por dos caminos al tiempo — dinero pronto y un ingreso recurrente que le sigue entrando aunque usted no esté.
           </p>
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '36px', borderTop: `1px solid ${C.divider}`, paddingTop: '24px' }}>
           <p style={{ color: C.muted, fontSize: '12px', marginBottom: '6px', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            La Coordenada 05 será inyectada en su bandeja de entrada mañana a las 8:00 AM.
+            El Día 5 le llega a su correo mañana a las 8:00 AM.
           </p>
           <p style={{ color: '#333', fontSize: '11px', margin: 0, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em' }}>
-            Auditoría de Arquitectura Patrimonial · CreaTuActivo.com
+            El Diagnóstico de 5 Días · CreaTuActivo.com
           </p>
         </div>
 

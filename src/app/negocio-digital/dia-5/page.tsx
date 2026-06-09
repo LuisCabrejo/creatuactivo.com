@@ -2,8 +2,8 @@
 
 /**
  * Copyright © 2026 CreaTuActivo.com
- * AUDITORÍA DE ARQUITECTURA PATRIMONIAL — MÓDULO 05
- * Protocolo de Activación — Decisión Directiva
+ * EL DIAGNÓSTICO DE 5 DÍAS — DÍA 5
+ * La Decisión — con los números sobre la mesa
  * noindex — funnel interno
  */
 
@@ -83,13 +83,13 @@ export default function Modulo05Page() {
 
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <p style={{ color: C.gold, fontSize: '11px', fontWeight: 600, letterSpacing: '3px', margin: '0 0 14px', fontFamily: "'Roboto Mono', monospace" }}>
-            COORDENADA 05 DE 05 — AUDITORÍA COMPLETADA
+            DÍA 5 DE 5 · LA DECISIÓN
           </p>
           <h1 style={{ color: C.white, fontSize: 'clamp(22px, 4vw, 34px)', fontWeight: 700, fontFamily: "'Playfair Display', Georgia, serif", margin: '0 0 12px', lineHeight: 1.25 }}>
-            Protocolo de Activación
+            La Decisión
           </h1>
           <p style={{ color: C.mutedLight, fontSize: '15px', margin: 0, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.04em' }}>
-            Módulo 05 — Los tres niveles de asignación de activos para encender su Unidad Operativa
+            Día 5 — Las tres formas de empezar su negocio digital
           </p>
         </div>
 
@@ -108,10 +108,10 @@ export default function Modulo05Page() {
 
         <div style={{ textAlign: 'center', marginTop: '36px', borderTop: `1px solid ${C.divider}`, paddingTop: '24px' }}>
           <p style={{ color: C.muted, fontSize: '12px', marginBottom: '6px', fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Auditoría de Arquitectura Patrimonial — Proceso de Due Diligence completado.
+            El Diagnóstico de 5 Días — completado. La decisión es suya.
           </p>
           <p style={{ color: '#333', fontSize: '11px', margin: 0, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em' }}>
-            Auditoría de Arquitectura Patrimonial · CreaTuActivo.com
+            El Diagnóstico de 5 Días · CreaTuActivo.com
           </p>
         </div>
 

@@ -2,8 +2,8 @@
 
 /**
  * Copyright © 2026 CreaTuActivo.com
- * AUDITORÍA DE ARQUITECTURA PATRIMONIAL — MÓDULO 01
- * Diagnóstico Estructural — página de video para secuencia de correo
+ * EL DIAGNÓSTICO DE 5 DÍAS — DÍA 1
+ * El Diagnóstico — página de video para secuencia de correo
  * noindex — funnel interno
  */
 
@@ -91,7 +91,7 @@ export default function Modulo01Page() {
             letterSpacing: '3px', margin: '0 0 14px',
             fontFamily: "'Roboto Mono', monospace",
           }}>
-            COORDENADA 01 DE 05 — AUDITORÍA EN CURSO
+            DÍA 1 DE 5 · EL DIAGNÓSTICO
           </p>
           <h1 style={{
             color: C.white,
@@ -100,13 +100,13 @@ export default function Modulo01Page() {
             fontFamily: "'Playfair Display', Georgia, serif",
             margin: '0 0 12px', lineHeight: 1.25,
           }}>
-            Diagnóstico Estructural
+            El Diagnóstico
           </h1>
           <p style={{
             color: C.mutedLight, fontSize: '15px', margin: 0,
             fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.04em',
           }}>
-            Módulo 01 — Identificación de fallas matemáticas en su vehículo de ingresos actual
+            Día 1 — De qué depende su ingreso hoy
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export default function Modulo01Page() {
           <p style={{
             color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0,
           }}>
-            Al concluir este módulo, ejecute el <strong>cálculo de caducidad financiera</strong> expuesto en el informe. El ejercicio demanda menos de 2 minutos y le entregará la lectura matemática exacta de su exposición al riesgo actual.
+            Al terminar el video, haga el <strong>cálculo que le mostramos</strong>. Toma menos de 2 minutos y le deja claro, con números, de qué depende hoy su ingreso.
           </p>
         </div>
 
@@ -157,13 +157,13 @@ export default function Modulo01Page() {
             fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
-            La Coordenada 02 será inyectada en su bandeja de entrada mañana a las 8:00 AM.
+            El Día 2 le llega a su correo mañana a las 8:00 AM.
           </p>
           <p style={{
             color: '#333', fontSize: '11px', margin: 0,
             fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.06em',
           }}>
-            Auditoría de Arquitectura Patrimonial · CreaTuActivo.com
+            El Diagnóstico de 5 Días · CreaTuActivo.com
           </p>
         </div>
 

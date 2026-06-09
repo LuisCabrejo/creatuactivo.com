@@ -334,7 +334,7 @@ export async function POST(request: NextRequest) {
     // Enviar email de confirmación para Mapa de Salida
     if (data.step === 'mapa_registered' && data.email) {
       try {
-        await sendMapaWelcomeEmail(data.email, data.name);
+        await sendMapaWelcomeEmail(data.email, data.name, data.whatsapp || null);
       } catch (err) {
         console.error('❌ [FUNNEL] Error Email Mapa:', err);
       }
@@ -501,10 +501,11 @@ async function sendRetoWelcomeEmail(
   }
 }
 
-// Función para enviar email de bienvenida al Mapa de Salida
+// Función para enviar email de bienvenida al Diagnóstico de 5 Días (legacy mapa-de-salida)
 async function sendMapaWelcomeEmail(
   email: string,
-  name: string | null
+  name: string | null,
+  whatsapp: string | null = null
 ) {
   const firstName = name?.split(' ')[0] || 'Hola';
 
@@ -531,8 +532,8 @@ async function sendMapaWelcomeEmail(
 
     console.log('📧 [EMAIL MAPA] Enviado a', email, '| ID:', result?.id);
 
-    // Notificar al admin (igual que en Reto 5 Días)
-    await sendAdminNotification(email, name, null);
+    // Notificar al admin (igual que en Reto 5 Días) — pasa el WhatsApp capturado
+    await sendAdminNotification(email, name, whatsapp);
   } catch (err) {
     console.error('❌ [EMAIL MAPA] Exception:', err);
   }
@@ -575,7 +576,7 @@ async function sendAdminNotification(
 
       ${phoneClean ? `
       <div style="margin-bottom: 24px;">
-        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Mapa%20de%20Salida.%20%C2%BFTienes%20alguna%20pregunta%3F"
+        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Diagn%C3%B3stico%20de%205%20D%C3%ADas.%20%C2%BFTienes%20alguna%20pregunta%3F"
            style="display: block; background-color: #22c55e; color: #ffffff; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; text-align: center;">
           Contactar por WhatsApp
         </a>

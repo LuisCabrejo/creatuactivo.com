@@ -572,7 +572,7 @@ export default function FundadoresPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
-                                        <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
+                                        <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.trim()})} onBlur={(e) => setFormData({...formData, email: e.target.value.trim()})} inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
                                     </div>
                                     <button type="button" onClick={nextStep} disabled={!isStepValid()} className="btn-haptic w-full py-4 mt-4 font-sans font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
                                 </div>

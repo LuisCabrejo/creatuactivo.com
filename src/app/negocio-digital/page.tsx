@@ -90,9 +90,9 @@ export default function AuditoriaPatrimonialPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: formData.email,
-          name: formData.nombre,
-          whatsapp: formData.whatsapp,
+          email: formData.email.trim(),
+          name: formData.nombre.trim(),
+          whatsapp: formData.whatsapp.trim(),
           source: 'auditoria-patrimonial',
           step: 'auditoria_registered',
           constructor_ref: constructorRef ?? localStorage.getItem('constructor_ref') ?? undefined,
@@ -320,7 +320,12 @@ export default function AuditoriaPatrimonialPage() {
                       type="email"
                       placeholder="correo@dominio.com"
                       value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value.trim() }))}
+                      onBlur={(e) => setFormData(prev => ({ ...prev, email: e.target.value.trim() }))}
+                      inputMode="email"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
                       required
                       className="ap-input"
                     />

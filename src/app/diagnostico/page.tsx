@@ -532,7 +532,12 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
             type="email"
             placeholder="Su email"
             value={data.email}
-            onChange={(e) => onChange({ ...data, email: e.target.value })}
+            onChange={(e) => onChange({ ...data, email: e.target.value.trim() })}
+            onBlur={(e) => onChange({ ...data, email: e.target.value.trim() })}
+            inputMode="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             required
             className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
             style={{

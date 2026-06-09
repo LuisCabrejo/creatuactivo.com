@@ -359,7 +359,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           className="cta-base cta-primary"
           style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
         >
-          Iniciar Auditoría Gratuita
+          Iniciar Diagnóstico Gratuito
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -609,7 +609,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
             className="cta-base cta-primary w-full disabled:opacity-60"
             style={{ padding: '1.125rem 2rem', fontSize: '0.95rem' }}
           >
-            {isSubmitting ? 'Procesando...' : 'Ver Mi Auditoría'}
+            {isSubmitting ? 'Procesando...' : 'Ver Mi Diagnóstico'}
           </button>
         </form>
 
@@ -751,7 +751,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 1:</span>
-                <span>Realizaremos la auditoría matemática profunda (la versión cuantitativa de lo que acabas de ver)</span>
+                <span>Realizaremos el diagnóstico matemático profundo (la versión cuantitativa de lo que acabas de ver)</span>
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 2:</span>

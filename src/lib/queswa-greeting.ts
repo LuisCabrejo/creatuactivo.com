@@ -49,9 +49,9 @@ export const QUESWA_QUICK_REPLIES = [
 
 /**
  * CTA secundario — siempre visible debajo de los 4 chips.
- * No es una pregunta del avatar, es la conversión a la Auditoría Patrimonial.
+ * No es una pregunta del avatar, es la conversión al Diagnóstico de 5 Días.
  */
-export const QUESWA_CTA_LABEL = 'Iniciar Auditoría de Viabilidad';
+export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
 
 /**
  * Mapa de expansión de chips → queries semánticas óptimas para el RAG.

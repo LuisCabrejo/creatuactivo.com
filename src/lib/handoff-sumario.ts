@@ -19,7 +19,7 @@
  *   - Datos de contacto (nombre, paquete, score)
  *   - Arquetipo detectado
  *   - Dolores expresados textualmente
- *   - Objeciones manejadas durante la auditoría
+ *   - Objeciones manejadas durante la conversación
  *   - Mensajes clave (citas directas del prospecto)
  *   - Recomendación de "next best action"
  *
@@ -108,7 +108,7 @@ export async function generarSumarioEjecutivo(
     .map((m) => `[${m.role === 'user' ? 'PROSPECTO' : 'QUESWA'}]: ${m.content}`)
     .join('\n\n');
 
-  const promptSumario = `Eres un analista de ventas senior. Tu tarea es leer el siguiente historial de chat entre un prospecto y Queswa (chatbot de calificación patrimonial) y generar un expediente táctico para el equipo directivo que recibirá al prospecto vía WhatsApp.
+  const promptSumario = `Eres un analista de ventas senior. Tu tarea es leer el siguiente historial de chat entre un prospecto y Queswa (chatbot de calificación de prospectos de CreaTuActivo) y generar un expediente táctico para el equipo directivo que recibirá al prospecto vía WhatsApp.
 
 DATOS YA CAPTURADOS:
 - Nombre: ${prospectData.name || 'no_capturado'}

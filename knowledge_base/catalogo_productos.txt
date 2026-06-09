@@ -41,7 +41,7 @@ La línea de cuidado personal abre otra puerta:
 ### PROD_04: "¿Cómo funciona el modelo LUVOCO?"
 **[Concepto Nuclear]:** Modelo de Consumo Recurrente por Ecosistema Cerrado. El ingreso reside en las cápsulas, no en la terminal de preparación.
 
-La lógica financiera opera en dos capas:
+La lógica financiera funciona en dos niveles:
 
 - **Terminal de activación (única):** Máquina LUVOCO $1,026,000 — inversión de una sola vez
 - **Consumo recurrente:** Cápsulas $110,900/mes × 12 = $1,330,800/año
@@ -109,16 +109,19 @@ Una vez que el usuario valida la respuesta biológica a las bebidas funcionales,
 ---
 
 ### CIENCIA_04: "¿Qué hace diferente a Gano Excel?"
-**[Concepto Nuclear]:** Secreto Industrial. No patentes públicas. Protección indefinida.
+**[Concepto Nuclear]:** Híbrido único de 6 variedades + extracto 100% hidrosoluble. Secreto industrial (no patentes públicas, protección indefinida).
 
-**Tecnología propietaria:**
+**Origen único (el hongo):**
+- Híbrido propietario de las **6 variedades** de Ganoderma Lucidum de mayor valor nutricional — los 6 colores del Reishi: Rojo, Púrpura, Verde, Blanco, Amarillo, Negro. Lo mejor de cada una, reunido en un solo hongo.
+
+**Tecnología propietaria (la extracción):**
 - Cultivo de Tejidos: Clonación genética (consistencia perfecta)
 - Sustrato Exclusivo: Corteza de caucho malasio + cáscara de arroz
 - Extracción Dual: Acuosa + CO2 supercrítico + ultrasonido
 - Spray Drying: Extracto 100% hidrosoluble
 
 **Diferencia clave:**
-El polvo de hongo tiene biodisponibilidad limitada por la pared celular de quitina no digerida. El extracto Gano Excel es 100% hidrosoluble: la tecnología de extracción dual elimina la barrera de absorción y garantiza asimilación completa por el sistema gastrointestinal.
+En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad limitada: la pared celular de quitina no digerida bloquea la absorción. El extracto Gano Excel es 100% hidrosoluble — la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal. No es "Ganoderma" a secas: es el híbrido de las 6 variedades de mayor valor, en extracto puro hidrosoluble.
 
 ---
 
@@ -358,7 +361,7 @@ Ganoderma tiene seguridad documentada:
 ### FAQ_02: "¿Cuánto tiempo para notar beneficios?"
 **[Concepto Nuclear]:** Acumulación Metabólica vs. Estimulación Artificial.
 
-La tecnología de bioactivación del Ganoderma no opera bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
+La tecnología de bioactivación del Ganoderma no funciona bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
 
 | Plazo | Proceso Biológico |
 |-------|-------------------|

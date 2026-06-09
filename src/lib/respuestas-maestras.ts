@@ -10,7 +10,7 @@
  *
  * Las 2 chips canónicas que aquí se sirven concentran el ~80% del tráfico inicial:
  *   • Chip 1 ("¿Cómo funciona el negocio?") → WHY_02 verbatim
- *   • Chip 2 ("¿Cuál es la metodología operativa…") → EAM_01 verbatim
+ *   • Chip 2 ("¿Cuál es la metodología…") → EAM_01 verbatim
  *
  * Servirlas verbatim desde el backend, antes del Voyage AI + Anthropic, garantiza:
  *   ✓ 100% de fidelidad al copy calibrado (sin paráfrasis del LLM)
@@ -102,7 +102,7 @@ Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.a
  */
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
   '¿cómo funciona el negocio?': MASTER_WHY_02,
-  '¿cuál es la metodología operativa? ¿qué hago yo en el día a día?': MASTER_EAM_01,
+  '¿cuál es la metodología? ¿qué hago yo en el día a día?': MASTER_EAM_01,
 };
 
 /**

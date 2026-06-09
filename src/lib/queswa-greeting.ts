@@ -28,23 +28,27 @@
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Mi función es ahorrarle tiempo, filtrar la información y ayudarle a diagnosticar si su modelo de ingresos actual requiere la integración de una estructura de ingresos recurrentes.`;
+const MISION = `Mi función es ahorrarle tiempo: filtrar la información y ayudarle a diagnosticar si le conviene construir, en paralelo a lo que hace hoy, un ingreso que no dependa de su presencia.`;
 
-const TRANSICION = `¿En qué fase del análisis se encuentra hoy?`;
+const TRANSICION = `¿Por dónde quiere empezar?`;
 
 /**
- * Las 4 preguntas que el avatar premium colombiano hace en orden de frecuencia
- * documentada (12 años de campo). Espejan los 4 slides de la servilleta v3:
- * 1. Slide 1 — Diagnóstico y Arquitectura (70% del tráfico)
- * 2. Slide 2 — Metodología Tridente EAM
- * 3. Slide 3 — Capa Logística (Producto)
- * 4. Slide 4 — Matemática de Amortización
+ * Las 4 preguntas que el avatar hace en orden de frecuencia documentada
+ * (12 años de campo). Espejan los 4 slides de la servilleta:
+ * 1. Slide 1 — Diagnóstico y los 3 pilares (70% del tráfico)
+ * 2. Slide 2 — El Método Comprobado (¿cómo lo hago?)
+ * 3. Slide 3 — El producto (¿qué es y para qué sirve?)
+ * 4. Slide 4 — Cómo y cuánto se gana
+ *
+ * Léxico accesible (jun 2026): sin jerga McKinsey ("metodología operativa",
+ * "activo físico", "flujo de caja", "monetiza", "vías de liquidez"). Pregunta
+ * reformulada estilo Gemini, no sustantivos densos. Test abuela/Beto.
  */
 export const QUESWA_QUICK_REPLIES = [
   '¿Cómo funciona el negocio?',
-  '¿Cuál es la metodología operativa? ¿Qué hago yo en el día a día?',
-  '¿Cuál es el producto? ¿Sobre qué activo físico se sostiene este flujo de caja?',
-  'Quiero ver los números: ¿cómo se monetiza y cuáles son las vías de liquidez?',
+  '¿Cuál es la metodología? ¿Qué hago yo en el día a día?',
+  '¿Cuáles son los productos y para qué sirven?',
+  'Quiero ver los números: ¿cómo y cuánto se gana?',
 ] as const;
 
 /**
@@ -69,8 +73,8 @@ export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
  * a la formulación que SÍ recupera los fragmentos canónicos correctos:
  *
  * Chip 1 → WHY_02 ("¿Cómo funciona el negocio?")
- * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Arquitecto, metodología EAM)
- * Chip 3 → WHY_PROD_01 + catalogo_productos (qué se vende)
+ * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Propietario, El Método Comprobado)
+ * Chip 3 → WHY_PROD_01 + catalogo_productos (qué es y para qué sirve)
  * Chip 4 → FREQ_04 / FREQ_11 + arsenal_compensacion (cómo se gana)
  *
  * El usuario ve el chip premium (vocabulario McKinsey).
@@ -81,11 +85,11 @@ export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
 export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
   '¿cómo funciona el negocio?':
     'cómo funciona el negocio sistema distribución tres pilares apalancamiento',
-  '¿cuál es la metodología operativa? ¿qué hago yo en el día a día?':
+  '¿cuál es la metodología? ¿qué hago yo en el día a día?':
     'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',
-  '¿cuál es el producto? ¿sobre qué activo físico se sostiene este flujo de caja?':
-    'qué productos venden catálogo qué distribuimos Ganoderma Gano Excel',
-  'quiero ver los números: ¿cómo se monetiza y cuáles son las vías de liquidez?':
+  '¿cuáles son los productos y para qué sirven?':
+    'qué productos cuáles son para qué sirven beneficios catálogo Ganoderma Gano Excel',
+  'quiero ver los números: ¿cómo y cuánto se gana?':
     'cómo se gana cuánto se gana ingreso compensación capitalización inmediata renta vitalicia',
 };
 

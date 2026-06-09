@@ -39,7 +39,7 @@ export default function ManifiestoDocument({
   // CTA → WhatsApp. Enviar el mensaje ES la declaración de acuerdo.
   const waNumber = (whatsapp || WHATSAPP_ORGANICO).replace(/\D/g, '')
   const saludo = architectName ? `Hola ${architectName.split(' ')[0]}, ` : 'Hola, '
-  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi Base Operativa. ¿Cuál es el siguiente paso?`
+  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi negocio digital. ¿Cuál es el siguiente paso?`
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
@@ -156,8 +156,8 @@ export default function ManifiestoDocument({
                 </p>
                 <p className="text-[#E5E5E5]">
                   De ese camino nació una filosofía. Y este documento la contiene. Lo que sigue no es
-                  información para hojear: es el criterio que define quién está listo para dirigir una
-                  Base Operativa. Si va a asumirla, primero tiene que estar de acuerdo con esto.
+                  información para hojear: es el criterio que define quién está listo para dirigir su
+                  propio negocio digital. Si va a asumirlo, primero tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -198,7 +198,7 @@ export default function ManifiestoDocument({
             <div>
               <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">02 · La Visión</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Cuatro millones de Bases Operativas en los próximos 3 a 7 años.
+                Cuatro millones de negocios digitales en los próximos 3 a 7 años.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
@@ -206,11 +206,20 @@ export default function ManifiestoDocument({
                   perder. La verdadera innovación agranda el pastel para todos.
                 </p>
                 <p>
-                  Nuestro norte es claro: activar cuatro millones de Bases Operativas a lo largo del
-                  continente americano. No peleamos por una tajada del mercado de hoy; construimos un
-                  sistema que elimina la fricción de la distribución en 15 países de América y abre
-                  paso a la abundancia a través del <span className="text-[#E5E5E5]">consumo diario</span>.
-                  Aquí, la única forma de ganar es haciendo ganar a otros.
+                  Pero detrás de la cifra hay una idea más grande, y es la que de verdad nos mueve:
+                  <span className="text-[#E5E5E5]"> volver normal que cualquier persona, en paralelo a lo
+                  que ya hace, tenga un ingreso que no dependa de su presencia</span>. Hoy eso parece
+                  privilegio de pocos. Mañana, depender únicamente de sus horas se verá tan absurdo como
+                  hoy se ve una casa sin internet — y <span className="text-[#C5A059]">CreaTuActivo.com
+                  será el estándar que volvió normal ese cambio</span>.
+                </p>
+                <p>
+                  Por eso nuestro norte es claro: activar cuatro millones de negocios digitales a lo
+                  largo del continente americano. No peleamos por una tajada del mercado de hoy;
+                  construimos la categoría que lo redefine — eliminando la fricción de la distribución
+                  en 15 países de América y abriendo paso a la abundancia a través del
+                  <span className="text-[#E5E5E5]"> consumo diario</span>. Aquí, la única forma de ganar
+                  es haciendo ganar a otros.
                 </p>
               </div>
             </div>
@@ -229,8 +238,8 @@ export default function ManifiestoDocument({
                   <span className="text-[#E5E5E5]"> único punto frágil</span>.
                 </p>
                 <p>
-                  Un ingreso estable —un buen sueldo, la caja de un negocio— resuelve el mes, pero no
-                  corrige la fragilidad del mañana.
+                  Un ingreso estable —un buen sueldo, las utilidades de un negocio propio— resuelve el
+                  mes, pero no corrige la fragilidad del mañana.
                   <span className="text-[#E5E5E5]"> Ese es el punto ciego del que va bien.</span>
                 </p>
                 <p>
@@ -243,15 +252,15 @@ export default function ManifiestoDocument({
               </div>
             </div>
 
-            {/* §4 — Qué es una Base Operativa */}
+            {/* §4 — Qué es un negocio digital */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es una Base Operativa</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es un negocio digital</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Un activo que trabaja con usted, o sin usted.
+                Un negocio que trabaja con usted, o sin usted.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Una Base Operativa es el activo que materializa esa estructura: produce ingreso
+                  Su negocio digital es lo que materializa esa estructura: produce ingreso
                   recurrente a partir del consumo real, y le pertenece. No vive de su esfuerzo diario.
                   Vive del consumo de productos que las personas ya realizan, todos los días, exista
                   usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen
@@ -259,7 +268,7 @@ export default function ManifiestoDocument({
                 </p>
                 <p>
                   No se hace más grande trabajando más horas. Se hace más grande
-                  <span className="text-[#E5E5E5]"> activando nuevas Bases Operativas</span>. Esa es la unidad que se
+                  <span className="text-[#E5E5E5]"> activando nuevos negocios digitales</span>. Esa es la unidad que se
                   replica — la pieza con la que un grupo pequeño se convierte en una estructura de
                   cuatro millones.
                 </p>
@@ -298,7 +307,7 @@ export default function ManifiestoDocument({
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Usted no improvisa el camino: lo deja en manos de un método ya probado —Expandir,
                     Activar, Maestría— que erradica el ensayo y el error. Quien lo sigue no reinventa
-                    nada; solo escala.
+                    nada; solo crece.
                   </p>
                 </li>
               </ul>
@@ -310,9 +319,9 @@ export default function ManifiestoDocument({
               </p>
             </div>
 
-            {/* §6 — El Propietario de Base Operativa */}
+            {/* §6 — El Propietario */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El Propietario de Base Operativa</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El Propietario</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
                 Si la máquina ejecuta, usted dirige.
               </h2>
@@ -376,7 +385,7 @@ export default function ManifiestoDocument({
                 <p>
                   La plataforma puede sostener a un millón de personas mañana mismo. Lo que no es
                   infinito es el tiempo del núcleo directivo para acompañar, persona a persona, la
-                  cimentación de las primeras Bases Operativas. Esa banda directiva es el recurso más
+                  cimentación de los primeros negocios digitales. Esa banda directiva es el recurso más
                   escaso del sistema — no la tecnología. Y alcanza para 15.
                 </p>
                 <p>
@@ -409,7 +418,7 @@ export default function ManifiestoDocument({
               <p className="text-[#A3A3A3] leading-relaxed">
                 Este documento es el criterio, no un folleto. Si lo leyó y se reconoce en él, el
                 siguiente paso no es pensarlo más — es decirlo. Confírmelo y comencemos la activación
-                de su Base Operativa.
+                de su negocio digital.
               </p>
             </div>
             <a

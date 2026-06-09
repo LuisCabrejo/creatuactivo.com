@@ -49,6 +49,7 @@ export default function HomePage() {
         <ProductoFisicoSection />
         <SolutionPreview />
         <QueswaDiferenciadorSection />
+        <VisionSection />
         <FinalCTASection />
         <Footer />
       </main>
@@ -503,6 +504,31 @@ function QueswaDiferenciadorSection() {
             Solicitar una Demostración →
           </Link>
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// VISIÓN — la semilla "futuro absurdo / la norma" (eco del cierre de la servilleta)
+// ============================================================================
+function VisionSection() {
+  return (
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '720px', margin: '0 auto', textAlign: 'center' }}>
+        <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: '16px' }}>
+          Hacia dónde vamos
+        </p>
+        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '20px' }}>
+          Pronto será la norma.
+        </h2>
+        <p style={{ fontSize: '1.05rem', color: C.muted, lineHeight: 1.8, maxWidth: '620px', margin: '0 auto' }}>
+          Que su economía dependa únicamente de sus horas se verá, pronto, tan absurdo como hoy se ve
+          una casa sin internet.{' '}
+          <span style={{ color: C.white }}>Tener un ingreso que no dependa de su presencia ya existe.
+          CreaTuActivo.com ya existe.</span>{' '}
+          <span style={{ color: C.gold, fontWeight: 600 }}>La única variable que falta en la ecuación es usted.</span>
+        </p>
       </div>
     </section>
   );

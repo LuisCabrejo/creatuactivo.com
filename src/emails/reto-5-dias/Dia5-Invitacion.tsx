@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Coordenada 05
- * "[COORDENADA 05] Protocolo de Activación (Decisión Directiva)"
- * Lujo Clínico — Due Diligence framing
+ * El Diagnóstico de 5 Días — Día 5
+ * "[Día 5] La Decisión: con los números sobre la mesa"
+ * Registro accesible
  */
 
 import * as React from 'react';
@@ -30,7 +30,7 @@ export const Dia5Invitacion = ({
   trackingUrl,
   videoUrl = 'https://creatuactivo.com/negocio-digital/dia-5',
 }: Dia5Props) => {
-  const previewText = `Módulo 05 habilitado. El Protocolo de Activación está listo para su decisión directiva.`;
+  const previewText = `Su Día 5: con los números sobre la mesa, usted decide.`;
 
   return (
     <Html lang="es">
@@ -50,37 +50,38 @@ export const Dia5Invitacion = ({
 
           {/* Coordenada badge */}
           <Section style={badgeSection}>
-            <Text style={badgeLabel}>COORDENADA 05 — AUDITORÍA COMPLETADA</Text>
+            <Text style={badgeLabel}>DÍA 5 DE 5 · LA DECISIÓN</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
 
             <Text style={openingLine}>
-              Durante los últimos cuatro días, usted ha ejecutado una auditoría implacable sobre su economía.
+              En estos cinco días usted miró sus propios números, sin filtros.
             </Text>
 
             <Text style={paragraph}>
-              Hemos diagnosticado la falla de su vehículo actual, el techo de su biología, la ingeniería de la Máquina Híbrida y la matemática exacta de su liquidación.{' '}
-              <strong style={{ color: '#E5E5E5' }}>Los datos puros están sobre la mesa.</strong>
+              Vimos de qué depende su ingreso hoy, por qué hacerlo todo a mano tiene techo, cómo se arma la máquina que trabaja por usted, y de dónde sale el ingreso.{' '}
+              <strong style={{ color: '#E5E5E5' }}>Las cuentas están sobre la mesa.</strong>
             </Text>
 
             <Text style={paragraph}>
-              Hoy finaliza su proceso de validación técnica (Due Diligence).
+              Hoy se cierra el diagnóstico.
             </Text>
 
             <Text style={paragraph}>
-              En el módulo final, no encontrará técnicas de persuasión. Encontrará el{' '}
-              <strong style={{ color: '#E5E5E5' }}>Protocolo de Activación</strong>: los tres niveles exactos de asignación de activos para encender su Unidad Operativa, y el paso final para oficializar su integración.
+              En este último día no hay técnicas para convencerlo. Hay{' '}
+              <strong style={{ color: '#E5E5E5' }}>tres formas de empezar</strong>{' '}
+              —según con cuánto inventario quiera arrancar— y el paso final para activar su negocio digital.
             </Text>
 
             {/* Protocolo de Ejecución */}
             <Section style={protocolBox}>
-              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[
-                'Aísle 15 minutos finales de atención directiva.',
-                'Ingrese a la sala de datos.',
-                'Determine su nivel de integración.',
+                'Saque 15 minutos tranquilos, los últimos.',
+                'Entre por el enlace de abajo.',
+                'Decida, con los números en la mano, si arranca.',
               ].map((step, i) => (
                 <Text key={i} style={protocolStep}>
                   <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
@@ -97,7 +98,7 @@ export const Dia5Invitacion = ({
                 <tr>
                   <td align="center">
                     <Button href={videoUrl} style={ctaButton}>
-                      ACCEDER AL MÓDULO 05: PROTOCOLO DE ACTIVACIÓN →
+                      VER EL DÍA 5: LA DECISIÓN →
                     </Button>
                   </td>
                 </tr>
@@ -105,13 +106,13 @@ export const Dia5Invitacion = ({
             </Section>
 
             <Text style={closingLine}>
-              El expediente está completo. Nos vemos en la sala de cierre.
+              Gracias por estos cinco días. La decisión es suya.
             </Text>
 
             <Text style={signature}>
               Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
+              <span style={signatureTitle}>Fundador · CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -121,7 +122,7 @@ export const Dia5Invitacion = ({
             <Text style={footerText}>
               © 2026 CreaTuActivo.com
               <br />
-              Auditoría de Arquitectura Patrimonial — Coordenada 05 de 05 (Final)
+              El Diagnóstico de 5 Días — Día 5 de 5 (Final)
             </Text>
           </Section>
 

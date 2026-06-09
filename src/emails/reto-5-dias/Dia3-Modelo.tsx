@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Coordenada 03
- * "[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)"
- * Lujo Clínico — Due Diligence framing
+ * El Diagnóstico de 5 Días — Día 3
+ * "[Día 3] La Máquina: cómo se arma su negocio digital"
+ * Registro accesible
  */
 
 import * as React from 'react';
@@ -30,7 +30,7 @@ export const Dia3Modelo = ({
   trackingUrl,
   videoUrl = 'https://creatuactivo.com/negocio-digital/dia-3',
 }: Dia3Props) => {
-  const previewText = `Módulo 03 habilitado. Los planos de la Máquina Híbrida están listos.`;
+  const previewText = `Su Día 3: cómo se arma la máquina que trabaja por usted.`;
 
   return (
     <Html lang="es">
@@ -50,37 +50,37 @@ export const Dia3Modelo = ({
 
           {/* Coordenada badge */}
           <Section style={badgeSection}>
-            <Text style={badgeLabel}>COORDENADA 03 — ANÁLISIS EN CURSO</Text>
+            <Text style={badgeLabel}>DÍA 3 DE 5 · LA MÁQUINA</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
 
             <Text style={openingLine}>
-              Ayer usted calculó su Techo Técnico y comprendió la urgencia de integrar apalancamiento asimétrico a su economía.
+              Ayer vio por qué hacerlo todo a mano tiene un techo — y por qué necesita una palanca.
             </Text>
 
             <Text style={paragraph}>
-              La barrera histórica es que construir infraestructura corporativa desde cero exige un{' '}
-              <strong style={{ color: '#E5E5E5' }}>capital intensivo y genera una fricción operativa extrema</strong>.
+              El problema de siempre es que montar una empresa así desde cero cuesta{' '}
+              <strong style={{ color: '#E5E5E5' }}>mucho dinero y un desgaste enorme</strong>.
             </Text>
 
             <Text style={paragraph}>
-              La solución directiva moderna no consiste en construir la infraestructura; consiste en{' '}
-              <strong style={{ color: '#E5E5E5' }}>acoplarse a una que ya existe</strong>.
+              La salida no es construir esa máquina; es{' '}
+              <strong style={{ color: '#E5E5E5' }}>engancharse a una que ya existe y ya funciona</strong>.
             </Text>
 
             <Text style={paragraph}>
-              En el módulo de hoy, le entregaré los planos de la "Máquina Híbrida": el ecosistema donde una corporación transnacional y un motor de Inteligencia Artificial se fusionan para trabajar bajo su dirección.
+              Hoy le muestro cómo se arma su negocio digital: una empresa real presente en 70 países y una inteligencia artificial, trabajando juntas bajo su dirección.
             </Text>
 
             {/* Protocolo de Ejecución */}
             <Section style={protocolBox}>
-              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[
-                'Aísle 15 minutos de ancho de banda mental.',
-                'Ingrese a la sala de coordenadas.',
-                'Evalúe la lógica operativa de las dos capas de apalancamiento.',
+                'Saque 15 minutos tranquilos.',
+                'Entre por el enlace de abajo.',
+                'Vea cómo encajan las dos partes que trabajan por usted.',
               ].map((step, i) => (
                 <Text key={i} style={protocolStep}>
                   <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
@@ -97,7 +97,7 @@ export const Dia3Modelo = ({
                 <tr>
                   <td align="center">
                     <Button href={videoUrl} style={ctaButton}>
-                      ACCEDER AL MÓDULO 03: ACOPLAMIENTO HÍBRIDO →
+                      VER EL DÍA 3: LA MÁQUINA →
                     </Button>
                   </td>
                 </tr>
@@ -105,13 +105,13 @@ export const Dia3Modelo = ({
             </Section>
 
             <Text style={closingLine}>
-              El expediente está actualizado. Analice los datos.
+              Ahí lo espera. Mírelo con calma.
             </Text>
 
             <Text style={signature}>
               Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
+              <span style={signatureTitle}>Fundador · CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -121,7 +121,7 @@ export const Dia3Modelo = ({
             <Text style={footerText}>
               © 2026 CreaTuActivo.com
               <br />
-              Auditoría de Arquitectura Patrimonial — Coordenada 03 de 05
+              El Diagnóstico de 5 Días — Día 3 de 5
             </Text>
           </Section>
 

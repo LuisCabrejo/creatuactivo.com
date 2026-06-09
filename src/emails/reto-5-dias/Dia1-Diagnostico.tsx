@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Coordenada 01
- * "[COORDENADA 01] Diagnóstico Estructural Habilitado"
- * Lujo Clínico — Due Diligence framing
+ * El Diagnóstico de 5 Días — Día 1
+ * "[Día 1] El Diagnóstico: ¿de qué depende su ingreso hoy?"
+ * Registro accesible
  */
 
 import * as React from 'react';
@@ -30,7 +30,7 @@ export const Dia1Diagnostico = ({
   trackingUrl,
   videoUrl = 'https://creatuactivo.com/negocio-digital/dia-1',
 }: Dia1Props) => {
-  const previewText = `Módulo 01 habilitado. Su auditoría estructural comienza ahora.`;
+  const previewText = `Su Día 1 ya está listo. Hoy miramos de qué depende su ingreso.`;
 
   return (
     <Html lang="es">
@@ -50,31 +50,31 @@ export const Dia1Diagnostico = ({
 
           {/* Coordenada badge */}
           <Section style={badgeSection}>
-            <Text style={badgeLabel}>COORDENADA 01 — ACCESO HABILITADO</Text>
+            <Text style={badgeLabel}>DÍA 1 DE 5 · EL DIAGNÓSTICO</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
 
             <Text style={openingLine}>
-              El sistema ha habilitado su primer módulo de auditoría.
+              Su primer día ya está listo.
             </Text>
 
             <Text style={paragraph}>
-              A partir de este momento, usted deja de ser un espectador y asume la postura de un <strong style={{ color: '#E5E5E5' }}>analista de riesgos</strong>.
+              Hoy usted no viene a que le presenten nada. Viene a mirar sus propias cuentas, con <strong style={{ color: '#E5E5E5' }}>cabeza fría</strong>.
             </Text>
 
             <Text style={paragraph}>
-              El objetivo de la sesión de hoy no es presentarle nuestro ecosistema, sino someter a estrés su infraestructura financiera actual. Vamos a auditar la matemática detrás de su flujo de caja y a medir su nivel de exposición al riesgo.
+              El día de hoy va al grano: ver de qué depende su ingreso hoy. Hágase la pregunta incómoda — si tuviera que parar unos meses, ¿qué pasaría con la plata que entra cada mes? Lo vemos con números reales, no con suposiciones.
             </Text>
 
             {/* Protocolo de Ejecución */}
             <Section style={protocolBox}>
-              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[
-                'Aísle 15 minutos de ancho de banda mental.',
-                'Ingrese al enlace seguro a continuación.',
-                'Ejecute el cálculo de caducidad financiera que se expone en el informe.',
+                'Saque 15 minutos tranquilos, sin afán.',
+                'Entre por el enlace de abajo.',
+                'Vea el video y haga, paso a paso, las cuentas que le mostramos.',
               ].map((step, i) => (
                 <Text key={i} style={protocolStep}>
                   <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
@@ -94,7 +94,7 @@ export const Dia1Diagnostico = ({
                       href={videoUrl}
                       style={ctaButton}
                     >
-                      ACCEDER AL MÓDULO 01: DIAGNÓSTICO ESTRUCTURAL →
+                      VER EL DÍA 1: EL DIAGNÓSTICO →
                     </Button>
                   </td>
                 </tr>
@@ -102,13 +102,13 @@ export const Dia1Diagnostico = ({
             </Section>
 
             <Text style={closingLine}>
-              El escrutinio técnico ha comenzado. Nos vemos en la sala de análisis.
+              Empezamos. Nos vemos del otro lado.
             </Text>
 
             <Text style={signature}>
               Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
+              <span style={signatureTitle}>Fundador · CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -119,7 +119,7 @@ export const Dia1Diagnostico = ({
             <Text style={footerText}>
               © 2026 CreaTuActivo.com
               <br />
-              Auditoría de Arquitectura Patrimonial — Coordenada 01 de 05
+              El Diagnóstico de 5 Días — Día 1 de 5
             </Text>
           </Section>
 

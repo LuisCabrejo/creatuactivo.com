@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Coordenada 02
- * "[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)"
- * Lujo Clínico — Due Diligence framing
+ * El Diagnóstico de 5 Días — Día 2
+ * "[Día 2] El Techo: por qué hacerlo todo a mano tiene límite"
+ * Registro accesible
  */
 
 import * as React from 'react';
@@ -30,7 +30,7 @@ export const Dia2Vehiculos = ({
   trackingUrl,
   videoUrl = 'https://creatuactivo.com/negocio-digital/dia-2',
 }: Dia2Props) => {
-  const previewText = `Módulo 02 habilitado. Análisis del techo técnico de su modelo operativo.`;
+  const previewText = `Su Día 2: por qué trabajar más horas no es la salida.`;
 
   return (
     <Html lang="es">
@@ -50,35 +50,35 @@ export const Dia2Vehiculos = ({
 
           {/* Coordenada badge */}
           <Section style={badgeSection}>
-            <Text style={badgeLabel}>COORDENADA 02 — ANÁLISIS EN CURSO</Text>
+            <Text style={badgeLabel}>DÍA 2 DE 5 · EL TECHO</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
 
             <Text style={openingLine}>
-              Ayer usted ejecutó una prueba de estrés sobre su matriz financiera.
+              Ayer miró de qué depende su ingreso hoy.
             </Text>
 
             <Text style={paragraph}>
-              Si el resultado de su caducidad operativa se midió en semanas o meses, el diagnóstico de <strong style={{ color: '#E5E5E5' }}>Déficit Estructural está confirmado</strong>.
+              Si la respuesta fue que, el día que usted para, la plata también para… ahí está el punto: <strong style={{ color: '#E5E5E5' }}>todo depende de su presencia</strong>.
             </Text>
 
             <Text style={paragraph}>
-              La respuesta instintiva de un profesional ante este déficit es intentar trabajar más horas o cobrar más por su tiempo. Hoy le demostraré por qué esa estrategia es <strong style={{ color: '#E5E5E5' }}>matemáticamente defectuosa</strong>.
+              Lo natural es pensar: "trabajo más horas o cobro más caro mi tiempo". Hoy le muestro, con números, por qué eso <strong style={{ color: '#E5E5E5' }}>no resuelve el fondo</strong>.
             </Text>
 
             <Text style={paragraph}>
-              En el módulo de hoy, analizaremos su "Techo Técnico" y la urgencia de integrar apalancamiento asimétrico a su arquitectura de ingresos.
+              Hoy vemos su "techo": por qué hacerlo todo a mano siempre topa con un límite — y cómo se rompe poniéndole una palanca.
             </Text>
 
             {/* Protocolo de Ejecución */}
             <Section style={protocolBox}>
-              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[
-                'Aísle 15 minutos de atención exclusiva.',
-                'Ingrese al servidor seguro.',
-                'Evalúe el límite matemático de su modelo operativo manual.',
+                'Saque 15 minutos tranquilos.',
+                'Entre por el enlace de abajo.',
+                'Vea por qué el límite no se rompe con más horas, sino con palanca.',
               ].map((step, i) => (
                 <Text key={i} style={protocolStep}>
                   <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
@@ -95,7 +95,7 @@ export const Dia2Vehiculos = ({
                 <tr>
                   <td align="center">
                     <Button href={videoUrl} style={ctaButton}>
-                      ACCEDER AL MÓDULO 02: ANÁLISIS DE ESCALABILIDAD →
+                      VER EL DÍA 2: EL TECHO →
                     </Button>
                   </td>
                 </tr>
@@ -103,13 +103,13 @@ export const Dia2Vehiculos = ({
             </Section>
 
             <Text style={closingLine}>
-              El expediente está actualizado. Proceda con el análisis.
+              Ahí lo espera. Nos vemos.
             </Text>
 
             <Text style={signature}>
               Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
+              <span style={signatureTitle}>Fundador · CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -120,7 +120,7 @@ export const Dia2Vehiculos = ({
             <Text style={footerText}>
               © 2026 CreaTuActivo.com
               <br />
-              Auditoría de Arquitectura Patrimonial — Coordenada 02 de 05
+              El Diagnóstico de 5 Días — Día 2 de 5
             </Text>
           </Section>
 

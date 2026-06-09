@@ -1,8 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Coordenada 04
- * "[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)"
- * Lujo Clínico — Due Diligence framing
+ * El Diagnóstico de 5 Días — Día 4
+ * "[Día 4] Los Números: de dónde sale el ingreso recurrente"
+ * Registro accesible
  */
 
 import * as React from 'react';
@@ -30,7 +30,7 @@ export const Dia4Estigma = ({
   trackingUrl,
   videoUrl = 'https://creatuactivo.com/negocio-digital/dia-4',
 }: Dia4Props) => {
-  const previewText = `Módulo 04 habilitado. La Matriz de Amortización está lista para auditoría.`;
+  const previewText = `Su Día 4: las cuentas claras de cómo y cuánto se gana.`;
 
   return (
     <Html lang="es">
@@ -50,40 +50,41 @@ export const Dia4Estigma = ({
 
           {/* Coordenada badge */}
           <Section style={badgeSection}>
-            <Text style={badgeLabel}>COORDENADA 04 — ANÁLISIS EN CURSO</Text>
+            <Text style={badgeLabel}>DÍA 4 DE 5 · LOS NÚMEROS</Text>
           </Section>
 
           {/* Content */}
           <Section style={content}>
 
             <Text style={openingLine}>
-              Ayer analizamos el Acoplamiento Híbrido: la unión de una infraestructura logística global y nuestro motor de Inteligencia Artificial.
+              Ayer vio cómo se arma su negocio digital: una empresa de 70 países y la inteligencia artificial trabajando por usted.
             </Text>
 
             <Text style={paragraph}>
-              La barrera restante que detiene a la mayoría de los ejecutivos es el{' '}
-              <strong style={{ color: '#E5E5E5' }}>capital intensivo de entrada</strong>.
+              Lo que frena a la mayoría es pensar que entrar{' '}
+              <strong style={{ color: '#E5E5E5' }}>cuesta una fortuna</strong>.
             </Text>
 
             <Text style={paragraph}>
-              En el módulo de hoy, le presentaré la{' '}
-              <strong style={{ color: '#E5E5E5' }}>Matriz de Amortización</strong>: el mecanismo por el cual la Asignación de Capital inicial se liquida a través de dos velocidades de retorno simultáneas.
+              Hoy le muestro los números claros: su inversión inicial no se evapora —{' '}
+              <strong style={{ color: '#E5E5E5' }}>se convierte en producto</strong>{' '}
+              y vuelve a usted por dos caminos al mismo tiempo.
             </Text>
 
             <Text style={paragraph}>
-              La primera velocidad genera{' '}
-              <strong style={{ color: '#E5E5E5' }}>capital operativo inmediato</strong>. La segunda construye{' '}
-              <strong style={{ color: '#E5E5E5' }}>regalías perpetuas</strong>{' '}
-              — un flujo recurrente que opera independientemente de su intervención directa.
+              El primero le da{' '}
+              <strong style={{ color: '#E5E5E5' }}>dinero pronto</strong>, desde las primeras semanas. El segundo construye un{' '}
+              <strong style={{ color: '#E5E5E5' }}>ingreso recurrente</strong>{' '}
+              — que le sigue entrando aunque usted no esté.
             </Text>
 
             {/* Protocolo de Ejecución */}
             <Section style={protocolBox}>
-              <Text style={protocolTitle}>PROTOCOLO DE EJECUCIÓN</Text>
+              <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[
-                'Aísle 15 minutos de atención analítica.',
-                'Ingrese a la sala de datos.',
-                'Audite la matemática de liquidación del activo.',
+                'Saque 15 minutos tranquilos.',
+                'Entre por el enlace de abajo.',
+                'Haga las cuentas con calma: de dónde sale el ingreso y cómo crece.',
               ].map((step, i) => (
                 <Text key={i} style={protocolStep}>
                   <span style={{ color: '#C8A84B', fontWeight: '700', marginRight: '10px' }}>
@@ -100,7 +101,7 @@ export const Dia4Estigma = ({
                 <tr>
                   <td align="center">
                     <Button href={videoUrl} style={ctaButton}>
-                      ACCEDER AL MÓDULO 04: MATRIZ DE AMORTIZACIÓN →
+                      VER EL DÍA 4: LOS NÚMEROS →
                     </Button>
                   </td>
                 </tr>
@@ -108,13 +109,13 @@ export const Dia4Estigma = ({
             </Section>
 
             <Text style={closingLine}>
-              El expediente está actualizado. Inicie la auditoría financiera.
+              Ahí lo espera. Saque sus propias cuentas.
             </Text>
 
             <Text style={signature}>
               Luis Cabrejo Parra
               <br />
-              <span style={signatureTitle}>Dirección Estratégica | CreaTuActivo</span>
+              <span style={signatureTitle}>Fundador · CreaTuActivo</span>
             </Text>
           </Section>
 
@@ -124,7 +125,7 @@ export const Dia4Estigma = ({
             <Text style={footerText}>
               © 2026 CreaTuActivo.com
               <br />
-              Auditoría de Arquitectura Patrimonial — Coordenada 04 de 05
+              El Diagnóstico de 5 Días — Día 4 de 5
             </Text>
           </Section>
 

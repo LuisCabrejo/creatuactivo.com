@@ -40,11 +40,11 @@ function getSupabaseClient() {
 
 // Configuración de la secuencia (Soap Opera Sequence optimizada v4)
 const RETO_5_DIAS_SEQUENCE = [
-  { day: 1, subject: '[COORDENADA 01] Diagnóstico Estructural Habilitado', component: 'Dia1Diagnostico' },
-  { day: 2, subject: '[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)', component: 'Dia2Vehiculos' },
-  { day: 3, subject: '[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)', component: 'Dia3Modelo' },
-  { day: 4, subject: '[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)', component: 'Dia4Estigma' },
-  { day: 5, subject: '[COORDENADA 05] Protocolo de Activación (Decisión Directiva)', component: 'Dia5Invitacion' },
+  { day: 1, subject: 'Día 1 · El Diagnóstico: ¿de qué depende su ingreso hoy?', component: 'Dia1Diagnostico' },
+  { day: 2, subject: 'Día 2 · El Techo: por qué trabajar más horas no es la salida', component: 'Dia2Vehiculos' },
+  { day: 3, subject: 'Día 3 · La Máquina: cómo se arma su negocio digital', component: 'Dia3Modelo' },
+  { day: 4, subject: 'Día 4 · Los Números: cómo y cuánto se gana', component: 'Dia4Estigma' },
+  { day: 5, subject: 'Día 5 · La Decisión: con los números sobre la mesa', component: 'Dia5Invitacion' },
 ];
 
 // Mapeo de componentes

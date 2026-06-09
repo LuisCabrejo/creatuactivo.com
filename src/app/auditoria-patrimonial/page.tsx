@@ -30,39 +30,39 @@ const C = {
 const PHASES = [
   {
     day: 'Día 1',
-    label: 'DIAGNÓSTICO ESTRUCTURAL',
-    desc: 'Identificación de fallas matemáticas en su vehículo de ingresos actual.',
+    label: 'EL DIAGNÓSTICO',
+    desc: 'Dónde está la fuga: por qué hoy su ingreso depende de que usted no pare.',
   },
   {
     day: 'Día 2',
-    label: 'ANÁLISIS DE ESCALABILIDAD',
-    desc: 'Demostración de por qué el modelo operativo manual posee un techo técnico inquebrantable.',
+    label: 'EL TECHO',
+    desc: 'Por qué hacerlo todo a mano siempre topa con un límite — y cómo se rompe.',
   },
   {
     day: 'Día 3',
-    label: 'ACOPLAMIENTO HÍBRIDO',
-    desc: 'Integración de nuestra Capa Logística Global con la automatización del motor de Inteligencia Artificial (Queswa).',
+    label: 'LA MÁQUINA',
+    desc: 'Cómo se unen el respaldo de una empresa en 70 países y la inteligencia artificial que filtra por usted.',
   },
   {
     day: 'Día 4',
-    label: 'MATRIZ DE AMORTIZACIÓN',
-    desc: 'Matemática exacta de liquidez recurrente y apalancamiento estratégico.',
+    label: 'LOS NÚMEROS',
+    desc: 'La matemática clara del ingreso recurrente: de dónde sale y cómo crece.',
   },
   {
     day: 'Día 5',
-    label: 'PROTOCOLO DE ACTIVACIÓN',
-    desc: 'Decisión directiva y asignación de activos.',
+    label: 'LA DECISIÓN',
+    desc: 'Con todo sobre la mesa, usted decide si arranca o no. Sin presión.',
   },
 ];
 
 const REQUIREMENTS = [
   {
-    label: 'Disponibilidad Cognitiva',
-    desc: 'Asignación estricta de 15 a 20 minutos diarios.',
+    label: '20 minutos al día',
+    desc: 'El tiempo de un café para ver el material con calma.',
   },
   {
-    label: 'Madurez Analítica',
-    desc: 'Capacidad directiva para auditar datos fríos, sin sesgos emocionales.',
+    label: 'Ganas de mirar los números',
+    desc: 'Revisar las cuentas con cabeza fría y sacar sus propias conclusiones.',
   },
 ];
 
@@ -244,7 +244,7 @@ export default function AuditoriaPatrimonialPage() {
                 letterSpacing: '0.22em', textTransform: 'uppercase',
                 color: C.cyan,
               }}>
-                Protocolo de Escrutinio Técnico — Acceso Restringido
+                Revisión gratuita de 5 días · Acceso por invitación
               </span>
             </div>
 
@@ -255,7 +255,7 @@ export default function AuditoriaPatrimonialPage() {
               fontWeight: 700, color: C.white,
               lineHeight: 1.15, marginBottom: '20px',
             }}>
-              Corrección Técnica del Protocolo de la Presencia Obligada.
+              ¿Su ingreso se detiene el día que usted se detiene?
             </h1>
 
             {/* H2 */}
@@ -266,7 +266,7 @@ export default function AuditoriaPatrimonialPage() {
               fontFamily: "var(--font-sans)",
               letterSpacing: '0.02em',
             }}>
-              Un escrutinio logístico de 5 días para desvincular definitivamente su flujo de caja de su desgaste biológico.
+              En 5 días le mostramos, con números claros, cómo construir un negocio digital que sigue produciendo aunque usted no trabaje — apoyado en una empresa que ya opera en 70 países.
             </p>
 
             {/* Párrafo diagnóstico */}
@@ -277,7 +277,7 @@ export default function AuditoriaPatrimonialPage() {
               borderLeft: `2px solid ${C.gold}`,
               background: 'rgba(197, 160, 89,0.04)',
             }}>
-              El Protocolo de la Presencia Obligada es el contrato tácito que convierte su tiempo en el único colateral de su liquidez. Si usted se detiene, el sistema colapsa. Esta auditoría no provee motivación. Transfiere los planos técnicos para desactivar esa dependencia y acoplar una infraestructura operativa en más de 70 países.
+              Hoy su ingreso depende de una sola cosa: que usted siga trabajando. Si para —por salud, por cansancio, por un imprevisto—, el dinero también para. Esto no es motivación: son los pasos claros para construir, en paralelo y sin dejar lo que hace hoy, un ingreso que no dependa de sus horas. La parte pesada la hace una empresa con presencia en 70 países; la tecnología filtra a los interesados por usted.
             </p>
 
             {/* FORMULARIO */}
@@ -356,9 +356,9 @@ export default function AuditoriaPatrimonialPage() {
                       <svg style={{ width: '16px', height: '16px' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      Acceso Procesado
+                      Listo, ya quedó
                     </span>
-                  ) : isSubmitting ? 'Procesando...' : 'Solicitar Acceso a la Auditoría →'}
+                  ) : isSubmitting ? 'Procesando...' : 'Quiero mi revisión gratis →'}
                 </button>
               </div>
 
@@ -381,7 +381,7 @@ export default function AuditoriaPatrimonialPage() {
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
-              Temario de Validación
+Qué verá en los 5 días
             </p>
 
             <h2 style={{
@@ -390,14 +390,14 @@ export default function AuditoriaPatrimonialPage() {
               fontWeight: 700, color: C.white,
               marginBottom: '16px', lineHeight: 1.2,
             }}>
-              Fases de Validación Logística
+Los 5 días, paso a paso
             </h2>
 
             <p style={{
               fontSize: '0.9rem', color: C.muted, lineHeight: 1.7,
               marginBottom: '36px',
             }}>
-              Usted no ingresa para aprender teorías; ingresa para auditar un modelo operativo. La máquina se desglosa en 5 fases de escrutinio técnico:
+              Aquí no viene a "aprender teoría". Viene a revisar, con números, si esto le sirve. Un día a la vez:
             </p>
 
             <div>
@@ -442,7 +442,7 @@ export default function AuditoriaPatrimonialPage() {
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
-              Evaluación de Perfil
+¿Es para usted?
             </p>
 
             <h2 style={{
@@ -451,14 +451,14 @@ export default function AuditoriaPatrimonialPage() {
               fontWeight: 700, color: C.white,
               marginBottom: '16px', lineHeight: 1.2,
             }}>
-              Calificación Operativa Requerida
+Lo único que le pedimos
             </h2>
 
             <p style={{
               fontSize: '0.9rem', color: C.muted, lineHeight: 1.75,
               marginBottom: '32px',
             }}>
-              El acceso a este protocolo está subvencionado por la infraestructura corporativa de CreaTuActivo. No requiere inyección de capital inicial, pero exige estricto cumplimiento operativo. Para procesar la información, usted debe garantizar:
+              El acceso es gratis: lo cubre CreaTuActivo. No tiene que poner un peso. Solo le pedimos dos cosas para que le saque provecho:
             </p>
 
             {/* Requirements */}
@@ -496,7 +496,7 @@ export default function AuditoriaPatrimonialPage() {
               padding: '20px 24px',
               borderLeft: `2px solid ${C.bgCardBorder}`,
             }}>
-              Si los números de la arquitectura se sostienen ante su análisis, evaluaremos su activación. De lo contrario, descarta la integración sin exposición de capital.
+              Si al final las cuentas le cierran, miramos juntos cómo arrancar. Si no, no pasa nada: usted no arriesgó ni un peso.
             </p>
 
             {/* Secondary CTA — scrolls back to form or submits */}
@@ -508,7 +508,7 @@ export default function AuditoriaPatrimonialPage() {
                   document.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
               >
-                Iniciar Diagnóstico Estructural →
+                Empezar mi revisión gratis →
               </button>
             </a>
           </div>

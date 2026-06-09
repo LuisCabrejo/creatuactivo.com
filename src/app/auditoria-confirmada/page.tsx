@@ -25,23 +25,23 @@ const C = {
 };
 
 const WA_SALA =
-  'https://wa.me/573206805737?text=Hola+Luis,+he+confirmado+mi+registro+a+la+Auditor%C3%ADa+de+Arquitectura+Patrimonial.+Solicito+acceso+a+la+Sala+de+Coordenadas.';
+  'https://wa.me/573206805737?text=Hola+Luis,+confirm%C3%A9+mi+registro+a+la+revisi%C3%B3n+de+5+d%C3%ADas.+Quiero+acceso+al+grupo+de+soporte.';
 
 const STEPS = [
   {
     num: '01',
-    label: 'RECIBIR LAS COORDENADAS DIARIAS',
-    desc: 'A partir de mañana, a las 8:00 AM (hora estándar), el sistema inyectará en su bandeja de entrada el acceso al primer módulo de diagnóstico. Marque nuestro remitente como seguro para evitar bloqueos del servidor.',
+    label: 'RECIBA EL MATERIAL CADA DÍA',
+    desc: 'A partir de mañana, a las 8:00 AM, le llega a su correo el primer video. Agregue nuestro remitente a sus contactos para que no caiga en spam.',
   },
   {
     num: '02',
-    label: 'PROCESAR LOS DATOS DE LA INFRAESTRUCTURA',
-    desc: 'Cada módulo exige entre 15 y 20 minutos de análisis riguroso. Este protocolo no es material de fondo; requiere su atención aislada para comprender el apalancamiento estratégico.',
+    label: 'DEDÍQUELE 20 MINUTOS',
+    desc: 'Cada video pide unos 15 a 20 minutos de atención tranquila. No es para tener de fondo: véalo con calma para entender bien cómo funciona.',
   },
   {
     num: '03',
-    label: 'EVALUAR LA VIABILIDAD LOGÍSTICA',
-    desc: 'Al finalizar el quinto ciclo, usted dispondrá de los datos puros para determinar empíricamente si este ecosistema es matemáticamente compatible con su proyección de Soberanía Financiera.',
+    label: 'DECIDA CON NÚMEROS',
+    desc: 'Al terminar el día 5 tendrá los datos claros para decidir, por su cuenta, si esto encaja con la tranquilidad económica que busca para su familia.',
   },
 ];
 
@@ -142,7 +142,7 @@ export default function AuditoriaConfirmadaPage() {
                 letterSpacing: '0.2em', textTransform: 'uppercase',
                 color: C.gold,
               }}>
-                Estado: Protocolo Iniciado
+                Estado: Registro confirmado
               </span>
             </div>
 
@@ -155,7 +155,7 @@ export default function AuditoriaConfirmadaPage() {
               lineHeight: 1, marginBottom: '24px',
               textTransform: 'uppercase',
             }}>
-              Expediente<br />Habilitado.
+              Registro<br />confirmado.
             </h1>
 
             {/* H2 */}
@@ -165,7 +165,7 @@ export default function AuditoriaConfirmadaPage() {
               maxWidth: '480px', margin: '0 auto',
               fontFamily: "var(--font-sans)",
             }}>
-              Su solicitud de auditoría técnica ha sido procesada con éxito. La activación de los planos de Arquitectura Patrimonial iniciará en menos de 24 horas.
+              Su registro quedó confirmado. Mañana, en menos de 24 horas, le llega el primer video de la revisión de 5 días.
             </p>
           </section>
 
@@ -186,7 +186,7 @@ export default function AuditoriaConfirmadaPage() {
                 letterSpacing: '0.18em', textTransform: 'uppercase',
                 color: C.amber,
               }}>
-                Acción Inmediata Requerida
+                Véalo antes de empezar
               </span>
             </div>
 
@@ -197,14 +197,14 @@ export default function AuditoriaConfirmadaPage() {
               fontWeight: 700, color: C.white,
               marginBottom: '14px', lineHeight: 1.25,
             }}>
-              Memorándum Directivo: La Falla del Vehículo Tradicional
+              Antes de empezar: por qué el modelo de siempre se queda corto
             </h2>
 
             <p style={{
               fontSize: '0.9rem', color: C.muted, lineHeight: 1.75,
               marginBottom: '20px',
             }}>
-              Antes de inyectar las primeras coordenadas en su bandeja de entrada, reproduzca este informe directivo. Entender la falla estructural de los modelos convencionales es matemáticamente más rentable que cualquier táctica que auditará esta semana.
+              Antes de que le llegue el primer correo, vea este video. Entender por qué el modelo de toda la vida tiene un punto débil le va a servir más que cualquier técnica de esta semana.
             </p>
 
             {/* Video player */}
@@ -236,7 +236,7 @@ export default function AuditoriaConfirmadaPage() {
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: C.cyan, marginBottom: '14px',
             }}>
-              Instrucciones de Ejecución
+              Cómo va a funcionar
             </p>
 
             <h2 style={{
@@ -245,7 +245,7 @@ export default function AuditoriaConfirmadaPage() {
               fontWeight: 700, color: C.white,
               marginBottom: '32px', lineHeight: 1.2,
             }}>
-              Siguientes Pasos — Hoja de Ruta Operativa
+              Sus siguientes pasos
             </h2>
 
             <div style={{ borderTop: `1px solid ${C.divider}` }}>
@@ -292,7 +292,7 @@ export default function AuditoriaConfirmadaPage() {
                 letterSpacing: '0.2em', textTransform: 'uppercase',
                 color: C.cyan, marginBottom: '14px',
               }}>
-                Canal de Distribución Oficial
+                Su canal directo
               </p>
 
               <h2 style={{
@@ -301,16 +301,16 @@ export default function AuditoriaConfirmadaPage() {
                 fontWeight: 700, color: C.white,
                 marginBottom: '16px', lineHeight: 1.25,
               }}>
-                Conexión a la Central de Soporte
+                Quede conectado con el equipo
               </h2>
 
               <p style={{
                 fontSize: '0.9rem', color: C.muted, lineHeight: 1.75,
                 marginBottom: '28px',
               }}>
-                La distribución de material complementario, herramientas de diagnóstico y resolución de variables técnicas se ejecutará de manera exclusiva a través de nuestra sala táctica cifrada.
+                El material extra y la resolución de sus dudas las vamos a coordinar directamente por WhatsApp.
                 <br /><br />
-                Asegure su posición operativa ahora mismo:
+                Quede conectado ahora mismo:
               </p>
 
               <a href={WA_SALA} target="_blank" rel="noopener noreferrer" className="ap-btn-wa">
@@ -318,7 +318,7 @@ export default function AuditoriaConfirmadaPage() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
-                Acceder a la Sala de Coordenadas →
+                Entrar al grupo por WhatsApp →
               </a>
 
               <p style={{
@@ -327,7 +327,7 @@ export default function AuditoriaConfirmadaPage() {
                 color: C.muted, marginTop: '14px',
                 letterSpacing: '0.08em',
               }}>
-                Canal exclusivo · Distribución de material clasificado
+                Canal directo · Soporte personal
               </p>
             </div>
           </section>
@@ -349,14 +349,14 @@ export default function AuditoriaConfirmadaPage() {
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: C.muted,
           }}>
-            ¿Requiere asistencia técnica?{' '}
+            ¿Necesita ayuda?{' '}
             <a
               href="https://wa.me/573206805737"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: C.gold, textDecoration: 'none' }}
             >
-              Línea de soporte
+              Escríbanos
             </a>
           </p>
           <p style={{

@@ -1,6 +1,6 @@
-# Arsenal Reto 5 Días: Auditoría de Arquitectura Patrimonial v4.6
+# Arsenal Reto 5 Días: El Diagnóstico de 5 Días v4.7
 
-**Propósito:** Vender la ejecución de la "Auditoría de Arquitectura Patrimonial" (Auditoría de 5 Días).
+**Propósito:** Vender la ejecución del "Diagnóstico de 5 Días" (antes "Auditoría de Arquitectura Patrimonial"). ⚠️ La jerga clínica de las RESPUESTAS se conserva a propósito (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — permitida en RETO_05). Solo se renombró el PRODUCTO y los NOMBRES DE DÍA (cross-channel con squeeze/emails). Ver [[project_reto_12niveles_no_migrar]].
 **Enfoque:** Due Diligence y Re-Arquitectura del **Déficit Estructural de Ingresos**: la falla de diseño en los cimientos donde el ingreso del Propietario depende 100% de su presencia física. La consecuencia matemática de esta falla —el colapso del flujo de caja al detenerse— es lo que se neutraliza.
 **Versión:** 4.6 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas), "WhatsApp operará" → "funcionará". ⏳ SIGUE pendiente la migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico, Ancho de Banda Mental, "escalable") — fuera de este swap. Cifras/estructura intactas.
 **Versión:** 4.5 (7 Jun 2026) — Swaps obvios de léxico accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Física → El Respaldo Operativo. Pendiente: migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico). Cifras/estructura intactas.
@@ -12,10 +12,10 @@
 
 ## 1. DEFINICIÓN DEL PRODUCTO
 
-### RETO_01: "¿Qué es la Auditoría de Arquitectura Patrimonial?" / "¿Qué es el Mapa de Salida?"
+### RETO_01: "¿Qué es el Diagnóstico de 5 Días?" / "¿Qué es el Mapa de Salida?"
 **[Concepto Nuclear]:** Auditoría Logística y Re-Arquitectura Financiera.
 
-La Auditoría de Arquitectura Patrimonial opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Propietario depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
+El Diagnóstico de 5 Días opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Propietario depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
 
 Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propio negocio digital a una cadena de suministro global operativa en más de 70 países.
 
@@ -23,16 +23,16 @@ A nivel directivo, la herramienta no está diseñada para optimizar su velocidad
 
 ---
 
-### RETO_02: "¿Qué voy a evaluar exactamente en la Auditoría de Arquitectura Patrimonial?" / "¿Cuál es el temario?"
+### RETO_02: "¿Qué voy a evaluar exactamente en el Diagnóstico de 5 Días?" / "¿Cuál es el temario?"
 **[Concepto Nuclear]:** Desglose Estructural y Tracción Híbrida.
 
 Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logístico. Desglosamos la máquina en 5 fases de validación técnica:
 
-* **Día 1 — Diagnóstico Estructural:** Identificación de fallas en su arquitectura de ingresos actual.
-* **Día 2 — Análisis de Escalabilidad:** Por qué el modelo operativo manual tiene un techo técnico.
-* **Día 3 — Acoplamiento Híbrido:** Integración del Respaldo Operativo (Pilar 1) y automatización del Centro de Mando (Pilar 2).
-* **Día 4 — Matriz de Amortización:** Matemática de liquidez recurrente y valor patrimonial de su negocio digital.
-* **Día 5 — Protocolo de Activación:** Decisión directiva y asignación de activos.
+* **Día 1 — El Diagnóstico:** Identificación de fallas en su arquitectura de ingresos actual.
+* **Día 2 — El Techo:** Por qué el modelo operativo manual tiene un techo técnico.
+* **Día 3 — La Máquina:** Integración del Respaldo Operativo (Pilar 1) y automatización del Centro de Mando (Pilar 2).
+* **Día 4 — Los Números:** Matemática de liquidez recurrente y valor patrimonial de su negocio digital.
+* **Día 5 — La Decisión:** Decisión directiva y asignación de activos.
 
 Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de dirección, sin suposiciones ni fricción emocional.
 
@@ -63,7 +63,7 @@ Usted no requiere sincronizar horarios; requiere ejecutar el análisis de los da
 
 ---
 
-### RETO_05: "¿Qué necesito para acceder a la Auditoría de Arquitectura Patrimonial?" / "Requisitos"
+### RETO_05: "¿Qué necesito para acceder al Diagnóstico de 5 Días?" / "Requisitos"
 **[Concepto Nuclear]:** Calificación Operativa y Madurez Analítica.
 
 La inyección de datos a su expediente exige estricta Calificación Operativa. Usted requiere cumplir con tres parámetros técnicos para procesar la información:

@@ -28,7 +28,7 @@ interface Dia4Props {
 export const Dia4Estigma = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-4',
+  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-4',
 }: Dia4Props) => {
   const previewText = `Módulo 04 habilitado. La Matriz de Amortización está lista para auditoría.`;
 

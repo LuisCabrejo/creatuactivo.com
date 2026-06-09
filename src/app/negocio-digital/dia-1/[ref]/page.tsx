@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * Módulo 01 con ref de distribuidor
- * Ruta: /auditoria-patrimonial/dia-1/[ref]
+ * Ruta: /negocio-digital/dia-1/[ref]
  * Re-exporta la página principal; el tracking del ref
  * se realiza vía tracking.js leyendo el path de la URL.
  */

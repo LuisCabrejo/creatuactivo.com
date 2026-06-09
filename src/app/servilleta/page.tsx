@@ -1812,9 +1812,9 @@ export default function ServilletaPage() {
                       ACTIVAR SU NEGOCIO DIGITAL →
                     </a>
 
-                    {/* CTA Secundario → /auditoria-patrimonial */}
+                    {/* CTA Secundario → /negocio-digital */}
                     <a
-                      href="https://creatuactivo.com/auditoria-patrimonial"
+                      href="https://creatuactivo.com/negocio-digital"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"

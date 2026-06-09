@@ -28,7 +28,7 @@ interface Dia3Props {
 export const Dia3Modelo = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-3',
+  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-3',
 }: Dia3Props) => {
   const previewText = `Módulo 03 habilitado. Los planos de la Máquina Híbrida están listos.`;
 

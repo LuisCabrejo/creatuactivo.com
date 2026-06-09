@@ -19,7 +19,7 @@ const supabase = createClient(
 
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
-  'auditoria':     (id) => `/auditoria-patrimonial?ref=${id}`,
+  'auditoria':     (id) => `/negocio-digital?ref=${id}`,
   'calculadora':   (id) => `/calculadora/${id}`,
   'productos':     (id) => `/sistema/productos/${id}`,
   'servilleta':    (id) => `/servilleta/${id}`,
@@ -28,15 +28,15 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
   'red':           (id) => `/fundadores-network/${id}`,
   // Auditoría — días individuales
-  'dia-1': (id) => `/auditoria-patrimonial/dia-1?ref=${id}`,
-  'dia-2': (id) => `/auditoria-patrimonial/dia-2?ref=${id}`,
-  'dia-3': (id) => `/auditoria-patrimonial/dia-3?ref=${id}`,
-  'dia-4': (id) => `/auditoria-patrimonial/dia-4?ref=${id}`,
-  'dia-5': (id) => `/auditoria-patrimonial/dia-5?ref=${id}`,
+  'dia-1': (id) => `/negocio-digital/dia-1?ref=${id}`,
+  'dia-2': (id) => `/negocio-digital/dia-2?ref=${id}`,
+  'dia-3': (id) => `/negocio-digital/dia-3?ref=${id}`,
+  'dia-4': (id) => `/negocio-digital/dia-4?ref=${id}`,
+  'dia-5': (id) => `/negocio-digital/dia-5?ref=${id}`,
   // Legado — siguen funcionando si alguien tiene el link guardado
   'presentacion':  (id) => `/presentacion-empresarial/${id}`,
   'reto':          (id) => `/reto-12-niveles/${id}`,
-  'activacion':    (id) => `/auditoria-patrimonial?ref=${id}`,
+  'activacion':    (id) => `/negocio-digital?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {

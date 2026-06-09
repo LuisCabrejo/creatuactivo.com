@@ -28,7 +28,7 @@ interface Dia5Props {
 export const Dia5Invitacion = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-5',
+  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-5',
 }: Dia5Props) => {
   const previewText = `Módulo 05 habilitado. El Protocolo de Activación está listo para su decisión directiva.`;
 

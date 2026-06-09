@@ -42,7 +42,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
     : null
 
   // Auditoría de 5 días (escenario 2 del cierre) — squeeze con atribución
-  const auditoriaUrl = refId ? `/auditoria-patrimonial?ref=${refId}` : '/auditoria-patrimonial'
+  const auditoriaUrl = refId ? `/negocio-digital?ref=${refId}` : '/negocio-digital'
 
   // Activación inmediata (escenario 3) — WhatsApp del arquitecto, mensaje de decisión tomada
   const waUrl = constructor.whatsapp
@@ -84,7 +84,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
 
       <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '36px' }}>
         {/* 1 — Reel 9:16 + burbuja Queswa contextual (client) */}
-        <ReelVideo poster={REEL_POSTER} src={assets.video} />
+        <ReelVideo poster={REEL_POSTER} src={assets.video} nicho={nicho} />
 
         {/* 2 — Título */}
         <h1

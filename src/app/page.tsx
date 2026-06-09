@@ -427,7 +427,7 @@ function SolutionPreview() {
           <Link href="/calculadora" className="cta-base cta-primary">
             Calcular mi número →
           </Link>
-          <Link href="/auditoria-patrimonial" className="cta-base cta-secondary">
+          <Link href="/negocio-digital" className="cta-base cta-secondary">
             Omitir y empezar el Diagnóstico →
           </Link>
         </div>
@@ -567,7 +567,7 @@ function FinalCTASection() {
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
-          <Link href="/auditoria-patrimonial" className="cta-base cta-primary">
+          <Link href="/negocio-digital" className="cta-base cta-primary">
             Iniciar el Diagnóstico de 5 Días →
           </Link>
           <Link href="/calculadora" className="cta-base cta-secondary">

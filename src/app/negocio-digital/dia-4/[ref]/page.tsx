@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * Módulo 04 con ref de distribuidor
- * Ruta: /auditoria-patrimonial/dia-4/[ref]
+ * Ruta: /negocio-digital/dia-4/[ref]
  */
 
 import Modulo04Page from '../page';

@@ -28,7 +28,7 @@ interface Dia2Props {
 export const Dia2Vehiculos = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/auditoria-patrimonial/dia-2',
+  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-2',
 }: Dia2Props) => {
   const previewText = `Módulo 02 habilitado. Análisis del techo técnico de su modelo operativo.`;
 

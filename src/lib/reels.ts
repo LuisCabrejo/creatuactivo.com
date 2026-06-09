@@ -32,30 +32,30 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     audiencia: 'Empleado corporativo / ejecutivo',
     titulo: 'Su salario resuelve su liquidez hoy. ¿Y si mañana el sistema decide prescindir de su cargo?',
     cuerpo:
-      'El mercado jamás le pagará una fracción real de lo que usted genera dentro de una estructura que no le pertenece. La respuesta para blindarse no es trabajar más duro: es asumir la dirección de una Estructura Patrimonial sólida. Una Base Operativa con presencia en 15 países, sostenida por tres pilares que absorben la fricción operativa por usted.\n\nVea la auditoría de 7 minutos y determine si su modelo de ingresos exige este nivel de arquitectura hoy.',
+      'El mercado rara vez paga afuera lo que usted vale adentro de una empresa que no es suya. La respuesta no es trabajar más duro, ni renunciar a lo que ya construyó: es tener algo propio, en paralelo. Un negocio digital que produce por usted —ya funcionando en 15 países de América— sostenido por tres pilares que cargan el trabajo pesado: Gano Excel pone la logística; Queswa, su inteligencia artificial, atiende a los interesados las 24 horas; y un método probado le marca cada paso.\n\nVea la presentación de 7 minutos y, en el enlace, deje que Queswa revise su caso.',
   },
   empleados: {
     audiencia: 'Empleado del Estado / sector público',
-    titulo: 'Estabilidad no es soberanía. Si las cuotas siempre le llevan la delantera, usted tiene una suscripción al agotamiento.',
+    titulo: 'La estabilidad de un cargo es prestada. Si las cuotas siempre le llevan la delantera, usted no tiene estabilidad real: tiene una suscripción al agotamiento.',
     cuerpo:
-      'Mientras su ingreso dependa de sus horas de oficina o de la firma de un tercero, su tranquilidad es solo una tregua temporal. Existe una salida estructural: una Base Operativa que se expande por diseño, no por desgaste físico. Sostenida por una matriz global, un motor de inteligencia artificial que califica contactos 24/7, y un protocolo exacto de ejecución.\n\nVea la presentación técnica y evalúe los datos con frialdad matemática.',
+      'Mientras su ingreso dependa de sus horas de oficina o de la firma de un tercero, su tranquilidad es solo una tregua temporal. La salida no es trabajar más: es tener algo propio, en paralelo. Un negocio digital que crece por diseño, no por su desgaste —sostenido por Gano Excel, que pone la logística; Queswa, su inteligencia artificial, que atiende a los interesados 24/7; y un método probado que le marca cada paso.\n\nVea la presentación y, en el enlace, deje que Queswa revise su caso.',
   },
   empresarios: {
     audiencia: 'Empresario / dueño de negocio',
     titulo: 'Si su empresa no crece sin usted durante tres meses, no tiene un activo: tiene una prisión operativa de alto estatus.',
     cuerpo:
-      'Un cargo autogestionado no se hereda, no se escala y no produce sin su supervisión. La arquitectura correcta transforma su tiempo en un activo que factura de forma autónoma, apalancado en tres pilares que asumen la logística, el despliegue tecnológico y la metodología comercial.\n\nVea el desglose operativo en 7 minutos y audite la diferencia entre ser un engranaje y ser un director.',
+      'Un cargo autogestionado no se hereda, no se vende y no produce sin su supervisión. La salida es tener algo que sí funcione sin usted: un negocio digital, sostenido por tres pilares que cargan el trabajo pesado —Gano Excel pone la logística; Queswa atiende a los interesados 24/7; y un método probado le marca cada paso.\n\nVea la presentación de 7 minutos y, en el enlace, deje que Queswa revise su caso.',
   },
   diaspora: {
     audiencia: 'Latinos en el exterior',
     titulo: 'Ganar en dólares o euros es una trampa elegante si su propio desgaste físico es el único motor de su economía.',
     cuerpo:
-      'Usted ya construyó una nueva vida; pero si se detiene 30 días, su flujo de caja colapsa. La respuesta no exige sumar más horas operativas a su semana: exige instalar una Estructura Patrimonial que facture a su favor desde una Base Operativa consolidada en 15 países de América.\n\nVea la presentación y determine, con números en mano, si su tranquilidad financiera requiere esta base hoy.',
+      'Usted ya construyó una nueva vida; pero si se detiene 30 días, todo se tambalea. La respuesta no es sumar más horas a su semana: es tener algo propio que funcione sin usted. Un negocio digital, ya funcionando en 15 países de América, sostenido por tres pilares que cargan el trabajo pesado —Gano Excel pone la logística; Queswa atiende a los interesados 24/7; y un método probado le marca cada paso.\n\nVea la presentación y, en el enlace, deje que Queswa revise su caso.',
   },
   informales: {
     audiencia: 'Trabajador independiente / economía popular',
     titulo: 'Si usted se detiene, su ingreso se detiene. Eso no es falta de capacidad: es un sistema calibrado para vivir al día.',
     cuerpo:
-      'Cambiar sus horas por un dinero que no le deja margen de maniobra es una falla estructural. Existe una ruta matemática para construir un ingreso que no dependa del sudor diario: asumir el control de una Base Operativa real, impulsada por una corporación global, tecnología que absorbe la fricción y un protocolo de ejecución probado.\n\nVea la auditoría de 7 minutos y determine el escenario que su economía necesita hoy.',
+      'Cambiar sus horas por un dinero que se le va de las manos es una falla del sistema, no suya. Hay una ruta para construir un ingreso que no dependa del sudor diario: tener algo propio, un negocio digital que produce por usted —sostenido por Gano Excel, que pone la logística; Queswa, que atiende a los interesados 24/7; y un método probado que le marca cada paso.\n\nVea la presentación de 7 minutos y, en el enlace, deje que Queswa revise su caso.',
   },
 }

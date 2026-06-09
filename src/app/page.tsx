@@ -126,7 +126,7 @@ function HeroSection() {
 
         {/* CTA primario — Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */}
         <Link href="/mapa-de-salida" className="cta-base cta-primary">
-          Iniciar Auditoría de Viabilidad →
+          Iniciar el Diagnóstico de 5 Días →
         </Link>
 
         {/* Micro-copy */}
@@ -428,7 +428,7 @@ function SolutionPreview() {
             Calcular mi número →
           </Link>
           <Link href="/auditoria-patrimonial" className="cta-base cta-secondary">
-            Omitir y empezar la Auditoría →
+            Omitir y empezar el Diagnóstico →
           </Link>
         </div>
       </div>
@@ -547,7 +547,7 @@ function FinalCTASection() {
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '12px' }}>
-          La Auditoría de 5 Días
+          El Diagnóstico de 5 Días
         </h2>
 
         <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "var(--font-serif)" }}>
@@ -568,7 +568,7 @@ function FinalCTASection() {
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
           <Link href="/auditoria-patrimonial" className="cta-base cta-primary">
-            Iniciar Auditoría de Viabilidad →
+            Iniciar el Diagnóstico de 5 Días →
           </Link>
           <Link href="/calculadora" className="cta-base cta-secondary">
             Calcular mi número →

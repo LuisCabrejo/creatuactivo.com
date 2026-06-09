@@ -380,7 +380,7 @@ export default function TecnologiaPage() {
                 ¿Desea auditar esta tecnología?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Inicie la Auditoría Patrimonial de 5 Días y compruebe empíricamente cómo este
+                Inicie el Diagnóstico de 5 Días y compruebe empíricamente cómo este
                 motor cognitivo neutraliza la falla de diseño donde su ingreso depende 100% de
                 su presencia física.
               </p>
@@ -390,7 +390,7 @@ export default function TecnologiaPage() {
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
-                INICIAR AUDITORÍA PATRIMONIAL →
+                INICIAR EL DIAGNÓSTICO →
               </Link>
 
               <p className="text-sm mt-6 text-[#64748B]">

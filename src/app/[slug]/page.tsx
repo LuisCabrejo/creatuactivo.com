@@ -24,7 +24,7 @@ const supabase = createClient(
 // Destinos disponibles — orden: Home primero, Auditoría destacada, resto secundarios
 const DESTINOS = [
   { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false, color: '#7B8FA6' },
-  { key: 'auditoria',   label: 'Auditoría Patrimonial',      Icon: Target,     desc: 'Audite su punto de partida',           highlight: true,  color: '#C9A96E' },
+  { key: 'auditoria',   label: 'Diagnóstico de 5 Días',      Icon: Target,     desc: 'Conozca su punto de partida',          highlight: true,  color: '#C9A96E' },
   { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecte su potencial',                highlight: false, color: '#7A9E8A' },
   { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false, color: '#9E8A7A' },
   { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false, color: '#8A7A9E' },

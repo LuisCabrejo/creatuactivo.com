@@ -317,7 +317,7 @@ export default function PlanesTecnologicosPage() {
                   borderColor={C.success}
                   accentColor={C.success}
                   icon={<Layers size={18} />}
-                  ctaText="INICIAR AUDITORÍA"
+                  ctaText="INICIAR DIAGNÓSTICO"
                   ctaHref="/mapa-de-salida"
                 />
 

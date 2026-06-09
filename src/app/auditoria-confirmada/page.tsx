@@ -25,7 +25,7 @@ const C = {
 };
 
 const WA_SALA =
-  'https://wa.me/573206805737?text=Hola+Luis,+confirm%C3%A9+mi+registro+a+la+revisi%C3%B3n+de+5+d%C3%ADas.+Quiero+acceso+al+grupo+de+soporte.';
+  'https://wa.me/573206805737?text=Hola+Luis,+confirm%C3%A9+mi+registro+al+diagn%C3%B3stico+de+5+d%C3%ADas.+Quiero+acceso+al+grupo+de+soporte.';
 
 const STEPS = [
   {
@@ -165,7 +165,7 @@ export default function AuditoriaConfirmadaPage() {
               maxWidth: '480px', margin: '0 auto',
               fontFamily: "var(--font-sans)",
             }}>
-              Su registro quedó confirmado. Mañana, en menos de 24 horas, le llega el primer video de la revisión de 5 días.
+              Su registro quedó confirmado. Mañana, en menos de 24 horas, le llega el primer video del diagnóstico de 5 días.
             </p>
           </section>
 

@@ -1819,7 +1819,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"
                     >
-                      VER LA AUDITOR&Iacute;A DE 5 D&Iacute;AS →
+                      VER EL DIAGN&Oacute;STICO DE 5 D&Iacute;AS →
                     </a>
                   </div>
 

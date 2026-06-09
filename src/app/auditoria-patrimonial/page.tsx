@@ -244,7 +244,7 @@ export default function AuditoriaPatrimonialPage() {
                 letterSpacing: '0.22em', textTransform: 'uppercase',
                 color: C.cyan,
               }}>
-                Revisión gratuita de 5 días · Acceso por invitación
+                Diagnóstico gratuito de 5 días · Acceso por invitación
               </span>
             </div>
 
@@ -358,7 +358,7 @@ export default function AuditoriaPatrimonialPage() {
                       </svg>
                       Listo, ya quedó
                     </span>
-                  ) : isSubmitting ? 'Procesando...' : 'Quiero mi revisión gratis →'}
+                  ) : isSubmitting ? 'Procesando...' : 'Quiero mi diagnóstico gratis →'}
                 </button>
               </div>
 
@@ -508,7 +508,7 @@ Lo único que le pedimos
                   document.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
               >
-                Empezar mi revisión gratis →
+                Empezar mi diagnóstico gratis →
               </button>
             </a>
           </div>

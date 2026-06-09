@@ -102,7 +102,7 @@ export default function Modulo05Page() {
 
         <div style={{ borderLeft: `2px solid ${C.gold}`, padding: '18px 24px', margin: '28px 0', background: 'rgba(197, 160, 89,0.04)' }}>
           <p style={{ color: '#E5E5E5', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>
-            Su proceso de validación técnica (Due Diligence) está completo. Determine su <strong>nivel de integración</strong> y ejecute el paso final para oficializar su Unidad Operativa.
+            Los cinco días están completos. Con los números sobre la mesa, decida <strong>con cuál de las tres formas quiere empezar</strong> y dé el paso final para activar su negocio digital.
           </p>
         </div>
 

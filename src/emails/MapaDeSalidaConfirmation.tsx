@@ -1,6 +1,6 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Mapa de Salida - Email de Confirmación de Registro
+ * Diagnóstico de 5 Días - Email de Confirmación de Registro (legacy mapa-de-salida)
  * Diseño Quiet Luxury (gold + dark)
  */
 
@@ -26,7 +26,7 @@ interface MapaDeSalidaConfirmationProps {
 export const MapaDeSalidaConfirmationEmail = ({
   firstName = 'Hola',
 }: MapaDeSalidaConfirmationProps) => {
-  const previewText = `${firstName}, tu Mapa de Salida está listo — y dice algo importante`;
+  const previewText = `${firstName}, tu Diagnóstico de 5 Días está listo.`;
 
   const colors = {
     bg: '#0a0a0f',
@@ -101,7 +101,7 @@ export const MapaDeSalidaConfirmationEmail = ({
                 lineHeight: '1.3'
               }}
             >
-              {firstName}, tu Mapa llegó.
+              {firstName}, ya estás dentro.
             </Heading>
           </Section>
 
@@ -126,7 +126,7 @@ export const MapaDeSalidaConfirmationEmail = ({
                 textAlign: 'center' as const
               }}
             >
-              Completaste tu <span style={{ color: colors.gold, fontWeight: '600' }}>Mapa de Salida</span>.
+              Te registraste al <span style={{ color: colors.gold, fontWeight: '600' }}>Diagnóstico de 5 Días</span>.
             </Text>
 
             <Text
@@ -175,7 +175,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de completar mi Mapa de Salida.`)}`}
+                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de registrarme al Diagnóstico de 5 Días.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -230,10 +230,10 @@ export const MapaDeSalidaConfirmationEmail = ({
               fontSize: '15px',
               lineHeight: '24px'
             }}>
-              Hacia tu soberanía,<br /><br />
+              Hacia tu tranquilidad,<br /><br />
               <strong>Luis Cabrejo</strong><br />
               <span style={{ color: colors.gold, fontSize: '13px' }}>
-                Arquitecto de Activos
+                Fundador de CreaTuActivo
               </span>
             </Text>
           </Section>
@@ -258,7 +258,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               color: colors.textSubtle,
               fontSize: '11px'
             }}>
-              Recibes este correo porque completaste el Mapa de Salida
+              Recibes este correo porque te registraste al Diagnóstico de 5 Días
             </Text>
             <Link
               href="https://wa.me/573206805737"

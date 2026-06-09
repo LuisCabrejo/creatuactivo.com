@@ -117,8 +117,8 @@ export async function POST(request: NextRequest) {
       const nombre = data.name?.split(' ')[0] || 'Un prospecto'
       notifyConstructor(
         constructorRef,
-        `🎯 ¡Nuevo prospecto en tu mapa!`,
-        `${nombre} acaba de registrarse en El Mapa de Salida.`
+        `🎯 ¡Nuevo prospecto en tu Diagnóstico!`,
+        `${nombre} acaba de registrarse en el Diagnóstico de 5 Días.`
       )
     }
 
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
       notifyConstructor(
         constructorRef,
         `👀 ¡Tu prospecto está en la página de confirmación!`,
-        `Alguien llegó a tu página de gracias del Mapa de Salida. Momento de contactar.`
+        `Alguien llegó a tu página de confirmación del Diagnóstico de 5 Días. Momento de contactar.`
       )
     }
 
@@ -429,9 +429,9 @@ async function sendWhatsAppMessage(
           // Mensaje directo para sandbox (no requiere template aprobado)
           Body: `¡Hola ${firstName}! 👋
 
-Bienvenido al Mapa de Salida de CreaTuActivo.
+Bienvenido al Diagnóstico de 5 Días de CreaTuActivo.
 
-Tu acceso está confirmado. Mañana recibirás la Coordenada 1: "El Diagnóstico".
+Tu acceso está confirmado. Mañana recibirás el Día 1: "El Diagnóstico".
 
 Guarda este número para no perderte ningún mensaje.
 
@@ -471,7 +471,7 @@ async function sendRetoWelcomeEmail(
         from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
         to: [email],
         replyTo: 'hola@creatuactivo.com',
-        subject: `¡${firstName}, tu Mapa de Salida está activado!`,
+        subject: `¡${firstName}, su Diagnóstico de 5 Días está activado!`,
         html: emailHtml,
       });
 
@@ -518,7 +518,7 @@ async function sendMapaWelcomeEmail(
         from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
         to: [email],
         replyTo: 'hola@creatuactivo.com',
-        subject: `${firstName}, tu Mapa de Salida está listo`,
+        subject: `${firstName}, su Diagnóstico de 5 Días está listo`,
         html: emailHtml,
       });
 
@@ -555,7 +555,7 @@ async function sendAdminNotification(
   const adminHtml = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 20px; background-color: #0f172a; color: #f8fafc;">
       <div style="margin-bottom: 24px;">
-        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Mapa de Salida</span>
+        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Diagnóstico de 5 Días</span>
         <h1 style="margin: 8px 0 0; color: #f8fafc; font-size: 28px; font-weight: 700;">Nuevo Registro</h1>
         <p style="margin: 8px 0 0; color: #64748b; font-size: 14px;">${fechaRegistro}</p>
       </div>
@@ -591,7 +591,7 @@ async function sendAdminNotification(
     const { error } = await getResendClient().emails.send({
       from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
       to: ['notificaciones@creatuactivo.com'],
-      subject: `🗺️ Nuevo registro Mapa de Salida: ${firstName}`,
+      subject: `Nuevo registro Diagnóstico de 5 Días: ${firstName}`,
       html: adminHtml,
     });
 

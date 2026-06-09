@@ -48,7 +48,7 @@ export const Dia2Vehiculos = ({
             </Text>
           </Section>
 
-          {/* Coordenada badge */}
+          {/* Día badge */}
           <Section style={badgeSection}>
             <Text style={badgeLabel}>DÍA 2 DE 5 · EL TECHO</Text>
           </Section>
@@ -72,7 +72,7 @@ export const Dia2Vehiculos = ({
               Hoy vemos su "techo": por qué hacerlo todo a mano siempre topa con un límite — y cómo se rompe poniéndole una palanca.
             </Text>
 
-            {/* Protocolo de Ejecución */}
+            {/* Pasos */}
             <Section style={protocolBox}>
               <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[

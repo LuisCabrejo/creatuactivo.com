@@ -102,7 +102,7 @@ export const Email3Epiphany = ({
             </Text>
 
             <Text style={paragraph}>
-              Cuando entendí esto, empecé a buscar un vehículo diferente.
+              Cuando entendí esto, empecé a buscar un camino diferente.
             </Text>
 
             <Text style={paragraph}>

@@ -48,7 +48,7 @@ export const Dia3Modelo = ({
             </Text>
           </Section>
 
-          {/* Coordenada badge */}
+          {/* Día badge */}
           <Section style={badgeSection}>
             <Text style={badgeLabel}>DÍA 3 DE 5 · LA MÁQUINA</Text>
           </Section>
@@ -74,7 +74,7 @@ export const Dia3Modelo = ({
               Hoy le muestro cómo se arma su negocio digital: una empresa real presente en 70 países y una inteligencia artificial, trabajando juntas bajo su dirección.
             </Text>
 
-            {/* Protocolo de Ejecución */}
+            {/* Pasos */}
             <Section style={protocolBox}>
               <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[

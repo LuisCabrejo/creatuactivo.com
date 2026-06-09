@@ -48,7 +48,7 @@ export const Dia5Invitacion = ({
             </Text>
           </Section>
 
-          {/* Coordenada badge */}
+          {/* Día badge */}
           <Section style={badgeSection}>
             <Text style={badgeLabel}>DÍA 5 DE 5 · LA DECISIÓN</Text>
           </Section>
@@ -75,7 +75,7 @@ export const Dia5Invitacion = ({
               —según con cuánto inventario quiera arrancar— y el paso final para activar su negocio digital.
             </Text>
 
-            {/* Protocolo de Ejecución */}
+            {/* Pasos */}
             <Section style={protocolBox}>
               <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[

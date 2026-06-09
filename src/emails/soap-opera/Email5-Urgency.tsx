@@ -84,18 +84,18 @@ export const Email5Urgency = ({
             </Section>
 
             <Text style={paragraph}>
-              Te invito a auditar tu situación con <strong>El Mapa de Salida</strong>.
+              Te invito a hacer tu <strong>Diagnóstico de 5 Días</strong>.
             </Text>
 
             <Text style={paragraph}>
               5 días. 15 minutos al día. Por WhatsApp.
             </Text>
 
-            <Text style={bulletPoint}>✓ <strong>Día 1:</strong> El Diagnóstico — dónde estás realmente</Text>
-            <Text style={bulletPoint}>✓ <strong>Día 2:</strong> Los Vehículos — qué opciones tienes</Text>
-            <Text style={bulletPoint}>✓ <strong>Día 3:</strong> El Nuevo Modelo — la matemática que funciona</Text>
-            <Text style={bulletPoint}>✓ <strong>Día 4:</strong> El Estigma — cómo construir sin vergüenza</Text>
-            <Text style={bulletPoint}>✓ <strong>Día 5:</strong> La Invitación — tu siguiente paso</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 1:</strong> El Diagnóstico — de qué depende tu ingreso hoy</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 2:</strong> El Techo — por qué trabajar más horas no alcanza</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 3:</strong> La Máquina — cómo se arma tu negocio digital</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 4:</strong> Los Números — cómo y cuánto se gana</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 5:</strong> La Decisión — tu siguiente paso</Text>
 
             <Text style={paragraph}>
               <strong>100% gratis.</strong> Sin tarjeta. Sin compromiso.
@@ -104,16 +104,16 @@ export const Email5Urgency = ({
             {/* CTA Principal */}
             <Section style={ctaSection}>
               <Button
-                href="https://creatuactivo.com/mapa-de-salida?source=email-sequence"
+                href="https://creatuactivo.com/negocio-digital?source=email-sequence"
                 style={ctaButton}
               >
-                Auditar con El Mapa de Salida
+                Hacer mi Diagnóstico de 5 Días
               </Button>
             </Section>
 
             <Text style={urgencyText}>
-              El Mapa de Salida está disponible ahora. Cada semana que pasa es
-              una semana más operando sin la arquitectura correcta.
+              El Diagnóstico de 5 Días está disponible ahora. Cada semana que pasa es
+              una semana más dependiendo solo de tus horas.
             </Text>
 
             <Text style={signature}>

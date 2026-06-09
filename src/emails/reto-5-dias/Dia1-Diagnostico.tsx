@@ -48,7 +48,7 @@ export const Dia1Diagnostico = ({
             </Text>
           </Section>
 
-          {/* Coordenada badge */}
+          {/* Día badge */}
           <Section style={badgeSection}>
             <Text style={badgeLabel}>DÍA 1 DE 5 · EL DIAGNÓSTICO</Text>
           </Section>
@@ -68,7 +68,7 @@ export const Dia1Diagnostico = ({
               El día de hoy va al grano: ver de qué depende su ingreso hoy. Hágase la pregunta incómoda — si tuviera que parar unos meses, ¿qué pasaría con la plata que entra cada mes? Lo vemos con números reales, no con suposiciones.
             </Text>
 
-            {/* Protocolo de Ejecución */}
+            {/* Pasos */}
             <Section style={protocolBox}>
               <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[

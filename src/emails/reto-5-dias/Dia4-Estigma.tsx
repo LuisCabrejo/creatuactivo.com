@@ -48,7 +48,7 @@ export const Dia4Estigma = ({
             </Text>
           </Section>
 
-          {/* Coordenada badge */}
+          {/* Día badge */}
           <Section style={badgeSection}>
             <Text style={badgeLabel}>DÍA 4 DE 5 · LOS NÚMEROS</Text>
           </Section>
@@ -78,7 +78,7 @@ export const Dia4Estigma = ({
               — que le sigue entrando aunque usted no esté.
             </Text>
 
-            {/* Protocolo de Ejecución */}
+            {/* Pasos */}
             <Section style={protocolBox}>
               <Text style={protocolTitle}>CÓMO APROVECHARLO</Text>
               {[

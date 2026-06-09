@@ -1,7 +1,7 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * Auditoría de Arquitectura Patrimonial — Email de Confirmación de Registro v4.0
- * Diseño Lujo Clínico (gold + dark)
+ * El Diagnóstico de 5 Días — Email de Confirmación de Registro v5.0
+ * Registro accesible (gold + dark)
  */
 
 import * as React from 'react';
@@ -26,7 +26,7 @@ interface Reto5DiasConfirmationProps {
 export const Reto5DiasConfirmationEmail = ({
   firstName = 'Director',
 }: Reto5DiasConfirmationProps) => {
-  const previewText = `${firstName}, su Auditoría de Arquitectura Patrimonial está activada.`;
+  const previewText = `${firstName}, su Diagnóstico de 5 Días está activado.`;
 
   // Lujo Clínico palette
   const colors = {
@@ -100,7 +100,7 @@ export const Reto5DiasConfirmationEmail = ({
               textTransform: 'uppercase' as const,
               fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }}>
-              AUDITORÍA DE ARQUITECTURA PATRIMONIAL — ACCESO CONFIRMADO
+EL DIAGNÓSTICO DE 5 DÍAS — ACCESO CONFIRMADO
             </Text>
           </Section>
 
@@ -141,7 +141,7 @@ export const Reto5DiasConfirmationEmail = ({
                 textAlign: 'center' as const
               }}
             >
-              Su acceso a la <span style={{ color: colors.gold, fontWeight: '600' }}>Auditoría de Arquitectura Patrimonial</span> está confirmado.
+              Su acceso al <span style={{ color: colors.gold, fontWeight: '600' }}>Diagnóstico de 5 Días</span> está confirmado.
             </Text>
 
             <Text
@@ -172,7 +172,7 @@ export const Reto5DiasConfirmationEmail = ({
                 fontWeight: '500'
               }}
             >
-              Mañana recibirá la Coordenada 01: "Diagnóstico Estructural"
+              Mañana le llega el Día 1: "El Diagnóstico"
             </Text>
           </Section>
 
@@ -191,7 +191,7 @@ export const Reto5DiasConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso a la Auditoría Patrimonial.`)}`}
+                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de confirmar mi acceso al Diagnóstico de 5 Días.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -221,15 +221,15 @@ export const Reto5DiasConfirmationEmail = ({
               textAlign: 'center' as const,
               fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }}>
-              Hoja de ruta — 5 coordenadas
+Hoja de ruta — los 5 días
             </Text>
 
             {[
-              { day: '01', title: 'Diagnóstico Estructural', desc: 'Análisis de su modelo actual' },
-              { day: '02', title: 'El Techo Técnico', desc: 'Análisis de Escalabilidad' },
-              { day: '03', title: 'Acoplamiento Híbrido', desc: 'La Máquina Operativa' },
-              { day: '04', title: 'Matriz de Amortización', desc: 'Ingeniería de Liquidez' },
-              { day: '05', title: 'Protocolo de Activación', desc: 'Decisión Directiva' },
+              { day: '1', title: 'El Diagnóstico', desc: 'De qué depende su ingreso hoy' },
+              { day: '2', title: 'El Techo', desc: 'Por qué hacerlo todo a mano tiene límite' },
+              { day: '3', title: 'La Máquina', desc: 'Cómo se arma su negocio digital' },
+              { day: '4', title: 'Los Números', desc: 'Cómo y cuánto se gana' },
+              { day: '5', title: 'La Decisión', desc: 'Con los números, usted decide' },
             ].map((item) => (
               <Text key={item.day} style={{
                 margin: '0 0 8px',
@@ -237,7 +237,7 @@ export const Reto5DiasConfirmationEmail = ({
                 fontSize: '15px',
                 lineHeight: '24px'
               }}>
-                <span style={{ color: colors.gold, marginRight: '12px' }}>Coordenada {item.day}</span>
+                <span style={{ color: colors.gold, marginRight: '12px' }}>Día {item.day}</span>
                 <span style={{ color: colors.text }}>{item.title}</span>
                 <span style={{ color: colors.textSubtle }}> — {item.desc}</span>
               </Text>
@@ -305,10 +305,10 @@ export const Reto5DiasConfirmationEmail = ({
               fontSize: '15px',
               lineHeight: '24px'
             }}>
-              Hacia su soberanía,<br /><br />
+              Hacia su tranquilidad,<br /><br />
               <strong>Luis Cabrejo</strong><br />
               <span style={{ color: colors.gold, fontSize: '13px' }}>
-                Arquitecto de Activos
+                Fundador de CreaTuActivo
               </span>
             </Text>
           </Section>
@@ -333,7 +333,7 @@ export const Reto5DiasConfirmationEmail = ({
               color: colors.textSubtle,
               fontSize: '11px'
             }}>
-              Recibe este correo porque solicitó acceso a la Auditoría de Arquitectura Patrimonial
+              Recibe este correo porque solicitó acceso al Diagnóstico de 5 Días
             </Text>
             <Link
               href="https://wa.me/573206805737"

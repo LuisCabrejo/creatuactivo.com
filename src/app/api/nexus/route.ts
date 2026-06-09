@@ -2810,8 +2810,8 @@ function interpretQueryHibrido(userMessage: string): string {
     'esp 3': 'inversión para empezar construir Constructor Visionario',
 
     // Conceptos fundamentales
-    'arquitectura': 'Tridente EAM Expansión Activación Maestría NEXUS CreaTuActivo Motor aplicación arquitectura sistema',
-    'funcionamiento': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método probado',
+    'arquitectura': 'El Método Comprobado Expansión Activación Maestría Queswa CreaTuActivo aplicación arquitectura sistema',
+    'funcionamiento': 'cómo funciona El Método Comprobado Expansión Activación Maestría proceso sistema método probado',
     'productos': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'contacto': 'contacto WhatsApp escalación constructor mentor equipo liderazgo',
 
@@ -2827,7 +2827,7 @@ function interpretQueryHibrido(userMessage: string): string {
     'escalación': 'siguiente paso empezar contactar hablar equipo liderazgo',
 
     // Nuevo léxico Industrial Premium v19.0
-    'impacto exponencial': 'cómo funciona Tridente EAM Expansión Activación Maestría proceso sistema método',
+    'impacto exponencial': 'cómo funciona El Método Comprobado Expansión Activación Maestría proceso sistema método',
     'demanda biológica': 'productos Gano Excel fórmula exclusiva ventaja competitiva único',
     'reto 5 días': 'conocer el reto de los 5 días qué es el reto metodología proceso'
   };
@@ -2849,7 +2849,7 @@ function extraerKeywordsHibrido(message: string): string {
 
   // Keywords generales del ecosistema (actualizables)
   const keywords_ecosistema = [
-    'CreaTuActivo', 'ecosistema', 'Tridente EAM', 'Expansión', 'Activación', 'Maestría',
+    'CreaTuActivo', 'ecosistema', 'Método Comprobado', 'Expansión', 'Activación', 'Maestría',
     'Gano Excel', 'NEXUS', 'Constructor', 'activo', 'Queswa', 'aplicación',
     'inversión', 'automatización', 'paquete', 'precio', 'costo', 'Motor',
     'método probado', 'arquitectura', 'apalancamiento', 'tecnología'

@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.4 — Recalibración léxica accesible (jun 2026): "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario de Base Operativa", "gobernanza" → "dirige", "Apalancamiento Asimétrico" → "Apalancamiento Estratégico". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados. (Previo v13.3, 15 May 2026)
+ * Homepage v13.5 — Negocio digital (jun 2026): "Base Operativa" → "negocio digital" · "el sistema opera" → "el sistema hace el trabajo" · operar/escalar/"gente" ajustados. Previo v13.4 — Recalibración léxica accesible: "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario", "gobernanza" → "dirige". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados.
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
  * Aliado canónico: Servilleta v3.1 + System Prompt v26.5 + Arsenal Inicial v25.3
  */
@@ -119,7 +119,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             La solución no es trabajar más, ni dejar lo que hace hoy.{' '}
-            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> — un ingreso que sigue llegando aunque usted descanse, viaje o simplemente viva. Usted toma el control de una <strong style={{ color: C.gold }}>Base Operativa</strong> propia, lista para operar, sostenida por tres pilares que cargan el trabajo pesado: Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema opera.</span>
+            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> — un ingreso que sigue llegando aunque usted descanse, viaje o simplemente viva. Usted toma el control de su propio <strong style={{ color: C.gold }}>negocio digital</strong>, listo para funcionar, sostenida por tres pilares que cargan el trabajo pesado: Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema hace el trabajo.</span>
           </p>
         </div>
 
@@ -139,7 +139,7 @@ function HeroSection() {
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-          ¿Base Operativa activa?{' '}
+          ¿Negocio digital activo?{' '}
           <Link href="https://queswa.app" style={{ color: C.gold, textDecoration: 'none' }}>
             Ingresar a su Centro de Mando →
           </Link>
@@ -223,7 +223,7 @@ function PerfilesSection() {
     {
       label: 'Microempresario · 1–5 empleados',
       dolor: 'El dueño termina siendo el empleado peor pagado de su propio negocio.',
-      exito: 'Ingresos que llegan aunque el local esté cerrado. Una Base Operativa que escala mientras usted opera su negocio actual.',
+      exito: 'Ingresos que llegan aunque el local esté cerrado. Un negocio digital que crece mientras usted atiende su negocio actual.',
     },
     {
       label: 'Empleado Público · Ejecutivo',
@@ -335,7 +335,7 @@ function SolucionesFallidasSection() {
             El tercer camino
           </span>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.white, margin: 0 }}>
-            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir un activo que trabaje por usted</strong>: una <strong style={{ color: C.gold, fontWeight: 600 }}>Base Operativa</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
+            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir algo que trabaje por usted</strong>: un <strong style={{ color: C.gold, fontWeight: 600 }}>negocio digital</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
           </p>
         </div>
       </div>
@@ -366,7 +366,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su Base Operativa monetiza un hábito que la gente ya tiene:{' '}
+            Su negocio digital monetiza un hábito que las personas ya tienen:{' '}
             <span style={{ color: C.white }}>el café de cada mañana.</span>{' '}
             Solo que el nuestro lleva dentro <strong style={{ color: C.gold, fontWeight: 600 }}>Ganoderma</strong> —el hongo más estudiado del planeta—, en un extracto que el cuerpo asimila por completo. No le pedimos a nadie cambiar su rutina; solo que el café de siempre <span style={{ color: C.white }}>trabaje a su favor.</span> Y detrás está <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>: la empresa real que lo fabrica y lo entrega en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países.</strong>
           </p>
@@ -535,7 +535,7 @@ function FinalCTASection() {
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Si reconoció su punto ciego, el siguiente paso es auditar sus propios números.{' '}
-            <span style={{ color: C.white }}>La activación de su Base Operativa no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
+            <span style={{ color: C.white }}>La activación de su negocio digital no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
         </div>

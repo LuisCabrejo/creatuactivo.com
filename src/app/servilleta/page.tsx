@@ -1809,7 +1809,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      ACTIVAR SU BASE OPERATIVA →
+                      ACTIVAR SU NEGOCIO DIGITAL →
                     </a>
 
                     {/* CTA Secundario → /auditoria-patrimonial */}

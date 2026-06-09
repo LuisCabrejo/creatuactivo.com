@@ -1,8 +1,9 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.0 — REGISTRO ACCESIBLE (BETO)
+# ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.1 — LÉXICO "NEGOCIO DIGITAL"
 
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
+**Versión:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
 **Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → Propietario de Base Operativa · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
 [Versión previa: 11.1 — Alineación SP v26.4: dirección estratégica + apalancamiento estratégico — fricción nivel 5 eliminada (10 May 2026)]
 
@@ -95,14 +96,14 @@ Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se qued
 ## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
 
 ### ADV_VAL_01: "Explícame el Ingreso Inmediato con números"
-**[Concepto Nuclear]:** El primer ingreso entra rápido: cada nueva Base Operativa que usted activa le paga de inmediato.
+**[Concepto Nuclear]:** El primer ingreso entra rápido: cada nuevo negocio digital que usted activa le paga de inmediato.
 
-La primera velocidad del sistema le da ingreso de corto plazo por cada nueva Base Operativa que se activa en su organización.
+La primera velocidad del sistema le da ingreso de corto plazo por cada nuevo negocio digital que se activa en su organización.
 
-Operando en el nivel ESP-3 (Visionario), las cuentas son así:
+En el nivel ESP-3 (Visionario), las cuentas son así:
 
-- Por cada Base Operativa de primera línea (Generación 1) que usted activa directamente, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
-- Por cada Base Operativa que se activa en las generaciones 2 a 5 de su organización (a medida que crece), usted recibe **$20 USD / ~$90,000 COP por cada una**.
+- Por cada negocio digital de primera línea (Generación 1) que usted activa directamente, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
+- Por cada negocio digital que se activa en las generaciones 2 a 5 de su organización (a medida que crece), usted recibe **$20 USD / ~$90,000 COP por cada una**.
 
 **Pregunta de cierre:** ¿Le queda clara la forma en que entra este ingreso durante la etapa de arranque?
 
@@ -121,7 +122,7 @@ Esto le deja crecer tranquilo: las comisiones las paga directamente Gano Excel, 
 
 ---
 
-### ADV_VAL_03: "¿Por qué es importante el Calibre ESP-3 (Visionario)?"
+### ADV_VAL_03: "¿Por qué es importante el nivel ESP-3 (Visionario)?"
 **[Concepto Nuclear]:** Mismo esfuerzo, distinto margen.
 
 Elegir el nivel ESP-3 es pura cuenta.
@@ -170,7 +171,7 @@ Lo bueno es que usted los puede promover en su organización con total tranquili
 
 La diferencia es de fondo. En un trabajo o negocio tradicional usted cambia tiempo por dinero: mientras pone sus horas, gana; el día que para, se frena el ingreso. Su techo está limitado a las horas que tiene en el día.
 
-Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, filtrar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea Propietario de su Base Operativa, un activo que sigue produciendo aunque usted no esté presente.
+Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, filtrar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea Propietario de su negocio digital, un activo que sigue produciendo aunque usted no esté presente.
 
 **Pregunta de cierre:** ¿Su meta es seguir cambiando horas por dinero, o construir algo que produzca sin depender de sus horas?
 
@@ -179,9 +180,9 @@ Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a fun
 ### ADV_SIST_02: "¿Cuál es la visión a 5 años? ¿A dónde vamos?"
 **[Concepto Nuclear]:** Para 2030, 4 millones de personas en América comprando por este sistema. Hoy usted asegura su posición antes de esa ola.
 
-La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles una Base Operativa para que construyan su independencia financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
+La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un negocio digital para que construyan su independencia financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
 
-En esta etapa de cimentación lo importante no es buscar al consumidor final; es montar y dejar listas las Bases Operativas que serán el centro de todo. Para 2030, el grueso del mercado va a comprar a través de este sistema de forma natural, enganchado por la calidad del producto. Hoy, lo que se le entrega es la posición de dirigir esa expansión desde adelante.
+En esta etapa de cimentación lo importante no es buscar al consumidor final; es montar y dejar listos los negocios digitales que serán el centro de todo. Para 2030, el grueso del mercado va a comprar a través de este sistema de forma natural, enganchado por la calidad del producto. Hoy, lo que se le entrega es la posición de dirigir esa expansión desde adelante.
 
 **Pregunta de seguimiento:** ¿Ve la diferencia entre entrar al final, como un consumidor más, y asegurar ahora la posición de dirección mientras todo se está construyendo?
 
@@ -196,7 +197,7 @@ Aquí ocurre lo mismo. Usted no tiene que sentarse a enseñarle a cada persona q
 
 ¿Y usted qué hace entonces? Lo más valioso, y lo único que ninguna máquina puede reemplazar: dirigir y acompañar a su equipo en lo humano. La carga técnica la llevamos nosotros.
 
-Por eso su organización no aprende de su agenda: aprende del sistema. Y un negocio que no depende de sus horas es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa escala. Usted crece.
+Por eso su organización no aprende de su agenda: aprende del sistema. Y un negocio que no depende de sus horas es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa multiplica. Usted crece.
 
 **Pregunta de cierre:** ¿Le hace sentido soltar la carga de capacitar, para dedicar su energía a dirigir y a crecer?
 
@@ -235,7 +236,7 @@ Para no hacerle repetir datos y conectarlo con el equipo directivo, ¿me podría
 ### FUND_01: "¿De qué trata la oportunidad de los 15 Fundadores y cuándo empieza?"
 **[Concepto Nuclear]:** Posición temprana, como comprar sobre planos. Los 15 primeros cimientan antes de la apertura pública.
 
-La apertura al público llega una vez consolidada la base inicial. Por ahora se están validando 15 Bases Operativas fundacionales: es una ventana de entrada anticipada.
+La apertura al público llega una vez consolidada la base inicial. Por ahora se están validando 15 negocios digitales fundacionales: es una ventana de entrada anticipada.
 
 Es igual que comprar propiedad sobre planos: entrar antes le da la mejor posición y las mejores condiciones. Estos 15 Propietarios reciben el acompañamiento técnico para montar bien lo suyo, en un entorno controlado, antes de que llegue la avalancha de personas.
 
@@ -252,10 +253,10 @@ Su día a día se rige por **El Método Comprobado**: tres comandos hechos para 
 
 **Comando Activar:** yo recibo a esas personas, respondo sus dudas y filtro a quien no encaja. Usted solo entra al final, con quien ya está listo. *Usted no convence; usted revisa y da el sí.*
 
-**Comando Maestría:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Y, en paralelo, lo ayudo a usted a crecer como director. *Usted no enseña; Queswa escala. Usted crece.*
+**Comando Maestría:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Y, en paralelo, lo ayudo a usted a crecer como director. *Usted no enseña; Queswa multiplica. Usted crece.*
 
 **Pregunta de cierre:** ¿Ve la ventaja de dirigir un sistema que filtra y forma solo, en vez de andar convenciendo y capacitando a mano?
 
 ---
 
-**FIN DEL ARSENAL AVANZADO v12.0 — REGISTRO ACCESIBLE (BETO)**
+**FIN DEL ARSENAL AVANZADO v12.1 — LÉXICO "NEGOCIO DIGITAL"**

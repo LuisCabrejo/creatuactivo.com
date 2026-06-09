@@ -1,6 +1,7 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v7.0
+# Arsenal de Compensacion: Infraestructura de Ingresos v7.1
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
+**Version:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
 **Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos que PERMITEN capitalizacion inmediata y renta vitalicia — NO "dos mecanismos/principales"). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
 **Version:** 6.4 (22 May 2026) — Distinción canónica 70 vs 15 países: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los 15 países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (70 países = matriz física) con la capacidad operativa del Arquitecto (15 países América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
 **Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
@@ -62,10 +63,10 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 
 **[Concepto Nuclear]:** El plan tiene 12 formas de ganar, estructuradas para dar ingresos de corto, mediano y largo plazo. Para los ejemplos se explican SOLO 2: (GEN5) y (Binario), que permiten Capitalizacion Inmediata y Renta Vitalicia. NO decir "dos mecanismos", "doble velocidad" ni "las dos principales" — son ejemplos, no el total.
 
-Su Base Operativa genera ingresos a traves de **12 formas distintas**, estructuradas para darle flujo de caja de corto, mediano y largo plazo. En este ejemplo, veremos dos de ellas — que permiten capitalizacion inmediata y renta vitalicia. Ambas corren en paralelo desde el dia uno.
+Su negocio digital genera ingresos a traves de **12 formas distintas**, estructuradas para darle flujo de caja de corto, mediano y largo plazo. En este ejemplo, veremos dos de ellas — que permiten capitalizacion inmediata y renta vitalicia. Ambas corren en paralelo desde el dia uno.
 
 **Velocidad 1 — Capitalizacion Inmediata (GEN5):**
-Cada vez que un Propietario activa una nueva Base Operativa en su organizacion, usted cobra un bono directivo, hasta la 5a generacion. El pago se liquida el viernes, dos semanas despues de la activacion.
+Cada vez que un Propietario activa un nuevo negocio digital en su organizacion, usted cobra un bono directivo, hasta la 5a generacion. El pago se liquida el viernes, dos semanas despues de la activacion.
 
 **Velocidad 2 — Renta Vitalicia (Binario):**
 Cada vez que alguien en su organizacion (en cualquiera de los 15 paises operativos de America) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
@@ -108,7 +109,7 @@ Su patrocinio comienza con los socios que Usted vincula personalmente, y crece c
 
 **[Concepto Nuclear]:** La Colocacion define en que punto exacto de su estructura se ubica cada nuevo codigo. Organiza su estructura en dos lados; sobre ese volumen paga el Binario.
 
-La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — una nueva Base Operativa o un nuevo Consumidor VIP.
+La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — un nuevo negocio digital o un nuevo Consumidor VIP.
 
 **Patrocinio vs Colocacion** (se definen al registrar a alguien en Gano Excel):
 | Concepto | Que define |
@@ -125,7 +126,7 @@ Ejemplo: en una estructura grande, al registrar un codigo Usted indica exactamen
 | Profundidad | SIN LIMITE |
 | Sobre que paga | Volumen comisionable (GCV) de cada lado |
 
-**Insight:** El Patrocinio define QUIEN lo invito. La Colocacion define DONDE se ubica. El GEN5 paga por la compra de paquetes empresariales en sus Bases Operativas; el Binario —una de las 12 formas de ganar— le paga por el volumen comisionable (GCV) acumulado.
+**Insight:** El Patrocinio define QUIEN lo invito. La Colocacion define DONDE se ubica. El GEN5 paga por la compra de paquetes empresariales en sus negocios digitales; el Binario —una de las 12 formas de ganar— le paga por el volumen comisionable (GCV) acumulado.
 
 ---
 
@@ -174,7 +175,7 @@ El GEN5 es un bono que recibe cada vez que un nuevo socio adquiere su paquete de
 - Por los indirectos (Nietos a Tataranietos): **$20 USD**
 - En la 5ta generacion: **$40 USD** (Bono doble)
 
-**Mecanica:** A diferencia de un negocio tradicional donde usted construye gratis y cobra anos despues, el ecosistema le liquida dividendos por cada Base Operativa que activa hoy. Este bono inyecta liquidez en su flujo de caja esta misma semana ($600-$1,000 USD mensuales promedio) mientras su organizacion consolida el consumo recurrente.
+**Mecanica:** A diferencia de un negocio tradicional donde usted construye gratis y cobra anos despues, el ecosistema le liquida dividendos por cada negocio digital que activa hoy. Este bono inyecta liquidez en su flujo de caja esta misma semana ($600-$1,000 USD mensuales promedio) mientras su organizacion consolida el consumo recurrente.
 
 **Nota:** Si desea ver la proyeccion numerica completa, pregunte "deme la proyeccion GEN5".
 
@@ -262,7 +263,7 @@ Veamos que ocurre cuando conecta 2 personas que compran ESP-3:
 
 **[Concepto Nuclear]:** Cobra mientras construye. Cada vinculacion = un pago.
 
-La Capitalizacion Inmediata funciona como su capital de construccion: cada Base Operativa que activa se liquida de inmediato. No es Renta Vitalicia — es el flujo de caja que financia la expansion de su infraestructura.
+La Capitalizacion Inmediata funciona como su capital de construccion: cada negocio digital que activa se liquida de inmediato. No es Renta Vitalicia — es el flujo de caja que financia la expansion de su infraestructura.
 
 **Como funciona:**
 - Usted conecta 2 → cobra 2 bonos
@@ -517,7 +518,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
 
-Esta regla es para Propietarios de Base Operativa que compran inventario grande.
+Esta regla es para Propietarios de un negocio digital que compran inventario grande.
 
 **Como Funciona:**
 | Su Compra | Activacion | Centro de Cobro |
@@ -859,7 +860,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Piel8Brillo Exfoliante | 1 |
 | **Total** | **7** |
 
-**Insight:** ESP-1 le da acceso al GEN5, pero con techo limitado. Ideal si desea verificar antes de escalar.
+**Insight:** ESP-1 le da acceso al GEN5, pero con techo limitado. Ideal si desea verificar antes de multiplicar.
 
 ---
 
@@ -915,7 +916,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 
 **IMPORTANTE — Duración de los componentes (evitar confusión):**
 - **Binario al porcentaje alto** (17% ESP-3 / 16% ESP-2 / 15% ESP-1): TIENE término — 6/4/2 meses respectivamente. Después baja a base 10% si no recompra.
-- **GEN5 (Capitalización Inmediata):** SIN término de meses — activo desde el primer día y permanece mientras la Base Operativa esté activa.
+- **GEN5 (Capitalización Inmediata):** SIN término de meses — activo desde el primer día y permanece mientras el negocio digital esté activo.
 
 NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del Binario al porcentaje alto.
 
@@ -958,7 +959,7 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos Propietarios de Base Operativa desarrollan cartera de clientes de consumo naturalmente. Conocidos que no operan el modelo pero consumen los productos de forma habitual.
+**Insight:** Muchos Propietarios de un negocio digital desarrollan cartera de clientes de consumo naturalmente. Conocidos que no desarrollan el modelo pero consumen los productos de forma habitual.
 
 ---
 
@@ -974,11 +975,11 @@ Para activar su código y acceder al precio de distribuidor, el VIP realiza una 
 **Compras recurrentes:**
 El Consumidor VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
-**Diferencia operativa con el Propietario de Base Operativa:**
-- El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su Base Operativa con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+**Diferencia funcional con el Propietario de un negocio digital:**
+- El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su negocio digital con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
-**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de Base Operativa. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
+**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de un negocio digital. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
 
 ---
 

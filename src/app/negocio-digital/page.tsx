@@ -277,7 +277,7 @@ export default function AuditoriaPatrimonialPage() {
               borderLeft: `2px solid ${C.gold}`,
               background: 'rgba(197, 160, 89,0.04)',
             }}>
-              Hoy su ingreso depende de una sola cosa: de que usted esté ahí. Si para —por salud, por un despido, por un imprevisto—, el dinero para con usted. Esto no es motivación: son los pasos claros para construir, en paralelo y sin dejar lo que hace hoy, un ingreso que no dependa de sus horas. La parte pesada la hace una empresa con presencia en 70 países; la tecnología filtra a los interesados por usted.
+              Hoy su ingreso depende de una sola cosa: que usted siga ahí. Si para —por salud, por un despido, por un imprevisto—, el dinero para con usted. Esto no es motivación: son los pasos claros para construir, en paralelo y sin dejar lo que hace hoy, un ingreso que no dependa de sus horas. La parte pesada la hace una empresa con presencia en 70 países; la tecnología filtra a los interesados por usted.
             </p>
 
             {/* FORMULARIO */}

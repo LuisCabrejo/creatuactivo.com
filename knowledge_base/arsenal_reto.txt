@@ -2,7 +2,9 @@
 
 **Propósito:** Vender la ejecución del "Diagnóstico de 5 Días" (antes "Auditoría de Arquitectura Patrimonial"). ⚠️ La jerga clínica de las RESPUESTAS se conserva a propósito (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — permitida en RETO_05). Solo se renombró el PRODUCTO y los NOMBRES DE DÍA (cross-channel con squeeze/emails). Ver [[project_reto_12niveles_no_migrar]].
 **Enfoque:** Due Diligence y Re-Arquitectura del **Déficit Estructural de Ingresos**: la falla de diseño en los cimientos donde el ingreso del Propietario depende 100% de su presencia física. La consecuencia matemática de esta falla —el colapso del flujo de caja al detenerse— es lo que se neutraliza.
-**Versión:** 4.6 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas), "WhatsApp operará" → "funcionará". ⏳ SIGUE pendiente la migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico, Ancho de Banda Mental, "escalable") — fuera de este swap. Cifras/estructura intactas.
+**Versión:** 4.7 (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (4 swaps, concordancia "su propia empresa digital"). La jerga clínica profunda se conserva a propósito (ver nota v4.6). Deploy a Supabase 12 jun 2026.
+
+**Versión previa:** 4.6 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas), "WhatsApp operará" → "funcionará". ⏳ SIGUE pendiente la migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico, Ancho de Banda Mental, "escalable") — fuera de este swap. Cifras/estructura intactas.
 **Versión:** 4.5 (7 Jun 2026) — Swaps obvios de léxico accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Física → El Respaldo Operativo. Pendiente: migración profunda de jerga residual (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, escrutinio logístico). Cifras/estructura intactas.
 **Versión:** 4.4 (17 May 2026) — Alineación SP v26.6: jerarquía causal corregida. El Déficit Estructural de Ingresos pasa de "consecuencia directa" a CAUSA RAÍZ de diseño. La consecuencia es el colapso del flujo de caja.
 **Versión:** 4.3 (10 May 2026) — Alineación SP v26.4: "decisión de dirección" → "decisión de dirección" (fricción nivel 5 eliminada)
@@ -17,7 +19,7 @@
 
 El Diagnóstico de 5 Días opera como un escrutinio logístico de 5 días. La infraestructura no provee motivación ni teoría; entrega los planos arquitectónicos exactos para diagnosticar el **Déficit Estructural de Ingresos** —la falla de diseño en los cimientos donde el flujo de caja del Propietario depende 100% de su presencia física— y diseñar su corrección técnica definitiva.
 
-Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propio negocio digital a una cadena de suministro global operativa en más de 70 países.
+Durante este protocolo, usted analizará las fallas de diseño de su matriz financiera actual y evaluará la viabilidad de acoplar su propia empresa digital a una cadena de suministro global operativa en más de 70 países.
 
 A nivel directivo, la herramienta no está diseñada para optimizar su velocidad en el sistema tradicional, sino para ejecutar una re-arquitectura patrimonial definitiva y escalable.
 
@@ -31,7 +33,7 @@ Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logís
 * **Día 1 — El Diagnóstico:** Identificación de fallas en su arquitectura de ingresos actual.
 * **Día 2 — El Techo:** Por qué el modelo operativo manual tiene un techo técnico.
 * **Día 3 — La Máquina:** Integración del Respaldo Operativo (Pilar 1) y automatización del Centro de Mando (Pilar 2).
-* **Día 4 — Los Números:** Matemática de liquidez recurrente y valor patrimonial de su negocio digital.
+* **Día 4 — Los Números:** Matemática de liquidez recurrente y valor patrimonial de su empresa digital.
 * **Día 5 — La Decisión:** Decisión directiva y asignación de activos.
 
 Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios para ejecutar una decisión de dirección, sin suposiciones ni fricción emocional.
@@ -45,7 +47,7 @@ Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios par
 
 A nivel financiero, la ejecución de esta auditoría no requiere inyección de capital inicial.
 
-El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Propietarios de un negocio digital. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
+El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Propietarios de una empresa digital. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
 
 Si los planos estructurales resultan viables para usted al finalizar la auditoría, procederemos a evaluar su nivel de capitalización logística.
 
@@ -94,7 +96,7 @@ La arquitectura de datos ya está compilada y lista para su escrutinio en este m
 ### RETO_07: "No estoy seguro..." / "Tengo dudas"
 **[Concepto Nuclear]:** Verificación Empírica vs. Confianza Ciega.
 
-El escepticismo es la postura correcta de un Propietario de un negocio digital.
+El escepticismo es la postura correcta de un Propietario de una empresa digital.
 
 Este protocolo no se basa en confianza, sino en verificación empírica. Le proporcionamos el acceso a la infraestructura precisamente para que usted mismo ejecute la auditoría de los datos. Analice la lógica estructural y someta la matemática a estrés.
 

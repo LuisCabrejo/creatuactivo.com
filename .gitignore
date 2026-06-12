@@ -54,3 +54,9 @@ TWILIO_WHATSAPP_HANDOFF.md
 
 # Reels por nicho (subir a Blob/Bunny, no a git)
 public/videos/reels/*.mp4
+
+# Video explainer de la Home (subir a Blob, no a git — el poster.webp sí se commitea)
+public/videos/home/*.mp4
+
+# Backups con PII — nunca commitear
+backups/

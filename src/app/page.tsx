@@ -10,8 +10,8 @@ import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import CognitiveLoadComparator from '@/components/CognitiveLoadComparator';
 import TridenteAphorisms from '@/components/TridenteAphorisms';
-import YouTubeFacade from '@/components/YouTubeFacade';
-import { SERVILLETA_YOUTUBE_ID } from '@/lib/reels';
+import HomeManifestoVideo from '@/components/HomeManifestoVideo';
+import { HOME_MANIFESTO_VIDEO, HOME_MANIFESTO_POSTER } from '@/lib/reels';
 
 export const dynamic = 'force-static';
 
@@ -108,9 +108,9 @@ function HeroSection() {
           <span style={{ color: C.gold }}>Tiene un punto ciego — y casi nadie lo ve hasta que es tarde.</span>
         </p>
 
-        {/* Presentación servilleta — facade YouTube (miniatura lazy; el iframe carga al click, no penaliza el LCP) */}
+        {/* Video manifiesto 9:16 — al terminar se desvanece y abre Queswa con foco en el input */}
         <div style={{ marginBottom: '32px' }}>
-          <YouTubeFacade youtubeId={SERVILLETA_YOUTUBE_ID} label="La presentación completa · 7 min" />
+          <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
         </div>
 
         {/* Cuerpo */}

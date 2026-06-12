@@ -855,6 +855,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
               <form onSubmit={handleSubmit} autoComplete="off" style={{ position: 'relative' }}>
                 <textarea
                   ref={textareaRef}
+                  id="queswa-chat-input"
                   enterKeyHint="send"
                   rows={1}
                   value={inputMessage}

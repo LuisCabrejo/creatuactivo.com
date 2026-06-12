@@ -62,10 +62,11 @@ export default function HomePage() {
 // ============================================================================
 
 function HeroSection() {
-  // padding-top calibrado al nav (64px móvil / 80px desktop) — el video manifiesto
-  // debe quedar completo en el primer viewport, sin scroll ni adivinanza
+  // El nav es sticky (en flujo): el padding-top ES el gap visible nav→video.
+  // 30px arriba (el video abre la página, pegado al menú); el aire generoso
+  // va entre el video y el H1 (60px en el wrapper del video).
   return (
-    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '92px 24px 64px' }}>
+    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '30px 24px 64px' }}>
       {/* Fondo CSS puro */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -90,7 +91,7 @@ function HeroSection() {
         {/* Video manifiesto 9:16 — ES el encabezado de la página (decisión Jun 2026:
             el video reemplaza al texto como apertura; el brand del nav ya posiciona).
             Al terminar se desvanece y abre Queswa con foco en el input. */}
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: '60px' }}>
           <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
         </div>
 

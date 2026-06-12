@@ -85,7 +85,14 @@ function HeroSection() {
       </div>
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        {/* H1 */}
+        {/* Video manifiesto 9:16 — ES el encabezado de la página (decisión Jun 2026:
+            el video reemplaza al texto como apertura; el brand del nav ya posiciona).
+            Al terminar se desvanece y abre Queswa con foco en el input. */}
+        <div style={{ marginBottom: '32px' }}>
+          <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
+        </div>
+
+        {/* H1 — debajo del video (SEO/a11y: sigue siendo el único h1 de la página) */}
         <h1 style={{
           fontSize: 'clamp(1.6rem, 4.5vw, 2.8rem)', lineHeight: 1.1,
           marginBottom: '20px',
@@ -107,11 +114,6 @@ function HeroSection() {
           Usted no tiene un problema de ingresos.{' '}
           <span style={{ color: C.gold }}>Tiene un punto ciego — y casi nadie lo ve hasta que es tarde.</span>
         </p>
-
-        {/* Video manifiesto 9:16 — al terminar se desvanece y abre Queswa con foco en el input */}
-        <div style={{ marginBottom: '32px' }}>
-          <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
-        </div>
 
         {/* Cuerpo */}
         <div style={{

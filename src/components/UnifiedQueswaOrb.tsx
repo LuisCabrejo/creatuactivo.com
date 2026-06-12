@@ -65,6 +65,10 @@ export default function UnifiedQueswaOrb() {
     return seg.length === 2 && (REEL_NICHOS as readonly string[]).includes(seg[1])
   })()
 
+  // Home: el video manifiesto controla su propia burbuja (HomeManifestoVideo) —
+  // el tooltip genérico interferiría con el video y el chip de sonido.
+  const suppressTooltip = isReelRoute || pathname === '/'
+
   // Chat state
   const [isOpen,        setIsOpen]        = useState(false)
   const [showTooltip,   setShowTooltip]   = useState(false)
@@ -119,14 +123,14 @@ export default function UnifiedQueswaOrb() {
   // ─── Tooltip "Concierge" (una sola vez) ─────────────────────────────────────
   // En reels NO se dispara: el reel muestra su propia burbuja al terminar/scrollear.
   useEffect(() => {
-    if (hasInteracted || isOpen || isReelRoute) return
+    if (hasInteracted || isOpen || suppressTooltip) return
     const show = setTimeout(() => {
       if (hasInteracted || isOpen) return
       setShowTooltip(true)
       setTimeout(() => { setShowTooltip(false); setHasInteracted(true) }, 12000)
     }, 2000)
     return () => clearTimeout(show)
-  }, [hasInteracted, isOpen, isReelRoute])
+  }, [hasInteracted, isOpen, suppressTooltip])
 
   // ─── Visibilidad en /servilleta (solo card-1 slide-2) ───────────────────────
   const [visibleInServilleta, setVisibleInServilleta] = useState(false)

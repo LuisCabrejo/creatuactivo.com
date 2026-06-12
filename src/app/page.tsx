@@ -1,6 +1,12 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.5 — Negocio digital (jun 2026): "Base Operativa" → "negocio digital" · "el sistema opera" → "el sistema hace el trabajo" · operar/escalar/"gente" ajustados. Previo v13.4 — Recalibración léxica accesible: "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario", "gobernanza" → "dirige". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados.
+ * Homepage v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
+ * persona del activo que entregamos ("ser dueño de una empresa digital", "su empresa
+ * digital"), el término es EMPRESA digital — eleva estatus de propiedad (decisión Luis).
+ * "Negocio" se conserva solo en la pregunta del avatar ("¿Cómo funciona el negocio?",
+ * chip canónico Camino A — NO tocar) y en referencias al negocio ACTUAL del visitante.
+ * Cuerpo del hero condensado (~70% solapaba con el reel manifiesto — el texto ahora
+ * sella la tesis, no la repite). Previo v13.5 — Negocio digital (jun 2026): "Base Operativa" → "negocio digital" · "el sistema opera" → "el sistema hace el trabajo" · operar/escalar/"gente" ajustados. Previo v13.4 — Recalibración léxica accesible: "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario", "gobernanza" → "dirige". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados.
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff
  * Aliado canónico: Servilleta v3.1 + System Prompt v26.5 + Arsenal Inicial v25.3
  */
@@ -124,8 +130,8 @@ function HeroSection() {
           borderLeft: `2px solid rgba(197, 160, 89,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
-            La solución no es trabajar más, ni dejar lo que hace hoy.{' '}
-            <span style={{ color: C.white }}>Es construir una <strong style={{ color: C.gold }}>estructura de ingresos recurrentes</strong> — un ingreso que sigue llegando aunque usted descanse, viaje o simplemente viva. Usted toma el control de su propio <strong style={{ color: C.gold }}>negocio digital</strong>, listo para funcionar, sostenida por tres pilares que cargan el trabajo pesado: Gano Excel (la empresa, en 70 países), Queswa (la tecnología que atiende y filtra por usted) y un método paso a paso. Usted dirige; el sistema hace el trabajo.</span>
+            La solución no es trabajar más, ni dejar lo que hace hoy:{' '}
+            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que genera <strong style={{ color: C.gold }}>ingresos recurrentes</strong>, sostenida por tres pilares que cargan el trabajo pesado — Gano Excel, Queswa y un método paso a paso. Usted dirige; el sistema hace el trabajo.</span>
           </p>
         </div>
 
@@ -229,7 +235,7 @@ function PerfilesSection() {
     {
       label: 'Microempresario · 1–5 empleados',
       dolor: 'El dueño termina siendo el empleado peor pagado de su propio negocio.',
-      exito: 'Ingresos que llegan aunque el local esté cerrado. Un negocio digital que crece mientras usted atiende su negocio actual.',
+      exito: 'Ingresos que llegan aunque el local esté cerrado. Una empresa digital que crece mientras usted atiende su negocio actual.',
     },
     {
       label: 'Empleado Público · Ejecutivo',
@@ -341,7 +347,7 @@ function SolucionesFallidasSection() {
             El tercer camino
           </span>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.white, margin: 0 }}>
-            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir algo que trabaje por usted</strong>: un <strong style={{ color: C.gold, fontWeight: 600 }}>negocio digital</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
+            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir una empresa digital</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
           </p>
         </div>
       </div>
@@ -372,7 +378,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su negocio digital monetiza un hábito que las personas ya tienen:{' '}
+            Su empresa digital monetiza un hábito que las personas ya tienen:{' '}
             <span style={{ color: C.white }}>el café de cada mañana.</span>{' '}
             Solo que el nuestro lleva dentro <strong style={{ color: C.gold, fontWeight: 600 }}>Ganoderma</strong> —el hongo más estudiado del planeta—, en un extracto que el cuerpo asimila por completo. No le pedimos a nadie cambiar su rutina; solo que el café de siempre <span style={{ color: C.white }}>trabaje a su favor.</span> Y detrás está <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>: la empresa real que lo fabrica y lo entrega en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países.</strong>
           </p>
@@ -566,7 +572,7 @@ function FinalCTASection() {
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
             Si reconoció su punto ciego, el siguiente paso es auditar sus propios números.{' '}
-            <span style={{ color: C.white }}>La activación de su negocio digital no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
+            <span style={{ color: C.white }}>La activación de su empresa digital no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
           </p>
         </div>

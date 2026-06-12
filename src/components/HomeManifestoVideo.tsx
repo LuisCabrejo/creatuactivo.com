@@ -105,15 +105,15 @@ export default function HomeManifestoVideo({ src, poster }: { src: string; poste
     setEnded(true)
     if (hijackedRef.current) return
     hijackedRef.current = true
-    setTimeout(() => {
-      // Focus hijack solo si el video sigue a la vista — si el usuario scrolleó
-      // a leer más abajo, abrirle el chat encima sería hostil, no premium.
-      const rect = containerRef.current?.getBoundingClientRect()
-      if (!rect) return
-      const vh = window.innerHeight || document.documentElement.clientHeight
-      const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0)
-      if (visible / rect.height >= 0.4) openQueswaAndFocus()
-    }, FADE_MS)
+    // Transición invisible (nivel Apple): Queswa se abre EN el mismo instante en
+    // que arranca el fade — sin pantalla intermedia ni gap perceptible. El foco
+    // hijack solo si el video sigue a la vista; si el usuario scrolleó a leer
+    // más abajo, abrirle el chat encima sería hostil, no premium.
+    const rect = containerRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const vh = window.innerHeight || document.documentElement.clientHeight
+    const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0)
+    if (visible / rect.height >= 0.4) openQueswaAndFocus()
   }
 
   // Quien pide repetir quiere oírlo: el replay entra ya con sonido
@@ -157,15 +157,6 @@ export default function HomeManifestoVideo({ src, poster }: { src: string; poste
             transition: `opacity ${FADE_MS}ms ease`,
           }}
         >
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.7rem',
-            letterSpacing: '0.18em',
-            color: C.gold,
-            textTransform: 'uppercase',
-          }}>
-            Sistema operativo
-          </span>
           <p style={{
             fontFamily: 'var(--font-serif)',
             fontSize: '1.05rem',

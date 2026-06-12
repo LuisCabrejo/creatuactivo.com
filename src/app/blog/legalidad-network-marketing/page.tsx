@@ -341,7 +341,7 @@ export default function LegalidadNetworkMarketingPage() {
                   detalle. Sin presión, solo información técnica.
                 </p>
                 <Link
-                  href="/negocio-digital"
+                  href="/empresa-digital"
                   className="cta-base cta-primary"
                   style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >

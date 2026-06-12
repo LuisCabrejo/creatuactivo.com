@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * Auditoría Patrimonial con constructorId en path
- * Ruta: /negocio-digital/[constructorId]
+ * Ruta: /empresa-digital/[constructorId]
  *
  * Re-exporta la squeeze page principal. El tracking del constructorId
  * se realiza en el cliente leyendo el path de la URL (useEffect en page.tsx).

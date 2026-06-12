@@ -93,7 +93,7 @@ export const Email5Urgency = ({
 
             <Text style={bulletPoint}>✓ <strong>Día 1:</strong> El Diagnóstico — de qué depende tu ingreso hoy</Text>
             <Text style={bulletPoint}>✓ <strong>Día 2:</strong> El Techo — por qué trabajar más horas no alcanza</Text>
-            <Text style={bulletPoint}>✓ <strong>Día 3:</strong> La Máquina — cómo se arma tu negocio digital</Text>
+            <Text style={bulletPoint}>✓ <strong>Día 3:</strong> La Máquina — cómo se arma tu empresa digital</Text>
             <Text style={bulletPoint}>✓ <strong>Día 4:</strong> Los Números — cómo y cuánto se gana</Text>
             <Text style={bulletPoint}>✓ <strong>Día 5:</strong> La Decisión — tu siguiente paso</Text>
 
@@ -104,7 +104,7 @@ export const Email5Urgency = ({
             {/* CTA Principal */}
             <Section style={ctaSection}>
               <Button
-                href="https://creatuactivo.com/negocio-digital?source=email-sequence"
+                href="https://creatuactivo.com/empresa-digital?source=email-sequence"
                 style={ctaButton}
               >
                 Hacer mi Diagnóstico de 5 Días

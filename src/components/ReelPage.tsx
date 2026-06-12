@@ -42,7 +42,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
     : null
 
   // Auditoría de 5 días (escenario 2 del cierre) — squeeze con atribución
-  const auditoriaUrl = refId ? `/negocio-digital?ref=${refId}` : '/negocio-digital'
+  const auditoriaUrl = refId ? `/empresa-digital?ref=${refId}` : '/empresa-digital'
 
   // Activación inmediata (escenario 3) — WhatsApp del arquitecto, mensaje de decisión tomada
   const waUrl = constructor.whatsapp

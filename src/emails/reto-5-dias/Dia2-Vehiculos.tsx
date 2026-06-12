@@ -28,7 +28,7 @@ interface Dia2Props {
 export const Dia2Vehiculos = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-2',
+  videoUrl = 'https://creatuactivo.com/empresa-digital/dia-2',
 }: Dia2Props) => {
   const previewText = `Su Día 2: por qué trabajar más horas no es la salida.`;
 

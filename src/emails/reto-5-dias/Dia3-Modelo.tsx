@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * El Diagnóstico de 5 Días — Día 3
- * "[Día 3] La Máquina: cómo se arma su negocio digital"
+ * "[Día 3] La Máquina: cómo se arma su empresa digital"
  * Registro accesible
  */
 
@@ -28,7 +28,7 @@ interface Dia3Props {
 export const Dia3Modelo = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-3',
+  videoUrl = 'https://creatuactivo.com/empresa-digital/dia-3',
 }: Dia3Props) => {
   const previewText = `Su Día 3: cómo se arma la máquina que trabaja por usted.`;
 
@@ -71,7 +71,7 @@ export const Dia3Modelo = ({
             </Text>
 
             <Text style={paragraph}>
-              Hoy le muestro cómo se arma su negocio digital: una empresa real presente en 70 países y una inteligencia artificial, trabajando juntas bajo su dirección.
+              Hoy le muestro cómo se arma su empresa digital: una empresa real presente en 70 países y una inteligencia artificial, trabajando juntas bajo su dirección.
             </Text>
 
             {/* Pasos */}

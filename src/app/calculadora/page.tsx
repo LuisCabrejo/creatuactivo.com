@@ -520,7 +520,7 @@ export default function CalculadoraPage() {
                       </p>
 
                       <Link
-                        href="/mapa-de-salida"
+                        href="/empresa-digital"
                         className="cta-base cta-primary"
                         style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
                       >

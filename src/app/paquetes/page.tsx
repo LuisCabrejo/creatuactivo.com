@@ -566,7 +566,7 @@ function Footer() {
         marginBottom: '16px',
       }}>
         <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>BLOG</Link>
-        <Link href="/negocio-digital" style={{ color: C.muted, textDecoration: 'none' }}>AUDITORÍA</Link>
+        <Link href="/empresa-digital" style={{ color: C.muted, textDecoration: 'none' }}>AUDITORÍA</Link>
         <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>PRIVACIDAD</Link>
       </div>
       <p style={{

@@ -50,16 +50,28 @@ const nextConfig = {
         permanent: true,
       },
 
-      // ✅ RENAME jun 2026: /auditoria-patrimonial → /negocio-digital (funnel entry)
-      // Cubre ads y correos ya enviados que apuntan a la URL vieja (incl. /dia-1..5, [constructorId]).
+      // ✅ RENAME 12 jun 2026: /negocio-digital → /empresa-digital (funnel entry — léxico "empresa digital")
+      // Cubre correos/reels/blogs ya publicados con la URL anterior (incl. /dia-1..5, [constructorId]).
+      {
+        source: '/negocio-digital',
+        destination: '/empresa-digital',
+        permanent: true,
+      },
+      {
+        source: '/negocio-digital/:path*',
+        destination: '/empresa-digital/:path*',
+        permanent: true,
+      },
+
+      // RENAME jun 2026 (previo): /auditoria-patrimonial → ahora directo a /empresa-digital (1 salto)
       {
         source: '/auditoria-patrimonial',
-        destination: '/negocio-digital',
+        destination: '/empresa-digital',
         permanent: true,
       },
       {
         source: '/auditoria-patrimonial/:path*',
-        destination: '/negocio-digital/:path*',
+        destination: '/empresa-digital/:path*',
         permanent: true,
       },
 
@@ -149,7 +161,7 @@ const nextConfig = {
       // IMPORTANTE: reglas específicas ANTES del wildcard :constructorId
       {
         source: '/mapa-de-salida',
-        destination: '/negocio-digital',
+        destination: '/empresa-digital',
         permanent: true,
       },
       {
@@ -159,38 +171,38 @@ const nextConfig = {
       },
       {
         source: '/mapa-de-salida/dia-1/:ref',
-        destination: '/negocio-digital/dia-1/:ref',
+        destination: '/empresa-digital/dia-1/:ref',
         permanent: true,
       },
       {
         source: '/mapa-de-salida/dia-1',
-        destination: '/negocio-digital/dia-1',
+        destination: '/empresa-digital/dia-1',
         permanent: true,
       },
       {
         source: '/mapa-de-salida/dia-2',
-        destination: '/negocio-digital/dia-2',
+        destination: '/empresa-digital/dia-2',
         permanent: true,
       },
       {
         source: '/mapa-de-salida/dia-3',
-        destination: '/negocio-digital/dia-3',
+        destination: '/empresa-digital/dia-3',
         permanent: true,
       },
       {
         source: '/mapa-de-salida/dia-4',
-        destination: '/negocio-digital/dia-4',
+        destination: '/empresa-digital/dia-4',
         permanent: true,
       },
       {
         source: '/mapa-de-salida/dia-5',
-        destination: '/negocio-digital/dia-5',
+        destination: '/empresa-digital/dia-5',
         permanent: true,
       },
       // Wildcard al final — captura refs de constructorId no cubiertos arriba
       {
         source: '/mapa-de-salida/:constructorId',
-        destination: '/negocio-digital/:constructorId',
+        destination: '/empresa-digital/:constructorId',
         permanent: true,
       },
 

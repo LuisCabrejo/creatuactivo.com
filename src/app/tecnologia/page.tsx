@@ -386,7 +386,7 @@ export default function TecnologiaPage() {
               </p>
 
               <Link
-                href="/negocio-digital"
+                href="/empresa-digital"
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >

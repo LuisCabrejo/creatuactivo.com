@@ -74,7 +74,7 @@ export default function AuditoriaPatrimonialPage() {
   const [constructorRef, setConstructorRef] = useState<string | null>(null);
 
   useEffect(() => {
-    const match = window.location.pathname.match(/\/negocio-digital\/([^/?#]+)/);
+    const match = window.location.pathname.match(/\/empresa-digital\/([^/?#]+)/);
     const ref = match?.[1] ?? localStorage.getItem('constructor_ref') ?? null;
     if (ref) {
       setConstructorRef(ref);

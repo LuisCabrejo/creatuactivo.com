@@ -1812,9 +1812,9 @@ export default function ServilletaPage() {
                       ACTIVAR SU NEGOCIO DIGITAL →
                     </a>
 
-                    {/* CTA Secundario → /negocio-digital */}
+                    {/* CTA Secundario → /empresa-digital */}
                     <a
-                      href="https://creatuactivo.com/negocio-digital"
+                      href="https://creatuactivo.com/empresa-digital"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-industrial secondary"

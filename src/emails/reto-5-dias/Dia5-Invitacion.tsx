@@ -28,7 +28,7 @@ interface Dia5Props {
 export const Dia5Invitacion = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-5',
+  videoUrl = 'https://creatuactivo.com/empresa-digital/dia-5',
 }: Dia5Props) => {
   const previewText = `Su Día 5: con los números sobre la mesa, usted decide.`;
 
@@ -72,7 +72,7 @@ export const Dia5Invitacion = ({
             <Text style={paragraph}>
               En este último día no hay técnicas para convencerlo. Hay{' '}
               <strong style={{ color: '#E5E5E5' }}>tres formas de empezar</strong>{' '}
-              —según con cuánto inventario quiera arrancar— y el paso final para activar su negocio digital.
+              —según con cuánto inventario quiera arrancar— y el paso final para activar su empresa digital.
             </Text>
 
             {/* Pasos */}

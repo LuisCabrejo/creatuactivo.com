@@ -227,7 +227,7 @@ Hoja de ruta — los 5 días
             {[
               { day: '1', title: 'El Diagnóstico', desc: 'De qué depende su ingreso hoy' },
               { day: '2', title: 'El Techo', desc: 'Por qué hacerlo todo a mano tiene límite' },
-              { day: '3', title: 'La Máquina', desc: 'Cómo se arma su negocio digital' },
+              { day: '3', title: 'La Máquina', desc: 'Cómo se arma su empresa digital' },
               { day: '4', title: 'Los Números', desc: 'Cómo y cuánto se gana' },
               { day: '5', title: 'La Decisión', desc: 'Con los números, usted decide' },
             ].map((item) => (

@@ -108,6 +108,11 @@ const sendMessage = useCallback(async (content: string) => {
   // ✅ APPEND: Agregar al FINAL (orden cronológico: antiguo→nuevo)
   setMessages(prev => [...prev, userMessage]);
 
+  // Señal de engagement para la página de reel (cuenta queswa_messages). Inocuo fuera de reels.
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('queswa-message-sent'));
+  }
+
   // Preparar respuesta en streaming
   setIsLoading(true);
   setIsStreaming(true);

@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── Alias de retrocompatibilidad ─────────────────────────────────────────
-    // El squeeze page actual (/negocio-digital) y el quiz (/diagnostico)
+    // El squeeze page actual (/empresa-digital) y el quiz (/diagnostico)
     // envían step='auditoria_registered', pero toda la lógica downstream
     // (email Resend, WhatsApp template, persistencia, notifyConstructor) está
     // mapeada a step='mapa_registered' (legacy del nombre original del funnel).

@@ -16,12 +16,55 @@ import { useEffect, useRef, useState } from 'react'
 const PROMPT_MESSAGE = 'Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?'
 const AUTO_HIDE_MS = 25000
 
-export default function ReelVideo({ poster, src }: { poster: string; src: string }) {
+export default function ReelVideo({ poster, src, nicho }: { poster: string; src: string; nicho: string }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [showPrompt, setShowPrompt] = useState(false)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   // Una vez el usuario cierra la burbuja o abre el chat, no se vuelve a mostrar
   const suppressedRef = useRef(false)
+
+  // ─── Engagement Fase 1 — ≤6 escrituras/sesión (ver HANDOFF_REELS_ENGAGEMENT_FASE1.md) ───
+  // Presupuesto: milestones 25/50/75 (3) + onEnded (1) + queswa_opened (1) + beacon de salida (1)
+  const reported = useRef({ m25: false, m50: false, m75: false, ended: false, queswa: false })
+  const maxPctRef = useRef(0)
+  const msgCountRef = useRef(0)
+  const activeMsRef = useRef(0)
+  const lastTickRef = useRef(Date.now())
+  const visitCountRef = useRef(0)
+  const sentExitRef = useRef(false)
+
+  const getFingerprint = (): string | null => {
+    if (typeof window === 'undefined') return null
+    const w = window as any
+    return w.FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || null
+  }
+
+  const report = (payload: Record<string, any>) => {
+    const fingerprint = getFingerprint()
+    if (!fingerprint) return
+    fetch('/api/track/engagement', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint, nicho, ...payload }),
+      keepalive: true,
+    }).catch(() => {})
+  }
+
+  // Milestones del reel — solo se reporta el primer cruce de cada umbral
+  const handleTimeUpdate = () => {
+    const el = videoRef.current
+    if (!el || !el.duration) return
+    const pct = Math.floor((el.currentTime / el.duration) * 100)
+    if (pct > maxPctRef.current) maxPctRef.current = pct
+    if (pct >= 25 && !reported.current.m25) { reported.current.m25 = true; report({ pct: 25 }) }
+    if (pct >= 50 && !reported.current.m50) { reported.current.m50 = true; report({ pct: 50 }) }
+    if (pct >= 75 && !reported.current.m75) { reported.current.m75 = true; report({ pct: 75 }) }
+  }
+
+  const handleEnded = () => {
+    show()
+    if (!reported.current.ended) { reported.current.ended = true; report({ completed: true, pct: 100 }) }
+  }
 
   const clearTimer = () => { if (hideTimer.current) clearTimeout(hideTimer.current) }
 
@@ -64,6 +107,76 @@ export default function ReelVideo({ poster, src }: { poster: string; src: string
     window.dispatchEvent(new CustomEvent('open-queswa'))
   }
 
+  // Engagement: queswa_opened (push), conteo de mensajes, tiempo activo + visit_count en beacon de salida
+  useEffect(() => {
+    // visit_count — gap > 30 min desde la última sesión = nueva sesión
+    const THIRTY_MIN = 30 * 60 * 1000
+    const now = Date.now()
+    const last = Number(localStorage.getItem('reel_last_seen') || 0)
+    let count = Number(localStorage.getItem('reel_visit_count') || 0)
+    if (!last || now - last > THIRTY_MIN) count += 1
+    visitCountRef.current = count
+    localStorage.setItem('reel_visit_count', String(count))
+    localStorage.setItem('reel_last_seen', String(now))
+
+    lastTickRef.current = Date.now()
+    const flushActive = () => {
+      activeMsRef.current += Date.now() - lastTickRef.current
+      lastTickRef.current = Date.now()
+    }
+
+    const onQueswaOpened = () => {
+      if (!reported.current.queswa) { reported.current.queswa = true; report({ queswa_opened: true }) }
+    }
+    const onMsgSent = () => { msgCountRef.current += 1 }
+
+    // Beacon de salida — 1 sola escritura con tiempo activo + visit_count + mensajes
+    const sendExit = () => {
+      if (sentExitRef.current) return
+      sentExitRef.current = true
+      flushActive()
+      const fingerprint = getFingerprint()
+      if (!fingerprint) return
+      const body = JSON.stringify({
+        fingerprint,
+        nicho,
+        time_s: Math.round(activeMsRef.current / 1000),
+        visit_count: visitCountRef.current,
+        queswa_messages: msgCountRef.current,
+      })
+      // fetch+keepalive es más confiable que sendBeacon durante el unload (sobrevive al
+      // teardown de la página en navegaciones cross-origin). sendBeacon como fallback.
+      try {
+        fetch('/api/track/engagement', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body,
+          keepalive: true,
+        }).catch(() => {})
+      } catch {
+        if (navigator.sendBeacon) navigator.sendBeacon('/api/track/engagement', new Blob([body], { type: 'application/json' }))
+      }
+    }
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') sendExit()
+      else lastTickRef.current = Date.now()
+    }
+
+    window.addEventListener('queswa-opened', onQueswaOpened)
+    window.addEventListener('queswa-message-sent', onMsgSent)
+    document.addEventListener('visibilitychange', onVisibility)
+    window.addEventListener('pagehide', sendExit)
+
+    return () => {
+      window.removeEventListener('queswa-opened', onQueswaOpened)
+      window.removeEventListener('queswa-message-sent', onMsgSent)
+      document.removeEventListener('visibilitychange', onVisibility)
+      window.removeEventListener('pagehide', sendExit)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <div
@@ -84,7 +197,8 @@ export default function ReelVideo({ poster, src }: { poster: string; src: string
           preload="none"
           poster={poster}
           src={src}
-          onEnded={show}
+          onEnded={handleEnded}
+          onTimeUpdate={handleTimeUpdate}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       </div>

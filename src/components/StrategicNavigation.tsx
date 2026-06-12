@@ -559,7 +559,7 @@ export default function StrategicNavigation() {
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
               {/* BOTÓN CTA DESKTOP - Entrada al Funnel Principal */}
-              <Link href="/mapa-de-salida" className="strategic-cta-button">
+              <Link href="/empresa-digital" className="strategic-cta-button">
                 <Target className="w-4 h-4" />
                 INICIAR DIAGNÓSTICO
               </Link>
@@ -633,7 +633,7 @@ export default function StrategicNavigation() {
 
           {/* Mobile CTA - El Mapa de Salida */}
           <div className="strategic-mobile-cta">
-            <Link href="/mapa-de-salida" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+            <Link href="/empresa-digital" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
               <Target className="w-4 h-4" />
               INICIAR DIAGNÓSTICO
             </Link>

@@ -28,7 +28,7 @@ interface Dia1Props {
 export const Dia1Diagnostico = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-1',
+  videoUrl = 'https://creatuactivo.com/empresa-digital/dia-1',
 }: Dia1Props) => {
   const previewText = `Su Día 1 ya está listo. Hoy miramos de qué depende su ingreso.`;
 

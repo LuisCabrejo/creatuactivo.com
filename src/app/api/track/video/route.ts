@@ -36,12 +36,13 @@ export async function POST(request: NextRequest) {
 
     const supabase = getSupabase()
 
-    // Verificar si ya tiene un dia mayor registrado (no retroceder)
+    // Verificar si ya tiene un dia mayor registrado (no retroceder).
+    // device_info vive en `prospects` (keyed por fingerprint_id) — NO en nexus_prospects.
     const { data: existing } = await supabase
-      .from('nexus_prospects')
+      .from('prospects')
       .select('device_info')
-      .eq('fingerprint', fingerprint)
-      .single()
+      .eq('fingerprint_id', fingerprint)
+      .maybeSingle()
 
     const currentDia = (existing?.device_info as any)?.video_dia_actual ?? 0
     if (currentDia >= dia) {

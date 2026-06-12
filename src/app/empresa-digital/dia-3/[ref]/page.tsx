@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * Módulo 03 con ref de distribuidor
- * Ruta: /negocio-digital/dia-3/[ref]
+ * Ruta: /empresa-digital/dia-3/[ref]
  */
 
 import Modulo03Page from '../page';

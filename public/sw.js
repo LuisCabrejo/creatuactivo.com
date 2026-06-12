@@ -32,6 +32,7 @@ const BYPASS_CACHE_PATTERNS = [
   // URLs legacy redirigidas (301 en next.config.js) — siempre ir a red
   '/mapa-de-salida',
   '/reto-5-dias',
+  '/negocio-digital',
 ];
 
 // ============================================================================

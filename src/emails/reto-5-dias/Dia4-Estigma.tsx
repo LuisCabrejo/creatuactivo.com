@@ -28,7 +28,7 @@ interface Dia4Props {
 export const Dia4Estigma = ({
   firstName: _firstName,
   trackingUrl,
-  videoUrl = 'https://creatuactivo.com/negocio-digital/dia-4',
+  videoUrl = 'https://creatuactivo.com/empresa-digital/dia-4',
 }: Dia4Props) => {
   const previewText = `Su Día 4: las cuentas claras de cómo y cuánto se gana.`;
 
@@ -57,7 +57,7 @@ export const Dia4Estigma = ({
           <Section style={content}>
 
             <Text style={openingLine}>
-              Ayer vio cómo se arma su negocio digital: una empresa de 70 países y la inteligencia artificial trabajando por usted.
+              Ayer vio cómo se arma su empresa digital: una empresa de 70 países y la inteligencia artificial trabajando por usted.
             </Text>
 
             <Text style={paragraph}>

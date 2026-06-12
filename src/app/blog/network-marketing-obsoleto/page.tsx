@@ -284,7 +284,7 @@ export default function NetworkMarketingObsoletoPage() {
                   cómo puede iniciar la construcción del suyo.
                 </p>
                 <Link
-                  href="/negocio-digital"
+                  href="/empresa-digital"
                   className="cta-base cta-primary"
                   style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >

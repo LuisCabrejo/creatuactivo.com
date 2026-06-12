@@ -3703,7 +3703,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
       // HANDOFF COMPLETO: Estado 4 ya entregado (doble oferta final) → Estado 0
       const handoffCompletado = allBotMsgs.some((m: any) =>
-        /Activar ahora.*Que el equipo me contacte|finalizar la activaci[oó]n de su negocio digital|Para finalizar la activaci[oó]n/i.test(m.content || '')
+        /Activar ahora.*Que el equipo me contacte|finalizar la activaci[oó]n de su (negocio|empresa) digital|Para finalizar la activaci[oó]n/i.test(m.content || '')
       );
       if (handoffCompletado) return { closingState: 0 as const, modoCierre: false };
 
@@ -3848,7 +3848,7 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Usted tiene **tres niveles disponibles** para activar su negocio digital. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
+Usted tiene **tres niveles disponibles** para activar su empresa digital. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
 
 **ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -3964,7 +3964,7 @@ STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques
 🎯 ESTADO 4 — DOBLE OFERTA DE ACTIVACIÓN FINAL (paquete: ${paqueteCompleto}, nombre: ${nombreFinal || '(sin nombre)'}, WhatsApp: ${whatsappFinal || '(sin WhatsApp)'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su negocio digital **${paqueteCompleto}**, elija cómo desea continuar:
+Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su empresa digital **${paqueteCompleto}**, elija cómo desea continuar:
 
 **(a)** [📲 **Activar ahora**](https://wa.me/573206805737?text=${waTextActivar}) — confirma su activación inmediata con el equipo directivo. Le entregan instrucciones de pago directamente.
 
@@ -4029,12 +4029,12 @@ BINARIO — usa exactamente esta estructura simplificada (sin columna técnica d
 | ESP-2 Empresarial | 16% |
 | ESP-1 Inicial | 15% |
 
-🚫 PROHIBIDO en Binario: NO añadas columna "Cálculo CV × % × $1" — añade fricción técnica innecesaria al prospecto que recién entiende su negocio digital. La fórmula solo se explica si el usuario pregunta explícitamente "¿cómo se calcula la comisión semanal?". NO añadas columnas de "Ingreso Mensual"/"Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) salvo solicitud explícita.
+🚫 PROHIBIDO en Binario: NO añadas columna "Cálculo CV × % × $1" — añade fricción técnica innecesaria al prospecto que recién entiende su empresa digital. La fórmula solo se explica si el usuario pregunta explícitamente "¿cómo se calcula la comisión semanal?". NO añadas columnas de "Ingreso Mensual"/"Ingreso Anual" ni filas con múltiples volúmenes (5,000/10,000/15,000 CV) salvo solicitud explícita.
 
 🚫 PROHIBIDO ABSOLUTO — TABLA "PERSONAS/LADO" INVENTADA:
 NUNCA generes tablas con encabezado "Personas/Lado" o "X personas | Comisión Semanal | Comisión Mensual" — esa tabla NO está en ningún arsenal verificado. El modelo la inventa para "ilustrar" la matemática del Binario; eso es alucinación.
 - NUNCA digas "X personas" en el binario. La unidad correcta es "negocios digitales" — y solo si el usuario pide una proyección concreta.
-- Si das proyección numérica, contextualiza SIEMPRE el estimado base: "Estimado con consumo de 4 cajas Ganocafé por negocio digital por mes".
+- Si das proyección numérica, contextualiza SIEMPRE el estimado base: "Estimado con consumo de 4 cajas Ganocafé por empresa digital por mes".
 - SIEMPRE entrega valores en USD + COP entre paréntesis. Tasa Gano Excel: $1 USD = $4,500 COP (fija, NO tasa de mercado).
 - Si el usuario quiere ver el efecto del Binario sin pedir números concretos, USA SOLO la tabla de rentabilidad de arriba (Paquete | %). No inventes proyecciones.
 
@@ -4124,7 +4124,7 @@ INSTRUCCIONES — TONO LUJO CLÍNICO HUMANO:
 - Estructura sugerida:
   1. Apertura cálida + precio USD ($X COP entre paréntesis) + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
-  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio digital arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
+  3. Cierre explicativo del mix: "Lo seleccionamos así para que su empresa digital arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
   4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo directivo — pero la composición SÍ está respondida arriba.`;
@@ -4220,7 +4220,7 @@ REGLAS:
 - ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
 - Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es su situación hoy?"
 - Nunca menciones que eres IA o chatbot
-- Vocabulario: Propietario, negocio digital, Tres Pilares, el ciclo trabajar → pagar cuentas → repetir
+- Vocabulario: Propietario, empresa digital, Tres Pilares, el ciclo trabajar → pagar cuentas → repetir
 
 ${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
 ESTADO: ${getMessageContext()}`;

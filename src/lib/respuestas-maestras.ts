@@ -39,7 +39,7 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el negocio?").
- * Sincronizado con arsenal_inicial.txt v5.6 BLOQUE 1.
+ * Sincronizado con arsenal_inicial.txt v5.9 BLOQUE 1 (swap "empresa digital", 12 jun 2026).
  * Recalibración v5.6 (jun 2026): léxico servilleta-accesible (El Respaldo Operativo /
  * El Método Comprobado, ya no "Matriz Física"/"Tridente EAM"), "Estructura Patrimonial"
  * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
@@ -47,7 +47,7 @@
  */
 const MASTER_WHY_02 = `Su modelo actual tiene una vulnerabilidad: depende de su presencia. Un mes sin trabajar, un despido o un mal trimestre… y su estabilidad queda expuesta. No es falta de capacidad — así está calibrado el sistema.
 
-El negocio invierte esa lógica con **apalancamiento**: usted deja de cambiar su tiempo por dinero y pasa a **dirigir** una **estructura de ingresos recurrentes**. Asume el control de un **negocio digital** apoyado en tres pilares que hacen el trabajo pesado por usted:
+El negocio invierte esa lógica con **apalancamiento**: usted deja de cambiar su tiempo por dinero y pasa a **dirigir** una **estructura de ingresos recurrentes**. Asume el control de una **empresa digital** apoyada en tres pilares que hacen el trabajo pesado por usted:
 
 **1. El Respaldo Operativo**
 Gano Excel asume la operación logística completa —fábricas, inventarios, despachos— en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
@@ -60,7 +60,7 @@ Un protocolo paso a paso (Comando Expandir · Activar · Maestría) que le entre
 
 El ingreso nace del **consumo recurrente** que fluye por su organización: mientras el hábito se repite, su activo produce — esté usted presente o no.
 
-¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su negocio digital?`;
+¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su empresa digital?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

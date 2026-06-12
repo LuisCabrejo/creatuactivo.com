@@ -24,7 +24,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const FADE_MS = 1000
-const PROMPT_MESSAGE = '¿Construimos su negocio digital?'
+const PROMPT_MESSAGE = '¿Construimos su empresa digital?'
 const AUTO_HIDE_MS = 25000
 
 const C = {

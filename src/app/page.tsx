@@ -91,14 +91,14 @@ function HeroSection() {
         {/* Video manifiesto 9:16 — ES el encabezado de la página (decisión Jun 2026:
             el video reemplaza al texto como apertura; el brand del nav ya posiciona).
             Al terminar se desvanece y abre Queswa con foco en el input. */}
-        <div style={{ marginBottom: '60px' }}>
+        <div style={{ marginBottom: '90px' }}>
           <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
         </div>
 
         {/* H1 — debajo del video (SEO/a11y: sigue siendo el único h1 de la página) */}
         <h1 style={{
           fontSize: 'clamp(1.6rem, 4.5vw, 2.8rem)', lineHeight: 1.1,
-          marginBottom: '20px',
+          marginBottom: '32px',
           fontFamily: "var(--font-sans)",
           fontWeight: 700, color: C.gold,
           letterSpacing: '0.08em', textTransform: 'uppercase',
@@ -110,7 +110,7 @@ function HeroSection() {
         {/* Hook de diagnóstico */}
         <p style={{
           fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', lineHeight: 1.4,
-          marginBottom: '28px', color: C.white, fontWeight: 500,
+          marginBottom: '48px', color: C.white, fontWeight: 500,
           fontFamily: "var(--font-serif)",
           textShadow: '0 2px 10px rgba(0,0,0,0.9)',
         }}>
@@ -120,7 +120,7 @@ function HeroSection() {
 
         {/* Cuerpo */}
         <div style={{
-          background: 'rgba(0,0,0,0.70)', padding: '20px 28px', marginBottom: '32px',
+          background: 'rgba(0,0,0,0.70)', padding: '20px 28px', marginBottom: '48px',
           borderLeft: `2px solid rgba(197, 160, 89,0.3)`,
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>

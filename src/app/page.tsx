@@ -62,8 +62,10 @@ export default function HomePage() {
 // ============================================================================
 
 function HeroSection() {
+  // padding-top calibrado al nav (64px móvil / 80px desktop) — el video manifiesto
+  // debe quedar completo en el primer viewport, sin scroll ni adivinanza
   return (
-    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 80px' }}>
+    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '92px 24px 64px' }}>
       {/* Fondo CSS puro */}
       <div style={{
         position: 'absolute', inset: 0,

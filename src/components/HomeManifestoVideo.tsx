@@ -128,7 +128,10 @@ export default function HomeManifestoVideo({ src, poster }: { src: string; poste
         ref={containerRef}
         style={{
           position: 'relative',
-          width: '100%',
+          // El video completo (incluido el chip de sonido) debe caber en el primer
+          // viewport bajo el nav: el ancho se deriva de la altura disponible
+          // (svh estable — no salta con la URL bar) y se capa a 340px en desktop.
+          width: 'min(340px, 100%, calc((100svh - 150px) * 0.5625))',
           maxWidth: 340,
           margin: '0 auto',
           aspectRatio: '9 / 16',

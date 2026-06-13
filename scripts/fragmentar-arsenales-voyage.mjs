@@ -195,11 +195,17 @@ async function processArsenal(arsenalCategory) {
   for (const response of responses) {
     const fragmentCategory = `${arsenalCategory}_${response.id}`;
 
-    // Verificar si ya existe
+    // Verificar si ya existe EN ESTE TENANT.
+    // El filtro por tenant_id es crítico: arsenal_inicial se clona al tenant
+    // 'whatsapp', así que sin él esta query ve 2 filas (creatuactivo + whatsapp),
+    // `.single()` falla con PGRST116 → existing=undefined → se crean DUPLICADOS.
+    // Y para fragments que solo quedan en whatsapp (tras purgar creatuactivo) ve
+    // 1 fila y los salta, dejándolos sin regenerar. Bug confirmado 12 jun 2026.
     const { data: existing } = await supabase
       .from('nexus_documents')
       .select('id')
       .eq('category', fragmentCategory)
+      .eq('tenant_id', tenantId)
       .single();
 
     if (existing) {

@@ -4,13 +4,7 @@
 **Tenant:** creatuactivo_marketing (creatuactivo.com)
 **Actualizado:** 12/06/2026
 
-> Changelog: `knowledge_base/CHANGELOG-system-prompts.md`
->
-> **v28.2 — "villano narrado sin atacar el esfuerzo" (12 jun 2026):** Alinea el prompt con `arsenal_inicial` v5.10. (1) **IDENTIDAD CORE:** el diagnóstico del villano se NARRA (ver EL VILLANO), no se etiqueta como "depende de su presencia" — "la presencia" queda solo en el lado de la solución técnica. (2) **Aforismo Maestría** "Queswa escala" → "Queswa multiplica" (sincroniza el swap "escalar→multiplicar" que ya prohíbe el propio léxico). (3) **Recategorización:** ejemplo "Eso no es éxito financiero" → "No es un problema de ingresos; es un punto ciego" (recategoriza sin negar el logro del héroe). Sin cambios de comportamiento estructural.
->
-> **v28.1 — "empresa digital" (12 jun 2026):** Swap quirúrgico — el activo que entregamos pasa de "negocio digital" → **"empresa digital"** (decisión Luis, alineado con Home v13.6 y arsenal_inicial v5.9: eleva el estatus de propiedad). Concordancias de género corregidas ("dirigida desde el celular", "la empresa digital"). Se conserva "negocio" en la pregunta del avatar ("¿Cómo funciona el negocio?"), en el negocio actual del prospecto y en "Centro de Negocios" (Binario). Sin cambios de comportamiento.
->
-> **v28.0 — Negocio Digital + Ola 2 de redundancia (jun 2026):** (1) **Léxico migrado** — "Base Operativa" → **negocio digital**; rol "Propietario de Base Operativa" → **Propietario**; "soberanía financiera" → tranquilidad/estabilidad; "arquitectura patrimonial" → modelo de ingresos; + reglas nuevas **operar/operador** y auto-referencia **esto/eso**; "escalar" → "multiplicar". (2) **Consolidación de redundancia** (Ola 2): ~30 secciones → ~15. Formato unificado en una sección; listas de prohibido fusionadas en una; Villano+Coexistencia fusionados; justificaciones podadas; el frame "en paralelo" se enuncia una vez. **Sin cambios de comportamiento** — mismas reglas, menos palabras. Los bloqueos (compensación, dashboard, KYC, verbatim_lock) conservan su lógica intacta; solo se acortó el formato.
+> **Actual: v28.2** (12 jun 2026) — Villano narrado sin atacar el esfuerzo: el diagnóstico narra el sistema de asfixia (no "depende de su presencia"); aforismo "Queswa multiplica"; recategorización "punto ciego". Alinea con `arsenal_inicial` v5.10. **Previa: v28.1** (12 jun 2026) — swap "empresa digital" (el activo que entregamos). Historial completo → `knowledge_base/CHANGELOG-system-prompts.md`.
 
 ---
 

@@ -6,6 +6,24 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v28.2 — Villano narrado sin atacar el esfuerzo (12 jun 2026)
+
+Alinea el prompt con `arsenal_inicial` v5.10 (WHY_01/WHY_02 reescritos: el villano deja de ser "la presencia obligada" y pasa a ser el sistema de asfixia mensual, narrado sin etiqueta; se reconoce el esfuerzo del héroe). Fundamento: investigaciones `El Statu Quo` + `Léxico CreaTuActivo`.
+
+1. **IDENTIDAD CORE:** el diagnóstico del villano se NARRA (remite a la sección EL VILLANO), ya no se instruye etiquetarlo como "el ingreso atado 100% a la presencia". "La presencia" queda solo del lado de la solución técnica (un ingreso que sigue produciendo aunque el usuario no esté presente).
+2. **Aforismo Maestría:** "Usted no enseña; Queswa escala" → "…Queswa multiplica" — sincroniza el swap "escalar→multiplicar" que el propio léxico (L145) ya prohibía. Inconsistencia interna resuelta.
+3. **Recategorización:** ejemplo "Eso no es éxito financiero. Es una trampa." → "No es un problema de ingresos; es un punto ciego." (recategoriza sin negar el logro del héroe; eco del hero de la home).
+
+Sin cambios de comportamiento estructural. Los bloqueos (compensación, dashboard, KYC, verbatim_lock) intactos.
+
+## v28.1 — Empresa Digital (12 jun 2026)
+
+Swap quirúrgico "negocio digital" → "empresa digital" para el activo que entregamos (decisión Luis, alineado con Home v13.6 y arsenal_inicial v5.9 — eleva el estatus de propiedad). Concordancias de género corregidas. Se conserva "negocio" en la pregunta del avatar ("¿Cómo funciona el negocio?"), el negocio actual del prospecto y "Centro de Negocios" (Binario). Sin cambios de comportamiento.
+
+## v28.0 — Negocio Digital + Ola 2 de redundancia (jun 2026)
+
+(1) Léxico migrado: "Base Operativa" → negocio digital; "Propietario de Base Operativa" → Propietario; "soberanía financiera" → tranquilidad/estabilidad; "arquitectura patrimonial" → modelo de ingresos; reglas nuevas operar/operador y auto-referencia esto/eso; "escalar" → "multiplicar". (2) Consolidación de redundancia: ~30 secciones → ~15, sin cambios de comportamiento (bloqueos compensación/dashboard/KYC/verbatim_lock intactos).
+
 ## v27.2 — Modulación de Registro (24 May 2026)
 
 Ola 2 del refactor doctrinal post-QA. Formaliza la doctrina v5.5 nacida del insight del Director Cabrejo: *"si tú hablas con un médico no esperas que te hable en tu mismo lenguaje, de lo contrario pensarás que no es médico, pero si soy médico debo esforzarme en utilizar un lenguaje comprensible"* (analogía Mario Alonso Puig). Sin cambios de identidad — solo modulación contextual del registro.

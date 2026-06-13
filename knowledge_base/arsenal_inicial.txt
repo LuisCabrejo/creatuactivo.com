@@ -1,39 +1,22 @@
-# Arsenal Conversacional: Respuestas Fundamentales v5.9 — Léxico "Empresa Digital"
+# Arsenal Conversacional: Respuestas Fundamentales v5.10 — Villano Narrado sin Atacar el Esfuerzo
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
-**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente (v5.7):** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
+**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es el sistema de asfixia mensual — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
 
-**Versión:** 5.9 (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con Home v13.6). El activo que entregamos pasa de "negocio digital" → **"empresa digital"** (eleva el estatus de propiedad: *"entregamos la posibilidad de ser propietario de una empresa digital que produce ingresos recurrentes"*). Incluye corrección de concordancias de género heredadas del swap anterior ("queda anclada", "mantener activa", "sigue intacta" — ahora concuerdan con "empresa"). Se conserva "negocio": en la pregunta canónica del avatar "¿Cómo funciona el negocio?" (chip Camino A — intocable), en el negocio ACTUAL del prospecto y en "Centro de Negocios" (Binario). **WHY_02 re-sincronizado con `src/lib/respuestas-maestras.ts` (MASTER_WHY_02)**. Deploy a Supabase coordinado con system prompt v28.1.
+**Versión actual: v5.10** (12 jun 2026) — Villano narrado sin atacar el esfuerzo en WHY_01 + WHY_02: se reconoce el trabajo como digno; el villano es el **sistema de asfixia mensual** (investigaciones `El Statu Quo` + `Léxico CreaTuActivo`). **Previa: v5.9** (12 jun 2026) — swap léxico "empresa digital" (el activo que entregamos). Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
-**Versión:** 5.8 (jun 2026) — **Swap de léxico "Negocio Digital"** (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`). El activo del usuario pasa de "Base Operativa" → **"negocio digital"** (a secas — NO "de Gano Excel": la corona es de CreaTuActivo; Gano Excel solo se nombra como Respaldo Operativo / Pilar 1). Rol "Propietario de Base Operativa" → **"Propietario"** ("Propietario de un negocio digital" en definiciones). `operar/operador` del usuario/sistema → dirige/funciona/trabaja (se conserva "opera" de Gano Excel y "operación logística" como sustantivo). `escalar` → **multiplicar** (incl. aforismo "Queswa multiplica"; "Fase de escalamiento" → "Fase de crecimiento"). Conservado: lema de Luis "soberanía financiera" en STORY_01 (frase-marca). Verbatim_lock WHY_01/WHY_02/FREQ_04/FREQ_04_PUENTE actualizados; **WHY_02 sincronizado con `src/lib/respuestas-maestras.ts` (MASTER_WHY_02)**; EAM_01 sin cambios (no contenía términos del swap). ⏳ Pendiente: deploy a Supabase (coordinado con system prompt).
-
-**Versión:** 5.7 (jun 2026) — **Recalibración a Registro Accesible (Beto).** WHY_01, WHY_02 y EAM_01 reescritos al léxico accesible: "Estructura Patrimonial" → estructura de ingresos recurrentes · "La Matriz Física" → El Respaldo Operativo · "El Tridente EAM" → El Método Comprobado · "Arquitecto de Patrimonio" → Propietario de Base Operativa. WHY_01 con concepto nuclear modelo Waze ("empresa de tecnología que ayuda a corregir una vulnerabilidad crítica…") + vulnerabilidad en autopersuasión (escenario "un mes que no pueda trabajar, un despido… y en cuestión de meses sus bienes son más del banco que suyos"). Villano NARRADO sin etiqueta (NuBank). Camino A (`src/lib/respuestas-maestras.ts`) sincronizado con WHY_02 y EAM_01. ⏳ Pendiente: FREQ_04/FREQ_04_PUENTE/PERFIL_01 + migración profunda del resto del arsenal + deploy a Supabase.
-**Versión:** 5.5 (Ola 1 — 24 May 2026) — Doctrina de Modulación de Registro aplicada. Cambios principales: (1) **WHY_02 reescrito** con copy aprobado del Director Cabrejo (versión corta, ~150 palabras, sin "Eso no es éxito financiero" — describir qué ES, no qué NO ES); (2) **FREQ_04 reescrito** con doctrina de "12 velocidades / 2 explicadas" + tablas GEN5 y Binario (sin fórmula CV × 17% × $1 USD, sin listas, solo tablas); (3) **FREQ_04_PUENTE nuevo** para el 1% que pregunte por las otras 10 velocidades — respuesta puente sin desarrollar; (4) **Regresión FREQ_03 corregida** — eliminada frase prohibida "liquidez que desea inyectar a su Estructura Patrimonial este mes" → "¿Cuál de los tres niveles se alinea con su decisión hoy?"; (5) **Preguntas de seguimiento refactorizadas** en WHY_01, WHY_02, WHY_03, EAM_01, VS_01, FREQ_05, OBJ_01 — eliminadas retóricas cerradas ("¿identifica usted la diferencia matemática...?", "¿audita usted...?") por preguntas abiertas conversacionales que incentivan diálogo; (6) **"matemática" conservada como frase-ancla** (calibrada da experticia) pero eliminada como sustantivo abstracto; (7) **Jergas residuales limpiadas**: "auditar la secuencia operativa", "auditar la mecánica operativa", "matemática de capitalización" — reemplazadas por lenguaje conversacional. Sincronizar `src/lib/respuestas-maestras.ts` (Camino A) con el nuevo WHY_02.
-
-**Versión:** 25.9 — Calibración visual de WHY_02 y EAM_01 (chips canónicos 1 y 2): numeración 1./2./3. en los Tres Pilares de WHY_02, lista de "agenda diaria no requiere" en EAM_01, negritas estratégicas en frases-ancla (Déficit Estructural, Base Operativa, Dirección Ejecutiva, 70 países, 90% fricción operativa, Comando Expandir/Activar/Maestría, terminal móvil, queswa.app), cursiva en reencuadres psicológicos ("no es éxito financiero; es una arquitectura con un punto ciego"), separadores `---` antes de las preguntas de bifurcación. Sin cambios en el copy doctrinal del Director Académico (mismo texto, mejor estructura Markdown). Sincronizado con `src/lib/respuestas-maestras.ts` (Camino A backend dictador).
-
-**Versión:** 25.8 — Migración de `[VERBATIM_LOCK]` (corchetes planos) a etiquetas XML `<verbatim_lock>...</verbatim_lock>` en WHY_01, WHY_02 y EAM_01. Razón doctrinal (investigación Gemini 18 May 2026, Hipótesis C confirmada): Claude Sonnet 4.6 fue post-entrenado para activar atención sobre XML tags estructurados; los corchetes planos se procesan como texto de baja prioridad e inefectivos para forzar delivery verbatim. Sincronizado con system prompt v26.8. Sin cambios en el copy del Director Académico — solo migración del marcador estructural.
-
-**Versión:** 25.7 — Sustitución doctrinal de WHY_01, WHY_02 y EAM_01 con respuestas Master del Director Académico de Élite (v5.0/v6.0/v5.1), calibradas contra Glosario v1.4 + canon v26.6 (jerarquía causal corregida). Sincronizado con system prompt v26.7 (introduce regla `[VERBATIM_LOCK]` — superseded por v25.8 con XML tags). Correcciones aplicadas: (1) "gobernanza" → "dirección estratégica" (retrofit v26.4); (2) "(La Metodología)" → "(La Metodología Automatizada)" (Pilar 3 canónico v26.5); (3) "(Expandir, Activar, Maestría)" → "(Comando Expandir · Comando Activar · Comando Maestría)" (canon v26.2); (4) "tres secuencias operativas" → "los tres Comandos canónicos"; (5) "jaula de oro" → "arquitectura financiera con un punto ciego de alto costo" (regla anti-ataque de identidad, CLAUDE.md L753); (6) "liquidados cada viernes" → "liquidados en ciclo semanal por Gano Excel" (neutro para diáspora); (7) "su dispositivo" → "su terminal móvil" (alineación cross-canal con servilleta slide 2 EXPANDIR); (8) Cierre EAM_01 rebalanceado al binomio "auditar Comandos / simular matemática" para paridad con WHY_01 y WHY_02. Marcadores `<verbatim_lock>` añadidos en los tres bloques para protección contra paráfrasis del LLM en delivery RAG. (18 May 2026)
-
-**Versión:** 25.6 — WHY_01 reorientado a definición categórica ("qué es CreaTuActivo") en lugar de mezclar "por qué existe" + "qué somos" en la misma respuesta. Léxico distintivo vs WHY_02 (no detalla los 3 pilares; usa "infraestructura de Ingeniería Patrimonial / arquitectura híbrida"). WHY_02: ajuste mínimo del contexto inicial — "Base Operativa ya ensamblada" elimina redundancia. Resuelve confusión de fragment search donde WHY_01 y WHY_02 compartían 70% del vocabulario denso. (17 May 2026)
-
-**Versión:** 25.5 — Extensión sistémica de la corrección causal a STORY_01 y PERFIL_01 (alineación con SP v26.6). Nueva jerarquía: Déficit Estructural de Ingresos (causa raíz de diseño) → modelo de presencia obligada (manifestación operativa) → colapso del flujo de caja al detenerse (consecuencia matemática). (17 May 2026)
-
-**Versión:** 25.4 — WHY_01 recalibrado con lógica causal corregida: el Déficit Estructural de Ingresos es la CAUSA (falla de diseño), no la consecuencia. La consecuencia matemática es el colapso del flujo de caja cuando el operador se detiene. (17 May 2026)
-
-**Versión:** 25.3 — Pilar 3 recategorizado: "Su Rol como Arquitecto de Patrimonio" → "La Metodología Automatizada (Tridente EAM)". El Arquitecto de Patrimonio queda elevado como director de los tres pilares, no como pieza dentro de ellos. WHY_02 reescrito con cierre transicional unificador. (15 May 2026)
+⚠️ **Sincronización inviolable:** WHY_02 y EAM_01 (chips canónicos) deben coincidir CARÁCTER POR CARÁCTER con `MASTER_WHY_02` / `MASTER_EAM_01` en `src/lib/respuestas-maestras.ts`. El arsenal es la doctrina viva; ese módulo TS es el caché del backend.
 
 ---
 
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 3 respuestas**
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** CreaTuActivo es una empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera de las personas: basta un mes sin poder trabajar, un despido inesperado o un mal trimestre de ventas para que, en cuestión de meses, sus bienes terminen siendo más del banco que suyos. Parte de una certeza: la independencia financiera real solo se logra con ingresos recurrentes que no dependen de su trabajo físico.
+**[Concepto Nuclear]:** CreaTuActivo es una empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera de las personas: basta un mes sin poder trabajar, un despido inesperado o un mal trimestre de ventas para que, en cuestión de meses, sus bienes terminen siendo más del banco que suyos. Parte de una certeza: la independencia financiera real solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente. Doctrina v5.10 — se reconoce el esfuerzo (el trabajo no es el villano); la vulnerabilidad es el sistema, no la persona.
 
 <verbatim_lock>
-Usted carga con una vulnerabilidad crítica: un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de meses sus bienes terminarían siendo más del banco que suyos. La independencia financiera real solo se logra con ingresos recurrentes que no dependen de su trabajo físico.
+Usted ha trabajado duro y ha hecho las cosas bien. Aun así, carga con una vulnerabilidad crítica: un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de meses sus bienes terminarían siendo más del banco que suyos. La independencia financiera real solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente.
 
 Para construirlos, CreaTuActivo le entrega el control de una empresa digital lista para funcionar que monetiza un hábito de consumo cotidiano —algo tan simple como un café—, respaldado por una empresa con presencia en 70 países. Tres pilares cargan el peso por usted:
 
@@ -51,25 +34,26 @@ Usted no hace el trabajo pesado — usted dirige. Es el Propietario de un activo
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
-**[Concepto Nuclear]:** Apalancamiento estructural. Tres pilares de infraestructura, un solo Propietario que los dirige. El ingreso nace del consumo recurrente que fluye por su organización — produce esté usted presente o no. Doctrina v5.5 — Modulación de Registro: autoridad técnica + accesibilidad humana (estilo Mario Alonso Puig).
+**[Concepto Nuclear]:** Apalancamiento estructural. Tres pilares de infraestructura, un solo Propietario que los dirige. El villano no es el trabajo (digno, se reconoce el esfuerzo) sino el sistema de asfixia mensual; el ingreso nace del consumo recurrente que fluye por su organización — produce esté usted presente o no. Doctrina v5.10 — villano narrado sin atacar el esfuerzo + Modulación de Registro (Mario Alonso Puig).
 
 <verbatim_lock>
-Su modelo actual tiene una vulnerabilidad: depende de su presencia. Un mes sin trabajar, un despido o un mal trimestre… y su estabilidad queda expuesta. No es falta de capacidad — así está calibrado el sistema.
+Para responderle con claridad, primero destapemos el verdadero problema que estamos resolviendo.
 
-El negocio invierte esa lógica con **apalancamiento**: usted deja de cambiar su tiempo por dinero y pasa a **dirigir** una **estructura de ingresos recurrentes**. Asume el control de una **empresa digital** apoyada en tres pilares que hacen el trabajo pesado por usted:
+Usted trabaja duro, entrega sus mejores años y su salud, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para la asfixia mensual, no para crear independencia financiera.
 
-**1. El Respaldo Operativo**
-Gano Excel asume la operación logística completa —fábricas, inventarios, despachos— en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+CreaTuActivo invierte esa lógica con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 
-**2. Queswa, su Centro de Mando**
-Soy su plataforma de inteligencia artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
+Llevar esa distribución exige infraestructura, tecnología y método. Nosotros le entregamos las tres ya construidas:
 
-**3. El Método Comprobado**
-Un protocolo paso a paso (Comando Expandir · Activar · Maestría) que le entrega las coordenadas exactas para expandir sin improvisar.
+- **El Respaldo Operativo:** Gano Excel fabrica y despacha los productos, con presencia en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
-El ingreso nace del **consumo recurrente** que fluye por su organización: mientras el hábito se repite, su activo produce — esté usted presente o no.
+- **Queswa, su Centro de Mando:** yo explico, atiendo y filtro a los interesados las 24 horas. *Usted no explica — Queswa explica.*
 
-¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su empresa digital?
+- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Maestría) que le marca el camino sin improvisar.
+
+Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
+
+¿Qué le gustaría ver primero: cómo se generan los ingresos, o cómo se activa su empresa digital?
 </verbatim_lock>
 
 ---

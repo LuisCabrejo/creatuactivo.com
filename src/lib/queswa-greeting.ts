@@ -24,11 +24,14 @@
  *   porque es lógica condicional contextual, no copy duplicado
  * - Saludo de página /sistema/productos — vive en useNEXUSChat.ts por la misma razón
  *
- * Última actualización léxica: 10 may 2026 — alineación SP v26.4 + 4 preguntas reales del avatar
+ * Última actualización léxica: 12 jun 2026 — MISION recalibrada al registro de la home
+ * (reconoce el esfuerzo, no ataca el trabajo; eco del hero "no es trabajar más, ni dejar
+ * lo que hace hoy"; léxico "siga produciendo aunque usted no esté presente" alineado con WHY_01).
+ * Previo: 10 may 2026 — alineación SP v26.4 + 4 preguntas reales del avatar
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Mi función es ahorrarle tiempo: filtrar la información y ayudarle a diagnosticar si le conviene construir, en paralelo a lo que hace hoy, un ingreso que no dependa de su presencia.`;
+const MISION = `Estoy aquí para ahorrarle tiempo. No para proponerle trabajar más ni dejar lo que hace hoy — sino para ayudarle a ver, con calma, si le conviene construir en paralelo un ingreso que siga produciendo aunque usted no esté presente.`;
 
 const TRANSICION = `¿Por dónde quiere empezar?`;
 

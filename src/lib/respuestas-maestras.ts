@@ -45,22 +45,23 @@
  * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
  * "si se detiene se detiene", cierre que distingue "cómo se gana" (consumo recurrente).
  */
-const MASTER_WHY_02 = `Su modelo actual tiene una vulnerabilidad: depende de su presencia. Un mes sin trabajar, un despido o un mal trimestre… y su estabilidad queda expuesta. No es falta de capacidad — así está calibrado el sistema.
+const MASTER_WHY_02 = `Para responderle con claridad, primero destapemos el verdadero problema que estamos resolviendo.
 
-El negocio invierte esa lógica con **apalancamiento**: usted deja de cambiar su tiempo por dinero y pasa a **dirigir** una **estructura de ingresos recurrentes**. Asume el control de una **empresa digital** apoyada en tres pilares que hacen el trabajo pesado por usted:
+Usted trabaja duro, entrega sus mejores años y su salud, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para la asfixia mensual, no para crear independencia financiera.
 
-**1. El Respaldo Operativo**
-Gano Excel asume la operación logística completa —fábricas, inventarios, despachos— en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+CreaTuActivo invierte esa lógica con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 
-**2. Queswa, su Centro de Mando**
-Soy su plataforma de inteligencia artificial. Filtro y califico perfiles las 24 horas. *Usted no explica — Queswa explica.*
+Llevar esa distribución exige infraestructura, tecnología y método. Nosotros le entregamos las tres ya construidas:
 
-**3. El Método Comprobado**
-Un protocolo paso a paso (Comando Expandir · Activar · Maestría) que le entrega las coordenadas exactas para expandir sin improvisar.
+- **El Respaldo Operativo:** Gano Excel fabrica y despacha los productos, con presencia en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
-El ingreso nace del **consumo recurrente** que fluye por su organización: mientras el hábito se repite, su activo produce — esté usted presente o no.
+- **Queswa, su Centro de Mando:** yo explico, atiendo y filtro a los interesados las 24 horas. *Usted no explica — Queswa explica.*
 
-¿Qué le gustaría profundizar primero: cómo se monetiza el activo, o cómo se activa su empresa digital?`;
+- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Maestría) que le marca el camino sin improvisar.
+
+Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
+
+¿Qué le gustaría ver primero: cómo se generan los ingresos, o cómo se activa su empresa digital?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

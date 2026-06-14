@@ -8,7 +8,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound, redirect } from 'next/navigation'
-import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, type ReelNicho } from '@/lib/reels'
+import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
 import ManifiestoDocument from '@/components/ManifiestoDocument'
 
@@ -160,8 +160,9 @@ export async function generateMetadata({
         url: `https://creatuactivo.com/${slug}/${destino}`,
         siteName: 'CreaTuActivo.com',
         videos: [{ url: assets.video, type: 'video/mp4', width: 1080, height: 1920 }],
-        // Portada branded única (JPG) — los frames por-nicho se veían borrosos
-        images: [{ url: REEL_POSTER_OG, width: 540, height: 960, alt: copy.titulo }],
+        // Portada: frame del propio reel por-nicho (1080×1920 nítido desde el master);
+        // fallback al poster branded para nichos sin override.
+        images: [{ url: REEL_POSTER_OVERRIDE[destino]?.posterOg ?? REEL_POSTER_OG, width: 1080, height: 1920, alt: copy.titulo }],
       },
     }
   }

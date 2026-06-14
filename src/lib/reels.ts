@@ -24,6 +24,15 @@ export const REEL_POSTER = '/videos/reels/poster.webp'
 // que no siempre renderiza WebP). metadataBase la resuelve a URL absoluta.
 export const REEL_POSTER_OG = '/videos/reels/poster.jpg'
 
+// Override de portada por-nicho (frame del propio reel, 1080×1920 nítido desde el
+// master). Los nichos sin entrada usan el poster branded (REEL_POSTER / REEL_POSTER_OG).
+export const REEL_POSTER_OVERRIDE: Partial<Record<ReelNicho, { poster: string; posterOg: string }>> = {
+  corporativo: {
+    poster: '/videos/reels/corporativo-poster.webp',
+    posterOg: '/videos/reels/corporativo-poster.jpg',
+  },
+}
+
 export const REEL_ASSETS: Record<ReelNicho, { video: string }> = {
   corporativo: { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/corporativo.mp4' },
   empleados:   { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empleados.mp4' },

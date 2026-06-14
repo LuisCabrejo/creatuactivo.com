@@ -11,7 +11,7 @@
  *   5. Los 2 escenarios de cierre del video: Auditoría 5 Días + Activación (WhatsApp)
  */
 
-import { REEL_ASSETS, REEL_COPY, REEL_POSTER, type ReelNicho } from '@/lib/reels'
+import { REEL_ASSETS, REEL_COPY, REEL_POSTER, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelVideo from '@/components/ReelVideo'
 import ShareButton from '@/components/ShareButton'
 
@@ -83,7 +83,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
 
       <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '36px' }}>
         {/* 1 — Reel 9:16 + burbuja Queswa contextual (client) */}
-        <ReelVideo poster={REEL_POSTER} src={assets.video} nicho={nicho} />
+        <ReelVideo poster={REEL_POSTER_OVERRIDE[nicho]?.poster ?? REEL_POSTER} src={assets.video} nicho={nicho} />
 
         {/* 2 — Título */}
         <h1

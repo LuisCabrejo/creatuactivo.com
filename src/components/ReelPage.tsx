@@ -11,9 +11,8 @@
  *   5. Los 2 escenarios de cierre del video: Auditoría 5 Días + Activación (WhatsApp)
  */
 
-import { REEL_ASSETS, REEL_COPY, REEL_POSTER, SERVILLETA_YOUTUBE_ID, type ReelNicho } from '@/lib/reels'
+import { REEL_ASSETS, REEL_COPY, REEL_POSTER, type ReelNicho } from '@/lib/reels'
 import ReelVideo from '@/components/ReelVideo'
-import YouTubeFacade from '@/components/YouTubeFacade'
 import ShareButton from '@/components/ShareButton'
 
 interface ReelPageProps {
@@ -113,26 +112,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
           ))}
         </div>
 
-        {/* 4 — Presentación de 7 min (tarjeta YouTube full-bleed: todo el ancho en móvil) */}
-        <div style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
-          <div style={{ maxWidth: 680, margin: '0 auto' }}>
-            <p
-              style={{
-                fontSize: '0.7rem',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: 'var(--color-titanium-muted)',
-                fontFamily: 'var(--font-mono)',
-                margin: '0 16px 18px',
-              }}
-            >
-              La presentación completa · 7 min
-            </p>
-            <YouTubeFacade youtubeId={SERVILLETA_YOUTUBE_ID} />
-          </div>
-        </div>
-
-        {/* 5 — Los dos escenarios con que cierra la presentación */}
+        {/* Los dos escenarios con que cierra la presentación */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
             Auditoría de 5 Días

@@ -2,29 +2,45 @@
 
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Video del reel (9:16) + burbuja contextual de Queswa.
+ * Video del reel (9:16) + transición a Queswa (patrón Home, Jun 2026).
  *
- * El reel pide "audite su viabilidad con Queswa". La burbuja sobre el orbe
- * aparece cuando el video TERMINA o cuando el usuario hace scroll dejándolo
- * atrás, y se OCULTA cuando: vuelve al video (re-entra al viewport), abre el
- * chat (queswa-opened), pasan 25 s, o el usuario la cierra con la ×.
- * Tocar el texto abre Queswa (open-queswa). Cerrarla con × no reaparece.
+ * - Al TERMINAR: el video se desvanece (1000ms) y detrás aparece el panel de
+ *   Queswa; si sigue en viewport (≥40%) se abre el chat con foco. NO despliega
+ *   burbuja al terminar.
+ * - Burbuja contextual sobre el orbe: SOLO cuando el usuario hace scroll dejando
+ *   el video atrás (no se autodespliega mientras lo ve). Texto del sitio:
+ *   "¿Construimos su empresa digital?". Se oculta al volver al video, al abrir el
+ *   chat (queswa-opened), a los 25s, o con la ×.
+ * - Tracking de engagement (contrato con el Dashboard) intacto.
  */
 
 import { useEffect, useRef, useState } from 'react'
 
-const PROMPT_MESSAGE = 'Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?'
+const FADE_MS = 1000
+const PROMPT_MESSAGE = '¿Construimos su empresa digital?'
 const AUTO_HIDE_MS = 25000
+
+const C = { gold: '#C5A059', obsidian: '#1A1D23', carbon: '#0F1115', white: '#FFFFFF', muted: '#A3A3A3' }
+
+function openQueswaAndFocus() {
+  window.dispatchEvent(new CustomEvent('open-queswa'))
+  setTimeout(() => {
+    const input = document.getElementById('queswa-chat-input') as HTMLTextAreaElement | null
+    input?.focus({ preventScroll: true })
+  }, 80)
+}
 
 export default function ReelVideo({ poster, src, nicho }: { poster: string; src: string; nicho: string }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [ended, setEnded] = useState(false)
+  const hijackedRef = useRef(false)
+
   const [showPrompt, setShowPrompt] = useState(false)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  // Una vez el usuario cierra la burbuja o abre el chat, no se vuelve a mostrar
   const suppressedRef = useRef(false)
 
   // ─── Engagement Fase 1 — ≤6 escrituras/sesión (ver HANDOFF_REELS_ENGAGEMENT_FASE1.md) ───
-  // Presupuesto: milestones 25/50/75 (3) + onEnded (1) + queswa_opened (1) + beacon de salida (1)
   const reported = useRef({ m25: false, m50: false, m75: false, ended: false, queswa: false })
   const maxPctRef = useRef(0)
   const msgCountRef = useRef(0)
@@ -50,7 +66,6 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     }).catch(() => {})
   }
 
-  // Milestones del reel — solo se reporta el primer cruce de cada umbral
   const handleTimeUpdate = () => {
     const el = videoRef.current
     if (!el || !el.duration) return
@@ -61,17 +76,9 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     if (pct >= 75 && !reported.current.m75) { reported.current.m75 = true; report({ pct: 75 }) }
   }
 
-  const handleEnded = () => {
-    show()
-    if (!reported.current.ended) { reported.current.ended = true; report({ completed: true, pct: 100 }) }
-  }
-
   const clearTimer = () => { if (hideTimer.current) clearTimeout(hideTimer.current) }
-
   const hide = () => { setShowPrompt(false); clearTimer() }
-
   const dismiss = () => { suppressedRef.current = true; hide() }
-
   const show = () => {
     if (suppressedRef.current) return
     setShowPrompt(true)
@@ -79,15 +86,32 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     hideTimer.current = setTimeout(() => setShowPrompt(false), AUTO_HIDE_MS)
   }
 
-  // Trigger/hide por scroll: fuera del viewport muestra; volver al video oculta
-  useEffect(() => {
+  // Al terminar: fade del video + abrir Queswa (si sigue a la vista). Sin burbuja.
+  const handleEnded = () => {
+    if (!reported.current.ended) { reported.current.ended = true; report({ completed: true, pct: 100 }) }
+    setEnded(true)
+    if (hijackedRef.current) return
+    hijackedRef.current = true
+    const rect = containerRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const vh = window.innerHeight || document.documentElement.clientHeight
+    const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0)
+    if (visible / rect.height >= 0.4) openQueswaAndFocus()
+  }
+
+  // Quien pide repetir quiere oírlo de nuevo
+  const replay = () => {
+    setEnded(false)
     const el = videoRef.current
+    if (el) { el.currentTime = 0; el.play().catch(() => {}) }
+  }
+
+  // Burbuja SOLO por scroll: fuera del viewport muestra; volver al video oculta
+  useEffect(() => {
+    const el = containerRef.current
     if (!el) return
     const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) hide()
-        else show()
-      },
+      ([entry]) => { if (entry.isIntersecting) hide(); else show() },
       { threshold: 0.1 }
     )
     obs.observe(el)
@@ -95,21 +119,17 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Abrir el chat (orbe o burbuja) oculta la burbuja y no la vuelve a mostrar
   useEffect(() => {
     const onOpened = () => { suppressedRef.current = true; hide() }
     window.addEventListener('queswa-opened', onOpened)
     return () => window.removeEventListener('queswa-opened', onOpened)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const openQueswa = () => {
-    hide()
-    window.dispatchEvent(new CustomEvent('open-queswa'))
-  }
+  const openQueswa = () => { hide(); openQueswaAndFocus() }
 
   // Engagement: queswa_opened (push), conteo de mensajes, tiempo activo + visit_count en beacon de salida
   useEffect(() => {
-    // visit_count — gap > 30 min desde la última sesión = nueva sesión
     const THIRTY_MIN = 30 * 60 * 1000
     const now = Date.now()
     const last = Number(localStorage.getItem('reel_last_seen') || 0)
@@ -130,7 +150,6 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     }
     const onMsgSent = () => { msgCountRef.current += 1 }
 
-    // Beacon de salida — 1 sola escritura con tiempo activo + visit_count + mensajes
     const sendExit = () => {
       if (sentExitRef.current) return
       sentExitRef.current = true
@@ -144,8 +163,6 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
         visit_count: visitCountRef.current,
         queswa_messages: msgCountRef.current,
       })
-      // fetch+keepalive es más confiable que sendBeacon durante el unload (sobrevive al
-      // teardown de la página en navegaciones cross-origin). sendBeacon como fallback.
       try {
         fetch('/api/track/engagement', {
           method: 'POST',
@@ -180,30 +197,87 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
   return (
     <>
       <div
+        ref={containerRef}
         style={{
           position: 'relative',
           width: '100%',
           aspectRatio: '9 / 16',
-          background: '#000',
+          background: C.carbon,
           borderRadius: '10px',
           overflow: 'hidden',
           border: '1px solid rgba(148, 163, 184, 0.18)',
         }}
       >
+        {/* Panel de invitación — vive DETRÁS del video; se revela con el fade-out */}
+        <div
+          aria-hidden={!ended}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 18,
+            padding: '0 28px',
+            textAlign: 'center',
+            background: `radial-gradient(ellipse at center, ${C.obsidian} 0%, ${C.carbon} 75%)`,
+            opacity: ended ? 1 : 0,
+            transition: `opacity ${FADE_MS}ms ease`,
+          }}
+        >
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.05rem', lineHeight: 1.5, color: C.white, margin: 0 }}>
+            Queswa está en línea y conoce su caso. Pregúntele lo que quiera.
+          </p>
+          <button
+            type="button"
+            onClick={openQueswaAndFocus}
+            style={{
+              background: 'rgba(197, 160, 89, 0.08)', border: `1px solid ${C.gold}`, color: C.gold,
+              fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.1em',
+              padding: '12px 22px', borderRadius: 6, cursor: 'pointer',
+            }}
+          >
+            Hablar con Queswa →
+          </button>
+          <button
+            type="button"
+            onClick={replay}
+            style={{
+              background: 'transparent', border: 'none', color: C.muted, fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem', letterSpacing: '0.1em', cursor: 'pointer', padding: 6,
+            }}
+          >
+            ↺ Ver de nuevo
+          </button>
+        </div>
+
+        {/* Video — encima del panel; al terminar se desvanece y deja pasar los toques */}
         <video
           ref={videoRef}
-          controls
+          controls={!ended}
           playsInline
           preload="none"
           poster={poster}
           src={src}
           onEnded={handleEnded}
           onTimeUpdate={handleTimeUpdate}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 2,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            opacity: ended ? 0 : 1,
+            transition: `opacity ${FADE_MS}ms ease`,
+            pointerEvents: ended ? 'none' : 'auto',
+          }}
         />
       </div>
 
-      {/* Burbuja contextual sobre el orbe (bottom-right) */}
+      {/* Burbuja contextual sobre el orbe (bottom-right) — solo al dejar el video atrás */}
       {showPrompt && (
         <div
           style={{
@@ -224,51 +298,22 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
           <button
             type="button"
             onClick={openQueswa}
-            aria-label="Abrir Queswa para auditar su caso"
-            style={{
-              display: 'block',
-              textAlign: 'left',
-              cursor: 'pointer',
-              background: 'transparent',
-              border: 'none',
-              padding: '11px 32px 11px 14px',
-            }}
+            aria-label="Abrir Queswa"
+            style={{ display: 'block', textAlign: 'left', cursor: 'pointer', background: 'transparent', border: 'none', padding: '11px 32px 11px 14px' }}
           >
-            <span
-              style={{
-                fontSize: 13,
-                color: '#FFFFFF',
-                lineHeight: 1.45,
-                fontFamily: 'var(--font-mono)',
-                fontWeight: 600,
-                display: 'block',
-              }}
-            >
+            <span style={{ fontSize: 13, color: '#FFFFFF', lineHeight: 1.45, fontFamily: 'var(--font-mono)', fontWeight: 600, display: 'block' }}>
               {PROMPT_MESSAGE}
             </span>
           </button>
-
-          {/* Cerrar — no abre el chat, oculta y no reaparece */}
           <button
             type="button"
             onClick={dismiss}
             aria-label="Cerrar"
             style={{
-              position: 'absolute',
-              top: 4,
-              right: 6,
-              width: 24,
-              height: 24,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'transparent',
-              border: 'none',
-              color: 'rgba(255,255,255,0.55)',
-              fontSize: 17,
-              lineHeight: 1,
-              cursor: 'pointer',
-              padding: 0,
+              position: 'absolute', top: 4, right: 6, width: 24, height: 24,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.55)',
+              fontSize: 17, lineHeight: 1, cursor: 'pointer', padding: 0,
             }}
           >
             ×

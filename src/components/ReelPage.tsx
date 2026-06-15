@@ -115,7 +115,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
         {/* Los dos escenarios con que cierra la presentación */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
-            Auditoría de 5 Días
+            Diagnóstico de 5 Días
           </a>
 
           {waUrl && (

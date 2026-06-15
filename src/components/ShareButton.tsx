@@ -33,7 +33,7 @@ export default function ShareButton({ title }: { title: string }) {
       className="cta-base cta-ghost"
       style={{ alignSelf: 'center' }}
     >
-      {copied ? '✓ Enlace copiado' : 'Compartir esta auditoría'}
+      {copied ? '✓ Enlace copiado' : 'Compartir este diagnóstico'}
     </button>
   )
 }

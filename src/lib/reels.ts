@@ -31,6 +31,10 @@ export const REEL_POSTER_OVERRIDE: Partial<Record<ReelNicho, { poster: string; p
     poster: '/videos/reels/corporativo-poster.webp',
     posterOg: '/videos/reels/corporativo-poster.jpg',
   },
+  empleados: {
+    poster: '/videos/reels/empleados-poster.webp',
+    posterOg: '/videos/reels/empleados-poster.jpg',
+  },
 }
 
 export const REEL_ASSETS: Record<ReelNicho, { video: string }> = {

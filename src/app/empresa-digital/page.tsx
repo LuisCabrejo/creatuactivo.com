@@ -66,6 +66,13 @@ const REQUIREMENTS = [
   },
 ];
 
+// Pulido de tipeo (no bloquea, corrige solo): "carlos mendoza" / "CARLOS" → "Carlos Mendoza"
+const toTitleCase = (s: string) =>
+  s.trim().toLowerCase().replace(/(^|[\s'-])(\p{L})/gu, (_, sep, ch) => sep + ch.toUpperCase());
+
+// Deja solo caracteres válidos de teléfono (dígitos, espacio, + - ( ))
+const cleanPhone = (s: string) => s.replace(/[^\d\s+()-]/g, '');
+
 export default function AuditoriaPatrimonialPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({ nombre: '', email: '', whatsapp: '' });
@@ -91,7 +98,7 @@ export default function AuditoriaPatrimonialPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.email.trim(),
-          name: formData.nombre.trim(),
+          name: toTitleCase(formData.nombre),
           whatsapp: formData.whatsapp.trim(),
           source: 'auditoria-patrimonial',
           step: 'auditoria_registered',
@@ -303,6 +310,8 @@ export default function AuditoriaPatrimonialPage() {
                       placeholder="Ej. Carlos Mendoza"
                       value={formData.nombre}
                       onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                      onBlur={(e) => setFormData(prev => ({ ...prev, nombre: toTitleCase(e.target.value) }))}
+                      autoCapitalize="words"
                       required
                       className="ap-input"
                     />
@@ -343,7 +352,7 @@ export default function AuditoriaPatrimonialPage() {
                       type="tel"
                       placeholder="+57 300 000 0000"
                       value={formData.whatsapp}
-                      onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: cleanPhone(e.target.value) }))}
                       required
                       className="ap-input"
                     />

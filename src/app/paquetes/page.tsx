@@ -1,9 +1,9 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * /paquetes — Activación de su Base Operativa v4.0
+ * /paquetes — Activación de su empresa digital v4.0
  *
  * Rediseño desde cero (16 May 2026) — estilo Home con léxico canónico v26.5:
- *  - H1: "ACTIVACIÓN DE SU BASE OPERATIVA" (reemplaza "Protocolo de Capitalización de Unidades de Suministro")
+ *  - H1: "ACTIVACIÓN DE SU EMPRESA DIGITAL" (antes "Base Operativa"; previo "Protocolo de Capitalización de Unidades de Suministro")
  *  - Hero: imagen "Pacto Patrimonial" (apretón institucional) con tratamiento home
  *  - Cards: estilo Home (clip-path geométrico, paleta carbón/dorado/cyan)
  *  - Léxico: "bebidas enriquecidas y suplementos Gano Excel" (no "tecnología nutricional")
@@ -48,7 +48,7 @@ const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px
 const WA_BASE = 'https://wa.me/573206805737?text=';
 const waLink = (pkg: string) =>
   WA_BASE + encodeURIComponent(
-    `Hola equipo directivo. He completado mi auditoría y solicito la activación de mi Base Operativa con el paquete ${pkg}. Mi nombre es `
+    `Hola equipo directivo. He completado mi diagnóstico y solicito la activación de mi empresa digital con el paquete ${pkg}. Mi nombre es `
   );
 
 // ============================================================================
@@ -103,7 +103,7 @@ function Hero() {
           color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 14px rgba(0,0,0,0.95)',
         }}>
-          Activación de<br />su Base Operativa
+          Activación de<br />su empresa digital
         </h1>
 
         {/* Subtítulo */}
@@ -162,7 +162,7 @@ function Framing() {
             <span style={{ color: C.white }}>bebidas enriquecidas y suplementos Gano Excel</span>{' '}
             — un activo tangible que activa sus derechos de cobro en{' '}
             <span style={{ color: C.white, fontWeight: 600 }}>15 países de América</span>.
-            La Matriz Física (Pilar 1) absorbe la operación; usted dirige.
+            El Respaldo Operativo (Pilar 1) absorbe la operación; usted dirige.
           </p>
         </div>
       </div>
@@ -357,8 +357,8 @@ function Niveles() {
             waPackage="ESP-1 Inicial ($200 USD / $900.000 COP)"
             features={[
               'Derechos Operativos Continentales — 15 países de América',
-              'Matriz Física Gano Excel activa',
-              'Tridente EAM operativo',
+              'Respaldo Operativo Gano Excel activo',
+              'Método Comprobado activo',
               'Dashboard de Patrimonio en Tiempo Real',
             ]}
           />
@@ -481,7 +481,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Cuál es la carga operativa recurrente mensual?"
-            a="Para mantener su Base Operativa activa, se requiere un consumo mensual de 50 CV (puntos de volumen), equivalente a aproximadamente $450.000 COP. No es una cuota de software — es la adquisición de producto de igual valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
+            a="Para mantener su empresa digital activa, se requiere un consumo mensual de 50 CV (puntos de volumen), equivalente a aproximadamente $450.000 COP. No es una cuota de software — es la adquisición de producto de igual valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
           />
           <FaqItem
             q="¿Es posible escalar el nivel de activación posteriormente?"

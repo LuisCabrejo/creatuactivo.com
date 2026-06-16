@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * AUDITORÍA DE ARQUITECTURA PATRIMONIAL — SQUEEZE PAGE v1.0
+ * EL DIAGNÓSTICO DE 5 DÍAS — SQUEEZE PAGE v1.0
  * Lujo Clínico — Due Diligence framing, persuasión invertida
  */
 

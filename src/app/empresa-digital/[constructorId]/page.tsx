@@ -15,8 +15,8 @@ export default function AuditoriaPatrimonialWithConstructorPage() {
 
 export async function generateMetadata({ params }: { params: { constructorId: string } }) {
   return {
-    title: 'Auditoría de Arquitectura Patrimonial | CreaTuActivo',
-    description: `Corrección técnica del déficit estructural de ingresos. Compartido por ${params.constructorId}.`,
+    title: 'El Diagnóstico de 5 Días | CreaTuActivo',
+    description: `Cinco días para ver cómo construir una empresa digital que produce aunque usted no esté. Compartido por ${params.constructorId}.`,
     robots: { index: false, follow: true },
   };
 }

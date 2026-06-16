@@ -13,27 +13,23 @@ SLIDE 1 · APERTURA, DIAGNÓSTICO Y LOS 3 PILARES
 
 
 
-Creer que su tranquilidad económica está blindada solo porque hoy cuenta con un buen nivel de ingresos
+Empecemos por el verdadero problema que vamos a resolver.
 
-es una ilusión peligrosa:
+Usted trabaja duro.
 
-usted está expuesto a una vulnerabilidad crítica.
+Entrega sus mejores años y su salud.
 
-Piénselo un instante:
+Y aun así, vive en el mismo ciclo mes a mes:
 
-un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas…
-
-y en cuestión de meses descubriría que sus bienes son más del banco que suyos.
+trabajar, pagar cuentas y volver a empezar.
 
 Esto no ocurre por falta de capacidad ni de esfuerzo de su parte.
 
-Es la consecuencia matemática de un sistema hecho para la asfixia mensual:
+Es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud,
 
-un modelo que lo mantiene apagando incendios cada fin de mes
+no para darle seguridad financiera.
 
-—desgastando su tranquilidad y su salud—
-
-en un ciclo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
+Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
 
 
 
@@ -41,21 +37,21 @@ en un ciclo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
 
 
 
-Para romper ese ciclo, usted no necesita trabajar más duro, ni reemplazar su actividad actual.
+CreaTuActivo invierte ese ciclo con apalancamiento:
 
-Necesita algo propio:
+usted pasa a ser propietario de una empresa digital
 
-un negocio que le produzca ingresos de manera ininterrumpida, sin depender de su presencia física,
+que genera ingresos recurrentes
 
-que se construye hoy
+cada vez que las personas consumen productos Gano Excel en toda América —
 
-y que el día de mañana puede dejarle a sus hijos,
+esté usted presente o no.
 
-para que sigan cobrando por el trabajo ya hecho.
+Poner todo eso a funcionar exige tres cosas:
 
-Esto es lo que usted pone en marcha a través de CreaTuActivo.com:
+infraestructura, tecnología y un método.
 
-le entregamos su propia empresa digital, lista para funcionar desde el primer día.
+Nosotros le entregamos las tres ya construidas.
 
 Lo sostienen tres pilares:
 
@@ -63,7 +59,7 @@ Lo sostienen tres pilares:
 
 PILAR 1 — EL RESPALDO OPERATIVO
 
-Detrás de su negocio está Gano Excel, una corporación presente en 70 países.
+Detrás de su empresa digital está Gano Excel, una corporación presente en 70 países.
 
 Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros:
 
@@ -91,7 +87,19 @@ Un método ya probado que le ahorra el ensayo y el error.
 
 Usted no improvisa el camino:
 
-el sistema le da los pasos exactos para hacer crecer su negocio.
+el sistema le da los pasos exactos para hacer crecer su empresa digital.
+
+
+
+Cada vez que el consumo se repite en los hogares de su organización,
+
+usted recibe una parte.
+
+Por eso el ingreso no depende de sus horas:
+
+usted construye el canal una vez,
+
+y su empresa produce de forma continua.
 
 
 

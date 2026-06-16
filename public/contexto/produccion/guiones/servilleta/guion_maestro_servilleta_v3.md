@@ -35,26 +35,28 @@
 
 # SLIDE 1 · APERTURA, DIAGNÓSTICO Y LOS 3 PILARES
 
-Creer que su tranquilidad económica está **blindada** solo porque hoy cuenta con un buen nivel de ingresos es una ilusión peligrosa: usted está expuesto a una vulnerabilidad crítica.
+Empecemos por el verdadero problema que vamos a resolver.
 
-Piénselo un instante: un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de **meses** descubriría que sus bienes son más del banco que suyos.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**.
 
-Esto no ocurre por falta de capacidad ni de esfuerzo de su parte. Es la **consecuencia matemática** de un sistema hecho para la asfixia mensual: un modelo que lo mantiene apagando incendios cada fin de mes —desgastando su tranquilidad y su salud— en un ciclo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
+Esto no ocurre por falta de capacidad ni de esfuerzo de su parte. Es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años y su salud**, no para darle seguridad financiera. Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-Para romper ese ciclo, usted no necesita trabajar más duro, ni reemplazar su actividad actual. Necesita algo propio: un **negocio que le produzca ingresos de manera ininterrumpida, sin depender de su presencia física**, que se construye hoy y que el día de mañana puede dejarle a sus hijos, para que sigan cobrando por el trabajo ya hecho.
+CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 
-Esto es lo que usted pone en marcha a través de **CreaTuActivo.com**: le entregamos su propia **empresa digital**, lista para funcionar desde el primer día. Lo sostienen tres pilares:
+Poner todo eso a funcionar exige tres cosas: infraestructura, tecnología y un método. Nosotros le entregamos las tres ya construidas. Lo sostienen tres pilares:
 
 **PILAR 1 — EL RESPALDO OPERATIVO** · *la infraestructura que ya existe.*
-Detrás de su negocio está **Gano Excel**, una corporación presente en 70 países. Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros: fabrica los productos, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
+Detrás de su **empresa digital** está **Gano Excel**, una corporación presente en 70 países. Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros: fabrica los productos, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
 
 **PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *el piloto automático.*
 Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante: busca, filtra y atiende a los interesados, las 24 horas. Usted lo dirige todo desde una sola aplicación en su celular: queswa.app. Usted no explica — Queswa explica.
 
 **PILAR 3 — EL MÉTODO COMPROBADO** · *la ruta, paso a paso.*
-Un método ya probado que le ahorra el ensayo y el error. Usted no improvisa el camino: el sistema le da los pasos exactos para hacer crecer su negocio.
+Un método ya probado que le ahorra el ensayo y el error. Usted no improvisa el camino: el sistema le da los pasos exactos para hacer crecer su **empresa digital**.
+
+Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
 
 ---
 

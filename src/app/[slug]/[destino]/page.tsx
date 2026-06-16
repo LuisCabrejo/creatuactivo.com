@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Segundo segmento del Arquitecto de Patrimonio — bifurca según el destino:
+ * Segundo segmento del Propietario — bifurca según el destino:
  *
  *  • destino ∈ REEL_NICHOS  → RENDER página de Reel (creatuactivo.com/{slug}/{nicho})
  *  • resto                  → REDIRECT con tracking (creatuactivo.com/{slug}/auditoria → ?ref=)

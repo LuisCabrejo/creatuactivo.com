@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Mini-landing personal del Arquitecto de Patrimonio
+ * Mini-landing personal del Propietario
  *
  * Ruta: creatuactivo.com/luis-cabrejo
  * → Micro-sitio personalizado con foto, frase y links del constructor

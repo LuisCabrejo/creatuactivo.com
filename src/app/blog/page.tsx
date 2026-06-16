@@ -167,10 +167,10 @@ export default function BlogPage() {
           <section className="py-20 px-6">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-6">
-                ¿Listo para ejecutar el diagnóstico en su arquitectura patrimonial?
+                ¿Listo para ejecutar el diagnóstico en su modelo de ingresos?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                La Auditoría Patrimonial de 5 Días le muestra cómo aplicar estos principios en su modelo de ingresos actual.
+                El Diagnóstico de 5 Días le muestra cómo aplicar estos principios en su modelo de ingresos actual.
               </p>
               <Link
                 href="/empresa-digital"

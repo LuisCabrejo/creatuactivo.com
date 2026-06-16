@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${nombre} | CreaTuActivo`,
     description: frase,
     openGraph: {
-      title: `${nombre} · Arquitecto de Patrimonio`,
+      title: `${nombre} · Propietario`,
       description: frase,
       url: `https://creatuactivo.com/${params.slug}`,
       siteName: 'CreaTuActivo.com',

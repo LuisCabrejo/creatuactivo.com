@@ -46,7 +46,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
   // Activación inmediata (escenario 3) — WhatsApp del arquitecto, mensaje de decisión tomada
   const waUrl = constructor.whatsapp
     ? `https://wa.me/${constructor.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(
-        `Hola ${primerNombre}, vi la presentación y quiero activar mi Base Operativa. ¿Cuál es el siguiente paso?`
+        `Hola ${primerNombre}, vi la presentación y quiero activar mi empresa digital. ¿Cuál es el siguiente paso?`
       )}`
     : null
 
@@ -169,7 +169,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
                 fontFamily: 'var(--font-mono)',
               }}
             >
-              Arquitecto de Patrimonio
+              Propietario
             </div>
           </div>
         </div>

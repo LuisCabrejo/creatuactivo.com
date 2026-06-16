@@ -356,10 +356,10 @@ function Niveles() {
             borderColor={C.bronze}
             waPackage="ESP-1 Inicial ($200 USD / $900.000 COP)"
             features={[
-              'Derechos Operativos Continentales — 15 países de América',
+              'Derechos de distribución en 15 países de América',
               'Respaldo Operativo Gano Excel activo',
               'Método Comprobado activo',
-              'Dashboard de Patrimonio en Tiempo Real',
+              'Centro de Mando Queswa en tiempo real',
             ]}
           />
           <PackageCard

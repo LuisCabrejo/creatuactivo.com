@@ -279,7 +279,7 @@ export default function NetworkMarketingObsoletoPage() {
                   ¿Desea ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En la Auditoría Patrimonial le mostramos exactamente cómo hemos evolucionado
+                  En el Diagnóstico de 5 Días le mostramos exactamente cómo hemos evolucionado
                   del modelo de distribución manual a la Arquitectura de Activos—y
                   cómo puede iniciar la construcción del suyo.
                 </p>

@@ -336,7 +336,7 @@ export default function LegalidadNetworkMarketingPage() {
                   ¿Desea evaluar una oportunidad real?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En la Auditoría Patrimonial le presentamos un modelo con décadas de operación
+                  En el Diagnóstico de 5 Días le presentamos un modelo con décadas de operación
                   y presencia global comprobable, con el plan de compensación explicado en
                   detalle. Sin presión, solo información técnica.
                 </p>

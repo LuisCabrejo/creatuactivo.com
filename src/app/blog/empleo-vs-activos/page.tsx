@@ -257,7 +257,7 @@ export default function EmpleoVsActivosPage() {
                   ¿Desea aprender a construir activos?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En la Auditoría Patrimonial le mostramos paso a paso cómo funciona un sistema
+                  En el Diagnóstico de 5 Días le mostramos paso a paso cómo funciona un sistema
                   diseñado para que perfiles sin capital inicial puedan iniciar la construcción
                   de flujo de caja autosustentable.
                 </p>

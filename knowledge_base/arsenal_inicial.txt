@@ -2,9 +2,9 @@
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
-**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es el sistema de asfixia mensual — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
+**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es un sistema que toma sus mejores años y su salud — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
 
-**Versión actual: v5.10** (12 jun 2026) — Villano narrado sin atacar el esfuerzo en WHY_01 + WHY_02: se reconoce el trabajo como digno; el villano es el **sistema de asfixia mensual** (investigaciones `El Statu Quo` + `Léxico CreaTuActivo`). **Previa: v5.9** (12 jun 2026) — swap léxico "empresa digital" (el activo que entregamos). Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Versión actual: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **Previa: v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 ⚠️ **Sincronización inviolable:** WHY_02 y EAM_01 (chips canónicos) deben coincidir CARÁCTER POR CARÁCTER con `MASTER_WHY_02` / `MASTER_EAM_01` en `src/lib/respuestas-maestras.ts`. El arsenal es la doctrina viva; ese módulo TS es el caché del backend.
 
@@ -13,10 +13,10 @@
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 3 respuestas**
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** CreaTuActivo es una empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera de las personas: basta un mes sin poder trabajar, un despido inesperado o un mal trimestre de ventas para que, en cuestión de meses, sus bienes terminen siendo más del banco que suyos. Parte de una certeza: la independencia financiera real solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente. Doctrina v5.10 — se reconoce el esfuerzo (el trabajo no es el villano); la vulnerabilidad es el sistema, no la persona.
+**[Concepto Nuclear]:** CreaTuActivo es una empresa de tecnología que ayuda a corregir un problema crítico en la vida financiera de las personas: por más que usted se esfuerce, vive dentro de un sistema diseñado para tomar sus mejores años y su salud, sin devolverle nunca verdadera seguridad financiera. Parte de una certeza: esa seguridad solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente. Doctrina v5.11 — se reconoce el esfuerzo (el trabajo no es el villano); el villano es un sistema que toma sus años y su salud.
 
 <verbatim_lock>
-Usted ha trabajado duro y ha hecho las cosas bien. Aun así, carga con una vulnerabilidad crítica: un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de meses sus bienes terminarían siendo más del banco que suyos. La independencia financiera real solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente.
+Usted ha trabajado duro y ha hecho las cosas bien. Aun así, vive dentro de un sistema diseñado para tomar sus mejores años y su salud, sin devolverle nunca verdadera seguridad financiera. Y esa seguridad solo se logra con ingresos recurrentes que siguen produciendo aunque usted no esté presente.
 
 Para construirlos, CreaTuActivo le entrega el control de una empresa digital lista para funcionar que monetiza un hábito de consumo cotidiano —algo tan simple como un café—, respaldado por una empresa con presencia en 70 países. Tres pilares cargan el peso por usted:
 
@@ -34,12 +34,12 @@ Usted no hace el trabajo pesado — usted dirige. Es el Propietario de un activo
 ---
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
-**[Concepto Nuclear]:** Apalancamiento estructural. Tres pilares de infraestructura, un solo Propietario que los dirige. El villano no es el trabajo (digno, se reconoce el esfuerzo) sino el sistema de asfixia mensual; el ingreso nace del consumo recurrente que fluye por su organización — produce esté usted presente o no. Doctrina v5.10 — villano narrado sin atacar el esfuerzo + Modulación de Registro (Mario Alonso Puig).
+**[Concepto Nuclear]:** Apalancamiento estructural. Tres pilares de infraestructura, un solo Propietario que los dirige. El villano no es el trabajo (digno, se reconoce el esfuerzo) sino un sistema diseñado para tomar sus mejores años y su salud sin devolverle seguridad financiera; el ingreso nace del consumo recurrente que fluye por su organización — produce esté usted presente o no. Doctrina v5.11 — villano = el sistema que toma sus años y su salud (el más universal e identificable) + Modulación de Registro (Mario Alonso Puig).
 
 <verbatim_lock>
 Para responderle con claridad, primero destapemos el verdadero problema que estamos resolviendo.
 
-Usted trabaja duro, entrega sus mejores años y su salud, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para la asfixia mensual, no para crear independencia financiera.
+Usted trabaja duro, cumple, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
 
 CreaTuActivo invierte esa lógica con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 

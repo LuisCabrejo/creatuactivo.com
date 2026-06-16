@@ -47,7 +47,7 @@
  */
 const MASTER_WHY_02 = `Para responderle con claridad, primero destapemos el verdadero problema que estamos resolviendo.
 
-Usted trabaja duro, entrega sus mejores años y su salud, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para la asfixia mensual, no para crear independencia financiera.
+Usted trabaja duro, cumple, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
 
 CreaTuActivo invierte esa lógica con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 

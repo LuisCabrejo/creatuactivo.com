@@ -12,6 +12,15 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.11 — Villano = el sistema que toma sus mejores años y su salud (13 jun 2026)
+
+Reubica el villano de WHY_01 y WHY_02. "Asfixia mensual" NO es universal (hay quien está mal económicamente pero se siente relajado); el villano más potente e identificable (12 años de campo de Luis) es **un sistema diseñado para tomar sus mejores años y su salud a cambio de casi nada**. Antítesis deliberada: usted *entrega* sus años/salud / el sistema los *toma*.
+
+- **WHY_02:** "sistema diseñado para la asfixia mensual, no para crear independencia financiera" → "…para tomar sus mejores años y su salud, no para darle seguridad financiera". Chip sincronizado (`respuestas-maestras.ts`).
+- **WHY_01:** se retira el villano de **ausencia + patrimonio** ("un mes que no pueda trabajar… sus bienes más del banco que suyos") — doble problema: futuro/ausencia (cabeza del americano) + "patrimonio" que el latino ya cree tener. Reemplazo: "vive dentro de un sistema diseñado para tomar sus mejores años y su salud, sin devolverle nunca verdadera seguridad financiera".
+
+Alineado con system prompt v28.3 (sección EL VILLANO) + servilleta Slide 1 + reel Home. Ver [[feedback_villano_anos_salud]]. ⏳ Pendiente: STORY_01 y Manifiesto aún citan "asfixia mensual".
+
 ### v5.10 — Villano narrado sin atacar el esfuerzo: WHY_01 + WHY_02 (12 jun 2026)
 
 WHY_02 (chip 1) y WHY_01 reescritos para reubicar el villano. Fundamento: investigaciones `El Statu Quo_ Anatomía y Escape` + `Léxico CreaTuActivo_ Comprensión y Duplicabilidad` — atacar la "dependencia del trabajo" / la presencia obligada genera disonancia en el latino promedio, que valora su empleo como digno. El villano correcto es el **sistema de asfixia mensual** (vejez sin pensión, edadismo, deuda), narrado sin etiqueta abstracta.

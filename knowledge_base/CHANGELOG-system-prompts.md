@@ -6,6 +6,15 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v28.3 — Villano = el sistema que toma sus años y su salud (13 jun 2026)
+
+Sección EL VILLANO recalibrada para alinear con `arsenal_inicial` v5.11. El villano preferido pasa de «asfixia mensual» a **un sistema diseñado para tomar sus mejores años y su salud a cambio de casi nada** (más universal — funciona aunque la persona no se sienta «asfixiada»).
+
+- **Permitido:** nuevo ejemplo principal (años/salud) + «usted entrega lo mejor de sí, el sistema no le devuelve seguridad financiera». Se retiran de la lista «asfixia mensual» y el escenario «un mes sin poder trabajar… sus bienes son más del banco que suyos».
+- **Prohibido (nuevo):** apelar a la falta de patrimonio / «sus bienes son del banco» (el latino ya cree tenerlo) · el villano de la ausencia futura («el día que no pueda trabajar», «cuando usted no esté») como gancho central (cabeza del americano).
+
+Sin cambios estructurales (bloqueos compensación/dashboard/KYC/verbatim_lock intactos). Ver [[feedback_villano_anos_salud]].
+
 ## v28.2 — Villano narrado sin atacar el esfuerzo (12 jun 2026)
 
 Alinea el prompt con `arsenal_inicial` v5.10 (WHY_01/WHY_02 reescritos: el villano deja de ser "la presencia obligada" y pasa a ser el sistema de asfixia mensual, narrado sin etiqueta; se reconoce el esfuerzo del héroe). Fundamento: investigaciones `El Statu Quo` + `Léxico CreaTuActivo`.

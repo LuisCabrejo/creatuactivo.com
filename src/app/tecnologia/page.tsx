@@ -12,17 +12,17 @@ export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
-import { Bot, Target, BarChart3, Users, CheckCircle, X } from 'lucide-react';
+import { Bot, Target, Users, CheckCircle, X } from 'lucide-react';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 
 export const metadata = {
-  title: '¿Qué es Queswa.app? Motor Cognitivo de CreaTuActivo · Luis Cabrejo',
-  description: 'Queswa es el Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo. Una infraestructura de IA cerrada que asume el 90% del desgaste operativo del Arquitecto de Patrimonio.',
-  keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, motor cognitivo creatuactivo, queswa ia, dashboard queswa',
+  title: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo · Luis Cabrejo',
+  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su empresa digital — usted solo dirige.',
+  keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, centro de mando creatuactivo, queswa ia, inteligencia artificial creatuactivo',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
     title: '¿Qué es Queswa.app? · CreaTuActivo',
-    description: 'Motor Cognitivo y Dashboard Operativo exclusivo de CreaTuActivo.com, diseñado por Luis Cabrejo.',
+    description: 'El Centro de Mando con inteligencia artificial de CreaTuActivo.com, creado por Luis Cabrejo.',
     url: 'https://creatuactivo.com/tecnologia',
     type: 'article',
   },
@@ -34,8 +34,8 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Article',
-      headline: '¿Qué es Queswa.app? El Motor Cognitivo de CreaTuActivo',
-      description: 'Queswa.app es el Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com, diseñado por Luis Cabrejo.',
+      headline: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo',
+      description: 'Queswa.app es el Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com, creado por Luis Cabrejo.',
       url: 'https://creatuactivo.com/tecnologia',
       author: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       publisher: { '@id': 'https://creatuactivo.com/#organization' },
@@ -46,11 +46,11 @@ const jsonLd = {
       '@type': 'SoftwareApplication',
       '@id': 'https://queswa.app/#app',
       name: 'Queswa.app',
-      alternateName: ['Queswa', 'Motor Cognitivo CreaTuActivo'],
+      alternateName: ['Queswa', 'Centro de Mando CreaTuActivo'],
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'Motor Cognitivo y Dashboard Operativo exclusivo de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de Inteligencia Artificial cerrado para Arquitectos de Patrimonio que construyen su Base Operativa con el Tridente EAM.',
+      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para Propietarios que dirigen y multiplican su empresa digital con el Método Comprobado.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },
@@ -67,7 +67,7 @@ const jsonLd = {
       '@type': 'Person',
       '@id': 'https://creatuactivo.com/#luis-cabrejo',
       name: 'Luis Cabrejo',
-      jobTitle: 'Arquitecto de Activos',
+      jobTitle: 'Fundador de CreaTuActivo',
       url: 'https://luiscabrejo.com',
       worksFor: { '@id': 'https://creatuactivo.com/#organization' },
       sameAs: ['https://luiscabrejo.com', 'https://creatuactivo.com', 'https://queswa.app'],
@@ -96,7 +96,7 @@ export default function TecnologiaPage() {
           {/* Hero Section */}
           <IndustrialHeader
             title="TECNOLOGÍA QUE TRABAJA POR USTED"
-            subtitle="Construya su estructura de ingresos recurrentes — usted dirige."
+            subtitle="Construya una estructura de ingresos recurrentes — usted dirige; Queswa ejecuta."
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.webp"
             imageAlt="Engranajes industriales - Sistema Queswa"
@@ -122,18 +122,19 @@ export default function TecnologiaPage() {
                   La Definición Oficial de Queswa.app
                 </h2>
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
-                  <strong>Queswa.app</strong> es el Motor Cognitivo y Dashboard Operativo exclusivo
-                  de la infraestructura <strong>CreaTuActivo.com</strong>. No es una red social, ni un
-                  chat público, ni una aplicación de mensajería abierta. Es un entorno de Inteligencia
-                  Artificial cerrado, diseñado específicamente para que los Directores
-                  Ejecutivos de CreaTuActivo automaticen la expansión de su Base Operativa.
+                  <strong>Queswa.app</strong> es el Centro de Mando con inteligencia artificial de
+                  <strong>CreaTuActivo.com</strong>: el entorno desde donde cada Propietario dirige y
+                  multiplica su empresa digital. La inteligencia artificial asume el trabajo pesado
+                  —explica, convierte y hace seguimiento las 24 horas—; usted solo dirige.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
-                  Fue concebida y estructurada por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
-                  Arquitecto de Activos y fundador de CreaTuActivo, con un único objetivo: eliminar
-                  el desgaste operativo que sufren los emprendedores tradicionales. Su acceso está
-                  disponible en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a> y
-                  es de uso exclusivo para Directores Ejecutivos activos.
+                  Fue concebida por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
+                  fundador de CreaTuActivo, con un objetivo claro: que tener un ingreso que no dependa
+                  de su presencia deje de ser cuestión de talento o de suerte. Queswa pone a trabajar
+                  por usted —las 24 horas— al mejor presentador, al mejor cerrador y al mejor mentor,
+                  para que cualquier persona, sin experiencia, logre lo que antes solo conseguían unos
+                  pocos. Su acceso está en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a>,
+                  de uso exclusivo para Propietarios activos.
                 </p>
               </div>
             </div>
@@ -156,8 +157,9 @@ export default function TecnologiaPage() {
               }}
             >
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
-                El ecosistema de Inteligencia Artificial que opera 24/7 para erradicar
-                la fricción comercial. La infraestructura que asume el 90% del desgaste operativo.
+                La inteligencia artificial que explica, convierte y multiplica su negocio las
+                24 horas — haciendo a escala lo que una sola persona jamás podría sola. Asume el
+                90% del trabajo pesado; usted dirige.
               </p>
             </div>
           </div>
@@ -170,34 +172,35 @@ export default function TecnologiaPage() {
                   El Problema
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Por qué colapsan los modelos de operación manual?
+                  ¿Por qué una sola persona tiene un techo?
                 </h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
-                  <h3 className="text-xl font-semibold mb-3">Fricción Operativa</h3>
+                  <h3 className="text-xl font-semibold mb-3">Su día tiene 24 horas</h3>
                   <p className="text-[#A3A3A3]">
-                    Los modelos tradicionales exigen filtrado manual y presentación cara a cara.
-                    Un desgaste táctico que consume la disponibilidad real del operador y la
-                    convierte en cuello de botella.
+                    Usted atiende bien a uno, a cinco, a diez. Pero su tiempo es finito: no puede
+                    estar en cien conversaciones a la vez, ni responder a toda hora, ni en todos
+                    los países donde su negocio podría crecer.
                   </p>
                 </div>
 
                 <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
-                  <h3 className="text-xl font-semibold mb-3">Ausencia de Apalancamiento</h3>
+                  <h3 className="text-xl font-semibold mb-3">Y el detalle se escapa</h3>
                   <p className="text-[#A3A3A3]">
-                    Si la presentación del modelo depende exclusivamente de la disponibilidad
-                    física del operador, la escalabilidad es matemáticamente imposible.
+                    Recordar cada conversación, responder cada duda con la misma claridad y
+                    hacerle seguimiento a cada contacto es más de lo que una sola memoria
+                    sostiene. Las oportunidades se enfrían mientras usted duerme.
                   </p>
                 </div>
               </div>
 
               <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
-                  <span className="text-[#C5A059] font-semibold">Queswa, el Centro de Mando, corrige ambas fallas estructurales.</span>
+                  <span className="text-[#C5A059] font-semibold">Queswa, su Centro de Mando, rompe ese techo.</span>
                 </p>
               </div>
             </div>
@@ -215,41 +218,32 @@ export default function TecnologiaPage() {
                 </h2>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* Educa 24/7 */}
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Explica */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Instrucción Asíncrona</h3>
-                  <p className="text-sm text-[#A3A3A3]">Presenta el modelo y responde objeciones con datos fríos, sin depender de su horario físico.</p>
+                  <h3 className="text-lg font-semibold mb-2">Explica por usted</h3>
+                  <p className="text-sm text-[#A3A3A3]">Presenta el modelo completo y resuelve cada duda con datos claros, las 24 horas. La misma explicación impecable para cada persona, sin memorizar guiones ni repetir lo mismo mil veces.</p>
                 </div>
 
-                {/* Filtra Prospectos */}
+                {/* Convierte */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Filtrado de Perfiles</h3>
-                  <p className="text-sm text-[#A3A3A3]">Identifica intención operativa real vs. curiosidad, ejecutando un proceso de Due Diligence automatizado.</p>
+                  <h3 className="text-lg font-semibold mb-2">Convierte por usted</h3>
+                  <p className="text-sm text-[#A3A3A3]">No solo informa: acompaña la decisión hasta el sí. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo para avanzar. Ve su negocio moverse en tiempo real.</p>
                 </div>
 
-                {/* Captura Datos */}
-                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
-                  <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
-                    <BarChart3 className="w-7 h-7 text-[#C5A059]" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">Extracción de Coordenadas</h3>
-                  <p className="text-sm text-[#A3A3A3]">Recopila información de contacto y califica el nivel de interés mediante algoritmos predictivos.</p>
-                </div>
-
-                {/* Duplicación */}
+                {/* Multiplica */}
                 <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Escalabilidad Autónoma</h3>
-                  <p className="text-sm text-[#A3A3A3]">Replica el protocolo técnico a escala global. La infraestructura de IA posee todo el conocimiento que un operador individual no puede sostener.</p>
+                  <h3 className="text-lg font-semibold mb-2">Multiplica por usted</h3>
+                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe el mismo sistema, listo para crecer solo. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
                 </div>
               </div>
             </div>
@@ -271,23 +265,23 @@ export default function TecnologiaPage() {
                 {[
                   {
                     step: '1',
-                    title: 'Usted habilita un punto de acceso',
-                    description: 'Solo requiere direccionar tráfico digital hacia el sistema. Sin presentaciones. Sin fricción manual.'
+                    title: 'Usted comparte',
+                    description: 'Lleva el material que Queswa le entrega a sus contactos, con un clic. El sistema toma desde ahí.'
                   },
                   {
                     step: '2',
-                    title: 'La IA audita e instruye',
-                    description: 'El protocolo presenta la arquitectura, resuelve dudas técnicas y expone la matemática del modelo con precisión clínica.'
+                    title: 'Queswa explica y convierte',
+                    description: 'Presenta el modelo, resuelve dudas y acompaña la decisión — 24/7, con cada contacto a la vez.'
                   },
                   {
                     step: '3',
-                    title: 'El perfil se autoselecciona',
-                    description: 'Si el nivel de interés es alto, el sistema lo notifica. El desgaste de lidiar con el escepticismo queda automatizado.'
+                    title: 'Usted lo ve en vivo',
+                    description: 'Recibe notificaciones de cada paso: quién entró, quién avanza, quién quedó listo. Su negocio, en la palma de su mano.'
                   },
                   {
                     step: '4',
-                    title: 'Usted asume la Dirección',
-                    description: 'Usted invierte tiempo exclusivamente en auditar perfiles que ya decidieron activar su infraestructura. El trabajo pesado está hecho.'
+                    title: 'Usted dirige',
+                    description: 'Dedica su tiempo a quienes ya decidieron avanzar. Lo demás, ya está hecho.'
                   }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6 items-start">
@@ -295,11 +289,11 @@ export default function TecnologiaPage() {
                       className="w-12 h-12 flex items-center justify-center flex-shrink-0"
                       style={{
                         background: 'transparent',
-                        border: '2px solid #F59E0B',
-                        clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+                        border: '2px solid #C5A059',
+                        borderRadius: '50%',
                       }}
                     >
-                      <span className="font-bold text-lg" style={{ color: '#F59E0B' }}>{item.step}</span>
+                      <span className="font-bold text-lg" style={{ color: '#C5A059' }}>{item.step}</span>
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
@@ -326,23 +320,23 @@ export default function TecnologiaPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Sin Queswa */}
                 <div className="p-8  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] opacity-60">
-                  <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Método Tradicional</h3>
+                  <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Una sola persona</h3>
                   <ul className="space-y-4 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Ejecutar presentaciones manuales</span>
+                      <span>Atiende de a uno — su día tiene un límite</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Memorización de guiones repetitivos</span>
+                      <span>Repite la misma explicación mil veces</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Sometido a su disponibilidad física</span>
+                      <span>Las oportunidades se enfrían cuando usted no está</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Cuello de botella operativo (no escalable)</span>
+                      <span>Lo que alcanza depende solo de usted</span>
                     </li>
                   </ul>
                 </div>
@@ -353,19 +347,19 @@ export default function TecnologiaPage() {
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>El protocolo presenta 24/7</span>
+                      <span>Atiende a todos a la vez, 24/7</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Respuestas con precisión de Base de Conocimiento</span>
+                      <span>La misma explicación impecable, siempre</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Opera de forma asíncrona a nivel global</span>
+                      <span>Trabaja a toda hora, en toda América</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Apalancamiento estratégico absoluto</span>
+                      <span>Usted ve cada paso en tiempo real</span>
                     </li>
                   </ul>
                 </div>
@@ -377,12 +371,11 @@ export default function TecnologiaPage() {
           <section className="py-20 px-6 bg-[#16181D]">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl sm:text-4xl font-serif mb-6">
-                ¿Desea auditar esta tecnología?
+                ¿Quiere comprobar esta tecnología?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Inicie el Diagnóstico de 5 Días y compruebe empíricamente cómo este
-                motor cognitivo neutraliza la falla de diseño donde su ingreso depende 100% de
-                su presencia física.
+                Inicie el Diagnóstico de 5 Días y vea, con sus propios números, cómo esta
+                tecnología multiplica lo que hoy usted sostiene solo.
               </p>
 
               <Link
@@ -394,7 +387,7 @@ export default function TecnologiaPage() {
               </Link>
 
               <p className="text-sm mt-6 text-[#64748B]">
-                5 Días · Sin Costo · Escrutinio Clínico
+                5 Días · Sin Costo · Sin Compromiso
               </p>
             </div>
           </section>

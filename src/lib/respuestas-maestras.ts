@@ -9,7 +9,7 @@
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
  * Las 2 chips canónicas que aquí se sirven concentran el ~80% del tráfico inicial:
- *   • Chip 1 ("¿Cómo funciona el negocio?") → WHY_02 verbatim
+ *   • Chip 1 ("¿Cómo funciona el modelo de negocio?") → WHY_02 verbatim
  *   • Chip 2 ("¿Cuál es la metodología…") → EAM_01 verbatim
  *
  * Servirlas verbatim desde el backend, antes del Voyage AI + Anthropic, garantiza:
@@ -38,7 +38,7 @@
  */
 
 /**
- * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el negocio?").
+ * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el modelo de negocio?").
  * Sincronizado con arsenal_inicial.txt v5.9 BLOQUE 1 (swap "empresa digital", 12 jun 2026).
  * Recalibración v5.6 (jun 2026): léxico servilleta-accesible (El Respaldo Operativo /
  * El Método Comprobado, ya no "Matriz Física"/"Tridente EAM"), "Estructura Patrimonial"
@@ -102,7 +102,7 @@ Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.a
  * Las keys son las versiones lowercase de `QUESWA_QUICK_REPLIES` en queswa-greeting.ts.
  */
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
-  '¿cómo funciona el negocio?': MASTER_WHY_02,
+  '¿cómo funciona el modelo de negocio?': MASTER_WHY_02,
   '¿cuál es la metodología? ¿qué hago yo en el día a día?': MASTER_EAM_01,
 };
 

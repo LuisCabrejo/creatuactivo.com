@@ -3,8 +3,9 @@
  * Homepage v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
  * persona del activo que entregamos ("ser dueño de una empresa digital", "su empresa
  * digital"), el término es EMPRESA digital — eleva estatus de propiedad (decisión Luis).
- * "Negocio" se conserva solo en la pregunta del avatar ("¿Cómo funciona el negocio?",
- * chip canónico Camino A — NO tocar) y en referencias al negocio ACTUAL del visitante.
+ * "Negocio" solo aparece en el chip canónico ("¿Cómo funciona el modelo de negocio?" —
+ * Camino A, "modelo de negocio" = estructura/industria, NO la tienda; sincronizar 3 keys si
+ * se cambia) y en referencias al negocio ACTUAL del visitante.
  * Cuerpo del hero condensado (~70% solapaba con el reel manifiesto — el texto ahora
  * sella la tesis, no la repite). Previo v13.5 — Negocio digital (jun 2026): "Base Operativa" → "negocio digital" · "el sistema opera" → "el sistema hace el trabajo" · operar/escalar/"gente" ajustados. Previo v13.4 — Recalibración léxica accesible: "Estructura Patrimonial" → "ingresos recurrentes", "La Matriz Física" → "El Respaldo Operativo", "Tridente EAM" → "El Método Comprobado", "Arquitecto de Patrimonio" → "Propietario", "gobernanza" → "dirige". Alinea la home con WHY_01/WHY_02/EAM_01 + servilleta. Nombres de funnel (Auditoría Patrimonial, Prueba de Estrés) preservados.
  * Lujo Clínico / McKinsey Tone — Brendan Kane + Eugene Schwartz + Oren Klaff

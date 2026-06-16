@@ -31,7 +31,7 @@
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Estoy aquí para ahorrarle tiempo. No para proponerle trabajar más ni dejar lo que hace hoy — sino para ayudarle a ver, con calma, si le conviene construir en paralelo un ingreso que siga produciendo aunque usted no esté presente.`;
+const MISION = `Estoy aquí para mostrarle cómo puede ser propietario de una empresa digital que le genere ingresos una y otra vez.`;
 
 const TRANSICION = `¿Por dónde quiere empezar?`;
 
@@ -48,7 +48,7 @@ const TRANSICION = `¿Por dónde quiere empezar?`;
  * reformulada estilo Gemini, no sustantivos densos. Test abuela/Beto.
  */
 export const QUESWA_QUICK_REPLIES = [
-  '¿Cómo funciona el negocio?',
+  '¿Cómo funciona el modelo de negocio?',
   '¿Cuál es la metodología? ¿Qué hago yo en el día a día?',
   '¿Cuáles son los productos y para qué sirven?',
   'Quiero ver los números: ¿cómo y cuánto se gana?',
@@ -75,7 +75,7 @@ export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
  * exactamente con uno de los 4 chips (lowercase trim) y expande la query interna
  * a la formulación que SÍ recupera los fragmentos canónicos correctos:
  *
- * Chip 1 → WHY_02 ("¿Cómo funciona el negocio?")
+ * Chip 1 → WHY_02 ("¿Cómo funciona el modelo de negocio?")
  * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Propietario, El Método Comprobado)
  * Chip 3 → WHY_PROD_01 + catalogo_productos (qué es y para qué sirve)
  * Chip 4 → FREQ_04 / FREQ_11 + arsenal_compensacion (cómo se gana)
@@ -86,7 +86,7 @@ export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
  * Las keys deben estar en lowercase (route.ts hace .toLowerCase().trim() antes del match).
  */
 export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
-  '¿cómo funciona el negocio?':
+  '¿cómo funciona el modelo de negocio?':
     'cómo funciona el negocio sistema distribución tres pilares apalancamiento',
   '¿cuál es la metodología? ¿qué hago yo en el día a día?':
     'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',

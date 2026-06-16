@@ -558,7 +558,7 @@ function Footer() {
         fontFamily: 'var(--font-mono)', color: C.muted,
         fontSize: '0.7rem', letterSpacing: '0.08em', marginBottom: '20px',
       }}>
-        Construcción de Estructura Patrimonial
+        Su empresa digital de ingresos recurrentes
       </p>
       <div style={{
         display: 'flex', justifyContent: 'center', gap: '32px',

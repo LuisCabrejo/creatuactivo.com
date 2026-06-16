@@ -7,7 +7,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo | Construcción de Estructura Patrimonial'
+export const alt = 'CreaTuActivo | Su empresa digital con ingresos recurrentes'
 export const size = {
   width: 1200,
   height: 630,
@@ -88,8 +88,8 @@ export default async function Image() {
             fontFamily: 'Georgia, serif',
           }}
         >
-          <span style={{ display: 'flex' }}>Construcción de</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>Estructura Patrimonial</span>
+          <span style={{ display: 'flex' }}>Ingresos que no dependen</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>de su presencia</span>
         </div>
 
         {/* Descripción */}
@@ -105,7 +105,7 @@ export default async function Image() {
             lineHeight: 1.5,
           }}
         >
-          Detección de fallas estructurales en el flujo de caja personal.
+          Su propia empresa digital, respaldada por Gano Excel y la inteligencia artificial Queswa.
         </div>
 
         {/* Footer - Byline */}

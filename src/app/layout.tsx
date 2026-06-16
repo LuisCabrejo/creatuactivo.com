@@ -53,19 +53,19 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo | Construcción de Estructura Patrimonial',
+    default: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
     template: '%s | CreaTuActivo'
   },
-  description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
+  description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
     'creatuactivo',
-    'estructura patrimonial',
-    'arquitecto de patrimonio',
-    'auditoría patrimonial',
+    'empresa digital',
+    'ingresos recurrentes',
+    'propietario empresa digital',
+    'diagnóstico de 5 días',
     'apalancamiento estratégico',
-    'flujo de caja recurrente',
     'queswa ia',
     'queswa app',
     'gano excel latinoamerica',
@@ -131,15 +131,15 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
-    title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-    description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
+    title: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
+    description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Construcción de Estructura Patrimonial',
-    description: 'Construya una Estructura Patrimonial en paralelo a su ocupación actual. Tres pilares: Gano Excel · Queswa · Tridente EAM. Usted dirige como Arquitecto de Patrimonio.',
+    title: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
+    description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
     creator: '@creatuactivo',
   },
 

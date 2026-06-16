@@ -273,7 +273,7 @@ export default function AuditoriaPatrimonialPage() {
               fontFamily: "var(--font-sans)",
               letterSpacing: '0.02em',
             }}>
-              En 5 días le mostramos, con números claros, cómo construir un negocio digital que sigue produciendo aunque usted no trabaje — apoyado en una empresa que ya opera en 70 países.
+              En 5 días le mostramos, con números claros, cómo construir una empresa digital que sigue produciendo aunque usted no trabaje — apoyada en una compañía que ya opera en 70 países.
             </p>
 
             {/* Párrafo diagnóstico */}

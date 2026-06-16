@@ -152,7 +152,7 @@ function HeroSection() {
 
         {/* Link secundario */}
         <p style={{ marginTop: '20px', fontSize: '0.85rem', color: C.muted, textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-          ¿Negocio digital activo?{' '}
+          ¿Empresa digital activa?{' '}
           <Link href="https://queswa.app" style={{ color: C.gold, textDecoration: 'none' }}>
             Ingresar a su Centro de Mando →
           </Link>

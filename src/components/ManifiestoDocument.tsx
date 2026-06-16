@@ -39,7 +39,7 @@ export default function ManifiestoDocument({
   // CTA → WhatsApp. Enviar el mensaje ES la declaración de acuerdo.
   const waNumber = (whatsapp || WHATSAPP_ORGANICO).replace(/\D/g, '')
   const saludo = architectName ? `Hola ${architectName.split(' ')[0]}, ` : 'Hola, '
-  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi negocio digital. ¿Cuál es el siguiente paso?`
+  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi empresa digital. ¿Cuál es el siguiente paso?`
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
@@ -157,7 +157,7 @@ export default function ManifiestoDocument({
                 <p className="text-[#E5E5E5]">
                   De ese camino nació una filosofía. Y este documento la contiene. Lo que sigue no es
                   información para hojear: es el criterio que define quién está listo para dirigir su
-                  propio negocio digital. Si va a asumirlo, primero tiene que estar de acuerdo con esto.
+                  propia empresa digital. Si va a asumirlo, primero tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -252,15 +252,15 @@ export default function ManifiestoDocument({
               </div>
             </div>
 
-            {/* §4 — Qué es un negocio digital */}
+            {/* §4 — Qué es una empresa digital */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es un negocio digital</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es una empresa digital</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Un negocio que trabaja con usted, o sin usted.
+                Una empresa que trabaja con usted, o sin usted.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Su negocio digital es lo que materializa esa estructura: produce ingreso
+                  Su empresa digital es lo que materializa esa estructura: produce ingreso
                   recurrente a partir del consumo real, y le pertenece. No vive de su esfuerzo diario.
                   Vive del consumo de productos que las personas ya realizan, todos los días, exista
                   usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen
@@ -418,7 +418,7 @@ export default function ManifiestoDocument({
               <p className="text-[#A3A3A3] leading-relaxed">
                 Este documento es el criterio, no un folleto. Si lo leyó y se reconoce en él, el
                 siguiente paso no es pensarlo más — es decirlo. Confírmelo y comencemos la activación
-                de su negocio digital.
+                de su empresa digital.
               </p>
             </div>
             <a

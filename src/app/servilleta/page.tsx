@@ -1809,7 +1809,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      ACTIVAR SU NEGOCIO DIGITAL →
+                      ACTIVAR SU EMPRESA DIGITAL →
                     </a>
 
                     {/* CTA Secundario → /empresa-digital */}

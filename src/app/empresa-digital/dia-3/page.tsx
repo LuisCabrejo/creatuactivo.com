@@ -3,7 +3,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  * EL DIAGNÓSTICO DE 5 DÍAS — DÍA 3
- * La Máquina — cómo se arma su negocio digital
+ * La Máquina — cómo se arma su empresa digital
  * noindex — funnel interno
  */
 

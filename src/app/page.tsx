@@ -479,7 +479,7 @@ function QueswaDiferenciadorSection() {
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
             Queswa es la plataforma de inteligencia artificial que ejecuta <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado</span>: tres comandos que le quitan de encima el trabajo pesado.{' '}
-            <span style={{ color: C.white }}>Mientras usted dirige, Queswa atiende y filtra a los interesados las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
+            <span style={{ color: C.white }}>Mientras usted dirige, Queswa explica, atiende y acompaña a cada interesado las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del trabajo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>

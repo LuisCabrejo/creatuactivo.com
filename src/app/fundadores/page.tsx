@@ -22,6 +22,12 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 import AnimatedCountUp from '@/components/AnimatedCountUp'
 import { useHydration } from '@/hooks/useHydration'
 
+// Pulido de tipeo (forgiving, no bloquea): "juan pérez" / "JUAN" → "Juan Pérez"
+const toTitleCase = (s: string) =>
+  s.trim().toLowerCase().replace(/(^|[\s'-])(\p{L})/gu, (_, sep, ch) => sep + ch.toUpperCase())
+// Deja solo caracteres válidos de teléfono (dígitos, espacio, + - ( ))
+const cleanPhone = (s: string) => s.replace(/[^\d\s+()-]/g, '')
+
 // --- Estilos CSS Globales (BIMETALLIC v3.0) ---
 const GlobalStyles = () => (
   <style jsx global>{`
@@ -193,6 +199,7 @@ export default function FundadoresPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...formData,
+            nombre: toTitleCase(formData.nombre),
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
             referrer: document.referrer,
@@ -564,11 +571,11 @@ export default function FundadoresPage() {
                                 <div className="space-y-5 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Su Nombre</label>
-                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" />
+                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onBlur={(e) => setFormData({...formData, nombre: toTitleCase(e.target.value)})} autoCapitalize="words" onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">WhatsApp</label>
-                                        <input type="tel" required value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: e.target.value})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="+57 300 000 0000" />
+                                        <input type="tel" required value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: cleanPhone(e.target.value)})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="+57 300 000 0000" />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>

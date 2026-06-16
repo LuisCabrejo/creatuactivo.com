@@ -55,7 +55,7 @@ Llevar esa distribución exige infraestructura, tecnología y método. Nosotros 
 
 - **El Respaldo Operativo:** Gano Excel fabrica y despacha los productos, con presencia en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
 
-- **Queswa, su Centro de Mando:** yo explico, atiendo y filtro a los interesados las 24 horas. *Usted no explica — Queswa explica.*
+- **Queswa, su Centro de Mando:** yo explico, atiendo y acompaño a cada interesado las 24 horas, y le notifico cada avance en vivo. *Usted no explica — Queswa explica.*
 
 - **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Maestría) que le marca el camino sin improvisar.
 

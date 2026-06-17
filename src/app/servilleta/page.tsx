@@ -517,27 +517,28 @@ export default function ServilletaPage() {
           padding: 80px 50px 30px; height: 100%; align-content: center;
         }
         .card-industrial {
-          position: relative; height: 250px; background: #222;
+          position: relative; height: 250px; background: var(--bg-dark);
           border: 1px solid #444; overflow: hidden;
           display: flex; align-items: flex-end;
           transition: border-color 0.3s;
         }
-        .card-industrial:hover { border-color: var(--cyan); }
+        .card-industrial:hover { border-color: var(--orange); }
         .full-width { grid-column: span 2; height: 200px; }
 
-        /* .card-bg ahora aloja b-rolls 3D (video). object-fit:cover para el <video>;
-           filtro de BRILLO (no grayscale) para no matar el dorado del 3D. */
+        /* .card-bg aloja b-rolls 3D (video). object-fit:CONTAIN para mostrar el objeto
+           3D completo sin recorte; el letterbox es invisible porque el fondo del clip
+           es el mismo carbón del deck. Filtro de BRILLO (no grayscale) — no mata el dorado. */
         .card-bg {
           position: absolute; top: 0; left: 0; width: 100%; height: 100%;
           background-size: cover; background-position: center;
-          object-fit: cover;
-          filter: brightness(0.42); transition: 0.5s;
+          object-fit: contain; background: var(--bg-dark);
+          filter: brightness(0.45); transition: filter 0.5s;
         }
-        .card-industrial:hover .card-bg { filter: brightness(0.85); transform: scale(1.05); }
+        .card-industrial:hover .card-bg { filter: brightness(1); }
 
         .card-content {
-          position: relative; z-index: 2; padding: 20px;
-          background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); width: 100%;
+          position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 24px 22px;
+          background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 35%, rgba(0,0,0,0.3) 68%, transparent 100%);
         }
         .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
         .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
@@ -948,14 +949,14 @@ export default function ServilletaPage() {
             justify-content: flex-end;
           }
           .card-bg {
-            height: 50% !important;
+            height: 100% !important;
             top: 0;
             background-position: center !important;
           }
           .card-content {
-            height: 55% !important;
-            background: linear-gradient(to top, #121212 85%, transparent 100%) !important;
-            padding: 20px 20px 30px !important;
+            height: auto !important;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 42%, transparent 100%) !important;
+            padding: 24px 20px 28px !important;
             justify-content: flex-end;
           }
 
@@ -1233,14 +1234,13 @@ export default function ServilletaPage() {
           }
           /* Base en fullscreen mobile — la tarjeta activa lo sobreescribe abajo */
           :fullscreen .card-industrial .card-bg {
-            filter: brightness(0.42) !important;
+            filter: brightness(0.45) !important;
           }
           :fullscreen .card-industrial.card-active .card-bg {
-            filter: brightness(0.85) !important;
-            transform: scale(1.05);
+            filter: brightness(1) !important;
           }
           :fullscreen .card-industrial.card-active {
-            border-color: var(--cyan);
+            border-color: var(--orange);
           }
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
@@ -1343,11 +1343,10 @@ export default function ServilletaPage() {
         /* Mismo efecto que el hover en desktop: imagen a color completo + scale */
         @media (max-width: 1024px) {
           .card-industrial.card-active .card-bg {
-            filter: brightness(0.85) !important;
-            transform: scale(1.05);
+            filter: brightness(1) !important;
           }
           .card-industrial.card-active {
-            border-color: var(--cyan);
+            border-color: var(--orange);
           }
         }
 

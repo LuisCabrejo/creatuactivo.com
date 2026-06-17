@@ -1501,7 +1501,7 @@ export default function ServilletaPage() {
           onTouchEnd={handleTouchEnd}
         >
 
-          {/* ===== SLIDE 1: ESTRUCTURA PATRIMONIAL ===== */}
+          {/* ===== SLIDE 1: INGRESOS RECURRENTES ===== */}
           <section id="slide-1" className={`slide ${activeSlide === 1 ? 'active' : ''}`}>
             <div
               className="bg-image"
@@ -1523,7 +1523,7 @@ export default function ServilletaPage() {
                     <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · El Respaldo Operativo:</span> usted deja la operaci&oacute;n pesada en manos de Gano Excel · 70 pa&iacute;ses.
                   </div>
                   <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> usted deja explicar, persuadir y filtrar en manos de su IA · 24/7.
+                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> usted deja explicar, atender y acompañar a los interesados en manos de su IA · 24/7.
                   </div>
                   <div className="comp-row">
                     <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · El M&eacute;todo Comprobado:</span> usted no improvisa el camino; sigue un m&eacute;todo ya probado.
@@ -1541,7 +1541,7 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: LA METODOLOGÍA EAM ===== */}
+          {/* ===== SLIDE 2: EL MÉTODO COMPROBADO ===== */}
           <section
             id="slide-2"
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}

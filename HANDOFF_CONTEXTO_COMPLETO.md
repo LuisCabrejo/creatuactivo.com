@@ -378,7 +378,6 @@ npx supabase functions deploy nexus-queue-processor
 |-----------|-----------|
 | `CLAUDE.md` | Instrucciones para agentes IA |
 | `EPIPHANY_BRIDGE_OFICIAL.md` | Script maestro de storytelling |
-| `PROMPT_INVESTIGACION_BRUNSON_FUNNELS.md` | Research de funnels |
 | `PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md` | Research de contenido |
 | `DEPLOYMENT_DB_QUEUE.md` | Deploy del sistema de cola |
 | `knowledge_base/README.md` | Documentación de arsenales |

@@ -127,9 +127,6 @@ Vercel hará deploy automáticamente. 🚀
 - Verifica que FFmpeg funcione: `ffmpeg -version`
 - Verifica la ruta del video original
 
-### Más ayuda
-- Lee el archivo completo: `VIDEO_SETUP_GUIDE.md`
-
 ---
 
 ## 📊 Costo estimado:

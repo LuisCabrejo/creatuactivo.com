@@ -39,11 +39,6 @@ He implementado la solución completa para subir y servir tu video 4K de 63 segu
    - Guía rápida de 6 pasos
    - **EMPIEZA AQUÍ** ← Lee este primero
 
-4. **`VIDEO_SETUP_GUIDE.md`** (7.6 KB)
-   - Guía completa y detallada
-   - Troubleshooting
-   - Información técnica avanzada
-
 ### Infraestructura:
 5. **`public/videos/`** - Carpeta para videos optimizados (vacía por ahora)
 6. **`.env.example`** - Actualizado con variables de video
@@ -188,8 +183,6 @@ ffmpeg -version
 brew install ffmpeg
 ```
 
-**Más ayuda:** Lee `VIDEO_SETUP_GUIDE.md` sección "Troubleshooting"
-
 ---
 
 ## 📚 Recursos Adicionales
@@ -252,9 +245,8 @@ npx -y next-video init
 Si tienes problemas:
 
 1. **Lee primero:** `QUICK_START_VIDEO.md`
-2. **Si persiste:** `VIDEO_SETUP_GUIDE.md` → sección "Troubleshooting"
-3. **Verifica logs:** Browser DevTools → Console
-4. **Contacta:** Equipo de desarrollo
+2. **Verifica logs:** Browser DevTools → Console
+3. **Contacta:** Equipo de desarrollo
 
 ---
 

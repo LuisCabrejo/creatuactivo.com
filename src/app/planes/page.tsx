@@ -28,7 +28,7 @@ const C = {
 
 const WA_PLANES = 'https://wa.me/573206805737?text=';
 const waLink = (plan: string) =>
-  WA_PLANES + encodeURIComponent(`Hola equipo directivo. He completado mi auditoría en Queswa y solicito la activación del ${plan}. Mi nombre es `);
+  WA_PLANES + encodeURIComponent(`Hola equipo directivo. He completado mi diagnóstico en Queswa y solicito la activación del ${plan}. Mi nombre es `);
 
 // ============================================================================
 // PLAN CARD
@@ -261,7 +261,7 @@ export default function PlanesTecnologicosPage() {
           margin: '0 auto',
           padding: '8rem 1.5rem 4rem',
         }}>
-          <span className="spec-label-planes">INFRAESTRUCTURA TECNOLÓGICA — PROTOCOLO DE SUSCRIPCIÓN</span>
+          <span className="spec-label-planes">TECNOLOGÍA QUESWA — PLANES DE SUSCRIPCIÓN</span>
           <h1 style={{
             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
             color: C.gold,
@@ -269,14 +269,14 @@ export default function PlanesTecnologicosPage() {
             fontFamily: "'Playfair Display', Georgia, serif",
             marginBottom: '1rem',
           }}>
-            La Tasa por la Automatización<br />
-            <span style={{ color: C.textMain }}>de su Patrimonio.</span>
+            La tecnología que trabaja<br />
+            <span style={{ color: C.textMain }}>por su empresa digital.</span>
           </h1>
           <div className="planes-hero-line" />
           <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
-            La tecnología Queswa asume el 90% de su fricción operativa.
-            El costo del software es el peaje por la automatización asíncrona de su activo —
-            opera las 24 horas, conversa con los interesados y gestiona su red sin su intervención directa.
+            La tecnología Queswa hace el 90% del trabajo pesado.
+            La cuota mensual es lo que cuesta tener un sistema que funciona las 24 horas:
+            conversa con cada interesado y acompaña a su organización, sin que usted tenga que estar presente.
           </p>
         </section>
 
@@ -294,13 +294,13 @@ export default function PlanesTecnologicosPage() {
                 alignItems: 'stretch',
               }}>
 
-                {/* PLAN 0 — Protocolo de Auditoría */}
+                {/* PLAN 0 — Diagnóstico de 5 Días */}
                 <PlanCard
-                  tag="FASE 0 — SUBVENCIONADO"
-                  title="Protocolo de Auditoría"
-                  price="Subvencionado"
+                  tag="FASE 0 — SIN COSTO"
+                  title="Diagnóstico de 5 Días"
+                  price="Sin costo"
                   priceLabel="— 5 días"
-                  profile="Acceso provisional para validación de viabilidad de perfil. La corporación asume el costo operativo de esta fase."
+                  profile="Acceso temporal para conocer el sistema por dentro. CreaTuActivo asume el costo de esta fase."
                   metrics={[
                     { label: 'Duración', value: '5 Días' },
                     { label: 'Conversaciones', value: '30' },
@@ -308,53 +308,53 @@ export default function PlanesTecnologicosPage() {
                     { label: 'Soporte', value: 'Comunidad' },
                   ]}
                   features={[
-                    'Acceso provisional al ecosistema Queswa',
-                    'Auditoría de la infraestructura tecnológica',
-                    'Evaluación de compatibilidad de perfil',
+                    'Acceso temporal al sistema Queswa',
+                    'Recorrido por la tecnología por dentro',
+                    'Espacio para resolver todas sus dudas',
                     'La Academia — Módulo introductorio',
                     '2 minutos máximo por conversación',
                   ]}
                   borderColor={C.success}
                   accentColor={C.success}
                   icon={<Layers size={18} />}
-                  ctaText="INICIAR DIAGNÓSTICO"
-                  ctaHref="/mapa-de-salida"
+                  ctaText="INICIAR EL DIAGNÓSTICO"
+                  ctaHref="/empresa-digital"
                 />
 
-                {/* PLAN BASE — Activación de Unidad Logística */}
+                {/* PLAN BASE — Plan Inicial */}
                 <PlanCard
                   tag="PLAN BASE — $25 USD/MES"
-                  title="Activación de Unidad Logística"
+                  title="Plan Inicial"
                   price="$25"
                   priceCOP="112.500"
                   priceLabel="USD / mes"
-                  profile="Mantenimiento base de Queswa para operaciones locales. Para Propietarios que inician su empresa digital."
+                  profile="La tecnología Queswa para empezar. Para Propietarios que inician su empresa digital."
                   metrics={[
                     { label: 'Prospectos', value: '200' },
                     { label: 'Conversaciones', value: '100/mes' },
-                    { label: 'Red', value: '1 Unidad' },
+                    { label: 'Negocios', value: '1' },
                     { label: 'Queswa', value: '5 min/chat' },
                   ]}
                   features={[
-                    'Derechos Operativos base — plataforma CreaTuActivo',
-                    'Protocolo EAM de Gestión — Nivel Fundamentos',
+                    'Acceso base a la plataforma CreaTuActivo',
+                    'El Método Comprobado — Nivel Fundamentos',
                     'La Academia — Nivel Fundamentos',
-                    'Analíticas de flujo básicas',
+                    'Analíticas básicas',
                     'Eliminación de marca corporativa',
                     'Soporte vía comunidad',
                   ]}
                   borderColor={C.bronze}
                   accentColor={C.bronze}
                   icon={<Cpu size={18} />}
-                  ctaText="ACTIVAR UNIDAD LOGÍSTICA"
-                  ctaHref={waLink('Plan Base — Activación de Unidad Logística ($25 USD / $112.500 COP/mes)')}
+                  ctaText="ACTIVAR PLAN INICIAL"
+                  ctaHref={waLink('Plan Inicial ($25 USD / $112.500 COP/mes)')}
                   ctaExternal
                 />
 
-                {/* PLAN PRO — Gestión de Infraestructura Empresarial */}
+                {/* PLAN PRO — Plan Crecimiento */}
                 <PlanCard
                   tag="PLAN PRO — $49 USD/MES"
-                  title="Gestión de Infraestructura Empresarial"
+                  title="Plan Crecimiento"
                   price="$49"
                   priceCOP="220.500"
                   priceLabel="USD / mes"
@@ -362,53 +362,53 @@ export default function PlanesTecnologicosPage() {
                   metrics={[
                     { label: 'Prospectos', value: '500' },
                     { label: 'Conversaciones', value: '500/mes' },
-                    { label: 'Red', value: 'Hasta 3 Unidades' },
+                    { label: 'Negocios', value: 'Hasta 3' },
                     { label: 'Queswa', value: '10 min/chat' },
                   ]}
                   features={[
-                    'Todo lo del Plan Base +',
+                    'Todo lo del Plan Inicial +',
                     'Centro de Mando Queswa en Tiempo Real',
-                    'Panel de Gestión de Red (hasta 3 unidades)',
-                    'La Academia — Nivel Arquitectura Avanzada',
+                    'Panel para dirigir su organización (hasta 3 negocios)',
+                    'La Academia — Nivel Avanzado',
                     'Exportación de datos — analíticas avanzadas',
                     'Soporte prioritario por canal directo',
                   ]}
                   borderColor={C.silver}
                   accentColor={C.silver}
                   icon={<BarChart2 size={18} />}
-                  ctaText="ACTIVAR INFRAESTRUCTURA EMPRESARIAL"
-                  ctaHref={waLink('Plan Pro — Gestión de Infraestructura Empresarial ($49 USD / $220.500 COP/mes)')}
+                  ctaText="ACTIVAR PLAN CRECIMIENTO"
+                  ctaHref={waLink('Plan Crecimiento ($49 USD / $220.500 COP/mes)')}
                   ctaExternal
                   highlighted
                 />
 
-                {/* PLAN ELITE — Protocolo de Dirección Global */}
+                {/* PLAN ELITE — Plan Director */}
                 <PlanCard
                   tag="PLAN ELITE — $99 USD/MES"
-                  title="Protocolo de Dirección Global"
+                  title="Plan Director"
                   price="$99"
                   priceCOP="445.500"
                   priceLabel="USD / mes"
-                  profile="Para perfiles directivos que gestionan tráfico en múltiples mercados internacionales con expansión global."
+                  profile="Para quienes dirigen su empresa digital en varios mercados internacionales a la vez."
                   metrics={[
                     { label: 'Prospectos', value: 'Ilimitados' },
                     { label: 'Conversaciones', value: 'Ilimitadas' },
-                    { label: 'Red', value: '10+ Unidades' },
+                    { label: 'Negocios', value: '10+' },
                     { label: 'Queswa', value: 'Sin límites' },
                   ]}
                   features={[
-                    'Todo lo del Plan Pro +',
-                    'Panel de Dirección Global — 10+ unidades',
+                    'Todo lo del Plan Crecimiento +',
+                    'Panel para dirigir 10+ negocios',
                     'Acceso completo 24/7 sin restricciones',
-                    'La Academia — Nivel Maestría',
+                    'La Academia — Nivel Multiplicación',
                     'Valor Patrimonial de Red — Nivel Visionario',
                     'Soporte dedicado + sesión estratégica 1-a-1',
                   ]}
                   borderColor={C.goldDark}
                   accentColor={C.gold}
                   icon={<Globe size={18} />}
-                  ctaText="ACTIVAR PROTOCOLO GLOBAL"
-                  ctaHref={waLink('Plan Elite — Protocolo de Dirección Global ($99 USD / $445.500 COP/mes)')}
+                  ctaText="ACTIVAR PLAN DIRECTOR"
+                  ctaHref={waLink('Plan Director ($99 USD / $445.500 COP/mes)')}
                   ctaExternal
                 />
 
@@ -430,7 +430,7 @@ export default function PlanesTecnologicosPage() {
                   <Link href="/paquetes" style={{ color: C.gold, textDecoration: 'none' }}
                     onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
                     onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-                    VER PROTOCOLO DE CAPITALIZACIÓN DE UNIDADES →
+                    VER LOS PAQUETES DE ACTIVACIÓN →
                   </Link>
                 </p>
               </div>
@@ -438,27 +438,27 @@ export default function PlanesTecnologicosPage() {
           </section>
 
           {/* ═══════════════════════════════════════════════════
-              BLOQUE DE VALOR — El peaje
+              BLOQUE DE VALOR — Qué hace la tecnología
               ═══════════════════════════════════════════════════ */}
           <section style={{ padding: '4rem 1rem 5rem', maxWidth: '72rem', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-              <span className="spec-label-planes">ARQUITECTURA DE VALOR</span>
+              <span className="spec-label-planes">QUÉ HACE LA TECNOLOGÍA</span>
               <h2 style={{
                 fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
                 fontWeight: 700,
                 color: C.textMain,
                 fontFamily: "'Playfair Display', Georgia, serif",
               }}>
-                Lo que el software ejecuta mientras usted duerme.
+                Lo que el sistema hace mientras usted duerme.
               </h2>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
               {[
-                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversación Asíncrona', body: 'Queswa conversa con cada interesado y reconoce a quién está listo, antes de que usted invierta un minuto de atención directiva.' },
-                { icon: <BarChart2 size={28} />, color: C.gold, title: 'Tracción Inbound', body: 'El sistema captura, educa y prepara prospectos 24/7, eliminando la prospección manual y la fricción operativa.' },
+                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversa por usted', body: 'Queswa conversa con cada interesado y reconoce a quién está listo, antes de que usted invierta un minuto de atención.' },
+                { icon: <BarChart2 size={28} />, color: C.gold, title: 'Atrae y prepara', body: 'El sistema capta, educa y prepara prospectos 24/7, eliminando la búsqueda y el seguimiento manual.' },
                 { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en 70 países a la vez, sin requerir su presencia física en ningún mercado.' },
-                { icon: <Layers size={28} />, color: C.bronze, title: 'Escalabilidad sin Cuello de Botella', body: 'La transferencia de protocolos tácticos ocurre de forma autónoma. Su tiempo no es el límite de su organización.' },
+                { icon: <Layers size={28} />, color: C.bronze, title: 'Multiplica sin cuello de botella', body: 'La formación de cada persona nueva ocurre sola. Su tiempo deja de ser el límite de su organización.' },
               ].map((item, i) => (
                 <div key={i} style={{
                   padding: '1.75rem',
@@ -489,7 +489,7 @@ export default function PlanesTecnologicosPage() {
               ═══════════════════════════════════════════════════ */}
           <section style={{ textAlign: 'center', padding: '4rem 1rem 6rem' }}>
             <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
-              <span className="spec-label-planes">SIGUIENTE PASO LÓGICO</span>
+              <span className="spec-label-planes">EL SIGUIENTE PASO</span>
               <h2 style={{
                 fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
                 fontWeight: 700,
@@ -497,7 +497,7 @@ export default function PlanesTecnologicosPage() {
                 color: C.textMain,
                 fontFamily: "'Playfair Display', Georgia, serif",
               }}>
-                La infraestructura está operativa.
+                El sistema ya está listo para usted.
               </h2>
               <p style={{
                 fontSize: '1.05rem',
@@ -506,8 +506,8 @@ export default function PlanesTecnologicosPage() {
                 maxWidth: '520px',
                 margin: '0 auto 2.5rem',
               }}>
-                El primer paso es la capitalización de su empresa digital.
-                El plan tecnológico se activa junto con su inventario.
+                El primer paso es activar su empresa digital.
+                El plan tecnológico se incluye con su paquete de productos.
               </p>
               <Link
                 href="/paquetes"
@@ -534,7 +534,7 @@ export default function PlanesTecnologicosPage() {
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                VER PROTOCOLO DE CAPITALIZACIÓN →
+VER LOS PAQUETES DE ACTIVACIÓN →
               </Link>
             </div>
           </section>

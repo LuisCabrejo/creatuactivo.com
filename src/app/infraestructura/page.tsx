@@ -33,7 +33,7 @@ export default function InfraestructuraPage() {
         />
 
         {/* ═══════════════════════════════════════════════════════════════
-            SECCIÓN 1: HERO - La Declaración de Soberanía
+            SECCIÓN 1: HERO - La Declaración Institucional
             Full height, cinematográfico
             BIMETALLIC: Spotlight titanio para profundidad
             ═══════════════════════════════════════════════════════════════ */}
@@ -65,11 +65,11 @@ export default function InfraestructuraPage() {
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 tracking-tight">
               Infraestructura Global
               <br />
-              <span className="text-[#C5A059]">para la Soberanía de Activos</span>
+              <span className="text-[#C5A059]">que respalda su negocio digital</span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed mb-12 font-light">
-              Gestionando cadenas de suministro bioactivas en más de 70 países.
+              Producción y distribución de productos en más de 70 países.
             </p>
 
             {/* Scroll indicator - BIMETALLIC: Navegación → titanio, hover → dorado */}
@@ -77,7 +77,7 @@ export default function InfraestructuraPage() {
               onClick={() => document.getElementById('origen')?.scrollIntoView({ behavior: 'smooth' })}
               className="inline-flex flex-col items-center gap-3 text-[#64748B] hover:text-[#C5A059] transition-colors group"
             >
-              <span className="text-sm tracking-widest uppercase">Ver la Matriz Logística</span>
+              <span className="text-sm tracking-widest uppercase">Ver la red global</span>
               <ArrowDown className="w-5 h-5 animate-bounce" />
             </button>
           </div>
@@ -161,7 +161,7 @@ export default function InfraestructuraPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="font-serif text-3xl sm:text-4xl mb-4">
-                Soberanía de Suministro
+                Control Total del Suministro
               </h2>
               <p className="text-xl text-[#C5A059] font-light">
                 El Modelo "Seed-to-Seal"
@@ -240,14 +240,14 @@ export default function InfraestructuraPage() {
                 </h2>
 
                 <p className="text-lg text-[#A3A3A3] leading-relaxed mb-6">
-                  Operar en una sola economía es un <strong className="text-[#E5E5E5]">riesgo</strong>.
-                  Operar en setenta es una <span className="text-[#C5A059]">cobertura (Hedge)</span>.
+                  Depender de una sola economía es un <strong className="text-[#E5E5E5]">riesgo</strong>.
+                  Estar en setenta es una <span className="text-[#C5A059]">protección</span>.
                 </p>
 
                 <p className="text-[#A3A3A3] leading-relaxed">
                   Nuestra infraestructura atraviesa fronteras, monedas y ciclos políticos.
                   Desde los rascacielos de los Emiratos Árabes hasta el mercado masivo de las Américas,
-                  su activo se asienta sobre una <strong className="text-[#E5E5E5]">plataforma transcontinental diversificada</strong>.
+                  su negocio se apoya en una <strong className="text-[#E5E5E5]">plataforma internacional diversificada</strong>.
                 </p>
               </div>
 
@@ -298,7 +298,7 @@ export default function InfraestructuraPage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════
-            SECCIÓN 5: LOS VEHÍCULOS - El Producto como Activo
+            SECCIÓN 5: LOS PRODUCTOS - El Producto como Activo
             ═══════════════════════════════════════════════════════════════ */}
         <section className="py-24 px-6 bg-[#15171C]">
           <div className="max-w-5xl mx-auto">
@@ -316,10 +316,10 @@ export default function InfraestructuraPage() {
             {/* Product formula visualization - BIMETALLIC: Proceso=titanio, Resultado=dorado */}
             <div className="max-w-3xl mx-auto">
               <div className="grid md:grid-cols-3 gap-4 items-center">
-                {/* El Vehículo - Titanio (es estructura/proceso) */}
+                {/* La Base - Titanio (es estructura/proceso) */}
                 <div className="text-center p-6 rounded-xl bg-[#1A1D23] border border-[rgba(255,255,255,0.1)]">
                   <Coffee className="w-10 h-10 text-[#94A3B8] mx-auto mb-4" />
-                  <p className="text-xs text-[#64748B] uppercase tracking-wider mb-2">El Vehículo</p>
+                  <p className="text-xs text-[#64748B] uppercase tracking-wider mb-2">La Base</p>
                   <p className="text-lg text-[#E5E5E5] font-medium">Café Arábica Premium</p>
                 </div>
 
@@ -389,11 +389,11 @@ export default function InfraestructuraPage() {
             <h2 className="font-serif text-3xl sm:text-4xl mb-6">
               Esta es la infraestructura sobre la que
               <br />
-              <span className="text-[#C5A059]">construirá su patrimonio</span>
+              <span className="text-[#C5A059]">construirá su negocio digital</span>
             </h2>
 
             <p className="text-[#A3A3A3] mb-10 text-lg">
-              ¿Listo para operar?
+              ¿Listo para empezar?
             </p>
 
             <Link
@@ -401,7 +401,7 @@ export default function InfraestructuraPage() {
               className="cta-base cta-primary"
               style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
             >
-              Auditar con El Mapa de Salida
+              Iniciar el Diagnóstico de 5 Días
               <ChevronRight className="w-5 h-5" />
             </Link>
 

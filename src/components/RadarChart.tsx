@@ -45,11 +45,11 @@ export default function RadarChart({ data, size = 300, animated = true }: RadarC
 
   // 5 ejes del pentágono
   const axes = [
-    { key: 'potenciaIngreso', label: 'Potencia de Ingreso', angle: -90 },
-    { key: 'autonomiaOperativa', label: 'Autonomía Operativa', angle: -18 },
-    { key: 'resilienciaGeografica', label: 'Resiliencia Geográfica', angle: 54 },
-    { key: 'escalabilidadSistemica', label: 'Escalabilidad', angle: 126 },
-    { key: 'eficienciaPatrimonial', label: 'Eficiencia Patrimonial', angle: 198 },
+    { key: 'potenciaIngreso', label: 'Lo que genera', angle: -90 },
+    { key: 'autonomiaOperativa', label: 'Independencia', angle: -18 },
+    { key: 'resilienciaGeografica', label: 'Fuera del ciclo', angle: 54 },
+    { key: 'escalabilidadSistemica', label: 'Crece sin usted', angle: 126 },
+    { key: 'eficienciaPatrimonial', label: 'Lo que le queda', angle: 198 },
   ];
 
   // Calcular puntos del pentágono

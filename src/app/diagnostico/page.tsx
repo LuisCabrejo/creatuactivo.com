@@ -1,7 +1,9 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
- * Diagnóstico de Arquitectura Soberana - Landing Page (Quiz Funnel)
- * SIN navegación - Enfoque total en conversión
+ * Copyright © 2026 CreaTuActivo.com
+ * Diagnóstico financiero — Landing Page (Quiz Funnel)
+ * Registro accesible latino (jun 2026): eje "seguridad financiera de su casa",
+ * presente/ciclo, usted parejo, sin jerga ni etiquetas que ataquen identidad.
+ * SIN navegación - Enfoque total en conversión.
  */
 
 'use client';
@@ -25,6 +27,7 @@ interface QuizAnswers {
 }
 
 interface CaptureData {
+  nombre: string;
   email: string;
   countryCode: string;
   phoneNumber: string;
@@ -79,48 +82,48 @@ const styles = `
 const quizQuestions = [
   {
     id: 'autonomia',
-    question: 'Si por una razón de fuerza mayor dejaras de trabajar físicamente durante 6 meses, ¿qué sucedería con sus ingresos?',
+    question: 'Si tuviera que parar unos meses —por salud o un imprevisto—, ¿qué pasaría con la plata que entra a su casa?',
     options: [
-      { value: 10, label: 'Se detienen inmediatamente', sublabel: 'Dependo 100% de mi trabajo activo' },
-      { value: 50, label: 'Se mantienen al 50-70% por un tiempo', sublabel: 'Tengo algo de colchón pero decaen' },
-      { value: 100, label: 'Continúan llegando sin mi presencia', sublabel: 'Tengo sistemas que generan sin mí' },
+      { value: 10, label: 'Se acaba de una', sublabel: 'Todo depende de que yo siga trabajando' },
+      { value: 50, label: 'Aguanta un tiempo y baja', sublabel: 'Tengo algo de colchón, pero no dura' },
+      { value: 100, label: 'Sigue entrando sin mí', sublabel: 'Ya tengo algo que produce aunque yo no esté' },
     ],
   },
   {
     id: 'resiliencia',
-    question: '¿Qué porcentaje de su patrimonio y fuentes de ingreso está atado a una ubicación geográfica específica?',
+    question: '¿Siente que vive en el ciclo de trabajar, pagar cuentas y volver a empezar?',
     options: [
-      { value: 10, label: '100% - Todo depende de donde vivo', sublabel: 'Mi economía no es portátil' },
-      { value: 50, label: '50% - Tengo inversiones diversificadas', sublabel: 'Pero mi ingreso principal es local' },
-      { value: 100, label: '0-20% - Mi economía es agnóstica', sublabel: 'Puedo trabajar desde cualquier lugar' },
+      { value: 10, label: 'Sí, todos los meses', sublabel: 'Trabajo, pago, y al otro mes arranco de cero' },
+      { value: 50, label: 'A veces', sublabel: 'Algunos meses respiro, otros no' },
+      { value: 100, label: 'Ya no', sublabel: 'Lo que construí me sacó de ese ciclo' },
     ],
   },
   {
     id: 'eficiencia',
-    question: 'Cuando revisas la relación entre lo que generaste (bruto) y lo que retuviste en activos reales, ¿cómo le sientes?',
+    question: 'Al final del año, cuando mira todo lo que ganó y lo que de verdad le quedó, ¿cómo se siente?',
     options: [
-      { value: 20, label: 'Frustrado', sublabel: '"Soy un canal de paso para el dinero; entra y sale"' },
-      { value: 50, label: 'Conforme', sublabel: '"Ahorré algo, pero no lo suficiente para cambiar mi vida"' },
-      { value: 90, label: 'Satisfecho', sublabel: '"Construí patrimonio neto real y tangible"' },
+      { value: 20, label: 'Frustrado', sublabel: 'La plata entra y se va; soy solo el puente por donde pasa' },
+      { value: 50, label: 'Conforme', sublabel: 'Algo guardo, pero no lo suficiente para cambiar nada' },
+      { value: 90, label: 'Tranquilo', sublabel: 'Lo que gané se quedó y sigue ahí' },
     ],
   },
   {
     id: 'apalancamiento',
-    question: '¿Su estrategia actual para duplicar sus ingresos requiere duplicar su esfuerzo personal o su tiempo?',
+    question: 'Para ganar el doble, ¿tendría que trabajar el doble?',
     options: [
-      { value: 20, label: 'Sí, es una relación lineal', sublabel: 'Más dinero = Más trabajo' },
-      { value: 50, label: 'Parcialmente', sublabel: 'Tengo equipo pero sigo siendo el cuello de botella' },
-      { value: 90, label: 'No, uso sistemas de apalancamiento', sublabel: 'Mi ingreso puede multiplicarse sin mí' },
+      { value: 20, label: 'Sí, así es', sublabel: 'Más plata significa más horas mías' },
+      { value: 50, label: 'Más o menos', sublabel: 'Tengo ayuda, pero todo sigue pasando por mí' },
+      { value: 90, label: 'No', sublabel: 'Lo que construí puede crecer sin que yo meta más horas' },
     ],
   },
   {
     id: 'pazMental',
-    question: 'En una escala del 1 al 10, ¿cuánta paz mental le da la arquitectura financiera que ha construido hasta hoy?',
+    question: 'Pensando en el dinero, ¿con cuánta tranquilidad duerme hoy?',
     options: [
-      { value: 20, label: '1-3: Muy poca', sublabel: 'Vivo con ansiedad financiera constante' },
-      { value: 50, label: '4-6: Regular', sublabel: 'Hay días buenos y días de preocupación' },
-      { value: 80, label: '7-8: Buena', sublabel: 'Me siento relativamente seguro' },
-      { value: 100, label: '9-10: Excelente', sublabel: 'Tengo paz mental total sobre mi futuro' },
+      { value: 20, label: 'Poca', sublabel: 'Vivo con el estrés del dinero casi siempre' },
+      { value: 50, label: 'Más o menos', sublabel: 'Hay meses buenos y meses de angustia' },
+      { value: 80, label: 'Buena', sublabel: 'Me siento bastante seguro' },
+      { value: 100, label: 'Total', sublabel: 'Duermo tranquilo; lo financiero no me quita el sueño' },
     ],
   },
 ];
@@ -134,36 +137,36 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
 
   if (data.potenciaIngreso >= 70 && avgSupport <= 40) {
     return {
-      name: 'EL GIGANTE DE PIES DE BARRO',
-      subtitle: 'Alto Rendimiento / Motor Solitario',
-      description: 'Los datos indican que tiene una capacidad excepcional para generar flujo de efectivo. Usted es el motor indiscutible de su economía. Ese es su superpoder, pero paradójicamente, es su mayor riesgo.',
-      insight: 'Su gráfico muestra una "Arquitectura Asimétrica". Ha optimizado todo su sistema para el Ingreso Activo (dependiente de usted), pero ha descuidado peligrosamente la Infraestructura de Soporte.',
-      truth: 'Actualmente, no posee un activo; el activo es USTED. Si usted se detiene, el sistema colapsa. Esto no es libertad, es una jaula de oro de alta gama.',
-      metaphor: 'Tiene el motor de un Ferrari montado en el chasis de una bicicleta.',
-      need: 'Lo que le falta no es más dinero. Le falta un Chasis.',
+      name: 'USTED ES EL MOTOR',
+      subtitle: 'Genera bien — pero todo depende de usted',
+      description: 'Los números muestran algo claro: usted sabe generar ingresos. Es el motor de la economía de su casa, y eso tiene mérito. El detalle es que hoy ese motor es usted, y solo usted.',
+      insight: 'Su gráfico se ve fuerte en lo que usted produce, y débil en lo que seguiría produciéndose sin usted. No es falta de capacidad; es que nadie le enseñó a construir lo segundo.',
+      truth: 'El día que pare, todo para. Por más que gane, sigue dependiendo de una sola cosa: usted.',
+      metaphor: 'Es una casa que se sostiene en una sola columna: usted.',
+      need: 'No le falta ganar más. Le falta que lo que gana trabaje también cuando usted no está.',
     };
   }
 
   if (avgSupport <= 30) {
     return {
-      name: 'EL OPERADOR AGOTADO',
-      subtitle: 'Negocio Propio / Sin Tiempo',
-      description: 'Ha construido algo, pero se ha convertido en esclavo de su propia creación. Su negocio no funciona sin usted, lo que significa que no tiene un negocio: tiene un trabajo disfrazado.',
-      insight: 'Todos los ejes de su gráfico dependen de su presencia física. No ha logrado separar su tiempo de su ingreso.',
-      truth: 'Si cierra la puerta mañana, deja de ganar. Eso no es un activo, es una trampa operativa.',
-      metaphor: 'Usted es el motor, el volante y los frenos. Si se enferma, el carro se detiene.',
-      need: 'Necesita sistemas que funcionen sin su presencia constante.',
+      name: 'SU NEGOCIO NO CAMINA SIN USTED',
+      subtitle: 'Construyó algo propio — pero lo carga entero',
+      description: 'Usted ya dio el paso difícil: construyó algo propio. Eso lo separa de la mayoría. Pero hoy ese algo depende de que usted esté ahí todos los días.',
+      insight: 'En su gráfico, casi todo se apoya en su presencia. Lo que armó todavía no se sostiene solo.',
+      truth: 'Si mañana cierra la puerta, deja de entrar dinero. Más que un negocio que lo sostiene a usted, por ahora es usted quien sostiene el negocio.',
+      metaphor: 'Usted es el motor, el volante y el freno. Si usted se detiene, todo se detiene.',
+      need: 'Que el sistema funcione aunque usted no esté presente todos los días.',
     };
   }
 
   return {
-    name: 'EL CONSTRUCTOR EN PROGRESO',
-    subtitle: 'En Camino / Con Potencial',
-    description: 'Tiene algunos elementos de estructura, pero aún no ha logrado la independencia operativa completa. Está mejor que la mayoría, pero lejos de la tranquilidad financiera.',
-    insight: 'Su gráfico muestra áreas de oportunidad claras. No está en crisis, pero tampoco está protegido.',
-    truth: 'Con los ajustes correctos, podría acelerar significativamente su camino hacia la autonomía.',
-    metaphor: 'Tiene los planos, pero la construcción está a medias.',
-    need: 'Necesita completar la infraestructura que ya empezó.',
+    name: 'YA EMPEZÓ A CONSTRUIR',
+    subtitle: 'Va por buen camino — con base para crecer',
+    description: 'Tiene varias piezas en su lugar, pero todavía no llega a la independencia completa. Está mejor que la mayoría… y aún lejos de la tranquilidad que busca.',
+    insight: 'Su gráfico muestra oportunidades claras. No está en crisis, pero tampoco está protegido del todo.',
+    truth: 'Con los ajustes correctos, puede acortar mucho el camino hacia una economía que no dependa solo de usted.',
+    metaphor: 'Tiene los planos y los cimientos. Falta levantar la casa.',
+    need: 'Terminar de construir lo que ya empezó.',
   };
 };
 
@@ -172,7 +175,7 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
 // ============================================================================
 
 export default function DiagnosticoPage() {
-  const [step, setStep] = useState<QuizStep>('quiz');
+  const [step, setStep] = useState<QuizStep>('hero');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({
     autonomia: 0,
@@ -181,7 +184,7 @@ export default function DiagnosticoPage() {
     apalancamiento: 0,
     pazMental: 0,
   });
-  const [captureData, setCaptureData] = useState<CaptureData>({ email: '', countryCode: '+57', phoneNumber: '' });
+  const [captureData, setCaptureData] = useState<CaptureData>({ nombre: '', email: '', countryCode: '+57', phoneNumber: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleStartQuiz = () => {
@@ -202,7 +205,7 @@ export default function DiagnosticoPage() {
 
   const handleCapture = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captureData.email || !captureData.phoneNumber) return;
+    if (!captureData.nombre || !captureData.email || !captureData.phoneNumber) return;
 
     const whatsapp = `${captureData.countryCode}${captureData.phoneNumber}`;
 
@@ -216,6 +219,7 @@ export default function DiagnosticoPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name: captureData.nombre,
         email: captureData.email,
         whatsapp,
         answers,
@@ -230,6 +234,7 @@ export default function DiagnosticoPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name: captureData.nombre,
         email: captureData.email,
         whatsapp,
         source: 'diagnostico',
@@ -286,7 +291,7 @@ export default function DiagnosticoPage() {
           />
         )}
         {step === 'result' && (
-          <ResultSection radarData={radarData} archetype={archetype} />
+          <ResultSection radarData={radarData} archetype={archetype} nombre={captureData.nombre} />
         )}
       </main>
     </>
@@ -325,7 +330,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
           <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Diagnóstico de 60 segundos
+            Diagnóstico gratis · 60 segundos
           </span>
         </div>
 
@@ -334,11 +339,9 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-8"
           style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
         >
-          <span style={{ color: 'var(--text-secondary)' }}>A los 40 años descubrí que</span>
-          <br />
-          <span style={{ color: 'var(--text-primary)' }}>había pasado dos décadas</span>
-          <br />
-          <span style={{ color: 'var(--gold)' }}>subiendo la escalera equivocada.</span>
+          <span style={{ color: 'var(--text-primary)' }}>¿Trabaja duro pero, a nivel financiero, siente que pedalea en una </span>
+          <span style={{ color: 'var(--gold)' }}>bicicleta estática</span>
+          <span style={{ color: 'var(--text-primary)' }}>?</span>
         </h1>
 
         {/* Subheadline */}
@@ -346,10 +349,10 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           className="text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
-          La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
+          En 60 segundos vea, con sus propios números, qué tan firme está hoy la economía de su casa
           <br className="hidden sm:block" />
           <span style={{ color: 'var(--text-primary)' }}>
-            Realice este diagnóstico para visualizar las grietas invisibles en su modelo actual.
+            — y dónde está la fuga que no lo deja avanzar.
           </span>
         </p>
 
@@ -359,7 +362,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           className="cta-base cta-primary"
           style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
         >
-          Iniciar Diagnóstico Gratuito
+          Hacer mi diagnóstico gratis
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -520,14 +523,28 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
           className="text-2xl sm:text-3xl mb-4"
           style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
         >
-          Su análisis está listo
+          Su diagnóstico está listo
         </h2>
 
         <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
-          ¿A dónde enviamos su informe detallado y el gráfico de arquitectura?
+          ¿A nombre de quién y a dónde le enviamos su resultado y su gráfico?
         </p>
 
         <form onSubmit={onSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Su nombre"
+            value={data.nombre}
+            onChange={(e) => onChange({ ...data, nombre: e.target.value })}
+            autoCapitalize="words"
+            required
+            className="w-full px-5 py-4 rounded-xl focus:outline-none transition-all duration-300"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              color: 'var(--text-primary)',
+            }}
+          />
           <input
             type="email"
             placeholder="Su email"
@@ -639,9 +656,11 @@ interface ResultSectionProps {
     eficienciaPatrimonial: number;
   };
   archetype: ReturnType<typeof getArchetype>;
+  nombre: string;
 }
 
-function ResultSection({ radarData, archetype }: ResultSectionProps) {
+function ResultSection({ radarData, archetype, nombre }: ResultSectionProps) {
+  const primerNombre = (nombre || '').trim().split(' ')[0];
   return (
     <section className="min-h-screen px-6 py-20">
       <div className="max-w-4xl mx-auto">
@@ -657,7 +676,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-3xl sm:text-4xl mt-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            Su Arquitectura Financiera
+            {primerNombre ? `Listo, ${primerNombre}` : 'Listo'} — así está hoy la economía de su casa
           </h1>
         </div>
 
@@ -682,7 +701,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
                 color: 'var(--gold)',
               }}
             >
-              ARQUETIPO DETECTADO
+              SU PERFIL
             </span>
             <h2
               className="text-2xl sm:text-3xl mb-2"
@@ -700,7 +719,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
               className="text-lg font-medium leading-relaxed"
               style={{ color: 'var(--text-primary)' }}
             >
-              <strong>La Verdad Incómoda:</strong> {archetype.truth}
+              <strong>Lo que esto significa:</strong> {archetype.truth}
             </p>
             <p
               className="text-xl italic text-center py-4"
@@ -741,9 +760,9 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </p>
 
           <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-            He diseñado <strong style={{ color: 'var(--gold)' }}>el Diagnóstico de 5 Días</strong> específicamente
-            para perfiles de alto rendimiento que necesitan transicionar de{' '}
-            <em>hacerlo todo ellos mismos</em> a <em>ser dueños de su empresa digital</em>.
+            Por eso diseñé <strong style={{ color: 'var(--gold)' }}>el Diagnóstico de 5 Días</strong>: para
+            personas que quieren dejar de cargarlo todo solas y empezar a ser dueñas de algo que trabaje
+            por ellas — <em>una empresa digital</em>.
           </p>
 
           <div
@@ -780,7 +799,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
             Su diagnóstico dice que está listo para multiplicar,
             <br />
-            pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
+            pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerce los cimientos primero.</span>
           </p>
 
           <Link
@@ -802,7 +821,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
         {/* Footer */}
         <footer className="text-center mt-16 pt-10" style={{ borderTop: '1px solid var(--border)' }}>
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            © 2025 CreaTuActivo.com — Tecnología para construir ingresos recurrentes
+            © 2026 CreaTuActivo.com — Tecnología para construir ingresos recurrentes
           </p>
         </footer>
       </div>

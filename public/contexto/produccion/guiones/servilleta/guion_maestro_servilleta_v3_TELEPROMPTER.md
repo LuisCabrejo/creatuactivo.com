@@ -73,7 +73,7 @@ PILAR 2 — QUESWA, SU CENTRO DE MANDO
 
 Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante:
 
-busca, filtra y atiende a los interesados, las 24 horas.
+explica, atiende y acompaña a cada interesado, las 24 horas.
 
 Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.
 
@@ -115,7 +115,7 @@ En este punto, la pregunta común es:
 
 La respuesta es el Método Comprobado:
 
-tres pasos automatizados — Expansión, Activación y Maestría.
+tres pasos automatizados — Expansión, Activación y Multiplicación.
 
 
 
@@ -147,25 +147,31 @@ Usted no se pierde un solo detalle.
 
 
 
-PASO 3 · MAESTRÍA — usted multiplica y crece.
+PASO 3 · MULTIPLICACIÓN — usted multiplica y crece.
 
-Cuando alguien inicia con usted,
+En cualquier modelo de negocio, crecer es lo más difícil.
 
-recibe el mismo sistema digital que usted tiene — listo para crecer por su cuenta.
+Para multiplicar una empresa, se requiere abrir otro local: arriendo, personal, inversión.
 
-Y en paralelo, usted accede a la Maestría de CreaTuActivo:
+Esa es la pared donde casi todos se detienen.
 
-formación en comunicación, en liderazgo de equipos, en marca personal y en el manejo inteligente de su dinero.
+Aquí no.
 
-Porque aquí usted no solo construye un ingreso:
+Cuando alguien inicia con usted, recibe el mismo sistema digital que usted tiene —
 
-se construye a usted mismo.
+listo para crecer por su cuenta, sin que usted lo cargue.
+
+Multiplicar su empresa digital está a un clic, en todo el continente.
+
+Y nadie queda solo:
+
+a cada persona nueva la forma la Academia de CreaTuActivo desde el primer día.
 
 
 
 [ PAUSA · TONO ASPIRACIONAL ]
 
-Tres pasos que le permiten multiplicar su negocio — de uno, a cientos.
+Tres pasos que le permiten multiplicar su empresa digital — de una, a cientos.
 
 
 
@@ -175,13 +181,13 @@ SLIDE 3 · EL PRODUCTO — UN HÁBITO QUE NO CAMBIA
 
 
 
-Todo negocio sólido necesita un producto que las personas compren una y otra vez.
+Toda empresa sólida necesita un producto que las personas compren una y otra vez.
 
-Y el suyo descansa sobre el más confiable de todos:
+Y la suya descansa sobre el más confiable de todos:
 
 un hábito diario.
 
-Su negocio se mueve sobre algo que millones de personas ya hacen cada día, sin que nadie se los pida:
+Su empresa digital se mueve sobre algo que millones de personas ya hacen cada día, sin que nadie se los pida:
 
 tomarse un café.
 
@@ -207,7 +213,7 @@ Hablamos del Ganoderma Lucidum de Gano Excel.
 
 Y la lógica es contundente:
 
-un hábito que no cambia es un ingreso que jamás se detiene.
+un hábito que no cambia genera un ingreso que jamás se detiene.
 
 
 
@@ -227,11 +233,11 @@ Analicemos dos.
 
 INGRESO INMEDIATO
 
-Por cada nuevo negocio que se activa dentro de su organización,
+Por cada nueva empresa digital que se activa dentro de su organización,
 
 usted recibe una comisión directa, liquidada cada viernes.
 
-Es ingreso de corto plazo — visible desde la primera semana.
+Es un ingreso visible desde la primera semana.
 
 
 
@@ -259,7 +265,7 @@ OPCIÓN 1 — LA INACCIÓN
 
 Dejar todo igual.
 
-Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que lo mantiene apagando incendios cada fin de mes y comprometiendo su salud.
+Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que le sigue tomando sus mejores años y su salud.
 
 
 

@@ -2,9 +2,9 @@
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
-**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Maestría) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es un sistema que toma sus mejores años y su salud — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
+**Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Multiplicación) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es un sistema que toma sus mejores años y su salud — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
 
-**Versión actual: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **Previa: v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Versión actual: v5.12** (17 jun 2026) — (1) **EAM_01 versión simple** (sesión Luis + Gemini): 3 pasos Expandir/Activar/Multiplicación, Activar en clave conversión, sin "Protocolo de Validación"/lista "no requiere", acompañamiento Queswa + humano; re-sincronizado con `respuestas-maestras.ts`. (2) **Destierro de "filtrar"** (suena a perder clientes para negocio físico) → conversar/acompañar/reconocer quién está listo. (3) **Rename 3er Comando Maestría → Multiplicación** (WHY_02 re-sincronizado). **Previa: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 ⚠️ **Sincronización inviolable:** WHY_02 y EAM_01 (chips canónicos) deben coincidir CARÁCTER POR CARÁCTER con `MASTER_WHY_02` / `MASTER_EAM_01` en `src/lib/respuestas-maestras.ts`. El arsenal es la doctrina viva; ese módulo TS es el caché del backend.
 
@@ -49,7 +49,7 @@ Llevar esa distribución exige infraestructura, tecnología y método. Nosotros 
 
 - **Queswa, su Centro de Mando:** yo explico, atiendo y acompaño a cada interesado las 24 horas, y le notifico cada avance en vivo. *Usted no explica — Queswa explica.*
 
-- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Maestría) que le marca el camino sin improvisar.
+- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Multiplicación) que le marca el camino sin improvisar.
 
 Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
 
@@ -114,7 +114,7 @@ Aquí es al revés: usted **deja ese riesgo en manos de Gano Excel.** Si hay un 
 
 Yo soy **Queswa** — sí, una inteligencia artificial. Soy el **Centro de Mando** del sistema, el Pilar 2 de CreaTuActivo.
 
-Mi trabajo es quitarle a usted lo pesado: atiendo a los interesados, les explico, filtro los contactos y resuelvo dudas las **24 horas** — sin cansarme, sin descansos. Asumo cerca del **90% del trabajo** operativo.
+Mi trabajo es quitarle a usted lo pesado: atiendo a los interesados, les explico, acompaño su decisión y resuelvo dudas las **24 horas** — sin cansarme, sin descansos. Asumo cerca del **90% del trabajo** operativo.
 
 Así, a usted le queda solo lo importante: **dirigir.** Lleva personas al sistema y toma las decisiones; del resto me encargo yo. Como decimos aquí: **usted no explica — Queswa explica.**
 
@@ -136,15 +136,15 @@ Si es ejecutivo o dueño de una empresa consolidada, le permite construir una **
 ---
 
 ### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos para conseguir personas?"**
-**[Concepto Nuclear]:** Tres caminos para llevar personas al sistema — Conexión Directa, Asistida y Automatizada. El Propietario elige el camino; Queswa hace el trabajo de explicar y filtrar.
+**[Concepto Nuclear]:** Tres caminos para llevar personas al sistema — Conexión Directa, Asistida y Automatizada. El Propietario elige el camino; Queswa hace el trabajo de explicar y acompañar.
 
 Insistirles a conocidos o convencer a quien no está interesado es del modelo viejo. Aquí eso no existe.
 
 Usted solo dirige: la empresa digital ya está armada, y lo único que decide es **por cuál camino le llegan las personas.** Tiene tres:
 
-**Conexión Directa.** Usted no le insiste a nadie; solo le comparte el acceso a quien ya ve con ganas y visión en su entorno, para que Queswa lo atienda y lo filtre.
+**Conexión Directa.** Usted no le insiste a nadie; solo le comparte el acceso a quien ya ve con ganas y visión en su entorno, para que Queswa lo atienda y acompañe su decisión de avanzar.
 
-**Conexión Asistida.** Usted genera interés en redes y **deja en mis manos —Queswa— explicar, filtrar y ver quién está listo** para avanzar.
+**Conexión Asistida.** Usted genera interés en redes y **deja en mis manos —Queswa— explicar y reconocer quién está listo** para avanzar.
 
 **Conexión Automatizada.** 100% digital: usted invierte en pauta y el sistema atrae personas las 24 horas, sin que usted tenga que estar.
 
@@ -321,7 +321,7 @@ Son dos herramientas distintas con propósitos diferentes:
 Es el sistema **administrativo** universal para todos los distribuidores Gano Excel a nivel internacional.
 
 **Queswa.app** — Centro de Mando de Inteligencia Artificial **exclusivo de CreaTuActivo.com**, la organización dirigida por Luis Cabrejo Parra y Liliana Patricia Moreno. NO es proporcionada por Gano Excel. Es una infraestructura tecnológica desarrollada para los Propietarios de una empresa digital de esta organización específica, con el objetivo de:
-- Automatizar prospección, filtrado y calificación 24/7
+- Automatizar prospección, acompañamiento y seguimiento 24/7
 - Eliminar el trabajo pesado de la presentación manual
 - Multiplicar la metodología (Método Comprobado) sin intervención directa
 
@@ -463,13 +463,13 @@ Usted conecta a la persona una vez, y la empresa le paga ganancias de forma cont
 ---
 
 ### **FREQ_12: "¿Tengo que ser un vendedor experto? / ¿A quién le vendo? No quiero molestar a mis amigos. / Soy introvertido, ¿esto funciona para mí?"**
-**[Concepto Nuclear]:** No necesita vender ni presionar a nadie. Queswa explica y filtra; usted solo recibe a quien ya levantó la mano.
+**[Concepto Nuclear]:** No necesita vender ni presionar a nadie. Queswa explica y acompaña; usted solo recibe a quien ya levantó la mano.
 
 No. Y esta es de las cosas que más alivia a las personas.
 
 Aquí no funciona el vendedor que presiona y convence a la fuerza. Ese estilo cansa, incomoda y la verdad no sirve. Andar rogándoles a las personas lo desgasta a usted y le baja el nivel a lo que está construyendo.
 
-Lo que usted hace es abrir los canales para que lleguen las personas correctas. De ahí en adelante toma el relevo Queswa (el Pilar 2): explica el modelo, responde las dudas y filtra los contactos, descartando a quien no encaja —24 horas al día—.
+Lo que usted hace es abrir los canales para que lleguen las personas correctas. De ahí en adelante toma el relevo Queswa (el Pilar 2): explica el modelo, responde las dudas y se enfoca en quienes de verdad quieren avanzar —24 horas al día—.
 
 Como dice nuestra metodología: usted no explica — Queswa explica. Usted no convence; usted solo revisa quién ya mostró interés y le da el sí final. Apenas entra al cierre, cuando la persona ya está lista.
 
@@ -495,11 +495,11 @@ Esto es lo contrario. Aquí hay un producto físico de verdad —café y supleme
 
 No se trata de elegir un "equipo". Se trata de con qué herramientas va a trabajar.
 
-Cualquiera puede darle acceso a Gano Excel (el Pilar 1). Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar personas, presentar, explicar, filtrar, formar a su grupo—.
+Cualquiera puede darle acceso a Gano Excel (el Pilar 1). Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar personas, presentar, explicar, dar seguimiento, formar a su grupo—.
 
-Al activar su empresa digital en CreaTuActivo, usted recibe además a Queswa (el Pilar 2). Esa es la diferencia: Queswa carga con lo pesado —explicar y filtrar a las personas, una y otra vez, las 24 horas—. Como decimos: usted no explica — Queswa explica. Usted no recibe un catálogo; recibe un sistema completo que trabaja por usted.
+Al activar su empresa digital en CreaTuActivo, usted recibe además a Queswa (el Pilar 2). Esa es la diferencia: Queswa carga con lo pesado —explicar y acompañar a las personas, una y otra vez, las 24 horas—. Como decimos: usted no explica — Queswa explica. Usted no recibe un catálogo; recibe un sistema completo que trabaja por usted.
 
-**Pregunta de seguimiento:** ¿Ve la diferencia entre tener que presentarle y explicarle a cada persona a mano, y dirigir un sistema que filtra a las personas por usted?
+**Pregunta de seguimiento:** ¿Ve la diferencia entre tener que presentarle y explicarle a cada persona a mano, y dirigir un sistema que conversa y reconoce a quién quiere avanzar por usted?
 
 ---
 
@@ -510,7 +510,7 @@ Sí, y de hecho así es como debe hacerse. El sistema le pide que NO suelte su i
 
 La idea no es reemplazar lo que usted gana hoy. Es ir construyendo, en paralelo y sin afán, un segundo ingreso que con el tiempo deje de depender de que usted trabaje cada día.
 
-Igual que una empresa no cierra para abrir una nueva línea, usted no pausa su profesión. Como Queswa (el Pilar 2) carga con el 90% del trabajo de explicar y filtrar, lo que queda en sus manos son unos 60 a 90 minutos al día para tomar decisiones y dirigir su empresa digital.
+Igual que una empresa no cierra para abrir una nueva línea, usted no pausa su profesión. Como Queswa (el Pilar 2) carga con el 90% del trabajo de explicar y acompañar, lo que queda en sus manos son unos 60 a 90 minutos al día para tomar decisiones y dirigir su empresa digital.
 
 **Pregunta de seguimiento:** ¿Tiene una hora al día que pueda dedicarle a dirigir este segundo ingreso, o prefiere ver primero cómo encajaría en su agenda actual?
 
@@ -625,7 +625,7 @@ Esa sensación de no tener tiempo no es un problema de organización. Es la señ
 
 Hágase una pregunta incómoda: si usted tuviera que parar unos meses —por salud, por cansancio, por lo que sea—, ¿qué pasaría con su ingreso? Si la respuesta es que también se frena, ahí está el punto: su tiempo y su dinero están amarrados el uno al otro. Trabaja para vivir y vive para trabajar, y el mes siempre vuelve a empezar.
 
-La salida no es dejar lo que hace hoy. Es ponerle una palanca. Como Queswa (el Pilar 2) se encarga de explicar, filtrar y educar al mercado, a usted le quedan unos 60 a 90 minutos al día para dirigir. Precisamente porque no tiene tiempo es que necesita algo que trabaje por usted.
+La salida no es dejar lo que hace hoy. Es ponerle una palanca. Como Queswa (el Pilar 2) se encarga de explicar, acompañar y educar al mercado, a usted le quedan unos 60 a 90 minutos al día para dirigir. Precisamente porque no tiene tiempo es que necesita algo que trabaje por usted.
 
 **Pregunta de seguimiento:** ¿Le valdría la pena sacar una hora al día ahora, si eso significa empezar a recuperar el control de su tiempo más adelante?
 
@@ -667,7 +667,7 @@ La lógica es simple: un hábito que no cambia genera un ingreso que no se detie
 
 Su rol es dirigir. Usted abre el camino para que las personas correctas lleguen al sistema.
 
-Cuando alguien entra, Queswa (el Pilar 2) toma el control: presenta el modelo, responde dudas y filtra. Usted no hace presentaciones a mano ni le insiste a nadie.
+Cuando alguien entra, Queswa (el Pilar 2) toma el control: presenta el modelo, responde dudas y acompaña la decisión. Usted no hace presentaciones a mano ni le insiste a nadie.
 
 Como decimos: usted no explica — Queswa explica. Usted decide hacia dónde crecer, y Gano Excel (el Pilar 1) le paga por el consumo de su empresa digital.
 
@@ -696,32 +696,19 @@ Para empezar, escriba la orden: **"Iniciar Diagnóstico"**. O toque el botón en
 **[Concepto Nuclear]:** Dirección Diaria (El Método Comprobado). Su agenda no requiere vender, presionar ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
 
 <verbatim_lock>
-Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
+La metodología está diseñada para que sea simple.
 
-Su día a día se rige por **El Método Comprobado**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
+Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar su trabajo ni su negocio. Son tres pasos, y **dos de los tres los hago yo**:
 
-**Su agenda diaria no requiere:**
-- Aprender a vender de forma tradicional
-- Insistir a conocidos
-- Improvisar guiones
+**1. Expandir.** Usted comparte. El contenido ya está creado, aprobado y validado; usted no inventa nada. Y elige cómo hacerlo: directo con las personas de su entorno, en sus redes sociales, o invirtiendo en publicidad.
 
-*Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.
+**2. Activar.** Yo, Queswa, converso con cada interesado: aporto claridad, resuelvo dudas y acompaño la decisión de avanzar — las 24 horas.
 
----
+**3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
 
-Una vez que un perfil ingresa al ecosistema, yo —como su **Centro de Mando automatizado**— asumo:
+Y no avanza solo: yo lo acompaño en cada paso, y detrás de mí hay **personas reales listas para apoyarlo** cuando lo necesite.
 
-1. La **carga técnica**
-2. La **educación** del candidato
-3. El **filtrado analítico**
-
-Su labor de seguimiento no es para convencer a curiosos, sino para **ejecutar el Protocolo de Validación** sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. **Usted no convence; usted audita y autoriza.**
-
-Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.app**.
-
----
-
-**Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres Comandos del Método, o prefiere ver cómo se generan los ingresos recurrentes?
+**Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres pasos —Expandir, Activar o Multiplicación—, o prefiere ver cómo se generan los ingresos?
 </verbatim_lock>
 
 ---

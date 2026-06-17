@@ -318,7 +318,7 @@ export default function Reto12DiasPage() {
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Database size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">2. SISTEMA</h3>
                         <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-6">La Inteligencia</p>
-                        <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>CreaTuActivo AI</strong> explica el negocio, filtra a los curiosos y cierra a los interesados. Trabaja 24/7 por ti.</p>
+                        <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>CreaTuActivo AI</strong> explica el negocio, conversa con los interesados y cierra por ti. Trabaja 24/7 por ti.</p>
                     </div>
 
                     <div className="glass-card p-10 rounded-xl relative overflow-hidden group">

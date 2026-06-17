@@ -146,7 +146,7 @@ export default function NetworkMarketingObsoletoPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">IA que educa y filtra 24/7</span>
+                          <span className="text-[#E5E5E5]">IA que educa y acompaña 24/7</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-[#C5A059]">✓</span>
@@ -236,7 +236,7 @@ export default function NetworkMarketingObsoletoPage() {
                   </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     La Arquitectura de Activos elimina ambos problemas. La IA hace el trabajo
-                    de &quot;vender&quot; (educar, filtrar, responder objeciones). Y los sistemas
+                    de &quot;vender&quot; (educar, acompañar, responder objeciones). Y los sistemas
                     automatizados trabajan 24/7—no dependen de su tiempo.
                   </p>
                 </section>

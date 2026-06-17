@@ -19,7 +19,7 @@ const variables = [
   },
   {
     id: 'prospeccion',
-    label: 'Prospección y Filtrado',
+    label: 'Prospección y Conversación',
     tradicional: 100,
     queswa: 8,
     absorbida: true,

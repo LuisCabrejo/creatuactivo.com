@@ -41,7 +41,7 @@ const PHASES = [
   {
     day: 'Día 3',
     label: 'LA MÁQUINA',
-    desc: 'Cómo se unen el respaldo de una empresa en 70 países y la inteligencia artificial que filtra por usted.',
+    desc: 'Cómo se unen el respaldo de una empresa en 70 países y la inteligencia artificial que conversa con los interesados por usted.',
   },
   {
     day: 'Día 4',
@@ -284,7 +284,7 @@ export default function AuditoriaPatrimonialPage() {
               borderLeft: `2px solid ${C.gold}`,
               background: 'rgba(197, 160, 89,0.04)',
             }}>
-              Hoy su ingreso depende de una sola cosa: que usted siga trabajando. Si para —por salud, por un despido, por un imprevisto—, el dinero para con usted. Esto no es motivación: son los pasos claros para construir, en paralelo y sin dejar lo que hace hoy, un ingreso que no dependa de sus horas. La parte pesada la hace una empresa con presencia en 70 países; la tecnología filtra a los interesados por usted.
+              Hoy su ingreso depende de una sola cosa: que usted siga trabajando. Si para —por salud, por un despido, por un imprevisto—, el dinero para con usted. Esto no es motivación: son los pasos claros para construir, en paralelo y sin dejar lo que hace hoy, un ingreso que no dependa de sus horas. La parte pesada la hace una empresa con presencia en 70 países; la tecnología conversa con los interesados por usted.
             </p>
 
             {/* FORMULARIO */}

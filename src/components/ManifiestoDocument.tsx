@@ -297,7 +297,7 @@ export default function ManifiestoDocument({
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
                   <p className="text-[#C5A059] mb-2">Pilar 2 — Queswa, su Centro de Mando</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Usted deja lo que más desgasta —explicar, persuadir, filtrar— en manos de una
+                    Usted deja lo que más desgasta —explicar, presentar, dar seguimiento— en manos de una
                     inteligencia artificial propia que lo hace las 24 horas. Trabaja mientras usted
                     duerme, viaja o vive. No pide permiso ni descansa.
                   </p>
@@ -306,7 +306,7 @@ export default function ManifiestoDocument({
                   <p className="text-[#C5A059] mb-2">Pilar 3 — El Método Comprobado</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Usted no improvisa el camino: lo deja en manos de un método ya probado —Expandir,
-                    Activar, Maestría— que erradica el ensayo y el error. Quien lo sigue no reinventa
+                    Activar, Multiplicación— que erradica el ensayo y el error. Quien lo sigue no reinventa
                     nada; solo crece.
                   </p>
                 </li>

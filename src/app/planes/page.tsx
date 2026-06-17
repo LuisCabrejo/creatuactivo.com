@@ -276,7 +276,7 @@ export default function PlanesTecnologicosPage() {
           <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
             La tecnología Queswa asume el 90% de su fricción operativa.
             El costo del software es el peaje por la automatización asíncrona de su activo —
-            opera las 24 horas, filtra prospectos y gestiona su red sin su intervención directa.
+            opera las 24 horas, conversa con los interesados y gestiona su red sin su intervención directa.
           </p>
         </section>
 
@@ -455,7 +455,7 @@ export default function PlanesTecnologicosPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
               {[
-                { icon: <Cpu size={28} />, color: C.cyan, title: 'Filtrado Asíncrono', body: 'Queswa califica y descarta perfiles no viables antes de que usted invierta un minuto de atención directiva.' },
+                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversación Asíncrona', body: 'Queswa conversa con cada interesado y reconoce a quién está listo, antes de que usted invierta un minuto de atención directiva.' },
                 { icon: <BarChart2 size={28} />, color: C.gold, title: 'Tracción Inbound', body: 'El sistema captura, educa y prepara prospectos 24/7, eliminando la prospección manual y la fricción operativa.' },
                 { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en 70 países a la vez, sin requerir su presencia física en ningún mercado.' },
                 { icon: <Layers size={28} />, color: C.bronze, title: 'Escalabilidad sin Cuello de Botella', body: 'La transferencia de protocolos tácticos ocurre de forma autónoma. Su tiempo no es el límite de su organización.' },

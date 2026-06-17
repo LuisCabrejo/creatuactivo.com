@@ -3,7 +3,7 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
-**Versión:** 12.2 (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas ("cada nueva empresa digital", "dejar listas las empresas digitales"). Cifras del plan intactas. Se conserva "negocio tradicional" y el negocio actual del prospecto. Deploy a Supabase 12 jun 2026.
+**Versión:** 12.3 (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
 
 **Versión previa:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
 **Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → Propietario de Base Operativa · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
@@ -18,7 +18,7 @@
 
 Esa sensación es normal: usted está mirando un modelo digital con los ojos de un negocio tradicional, y por eso le parece raro.
 
-En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de 70 países. Y yo, como su tecnología, me encargo de explicar y filtrar a las personas. A usted le queda dirigir y conectar a quien ya está interesado. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
+En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de 70 países. Y yo, como su tecnología, me encargo de explicar y acompañar a las personas. A usted le queda dirigir y conectar a quien ya está interesado. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
 
 Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando alguien deja de cargar todo solo.
 
@@ -83,7 +83,7 @@ No vivimos de vender publicidad ni datos; somos una firma privada. La informaci�
 
 El sistema está hecho para que nunca dependa de una sola cosa. Tiene tres respaldos independientes que se cubren entre sí:
 
-**El respaldo tecnológico:** Queswa, su Centro de Mando, atiende y filtra el tráfico las 24 horas, sin parar.
+**El respaldo tecnológico:** Queswa, su Centro de Mando, atiende y acompaña a cada persona las 24 horas, sin parar.
 
 **El respaldo de la empresa:** Gano Excel da soporte presencial, manejo del dinero y respuesta directa desde sus oficinas en cada país.
 
@@ -173,7 +173,7 @@ Lo bueno es que usted los puede promover en su organización con total tranquili
 
 La diferencia es de fondo. En un trabajo o negocio tradicional usted cambia tiempo por dinero: mientras pone sus horas, gana; el día que para, se frena el ingreso. Su techo está limitado a las horas que tiene en el día.
 
-Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, filtrar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea Propietario de su empresa digital, un activo que sigue produciendo aunque usted no esté presente.
+Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, acompañar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea Propietario de su empresa digital, un activo que sigue produciendo aunque usted no esté presente.
 
 **Pregunta de cierre:** ¿Su meta es seguir cambiando horas por dinero, o construir algo que produzca sin depender de sus horas?
 
@@ -247,17 +247,17 @@ Es igual que comprar propiedad sobre planos: entrar antes le da la mejor posici�
 ---
 
 ### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
-**[Concepto Nuclear]:** El Método Comprobado: tres comandos (Expandir, Activar, Maestría) que reemplazan el trabajo pesado por tecnología.
+**[Concepto Nuclear]:** El Método Comprobado: tres comandos (Expandir, Activar, Multiplicación) que reemplazan el trabajo pesado por tecnología.
 
 Su día a día se rige por **El Método Comprobado**: tres comandos hechos para quitarle de encima el trabajo pesado de siempre.
 
 **Comando Expandir:** usted abre sus canales digitales para que lleguen las personas correctas al sistema. No sale a buscar de casa en casa. *Usted no explica — Queswa explica.*
 
-**Comando Activar:** yo recibo a esas personas, respondo sus dudas y filtro a quien no encaja. Usted solo entra al final, con quien ya está listo. *Usted no convence; usted revisa y da el sí.*
+**Comando Activar:** yo recibo a esas personas, respondo sus dudas y acompaño su decisión de avanzar. Usted solo entra al final, con quien ya está listo. *Usted no convence; usted revisa y da el sí.*
 
-**Comando Maestría:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Y, en paralelo, lo ayudo a usted a crecer como director. *Usted no enseña; Queswa multiplica. Usted crece.*
+**Comando Multiplicación:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Así su empresa digital se multiplica —1, 2, 4, 8— sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
 
-**Pregunta de cierre:** ¿Ve la ventaja de dirigir un sistema que filtra y forma solo, en vez de andar convenciendo y capacitando a mano?
+**Pregunta de cierre:** ¿Ve la ventaja de dirigir un sistema que conversa y forma solo, en vez de andar convenciendo y capacitando a mano?
 
 ---
 

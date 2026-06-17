@@ -458,7 +458,7 @@ export default function PresentacionEmpresarialPage() {
                         <div className="space-y-6">
                             {[
                                 "Explica el negocio con datos precisos 24/7.",
-                                "Filtra a los curiosos sin intención de compra.",
+                                "Conversa con cada interesado y reconoce a quién tiene intención real.",
                                 "Entrena a su equipo nuevo (Duplicación Automática).",
                                 "Opera mientras duermes o viajas."
                             ].map((item, i) => (
@@ -496,7 +496,7 @@ export default function PresentacionEmpresarialPage() {
                         icon={<Cpu size={28} />}
                         title="2. CreaTuActivo"
                         role="La Tecnología"
-                        description="Nosotros ponemos el software. Nuestra IA educa, filtra y cierra. Le entregamos la infraestructura digital llave en mano."
+                        description="Nosotros ponemos el software. Nuestra IA educa, conversa y cierra. Le entregamos la infraestructura digital llave en mano."
                     />
                     <TriadCard
                         colorClass="bg-emerald-500/10 text-emerald-500"

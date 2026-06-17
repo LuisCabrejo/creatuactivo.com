@@ -69,7 +69,7 @@ No a través del esfuerzo ilimitado, sino a través de la arquitectura correcta.
 
 El Tridente EAM es la metodología oficial que estructura la operación del constructor activo en tres fases:
 
-1. **Expansión:** Tu único trabajo es distribuir el Mapa de Salida y generar tráfico. La tecnología filtra y clasifica automáticamente.
+1. **Expansión:** Tu único trabajo es distribuir el Mapa de Salida y generar tráfico. La tecnología conversa y reconoce quién está listo, automáticamente.
 2. **Activación:** Queswa AI califica a los prospectos. Tú solo intervienes con quien ya levantó la mano.
 3. **Maestría:** La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años.
 
@@ -94,7 +94,7 @@ La diferencia no es cuánto ganas — es a quién le pertenece lo que construist
 La arquitectura opera con tres componentes independientes:
 
 **Gano Excel** provee la infraestructura física — presencia en más de 70 países, con plantas, logística y distribución propias. Tú no fabricas ni almacenas.
-**CreaTuActivo** provee la plataforma digital — la inteligencia artificial filtra prospectos, presenta el modelo y educa automáticamente.
+**CreaTuActivo** provee la plataforma digital — la inteligencia artificial conversa con los interesados, presenta el modelo y educa automáticamente.
 **Tu rol es la Dirección Ejecutiva:** suministras la materia prima (tráfico) y tomas decisiones de expansión. La ejecución técnica la resuelve el sistema.
 
 Es la diferencia entre operar la fábrica y tener el tablero de mando de una infraestructura ya ensamblada.

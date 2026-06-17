@@ -26,7 +26,7 @@
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
  * Los textos aquí son réplica EXACTA de los bloques entre <verbatim_lock> en
- * `knowledge_base/arsenal_inicial.txt` v25.9:
+ * `knowledge_base/arsenal_inicial.txt` v5.11:
  *   • Chip 1 → WHY_02 (BLOQUE 1)
  *   • Chip 2 → EAM_01 (BLOQUE 8)
  *
@@ -57,7 +57,7 @@ Llevar esa distribución exige infraestructura, tecnología y método. Nosotros 
 
 - **Queswa, su Centro de Mando:** yo explico, atiendo y acompaño a cada interesado las 24 horas, y le notifico cada avance en vivo. *Usted no explica — Queswa explica.*
 
-- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Maestría) que le marca el camino sin improvisar.
+- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Multiplicación) que le marca el camino sin improvisar.
 
 Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
 
@@ -65,37 +65,25 @@ Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que 
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
- * Sincronizado con arsenal_inicial.txt v25.9 BLOQUE 8.
- * Calibración visual 19 May 2026: lista de "no requiere" para destacar la ausencia
- * de fricción, numeración del rol de Queswa como Centro de Mando, separadores
- * visuales antes del cierre.
+ * Sincronizado con arsenal_inicial.txt BLOQUE 8 (incluye rótulo "Pregunta de seguimiento:" en el cierre).
+ * Recalibración jun 2026 (sesión Luis + Gemini): versión SIMPLE — 3 pasos (Expandir / Activar /
+ * Multiplicación), Activar en clave conversión (sin "filtrar"), 3er paso renombrado Maestría→Multiplicación,
+ * acompañamiento Queswa + humano. Sin lista de "no requiere", sin "Protocolo de Validación", sin
+ * "audita y autoriza", sin línea de prueba social (la claridad genera la convicción).
  */
-const MASTER_EAM_01 = `Nuestra metodología elimina el mayor temor de cualquier profesional o empresario al iniciar un proyecto: la incertidumbre de tener que improvisar el camino o el riesgo de no saber exactamente cómo ejecutar.
+const MASTER_EAM_01 = `La metodología está diseñada para que sea simple.
 
-Su día a día se rige por **El Método Comprobado**, un protocolo de dirección estandarizado que **erradica el ensayo y error** por completo.
+Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar su trabajo ni su negocio. Son tres pasos, y **dos de los tres los hago yo**:
 
-**Su agenda diaria no requiere:**
-- Aprender a vender de forma tradicional
-- Insistir a conocidos
-- Improvisar guiones
+**1. Expandir.** Usted comparte. El contenido ya está creado, aprobado y validado; usted no inventa nada. Y elige cómo hacerlo: directo con las personas de su entorno, en sus redes sociales, o invirtiendo en publicidad.
 
-*Eso está fuera de nuestro diseño.* Su labor consiste únicamente en desplegar información técnica pre-estructurada desde **su terminal móvil**.
+**2. Activar.** Yo, Queswa, converso con cada interesado: aporto claridad, resuelvo dudas y acompaño la decisión de avanzar — las 24 horas.
 
----
+**3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
 
-Una vez que un perfil ingresa al ecosistema, yo —como su **Centro de Mando automatizado**— asumo:
+Y no avanza solo: yo lo acompaño en cada paso, y detrás de mí hay **personas reales listas para apoyarlo** cuando lo necesite.
 
-1. La **carga técnica**
-2. La **educación** del candidato
-3. El **filtrado analítico**
-
-Su labor de seguimiento no es para convencer a curiosos, sino para **ejecutar el Protocolo de Validación** sobre los candidatos que yo ya he pre-calificado y que están listos para iniciar. **Usted no convence; usted audita y autoriza.**
-
-Todo este engranaje se monitorea de forma visual desde su aplicación **queswa.app**.
-
----
-
-¿Le gustaría que profundicemos en alguno de los tres Comandos del Método, o prefiere ver cómo se generan los ingresos recurrentes?`;
+**Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres pasos —Expandir, Activar o Multiplicación—, o prefiere ver cómo se generan los ingresos?`;
 
 /**
  * Mapa chip-text-lowercase → respuesta Master verbatim.

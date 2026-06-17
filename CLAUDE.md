@@ -39,7 +39,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` (despliega **v28.4 "multiplicacion_sin_filtrar"** — el archivo conserva el nombre legacy `v27.2`) |
 | Re-fragmentar arsenal tras editar (genérico) | Patrón purgar + `node scripts/fragmentar-arsenales-voyage.mjs` (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)) |
 | Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
 | POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |
@@ -168,8 +168,8 @@ git push origin main
 
 Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 1. **EXPANSIÓN** - Generación de tráfico y distribución de la Auditoría Patrimonial
-2. **ACTIVACIÓN** - Queswa AI filtra prospectos; constructor cierra con quienes levantaron la mano
-3. **MAESTRÍA** - La Academia es la ventaja injusta del constructor. Cada semana de aprendizaje acorta la curva que a otros les tomó años.
+2. **ACTIVACIÓN** - Queswa AI conversa y reconoce a quien levantó la mano (NO "filtra" — ver léxico prohibido); constructor cierra con los listos
+3. **MULTIPLICACIÓN** - El 3er Comando (renombrado desde "Maestría" jun 2026, ver [[project_rename_maestria_multiplicacion]]). Multiplicar la empresa digital está a un clic en todo el continente — resuelve el cuello de botella de crecer que atasca a cualquier negocio tradicional. Queswa forma a cada persona nueva (la formación/Academia queda como medio, NO como gancho — "crecimiento personal" en la encuesta = inseguridad, no deseo real)
 
 **Rol del héroe — DIRECCIÓN EJECUTIVA** (elevado en v19.6, Mar 2026):
 - La labor del constructor es **puramente gerencial**: suministra la "materia prima" (tráfico) al ecosistema
@@ -233,7 +233,7 @@ ganocafe.online/cafe-3en1/index.html
 - ✅ `WHATSAPP_WABA_ID=1436663504253230` — en `.env.local` + Vercel (Abr 2026)
 - ✅ System prompt `queswa_whatsapp` **v1.2** — tenant `whatsapp` en Supabase (Abr 2026)
   - v1.2 cambios: flujo post-nombre sin redirección web, Constructor como naming, tono de filtro reemplazado, cupos/fechas no hardcodeados
-- ✅ Arsenal inicial clonado al tenant `whatsapp` — 39 fragmentos RAG en `nexus_documents`
+- ✅ Arsenal inicial clonado al tenant `whatsapp` — 48 fragmentos RAG + doc maestro en `nexus_documents` (re-clonado 12 jun 2026 con léxico v5.9 "empresa digital"; los clones previos habían desaparecido — re-clonar con `clonar-arsenal-whatsapp.mjs` tras cada re-fragmentación de arsenal_inicial)
 - ✅ CTWA detectado: `referral` de anuncios Meta guardado en `device_info` (ctwa_clid, ad_id, ad_headline)
 - ✅ `src/lib/whatsapp-meta.ts` — reemplaza SendPulse (misma interfaz `sendWhatsAppTemplate`)
 - ✅ `funnel/route.ts` + `webhooks/prospect-capture/route.ts` migrados a `whatsapp-meta`
@@ -282,10 +282,10 @@ WhatsApp (orgánico o CTWA anuncio)
 
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.8** (jun 2026) | **v5.8 = swap léxico "negocio digital"** (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa→**negocio digital** (a secas, NO "de Gano Excel") · rol→**Propietario** · operar→trabajar/dirigir · escalar→**multiplicar** · CTA_01 "Iniciar Auditoría"→**"Iniciar Diagnóstico"** + "el Diagnóstico de 5 Días". WHY_02 sincronizado con `respuestas-maestras.ts`. — WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE + DIASPORA. **48 fragments** (49 respuestas en .txt — FREQ_04_PUENTE no se fragmenta por el sufijo `_PUENTE`; su contenido vive en el doc padre). **v5.7 = Migración al registro accesible (Beto)**: villano narrado, autopersuasión, test Beto, giro de delegación Jim Rohn, "gente"→"las personas/el mercado", preguntas de seguimiento abiertas (eliminadas las cerradas con jerga "¿audita usted la diferencia matemática…?"). STORY_01 = historia real del fundador. DIÁSPORA corregida (país natal con/sin oficina Gano). v5.5–v5.6.1 (previas) introdujeron FREQ_20–26 (VIP/GCV/tasa Gano/back office). |
-| `arsenal_avanzado` | creatuactivo_marketing | **v12.1** (jun 2026) | **v12.1 = swap léxico "negocio digital"** (Base Operativa→negocio digital · "Operando en el nivel"→"En el nivel" · aforismo "Queswa escala"→"Queswa multiplica" · "Calibre ESP-3"→"nivel ESP-3"). Cifras intactas. — Objeciones complejas, sistema, valor, escalación (18 fragments). **v12.0 = Migración al registro accesible (Beto)**: léxico canónico→accesible, "Capas"→"respaldos independientes" (ADV_TECH_03), "calibre"→"nivel", GCV correcto ("17% compensado sobre el volumen comisionable", "hasta 15/17% del GCV"), 50 PV como compra personal mínima, ADV_SIST_03 reescrito con técnica Mario Puig (analogía director de orquesta). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). |
-| `arsenal_reto` | creatuactivo_marketing | **v4.6** (jun 2026) | Producto funnel "El Diagnóstico de 5 Días" (7 fragments para días 1-5). **v4.6 = solo swap de marca** Base Operativa→negocio digital + "WhatsApp operará"→"funcionará". ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última **permitida explícitamente en RETO_05**) — ver [[project_reto_12niveles_no_migrar]]. Migración profunda + rename del producto = pase cross-channel pendiente. |
-| `arsenal_compensacion` | creatuactivo_marketing | **v7.1** (jun 2026) | Plan de compensación (**41 fragments**). **v7.1 = swap léxico "negocio digital"** SOLO de marca — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (verificado con git diff); se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos. v5.5+: añadidas COMP_BIN_11 (cómo liquida Gano las comisiones — GCV explícito, anti-malentendido "17% de $100M = $17M"), COMP_VIP_01 (VIP sin paquete ni compras mensuales obligatorias) y COMP_PV_08 (combinaciones para 50 PV mensuales, portado desde INV_06 vigente 2026). **NO modificar vocabulario ni cifras restantes.** |
+| `arsenal_inicial` | creatuactivo_marketing | **v5.12** (17 jun 2026) | **v5.12** = (1) **EAM_01 versión simple** (3 pasos Expandir/Activar/Multiplicación, Activar=conversión, sin lista "no requiere"/Protocolo de Validación, acompañamiento Queswa+humano), (2) **"filtrar" desterrado** → conversar/acompañar/reconocer quién está listo, (3) **3er Comando Maestría → Multiplicación**. WHY_02 + EAM_01 re-sincronizados carácter por carácter con `respuestas-maestras.ts`. Previa **v5.11 = villano "años y salud"** — WHY_01 + WHY_02 reemplazan «asfixia mensual» y el escenario ausencia/«bienes del banco» por un sistema diseñado para tomar sus mejores años y su salud. **v5.10** (12 jun 2026) = villano narrado sin atacar el esfuerzo. **v5.9 = swap quirúrgico "empresa digital"** (el activo que entregamos; concordancias de género corregidas; se conserva "negocio" en el chip canónico + negocio actual del prospecto). Previo **v5.8 = swap léxico "negocio digital"** (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa→**negocio digital** (a secas, NO "de Gano Excel") · rol→**Propietario** · operar→trabajar/dirigir · escalar→**multiplicar** · CTA_01 "Iniciar Auditoría"→**"Iniciar Diagnóstico"** + "el Diagnóstico de 5 Días". WHY_02 sincronizado con `respuestas-maestras.ts`. — WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE + DIASPORA. **48 fragments** (49 respuestas en .txt — FREQ_04_PUENTE no se fragmenta por el sufijo `_PUENTE`; su contenido vive en el doc padre). **v5.7 = Migración al registro accesible (Beto)**: villano narrado, autopersuasión, test Beto, giro de delegación Jim Rohn, "gente"→"las personas/el mercado", preguntas de seguimiento abiertas (eliminadas las cerradas con jerga "¿audita usted la diferencia matemática…?"). STORY_01 = historia real del fundador. DIÁSPORA corregida (país natal con/sin oficina Gano). v5.5–v5.6.1 (previas) introdujeron FREQ_20–26 (VIP/GCV/tasa Gano/back office). |
+| `arsenal_avanzado` | creatuactivo_marketing | **v12.3** (17 jun 2026) | **v12.3** = "filtrar" desterrado (5 hits → conversar/acompañar/reconocer) + 3er Comando Maestría → Multiplicación (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras intactas. Previo **v12.2 = swap "empresa digital"** (cifras intactas). Previo **v12.1 = swap léxico "negocio digital"** (Base Operativa→negocio digital · "Operando en el nivel"→"En el nivel" · aforismo "Queswa escala"→"Queswa multiplica" · "Calibre ESP-3"→"nivel ESP-3"). Cifras intactas. — Objeciones complejas, sistema, valor, escalación (18 fragments). **v12.0 = Migración al registro accesible (Beto)**: léxico canónico→accesible, "Capas"→"respaldos independientes" (ADV_TECH_03), "calibre"→"nivel", GCV correcto ("17% compensado sobre el volumen comisionable", "hasta 15/17% del GCV"), 50 PV como compra personal mínima, ADV_SIST_03 reescrito con técnica Mario Puig (analogía director de orquesta). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). |
+| `arsenal_reto` | creatuactivo_marketing | **v4.7** (12 jun 2026 — swap "empresa digital"; jerga clínica intacta) | Producto funnel "El Diagnóstico de 5 Días" (7 fragments para días 1-5). **v4.6 = solo swap de marca** Base Operativa→negocio digital + "WhatsApp operará"→"funcionará". ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última **permitida explícitamente en RETO_05**) — ver [[project_reto_12niveles_no_migrar]]. Migración profunda + rename del producto = pase cross-channel pendiente. |
+| `arsenal_compensacion` | creatuactivo_marketing | **v7.2** (12 jun 2026 — swap "empresa digital", cifras/GCV/PV INTACTOS) | Plan de compensación (**41 fragments**). **v7.1 = swap léxico "negocio digital"** SOLO de marca — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (verificado con git diff); se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos. v5.5+: añadidas COMP_BIN_11 (cómo liquida Gano las comisiones — GCV explícito, anti-malentendido "17% de $100M = $17M"), COMP_VIP_01 (VIP sin paquete ni compras mensuales obligatorias) y COMP_PV_08 (combinaciones para 50 PV mensuales, portado desde INV_06 vigente 2026). **NO modificar vocabulario ni cifras restantes.** |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
@@ -310,7 +310,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: v28.0 "negocio_digital"** (jun 2026 — desplegada a Supabase) — Migración léxico "negocio digital" + Ola 2 de redundancia. (1) **Léxico**: "Base Operativa" → negocio digital; "Propietario de Base Operativa" → Propietario; "soberanía financiera" → tranquilidad/estabilidad; "arquitectura patrimonial" → modelo de ingresos; nuevas reglas **operar/operador** + auto-referencia **esto/eso**; "escalar" → "multiplicar". (2) **Consolidación de redundancia**: ~30 secciones → ~15, **sin cambios de comportamiento** (bloqueos compensación/dashboard/KYC/verbatim_lock intactos). ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — la versión interna es v28.0 (no se renombró el archivo).
+   - **Versión activa: v28.4 "multiplicacion_sin_filtrar"** (17 jun 2026 — desplegada y verificada con `leer-system-prompt.mjs`): (1) 3er Comando Maestría → Multiplicación (aforística "Queswa multiplica" intacta), (2) "filtrar" desterrado en Pilar 2 → "conversa y acompaña", (3) aforística Activar suavizada a "revisa y da el sí". Previa: v28.3 "villano_anos_salud" (13 jun 2026 — villano = un sistema que toma sus mejores años y su salud; se retiran los frames de ausencia futura y de falta de patrimonio). v28.2 "villano_narrado" (12 jun 2026) — el diagnóstico narra el sistema de asfixia en vez de etiquetar "depende de su presencia", aforismo "Queswa multiplica", recategorización "punto ciego". v28.1 "empresa_digital" (12 jun 2026) — swap quirúrgico "negocio digital" → "empresa digital" para el activo que entregamos, decisión Luis alineada con Home v13.6. v28.0 "negocio_digital" (jun 2026) — Migración léxico "negocio digital" + Ola 2 de redundancia. (1) **Léxico**: "Base Operativa" → negocio digital; "Propietario de Base Operativa" → Propietario; "soberanía financiera" → tranquilidad/estabilidad; "arquitectura patrimonial" → modelo de ingresos; nuevas reglas **operar/operador** + auto-referencia **esto/eso**; "escalar" → "multiplicar". (2) **Consolidación de redundancia**: ~30 secciones → ~15, **sin cambios de comportamiento** (bloqueos compensación/dashboard/KYC/verbatim_lock intactos). ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — la versión interna es v28.0 (no se renombró el archivo).
    - **Versión previa: v27.2 "modulacion_registro"** (24 May 2026) — Ola 2 doctrinal. Formaliza Modulación de Registro v5.5 (analogía Mario Alonso Puig: autoridad técnica + accesibilidad humana). Incluía: sección MODULACIÓN DE REGISTRO, VECTORES DE CIERRE en 2 bancos, REGLA ANTI-PREÁMBULO, bloqueos DASHBOARD/fórmulas, doctrina 12 VELOCIDADES.
    - **Historial completo v19.x → v27.2** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md)
    - Archivo fuente actual: `knowledge_base/system-prompt-nexus-main-v27_2.md`. Versiones anteriores eliminadas — el historial vive en git + [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md). Si necesita una versión histórica: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
@@ -323,7 +323,7 @@ WhatsApp (orgánico o CTWA anuncio)
 
 **Camino A — Backend Dictador para chip-triggers (May 2026)**:
 
-Las 2 chips canónicas que concentran el ~80% del tráfico inicial (Chip 1 → WHY_02 "¿Cómo funciona el negocio?" y Chip 2 → EAM_01 "¿Cuál es la metodología operativa?") se sirven desde [src/lib/respuestas-maestras.ts](src/lib/respuestas-maestras.ts) **antes** del Voyage AI + Anthropic. El bypass en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) detecta match exacto sobre `trim().toLowerCase()` contra `QUESWA_QUICK_REPLIES` y, si coincide, construye un `ReadableStream` con la respuesta Master del Director Académico y retorna `StreamingTextResponse` directamente.
+Las 2 chips canónicas que concentran el ~80% del tráfico inicial (Chip 1 → WHY_02 "¿Cómo funciona el modelo de negocio?" y Chip 2 → EAM_01 "¿Cuál es la metodología? ¿Qué hago yo en el día a día?") se sirven desde [src/lib/respuestas-maestras.ts](src/lib/respuestas-maestras.ts) **antes** del Voyage AI + Anthropic. El bypass en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) detecta match exacto sobre `trim().toLowerCase()` contra `QUESWA_QUICK_REPLIES` y, si coincide, construye un `ReadableStream` con la respuesta Master del Director Académico y retorna `StreamingTextResponse` directamente.
 
 Beneficios:
 - ✓ **100% fidelidad** al copy calibrado (cero paráfrasis del LLM)
@@ -357,7 +357,7 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 - **Viewport keyboard**: `interactiveWidget: 'resizes-content'` en `src/app/layout.tsx` → fix Chrome 108+ double-jump. Sin esto el área de escritura salta dos veces al abrir teclado.
 - **Input**: `<textarea>` con auto-resize (max 120px), `autoCorrect="on"`, `autoCapitalize="sentences"`, `spellCheck`. Enter=enviar, Shift+Enter=salto de línea. Botones (mic/enviar) anclados al `bottom-3` del contenedor. Acepta sustituciones de texto del sistema operativo.
 - **Mic integrado en input** (Abr 2026): el ícono mic y el botón enviar comparten la misma posición — toggle según `voiceState`. Patrón idéntico a Claude/Gemini. El orbe NO muestra ícono de mic cuando el chat está abierto (`isOpen`).
-- **Quick Reply Chips** (solo `creatuactivo.com`, NO en `queswa.app`): 4 chips en estado inicial (antes de que el usuario escriba). Llaman `handleSendMessage()` directamente. Eliminan el "área muerta" móvil y bajan la barrera de articulación. Fuente de verdad: `QUESWA_QUICK_REPLIES` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts) — son las **4 preguntas reales del avatar** (jun 2026, léxico accesible sin jerga McKinsey): `¿Cómo funciona el negocio?` · `¿Cuál es la metodología? ¿Qué hago yo en el día a día?` · `¿Cuáles son los productos y para qué sirven?` · `Quiero ver los números: ¿cómo y cuánto se gana?`. Los chips 1 y 2 disparan **Camino A** (bypass backend dictador, [respuestas-maestras.ts](src/lib/respuestas-maestras.ts)) → su texto exacto es key; cambiar el texto exige sincronizar la key allí + el mapa `QUESWA_QUICK_REPLIES_EXPANSION`.
+- **Quick Reply Chips** (solo `creatuactivo.com`, NO en `queswa.app`): 4 chips en estado inicial (antes de que el usuario escriba). Llaman `handleSendMessage()` directamente. Eliminan el "área muerta" móvil y bajan la barrera de articulación. Fuente de verdad: `QUESWA_QUICK_REPLIES` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts) — son las **4 preguntas reales del avatar** (jun 2026, léxico accesible sin jerga McKinsey): `¿Cómo funciona el modelo de negocio?` · `¿Cuál es la metodología? ¿Qué hago yo en el día a día?` · `¿Cuáles son los productos y para qué sirven?` · `Quiero ver los números: ¿cómo y cuánto se gana?`. Los chips 1 y 2 disparan **Camino A** (bypass backend dictador, [respuestas-maestras.ts](src/lib/respuestas-maestras.ts)) → su texto exacto es key; cambiar el texto exige sincronizar la key allí + el mapa `QUESWA_QUICK_REPLIES_EXPANSION`.
 - **Orbe pointer events** (Abr 2026): `pointerEvents: (!isOpen && orbVisible) ? 'auto' : 'none'` — evita que el orbe invisible (opacity:0, zIndex:200) intercepte clics sobre el widget (z-50).
 - **Saludo inicial**: Texto grande centrado (estilo Claude.ai) cuando es el único mensaje. Desaparece al enviar el primer mensaje del usuario. Implementado en `NEXUSWidget.tsx` como caso especial `isInitialGreeting && isOnlyMessage`.
 - **Nombre persistido**: Se extrae del mensaje del usuario con regex (`me llamo / mi nombre es / soy`) y se guarda en `localStorage('nexus_prospect_name')`. El saludo siguiente lo usa: `"Hola, {nombre} 🪢"`.
@@ -401,8 +401,10 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 | `/api/track/video` | Edge | — | Video progress tracker — registra `play`/`completado_80` para dias 1–5 de la Auditoría; dispara webhook Supabase → push en queswa.app |
 | `/api/track/engagement` | Edge | — | Reel engagement tracker — merge **sin retroceder** (`Math.max` numéricos / OR lógico bools) sobre `device_info` vía `update_prospect_data`; dispara webhook Supabase → push en queswa.app. Campos = contrato cerrado con el Dashboard (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)) |
 | `/api/email-open` | Node | — | Email open pixel tracker |
+| `/api/logo-email` | Edge | — | Logo dinámico (Quiet Luxury) renderizado para emails |
 | `/api/webhooks/prospect-capture` | Node | — | Webhook Supabase → captura prospectos desde triggers externos |
-| `/api/test-resend`, `/api/test-reto-email`, `/api/debug-email` | Node | — | Dev/debug only (not for production use) |
+| `/api/whatsapp/webhook` | Node | 30s | WABA inbound — adaptador de canal WhatsApp → motor `/api/nexus` (ver [Estado integración WABA](#1-nexus-ai-chatbot)) |
+| `/api/test-resend`, `/api/test-reto-email` | Node | — | Dev/debug only (not for production use) |
 
 **Vercel Cron Schedules** (vercel.json):
 ```
@@ -415,11 +417,11 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 **Secuencia Auditoría Patrimonial** (`/api/cron/reto-5-dias` — `RETO_5_DIAS_SEQUENCE`):
 | Día | Subject | Componente | URL destino |
 |-----|---------|-----------|-------------|
-| 1 | `[COORDENADA 01] Diagnóstico Estructural Habilitado` | `Dia1Diagnostico` | `/auditoria-patrimonial/dia-1` |
-| 2 | `[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)` | `Dia2Vehiculos` | `/auditoria-patrimonial/dia-2` |
-| 3 | `[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)` | `Dia3Modelo` | `/auditoria-patrimonial/dia-3` |
-| 4 | `[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)` | `Dia4Estigma` | `/auditoria-patrimonial/dia-4` |
-| 5 | `[COORDENADA 05] Protocolo de Activación (Decisión Directiva)` | `Dia5Invitacion` | `/auditoria-patrimonial/dia-5` |
+| 1 | `[COORDENADA 01] Diagnóstico Estructural Habilitado` | `Dia1Diagnostico` | `/empresa-digital/dia-1` |
+| 2 | `[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)` | `Dia2Vehiculos` | `/empresa-digital/dia-2` |
+| 3 | `[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)` | `Dia3Modelo` | `/empresa-digital/dia-3` |
+| 4 | `[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)` | `Dia4Estigma` | `/empresa-digital/dia-4` |
+| 5 | `[COORDENADA 05] Protocolo de Activación (Decisión Directiva)` | `Dia5Invitacion` | `/empresa-digital/dia-5` |
 
 **`/api/funnel` — `PAGE_VIEW_STEPS`** (eventos de tracking que no requieren email):
 `vio_pagina_gracias`, `vio_catalogo`, `vio_calculadora`, `vio_bridge_auditoria`
@@ -542,32 +544,32 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 
 **Funnel Strategy** (Russell Brunson methodology - actualizado Mar 2026):
 ```
-Tráfico Frío (Ads/Redes) → /auditoria-patrimonial (Squeeze Page — ENTRY v4.0 activo)
+Tráfico Frío (Ads/Redes) → /empresa-digital (Squeeze Page — ENTRY v4.0 activo)
                               ↓
                          /auditoria-confirmada (Bridge Page)
                               ↓
                          Email Secuencia 5 Días — Auditoría Patrimonial (Nurture)
-                         5 videos: /auditoria-patrimonial/dia-1 … dia-5
+                         5 videos: /empresa-digital/dia-1 … dia-5
                               ↓
                          /fundadores (Oferta)
 
 Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
                               ↓
-                         /auditoria-patrimonial o /fundadores
+                         /empresa-digital o /fundadores
 
 Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.0)
 ```
 
-> 🔤 **NAMING DEL FUNNEL EN TRANSICIÓN (jun 2026) — leer antes de editar copy del funnel.** El producto de entrada se está renombrando **"Auditoría (de Arquitectura) Patrimonial" → "El Diagnóstico de 5 Días"** (investigación `public/investigaciones/Léxico CreaTuActivo_ Comprensión y Duplicabilidad.md`: "patrimonial/auditoría" = Fricción Muy Alta para tráfico frío). **YA HECHO y desplegado:** (1) cuerpo de las páginas squeeze `auditoria-patrimonial` + bridge `auditoria-confirmada` reescrito al **registro accesible** (sin Protocolo/escrutinio/Soberanía/Expediente/sala táctica); (2) **rótulos CTA** "Iniciar Auditoría…" → **"Iniciar el Diagnóstico de 5 Días"** en menú (`StrategicNavigation`), home, deck `/servilleta`, tecnología, planes, 4 blogs, mini-landing `[slug]`; (3) `QUESWA_CTA_LABEL` = **"Iniciar Diagnóstico"** (`queswa-greeting.ts`) + su acople soft (arsenal_inicial CTA_01 + system-prompt L259); (4) `/diagnostico` (quiz) → "Diagnóstico rápido → diagnóstico profundo de 5 días". ⏳ **PENDIENTE (pase cross-channel nocturno):** rename de URL **`/auditoria-patrimonial` → `/negocio-digital`** + 301 + los 5 correos `[COORDENADA 0X]` + páginas `dia-1…5` + alinear **nombres de día** (EL DIAGNÓSTICO · EL TECHO · LA MÁQUINA · LOS NÚMEROS · LA DECISIÓN) + `arsenal_reto` + metadata/SEO + prosa de blogs. **Las URLs y nombres de archivo siguen siendo `auditoria-patrimonial` hasta ese pase.** Ver memorias [[project_lexico_negocio_digital]] · [[project_reto_12niveles_no_migrar]].
+> 🔤 **NAMING DEL FUNNEL EN TRANSICIÓN (jun 2026) — leer antes de editar copy del funnel.** El producto de entrada se está renombrando **"Auditoría (de Arquitectura) Patrimonial" → "El Diagnóstico de 5 Días"** (investigación `public/investigaciones/Léxico CreaTuActivo_ Comprensión y Duplicabilidad.md`: "patrimonial/auditoría" = Fricción Muy Alta para tráfico frío). **YA HECHO y desplegado:** (1) cuerpo de las páginas squeeze `auditoria-patrimonial` + bridge `auditoria-confirmada` reescrito al **registro accesible** (sin Protocolo/escrutinio/Soberanía/Expediente/sala táctica); (2) **rótulos CTA** "Iniciar Auditoría…" → **"Iniciar el Diagnóstico de 5 Días"** en menú (`StrategicNavigation`), home, deck `/servilleta`, tecnología, planes, 4 blogs, mini-landing `[slug]`; (3) `QUESWA_CTA_LABEL` = **"Iniciar Diagnóstico"** (`queswa-greeting.ts`) + su acople soft (arsenal_inicial CTA_01 + system-prompt L259); (4) `/diagnostico` (quiz) → "Diagnóstico rápido → diagnóstico profundo de 5 días". ✅ **RENAME DE URL HECHO (jun 2026, dos saltos):** `/auditoria-patrimonial` → `/negocio-digital` (jun) → **`/empresa-digital`** (12 jun, swap léxico "empresa digital") — directorio `src/app/empresa-digital/` (squeeze `page.tsx` + `dia-1…5` + `[constructorId]`), con redirects **301** en `next.config.js`: ambas URLs viejas y sus subrutas apuntan DIRECTO a `/empresa-digital` (1 salto), así que correos/blogs/reels ya publicados siguen funcionando. SW bypass incluye `/negocio-digital` (v1.3.0). CTAs vivos (nav, home, calculadora) ya enlazan directo sin pasar por `/mapa-de-salida`. El **diagnóstico de la squeeze** quedó (jun 2026): *«Hoy su ingreso depende de una sola cosa: que usted siga trabajando. Si para —por salud, por un despido, por un imprevisto—, el dinero para con usted»* (ajustes: «cansancio»→«despido», «también para»→«para con usted»). ⚠️ **Se conserva «que usted siga trabajando» a propósito**: aquí el villano es la **dependencia** (su ingreso *depende* de seguir trabajando), no el trabajo en sí — distinto del villano «trabajar más duro» que sí se evita en los reels de nicho. Ver [[feedback_dolor_real_por_nicho]]. ⏳ **Queda por verificar/alinear (no bloquea — los 301 cubren):** **nombres de día** (EL DIAGNÓSTICO · EL TECHO · LA MÁQUINA · LOS NÚMEROS · LA DECISIÓN), migración profunda de `arsenal_reto`, metadata/SEO + prosa de blogs que aún citen la URL/nombre viejos, y el `source: 'auditoria-patrimonial'` de tracking en `empresa-digital/page.tsx:96` (identificador interno — coordinar con backend antes de cambiarlo). ✅ Barrido de consistencia de este CLAUDE.md hecho (jun 2026) — Active Pages, tabla de API Routes y secuencia de correos ya citan `/empresa-digital`. Ver memorias [[project_lexico_negocio_digital]] · [[project_reto_12niveles_no_migrar]].
 
 **Active Pages** (rutas no-obvias — el resto se descubre con `ls src/app/`):
 
-- `auditoria-patrimonial/` — 🎯 FUNNEL ENTRY v4.0 (noindex). **Producto = "El Diagnóstico de 5 Días"** (cuerpo en registro accesible; URL aún `auditoria-patrimonial` — rename a `/negocio-digital` pendiente, ver nota arriba). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
+- `empresa-digital/` — 🎯 FUNNEL ENTRY v4.0 (noindex). **Producto = "El Diagnóstico de 5 Días"** (cuerpo en registro accesible). URL `/empresa-digital` — rename desde `/auditoria-patrimonial` **hecho jun 2026** (+ redirects 301). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
 - `auditoria-confirmada/` — Bridge Page v4.0 (noindex). `TrackingConfirmada.tsx` es 'use client' y dispara evento `vio_bridge_auditoria`.
-- `reto-5-dias/` — FUNNEL ENTRY v1 (noindex, legacy). Redirect chain: `/reto-5-dias` → `/mapa-de-salida` → `/auditoria-patrimonial` (dos saltos 301 en `next.config.js`). Tiene variantes A/B: `dolor/`, `analitico/`, `global/`.
-- `mapa-de-salida/` — Página Next.js aún activa (con `[constructorId]/`, `layout.tsx`, `opengraph-image.tsx`). Redirige 301 → `/auditoria-patrimonial`. El SW bypass incluye ambas URLs (`/mapa-de-salida` y `/reto-5-dias`) para que los 301 funcionen correctamente.
+- `reto-5-dias/` — FUNNEL ENTRY v1 (noindex, legacy). Redirect chain: `/reto-5-dias` → `/mapa-de-salida` → `/empresa-digital` (dos saltos 301 en `next.config.js`). Tiene variantes A/B: `dolor/`, `analitico/`, `global/`.
+- `mapa-de-salida/` — Página Next.js aún activa (con `[constructorId]/`, `layout.tsx`, `opengraph-image.tsx`). Redirige 301 → `/empresa-digital`. El SW bypass incluye ambas URLs (`/mapa-de-salida` y `/reto-5-dias`) para que los 301 funcionen correctamente.
 - `calculadora/` — Calculadora de ingresos (indexada).
-- `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta Ads / Google Ads). Quiz de 5 dimensiones (autonomía, resiliencia, eficiencia, apalancamiento, paz mental) que perfila al prospecto en uno de 3 arquetipos (Gigante de Pies de Barro / Operador Agotado / Constructor en Progreso) y lo inyecta al funnel principal vía POST a `/api/funnel` con `step: 'auditoria_registered'` (aliased a `mapa_registered` en route.ts). Cero links internos hacia ella desde el sitio — entrada es solo URL directa desde campañas. Sin `<StrategicNavigation/>` (decisión deliberada: 0 fricción de navegación). API endpoint dedicado: `/api/diagnostico` guarda quiz + arquetipo en tabla `diagnosticos` (Supabase). CTA final → `/auditoria-patrimonial` (squeeze del funnel actual).
+- `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta Ads / Google Ads). Quiz de 5 dimensiones (autonomía, resiliencia, eficiencia, apalancamiento, paz mental) que perfila al prospecto en uno de 3 arquetipos (Gigante de Pies de Barro / Operador Agotado / Constructor en Progreso) y lo inyecta al funnel principal vía POST a `/api/funnel` con `step: 'auditoria_registered'` (aliased a `mapa_registered` en route.ts). Cero links internos hacia ella desde el sitio — entrada es solo URL directa desde campañas. Sin `<StrategicNavigation/>` (decisión deliberada: 0 fricción de navegación). API endpoint dedicado: `/api/diagnostico` guarda quiz + arquetipo en tabla `diagnosticos` (Supabase). CTA final → `/empresa-digital` (squeeze del funnel actual).
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
 - `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
 - `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
@@ -576,16 +578,18 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
 - `sistema/productos/catalogo-productos.tsx` — 🚧 WIP ("Clinical Luxury" e-commerce), sin enlazar aún desde `page.tsx`.
 - `animaciones/diaX/` — Canvas-based social video renderer (Dan Koe style). Variantes A/B con sufijos `-v3` a `-v6`.
-- `servilleta/` — Deck interactivo v6.0 de 4 slides. **Migrado al sistema Lujo Silencioso (15 May 2026)** — usa los mismos tokens que el resto del sitio (`--color-brand`, `--color-bg-elevated`, `--font-sans`, etc.). La paleta industrial previa (steel/safety-orange/cyan eléctrico) fue retirada.
+- `servilleta/` — Deck interactivo v6.4 de 4 slides. **Migrado al sistema Lujo Silencioso (15 May 2026)** — usa los mismos tokens que el resto del sitio (`--color-brand`, `--color-bg-elevated`, `--font-sans`, etc.). La paleta industrial previa (steel/safety-orange/cyan eléctrico) fue retirada. Slides 1 y 2 son card-scrollers con **b-rolls 3D** (jun 2026) — ver [Servilleta Digital](#servilleta-digital---interactive-presentations).
 - `paquetes/` — Protocolo de Capitalización v3.0. CTAs → WhatsApp pre-filled con nombre+USD+COP.
 - `planes/` — 4 planes de suscripción. Sin Framer Motion ni `backdropFilter` (decisión de performance).
-- `offline/` — PWA fallback; `webinar/sala/` — live room con countdown.
+- `reto-12-niveles/` — Landing "Los 12 Niveles" (con variante `[ref]/`, layout y OG image propios). `/reto-12-dias` redirige 301 aquí. Contenido servido por `arsenal_12_niveles` — tuteo deliberado, NO migrar a registro accesible.
+- `activo-que-sobrevive-a-su-ausencia/` — Deck keynote de conferencia (SER PRO Internacional · Luis Cabrejo). noindex, herramienta interna de presentación en vivo (F = fullscreen, flechas/swipe).
+- `offline/` — PWA fallback.
 
 **SEO Strategy** (Dic 2025):
-- **Indexed pages**: `/`, `/fundadores`, `/socios`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes`
+- **Indexed pages**: `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes` (⚠️ `/socios` y `/webinar` fueron eliminadas — commit `6110e9a` "purga global tuteo + eliminar 4 páginas obsoletas")
 - **noindex pages** (funnel interno):
   - `/reto-5-dias/*` → Squeeze/Bridge para ADS (v1 — legacy, 301 → v4.0)
-  - `/auditoria-patrimonial/*` → Squeeze + 5 páginas de video (v4.0 — "Auditoría de Arquitectura Patrimonial")
+  - `/empresa-digital/*` → Squeeze + 5 páginas de video (v4.0 — "El Diagnóstico de 5 Días"; rename desde `/auditoria-patrimonial` jun 2026)
   - `/auditoria-confirmada` → Bridge Page v4.0
   - `/manifiesto` → Manifiesto de los Fundadores (antes `/nosotros`; `/nosotros` redirige 301 aquí)
 
@@ -594,7 +598,7 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* siguen activos como legacy (301 → v4.
 **Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) — array `directLinks`):
 - **Desktop/Mobile Menu**: Nosotros (`/manifiesto`) · Tecnología (`/tecnologia`) · Presentación (`/servilleta`) · Insights (`/blog`) + "Auditoría Patrimonial" CTA
 - ⚠️ **Los rótulos NO coinciden con sus rutas a propósito** (decisión Jun 2026 — el menú nombra *qué encuentra el visitante*, no la ruta técnica): "Nosotros" abre la página Manifiesto; "Presentación" abre el deck Servilleta. Esto reemplazó "Manifiesto / El Sistema / Herramientas" (rótulos con fricción o ambiguos).
-- **Mobile CTA**: "Unirme al Reto" → /auditoria-patrimonial
+- **Mobile CTA**: "Unirme al Reto" → /empresa-digital
 - **Removed from menu**: Soluciones, Ecosistema, Auditoría
 - **Presentación Empresarial**: `/presentacion-empresarial` sigue siendo herramienta interna 1-on-1, fuera del menú. ⚠️ NO confundir con el item público "Presentación" → `/servilleta`
 
@@ -604,56 +608,31 @@ Sales presentation tools for 1-on-1 conversations. **Desde 15 May 2026 usa el mi
 
 | Version | Route | Style |
 |---------|-------|-------|
-| v6.0 (Main) | `/servilleta` | 4-slide deck, fullscreen (F key), keyboard nav, swipe |
-| v6.0 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
+| v6.4 (Main) | `/servilleta` | 4-slide deck; **slides 1 y 2 son card-scrollers con b-rolls 3D** (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)); fullscreen (F key), keyboard nav, swipe |
+| v6.4 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
 
 **Controls**: Arrow keys/Space (next slide), F (fullscreen), double-click (fullscreen), swipe (mobile)
 **Typography**: `var(--font-sans)` Inter (headings) + `var(--font-mono)` Roboto Mono (data) — unificado con homepage
 **Color Palette**: Lujo Silencioso — hereda los tokens del [Design System](#design-system-bimetallic-v30) (Carbón + Dorado Champán + Titanio) + Cyan `#22D3EE` como único acento de data exclusivo de la servilleta
 
-#### Contenido y copy (Abr 2026 — versión final aprobada)
+#### Contenido y copy — fuente de verdad
 
-**Nav desktop**: Brand `CreaTuActivo` (sin ícono). Menú: `01 LA MÁQUINA · 02 METODOLOGÍA · 03 EL PRODUCTO · 04 SIMULADOR`
-**Nav mobile**: Labels sin número — `La Máquina · Metodología · El Producto · Simulador` (sin íconos Material Symbols — renderizan como texto literal)
+⚠️ **El copy verbatim de las 4 slides NO se duplica aquí** (se desincronizaba con cada recalibración). Fuentes vivas:
+- **Copy renderizado de las slides** (nav, H1/H2, CTAs, `getLifestyleTranslation`, etc.) → [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx) (deck v6.4).
+- **Narración / teleprompter aprobada** → [guion_maestro_servilleta_v3.md](public/contexto/produccion/guiones/servilleta/guion_maestro_servilleta_v3.md) + su variante `_TELEPROMPTER.md`.
 
-**Slide 1 — LA MÁQUINA**: REF `PATRIMONIO_PARALELO`. H1 "CONSTRUCCIÓN DE PATRIMONIO PARALELO". Tres `.comp-row`: CAPA LOGÍSTICA (Gano Excel) / CAPA TECNOLÓGICA (CreaTuActivo y Queswa) / DIRECCIÓN EJECUTIVA (La dirección). CTA → Slide 2.
+Estructura de las 4 slides: **01 SU EMPRESA · 02 METODOLOGÍA (EAM) · 03 EL PRODUCTO · 04 SIMULADOR** (el rótulo de slide 1 era "LA MÁQUINA" hasta jun 2026). Slides 1 y 2 son **card-scrollers** de 3 cards con b-rolls 3D + nombre (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)): slide 1 = los **3 pilares** (El Respaldo Operativo · Queswa, su Centro de Mando · El Método Comprobado), slide 2 = el **Método** en 3 comandos (EXPANDIR · ACTIVAR · MULTIPLICACIÓN — 3er comando renombrado desde "Maestría" jun 2026; el `<h3>` HTML ya dice MULTIPLICACIÓN, el video `maestria.mp4` + comp `Maestria3D` pendientes de re-render). El botón "PREGÚNTALE ALGO EN VIVO" en card-1 de slide 2 dispara `open-queswa` CustomEvent.
 
-**Slide 2 — LA METODOLOGÍA EAM**: Tres cards Lujo Clínico (pantalla = soporte, voz = detalle):
-- EXPANDIR: "Su terminal móvil es su centro de mando. / Usted dirige tráfico digital hacia el sistema — sin gestión manual." Tachadas: `PROSPECCIÓN MANUAL · FRICCIÓN OPERATIVA · DEPENDENCIA LINEAL`
-- ACTIVAR: "Usted no presenta el modelo. / El Protocolo de IA Queswa asume el 90% del desgaste operativo, filtrando y calificando perfiles 24/7." Tachadas: `IMPROVISAR · MEMORIZAR GUIONES · TITUBEAR`
-- MAESTRÍA: "La infraestructura académica ejecuta la transferencia de protocolos tácticos de forma autónoma por niveles. / Su activo escala eliminando el tiempo humano como cuello de botella operativo." Tachadas: `CAPACITAR MANUALMENTE · MICROGESTIONAR · CUELLO DE BOTELLA`
-- CTA "VER EL PRODUCTO →" al fondo del grid (`gridColumn: '1 / -1'`), no en el header
-- Botón "PREGÚNTALE ALGO EN VIVO" en card-1 → dispara `open-queswa` CustomEvent
-
-**Slide 3 — EL PRODUCTO**: Eyebrow "EL PRODUCTO". H2 "UN HÁBITO / QUE NO CAMBIA". Cuerpo: "Optimización de hábitos preexistentes mediante tecnología nutricional patentada con Ganoderma Lucidum." Panel métricas "GANODERMA LUCIDUM" (barras VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%). CTA "VER LOS NÚMEROS →" dentro del `.bio-metrics-container` (no posición absoluta — evita overlap sobre RECUPERACIÓN en fullscreen). Layout mobile: `.slide-3-layout` es `flex-direction: column` en mobile.
-
-**Slide 4 — SIMULADOR DE PATRIMONIO PARALELO**:
-- Tabs: INGRESO INMEDIATO / INGRESO RECURRENTE
-- Labels: PERSONAS EN SU RED / HOGARES EN SU RED (`Usted` — no tuteo)
-- Package selector: ESP-1 / ESP-2 / **Empresarial** (no "Pro")
-- `getLifestyleTranslation`: 8 strings McKinsey/BCG (Lujo Clínico — sin jerga MLM):
-  - <$100: "Amortización de Pasivos Fijos Operativos."
-  - ≤$300: "Auto-Sustentabilidad de su Base Operativa (Carga Operativa Cubierta)."
-  - ≤$600: "Flujo de Caja Equivalente a Ingreso Base Profesional."
-  - ≤$1,200: "Consolidación de Activo Directivo (Independencia Operativa)."
-  - ≤$2,500: "Arquitectura de Patrimonio Diamante (Independencia Financiera Global)."
-  - ≤$5,000: "Portafolio de Activos Recurrentes con Tracción Multinacional Activa."
-  - ≤$10,000: "Arquitectura Patrimonial de Alto Rendimiento — Velocidad de Crucero."
-  - >$10,000: "Infraestructura de patrimonio paralelo operativa. El Déficit Estructural de Ingresos ha sido corregido."
-- Panel CTA: eyebrow cyan "CONSTRUCCIÓN DE PATRIMONIO PARALELO" → H3 "Protocolo de Selección Directiva" → párrafo "Los datos técnicos están expuestos. Determine usted el nivel de integración que su arquitectura patrimonial requiere hoy." → botones
-- **NO hay párrafo `.cta-inaccion`** — eliminado (residuo de mentalidad de escasez)
-- Botón primario: "ACTIVACIÓN DE UNIDAD DE SUMINISTRO →" → `/paquetes`
-- Botón secundario: "VER LA AUDITORÍA DE 5 DÍAS →" → `/auditoria-patrimonial`
+⚠️ **Léxico**: el deck v6.2 ya está migrado al registro accesible. El copy "Abr 2026" que vivía aquí (PATRIMONIO PARALELO, Base Operativa, UNIDAD DE SUMINISTRO, "tecnología nutricional") es **léxico retirado** — no reintroducir (ver [Queswa Vocabulary](#queswa-vocabulary--tabla-canónica-unificada)).
 
 #### Arquitectura Mobile (Abr 2026 — no revertir)
 
-**Slide 2**: Grid de 3 tarjetas (`.card-industrial`) con layout split imagen/texto:
-- `.card-bg`: `position: absolute; top: 0; height: 50%` — imagen pura, sin texto superpuesto
-- `.card-content`: `position: absolute; bottom: 0; height: 55%; background: gradient` — zona oscura con texto
-- Mobile: scroll vertical dentro del grid (`overflow-y: auto`), tarjetas con `min-height: 55vh`
-- Fullscreen mobile: tarjetas con `min-height: 55vh`, scroll normal (NO scroll-snap en slide 2)
-- Imágenes: `tech-servers.jpg` (card-1, `cover`), `tech-console.jpg` (card-2, `100% auto`), `tech-duplication.jpg` (card-3, `100% auto`)
-- Cards inactivas: `grayscale(100%) brightness(40%)` → activa: `grayscale(0%) brightness(70%)` con `transform: scale(1.05)`
+**Slides 1 y 2**: Grid de 3 tarjetas (`.card-industrial`). **Desde jun 2026 el fondo es un `<video>` 3D full-bleed** (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)), no una imagen split:
+- `.card-bg` aloja el `<video>` con **`object-fit: contain` + fondo carbón** → muestra el objeto 3D completo sin recorte (el letterbox es invisible: el clip ya es carbón `#0F1115`). **NO** revertir a `object-fit: cover` ni al split `height: 50%` (recortaba el 3D)
+- `.card-content`: overlay absoluto al pie con degradado — solo el **nombre** (slide 1) o nombre + botón Queswa (slide 2 card-1). Sin párrafos ni tachados (name-only)
+- Cards inactivas: `filter: brightness(0.45)` → activa: `brightness(1)`; borde activo/hover **dorado** (`var(--orange)`, no cyan)
+- `one-card-mode` generalizado de `#slide-2` a `.one-card-mode` (CSS) → aplica a slide 1 y 2; ambas comparten `activeCardIndex` (3 cards c/u)
+- ⚠️ **Bug del salto resuelto (jun 2026):** `showSlide()` y los handlers de swipe/teclado/click resetean `activeCardIndex` a 0 **en el mismo batch** del cambio de slide. Sin esto, al pasar de slide 1 (en card 3) a slide 2 el IntersectionObserver fijaba la card 3 (Maestría) antes del reset → slide 2 abría en Maestría en vez de Expandir
 
 **Slide 3**: `.slide-3-layout` es `flex-direction: column; justify-content: flex-end` en mobile — slide-3-bottom y CTA apilan verticalmente (NO flex-direction: row que hace flotar el CTA a la derecha).
 
@@ -665,7 +644,38 @@ Sales presentation tools for 1-on-1 conversations. **Desde 15 May 2026 usa el mi
    - Mobile: `ctaVisible` state + IntersectionObserver → `cta-revealed` → color al scroll-snap
    - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
    - Botón primario "ACTIVACIÓN DE UNIDAD DE SUMINISTRO →": `width: 100%`, naranja dominante → `/paquetes`
-   - Botón secundario "VER LA AUDITORÍA DE 5 DÍAS →": outline, más angosto → `/auditoria-patrimonial`
+   - Botón secundario "VER LA AUDITORÍA DE 5 DÍAS →": outline, más angosto → `/empresa-digital`
+
+#### B-rolls 3D en Slides 1 y 2 (jun 2026)
+
+Slides 1 (3 pilares) y 2 (3 comandos del Método) usan **b-rolls 3D** como fondo de cada card, en vez de imágenes. Pensado para uso **en vivo en mobile**: cada b-roll muestra **solo el nombre** (Luis narra el resto). Diseño: el video llena la card (`object-fit: contain`, ver bloque Mobile arriba) y la gráfica debe **explicar sin texto**.
+
+**Assets servidos** (Vercel/Next desde `/public`, no Blob): 6 clips en [public/videos/servilleta/](public/videos/servilleta/) — `respaldo.mp4 · queswa.mp4 · metodo.mp4` (slide 1) + `expandir.mp4 · activar.mp4 · maestria.mp4` (slide 2). 720×1280, H.264, faststart, sin audio (~55–450 KB c/u). Reproducción perezosa: cada `<video>` usa `preload="none"` y solo reproduce la card activa (en desktop grid, todas).
+
+**Fuente (comps Remotion)** → [scripts/dankoe-video/motion/src/](scripts/dankoe-video/motion/src/) (mismo proyecto que los reels, ver [Reel Post-Production Pipeline](#reel-post-production-pipeline-scriptsdankoe-video)):
+- **Pilares (slide 1)** reutilizan comps de los reels renderizadas **"limpias"**: `Matriz3D` (globo · Respaldo Operativo), `IAOnda3D` (orbe ecualizador · Queswa), `Checklist3D` (PASO 01-03 · Método). Se renderizan con `--props` de texto vacío; un guard `{(eyebrow||title||sub) && (...)}` oculta el bloque de título inferior (el nombre lo pone el overlay HTML de la card). ⚠️ Ese guard también protege el uso de estas comps **en los reels** (con texto) — no quitarlo.
+- **Comandos (slide 2)** son comps **nuevas**, registradas en `Root.tsx`: `Expandir3D`, `Activar3D`, `Maestria3D`.
+
+**Semántica de cada gráfica — NO cambiar el mensaje** (calibrado con Luis jun 2026; la gráfica debe gritar el concepto sin texto):
+- **Expandir = distribución / alcance.** La orbe central (su celular) emite una **onda que se expande y enciende un campo de ~22 contactos** (espiral girasol) de adentro hacia afuera = "comparte con un clic → su alcance llega a muchos". ❌ NO debe **atraer** nodos hacia el centro (eso comunica lo contrario; fue el bug de la v1).
+- **Activar = conversión.** Un prospecto parte **rojo**, un anillo de progreso se llena **rojo→verde** mientras la orbe Queswa lo acompaña desde arriba, y cierra en **verde con ✓** (de acuerdo / listo). Colores de estado de marca (`#F43F5E`→`#10B981`).
+- **Multiplicación** (comp aún nombrada `Maestria3D` hasta re-render)**.** Réplicas **idénticas** (mismo tamaño = iguales) que se duplican **1→2→4→8 de abajo hacia arriba**. ❌ NO usar pirámide ni cascada **top-down** ni nodos de distinto tamaño — es lenguaje MLM (downline) y está prohibido.
+
+**Re-render + deploy de un b-roll:**
+```bash
+cd scripts/dankoe-video/motion
+# comps de pilares: props de texto vacías para render limpio
+npx remotion render Matriz3D  out/deck-respaldo.mp4 --gl=angle --props='{"eyebrow":"","count":0,"unit":"","sub":""}'
+npx remotion render IAOnda3D  out/deck-queswa.mp4   --gl=angle --props='{"eyebrow":"","title":"","sub":""}'
+npx remotion render Checklist3D out/deck-metodo.mp4 --gl=angle --props='{"eyebrow":"","title":"","sub":"","steps":["PASO 01","PASO 02","PASO 03"]}'
+# comandos slide 2: defaultProps ya vienen vacíos
+npx remotion render Expandir3D out/deck-expandir.mp4 --gl=angle
+npx remotion render Activar3D  out/deck-activar.mp4  --gl=angle
+npx remotion render Maestria3D out/deck-maestria.mp4 --gl=angle
+# optimizar a /public (ej. expandir)
+ffmpeg -y -i out/deck-expandir.mp4 -vf scale=720:1280 -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 27 -preset slow -an -movflags +faststart ../../../public/videos/servilleta/expandir.mp4
+```
+⚠️ Render headless M1 requiere `--gl=angle`. Las comps Remotion en `motion/src` están **untracked** en git (igual que las de los reels — son herramientas de build); en producción solo se versionan los `.mp4` de `public/videos/servilleta/` + `page.tsx`.
 
 #### Reglas de iconos Material Symbols en Servilleta (NO revertir)
 
@@ -708,7 +718,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.2.mjs` (latest: **v27.2 modulacion_registro** — apunta a `system-prompt-nexus-main-v27_2.md`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.2.mjs` (despliega **v28.4 "multiplicacion_sin_filtrar"** — apunta a `system-prompt-nexus-main-v27_2.md`; tanto el script como el archivo conservan el nombre legacy `v27.2`/`v27_2`. Verificar siempre con `leer-system-prompt.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -724,7 +734,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — La Metodología Automatizada** (El Tridente EAM: protocolo de ejecución estandarizado que erradica el ensayo y error) — recategorización aplicada en v26.5 (May 2026). ⚠️ **De cara al prospecto (jun 2026) usar léxico accesible:** Pilar 1 → **El Respaldo Operativo** · Pilar 3 → **El Método Comprobado**. Los nombres canónicos de arriba siguen vivos solo en arsenales profundos + system prompt aún sin migrar (ver Queswa Vocabulary).
 - Activo del Arquitecto: **Base Operativa** — unidad replicable que se escala activando nuevas Bases Operativas
 - Rol del usuario: **Arquitecto de Patrimonio** — dirige los tres pilares, NO es uno de ellos. Labor puramente gerencial/directiva, no operativa. ⚠️ **De cara al prospecto (jun 2026): "Propietario de Base Operativa"** (léxico accesible; "Arquitecto" generaba barrera de autoeficacia — analogía Ray Kroc: vende la propiedad de un sistema que ya funciona).
-- Maestría: "La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años."
+- Multiplicación (3er Comando, renombrado desde "Maestría" jun 2026): multiplicar la empresa digital está a un clic en todo el continente — resuelve el cuello de botella de crecer. La Academia/formación es el medio (Queswa forma a cada persona nueva), NO el gancho. Ver [[project_rename_maestria_multiplicacion]]
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
 
@@ -812,9 +822,9 @@ import('dotenv').then(d => { d.config({path: '.env.local'}); return import('@sup
 1. Edit `.txt` files in `knowledge_base/`:
    - `arsenal_inicial.txt` - Initial questions (**48 fragments** — 47 activas + PERFIL_01)
    - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (18 fragments)
-   - `arsenal_reto.txt` - **Auditoría Patrimonial** v4.2 (7 fragments — auditoria-patrimonial/dia-1 a dia-5)
+   - `arsenal_reto.txt` - **El Diagnóstico de 5 Días** v4.6 (7 fragments — empresa-digital/dia-1 a dia-5)
    - `arsenal_12_niveles.txt` - 12-level challenge content (13 fragments — flujo Reto, NO accesible al chat principal creatuactivo.com)
-   - `catalogo_productos.txt` - Product catalog + science (22 products, 23 fragments)
+   - `catalogo_productos.txt` - Product catalog + science (22 products, 25 fragments + doc maestro)
    - `arsenal_compensacion.txt` - Compensation plan (**41 fragments** — **NO modificar vocabulario**; PVP prohibido)
 
 2. Deploy to Supabase via scripts:
@@ -1134,11 +1144,11 @@ Extended colors and utilities are defined in [tailwind.config.ts](tailwind.confi
 **Email Templates** (in `src/emails/`):
 - `soap-opera/` - Soap Opera sequence (Dia1-5)
 - `reto-5-dias/` - Secuencia Auditoría Patrimonial — Coordenadas 01–05 (Lujo Clínico, Abr 2026)
-  - `Dia1-Diagnostico.tsx` — Coordenada 01, URL `/auditoria-patrimonial/dia-1`
-  - `Dia2-Vehiculos.tsx`   — Coordenada 02, URL `/auditoria-patrimonial/dia-2`
-  - `Dia3-Modelo.tsx`      — Coordenada 03, URL `/auditoria-patrimonial/dia-3`
-  - `Dia4-Estigma.tsx`     — Coordenada 04, URL `/auditoria-patrimonial/dia-4`
-  - `Dia5-Invitacion.tsx`  — Coordenada 05, URL `/auditoria-patrimonial/dia-5`
+  - `Dia1-Diagnostico.tsx` — Coordenada 01, URL `/empresa-digital/dia-1`
+  - `Dia2-Vehiculos.tsx`   — Coordenada 02, URL `/empresa-digital/dia-2`
+  - `Dia3-Modelo.tsx`      — Coordenada 03, URL `/empresa-digital/dia-3`
+  - `Dia4-Estigma.tsx`     — Coordenada 04, URL `/empresa-digital/dia-4`
+  - `Dia5-Invitacion.tsx`  — Coordenada 05, URL `/empresa-digital/dia-5`
 - `FounderConfirmation.tsx` - Founder registration confirmation
 - `Reto5DiasConfirmation.tsx` - Challenge registration confirmation
 - `Reto12DiasConfirmation.tsx` - 12-level challenge confirmation
@@ -1176,16 +1186,16 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 
 | Item | Estado | Detalle |
 |------|--------|---------|
-| `src/app/api/claude-chat/route.ts` | Sin uso | Reemplazado por `/api/nexus` con tenant `marca_personal` hardcodeado |
+| `/api/claude-chat` (repo **luiscabrejo.com**, no este) | Sin uso | Reemplazado por `/api/nexus` con tenant `marca_personal` hardcodeado. En este repo la ruta no existe |
 | `/api/nexus` POST (síncrono) | Funciona pero legacy | Usar `/api/nexus/producer` (async queue) en producción |
 | `/api/nexus/consumer-cron` | Legacy | Fallback sin triggers — el flujo activo es DB trigger → `nexus-queue-processor` |
 | `nexus-consumer` (Edge Function) | Deprecated | Consumer Kafka — reemplazado por `nexus-queue-processor` |
 | `src/lib/sendpulse.ts` | Legacy | Migrado a `whatsapp-meta.ts` (Abr 2026). Eliminar tras aprobar plantillas Meta WhatsApp |
 | `src/components/nexus/NEXUSFloatingButton.tsx` | Conservado parcial | Reemplazado por `UnifiedQueswaOrb` en layout; aún se usa para eventos servilleta |
-| `/reto-5-dias/*` | Legacy (301) | Squeeze v1 — redirige a `/auditoria-patrimonial` |
-| `/mapa-de-salida/*` | Legacy (301) | Page Next.js viva solo para que funcione el redirect → `/auditoria-patrimonial` |
+| `/reto-5-dias/*` | Legacy (301) | Squeeze v1 — redirige a `/empresa-digital` |
+| `/mapa-de-salida/*` | Legacy (301) | Page Next.js viva solo para que funcione el redirect → `/empresa-digital` |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
-| `/api/test-resend`, `/api/test-reto-email`, `/api/debug-email` | Dev only | No para producción |
+| `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
 
 ## Insights Estratégicos
@@ -1216,6 +1226,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 **Handoff & Context**:
 - [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) - Complete business context for onboarding
 - [HANDOFF_QUESWA_TECNICO.md](HANDOFF_QUESWA_TECNICO.md) - Technical handoff for Queswa chatbot
+- [HANDOFF_MENSAJES_1A1_FUNDADORES.md](HANDOFF_MENSAJES_1A1_FUNDADORES.md) - Guion de mensajes 1-a-1 para captar Fundadores
 - [EPIPHANY_BRIDGE_OFICIAL.md](EPIPHANY_BRIDGE_OFICIAL.md) - Luis Cabrejo's story (master doc for all storytelling)
 
 **Research** (in `public/investigaciones/`):
@@ -1239,12 +1250,12 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~35 scripts)
+**Location**: `scripts/` directory (~48 scripts)
 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual a Supabase (única versión conservada; las anteriores viven en git)
+- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual (**v28.2 "villano_narrado"**) a Supabase. El script y el archivo fuente conservan el nombre legacy `v27.2`/`v27_2`; el contenido interno es v28.2. Las versiones anteriores viven en git
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
@@ -1286,7 +1297,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 - `davinci_naval.py` - Automatización DaVinci Resolve: importa video, aplica LUT, exporta 1080p + 720p + poster
 - `naval_style.cube` - LUT 3D generado (33×33×33). Re-generar con `generate_lut.py` si se borra
 - `dankoe-video/process_video.py` - **Fase 1**: elimina fondo (rembg + BiRefNet + CoreML M1), compone sobre negro cinematográfico con gradiente radial y color grading moody. Salida 1080×1920 (9:16). Uso: `cd scripts/dankoe-video && .venv/bin/python process_video.py [input/archivo.mp4]`
-- `dankoe-video/add_subtitles.py` - **Fase 2**: subtítulos kinéticos word-by-word estilo Dan Koe. faster-whisper transcribe con timestamps por palabra → agrupa en chunks de 2 palabras → genera ASS → FFmpeg quema captions (amarillo mostaza `#D4A017`, Georgia Bold 88px, fade-in 80ms). Uso: `.venv/bin/python add_subtitles.py [output/video_dankoe.mp4] [idioma]`. Setup: `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt` (BiRefNet ~973MB primera vez → `~/.u2net/`; Whisper descarga modelo `base` ~145MB → `~/.cache/`)
+- **Fase 2 (subtítulos)** — **ya automatizada** por forced alignment + Pillow (ver [Reel Post-Production Pipeline](#reel-post-production-pipeline-scriptsdankoe-video)). El plan viejo de WhisperX/CapCut quedó descartado (WhisperX derivaba el timing en chunks cortos; el forced alignment con guion exacto no). Setup Fase 1 (remoción de fondo, ya no necesaria con telón gris): `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt` (BiRefNet ~973MB primera vez → `~/.u2net/`). Variante en la nube: `dankoe-video/colab_birefnet.ipynb`
 
 **PWA**:
 - `generate-favicons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
@@ -1331,7 +1342,7 @@ The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funn
 
 ```
 [NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
-30 videos de valor puro      →    Squeeze Page /auditoria-patrimonial
+30 videos de valor puro      →    Squeeze Page /empresa-digital
          ↓                               ↓
 "¿Cómo lo hago?"             →    Soap Opera Emails (5)
          ↓                               ↓
@@ -1349,7 +1360,6 @@ CTA sutil a CreaTuActivo     →    Auditoría Patrimonial (5 videos)
 | Prompt File | Purpose | Entregables |
 |-------------|---------|-------------|
 | [PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md](PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md) | Content strategy (TRAFFIC) | 30 video scripts, hooks, tone guide |
-| [PROMPT_INVESTIGACION_BRUNSON_FUNNELS.md](PROMPT_INVESTIGACION_BRUNSON_FUNNELS.md) | Funnel system (CONVERSION) | Emails, webinar script, challenge videos |
 
 These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc.)
 
@@ -1375,7 +1385,7 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 
 ### Queswa Vocabulary — Tabla Canónica Unificada
 
-> ⚠️ **MIGRACIÓN LÉXICO ACCESIBLE EN CURSO (Jun 2026) — leer antes de "corregir" textos.** El léxico premium/canónico se está reemplazando por léxico accesible (servilleta / Mario Alonso Puig). Mapa de reemplazo: `Estructura Patrimonial` → **estructura de ingresos recurrentes** · `La Matriz Física` → **El Respaldo Operativo** · `El Tridente EAM` → **El Método Comprobado** (subtítulo conserva "Comando Expandir · Activar · Maestría") · `Base Operativa` → **negocio digital** (a secas) · `Arquitecto de Patrimonio` → **Propietario (de su negocio digital)** · `Dirección Ejecutiva / gobernanza` → **dirige / dirección** · `Apalancamiento Asimétrico` → **Apalancamiento Estratégico** · `escalar` → **multiplicar**. ⚠️ **Swap "negocio digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`) supersede el mapping previo: "Base Operativa" también se retira de cara al prospecto. Atribución: "su negocio digital" SIN "de Gano Excel" — la corona es de CreaTuActivo; Gano Excel se nombra solo como Respaldo Operativo (Pilar 1, el estudio detrás de cámaras).** Concepto nuclear de "¿qué es CreaTuActivo?" (modelo Waze, empatía primero): *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*.
+> ⚠️ **MIGRACIÓN LÉXICO ACCESIBLE EN CURSO (Jun 2026) — leer antes de "corregir" textos.** El léxico premium/canónico se está reemplazando por léxico accesible (servilleta / Mario Alonso Puig). Mapa de reemplazo: `Estructura Patrimonial` → **estructura de ingresos recurrentes** · `La Matriz Física` → **El Respaldo Operativo** · `El Tridente EAM` → **El Método Comprobado** (subtítulo: "Comando Expandir · Activar · **Multiplicación**" — 3er comando renombrado desde "Maestría" jun 2026) · `Base Operativa` → **negocio digital** (a secas) · `Arquitecto de Patrimonio` → **Propietario (de su negocio digital)** · `Dirección Ejecutiva / gobernanza` → **dirige / dirección** · `Apalancamiento Asimétrico` → **Apalancamiento Estratégico** · `escalar` → **multiplicar**. ⚠️ **Swap "negocio digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`) supersede el mapping previo: "Base Operativa" también se retira de cara al prospecto. Atribución: "su negocio digital" SIN "de Gano Excel" — la corona es de CreaTuActivo; Gano Excel se nombra solo como Respaldo Operativo (Pilar 1, el estudio detrás de cámaras).** Concepto nuclear de "¿qué es CreaTuActivo?" (modelo Waze, empatía primero): *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*.
 >
 > **Estado (jun 2026):** ✅ migrado y **desplegado** en todas las superficies de cara al prospecto: **home completa** (`src/app/page.tsx` — Hero, Diagnóstico, Perfiles, Tres Caminos, Producto, Prueba de Estrés, Queswa, CTA + `CognitiveLoadComparator` + nueva `VisionSection` "futuro absurdo / la norma"), **manifiesto** (`src/components/ManifiestoDocument.tsx` — `/manifiesto` + `/{slug}/manifiesto`; §2 reescrita con la visión, "soberanía financiera" conservada como excepción temática del documento), **deck `/servilleta`** (`src/app/servilleta/page.tsx` v6.2) + guion maestro v5.0 + teleprompter, **chips** (`queswa-greeting.ts`), **Camino A** (`respuestas-maestras.ts`), **WHY_01/WHY_02/EAM_01** (`arsenal_inicial.txt`, local) y los **reels de la serie de documentación** (Día 1–6) + reel explainer de la Home. **NO revertir hacia los términos viejos.** ⏳ pendiente: FREQ_04/FREQ_04_PUENTE/PERFIL_01 + migración profunda (~200 hits en arsenales restantes + system prompt) + deploy de `arsenal_inicial` a Supabase. La tabla de abajo aún refleja el canon viejo en los términos migrados; al editar copy de cara al usuario, **siempre el léxico accesible**.
 >
@@ -1395,7 +1405,7 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 | 🪶 **Pilar 3 — La Metodología Automatizada** | El Tridente EAM (no "Su Rol") · prospecto → **El Método Comprobado** | Recategorización v26.5 |
 | 🪶 **Arquitecto de Patrimonio** | Rol del usuario — director de los 3 pilares, NO uno de ellos · prospecto → **Propietario (de su negocio digital)** | — |
 | 🪶 **Base Operativa** | Activo del usuario · prospecto → **negocio digital** (a secas — NO "de Gano Excel": la corona es de CreaTuActivo, no del proveedor). "Base Operativa" sale de cara al prospecto (swap jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`) | Retirado 15 May 2026 (Unidad de Suministro/Nodo Logístico) |
-| 🪶 **Tridente EAM** | Comando Expandir · Comando Activar · Comando Maestría · prospecto → **El Método Comprobado** (subtítulo conserva "Expandir · Activar · Maestría") | v26.2 — "Comandos" no "Protocolos" |
+| 🪶 **Tridente EAM** | Comando Expandir · Comando Activar · Comando **Multiplicación** (3er comando renombrado desde "Maestría" jun 2026) · prospecto → **El Método Comprobado** | v26.2 — "Comandos" no "Protocolos" |
 | **Déficit Estructural de Ingresos** | El villano sistémico (causa raíz, no consecuencia) · prospecto → villano NARRADO, nunca etiquetado | v26.6 — jerarquía causal |
 | **Monetización de Doble Velocidad** | Capitalización Inmediata (GEN5) + Renta Vitalicia (Binario) | v26.2 |
 | 🪶 **Estructura Patrimonial** | Sustantivo doctrinal — reemplaza "Patrimonio Paralelo" · prospecto → **estructura de ingresos recurrentes** | v26.3 — Glosario v1.4 |
@@ -1410,6 +1420,8 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 
 | Prohibido | Reemplazar con | Razón de prohibición |
 |-----------|---------------|---------------------|
+| filtrar / filtro / filtrado / descartar a quien no encaja (lo que hace Queswa de cara al prospecto) | conversar · acompañar la decisión de avanzar · reconocer quién está listo | jun 2026 — para un dueño de negocio físico "que filtre a sus visitantes" suena a perder clientes; reencuadrar en clave de **conversión**, no de rechazo. Ver [[feedback_filtrar_prohibido]] |
+| Maestría (3er Comando del Tridente EAM) | **Multiplicación** | jun 2026 — "Maestría" obliga a explicar luego; "Multiplicación" comunica el lever directo. Ver [[project_rename_maestria_multiplicacion]] |
 | Hardware / Software | El Músculo / El Cerebro | Jerga técnica |
 | Protocolo de Simulación | Auditoría Patrimonial | Test abuela falla |
 | Cupo de Validación | acceso gratuito | Test abuela falla |
@@ -1481,7 +1493,7 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 
 | Audience | Villain | Page |
 |----------|---------|------|
-| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /auditoria-patrimonial, /fundadores |
-| **Traditional networkers** (know MLM) | "Haz una lista de 100" | /socios |
+| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /empresa-digital, /fundadores |
+| **Traditional networkers** (know MLM) | "Haz una lista de 100" | (página `/socios` eliminada — commit `6110e9a`; audiencia sin landing dedicada actualmente) |
 
 **Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".

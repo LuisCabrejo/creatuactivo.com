@@ -192,7 +192,7 @@ export default function RootLayout({
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": "Plataforma propietaria con motor de Inteligencia Artificial. Centro de Mando de los Arquitectos de Patrimonio del ecosistema CreaTuActivo. Filtra, califica y prepara contactos las 24 horas (queswa.app).",
+        "description": "Plataforma propietaria con motor de Inteligencia Artificial. Centro de Mando de los Arquitectos de Patrimonio del ecosistema CreaTuActivo. Conversa, acompaña y prepara contactos las 24 horas (queswa.app).",
         "author": {
           "@id": `${baseUrl}/#organization`
         }

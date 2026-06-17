@@ -459,12 +459,12 @@ function QueswaDiferenciadorSection() {
       desc: 'Usted no explica — Queswa explica. Usted solo abre los canales para que lleguen las personas correctas; explicar y presentar se lo deja a Queswa.',
     },
     {
-      titulo: 'COMANDO ACTIVAR — Filtra y califica por usted, 24/7',
+      titulo: 'COMANDO ACTIVAR — Conversa y acompaña por usted, 24/7',
       desc: 'Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted. Usted recibe a un interesado ya listo.',
     },
     {
-      titulo: 'COMANDO MAESTRÍA — Multiplica sin que usted enseñe',
-      desc: 'Usted no enseña; Queswa escala. A cada persona nueva que entra a su organización la forma el sistema desde el día uno, sin consumir su agenda.',
+      titulo: 'COMANDO MULTIPLICACIÓN — Multiplica sin que usted enseñe',
+      desc: 'Usted no enseña; Queswa multiplica. A cada persona nueva que entra a su organización la forma el sistema desde el día uno, sin consumir su agenda.',
     },
   ];
 

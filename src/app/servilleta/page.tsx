@@ -93,6 +93,7 @@ export default function ServilletaPage() {
           setActiveCardIndex((prev) => prev + 1);
         } else {
           setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+          setActiveCardIndex(0);
         }
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -100,6 +101,7 @@ export default function ServilletaPage() {
           setActiveCardIndex((prev) => prev - 1);
         } else {
           setActiveSlide((prev) => Math.max(prev - 1, 1));
+          setActiveCardIndex(0);
         }
       } else if (e.key === 'f' || e.key === 'F') {
         toggleFullscreen();
@@ -137,12 +139,12 @@ export default function ServilletaPage() {
     // Single click → esperar 300ms para confirmar que no es double
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null;
-      // Slide 2 one-card-mode (fullscreen desktop o mobile):
-      // avanza entre cards antes de cambiar de slide
+      // one-card-mode (slide 1/2): avanza entre cards antes de cambiar de slide
       if (oneCardMode && activeCardIndex < 2) {
         setActiveCardIndex((prev) => prev + 1);
       } else {
         setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
+        setActiveCardIndex(0);
       }
     }, 300);
   }, [toggleFullscreen, oneCardMode, activeCardIndex]);
@@ -161,6 +163,7 @@ export default function ServilletaPage() {
           setActiveCardIndex((prev) => prev + 1);
         } else {
           setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
+          setActiveCardIndex(0);
         }
       } else {
         // swipe derecha → retroceder
@@ -168,6 +171,7 @@ export default function ServilletaPage() {
           setActiveCardIndex((prev) => prev - 1);
         } else {
           setActiveSlide((prev) => Math.max(prev - 1, 1));
+          setActiveCardIndex(0);
         }
       }
     }
@@ -190,6 +194,7 @@ export default function ServilletaPage() {
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
+    setActiveCardIndex(0); // reset en el mismo batch: evita que el observer fije la card previa (bug salto a Maestría)
   }, []);
 
   // Reset tarjeta activa al entrar a slide 1 o 2 (ambas son card-scrollers de 3)
@@ -1626,11 +1631,7 @@ export default function ServilletaPage() {
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/expandir.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <div className="oscillation-text">
-                    <span className="bad"><s>PROSPECCI&Oacute;N MANUAL</s> &middot; <s>FRICCI&Oacute;N OPERATIVA</s> &middot; <s>DEPENDENCIA LINEAL</s></span>
-                  </div>
-                  <h3>EXPANDIR</h3>
-                  <p>Su terminal m&oacute;vil es su centro de mando.<br />Usted dirige tr&aacute;fico digital hacia el sistema — sin gesti&oacute;n manual.</p>
+                  <h3 className="pillar-name">EXPANDIR</h3>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1652,11 +1653,7 @@ export default function ServilletaPage() {
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/activar.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <div className="oscillation-text">
-                    <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
-                  </div>
-                  <h3>ACTIVAR</h3>
-                  <p>Usted no presenta el modelo. El Motor de IA Queswa asume el 90% del trabajo pesado, filtrando y calificando perfiles 24/7.</p>
+                  <h3 className="pillar-name">ACTIVAR</h3>
                 </div>
               </div>
 
@@ -1664,11 +1661,7 @@ export default function ServilletaPage() {
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/maestria.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <div className="oscillation-text">
-                    <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>
-                  </div>
-                  <h3>MAESTR&Iacute;A</h3>
-                  <p>La Academia ense&ntilde;a por usted, paso a paso, a cada nuevo Propietario que se suma.<br />Su activo crece sin que su tiempo sea el l&iacute;mite.</p>
+                  <h3 className="pillar-name">MAESTR&Iacute;A</h3>
                 </div>
               </div>
 

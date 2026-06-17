@@ -328,7 +328,7 @@ export default function PlanesTecnologicosPage() {
                   price="$25"
                   priceCOP="112.500"
                   priceLabel="USD / mes"
-                  profile="Mantenimiento base de Queswa para operaciones locales. Para constructores que inician su Base Operativa."
+                  profile="Mantenimiento base de Queswa para operaciones locales. Para Propietarios que inician su empresa digital."
                   metrics={[
                     { label: 'Prospectos', value: '200' },
                     { label: 'Conversaciones', value: '100/mes' },
@@ -358,7 +358,7 @@ export default function PlanesTecnologicosPage() {
                   price="$49"
                   priceCOP="220.500"
                   priceLabel="USD / mes"
-                  profile="El estándar para Arquitectos con unidades de suministro activas. Capacidad de despliegue intermedia."
+                  profile="El estándar para Propietarios con su empresa digital activa. Capacidad de crecimiento intermedia."
                   metrics={[
                     { label: 'Prospectos', value: '500' },
                     { label: 'Conversaciones', value: '500/mes' },
@@ -367,7 +367,7 @@ export default function PlanesTecnologicosPage() {
                   ]}
                   features={[
                     'Todo lo del Plan Base +',
-                    'Dashboard de Patrimonio en Tiempo Real',
+                    'Centro de Mando Queswa en Tiempo Real',
                     'Panel de Gestión de Red (hasta 3 unidades)',
                     'La Academia — Nivel Arquitectura Avanzada',
                     'Exportación de datos — analíticas avanzadas',
@@ -401,7 +401,7 @@ export default function PlanesTecnologicosPage() {
                     'Panel de Dirección Global — 10+ unidades',
                     'Acceso completo 24/7 sin restricciones',
                     'La Academia — Nivel Maestría',
-                    'Plusvalía de Red — Nivel Visionario',
+                    'Valor Patrimonial de Red — Nivel Visionario',
                     'Soporte dedicado + sesión estratégica 1-a-1',
                   ]}
                   borderColor={C.goldDark}
@@ -457,7 +457,7 @@ export default function PlanesTecnologicosPage() {
               {[
                 { icon: <Cpu size={28} />, color: C.cyan, title: 'Filtrado Asíncrono', body: 'Queswa califica y descarta perfiles no viables antes de que usted invierta un minuto de atención directiva.' },
                 { icon: <BarChart2 size={28} />, color: C.gold, title: 'Tracción Inbound', body: 'El sistema captura, educa y prepara prospectos 24/7, eliminando la prospección manual y la fricción operativa.' },
-                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Multinacional', body: 'Su infraestructura opera en 70 países de forma simultánea sin requerir su presencia física en ningún mercado.' },
+                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en 70 países a la vez, sin requerir su presencia física en ningún mercado.' },
                 { icon: <Layers size={28} />, color: C.bronze, title: 'Escalabilidad sin Cuello de Botella', body: 'La transferencia de protocolos tácticos ocurre de forma autónoma. Su tiempo no es el límite de su organización.' },
               ].map((item, i) => (
                 <div key={i} style={{
@@ -506,7 +506,7 @@ export default function PlanesTecnologicosPage() {
                 maxWidth: '520px',
                 margin: '0 auto 2.5rem',
               }}>
-                El primer paso es la capitalización de su Base Operativa.
+                El primer paso es la capitalización de su empresa digital.
                 El plan tecnológico se activa junto con su inventario.
               </p>
               <Link

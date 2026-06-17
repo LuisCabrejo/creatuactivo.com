@@ -160,7 +160,7 @@ function PhaseNode({ title, date, spots, isActive, isPast }: any) {
 const arquetipos = [
   { id: 'profesional', icon: <Briefcase size={20} />, title: 'Profesional', description: 'Diversificar ingresos sin dejar mi empleo.', iconColor: 'text-[#94A3B8]' },
   { id: 'emprendedor', icon: <Target size={20} />, title: 'Dueño de Negocio', description: 'Sistemas que no dependan de mi tiempo.', iconColor: 'text-[#94A3B8]' },
-  { id: 'independiente', icon: <Lightbulb size={20} />, title: 'Freelancer', description: 'Escalar ingresos y tener estabilidad.', iconColor: 'text-[#94A3B8]' },
+  { id: 'independiente', icon: <Lightbulb size={20} />, title: 'Freelancer', description: 'Multiplicar ingresos y tener estabilidad.', iconColor: 'text-[#94A3B8]' },
   { id: 'lider', icon: <Users size={20} />, title: 'Líder / Networker', description: 'Modernizar mi equipo con tecnología.', iconColor: 'text-[#94A3B8]' }
 ]
 
@@ -492,7 +492,7 @@ export default function FundadoresPage() {
                         <div className="space-y-6">
                             <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-[#9E2A3A] text-sm text-right">❌ Vendedor manual</span></div>
                             <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Tiempo</span><span className="text-[#9E2A3A] text-sm text-right">❌ Reuniones físicas</span></div>
-                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-[#9E2A3A] text-sm text-right">❌ Ingreso Lineal</span></div>
+                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-[#9E2A3A] text-sm text-right">❌ Ingreso que se detiene si para</span></div>
                         </div>
                     </div>
                     {/* Verde */}
@@ -522,7 +522,7 @@ export default function FundadoresPage() {
 
                 <div className="grid md:grid-cols-4 gap-6">
                     {[
-                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es un vehículo para transformar su realidad.", ini: "LM"},
+                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es una forma de transformar mi realidad.", ini: "LM"},
                         {name: "Andrés G.", role: "Sector Salud", quote: "Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D.", ini: "AG"},
                         {name: "Dr. Jonathan", role: "Médico", quote: "Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.", ini: "JM"},
                         {name: "Juan Pablo", role: "Ex-Bancario", quote: "La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba.", ini: "JP"}

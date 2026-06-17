@@ -92,7 +92,7 @@ const quizQuestions = [
     options: [
       { value: 10, label: '100% - Todo depende de donde vivo', sublabel: 'Mi economía no es portátil' },
       { value: 50, label: '50% - Tengo inversiones diversificadas', sublabel: 'Pero mi ingreso principal es local' },
-      { value: 100, label: '0-20% - Mi economía es agnóstica', sublabel: 'Puedo operar desde cualquier lugar' },
+      { value: 100, label: '0-20% - Mi economía es agnóstica', sublabel: 'Puedo trabajar desde cualquier lugar' },
     ],
   },
   {
@@ -110,7 +110,7 @@ const quizQuestions = [
     options: [
       { value: 20, label: 'Sí, es una relación lineal', sublabel: 'Más dinero = Más trabajo' },
       { value: 50, label: 'Parcialmente', sublabel: 'Tengo equipo pero sigo siendo el cuello de botella' },
-      { value: 90, label: 'No, uso sistemas de apalancamiento', sublabel: 'Mi ingreso puede escalar sin mí' },
+      { value: 90, label: 'No, uso sistemas de apalancamiento', sublabel: 'Mi ingreso puede multiplicarse sin mí' },
     ],
   },
   {
@@ -138,7 +138,7 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
       subtitle: 'Alto Rendimiento / Motor Solitario',
       description: 'Los datos indican que tiene una capacidad excepcional para generar flujo de efectivo. Usted es el motor indiscutible de su economía. Ese es su superpoder, pero paradójicamente, es su mayor riesgo.',
       insight: 'Su gráfico muestra una "Arquitectura Asimétrica". Ha optimizado todo su sistema para el Ingreso Activo (dependiente de usted), pero ha descuidado peligrosamente la Infraestructura de Soporte.',
-      truth: 'Actualmente, no posee un activo; el activo es USTED. Si usted se detiene, el sistema colapsa. Esto no es Soberanía, es una jaula de oro de alta gama.',
+      truth: 'Actualmente, no posee un activo; el activo es USTED. Si usted se detiene, el sistema colapsa. Esto no es libertad, es una jaula de oro de alta gama.',
       metaphor: 'Tiene el motor de un Ferrari montado en el chasis de una bicicleta.',
       need: 'Lo que le falta no es más dinero. Le falta un Chasis.',
     };
@@ -152,14 +152,14 @@ const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: numbe
       insight: 'Todos los ejes de su gráfico dependen de su presencia física. No ha logrado separar su tiempo de su ingreso.',
       truth: 'Si cierra la puerta mañana, deja de ganar. Eso no es un activo, es una trampa operativa.',
       metaphor: 'Usted es el motor, el volante y los frenos. Si se enferma, el carro se detiene.',
-      need: 'Necesita sistemas que operen sin su presencia constante.',
+      need: 'Necesita sistemas que funcionen sin su presencia constante.',
     };
   }
 
   return {
     name: 'EL CONSTRUCTOR EN PROGRESO',
     subtitle: 'En Camino / Con Potencial',
-    description: 'Tiene algunos elementos de estructura, pero aún no ha logrado la independencia operativa completa. Está mejor que la mayoría, pero lejos de la Soberanía.',
+    description: 'Tiene algunos elementos de estructura, pero aún no ha logrado la independencia operativa completa. Está mejor que la mayoría, pero lejos de la tranquilidad financiera.',
     insight: 'Su gráfico muestra áreas de oportunidad claras. No está en crisis, pero tampoco está protegido.',
     truth: 'Con los ajustes correctos, podría acelerar significativamente su camino hacia la autonomía.',
     metaphor: 'Tiene los planos, pero la construcción está a medias.',
@@ -325,7 +325,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
           <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Auditoría de 60 segundos
+            Diagnóstico de 60 segundos
           </span>
         </div>
 
@@ -349,7 +349,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
           La mayoría de los profesionales exitosos son ricos en ingresos pero pobres en arquitectura.
           <br className="hidden sm:block" />
           <span style={{ color: 'var(--text-primary)' }}>
-            Realiza esta auditoría para visualizar las grietas invisibles en su modelo actual.
+            Realice este diagnóstico para visualizar las grietas invisibles en su modelo actual.
           </span>
         </p>
 
@@ -619,7 +619,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
         </form>
 
         <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-          Sus datos están protegidos. Sin spam, solo su auditoría.
+          Sus datos están protegidos. Sin spam, solo su diagnóstico.
         </p>
       </div>
     </section>
@@ -651,7 +651,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-sm font-medium uppercase tracking-widest"
             style={{ color: 'var(--gold)' }}
           >
-            Auditoría Completada
+            Diagnóstico Completado
           </span>
           <h1
             className="text-3xl sm:text-4xl mt-4"
@@ -729,7 +729,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="text-xl sm:text-2xl mb-6"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            La brecha entre su situación actual y la Soberanía
+            La brecha entre su situación actual y la tranquilidad financiera
             <br />
             <span style={{ color: 'var(--gold)' }}>no es cuestión de esfuerzo. Es cuestión de Diseño.</span>
           </h3>
@@ -741,9 +741,9 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
           </p>
 
           <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-            He diseñado el <strong style={{ color: 'var(--gold)' }}>El Mapa de Salida</strong> específicamente
+            He diseñado <strong style={{ color: 'var(--gold)' }}>el Diagnóstico de 5 Días</strong> específicamente
             para perfiles de alto rendimiento que necesitan transicionar de{' '}
-            <em>Operadores</em> a <em>Arquitectos</em>.
+            <em>hacerlo todo ellos mismos</em> a <em>ser dueños de su empresa digital</em>.
           </p>
 
           <div
@@ -756,11 +756,11 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 1:</span>
-                <span>Realizaremos el diagnóstico matemático profundo (la versión cuantitativa de lo que acabas de ver)</span>
+                <span>Realizaremos el diagnóstico matemático profundo (la versión cuantitativa de lo que acaba de ver)</span>
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 2:</span>
-                <span>Desmantelaremos los vehículos obsoletos que consumen su tiempo</span>
+                <span>Desmantelaremos los modelos obsoletos que consumen su tiempo</span>
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 3:</span>
@@ -772,13 +772,13 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
               </li>
               <li className="flex items-start gap-3">
                 <span style={{ color: 'var(--gold)' }}>Día 5:</span>
-                <span>Le entregaré las llaves de su soberanía (La Invitación)</span>
+                <span>Le entregaré las llaves de su libertad (La Invitación)</span>
               </li>
             </ul>
           </div>
 
           <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Su auditoría dice que está listo para escalar,
+            Su diagnóstico dice que está listo para multiplicar,
             <br />
             pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerza los cimientos primero.</span>
           </p>
@@ -788,7 +788,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
             className="cta-base cta-primary"
             style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
           >
-            Unirme al Protocolo Soberanía
+            Iniciar el Diagnóstico de 5 Días
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -802,7 +802,7 @@ function ResultSection({ radarData, archetype }: ResultSectionProps) {
         {/* Footer */}
         <footer className="text-center mt-16 pt-10" style={{ borderTop: '1px solid var(--border)' }}>
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            © 2025 CreaTuActivo.com — Arquitectura de Soberanía Financiera
+            © 2025 CreaTuActivo.com — Tecnología para construir ingresos recurrentes
           </p>
         </footer>
       </div>

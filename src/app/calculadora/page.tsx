@@ -51,7 +51,7 @@ const questions = [
   },
   {
     id: 'monthlyExpenses',
-    question: '¿Cuánto necesitas al mes para vivir?',
+    question: '¿Cuánto necesita al mes para vivir?',
     subtext: 'Vivienda, alimentación, servicios, transporte, deudas... todo',
     options: [
       { value: 3000000, label: '$2M - $4M COP' },
@@ -167,7 +167,7 @@ export default function CalculadoraPage() {
   const getMessage = (days: number) => {
     if (days === 0) {
       return {
-        title: 'Dependes 100% de su trabajo.',
+        title: 'Depende 100% de su trabajo.',
         body: 'Si mañana no puede trabajar—por enfermedad, despido, o cualquier imprevisto—no tiene ni un solo día de respaldo.',
       };
     } else if (days < 30) {
@@ -178,17 +178,17 @@ export default function CalculadoraPage() {
     } else if (days < 90) {
       return {
         title: `${days} días. Algo es algo.`,
-        body: 'Tiene algo construido, pero aún estás lejos de la libertad real. ¿Qué pasaría si pudieras duplicar este número en 12 meses?',
+        body: 'Tiene algo construido, pero aún está lejos de la libertad real. ¿Qué pasaría si pudiera duplicar este número en 12 meses?',
       };
     } else if (days < 180) {
       return {
-        title: `${days} días. Vas por buen camino.`,
-        body: 'Ya entiende el concepto. La pregunta es: ¿cómo aceleras para llegar a 365 días de soberanía total?',
+        title: `${days} días. Va por buen camino.`,
+        body: 'Ya entiende el concepto. La pregunta es: ¿cómo acelera para llegar a 365 días de tranquilidad financiera total?',
       };
     } else {
       return {
         title: `${days} días. Impresionante.`,
-        body: 'Estás más cerca que el 99% de las personas. Con el sistema correcto, podrías alcanzar soberanía completa.',
+        body: 'Está más cerca que el 99% de las personas. Con el sistema correcto, podría alcanzar tranquilidad financiera completa.',
       };
     }
   };

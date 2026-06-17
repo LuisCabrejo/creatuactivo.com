@@ -1,6 +1,13 @@
 /**
- * SERVILLETA DIGITAL v6.3 — léxico canónico "empresa digital" + trabajo fiel de Queswa
+ * SERVILLETA DIGITAL v6.4 — slides 1 y 2 como card-scrollers con b-rolls 3D
  * 4-Slide Interactive Presentation (Slide Deck)
+ *
+ * v6.4 (jun 2026) — B-rolls 3D en slides 1 y 2 (ver CLAUDE.md "B-rolls 3D en Slides 1 y 2"):
+ *  - Slide 1: card-scroller de los 3 pilares (Respaldo Operativo · Queswa · Método),
+ *    b-roll 3D + nombre; menú "LA MÁQUINA" → "SU EMPRESA"
+ *  - Slide 2: name-only (EXPANDIR/ACTIVAR/MULTIPLICACIÓN) + b-rolls 3D nuevos
+ *  - .card-bg aloja <video> object-fit:contain (full-bleed sin recorte); one-card-mode
+ *    generalizado a slide 1; fix del salto a la card 3 (reset de activeCardIndex en batch)
  *
  * v6.3 (jun 2026) — Migración al léxico actual:
  *  - Slide 1: H1 "INGRESOS RECURRENTES" (antes "Estructura Patrimonial"); pilares = El Respaldo
@@ -194,7 +201,7 @@ export default function ServilletaPage() {
 
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
-    setActiveCardIndex(0); // reset en el mismo batch: evita que el observer fije la card previa (bug salto a Maestría)
+    setActiveCardIndex(0); // reset en el mismo batch: evita que el observer fije la card previa (bug salto a la card 3)
   }, []);
 
   // Reset tarjeta activa al entrar a slide 1 o 2 (ambas son card-scrollers de 3)
@@ -1657,11 +1664,11 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 3 (full-width): MAESTRÍA */}
+              {/* Tarjeta 3 (full-width): MULTIPLICACIÓN (léxico — antes "Maestría"; clip maestria.mp4 = nombre interno) */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/maestria.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <h3 className="pillar-name">MAESTR&Iacute;A</h3>
+                  <h3 className="pillar-name">MULTIPLICACI&Oacute;N</h3>
                 </div>
               </div>
 

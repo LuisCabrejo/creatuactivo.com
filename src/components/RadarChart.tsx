@@ -10,11 +10,11 @@ import { useEffect, useState } from 'react';
 
 interface RadarChartProps {
   data: {
-    potenciaIngreso: number;
-    autonomiaOperativa: number;
-    resilienciaGeografica: number;
-    escalabilidadSistemica: number;
-    eficienciaPatrimonial: number;
+    autonomia: number;
+    resiliencia: number;
+    eficiencia: number;
+    apalancamiento: number;
+    pazMental: number;
   };
   size?: number;
   animated?: boolean;
@@ -23,11 +23,11 @@ interface RadarChartProps {
 export default function RadarChart({ data, size = 300, animated = true }: RadarChartProps) {
   const [animatedData, setAnimatedData] = useState(
     animated ? {
-      potenciaIngreso: 0,
-      autonomiaOperativa: 0,
-      resilienciaGeografica: 0,
-      escalabilidadSistemica: 0,
-      eficienciaPatrimonial: 0,
+      autonomia: 0,
+      resiliencia: 0,
+      eficiencia: 0,
+      apalancamiento: 0,
+      pazMental: 0,
     } : data
   );
 
@@ -45,11 +45,11 @@ export default function RadarChart({ data, size = 300, animated = true }: RadarC
 
   // 5 ejes del pentágono
   const axes = [
-    { key: 'potenciaIngreso', label: 'Lo que genera', angle: -90 },
-    { key: 'autonomiaOperativa', label: 'Independencia', angle: -18 },
-    { key: 'resilienciaGeografica', label: 'Fuera del ciclo', angle: 54 },
-    { key: 'escalabilidadSistemica', label: 'Crece sin usted', angle: 126 },
-    { key: 'eficienciaPatrimonial', label: 'Lo que le queda', angle: 198 },
+    { key: 'autonomia', label: 'Independencia', angle: -90 },
+    { key: 'resiliencia', label: 'Fuera del ciclo', angle: -18 },
+    { key: 'eficiencia', label: 'Lo que le queda', angle: 54 },
+    { key: 'apalancamiento', label: 'Crece sin usted', angle: 126 },
+    { key: 'pazMental', label: 'Tranquilidad', angle: 198 },
   ];
 
   // Calcular puntos del pentágono

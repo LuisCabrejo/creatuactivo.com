@@ -82,7 +82,7 @@ const styles = `
 const quizQuestions = [
   {
     id: 'autonomia',
-    question: 'Si tuviera que parar unos meses —por salud o un imprevisto—, ¿qué pasaría con la plata que entra a su casa?',
+    question: 'Si tuviera que parar unos meses —por salud, un despido o un imprevisto—, ¿qué pasaría con la plata que entra a su casa?',
     options: [
       { value: 10, label: 'Se acaba de una', sublabel: 'Todo depende de que yo siga trabajando' },
       { value: 50, label: 'Aguanta un tiempo y baja', sublabel: 'Tengo algo de colchón, pero no dura' },
@@ -129,46 +129,53 @@ const quizQuestions = [
 ];
 
 // ============================================================================
-// ARQUETIPOS
+// DIAGNÓSTICO (Queswa genera el texto; este es el fallback determinístico)
 // ============================================================================
 
-const getArchetype = (data: { potenciaIngreso: number; autonomiaOperativa: number; resilienciaGeografica: number; escalabilidadSistemica: number; eficienciaPatrimonial: number }) => {
-  const avgSupport = (data.autonomiaOperativa + data.escalabilidadSistemica + data.eficienciaPatrimonial) / 3;
+type Diagnostico = { titular: string; cuerpo: string };
 
-  if (data.potenciaIngreso >= 70 && avgSupport <= 40) {
-    return {
-      name: 'USTED ES EL MOTOR',
-      subtitle: 'Genera bien — pero todo depende de usted',
-      description: 'Los números muestran algo claro: usted sabe generar ingresos. Es el motor de la economía de su casa, y eso tiene mérito. El detalle es que hoy ese motor es usted, y solo usted.',
-      insight: 'Su gráfico se ve fuerte en lo que usted produce, y débil en lo que seguiría produciéndose sin usted. No es falta de capacidad; es que nadie le enseñó a construir lo segundo.',
-      truth: 'El día que pare, todo para. Por más que gane, sigue dependiendo de una sola cosa: usted.',
-      metaphor: 'Es una casa que se sostiene en una sola columna: usted.',
-      need: 'No le falta ganar más. Le falta que lo que gana trabaje también cuando usted no está.',
-    };
-  }
-
-  if (avgSupport <= 30) {
-    return {
-      name: 'SU NEGOCIO NO CAMINA SIN USTED',
-      subtitle: 'Construyó algo propio — pero lo carga entero',
-      description: 'Usted ya dio el paso difícil: construyó algo propio. Eso lo separa de la mayoría. Pero hoy ese algo depende de que usted esté ahí todos los días.',
-      insight: 'En su gráfico, casi todo se apoya en su presencia. Lo que armó todavía no se sostiene solo.',
-      truth: 'Si mañana cierra la puerta, deja de entrar dinero. Más que un negocio que lo sostiene a usted, por ahora es usted quien sostiene el negocio.',
-      metaphor: 'Usted es el motor, el volante y el freno. Si usted se detiene, todo se detiene.',
-      need: 'Que el sistema funcione aunque usted no esté presente todos los días.',
-    };
-  }
-
-  return {
-    name: 'YA EMPEZÓ A CONSTRUIR',
-    subtitle: 'Va por buen camino — con base para crecer',
-    description: 'Tiene varias piezas en su lugar, pero todavía no llega a la independencia completa. Está mejor que la mayoría… y aún lejos de la tranquilidad que busca.',
-    insight: 'Su gráfico muestra oportunidades claras. No está en crisis, pero tampoco está protegido del todo.',
-    truth: 'Con los ajustes correctos, puede acortar mucho el camino hacia una economía que no dependa solo de usted.',
-    metaphor: 'Tiene los planos y los cimientos. Falta levantar la casa.',
-    need: 'Terminar de construir lo que ya empezó.',
-  };
+// Nombre descriptivo de cada dimensión para el prompt de Queswa.
+const DIM_PROMPT: Record<keyof QuizAnswers, string> = {
+  autonomia: 'Independencia (que su ingreso no dependa solo de usted)',
+  resiliencia: 'Salir del ciclo de trabajar, pagar y repetir',
+  eficiencia: 'Lo que le queda al final del año',
+  apalancamiento: 'Poder crecer sin meter más horas',
+  pazMental: 'Su tranquilidad con el dinero',
 };
+
+// Frase corta de cada dimensión cuando es el punto MÁS frágil (para el fallback).
+const DIM_DEBIL: Record<keyof QuizAnswers, string> = {
+  autonomia: 'que su ingreso no dependa solo de usted',
+  resiliencia: 'salir del ciclo de trabajar, pagar y repetir',
+  eficiencia: 'que al final del año le quede algo',
+  apalancamiento: 'poder crecer sin meter más horas',
+  pazMental: 'dormir tranquilo con el dinero',
+};
+
+// Fallback determinístico (si Queswa no responde): titular por nivel + su punto más frágil real.
+function fallbackDiagnostico(answers: QuizAnswers, nombre: string): Diagnostico {
+  const primer = (nombre || '').trim().split(' ')[0];
+  const saludo = primer ? `${primer}, ` : '';
+  const entries = (Object.keys(answers) as (keyof QuizAnswers)[]).map((k) => [k, answers[k]] as const);
+  const avg = entries.reduce((a, [, v]) => a + v, 0) / entries.length;
+  const weakest = entries.reduce((a, b) => (b[1] < a[1] ? b : a));
+
+  let titular: string;
+  let primera: string;
+  if (avg <= 35) {
+    titular = 'Hoy todo depende de usted';
+    primera = `${saludo}sus respuestas muestran que, por ahora, la economía de su casa descansa entera sobre sus hombros. No es falta de esfuerzo; es cómo está armado el juego hoy.`;
+  } else if (avg <= 65) {
+    titular = 'Ya empezó a construir';
+    primera = `${saludo}va por buen camino: tiene piezas en su lugar, aunque todavía no la tranquilidad completa.`;
+  } else {
+    titular = 'Ya tiene una base firme';
+    primera = `${saludo}lo está haciendo bien: su economía hoy no depende solo de usted.`;
+  }
+
+  const cuerpo = `${primera}\n\nSu punto más frágil hoy es ${DIM_DEBIL[weakest[0]]}. Ahí es donde más se siente la presión — y es justo lo que se puede corregir.\n\nEso es lo que trabajamos, paso a paso, en el Diagnóstico de 5 Días que ya va en camino a su correo.`;
+  return { titular, cuerpo };
+}
 
 // ============================================================================
 // MAIN COMPONENT
@@ -186,6 +193,7 @@ export default function DiagnosticoPage() {
   });
   const [captureData, setCaptureData] = useState<CaptureData>({ nombre: '', email: '', countryCode: '+57', phoneNumber: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [interpretacion, setInterpretacion] = useState<Diagnostico | null>(null);
 
   const handleStartQuiz = () => {
     setStep('quiz');
@@ -246,19 +254,37 @@ export default function DiagnosticoPage() {
 
     await Promise.allSettled([persistDiagnostico, triggerFunnel]);
 
+    // Queswa escribe el diagnóstico a la medida desde las respuestas (con fallback si falla)
+    try {
+      const respuestas = quizQuestions.map((q) => {
+        const key = q.id as keyof QuizAnswers;
+        const opt = q.options.find((o) => o.value === answers[key]) || q.options[0];
+        return { dimension: DIM_PROMPT[key], label: opt.label, sublabel: opt.sublabel, value: opt.value };
+      });
+      const res = await fetch('/api/diagnostico/interpretar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: captureData.nombre, respuestas }),
+      });
+      const data = await res.json();
+      if (data?.ok && data.cuerpo) setInterpretacion({ titular: data.titular || '', cuerpo: data.cuerpo });
+    } catch (error) {
+      console.error('Error interpretando diagnóstico:', error);
+    }
+
     setIsSubmitting(false);
     setStep('result');
   };
 
   const radarData = {
-    potenciaIngreso: 85,
-    autonomiaOperativa: answers.autonomia,
-    resilienciaGeografica: answers.resiliencia,
-    escalabilidadSistemica: answers.apalancamiento,
-    eficienciaPatrimonial: answers.eficiencia,
+    autonomia: answers.autonomia,
+    resiliencia: answers.resiliencia,
+    eficiencia: answers.eficiencia,
+    apalancamiento: answers.apalancamiento,
+    pazMental: answers.pazMental,
   };
 
-  const archetype = getArchetype(radarData);
+  const diagnostico = interpretacion ?? fallbackDiagnostico(answers, captureData.nombre);
 
   return (
     <>
@@ -291,7 +317,7 @@ export default function DiagnosticoPage() {
           />
         )}
         {step === 'result' && (
-          <ResultSection radarData={radarData} archetype={archetype} nombre={captureData.nombre} />
+          <ResultSection radarData={radarData} diagnostico={diagnostico} nombre={captureData.nombre} />
         )}
       </main>
     </>
@@ -631,7 +657,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
             className="cta-base cta-primary w-full disabled:opacity-60"
             style={{ padding: '1.125rem 2rem', fontSize: '0.95rem' }}
           >
-            {isSubmitting ? 'Procesando...' : 'Ver Mi Diagnóstico'}
+            {isSubmitting ? 'Queswa está preparando su diagnóstico…' : 'Ver Mi Diagnóstico'}
           </button>
         </form>
 
@@ -649,21 +675,21 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
 
 interface ResultSectionProps {
   radarData: {
-    potenciaIngreso: number;
-    autonomiaOperativa: number;
-    resilienciaGeografica: number;
-    escalabilidadSistemica: number;
-    eficienciaPatrimonial: number;
+    autonomia: number;
+    resiliencia: number;
+    eficiencia: number;
+    apalancamiento: number;
+    pazMental: number;
   };
-  archetype: ReturnType<typeof getArchetype>;
+  diagnostico: Diagnostico;
   nombre: string;
 }
 
-function ResultSection({ radarData, archetype, nombre }: ResultSectionProps) {
+function ResultSection({ radarData, diagnostico, nombre }: ResultSectionProps) {
   const primerNombre = (nombre || '').trim().split(' ')[0];
   return (
     <section className="min-h-screen px-6 py-20">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <span
@@ -680,63 +706,41 @@ function ResultSection({ radarData, archetype, nombre }: ResultSectionProps) {
           </h1>
         </div>
 
-        {/* Radar Chart */}
+        {/* Radar Chart — 100% fiel a sus respuestas */}
         <div className="flex justify-center mb-12">
           <RadarChart data={radarData} size={320} animated={true} />
         </div>
 
-        {/* Archetype Card */}
+        {/* Diagnóstico de Queswa (o fallback determinístico) */}
         <div
           className="rounded-lg p-8 sm:p-10 mb-10"
-          style={{
-            backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-          }}
+          style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <span
               className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
-              style={{
-                backgroundColor: 'rgba(197, 160, 89, 0.1)',
-                color: 'var(--gold)',
-              }}
+              style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)', color: 'var(--gold)' }}
             >
-              SU PERFIL
+              SU DIAGNÓSTICO
             </span>
-            <h2
-              className="text-2xl sm:text-3xl mb-2"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}
-            >
-              {archetype.name}
-            </h2>
-            <p style={{ color: 'var(--text-muted)' }}>{archetype.subtitle}</p>
+            {diagnostico.titular && (
+              <h2
+                className="text-2xl sm:text-3xl"
+                style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}
+              >
+                {diagnostico.titular}
+              </h2>
+            )}
           </div>
 
-          <div className="space-y-6" style={{ color: 'var(--text-secondary)' }}>
-            <p className="text-lg leading-relaxed">{archetype.description}</p>
-            <p className="leading-relaxed">{archetype.insight}</p>
-            <p
-              className="text-lg font-medium leading-relaxed"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              <strong>Lo que esto significa:</strong> {archetype.truth}
-            </p>
-            <p
-              className="text-xl italic text-center py-4"
-              style={{ color: 'var(--gold)', fontFamily: 'var(--font-display)' }}
-            >
-              &quot;{archetype.metaphor}&quot;
-            </p>
-            <p
-              className="text-lg font-semibold text-center"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {archetype.need}
-            </p>
+          <div className="space-y-5 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {diagnostico.cuerpo.split('\n\n').map((parrafo, i) => (
+              <p key={i}>{parrafo}</p>
+            ))}
           </div>
         </div>
 
-        {/* Transition to Reto */}
+        {/* Confirmación — sin re-formulario (el correo ya va en camino) */}
         <div
           className="rounded-lg p-8 sm:p-10 text-center"
           style={{
@@ -745,77 +749,27 @@ function ResultSection({ radarData, archetype, nombre }: ResultSectionProps) {
           }}
         >
           <h3
-            className="text-xl sm:text-2xl mb-6"
+            className="text-xl sm:text-2xl mb-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 500 }}
           >
-            La brecha entre su situación actual y la tranquilidad financiera
-            <br />
-            <span style={{ color: 'var(--gold)' }}>no es cuestión de esfuerzo. Es cuestión de Diseño.</span>
+            Su <span style={{ color: 'var(--gold)' }}>Diagnóstico de 5 Días</span> ya va en camino
           </h3>
 
-          <p className="text-lg mb-6 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            La mayoría intenta corregir este gráfico trabajando más duro. Pero no puede solucionar
-            un problema estructural con más esfuerzo operativo. Eso es como tratar de arreglar
-            una fuga de agua abriendo más el grifo.
-          </p>
-
-          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-            Por eso diseñé <strong style={{ color: 'var(--gold)' }}>el Diagnóstico de 5 Días</strong>: para
-            personas que quieren dejar de cargarlo todo solas y empezar a ser dueñas de algo que trabaje
-            por ellas — <em>una empresa digital</em>.
-          </p>
-
-          <div
-            className="p-6 rounded-xl mb-8 text-left"
-            style={{ backgroundColor: 'var(--bg-deep)', border: '1px solid var(--border)' }}
-          >
-            <p className="font-medium mb-4" style={{ color: 'var(--text-primary)' }}>
-              No es un curso motivacional. Es un proceso de ingeniería donde:
-            </p>
-            <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 1:</span>
-                <span>Realizaremos el diagnóstico matemático profundo (la versión cuantitativa de lo que acaba de ver)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 2:</span>
-                <span>Desmantelaremos los modelos obsoletos que consumen su tiempo</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 3:</span>
-                <span>Le entregaré los planos de la infraestructura de socios (El Nuevo Modelo)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 4:</span>
-                <span>Hablaremos del elefante en la habitación (El Estigma)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span style={{ color: 'var(--gold)' }}>Día 5:</span>
-                <span>Le entregaré las llaves de su libertad (La Invitación)</span>
-              </li>
-            </ul>
-          </div>
-
-          <p className="mb-8 font-medium" style={{ color: 'var(--text-primary)' }}>
-            Su diagnóstico dice que está listo para multiplicar,
-            <br />
-            pero su estructura no lo soportará. <span style={{ color: 'var(--gold)' }}>Refuerce los cimientos primero.</span>
+          <p className="text-lg mb-8 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+            Revise su correo y su WhatsApp. Cada día le llega un paso para corregir, justamente,
+            su punto más frágil — sin llenar nada más.
           </p>
 
           <Link
-            href="/empresa-digital"
+            href="/empresa-digital/dia-1"
             className="cta-base cta-primary"
             style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
           >
-            Iniciar el Diagnóstico de 5 Días
+            Empezar ahora con el Día 1
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
-
-          <p className="text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-            Trae su gráfico de resultados al Día 1. Será nuestro punto de partida.
-          </p>
         </div>
 
         {/* Footer */}

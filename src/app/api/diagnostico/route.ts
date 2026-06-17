@@ -26,25 +26,20 @@ export async function POST(request: Request) {
 
     // Calcular archetype basado en respuestas
     const radarData = {
-      potenciaIngreso: 85,
-      autonomiaOperativa: answers?.autonomia || 0,
-      resilienciaGeografica: answers?.resiliencia || 0,
-      escalabilidadSistemica: answers?.apalancamiento || 0,
-      eficienciaPatrimonial: answers?.eficiencia || 0,
+      autonomia: answers?.autonomia || 0,
+      resiliencia: answers?.resiliencia || 0,
+      eficiencia: answers?.eficiencia || 0,
+      apalancamiento: answers?.apalancamiento || 0,
+      pazMental: answers?.pazMental || 0,
     };
 
-    const avgSupport = (
-      radarData.autonomiaOperativa +
-      radarData.escalabilidadSistemica +
-      radarData.eficienciaPatrimonial
-    ) / 3;
+    // Arquetipo por nivel de salud financiera (promedio de las 5 respuestas).
+    const vals = Object.values(radarData) as number[];
+    const avg = vals.reduce((a, b) => a + b, 0) / (vals.length || 1);
 
-    let archetype = 'CONSTRUCTOR_EN_PROGRESO';
-    if (radarData.potenciaIngreso >= 70 && avgSupport <= 40) {
-      archetype = 'GIGANTE_PIES_BARRO';
-    } else if (avgSupport <= 30) {
-      archetype = 'OPERADOR_AGOTADO';
-    }
+    let archetype = 'BASE_FIRME';
+    if (avg <= 35) archetype = 'TODO_DEPENDE_DE_USTED';
+    else if (avg <= 65) archetype = 'YA_EMPEZO_A_CONSTRUIR';
 
     // Guardar en Supabase
     const supabase = createClient(supabaseUrl, supabaseServiceKey);

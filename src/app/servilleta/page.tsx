@@ -75,8 +75,9 @@ export default function ServilletaPage() {
     }
   }, []);
 
-  // one-card-mode: ambos contextos donde slide 2 muestra una card a la vez
-  const oneCardMode = activeSlide === 2 && (isFullscreen || isMobile);
+  // one-card-mode: contextos donde slide 1 (pilares) y slide 2 (método) muestran
+  // una card a la vez. Ambas tienen exactamente 3 cards → comparten activeCardIndex.
+  const oneCardMode = (activeSlide === 1 || activeSlide === 2) && (isFullscreen || isMobile);
 
   // Navegación por teclado
   useEffect(() => {
@@ -191,9 +192,9 @@ export default function ServilletaPage() {
     setActiveSlide(index);
   }, []);
 
-  // Reset tarjeta activa al entrar a slide 2
+  // Reset tarjeta activa al entrar a slide 1 o 2 (ambas son card-scrollers de 3)
   useEffect(() => {
-    if (activeSlide === 2) setActiveCardIndex(0);
+    if (activeSlide === 1 || activeSlide === 2) setActiveCardIndex(0);
   }, [activeSlide]);
 
   // Orbe Queswa visible solo en slide 2, card 1
@@ -203,18 +204,33 @@ export default function ServilletaPage() {
     return () => { window.dispatchEvent(new CustomEvent('hide-queswa-orb')); };
   }, [activeSlide, activeCardIndex]);
 
-  // Scroll-activated card highlight — solo mobile/tablet
+  // Reproducción perezosa de los b-rolls 3D: solo el video de la card activa reproduce;
+  // el resto en pausa. Mantiene el mobile liviano (cada <video> usa preload="none").
   useEffect(() => {
-    if (activeSlide !== 2) return;
+    if (activeSlide !== 1 && activeSlide !== 2) return;
+    if (typeof window === 'undefined') return;
+    const vids = document.querySelectorAll<HTMLVideoElement>(`#slide-${activeSlide} video.card-bg`);
+    vids.forEach((v, i) => {
+      // one-card-mode (mobile/fullscreen): solo la activa. Desktop grid: todas vivas.
+      const shouldPlay = !oneCardMode || i === activeCardIndex;
+      if (shouldPlay) { v.play().catch(() => {}); }
+      else { try { v.pause(); } catch { /* noop */ } }
+    });
+  }, [activeSlide, activeCardIndex, oneCardMode]);
+
+  // Scroll-activated card highlight — solo mobile/tablet. Aplica a slide 1 y 2.
+  useEffect(() => {
+    if (activeSlide !== 1 && activeSlide !== 2) return;
     if (typeof window === 'undefined') return;
     if (window.innerWidth > 1024) return;
 
+    const sid = `#slide-${activeSlide}`;
     // En fullscreen el contenedor de scroll es .slide (CSS: overflow-y: auto en :fullscreen .slide)
     // En mobile normal el contenedor es .grid-layout-slide-2
     const scrollRoot = document.fullscreenElement
-      ? document.querySelector<HTMLElement>('#slide-2')
-      : document.querySelector<HTMLElement>('#slide-2 .grid-layout-slide-2');
-    const cards = document.querySelectorAll<HTMLElement>('#slide-2 .card-industrial');
+      ? document.querySelector<HTMLElement>(sid)
+      : document.querySelector<HTMLElement>(`${sid} .grid-layout-slide-2`);
+    const cards = document.querySelectorAll<HTMLElement>(`${sid} .card-industrial`);
     if (!cards.length || !scrollRoot) return;
 
     const observers: IntersectionObserver[] = [];
@@ -509,12 +525,15 @@ export default function ServilletaPage() {
         .card-industrial:hover { border-color: var(--cyan); }
         .full-width { grid-column: span 2; height: 200px; }
 
+        /* .card-bg ahora aloja b-rolls 3D (video). object-fit:cover para el <video>;
+           filtro de BRILLO (no grayscale) para no matar el dorado del 3D. */
         .card-bg {
-          position: absolute; width: 100%; height: 100%;
+          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
           background-size: cover; background-position: center;
-          filter: grayscale(100%) brightness(40%); transition: 0.5s;
+          object-fit: cover;
+          filter: brightness(0.42); transition: 0.5s;
         }
-        .card-industrial:hover .card-bg { filter: grayscale(0%) brightness(70%); transform: scale(1.05); }
+        .card-industrial:hover .card-bg { filter: brightness(0.85); transform: scale(1.05); }
 
         .card-content {
           position: relative; z-index: 2; padding: 20px;
@@ -522,6 +541,9 @@ export default function ServilletaPage() {
         }
         .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
         .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
+        /* Slide 1: nombre del pilar (único texto) — prominente, sin descripción */
+        .card-content h3.pillar-name { font-size: 1.7rem; letter-spacing: 0.01em; margin: 0; }
+        :fullscreen .card-content h3.pillar-name { font-size: 2.6rem; }
         /* Oculto en desktop — solo visible en mobile dentro de card-1 */
 
 
@@ -1043,7 +1065,7 @@ export default function ServilletaPage() {
            .one-card-mode (toggle JS-driven). Solo la card .card-active es
            visible y ocupa todo el canvas. El usuario avanza con
            click/teclado/swipe izquierda y retrocede con swipe derecha. */
-        #slide-2.one-card-mode .grid-layout-slide-2 {
+        .one-card-mode .grid-layout-slide-2 {
           gap: 18px;
           grid-template-columns: 1fr;
           grid-template-rows: auto 1fr;
@@ -1056,14 +1078,14 @@ export default function ServilletaPage() {
           flex-direction: initial;
         }
         /* Padding amplio solo en desktop fullscreen — en mobile hereda el del @media */
-        :fullscreen #slide-2.one-card-mode .grid-layout-slide-2 {
+        :fullscreen .one-card-mode .grid-layout-slide-2 {
           padding: 70px 60px 30px;
         }
-        #slide-2.one-card-mode .card-industrial:not(.card-active) {
+        .one-card-mode .card-industrial:not(.card-active) {
           display: none !important;
         }
-        #slide-2.one-card-mode .card-industrial.card-active,
-        #slide-2.one-card-mode .full-width.card-active {
+        .one-card-mode .card-industrial.card-active,
+        .one-card-mode .full-width.card-active {
           grid-column: 1 / -1;
           height: auto !important;
           min-height: 70vh !important;
@@ -1211,10 +1233,10 @@ export default function ServilletaPage() {
           }
           /* Base en fullscreen mobile — la tarjeta activa lo sobreescribe abajo */
           :fullscreen .card-industrial .card-bg {
-            filter: grayscale(100%) brightness(40%) !important;
+            filter: brightness(0.42) !important;
           }
           :fullscreen .card-industrial.card-active .card-bg {
-            filter: grayscale(0%) brightness(70%) !important;
+            filter: brightness(0.85) !important;
             transform: scale(1.05);
           }
           :fullscreen .card-industrial.card-active {
@@ -1321,7 +1343,7 @@ export default function ServilletaPage() {
         /* Mismo efecto que el hover en desktop: imagen a color completo + scale */
         @media (max-width: 1024px) {
           .card-industrial.card-active .card-bg {
-            filter: grayscale(0%) brightness(70%) !important;
+            filter: brightness(0.85) !important;
             transform: scale(1.05);
           }
           .card-industrial.card-active {
@@ -1452,7 +1474,7 @@ export default function ServilletaPage() {
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 LA M\u00c1QUINA' },
+              { id: 1, label: '01 SU EMPRESA' },
               { id: 2, label: '02 METODOLOG\u00cdA' },
               { id: 3, label: '03 EL PRODUCTO' },
               { id: 4, label: '04 SIMULADOR' },
@@ -1477,7 +1499,7 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, label: 'La M\u00e1quina' },
+              { id: 1, label: 'Su Empresa' },
               { id: 2, label: 'Metodolog\u00eda' },
               { id: 3, label: 'El Producto' },
               { id: 4, label: 'Simulador' },
@@ -1504,43 +1526,71 @@ export default function ServilletaPage() {
           onTouchEnd={handleTouchEnd}
         >
 
-          {/* ===== SLIDE 1: INGRESOS RECURRENTES ===== */}
-          <section id="slide-1" className={`slide ${activeSlide === 1 ? 'active' : ''}`}>
-            <div
-              className="bg-image"
-              style={{ backgroundImage: "url('/images/3-pilares.webp')" }}
-            />
-            <div className="content-overlay center-focus">
-              <div className="technical-label">REF: EMPRESA_DIGITAL</div>
-              <h1 className="deck-h1">
-                CREE SU<br />
-                <span style={{ color: 'var(--orange)' }}>EMPRESA DIGITAL</span>
-              </h1>
-              <div className="contrast-plate">
-                <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
+          {/* ===== SLIDE 1: SU EMPRESA DIGITAL — 3 PILARES (card-scroller, b-roll 3D) ===== */}
+          <section
+            id="slide-1"
+            className={`slide ${activeSlide === 1 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
+          >
+            <div className="grid-layout-slide-2">
+              {/* Título */}
+              <div className="slide-2-header">
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
+                  CREE SU EMPRESA DIGITAL
+                </h2>
+                <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
                   El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                 </p>
-
-                <div className="components-list">
-                  <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 1</span><span style={{ color: 'var(--color-text-muted)' }}> · El Respaldo Operativo:</span> usted deja la operaci&oacute;n pesada en manos de Gano Excel · 70 pa&iacute;ses.
+                {oneCardMode && (
+                  <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
+                    0{activeCardIndex + 1} / 03
+                  </span>
+                )}
+                {oneCardMode && (
+                  <div className="card-dots">
+                    {[0, 1, 2].map((i) => (
+                      <button
+                        key={i}
+                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
+                        aria-label={`Pilar ${i + 1} de 3`}
+                      />
+                    ))}
                   </div>
-                  <div className="comp-row">
-                    <span style={{ color: 'var(--cyan)' }}>PILAR 2</span><span style={{ color: 'var(--color-text-muted)' }}> · Queswa, su Centro de Mando:</span> usted deja explicar, atender y acompañar a los interesados en manos de su IA · 24/7.
-                  </div>
-                  <div className="comp-row">
-                    <span style={{ color: 'var(--orange)' }}>PILAR 3</span><span style={{ color: 'var(--color-text-muted)' }}> · El M&eacute;todo Comprobado:</span> usted no improvisa el camino; sigue un m&eacute;todo ya probado.
-                  </div>
-                </div>
-
-                <p className="deck-p" style={{ textAlign: 'center', margin: '1rem auto 0', fontStyle: 'italic', opacity: 0.85 }}>
-                  Usted dirige los tres pilares. Usted es el Propietario.
-                </p>
+                )}
               </div>
 
-              <button className="btn-next" onClick={() => showSlide(2)}>
-                Ver la metodolog&iacute;a →
-              </button>
+              {/* Pilar 1: El Respaldo Operativo */}
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">El Respaldo Operativo</h3>
+                </div>
+              </div>
+
+              {/* Pilar 2: Queswa, su Centro de Mando */}
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
+                </div>
+              </div>
+
+              {/* Pilar 3 (full-width): El Método Comprobado */}
+              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">El M&eacute;todo Comprobado</h3>
+                </div>
+              </div>
+
+              {/* CTA — en one-card-mode, solo al llegar a la 3ra card */}
+              {(!oneCardMode || activeCardIndex === 2) && (
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                  <button className="btn-next" onClick={() => showSlide(2)}>
+                    Ver la metodolog&iacute;a →
+                  </button>
+                </div>
+              )}
             </div>
           </section>
 
@@ -1575,7 +1625,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 1: EXPANDIR */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/tech-servers.jpg')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <video className="card-bg" src="/videos/servilleta/expandir.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>PROSPECCI&Oacute;N MANUAL</s> &middot; <s>FRICCI&Oacute;N OPERATIVA</s> &middot; <s>DEPENDENCIA LINEAL</s></span>
@@ -1601,7 +1651,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 2: ACTIVAR */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/acceso.webp')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <video className="card-bg" src="/videos/servilleta/activar.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>IMPROVISAR</s> &middot; <s>MEMORIZAR GUIONES</s> &middot; <s>TITUBEAR</s></span>
@@ -1613,7 +1663,7 @@ export default function ServilletaPage() {
 
               {/* Tarjeta 3 (full-width): MAESTRÍA */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <div className="card-bg" style={{ backgroundImage: "url('/images/servilleta/maestria.webp')", backgroundPosition: "center center", backgroundSize: "cover" }} />
+                <video className="card-bg" src="/videos/servilleta/maestria.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
                   <div className="oscillation-text">
                     <span className="bad"><s>CAPACITAR MANUALMENTE</s> &middot; <s>MICROGESTIONAR</s> &middot; <s>CUELLO DE BOTELLA</s></span>

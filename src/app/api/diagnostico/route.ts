@@ -15,7 +15,7 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, whatsapp, answers, timestamp, page } = body;
+    const { name, email, whatsapp, answers, timestamp, page } = body;
 
     if (!email || !whatsapp) {
       return NextResponse.json(
@@ -49,21 +49,28 @@ export async function POST(request: Request) {
     // Guardar en Supabase
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { error: insertError } = await supabase
+    const diagnosticoRow = {
+      email,
+      whatsapp,
+      answers,
+      radar_data: radarData,
+      archetype,
+      source_page: page || 'home-diagnostico',
+      created_at: timestamp || new Date().toISOString(),
+    };
+
+    // Intenta guardar con el nombre; si la columna `name` aún no existe en la
+    // tabla, reintenta sin él para no perder el diagnóstico.
+    let { error: insertError } = await supabase
       .from('diagnosticos')
-      .insert({
-        email,
-        whatsapp,
-        answers,
-        radar_data: radarData,
-        archetype,
-        source_page: page || 'home-diagnostico',
-        created_at: timestamp || new Date().toISOString(),
-      });
+      .insert({ ...diagnosticoRow, name: name || null });
 
     if (insertError) {
-      console.error('Error guardando diagnóstico:', insertError);
-      // No fallar si la tabla no existe, solo logear
+      ({ error: insertError } = await supabase.from('diagnosticos').insert(diagnosticoRow));
+      if (insertError) {
+        console.error('Error guardando diagnóstico:', insertError);
+        // No fallar si la tabla no existe, solo logear
+      }
     }
 
     // También intentar crear/actualizar prospecto

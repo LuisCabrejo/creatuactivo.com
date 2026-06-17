@@ -4,7 +4,7 @@
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Multiplicación) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es un sistema que toma sus mejores años y su salud — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
 
-**Versión actual: v5.12** (17 jun 2026) — (1) **EAM_01 versión simple** (sesión Luis + Gemini): 3 pasos Expandir/Activar/Multiplicación, Activar en clave conversión, sin "Protocolo de Validación"/lista "no requiere", acompañamiento Queswa + humano; re-sincronizado con `respuestas-maestras.ts`. (2) **Destierro de "filtrar"** (suena a perder clientes para negocio físico) → conversar/acompañar/reconocer quién está listo. (3) **Rename 3er Comando Maestría → Multiplicación** (WHY_02 re-sincronizado). **Previa: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Versión actual: v5.13** (17 jun 2026) — **EAM_01 cierre humano**: el rol del héroe es recibir de persona a persona a quien ya decidió (calidez, confianza, apretón de manos que la tecnología no da); nadie audita (ni Queswa ni el constructor). [Concepto Nuclear] EAM_01 actualizado. Re-sincronizado con `respuestas-maestras.ts`. **Previa: v5.12** — (1) **EAM_01 versión simple** (sesión Luis + Gemini): 3 pasos Expandir/Activar/Multiplicación, Activar en clave conversión, sin "Protocolo de Validación"/lista "no requiere". (2) **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo. (3) **Rename 3er Comando Maestría → Multiplicación** (WHY_02 re-sincronizado). **Previa: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 ⚠️ **Sincronización inviolable:** WHY_02 y EAM_01 (chips canónicos) deben coincidir CARÁCTER POR CARÁCTER con `MASTER_WHY_02` / `MASTER_EAM_01` en `src/lib/respuestas-maestras.ts`. El arsenal es la doctrina viva; ese módulo TS es el caché del backend.
 
@@ -693,7 +693,7 @@ Para empezar, escriba la orden: **"Iniciar Diagnóstico"**. O toque el botón en
 ## ⚙️ **BLOQUE 8: METODOLOGÍA EAM Y CONTEXTO ESTRATÉGICO - 2 respuestas**
 
 ### **EAM_01: "¿Qué tengo que hacer? / ¿Cuáles son los pasos? / ¿Cómo funciona la metodología? / ¿Qué hago en el día a día? / ¿Cuál es la metodología operativa?"**
-**[Concepto Nuclear]:** Dirección Diaria (El Método Comprobado). Su agenda no requiere vender, presionar ni convencer — usted audita y autoriza sobre perfiles ya pre-calificados.
+**[Concepto Nuclear]:** Dirección Diaria (El Método Comprobado). Su agenda no requiere vender, presionar ni convencer. Queswa hace el trabajo técnico (explicar, conversar, acompañar la decisión); el rol del héroe es **humano**: recibir y acompañar de persona a persona a quien ya decidió iniciar — la calidez, la confianza, el apretón de manos que la tecnología no da. **Nadie audita: ni Queswa, ni el constructor.**
 
 <verbatim_lock>
 La metodología está diseñada para que sea simple.
@@ -706,7 +706,7 @@ Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar 
 
 **3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
 
-Y no avanza solo: yo lo acompaño en cada paso, y detrás de mí hay **personas reales listas para apoyarlo** cuando lo necesite.
+Y aquí está **su parte más humana**: cuando alguien ya decidió, usted lo recibe de persona a persona. Las personas conversan conmigo, pero quieren sentir a su amigo — su confianza, su apretón de manos. Esa calidez es lo único que la tecnología no da, y es justo lo suyo. A usted tampoco lo dejo solo: lo acompaño en cada paso.
 
 **Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres pasos —Expandir, Activar o Multiplicación—, o prefiere ver cómo se generan los ingresos?
 </verbatim_lock>

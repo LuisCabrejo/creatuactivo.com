@@ -81,7 +81,7 @@ Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar 
 
 **3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
 
-Y no avanza solo: yo lo acompaño en cada paso, y detrás de mí hay **personas reales listas para apoyarlo** cuando lo necesite.
+Y aquí está **su parte más humana**: cuando alguien ya decidió, usted lo recibe de persona a persona. Las personas conversan conmigo, pero quieren sentir a su amigo — su confianza, su apretón de manos. Esa calidez es lo único que la tecnología no da, y es justo lo suyo. A usted tampoco lo dejo solo: lo acompaño en cada paso.
 
 **Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres pasos —Expandir, Activar o Multiplicación—, o prefiere ver cómo se generan los ingresos?`;
 

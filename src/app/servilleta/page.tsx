@@ -1,14 +1,17 @@
 /**
- * SERVILLETA DIGITAL v6.2 — registro accesible (alineado a guion v4.0 + home)
+ * SERVILLETA DIGITAL v6.3 — léxico canónico "empresa digital" + trabajo fiel de Queswa
  * 4-Slide Interactive Presentation (Slide Deck)
  *
- * v6.1 (15 May 2026) — Retrofit léxico v26.5 + presentación deck-friendly:
- *  - Slide 1: reescritura (texto reducido 78%, ~207 → ~45 palabras) + imagen 3-pilares.webp
- *  - Slide 1: léxico — "Patrimonio Paralelo" → "Estructura Patrimonial"; "tres capas" → "tres pilares"
- *  - Slide 1: Pilar 3 = La Metodología Automatizada (Tridente EAM) — el Arquitecto dirige los pilares
- *  - Slide 2: "Tres movimientos" → "Tres comandos" + "Protocolo de IA Queswa" → "Motor de IA Queswa"
- *  - Slide 3: "tecnología patentada" → "tecnología propietaria"
- *  - Slide 4: SIMULADOR + panels + getLifestyleTranslation alineados a Estructura Patrimonial / Organización / Dirección Continental
+ * v6.3 (jun 2026) — Migración al léxico actual:
+ *  - Slide 1: H1 "INGRESOS RECURRENTES" (antes "Estructura Patrimonial"); pilares = El Respaldo
+ *    Operativo · Queswa, su Centro de Mando · El Método Comprobado; rol = Propietario
+ *  - Queswa: "explica, atiende y acompaña" (antes "persuadir/filtrar")
+ *  - Slide 4: botón "ACTIVAR SU EMPRESA DIGITAL" · "SIMULADOR DE INGRESOS RECURRENTES"
+ *
+ * v6.1 (15 May 2026, léxico previo v26.5 — histórico):
+ *  - Slide 1: reescritura (texto reducido 78%) + imagen 3-pilares.webp; "Patrimonio Paralelo" →
+ *    "Estructura Patrimonial"; "tres capas" → "tres pilares"
+ *  - Slide 2: "Tres movimientos" → "Tres comandos"; Slide 3: "tecnología patentada" → "propietaria"
  */
 
 'use client';
@@ -1515,7 +1518,7 @@ export default function ServilletaPage() {
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  Si usted se detiene, su ingreso se detiene. Esta es la correcci&oacute;n.
+                  Usted trabaja duro, pero vive en un sistema dise&ntilde;ado para tomar sus mejores a&ntilde;os y su salud, sin darle seguridad financiera. Estos tres pilares lo corrigen.
                 </p>
 
                 <div className="components-list">

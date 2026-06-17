@@ -1511,14 +1511,14 @@ export default function ServilletaPage() {
               style={{ backgroundImage: "url('/images/3-pilares.webp')" }}
             />
             <div className="content-overlay center-focus">
-              <div className="technical-label">REF: INGRESOS_RECURRENTES</div>
+              <div className="technical-label">REF: EMPRESA_DIGITAL</div>
               <h1 className="deck-h1">
-                CONSTRUCCI&Oacute;N DE<br />
-                <span style={{ color: 'var(--orange)' }}>INGRESOS RECURRENTES</span>
+                CREE SU<br />
+                <span style={{ color: 'var(--orange)' }}>EMPRESA DIGITAL</span>
               </h1>
               <div className="contrast-plate">
                 <p className="deck-p" style={{ textAlign: 'center', margin: '0 auto' }}>
-                  Usted trabaja duro, pero vive en un sistema dise&ntilde;ado para tomar sus mejores a&ntilde;os y su salud, sin darle seguridad financiera. Estos tres pilares lo corrigen.
+                  El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                 </p>
 
                 <div className="components-list">

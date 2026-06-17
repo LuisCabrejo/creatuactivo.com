@@ -112,7 +112,7 @@ function PlanCard({
             fontSize: '1.2rem',
             fontWeight: 700,
             color: C.textMain,
-            fontFamily: "'Rajdhani', sans-serif",
+            fontFamily: 'var(--font-sans)',
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             lineHeight: 1.2,
@@ -123,7 +123,7 @@ function PlanCard({
 
         {/* Price */}
         <div style={{ marginBottom: '1rem' }}>
-          <span style={{ fontSize: '2.2rem', fontWeight: 800, color: C.gold, fontFamily: "'Rajdhani', sans-serif" }}>
+          <span style={{ fontSize: '2.2rem', fontWeight: 800, color: C.gold, fontFamily: 'var(--font-sans)' }}>
             {price}
           </span>
           <span style={{ fontSize: '0.85rem', color: C.textMuted, marginLeft: '0.25rem' }}>{priceLabel}</span>
@@ -154,7 +154,7 @@ function PlanCard({
               <p style={{ fontSize: '0.6rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginBottom: '0.15rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 {m.label}
               </p>
-              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: accentColor, fontFamily: "'Rajdhani', sans-serif" }}>
+              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: accentColor, fontFamily: 'var(--font-sans)' }}>
                 {m.value}
               </p>
             </div>
@@ -183,7 +183,7 @@ function PlanCard({
               background: C.obsidian, color: borderColor,
               border: `2px solid ${borderColor}`,
               textDecoration: 'none',
-              fontFamily: "'Rajdhani', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
               transition: 'background 0.2s, color 0.2s',
               boxSizing: 'border-box',
@@ -202,7 +202,7 @@ function PlanCard({
               background: C.obsidian, color: borderColor,
               border: `2px solid ${borderColor}`,
               textDecoration: 'none',
-              fontFamily: "'Rajdhani', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
               transition: 'background 0.2s, color 0.2s',
               boxSizing: 'border-box',
@@ -471,7 +471,7 @@ export default function PlanesTecnologicosPage() {
                     fontSize: '1rem',
                     fontWeight: 700,
                     color: C.textMain,
-                    fontFamily: "'Rajdhani', sans-serif",
+                    fontFamily: 'var(--font-sans)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
                     marginBottom: '0.6rem',
@@ -514,14 +514,15 @@ export default function PlanesTecnologicosPage() {
                 style={{
                   display: 'inline-block',
                   padding: '16px 44px',
-                  background: `linear-gradient(135deg, ${C.goldDark}, #B8860B)`,
-                  color: '#000',
+                  background: 'rgba(197, 160, 89, 0.1)',
+                  border: '1.5px solid rgba(197, 160, 89, 0.4)',
+                  color: C.gold,
                   fontWeight: 700,
                   fontSize: '0.95rem',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   textDecoration: 'none',
-                  fontFamily: "'Rajdhani', sans-serif",
+                  fontFamily: 'var(--font-sans)',
                   transition: 'transform 0.2s, box-shadow 0.2s',
                 }}
                 onMouseEnter={(e) => {
@@ -545,7 +546,7 @@ export default function PlanesTecnologicosPage() {
         <footer style={{ padding: '2.5rem 1.5rem', borderTop: `1px solid ${C.gold}18`, zIndex: 10, position: 'relative' }}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
-              <p style={{ fontWeight: 600, color: C.gold, fontFamily: "'Rajdhani', sans-serif", fontSize: '1.125rem' }}>CreaTuActivo</p>
+              <p style={{ fontWeight: 600, color: C.gold, fontFamily: 'var(--font-sans)', fontSize: '1.125rem' }}>CreaTuActivo</p>
               <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace", marginTop: '0.25rem' }}>
                 SISTEMA DE ARQUITECTURA DE ACTIVOS
               </p>

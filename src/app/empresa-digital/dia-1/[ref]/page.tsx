@@ -15,7 +15,7 @@ export default function Modulo01WithRefPage() {
 export async function generateMetadata({ params }: { params: { ref: string } }) {
   return {
     title: 'Módulo 01: Diagnóstico Estructural | CreaTuActivo',
-    description: `Auditoría de la falla matemática en su vehículo de ingresos actual. Compartido por ${params.ref}.`,
+    description: `Diagnóstico de la falla matemática en su modelo de ingresos actual. Compartido por ${params.ref}.`,
     robots: { index: false, follow: false },
   };
 }

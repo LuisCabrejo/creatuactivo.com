@@ -10,7 +10,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import RadarChart from '@/components/RadarChart';
 
 // ============================================================================
 // TYPES
@@ -276,14 +275,6 @@ export default function DiagnosticoPage() {
     setStep('result');
   };
 
-  const radarData = {
-    autonomia: answers.autonomia,
-    resiliencia: answers.resiliencia,
-    eficiencia: answers.eficiencia,
-    apalancamiento: answers.apalancamiento,
-    pazMental: answers.pazMental,
-  };
-
   const diagnostico = interpretacion ?? fallbackDiagnostico(answers, captureData.nombre);
 
   return (
@@ -317,7 +308,7 @@ export default function DiagnosticoPage() {
           />
         )}
         {step === 'result' && (
-          <ResultSection radarData={radarData} diagnostico={diagnostico} nombre={captureData.nombre} />
+          <ResultSection diagnostico={diagnostico} nombre={captureData.nombre} />
         )}
       </main>
     </>
@@ -553,7 +544,7 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
         </h2>
 
         <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
-          ¿A nombre de quién y a dónde le enviamos su resultado y su gráfico?
+          ¿A nombre de quién y a dónde le enviamos su resultado?
         </p>
 
         <form onSubmit={onSubmit} className="space-y-4">
@@ -674,18 +665,11 @@ function CaptureSection({ data, onChange, onSubmit, isSubmitting }: CaptureSecti
 // ============================================================================
 
 interface ResultSectionProps {
-  radarData: {
-    autonomia: number;
-    resiliencia: number;
-    eficiencia: number;
-    apalancamiento: number;
-    pazMental: number;
-  };
   diagnostico: Diagnostico;
   nombre: string;
 }
 
-function ResultSection({ radarData, diagnostico, nombre }: ResultSectionProps) {
+function ResultSection({ diagnostico, nombre }: ResultSectionProps) {
   const primerNombre = (nombre || '').trim().split(' ')[0];
   return (
     <section className="min-h-screen px-6 py-20">
@@ -704,11 +688,6 @@ function ResultSection({ radarData, diagnostico, nombre }: ResultSectionProps) {
           >
             {primerNombre ? `Listo, ${primerNombre}` : 'Listo'} — así está hoy la economía de su casa
           </h1>
-        </div>
-
-        {/* Radar Chart — 100% fiel a sus respuestas */}
-        <div className="flex justify-center mb-12">
-          <RadarChart data={radarData} size={320} animated={true} />
         </div>
 
         {/* Diagnóstico de Queswa (o fallback determinístico) */}

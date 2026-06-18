@@ -39,6 +39,7 @@ export default function ServilletaPage() {
   const [ctaVisible, setCtaVisible] = useState(false);
   const [productCatalogOpen, setProductCatalogOpen] = useState(false);
   const touchStartX = React.useRef(0);
+  const touchSwipeIgnore = React.useRef(false);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
   const tripleClickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -159,9 +160,20 @@ export default function ServilletaPage() {
   // Touch swipe para mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    // Ignorar el swipe si el touch nace sobre el simulador / sliders / controles
+    // (mismo conjunto exonerado en handleSlideClick). Sin esto, arrastrar un
+    // slider de izquierda a derecha en mobile se interpreta como swipe → retrocede.
+    const target = e.target as HTMLElement;
+    touchSwipeIgnore.current = !!target.closest(
+      'input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons'
+    );
   }, []);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchSwipeIgnore.current) {
+      touchSwipeIgnore.current = false;
+      return;
+    }
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 60) {
       if (diff > 0) {

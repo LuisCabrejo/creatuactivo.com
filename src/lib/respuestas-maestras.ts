@@ -77,7 +77,7 @@ Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar 
 
 **1. Expandir.** Usted comparte. El contenido ya está creado, aprobado y validado; usted no inventa nada. Y elige cómo hacerlo: directo con las personas de su entorno, en sus redes sociales, o invirtiendo en publicidad.
 
-**2. Activar.** Yo, Queswa, converso con cada interesado: aporto claridad, resuelvo dudas y acompaño la decisión de avanzar — las 24 horas.
+**2. Activar.** Yo, Queswa, converso con cada interesado: aporto claridad, resuelvo dudas y lo guío hasta la decisión de avanzar — las 24 horas.
 
 **3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
 

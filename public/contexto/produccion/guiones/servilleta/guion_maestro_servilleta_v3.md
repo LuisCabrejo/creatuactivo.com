@@ -70,7 +70,7 @@ La respuesta es el Método Comprobado: tres pasos automatizados — **Expansión
 En su celular, Queswa le entrega información ya validada para que usted la comparta con un solo clic. Sin memorizar guiones, sin explicar nada.
 
 **PASO 2 · ACTIVACIÓN** — *Queswa trabaja.*
-Queswa conversa con cada interesado: aporta claridad, resuelve las dudas y acompaña la decisión de avanzar — las 24 horas.
+Queswa conversa con cada interesado: aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar — las 24 horas.
 **[ PAUSA ]**
 **Importante**: a su aplicación llegan notificaciones de todo el proceso — desde una simple visita hasta el momento en que un contacto está listo para iniciar. Usted no se pierde un solo detalle.
 

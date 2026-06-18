@@ -133,7 +133,7 @@ PASO 2 · ACTIVACIÓN — Queswa trabaja.
 
 Queswa conversa con cada interesado:
 
-aporta claridad, resuelve las dudas y acompaña la decisión de avanzar — las 24 horas.
+aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar — las 24 horas.
 
 [ PAUSA ]
 

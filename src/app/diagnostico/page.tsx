@@ -45,6 +45,8 @@ const styles = `
     --gold-dark: var(--color-brand-muted);
     --gold-muted: var(--color-text-muted);
 
+    --cyan: #22D3EE;
+
     --bg-deep: var(--color-bg-primary);
     --bg-surface: var(--color-bg-elevated);
     --bg-card: var(--color-bg-elevated);
@@ -325,7 +327,8 @@ function HeroSection({ onStart }: { onStart: () => void }) {
       <div
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)',
+          background:
+            'radial-gradient(ellipse at 72% 18%, rgba(34, 211, 238, 0.10) 0%, transparent 45%), radial-gradient(ellipse at 30% 40%, rgba(197, 160, 89, 0.10) 0%, transparent 52%)',
         }}
       />
 
@@ -345,7 +348,7 @@ function HeroSection({ onStart }: { onStart: () => void }) {
             border: '1px solid var(--border)',
           }}
         >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
+          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--cyan)', boxShadow: '0 0 8px rgba(34, 211, 238, 0.7)' }} />
           <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Diagnóstico gratis · 60 segundos
           </span>
@@ -430,7 +433,7 @@ function QuizSection({ question, currentIndex, total, selectedValue, onAnswer }:
         {/* Progress */}
         <div className="mb-10">
           <div className="flex justify-between items-center mb-3">
-            <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            <span className="text-sm uppercase tracking-wider" style={{ color: 'var(--cyan)', fontFamily: 'var(--font-mono)' }}>
               Pregunta {currentIndex + 1} de {total}
             </span>
             <span className="text-sm font-medium" style={{ color: 'var(--gold)' }}>
@@ -444,7 +447,7 @@ function QuizSection({ question, currentIndex, total, selectedValue, onAnswer }:
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
-                backgroundColor: 'var(--gold)',
+                background: 'linear-gradient(90deg, var(--cyan), var(--gold))',
                 width: `${((currentIndex + 1) / total) * 100}%`,
               }}
             />
@@ -678,7 +681,7 @@ function ResultSection({ diagnostico, nombre }: ResultSectionProps) {
         <div className="text-center mb-12">
           <span
             className="text-sm font-medium uppercase tracking-widest"
-            style={{ color: 'var(--gold)' }}
+            style={{ color: 'var(--cyan)', fontFamily: 'var(--font-mono)' }}
           >
             Diagnóstico Completado
           </span>
@@ -697,8 +700,8 @@ function ResultSection({ diagnostico, nombre }: ResultSectionProps) {
         >
           <div className="text-center mb-6">
             <span
-              className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
-              style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)', color: 'var(--gold)' }}
+              className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4 uppercase tracking-wider"
+              style={{ backgroundColor: 'rgba(34, 211, 238, 0.1)', color: 'var(--cyan)', fontFamily: 'var(--font-mono)', border: '1px solid rgba(34, 211, 238, 0.25)' }}
             >
               SU DIAGNÓSTICO
             </span>

@@ -51,7 +51,7 @@ Poner todo esto a funcionar exige tres cosas: infraestructura, tecnología y un 
 Detrás de su **empresa digital** está **Gano Excel**, una corporación presente en 70 países. Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros: fabrica los productos, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
 
 **PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *el piloto automático.*
-Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante: explica, atiende y acompaña a cada interesado, las 24 horas. Usted lo dirige todo desde una sola aplicación en su celular: queswa.app. Usted no explica — Queswa explica.
+Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante: explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas. Usted lo dirige todo desde una sola aplicación en su celular: queswa.app. Usted no explica — Queswa explica.
 
 **PILAR 3 — EL MÉTODO COMPROBADO** · *la ruta, paso a paso.*
 Un método ya probado que le ahorra el ensayo y el error. Usted no improvisa el camino: el sistema le da los pasos exactos para hacer crecer su **empresa digital**.

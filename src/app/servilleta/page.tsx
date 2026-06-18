@@ -1273,8 +1273,8 @@ export default function ServilletaPage() {
           :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
           :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
           :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
-          :fullscreen #slide-4 .bg-image-cta { height: 40% !important; }
-          :fullscreen #slide-4 .cta-overlay { top: 40% !important; justify-content: flex-start !important; padding: 20px 24px 60px !important; }
+          :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
+          :fullscreen #slide-4 .cta-overlay { top: 48% !important; justify-content: center !important; padding: 24px 24px 40px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;

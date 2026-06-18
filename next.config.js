@@ -90,24 +90,24 @@ const nextConfig = {
       // ✅ PIVOTE V3.0: Reto 5 Días → El Mapa de Salida
       {
         source: '/reto-5-dias',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
       {
         source: '/reto-5-dias/gracias',
-        destination: '/mapa-de-salida/gracias',
+        destination: '/confirmacion',
         permanent: true,
       },
       {
         source: '/reto-5-dias/:path*',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
 
       // Soluciones → El Mapa de Salida (funnel principal)
       {
         source: '/soluciones/:path*',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
 
@@ -136,24 +136,24 @@ const nextConfig = {
       // Ecosistema → El Mapa de Salida
       {
         source: '/ecosistema',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
       {
         source: '/ecosistema/:path*',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
 
       // Sistema páginas eliminadas → El Mapa de Salida
       {
         source: '/sistema/framework-iaa',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
       {
         source: '/sistema/tecnologia',
-        destination: '/mapa-de-salida',
+        destination: '/empresa-digital',
         permanent: true,
       },
 
@@ -166,7 +166,13 @@ const nextConfig = {
       },
       {
         source: '/mapa-de-salida/gracias',
-        destination: '/auditoria-confirmada',
+        destination: '/confirmacion',
+        permanent: true,
+      },
+      // ✅ RENAME jun 2026: /auditoria-confirmada → /confirmacion (Bridge — léxico retirado)
+      {
+        source: '/auditoria-confirmada',
+        destination: '/confirmacion',
         permanent: true,
       },
       {

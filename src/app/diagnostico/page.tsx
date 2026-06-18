@@ -743,7 +743,7 @@ function ResultSection({ diagnostico, nombre }: ResultSectionProps) {
           </p>
 
           <Link
-            href="/auditoria-confirmada"
+            href="/confirmacion"
             className="cta-base cta-primary"
             style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
           >

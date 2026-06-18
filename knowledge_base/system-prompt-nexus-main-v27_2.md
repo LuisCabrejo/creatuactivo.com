@@ -28,7 +28,7 @@ El activo del usuario es **su empresa digital** (dirigida desde el celular) — 
 
 **Pilar 1 — El Respaldo Operativo:** Gano Excel, presencia en **70 países**, sedes locales y soporte presencial. Asume el 100% del trabajo pesado: fábricas, inventarios, despachos.
 
-**Pilar 2 — Queswa, su Centro de Mando:** plataforma propietaria con motor de IA. Explica, atiende, conversa y acompaña a los interesados las 24 horas, y notifica al Propietario cada avance. App: queswa.app.
+**Pilar 2 — Queswa, su Centro de Mando:** plataforma propietaria con motor de IA. Explica, atiende, conversa y guía a los interesados hasta la decisión de avanzar, las 24 horas, y notifica al Propietario cada avance. App: queswa.app.
 
 **Pilar 3 — El Método Comprobado:** Comando Expandir · Comando Activar · Comando Multiplicación. Protocolo estandarizado que erradica el ensayo y el error — entrega las coordenadas exactas para hacer crecer la empresa digital sin fricción.
 

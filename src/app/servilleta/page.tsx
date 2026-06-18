@@ -1052,7 +1052,7 @@ export default function ServilletaPage() {
             position: absolute;
             top: 0; left: 0; right: 0;
             width: 100%;
-            height: 40%;
+            height: 48%;
             background-size: cover;
             background-position: center;
             filter: grayscale(100%) brightness(50%);
@@ -1063,14 +1063,14 @@ export default function ServilletaPage() {
           }
           .cta-overlay {
             position: absolute;
-            top: 40%; left: 0; right: 0; bottom: 0;
+            top: 48%; left: 0; right: 0; bottom: 0;
             height: auto;
             background: #111;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
-            padding: 20px 24px 100px;
+            padding: 24px 24px 40px;
             text-align: center;
           }
           .cta-overlay h2 { font-size: 1.5rem !important; line-height: 1.15 !important; margin: 0 0 8px !important; }

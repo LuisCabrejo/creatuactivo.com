@@ -234,7 +234,7 @@ export default function TecnologiaPage() {
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Convierte por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">No solo informa: acompaña la decisión hasta el sí. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo para avanzar. Ve su negocio moverse en tiempo real.</p>
+                  <p className="text-sm text-[#A3A3A3]">No solo informa: guía a cada contacto hasta el sí. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo para avanzar. Ve su negocio moverse en tiempo real.</p>
                 </div>
 
                 {/* Multiplica */}
@@ -271,7 +271,7 @@ export default function TecnologiaPage() {
                   {
                     step: '2',
                     title: 'Queswa explica y convierte',
-                    description: 'Presenta el modelo, resuelve dudas y acompaña la decisión — 24/7, con cada contacto a la vez.'
+                    description: 'Presenta el modelo, resuelve dudas y guía hasta la decisión de avanzar — 24/7, con cada contacto a la vez.'
                   },
                   {
                     step: '3',

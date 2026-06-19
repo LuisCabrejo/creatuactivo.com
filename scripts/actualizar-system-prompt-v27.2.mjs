@@ -76,13 +76,13 @@ const supabase = createClient(
 async function actualizarSystemPrompt() {
   console.log('📡 Conectando a Supabase...');
   console.log(`📄 Prompt cargado: ${promptContent.length} caracteres`);
-  console.log('🎯 Target: nexus_main → v28.5_identidad_calida\n');
+  console.log('🎯 Target: nexus_main → v28.6_sin_calificar_perfiles\n');
 
   const { data, error } = await supabase
     .from('system_prompts')
     .update({
       prompt: promptContent,
-      version: 'v28.5_identidad_calida',
+      version: 'v28.6_sin_calificar_perfiles',
       updated_at: new Date().toISOString(),
     })
     .eq('name', 'nexus_main')

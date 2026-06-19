@@ -36,7 +36,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Database**: Supabase (PostgreSQL)
-- **AI**: Anthropic Claude API (Sonnet 4)
+- **AI**: Anthropic Claude API (Sonnet 4.6 chatbot · Haiku 4.5 sub-agentes)
 - **Email**: Resend
 - **Video**: Vercel Blob
 
@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 - **Prospect Tracking** - Browser fingerprinting with multi-layer identification
 - **Async Processing** - Database queue with Edge Functions for scalable message handling
 - **Dynamic Content** - Founder spots counter, video hosting, email automation
-- **El Tridente EAM** - Three-stage funnel (Expansión, Activación, Maestría)
+- **El Tridente EAM** - Three-stage funnel (Expansión, Activación, Multiplicación)
 
 ## Project Structure
 

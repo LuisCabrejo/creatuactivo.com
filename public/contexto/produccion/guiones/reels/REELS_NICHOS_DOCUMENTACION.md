@@ -7,10 +7,23 @@ Cada uno vive en una página propia: `creatuactivo.com/{slug}/{nicho}`.
 que cambia por nicho es el **Hook** y el **Diagnóstico**. Por eso el bloque compartido
 se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
+> ➕ **Reel especial · Networkers** (al final del archivo) — para el gremio del mercadeo
+> en red / ex-Gano que ya conoce a Luis. **No usa el bloque compartido**: tiene hook,
+> diagnóstico, solución y CTA propios.
+
 > ✅ **Migración al léxico "Negocio Digital" COMPLETA (jun 2026).** Migrados el **bloque
 > compartido** + los **5 reels (A–E)** — guion (hook + diagnóstico) **y** copy de página
 > (`src/lib/reels.ts`). Negocio digital · CreaTuActivo protagonista · 3 pilares "por usted"
 > · villano narrado (no agresivo) · cierre-visión. ⏳ Las páginas en vivo requieren **deploy** de `reels.ts`.
+
+> 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
+> decían el registro de auditoría que ya purgamos del system prompt ("Queswa **busca, filtra**
+> y atiende" / "**evalúa su caso** y le dice si es **viable**"). Reescritos a la **promesa
+> canónica completa**: *"Queswa explica, atiende y guía a cada persona interesada hasta la
+> decisión de avanzar, las 24 horas"* — el usuario decide, Queswa NO lo evalúa ni lo califica
+> (doctrina v28.6/v28.7, ver [[feedback_promesa_canonica_queswa]] · [[feedback_filtrar_prohibido]]).
+> ⚠️ **Los videos ya publicados llevan el audio viejo horneado** — esta corrección es la
+> fuente de verdad para el **próximo re-render**, NO cambia los reels en vivo.
 >
 > **Base estratégica** (frameworks, NO su vocabulario): Hook Point (pattern interrupt =
 > calma clínica + datos · perfil Thinker) + Traffic Secrets (Hook-Story-Offer · Queswa =
@@ -39,12 +52,12 @@ La respuesta a este sistema no es trabajar más duro. Tampoco es montar un negoc
 Todo el trabajo pesado —ese que un emprendedor independiente tardaría años en construir— lo hacen por usted tres pilares:
 
 - **Gano Excel**, como respaldo operativo de su negocio, aporta la infraestructura en 70 países: fábricas, inventarios y despachos.
-- **Queswa.app**, su aplicación con inteligencia artificial, busca, filtra y atiende a sus contactos las 24 horas.
+- **Queswa.app**, su aplicación con inteligencia artificial, explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas.
 - Y un **método ya probado** le entrega los pasos exactos, eliminando el ensayo y el error.
 
 ### CTA — FUNDADORES (0:52 — 1:10s)
 
-Estamos habilitando el acceso a las primeras 15 posiciones de fundadores, con la propiedad de su empresa digital exenta del costo habitual. Aquí mismo, Queswa evalúa su caso y le dice, en minutos, si la matemática de su situación es viable.
+Estamos habilitando el acceso a las primeras 15 posiciones de fundadores, con la propiedad de su empresa digital exenta del costo habitual. Aquí mismo, Queswa le explica, en minutos, lo que su situación permite y lo guía hasta la decisión de avanzar.
 
 Ser propietario de una empresa digital que genere ingresos una y otra vez ya es una realidad tecnológica. La única variable que falta en la ecuación es usted.
 
@@ -117,3 +130,27 @@ Usted trabaja duro, pero vive "al día". La matemática financiera de su vida es
 Eso no es falta de ganas. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir, cambiando sus horas por una plata que se va tan rápido como llega. Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
+
+---
+
+# REEL ESPECIAL · NETWORKERS (estructura propia — NO usa el bloque compartido)
+
+*Audiencia distinta a los 5 nichos: **gente del gremio del mercadeo en red que ya conoce a Luis y estuvo en Gano Excel** (mercado cercano, no tráfico frío). Por eso tiene **hook, diagnóstico, solución y CTA propios** — no el bloque compartido. Villano externo de punta a punta: la educación para el empleo + la resistencia del mercado al MLM + la conversión "a pulso" — **nunca el héroe ni sus prospectos** (perspicacia: lo que sabemos del networker lo usamos para calibrar, no se lo decimos; no "le gusta hablar", no "le falta visión"). Solución apoyada en el lenguaje canónico del **Slide 2 de la servilleta** (Expansión/Activación). Voz "usted". CTA: Queswa "aquí mismo". ✅ **Producido en 3D y desplegado (jun 2026)** — `networkers` registrado como 6º nicho en `src/lib/reels.ts`; página viva en `/{slug}/networkers`. Villano del diagnóstico = insert 3D `Pulso3D` ("la conversión a pulso que no se duplica": cadena de relevo del equipo que se debilita y se rompe en rojo). Música de solución montada por Luis en CapCut (no por el pipeline). El texto de abajo es el guion **tal como se grabó**.*
+
+**HOOK**
+Usted ya lo tiene claro: el sistema está hecho para atrapar a las personas en el ciclo de trabajar, pagar cuentas y repetir. Y ya descubrió que el mercadeo en red es uno de los pocos caminos reales para cambiar eso.
+
+**DIAGNÓSTICO**
+Pero también ha vivido el desafío: lograr los resultados que promete la industria y que se multipliquen en su equipo, suenan lindos en el papel pero son difíciles en la práctica. Y no es porque a usted le falte un porqué claro, esfuerzo o planificación.
+
+El problema es más de fondo: el modelo aún genera resistencia en el mercado. Y tampoco es culpa de sus prospectos — ellos, al igual que usted, fueron educados para el empleo o para montar un negocio. Casi nadie se levanta pensando emprender en mercadeo en red. Sin una herramienta que cambie eso, la conversión termina dependiendo de que cada quien la logre a pulso. Y eso es justo lo que no se duplica.
+
+**SOLUCIÓN**
+CreaTuActivo cambia esa pieza. Le permite trabajar con lo mejor de los dos mundos: las recompensas del mercadeo en red que usted ya conoce, y las ventajas de una empresa digital. Eso sí lo busca la gente.
+
+Y la conversión deja de depender de hacerlo a pulso. Usted lo dirige todo desde una aplicación en su celular: queswa.app. Queswa le entrega información ya validada para que usted la comparta con un solo clic —sin memorizar guiones, sin explicar nada—; y del resto se encarga ella: conversa con cada interesado, aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar, las 24 horas, por usted y por toda su organización. Así, el resultado se vuelve sencillo, duplicable y alcanzable — para usted y para cada persona de su equipo.
+
+Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países. Y un método ya probado que le marca los pasos exactos para evitarle el ensayo y error. Usted dirige; el sistema hace el trabajo.
+
+**CTA**
+¿Quiere tener detalles del potencial de crecimiento? Aquí mismo, pregúntele a Queswa — le explica, en minutos, el potencial para su situación y lo guía hasta la decisión de avanzar.

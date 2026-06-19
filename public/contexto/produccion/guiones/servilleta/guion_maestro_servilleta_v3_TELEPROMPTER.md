@@ -73,7 +73,7 @@ PILAR 2 — QUESWA, SU CENTRO DE MANDO
 
 Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante:
 
-explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas.
+explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas.
 
 Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.
 

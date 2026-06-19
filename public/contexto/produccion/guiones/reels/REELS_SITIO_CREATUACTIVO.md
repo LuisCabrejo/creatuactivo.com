@@ -37,7 +37,7 @@ Y esto no sucede por un error suyo ni por mala planificación. Es la consecuenci
 
 CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que le genera ingresos cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
 
-La parte pesada la carga Gano Excel, una compañía con presencia en 70 países: fabrica, almacena y despacha por usted. Una inteligencia artificial, Queswa, hace por usted el trabajo de conseguir, atender y filtrar a los interesados, las 24 horas. Y un método ya probado le marca los pasos exactos. No necesita experiencia digital: usted dirige, y el sistema hace el trabajo.
+La parte pesada la carga Gano Excel, una compañía con presencia en 70 países: fabrica, almacena y despacha por usted. Una inteligencia artificial, Queswa, explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas, y le notifica en vivo de cada avance. Y un método ya probado le marca los pasos exactos. No necesita experiencia digital: usted dirige, y el sistema hace el trabajo.
 
 ¿Quiere entenderlo a fondo? Aquí mismo, pregúntele a Queswa lo que quiera — se lo explica mejor que nadie.
 

@@ -325,7 +325,8 @@ async function captureProspectData(
   sessionId: string,
   fingerprint?: string,
   constructorUUID?: string | null,
-  existingData?: any  // ✅ NUEVO: Datos ya guardados en BD
+  existingData?: any,  // ✅ NUEVO: Datos ya guardados en BD
+  botAskedForName: boolean = false  // ✅ Solo capturar "nombre suelto" si el bot lo pidió
 ): Promise<ProspectData> {
 
   console.log('🔍 [NEXUS] Captura datos híbrida - Input:', {
@@ -371,12 +372,15 @@ async function captureProspectData(
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+es\s+mi\s+nombre/i,  // Formato invertido: "Disipro es mi nombre"
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*-/i,                  // Nombre (1 o más palabras) + guión: "Luis - precio" o "Juan Pérez - precio"
     /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s+(?:y|precio|cuánto|a\)|b\)|c\)|d\)|e\)|f\))/i, // Nombre + conectores (eliminados "empezar"/"iniciar" — capturaban "Deseo iniciar" como nombre "Deseo")
-    /^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/
+    // ⚠️ Patrón de "nombre suelto" (mensaje = solo palabra[s] capitalizada[s]):
+    // SOLO se incluye cuando el bot acaba de pedir el nombre. Si no, capturaba
+    // pronombres/palabras sueltas ("Yo", "Deseo", "Negocio") del autocapitalize móvil.
+    ...(botAskedForName ? [/^([A-ZÀ-ÿ][a-zà-ÿ]+(?:\s+[A-ZÀ-ÿ][a-zà-ÿ]+)*)\s*$/] : [])
   ];
 
   // Blacklist de palabras que NO son nombres (incluye paquetes, arquetipos y opciones)
   // ✅ v12.3: Expandida para prevenir captura de paquetes como "visionario"
-  const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
+  const nameBlacklist = /^(yo|tu|tú|él|ella|usted|ustedes|nosotros|nosotras|ellos|ellas|mi|mí|me|te|nos|le|les|conmigo|contigo|hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
 
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
@@ -393,12 +397,14 @@ async function captureProspectData(
     }
   }
 
-  if (!data.name && message.length < 30) {
+  // ⚠️ Fallback de nombre suelto: SOLO si el bot acaba de pedir el nombre.
+  // Antes corría en cualquier mensaje corto → capturaba "Yo"/"Deseo"/"Negocio".
+  if (!data.name && botAskedForName && message.length < 30) {
     // Intento adicional: nombre simple sin patrón estricto
     const simpleNameMatch = message.match(/^([A-ZÀ-ÿa-zà-ÿ]+(?:\s+[A-ZÀ-ÿa-zà-ÿ]+)?)\s*$/i);
 
     // ⚠️ BLACKLIST EXPANDIDA v12.4: Evitar capturar paquetes, arquetipos, ocupaciones o respuestas como nombres
-    const nameBlacklist = /^(hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
+    const nameBlacklist = /^(yo|tu|tú|él|ella|usted|ustedes|nosotros|nosotras|ellos|ellas|mi|mí|me|te|nos|le|les|conmigo|contigo|hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
 
     if (simpleNameMatch && !messageLower.match(nameBlacklist)) {
       const capturedName = simpleNameMatch[1].trim();
@@ -3350,13 +3356,22 @@ ${summaryParts.join('\n')}
 
     console.log(`⏱️ [TIMING] Historial procesado: ${Date.now() - startTime}ms total`);
 
+    // ¿El bot acaba de pedir el nombre? Solo entonces capturamos un "nombre suelto"
+    // (evita capturar pronombres/palabras como "Yo"/"Deseo"/"Negocio" del chat).
+    const lastAssistantMsg = [...messages].reverse()
+      .find((m: any) => m.role === 'assistant')?.content
+    const lastAssistantText = typeof lastAssistantMsg === 'string' ? lastAssistantMsg : ''
+    const botAskedForName = /c[oó]mo\s+(te\s+llamas|prefieres\s+que\s+te\s+(llame|diga)|te\s+digo)|cu[aá]l\s+es\s+tu\s+nombre|tu\s+nombre|con\s+qui[eé]n\s+tengo\s+(el\s+)?gusto|reg[aá]lame\s+tu\s+nombre|me\s+(dices|compartes|regalas)\s+tu\s+nombre/i
+      .test(lastAssistantText)
+
     // CAPTURA INTELIGENTE DE PROSPECTOS - Tridente EAM (solo del mensaje actual)
     const prospectData = await captureProspectData(
       latestUserMessage,
       sessionId || 'anonymous',
       fingerprint,
       constructorUUID,  // ✅ Pasar UUID del constructor para tracking correcto
-      existingProspectData  // ✅ Protección contra sobrescritura de datos válidos
+      existingProspectData,  // ✅ Protección contra sobrescritura de datos válidos
+      botAskedForName  // ✅ Gate para el patrón de "nombre suelto"
     );
 
     // COMBINAR datos existentes + nuevos capturados

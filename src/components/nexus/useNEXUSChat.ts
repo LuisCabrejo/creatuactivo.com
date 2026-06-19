@@ -12,7 +12,8 @@
 // 🎯 SIMPLIFICADO - Sin lógica de scroll (movida al componente)
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { getInitialGreeting as getCanonicalGreeting } from '@/lib/queswa-greeting';
+import { getInitialGreeting as getCanonicalGreeting, getReelGreeting } from '@/lib/queswa-greeting';
+import { REEL_NICHOS } from '@/lib/reels';
 
 interface Message {
  id: string;
@@ -60,6 +61,22 @@ const getInitialGreeting = (): Message => {
       content: `Hola, ${savedName}
 
 ¿En qué puedo ayudarle hoy?`,
+      timestamp: new Date(),
+      isStreaming: false
+    };
+  }
+
+  // Primera visita en una página de reel (/{slug}/{nicho}) — saludo post-reel generalista
+  // que recoge el testigo del reel. Toda persona en esta ruta llegó por el reel (jun 2026).
+  const isReelRoute = typeof window !== 'undefined' && (() => {
+    const seg = window.location.pathname.split('/').filter(Boolean);
+    return seg.length === 2 && (REEL_NICHOS as readonly string[]).includes(seg[1]);
+  })();
+  if (isReelRoute) {
+    return {
+      id: 'initial-greeting-reel',
+      role: 'assistant',
+      content: getReelGreeting(),
       timestamp: new Date(),
       isStreaming: false
     };

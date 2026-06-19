@@ -103,3 +103,16 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
 export function getInitialGreeting(): string {
   return `Le doy la bienvenida.\n\n${MISION}\n\n${TRANSICION}`;
 }
+
+/**
+ * Saludo GENERALISTA post-reel (jun 2026) — cuando la persona llega tras ver un reel
+ * (home explainer o cualquiera de los 6 nichos). Recoge el testigo que el reel le
+ * entregó ("Queswa guía hasta la decisión de avanzar, las 24 horas") sin reiniciar
+ * de cero ni repetir lo que ya vio. NO nombra qué reel vio (sirve para todos).
+ *
+ * Doctrina v28.6/v28.7: el usuario decide, Queswa NO lo evalúa ni lo califica.
+ * Aprobado por Luis (19 jun 2026). Usado por useNEXUSChat.ts en rutas de reel.
+ */
+export function getReelGreeting(): string {
+  return `Acaba de ver el panorama. Ahora lo importante es lo suyo.\n\nCuénteme su situación o pregúnteme lo que quiera — le doy la claridad para que usted decida, con calma, si es el camino para usted. Sin tecnicismos y a su ritmo. ¿Por dónde empezamos?`;
+}

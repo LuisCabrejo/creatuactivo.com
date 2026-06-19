@@ -39,7 +39,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` (despliega **v28.6 "sin_calificar_perfiles"** — el archivo conserva el nombre legacy `v27.2`) |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` (despliega **v28.7 "contexto_reels"** — el archivo conserva el nombre legacy `v27.2`) |
 | Re-fragmentar arsenal tras editar (genérico) | Patrón purgar + `node scripts/fragmentar-arsenales-voyage.mjs` (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)) |
 | Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
 | POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |
@@ -310,7 +310,8 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: v28.6 "sin_calificar_perfiles"** (18 jun 2026 — desplegada y verificada con `leer-system-prompt.mjs`): **limpieza de residuos fríos en tablas operativas** que sobrevivieron a v28.5 y alimentaban respuestas de "el perfil llega pre-calificado a sus manos": "Pipeline/Embudo → Sistema de filtrado" pasó a **"proceso de conversión"**; verbo de paridad "Audita" → **"Compara"**; Principio fundamental "máxima calificación de perfiles" → **"las personas de alto nivel reconocen el valor y avanzan con confianza (nunca las evalúas ni las calificas tú)"**. Cierra la brecha entre la IDENTIDAD CORE cálida y la operación.
+   - **Versión activa: v28.7 "contexto_reels"** (19 jun 2026 — desplegada y verificada con `leer-system-prompt.mjs`): **contexto de reels añadido**. Nueva sección "CONTEXTO DE ENTRADA — CÓMO LLEGA EL USUARIO (REELS)" — Queswa sabe que la mayoría llega tras ver un reel (home explainer + 6 nichos: corporativo, empleados, empresarios, diáspora, informales, networkers), con su villano narrado por perfil, y que el reel le entrega el testigo con la **promesa canónica completa** *"Queswa explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas"* (alineada con servilleta + reels — NO "evalúa su caso / si es viable"). Acompaña el **saludo post-reel generalista** en código (`getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts), gatillado por ruta `/{slug}/{nicho}` en `useNEXUSChat.ts`).
+   - **Versión previa: v28.6 "sin_calificar_perfiles"** (18 jun 2026): **limpieza de residuos fríos en tablas operativas** que sobrevivieron a v28.5 y alimentaban respuestas de "el perfil llega pre-calificado a sus manos": "Pipeline/Embudo → Sistema de filtrado" pasó a **"proceso de conversión"**; verbo de paridad "Audita" → **"Compara"**; Principio fundamental "máxima calificación de perfiles" → **"las personas de alto nivel reconocen el valor y avanzan con confianza (nunca las evalúas ni las calificas tú)"**.
    - **Versión previa: v28.5 "identidad_calida"** (17 jun 2026): **IDENTIDAD CORE recalibrada de fría a cálida** — Queswa = asistente que se hace entender, autoridad CON calidez, del lado del usuario (ya NO "motor de auditoría/calificación", ya NO "frío/sin sentimientos/el sistema evalúa al usuario"; resuelve la contradicción interna con la sección Modulación Mario Alonso Puig). TONO: "frialdad matemática"→"precisión, no frialdad", "simple/claro" permitidos. EAM_01: rol del héroe = humano (recibir de persona a persona; nadie audita).
    - **Versión previa: v28.4 "multiplicacion_sin_filtrar"** (17 jun 2026) — 3er Comando Maestría→Multiplicación, "filtrar" desterrado, Activar "revisa y da el sí".
    - ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — no se renombró pese a las versiones internas v28.x. Migración léxico "negocio/empresa digital" aplicada en v28.0–v28.1.
@@ -722,7 +723,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
-| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.2.mjs` (despliega **v28.6 "sin_calificar_perfiles"** — apunta a `system-prompt-nexus-main-v27_2.md`; tanto el script como el archivo conservan el nombre legacy `v27.2`/`v27_2`. Verificar siempre con `leer-system-prompt.mjs`) |
+| `creatuactivo.com` | `nexus_main` | `actualizar-system-prompt-v27.2.mjs` (despliega **v28.7 "contexto_reels"** — apunta a `system-prompt-nexus-main-v27_2.md`; tanto el script como el archivo conservan el nombre legacy `v27.2`/`v27_2`. Verificar siempre con `leer-system-prompt.mjs`) |
 | `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 | `queswa.app` | hardcoded en `dashboard-ai/route.ts` | editar `buildSystemBlocks()` directamente |
@@ -1261,7 +1262,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 **NEXUS System Prompt**:
 - `leer-system-prompt.mjs` - Read current prompt from Supabase
 - `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual (**v28.6 "sin_calificar_perfiles"**) a Supabase. El script y el archivo fuente conservan el nombre legacy `v27.2`/`v27_2`; el contenido interno es v28.5. Las versiones anteriores viven en git
+- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual (**v28.7 "contexto_reels"**) a Supabase. El script y el archivo fuente conservan el nombre legacy `v27.2`/`v27_2`; el contenido interno es v28.7. Las versiones anteriores viven en git
 
 **Knowledge Base Deployment**:
 - `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase

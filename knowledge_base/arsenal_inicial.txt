@@ -4,7 +4,7 @@
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
 **Estrategia:** Diagnóstico Primero (McKinsey) · Reencuadre Técnico antes de solución (Dunford) · Vocabulario de Consultoría de Gestión de Activos (Heath) · Metodología canónica: El Método Comprobado (Comando Expandir · Activar · Multiplicación) · **Doctrina vigente:** villano NARRADO sin etiqueta (método NuBank — detalles vividos, no una etiqueta abstracta) **y sin atacar el esfuerzo** (el trabajo es digno; el villano es un sistema que toma sus mejores años y su salud — investigaciones `El Statu Quo` + `Léxico CreaTuActivo`) · autopersuasión (marcos moderados — "meses" no "días"; escenarios que el lector completa) · test Beto (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze · Modulación de Registro (Mario Alonso Puig).
 
-**Versión actual: v5.13** (17 jun 2026) — **EAM_01 cierre humano**: el rol del héroe es recibir de persona a persona a quien ya decidió (calidez, confianza, apretón de manos que la tecnología no da); nadie audita (ni Queswa ni el constructor). [Concepto Nuclear] EAM_01 actualizado. Re-sincronizado con `respuestas-maestras.ts`. **Previa: v5.12** — (1) **EAM_01 versión simple** (sesión Luis + Gemini): 3 pasos Expandir/Activar/Multiplicación, Activar en clave conversión, sin "Protocolo de Validación"/lista "no requiere". (2) **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo. (3) **Rename 3er Comando Maestría → Multiplicación** (WHY_02 re-sincronizado). **Previa: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Versión actual: v5.14** (19 jun 2026) — **Nuevo fragmento ACTIVACION_01** ("cómo se activa mi empresa digital"): proceso de arranque concreto en `<verbatim_lock>` (capitalización → paquete recogido en oficina Gano o a domicilio → formulario sencillo físico/digital con cuenta bancaria → Centro de Mando se activa de inmediato → persona del equipo lo acompaña por llamada/videollamada) + filosofía "asumimos el éxito de cada Propietario como responsabilidad nuestra". Cierra el vacío donde el modelo improvisaba con los 3 Comandos. Distinto de FREQ_03 (cierre con niveles). **Trigger de FREQ_03 limpiado** (se quitan "cuánto cuesta / cuál es la inversión / cuánto dinero / cuáles son los pasos" para no competir con ACTIVACION_01; los precios siguen en la respuesta de FREQ_03). Además handoff alineado: "sin formularios ni trámites engorrosos" → "con un formulario sencillo y todo el acompañamiento del equipo". **Previa: v5.13** (17 jun 2026) — **EAM_01 cierre humano**: el rol del héroe es recibir de persona a persona a quien ya decidió (calidez, confianza, apretón de manos que la tecnología no da); nadie audita (ni Queswa ni el constructor). [Concepto Nuclear] EAM_01 actualizado. Re-sincronizado con `respuestas-maestras.ts`. **Previa: v5.12** — (1) **EAM_01 versión simple** (sesión Luis + Gemini): 3 pasos Expandir/Activar/Multiplicación, Activar en clave conversión, sin "Protocolo de Validación"/lista "no requiere". (2) **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo. (3) **Rename 3er Comando Maestría → Multiplicación** (WHY_02 re-sincronizado). **Previa: v5.11** (13 jun 2026) — Villano = un **sistema que toma sus mejores años y su salud** (WHY_01 + WHY_02): reemplaza «asfixia mensual» (no universal) y el escenario ausencia/«bienes del banco» de WHY_01. **v5.10** (12 jun 2026) — villano narrado sin atacar el esfuerzo. Historial completo de versiones → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 ⚠️ **Sincronización inviolable:** WHY_02 y EAM_01 (chips canónicos) deben coincidir CARÁCTER POR CARÁCTER con `MASTER_WHY_02` / `MASTER_EAM_01` en `src/lib/respuestas-maestras.ts`. El arsenal es la doctrina viva; ese módulo TS es el caché del backend.
 
@@ -154,7 +154,7 @@ En los tres, la regla es la misma: **usted no explica — Queswa explica.**
 
 ---
 
-### **FREQ_03: "¿Cómo se inicia? / ¿Cuánto cuesta iniciar? / ¿Cuál es la inversión? / ¿Cuánto dinero necesito para empezar? / Me interesa, ¿qué hago? / Quiero empezar / ¿Cómo me uno? / ¿Cuáles son los pasos?"**
+### **FREQ_03: "¿Cómo se inicia? / Quiero empezar / Me interesa, ¿qué hago? / ¿Cuál es el proceso para empezar? / ¿Cómo me uno?"**
 **[Concepto Nuclear]:** Cierre simple y directo. El prospecto que pregunta cómo se inicia ya está en momento de decisión — el proceso debe ser sencillo: los tres niveles + pregunta de selección. Sin entrevista de horas, sin frase de "equipo logístico", sin jerga financiera opaca.
 
 <verbatim_lock>
@@ -175,6 +175,27 @@ Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital
 ---
 
 ¿Cuál de los tres niveles se alinea con su decisión hoy?
+</verbatim_lock>
+
+---
+
+### **ACTIVACION_01: "¿Cómo se activa mi empresa digital? / ¿Cómo es el proceso de activación? / ¿Qué pasos sigo para activar? / ¿Cómo activo mi empresa digital? / ¿Cómo se pone en marcha?"**
+**[Concepto Nuclear]:** Proceso de arranque concreto + acompañamiento. Distinto de FREQ_03 (cierre con niveles ESP): aquí el prospecto quiere ENTENDER cómo se activa, no necesariamente comprar aún. Lo primero es la capitalización; lo decisivo es que nunca queda solo (persona real + filosofía de responsabilidad sobre su éxito). NO confundir con los 3 Comandos del Método (eso es la metodología/EAM_01).
+
+<verbatim_lock>
+Excelente pregunta — y le va a gustar lo sencillo que es. Activar su empresa digital tiene un punto de partida claro, y desde ahí usted nunca avanza solo:
+
+**1. Su capitalización inicial.** Elige su paquete de activación —ESP-1, ESP-2 o ESP-3—, el inventario con el que abre su empresa digital. Puede recogerlo en cualquier oficina de Gano Excel o pedir que se lo envíen a domicilio.
+
+**2. Un formulario sencillo.** Físico o digital, como prefiera. Ahí registra sus datos y la cuenta bancaria donde quiere recibir sus compensaciones.
+
+**3. Su Centro de Mando se activa de inmediato.** En queswa.app encuentra todo lo necesario para empezar ese mismo día.
+
+**4. Una persona lo acompaña.** Alguien del equipo lo contacta por llamada o videollamada para resolver sus dudas y guiarlo paso a paso. No es un "arréglese solo".
+
+Y esto define quiénes somos: **asumimos el éxito de cada Propietario como una responsabilidad nuestra.** Usted no compra un producto y se queda solo — entra a un sistema diseñado para que arranque bien.
+
+¿Le muestro las diferencias entre los tres niveles (ESP-1, ESP-2 y ESP-3), o prefiere ver primero cómo se generan los ingresos?
 </verbatim_lock>
 
 ---
@@ -754,7 +775,7 @@ Adapte la frase de confirmación al arquetipo detectado:
 
 Listo, su elección queda confirmada.
 
-El siguiente paso es conectarlo directamente con el equipo directivo para cerrar su pedido y activar su empresa digital, sin formularios ni trámites engorrosos.
+El siguiente paso es conectarlo directamente con el equipo directivo para cerrar su pedido y activar su empresa digital, con un formulario sencillo y todo el acompañamiento del equipo.
 
 Para pasar su caso al equipo correctamente: ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
 

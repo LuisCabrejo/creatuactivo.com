@@ -6,7 +6,7 @@
  * Assets en Vercel Blob (optimizados ~24MB c/u). Copy versión final (cirugía Luis).
  */
 
-export const REEL_NICHOS = ['corporativo', 'empleados', 'empresarios', 'diaspora', 'informales'] as const
+export const REEL_NICHOS = ['corporativo', 'empleados', 'empresarios', 'diaspora', 'informales', 'networkers'] as const
 export type ReelNicho = (typeof REEL_NICHOS)[number]
 
 export const SERVILLETA_YOUTUBE_ID = 'xHWZfg6prs8'
@@ -47,6 +47,10 @@ export const REEL_POSTER_OVERRIDE: Partial<Record<ReelNicho, { poster: string; p
     poster: '/videos/reels/informales-poster.webp',
     posterOg: '/videos/reels/informales-poster.jpg',
   },
+  networkers: {
+    poster: '/videos/reels/networkers-poster.webp',
+    posterOg: '/videos/reels/networkers-poster.jpg',
+  },
 }
 
 export const REEL_ASSETS: Record<ReelNicho, { video: string }> = {
@@ -55,6 +59,7 @@ export const REEL_ASSETS: Record<ReelNicho, { video: string }> = {
   empresarios: { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/empresarios.mp4' },
   diaspora:    { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/diaspora.mp4' },
   informales:  { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/informales.mp4' },
+  networkers:  { video: 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/reels/networkers.mp4' },
 }
 
 export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audiencia: string }> = {
@@ -87,5 +92,11 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     titulo: 'Si usted se detiene, su ingreso se detiene. Eso no es falta de capacidad: es un sistema calibrado para vivir al día.',
     cuerpo:
       'Cambiar sus horas por un dinero que se le va de las manos es una falla del sistema, no suya. Hay una ruta para construir un ingreso que no dependa del sudor diario: tener algo propio, una empresa digital que produce por usted —sostenida por Gano Excel, que pone la logística; Queswa, que atiende a los interesados 24/7; y un método probado que le marca cada paso.',
+  },
+  networkers: {
+    audiencia: 'Networkers / mercadeo en red',
+    titulo: 'Usted ya sabe que el mercadeo en red funciona. El problema nunca fue su esfuerzo: es que la conversión depende de hacerla a pulso —y eso es justo lo que no se duplica.',
+    cuerpo:
+      'CreaTuActivo cambia esa pieza: las recompensas del mercadeo en red que usted ya conoce, ahora con las ventajas de una empresa digital. La conversión deja de depender de hacerla a pulso —Queswa, su inteligencia artificial, conversa con cada interesado, resuelve las dudas y lo guía hasta la decisión de avanzar, las 24 horas, por usted y por toda su organización. Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países, y un método probado que le marca los pasos exactos. Usted dirige; el sistema hace el trabajo.',
   },
 }

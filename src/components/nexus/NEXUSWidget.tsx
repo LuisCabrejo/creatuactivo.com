@@ -358,7 +358,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   };
 
   const isInitialState = messages.length === 1 &&
-    (messages[0].id === 'initial-greeting' || messages[0].id === 'initial-greeting-products');
+    (messages[0].id === 'initial-greeting' || messages[0].id === 'initial-greeting-products' || messages[0].id === 'initial-greeting-reel');
 
   const containerClasses = isExpanded
     ? "w-full max-w-4xl h-[95vh]"
@@ -634,7 +634,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
             >
 
               {/* MESSAGES CON REGISTRO PARA CÁLCULOS (saludo inicial excluido + intercambios de voz) */}
-              {[...messages.filter(m => m.id !== 'initial-greeting' && m.id !== 'initial-greeting-products'), ...voiceMessages]
+              {[...messages.filter(m => m.id !== 'initial-greeting' && m.id !== 'initial-greeting-products' && m.id !== 'initial-greeting-reel'), ...voiceMessages]
                 .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
                 .map((message) => {
 

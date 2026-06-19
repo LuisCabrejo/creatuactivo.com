@@ -4,6 +4,12 @@
  * Copyright © 2026 CreaTuActivo.com
  * Video del reel (9:16) + transición a Queswa (patrón Home, Jun 2026).
  *
+ * - Autoplay silencioso (muted/playsInline) con chip "ACTIVAR SONIDO": se ve que
+ *   el video está hablando. Tocar el video o el chip activa el audio y REINICIA
+ *   desde 0 (la narrativa empieza ahí). Con sonido: controles nativos. Mismo
+ *   patrón que la Home (HomeManifestoVideo).
+ * - Engagement: los milestones (25/50/75/completed) SOLO se reportan con el
+ *   sonido activo — el preview silencioso no cuenta como visionado real.
  * - Al TERMINAR: el video se desvanece (1000ms) y detrás aparece el panel de
  *   Queswa; si sigue en viewport (≥40%) se abre el chat con foco. NO despliega
  *   burbuja al terminar.
@@ -34,6 +40,7 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [ended, setEnded] = useState(false)
+  const [muted, setMuted] = useState(true)
   const hijackedRef = useRef(false)
 
   const [showPrompt, setShowPrompt] = useState(false)
@@ -69,6 +76,9 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
   const handleTimeUpdate = () => {
     const el = videoRef.current
     if (!el || !el.duration) return
+    // El preview silencioso no cuenta como visionado real: los milestones solo
+    // se reportan con el sonido activo (tras "Activar sonido" → reinicio desde 0).
+    if (el.muted) return
     const pct = Math.floor((el.currentTime / el.duration) * 100)
     if (pct > maxPctRef.current) maxPctRef.current = pct
     if (pct >= 25 && !reported.current.m25) { reported.current.m25 = true; report({ pct: 25 }) }
@@ -86,9 +96,22 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     hideTimer.current = setTimeout(() => setShowPrompt(false), AUTO_HIDE_MS)
   }
 
+  // Fase preview (muted): tocar el video o el chip activa el sonido y REINICIA
+  // desde 0 — la narrativa empieza de verdad ahí (mismo patrón que la Home).
+  const startWithSound = () => {
+    const el = videoRef.current
+    if (!el) return
+    setMuted(false)
+    el.muted = false
+    el.currentTime = 0
+    el.play().catch(() => {})
+  }
+
   // Al terminar: fade del video + abrir Queswa (si sigue a la vista). Sin burbuja.
+  // "completed" solo se reporta si el reel terminó CON sonido (visionado real).
   const handleEnded = () => {
-    if (!reported.current.ended) { reported.current.ended = true; report({ completed: true, pct: 100 }) }
+    const el = videoRef.current
+    if (el && !el.muted && !reported.current.ended) { reported.current.ended = true; report({ completed: true, pct: 100 }) }
     setEnded(true)
     if (hijackedRef.current) return
     hijackedRef.current = true
@@ -99,11 +122,10 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
     if (visible / rect.height >= 0.4) openQueswaAndFocus()
   }
 
-  // Quien pide repetir quiere oírlo de nuevo
+  // Quien pide repetir quiere oírlo de nuevo → entra con sonido desde 0
   const replay = () => {
     setEnded(false)
-    const el = videoRef.current
-    if (el) { el.currentTime = 0; el.play().catch(() => {}) }
+    startWithSound()
   }
 
   // Burbuja SOLO por scroll: fuera del viewport muestra; volver al video oculta
@@ -253,16 +275,22 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
           </button>
         </div>
 
-        {/* Video — encima del panel; al terminar se desvanece y deja pasar los toques */}
+        {/* Video — encima del panel; al terminar se desvanece y deja pasar los toques.
+            Preview (muted): autoplay silencioso + tocar reinicia con sonido. Con sonido: controles nativos. */}
         <video
           ref={videoRef}
-          controls={!ended}
+          autoPlay
+          muted={muted}
           playsInline
-          preload="none"
+          preload="metadata"
+          controls={!muted && !ended}
+          controlsList="nodownload"
+          disablePictureInPicture
           poster={poster}
           src={src}
           onEnded={handleEnded}
           onTimeUpdate={handleTimeUpdate}
+          onClick={muted && !ended ? startWithSound : undefined}
           style={{
             position: 'absolute',
             inset: 0,
@@ -273,8 +301,47 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
             opacity: ended ? 0 : 1,
             transition: `opacity ${FADE_MS}ms ease`,
             pointerEvents: ended ? 'none' : 'auto',
+            cursor: muted && !ended ? 'pointer' : 'default',
           }}
         />
+
+        {/* Chip de sonido — el autoplay solo es posible silenciado; un toque
+            activa el audio y REINICIA desde 0 (la narrativa empieza aquí) */}
+        {!ended && muted && (
+          <button
+            type="button"
+            onClick={startWithSound}
+            aria-label="Activar sonido y ver desde el inicio"
+            style={{
+              position: 'absolute',
+              bottom: 14,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 3,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(8, 9, 12, 0.82)',
+              border: '1px solid rgba(197, 160, 89, 0.5)',
+              color: C.gold,
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              letterSpacing: '0.12em',
+              padding: '9px 16px',
+              borderRadius: 999,
+              cursor: 'pointer',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none" />
+              <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+              <path d="M19 5a9 9 0 0 1 0 14" />
+            </svg>
+            ACTIVAR SONIDO
+          </button>
+        )}
       </div>
 
       {/* Burbuja contextual sobre el orbe (bottom-right) — solo al dejar el video atrás */}

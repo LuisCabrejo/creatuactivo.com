@@ -36,7 +36,7 @@ const C = {
 }
 
 function openQueswaAndFocus() {
-  window.dispatchEvent(new CustomEvent('open-queswa'))
+  window.dispatchEvent(new CustomEvent('open-queswa', { detail: { source: 'reel' } }))
   // El widget pasa de display:none a visible — esperar un frame antes del foco
   setTimeout(() => {
     const input = document.getElementById('queswa-chat-input') as HTMLTextAreaElement | null

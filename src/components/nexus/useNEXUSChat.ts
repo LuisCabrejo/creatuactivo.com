@@ -98,6 +98,23 @@ const [isStreaming, setIsStreaming] = useState(false);
 const [progressiveReplies, setProgressiveReplies] = useState<string[]>([]);
 const [streamingComplete, setStreamingComplete] = useState(false);
 
+// Saludo post-reel: cuando Queswa se abre DESDE un reel (el de la home u otro) y aún
+// no hubo interacción, reemplaza el saludo canónico por el generalista post-reel.
+// El reel marca su apertura con detail.source === 'reel'. En rutas /{slug}/{nicho} el
+// saludo ya se fija al montar (getInitialGreeting); esto cubre el reel de la home.
+useEffect(() => {
+  const onOpenFromReel = (e: Event) => {
+    if ((e as CustomEvent)?.detail?.source !== 'reel') return;
+    setMessages(prev =>
+      (prev.length === 1 && prev[0].id === 'initial-greeting')
+        ? [{ id: 'initial-greeting-reel', role: 'assistant', content: getReelGreeting(), timestamp: new Date(), isStreaming: false }]
+        : prev
+    );
+  };
+  window.addEventListener('open-queswa', onOpenFromReel);
+  return () => window.removeEventListener('open-queswa', onOpenFromReel);
+}, []);
+
 const generateId = () => Math.random().toString(36).substring(7);
 
 const parseQuickReplies = (content: string) => {

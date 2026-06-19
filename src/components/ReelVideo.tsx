@@ -23,7 +23,7 @@ const AUTO_HIDE_MS = 25000
 const C = { gold: '#C5A059', obsidian: '#1A1D23', carbon: '#0F1115', white: '#FFFFFF', muted: '#A3A3A3' }
 
 function openQueswaAndFocus() {
-  window.dispatchEvent(new CustomEvent('open-queswa'))
+  window.dispatchEvent(new CustomEvent('open-queswa', { detail: { source: 'reel' } }))
   setTimeout(() => {
     const input = document.getElementById('queswa-chat-input') as HTMLTextAreaElement | null
     input?.focus({ preventScroll: true })

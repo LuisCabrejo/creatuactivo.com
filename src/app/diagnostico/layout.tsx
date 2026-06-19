@@ -5,7 +5,7 @@
 
 import type { Metadata } from 'next';
 
-const TITLE = 'Auditoría de Soberanía Financiera | CreaTuActivo';
+const TITLE = 'El Diagnóstico de 5 Días | CreaTuActivo';
 const DESCRIPTION = 'Descubra si su estructura financiera está construida sobre bases sólidas o si depende del Plan por Defecto.';
 
 export const metadata: Metadata = {

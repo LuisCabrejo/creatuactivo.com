@@ -315,6 +315,21 @@ En contextos de devaluación del peso colombiano, esta tasa fija blinda la previ
 
 ---
 
+### **FREQ_27: "El dólar está a $3,500 y ustedes lo cobran a $4,500 / ¿Por qué me cobran el dólar más caro? / Hay un error con el precio, el dólar no está a esa tasa / ¿Por qué la tasa es 4,500 y no la del mercado?"**
+**[Concepto Nuclear]:** El precio lo fija Gano Excel en USD a una tasa corporativa fija ($4,500 COP), igual para sus 70 países — no es una conversión de mercado ni un margen de CreaTuActivo. Usted no compra dólares: compra productos. Y esa misma tasa fija es a la que cobra cada comisión, por encima del mercado: la paga una vez al entrar y la recupera en cada liquidación. NUNCA derivar esta pregunta a un humano — responder directo.
+
+Excelente observación, y tiene razón en que la TRM de hoy es más baja. Permítame explicarle de dónde sale esa cifra, porque no es lo que parece a primera vista.
+
+Usted no está cambiando dólares: está adquiriendo productos. Gano Excel es una multinacional presente en 70 países y, para sostener un precio estable en todos sus mercados a la vez, fija sus precios en dólares con una **tasa corporativa fija de $4,500 COP**, vigente sin importar el sube y baja de la TRM del día. No es una tasa que ponga CreaTuActivo, ni un margen nuestro: es el precio oficial del fabricante.
+
+Y aquí está la otra cara —la que más le conviene—: esa **misma** tasa de $4,500 es a la que usted **cobra cada comisión** de su negocio digital, por el resto de su operación. Hoy la TRM del mercado le daría menos por cada dólar; Gano Excel le liquida a $4,500, por encima del mercado. Es decir: el ajuste que asume una sola vez al entrar, lo recupera en cada pago que recibe. En un país donde el peso se devalúa, fijar su ingreso a $4,500 es un blindaje, no un sobrecosto.
+
+Dicho simple: a cambio de un ajuste único a la entrada, usted queda cobrando en moneda fuerte —a una tasa superior a la del mercado— de forma permanente.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo esa tasa fija de $4,500 se refleja en una proyección de su ingreso recurrente?
+
+---
+
 ### **FREQ_25: "¿El consumo de mi hogar cuenta? / ¿Mi esposa/hijos pueden ser Consumidores VIP míos? / ¿Cómo aprovecho el consumo familiar? / ¿Puedo abrir un código VIP a mi familia?"**
 **[Concepto Nuclear]:** Sí. Puede registrar familiares como Consumidores VIP bajo su código. Su consumo recurrente genera CV a su Centro de Negocios de Cobro. Eventualmente esos códigos pueden hacer upgrade a Propietarios de una empresa digital.
 

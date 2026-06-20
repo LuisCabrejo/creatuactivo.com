@@ -3086,6 +3086,92 @@ function getCorsHeaders(origin: string | null): Record<string, string> {
   };
 }
 
+// ════════════════════════════════════════════════════════════════════════════
+// 🌎 DETECCIÓN DE PAÍS + LOCALE DE COTIZACIÓN (Fase 2, jun 2026)
+// ════════════════════════════════════════════════════════════════════════════
+// Web: Vercel Edge inyecta `x-vercel-ip-country` desde la IP del visitante
+//      (a nivel país ~95%+ confiable, incluso en redes móviles de operador).
+// WhatsApp: la IP sería la del webhook, no la del usuario → se deriva el país
+//           del prefijo telefónico (fingerprint `wa_{phone}`).
+// Regla de cotización: precio de paquetes/productos → moneda local;
+//                      comisiones/ingresos → USD + COP (la tasa fija $4,500
+//                      demuestra la ventaja de cobrar en moneda fuerte).
+// La IP es el DEFAULT, no la verdad: si el usuario indica otro país de
+// registro (caso diáspora), ese manda — Queswa confirma, no asume.
+const PHONE_PREFIX_COUNTRY: Record<string, string> = {
+  '57': 'CO', '52': 'MX', '1': 'US', '34': 'ES', '51': 'PE',
+  '56': 'CL', '54': 'AR', '593': 'EC', '58': 'VE', '507': 'PA',
+  '506': 'CR', '502': 'GT', '503': 'SV', '504': 'HN', '505': 'NI',
+  '591': 'BO', '595': 'PY', '598': 'UY',
+};
+
+const COUNTRY_NAMES: Record<string, string> = {
+  CO: 'Colombia', US: 'Estados Unidos', MX: 'México', ES: 'España',
+  PE: 'Perú', CL: 'Chile', AR: 'Argentina', EC: 'Ecuador', VE: 'Venezuela',
+  PA: 'Panamá', CR: 'Costa Rica', GT: 'Guatemala', SV: 'El Salvador',
+  HN: 'Honduras', NI: 'Nicaragua', BO: 'Bolivia', PY: 'Paraguay', UY: 'Uruguay',
+};
+
+function detectVisitorCountry(req: Request, tenantId: string, fingerprint?: string): string {
+  // WhatsApp: prefijo telefónico (más confiable que la IP del webhook)
+  if (tenantId === 'whatsapp' && fingerprint?.startsWith('wa_')) {
+    const phone = fingerprint.replace(/\D/g, '');
+    for (const len of [3, 2, 1]) {
+      const code = PHONE_PREFIX_COUNTRY[phone.slice(0, len)];
+      if (code) return code;
+    }
+  }
+  // Web: header geo de Vercel Edge
+  const ipCountry = req.headers.get('x-vercel-ip-country');
+  if (ipCountry) return ipCountry.toUpperCase();
+  // Dev/local: localhost NO recibe el header geo de Vercel → permitir override
+  // para probar el comportamiento por país (ej. DEV_FORCE_COUNTRY=CO en .env.local).
+  if (process.env.NODE_ENV !== 'production' && process.env.DEV_FORCE_COUNTRY) {
+    return process.env.DEV_FORCE_COUNTRY.toUpperCase();
+  }
+  return '';
+}
+
+// Línea de precio de un paquete según el país (tablas Estado 2 + pin).
+// CO → COP solo · US → USD limpio · resto/desconocido → USD (COP).
+function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3', country: string): string {
+  const usd: Record<string, string> = { 'ESP-1': '$200 USD', 'ESP-2': '$500 USD', 'ESP-3': '$1,000 USD' };
+  const cop: Record<string, string> = { 'ESP-1': '$900K COP', 'ESP-2': '$2.25M COP', 'ESP-3': '$4.5M COP' };
+  if (country === 'CO') return cop[esp];
+  if (country === 'US') return usd[esp];
+  return `${usd[esp]} (~${cop[esp]})`;
+}
+
+// Pin de precios de paquetes adaptado al país del visitante.
+// CO → COP solo (quita la fricción de la conversión USD). US → USD limpio.
+// Resto/desconocido → USD + COP (default seguro; ajustar si el usuario da su país).
+function getPaquetesPricingPin(country: string): string {
+  const cop = { e1: '$900,000 COP', e2: '$2,250,000 COP', e3: '$4,500,000 COP' };
+  const usd = { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
+
+  if (country === 'CO') {
+    return `💰 PAQUETES — PRECIOS OFICIALES 2026 COLOMBIA (BLINDADO ANTI-ALUCINACIÓN):
+• ESP-1 Inicial = ${cop.e1}
+• ESP-2 Empresarial = ${cop.e2}
+• ESP-3 Visionario = ${cop.e3}
+🇨🇴 COTIZA EN COP (moneda local). NO muestres el equivalente en USD al lado del precio del paquete — obliga al usuario a una conversión mental que crea fricción ("el dólar no está a 4,500"). El USD solo aparece si el usuario lo pide o reclama por la tasa → en ese caso usa la respuesta de FREQ_27. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+  }
+  if (country === 'US') {
+    return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
+• ESP-1 Inicial = ${usd.e1}
+• ESP-2 Empresarial = ${usd.e2}
+• ESP-3 Visionario = ${usd.e3}
+🇺🇸 COTIZA EN USD limpio. NO muestres COP (irrelevante para el visitante). NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+  }
+  // Default / desconocido / otros países sin lista local cargada
+  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
+  return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
+• ESP-1 Inicial = ${usd.e1} (${cop.e1})
+• ESP-2 Empresarial = ${usd.e2} (${cop.e2})
+• ESP-3 Visionario = ${usd.e3} (${cop.e3})
+🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+}
+
 export async function OPTIONS(req: Request) {
   const origin = req.headers.get('origin');
   return new Response(null, { status: 204, headers: getCorsHeaders(origin) });
@@ -3104,6 +3190,10 @@ export async function POST(req: Request) {
 
   try {
     const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext } = await req.json();
+
+    // 🌎 País del visitante (web: IP Vercel Edge · whatsapp: prefijo telefónico)
+    const visitorCountry = detectVisitorCountry(req, tenantId, fingerprint);
+    if (visitorCountry) console.log(`🌎 [Geo] País detectado: ${visitorCountry}`);
 
     // ✅ Validación de mensajes
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -3763,10 +3853,25 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
         return { closingState: 0 as const, modoCierre: false };
       }
 
-      // Estado 3a: paquete capturado pero NO se ha pedido nombre → solicitar nombre
-      // (gracias a Fix G + Fix B, package solo se captura cuando el usuario lo declara
-      // explícitamente con verbo de selección — no por mención informativa)
-      if (mergedProspectData.package) return { closingState: 3 as const, modoCierre: false };
+      // Estado 3a: paquete capturado pero NO se ha pedido nombre.
+      // ⚠️ Nombrar un paquete ≠ querer comprarlo (jun 2026, insight Director Cabrejo).
+      // Solo se asume cierre y se pide el nombre cuando hay intención REAL:
+      //   (a) veníamos del flujo de cierre — el bot pidió "nombre + nivel" (modoCierre), o
+      //   (b) el usuario declaró intención explícita ("quiero iniciar / iniciemos / me anoto").
+      // Si solo nombró un paquete mientras exploraba, NO se exige el nombre → Estado 0
+      // (Queswa habla de ese paquete y espera una señal clara de intención).
+      if (mergedProspectData.package) {
+        const botPidioNivelCombinado = allBotMsgs.some((m: any) =>
+          /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || '')
+        );
+        const intentExplicitoCierre = /quiero (iniciar|empezar|comenzar|activar|entrar|ese|esa)|inici[ae]mos|empecemos|comencemos|activemos|me quedo con|me decido por|proced(amos|o)\b|hag[aá]moslo|^\s*dale\b|lo compro|quiero comprar|me anoto|me apunto/i.test(latestUserMessage);
+        if (botPidioNivelCombinado || intentExplicitoCierre) {
+          console.log('🔀 [FSM] closing_state=3 — paquete + intención real (combinado/explícito)');
+          return { closingState: 3 as const, modoCierre: false };
+        }
+        console.log('🚫 [FSM] paquete nombrado SIN intención de cierre (exploración) — Estado 0, no exigir nombre');
+        return { closingState: 0 as const, modoCierre: false };
+      }
 
       // 🆕 FIX A (heredado): descartar queries con prefijos condicionales/hipotéticos.
       const esCondicionalHipotetico = /^(si\s|supongamos|imaginemos|en caso de|hipotética|y si\b|qué pasa si|qué pasaría si|asumiendo que|en el caso|para entender|para saber|me gustaría saber|quisiera saber|antes de decidir)/i.test(latestUserMessage.trim());
@@ -3834,15 +3939,15 @@ Tu única tarea: presentar la tabla con el framing exacto a continuación. Impri
 
 Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital se transfiere directamente a productos físicos — bebidas enriquecidas y suplementos Gano Excel:
 
-**ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
+**ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
 > Máxima velocidad de capitalización.
 
-**ESP-2 — Empresarial** · $500 USD (~$2.25M COP)
+**ESP-2 — Empresarial** · ${precioPaqueteLinea('ESP-2', visitorCountry)}
 > 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
 > Crecimiento sostenido con buen balance de inventario y velocidad.
 
-**ESP-1 — Inicial** · $200 USD (~$900K COP)
+**ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
 > Para iniciar rápido.
 
@@ -3865,23 +3970,23 @@ Tu única tarea: presentar la tabla con el framing exacto a continuación. Impri
 
 Usted tiene **tres niveles disponibles** para activar su empresa digital. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
 
-**ESP-3 — Visionario** · $1,000 USD (~$4.5M COP)
+**ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
 > Máxima velocidad de capitalización.
 
-**ESP-2 — Empresarial** · $500 USD (~$2.25M COP)
+**ESP-2 — Empresarial** · ${precioPaqueteLinea('ESP-2', visitorCountry)}
 > 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
 > Crecimiento sostenido con buen balance.
 
-**ESP-1 — Inicial** · $200 USD (~$900K COP)
+**ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
 > Validación del flujo del sistema.
 
 ---
 
-¿Cuál de los tres niveles se alinea con su decisión hoy?
+¿Quiere que profundicemos en alguno, o que veamos cómo se proyectan las comisiones en cada nivel?
 
-STOP. No expliques el onboarding. No pidas datos adicionales. Espera que elija o pregunte más.
+STOP. No expliques el onboarding. No pidas datos adicionales. NO asumas compra si menciona un paquete — puede estar explorando. Espera que pregunte más o declare que quiere iniciar.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
       }
 
@@ -4135,9 +4240,13 @@ ${tablaPin}
 
 INSTRUCCIONES — TONO LUJO CLÍNICO HUMANO:
 - Abre con una palabra cálida y profesional. VARÍA entre: "Claro", "Por supuesto", "Entiendo", "Excelente", "Comprendo", "OK", "De acuerdo". NUNCA empieces siempre con "Con gusto".
-- Indica precio en AMBAS monedas: USD + COP entre paréntesis ($1 USD = $4,500 COP — tasa fija Gano Excel, NO tasa de mercado).
+${visitorCountry === 'CO'
+  ? `- Indica el precio en COP (moneda local). NO muestres el equivalente en USD al lado — crea fricción de conversión. El USD solo si el usuario lo pide o reclama por la tasa (ver FREQ_27).`
+  : visitorCountry === 'US'
+  ? `- Indica el precio en USD limpio (no muestres COP, irrelevante para el visitante).`
+  : `- Indica precio en USD con COP entre paréntesis ($1 USD = $4,500 COP — tasa fija Gano Excel, NO tasa de mercado). Si el usuario indica su país de registro, ajusta a su moneda local.`}
 - Estructura sugerida:
-  1. Apertura cálida + precio USD ($X COP entre paréntesis) + frase de transición ("le activa inmediatamente este inventario:")
+  1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
   3. Cierre explicativo del mix: "Lo seleccionamos así para que su empresa digital arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
   4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
@@ -4147,6 +4256,7 @@ INSTRUCCIONES — TONO LUJO CLÍNICO HUMANO:
 
     const sessionInstructions = `
 ${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
+${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}
@@ -4163,11 +4273,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
 </prospect_state>
 
 ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — COMP_PV_06: Copia la tabla EXACTAMENTE como aparece en el contexto. NO inventes categorías ni nombres de sección ("Cafés con Ganoderma", "Bebidas Premium", etc.) — esas categorías no existen en la tabla oficial. NO uses precios de tu entrenamiento. Los precios correctos para Colombia 2026 están en la columna "Precio COP" del contexto recuperado.` : relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
-${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez/i.test(latestUserMessage) ? `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
-• ESP-1 Inicial = $200 USD / $900,000 COP (NO $250 USD — ese precio no existe)
-• ESP-2 Empresarial = $500 USD / $2,250,000 COP
-• ESP-3 Visionario = $1,000 USD / $4,500,000 COP
-SIEMPRE muestra precio en AMBAS monedas. NUNCA uses precios de tu entrenamiento. Los precios de entrenamiento son INCORRECTOS (datos 2023).` : ''}
+${/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez/i.test(latestUserMessage) ? getPaquetesPricingPin(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (Tres Pilares, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 `;

@@ -776,14 +776,22 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **Regla crítica**: NO agregar textos de flujo al System Prompt. El System Prompt es perfil de personalidad puro (identidad + tono + diccionario). Cualquier texto que el modelo deba imprimir verbatim va en las funciones de micro-prompt del backend.
 
-**Lógica del FSM (route.ts:3625+):**
-1. `waLinkEntregado` (link WhatsApp ya entregado en sesión) → Estado 0
-2. `nombreSolicitado && package && (usuario dio nombre válido O nombre ya capturado)` → Estado 4
-3. `nombreSolicitado && package && usuario NO dio nombre` → Estado 0 (responder pregunta libre, package permanece guardado para próximo intento)
-4. `package` capturado **+ intención real** → Estado 3 (confirmar + pedir nombre). ⚠️ **jun 2026**: nombrar un paquete ≠ querer comprarlo (insight Director Cabrejo). Un paquete capturado solo dispara Estado 3 si (a) veníamos del flujo de cierre (el bot pidió "nombre + nivel", modoCierre) **o** (b) el usuario declaró intención explícita (`intentExplicitoCierre`: "quiero iniciar/iniciemos/me anoto/lo compro"…). Si solo lo nombró explorando → Estado 0 (Queswa habla del paquete, NO exige el nombre). La pregunta informativa del Estado 2 se suavizó ("¿quiere que profundicemos…?" en vez de "¿cuál se alinea con su decisión hoy?") para no inducir la falsa compra
-5. `triggerCierre` ("deseo iniciar", "hagámoslo", "dale", "procedamos") sin paquete → Estado 2 `modoCierre=true`
-6. `triggerPaquetes` ("háblame de los paquetes") → Estado 2 `modoCierre=false` (informativo)
-7. Default → Estado 0 (conversación normal con RAG)
+**Clasificador único de marcha — FUENTE DE VERDAD del cierre (refactor jun 2026):** La intención de cierre se decide en **un solo lugar** (`marchaCierre`, route.ts tras `mergedProspectData`), del que derivan `isClosingFlowEarly`, el FSM y la supresión de RAG → no se pueden desincronizar (esto reemplazó 3 detectores dispersos que causaban grietas: `isClosingFlowEarly` suprimía RAG por tener paquete mientras el FSM iba a Estado 0; y un regex `estadoTresYaEntregado` obsoleto que nunca liberaba el cierre). **Modelo de 3 marchas (calibrado con Director Cabrejo)** — el discriminador es **gramática + recorrido**, NO la palabra "inicio/iniciar" (contaminada: vive en "paquetes de inicio"=info y "quiero iniciar"=intención):
+
+| Marcha | Señal | RAG | Resultado |
+|--------|-------|-----|-----------|
+| **1 Catálogo** | `señalCatalogo` — pide opciones/valores ("cuáles son los paquetes / de inicio", "formas de inicio") | tabla dictada | Estado 2 informativo (tabla + pregunta exploratoria). **NUNCA ofrece activación** |
+| **2 Interés** | nombra UN paquete sin volición (`prospectData.package` de ESTE turno), O frase procedimental EN FRÍO | **ON** | Estado 0 + `marchaInteres` → respuesta sustanciosa del arsenal + **puente suave** (sin pedir datos). Fuerza Sonnet |
+| **3 Firme** | `señalVolicion` ("quiero iniciar/hagámoslo/me decido/dónde pago") **O** `señalProcedimental` + `yaRecorrioProceso` | off | con paquete → Estado 3 (pedir nombre); sin paquete → Estado 2 `modoCierre` (tabla + nombre+nivel) |
+
+- **`yaRecorrioProceso`**: el bot ya mostró paquetes, O la conversación tocó compensación, O el usuario ya preguntó precios/paquetes, O hay paquete en BD. Convierte lo procedimental ("ok, ¿cuál es el paso a seguir?") en intención de pagar. En frío esa misma frase es Marcha 2.
+- **Guardas**: `_contextoNoCierre` (café/producto/"si se acaba" → no es avance de cierre, evita falso positivo de "qué hago") · `_esInformativaCierre` ("qué es/incluye el ESP-3" → no es selección).
+
+**Continuación del cierre escriturado** (independiente de la marcha, lee lo que el bot ya pidió):
+1. `_handoffYaEntregado` (doble oferta Estado 4 ya dada) → Estado 0
+2. `_whatsappSolicitado && package && nombreValido && (WhatsApp ahora O guardado)` → Estado 4
+3. `_botPidioNivelCombinado && package` (modoCierre) → con nombre → Estado 3b · solo nivel → Estado 3
+4. `_nombreSolicitado3a && package` → con nombre → Estado 3b · sin nombre → Estado 0 (no insistir)
 
 **Detección Estado 4 (regex):** `/WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|Su acceso oficial está aquí/i`. Si se modifica el texto de `getCierreEstado4()`, actualizar el regex.
 

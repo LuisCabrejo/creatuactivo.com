@@ -3470,6 +3470,61 @@ ${summaryParts.join('\n')}
       ...prospectData // Los nuevos sobrescriben los viejos
     };
 
+    // ════════════════════════════════════════════════════════════════════════════
+    // 🎚️ CLASIFICADOR DE MARCHA DE CIERRE — FUENTE ÚNICA DE VERDAD (jun 2026)
+    // ════════════════════════════════════════════════════════════════════════════
+    // Modelo de 3 marchas calibrado con el Director Cabrejo. El discriminador es
+    // GRAMÁTICA + RECORRIDO de la conversación, NO una palabra suelta ("inicio/iniciar"
+    // está contaminado: vive en "paquetes de inicio"=info y "quiero iniciar"=intención).
+    //   Marcha 1 (Catálogo): pide opciones/valores → mostrar tabla, NUNCA ofrecer activación.
+    //   Marcha 2 (Interés): nombra UN paquete o pregunta el proceso EN FRÍO → responder con
+    //                       sustancia + puente suave, sin pedir datos. RAG ACTIVO.
+    //   Marcha 3 (Firme): volición explícita, O frase procedimental DESPUÉS de recorrer
+    //                     (ya vio paquetes / compensación / preguntó precios) → registro.
+    // isClosingFlowEarly, el FSM y la supresión de RAG derivan TODOS de aquí → no se
+    // pueden desincronizar (causa raíz de las grietas que reemplaza este refactor).
+    const _botMsgsAll = messages.filter((m: any) => m.role === 'assistant');
+    const _userMsgsAll = messages.filter((m: any) => m.role === 'user');
+    const _occupationCheck = /^(empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|m[eé]dico|m[eé]dica|doctor|doctora|abogado|abogada|profesor|profesora|docente|freelance|freelancer|independiente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|l[ií]der|lider|CEO|CFO|CTO)$/i;
+
+    // Señales de continuación del cierre escriturado (lo que el bot YA pidió)
+    const _handoffYaEntregado = _botMsgsAll.some((m: any) => /Activar ahora.*Que el equipo me contacte|finalizar la activaci[oó]n de su (negocio|empresa) digital|Para finalizar la activaci[oó]n/i.test(m.content || ''));
+    const _whatsappSolicitado = _botMsgsAll.some((m: any) => /cu[aá]l es su (n[uú]mero de )?WhatsApp|su WhatsApp para coordinar|n[uú]mero de WhatsApp para/i.test(m.content || ''));
+    const _nombreSolicitado3a = _botMsgsAll.some((m: any) => /bajo qu[eé] nombre|registramos para el nivel|ind[ií]queme su nombre completo|para coordinarlo.*nombre/i.test(m.content || ''));
+    const _botPidioNivelCombinadoEarly = _botMsgsAll.some((m: any) => /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || ''));
+    const _nombreAhora = extractNameFromHandoffReply(latestUserMessage);
+    const _nombreValido = !!(mergedProspectData.name && !_occupationCheck.test(mergedProspectData.name));
+    const _whatsappAhora = extractWhatsAppFromMessage(latestUserMessage);
+    const _whatsappValido = !!(mergedProspectData.phone || mergedProspectData.whatsapp);
+
+    // Cubo 1 — Catálogo / valores (Marcha 1 siempre)
+    const señalCatalogo = /h[aá]blame de (los )?paquetes|cu[aá]les son (los )?(paquetes|planes)|los paquetes|qu[eé] paquetes|paquetes? (disponibles?|de inicio|empresariales?)|formas de inicio|planes de inicio|opciones de (inversi[oó]n|paquete|entrada|capitalizaci[oó]n)|cu[aá]nto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cu[aá]nto hay que (invertir|poner|meter)|qu[eé] necesito (invertir|poner)/i;
+    // Cubo 3a — Volición explícita (Marcha 3 siempre; el usuario se compromete a sí mismo)
+    const señalVolicion = /(quiero|deseo|voy a|quisiera|me gustar[ií]a)\s+(iniciar|empezar|comenzar|activar|entrar|registrar(me)?|inscribir(me)?|proceder|comprar|adquirir|arrancar)|inici[ae]mos|empecemos|comencemos|activemos|procedamos|hag[aá]moslo|hag[aá]mos\s?lo|me decido|me anoto|me apunto|me quedo con|lo compro|quiero comprar|d[oó]nde\s+(pago|deposito|consigno|transfiero)|c[oó]mo\s+(pago|deposito|consigno|hago el pago)|quiero\s+(ese|el mayor|el visionario|el empresarial|el inicial)/i;
+    // Cubo 3b — Avance procedimental (Marcha 3 SOLO si ya recorrió; si no, Marcha 2)
+    const señalProcedimental = /c[oó]mo procedo|cu[aá]l es el (paso a seguir|siguiente paso|primer paso|pr[oó]ximo paso)|paso a seguir|siguiente paso|pr[oó]ximo paso|qu[eé] (sigue|debo hacer)|qu[eé] hago( ahora| ya| entonces| para (iniciar|empezar|continuar|seguir|avanzar|registrarme|inscribirme))?|me interesa qu[eé] hago|c[oó]mo (sigo|seguimos|contin[uú]o|avanzo)|y ahora qu[eé]/i;
+    // Guarda: "qué hago" sobre producto/uso NO es avance de cierre
+    const _contextoNoCierre = /caf[eé]|producto|gano|c[aá]psula|bebida|jab[oó]n|si se (acaba|termina|agota)|c[oó]mo se (toma|usa|prepara)/i.test(latestUserMessage);
+    // Guarda informativa: "qué es / qué incluye el ESP-3" no es selección
+    const _esInformativaCierre = /qu[eé] (es|contiene|incluye|trae|tiene|hay en)|c[oó]mo (es|funciona)|cu[aá]l es el contenido|diferencia entre|comparar|versus|\svs\s/i.test(latestUserMessage.toLowerCase());
+    // Paquete nombrado EN ESTE turno (no el sticky de BD) → señal de interés
+    const paqueteNombradoAhora = !!prospectData.package;
+
+    // ¿La persona ya recorrió el proceso? (define si lo procedimental es intención de pagar)
+    const _botMostroPaquetes = _botMsgsAll.some((m: any) => /ESP-3|ESP-2|ESP-1|Visionario|Empresarial|niveles? (de inventario|disponibles)/i.test(m.content || ''));
+    const _tocoCompensacion = messages.some((m: any) => /\bgen\s?5\b|binario|compensaci[oó]n|cu[aá]nto se gana|rentabilidad|comisi[oó]n/i.test(m.content || ''));
+    const _usuarioPreguntoPrecios = _userMsgsAll.slice(0, -1).some((m: any) => /paquete|precio|cu[aá]nto (cuesta|vale|gana|se gana)|plan|compensaci[oó]n|esp[-\s]?[123]/i.test(m.content || ''));
+    const yaRecorrioProceso = _botMostroPaquetes || _tocoCompensacion || _usuarioPreguntoPrecios || !!mergedProspectData.package;
+
+    const marchaCierre = ((): 0 | 1 | 2 | 3 => {
+      if (señalVolicion.test(latestUserMessage)) return 3;                                       // volición explícita → firme
+      if (señalProcedimental.test(latestUserMessage) && !_contextoNoCierre) return yaRecorrioProceso ? 3 : 2; // procedimental: depende del recorrido
+      if (señalCatalogo.test(latestUserMessage)) return 1;                                       // catálogo / valores
+      if (paqueteNombradoAhora && !_esInformativaCierre) return 2;                               // nombró un paquete sin volición → interés
+      return 0;                                                                                  // fuera del flujo de cierre
+    })();
+    if (marchaCierre > 0) console.log(`🎚️ [Marcha ${marchaCierre}] recorrido=${yaRecorrioProceso} paqueteAhora=${paqueteNombradoAhora} msg="${latestUserMessage.substring(0, 40)}"`);
+
     // ⚡ ROUTER ANTICIPADO: Clasificar ANTES del vector search para saltarlo en queries simples
     const userMessageCount = messages.filter((m: any) => m.role === 'user').length;
     const isSimpleQueryEarly = (() => {
@@ -3510,28 +3565,19 @@ ${summaryParts.join('\n')}
 
     // Early FSM check: skip Voyage AI cuando estamos en flujo de cierre (estados 1/2/3)
     // El arsenal no se usa en esos estados — evita el round-trip innecesario a Voyage AI (~300ms)
+    // ¿Suprimir RAG/Voyage este turno? Deriva del clasificador único de marcha + las
+    // señales de continuación → imposible que se desincronice del FSM (causa de las grietas).
+    // Marchas 1 (tabla dictada) y 3 (registro) suprimen RAG. Marcha 2 (interés) lo MANTIENE.
+    // En cierre escriturado solo se suprime si el usuario ESTÁ respondiendo lo pedido —
+    // si interrumpe con una pregunta nueva, el RAG vuelve para responderla con fuentes.
     const isClosingFlowEarly = (() => {
-      // ── DETECCIÓN POST-ESTADO 3 ──────────────────────────────────────────────
-      // Si Estado 3 ya fue entregado en esta conversación, el prospecto puede seguir
-      // haciendo preguntas (precios, compensación, productos). Permitir flujo normal.
-      const botMsgs = messages.filter((m: any) => m.role === 'assistant');
-      const estadoTresYaEntregado = botMsgs.some((m: any) =>
-        /He consolidado su expediente|WhatsApp Directo de Activación|mesa directiva|privilegio dirigir/i.test(m.content || '')
-      );
-      if (estadoTresYaEntregado) return false; // Estado 3 ya entregado → flujo normal
-
-      if (mergedProspectData.package) return true; // Estado 3 pendiente: paquete elegido pero no entregado aún
-      const lastBotMsg: string = botMsgs[botMsgs.length - 1]?.content || '';
-      if (/ancho de banda operativo|horas a la semana|cuántas horas/i.test(lastBotMsg)) return true; // Estado 1→2
-      // FIX: Solo señales de INTENCIÓN DE COMPRA activan el FSM — NO preguntas informativas.
-      // "los paquetes / cuánto cuesta el ESP-2" → necesitan RAG (arsenal_compensacion).
-      // "cuánto cuesta empezar / qué necesito poner" → intención de iniciar → FSM correcto.
-      if (/cu[aá]nto\s*(cuesta|vale|es)\s*(iniciar|entrar|empezar|activar)|cu[aá]nto\s*hay\s*que\s*(invertir|poner|meter)|qu[eé]\s*necesito\s*(invertir|poner|para\s+iniciar|para\s+empezar)/i.test(latestUserMessage)) return true;
-      if (/cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar/i.test(latestUserMessage)) return true;
-      return false;
+      if (_handoffYaEntregado) return false;                                            // handoff hecho → flujo normal
+      if (_whatsappSolicitado) return (_whatsappAhora || _whatsappValido) ? true : false;
+      if (_nombreSolicitado3a || _botPidioNivelCombinadoEarly) return (_nombreAhora || _nombreValido) ? true : false;
+      return marchaCierre === 1 || marchaCierre === 3;
     })();
     if (isClosingFlowEarly) {
-      console.log(`🔀 [FSM EARLY] Flujo de cierre detectado — Voyage AI suprimido`);
+      console.log(`🔀 [FSM EARLY] Flujo de cierre (marcha ${marchaCierre}) — Voyage AI suprimido`);
     }
 
     // 🔍 Detectar si pide precios — declarado aquí para uso en bypass y sessionInstructions
@@ -3794,7 +3840,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // `modoCierre`: true cuando el usuario declaró intención de iniciar SIN haber elegido
     // paquete. La tabla se entrega con pregunta combinada (nombre + nivel) para minimizar
     // turnos. Cuando es false, la tabla es informativa (usuario solo preguntó por paquetes).
-    const { closingState, modoCierre } = (() => {
+    const { closingState, modoCierre, marchaInteres } = (() => {
       // ── Ola 4 (25 May 2026): FSM refactor MAYOR ──────────────────────────────
       // Nuevo flujo de cierre humano (insight Director Cabrejo):
       //   Estado 3  → pedir nombre completo (sin link, sin doble oferta)
@@ -3853,51 +3899,44 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
         return { closingState: 0 as const, modoCierre: false };
       }
 
-      // Estado 3a: paquete capturado pero NO se ha pedido nombre.
-      // ⚠️ Nombrar un paquete ≠ querer comprarlo (jun 2026, insight Director Cabrejo).
-      // Solo se asume cierre y se pide el nombre cuando hay intención REAL:
-      //   (a) veníamos del flujo de cierre — el bot pidió "nombre + nivel" (modoCierre), o
-      //   (b) el usuario declaró intención explícita ("quiero iniciar / iniciemos / me anoto").
-      // Si solo nombró un paquete mientras exploraba, NO se exige el nombre → Estado 0
-      // (Queswa habla de ese paquete y espera una señal clara de intención).
-      if (mergedProspectData.package) {
-        const botPidioNivelCombinado = allBotMsgs.some((m: any) =>
-          /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || '')
-        );
-        const intentExplicitoCierre = /quiero (iniciar|empezar|comenzar|activar|entrar|ese|esa)|inici[ae]mos|empecemos|comencemos|activemos|me quedo con|me decido por|proced(amos|o)\b|hag[aá]moslo|^\s*dale\b|lo compro|quiero comprar|me anoto|me apunto/i.test(latestUserMessage);
-        if (botPidioNivelCombinado || intentExplicitoCierre) {
-          console.log('🔀 [FSM] closing_state=3 — paquete + intención real (combinado/explícito)');
+      // ── CONTINUACIÓN modoCierre: el bot pidió "nombre + nivel" en un solo turno ──
+      // (ese texto combinado NO matchea nombreSolicitado de arriba). El usuario elige
+      // el nivel y quizá da el nombre: si dio nombre → 3b (pedir WhatsApp); si solo el
+      // nivel → 3 (pedir nombre). Aquí elegir el nivel SÍ es cierre (ya declaró intención).
+      const botPidioNivelCombinado = allBotMsgs.some((m: any) =>
+        /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || '')
+      );
+      if (botPidioNivelCombinado && mergedProspectData.package) {
+        const nombreOk = extractNameFromHandoffReply(latestUserMessage)
+          || (mergedProspectData.name && !occupationCheck.test(mergedProspectData.name));
+        if (nombreOk) {
+          console.log('🔀 [FSM] closing_state=3b — modoCierre: nombre + nivel recibidos');
+          return { closingState: '3b' as const, modoCierre: false };
+        }
+        console.log('🔀 [FSM] closing_state=3 — modoCierre: nivel elegido, falta nombre');
+        return { closingState: 3 as const, modoCierre: false };
+      }
+
+      // ── ENTRADA POR MARCHA (clasificador único — fuente de verdad del cierre) ────
+      // Marcha 3 (firme): con paquete → pedir nombre (Estado 3); sin paquete → tabla +
+      //   pregunta combinada nombre+nivel (modoCierre).
+      // Marcha 1 (catálogo): tabla informativa, NUNCA ofrecer activación.
+      // Marcha 2 (interés): Estado 0 con RAG activo + puente suave (NO exige datos).
+      if (marchaCierre === 3) {
+        if (mergedProspectData.package) {
+          console.log('🔀 [FSM] closing_state=3 — Marcha 3 firme con paquete');
           return { closingState: 3 as const, modoCierre: false };
         }
-        console.log('🚫 [FSM] paquete nombrado SIN intención de cierre (exploración) — Estado 0, no exigir nombre');
-        return { closingState: 0 as const, modoCierre: false };
-      }
-
-      // 🆕 FIX A (heredado): descartar queries con prefijos condicionales/hipotéticos.
-      const esCondicionalHipotetico = /^(si\s|supongamos|imaginemos|en caso de|hipotética|y si\b|qué pasa si|qué pasaría si|asumiendo que|en el caso|para entender|para saber|me gustaría saber|quisiera saber|antes de decidir)/i.test(latestUserMessage.trim());
-
-      // Trigger de cierre: declaración de intención de iniciar
-      // (heredado de Fix D + ampliado con verbos coloquiales)
-      const triggerCierre = /cómo inicio|como inicio|quiero (iniciar|empezar|comenzar|activar|entrar)|deseo iniciar|deseo empezar|me anoto|listo para iniciar|cuál es el primer paso|qué hago primero|guíame|guia me|guíame paso|sigamos|avancemos|iniciemos|ok adelante|vamos|estoy listo|cómo procedo|cómo empiezo|donde (pago|inicio|entro|me registro)|dónde (pago|inicio|entro)|quiero activar|me interesa iniciar|hag[aá]moslo|hag[aá]mos\s?lo|hagamos eso|hac[eé]lo|h[aá]zlo|^dale\b|^dale,|adelante|procedamos|proced[aá]|ok vamos|listo proced|empecemos|comencemos|ya proced|listo (vamos|adelante|empez)/i;
-
-      // Trigger informativo: pregunta sobre paquetes (sin intención declarada de iniciar)
-      const triggerPaquetes = /háblame de (los )?paquetes|cuáles son los paquetes|los paquetes|qué paquetes|paquetes disponibles|opciones de (inversión|paquete|entrada|capitalización)|cuánto (cuesta|vale|es) (iniciar|entrar|empezar|activar|el paquete)|cuánto hay que (invertir|poner|meter)|qué necesito (invertir|poner)/i;
-
-      // Estado 2 modoCierre: usuario declaró intención de iniciar pero NO ha elegido paquete
-      // → tabla ESP + pregunta combinada (nombre + nivel) en un solo turno
-      if (!esCondicionalHipotetico && triggerCierre.test(latestUserMessage)) {
-        console.log('🔀 [FSM] closing_state=2 modoCierre — usuario declaró intención de iniciar (sin paquete)');
+        console.log('🔀 [FSM] closing_state=2 modoCierre — Marcha 3 firme sin paquete');
         return { closingState: 2 as const, modoCierre: true };
       }
-      if (esCondicionalHipotetico && triggerCierre.test(latestUserMessage)) {
-        console.log('🚫 [FSM] trigger de cierre matcheado pero query es condicional/hipotética — flujo normal');
-      }
-
-      // Estado 2 informativo: usuario pregunta por paquetes sin intención declarada
-      // → tabla ESP + pregunta abierta de orientación
-      if (triggerPaquetes.test(latestUserMessage)) {
-        console.log('🔀 [FSM] closing_state=2 informativo — usuario pregunta por paquetes');
+      if (marchaCierre === 1) {
+        console.log('🔀 [FSM] closing_state=2 informativo — Marcha 1 catálogo');
         return { closingState: 2 as const, modoCierre: false };
+      }
+      if (marchaCierre === 2) {
+        console.log('🔀 [FSM] Marcha 2 interés — Estado 0 + puente suave (RAG activo)');
+        return { closingState: 0 as const, modoCierre: false, marchaInteres: true };
       }
 
       return { closingState: 0 as const, modoCierre: false };
@@ -4257,6 +4296,7 @@ ${visitorCountry === 'CO'
     const sessionInstructions = `
 ${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
+${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}
@@ -4327,7 +4367,7 @@ ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` 
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
     // FIX: Si isClosingFlowEarly=true, SIEMPRE usar Sonnet — el FSM (getMicroPromptCierre)
     // solo existe en el path Sonnet (Bloque 3 sessionInstructions). Haiku no lo recibe nunca.
-    const isSimpleQuery = isClosingFlowEarly ? false : isSimpleQueryEarly;
+    const isSimpleQuery = (isClosingFlowEarly || marchaInteres) ? false : isSimpleQueryEarly;
 
     // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
     // Incluye conversationSummary para que recuerde usuarios previos

@@ -3907,7 +3907,12 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
         /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || '')
       );
       if (botPidioNivelCombinado && mergedProspectData.package) {
-        const nombreOk = extractNameFromHandoffReply(latestUserMessage)
+        // El usuario suele responder "Nombre + nivel" junto ("Federico Garcia esp3").
+        // Quitar el token de nivel ANTES de extraer el nombre (si no, el "esp3" pegado
+        // hace fallar la extracción y el bot vuelve a pedir el nombre — bug QA jun 2026).
+        const msgSinNivel = latestUserMessage.replace(/\b(esp[-\s]?[123]|visionario|empresarial|inicial|nivel\s*[123]|paquete\s*[123]|opci[oó]n\s*[123]|el (mayor|menor|grande|peque[ñn]o|intermedio|del medio))\b/gi, ' ').replace(/\s+/g, ' ').trim();
+        const nombreOk = extractNameFromHandoffReply(msgSinNivel)
+          || extractNameFromHandoffReply(latestUserMessage)
           || (mergedProspectData.name && !occupationCheck.test(mergedProspectData.name));
         if (nombreOk) {
           console.log('🔀 [FSM] closing_state=3b — modoCierre: nombre + nivel recibidos');
@@ -3924,6 +3929,16 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // Marcha 2 (interés): Estado 0 con RAG activo + puente suave (NO exige datos).
       if (marchaCierre === 3) {
         if (mergedProspectData.package) {
+          // Si el nombre YA se conoce (lo dio antes / lo saludamos con él), NO volver a
+          // pedirlo: saltar a pedir WhatsApp (3b), o cerrar (4) si el WhatsApp también está.
+          if (mergedProspectData.name && !occupationCheck.test(mergedProspectData.name)) {
+            if (mergedProspectData.phone || mergedProspectData.whatsapp) {
+              console.log('🔀 [FSM] closing_state=4 — Marcha 3: nombre + WhatsApp ya conocidos');
+              return { closingState: 4 as const, modoCierre: false };
+            }
+            console.log('🔀 [FSM] closing_state=3b — Marcha 3: nombre ya conocido, pedir WhatsApp');
+            return { closingState: '3b' as const, modoCierre: false };
+          }
           console.log('🔀 [FSM] closing_state=3 — Marcha 3 firme con paquete');
           return { closingState: 3 as const, modoCierre: false };
         }

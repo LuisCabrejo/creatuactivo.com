@@ -914,7 +914,7 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Piel8Brillo Exfoliante | 1 |
 | **Total** | **35** |
 
-**Insight:** ESP-3 = techo maximo + 17% Binario (con bonus de 6 meses al 17%, luego baja a base 10% si no recompra) + GEN5 activo desde el primer día (sin término) + inventario para desarrollar cartera de clientes de consumo.
+**Insight:** ESP-3 = techo maximo + 17% Binario (con bonus de 6 meses al 17%, luego baja a base 10% si no recompra) + GEN5 activo desde el primer día (sin término) + inventario que activa su empresa digital con el máximo volumen inicial.
 
 **IMPORTANTE — Duración de los componentes (evitar confusión):**
 - **Binario al porcentaje alto** (17% ESP-3 / 16% ESP-2 / 15% ESP-1): TIENE término — 6/4/2 meses respectivamente. Después baja a base 10% si no recompra.
@@ -961,7 +961,7 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos Propietarios de una empresa digital desarrollan cartera de clientes de consumo naturalmente. Conocidos que no desarrollan el modelo pero consumen los productos de forma habitual.
+**Insight:** Muchos Propietarios cuentan con Consumidores VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su organización.
 
 ---
 

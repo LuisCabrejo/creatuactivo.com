@@ -4176,11 +4176,9 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
 • ESP-2 Empresarial ($500 USD):  Gen1=$75  | Gen2=$10 | Gen3=$10 | Gen4=$10 | Gen5=$20
 • ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
       return `
-📌 INGRESO INMEDIATO — "Bono GEN5" (cifras verificadas, USA SOLO ESTAS):
-Concepto SIMPLE: por cada nueva empresa digital que se activa dentro de su organización, usted recibe una comisión directa, liquidada cada viernes. Visible desde la primera semana. Solo aplica con Paquetes Empresariales (ESP-1/2/3).
-Ejemplo por defecto: use ESP-3 Visionario.
-${filasGen5}
-El pago es semanal cada viernes. ${visitorCountry === 'CO' ? 'SOLO COP (Colombia) — NO muestres USD. ' : ''}PROHIBIDO inventar cifras distintas a las anteriores.`;
+📌 GUARDARRAÍL GEN5 — el ARSENAL recuperado lidera la explicación/ejemplos; esto solo asegura moneda + veracidad de cifras:
+${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada nueva empresa digital activada en su organización, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
+${filasGen5}`;
     };
 
     // ── TABLA DE COMISIONES (investigación: tablas > párrafos para comprensión cognitiva)
@@ -4204,29 +4202,16 @@ El pago es semanal cada viernes. ${visitorCountry === 'CO' ? 'SOLO COP (Colombia
 | Gen 4 | $20 USD | $10 USD | $5 USD |
 | Gen 5 | $40 USD | $20 USD | $10 USD |`;
       return `
-📊 GEN5 Y BINARIO — concepto SIMPLE + cifras verificadas. ${monedaCO ? 'COLOMBIA = SOLO COP, NO muestres USD.' : ''}
-
-INGRESO INMEDIATO (GEN5) — concepto: por cada nueva empresa digital que se activa dentro de su organización, usted recibe una comisión directa, liquidada cada viernes. Visible desde la primera semana. Ejemplo por defecto: ESP-3 Visionario. Tabla (${monedaCO ? 'COP' : 'USD'}):
+📊 GUARDARRAÍL COMPENSACIÓN — el ARSENAL recuperado LIDERA la explicación, el formato y los ejemplos (NO reescribas su estructura ni la reemplaces por tablas rígidas). Esto solo asegura moneda, simplicidad y veracidad:
+${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada nueva empresa digital activada, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su organización internacional, mes tras mes, incluso mientras usted duerme"*.
+- 🚫 NUNCA des fórmulas ("X CV × 17% × \$1", "\$X × 17%") por defecto. La mecánica CV/GCV es contexto que TIENES, SOLO la usas si preguntan explícitamente "¿cómo se calcula?".
+- 🚫 El binario es sobre volumen comisionable, NUNCA sobre valor de VENTA (calcularlo sobre ventas infla la cifra y es falso).
+- 🚫 NUNCA fabriques proyecciones (empresas/mes, crecimiento, totales) ni ofrezcas "mostrar un escenario con números". Concepto, no proyección.
+- 🚫 NUNCA tabla "Personas/Lado" ni "X personas"; ni árboles ASCII.
+Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras) — % binario: ESP-3 17% / ESP-2 16% / ESP-1 15%. GEN5 (${monedaCO ? 'COP' : 'USD'}):
 | Generación | ESP-3 | ESP-2 | ESP-1 |
 |---|---|---|---|
-${filaGen5}
-
-RENTA VITALICIA (BINARIO) — concepto SIMPLE, SIN jerga (esto es lo que el prospecto necesita entender):
-*"Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América — mes tras mes, incluso mientras usted duerme. Es el ingreso que ya no depende de su tiempo."*
-Su porcentaje según el paquete:
-| Paquete | Rentabilidad |
-|---|---|
-| ESP-3 Visionario | 17% |
-| ESP-2 Empresarial | 16% |
-| ESP-1 Inicial | 15% |
-
-🚫 ERROR GRAVE A EVITAR: NUNCA muestres un cálculo del tipo "$X × 17% = $Y" tomando un valor de VENTA (en pesos o dólares) como base. El binario NO se calcula sobre el valor de venta — hacerlo infla la cifra y es falso. Si das un ejemplo, usa SOLO el concepto simple de arriba + la tabla de %. NO inventes volúmenes en moneda.
-🔧 SOLO si el usuario pregunta EXPLÍCITAMENTE "¿cómo se calcula?": el sistema toma el GCV (volumen comisionable que Gano Excel asigna a cada producto, MENOR a su precio de venta) acumulado del Centro de Negocios de Cobro (la rama de menor volumen) y aplica el %. Sin más detalle salvo que el usuario insista — en la práctica casi nadie pregunta esto, prioriza el concepto simple.
-
-🚫 PROHIBIDO ABSOLUTO — TABLA "PERSONAS/LADO" INVENTADA:
-NUNCA generes tablas con encabezado "Personas/Lado" o "X personas | Comisión Semanal | Comisión Mensual" — el modelo la inventa para "ilustrar" la matemática; es alucinación. NUNCA digas "X personas" en el binario.
-
-🚫 PROHIBIDO en GEN5: NO uses árboles ASCII ni diagramas jerárquicos. Solo tablas Markdown.`;
+${filaGen5}`;
     };
 
     // ── PIN COMPOSICIÓN DE PAQUETES (Estado 3/4 — RAG suspendido) ─────────────

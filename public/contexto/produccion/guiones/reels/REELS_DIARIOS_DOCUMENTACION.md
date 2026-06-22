@@ -129,6 +129,22 @@ Yo utilizo creatuactivo.com. Si le da curiosidad cómo funciona —sin que le ve
 
 ---
 
+## Día 9 · Domingo 21 de junio — "Un domingo de decisiones"
+*Apertura de Semana 3 (ser dueño de una empresa digital propia) · día de elecciones en Colombia · registro humano, cero comercial · CTA: ninguna ("se lo voy mostrando")*
+*Producción: talking-head (terraza) graduado en CapCut → pipeline `scripts/dankoe-video` (subtítulos forced-alignment + atmósfera + música suspense→corporativa en el pivot "Por eso esta semana…" 31.1s + SFX whoosh/shimmer/finale_boom + outro emblema). Master: `masters/doc-21-06.mp4`. Sin inserts 3D (reel reflexivo).*
+
+Hoy es un domingo distinto. Se siente en el aire, ¿cierto? Día de elecciones. Las redes un tanto encendidas, todo el mundo apasionado.
+
+Esta mañana, temprano, fui con mi esposa a la iglesia, le dimos gracias a Dios, y después fuimos a ejercer nuestro derecho a decidir. *(simplemente muestra la tarjeta)*
+
+De regreso en el apartamento me quedé pensando en algo. Hoy millones decidimos en las urnas. Y está bien, es nuestro derecho. Pero hay una decisión que ninguna elección le resuelve, y quizás es la más importante: la de construir lo suyo. Porque gane quien gane, mañana su economía sigue dependiendo de usted.
+
+Por eso esta semana no les voy a hablar de mi proyecto. Les voy a hablar de usted. De que hoy, en la era de las ideas, cualquier persona —con muy poco— puede ser dueña de una empresa. No de una con local arrendado y mil gastos… una empresa digital. La suya.
+
+Es un mundo nuevo, y a veces nos da pereza lo que no conocemos. Me pasaba con Nequi: prefería ir al banco con tal de no admitir que no sabía usar la app. Esta semana le voy a quitar ese miedo. Se lo voy mostrando.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
 *Ideas en cola (hooks aún sin producir):*

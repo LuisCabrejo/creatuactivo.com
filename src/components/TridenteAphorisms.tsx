@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const APHORISMS = [
   { protocol: 'EXPANDIR', text: 'Usted no explica — Queswa explica.' },
-  { protocol: 'ACTIVAR', text: 'Usted no convence; usted revisa y da el sí.' },
+  { protocol: 'ACTIVAR', text: 'Usted da la calidez que solo un humano puede dar.' },
   { protocol: 'MULTIPLICACIÓN', text: 'Usted no enseña; Queswa multiplica. Usted crece.' },
   { protocol: 'CIERRE', text: 'Usted no carga el sistema; el sistema carga la operación.' },
 ];

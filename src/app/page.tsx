@@ -18,13 +18,14 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import CognitiveLoadComparator from '@/components/CognitiveLoadComparator';
 import TridenteAphorisms from '@/components/TridenteAphorisms';
 import HomeManifestoVideo from '@/components/HomeManifestoVideo';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 import { HOME_MANIFESTO_VIDEO, HOME_MANIFESTO_POSTER } from '@/lib/reels';
 
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'CreaTuActivo | Construcción de Ingresos Recurrentes',
-  description: 'La solución no es trabajar más duro, ni reemplazar su actividad actual. Construya una estructura de ingresos recurrentes apalancada en tres pilares: el Respaldo Operativo de Gano Excel en 70 países, Queswa como su Centro de Mando, y El Método Comprobado. Usted dirige.',
+  title: 'CreaTuActivo | Sea dueño de su empresa digital',
+  description: 'La solución no es trabajar más: es ser dueño de una empresa digital que le genera ingresos recurrentes — y multiplicarla con un clic en toda América. Usted dirige; el sistema hace el trabajo.',
 };
 
 // Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)
@@ -50,12 +51,14 @@ export default function HomePage() {
       <main style={{ position: 'relative', color: C.white, backgroundColor: C.bg }}>
         <HeroSection />
         <ProblemSection />
+        <EmpresaDigitalSection />
         <PerfilesSection />
-        <SolucionesFallidasSection />
-        <TridenteAphorisms />
+        <ComoLoHacemosIntro />
         <ProductoFisicoSection />
-        <SolutionPreview />
         <QueswaDiferenciadorSection />
+        <MetodoSection />
+        <TridenteAphorisms />
+        <SolutionPreview />
         <VisionSection />
         <FinalCTASection />
         <Footer />
@@ -111,7 +114,7 @@ function HeroSection() {
           letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 12px rgba(0,0,0,0.9)',
         }}>
-          Construcción de Ingresos Recurrentes
+          Sea dueño de su empresa digital
         </h1>
 
         {/* Hook de diagnóstico */}
@@ -132,14 +135,14 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             La solución no es trabajar más, ni dejar lo que hace hoy:{' '}
-            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que genera <strong style={{ color: C.gold }}>ingresos recurrentes</strong>, sostenida por tres pilares que cargan el trabajo pesado — Gano Excel, Queswa y un método paso a paso. Usted dirige; el sistema hace el trabajo.</span>
+            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que le genera <strong style={{ color: C.gold }}>ingresos recurrentes cada vez que se mueven productos</strong> en toda América — una empresa que se multiplica con un clic y que no depende de su tiempo. Usted dirige; el sistema hace el trabajo.</span>
           </p>
         </div>
 
-        {/* CTA primario — Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */}
-        <Link href="/empresa-digital" className="cta-base cta-primary">
-          Iniciar el Diagnóstico de 5 Días →
-        </Link>
+        {/* CTA primario — conversación frictionless (NO funnel): despierta interés → 1-a-1 */}
+        <QueswaCTAButton className="cta-base cta-primary">
+          Hablar con Queswa, sin compromiso →
+        </QueswaCTAButton>
 
         {/* Micro-copy */}
         <p style={{
@@ -147,7 +150,7 @@ function HeroSection() {
           fontFamily: "var(--font-mono)", letterSpacing: '0.1em',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          5 Días · Sin Costo · Radiografía de su Modelo de Ingresos
+          Le explica de qué se trata · Usted pregunta lo que quiera
         </p>
 
         {/* Link secundario */}
@@ -181,7 +184,7 @@ function ProblemSection() {
             El Diagnóstico
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
-            Corregimos las ineficiencias de los modelos de ingresos tradicionales.
+            Destapemos el verdadero problema que estamos resolviendo.
           </h2>
         </div>
 
@@ -192,10 +195,10 @@ function ProblemSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Usted se levanta temprano, cumple, da resultados. Y aun así, algo no cuadra: por más que avanza, <strong style={{ color: C.white, fontWeight: 600 }}>los créditos siempre le llevan la delantera</strong>. Llega fin de mes y <strong style={{ color: C.white, fontWeight: 600 }}>la plata no alcanza</strong>. El año que le fue bien no le asegura el que viene. Y de fondo, un ruido que no se apaga: <em style={{ color: C.body }}>¿qué pasa si me enfermo, si me despiden, si la pensión no llega?</em>
+            Usted trabaja duro. Entrega <strong style={{ color: C.white, fontWeight: 600 }}>sus mejores años y su salud.</strong> Y aun así, vive en el mismo ciclo, mes a mes: <strong style={{ color: C.white, fontWeight: 600 }}>trabajar, pagar cuentas y volver a empezar.</strong>
           </p>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
-            Eso no es mala suerte ni falta de esfuerzo suyo. <strong style={{ color: C.white, fontWeight: 600 }}>El modelo se diseñó así</strong>: para mantenerlo remando, construyendo el patrimonio de otros <strong style={{ color: C.white, fontWeight: 600 }}>y no el suyo</strong>. Y funciona con una sola condición — <strong style={{ color: C.gold, fontWeight: 600 }}>que usted nunca deje de remar.</strong>
+            No es por falta de capacidad ni de esfuerzo suyo. Es la <strong style={{ color: C.white, fontWeight: 600 }}>consecuencia matemática</strong> de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera. <strong style={{ color: C.gold, fontWeight: 600 }}>Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.</strong>
           </p>
         </div>
 
@@ -218,10 +221,6 @@ function ProblemSection() {
           </ul>
         </div>
 
-        {/* Cierre — el golpe */}
-        <p style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)', lineHeight: 1.6, color: C.white, textAlign: 'center', fontFamily: "var(--font-serif)", margin: 0 }}>
-          <strong style={{ color: C.gold, fontWeight: 600 }}>Piénselo por un instante:</strong> un mes que no pueda trabajar, un despido inesperado o un mal trimestre de ventas… y en cuestión de <strong style={{ color: C.gold, fontWeight: 600 }}>meses</strong> descubrirá que <strong style={{ color: C.gold, fontWeight: 600 }}>sus bienes son más del banco que suyos.</strong>
-        </p>
       </div>
     </section>
   );
@@ -305,52 +304,82 @@ function PerfilesSection() {
 }
 
 // ============================================================================
-// TRES CAMINOS — dos salidas que fallan + el tercer camino (narrado, estilo servilleta)
+// CÓMO LO HACEMOS NOSOTROS — la decisión (desde cero vs. apalancamiento) +
+// intro a los 3 pilares (modelado en el Slide 1 de la servilleta)
 // ============================================================================
 
-function SolucionesFallidasSection() {
+function ComoLoHacemosIntro() {
   return (
-    <section style={{ position: 'relative', padding: '80px 24px' }}>
+    <section style={{ position: 'relative', padding: '80px 24px 40px' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
-            Tres Caminos
+            Cómo lo hacemos nosotros
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
-            Frente a esto, casi todos toman el camino que no lleva a ningún lado.
+            Constrúyala desde cero… o apaláncese en lo que ya está hecho.
           </h2>
         </div>
 
-        {/* Las dos salidas que fallan (narrado) */}
         <div style={{
-          padding: '28px 32px', marginBottom: '20px',
-          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid rgba(255,255,255,0.12)`,
+          padding: '28px 32px',
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Cuando uno ve el problema, el instinto da dos respuestas — y las dos fallan.
+            Levantar una empresa digital exige tres cosas: <strong style={{ color: C.white, fontWeight: 600 }}>infraestructura, tecnología y un método</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. <span style={{ color: C.white }}>Nosotros le entregamos las tres ya construidas.</span> Lo sostienen tres pilares:
           </p>
-          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
-            La primera: <strong style={{ color: C.white, fontWeight: 600 }}>trabajar más duro</strong>. Más horas, más clientes, más esfuerzo. Pero eso solo lo hace pedalear más rápido en la misma bicicleta: su ingreso sigue dependiendo de que usted esté ahí.
-          </p>
-          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
-            La segunda: <strong style={{ color: C.white, fontWeight: 600 }}>montar otro negocio</strong>. Y casi siempre sale peor — cambia un jefe por mil clientes, y ahora ni el negocio camina sin usted.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// ¿QUÉ ES UNA EMPRESA DIGITAL? — el concepto nuclear (Amazon/MercadoLibre) +
+// negocio vs. empresa (McDonald's) + multiplicar con un clic. Cierra el hueco
+// "qué es eso" y abre el "cómo lo hacemos nosotros".
+// ============================================================================
+
+function EmpresaDigitalSection() {
+  return (
+    <section style={{ position: 'relative', padding: '80px 24px' }}>
+      <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+            ¿Qué es una empresa digital?
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
+            Usted es dueño del sistema. No empaca las cajas.
+          </h2>
+        </div>
+
+        {/* Beat 1 — Amazon / MercadoLibre */}
+        <div style={{
+          padding: '28px 32px', marginBottom: '20px',
+          background: 'rgba(0,0,0,0.65)', borderLeft: `3px solid ${C.gold}`,
+          borderRadius: 'var(--radius-container)',
+        }}>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
+            Jeff Bezos no se hizo rico empacando libros: construyó <strong style={{ color: C.white, fontWeight: 600 }}>la empresa digital donde se venden millones cada día</strong>. MercadoLibre no fabrica lo que vende — es dueño del sistema que conecta y distribuye. Eso es una empresa digital: <span style={{ color: C.white }}>usted es dueño del sistema, no el que carga las cajas.</span>
           </p>
         </div>
 
-        {/* El tercer camino (destacado) */}
+        {/* Beat 2 — el ejemplo (sonrisaslindas.app, como el reel) */}
         <div style={{
-          padding: '28px 32px',
+          padding: '28px 32px', marginBottom: '20px',
           background: 'rgba(197, 160, 89,0.06)', border: `1px solid ${C.gold}`,
           borderRadius: 'var(--radius-container)',
         }}>
-          <span style={{ fontSize: '0.7rem', fontFamily: "var(--font-mono)", letterSpacing: '0.15em', textTransform: 'uppercase', color: C.gold, display: 'block', marginBottom: '12px' }}>
-            El tercer camino
-          </span>
-          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: C.white, margin: 0 }}>
-            Es el único que de verdad lo libera. No es trabajar más, ni dejar lo que hace hoy. Es <strong style={{ color: C.gold, fontWeight: 600 }}>construir una empresa digital</strong> que sigue produciendo aunque usted descanse, viaje o simplemente viva.
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
+            Imagínelo en su propia ciudad. Hoy muchas personas quieren una sonrisa más bonita; usted podría crear <strong style={{ color: C.gold, fontWeight: 600 }}>sonrisaslindas.app</strong> y conectar a las clínicas con quienes las buscan. Por cada cita que pasa por ahí, usted gana una pequeña comisión — sin ser el odontólogo, sin tener la silla. <span style={{ color: C.white }}>Usted es el puente.</span>
           </p>
         </div>
+
+        {/* Cierre — bridge a Perfiles */}
+        <p style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)', lineHeight: 1.6, color: C.white, textAlign: 'center', fontFamily: "var(--font-serif)", margin: '8px 0 0' }}>
+          Eso es una empresa digital. La pregunta ya no es qué es — <strong style={{ color: C.gold, fontWeight: 600 }}>es si es para usted.</strong>
+        </p>
       </div>
     </section>
   );
@@ -362,7 +391,7 @@ function SolucionesFallidasSection() {
 
 function ProductoFisicoSection() {
   return (
-    <section style={{ position: 'relative', padding: '80px 24px' }}>
+    <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
@@ -439,9 +468,9 @@ function SolutionPreview() {
           <Link href="/calculadora" className="cta-base cta-primary">
             Calcular mi número →
           </Link>
-          <Link href="/empresa-digital" className="cta-base cta-secondary">
-            Omitir y empezar el Diagnóstico →
-          </Link>
+          <QueswaCTAButton className="cta-base cta-secondary">
+            Hablar con Queswa →
+          </QueswaCTAButton>
         </div>
       </div>
     </section>
@@ -453,21 +482,6 @@ function SolutionPreview() {
 // ============================================================================
 
 function QueswaDiferenciadorSection() {
-  const capacidades = [
-    {
-      titulo: 'COMANDO EXPANDIR — Llega a las personas correctas',
-      desc: 'Usted no explica — Queswa explica. Usted solo abre los canales para que lleguen las personas correctas; explicar y presentar se lo deja a Queswa.',
-    },
-    {
-      titulo: 'COMANDO ACTIVAR — Conversa y acompaña por usted, 24/7',
-      desc: 'Queswa procesa el tráfico, neutraliza objeciones y madura la decisión por usted. Usted recibe a un interesado ya listo.',
-    },
-    {
-      titulo: 'COMANDO MULTIPLICACIÓN — Multiplica sin que usted enseñe',
-      desc: 'Usted no enseña; Queswa multiplica. A cada persona nueva que entra a su organización la forma el sistema desde el día uno, sin consumir su agenda.',
-    },
-  ];
-
   return (
     <section style={{ position: 'relative', padding: '80px 24px' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -479,31 +493,11 @@ function QueswaDiferenciadorSection() {
             Queswa: su Centro de Mando.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Queswa es la plataforma de inteligencia artificial que ejecuta <span style={{ color: C.gold, fontWeight: 600 }}>El Método Comprobado</span>: tres comandos que le quitan de encima el trabajo pesado.{' '}
+            Queswa es la plataforma de inteligencia artificial que hace por usted el trabajo más desgastante.{' '}
             <span style={{ color: C.white }}>Mientras usted dirige, Queswa explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del trabajo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '40px' }}>
-          {capacidades.map((cap) => (
-            <div key={cap.titulo} style={{
-              padding: '24px',
-              background: C.bgCard,
-              border: `1px solid rgba(197, 160, 89,0.15)`,
-              borderRadius: 'var(--radius-container)',
-            }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: C.gold, marginBottom: '16px' }} />
-              <h3 style={{
-                color: C.white, fontFamily: "var(--font-sans)",
-                fontSize: '0.95rem', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '10px',
-              }}>
-                {cap.titulo}
-              </h3>
-              <p style={{ color: C.muted, fontSize: '0.85rem', lineHeight: 1.6, margin: 0 }}>{cap.desc}</p>
-            </div>
-          ))}
         </div>
 
         {/* Comparador de Carga Cognitiva interactivo */}
@@ -515,6 +509,72 @@ function QueswaDiferenciadorSection() {
           <Link href="https://queswa.app" className="cta-base cta-secondary">
             Solicitar una Demostración →
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// PILAR 3 · EL MÉTODO COMPROBADO — los 3 comandos (Expandir·Activar·Multiplicar)
+// promovidos a su propio pilar (antes escondidos como "capacidades de Queswa")
+// ============================================================================
+
+function MetodoSection() {
+  const pasos = [
+    {
+      n: '01', paso: 'EXPANDIR', titulo: 'Llegar a las personas correctas',
+      desc: 'Usted abre los canales; explicar y presentar se lo deja a Queswa.',
+      aforismo: 'Usted no explica — Queswa explica.',
+    },
+    {
+      n: '02', paso: 'ACTIVAR', titulo: 'Conversar y madurar la decisión',
+      desc: 'Queswa conversa con cada interesado, aporta claridad, resuelve dudas y lo guía hasta la decisión de avanzar, las 24 horas.',
+      aforismo: 'Usted recibe al interesado y estrecha su mano — la calidez que solo un humano puede dar.',
+    },
+    {
+      n: '03', paso: 'MULTIPLICAR', titulo: 'Crecer sin que usted enseñe',
+      desc: 'A cada persona nueva la forma el sistema desde el día uno, sin consumir su agenda.',
+      aforismo: 'Usted no enseña; Queswa multiplica. Usted crece.',
+    },
+  ];
+
+  return (
+    <section style={{ position: 'relative', padding: '80px 24px', background: 'rgba(13,13,13,0.8)' }}>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
+            Pilar 3 · El Método Comprobado
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
+            Un método ya probado. Usted no improvisa.
+          </h2>
+          <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
+            Tres pasos automatizados que le ahorran el ensayo y el error. El sistema le da el camino exacto para hacer crecer su empresa digital.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+          {pasos.map((p) => (
+            <div key={p.paso} style={{
+              padding: '24px',
+              background: C.bgCard,
+              border: `1px solid rgba(197, 160, 89,0.15)`,
+              borderRadius: 'var(--radius-container)',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '12px' }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: '0.8rem', color: C.cyan }}>{p.n}</span>
+                <span style={{ color: C.gold, fontFamily: "var(--font-sans)", fontSize: '0.95rem', letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600 }}>{p.paso}</span>
+              </div>
+              <h3 style={{ color: C.white, fontFamily: "var(--font-serif)", fontSize: '1.05rem', marginBottom: '10px', lineHeight: 1.3 }}>
+                {p.titulo}
+              </h3>
+              <p style={{ color: C.muted, fontSize: '0.85rem', lineHeight: 1.6, margin: '0 0 14px' }}>{p.desc}</p>
+              <p style={{ color: C.body, fontSize: '0.85rem', lineHeight: 1.5, margin: 0, fontFamily: "var(--font-serif)", fontStyle: 'italic', borderTop: `1px solid ${C.bgCardBorder}`, paddingTop: '12px' }}>
+                &ldquo;{p.aforismo}&rdquo;
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -535,9 +595,9 @@ function VisionSection() {
           Pronto será la norma.
         </h2>
         <p style={{ fontSize: '1.05rem', color: C.muted, lineHeight: 1.8, maxWidth: '620px', margin: '0 auto' }}>
-          Que su economía dependa únicamente de sus horas se verá, pronto, tan absurdo como hoy se ve
-          una casa sin internet.{' '}
-          <span style={{ color: C.white }}>Tener un ingreso que no dependa de su presencia ya existe.
+          Que su economía no tenga el ingreso que una empresa digital puede darle se verá tan absurdo
+          como hoy se ve una casa sin internet.{' '}
+          <span style={{ color: C.white }}>Ser dueño de una empresa digital que le genera ingresos recurrentes ya existe.
           CreaTuActivo.com ya existe.</span>{' '}
           <span style={{ color: C.gold, fontWeight: 600 }}>La única variable que falta en la ecuación es usted.</span>
         </p>
@@ -559,11 +619,11 @@ function FinalCTASection() {
         </p>
 
         <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', fontFamily: "var(--font-serif)", color: '#fff', marginBottom: '12px' }}>
-          El Diagnóstico de 5 Días
+          El siguiente paso es una conversación.
         </h2>
 
         <p style={{ fontSize: '1rem', color: C.muted, marginBottom: '32px', fontStyle: 'italic', fontFamily: "var(--font-serif)" }}>
-          5 días para ver, con números, qué tan frágil es su modelo actual.
+          Sin formularios, sin compromiso. Pregunte lo que quiera y véalo usted mismo.
         </p>
 
         <div style={{
@@ -572,16 +632,16 @@ function FinalCTASection() {
           textAlign: 'left',
         }}>
           <p style={{ color: C.muted, lineHeight: 1.8, fontSize: '0.95rem', margin: 0 }}>
-            Si reconoció su punto ciego, el siguiente paso es auditar sus propios números.{' '}
-            <span style={{ color: C.white }}>La activación de su empresa digital no es masiva: es para quien está listo para resolver el problema financiero de raíz.</span>{' '}
-            <span style={{ color: C.gold, fontWeight: 600 }}>Determine usted si su estructura de ingresos requiere este nivel hoy.</span>
+            Si se reconoció en todo esto, el siguiente paso no es llenar nada.{' '}
+            <span style={{ color: C.white }}>Queswa le explica de qué se trata, responde lo que quiera, las 24 horas — y si decide avanzar, lo conecta con una persona del equipo.</span>{' '}
+            <span style={{ color: C.gold, fontWeight: 600 }}>Sin presión: usted decide a qué ritmo.</span>
           </p>
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
-          <Link href="/empresa-digital" className="cta-base cta-primary">
-            Iniciar el Diagnóstico de 5 Días →
-          </Link>
+          <QueswaCTAButton className="cta-base cta-primary">
+            Hablar con Queswa →
+          </QueswaCTAButton>
           <Link href="/calculadora" className="cta-base cta-secondary">
             Calcular mi número →
           </Link>

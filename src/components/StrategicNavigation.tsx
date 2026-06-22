@@ -14,6 +14,7 @@ import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import SubscribeModal from '@/components/SubscribeModal'
 import {
   X,
   Target,
@@ -260,6 +261,7 @@ const CRITICAL_NAVIGATION_CSS = `
     border-radius: var(--radius-action);
     border: 1px solid var(--color-brand);
     text-decoration: none;
+    cursor: pointer;
     transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
 
@@ -432,6 +434,7 @@ const CRITICAL_NAVIGATION_CSS = `
     border-radius: var(--radius-action);
     border: 1px solid var(--color-brand);
     text-decoration: none;
+    cursor: pointer;
     transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
 
@@ -463,6 +466,7 @@ export default function StrategicNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isTransitionsEnabled, setIsTransitionsEnabled] = useState(false)
+  const [subscribeOpen, setSubscribeOpen] = useState(false)
   const pathname = usePathname()
 
   // ✅ ANTI-FOUC: Habilitar transiciones después de hidratación
@@ -501,6 +505,14 @@ export default function StrategicNavigation() {
 
   const handleLinkClick = () => {
     closeMobileMenu()
+  }
+
+  // CTA del menú: Suscríbete (puerta de entrada suave — newsletter "Manténgase al día
+  // con la IA en los negocios"). Reemplaza "Iniciar Diagnóstico". Los CTAs de "Hablar
+  // con Queswa" del cuerpo de la Home se conservan.
+  const openSubscribe = () => {
+    closeMobileMenu()
+    setSubscribeOpen(true)
   }
 
   const handleDropdownEnter = (sectionName: string) => {
@@ -558,11 +570,11 @@ export default function StrategicNavigation() {
 
             {/* ✅ BOTONES DERECHA */}
             <div className="flex items-center gap-4">
-              {/* BOTÓN CTA DESKTOP - Entrada al Funnel Principal */}
-              <Link href="/empresa-digital" className="strategic-cta-button">
+              {/* BOTÓN CTA DESKTOP - Suscríbete (newsletter, puerta suave) */}
+              <button onClick={openSubscribe} className="strategic-cta-button">
                 <Target className="w-4 h-4" />
-                INICIAR DIAGNÓSTICO
-              </Link>
+                SUSCRÍBETE
+              </button>
 
               {/* MOBILE TOGGLE */}
               <button
@@ -631,15 +643,21 @@ export default function StrategicNavigation() {
             ))}
           </div>
 
-          {/* Mobile CTA - El Mapa de Salida */}
+          {/* Mobile CTA - Suscríbete (newsletter, puerta suave) */}
           <div className="strategic-mobile-cta">
-            <Link href="/empresa-digital" className="strategic-mobile-cta-button" onClick={handleLinkClick}>
+            <button
+              onClick={openSubscribe}
+              className="strategic-mobile-cta-button"
+            >
               <Target className="w-4 h-4" />
-              INICIAR DIAGNÓSTICO
-            </Link>
+              SUSCRÍBETE
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Modal de suscripción a la newsletter */}
+      <SubscribeModal isOpen={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
     </>
   )
 }

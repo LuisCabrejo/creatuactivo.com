@@ -346,13 +346,15 @@ Patrón arquitectónico: mismo que `getMicroPromptApertura()` / `getCierreEstado
 - v26.7 introdujo `[VERBATIM_LOCK]` con corchetes planos como marcador estructural. Falló empíricamente — modelo seguía parafraseando. Razón: literatura técnica de Anthropic confirma que los corchetes planos son procesados como texto de baja prioridad; solo etiquetas XML genuinas activan el mecanismo de atención post-entrenado. Migración aplicada en v26.8.
 - Bloque `package` en `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Razón: extraía `data.package` desde la respuesta de Claude basado en menciones informativas ("ESP-3 incluye 35 productos") y contaminaba la BD. El FSM luego saltaba a Estado 3 tratando al prospecto como si hubiera comprado. La captura de paquete ahora vive EXCLUSIVAMENTE en `captureProspectData` con `packageMap` + guard de pregunta informativa.
 
-**Warm Handoff con sumario ejecutivo (Opción B, 22 May 2026)**:
+**Warm Handoff con sumario ejecutivo (Opción B, 22 May 2026 · RE-ACTIVADO 19 jun 2026)**:
 
-Cuando entra Estado 4 del FSM, [src/lib/handoff-sumario.ts](src/lib/handoff-sumario.ts) ejecuta en paralelo (fire-and-forget):
+⚠️ **Historia:** se desactivó en Ola 4 (25 May, handoff 100% WhatsApp) y se **re-activó el 19 jun 2026** (decisión Director Cabrejo: tener AMBAS notificaciones — correo al equipo **+** link wa.me al prospecto, coexisten). El correo NO lo dispara `getCierreEstado4()` (eso solo dicta la doble oferta wa.me); lo dispara el callback **`onFinal` del stream** en [route.ts](src/app/api/nexus/route.ts), guardado por `closingState === 4 && !_handoffYaEntregado` (solo el primer turno de Estado 4 → sin duplicados). Corre en `onFinal` **tras** entregar el mensaje al prospecto → cero latencia para él, y `onFinal` mantiene viva la función Edge hasta completar el envío (`await` seguro, no fire-and-forget — Edge cortaría un fire-and-forget).
 
-1. `generarSumarioEjecutivo()` — sub-agente Claude Haiku procesa los últimos 15 turnos + `prospectData` y genera JSON estructurado: `{dolores_expresados, objeciones_manejadas, mensajes_clave, next_best_action}`. Latencia ~1s, costo <$0.005 por handoff.
-2. `enviarExpedienteEquipo()` — Resend envía email HTML estilo Quiet Luxury a `EQUIPO_DIRECTIVO_EMAIL` (default: `sistema@creatuactivo.com`). Asunto: `[Handoff Queswa] {Nombre} → ESP-X Visionario (Score X/100)`.
-3. El prospecto recibe texto contextual ("Ya conocen su perfil, el nivel que eligió...") + link WhatsApp con `texto` pre-llenado que incluye el nombre descriptivo completo del paquete.
+Cuando entra Estado 4, [src/lib/handoff-sumario.ts](src/lib/handoff-sumario.ts) (`ejecutarWarmHandoff`):
+
+1. `generarSumarioEjecutivo()` — sub-agente Claude Haiku procesa los últimos 15 turnos + `prospectData` y genera JSON estructurado: `{dolores_expresados, objeciones_manejadas, mensajes_clave, next_best_action}`. Latencia ~1s, costo <$0.005 por handoff. Tiene fallback si Haiku falla.
+2. `enviarExpedienteEquipo()` — Resend envía email HTML estilo Quiet Luxury a `EQUIPO_DIRECTIVO_EMAIL` (default: `sistema@creatuactivo.com`), from `hola@creatuactivo.com`. Asunto: `[Handoff Queswa] {Nombre} → ESP-X Visionario (Score X/100)`.
+3. En paralelo, el prospecto recibe la **doble oferta wa.me** (Estado 4): (a) Activar ahora / (b) Que el equipo me contacte — links con texto pre-llenado (nombre + WhatsApp + paquete).
 
 Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso es el momento de mayor abandono — el equipo humano debe recibir matriz táctica ANTES del primer mensaje del prospecto, no después de saludarlo.
 
@@ -767,7 +769,7 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 | `getMicroPromptApertura()` | `messageCount === 1` | Saludo inicial verbatim — M1 |
 | `getMicroPromptCierre()` Estado 2 | `closingState === 2` | Tabla ESP (3 niveles). **Modo dual**: `modoCierre=true` (pregunta combinada nombre+nivel cuando trigger cierre sin paquete) · `modoCierre=false` (pregunta abierta cuando solo es informativo) |
 | `getMicroPromptCierre()` Estado 3 | `closingState === 3` | Confirmación + solicitud de nombre. Usa nombre descriptivo completo (ESP-3 Visionario) |
-| `getCierreEstado4()` | `closingState === 4` | Texto al prospecto contextual + dispara warm handoff (sumario ejecutivo Haiku + Resend al equipo) |
+| `getCierreEstado4()` | `closingState === 4` | Dicta la **doble oferta wa.me** al prospecto (a) Activar ahora / (b) Que el equipo me contacte. El **correo** al equipo NO sale de aquí — se dispara en `onFinal` del stream (`closingState===4 && !_handoffYaEntregado`), ver Warm Handoff |
 
 **`sessionInstructions` (Bloque 3 — no cacheable):**
 - M1: inyecta `getMicroPromptApertura()` (texto verbatim, ignora Pirámide McKinsey)
@@ -786,6 +788,7 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 - **`yaRecorrioProceso`**: el bot ya mostró paquetes, O la conversación tocó compensación, O el usuario ya preguntó precios/paquetes, O hay paquete en BD. Convierte lo procedimental ("ok, ¿cuál es el paso a seguir?") en intención de pagar. En frío esa misma frase es Marcha 2.
 - **Guardas**: `_contextoNoCierre` (café/producto/"si se acaba" → no es avance de cierre, evita falso positivo de "qué hago") · `_esInformativaCierre` ("qué es/incluye el ESP-3" → no es selección).
+- **`_aceptaConexion` → Marcha 3 (19 jun 2026)**: cuando el bot ofrece conectar con el equipo (`_botOfrecioConectar`, lee el ÚLTIMO msg del bot) y el usuario acepta (`_usuarioAcepta`: "de acuerdo / sí / dale / listo…"), **O** el usuario pide explícitamente conexión (`_señalConectarEquipo`: "conécteme con el equipo / quiero que me contacten"). Sin paquete cae a Estado 2 modoCierre = **pide el nivel primero** (decisión Director Cabrejo). Cierra el hueco donde el modelo improvisaba el handoff (inventaba "en 24 horas", compartía contacto suelto) y no llegaba a Estado 4 (→ no se enviaba correo).
 
 **Continuación del cierre escriturado** (independiente de la marcha, lee lo que el bot ya pidió):
 1. `_handoffYaEntregado` (doble oferta Estado 4 ya dada) → Estado 0
@@ -1069,7 +1072,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `branding.ts` - Centralized branding v3.0 (COLORS, BRAND, ICON_COLORS, emailStyles)
 - `vectorSearch.ts` - Voyage AI embeddings + cosine similarity for semantic search
 - `respuestas-maestras.ts` - **Camino A backend dictador** — textos verbatim WHY_02 + EAM_01 servidos directo sin pasar por Anthropic cuando matchea chip canónico. Sincronizar carácter por carácter con `<verbatim_lock>` en arsenal_inicial.txt
-- `handoff-sumario.ts` - **Warm handoff** — sub-agente Haiku genera expediente táctico + envía email HTML al equipo directivo (sistema@creatuactivo.com) via Resend cuando entra Estado 4 del FSM. Fire-and-forget, no bloquea handoff al prospecto
+- `handoff-sumario.ts` - **Warm handoff** (RE-ACTIVADO 19 jun 2026) — sub-agente Haiku genera expediente táctico + envía email HTML al equipo directivo (sistema@creatuactivo.com) via Resend cuando entra Estado 4 del FSM. Disparado en `onFinal` del stream (await, no fire-and-forget — Edge cortaría un fire-and-forget); coexiste con la doble oferta wa.me al prospecto
 - `queswa-greeting.ts` - Saludo canónico de Queswa + chips `QUESWA_QUICK_REPLIES` (single source of truth — antes duplicado en 4 lugares)
 - `reels.ts` - **Fuente de verdad de Reels por Nicho** (`REEL_NICHOS`, `REEL_ASSETS`, `REEL_COPY`). Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)
 - `whatsapp-meta.ts` - Envío de mensajes WhatsApp via Meta Graph API (reemplaza SendPulse)

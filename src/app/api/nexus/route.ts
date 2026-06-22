@@ -3518,8 +3518,20 @@ ${summaryParts.join('\n')}
     const _usuarioPreguntoPrecios = _userMsgsAll.slice(0, -1).some((m: any) => /paquete|precio|cu[aá]nto (cuesta|vale|gana|se gana)|plan|compensaci[oó]n|esp[-\s]?[123]/i.test(m.content || ''));
     const yaRecorrioProceso = _botMostroPaquetes || _tocoCompensacion || _usuarioPreguntoPrecios || !!mergedProspectData.package;
 
+    // Cubo 3c — Aceptación/petición de conexión con el equipo (Marcha 3). Cierra el hueco
+    // donde el bot ofrece conectar ("¿le conecto con el equipo?") y el usuario acepta
+    // ("de acuerdo / sí / conécteme"): sin esto marchaCierre daba 0 y el modelo improvisaba
+    // el handoff (inventaba plazos tipo "en 24 horas", compartía contacto suelto). Sin
+    // paquete cae a Estado 2 modoCierre = "pedir el nivel primero" (Director Cabrejo, 19 jun 2026).
+    const _ultimoBotMsg = _botMsgsAll.length ? (_botMsgsAll[_botMsgsAll.length - 1].content || '') : '';
+    const _botOfrecioConectar = /le conecto con|conectarlo con el equipo|conectarle con|coordin(e|ar) su activaci[oó]n|que el equipo (lo|le) (contacte|escriba|llame)/i.test(_ultimoBotMsg);
+    const _usuarioAcepta = /^(s[ií]|s[ií],?\s*(por favor|claro|quiero)|dale|hag[aá]mos?lo|claro( que s[ií])?|de acuerdo|perfecto|listo|ok(ay)?|vale|h[aá]gale|me parece( bien)?|por supuesto|adelante|conf[ií]rm(o|elo))\.?$/i.test(latestUserMessage.trim());
+    const _señalConectarEquipo = /con[eé]ct[ae](me|nme)?\s+(con\s+)?(el\s+)?(equipo|ellos|alguien|un (asesor|humano|representante))|quiero (hablar|que me contacten|que me llamen)|que (me|el equipo me) (contacten?|llamen?|escriban?)|hablar con (el equipo|alguien|un (asesor|humano|representante))/i;
+    const _aceptaConexion = (_botOfrecioConectar && _usuarioAcepta) || _señalConectarEquipo.test(latestUserMessage);
+
     const marchaCierre = ((): 0 | 1 | 2 | 3 => {
       if (señalVolicion.test(latestUserMessage)) return 3;                                       // volición explícita → firme
+      if (_aceptaConexion) return 3;                                                             // aceptó/pidió conectarse con el equipo → firme (sin paquete → pedir nivel)
       if (señalProcedimental.test(latestUserMessage) && !_contextoNoCierre) return yaRecorrioProceso ? 3 : 2; // procedimental: depende del recorrido
       if (señalCatalogo.test(latestUserMessage)) return 1;                                       // catálogo / valores
       if (paqueteNombradoAhora && !_esInformativaCierre) return 2;                               // nombró un paquete sin volición → interés

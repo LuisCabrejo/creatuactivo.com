@@ -24,6 +24,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import SubscribeModal from '@/components/SubscribeModal';
 
 export default function ServilletaPage() {
   const TOTAL_SLIDES = 4;
@@ -38,6 +39,7 @@ export default function ServilletaPage() {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [ctaVisible, setCtaVisible] = useState(false);
   const [productCatalogOpen, setProductCatalogOpen] = useState(false);
+  const [subscribeOpen, setSubscribeOpen] = useState(false);
   const touchStartX = React.useRef(0);
   const touchSwipeIgnore = React.useRef(false);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1879,13 +1881,13 @@ export default function ServilletaPage() {
                       ACTIVAR SU EMPRESA DIGITAL →
                     </a>
 
-                    {/* CTA Secundario → abre Queswa (conversación, no empuje al funnel) */}
+                    {/* CTA Secundario → boletín (OPCIÓN 2 del guion v5.1: puerta suave) */}
                     <button
                       type="button"
                       className="btn-industrial secondary"
-                      onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
+                      onClick={() => setSubscribeOpen(true)}
                     >
-                      HABLAR CON QUESWA →
+                      SUSCRIBIRSE AL BOLET&Iacute;N →
                     </button>
                   </div>
 
@@ -1895,6 +1897,9 @@ export default function ServilletaPage() {
           </section>
 
         </main>
+
+        {/* MODAL BOLETÍN — OPCIÓN 2 del cierre (Slide 4): puerta de entrada suave */}
+        <SubscribeModal isOpen={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
 
         {/* MODAL CATÁLOGO DE PRODUCTOS — opcional, abre desde Slide 3.
             Permite mostrar la línea Gano Excel sin sacar al prospecto del deck. */}

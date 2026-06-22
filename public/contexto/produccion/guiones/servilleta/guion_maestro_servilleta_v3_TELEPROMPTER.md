@@ -1,9 +1,9 @@
-GUIÓN MAESTRO SERVILLETA v5.0 · TELEPROMPTER
+GUIÓN MAESTRO SERVILLETA v5.1 · TELEPROMPTER
 
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 12 junio 2026 — swap "empresa digital" (CreaTuActivo protagonista · empresa digital · Método Comprobado · Propietario · sin "operar")
+Actualizado: 22 junio 2026 — v5.1 alineación con la Home: Gano fuera del enunciado del ingreso (Slide 1) · OPCIÓN 2 = suscribirse al boletín (Slide 4)
 
 
 
@@ -41,9 +41,7 @@ CreaTuActivo invierte ese ciclo con apalancamiento:
 
 usted pasa a ser propietario de una empresa digital
 
-que genera ingresos recurrentes
-
-cada vez que las personas consumen productos Gano Excel en toda América —
+que genera ingresos recurrentes —
 
 esté usted presente o no.
 
@@ -269,15 +267,17 @@ Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que le sigue toma
 
 
 
-OPCIÓN 2 — EL DIAGNÓSTICO DE 5 DÍAS
+OPCIÓN 2 — SUSCRIBIRSE AL BOLETÍN
 
-Cinco días para diagnosticar su propio modelo de ingresos
+Aún no es momento de decidir,
 
-y ver los números reales:
+pero usted quiere seguir el hilo.
 
-los que su situación actual le permite,
+Suscríbase a nuestro boletín y reciba, sin ruido y a su ritmo,
 
-frente al potencial de crecimiento que acaba de conocer.
+cómo se usa la inteligencia artificial para ser dueño de una empresa digital
+
+que genera ingresos una y otra vez.
 
 
 

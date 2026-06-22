@@ -1,13 +1,17 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.0
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.1
 ## Versión canónica calibrada · Lista para teleprompter
 
-**Origen:** Guión maestro servilleta v4.0 → recalibración integral "Negocio Digital" (sesión 08 jun 2026, con el Director Cabrejo)
+**Origen:** Guión maestro servilleta v4.0 → recalibración integral "Negocio Digital" (sesión 08 jun 2026) → v5.1 alineación con el nuevo posicionamiento de la Home (sesión 22 jun 2026, con el Director Cabrejo)
 **Registro:** Firma de ingeniería patrimonial — Mario Alonso Puig (autoridad + claridad). Ni charla de vecino, ni jerga opaca.
 **Calibración léxica:** investigaciones "Léxico CreaTuActivo: Comprensión y Duplicabilidad" + "Rediseño Léxico: Duplicabilidad Digital".
 **Duración estimada:** 6 – 7 minutos · vídeo herramienta para socios
 **Director:** Luis Cabrejo Parra
 
-### Cambios mayores de esta versión
+### Cambios de v5.1 (22 jun 2026 — alineación con la Home)
+- **Slide 1:** se retira la cláusula *"cada vez que las personas consumen productos Gano Excel en toda América"* del enunciado del ingreso. Gano Excel ya **no** figura como titular del ingreso (dispara el fantasma MLM); entra solo como Respaldo Operativo en el Pilar 1. El mecanismo de consumo recurrente se conserva más abajo (*"cada vez que el consumo se repite en los hogares de su organización"*) y en el Slide 3.
+- **Slide 4 · OPCIÓN 2:** "El Diagnóstico de 5 Días" → **"Suscribirse al boletín"**. El diagnóstico se desconectó como gancho en todo el sitio (jun 2026); el escalón intermedio entre no hacer nada y activar pasa a ser la puerta suave vigente: la newsletter ("manténgase al día con la IA en los negocios").
+
+### Cambios mayores de v5.0
 1. **"Base Operativa" → "empresa digital"** (a secas — la corona es de CreaTuActivo, no del proveedor; Gano Excel entra solo como Respaldo Operativo / Pilar 1). Refinamiento 12 jun 2026: "negocio digital" → **"empresa digital"** (eleva estatus de propiedad — alineado con Home v13.6 + SP v28.1 + arsenales). "Franquicia digital" descartada (coding MLM).
 2. **CreaTuActivo.com = protagonista / categoría nueva** (modelo Netflix *ejecutado*, no narrado). Gano Excel = el proveedor que "hace por usted" el trabajo pesado (el estudio detrás de Netflix).
 3. **Rol del usuario: "Propietario"** — dueño de su empresa digital. "Usted dirige; el sistema hace el trabajo."
@@ -43,7 +47,7 @@ Esto no ocurre por falta de capacidad ni de esfuerzo de su parte. Es la **consec
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
+CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** — esté usted presente o no.
 
 Poner todo esto a funcionar exige tres cosas: infraestructura, tecnología y un método. Nosotros le entregamos las tres ya construidas. Lo sostienen tres pilares:
 
@@ -116,8 +120,8 @@ Hasta aquí, la lógica de los números es inequívoca. A partir de ahora, el pa
 **OPCIÓN 1 — LA INACCIÓN**
 Dejar todo igual. Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que le sigue tomando sus mejores años y su salud.
 
-**OPCIÓN 2 — EL DIAGNÓSTICO DE 5 DÍAS**
-Cinco días para diagnosticar su propio modelo de ingresos y ver los números reales: los que su situación actual le permite, frente al potencial de crecimiento que acaba de conocer.
+**OPCIÓN 2 — SUSCRIBIRSE AL BOLETÍN**
+Aún no es momento de decidir, pero usted quiere seguir el hilo. Suscríbase a nuestro boletín y reciba, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para ser dueño de una empresa digital que genera ingresos una y otra vez.
 
 **OPCIÓN 3 — INICIAR LA ACTIVACIÓN**
 El paso natural para quien ya lo tiene claro. Usted asume la propiedad de su empresa digital hoy, y su primera velocidad de ingresos se activa esta misma semana.

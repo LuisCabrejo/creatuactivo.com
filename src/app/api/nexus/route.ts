@@ -26,11 +26,13 @@ import {
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
-// import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
-// ↑ Eliminado en Ola 4 (25 May 2026). El flujo de cierre ahora es 100% por WhatsApp:
-// el equipo recibe el mensaje pre-llenado del usuario (nombre + WhatsApp + paquete +
-// intención) directo via wa.me. Sin email intermedio. El archivo handoff-sumario.ts
-// se conserva por si en el futuro se reactiva el email pre-handoff.
+import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
+// ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
+// Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
+// COEXISTEN: el prospecto recibe el link wa.me pre-llenado (Estado 4) Y el equipo
+// recibe el expediente táctico por email (Resend) al entrar a Estado 4 por primera
+// vez. Se dispara en onFinal del stream → cero latencia para el prospecto, y onFinal
+// mantiene viva la función Edge hasta que el email se envía.
 
 // 1. Configuración de Clientes
 const anthropic = new Anthropic({
@@ -4518,6 +4520,30 @@ ESTADO: ${getMessageContext()}`;
           fingerprint,
           finalData  // ✅ Incluir datos semánticos en el log
         );
+
+        // ── WARM HANDOFF EMAIL (re-activado 19 jun 2026) ──────────────────────
+        // Al entrar a Estado 4 (handoff) por PRIMERA vez, envía el expediente
+        // táctico al equipo directivo (Resend). Coexiste con el link wa.me del
+        // prospecto: el equipo se entera aunque el prospecto no haga clic.
+        // onFinal corre tras entregar el mensaje al usuario → cero latencia, y
+        // mantiene viva la función Edge hasta completar el envío (await seguro).
+        if (closingState === 4 && !_handoffYaEntregado) {
+          try {
+            const conversacionHandoff = (Array.isArray(messages) ? messages : [])
+              .filter((m: any) => m?.role === 'user' || m?.role === 'assistant')
+              .map((m: any) => ({ role: m.role, content: typeof m.content === 'string' ? m.content : '' }));
+            await ejecutarWarmHandoff(conversacionHandoff, {
+              name: mergedProspectData.name || finalData.name,
+              package: mergedProspectData.package,
+              archetype: mergedProspectData.archetype || finalData.archetype,
+              interest_level: mergedProspectData.interest_level ?? finalData.interest_level,
+              email: mergedProspectData.email || finalData.email,
+              whatsapp: mergedProspectData.phone || finalData.phone,
+            });
+          } catch (e) {
+            console.error('❌ [Handoff] Error disparando warm handoff:', e);
+          }
+        }
       }
     });
 

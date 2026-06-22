@@ -13,6 +13,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
 // ============================================================================
@@ -519,22 +520,21 @@ export default function CalculadoraPage() {
                         ¿Listo para reescribir esta matemática?
                       </p>
 
-                      <Link
-                        href="/empresa-digital"
+                      <QueswaCTAButton
                         className="cta-base cta-primary"
                         style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
                       >
-                        Obtener el Mapa de Salida
+                        Hablar con Queswa
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
-                      </Link>
+                      </QueswaCTAButton>
 
                       <p
                         className="mt-6 text-sm"
                         style={{ color: COLORS.text.muted }}
                       >
-                        Auditoría 100% gratuita. Traza su ruta de escape del &ldquo;Plan por Defecto&rdquo;.
+                        Queswa explica, atiende y guía hasta la decisión de avanzar — las 24 horas.
                       </p>
                     </div>
                   </>

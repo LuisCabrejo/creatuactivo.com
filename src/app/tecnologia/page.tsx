@@ -14,6 +14,7 @@ import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { Bot, Target, Users, CheckCircle, X } from 'lucide-react';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo · Luis Cabrejo',
@@ -374,21 +375,16 @@ export default function TecnologiaPage() {
                 ¿Quiere comprobar esta tecnología?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Inicie el Diagnóstico de 5 Días y vea, con sus propios números, cómo esta
-                tecnología multiplica lo que hoy usted sostiene solo.
+                Pregúntele a Queswa, con sus propios números, cómo esta tecnología
+                multiplica lo que hoy usted sostiene solo. Explica, atiende y guía, las 24 horas.
               </p>
 
-              <Link
-                href="/empresa-digital"
+              <QueswaCTAButton
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
-                INICIAR EL DIAGNÓSTICO →
-              </Link>
-
-              <p className="text-sm mt-6 text-[#64748B]">
-                5 Días · Sin Costo · Sin Compromiso
-              </p>
+                HABLAR CON QUESWA →
+              </QueswaCTAButton>
             </div>
           </section>
 

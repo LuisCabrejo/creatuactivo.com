@@ -11,6 +11,7 @@
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos | CreaTuActivo Blog',
@@ -279,20 +280,19 @@ export default function NetworkMarketingObsoletoPage() {
                   ¿Desea ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En el Diagnóstico de 5 Días le mostramos exactamente cómo hemos evolucionado
-                  del modelo de distribución manual a la Arquitectura de Activos—y
-                  cómo puede iniciar la construcción del suyo.
+                  Pregúntele a Queswa cómo hemos evolucionado del modelo de distribución
+                  manual a una empresa digital — y cómo se construye la suya. Explica,
+                  atiende y guía, las 24 horas.
                 </p>
-                <Link
-                  href="/empresa-digital"
+                <QueswaCTAButton
                   className="cta-base cta-primary"
                   style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >
-                  Iniciar el Diagnóstico de 5 Días
+                  Hablar con Queswa
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
+                </QueswaCTAButton>
               </div>
 
               {/* Back to Blog */}

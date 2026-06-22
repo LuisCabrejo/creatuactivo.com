@@ -14,6 +14,7 @@
 import { REEL_ASSETS, REEL_COPY, REEL_POSTER, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelVideo from '@/components/ReelVideo'
 import ShareButton from '@/components/ShareButton'
+import QueswaCTAButton from '@/components/QueswaCTAButton'
 
 interface ReelPageProps {
   slug: string
@@ -40,10 +41,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
     ? `(function(){try{var id=${JSON.stringify(refId)};localStorage.setItem('constructor_ref',id);var u=new URL(location.href);if(u.searchParams.get('ref')!==id){u.searchParams.set('ref',id);history.replaceState(null,'',u.toString());}}catch(e){}})();`
     : null
 
-  // Auditoría de 5 días (escenario 2 del cierre) — squeeze con atribución
-  const auditoriaUrl = refId ? `/empresa-digital?ref=${refId}` : '/empresa-digital'
-
-  // Activación inmediata (escenario 3) — WhatsApp del arquitecto, mensaje de decisión tomada
+  // Activación inmediata (escenario 2) — WhatsApp del arquitecto, mensaje de decisión tomada
   const waUrl = constructor.whatsapp
     ? `https://wa.me/${constructor.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(
         `Hola ${primerNombre}, vi la presentación y quiero activar mi empresa digital. ¿Cuál es el siguiente paso?`
@@ -114,9 +112,9 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
 
         {/* Los dos escenarios con que cierra la presentación */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <a href={auditoriaUrl} className="cta-base cta-secondary" style={{ width: '100%' }}>
-            Diagnóstico de 5 Días
-          </a>
+          <QueswaCTAButton className="cta-base cta-secondary" style={{ width: '100%' }}>
+            Hablar con Queswa
+          </QueswaCTAButton>
 
           {waUrl && (
             <a

@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: 'Blog - Recursos para Construir su Soberanía Financiera | CreaTuActivo',
@@ -167,18 +168,17 @@ export default function BlogPage() {
           <section className="py-20 px-6">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] mb-6">
-                ¿Listo para ejecutar el diagnóstico en su modelo de ingresos?
+                ¿Quiere ver cómo se aplica esto a su caso?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                El Diagnóstico de 5 Días le muestra cómo aplicar estos principios en su modelo de ingresos actual.
+                Queswa explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas.
               </p>
-              <Link
-                href="/empresa-digital"
+              <QueswaCTAButton
                 className="cta-base cta-primary"
                 style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
               >
-                Iniciar el Diagnóstico de 5 Días →
-              </Link>
+                Hablar con Queswa →
+              </QueswaCTAButton>
             </div>
           </section>
 

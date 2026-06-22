@@ -1879,15 +1879,14 @@ export default function ServilletaPage() {
                       ACTIVAR SU EMPRESA DIGITAL →
                     </a>
 
-                    {/* CTA Secundario → /empresa-digital */}
-                    <a
-                      href="https://creatuactivo.com/empresa-digital"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    {/* CTA Secundario → abre Queswa (conversación, no empuje al funnel) */}
+                    <button
+                      type="button"
                       className="btn-industrial secondary"
+                      onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
                     >
-                      VER EL DIAGN&Oacute;STICO DE 5 D&Iacute;AS →
-                    </a>
+                      HABLAR CON QUESWA →
+                    </button>
                   </div>
 
                 </div>

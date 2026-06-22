@@ -11,6 +11,7 @@
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700) | CreaTuActivo Blog',
@@ -336,20 +337,19 @@ export default function LegalidadNetworkMarketingPage() {
                   ¿Desea evaluar una oportunidad real?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En el Diagnóstico de 5 Días le presentamos un modelo con décadas de operación
-                  y presencia global comprobable, con el plan de compensación explicado en
-                  detalle. Sin presión, solo información técnica.
+                  Queswa le explica un modelo con décadas de trayectoria y presencia global
+                  comprobable, con el plan de compensación en detalle. Sin presión, solo
+                  información — las 24 horas.
                 </p>
-                <Link
-                  href="/empresa-digital"
+                <QueswaCTAButton
                   className="cta-base cta-primary"
                   style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >
-                  Iniciar el Diagnóstico de 5 Días
+                  Hablar con Queswa
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
+                </QueswaCTAButton>
               </div>
 
               {/* Back to Blog */}

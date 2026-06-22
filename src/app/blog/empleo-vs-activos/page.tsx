@@ -11,6 +11,7 @@
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
@@ -257,20 +258,19 @@ export default function EmpleoVsActivosPage() {
                   ¿Desea aprender a construir activos?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  En el Diagnóstico de 5 Días le mostramos paso a paso cómo funciona un sistema
-                  diseñado para que perfiles sin capital inicial puedan iniciar la construcción
-                  de flujo de caja autosustentable.
+                  Queswa le explica paso a paso cómo funciona un sistema diseñado para que
+                  perfiles sin capital inicial puedan empezar a construir un flujo de caja
+                  autosustentable. Las 24 horas.
                 </p>
-                <Link
-                  href="/empresa-digital"
+                <QueswaCTAButton
                   className="cta-base cta-primary"
                   style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
                 >
-                  Iniciar el Diagnóstico de 5 Días
+                  Hablar con Queswa
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
+                </QueswaCTAButton>
               </div>
 
               {/* Back to Blog */}

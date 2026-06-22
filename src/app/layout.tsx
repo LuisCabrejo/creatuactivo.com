@@ -64,7 +64,6 @@ export const metadata: Metadata = {
     'empresa digital',
     'ingresos recurrentes',
     'propietario empresa digital',
-    'diagnóstico de 5 días',
     'apalancamiento estratégico',
     'queswa ia',
     'queswa app',

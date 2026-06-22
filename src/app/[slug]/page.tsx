@@ -9,7 +9,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
-import { Home, Target, Calculator, Package, Map, Zap, ChevronRight, MessageCircle } from 'lucide-react'
+import { Home, Calculator, Package, Map, Zap, ChevronRight, MessageCircle } from 'lucide-react'
 
 // Revalida cada 60s — los datos del constructor (foto, frase, links) pueden cambiar
 // en Supabase sin requerir redeploy. Sin esto, Next.js cachea indefinidamente y
@@ -21,13 +21,12 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-// Destinos disponibles — orden: Home primero, Auditoría destacada, resto secundarios
+// Destinos disponibles — orden: Home destacada, resto secundarios
 const DESTINOS = [
-  { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: false, color: '#7B8FA6' },
-  { key: 'auditoria',   label: 'Diagnóstico de 5 Días',      Icon: Target,     desc: 'Conozca su punto de partida',          highlight: true,  color: '#C9A96E' },
+  { key: 'home',        label: 'Mi Página Principal',        Icon: Home,       desc: 'Portal de entrada al ecosistema',      highlight: true,  color: '#C9A96E' },
+  { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false, color: '#8A7A9E' },
   { key: 'calculadora', label: 'Calculadora de Patrimonio',  Icon: Calculator, desc: 'Proyecte su potencial',                highlight: false, color: '#7A9E8A' },
   { key: 'productos',   label: 'Ver los productos',          Icon: Package,    desc: 'Catálogo Gano Excel completo',         highlight: false, color: '#9E8A7A' },
-  { key: 'servilleta',  label: 'La servilleta digital',      Icon: Map,        desc: 'El modelo en 4 diapositivas',          highlight: false, color: '#8A7A9E' },
 ]
 
 async function getConstructorBySlug(slug: string) {

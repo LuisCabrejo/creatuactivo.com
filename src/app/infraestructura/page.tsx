@@ -16,6 +16,7 @@
 import Link from 'next/link';
 import { Leaf, Factory, Globe, Coffee, Shield, TrendingUp, ArrowDown, ChevronRight } from 'lucide-react';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export default function InfraestructuraPage() {
   return (
@@ -396,17 +397,16 @@ export default function InfraestructuraPage() {
               ¿Listo para empezar?
             </p>
 
-            <Link
-              href="/empresa-digital"
+            <QueswaCTAButton
               className="cta-base cta-primary"
               style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
             >
-              Iniciar el Diagnóstico de 5 Días
+              Hablar con Queswa
               <ChevronRight className="w-5 h-5" />
-            </Link>
+            </QueswaCTAButton>
 
             <p className="text-[#6B7280] text-sm mt-6">
-              Sin costo · Sin compromiso · Evaluación inmediata
+              Sin costo · Sin compromiso · Respuesta inmediata
             </p>
           </div>
         </section>

@@ -294,33 +294,6 @@ export default function PlanesTecnologicosPage() {
                 alignItems: 'stretch',
               }}>
 
-                {/* PLAN 0 — Diagnóstico de 5 Días */}
-                <PlanCard
-                  tag="FASE 0 — SIN COSTO"
-                  title="Diagnóstico de 5 Días"
-                  price="Sin costo"
-                  priceLabel="— 5 días"
-                  profile="Acceso temporal para conocer el sistema por dentro. CreaTuActivo asume el costo de esta fase."
-                  metrics={[
-                    { label: 'Duración', value: '5 Días' },
-                    { label: 'Conversaciones', value: '30' },
-                    { label: 'Prospectos', value: '30' },
-                    { label: 'Soporte', value: 'Comunidad' },
-                  ]}
-                  features={[
-                    'Acceso temporal al sistema Queswa',
-                    'Recorrido por la tecnología por dentro',
-                    'Espacio para resolver todas sus dudas',
-                    'La Academia — Módulo introductorio',
-                    '2 minutos máximo por conversación',
-                  ]}
-                  borderColor={C.success}
-                  accentColor={C.success}
-                  icon={<Layers size={18} />}
-                  ctaText="INICIAR EL DIAGNÓSTICO"
-                  ctaHref="/empresa-digital"
-                />
-
                 {/* PLAN BASE — Plan Inicial */}
                 <PlanCard
                   tag="PLAN BASE — $25 USD/MES"

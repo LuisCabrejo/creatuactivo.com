@@ -659,8 +659,8 @@ Estructura de las 4 slides: **01 SU EMPRESA · 02 METODOLOGÍA (EAM) · 03 EL PR
    - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
    - **Distribución del overlay (jun 2026):** imagen `48%` + overlay `top: 48%`. **Mobile normal** usa `justify-content: center` (la `.mobile-nav` inferior ocupa la franja baja, así el contenido centrado se ve alto/balanceado). **Fullscreen mobile** usa `justify-content: flex-start` a propósito: en fullscreen la `.mobile-nav` se oculta, y centrar empujaba el 2º botón fuera de pantalla → anclar arriba (bajo la imagen) garantiza ver ambos CTAs. ❌ NO unificar ambos a `center`.
    - **Swipe exonera el simulador (jun 2026):** `handleTouchStart`/`handleTouchEnd` en `deck-container` ignoran el swipe cuando el touch nace sobre `input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons` (ref `touchSwipeIgnore`, mismo conjunto que exonera `handleSlideClick`). Sin esto, arrastrar los sliders de ingreso >60px en horizontal se leía como swipe → retrocedía al Slide 3.
-   - Botón primario "ACTIVACIÓN DE UNIDAD DE SUMINISTRO →": `width: 100%`, naranja dominante → `/paquetes`
-   - Botón secundario "VER LA AUDITORÍA DE 5 DÍAS →": outline, más angosto → `/empresa-digital`
+   - Botón primario "ACTIVAR SU EMPRESA DIGITAL →": `width: 100%`, naranja dominante → `/paquetes`
+   - Botón secundario "SUSCRIBIRSE AL BOLETÍN →": outline, más angosto → abre `SubscribeModal` (newsletter; OPCIÓN 2 del guion v5.1). Antes empujaba al Diagnóstico de 5 Días → `/empresa-digital`, desconectado como gancho jun 2026
 
 #### B-rolls 3D en Slides 1 y 2 (jun 2026)
 

@@ -583,9 +583,8 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   {/* CTA conversión — botón secundario diferenciado (no es pregunta del avatar) */}
                   <button
                     key={QUESWA_CTA_LABEL}
-                    onClick={() => handleSendMessage(QUESWA_CTA_LABEL)}
-                    disabled={isLoading}
-                    className="w-full mt-2 px-4 py-4 text-center text-sm font-medium transition-all duration-200 disabled:opacity-40"
+                    onClick={() => window.dispatchEvent(new CustomEvent('open-subscribe'))}
+                    className="w-full mt-2 px-4 py-4 text-center text-sm font-medium transition-all duration-200"
                     style={{
                       background: 'transparent',
                       border: `1px solid ${QUIET_LUXURY.gold}`,

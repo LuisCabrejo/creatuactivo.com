@@ -515,6 +515,14 @@ export default function StrategicNavigation() {
     setSubscribeOpen(true)
   }
 
+  // El modal de suscripción también se abre desde otros componentes (CTA de Queswa)
+  // vía el evento global 'open-subscribe'.
+  useEffect(() => {
+    const onOpen = () => setSubscribeOpen(true)
+    window.addEventListener('open-subscribe', onOpen)
+    return () => window.removeEventListener('open-subscribe', onOpen)
+  }, [])
+
   const handleDropdownEnter = (sectionName: string) => {
     setActiveDropdown(sectionName)
   }

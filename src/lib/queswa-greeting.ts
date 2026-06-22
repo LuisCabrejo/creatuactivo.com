@@ -56,9 +56,10 @@ export const QUESWA_QUICK_REPLIES = [
 
 /**
  * CTA secundario — siempre visible debajo de los 4 chips.
- * No es una pregunta del avatar, es la conversión al Diagnóstico de 5 Días.
+ * No es una pregunta del avatar: abre el modal de suscripción (evento `open-subscribe`).
+ * Reemplazó "Iniciar Diagnóstico" en la reposición jun 2026 (diagnóstico desconectado).
  */
-export const QUESWA_CTA_LABEL = 'Iniciar Diagnóstico';
+export const QUESWA_CTA_LABEL = 'Suscríbete';
 
 /**
  * Mapa de expansión de chips → queries semánticas óptimas para el RAG.

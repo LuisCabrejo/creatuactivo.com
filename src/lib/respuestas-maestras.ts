@@ -88,6 +88,36 @@ Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño q
 ¿Le muestro **los productos** que mueven todo esto, o prefiere ver **los números** — cómo y cuánto produce?`;
 
 /**
+ * Texto Master EMPRESA_DIGITAL_01 — query de texto libre "¿qué es una empresa digital?".
+ * NO es chip: se sirve por Camino A vía regex (ver getRespuestaMaestra) porque el RAG
+ * confundía esta query con WHY_01 ("¿qué es CreaTuActivo?", el de los 3 pilares + Gano) y
+ * el modelo sintetizaba una respuesta de pilares en vez de la definición accesible.
+ * Sincronizado carácter por carácter con arsenal_inicial.txt v5.18 BLOQUE 1 (EMPRESA_DIGITAL_01).
+ * Doctrina: definición general (Amazon/MercadoLibre/Rappi = el puente) que cierra con puente
+ * a "en el caso de CreaTuActivo". "Sistema" evitado (es el villano) → "puente".
+ */
+const MASTER_EMPRESA_DIGITAL = `Buena pregunta — y se la aterrizo sin tecnicismos. 🪢
+
+Una empresa digital es un negocio que **vive en internet** y **produce aunque su dueño no esté ahí**. No necesita local, ni bodega, ni una fila de empleados.
+
+La forma más fácil de verlo: piense en **Amazon**, **MercadoLibre** o **Rappi**. Amazon casi no fabrica lo que vende; Rappi no cocina ni tiene un solo restaurante. Lo que hacen es ser el **puente** que conecta a la gente: ganan por cada operación que pasa por ahí, sin cargar una sola caja.
+
+Por eso una empresa digital hace lo que un negocio de toda la vida no puede: produce sin depender de las horas de su dueño, crece sin abrir más locales ni contratar más gente, y llega lejos —a una ciudad o a un continente— desde un celular.
+
+En una frase: **usted es dueño del puente que genera el valor, no el que pone la fuerza física.**
+
+¿Quiere que le muestre cómo se ve eso **en el caso de CreaTuActivo** — cómo sería la suya?`;
+
+/**
+ * Regex que detecta la pregunta de texto libre "¿qué es una empresa digital?" y variantes
+ * ("qué es en sí una empresa digital", "explícame una empresa digital", "a qué se refieren
+ * con empresa digital", "qué significa empresa digital"). Corre DESPUÉS del match exacto de
+ * chips, así que NO pisa los chips 1-4 ni "¿qué es CreaTuActivo?" (que no dice "empresa digital").
+ */
+const RE_QUE_ES_EMPRESA_DIGITAL =
+  /(qu[eé]\s+(es|significa)|expl[ií]ca\w*|expl[ií]qu\w*|a\s+qu[eé]\s+se\s+refiere\w*)[\s\S]{0,40}empresa\s+digital/i;
+
+/**
  * Mapa chip-text-lowercase → respuesta Master verbatim.
  * Las keys son las versiones lowercase de `QUESWA_QUICK_REPLIES` en queswa-greeting.ts.
  */
@@ -110,7 +140,13 @@ const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
 export function getRespuestaMaestra(userMessage: string): string | null {
   if (!userMessage || typeof userMessage !== 'string') return null;
   const key = userMessage.trim().toLowerCase();
-  return RESPUESTAS_MAESTRAS_CHIP[key] || null;
+  // 1) Match exacto de chip (WHY_02 / EAM_01) — corre primero.
+  const chipMatch = RESPUESTAS_MAESTRAS_CHIP[key];
+  if (chipMatch) return chipMatch;
+  // 2) Query de texto libre "¿qué es una empresa digital?" → definición accesible verbatim.
+  //    (Resuelve el bug donde el RAG traía WHY_01 "qué es CreaTuActivo" y sintetizaba 3 pilares.)
+  if (RE_QUE_ES_EMPRESA_DIGITAL.test(key)) return MASTER_EMPRESA_DIGITAL;
+  return null;
 }
 
 /**

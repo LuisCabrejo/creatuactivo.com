@@ -43,6 +43,22 @@ const nextConfig = {
   // ✅ Redirects permanentes (301)
   async redirects() {
     return [
+      // ⛔ DEPRECADO (22 jun 2026): el funnel reto/diagnóstico se retiró — meses de pruebas con
+      // CERO clics. Todo /empresa-digital (squeeze + dia-1..5, videos de léxico viejo) → Home, para
+      // que nadie tropiece con páginas muertas. El cron reto-5-dias quedó apagado (vercel.json) y
+      // arsenal_reto marcado deprecado. Funnel vigente: reel → Queswa → 1-a-1. Los redirects legacy
+      // que apuntaban a /empresa-digital hacen doble salto hasta Home (aceptable: URLs muertas).
+      {
+        source: '/empresa-digital',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/empresa-digital/:path*',
+        destination: '/',
+        permanent: true,
+      },
+
       // /nosotros → /manifiesto (renombrado por coherencia con /{slug}/manifiesto)
       {
         source: '/nosotros',

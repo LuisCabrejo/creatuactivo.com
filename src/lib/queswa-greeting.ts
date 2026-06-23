@@ -48,8 +48,8 @@ const TRANSICION = `¿Por dónde quiere empezar?`;
  * reformulada estilo Gemini, no sustantivos densos. Test abuela/Beto.
  */
 export const QUESWA_QUICK_REPLIES = [
-  '¿Cómo funciona el modelo de negocio?',
-  '¿Cuál es la metodología? ¿Qué hago yo en el día a día?',
+  '¿Y esto cómo funciona, exactamente?',
+  '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
   '¿Cuáles son los productos y para qué sirven?',
   'Quiero ver los números: ¿cómo y cuánto se gana?',
 ] as const;
@@ -87,9 +87,9 @@ export const QUESWA_CTA_LABEL = 'Suscríbete';
  * Las keys deben estar en lowercase (route.ts hace .toLowerCase().trim() antes del match).
  */
 export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
-  '¿cómo funciona el modelo de negocio?':
-    'cómo funciona el negocio sistema distribución tres pilares apalancamiento',
-  '¿cuál es la metodología? ¿qué hago yo en el día a día?':
+  '¿y esto cómo funciona, exactamente?':
+    'cómo funciona el negocio sistema distribución tres pilares apalancamiento empresa digital',
+  '¿cómo lo haría yo? ¿qué hago en el día a día?':
     'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',
   '¿cuáles son los productos y para qué sirven?':
     'qué productos cuáles son para qué sirven beneficios catálogo Ganoderma Gano Excel',

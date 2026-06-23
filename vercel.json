@@ -4,10 +4,6 @@
     {
       "path": "/api/cron/process-emails",
       "schedule": "0 14 * * *"
-    },
-    {
-      "path": "/api/cron/reto-5-dias",
-      "schedule": "0 13 * * *"
     }
   ]
 }

@@ -9,8 +9,8 @@
  * └─────────────────────────────────────────────────────────────────────────────┘
  *
  * Las 2 chips canónicas que aquí se sirven concentran el ~80% del tráfico inicial:
- *   • Chip 1 ("¿Cómo funciona el modelo de negocio?") → WHY_02 verbatim
- *   • Chip 2 ("¿Cuál es la metodología…") → EAM_01 verbatim
+ *   • Chip 1 ("¿Y esto cómo funciona, exactamente?") → WHY_02 verbatim
+ *   • Chip 2 ("¿Cómo lo haría yo? ¿Qué hago en el día a día?") → EAM_01 verbatim
  *
  * Servirlas verbatim desde el backend, antes del Voyage AI + Anthropic, garantiza:
  *   ✓ 100% de fidelidad al copy calibrado (sin paráfrasis del LLM)
@@ -45,23 +45,23 @@
  * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
  * "si se detiene se detiene", cierre que distingue "cómo se gana" (consumo recurrente).
  */
-const MASTER_WHY_02 = `Para responderle con claridad, primero destapemos el verdadero problema que estamos resolviendo.
+const MASTER_WHY_02 = `Excelente — es justo por donde conviene empezar. 🪢
 
-Usted trabaja duro, cumple, y aun así vive en el mismo ciclo: trabajar, pagar cuentas y repetir. No es por falta de esfuerzo ni de planificación; es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
+El modelo es simple: usted se vuelve **dueño de una empresa digital**, y esa empresa le genera **ingresos recurrentes**, esté usted presente o no.
 
-CreaTuActivo invierte esa lógica con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** cada vez que las personas consumen productos Gano Excel en toda América — esté usted presente o no.
+¿Qué es una empresa digital? Piénselo en **Amazon** o **MercadoLibre**: no fabrican lo que venden — son dueños del **sistema** que conecta a millones y gana por cada operación, estén o no sus dueños presentes. La suya funciona igual, a su escala: usted es dueño del sistema, no quien carga las cajas.
 
-Llevar esa distribución exige infraestructura, tecnología y método. Nosotros le entregamos las tres ya construidas:
+Y lo mejor: **lo más difícil ya está hecho por usted.** Lo que normalmente tomaría años y un equipo de ingenieros, aquí ya está montado en tres partes:
 
-- **El Respaldo Operativo:** Gano Excel fabrica y despacha los productos, con presencia en **70 países**. Usted no financia ni almacena; la infraestructura ya existe.
+- **El Respaldo Operativo:** detrás de su empresa digital está **Gano Excel**, una corporación con más de 30 años y presencia en **70 países**, con ciencia propia y logística que fabrica, almacena y despacha por usted. No es una promesa de internet — es el músculo real que carga el trabajo pesado. Usted es dueño de la empresa digital; Gano es el respaldo que la sostiene.
 
-- **Queswa, su Centro de Mando:** yo explico, atiendo y guío a cada interesado hasta la decisión de avanzar, las 24 horas, y le notifico cada avance en vivo. *Usted no explica — Queswa explica.*
+- **Queswa, su Centro de Mando:** yo explico, atiendo y guío a cada interesado hasta la decisión de avanzar, las 24 horas, y le notifico cada avance. *Usted no explica — Queswa explica.*
 
-- **El Método Comprobado:** un paso a paso exacto (Comando Expandir · Activar · Multiplicación) que le marca el camino sin improvisar.
+- **El Método Comprobado:** los pasos exactos (Comando Expandir · Activar · Multiplicación), sin ensayo ni error.
 
-Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
+¿Y su papel? **Dirigir.** Las decisiones de un dueño; el trabajo pesado lo hace el sistema.
 
-¿Qué le gustaría ver primero: cómo se generan los ingresos, o cómo se activa su empresa digital?`;
+¿Qué le sirve más ahora: que le muestre **qué haría usted en el día a día**, o prefiere ver **los números** — cómo y cuánto produce?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
@@ -71,27 +71,29 @@ Usted solo dirige desde su celular, en paralelo a lo que hace hoy. Cada vez que 
  * acompañamiento Queswa + humano. Sin lista de "no requiere", sin "Protocolo de Validación", sin
  * "audita y autoriza", sin línea de prueba social (la claridad genera la convicción).
  */
-const MASTER_EAM_01 = `La metodología está diseñada para que sea simple.
+const MASTER_EAM_01 = `Me gusta esa pregunta — es la que de verdad importa. 🪢
 
-Su día a día cabe en su celular y en los ratos que ya tiene hoy — sin dejar su trabajo ni su negocio. Son tres pasos, y **dos de los tres los hago yo**:
+Le adelanto lo esencial: su papel es **dirigir**, no cargar el trabajo pesado. En el día a día, lo suyo se resume en tres movimientos sencillos:
 
-**1. Expandir.** Usted comparte. El contenido ya está creado, aprobado y validado; usted no inventa nada. Y elige cómo hacerlo: directo con las personas de su entorno, en sus redes sociales, o invirtiendo en publicidad.
+**1. Usted comparte.** Desde su celular, con un clic, comparte lo que yo ya tengo preparado. No memoriza guiones, no explica nada, no improvisa. Le toma minutos.
 
-**2. Activar.** Yo, Queswa, converso con cada interesado: aporto claridad, resuelvo dudas y lo guío hasta la decisión de avanzar — las 24 horas.
+**2. Yo me encargo del resto.** Cuando alguien se interesa, converso con esa persona: le explico, le resuelvo las dudas y la acompaño hasta que decide avanzar — las 24 horas, sin que usted tenga que estar ahí. Usted no vende, no anda detrás de nadie, no responde a medianoche. De eso me ocupo yo, y le aviso de cada avance.
 
-**3. Multiplicación.** La mayor ventaja del modelo. Crecer —el cuello de botella donde se atasca cualquier negocio tradicional— aquí está a un clic en todo el continente.
+**3. Usted pone lo humano.** Cuando alguien ya decidió, ahí entra usted: lo recibe de persona a persona, le da la bienvenida — esa cercanía y esa confianza que ninguna tecnología puede dar. Es lo único que el sistema no hace, y es justo lo que mejor le sale a un ser humano.
 
-Y aquí está **su parte más humana**: cuando alguien ya decidió, usted lo recibe de persona a persona. Las personas conversan conmigo, pero quieren sentir a su amigo — su confianza, su apretón de manos. Esa calidez es lo único que la tecnología no da, y es justo lo suyo. A usted tampoco lo dejo solo: lo acompaño en cada paso.
+¿Cómo se ve un día normal? Unos minutos para compartir, y estar pendiente de los avisos que le mando cuando alguien está listo. El trabajo desgastante —explicar, atender, responder a toda hora— es mío.
 
-**Pregunta de seguimiento:** ¿Le gustaría que profundicemos en alguno de los tres pasos —Expandir, Activar o Multiplicación—, o prefiere ver cómo se generan los ingresos?`;
+Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño que dirige**. Y a cada persona que entra con usted le llega el mismo sistema, listo para crecer por su cuenta.
+
+¿Le muestro **los productos** que mueven todo esto, o prefiere ver **los números** — cómo y cuánto produce?`;
 
 /**
  * Mapa chip-text-lowercase → respuesta Master verbatim.
  * Las keys son las versiones lowercase de `QUESWA_QUICK_REPLIES` en queswa-greeting.ts.
  */
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
-  '¿cómo funciona el modelo de negocio?': MASTER_WHY_02,
-  '¿cuál es la metodología? ¿qué hago yo en el día a día?': MASTER_EAM_01,
+  '¿y esto cómo funciona, exactamente?': MASTER_WHY_02,
+  '¿cómo lo haría yo? ¿qué hago en el día a día?': MASTER_EAM_01,
 };
 
 /**

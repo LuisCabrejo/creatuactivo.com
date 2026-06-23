@@ -18,7 +18,7 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 > "por usted" (Gano = respaldo/logística, nunca titular del ingreso) · villano narrado (no agresivo)
 > · cierre-visión. ⏳ Las páginas en vivo requieren **deploy** de `reels.ts`.
 
-> 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución = **qué es una empresa digital** (analogía Amazon/MercadoLibre, accesible) + beneficio sentido (produce sin usted, en paralelo, cualquiera puede) — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa** ("pregúntele, le mostrará cómo sería para su caso"). Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
+> 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución (v2, 23 jun — doctrina "**vender empresa digital como el santo grial; si no, lo demás se pierde**") = **definición profunda de qué es una empresa digital** (Amazon/MercadoLibre = el **puente**, NO "dueños del sistema" — *"el sistema"* es el villano del diagnóstico, no se reusa en positivo) + beneficios absurdos (produce sin usted, 24/7, todo un continente) → **ejemplo concreto `sonrisaslindas.app`** (el "clic" que aterriza lo abstracto) → **VS** negocio tradicional (una puerta, una ciudad, depende de usted) vs empresa digital (trabaja sola, crece sin techo). Hilo siempre anclado a "empresa digital / la suya / el puente" (los pronombres sueltos tipo "algo así / la suya" hacían que el lector se devolviera). — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa**, pregunta gancho *"pero ¿cómo lo hago yo?"*. Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
 
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
 > decían el registro de auditoría que ya purgamos del system prompt ("Queswa **busca, filtra**
@@ -48,20 +48,20 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
 # BLOQUE COMPARTIDO (idéntico en los 5 reels)
 
-### SOLUCIÓN (0:30 — 0:55s)
+### SOLUCIÓN (0:30 — 1:15s)
 *(Reels A · B · D · E. El Reel C `empresarios` reemplaza solo el primer párrafo — ver su sección.)*
 
 La solución no es trabajar más duro, ni montar un negocio de los de siempre —con local, arriendo y mil gastos—. La solución es ser dueño de su propia empresa digital.
 
-¿Y qué es exactamente? Piense en Amazon o MercadoLibre: ellos no fabrican lo que venden. Son dueños del sistema que conecta a millones y gana por cada operación, de forma automática.
+¿Y qué es una empresa digital? Es un negocio que vive en internet y produce aunque usted no esté ahí: sin local, sin bodega, sin empleados. Piense en Amazon o MercadoLibre — no fabrican lo que venden; son el puente que conecta a millones y gana por cada operación, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
 
-La suya, a su escala, funciona igual: un negocio que vive en internet y no necesita local ni empleados. Usted lo pone en marcha una vez, y la tecnología se encarga de que produzca 24/7, sin importar si su cliente está en su ciudad o en otro país.
+Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión —sin pagar el arriendo del local, sin atender a nadie—. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
 
-Imagine tener algo así, en paralelo a lo que ya hace: un ingreso que entra una y otra vez, sin depender de su tiempo. Y esto ya no es solo para los gigantes: hoy, gracias a la inteligencia artificial, cualquiera puede tener la suya.
+¿Ve la diferencia? Un negocio tradicional, por bueno que sea, abre una puerta, en una ciudad, y depende de que usted esté ahí. Su empresa digital trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y eso, que antes tomaba años e ingenieros, hoy —gracias a la inteligencia artificial— cualquiera puede tenerla.
 
-### CTA — QUESWA (0:55 — 1:10s)
+### CTA — QUESWA (1:15 — 1:35s)
 
-Queda una sola pregunta: "Me encanta… pero, ¿qué hago yo?" Esa se la responde Queswa mejor que nadie. Aquí mismo, pregúntele: le mostrará en minutos cómo sería para su caso. Ser dueño de una empresa digital ya es una realidad… la única variable que falta en la ecuación es usted.
+Y queda una sola pregunta: "Me encanta… pero ¿cómo lo hago yo?" Esa pregunta se la responde Queswa mejor que nadie. Aquí mismo, pregúntele: le mostrará en minutos cómo sería para su caso. Ser dueño de una empresa digital ya es una realidad… la única variable que falta en la ecuación es usted.
 
 ---
 
@@ -87,7 +87,7 @@ Y no es por falta de capacidad; usted vale. Es la consecuencia matemática de un
 Un cargo con el Estado le otorga estabilidad. Pero, si por más duro que trabaje, las cuotas de los créditos siempre le llevan la delantera, usted no tiene tranquilidad real; tiene una calma que dura lo que dura su quincena.
 
 **DIAGNÓSTICO OPERATIVO (0:15 — 0:35s)**
-Esto no es falta de esfuerzo. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio.
+Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
@@ -103,11 +103,11 @@ Usted construyó una empresa que factura, que le da respeto y un buen nivel de v
 Y esto no es por falta de capacidad: usted ya demostró que sabe construir. El punto es otro. Un negocio que depende de su presencia no es un patrimonio; es un puesto que usted mismo creó. No se hereda tranquilo, no se vende por lo que realmente vale, y no produce sin su supervisión. El día que usted se canse, se enferme o quiera parar, el negocio se frena con usted.
 
 **SOLUCIÓN (variante empresarios) (0:35 — 0:55s)**
-*(Reemplaza solo el primer párrafo del Bloque Compartido; sigue con "¿Y qué es exactamente?…" + CTA Queswa.)*
+*(Reemplaza solo el primer párrafo del Bloque Compartido; sigue con "¿Y qué es una empresa digital?…" + CTA Queswa.)*
 
 Usted ya sabe construir un negocio; el problema no es su capacidad, es que ese negocio depende de usted. Lo que sigue es tener algo que funcione sin usted: su propia empresa digital.
 
-→ Sigue con el cuerpo del **Bloque Compartido** (desde "¿Y qué es exactamente?…") + el **CTA — Queswa**.
+→ Sigue con el cuerpo del **Bloque Compartido** (desde "¿Y qué es una empresa digital?…") + el **CTA — Queswa**.
 
 ---
 
@@ -131,7 +131,7 @@ Es la consecuencia matemática de un sistema diseñado para que usted construya 
 Usted trabaja duro, pero vive "al día". La matemática financiera de su vida es: si usted se detiene, su ingreso se detiene.
 
 **DIAGNÓSTICO (0:13 — 0:30s)**
-Eso no es falta de ganas. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir, cambiando sus horas por una plata que se va tan rápido como llega. Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.
+Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir, cambiando sus horas por una plata que se va tan rápido como llega. Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 

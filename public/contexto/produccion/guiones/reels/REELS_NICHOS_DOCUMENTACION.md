@@ -11,10 +11,14 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 > en red / ex-Gano que ya conoce a Luis. **No usa el bloque compartido**: tiene hook,
 > diagnóstico, solución y CTA propios.
 
-> ✅ **Migración al léxico "Negocio Digital" COMPLETA (jun 2026).** Migrados el **bloque
+> ✅ **Migración al léxico "Empresa Digital" COMPLETA (22 jun 2026).** Migrados el **bloque
 > compartido** + los **5 reels (A–E)** — guion (hook + diagnóstico) **y** copy de página
-> (`src/lib/reels.ts`). Negocio digital · CreaTuActivo protagonista · 3 pilares "por usted"
-> · villano narrado (no agresivo) · cierre-visión. ⏳ Las páginas en vivo requieren **deploy** de `reels.ts`.
+> (`src/lib/reels.ts`, ya 100% "empresa digital"). El guion .md se alineó al estándar vivo el
+> 22 jun (antes decía "negocio digital"). Empresa digital · CreaTuActivo protagonista · 3 pilares
+> "por usted" (Gano = respaldo/logística, nunca titular del ingreso) · villano narrado (no agresivo)
+> · cierre-visión. ⏳ Las páginas en vivo requieren **deploy** de `reels.ts`.
+
+> 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución = **qué es una empresa digital** (analogía Amazon/MercadoLibre, accesible) + beneficio sentido (produce sin usted, en paralelo, cualquiera puede) — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa** ("pregúntele, le mostrará cómo sería para su caso"). Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
 
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
 > decían el registro de auditoría que ya purgamos del system prompt ("Queswa **busca, filtra**
@@ -44,54 +48,52 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
 # BLOQUE COMPARTIDO (idéntico en los 5 reels)
 
-### SOLUCIÓN ESTRUCTURAL (0:30 — 0:52s)
-*(Reels A · B · D · E. El Reel C `empresarios` usa una variante propia — ver su sección.)*
+### SOLUCIÓN (0:30 — 0:55s)
+*(Reels A · B · D · E. El Reel C `empresarios` reemplaza solo el primer párrafo — ver su sección.)*
 
-La respuesta a este sistema no es trabajar más duro. Tampoco es montar un negocio tradicional, arriesgando lo que tanto le costó ahorrar en algo que toca aprender a los golpes. El verdadero avance es activar una estructura de ingresos recurrentes, que usted pone en marcha a través de CreaTuActivo.com.
+La solución no es trabajar más duro, ni montar un negocio de los de siempre —con local, arriendo y mil gastos—. La solución es ser dueño de su propia empresa digital.
 
-Todo el trabajo pesado —ese que un emprendedor independiente tardaría años en construir— lo hacen por usted tres pilares:
+¿Y qué es exactamente? Piense en Amazon o MercadoLibre: ellos no fabrican lo que venden. Son dueños del sistema que conecta a millones y gana por cada operación, de forma automática.
 
-- **Gano Excel**, como respaldo operativo de su negocio, aporta la infraestructura en 70 países: fábricas, inventarios y despachos.
-- **Queswa.app**, su aplicación con inteligencia artificial, explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas.
-- Y un **método ya probado** le entrega los pasos exactos, eliminando el ensayo y el error.
+La suya, a su escala, funciona igual: un negocio que vive en internet y no necesita local ni empleados. Usted lo pone en marcha una vez, y la tecnología se encarga de que produzca 24/7, sin importar si su cliente está en su ciudad o en otro país.
 
-### CTA — FUNDADORES (0:52 — 1:10s)
+Imagine tener algo así, en paralelo a lo que ya hace: un ingreso que entra una y otra vez, sin depender de su tiempo. Y esto ya no es solo para los gigantes: hoy, gracias a la inteligencia artificial, cualquiera puede tener la suya.
 
-Estamos habilitando el acceso a las primeras 15 posiciones de fundadores, con la propiedad de su empresa digital exenta del costo habitual. Aquí mismo, Queswa le explica, en minutos, lo que su situación permite y lo guía hasta la decisión de avanzar.
+### CTA — QUESWA (0:55 — 1:10s)
 
-Ser propietario de una empresa digital que genere ingresos una y otra vez ya es una realidad tecnológica. La única variable que falta en la ecuación es usted.
+Queda una sola pregunta: "Me encanta… pero, ¿qué hago yo?" Esa se la responde Queswa mejor que nadie. Aquí mismo, pregúntele: le mostrará en minutos cómo sería para su caso. Ser dueño de una empresa digital ya es una realidad… la única variable que falta en la ecuación es usted.
 
 ---
 
 # VARIABLES POR NICHO (Hook + Diagnóstico)
 
-## Reel A · `corporativo` — La Devaluación Corporativa (✅ negocio digital)
+## Reel A · `corporativo` — La Devaluación Corporativa (✅ empresa digital)
 *Tono: autoridad analítica, firme (Mario Puig). Hook recalibrado al dolor real corporativo (devaluación del perfil, no «horas perdidas»); diagnóstico = villano sistémico, no la persona.*
 
 **HOOK (0:00 — 0:13s)**
-Un salario corporativo resuelve su liquidez mensual. Pero si el mercado exige un ajuste y la compañía decide prescindir de usted, descubrirá una realidad incómoda: el entorno actual no le pagará lo que usted generaba. La devaluación de su perfil es inmediata.
+Un buen cargo corporativo le resuelve el mes. Pero hay una pregunta que casi nadie se hace: el día que la empresa decida prescindir de usted —un recorte, una reestructuración—, ¿cuánto vale su perfil afuera? Muchos lo descubren tarde: el mercado ya no paga lo que se pagaba adentro.
 
 **DIAGNÓSTICO OPERATIVO (0:13 — 0:30s)**
-Esta vulnerabilidad no ocurre por falta de capacidad. Es la consecuencia matemática de un sistema diseñado para que su ingreso —y el estilo de vida que sostiene con él— dependa siempre de la decisión de un tercero.
+Y no es por falta de capacidad; usted vale. Es la consecuencia matemática de un sistema diseñado para que su ingreso —y todo el estilo de vida que sostiene con él— dependa siempre de una decisión que no es suya.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
 ---
 
-## Reel B · `empleados` — La Ilusión de la Estabilidad (✅ negocio digital)
+## Reel B · `empleados` — La Ilusión de la Estabilidad (✅ empresa digital)
 *Tono: autoridad empática, firme (Mario Puig). Hook (estabilidad-ilusión, no «agotamiento»); diagnóstico = el empleado público NO teme despido — entrega años y salud, acumula antigüedad pero no patrimonio (estrés, salud deteriorada); «soberanía» → «estabilidad real».*
 
 **HOOK (0:00 — 0:15s)**
-Un cargo con el Estado le otorga supuesta estabilidad. Pero, si por más duro que trabaje, las cuotas de los créditos siempre le llevan la delantera, usted no tiene estabilidad real; tiene una calma que dura lo que dura su quincena.
+Un cargo con el Estado le otorga estabilidad. Pero, si por más duro que trabaje, las cuotas de los créditos siempre le llevan la delantera, usted no tiene tranquilidad real; tiene una calma que dura lo que dura su quincena.
 
 **DIAGNÓSTICO OPERATIVO (0:15 — 0:35s)**
-Esto no es falta de esfuerzo. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y muy poco patrimonio.
+Esto no es falta de esfuerzo. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
 ---
 
-## Reel C · `empresarios` — El Diagnóstico de la Prisión Operativa (✅ negocio digital)
+## Reel C · `empresarios` — El Diagnóstico de la Prisión Operativa (✅ empresa digital)
 *Tono: de empresario a empresario, confrontacional pero respetuoso. Hook + diagnóstico rediseñados: sin jerga MBA, sin cifras extremas; villano = negocio atado a su presencia (no transferible); marco «su empresa no trabaja para usted; usted trabaja para ella».*
 
 **HOOK (0:00 — 0:15s)**
@@ -100,14 +102,16 @@ Usted construyó una empresa que factura, que le da respeto y un buen nivel de v
 **DIAGNÓSTICO OPERATIVO (0:15 — 0:35s)**
 Y esto no es por falta de capacidad: usted ya demostró que sabe construir. El punto es otro. Un negocio que depende de su presencia no es un patrimonio; es un puesto que usted mismo creó. No se hereda tranquilo, no se vende por lo que realmente vale, y no produce sin su supervisión. El día que usted se canse, se enferme o quiera parar, el negocio se frena con usted.
 
-**SOLUCIÓN (variante empresarios) (0:35 — 0:52s)**
-La respuesta a este sistema no es trabajar más duro. Tampoco es montar otro negocio tradicional. El verdadero avance es activar una estructura de ingresos recurrentes, que usted pone en marcha a través de CreaTuActivo.com.
+**SOLUCIÓN (variante empresarios) (0:35 — 0:55s)**
+*(Reemplaza solo el primer párrafo del Bloque Compartido; sigue con "¿Y qué es exactamente?…" + CTA Queswa.)*
 
-→ Sigue con el **CTA** del Bloque Compartido.
+Usted ya sabe construir un negocio; el problema no es su capacidad, es que ese negocio depende de usted. Lo que sigue es tener algo que funcione sin usted: su propia empresa digital.
+
+→ Sigue con el cuerpo del **Bloque Compartido** (desde "¿Y qué es exactamente?…") + el **CTA — Queswa**.
 
 ---
 
-## Reel D · `diaspora` — La Trampa Elegante de la Diáspora (✅ negocio digital)
+## Reel D · `diaspora` — La Trampa Elegante de la Diáspora (✅ empresa digital)
 *Tono: autoridad técnica, frío. Hook conservado; villano: «su vida como combustible» → «que usted construya el patrimonio de otros».*
 
 **HOOK (0:00 — 0:13s)**
@@ -120,7 +124,7 @@ Es la consecuencia matemática de un sistema diseñado para que usted construya 
 
 ---
 
-## Reel E · `informales` — El Diagnóstico de la Economía Popular (✅ negocio digital)
+## Reel E · `informales` — El Diagnóstico de la Economía Popular (✅ empresa digital)
 *Tono: accesible, autoridad técnica, directo. Público: autoempleados urbanos (conductores Uber/taxi y transporte, dueños de tienda/supermercado y pequeños negocios). Hook recalibrado genérico (sin regionalismos); villano = el sistema (vivir «al día»); dolor = el ingreso depende de que usted esté de pie.*
 
 **HOOK (0:00 — 0:13s)**

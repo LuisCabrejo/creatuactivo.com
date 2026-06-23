@@ -145,6 +145,41 @@ Es un mundo nuevo, y a veces nos da pereza lo que no conocemos. Me pasaba con Ne
 
 ---
 
+## Día 10 · Lunes 22 de junio — "El puente" (qué es una empresa digital)
+*Semana 3 · aha #1 · empresa física vs. digital · ancla Rappi → ejemplo propio (sonrisaslindas.app) · CTA: ninguna (abre el bucle de la semana). Número dejado abierto a propósito ("multiplíquelo por todas las citas de un día") — persuade más que afirmar una cifra. Para YouTube Shorts evergreen se re-graba entrada/cierre sin marcadores temporales.*
+*Producción: talking-head graduado en CapCut → pipeline `scripts/dankoe-video` (subtítulos forced-alignment + atmósfera + música suspense→corporativa en el pivot "Ahora imagine su propia empresa digital" 33.0s + SFX whoosh/shimmer/finale_boom + outro emblema). Master: `masters/doc-22-06.mp4`. Sin inserts 3D (reel reflexivo).*
+
+Le voy a mostrar algo que, cuando lo entienda, no va a poder dormir.
+
+Ayer le prometí no hablarle de nosotros, sino de usted. Empecemos: ¿qué es, en cristiano, una empresa digital?
+
+Una empresa de toda la vida necesita local, arriendo, empleados, y que usted esté ahí. Una digital no: vive en internet y produce aunque usted esté durmiendo.
+
+Piénselo con Rappi: no cocina, no tiene un solo restaurante; solo conecta al que quiere comer con el restaurante, y por cada pedido, gana. Eso es una empresa digital: un puente.
+
+Ahora imagine su propia empresa digital, en su ciudad. Muchas personas quieren, por ejemplo, una sonrisa bonita. Usted podría crear *sonrisaslindas.app* y conectar las clínicas con esas personas. Por cada cita, una comisión. Usted no atiende los pacientes; usted es el puente.
+
+Multiplíquelo por todas las citas de un día… en toda la ciudad.
+
+"Debe ser difícil de montar", pensará. Hasta hace poco, sí. Esta semana le muestro por qué ya no. Se lo voy mostrando.
+
+---
+
+## Día 11 · Martes 23 de junio — "Por qué ya no es difícil"
+*Semana 3 · paga la promesa del Día 10 ("por qué ya no es difícil") · la IA es el cambio (analogía Waze: la tecnología hace sencillo lo complejo) · remate: no construya el puente, súbase a uno ya hecho · CTA: ninguna (abre el bucle hacia el miércoles / multiplicar). **Guion aprobado — pendiente de grabar**; al emitirse, sincronizar a la versión real.*
+
+Ayer le dije que montar su propia empresa digital ya no es difícil. Hoy le muestro por qué.
+
+Hace unos años, crear algo como sonrisaslindas.app pedía lo mismo que cualquier empresa: programar la app, conseguir las clínicas, conseguir los pacientes, montar la tecnología, alguien que respondiera a toda hora… años de trabajo y un equipo de ingenieros. Por eso casi nadie lo hacía.
+
+Pero cambió una cosa: la inteligencia artificial. Lo que antes exigía un equipo entero, hoy lo hace la tecnología por usted. Es como pasó con los mapas: antes, papel y a rezar; hoy, Waze le habla y lo lleva. La tecnología no lo hizo a usted más inteligente — hizo sencillo lo que era complejo.
+
+Por eso hoy usted ya no tiene que construir el puente. Puede subirse a uno que ya está hecho, y solo dirigirlo. Eso es lo que estoy documentando: cómo, sin saber de tecnología, dirijo un sistema que otros tardarían años en construir.
+
+Mañana le muestro la parte que casi nadie entiende: por qué eso lo cambia todo. Se lo voy mostrando.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
 *Ideas en cola (hooks aún sin producir):*

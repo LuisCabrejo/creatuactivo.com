@@ -1,7 +1,14 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.1
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.2
 ## Versión canónica calibrada · Lista para teleprompter
 
-**Origen:** Guión maestro servilleta v4.0 → recalibración integral "Negocio Digital" (sesión 08 jun 2026) → v5.1 alineación con el nuevo posicionamiento de la Home (sesión 22 jun 2026, con el Director Cabrejo)
+**Origen:** Guión maestro servilleta v4.0 → recalibración integral "Negocio Digital" (sesión 08 jun 2026) → v5.1 alineación con el nuevo posicionamiento de la Home (sesión 22 jun 2026) → v5.2 reordenamiento WHAT/HOW + concepto "empresa digital" en Slide 1 (sesión 22 jun 2026, con el Director Cabrejo)
+
+### Cambios de v5.2 (22 jun 2026 — reordenamiento WHAT → HOW)
+- **Problema de fondo resuelto:** el guión saltaba del enunciado de "empresa digital" **directo** a "cómo lo hacemos" (los 3 pilares), sin explicar **qué es** una empresa digital. El prospecto recibía la solución a algo que aún no había imaginado → fricción / desconexión en los ~5 min restantes. En la fase previa a la llamada lo crítico es **mantener el interés**, no agitar.
+- **Slide 1 → "EL PROBLEMA Y QUÉ ES UNA EMPRESA DIGITAL":** Hook → diagnóstico (condensado) → inversión → **concepto** (Rappi → `sonrisaslindas.app`, el puente). Es el aha del reel de documentación Día 10 dentro del deck. Mantiene interés y activa autoeficacia ("yo también puedo"). **B-roll nuevo `Puente3D`** (tradicional con su peso → se disuelve → el puente).
+- **Slide 2 → "CÓMO LO HACEMOS — CON SUS MANOS VS. TODO LISTO":** abre con la decisión **desde-cero-vs-apalancamiento**; "todo listo" despliega los **3 pilares** (El Respaldo Operativo · Queswa/la conversión · El Método Comprobado/todo en su celular). El método (Expansión·Activación·Multiplicación) se **condensa dentro del Pilar 3** (un móvil con todo el sistema). La **calidez** de Activación (usted recibe de persona a persona) se conserva.
+- Los 3 pilares **salen del Slide 1** (donde estaban en v5.1) y pasan al Slide 2. El deck sigue en **4 slides**.
+- ⏳ **Pendientes de producción:** render del b-roll `Puente3D`; sincronizar `src/app/servilleta/page.tsx` (tarjetas de Slide 1/2); regenerar el `_TELEPROMPTER.md`.
 **Registro:** Firma de ingeniería patrimonial — Mario Alonso Puig (autoridad + claridad). Ni charla de vecino, ni jerga opaca.
 **Calibración léxica:** investigaciones "Léxico CreaTuActivo: Comprensión y Duplicabilidad" + "Rediseño Léxico: Duplicabilidad Digital".
 **Duración estimada:** 6 – 7 minutos · vídeo herramienta para socios
@@ -37,53 +44,50 @@
 
 ---
 
-# SLIDE 1 · APERTURA, DIAGNÓSTICO Y LOS 3 PILARES
+# SLIDE 1 · EL PROBLEMA Y QUÉ ES UNA EMPRESA DIGITAL
 
-Empecemos por el verdadero problema que vamos a resolver.
+*B-roll: `Puente3D` (ver NOTAS DE PRODUCCIÓN). Tradicional (local, arriendo, empleados, inventario — el peso) → se disuelve → el puente: dos cúmulos (clínicas ↔ personas) unidos por `sonrisaslindas.app`, una comisión viaja en cada conexión.*
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aún así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**.
+Empecemos por el verdadero problema.
 
-Esto no ocurre por falta de capacidad ni de esfuerzo de su parte. Es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años y su salud**, no para darle seguridad financiera. Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. No es falta de capacidad ni de esfuerzo: es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años**, no para darle seguridad.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
 CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** — esté usted presente o no.
 
-Poner todo esto a funcionar exige tres cosas: infraestructura, tecnología y un método. Nosotros le entregamos las tres ya construidas. Lo sostienen tres pilares:
+Pero ¿qué es, en cristiano, una empresa digital? Una empresa de toda la vida necesita local, arriendo, empleados, y que usted esté ahí. Una digital no: vive en internet y **produce aunque usted duerma**.
 
-**PILAR 1 — EL RESPALDO OPERATIVO** · *la infraestructura que ya existe.*
-Detrás de su **empresa digital** está **Gano Excel**, una corporación presente en 70 países. Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros: fabrica los productos, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
+Piénselo con **Rappi**: no cocina ni tiene un solo restaurante; solo conecta al que tiene hambre con el que cocina, y por cada pedido, gana. Eso es una empresa digital: **un puente**.
 
-**PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *el piloto automático.*
-Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante: explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas. Usted lo dirige todo desde una sola aplicación en su celular: queswa.app. Usted no explica — Queswa explica.
+Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa más bonita; usted podría crear **sonrisaslindas.app** y conectar las clínicas con esas personas. Gana el odontólogo, gana el paciente, y gana usted: por cada cita, una pequeña comisión. Usted no tiene la silla — **usted es el puente**.
 
-**PILAR 3 — EL MÉTODO COMPROBADO** · *la ruta, paso a paso.*
-Un método ya probado que le ahorra el ensayo y el error. Usted no improvisa el camino: el sistema le da los pasos exactos para hacer crecer su **empresa digital**.
-
-Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte. Por eso el ingreso no depende de sus horas: usted construye el canal una vez, y su empresa produce de forma continua.
+**[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad.
 
 ---
 
-# SLIDE 2 · EL MÉTODO COMPROBADO
+# SLIDE 2 · CÓMO LO HACEMOS — CON SUS MANOS VS. TODO LISTO
 
-En este punto, la pregunta común es: *¿cómo lo hago, si no me sobra el tiempo?*
+Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
-La respuesta es el Método Comprobado: tres pasos automatizados — **Expansión, Activación y Multiplicación.**
+**Con sus propias manos, desde cero:** la tecnología, los proveedores, la logística, los permisos en cada país… años de trabajo y un equipo de ingenieros.
 
-**PASO 1 · EXPANSIÓN** — *usted comparte.*
-En su celular, Queswa le entrega información ya validada para que usted la comparta con un solo clic. Sin memorizar guiones, sin explicar nada.
+**O tomarlo ya construido, y empezar el día uno.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres pilares**.
 
-**PASO 2 · ACTIVACIÓN** — *Queswa trabaja.*
-Queswa conversa con cada interesado: aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar — las 24 horas.
-**[ PAUSA ]**
-**Importante**: a su aplicación llegan notificaciones de todo el proceso — desde una simple visita hasta el momento en que un contacto está listo para iniciar. Usted no se pierde un solo detalle.
+**PILAR 1 — EL RESPALDO OPERATIVO** · *la infraestructura.*
+*B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
+Detrás de su **empresa digital** está **Gano Excel**, una corporación en 70 países que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
 
-**PASO 3 · MULTIPLICACIÓN** — *usted multiplica y crece.*
-Aquí está la mayor ventaja del modelo. En cualquier modelo de negocio, crecer es lo más difícil: para multiplicar una empresa se requiere abrir otro local —con su arriendo, su personal, su inversión—. Esa es la pared donde casi todos se detienen.
-Aquí no. Cuando alguien inicia con usted, recibe el mismo sistema digital que usted tiene, listo para crecer por su cuenta y sin que usted lo cargue. Multiplicar su empresa digital está a un clic, en todo el continente. Y nadie queda solo: a cada persona nueva la forma la Academia de CreaTuActivo desde el primer día.
+**PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *la conversión.*
+*B-roll: la conversión — un interesado pasa de la duda a la decisión, con la orbe Queswa acompañando las 24 horas (estados de marca: rojo → verde ✓).*
+Queswa es la inteligencia artificial que **convierte por usted**: explica, atiende y guía a cada interesado **hasta la decisión de avanzar, las 24 horas**. Por eso usted puede multiplicar su empresa digital por toda América, sin estar presente en cada conversación. **Usted no explica — Queswa explica.**
+
+**PILAR 3 — EL MÉTODO COMPROBADO** · *todo en su celular.*
+*B-roll: un móvil donde el sistema entero vive condensado — comparte, convierte, multiplica.*
+La ruta exacta, sin ensayo y error, y entera en una sola app. Desde su celular: usted **comparte** con un clic lo que Queswa ya preparó *(Expansión)*; Queswa **convierte** a cada interesado, y cuando alguien ya decidió, usted lo recibe de persona a persona —la calidez que solo un humano da— *(Activación)*; y su empresa se **multiplica** en todo el continente, porque quien inicia con usted recibe el mismo sistema listo para crecer solo, acompañado por la Academia de CreaTuActivo desde el primer día *(Multiplicación)*. Todo condensado en su mano.
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Tres pasos que le permiten multiplicar su empresa digital — de una, a cientos.
+Tres pilares, una sola app. Usted dirige; el sistema hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte — su empresa produce de forma continua, no a cambio de sus horas.
 
 ---
 
@@ -133,6 +137,15 @@ Tener ingresos que no dependan de su presencia ya existe. CreaTuActivo.com ya ex
 La única variable que falta en la ecuación es usted.
 
 ---
+
+## NOTAS DE PRODUCCIÓN — B-ROLLS
+
+- **`Puente3D` (Slide 1) — comp NUEVA** (Remotion + @remotion/three, mismo pipeline que los demás b-rolls; name-only, bimetálico, orbe-héroe). Tres actos:
+  1. **La empresa tradicional (peso).** Íconos 3D se apilan cargando hacia abajo: local/arriendo, empleados, inventario, caja registradora. Sensación de fricción — "usted tiene que estar ahí".
+  2. **Se disuelven.** Esos íconos se desvanecen/tachan en dorado, uno a uno — "una empresa digital ya no requiere nada de esto".
+  3. **El puente.** Dos cúmulos de nodos (izq: clínicas · der: personas que buscan sonrisa) y, en el centro, un nodo-puente dorado: **`sonrisaslindas.app`**. Una moneda/destello viaja por el puente en cada conexión = la comisión. Rótulo de cierre: **EL PUENTE**. Número abierto (las conexiones se multiplican solas).
+  - Render headless M1: `npx remotion render Puente3D out/deck-puente.mp4 --gl=angle` → optimizar a `public/videos/servilleta/puente.mp4` (720×1280, ffmpeg CRF 27, faststart).
+- **Slide 2 — reutiliza comps existentes:** Pilar 1 → `Matriz3D` (globo, 70 países) · Pilar 2 (conversión) → b-roll de un interesado rojo→verde ✓ con la orbe Queswa (cercano a `Activar3D`) · Pilar 3 (todo en su celular) → móvil con el sistema condensado (puede partir de `Checklist3D` o comp nueva tipo "phone").
 
 ## NOTAS DE CALIBRACIÓN
 

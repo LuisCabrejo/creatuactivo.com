@@ -135,7 +135,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             La solución no es trabajar más, ni dejar lo que hace hoy:{' '}
-            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que le genera <strong style={{ color: C.gold }}>ingresos recurrentes cada vez que se mueven productos</strong> en toda América — una empresa que se multiplica con un clic y que no depende de su tiempo. Usted dirige; el sistema hace el trabajo.</span>
+            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que le genera <strong style={{ color: C.gold }}>ingresos recurrentes</strong>, que se multiplica con un clic y que no depende de su tiempo. Usted dirige; la tecnología hace el trabajo.</span>
           </p>
         </div>
 
@@ -198,7 +198,7 @@ function ProblemSection() {
             Usted trabaja duro. Entrega <strong style={{ color: C.white, fontWeight: 600 }}>sus mejores años y su salud.</strong> Y aun así, vive en el mismo ciclo, mes a mes: <strong style={{ color: C.white, fontWeight: 600 }}>trabajar, pagar cuentas y volver a empezar.</strong>
           </p>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: '20px 0 0' }}>
-            No es por falta de capacidad ni de esfuerzo suyo. Es la <strong style={{ color: C.white, fontWeight: 600 }}>consecuencia matemática</strong> de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera. <strong style={{ color: C.gold, fontWeight: 600 }}>Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.</strong>
+            Esto no sucede por falta de capacidad o esfuerzo de su parte. Es la <strong style={{ color: C.white, fontWeight: 600 }}>consecuencia matemática</strong> de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera. <strong style={{ color: C.gold, fontWeight: 600 }}>Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.</strong>
           </p>
         </div>
 
@@ -408,7 +408,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su empresa digital monetiza un hábito que las personas ya tienen:{' '}
+            Su empresa digital produce ingresos de un hábito que las personas ya tienen:{' '}
             <span style={{ color: C.white }}>el café de cada mañana.</span>{' '}
             Solo que el nuestro lleva dentro <strong style={{ color: C.gold, fontWeight: 600 }}>Ganoderma</strong> —el hongo más estudiado del planeta—, en un extracto que el cuerpo asimila por completo. No le pedimos a nadie cambiar su rutina; solo que el café de siempre <span style={{ color: C.white }}>trabaje a su favor.</span> Y detrás está <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>: la empresa real que lo fabrica y lo entrega en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países.</strong>
           </p>
@@ -534,7 +534,7 @@ function MetodoSection() {
     },
     {
       n: '03', paso: 'MULTIPLICAR', titulo: 'Crecer sin que usted enseñe',
-      desc: 'A cada persona nueva la forma el sistema desde el día uno, sin consumir su agenda.',
+      desc: 'A cada persona nueva la forma Queswa desde el día uno, sin consumir su agenda.',
       aforismo: 'Usted no enseña; Queswa multiplica. Usted crece.',
     },
   ];
@@ -550,7 +550,7 @@ function MetodoSection() {
             Un método ya probado. Usted no improvisa.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
-            Tres pasos automatizados que le ahorran el ensayo y el error. El sistema le da el camino exacto para hacer crecer su empresa digital.
+            Tres pasos automatizados que le ahorran el ensayo y el error. El método le da el camino exacto para hacer crecer su empresa digital.
           </p>
         </div>
 

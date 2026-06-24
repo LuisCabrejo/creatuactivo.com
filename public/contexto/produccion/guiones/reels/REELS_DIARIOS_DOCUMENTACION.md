@@ -166,7 +166,8 @@ Multiplíquelo por todas las citas de un día… en toda la ciudad.
 ---
 
 ## Día 11 · Martes 23 de junio — "Por qué ya no es difícil"
-*Semana 3 · paga la promesa del Día 10 ("por qué ya no es difícil") · la IA es el cambio (analogía Waze: la tecnología hace sencillo lo complejo) · remate: no construya el puente, súbase a uno ya hecho · CTA: ninguna (abre el bucle hacia el miércoles / multiplicar). **Guion aprobado — pendiente de grabar**; al emitirse, sincronizar a la versión real.*
+*Semana 3 · paga la promesa del Día 10 ("por qué ya no es difícil") · la IA es el cambio (analogía Waze: la tecnología hace sencillo lo complejo) · remate: no construya el puente, súbase a uno ya hecho · CTA: ninguna (abre el bucle hacia el miércoles / multiplicar).*
+*Producción: talking-head graduado en CapCut → pipeline `scripts/dankoe-video` (subtítulos forced-alignment + atmósfera grano/halation/viñeta + música suspense→corporativa en el pivot "Pero cambió una cosa: la inteligencia artificial" 22.0s + SFX whoosh/shimmer/finale_boom + outro emblema). Master: `masters/doc-23-06.mp4`; web: `~/Downloads/23-junio/doc-23-06-final.mp4`. Sin inserts 3D (reel reflexivo).*
 
 Ayer le dije que montar su propia empresa digital ya no es difícil. Hoy le muestro por qué.
 

@@ -23,7 +23,7 @@ Y aun así, vive en el mismo ciclo mes a mes:
 
 trabajar, pagar cuentas y volver a empezar.
 
-Esto no ocurre por falta de capacidad ni de esfuerzo de su parte.
+Esto no sucede por falta de capacidad o esfuerzo de su parte.
 
 Es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud,
 

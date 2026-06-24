@@ -1,5 +1,20 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.2
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.5
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v5.5 (24 jun 2026 — sync léxico con el reel home)
+- **Sincronizado con el guión home** (`REELS_SITIO_CREATUACTIVO.md`): «operación» → **«transacción»** (dibuja dinero en movimiento en la mente del latino); en el camino *desde cero*, «años de trabajo y un equipo de ingenieros» → **«asumir los riesgos de cualquier proyecto empresarial»** (el "equipo de ingenieros" contradice el Día 11: la IA ya lo hace); «y que usted esté ahí» → **«si usted se aleja un poco, empieza a tambalear»** (engancha con el b-roll de Slide 1); antítesis **«seguridad financiera»** (el sistema no la da → la empresa digital sí).
+
+### Cambios de v5.4 (23 jun 2026 — diferenciación de pilares + Amazon/ML)
+- **Pilar 2 y Pilar 3 dejaron de pisarse.** Antes ambos decían "Queswa convierte" (Pilar 2 = "la conversión"; Activar del Pilar 3 = "Queswa convierte"). Ahora cada pilar responde una pregunta distinta: **Pilar 1 = el músculo** (¿quién produce/entrega? → Gano) · **Pilar 2 = la herramienta** (¿desde dónde dirijo todo? → Queswa, *su oficina digital*) · **Pilar 3 = el proceso** (¿cómo la uso? → *sus 3 movimientos*: Expandir/Activar/Multiplicar). Pilar 2 = la máquina rica; Pilar 3 = sus 3 movimientos humanos.
+- **Pilar 2 elevado a "centro de mando / oficina digital"** (no "chatbot que convierte"): dirige todo, ve en tiempo real, datos para multiplicar — *implica* el arsenal de herramientas (enlaces, notificaciones, estadísticas, compras, activación de equipo) **sin listar features** (eso se valora al entrar, no es gancho). "no persigue" → **"no vende"** (relief del miedo a vender + *perseguir* vetado).
+- **Pilar 3:** "el mismo **sistema**" → "la misma **herramienta**" (sistema = villano).
+- **Slide 1:** "en cristiano" → "en palabras simples"; analogía **Amazon/MercadoLibre** (no Rappi — archivo de presentación general); villano "tomar sus mejores años **y su salud**".
+
+### Cambios de v5.3 (23 jun 2026 — alineación con la doctrina "empresa digital" refinada)
+- **Slide 1 · VS añadido:** tras sonrisaslindas, el remate *"¿Ve la diferencia? Un negocio de toda la vida abre una puerta, en una ciudad, y depende de usted; una empresa digital trabaja sola y crece sin techo"* — vende el concepto como santo grial (igual que el reel de nichos). En vivo, es el beat que hace sentir "es absurdo el negocio tradicional".
+- **Pilar 1 · frame de orgullo Gano:** "una corporación en 70 países" → "una corporación con más de **30 años** y presencia en **70 países**, con ciencia propia… el **músculo real** que carga el peso". Gano = respaldo con orgullo (mismo frame que WHY_02 de Queswa).
+- **Slide 2 · cierre:** *"el sistema hace el trabajo"* → *"la **tecnología** hace el trabajo"* — *sistema* es el villano del diagnóstico, no se reusa en positivo (mina cerrada en reel + Queswa).
+- ⏳ Pendiente: sincronizar el **deck `page.tsx`** a esta estructura (sigue con la vieja: Slide 1 = 3 pilares, Slide 2 = método).
 
 **Origen:** Guión maestro servilleta v4.0 → recalibración integral "Negocio Digital" (sesión 08 jun 2026) → v5.1 alineación con el nuevo posicionamiento de la Home (sesión 22 jun 2026) → v5.2 reordenamiento WHAT/HOW + concepto "empresa digital" en Slide 1 (sesión 22 jun 2026, con el Director Cabrejo)
 
@@ -50,19 +65,21 @@
 
 Empecemos por el verdadero problema.
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. No es falta de capacidad ni de esfuerzo: es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años**, no para darle seguridad.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años y su salud**, no para darle seguridad financiera.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que genera **ingresos recurrentes** — esté usted presente o no.
+CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que **sí puede darle esa seguridad financiera** — **ingresos recurrentes**, esté usted presente o no.
 
-Pero ¿qué es, en cristiano, una empresa digital? Una empresa de toda la vida necesita local, arriendo, empleados, y que usted esté ahí. Una digital no: vive en internet y **produce aunque usted duerma**.
+Pero ¿qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, arriendo, empleados, y si usted se aleja un poco, **empieza a tambalear**. Una empresa digital, en cambio, vive en internet y **produce aunque usted duerma**.
 
-Piénselo con **Rappi**: no cocina ni tiene un solo restaurante; solo conecta al que tiene hambre con el que cocina, y por cada pedido, gana. Eso es una empresa digital: **un puente**.
+Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones y gana por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
 
 Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa más bonita; usted podría crear **sonrisaslindas.app** y conectar las clínicas con esas personas. Gana el odontólogo, gana el paciente, y gana usted: por cada cita, una pequeña comisión. Usted no tiene la silla — **usted es el puente**.
 
 **[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad.
+
+**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? Un negocio de toda la vida abre una puerta, en una ciudad, y depende de que usted esté ahí. Una empresa digital trabaja sola, en paralelo, y crece sin techo — de una ciudad a un continente.
 
 ---
 
@@ -70,24 +87,24 @@ Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa má
 
 Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
-**Con sus propias manos, desde cero:** la tecnología, los proveedores, la logística, los permisos en cada país… años de trabajo y un equipo de ingenieros.
+**Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
-**O tomarlo ya construido, y empezar el día uno.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres pilares**.
+**O tomarla ya construida, y poder empezar de inmediato.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres pilares**.
 
 **PILAR 1 — EL RESPALDO OPERATIVO** · *la infraestructura.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
-Detrás de su **empresa digital** está **Gano Excel**, una corporación en 70 países que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. Usted no financia ni gestiona nada de eso.
+Detrás de su **empresa digital** está **Gano Excel**, una corporación con más de **30 años** y presencia en **70 países**, con ciencia propia y logística que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. No es una promesa de internet — es el **músculo real** que carga el peso. Usted no financia ni gestiona nada de eso.
 
-**PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *la conversión.*
-*B-roll: la conversión — un interesado pasa de la duda a la decisión, con la orbe Queswa acompañando las 24 horas (estados de marca: rojo → verde ✓).*
-Queswa es la inteligencia artificial que **convierte por usted**: explica, atiende y guía a cada interesado **hasta la decisión de avanzar, las 24 horas**. Por eso usted puede multiplicar su empresa digital por toda América, sin estar presente en cada conversación. **Usted no explica — Queswa explica.**
+**PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *su oficina digital.*
+*B-roll: Queswa como centro de mando — la orbe en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
+Queswa es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y acompaña a cada persona hasta la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar. **Usted no explica — Queswa explica.**
 
-**PILAR 3 — EL MÉTODO COMPROBADO** · *todo en su celular.*
-*B-roll: un móvil donde el sistema entero vive condensado — comparte, convierte, multiplica.*
-La ruta exacta, sin ensayo y error, y entera en una sola app. Desde su celular: usted **comparte** con un clic lo que Queswa ya preparó *(Expansión)*; Queswa **convierte** a cada interesado, y cuando alguien ya decidió, usted lo recibe de persona a persona —la calidez que solo un humano da— *(Activación)*; y su empresa se **multiplica** en todo el continente, porque quien inicia con usted recibe el mismo sistema listo para crecer solo, acompañado por la Academia de CreaTuActivo desde el primer día *(Multiplicación)*. Todo condensado en su mano.
+**PILAR 3 — EL MÉTODO COMPROBADO** · *sus 3 movimientos.*
+*B-roll: los 3 movimientos del Propietario — comparte (un clic) → recibe al que decidió (apretón de manos) → multiplica (réplicas 1→2→4).*
+Tener la mejor herramienta no basta si no sabe usarla. El Método le da el **orden exacto**, sin ensayo y error — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma herramienta lista —con el acompañamiento de la Academia desde el primer día—, y su empresa crece en todo el continente. Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Tres pilares, una sola app. Usted dirige; el sistema hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte — su empresa produce de forma continua, no a cambio de sus horas.
+Tres pilares, una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte — su empresa produce de forma continua, no a cambio de sus horas.
 
 ---
 
@@ -132,7 +149,7 @@ El paso natural para quien ya lo tiene claro. Usted asume la propiedad de su emp
 
 **[ PAUSA · 2s · CAÍDA DE ENTONACIÓN · MIRADA FIJA · TONO DIRECTIVO ]**
 
-Tener ingresos que no dependan de su presencia ya existe. CreaTuActivo.com ya existe.
+Ser propietario de una empresa digital que genere ingresos una y otra vez ya existe. CreaTuActivo.com ya existe.
 
 La única variable que falta en la ecuación es usted.
 

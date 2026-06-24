@@ -23,7 +23,7 @@ quien **ya llegó con la pregunta "¿de qué se trata?"** formada.
 ---
 
 ## HOME · Encabezado — Explainer "¿De qué se trata?"
-*Evergreen · voz neutra · ~60s · reemplaza el video viejo del plan servilleta en el hero*
+*Evergreen · voz neutra · ~110s · hero de la home (HomeManifestoVideo)*
 
 **Conducto:** historia orgánica (reel de documentación) + enlace
 `creatuactivo.com?ref=…` → la persona llega a la home con la pregunta ya formada.
@@ -31,13 +31,19 @@ El video explica; Queswa (ahí mismo en la página) profundiza.
 
 Si llegó hasta aquí, es porque quiere entender de qué se trata. Se lo explico en un minuto.
 
-Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — un ciclo mensual de trabajar, pagar cuentas y repetir.
+Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — trabajar, pagar cuentas y repetir. Y no es un error suyo: es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
 
-Y esto no sucede por un error suyo ni por mala planificación. Es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle tranquilidad financiera.
+CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que sí puede darle esa seguridad.
 
-CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que genera ingresos recurrentes — esté usted presente o no.
+¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, vive en internet y produce aunque usted duerma. Piense en Amazon o MercadoLibre: no fabrican lo que venden — son el puente que conecta a millones y gana por cada transacción, de forma automática.
 
-La parte pesada la carga Gano Excel, una compañía con presencia en 70 países: fabrica, almacena y despacha por usted. Una inteligencia artificial, Queswa, explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas, y le notifica en vivo de cada avance. Y un método ya probado le marca los pasos exactos. No necesita experiencia digital: usted dirige, y el sistema hace el trabajo.
+¿Y cómo se construye una empresa digital así? Usted tiene dos caminos. Con sus propias manos, desde cero: el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial. O tomarla ya construida y poder empezar de inmediato. Eso es lo que le entregamos: una empresa digital lista, sobre tres pilares.
+
+El primero, el músculo: Gano Excel, una corporación con más de 30 años y presencia en 70 países que hace por usted todo el trabajo pesado — fabrica, sostiene el inventario, responde por lo legal y despacha en cada país. No es una promesa de internet; es músculo real.
+
+El segundo, Queswa: la app desde la que usted dirige todo, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y acompaña a cada persona hasta la decisión de avanzar — las 24 horas, sin que usted tenga que estar. Es su oficina digital completa.
+
+Y el tercero, un método ya probado que le marca los pasos exactos. No necesita experiencia digital. ¿Su rol? El de dueño: usted dirige, la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte — su empresa produce de forma continua, no a cambio de sus horas.
 
 ¿Quiere entenderlo a fondo? Aquí mismo, pregúntele a Queswa lo que quiera — se lo explica mejor que nadie.
 
@@ -45,14 +51,22 @@ La parte pesada la carga Gano Excel, una compañía con presencia en 70 países:
 
 ### Notas de calibración (HOME)
 
+- **Arco completo (23 jun 2026):** ahora incluye **¿qué es una empresa digital?** (puente
+  Amazon/MercadoLibre → "gana por cada transacción") + **dos caminos** (desde cero vs. ya
+  construida) + **los 3 pilares** — sincronizado con la servilleta Slide 1+2 y el reel Día 10
+  "El puente". Antes saltaba del enunciado "empresa digital" directo a los pilares (hueco
+  cerrado). "operación" → **"transacción"** (dibuja dinero en movimiento); "equipo de
+  ingenieros" **retirado** del camino "desde cero" (contradecía el Día 11: la IA ya lo hace)
+  → "asumir los riesgos de cualquier proyecto empresarial".
 - **Gano Excel nombrado:** el guion nombra a **Gano Excel** como el respaldo (la audiencia
-  orgánica ya asocia a Luis con Gano) + **"con presencia en 70 países"** como prueba de
-  autoridad (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital);
-  Gano Excel es el músculo que carga el peso.
-- **Un solo CTA:** Queswa (el orbe está en la misma página). El botón de Auditoría de
-  5 días vive aparte, debajo del video — no compite dentro del reel.
-- **Implementación:** reemplaza el `YouTubeFacade` del hero en
-  [src/app/page.tsx](src/app/page.tsx) (actualmente `SERVILLETA_YOUTUBE_ID`).
+  orgánica ya asocia a Luis con Gano) + **"30 años · 70 países"** como prueba de autoridad
+  (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital); Gano Excel
+  es el **músculo real** que carga el peso — nunca el titular del ingreso.
+- **Un solo CTA:** Queswa (el orbe está en la misma página). "Suscríbete" vive aparte, en el
+  menú — no compite dentro del reel.
+- **Implementación:** hero de la home vía [`HomeManifestoVideo`](src/components/HomeManifestoVideo.tsx)
+  en [src/app/page.tsx](src/app/page.tsx). ⚠️ **El video desplegado tiene el arco viejo** (cláusula
+  Gano-titular + sin puente) → este guión exige **re-producción** del reel home antes de calzar.
 
 ---
 

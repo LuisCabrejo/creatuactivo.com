@@ -18,6 +18,8 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 > "por usted" (Gano = respaldo/logística, nunca titular del ingreso) · villano narrado (no agresivo)
 > · cierre-visión. ⏳ Las páginas en vivo requieren **deploy** de `reels.ts`.
 
+> 🔤 **Sync léxico (24 jun 2026).** Bloque compartido: «gana por cada **operación**» → «**transacción**» (dibuja dinero en movimiento, mente latina). Networkers: «el sistema hace el trabajo» → «**la tecnología** hace el trabajo» (*sistema* = villano del diagnóstico, no se reusa en positivo). Alineado con home (`REELS_SITIO`) + servilleta v5.5. ⚠️ Audio publicado intacto → fuente de verdad para el próximo re-render.
+>
 > 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución (v2, 23 jun — doctrina "**vender empresa digital como el santo grial; si no, lo demás se pierde**") = **definición profunda de qué es una empresa digital** (Amazon/MercadoLibre = el **puente**, NO "dueños del sistema" — *"el sistema"* es el villano del diagnóstico, no se reusa en positivo) + beneficios absurdos (produce sin usted, 24/7, todo un continente) → **ejemplo concreto `sonrisaslindas.app`** (el "clic" que aterriza lo abstracto) → **VS** negocio tradicional (una puerta, una ciudad, depende de usted) vs empresa digital (trabaja sola, crece sin techo). Hilo siempre anclado a "empresa digital / la suya / el puente" (los pronombres sueltos tipo "algo así / la suya" hacían que el lector se devolviera). — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa**, pregunta gancho *"pero ¿cómo lo hago yo?"*. Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
 
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
@@ -51,9 +53,9 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 ### SOLUCIÓN (0:30 — 1:15s)
 *(Reels A · B · D · E. El Reel C `empresarios` reemplaza solo el primer párrafo — ver su sección.)*
 
-La solución no es trabajar más duro, ni montar un negocio de los de siempre —con local, arriendo y mil gastos—. La solución es ser dueño de su propia empresa digital.
+La solución no es trabajar más duro, ni montar un negocio de los de siempre —con local, arriendo y mil gastos, y que si usted se aleja un poco, empieza a tambalear—. La solución es ser dueño de su propia empresa digital.
 
-¿Y qué es una empresa digital? Es un negocio que vive en internet y produce aunque usted no esté ahí: sin local, sin bodega, sin empleados. Piense en Amazon o MercadoLibre — no fabrican lo que venden; son el puente que conecta a millones y gana por cada operación, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
+¿Y qué es una empresa digital? Es un negocio que vive en internet y produce aunque usted no esté ahí: sin local, sin bodega, sin empleados. Piense en Amazon o MercadoLibre — no fabrican lo que venden; son el puente que conecta a millones y gana por cada transacción, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
 
 Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión —sin pagar el arriendo del local, sin atender a nadie—. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
 
@@ -154,7 +156,7 @@ CreaTuActivo cambia esa pieza. Le permite trabajar con lo mejor de los dos mundo
 
 Y la conversión deja de depender de hacerlo a pulso. Usted lo dirige todo desde una aplicación en su celular: queswa.app. Queswa le entrega información ya validada para que usted la comparta con un solo clic —sin memorizar guiones, sin explicar nada—; y del resto se encarga ella: conversa con cada interesado, aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar, las 24 horas, por usted y por toda su organización. Así, el resultado se vuelve sencillo, duplicable y alcanzable — para usted y para cada persona de su equipo.
 
-Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países. Y un método ya probado que le marca los pasos exactos para evitarle el ensayo y error. Usted dirige; el sistema hace el trabajo.
+Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países. Y un método ya probado que le marca los pasos exactos para evitarle el ensayo y error. Usted dirige; la tecnología hace el trabajo.
 
 **CTA**
 ¿Quiere tener detalles del potencial de crecimiento? Aquí mismo, pregúntele a Queswa — le explica, en minutos, el potencial para su situación y lo guía hasta la decisión de avanzar.

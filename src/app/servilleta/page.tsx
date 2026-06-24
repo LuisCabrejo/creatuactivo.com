@@ -986,12 +986,20 @@ export default function ServilletaPage() {
             height: 100% !important;
             top: 0;
             background-position: center !important;
+            /* Subir la gráfica: el clip llena el alto (pillarbox), el objeto 3D queda
+               bajo, montado con el título → lo desplazamos hacia arriba para que respire */
+            transform: translateY(-8%);
           }
           .card-content {
             height: auto !important;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 42%, transparent 100%) !important;
-            padding: 24px 20px 28px !important;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 30%, transparent 60%) !important;
+            padding: 18px 20px 20px !important;
             justify-content: flex-end;
+          }
+          /* Títulos inferiores más compactos: caben en 1–2 líneas y no tapan la gráfica */
+          .card-content h3.pillar-name {
+            font-size: 1.25rem !important;
+            line-height: 1.2;
           }
 
           .slide-3-layout { flex-direction: column; align-items: stretch; justify-content: flex-end; }

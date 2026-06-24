@@ -1554,7 +1554,7 @@ export default function ServilletaPage() {
           onTouchEnd={handleTouchEnd}
         >
 
-          {/* ===== SLIDE 1: SU EMPRESA DIGITAL — 3 PILARES (card-scroller, b-roll 3D) ===== */}
+          {/* ===== SLIDE 1: ¿QUÉ ES UNA EMPRESA DIGITAL? (card-scroller, clips Gemini Dan Koe) ===== */}
           <section
             id="slide-1"
             className={`slide ${activeSlide === 1 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -1563,16 +1563,80 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                  CREE SU EMPRESA DIGITAL
+                  &iquest;QU&Eacute; ES UNA EMPRESA DIGITAL?
                 </h2>
                 <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                  El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                  Una de toda la vida depende de que usted est&eacute; ah&iacute;. Una digital trabaja sola, en paralelo, y crece sin techo.
                 </p>
                 {oneCardMode && (
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
                     0{activeCardIndex + 1} / 03
                   </span>
                 )}
+                {oneCardMode && (
+                  <div className="card-dots">
+                    {[0, 1, 2].map((i) => (
+                      <button
+                        key={i}
+                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
+                        aria-label={`Concepto ${i + 1} de 3`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">Depende de que usted est&eacute; ah&iacute;</h3>
+                </div>
+              </div>
+
+              {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">Usted es el puente</h3>
+                </div>
+              </div>
+
+              {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
+              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
+                <video className="card-bg" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
+                <div className="card-content">
+                  <h3 className="pillar-name">Imagine el suyo</h3>
+                </div>
+              </div>
+
+              {/* CTA — en one-card-mode, solo al llegar a la 3ra card */}
+              {(!oneCardMode || activeCardIndex === 2) && (
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                  <button className="btn-next" onClick={() => showSlide(2)}>
+                    C&oacute;mo lo hacemos →
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* ===== SLIDE 2: CÓMO LO HACEMOS — LOS 3 PILARES (clips placeholder 3D; swap a Dan Koe) ===== */}
+          <section
+            id="slide-2"
+            className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
+          >
+            <div className="grid-layout-slide-2">
+              {/* Título */}
+              <div className="slide-2-header">
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                  C&Oacute;MO LO HACEMOS
+                </h2>
+                <span className="slide-2-subtitle">
+                  Tres pilares.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
+                </span>
+                {/* Dots indicador — visibles solo en one-card-mode */}
                 {oneCardMode && (
                   <div className="card-dots">
                     {[0, 1, 2].map((i) => (
@@ -1587,7 +1651,7 @@ export default function ServilletaPage() {
                 )}
               </div>
 
-              {/* Pilar 1: El Respaldo Operativo */}
+              {/* Pilar 1: El Respaldo Operativo (Gano = el músculo, no el titular) */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
@@ -1600,62 +1664,6 @@ export default function ServilletaPage() {
                 <video className="card-bg" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
                   <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
-                </div>
-              </div>
-
-              {/* Pilar 3 (full-width): El Método Comprobado */}
-              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
-                <div className="card-content">
-                  <h3 className="pillar-name">El M&eacute;todo Comprobado</h3>
-                </div>
-              </div>
-
-              {/* CTA — en one-card-mode, solo al llegar a la 3ra card */}
-              {(!oneCardMode || activeCardIndex === 2) && (
-                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                  <button className="btn-next" onClick={() => showSlide(2)}>
-                    Ver la metodolog&iacute;a →
-                  </button>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* ===== SLIDE 2: EL MÉTODO COMPROBADO ===== */}
-          <section
-            id="slide-2"
-            className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
-          >
-            <div className="grid-layout-slide-2">
-              {/* Título */}
-              <div className="slide-2-header">
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  EL M&Eacute;TODO COMPROBADO
-                </h2>
-                <span className="slide-2-subtitle">
-                  Tres comandos.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
-                </span>
-                {/* Dots indicador — visibles solo en one-card-mode */}
-                {oneCardMode && (
-                  <div className="card-dots">
-                    {[0, 1, 2].map((i) => (
-                      <button
-                        key={i}
-                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Comando ${i + 1} de 3`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Tarjeta 1: EXPANDIR */}
-              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
-                <video className="card-bg" src="/videos/servilleta/expandir.mp4" muted loop playsInline preload="none" />
-                <div className="card-content">
-                  <h3 className="pillar-name">EXPANDIR</h3>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -1673,19 +1681,11 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Tarjeta 2: ACTIVAR */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
-                <video className="card-bg" src="/videos/servilleta/activar.mp4" muted loop playsInline preload="none" />
-                <div className="card-content">
-                  <h3 className="pillar-name">ACTIVAR</h3>
-                </div>
-              </div>
-
-              {/* Tarjeta 3 (full-width): MULTIPLICACIÓN (léxico — antes "Maestría"; clip maestria.mp4 = nombre interno) */}
+              {/* Pilar 3 (full-width): El Método Comprobado (Expandir · Activar · Multiplicar; clip metodo.mp4) */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
-                <video className="card-bg" src="/videos/servilleta/maestria.mp4" muted loop playsInline preload="none" />
+                <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <h3 className="pillar-name">MULTIPLICACI&Oacute;N</h3>
+                  <h3 className="pillar-name">El M&eacute;todo: Expandir &middot; Activar &middot; Multiplicar</h3>
                 </div>
               </div>
 

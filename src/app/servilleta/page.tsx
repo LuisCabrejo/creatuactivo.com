@@ -986,9 +986,9 @@ export default function ServilletaPage() {
             height: 100% !important;
             top: 0;
             background-position: center !important;
-            /* Subir la gráfica: el clip llena el alto (pillarbox), el objeto 3D queda
-               bajo, montado con el título → lo desplazamos hacia arriba para que respire */
-            transform: translateY(-8%);
+            /* NO desplazar el video: cada b-roll lleva su rótulo quemado arriba-izq
+               ("LA EMPRESA DE TODA LA VIDA", etc). object-fit:contain muestra el frame
+               completo; un translateY hacia arriba recortaba ese rótulo (incl. sonrisaslindas). */
           }
           .card-content {
             height: auto !important;

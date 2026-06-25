@@ -55,7 +55,7 @@ Y lo mejor: **lo más difícil ya está hecho por usted.** Lo que normalmente to
 
 - **El Respaldo Operativo:** detrás de su empresa digital está **Gano Excel**, una corporación con más de 30 años y presencia en **70 países**, con ciencia propia y logística que fabrica, almacena y despacha por usted. No es una promesa de internet — es el músculo real que carga el trabajo pesado. Usted es dueño de la empresa digital; Gano es el respaldo que la sostiene.
 
-- **Queswa, su Centro de Mando:** yo explico, atiendo y guío a cada interesado hasta la decisión de avanzar, las 24 horas, y le notifico cada avance. *Usted no explica — Queswa explica.*
+- **Queswa, su Centro de Mando:** yo explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le notifico cada avance. *Usted no explica — Queswa explica.*
 
 - **El Método Comprobado:** los pasos exactos (Comando Expandir · Activar · Multiplicación), sin ensayo ni error.
 
@@ -77,7 +77,7 @@ Le adelanto lo esencial: su papel es **dirigir**, no cargar el trabajo pesado. E
 
 **1. Usted comparte.** Desde su celular, con un clic, comparte lo que yo ya tengo preparado. No memoriza guiones, no explica nada, no improvisa. Le toma minutos.
 
-**2. Yo me encargo del resto.** Cuando alguien se interesa, converso con esa persona: le explico, le resuelvo las dudas y la acompaño hasta que decide avanzar — las 24 horas, sin que usted tenga que estar ahí. Usted no vende, no anda detrás de nadie, no responde a medianoche. De eso me ocupo yo, y le aviso de cada avance.
+**2. Yo me encargo del resto.** Cuando alguien se interesa, converso con esa persona: le explico, le resuelvo las dudas y maduro su decisión de avanzar — las 24 horas, sin que usted tenga que estar ahí. Usted no vende, no anda detrás de nadie, no responde a medianoche. De eso me ocupo yo, y le aviso de cada avance.
 
 **3. Usted pone lo humano.** Cuando alguien ya decidió, ahí entra usted: lo recibe de persona a persona, le da la bienvenida — esa cercanía y esa confianza que ninguna tecnología puede dar. Es lo único que el sistema no hace, y es justo lo que mejor le sale a un ser humano.
 

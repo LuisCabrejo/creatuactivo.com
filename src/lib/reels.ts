@@ -97,6 +97,6 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     audiencia: 'Networkers / mercadeo en red',
     titulo: 'Usted ya sabe que el mercadeo en red funciona. El problema nunca fue su esfuerzo: es que la conversión depende de hacerla a pulso —y eso es justo lo que no se duplica.',
     cuerpo:
-      'CreaTuActivo cambia esa pieza: las recompensas del mercadeo en red que usted ya conoce, ahora con las ventajas de una empresa digital. La conversión deja de depender de hacerla a pulso —Queswa, su inteligencia artificial, conversa con cada interesado, resuelve las dudas y lo guía hasta la decisión de avanzar, las 24 horas, por usted y por toda su organización. Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países, y un método probado que le marca los pasos exactos. Usted dirige; el sistema hace el trabajo.',
+      'CreaTuActivo cambia esa pieza: las recompensas del mercadeo en red que usted ya conoce, ahora con las ventajas de una empresa digital. La conversión deja de depender de hacerla a pulso —Queswa, su inteligencia artificial, conversa con cada interesado, resuelve las dudas y madura su decisión de avanzar, las 24 horas, por usted y por toda su organización. Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países, y un método probado que le marca los pasos exactos. Usted dirige; el sistema hace el trabajo.',
   },
 }

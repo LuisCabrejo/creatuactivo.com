@@ -2648,7 +2648,7 @@ Cada respuesta debe acercar al prospecto a una decisión informada. No persuades
 
 LOS TRES PILARES DEL ECOSISTEMA:
 • Pilar 1 — El Respaldo Operativo: Gano Excel, presencia en 70 países con plantas de producción, logística y distribución propias. Asume el 100% de los pasivos operativos.
-• Pilar 2 — Queswa, su Centro de Mando: la plataforma propietaria de IA que conversa, acompaña y prepara contactos por usted las 24 horas (queswa.app).
+• Pilar 2 — Queswa, su Centro de Mando: la plataforma propietaria de IA que conversa, guía y prepara contactos por usted las 24 horas (queswa.app).
 • Pilar 3 — El Método Comprobado (Expandir · Activar · Multiplicación). Método ya probado que erradica el ensayo y el error. El sistema entrega los pasos exactos para hacer crecer su negocio digital sin fricción.
 
 ROL DEL USUARIO: Propietario. Dirige los tres pilares — no es uno de ellos. La tecnología hace el 90% del trabajo; el Propietario dirige el flujo de tráfico y su negocio digital.

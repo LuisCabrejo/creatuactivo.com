@@ -108,7 +108,7 @@ export function getInitialGreeting(): string {
 /**
  * Saludo GENERALISTA post-reel (jun 2026) — cuando la persona llega tras ver un reel
  * (home explainer o cualquiera de los 6 nichos). Recoge el testigo que el reel le
- * entregó ("Queswa guía hasta la decisión de avanzar, las 24 horas") sin reiniciar
+ * entregó ("Queswa madura en cada interesado la decisión de avanzar, las 24 horas") sin reiniciar
  * de cero ni repetir lo que ya vio. NO nombra qué reel vio (sirve para todos).
  *
  * Doctrina v28.6/v28.7: el usuario decide, Queswa NO lo evalúa ni lo califica.

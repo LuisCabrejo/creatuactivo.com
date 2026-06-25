@@ -71,7 +71,7 @@ PILAR 2 — QUESWA, SU CENTRO DE MANDO
 
 Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante:
 
-explica, atiende y guía a cada persona interesada hasta la decisión de avanzar, las 24 horas.
+explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas.
 
 Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.
 
@@ -93,7 +93,7 @@ Cada vez que el consumo se repite en los hogares de su organización,
 
 usted recibe una parte.
 
-Por eso el ingreso no depende de sus horas:
+Por eso el ingreso no depende de su presencia:
 
 usted construye el canal una vez,
 
@@ -131,7 +131,7 @@ PASO 2 · ACTIVACIÓN — Queswa trabaja.
 
 Queswa conversa con cada interesado:
 
-aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar — las 24 horas.
+aporta claridad, resuelve las dudas y madura su decisión de avanzar — las 24 horas.
 
 [ PAUSA ]
 
@@ -245,7 +245,7 @@ Un porcentaje sobre todo el consumo que fluye por su organización internacional
 
 mes tras mes, incluso mientras usted duerme.
 
-Es el ingreso que ya no depende de su tiempo.
+Es el ingreso que ya no depende de su presencia.
 
 
 

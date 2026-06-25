@@ -25,7 +25,7 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
 > decían el registro de auditoría que ya purgamos del system prompt ("Queswa **busca, filtra**
 > y atiende" / "**evalúa su caso** y le dice si es **viable**"). Reescritos a la **promesa
-> canónica completa**: *"Queswa explica, atiende y guía a cada persona interesada hasta la
+> canónica completa**: *"Queswa explica, atiende y madura en cada interesado la
 > decisión de avanzar, las 24 horas"* — el usuario decide, Queswa NO lo evalúa ni lo califica
 > (doctrina v28.6/v28.7, ver [[feedback_promesa_canonica_queswa]] · [[feedback_filtrar_prohibido]]).
 > ⚠️ **Los videos ya publicados llevan el audio viejo horneado** — esta corrección es la
@@ -154,9 +154,9 @@ El problema es más de fondo: el modelo aún genera resistencia en el mercado. Y
 **SOLUCIÓN**
 CreaTuActivo cambia esa pieza. Le permite trabajar con lo mejor de los dos mundos: las recompensas del mercadeo en red que usted ya conoce, y las ventajas de una empresa digital. Eso sí lo busca la gente.
 
-Y la conversión deja de depender de hacerlo a pulso. Usted lo dirige todo desde una aplicación en su celular: queswa.app. Queswa le entrega información ya validada para que usted la comparta con un solo clic —sin memorizar guiones, sin explicar nada—; y del resto se encarga ella: conversa con cada interesado, aporta claridad, resuelve las dudas y lo guía hasta la decisión de avanzar, las 24 horas, por usted y por toda su organización. Así, el resultado se vuelve sencillo, duplicable y alcanzable — para usted y para cada persona de su equipo.
+Y la conversión deja de depender de hacerlo a pulso. Usted lo dirige todo desde una aplicación en su celular: queswa.app. Queswa le entrega información ya validada para que usted la comparta con un solo clic —sin memorizar guiones, sin explicar nada—; y del resto se encarga ella: conversa con cada interesado, aporta claridad, resuelve las dudas y madura su decisión de avanzar, las 24 horas, por usted y por toda su organización. Así, el resultado se vuelve sencillo, duplicable y alcanzable — para usted y para cada persona de su equipo.
 
 Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en 70 países. Y un método ya probado que le marca los pasos exactos para evitarle el ensayo y error. Usted dirige; la tecnología hace el trabajo.
 
 **CTA**
-¿Quiere tener detalles del potencial de crecimiento? Aquí mismo, pregúntele a Queswa — le explica, en minutos, el potencial para su situación y lo guía hasta la decisión de avanzar.
+¿Quiere tener detalles del potencial de crecimiento? Aquí mismo, pregúntele a Queswa — le explica, mejor que nadie.

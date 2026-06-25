@@ -12,7 +12,7 @@
  * v6.3 (jun 2026) — Migración al léxico actual:
  *  - Slide 1: H1 "INGRESOS RECURRENTES" (antes "Estructura Patrimonial"); pilares = El Respaldo
  *    Operativo · Queswa, su Centro de Mando · El Método Comprobado; rol = Propietario
- *  - Queswa: "explica, atiende y acompaña" (antes "persuadir/filtrar")
+ *  - Queswa: "explica, atiende y madura" (antes "acompaña / persuadir/filtrar")
  *  - Slide 4: botón "ACTIVAR SU EMPRESA DIGITAL" · "SIMULADOR DE INGRESOS RECURRENTES"
  *
  * v6.1 (15 May 2026, léxico previo v26.5 — histórico):

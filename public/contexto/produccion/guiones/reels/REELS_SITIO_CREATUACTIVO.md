@@ -41,9 +41,9 @@ CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario
 
 El primero, el músculo: Gano Excel, una corporación con más de 30 años y presencia en 70 países que hace por usted todo el trabajo pesado — fabrica, sostiene el inventario, responde por lo legal y despacha en cada país. No es una promesa de internet; es músculo real.
 
-El segundo, Queswa: la app desde la que usted dirige todo, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y acompaña a cada persona hasta la decisión de avanzar — las 24 horas, sin que usted tenga que estar. Es su oficina digital completa.
+El segundo, Queswa: la aplicación desde la que usted dirige todo, en su celular. Desde ahí usted comparte con un clic y ve en tiempo real quién visita la información. Del resto se encarga Queswa: atiende y madura en cada interesado la decisión de avanzar — las 24 horas. Es su oficina digital completa.
 
-Y el tercero, un método ya probado que le marca los pasos exactos. No necesita experiencia digital. ¿Su rol? El de dueño: usted dirige, la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte — su empresa produce de forma continua, no a cambio de sus horas.
+Y el tercero, un método ya probado que le marca los pasos exactos. No necesita experiencia digital. ¿Su rol? El de dueño: usted dirige, la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez, de forma continua. Una empresa que crece sin techo y le da seguridad financiera.
 
 ¿Quiere entenderlo a fondo? Aquí mismo, pregúntele a Queswa lo que quiera — se lo explica mejor que nadie.
 

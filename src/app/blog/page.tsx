@@ -171,7 +171,7 @@ export default function BlogPage() {
                 ¿Quiere ver cómo se aplica esto a su caso?
               </p>
               <p className="text-[#A3A3A3] mb-10">
-                Queswa explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas.
+                Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas.
               </p>
               <QueswaCTAButton
                 className="cta-base cta-primary"

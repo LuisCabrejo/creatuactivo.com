@@ -135,7 +135,7 @@ function HeroSection() {
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: C.muted, maxWidth: '600px', margin: '0 auto' }}>
             La solución no es trabajar más, ni dejar lo que hace hoy:{' '}
-            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que le genera <strong style={{ color: C.gold }}>ingresos recurrentes</strong>, que se multiplica con un clic y que no depende de su tiempo. Usted dirige; la tecnología hace el trabajo.</span>
+            <span style={{ color: C.white }}>es ser dueño de una <strong style={{ color: C.gold }}>empresa digital</strong> que le genera <strong style={{ color: C.gold }}>ingresos recurrentes</strong>, que se multiplica con un clic y que no depende de su presencia. Usted dirige; la tecnología hace el trabajo.</span>
           </p>
         </div>
 
@@ -494,7 +494,7 @@ function QueswaDiferenciadorSection() {
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
             Queswa es la plataforma de inteligencia artificial que hace por usted el trabajo más desgastante.{' '}
-            <span style={{ color: C.white }}>Mientras usted dirige, Queswa explica, atiende y guía a cada interesado hasta la decisión de avanzar, las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
+            <span style={{ color: C.white }}>Mientras usted dirige, Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas, y los conecta con Gano Excel —fábricas, inventarios y despachos en 70 países—. Entre las dos cargan el</span>{' '}
             <span style={{ color: C.gold, fontWeight: 600 }}>90% del trabajo</span>{' '}
             <span style={{ color: C.white }}>por usted.</span>
           </p>
@@ -529,7 +529,7 @@ function MetodoSection() {
     },
     {
       n: '02', paso: 'ACTIVAR', titulo: 'Conversar y madurar la decisión',
-      desc: 'Queswa conversa con cada interesado, aporta claridad, resuelve dudas y lo guía hasta la decisión de avanzar, las 24 horas.',
+      desc: 'Queswa conversa con cada interesado, aporta claridad, resuelve dudas y madura su decisión de avanzar, las 24 horas.',
       aforismo: 'Usted recibe al interesado y estrecha su mano — la calidez que solo un humano puede dar.',
     },
     {

@@ -272,7 +272,7 @@ export default function TecnologiaPage() {
                   {
                     step: '2',
                     title: 'Queswa explica y convierte',
-                    description: 'Presenta el modelo, resuelve dudas y guía hasta la decisión de avanzar — 24/7, con cada contacto a la vez.'
+                    description: 'Presenta el modelo, resuelve dudas y madura la decisión de avanzar — 24/7, con cada contacto a la vez.'
                   },
                   {
                     step: '3',

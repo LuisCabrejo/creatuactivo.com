@@ -534,7 +534,7 @@ export default function CalculadoraPage() {
                         className="mt-6 text-sm"
                         style={{ color: COLORS.text.muted }}
                       >
-                        Queswa explica, atiende y guía hasta la decisión de avanzar — las 24 horas.
+                        Queswa explica, atiende y madura en cada interesado la decisión de avanzar — las 24 horas.
                       </p>
                     </div>
                   </>

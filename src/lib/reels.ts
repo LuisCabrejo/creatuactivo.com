@@ -67,7 +67,7 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     audiencia: 'Empleado corporativo / ejecutivo',
     titulo: 'Su salario le cubre el mes hoy. ¿Y si mañana la empresa decide prescindir de su cargo?',
     cuerpo:
-      'El mercado rara vez paga afuera lo que usted vale adentro de una empresa que no es suya. La respuesta no es trabajar más duro, ni renunciar a lo que ya construyó: es tener algo propio, en paralelo. Una empresa digital —un negocio que vive en internet y produce aunque usted no esté ahí, sin local ni empleados, y crece sin techo—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Por bueno que sea el sueldo, en una empresa que no es suya las cartas las tiene otro: basta una reestructuración o un recorte y todo lo que sostiene queda en el aire. La respuesta no es trabajar más duro, ni renunciar a lo que ya construyó: es tener algo propio, en paralelo. Una empresa digital —un negocio que vive en internet y produce aunque usted no esté ahí, sin local ni empleados, y crece sin techo—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
   },
   empleados: {
     audiencia: 'Empleado del Estado / sector público',

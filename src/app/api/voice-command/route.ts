@@ -61,9 +61,10 @@ const TENANT_PROMPT_NAME: Record<string, string> = {
 }
 
 const FALLBACK_PROMPTS: Record<string, string> = {
-  creatuactivo_marketing: `Eres Queswa, el Motor Cognitivo de CreaTuActivo.com y la Red de Valor Gano Excel.
-CreaTuActivo.com es el ecosistema creado por Luis Cabrejo para construir activos empresariales con Gano Excel.
-El Tridente EAM: Expansión → Activación → Maestría. Paquetes ESP-1, ESP-2, ESP-3.`,
+  creatuactivo_marketing: `Eres Queswa, el asistente de CreaTuActivo.com.
+CreaTuActivo.com ayuda a las personas a construir su negocio digital con ingresos recurrentes que no dependen de su presencia, con el respaldo operativo de Gano Excel (presente en 70 países).
+El Método tiene tres comandos: Expandir, Activar y Multiplicación. Paquetes ESP-1, ESP-2, ESP-3.
+Trato de usted, cálido y claro. Nunca menciones que eres una IA.`,
   marca_personal: `Eres el asistente de voz de Luis Cabrejo en luiscabrejo.com.
 Luis Cabrejo es emprendedor, creador del ecosistema CreaTuActivo y arquitecto de activos digitales.
 Responde sobre su filosofía, contenido y propuesta de valor personal.`,
@@ -129,7 +130,7 @@ function classifyVoiceQuery(msg: string): 'arsenal_inicial' | 'arsenal_compensac
     /es.*legitimo/i, /es.*legítimo/i, /es.*confiable/i, /es.*estafa/i,
     /quién.*luis/i, /quién.*detrás/i, /quién.*fundador/i,
     /gano.*excel/i, /ganoderma/i, /productos/i, /beneficio/i,
-    /tridente.*eam/i, /expansión/i, /activación/i, /maestría/i,
+    /tridente.*eam/i, /método/i, /expandir/i, /expansión/i, /activar/i, /activación/i, /multiplicación/i, /maestría/i,
     /cómo.*empez/i, /primer.*paso/i, /siguiente.*paso/i,
   ]
   if (inicial.some(p => p.test(m))) return 'arsenal_inicial'
@@ -276,14 +277,15 @@ async function executeTool(name: string, input: Record<string, unknown>): Promis
       counts[s] = count ?? 0
     }
     const total = Object.values(counts).reduce((a: number, b: number) => a + b, 0)
-    return `Tu pipeline: Exploración ${counts.exploracion}, Activación ${counts.activar}, Maestría ${counts.maestria}. Total ${total} prospectos.`
+    return `Tu pipeline: Exploración ${counts.exploracion}, Activación ${counts.activar}, Multiplicación ${counts.maestria}. Total ${total} prospectos.`
   }
 
   return `Herramienta "${name}" no reconocida.`
 }
 
 function stageLabel(stage: string): string {
-  const map: Record<string, string> = { exploracion: 'Exploración', activar: 'Activación', maestria: 'Maestría' }
+  // Clave 'maestria' = valor de etapa en BD (contrato con queswa.app); la etiqueta visible es "Multiplicación"
+  const map: Record<string, string> = { exploracion: 'Exploración', activar: 'Activación', maestria: 'Multiplicación' }
   return map[stage] ?? stage
 }
 

@@ -347,29 +347,40 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   // ── Micrófono: gesto dual toque / mantener (walkie-talkie) ─────────────────
   // Toque corto  → graba y deja que el VAD cierre solo (auto-stop por silencio).
   // Mantener      → graba mientras se sostiene; al soltar, envía.
-  // Los listeners van en `window` porque al iniciar la grabación el área de input
-  // se reemplaza por <VoicePanel> y el botón se desmonta → un listener en el botón
-  // perdería el `pointerup`.
+  //
+  // CLAVE: al iniciar la grabación, el área de input cambia el botón por
+  // <VoicePanel> y el botón se DESMONTA. En táctil, el `pointerdown` hace
+  // implicit pointer capture sobre el botón; al desmontarse, el navegador
+  // dispara un `pointercancel` inmediato que abortaba el hold (degradaba a VAD).
+  // Por eso capturamos el puntero en el CONTENEDOR estable del input
+  // (inputContainerRef), que nunca se desmonta → el `pointerup` real sí llega.
   const HOLD_MS = 280;
   const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const holdFiredRef = useRef(false);
+  const inputContainerRef = useRef<HTMLDivElement>(null);
 
   const handleMicPointerDown = useCallback((e: React.PointerEvent) => {
     e.preventDefault();
     if (voiceState !== 'idle') return;
     holdFiredRef.current = false;
+
+    const el  = inputContainerRef.current;
+    const pid = e.pointerId;
+    try { el?.setPointerCapture?.(pid); } catch { /* no-op */ }
+
     onStartVoice?.();                              // graba de inmediato (no se pierde audio inicial)
     try { navigator.vibrate?.(15); } catch { /* no-op */ }
 
     const release = () => {
-      window.removeEventListener('pointerup', release);
-      window.removeEventListener('pointercancel', release);
+      el?.removeEventListener('pointerup', release as EventListener);
+      el?.removeEventListener('pointercancel', release as EventListener);
       if (holdTimerRef.current) { clearTimeout(holdTimerRef.current); holdTimerRef.current = null; }
+      try { el?.releasePointerCapture?.(pid); } catch { /* no-op */ }
       if (holdFiredRef.current) onStopVoice?.();   // walkie-talkie: soltó → enviar
       // si fue toque corto, el VAD cierra la grabación por sí mismo
     };
-    window.addEventListener('pointerup', release);
-    window.addEventListener('pointercancel', release);
+    el?.addEventListener('pointerup', release as EventListener);
+    el?.addEventListener('pointercancel', release as EventListener);
 
     holdTimerRef.current = setTimeout(() => {
       holdFiredRef.current = true;
@@ -877,6 +888,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
 
           {/* ── Área de input / voz — se reemplaza según voiceState ──────────── */}
           <div
+            ref={inputContainerRef}
             className={`${isExpanded ? 'p-3' : 'p-2'}`}
             style={{ borderTop: `1px solid rgba(255, 255, 255, 0.06)` }}
           >
@@ -954,7 +966,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                       aria-label="Hablar con Queswa — toque para hablar, o mantenga oprimido y suelte para enviar"
                       title="Toque para hablar · mantenga para grabar mientras sostiene"
                       className="w-10 h-10 flex items-center justify-center transition-all duration-150 active:scale-90"
-                      style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%', touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
+                      style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%', touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
                       onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >

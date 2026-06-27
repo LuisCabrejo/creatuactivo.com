@@ -378,43 +378,43 @@ function ttsCacheSet(key: string, buf: Uint8Array) {
   _ttsCache.set(key, { buf, ts: Date.now() })
 }
 
-// ─── TTS con caché + fallback ElevenLabs → OpenAI ────────────────────────────
-async function textToSpeech(text: string): Promise<Uint8Array> {
-  const key    = ttsHash(text)
-  const cached = _ttsCache.get(key)
-  if (cached && Date.now() - cached.ts < TTS_CACHE_TTL) {
-    console.log(`🗃 [Voice] TTS cache hit (${key})`)
-    return cached.buf
-  }
+// ─── TTS ─────────────────────────────────────────────────────────────────────
+const ELEVEN_VOICE_SETTINGS = { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true }
 
-  if (ELEVENLABS_KEY) {
+function ttsCacheGet(text: string): Uint8Array | null {
+  const c = _ttsCache.get(ttsHash(text))
+  if (c && Date.now() - c.ts < TTS_CACHE_TTL) return c.buf
+  return null
+}
+
+// Streaming ElevenLabs: devuelve el ReadableStream del audio para reproducir
+// mientras se sintetiza (baja la latencia percibida). null si falla → fallback buffer.
+async function elevenLabsStream(text: string): Promise<ReadableStream<Uint8Array> | null> {
+  if (!ELEVENLABS_KEY) return null
+  try {
     const res = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}/stream?optimize_streaming_latency=3`,
       {
         method: 'POST',
         headers: { 'xi-api-key': ELEVENLABS_KEY, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
-        body: JSON.stringify({
-          text,
-          // Flash v2.5: ~50% más barato y menor latencia que Multilingual v2, español sólido
-          model_id: 'eleven_flash_v2_5',
-          voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true },
-        }),
+        body: JSON.stringify({ text, model_id: 'eleven_flash_v2_5', voice_settings: ELEVEN_VOICE_SETTINGS }),
       },
     )
-    if (res.ok) {
-      const buf = new Uint8Array(await res.arrayBuffer())
-      ttsCacheSet(key, buf)
-      return buf
-    }
-    const err = await res.text()
-    console.warn(`[Voice] ElevenLabs ${res.status} — fallback a OpenAI TTS:`, err.substring(0, 120))
+    if (res.ok && res.body) return res.body
+    console.warn(`[Voice] ElevenLabs stream ${res.status} — fallback a OpenAI TTS:`, (await res.text()).substring(0, 120))
+  } catch (e) {
+    console.warn('[Voice] ElevenLabs stream excepción — fallback a OpenAI TTS:', e instanceof Error ? e.message : e)
   }
+  return null
+}
 
+// Fallback buffer (OpenAI tts-1) — no streaming. Cachea el resultado.
+async function openAIBuffer(text: string): Promise<Uint8Array> {
   const mp3 = await getOpenAI().audio.speech.create({
     model: 'tts-1', voice: 'onyx', input: text, response_format: 'mp3',
   })
   const buf = new Uint8Array(await mp3.arrayBuffer())
-  ttsCacheSet(key, buf)
+  ttsCacheSet(ttsHash(text), buf)
   return buf
 }
 
@@ -590,26 +590,41 @@ Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipelin
     return NextResponse.json({ error: 'Error de procesamiento' }, { status: 500 })
   }
 
-  // 4. VOZ — ElevenLabs → OpenAI fallback
-  let audioBytes: Uint8Array
+  // 4. VOZ — streaming ElevenLabs (baja latencia) → fallback buffer OpenAI
+  const baseHeaders: Record<string, string> = {
+    'Content-Type':  'audio/mpeg',
+    'x-transcript':  encodeURIComponent(transcript),
+    'x-reply':       encodeURIComponent(replyText),
+    'Cache-Control': 'no-store',
+  }
   try {
     const ttsText = normalizarParaVoz(replyText)
     console.log(`🔤 [Voice] TTS input: "${ttsText}"`)
-    audioBytes = await textToSpeech(ttsText)
-    console.log(`🔊 [Voice] TTS ${audioBytes.length} bytes`)
+
+    // a) Cache hit → buffer inmediato
+    const cached = ttsCacheGet(ttsText)
+    if (cached) {
+      console.log(`🗃 [Voice] TTS cache hit`)
+      return new NextResponse(cached.buffer as ArrayBuffer, {
+        status: 200, headers: { ...baseHeaders, 'Content-Length': String(cached.length) },
+      })
+    }
+
+    // b) Streaming ElevenLabs → el cliente reproduce mientras se sintetiza
+    const stream = await elevenLabsStream(ttsText)
+    if (stream) {
+      console.log(`🔊 [Voice] TTS streaming`)
+      return new NextResponse(stream, { status: 200, headers: baseHeaders })
+    }
+
+    // c) Fallback buffer (OpenAI tts-1)
+    const buf = await openAIBuffer(ttsText)
+    console.log(`🔊 [Voice] TTS fallback buffer ${buf.length} bytes`)
+    return new NextResponse(buf.buffer as ArrayBuffer, {
+      status: 200, headers: { ...baseHeaders, 'Content-Length': String(buf.length) },
+    })
   } catch (err) {
     console.error('❌ [Voice] TTS:', err)
     return NextResponse.json({ error: 'Error de síntesis', fallback_reply: replyText }, { status: 500 })
   }
-
-  return new NextResponse(audioBytes.buffer as ArrayBuffer, {
-    status: 200,
-    headers: {
-      'Content-Type':   'audio/mpeg',
-      'Content-Length': String(audioBytes.length),
-      'x-transcript':   encodeURIComponent(transcript),
-      'x-reply':        encodeURIComponent(replyText),
-      'Cache-Control':  'no-store',
-    },
-  })
 }

@@ -54,6 +54,90 @@ function getSupportedMimeType(): string {
   return 'audio/webm'
 }
 
+// ─── Reproducción de la respuesta de voz ──────────────────────────────────────
+// Streaming (MediaSource) cuando el navegador lo soporta → empieza a oírse en
+// ~300–500ms mientras se sintetiza el resto. Fallback a buffer completo (blob)
+// si no hay MSE o si el streaming falla → sin regresión.
+async function playVoiceResponse(
+  res: Response,
+  onStart: () => void,
+  onEnd: () => void,
+): Promise<HTMLAudioElement | null> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const MS: any = typeof window !== 'undefined'
+    ? ((window as any).MediaSource || (window as any).ManagedMediaSource)
+    : undefined
+  const canStream = !!(MS && res.body && typeof MS.isTypeSupported === 'function' && MS.isTypeSupported('audio/mpeg'))
+
+  // Clon para poder caer a blob si el streaming falla al inicializar
+  const fallbackRes = canStream ? res.clone() : res
+
+  const playBuffer = async (): Promise<HTMLAudioElement | null> => {
+    try {
+      const blob = await fallbackRes.blob()
+      const url  = URL.createObjectURL(blob)
+      const audio = new Audio(url)
+      const done = () => { onEnd(); URL.revokeObjectURL(url) }
+      audio.addEventListener('ended', done, { once: true })
+      audio.addEventListener('error', done, { once: true })
+      onStart()
+      await audio.play().catch(() => onEnd())
+      return audio
+    } catch { onEnd(); return null }
+  }
+
+  if (!canStream) return playBuffer()
+
+  try {
+    const mediaSource = new MS()
+    const url   = URL.createObjectURL(mediaSource)
+    const audio = new Audio()
+    audio.src = url
+
+    await new Promise<void>((resolve, reject) => {
+      const to = setTimeout(() => reject(new Error('sourceopen timeout')), 3000)
+      mediaSource.addEventListener('sourceopen', () => { clearTimeout(to); resolve() }, { once: true })
+    })
+
+    const sb     = mediaSource.addSourceBuffer('audio/mpeg')
+    const reader = res.body!.getReader()
+    const queue: Uint8Array[] = []
+    let ended = false
+
+    const flush = () => {
+      if (sb.updating) return
+      if (queue.length > 0) { sb.appendBuffer(queue.shift()!); return }
+      if (ended && mediaSource.readyState === 'open') {
+        try { mediaSource.endOfStream() } catch { /* no-op */ }
+      }
+    }
+    sb.addEventListener('updateend', flush)
+
+    const cleanup = () => { onEnd(); URL.revokeObjectURL(url) }
+    audio.addEventListener('ended', cleanup, { once: true })
+    audio.addEventListener('error', cleanup, { once: true })
+
+    let started = false
+    const pump = async () => {
+      try {
+        const { done, value } = await reader.read()
+        if (done) { ended = true; flush(); return }
+        queue.push(value)
+        flush()
+        if (!started) { started = true; onStart(); audio.play().catch(() => {}) }
+        pump()
+      } catch {
+        ended = true; flush()
+      }
+    }
+    pump()
+    return audio
+  } catch {
+    // El streaming falló al inicializar → buffer con el clon
+    return playBuffer()
+  }
+}
+
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 
@@ -365,23 +449,12 @@ export default function UnifiedQueswaOrb() {
         }))
       }
 
-      const audioBlob = await res.blob()
-      setVoiceState('speaking')
       navigator.vibrate?.([20, 30, 20, 30, 40])          // háptico ascendente: respuesta lista
-      const url   = URL.createObjectURL(audioBlob)
-      const audio = new Audio(url)
-      audioRef.current = audio
-      audio.onended = () => {
-        setVoiceState('idle')
-        setLiveTranscript('')
-        URL.revokeObjectURL(url)
-      }
-      audio.onerror = () => {
-        setVoiceState('idle')
-        setLiveTranscript('')
-        URL.revokeObjectURL(url)
-      }
-      audio.play().catch(() => setVoiceState('idle'))
+      audioRef.current = await playVoiceResponse(
+        res,
+        () => setVoiceState('speaking'),
+        () => { setVoiceState('idle'); setLiveTranscript('') },
+      )
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Error de conexión'
       setErrorMsg(msg)

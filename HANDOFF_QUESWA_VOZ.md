@@ -35,11 +35,12 @@
 3. CEREBRO   Claude Haiku 4.5, system en 2 bloques
               · Bloque 1: prompt entrenado del tenant (cacheado por Anthropic)
               · Bloque 2: reglas de VOZ + FUENTE DE VERDAD (fragment)
-4. VOZ       normalizarParaVoz → textToSpeech
-              · ElevenLabs eleven_flash_v2_5  [fallback OpenAI tts-1]  + caché en memoria
+4. VOZ       normalizarParaVoz → TTS
+              · cache hit → buffer · si no → ElevenLabs /stream (flash_v2_5)
+              · [fallback OpenAI tts-1 buffer]
    ▼
-[respuesta] audio/mpeg + headers x-transcript / x-reply
-   │  UnifiedQueswaOrb reproduce el audio
+[respuesta] audio/mpeg (stream) + headers x-transcript / x-reply
+   │  UnifiedQueswaOrb.playVoiceResponse: MediaSource (chunks) o blob (fallback)
    │  NEXUSWidget inyecta transcript+reply al historial (evento queswa-voice-exchange)
 ```
 
@@ -98,10 +99,10 @@ Presupuesto secuencial aproximado: STT ~2 s · retrieval ~0.3 s · Haiku ~1 s ·
 | TTS Flash v2.5 (vs Multilingual v2) | −0.5 a −1 s | ✅ hecho |
 | Caché de fragmentos (no recargar 155 docs/llamada) | menor | ✅ hecho |
 | STT mini-transcribe | ≈ igual o algo menor | ✅ hecho |
-| **TTS streaming** (ElevenLabs `/stream` → reproducir mientras sintetiza) | **−1 a −2 s percibidos** (empieza a oírse en ~300–500 ms) | ⏳ recomendado — requiere devolver stream + reproducción incremental en cliente |
+| **TTS streaming** (ElevenLabs `/stream` → reproducir mientras sintetiza) | **−1 a −2 s percibidos** (empieza a oírse en ~300–500 ms) | ✅ hecho |
 | Prompt caching agresivo (ya 2 bloques) | menor | parcial |
 
-**Siguiente paso de mayor retorno en tiempo:** TTS streaming. Es la única palanca que baja la latencia *percibida* de forma notable; coste: cambio en backend (responder `ReadableStream` en vez de buffer) + frontend (MediaSource / reproducción por chunks).
+**TTS streaming (hecho):** el backend devuelve el `ReadableStream` de ElevenLabs `/stream` (`optimize_streaming_latency=3`); el cliente reproduce por chunks con **MediaSource** (`playVoiceResponse` en UnifiedQueswaOrb). Fallback automático a buffer completo (blob) si el navegador no soporta MSE `audio/mpeg` o si el streaming falla → sin regresión. En cache-hit se devuelve buffer; el streaming no escribe caché (las respuestas del LLM rara vez se repiten).
 
 ---
 
@@ -120,7 +121,6 @@ Presupuesto secuencial aproximado: STT ~2 s · retrieval ~0.3 s · Haiku ~1 s ·
 
 ## 8. Pendientes / notas
 
-- **TTS streaming** — la palanca de latencia (sección 6).
 - **Pre-render de respuestas verbatim** para caché TTS casi gratis en rutas calientes.
 - Precios de **productos individuales por país** distinto a Colombia: el catálogo solo tiene COP (gap conocido, ajeno a la voz).
 - La clave de etapa `'maestria'` en las tools del dashboard es contrato con queswa.app (NO renombrar; las etiquetas visibles ya dicen "Multiplicación").

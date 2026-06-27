@@ -20,6 +20,7 @@ import OpenAI                         from 'openai'
 import Anthropic                      from '@anthropic-ai/sdk'
 import { createClient }               from '@supabase/supabase-js'
 import { normalizarParaVoz }          from '@/lib/tts-normalize'
+import { voyageMatchDocuments }       from '@/lib/vectorSearch'
 
 export const runtime     = 'nodejs'
 export const maxDuration = 60
@@ -44,6 +45,7 @@ const supabase = createClient(
 
 const ELEVENLABS_KEY      = process.env.ELEVENLABS_API_KEY ?? ''
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? 'EXAVITQu4vr4xnSDxMaL'
+const VOYAGE_API_KEY      = process.env.VOYAGE_API_KEY ?? ''
 
 // ─── Caché de módulo por tenant ───────────────────────────────────────────────
 // Map keyed by tenantId — cada tenant carga y cachea su propio prompt.
@@ -173,6 +175,37 @@ async function fetchArsenalFragment(category: string, query: string): Promise<st
   } catch { /* sin fragmento */ }
 
   return ''
+}
+
+// ─── Recuperación de contexto (vector search + fallback regex) ────────────────
+// Primero el MISMO motor del chat de texto: Voyage AI embedding → pgvector RPC
+// (match_documents) con aislamiento por tenant. Esto resuelve precios y productos
+// ("Gano Café 3 en 1") que el clasificador regex no atrapaba → el modelo ya no
+// improvisa el handoff a la directiva por falta de datos.
+// Si no hay VOYAGE_API_KEY o no devuelve nada, cae al clasificador regex + textSearch.
+async function fetchRelevantFragment(query: string, tenantId: string): Promise<string> {
+  if (VOYAGE_API_KEY) {
+    try {
+      const results = await voyageMatchDocuments(query, VOYAGE_API_KEY, supabase, {
+        tenantId,
+        matchCount: 3,
+        matchThreshold: 0.35,
+      })
+      if (results.length) {
+        console.log(`🔎 [Voice] vector hits: ${results.map(r => `${r.category}(${r.similarity.toFixed(2)})`).join(', ')}`)
+        return results
+          .map(r => `FUENTE DE VERDAD (${r.title}):\n${r.content}`)
+          .join('\n\n')
+          .substring(0, 3000)
+      }
+      console.log('🔎 [Voice] vector search sin resultados → fallback regex')
+    } catch (e) {
+      console.warn('⚠️ [Voice] vector search falló → fallback regex:', e)
+    }
+  }
+  // Fallback legacy: clasificador regex + textSearch
+  const cat = classifyVoiceQuery(query)
+  return cat ? fetchArsenalFragment(cat, query) : ''
 }
 
 // Detecta preguntas que merecen más tokens
@@ -403,12 +436,11 @@ export async function POST(request: NextRequest) {
   try {
     console.log(`🏢 [Voice] tenant=${tenantId} constructor=${constructorId}`)
 
-    // Clasificar + traer fragmento relevante (en paralelo con lo que sigue)
-    const arsenalCategory = classifyVoiceQuery(transcript)
-    const arsenalFragment = arsenalCategory && !isDashboard
-      ? await fetchArsenalFragment(arsenalCategory, transcript)
+    // Traer fragmento relevante (vector search + fallback regex) — mismo motor que el chat
+    const arsenalFragment = !isDashboard
+      ? await fetchRelevantFragment(transcript, tenantId)
       : ''
-    if (arsenalCategory) console.log(`🎯 [Voice] category=${arsenalCategory} fragment=${arsenalFragment.length}chars`)
+    if (arsenalFragment) console.log(`🎯 [Voice] fragment=${arsenalFragment.length}chars`)
 
     // ── Construcción del system prompt en 2 bloques ──────────────────────────
     //

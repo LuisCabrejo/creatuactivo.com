@@ -8,6 +8,8 @@
  * Cadena: ElevenLabs (primario) → OpenAI tts-1 (fallback si quota/error)
  */
 
+import { normalizarParaVoz } from '@/lib/tts-normalize';
+
 export const runtime     = 'edge';
 export const maxDuration = 30;
 
@@ -67,7 +69,8 @@ async function elevenLabsTTS(text: string, apiKey: string): Promise<ArrayBuffer 
       },
       body: JSON.stringify({
         text,
-        model_id: 'eleven_multilingual_v2',
+        // Flash v2.5: ~50% más barato y menor latencia que Multilingual v2, español sólido
+        model_id: 'eleven_flash_v2_5',
         voice_settings: {
           stability: 0.55,
           similarity_boost: 0.80,
@@ -125,7 +128,8 @@ export async function POST(req: Request) {
     });
   }
 
-  const cleanText = stripMarkdown(text).substring(0, 600);
+  // stripMarkdown limpia formato; normalizarParaVoz convierte "$200 USD"/"%" a palabras
+  const cleanText = normalizarParaVoz(stripMarkdown(text)).substring(0, 600);
   const cacheKey  = djb2(cleanText);
 
   // ── Caché hit — sin llamada a ElevenLabs ──────────────────────────────────

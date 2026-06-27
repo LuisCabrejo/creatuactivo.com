@@ -19,6 +19,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI                         from 'openai'
 import Anthropic                      from '@anthropic-ai/sdk'
 import { createClient }               from '@supabase/supabase-js'
+import { normalizarParaVoz }          from '@/lib/tts-normalize'
 
 export const runtime     = 'nodejs'
 export const maxDuration = 60
@@ -54,7 +55,7 @@ const _promptCache = new Map<string, { content: string; ts: number }>()
 // Permite que cada proyecto cargue su propio entrenamiento.
 const TENANT_PROMPT_NAME: Record<string, string> = {
   creatuactivo_marketing: 'nexus_main',
-  marca_personal:         'luiscabrejo_main',
+  marca_personal:         'marca_personal',   // fila real en system_prompts (antes 'luiscabrejo_main' → no existía → caía al fallback)
   ecommerce:              'ganocafe_main',
   queswa_dashboard:       'queswa_dashboard',
 }
@@ -286,34 +287,33 @@ function stageLabel(stage: string): string {
   return map[stage] ?? stage
 }
 
-// ─── Normalización de texto para TTS ─────────────────────────────────────────
-// Convierte símbolos y abreviaturas a palabras antes de enviar a ElevenLabs.
-// ElevenLabs lee "$200 USD" como "dollar sign 200 U-S-D" — incorrecto para audio.
-function normalizarParaVoz(text: string): string {
-  return text
-    // Millones en dólares: $100M USD / 100M USD → "100 millones de dólares"
-    .replace(/\$?([\d.]+)M\s*USD/gi, (_, n) => `${n} millones de dólares`)
-    // Miles en dólares: $200K USD / 200K USD → "200 mil dólares"
-    .replace(/\$?([\d.]+)K\s*USD/gi, (_, n) => `${n} mil dólares`)
-    // Dólares simples: $200 USD / 500 USD / $1,000 USD → "200 dólares"
-    .replace(/\$?([\d,]+)\s*USD/gi, (_, n) => `${n.replace(/,/g, '')} dólares`)
-    // Millones en pesos: $2.25M COP → "2.25 millones de pesos colombianos"
-    .replace(/\$?([\d.]+)M\s*COP/gi, (_, n) => `${n} millones de pesos colombianos`)
-    // Miles en pesos: $900K COP → "900 mil pesos colombianos"
-    .replace(/\$?([\d.]+)K\s*COP/gi, (_, n) => `${n} mil pesos colombianos`)
-    // Pesos simples: $900 COP → "900 pesos colombianos"
-    .replace(/\$?([\d,]+)\s*COP/gi, (_, n) => `${n.replace(/,/g, '')} pesos colombianos`)
-    // USD / COP solos que hayan quedado
-    .replace(/\bUSD\b/gi, 'dólares')
-    .replace(/\bCOP\b/gi, 'pesos colombianos')
-    // Signo $ suelto antes de número
-    .replace(/\$([\d])/g, '$1')
-    // % solo
-    .replace(/%/g, ' por ciento')
+// ─── Caché TTS en memoria (warm instance) ────────────────────────────────────
+// Recorta llamadas a ElevenLabs cuando una misma frase corta se repite
+// (saludos, "Con gusto…", aperturas rotativas). Hit rate moderado en voz libre,
+// cero downside.
+const TTS_CACHE_TTL = 60 * 60 * 1000 // 1 hora
+const TTS_CACHE_MAX = 50
+const _ttsCache = new Map<string, { buf: Uint8Array; ts: number }>()
+
+function ttsHash(s: string): string {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = (((h << 5) + h) ^ s.charCodeAt(i)) >>> 0
+  return h.toString(36)
+}
+function ttsCacheSet(key: string, buf: Uint8Array) {
+  if (_ttsCache.size >= TTS_CACHE_MAX) _ttsCache.delete(_ttsCache.keys().next().value!)
+  _ttsCache.set(key, { buf, ts: Date.now() })
 }
 
-// ─── TTS con fallback ElevenLabs → OpenAI ────────────────────────────────────
+// ─── TTS con caché + fallback ElevenLabs → OpenAI ────────────────────────────
 async function textToSpeech(text: string): Promise<Uint8Array> {
+  const key    = ttsHash(text)
+  const cached = _ttsCache.get(key)
+  if (cached && Date.now() - cached.ts < TTS_CACHE_TTL) {
+    console.log(`🗃 [Voice] TTS cache hit (${key})`)
+    return cached.buf
+  }
+
   if (ELEVENLABS_KEY) {
     const res = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
@@ -322,12 +322,17 @@ async function textToSpeech(text: string): Promise<Uint8Array> {
         headers: { 'xi-api-key': ELEVENLABS_KEY, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
         body: JSON.stringify({
           text,
-          model_id: 'eleven_multilingual_v2',
+          // Flash v2.5: ~50% más barato y menor latencia que Multilingual v2, español sólido
+          model_id: 'eleven_flash_v2_5',
           voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true },
         }),
       },
     )
-    if (res.ok) return new Uint8Array(await res.arrayBuffer())
+    if (res.ok) {
+      const buf = new Uint8Array(await res.arrayBuffer())
+      ttsCacheSet(key, buf)
+      return buf
+    }
     const err = await res.text()
     console.warn(`[Voice] ElevenLabs ${res.status} — fallback a OpenAI TTS:`, err.substring(0, 120))
   }
@@ -335,7 +340,9 @@ async function textToSpeech(text: string): Promise<Uint8Array> {
   const mp3 = await getOpenAI().audio.speech.create({
     model: 'tts-1', voice: 'onyx', input: text, response_format: 'mp3',
   })
-  return new Uint8Array(await mp3.arrayBuffer())
+  const buf = new Uint8Array(await mp3.arrayBuffer())
+  ttsCacheSet(key, buf)
+  return buf
 }
 
 // ─── POST handler ─────────────────────────────────────────────────────────────

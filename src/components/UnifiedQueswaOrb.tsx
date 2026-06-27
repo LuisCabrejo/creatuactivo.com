@@ -6,17 +6,21 @@
  * Fusiona NEXUSFloatingButton (chat) + VoiceCommandButton (voz) en un único
  * componente de cristal líquido, esquina inferior derecha.
  *
- * Mecánica dual:
- *   Toque corto  → abre panel de chat de texto (NEXUSWidget)
- *   Long press   → activa grabación de voz (Whisper → Claude → ElevenLabs)
+ * Mecánica:
+ *   Orbe (toque)         → abre/cierra el panel de chat (NEXUSWidget)
+ *   Botón mic del widget → gesto dual:
+ *       · toque corto    → graba y el VAD cierra solo (auto-stop por silencio)
+ *       · mantener (>280ms) → walkie-talkie: graba mientras se sostiene, envía al soltar
+ *     (la grabación → Whisper → Claude → ElevenLabs)
  *
  * Motor cinético:
  *   Scroll down  → orbe se oculta (traslación Y + opacidad 0)
  *   Scroll up    → orbe reaparece con física de resorte (spring)
  *
  * Háptica:
- *   Long press detectado → navigator.vibrate(50)
- *   Grabación terminada  → navigator.vibrate(30)
+ *   Mantener confirmado  → navigator.vibrate(50)  (confirmHold)
+ *   Respuesta lista      → navigator.vibrate([20,30,20,30,40])
+ *   Auto-stop por VAD    → navigator.vibrate([30,50,30])
  */
 
 import { useRef, useState, useEffect, useCallback } from 'react'
@@ -91,6 +95,7 @@ export default function UnifiedQueswaOrb() {
   const animFrameRef     = useRef<number | null>(null)
   const vadTimerRef      = useRef<ReturnType<typeof setTimeout> | null>(null)
   const hadSoundRef      = useRef(false)           // VAD activa solo tras primera voz
+  const holdModeRef      = useRef(false)           // walkie-talkie: el usuario controla el fin (VAD off)
   const stopAndSendRef   = useRef<() => void>(() => {})  // ref estable para RAF closure
 
   // Barras reactivas al audio (6 valores 0.25–1.0)
@@ -266,7 +271,8 @@ export default function UnifiedQueswaOrb() {
         if (overall > 25) hadSoundRef.current = true  // primera voz detectada
 
         const elapsed = Date.now() - recordStart
-        if (hadSoundRef.current && elapsed > MIN_RECORD_MS) {
+        // En modo "mantener" (walkie-talkie) el usuario controla el fin al soltar → VAD off.
+        if (!holdModeRef.current && hadSoundRef.current && elapsed > MIN_RECORD_MS) {
           if (overall < SILENCE_THRESHOLD) {
             if (!vadTimerRef.current) {
               vadTimerRef.current = setTimeout(() => {
@@ -309,6 +315,7 @@ export default function UnifiedQueswaOrb() {
     setHasInteracted(true)
     setErrorMsg(null)
     setLiveTranscript('')
+    holdModeRef.current = false           // por defecto toque-para-hablar (VAD on); el hold lo confirma confirmHold()
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       streamRef.current      = stream
@@ -386,6 +393,13 @@ export default function UnifiedQueswaOrb() {
 
   // Ref estable para que el RAF loop pueda llamar stopAndSend sin closure stale
   useEffect(() => { stopAndSendRef.current = stopAndSend }, [stopAndSend])
+
+  // El widget confirma que el botón se mantiene oprimido (walkie-talkie):
+  // desactiva el auto-stop por VAD (el usuario corta al soltar) + háptica fuerte.
+  const confirmHold = useCallback(() => {
+    holdModeRef.current = true
+    try { navigator.vibrate?.(50) } catch { /* no-op */ }
+  }, [])
 
   // ─── Tap simple: abrir/cerrar chat ───────────────────────────────────────────
   const handleOrbClick = useCallback(() => {
@@ -618,6 +632,7 @@ export default function UnifiedQueswaOrb() {
         voiceState={voiceState}
         onStartVoice={startRecording}
         onStopVoice={stopAndSend}
+        onHoldConfirmed={confirmHold}
       />
 
       {/* ── CSS keyframes ────────────────────────────────────────────────────── */}

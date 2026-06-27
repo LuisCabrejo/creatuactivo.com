@@ -10,7 +10,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
@@ -46,6 +46,8 @@ interface NEXUSWidgetProps {
   voiceState?: 'idle' | 'recording' | 'processing' | 'speaking' | 'error';
   onStartVoice?: () => void;
   onStopVoice?: () => void;
+  /** Se invoca cuando el botón se mantiene oprimido > umbral (modo walkie-talkie) */
+  onHoldConfirmed?: () => void;
 }
 
 // 🎯 Función para resaltar preguntas de captura en negrilla
@@ -231,7 +233,7 @@ const VoicePanel: React.FC<{
   );
 };
 
-const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState = 'idle', onStartVoice, onStopVoice }) => {
+const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState = 'idle', onStartVoice, onStopVoice, onHoldConfirmed }) => {
   const {
     messages,
     isLoading,
@@ -341,6 +343,41 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
     e.preventDefault();
     handleSendMessage(inputMessage);
   };
+
+  // ── Micrófono: gesto dual toque / mantener (walkie-talkie) ─────────────────
+  // Toque corto  → graba y deja que el VAD cierre solo (auto-stop por silencio).
+  // Mantener      → graba mientras se sostiene; al soltar, envía.
+  // Los listeners van en `window` porque al iniciar la grabación el área de input
+  // se reemplaza por <VoicePanel> y el botón se desmonta → un listener en el botón
+  // perdería el `pointerup`.
+  const HOLD_MS = 280;
+  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const holdFiredRef = useRef(false);
+
+  const handleMicPointerDown = useCallback((e: React.PointerEvent) => {
+    e.preventDefault();
+    if (voiceState !== 'idle') return;
+    holdFiredRef.current = false;
+    onStartVoice?.();                              // graba de inmediato (no se pierde audio inicial)
+    try { navigator.vibrate?.(15); } catch { /* no-op */ }
+
+    const release = () => {
+      window.removeEventListener('pointerup', release);
+      window.removeEventListener('pointercancel', release);
+      if (holdTimerRef.current) { clearTimeout(holdTimerRef.current); holdTimerRef.current = null; }
+      if (holdFiredRef.current) onStopVoice?.();   // walkie-talkie: soltó → enviar
+      // si fue toque corto, el VAD cierra la grabación por sí mismo
+    };
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', release);
+
+    holdTimerRef.current = setTimeout(() => {
+      holdFiredRef.current = true;
+      onHoldConfirmed?.();                          // mantener confirmado → desactiva VAD + háptica fuerte
+    }, HOLD_MS);
+  }, [voiceState, onStartVoice, onStopVoice, onHoldConfirmed]);
+
+  useEffect(() => () => { if (holdTimerRef.current) clearTimeout(holdTimerRef.current); }, []);
 
   // Auto-resize textarea al cambiar el contenido
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -912,9 +949,12 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   ) : (
                     <button
                       type="button"
-                      onClick={() => onStartVoice?.()}
+                      onPointerDown={handleMicPointerDown}
+                      onContextMenu={e => e.preventDefault()}
+                      aria-label="Hablar con Queswa — toque para hablar, o mantenga oprimido y suelte para enviar"
+                      title="Toque para hablar · mantenga para grabar mientras sostiene"
                       className="w-10 h-10 flex items-center justify-center transition-all duration-150 active:scale-90"
-                      style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%' }}
+                      style={{ background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '50%', touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
                       onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >

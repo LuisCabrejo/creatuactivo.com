@@ -20,7 +20,8 @@ import OpenAI                         from 'openai'
 import Anthropic                      from '@anthropic-ai/sdk'
 import { createClient }               from '@supabase/supabase-js'
 import { normalizarParaVoz }          from '@/lib/tts-normalize'
-import { voyageMatchDocuments }       from '@/lib/vectorSearch'
+import { vectorSearchVoyage }         from '@/lib/vectorSearch'
+import type { DocumentWithEmbedding }  from '@/lib/vectorSearch'
 
 export const runtime     = 'nodejs'
 export const maxDuration = 60
@@ -177,28 +178,65 @@ async function fetchArsenalFragment(category: string, query: string): Promise<st
   return ''
 }
 
-// ─── Recuperación de contexto (vector search + fallback regex) ────────────────
-// Primero el MISMO motor del chat de texto: Voyage AI embedding → pgvector RPC
-// (match_documents) con aislamiento por tenant. Esto resuelve precios y productos
-// ("Gano Café 3 en 1") que el clasificador regex no atrapaba → el modelo ya no
-// improvisa el handoff a la directiva por falta de datos.
-// Si no hay VOYAGE_API_KEY o no devuelve nada, cae al clasificador regex + textSearch.
+// ─── Carga de fragmentos por tenant (in-memory, cacheada) ────────────────────
+// Usamos embedding_512 + cosine en memoria (igual que el chat de texto): tolera
+// mezclas de dimensiones. El RPC match_documents NO sirve aquí — exige dimensión
+// exacta y revienta con "different vector dimensions 1536 and 512".
+const MASTER_CATEGORIES = new Set([
+  'arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion',
+  'arsenal_reto', 'arsenal_12_niveles', 'arsenal_marca_personal', 'arsenal_ganocafe',
+])
+const FRAG_TTL = 5 * 60 * 1000 // 5 min
+const _fragCache = new Map<string, { docs: DocumentWithEmbedding[]; ts: number }>()
+
+async function getTenantFragments(tenantId: string): Promise<DocumentWithEmbedding[]> {
+  const c = _fragCache.get(tenantId)
+  if (c && Date.now() - c.ts < FRAG_TTL) return c.docs
+
+  const { data, error } = await supabase
+    .from('nexus_documents')
+    .select('category, title, content, embedding_512, metadata')
+    .eq('tenant_id', tenantId)
+    .not('embedding_512', 'is', null)
+
+  if (error) { console.warn('⚠️ [Voice] carga de fragmentos falló:', error.message); return [] }
+
+  const docs = (data ?? [])
+    // Excluir los docs maestros (arsenal completo) — solo fragmentos específicos
+    .filter((d: { category: string }) => !MASTER_CATEGORIES.has(d.category))
+    .map((d: { category: string; title: string; content: string; embedding_512: string; metadata?: Record<string, unknown> }) => ({
+      category: d.category,
+      title: d.title,
+      content: d.content,
+      embedding: String(d.embedding_512),
+      metadata: d.metadata,
+    }))
+
+  _fragCache.set(tenantId, { docs, ts: Date.now() })
+  console.log(`📚 [Voice] ${docs.length} fragmentos cargados tenant=${tenantId}`)
+  return docs
+}
+
+// ─── Recuperación de contexto (vector search in-memory + fallback regex) ──────
+// Mismo motor que el chat de texto: Voyage AI embedding (voyage-3-lite) → cosine
+// sobre embedding_512. Resuelve precios/productos ("Gano Café 3 en 1") que el
+// clasificador regex no atrapaba → el modelo ya no improvisa el handoff a la
+// directiva por falta de datos. Fallback al clasificador regex + textSearch.
 async function fetchRelevantFragment(query: string, tenantId: string): Promise<string> {
   if (VOYAGE_API_KEY) {
     try {
-      const results = await voyageMatchDocuments(query, VOYAGE_API_KEY, supabase, {
-        tenantId,
-        matchCount: 3,
-        matchThreshold: 0.35,
-      })
-      if (results.length) {
-        console.log(`🔎 [Voice] vector hits: ${results.map(r => `${r.category}(${r.similarity.toFixed(2)})`).join(', ')}`)
-        return results
-          .map(r => `FUENTE DE VERDAD (${r.title}):\n${r.content}`)
-          .join('\n\n')
-          .substring(0, 3000)
+      const docs = await getTenantFragments(tenantId)
+      if (docs.length) {
+        const results = await vectorSearchVoyage(query, docs, VOYAGE_API_KEY, 0.30, 3)
+        if (results.length) {
+          console.log(`🔎 [Voice] vector hits: ${results.map(r => `${r.category}(${r.similarity.toFixed(2)})`).join(', ')}`)
+          return results
+            .map(r => `FUENTE DE VERDAD (${r.title}):\n${r.content}`)
+            .join('\n\n')
+            .substring(0, 3000)
+        }
+        console.log('🔎 [Voice] vector search sin resultados → fallback regex')
       }
-      console.log('🔎 [Voice] vector search sin resultados → fallback regex')
     } catch (e) {
       console.warn('⚠️ [Voice] vector search falló → fallback regex:', e)
     }

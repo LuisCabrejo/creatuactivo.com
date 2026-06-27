@@ -53,10 +53,10 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
+    default: 'CreaTuActivo | Sea dueño de su empresa digital',
     template: '%s | CreaTuActivo'
   },
-  description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
+  description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -130,15 +130,15 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['pt_BR', 'en_US'],
     url: baseUrl,
-    title: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
-    description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
+    title: 'CreaTuActivo | Sea dueño de su empresa digital',
+    description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Su empresa digital con ingresos recurrentes',
-    description: 'Sea propietario de una empresa digital que genera ingresos recurrentes, aunque usted no esté presente. Tres pilares cargan el trabajo pesado: Gano Excel, la inteligencia artificial Queswa y un método comprobado. Usted dirige.',
+    title: 'CreaTuActivo | Sea dueño de su empresa digital',
+    description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
     creator: '@creatuactivo',
   },
 

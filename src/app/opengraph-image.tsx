@@ -7,7 +7,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo | Su empresa digital con ingresos recurrentes'
+export const alt = 'CreaTuActivo | Sea dueño de su propia empresa digital'
 export const size = {
   width: 1200,
   height: 630,
@@ -88,8 +88,8 @@ export default async function Image() {
             fontFamily: 'Georgia, serif',
           }}
         >
-          <span style={{ display: 'flex' }}>Ingresos que no dependen</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>de su presencia</span>
+          <span style={{ display: 'flex' }}>Sea dueño de su propia</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>empresa digital</span>
         </div>
 
         {/* Descripción */}
@@ -105,7 +105,7 @@ export default async function Image() {
             lineHeight: 1.5,
           }}
         >
-          Su propia empresa digital, respaldada por Gano Excel y la inteligencia artificial Queswa.
+          Un negocio que vive en internet y trabaja por usted. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.
         </div>
 
         {/* Footer - Byline */}

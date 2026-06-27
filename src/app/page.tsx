@@ -25,7 +25,16 @@ export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'CreaTuActivo | Sea dueño de su empresa digital',
-  description: 'La solución no es trabajar más: es ser dueño de una empresa digital que le genera ingresos recurrentes — y multiplicarla con un clic en toda América. Usted dirige; el sistema hace el trabajo.',
+  description: 'La solución no es trabajar más duro: sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+  openGraph: {
+    title: 'Sea dueño de su propia empresa digital',
+    description: 'Un negocio que vive en internet y trabaja por usted, en paralelo a lo que ya hace. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+    url: 'https://creatuactivo.com',
+  },
+  twitter: {
+    title: 'Sea dueño de su propia empresa digital',
+    description: 'Un negocio que vive en internet y trabaja por usted, en paralelo a lo que ya hace. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+  },
 };
 
 // Paleta local alineada a tokens del Sistema de Diseño (Lujo Silencioso v1.0)

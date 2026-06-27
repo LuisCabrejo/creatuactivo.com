@@ -449,7 +449,8 @@ export async function POST(request: NextRequest) {
     constructorId = String(pu?.constructor_id ?? 'unknown')
   }
 
-  // 2. OÍDO — Whisper
+  // 2. OÍDO — STT: gpt-4o-mini-transcribe (mitad del costo de whisper-1, ~igual o más rápido)
+  //    Fallback a whisper-1 si el modelo no estuviera disponible en la cuenta.
   let transcript = ''
   try {
     const audioFile = new File(
@@ -457,13 +458,21 @@ export async function POST(request: NextRequest) {
       'voice.webm',
       { type: audioBlob.type || 'audio/webm' },
     )
-    const result = await getOpenAI().audio.transcriptions.create({
-      file: audioFile, model: 'whisper-1', language: 'es',
-    })
+    let result
+    try {
+      result = await getOpenAI().audio.transcriptions.create({
+        file: audioFile, model: 'gpt-4o-mini-transcribe', language: 'es',
+      })
+    } catch (e) {
+      console.warn('[Voice] gpt-4o-mini-transcribe falló — fallback a whisper-1:', e instanceof Error ? e.message : e)
+      result = await getOpenAI().audio.transcriptions.create({
+        file: audioFile, model: 'whisper-1', language: 'es',
+      })
+    }
     transcript = result.text.trim()
     console.log(`🎙 [Voice] "${transcript}"`)
   } catch (err) {
-    console.error('❌ [Voice] Whisper:', err)
+    console.error('❌ [Voice] STT:', err)
     return NextResponse.json({ error: 'Error de transcripción' }, { status: 500 })
   }
 

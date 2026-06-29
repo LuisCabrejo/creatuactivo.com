@@ -45,23 +45,23 @@
  * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
  * "si se detiene se detiene", cierre que distingue "cómo se gana" (consumo recurrente).
  */
-const MASTER_WHY_02 = `Excelente — es justo por donde conviene empezar. 🪢
+const MASTER_WHY_02 = `Me alegra que pregunte eso, porque es justo el corazón del asunto. 🪢
 
-El modelo es simple: usted se vuelve **dueño de una empresa digital**, y esa empresa le genera **ingresos una y otra vez**, esté usted presente o no.
+El modelo se apoya en el apalancamiento: usted se vuelve dueño de una **empresa digital** y la pone a producir desde el primer día.
 
-¿Qué es una empresa digital? Piénselo en **Amazon** o **MercadoLibre**: no fabrican lo que venden — son dueños del **puente** que conecta a millones y gana por cada operación, estén o no sus dueños presentes. La suya funciona igual, a su escala: usted es dueño del puente, no quien carga las cajas.
+¿Y qué es una empresa digital? Una que reemplaza el local y los empleados por infraestructura en internet y procesos automatizados que producen aunque usted duerma; crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden, son dueños del **puente** que conecta a millones de personas con los fabricantes y cobran por cada transacción, de forma automática. Lo suyo funciona con esa misma lógica: usted es dueño del puente, no quien carga las cajas.
 
-Y lo mejor: **lo más difícil ya está hecho por usted.** Lo que normalmente tomaría años y un equipo de ingenieros, aquí ya lo resuelve la unión de **tres fuerzas que trabajan para usted**:
+Construirla solo costaría años, ingenieros y capital. Con apalancamiento usted no la crea: la usa, ya montada. Funciona gracias a tres fuerzas que trabajan a su favor.
 
-- **Su socio logístico y financiero — Gano Excel:** una corporación con más de 30 años y presencia en **70 países**, con ciencia propia y logística que fabrica, almacena y despacha por usted. No es una promesa de internet — es el músculo real que carga el trabajo pesado, de su lado. Usted es dueño de la empresa digital; Gano es el respaldo que la sostiene.
+La primera es su socio de infraestructura, **Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. Usted dirige, Gano Excel sostiene.
 
-- **Su socio digital — Queswa, su Centro de Mando:** yo explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le notifico cada avance, trabajando a su favor. *Usted no explica — Queswa explica.*
+La segunda es su socio de tecnología, **Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién visita la información; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
 
-- **Un método comprobado:** los pasos exactos (Comando Expandir · Activar · Multiplicación), sin ensayo ni error.
+La tercera es un método comprobado que le marca los pasos exactos, sin necesidad de experiencia digital. El camino ya está trazado.
 
-¿Y su papel? **Dirigir.** Las decisiones de un dueño; el trabajo pesado lo hacen sus socios.
+¿Y su papel? Dirigir, con las decisiones de un dueño. El trabajo pesado corre por cuenta de sus socios.
 
-¿Qué le sirve más ahora: que le muestre **qué haría usted en el día a día**, o prefiere ver **los números** — cómo y cuánto produce?`;
+¿Qué le resulta más útil ahora: que le muestre cómo sería su día a día, o prefiere que veamos los números, cómo y cuánto produce esto?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

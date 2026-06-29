@@ -2297,7 +2297,7 @@ export default function CatalogoEstrategico() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={`https://wa.me/${(distributor?.whatsapp || '+573206805737').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar a construir mi activo con CreaTuActivo.com')}`}
+                href={`https://wa.me/${(distributor?.whatsapp || '+573206805737').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar mi empresa digital con CreaTuActivo.com')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-base cta-primary"
@@ -2422,12 +2422,12 @@ export default function CatalogoEstrategico() {
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
                   <p className="font-bold text-[#E5C279] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-[#A3A3A3]">
-                    Como <strong>Fundador CreaTuActivo</strong>, accedes a precios mayoristas con descuento de hasta 35% sobre precio público.
-                    <a href="/fundadores" className="text-[#E5C279] hover:text-[#F59E0B] font-medium ml-1 underline">Ver detalles de afiliación →</a>
+                    Como <strong>Fundador CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
+                    <a href="/" className="text-[#E5C279] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</a>
                   </p>
                 </div>
                 <p className="text-sm text-[#A3A3A3] mt-4">
-                  📦 <strong>Tarifas preferenciales de envío</strong>: Hasta 15 productos pagas solo el envío mínimo. Fletes variables según ciudad y volumen.
+                  📦 <strong>Tarifas preferenciales de envío</strong>: Hasta 15 productos paga solo el envío mínimo. Fletes variables según ciudad y volumen.
                 </p>
               </div>
             </details>
@@ -2521,35 +2521,35 @@ export default function CatalogoEstrategico() {
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  Con <strong className="text-[#E5C279]">CreaTuActivo</strong>, no solo compras productos premium al <strong className="text-[#E5E5E5]">precio de distribuidor mayorista</strong>
-                  (35% de descuento), también accedes a un <strong className="text-[#E5E5E5]">ecosistema completo</strong>:
+                  Con <strong className="text-[#E5C279]">CreaTuActivo</strong>, no solo compra productos premium al <strong className="text-[#E5E5E5]">precio de distribuidor mayorista</strong>
+                  (35% de descuento), también accede a un <strong className="text-[#E5E5E5]">ecosistema completo</strong>:
                 </p>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Aplicación CreaTuActivo + Queswa IA</p>
-                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para gestionar su negocio 24/7</p>
+                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para que su empresa digital trabaje 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibes mentoría directa y construyes su red</p>
+                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibe mentoría directa y construye su organización</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">3</div>
                     <div>
-                      <p className="font-bold text-[#E5E5E5]">Ingresos Residuales</p>
-                      <p className="text-sm text-[#A3A3A3]">Gana comisiones por ventas propias y de su red</p>
+                      <p className="font-bold text-[#E5E5E5]">Ingresos Recurrentes</p>
+                      <p className="text-sm text-[#A3A3A3]">Gana ingresos por sus ventas y por las de su organización</p>
                     </div>
                   </div>
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-6 ">
                   <p className="text-xl font-bold text-[#E5C279] mb-2">🎯 Solo 150 Cupos Fundadores</p>
-                  <p className="mb-4 text-[#A3A3A3]">Válido hasta el 04 de Enero 2026</p>
+                  <p className="mb-4 text-[#A3A3A3]">Acceso a la base fundadora por tiempo limitado</p>
                   <a
                     href="/fundadores"
                     className="cta-base cta-primary"

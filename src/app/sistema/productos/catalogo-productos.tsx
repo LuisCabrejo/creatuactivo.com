@@ -1351,7 +1351,7 @@ export default function CatalogoEstrategico() {
             className="text-4xl md:text-6xl font-serif font-bold mb-4"
             style={{ color: C.textMain }}
           >
-            Siéntete Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
+            Siéntase Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
           </h1>
 
           <p
@@ -1414,7 +1414,7 @@ export default function CatalogoEstrategico() {
     </h2>
 
     <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
-      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
+      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que reciba todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
@@ -2505,7 +2505,7 @@ export default function CatalogoEstrategico() {
                   <p className="text-sm text-[#A3A3A3]">
                     Nuestro asistente de IA conversacional puede ayudarle a encontrar distribuidores en su país,
                     calcular envíos internacionales y recomendarle los productos ideales para su perfil.
-                    <strong className="text-[#E5C279]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
+                    <strong className="text-[#E5C279]"> Haga clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
                 </div>
               </div>

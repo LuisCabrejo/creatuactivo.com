@@ -1357,7 +1357,7 @@ export default function CatalogoEstrategico() {
             className="text-4xl md:text-6xl font-serif font-bold mb-4"
             style={{ color: C.textMain }}
           >
-            Siéntete Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
+            Siéntase Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
           </h2>
 
           <p
@@ -1366,6 +1366,22 @@ export default function CatalogoEstrategico() {
           >
             Imagine empezar su mañana con un café que además de despertarlo, cuida su salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que su cuerpo aprovecha fácilmente.
           </p>
+
+          {/* CTA al asesor de salud y bienestar — abre Queswa (modo asesor vía pageContext catalogo_productos) */}
+          <div className="flex flex-col items-center gap-3 mb-8">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
+              className="cta-base cta-primary"
+              style={{ padding: '1rem 2rem', fontSize: '1rem' }}
+            >
+              <Bot className="h-5 w-5" />
+              <span>Pregúntele a Queswa, su asesor de bienestar →</span>
+            </button>
+            <p className="text-sm max-w-md" style={{ color: C.textMuted }}>
+              ¿No sabe cuál elegir? Cuéntele cómo se siente y le recomienda los productos ideales para usted, sin compromiso.
+            </p>
+          </div>
 
           {distributor && (
             <div
@@ -1420,7 +1436,7 @@ export default function CatalogoEstrategico() {
     </h2>
 
     <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
-      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que recibas todos sus beneficios en cada taza o cápsula.
+      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que reciba todos sus beneficios en cada taza o cápsula.
     </p>
   </div>
 
@@ -2507,11 +2523,19 @@ export default function CatalogoEstrategico() {
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
                   <p className="font-bold text-[color:var(--color-brand)] mb-2">🤖 Consulta con Queswa IA</p>
-                  <p className="text-sm text-[#A3A3A3]">
+                  <p className="text-sm text-[#A3A3A3] mb-3">
                     Nuestro asistente de IA conversacional puede ayudarle a encontrar distribuidores en su país,
                     calcular envíos internacionales y recomendarle los productos ideales para su perfil.
-                    <strong className="text-[color:var(--color-brand)]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
+                    className="cta-base cta-secondary"
+                    style={{ fontSize: '0.875rem' }}
+                  >
+                    <Bot className="h-4 w-4" />
+                    <span>Hablar con su asesor de bienestar →</span>
+                  </button>
                 </div>
               </div>
             </details>
@@ -2573,19 +2597,16 @@ export default function CatalogoEstrategico() {
               ¿Listo para probar el <span className="text-[color:var(--color-brand)]">Gano Café</span>?
             </h3>
             <p className="text-lg mb-6 text-[#A3A3A3]">
-              Hable con <strong className="text-[color:var(--color-brand)]">Queswa IA</strong> y descubra qué productos son ideales para su estilo de vida
+              Hable con <strong className="text-[color:var(--color-brand)]">Queswa</strong>, su asesor de bienestar, y descubra qué productos son ideales para usted
             </p>
             <button
-              onClick={() => {
-                // Trigger NEXUS floating button
-                const nexusButton = document.querySelector('[data-nexus-trigger]') as HTMLButtonElement
-                if (nexusButton) nexusButton.click()
-              }}
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
               className="cta-base cta-primary"
               style={{ padding: '1rem 2rem', fontSize: '1rem' }}
             >
               <Bot className="h-5 w-5" />
-              <span>Hablar con Queswa IA</span>
+              <span>Hablar con su asesor de bienestar →</span>
             </button>
           </div>
         </section>

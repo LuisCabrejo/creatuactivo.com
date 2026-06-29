@@ -161,7 +161,7 @@ export default function UnifiedQueswaOrb() {
   // negocio → el tooltip del orbe se enfoca en asesoría, no en "empresa digital".
   const isProductsPage = pathname.includes('/sistema/productos')
   const tooltipText = isProductsPage
-    ? '¿Le ayudo a elegir? Pregúntele a su asesor de bienestar'
+    ? 'Pregúntele a su asesor de bienestar'
     : '¿Construimos su empresa digital?'
 
   // Chat state

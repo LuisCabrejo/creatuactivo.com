@@ -89,7 +89,7 @@ interface SistemaBienestar {
 const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
   'energia-enfoque': {
     nombre: 'Para Tener Más Energía',
-    descripcion: 'Empieza el día con energía y mantente activo sin el bajón del café normal',
+    descripcion: 'Empiece el día con energía y manténgase activo sin el bajón del café normal',
     productos: ['ganocafe-3-en-1', 'ganocafe-clasico', 'capsulas-excellium'],
     icono: <Zap className="h-6 w-6" />,
     color: 'from-yellow-500 to-orange-500'
@@ -102,15 +102,15 @@ const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
     color: 'from-green-500 to-emerald-500'
   },
   'rendimiento-avanzado': {
-    nombre: 'Para Mantenerte Activo',
-    descripcion: 'Ideal si caminas, haces ejercicio o simplemente desea sentirte con más vitalidad',
+    nombre: 'Para Mantenerse Activo',
+    descripcion: 'Ideal si camina, hace ejercicio o simplemente desea sentirse con más vitalidad',
     productos: ['capsulas-cordygold', 'capsulas-ganoderma', 'espirulina-gano-creal'],
     icono: <Target className="h-6 w-6" />,
     color: 'from-red-500 to-pink-500'
   },
   'belleza-holistica': {
     nombre: 'Para Su Piel y Belleza',
-    descripcion: 'Cuida su piel desde adentro con colágeno, y por fuera con jabones naturales',
+    descripcion: 'Cuide su piel desde adentro con colágeno, y por fuera con jabones naturales',
     productos: ['bebida-colageno-reskine', 'jabon-gano', 'jabon-transparente-gano', 'exfoliante-piel-brillo'],
     icono: <Sparkles className="h-6 w-6" />,
     color: 'from-purple-500 to-pink-500'
@@ -136,9 +136,9 @@ const productData: ProductData = {
     taglineEstrategico: 'Su ritual diario con beneficios reales',
     usage: 'Mezcla 1 sobre (21g) en 150ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café soluble premium', 'Cremora vegetal', 'Azúcar'],
-    benefits: ['Aporta energía y vitalidad para su día', 'Apoya las defensas naturales del cuerpo', 'Contribuye a la reducción del estrés y la fatiga', 'Promueve un estado de ánimo positivo', 'Disfruta de un delicioso y nutritivo sabor cremoso'],
+    benefits: ['Aporta energía y vitalidad para su día', 'Apoya las defensas naturales del cuerpo', 'Contribuye a la reducción del estrés y la fatiga', 'Promueve un estado de ánimo positivo', 'Disfrute de un delicioso y nutritivo sabor cremoso'],
     perfilIdeal: 'Personas que valoran su salud y buscan energía sostenida para su día',
-    momentoConsumo: 'Ideal para comenzar la mañana o media tarde cuando necesitas un impulso',
+    momentoConsumo: 'Ideal para comenzar la mañana o media tarde cuando necesita un impulso',
     puntosConversacion: [
       'Perfecto para profesionales que quieren mantener su ritual de café mientras construyen su negocio',
       'El producto más vendido: no cambia hábitos, los mejora con 200+ fitonutrientes gracias a nuestra fórmula exclusiva',
@@ -178,7 +178,7 @@ const productData: ProductData = {
     taglineEstrategico: 'El latte que merece cada pausa',
     usage: 'Disuelve 1 sobre (25g) en 180ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Leche en polvo', 'Cremora natural'],
-    benefits: ['Disfruta de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita sus sentidos', 'Un gusto enriquecido para su bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
+    benefits: ['Disfrute de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita sus sentidos', 'Un gusto enriquecido para su bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
     perfilIdeal: 'Amantes del café con leche que buscan una experiencia gourmet saludable',
     momentoConsumo: 'Perfecto para media mañana o como postre después del almuerzo',
     puntosConversacion: [
@@ -201,7 +201,7 @@ const productData: ProductData = {
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Cacao natural', 'Leche en polvo', 'Azúcar de caña'],
     benefits: ['La combinación perfecta de café y cacao saludable', 'Un sabor indulgente que apoya su bienestar', 'Con betaglucanos para apoyar sus defensas', 'Promueve la sensación de saciedad', 'Ideal para recargar energías a media tarde', 'Sin endulzante'],
     perfilIdeal: 'Personas que buscan una alternativa saludable a las bebidas azucaradas',
-    momentoConsumo: 'Ideal como merienda o cuando necesitas un momento de indulgencia',
+    momentoConsumo: 'Ideal como merienda o cuando necesita un momento de indulgencia',
     puntosConversacion: [
       'Reemplaza antojos poco saludables con nutrición inteligente',
       'Perfecto para madres: alternativa nutritiva que los niños disfrutan',
@@ -534,7 +534,7 @@ const productData: ProductData = {
     image: '/productos/luvoco/luvoco-suave-gano-excel-min.png',
     invima: 'NSA-0012955-2022',
     goals: ['Energía', 'Sabor'],
-    shortDescription: 'Disfruta de la suavidad y el delicado sabor del café Luvoco Suave. Perfecto para aquellos que prefieren un café más ligero al paladar. Caja con 15 cápsulas.',
+    shortDescription: 'Disfrute de la suavidad y el delicado sabor del café Luvoco Suave. Perfecto para aquellos que prefieren un café más ligero al paladar. Caja con 15 cápsulas.',
     taglineEstrategico: 'Suavidad premium para cada momento',
     usage: 'Insertar cápsula en máquina Luvoco, seleccionar intensidad suave, presionar botón. Temperatura interna 180°C-205°C.',
     ingredients: ['Café molido tostado suave', 'Betaglucanos de Ganoderma Lucidum', 'Antioxidantes naturales'],
@@ -576,7 +576,7 @@ const productData: ProductData = {
     image: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
     invima: 'NSA-0012953-2022',
     goals: ['Energía', 'Intensidad'],
-    shortDescription: 'Déjate envolver por la intensidad robusta del café Luvoco Fuerte. Para los amantes del café que buscan una experiencia intensa y vigorosa. Caja con 15 cápsulas.',
+    shortDescription: 'Déjese envolver por la intensidad robusta del café Luvoco Fuerte. Para los amantes del café que buscan una experiencia intensa y vigorosa. Caja con 15 cápsulas.',
     taglineEstrategico: 'Intensidad para quienes aman el café robusto',
     usage: 'Insertar cápsula en máquina Luvoco, seleccionar intensidad fuerte, presionar botón. Temperatura interna 240°C-250°C.',
     ingredients: ['Café molido tostado fuerte', 'Betaglucanos de Ganoderma Lucidum', 'Proceso de tostado dominante'],
@@ -1358,7 +1358,7 @@ export default function CatalogoEstrategico() {
             className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
             style={{ color: C.textMuted }}
           >
-            Imagina empezar su mañana con un café que además de despertarte, cuida su salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que su cuerpo aprovecha fácilmente.
+            Imagine empezar su mañana con un café que además de despertarlo, cuida su salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que su cuerpo aprovecha fácilmente.
           </p>
 
           {distributor && (
@@ -1533,7 +1533,7 @@ export default function CatalogoEstrategico() {
               Productos para Cada Momento de Su Vida
             </h2>
             <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
-              Hemos organizado nuestros productos según lo que buscas: más energía, cuidar a su familia, verte mejor o disfrutar un buen café.
+              Hemos organizado nuestros productos según lo que busca: más energía, cuidar a su familia, verse mejor o disfrutar un buen café.
             </p>
           </div>
 
@@ -2325,7 +2325,7 @@ export default function CatalogoEstrategico() {
               Preguntas Frecuentes sobre <span className="text-[#E5C279]">Gano Café</span>
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
-              Descubre todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
+              Descubra todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
             </p>
           </div>
 
@@ -2445,10 +2445,10 @@ export default function CatalogoEstrategico() {
                   La forma correcta de preparar el <strong>Gano Café 3 en 1</strong> es:
                 </p>
                 <ol className="list-decimal pl-6 space-y-3 mb-4">
-                  <li><strong>Vierte 1 sobre (21g)</strong> en su taza favorita</li>
-                  <li><strong>Agrega 150ml de agua caliente</strong> (no hirviendo, aprox. 80-85°C)</li>
-                  <li><strong>Revuelve bien</strong> hasta disolver completamente</li>
-                  <li><strong>Disfruta inmediatamente</strong> para aprovechar todos los nutrientes</li>
+                  <li><strong>Vierta 1 sobre (21g)</strong> en su taza favorita</li>
+                  <li><strong>Agregue 150ml de agua caliente</strong> (no hirviendo, aprox. 80-85°C)</li>
+                  <li><strong>Revuelva bien</strong> hasta disolver completamente</li>
+                  <li><strong>Disfrute inmediatamente</strong> para aprovechar todos los nutrientes</li>
                 </ol>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4  mb-4">
                   <p className="font-bold text-[#E5C279] mb-2">✅ Recomendaciones de Consumo</p>
@@ -2456,7 +2456,7 @@ export default function CatalogoEstrategico() {
                     <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
                     <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
                     <li>• <strong>Antes o después de comidas</strong>: Ambos funcionan bien</li>
-                    <li>• <strong>Puede tomarse frío</strong>: Prepara con agua fría y hielo en verano</li>
+                    <li>• <strong>Puede tomarse frío</strong>: Prepare con agua fría y hielo en verano</li>
                   </ul>
                 </div>
                 <div className="bg-[#0B0C0C] border border-red-500/30 p-4 ">
@@ -2504,7 +2504,7 @@ export default function CatalogoEstrategico() {
                   <p className="font-bold text-[#E5C279] mb-2">🤖 Consulta con Queswa IA</p>
                   <p className="text-sm text-[#A3A3A3]">
                     Nuestro asistente de IA conversacional puede ayudarle a encontrar distribuidores en su país,
-                    calcular envíos internacionales y recomendarte los productos ideales para su perfil.
+                    calcular envíos internacionales y recomendarle los productos ideales para su perfil.
                     <strong className="text-[#E5C279]"> Haz clic en el botón flotante para hablar con Queswa.</strong>
                   </p>
                 </div>
@@ -2555,7 +2555,7 @@ export default function CatalogoEstrategico() {
                     className="cta-base cta-primary"
                     style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
                   >
-                    Únete como Fundador →
+                    Únase como Fundador →
                   </a>
                 </div>
               </div>
@@ -2568,7 +2568,7 @@ export default function CatalogoEstrategico() {
               ¿Listo para probar el <span className="text-[#E5C279]">Gano Café</span>?
             </h3>
             <p className="text-lg mb-6 text-[#A3A3A3]">
-              Habla con <strong className="text-[#E5C279]">Queswa IA</strong> y descubre qué productos son ideales para su estilo de vida
+              Hable con <strong className="text-[#E5C279]">Queswa IA</strong> y descubra qué productos son ideales para su estilo de vida
             </p>
             <button
               onClick={() => {
@@ -2881,7 +2881,7 @@ export default function CatalogoEstrategico() {
                       {selectedProduct.combinacionSugerida && (
                         <div>
                           <h3 className="text-lg font-bold text-[#E5E5E5] mb-3">🔗 Combina con estos productos</h3>
-                          <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar sus resultados, prueba combinarlo con:</p>
+                          <p className="text-[#A3A3A3] text-sm mb-3">Para potenciar sus resultados, pruebe combinarlo con:</p>
                           <div className="flex flex-wrap gap-2">
                             {selectedProduct.combinacionSugerida.map((productoId) => (
                               <span key={productoId} className="bg-[#C5A059]/20 text-[#C5A059] px-3 py-1  text-sm">

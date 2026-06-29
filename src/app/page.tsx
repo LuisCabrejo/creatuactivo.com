@@ -336,7 +336,7 @@ function ComoLoHacemosIntro() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Levantar una empresa digital exige tres cosas: <strong style={{ color: C.white, fontWeight: 600 }}>infraestructura, tecnología y un método</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. <span style={{ color: C.white }}>Nosotros le entregamos las tres ya construidas.</span> Lo sostienen tres pilares:
+            Levantar una empresa digital exige tres cosas: <strong style={{ color: C.white, fontWeight: 600 }}>infraestructura, tecnología y un método</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. <span style={{ color: C.white }}>Nosotros le entregamos las tres ya construidas.</span>
           </p>
         </div>
       </div>
@@ -404,10 +404,10 @@ function ProductoFisicoSection() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Pilar 1 · El Respaldo Operativo
+            El Respaldo Operativo
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Un activo sólido descansa siempre sobre un consumo que no se detiene.
+            Gano Excel, su socio de infraestructura.
           </h2>
         </div>
 
@@ -417,9 +417,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Su empresa digital produce ingresos de un hábito que las personas ya tienen:{' '}
-            <span style={{ color: C.white }}>el café de cada mañana.</span>{' '}
-            Solo que el nuestro lleva dentro <strong style={{ color: C.gold, fontWeight: 600 }}>Ganoderma</strong> —el hongo más estudiado del planeta—, en un extracto que el cuerpo asimila por completo. No le pedimos a nadie cambiar su rutina; solo que el café de siempre <span style={{ color: C.white }}>trabaje a su favor.</span> Y detrás está <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>: la empresa real que lo fabrica y lo entrega en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países.</strong>
+            Construir esto solo —fábricas, inventario millonario, permisos y logística en cada país— tomaría años. Su <span style={{ color: C.white }}>socio logístico y financiero</span> ya lo hizo: <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>, una corporación con más de <strong style={{ color: C.gold, fontWeight: 600 }}>30 años</strong> y presencia en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países</strong> que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet — es <span style={{ color: C.white }}>músculo real, de su lado.</span> Gracias a él usted no construye nada: <span style={{ color: C.white }}>empieza hoy</span> y se dedica a dirigir.
           </p>
         </div>
 
@@ -431,7 +429,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1rem', lineHeight: 1.7, color: C.white, margin: 0, fontFamily: "var(--font-serif)", fontStyle: 'italic' }}>
-            Un hábito que no cambia genera un ingreso que no se detiene.
+            Usted no necesita una fábrica. Necesita un socio que ya la tenga.
           </p>
         </div>
       </div>
@@ -496,10 +494,10 @@ function QueswaDiferenciadorSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Pilar 2 · El Centro de Mando
+            El Centro de Mando
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
-            Queswa: su Centro de Mando.
+            Queswa, su socio de tecnología.
           </h2>
           <p style={{ fontSize: '1rem', color: C.muted, maxWidth: '620px', margin: '0 auto', lineHeight: 1.8 }}>
             Queswa es la plataforma de inteligencia artificial que hace por usted el trabajo más desgastante.{' '}
@@ -553,7 +551,7 @@ function MetodoSection() {
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan }}>
-            Pilar 3 · El Método Comprobado
+            El Método Comprobado
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '20px', fontFamily: "var(--font-serif)", color: '#fff' }}>
             Un método ya probado. Usted no improvisa.

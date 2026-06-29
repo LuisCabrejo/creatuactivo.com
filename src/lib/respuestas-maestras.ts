@@ -47,19 +47,19 @@
  */
 const MASTER_WHY_02 = `Excelente — es justo por donde conviene empezar. 🪢
 
-El modelo es simple: usted se vuelve **dueño de una empresa digital**, y esa empresa le genera **ingresos recurrentes**, esté usted presente o no.
+El modelo es simple: usted se vuelve **dueño de una empresa digital**, y esa empresa le genera **ingresos una y otra vez**, esté usted presente o no.
 
-¿Qué es una empresa digital? Piénselo en **Amazon** o **MercadoLibre**: no fabrican lo que venden — son dueños del **sistema** que conecta a millones y gana por cada operación, estén o no sus dueños presentes. La suya funciona igual, a su escala: usted es dueño del sistema, no quien carga las cajas.
+¿Qué es una empresa digital? Piénselo en **Amazon** o **MercadoLibre**: no fabrican lo que venden — son dueños del **puente** que conecta a millones y gana por cada operación, estén o no sus dueños presentes. La suya funciona igual, a su escala: usted es dueño del puente, no quien carga las cajas.
 
-Y lo mejor: **lo más difícil ya está hecho por usted.** Lo que normalmente tomaría años y un equipo de ingenieros, aquí ya está montado en tres partes:
+Y lo mejor: **lo más difícil ya está hecho por usted.** Lo que normalmente tomaría años y un equipo de ingenieros, aquí ya lo resuelve la unión de **tres fuerzas que trabajan para usted**:
 
-- **El Respaldo Operativo:** detrás de su empresa digital está **Gano Excel**, una corporación con más de 30 años y presencia en **70 países**, con ciencia propia y logística que fabrica, almacena y despacha por usted. No es una promesa de internet — es el músculo real que carga el trabajo pesado. Usted es dueño de la empresa digital; Gano es el respaldo que la sostiene.
+- **Su socio logístico y financiero — Gano Excel:** una corporación con más de 30 años y presencia en **70 países**, con ciencia propia y logística que fabrica, almacena y despacha por usted. No es una promesa de internet — es el músculo real que carga el trabajo pesado, de su lado. Usted es dueño de la empresa digital; Gano es el respaldo que la sostiene.
 
-- **Queswa, su Centro de Mando:** yo explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le notifico cada avance. *Usted no explica — Queswa explica.*
+- **Su socio digital — Queswa, su Centro de Mando:** yo explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le notifico cada avance, trabajando a su favor. *Usted no explica — Queswa explica.*
 
-- **El Método Comprobado:** los pasos exactos (Comando Expandir · Activar · Multiplicación), sin ensayo ni error.
+- **Un método comprobado:** los pasos exactos (Comando Expandir · Activar · Multiplicación), sin ensayo ni error.
 
-¿Y su papel? **Dirigir.** Las decisiones de un dueño; el trabajo pesado lo hace el sistema.
+¿Y su papel? **Dirigir.** Las decisiones de un dueño; el trabajo pesado lo hacen sus socios.
 
 ¿Qué le sirve más ahora: que le muestre **qué haría usted en el día a día**, o prefiere ver **los números** — cómo y cuánto produce?`;
 
@@ -83,7 +83,7 @@ Le adelanto lo esencial: su papel es **dirigir**, no cargar el trabajo pesado. E
 
 ¿Cómo se ve un día normal? Unos minutos para compartir, y estar pendiente de los avisos que le mando cuando alguien está listo. El trabajo desgastante —explicar, atender, responder a toda hora— es mío.
 
-Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño que dirige**. Y a cada persona que entra con usted le llega el mismo sistema, listo para crecer por su cuenta.
+Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño que dirige**. Y a cada persona que entra con usted le llega la misma empresa digital, lista para crecer por su cuenta.
 
 ¿Le muestro **los productos** que mueven todo esto, o prefiere ver **los números** — cómo y cuánto produce?`;
 
@@ -96,15 +96,15 @@ Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño q
  * Doctrina: definición general (Amazon/MercadoLibre/Rappi = el puente) que cierra con puente
  * a "en el caso de CreaTuActivo". "Sistema" evitado (es el villano) → "puente".
  */
-const MASTER_EMPRESA_DIGITAL = `Buena pregunta — y se la aterrizo sin tecnicismos. 🪢
+const MASTER_EMPRESA_DIGITAL = `Buena pregunta — vale la pena precisarlo bien. 🪢
 
-Una empresa digital es un negocio que **vive en internet** y **produce aunque su dueño no esté ahí**. No necesita local, ni bodega, ni una fila de empleados.
+Una empresa digital es un modelo de negocio que funciona sobre internet, no sobre activos físicos. En lugar de local, inventario y nómina, se apoya en sistemas automatizados que generan ingresos de forma continua, sin depender de la presencia del dueño.
 
-La forma más fácil de verlo: piense en **Amazon**, **MercadoLibre** o **Rappi**. Amazon casi no fabrica lo que vende; Rappi no cocina ni tiene un solo restaurante. Lo que hacen es ser el **puente** que conecta a la gente: ganan por cada operación que pasa por ahí, sin cargar una sola caja.
+Para aterrizarlo, piense en **Amazon**, **MercadoLibre** o **Rappi**. Amazon casi no fabrica lo que vende; Rappi no cocina ni tiene un solo restaurante. Su negocio es ser el **puente** que conecta a las personas con lo que necesitan, y ganar por cada transacción que pasa por ahí —de forma automática, sin cargar una sola caja—.
 
-Por eso una empresa digital hace lo que un negocio de toda la vida no puede: produce sin depender de las horas de su dueño, crece sin abrir más locales ni contratar más gente, y llega lejos —a una ciudad o a un continente— desde un celular.
+Por eso una empresa digital logra lo que un negocio tradicional no puede: produce sin depender de las horas de su dueño, crece de forma masiva sin abrir más locales ni contratar más personal, y su alcance no tiene fronteras —de una ciudad a un continente entero— desde un celular.
 
-En una frase: **usted es dueño del puente que genera el valor, no el que pone la fuerza física.**
+En una frase: **usted es dueño del puente que genera el valor una y otra vez.**
 
 ¿Quiere que le muestre cómo se ve eso **en el caso de CreaTuActivo** — cómo sería la suya?`;
 

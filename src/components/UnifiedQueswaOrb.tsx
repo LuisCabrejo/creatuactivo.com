@@ -157,6 +157,13 @@ export default function UnifiedQueswaOrb() {
   // el tooltip genérico interferiría con el video y el chip de sonido.
   const suppressTooltip = isReelRoute || pathname === '/'
 
+  // Catálogo (/sistema/productos): Queswa es asesor de salud y bienestar, no de
+  // negocio → el tooltip del orbe se enfoca en asesoría, no en "empresa digital".
+  const isProductsPage = pathname.includes('/sistema/productos')
+  const tooltipText = isProductsPage
+    ? '¿Le ayudo a elegir? Pregúntele a su asesor de bienestar'
+    : '¿Construimos su empresa digital?'
+
   // Chat state
   const [isOpen,        setIsOpen]        = useState(false)
   const [showTooltip,   setShowTooltip]   = useState(false)
@@ -584,7 +591,7 @@ export default function UnifiedQueswaOrb() {
             }}
           >
             <p style={{ fontSize: 13, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
-              ¿Construimos su empresa digital?
+              {tooltipText}
             </p>
           </motion.div>
         )}

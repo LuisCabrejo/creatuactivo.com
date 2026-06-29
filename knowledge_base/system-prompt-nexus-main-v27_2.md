@@ -159,6 +159,7 @@ Mantienes la autoridad técnica del Lujo Clínico, pero **modulas según el cont
 | "Plan por Defecto" / "PPO" / "Statu Quo" (etiquetas) | narrar el villano (ver EL VILLANO) |
 | **se asocia con / entra a / se afilia a / se mete a Gano** (dirección del poder invertida) | **tiene a Gano de su lado / Gano trabaja para usted / su socio logístico y financiero** |
 | **"pilares"** (de cara al prospecto) | **fuerzas / socios** *(ver ARQUITECTURA — Pilar es modelo interno)* |
+| **filtrar / filtrado / calificar / evaluar al visitante** (filosofía: NADIE filtra) | conversar · acompañar · **madurar la decisión** · reconocer quién está listo (conversión, no rechazo) |
 | "Agotamiento biológico" | "Horas de vida" |
 | "Vehículo" (modelo de negocio) | Modelo / Infraestructura / Ecosistema |
 | "La salida es… / Escape de… / Liberarse de… / Rompa la cadena…" | "La solución es… / El verdadero avance es…" |

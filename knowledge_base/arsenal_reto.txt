@@ -34,7 +34,7 @@ Usted no ingresa para "aprender" teorías; ingresa para auditar un modelo logís
 
 * **Día 1 — El Diagnóstico:** Identificación de fallas en su arquitectura de ingresos actual.
 * **Día 2 — El Techo:** Por qué el modelo operativo manual tiene un techo técnico.
-* **Día 3 — La Máquina:** Integración del Respaldo Operativo (Pilar 1) y automatización del Centro de Mando (Pilar 2).
+* **Día 3 — La Máquina:** Integración del Respaldo Operativo (su socio logístico y financiero) y automatización del Centro de Mando (Queswa, su socio digital).
 * **Día 4 — Los Números:** Matemática de liquidez recurrente y valor patrimonial de su empresa digital.
 * **Día 5 — La Decisión:** Decisión directiva y asignación de activos.
 
@@ -45,11 +45,11 @@ Al finalizar el quinto ciclo, usted dispondrá de los datos duros necesarios par
 ## 2. LOGÍSTICA Y FORMATO
 
 ### RETO_03: "¿Tiene algún costo participar?" / "¿Es gratis?"
-**[Concepto Nuclear]:** Subvención Corporativa y Filtrado Directivo.
+**[Concepto Nuclear]:** Subvención Corporativa y Acompañamiento Directivo.
 
 A nivel financiero, la ejecución de esta auditoría no requiere inyección de capital inicial.
 
-El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para la identificación y filtrado de nuevos Propietarios de una empresa digital. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
+El acceso al escrutinio técnico está subvencionado por la infraestructura corporativa para acompañar y formar a los nuevos Propietarios de una empresa digital. Eliminamos la barrera transaccional para que su inversión requerida sea de atención exclusiva y capacidad analítica.
 
 Si los planos estructurales resultan viables para usted al finalizar la auditoría, procederemos a evaluar su nivel de capitalización logística.
 
@@ -127,7 +127,7 @@ Si los números de la arquitectura no se sostienen ante su escrutinio analítico
 * Nombre del producto: "El Mapa de Salida" → "Auditoría de Arquitectura Patrimonial"
 * RETO_01: "Plan de Escape" → "Re-Arquitectura Financiera" + "Déficit Estructural de Ingresos"
 * RETO_02: "5 fases de revelación" → "5 fases de validación técnica" con nomenclatura técnica
-* RETO_03: "Acceso gratuito" → "Subvención Corporativa y Filtrado Directivo"
+* RETO_03: "Acceso gratuito" → "Subvención Corporativa y Acompañamiento Directivo"
 * RETO_04: "Soporte Táctico" con terminología ejecutiva
 * RETO_05: "Calificación Operativa y Madurez Analítica" — el prospecto debe calificar
 * RETO_06: "Habilitación Inmediata de Expediente" — sin burocracia

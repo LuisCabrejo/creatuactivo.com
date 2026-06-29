@@ -15,7 +15,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
-import { QUESWA_QUICK_REPLIES, QUESWA_CTA_LABEL } from '@/lib/queswa-greeting';
+import { QUESWA_QUICK_REPLIES, QUESWA_PRODUCTS_QUICK_REPLIES, QUESWA_CTA_LABEL } from '@/lib/queswa-greeting';
 
 // 🤖 ELEGANCIA CINÉTICA - Terminal de Comando Avanzada (FASE F)
 const QUIET_LUXURY = {
@@ -600,9 +600,14 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   </div>
                 )}
 
-                {/* Quick Reply Chips — las 4 preguntas del avatar (canónico desde @/lib/queswa-greeting) */}
+                {/* Quick Reply Chips — preguntas según contexto de página (canónico desde @/lib/queswa-greeting).
+                    En /sistema/productos Queswa es asesor de salud y bienestar → chips de salud, sin CTA de negocio. */}
+                {(() => {
+                const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+                const activeQuickReplies = isProductsPage ? QUESWA_PRODUCTS_QUICK_REPLIES : QUESWA_QUICK_REPLIES;
+                return (
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
-                  {QUESWA_QUICK_REPLIES.map((label) => (
+                  {activeQuickReplies.map((label) => (
                     <button
                       key={label}
                       onClick={() => handleSendMessage(label)}
@@ -628,7 +633,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     </button>
                   ))}
 
-                  {/* CTA conversión — botón secundario diferenciado (no es pregunta del avatar) */}
+                  {/* CTA conversión — botón secundario de negocio (no es pregunta del avatar).
+                      Oculto en el catálogo: ahí Queswa solo habla de salud y bienestar. */}
+                  {!isProductsPage && (
                   <button
                     key={QUESWA_CTA_LABEL}
                     onClick={() => window.dispatchEvent(new CustomEvent('open-subscribe'))}
@@ -650,7 +657,10 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                   >
                     {QUESWA_CTA_LABEL}
                   </button>
+                  )}
                 </div>
+                );
+                })()}
               </div>
             );
           })()}

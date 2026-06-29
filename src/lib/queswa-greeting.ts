@@ -55,6 +55,25 @@ export const QUESWA_QUICK_REPLIES = [
 ] as const;
 
 /**
+ * Chips de la página de catálogo (/sistema/productos).
+ *
+ * En esa página Queswa actúa como ASESOR DE SALUD Y BIENESTAR — el backend
+ * cambia a ese modo vía `pageContext === 'catalogo_productos'`
+ * (route.ts `getPageContextInstructions()`). Por eso los chips NO pueden ser
+ * las 4 preguntas de negocio: deben ofrecer preguntas de salud/bienestar.
+ *
+ * Comportamiento configurado originalmente (commit 00295d1, nov 2025) que se
+ * perdió al centralizar los chips en `QUESWA_QUICK_REPLIES`. Restaurado en
+ * registro de usted. NO entran a Camino A ni al mapa de expansión: van por RAG
+ * normal → clasifican como `catalogo_productos`.
+ */
+export const QUESWA_PRODUCTS_QUICK_REPLIES = [
+  '¿Qué beneficios tienen los productos Gano Excel?',
+  '¿Qué estudios científicos respaldan los beneficios?',
+  '¿Es seguro consumir Ganoderma diariamente?',
+] as const;
+
+/**
  * CTA secundario — siempre visible debajo de los 4 chips.
  * No es una pregunta del avatar: abre el modal de suscripción (evento `open-subscribe`).
  * Reemplazó "Iniciar Diagnóstico" en la reposición jun 2026 (diagnóstico desconectado).

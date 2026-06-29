@@ -45,9 +45,9 @@ const getInitialGreeting = (): Message => {
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `${greeting}
+      content: `${greeting}. Soy su asesor de salud y bienestar.
 
-¿En qué puedo ayudarle hoy?`,
+Le ayudo a entender cómo el Ganoderma y los productos Gano Excel pueden cuidar su bienestar, respaldados por más de 2.000 estudios científicos. ¿Qué le gustaría saber?`,
       timestamp: new Date(),
       isStreaming: false
     };

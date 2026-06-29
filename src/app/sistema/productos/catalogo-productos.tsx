@@ -800,7 +800,6 @@ export default function CatalogoEstrategico() {
     message += `\n💰 Subtotal: ${subtotal.toLocaleString()}`
     message += `\n🚚 Envío: ${envio.toLocaleString()}`
     message += `\n✨ Total: ${total.toLocaleString()}`
-    message += `\n\nTambién me gustaría conocer más sobre convertirme en Constructor del ecosistema.`
     message += `\n\nGracias! 🙏`
 
     return encodeURIComponent(message)
@@ -1291,7 +1290,7 @@ export default function CatalogoEstrategico() {
                     }}
                   >
                     <p className="text-xs font-medium mb-1" style={{ color: C.bioEmerald }}>Siguiente Paso:</p>
-                    <p className="text-sm" style={{ color: C.textMain }}>Confirma su pedido y recibe su sistema de bienestar</p>
+                    <p className="text-sm" style={{ color: C.textMain }}>Confirme su pedido y reciba su sistema de bienestar</p>
                   </div>
 
                   <a
@@ -2422,7 +2421,7 @@ export default function CatalogoEstrategico() {
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
                   <p className="font-bold text-[#E5C279] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-[#A3A3A3]">
-                    Como <strong>Fundador CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
+                    Como <strong>dueño de su empresa digital con CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
                     <a href="/" className="text-[#E5C279] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</a>
                   </p>
                 </div>
@@ -2536,7 +2535,7 @@ export default function CatalogoEstrategico() {
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[#E5E5E5]">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-[#A3A3A3]">Como Fundador, recibe mentoría directa y construye su organización</p>
+                      <p className="text-sm text-[#A3A3A3]">Como dueño de su empresa digital, recibe mentoría directa y construye su organización</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -2548,14 +2547,14 @@ export default function CatalogoEstrategico() {
                   </div>
                 </div>
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-6 ">
-                  <p className="text-xl font-bold text-[#E5C279] mb-2">🎯 Solo 150 Cupos Fundadores</p>
-                  <p className="mb-4 text-[#A3A3A3]">Acceso a la base fundadora por tiempo limitado</p>
+                  <p className="text-xl font-bold text-[#E5C279] mb-2">🎯 Solo 150 Cupos Disponibles</p>
+                  <p className="mb-4 text-[#A3A3A3]">Acceso por tiempo limitado</p>
                   <a
-                    href="/fundadores"
+                    href="/"
                     className="cta-base cta-primary"
                     style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
                   >
-                    Únase como Fundador →
+                    Sea dueño de su comercio electrónico →
                   </a>
                 </div>
               </div>

@@ -797,12 +797,10 @@ export default function CatalogoEstrategico() {
     })
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    const envio = 12000
-    const total = subtotal + envio
 
-    message += `\n💰 Subtotal: $${subtotal.toLocaleString('es-CO')} COP`
-    message += `\n🚚 Envío: $${envio.toLocaleString('es-CO')} COP`
-    message += `\n✨ Total: $${total.toLocaleString('es-CO')} COP`
+    message += `\n💰 Total productos: $${subtotal.toLocaleString('es-CO')} COP`
+    message += `\n🚚 Envío: por definir según mi ciudad y el volumen del pedido`
+    message += `\n\n¿Me ayuda a coordinar el costo de envío para confirmar?`
     message += `\n\nGracias! 🙏`
 
     return encodeURIComponent(message)
@@ -1269,12 +1267,8 @@ export default function CatalogoEstrategico() {
                 >
                   <div className="space-y-2" style={{ color: C.textMain }}>
                     <div className="flex justify-between">
-                      <span style={{ color: C.textMuted }}>Subtotal:</span>
-                      <span className="font-medium">${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
                       <span style={{ color: C.textMuted }}>Envío:</span>
-                      <span className="font-medium">$12.000</span>
+                      <span className="font-medium" style={{ color: C.textMuted }}>Por definir según ciudad y volumen</span>
                     </div>
                     <div
                       style={{
@@ -1286,8 +1280,8 @@ export default function CatalogoEstrategico() {
                         paddingTop: '0.5rem',
                       }}
                     >
-                      <span>Total:</span>
-                      <span style={{ color: C.bioEmerald }}>${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 12000).toLocaleString()}</span>
+                      <span>Total productos:</span>
+                      <span style={{ color: C.bioEmerald }}>${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString('es-CO')}</span>
                     </div>
                   </div>
 
@@ -1299,7 +1293,7 @@ export default function CatalogoEstrategico() {
                     }}
                   >
                     <p className="text-xs font-medium mb-1" style={{ color: C.bioEmerald }}>Siguiente Paso:</p>
-                    <p className="text-sm" style={{ color: C.textMain }}>Confirme su pedido y reciba su sistema de bienestar</p>
+                    <p className="text-sm" style={{ color: C.textMain }}>Confirme su pedido; el costo de envío lo coordina con su asesor según su ciudad y el volumen.</p>
                   </div>
 
                   <a

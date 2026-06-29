@@ -1660,7 +1660,9 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: CÓMO LO HACEMOS — LOS 3 PILARES (clips placeholder 3D; swap a Dan Koe) ===== */}
+          {/* ===== SLIDE 2: CÓMO LO HACEMOS — LAS 3 FUERZAS / SOCIOS (clips 3D) =====
+              De cara al prospecto: "tres fuerzas a su favor" (NUNCA "pilares").
+              Gano = socio de infraestructura · Queswa = socio de tecnología · Método. */}
           <section
             id="slide-2"
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -1672,7 +1674,7 @@ export default function ServilletaPage() {
                   C&Oacute;MO LO HACEMOS
                 </h2>
                 <span className="slide-2-subtitle">
-                  Tres pilares.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
+                  Tres fuerzas a su favor.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
                 </span>
                 {/* Dots indicador — visibles solo en one-card-mode */}
                 {oneCardMode && (
@@ -1682,7 +1684,7 @@ export default function ServilletaPage() {
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
                         onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Pilar ${i + 1} de 3`}
+                        aria-label={`Fuerza ${i + 1} de 3`}
                       />
                     ))}
                   </div>
@@ -1892,7 +1894,7 @@ export default function ServilletaPage() {
                       className="sim-slider snowball-slider"
                       style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
                     />
-                    <p className="insight-text">Ingreso recurrente que escala con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
+                    <p className="insight-text">Ingreso recurrente que crece con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
                   </div>
                 )}
               </div>

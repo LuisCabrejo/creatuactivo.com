@@ -1,9 +1,9 @@
-GUIÓN MAESTRO SERVILLETA v5.5 · TELEPROMPTER
+GUIÓN MAESTRO SERVILLETA v5.6 · TELEPROMPTER
 
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 25 junio 2026 — v5.5 regenerado desde el guión maestro. Estructura WHAT→HOW (Slide 1 = el problema + qué es una empresa digital, con Amazon/MercadoLibre y sonrisaslindas.app; Slide 2 = cómo lo hacemos + los 3 pilares) · promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 29 junio 2026 — v5.6 regenerado desde el guión maestro. Estructura WHAT→HOW (Slide 1 = el problema + qué es una empresa digital, con Amazon/MercadoLibre y sonrisaslindas.app; Slide 2 = cómo lo hacemos + las 3 fuerzas/socios: Gano Excel su socio de infraestructura · Queswa su socio de tecnología · el Método) · "tres fuerzas que trabajan a su favor" (NUNCA "pilares") · promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -135,13 +135,13 @@ O tomarla ya construida, y poder empezar de inmediato.
 
 Eso es lo que nosotros le entregamos:
 
-una empresa digital lista, sobre tres pilares.
+una empresa digital lista, sobre tres fuerzas que trabajan a su favor.
 
 
 
-PILAR 1 — EL RESPALDO OPERATIVO
+EL RESPALDO OPERATIVO
 
-Detrás de su empresa digital está Gano Excel,
+Su socio de infraestructura es Gano Excel,
 
 una corporación con más de 30 años y presencia en 70 países,
 
@@ -157,9 +157,9 @@ Usted no financia ni gestiona nada de eso.
 
 
 
-PILAR 2 — QUESWA, SU CENTRO DE MANDO
+QUESWA, SU CENTRO DE MANDO
 
-Queswa es la app desde la que usted dirige todo, en su celular:
+Queswa, su socio de tecnología, es la app desde la que usted dirige todo, en su celular:
 
 comparte con un clic,
 
@@ -177,7 +177,7 @@ Y a medida que crece, le da los datos y las estrategias para multiplicar.
 
 
 
-PILAR 3 — EL MÉTODO COMPROBADO
+EL MÉTODO COMPROBADO
 
 Tener la mejor herramienta no basta si no sabe usarla.
 
@@ -211,7 +211,7 @@ Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
 
 [ PAUSA · TONO ASPIRACIONAL ]
 
-Tres pilares, una sola app.
+Tres fuerzas, una sola app.
 
 Usted dirige; la tecnología hace el trabajo.
 

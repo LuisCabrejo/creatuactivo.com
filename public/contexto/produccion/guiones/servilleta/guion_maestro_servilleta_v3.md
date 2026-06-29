@@ -1,5 +1,9 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.5
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.6
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v5.6 (29 jun 2026 — reframe "pilares" → "fuerzas / socios")
+- **"Tres pilares" → "tres fuerzas que trabajan a su favor"** de cara al prospecto (doctrina socios/fuerzas, jun 2026): "pilares" lee a estructura estática; "fuerzas" comunica que trabajan PARA usted. Headers de sección sin ordinal ("PILAR 1/2/3" retirado).
+- **Gano Excel = su socio de infraestructura · Queswa = su socio de tecnología** (frame-before-name: se nombra el rol de socio antes de la marca). El Método no es socio (es el proceso). Sincronizado con la página `page.tsx` (subtítulo Slide 2 "Tres fuerzas a su favor") y el `_TELEPROMPTER.md`.
 
 ### Cambios de v5.5 (24 jun 2026 — sync léxico con el reel home)
 - **Sincronizado con el guión home** (`REELS_SITIO_CREATUACTIVO.md`): «operación» → **«transacción»** (dibuja dinero en movimiento en la mente del latino); en el camino *desde cero*, «años de trabajo y un equipo de ingenieros» → **«asumir los riesgos de cualquier proyecto empresarial»** (el "equipo de ingenieros" contradice el Día 11: la IA ya lo hace); «y que usted esté ahí» → **«si usted se aleja un poco, empieza a tambalear»** (engancha con el b-roll de Slide 1); antítesis **«seguridad financiera»** (el sistema no la da → la empresa digital sí).
@@ -89,22 +93,22 @@ Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
 **Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
-**O tomarla ya construida, y poder empezar de inmediato.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres pilares**.
+**O tomarla ya construida, y poder empezar de inmediato.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres fuerzas que trabajan a su favor**.
 
-**PILAR 1 — EL RESPALDO OPERATIVO** · *la infraestructura.*
+**EL RESPALDO OPERATIVO** · *su socio de infraestructura.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
-Detrás de su **empresa digital** está **Gano Excel**, una corporación con más de **30 años** y presencia en **70 países**, con ciencia propia y logística que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. No es una promesa de internet — es el **músculo real** que carga el peso. Usted no financia ni gestiona nada de eso.
+Su **socio de infraestructura** es **Gano Excel**: una corporación con más de **30 años** y presencia en **70 países**, con ciencia propia y logística que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. No es una promesa de internet — es el **músculo real** que carga el peso. Usted no financia ni gestiona nada de eso.
 
-**PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *su oficina digital.*
+**QUESWA, SU CENTRO DE MANDO** · *su socio de tecnología.*
 *B-roll: Queswa como centro de mando — la orbe en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Queswa es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar.
+Queswa, su **socio de tecnología**, es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar.
 
-**PILAR 3 — EL MÉTODO COMPROBADO** · *sus 3 movimientos.*
+**EL MÉTODO COMPROBADO** · *sus 3 movimientos.*
 *B-roll: los 3 movimientos del Propietario — comparte (un clic) → recibe al que decidió (apretón de manos) → multiplica (réplicas 1→2→4).*
 Tener la mejor herramienta no basta si no sabe usarla. El Método le da el **orden exacto**, sin ensayo y error — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma herramienta lista —con el acompañamiento de la Academia desde el primer día—, y su empresa crece en todo el continente. Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Tres pilares, una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez, de forma continua. Una empresa que crece sin techo y le da seguridad financiera.
+Tres fuerzas, una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez, de forma continua. Una empresa que crece sin techo y le da seguridad financiera.
 
 ---
 

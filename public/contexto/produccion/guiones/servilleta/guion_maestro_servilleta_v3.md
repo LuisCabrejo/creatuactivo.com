@@ -97,7 +97,7 @@ Detrás de su **empresa digital** está **Gano Excel**, una corporación con má
 
 **PILAR 2 — QUESWA, SU CENTRO DE MANDO** · *su oficina digital.*
 *B-roll: Queswa como centro de mando — la orbe en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Queswa es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar. **Usted no explica — Queswa explica.**
+Queswa es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar.
 
 **PILAR 3 — EL MÉTODO COMPROBADO** · *sus 3 movimientos.*
 *B-roll: los 3 movimientos del Propietario — comparte (un clic) → recibe al que decidió (apretón de manos) → multiplica (réplicas 1→2→4).*

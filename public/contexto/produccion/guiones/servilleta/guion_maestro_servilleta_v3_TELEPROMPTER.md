@@ -1,19 +1,19 @@
-GUIÓN MAESTRO SERVILLETA v5.1 · TELEPROMPTER
+GUIÓN MAESTRO SERVILLETA v5.5 · TELEPROMPTER
 
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 22 junio 2026 — v5.1 alineación con la Home: Gano fuera del enunciado del ingreso (Slide 1) · OPCIÓN 2 = suscribirse al boletín (Slide 4)
+Actualizado: 25 junio 2026 — v5.5 regenerado desde el guión maestro. Estructura WHAT→HOW (Slide 1 = el problema + qué es una empresa digital, con Amazon/MercadoLibre y sonrisaslindas.app; Slide 2 = cómo lo hacemos + los 3 pilares) · promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
 ═══════════════════════════════════════════════════════════════
-SLIDE 1 · APERTURA, DIAGNÓSTICO Y LOS 3 PILARES
+SLIDE 1 · EL PROBLEMA Y QUÉ ES UNA EMPRESA DIGITAL
 ═══════════════════════════════════════════════════════════════
 
 
 
-Empecemos por el verdadero problema que vamos a resolver.
+Empecemos por el verdadero problema.
 
 Usted trabaja duro.
 
@@ -23,13 +23,11 @@ Y aun así, vive en el mismo ciclo mes a mes:
 
 trabajar, pagar cuentas y volver a empezar.
 
-Esto no sucede por falta de capacidad o esfuerzo de su parte.
+Esto no sucede por falta de capacidad ni de esfuerzo de su parte.
 
 Es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud,
 
 no para darle seguridad financiera.
-
-Un modelo donde el éxito de hoy no le garantiza ninguna estabilidad mañana.
 
 
 
@@ -41,27 +39,119 @@ CreaTuActivo invierte ese ciclo con apalancamiento:
 
 usted pasa a ser propietario de una empresa digital
 
-que genera ingresos recurrentes —
+que sí puede darle esa seguridad financiera —
 
-esté usted presente o no.
+ingresos recurrentes, esté usted presente o no.
 
-Poner todo eso a funcionar exige tres cosas:
 
-infraestructura, tecnología y un método.
 
-Nosotros le entregamos las tres ya construidas.
+Pero ¿qué es, en palabras simples, una empresa digital?
 
-Lo sostienen tres pilares:
+Diferenciemos.
+
+Una empresa de toda la vida necesita local, arriendo, empleados,
+
+y si usted se aleja un poco, empieza a tambalear.
+
+Una empresa digital, en cambio, vive en internet
+
+y produce aunque usted duerma.
+
+
+
+Piense en Amazon o MercadoLibre:
+
+no fabrican lo que venden;
+
+son el puente que conecta a millones
+
+y gana por cada transacción, sin cargar una sola caja.
+
+Eso es una empresa digital.
+
+
+
+Ahora imagine el suyo, en su ciudad.
+
+Muchas personas quieren una sonrisa más bonita;
+
+usted podría crear sonrisaslindas.app
+
+y conectar las clínicas con esas personas.
+
+Gana el odontólogo, gana el paciente, y gana usted:
+
+por cada cita, una pequeña comisión.
+
+Usted no tiene la silla — usted es el puente.
+
+
+
+[ TONO ASPIRACIONAL ]
+
+Multiplíquelo por todas las citas de un día…
+
+en toda la ciudad.
+
+
+
+[ TONO RESOLUTIVO ]
+
+¿Ve la diferencia?
+
+Un negocio de toda la vida abre una puerta, en una ciudad,
+
+y depende de que usted esté ahí.
+
+Una empresa digital trabaja sola, en paralelo,
+
+y crece sin techo — de una ciudad a un continente.
+
+
+
+═══════════════════════════════════════════════════════════════
+SLIDE 2 · CÓMO LO HACEMOS — CON SUS MANOS VS. TODO LISTO
+═══════════════════════════════════════════════════════════════
+
+
+
+Ahora, ¿cómo se construye un puente así?
+
+Usted tiene dos caminos.
+
+
+
+Con sus propias manos, desde cero:
+
+el desarrollo tecnológico, los proveedores, la logística,
+
+los permisos en cada país,
+
+y asumir los riesgos de cualquier proyecto empresarial.
+
+
+
+O tomarla ya construida, y poder empezar de inmediato.
+
+Eso es lo que nosotros le entregamos:
+
+una empresa digital lista, sobre tres pilares.
 
 
 
 PILAR 1 — EL RESPALDO OPERATIVO
 
-Detrás de su empresa digital está Gano Excel, una corporación presente en 70 países.
+Detrás de su empresa digital está Gano Excel,
 
-Hace por usted todo el trabajo pesado que de otro modo recaería sobre sus hombros:
+una corporación con más de 30 años y presencia en 70 países,
 
-fabrica los productos, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país.
+con ciencia propia y logística que hace por usted todo el trabajo pesado:
+
+fabrica, sostiene los inventarios, responde por los registros legales,
+
+despacha y da soporte en cada país.
+
+No es una promesa de internet — es el músculo real que carga el peso.
 
 Usted no financia ni gestiona nada de eso.
 
@@ -69,107 +159,67 @@ Usted no financia ni gestiona nada de eso.
 
 PILAR 2 — QUESWA, SU CENTRO DE MANDO
 
-Queswa es la inteligencia artificial que hace por usted el trabajo más desgastante:
+Queswa es la app desde la que usted dirige todo, en su celular:
 
-explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas.
+comparte con un clic,
 
-Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.
+ve en tiempo real quién se interesa,
 
-Usted no explica — Queswa explica.
+y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar
+
+—las 24 horas, sin que usted tenga que estar—.
+
+Es su oficina digital completa:
+
+usted no vende, no insiste, no atiende a medianoche.
+
+Y a medida que crece, le da los datos y las estrategias para multiplicar.
 
 
 
 PILAR 3 — EL MÉTODO COMPROBADO
 
-Un método ya probado que le ahorra el ensayo y el error.
+Tener la mejor herramienta no basta si no sabe usarla.
 
-Usted no improvisa el camino:
+El Método le da el orden exacto, sin ensayo y error —
 
-el sistema le da los pasos exactos para hacer crecer su empresa digital.
-
-
-
-Cada vez que el consumo se repite en los hogares de su organización,
-
-usted recibe una parte.
-
-Por eso el ingreso no depende de su presencia:
-
-usted construye el canal una vez,
-
-y su empresa produce de forma continua.
+y lo suyo son solo tres movimientos:
 
 
 
-═══════════════════════════════════════════════════════════════
-SLIDE 2 · EL MÉTODO COMPROBADO
-═══════════════════════════════════════════════════════════════
+Expandir — usted comparte.
 
 
 
-En este punto, la pregunta común es:
+Activar — usted recibe de persona a persona al que ya decidió,
 
-¿cómo lo hago, si no me sobra el tiempo?
-
-La respuesta es el Método Comprobado:
-
-tres pasos automatizados — Expansión, Activación y Multiplicación.
+la calidez que solo un humano da.
 
 
 
-PASO 1 · EXPANSIÓN — usted comparte.
+Multiplicar — cada persona que inicia con usted recibe la misma herramienta lista,
 
-En su celular, Queswa le entrega información ya validada
+con el acompañamiento de la Academia desde el primer día,
 
-para que usted la comparta con un solo clic.
-
-Sin memorizar guiones, sin explicar nada.
+y su empresa crece en todo el continente.
 
 
 
-PASO 2 · ACTIVACIÓN — Queswa trabaja.
-
-Queswa conversa con cada interesado:
-
-aporta claridad, resuelve las dudas y madura su decisión de avanzar — las 24 horas.
-
-[ PAUSA ]
-
-Importante:
-
-a su aplicación llegan notificaciones de todo el proceso —
-
-desde una simple visita hasta el momento en que un contacto está listo para iniciar.
-
-Usted no se pierde un solo detalle.
-
-
-
-PASO 3 · MULTIPLICACIÓN — usted multiplica y crece.
-
-En cualquier modelo de negocio, crecer es lo más difícil.
-
-Para multiplicar una empresa, se requiere abrir otro local: arriendo, personal, inversión.
-
-Esa es la pared donde casi todos se detienen.
-
-Aquí no.
-
-Cuando alguien inicia con usted, recibe el mismo sistema digital que usted tiene —
-
-listo para crecer por su cuenta, sin que usted lo cargue.
-
-Multiplicar su empresa digital está a un clic, en todo el continente.
-
-Y nadie queda solo:
-
-a cada persona nueva la forma la Academia de CreaTuActivo desde el primer día.
+Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
 
 
 
 [ PAUSA · TONO ASPIRACIONAL ]
 
-Tres pasos que le permiten multiplicar su empresa digital — de una, a cientos.
+Tres pilares, una sola app.
+
+Usted dirige; la tecnología hace el trabajo.
+
+Cada vez que el consumo se repite en los hogares de su organización,
+
+usted recibe una parte, una y otra vez, de forma continua.
+
+Una empresa que crece sin techo y le da seguridad financiera.
 
 
 
@@ -295,7 +345,7 @@ y su primera velocidad de ingresos se activa esta misma semana.
 
 
 
-Tener ingresos que no dependan de su presencia ya existe.
+Ser propietario de una empresa digital que genere ingresos una y otra vez ya existe.
 
 CreaTuActivo.com ya existe.
 

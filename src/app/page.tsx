@@ -532,7 +532,7 @@ function MetodoSection() {
     {
       n: '01', paso: 'EXPANDIR', titulo: 'Llegar a las personas correctas',
       desc: 'Usted abre los canales; explicar y presentar se lo deja a Queswa.',
-      aforismo: 'Usted no explica — Queswa explica.',
+      aforismo: 'Usted comparte; su alcance se vuelve masivo.',
     },
     {
       n: '02', paso: 'ACTIVAR', titulo: 'Conversar y madurar la decisión',

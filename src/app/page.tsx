@@ -364,7 +364,7 @@ function EmpresaDigitalSection() {
             ¿Qué es una empresa digital?
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
-            Usted es dueño del sistema. No empaca las cajas.
+            Usted es dueño del puente. No empaca las cajas.
           </h2>
         </div>
 
@@ -375,7 +375,7 @@ function EmpresaDigitalSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Jeff Bezos no se hizo rico empacando libros: construyó <strong style={{ color: C.white, fontWeight: 600 }}>la empresa digital donde se venden millones cada día</strong>. MercadoLibre no fabrica lo que vende — es dueño del sistema que conecta y distribuye. Eso es una empresa digital: <span style={{ color: C.white }}>usted es dueño del sistema, no el que carga las cajas.</span>
+            Jeff Bezos no se hizo rico empacando libros: construyó <strong style={{ color: C.white, fontWeight: 600 }}>la empresa digital donde se venden millones cada día</strong>. MercadoLibre no fabrica lo que vende — es dueño del puente que conecta y distribuye. Eso es una empresa digital: <span style={{ color: C.white }}>usted es dueño del puente, no el que carga las cajas.</span>
           </p>
         </div>
 

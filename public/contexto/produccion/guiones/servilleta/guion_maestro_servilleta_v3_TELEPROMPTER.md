@@ -3,7 +3,7 @@ GUIÓN MAESTRO SERVILLETA v5.7 · TELEPROMPTER
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 30 junio 2026 — v5.7 regenerado desde el guión maestro. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien la fabrica (Gano Excel, su socio logístico y financiero), algo la atiende (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para su empresa"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 30 junio 2026 — v5.7 regenerado desde el guión maestro. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien la fabrica (Gano Excel, su socio logístico y financiero), algo la atiende (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -183,7 +183,7 @@ Músculo real, de su lado.
 
 Usted no entra a Gano Excel.
 
-Gano Excel trabaja para su empresa.
+Gano Excel trabaja para usted.
 
 
 
@@ -243,7 +243,7 @@ y su organización crece en todo el continente.
 
 ¿Su rol en todo esto?
 
-El de dueño: usted dirige, sus socios hacen el trabajo.
+El de dueño: dirigir.
 
 
 

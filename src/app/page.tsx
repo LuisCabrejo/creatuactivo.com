@@ -4,7 +4,7 @@
  * nosotros" → eyebrow "Lo difícil ya está hecho" (quita el "nosotros" de pitch); intro a
  * primeros principios (alguien la fabrica / algo la atiende / usted sabe qué hacer → ya
  * resueltas, sin "le entregamos"); bisagra "Usted no entra a Gano Excel: Gano Excel trabaja
- * para su empresa". Sincroniza con servilleta v5.7 (Gano se USA, no se entra).
+ * para usted". Sincroniza con servilleta v5.7 (Gano se USA, no se entra).
  * Previo v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
  * persona del activo que entregamos ("ser dueño de una empresa digital", "su empresa
  * digital"), el término es EMPRESA digital — eleva estatus de propiedad (decisión Luis).
@@ -422,7 +422,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Construir esto solo —fábricas, inventario millonario, permisos y logística en cada país— tomaría años. Su <span style={{ color: C.white }}>socio logístico y financiero</span> ya lo hizo: <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>, una corporación con más de <strong style={{ color: C.gold, fontWeight: 600 }}>30 años</strong> y presencia en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países</strong> que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet — es <span style={{ color: C.white }}>músculo real, de su lado.</span> <span style={{ color: C.white }}>Usted no entra a Gano Excel: Gano Excel trabaja para su empresa.</span> Gracias a él usted no construye nada: <span style={{ color: C.white }}>empieza hoy</span> y se dedica a dirigir.
+            Construir esto solo —fábricas, inventario millonario, permisos y logística en cada país— tomaría años. Su <span style={{ color: C.white }}>socio logístico y financiero</span> ya lo hizo: <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>, una corporación con más de <strong style={{ color: C.gold, fontWeight: 600 }}>30 años</strong> y presencia en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países</strong> que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet — es <span style={{ color: C.white }}>músculo real, de su lado.</span> <span style={{ color: C.white }}>Usted no entra a Gano Excel: Gano Excel trabaja para usted.</span> Gracias a él usted no construye nada: <span style={{ color: C.white }}>empieza hoy</span> y se dedica a dirigir.
           </p>
         </div>
 

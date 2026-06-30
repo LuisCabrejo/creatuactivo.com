@@ -35,19 +35,21 @@ Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza 
 
 CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que sí puede darle esa seguridad.
 
-¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, infraestructura, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, reemplaza el local por infraestructura en internet y los empleados por procesos automatizados que producen aunque usted duerma. Crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Usan internet para ser el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
+¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, infraestructura, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, reemplaza el local por infraestructura en internet y los empleados por procesos automatizados que producen aunque usted duerma. El mismo esfuerzo llega a una persona o a un millón — y cuesta lo mismo. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Usan internet para ser el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
 
 ¿Y cómo se construye una empresa digital de este nivel? Usted tiene dos caminos.
 
-El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial.
+El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial. En pocas palabras: reconstruir lo que ya existe.
 
 El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa para empezar de inmediato. Y aquí está la idea simple: para que una empresa digital así exista, tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres ya están resueltas:
 
-1. Su socio logístico y financiero: Gano Excel — el fabricante detrás de su puente. Es el músculo que le quita todo el peso y el riesgo de encima. Una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo millonario del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. Usted no entra a Gano Excel; Gano Excel trabaja para su empresa.
+1. Su socio logístico y financiero: Gano Excel — el fabricante detrás de su puente. Es el músculo que le quita todo el peso y el riesgo de encima. Una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo millonario del inventario, responde por lo legal y despacha el producto en cada país. Usted hereda toda esa inversión ya hecha: empieza donde otros llevan años. No es una promesa de internet; es músculo real, de su lado. Usted no entra a Gano Excel; Gano Excel trabaja para usted.
 
 2. Su socio digital: Queswa. La aplicación desde la que usted dirige todo, en su celular. Comparte con un clic y ve en tiempo real quién visita la información; del resto se encarga Queswa, que atiende y madura en cada interesado la decisión de avanzar, las 24 horas. Es su oficina digital completa, trabajando a su favor.
 
-3. Un método comprobado que le marca los pasos exactos, sin necesidad de experiencia digital. ¿Su rol? El de dueño: usted dirige, sus socios hacen el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da seguridad financiera.
+3. Un método comprobado que le marca los pasos exactos, sin necesidad de experiencia digital. ¿Su rol? El de dueño: dirigir. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da seguridad financiera.
+
+CreaTuActivo es la plataforma que une las tres en una sola: usted no las arma, las enciende.
 
 ¿Quiere entenderlo a fondo? Aquí mismo, pregúntele a Queswa lo que quiera — se lo explica mejor que nadie.
 
@@ -74,10 +76,20 @@ El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa
   **primeros principios (Musk)**: *"para que la empresa exista, tres cosas tienen que ser ciertas —
   alguien la fabrica (Gano), algo la atiende (Queswa), y usted sabe qué hacer (el método). Las tres
   ya están resueltas."* La lista numerada 1·2·3 se conserva como soporte. Añadida la bisagra
-  **"Usted no entra a Gano Excel; Gano Excel trabaja para su empresa"** (ítem 1). "un sistema que le
+  **"Usted no entra a Gano Excel; Gano Excel trabaja para usted"** (ítem 1). "un sistema que le
   marca los pasos" → "un método que le marca los pasos" (sistema = villano, no reusar en positivo).
   Memoria: `feedback_gano_socio_primeros_principios`. ⚠️ El video desplegado sigue con el arco viejo
   → re-producción pendiente.
+- **Pasada Huang/Musk (30 jun 2026):** "crece de forma masiva" → **"el mismo esfuerzo llega a una
+  persona o a un millón — y cuesta lo mismo"** (escala como física, Musk); el camino desde-cero cierra
+  con **"reconstruir lo que ya existe"** (Musk, "the best part is no part"); el ítem Gano suma **"usted
+  hereda toda esa inversión ya hecha"** (Huang, herencia de infraestructura); cierre suma **"CreaTuActivo
+  es la plataforma que une las tres en una sola: usted no las arma, las enciende"** (Huang, la plataforma
+  integra el stack → corona de CreaTuActivo). Bisagra Gano: "para su empresa" → **"para usted"**.
+- **"sus socios hacen el trabajo" ELIMINADO** (ítem 3 → "El de dueño: dirigir"). Regla: **"socios" sin
+  enlace directo a Gano / Queswa.app lee MLM** ("los de abajo trabajan para los de arriba") — usar el
+  término solo pegado a la marca-socio que nombra; nunca como sujeto suelto. Aplicado también en la
+  servilleta v5.7. Ver `feedback_socios_apalancamiento`.
 - **Gano Excel nombrado:** como **socio logístico y financiero** (no "a lo que entra"), con la
   audiencia orgánica que ya asocia a Luis con Gano + **"30 años · 70 países"** como prueba de
   autoridad (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital); Gano

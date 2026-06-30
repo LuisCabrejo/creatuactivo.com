@@ -20,6 +20,8 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
 > 🔤 **Sync léxico (24 jun 2026).** Bloque compartido: «gana por cada **operación**» → «**transacción**» (dibuja dinero en movimiento, mente latina). Networkers: «el sistema hace el trabajo» → «**la tecnología** hace el trabajo» (*sistema* = villano del diagnóstico, no se reusa en positivo). Alineado con home (`REELS_SITIO`) + servilleta v5.5. ⚠️ Audio publicado intacto → fuente de verdad para el próximo re-render.
 >
+> 🔤 **Sync léxico + calibración de nicho (30 jun 2026).** **Bloque compartido — remate VS → "suma vs. multiplica"** (alineado con servilleta v5.7 + home): *"El negocio de siempre crece sumando… Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente"*. **Empleados** (diagnóstico): "poco patrimonio" **enriquecido** con *"la casa que todavía debe, el carro que todavía debe"* — insight de campo: el empleado del Estado **se siente tranquilo**; su queja real es el **patrimonio aparente = deuda** (NO falta de tranquilidad). **Diáspora** (diagnóstico): villano movido de **escasez** ("patrimonio de otros / liquidez para cuentas") a **fragilidad física** (*"su cuerpo es el único motor… se está matando trabajando"*) — insight de campo: el latino de la diáspora **gana bien y lo cuenta con orgullo** (recibe ayudas, sin la vergüenza del americano); su miedo real = el ingreso depende de su **salud** y de **seguir en el trabajo**. Ver [[feedback_dolor_real_por_nicho]]. ⚠️ Texto → próximo re-render (audio publicado intacto).
+>
 > 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución (v2, 23 jun — doctrina "**vender empresa digital como el santo grial; si no, lo demás se pierde**") = **definición profunda de qué es una empresa digital** (Amazon/MercadoLibre = el **puente**, NO "dueños del sistema" — *"el sistema"* es el villano del diagnóstico, no se reusa en positivo) + beneficios absurdos (produce sin usted, 24/7, todo un continente) → **ejemplo concreto `sonrisaslindas.app`** (el "clic" que aterriza lo abstracto) → **VS** negocio tradicional (una puerta, una ciudad, depende de usted) vs empresa digital (trabaja sola, crece sin techo). Hilo siempre anclado a "empresa digital / la suya / el puente" (los pronombres sueltos tipo "algo así / la suya" hacían que el lector se devolviera). — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa**, pregunta gancho *"pero ¿cómo lo hago yo?"*. Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
 
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
@@ -59,7 +61,7 @@ La solución no es trabajar más duro, ni montar un negocio de los de siempre �
 
 Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión —sin pagar el arriendo del local, sin atender a nadie—. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
 
-¿Ve la diferencia? Un negocio tradicional, por bueno que sea, vive en un local, en una ciudad, y depende de que usted esté ahí. Una empresa digital trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y eso, que antes tomaba años e ingenieros, hoy —gracias a la inteligencia artificial— cualquiera puede tenerla.
+¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted — y si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y eso, que antes tomaba años e ingenieros, hoy —gracias a la inteligencia artificial— cualquiera puede tenerla.
 
 ### CTA — QUESWA (1:15 — 1:35s)
 
@@ -89,7 +91,7 @@ Y no es por falta de capacidad; usted vale. Es la consecuencia matemática de un
 Un cargo con el Estado le otorga estabilidad. Pero, si por más duro que trabaje, las cuotas de los créditos siempre le llevan la delantera, usted no tiene tranquilidad real; tiene una calma que dura lo que dura su quincena.
 
 **DIAGNÓSTICO OPERATIVO (0:15 — 0:35s)**
-Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio.
+Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio: la casa que todavía debe, el carro que todavía debe.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
@@ -120,7 +122,7 @@ Usted ya sabe construir un negocio; el problema no es su capacidad, es que ese n
 ¿Sabía que ganar en dólares o euros es una trampa elegante si su actividad física es el único motor de su economía? Usted ya construyó una nueva vida, pero en el fondo sabe que su bienestar es frágil. Si usted se detiene unas semanas, su estilo de vida empieza a tambalear.
 
 **DIAGNÓSTICO (0:13 — 0:30s)**
-Es la consecuencia matemática de un sistema diseñado para que usted construya el patrimonio de otros, mientras solo acumula liquidez para pagar cuentas. Mientras su ingreso dependa al 100% de la decisión de un tercero o de su capacidad física, su tranquilidad es solo un espejismo.
+Es la consecuencia matemática de un sistema en el que su cuerpo es el único motor de su economía. Usted gana bien —pero cada peso depende de que pueda seguir de pie—, y en el fondo lo sabe: se está matando trabajando. Mientras su ingreso dependa al 100% de su salud y de seguir en el trabajo, su tranquilidad es solo un espejismo.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 

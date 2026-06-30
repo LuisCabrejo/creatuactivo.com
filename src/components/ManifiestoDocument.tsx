@@ -279,23 +279,23 @@ export default function ManifiestoDocument({
               </div>
             </div>
 
-            {/* §5 — La Máquina: los Tres Pilares */}
+            {/* §5 — Las Tres Fuerzas / Socios */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">05 · La Máquina</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">05 · Las Tres Fuerzas</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Tres pilares. Usted no los construye: los dirige.
+                Tres fuerzas a su favor. Usted no las construye: las dirige.
               </h2>
               <ul className="space-y-6 text-lg">
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
-                  <p className="text-[#C5A059] mb-2">Pilar 1 — El Respaldo Operativo</p>
+                  <p className="text-[#C5A059] mb-2">Su socio logístico y financiero — Gano Excel</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Usted deja la operación pesada —fábricas, inventarios, despachos, pasivos— en
+                    Usted deja el trabajo pesado —fábricas, inventarios, despachos, pasivos— en
                     manos de Gano Excel, una empresa real con presencia en 70 países. El peso que
                     hundiría a cualquier emprendedor, usted no lo carga.
                   </p>
                 </li>
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
-                  <p className="text-[#C5A059] mb-2">Pilar 2 — Queswa, su Centro de Mando</p>
+                  <p className="text-[#C5A059] mb-2">Su socio digital — Queswa</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Usted deja lo que más desgasta —explicar, presentar, dar seguimiento— en manos de una
                     inteligencia artificial propia que lo hace las 24 horas. Trabaja mientras usted
@@ -303,7 +303,7 @@ export default function ManifiestoDocument({
                   </p>
                 </li>
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
-                  <p className="text-[#C5A059] mb-2">Pilar 3 — El Método Comprobado</p>
+                  <p className="text-[#C5A059] mb-2">El Método Comprobado</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Usted no improvisa el camino: lo deja en manos de un método ya probado —Expandir,
                     Activar, Multiplicación— que erradica el ensayo y el error. Quien lo sigue no reinventa
@@ -314,7 +314,7 @@ export default function ManifiestoDocument({
               <p className="text-lg text-[#A3A3A3] leading-relaxed mt-8">
                 Entre los tres, la tecnología hace cerca del <span className="text-[#E5E5E5]">90% del trabajo pesado</span>.
                 El apalancamiento que a otros les toma años y capital levantar, usted lo recibe ya
-                construido. Lo único que el sistema no puede poner es la
+                construido. Lo único que la tecnología no puede poner es la
                 <span className="text-[#C5A059]"> dirección</span>. Esa es suya.
               </p>
             </div>
@@ -328,7 +328,7 @@ export default function ManifiestoDocument({
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
                   Ese es el rol — y el nombre. No es quien teclea, ni presiona, ni anda detrás de
-                  nadie. Es quien decide hacia dónde crecer y dirige los tres pilares hacia una meta.
+                  nadie. Es quien decide hacia dónde crecer y dirige las tres fuerzas hacia una meta.
                   Es dirección, no operación.
                 </p>
                 <p>
@@ -386,7 +386,7 @@ export default function ManifiestoDocument({
                   La plataforma puede sostener a un millón de personas mañana mismo. Lo que no es
                   infinito es el tiempo del núcleo directivo para acompañar, persona a persona, la
                   cimentación de los primeros negocios digitales. Esa banda directiva es el recurso más
-                  escaso del sistema — no la tecnología. Y alcanza para 15.
+                  escaso que tenemos — no la tecnología. Y alcanza para 15.
                 </p>
                 <p>
                   No hay una fecha en un calendario que cree la urgencia. La crea esto: una vez

@@ -1,13 +1,18 @@
 /**
- * SERVILLETA DIGITAL v6.4 — slides 1 y 2 como card-scrollers con b-rolls 3D
+ * SERVILLETA DIGITAL v6.5 — slides 1 y 2 como card-scrollers con b-rolls 3D
  * 4-Slide Interactive Presentation (Slide Deck)
  *
+ * v6.5 (30 jun 2026) — Slide 2 sincronizado con el guión servilleta v5.7:
+ *  - Slide 1 = "qué es una empresa digital" (cards: depende de usted · usted es el puente ·
+ *    imagine el suyo). Slide 2 = "LO DIFÍCIL YA ESTÁ HECHO" (primeros principios): alguien la
+ *    fabrica (Gano, socio logístico y financiero) · algo la atiende (Queswa, socio digital) ·
+ *    usted sabe qué hacer (Método). Eyebrow de rol (frame-before-name); Gano se USA, no se entra
+ *
  * v6.4 (jun 2026) — B-rolls 3D en slides 1 y 2 (ver CLAUDE.md "B-rolls 3D en Slides 1 y 2"):
- *  - Slide 1: card-scroller de los 3 pilares (Respaldo Operativo · Queswa · Método),
- *    b-roll 3D + nombre; menú "LA MÁQUINA" → "SU EMPRESA"
- *  - Slide 2: name-only (EXPANDIR/ACTIVAR/MULTIPLICACIÓN) + b-rolls 3D nuevos
- *  - .card-bg aloja <video> object-fit:contain (full-bleed sin recorte); one-card-mode
- *    generalizado a slide 1; fix del salto a la card 3 (reset de activeCardIndex en batch)
+ *  - b-rolls 3D + nombre por card; .card-bg aloja <video> object-fit:contain (full-bleed sin
+ *    recorte); one-card-mode generalizado; fix del salto a la card 3 (reset de activeCardIndex
+ *    en batch). ⚠️ El mapeo slide→contenido de esta entrada quedó desfasado con el reorden
+ *    WHAT→HOW posterior (ver v6.5 arriba)
  *
  * v6.3 (jun 2026) — Migración al léxico actual:
  *  - Slide 1: H1 "INGRESOS RECURRENTES" (antes "Estructura Patrimonial"); pilares = El Respaldo
@@ -579,6 +584,12 @@ export default function ServilletaPage() {
         /* Slide 1: nombre del pilar (único texto) — prominente, sin descripción */
         .card-content h3.pillar-name { font-size: 1.7rem; letter-spacing: 0.01em; margin: 0; }
         :fullscreen .card-content h3.pillar-name { font-size: 2.6rem; }
+        /* Slide 2: eyebrow de rol (frame-before-name) sobre el nombre del socio/método */
+        .card-content .pillar-eyebrow {
+          display: block; font-family: var(--font-mono); font-size: 0.72rem;
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin: 0 0 6px 0;
+        }
+        :fullscreen .card-content .pillar-eyebrow { font-size: 1rem; margin-bottom: 8px; }
         /* Oculto en desktop — solo visible en mobile dentro de card-1 */
 
 
@@ -1660,9 +1671,10 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-          {/* ===== SLIDE 2: CÓMO LO HACEMOS — LAS 3 FUERZAS / SOCIOS (clips 3D) =====
-              De cara al prospecto: "tres fuerzas a su favor" (NUNCA "pilares").
-              Gano = socio de infraestructura · Queswa = socio de tecnología · Método. */}
+          {/* ===== SLIDE 2: LO DIFÍCIL YA ESTÁ HECHO — primeros principios (clips 3D) =====
+              Tres condiciones ya resueltas: alguien la fabrica (Gano, socio logístico y
+              financiero) · algo la atiende (Queswa, socio digital) · usted sabe qué hacer (Método).
+              Gano se USA, no se entra. NUNCA "pilares" ni "fuerzas". Guión servilleta v5.7. */}
           <section
             id="slide-2"
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -1671,10 +1683,10 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  C&Oacute;MO LO HACEMOS
+                  LO DIF&Iacute;CIL YA EST&Aacute; HECHO
                 </h2>
                 <span className="slide-2-subtitle">
-                  Tres fuerzas a su favor.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
+                  Alguien lo fabrica. Algo lo atiende. Usted dirige.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
                 </span>
                 {/* Dots indicador — visibles solo en one-card-mode */}
                 {oneCardMode && (
@@ -1684,25 +1696,27 @@ export default function ServilletaPage() {
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
                         onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Fuerza ${i + 1} de 3`}
+                        aria-label={`Parte ${i + 1} de 3`}
                       />
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Pilar 1: El Respaldo Operativo (Gano = el músculo, no el titular) */}
+              {/* Lo primero · alguien la fabrica → Gano Excel, socio logístico y financiero */}
               <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <h3 className="pillar-name">El Respaldo Operativo</h3>
+                  <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
+                  <h3 className="pillar-name">Gano Excel</h3>
                 </div>
               </div>
 
-              {/* Pilar 2: Queswa, su Centro de Mando */}
+              {/* Lo segundo · algo la atiende → Queswa, socio digital */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
+                  <span className="pillar-eyebrow">Su socio digital</span>
                   <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
                   <button
                     style={{
@@ -1721,11 +1735,12 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Pilar 3 (full-width): El Método Comprobado (Expandir · Activar · Multiplicar; clip metodo.mp4) */}
+              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
               <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <h3 className="pillar-name">El M&eacute;todo: Expandir &middot; Activar &middot; Multiplicar</h3>
+                  <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
+                  <h3 className="pillar-name">Expandir &middot; Activar &middot; Multiplicar</h3>
                 </div>
               </div>
 

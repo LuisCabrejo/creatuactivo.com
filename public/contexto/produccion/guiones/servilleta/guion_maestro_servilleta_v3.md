@@ -1,5 +1,14 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.6
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.7
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v5.7 (30 jun 2026 — Slide 2 a "primeros principios" + Gano como socio que se USA, no al que se entra)
+- **Origen (presentaciones 1-a-1):** al nombrar **Gano Excel** se le cambiaba la cara al prospecto — *"ahh, es meterse a Gano"*, reflejo MLM → bloqueo / sensación de engaño. Reframe: Gano deja de ser "la empresa a la que entra" y pasa a ser **su socio logístico y financiero** (el que ya quemó el capital, carga el inventario millonario y responde por lo legal — *de su lado*). Línea bisagra: **"Usted no entra a Gano Excel. Gano Excel trabaja para su empresa."** Matiz elevado tomado de `REELS_SITIO_CREATUACTIVO.md` (home).
+- **Título Slide 2: "CÓMO LO HACEMOS" → "LO DIFÍCIL YA ESTÁ HECHO".** "Cómo lo hacemos" nos ponía de vendedores actuando sobre el prospecto (tono de pitch). El nuevo título es el alivio Musk: el problema duro ya está vencido.
+- **"Tres fuerzas / pilares" → frame de primeros principios (Musk):** para que la empresa exista, **tres cosas tienen que ser ciertas — alguien la fabrica (Gano), algo la atiende (Queswa) y usted sabe qué hacer (el método). Las tres ya están resueltas.** Reemplaza la etiqueta abstracta "fuerzas" por tres condiciones concretas que caen exactas sobre las 3 tarjetas. Subtítulo: "Alguien lo fabrica. Algo lo atiende. Usted dirige."
+- **"Eso es lo que nosotros le entregamos" — eliminado** (reintroducía el tono "nosotros le damos"). Apertura en voz de fundador (Jobs/Musk): la empresa **ya existe, lista**; *"Usted no la arma — la dirige."*
+- **Slide 1 (remate VS):** reescrito al contraste Musk **suma vs. multiplica** — *"el negocio de siempre crece sumando: otro local, otra ciudad, más de usted… una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente"*. Eleva el eje de "un local" (logística) a **su presencia como techo** — antes era "abre una puerta" → "requiere un local", que encogía el contraste al detalle físico.
+- **B-rolls intactos** (`respaldo`/`Matriz3D` · `queswa` · `metodo`) — el cambio es de léxico/labels, no exige re-render.
+- ⏳ Pendiente: regenerar `_TELEPROMPTER.md`; sincronizar `page.tsx` (título Slide 2 + eyebrows de tarjeta); alinear la home (`REELS_SITIO_CREATUACTIVO.md` quedó en "tres fuerzas" — la servilleta lidera la recalibración, la home se realinea en su re-producción).
 
 ### Cambios de v5.6 (29 jun 2026 — reframe "pilares" → "fuerzas / socios")
 - **"Tres pilares" → "tres fuerzas que trabajan a su favor"** de cara al prospecto (doctrina socios/fuerzas, jun 2026): "pilares" lee a estructura estática; "fuerzas" comunica que trabajan PARA usted. Headers de sección sin ordinal ("PILAR 1/2/3" retirado).
@@ -83,32 +92,35 @@ Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa má
 
 **[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad.
 
-**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? Un negocio de toda la vida abre una puerta, en una ciudad, y depende de que usted esté ahí. Una empresa digital trabaja sola, en paralelo, y crece sin techo — de una ciudad a un continente.
+**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted. Si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabajando sola, en paralelo — esté usted ahí o no.
 
 ---
 
-# SLIDE 2 · CÓMO LO HACEMOS — CON SUS MANOS VS. TODO LISTO
+# SLIDE 2 · LO DIFÍCIL YA ESTÁ HECHO
+*Subtítulo en pantalla: "Alguien lo fabrica. Algo lo atiende. Usted dirige."*
 
 Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
 **Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
-**O tomarla ya construida, y poder empezar de inmediato.** Eso es lo que nosotros le entregamos: una empresa digital lista, sobre **tres fuerzas que trabajan a su favor**.
+**O el apalancamiento.** Y aquí está la idea simple: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la dirige.
 
-**EL RESPALDO OPERATIVO** · *su socio de infraestructura.*
+**LO PRIMERO · alguien la fabrica** · *su socio logístico y financiero: Gano Excel.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
-Su **socio de infraestructura** es **Gano Excel**: una corporación con más de **30 años** y presencia en **70 países**, con ciencia propia y logística que hace por usted todo el trabajo pesado: fabrica, sostiene los inventarios, responde por los registros legales, despacha y da soporte en cada país. No es una promesa de internet — es el **músculo real** que carga el peso. Usted no financia ni gestiona nada de eso.
+Lo primero: alguien tiene que **fabricar**. Ahí está su **socio logístico y financiero, Gano Excel** — el fabricante detrás de su puente. ¿Recuerda que Amazon no fabrica lo que vende? Aquí igual. Gano es el **músculo que le quita de encima todo el peso y todo el riesgo**: más de **30 años**, presencia en **70 países**, fabrica, **asume el costo millonario del inventario**, responde por lo legal y despacha en cada país. Músculo real, **de su lado**. **[ PAUSA ]** Usted **no entra** a Gano Excel. **Gano Excel trabaja para su empresa.**
 
-**QUESWA, SU CENTRO DE MANDO** · *su socio de tecnología.*
-*B-roll: Queswa como centro de mando — la orbe en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Queswa, su **socio de tecnología**, es la app desde la que usted **dirige todo**, en su celular: comparte con un clic, ve en tiempo real quién se interesa, y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa**: usted no vende, no insiste, no atiende a medianoche. Y a medida que crece, le da los datos y las estrategias para multiplicar.
+**LO SEGUNDO · algo la atiende** · *su socio digital: Queswa.*
+*B-roll: la orbe Queswa en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
+Lo segundo: alguien tiene que **atender a la gente**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa, que **atiende y madura en cada interesado la decisión de avanzar** —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
 
-**EL MÉTODO COMPROBADO** · *sus 3 movimientos.*
+*(En vivo, el Arquitecto se presenta aquí: "ese socio digital soy yo".)*
+
+**LO TERCERO · usted sabe qué hacer** · *el método comprobado · sus 3 movimientos.*
 *B-roll: los 3 movimientos del Propietario — comparte (un clic) → recibe al que decidió (apretón de manos) → multiplica (réplicas 1→2→4).*
-Tener la mejor herramienta no basta si no sabe usarla. El Método le da el **orden exacto**, sin ensayo y error — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma herramienta lista —con el acompañamiento de la Academia desde el primer día—, y su empresa crece en todo el continente. Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
+Y lo tercero: usted tiene que **saber qué hacer**. Para eso está el **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma empresa lista —con el acompañamiento de la Academia desde el primer día—, y su organización crece en todo el continente. ¿Su rol en todo esto? **El de dueño: usted dirige, sus socios hacen el trabajo.**
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Tres fuerzas, una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez, de forma continua. Una empresa que crece sin techo y le da seguridad financiera.
+Las tres, ya resueltas. Una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da la seguridad financiera que el sueldo nunca le dio.
 
 ---
 
@@ -166,7 +178,7 @@ La única variable que falta en la ecuación es usted.
   2. **Se disuelven.** Esos íconos se desvanecen/tachan en dorado, uno a uno — "una empresa digital ya no requiere nada de esto".
   3. **El puente.** Dos cúmulos de nodos (izq: clínicas · der: personas que buscan sonrisa) y, en el centro, un nodo-puente dorado: **`sonrisaslindas.app`**. Una moneda/destello viaja por el puente en cada conexión = la comisión. Rótulo de cierre: **EL PUENTE**. Número abierto (las conexiones se multiplican solas).
   - Render headless M1: `npx remotion render Puente3D out/deck-puente.mp4 --gl=angle` → optimizar a `public/videos/servilleta/puente.mp4` (720×1280, ffmpeg CRF 27, faststart).
-- **Slide 2 — reutiliza comps existentes:** Pilar 1 → `Matriz3D` (globo, 70 países) · Pilar 2 (conversión) → b-roll de un interesado rojo→verde ✓ con la orbe Queswa (cercano a `Activar3D`) · Pilar 3 (todo en su celular) → móvil con el sistema condensado (puede partir de `Checklist3D` o comp nueva tipo "phone").
+- **Slide 2 — reutiliza comps existentes** (el rename "fuerzas/pilares" → "primeros principios" es de léxico, NO exige re-render): Lo primero (fabrica) → `Matriz3D` (globo, 70 países) · Lo segundo (atiende) → la orbe Queswa en el celular con interacciones fluyendo (cercano a `Activar3D`) · Lo tercero (método) → los 3 movimientos en el móvil (puede partir de `Checklist3D` o comp tipo "phone").
 
 ## NOTAS DE CALIBRACIÓN
 

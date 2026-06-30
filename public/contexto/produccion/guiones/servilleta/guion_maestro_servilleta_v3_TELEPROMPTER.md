@@ -1,9 +1,9 @@
-GUIÓN MAESTRO SERVILLETA v5.6 · TELEPROMPTER
+GUIÓN MAESTRO SERVILLETA v5.7 · TELEPROMPTER
 
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 29 junio 2026 — v5.6 regenerado desde el guión maestro. Estructura WHAT→HOW (Slide 1 = el problema + qué es una empresa digital, con Amazon/MercadoLibre y sonrisaslindas.app; Slide 2 = cómo lo hacemos + las 3 fuerzas/socios: Gano Excel su socio de infraestructura · Queswa su socio de tecnología · el Método) · "tres fuerzas que trabajan a su favor" (NUNCA "pilares") · promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 30 junio 2026 — v5.7 regenerado desde el guión maestro. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien la fabrica (Gano Excel, su socio logístico y financiero), algo la atiende (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para su empresa"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -41,7 +41,7 @@ usted pasa a ser propietario de una empresa digital
 
 que sí puede darle esa seguridad financiera —
 
-ingresos recurrentes, esté usted presente o no.
+ingresos una y otra vez, esté usted presente o no.
 
 
 
@@ -99,18 +99,22 @@ en toda la ciudad.
 
 ¿Ve la diferencia?
 
-Un negocio de toda la vida abre una puerta, en una ciudad,
+El negocio de siempre crece sumando:
 
-y depende de que usted esté ahí.
+otro local, otra ciudad, más de usted.
 
-Una empresa digital trabaja sola, en paralelo,
+Si usted no está, se detiene.
 
-y crece sin techo — de una ciudad a un continente.
+Una empresa digital crece multiplicando:
+
+el mismo esfuerzo llega a un continente,
+
+trabajando sola, en paralelo — esté usted ahí o no.
 
 
 
 ═══════════════════════════════════════════════════════════════
-SLIDE 2 · CÓMO LO HACEMOS — CON SUS MANOS VS. TODO LISTO
+SLIDE 2 · LO DIFÍCIL YA ESTÁ HECHO
 ═══════════════════════════════════════════════════════════════
 
 
@@ -131,57 +135,89 @@ y asumir los riesgos de cualquier proyecto empresarial.
 
 
 
-O tomarla ya construida, y poder empezar de inmediato.
+O el apalancamiento.
 
-Eso es lo que nosotros le entregamos:
+Y aquí está la idea simple:
 
-una empresa digital lista, sobre tres fuerzas que trabajan a su favor.
+para que una empresa digital así exista,
 
+tres cosas tienen que ser ciertas —
 
-
-EL RESPALDO OPERATIVO
-
-Su socio de infraestructura es Gano Excel,
-
-una corporación con más de 30 años y presencia en 70 países,
-
-con ciencia propia y logística que hace por usted todo el trabajo pesado:
-
-fabrica, sostiene los inventarios, responde por los registros legales,
-
-despacha y da soporte en cada país.
-
-No es una promesa de internet — es el músculo real que carga el peso.
-
-Usted no financia ni gestiona nada de eso.
+alguien la fabrica, algo la atiende, y usted sabe qué hacer.
 
 
 
-QUESWA, SU CENTRO DE MANDO
+[ PAUSA ]
 
-Queswa, su socio de tecnología, es la app desde la que usted dirige todo, en su celular:
+En la suya, las tres ya están resueltas.
 
-comparte con un clic,
+Usted no la arma — la dirige.
+
+
+
+LO PRIMERO · ALGUIEN LA FABRICA
+
+Lo primero: alguien tiene que fabricar.
+
+Ahí está su socio logístico y financiero, Gano Excel —
+
+el fabricante detrás de su puente.
+
+¿Recuerda que Amazon no fabrica lo que vende?
+
+Aquí igual.
+
+Gano es el músculo que le quita de encima todo el peso y todo el riesgo:
+
+más de 30 años, presencia en 70 países,
+
+fabrica, asume el costo millonario del inventario,
+
+responde por lo legal y despacha en cada país.
+
+Músculo real, de su lado.
+
+
+
+[ PAUSA ]
+
+Usted no entra a Gano Excel.
+
+Gano Excel trabaja para su empresa.
+
+
+
+LO SEGUNDO · ALGO LA ATIENDE
+
+Lo segundo: alguien tiene que atender a la gente.
+
+Eso lo hace su socio digital, Queswa —
+
+la app desde la que usted dirige todo, en su celular.
+
+Comparte con un clic,
 
 ve en tiempo real quién se interesa,
 
-y su inteligencia artificial atiende y madura en cada interesado la decisión de avanzar
+y del resto se encarga Queswa,
+
+que atiende y madura en cada interesado la decisión de avanzar
 
 —las 24 horas, sin que usted tenga que estar—.
 
-Es su oficina digital completa:
+Es su oficina digital completa, trabajando a su favor:
 
 usted no vende, no insiste, no atiende a medianoche.
 
-Y a medida que crece, le da los datos y las estrategias para multiplicar.
 
 
+LO TERCERO · USTED SABE QUÉ HACER
 
-EL MÉTODO COMPROBADO
+Y lo tercero: usted tiene que saber qué hacer.
 
-Tener la mejor herramienta no basta si no sabe usarla.
+Para eso está el método comprobado
 
-El Método le da el orden exacto, sin ensayo y error —
+que le marca los pasos exactos, sin necesidad de experiencia digital —
 
 y lo suyo son solo tres movimientos:
 
@@ -197,29 +233,33 @@ la calidez que solo un humano da.
 
 
 
-Multiplicar — cada persona que inicia con usted recibe la misma herramienta lista,
+Multiplicar — cada persona que inicia con usted recibe la misma empresa lista,
 
 con el acompañamiento de la Academia desde el primer día,
 
-y su empresa crece en todo el continente.
+y su organización crece en todo el continente.
 
 
 
-Lo pesado —explicar, atender, hacer seguimiento— ya lo hizo Queswa.
+¿Su rol en todo esto?
+
+El de dueño: usted dirige, sus socios hacen el trabajo.
 
 
 
 [ PAUSA · TONO ASPIRACIONAL ]
 
-Tres fuerzas, una sola app.
+Las tres, ya resueltas.
+
+Una sola app.
 
 Usted dirige; la tecnología hace el trabajo.
 
 Cada vez que el consumo se repite en los hogares de su organización,
 
-usted recibe una parte, una y otra vez, de forma continua.
+usted recibe una parte, una y otra vez.
 
-Una empresa que crece sin techo y le da seguridad financiera.
+Una empresa que crece sin techo y le da la seguridad financiera que el sueldo nunca le dio.
 
 
 

@@ -31,19 +31,23 @@ El video explica; Queswa (ahí mismo en la página) profundiza.
 
 Si llegó hasta aquí, es porque quiere entender de qué se trata. Se lo explico en un minuto.
 
-Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — trabajar, pagar cuentas y repetir. Y no es un error suyo: es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
+Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — un ciclo perpetuo de trabajar, pagar cuentas y repetir. Y esto no sucede por un error suyo o mala planificación: es sencillamente la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
 
 CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que sí puede darle esa seguridad.
 
-¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, vive en internet y produce aunque usted duerma. Piense en Amazon o MercadoLibre: no fabrican lo que venden — son el puente que conecta a millones y gana por cada transacción, de forma automática.
+¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, infraestructura, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, reemplaza el local por infraestructura en internet y los empleados por procesos automatizados que producen aunque usted duerma. Crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Usan internet para ser el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
 
-¿Y cómo se construye una empresa digital así? Usted tiene dos caminos. Con sus propias manos, desde cero: el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial. O tomarla ya construida y poder empezar de inmediato. Eso es lo que le entregamos: una empresa digital lista, sobre tres pilares.
+¿Y cómo se construye una empresa digital de este nivel? Usted tiene dos caminos.
 
-El primero, el músculo: Gano Excel, una corporación con más de 30 años y presencia en 70 países que hace por usted todo el trabajo pesado — fabrica, sostiene el inventario, responde por lo legal y despacha en cada país. No es una promesa de internet; es músculo real.
+El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial.
 
-El segundo, Queswa: la aplicación desde la que usted dirige todo, en su celular. Desde ahí usted comparte con un clic y ve en tiempo real quién visita la información. Del resto se encarga Queswa: atiende y madura en cada interesado la decisión de avanzar — las 24 horas. Es su oficina digital completa.
+El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa para empezar de inmediato. Y aquí está la idea simple: para que una empresa digital así exista, tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres ya están resueltas:
 
-Y el tercero, un método ya probado que le marca los pasos exactos. No necesita experiencia digital. ¿Su rol? El de dueño: usted dirige, la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez, de forma continua. Una empresa que crece sin techo y le da seguridad financiera.
+1. Su socio logístico y financiero: Gano Excel — el fabricante detrás de su puente. Es el músculo que le quita todo el peso y el riesgo de encima. Una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo millonario del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. Usted no entra a Gano Excel; Gano Excel trabaja para su empresa.
+
+2. Su socio digital: Queswa. La aplicación desde la que usted dirige todo, en su celular. Comparte con un clic y ve en tiempo real quién visita la información; del resto se encarga Queswa, que atiende y madura en cada interesado la decisión de avanzar, las 24 horas. Es su oficina digital completa, trabajando a su favor.
+
+3. Un método comprobado que le marca los pasos exactos, sin necesidad de experiencia digital. ¿Su rol? El de dueño: usted dirige, sus socios hacen el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da seguridad financiera.
 
 ¿Quiere entenderlo a fondo? Aquí mismo, pregúntele a Queswa lo que quiera — se lo explica mejor que nadie.
 
@@ -51,16 +55,32 @@ Y el tercero, un método ya probado que le marca los pasos exactos. No necesita 
 
 ### Notas de calibración (HOME)
 
-- **Arco completo (23 jun 2026):** ahora incluye **¿qué es una empresa digital?** (puente
-  Amazon/MercadoLibre → "gana por cada transacción") + **dos caminos** (desde cero vs. ya
-  construida) + **los 3 pilares** — sincronizado con la servilleta Slide 1+2 y el reel Día 10
-  "El puente". Antes saltaba del enunciado "empresa digital" directo a los pilares (hueco
-  cerrado). "operación" → **"transacción"** (dibuja dinero en movimiento); "equipo de
-  ingenieros" **retirado** del camino "desde cero" (contradecía el Día 11: la IA ya lo hace)
-  → "asumir los riesgos de cualquier proyecto empresarial".
-- **Gano Excel nombrado:** el guion nombra a **Gano Excel** como el respaldo (la audiencia
-  orgánica ya asocia a Luis con Gano) + **"30 años · 70 países"** como prueba de autoridad
-  (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital); Gano Excel
+- **Arco completo (23 jun 2026):** incluye **¿qué es una empresa digital?** (puente
+  Amazon/MercadoLibre → "ganan por cada transacción") + **dos caminos** (desde cero vs. ya
+  construida) + **las tres fuerzas estratégicas** — sincronizado con la servilleta Slide 1+2 y
+  el reel Día 10 "El puente". Antes saltaba del enunciado "empresa digital" directo a las
+  fuerzas (hueco cerrado). "operación" → **"transacción"** (dibuja dinero en movimiento);
+  "equipo de ingenieros" **retirado** del camino "desde cero" (contradecía el Día 11: la IA ya
+  lo hace) → "asumir los riesgos de cualquier proyecto empresarial".
+- **Reframe de socios / apalancamiento (28 jun 2026):** los 3 componentes ya NO se nombran
+  "pilares" de cara al prospecto, sino **tres fuerzas estratégicas** en lista numerada:
+  **1. socio logístico y financiero (Gano) · 2. socio digital (Queswa) · 3. método comprobado**.
+  Resuelve el colapso "¡ahh, es meterse a Gano!" → Gano y Queswa son **socios que trabajan PARA
+  su empresa** ("de su lado" / "trabajando a su favor"), nunca algo a lo que usted entra
+  (frame-before-name: primero el peso, luego Gano como alivio). Léxico: "se asocia con / operar"
+  prohibidos; **"masivo"** aprobado en el beat de escala. Doctrina completa: memoria
+  `feedback_socios_apalancamiento`.
+- **Alineación con servilleta v5.7 (30 jun 2026):** el frame pasa de "tres fuerzas estratégicas" a
+  **primeros principios (Musk)**: *"para que la empresa exista, tres cosas tienen que ser ciertas —
+  alguien la fabrica (Gano), algo la atiende (Queswa), y usted sabe qué hacer (el método). Las tres
+  ya están resueltas."* La lista numerada 1·2·3 se conserva como soporte. Añadida la bisagra
+  **"Usted no entra a Gano Excel; Gano Excel trabaja para su empresa"** (ítem 1). "un sistema que le
+  marca los pasos" → "un método que le marca los pasos" (sistema = villano, no reusar en positivo).
+  Memoria: `feedback_gano_socio_primeros_principios`. ⚠️ El video desplegado sigue con el arco viejo
+  → re-producción pendiente.
+- **Gano Excel nombrado:** como **socio logístico y financiero** (no "a lo que entra"), con la
+  audiencia orgánica que ya asocia a Luis con Gano + **"30 años · 70 países"** como prueba de
+  autoridad (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital); Gano
   es el **músculo real** que carga el peso — nunca el titular del ingreso.
 - **Un solo CTA:** Queswa (el orbe está en la misma página). "Suscríbete" vive aparte, en el
   menú — no compite dentro del reel.

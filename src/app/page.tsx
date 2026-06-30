@@ -1,6 +1,11 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Homepage v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
+ * Homepage v13.7 — "Lo difícil ya está hecho" (30 jun 2026): sección "Cómo lo hacemos
+ * nosotros" → eyebrow "Lo difícil ya está hecho" (quita el "nosotros" de pitch); intro a
+ * primeros principios (alguien la fabrica / algo la atiende / usted sabe qué hacer → ya
+ * resueltas, sin "le entregamos"); bisagra "Usted no entra a Gano Excel: Gano Excel trabaja
+ * para su empresa". Sincroniza con servilleta v5.7 (Gano se USA, no se entra).
+ * Previo v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
  * persona del activo que entregamos ("ser dueño de una empresa digital", "su empresa
  * digital"), el término es EMPRESA digital — eleva estatus de propiedad (decisión Luis).
  * "Negocio" solo aparece en el chip canónico ("¿Cómo funciona el modelo de negocio?" —
@@ -323,7 +328,7 @@ function ComoLoHacemosIntro() {
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '760px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <span style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold }}>
-            Cómo lo hacemos nosotros
+            Lo difícil ya está hecho
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', fontFamily: "var(--font-serif)", color: '#fff', lineHeight: 1.25 }}>
             Constrúyala desde cero… o apaláncese en lo que ya está hecho.
@@ -336,7 +341,7 @@ function ComoLoHacemosIntro() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Levantar una empresa digital exige tres cosas: <strong style={{ color: C.white, fontWeight: 600 }}>infraestructura, tecnología y un método</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. <span style={{ color: C.white }}>Nosotros le entregamos las tres ya construidas.</span>
+            Levantar una empresa digital exige que <strong style={{ color: C.white, fontWeight: 600 }}>tres cosas sean ciertas: que alguien la fabrique, que algo la atienda, y que usted sepa qué hacer</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. Aquí <span style={{ color: C.white }}>las tres ya están resueltas: usted no la construye, la dirige.</span>
           </p>
         </div>
       </div>
@@ -417,7 +422,7 @@ function ProductoFisicoSection() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: C.muted, margin: 0 }}>
-            Construir esto solo —fábricas, inventario millonario, permisos y logística en cada país— tomaría años. Su <span style={{ color: C.white }}>socio logístico y financiero</span> ya lo hizo: <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>, una corporación con más de <strong style={{ color: C.gold, fontWeight: 600 }}>30 años</strong> y presencia en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países</strong> que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet — es <span style={{ color: C.white }}>músculo real, de su lado.</span> Gracias a él usted no construye nada: <span style={{ color: C.white }}>empieza hoy</span> y se dedica a dirigir.
+            Construir esto solo —fábricas, inventario millonario, permisos y logística en cada país— tomaría años. Su <span style={{ color: C.white }}>socio logístico y financiero</span> ya lo hizo: <strong style={{ color: C.gold, fontWeight: 600 }}>Gano Excel</strong>, una corporación con más de <strong style={{ color: C.gold, fontWeight: 600 }}>30 años</strong> y presencia en <strong style={{ color: C.gold, fontWeight: 600 }}>70 países</strong> que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet — es <span style={{ color: C.white }}>músculo real, de su lado.</span> <span style={{ color: C.white }}>Usted no entra a Gano Excel: Gano Excel trabaja para su empresa.</span> Gracias a él usted no construye nada: <span style={{ color: C.white }}>empieza hoy</span> y se dedica a dirigir.
           </p>
         </div>
 

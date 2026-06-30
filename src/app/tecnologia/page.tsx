@@ -100,7 +100,7 @@ export default function TecnologiaPage() {
             subtitle="Construya una estructura de ingresos recurrentes — usted dirige; Queswa ejecuta."
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.webp"
-            imageAlt="Engranajes industriales - Sistema Queswa"
+            imageAlt="Engranajes industriales - ecosistema Queswa"
           />
 
           {/* ── DEFINICIÓN OFICIAL — Featured Snippet bait ─────────────────
@@ -244,7 +244,7 @@ export default function TecnologiaPage() {
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Multiplica por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe el mismo sistema, listo para crecer solo. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
+                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe la misma empresa digital, lista para crecer sola. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
                 </div>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function TecnologiaPage() {
                   {
                     step: '1',
                     title: 'Usted comparte',
-                    description: 'Lleva el material que Queswa le entrega a sus contactos, con un clic. El sistema toma desde ahí.'
+                    description: 'Lleva el material que Queswa le entrega a sus contactos, con un clic. Queswa toma desde ahí.'
                   },
                   {
                     step: '2',

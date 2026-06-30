@@ -51,15 +51,23 @@ El modelo se apoya en el apalancamiento: usted se vuelve dueño de una **empresa
 
 ¿Y qué es una empresa digital? Una que reemplaza el local y los empleados por infraestructura en internet y procesos automatizados que producen aunque usted duerma; crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden, son dueños del **puente** que conecta a millones de personas con los fabricantes y cobran por cada transacción, de forma automática. Lo suyo funciona con esa misma lógica: usted es dueño del puente, no quien carga las cajas.
 
-Construirla solo costaría años, ingenieros y capital. Con apalancamiento usted no la crea: la usa, ya montada. Funciona gracias a tres fuerzas que trabajan a su favor.
+Construirla solo costaría años, ingenieros y capital. Por eso la idea es simple: para que una empresa digital así exista, **tres cosas tienen que ser ciertas.**
 
-La primera es su socio de infraestructura, **Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. Usted dirige, Gano Excel sostiene.
+**Alguien la fabrica.**
 
-La segunda es su socio de tecnología, **Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién visita la información; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
+**Algo la atiende.**
 
-La tercera es un método comprobado que le marca los pasos exactos, sin necesidad de experiencia digital. El camino ya está trazado.
+**Usted sabe qué hacer.**
 
-¿Y su papel? Dirigir, con las decisiones de un dueño. El trabajo pesado corre por cuenta de sus socios.
+Y en la suya, **las tres ya están resueltas:**
+
+La primera —*alguien la fabrica*— es su **socio logístico y financiero, Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. **Usted no entra a Gano Excel; Gano Excel trabaja para usted.**
+
+La segunda —*algo la atiende*— es su **socio digital, Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién se interesa; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
+
+La tercera —*usted sabe qué hacer*— es un **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital. El camino ya está trazado.
+
+¿Y su papel? Dirigir, con las decisiones de un dueño. Lo pesado ya está resuelto.
 
 ¿Qué le resulta más útil ahora: que le muestre cómo sería su día a día, o prefiere que veamos los números, cómo y cuánto produce esto?`;
 
@@ -79,7 +87,7 @@ Le adelanto lo esencial: su papel es **dirigir**, no cargar el trabajo pesado. E
 
 **2. Yo me encargo del resto.** Cuando alguien se interesa, converso con esa persona: le explico, le resuelvo las dudas y maduro su decisión de avanzar — las 24 horas, sin que usted tenga que estar ahí. Usted no vende, no anda detrás de nadie, no responde a medianoche. De eso me ocupo yo, y le aviso de cada avance.
 
-**3. Usted pone lo humano.** Cuando alguien ya decidió, ahí entra usted: lo recibe de persona a persona, le da la bienvenida — esa cercanía y esa confianza que ninguna tecnología puede dar. Es lo único que el sistema no hace, y es justo lo que mejor le sale a un ser humano.
+**3. Usted pone lo humano.** Cuando alguien ya decidió, ahí entra usted: lo recibe de persona a persona, le da la bienvenida — esa cercanía y esa confianza que ninguna tecnología puede dar. Es lo único que una máquina no hace, y es justo lo que mejor le sale a un ser humano.
 
 ¿Cómo se ve un día normal? Unos minutos para compartir, y estar pendiente de los avisos que le mando cuando alguien está listo. El trabajo desgastante —explicar, atender, responder a toda hora— es mío.
 

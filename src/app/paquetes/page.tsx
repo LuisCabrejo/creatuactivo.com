@@ -162,7 +162,7 @@ function Framing() {
             <span style={{ color: C.white }}>bebidas enriquecidas y suplementos Gano Excel</span>{' '}
             — un activo tangible que activa sus derechos de cobro en{' '}
             <span style={{ color: C.white, fontWeight: 600 }}>15 países de América</span>.
-            El Respaldo Operativo (Pilar 1) absorbe la operación; usted dirige.
+            El Respaldo Operativo absorbe el trabajo pesado; usted dirige.
           </p>
         </div>
       </div>
@@ -277,7 +277,7 @@ function PackageCard({
           {accentLabel}
         </div>
         <div style={{ fontSize: '0.85rem', color: C.white, fontWeight: 500 }}>
-          {subsidyMonths} {subsidyMonths === 1 ? 'mes' : 'meses'} de operación subvencionada
+          {subsidyMonths} {subsidyMonths === 1 ? 'mes' : 'meses'} de funcionamiento subvencionado
         </div>
       </div>
 
@@ -476,20 +476,20 @@ function Faq() {
         </div>
         <div>
           <FaqItem
-            q="¿Qué cubre exactamente la asignación de capital inicial?"
-            a="Su asignación de capital es una adquisición de inventario físico de bebidas enriquecidas y suplementos Gano Excel — productos de alta rotación. No existe cuota de membresía ni pago por derechos de software. La activación incluye el acceso vitalicio al ecosistema CreaTuActivo y a la plataforma Queswa, sin costos adicionales."
+            q="¿Qué cubre exactamente su capital inicial?"
+            a="Su capital se convierte en inventario físico: bebidas enriquecidas y suplementos Gano Excel, productos de alta rotación. No hay cuota de membresía ni pago por software. La activación incluye acceso de por vida al ecosistema CreaTuActivo y a la plataforma Queswa, sin costos adicionales."
           />
           <FaqItem
-            q="¿Cuál es la carga operativa recurrente mensual?"
-            a="Para mantener su empresa digital activa, se requiere un consumo mensual de 50 CV (puntos de volumen), equivalente a aproximadamente $450.000 COP. No es una cuota de software — es la adquisición de producto de igual valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
+            q="¿Cuál es el consumo mensual para mantenerla activa?"
+            a="Para mantener su empresa digital activa, se requiere un consumo mensual de 50 CV (puntos de volumen), unos $450.000 COP. No es una cuota de software: es producto del mismo valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
           />
           <FaqItem
-            q="¿Es posible escalar el nivel de activación posteriormente?"
-            a="Sí. La arquitectura permite escalabilidad progresiva. Usted puede iniciar con ESP-1 para validar el flujo operativo y, a medida que su activo genera retornos, ejecutar una capitalización adicional hacia ESP-2 o ESP-3 para acceder a niveles superiores de rentabilidad y maximizar la Capitalización de Organización."
+            q="¿Puedo subir de nivel más adelante?"
+            a="Sí, en cualquier momento. Puede iniciar con ESP-1 para tomar ritmo y, a medida que su empresa digital produce, subir a ESP-2 o ESP-3 para acceder a niveles superiores de rentabilidad."
           />
           <FaqItem
-            q="¿Existen costos ocultos o estructuras de comisión no declaradas?"
-            a="No. La estructura opera con transparencia total. No existen costos de renovación, mantenimiento de infraestructura tecnológica, hosting ni herramientas adicionales. Su asignación de capital inicial y su consumo mensual recurrente constituyen la totalidad del requisito operativo para acceder al 100% del ecosistema."
+            q="¿Hay costos ocultos o comisiones no declaradas?"
+            a="No. Todo funciona con transparencia total. No hay costos de renovación, mantenimiento técnico, hosting ni herramientas adicionales. Su capital inicial y su consumo mensual son lo único que se requiere para acceder al 100% del ecosistema."
           />
         </div>
       </div>

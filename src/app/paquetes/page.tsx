@@ -337,7 +337,7 @@ function Niveles() {
             fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
             fontFamily: 'var(--font-serif)', color: C.white,
           }}>
-            Elija el nivel que su arquitectura patrimonial requiere hoy.
+            Elija el nivel que necesita hoy.
           </h2>
         </div>
 
@@ -374,8 +374,8 @@ function Niveles() {
             waPackage="ESP-2 Empresarial ($500 USD / $2.250.000 COP)"
             features={[
               'Todo lo del ESP-1',
-              'Capacidad de despliegue intermedia',
-              'Consultoría de arquitectura prioritaria',
+              'Mayor capacidad de activación',
+              'Acompañamiento prioritario',
               'Capitalización de Organización — Nivel Empresarial',
             ]}
           />
@@ -391,8 +391,8 @@ function Niveles() {
             waPackage="ESP-3 Visionario ($1.000 USD / $4.500.000 COP)"
             features={[
               'Todo lo del ESP-2',
-              'Apalancamiento estratégico máximo (17%)',
-              'Consultoría de arquitectura VIP',
+              'Apalancamiento estratégico (17%)',
+              'Acompañamiento VIP',
               'Capitalización de Organización — Nivel Visionario',
             ]}
           />
@@ -405,10 +405,10 @@ function Niveles() {
           fontSize: '0.72rem', lineHeight: 1.8, letterSpacing: '0.05em',
         }}>
           <p style={{ margin: '0 0 4px' }}>
-            La asignación de capital se transfiere íntegramente a inventario biológico tangible.
+            Su capital se transfiere íntegramente a inventario físico tangible.
           </p>
           <p style={{ margin: 0 }}>
-            Queswa gestiona la automatización operativa para eliminar la fricción manual.
+            Queswa automatiza el trabajo y le quita la parte manual.
           </p>
         </div>
       </div>
@@ -521,7 +521,7 @@ function CtaFinal() {
         <p style={{
           fontSize: '1rem', color: C.muted, lineHeight: 1.75, marginBottom: '36px',
         }}>
-          Determine el nivel que su arquitectura patrimonial requiere hoy.
+          Determine el nivel que necesita hoy.
           La Dirección asume la fricción administrativa — su único paso es la autorización.
         </p>
         <a

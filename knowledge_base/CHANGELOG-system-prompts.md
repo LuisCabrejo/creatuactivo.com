@@ -6,6 +6,10 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v29.2 — Tríada de primeros principios sin pronombre ambiguo (3 jul 2026)
+
+Clave de primeros principios (TRES FUERZAS): *"alguien **la** fabrica · algo **la** atiende"* → **"alguien fabrica · una plataforma atiende a las personas"** (el pronombre "la" era gramaticalmente ambiguo — nadie "fabrica" una empresa; "una plataforma" es más concreta que "algo" y mapea limpio con Queswa). Un solo cambio; todo lo demás intacto. Sincroniza con `arsenal_inicial` v5.24 (WHY_02 verbatim_lock + `MASTER_WHY_02`), servilleta v5.8, home y reel home — pasada de claridad del 3 jul 2026.
+
 ## v29.1 — Compresión a ~20KB + regla de moneda por país (2 jul 2026)
 
 **Compresión sin cambio doctrinal:** el prompt bajó de ~34KB a ~20KB. Qué se eliminó: (1) el changelog histórico del encabezado (~4.8KB — vive aquí desde ahora); (2) redundancias — "tres fuerzas/socios" instruida 3 veces → 1, "madura la decisión/nadie filtra" 4 veces → léxico + identidad, paradigma Puig nombrado 3 veces → 1, frame "en paralelo" definido 4 veces → 1, villano-narrado explicado 3 veces → 1; (3) referencias a archivos que el modelo no puede leer (HANDOFF_*.md, Glosario v1.4) y acotaciones editoriales; (4) filas duplicadas en las tablas de léxico. Todos los bloqueos (compensación, dashboard, KYC, verbatim_lock, 12 velocidades) intactos.

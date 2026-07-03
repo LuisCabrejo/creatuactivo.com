@@ -39,7 +39,8 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el modelo de negocio?").
- * Sincronizado con arsenal_inicial.txt v5.9 BLOQUE 1 (swap "empresa digital", 12 jun 2026).
+ * Sincronizado con arsenal_inicial.txt v5.24 BLOQUE 1 (tríada sin pronombre ambiguo:
+ * "alguien fabrica / una plataforma atiende a las personas", 3 jul 2026).
  * Recalibración v5.6 (jun 2026): léxico servilleta-accesible (El Respaldo Operativo /
  * El Método Comprobado, ya no "Matriz Física"/"Tridente EAM"), "Estructura Patrimonial"
  * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
@@ -51,19 +52,19 @@ El modelo se apoya en el apalancamiento: usted se vuelve dueño de una **empresa
 
 ¿Y qué es una empresa digital? Una que reemplaza el local y los empleados por infraestructura en internet y procesos automatizados que producen aunque usted duerma; crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden, son dueños del **puente** que conecta a millones de personas con los fabricantes y cobran por cada transacción, de forma automática. Lo suyo funciona con esa misma lógica: usted es dueño del puente, no quien carga las cajas.
 
-Construirla solo costaría años, ingenieros y capital. Por eso la idea es simple: para que una empresa digital así exista, **tres cosas tienen que ser ciertas.**
+Construirla solo costaría años, ingenieros y capital. Por eso la regla es sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas.**
 
-**Alguien la fabrica.**
+**Alguien fabrica.**
 
-**Algo la atiende.**
+**Una plataforma atiende a las personas.**
 
 **Usted sabe qué hacer.**
 
 Y en la suya, **las tres ya están resueltas:**
 
-La primera —*alguien la fabrica*— es su **socio logístico y financiero, Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. **Usted no entra a Gano Excel; Gano Excel trabaja para usted.**
+La primera —*alguien fabrica*— es su **socio logístico y financiero, Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. **Usted no entra a Gano Excel; Gano Excel trabaja para usted.**
 
-La segunda —*algo la atiende*— es su **socio digital, Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién se interesa; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
+La segunda —*una plataforma atiende a las personas*— es su **socio digital, Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién se interesa; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
 
 La tercera —*usted sabe qué hacer*— es un **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital. El camino ya está trazado.
 

@@ -4,12 +4,12 @@
  * Lee el contenido desde knowledge_base/system-prompt-nexus-main-v27_2.md
  * (nombre de archivo legacy — el contenido es la versión indicada en VERSION_LABEL).
  *
- * Versión desplegada: v29.1 — compresión ~34KB→~21KB sin cambio doctrinal
- * + regla de moneda por país (Colombia solo COP · US USD · resto USD default).
+ * Versión desplegada: v29.2 — tríada de primeros principios sin pronombre ambiguo
+ * ("alguien fabrica · una plataforma atiende a las personas · usted sabe qué hacer").
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.1_compresion_moneda_pais';
+const VERSION_LABEL = 'v29.2_triada_sin_pronombre';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

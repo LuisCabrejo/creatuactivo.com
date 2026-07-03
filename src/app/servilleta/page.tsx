@@ -80,6 +80,8 @@ export default function ServilletaPage() {
   const [pausedKey, setPausedKey] = useState<string | null>(null);
   const touchStartX = React.useRef(0);
   const touchStartY = React.useRef(0);
+  const touchLastX = React.useRef(0);
+  const touchLastY = React.useRef(0);
   const touchSwipeIgnore = React.useRef(false);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -200,30 +202,44 @@ export default function ServilletaPage() {
     }, 300);
   }, [toggleFullscreen, oneCardMode, activeCardIndex, maxCardIndex]);
 
-  // Touch swipe para mobile
+  // Touch swipe para mobile — debe funcionar en CUALQUIER lugar de la pantalla
+  // (pedido Director 2 jul 2026: antes solo respondía en la franja superior; sobre
+  // el contenido el navegador secuestraba el gesto como scroll nativo y disparaba
+  // touchcancel → nuestro touchend jamás corría). Dos capas de defensa:
+  //  1. CSS `touch-action: pan-y` en .deck-container → el navegador NO captura los
+  //     gestos horizontales (solo el pan vertical sigue siendo nativo).
+  //  2. onTouchMove registra la última posición y onTouchCancel evalúa el swipe con
+  //     ella → aunque el gesto sea cancelado, el swipe se procesa igual.
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-    // Ignorar el swipe si el touch nace sobre el simulador / sliders / controles
-    // (mismo conjunto exonerado en handleSlideClick). Sin esto, arrastrar un
-    // slider de izquierda a derecha en mobile se interpreta como swipe → retrocede.
-    const target = e.target as HTMLElement;
+    touchStartY.current = e.touches[0].clientY;
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+    // Ignorar el swipe si el touch nace sobre sliders / controles reales.
     // ⚠️ `.simulator-panel` NO va aquí (auditoría 2 jul 2026): cubre 100vh y bloqueaba
     // TODO swipe-back en el Slide 4 desde el simulador (desde el CTA de abajo sí
     // funcionaba porque .cta-panel nunca estuvo en la lista). Los controles reales
     // (inputs, tabs, selector, contenedor de sliders) siguen exonerados, y el guard
-    // de eje en handleTouchEnd evita que el scroll vertical del simulador navegue.
+    // de eje en evaluateSwipe evita que el scroll vertical del simulador navegue.
+    const target = e.target as HTMLElement;
     touchSwipeIgnore.current = !!target.closest(
       'input, .sim-tabs, .pkg-selector, .controls-container, .cta-buttons'
     );
   }, []);
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+  }, []);
+
+  // Evalúa el gesto y navega. endX/endY = posición final del dedo.
+  const evaluateSwipe = useCallback((endX: number, endY: number) => {
     if (touchSwipeIgnore.current) {
       touchSwipeIgnore.current = false;
       return;
     }
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    const diff = touchStartX.current - endX;
+    const diffY = touchStartY.current - endY;
     // Solo navega si el gesto es claramente HORIZONTAL: un scroll vertical (simulador,
     // paneles con scroll) que derive un poco en X no debe cambiar de slide.
     if (Math.abs(diff) > 60 && Math.abs(diff) > Math.abs(diffY) * 1.2) {
@@ -247,6 +263,15 @@ export default function ServilletaPage() {
       }
     }
   }, [oneCardMode, activeCardIndex, maxCardIndex, activeSlide]);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    evaluateSwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+  }, [evaluateSwipe]);
+
+  // El navegador canceló el gesto (scroll nativo, etc.) → evaluar con la última posición
+  const handleTouchCancel = useCallback(() => {
+    evaluateSwipe(touchLastX.current, touchLastY.current);
+  }, [evaluateSwipe]);
 
   // Núcleo pausa/play de un clip (lo usan el tap táctil y el botón de esquina)
   const toggleClip = useCallback((container: HTMLElement | null, key: string) => {
@@ -504,6 +529,10 @@ export default function ServilletaPage() {
         .deck-container {
           position: relative;
           width: 100%; height: 100vh;
+          /* El pan vertical sigue siendo nativo (scroll del simulador, cards); los
+             gestos horizontales son NUESTROS → el swipe navega desde cualquier
+             punto de la pantalla, el navegador no lo secuestra. */
+          touch-action: pan-y;
         }
 
         .slide {
@@ -1690,7 +1719,9 @@ export default function ServilletaPage() {
           className="deck-container"
           onClick={handleSlideClick}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
         >
 
           {/* ===== SLIDE 1: ¿QUÉ ES UNA EMPRESA DIGITAL? (card-scroller, clips Gemini Dan Koe) ===== */}
@@ -1802,7 +1833,7 @@ export default function ServilletaPage() {
                     3 COSAS TIENEN QUE SER CIERTAS
                   </h2>
                   <span className="slide-2-subtitle">
-                    Alguien lo fabrica. Algo lo atiende. Usted dirige. Las tres, ya resueltas.
+                    Alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres, ya resueltas.
                   </span>
                 </div>
               )}
@@ -1832,7 +1863,7 @@ export default function ServilletaPage() {
                     3 COSAS TIENEN QUE SER CIERTAS
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Alguien lo fabrica. Algo lo atiende. Usted dirige. Las tres, ya resueltas.
+                    Alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres, ya resueltas.
                   </p>
                 </div>
               )}

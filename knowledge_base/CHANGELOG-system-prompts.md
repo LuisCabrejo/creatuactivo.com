@@ -6,6 +6,42 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v29.1 — Compresión a ~20KB + regla de moneda por país (2 jul 2026)
+
+**Compresión sin cambio doctrinal:** el prompt bajó de ~34KB a ~20KB. Qué se eliminó: (1) el changelog histórico del encabezado (~4.8KB — vive aquí desde ahora); (2) redundancias — "tres fuerzas/socios" instruida 3 veces → 1, "madura la decisión/nadie filtra" 4 veces → léxico + identidad, paradigma Puig nombrado 3 veces → 1, frame "en paralelo" definido 4 veces → 1, villano-narrado explicado 3 veces → 1; (3) referencias a archivos que el modelo no puede leer (HANDOFF_*.md, Glosario v1.4) y acotaciones editoriales; (4) filas duplicadas en las tablas de léxico. Todos los bloqueos (compensación, dashboard, KYC, verbatim_lock, 12 velocidades) intactos.
+
+**Fix doctrinal — moneda por país (única regla, corrige contradicción):** BLOQUEOS DE FORMATO decía "ESP — USD primero; COP secundario" mientras COMPENSACIÓN ordenaba "Colombia SIEMPRE COP, nunca USD". Regla unificada (decisión Director Cabrejo, 2 jul 2026): el backend detecta el país e inyecta el pin en la moneda correcta; Queswa entrega los valores en ESA moneda sin convertir ni añadir otra — **Colombia → solo COP** · **Estados Unidos → USD** · **país sin moneda especificada o desconocido → USD por defecto**.
+
+**Consistencia:** las 4 marcas de versión (header, changelog, footer, fila Supabase) quedan unificadas en v29.1; el canal de escalación se nombra siempre "Equipo Directivo".
+
+## v29.0 — Primeros principios + bisagra "se usa, no se entra" (30 jun 2026)
+
+Las TRES FUERZAS se instruyen en clave de **primeros principios** (*"tres cosas tienen que ser ciertas — alguien la fabrica (Gano), algo la atiende (Queswa), usted sabe qué hacer (método) — y las tres ya están resueltas"*) + **línea bisagra "Usted no entra a Gano Excel; Gano Excel trabaja para usted"**. Cierre canónico "usted dirige, sus socios hacen el trabajo" → **"usted dirige; lo pesado ya está resuelto"** ("sus socios" como sujeto suelto lee MLM). Aforismo Cierre "Usted no carga el sistema; el sistema hace el trabajo" → **"Usted no carga el peso; la tecnología hace el trabajo"** (*sistema* = villano, no se reusa en positivo). Sincroniza con `arsenal_inicial` v5.23 + servilleta v5.7.
+
+## v28.9 — Reframe socios / tres fuerzas (28 jun 2026)
+
+La ARQUITECTURA conserva los Tres Pilares como modelo interno, pero instruye presentarlos al prospecto como **tres fuerzas estratégicas / socios que trabajan PARA su empresa** (socio logístico y financiero: Gano · socio digital: Queswa · método comprobado), con **dirección del poder** ("de su lado / a su favor", NUNCA "se asocia con / se mete a Gano" → resuelve el colapso MLM) y **frame-before-name**. Actualizada la regla de formato (Tres Fuerzas → 1/2/3, rótulo "Pilar" no se muestra) + tabla de léxico prohibido (se asocia con / "pilares" de cara al prospecto). Alinea con `arsenal_inicial` v5.20 + HANDOFF_REFRAME_SOCIOS_FUERZAS.md.
+
+## v28.8 — Calidez en Activar + diagnóstico retirado (jun 2026)
+
+(1) Aforística Activar: "usted revisa y da el sí" → *"cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar"* (cierra la contradicción con la recalibración cálida v28.5; nadie audita). (2) Se retira "Iniciar Diagnóstico" como CTA — Queswa ya no ofrece el Diagnóstico de 5 Días (la Home lo desconectó); el CTA de la interfaz es "Suscríbete" y el siguiente paso es la conversación 1-a-1 con el equipo. Nota: la promesa canónica evolucionó "guía" → **"madura en cada interesado la decisión de avanzar"** (25 jun 2026, Opción B) y se re-desplegó conservando el label v28.8.
+
+## v28.7 — Contexto de reels (19 jun 2026)
+
+Nueva sección "CONTEXTO DE ENTRADA — CÓMO LLEGA EL USUARIO (REELS)": Queswa sabe que la mayoría llega tras ver un reel (home explainer + 6 nichos: corporativo, empleados, empresarios, diáspora, informales, networkers), cada uno con su villano narrado, y que el reel le entrega el testigo con la promesa canónica (NO "evalúa su caso / si es viable"). Permite responder en consecuencia al perfil sin reiniciar de cero.
+
+## v28.6 — Limpieza de residuos fríos en tablas operativas (18 jun 2026)
+
+Residuos que sobrevivieron a v28.5 y alimentaban respuestas de "calificación de perfiles": (1) reemplazo de "Pipeline/Embudo" → "Sistema de filtrado" cambiado a **"proceso de conversión"**; (2) verbo de paridad "Audita" → **"Compara"**; (3) Principio fundamental "máxima calificación de perfiles de alto nivel" → **"las personas de alto nivel reconocen el valor y avanzan con confianza (nunca las evalúas ni las calificas tú)"**. Cierra la brecha entre la IDENTIDAD CORE cálida y la operación.
+
+## v28.5 — Identidad cálida (17 jun 2026)
+
+**IDENTIDAD CORE recalibrada de fría a cálida**: Queswa = asistente que se hace entender, autoridad CON calidez, del lado del usuario (ya NO "motor de auditoría/calificación", ya NO "frío/sin sentimientos/el sistema evalúa al usuario"; resuelve la contradicción interna con la sección Modulación Mario Alonso Puig). TONO: "frialdad matemática" → "precisión, no frialdad", "simple/claro" permitidos. EAM_01: rol del héroe = humano (recibir de persona a persona; nadie audita). Alineado con `arsenal_inicial` v5.13. Sin cambios estructurales (bloqueos compensación/dashboard/KYC/verbatim_lock intactos).
+
+## v28.4 — Multiplicación sin filtrar (17 jun 2026)
+
+3er Comando Maestría → Multiplicación; "filtrar" desterrado (conversar/acompañar/reconocer quién está listo); Activar = "revisa y da el sí". Alineado con `arsenal_inicial` v5.12. Ver [[project_rename_maestria_multiplicacion]] · [[feedback_filtrar_prohibido]].
+
 ## v28.3 — Villano = el sistema que toma sus años y su salud (13 jun 2026)
 
 Sección EL VILLANO recalibrada para alinear con `arsenal_inicial` v5.11. El villano preferido pasa de «asfixia mensual» a **un sistema diseñado para tomar sus mejores años y su salud a cambio de casi nada** (más universal — funciona aunque la persona no se sienta «asfixiada»).

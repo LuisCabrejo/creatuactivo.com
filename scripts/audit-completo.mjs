@@ -60,18 +60,24 @@ async function audit() {
     .eq('metadata->>is_fragment', 'true')
     .order('category');
 
-  const byArsenal = {};
+  // Agrupar por arsenal padre + tenant (los clones whatsapp cuentan aparte)
+  const byArsenal = {};        // clave: `${parent}|${tenant}`
+  const byArsenalTenant = {};  // para sincronía: byArsenalTenant[parent][tenant] = count
   let missingEmb512 = 0;
   for (const f of (frags || [])) {
     const parent = f.metadata?.parent_arsenal || 'desconocido';
-    if (!byArsenal[parent]) byArsenal[parent] = { count: 0, tenant: f.tenant_id, noEmb: 0 };
-    byArsenal[parent].count++;
-    if (!f.embedding_512) { byArsenal[parent].noEmb++; missingEmb512++; }
+    const tenant = f.tenant_id || '—';
+    const key = `${parent}|${tenant}`;
+    if (!byArsenal[key]) byArsenal[key] = { parent, tenant, count: 0, noEmb: 0 };
+    byArsenal[key].count++;
+    if (!byArsenalTenant[parent]) byArsenalTenant[parent] = {};
+    byArsenalTenant[parent][tenant] = (byArsenalTenant[parent][tenant] || 0) + 1;
+    if (!f.embedding_512) { byArsenal[key].noEmb++; missingEmb512++; }
   }
 
-  for (const [arsenal, stats] of Object.entries(byArsenal).sort()) {
+  for (const [, stats] of Object.entries(byArsenal).sort()) {
     const warn = stats.noEmb > 0 ? ` ⚠️  SIN embedding_512: ${stats.noEmb}` : ' ✅';
-    console.log(`  ${arsenal.padEnd(35)} ${stats.count.toString().padStart(3)} fragmentos  tenant: ${stats.tenant || '—'}${warn}`);
+    console.log(`  ${stats.parent.padEnd(35)} ${stats.count.toString().padStart(3)} fragmentos  tenant: ${stats.tenant}${warn}`);
   }
   console.log(`\n  TOTAL fragmentos: ${frags?.length || 0}`);
   console.log(`  Sin embedding_512: ${missingEmb512}`);
@@ -80,9 +86,11 @@ async function audit() {
   console.log('\n' + '═'.repeat(60));
   console.log('4. DUPLICADOS (misma category, >1 fila de fragmento)');
   console.log('═'.repeat(60));
+  // Duplicado real = misma category EN EL MISMO tenant (los clones whatsapp no son duplicados)
   const fragCats = {};
   for (const f of (frags || [])) {
-    fragCats[f.category] = (fragCats[f.category] || 0) + 1;
+    const key = `${f.tenant_id || '—'} · ${f.category}`;
+    fragCats[key] = (fragCats[key] || 0) + 1;
   }
   const dupes = Object.entries(fragCats).filter(([,c]) => c > 1);
   if (dupes.length === 0) {
@@ -99,29 +107,36 @@ async function audit() {
   console.log('5. SINCRONÍA LOCAL vs SUPABASE');
   console.log('═'.repeat(60));
 
+  // Cada arsenal se compara contra SU tenant primario; el clon whatsapp se reporta aparte
   const localFiles = {
-    arsenal_inicial:        '../knowledge_base/arsenal_inicial.txt',
-    arsenal_avanzado:       '../knowledge_base/arsenal_avanzado.txt',
-    arsenal_compensacion:   '../knowledge_base/arsenal_compensacion.txt',
-    arsenal_reto:           '../knowledge_base/arsenal_reto.txt',
-    arsenal_12_niveles:     '../knowledge_base/arsenal_12_niveles.txt',
-    arsenal_ganocafe:       '../knowledge_base/arsenal_ganocafe.txt',
-    arsenal_marca_personal: '../knowledge_base/arsenal_marca_personal.txt',
+    arsenal_inicial:        { path: '../knowledge_base/arsenal_inicial.txt',        tenant: 'creatuactivo_marketing' },
+    arsenal_avanzado:       { path: '../knowledge_base/arsenal_avanzado.txt',       tenant: 'creatuactivo_marketing' },
+    arsenal_compensacion:   { path: '../knowledge_base/arsenal_compensacion.txt',   tenant: 'creatuactivo_marketing' },
+    arsenal_reto:           { path: '../knowledge_base/arsenal_reto.txt',           tenant: 'creatuactivo_marketing' },
+    arsenal_12_niveles:     { path: '../knowledge_base/arsenal_12_niveles.txt',     tenant: 'creatuactivo_marketing' },
+    arsenal_ganocafe:       { path: '../knowledge_base/arsenal_ganocafe.txt',       tenant: 'ecommerce' },
+    arsenal_marca_personal: { path: '../knowledge_base/arsenal_marca_personal.txt', tenant: 'marca_personal' },
   };
 
-  for (const [arsenalName, relPath] of Object.entries(localFiles)) {
+  for (const [arsenalName, { path: relPath, tenant }] of Object.entries(localFiles)) {
     try {
       const content = readFileSync(join(__dirname, relPath), 'utf8');
-      // Count ### headers
-      const matches = content.match(/###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_\d+/g) || [];
+      // Cuenta ### headers de respuesta; (?!\w) excluye sufijos no-fragmentables (ej. FREQ_04_PUENTE)
+      const matches = content.match(/###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_\d+(?!\w)/g) || [];
       const localCount = matches.length;
-      const supabaseCount = byArsenal[arsenalName]?.count || 0;
+      const supabaseCount = byArsenalTenant[arsenalName]?.[tenant] || 0;
       const sync = localCount === supabaseCount ? '✅ SYNC' : `⚠️  DESYNC local=${localCount} supabase=${supabaseCount}`;
-      console.log(`  ${arsenalName.padEnd(35)} local: ${localCount.toString().padStart(3)} resp  supabase: ${supabaseCount.toString().padStart(3)} frags  ${sync}`);
+      console.log(`  ${arsenalName.padEnd(35)} local: ${localCount.toString().padStart(3)} resp  supabase(${tenant}): ${supabaseCount.toString().padStart(3)} frags  ${sync}`);
     } catch {
       console.log(`  ${arsenalName.padEnd(35)} ❌ archivo no encontrado`);
     }
   }
+
+  // Clon whatsapp de arsenal_inicial (clonar-arsenal-whatsapp.mjs NO actualiza existentes — vigilar staleness)
+  const waCount = byArsenalTenant['arsenal_inicial']?.['whatsapp'] || 0;
+  const mainCount = byArsenalTenant['arsenal_inicial']?.['creatuactivo_marketing'] || 0;
+  const waSync = waCount === mainCount ? '✅ mismo conteo que tenant principal' : `⚠️  DESYNC vs principal (${mainCount}) — purgar y re-clonar`;
+  console.log(`  ${'arsenal_inicial (clon whatsapp)'.padEnd(35)} supabase(whatsapp): ${waCount.toString().padStart(3)} frags  ${waSync}`);
 
   // ── 6. NEXUS_QUEUE ──────────────────────────────────────────────────────
   console.log('\n' + '═'.repeat(60));
@@ -172,9 +187,13 @@ async function audit() {
   console.log('\n' + '═'.repeat(60));
   console.log('8. VOCABULARIO PROHIBIDO — SCAN EN ARSENALES LOCALES');
   console.log('═'.repeat(60));
-  const prohibited = ['regalías', 'regalias', 'ingreso pasivo', 'libertad financiera',
-    'reclutar', 'multinivel', 'MLM', 'pirámide', 'Liliana Moreno',
+  // NOTA: "regalías" es vocabulario APROBADO (reemplazo de "ingreso residual" — tabla LÉXICO del prompt).
+  // "multinivel/MLM/pirámide" son legítimas dentro de triggers y fragmentos de manejo de objeción:
+  // se reportan como ℹ️ informativas, no como ⚠️.
+  const prohibited = ['ingreso pasivo', 'libertad financiera',
+    'reclutar', 'Liliana Moreno',
     'ESP-4', 'ESP-5', 'ESP-6', 'Starter', 'Elite', 'Advanced'];
+  const contextual = ['multinivel', 'MLM', 'pirámide'];
   const allFiles = [
     'arsenal_inicial.txt', 'arsenal_avanzado.txt', 'arsenal_compensacion.txt',
     'arsenal_reto.txt', 'arsenal_12_niveles.txt', 'arsenal_ganocafe.txt',
@@ -185,13 +204,20 @@ async function audit() {
     try {
       const content = readFileSync(join(__dirname, '../knowledge_base', fname), 'utf8');
       for (const word of prohibited) {
-        // Skip 'regalias' in arsenal_compensacion — it's technical vocabulary there
-        if (fname === 'arsenal_compensacion.txt' && (word === 'regalías' || word === 'regalias')) continue;
+        // arsenal_12_niveles conserva tuteo/léxico legacy a propósito (NO migrar — ver CLAUDE.md)
+        if (fname === 'arsenal_12_niveles.txt' && word === 'ingreso pasivo') continue;
         if (content.toLowerCase().includes(word.toLowerCase())) {
           const lines = content.split('\n');
           const lineNums = lines.reduce((acc, l, i) => l.toLowerCase().includes(word.toLowerCase()) ? [...acc, i+1] : acc, []);
           console.log(`  ⚠️  ${fname}: "${word}" en líneas ${lineNums.join(', ')}`);
           vocabIssues++;
+        }
+      }
+      for (const word of contextual) {
+        if (content.toLowerCase().includes(word.toLowerCase())) {
+          const lines = content.split('\n');
+          const lineNums = lines.reduce((acc, l, i) => l.toLowerCase().includes(word.toLowerCase()) ? [...acc, i+1] : acc, []);
+          console.log(`  ℹ️  ${fname}: "${word}" en líneas ${lineNums.join(', ')} (verificar: triggers/objeciones son legítimos)`);
         }
       }
     } catch {}
@@ -203,18 +229,21 @@ async function audit() {
   console.log('9. SYSTEM PROMPT LOCAL — SCAN CRÍTICO');
   console.log('═'.repeat(60));
   try {
-    const sp = readFileSync(join(__dirname, '../knowledge_base/system-prompt-nexus-v19.6_lifestyle_bienestar_v3.2.md'), 'utf8');
+    // Archivo fuente vivo (nombre legacy v27_2 — contenido v29.1+)
+    const sp = readFileSync(join(__dirname, '../knowledge_base/system-prompt-nexus-main-v27_2.md'), 'utf8');
     const checks = [
-      { label: 'Trigger "guíame" en ESTADO 1', test: sp.includes('guíame') },
-      { label: 'Prohibición "regalías" en vocab table', test: sp.includes('Regalías / Regalias') },
-      { label: '"regalías" en Velocidad 2 eliminada', test: !sp.includes('cobras regalías') },
-      { label: 'Bloqueo ESP-6/Starter en ESTADO 2', test: sp.includes('ESP-6') && sp.includes('Starter') },
-      { label: 'Estado 3 verbatim wa.me/573215193909', test: sp.includes('wa.me/573215193909') },
+      { label: 'Regla verbatim_lock presente', test: sp.includes('<verbatim_lock>') },
+      { label: 'Moneda país: "solo COP" para Colombia', test: sp.includes('solo COP') },
+      { label: 'Moneda país: "USD por defecto" (sin lista)', test: sp.includes('USD por defecto') },
+      { label: 'Sin regla vieja "USD primero" (contradicción v28.x)', test: !sp.includes('USD primero') },
+      { label: 'Bloqueo Dashboard presente', test: sp.includes('DASHBOARD') },
+      { label: 'Bloqueo KYC presente', test: sp.includes('KYC') },
+      { label: 'Filosofía "NADIE filtra" presente', test: sp.includes('NADIE filtra') },
+      { label: 'Tres Fuerzas de cara al prospecto', test: sp.includes('TRES FUERZAS') },
+      { label: 'Promesa canónica "madura...la decisión"', test: sp.includes('madura en cada interesado la decisión de avanzar') },
       { label: 'PII Liliana Moreno ausente', test: !sp.includes('Liliana Moreno') },
       { label: 'Número viejo 573102066593 ausente', test: !sp.includes('573102066593') },
-      { label: 'M3 few-shot negativo presente', test: sp.includes('RESPUESTA INCORRECTA') || sp.includes('few-shot') || sp.includes('NEGATIVO') },
-      { label: 'CIERRE máquina de estados presente', test: sp.includes('MÁQUINA DE ESTADOS') },
-      { label: 'Patrimonio Paralelo bold (**) presente', test: sp.includes('**Patrimonio Paralelo**') || sp.includes('**PATRIMONIO PARALELO**') },
+      { label: 'Tamaño ≤ 22.000 chars (meta compresión)', test: sp.length <= 22000 },
     ];
     for (const c of checks) {
       console.log(`  ${c.test ? '✅' : '❌'}  ${c.label}`);

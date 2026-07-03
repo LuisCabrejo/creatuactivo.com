@@ -1,6 +1,18 @@
 /**
- * SERVILLETA DIGITAL v6.5 — slides 1 y 2 como card-scrollers con b-rolls 3D
+ * SERVILLETA DIGITAL v6.6 — slides 1 y 2 como card-scrollers con b-rolls 3D
  * 4-Slide Interactive Presentation (Slide Deck)
+ *
+ * v6.6 (2 jul 2026) — Auditoría de navegación + media (no parches):
+ *  - Control CENTRAL de media: un solo efecto gobierna TODOS los videos (data-slide/
+ *    data-card) — antes los clips de la slide abandonada seguían sonando ocultos
+ *    (display:none no pausa un <video>) → audio acumulado. Grid desktop = todo en mute.
+ *  - Portada movida al slide 2 ("CREE SU EMPRESA DIGITAL" puentea QUÉ→CÓMO).
+ *    Slide 1 = 3 clips (índices 0-2) · Slide 2 = portada + 3 clips (índices 0-3).
+ *  - Retroceso de slide aterriza en la ÚLTIMA card de la slide destino (LAST_CARD),
+ *    no en la portada. Eliminado el efecto reset-a-0 que lo clobbearía.
+ *  - Slide 4: swipe-back habilitado desde el simulador (.simulator-panel fuera de la
+ *    exoneración táctil) + guard de eje |dx|>|dy| para no navegar con scroll vertical.
+ *  - Eliminado IntersectionObserver muerto (one-card usa display:none → nunca intersecta).
  *
  * v6.5 (30 jun 2026) — Slide 2 sincronizado con el guión servilleta v5.7:
  *  - Slide 1 = "qué es una empresa digital" (cards: depende de usted · usted es el puente ·
@@ -43,6 +55,11 @@ const ClipPauseIcon = () => (
   </div>
 );
 
+// Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
+// regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
+// Avanzar o saltar por nav → card 0. Slide 1 = 3 clips (máx 2) · Slide 2 = portada + 3 (máx 3).
+const LAST_CARD: Record<number, number> = { 1: 2, 2: 3 };
+
 export default function ServilletaPage() {
   const TOTAL_SLIDES = 4;
   const [activeSlide, setActiveSlide] = useState(1);
@@ -59,6 +76,7 @@ export default function ServilletaPage() {
   const [subscribeOpen, setSubscribeOpen] = useState(false);
   const [pausedKey, setPausedKey] = useState<string | null>(null);
   const touchStartX = React.useRef(0);
+  const touchStartY = React.useRef(0);
   const touchSwipeIgnore = React.useRef(false);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const tripleClickCount = React.useRef(0);
@@ -103,11 +121,11 @@ export default function ServilletaPage() {
     }
   }, []);
 
-  // one-card-mode: contextos donde slide 1 (portada + gráficas) y slide 2 (método)
+  // one-card-mode: contextos donde slide 1 (clips) y slide 2 (portada + clips)
   // muestran una card a la vez, compartiendo activeCardIndex.
-  // Slide 1 = 4 cards (portada + 3 gráficas) → índice máx 3. Slide 2 = 3 cards → índice máx 2.
+  // Slide 1 = 3 clips → índice máx 2. Slide 2 = portada + 3 clips → índice máx 3.
   const oneCardMode = (activeSlide === 1 || activeSlide === 2) && (isFullscreen || isMobile);
-  const maxCardIndex = activeSlide === 1 ? 3 : 2;
+  const maxCardIndex = activeSlide === 2 ? 3 : 2;
 
   // Navegación por teclado
   useEffect(() => {
@@ -130,8 +148,9 @@ export default function ServilletaPage() {
         if (oneCardMode && activeCardIndex > 0) {
           setActiveCardIndex((prev) => prev - 1);
         } else {
-          setActiveSlide((prev) => Math.max(prev - 1, 1));
-          setActiveCardIndex(0);
+          const target = Math.max(activeSlide - 1, 1);
+          setActiveSlide(target);
+          setActiveCardIndex(LAST_CARD[target] ?? 0); // retroceso → última card de la slide destino
         }
       } else if (e.key === 'f' || e.key === 'F') {
         toggleFullscreen();
@@ -139,7 +158,7 @@ export default function ServilletaPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [oneCardMode, activeCardIndex, maxCardIndex, toggleFullscreen]);
+  }, [oneCardMode, activeCardIndex, maxCardIndex, toggleFullscreen, activeSlide]);
 
   // Click-to-advance (single clic) / Fullscreen (double clic) / Queswa demo (triple clic)
   const handleSlideClick = useCallback((e: React.MouseEvent) => {
@@ -186,8 +205,13 @@ export default function ServilletaPage() {
     // (mismo conjunto exonerado en handleSlideClick). Sin esto, arrastrar un
     // slider de izquierda a derecha en mobile se interpreta como swipe → retrocede.
     const target = e.target as HTMLElement;
+    // ⚠️ `.simulator-panel` NO va aquí (auditoría 2 jul 2026): cubre 100vh y bloqueaba
+    // TODO swipe-back en el Slide 4 desde el simulador (desde el CTA de abajo sí
+    // funcionaba porque .cta-panel nunca estuvo en la lista). Los controles reales
+    // (inputs, tabs, selector, contenedor de sliders) siguen exonerados, y el guard
+    // de eje en handleTouchEnd evita que el scroll vertical del simulador navegue.
     touchSwipeIgnore.current = !!target.closest(
-      'input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons'
+      'input, .sim-tabs, .pkg-selector, .controls-container, .cta-buttons'
     );
   }, []);
 
@@ -197,7 +221,10 @@ export default function ServilletaPage() {
       return;
     }
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 60) {
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    // Solo navega si el gesto es claramente HORIZONTAL: un scroll vertical (simulador,
+    // paneles con scroll) que derive un poco en X no debe cambiar de slide.
+    if (Math.abs(diff) > 60 && Math.abs(diff) > Math.abs(diffY) * 1.2) {
       if (diff > 0) {
         // swipe izquierda → avanzar
         if (oneCardMode && activeCardIndex < maxCardIndex) {
@@ -211,12 +238,13 @@ export default function ServilletaPage() {
         if (oneCardMode && activeCardIndex > 0) {
           setActiveCardIndex((prev) => prev - 1);
         } else {
-          setActiveSlide((prev) => Math.max(prev - 1, 1));
-          setActiveCardIndex(0);
+          const target = Math.max(activeSlide - 1, 1);
+          setActiveSlide(target);
+          setActiveCardIndex(LAST_CARD[target] ?? 0); // retroceso → última card de la slide destino
         }
       }
     }
-  }, [oneCardMode, activeCardIndex, maxCardIndex]);
+  }, [oneCardMode, activeCardIndex, maxCardIndex, activeSlide]);
 
   // Tap sobre el clip = pausa/play (estándar Stories/TikTok). Se SEPARA de la navegación
   // (swipe/flechas/dots): tocar el video NO avanza slide/card ni entra a fullscreen — solo
@@ -252,19 +280,17 @@ export default function ServilletaPage() {
   // Rango: 20px (10 hogares, ~$50) → 50px (1000 hogares, ~$4,760).
   const snowballSize = Math.round(20 + (binarioParejas / 1000) * 30);
 
+  // Salto directo por nav/botones → siempre card 0 (inicio de esa slide, en el mismo batch).
+  // El índice de card NO se resetea en ningún efecto: cada ruta de navegación lo fija
+  // explícitamente (avanzar → 0 · retroceder → LAST_CARD · showSlide → 0). El viejo efecto
+  // reset-en-[activeSlide] clobbearía el aterrizaje del retroceso (auditoría 2 jul 2026).
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
-    setActiveCardIndex(0); // reset en el mismo batch: evita que el observer fije la card previa (bug salto a la card 3)
+    setActiveCardIndex(0);
   }, []);
 
-  // Reset tarjeta activa al entrar a slide 1 o 2 (ambas son card-scrollers de 3)
-  useEffect(() => {
-    if (activeSlide === 1 || activeSlide === 2) setActiveCardIndex(0);
-    setPausedKey(null); // al cambiar de slide, ningún clip queda pausado por el usuario
-  }, [activeSlide]);
-
-  // Al cambiar de card, se libera cualquier pausa manual (el nuevo clip reproduce desde 0s)
-  useEffect(() => { setPausedKey(null); }, [activeCardIndex]);
+  // Al navegar (slide o card), se libera cualquier pausa manual del tap-to-pause
+  useEffect(() => { setPausedKey(null); }, [activeSlide, activeCardIndex]);
 
   // Orbe/chat Queswa disponible en toda la slide 2 (donde vive el botón "PREGÚNTALE ALGO EN
   // VIVO", card de Queswa). Antes gateado a activeCardIndex===0 → el botón (card 1) no abría
@@ -275,71 +301,46 @@ export default function ServilletaPage() {
     return () => { window.dispatchEvent(new CustomEvent('hide-queswa-orb')); };
   }, [activeSlide]);
 
-  // Reproducción perezosa de los b-rolls 3D: solo el video de la card activa reproduce;
-  // el resto en pausa. Mantiene el mobile liviano (cada <video> usa preload="none").
+  // ═══ CONTROL CENTRAL DE MEDIA (auditoría 2 jul 2026) ═══
+  // UN solo efecto gobierna play/pause/mute de TODOS los b-rolls del deck — incluidos
+  // los de la slide que se acaba de abandonar. Antes el efecto solo tocaba los videos
+  // de `#slide-{activeSlide}`: al cambiar de slide, el clip activo de la slide anterior
+  // seguía sonando oculto (display:none NO pausa un <video>) → audio acumulado con
+  // cada transición. Cada video declara su posición con data-slide / data-card.
+  // Reglas:
+  //  · Slide no activa → pausa + rebobina + mute (nada suena "detrás").
+  //  · one-card (presentación mobile/fullscreen) → SOLO la card activa reproduce y
+  //    suena, desde 0s. Las demás pausadas.
+  //  · Grid desktop → los 3 clips de la slide activa reproducen EN MUTE (conviven
+  //    visibles: con sonido serían cacofonía — reporte Director 2 jul 2026).
   useEffect(() => {
-    if (activeSlide !== 1 && activeSlide !== 2) return;
     if (typeof window === 'undefined') return;
-    const vids = document.querySelectorAll<HTMLVideoElement>(`#slide-${activeSlide} video.card-bg`);
-    // Slide 1: la portada es activeCardIndex 0 (sin video) → el video i-ésimo es la
-    // gráfica activeCardIndex i+1. Slide 2: mapeo directo (sin portada).
-    const cardOffset = activeSlide === 1 ? 1 : 0;
-    vids.forEach((v, i) => {
-      // one-card-mode (mobile/fullscreen): solo la activa. Desktop grid: todas vivas.
-      const isActive = (i + cardOffset) === activeCardIndex;
-      const shouldPlay = !oneCardMode || isActive;
-      // Sonido: SOLO la card activa suena; las demás en mute (evita cacofonía en desktop grid).
-      // Si el navegador bloquea el autoplay-con-sonido (sin gesto previo), cae a mute y reproduce.
-      v.muted = !isActive;
+    const vids = document.querySelectorAll<HTMLVideoElement>('video.card-bg');
+    vids.forEach((v) => {
+      const slide = Number(v.dataset.slide);
+      const card = Number(v.dataset.card);
+      const inActiveSlide = slide === activeSlide;
+      const isActiveCard = inActiveSlide && card === activeCardIndex;
+      const audible = oneCardMode && isActiveCard;
+      v.muted = !audible;
+      const shouldPlay = inActiveSlide && (!oneCardMode || isActiveCard);
       if (shouldPlay) {
-        // Al volverse la card activa (retroceso o avance), el clip SIEMPRE arranca desde 0s.
-        if (isActive) { try { v.currentTime = 0; } catch { /* noop */ } }
+        // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
+        if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
         v.play().catch(() => {
+          // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
           if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
         });
       } else {
-        // Pausada y rebobinada: la próxima vez que se muestre inicia limpia desde 0s.
         try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
       }
     });
   }, [activeSlide, activeCardIndex, oneCardMode]);
 
-  // Scroll-activated card highlight — solo mobile/tablet. Aplica a slide 1 y 2.
-  useEffect(() => {
-    if (activeSlide !== 1 && activeSlide !== 2) return;
-    if (typeof window === 'undefined') return;
-    if (window.innerWidth > 1024) return;
-
-    const sid = `#slide-${activeSlide}`;
-    // En fullscreen el contenedor de scroll es .slide (CSS: overflow-y: auto en :fullscreen .slide)
-    // En mobile normal el contenedor es .grid-layout-slide-2
-    const scrollRoot = document.fullscreenElement
-      ? document.querySelector<HTMLElement>(sid)
-      : document.querySelector<HTMLElement>(`${sid} .grid-layout-slide-2`);
-    const cards = document.querySelectorAll<HTMLElement>(`${sid} .card-industrial`);
-    if (!cards.length || !scrollRoot) return;
-
-    // Slide 1: las .card-industrial son las 3 gráficas → mapean a activeCardIndex 1,2,3
-    // (la portada, índice 0, no es card-industrial). Slide 2: mapeo directo 0,1,2.
-    const cardOffset = activeSlide === 1 ? 1 : 0;
-    const observers: IntersectionObserver[] = [];
-    cards.forEach((card, index) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-              setActiveCardIndex(index + cardOffset);
-            }
-          });
-        },
-        { root: scrollRoot, threshold: 0.5 }
-      );
-      observer.observe(card);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach(o => o.disconnect());
-  }, [activeSlide, isFullscreen]);
+  // NOTA auditoría: aquí vivía un IntersectionObserver que fijaba activeCardIndex por
+  // scroll. Quedó muerto cuando one-card-mode pasó a ocultar las cards no activas con
+  // display:none (nunca intersectan) — y su mapeo por offset corrompería índices tras
+  // mover la portada al slide 2. Navegación = swipe / flechas / dots / click fuera del clip.
 
   // Ocultar nav mobile cuando Queswa está abierto
   // También libera body overflow para que el teclado virtual no tape el input
@@ -1656,59 +1657,30 @@ export default function ServilletaPage() {
             className={`slide ${activeSlide === 1 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
           >
             <div className="grid-layout-slide-2">
-              {/* Header: en grid (preview) = H1+subtítulo como título de sección;
-                  en one-card (presentación) = solo contador + dots (la portada full-screen
-                  lleva el H1+subtítulo). */}
-              <div className="slide-2-header">
-                {/* Grid (preview): H1+subtítulo como título de sección.
-                    One-card (presentación): el H1+subtítulo vive en la portada full-screen centrada. */}
-                {!oneCardMode && (
-                  <>
-                    <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                      CREE SU EMPRESA DIGITAL
-                    </h2>
-                    <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                      El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
-                    </p>
-                  </>
-                )}
-                {/* Contador/dots solo sobre las 3 gráficas (01 = empresa antigua).
-                    La portada (índice 0) es independiente: sin número, sin borde. */}
-                {oneCardMode && activeCardIndex >= 1 && (
+              {/* Header slide 1: solo contador + dots en presentación (one-card).
+                  El H1 "CREE SU EMPRESA DIGITAL" se movió a la PORTADA del slide 2
+                  (puentea el QUÉ con el CÓMO) — pedido Director 2 jul 2026. */}
+              {oneCardMode && (
+                <div className="slide-2-header">
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 03
+                    0{activeCardIndex + 1} / 03
                   </span>
-                )}
-                {oneCardMode && activeCardIndex >= 1 && (
                   <div className="card-dots">
-                    {[1, 2, 3].map((i) => (
+                    {[0, 1, 2].map((i) => (
                       <button
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
                         onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Gráfica ${i} de 3`}
+                        aria-label={`Gráfica ${i + 1} de 3`}
                       />
                     ))}
                   </div>
-                )}
-              </div>
-
-              {/* Portada (índice 0): pantalla completa con H1 + subtítulo, centrada y limpia.
-                  Solo one-card-mode (en grid el H1+subtítulo vive en el header). */}
-              {oneCardMode && activeCardIndex === 0 && (
-                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
-                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    CREE SU EMPRESA DIGITAL
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
-                  </p>
                 </div>
               )}
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
-                <video className="card-bg" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
+                <video className="card-bg" data-slide="1" data-card="0" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's1-empresa-tradicional' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Depende de que usted est&eacute; ah&iacute;</h3>
@@ -1716,8 +1688,8 @@ export default function ServilletaPage() {
               </div>
 
               {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
-              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
-                <video className="card-bg" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
+                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's1-empresa-digital' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Son el puente</h3>
@@ -1725,8 +1697,8 @@ export default function ServilletaPage() {
               </div>
 
               {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
-                <video className="card-bg" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
+                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's1-sonrisaslindas' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Imagine el suyo</h3>
@@ -1734,7 +1706,7 @@ export default function ServilletaPage() {
               </div>
 
               {/* CTA — en one-card-mode, solo al llegar a la última card */}
-              {(!oneCardMode || activeCardIndex === 3) && (
+              {(!oneCardMode || activeCardIndex === 2) && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(2)}>
                     C&oacute;mo lo hacemos →
@@ -1753,32 +1725,48 @@ export default function ServilletaPage() {
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
           >
             <div className="grid-layout-slide-2">
-              {/* Título */}
-              <div className="slide-2-header">
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  3 COSAS TIENEN QUE SER CIERTAS
-                </h2>
-                <span className="slide-2-subtitle">
-                  Alguien lo fabrica. Algo lo atiende. Usted dirige. Las tres, ya resueltas.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
-                </span>
-                {/* Dots indicador — visibles solo en one-card-mode */}
-                {oneCardMode && (
-                  <div className="card-dots">
-                    {[0, 1, 2].map((i) => (
-                      <button
-                        key={i}
-                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Parte ${i + 1} de 3`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
+              {/* Título — oculto en la portada (índice 0, one-card): la portada es full-screen */}
+              {(!oneCardMode || activeCardIndex >= 1) && (
+                <div className="slide-2-header">
+                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                    3 COSAS TIENEN QUE SER CIERTAS
+                  </h2>
+                  <span className="slide-2-subtitle">
+                    Alguien lo fabrica. Algo lo atiende. Usted dirige. Las tres, ya resueltas.{oneCardMode && ` · 0${activeCardIndex} / 03`}
+                  </span>
+                  {/* Dots indicador — visibles solo en one-card-mode */}
+                  {oneCardMode && (
+                    <div className="card-dots">
+                      {[1, 2, 3].map((i) => (
+                        <button
+                          key={i}
+                          className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                          onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
+                          aria-label={`Parte ${i} de 3`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Portada (índice 0): H1 + subtítulo centrados — la invitación que puentea el
+                  QUÉ (slide 1) con el CÓMO (este slide). Solo one-card (presentación);
+                  en grid no hay secuencia de entrada. Pedido Director 2 jul 2026. */}
+              {oneCardMode && activeCardIndex === 0 && (
+                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
+                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
+                    CREE SU EMPRESA DIGITAL
+                  </h2>
+                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
+                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                  </p>
+                </div>
+              )}
 
               {/* Lo primero · alguien la fabrica → Gano Excel, socio logístico y financiero */}
-              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
-                <video className="card-bg" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
+                <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's2-respaldo' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
@@ -1787,8 +1775,8 @@ export default function ServilletaPage() {
               </div>
 
               {/* Lo segundo · algo la atiende → Queswa, socio digital */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
-                <video className="card-bg" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
+                <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's2-queswa' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio digital</span>
@@ -1811,8 +1799,8 @@ export default function ServilletaPage() {
               </div>
 
               {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
-                <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
+                <video className="card-bg" data-slide="2" data-card="3" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 {pausedKey === 's2-metodo' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
@@ -1820,8 +1808,8 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* CTA al fondo — en one-card-mode, solo cuando se llegó a la 3ra card */}
-              {(!oneCardMode || activeCardIndex === 2) && (
+              {/* CTA al fondo — en one-card-mode, solo cuando se llegó a la última card */}
+              {(!oneCardMode || activeCardIndex === 3) && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(3)}>
                     VER EL PRODUCTO →

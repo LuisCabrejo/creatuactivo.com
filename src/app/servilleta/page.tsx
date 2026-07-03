@@ -1111,7 +1111,7 @@ export default function ServilletaPage() {
           /* ── Slide 4 mobile: scroll-snap vertical ── */
           #slide-4 {
             overflow-y: scroll;
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity; /* proximity (no mandatory): mandatory atrapaba el scroll hacia arriba entre paneles */
             -webkit-overflow-scrolling: touch;
             padding-top: 0;
           }
@@ -1130,7 +1130,7 @@ export default function ServilletaPage() {
             scroll-snap-align: start;
             display: flex;
             flex-direction: column;
-            justify-content: safe center;
+            justify-content: flex-start; /* NO center: centrar contenido más alto que la pantalla dejaba el tope inalcanzable (solo se podía bajar) */
             padding: 70px 20px 90px;
             overflow-y: auto;
             box-sizing: border-box;
@@ -1367,9 +1367,9 @@ export default function ServilletaPage() {
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
           /* ── Slide 4 fullscreen mobile ── */
-          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
           :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: safe center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
+          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
           :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
           :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
           /* flex-start (no center): en fullscreen la .mobile-nav se oculta, así que

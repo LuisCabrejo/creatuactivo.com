@@ -46,17 +46,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SubscribeModal from '@/components/SubscribeModal';
 
-// Overlay ▶ que marca un clip pausado por el usuario (tap-to-pause). pointer-events:none →
-// el clic atraviesa al <video>/card, que maneja el toggle. Ver handleClipTap.
-const ClipPauseIcon = () => (
-  <div className="clip-pause-overlay" aria-hidden="true">
-    <div className="clip-pause-btn">
-      <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-        <path d="M3 2 L22 14 L3 26 Z" fill="#C5A059" />
-      </svg>
-    </div>
-  </div>
-);
+// (El control de pausa es ÚNICO y central — ver clipCenterToggle dentro del componente.
+//  Decisión Director 2 jul 2026: un solo botón, el del centro; el de esquina se retiró.)
 
 // Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
 // regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
@@ -215,16 +206,15 @@ export default function ServilletaPage() {
     touchStartY.current = e.touches[0].clientY;
     touchLastX.current = e.touches[0].clientX;
     touchLastY.current = e.touches[0].clientY;
-    // Ignorar el swipe si el touch nace sobre sliders / controles reales.
-    // ⚠️ `.simulator-panel` NO va aquí (auditoría 2 jul 2026): cubre 100vh y bloqueaba
-    // TODO swipe-back en el Slide 4 desde el simulador (desde el CTA de abajo sí
-    // funcionaba porque .cta-panel nunca estuvo en la lista). Los controles reales
-    // (inputs, tabs, selector, contenedor de sliders) siguen exonerados, y el guard
-    // de eje en evaluateSwipe evita que el scroll vertical del simulador navegue.
+    // SOLO los <input> (sliders del simulador) exoneran el swipe: arrastrar el thumb
+    // es un gesto horizontal legítimo que NO debe navegar. Todo lo demás (tabs,
+    // selector, botones, paneles) permite swipe — un TAP dispara su click normal y
+    // un DESPLAZAMIENTO es navegación; no compiten ("la plataforma debe identificar
+    // entre un clic y un scroll" — Director 2 jul 2026). Historial: la lista llegó a
+    // incluir .simulator-panel (bloqueaba TODO el swipe-back del Slide 4) y luego
+    // tabs/selector/botones (dejaban zonas muertas dispersas en el Slide 4).
     const target = e.target as HTMLElement;
-    touchSwipeIgnore.current = !!target.closest(
-      'input, .sim-tabs, .pkg-selector, .controls-container, .cta-buttons'
-    );
+    touchSwipeIgnore.current = !!target.closest('input');
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
@@ -299,23 +289,32 @@ export default function ServilletaPage() {
     toggleClip(e.currentTarget as HTMLElement, key);
   }, [toggleClip]);
 
-  // Botón ⏸/▶ de esquina — control explícito de pausa por card (desktop y mobile)
-  const clipToggle = (key: string) => (
-    <button
-      className="clip-toggle"
-      aria-label={pausedKey === key ? 'Reproducir clip' : 'Pausar clip'}
-      onClick={(e) => {
-        e.stopPropagation();
-        toggleClip((e.currentTarget as HTMLElement).closest('.card-industrial') as HTMLElement, key);
-      }}
-    >
-      {pausedKey === key ? (
-        <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M1 1 L13 8 L1 15 Z" fill="currentColor" /></svg>
-      ) : (
-        <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><rect x="1" y="1" width="4" height="14" fill="currentColor" /><rect x="9" y="1" width="4" height="14" fill="currentColor" /></svg>
-      )}
-    </button>
-  );
+  // Control ÚNICO de pausa — botón CENTRAL sobre el clip (Director 2 jul 2026: solo
+  // el del centro). Estados: pausado → ▶ visible siempre (ambas plataformas);
+  // reproduciendo → invisible; en desktop aparece ⏸ al hover (vía CSS @media hover)
+  // porque allí el click sobre el clip avanza la presentación, no pausa.
+  const clipCenterToggle = (key: string) => {
+    const paused = pausedKey === key;
+    return (
+      <div className={`clip-pause-overlay ${paused ? 'is-paused' : ''}`}>
+        <button
+          className="clip-pause-btn"
+          aria-label={paused ? 'Reproducir clip' : 'Pausar clip'}
+          style={{ paddingLeft: paused ? 4 : 0 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleClip((e.currentTarget as HTMLElement).closest('.card-industrial') as HTMLElement, key);
+          }}
+        >
+          {paused ? (
+            <svg width="24" height="28" viewBox="0 0 24 28" fill="none" aria-hidden="true"><path d="M3 2 L22 14 L3 26 Z" fill="#C5A059" /></svg>
+          ) : (
+            <svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true"><rect x="2" y="2" width="6" height="22" fill="#C5A059" /><rect x="14" y="2" width="6" height="22" fill="#C5A059" /></svg>
+          )}
+        </button>
+      </div>
+    );
+  };
 
   // Lógica del Simulador
   const TRM = 4500;
@@ -344,14 +343,10 @@ export default function ServilletaPage() {
   // Al navegar (slide o card), se libera cualquier pausa manual del tap-to-pause
   useEffect(() => { setPausedKey(null); }, [activeSlide, activeCardIndex]);
 
-  // Orbe/chat Queswa disponible en toda la slide 2 (donde vive el botón "PREGÚNTALE ALGO EN
-  // VIVO", card de Queswa). Antes gateado a activeCardIndex===0 → el botón (card 1) no abría
-  // el chat, y en desktop grid activeCardIndex no cambia con scroll → roto en desktop.
-  useEffect(() => {
-    const visible = activeSlide === 2;
-    window.dispatchEvent(new CustomEvent(visible ? 'show-queswa-orb' : 'hide-queswa-orb'));
-    return () => { window.dispatchEvent(new CustomEvent('hide-queswa-orb')); };
-  }, [activeSlide]);
+  // Queswa en servilleta: SIN orbe flotante (la burbuja sobre los clips no es la
+  // experiencia buscada — Director 2 jul 2026). El chat abre únicamente desde el botón
+  // "PREGÚNTALE ALGO EN VIVO" (open-queswa); UnifiedQueswaOrb monta solo mientras
+  // el chat está abierto. No se despacha show-queswa-orb.
 
   // ═══ CONTROL CENTRAL DE MEDIA (auditoría 2 jul 2026) ═══
   // UN solo efecto gobierna play/pause/mute de TODOS los b-rolls del deck — incluidos
@@ -682,39 +677,35 @@ export default function ServilletaPage() {
         }
         .card-industrial:hover .card-bg { filter: brightness(1); }
 
-        /* Tap-to-pause: ▶ centrado sobre el clip pausado por el usuario.
-           pointer-events:none → el clic atraviesa a la card (que hace el toggle). */
+        /* Control ÚNICO de pausa — botón central sobre el clip.
+           · Pausado → ▶ visible siempre (mobile y desktop).
+           · Reproduciendo → invisible; en desktop aparece ⏸ al hover (el click
+             sobre el clip allí avanza la presentación, no pausa).
+           El overlay NO bloquea (pointer-events: none); solo el botón captura. */
         .clip-pause-overlay {
           position: absolute; inset: 0; z-index: 3;
           display: flex; align-items: center; justify-content: center;
           pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.2s ease;
+        }
+        .clip-pause-overlay.is-paused { opacity: 1; }
+        .clip-pause-overlay.is-paused .clip-pause-btn { pointer-events: auto; }
+        @media (hover: hover) {
+          .card-industrial:hover .clip-pause-overlay { opacity: 1; }
+          .card-industrial:hover .clip-pause-btn { pointer-events: auto; }
         }
         .clip-pause-btn {
           width: 72px; height: 72px; border-radius: 50%;
           background: rgba(15,17,21,0.55);
           border: 1.5px solid rgba(197,160,89,0.65);
           display: flex; align-items: center; justify-content: center;
-          padding-left: 4px; /* centra ópticamente el triángulo */
-          animation: clipPauseIn 0.18s ease-out;
+          cursor: pointer;
+          transition: background 0.2s, border-color 0.2s;
         }
-        @keyframes clipPauseIn { from { opacity: 0; transform: scale(0.82); } to { opacity: 1; transform: scale(1); } }
+        .clip-pause-btn:hover { background: rgba(15,17,21,0.8); border-color: var(--orange); }
         :fullscreen .clip-pause-btn { width: 104px; height: 104px; }
         :fullscreen .clip-pause-btn svg { width: 34px; height: 40px; }
-
-        /* Botón ⏸/▶ de esquina — control explícito por card. En desktop es LA vía de
-           pausa (el click sobre el clip avanza la presentación); en mobile complementa
-           el tap (discoverability). */
-        .clip-toggle {
-          position: absolute; top: 12px; right: 12px; z-index: 4;
-          width: 42px; height: 42px; border-radius: 50%;
-          background: rgba(15,17,21,0.55);
-          border: 1px solid rgba(255,255,255,0.25);
-          color: rgba(255,255,255,0.85);
-          display: flex; align-items: center; justify-content: center;
-          padding: 0; cursor: pointer;
-          transition: border-color 0.2s, color 0.2s, background 0.2s;
-        }
-        .clip-toggle:hover { border-color: var(--orange); color: var(--orange); background: rgba(15,17,21,0.75); }
 
         .card-content {
           position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 24px 22px;
@@ -1777,8 +1768,7 @@ export default function ServilletaPage() {
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
                 <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s1-empresa-tradicional')}
-                {pausedKey === 's1-empresa-tradicional' && <ClipPauseIcon />}
+                {clipCenterToggle('s1-empresa-tradicional')}
                 <div className="card-content">
                   <h3 className="pillar-name">Depende de que usted est&eacute; ah&iacute;</h3>
                 </div>
@@ -1787,8 +1777,7 @@ export default function ServilletaPage() {
               {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
                 <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s1-empresa-digital')}
-                {pausedKey === 's1-empresa-digital' && <ClipPauseIcon />}
+                {clipCenterToggle('s1-empresa-digital')}
                 <div className="card-content">
                   <h3 className="pillar-name">Son el puente</h3>
                 </div>
@@ -1797,8 +1786,7 @@ export default function ServilletaPage() {
               {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
                 <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s1-sonrisaslindas')}
-                {pausedKey === 's1-sonrisaslindas' && <ClipPauseIcon />}
+                {clipCenterToggle('s1-sonrisaslindas')}
                 <div className="card-content">
                   <h3 className="pillar-name">Imagine el suyo</h3>
                 </div>
@@ -1871,8 +1859,7 @@ export default function ServilletaPage() {
               {/* Lo primero · alguien la fabrica → Gano Excel, socio logístico y financiero */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
                 <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s2-respaldo')}
-                {pausedKey === 's2-respaldo' && <ClipPauseIcon />}
+                {clipCenterToggle('s2-respaldo')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
                   <h3 className="pillar-name">Gano Excel</h3>
@@ -1882,8 +1869,7 @@ export default function ServilletaPage() {
               {/* Lo segundo · algo la atiende → Queswa, socio digital */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
                 <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s2-queswa')}
-                {pausedKey === 's2-queswa' && <ClipPauseIcon />}
+                {clipCenterToggle('s2-queswa')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio digital</span>
                   <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
@@ -1907,8 +1893,7 @@ export default function ServilletaPage() {
               {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
                 <video className="card-bg" data-slide="2" data-card="3" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
-                {clipToggle('s2-metodo')}
-                {pausedKey === 's2-metodo' && <ClipPauseIcon />}
+                {clipCenterToggle('s2-metodo')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
                   <h3 className="pillar-name">Los pasos exactos</h3>

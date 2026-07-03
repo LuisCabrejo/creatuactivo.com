@@ -565,8 +565,11 @@ export default function UnifiedQueswaOrb() {
     )
   }
 
-  // En /servilleta solo visible cuando card-1 de slide-2 está activa
-  if (pathname === '/servilleta' && !visibleInServilleta) return null
+  // En /servilleta el orbe flotante NO se muestra (decisión Director 2 jul 2026:
+  // la burbuja sobre los clips no es la experiencia buscada). El chat abre SOLO
+  // desde el botón "PREGÚNTALE ALGO EN VIVO" (evento open-queswa) → cuando isOpen,
+  // el componente monta para servir el widget; al cerrar vuelve a desaparecer.
+  if (pathname === '/servilleta' && !visibleInServilleta && !isOpen) return null
   // Ocultar mientras el menú mobile está abierto
   if (isMenuOpen) return null
 

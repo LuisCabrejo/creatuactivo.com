@@ -256,11 +256,14 @@ export default function ServilletaPage() {
       // Si el navegador bloquea el autoplay-con-sonido (sin gesto previo), cae a mute y reproduce.
       v.muted = !isActive;
       if (shouldPlay) {
+        // Al volverse la card activa (retroceso o avance), el clip SIEMPRE arranca desde 0s.
+        if (isActive) { try { v.currentTime = 0; } catch { /* noop */ } }
         v.play().catch(() => {
           if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
         });
       } else {
-        try { v.pause(); } catch { /* noop */ }
+        // Pausada y rebobinada: la próxima vez que se muestre inicia limpia desde 0s.
+        try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
       }
     });
   }, [activeSlide, activeCardIndex, oneCardMode]);
@@ -1072,7 +1075,7 @@ export default function ServilletaPage() {
             scroll-snap-align: start;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: safe center;
             padding: 70px 20px 90px;
             overflow-y: auto;
             box-sizing: border-box;
@@ -1311,7 +1314,7 @@ export default function ServilletaPage() {
           /* ── Slide 4 fullscreen mobile ── */
           :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y mandatory !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
           :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
+          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: safe center !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
           :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
           :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
           /* flex-start (no center): en fullscreen la .mobile-nav se oculta, así que
@@ -1602,13 +1605,18 @@ export default function ServilletaPage() {
                   en one-card (presentación) = solo contador + dots (la portada full-screen
                   lleva el H1+subtítulo). */}
               <div className="slide-2-header">
-                {/* Título siempre visible, fijo arriba (desktop y mobile/one-card). */}
-                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                  CREE SU EMPRESA DIGITAL
-                </h2>
-                <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                  El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
-                </p>
+                {/* Grid (preview): H1+subtítulo como título de sección.
+                    One-card (presentación): el H1+subtítulo vive en la portada full-screen centrada. */}
+                {!oneCardMode && (
+                  <>
+                    <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
+                      CREE SU EMPRESA DIGITAL
+                    </h2>
+                    <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
+                      El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                    </p>
+                  </>
+                )}
                 {/* Contador/dots solo sobre las 3 gráficas (01 = empresa antigua).
                     La portada (índice 0) es independiente: sin número, sin borde. */}
                 {oneCardMode && activeCardIndex >= 1 && (
@@ -1630,8 +1638,18 @@ export default function ServilletaPage() {
                 )}
               </div>
 
-              {/* (Portada full-screen retirada: el título ahora es fijo en el header, arriba,
-                  en ambos modos. Evita el título duplicado en mobile.) */}
+              {/* Portada (índice 0): pantalla completa con H1 + subtítulo, centrada y limpia.
+                  Solo one-card-mode (en grid el H1+subtítulo vive en el header). */}
+              {oneCardMode && activeCardIndex === 0 && (
+                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
+                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
+                    CREE SU EMPRESA DIGITAL
+                  </h2>
+                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
+                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                  </p>
+                </div>
+              )}
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
@@ -1645,7 +1663,7 @@ export default function ServilletaPage() {
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`}>
                 <video className="card-bg" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
-                  <h3 className="pillar-name">Usted es el puente</h3>
+                  <h3 className="pillar-name">Son el puente</h3>
                 </div>
               </div>
 

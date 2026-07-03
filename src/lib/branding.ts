@@ -92,12 +92,12 @@ export const BRAND = {
     }
   },
 
+  // Stacks para EMAILS (web-safe con fallback). En la web usar var(--font-sans/serif/mono)
+  // — las únicas fuentes cargadas en layout.tsx son Playfair Display, Inter y Roboto Mono.
   fonts: {
     serif: 'Playfair Display, Georgia, serif',           // "La Promesa"
     sans: 'Montserrat, Inter, -apple-system, sans-serif', // Body text
-    industrial: 'Rajdhani, sans-serif',                   // "La Máquina"
     mono: 'Roboto Mono, monospace',                       // "La Evidencia"
-    logo: "'Rajdhani', sans-serif",
     stack: 'Montserrat, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif'
   },
 

@@ -458,21 +458,19 @@ export default function FundadoresPage() {
                     <div className="phase-progress w-[33%]"></div>
 
                     <div className="grid grid-cols-3 gap-4 relative z-10">
-                        <PhaseNode isActive={true} title="Lista Privada" date="Hoy - 04 Ene" spots="150 Cupos" />
-                        <PhaseNode isPast={false} title="Pre-Lanzamiento" date="05 Ene - 01 Mar" spots="22,500" />
-                        <PhaseNode isPast={false} title="Lanzamiento Global" date="02 Mar 2026" spots="4M+" />
+                        <PhaseNode isActive={true} title="Lista Privada" date="Fase actual — en curso" spots="150 Cupos" />
+                        <PhaseNode isPast={false} title="Pre-Lanzamiento" date="Al completar la base" spots="22,500" />
+                        <PhaseNode isPast={false} title="Lanzamiento Global" date="Despliegue continental" spots="4M+" />
                     </div>
                 </div>
 
-                {/* BIMETALLIC: Countdown card con borde dorado */}
+                {/* BIMETALLIC: card de urgencia — sin countdown de calendario (doctrina: la
+                    ventana la cierra el cupo, no una fecha; el acompañamiento del núcleo
+                    fundador es finito). El countdown estático con fechas vencidas fue
+                    retirado (jul 2026). */}
                 <div className="mt-16 glass-card p-8 rounded-xl max-w-2xl mx-auto text-center border-[rgba(198, 167, 107,0.3)] bg-[rgba(198, 167, 107,0.05)]">
-                    <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-6">Tiempo Restante para cerrar Lista Privada</p>
-                    <div className="grid grid-cols-4 gap-4">
-                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">23</span><p className="text-[10px] text-slate-500 mt-1">DÍAS</p></div>
-                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">03</span><p className="text-[10px] text-slate-500 mt-1">HRS</p></div>
-                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">06</span><p className="text-[10px] text-slate-500 mt-1">MIN</p></div>
-                        <div className="bg-[#0B0C0C]/50 rounded-xl p-3"><span className="text-3xl md:text-4xl font-bold text-white">43</span><p className="text-[10px] text-slate-500 mt-1">SEG</p></div>
-                    </div>
+                    <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-4">La Lista Privada se cierra por cupos, no por calendario</p>
+                    <p className="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto">El acompañamiento directo del núcleo fundador es finito: cada posición ocupada reduce la ventana. Al completarse la base fundacional, inicia el Pre-Lanzamiento.</p>
                 </div>
             </div>
         </section>

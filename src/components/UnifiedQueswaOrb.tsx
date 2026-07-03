@@ -124,7 +124,13 @@ async function playVoiceResponse(
         if (done) { ended = true; flush(); return }
         queue.push(value)
         flush()
-        if (!started) { started = true; onStart(); audio.play().catch(() => {}) }
+        if (!started) {
+          started = true
+          onStart()
+          // iOS puede bloquear play() lejos del gesto del usuario: sin este
+          // guard el estado quedaba colgado en "Respondiendo" (ended nunca llega)
+          audio.play().catch(() => cleanup())
+        }
         pump()
       } catch {
         ended = true; flush()

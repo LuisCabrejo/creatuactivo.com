@@ -51,10 +51,30 @@ function stripMarkdown(text: string): string {
     .replace(/#{1,6}\s/g, '')
     .replace(/`{1,3}[^`]*`{1,3}/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Tablas: fila separadora |---|---| se elimina; filas de datos se leen
+    // como oración ("ESP-1, Inicial, 250 dólares.") en vez de pipes crudos
+    .replace(/^\s*\|[\s:|-]+\|\s*$/gm, '')
+    .replace(/^\s*\|(.+)\|\s*$/gm, (_, row: string) =>
+      row.split('|').map(c => c.trim()).filter(Boolean).join(', ') + '.')
+    // Separadores horizontales --- del formato Lujo Clínico
+    .replace(/^\s*-{3,}\s*$/gm, '')
     .replace(/^\s*[-*+]\s/gm, '')
     .replace(/\n{2,}/g, '. ')
     .replace(/\n/g, ' ')
+    .replace(/\.\s*\./g, '. ')  // ".." generado por líneas vacías tras limpiar
+    .replace(/ {2,}/g, ' ')
     .trim();
+}
+
+// Trunca respetando el límite de oración — cortar a media palabra suena a falla
+function truncarEnFrase(text: string, max = 600): string {
+  if (text.length <= max) return text;
+  const cut = text.substring(0, max);
+  const lastEnd = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('? '), cut.lastIndexOf('! '));
+  if (lastEnd > max * 0.4) return cut.substring(0, lastEnd + 1);
+  // Sin frontera de oración razonable → cortar en la última palabra completa
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 0 ? cut.substring(0, lastSpace) : cut) + '.';
 }
 
 async function elevenLabsTTS(text: string, apiKey: string): Promise<ArrayBuffer | null> {
@@ -129,7 +149,7 @@ export async function POST(req: Request) {
   }
 
   // stripMarkdown limpia formato; normalizarParaVoz convierte "$200 USD"/"%" a palabras
-  const cleanText = normalizarParaVoz(stripMarkdown(text)).substring(0, 600);
+  const cleanText = truncarEnFrase(normalizarParaVoz(stripMarkdown(text)));
   const cacheKey  = djb2(cleanText);
 
   // ── Caché hit — sin llamada a ElevenLabs ──────────────────────────────────

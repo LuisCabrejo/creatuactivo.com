@@ -341,9 +341,12 @@ async function executeTool(name: string, input: Record<string, unknown>): Promis
     const stages = ['exploracion', 'activar', 'maestria'] as const
     const counts: Record<string, number> = {}
     for (const s of stages) {
+      // Mismo filtro por constructor que list_prospects — sin él, el resumen
+      // mezcla los prospectos de TODOS los constructores (fuga entre cuentas)
       const { count } = await supabase
         .from('nexus_prospects')
-        .select('fingerprint', { count: 'exact', head: true })
+        .select('fingerprint, device_info!inner(invited_by)', { count: 'exact', head: true })
+        .eq('device_info.invited_by', constructorId)
         .eq('stage', s)
       counts[s] = count ?? 0
     }
@@ -610,11 +613,33 @@ Puedes mover prospectos de etapa, listar prospectos y dar resúmenes del pipelin
       })
     }
 
-    // b) Streaming ElevenLabs → el cliente reproduce mientras se sintetiza
+    // b) Streaming ElevenLabs → el cliente reproduce mientras se sintetiza.
+    //    tee(): una rama al cliente, la otra se acumula y puebla el caché —
+    //    sin esto el caché solo guardaba el fallback OpenAI y las frases
+    //    repetidas pagaban ElevenLabs cada vez.
     const stream = await elevenLabsStream(ttsText)
     if (stream) {
       console.log(`🔊 [Voice] TTS streaming`)
-      return new NextResponse(stream, { status: 200, headers: baseHeaders })
+      const [toClient, toCache] = stream.tee()
+      void (async () => {
+        try {
+          const reader = toCache.getReader()
+          const chunks: Uint8Array[] = []
+          let total = 0
+          for (;;) {
+            const { done, value } = await reader.read()
+            if (done) break
+            chunks.push(value)
+            total += value.length
+          }
+          if (total === 0) return
+          const buf = new Uint8Array(total)
+          let off = 0
+          for (const c of chunks) { buf.set(c, off); off += c.length }
+          ttsCacheSet(ttsHash(ttsText), buf)
+        } catch { /* caché best-effort — nunca afecta la respuesta */ }
+      })()
+      return new NextResponse(toClient, { status: 200, headers: baseHeaders })
     }
 
     // c) Fallback buffer (OpenAI tts-1)

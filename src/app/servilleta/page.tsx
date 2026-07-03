@@ -1,6 +1,11 @@
 /**
- * SERVILLETA DIGITAL v6.6 — slides 1 y 2 como card-scrollers con b-rolls 3D
+ * SERVILLETA DIGITAL v6.7 — slides 1 y 2 como card-scrollers con b-rolls 3D
  * 4-Slide Interactive Presentation (Slide Deck)
+ *
+ * v6.7 (3 jul 2026) — Tríada Slide 2 sin pronombre ambiguo (guión servilleta v5.8):
+ *  - Subtítulo/portada: "alguien la fabrica, algo la atiende" → "alguien fabrica, una
+ *    plataforma atiende a las personas" (nadie "fabrica" una empresa; "una plataforma"
+ *    mapea limpio con Queswa). Sync con reel home + src/app/page.tsx.
  *
  * v6.6 (2 jul 2026) — Auditoría de navegación + media (no parches):
  *  - Control CENTRAL de media: un solo efecto gobierna TODOS los videos (data-slide/
@@ -1804,9 +1809,10 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 2: LO DIFÍCIL YA ESTÁ HECHO — primeros principios (clips 3D) =====
-              Tres condiciones ya resueltas: alguien la fabrica (Gano, socio logístico y
-              financiero) · algo la atiende (Queswa, socio digital) · usted sabe qué hacer (Método).
-              Gano se USA, no se entra. NUNCA "pilares" ni "fuerzas". Guión servilleta v5.7. */}
+              Tres condiciones ya resueltas: alguien fabrica (Gano, socio logístico y
+              financiero) · una plataforma atiende a las personas (Queswa, socio digital) ·
+              usted sabe qué hacer (Método). Gano se USA, no se entra. NUNCA "pilares" ni
+              "fuerzas". Guión servilleta v5.8. */}
           <section
             id="slide-2"
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -1821,7 +1827,7 @@ export default function ServilletaPage() {
                     3 COSAS TIENEN QUE SER CIERTAS
                   </h2>
                   <span className="slide-2-subtitle">
-                    Alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres, ya resueltas.
+                    Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas.
                   </span>
                 </div>
               )}
@@ -1851,12 +1857,12 @@ export default function ServilletaPage() {
                     3 COSAS TIENEN QUE SER CIERTAS
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres, ya resueltas.
+                    Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas.
                   </p>
                 </div>
               )}
 
-              {/* Lo primero · alguien la fabrica → Gano Excel, socio logístico y financiero */}
+              {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
                 <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-respaldo')}
@@ -1866,7 +1872,7 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Lo segundo · algo la atiende → Queswa, socio digital */}
+              {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
                 <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-queswa')}

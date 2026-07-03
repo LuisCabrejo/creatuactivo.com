@@ -3,7 +3,7 @@ GUIÓN MAESTRO SERVILLETA v5.7 · TELEPROMPTER
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 30 junio 2026 — v5.7 regenerado desde el guión maestro. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien la fabrica (Gano Excel, su socio logístico y financiero), algo la atiende (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 3 julio 2026 — v5.8 (tríada sin pronombre ambiguo, sync con el guión maestro). Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien fabrica (Gano Excel, su socio logístico y financiero), una plataforma atiende a las personas (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -137,13 +137,13 @@ y asumir los riesgos de cualquier proyecto empresarial.
 
 O el apalancamiento.
 
-Y aquí está la idea simple:
+Y aquí está la regla sencilla:
 
 para que una empresa digital así exista,
 
 tres cosas tienen que ser ciertas —
 
-alguien la fabrica, algo la atiende, y usted sabe qué hacer.
+alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.
 
 
 
@@ -155,7 +155,7 @@ Usted no la arma — la dirige.
 
 
 
-LO PRIMERO · ALGUIEN LA FABRICA
+LO PRIMERO · ALGUIEN FABRICA
 
 Lo primero: alguien tiene que fabricar.
 
@@ -187,9 +187,9 @@ Gano Excel trabaja para usted.
 
 
 
-LO SEGUNDO · ALGO LA ATIENDE
+LO SEGUNDO · UNA PLATAFORMA ATIENDE A LAS PERSONAS
 
-Lo segundo: alguien tiene que atender a la gente.
+Lo segundo: una plataforma tiene que atender a las personas.
 
 Eso lo hace su socio digital, Queswa —
 

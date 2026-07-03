@@ -2,9 +2,10 @@
  * Copyright © 2026 CreaTuActivo.com
  * Homepage v13.7 — "Lo difícil ya está hecho" (30 jun 2026): sección "Cómo lo hacemos
  * nosotros" → eyebrow "Lo difícil ya está hecho" (quita el "nosotros" de pitch); intro a
- * primeros principios (alguien la fabrica / algo la atiende / usted sabe qué hacer → ya
- * resueltas, sin "le entregamos"); bisagra "Usted no entra a Gano Excel: Gano Excel trabaja
- * para usted". Sincroniza con servilleta v5.7 (Gano se USA, no se entra).
+ * primeros principios (alguien fabrica / una plataforma atiende a las personas / usted sabe
+ * qué hacer → ya resueltas, sin "le entregamos"); bisagra "Usted no entra a Gano Excel: Gano
+ * Excel trabaja para usted". Sincroniza con servilleta v5.8 (Gano se USA, no se entra;
+ * tríada sin pronombre ambiguo, 3 jul 2026).
  * Previo v13.6 — "empresa digital" (12 jun 2026): cuando la Home habla en primera
  * persona del activo que entregamos ("ser dueño de una empresa digital", "su empresa
  * digital"), el término es EMPRESA digital — eleva estatus de propiedad (decisión Luis).
@@ -341,7 +342,7 @@ function ComoLoHacemosIntro() {
           borderRadius: 'var(--radius-container)',
         }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: C.muted, margin: 0 }}>
-            Levantar una empresa digital exige que <strong style={{ color: C.white, fontWeight: 600 }}>tres cosas sean ciertas: que alguien la fabrique, que algo la atienda, y que usted sepa qué hacer</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. Aquí <span style={{ color: C.white }}>las tres ya están resueltas: usted no la construye, la dirige.</span>
+            Levantar una empresa digital exige que <strong style={{ color: C.white, fontWeight: 600 }}>tres cosas sean ciertas: que alguien fabrique, que una plataforma atienda a las personas, y que usted sepa qué hacer</strong>. Hacerlo solo significa años, ingenieros y capital — el muro que frena a todo empresario. Aquí <span style={{ color: C.white }}>las tres ya están resueltas: usted no la construye, la dirige.</span>
           </p>
         </div>
       </div>

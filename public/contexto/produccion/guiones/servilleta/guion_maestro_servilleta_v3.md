@@ -1,5 +1,10 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.7
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.8
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v5.8 (3 jul 2026 — tríada sin pronombre ambiguo, sync con reel home)
+- **Tríada de primeros principios:** "alguien **la** fabrica, algo **la** atiende" → **"alguien fabrica, una plataforma atiende a las personas"**. El pronombre "la" era gramaticalmente ambiguo (nadie "fabrica" una empresa); "una plataforma" es más concreta que "algo" y mapea limpio con Queswa en LO SEGUNDO. "idea simple" → **"regla sencilla"**. Origen: pasada de claridad del reel home (`REELS_SITIO_CREATUACTIVO.md`, 3 jul 2026); propagado a `page.tsx` de servilleta (subtítulo Slide 2 × 2) + home (`src/app/page.tsx` línea "Levantar una empresa digital exige…").
+- **LO SEGUNDO:** "alguien tiene que atender a **la gente**" → "una plataforma tiene que atender a **las personas**" (de paso corrige "gente", registro vetado — ver [[feedback_evitar_gente_despectivo]]).
+- **Subtítulo en pantalla del Slide 2** alineado con lo que la página renderiza realmente ("Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas." — antes el guión decía "Alguien lo fabrica. Algo lo atiende. Usted dirige.", que nunca calzó con `page.tsx`).
 
 ### Cambios de v5.7 (30 jun 2026 — Slide 2 a "primeros principios" + Gano como socio que se USA, no al que se entra)
 - **Origen (presentaciones 1-a-1):** al nombrar **Gano Excel** se le cambiaba la cara al prospecto — *"ahh, es meterse a Gano"*, reflejo MLM → bloqueo / sensación de engaño. Reframe: Gano deja de ser "la empresa a la que entra" y pasa a ser **su socio logístico y financiero** (el que ya quemó el capital, carga el inventario millonario y responde por lo legal — *de su lado*). Línea bisagra: **"Usted no entra a Gano Excel. Gano Excel trabaja para usted."** Matiz elevado tomado de `REELS_SITIO_CREATUACTIVO.md` (home).
@@ -98,21 +103,21 @@ Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa má
 ---
 
 # SLIDE 2 · LO DIFÍCIL YA ESTÁ HECHO
-*Subtítulo en pantalla: "Alguien lo fabrica. Algo lo atiende. Usted dirige."*
+*Subtítulo en pantalla: "Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas."*
 
 Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
 **Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
-**O el apalancamiento.** Y aquí está la idea simple: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la dirige.
+**O el apalancamiento.** Y aquí está la regla sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la dirige.
 
-**LO PRIMERO · alguien la fabrica** · *su socio logístico y financiero: Gano Excel.*
+**LO PRIMERO · alguien fabrica** · *su socio logístico y financiero: Gano Excel.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
 Lo primero: alguien tiene que **fabricar**. Ahí está su **socio logístico y financiero, Gano Excel** — el fabricante detrás de su puente. ¿Recuerda que Amazon no fabrica lo que vende? Aquí igual. Gano es el **músculo que le quita de encima todo el peso y todo el riesgo**: más de **30 años**, presencia en **70 países**, fabrica, **asume el costo millonario del inventario**, responde por lo legal y despacha en cada país. Músculo real, **de su lado**. **[ PAUSA ]** Usted **no entra** a Gano Excel. **Gano Excel trabaja para usted.**
 
-**LO SEGUNDO · algo la atiende** · *su socio digital: Queswa.*
+**LO SEGUNDO · una plataforma atiende a las personas** · *su socio digital: Queswa.*
 *B-roll: la orbe Queswa en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Lo segundo: alguien tiene que **atender a la gente**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa, que **atiende y madura en cada interesado la decisión de avanzar** —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
+Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa, que **atiende y madura en cada interesado la decisión de avanzar** —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
 
 *(En vivo, el Arquitecto se presenta aquí: "ese socio digital soy yo".)*
 

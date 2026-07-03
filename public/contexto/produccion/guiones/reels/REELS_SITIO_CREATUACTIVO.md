@@ -31,19 +31,19 @@ El video explica; Queswa (ahí mismo en la página) profundiza.
 
 Si llegó hasta aquí, es porque quiere entender de qué se trata. Se lo explico en un minuto.
 
-Casi todos compartimos el mismo problema financiero: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — un ciclo perpetuo de trabajar, pagar cuentas y repetir. Y esto no sucede por un error suyo o mala planificación: es sencillamente la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
+Casi todos compartimos el mismo problema: hoy ni el empleo garantiza estabilidad, ni hacer empresa es el camino seguro. Al final, la vida de la mayoría se resume en lo mismo — un ciclo perpetuo de trabajar, pagar cuentas y repetir. Y esto no sucede por un error suyo o mala planificación: es sencillamente la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud, no para darle seguridad financiera.
 
 CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario de una empresa digital que sí puede darle esa seguridad.
 
-¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, infraestructura, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, reemplaza el local por infraestructura en internet y los empleados por procesos automatizados que producen aunque usted duerma. El mismo esfuerzo llega a una persona o a un millón — y cuesta lo mismo. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Usan internet para ser el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
+¿Y qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, infraestructura, empleados, y si usted se aleja un poco, empieza a tambalear. Una empresa digital, en cambio, reemplaza el local por infraestructura en internet y los empleados por procesos automatizados que producen aunque usted duerma. Esto cambia por completo las reglas del juego: el negocio moderno ya no está en la producción física, sino en la infraestructura de conexión. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Usan internet para ser el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
 
 ¿Y cómo se construye una empresa digital de este nivel? Usted tiene dos caminos.
 
 El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial.
 
-El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa para empezar de inmediato. Y aquí está la idea simple: para que una empresa digital así exista, tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres ya están resueltas:
+El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa para empezar de inmediato. Y aquí está la regla sencilla: para que una empresa digital así exista, tres cosas tienen que ser ciertas — alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres ya están resueltas:
 
-1. Su socio logístico y financiero: Gano Excel — el fabricante detrás de su puente. Es el músculo que le quita todo el peso y el riesgo de encima. Una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo millonario del inventario, responde por lo legal y despacha el producto en cada país. Usted hereda toda esa inversión ya hecha: empieza donde otros llevan años. No es una promesa de internet; es músculo real, de su lado. Usted no entra a Gano Excel; Gano Excel trabaja para usted.
+1. Su socio logístico y financiero: Gano Excel — el fabricante detrás de su puente. Es el músculo que le quita todo el peso y el riesgo de encima. Una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo millonario del inventario, responde por lo legal y despacha el producto en cada país. Usted empieza sobre esa infraestructura instalada desde el día uno. No es una promesa de internet; es músculo real, de su lado. Usted no entra a Gano Excel; Gano Excel trabaja para usted.
 
 2. Su socio digital: Queswa. La aplicación desde la que usted dirige todo, en su celular. Comparte con un clic y ve en tiempo real quién visita la información; del resto se encarga Queswa, que atiende y madura en cada interesado la decisión de avanzar, las 24 horas. Es su oficina digital completa, trabajando a su favor.
 
@@ -81,9 +81,9 @@ CreaTuActivo es la plataforma que une las tres en una sola: usted no las arma, l
   Memoria: `feedback_gano_socio_primeros_principios`. ⚠️ El video desplegado sigue con el arco viejo
   → re-producción pendiente.
 - **Pasada Huang/Musk (30 jun 2026):** "crece de forma masiva" → **"el mismo esfuerzo llega a una
-  persona o a un millón — y cuesta lo mismo"** (escala como física, Musk); el camino desde-cero cerraba
+  persona o a un millón — y cuesta lo mismo"** (escala como física, Musk) — **retirada 3 jul 2026, ver abajo**; el camino desde-cero cerraba
   con "reconstruir lo que ya existe" (Musk, "the best part is no part") — **retirada 1 jul 2026, ver abajo**; el ítem Gano suma **"usted
-  hereda toda esa inversión ya hecha"** (Huang, herencia de infraestructura); cierre suma **"CreaTuActivo
+  hereda toda esa inversión ya hecha"** (Huang, herencia de infraestructura) — **reemplazada 3 jul 2026, ver abajo**; cierre suma **"CreaTuActivo
   es la plataforma que une las tres en una sola: usted no las arma, las enciende"** (Huang, la plataforma
   integra el stack → corona de CreaTuActivo). Bisagra Gano: "para su empresa" → **"para usted"**.
 - **"sus socios hacen el trabajo" ELIMINADO** (ítem 3 → "El de dueño: dirigir"). Regla: **"socios" sin
@@ -102,6 +102,20 @@ CreaTuActivo es la plataforma que une las tres en una sola: usted no las arma, l
   ("asumir los riesgos de cualquier proyecto empresarial") y la conclusión "¿para qué reconstruir?" la
   saca el prospecto solo al llegar el camino 2 → **autopersuasión**. El b-roll #4 (desde-cero = peso)
   muestra el esfuerzo de construir de cero, sin la comparación prematura.
+- **Pasada de claridad (3 jul 2026):** (1) "el mismo problema **financiero**" → **"el mismo
+  problema"** (el calificativo sobraba — el párrafo ya lo demuestra). (2) La línea Musk de escala
+  ("el mismo esfuerzo llega a una persona o a un millón") **retirada** → la reemplaza **"Esto cambia
+  por completo las reglas del juego: el negocio moderno ya no está en la producción física, sino en
+  la infraestructura de conexión"** — prepara el ejemplo Amazon/MercadoLibre ("no fabrican lo que
+  venden" pasa a ser la *prueba* de la tesis; antes la línea de escala quedaba suelta). La escala
+  queda implícita en "conecta a millones de personas". (3) Tríada de primeros principios **sin
+  pronombre ambiguo**: "alguien **la** fabrica, algo **la** atiende" → **"alguien fabrica, una
+  plataforma atiende a las personas"** (nadie "fabrica" una empresa; "una plataforma" mapea limpio
+  con Queswa en el ítem 2) + "idea simple" → "regla sencilla". ✅ Propagado el mismo día a servilleta
+  v5.8 (guión maestro + teleprompter + `page.tsx`) y a la home (`src/app/page.tsx`). (4) Beat Huang "usted hereda toda esa
+  inversión ya hecha: empieza donde otros llevan años" → **"Usted empieza sobre esa infraestructura
+  instalada desde el día uno"** (la herencia queda implícita en "infraestructura instalada"; el
+  borrador inicial decía "usted **opera** sobre" — corregido, "operar" es léxico prohibido).
 - **Un solo CTA:** Queswa (el orbe está en la misma página). "Suscríbete" vive aparte, en el
   menú — no compite dentro del reel.
 - **Implementación:** hero de la home vía [`HomeManifestoVideo`](src/components/HomeManifestoVideo.tsx)

@@ -31,6 +31,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SubscribeModal from '@/components/SubscribeModal';
 
+// Overlay ▶ que marca un clip pausado por el usuario (tap-to-pause). pointer-events:none →
+// el clic atraviesa al <video>/card, que maneja el toggle. Ver handleClipTap.
+const ClipPauseIcon = () => (
+  <div className="clip-pause-overlay" aria-hidden="true">
+    <div className="clip-pause-btn">
+      <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+        <path d="M3 2 L22 14 L3 26 Z" fill="#C5A059" />
+      </svg>
+    </div>
+  </div>
+);
+
 export default function ServilletaPage() {
   const TOTAL_SLIDES = 4;
   const [activeSlide, setActiveSlide] = useState(1);
@@ -45,6 +57,7 @@ export default function ServilletaPage() {
   const [ctaVisible, setCtaVisible] = useState(false);
   const [productCatalogOpen, setProductCatalogOpen] = useState(false);
   const [subscribeOpen, setSubscribeOpen] = useState(false);
+  const [pausedKey, setPausedKey] = useState<string | null>(null);
   const touchStartX = React.useRef(0);
   const touchSwipeIgnore = React.useRef(false);
   const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -205,6 +218,25 @@ export default function ServilletaPage() {
     }
   }, [oneCardMode, activeCardIndex, maxCardIndex]);
 
+  // Tap sobre el clip = pausa/play (estándar Stories/TikTok). Se SEPARA de la navegación
+  // (swipe/flechas/dots): tocar el video NO avanza slide/card ni entra a fullscreen — solo
+  // controla la reproducción. Un ▶ persistente marca el estado pausado. Ver
+  // public/contexto/produccion/INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md
+  const handleClipTap = useCallback((e: React.MouseEvent, key: string) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a')) return; // deja pasar el botón "PREGÚNTALE ALGO EN VIVO"
+    const video = (e.currentTarget as HTMLElement).querySelector<HTMLVideoElement>('video.card-bg');
+    if (!video) return;
+    e.stopPropagation();
+    if (video.paused) {
+      video.play().catch(() => {});
+      setPausedKey(null);
+    } else {
+      video.pause();
+      setPausedKey(key);
+    }
+  }, []);
+
   // Lógica del Simulador
   const TRM = 4500;
   const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
@@ -228,7 +260,11 @@ export default function ServilletaPage() {
   // Reset tarjeta activa al entrar a slide 1 o 2 (ambas son card-scrollers de 3)
   useEffect(() => {
     if (activeSlide === 1 || activeSlide === 2) setActiveCardIndex(0);
+    setPausedKey(null); // al cambiar de slide, ningún clip queda pausado por el usuario
   }, [activeSlide]);
+
+  // Al cambiar de card, se libera cualquier pausa manual (el nuevo clip reproduce desde 0s)
+  useEffect(() => { setPausedKey(null); }, [activeCardIndex]);
 
   // Orbe/chat Queswa disponible en toda la slide 2 (donde vive el botón "PREGÚNTALE ALGO EN
   // VIVO", card de Queswa). Antes gateado a activeCardIndex===0 → el botón (card 1) no abría
@@ -588,6 +624,25 @@ export default function ServilletaPage() {
           filter: brightness(0.45); transition: filter 0.5s;
         }
         .card-industrial:hover .card-bg { filter: brightness(1); }
+
+        /* Tap-to-pause: ▶ centrado sobre el clip pausado por el usuario.
+           pointer-events:none → el clic atraviesa a la card (que hace el toggle). */
+        .clip-pause-overlay {
+          position: absolute; inset: 0; z-index: 3;
+          display: flex; align-items: center; justify-content: center;
+          pointer-events: none;
+        }
+        .clip-pause-btn {
+          width: 72px; height: 72px; border-radius: 50%;
+          background: rgba(15,17,21,0.55);
+          border: 1.5px solid rgba(197,160,89,0.65);
+          display: flex; align-items: center; justify-content: center;
+          padding-left: 4px; /* centra ópticamente el triángulo */
+          animation: clipPauseIn 0.18s ease-out;
+        }
+        @keyframes clipPauseIn { from { opacity: 0; transform: scale(0.82); } to { opacity: 1; transform: scale(1); } }
+        :fullscreen .clip-pause-btn { width: 104px; height: 104px; }
+        :fullscreen .clip-pause-btn svg { width: 34px; height: 40px; }
 
         .card-content {
           position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 24px 22px;
@@ -1652,24 +1707,27 @@ export default function ServilletaPage() {
               )}
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
                 <video className="card-bg" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's1-empresa-tradicional' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Depende de que usted est&eacute; ah&iacute;</h3>
                 </div>
               </div>
 
               {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
-              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`}>
+              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
                 <video className="card-bg" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's1-empresa-digital' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Son el puente</h3>
                 </div>
               </div>
 
               {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`}>
+              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
                 <video className="card-bg" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's1-sonrisaslindas' && <ClipPauseIcon />}
                 <div className="card-content">
                   <h3 className="pillar-name">Imagine el suyo</h3>
                 </div>
@@ -1719,8 +1777,9 @@ export default function ServilletaPage() {
               </div>
 
               {/* Lo primero · alguien la fabrica → Gano Excel, socio logístico y financiero */}
-              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`}>
+              <div className={`card-industrial ${activeCardIndex === 0 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
                 <video className="card-bg" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's2-respaldo' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
                   <h3 className="pillar-name">Gano Excel</h3>
@@ -1728,8 +1787,9 @@ export default function ServilletaPage() {
               </div>
 
               {/* Lo segundo · algo la atiende → Queswa, socio digital */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
                 <video className="card-bg" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's2-queswa' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su socio digital</span>
                   <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
@@ -1751,8 +1811,9 @@ export default function ServilletaPage() {
               </div>
 
               {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`}>
+              <div className={`card-industrial full-width ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
                 <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
+                {pausedKey === 's2-metodo' && <ClipPauseIcon />}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
                   <h3 className="pillar-name">Los pasos exactos</h3>

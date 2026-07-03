@@ -39,7 +39,7 @@ CreaTuActivo invierte ese ciclo con apalancamiento: usted pasa a ser propietario
 
 ¿Y cómo se construye una empresa digital de este nivel? Usted tiene dos caminos.
 
-El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial. En pocas palabras: reconstruir lo que ya existe.
+El primero: con sus propias manos, desde cero. Pagar el desarrollo tecnológico, conseguir los proveedores, tramitar los permisos en cada país, resolver la logística de entregas y asumir los riesgos de cualquier proyecto empresarial.
 
 El segundo camino es el apalancamiento: usted no crea la infraestructura, la usa para empezar de inmediato. Y aquí está la idea simple: para que una empresa digital así exista, tres cosas tienen que ser ciertas — alguien la fabrica, algo la atiende, y usted sabe qué hacer. Las tres ya están resueltas:
 
@@ -81,8 +81,8 @@ CreaTuActivo es la plataforma que une las tres en una sola: usted no las arma, l
   Memoria: `feedback_gano_socio_primeros_principios`. ⚠️ El video desplegado sigue con el arco viejo
   → re-producción pendiente.
 - **Pasada Huang/Musk (30 jun 2026):** "crece de forma masiva" → **"el mismo esfuerzo llega a una
-  persona o a un millón — y cuesta lo mismo"** (escala como física, Musk); el camino desde-cero cierra
-  con **"reconstruir lo que ya existe"** (Musk, "the best part is no part"); el ítem Gano suma **"usted
+  persona o a un millón — y cuesta lo mismo"** (escala como física, Musk); el camino desde-cero cerraba
+  con "reconstruir lo que ya existe" (Musk, "the best part is no part") — **retirada 1 jul 2026, ver abajo**; el ítem Gano suma **"usted
   hereda toda esa inversión ya hecha"** (Huang, herencia de infraestructura); cierre suma **"CreaTuActivo
   es la plataforma que une las tres en una sola: usted no las arma, las enciende"** (Huang, la plataforma
   integra el stack → corona de CreaTuActivo). Bisagra Gano: "para su empresa" → **"para usted"**.
@@ -94,6 +94,14 @@ CreaTuActivo es la plataforma que une las tres en una sola: usted no las arma, l
   audiencia orgánica que ya asocia a Luis con Gano + **"30 años · 70 países"** como prueba de
   autoridad (no es empresa fantasma). La corona sigue siendo de CreaTuActivo (lo digital); Gano
   es el **músculo real** que carga el peso — nunca el titular del ingreso.
+- **"reconstruir lo que ya existe" RETIRADA del camino 1 (1 jul 2026):** era una **síntesis de los dos
+  caminos** colocada antes de presentar el segundo — exige que el prospecto ya sepa que "ya existe", cosa
+  que recién se revela en el camino 2 ("usted no crea la infraestructura, la usa"). Referenciar algo no
+  establecido **rompe la fluencia de procesamiento** (ver [INVESTIGACION_CREDIBILIDAD_LOGICA_BROLL.md](../../INVESTIGACION_CREDIBILIDAD_LOGICA_BROLL.md)):
+  el prospecto se detiene a preguntar "¿qué ya existe?". Camino 1 ahora cierra sobre el **peso**
+  ("asumir los riesgos de cualquier proyecto empresarial") y la conclusión "¿para qué reconstruir?" la
+  saca el prospecto solo al llegar el camino 2 → **autopersuasión**. El b-roll #4 (desde-cero = peso)
+  muestra el esfuerzo de construir de cero, sin la comparación prematura.
 - **Un solo CTA:** Queswa (el orbe está en la misma página). "Suscríbete" vive aparte, en el
   menú — no compite dentro del reel.
 - **Implementación:** hero de la home vía [`HomeManifestoVideo`](src/components/HomeManifestoVideo.tsx)

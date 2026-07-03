@@ -230,12 +230,14 @@ export default function ServilletaPage() {
     if (activeSlide === 1 || activeSlide === 2) setActiveCardIndex(0);
   }, [activeSlide]);
 
-  // Orbe Queswa visible solo en slide 2, card 1
+  // Orbe/chat Queswa disponible en toda la slide 2 (donde vive el botón "PREGÚNTALE ALGO EN
+  // VIVO", card de Queswa). Antes gateado a activeCardIndex===0 → el botón (card 1) no abría
+  // el chat, y en desktop grid activeCardIndex no cambia con scroll → roto en desktop.
   useEffect(() => {
-    const visible = activeSlide === 2 && activeCardIndex === 0;
+    const visible = activeSlide === 2;
     window.dispatchEvent(new CustomEvent(visible ? 'show-queswa-orb' : 'hide-queswa-orb'));
     return () => { window.dispatchEvent(new CustomEvent('hide-queswa-orb')); };
-  }, [activeSlide, activeCardIndex]);
+  }, [activeSlide]);
 
   // Reproducción perezosa de los b-rolls 3D: solo el video de la card activa reproduce;
   // el resto en pausa. Mantiene el mobile liviano (cada <video> usa preload="none").
@@ -248,9 +250,18 @@ export default function ServilletaPage() {
     const cardOffset = activeSlide === 1 ? 1 : 0;
     vids.forEach((v, i) => {
       // one-card-mode (mobile/fullscreen): solo la activa. Desktop grid: todas vivas.
-      const shouldPlay = !oneCardMode || (i + cardOffset) === activeCardIndex;
-      if (shouldPlay) { v.play().catch(() => {}); }
-      else { try { v.pause(); } catch { /* noop */ } }
+      const isActive = (i + cardOffset) === activeCardIndex;
+      const shouldPlay = !oneCardMode || isActive;
+      // Sonido: SOLO la card activa suena; las demás en mute (evita cacofonía en desktop grid).
+      // Si el navegador bloquea el autoplay-con-sonido (sin gesto previo), cae a mute y reproduce.
+      v.muted = !isActive;
+      if (shouldPlay) {
+        v.play().catch(() => {
+          if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
+        });
+      } else {
+        try { v.pause(); } catch { /* noop */ }
+      }
     });
   }, [activeSlide, activeCardIndex, oneCardMode]);
 
@@ -1529,8 +1540,8 @@ export default function ServilletaPage() {
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 SU EMPRESA' },
-              { id: 2, label: '02 METODOLOG\u00cdA' },
+              { id: 1, label: '01 SU EMPRESA DIGITAL' },
+              { id: 2, label: '02 C\u00d3MO FUNCIONA' },
               { id: 3, label: '03 EL PRODUCTO' },
               { id: 4, label: '04 SIMULADOR' },
             ].map((s) => (
@@ -1554,8 +1565,8 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, label: 'Su Empresa' },
-              { id: 2, label: 'Metodolog\u00eda' },
+              { id: 1, label: 'Su Empresa Digital' },
+              { id: 2, label: 'C\u00f3mo Funciona' },
               { id: 3, label: 'El Producto' },
               { id: 4, label: 'Simulador' },
             ].map((s) => (
@@ -1591,16 +1602,13 @@ export default function ServilletaPage() {
                   en one-card (presentación) = solo contador + dots (la portada full-screen
                   lleva el H1+subtítulo). */}
               <div className="slide-2-header">
-                {!oneCardMode && (
-                  <>
-                    <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                      CREE SU EMPRESA DIGITAL
-                    </h2>
-                    <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                      El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
-                    </p>
-                  </>
-                )}
+                {/* Título siempre visible, fijo arriba (desktop y mobile/one-card). */}
+                <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
+                  CREE SU EMPRESA DIGITAL
+                </h2>
+                <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
+                  El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                </p>
                 {/* Contador/dots solo sobre las 3 gráficas (01 = empresa antigua).
                     La portada (índice 0) es independiente: sin número, sin borde. */}
                 {oneCardMode && activeCardIndex >= 1 && (
@@ -1622,19 +1630,8 @@ export default function ServilletaPage() {
                 )}
               </div>
 
-              {/* Portada (índice 0): pantalla completa con H1 + subtítulo. Independiente —
-                  NO es card-industrial (sin borde dorado, sin número). Solo en one-card-mode
-                  (en grid el H1+subtítulo vive en el header). */}
-              {oneCardMode && activeCardIndex === 0 && (
-                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
-                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    CREE SU EMPRESA DIGITAL
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
-                  </p>
-                </div>
-              )}
+              {/* (Portada full-screen retirada: el título ahora es fijo en el header, arriba,
+                  en ambos modos. Evita el título duplicado en mobile.) */}
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`}>
@@ -1683,10 +1680,10 @@ export default function ServilletaPage() {
               {/* Título */}
               <div className="slide-2-header">
                 <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                  LO DIF&Iacute;CIL YA EST&Aacute; HECHO
+                  3 COSAS TIENEN QUE SER CIERTAS
                 </h2>
                 <span className="slide-2-subtitle">
-                  Alguien lo fabrica. Algo lo atiende. Usted dirige.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
+                  Alguien lo fabrica. Algo lo atiende. Usted dirige. Las tres, ya resueltas.{oneCardMode && ` · 0${activeCardIndex + 1} / 03`}
                 </span>
                 {/* Dots indicador — visibles solo en one-card-mode */}
                 {oneCardMode && (
@@ -1740,7 +1737,7 @@ export default function ServilletaPage() {
                 <video className="card-bg" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 <div className="card-content">
                   <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Expandir &middot; Activar &middot; Multiplicar</h3>
+                  <h3 className="pillar-name">Los pasos exactos</h3>
                 </div>
               </div>
 

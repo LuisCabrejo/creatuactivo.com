@@ -12,6 +12,18 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.25 — Historia de la mesa + resolver de raíz (4 jul 2026)
+
+Cobertura para las 2 historias de Instagram que promueven el reel Home (auditoría anti-alucinación — el CTA de ambas es "pregúntele a Queswa"). (1) **STORY_02**: la historia de la mesa en dos patas (evento de liderazgo en Mocoa, ~300 personas) — canónica y atribuida a Luis, con instrucción de NO inventar detalles adicionales; puentea al "¿cómo lo armo? ¿qué piezas necesito?" → las 3 cosas. (2) **FREQ_28**: "resolver el tema financiero de raíz" = estructura (ingresos que no dependen de su presencia), no acumulación ni paños de agua tibia; mapea "ideas y herramientas exactas" a fabricante/plataforma/método; **GUARD diciembre**: la "meta a diciembre" es meta personal de Luis — NO existe fecha de lanzamiento/cierre (cupos, no calendario), NUNCA mencionar fecha. 53→55 fragments; clonado al tenant whatsapp (solo inserción de categorías nuevas, sin purga).
+
+### v5.13 — EAM_01 cierre humano (17 jun 2026)
+
+Rol del héroe = recibir de persona a persona a quien decidió avanzar: calidez/confianza/apretón de manos. Nadie audita — ni Queswa ni el constructor. Cierra el giro de "filtro/auditoría" hacia un cierre humano. Sincronizado carácter por carácter con `respuestas-maestras.ts` (EAM_01). Alineado con system prompt v28.5.
+
+### v5.12 — EAM_01 simple + "filtrar" desterrado + Maestría→Multiplicación (17 jun 2026)
+
+(1) **EAM_01 versión simple**: 3 pasos Expandir/Activar/Multiplicación, Activar = conversión, sin la lista "no requiere" ni el "Protocolo de Validación". (2) **"filtrar" desterrado** → conversar/acompañar/reconocer quién está listo (reencuadre a conversión, ver [[feedback_filtrar_prohibido]]). (3) **3er Comando Maestría → Multiplicación** (ver [[project_rename_maestria_multiplicacion]]). WHY_02 + EAM_01 re-sincronizados carácter por carácter con `respuestas-maestras.ts`.
+
 ### v5.11 — Villano = el sistema que toma sus mejores años y su salud (13 jun 2026)
 
 Reubica el villano de WHY_01 y WHY_02. "Asfixia mensual" NO es universal (hay quien está mal económicamente pero se siente relajado); el villano más potente e identificable (12 años de campo de Luis) es **un sistema diseñado para tomar sus mejores años y su salud a cambio de casi nada**. Antítesis deliberada: usted *entrega* sus años/salud / el sistema los *toma*.
@@ -180,6 +192,22 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v12.3 — "filtrar" desterrado + Maestría→Multiplicación (17 jun 2026)
+
+"filtrar" desterrado (5 hits → conversar/acompañar/reconocer) + 3er Comando Maestría → Multiplicación (Comando Multiplicación reescrito: la formación enlaza con multiplicación 1·2·4·8). Cifras intactas.
+
+### v12.2 — Swap "empresa digital" (12 jun 2026)
+
+"negocio digital" → "empresa digital" para el activo que entregamos. Cifras intactas.
+
+### v12.1 — Swap léxico "negocio digital" (jun 2026)
+
+Base Operativa → negocio digital · "Operando en el nivel" → "En el nivel" · aforismo "Queswa escala" → "Queswa multiplica" · "Calibre ESP-3" → "nivel ESP-3". Cifras intactas.
+
+### v12.0 — Migración al registro accesible (Beto) (jun 2026)
+
+Léxico canónico → accesible. "Capas" → "respaldos independientes" (ADV_TECH_03), "calibre" → "nivel", GCV correcto ("17% compensado sobre el volumen comisionable", "hasta 15/17% del GCV"), 50 PV como compra personal mínima, ADV_SIST_03 reescrito con técnica Mario Puig (analogía director de orquesta). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí").
+
 ### v10.0 — ADV_VAL_05 + Tridente Comandos (May 2026)
 
 Nueva respuesta ADV_VAL_05 (incentivos corporativos Gano Excel). METH_01 con Comandos canónicos del Tridente EAM (Expandir/Activar/Maestría + aforismos). Patrimonio Paralelo en OBJ_02. Queswa nombrado en OBJ_01. USD/COP unificado VAL_01/VAL_04. ADV_TECH_03 con "Queswa, el Centro de Mando" + "sistemas de contingencia" (Capas — no Pilares). ADV_SIST_02 "Infraestructura Continental". ADV_SIST_03 reordenado.
@@ -187,6 +215,14 @@ Nueva respuesta ADV_VAL_05 (incentivos corporativos Gano Excel). METH_01 con Com
 ---
 
 ## arsenal_reto (Auditoría Patrimonial)
+
+### v4.7 — Swap "empresa digital" (12 jun 2026)
+
+"negocio digital" → "empresa digital". Jerga clínica profunda intacta (ver v4.6). 7 fragments (días 1–5).
+
+### v4.6 — Swap léxico "negocio digital" (jun 2026)
+
+Solo swap de marca: Base Operativa → negocio digital + "WhatsApp operará" → "funcionará". ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última permitida explícitamente en RETO_05) — ver [[project_reto_12niveles_no_migrar]]. Migración profunda + rename del producto ("El Diagnóstico de 5 Días") = pase cross-channel pendiente.
 
 ### v4.1 — Arquitecto de Patrimonio (May 2026)
 

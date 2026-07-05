@@ -181,10 +181,133 @@ Mañana le muestro la parte que casi nadie entiende: por qué eso lo cambia todo
 
 ---
 
+## Día 12 · Miércoles 24 de junio — "40 droguerías, 40 problemas"
+*Semana 3 · paga la promesa del Día 11 ("la parte que casi nadie entiende") · aha = **multiplicar** (lo más difícil de un negocio tradicional) · anécdota real de Juan (40 droguerías = 40 problemas) · prueba Bezos/Amazon (montó una sola, pero digital) · registro **documentación, no venta**: dos hechos reales lado a lado (Bezos pudo alejarse / Juan no), la obviedad cierra — el espectador saca la conclusión solo · CTA: ninguna ("se lo voy mostrando").*
+*Producción: talking-head graduado en CapCut → pipeline `scripts/dankoe-video`. **Primer doc reel con inserts 3D** del deck servilleta (cutaways): `empresa-tradicional` 6.7–12.3s · `sonrisaslindas` 25.3–29.8s · `empresa-digital` 31.8–35.3s. Subtítulos forced-alignment (display-map cuarenta→40) + atmósfera grano/halation/viñeta + música suspense→corporativa en el pivot "Una empresa digital es al revés" 23.4s + SFX whoosh en cada insert + shimmer en "40 problemas"/"Amazon" + outro emblema. Master: `masters/doc-24-06.mp4`; web: `~/Downloads/doc-24-junio/doc-24-06-final.mp4` (26 MB, −14 LUFS). **Entregado SIN cama musical** (solo voz + SFX) — la música de fondo se aplicó en CapCut por hoy. El pipeline conserva `work-doc24/full_audio.m4a` (versión con música suspense→corporativa) por si se reincorpora.*
+
+Ayer le prometí mostrarle la parte que casi nadie ve. Pero cuando la ve, lo cambia todo.
+
+Piense en un negocio de los de toda la vida. Requiere un local, contratar personas… y si usted se aleja un poco, empieza a tambalear. ¿Y multiplicarlo? Eso es lo más difícil.
+
+Esto me recuerda a mi amigo Juan. Llegó a tener 40 droguerías. Un día me dijo: "Luis, no tengo 40 droguerías… tengo 40 problemas."
+
+Una empresa digital es al revés. Imagine la suya —sonrisaslindas.app— en su ciudad. Tal cual, esa misma podría multiplicarla en todo el país. Se multiplica el sistema, no los problemas.
+
+Eso hizo Jeff Bezos: no se hizo grande montando 40 locales como mi amigo Juan. Montó una sola, pero digital: Amazon.
+
+Esa perspectiva es la que lo cambia todo: mientras Jeff Bezos pudo multiplicar su empresa digital por el mundo y sin estar encima, mi amigo Juan no se puede alejar del negocio.
+
+Eso documento: no construí el sistema —me subí a uno— y ya lo estoy multiplicando. Se lo voy mostrando.
+
+---
+
+## Día 13 · Sábado 27 de junio — "Una tontería nos detiene"
+*Semana 3 · tanda "encender el corazón" (autoeficacia / creencia limitante) · analogía conducir (sabe manejar → puede manejar una empresa digital) · **confesión personal** de Luis (Nequi/banco, Uber/taxi, mecánico/automático) como prueba de humildad · insight: lo que nos detiene no es falta de capacidad, es una incomodidad con lo nuevo · cierre estratégico: una empresa digital es tan fácil como WhatsApp/Nequi (objetivo: ponerla en el mismo grado de complejidad de una app cotidiana) · CTA: ninguna ("se los voy mostrando"). **Versión emitida (sincronizada al grabado).***
+*Producción (27 jun): talking-head grabado **al aire en un centro comercial** → pipeline `scripts/dankoe-video` con **desenfoque de fondo tipo retrato** (segmentación `u2net_human_seg` + EMA anti-flicker, `work-doc27/seg_blur.py`) que disuelve peatones y la TV del partido al fondo + subtítulos forced-alignment + atmósfera + **SFX especial: "ding" de notificación sobre "WhatsApp" (~39.85s)** sintetizado para disimular el blend de pronunciación + whoosh en el giro (31.86s) + **música propia de CapCut conservada** (sin arco suspense→corporativa) + outro emblema. Master: `masters/doc-27-06.mp4`; web: `~/Downloads/doc-27-06/doc-27-06-final.mp4`. Sin inserts 3D (reel reflexivo).*
+
+¿Usted sabe manejar moto o carro? Entonces puede manejar una empresa digital. Es más: puede lograr mucho más de lo que se imagina. No es broma.
+
+Se lo digo yo, que era el peor para lo nuevo. Mi esposa manejaba Nequi; yo prefería ir al banco. Mi esposa cogía Uber; yo prefería el taxi. Alguien un día me dijo: "Luis, ¿usted por qué siempre compra carro mecánico? Es mejor automático." Y yo: "no, es que me gusta más lo mecánico." La verdad es que lo nuevo me incomodaba.
+
+Y eso es lo que muchas veces nos detiene. No es falta de capacidad… es una tontería aquí en la mente: una incomodidad hacia lo nuevo.
+
+Un día me tocó usar Nequi. Y obvio que era mejor que ir al banco.
+
+Manejar una empresa digital es igual: se hace desde una aplicación, tan fácil como usar WhatsApp o Nequi. Eso documento. Se los voy mostrando.
+
+---
+
+## Día 14 · Lunes 30 de junio — "El dropshipping bien hecho"
+*Semana 4 · engancha con un concepto que muchos admiran (dropshipping = puente sin fabricar ni bodega) para validar el modelo, y luego expone su talón de Aquiles: el mercado no queda a su nombre (el cliente puede saltar al fabricante) · criterio personal de Luis para todo negocio: que sea fácil de multiplicar, que crecer cueste casi cero, que atender a uno o a mil cueste lo mismo · aha = la empresa digital da las dos cosas que el dropshipping no (mercado asegurado + multiplicación sin costos crecientes) · registro **documentación, no venta** (mismos principios, mejor ejecución) · CTA suave: "¿Quiere saber cómo? Pregúntele a Queswa."*
+*Producción (30 jun): talking-head de estudio (fondo oscuro limpio, sin desenfoque) → pipeline `scripts/dankoe-video` · subtítulos forced-alignment (karaoke, sin display-map) + atmósfera grano/halation/viñeta + **música propia de CapCut conservada** (sin arco suspense→corporativa) + SFX: shimmer en "puente" (8.0s) · whoosh en el pivot "Una empresa digital le da las dos cosas" (27.4s) · shimmer suave en el CTA "¿Quiere saber cómo?" (38.9s) + outro emblema. Master: `masters/doc-30-06.mp4`; web: `~/Downloads/doc-30-junio/doc-30-06-final.mp4` (~17.5 MB, −14.7 LUFS). Sin inserts 3D (reel reflexivo).*
+
+¿Ha oído hablar del dropshipping? Es de las ideas más inteligentes del comercio digital: usted vende sin fabricar y sin bodega, es el puente entre el cliente y el producto. Me parece brillante.
+
+Tiene un detalle, que no es menor: el mercado no queda a su nombre. Mañana ese cliente puede comprarle directo al fabricante, y usted queda por fuera.
+
+Hay algo que yo siempre busco en un negocio: que sea fácil de multiplicar. Que crecer cueste casi cero. Que atender a un cliente o a mil me cueste lo mismo.
+
+Una empresa digital le da las dos cosas: el mercado queda asegurado a su nombre, y se multiplica sin que crezcan los costos.
+
+Mismos principios del dropshipping, pero con el mercado asegurado y la multiplicación a su favor. ¿Quiere saber cómo? Pregúntele a Queswa.
+
+---
+
+## Día 15 · Viernes 4 de julio — "Resolver de raíz + la mesa en dos patas" (2 historias IG)
+*Semana 4 · produce la semilla "¿Y si pudiera solucionar de raíz el tema financiero?" · Parte 1 = hook aspiracional (resolver de raíz ≠ paños de agua tibia: bajar gastos, "pensar positivo", "ahorre mijo") → no es acumulación, es **estructura** → la barrera es asumir que es imposible → cliffhanger de historia · Parte 2 = **la historia de la mesa** (evento de liderazgo en Mocoa, ~300 personas: "¿se puede sostener una mesa en dos patas?" → "¡No!" → al reformular "¿CÓMO la sostendría?" la sala entra en modo de ejecución) → el cómo que construye ("qué piezas necesito para armarlo") → meta a diciembre → CTA "pregúntele a Queswa" · **Formato: 2 historias de IG (≤60s c/u)**, dividido en el cliffhanger "¡Pues menos!" (58.5s) — más fuerte que el corte original del guión ("le voy a contar una historia…", que queda como transición interna de la Parte 1) porque la Parte 2 abre con la resolución: "Entonces cambié el enfoque" · ⚠️ **Estas historias promueven el reel de la Home y siembran preguntas a Queswa** → arsenal v5.25 blindado a propósito: STORY_02 (la mesa, canónica, "no inventar detalles") + FREQ_28 (raíz/estructura + GUARD diciembre: meta personal de Luis, NUNCA fecha de lanzamiento).*
+*Producción (4 jul): talking-head de estudio → pipeline `scripts/dankoe-video` · subtítulos forced-alignment (karaoke, display-map `trescientas→300`; stamps `captions/work/doc0407_stamps.json`) + atmósfera grano/halation/viñeta + **música propia de CapCut conservada** (sin arco) · **Inserts ♻️ reusados de la biblioteca del reel Home** (decisión Director: solo estos 2): `3-cosas-ciertas` en 90.2–94.0s ("qué piezas necesito para armarlo") y `multiplicacion-glint` en 99.4–103.5s ("muchas personas caminando en esa dirección" — sus tonos coordinados suenan a 0.35 bajo la voz) · whoosh_up en cada entrada de insert · mezcla −13.5 LUFS + alimiter · outro emblema SOLO en la Parte 2 · **Entrega:** `~/Downloads/reel-doc-04-julio/historia-1.mp4` (58.5s) + `historia-2.mp4` (52.6s, con outro) — destino IG Stories, no Blob.*
+
+**Parte 1 (historia-1 · 58.5s):**
+
+¿Alguna vez se ha preguntado cómo resolver su tema financiero de una buena vez? Y hablo de resolverlo de raíz.
+
+No me refiero a: bajar sus gastos, subir un poco sus ingresos mensuales, tener mejores comisiones, "pensar en positivo", o el clásico consejo de "trabajar más duro y ser más disciplinado", o el consejo materno, "ahorre mijo". Esos son paños de agua tibia.
+
+Ahora, resolver el tema financiero de raíz no es ganar en el juego de acumulación. Es un tema de estructura.
+
+La buena noticia es que hacerlo es mucho más sencillo y directo de lo que parece.
+
+¿Por qué casi nadie llega ahí? Por un solo detalle: asumen que es imposible. Nunca se les enseñó a estructurar su mente para ver la salida.
+
+Para entender cómo desactivar esa barrera hoy mismo, le voy a contar una historia.
+
+Hace un par de años fui invitado a un evento de liderazgo en Mocoa frente a unas 300 personas, les hice una pregunta simple: "¿Se puede sostener una mesa en dos patas?". Al unísono, el público dijo: "¡No!". Les pregunté: "¿Y en una pata?". La respuesta fue: "¡Pues menos!".
+
+**Parte 2 (historia-2 · 52.6s):**
+
+Entonces cambié el enfoque y les dije: "Piénsenlo así, ¿cómo haría para sostener esa mesa en dos patas?".
+
+Y es increíble lo que ocurre cuando usted cambia la perspectiva. La mente entra de inmediato en modo de ejecución. Ya nadie decía: "¡Ups!, es imposible"; la sala se llenó de murmullos y empezaron a lanzar soluciones reales.
+
+Ese es el punto de partida. Preguntarse: "¿Cómo lo puedo resolver, cómo lo puedo hacer?", en este caso, cómo puedo resolver mi tema financiero de una buena vez.
+
+Pero no desde la duda del "¿pero cómo si es imposible?", sino de el cómo que construye, el: "Ok, veamos qué piezas necesito para armarlo". Si usted pone su mente en ese modo, le aseguro que empezará a ver el camino.
+
+Mi meta de aquí a diciembre es ver a muchas personas caminando en esa dirección. ¿Quiere ideas y herramientas exactas para lograrlo? Aquí mismo, pregúntele a Queswa.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
-*Ideas en cola (hooks aún sin producir):*
-- *"¿Y si pudiera solucionar de raíz el tema financiero, de una buena vez?"* — hook aspiracional; abre un reel sobre la causa raíz / la solución (no sobre la IA).
-- *"Le han dicho toda la vida que siga el camino seguro…"* — reframe: el camino seguro es el verdadero riesgo (depender de una sola fuente).
+*Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `public/investigaciones/Investigación del Sistema Maestro de Naval.md`):*
+
+**Tanda "encender el corazón"** — tesis de Luis: en todo ser humano hay capacidades extraordinarias que quedan en *standby* por creencias que le instaló el entorno.
+- ⭐ *La moto* (la más fuerte y universal — ataca la autoeficacia): manejar una moto o un carro es **complejo** —espejos, direccionales, el tráfico, los peatones, el imprudente— y a nadie le enseñaron que sea solo para "inteligentes" o con dones; lo hace cualquiera (hasta quien maneja mulas, camiones, tractores). Entonces, ¿por qué creer que tener una empresa digital es solo para unos pocos? **Usted ya hace cosas más difíciles todos los días.**
+- *¿Por qué no apostarle a una vida extraordinaria?* — "para el que cree, todo le es posible. No importa dónde está; importa para dónde va." Registro de fe y aliento (cierre tipo "vamos pa' arriba, Cracks").
+
+**Píldoras Jim Rohn** (verdades simples con calado — formato corto, una idea por reel):
+- "El que sigue, llega."
+- "No importa dónde estás; importa para dónde vas."
+- "El mensaje puede ser bueno, pero el mensajero tiene que ser *para* el mensaje."
+- "¿Qué quiere: trabajo soñado, empresa soñada o vida soñada?" → la perspectiva (in)correcta puede determinar toda una vida.
+
+**Honor a la pausa** (anti "nunca te rindas" tóxico): le enseñaron que si se cae de la bici, se para; y otra vez, se para… pero si ya tropezó con la **misma piedra** 3 o 4 veces, el problema está en el método o en el plan. Ahí toca un *honor a la pausa*: revisar, redireccionar, y si hay que empezar desde cero, se empieza. (Enlaza con la doctrina desde-cero-vs-apalancamiento de la Home.)
+
+**El "camino seguro" es un mito** (absorbe la semilla previa + Naval): le enseñaron que lo seguro es estudiar para "ser alguien" o montar un negocio. Hoy ni el empleo da estabilidad ni emprender es seguro — no es que no se haga, es tener los datos. Prepárese, pero más allá de la academia: desarrolle **conocimiento específico** y vuélvase único (así nadie le compite). Y si emprende: digitalice, automatice, mejor experiencia de usuario, **cree una categoría nueva** — Uber no compitió con los taxis (creó la mejor experiencia de transporte); Netflix no compitió con el alquiler (creó la mejor experiencia de entretenimiento). "¿Cómo? Parece imposible — sígame y le voy contando." (Antídoto a "crear riqueza es malo" = juego de suma positiva, Naval. Registro de **orgullo**, nunca vergüenza ni conspiración. Base previa: *Raise Children Street-Smart* + Cialdini/ELM.)
+
+**No me gustan los coaches… que quieren ser coach** (matiz clave — NO es anti-coach): Luis admira a quienes **encienden el corazón** — Tony Robbins, Naval Ravikant, Dan Koe, Mario Alonso Puig; y a sus maestros: Carlos Arévalo, Cesáreo Moreno, y en Gano Excel **Arnulfo Camacho, Andrés Guzmán** y su hija **Juli Cabrejo**. Todos comparten algo: no regañan, no viven corrigiendo — **impulsan**. Lo que rechaza es al "coach" cuya identidad es *ser coach*: el que siempre encuentra el punto negro en la hoja blanca, el que ante todo tiene una corrección, y que suele ser quien más predica "necesitas un mentor" (porque quiere ser el tuyo). Doctrina: **nadie florece a punta de regaños; se florece cuando alguien le ayuda a creer en sus capacidades.** Calidez modelo: William Tovar † (Villavicencio). Sospecha del que alardea: "el que ha hecho algo no lo alardea; el que habla de más, mentalmente se protege."
+
+**Te gusta hacerlo todo** (semilla, apalancamiento): la trampa de hacerlo uno mismo todo → delegar/automatizar (espejo de Juan, "40 droguerías, 40 problemas").
+
+---
+
+### Formato — Píldoras diarias (~25-40s)
+
+Videoclips **menos construidos**, registro **"café"**: Luis, tomando un café, cuenta una **historia del día** con enseñanza (registro Naval/Jim Rohn, encender el corazón). A la gente le gustan las historias; acostumbrarla a una diaria crea expectativa ("la historia de hoy"). **Distinto** del reel-documental de ~60s (talking-head graduado + pipeline completo con arco musical suspense→corporativa): la píldora va con **una sola cama suave** y cierre simple, sin arco de inserts. Semillas de historia:
+
+- *Gedeón y los 300* (semilla): en plena cobardía, escondido, Dios lo llama **"hombre valiente"**; Gedeón refuta que es el más pequeño, y Dios reafirma que sí lo es, y su elegido para liberar a Israel. Tesis: a la persona la transforma quien **ve y nombra** lo que ella aún no se atreve a creer de sí misma.
+
+#### Píldora 1 · Arnulfo Camacho — "El fuego vs. las correcciones"
+*Formato café · ~38s · contraste incorporado (mismo escenario, resultado opuesto: uno enciende, el otro apaga) · enseñanza = "nadie florece a punta de regaños" · CTA: ninguna. Producción ligera: talking-head café + una sola cama suave (sin arco suspense→corporativa) + subtítulos forced-alignment + outro emblema. **Guion aprobado — pendiente de grabar.***
+
+Le voy a contar algo que me cambió.
+
+Empezando en esto, Arnulfo Camacho —el empresario con más experiencia— me dijo: "Luis, présenteme el negocio." Me llené de nervios; lo hice terrible. ¿Y sabe qué me respondió? "Uff, Luis… si usted me hubiera presentado a mí, yo arrancaba con usted. Usted va a ser de los próximos en viajar por el mundo." No lo podía creer. Y con ese fuego en el corazón me fui a trabajar… y me gané mi primer viaje al otro lado del mundo.
+
+Tiempo después, otro líder me pidió lo mismo. Ya con experiencia, lo hice bien. Pero al terminar: solo correcciones, mil correcciones. Salí pensando "¿será que esto sí es para mí?".
+
+La diferencia: uno me encendió el corazón; el otro casi me lo apaga. Nadie florece a punta de regaños.
+
+*Semillas previas que se conservan:*
+- ~~*"¿Y si pudiera solucionar de raíz el tema financiero, de una buena vez?"*~~ → ✅ **producida como Día 15** (2 historias IG, 4 jul).
 - *Estatus vs. riqueza* — registro Naval: dejar de perseguir estatus, construir activos.
-- *Street-smart: "lo más importante no te lo enseñaron en el colegio"* — la sabiduría de la calle (cómo funciona el dinero y la gente) vs. una formación que solo prepara para el empleo. Registro de **orgullo** (los vivos siempre lo supieron), nunca de vergüenza ni conspiración. Antídoto a "crear riqueza es malo" = juego de suma positiva (Naval, Lección 2). Base: libro *Raise Children Street-Smart* + persuasión Cialdini/ELM (reconocimiento → ruta central). Investigación 21 jun 2026.

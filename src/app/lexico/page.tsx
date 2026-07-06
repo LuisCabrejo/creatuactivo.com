@@ -46,7 +46,7 @@ const PROGRAMA: Semana[] = [
       { dia: 'Mié', foco: 'El trino al inicio (rr)', pista: 'Lengua suelta + aire de moto. No fuerce la garganta.', sonidos: ['recurrente', 'requiere', 'rápido', 'responde'], frase: 'Para multiplicar una empresa, se requiere abrir otro local.', origen: 'Servilleta · Paso 3' },
       { dia: 'Jue', foco: 'La doble RR (error, arriendo)', pista: 'Varias vibraciones. Es el sonido que más le cuesta: despacio.', sonidos: ['error', 'arriendo', 'recurrentes', 'tierra'], frase: 'Arriendo, personal, inversión… y el error.', origen: 'Servilleta · Paso 3 + su lista' },
       { dia: 'Vie', foco: 'Oído fino: pero / perro', pista: 'Una vibración cambia el significado. Escuche la diferencia.', sonidos: ['pero / perro', 'caro / carro', 'ahora / ahorra'], frase: 'Cada vez que el consumo se repite, usted recibe una parte.', origen: 'Servilleta · multiplicación' },
-      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Hoy junta todo. Compare esta grabación con la del próximo sábado.', sonidos: ['lea despacio, marcando cada R'], frase: 'Detrás de su empresa digital está Gano Excel, una corporación presente en 70 países. Fabrica los productos, responde por los registros legales, despacha y da soporte en cada país.', origen: 'Servilleta · Pilar 1' },
+      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Hoy junta todo. Compare esta grabación con la del próximo sábado.', sonidos: ['lea despacio, marcando cada R'], frase: 'Detrás de su empresa digital está Gano Excel, una corporación con más de 30 años y presencia en 70 países. Fabrica, responde por lo legal y despacha el producto en cada país.', origen: 'Home · Pilar 1' },
     ],
   },
   {
@@ -56,17 +56,17 @@ const PROGRAMA: Semana[] = [
       { dia: 'Mar', foco: 'El grupo TR (otro)', pista: 'Consonante + R pegadas: "o-tro", no "o-te-ro".', sonidos: ['otro', 'cuatro', 'tres', 'nuestro', 'construye'], frase: 'Para multiplicar una empresa, se requiere abrir otro local.', origen: 'Servilleta · Paso 3' },
       { dia: 'Mié', foco: 'Los grupos PR y BR', pista: 'propio · abrir. Pegado y limpio.', sonidos: ['propio', 'propietario', 'empresa', 'abrir', 'libre'], frase: 'Usted pasa a ser propietario de una empresa digital.', origen: 'Servilleta · su empresa' },
       { dia: 'Jue', foco: 'Los grupos CR y FR', pista: 'crecer · frente. La R va dentro del grupo.', sonidos: ['crecer', 'CreaTuActivo', 'frente', 'infraestructura', 'fluye'], frase: 'El sistema le da los pasos exactos para hacer crecer su empresa digital.', origen: 'Servilleta · método' },
-      { dia: 'Vie', foco: 'Los grupos PL y CL', pista: 'aplicación · clic. Suaves pero completos.', sonidos: ['aplicación', 'multiplicar', 'clic', 'claridad'], frase: 'Multiplicar su empresa digital está a un clic, en todo el continente.', origen: 'Servilleta · multiplicación' },
+      { dia: 'Vie', foco: 'Los grupos PL y CL (clic · clínicas)', pista: 'La C de "clínicas" suena K+L pegadas: "clí-ni-cas". No meta vocal.', sonidos: ['aplicación', 'clic', 'clínicas', 'sonrisaslindas.app'], frase: 'Usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita.', origen: 'Reel · Solución' },
       { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Todos los grupos juntos en un solo párrafo.', sonidos: ['lea despacio, sin meter vocales'], frase: 'Para multiplicar una empresa, se requiere abrir otro local: arriendo, personal, inversión. Esa es la pared donde casi todos se detienen. Aquí no.', origen: 'Servilleta · Paso 3' },
     ],
   },
   {
     titulo: 'La S y las palabritas', sub: 'lo que se le cae',
     dias: [
-      { dia: 'Lun', foco: 'La S nítida', pista: 'Que no se apague ni se vuelva "h". Crujiente.', sonidos: ['sistema', 'semana', 'países', 'pasos', 'distintas'], frase: 'Su empresa digital genera ingresos en doce velocidades distintas.', origen: 'Servilleta · simulador' },
-      { dia: 'Mar', foco: '"setenta" y los números', pista: 'se-TEN-ta. No "stenta" ni "setena".', sonidos: ['setenta', 'sesenta', 'doce', 'ciento'], frase: 'Una corporación presente en 70 países.', origen: 'Servilleta · Pilar 1' },
+      { dia: 'Lun', foco: 'La S nítida (su salud)', pista: 'Que no se apague ni se vuelva "h". Ojo con las dos eses pegadas de "su salud".', sonidos: ['su salud', 'mejores años', 'antigüedad', 'sistema'], frase: 'Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad.', origen: 'Reel empleados · diagnóstico' },
+      { dia: 'Mar', foco: '"setenta" — sola sale, en la frase se cae', pista: 'Aislada la dice perfecta. El truco es el bloque: "con presencia / en setenta / países". Baje la velocidad justo en la unión.', sonidos: ['setenta', 'en setenta', 'setenta países', 'con presencia en setenta países'], frase: 'Una corporación con más de 30 años y presencia en 70 países.', origen: 'Home · Pilar 1' },
       { dia: 'Mié', foco: 'No omitir las palabritas', pista: 'de · en · y · el · su · lo también suenan. Toque cada una.', sonidos: ['de', 'en', 'y', 'el', 'un', 'su', 'lo'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular.', origen: 'Servilleta · Centro de Mando' },
-      { dia: 'Jue', foco: 'Unir sin tragar (sinalefa)', pista: 'Una las vocales, pero que se oigan: "su_empresa".', sonidos: ['su empresa', 'está a un clic', 'una empresa', 'para hacer'], frase: 'Multiplicar su empresa digital está a un clic.', origen: 'Servilleta · multiplicación' },
+      { dia: 'Jue', foco: 'Unir sin tragar + cadena de eses', pista: 'Una las vocales sin tragarlas. "una que se sostenga sola" lleva cuatro eses: que suenen todas.', sonidos: ['una que se sostenga sola', 'se sostenga', 'está a un clic'], frase: 'Usted ya construyó una nueva vida; lo que aún no tiene es una que se sostenga sola.', origen: 'Reel diáspora · hook' },
       { dia: 'Vie', foco: '"en su celular" / "y el error"', pista: 'Sus frases marcadas: ninguna sílaba muda.', sonidos: ['en su celular', 'de mi perfil', 'y el error'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.', origen: 'Servilleta · Centro de Mando' },
       { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Cuide la S y no se coma ninguna palabrita.', sonidos: ['lea tocando cada monosílabo'], frase: 'Su empresa digital genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.', origen: 'Servilleta · simulador' },
     ],
@@ -77,8 +77,8 @@ const PROGRAMA: Semana[] = [
       { dia: 'Lun', foco: 'link · app · queswa.app', pista: 'Alargue la K: "lin-K". Si queda forzado, diga "el enlace de mi perfil".', sonidos: ['link', 'app', 'queswa.app', 'Waze', 'Rappi'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.', origen: 'Servilleta · Centro de Mando' },
       { dia: 'Mar', foco: 'Respire por bloques', pista: 'Una respiración por idea, nunca en mitad de una frase.', sonidos: ['marque las pausas con / antes de leer'], frase: 'Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: trabajar, pagar cuentas y volver a empezar.', origen: 'Servilleta · apertura' },
       { dia: 'Mié', foco: 'Velocidad controlada', pista: 'Dígala al 60%, luego 80%, luego 100% — sin perder palabras.', sonidos: ['lento → medio → natural'], frase: 'Usted trabaja duro, pero vive "al día". Si usted se detiene, su ingreso se detiene.', origen: 'Reel informales · hook' },
-      { dia: 'Jue', foco: 'Imítese a sí mismo (shadowing)', pista: 'Grabe una versión lenta, reprodúzcala y hable encima de ella.', sonidos: ['grábese lento, luego acompáñese'], frase: 'Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir.', origen: 'Reel informales · diagnóstico' },
-      { dia: 'Vie', foco: 'Integración total', pista: 'Aplique TODO lo del mes en un reel completo, de corrido.', sonidos: ['elija un hook + diagnóstico de nicho'], frase: 'Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para construir el patrimonio de otros.', origen: 'Reel · cualquier nicho' },
+      { dia: 'Jue', foco: 'Imítese a sí mismo (shadowing)', pista: 'Grabe una versión lenta, reprodúzcala y hable encima. Cuide "seguir de pie": se-guir (G dura) + de pie.', sonidos: ['seguir', 'seguir de pie', 'grábese lento y acompáñese'], frase: 'Es la consecuencia matemática de un sistema en el que cada peso depende de que usted pueda seguir de pie.', origen: 'Reel diáspora · diagnóstico' },
+      { dia: 'Vie', foco: 'Integración total', pista: 'Aplique TODO lo del mes en un reel completo, de corrido.', sonidos: ['elija un hook + diagnóstico de nicho'], frase: 'Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir.', origen: 'Reel informales · diagnóstico' },
       { dia: 'Sáb', foco: 'Reto final + grábese', pista: 'Compare con su grabación del Sábado de la Semana 1. Mida cuánto avanzó.', sonidos: ['velocidad natural, sin papel'], frase: 'Tener ingresos que no dependan de su presencia ya existe. CreaTuActivo.com ya existe. La única variable que falta en la ecuación es usted.', origen: 'Servilleta · cierre' },
     ],
   },
@@ -90,7 +90,7 @@ const BIBLIOTECA = [
     palabra: 'encontrará', icono: '↩',
     porque: 'Junta sus dos debilidades pegadas — el grupo TR y la R fuerte — en una palabra que carga el acento al final.',
     como: ['Empiece por la sílaba fuerte y crezca hacia atrás:', '1 · rá (sola, fuerte)', '2 · tra-rá (el corazón duro: dos toques)', '3 · con-tra-rá', '4 · en-con-tra-rá'],
-    familia: ['encontrará', 'mostrará', 'entrará', 'construirá', 'logrará', 'explicará'],
+    familia: ['encontrará', 'mostrará (le mostrará en minutos…)', 'entrará', 'construirá', 'logrará', 'explicará'],
   },
   {
     palabra: 'ejercicio', icono: '◐',
@@ -103,6 +103,12 @@ const BIBLIOTECA = [
     porque: 'Mete una terminación dura (la K, rara en español) seguida de tres palabritas átonas. Por eso suena forzado.',
     como: ['1 · Aísle la K: "lin —— K", exagerando.', '2 · Una el bloque sin tragarlo: "de-mi".', '3 · "per-fil" con toque de R.', '4 · Júntelo: "link / de mi / per-fil".'],
     familia: ['Alternativa fácil: "el enlace de mi perfil"'],
+  },
+  {
+    palabra: 'su salud · se sostenga sola', icono: '∿',
+    porque: 'Cuando la S se repite muy seguida, la lengua quiere saltarse una. "se-sos-ten-ga-so-la" tiene cuatro eses; "su sa-lud" tiene dos pegadas.',
+    como: ['Marque cada S y que ninguna se apague ni se vuelva "h".', '1 · "su —— sa-lud" (dos eses, las dos suenan)', '2 · "se · sos · ten · ga · so · la", despacio', '3 · "las clí-ni-cas" (la C también suena como S)'],
+    familia: ['su salud', 'se sostenga sola', 'las clínicas', 'sistema · semana · países'],
   },
 ]
 
@@ -172,6 +178,18 @@ export default function LexicoPage() {
         <div style={{ marginTop: 16, padding: '14px 16px', background: C.cardSoft, border: `1px solid ${C.line}`, borderRadius: 14 }}>
           <p style={{ margin: 0, fontSize: 14, color: C.text }}>
             <strong style={{ color: acento }}>El secreto:</strong> su mente corre y su boca queda atrás —por eso se come palabras. Baje el ritmo interno un 20%, dígalo todo (hasta el <em>de</em> y el <em>su</em>) y grábese para auditar.
+          </p>
+        </div>
+
+        {/* En la frase se cae */}
+        <div style={{ marginTop: 12, padding: '14px 16px', background: C.cardSoft, border: `1px solid ${C.line}`, borderRadius: 14 }}>
+          <p style={{ margin: '0 0 8px', fontSize: 14, color: C.text }}>
+            <strong style={{ color: acento }}>¿Aislada le sale, pero en la frase se cae?</strong> Es lo normal: el problema casi nunca es el sonido, es la <em>unión</em> entre palabras. Parta la frase en bloques cortos, respire solo entre bloques y ensaye las <em>uniones</em>, no las palabras sueltas.
+          </p>
+          <p style={{ margin: 0, fontSize: 14, color: C.muted, lineHeight: 1.9, fontFamily: 'var(--font-mono, monospace)' }}>
+            con presencia&nbsp;/&nbsp;en setenta&nbsp;/&nbsp;países<br />
+            sus mejores años&nbsp;/&nbsp;y su salud<br />
+            cada peso depende&nbsp;/&nbsp;de que usted pueda&nbsp;/&nbsp;seguir de pie
           </p>
         </div>
 

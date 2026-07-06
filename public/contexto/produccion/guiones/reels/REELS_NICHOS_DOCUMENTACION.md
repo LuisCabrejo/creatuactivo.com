@@ -109,9 +109,9 @@ Usted construyó una empresa que factura, que le da respeto y un buen nivel de v
 Y esto no es por falta de capacidad: usted ya demostró que sabe construir. El punto es otro. Un negocio que depende de su presencia no es un patrimonio; es un puesto que usted mismo creó. No se hereda tranquilo, no se vende por lo que realmente vale, y no produce sin su supervisión. El día que usted se canse, se enferme o quiera parar, el negocio se frena con usted.
 
 **SOLUCIÓN (variante empresarios) (0:35 — 0:55s)**
-*(Reemplaza solo el primer párrafo del Bloque Compartido; sigue con "¿Y qué es una empresa digital?…" + CTA Queswa.)*
+*(Reemplaza solo el primer párrafo del Bloque Compartido; sigue con "¿Y qué es una empresa digital?…" + CTA Queswa. Ajuste 5 jul 2026: se retiró la primera oración — repetía los dos beats que el diagnóstico acababa de dar (capacidad + depende de usted); la frase sola espeja el cierre del diagnóstico: "se frena con usted" → "funcione sin usted".)*
 
-Usted ya sabe construir un negocio; el problema no es su capacidad, es que ese negocio depende de usted. Lo que sigue es tener algo que funcione sin usted: su propia empresa digital.
+Lo que sigue es tener algo que funcione sin usted: su propia empresa digital.
 
 → Sigue con el cuerpo del **Bloque Compartido** (desde "¿Y qué es una empresa digital?…") + el **CTA — Queswa**.
 

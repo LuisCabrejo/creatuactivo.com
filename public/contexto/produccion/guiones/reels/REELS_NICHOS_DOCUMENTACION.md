@@ -22,6 +22,8 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 >
 > 🔤 **Sync léxico + calibración de nicho (30 jun 2026).** **Bloque compartido — remate VS → "suma vs. multiplica"** (alineado con servilleta v5.7 + home): *"El negocio de siempre crece sumando… Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente"*. **Empleados** (diagnóstico): "poco patrimonio" **enriquecido** con *"la casa que todavía debe, el carro que todavía debe"* — insight de campo: el empleado del Estado **se siente tranquilo**; su queja real es el **patrimonio aparente = deuda** (NO falta de tranquilidad). **Diáspora** (diagnóstico): villano movido de **escasez** ("patrimonio de otros / liquidez para cuentas") a **fragilidad física** (*"su cuerpo es el único motor… se está matando trabajando"*) — insight de campo: el latino de la diáspora **gana bien y lo cuenta con orgullo** (recibe ayudas, sin la vergüenza del americano); su miedo real = el ingreso depende de su **salud** y de **seguir en el trabajo**. Ver [[feedback_dolor_real_por_nicho]]. ⚠️ Texto → próximo re-render (audio publicado intacto).
 >
+> 🧭 **Auditoría narrativa integral (5 jul 2026) — Solución v3 + hooks/diagnósticos calibrados.** **Bloque compartido v3**: definición por **reemplazo** (local→infraestructura en internet, empleados→procesos automatizados que producen "aunque usted duerma" — alineada al reel de la Home) · puente completo (*"conecta a millones de personas **con los fabricantes**"* — siembra la viga de Gano-socio que Queswa/1-a-1 recogen después) · remate con la frase canónica de la Home: *"lo que antes tomaba años e ingenieros, hoy ya está construido. **Usted no la arma; la enciende.**"* (responde la objeción que el reel siembra, sin pitchear la máquina) · em-dashes 5→2 (ritmo Puig). **Reel A reescrito**: hook nombra "variables que usted no controla" (adiós el "algo" vago); diagnóstico con absolución en patrón de casa ("Y esto no sucede por falta de capacidad de su parte; usted vale") + **escalación temporal** ("con cada año en ese cargo, usted construye más encima de esa decisión… más peso sobre una puerta que otro puede cerrar") — antes repetía el hook sin agregar información. **Reel B**: "poco patrimonio" → "**deudas**" (patrimonio-como-carencia rebota, [[feedback_aspiracion_tranquilidad_financiera]]). **Reel D**: hook declarativo (sin quiz "¿Sabía que…?"), sin eco "tambalear" con la Solución, **absolución que dignifica la migración** ("usted hizo lo que había que hacer: irse, trabajar, cumplir"), sin el absoluto "al 100%". **Reel E**: retirado el frame prohibido "cambiando sus horas por una plata" ([[feedback_horas_no_son_el_villano]]); "vulnerabilidad crítica" SE CONSERVA (rótulo del insert `PuntoCritico3D`, sincronía audio-visual). **Reel C intacto** (patrón oro: "no es un patrimonio; es un puesto que usted mismo creó"). CTA intacto. ⚠️ **Audio publicado intacto** — esta versión es la fuente de verdad para el **próximo re-render**.
+>
 > 🎯 **Solución + CTA reescritas — "antoja → Queswa" (23 jun 2026).** El bloque compartido **ya NO pitchea la máquina** (se retiraron los 3 pilares, **Gano** y las **"15 posiciones de fundadores"** del reel). Razón: el reel solo debe **despertar deseo** y entregar la pregunta *"pero ¿qué hago yo?"* → el "cómo" (pilares, respaldo, números) lo da Queswa o el 1-a-1, con contexto. Nueva Solución (v2, 23 jun — doctrina "**vender empresa digital como el santo grial; si no, lo demás se pierde**") = **definición profunda de qué es una empresa digital** (Amazon/MercadoLibre = el **puente**, NO "dueños del sistema" — *"el sistema"* es el villano del diagnóstico, no se reusa en positivo) + beneficios absurdos (produce sin usted, 24/7, todo un continente) → **ejemplo concreto `sonrisaslindas.app`** (el "clic" que aterriza lo abstracto) → **VS** negocio tradicional (una puerta, una ciudad, depende de usted) vs empresa digital (trabaja sola, crece sin techo). Hilo siempre anclado a "empresa digital / la suya / el puente" (los pronombres sueltos tipo "algo así / la suya" hacían que el lector se devolviera). — **sin Gano** (frío/MLM en primer contacto), **sin "ecosistema/100% digital"** (jerga + choca con el producto físico), **sin "activo"** (rebota en informales) ni **"diseña el sistema"** (barrera de autoeficacia → "lo pone en marcha"). CTA = solo **Queswa**, pregunta gancho *"pero ¿cómo lo hago yo?"*. Empresarios reemplaza solo el 1er párrafo. Ver [[project_home_reposicion_2026]] · [[feedback_confianza_precede_entendimiento]] · [[feedback_gano_respaldo_no_titular]]. ⚠️ **Cambio para el próximo re-render** (audio publicado intacto). ⏳ Falta alinear `reels.ts` (copy de página) a esta misma versión.
 
 > 🔁 **Promesa de Queswa alineada al canon (19 jun 2026).** El bloque compartido y los CTA
@@ -42,26 +44,26 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
 | Reel | Nicho (`REEL_NICHOS`) | Audiencia | Página | Versión |
 |------|------------------------|-----------|--------|---------|
-| A — La Devaluación Corporativa | `corporativo` | Ejecutivo corporativo | `/{slug}/corporativo` | 2.7 |
-| B — La Ilusión de la Estabilidad | `empleados` | Empleado del Estado / sector público | `/{slug}/empleados` | 2.7 |
+| A — La Devaluación Corporativa | `corporativo` | Ejecutivo corporativo | `/{slug}/corporativo` | 3.0 |
+| B — La Ilusión de la Estabilidad | `empleados` | Empleado del Estado / sector público | `/{slug}/empleados` | 2.8 |
 | C — La Prisión Operativa | `empresarios` | Empresario / dueño de negocio | `/{slug}/empresarios` | 2.7 |
-| D — La Trampa Elegante de la Diáspora | `diaspora` | Latinos en el exterior | `/{slug}/diaspora` | 3.0 |
-| E — La Economía Popular | `informales` | Independiente / economía popular | `/{slug}/informales` | 3.0 |
+| D — La Trampa Elegante de la Diáspora | `diaspora` | Latinos en el exterior | `/{slug}/diaspora` | 3.1 |
+| E — La Economía Popular | `informales` | Independiente / economía popular | `/{slug}/informales` | 3.1 |
 
 ---
 
 # BLOQUE COMPARTIDO (idéntico en los 5 reels)
 
-### SOLUCIÓN (0:30 — 1:15s)
+### SOLUCIÓN (0:30 — 1:15s) — v3 (5 jul 2026)
 *(Reels A · B · D · E. El Reel C `empresarios` reemplaza solo el primer párrafo — ver su sección.)*
 
-La solución no es trabajar más duro, ni montar un negocio de los de siempre —con local, arriendo y mil gastos, y que si usted se aleja un poco, empieza a tambalear—. La solución es ser dueño de su propia empresa digital.
+La solución no es trabajar más duro, ni montar un negocio de los de siempre, con local, arriendo y mil gastos, y que si usted se aleja un poco, empieza a tambalear. La solución es ser dueño de su propia empresa digital.
 
-¿Y qué es una empresa digital? Es un negocio que vive en internet y produce aunque usted no esté ahí: sin local, sin bodega, sin empleados. Piense en Amazon o MercadoLibre — no fabrican lo que venden; son el puente que conecta a millones y gana por cada transacción, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
+¿Y qué es una empresa digital? Es un negocio que reemplaza el local por infraestructura en internet, y los empleados por procesos automatizados que producen aunque usted duerma. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Son el puente que conecta a millones de personas con los fabricantes, y gana por cada transacción, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
 
-Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión —sin pagar el arriendo del local, sin atender a nadie—. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
+Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
 
-¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted — y si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y eso, que antes tomaba años e ingenieros, hoy —gracias a la inteligencia artificial— cualquiera puede tenerla.
+¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted — y si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y lo que antes tomaba años e ingenieros, hoy, gracias a la inteligencia artificial, ya está construido. Usted no la arma; la enciende.
 
 ### CTA — QUESWA (1:15 — 1:35s)
 
@@ -72,13 +74,13 @@ Y queda una sola pregunta: "Me encanta… pero ¿cómo lo hago yo?" Esa pregunta
 # VARIABLES POR NICHO (Hook + Diagnóstico)
 
 ## Reel A · `corporativo` — La Devaluación Corporativa (✅ empresa digital)
-*Tono: autoridad analítica, firme (Mario Puig). Hook = la **falta de control tras el buen cargo**: por bueno que sea el sueldo, la decisión sobre su ingreso se toma sin él (reestructuración, cambio de dirección). ❌ NO la pregunta patronizante «¿cuánto vale su perfil afuera?» — el corporativo YA sabe que afuera pagan menos; tratarlo de ingenuo lo pierde. ❌ NO mencionar «le rebajan el sueldo y usted acepta» — es una **humillación privada**, lo desnuda en vez de comprenderlo. Tocar la impotencia estructural (digno), no la vergüenza. Villano = **dependencia** de una decisión que no es suya, no la persona.*
+*Tono: autoridad analítica, firme (Mario Puig). Hook = la **falta de control tras el buen cargo**: nombra las "variables que usted no controla" en escalada (reestructuración → cambio de dirección → la decisión sin usted en la sala). Diagnóstico = absolución en patrón de casa + **escalación temporal** (cada año construye más encima de la decisión ajena — el tiempo agrava, no repite el hook). ❌ NO la pregunta patronizante «¿cuánto vale su perfil afuera?» — el corporativo YA sabe que afuera pagan menos; tratarlo de ingenuo lo pierde. ❌ NO mencionar «le rebajan el sueldo y usted acepta» — es una **humillación privada**, lo desnuda en vez de comprenderlo. Tocar la impotencia estructural (digno), no la vergüenza. Villano = **dependencia** de una decisión que no es suya, no la persona.*
 
 **HOOK (0:00 — 0:13s)**
-Un buen cargo corporativo le resuelve el mes. Pero por bueno que sea el sueldo, todo lo que sostiene con él depende de algo que no controla: una reestructuración, una decisión que se toma sin usted en la sala. Y basta una de esas para que todo quede en el aire.
+Un buen cargo corporativo le resuelve el mes. Pero por bueno que sea el sueldo, todo lo que sostiene con él depende de variables que usted no controla: una reestructuración, un cambio de dirección, una decisión que se toma sin usted en la sala. Y basta una de esas para que todo quede en el aire.
 
 **DIAGNÓSTICO OPERATIVO (0:13 — 0:30s)**
-Y no es por falta de capacidad; usted vale. Es la consecuencia matemática de un sistema diseñado para que su ingreso —y todo el estilo de vida que sostiene con él— dependa siempre de una decisión que no es suya.
+Y esto no sucede por falta de capacidad de su parte; usted vale. Es la consecuencia matemática de un sistema diseñado para que su ingreso dependa siempre de una decisión ajena. Y con cada año en ese cargo, usted construye más encima de esa decisión: la casa, el colegio, el estilo de vida. Más años adentro no significan más seguridad; son más peso sobre una puerta que otro puede cerrar.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
@@ -91,7 +93,7 @@ Y no es por falta de capacidad; usted vale. Es la consecuencia matemática de un
 Un cargo con el Estado le otorga estabilidad. Pero, si por más duro que trabaje, las cuotas de los créditos siempre le llevan la delantera, usted no tiene tranquilidad real; tiene una calma que dura lo que dura su quincena.
 
 **DIAGNÓSTICO OPERATIVO (0:15 — 0:35s)**
-Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y poco patrimonio: la casa que todavía debe, el carro que todavía debe.
+Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática de un sistema diseñado para mantenerlo en el ciclo de trabajar, pagar cuentas y repetir. Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad… y deudas: la casa que todavía debe, el carro que todavía debe.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
@@ -116,13 +118,13 @@ Usted ya sabe construir un negocio; el problema no es su capacidad, es que ese n
 ---
 
 ## Reel D · `diaspora` — La Trampa Elegante de la Diáspora (✅ empresa digital)
-*Tono: autoridad técnica, frío. Hook conservado; villano: «su vida como combustible» → «que usted construya el patrimonio de otros».*
+*Tono: autoridad técnica, frío. Hook declarativo (5 jul 2026 — sin el quiz «¿Sabía que…?»); villano = fragilidad física tras la fachada; diagnóstico con **absolución que dignifica la migración** ("usted hizo lo que había que hacer: irse, trabajar, cumplir" — validada en campo, conversación Jeiver/España).*
 
 **HOOK (0:00 — 0:13s)**
-¿Sabía que ganar en dólares o euros es una trampa elegante si su actividad física es el único motor de su economía? Usted ya construyó una nueva vida, pero en el fondo sabe que su bienestar es frágil. Si usted se detiene unas semanas, su estilo de vida empieza a tambalear.
+Ganar en dólares o euros puede ser una trampa elegante: se ve bien por fuera, pero si su cuerpo es el único motor de su economía, basta una lesión o unas semanas quieto para sentirlo. Usted ya construyó una nueva vida; lo que aún no tiene es una que se sostenga sola.
 
 **DIAGNÓSTICO (0:13 — 0:30s)**
-Es la consecuencia matemática de un sistema en el que su cuerpo es el único motor de su economía. Usted gana bien —pero cada peso depende de que pueda seguir de pie—, y en el fondo lo sabe: se está matando trabajando. Mientras su ingreso dependa al 100% de su salud y de seguir en el trabajo, su tranquilidad es solo un espejismo.
+Y no es falta de juicio: usted hizo lo que había que hacer — irse, trabajar, cumplir. Es la consecuencia matemática de un sistema en el que cada peso depende de que usted pueda seguir de pie. Usted gana bien, y en el fondo lo sabe: se está matando trabajando. Mientras su ingreso dependa de su salud y de seguir en el trabajo, su tranquilidad es solo un espejismo.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
@@ -135,7 +137,7 @@ Es la consecuencia matemática de un sistema en el que su cuerpo es el único mo
 Usted trabaja duro, pero vive "al día". La matemática financiera de su vida es: si usted se detiene, su ingreso se detiene.
 
 **DIAGNÓSTICO (0:13 — 0:30s)**
-Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir, cambiando sus horas por una plata que se va tan rápido como llega. Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.
+Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir, con una plata que se va tan rápido como llega. Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 

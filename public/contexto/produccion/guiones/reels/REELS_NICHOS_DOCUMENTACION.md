@@ -59,11 +59,11 @@ se documenta una sola vez abajo, y cada nicho lista solo sus partes variables.
 
 La solución no es trabajar más duro, ni montar un negocio de los de siempre, con local, arriendo y mil gastos, y que si usted se aleja un poco, empieza a tambalear. La solución es ser dueño de su propia empresa digital.
 
-¿Y qué es una empresa digital? Es un negocio que reemplaza el local por infraestructura en internet, y los empleados por procesos automatizados que producen aunque usted duerma. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Son el puente que conecta a millones de personas con los fabricantes, y gana por cada transacción, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
+¿Y qué es una empresa digital? Es un negocio que reemplaza el local por infraestructura en internet, y los empleados por procesos automatizados que producen aunque usted duerma. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Son el puente que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática. Una empresa digital trabaja sola, 24/7, y llega tan lejos como quiera: una ciudad, un país, un continente.
 
 Y no hace falta ser un gigante. Imagine su propia empresa digital, en su ciudad. Por ejemplo: usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita. Por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie. Usted es el puente. Multiplíquelo por toda la ciudad… por todo el país.
 
-¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted — y si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y lo que antes tomaba años e ingenieros, hoy, gracias a la inteligencia artificial, ya está construido. Usted no la arma; la enciende.
+¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted — y si usted no está, se detiene. Una empresa digital crece multiplicando: lo que usted hace una vez llega a todo un continente. Y la empresa trabaja por usted, en paralelo a lo que ya hace, y crece sin techo. Y lo que antes tomaba años e ingenieros, hoy, gracias a la inteligencia artificial, ya está construido. Usted no la arma; la enciende.
 
 ### CTA — QUESWA (1:15 — 1:35s)
 

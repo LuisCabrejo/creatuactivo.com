@@ -334,4 +334,33 @@ Cada pieza: imagen (3–4 variantes, elegir) → videoclip Veo → entregar `.mp
 
 ---
 
+## 8. INVENTARIO VIGENTE DE CLIPS (6 jul 2026) — fuente de verdad de nombres
+
+⚠️ **Para cualquier agente que ensamble reels con estos clips**: varios archivos llevan
+sufijo de versión y NO coinciden con el nombre canónico del beat. Esta tabla resuelve el
+mapeo. Carpeta: `~/Downloads/clips-reel-home/` (local, gitignored — los clips web viven
+en Vercel Blob; los de la servilleta en `public/videos/servilleta/`).
+
+| Beat | Archivo VIGENTE | Nota |
+|------|-----------------|------|
+| B1 · El ciclo (villano) | `bucle.mp4` | — |
+| B2 · Empresa de siempre | `empresa-de-siempre.mp4` | tambaleo + sonido (post) |
+| B3 · El puente | **`el-puente-v2.mp4`** | dolly-in digital hacia el techo de la fábrica (post, compuesto por código sobre toma fija de Veo) + ambiente de despacho en crescendo + **duck en t=6.4s reservado para sample de registradora** (se agrega en CapCut). El `el-puente.mp4` viejo NO existe |
+| — · sonrisaslindas | `sonrisaslindas.mp4` | — |
+| B4 · Con sus manos | `con-sus-manos.mp4` | v2 en sitio (mismo nombre): bloques de CONCRETO con sellos ciegos (íconos: `</>`, fábrica, documento, camión, ⚠) que caen en 7s, placa grande al final |
+| B5b · 3 cosas ciertas | **`3-cosas-ciertas-v2.mp4`** | piezas iguales con sellos (fábrica/chat/checklist) que se unen en el cubo limpio + orbe |
+| B6 · Gano | `socio-logistico.mp4` | — |
+| B7 · Queswa | `queswa-final.mp4` | — |
+| B8 · Método | `metodo.mp4` | actualizado 6 jul |
+| B9 · Multiplicación | **`multiplicacion-glint.mp4`** | destellos del orbe + tonos de confirmación compuestos EN POST (8 beats exactos sobre olas de encendido) — el `multiplicacion.mp4` crudo ya no existe |
+| Cierre | **`cierre-encendido.mp4`** | supersede a `creatuactivo.mp4` (ya no existe): cubo+orbe, encendido interior en t=2.0s + power-on (post). Alinear "las enciende" del VO a t≈2.1s |
+| Máster Home | `reel-home-final-2.mp4` (6 jul) | corte nuevo en curso; `reel-home-final.mp4` (5 jul) es el previo |
+
+**Técnica de la casa (clips `-glint` / `-encendido` / B4-sellos):** lo que Veo no da de forma
+fiable (coordinación luz+sonido, sellos legibles, timing exacto) se **compone por código en
+post** sobre el máster de Veo — scripts numpy/PIL/ffmpeg, patrón validado (multiplicación,
+cierre, con-sus-manos, el-puente). Los scripts de esta tanda vivieron en el scratchpad de
+sesión; la doctrina y las recetas están en [PIPELINE.md](../../../scripts/dankoe-video/PIPELINE.md)
+y los prompts/lecciones de generación en [GUIA_IDENTIDAD_VISUAL_IA.md](GUIA_IDENTIDAD_VISUAL_IA.md) §9.
+
 *Documento vivo. Actualizar a medida que cada b-roll se apruebe (marcar ✅ y enlazar el master).*

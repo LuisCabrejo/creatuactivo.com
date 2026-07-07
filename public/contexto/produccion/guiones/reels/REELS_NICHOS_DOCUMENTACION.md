@@ -99,6 +99,8 @@ Esto no sucede por falta de esfuerzo de su parte. Es la consecuencia matemática
 
 → Continúa con el **Bloque Compartido** (Solución + CTA).
 
+*Producción (7 jul 2026 — guión v3 + biblioteca Home, 100% reuso, cero clips nuevos): base talking-head 140.3s con música propia de CapCut → pipeline `scripts/dankoe-video` · subtítulos forced-alignment (413 tokens, display-map 24/7) · **8 inserts** por payoff: `bucle` (el ciclo→"repetir" 22.1s — debut del villano B1 en nichos) · `el-peso` **recortado antes del reveal de la manija** (pila casa/birrete/carro→"el carro que todavía debe" 30.3s — la metáfora de la manija es corporativa; la pila de deudas es universal) · `empresa-de-siempre` desde t=1.5 (vibración→"tambalear" 38.1s) · `el-puente-v2` + **contador de billetes 44 pulsos/s** (59.3–62.1s → "de forma automática" 61.9s) · `sonrisaslindas` (76.8s) · `multiplicacion-glint` (→"sin techo" 110.4s) · `cierre-encendido` (→"la enciende" 120.1s) · `queswa-final` (CTA 126.1s) · audios de clips bajo la voz · atmósfera + loudnorm −13.5 LUFS + outro. Master: `masters/empleados-v3.mp4` (143.4s); web: `~/Downloads/reels/empleados/empleados-final.mp4` → **desplegado a Blob `reels/empleados.mp4`** (verificado por bytes) + poster regenerado.*
+
 ---
 
 ## Reel C · `empresarios` — El Diagnóstico de la Prisión Operativa (✅ empresa digital)

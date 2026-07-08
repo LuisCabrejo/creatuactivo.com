@@ -249,6 +249,22 @@ export default function UnifiedQueswaOrb() {
     }
   }, [pathname])
 
+  // ─── Ocultar el orbe mientras rueda el video del plan (/video-plan-servilleta) ──
+  // HomeManifestoVideo dispara hide/show-queswa-orb; así el orbe no interfiere con
+  // el video y reaparece al terminar. Queswa sigue accesible por el CTA de la página.
+  const [orbHiddenForVideo, setOrbHiddenForVideo] = useState(false)
+  useEffect(() => {
+    if (pathname !== '/video-plan-servilleta') return
+    const hide = () => setOrbHiddenForVideo(true)
+    const show = () => setOrbHiddenForVideo(false)
+    window.addEventListener('hide-queswa-orb', hide)
+    window.addEventListener('show-queswa-orb', show)
+    return () => {
+      window.removeEventListener('hide-queswa-orb', hide)
+      window.removeEventListener('show-queswa-orb', show)
+    }
+  }, [pathname])
+
   // ─── Eventos globales (open-queswa, close-queswa, toggle-queswa) ─────────────
   useEffect(() => {
     const handleOpen   = () => { setIsOpen(true) }
@@ -571,6 +587,8 @@ export default function UnifiedQueswaOrb() {
   // desde el botón "PREGÚNTALE ALGO EN VIVO" (evento open-queswa) → cuando isOpen,
   // el componente monta para servir el widget; al cerrar vuelve a desaparecer.
   if (pathname === '/servilleta' && !visibleInServilleta && !isOpen) return null
+  // Ocultar el orbe mientras rueda el video del plan (reaparece al terminar)
+  if (pathname === '/video-plan-servilleta' && orbHiddenForVideo && !isOpen) return null
   // Ocultar mientras el menú mobile está abierto
   if (isMenuOpen) return null
 

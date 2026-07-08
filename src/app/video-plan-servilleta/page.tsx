@@ -62,8 +62,9 @@ export default function VideoPlanServilletaPage() {
       </a>
 
       <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '36px' }}>
-        {/* Video 9:16 — protagonista. Al terminar abre Queswa. */}
-        <HomeManifestoVideo src={PLAN_SERVILLETA_VIDEO} poster={PLAN_SERVILLETA_POSTER} />
+        {/* Video 9:16 — protagonista. Oculta el orbe mientras rueda (no interfiere)
+            y lo revela al terminar; al final abre Queswa. */}
+        <HomeManifestoVideo src={PLAN_SERVILLETA_VIDEO} poster={PLAN_SERVILLETA_POSTER} manageOrbVisibility />
 
         {/* Cuerpo breve */}
         <p

@@ -44,12 +44,31 @@ function openQueswaAndFocus() {
   }, 80)
 }
 
-export default function HomeManifestoVideo({ src, poster }: { src: string; poster: string }) {
+export default function HomeManifestoVideo({
+  src,
+  poster,
+  manageOrbVisibility = false,
+}: {
+  src: string
+  poster: string
+  // Cuando true (página /video-plan-servilleta): oculta el orbe flotante mientras
+  // rueda el video para que no interfiera con la experiencia inmersiva, y lo
+  // revela al terminar. Queswa sigue accesible por el CTA bajo el video.
+  manageOrbVisibility?: boolean
+}) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [ended, setEnded] = useState(false)
   const [muted, setMuted] = useState(true)
   const hijackedRef = useRef(false)
+
+  // Ocultar el orbe mientras rueda el video (solo si el padre lo pide). Se
+  // restaura al terminar (handleEnded) y al desmontar la página.
+  useEffect(() => {
+    if (!manageOrbVisibility) return
+    window.dispatchEvent(new CustomEvent('hide-queswa-orb'))
+    return () => window.dispatchEvent(new CustomEvent('show-queswa-orb'))
+  }, [manageOrbVisibility])
 
   // ─── Burbuja contextual sobre el orbe (solo al scrollear lejos del video) ───
   const [showPrompt, setShowPrompt] = useState(false)
@@ -103,6 +122,7 @@ export default function HomeManifestoVideo({ src, poster }: { src: string; poste
 
   const handleEnded = () => {
     setEnded(true)
+    if (manageOrbVisibility) window.dispatchEvent(new CustomEvent('show-queswa-orb'))
     if (hijackedRef.current) return
     hijackedRef.current = true
     // Transición invisible (nivel Apple): Queswa se abre EN el mismo instante en
@@ -119,6 +139,7 @@ export default function HomeManifestoVideo({ src, poster }: { src: string; poste
   // Quien pide repetir quiere oírlo: el replay entra ya con sonido
   const replay = () => {
     setEnded(false)
+    if (manageOrbVisibility) window.dispatchEvent(new CustomEvent('hide-queswa-orb'))
     startWithSound()
   }
 

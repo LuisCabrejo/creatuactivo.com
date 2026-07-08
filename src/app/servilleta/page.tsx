@@ -82,6 +82,7 @@ export default function ServilletaPage() {
   const [isKiosk, setIsKiosk] = useState(false);
   const [verticalMode, setVerticalMode] = useState(false);
   const [vScale, setVScale] = useState(1);
+  const vOverlayRef = React.useRef<HTMLDivElement | null>(null);
   // Video del Plan en modal DENTRO del deck (no navega fuera) → tras verlo se
   // vuelve a la portada y se avanza a los clips sin perder el hilo.
   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -112,6 +113,20 @@ export default function ServilletaPage() {
     calc();
     window.addEventListener('resize', calc);
     return () => window.removeEventListener('resize', calc);
+  }, [verticalMode]);
+
+  // Modo Vertical = también fullscreen NATIVO del overlay (si el navegador está a
+  // media pantalla, expande a toda la pantalla igual que el fullscreen normal).
+  // Salir del fullscreen (Esc nativo) cierra el modo; cerrar con ✕ sale de ambos.
+  useEffect(() => {
+    if (!verticalMode) return;
+    vOverlayRef.current?.requestFullscreen?.().catch(() => {});
+    const onFs = () => { if (!document.fullscreenElement) setVerticalMode(false); };
+    document.addEventListener('fullscreenchange', onFs);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFs);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
   }, [verticalMode]);
 
   // Esc cierra el modal del video o sale del modo vertical (sin tocar el fullscreen)
@@ -642,6 +657,23 @@ export default function ServilletaPage() {
         .kiosk .top-hud { display: none !important; }
         .kiosk .mobile-nav { display: none !important; }
         .kiosk .slide-counter { display: none !important; }
+        /* Sin navs no hay que reservarles espacio: el @media mobile mete
+           padding 70px arriba (top-hud) y 80px abajo (mobile-nav) → aquí se
+           compacta y la card activa se ajusta al alto disponible en vez de
+           exigir 70vh (que desbordaba el marco 9:16 y cortaba el clip). */
+        .kiosk .one-card-mode .grid-layout-slide-2 { padding: 10px 14px 14px !important; gap: 10px !important; }
+        .kiosk .slide-2-header { padding-top: 0 !important; }
+        .kiosk .slide-2-header .slide-2-subtitle { margin-top: 6px !important; }
+        .kiosk .card-dots { margin: 6px 0 0 !important; }
+        .kiosk .one-card-mode .card-industrial.card-active,
+        .kiosk .one-card-mode .full-width.card-active {
+          min-height: 0 !important;
+          height: auto !important;
+          flex: 1 1 auto;
+          overflow: hidden;
+        }
+        .kiosk #slide-4,
+        .kiosk .slide-3-bottom { padding-bottom: 16px !important; }
 
         /* Modo Vertical: marco portrait 9:16 centrado en negro, tapa la nav */
         .vertical-present-overlay {
@@ -1860,9 +1892,10 @@ export default function ServilletaPage() {
                   <button
                     onClick={(e) => { e.stopPropagation(); setActiveCardIndex(0); }}
                     aria-label="Volver a la portada"
+                    title="Portada"
                     className="ver-portada-btn"
                   >
-                    <span aria-hidden="true">⌂</span> Portada
+                    <span aria-hidden="true">⌂</span>
                   </button>
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
                     0{activeCardIndex} / 03
@@ -2278,7 +2311,7 @@ export default function ServilletaPage() {
         {/* MODO VERTICAL — deck en marco portrait 9:16 (iframe a ancho de móvil),
             centrado en negro, nav oculta. Para presentar/compartir en Meet. */}
         {verticalMode && !isKiosk && (
-          <div className="vertical-present-overlay">
+          <div className="vertical-present-overlay" ref={vOverlayRef}>
             <div
               className="vp-frame"
               style={{ width: 412, height: 732, transform: `scale(${vScale})` }}

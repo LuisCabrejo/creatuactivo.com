@@ -16,6 +16,11 @@ export const SERVILLETA_YOUTUBE_ID = 'xHWZfg6prs8'
 export const HOME_MANIFESTO_VIDEO = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/home/home-manifesto.mp4'
 export const HOME_MANIFESTO_POSTER = '/videos/home/poster.webp'
 
+// Video del Plan Servilleta (9:16, ~6 min) — página /video-plan-servilleta.
+// Mismo pipeline de los reels (subtítulos karaoke + cutaways + atmósfera + outro).
+export const PLAN_SERVILLETA_VIDEO = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/plan-servilleta/video-plan-servilleta.mp4'
+export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
+
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'

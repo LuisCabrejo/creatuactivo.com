@@ -267,6 +267,22 @@ Mi meta de aquí a diciembre es ver a muchas personas caminando en esa direcció
 
 ---
 
+## Día 16 · Miércoles 8 de julio — "Las reglas se invirtieron" (directo · citas 1 a 1)
+*Semana 4 · **primer reel DIRECTO de la serie** (decisión Luis 8 jul: pasar de despertar curiosidad a sacar citas 1 a 1 — el mercado ya lleva 5 semanas de contexto) · hook = calificación por identidad ("si usted ya entendió que el plan de toda la vida…" — habla solo al que ya se reconoció en el bucle) · cuerpo = líneas calibradas del guion de la Home/servilleta (infraestructura de conexión, Amazon/ML, apalancamiento, tríada de primeros principios, "no las arma… las enciende") · exclusividad implícita (espacio 1 a 1) · **CTA dual: mensaje directo para agendar 1 a 1 · o Queswa ahora mismo**.*
+*Producción (8 jul): talking-head de estudio graduado en CapCut con **música propia conservada** (modo línea-35 del pipeline: loudnorm del mix a −14 + SFX encima, sin arco suspense→corporativa) → pipeline `scripts/dankoe-video` · forced alignment sobre la **pista de voz separada** (`doc-08-julio.AAC` — CapCut exportó la voz sola aparte, alignment limpio; stamps `captions/work/doc0807_stamps.json`) · subtítulos karaoke (display-map `uno a uno`→`1 a 1`) + atmósfera grano/halation/viñeta + SFX: shimmer en "puente digital" (17.9s) · whoosh en el pivot "La gran ventaja es que hoy" (23.85s) · shimmer suave en el CTA "escríbame" (52.1s) + outro emblema. Mezcla −13.5 LUFS, picos −0.6 dBTP. Master: `masters/doc-08-07.mp4` (60.2s); web: `~/Downloads/clips-reel-home/doc-08-julio/doc-08-07-final.mp4` (31.8 MB). Sin inserts 3D.*
+
+Si usted ya entendió que el plan de toda la vida solo lo lleva al bucle de trabajar, pagar cuentas y repetir… la salida requiere apalancamiento.
+
+Ahora las reglas del juego se invirtieron: el negocio moderno ya no está en la producción física, sino en la infraestructura de conexión. Piense en Amazon o MercadoLibre: no fabrican lo que venden. Son el puente digital que conecta a millones de personas con los fabricantes, y ganan por cada transacción, de forma automática.
+
+La gran ventaja es que hoy la inteligencia artificial nos permite hacer exactamente lo mismo. Usted ya no crea la infraestructura; simplemente la usa para empezar de inmediato. Y aquí la regla es sencilla: para que una empresa digital exista, tres cosas tienen que ser ciertas: alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.
+
+CreaTuActivo es la plataforma que une las tres en una sola. Usted no las arma… las enciende.
+
+Si esta lógica le hace sentido, y quiere ser dueño de una empresa que crece y le factura en toda América… escríbame un mensaje directo para agendar un espacio 1 a 1. O si prefiere… consulte ahora mismo con Queswa.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
 *Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `public/investigaciones/Investigación del Sistema Maestro de Naval.md`):*

@@ -35,6 +35,8 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'dia-4': (id) => `/empresa-digital/dia-4?ref=${id}`,
   'dia-5': (id) => `/empresa-digital/dia-5?ref=${id}`,
   // Legado — siguen funcionando si alguien tiene el link guardado
+  'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
+  'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
   'presentacion':  (id) => `/presentacion-empresarial/${id}`,
   'reto':          (id) => `/reto-12-niveles/${id}`,
   'activacion':    (id) => `/empresa-digital?ref=${id}`,

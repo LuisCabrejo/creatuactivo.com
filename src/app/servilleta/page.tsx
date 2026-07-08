@@ -74,6 +74,10 @@ export default function ServilletaPage() {
   const [productCatalogOpen, setProductCatalogOpen] = useState(false);
   const [subscribeOpen, setSubscribeOpen] = useState(false);
   const [pausedKey, setPausedKey] = useState<string | null>(null);
+  // Enlace al video del Plan (con atribución al constructor si la servilleta
+  // se abrió como /servilleta/{constructorId}). Default sin ref; el effect lo
+  // completa en cliente para no romper la hidratación.
+  const [videoPlanHref, setVideoPlanHref] = useState('/video-plan-servilleta');
   const touchStartX = React.useRef(0);
   const touchStartY = React.useRef(0);
   const touchLastX = React.useRef(0);
@@ -85,6 +89,12 @@ export default function ServilletaPage() {
 
   // Fuentes: Rajdhani + Roboto Mono ya cargadas via next/font en layout.tsx
   // Material Symbols Sharp cargado en layout.tsx — no se necesita useEffect aquí
+
+  // Resolver ?ref del enlace al video del Plan desde el path /servilleta/{id}
+  useEffect(() => {
+    const m = window.location.pathname.match(/^\/servilleta\/([^/]+)/);
+    if (m && m[1]) setVideoPlanHref(`/video-plan-servilleta?ref=${encodeURIComponent(m[1])}`);
+  }, []);
 
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
@@ -571,6 +581,19 @@ export default function ServilletaPage() {
         .deck-h1 { font-size: 4rem; }
         .deck-h2 { font-size: 3rem; }
         .deck-p { color: #ccc; line-height: 1.6; max-width: 600px; margin: 0; text-shadow: 0px 1px 3px black; }
+
+        /* "Ver video" en la portada → acceso al explainer de 6 min antes de la presentación */
+        .ver-video-link {
+          display: inline-flex; align-items: center; gap: 8px;
+          font-family: var(--font-mono, monospace); font-size: 0.85rem;
+          letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+          color: var(--orange, #C5A059);
+          border: 1.5px solid rgba(197,160,89,0.45); border-radius: 4px;
+          padding: 10px 20px; background: rgba(197,160,89,0.08);
+          transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .ver-video-link:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.8); }
+        .ver-video-link span { font-size: 0.7rem; }
 
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
            del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
@@ -1737,6 +1760,11 @@ export default function ServilletaPage() {
                   <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
                     El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                   </p>
+                  <div style={{ textAlign: 'center', marginTop: 12 }}>
+                    <a href={videoPlanHref} className="ver-video-link">
+                      <span aria-hidden="true">▶</span> Ver video
+                    </a>
+                  </div>
                 </div>
               )}
               {oneCardMode && activeCardIndex >= 1 && (
@@ -1767,6 +1795,14 @@ export default function ServilletaPage() {
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
                     El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                   </p>
+                  <a
+                    href={videoPlanHref}
+                    onClick={(e) => e.stopPropagation()}
+                    className="ver-video-link"
+                    style={{ marginTop: 22 }}
+                  >
+                    <span aria-hidden="true">▶</span> Ver video
+                  </a>
                 </div>
               )}
 

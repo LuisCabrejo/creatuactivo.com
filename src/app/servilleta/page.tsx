@@ -78,6 +78,13 @@ export default function ServilletaPage() {
   // se abrió como /servilleta/{constructorId}). Default sin ref; el effect lo
   // completa en cliente para no romper la hidratación.
   const [videoPlanHref, setVideoPlanHref] = useState('/video-plan-servilleta');
+  // Modo Vertical (presentación en Meet): un monitor horizontal no puede ir a
+  // fullscreen portrait, así que se SIMULA — un iframe del deck a ancho de móvil
+  // (dispara el layout vertical), centrado en negro, con la nav oculta. `isKiosk`
+  // = esta instancia corre DENTRO del iframe (?kiosk=1): oculta nav + botón.
+  const [isKiosk, setIsKiosk] = useState(false);
+  const [verticalMode, setVerticalMode] = useState(false);
+  const [vScale, setVScale] = useState(1);
   const touchStartX = React.useRef(0);
   const touchStartY = React.useRef(0);
   const touchLastX = React.useRef(0);
@@ -95,6 +102,25 @@ export default function ServilletaPage() {
     const m = window.location.pathname.match(/^\/servilleta\/([^/]+)/);
     if (m && m[1]) setVideoPlanHref(`/video-plan-servilleta?ref=${encodeURIComponent(m[1])}`);
   }, []);
+
+  // ¿Esta instancia corre dentro del iframe del Modo Vertical? (?kiosk=1)
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('kiosk') === '1') setIsKiosk(true);
+  }, []);
+
+  // Escala del marco portrait 9:16 (412×732 lógicos) para llenar la pantalla.
+  // Tamaño fijo de móvil → dispara el layout vertical dentro del iframe; el
+  // transform sólo lo agranda para presentar.
+  useEffect(() => {
+    if (!verticalMode) return;
+    const W = 412, H = 732;
+    const calc = () => setVScale(Math.min(window.innerHeight / H, window.innerWidth / W));
+    calc();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setVerticalMode(false); };
+    window.addEventListener('resize', calc);
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('resize', calc); window.removeEventListener('keydown', onKey); };
+  }, [verticalMode]);
 
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
@@ -607,6 +633,27 @@ export default function ServilletaPage() {
         }
         .ver-portada-btn:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.8); }
         .ver-portada-btn span { font-size: 0.85rem; line-height: 1; }
+
+        /* Kiosk (dentro del iframe del Modo Vertical): solo la presentación */
+        .kiosk .top-hud { display: none !important; }
+        .kiosk .mobile-nav { display: none !important; }
+        .kiosk .slide-counter { display: none !important; }
+
+        /* Modo Vertical: marco portrait 9:16 centrado en negro, tapa la nav */
+        .vertical-present-overlay {
+          position: fixed; inset: 0; z-index: 10000; background: #000;
+          display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .vp-frame { flex: none; transform-origin: center center; }
+        .vp-frame iframe { width: 100%; height: 100%; border: 0; display: block; background: #0F1115; }
+        .vp-exit {
+          position: fixed; top: 16px; right: 16px; z-index: 10001;
+          width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(8,9,12,0.8); border: 1px solid rgba(197,160,89,0.5);
+          color: #C5A059; font-size: 20px; line-height: 1;
+        }
+        .vp-exit:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.85); }
 
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
            del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
@@ -1688,7 +1735,7 @@ export default function ServilletaPage() {
         }
       `}</style>
 
-      <div className="industrial-theme">
+      <div className={`industrial-theme${isKiosk ? ' kiosk' : ''}`}>
 
         {/* TOP HUD - Desktop */}
         <nav className="top-hud" style={queswaOpen ? { display: 'none' } : undefined}>
@@ -1715,6 +1762,14 @@ export default function ServilletaPage() {
                 {s.label}
               </button>
             ))}
+            {!isKiosk && (
+              <button className="btn-fullscreen" onClick={() => setVerticalMode(true)} title="Modo vertical (para Meet)" aria-label="Modo vertical">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="7" y="2.5" width="10" height="19" rx="2" />
+                  <line x1="10.5" y1="18.5" x2="13.5" y2="18.5" />
+                </svg>
+              </button>
+            )}
             <button className="btn-fullscreen" onClick={toggleFullscreen} title="Pantalla completa (F)">
               <span className="material-symbols-sharp">
                 {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
@@ -2199,6 +2254,26 @@ export default function ServilletaPage() {
                 className="catalog-image"
               />
             </div>
+          </div>
+        )}
+
+        {/* MODO VERTICAL — deck en marco portrait 9:16 (iframe a ancho de móvil),
+            centrado en negro, nav oculta. Para presentar/compartir en Meet. */}
+        {verticalMode && !isKiosk && (
+          <div className="vertical-present-overlay">
+            <div
+              className="vp-frame"
+              style={{ width: 412, height: 732, transform: `scale(${vScale})` }}
+            >
+              <iframe src="/servilleta?kiosk=1" title="Presentación vertical" />
+            </div>
+            <button
+              type="button"
+              className="vp-exit"
+              onClick={() => setVerticalMode(false)}
+              aria-label="Salir del modo vertical"
+              title="Salir (Esc)"
+            >✕</button>
           </div>
         )}
       </div>

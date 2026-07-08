@@ -130,8 +130,8 @@ export default async function DestinoRoute({
   // 2. Resolver destino → ruta real
   const resolver = DESTINO_MAP[destino]
   if (!resolver) {
-    // Destino desconocido → volver a la mini-landing
-    redirect(`/${slug}`)
+    // Destino desconocido → home con tracking (la mini-landing /{slug} se eliminó)
+    redirect(`/?ref=${record.constructor_id}`)
   }
 
   redirect(resolver(record.constructor_id))

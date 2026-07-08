@@ -48,6 +48,7 @@ export default function HomeManifestoVideo({
   src,
   poster,
   manageOrbVisibility = false,
+  enableFullscreen = false,
 }: {
   src: string
   poster: string
@@ -55,6 +56,10 @@ export default function HomeManifestoVideo({
   // rueda el video para que no interfiera con la experiencia inmersiva, y lo
   // revela al terminar. Queswa sigue accesible por el CTA bajo el video.
   manageOrbVisibility?: boolean
+  // Cuando true: muestra un botón "ampliar" (pantalla completa) sobre el video —
+  // útil para presentar en Meet. En fullscreen el video vertical se ve completo
+  // (object-fit:contain vía globals.css), sin deformarse.
+  enableFullscreen?: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -118,6 +123,17 @@ export default function HomeManifestoVideo({
     el.muted = false
     el.currentTime = 0
     el.play().catch(() => {})
+  }
+
+  // Pantalla completa del VIDEO (no del contenedor, que está limitado a 340px):
+  // el video llena la pantalla y globals.css fuerza object-fit:contain para que
+  // el vertical 9:16 no se deforme. iOS usa el reproductor nativo (webkit).
+  const goFullscreen = () => {
+    const el = videoRef.current as any
+    if (!el) return
+    if (el.requestFullscreen) el.requestFullscreen().catch(() => {})
+    else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen()
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen()
   }
 
   const handleEnded = () => {
@@ -250,6 +266,42 @@ export default function HomeManifestoVideo({
             cursor: muted && !ended ? 'pointer' : 'default',
           }}
         />
+
+        {/* Botón "ampliar" (pantalla completa) — para presentar en Meet. El video
+            vertical se ve completo, sin deformarse (object-fit:contain en fullscreen). */}
+        {enableFullscreen && !ended && (
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); goFullscreen() }}
+            aria-label="Ampliar a pantalla completa"
+            title="Pantalla completa"
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              zIndex: 4,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 40,
+              height: 40,
+              background: 'rgba(8, 9, 12, 0.72)',
+              border: '1px solid rgba(197, 160, 89, 0.5)',
+              borderRadius: 8,
+              color: C.gold,
+              cursor: 'pointer',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+              <path d="M16 3h3a2 2 0 0 1 2 2v3" />
+              <path d="M8 21H5a2 2 0 0 1-2-2v-3" />
+              <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+            </svg>
+          </button>
+        )}
 
         {/* Chip de sonido — el autoplay solo es posible silenciado; un toque
             activa el audio y REINICIA desde 0 (la narrativa empieza aquí) */}

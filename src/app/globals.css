@@ -269,3 +269,15 @@ h1, h2, h3, .quote-text, .font-serif {
 .creatuactivo-cta-ecosystem:hover {
   box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
 }
+
+/* Video en pantalla completa (presentación en Meet, etc.): un video vertical 9:16
+   con object-fit:cover se recorta/deforma al ir a fullscreen en una pantalla
+   horizontal. En fullscreen forzamos "contain" → el video llena la altura,
+   centrado, con barras negras a los lados, sin deformarse. */
+video:fullscreen,
+video:-webkit-full-screen {
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: #000 !important;
+}

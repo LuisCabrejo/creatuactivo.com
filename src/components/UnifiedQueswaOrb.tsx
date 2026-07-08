@@ -159,9 +159,10 @@ export default function UnifiedQueswaOrb() {
     return seg.length === 2 && (REEL_NICHOS as readonly string[]).includes(seg[1])
   })()
 
-  // Home: el video manifiesto controla su propia burbuja (HomeManifestoVideo) —
-  // el tooltip genérico interferiría con el video y el chip de sonido.
-  const suppressTooltip = isReelRoute || pathname === '/'
+  // Home y /video-plan-servilleta: el video manifiesto controla su propia burbuja
+  // (HomeManifestoVideo) — el tooltip genérico interferiría con el video y el chip
+  // de sonido, igual que en las páginas de reel.
+  const suppressTooltip = isReelRoute || pathname === '/' || pathname === '/video-plan-servilleta'
 
   // Catálogo (/sistema/productos): Queswa es asesor de salud y bienestar, no de
   // negocio → el tooltip del orbe se enfoca en asesoría, no en "empresa digital".

@@ -50,6 +50,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import SubscribeModal from '@/components/SubscribeModal';
+import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 
 // (El control de pausa es ÚNICO y central — ver clipCenterToggle dentro del componente.
 //  Decisión Director 2 jul 2026: un solo botón, el del centro; el de esquina se retiró.)
@@ -74,10 +75,6 @@ export default function ServilletaPage() {
   const [productCatalogOpen, setProductCatalogOpen] = useState(false);
   const [subscribeOpen, setSubscribeOpen] = useState(false);
   const [pausedKey, setPausedKey] = useState<string | null>(null);
-  // Enlace al video del Plan (con atribución al constructor si la servilleta
-  // se abrió como /servilleta/{constructorId}). Default sin ref; el effect lo
-  // completa en cliente para no romper la hidratación.
-  const [videoPlanHref, setVideoPlanHref] = useState('/video-plan-servilleta');
   // Modo Vertical (presentación en Meet): un monitor horizontal no puede ir a
   // fullscreen portrait, así que se SIMULA — un iframe del deck a ancho de móvil
   // (dispara el layout vertical), centrado en negro, con la nav oculta. `isKiosk`
@@ -85,6 +82,9 @@ export default function ServilletaPage() {
   const [isKiosk, setIsKiosk] = useState(false);
   const [verticalMode, setVerticalMode] = useState(false);
   const [vScale, setVScale] = useState(1);
+  // Video del Plan en modal DENTRO del deck (no navega fuera) → tras verlo se
+  // vuelve a la portada y se avanza a los clips sin perder el hilo.
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
   const touchStartX = React.useRef(0);
   const touchStartY = React.useRef(0);
   const touchLastX = React.useRef(0);
@@ -96,12 +96,6 @@ export default function ServilletaPage() {
 
   // Fuentes: Rajdhani + Roboto Mono ya cargadas via next/font en layout.tsx
   // Material Symbols Sharp cargado en layout.tsx — no se necesita useEffect aquí
-
-  // Resolver ?ref del enlace al video del Plan desde el path /servilleta/{id}
-  useEffect(() => {
-    const m = window.location.pathname.match(/^\/servilleta\/([^/]+)/);
-    if (m && m[1]) setVideoPlanHref(`/video-plan-servilleta?ref=${encodeURIComponent(m[1])}`);
-  }, []);
 
   // ¿Esta instancia corre dentro del iframe del Modo Vertical? (?kiosk=1)
   useEffect(() => {
@@ -116,11 +110,21 @@ export default function ServilletaPage() {
     const W = 412, H = 732;
     const calc = () => setVScale(Math.min(window.innerHeight / H, window.innerWidth / W));
     calc();
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setVerticalMode(false); };
     window.addEventListener('resize', calc);
-    window.addEventListener('keydown', onKey);
-    return () => { window.removeEventListener('resize', calc); window.removeEventListener('keydown', onKey); };
+    return () => window.removeEventListener('resize', calc);
   }, [verticalMode]);
+
+  // Esc cierra el modal del video o sale del modo vertical (sin tocar el fullscreen)
+  useEffect(() => {
+    if (!videoModalOpen && !verticalMode) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (videoModalOpen) setVideoModalOpen(false);
+      else if (verticalMode) setVerticalMode(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [videoModalOpen, verticalMode]);
 
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
@@ -654,6 +658,16 @@ export default function ServilletaPage() {
           color: #C5A059; font-size: 20px; line-height: 1;
         }
         .vp-exit:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.85); }
+
+        /* Modal del video del Plan (dentro del deck): vertical 9:16 centrado en negro */
+        .video-plan-overlay {
+          position: fixed; inset: 0; z-index: 10002; background: rgba(0,0,0,0.94);
+          display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .video-plan-player {
+          height: 92vh; max-height: 92vh; width: auto; max-width: 100vw;
+          aspect-ratio: 9 / 16; object-fit: contain; background: #000; display: block;
+        }
 
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
            del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
@@ -1829,9 +1843,13 @@ export default function ServilletaPage() {
                     El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                   </p>
                   <div style={{ textAlign: 'center', marginTop: 12 }}>
-                    <a href={videoPlanHref} className="ver-video-link">
+                    <button
+                      type="button"
+                      className="ver-video-link"
+                      onClick={(e) => { e.stopPropagation(); setVideoModalOpen(true); }}
+                    >
                       <span aria-hidden="true">▶</span> Ver video
-                    </a>
+                    </button>
                   </div>
                 </div>
               )}
@@ -1872,14 +1890,14 @@ export default function ServilletaPage() {
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
                     El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
                   </p>
-                  <a
-                    href={videoPlanHref}
-                    onClick={(e) => e.stopPropagation()}
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setVideoModalOpen(true); }}
                     className="ver-video-link"
                     style={{ marginTop: 22 }}
                   >
                     <span aria-hidden="true">▶</span> Ver video
-                  </a>
+                  </button>
                 </div>
               )}
 
@@ -2273,6 +2291,35 @@ export default function ServilletaPage() {
               onClick={() => setVerticalMode(false)}
               aria-label="Salir del modo vertical"
               title="Salir (Esc)"
+            >✕</button>
+          </div>
+        )}
+
+        {/* MODAL VIDEO DEL PLAN — se reproduce DENTRO del deck (no navega fuera):
+            tras verlo se cierra y se sigue en la portada para avanzar a los clips. */}
+        {videoModalOpen && (
+          <div
+            className="video-plan-overlay"
+            onClick={() => setVideoModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video del Plan"
+          >
+            <video
+              src={PLAN_SERVILLETA_VIDEO}
+              poster={PLAN_SERVILLETA_POSTER}
+              controls
+              autoPlay
+              playsInline
+              onClick={(e) => e.stopPropagation()}
+              className="video-plan-player"
+            />
+            <button
+              type="button"
+              className="vp-exit"
+              onClick={() => setVideoModalOpen(false)}
+              aria-label="Cerrar video"
+              title="Cerrar (Esc)"
             >✕</button>
           </div>
         )}

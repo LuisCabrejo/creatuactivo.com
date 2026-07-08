@@ -595,6 +595,19 @@ export default function ServilletaPage() {
         .ver-video-link:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.8); }
         .ver-video-link span { font-size: 0.7rem; }
 
+        /* Botón "Portada" en la cabecera de los clips → vuelve a la portada (enlace al video) */
+        .ver-portada-btn {
+          display: inline-flex; align-items: center; gap: 6px;
+          font-family: var(--font-mono, monospace); font-size: 0.72rem;
+          letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+          color: var(--orange, #C5A059);
+          background: rgba(197,160,89,0.08); border: 1px solid rgba(197,160,89,0.4);
+          border-radius: 4px; padding: 6px 12px;
+          transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .ver-portada-btn:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.8); }
+        .ver-portada-btn span { font-size: 0.85rem; line-height: 1; }
+
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
            del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
         #slide-1 .bg-image {
@@ -1769,6 +1782,15 @@ export default function ServilletaPage() {
               )}
               {oneCardMode && activeCardIndex >= 1 && (
                 <div className="slide-2-header">
+                  {/* Volver a la portada (ahí está el enlace "Ver video") — acceso
+                      directo en vivo/Meet, donde el click avanza y no retrocede */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setActiveCardIndex(0); }}
+                    aria-label="Volver a la portada"
+                    className="ver-portada-btn"
+                  >
+                    <span aria-hidden="true">⌂</span> Portada
+                  </button>
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
                     0{activeCardIndex} / 03
                   </span>

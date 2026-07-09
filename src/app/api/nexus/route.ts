@@ -1852,6 +1852,21 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /^cómo es.*negocio/i,                  // "cómo es el negocio"
     /en qué consiste/i,                    // "en qué consiste esto"
 
+    // 🆕 FIX 2026-07-09: INVERSION_MARKETING_01 — "invertir en marketing/publicidad"
+    // Razón: queries como "invertir en marketing", "invertir en publicidad" no matcheaban
+    // ningún patrón, y la clasificación vectorial a nivel de documento completo (parent doc,
+    // ~88K chars) no alcanzaba el threshold 0.35 pese a que a nivel de FRAGMENTO la similitud
+    // era 0.46-0.55 (muy por encima del 0.30 de searchArsenalFragments). Sin classification,
+    // documentType quedaba null → el pipeline saltaba el bloque de fragmentos por completo y
+    // caía al fallback legacy de "búsqueda semántica" (keyword-based), que devolvió 0 docs.
+    // El modelo respondió de memoria y llegó a NEGAR que la oferta existiera — peor que no
+    // encontrar nada. Ver [[project_inversion_marketing_selectiva]].
+    /invertir.*(marketing|publicidad|pauta)/i,   // "invertir en marketing/publicidad/pauta"
+    /inversi[oó]n.*(marketing|publicidad)/i,     // "inversión en marketing"
+    /invierten.*(marketing|publicidad)/i,        // "¿ustedes invierten en marketing?"
+    /ayudan.*con.*marketing/i,                   // "¿me ayudan con marketing?"
+    /apoyan.*con.*marketing/i,                   // "¿apoyan con marketing?"
+
     // 🆕 FIX 2026-05-19: EAM_01 — "Metodología operativa / día a día / tareas"
     // Razón: queries sobre el rol operativo del Arquitecto caían a fallback léxico.
     /metodolog/i,                          // "metodología", "metodológico"
@@ -2526,6 +2541,47 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       }
     } catch (error) {
       console.error(`Error consulta fragmentada ${documentType}:`, error);
+    }
+  }
+
+  // PASO 1.5: FALLBACK DE FRAGMENTOS — cuando ni patrones ni la clasificación vectorial
+  // a nivel de DOCUMENTO COMPLETO (parent-doc, ~88K chars, threshold 0.35) resolvieron
+  // documentType, arsenal_inicial sigue siendo el candidato general más probable (cubre
+  // la mayoría de preguntas exploratorias). Se intenta un último match A NIVEL DE
+  // FRAGMENTO (threshold 0.30, mismo mecanismo que el resto del pipeline) antes de caer
+  // al fallback legacy por keywords de PASO 2, que no tiene cobertura semántica real y
+  // devuelve 0 docs con frecuencia.
+  // Bug real (9 jul 2026): "invertir en marketing/publicidad" tenía 0.46-0.55 de similitud
+  // A NIVEL DE FRAGMENTO contra INVERSION_MARKETING_01, pero la clasificación a nivel de
+  // documento completo se quedaba corta (dilución semántica por los ~88K chars del
+  // arsenal) → documentType quedaba null, el pipeline saltaba el bloque de fragmentos por
+  // completo, y el modelo respondía sin fuentes — llegando a NEGAR que la oferta existiera.
+  if (!documentType) {
+    try {
+      const fallbackFragments = await searchArsenalFragments(userMessage, 'arsenal_inicial', 5);
+      if (fallbackFragments.length > 0) {
+        console.log(`🛟 [Fallback fragmentos] arsenal_inicial: ${fallbackFragments.length} encontrados sin classification previa`);
+        const totalFragmentChars = fallbackFragments.reduce((sum, f) => sum + f.content.length, 0);
+        const combinedContent = fallbackFragments.map(f => f.content).join('\n\n---\n\n');
+        const result = [{
+          id: 'arsenal_inicial_fragments_fallback',
+          title: 'Fragmentos relevantes de arsenal_inicial (fallback sin classification)',
+          content: combinedContent,
+          category: 'arsenal_inicial',
+          metadata: {
+            is_fragment_result: true,
+            fragment_count: fallbackFragments.length,
+            fragment_categories: fallbackFragments.map(f => f.category),
+            total_chars: totalFragmentChars
+          },
+          source: '/knowledge_base/arsenal_inicial.txt',
+          search_method: 'fragment_vector_search_fallback'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+    } catch (error) {
+      console.error('Error en fallback de fragmentos arsenal_inicial:', error);
     }
   }
 
@@ -3524,7 +3580,7 @@ ${summaryParts.join('\n')}
     // el handoff (inventaba plazos tipo "en 24 horas", compartía contacto suelto). Sin
     // paquete cae a Estado 2 modoCierre = "pedir el nivel primero" (Director Cabrejo, 19 jun 2026).
     const _ultimoBotMsg = _botMsgsAll.length ? (_botMsgsAll[_botMsgsAll.length - 1].content || '') : '';
-    const _botOfrecioConectar = /le conecto con|conectarlo con el equipo|conectarle con|coordin(e|ar) su activaci[oó]n|que el equipo (lo|le) (contacte|escriba|llame)/i.test(_ultimoBotMsg);
+    const _botOfrecioConectar = /(le|lo) conecto|conectar(lo|le|te)?\s+(directamente\s+)?con (el\s+)?(equipo|ellos)|coordin(e|ar) su activaci[oó]n|que el equipo (lo|le) (contacte|escriba|llame)/i.test(_ultimoBotMsg);
     const _usuarioAcepta = /^(s[ií]|s[ií],?\s*(por favor|claro|quiero)|dale|hag[aá]mos?lo|claro( que s[ií])?|de acuerdo|perfecto|listo|ok(ay)?|vale|h[aá]gale|me parece( bien)?|por supuesto|adelante|conf[ií]rm(o|elo))\.?$/i.test(latestUserMessage.trim());
     const _señalConectarEquipo = /con[eé]ct[ae](me|nme)?\s+(con\s+)?(el\s+)?(equipo|ellos|alguien|un (asesor|humano|representante))|quiero (hablar|que me contacten|que me llamen)|que (me|el equipo me) (contacten?|llamen?|escriban?)|hablar con (el equipo|alguien|un (asesor|humano|representante))/i;
     const _aceptaConexion = (_botOfrecioConectar && _usuarioAcepta) || _señalConectarEquipo.test(latestUserMessage);

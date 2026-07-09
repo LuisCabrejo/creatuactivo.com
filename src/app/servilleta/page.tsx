@@ -2066,8 +2066,9 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* CTA al fondo — en one-card-mode, solo cuando se llegó a la última card */}
-              {(!oneCardMode || activeCardIndex === 3) && (
+              {/* CTA al fondo — solo en grid (preview). En presentación se avanza con
+                  click/swipe/flecha; el botón encogía el clip del método. */}
+              {!oneCardMode && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(3)}>
                     VER EL PRODUCTO →

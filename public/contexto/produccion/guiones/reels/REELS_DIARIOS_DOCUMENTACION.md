@@ -283,6 +283,26 @@ Si esta lógica le hace sentido, y quiere ser dueño de una empresa que crece y 
 
 ---
 
+## Día 17 · Jueves 9 de julio — "La sala de anoche" (Huang · sumar vs. multiplicar)
+*Semana 4 · **prueba en vivo del build-in-public** — documenta la sesión 1-a-1/grupo que el CTA del Día 16 provocó (continuidad directa: ayer pedí "escríbame para agendar un espacio", hoy muestro qué pasó en la sala) · cita de autoridad **Jensen Huang / Nvidia** ("el lenguaje de la tecnología ahora es el lenguaje humano" — no ataca a nadie, cumple la política "villano sistémico, nunca competidor real" [[feedback_encender_el_corazon]]) · aha = **sumar con esfuerzo físico → multiplicar con apalancamiento** (Musk, léxico aprobado) · "logística pesada + inventario millonario + atención 24/7 ya resueltas por infraestructura instalada y por la IA" (Gano = respaldo · Queswa = atención, nunca titular del ingreso) · "nuestro único rol es dirigir" · cierre de ola aspiracional + "se los voy mostrando". CTA: ninguna (abre curiosidad, no pide).*
+*Producción: PENDIENTE (guion aprobado por Luis 8 jul para grabar el 9). Formato reflexivo talking-head → pipeline `scripts/dankoe-video` (misma receta que el Día 16). Al producir: display-map de números (`seis`→`6`, `treinta`→`30` si se dice, `24/7` ya en dígitos) · inserts candidatos de la biblioteca Home por payoff: `multiplicacion-glint` en "jugando a multiplicar" · `el-puente-v2` en "puentes digitales que conectan todo un continente" · `cierre-encendido` opcional en el cierre de ola.*
+
+Anoche me senté 30 minutos en un espacio online con seis personas. Y la sensación que quedó en la sala fue increíble.
+
+**[ PAUSA LIGERA · TONO REFLEXIVO ]**
+
+Hace poco, Jensen Huang —el CEO de Nvidia— dijo algo que me quedó sonando: "hoy nadie necesita aprender a programar, porque la tecnología avanzó tanto, que su lenguaje ahora es el lenguaje humano".
+
+Anoche les mostré exactamente cómo se ve eso en la práctica. Cuando usted le muestra a una persona que no tiene que construir nada desde cero… que la logística pesada, el inventario millonario y la atención 24/7 ya están resueltas por infraestructura instalada y por la inteligencia artificial… la perspectiva se expande a un nivel absurdo.
+
+Esas seis personas que vieron el mapa anoche, entendieron que ya no estamos jugando a sumar con esfuerzo físico. Estamos jugando a multiplicar usando apalancamiento. Estamos construyendo puentes digitales que conectan todo un continente, y nuestro único rol es dirigir.
+
+Esta ola apenas se está levantando… y los que la están viendo a tiempo, van a construir algo gigante.
+
+Se los voy mostrando.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
 *Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `public/investigaciones/Investigación del Sistema Maestro de Naval.md`):*

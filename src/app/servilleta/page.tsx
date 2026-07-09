@@ -129,6 +129,14 @@ export default function ServilletaPage() {
     };
   }, [verticalMode]);
 
+  // Al abrir/cerrar el modal del video se limpia la detección de click: si no,
+  // el click que cierra + el que avanza se leían como doble-click → fullscreen en
+  // vez de avanzar al clip 1 (por eso "si lo escucho" —hay pausa— sí avanzaba).
+  useEffect(() => {
+    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null; }
+    tripleClickCount.current = 0;
+  }, [videoModalOpen]);
+
   // Esc cierra el modal del video o sale del modo vertical (sin tocar el fullscreen)
   useEffect(() => {
     if (!videoModalOpen && !verticalMode) return;
@@ -422,27 +430,36 @@ export default function ServilletaPage() {
   //    visibles: con sonido serían cacofonía — reporte Director 2 jul 2026).
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const vids = document.querySelectorAll<HTMLVideoElement>('video.card-bg');
-    vids.forEach((v) => {
-      const slide = Number(v.dataset.slide);
-      const card = Number(v.dataset.card);
-      const inActiveSlide = slide === activeSlide;
-      const isActiveCard = inActiveSlide && card === activeCardIndex;
-      const audible = oneCardMode && isActiveCard;
-      v.muted = !audible;
-      const shouldPlay = inActiveSlide && (!oneCardMode || isActiveCard);
-      if (shouldPlay) {
-        // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
-        if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
-        v.play().catch(() => {
-          // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
-          if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
-        });
-      } else {
-        try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
-      }
-    });
-  }, [activeSlide, activeCardIndex, oneCardMode]);
+    // Un clip SOLO reproduce cuando de verdad está visible: si el deck está tapado
+    // (modal del video o Modo Vertical) o la pestaña está oculta, todos se pausan.
+    const deckCovered = videoModalOpen || verticalMode;
+    const apply = () => {
+      const hidden = document.visibilityState === 'hidden';
+      const vids = document.querySelectorAll<HTMLVideoElement>('video.card-bg');
+      vids.forEach((v) => {
+        const slide = Number(v.dataset.slide);
+        const card = Number(v.dataset.card);
+        const inActiveSlide = slide === activeSlide;
+        const isActiveCard = inActiveSlide && card === activeCardIndex;
+        const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
+        const audible = oneCardMode && isActiveCard && shouldPlay;
+        v.muted = !audible;
+        if (shouldPlay) {
+          // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
+          if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
+          v.play().catch(() => {
+            // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
+            if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
+          });
+        } else {
+          try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
+        }
+      });
+    };
+    apply();
+    document.addEventListener('visibilitychange', apply);
+    return () => document.removeEventListener('visibilitychange', apply);
+  }, [activeSlide, activeCardIndex, oneCardMode, videoModalOpen, verticalMode]);
 
   // NOTA auditoría: aquí vivía un IntersectionObserver que fijaba activeCardIndex por
   // scroll. Quedó muerto cuando one-card-mode pasó a ocultar las cards no activas con

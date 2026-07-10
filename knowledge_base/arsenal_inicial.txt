@@ -199,7 +199,7 @@ En los tres, la regla es la misma: usted abre el canal; Queswa conversa y madura
 ---
 
 ### **INVERSION_MARKETING_01: "Me dijeron que me pueden ayudar con marketing / ¿Es cierto que invierten en marketing para armar la estructura? / Me hablaron de una oportunidad con marketing / ¿Ustedes ayudan a acelerar la estructura con publicidad?"**
-**[Concepto Nuclear]:** Casos puntuales donde, además del acompañamiento habitual en logística e inteligencia artificial, el equipo también apoya con marketing para acelerar la construcción de la estructura. Queswa confirma con seguridad que existe — SIN explicar mecánica, cifras, ni por qué es selectivo — y conecta directo con el equipo de creatuactivo.com.
+**[Concepto Nuclear]:** Casos puntuales donde, además del acompañamiento habitual en logística e inteligencia artificial, el equipo también apoya con marketing para acelerar la construcción de la estructura. Queswa confirma con seguridad que existe — SIN explicar mecánica, cifras, ni por qué es selectivo — y conecta directo con el equipo de creatuactivo.com. ⚠️ **Fuente dual (Camino A):** el bloque verbatim está sincronizado carácter por carácter con `MASTER_INVERSION_MARKETING` en `respuestas-maestras.ts` (regex `RE_INVERSION_MARKETING` — el RAG solo no recuperaba este fragmento con fiabilidad; QA 9 jul 2026). Si edita uno, sincronice el otro.
 
 <verbatim_lock>
 Así es. Además del acompañamiento en logística e inteligencia artificial, hay casos puntuales donde el equipo también apoya con marketing para acelerar la construcción de la estructura.

@@ -3279,7 +3279,9 @@ export async function POST(req: Request) {
     // (Camino B con marcador [VERBATIM_LOCK] en arsenal_inicial.txt v25.7).
     // Mismo patrón arquitectónico que getMicroPromptApertura / getCierreEstado4.
     // ════════════════════════════════════════════════════════════════════════════
-    const respuestaMaestra = typeof latestUserMessage === 'string'
+    // Gate por tenant: los textos Master son doctrina de creatuactivo — ganocafe.online
+    // (ecommerce) tiene su propio arsenal y nunca debe servirlos.
+    const respuestaMaestra = (typeof latestUserMessage === 'string' && tenantId !== 'ecommerce')
       ? getRespuestaMaestra(latestUserMessage)
       : null;
 

@@ -127,6 +127,36 @@ const RE_QUE_ES_EMPRESA_DIGITAL =
   /(qu[eé]\s+(es|significa)|expl[ií]ca\w*|expl[ií]qu\w*|a\s+qu[eé]\s+se\s+refiere\w*)[\s\S]{0,40}empresa\s+digital/i;
 
 /**
+ * Texto Master INVERSION_MARKETING_01 — oferta 1-a-1 no pública de apoyo con marketing.
+ * Sincronizado carácter por carácter con arsenal_inicial.txt v5.26 (INVERSION_MARKETING_01,
+ * <verbatim_lock>, insertado tras FREQ_02).
+ *
+ * POR QUÉ CAMINO A y no RAG: el prospecto que oyó esta oferta 1-a-1 la pregunta con
+ * redacciones muy variadas ("cómo es el tema de la inversión digital -publicidad",
+ * "invertir en el marketing que uds hacen") que a nivel de fragmento no ganan el top-5
+ * del vector (0.40-0.45, por debajo de PERFIL_01/FREQ_21/OBJ_02) → el modelo sintetizaba
+ * desde fragmentos de capitalización y llegó a NEGAR que la oferta existiera (QA 9 jul 2026).
+ * La respuesta es corta, fija y sensible (confirmar + remitir, sin mecánica ni cifras) —
+ * nodo determinístico → backend dictador. Ver memoria project_inversion_marketing_selectiva.
+ */
+const MASTER_INVERSION_MARKETING = `Así es. Además del acompañamiento en logística e inteligencia artificial, hay casos puntuales donde el equipo también apoya con marketing para acelerar la construcción de la estructura.
+
+Lo que le corresponde es hablar directo con el equipo de creatuactivo.com para ver cómo aplicaría esto en su caso.
+
+**Acción directa:** Cuando quiera, dígamelo y lo conecto con el equipo de creatuactivo.com.`;
+
+/**
+ * Regex del tema "invertir en marketing/publicidad/pauta". Requiere SIEMPRE un verbo/sustantivo
+ * de inversión o ayuda CERCA de marketing/publicidad/pauta — "¿tengo que hacer publicidad?"
+ * (FREQ_02, los tres caminos) NO dispara porque no menciona invertir/ayudar.
+ * Cubre: "invertir en marketing", "la inversión digital -publicidad", "invierten en publicidad",
+ * "me pueden ayudar con marketing", "apoyan con la pauta". El stem laxo `inv(?!it)\w+` absorbe
+ * typos reales de QA ("inveritr") sin capturar "invitar/invitación" (negative lookahead).
+ */
+const RE_INVERSION_MARKETING =
+  /(inv(?!it)\w+)[\s\S]{0,60}(marketing|publicidad|pauta)|(marketing|publicidad|pauta)[\s\S]{0,60}(inv(?!it)\w+)|(ayud\w+|apoy\w+)[\s\S]{0,30}con\s+(el\s+|la\s+)?(marketing|publicidad|pauta)/i;
+
+/**
  * Mapa chip-text-lowercase → respuesta Master verbatim.
  * Las keys son las versiones lowercase de `QUESWA_QUICK_REPLIES` en queswa-greeting.ts.
  */
@@ -155,6 +185,9 @@ export function getRespuestaMaestra(userMessage: string): string | null {
   // 2) Query de texto libre "¿qué es una empresa digital?" → definición accesible verbatim.
   //    (Resuelve el bug donde el RAG traía WHY_01 "qué es CreaTuActivo" y sintetizaba 3 pilares.)
   if (RE_QUE_ES_EMPRESA_DIGITAL.test(key)) return MASTER_EMPRESA_DIGITAL;
+  // 3) Tema "invertir en marketing/publicidad" → confirmar + remitir verbatim.
+  //    (El RAG no lo recupera con fiabilidad y el modelo llegó a negar que existiera.)
+  if (RE_INVERSION_MARKETING.test(key)) return MASTER_INVERSION_MARKETING;
   return null;
 }
 

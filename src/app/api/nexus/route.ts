@@ -1486,6 +1486,17 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /c[oó]mo\s+est[aá]n?\s+conformad[ao]s?/i,
     /con\s+qu[eé]\s+productos/i,
     /qu[eé]\s+productos\s+(est[aá]|trae|incluye|contiene|viene)/i,
+    // Upgrades / subir de nivel de paquete (COMP_PAQ_05) — sin estos, "cómo subo de paquete"
+    // caía a arsenal_inicial y las tablas de upgrade nunca se recuperaban.
+    // Stems (sub/mejor/actualiz/cambi/pas) cubren conjugaciones: subo/subir/subes, mejoro/mejorar…
+    /upgrade/i,
+    /sub(?:ir|o|es|e|imos|iendo)\b[^.]{0,18}\b(nivel|paquete|categor[ií]a|esp)/i,
+    /(?:mejor|actualiz|cambi)\w*\s+(?:de\s*|mi\s*|el\s*|al\s*)?(?:nivel|paquete|esp)/i,
+    /pas(?:ar|o|as|e|amos)\s*(?:de|del)\s*[^.]{0,20}\b(paquete|esp|nivel)/i,
+    /esp[\s-]?[123]\s*(?:a|al|hacia)\s*(?:el\s*)?esp[\s-]?[123]/i,
+    /(?:de|del)\s*(?:un\s*)?(?:paquete|nivel)\s*a\s*otro/i,
+    /diferencia[^.]{0,20}\b(?:paquetes|esp[\s-]?[123]|niveles)/i,
+    /qu[eé]\s*(?:productos\s*)?(?:me\s*)?(?:llega|dan|recibo|mandan|env[ií]an)\s*(?:si|cuando)\s*(?:subo|mejoro|paso|actualizo|cambio)/i,
     // Inicio del negocio — "cómo se inicia", "cómo empiezo", "para empezar" → paquetes
     /c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])/i,
     /c[oó]mo\s+empe[zc][ao]r/i,

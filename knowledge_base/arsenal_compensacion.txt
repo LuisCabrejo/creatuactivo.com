@@ -855,10 +855,10 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 |----------|----------|
 | Ganocafé 3 en 1 | 1 |
 | Ganocafé Classic | 1 |
-| Ganorico Mocha Rico | 1 |
 | Ganorico Shoko Rico | 1 |
-| Ganorico Latte Rico | 1 |
-| Gano Soap (2/pkg) | 1 |
+| Ganorico Mocha Rico | 1 |
+| Gano C'Real Spirulina | 1 |
+| Gano Transparent Soap | 1 |
 | Piel8Brillo Exfoliante | 1 |
 | **Total** | **7** |
 
@@ -874,13 +874,12 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 3 |
-| Ganocafé Classic | 3 |
-| Ganorico Mocha Rico | 2 |
-| Ganorico Shoko Rico | 1 |
-| Ganorico Latte Rico | 1 |
+| Ganocafé Classic | 2 |
+| Ganorico Shoko Rico | 2 |
+| Ganorico Mocha Rico | 3 |
+| Oleaf Gano Rooibos | 1 |
 | Gano C'Real Spirulina | 1 |
 | Reskine Collagen Drink | 1 |
-| Gano Soap (2/pkg) | 1 |
 | Gano Fresh Toothpaste | 1 |
 | Gano Transparent Soap | 1 |
 | Piel8Brillo Shampoo | 1 |
@@ -900,10 +899,12 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 9 |
-| Ganocafé Classic | 9 |
-| Ganorico Mocha Rico | 3 |
-| Gano C'Real Spirulina | 2 |
+| Ganocafé Classic | 8 |
 | Ganorico Shoko Rico | 4 |
+| Ganorico Mocha Rico | 3 |
+| Oleaf Gano Rooibos | 1 |
+| Gano C'Real Spirulina | 1 |
+| Ganorico Latte Rico | 1 |
 | Reskine Collagen Drink | 1 |
 | Cordygold Capsulas | 1 |
 | Gano Soap (2/pkg) | 1 |
@@ -921,6 +922,56 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 - **GEN5 (Capitalización Inmediata):** SIN término de meses — activo desde el primer día y permanece mientras la empresa digital esté activa.
 
 NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del Binario al porcentaje alto.
+
+---
+
+### COMP_PAQ_05: "Que trae el upgrade? / Como subo de paquete? / Que productos me llegan si paso de ESP-1 a ESP-2? / Composicion del upgrade ESP-1 a ESP-3 / Que recibo al mejorar de ESP-2 a ESP-3 / Cuanto cuesta subir de nivel / diferencia de productos entre paquetes / si ya tengo el ESP-1 y quiero el ESP-3 que me llega / productos del upgrade"
+
+**[Concepto Nuclear]:** Al mejorar de nivel solo paga la diferencia de inversion y recibe los productos que completan el paquete superior. No compra el paquete de nuevo — recibe el faltante.
+
+**Upgrade ESP-1 → ESP-2 (11 productos, diferencia $300 USD / $1,350,000 COP):**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafé 3 en 1 | 2 |
+| Ganocafé Classic | 1 |
+| Ganorico Shoko Rico | 1 |
+| Ganorico Mocha Rico | 2 |
+| Oleaf Gano Rooibos | 1 |
+| Reskine Collagen Drink | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Piel8Brillo Shampoo | 1 |
+| Piel8Brillo Acondicionador | 1 |
+| **Total** | **11** |
+
+**Upgrade ESP-1 → ESP-3 (28 productos, diferencia $800 USD / $3,600,000 COP):**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafé 3 en 1 | 8 |
+| Ganocafé Classic | 7 |
+| Ganorico Shoko Rico | 3 |
+| Ganorico Mocha Rico | 2 |
+| Oleaf Gano Rooibos | 1 |
+| Ganorico Latte Rico | 1 |
+| Reskine Collagen Drink | 1 |
+| Cordygold Capsulas | 1 |
+| Gano Soap (2/pkg) | 1 |
+| Gano Fresh Toothpaste | 1 |
+| Piel8Brillo Shampoo | 1 |
+| Piel8Brillo Acondicionador | 1 |
+| **Total** | **28** |
+
+**Upgrade ESP-2 → ESP-3 (17 productos, diferencia $500 USD / $2,250,000 COP):**
+| Producto | Cantidad |
+|----------|----------|
+| Ganocafé 3 en 1 | 6 |
+| Ganocafé Classic | 6 |
+| Ganorico Shoko Rico | 2 |
+| Ganorico Latte Rico | 1 |
+| Cordygold Capsulas | 1 |
+| Gano Soap (2/pkg) | 1 |
+| **Total** | **17** |
+
+**Insight:** El upgrade es acumulativo: sube su techo de Binario y su volumen inicial al del paquete destino, pagando solo la diferencia. Los productos del upgrade son exactamente los que faltan para completar el inventario del nivel superior.
 
 ---
 

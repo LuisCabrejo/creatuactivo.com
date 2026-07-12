@@ -12,6 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
+> 🧭 **SI ERES NUEVO, LEE PRIMERO (en este orden):** (1) [Reglas Críticas (NO HACER)](#reglas-críticas-no-hacer) — lo que rompe producción · (2) [Queswa Vocabulary — Tabla Canónica](#queswa-vocabulary--tabla-canónica-unificada) — léxico aprobado/prohibido (⚠️ la tabla marca el canon viejo pero **la migración léxico accesible ya está en código; nunca "corrijas" copy accesible hacia el término viejo**) · (3) [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) — contexto de negocio. El **historial con fecha** de cada subsistema vive en sus CHANGELOGs/handoffs (enlazados en cada sección); aquí solo está el **estado vigente + las reglas**.
+
 ## Table of Contents
 
 1. [Quick Reference](#quick-reference)
@@ -198,18 +200,10 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 
 **En `luiscabrejo.com`**: tenant hardcodeado como `marca_personal` en `route.ts` (sin middleware — repo siempre es ese tenant). La ruta `/api/claude-chat/route.ts` es legacy sin uso.
 
-**Estado integración ganocafe.online** (Mar 2026 — fase piloto activa):
-- ✅ `system_prompts` row `ganocafe_main` **v1.5_ganocafe_alias_coloquiales** — en Supabase
-- ✅ `knowledge_base/arsenal_ganocafe.txt` — **16 respuestas** (PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO) — tenant: `ecommerce`
-- ✅ `nexus_documents` — 16 fragmentos con embeddings Voyage AI, tenant `ecommerce` (incluye PROD_05 Rooibos, PROD_06 Spirulina, PROD_07 Luvoco)
-- ⚠️ **`ganocafe_main` tiene catálogo de precios hardcodeado** en el system prompt (línea "NUNCA uses otros precios") — esto hace que el model ignore el vector search para precios. Al cambiar precios en el arsenal, **también actualizar el system prompt** con `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs`. Los dos deben estar sincronizados.
-- ✅ `scripts/deploy-arsenal-ganocafe.mjs` — script de deploy listo
-- ✅ **CORS habilitado** en `/api/nexus/route.ts` — ganocafe.online autorizado como origen externo
-- ✅ Widget JS embebido en landing `/cafe-3en1/index.html` (cPanel) — piloto Google Ads Colombia
-- ✅ **`isSimpleQueryEarly` siempre `false` para tenant `ecommerce`** — todas las queries pasan por vector search, sin atajos por longitud de mensaje
-- ✅ **System prompt v1.5** incluye sección `## NOMBRES COLOQUIALES` — mapeo explícito alias → producto (cereal, té, chocolate, capuchino, etc.) para evitar "no tenemos ese producto"
-- ✅ **Widget UX** (Mar 2026): orbe con barras ecualizador animadas + anillos de pulso, quick replies rediseñados (catálogo/beneficios/pedido), tarjeta de pedido inline con links directos al carrito WooCommerce + WhatsApp, flecha de envío →, saludo en tercio superior
-- ⏳ Rollout a todo el sitio WordPress — pendiente validación del piloto
+**Estado integración ganocafe.online** (piloto activo · detalle → `public/investigaciones/HANDOFF-GANOCAFE-WIDGET.md`):
+- Prompt `ganocafe_main` **v1.5** + `arsenal_ganocafe.txt` (16 respuestas) + 16 fragmentos Voyage, todo tenant `ecommerce`. v1.5 incluye `## NOMBRES COLOQUIALES` (alias → producto).
+- ⚠️ **`ganocafe_main` tiene catálogo de precios hardcodeado** en el system prompt (línea "NUNCA uses otros precios") → el modelo ignora el vector search para precios. Al cambiar precios en el arsenal, **también actualizar el system prompt** con `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs`. Los dos deben estar sincronizados.
+- Widget JS embebido en `/cafe-3en1/index.html` (cPanel, piloto Google Ads CO). Deploy arsenal: `scripts/deploy-arsenal-ganocafe.mjs`. Rollout WordPress ⏳.
 
 **Arquitectura widget externo** (ganocafe.online → creatuactivo.com API):
 ```
@@ -226,22 +220,10 @@ ganocafe.online/cafe-3en1/index.html
 
 **Handoff doc para agente widget**: `public/investigaciones/HANDOFF-GANOCAFE-WIDGET.md`
 
-**Estado integración WABA WhatsApp** (Abr 2026 — pipeline activo):
-- ✅ Webhook `/api/whatsapp/webhook` — Node runtime, maxDuration 30s
-- ✅ WABA número: `+573215193909` | Phone Number ID: `1115546358301373` | WABA ID: `1436663504253230`
-- ✅ System User Token permanente: `WHATSAPP_SYSTEM_TOKEN` en `.env.local` + Vercel
-- ✅ `WHATSAPP_WABA_ID=1436663504253230` — en `.env.local` + Vercel (Abr 2026)
-- ✅ System prompt `queswa_whatsapp` **v1.2** — tenant `whatsapp` en Supabase (Abr 2026)
-  - v1.2 cambios: flujo post-nombre sin redirección web, Constructor como naming, tono de filtro reemplazado, cupos/fechas no hardcodeados
-- ✅ Arsenal inicial clonado al tenant `whatsapp` — 55 fragmentos RAG + doc maestro (56 filas) en `nexus_documents` (re-clonado 3 jul v5.24; STORY_02 + FREQ_28 insertados 4 jul, v5.25). ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (filtra por `category` ya presente y las salta). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si solo se re-clona sin purgar, los fragmentos cambiados quedan **stale** (caso real: el tenant whatsapp estuvo en v5.9 hasta el 19 jun pese a "re-clonar")
-- ✅ CTWA detectado: `referral` de anuncios Meta guardado en `device_info` (ctwa_clid, ad_id, ad_headline)
-- ✅ `src/lib/whatsapp-meta.ts` — reemplaza SendPulse (misma interfaz `sendWhatsAppTemplate`)
-- ✅ `funnel/route.ts` + `webhooks/prospect-capture/route.ts` migrados a `whatsapp-meta`
-- ⏳ Meta business verification — pendiente para salir de modo desarrollo (solo acepta números de prueba)
-- ⏳ Plantilla `acceso_auditoria_patrimonial` — por crear y aprobar en Meta WhatsApp Manager
-  - Copy aprobado: `Hola {{1}}, tu acceso a la *Auditoría Patrimonial* está listo...` | `{{2}}` = enlace personalizado
-- ⏳ 5 templates secuencia de días — Fase 6 del handoff original
-- ⏳ Eliminar credenciales SendPulse de `.env.local` y Vercel — tras aprobar plantillas
+**Estado integración WABA WhatsApp** (pipeline activo, modo desarrollo · detalle → `public/contexto/handoff/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`):
+- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Token permanente `WHATSAPP_SYSTEM_TOKEN`. Prompt `queswa_whatsapp` **v1.2**, tenant `whatsapp`. `src/lib/whatsapp-meta.ts` reemplaza SendPulse. CTWA (`referral` de ads Meta) → `device_info`.
+- ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (filtra por `category` ya presente y las salta). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si solo se re-clona sin purgar, los fragmentos quedan **stale**.
+- ⏳ Pendiente: Meta business verification (para salir de modo desarrollo), plantillas Meta (`acceso_auditoria_patrimonial` + 5 de secuencia), eliminar credenciales SendPulse.
 
 **Flujo WABA:**
 ```
@@ -282,10 +264,10 @@ WhatsApp (orgánico o CTWA anuncio)
 
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.25** (4 jul 2026) | Doctrina base: WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE, ACTIVACION, EMPRESA_DIGITAL, NET + DIASPORA. **55 fragments** (56 respuestas en el .txt — FREQ_04_PUENTE no se fragmenta; su contenido vive en el doc padre). WHY_02 / EAM_01 / EMPRESA_DIGITAL_01 llevan `<verbatim_lock>` sincronizado carácter por carácter con `respuestas-maestras.ts` (Camino A). **v5.25** = cobertura anti-alucinación para las historias IG que promueven el reel Home: **STORY_02** (historia de la mesa en dos patas — Mocoa, canónica, "NO inventar detalles") + **FREQ_28** (resolver de raíz = estructura; herramientas = 3 piezas; **GUARD diciembre**: meta personal de Luis, NUNCA fecha de lanzamiento — cupos, no calendario). v5.24 = tríada sin pronombre ambiguo ("alguien fabrica · una plataforma atiende a las personas"). ⏳ Pendiente: fugas "al sistema" en FREQ_02/FREQ_11. Historial completo → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_inicial). |
-| `arsenal_avanzado` | creatuactivo_marketing | **v12.4** (25 jun 2026) | **v12.4** = (1) promesa "guía"→"madura" + "acompañar"→"guiar" (grupo ②); (2) **"las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; ver [[feedback_horas_no_son_el_villano]]) + "no depende de sus horas"→"de su presencia". **Cifras del plan INTACTAS**. Previa **v12.3** = "filtrar" desterrado + Maestría → Multiplicación. — Objeciones complejas, sistema, valor, escalación (18 fragments). Historial v10.0→v12.3 → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_avanzado). |
-| `arsenal_reto` | creatuactivo_marketing | **v4.7** (12 jun 2026 — swap "empresa digital"; jerga clínica intacta) | Producto funnel "El Diagnóstico de 5 Días" (7 fragments para días 1-5). ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última **permitida explícitamente en RETO_05**) — ver [[project_reto_12niveles_no_migrar]]. Migración profunda + rename del producto = pase cross-channel pendiente. Historial v4.1→v4.7 → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_reto-auditoría-patrimonial). |
-| `arsenal_compensacion` | creatuactivo_marketing | **v7.2** (12 jun 2026 — swap "empresa digital", cifras/GCV/PV INTACTOS) | Plan de compensación (**41 fragments**). ⚠️ Los swaps léxicos (v7.x "negocio/empresa digital") son **SOLO de marca** — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos). **NO modificar vocabulario ni cifras restantes.** Historial (COMP_BIN_11/VIP_01/PV_08 añadidas en v5.5+) → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_compensacion). |
+| `arsenal_inicial` | creatuactivo_marketing | **v5.25** (4 jul 2026) | Doctrina base: WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE, ACTIVACION, EMPRESA_DIGITAL, NET + DIASPORA. **55 fragments** (56 respuestas en el .txt — FREQ_04_PUENTE no se fragmenta; su contenido vive en el doc padre). WHY_02 / EAM_01 / EMPRESA_DIGITAL_01 llevan `<verbatim_lock>` sincronizado carácter por carácter con `respuestas-maestras.ts` (Camino A). ⚠️ **STORY_02** (mesa en dos patas — Mocoa, canónica, "NO inventar detalles") + **FREQ_28** con **GUARD diciembre**: meta personal de Luis, NUNCA fecha de lanzamiento (cupos, no calendario). ⏳ Pendiente: fugas "al sistema" en FREQ_02/FREQ_11. Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_inicial). |
+| `arsenal_avanzado` | creatuactivo_marketing | **v12.4** (25 jun 2026) | Objeciones complejas, sistema, valor, escalación (18 fragments). ⚠️ **Cifras del plan INTACTAS**. Villano = dependencia, no el trabajo (ver [[feedback_horas_no_son_el_villano]]). Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_avanzado). |
+| `arsenal_reto` | creatuactivo_marketing | **v4.7** (12 jun 2026) | Producto funnel "El Diagnóstico de 5 Días" (7 fragments para días 1-5). ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última **permitida explícitamente en RETO_05**) — ver [[project_reto_12niveles_no_migrar]]. Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_reto-auditoría-patrimonial). |
+| `arsenal_compensacion` | creatuactivo_marketing | **v7.2** (12 jun 2026) | Plan de compensación (**41 fragments**). ⚠️ Los swaps léxicos (v7.x "negocio/empresa digital") son **SOLO de marca** — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos). **NO modificar vocabulario ni cifras restantes; término "PVP" prohibido.** Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_compensacion). |
 | `arsenal_12_niveles` | creatuactivo_marketing | — | Desafío de 12 niveles (13 blocks). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
@@ -310,12 +292,11 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: v29.2 "triada_sin_pronombre"** (3 jul 2026, desplegada y verificada con `leer-system-prompt.mjs`, ~21K chars). Recientes: v29.0 = primeros principios + bisagra "se usa, no se entra" · v29.1 = compresión 33K→21K + **regla de moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD) · v29.2 = tríada sin pronombre ambiguo ("alguien fabrica · una plataforma atiende a las personas"). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels** (desde v28.7): el prompt sabe que la mayoría llega tras ver un reel y recoge el testigo; acompaña el saludo post-reel en código (`getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts)).
+   - **Versión activa: v29.2 "triada_sin_pronombre"** (3 jul 2026, ~21K chars — verificar con `leer-system-prompt.mjs`, no asumir que local = Supabase). Reglas vigentes: **regla de moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD) · tríada sin pronombre ("alguien fabrica · una plataforma atiende a las personas"). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels:** el prompt sabe que la mayoría llega tras ver un reel; el saludo post-reel lo acompaña `getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts). Historial → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md).
    - ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — no se renombró pese a las versiones internas v28.x. Migración léxico "negocio/empresa digital" aplicada en v28.0–v28.1.
-   - **Historial completo v19.x → v29.2** → [knowledge_base/CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md). Versiones anteriores del archivo eliminadas — viven en git: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
+   - Versiones anteriores del archivo eliminadas — viven en git: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
    - Cached in-memory for 5 minutes
    - **DO NOT modify hardcoded fallback** en `route.ts` — actualizar en Supabase. Fallback alineado a v26.5.
-   - Verificar versión activa: `node scripts/leer-system-prompt.mjs` (no asumir que local = Supabase)
    - **Bifurcación de embudos**: `nexus_main` sirve tráfico orgánico (95%). El 5% de ads tendrá prompt `nexus_ads_premium` cuando se construya `/executive` o `/private`. Pendiente.
    - **MODO CONSULTOR DE LIFESTYLE & BIENESTAR** (v19.6): cuando alguien pregunta por beneficios/uso de un producto, Queswa actúa como consultor de lifestyle & bienestar. NO mezcla terminología de negocio, NO compara precios vs competencia, NO introduce oportunidad de negocio a menos que el usuario lo solicite explícitamente. En la **página de catálogo** (`/sistema/productos`) este modo se fuerza vía `pageContext === 'catalogo_productos'` (route.ts `getPageContextInstructions()` — "MODO ASESOR DE SALUD Y BIENESTAR", enviado por `useNEXUSChat`); el frontend acompaña con chips de salud, saludo de asesor, CTAs `open-queswa` y tooltip del orbe contextual (ver [Active Pages → `sistema/productos/`](#5-page-structure--funnel-architecture)).
    - **Bug parcialmente resuelto (22 May 2026):** PRECIOS Y CV/PV — `catalogo_productos` v7.2 ya está fragmentado (25 fragments + doc maestro). Las tablas canónicas (PROD_OVERVIEW, BEB_01, LUV_01, SUP_01, PERS_01) ahora tienen `<verbatim_lock>` que erradica alucinaciones de nombres ("Ganotea", "Gano Cocoa", "Gano Supreme") y omisión de la categoría Suplementos. **Bug pendiente parcial**: CV/PV todavía faltantes en respuestas individuales por producto. Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
@@ -339,13 +320,11 @@ Patrón arquitectónico: mismo que `getMicroPromptApertura()` / `getCierreEstado
 
 **Camino B (RAG con marcador XML) — fallback para queries naturales**: WHY_01 ("¿Qué es CreaTuActivo?") y queries naturales que coincidan semánticamente con WHY_02/EAM_01 entran por el flujo RAG normal. Las etiquetas XML `<verbatim_lock>...</verbatim_lock>` envuelven el cuerpo de los 3 fragmentos en el arsenal; la sección "REGLA `<verbatim_lock>` — INVIOLABLE" en el system prompt v26.8 ordena al LLM entregar el contenido exacto entre las etiquetas. Reliability esperada ~95-99% (XML tags activan atención post-entrenada en Claude Sonnet 4.6; investigación Gemini Hipótesis C).
 
-**Histórico de fallos doctrinales (no repetir)**:
-- v26.7 introdujo `[VERBATIM_LOCK]` con corchetes planos como marcador estructural. Falló empíricamente — modelo seguía parafraseando. Razón: literatura técnica de Anthropic confirma que los corchetes planos son procesados como texto de baja prioridad; solo etiquetas XML genuinas activan el mecanismo de atención post-entrenado. Migración aplicada en v26.8.
-- Bloque `package` en `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Razón: extraía `data.package` desde la respuesta de Claude basado en menciones informativas ("ESP-3 incluye 35 productos") y contaminaba la BD. El FSM luego saltaba a Estado 3 tratando al prospecto como si hubiera comprado. La captura de paquete ahora vive EXCLUSIVAMENTE en `captureProspectData` con `packageMap` + guard de pregunta informativa.
+**Histórico de fallos doctrinales (no repetir)**: los dos fallos ya son reglas en [Reglas Críticas](#reglas-críticas-no-hacer) (corchetes planos `[VERBATIM_LOCK]` → parafraseo; extracción de `package` en `extractFromClaudeResponse()` → contaminación de BD). No re-introducir ninguno.
 
-**Warm Handoff con sumario ejecutivo (Opción B, 22 May 2026 · RE-ACTIVADO 19 jun 2026)**:
+**Warm Handoff con sumario ejecutivo (Opción B · activo)**:
 
-⚠️ **Historia:** se desactivó en Ola 4 (25 May, handoff 100% WhatsApp) y se **re-activó el 19 jun 2026** (decisión Director Cabrejo: tener AMBAS notificaciones — correo al equipo **+** link wa.me al prospecto, coexisten). El correo NO lo dispara `getCierreEstado4()` (eso solo dicta la doble oferta wa.me); lo dispara el callback **`onFinal` del stream** en [route.ts](src/app/api/nexus/route.ts), guardado por `closingState === 4 && !_handoffYaEntregado` (solo el primer turno de Estado 4 → sin duplicados). Corre en `onFinal` **tras** entregar el mensaje al prospecto → cero latencia para él, y `onFinal` mantiene viva la función Edge hasta completar el envío (`await` seguro, no fire-and-forget — Edge cortaría un fire-and-forget).
+El correo al equipo NO lo dispara `getCierreEstado4()` (eso solo dicta la doble oferta wa.me); lo dispara el callback **`onFinal` del stream** en [route.ts](src/app/api/nexus/route.ts), guardado por `closingState === 4 && !_handoffYaEntregado` (solo el primer turno de Estado 4 → sin duplicados). Corre en `onFinal` **tras** entregar el mensaje al prospecto → cero latencia para él, y `onFinal` mantiene viva la función Edge hasta completar el envío (`await` seguro, no fire-and-forget — Edge cortaría un fire-and-forget). Coexisten AMBAS notificaciones: correo al equipo + link wa.me al prospecto.
 
 Cuando entra Estado 4, [src/lib/handoff-sumario.ts](src/lib/handoff-sumario.ts) (`ejecutarWarmHandoff`):
 
@@ -568,26 +547,26 @@ Nota: /reto-5-dias/* y /mapa-de-salida/* ya NO son páginas Next — solo redire
 en next.config.js (→ /empresa-digital; sus /gracias → /confirmacion)
 ```
 
-> 🔤 **NAMING DEL FUNNEL (rename ejecutado jun 2026 — solo queda lo operativo).** El producto de entrada se renombró **"Auditoría (de Arquitectura) Patrimonial" → "El Diagnóstico de 5 Días"** (léxico accesible en squeeze + bridge + rótulos CTA + `QUESWA_CTA_LABEL`) y la URL migró en dos saltos: `/auditoria-patrimonial` → `/negocio-digital` → **`/empresa-digital`** (directorio `src/app/empresa-digital/`). Redirects **301** en `next.config.js`: ambas URLs viejas y sus subrutas apuntan DIRECTO a `/empresa-digital` (1 salto) — correos/blogs/reels ya publicados siguen funcionando; SW bypass incluye las URLs viejas (v1.3.0). ⚠️ **Gotchas vivos:** (1) el tracking `source: 'auditoria-patrimonial'` en `empresa-digital/page.tsx:96` es **identificador interno** — coordinar con backend antes de cambiarlo; (2) el diagnóstico de la squeeze conserva «que usted siga trabajando» a propósito (el villano es la **dependencia**, no el trabajo — ver [[feedback_dolor_real_por_nicho]]); (3) `arsenal_reto` conserva su jerga clínica deliberadamente ([[project_reto_12niveles_no_migrar]]). ⏳ Pendiente no bloqueante: nombres de día (EL DIAGNÓSTICO · EL TECHO · LA MÁQUINA · LOS NÚMEROS · LA DECISIÓN) + metadata/SEO de blogs que citen la URL/nombre viejos. **El callout 🏠 de abajo supersede el rol de gancho del Diagnóstico** (desconectado de Home/menú; las páginas `/empresa-digital/*` quedan dormidas con 301 vivos). Ver [[project_lexico_negocio_digital]].
+> 🔤 **NAMING DEL FUNNEL (rename ejecutado jun 2026).** Producto de entrada = **"El Diagnóstico de 5 Días"** (antes "Auditoría Patrimonial"); URL actual = **`/empresa-digital`** (dir `src/app/empresa-digital/`; antes `/auditoria-patrimonial` → `/negocio-digital`). Redirects **301** en `next.config.js` apuntan DIRECTO las URLs viejas y sus subrutas → `/empresa-digital` (correos/blogs/reels publicados siguen vivos); SW bypass incluye las viejas. ⚠️ **Gotchas vivos:** (1) `source: 'auditoria-patrimonial'` en `empresa-digital/page.tsx:96` es **identificador interno de tracking** — coordinar con backend antes de cambiarlo; (2) el diagnóstico de la squeeze conserva «que usted siga trabajando» a propósito (villano = **dependencia**, no el trabajo — [[feedback_dolor_real_por_nicho]]); (3) `arsenal_reto` conserva su jerga clínica deliberadamente ([[project_reto_12niveles_no_migrar]]). **El callout 🏠 de abajo supersede el rol de gancho del Diagnóstico** (desconectado de Home/menú; `/empresa-digital/*` quedan dormidas con 301 vivos). Ver [[project_lexico_negocio_digital]].
 
 > 🏠 **HOME REPOSICIONADA (jun 2026) — supersede lo de arriba PARA LA HOME + EL MENÚ.** El "Diagnóstico de 5 Días" producía **cero aplicaciones** (pedir commitment a tráfico frío sin confianza "olía a desesperado") → se **desconectó como gancho**. La Home (`src/app/page.tsx`) ahora lidera con **"Sea dueño de su empresa digital"** y su estructura es: Hero → Diagnóstico (villano limpio estilo Slide 1) → **¿Qué es una empresa digital?** (Bezos/MercadoLibre + ejemplo `sonrisaslindas.app`) → Perfiles → **Cómo lo hacemos nosotros** (la decisión desde-cero-vs-apalancamiento + 3 pilares: Respaldo/Gano · Queswa · Método Expandir/Activar/Multiplicar) → aforismos → calculadora → Visión → CTA. **CTAs nuevos:** cuerpo → **"Hablar con Queswa"** (`QueswaCTAButton`, evento `open-queswa`); **menú** → **"Suscríbete"** (`SubscribeModal` → `/api/subscribe`). Las páginas `/empresa-digital/*` quedan **dormidas** (301 vivos) — **ya NO se enlazan como gancho desde la Home/menú** (sí se conservan para correos/reels ya publicados). El **resto del sitio + servilleta** se alinea aparte vía `HANDOFF_BARRIDO_SITIO_SERVILLETA.md`. **Doctrina nueva** (Gano = respaldo, nunca titular del ingreso; calidez-no-auditoría en Activar; paleta de analogías Nubank/Amazon-ML/Rappi/McDonald's; confianza > entendimiento → contenido da contexto, el 1-a-1 cierra) → memorias [[project_home_reposicion_2026]] · [[feedback_gano_respaldo_no_titular]] · [[feedback_confianza_precede_entendimiento]] · [[reference_paleta_analogias]] · [[project_newsletter_suscripcion]]. ⏳ Pendiente arsenales+system prompt (incl. `arsenal_inicial.txt` línea ~510 "usted revisa/da el sí" → nadie audita).
 
 **Active Pages** (rutas no-obvias — el resto se descubre con `ls src/app/`):
 
 - `empresa-digital/` — 🎯 FUNNEL ENTRY v4.0 (noindex). **Producto = "El Diagnóstico de 5 Días"** (cuerpo en registro accesible). URL `/empresa-digital` — rename desde `/auditoria-patrimonial` **hecho jun 2026** (+ redirects 301). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
-- `confirmacion/` — Bridge Page v4.0 (noindex). **Rename desde `auditoria-confirmada/` (jun 2026** — léxico "auditoría" retirado del slug; `/auditoria-confirmada` redirige 301 aquí). `TrackingConfirmada.tsx` es 'use client' y dispara evento `vio_bridge_auditoria`; ⚠️ conserva `source: 'auditoria-confirmada'` como **identificador interno de tracking** (contrato con backend — NO renombrar al cambiar el slug).
+- `confirmacion/` — Bridge Page v4.0 (noindex; `/auditoria-confirmada` redirige 301 aquí). `TrackingConfirmada.tsx` ('use client') dispara evento `vio_bridge_auditoria`; ⚠️ conserva `source: 'auditoria-confirmada'` como **identificador interno de tracking** (contrato con backend — NO renombrar al cambiar el slug).
 - `reto-5-dias/` y `mapa-de-salida/` — **páginas eliminadas (jun 2026)**. Ya NO existen como directorios Next; viven **solo como redirects 301 en `next.config.js`**: la raíz y subrutas → `/empresa-digital`, los `/gracias` → `/confirmacion`. El SW bypass conserva ambas URLs (+ `/negocio-digital`) para que los redirects funcionen (van siempre a red).
 - `calculadora/` — Calculadora de ingresos (indexada).
-- `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta Ads / Google Ads). **Migrada al registro accesible (jun 2026)** — quiz de 5 preguntas sobre el ciclo financiero (trato "usted", lenguaje de cocina). El resultado lo escribe **Queswa con IA** vía `POST /api/diagnostico/interpretar` (Haiku 4.5): titular + cuerpo personalizado por las 5 respuestas, con doctrina de villano (el sistema, NUNCA el esfuerzo del héroe; villano contextual — fuerte si lucha, ausente si ya le va bien). Fallback determinístico si la IA falla (`ok:false`). **Sin gráfica radar** (se quitó — el resultado lo lleva la narrativa, no los porcentajes de un quiz de 3-4 opciones). Acentos cian como la Home. Persiste también en `/api/diagnostico` (tabla `diagnosticos` en Supabase, insert resiliente con/sin columna `name`) + arquetipo por promedio de tier. Cero links internos — entrada solo por URL directa desde campañas. Sin `<StrategicNavigation/>`. **Botón final → `/confirmacion`** (label "Continuar").
+- `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta/Google Ads; cero links internos, sin `<StrategicNavigation/>`, entrada solo por URL de campaña). Quiz de 5 preguntas; resultado escrito por **Queswa IA** vía `POST /api/diagnostico/interpretar` (Haiku 4.5) con doctrina de villano (el sistema, NUNCA el esfuerzo del héroe; villano contextual), **fallback determinístico si la IA falla** (`ok:false`). Sin gráfica radar. Persiste en `/api/diagnostico` (tabla `diagnosticos`, insert resiliente con/sin columna `name`) + arquetipo por promedio de tier. **Botón final → `/confirmacion`**.
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
 - `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
 - `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, **diagnostico**, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
   - ⚠️ **GOTCHA (cuesta horas): un destino que NO esté en `DESTINO_MAP` (ni en nichos/manifiesto) cae al fallback `redirect(/{slug})` = la mini-landing, SIN 404.** Síntoma típico: "el enlace `/{slug}/X` lleva a la mini-landing". Caso real (19 jun 2026): `El Diagnóstico de 5 Días` del Arsenal apuntaba a `/{slug}/diagnostico` y caía a la mini-landing hasta que se agregó `'diagnostico' → /diagnostico?ref` al mapa. Al sumar un enlace amigable nuevo en el Dashboard (`src/lib/arsenal.ts`), agregar SIEMPRE su destino aquí.
   - ⚠️ **OG por página estática:** la página destino (ej. `/diagnostico`) debe declarar su **propio `openGraph.url`** en su `layout.tsx`/metadata. Si solo define `title`/`description` y NO `openGraph`, hereda el del root layout (`og:url = dominio raíz`) → al compartir en **Meta**, la publicación enlaza a la raíz aunque el enlace pegado sea correcto. Fix de `/diagnostico` (19 jun 2026): `openGraph.url = '/diagnostico'` (metadataBase lo absolutiza). Tras corregir, forzar re-scrape en el [Sharing Debugger](https://developers.facebook.com/tools/debug/) (Meta cachea el OG viejo).
-- `manifiesto/` — **Página pública del Manifiesto de los Fundadores** (antes `/nosotros` — renombrada Jun 2026 para coherencia con `/{slug}/manifiesto`). Narrativa de posicionamiento (April Dunford/Gemini) + CTA al WhatsApp del arquitecto. `/nosotros` redirige aquí (301). Tiene `opengraph-image.tsx` propio. Rótulo en el menú: **Nosotros**. El cuerpo vive en [`<ManifiestoDocument/>`](src/components/ManifiestoDocument.tsx) (compartido con `/{slug}/manifiesto`); su H1 visible es **NUESTRA FILOSOFÍA** + lema *"Las cosas no pasan. Se hacen pasar."* (Jun 2026 — antes "MEMORÁNDUM DIRECTIVO"). ⚠️ "Manifiesto de los Fundadores" persiste como **nombre del documento** (OG image, texto pre-cargado de WhatsApp, etiquetas de sección §01–08), NO como H1 — es deliberado, no incoherencia.
+- `manifiesto/` — **Página pública del Manifiesto de los Fundadores** (`/nosotros` redirige aquí 301; rótulo de menú: **Nosotros**). Narrativa de posicionamiento (April Dunford) + CTA WhatsApp del arquitecto; `opengraph-image.tsx` propio. Cuerpo en [`<ManifiestoDocument/>`](src/components/ManifiestoDocument.tsx) (compartido con `/{slug}/manifiesto`); H1 = **NUESTRA FILOSOFÍA** + lema *"Las cosas no pasan. Se hacen pasar."* ⚠️ "Manifiesto de los Fundadores" persiste como **nombre del documento** (OG, texto WhatsApp, secciones §01–08), NO como H1 — es deliberado.
 - `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
-- `sistema/productos/` — 🛒 **Catálogo e-commerce "Clinical Luxury"** (`/sistema/productos`, indexada). `page.tsx` es la **página viva** (`'use client'`, tema bioEmerald). **Queswa aquí = ASESOR DE SALUD Y BIENESTAR** (jun 2026): el backend cambia de modo vía `pageContext === 'catalogo_productos'` (route.ts `getPageContextInstructions()`, enviado por `useNEXUSChat`), y el frontend lo acompaña → saludo de asesor + **chips de salud** `QUESWA_PRODUCTS_QUICK_REPLIES` (beneficios / estudios científicos / seguridad del Ganoderma — NO las 4 de negocio; el CTA "Suscríbete" se oculta), **CTAs que abren a Queswa** vía evento `open-queswa` (hero, caja de distribuidores, FAQ — patrón Home/`QueswaCTAButton`), y **tooltip del orbe contextual** ("Pregúntele a su asesor de bienestar", en `UnifiedQueswaOrb` por ruta). **Léxico Fundador retirado del catálogo** (jun 2026): nada de "Fundador"; los enlaces de negocio apuntan a la **Home** ("Sea dueño de su comercio electrónico →"); FAQ de negocio en léxico accesible (empresa/comercio digital, "su organización" no "su red", ingresos recurrentes). **Carrito**: persiste en `localStorage` (carga con `try/catch` + filtra ítems cuyo producto ya no existe), pre-carga vía `?carrito=id1,id2`, checkout por WhatsApp del distribuidor. ⚠️ **Envío SIN valor fijo** (jun 2026 — antes $12.000 hardcoded): el carrito muestra "Por definir según ciudad y volumen" y el mensaje de WhatsApp pide coordinar el flete con el asesor. El orbe se auto-oculta al abrir el carrito (atributo `data-nexus-button` en el orbe). `catalogo-productos.tsx` es un **duplicado WIP sin enlazar** (no es ruta) — se mantiene sincronizado por cortesía pero la fuente viva es `page.tsx`.
+- `sistema/productos/` — 🛒 **Catálogo e-commerce "Clinical Luxury"** (indexada; `page.tsx` es la **página viva** — `'use client'`, bioEmerald. `catalogo-productos.tsx` es duplicado WIP sin enlazar, NO es la fuente viva). **Queswa aquí = ASESOR DE SALUD Y BIENESTAR**: backend en modo `pageContext === 'catalogo_productos'` (route.ts `getPageContextInstructions()`, enviado por `useNEXUSChat`) + frontend con chips de salud `QUESWA_PRODUCTS_QUICK_REPLIES` (NO las 4 de negocio; CTA "Suscríbete" oculto), CTAs `open-queswa`, y tooltip del orbe por ruta. **Léxico Fundador retirado del catálogo**: nada de "Fundador"; enlaces de negocio → **Home**; FAQ en léxico accesible ("su organización" no "su red"). **Carrito**: `localStorage` (carga con `try/catch` + filtra productos inexistentes), pre-carga `?carrito=id1,id2`, checkout por WhatsApp del distribuidor. ⚠️ **Envío SIN valor fijo**: carrito muestra "Por definir según ciudad y volumen" (NO hardcodear flete). Orbe se auto-oculta al abrir el carrito (`data-nexus-button`).
 - `animaciones/diaX/` — Canvas-based social video renderer (Dan Koe style). Variantes A/B con sufijos `-v3` a `-v6`.
 - `servilleta/` — Deck interactivo v6.7 de 4 slides. **Migrado al sistema Lujo Silencioso (15 May 2026)** — usa los mismos tokens que el resto del sitio (`--color-brand`, `--color-bg-elevated`, `--font-sans`, etc.). Slides 1 (qué es una empresa digital) y 2 (primeros principios) son card-scrollers con **b-rolls 3D** y portada propia — ver [Servilleta Digital](#servilleta-digital---interactive-presentations).
 - `paquetes/` — Protocolo de Capitalización v3.0. CTAs → WhatsApp pre-filled con nombre+USD+COP.
@@ -598,11 +577,7 @@ en next.config.js (→ /empresa-digital; sus /gracias → /confirmacion)
 
 **SEO Strategy** (Dic 2025):
 - **Indexed pages**: `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes` (⚠️ `/socios` y `/webinar` fueron eliminadas — commit `6110e9a` "purga global tuteo + eliminar 4 páginas obsoletas")
-- **noindex pages** (funnel interno):
-  - `/reto-5-dias/*` → Squeeze/Bridge v1 — **página eliminada**, solo redirect 301 → `/empresa-digital`
-  - `/empresa-digital/*` → Squeeze + 5 páginas de video (v4.0 — "El Diagnóstico de 5 Días"; rename desde `/auditoria-patrimonial` jun 2026)
-  - `/confirmacion` → Bridge Page v4.0 (rename desde `/auditoria-confirmada` jun 2026; el slug viejo redirige 301 aquí)
-  - `/manifiesto` → Manifiesto de los Fundadores (antes `/nosotros`; `/nosotros` redirige 301 aquí)
+- **noindex pages** (funnel interno): `/empresa-digital/*` (Squeeze + 5 videos "El Diagnóstico de 5 Días") · `/confirmacion` (Bridge v4.0) · `/manifiesto` (Manifiesto). Slugs viejos (`/auditoria-patrimonial`, `/auditoria-confirmada`, `/nosotros`, `/reto-5-dias/*`, `/mapa-de-salida/*`) → redirects 301.
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
@@ -632,7 +607,7 @@ Sales presentation tools for 1-on-1 conversations. **Desde 15 May 2026 usa el mi
 - **Copy renderizado de las slides** (nav, H1/H2, CTAs, `getLifestyleTranslation`, etc.) → [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx) (deck v6.7).
 - **Narración / teleprompter aprobada** → [guion_maestro_servilleta_v3.md](public/contexto/produccion/guiones/servilleta/guion_maestro_servilleta_v3.md) + su variante `_TELEPROMPTER.md` (⚠️ nombre de archivo legacy `v3` — el contenido es **v5.8**, 3 jul 2026).
 
-Estructura de las 4 slides (**v6.7** — reorden aplicado en v6.5/v6.6): **01 SU EMPRESA DIGITAL** (portada "CREE SU EMPRESA DIGITAL" + 3 cards de *qué es una empresa digital*: depende de que usted esté ahí · **son el puente** (Amazon/MercadoLibre) · imagine el suyo — clips `empresa-tradicional / empresa-digital / sonrisaslindas`) · **02 "3 COSAS TIENEN QUE SER CIERTAS"** (primeros principios: Gano Excel, socio logístico y financiero · Queswa, socio digital · el Método — clips `respaldo / queswa / metodo`) · **03 EL PRODUCTO** · **04 SIMULADOR**. Slides 1 y 2 son **card-scrollers simétricos**: cada una abre con SU portada (índice 0) y sigue con 3 clips (1-3); el nombre visible lo pone el `<h3>` HTML, **no el video** → un cambio de léxico NO requiere re-render. La card de Queswa (slide 2) tiene el botón inline que dispara `open-queswa` CustomEvent. ⚠️ La descripción previa (slide 1 = 3 pilares, slide 2 = EXPANDIR·ACTIVAR·MULTIPLICACIÓN) quedó **obsoleta** con el reorden — los clips `expandir/activar/maestria` ya no están en el deck.
+Estructura de las 4 slides (**v6.7** — reorden aplicado en v6.5/v6.6): **01 SU EMPRESA DIGITAL** (portada "CREE SU EMPRESA DIGITAL" + 3 cards de *qué es una empresa digital*: depende de que usted esté ahí · **son el puente** (Amazon/MercadoLibre) · imagine el suyo — clips `empresa-tradicional / empresa-digital / sonrisaslindas`) · **02 "3 COSAS TIENEN QUE SER CIERTAS"** (primeros principios: Gano Excel, socio logístico y financiero · Queswa, socio digital · el Método — clips `respaldo / queswa / metodo`) · **03 EL PRODUCTO** · **04 SIMULADOR**. Slides 1 y 2 son **card-scrollers simétricos**: cada una abre con SU portada (índice 0) y sigue con 3 clips (1-3); el nombre visible lo pone el `<h3>` HTML, **no el video** → un cambio de léxico NO requiere re-render. La card de Queswa (slide 2) tiene el botón inline que dispara `open-queswa` CustomEvent.
 
 ⚠️ **Léxico**: el deck v6.2 ya está migrado al registro accesible. El copy "Abr 2026" que vivía aquí (PATRIMONIO PARALELO, Base Operativa, UNIDAD DE SUMINISTRO, "tecnología nutricional") es **léxico retirado** — no reintroducir (ver [Queswa Vocabulary](#queswa-vocabulary--tabla-canónica-unificada)).
 
@@ -651,11 +626,11 @@ Estructura de las 4 slides (**v6.7** — reorden aplicado en v6.5/v6.6): **01 SU
 1. `.simulator-panel` — calculadora (INGRESO INMEDIATO / INGRESO RECURRENTE)
 2. `.cta-panel` — imagen `boton-accion.jpg` (top 48%) + zona texto (bottom 52%)
    - `.bg-image-cta`: `grayscale(100%) brightness(50%)` por defecto
-   - Desktop: imagen queda gris hasta hover (CSS `:hover` puro — NO setTimeout auto-reveal, fue eliminado porque impedía ver la transición)
+   - Desktop: imagen gris hasta hover (CSS `:hover` puro — NO setTimeout auto-reveal)
    - Mobile: `ctaVisible` state + IntersectionObserver → `cta-revealed` → color al scroll-snap
    - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
-   - **Distribución del overlay (jun 2026):** imagen `48%` + overlay `top: 48%`. **Mobile normal** usa `justify-content: center` (la `.mobile-nav` inferior ocupa la franja baja, así el contenido centrado se ve alto/balanceado). **Fullscreen mobile** usa `justify-content: flex-start` a propósito: en fullscreen la `.mobile-nav` se oculta, y centrar empujaba el 2º botón fuera de pantalla → anclar arriba (bajo la imagen) garantiza ver ambos CTAs. ❌ NO unificar ambos a `center`.
-   - **Swipe: exoneración SOLO en `<input>` (auditoría 2 jul 2026):** `touchSwipeIgnore` ignora el swipe únicamente si el touch nace sobre un `input` (arrastrar el thumb de un slider es horizontal legítimo). Historial: la lista llegó a incluir `.simulator-panel` (cubría 100vh → bloqueaba TODO el swipe-back del Slide 4) y luego tabs/selector/botones (zonas muertas dispersas). Un tap dispara su click normal y un desplazamiento navega — no compiten; el guard de eje |dx|>|dy| evita que el scroll vertical del simulador cambie de slide. `handleSlideClick` SÍ conserva la lista amplia (click-to-advance dentro del simulador sería caos). Snap del Slide 4 = `proximity` (no `mandatory`, que atrapaba el regreso) + `.simulator-panel` con `justify-content: flex-start` (centrar contenido más alto que la pantalla dejaba el tope inalcanzable).
+   - **Distribución del overlay:** imagen `48%` + overlay `top: 48%`. **Mobile normal** = `justify-content: center`; **fullscreen mobile** = `justify-content: flex-start` (la `.mobile-nav` se oculta y centrar empujaba el 2º botón fuera de pantalla). ❌ NO unificar ambos a `center`.
+   - **Swipe: exoneración SOLO en `<input>`:** `touchSwipeIgnore` ignora el swipe únicamente si el touch nace sobre un `input` (arrastrar el thumb de un slider es horizontal legítimo). ❌ NO añadir `.simulator-panel` ni tabs/botones a esa lista (bloquea el swipe-back del Slide 4). Guard de eje |dx|>|dy| evita que el scroll vertical del simulador cambie de slide. `handleSlideClick` SÍ conserva la lista amplia (click-to-advance dentro del simulador sería caos). Snap del Slide 4 = `proximity` (no `mandatory`) + `.simulator-panel` con `justify-content: flex-start`.
    - Botón primario "ACTIVAR SU EMPRESA DIGITAL →": `width: 100%`, naranja dominante → `/paquetes`
    - Botón secundario "SUSCRIBIRSE AL BOLETÍN →": outline, más angosto → abre `SubscribeModal` (newsletter; OPCIÓN 2 del guion v5.1). Antes empujaba al Diagnóstico de 5 Días → `/empresa-digital`, desconectado como gancho jun 2026
 
@@ -663,9 +638,9 @@ Estructura de las 4 slides (**v6.7** — reorden aplicado en v6.5/v6.6): **01 SU
 
 Slides 1 (qué es una empresa digital) y 2 (primeros principios) usan **b-rolls 3D** como fondo de cada card, en vez de imágenes. Pensado para uso **en vivo en mobile**: cada b-roll muestra **solo el nombre** (Luis narra el resto). Diseño: el video llena la card (`object-fit: contain`, ver bloque Mobile arriba) y la gráfica debe **explicar sin texto**.
 
-**Assets servidos** (Vercel/Next desde `/public`, no Blob) en [public/videos/servilleta/](public/videos/servilleta/): el deck v6.7 usa 6 clips — `empresa-tradicional.mp4 · empresa-digital.mp4 · sonrisaslindas.mp4` (slide 1) + `respaldo.mp4 · queswa.mp4 · metodo.mp4` (slide 2). **Desde 2 jul 2026 los 6 son los b-rolls IA (Veo/Vertex) del reel explainer de la Home, CON AUDIO** (720×1280 CRF28 + AAC; backups de la generación anterior en `_bak_pre_home_clips/`, untracked). Mapeo: empresa-de-siempre→empresa-tradicional · el-puente→empresa-digital · sonrisaslindas · socio-logistico→respaldo · queswa-final→queswa · metodo. Prompts/doctrina de generación → `HANDOFF_BROLLS_HOME.md` + `GUIA_IDENTIDAD_VISUAL_IA.md` §9 (en `public/contexto/produccion/`). Reproducción perezosa: cada `<video>` usa `preload="none"`; desde v6.6 hay **control central de media** (un solo efecto gobierna TODOS los videos por `data-slide`/`data-card` — la slide abandonada se pausa+rebobina+mutea; en one-card SOLO la card activa reproduce y suena desde 0s; en grid desktop los 3 reproducen EN MUTE. Antes el efecto solo tocaba la slide activa → los clips de la anterior seguían sonando ocultos = audio acumulado).
+**Assets servidos** (Vercel/Next desde `/public`, no Blob) en [public/videos/servilleta/](public/videos/servilleta/): el deck v6.7 usa 6 clips — `empresa-tradicional · empresa-digital · sonrisaslindas` (slide 1) + `respaldo · queswa · metodo` (slide 2), todos `.mp4`. Son los b-rolls IA (Veo/Vertex) del reel explainer de la Home, CON AUDIO (720×1280 CRF28 + AAC). Prompts/doctrina → `HANDOFF_BROLLS_HOME.md` + `GUIA_IDENTIDAD_VISUAL_IA.md` §9. Reproducción: `preload="none"` + **control central de media** (un solo efecto gobierna TODOS los videos por `data-slide`/`data-card`: la slide abandonada se pausa+rebobina+mutea; en one-card SOLO la card activa reproduce y suena desde 0s; en grid desktop los 3 reproducen EN MUTE).
 
-**UX de clips (v6.7, auditoría 2 jul 2026 — no revertir):** tap sobre el clip = pausa/play **SOLO en táctil** (patrón Stories/TikTok; en desktop el click conserva el avance de presentación — capturarlo dejaba al presentador trabado); **un solo control de pausa, el central** (⏸ al hover en desktop / ▶ persistente al pausar); **retroceso de slide aterriza en la ÚLTIMA card** de la slide destino (`LAST_CARD` — el usuario vuelve a revisar lo último que vio, no la portada; se eliminó el efecto reset-a-0 y el IntersectionObserver muerto); **swipe horizontal navega desde CUALQUIER punto** (`touch-action: pan-y` en `.deck-container` + `onTouchMove`/`onTouchCancel` — antes el navegador secuestraba el gesto como scroll y solo respondía la franja superior) con guard de eje |dx|>|dy|. Investigación de respaldo: `public/contexto/produccion/INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md`.
+**UX de clips (v6.7 — no revertir):** tap sobre el clip = pausa/play **SOLO en táctil** (en desktop el click conserva el avance de presentación); **un solo control de pausa, el central** (⏸ al hover en desktop / ▶ persistente al pausar); **retroceso de slide aterriza en la ÚLTIMA card** de la slide destino (`LAST_CARD`, no la portada); **swipe horizontal navega desde CUALQUIER punto** (`touch-action: pan-y` en `.deck-container` + `onTouchMove`/`onTouchCancel`) con guard de eje |dx|>|dy|. Investigación: `public/contexto/produccion/INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md`.
 
 **Fuente histórica (comps Remotion)** → [scripts/dankoe-video/motion/src/](scripts/dankoe-video/motion/src/): las comps `Matriz3D/IAOnda3D/Checklist3D` (con guard `{(eyebrow||title||sub) && (...)}`) y `Expandir3D/Activar3D/Maestria3D` ya **NO alimentan el deck** (reemplazadas por los b-rolls IA) pero siguen sirviendo a los **reels** — no quitar el guard ni des-registrarlas de `Root.tsx`.
 
@@ -778,7 +753,7 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **Regla crítica**: NO agregar textos de flujo al System Prompt. El System Prompt es perfil de personalidad puro (identidad + tono + diccionario). Cualquier texto que el modelo deba imprimir verbatim va en las funciones de micro-prompt del backend.
 
-**Clasificador único de marcha — FUENTE DE VERDAD del cierre (refactor jun 2026):** La intención de cierre se decide en **un solo lugar** (`marchaCierre`, route.ts tras `mergedProspectData`), del que derivan `isClosingFlowEarly`, el FSM y la supresión de RAG → no se pueden desincronizar (esto reemplazó 3 detectores dispersos que causaban grietas: `isClosingFlowEarly` suprimía RAG por tener paquete mientras el FSM iba a Estado 0; y un regex `estadoTresYaEntregado` obsoleto que nunca liberaba el cierre). **Modelo de 3 marchas (calibrado con Director Cabrejo)** — el discriminador es **gramática + recorrido**, NO la palabra "inicio/iniciar" (contaminada: vive en "paquetes de inicio"=info y "quiero iniciar"=intención):
+**Clasificador único de marcha — FUENTE DE VERDAD del cierre:** La intención de cierre se decide en **un solo lugar** (`marchaCierre`, route.ts tras `mergedProspectData`), del que derivan `isClosingFlowEarly`, el FSM y la supresión de RAG → no se pueden desincronizar. **Modelo de 3 marchas** — el discriminador es **gramática + recorrido**, NO la palabra "inicio/iniciar" (contaminada: vive en "paquetes de inicio"=info y "quiero iniciar"=intención):
 
 | Marcha | Señal | RAG | Resultado |
 |--------|-------|-----|-----------|
@@ -841,36 +816,9 @@ import('dotenv').then(d => { d.config({path: '.env.local'}); return import('@sup
 
 **Atajo solo si el script genérico cubre tu caso**: `node scripts/fragmentar-arsenales-voyage.mjs` — si los fragments no existen, los crea. Si existen, los salta. Útil cuando se añaden respuestas NUEVAS sin modificar existentes.
 
-1. Edit `.txt` files in `knowledge_base/`:
-   - `arsenal_inicial.txt` - Initial questions (**53 fragments**, 54 respuestas — incluye ACTIVACION_01 y EMPRESA_DIGITAL_01)
-   - `arsenal_avanzado.txt` - Objections + System + Value + Escalation + Activation (18 fragments)
-   - `arsenal_reto.txt` - **El Diagnóstico de 5 Días** v4.7 (7 fragments — empresa-digital/dia-1 a dia-5)
-   - `arsenal_12_niveles.txt` - 12-level challenge content (13 fragments — flujo Reto, NO accesible al chat principal creatuactivo.com)
-   - `catalogo_productos.txt` - Product catalog + science (22 products, 25 fragments + doc maestro)
-   - `arsenal_compensacion.txt` - Compensation plan (**41 fragments** — **NO modificar vocabulario**; PVP prohibido)
+Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai-chatbot). Scripts de deploy por arsenal: `deploy-arsenal-inicial.mjs` · `deploy-arsenal-avanzado.mjs` · `deploy-arsenal-reto.mjs` · `deploy-arsenal-12-niveles.mjs` · `actualizar-catalogo-productos.mjs` · `deploy-arsenal-compensacion.mjs`. Luego `fragmentar-arsenales-voyage.mjs` (embeddings Voyage) y verificar con `audit-completo.mjs` (preferido — `verificar-arsenal-supabase.mjs` tiene bug PGRST116).
 
-2. Deploy to Supabase via scripts:
-   ```bash
-   node scripts/deploy-arsenal-inicial.mjs
-   node scripts/deploy-arsenal-avanzado.mjs
-   node scripts/deploy-arsenal-reto.mjs
-   node scripts/deploy-arsenal-12-niveles.mjs
-   node scripts/actualizar-catalogo-productos.mjs
-   ```
-
-3. Regenerate embeddings (required after content changes):
-   ```bash
-   node scripts/fragmentar-arsenales-voyage.mjs    # Creates fragments with Voyage AI embeddings
-   ```
-
-4. Verify: `node scripts/audit-completo.mjs` (preferido — `verificar-arsenal-supabase.mjs` tiene bug PGRST116)
-
-**Falsa alarma del audit — `desconocido: 40 fragmentos`**: el script `audit-completo.mjs` clasifica fragments por `metadata.parent_arsenal`. Cuando ese campo no está poblado, los etiqueta "desconocido" aunque la `category` esté bien (ej. `arsenal_compensacion_COMP_PV_06`). Los 40 actuales son:
-- 14 fragments individuales de `arsenal_compensacion` (COMP_GEN5_*, COMP_PAQ_*, COMP_PV_*, COMP_VENTA_01, COMP_MONEDA_01) — útiles, son respuestas reales
-- 6 docs maestros padre (`arsenal_inicial`, `arsenal_ganocafe`, `arsenal_reto`, `arsenal_marca_personal`, `catalogo_productos`) — **NO ELIMINAR**, el fragmentador los necesita para parsear (`.eq('category', arsenalCategory)`)
-- 1 `catalogo_productos_PROD_OVERVIEW` — verbatim_lock activo
-
-Eliminar cualquiera rompe funcionalidad. Si quieres limpiar el warning, enriquece `metadata.parent_arsenal` en esos fragments (cosmético, no operativo).
+**Falsa alarma del audit — `desconocido: 40 fragmentos`**: `audit-completo.mjs` clasifica por `metadata.parent_arsenal`; cuando ese campo no está poblado etiqueta "desconocido" aunque la `category` esté bien. Los 40 son fragments reales de `arsenal_compensacion` + los **docs maestros padre** (`arsenal_inicial/ganocafe/reto/marca_personal`, `catalogo_productos`) + `catalogo_productos_PROD_OVERVIEW`. ⚠️ **NO ELIMINAR ninguno** — los docs maestros los necesita el fragmentador para parsear (`.eq('category', arsenalCategory)`). El warning es cosmético; se limpia poblando `metadata.parent_arsenal`.
 
 ### Working with Video Content
 
@@ -933,7 +881,7 @@ Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia
 - **Tracking de referido**: como el reel se renderiza inline (no redirige), `ReelPage` resuelve `constructor_id` del slug e inyecta un `<script>` inline (corre **antes** del `tracking.js` diferido) que setea `?ref={constructor_id}` vía `history.replaceState` + `localStorage.constructor_ref`. Atribución idéntica a aterrizar en `/empresa-digital?ref=id`. Funciona para cualquier arquitecto (slug dinámico), no solo `luis-cabrejo`.
 - **CTA WhatsApp del arquitecto**: el número vive en **`private_users.whatsapp`** (fuente de verdad — igual que `/api/constructor/[id]` y `/sistema/productos`), **NO** en `constructor_slugs.whatsapp`. El branch del reel lo resuelve por `constructor_id` con fallback al número orgánico `+573206805737`. ⚠️ Bug histórico "cero inicial" en esos números (ver `whatsapp-validator.ts` del repo Dashboard) — el `.replace(/\D/g, '')` lo neutraliza.
 - **Engagement tracking** (Reels Engagement Fase 1, Jun 2026): [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) instrumenta el comportamiento del prospecto y reporta a [`/api/track/engagement`](src/app/api/track/engagement/route.ts) (que mergea sin retroceder en `device_info` → webhook Supabase → push al arquitecto en queswa.app). **Contrato de datos cerrado con el Dashboard — NO renombrar los campos**: `reel_nicho`, `reel_pct` (máx % visto), `reel_completed` (✅ push "Vio el reel completo"), `reel_time_s` (segundos activos), `queswa_opened` (✅ push "Abrió Queswa"), `queswa_messages`, `visit_count` (✅ push "Volvió a visitar"). **Anti-spam (CRÍTICO)**: cada escritura dispara el webhook → mantener **≤ ~6 escrituras por sesión**. Reportar solo en milestones del reel (25/50/75/100), `queswa_opened` una vez, y `reel_time_s`+`visit_count` en el beacon de salida (`navigator.sendBeacon`). NO escribir en cada `timeupdate` ni en heartbeats. Handoff: [HANDOFF_REELS_ENGAGEMENT_FASE1.md](HANDOFF_REELS_ENGAGEMENT_FASE1.md).
-- **Estado**: **los 6 reels están en 3D y en producción** (jun 2026). Los **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales) usan inserts 3D de diagnóstico por nicho + módulo de solución compartido (pilares/CTA/outro), atmósfera, subtítulos, música 0.80 y SFX. El **6º, `networkers`** (desplegado jun 2026), tiene **estructura propia**: villano `Pulso3D` ("la conversión a pulso que no se duplica") + inserts de solución bespoke (Ciclo hook · Queswa/Expandir/Activar/Gano-70-países/Método relabelados) + outro; subtítulos por forced-alignment, suspense 0.90 en hook+diagnóstico, y **música de solución montada por Luis en CapCut** (no por el pipeline — decisión deliberada para ese reel). Masters locales en `scripts/dankoe-video/masters/{nicho}-3d.mp4` (gitignored); en Blob `reels/{nicho}.mp4` (web CRF23, ~53-72MB). Pendiente abierto: "tres pilares"→"3 pilares" en el módulo compartido (re-deploy de los 5 de tráfico). Handoff original: `HANDOFF_REELS_PAGINAS.md`.
+- **Estado**: **los 6 reels están en 3D y en producción**. Los **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales) usan inserts 3D de diagnóstico por nicho + módulo de solución compartido (pilares/CTA/outro), atmósfera, subtítulos, música 0.80 y SFX. El **6º, `networkers`**, tiene **estructura propia** (villano `Pulso3D`, inserts bespoke, suspense 0.90 en hook+diagnóstico) y su **música de solución la montó Luis en CapCut** (no el pipeline — deliberado). Masters en `scripts/dankoe-video/masters/{nicho}-3d.mp4` (gitignored); Blob `reels/{nicho}.mp4` (web CRF23). ⏳ Pendiente: "tres pilares"→"3 pilares" en el módulo compartido (re-deploy de los 5). Handoff: `HANDOFF_REELS_PAGINAS.md`.
 - **Hosting**: Vercel Blob (migrar a Bunny Stream solo si el egress lo justifica). Servilleta NO se auto-hospeda → YouTube. `public/videos/reels/` conserva el poster branded (`poster.webp`/`poster.jpg`), **los posters por-nicho (`{nicho}-poster.webp`/`.jpg`)** y los `.md` — los `.mp4` (crudos + `-web`) son locales/intermedios y se borran tras subir (gitignored, no se sirven; los masters 3D viven en `scripts/dankoe-video/masters/`, el base limpio en CapCut).
 - **Léxico del copy**: usted · Lujo Clínico · **negocio digital** (a secas), ingreso recurrente, 3 pilares. Prohibido: vehículo, red (MLM), patrimonio paralelo, capas, Máquina Híbrida, **Estructura Patrimonial / Base Operativa** (migrados a negocio digital — `REEL_COPY` en `reels.ts` ya migrado).
 - **Pipeline de actualización de video**: export CapCut a `public/videos/reels/{nicho}.mp4` (1080p·24fps·H.264·~20Mbps fuente) → `bash scripts/optimize-reels.sh` (→ `{nicho}-web.mp4`, CRF 23 + `+faststart`) → `node scripts/upload-reels-to-blob.mjs` (sube a `reels/{nicho}.mp4`, **mismas URLs** → no se toca `reels.ts`).
@@ -951,7 +899,7 @@ Los guiones (texto hablado) viven en `public/contexto/produccion/guiones/reels/`
 
 **Léxico (los 3):** "negocio digital" a secas (la corona es de CreaTuActivo, no de Gano) · ingreso que no depende de su presencia · usted dirige, el sistema hace el trabajo. Ver [migración léxico accesible](#queswa-vocabulary--tabla-canónica-unificada).
 
-**Reel HOME (✅ re-producido y desplegado, 4 jul 2026 — v2 del explainer):** el explainer 9:16 vive en el hero de [src/app/page.tsx](src/app/page.tsx) vía [src/components/HomeManifestoVideo.tsx](src/components/HomeManifestoVideo.tsx) (reemplazó el `YouTubeFacade`/`SERVILLETA_YOUTUBE_ID`). **Versión actual: 187s** (184s + outro logo 3s) — talking-head Luis + 10 b-rolls IA (Veo/Vertex: bucle, empresa-de-siempre, el-puente, con-sus-manos, 3-cosas, socio-logístico, queswa, método, **multiplicación con destellos+tonos coordinados compuestos en post** y **cierre-encendido** — coordinación luz/sonido que Veo no da de forma fiable se compone por código sobre el máster, ver `HANDOFF_BROLLS_HOME.md`), subtítulos karaoke por forced alignment (numerales "1./2./3." caen en el instante hablado de "Uno/Dos/Tres"), música por actos montada en CapCut (→ pipeline: loudnorm −14 del mix, sin arco musical propio), outro canónico. Asset en Blob (`home/home-manifesto.mp4`, misma URL — redeploy sin tocar código) + poster local `public/videos/home/poster.webp` — constantes `HOME_MANIFESTO_VIDEO`/`HOME_MANIFESTO_POSTER` en [src/lib/reels.ts](src/lib/reels.ts). **Comportamiento:** autoplay muted con chip "ACTIVAR SONIDO"; al terminar (`onEnded`) el video se desvanece en 1000ms y, si sigue ≥40% en viewport, dispara `open-queswa` + foco programático en `#queswa-chat-input` (id en el textarea de `NEXUSWidget`). Si el usuario scrolleó lejos, no se secuestra el foco — el panel revelado ofrece "Hablar con Queswa". **Master:** `scripts/dankoe-video/masters/reel-home.mp4` + stamps/guión/audio conservados en `captions/work/home_*` (un ajuste de subtítulos o audio = re-render parcial, no empezar de cero); base CapCut en `~/Downloads/clips-reel-home/reel-home-final/`.
+**Reel HOME (desplegado — v2 del explainer, ~187s):** el explainer 9:16 vive en el hero de [src/app/page.tsx](src/app/page.tsx) vía [src/components/HomeManifestoVideo.tsx](src/components/HomeManifestoVideo.tsx) (reemplazó el `YouTubeFacade`/`SERVILLETA_YOUTUBE_ID`). Talking-head Luis + 10 b-rolls IA (Veo/Vertex; la coordinación luz/sonido que Veo no da fiable se compone por código sobre el máster — ver `HANDOFF_BROLLS_HOME.md`), subtítulos karaoke por forced alignment, música por actos montada en CapCut (pipeline: loudnorm −14 del mix), outro canónico. Asset en Blob (`home/home-manifesto.mp4`, misma URL) + poster `public/videos/home/poster.webp` — constantes `HOME_MANIFESTO_VIDEO`/`HOME_MANIFESTO_POSTER` en [src/lib/reels.ts](src/lib/reels.ts). **Comportamiento:** autoplay muted con chip "ACTIVAR SONIDO"; al terminar (`onEnded`) se desvanece en 1000ms y, si sigue ≥40% en viewport, dispara `open-queswa` + foco en `#queswa-chat-input`; si el usuario scrolleó lejos NO se secuestra el foco. **Master:** `scripts/dankoe-video/masters/reel-home.mp4` + stamps/guión/audio en `captions/work/home_*` (un ajuste = re-render parcial, no empezar de cero); base CapCut en `~/Downloads/clips-reel-home/reel-home-final/`.
 
 ### Founder Spots Counter
 
@@ -1261,62 +1209,21 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~48 scripts)
+**Location**: `scripts/` directory (~48 scripts). La mayoría requiere variables de `.env.local`; corre `ls scripts/` para la lista completa. Abajo solo los que llevan gotcha o no son auto-descriptivos.
 
-**NEXUS System Prompt**:
-- `leer-system-prompt.mjs` - Read current prompt from Supabase
-- `descargar-system-prompt.mjs` - Download prompt to local file
-- `actualizar-system-prompt-v27.2.mjs` - Deploy del system prompt actual a Supabase (la versión es la de `VERSION_LABEL` en el script — hoy **v29.2 "triada_sin_pronombre"**, ~21K chars). El script y el archivo fuente conservan el nombre legacy `v27.2`/`v27_2`. Las versiones anteriores viven en git + `CHANGELOG-system-prompts.md`
+**NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — no asumir local=DB) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión de `VERSION_LABEL` (hoy **v29.2**, ~21K); ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`** — las versiones anteriores viven en git + `CHANGELOG-system-prompts.md`.
 
-**Knowledge Base Deployment**:
-- `deploy-arsenal-inicial.mjs` - Deploy arsenal_inicial to Supabase
-- `deploy-arsenal-avanzado.mjs` - Deploy arsenal_avanzado to Supabase
-- `deploy-arsenal-12-niveles.mjs` - Deploy 12-level challenge arsenal
-- `deploy-arsenal-reto.mjs` - Deploy arsenal_reto to Supabase
-- `deploy-arsenal-compensacion.mjs` - Deploy arsenal_compensacion to Supabase
-- `actualizar-catalogo-productos.mjs` - Update product catalog
-- `verificar-arsenal-supabase.mjs` - Verify current version in DB
-- `descargar-arsenales-supabase.mjs` - Download arsenales from Supabase
+**Knowledge Base**: `deploy-arsenal-{inicial,avanzado,reto,12-niveles,compensacion}.mjs` + `actualizar-catalogo-productos.mjs` (deploy por arsenal) · `verificar-arsenal-supabase.mjs` / `descargar-arsenales-supabase.mjs`.
 
-**Embeddings** (Voyage AI):
-- `fragmentar-arsenales-voyage.mjs` - Fragment arsenales into individual chunks with embeddings
-- `actualizar-fragmentos-modificados.mjs` - Update only changed fragments (faster than full regeneration — use after editing individual responses)
-- `purgar-fragmentos-duplicados.mjs` - Remove duplicate fragments from `nexus_documents`
-- `refragmentar-3-arsenales.mjs` - Refragment specific arsenales (arsenal_inicial, arsenal_avanzado, arsenal_compensacion)
-- `regenerar-12-niveles-fragments.mjs` - Regenerate 12-level challenge embeddings
-- `generar-embeddings-voyage.mjs` - Generate embeddings for new documents
-- `regenerar-embeddings-voyage.mjs` - Regenerate all embeddings
-- `audit-completo.mjs` - Full system audit: counts fragments per arsenal, detects orphans and missing embeddings
+**Embeddings (Voyage)**: `fragmentar-arsenales-voyage.mjs` (crea fragments con embeddings; salta los existentes) · `audit-completo.mjs` (audit completo: cuenta fragments, detecta huérfanos y embeddings faltantes — preferido) · `purgar-fragmentos-duplicados.mjs` · `regenerar-embeddings-voyage.mjs`. ⚠️ `actualizar-fragmentos-modificados.mjs` tiene fragments HARDCODED — **NO** usar como genérico (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)).
 
-**Database**:
-- `verificar-esquema-completo.mjs` - Verify complete database schema
-- `diagnostico-seguridad-supabase.sql` - Check RLS status on all tables
-- `fix-rls-seguridad-supabase.sql` - Enable RLS and create policies
+**Database**: `verificar-esquema-completo.mjs` · `diagnostico-seguridad-supabase.sql` (chequea RLS) · `fix-rls-seguridad-supabase.sql` (habilita RLS + policies).
 
-**Testing & Utilities**:
-- `test-contador-cupos.mjs` - Test founder counter (15 scenarios)
-- `test-flow-reto-completo.mjs` - End-to-end test of reto-5-dias funnel flow
-- `validar-funnel-simple.mjs` - Validate funnel leads schema
-- `validar-schema-funnel-leads.mjs` - Full schema validation for funnel_leads table
-- `diagnostico-funnel-leads.mjs` - Diagnose funnel leads data issues
-- `actualizar-fechas-prelanzamiento.mjs` - Update pre-launch dates
+**Testing**: `test-contador-cupos.mjs` (15 escenarios del contador) · `test-flow-reto-completo.mjs` (E2E funnel reto) · `validar-schema-funnel-leads.mjs` / `diagnostico-funnel-leads.mjs`.
 
-**Video**:
-- `optimize-video.sh` - Optimize to multiple resolutions (requires FFmpeg)
-- `upload-to-blob.mjs` - Upload to Vercel Blob
-- `generate_lut.py` - Genera `naval_style.cube` — 3D LUT estilo Naval/Dan Koe (temperatura + contraste + blacks)
-- `davinci_naval.py` - Automatización DaVinci Resolve: importa video, aplica LUT, exporta 1080p + 720p + poster
-- `naval_style.cube` - LUT 3D generado (33×33×33). Re-generar con `generate_lut.py` si se borra
-- `dankoe-video/process_video.py` - **Fase 1**: elimina fondo (rembg + BiRefNet + CoreML M1), compone sobre negro cinematográfico con gradiente radial y color grading moody. Salida 1080×1920 (9:16). Uso: `cd scripts/dankoe-video && .venv/bin/python process_video.py [input/archivo.mp4]`
-- **Fase 2 (subtítulos)** — **ya automatizada** por forced alignment + Pillow (ver [Reel Post-Production Pipeline](#reel-post-production-pipeline-scriptsdankoe-video)). El plan viejo de WhisperX/CapCut quedó descartado (WhisperX derivaba el timing en chunks cortos; el forced alignment con guion exacto no). Setup Fase 1 (remoción de fondo, ya no necesaria con telón gris): `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt` (BiRefNet ~973MB primera vez → `~/.u2net/`). Variante en la nube: `dankoe-video/colab_birefnet.ipynb`
+**Video**: `optimize-video.sh` (multi-res, FFmpeg) · `upload-to-blob.mjs` · `generate_lut.py` → `naval_style.cube` (LUT 3D Naval/Dan Koe; re-generar si se borra) · `davinci_naval.py` (DaVinci: LUT + export 1080/720/poster) · `dankoe-video/process_video.py` (**Fase 1** remoción de fondo BiRefNet/CoreML M1 → 1080×1920). **Fase 2 subtítulos** ya automatizada por forced alignment + Pillow (ver [Reel Post-Production Pipeline](#reel-post-production-pipeline-scriptsdankoe-video)); WhisperX/CapCut descartados. Setup Fase 1: `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt` (BiRefNet ~973MB → `~/.u2net/`); nube: `dankoe-video/colab_birefnet.ipynb`.
 
-**PWA**:
-- `generate-favicons.mjs` - Generate PNG icons from favicon.svg (requires sharp)
-
-**Note**: Most scripts require `.env.local` variables. Run `ls scripts/` for full list.
-
-**SEO & Analytics**:
-- `gsc-extractor.mjs` - Google Search Console data extractor (see Analytics section below)
+**PWA / SEO**: `generate-favicons.mjs` (PNG desde favicon.svg, requiere sharp) · `gsc-extractor.mjs` (Google Search Console — ver Analytics abajo).
 
 ## Analytics: Google Search Console Integration
 
@@ -1402,91 +1309,26 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 >
 > **Doctrina vigente del copy (el CÓMO, no solo el qué):** (1) **Villano NARRADO, nunca etiquetado** — método NuBank: detalles vividos que el lector reconoce (*"los créditos siempre le llevan la delantera"*, *"la bicicleta estática: le da y le da y no avanza"*, *"trabajar, pagar cuentas y repetir"*, *"un sistema diseñado para construir el patrimonio de otros"*), nunca una etiqueta abstracta (prohibido "PPO", "Plan por Defecto", "tiempo por dinero" en seco). "Trampa" sí, como recategorización, sin victimizar. (2) **Autopersuasión** — marcos moderados (*"meses"*, no "días"; sin cifras extremas tipo "en ceros"); escenarios que el lector completa, no afirmaciones. (3) **Test Beto** — si un profesional inteligente sin MBA no entiende la frase, está prohibida; densidad técnica ≠ autoridad, el lujo es la claridad. (4) **Concepto nuclear (modelo Waze):** *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*. Detalle: `HANDOFF_RECALIBRACION_LEXICO_QUESWA.md` (Queswa/sitio) · `HANDOFF_AGENTE_MARKETING_REELS.md` (reels/redes, con la serie de documentación diaria).
 
-**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. Esta sección es la **única fuente de verdad** sobre vocabulario aprobado y prohibido — versiones consolidadas Feb 2026 (Jobs-Style) + Abr 2026 (Lujo Clínico) + May 2026 (v5.2 cierre simplificado + v5.4 híbrido contextual).
+**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. La **única fuente de verdad** de vocabulario aprobado/prohibido son las tablas completas en **[BRANDING.md §7](BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido)**; esta sección conserva la doctrina de migración + las prohibiciones de alta frecuencia.
 
-#### Vocabulario APROBADO (doctrina canónica)
+> 📖 **Las tablas COMPLETAS (Vocabulario APROBADO + PROHIBIDO, ~60 términos con razón de prohibición) viven en [BRANDING.md §7](BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido).** Consúltalas antes de calibrar copy. Abajo solo las prohibiciones que un agente encuentra a diario:
 
-> 🔁 **Las filas marcadas 🪶 son CANON INTERNO ya migrado de cara al prospecto (jun 2026).** El "Término" sigue vivo en arsenales profundos + system prompt sin migrar, pero en copy que ve el prospecto va el **reemplazo accesible en negrita dentro de "Uso"** — NO uses el término canónico ni "corrijas" copy accesible hacia él. Detalle: bloque ⚠️ al inicio de esta sección + [[project_migracion_lexico_accesible]].
+**Prohibiciones de alta frecuencia** (el resto → BRANDING.md §7):
+- **filtrar / filtro / descartar** → conversar · madurar la decisión · reconocer quién está listo ([[feedback_filtrar_prohibido]])
+- **Maestría** (3er Comando) → **Multiplicación** ([[project_rename_maestria_multiplicacion]])
+- **guía / acompaña** (lo que Queswa hace con la decisión) → **madura** ("madura la decisión", SOLO 3ª persona — regla del espejo) ([[feedback_promesa_canonica_queswa]])
+- **cambiar horas/tiempo por dinero** (villano) → el villano es la **DEPENDENCIA** ("no depende de su presencia", no "de sus horas") ([[feedback_horas_no_son_el_villano]])
+- **operar / operador** (de cara al prospecto) → hacer el trabajo / trabajar / funcionar; el usuario: dirigir / ser dueño
+- **escalar** (el activo del usuario) → **multiplicar**
+- **soberanía financiera** → tranquilidad / estabilidad / seguridad (EXCEPCIÓN: el lema de Luis se conserva)
+- **"esto" / "eso"** para auto-referirnos → nombrar concretamente qué es
+- **oportunidad de negocio · libertad financiera · ingreso pasivo · reclutamiento · sé tu propio jefe** → (eliminar — filtran como MLM)
+- **perseguir / convencer** → (eliminar — plantan objeciones inexistentes); **pasivo** → recurrente
+- **Máquina Híbrida · capas** → los tres Pilares; **Hardware/Software** → El Músculo / El Cerebro
+- ⚠️ **Mostrar USD a visitante de Colombia** → **CO = SOLO COP** para TODO (precios Y comisiones, tasa fija $4,500); US = USD limpio; resto = USD (+COP). País-aware en `getPaquetesPricingPin`/`precioPaqueteLinea`/`getPinCifrasGEN5`/`getTablasComisiones`
+- **PII hardcodeada en arsenales** → nunca (seguridad)
 
-| Término | Uso | Razón |
-|---------|-----|-------|
-| **Tres Pilares** | Arquitectura del sistema — NUNCA "capas" ni "Máquina Híbrida" | Doctrina v26.0 |
-| 🪶 **Pilar 1 — La Matriz Física** | Gano Excel + músculo logístico · prospecto → **El Respaldo Operativo** | — |
-| **Pilar 2 — Queswa, su Centro de Mando** | Plataforma IA propietaria | — |
-| 🪶 **Pilar 3 — La Metodología Automatizada** | El Tridente EAM (no "Su Rol") · prospecto → **El Método Comprobado** | Recategorización v26.5 |
-| 🪶 **Arquitecto de Patrimonio** | Rol del usuario — director de los 3 pilares, NO uno de ellos · prospecto → **Propietario (de su negocio digital)** | — |
-| 🪶 **Base Operativa** | Activo del usuario · prospecto → **negocio digital** (a secas — NO "de Gano Excel": la corona es de CreaTuActivo, no del proveedor). "Base Operativa" sale de cara al prospecto (swap jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`) | Retirado 15 May 2026 (Unidad de Suministro/Nodo Logístico) |
-| 🪶 **Tridente EAM** | Comando Expandir · Comando Activar · Comando **Multiplicación** (3er comando renombrado desde "Maestría" jun 2026) · prospecto → **El Método Comprobado** | v26.2 — "Comandos" no "Protocolos" |
-| **Déficit Estructural de Ingresos** | El villano sistémico (causa raíz, no consecuencia) · prospecto → villano NARRADO, nunca etiquetado | v26.6 — jerarquía causal |
-| **Monetización de Doble Velocidad** | Capitalización Inmediata (GEN5) + Renta Vitalicia (Binario) | v26.2 |
-| 🪶 **Estructura Patrimonial** | Sustantivo doctrinal — reemplaza "Patrimonio Paralelo" · prospecto → **estructura de ingresos recurrentes** | v26.3 — Glosario v1.4 |
-| **El Tridente EAM** | Reemplaza "Framework IAA" (eliminado) | v19.6 |
-| **90% automatizado** | NO usar "80% automatizado" | Doctrina actual |
-| **70 países** | Gano Excel presencia global — NO usar 60 | Oficial |
-| **15 países operativos** | CreaTuActivo cobertura geográfica — NO confundir con 70 | v6.4 compensación |
-| **Cupos Fundadores: 15** | Base fundacional inicial | — |
-| **Acueducto / Alquiler vs. Propiedad / Ferrari gratis / Waze / Faro** | Metáforas universales aprobadas | Jobs-Style Feb 2026 |
-
-#### Vocabulario PROHIBIDO (no usar bajo ninguna circunstancia)
-
-| Prohibido | Reemplazar con | Razón de prohibición |
-|-----------|---------------|---------------------|
-| filtrar / filtro / filtrado / descartar a quien no encaja (lo que hace Queswa de cara al prospecto) | conversar · madurar la decisión de avanzar · reconocer quién está listo | jun 2026 — para un dueño de negocio físico "que filtre a sus visitantes" suena a perder clientes; reencuadrar en clave de **conversión**, no de rechazo. Ver [[feedback_filtrar_prohibido]] |
-| Maestría (3er Comando del Tridente EAM) | **Multiplicación** | jun 2026 — "Maestría" obliga a explicar luego; "Multiplicación" comunica el lever directo. Ver [[project_rename_maestria_multiplicacion]] |
-| **guía / acompaña** (lo que Queswa hace con la decisión del prospecto) | **madura** — *"Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas"* | 25 jun 2026 (Opción B) — "madura" dibuja el cambio de estado (interesado→listo), más preciso que "guía". Objeto = **la decisión**, no la persona (activo sin presionar). ⚠️ **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión (madurar/guiar SU decisión = expone la persuasión). La **calidez humana** (equipo/héroe recibe al que ya decidió) conserva "acompaña". Ver [[feedback_verbos_cambio_de_estado]] · [[feedback_promesa_canonica_queswa]] |
-| **cambiar horas/tiempo por dinero** (como villano) · "no a cambio de sus horas" · "¿su meta es seguir cambiando horas por dinero?" | el villano es la **DEPENDENCIA**: *"el día que para, el ingreso para"* / *"su tiempo y su dinero amarrados"* + falta de seguridad | 25 jun 2026 — trabajar es **orgullo/dignidad** latina; atacar "las horas" choca con su identidad ("soy el que trabaja más duro"). Swap suave "no depende de su tiempo/horas" → **"de su presencia"**. "Techo limitado a las horas" SÍ se permite (límite de escala). Ver [[feedback_horas_no_son_el_villano]] |
-| Hardware / Software | El Músculo / El Cerebro | Jerga técnica |
-| Protocolo de Simulación | Auditoría Patrimonial | Test abuela falla |
-| Cupo de Validación | acceso gratuito | Test abuela falla |
-| Módulos Estratégicos | Videos de instrucción | Test abuela falla |
-| Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar | Test abuela falla |
-| Despliegue | Acceso / Activación | Jerga técnica |
-| Nodo de distribución | Base Operativa | Eufemismo opaco |
-| Ancho de Banda Mental | (solo permitido en RETO_05) | Contexto específico únicamente |
-| Pipeline / Embudo | Tubería / Canal | Jerga tech |
-| Asignación de Capital para la Activación de Infraestructura | Selección del nivel de inventario / capital se convierte en productos físicos | v5.2 (May 2026) — opacidad en cierre |
-| Apalancamiento Asimétrico / Apalancamiento Estratégico Máximo | Apalancamiento estratégico (a secas, sin "asimétrico/máximo") | v26.4 — fricción nivel 5/5 Wall Street |
-| Tecnología nutricional | Productos físicos / bebidas enriquecidas y suplementos Gano Excel | v5.2 (May 2026) — opacidad |
-| Su arquitectura actual (en preguntas de cierre/seguimiento) | Su modelo de ingresos / Su Estructura Patrimonial | v5.3 (24 May 2026) — claridad para avatar de primera visita |
-| 100% / íntegramente (al describir transferencia de capital a productos) | Su capital se transfiere a productos físicos (sin cuantificador absoluto) | v5.3 — México tiene cobros pequeños de afiliación (~$10 USD); afirmar 100% es factualmente impreciso y auditable |
-| "No existen cuotas de inscripción ni cobros por afiliación" | (omitir esta frase) | v5.3 — falsa en México |
-| Tabla Binario con columna "Cálculo CV × % × $1" | Tabla Binario simplificada (Paquete + Rentabilidad %) | v5.3 — la fórmula técnica añade fricción al prospecto que recién entiende Base Operativa. Solo servirla si el usuario pregunta explícitamente "¿cómo se calcula?" |
-| plusvalía (estructural / del posicionamiento / de su Base Operativa) | ventaja estructural / ventaja del posicionamiento / valor patrimonial | v5.4 — término inmobiliario opaco; "ventaja" o "valor patrimonial" comunican mejor |
-| ancho de banda (en preguntas de seguimiento, contextos de tiempo/agenda) | disponibilidad / agenda directiva / agenda ejecutiva | v5.4 — jerga tech; "disponibilidad" o "agenda" son universales |
-| vector de tráfico / vector de adquisición | camino de expansión / ruta / canal | v5.4 — jerga militar; absorbido en reescritura FREQ_02 |
-| Modo Relacional / Modo Híbrido / Modo de Escalabilidad (los 3 modos de tráfico de FREQ_02) | Conexión Directa / Conexión Asistida / Conexión Automatizada | v5.4 — los nuevos nombres son auto-explicativos (cada uno indica QUÉ hace) |
-| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público global |
-| pierna fuerte / pierna débil (Binario) | Centro de Negocios de Mayor Tracción / Centro de Negocios de Cobro | v5.5 — "pierna" suena a cosa, no a Lujo Clínico. "Centro de Negocios" eleva el status |
-| "las dos principales" (al introducir GEN5 + Binario) | "Analicemos dos" (sin jerarquía) | v5.5 — "las dos principales" implica jerarquía falsa sobre las otras 10 velocidades. Apertura canónica: *"Su Base Operativa genera ganancias en 12 velocidades que cubren su flujo de corto, mediano y largo plazo. Analicemos dos:"* |
-| "17% sobre la pierna débil" / "17% sobre el Centro de Negocios de Cobro" (sin GCV) | "17% del GCV sobre el Centro de Negocios de Cobro" | v5.5 — sin "GCV" el usuario puede asumir 17% sobre $100M de venta = $17M (absurdo). El GCV es valor comisionable asignado por Gano Excel, distinto al PVP |
-| Tabla "Personas/Lado" en Binario (alucinación del modelo) | Tabla con "Bases Operativas" + contexto de estimado (4 cajas Ganocafé/Base/mes) | v5.5 — el modelo inventa esta tabla para "ilustrar" matemática. Refuerza paradigma MLM "ganas por meter gente". Prohibida en `getTablasComisiones()` |
-| "Con gusto" (apertura única repetitiva) | Banco rotativo: Claro / Por supuesto / Entiendo / Excelente / OK / Comprendo / De acuerdo | v5.5 — repetir "Con gusto" suena a guion comercial. Documentado en system prompt v27.2 sección Modulación de Registro |
-| ⚠️ Mostrar USD a un visitante de Colombia (cualquier valor) | **Colombia = SOLO COP** para TODO: precios de paquetes/productos **Y** comisiones/GEN5/binario (tasa fija $4,500). US = USD limpio. Resto/desconocido = USD (+COP) | **jun 2026** (decisión Director Cabrejo en pruebas): para CO, nunca mostrar USD — confunde y dispara la objeción "el dólar no está a 4,500". Aplica país-aware: `getPaquetesPricingPin`, `precioPaqueteLinea`, `getPinCifrasGEN5`, `getTablasComisiones`. Supersede la doctrina previa "comisiones = ambas monedas" |
-| Auditoría de acoplamiento | (eliminado) | Klaff Prize Frame zombi |
-| 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
-| Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |
-| Ancho de banda operativo | disponibilidad real para la dirección | Jerga tech |
-| Máquina Híbrida | Base Operativa / los tres pilares | v26.0 |
-| Capas (arquitectura de negocio) | Pilares | Doctrina |
-| Unidad de Suministro / Nodo Logístico | Base Operativa | Retirados 15 May 2026 |
-| Gobernanza estratégica/de activos | dirección estratégica/dirigir activo | v26.4 — fricción nivel 5/5 corporativo |
-| Actualización de software financiero | instalación de Estructura Patrimonial en paralelo | v26.4 — sesgo WEIRD/tech-noir |
-| Perseguir, convencer | (eliminar) | Plantar objeciones inexistentes |
-| Multinacional (contexto MLM) | (evitar) | Asociación negativa |
-| Pasivo | recurrente | — |
-| Libertad financiera, ingreso pasivo, reclutamiento | (eliminar) | Filtra como MLM |
-| Esposas de Oro / Trampa Operativa / Creador de Ingreso Lineal | (eliminado) | Atacaban identidad del prospecto |
-| Sé tu propio jefe / Trabaja desde casa | (eliminar) | Filtra como MLM |
-| Oportunidad de negocio | (eliminar) | Filtra como MLM |
-| "Haz una lista de 100" | (eliminar — contexto: viejo MLM) | — |
-| La salida es / Escape de / Sal del | (eliminar) | MLM tradicional colombiano |
-| NO es reemplazo. NO es escape. | (eliminar — describir qué ES) | v26.3 |
-| Tu Rol (El Director) como tercer elemento plano | METODOLOGÍA (Ejecución Exacta) | v19.6 |
-| "esto" / "eso" para auto-referirnos (a CreaTuActivo o al proyecto) | Nombrar concretamente qué es — ej. *"la nueva forma de construir ingresos recurrentes que no dependen de su presencia"* | Jun 2026 — auto-referencia vaga debilita la categoría; un creador de categoría se nombra, no se señala |
-| operar / operador (de cara al prospecto, para el usuario o el sistema) | hacer el trabajo / trabajar / funcionar; el usuario: dirigir / ser dueño | Jun 2026 — para el latino promedio "operar" evoca cirugía; nadie se identifica como "operador" (es empleado/trabajador/dueño). ⚠️ Afecta el canónico "el sistema opera" / "Usted dirige; el sistema opera" — revisar en el sweep de servilleta + arsenales + system prompt |
-| escalar (el activo del usuario) | multiplicar | Jun 2026 — swap "negocio digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`) |
-| soberanía financiera | tranquilidad / estabilidad / seguridad | Jun 2026 — swap "negocio digital". **EXCEPCIÓN:** el lema de Luis *"la soberanía financiera no se trata de lujos"* se conserva donde es su frase-marca / Epiphany Bridge |
-| PII hardcodeada en arsenales | (nunca) | Seguridad |
+**Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): Tres Pilares (NUNCA "capas"/"Máquina Híbrida") · Tridente EAM = Expandir · Activar · Multiplicación · 90% automatizado · 70 países (Gano) · 15 países operativos (CreaTuActivo) · 15 cupos Fundadores.
 
 **Cierre v5.2 (May 2026) — frase canónica única**: cuando el prospecto pregunta cómo se inicia, Queswa entrega FREQ_03 (los 3 niveles ESP + pregunta de selección) en `<verbatim_lock>`. Sin entrevista BANT, sin "equipo de Dirección Estratégica", sin "Asignación de Capital". El FSM avanza a Estado 3 (nombre) → Estado 4 (warm handoff automático).
 

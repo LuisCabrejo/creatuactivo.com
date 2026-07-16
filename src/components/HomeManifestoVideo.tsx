@@ -49,6 +49,7 @@ export default function HomeManifestoVideo({
   poster,
   manageOrbVisibility = false,
   enableFullscreen = false,
+  maxWidth = 340,
 }: {
   src: string
   poster: string
@@ -60,6 +61,9 @@ export default function HomeManifestoVideo({
   // útil para presentar en Meet. En fullscreen el video vertical se ve completo
   // (object-fit:contain vía globals.css), sin deformarse.
   enableFullscreen?: boolean
+  // Ancho máximo del contenedor 9:16 — el modal de /servilleta lo lleva a casi
+  // toda la pantalla (calc sobre 92vh); en la Home queda el default embebido.
+  maxWidth?: number | string
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -72,7 +76,7 @@ export default function HomeManifestoVideo({
   useEffect(() => {
     if (!manageOrbVisibility) return
     window.dispatchEvent(new CustomEvent('hide-queswa-orb'))
-    return () => window.dispatchEvent(new CustomEvent('show-queswa-orb'))
+    return () => { window.dispatchEvent(new CustomEvent('show-queswa-orb')) }
   }, [manageOrbVisibility])
 
   // ─── Burbuja contextual sobre el orbe (solo al scrollear lejos del video) ───
@@ -166,7 +170,7 @@ export default function HomeManifestoVideo({
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: 340,
+          maxWidth,
           margin: '0 auto',
           aspectRatio: '9 / 16',
           background: C.carbon,

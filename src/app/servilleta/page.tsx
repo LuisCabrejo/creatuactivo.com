@@ -50,6 +50,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import SubscribeModal from '@/components/SubscribeModal';
+import HomeManifestoVideo from '@/components/HomeManifestoVideo';
 import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 
 // (El control de pausa es ÚNICO y central — ver clipCenterToggle dentro del componente.
@@ -148,6 +149,15 @@ export default function ServilletaPage() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [videoModalOpen, verticalMode]);
+
+  // Si Queswa se abre desde el panel final del video (o su CTA), el chat (z-50)
+  // quedaría tapado por el overlay del modal (z-10002) → cerrar el modal primero.
+  useEffect(() => {
+    if (!videoModalOpen) return;
+    const close = () => setVideoModalOpen(false);
+    window.addEventListener('open-queswa', close);
+    return () => window.removeEventListener('open-queswa', close);
+  }, [videoModalOpen]);
 
   // Detectar cambios de fullscreen (ESC del navegador)
   useEffect(() => {
@@ -701,9 +711,8 @@ export default function ServilletaPage() {
           position: fixed; inset: 0; z-index: 10002; background: rgba(0,0,0,0.94);
           display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
-        .video-plan-player {
-          height: 92vh; max-height: 92vh; width: auto; max-width: 100vw;
-          aspect-ratio: 9 / 16; object-fit: contain; background: #000; display: block;
+        .video-plan-player-wrap {
+          width: min(100vw, calc(92vh * 9 / 16));
         }
 
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
@@ -2335,15 +2344,18 @@ export default function ServilletaPage() {
             aria-modal="true"
             aria-label="Video del Plan"
           >
-            <video
-              src={PLAN_SERVILLETA_VIDEO}
-              poster={PLAN_SERVILLETA_POSTER}
-              controls
-              autoPlay
-              playsInline
-              onClick={(e) => e.stopPropagation()}
-              className="video-plan-player"
-            />
+            {/* Mismo reproductor de los reels/Home: autoplay MUTED (lo único que iOS
+                permite fuera de un gesto) + chip "ACTIVAR SONIDO" que reinicia con
+                audio. El <video> crudo con autoPlay sin muted quedaba bloqueado por
+                Safari iPhone — el modal abría con el poster muerto. */}
+            <div className="video-plan-player-wrap" onClick={(e) => e.stopPropagation()}>
+              <HomeManifestoVideo
+                src={PLAN_SERVILLETA_VIDEO}
+                poster={PLAN_SERVILLETA_POSTER}
+                enableFullscreen
+                maxWidth="min(100vw, calc(92vh * 9 / 16))"
+              />
+            </div>
             <button
               type="button"
               className="vp-exit"

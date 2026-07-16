@@ -263,7 +263,7 @@ function PerfilesSection() {
       exito: 'Un activo legal 100% transferible a su familia. Algo que sus hijos puedan heredar.',
     },
     {
-      label: 'Latino en el Extranjero · Diáspora Global',
+      label: 'Latino en el Extranjero · Lejos de Casa',
       dolor: 'Construye solo donde vive, sin una forma de generar ingresos en su país de origen.',
       exito: 'Un ingreso anclado a su país de origen, que usted dirige desde donde vive.',
     },

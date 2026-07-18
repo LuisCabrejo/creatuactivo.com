@@ -252,7 +252,25 @@ composición**. Un clip con cámara muerta se siente foto animada aunque el rend
 - **Objetos que entran y salen de cuadro** (camiones, cajas): dicen "el mundo continúa más
   allá del encuadre" — profundidad narrativa además de óptica.
 
-**c) Fracasos de inmersión documentados (no repetir):**
+**c) Cómo se AGREGA la inmersión sin romper la historia (caso real, validado):**
+
+Un agente aplicó estas técnicas "al pie de la letra" y el clip PERDIÓ su mensaje (2
+generaciones malas). La autopsia dejó tres reglas:
+
+1. **La cámara vive en UN solo bloque compacto** (`CAMERA: …`), nunca esparcida por los
+   beats. Si la cámara aparece en la apertura, en cada beat y en el IMPORTANT, el
+   presupuesto de atención del modelo se va en la cámara y la historia se degrada.
+2. **Los planos de profundidad se logran COLOCANDO objetos, no nombrando la teoría.**
+   ❌ *"Three depth planes: X near, Y middle, Z far"* (meta-lenguaje de manual) →
+   ✅ poner un objeto en primer plano, el sujeto al medio y fondo abierto, descritos como
+   escena.
+3. **Cámara y escena se turnan el protagonismo (dos actos)**: la cámara se mueve cuando la
+   escena es estática (arco bajo alrededor del remador que rema en el sitio) y **se
+   detiene cuando la escena se mueve** (aterriza detrás de la barca justo antes de que el
+   catamarán se fugue). Nunca compiten. Cierre útil del bloque de cámara: *"The camera
+   stays calm; the vessels do the moving."*
+
+**d) Fracasos de inmersión documentados (no repetir):**
 
 - **Viajar A LO LARGO de una estructura repetitiva LA REGENERA**: la cámara estilo F1
   recorriendo el circuito hizo que Veo alucinara MÁS circuito adelante (continuación
@@ -405,6 +423,41 @@ marca). La versión final en producción se compuso **en post** sobre el máster
 (destellos + tonos por código). Cuando la coordinación exacta sea el mensaje, presupuesta el
 post desde el diseño.
 
+### 6.5 Caso completo — "La barca y el catamarán" (remos vs motor)
+
+El clip del reel "remar más fuerte / construir el barco": un remador se esfuerza y apenas
+avanza; un catamarán a motor lo deja atrás. Pasó por 4 iteraciones malas antes de la buena
+— el historial de fixes es la mejor clase del manual:
+
+| Iteración | Falla | Fix aplicado |
+|---|---|---|
+| 1 | Mensaje bien, **cero inmersión** (cámara muerta, malla estática) | Agregar cámara viva… |
+| 2 | El agente esparció la cámara por todos los beats → **se perdió el mensaje** | §4.15c: cámara en UN bloque, dos actos |
+| 3 | **Remos moviéndose solos** (sin remador) = fantasía involuntaria | El actor se describe SIEMPRE: "Seated IN the boat, a small matte gray figure grips both oars — one in each hand" + candado "the oars stay in the hands of the seated figure" |
+| 3 | Barca y catamarán se alejaron **a la misma velocidad** → el contraste (todo el mensaje) no se leyó | Velocidades con **distancias físicas por objeto**: barca = "less than ONE boat-length in the whole clip" · catamarán = "in barely two seconds it crosses the whole stage"; repetido en beat + IMPORTANT |
+| 4 | Dos héroes en escena (orbe observador + remador) partían la identidad | **El orbe se retiró**: cuando el VO le habla a una figura ("por más duro que usted reme"), esa figura ES el héroe del clip. Un clip, un héroe |
+
+**Las jugadas que hicieron la versión final:**
+
+1. **El sujeto se metió a la IMAGEN BASE** (editando `orbe-solo.png`: orbe fuera, barca +
+   remador adentro, "frozen mid-stroke, leaning into the effort"). Así la figura se audita
+   en quieto ANTES de animar — el fix estructural de los remos fantasma. Regla general:
+   **lo que actúa en el video debe existir en la base**.
+2. **Cámara en dos actos**: [00:00–00:03] la cámara SE HUNDE desde el encuadre de la base
+   ("From the opening frame, the camera SINKS LOW…") y hace un **arco bajo** alrededor del
+   remador — la malla barriéndose debajo con parallax = la inmersión pedida — y en
+   [00:03] **aterriza detrás de la barca** y se queda quieta. Composición lista: barca
+   grande en primer plano (cercanía), oscuridad abierta al fondo.
+3. **La fuga en el eje Z**: el catamarán no sale de cuadro lateral (eso es 2D) — *"surges
+   FORWARD, away from the camera… shrinking to a small shape near the horizon"*. El
+   encogimiento hacia el horizonte ES la profundidad, y además ES el mensaje: se pierde de
+   vista **por encima del hombro del remador**, que sigue clavado en primer plano dando
+   paladas ("still straining at the oars… having gained barely one boat-length").
+4. **Conteo del recién llegado**: el catamarán no está en la base → candidato a duplicarse
+   → "exactly one rowboat and one catamaran" en el IMPORTANT.
+5. **El audio remata el contraste**: el motor "fading with distance" mientras "the oar
+   strokes continue unchanged" — remos vs motor también en la banda sonora.
+
 ---
 
 ## 7. Checklist antes de enviar un prompt de video
@@ -444,6 +497,10 @@ post desde el diseño.
 | El clip se siente plano/foto animada | Cámara muerta o todo a la misma velocidad | §4.15: dolly con anclas + tres planos de profundidad + doble capa de movimiento (parallax) |
 | La cámara recorrió el camino y aparecía MÁS camino | Viajar a lo largo de estructura repetitiva la regenera | Dolly corto + encadenar destino, o que viaje el objeto y la cámara lo siga |
 | Al rodear el objeto, la geometría se rompió | Órbita amplia inventa caras ocultas | Arcos <45°; preferir dolly + descenso |
+| Objetos actuando solos (remos sin remador) | El actor nunca se describió / no estaba en la base | Describir SIEMPRE al actor + incluirlo en la imagen base + candado "in the hands of the seated figure" |
+| Dos objetos huyendo a la misma velocidad | "slow"/"fast" sin medida | Distancia física POR objeto ("less than one boat-length" vs "crosses the whole stage in two seconds"), repetida en beat + IMPORTANT |
+| Al agregar inmersión se perdió el mensaje | Cámara esparcida en todos los beats + teoría nombrada | §4.15c: UN bloque de cámara, dos actos, planos colocados (no nombrados) |
+| Dos héroes en escena diluyen la identidad | Orbe observador + figura protagonista a la vez | Un clip, un héroe: retirar el que no recibe el "usted" del VO |
 
 ---
 

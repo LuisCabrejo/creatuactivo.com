@@ -207,7 +207,65 @@ lo que el modelo tiende a romper en ESA escena: conteo de objetos, rigidez de se
 malla recta, único dorado, trampilla cerrada, "one block per moment — the screen is never
 crowded". No es decoración: es donde se ganan los reintentos.
 
-### 4.15 Miscelánea de descubrimientos
+### 4.15 INMERSIÓN Y SENSACIÓN 3D: la cámara viva sobre la maqueta
+
+La sensación 3D **no la dan los objetos: la dan la cámara y la profundidad de la
+composición**. Un clip con cámara muerta se siente foto animada aunque el render sea perfecto.
+
+**a) Los movimientos de cámara que funcionan (validados en producción):**
+
+1. **Barrido bajo e inmersivo** (para build-ups con energía): la cámara a ras del piso,
+   la malla corriendo por debajo — es el velocímetro del ojo.
+   > *"The camera moves fast and immersive, sweeping LOW across the floor toward the
+   > building, the grid lines rushing beneath the camera."*
+2. **Dolly-in con easing** (el estándar premium): traslación real hacia el sujeto, todo
+   escala junto (efecto maqueta/Inception), y frena suave.
+   > *"A slow, continuous push-in traveling forward toward [X], easing to a gentle stop."*
+   ⚠️ Para que OCURRA de verdad, aplicar §4.4 (anclas de encuadre medibles) — sin ellas,
+   Veo entrega toma estática.
+3. **Descenso + acercamiento combinados** (inmersión creciente): pasar del punto de vista
+   "maqueta vista desde arriba" al punto de vista "humano dentro de la escena".
+   > *"The camera glides LOWER and CLOSER, easing down toward floor level on the [X] side."*
+4. **Cenital con push imperceptible**: para circuitos/laberintos vistos desde arriba —
+   el acercamiento lento crea tensión sin marear.
+5. **Atravesar una superficie** (inmersión total / cambio de mundo en un solo clip):
+   > *"The camera immerses INTO one side face of the cube, entering at an angle as if
+   > passing through a screen."*
+   Tres condiciones (receta completa en GUIA §9.14, clip `metodo`): la inmersión la hace
+   **LA CÁMARA** (nunca el objeto morfeando) · el mundo interior se describe como escena
+   **NATIVA** (con sus propios objetos, sin referenciar los de afuera) · se **encadena el
+   cuadro final** para fijar el destino.
+6. **Doble capa de movimiento = parallax**: cámara moviéndose + elementos cruzando en
+   primer plano a OTRA velocidad (camiones, cajas en banda). Si todo se mueve a la misma
+   velocidad, el ojo lee 2D. La combinación cámara-lenta + tráfico-constante es la fórmula
+   del clip del puente.
+
+**b) Composición que produce 3D incluso con cámara lenta:**
+
+- **Tres planos de profundidad, siempre**: algo CERCA de la cámara (cajas, la manija, un
+  borde), el sujeto al MEDIO, algo LEJOS (ciudad, fondo). Sin primer plano no hay parallax
+  y el mejor dolly se siente plano. Frase: *"[X] near in the foreground, [subject] rising
+  in the middle, [Y] on the distant horizon."*
+- **La malla es el instrumento de profundidad**: sus líneas en fuga miden la distancia y su
+  paso bajo la cámara mide la velocidad. Por eso el cerrojo de malla recta (§4.10) importa
+  doble cuando hay movimiento.
+- **Objetos que entran y salen de cuadro** (camiones, cajas): dicen "el mundo continúa más
+  allá del encuadre" — profundidad narrativa además de óptica.
+
+**c) Fracasos de inmersión documentados (no repetir):**
+
+- **Viajar A LO LARGO de una estructura repetitiva LA REGENERA**: la cámara estilo F1
+  recorriendo el circuito hizo que Veo alucinara MÁS circuito adelante (continuación
+  infinita, geometría rota). Si hay que recorrer un camino largo: dolly corto + encadenar
+  el destino, o que viaje el OBJETO (el orbe avanza) con la cámara siguiéndolo suave.
+- **Órbita alrededor del sujeto**: arcos suaves (<45°) funcionan; medias vueltas o más
+  inventan las caras ocultas (geometría inconsistente al rodear). Preferir dolly + descenso.
+- **"Zoom" a secas** produce a veces escalado plano (2D). Pedir traslación: *"the camera
+  moves FORWARD / travels toward / closes the distance"* — eso genera parallax real.
+- **Morph del objeto para cambiar de escena**: caótico y mágico (viola §1). El cambio de
+  escena se logra revelando con la cámara o atravesando una superficie (técnica 5).
+
+### 4.16 Miscelánea de descubrimientos
 
 - **No edites un frame de video para usarlo de keyframe** — sale blando/muddy. Regenera desde render limpio.
 - **Duración vs beats**: 5+ eventos piden 10s; en 8s reparte máximo 4-5 beats o se atropellan.
@@ -356,7 +414,7 @@ post desde el diseño.
 3. ¿El vector de todo movimiento está repetido 3+ veces en formas distintas?
 4. ¿El objeto héroe está contado ("ONE single… just one") y declarado único dorado?
 5. ¿La escala está anclada al elemento más pequeño de la escena?
-6. ¿La cámara tiene rol explícito (quieta con sujeto anclado, o movimiento medible con encuadre inicial/final)?
+6. ¿La cámara tiene rol explícito (quieta con sujeto anclado, o movimiento medible con encuadre inicial/final)? ¿Y el clip tiene sus **tres planos de profundidad** y alguna **doble capa de movimiento** para el parallax (§4.15)?
 7. ¿El estado FINAL está descrito en positivo ("still X as the shot ends")?
 8. ¿La malla del piso lleva su cerrojo?
 9. ¿El audio pide eventos discretos con silencios (o se resolverá en post)?
@@ -383,6 +441,9 @@ post desde el diseño.
 | Elemento fuera de escala en primer plano (manija gigante) | Instrucción de cámara interpretada como objeto nuevo | Editar la imagen: "REMOVED… the floor continues naturally; ONE small handle at realistic floor-hatch scale, much smaller than the blocks" |
 | El texto/ícono se garabatea en vuelo | Símbolos en movimiento = punto débil | Sellos ciegos grandes y simples + blindaje "rigid, never redrawn" + encadenado |
 | La edición achicó/deformó en vez de igualar | Dirección del cambio no declarada | "X stays EXACTLY as it is; Y are ENLARGED to match" + permiso de recorte |
+| El clip se siente plano/foto animada | Cámara muerta o todo a la misma velocidad | §4.15: dolly con anclas + tres planos de profundidad + doble capa de movimiento (parallax) |
+| La cámara recorrió el camino y aparecía MÁS camino | Viajar a lo largo de estructura repetitiva la regenera | Dolly corto + encadenar destino, o que viaje el objeto y la cámara lo siga |
+| Al rodear el objeto, la geometría se rompió | Órbita amplia inventa caras ocultas | Arcos <45°; preferir dolly + descenso |
 
 ---
 

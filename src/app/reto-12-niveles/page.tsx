@@ -256,8 +256,8 @@ export default function Reto12DiasPage() {
                     </h1>
 
                     <p className="text-lg md:text-xl text-[#A3A3A3] max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                        No necesitas años para construir un activo. Necesitas <strong className="text-white">velocidad y sistema</strong>.
-                        Ejecuta este protocolo financiero y comprime 5 años de trabajo en 12 ciclos de duplicación.
+                        No necesita años para construir su negocio digital. Necesita <strong className="text-white">velocidad y sistema</strong>.
+                        Ejecute este protocolo financiero y comprima 5 años de trabajo en 12 ciclos de duplicación.
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -302,23 +302,23 @@ export default function Reto12DiasPage() {
         <section className="py-24 bg-[#0B0C0C] relative">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Tu ecosistema de respaldo</h2>
-                    <p className="text-[#A3A3A3] font-light">Minimizamos el riesgo a cero. Tú solo pones la conexión.</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Su ecosistema de respaldo</h2>
+                    <p className="text-[#A3A3A3] font-light">Minimizamos el riesgo a cero. Usted solo pone la conexión.</p>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="glass-card p-10 rounded-xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Users size={100} /></div>
-                        <h3 className="text-2xl font-bold text-white mb-2">1. TÚ</h3>
+                        <h3 className="text-2xl font-bold text-white mb-2">1. USTED</h3>
                         <p className="text-xs font-bold text-[#94A3B8] uppercase tracking-widest mb-6">El Conector</p>
-                        <p className="text-[#A3A3A3] text-sm leading-relaxed">Tu único rol es conectar personas con el sistema. No vendes, no convences. Solo invitas a evaluar.</p>
+                        <p className="text-[#A3A3A3] text-sm leading-relaxed">Su único rol es conectar personas con el sistema. No vende, no convence. Solo invita a evaluar.</p>
                     </div>
 
                     <div className="glass-card p-10 rounded-xl relative overflow-hidden group border-[rgba(197,160,89,0.2)] bg-[rgba(197,160,89,0.05)]">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity"><Database size={100} /></div>
                         <h3 className="text-2xl font-bold text-white mb-2">2. SISTEMA</h3>
                         <p className="text-xs font-bold text-[#E5C279] uppercase tracking-widest mb-6">La Inteligencia</p>
-                        <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>CreaTuActivo AI</strong> explica el negocio, conversa con los interesados y cierra por ti. Trabaja 24/7 por ti.</p>
+                        <p className="text-[#E5E5E5] text-sm leading-relaxed"><strong>Queswa</strong> explica su negocio digital, conversa con los interesados y madura en cada uno la decisión de avanzar. Trabaja 24/7 por usted.</p>
                     </div>
 
                     <div className="glass-card p-10 rounded-xl relative overflow-hidden group">
@@ -370,11 +370,11 @@ export default function Reto12DiasPage() {
                 <div className="space-y-2">
                     <FAQItem
                         question="¿Qué pasa si no consigo 2 personas en un nivel?"
-                        answer="Nada. 'Los 12 Niveles' es un protocolo de velocidad, pero tú marcas tu ritmo. Puedes hacerlo en 12 semanas o 12 meses. El sistema te espera."
+                        answer="Nada. 'Los 12 Niveles' es un protocolo de velocidad, pero usted marca su ritmo. Puede hacerlo en 12 semanas o 12 meses. El sistema lo espera."
                     />
                     <FAQItem
                         question="¿Es seguro poner mi dinero?"
-                        answer="100%. No nos das el dinero a nosotros. Le compras directamente a Gano Excel S.A. (Gran Contribuyente DIAN). Recibes factura legal y producto físico equivalente a tu inversión."
+                        answer="100%. No nos da el dinero a nosotros. Le compra directamente a Gano Excel S.A. (Gran Contribuyente DIAN). Recibe factura legal y producto físico equivalente a su inversión."
                     />
                     <FAQItem
                         question="¿Por qué piden cupos limitados?"
@@ -386,13 +386,13 @@ export default function Reto12DiasPage() {
                     />
                     <FAQItem
                         question="¿Cuál es la diferencia entre los paquetes?"
-                        answer="La diferencia está en el inventario inicial y el porcentaje de comisiones que desbloqueas:
+                        answer="La diferencia está en el inventario inicial y el porcentaje de comisiones que desbloquea:
 
 • Paquete Inicial ($900k): Inventario básico, comisiones al 20%. Ideal para probar el modelo.
 • Paquete Empresarial ($2.25M): Inventario profesional, comisiones al 50%, mentoría grupal.
 • Paquete Visionario ($4.5M): Inventario máximo, comisiones al 100%, mentoría directa con Diamantes y acceso al Club de Fundadores.
 
-Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad con la que puedes escalar."
+Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad con la que puede multiplicar."
                     />
                 </div>
             </div>
@@ -406,7 +406,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                 <div className="glass-card p-8 md:p-12 rounded-xl border border-[rgba(197,160,89,0.2)] shadow-2xl">
                     <div className="text-center mb-8">
                         <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
-                        <h2 className="text-3xl font-bold text-white mb-2">Reserva tu Posición</h2>
+                        <h2 className="text-3xl font-bold text-white mb-2">Reserve su Posición</h2>
                         <p className="text-[#A3A3A3] text-sm">
                             Paso 1: Pre-registro. <br/>
                             Los datos bancarios y legales se formalizarán después.
@@ -420,7 +420,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-2">¡Solicitud Recibida!</h3>
                             <p className="text-[#A3A3A3] mb-6">
-                                Tu pre-reserva está en el sistema. Revisa tu correo electrónico y un asesor Fundador te contactará en breve vía WhatsApp.
+                                Su pre-reserva está en el sistema. Revise su correo electrónico y un asesor Fundador lo contactará en breve vía WhatsApp.
                             </p>
                             <a href="https://wa.me/573206805737" className="inline-flex items-center gap-2 text-[#10B981] font-bold hover:underline">
                                 Agilizar proceso por WhatsApp <ArrowRight size={16} />
@@ -446,7 +446,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             }
                         }} className="space-y-5">
                             <div>
-                                <label className="text-xs font-bold text-[#64748B] uppercase ml-1 mb-1 block">Tu Nombre</label>
+                                <label className="text-xs font-bold text-[#64748B] uppercase ml-1 mb-1 block">Su Nombre</label>
                                 <input
                                     type="text" required
                                     value={formData.fullName}
@@ -510,7 +510,7 @@ Todos tienen acceso al sistema y la tecnología. La diferencia es la velocidad c
                             </button>
 
                             <p className="text-[10px] text-[#64748B] text-center mt-4">
-                                * Tus datos están protegidos. No te cobraremos nada en esta pantalla.
+                                * Sus datos están protegidos. No le cobraremos nada en esta pantalla.
                             </p>
                         </form>
                     )}

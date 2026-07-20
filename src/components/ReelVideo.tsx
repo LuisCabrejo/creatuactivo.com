@@ -47,7 +47,7 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressedRef = useRef(false)
 
-  // ─── Engagement Fase 1 — ≤6 escrituras/sesión (ver HANDOFF_REELS_ENGAGEMENT_FASE1.md) ───
+  // ─── Engagement Fase 1 — ≤6 escrituras/sesión (ver docs/handoff/reels/HANDOFF_REELS_ENGAGEMENT_FASE1.md) ───
   const reported = useRef({ m25: false, m50: false, m75: false, ended: false, queswa: false })
   const maxPctRef = useRef(0)
   const msgCountRef = useRef(0)

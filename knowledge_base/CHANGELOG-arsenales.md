@@ -261,7 +261,7 @@ Diagnóstico: el catálogo SÍ estaba fragmentado (25 fragments en Supabase + do
 
 Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments actualizados con embeddings duales (voyage-large-2 + voyage-3-lite) y `metadata.is_fragment = true`.
 
-**Bug pendiente parcial:** CV/PV todavía faltantes en respuestas individuales por producto (PROD_*, BEB_02-06). Ver `public/investigaciones/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
+**Bug pendiente parcial:** CV/PV todavía faltantes en respuestas individuales por producto (PROD_*, BEB_02-06). Ver `docs/handoff/queswa/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
 
 ### v7.0 — Lujo Clínico (Abr 2026)
 

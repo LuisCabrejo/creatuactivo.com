@@ -50,7 +50,7 @@ Jerarquía simbiótica: **Posicionamiento** (cimientos: define el contexto) → 
 
 **Tesis:** riqueza = libertad, no estatus. Activos productivos que rinden sin tiempo físico empleado. Apalancamiento asimétrico (código, capital, marca).
 
-**Aplicado:** la doctrina de "Base Operativa que escala sin su presencia física" + "soberanía financiera" + estrategia de tráfico Naval (contenido de valor puro, sin venta directa) en el funnel de contenido. Ver [PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md](PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md).
+**Aplicado:** la doctrina de "Base Operativa que escala sin su presencia física" + "soberanía financiera" + estrategia de tráfico Naval (contenido de valor puro, sin venta directa) en el funnel de contenido. Ver [PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md](docs/investigaciones/prompts/PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md).
 
 ---
 

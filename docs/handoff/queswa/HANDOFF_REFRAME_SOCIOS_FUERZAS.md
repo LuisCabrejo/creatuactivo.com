@@ -7,7 +7,7 @@
 > - `HANDOFF_RECALIBRACION_LEXICO_QUESWA.md` (arsenal_inicial + pendientes — vigente)
 >
 > **Modelo a replicar (canon vivo):** la sección "dos caminos → tres fuerzas estratégicas" de
-> [REELS_SITIO_CREATUACTIVO.md](public/contexto/produccion/guiones/reels/REELS_SITIO_CREATUACTIVO.md)
+> [REELS_SITIO_CREATUACTIVO.md](../../../public/contexto/produccion/guiones/reels/REELS_SITIO_CREATUACTIVO.md)
 > (HOME explainer) — ya está calibrada y aprobada. Doctrina completa: memoria
 > `feedback_socios_apalancamiento`.
 

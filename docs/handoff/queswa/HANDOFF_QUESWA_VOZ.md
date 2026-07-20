@@ -9,12 +9,12 @@
 
 | Archivo | Rol |
 |---|---|
-| [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx) | Motor de grabación: `getUserMedia` + `MediaRecorder` + VAD (auto-stop por silencio) + barras reactivas + reproducción del audio de respuesta. Orbe flotante. |
-| [src/components/nexus/NEXUSWidget.tsx](src/components/nexus/NEXUSWidget.tsx) | UI del chat. Botón de micrófono con **gesto dual** (toque / mantener), `VoicePanel` (estados grabando/procesando/respondiendo/error) y botón **"ESCUCHAR"** (TTS por mensaje). |
-| [src/app/api/voice-command/route.ts](src/app/api/voice-command/route.ts) | Pipeline de voz: STT → recuperación → LLM → TTS. `nodejs`, `maxDuration=60`. |
-| [src/app/api/nexus/tts/route.ts](src/app/api/nexus/tts/route.ts) | TTS del botón "ESCUCHAR": texto → audio. `edge`, `30s`. |
-| [src/lib/tts-normalize.ts](src/lib/tts-normalize.ts) | `normalizarParaVoz()` — fuente única de conversión de símbolos/cifras a palabras. |
-| [src/lib/vectorSearch.ts](src/lib/vectorSearch.ts) | Embeddings Voyage + cosine. La voz usa `vectorSearchVoyage` (in-memory). |
+| [src/components/UnifiedQueswaOrb.tsx](../../../src/components/UnifiedQueswaOrb.tsx) | Motor de grabación: `getUserMedia` + `MediaRecorder` + VAD (auto-stop por silencio) + barras reactivas + reproducción del audio de respuesta. Orbe flotante. |
+| [src/components/nexus/NEXUSWidget.tsx](../../../src/components/nexus/NEXUSWidget.tsx) | UI del chat. Botón de micrófono con **gesto dual** (toque / mantener), `VoicePanel` (estados grabando/procesando/respondiendo/error) y botón **"ESCUCHAR"** (TTS por mensaje). |
+| [src/app/api/voice-command/route.ts](../../../src/app/api/voice-command/route.ts) | Pipeline de voz: STT → recuperación → LLM → TTS. `nodejs`, `maxDuration=60`. |
+| [src/app/api/nexus/tts/route.ts](../../../src/app/api/nexus/tts/route.ts) | TTS del botón "ESCUCHAR": texto → audio. `edge`, `30s`. |
+| [src/lib/tts-normalize.ts](../../../src/lib/tts-normalize.ts) | `normalizarParaVoz()` — fuente única de conversión de símbolos/cifras a palabras. |
+| [src/lib/vectorSearch.ts](../../../src/lib/vectorSearch.ts) | Embeddings Voyage + cosine. La voz usa `vectorSearchVoyage` (in-memory). |
 | `src/middleware.ts` | Inyecta `x-tenant-id` por dominio en `/api/voice-command` y `/api/nexus`. |
 
 ---

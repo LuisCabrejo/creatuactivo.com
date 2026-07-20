@@ -137,7 +137,7 @@ La mente se protege y nota las exageraciones. Por eso:
 ## 5. LA INVESTIGACIÓN (tu munición — léela completa)
 
 Dos informes fundamentan el villano. **Léelos enteros:**
-- `public/investigaciones/Bautizando al Villano Financiero Colombiano.md`
+- `Bautizando al Villano Financiero Colombiano.md` — _no versionado en este repo_
 - `docs/investigaciones/resultados/El Statu Quo_ Anatomía y Escape.md`
 
 **Hallazgos que puedes usar como prueba (máx. 1 cifra por pieza):**
@@ -281,7 +281,7 @@ Páginas/engagement: `HANDOFF_REELS_PAGINAS.md`, `HANDOFF_REELS_ENGAGEMENT_FASE1
 
 | Qué | Ruta |
 |-----|------|
-| Investigación villano (Colombia) | `public/investigaciones/Bautizando al Villano Financiero Colombiano.md` |
+| Investigación villano (Colombia) | `Bautizando al Villano Financiero Colombiano.md` — _no versionado en este repo_ |
 | Investigación Statu Quo (LATAM, datos duros) | `docs/investigaciones/resultados/El Statu Quo_ Anatomía y Escape.md` |
 | Servilleta (tono canónico, registro nuevo) | `public/contexto/produccion/servilleta/guion_maestro_servilleta_v3.md` |
 | Home (registro Beto en vivo) | `src/app/page.tsx` |

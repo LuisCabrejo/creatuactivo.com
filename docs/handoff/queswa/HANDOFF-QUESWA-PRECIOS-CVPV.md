@@ -173,15 +173,15 @@ Verificado durante la sesión: en `nexus_documents`, no existe ningún registro 
 Tres documentos de investigación fueron base de las decisiones tomadas:
 
 1. **RAG — Formato Markdown Consistente**  
-   `public/contexto/investigaciones/RAG_ Formato Markdown Consistente.md`  
+   `RAG_ Formato Markdown Consistente.md` — _no versionado en este repo_  
    Fundamentó la decisión de mantener fragmentos individuales por respuesta con embeddings Voyage AI, y la importancia del título del fragmento para el matching semántico.
 
 2. **Investigación LLM — Máquinas de Estado Conversacional**  
-   `public/contexto/investigaciones/Investigación LLM_ Máquinas de Estado Conversacional.md`  
+   `Investigación LLM_ Máquinas de Estado Conversacional.md` — _no versionado en este repo_  
    Fundamentó el análisis de por qué los bloqueos en system prompt son menos efectivos que el control de estado en código (route.ts) para comportamientos estructurales del modelo.
 
 3. **Arquitectura IA Multi-Tenant y Multi-Dominio**  
-   `public/investigaciones/Arquitectura IA Multi-Tenant y Multi-Dominio.md`  
+   `Arquitectura IA Multi-Tenant y Multi-Dominio.md` — _no versionado en este repo_  
    Contexto del sistema de routing multi-arsenal y cómo el vector search decide qué documento entregar por tenant.
 
 ---

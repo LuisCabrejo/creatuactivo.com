@@ -10,10 +10,10 @@
 
 /**
  * Página Los 12 Niveles con Referido
- * Ruta: /reto-12-niveles/[ref]
- * Ejemplo: /reto-12-niveles/luiscabrejo-1288
+ * Ruta: /12-niveles/[ref]
+ * Ejemplo: /12-niveles/luiscabrejo-1288
  *
- * Esta página es idéntica a /reto-12-niveles pero captura el ref del path
+ * Esta página es idéntica a /12-niveles pero captura el ref del path
  * para tracking de constructores.
  */
 
@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
 
   return {
     title: 'Los 12 Niveles | CreaTuActivo',
-    description: `Invitado por ${params.ref}. El protocolo de duplicación 2×2 - 12 niveles, una red de 8,190 personas. Estrategia de activación rápida.`,
-    keywords: '12 niveles, protocolo duplicación, activación rápida, creatuactivo, red de distribución',
+    description: `Invitado por ${params.ref}. El método de duplicación 2×2: 12 niveles para construir su organización de distribución con CreaTuActivo.`,
+    keywords: '12 niveles, duplicación 2x2, creatuactivo, organización de distribución, ingreso recurrente',
     authors: [{ name: 'CreaTuActivo.com' }],
     robots: {
       index: false,
@@ -47,13 +47,13 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
     openGraph: {
       type: 'website',
       locale: 'es_ES',
-      url: `${siteUrl}/reto-12-niveles/${params.ref}`,
+      url: `${siteUrl}/12-niveles/${params.ref}`,
       title: 'Los 12 Niveles | CreaTuActivo',
-      description: `Invitado por ${params.ref}. El protocolo de duplicación 2×2 - 12 niveles, una red de 8,190 personas.`,
+      description: `Invitado por ${params.ref}. El método de duplicación 2×2: 12 niveles, una organización de 8,190 personas.`,
       siteName: 'CreaTuActivo.com',
       images: [
         {
-          url: `${siteUrl}/reto-12-niveles/opengraph-image`,
+          url: `${siteUrl}/12-niveles/opengraph-image`,
           width: 1200,
           height: 630,
           alt: 'Los 12 Niveles - CreaTuActivo.com',
@@ -64,8 +64,8 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
     twitter: {
       card: 'summary_large_image',
       title: 'Los 12 Niveles | CreaTuActivo',
-      description: `Invitado por ${params.ref}. 12 niveles, una red de 8,190 personas.`,
-      images: [`${siteUrl}/reto-12-niveles/opengraph-image`],
+      description: `Invitado por ${params.ref}. 12 niveles, una organización de 8,190 personas.`,
+      images: [`${siteUrl}/12-niveles/opengraph-image`],
       creator: '@creatuactivo',
     },
   }

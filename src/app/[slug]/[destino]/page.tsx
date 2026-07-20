@@ -38,7 +38,7 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
   'presentacion':  (id) => `/presentacion-empresarial/${id}`,
-  'reto':          (id) => `/reto-12-niveles/${id}`,
+  'reto':          (id) => `/12-niveles/${id}`,
   'activacion':    (id) => `/empresa-digital?ref=${id}`,
 }
 

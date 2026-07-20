@@ -41,7 +41,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: '8px',
-            background: 'linear-gradient(90deg, #DC2626, #F59E0B, #FBBF24, #F59E0B, #DC2626)',
+            background: 'linear-gradient(90deg, #C5A059, #94A3B8, #C5A059)',
             display: 'flex',
           }}
         />
@@ -52,17 +52,15 @@ export default async function Image() {
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            background: 'linear-gradient(135deg, #DC2626, #F59E0B)',
+            background: 'linear-gradient(135deg, #C5A059, #B38B59)',
             padding: '12px 32px',
             borderRadius: '50px',
             marginBottom: '30px',
           }}
         >
-          <span style={{ fontSize: 28, display: 'flex' }}>🔥</span>
-          <span style={{ fontSize: 24, fontWeight: 800, color: '#fff', letterSpacing: '0.1em', display: 'flex' }}>
-            ARRANCAMOS HOY
+          <span style={{ fontSize: 24, fontWeight: 800, color: '#0F1115', letterSpacing: '0.15em', display: 'flex' }}>
+            SU EMPRESA DIGITAL
           </span>
-          <span style={{ fontSize: 28, display: 'flex' }}>🔥</span>
         </div>
 
         {/* Número grande - FOCAL POINT */}
@@ -70,11 +68,11 @@ export default async function Image() {
           style={{
             fontSize: 180,
             fontWeight: 900,
-            color: '#FBBF24',
+            color: '#C5A059',
             lineHeight: 1,
             marginBottom: 0,
             display: 'flex',
-            textShadow: '0 4px 20px rgba(251, 191, 36, 0.5)',
+            textShadow: '0 4px 20px rgba(197, 160, 89, 0.5)',
           }}
         >
           12
@@ -108,7 +106,7 @@ export default async function Image() {
             marginBottom: 16,
           }}
         >
-          El protocolo de duplicación 2×2
+          El método de duplicación 2×2
         </div>
 
         {/* Stats en línea */}

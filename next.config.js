@@ -91,15 +91,25 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Reto 12 días → 12 niveles
+      // Reto 12 días / Reto 12 niveles (slugs legacy) → /12-niveles
       {
         source: '/reto-12-dias',
-        destination: '/reto-12-niveles',
+        destination: '/12-niveles',
         permanent: true,
       },
       {
         source: '/reto-12-dias/:ref',
-        destination: '/reto-12-niveles/:ref',
+        destination: '/12-niveles/:ref',
+        permanent: true,
+      },
+      {
+        source: '/reto-12-niveles',
+        destination: '/12-niveles',
+        permanent: true,
+      },
+      {
+        source: '/reto-12-niveles/:ref',
+        destination: '/12-niveles/:ref',
         permanent: true,
       },
 

@@ -151,6 +151,9 @@ type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 // ─── Componente principal ─────────────────────────────────────────────────────
 export default function UnifiedQueswaOrb() {
   const pathname  = usePathname()
+  // Rutas "deck" que comparten el comportamiento de /servilleta (orbe oculto salvo el
+  // botón "PREGÚNTALE ALGO EN VIVO" del slide 2). /12-niveles forkea ese deck (jul 2026).
+  const isDeck = pathname === '/servilleta' || pathname === '/12-niveles'
 
   // Ruta de reel (/{slug}/{nicho}): el reel dispara su propia burbuja contextual
   // al terminar/scrollear (ReelVideo), así que aquí suprimimos el tooltip genérico.
@@ -238,7 +241,7 @@ export default function UnifiedQueswaOrb() {
   // ─── Visibilidad en /servilleta (solo card-1 slide-2) ───────────────────────
   const [visibleInServilleta, setVisibleInServilleta] = useState(false)
   useEffect(() => {
-    if (pathname !== '/servilleta') return
+    if (!isDeck) return
     const show = () => setVisibleInServilleta(true)
     const hide = () => { setVisibleInServilleta(false); setIsOpen(false) }
     window.addEventListener('show-queswa-orb', show)
@@ -284,7 +287,7 @@ export default function UnifiedQueswaOrb() {
 
   // Fullscreen en /servilleta cierra el orbe
   useEffect(() => {
-    if (pathname !== '/servilleta') return
+    if (!isDeck) return
     const onFs = () => {
       if (document.fullscreenElement) {
         setIsOpen(false)
@@ -586,7 +589,7 @@ export default function UnifiedQueswaOrb() {
   // la burbuja sobre los clips no es la experiencia buscada). El chat abre SOLO
   // desde el botón "PREGÚNTALE ALGO EN VIVO" (evento open-queswa) → cuando isOpen,
   // el componente monta para servir el widget; al cerrar vuelve a desaparecer.
-  if (pathname === '/servilleta' && !visibleInServilleta && !isOpen) return null
+  if (isDeck && !visibleInServilleta && !isOpen) return null
   // Ocultar el orbe mientras rueda el video del plan (reaparece al terminar)
   if (pathname === '/video-plan-servilleta' && orbHiddenForVideo && !isOpen) return null
   // Ocultar mientras el menú mobile está abierto
@@ -596,7 +599,7 @@ export default function UnifiedQueswaOrb() {
     <>
       {/* ── Tooltip "Concierge" ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {showTooltip && !isOpen && pathname !== '/servilleta' && (
+        {showTooltip && !isOpen && !isDeck && (
           <motion.div
             initial={{ opacity: 0, y: 8, x: 8 }}
             animate={{ opacity: 1, y: 0, x: 0 }}

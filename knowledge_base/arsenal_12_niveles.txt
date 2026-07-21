@@ -1,20 +1,18 @@
-# Arsenal Conversacional: Los 12 Niveles v4.0 JOBS/NAVAL
+# Arsenal Conversacional: Los 12 Niveles v5.0 — LÉXICO ACCESIBLE (usted)
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
-**Audiencia:** Socios activos (modelos análogo e híbrido) que buscan estrategias de aceleración.
+**Audiencia:** Sobre todo personas que están empezando (nuevas); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con personas nuevas y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 4.1 Lujo Clínico (03 Abr 2026) - PII removida, Regla 4, "ingreso pasivo/residual" → "recurrente", "Bono GEN5" → "Ingreso Inmediato (GEN5)"
+**Versión:** 5.0 Léxico accesible (20 jul 2026) — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
 
-**Cambios v4.0:**
-- Agregado [Concepto Nuclear] a todas las 13 respuestas
-- Limpieza terminología: "Bono Binario" → "Regalía de Equipo", "pierna débil" → "lado de menor crecimiento"
-- Advertencias claras sobre limitaciones del Kit de Inicio
-- Separado de búsqueda principal: solo activa con "12 niveles" o "kit de inicio"
+**Cambios v5.0 (20 jul 2026):**
+- Migración de trato: **tú → usted** en las 13 respuestas (alinea con el deck /12-niveles y el resto del sitio). Ver [[project_reto_12niveles_no_migrar]] — revertido SOLO para el léxico de trato; concepto y nombres de producto se conservan.
+- "red de relaciones / tu red" → "su organización" (se conserva "canal de distribución"). Se retira la etiqueta inglesa "Asset-Light"; el concepto (el peso lo carga Gano) se explica en llano.
+- **Corrección de cifras en NIVELES_02:** columna Acumulado — nivel 8: 6.426.000 · nivel 10: 25.779.600 · nivel 12: **103.194.000** (= $25.200 × (2¹²−1), coincide con el simulador de /12-niveles). Los valores previos (6.428.400 / 25.776.600 / 103.177.800) eran errores de suma.
+- **NIVELES_04 reescrita:** el deck /12-niveles ya no tiene formulario; la vinculación es por su patrocinador o WhatsApp del equipo. Se retira el enlace roto al formulario.
+- **NIVELES_01 audiencia:** primariamente para quienes inician; un empresario activo también puede desarrollarlo.
 
-**Cambios v3.0:**
-- Terminología Asset-Light integrada
-- Tabla de paquetes con columna de elegibilidad GEN5
-- Mecánica de sostenibilidad (50 PV) con contexto de ingreso recurrente
+**Cambios v4.x (histórico):** [Concepto Nuclear] en las 13 respuestas · "Bono Binario" → "Regalía de Equipo" · "pierna débil" → "lado de menor crecimiento" · advertencias del Kit de Inicio · tabla de paquetes con GEN5 · mecánica de sostenibilidad (50 PV). Disparadores ampliados en route.ts (v5.0): además de "12 niveles"/"kit de inicio", activan "duplicación", "2×2", "$103 millones", "el simulador".
 
 ---
 
@@ -22,23 +20,23 @@
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 
-**[Concepto Nuclear]:** Asset-Light significa que tu activo es la red de relaciones, no inventarios ni infraestructura.
+**[Concepto Nuclear]:** Su activo es su organización de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
 
-Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com diseñada para socios que ya iniciaron y buscan construir su infraestructura de distribución en 90 días.
+Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su organización de distribución en 90 días. Está pensada sobre todo para **personas que están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con personas nuevas y compartirles esta visión.
 
-**El concepto clave:** Modelo Asset-Light (Activos Ligeros)
+**El concepto clave:** el activo es su organización, no los inventarios.
 
-En lugar de invertir en almacenes, flotas o inventarios masivos, tú solo construyes lo que importa: tu **red de relaciones** y tu **canal de distribución**. Gano Excel se encarga de los "activos pesados" (producción, logística, cumplimiento normativo).
+En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo construye lo que importa: su **organización de relaciones** y su **canal de distribución**. Gano Excel se encarga de los "activos pesados" (producción, logística, cumplimiento normativo).
 
 **¿Por qué 12 niveles?**
 
-Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: invitas personas, ellas invitan a otras, y el sistema se multiplica.
+Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted invita personas, ellas invitan a otras, y el sistema se multiplica.
 
 **¿Cómo funciona?**
 
-- Tú invitas personas a conocer el negocio
+- Usted invita personas a conocer el negocio
 - Cada persona que se vincula genera puntos (CV)
-- Los puntos de tu red generan ingreso recurrente semanal
+- Los puntos de su organización generan ingreso recurrente semanal
 - El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso recurrente
 
 **Contenido del Kit de Inicio ($443,600 COP):**
@@ -47,21 +45,21 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 • My Gano Plan Negocios (acceso al sistema)
 • Regalía de Equipo al 10% (única bonificación disponible con este paquete)
 
-**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. NO incluye el Ingreso Inmediato (GEN5). Para acceder a porcentajes mayores y GEN5, necesitas un Paquete Empresarial.
+**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. NO incluye el Ingreso Inmediato (GEN5). Para acceder a porcentajes mayores y GEN5, necesita un Paquete Empresarial.
 
-**Pregunta de seguimiento:** ¿Te gustaría saber cuánto puedes ganar con esta estrategia?
+**Pregunta de seguimiento:** ¿Le gustaría saber cuánto puede ganar con esta estrategia?
 
 ---
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles?" / "¿Cuánto puedo ganar?" / "¿Cómo funciona el plan de ganancias?"**
 
-**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de tu red.
+**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su organización.
 
-En Los 12 Niveles con Kit de Inicio, ganas a través de la **Regalía de Equipo al 10%**.
+En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Equipo al 10%**.
 
 **¿Cómo funciona?**
 
-Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de tu red y te paga el 10% semanal.
+Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de su organización y le paga el 10% semanal.
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
@@ -71,15 +69,15 @@ Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit
 | 2 | 4 | 112 | $50,400 | $75,600 |
 | 4 | 16 | 448 | $201,600 | $378,000 |
 | 6 | 64 | 1,792 | $806,400 | $1,587,600 |
-| 8 | 256 | 7,168 | $3,225,600 | $6,428,400 |
-| 10 | 1,024 | 28,672 | $12,902,400 | $25,776,600 |
-| 12 | 4,096 | 114,688 | $51,609,600 | **$103,177,800** |
+| 8 | 256 | 7,168 | $3,225,600 | $6,426,000 |
+| 10 | 1,024 | 28,672 | $12,902,400 | $25,779,600 |
+| 12 | 4,096 | 114,688 | $51,609,600 | **$103,194,000** |
 
-**Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente.
+**Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
 
 **Con paquetes empresariales (mayor %):**
 
-| Tu Paquete | Regalía Equipo | Diferencia vs Kit |
+| Su Paquete | Regalía Equipo | Diferencia vs Kit |
 |------------|----------------|-------------------|
 | Kit de Inicio | 10% | Base |
 | ESP-1 | 15% | +50% más ingreso recurrente |
@@ -88,9 +86,9 @@ Te pagan por todas las compras realizadas en tu estructura de negocios. Cada Kit
 
 **Se paga:** Semanalmente los viernes.
 
-**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de tu red. No son resultados garantizados.
+**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de su organización. No son resultados garantizados.
 
-**Pregunta de seguimiento:** ¿Te gustaría saber cuánto cuesta participar?
+**Pregunta de seguimiento:** ¿Le gustaría saber cuánto cuesta participar?
 
 ---
 
@@ -120,50 +118,46 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 
 El Kit de Inicio es una opción de "baja fricción", pero financieramente es menos eficiente para un constructor serio. Trabajar al 10% (Kit) frente al 17% (ESP-3) implica dejar sobre la mesa el **41% de las ganancias potenciales** por exactamente el mismo volumen de producción.
 
-**Pregunta de seguimiento:** ¿Te gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
+**Pregunta de seguimiento:** ¿Le gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
 
 ---
 
 ### **NIVELES_04: "¿Cómo participo en Los 12 Niveles?" / "¿Cómo me vinculo?"**
 
-**[Concepto Nuclear]:** Tres vías de vinculación: tu patrocinador, formulario web, o WhatsApp directo.
+**[Concepto Nuclear]:** Dos vías de vinculación: su patrocinador o WhatsApp directo del equipo.
 
-Para llevar a cabo tu vinculación con éxito, tienes las siguientes opciones:
+Para vincularse con éxito, tiene dos vías:
 
-**1. Contacta a quien te compartió el enlace:**
+**1. Contacte a quien le compartió el enlace:**
 
-La persona que te invitó puede guiarte paso a paso en el proceso de vinculación.
+La persona que lo invitó puede guiarlo paso a paso en el proceso de vinculación.
 
-**2. Formulario de vinculación:**
+**2. WhatsApp directo:**
 
-Llena el formulario en [creatuactivo.com/reto-12-niveles](https://creatuactivo.com/reto-12-niveles#formulario) con tus datos y documento de identidad.
+Escríbale por WhatsApp a esa persona o al equipo de liderazgo para que le ayuden a completar su vinculación con sus datos y documento de identidad.
 
-**3. WhatsApp directo:**
-
-Escríbele a quien te compartió el enlace o al equipo de liderazgo para que te ayuden con tu vinculación.
-
-**Pregunta de seguimiento:** ¿Cuál opción prefieres para vincularte?
+**Pregunta de seguimiento:** ¿Con quién le gustaría vincularse?
 
 ---
 
 ### **NIVELES_05: "¿Qué pasa si no logro invitar a 2 personas en el primer nivel?"**
 
-**[Concepto Nuclear]:** Consistencia importa más que velocidad. El sistema trabaja mientras tú construyes.
+**[Concepto Nuclear]:** Consistencia importa más que velocidad. El sistema trabaja mientras usted construye.
 
 No pasa nada. Los 12 Niveles son una guía de aceleración, no una obligación.
 
-Si tardas más tiempo en completar tu primer nivel, está bien. Lo importante es empezar y mantener consistencia.
+Si tarda más tiempo en completar su primer nivel, está bien. Lo importante es empezar y mantener consistencia.
 
 **El sistema 2×2 funciona cuando cada quien encuentra su ritmo.**
 
-Lo que sí es crítico es que **arranques HOY**, porque:
-- Tu posición en la red se bloquea al comenzar
-- Mientras más temprano empieces, más tiempo tienes para construir
-- La tecnología (Queswa) trabaja para ti 24/7
+Lo que sí es crítico es que **arranque HOY**, porque:
+- Su posición en la organización se bloquea al comenzar
+- Mientras más temprano empiece, más tiempo tiene para construir
+- La tecnología (Queswa) trabaja para usted 24/7
 
-**Recuerda:** Tu rol es conectar personas al sistema.
+**Recuerde:** Su rol es conectar personas al sistema.
 
-**Pregunta de seguimiento:** ¿Ves la diferencia entre llevar personas al sistema y trabajar a mano una red de ventas?
+**Pregunta de seguimiento:** ¿Ve la diferencia entre llevar personas al sistema y trabajar a mano una red de ventas?
 
 ---
 
@@ -173,26 +167,26 @@ Lo que sí es crítico es que **arranques HOY**, porque:
 
 Porque favorecemos la **velocidad de ejecución**.
 
-El Kit de Inicio existe para que tomes tu posición **HOY**, no cuando "tengas más dinero".
+El Kit de Inicio existe para que usted tome su posición **HOY**, no cuando "tenga más dinero".
 
-**La estrategia Asset-Light:**
+**La estrategia paso a paso:**
 
-1. Arrancas con el Kit de Inicio (baja fricción)
-2. Construyes tu red y generas tu primer ingreso recurrente
-3. Con ese ingreso recurrente, compras tu Paquete Empresarial
-4. Accedes al Ingreso Inmediato (GEN5) y porcentajes más altos
+1. Arranca con el Kit de Inicio (baja fricción)
+2. Construye su organización y genera su primer ingreso recurrente
+3. Con ese ingreso recurrente, compra su Paquete Empresarial
+4. Accede al Ingreso Inmediato (GEN5) y porcentajes más altos
 
 Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
 
-**⚠️ Advertencia:** Si sabes que vas a construir en serio, considera iniciar directamente con un Paquete Empresarial. El Kit te limita al 10% y sin Ingreso Inmediato (GEN5), lo cual representa un costo de oportunidad en tus primeros meses más activos.
+**⚠️ Advertencia:** Si sabe que va a construir en serio, considere iniciar directamente con un Paquete Empresarial. El Kit lo limita al 10% y sin Ingreso Inmediato (GEN5), lo cual representa un costo de oportunidad en sus primeros meses más activos.
 
-**Pregunta de seguimiento:** ¿Prefieres esperar o arrancar hoy?
+**Pregunta de seguimiento:** ¿Prefiere esperar o arrancar hoy?
 
 ---
 
-### **NIVELES_07: "¿Qué pasa si alguien de mi red no invita a sus dos?"**
+### **NIVELES_07: "¿Qué pasa si alguien de mi equipo no invita a sus dos?"**
 
-**[Concepto Nuclear]:** Tu crecimiento depende de tu acción continua, no de la velocidad de otros.
+**[Concepto Nuclear]:** Su crecimiento depende de su acción continua, no de la velocidad de otros.
 
 Este es un temor común.
 
@@ -200,11 +194,11 @@ Este es un temor común.
 
 **Por eso los expertos recomiendan:**
 
-No te limites a invitar solo 2 personas. Entre más personas invites TÚ, más garantizas tu propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que te incentiva a trabajar en la profundidad de tu línea con menos volumen.
+No se limite a invitar solo 2 personas. Entre más personas invite USTED, más garantiza su propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que lo incentiva a trabajar en la profundidad de su línea con menos volumen.
 
-**La clave:** Tu éxito no depende de que TODOS avancen. Depende de que TÚ sigas construyendo e invitando más personas a tu red.
+**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo e invitando más personas a su organización.
 
-**Pregunta de seguimiento:** ¿Cuántas personas tienes en tu lista para invitar?
+**Pregunta de seguimiento:** ¿Cuántas personas tiene en su lista para invitar?
 
 ---
 
@@ -216,15 +210,15 @@ No te limites a invitar solo 2 personas. Entre más personas invites TÚ, más g
 
 La inversión más accesible es el **Kit de Inicio: $443,600 COP** (4 cajas Gano Café 3en1).
 
-Con $443,600 tienes todo lo que necesitas para activarte y empezar a construir tu red desde el primer día.
+Con $443,600 tiene todo lo que necesita para activarse y empezar a construir su organización desde el primer día.
 
-**60 PV / 56 CV** que se suman a tu red. Eso es lo que importa.
+**60 PV / 56 CV** que se suman a su organización. Eso es lo que importa.
 
-**⚠️ Ten en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Ingreso Inmediato (GEN5).
+**⚠️ Tenga en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Ingreso Inmediato (GEN5).
 
-Si quieres más productos, porcentajes más altos y acceso al Ingreso Inmediato (GEN5), puedes elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
+Si quiere más productos, porcentajes más altos y acceso al Ingreso Inmediato (GEN5), puede elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
 
-**Pregunta de seguimiento:** ¿Prefieres arrancar con el mínimo o invertir más para mayor porcentaje y acceso a GEN5?
+**Pregunta de seguimiento:** ¿Prefiere arrancar con el mínimo o invertir más para mayor porcentaje y acceso a GEN5?
 
 ---
 
@@ -232,7 +226,7 @@ Si quieres más productos, porcentajes más altos y acceso al Ingreso Inmediato 
 
 **[Concepto Nuclear]:** 4 niveles de inversión con diferentes porcentajes y acceso a bonificaciones.
 
-Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
+Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 
 | Paquete | Inversión COP | CV | Regalía Equipo | Duración | ¿Bono GEN5? |
 |---------|---------------|-----|----------------|----------|-------------|
@@ -248,23 +242,23 @@ Hay 4 opciones de inversión. Todas te dan acceso completo al sistema:
 - **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
 - **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
 
-**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más ganancias** por el mismo volumen. Si tu red mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
+**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más ganancias** por el mismo volumen. Si su organización mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
 
-Recuerda: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
+Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 
-**Pregunta de seguimiento:** ¿Cuál de estas opciones se alinea mejor con tu presupuesto?
+**Pregunta de seguimiento:** ¿Cuál de estas opciones se alinea mejor con su presupuesto?
 
 ---
 
 ### **INV_03: "¿Qué recibo con cada paquete?"**
 
-**[Concepto Nuclear]:** La inversión determina tu porcentaje de ingreso recurrente y acceso al Bono GEN5.
+**[Concepto Nuclear]:** La inversión determina su porcentaje de ingreso recurrente y acceso al Bono GEN5.
 
 Todos los paquetes incluyen:
 
 **1. Acceso completo a la tecnología:**
-- Queswa (tu socio digital que trabaja 24/7)
-- CreaTuActivo.com (tu plataforma personalizada)
+- Queswa (su socio digital que trabaja 24/7)
+- CreaTuActivo.com (su plataforma personalizada)
 - Sistema de duplicación automatizado
 
 **2. Inventario de productos:**
@@ -273,8 +267,8 @@ Todos los paquetes incluyen:
 - ESP-2: 18 productos variados
 - ESP-3: 35 productos (incluye suplementos)
 
-**3. Posición en la red:**
-- Tu código de afiliado permanente
+**3. Posición en la organización:**
+- Su código de afiliado permanente
 - Posición heredable y vitalicia (es un ACTIVO)
 - Derecho a construir en todos los países
 
@@ -292,7 +286,7 @@ Todos los paquetes incluyen:
 | GEN5 1ra gen | ❌ No | $25 | $75 | $150 |
 | Duración promo | N/A | 2 meses | 4 meses | 6 meses |
 
-**Pregunta de seguimiento:** ¿Qué preguntas tienes sobre lo que recibes?
+**Pregunta de seguimiento:** ¿Qué preguntas tiene sobre lo que recibe?
 
 ---
 
@@ -300,29 +294,29 @@ Todos los paquetes incluyen:
 
 **[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente.
 
-Sí, la recompra mensual es lo que te mantiene **activo** en el negocio y lo que genera tu **ingreso recurrente**.
+Sí, la recompra mensual es lo que lo mantiene **activo** en el negocio y lo que genera su **ingreso recurrente**.
 
 **¿Por qué es importante?**
 
-Estar activo te permite cobrar las comisiones que genera tu red de clientes y distribuidores. Sin actividad, no fluye tu ingreso recurrente.
+Estar activo le permite cobrar las comisiones que genera su organización de clientes y distribuidores. Sin actividad, no fluye su ingreso recurrente.
 
 **La mecánica de sostenibilidad:**
 
-La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que tu red existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
+La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que su organización existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
 
-**Lo que recibes con tu recompra:**
+**Lo que recibe con su recompra:**
 
-1. **Productos de calidad:** Café, suplementos y productos que benefician directamente tu salud
-2. **Acceso a CreaTuActivo.com:** Tu plataforma de construcción sigue activa
-3. **Comisiones activas:** Puedes cobrar todo lo que genera tu red
+1. **Productos de calidad:** Café, suplementos y productos que benefician directamente su salud
+2. **Acceso a CreaTuActivo.com:** Su plataforma de construcción sigue activa
+3. **Comisiones activas:** Puede cobrar todo lo que genera su organización
 
 **Cómo funciona el modelo:**
 
-El ingreso se genera por el **movimiento de producto** en tu red — consumo recurrente de personas que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
+El ingreso se genera por el **movimiento de producto** en su organización — consumo recurrente de personas que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
 
 **Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
 
-**Pregunta de seguimiento:** ¿Tienes dudas sobre qué productos elegir para tu recompra?
+**Pregunta de seguimiento:** ¿Tiene dudas sobre qué productos elegir para su recompra?
 
 ---
 
@@ -332,34 +326,34 @@ El ingreso se genera por el **movimiento de producto** en tu red — consumo rec
 
 **No.** El paquete empresarial se compra **una sola vez**.
 
-Después de tu compra inicial (Kit de Inicio, ESP-1, ESP-2 o ESP-3), lo único que necesitas es mantener tu **compra mínima mensual de 50 PV**.
+Después de su compra inicial (Kit de Inicio, ESP-1, ESP-2 o ESP-3), lo único que necesita es mantener su **compra mínima mensual de 50 PV**.
 
 **¿Qué son 50 PV?**
 
-Son Puntos de Volumen que equivalen a una compra de productos. No necesitas comprar un paquete completo - solo productos que sumen 50 PV.
+Son Puntos de Volumen que equivalen a una compra de productos. No necesita comprar un paquete completo - solo productos que sumen 50 PV.
 
-**Beneficios de tu recompra mensual:**
+**Beneficios de su recompra mensual:**
 
-• Recibes productos que consumes o compartes
-• Mantienes tu posición activa
-• Cobras las comisiones de tu red
-• Productos que benefician tu salud y bienestar
+• Recibe productos que consume o comparte
+• Mantiene su posición activa
+• Cobra las comisiones de su organización
+• Productos que benefician su salud y bienestar
 
-**Modelo Asset-Light en acción:**
+**El activo es su organización, en acción:**
 
-Tu inversión inicial (paquete) te da la posición y los porcentajes. Tu recompra mensual (50 PV) es tu "costo operativo" - y lo recibes en productos reales, no es una cuota administrativa.
+Su inversión inicial (paquete) le da la posición y los porcentajes. Su recompra mensual (50 PV) es su "costo operativo" - y lo recibe en productos reales, no es una cuota administrativa.
 
 **Resumen:** Paquete empresarial = una vez. Recompra mensual = 50 PV en productos.
 
-**Pregunta de seguimiento:** ¿Quieres saber qué productos puedes elegir para tu recompra?
+**Pregunta de seguimiento:** ¿Quiere saber qué productos puede elegir para su recompra?
 
 ---
 
 ### **INV_06: "¿Qué productos puedo comprar para mis 50 PV?" / "¿Cómo completo mi recompra mensual?"**
 
-**[Concepto Nuclear]:** 50 PV = productos reales que consumes o compartes, no cuotas administrativas.
+**[Concepto Nuclear]:** 50 PV = productos reales que consume o comparte, no cuotas administrativas.
 
-Tienes varias opciones para completar tus 50 PV mensuales:
+Tiene varias opciones para completar sus 50 PV mensuales:
 
 **Opción 1 - Solo café (la más popular):**
 - 4 cajas de Gano Café 3en1 = 60 PV ✓
@@ -413,33 +407,9 @@ Tienes varias opciones para completar tus 50 PV mensuales:
 | ESP-3 Visionario | 500 | 500 | $4,500,000 | ✅ Sí |
 
 **Importante sobre paquetes empresariales:**
-- La compra del paquete cuenta como tu **compra personal del mes de activación**
-- A partir del **mes siguiente**, debes hacer tu recompra mínima de 50 PV
-- Los puntos del paquete activan tu posición y generan CV para tu red
+- La compra del paquete cuenta como su **compra personal del mes de activación**
+- A partir del **mes siguiente**, debe hacer su recompra mínima de 50 PV
+- Los puntos del paquete activan su posición y generan CV para su organización
 - No es necesario volver a comprar el paquete - es una única vez
 
-**Recuerda:** Mínimo 50 PV mensual para mantenerte activo. Puedes elegir los productos que prefieras consumir o compartir.
-
-**Pregunta de seguimiento:** ¿Cuál combinación te interesa más?
-
----
-
-**Fin del Arsenal Los 12 Niveles v4.0 JOBS/NAVAL**
-**Total:** 13 respuestas (NIVELES: 7 + INV: 6)
-
-**Reglas críticas preservadas:**
-- Kit de Inicio = SOLO Regalía de Equipo 10% (NO tiene GEN5)
-- Porcentajes: Kit=10%, ESP1=15%, ESP2=16%, ESP3=17%
-- Recompra mensual: 50 PV mínimo
-
-**Cambios v4.0:**
-- [Concepto Nuclear] agregado a todas las respuestas
-- Terminología limpia: "Regalía de Equipo" (antes "Bono Binario")
-- "Lado de menor crecimiento" (antes "pierna débil")
-- Advertencias claras ⚠️ sobre limitaciones Kit de Inicio
-- Separación de búsqueda principal: solo triggers específicos
-
-**Contexto importante:**
-- Los 12 Niveles = Estrategia de ACELERACIÓN post-inicio (90 días)
-- Audiencia: Socios activos (modelos análogo e híbrido)
-- Objeciones y plan detallado están en arsenal_avanzado
+**Recuerde:** Mínimo 50 PV mensual para mantenerse activo. Puede elegir los productos que prefiera consumir o compartir.

@@ -1359,6 +1359,13 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /443[,.]?600/i,                      // "$443,600" o "443.600"
     /443\s*mil/i,                        // "443 mil"
     /cuatrocientos.*cuarenta.*tres/i,    // escrito en palabras
+
+    // ===== CONCEPTOS DEL DECK /12-niveles (v5.0 — ampliación de disparadores) =====
+    /2\s*[x×]\s*2/i,                     // "2x2", "2×2" (duplicación)
+    /duplicaci[oó]n/i,                   // "duplicación"
+    /103\s*millones/i,                   // "$103 millones" (proyección nivel 12)
+    /simulador.*(12|nivel)/i,            // "simulador de 12 niveles"
+    /(12|doce)\s*nivel.*simulador/i,     // "los 12 niveles del simulador"
   ];
 
   // 🔥 CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN GENERAL (arsenal_compensacion)
@@ -3881,6 +3888,24 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 • NUNCA sugerir que pueden ganar dinero con los productos
 
 🎯 TU ROL: Eres un asesor de salud amable que ayuda a encontrar productos para mejorar el bienestar.
+`;
+      }
+      if (pageContext === '12_niveles') {
+        return `
+📊 CONTEXTO DE PÁGINA — DECK "LOS 12 NIVELES" (/12-niveles)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El visitante está viendo el deck de "Los 12 Niveles": una presentación (empresa digital · tres socios · producto) que cierra con DOS simuladores en el slide 4 — el de INGRESOS RECURRENTES (INMEDIATO/RECURRENTE) y el SIMULADOR DE 12 NIVELES (proyección 2×2 sobre 12 niveles).
+
+✅ QUÉ HACER:
+• Trato de USTED, léxico "empresa digital" / "su organización" (nunca tú; nunca "red" en sentido MLM).
+• Puede referirse a lo que el visitante está viendo: el simulador de 12 niveles, la duplicación 2×2, los 12 puntos.
+• Cifra canónica de la proyección: al nivel 12, con duplicación 2×2 perfecta, el acumulado es $103.194.000 COP (= $25.200 × (2¹²−1)). Úsela EXACTA; NO improvise otros totales.
+• "Los 12 Niveles" es una estrategia de aceleración: sobre todo para quienes inician; un empresario activo también puede desarrollarla (crear su equipo con personas nuevas y compartir la visión).
+• El paquete básico se llama "Kit de Inicio" ($443.600 COP · Regalía de Equipo al 10% · sin GEN5).
+
+❌ QUÉ NO HACER:
+• NO decir "red" (use "organización"); NO tutear.
+• NO inventar cifras del plan — use las del arsenal (arsenal_12_niveles).
 `;
       }
       return ''; // Sin instrucciones especiales para otras páginas

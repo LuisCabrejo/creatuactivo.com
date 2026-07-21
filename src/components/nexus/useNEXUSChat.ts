@@ -232,10 +232,13 @@ const sendMessage = useCallback(async (content: string) => {
     // 🆕 Verificar si el usuario ya tuvo su primer saludo
     const hasSeenGreeting = localStorage.getItem('nexus_first_greeting_shown') === 'true';
 
-    // 🎯 CONTEXTO DE PÁGINA: Detectar si estamos en catálogo de productos
-    const pageContext = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos')
-      ? 'catalogo_productos'  // Modo asesor de salud/bienestar
-      : 'default';            // Modo asesor de negocio
+    // 🎯 CONTEXTO DE PÁGINA: ajusta el comportamiento de Queswa según la ruta
+    const pagePath = typeof window !== 'undefined' ? window.location.pathname : '';
+    const pageContext = pagePath.includes('/sistema/productos')
+      ? 'catalogo_productos'       // Modo asesor de salud/bienestar
+      : pagePath.includes('/12-niveles')
+      ? '12_niveles'               // Deck Los 12 Niveles (simulador 2×2)
+      : 'default';                 // Modo asesor de negocio
 
     console.log('🔍 [NEXUS] Estado de usuario:', {
       hasSeenGreeting,

@@ -633,31 +633,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     </button>
                   ))}
 
-                  {/* CTA conversión — botón secundario de negocio (no es pregunta del avatar).
-                      Oculto en el catálogo: ahí Queswa solo habla de salud y bienestar. */}
-                  {!isProductsPage && (
-                  <button
-                    key={QUESWA_CTA_LABEL}
-                    onClick={() => window.dispatchEvent(new CustomEvent('open-subscribe'))}
-                    className="w-full mt-2 px-4 py-4 text-center text-sm font-medium transition-all duration-200"
-                    style={{
-                      background: 'transparent',
-                      border: `1px solid ${QUIET_LUXURY.gold}`,
-                      color: QUIET_LUXURY.gold,
-                      fontFamily: 'var(--font-roboto-mono)',
-                      borderRadius: 0,
-                      letterSpacing: '0.02em',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = `rgba(229, 194, 121, 0.08)`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent';
-                    }}
-                  >
-                    {QUESWA_CTA_LABEL}
-                  </button>
-                  )}
+                  {/* CTA "Suscríbete" retirado de esta sección (jul 2026): el flujo del
+                      arquitecto lleva a la conversación / al espacio, no al boletín.
+                      El boletín sigue disponible desde el menú (StrategicNavigation). */}
                 </div>
                 );
                 })()}

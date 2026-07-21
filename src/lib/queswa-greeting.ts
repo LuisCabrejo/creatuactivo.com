@@ -52,6 +52,11 @@ export const QUESWA_QUICK_REPLIES = [
   '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
   '¿Cuáles son los productos y para qué sirven?',
   'Quiero ver los números: ¿cómo y cuánto se gana?',
+  // 5º chip (jul 2026) — para quien llega cebado por el mensaje 1-a-1 del arquitecto
+  // (el que promete el plan de $103M). Engancha con ese número. NO es Camino A:
+  // va por RAG → clasifica como arsenal_12_niveles (disparadores "103 millones" /
+  // "duplicación" / "2×2" en route.ts + expansión abajo).
+  '¿Cómo es el plan que se multiplica hasta los $103 millones?',
 ] as const;
 
 /**
@@ -114,6 +119,8 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
     'qué productos cuáles son para qué sirven beneficios catálogo Ganoderma Gano Excel',
   'quiero ver los números: ¿cómo y cuánto se gana?':
     'cómo se gana cuánto se gana ingreso compensación capitalización inmediata renta vitalicia',
+  '¿cómo es el plan que se multiplica hasta los $103 millones?':
+    'plan 12 niveles duplicación 2x2 cómo se multiplica 103 millones proyección ingreso recurrente kit de inicio',
 };
 
 /**

@@ -49,14 +49,14 @@ const TRANSICION = `¿Por dónde quiere empezar?`;
  */
 export const QUESWA_QUICK_REPLIES = [
   '¿Y esto cómo funciona, exactamente?',
+  // Chip del plan 12×2 en 2º lugar (decisión Director, jul 2026) — para quien llega
+  // cebado por el mensaje 1-a-1 del arquitecto (el que promete el plan de $103M).
+  // Engancha con ese número. NO es Camino A: va por RAG → arsenal_12_niveles
+  // (disparadores "103 millones" / "duplicación" / "2×2" en route.ts + expansión abajo).
+  '¿Cómo es el plan que se multiplica hasta los $103 millones?',
   '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
   '¿Cuáles son los productos y para qué sirven?',
   'Quiero ver los números: ¿cómo y cuánto se gana?',
-  // 5º chip (jul 2026) — para quien llega cebado por el mensaje 1-a-1 del arquitecto
-  // (el que promete el plan de $103M). Engancha con ese número. NO es Camino A:
-  // va por RAG → clasifica como arsenal_12_niveles (disparadores "103 millones" /
-  // "duplicación" / "2×2" en route.ts + expansión abajo).
-  '¿Cómo es el plan que se multiplica hasta los $103 millones?',
 ] as const;
 
 /**

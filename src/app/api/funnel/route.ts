@@ -1,9 +1,11 @@
 /**
  * Copyright © 2025 CreaTuActivo.com
- * API Funnel - Endpoint para Calculadora y Reto 5 Días
+ * API Funnel — Calculadora de Días de Libertad
  *
- * Guarda leads del funnel Russell Brunson en Supabase
- * Envía notificación WhatsApp via Twilio (Sandbox para testing)
+ * Guarda leads de la calculadora en Supabase y dispara el primer correo
+ * de la secuencia Soap Opera. Los funnels reto / mapa-de-salida / diagnóstico
+ * de 5 días fueron eliminados (jul 2026); este endpoint conserva solo la
+ * calculadora y los eventos de tracking de página.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -11,14 +13,6 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
-import { Reto5DiasConfirmationEmail } from '@/emails/Reto5DiasConfirmation';
-import { MapaDeSalidaConfirmationEmail } from '@/emails/MapaDeSalidaConfirmation';
-import { sendWhatsAppTemplate } from '@/lib/whatsapp-meta';
-
-// Twilio configuration
-const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886';
 
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
 
@@ -41,28 +35,6 @@ function getResendClient(): Resend {
     resendClient = new Resend(process.env.RESEND_API_KEY);
   }
   return resendClient;
-}
-
-// Helper para reintentos con backoff exponencial
-async function withRetry<T>(
-  fn: () => Promise<T>,
-  maxRetries: number = 3,
-  baseDelay: number = 1000
-): Promise<T> {
-  let lastError: Error | null = null;
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      return await fn();
-    } catch (error) {
-      lastError = error as Error;
-      if (attempt < maxRetries - 1) {
-        const delay = baseDelay * Math.pow(2, attempt);
-        console.log(`⏳ Reintento ${attempt + 1}/${maxRetries} en ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-  }
-  throw lastError;
 }
 
 // Lazy initialization de Supabase client
@@ -100,33 +72,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // ── Alias de retrocompatibilidad ─────────────────────────────────────────
-    // El squeeze page actual (/empresa-digital) y el quiz (/diagnostico)
-    // envían step='auditoria_registered', pero toda la lógica downstream
-    // (email Resend, WhatsApp template, persistencia, notifyConstructor) está
-    // mapeada a step='mapa_registered' (legacy del nombre original del funnel).
-    // Normalizamos aquí para que ambos disparen el mismo flow sin duplicar código.
-    if (data.step === 'auditoria_registered') {
-      data.step = 'mapa_registered';
-    }
-
     // ── Notificaciones push al constructor ───────────────────────────────────
     const constructorRef: string | null = data.constructor_ref || null
-
-    if (data.step === 'mapa_registered' && constructorRef) {
-      const nombre = data.name?.split(' ')[0] || 'Un prospecto'
-      notifyConstructor(
-        constructorRef,
-        `🎯 ¡Nuevo prospecto en tu Diagnóstico!`,
-        `${nombre} acaba de registrarse en el Diagnóstico de 5 Días.`
-      )
-    }
 
     if (data.step === 'vio_pagina_gracias' && constructorRef) {
       notifyConstructor(
         constructorRef,
         `👀 ¡Tu prospecto está en la página de confirmación!`,
-        `Alguien llegó a tu página de confirmación del Diagnóstico de 5 Días. Momento de contactar.`
+        `Alguien llegó a tu página de confirmación. Momento de contactar.`
       )
     }
 
@@ -212,15 +165,7 @@ export async function POST(request: NextRequest) {
     if (data.freedomDays !== undefined) prospectData.calculator_freedom_days = data.freedomDays;
 
     // Nivel de interés basado en el paso del funnel
-    if (data.step === 'reto_registered') {
-      prospectData.interest_level = 8;
-      prospectData.reto_registered = true;
-      prospectData.reto_registered_at = new Date().toISOString();
-    } else if (data.step === 'mapa_registered') {
-      prospectData.interest_level = 8;
-      prospectData.mapa_registered = true;
-      prospectData.mapa_registered_at = new Date().toISOString();
-    } else if (data.step === 'calculator_completed') {
+    if (data.step === 'calculator_completed') {
       prospectData.interest_level = 6;
       prospectData.calculator_completed = true;
       prospectData.calculator_completed_at = new Date().toISOString();
@@ -246,7 +191,7 @@ export async function POST(request: NextRequest) {
 
     // Llamar al RPC update_prospect_data
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: rpcResult, error: rpcError } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
+    const { error: rpcError } = await (getSupabaseClient().rpc as any)('update_prospect_data', {
       p_fingerprint_id: fingerprint,
       p_data: prospectData,
       p_constructor_id: constructorUUID
@@ -314,62 +259,6 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Enviar WhatsApp de bienvenida para Reto 5 Días (async, no bloquea la respuesta)
-    if (data.step === 'reto_registered' && data.whatsapp) {
-      sendWhatsAppMessage(data.whatsapp, data.name).catch(err => {
-        console.error('❌ [FUNNEL] Error WhatsApp:', err);
-      });
-    }
-
-    // Enviar email de confirmación para Reto 5 Días
-    // IMPORTANTE: Usar await para que el email se envíe antes de que Vercel termine la función
-    if (data.step === 'reto_registered' && data.email) {
-      try {
-        await sendRetoWelcomeEmail(data.email, data.name, data.whatsapp || null);
-      } catch (err) {
-        console.error('❌ [FUNNEL] Error Email Reto:', err);
-      }
-    }
-
-    // Enviar email de confirmación para Mapa de Salida
-    if (data.step === 'mapa_registered' && data.email) {
-      try {
-        await sendMapaWelcomeEmail(data.email, data.name, data.whatsapp || null);
-      } catch (err) {
-        console.error('❌ [FUNNEL] Error Email Mapa:', err);
-      }
-    }
-
-    // Disparar plantilla WhatsApp acceso_mapa_salida via SendPulse
-    // ⚠️ AWAIT obligatorio — Vercel termina la función en el return y no espera fire-and-forget
-    if (data.step === 'mapa_registered' && data.whatsapp && constructorRef) {
-      try {
-        const { data: constructorUser } = await getSupabaseClient()
-          .from('private_users')
-          .select('name, whatsapp')
-          .eq('constructor_id', constructorRef)
-          .maybeSingle()
-
-        const waResult = await sendWhatsAppTemplate(
-          {
-            name:     data.name?.trim() ?? 'Prospecto',
-            whatsapp: data.whatsapp.trim(),
-            email:    data.email?.toLowerCase().trim(),
-          },
-          {
-            constructorId: constructorRef,
-            name:     (constructorUser as any)?.name     ?? constructorRef,
-            whatsapp: (constructorUser as any)?.whatsapp ?? undefined,
-          },
-        )
-        console.log(`✅ [FUNNEL] WhatsApp acceso_mapa_salida → sent=${waResult.whatsappSent} contactId=${waResult.contactId} error=${waResult.error ?? 'none'}`)
-      } catch (err) {
-        console.error('❌ [FUNNEL] WhatsApp Mapa error:', err)
-      }
-    } else if (data.step === 'mapa_registered') {
-      console.warn(`⚠️ [FUNNEL] WhatsApp omitido — whatsapp=${!!data.whatsapp} constructorRef=${constructorRef}`)
-    }
-
     return NextResponse.json({
       success: true,
       message: 'Lead guardado exitosamente',
@@ -382,227 +271,6 @@ export async function POST(request: NextRequest) {
       { error: 'Error interno del servidor' },
       { status: 500 }
     );
-  }
-}
-
-// Función para enviar WhatsApp via Twilio
-async function sendWhatsAppMessage(
-  to: string,
-  name: string | null
-) {
-  // Verificar configuración de Twilio
-  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN) {
-    console.log('⚠️ [WHATSAPP] Twilio no configurado, saltando envío');
-    return;
-  }
-
-  // Formatear número (asegurar formato internacional)
-  let phoneNumber = to.replace(/\D/g, ''); // Solo números
-  if (phoneNumber.startsWith('57') && phoneNumber.length === 12) {
-    // Ya tiene código de país Colombia
-  } else if (phoneNumber.length === 10) {
-    phoneNumber = '57' + phoneNumber; // Agregar código Colombia
-  }
-
-  const whatsappTo = `whatsapp:+${phoneNumber}`;
-  const firstName = name?.split(' ')[0] || 'Hola';
-
-  // Mensaje de bienvenida al Reto 5 Días
-  // Nota: En sandbox solo podemos usar templates pre-aprobados
-  // Para mensajes personalizados necesitamos WhatsApp Business API en producción
-
-  try {
-    // Usar la API de Twilio con autenticación Account SID + Auth Token
-    const credentials = Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString('base64');
-
-    const response = await fetch(
-      `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${credentials}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          From: TWILIO_WHATSAPP_FROM,
-          To: whatsappTo,
-          // Mensaje directo para sandbox (no requiere template aprobado)
-          Body: `¡Hola ${firstName}! 👋
-
-Bienvenido al Diagnóstico de 5 Días de CreaTuActivo.
-
-Tu acceso está confirmado. Mañana recibirás el Día 1: "El Diagnóstico".
-
-Guarda este número para no perderte ningún mensaje.
-
-- Luis de CreaTuActivo`,
-        }).toString(),
-      }
-    );
-
-    const result = await response.json();
-
-    if (response.ok) {
-      console.log('✅ [WHATSAPP] Mensaje enviado a', whatsappTo, '| SID:', result.sid);
-    } else {
-      console.error('❌ [WHATSAPP] Error:', result.message || result);
-    }
-  } catch (err) {
-    console.error('❌ [WHATSAPP] Exception:', err);
-  }
-}
-
-// Función para enviar email de bienvenida al Reto 5 Días
-async function sendRetoWelcomeEmail(
-  email: string,
-  name: string | null,
-  whatsapp: string | null
-) {
-  const firstName = name?.split(' ')[0] || 'Hola';
-
-  try {
-    const emailHtml = await render(
-      Reto5DiasConfirmationEmail({ firstName })
-    );
-
-    // Usar withRetry para manejar timeouts temporales
-    const result = await withRetry(async () => {
-      const { data, error } = await getResendClient().emails.send({
-        from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
-        to: [email],
-        replyTo: 'hola@creatuactivo.com',
-        subject: `¡${firstName}, su Diagnóstico de 5 Días está activado!`,
-        html: emailHtml,
-      });
-
-      if (error) {
-        throw new Error(error.message || 'Error enviando email');
-      }
-
-      return data;
-    }, 3, 1000); // 3 reintentos, empezando con 1s de delay
-
-    console.log('📧 [EMAIL RETO] Enviado a', email, '| ID:', result?.id);
-
-    // Actualizar el lead con el tracking
-    await getSupabaseClient()
-      .from('funnel_leads')
-      .update({
-        last_email_sent: 0, // Email 0 = bienvenida
-        last_email_sent_at: new Date().toISOString(),
-      })
-      .eq('email', email.toLowerCase());
-
-    // Enviar notificación al admin
-    await sendAdminNotification(email, name, whatsapp);
-
-  } catch (err) {
-    console.error('❌ [EMAIL RETO] Exception:', err);
-  }
-}
-
-// Función para enviar email de bienvenida al Diagnóstico de 5 Días (legacy mapa-de-salida)
-async function sendMapaWelcomeEmail(
-  email: string,
-  name: string | null,
-  whatsapp: string | null = null
-) {
-  const firstName = name?.split(' ')[0] || 'Hola';
-
-  try {
-    const emailHtml = await render(
-      MapaDeSalidaConfirmationEmail({ firstName })
-    );
-
-    const result = await withRetry(async () => {
-      const { data, error } = await getResendClient().emails.send({
-        from: 'Luis de CreaTuActivo <hola@creatuactivo.com>',
-        to: [email],
-        replyTo: 'hola@creatuactivo.com',
-        subject: `${firstName}, su Diagnóstico de 5 Días está listo`,
-        html: emailHtml,
-      });
-
-      if (error) {
-        throw new Error(error.message || 'Error enviando email');
-      }
-
-      return data;
-    }, 3, 1000);
-
-    console.log('📧 [EMAIL MAPA] Enviado a', email, '| ID:', result?.id);
-
-    // Notificar al admin (igual que en Reto 5 Días) — pasa el WhatsApp capturado
-    await sendAdminNotification(email, name, whatsapp);
-  } catch (err) {
-    console.error('❌ [EMAIL MAPA] Exception:', err);
-  }
-}
-
-// Función para notificar al admin de nuevo registro
-async function sendAdminNotification(
-  userEmail: string,
-  name: string | null,
-  whatsapp: string | null
-) {
-  const firstName = name?.split(' ')[0] || 'Sin nombre';
-  const phoneClean = whatsapp?.replace(/\D/g, '') || '';
-  const fechaRegistro = new Date().toLocaleString('es-CO', {
-    timeZone: 'America/Bogota',
-    dateStyle: 'full',
-    timeStyle: 'short'
-  });
-
-  const adminHtml = `
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 20px; background-color: #0f172a; color: #f8fafc;">
-      <div style="margin-bottom: 24px;">
-        <span style="color: #f59e0b; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Diagnóstico de 5 Días</span>
-        <h1 style="margin: 8px 0 0; color: #f8fafc; font-size: 28px; font-weight: 700;">Nuevo Registro</h1>
-        <p style="margin: 8px 0 0; color: #64748b; font-size: 14px;">${fechaRegistro}</p>
-      </div>
-
-      <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
-        <p style="margin: 0 0 16px; color: #f8fafc; font-size: 14px; font-weight: 600;">Datos del Prospecto</p>
-
-        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Nombre</p>
-        <p style="margin: 0 0 16px; color: #f8fafc; font-size: 16px;">${name || 'No proporcionado'}</p>
-
-        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Correo</p>
-        <p style="margin: 0 0 16px;"><a href="mailto:${userEmail}" style="color: #3b82f6; font-size: 16px; text-decoration: none;">${userEmail}</a></p>
-
-        <p style="margin: 0 0 4px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">WhatsApp</p>
-        <p style="margin: 0;"><a href="https://wa.me/${phoneClean}" style="color: #22c55e; font-size: 16px; text-decoration: none;">${whatsapp || 'No proporcionado'}</a></p>
-      </div>
-
-      ${phoneClean ? `
-      <div style="margin-bottom: 24px;">
-        <a href="https://wa.me/${phoneClean}?text=Hola%20${encodeURIComponent(firstName)}%2C%20soy%20Luis%20de%20CreaTuActivo.%20Vi%20que%20te%20registraste%20en%20el%20Diagn%C3%B3stico%20de%205%20D%C3%ADas.%20%C2%BFTienes%20alguna%20pregunta%3F"
-           style="display: block; background-color: #22c55e; color: #ffffff; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; text-align: center;">
-          Contactar por WhatsApp
-        </a>
-      </div>
-      ` : ''}
-
-      <hr style="border: none; border-top: 1px solid #334155; margin: 0 0 24px;">
-      <p style="margin: 0; color: #64748b; font-size: 12px; text-align: center;">© ${new Date().getFullYear()} CreaTuActivo.com - Sistema de Notificaciones</p>
-    </div>
-  `;
-
-  try {
-    const { error } = await getResendClient().emails.send({
-      from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
-      to: ['notificaciones@creatuactivo.com'],
-      subject: `Nuevo registro Diagnóstico de 5 Días: ${firstName}`,
-      html: adminHtml,
-    });
-
-    if (error) {
-      console.error('❌ [ADMIN NOTIFY] Error:', error);
-    } else {
-      console.log('✅ [ADMIN NOTIFY] Notificación enviada para', userEmail);
-    }
-  } catch (err) {
-    console.error('❌ [ADMIN NOTIFY] Exception:', err);
   }
 }
 

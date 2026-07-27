@@ -8,7 +8,7 @@
  *   2. Copy del nicho
  *   3. Queswa = vía rápida: al terminar/scrollear el reel, el orbe ofrece auditar (ReelVideo)
  *   4. Tarjeta YouTube (presentación de 7 min) — vía reflexiva
- *   5. Los 2 escenarios de cierre del video: Auditoría 5 Días + Activación (WhatsApp)
+ *   5. Los 3 CTA de cierre: Hablar con Queswa · Activar por WhatsApp · Compartir
  */
 
 import { REEL_ASSETS, REEL_COPY, REEL_POSTER, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
@@ -35,7 +35,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
   const refId = constructor.constructor_id
 
   // Tracking de referido — inyecta ?ref={constructor_id} + localStorage ANTES de que
-  // corra el tracking.js diferido del layout. Replica la atribución de /auditoria?ref=id
+  // corra el tracking.js diferido del layout. Replica la atribución de aterrizar con ?ref=id
   // para que la visita y cualquier conversión se asignen al arquitecto dueño del slug.
   const trackingScript = refId
     ? `(function(){try{var id=${JSON.stringify(refId)};localStorage.setItem('constructor_ref',id);var u=new URL(location.href);if(u.searchParams.get('ref')!==id){u.searchParams.set('ref',id);history.replaceState(null,'',u.toString());}}catch(e){}})();`
@@ -110,7 +110,7 @@ export default function ReelPage({ slug, nicho, constructor }: ReelPageProps) {
           ))}
         </div>
 
-        {/* Los dos escenarios con que cierra la presentación */}
+        {/* Los CTA con que cierra la presentación: Queswa + WhatsApp */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <QueswaCTAButton className="cta-base cta-secondary" style={{ width: '100%' }}>
             Hablar con Queswa

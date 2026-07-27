@@ -19,8 +19,6 @@ const supabase = createClient(
 
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
-  'auditoria':     (id) => `/empresa-digital?ref=${id}`,
-  'diagnostico':   (id) => `/diagnostico?ref=${id}`,
   'calculadora':   (id) => `/calculadora/${id}`,
   'productos':     (id) => `/sistema/productos/${id}`,
   'servilleta':    (id) => `/servilleta/${id}`,
@@ -28,19 +26,14 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'fundadores':    (id) => `/fundadores/${id}`,
   'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
   'red':           (id) => `/fundadores-network/${id}`,
-  // Auditoría — días individuales
-  'dia-1': (id) => `/empresa-digital/dia-1?ref=${id}`,
-  'dia-2': (id) => `/empresa-digital/dia-2?ref=${id}`,
-  'dia-3': (id) => `/empresa-digital/dia-3?ref=${id}`,
-  'dia-4': (id) => `/empresa-digital/dia-4?ref=${id}`,
-  'dia-5': (id) => `/empresa-digital/dia-5?ref=${id}`,
   // Legado — siguen funcionando si alguien tiene el link guardado
   'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
   'presentacion':  (id) => `/presentacion-empresarial/${id}`,
   'reto':          (id) => `/12-niveles/${id}`,
   '12-niveles':    (id) => `/12-niveles/${id}`,
-  'activacion':    (id) => `/empresa-digital?ref=${id}`,
+  // Activación inmediata → página de paquetes (mismo destino que el botón de la servilleta)
+  'activacion':    (id) => `/paquetes?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {

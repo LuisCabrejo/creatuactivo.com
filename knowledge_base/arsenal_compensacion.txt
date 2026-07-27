@@ -111,7 +111,7 @@ Su patrocinio comienza con los socios que Usted vincula personalmente, y crece c
 
 **[Concepto Nuclear]:** La Colocacion define en que punto exacto de su estructura se ubica cada nuevo codigo. Organiza su estructura en dos lados; sobre ese volumen paga el Binario.
 
-La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — una nueva empresa digital o un nuevo Consumidor VIP.
+La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — una nueva empresa digital o un nuevo Cliente VIP.
 
 **Patrocinio vs Colocacion** (se definen al registrar a alguien en Gano Excel):
 | Concepto | Que define |
@@ -1012,21 +1012,21 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos Propietarios cuentan con Consumidores VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su organización.
+**Insight:** Muchos Propietarios cuentan con Clientes VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su organización.
 
 ---
 
-### COMP_VIP_01: "¿El Cliente VIP también debe comprar un paquete empresarial? / ¿Cuánto cuesta activar un Cliente VIP? / ¿El VIP paga inscripción? / ¿El Consumidor VIP debe hacer compras mínimas mensuales?"
+### COMP_VIP_01: "¿El Cliente VIP también debe comprar un paquete empresarial? / ¿Cuánto cuesta activar un Cliente VIP? / ¿El VIP paga inscripción? / ¿El Cliente VIP debe hacer compras mínimas mensuales?"
 
-**[Concepto Nuclear]:** NO. El Consumidor VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
+**[Concepto Nuclear]:** NO. El Cliente VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
 
-NO. El Consumidor VIP no requiere adquirir un Paquete Empresarial.
+NO. El Cliente VIP no requiere adquirir un Paquete Empresarial.
 
 **Activación inicial:**
 Para activar su código y acceder al precio de distribuidor, el VIP realiza una compra inicial mínima de **50 PV (Puntos de Volumen)** en productos Gano Excel. Esa misma compra ES su activación y su primera adquisición a precio preferencial.
 
 **Compras recurrentes:**
-El Consumidor VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
+El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
 **Diferencia funcional con el Propietario de una empresa digital:**
 - El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su empresa digital con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.

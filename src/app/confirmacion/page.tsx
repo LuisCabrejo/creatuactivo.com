@@ -25,7 +25,7 @@ const C = {
 };
 
 const WA_SALA =
-  'https://wa.me/573206805737?text=Hola+Luis,+confirm%C3%A9+mi+registro+al+diagn%C3%B3stico+de+5+d%C3%ADas.+Quiero+acceso+al+grupo+de+soporte.';
+  'https://wa.me/573215193909?text=Hola,+confirm%C3%A9+mi+registro+al+diagn%C3%B3stico+de+5+d%C3%ADas.+Quiero+acceso+al+grupo+de+soporte.';
 
 const STEPS = [
   {
@@ -351,7 +351,7 @@ export default function AuditoriaConfirmadaPage() {
           }}>
             ¿Necesita ayuda?{' '}
             <a
-              href="https://wa.me/573206805737"
+              href="https://wa.me/573215193909"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: C.gold, textDecoration: 'none' }}

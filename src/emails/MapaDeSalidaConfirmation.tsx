@@ -175,7 +175,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               <tr>
                 <td align="center">
                   <Button
-                    href={`https://wa.me/573206805737?text=${encodeURIComponent(`Hola Luis, soy ${firstName}. Acabo de registrarme al Diagnóstico de 5 Días.`)}`}
+                    href={`https://wa.me/573215193909?text=${encodeURIComponent(`Hola, soy ${firstName}. Acabo de registrarme al Diagnóstico de 5 Días.`)}`}
                     style={{
                       backgroundColor: '#25D366',
                       color: '#FFFFFF',
@@ -261,7 +261,7 @@ export const MapaDeSalidaConfirmationEmail = ({
               Recibes este correo porque te registraste al Diagnóstico de 5 Días
             </Text>
             <Link
-              href="https://wa.me/573206805737"
+              href="https://wa.me/573215193909"
               style={{ color: colors.textMuted, fontSize: '11px', textDecoration: 'none' }}
             >
               WhatsApp: +57 320 680 5737

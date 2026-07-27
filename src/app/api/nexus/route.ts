@@ -4115,7 +4115,7 @@ Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital
 
 ---
 
-Para coordinar su activación con el equipo directivo, indíqueme dos datos: **su nombre completo** y el **nivel que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
+Para coordinar su activación con el equipo de CreaTuActivo, indíqueme dos datos: **su nombre completo** y el **nivel que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
 
 STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respuesta del usuario con nombre + nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -4173,7 +4173,7 @@ Tu única tarea en este turno: confirmar la elección y pedir el nombre completo
 
 Excelente. Lo registramos para el nivel **${paqueteCompleto}**.
 
-Para coordinar su activación con el equipo directivo, indíqueme **su nombre completo**.
+Para coordinar su activación con el equipo de CreaTuActivo, indíqueme **su nombre completo**.
 
 STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta aún. NO preguntes correo ni ciudad. Solo espera el nombre. El siguiente paso (pedir WhatsApp y la doble oferta de activación) lo gestiona el FSM en turnos posteriores.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -4211,7 +4211,7 @@ STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques
     //   (a) ACTIVAR AHORA — link con texto "confirmo activación inmediata"
     //   (b) SER CONTACTADO — link con texto "espero contacto del equipo"
     //
-    // Ambos caminos son links a wa.me/573206805737 con texto pre-llenado distinto.
+    // Ambos caminos son links a wa.me/573215193909 con texto pre-llenado distinto.
     const getCierreEstado4 = (): string => {
       if (closingState !== 4 || !mergedProspectData.package) return '';
       const paqueteCodigo = mergedProspectData.package;
@@ -4248,9 +4248,9 @@ Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un cará
 
 Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su empresa digital **${paqueteCompleto}**, elija cómo desea continuar:
 
-**(a)** [📲 **Activar ahora**](https://wa.me/573206805737?text=${waTextActivar}) — confirma su activación inmediata con el equipo directivo. Le entregan instrucciones de pago directamente.
+**(a)** [📲 **Activar ahora**](https://wa.me/573215193909?text=${waTextActivar}) — confirma su activación inmediata con el equipo de CreaTuActivo. Le entregan instrucciones de pago directamente.
 
-**(b)** [📲 **Que el equipo me contacte**](https://wa.me/573206805737?text=${waTextContactar}) — el equipo le escribe a su WhatsApp para coordinar la activación con calma.
+**(b)** [📲 **Que el equipo me contacte**](https://wa.me/573215193909?text=${waTextContactar}) — el equipo le escribe a su WhatsApp para coordinar la activación con calma.
 
 ¿Cuál prefiere?
 
@@ -4410,7 +4410,7 @@ ${visitorCountry === 'CO'
   3. Cierre explicativo del mix: "Lo seleccionamos así para que su empresa digital arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
   4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
-- Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo directivo — pero la composición SÍ está respondida arriba.`;
+- Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
     };
 
     const sessionInstructions = `

@@ -431,7 +431,7 @@ const sendMessage = useCallback(async (content: string) => {
 
 ¿Te gustaría intentar de nuevo o prefieres escribirnos directamente?
 
-→ [WhatsApp](https://wa.me/573206805737)`;
+→ [WhatsApp](https://wa.me/573215193909)`;
 
     } else if (error.message?.includes('500') || error.message?.includes('servidor')) {
       errorMessage = error.message;
@@ -440,7 +440,7 @@ const sendMessage = useCallback(async (content: string) => {
       errorMessage = `Parece que perdimos la conexión por un momento.
 
 Puedes escribirnos directamente y con gusto te atendemos:
-→ [WhatsApp](https://wa.me/573206805737)
+→ [WhatsApp](https://wa.me/573215193909)
 
 ¿O prefieres que lo intentemos de nuevo?`;
 
@@ -448,7 +448,7 @@ Puedes escribirnos directamente y con gusto te atendemos:
       errorMessage = `Estoy teniendo dificultades técnicas en este momento.
 
 Puedes escribirnos directamente por WhatsApp y te atendemos de inmediato:
-→ [WhatsApp](https://wa.me/573206805737)
+→ [WhatsApp](https://wa.me/573215193909)
 
 ¿O prefieres que intentemos de nuevo en unos segundos?`;
     }
@@ -500,7 +500,7 @@ const contactLiliana = useCallback(() => {
 
 Escríbenos por WhatsApp y nuestro equipo te atiende personalmente:
 
-→ [WhatsApp](https://wa.me/573206805737)
+→ [WhatsApp](https://wa.me/573215193909)
 
 **¿Te gustaría que prepare algunos puntos antes de esa conversación?**`,
     timestamp: new Date(),

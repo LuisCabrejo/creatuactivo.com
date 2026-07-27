@@ -45,7 +45,7 @@ const C = {
 const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
 
 // WhatsApp link factory
-const WA_BASE = 'https://wa.me/573206805737?text=';
+const WA_BASE = 'https://wa.me/573215193909?text=';
 const waLink = (pkg: string) =>
   WA_BASE + encodeURIComponent(
     `Hola equipo directivo. He completado mi diagnóstico y solicito la activación de mi empresa digital con el paquete ${pkg}. Mi nombre es `

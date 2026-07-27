@@ -679,6 +679,13 @@ function Footer() {
         <div>
           <p style={{ fontFamily: "var(--font-sans)", letterSpacing: '0.1em', color: C.gold, fontWeight: 600 }}>CreaTuActivo</p>
           <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>Construcción de Ingresos Recurrentes</p>
+          {/* Atribución de titularidad — establece la relación marca ↔ titular verificado.
+              Requisito de las normas de nombre visible de WhatsApp Business: el revisor
+              debe poder confirmar en fuentes externas que CreaTuActivo pertenece a
+              Luis Cabrejo, que es el nombre del portafolio comercial verificado en Meta. */}
+          <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted, marginTop: '6px' }}>
+            Fundada por Luis Cabrejo
+          </p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>Blog</Link>
@@ -687,7 +694,7 @@ function Footer() {
           <Link href="/tecnologia" style={{ color: C.muted, textDecoration: 'none' }}>Tecnología</Link>
         </div>
         <p style={{ fontSize: '0.75rem', fontFamily: "var(--font-mono)", color: C.muted }}>
-          © 2026 CreaTuActivo.com
+          © 2026 CreaTuActivo.com · Luis Cabrejo
         </p>
       </div>
     </footer>

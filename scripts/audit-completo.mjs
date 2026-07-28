@@ -111,9 +111,7 @@ async function audit() {
   const localFiles = {
     arsenal_inicial:        { path: '../knowledge_base/arsenal_inicial.txt',        tenant: 'creatuactivo_marketing' },
     arsenal_avanzado:       { path: '../knowledge_base/arsenal_avanzado.txt',       tenant: 'creatuactivo_marketing' },
-    arsenal_compensacion:   { path: '../knowledge_base/arsenal_compensacion.txt',   tenant: 'creatuactivo_marketing' },
-    arsenal_reto:           { path: '../knowledge_base/arsenal_reto.txt',           tenant: 'creatuactivo_marketing' },
-    arsenal_12_niveles:     { path: '../knowledge_base/arsenal_12_niveles.txt',     tenant: 'creatuactivo_marketing' },
+    arsenal_compensacion:   { path: '../knowledge_base/arsenal_compensacion.txt',   tenant: 'creatuactivo_marketing' },    arsenal_12_niveles:     { path: '../knowledge_base/arsenal_12_niveles.txt',     tenant: 'creatuactivo_marketing' },
     arsenal_ganocafe:       { path: '../knowledge_base/arsenal_ganocafe.txt',       tenant: 'ecommerce' },
     arsenal_marca_personal: { path: '../knowledge_base/arsenal_marca_personal.txt', tenant: 'marca_personal' },
   };
@@ -196,7 +194,7 @@ async function audit() {
   const contextual = ['multinivel', 'MLM', 'pirámide'];
   const allFiles = [
     'arsenal_inicial.txt', 'arsenal_avanzado.txt', 'arsenal_compensacion.txt',
-    'arsenal_reto.txt', 'arsenal_12_niveles.txt', 'arsenal_ganocafe.txt',
+    'arsenal_12_niveles.txt', 'arsenal_ganocafe.txt',
     'arsenal_marca_personal.txt', 'catalogo_productos.txt'
   ];
   let vocabIssues = 0;

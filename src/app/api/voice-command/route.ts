@@ -184,7 +184,7 @@ async function fetchArsenalFragment(category: string, query: string): Promise<st
 // exacta y revienta con "different vector dimensions 1536 and 512".
 const MASTER_CATEGORIES = new Set([
   'arsenal_inicial', 'arsenal_avanzado', 'catalogo_productos', 'arsenal_compensacion',
-  'arsenal_reto', 'arsenal_12_niveles', 'arsenal_marca_personal', 'arsenal_ganocafe',
+  'arsenal_12_niveles', 'arsenal_marca_personal', 'arsenal_ganocafe',
 ])
 const FRAG_TTL = 5 * 60 * 1000 // 5 min
 const _fragCache = new Map<string, { docs: DocumentWithEmbedding[]; ts: number }>()

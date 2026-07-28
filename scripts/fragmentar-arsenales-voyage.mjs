@@ -149,9 +149,7 @@ const ARSENAL_TENANT_MAP = {
   arsenal_compensacion:   'creatuactivo_marketing',
   arsenal_inicial:        'creatuactivo_marketing',
   arsenal_avanzado:       'creatuactivo_marketing',
-  arsenal_12_niveles:     'creatuactivo_marketing',
-  arsenal_reto:           'creatuactivo_marketing',
-  catalogo_productos:     'creatuactivo_marketing',
+  arsenal_12_niveles:     'creatuactivo_marketing',  catalogo_productos:     'creatuactivo_marketing',
   arsenal_marca_personal: 'marca_personal',
   arsenal_ganocafe:       'ecommerce',
 };
@@ -279,9 +277,7 @@ async function main() {
     'arsenal_compensacion',    // 38 respuestas
     'arsenal_inicial',         // 34 respuestas
     'arsenal_avanzado',        // 14 respuestas (v6.0 JOBS/NAVAL)
-    'arsenal_12_niveles',      // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)
-    'arsenal_reto',            // 7 respuestas (v1.0 - Reto de 5 Días Challenge Funnel)
-    'catalogo_productos',      // 22 respuestas (v6.0 JOBS/NAVAL - Catálogo completo + ciencia)
+    'arsenal_12_niveles',      // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)    'catalogo_productos',      // 22 respuestas (v6.0 JOBS/NAVAL - Catálogo completo + ciencia)
     // tenant: marca_personal (luiscabrejo.com)
     'arsenal_marca_personal',  // 11 respuestas (v1.0 - Marca Personal Luis Cabrejo)
     // tenant: ecommerce (ganocafe.online)

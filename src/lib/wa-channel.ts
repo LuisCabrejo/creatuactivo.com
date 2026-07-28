@@ -46,6 +46,10 @@ export interface WAPhoneAsset {
   verifiedName?: string
   qualityRating?: string
   wabaId?: string
+  /** APPROVED | DECLINED | PENDING_REVIEW — estado del nombre visible actual */
+  nameStatus?: string
+  /** Estado de una solicitud de cambio de nombre en curso (NONE si no hay) */
+  newNameStatus?: string
 }
 
 // ─── Credenciales ─────────────────────────────────────────────────────────────
@@ -257,7 +261,7 @@ export async function getPhoneAsset(): Promise<{ asset?: WAPhoneAsset; error?: s
   if ('error' in creds) return { error: creds.error };
 
   const url = `${GRAPH}/${creds.phoneNumberId}`
-    + '?fields=display_phone_number,verified_name,quality_rating';
+    + '?fields=display_phone_number,verified_name,quality_rating,name_status,new_name_status';
 
   try {
     const response = await fetch(url, {
@@ -278,6 +282,8 @@ export async function getPhoneAsset(): Promise<{ asset?: WAPhoneAsset; error?: s
         verifiedName:       data?.verified_name,
         qualityRating:      data?.quality_rating,
         wabaId:             creds.wabaId,
+        nameStatus:         data?.name_status,
+        newNameStatus:      data?.new_name_status,
       },
     };
 

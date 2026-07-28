@@ -169,7 +169,7 @@ git push origin main
 ### Core System: El Tridente EAM
 
 Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
-1. **EXPANSIÓN** - Generación de tráfico y distribución de la Auditoría Patrimonial
+1. **EXPANSIÓN** - Generación de tráfico (reels por nicho + contenido) y distribución del ecosistema
 2. **ACTIVACIÓN** - Queswa AI conversa y reconoce a quien levantó la mano (NO "filtra" — ver léxico prohibido); constructor cierra con los listos
 3. **MULTIPLICACIÓN** - El 3er Comando (renombrado desde "Maestría" jun 2026, ver [[project_rename_maestria_multiplicacion]]). Multiplicar la empresa digital está a un clic en todo el continente — resuelve el cuello de botella de crecer que atasca a cualquier negocio tradicional. Queswa forma a cada persona nueva (la formación/Academia queda como medio, NO como gancho — "crecimiento personal" en la encuesta = inseguridad, no deseo real)
 
@@ -223,7 +223,7 @@ ganocafe.online/cafe-3en1/index.html
 **Estado integración WABA WhatsApp** (pipeline activo, modo desarrollo · detalle → `docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`):
 - Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Token permanente `WHATSAPP_SYSTEM_TOKEN`. Prompt `queswa_whatsapp` **v1.2**, tenant `whatsapp`. `src/lib/whatsapp-meta.ts` reemplaza SendPulse. CTWA (`referral` de ads Meta) → `device_info`.
 - ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (filtra por `category` ya presente y las salta). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si solo se re-clona sin purgar, los fragmentos quedan **stale**.
-- ⏳ Pendiente: Meta business verification (para salir de modo desarrollo), plantillas Meta (`acceso_auditoria_patrimonial` + 5 de secuencia), eliminar credenciales SendPulse.
+- ⏳ Pendiente: Meta business verification (para salir de modo desarrollo), aprobación de `pre_afiliacion_nueva` (UTILITY, en revisión). Credenciales SendPulse ya retiradas (`sendpulse.ts` borrado jul 2026).
 
 **Flujo WABA:**
 ```
@@ -243,7 +243,7 @@ WhatsApp (orgánico o CTWA anuncio)
 - **`src/lib/wa-channel.ts` es el ÚNICO lugar que habla con graph.facebook.com** y que conoce `WHATSAPP_SYSTEM_TOKEN`: `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. `whatsapp-meta.ts` (plantilla de captación) y el webhook delegan aquí — antes cada uno tenía su propia copia de la llamada a Meta. Si Meta cambia de versión de API, se toca este archivo y nada más.
 - **Puente server-to-server** para que el Dashboard opere el canal sin ver el token: `GET /api/wa/assets` (número emisor + plantillas) y `POST /api/wa/send` (`{to, type:'text'|'template', …}`), autenticados con header **`x-wa-bridge-secret`** = env `WA_BRIDGE_SECRET` (mismo valor en ambos proyectos de Vercel). ⚠️ A diferencia del `x-webhook-secret` de Supabase, **si la env no está definida el puente DENIEGA** (503) en vez de abrirse — envía WhatsApp en nombre de la marca.
 - **División de responsabilidad:** marketing = plano de datos (dueño del token, webhook, envío). Dashboard = plano de control (quién puede operar, UI humana, reporte a socios). La consola vive en `queswa.app/admin/wa-tester`. **No copiar el token al Dashboard** — cualquier superficie nueva consume el puente.
-- ⚠️ **Auditado 26 jul 2026: la WABA solo tiene la plantilla `hello_world`.** La plantilla `acceso_mapa_salida` que `whatsapp-meta.ts` envía **no existe** → `sendWhatsAppTemplate` (usado por `/api/funnel` y `/api/webhooks/prospect-capture`) falla en cada intento. El Mapa de Salida fue **abortado** como iniciativa, así que ese disparador es código muerto: retirarlo o reapuntarlo a las plantillas del embudo nuevo (categoría **utility** — en Colombia ~US$0,0008/msg contra ~US$0,02 de marketing, y sin el tope de ~2 plantillas de marketing por persona/día que se comparte entre TODAS las empresas).
+- ✅ **Resuelto (27 jul 2026):** el disparador de la plantilla `acceso_mapa_salida` (que no existe en la WABA) se **eliminó** junto con el funnel Mapa de Salida / Diagnóstico de 5 Días (commits `ca6ff59` + `8256c82`), y `whatsapp-meta.ts` + `sendpulse.ts` se borraron (huérfanos). El envío de plantillas vive ahora **solo en `wa-channel.ts`**. La WABA tiene `hello_world` + `pre_afiliacion_nueva` (UTILITY — en Colombia ~US$0,0008/msg contra ~US$0,02 de marketing, sin el tope de ~2 plantillas de marketing por persona/día).
 - 🟢 **El App Review de Meta NO es necesario para este caso de uso** (auditoría cerrada 26 jul 2026). En la app `Queswa App CTA` (`1513851726973155`) los permisos `whatsapp_business_messaging` y `whatsapp_business_management` figuran como **"Revisión de la app rechazada"** — y el canal opera igual: leer plantillas, leer el número y enviar funcionan con el system user token. Motivo: el App Review otorga *Acceso avanzado*, requerido solo para que **otros negocios** concedan esos permisos (camino Tech Provider / Embedded Signup). Sobre activos propios basta el *Acceso estándar*, automático. **Solo hay que retomar la auditoría si se decide que cada socio conecte su propio número.** No re-someter sin eso.
 - ⚠️ **Estado del canal a 26 jul 2026: sin tráfico desde mayo** (analytics de la WABA: 3 mensajes en 180 días, todos de prueba en abril, 3/3 entregados). Además el `name_status` del número está **DECLINED** y `code_verification_status` **EXPIRED** → riesgo de bloqueo de envío/recepción con error **#131037**. Corregir en WhatsApp Manager → Números de teléfono antes de mover volumen.
 
@@ -273,9 +273,7 @@ WhatsApp (orgánico o CTWA anuncio)
 | Arsenal | Tenant | Versión actual | Contenido |
 |---------|--------|----------------|-----------|
 | `arsenal_inicial` | creatuactivo_marketing | **v5.25** (4 jul 2026) | Doctrina base: WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE, ACTIVACION, EMPRESA_DIGITAL, NET + DIASPORA. **55 fragments** (56 respuestas en el .txt — FREQ_04_PUENTE no se fragmenta; su contenido vive en el doc padre). WHY_02 / EAM_01 / EMPRESA_DIGITAL_01 llevan `<verbatim_lock>` sincronizado carácter por carácter con `respuestas-maestras.ts` (Camino A). ⚠️ **STORY_02** (mesa en dos patas — Mocoa, canónica, "NO inventar detalles") + **FREQ_28** con **GUARD diciembre**: meta personal de Luis, NUNCA fecha de lanzamiento (cupos, no calendario). ⏳ Pendiente: fugas "al sistema" en FREQ_02/FREQ_11. Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_inicial). |
-| `arsenal_avanzado` | creatuactivo_marketing | **v12.4** (25 jun 2026) | Objeciones complejas, sistema, valor, escalación (18 fragments). ⚠️ **Cifras del plan INTACTAS**. Villano = dependencia, no el trabajo (ver [[feedback_horas_no_son_el_villano]]). Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_avanzado). |
-| `arsenal_reto` | creatuactivo_marketing | **v4.7** (12 jun 2026) | Producto funnel "El Diagnóstico de 5 Días" (7 fragments para días 1-5). ⚠️ La **jerga clínica profunda se conserva a propósito** (Déficit Estructural, Re-Arquitectura, Acoplamiento Híbrido, "Ancho de Banda Mental" — esta última **permitida explícitamente en RETO_05**) — ver [[project_reto_12niveles_no_migrar]]. Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_reto-auditoría-patrimonial). |
-| `arsenal_compensacion` | creatuactivo_marketing | **v7.3** (12 jul 2026 — composición ESP corregida + upgrades) | Plan de compensación (**42 fragments**). COMP_PAQ_02/03/04 = composición ESP-1/2/3 actualizada (totales 7/18/35 sin cambio) + **COMP_PAQ_05** = tablas de upgrade (ESP-1→2/1→3/2→3, 11/28/17 productos). ⚠️ Los swaps léxicos (v7.x "negocio/empresa digital") son **SOLO de marca** — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos). **NO modificar vocabulario ni cifras restantes; término "PVP" prohibido.** Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_compensacion). |
+| `arsenal_avanzado` | creatuactivo_marketing | **v12.4** (25 jun 2026) | Objeciones complejas, sistema, valor, escalación (18 fragments). ⚠️ **Cifras del plan INTACTAS**. Villano = dependencia, no el trabajo (ver [[feedback_horas_no_son_el_villano]]). Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_avanzado). || `arsenal_compensacion` | creatuactivo_marketing | **v7.3** (12 jul 2026 — composición ESP corregida + upgrades) | Plan de compensación (**42 fragments**). COMP_PAQ_02/03/04 = composición ESP-1/2/3 actualizada (totales 7/18/35 sin cambio) + **COMP_PAQ_05** = tablas de upgrade (ESP-1→2/1→3/2→3, 11/28/17 productos). ⚠️ Los swaps léxicos (v7.x "negocio/empresa digital") son **SOLO de marca** — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos). **NO modificar vocabulario ni cifras restantes; término "PVP" prohibido.** Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_compensacion). |
 | `arsenal_12_niveles` | creatuactivo_marketing | **v5.0** (20 jul 2026 — léxico accesible) | Los 12 Niveles (13 fragments: NIVELES 1-7 + INV 1-6). **Migrado a usted** + "red"→"organización" (conserva "Kit de Inicio" y cifras/PV/CV del plan). NIVELES_02 corregido ($103.194.000 exacto = 25.200×(2¹²−1)); NIVELES_04 sin formulario roto; NIVELES_01 audiencia (nuevos + empresario activo). Activa con "12 niveles"/"kit de inicio" **+ "2×2"/"duplicación"/"103 millones"/"simulador"** (v5.0). |
 | `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
 | `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
@@ -381,41 +379,24 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 | `/api/nexus/tts` | Edge | 30s | TTS: ElevenLabs → OpenAI fallback |
 | `/api/voice-command` | Node | 60s | Voice pipeline: Whisper → Haiku → ElevenLabs |
 | `/api/nexus/consumer-cron` | Edge | 60s | Legacy queue consumer |
-| `/api/funnel` | Node | 10s | Auditoría Patrimonial + Reto 5 Días + Webinar forms |
+| `/api/funnel` | Node | 10s | Calculadora de Días de Libertad → soap-opera (Email1) + tracking de página |
 | `/api/subscribe` | Node | — | Newsletter "Suscríbete" (jun 2026) — upsert `funnel_leads` (source `newsletter`) + adjunta correo al prospecto (update_prospect_data) + bienvenida institucional (Equipo CreaTuActivo) + aviso a `sistema@`. Single opt-in; pendiente double opt-in + envío real. Ver [[project_newsletter_suscripcion]] |
-| `/api/fundadores` | Node | 10s | Founder registration |
-| `/api/diagnostico` | Edge | 30s | Audit/self-assessment — guarda quiz + arquetipo en tabla `diagnosticos` |
-| `/api/diagnostico/interpretar` | Edge | 30s | Narrativa personalizada del diagnóstico — Queswa (Haiku 4.5) escribe titular+cuerpo desde las 5 respuestas; `{ok:false}` (HTTP 200) si falla → frontend usa fallback determinístico |
-| `/api/cron/process-emails` | Node | 60s | Soap Opera sequence |
-| `/api/cron/reto-5-dias` | Node | 60s | Secuencia Auditoría Patrimonial — Coordenadas 01–05 |
-| `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
+| `/api/fundadores` | Node | 10s | Founder registration || `/api/cron/process-emails` | Node | 60s | Soap Opera sequence || `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
 | `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
 | `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
 | `/api/fundadores/registro-diciembre` | Node | 10s | Legacy December registration |
-| `/api/track/video` | Edge | — | Video progress tracker — registra `play`/`completado_80` para dias 1–5 de la Auditoría; dispara webhook Supabase → push en queswa.app |
+| `/api/track/video` | Edge | — | ⚠️ Legacy — las páginas `dia-1..5` de la Auditoría que reportaban aquí fueron eliminadas (jul 2026) |
 | `/api/track/engagement` | Edge | — | Reel engagement tracker — merge **sin retroceder** (`Math.max` numéricos / OR lógico bools) sobre `device_info` vía `update_prospect_data`; dispara webhook Supabase → push en queswa.app. Campos = contrato cerrado con el Dashboard (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)) |
 | `/api/email-open` | Node | — | Email open pixel tracker |
-| `/api/logo-email` | Edge | — | Logo dinámico (Quiet Luxury) renderizado para emails |
-| `/api/webhooks/prospect-capture` | Node | — | Webhook Supabase → captura prospectos desde triggers externos |
-| `/api/whatsapp/webhook` | Node | 30s | WABA inbound — adaptador de canal WhatsApp → motor `/api/nexus` (ver [Estado integración WABA](#1-nexus-ai-chatbot)) |
-| `/api/test-resend`, `/api/test-reto-email` | Node | — | Dev/debug only (not for production use) |
+| `/api/logo-email` | Edge | — | Logo dinámico (Quiet Luxury) renderizado para emails || `/api/whatsapp/webhook` | Node | 30s | WABA inbound — adaptador de canal WhatsApp → motor `/api/nexus` (ver [Estado integración WABA](#1-nexus-ai-chatbot)) |
+| `/api/test-resend` | Node | — | Dev/debug only (not for production use) |
 
 **Vercel Cron Schedules** (vercel.json):
 ```
 /api/cron/process-emails   → 0 14 * * *  (9:00 AM UTC-5 Colombia)
-/api/cron/reto-5-dias      → 0 13 * * *  (8:00 AM UTC-5 Colombia)
 ```
 
 **Important**: Cron routes require `CRON_SECRET` env var for authorization.
-
-**Secuencia Auditoría Patrimonial** (`/api/cron/reto-5-dias` — `RETO_5_DIAS_SEQUENCE`):
-| Día | Subject | Componente | URL destino |
-|-----|---------|-----------|-------------|
-| 1 | `[COORDENADA 01] Diagnóstico Estructural Habilitado` | `Dia1Diagnostico` | `/empresa-digital/dia-1` |
-| 2 | `[COORDENADA 02] El Techo Técnico (Análisis de Escalabilidad)` | `Dia2Vehiculos` | `/empresa-digital/dia-2` |
-| 3 | `[COORDENADA 03] Acoplamiento Híbrido (La Máquina Operativa)` | `Dia3Modelo` | `/empresa-digital/dia-3` |
-| 4 | `[COORDENADA 04] La Matriz de Amortización (Ingeniería de Liquidez)` | `Dia4Estigma` | `/empresa-digital/dia-4` |
-| 5 | `[COORDENADA 05] Protocolo de Activación (Decisión Directiva)` | `Dia5Invitacion` | `/empresa-digital/dia-5` |
 
 **`/api/funnel` — `PAGE_VIEW_STEPS`** (eventos de tracking que no requieren email):
 `vio_pagina_gracias`, `vio_catalogo`, `vio_calculadora`, `vio_bridge_auditoria`
@@ -451,7 +432,7 @@ Hybrid caching strategy for Next.js App Router:
 - **Cache-first**: HTML navigation, static assets (JS, CSS, images)
 - **Network-first**: Dynamic data, APIs
 - **Auto-cache**: Client-side navigation via RSC (`?_rsc=` params)
-- **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services, `/mapa-de-salida`, `/reto-5-dias`, `/negocio-digital` (URLs legacy redirigidas — sus páginas Next ya no existen; van siempre a red para que los redirects 301 funcionen)
+- **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services, `/empresa-digital`, `/negocio-digital` (URLs legacy → Home 301; van siempre a red para que el redirect funcione). ⚠️ `public/sw.js` aún lista `/mapa-de-salida` y `/reto-5-dias` (sus redirects se retiraron jul 2026 → hoy 404; se pueden quitar del bypass)
 
 **Registered in**: [src/app/layout.tsx](src/app/layout.tsx) via inline script
 
@@ -524,9 +505,7 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 **Knowledge Base** (almacenado en `nexus_documents`): ver la tabla de arsenales y versiones actuales en la sección [NEXUS AI Chatbot — Fragmented Vector Search](#1-nexus-ai-chatbot) arriba. Archivos fuente:
 
 - [knowledge_base/arsenal_inicial.txt](knowledge_base/arsenal_inicial.txt)
-- [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt)
-- [knowledge_base/arsenal_reto.txt](knowledge_base/arsenal_reto.txt)
-- [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt)
+- [knowledge_base/arsenal_avanzado.txt](knowledge_base/arsenal_avanzado.txt)- [knowledge_base/arsenal_12_niveles.txt](knowledge_base/arsenal_12_niveles.txt)
 - [knowledge_base/catalogo_productos.txt](knowledge_base/catalogo_productos.txt)
 - [knowledge_base/arsenal_compensacion.txt](knowledge_base/arsenal_compensacion.txt)
 - [knowledge_base/arsenal_marca_personal.txt](knowledge_base/arsenal_marca_personal.txt)
@@ -536,41 +515,32 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 
 ### 5. Page Structure & Funnel Architecture
 
-**Funnel Strategy** (Russell Brunson methodology - actualizado Mar 2026):
+**Funnel Strategy** (actualizado jul 2026 — el funnel reto/mapa/diagnóstico se **eliminó**; ver callout 🔤 abajo):
 ```
-Tráfico Frío (Ads/Redes) → /empresa-digital (Squeeze Page — ENTRY v4.0 activo)
+Tráfico (reel por nicho / orgánico WhatsApp) → creatuactivo.com/{slug}/{nicho}
                               ↓
-                         /confirmacion (Bridge Page)
+              Reel + Queswa (conversa, madura la decisión) → 1-a-1 con el socio
                               ↓
-                         Email Secuencia 5 Días — Auditoría Patrimonial (Nurture)
-                         5 videos: /empresa-digital/dia-1 … dia-5
-                              ↓
-                         /fundadores (Oferta)
+                         /paquetes (activación) · /fundadores (Oferta)
 
-Tráfico SEO (Blog) → /blog/* (Shadow Funnel)
-                              ↓
-                         /empresa-digital o /fundadores
-
-Nota: /reto-5-dias/* y /mapa-de-salida/* ya NO son páginas Next — solo redirects
-en next.config.js (→ /empresa-digital; sus /gracias → /confirmacion)
+Home (creatuactivo.com) → "Hablar con Queswa" (open-queswa) + "Suscríbete" (newsletter → /api/subscribe)
+Tráfico SEO (Blog) → /blog/* → Home / /fundadores
+Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails) → Home / /fundadores
 ```
 
-> 🔤 **NAMING DEL FUNNEL (rename ejecutado jun 2026).** Producto de entrada = **"El Diagnóstico de 5 Días"** (antes "Auditoría Patrimonial"); URL actual = **`/empresa-digital`** (dir `src/app/empresa-digital/`; antes `/auditoria-patrimonial` → `/negocio-digital`). Redirects **301** en `next.config.js` apuntan DIRECTO las URLs viejas y sus subrutas → `/empresa-digital` (correos/blogs/reels publicados siguen vivos); SW bypass incluye las viejas. ⚠️ **Gotchas vivos:** (1) `source: 'auditoria-patrimonial'` en `empresa-digital/page.tsx:96` es **identificador interno de tracking** — coordinar con backend antes de cambiarlo; (2) el diagnóstico de la squeeze conserva «que usted siga trabajando» a propósito (villano = **dependencia**, no el trabajo — [[feedback_dolor_real_por_nicho]]); (3) `arsenal_reto` conserva su jerga clínica deliberadamente ([[project_reto_12niveles_no_migrar]]). **El callout 🏠 de abajo supersede el rol de gancho del Diagnóstico** (desconectado de Home/menú; `/empresa-digital/*` quedan dormidas con 301 vivos). Ver [[project_lexico_negocio_digital]].
+> 🔤 **FUNNEL RETO/MAPA/DIAGNÓSTICO ELIMINADO (jul 2026 — commits `ca6ff59` + `8256c82`).** Meses de prueba con cero conversión (1 registro que no avanzó). Se retiraron **por completo**: páginas `/empresa-digital` (squeeze + dia-1..5), `/diagnostico`, `/confirmacion`; API `cron/reto-5-dias`, `api/diagnostico`, `webhooks/prospect-capture`, `test-reto-email`; correos `reto-5-dias/Dia1-5` + `Reto5DiasConfirmation` + `MapaDeSalidaConfirmation`; el arsenal `arsenal_reto` (routing fuera del motor; **purga de Supabase pendiente post-deploy** — `like 'arsenal_reto%'`); y las libs `sendpulse.ts` + `whatsapp-meta.ts`. **Funnel vigente: reel → Queswa → 1-a-1.** URLs viejas (`/empresa-digital`, `/negocio-digital`, `/auditoria-patrimonial` + subrutas) → **Home** (301). Ver [[project_home_reposicion_2026]] · [[project_lexico_negocio_digital]].
 
-> 🏠 **HOME REPOSICIONADA (jun 2026) — supersede lo de arriba PARA LA HOME + EL MENÚ.** El "Diagnóstico de 5 Días" producía **cero aplicaciones** (pedir commitment a tráfico frío sin confianza "olía a desesperado") → se **desconectó como gancho**. La Home (`src/app/page.tsx`) ahora lidera con **"Sea dueño de su empresa digital"** y su estructura es: Hero → Diagnóstico (villano limpio estilo Slide 1) → **¿Qué es una empresa digital?** (Bezos/MercadoLibre + ejemplo `sonrisaslindas.app`) → Perfiles → **Cómo lo hacemos nosotros** (la decisión desde-cero-vs-apalancamiento + 3 pilares: Respaldo/Gano · Queswa · Método Expandir/Activar/Multiplicar) → aforismos → calculadora → Visión → CTA. **CTAs nuevos:** cuerpo → **"Hablar con Queswa"** (`QueswaCTAButton`, evento `open-queswa`); **menú** → **"Suscríbete"** (`SubscribeModal` → `/api/subscribe`). Las páginas `/empresa-digital/*` quedan **dormidas** (301 vivos) — **ya NO se enlazan como gancho desde la Home/menú** (sí se conservan para correos/reels ya publicados). El **resto del sitio + servilleta** se alinea aparte vía `docs/handoff/queswa/HANDOFF_BARRIDO_SITIO_SERVILLETA.md`. **Doctrina nueva** (Gano = respaldo, nunca titular del ingreso; calidez-no-auditoría en Activar; paleta de analogías Nubank/Amazon-ML/Rappi/McDonald's; confianza > entendimiento → contenido da contexto, el 1-a-1 cierra) → memorias [[project_home_reposicion_2026]] · [[feedback_gano_respaldo_no_titular]] · [[feedback_confianza_precede_entendimiento]] · [[reference_paleta_analogias]] · [[project_newsletter_suscripcion]]. ⏳ Pendiente arsenales+system prompt (incl. `arsenal_inicial.txt` línea ~510 "usted revisa/da el sí" → nadie audita).
+> 🏠 **HOME REPOSICIONADA (jun 2026) — supersede lo de arriba PARA LA HOME + EL MENÚ.** El "Diagnóstico de 5 Días" producía **cero aplicaciones** (pedir commitment a tráfico frío sin confianza "olía a desesperado") → se **desconectó como gancho**. La Home (`src/app/page.tsx`) ahora lidera con **"Sea dueño de su empresa digital"** y su estructura es: Hero → Diagnóstico (villano limpio estilo Slide 1) → **¿Qué es una empresa digital?** (Bezos/MercadoLibre + ejemplo `sonrisaslindas.app`) → Perfiles → **Cómo lo hacemos nosotros** (la decisión desde-cero-vs-apalancamiento + 3 pilares: Respaldo/Gano · Queswa · Método Expandir/Activar/Multiplicar) → aforismos → calculadora → Visión → CTA. **CTAs nuevos:** cuerpo → **"Hablar con Queswa"** (`QueswaCTAButton`, evento `open-queswa`); **menú** → **"Suscríbete"** (`SubscribeModal` → `/api/subscribe`). Las páginas `/empresa-digital/*` fueron **eliminadas** (jul 2026 → Home 301). El **resto del sitio + servilleta** se alinea aparte vía `docs/handoff/queswa/HANDOFF_BARRIDO_SITIO_SERVILLETA.md`. **Doctrina nueva** (Gano = respaldo, nunca titular del ingreso; calidez-no-auditoría en Activar; paleta de analogías Nubank/Amazon-ML/Rappi/McDonald's; confianza > entendimiento → contenido da contexto, el 1-a-1 cierra) → memorias [[project_home_reposicion_2026]] · [[feedback_gano_respaldo_no_titular]] · [[feedback_confianza_precede_entendimiento]] · [[reference_paleta_analogias]] · [[project_newsletter_suscripcion]]. ⏳ Pendiente arsenales+system prompt (incl. `arsenal_inicial.txt` línea ~510 "usted revisa/da el sí" → nadie audita).
 
 **Active Pages** (rutas no-obvias — el resto se descubre con `ls src/app/`):
 
-- `empresa-digital/` — 🎯 FUNNEL ENTRY v4.0 (noindex). **Producto = "El Diagnóstico de 5 Días"** (cuerpo en registro accesible). URL `/empresa-digital` — rename desde `/auditoria-patrimonial` **hecho jun 2026** (+ redirects 301). Squeeze page + `[constructorId]/` re-exporta la misma página. `dia-1/` a `dia-5/` cada uno con variante `[ref]/` para distribuidor.
-- `confirmacion/` — Bridge Page v4.0 (noindex; `/auditoria-confirmada` redirige 301 aquí). `TrackingConfirmada.tsx` ('use client') dispara evento `vio_bridge_auditoria`; ⚠️ conserva `source: 'auditoria-confirmada'` como **identificador interno de tracking** (contrato con backend — NO renombrar al cambiar el slug).
-- `reto-5-dias/` y `mapa-de-salida/` — **páginas eliminadas (jun 2026)**. Ya NO existen como directorios Next; viven **solo como redirects 301 en `next.config.js`**: la raíz y subrutas → `/empresa-digital`, los `/gracias` → `/confirmacion`. El SW bypass conserva ambas URLs (+ `/negocio-digital`) para que los redirects funcionen (van siempre a red).
-- `calculadora/` — Calculadora de ingresos (indexada).
-- `diagnostico/` — **Landing huérfana standalone para tráfico pagado** (Meta/Google Ads; cero links internos, sin `<StrategicNavigation/>`, entrada solo por URL de campaña). Quiz de 5 preguntas; resultado escrito por **Queswa IA** vía `POST /api/diagnostico/interpretar` (Haiku 4.5) con doctrina de villano (el sistema, NUNCA el esfuerzo del héroe; villano contextual), **fallback determinístico si la IA falla** (`ok:false`). Sin gráfica radar. Persiste en `/api/diagnostico` (tabla `diagnosticos`, insert resiliente con/sin columna `name`) + arquetipo por promedio de tier. **Botón final → `/confirmacion`**.
+- `calculadora/` — Calculadora de ingresos (indexada) → alimenta la secuencia soap-opera (cron `process-emails`).
+- ⛔ **Funnel eliminado (jul 2026, commits `ca6ff59`+`8256c82`):** `empresa-digital/` (squeeze + dia-1..5), `confirmacion/` (Bridge), `diagnostico/` (quiz de tráfico pagado), `reto-5-dias/` y `mapa-de-salida/` fueron **borradas** — meses de prueba, cero conversión. Todas las URLs viejas → **Home** (301). Funnel vigente: reel → Queswa → 1-a-1.
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
 - `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
-- `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, auditoria, **diagnostico**, calculadora, productos, servilleta, activacion, dia-1..dia-5) a rutas reales con `?ref={constructorId}`. Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
-  - ⚠️ **GOTCHA (cuesta horas): un destino que NO esté en `DESTINO_MAP` (ni en nichos/manifiesto) cae al fallback `redirect(/{slug})` = la mini-landing, SIN 404.** Síntoma típico: "el enlace `/{slug}/X` lleva a la mini-landing". Caso real (19 jun 2026): `El Diagnóstico de 5 Días` del Arsenal apuntaba a `/{slug}/diagnostico` y caía a la mini-landing hasta que se agregó `'diagnostico' → /diagnostico?ref` al mapa. Al sumar un enlace amigable nuevo en el Dashboard (`src/lib/arsenal.ts`), agregar SIEMPRE su destino aquí.
-  - ⚠️ **OG por página estática:** la página destino (ej. `/diagnostico`) debe declarar su **propio `openGraph.url`** en su `layout.tsx`/metadata. Si solo define `title`/`description` y NO `openGraph`, hereda el del root layout (`og:url = dominio raíz`) → al compartir en **Meta**, la publicación enlaza a la raíz aunque el enlace pegado sea correcto. Fix de `/diagnostico` (19 jun 2026): `openGraph.url = '/diagnostico'` (metadataBase lo absolutiza). Tras corregir, forzar re-scrape en el [Sharing Debugger](https://developers.facebook.com/tools/debug/) (Meta cachea el OG viejo).
+- `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, calculadora, productos, servilleta, `activacion`→`/paquetes`, presentacion, reto/12-niveles) a rutas reales con `?ref={constructorId}`. Los destinos del funnel eliminado (`auditoria`, `diagnostico`, `dia-1..5`) se retiraron (jul 2026). Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
+  - ⚠️ **GOTCHA (cuesta horas): un destino que NO esté en `DESTINO_MAP` (ni en nichos/manifiesto) cae al fallback `redirect(/{slug})` = la mini-landing, SIN 404.** Síntoma típico: "el enlace `/{slug}/X` lleva a la mini-landing". Caso reciente (jul 2026): `activacion` apuntaba al squeeze muerto y se reapuntó a `/paquetes?ref`. Al sumar un enlace amigable nuevo en el Dashboard (`src/lib/arsenal.ts`), agregar SIEMPRE su destino aquí.
+  - ⚠️ **OG por página estática:** la página destino (ej. `/calculadora`) debe declarar su **propio `openGraph.url`** en su `layout.tsx`/metadata. Si solo define `title`/`description` y NO `openGraph`, hereda el del root layout (`og:url = dominio raíz`) → al compartir en **Meta**, la publicación enlaza a la raíz aunque el enlace pegado sea correcto. Tras corregir, forzar re-scrape en el [Sharing Debugger](https://developers.facebook.com/tools/debug/) (Meta cachea el OG viejo).
 - `manifiesto/` — **Página pública del Manifiesto de los Fundadores** (`/nosotros` redirige aquí 301; rótulo de menú: **Nosotros**). Narrativa de posicionamiento (April Dunford) + CTA WhatsApp del arquitecto; `opengraph-image.tsx` propio. Cuerpo en [`<ManifiestoDocument/>`](src/components/ManifiestoDocument.tsx) (compartido con `/{slug}/manifiesto`); H1 = **NUESTRA FILOSOFÍA** + lema *"Las cosas no pasan. Se hacen pasar."* ⚠️ "Manifiesto de los Fundadores" persiste como **nombre del documento** (OG, texto WhatsApp, secciones §01–08), NO como H1 — es deliberado.
 - `presentacion-empresarial/` — Herramienta interna para 1-on-1, **NO está en el menú público**.
 - `infraestructura/` — Implementación de referencia del sistema Bimetallic v3.0. Leer antes de crear nuevas páginas.
@@ -585,7 +555,7 @@ en next.config.js (→ /empresa-digital; sus /gracias → /confirmacion)
 
 **SEO Strategy** (Dic 2025):
 - **Indexed pages**: `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/sistema/productos`, `/paquetes` (⚠️ `/socios` y `/webinar` fueron eliminadas — commit `6110e9a` "purga global tuteo + eliminar 4 páginas obsoletas")
-- **noindex pages** (funnel interno): `/empresa-digital/*` (Squeeze + 5 videos "El Diagnóstico de 5 Días") · `/confirmacion` (Bridge v4.0) · `/manifiesto` (Manifiesto). Slugs viejos (`/auditoria-patrimonial`, `/auditoria-confirmada`, `/nosotros`, `/reto-5-dias/*`, `/mapa-de-salida/*`) → redirects 301.
+- **noindex pages**: `/manifiesto` (Manifiesto). El funnel interno (`/empresa-digital/*`, `/confirmacion`, `/diagnostico`) fue **eliminado** (jul 2026); sus URLs viejas (+ `/auditoria-patrimonial`, `/auditoria-confirmada`, `/nosotros`, `/reto-5-dias/*`, `/mapa-de-salida/*`) → redirects 301 a Home / `/manifiesto`.
 
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
@@ -881,13 +851,13 @@ Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia
 2. **Copy del nicho** (título serif + cuerpo).
 3. **Queswa = vía rápida**: al terminar el reel **o** al hacer scroll dejándolo atrás, el `ReelVideo` muestra una burbuja sobre el orbe — copy *"Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?"* (registro Modulación: autoridad clínica "auditar la viabilidad" + invitación accesible "¿Comenzamos?"; eco del reel, sin ancla de tiempo) → al tocarla dispara `open-queswa`. La burbuja se **oculta** a los 25 s, al volver al video (IntersectionObserver) y al abrir el chat (evento `queswa-opened` que emite el orbe).
 4. **Tarjeta YouTube** (presentación de 7 min) — vía reflexiva, facade nativo **full-bleed** (todo el ancho en móvil, cap 680px en desktop).
-5. **Los 2 escenarios de cierre del video**: `Diagnóstico de 5 Días` (→ `/empresa-digital?ref`; rótulo migrado desde "Auditoría de 5 Días" jun 2026) + `Activación Inmediata · WhatsApp` (verde, → WhatsApp del arquitecto). La activación NO pasa por Queswa: quien ya decidió no debe encontrar preguntas de cualificación (analogía constructora/concesionario). El botón de compartir (`ShareButton`) dice **"Compartir este diagnóstico"**.
+5. **Los 3 CTA de cierre del reel**: `Hablar con Queswa` (evento `open-queswa`) + `Activar por WhatsApp` (verde, → WhatsApp del arquitecto; la activación NO pasa por Queswa: quien ya decidió no debe encontrar preguntas de cualificación) + `ShareButton` **"Compartir este diagnóstico"**. ⚠️ El CTA viejo "Diagnóstico de 5 Días" → `/empresa-digital` **se retiró** con el funnel (jul 2026); solo quedan estos 3 botones.
 
 - **Fuente de verdad**: [src/lib/reels.ts](src/lib/reels.ts) — `REEL_NICHOS` (`corporativo`, `empleados`, `empresarios`, `diaspora`, `informales`, `networkers`), `REEL_ASSETS` (solo `{ video }`, URLs Blob), `REEL_COPY` (título/cuerpo/audiencia, versión final aprobada por Luis), `SERVILLETA_YOUTUBE_ID`, `REEL_POSTER`/`REEL_POSTER_OG` (poster branded de fallback) y **`REEL_POSTER_OVERRIDE`** (poster por-nicho).
 - **Poster por-nicho (jun 2026)**: con los reels ya en 3D, cada nicho usa un **frame del propio reel** como portada (más nítido y representativo que el branded genérico). `REEL_POSTER_OVERRIDE[nicho] = { poster: '…-poster.webp', posterOg: '…-poster.jpg' }` — los 5 nichos tienen override. Se generan del master con `ffmpeg -ss 0.5 … scale=1080:1920` (jpg q2) + `sharp` a webp; ambos en `public/videos/reels/`, **commiteados** (servidos por Next, no por Blob). `ReelPage`/`generateMetadata` usan el override y caen a `REEL_POSTER`/`REEL_POSTER_OG` si un nicho no lo tiene. `metadataBase` resuelve la ruta relativa del OG a absoluta.
 - **Componentes** (construidos May 2026): [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) bifurca render-reel vs redirect; [src/components/ReelPage.tsx](src/components/ReelPage.tsx) (Server Component, estética Bimetálica); [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) ('use client' — video `preload="none"` + burbuja Queswa con auto-hide/scroll/chat); [src/components/YouTubeFacade.tsx](src/components/YouTubeFacade.tsx) ('use client' — miniatura `maxresdefault` + play, iframe carga al click). `generateMetadata` emite OG de video + `REEL_POSTER_OG` (`robots: noindex`). Botón WhatsApp usa clase `.cta-whatsapp` (verde) en globals.css.
 - **Orbe en reels**: [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx) suprime su tooltip "Concierge" automático (~2s) cuando `isReelRoute` (pathname `/{slug}/{nicho}` con nicho ∈ `REEL_NICHOS`) — el reel controla su propia burbuja. ⚠️ El orbe es global; el cambio está aislado por ruta para no afectar el resto del sitio.
-- **Tracking de referido**: como el reel se renderiza inline (no redirige), `ReelPage` resuelve `constructor_id` del slug e inyecta un `<script>` inline (corre **antes** del `tracking.js` diferido) que setea `?ref={constructor_id}` vía `history.replaceState` + `localStorage.constructor_ref`. Atribución idéntica a aterrizar en `/empresa-digital?ref=id`. Funciona para cualquier arquitecto (slug dinámico), no solo `luis-cabrejo`.
+- **Tracking de referido**: como el reel se renderiza inline (no redirige), `ReelPage` resuelve `constructor_id` del slug e inyecta un `<script>` inline (corre **antes** del `tracking.js` diferido) que setea `?ref={constructor_id}` vía `history.replaceState` + `localStorage.constructor_ref`. Atribución idéntica a aterrizar en `/?ref=id`. Funciona para cualquier arquitecto (slug dinámico), no solo `luis-cabrejo`.
 - **CTA WhatsApp del arquitecto**: el número vive en **`private_users.whatsapp`** (fuente de verdad — igual que `/api/constructor/[id]` y `/sistema/productos`), **NO** en `constructor_slugs.whatsapp`. El branch del reel lo resuelve por `constructor_id` con fallback al número orgánico `+573206805737`. ⚠️ Bug histórico "cero inicial" en esos números (ver `whatsapp-validator.ts` del repo Dashboard) — el `.replace(/\D/g, '')` lo neutraliza.
 - **Engagement tracking** (Reels Engagement Fase 1, Jun 2026): [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) instrumenta el comportamiento del prospecto y reporta a [`/api/track/engagement`](src/app/api/track/engagement/route.ts) (que mergea sin retroceder en `device_info` → webhook Supabase → push al arquitecto en queswa.app). **Contrato de datos cerrado con el Dashboard — NO renombrar los campos**: `reel_nicho`, `reel_pct` (máx % visto), `reel_completed` (✅ push "Vio el reel completo"), `reel_time_s` (segundos activos), `queswa_opened` (✅ push "Abrió Queswa"), `queswa_messages`, `visit_count` (✅ push "Volvió a visitar"). **Anti-spam (CRÍTICO)**: cada escritura dispara el webhook → mantener **≤ ~6 escrituras por sesión**. Reportar solo en milestones del reel (25/50/75/100), `queswa_opened` una vez, y `reel_time_s`+`visit_count` en el beacon de salida (`navigator.sendBeacon`). NO escribir en cada `timeupdate` ni en heartbeats. Handoff: [HANDOFF_REELS_ENGAGEMENT_FASE1.md](docs/handoff/reels/HANDOFF_REELS_ENGAGEMENT_FASE1.md).
 - **Estado**: **los 6 reels están en 3D y en producción**. Los **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales) usan inserts 3D de diagnóstico por nicho + módulo de solución compartido (pilares/CTA/outro), atmósfera, subtítulos, música 0.80 y SFX. El **6º, `networkers`**, tiene **estructura propia** (villano `Pulso3D`, inserts bespoke, suspense 0.90 en hook+diagnóstico) y su **música de solución la montó Luis en CapCut** (no el pipeline — deliberado). Masters en `scripts/dankoe-video/masters/{nicho}-3d.mp4` (gitignored); Blob `reels/{nicho}.mp4` (web CRF23). ⏳ Pendiente: "tres pilares"→"3 pilares" en el módulo compartido (re-deploy de los 5). Handoff: `docs/handoff/reels/HANDOFF_REELS_PAGINAS.md`.
@@ -904,7 +874,7 @@ Los guiones (texto hablado) viven en `public/contexto/produccion/guiones/reels/`
 |---------|------|---------------------|----------|
 | `REELS_DIARIOS_DOCUMENTACION.md` | **Documentación** (build-in-public) | **Despierta curiosidad, NO confronta.** Primera persona (Luis), registro Naval. Su mercado natural ya cree que "hace Gano Excel" — si cada reel fuera un hook de negocio incómodo, los quema (analogía: hablar de plata en todo cumpleaños). Documenta cómo, con IA, construye un ingreso recurrente. Orden cronológico (más antiguo arriba). | Historias orgánicas (IG/WhatsApp) + enlace `creatuactivo.com?ref=…` → la persona llega a la home |
 | `REELS_NICHOS_DOCUMENTACION.md` | **Nicho** | Aborda una **oportunidad de negocio directa** por nicho de audiencia. Es el copy de las páginas `/{slug}/{nicho}` (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)). | Páginas web `/{slug}/{nicho}` |
-| `REELS_SITIO_CREATUACTIVO.md` | **Sitio** | **Explainer**: responde a quien **ya llegó con la pregunta "¿de qué se trata?"**. Voz **neutra** (NO "soy Luis") — la home la alimentan todos los arquitectos con su `?ref`, debe ser reutilizable. Empieza con el reel de la **Home** (reemplaza el video viejo del plan servilleta en el hero). Armonizado con la squeeze `/empresa-digital`. | Incrustado en el sitio (hero `page.tsx`, etc.) |
+| `REELS_SITIO_CREATUACTIVO.md` | **Sitio** | **Explainer**: responde a quien **ya llegó con la pregunta "¿de qué se trata?"**. Voz **neutra** (NO "soy Luis") — la home la alimentan todos los arquitectos con su `?ref`, debe ser reutilizable. Empieza con el reel de la **Home** (reemplaza el video viejo del plan servilleta en el hero). Armonizado con la Home (`/`). | Incrustado en el sitio (hero `page.tsx`, etc.) |
 
 **Léxico (los 3):** "negocio digital" a secas (la corona es de CreaTuActivo, no de Gano) · ingreso que no depende de su presencia · usted dirige, el sistema hace el trabajo. Ver [migración léxico accesible](#queswa-vocabulary--tabla-canónica-unificada).
 
@@ -1017,8 +987,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `handoff-sumario.ts` - **Warm handoff** (RE-ACTIVADO 19 jun 2026) — sub-agente Haiku genera expediente táctico + envía email HTML al equipo directivo (sistema@creatuactivo.com) via Resend cuando entra Estado 4 del FSM. Disparado en `onFinal` del stream (await, no fire-and-forget — Edge cortaría un fire-and-forget); coexiste con la doble oferta wa.me al prospecto
 - `queswa-greeting.ts` - Saludo canónico de Queswa + chips `QUESWA_QUICK_REPLIES` (single source of truth — antes duplicado en 4 lugares). También exporta `QUESWA_PRODUCTS_QUICK_REPLIES` (3 chips de salud para `/sistema/productos` — Queswa asesor de salud y bienestar)
 - `reels.ts` - **Fuente de verdad de Reels por Nicho** (`REEL_NICHOS`, `REEL_ASSETS`, `REEL_COPY`). Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)
-- `whatsapp-meta.ts` - Envío de mensajes WhatsApp via Meta Graph API (reemplaza SendPulse)
-- `sendpulse.ts` - Legacy → ver tabla [Heredado / Pendiente de eliminación](#heredado--pendiente-de-eliminación)
+- `wa-channel.ts` - **Capa única de canal WhatsApp** (Meta Cloud API): `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. Único lugar con `WHATSAPP_SYSTEM_TOKEN`. (`whatsapp-meta.ts` + `sendpulse.ts` borrados jul 2026)
 
 ## Design System: Bimetallic v3.0
 
@@ -1110,14 +1079,7 @@ Extended colors and utilities are defined in [tailwind.config.ts](tailwind.confi
 
 **Email Templates** (in `src/emails/`):
 - `soap-opera/` - Soap Opera sequence (Dia1-5)
-- `reto-5-dias/` - Secuencia Auditoría Patrimonial — Coordenadas 01–05 (Lujo Clínico, Abr 2026)
-  - `Dia1-Diagnostico.tsx` — Coordenada 01, URL `/empresa-digital/dia-1`
-  - `Dia2-Vehiculos.tsx`   — Coordenada 02, URL `/empresa-digital/dia-2`
-  - `Dia3-Modelo.tsx`      — Coordenada 03, URL `/empresa-digital/dia-3`
-  - `Dia4-Estigma.tsx`     — Coordenada 04, URL `/empresa-digital/dia-4`
-  - `Dia5-Invitacion.tsx`  — Coordenada 05, URL `/empresa-digital/dia-5`
 - `FounderConfirmation.tsx` - Founder registration confirmation
-- `Reto5DiasConfirmation.tsx` - Challenge registration confirmation
 - `Reto12DiasConfirmation.tsx` - 12-level challenge confirmation
 - `PreRegistroAdmin.tsx`, `PreRegistroUser.tsx` - Pre-registration emails
 
@@ -1157,11 +1119,9 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/api/nexus` POST (síncrono) | Funciona pero legacy | Usar `/api/nexus/producer` (async queue) en producción |
 | `/api/nexus/consumer-cron` | Legacy | Fallback sin triggers — el flujo activo es DB trigger → `nexus-queue-processor` |
 | `nexus-consumer` (Edge Function) | Deprecated | Consumer Kafka — reemplazado por `nexus-queue-processor` |
-| `src/lib/sendpulse.ts` | Legacy | Migrado a `whatsapp-meta.ts` (Abr 2026). Eliminar tras aprobar plantillas Meta WhatsApp |
+| `src/lib/sendpulse.ts` + `whatsapp-meta.ts` | ✅ Eliminados (jul 2026) | Reemplazados por `wa-channel.ts` (capa única de canal Meta Cloud API) |
 | `src/components/nexus/NEXUSFloatingButton.tsx` | Conservado parcial | Reemplazado por `UnifiedQueswaOrb` en layout; aún se usa para eventos servilleta |
-| `/reto-5-dias/*` | Eliminada (301) | Página Next borrada jun 2026 — solo redirect en `next.config.js` → `/empresa-digital` (`/gracias` → `/confirmacion`) |
-| `/mapa-de-salida/*` | Eliminada (301) | Página Next borrada jun 2026 — solo redirect en `next.config.js` → `/empresa-digital` (`/gracias` → `/confirmacion`) |
-| `/auditoria-confirmada` | Legacy (301) | Slug renombrado a `/confirmacion` (jun 2026) — redirige allí |
+| `/reto-5-dias/*` · `/mapa-de-salida/*` · `/auditoria-confirmada` · `/empresa-digital/*` · `/diagnostico` · `/confirmacion` | ✅ Eliminadas (jul 2026, `ca6ff59`) | Funnel muerto retirado — páginas + redirects borrados; URLs viejas del funnel → Home (301) |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
 | `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
@@ -1275,11 +1235,11 @@ The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funn
 
 ```
 [NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
-30 videos de valor puro      →    Squeeze Page /empresa-digital
+30 videos de valor puro      →    Reel por nicho + Queswa
          ↓                               ↓
 "¿Cómo lo hago?"             →    Soap Opera Emails (5)
          ↓                               ↓
-CTA sutil a CreaTuActivo     →    Auditoría Patrimonial (5 videos)
+CTA sutil a CreaTuActivo     →    1-a-1 con el socio
                                          ↓
                                    Webinar (Perfect Webinar)
                                          ↓
@@ -1356,14 +1316,14 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 | Duration | Use Case |
 |----------|----------|
 | 60 seconds | Reels, TikTok, Squeeze Page |
-| 3 minutes | Bridge Page (`/confirmacion`) |
+| 3 minutes | 1-a-1 / presentación media |
 | 7 minutes | Webinar, Presentations |
 
 ### Two Different Audiences
 
 | Audience | Villain | Page |
 |----------|---------|------|
-| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | /empresa-digital, /fundadores |
+| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | reel → Queswa → /fundadores |
 | **Traditional networkers** (know MLM) | "Haz una lista de 100" | (página `/socios` eliminada — commit `6110e9a`; audiencia sin landing dedicada actualmente) |
 
 **Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".

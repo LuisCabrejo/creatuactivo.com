@@ -3818,6 +3818,13 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // ⚡ OPTIMIZADO v14.8: sessionInstructions reducido de ~7K a ~1.5K chars
     // Eliminado: 14 condicionales redundantes, tabla precios duplicada, instrucciones repetitivas
     const getMessageContext = () => {
+      // WhatsApp: el número YA identifica a la persona — no hay nada que "capturar".
+      // El contexto genérico ("CAPTURA NOMBRE") ponía al modelo en modo interrogatorio
+      // y derivaba en preguntas de cualificación prohibidas (tiempo disponible, sector).
+      if (tenantId === 'whatsapp') {
+        if (messageCount === 1) return 'MENSAJE 1 - SALUDO INICIAL';
+        return `CONVERSACIÓN EN CURSO (turno ${messageCount}) — MOSTRAR, NO INTERROGAR. Use lo que la persona ya le dijo para mostrarle cómo aplica a SU caso. PROHIBIDO preguntar cuánto tiempo/horas puede dedicarle, en qué sector trabaja, o "qué lo trajo".`;
+      }
       if (messageCount === 1) return 'MENSAJE 1 - SALUDO INICIAL';
       if (messageCount === 2) return 'MENSAJE 2 - CAPTURA NOMBRE';
       if (messageCount === 3) return 'MENSAJE 3 - CONFIRMACIÓN NOMBRE + PROPUESTA AVANZAR';

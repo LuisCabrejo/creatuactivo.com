@@ -111,6 +111,16 @@ export default async function DestinoRoute({
     )
   }
 
+  // ── Caso Queswa: enlace amigable → WhatsApp con Queswa (redirect externo) ──
+  // creatuactivo.com/{slug}/queswa (o /acceso) → wa.me de Queswa con el slug
+  // embebido en el texto pre-llenado, para que resolverPatrocinador() (webhook
+  // WhatsApp) atribuya el prospecto al socio. Enlace limpio y confiable en vez
+  // del wa.me con parámetros crudos que nadie se atreve a tocar.
+  if (destino === 'queswa' || destino === 'acceso') {
+    const texto = `Hola Queswa 👋 vengo del enlace de ${slug}`
+    redirect(`https://wa.me/573215193909?text=${encodeURIComponent(texto)}`)
+  }
+
   // ── Caso redirect (comportamiento original) ────────────────────
   // 1. Resolver constructor_id desde el slug
   const { data: record } = await supabase

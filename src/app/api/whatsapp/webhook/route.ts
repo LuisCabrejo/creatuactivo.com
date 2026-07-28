@@ -170,11 +170,34 @@ export async function POST(request: Request) {
       }
     }
 
-    // ─── 2. Llamar al motor Queswa ────────────────────────────────────────────
+    // ─── 2. Reconstruir historial + llamar al motor Queswa ────────────────────
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com';
 
-    // pageContext le dice al motor el origen del mensaje para que Queswa
-    // pueda personalizar el saludo en flujos CTWA / Mapa de Salida
+    // Reconstruir el hilo desde nexus_conversations. Sin esto el motor recibe solo
+    // el mensaje actual → cree que SIEMPRE es el primer turno (re-saluda en cada
+    // respuesta) y Queswa pierde la memoria de la conversación. Cargamos los
+    // últimos turnos y los aplanamos en orden cronológico.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: prevTurns } = await (supabase as any)
+      .from('nexus_conversations')
+      .select('messages, created_at')
+      .eq('fingerprint_id', waFingerprint)
+      .order('created_at', { ascending: false })
+      .limit(12);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const historial: { role: string; content: string }[] = [];
+    for (const t of ((prevTurns || []) as any[]).reverse()) {
+      if (Array.isArray(t.messages)) {
+        for (const m of t.messages) {
+          if (m?.role && m?.content) {
+            historial.push({ role: m.role === 'user' ? 'user' : 'assistant', content: m.content });
+          }
+        }
+      }
+    }
+
+    // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
     const pageContext = isCTWA
       ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
       : 'whatsapp_inbound';
@@ -186,7 +209,7 @@ export async function POST(request: Request) {
         'x-tenant-id': 'whatsapp',
       },
       body: JSON.stringify({
-        messages:    [{ role: 'user', content: messageText }],
+        messages:    [...historial, { role: 'user', content: messageText }],
         sessionId:   waFingerprint,
         fingerprint: waFingerprint,
         pageContext,

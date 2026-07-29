@@ -27,6 +27,7 @@ import {
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
+import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
 // Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
 // COEXISTEN: el prospecto recibe el link wa.me pre-llenado (Estado 4) Y el equipo
@@ -2347,7 +2348,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           is_fragment_result: true,
           fragment_count: fragments.length,
           fragment_categories: fragments.map(f => f.category),
-          total_chars: totalFragmentChars
+          total_chars: totalFragmentChars,
+          top_similarity: fragments[0]?.similarity ?? null
         },
         source: '/knowledge_base/catalogo_productos.txt',
         search_method: 'fragment_vector_search'
@@ -2484,7 +2486,12 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
             is_fragment_result: true,
             fragment_count: fragments.length,
             fragment_categories: fragments.map(f => f.category),
-            total_chars: totalFragmentChars
+            total_chars: totalFragmentChars,
+            // Confianza de la recuperación. Se propaga porque "encontré algo" y
+            // "encontré algo pertinente" no son lo mismo: con el umbral en 0.30 casi
+            // siempre vuelve material, y el ruido con apariencia de contexto es peor
+            // que el vacío — el modelo lo trata como respaldo de lo que ya iba a decir.
+            top_similarity: fragments[0]?.similarity ?? null
           },
           source: `/knowledge_base/arsenal_conversacional_${documentType.replace('arsenal_', '')}.txt`,
           search_method: 'fragment_vector_search'
@@ -2556,7 +2563,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
             is_fragment_result: true,
             fragment_count: fallbackFragments.length,
             fragment_categories: fallbackFragments.map(f => f.category),
-            total_chars: totalFragmentChars
+            total_chars: totalFragmentChars,
+            top_similarity: fallbackFragments[0]?.similarity ?? null
           },
           source: '/knowledge_base/arsenal_inicial.txt',
           search_method: 'fragment_vector_search_fallback'
@@ -3587,6 +3595,14 @@ ${summaryParts.join('\n')}
       // "jabón", "capuchino" — no hay queries "simples" en una tienda de productos.
       if (tenantId === 'ecommerce') return false;
 
+      // Para whatsapp: tampoco hay queries "simples". En un chat todo mensaje corto
+      // es sustantivo — "sí", "panadero", "cuénteme" continúan un hilo y necesitan
+      // material recuperado. Saltarse la búsqueda dejaba al modelo respondiendo de
+      // memoria paramétrica, que es de donde salían los modelos de negocio inventados.
+      // La consulta se ancla antes de buscar (CQR, más abajo), así que el mensaje
+      // corto ya no llega desnudo al buscador.
+      if (tenantId === 'whatsapp') return false;
+
       // M1/M2/M3 siempre Sonnet — turnos críticos donde el nombre, la situación y la
       // confirmación post-nombre definen el tono de toda la conversación.
       if (userMessageCount <= 3) return false;
@@ -3664,6 +3680,25 @@ ${summaryParts.join('\n')}
       }
     }
 
+    // ── ANCLAJE DE LA CONSULTA — reescritura conversacional (CQR) ──────────────
+    // Lo que dispara la búsqueda casi nunca se basta a sí mismo en un chat: "sí",
+    // "panadero", "y eso cómo sería". Sin ancla temática el buscador devuelve ruido,
+    // el modelo se queda sin material y lo reemplaza con su memoria de entrenamiento.
+    // Aquí la conversación se colapsa en una consulta autónoma ANTES de buscar.
+    // Degrada con gracia: si falla, se busca con el mensaje original.
+    let consultaRecuperacion = latestUserMessage;
+    if (tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+      const historialPrevio = (Array.isArray(messages) ? messages : [])
+        .slice(0, -1)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((m: any) => (m?.role === 'user' || m?.role === 'assistant') && typeof m.content === 'string')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((m: any) => ({ role: m.role as string, content: m.content as string }));
+
+      const cqr = await reescribirConsultaConversacional(latestUserMessage, historialPrevio);
+      consultaRecuperacion = cqr.consulta;
+    }
+
     if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       if (tenantId === 'ecommerce') {
         // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
@@ -3697,15 +3732,35 @@ ${summaryParts.join('\n')}
           }
         }
       } else {
-        const searchQuery = interpretQueryHibrido(latestUserMessage);
+        // `consultaRecuperacion` es el mensaje original salvo en WhatsApp, donde
+        // llega ya anclado por el CQR (arriba). En web ambos son el mismo texto,
+        // así que la expansión de chips sigue funcionando igual.
+        const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, latestUserMessage);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
       console.log('⚡ [ROUTER] Vector search omitido para query simple');
     }
     console.log(`⏱️ [TIMING] Pre-Anthropic total: ${Date.now() - startTime}ms`);
+
+    // ── CONFIANZA DE LA RECUPERACIÓN (red CRAG) ────────────────────────────────
+    // Antes esta red sólo se activaba con CERO documentos, y con el umbral de
+    // fragmentos en 0.30 eso casi nunca ocurre: la búsqueda devuelve algo aunque no
+    // venga al caso. El caso que sí se daba —recuperó ruido— pasaba de largo, y el
+    // modelo lo leía como respaldo de lo que ya iba a improvisar.
+    // 0.42 como piso de pertinencia: la clasificación vectorial ya usa 0.40 como
+    // "match confiable" (ver clasificarDocumentoVectorial), así que por debajo de ahí
+    // el material recuperado no sostiene una respuesta.
+    const _topSimilarity = relevantDocuments[0]?.metadata?.top_similarity;
+    const recuperacionDebil =
+      relevantDocuments.length === 0 ||
+      (typeof _topSimilarity === 'number' && _topSimilarity < 0.42);
+
+    if (tenantId === 'whatsapp' && recuperacionDebil) {
+      console.warn(`🪫 [CRAG] Recuperación débil (docs=${relevantDocuments.length}, top=${_topSimilarity ?? 'n/a'}) — se pide no improvisar`);
+    }
 
     // 🔧 CONSTRUCCIÓN DE CONTEXTO MEJORADA - FIX APLICADO
     let context = '';
@@ -4433,15 +4488,15 @@ respondido antes en esta conversación.
    y ofrezca conectar con el equipo humano. Nunca invente. Es preferible admitir
    que no sabe a inventar una respuesta convincente.
 </instrucciones_absolutas_finales>` : ''}
-${tenantId === 'whatsapp' && relevantDocuments.length === 0 ? `
-<sin_contexto_recuperado>
-⚠️ La búsqueda en la base de conocimiento NO devolvió material para este mensaje
-(suele pasar con respuestas cortas como "sí", "ok", "cuénteme").
-NO improvise contenido para llenar el vacío. Haga UNA sola cosa:
-retome el hilo con lo que la persona ya le dijo y explique el modelo real
-—distribuir productos de consumo y construir una organización que los consume
-mes a mes— o pida que le precise qué quiere saber. Nada más.
-</sin_contexto_recuperado>` : ''}
+${tenantId === 'whatsapp' && recuperacionDebil ? `
+<contexto_insuficiente>
+La búsqueda en la base de conocimiento no devolvió material sólido para este
+mensaje. Responda usando SOLO dos fuentes: lo que la persona ya le dijo en esta
+conversación y el modelo real de CreaTuActivo (distribuir productos de consumo y
+construir una organización que los consume mes a mes).
+Si con eso no alcanza, pídale que le precise qué quiere saber, u ofrézcale
+conectarlo con el socio que lo invitó. Cualquiera de las tres salidas es correcta.
+</contexto_insuficiente>` : ''}
 `;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING

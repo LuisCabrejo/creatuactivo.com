@@ -21,6 +21,14 @@ import { sendText } from '@/lib/wa-channel';
 export const runtime = 'nodejs';
 export const maxDuration = 30;
 
+// Lo que el prospecto recibe cuando el guardarraíl bloquea una respuesta. Es
+// también lo que queda en el historial y en la base: el modelo debe recordar lo
+// que la persona leyó, no lo que él generó.
+const RESPUESTA_CORRECTIVA =
+  'Permítame precisarlo bien: lo que hacemos es distribuir productos de consumo diario ' +
+  '—café, bebidas y suplementos— apoyados en tecnología, y usted construye una organización ' +
+  'de personas que los consume mes a mes.\n\n¿Quiere que le cuente cómo se vería eso en su caso?';
+
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 function getSupabase() {
@@ -187,14 +195,32 @@ export async function POST(request: Request) {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const historial: { role: string; content: string }[] = [];
+    let turnosSaneados = 0;
     for (const t of ((prevTurns || []) as any[]).reverse()) {
-      if (Array.isArray(t.messages)) {
-        for (const m of t.messages) {
-          if (m?.role && m?.content) {
-            historial.push({ role: m.role === 'user' ? 'user' : 'assistant', content: m.content });
-          }
+      if (!Array.isArray(t.messages)) continue;
+      for (const m of t.messages) {
+        if (!m?.role || !m?.content) continue;
+        const rol = m.role === 'user' ? 'user' : 'assistant';
+
+        // El motor guarda la respuesta que GENERÓ, no la que se envió. Si el
+        // guardarraíl de salida la bloqueó, el prospecto leyó la corrección
+        // mientras el modelo recordaba su propia invención — y el "sí" del turno
+        // siguiente quedaba aceptando una promesa que nunca existió. Saneamos al
+        // leer: la memoria del modelo tiene que ser lo que la persona vio.
+        // A prueba de carreras (no depende de cuándo el motor escribió la fila) y
+        // retroactivo (limpia también los turnos envenenados que ya están en BD).
+        if (rol === 'assistant' && detectarModeloInventado(m.content)) {
+          historial.push({ role: 'assistant', content: RESPUESTA_CORRECTIVA });
+          turnosSaneados++;
+          continue;
         }
+
+        historial.push({ role: rol, content: m.content });
       }
+    }
+
+    if (turnosSaneados > 0) {
+      console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
     }
 
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
@@ -246,10 +272,8 @@ export async function POST(request: Request) {
     const violacion = detectarModeloInventado(queswaReply);
     if (violacion) {
       console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
-      await sendWhatsAppMessage(
-        phoneNumber,
-        'Permítame precisarlo bien: lo que hacemos es distribuir productos de consumo diario —café, bebidas y suplementos— apoyados en tecnología, y usted construye una organización de personas que los consume mes a mes.\n\n¿Quiere que le cuente cómo se vería eso en su caso?',
-      );
+      await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
       return new Response('OK', { status: 200 });
     }
 
@@ -330,6 +354,71 @@ function detectarModeloInventado(texto: string): string | null {
   }
 
   return null;
+}
+
+/**
+ * Deja el registro de la conversación igual a lo que el prospecto realmente vio.
+ *
+ * El motor persiste su respuesta en `nexus_conversations` desde `onFinal`, o sea
+ * DESPUÉS de que el webhook terminó de leer el stream. Cuando el guardarraíl
+ * bloquea, esa fila conserva un texto que nunca se envió: el socio lo leería en el
+ * Radar como parte de la conversación, y el expediente de handoff se armaría sobre
+ * un diálogo que no ocurrió.
+ *
+ * Es best-effort por la carrera con `onFinal` — de ahí el sondeo corto. La garantía
+ * de que el modelo no se envenene NO depende de esta función, sino del saneamiento
+ * al reconstruir el historial. Aquí sólo se limpia lo que ven los humanos.
+ *
+ * El texto bloqueado se conserva en `guardrail_bloqueo` para revisar transcripciones
+ * (no se lee al reconstruir el historial, así que no puede re-envenenar).
+ */
+async function corregirTurnoEnvenenado(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  textoBloqueado: string,
+): Promise<void> {
+  const objetivo = textoBloqueado.trim();
+
+  for (let intento = 1; intento <= 6; intento++) {
+    await new Promise((r) => setTimeout(r, 400));
+
+    try {
+      const { data: filas } = await supabase
+        .from('nexus_conversations')
+        .select('id, messages')
+        .eq('fingerprint_id', fingerprint)
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      for (const fila of ((filas || []) as any[])) {
+        if (!Array.isArray(fila.messages)) continue;
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const idx = fila.messages.findIndex((m: any) =>
+          m?.role === 'assistant' && typeof m.content === 'string' && m.content.trim() === objetivo,
+        );
+        if (idx === -1) continue;
+
+        const messages = [...fila.messages];
+        messages[idx] = { ...messages[idx], content: RESPUESTA_CORRECTIVA, guardrail_bloqueo: objetivo };
+
+        await supabase.from('nexus_conversations').update({ messages }).eq('id', fila.id);
+        console.log(`🧽 [WA Guardrail] Turno corregido en BD (intento ${intento}) — fila ${fila.id}`);
+        return;
+      }
+    } catch (err) {
+      // Una consulta fallida no puede tumbar el webhook: el historial ya se sanea al leer
+      console.error('⚠️ [WA Guardrail] Error corrigiendo el turno en BD:', err);
+      return;
+    }
+  }
+
+  console.warn(
+    `⚠️ [WA Guardrail] No se pudo corregir el turno en BD de ${fingerprint} — el motor aún no lo había escrito. ` +
+    'El modelo queda protegido igual (saneamiento al leer); sólo el registro humano queda con el texto bloqueado.',
+  );
 }
 
 async function resolverPatrocinador(

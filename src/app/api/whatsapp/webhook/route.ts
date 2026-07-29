@@ -238,6 +238,21 @@ export async function POST(request: Request) {
     queswaReply = queswaReply.trim();
     console.log(`💬 [WA Webhook] Queswa responde (${pageContext}): "${queswaReply.slice(0, 80)}..."`);
 
+    // ─── 3.5 Guardrail de salida ──────────────────────────────────────────────
+    // Última barrera antes de Meta. Si el modelo propuso un modelo de negocio que
+    // no es el nuestro (economía de creadores), NO se envía: en Colombia la Ley
+    // 1480 hace vinculante toda condición ofrecida al consumidor, y el precedente
+    // Air Canada (2024) confirma que la empresa responde por lo que invente su IA.
+    const violacion = detectarModeloInventado(queswaReply);
+    if (violacion) {
+      console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
+      await sendWhatsAppMessage(
+        phoneNumber,
+        'Permítame precisarlo bien: lo que hacemos es distribuir productos de consumo diario —café, bebidas y suplementos— apoyados en tecnología, y usted construye una organización de personas que los consume mes a mes.\n\n¿Quiere que le cuente cómo se vería eso en su caso?',
+      );
+      return new Response('OK', { status: 200 });
+    }
+
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
     if (queswaReply) {
       await sendWhatsAppMessage(phoneNumber, queswaReply);
@@ -281,6 +296,42 @@ interface Patrocinador {
  * Devuelve null si el mensaje no trae código — ese prospecto queda sin dueño y
  * lo trabaja el equipo.
  */
+/**
+ * Guardrail de salida: detecta si la respuesta propone un modelo de negocio que
+ * NO es el nuestro (economía de creadores). Devuelve el término detectado o null.
+ *
+ * Calibrado para evitar falsos positivos: "en el curso de", "transcurso" y la
+ * formación propia (Academia) NO deben disparar el bloqueo.
+ */
+function detectarModeloInventado(texto: string): string | null {
+  if (!texto) return null;
+  const t = texto.toLowerCase();
+
+  // Términos inequívocos — si aparecen, es un modelo que no existe aquí
+  const inequivocos = [
+    'infoproducto', 'info-producto', 'e-book', 'ebook', 'membresía', 'membresia',
+    'dropshipping', 'producto digital', 'productos digitales', 'curso online',
+    'cursos online', 'consultoría online', 'consultoria online', 'monetizar su conocimiento',
+    'monetizar tu conocimiento', 'vender su experiencia', 'crear contenido',
+    'servicios escalados', 'asesorías online', 'asesorias online',
+    'servicio digital', 'servicios digitales', 'audiencia',
+  ];
+  for (const term of inequivocos) {
+    if (t.includes(term)) return term;
+  }
+
+  // "curso(s)" solo cuenta si se PROPONE (vender/crear/ofrecer), no en usos legítimos
+  // como "en el curso de la conversación" o la formación interna.
+  if (/\b(vender|venda|crear|cree|ofrecer|ofrezca|dictar|dicte|grabar)\b[^.]{0,40}\bcursos?\b/.test(t)) {
+    return 'proponer cursos';
+  }
+  if (/\bcursos?\b[^.]{0,40}\b(que otros compren|de pago|para vender)\b/.test(t)) {
+    return 'cursos para vender';
+  }
+
+  return null;
+}
+
 async function resolverPatrocinador(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,

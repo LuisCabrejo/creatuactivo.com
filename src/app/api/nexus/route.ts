@@ -4407,6 +4407,41 @@ ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — 
 ${(/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez|diferencia|compar|cu[aá]l (me |le )?(conviene|recomienda|elijo|sirve)|entre (ellos|los|las|esos|estos)|niveles?|valor(es)?|cu[aá]nto (cuesta|vale|sale)/i.test(latestUserMessage) || _botMostroPaquetes) ? getPaquetesPricingPin(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (tres fuerzas/socios, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
+${tenantId === 'whatsapp' ? `
+<instrucciones_absolutas_finales>
+Estas reglas están al final del contexto a propósito: son las últimas que lee y
+tienen prioridad sobre cualquier otra cosa, incluido lo que usted mismo haya
+respondido antes en esta conversación.
+
+1. MODELO DE NEGOCIO ÚNICO. CreaTuActivo es EXCLUSIVAMENTE distribución de
+   productos físicos de consumo (café, bebidas y suplementos con Ganoderma de
+   Gano Excel) apoyada en tecnología. El ingreso nace del consumo recurrente de
+   una organización de personas. NO existe ningún otro modelo.
+
+2. JAMÁS proponga que la persona monetice su oficio o su conocimiento. Está
+   prohibido sugerir: cursos, guías, e-books, infoproductos, plantillas,
+   consultoría, asesorías, servicios en línea, membresías, comunidades de pago,
+   "productos digitales", "crear contenido una vez y venderlo", o cualquier
+   variante de la economía de creadores. Nada de eso existe aquí y prometerlo
+   compromete legalmente a la empresa.
+
+3. El oficio de la persona sirve SOLO para ilustrar su situación actual (de qué
+   depende hoy su ingreso) y su credibilidad ante su círculo — NUNCA como aquello
+   que va a vender.
+
+4. Si no tiene información suficiente para responder algo, dígalo con naturalidad
+   y ofrezca conectar con el equipo humano. Nunca invente. Es preferible admitir
+   que no sabe a inventar una respuesta convincente.
+</instrucciones_absolutas_finales>` : ''}
+${tenantId === 'whatsapp' && relevantDocuments.length === 0 ? `
+<sin_contexto_recuperado>
+⚠️ La búsqueda en la base de conocimiento NO devolvió material para este mensaje
+(suele pasar con respuestas cortas como "sí", "ok", "cuénteme").
+NO improvise contenido para llenar el vacío. Haga UNA sola cosa:
+retome el hilo con lo que la persona ya le dijo y explique el modelo real
+—distribuir productos de consumo y construir una organización que los consume
+mes a mes— o pida que le precise qué quiere saber. Nada más.
+</sin_contexto_recuperado>` : ''}
 `;
 
     // 🔍 LOGGING DETALLADO PARA DEBUGGING

@@ -3,7 +3,10 @@
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo personas que están empezando (nuevas); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con personas nuevas y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.0 Léxico accesible (20 jul 2026) — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+**Versión:** 5.1 (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+
+**Cambios v5.1 (21 jul 2026):**
+- **NIVELES_02:** la tabla ahora distingue **"Nuevos"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
 
 **Cambios v5.0 (20 jul 2026):**
 - Migración de trato: **tú → usted** en las 13 respuestas (alinea con el deck /12-niveles y el resto del sitio). Ver [[project_reto_12niveles_no_migrar]] — revertido SOLO para el léxico de trato; concepto y nombres de producto se conservan.
@@ -63,15 +66,17 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
-| Nivel | Personas | CV/lado | Regalía semanal 10% | Acumulado |
-|-------|----------|---------|---------------------|-----------|
-| 1 | 2 | 56 | $25,200 | $25,200 |
-| 2 | 4 | 112 | $50,400 | $75,600 |
-| 4 | 16 | 448 | $201,600 | $378,000 |
-| 6 | 64 | 1,792 | $806,400 | $1,587,600 |
-| 8 | 256 | 7,168 | $3,225,600 | $6,426,000 |
-| 10 | 1,024 | 28,672 | $12,902,400 | $25,779,600 |
-| 12 | 4,096 | 114,688 | $51,609,600 | **$103,194,000** |
+| Nivel | Nuevos | Total organización | CV/lado | Regalía semanal 10% | Acumulado |
+|-------|--------|--------------------|---------|---------------------|-----------|
+| 1 | 2 | 2 | 56 | $25,200 | $25,200 |
+| 2 | 4 | 6 | 112 | $50,400 | $75,600 |
+| 4 | 16 | 30 | 448 | $201,600 | $378,000 |
+| 6 | 64 | 126 | 1,792 | $806,400 | $1,587,600 |
+| 8 | 256 | 510 | 7,168 | $3,225,600 | $6,426,000 |
+| 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
+| 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
+
+**Personas — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su organización hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 nuevos y su organización suma 30 personas en total. Al nivel 12 son **8.190 personas** en total.
 
 **Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
 

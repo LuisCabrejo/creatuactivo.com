@@ -70,6 +70,10 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
 const LAST_CARD: Record<number, number> = { 1: 3, 2: 3 };
 
+// Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
+// (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
+const AMBIENT_VOLUME = 0.125;
+
 // Proyección 2×2 sobre 12 niveles — cifras del plan de compensación (Renta Acumulada COP).
 // `people` = crecimiento en número de usuarios EN ese nivel (duplicación 2×2). USD = COP ÷ 4.500 (tasa fija Gano).
 const PROYECCION_12: { level: number; people: number; income: number }[] = [
@@ -485,6 +489,10 @@ export default function ServilletaPage() {
         const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
         const audible = oneCardMode && isActiveCard && shouldPlay;
         v.muted = !audible;
+        // El audio del b-roll es ATMÓSFERA, no protagonista: a volumen pleno tapaba la
+        // voz de quien presenta y los usuarios lo reportaron "muy duro" (jul 2026).
+        // Se siente, no se impone. Calibrar aquí, no por clip.
+        v.volume = AMBIENT_VOLUME;
         if (shouldPlay) {
           // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
           if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
@@ -2316,6 +2324,10 @@ export default function ServilletaPage() {
                 {(() => {
                   const sel = PROYECCION_12[nivel12Level - 1];
                   const usd = Math.round(sel.income / 4500);
+                  // sel.people = usuarios NUEVOS en el nivel (2^nivel).
+                  // Total acumulado de la organización (interés compuesto) =
+                  // 2 + 4 + ... + 2^nivel = 2^(nivel+1) − 2.
+                  const totalUsuarios = Math.pow(2, sel.level + 1) - 2;
                   return (
                     <>
                       <div className="nivel-tag">NIVEL {sel.level}</div>
@@ -2325,7 +2337,7 @@ export default function ServilletaPage() {
                         <span className="unit"> COP</span>
                       </div>
                       <div className="cop-ref">&asymp; ${usd.toLocaleString('es-CO')} USD</div>
-                      <div className="nivel-users">{sel.people.toLocaleString('es-CO')} usuarios en este punto</div>
+                      <div className="nivel-users">{sel.people.toLocaleString('es-CO')} usuarios nuevos en este punto &middot; total: {totalUsuarios.toLocaleString('es-CO')}</div>
                     </>
                   );
                 })()}

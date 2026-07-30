@@ -61,10 +61,16 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
 const LAST_CARD: Record<number, number> = { 1: 3, 2: 3 };
 
+// Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
+// (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
+const AMBIENT_VOLUME = 0.125;
+
 export default function ServilletaPage() {
   const TOTAL_SLIDES = 4;
   const [activeSlide, setActiveSlide] = useState(1);
-  const [simMode, setSimMode] = useState<'gen5' | 'binario'>('gen5');
+  // Default 'binario' (INGRESO RECURRENTE): el valor principal de la oferta es el
+  // ingreso por la red de consumo; el inmediato (GEN5) es la segunda pestaña.
+  const [simMode, setSimMode] = useState<'gen5' | 'binario'>('binario');
   const [gen5Socios, setGen5Socios] = useState(2);
   const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [binarioParejas, setBinarioParejas] = useState(50);
@@ -454,6 +460,10 @@ export default function ServilletaPage() {
         const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
         const audible = oneCardMode && isActiveCard && shouldPlay;
         v.muted = !audible;
+        // El audio del b-roll es ATMÓSFERA, no protagonista: a volumen pleno tapaba la
+        // voz de quien presenta y los usuarios lo reportaron "muy duro" (jul 2026).
+        // Se siente, no se impone. Calibrar aquí, no por clip.
+        v.volume = AMBIENT_VOLUME;
         if (shouldPlay) {
           // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
           if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
@@ -2160,20 +2170,24 @@ export default function ServilletaPage() {
               {/* Panel del Simulador */}
               <div className="simulator-panel">
                 <h3 style={{ textAlign: 'center' }}>SIMULADOR DE INGRESOS RECURRENTES</h3>
+                {/* El candado: las ganancias nacen solo de producto (dos tipos de compra) */}
+                <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--steel)', margin: '6px 0 14px' }}>
+                  Las ganancias nacen &uacute;nicamente de compras de producto — de dos tipos: el consumo mensual y los paquetes empresariales.
+                </p>
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">
-                  <button
-                    className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
-                    onClick={() => setSimMode('gen5')}
-                  >
-                    INGRESO INMEDIATO
-                  </button>
                   <button
                     className={`sim-tab ${simMode === 'binario' ? 'active' : ''}`}
                     onClick={() => setSimMode('binario')}
                   >
                     INGRESO RECURRENTE
+                  </button>
+                  <button
+                    className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
+                    onClick={() => setSimMode('gen5')}
+                  >
+                    INGRESO INMEDIATO
                   </button>
                 </div>
 
@@ -2213,7 +2227,7 @@ export default function ServilletaPage() {
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                       className="sim-slider"
                     />
-                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimizar su flujo de caja desde la primera semana de activaci&oacute;n.</p>
+                    <p className="insight-text">Ingreso inmediato cuando alguien de su organizaci&oacute;n activa con un paquete empresarial — una compra de producto, no una inscripci&oacute;n.</p>
                   </div>
                 )}
 

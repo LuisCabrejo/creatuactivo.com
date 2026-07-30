@@ -1,5 +1,14 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.1
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.2
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.2 (29 jul 2026 — poda: el guion termina en la cima)
+- **🔴 VS "suma vs. multiplica" ELIMINADO del Slide 1** (decisión del Director). Razón de ritmo: el **momento "otra liga" ya es el remate**; el VS venía a *explicar* algo que la persona acababa de *sentir* — bajar de la cima a explicar mata el impacto y sumaba ~35s. Los conceptos nucleares ya son claros y potentes; no necesitan matizarse más. *(El VS sigue vivo en los reels y la Home — piezas con otro contexto.)*
+- **🔴 Multiplicador aspiracional eliminado** (*"Multiplique eso por cada transacción de un día…"*): mismo criterio — distrae en vez de sumar. Amazon/MercadoLibre ya deja clara la escala.
+- **Arco final del Slide 1** (validado por el Director): *asegurar mi calidad de vida → el paso a seguir es tener mi propia empresa digital que manejo desde WhatsApp → me entregan todo esto*. Hook → villano → upgrade → qué es → **momento "otra liga"** y cierra.
+- **Precisión del momento WhatsApp (opción a):** *"…**cabe en el celular que tiene en el bolsillo**. Y a las personas las atiende por **WhatsApp**, la misma aplicación donde le escribe a su familia."* Antes decía "usted la dirige desde WhatsApp", que contradecía al Slide 2 ("Queswa, la app desde la que usted dirige todo") — el propietario dirige desde su centro de mando; **WhatsApp es donde se atiende a las personas**. Se conserva el asombro (la desproporción) sin deuda con la verdad.
+- **Redundancia WhatsApp resuelta:** el Slide 2 ya no repite *"ahí donde las personas ya están, sin descargar nada"* (se decía casi textual en ambos slides, a 2 minutos de distancia). Reparto de funciones: **Slide 1 = el asombro · Slide 2 = la mecánica**.
+- **Apertura del Slide 2:** *"¿cómo se construye **una empresa** así?"* (antes "un puente así" — el antecedente del puente quedó lejos al eliminar sonrisaslindas). "Puente" se conserva en LO PRIMERO, donde el callback a Amazon lo re-ancla.
+- **OPCIÓN 2 del cierre: boletín → COMENZAR POR LOS PRODUCTOS.** *"Se registra como **Cliente Preferencial** y accede al precio de distribuidor: **un 25% menos**… y si más adelante le nace tener su empresa digital, el paso está a un clic."* Alinea la presentación con los caminos establecidos para WhatsApp (activar · beneficiarse de los productos · explorar), recoge el Slide 3 y respalda el fragmento `CLIENTE_VIP_01`. El boletín no aplica en un 1-a-1.
 
 ### Cambios de v6.1 (29 jul 2026 — Slide 1 reescrito: el momento "otra liga")
 - **Villano con callback concreto:** *"un sistema diseñado para tomar **esos años y su salud**"* (antes "lo que usted entrega" — abstracto, no dolía). El demostrativo **"esos"** recoge la frase de la intro sin repetirla completa: eco sin redundancia. Disonancia reportada por el Director.
@@ -129,22 +138,18 @@ Pero ¿qué es, en palabras simples, una empresa digital? Es un negocio que reem
 
 Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones de personas con los fabricantes, y ganan por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
 
-**[ TONO ASPIRACIONAL ]** Multiplique eso por cada transacción de un día… en toda una ciudad… en todo un continente.
-
 **[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
 
-Y aquí está lo que de verdad cambia el juego. Una empresa así —con su fábrica, su logística, su atención a cada persona— **usted la dirige desde WhatsApp.** La misma aplicación donde le escribe a su familia. **Ahí donde ya viven todas las personas.** Sin oficina, sin local, sin descargar nada.
+Y aquí está lo que de verdad cambia el juego. Una empresa así —con su fábrica, su logística, su atención a cada persona— **cabe en el celular que tiene en el bolsillo**. Y a las personas las atiende por **WhatsApp**, la misma aplicación donde le escribe a su familia. **Ahí donde ya viven todas las personas.** Sin oficina, sin local, sin descargar nada.
 
 **[ TONO RESOLUTIVO ]** Los primeros celulares solo servían para llamar. Cuando llegó el iPhone, no fue un teléfono mejor: fue **otra liga**. Esto es igual. No es un negocio mejor — es **otra forma de ganar**.
-
-**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted. Si usted no está, se detiene. Una empresa digital crece multiplicando: lo que usted hace una vez llega a todo un continente. Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo.
 
 ---
 
 # SLIDE 2 · LO DIFÍCIL YA ESTÁ HECHO
 *Subtítulo en pantalla: "Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas."*
 
-Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
+Ahora, ¿cómo se construye una empresa así? Usted tiene dos caminos.
 
 **Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
@@ -156,7 +161,7 @@ Lo primero: alguien tiene que **fabricar**. Ahí está su **socio logístico y f
 
 **LO SEGUNDO · una plataforma atiende a las personas** · *su socio digital: Queswa.*
 *B-roll: la orbe Queswa en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa **por WhatsApp — ahí donde las personas ya están, sin descargar nada**: **explica, atiende y madura en cada interesado la decisión de avanzar** —las 24 horas—, y les muestra, con las cifras reales del plan, **cómo se vería su propia empresa digital**. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
+Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa **por WhatsApp**: **explica, atiende y madura en cada interesado la decisión de avanzar** —las 24 horas—, y les muestra, con las cifras reales del plan, **cómo se vería su propia empresa digital**. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
 
 *(En vivo, el Arquitecto se presenta aquí: "ese socio digital soy yo".)*
 
@@ -206,8 +211,8 @@ Hasta aquí, la lógica de los números es inequívoca. A partir de ahora, el pa
 **OPCIÓN 1 — LA INACCIÓN**
 Dejar todo igual. Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que le sigue tomando sus mejores años y su salud.
 
-**OPCIÓN 2 — SUSCRIBIRSE AL BOLETÍN**
-Aún no es momento de decidir, pero usted quiere seguir el hilo. Suscríbase a nuestro boletín y reciba, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para ser dueño de una empresa digital que genera ingresos una y otra vez.
+**OPCIÓN 2 — COMENZAR POR LOS PRODUCTOS**
+Aún no quiere pensar en la empresa, pero sí quiere el producto. Usted se registra como **Cliente Preferencial** y accede al precio de distribuidor: **un 25% menos** que el precio sugerido. Y si más adelante le nace tener su empresa digital, el paso está a un clic.
 
 **OPCIÓN 3 — INICIAR LA ACTIVACIÓN**
 El paso natural para quien ya lo tiene claro. Usted asume la propiedad de su empresa digital hoy, y su primera velocidad de ingresos se activa esta misma semana.

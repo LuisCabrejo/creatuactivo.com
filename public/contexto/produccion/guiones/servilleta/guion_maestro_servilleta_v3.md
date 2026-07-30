@@ -1,5 +1,20 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.2
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.3
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.3 (30 jul 2026 — reescritura completa del Slide 1 con Gemini, ritmo fluido)
+- **Reescritura de fondo, no solo edición de fragmentos.** El Slide 1 se sentía "parchado" por ediciones sucesivas (v6.0→6.2) que insertaban hallazgos sin reconstruir el arco completo — en particular, se nombraba "empresa digital" como solución antes de definir qué era. Esta versión se trabajó **en triangulación con Gemini** (tres rondas de borrador) y Claude, calibrando cada frase con el Director.
+- **Villano con ejemplos concretos:** *"un despido, un semestre malo de ventas, y todo queda en el aire"* — narra la inestabilidad por variables fuera de control (la forma más afilada del villano dependencia) en vez de la abstracción anterior.
+- **Explicación nueva "facturar ≠ ganar":** el negocio tradicional resta costos (local, empleados, permisos, inventario) antes de la ganancia; la empresa digital invierte esa matemática — apoyada en infraestructura de terceros, sin cargar esos costos. Da una razón financiera concreta de POR QUÉ cambia todo, no solo QUE cambia.
+- **"Red de clientes" introducida deliberadamente** (decisión del Director): la palabra "red" no es el problema — lo es la colocación. "Red de clientes" es lenguaje comercial normal (como "red de distribución"), distinto de "su red" a secas o "red de personas", que sí lee a downline.
+- **El momento "otra liga" queda implícito, no declarado** (decisión del Director, contra mi recomendación inicial): el setup Motorola→GPS ya contiene el salto de categoría; nombrarlo explícito ("fue otra liga") se sintió menos fuerte que dejar que el oyente lo complete solo — coherente con la doctrina de autopersuasión del proyecto.
+- **GPS ataca las "reglas tradicionales", no "el negocio tradicional"** (corrección del Director sobre el borrador de Gemini): el villano siempre es el paradigma abstracto, nunca la elección legítima de alguien (un negocio propio es motivo de orgullo, no de burla).
+- **Cierre en clave Musk/Huang** (a petición explícita del Director: *"cómo lo diría Elon Musk o Jensen Huang"*): se abandonó la construcción de venta *"no le estamos ofreciendo X; le estamos dando Y"* (probada en varias rondas — siempre sonaba a copy comercial y era la única voz corporativa del guion) en favor de una declaración directa, sin negar nada. El "estamos" que sobrevive (*"Estamos viviendo el momento…"*) es el **inclusivo** de Huang (todos, ante un fenómeno histórico), no el transaccional de venta — la distinción que resolvió la tensión.
+- **"Patrimonio real" con ancla concreta** (insight del Director): "patrimonio" solo, como sustantivo abstracto, no resuena — para el latino promedio patrimonio ES concreto (la moto, el carro, la hipoteca, "algo a su nombre"). El error de versiones anteriores era usar la palabra sin ese ancla; aquí cierra sobre "lo que antes tomaba una vida entera construir", dándole cuerpo.
+- **"Distribución inteligente" se conserva** (el Director la defendió expresamente): no es jerga vacía — es la elevación de estatus de lo que la empresa literalmente hace (distribuir producto), el mismo mecanismo que ya usa "empresa digital" o "Cliente Preferencial".
+- **Eliminado "operador desgastado"** (el Director lo sintió casi ofensivo): etiquetar a la persona como "desgastada" viola la regla de no denigrar nunca al héroe, solo al sistema abstracto — aunque el wordplay operador→director era elegante, el costo emocional no valía la pena.
+- **Vetados en esta ronda:** "vehículo" (ya prohibido, reapareció en dos borradores de Gemini — es lenguaje clásico de esquema piramidal, "vehículo hacia la libertad financiera"), "fuente de ingresos" / "forma de ganar" / "forma de emprender" como antítesis de cierre (hallazgo del Director: sin estar vetadas individualmente, estas frases están **trilladas por el uso constante de la industria MLM** — el cliché delata aunque ninguna palabra esté prohibida), "opera" aplicado al negocio (se usa "funciona" — "operativo" como adjetivo sigue permitido).
+- **⏳ Pendiente, ligado al Slide 2:** el párrafo del asombro tiene dos versiones sin resolver — una que solo dice que el celular conecta por WhatsApp (deja la revelación de Queswa intacta para el Slide 2), y otra que ya nombra "nuestra inteligencia artificial" y adelanta su promesa ("conversar, atender y madurar"). Se avanzó con la primera; se revisará junto con la reescritura del Slide 2.
+- B-roll `Puente3D`: sin cambios respecto a v6.1/6.2 (el puente se contrae dentro de un celular con WhatsApp abierto).
 
 ### Cambios de v6.2 (29 jul 2026 — poda: el guion termina en la cima)
 - **🔴 VS "suma vs. multiplica" ELIMINADO del Slide 1** (decisión del Director). Razón de ritmo: el **momento "otra liga" ya es el remate**; el VS venía a *explicar* algo que la persona acababa de *sentir* — bajar de la cima a explicar mata el impacto y sumaba ~35s. Los conceptos nucleares ya son claros y potentes; no necesitan matizarse más. *(El VS sigue vivo en los reels y la Home — piezas con otro contexto.)*
@@ -128,21 +143,27 @@
 
 Empecemos por el verdadero problema.
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar esos años y su salud**, no para darle seguridad financiera.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y repetir**. Quiero ser claro: esto no sucede por falta de capacidad o esfuerzo de su parte. Es sencillamente la **consecuencia matemática** de un sistema diseñado para **tomar esos años y su salud**, no para darle seguridad financiera.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-Usted **ya tiene una forma de ganar** — la que sostiene su estilo de vida hoy. **El siguiente nivel es tener una fuente de ingresos que se lo asegure.** Y eso se obtiene siendo dueño de una **empresa digital** que trabaja, desde hoy, **en paralelo a lo que ya hace — sin renunciar a nada**.
+Ahora. Usted ya tiene una fuente de ingresos con la que sostiene su estilo de vida hoy. Pero en el fondo, sabe que la sostiene sobre variables que usted no controla: un despido, un semestre malo de ventas, y todo queda en el aire. Su prioridad ahora debe ser **blindar** ese estilo de vida. Y la única forma **matemáticamente** posible de lograrlo es construyendo un ingreso que no dependa de su presencia física.
 
-Pero ¿qué es, en palabras simples, una empresa digital? Es un negocio que reemplaza el local por **infraestructura en internet**, y los empleados por **procesos automatizados que producen aunque usted duerma**.
+Eso es, exactamente, lo que le permite una **empresa digital**.
 
-Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones de personas con los fabricantes, y ganan por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
+¿Qué es, en palabras simples, y por qué lo cambia todo? Piense en un negocio tradicional. Ahí, facturar no es lo mismo que ganar. Usted puede vender mucho, pero primero debe pagar el local, los empleados, los permisos y el inventario. Su ganancia es solo lo que sobrevive al final.
+
+Una empresa digital invierte esa matemática. Al estar montada sobre infraestructura de terceros y en internet, usted no carga con los costos fijos de operación. Cada compra que fluye por su **red de clientes** se traduce en un porcentaje directo para usted, porque la fábrica, la logística y el envío los asume la corporación, no su bolsillo. Y lo más importante: funciona sin depender de su presencia física.
+
+Es el mismo modelo de **Amazon** o **MercadoLibre**. Ellos no fabrican lo que venden; son simplemente el **puente** que conecta a millones de personas con los fabricantes. Y por ser dueños de ese puente, ganan utilidad pura por cada transacción, sin tener que cargar una sola caja.
 
 **[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
 
-Y aquí está lo que de verdad cambia el juego. Una empresa así —con su fábrica, su logística, su atención a cada persona— **cabe en el celular que tiene en el bolsillo**. Y a las personas las atiende por **WhatsApp**, la misma aplicación donde le escribe a su familia. **Ahí donde ya viven todas las personas.** Sin oficina, sin local, sin descargar nada.
+Y aquí es donde la tecnología reescribe las reglas del juego. Una infraestructura corporativa de este nivel —con fábricas, inventarios millonarios y logística internacional— hoy no ocupa un edificio. Todo ese músculo operativo cabe exactamente aquí: en su celular. Y ese mismo celular se conecta con las personas directamente por **WhatsApp**, la misma aplicación donde ya viven y se comunican todos los días.
 
-**[ TONO RESOLUTIVO ]** Los primeros celulares solo servían para llamar. Cuando llegó el iPhone, no fue un teléfono mejor: fue **otra liga**. Esto es igual. No es un negocio mejor — es **otra forma de ganar**.
+**[ TONO RESOLUTIVO · LA NUEVA ERA ]**
+
+Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le da el poder de **dirigir** una empresa que funciona sola. Intentar asegurar su futuro con las reglas tradicionales es seguir usando un mapa de papel en la era del GPS. Estamos viviendo el momento en que la inteligencia artificial y la distribución inteligente convierten en **patrimonio real** lo que antes tomaba una vida entera construir.
 
 ---
 

@@ -3,7 +3,7 @@ GUIÓN MAESTRO SERVILLETA v5.9 · TELEPROMPTER
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 29 julio 2026 — **v6.2 (poda — el guion termina en la cima):** **VS "suma vs. multiplica" y el multiplicador aspiracional ELIMINADOS** del Slide 1 (el momento "otra liga" ya es el remate; explicar después de la cima mata el impacto) · el momento WhatsApp se precisa: **"cabe en el celular que tiene en el bolsillo"** + *a las personas las atiende por WhatsApp* (antes "usted la dirige desde WhatsApp" contradecía al Slide 2) · Slide 2 ya no repite "ahí donde las personas ya están / sin descargar nada" (Slide 1 = asombro · Slide 2 = mecánica) · apertura Slide 2: "¿cómo se construye **una empresa** así?" · **OPCIÓN 2: boletín → COMENZAR POR LOS PRODUCTOS** (Cliente Preferencial, 25% menos). Previo — **v6.1 (Slide 1 reescrito — el momento "otra liga"):** villano con callback concreto ("tomar **esos años y su salud**", no "lo que usted entrega") · el párrafo de la inversión se reemplaza por **EL UPGRADE** ("ya tiene una forma de ganar… el siguiente nivel es una fuente que se lo asegure" — valida antes de proponer) · **`sonrisaslindas.app` eliminado** (sembraba el modelo equivocado: invitaba a inventar una app cuando la suya ya existe; el beat aspiracional se reubicó sobre Amazon/ML) · **MOMENTO "OTRA LIGA"**: la desproporción de dirigir esa empresa **desde WhatsApp**, "ahí donde ya viven todas las personas", con el remate Motorola→iPhone ("no fue un teléfono mejor: fue otra liga"). Previo — **v6.0 (oferta de valor nueva):** Slide 1 suma el ancla del UPGRADE ("trabaja en paralelo a lo que ya hace — sin renunciar a nada": el miedo real es la transformación, no el negocio) · Slide 2 LO SEGUNDO dice **WhatsApp** ("ahí donde las personas ya están, sin descargar nada") y que Queswa **muestra con cifras reales cómo se vería su propia empresa digital** (la DEMO) · cierre del Slide 2 suma **"se puede empezar con poco"** (baja la fricción de entrada; el upgrade de paquete lo pide el usuario) · Slide 4 invierte el orden: **RENTA VITALICIA primero**, INGRESO INMEDIATO segundo y dicho por **paquete empresarial activado**. Sin periodicidad en pantalla (mensual/semanal lo dice el orador; el requisito de 50PV ≈ un producto por semana es munición suya, no texto del deck). Previo — v5.9 (auditoría narrativa + sync con Solución v3 de los reels, 5 jul): intro sin doble "mejores años y salud" (2ª mención → "tomar lo que usted entrega"; la frase canónica completa queda una vez aquí + callback en Opción 1) · definición de empresa digital por REEMPLAZO (local→infraestructura en internet, empleados→procesos automatizados) · puente completo "conecta a millones de personas con los fabricantes" + "ganan" (concordancia) — siembra la viga que LO PRIMERO recoge · "imagine su propia empresa digital" · multiplicador "en toda la ciudad… en todo el país" · VS con sujeto claro "lo que usted hace una vez llega a todo un continente" · triplete Queswa completo "explica, atiende y madura" · Slide 3 una sola metáfora (hábito) · cierre con sujeto claro "Una empresa digital que le genera ingresos… ya existe". Calibración del Director (2ª pasada, 6 jul): ejemplo alineado a reels ("por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie") · "Usted no la arma — la enciende" (canon reels/Home adoptado también aquí) · "—las 24 horas—" (sin coletilla) · "Y cada vez que el consumo…" · cierre Slide 2 sin "que el sueldo nunca le dio" (no atacamos el empleo ni el emprendimiento) · Renta Vitalicia "semana tras semana" (Gano Excel paga semanal, no mensual) · VS Slide 1 espejo final "Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo" (sync con reels). Previo v5.8 (3 jul): tríada sin pronombre ambiguo. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien fabrica (Gano Excel, su socio logístico y financiero), una plataforma atiende a las personas (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 30 julio 2026 — **v6.3 (reescritura completa del Slide 1 con Gemini, ritmo fluido):** villano con ejemplos concretos ("un despido, un semestre malo de ventas") · explicación nueva "facturar ≠ ganar" (por qué la empresa digital invierte la matemática de costos) · "red de clientes" introducida deliberadamente (la colocación decide, no la palabra) · el "otra liga" queda implícito, no declarado (decisión del Director) · GPS ataca "las reglas tradicionales", no "el negocio tradicional" (nunca denigrar la elección legítima de alguien) · cierre en clave Musk/Huang: se abandona la venta "no le estamos ofreciendo X; le estamos dando Y" por una declaración directa — el "estamos" que sobrevive es el inclusivo de Huang ("estamos viviendo el momento…"), no el transaccional · "patrimonio real" con ancla concreta (para el latino, patrimonio ES la moto, el carro, la hipoteca) · "distribución inteligente" se conserva (eleva estatus de lo que la empresa literalmente hace) · eliminado "operador desgastado" (denigraba a la persona, no al sistema) · vetados: "vehículo" (reapareció dos veces, ya prohibido), "fuente de ingresos"/"forma de ganar"/"forma de emprender" como antítesis de cierre (trilladas por el uso de la industria MLM, sin estar vetadas individualmente), "opera" aplicado al negocio. ⏳ Pendiente ligado al Slide 2: el párrafo del asombro tiene una versión que nombra "nuestra inteligencia artificial" (adelanta la promesa de Queswa) sin resolver contra la versión que solo menciona WhatsApp. Previo — **v6.2 (poda — el guion termina en la cima):** **VS "suma vs. multiplica" y el multiplicador aspiracional ELIMINADOS** del Slide 1 (el momento "otra liga" ya es el remate; explicar después de la cima mata el impacto) · el momento WhatsApp se precisa: **"cabe en el celular que tiene en el bolsillo"** + *a las personas las atiende por WhatsApp* (antes "usted la dirige desde WhatsApp" contradecía al Slide 2) · Slide 2 ya no repite "ahí donde las personas ya están / sin descargar nada" (Slide 1 = asombro · Slide 2 = mecánica) · apertura Slide 2: "¿cómo se construye **una empresa** así?" · **OPCIÓN 2: boletín → COMENZAR POR LOS PRODUCTOS** (Cliente Preferencial, 25% menos). Previo — **v6.1 (Slide 1 reescrito — el momento "otra liga"):** villano con callback concreto ("tomar **esos años y su salud**", no "lo que usted entrega") · el párrafo de la inversión se reemplaza por **EL UPGRADE** ("ya tiene una forma de ganar… el siguiente nivel es una fuente que se lo asegure" — valida antes de proponer) · **`sonrisaslindas.app` eliminado** (sembraba el modelo equivocado: invitaba a inventar una app cuando la suya ya existe; el beat aspiracional se reubicó sobre Amazon/ML) · **MOMENTO "OTRA LIGA"**: la desproporción de dirigir esa empresa **desde WhatsApp**, "ahí donde ya viven todas las personas", con el remate Motorola→iPhone ("no fue un teléfono mejor: fue otra liga"). Previo — **v6.0 (oferta de valor nueva):** Slide 1 suma el ancla del UPGRADE ("trabaja en paralelo a lo que ya hace — sin renunciar a nada": el miedo real es la transformación, no el negocio) · Slide 2 LO SEGUNDO dice **WhatsApp** ("ahí donde las personas ya están, sin descargar nada") y que Queswa **muestra con cifras reales cómo se vería su propia empresa digital** (la DEMO) · cierre del Slide 2 suma **"se puede empezar con poco"** (baja la fricción de entrada; el upgrade de paquete lo pide el usuario) · Slide 4 invierte el orden: **RENTA VITALICIA primero**, INGRESO INMEDIATO segundo y dicho por **paquete empresarial activado**. Sin periodicidad en pantalla (mensual/semanal lo dice el orador; el requisito de 50PV ≈ un producto por semana es munición suya, no texto del deck). Previo — v5.9 (auditoría narrativa + sync con Solución v3 de los reels, 5 jul): intro sin doble "mejores años y salud" (2ª mención → "tomar lo que usted entrega"; la frase canónica completa queda una vez aquí + callback en Opción 1) · definición de empresa digital por REEMPLAZO (local→infraestructura en internet, empleados→procesos automatizados) · puente completo "conecta a millones de personas con los fabricantes" + "ganan" (concordancia) — siembra la viga que LO PRIMERO recoge · "imagine su propia empresa digital" · multiplicador "en toda la ciudad… en todo el país" · VS con sujeto claro "lo que usted hace una vez llega a todo un continente" · triplete Queswa completo "explica, atiende y madura" · Slide 3 una sola metáfora (hábito) · cierre con sujeto claro "Una empresa digital que le genera ingresos… ya existe". Calibración del Director (2ª pasada, 6 jul): ejemplo alineado a reels ("por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie") · "Usted no la arma — la enciende" (canon reels/Home adoptado también aquí) · "—las 24 horas—" (sin coletilla) · "Y cada vez que el consumo…" · cierre Slide 2 sin "que el sueldo nunca le dio" (no atacamos el empleo ni el emprendimiento) · Renta Vitalicia "semana tras semana" (Gano Excel paga semanal, no mensual) · VS Slide 1 espejo final "Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo" (sync con reels). Previo v5.8 (3 jul): tríada sin pronombre ambiguo. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien fabrica (Gano Excel, su socio logístico y financiero), una plataforma atiende a las personas (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -21,11 +21,15 @@ Entrega sus mejores años y su salud.
 
 Y aun así, vive en el mismo ciclo mes a mes:
 
-trabajar, pagar cuentas y volver a empezar.
+trabajar, pagar cuentas y repetir.
 
-Esto no sucede por falta de capacidad ni de esfuerzo de su parte.
+Quiero ser claro:
 
-Es la consecuencia matemática de un sistema diseñado para tomar esos años y su salud,
+esto no sucede por falta de capacidad o esfuerzo de su parte.
+
+Es sencillamente la consecuencia matemática
+
+de un sistema diseñado para tomar esos años y su salud,
 
 no para darle seguridad financiera.
 
@@ -35,79 +39,111 @@ no para darle seguridad financiera.
 
 
 
-Usted ya tiene una forma de ganar —
+Ahora.
 
-la que sostiene su estilo de vida hoy.
+Usted ya tiene una fuente de ingresos
 
-El siguiente nivel
+con la que sostiene su estilo de vida hoy.
 
-es tener una fuente de ingresos que se lo asegure.
+Pero en el fondo, sabe que la sostiene
 
-Y eso se obtiene siendo dueño de una empresa digital
+sobre variables que usted no controla:
 
-que trabaja, desde hoy,
+un despido, un semestre malo de ventas,
 
-en paralelo a lo que ya hace
+y todo queda en el aire.
 
-— sin renunciar a nada.
+Su prioridad ahora debe ser blindar ese estilo de vida.
 
+Y la única forma matemáticamente posible de lograrlo
 
+es construyendo un ingreso que no dependa de su presencia física.
 
-Pero ¿qué es, en palabras simples, una empresa digital?
-
-Es un negocio que reemplaza el local por infraestructura en internet,
-
-y los empleados por procesos automatizados
-
-que producen aunque usted duerma.
+Eso es, exactamente, lo que le permite una empresa digital.
 
 
 
-Piense en Amazon o MercadoLibre:
+¿Qué es, en palabras simples, y por qué lo cambia todo?
 
-no fabrican lo que venden;
+Piense en un negocio tradicional.
 
-son el puente que conecta a millones de personas con los fabricantes,
+Ahí, facturar no es lo mismo que ganar.
 
-y ganan por cada transacción, sin cargar una sola caja.
+Usted puede vender mucho,
 
-Eso es una empresa digital.
+pero primero debe pagar el local, los empleados, los permisos y el inventario.
+
+Su ganancia es solo lo que sobrevive al final.
+
+Una empresa digital invierte esa matemática.
+
+Al estar montada sobre infraestructura de terceros y en internet,
+
+usted no carga con los costos fijos de operación.
+
+Cada compra que fluye por su red de clientes
+
+se traduce en un porcentaje directo para usted,
+
+porque la fábrica, la logística y el envío los asume la corporación,
+
+no su bolsillo.
+
+Y lo más importante: funciona sin depender de su presencia física.
+
+
+
+Es el mismo modelo de Amazon o MercadoLibre.
+
+Ellos no fabrican lo que venden;
+
+son simplemente el puente que conecta a millones de personas con los fabricantes.
+
+Y por ser dueños de ese puente,
+
+ganan utilidad pura por cada transacción,
+
+sin tener que cargar una sola caja.
 
 
 
 [ PAUSA · 2 SEGUNDOS · TONO DE ASOMBRO CONTENIDO ]
 
-Y aquí está lo que de verdad cambia el juego.
+Y aquí es donde la tecnología reescribe las reglas del juego.
 
-Una empresa así
+Una infraestructura corporativa de este nivel
 
-—con su fábrica, su logística, su atención a cada persona—
+—con fábricas, inventarios millonarios y logística internacional—
 
-cabe en el celular que tiene en el bolsillo.
+hoy no ocupa un edificio.
 
-Y a las personas las atiende por WhatsApp,
+Todo ese músculo operativo cabe exactamente aquí: en su celular.
 
-la misma aplicación donde le escribe a su familia.
+Y ese mismo celular se conecta con las personas directamente por WhatsApp,
 
-Ahí donde ya viven todas las personas.
-
-Sin oficina, sin local, sin descargar nada.
+la misma aplicación donde ya viven y se comunican todos los días.
 
 
 
-[ TONO RESOLUTIVO ]
+[ TONO RESOLUTIVO · LA NUEVA ERA ]
 
 Los primeros celulares solo servían para llamar.
 
-Cuando llegó el iPhone,
+Hoy, ese mismo dispositivo
 
-no fue un teléfono mejor: fue otra liga.
+le da el poder de dirigir una empresa que funciona sola.
 
-Esto es igual.
+Intentar asegurar su futuro con las reglas tradicionales
 
-No es un negocio mejor —
+es seguir usando un mapa de papel en la era del GPS.
 
-es otra forma de ganar.
+Estamos viviendo el momento
+
+en que la inteligencia artificial y la distribución inteligente
+
+convierten en patrimonio real
+
+lo que antes tomaba una vida entera construir.
 
 
 

@@ -1,5 +1,15 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.3
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.4
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.4 (30 jul 2026 — pendiente del Slide 1 resuelto + ajustes quirúrgicos al Slide 2)
+- **Pendiente de v6.3 resuelto (decisión del Director):** el párrafo del asombro nombra **"nuestra inteligencia artificial"** y adelanta su función ("conversar, atender y madurar… por WhatsApp, eliminando cualquier fricción"). El Slide 2 sigue revelando a Queswa por nombre — el patrón queda como tráiler-luego-nombre (Slide 1 = misterio, Slide 2 = identidad + la presentación en vivo del Arquitecto), no como redundancia.
+- **Slide 2, entrada simplificada** (decisión del Director: *"lo que sienta como más sencillo, con menos texto y fácil de comprender es genial"*): se retira la estructura "usted tiene dos caminos / con sus propias manos, desde cero / o el apalancamiento" en favor de una entrada directa — *"construir una infraestructura así tomaría décadas y millones de dólares. Pero aquí, lo difícil ya está hecho."* Menos texto, mismo principio de primeros principios (Musk) que ya traía el slide desde v5.7.
+- **LO PRIMERO:** frases más cortas para mejor lectura en voz alta + "Y escuche bien esto:" como énfasis antes de la bisagra de Gano + "músculo corporativo" (eco deliberado con "infraestructura corporativa" del Slide 1).
+- **LO SEGUNDO:** "la app" → **"el centro de mando"** (nombre canónico ya establecido para Queswa/Pilar 2, no una invención nueva) + verbos con objeto explícito ("explica el modelo, atiende las dudas") + "muestra" → **"proyecta"** (nombra exactamente el mecanismo de la demo de WhatsApp). Se retira "ve en tiempo real quién se interesa" por brevedad (norma del Director: menos texto cuando hay duda).
+- **LO TERCERO:** se adopta el marco *"su intervención humana se reduce a tres movimientos"* (refuerza "usted dirige, la tecnología trabaja"), pero se conserva la prosa conectada con punto y coma — la versión con los movimientos como lista de frases cortadas por punto se acercaba a "viñetas-folleto", uno de los 5 culpables ya documentados que rompen el ritmo Puig. Se restauran "con el acompañamiento de la Academia desde el primer día" y "su organización crece en todo el continente" (el remate del movimiento Multiplicar, más completo que la versión comprimida).
+- **"Opera/operar" corregido en dos lugares** (mismo vicio que en el Slide 1): "para que su empresa opere" → "funcione"; "empresa lista para operar" → "lista para funcionar".
+- **"Una parte" → "porcentaje"** en el cierre — encaja con el lenguaje ya fijado en el Slide 1 ("se traduce en un porcentaje directo").
+- Slide 2 fue evaluado contra el resto de la doctrina de hoy (MLM-cliché, "estamos" corporativo, "vehículo", denigrar alternativas) y ya estaba limpio en esos frentes — los ajustes de esta ronda son puntuales, no una reescritura de fondo como la del Slide 1.
 
 ### Cambios de v6.3 (30 jul 2026 — reescritura completa del Slide 1 con Gemini, ritmo fluido)
 - **Reescritura de fondo, no solo edición de fragmentos.** El Slide 1 se sentía "parchado" por ediciones sucesivas (v6.0→6.2) que insertaban hallazgos sin reconstruir el arco completo — en particular, se nombraba "empresa digital" como solución antes de definir qué era. Esta versión se trabajó **en triangulación con Gemini** (tres rondas de borrador) y Claude, calibrando cada frase con el Director.
@@ -159,7 +169,7 @@ Es el mismo modelo de **Amazon** o **MercadoLibre**. Ellos no fabrican lo que ve
 
 **[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
 
-Y aquí es donde la tecnología reescribe las reglas del juego. Una infraestructura corporativa de este nivel —con fábricas, inventarios millonarios y logística internacional— hoy no ocupa un edificio. Todo ese músculo operativo cabe exactamente aquí: en su celular. Y ese mismo celular se conecta con las personas directamente por **WhatsApp**, la misma aplicación donde ya viven y se comunican todos los días.
+Y aquí es donde la tecnología reescribe las reglas del juego. Una infraestructura corporativa de este nivel —con fábricas, inventarios millonarios y logística internacional— hoy no ocupa un edificio. Todo ese músculo operativo cabe exactamente aquí: en su celular. Y desde este dispositivo, es **nuestra inteligencia artificial** la que se encarga de conversar, atender y madurar las decisiones de las personas directamente por **WhatsApp** — justo en la plataforma que la gente ya usa todos los días, eliminando cualquier fricción.
 
 **[ TONO RESOLUTIVO · LA NUEVA ERA ]**
 
@@ -170,28 +180,26 @@ Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le 
 # SLIDE 2 · LO DIFÍCIL YA ESTÁ HECHO
 *Subtítulo en pantalla: "Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas."*
 
-Ahora, ¿cómo se construye una empresa así? Usted tiene dos caminos.
+Ahora, ¿cómo funciona exactamente la arquitectura de esta empresa? Construir una infraestructura así tomaría décadas y millones de dólares. Pero aquí, lo difícil ya está hecho.
 
-**Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
-
-**O el apalancamiento.** Y aquí está la regla sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la enciende.
+Reduciendo este modelo a su lógica más simple, para que su empresa **funcione** desde el celular, solo **tres cosas tienen que ser ciertas: alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.** **[ PAUSA ]** En su empresa, **las tres ya están resueltas.** Usted no la arma; usted la enciende.
 
 **LO PRIMERO · alguien fabrica** · *su socio logístico y financiero: Gano Excel.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
-Lo primero: alguien tiene que **fabricar**. Ahí está su **socio logístico y financiero, Gano Excel** — el fabricante detrás de su puente. ¿Recuerda que Amazon no fabrica lo que vende? Aquí igual. Gano es el **músculo que le quita de encima todo el peso y todo el riesgo**: más de **30 años**, presencia en **70 países**, fabrica, **asume el costo millonario del inventario**, responde por lo legal y despacha en cada país. Músculo real, **de su lado**. **[ PAUSA ]** Usted **no entra** a Gano Excel. **Gano Excel trabaja para usted.**
+Lo primero: alguien tiene que **fabricar**. Aquí entra su **socio logístico y financiero, Gano Excel** — el fabricante detrás de su puente. ¿Recuerda que Amazon no fabrica lo que vende? Aquí igual. Gano es el **músculo corporativo que le quita de encima todo el peso y el riesgo**. Una corporación con más de **30 años** y presencia en **70 países**. Ellos fabrican, **asumen el costo millonario del inventario**, responden por lo legal y despachan en cada país. Músculo real, **de su lado**. **[ PAUSA ]** Y escuche bien esto: usted **no entra** a Gano Excel. **Gano Excel trabaja para usted.**
 
 **LO SEGUNDO · una plataforma atiende a las personas** · *su socio digital: Queswa.*
 *B-roll: la orbe Queswa en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa **por WhatsApp**: **explica, atiende y madura en cada interesado la decisión de avanzar** —las 24 horas—, y les muestra, con las cifras reales del plan, **cómo se vería su propia empresa digital**. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
+Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa**: el **centro de mando** desde el cual usted **dirige todo**, en su celular. Usted comparte la información con un clic, y del resto se encarga Queswa directamente **por WhatsApp**: **explica el modelo, atiende las dudas y madura en cada interesado la decisión de avanzar**, las 24 horas del día — incluso les **proyecta**, con las cifras reales del plan, **cómo se vería su propia empresa digital**. Es su oficina trabajando a su favor: usted no vende, no insiste, no atiende a medianoche.
 
 *(En vivo, el Arquitecto se presenta aquí: "ese socio digital soy yo".)*
 
 **LO TERCERO · usted sabe qué hacer** · *el método comprobado · sus 3 movimientos.*
 *B-roll: los 3 movimientos del Propietario — comparte (un clic) → recibe al que decidió (apretón de manos) → multiplica (réplicas 1→2→4).*
-Y lo tercero: usted tiene que **saber qué hacer**. Para eso está el **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma empresa lista —con el acompañamiento de la Academia desde el primer día—, y su organización crece en todo el continente. ¿Su rol en todo esto? **El de dueño: dirigir.**
+Y lo tercero: usted tiene que **saber qué hacer**. Para eso está el **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital. Su intervención humana se reduce a **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya tomó una decisión, aportando la calidez que la tecnología no puede dar; **Multiplicar**, cada persona que inicia recibe esta misma empresa lista para **funcionar**, con el acompañamiento de la Academia desde el primer día, y su organización crece en todo el continente. ¿Su rol en todo esto? **El de dueño: dirigir.**
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Las tres, ya resueltas. Una sola app. Usted dirige; la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da la seguridad financiera.
+Las tres, ya resueltas. Una sola app. Usted dirige; la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe un **porcentaje**, una y otra vez. Una empresa que crece sin techo y le da la seguridad financiera que busca.
 
 **[ TONO CERCANO · BAJAR LA GUARDIA ]** Y algo que quiero que le quede claro desde ya: **se puede empezar con poco**. No hace falta arrancar en grande para que esto funcione — la estructura es la misma, y crece a la medida de lo que usted decida.
 

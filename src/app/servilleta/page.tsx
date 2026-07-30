@@ -2172,7 +2172,7 @@ export default function ServilletaPage() {
                 <h3 style={{ textAlign: 'center' }}>SIMULADOR DE INGRESOS RECURRENTES</h3>
                 {/* El candado: las ganancias nacen solo de producto (dos tipos de compra) */}
                 <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--steel)', margin: '6px 0 14px' }}>
-                  Las ganancias nacen &uacute;nicamente de compras de producto — de dos tipos: el consumo mensual y los paquetes empresariales.
+                  Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales.
                 </p>
 
                 {/* Tabs del Simulador */}
@@ -2216,7 +2216,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PERSONAS EN SU ORGANIZACI&Oacute;N:
+                      PAQUETES ACTIVADOS EN SU EMPRESA DIGITAL:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -2227,7 +2227,7 @@ export default function ServilletaPage() {
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                       className="sim-slider"
                     />
-                    <p className="insight-text">Ingreso inmediato cuando alguien de su organizaci&oacute;n activa con un paquete empresarial — una compra de producto, no una inscripci&oacute;n.</p>
+                    <p className="insight-text">Ingreso inmediato por cada paquete empresarial que se activa en su empresa digital, liquidado cada viernes.</p>
                   </div>
                 )}
 
@@ -2242,7 +2242,7 @@ export default function ServilletaPage() {
                       <button className="pkg-btn" tabIndex={-1}>·</button>
                     </div>
                     <label>
-                      HOGARES EN SU ORGANIZACI&Oacute;N:
+                      VOLUMEN DE COMPRAS EN SU EMPRESA DIGITAL:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input

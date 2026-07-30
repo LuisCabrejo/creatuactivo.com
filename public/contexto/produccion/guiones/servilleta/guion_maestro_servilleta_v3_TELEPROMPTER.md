@@ -1,9 +1,9 @@
-GUIÓN MAESTRO SERVILLETA v5.7 · TELEPROMPTER
+GUIÓN MAESTRO SERVILLETA v5.9 · TELEPROMPTER
 
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · "Usted" universal · sin exclamaciones
 Duración estimada: 6 – 7 minutos
 Cadencia controlada · pausas naturales en los puntos · mirada directa
-Actualizado: 3 julio 2026 — v5.8 (tríada sin pronombre ambiguo, sync con el guión maestro). Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien fabrica (Gano Excel, su socio logístico y financiero), una plataforma atiende a las personas (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
+Actualizado: 29 julio 2026 — **v6.0 (oferta de valor nueva):** Slide 1 suma el ancla del UPGRADE ("trabaja en paralelo a lo que ya hace — sin renunciar a nada": el miedo real es la transformación, no el negocio) · Slide 2 LO SEGUNDO dice **WhatsApp** ("ahí donde las personas ya están, sin descargar nada") y que Queswa **muestra con cifras reales cómo se vería su propia empresa digital** (la DEMO) · cierre del Slide 2 suma **"se puede empezar con poco"** (baja la fricción de entrada; el upgrade de paquete lo pide el usuario) · Slide 4 invierte el orden: **RENTA VITALICIA primero**, INGRESO INMEDIATO segundo y dicho por **paquete empresarial activado**. Sin periodicidad en pantalla (mensual/semanal lo dice el orador; el requisito de 50PV ≈ un producto por semana es munición suya, no texto del deck). Previo — v5.9 (auditoría narrativa + sync con Solución v3 de los reels, 5 jul): intro sin doble "mejores años y salud" (2ª mención → "tomar lo que usted entrega"; la frase canónica completa queda una vez aquí + callback en Opción 1) · definición de empresa digital por REEMPLAZO (local→infraestructura en internet, empleados→procesos automatizados) · puente completo "conecta a millones de personas con los fabricantes" + "ganan" (concordancia) — siembra la viga que LO PRIMERO recoge · "imagine su propia empresa digital" · multiplicador "en toda la ciudad… en todo el país" · VS con sujeto claro "lo que usted hace una vez llega a todo un continente" · triplete Queswa completo "explica, atiende y madura" · Slide 3 una sola metáfora (hábito) · cierre con sujeto claro "Una empresa digital que le genera ingresos… ya existe". Calibración del Director (2ª pasada, 6 jul): ejemplo alineado a reels ("por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie") · "Usted no la arma — la enciende" (canon reels/Home adoptado también aquí) · "—las 24 horas—" (sin coletilla) · "Y cada vez que el consumo…" · cierre Slide 2 sin "que el sueldo nunca le dio" (no atacamos el empleo ni el emprendimiento) · Renta Vitalicia "semana tras semana" (Gano Excel paga semanal, no mensual) · VS Slide 1 espejo final "Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo" (sync con reels). Previo v5.8 (3 jul): tríada sin pronombre ambiguo. Slide 1 = el problema + qué es una empresa digital (Amazon/MercadoLibre, sonrisaslindas.app). Slide 2 "LO DIFÍCIL YA ESTÁ HECHO" en primeros principios (Musk): para que la empresa exista, tres cosas tienen que ser ciertas — alguien fabrica (Gano Excel, su socio logístico y financiero), una plataforma atiende a las personas (Queswa, su socio digital), y usted sabe qué hacer (el método) → las tres ya están resueltas. Gano se USA, no se entra ("Usted no entra a Gano Excel; Gano Excel trabaja para usted"). Sin "nosotros le entregamos". Promesa Queswa "madura en cada interesado la decisión de avanzar" · villano = el sistema que toma sus años y su salud (no las horas) · cierre "seguridad financiera".
 
 
 
@@ -25,7 +25,7 @@ trabajar, pagar cuentas y volver a empezar.
 
 Esto no sucede por falta de capacidad ni de esfuerzo de su parte.
 
-Es la consecuencia matemática de un sistema diseñado para tomar sus mejores años y su salud,
+Es la consecuencia matemática de un sistema diseñado para tomar lo que usted entrega,
 
 no para darle seguridad financiera.
 
@@ -39,7 +39,11 @@ CreaTuActivo invierte ese ciclo con apalancamiento:
 
 usted pasa a ser propietario de una empresa digital
 
-que sí puede darle esa seguridad financiera —
+que trabaja en paralelo a lo que ya hace
+
+— sin renunciar a nada —
+
+y que sí puede darle esa seguridad financiera:
 
 ingresos una y otra vez, esté usted presente o no.
 
@@ -47,15 +51,11 @@ ingresos una y otra vez, esté usted presente o no.
 
 Pero ¿qué es, en palabras simples, una empresa digital?
 
-Diferenciemos.
+Es un negocio que reemplaza el local por infraestructura en internet,
 
-Una empresa de toda la vida necesita local, arriendo, empleados,
+y los empleados por procesos automatizados
 
-y si usted se aleja un poco, empieza a tambalear.
-
-Una empresa digital, en cambio, vive en internet
-
-y produce aunque usted duerma.
+que producen aunque usted duerma.
 
 
 
@@ -63,15 +63,15 @@ Piense en Amazon o MercadoLibre:
 
 no fabrican lo que venden;
 
-son el puente que conecta a millones
+son el puente que conecta a millones de personas con los fabricantes,
 
-y gana por cada transacción, sin cargar una sola caja.
+y ganan por cada transacción, sin cargar una sola caja.
 
 Eso es una empresa digital.
 
 
 
-Ahora imagine el suyo, en su ciudad.
+Ahora imagine su propia empresa digital, en su ciudad.
 
 Muchas personas quieren una sonrisa más bonita;
 
@@ -81,9 +81,11 @@ y conectar las clínicas con esas personas.
 
 Gana el odontólogo, gana el paciente, y gana usted:
 
-por cada cita, una pequeña comisión.
+por cada cita, una comisión,
 
-Usted no tiene la silla — usted es el puente.
+sin pagar el arriendo del local, sin atender a nadie.
+
+Usted es el puente.
 
 
 
@@ -91,7 +93,7 @@ Usted no tiene la silla — usted es el puente.
 
 Multiplíquelo por todas las citas de un día…
 
-en toda la ciudad.
+en toda la ciudad… en todo el país.
 
 
 
@@ -107,9 +109,11 @@ Si usted no está, se detiene.
 
 Una empresa digital crece multiplicando:
 
-el mismo esfuerzo llega a un continente,
+lo que usted hace una vez llega a todo un continente.
 
-trabajando sola, en paralelo — esté usted ahí o no.
+Y si usted no está, no importa:
+
+ella sigue trabajando y creciendo sin techo.
 
 
 
@@ -151,7 +155,7 @@ alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.
 
 En la suya, las tres ya están resueltas.
 
-Usted no la arma — la dirige.
+Usted no la arma — la enciende.
 
 
 
@@ -199,11 +203,17 @@ Comparte con un clic,
 
 ve en tiempo real quién se interesa,
 
-y del resto se encarga Queswa,
+y del resto se encarga Queswa por WhatsApp
 
-que atiende y madura en cada interesado la decisión de avanzar
+— ahí donde las personas ya están, sin descargar nada —:
 
-—las 24 horas, sin que usted tenga que estar—.
+explica, atiende y madura en cada interesado la decisión de avanzar
+
+—las 24 horas—,
+
+y les muestra, con las cifras reales del plan,
+
+cómo se vería su propia empresa digital.
 
 Es su oficina digital completa, trabajando a su favor:
 
@@ -255,11 +265,24 @@ Una sola app.
 
 Usted dirige; la tecnología hace el trabajo.
 
-Cada vez que el consumo se repite en los hogares de su organización,
+Y cada vez que el consumo se repite en los hogares de su organización,
 
 usted recibe una parte, una y otra vez.
 
-Una empresa que crece sin techo y le da la seguridad financiera que el sueldo nunca le dio.
+Una empresa que crece sin techo y le da la seguridad financiera.
+
+
+[ TONO CERCANO · BAJAR LA GUARDIA ]
+
+Y algo que quiero que le quede claro desde ya:
+
+se puede empezar con poco.
+
+No hace falta arrancar en grande para que esto funcione —
+
+la estructura es la misma,
+
+y crece a la medida de lo que usted decida.
 
 
 
@@ -273,9 +296,7 @@ Toda empresa sólida necesita un producto que las personas compren una y otra ve
 
 Y la suya descansa sobre el más confiable de todos:
 
-un hábito diario.
-
-Su empresa digital se mueve sobre algo que millones de personas ya hacen cada día, sin que nadie se los pida:
+un hábito que millones de personas ya repiten cada día, sin que nadie se los pida:
 
 tomarse un café.
 
@@ -319,23 +340,23 @@ Analicemos dos.
 
 
 
-INGRESO INMEDIATO
-
-Por cada nueva empresa digital que se activa dentro de su organización,
-
-usted recibe una comisión directa, liquidada cada viernes.
-
-Es un ingreso visible desde la primera semana.
-
-
-
 RENTA VITALICIA
 
 Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América —
 
-mes tras mes, incluso mientras usted duerme.
+semana tras semana, incluso mientras usted duerme.
 
 Es el ingreso que ya no depende de su presencia.
+
+
+
+INGRESO INMEDIATO
+
+Y por cada paquete empresarial que se activa dentro de su organización,
+
+usted recibe una comisión directa, liquidada cada viernes.
+
+Es un ingreso visible desde la primera semana.
 
 
 
@@ -385,7 +406,7 @@ y su primera velocidad de ingresos se activa esta misma semana.
 
 
 
-Ser propietario de una empresa digital que genere ingresos una y otra vez ya existe.
+Una empresa digital que le genera ingresos una y otra vez ya existe.
 
 CreaTuActivo.com ya existe.
 

@@ -1,5 +1,32 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v5.8
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.0
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.0 (29 jul 2026 — oferta de valor nueva: upgrade + WhatsApp + empezar con poco)
+- **Slide 1 · el ancla del UPGRADE:** la promesa suma *"trabaja **en paralelo a lo que ya hace — sin renunciar a nada**"*. El miedo real del prospecto no es el negocio: es la **transformación** ("me toca volverme otro"). Validado en las conversaciones reales de WhatsApp (jul 2026). Hallazgo raíz del sprint: la barrera es **fricción, no valor** — la prueba de los 10 (llegaron todos por el valor; se desinflaron al ver la identidad).
+- **Slide 2 · LO SEGUNDO ahora dice WhatsApp:** Queswa atiende *"**por WhatsApp — ahí donde las personas ya están, sin descargar nada**"* y **les muestra, con las cifras reales del plan, cómo se vería su propia empresa digital** (la DEMO de proyección). Es el cambio de oferta más grande del sprint: en vivo pega doble, porque el prospecto que está enfrente **probablemente llegó por ese mismo canal** — se le describe lo que acaba de vivir. Doctrina WhatsApp-first: es donde vive la confianza del latino, captura el número y el hilo persiste.
+- **Slide 2 · cierre "se puede empezar con poco"** (costura nueva, tesis del Director): *"No hace falta arrancar en grande para que esto funcione — la estructura es la misma, y crece a la medida de lo que usted decida."* Baja la fricción de entrada; el upgrade de paquete lo pide el usuario al ver mejores ganancias (patrón freemium/PLG, no empuje del vendedor).
+- **Slide 4 · espejo del deck:** **RENTA VITALICIA primero, INGRESO INMEDIATO segundo** (el recurrente es el valor principal; el inmediato, la segunda pestaña). El inmediato se dice por **paquete empresarial activado** — no por "nueva empresa digital que se activa" (sonaba a ganar-por-entrar). Nota al orador con el candado: *toda ganancia nace de una compra de producto*.
+- **Dos herramientas, dos contextos** (decisión del Director): `/servilleta` conserva su simulador recurrente (binario, tasa del Kit de Inicio = escenario "empezar con poco", **deliberado**); `/12-niveles` es hoja de ruta independiente (2×2) que el Director prueba primero con lista personal. Números y porcentajes distintos, ambos dentro del plan oficial.
+- **Sin periodicidad en pantalla** (mensual/semanal): lo dice el orador. El requisito real (50PV ≈ un producto por semana, "si no lo vendo me lo tomo") es **munición del orador**, no texto del deck. Criterio rector: mínimo texto, conceptos nucleares.
+- **Léxico del simulador:** el deck ya no mide personas — *"PAQUETES ACTIVADOS EN SU EMPRESA DIGITAL"* y *"VOLUMEN DE COMPRAS EN SU EMPRESA DIGITAL"* (fuera "organización": arrastra contexto de personas). Se retiró *"no una inscripción"* (negar planta el elefante rosado).
+
+### Cambios de v5.9 (6 jul 2026 — auditoría narrativa + sync con Solución v3 de reels-nichos, 5 jul)
+- **Intro sin doble "mejores años y su salud":** la 2ª mención (línea del villano) pasa a *"tomar **lo que usted entrega**"* — conserva el espejo entrega/toma sin repetir la frase completa en 8 segundos. La frase canónica queda una vez en la intro + callback en la Opción 1 del cierre.
+- **Definición de empresa digital por REEMPLAZO** (canon reels v3 / reel Home): *"reemplaza el local por infraestructura en internet, y los empleados por procesos automatizados que producen aunque usted duerma"*. Se retira el párrafo "Diferenciemos… de toda la vida" (el contraste ya lo hace, mejor, el remate suma vs. multiplica). ~6s menos de guion.
+- **Puente completo:** *"el puente que conecta a millones de personas **con los fabricantes**"* + concordancia *"**ganan** por cada transacción"* — siembra la viga que LO PRIMERO recoge ("¿Recuerda que Amazon no fabrica lo que vende? Aquí igual"). Se conserva "sin cargar una sola caja" (más vívido hablado que el "de forma automática" de los reels; LO PRIMERO lo recoge con el inventario).
+- **"Ahora imagine su propia empresa digital"** (antes "el suyo" — antecedente femenino inmediato cojeaba). Multiplicador escala: *"en toda la ciudad… en todo el país"*.
+- **VS con sujeto claro** (commit reels 61d03f6): *"**lo que usted hace una vez** llega a todo un continente"* (antes "el mismo esfuerzo").
+- **Triplete Queswa completo** en LO SEGUNDO: *"que **explica**, atiende y madura…"* (estaba truncado — canon: no truncar, ver [[feedback_promesa_canonica_queswa]]).
+- **Slide 3 — una sola metáfora:** se funden "descansa sobre un hábito diario" + "se mueve sobre algo que millones hacen" → *"un hábito que millones de personas ya repiten cada día, sin que nadie se los pida: tomarse un café"*.
+- **Cierre con sujeto claro:** *"**Una empresa digital que le genera ingresos una y otra vez ya existe.** CreaTuActivo.com ya existe."* (antes "Ser propietario… ya existe" — un infinitivo no "existe").
+- **Slide 1 (inversión):** "ingresos recurrentes" → *"ingresos **una y otra vez**"* (preferencia del Director — frase-marca; alineado con el teleprompter y el cierre).
+- **Calibración del Director (2ª pasada, 6 jul):**
+  - Ejemplo alineado a reels v3: *"por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie. Usted es el puente."* (sale "pequeña" y "Usted no tiene la silla"; se conserva el triple "gana el odontólogo, gana el paciente, gana usted").
+  - **"Usted no la arma — la enciende"** — el canon reels/Home se adopta también en la servilleta (decisión del Director; revierte el "NO migrar" propuesto en la auditoría).
+  - LO SEGUNDO: *"—las 24 horas—"* a secas (sale la coletilla "sin que usted tenga que estar" — redundante con "del resto se encarga Queswa").
+  - Cierre Slide 2: *"**Y** cada vez que el consumo se repite…"* (conector) y *"le da la seguridad financiera"* sin *"que el sueldo nunca le dio"* — **no atacamos el empleo ni el emprendimiento** (el ingreso es paralelo, ver [[project_vision_norma_ingreso_paralelo]]).
+  - RENTA VITALICIA: *"**semana tras semana**, incluso mientras usted duerme"* (antes "mes tras mes") — **Gano Excel liquida semanal**, coherente con "liquidada cada viernes" del INGRESO INMEDIATO.
+- **VS Slide 1 — espejo final (3ª pasada, 6 jul, redacción del Director):** *"…llega a todo un continente. **Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo.**"* — responde palabra por palabra al "Si usted no está, se detiene" del lado sumar; "no importa" le resta poder a la ausencia; "ella" = sujeto claro. Reemplaza "trabajando sola, en paralelo — esté usted ahí o no" (sync con el VS final de `REELS_NICHOS_DOCUMENTACION.md`). Nota: "en paralelo" salió del Slide 1; "sin techo" ahora suena aquí y en el cierre del Slide 2 (motivo, ~2.5 min aparte).
 
 ### Cambios de v5.8 (3 jul 2026 — tríada sin pronombre ambiguo, sync con reel home)
 - **Tríada de primeros principios:** "alguien **la** fabrica, algo **la** atiende" → **"alguien fabrica, una plataforma atiende a las personas"**. El pronombre "la" era gramaticalmente ambiguo (nadie "fabrica" una empresa); "una plataforma" es más concreta que "algo" y mapea limpio con Queswa en LO SEGUNDO. "idea simple" → **"regla sencilla"**. Origen: pasada de claridad del reel home (`REELS_SITIO_CREATUACTIVO.md`, 3 jul 2026); propagado a `page.tsx` de servilleta (subtítulo Slide 2 × 2) + home (`src/app/page.tsx` línea "Levantar una empresa digital exige…").
@@ -84,21 +111,21 @@
 
 Empecemos por el verdadero problema.
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar sus mejores años y su salud**, no para darle seguridad financiera.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar lo que usted entrega**, no para darle seguridad financiera.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que **sí puede darle esa seguridad financiera** — **ingresos recurrentes**, esté usted presente o no.
+CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que trabaja **en paralelo a lo que ya hace — sin renunciar a nada** — y que **sí puede darle esa seguridad financiera**: **ingresos una y otra vez**, esté usted presente o no.
 
-Pero ¿qué es, en palabras simples, una empresa digital? Diferenciemos. Una empresa de toda la vida necesita local, arriendo, empleados, y si usted se aleja un poco, **empieza a tambalear**. Una empresa digital, en cambio, vive en internet y **produce aunque usted duerma**.
+Pero ¿qué es, en palabras simples, una empresa digital? Es un negocio que reemplaza el local por **infraestructura en internet**, y los empleados por **procesos automatizados que producen aunque usted duerma**.
 
-Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones y gana por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
+Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones de personas con los fabricantes, y ganan por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
 
-Ahora imagine **el suyo**, en su ciudad. Muchas personas quieren una sonrisa más bonita; usted podría crear **sonrisaslindas.app** y conectar las clínicas con esas personas. Gana el odontólogo, gana el paciente, y gana usted: por cada cita, una pequeña comisión. Usted no tiene la silla — **usted es el puente**.
+Ahora imagine **su propia empresa digital**, en su ciudad. Muchas personas quieren una sonrisa más bonita; usted podría crear **sonrisaslindas.app** y conectar las clínicas con esas personas. Gana el odontólogo, gana el paciente, y gana usted: por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie. **Usted es el puente**.
 
-**[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad.
+**[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad… en todo el país.
 
-**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted. Si usted no está, se detiene. Una empresa digital crece multiplicando: el mismo esfuerzo llega a un continente, trabajando sola, en paralelo — esté usted ahí o no.
+**[ TONO RESOLUTIVO ]** ¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted. Si usted no está, se detiene. Una empresa digital crece multiplicando: lo que usted hace una vez llega a todo un continente. Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo.
 
 ---
 
@@ -109,7 +136,7 @@ Ahora, ¿cómo se construye un puente así? Usted tiene dos caminos.
 
 **Con sus propias manos, desde cero:** el desarrollo tecnológico, los proveedores, la logística, los permisos en cada país, y asumir los riesgos de cualquier proyecto empresarial.
 
-**O el apalancamiento.** Y aquí está la regla sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la dirige.
+**O el apalancamiento.** Y aquí está la regla sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas — alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer.** **[ PAUSA ]** En la suya, **las tres ya están resueltas.** Usted no la arma — la enciende.
 
 **LO PRIMERO · alguien fabrica** · *su socio logístico y financiero: Gano Excel.*
 *B-roll: `Matriz3D` (globo punteado, América al frente, 70 países).*
@@ -117,7 +144,7 @@ Lo primero: alguien tiene que **fabricar**. Ahí está su **socio logístico y f
 
 **LO SEGUNDO · una plataforma atiende a las personas** · *su socio digital: Queswa.*
 *B-roll: la orbe Queswa en el celular con las interacciones de su público fluyendo alrededor (su oficina digital, todo en una app).*
-Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa, que **atiende y madura en cada interesado la decisión de avanzar** —las 24 horas, sin que usted tenga que estar—. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
+Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su **socio digital, Queswa** — la app desde la que usted **dirige todo**, en su celular. Comparte con un clic, ve en tiempo real quién se interesa, y del resto se encarga Queswa **por WhatsApp — ahí donde las personas ya están, sin descargar nada**: **explica, atiende y madura en cada interesado la decisión de avanzar** —las 24 horas—, y les muestra, con las cifras reales del plan, **cómo se vería su propia empresa digital**. Es su **oficina digital completa, trabajando a su favor**: usted no vende, no insiste, no atiende a medianoche.
 
 *(En vivo, el Arquitecto se presenta aquí: "ese socio digital soy yo".)*
 
@@ -126,15 +153,17 @@ Lo segundo: una plataforma tiene que **atender a las personas**. Eso lo hace su 
 Y lo tercero: usted tiene que **saber qué hacer**. Para eso está el **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital — y lo suyo son solo **tres movimientos**: **Expandir**, usted comparte; **Activar**, usted recibe de persona a persona al que ya decidió —la calidez que solo un humano da—; **Multiplicar**, cada persona que inicia con usted recibe la misma empresa lista —con el acompañamiento de la Academia desde el primer día—, y su organización crece en todo el continente. ¿Su rol en todo esto? **El de dueño: dirigir.**
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Las tres, ya resueltas. Una sola app. Usted dirige; la tecnología hace el trabajo. Cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da la seguridad financiera que el sueldo nunca le dio.
+Las tres, ya resueltas. Una sola app. Usted dirige; la tecnología hace el trabajo. Y cada vez que el consumo se repite en los hogares de su organización, usted recibe una parte, una y otra vez. Una empresa que crece sin techo y le da la seguridad financiera.
+
+**[ TONO CERCANO · BAJAR LA GUARDIA ]** Y algo que quiero que le quede claro desde ya: **se puede empezar con poco**. No hace falta arrancar en grande para que esto funcione — la estructura es la misma, y crece a la medida de lo que usted decida.
 
 ---
 
 # SLIDE 3 · EL PRODUCTO — UN HÁBITO QUE NO CAMBIA
 
-Toda empresa sólida necesita un producto que las personas compren una y otra vez. Y la suya descansa sobre el más confiable de todos: un hábito diario.
+Toda empresa sólida necesita un producto que las personas compren una y otra vez. Y la suya descansa sobre el más confiable de todos: un hábito que millones de personas ya repiten cada día, sin que nadie se los pida: tomarse un café.
 
-Su empresa digital se mueve sobre algo que millones de personas ya hacen cada día, sin que nadie se los pida: tomarse un café. Solo que el suyo lleva dentro **Ganoderma Lucidum** — el hongo más estudiado del planeta, con más de 2.000 estudios publicados.
+Solo que el suyo lleva dentro **Ganoderma Lucidum** — el hongo más estudiado del planeta, con más de 2.000 estudios publicados.
 
 Y aquí está lo que de verdad lo separa del resto. Dos cosas:
 - Es un **híbrido único en el mundo** de las 6 variedades de Ganoderma de mayor valor.
@@ -150,11 +179,13 @@ Detrás hay tres décadas de ciencia del Dr. Leow Soon Seng, pionero mundial en 
 
 Su empresa digital genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.
 
-**INGRESO INMEDIATO**
-Por cada nueva empresa digital que se activa dentro de su organización, usted recibe una comisión directa, liquidada cada viernes. Es un ingreso visible desde la primera semana.
+**[ NOTA AL ORADOR ]** *Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales. El deck abre en RENTA VITALICIA — el ingreso recurrente es el valor principal; el inmediato es la segunda pestaña.*
 
 **RENTA VITALICIA**
-Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América — mes tras mes, incluso mientras usted duerme. Es el ingreso que ya no depende de su presencia.
+Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América — semana tras semana, incluso mientras usted duerme. Es el ingreso que ya no depende de su presencia.
+
+**INGRESO INMEDIATO**
+Y por cada paquete empresarial que se activa dentro de su organización, usted recibe una comisión directa, liquidada cada viernes. Es un ingreso visible desde la primera semana.
 
 **[ PAUSA ]**
 
@@ -171,7 +202,7 @@ El paso natural para quien ya lo tiene claro. Usted asume la propiedad de su emp
 
 **[ PAUSA · 2s · CAÍDA DE ENTONACIÓN · MIRADA FIJA · TONO DIRECTIVO ]**
 
-Ser propietario de una empresa digital que genere ingresos una y otra vez ya existe. CreaTuActivo.com ya existe.
+Una empresa digital que le genera ingresos una y otra vez ya existe. CreaTuActivo.com ya existe.
 
 La única variable que falta en la ecuación es usted.
 

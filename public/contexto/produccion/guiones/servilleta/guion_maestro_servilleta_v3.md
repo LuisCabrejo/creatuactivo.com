@@ -1,5 +1,13 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.0
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.1
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.1 (29 jul 2026 — Slide 1 reescrito: el momento "otra liga")
+- **Villano con callback concreto:** *"un sistema diseñado para tomar **esos años y su salud**"* (antes "lo que usted entrega" — abstracto, no dolía). El demostrativo **"esos"** recoge la frase de la intro sin repetirla completa: eco sin redundancia. Disonancia reportada por el Director.
+- **El párrafo de la inversión se reemplaza por EL UPGRADE:** *"Usted **ya tiene una forma de ganar** — la que sostiene su estilo de vida hoy. **El siguiente nivel es tener una fuente de ingresos que se lo asegure.**"* **Valida antes de proponer** (respeta la dignidad de lo que la persona ya hace) y encuadra el cambio como *actualización*, no como rescate. Sale "CreaTuActivo invierte ese ciclo con apalancamiento" (tono de salvación).
+- **🔴 `sonrisaslindas.app` ELIMINADO del Slide 1.** Dos razones: (1) el Director sentía que sobraba; (2) **sembraba el modelo equivocado** — invitaba a imaginar que el prospecto *inventa su propia app*, cuando dos minutos después el Slide 2 dice que la suya **ya existe** y es distribución de producto. Es exactamente el bug que se peleó toda la semana en WhatsApp (el modelo alucinaba cursos/plataformas porque "empresa digital" en abstracto invita a inventar). La autoeficacia que activaba hoy la cubre mejor el Slide 2 ("las tres ya están resueltas", "usted no la arma — la enciende", "se puede empezar con poco"). El beat aspiracional se **reubica sobre Amazon/ML**: *"multiplique eso por cada transacción de un día… en todo un continente"*.
+- **🚀 MOMENTO "OTRA LIGA" (nuevo — el corazón del slide):** el asombro no es la tecnología, es la **desproporción** — una empresa con fábrica, logística y atención, *dirigida desde WhatsApp, la misma app donde le escribe a su familia*. **"Ahí donde ya viven todas las personas."** Remate con la analogía del Director: *"Los primeros celulares solo servían para llamar. Cuando llegó el iPhone, no fue un teléfono mejor: fue **otra liga**. Esto es igual. No es un negocio mejor — es **otra forma de ganar**."* Encaja con la doctrina de creación de categoría (el iPhone no compitió, redefinió).
+- **B-roll `Puente3D` actualizado:** el puente ya no usa clínicas/`sonrisaslindas`; cierra **contrayéndose dentro de un celular con WhatsApp abierto** (visual del momento de asombro). ⏳ Requiere re-render.
+- Duración: el bloque del upgrade + el momento WhatsApp compensan los ~40s que salen con sonrisaslindas.
 
 ### Cambios de v6.0 (29 jul 2026 — oferta de valor nueva: upgrade + WhatsApp + empezar con poco)
 - **Slide 1 · el ancla del UPGRADE:** la promesa suma *"trabaja **en paralelo a lo que ya hace — sin renunciar a nada**"*. El miedo real del prospecto no es el negocio: es la **transformación** ("me toca volverme otro"). Validado en las conversaciones reales de WhatsApp (jul 2026). Hallazgo raíz del sprint: la barrera es **fricción, no valor** — la prueba de los 10 (llegaron todos por el valor; se desinflaron al ver la identidad).
@@ -107,23 +115,27 @@
 
 # SLIDE 1 · EL PROBLEMA Y QUÉ ES UNA EMPRESA DIGITAL
 
-*B-roll: `Puente3D` (ver NOTAS DE PRODUCCIÓN). Tradicional (local, arriendo, empleados, inventario — el peso) → se disuelve → el puente: dos cúmulos (clínicas ↔ personas) unidos por `sonrisaslindas.app`, una comisión viaja en cada conexión.*
+*B-roll: `Puente3D` (ver NOTAS DE PRODUCCIÓN). Tradicional (local, arriendo, empleados, inventario — el peso) → se disuelve → el puente: dos cúmulos (fabricante ↔ personas) unidos por un nodo-puente dorado, una comisión viaja en cada conexión. **Cierre del slide: el puente entero se contrae dentro de un celular con WhatsApp abierto** (el momento de asombro: toda la empresa cabe en la app del bolsillo).*
 
 Empecemos por el verdadero problema.
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar lo que usted entrega**, no para darle seguridad financiera.
+Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y volver a empezar**. Esto no sucede por falta de capacidad o esfuerzo de su parte: es la **consecuencia matemática** de un sistema diseñado para **tomar esos años y su salud**, no para darle seguridad financiera.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-CreaTuActivo invierte ese ciclo con **apalancamiento**: usted pasa a ser propietario de una **empresa digital** que trabaja **en paralelo a lo que ya hace — sin renunciar a nada** — y que **sí puede darle esa seguridad financiera**: **ingresos una y otra vez**, esté usted presente o no.
+Usted **ya tiene una forma de ganar** — la que sostiene su estilo de vida hoy. **El siguiente nivel es tener una fuente de ingresos que se lo asegure.** Y eso se obtiene siendo dueño de una **empresa digital** que trabaja, desde hoy, **en paralelo a lo que ya hace — sin renunciar a nada**.
 
 Pero ¿qué es, en palabras simples, una empresa digital? Es un negocio que reemplaza el local por **infraestructura en internet**, y los empleados por **procesos automatizados que producen aunque usted duerma**.
 
 Piense en **Amazon** o **MercadoLibre**: no fabrican lo que venden; son el **puente** que conecta a millones de personas con los fabricantes, y ganan por cada transacción, sin cargar una sola caja. Eso es una empresa digital.
 
-Ahora imagine **su propia empresa digital**, en su ciudad. Muchas personas quieren una sonrisa más bonita; usted podría crear **sonrisaslindas.app** y conectar las clínicas con esas personas. Gana el odontólogo, gana el paciente, y gana usted: por cada cita, una comisión, sin pagar el arriendo del local, sin atender a nadie. **Usted es el puente**.
+**[ TONO ASPIRACIONAL ]** Multiplique eso por cada transacción de un día… en toda una ciudad… en todo un continente.
 
-**[ TONO ASPIRACIONAL ]** Multiplíquelo por todas las citas de un día… en toda la ciudad… en todo el país.
+**[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
+
+Y aquí está lo que de verdad cambia el juego. Una empresa así —con su fábrica, su logística, su atención a cada persona— **usted la dirige desde WhatsApp.** La misma aplicación donde le escribe a su familia. **Ahí donde ya viven todas las personas.** Sin oficina, sin local, sin descargar nada.
+
+**[ TONO RESOLUTIVO ]** Los primeros celulares solo servían para llamar. Cuando llegó el iPhone, no fue un teléfono mejor: fue **otra liga**. Esto es igual. No es un negocio mejor — es **otra forma de ganar**.
 
 **[ TONO RESOLUTIVO ]** ¿Ve la diferencia? El negocio de siempre crece sumando: otro local, otra ciudad, más de usted. Si usted no está, se detiene. Una empresa digital crece multiplicando: lo que usted hace una vez llega a todo un continente. Y si usted no está, no importa: ella sigue trabajando y creciendo sin techo.
 

@@ -24,14 +24,25 @@
  *   porque es lógica condicional contextual, no copy duplicado
  * - Saludo de página /sistema/productos — vive en useNEXUSChat.ts por la misma razón
  *
- * Última actualización léxica: 12 jun 2026 — MISION recalibrada al registro de la home
+ * Última actualización léxica: 30 jul 2026 — MISION a LENGUAJE CONCRETO. Se retira
+ * "propietario de una empresa digital": el término es un vacío semántico que el
+ * oyente rellena con lo que le suena (pirámides, cripto) — la misma causa por la
+ * que el modelo alucinaba infoproductos. Dato de campo: dos meses de conversaciones
+ * sin un solo "wow". Base: "la abstracción es el lujo del experto" (Heath) +
+ * Codificación Dual (Paivio: los sustantivos concretos activan canal verbal Y
+ * visual; los abstractos solo el verbal, y el cerebro archiva ese esfuerzo como
+ * riesgo). Ahora: beneficio calculable ("un segundo ingreso, en paralelo al que ya
+ * tiene") + mecanismo concreto ("usted distribuye productos que millones ya
+ * consumen, y yo hablo con cada persona interesada por usted"). Ver guion
+ * servilleta v6.5 y docs/investigaciones/posicionamiento-categoria/.
+ * Previo: 12 jun 2026 — MISION recalibrada al registro de la home
  * (reconoce el esfuerzo, no ataca el trabajo; eco del hero "no es trabajar más, ni dejar
  * lo que hace hoy"; léxico "siga produciendo aunque usted no esté presente" alineado con WHY_01).
  * Previo: 10 may 2026 — alineación SP v26.4 + 4 preguntas reales del avatar
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Estoy aquí para mostrarle cómo puede ser propietario de una empresa digital que le genere ingresos una y otra vez.`;
+const MISION = `Estoy aquí para mostrarle cómo construir un segundo ingreso, en paralelo al que ya tiene: usted distribuye productos que millones de personas ya consumen, y yo hablo con cada persona interesada por usted.`;
 
 const TRANSICION = `¿Por dónde quiere empezar?`;
 

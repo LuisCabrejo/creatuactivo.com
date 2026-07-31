@@ -23,7 +23,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 const FADE_MS = 1000
-const PROMPT_MESSAGE = '¿Construimos su empresa digital?'
+// Aparece al terminar el reel del nicho: la persona ya se vio reflejada en el
+// diagnóstico, así que la invitación es a ver SU caso con cifras (la demo).
+// jul 2026: se retira "¿Construimos su empresa digital?" — vacío semántico.
+const PROMPT_MESSAGE = '¿Le muestro cómo se vería en su caso?'
 const AUTO_HIDE_MS = 25000
 
 const C = { gold: '#C5A059', obsidian: '#1A1D23', carbon: '#0F1115', white: '#FFFFFF', muted: '#A3A3A3' }

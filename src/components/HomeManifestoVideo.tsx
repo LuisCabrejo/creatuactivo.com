@@ -24,7 +24,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 const FADE_MS = 1000
-const PROMPT_MESSAGE = '¿Construimos su empresa digital?'
+// Aparece al terminar el explainer: la persona ya tiene contexto, así que la
+// invitación es a ver SU caso (engancha con la demo de proyección de Queswa).
+// jul 2026: se retira "¿Construimos su empresa digital?" — vacío semántico.
+const PROMPT_MESSAGE = '¿Le muestro cómo se vería en su caso?'
 const AUTO_HIDE_MS = 25000
 
 const C = {

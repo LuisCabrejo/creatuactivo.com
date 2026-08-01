@@ -12,6 +12,17 @@
  *    data-card) — antes los clips de la slide abandonada seguían sonando ocultos
  *    (display:none no pausa un <video>) → audio acumulado. Grid desktop = todo en mute.
  *  - Slides 1 y 2 SIMÉTRICAS: cada una abre con SU portada (índice 0) y sigue con
+ *
+ * ⚠️ CABECERA DESACTUALIZADA DESDE v7.0 (jul 2026) — lo que sigue describe la
+ *    estructura ANTERIOR de 4 slides y el léxico "empresa digital", ya retirado.
+ *    ESTRUCTURA VIGENTE (5 slides, guion maestro v6.8):
+ *      1 · EL PROBLEMA        "Trabajar, pagar cuentas y repetir"
+ *      2 · LAS TRES COSAS     "Lo difícil ya está hecho"  (respaldo · queswa · metodo)
+ *      3 · QUÉ HACE USTED     "Usted solo comparte"       (compartir · recibir · multiplicar) ⏳ b-rolls sin renderizar
+ *      4 · EL PRODUCTO        "Un hábito que no cambia"   ⏳ pendiente foto de banco
+ *      5 · LOS NÚMEROS        cierre en clave Vélez       ⏳ textos pendientes
+ *    "empresa digital" ya NO aparece en pantalla en ninguna slide (solo en estos
+ *    comentarios). Fuente de verdad del copy: guion_maestro_servilleta_v3.md v6.8.
  *    3 clips (1-3). Slide 1 = "CREE SU EMPRESA DIGITAL" · Slide 2 = "3 COSAS TIENEN
  *    QUE SER CIERTAS" (H1 fuera de las diapositivas, solo en su portada).
  *  - Tap = pausa SOLO táctil; en desktop el click conserva el avance (capturarlo
@@ -59,14 +70,14 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
 // regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
 // Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
-const LAST_CARD: Record<number, number> = { 1: 3, 2: 3 };
+const LAST_CARD: Record<number, number> = { 1: 3, 2: 3, 3: 3 };
 
 // Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
 const AMBIENT_VOLUME = 0.125;
 
 export default function ServilletaPage() {
-  const TOTAL_SLIDES = 4;
+  const TOTAL_SLIDES = 5;
   const [activeSlide, setActiveSlide] = useState(1);
   // Default 'binario' (INGRESO RECURRENTE): el valor principal de la oferta es el
   // ingreso por la red de consumo; el inmediato (GEN5) es la segunda pestaña.
@@ -203,7 +214,7 @@ export default function ServilletaPage() {
 
   // one-card-mode: contextos donde slides 1 y 2 (portada + 3 clips cada una)
   // muestran una card a la vez, compartiendo activeCardIndex (0 = portada, 1-3 = clips).
-  const oneCardMode = (activeSlide === 1 || activeSlide === 2) && (isFullscreen || isMobile);
+  const oneCardMode = (activeSlide === 1 || activeSlide === 2 || activeSlide === 3) && (isFullscreen || isMobile);
   const maxCardIndex = 3;
 
   // Navegación por teclado
@@ -513,7 +524,7 @@ export default function ServilletaPage() {
   // Desktop: solo CSS :hover (sin auto-reveal) — el usuario decide con el mouse
   // Mobile: IntersectionObserver activa color al hacer scroll-snap al panel CTA
   useEffect(() => {
-    if (activeSlide !== 4) { setCtaVisible(false); return; }
+    if (activeSlide !== 5) { setCtaVisible(false); return; }
     if (typeof window === 'undefined') return;
     if (window.innerWidth > 1024) {
       // Desktop: imagen queda gris hasta hover — el CSS :hover lo maneja
@@ -521,8 +532,8 @@ export default function ServilletaPage() {
     }
     // Mobile: IntersectionObserver cuando el panel hace scroll-snap
     setCtaVisible(false);
-    const scrollRoot = document.querySelector('#slide-4');
-    const cta = document.querySelector('#slide-4 .cta-panel');
+    const scrollRoot = document.querySelector('#slide-5');
+    const cta = document.querySelector('#slide-5 .cta-panel');
     if (!cta || !scrollRoot) return;
     const observer = new IntersectionObserver(
       (entries) => { entries.forEach((e) => setCtaVisible(e.isIntersecting && e.intersectionRatio >= 0.4)); },
@@ -659,6 +670,14 @@ export default function ServilletaPage() {
           border-left: 3px solid var(--cyan); padding-left: 10px; margin-bottom: 20px;
         }
 
+        /* Placeholder de b-roll pendiente de render (jul 2026): franjas sutiles en
+           lugar de un vacío negro, para que en la presentación se note qué falta. */
+        .card-bg[data-pending="1"] {
+          background-image: repeating-linear-gradient(45deg,
+            rgba(197,160,89,0.05) 0px, rgba(197,160,89,0.05) 12px,
+            transparent 12px, transparent 24px);
+          background-color: var(--bg-dark);
+        }
         .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
         .deck-h1 { font-size: 4rem; }
         .deck-h2 { font-size: 3rem; }
@@ -697,8 +716,8 @@ export default function ServilletaPage() {
           flex: 1 1 auto;
           overflow: hidden;
         }
-        .kiosk #slide-4,
-        .kiosk .slide-3-bottom { padding-bottom: 16px !important; }
+        .kiosk #slide-5,
+        .kiosk .slide-4-bottom { padding-bottom: 16px !important; }
 
         /* Modo Vertical: marco portrait 9:16 centrado en negro, tapa la nav */
         .vertical-present-overlay {
@@ -915,7 +934,7 @@ export default function ServilletaPage() {
         }
 
         /* --- SLIDE 3: BIO-METRÍA --- */
-        .slide-3-layout {
+        .slide-4-layout {
           position: relative; z-index: 10;
           display: flex; width: 100%; height: 100%;
           padding: 0;
@@ -923,7 +942,7 @@ export default function ServilletaPage() {
           justify-content: center;
         }
 
-        .slide-3-bottom {
+        .slide-4-bottom {
           width: 100%;
           display: flex; gap: 30px; align-items: flex-end;
           padding: 40px 60px;
@@ -1303,8 +1322,8 @@ export default function ServilletaPage() {
             line-height: 1.2;
           }
 
-          .slide-3-layout { flex-direction: column; align-items: stretch; justify-content: flex-end; }
-          .slide-3-bottom {
+          .slide-4-layout { flex-direction: column; align-items: stretch; justify-content: flex-end; }
+          .slide-4-bottom {
             flex-direction: column;
             padding: 0 20px 20px;
             margin-left: 0;
@@ -1312,15 +1331,15 @@ export default function ServilletaPage() {
             border-radius: 0;
             gap: 30px !important;
           }
-          #slide-3 .slide-3-bottom {
+          #slide-4 .slide-4-bottom {
             gap: 40px !important;
             padding-bottom: 60px !important;
           }
-          #slide-3 .bio-text-panel .deck-p {
+          #slide-4 .bio-text-panel .deck-p {
             font-size: 1.05rem !important;
             line-height: 1.6 !important;
           }
-          #slide-3 .metric-label {
+          #slide-4 .metric-label {
             font-size: 0.85rem !important;
             font-weight: 600 !important;
             letter-spacing: 1.5px !important;
@@ -1330,7 +1349,7 @@ export default function ServilletaPage() {
           .bio-metrics-container { max-width: 100%; }
 
           /* ── Slide 4 mobile: scroll-snap vertical ── */
-          #slide-4 {
+          #slide-5 {
             overflow-y: scroll;
             scroll-snap-type: y proximity; /* proximity (no mandatory): mandatory atrapaba el scroll hacia arriba entre paneles */
             -webkit-overflow-scrolling: touch;
@@ -1468,11 +1487,11 @@ export default function ServilletaPage() {
         }
 
         /* -- SLIDE 3: Center content vertically, scale up -- */
-        :fullscreen .slide-3-layout {
+        :fullscreen .slide-4-layout {
           align-items: center;
           justify-content: center;
         }
-        :fullscreen .slide-3-bottom {
+        :fullscreen .slide-4-bottom {
           padding: 40px 60px;
           margin-left: 10%;
           max-width: 900px;
@@ -1588,15 +1607,15 @@ export default function ServilletaPage() {
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
           /* ── Slide 4 fullscreen mobile ── */
-          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
-          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
-          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
-          :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
+          :fullscreen #slide-5 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-5 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
+          :fullscreen #slide-5 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
+          :fullscreen #slide-5 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
+          :fullscreen #slide-5 .bg-image-cta { height: 48% !important; }
           /* flex-start (no center): en fullscreen la .mobile-nav se oculta, así que
              centrar empuja el 2º botón fuera de pantalla. Anclar arriba (justo bajo
              la imagen) replica la vista normal y garantiza ver ambos botones. */
-          :fullscreen #slide-4 .cta-overlay { top: 48% !important; justify-content: flex-start !important; padding: 32px 24px 40px !important; }
+          :fullscreen #slide-5 .cta-overlay { top: 48% !important; justify-content: flex-start !important; padding: 32px 24px 40px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;
@@ -1614,13 +1633,13 @@ export default function ServilletaPage() {
           :fullscreen .mobile-nav { display: none !important; }
 
           /* SLIDE 3: mobile vertical fullscreen — evitar overflow */
-          :fullscreen #slide-3 { overflow-y: auto !important; }
-          :fullscreen .slide-3-layout {
+          :fullscreen #slide-4 { overflow-y: auto !important; }
+          :fullscreen .slide-4-layout {
             align-items: flex-start !important;
             overflow-y: auto !important;
             padding-top: 20px !important;
           }
-          :fullscreen .slide-3-bottom {
+          :fullscreen .slide-4-bottom {
             flex-direction: column !important;
             padding: 20px 20px 40px !important;
             margin-left: 0 !important;
@@ -1819,10 +1838,11 @@ export default function ServilletaPage() {
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 SU EMPRESA DIGITAL' },
-              { id: 2, label: '02 C\u00d3MO FUNCIONA' },
-              { id: 3, label: '03 EL PRODUCTO' },
-              { id: 4, label: '04 SIMULADOR' },
+              { id: 1, label: '01 EL PROBLEMA' },
+              { id: 2, label: '02 LAS TRES COSAS' },
+              { id: 3, label: '03 QU\u00c9 HACE USTED' },
+              { id: 4, label: '04 EL PRODUCTO' },
+              { id: 5, label: '05 LOS N\u00daMEROS' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -1852,10 +1872,11 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, label: 'Su Empresa Digital' },
-              { id: 2, label: 'C\u00f3mo Funciona' },
-              { id: 3, label: 'El Producto' },
-              { id: 4, label: 'Simulador' },
+              { id: 1, label: 'El Problema' },
+              { id: 2, label: 'Las Tres Cosas' },
+              { id: 3, label: 'Qu\u00e9 Hace Usted' },
+              { id: 4, label: 'El Producto' },
+              { id: 5, label: 'Los N\u00fameros' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -1893,10 +1914,10 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div className="slide-2-header">
                   <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                    CREE SU EMPRESA DIGITAL
+                    TRABAJAR, PAGAR CUENTAS Y REPETIR
                   </h2>
                   <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                    Usted trabaja el mes entero. Al d&iacute;a siguiente, ese dinero ya tiene due&ntilde;o.
                   </p>
                   <div style={{ textAlign: 'center', marginTop: 12 }}>
                     <button
@@ -1932,10 +1953,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex === 0 && (
                 <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
                   <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    CREE SU EMPRESA DIGITAL
+                    TRABAJAR, PAGAR CUENTAS Y REPETIR
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                    Usted trabaja el mes entero. Al d&iacute;a siguiente, ese dinero ya tiene due&ntilde;o.
                   </p>
                   <button
                     type="button"
@@ -1950,28 +1971,28 @@ export default function ServilletaPage() {
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
-                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/empresa-tradicional.mp4" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/problema-llega.mp4" data-pending="1" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-empresa-tradicional')}
                 <div className="card-content">
-                  <h3 className="pillar-name">Depende de que usted est&eacute; ah&iacute;</h3>
+                  <h3 className="pillar-name">La plata llega</h3>
                 </div>
               </div>
 
               {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
-                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/problema-reparte.mp4" data-pending="1" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-empresa-digital')}
                 <div className="card-content">
-                  <h3 className="pillar-name">Son el puente</h3>
+                  <h3 className="pillar-name">Ya tiene due&ntilde;o</h3>
                 </div>
               </div>
 
               {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
-                <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/sonrisaslindas.mp4" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/problema-repite.mp4" data-pending="1" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-sonrisaslindas')}
                 <div className="card-content">
-                  <h3 className="pillar-name">Imagine el suyo</h3>
+                  <h3 className="pillar-name">Y vuelve a empezar</h3>
                 </div>
               </div>
 
@@ -2003,10 +2024,10 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div className="slide-2-header">
                   <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                    3 COSAS TIENEN QUE SER CIERTAS
+                    LO DIF&Iacute;CIL YA EST&Aacute; HECHO
                   </h2>
                   <span className="slide-2-subtitle">
-                    Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas.
+                    Tres cosas hacen falta para distribuir en serio. Las tres ya est&aacute;n resueltas.
                   </span>
                 </div>
               )}
@@ -2033,10 +2054,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex === 0 && (
                 <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
                   <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    3 COSAS TIENEN QUE SER CIERTAS
+                    LO DIF&Iacute;CIL YA EST&Aacute; HECHO
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Alguien fabrica, una plataforma atiende a las personas, y usted sabe qué hacer. Las tres, ya resueltas.
+                    Tres cosas hacen falta para distribuir en serio. Las tres ya est&aacute;n resueltas.
                   </p>
                 </div>
               )}
@@ -2090,6 +2111,106 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(3)}>
+                    QUÉ HACE USTED →
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* ===== SLIDE 3 · QUÉ HACE USTED =====
+              Guion v6.8 · SLIDE 2. Responde la 2ª pregunta del avatar: "¿qué hago yo en
+              el día a día?". Tres movimientos — COMPARTIR (un clic) · RECIBIR (el apretón
+              de manos, único momento donde el humano es irremplazable) · MULTIPLICAR
+              (1→2→4, réplicas IDÉNTICAS: nunca pirámide ni cascada top-down, es lenguaje
+              MLM y está prohibido). El botón "PREGÚNTALE ALGO EN VIVO" NO se duplica aquí
+              — vive solo en la tarjeta Queswa del Slide 2.
+              ⏳ B-rolls pendientes de render: compartir.mp4 · recibir.mp4 · multiplicar.mp4
+              (comps Expandir3D / Activar3D / Maestria3D en scripts/dankoe-video/motion). */}
+          <section
+            id="slide-3"
+            className={`slide ${activeSlide === 3 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
+          >
+            <div className="grid-layout-slide-2">
+              {/* Header: en grid (preview) = H1+subtítulo como título de sección;
+                  en one-card (presentación) = solo contador + dots sobre los clips
+                  (el H1 vive en la portada índice 0) — pedido Director 2 jul 2026. */}
+              {!oneCardMode && (
+                <div className="slide-2-header">
+                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
+                    USTED SOLO COMPARTE
+                  </h2>
+                  <span className="slide-2-subtitle">
+                    Tres movimientos. El resto lo hace la tecnología.
+                  </span>
+                </div>
+              )}
+              {oneCardMode && activeCardIndex >= 1 && (
+                <div className="slide-2-header">
+                  <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
+                    0{activeCardIndex} / 03
+                  </span>
+                  <div className="card-dots">
+                    {[1, 2, 3].map((i) => (
+                      <button
+                        key={i}
+                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
+                        aria-label={`Parte ${i} de 3`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Portada (índice 0): H1 + subtítulo centrados, espejo de la portada del
+                  slide 1. Solo one-card (en grid el H1 vive en el header). */}
+              {oneCardMode && activeCardIndex === 0 && (
+                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
+                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
+                    USTED SOLO COMPARTE
+                  </h2>
+                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
+                    Tres movimientos. El resto lo hace la tecnología.
+                  </p>
+                </div>
+              )}
+
+              {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
+              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-compartir')}>
+                <video className="card-bg" data-slide="3" data-card="1" src="/videos/servilleta/compartir.mp4" data-pending="1" muted loop playsInline preload="none" />
+                {clipCenterToggle('s3-compartir')}
+                <div className="card-content">
+                  <span className="pillar-eyebrow">Un clic</span>
+                  <h3 className="pillar-name">Compartir</h3>
+                </div>
+              </div>
+
+              {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
+              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-recibir')}>
+                <video className="card-bg" data-slide="3" data-card="2" src="/videos/servilleta/recibir.mp4" data-pending="1" muted loop playsInline preload="none" />
+                {clipCenterToggle('s3-recibir')}
+                <div className="card-content">
+                  <span className="pillar-eyebrow">El apret&oacute;n de manos</span>
+                  <h3 className="pillar-name">Recibir</h3>
+                </div>
+              </div>
+
+              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
+              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-multiplicar')}>
+                <video className="card-bg" data-slide="3" data-card="3" src="/videos/servilleta/multiplicar.mp4" data-pending="1" muted loop playsInline preload="none" />
+                {clipCenterToggle('s3-multiplicar')}
+                <div className="card-content">
+                  <span className="pillar-eyebrow">1 &rarr; 2 &rarr; 4</span>
+                  <h3 className="pillar-name">Multiplicar</h3>
+                </div>
+              </div>
+
+              {/* CTA al fondo — solo en grid (preview). En presentación se avanza con
+                  click/swipe/flecha; el botón encogía el clip del método. */}
+              {!oneCardMode && (
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                  <button className="btn-next" onClick={() => showSlide(4)}>
                     VER EL PRODUCTO →
                   </button>
                 </div>
@@ -2098,13 +2219,13 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 3: BIO-METRÍA (Panel único consolidado) ===== */}
-          <section id="slide-3" className={`slide ${activeSlide === 3 ? 'active' : ''}`}>
+          <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
             <div
               className="bg-image"
               style={{ backgroundImage: "url('/images/servilleta/salud-bio.jpg')", filter: 'grayscale(40%) contrast(110%) brightness(70%)' }}
             />
-            <div className="slide-3-layout">
-              <div className="slide-3-bottom">
+            <div className="slide-4-layout">
+              <div className="slide-4-bottom">
                 <div className="bio-text-panel">
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
@@ -2155,7 +2276,7 @@ export default function ServilletaPage() {
                   </div>
                   {/* CTA debajo del panel de métricas — fluye con el contenido en todos los modos */}
                   <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                    <button className="btn-next" onClick={() => showSlide(4)}>
+                    <button className="btn-next" onClick={() => showSlide(5)}>
                       VER LOS N&Uacute;MEROS →
                     </button>
                   </div>
@@ -2165,7 +2286,7 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 4: SIMULACIÓN + DOBLE CTA ===== */}
-          <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
+          <section id="slide-5" className={`slide ${activeSlide === 5 ? 'active' : ''}`}>
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">
@@ -2216,7 +2337,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PAQUETES ACTIVADOS EN SU EMPRESA DIGITAL:
+                      PAQUETES ACTIVADOS EN SU NEGOCIO:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -2227,7 +2348,7 @@ export default function ServilletaPage() {
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                       className="sim-slider"
                     />
-                    <p className="insight-text">Ingreso inmediato por cada paquete empresarial que se activa en su empresa digital, liquidado cada viernes.</p>
+                    <p className="insight-text">Ingreso inmediato por cada paquete empresarial que se activa en su negocio, liquidado cada viernes.</p>
                   </div>
                 )}
 
@@ -2242,7 +2363,7 @@ export default function ServilletaPage() {
                       <button className="pkg-btn" tabIndex={-1}>·</button>
                     </div>
                     <label>
-                      VOLUMEN DE COMPRAS EN SU EMPRESA DIGITAL:
+                      VOLUMEN DE COMPRAS EN SU NEGOCIO:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -2279,7 +2400,7 @@ export default function ServilletaPage() {
                       rel="noopener noreferrer"
                       className="btn-industrial"
                     >
-                      ACTIVAR SU EMPRESA DIGITAL →
+                      ACTIVAR SU NEGOCIO →
                     </a>
 
                     {/* CTA Secundario → boletín (OPCIÓN 2 del guion v5.1: puerta suave) */}

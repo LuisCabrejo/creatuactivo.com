@@ -70,7 +70,10 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
 // regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
 // Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
-const LAST_CARD: Record<number, number> = { 1: 3, 2: 3, 3: 3 };
+const LAST_CARD: Record<number, number> = { 1: 3, 2: 4, 3: 3 };
+// Tarjetas por slide. El Slide 2 tiene una más: el BEAT DEL COLAPSO (índice 4),
+// donde los tres socios se vuelven uno y entran al celular. Antes era global = 3.
+const MAX_CARD: Record<number, number> = { 1: 3, 2: 4, 3: 3 };
 
 // Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
@@ -215,7 +218,7 @@ export default function ServilletaPage() {
   // one-card-mode: contextos donde slides 1 y 2 (portada + 3 clips cada una)
   // muestran una card a la vez, compartiendo activeCardIndex (0 = portada, 1-3 = clips).
   const oneCardMode = (activeSlide === 1 || activeSlide === 2 || activeSlide === 3) && (isFullscreen || isMobile);
-  const maxCardIndex = 3;
+  const maxCardIndex = MAX_CARD[activeSlide] ?? 3;
 
   // Navegación por teclado
   useEffect(() => {
@@ -677,6 +680,49 @@ export default function ServilletaPage() {
             rgba(197,160,89,0.05) 0px, rgba(197,160,89,0.05) 12px,
             transparent 12px, transparent 24px);
           background-color: var(--bg-dark);
+        }
+        /* ===== BEAT DEL COLAPSO (Slide 2, tarjeta 4) =====
+           Las tres piezas entran desde sus esquinas, se encogen hacia el centro y
+           desaparecen dentro del celular, que se enciende en dorado. Solo corre
+           cuando la tarjeta está activa, para que el beat caiga cuando el orador
+           llega a él y no antes. */
+        .colapso .colapso-escena {
+          position: absolute; inset: 0; display: grid; place-items: center;
+          background: var(--bg-dark);
+        }
+        .colapso-pieza {
+          position: absolute; width: 32%; max-width: 200px; opacity: 0;
+          border-radius: 8px; will-change: transform, opacity;
+        }
+        .colapso.card-active .colapso-pieza {
+          animation: colapsoPieza 3s cubic-bezier(.65,.02,.3,1) forwards;
+        }
+        .colapso .p1 { --dx: -78%; --dy: -46%; animation-delay: .15s; }
+        .colapso .p2 { --dx:   0%; --dy: -62%; animation-delay: .35s; }
+        .colapso .p3 { --dx:  78%; --dy: -46%; animation-delay: .55s; }
+        @keyframes colapsoPieza {
+          0%   { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1); }
+          22%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1); }
+          72%  { opacity: 1; transform: translate(0, 0) scale(.26); }
+          100% { opacity: 0; transform: translate(0, 0) scale(.18); }
+        }
+        .colapso-celular {
+          position: absolute; width: 122px; height: 238px; border-radius: 22px;
+          border: 2px solid rgba(197,160,89,0.30); opacity: 0;
+        }
+        .colapso.card-active .colapso-celular {
+          animation: colapsoCelular 3s ease forwards; animation-delay: .9s;
+        }
+        @keyframes colapsoCelular {
+          0%   { opacity: 0; box-shadow: none; }
+          55%  { opacity: 1; box-shadow: none; }
+          100% { opacity: 1; border-color: rgba(197,160,89,0.75);
+                 box-shadow: 0 0 46px rgba(197,160,89,0.40), inset 0 0 34px rgba(197,160,89,0.14); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .colapso.card-active .colapso-pieza,
+          .colapso.card-active .colapso-celular { animation-duration: .01s; }
+          .colapso.card-active .colapso-celular { opacity: 1; }
         }
         .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
         .deck-h1 { font-size: 4rem; }
@@ -1933,10 +1979,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex >= 1 && (
                 <div className="slide-2-header">
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 03
+                    0{activeCardIndex} / 0{maxCardIndex}
                   </span>
                   <div className="card-dots">
-                    {[1, 2, 3].map((i) => (
+                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
                       <button
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
@@ -2034,10 +2080,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex >= 1 && (
                 <div className="slide-2-header">
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 03
+                    0{activeCardIndex} / 0{maxCardIndex}
                   </span>
                   <div className="card-dots">
-                    {[1, 2, 3].map((i) => (
+                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
                       <button
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
@@ -2106,6 +2152,28 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
+              {/* ===== BEAT 4 · EL COLAPSO =====
+                  Patrón Jobs (iPhone 2007): construir tres, hacer una pausa, y quitarlos
+                  — "estos no son tres aparatos; es uno solo". Aquí ataca la AVERSIÓN A
+                  CONSTRUIR documentada en el BRIEF ("quieren la certeza, sin el riesgo de
+                  levantar algo"): mostrar tres socios que coordinar alimenta ese miedo;
+                  mostrar que ya vienen juntos lo desarma.
+                  Sin render 3D: son los cuadros congelados de los tres clips que el
+                  público acaba de ver, para que el vínculo sea reconocimiento y no
+                  traducción. Animación en CSS puro (esta página no carga Framer). */}
+              <div className={`card-industrial full-width colapso ${activeCardIndex === 4 ? 'card-active' : ''}`}>
+                <div className="colapso-escena" aria-hidden="true">
+                  <div className="colapso-celular" />
+                  <img src="/images/servilleta/colapso-respaldo.webp" alt="" className="colapso-pieza p1" />
+                  <img src="/images/servilleta/colapso-queswa.webp" alt="" className="colapso-pieza p2" />
+                  <img src="/images/servilleta/colapso-metodo.webp" alt="" className="colapso-pieza p3" />
+                </div>
+                <div className="card-content">
+                  <span className="pillar-eyebrow">No son tres cosas</span>
+                  <h3 className="pillar-name">Ya vienen juntas</h3>
+                </div>
+              </div>
+
               {/* CTA al fondo — solo en grid (preview). En presentación se avanza con
                   click/swipe/flecha; el botón encogía el clip del método. */}
               {!oneCardMode && (
@@ -2148,10 +2216,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex >= 1 && (
                 <div className="slide-2-header">
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 03
+                    0{activeCardIndex} / 0{maxCardIndex}
                   </span>
                   <div className="card-dots">
-                    {[1, 2, 3].map((i) => (
+                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
                       <button
                         key={i}
                         className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}

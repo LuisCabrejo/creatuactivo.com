@@ -7,7 +7,7 @@ Investigación enfocada para llegar a **comunicación clara con el mercado + ide
 ## Qué vive aquí (convención de orden)
 | Prefijo | Qué es |
 |---|---|
-| `gemini_*` | Investigaciones del agente Gemini (Nubank exhaustivo, etc.). El Director las deposita aquí. |
+| — | **Las investigaciones crudas de Gemini viven un nivel arriba**, en `docs/investigaciones/` (decisión Director, 31 jul 2026). El Director las deposita allí; esta carpeta guarda el análisis, no el insumo. |
 | `claude_*` | Mis pasadas de investigación (triangulación, contraste, síntesis). |
 | `BRIEF_*` | El entregable: el Brief de Posicionamiento que se construye a partir de todo lo anterior. |
 | `prompts/` (nivel arriba) | Los prompts de investigación usados (el de Gemini vive en `../prompts/`). |
@@ -17,7 +17,7 @@ Investigación enfocada para llegar a **comunicación clara con el mercado + ide
 |---|---|
 | Prompt Gemini (Nubank exhaustivo, 12 dimensiones + transferibles + "lo que no se puede copiar") | ✅ redactado (pendiente correr) |
 | [claude_triangulacion_retadores.md](claude_triangulacion_retadores.md) — mi pasada (Nubank + Liquid Death/DSC + Robinhood) | ✅ v1 |
-| 3 investigaciones Gemini (`Playbook…`, `Estrategia…`, `Análisis Estratégico…` de Marca Nubank) | ✅ recibidas |
+| 3 investigaciones Gemini (`Playbook…`, `Estrategia…`, `Análisis Estratégico…` de Marca Nubank) | ✅ recibidas — viven en `../` (raíz de `docs/investigaciones/`), no en esta carpeta |
 | [claude_sintesis_fusion.md](claude_sintesis_fusion.md) — **fusión** de las 3 Gemini + mi pasada (conclusiones que mueven el proyecto) | ✅ v1 |
 | [claude_mito_origen_luis.md](claude_mito_origen_luis.md) — mito de origen de Luis (anclajes sensoriales) + arco Gano→Diamante→CreaTuActivo | ✅ v1 |
 | [claude_upgrade_no_conversion.md](claude_upgrade_no_conversion.md) — **insight nuclear**: el problema es FRICCIÓN, no valor (upgrade≠conversión · claridad>sofisticación) | ✅ v1 |

@@ -1,6 +1,6 @@
 # Síntesis de fusión — 3 investigaciones Gemini + mi triangulación
 
-**Insumo directo para el `BRIEF_POSICIONAMIENTO.md`.** No repite las investigaciones (viven en `Playbook de Marca Nubank.md`, `Estrategia De Marca De Nubank.md`, `Análisis Estratégico De Marca Nubank.md` + `claude_triangulacion_retadores.md`). Aquí solo las **conclusiones fusionadas que mueven nuestro proyecto**.
+**Insumo directo para el `BRIEF_POSICIONAMIENTO.md`.** No repite las investigaciones (viven un nivel arriba, en `../Playbook de Marca Nubank.md`, `../Estrategia De Marca De Nubank.md` y `../Análisis Estratégico De Marca Nubank.md`, más `claude_triangulacion_retadores.md` en esta carpeta). Aquí solo las **conclusiones fusionadas que mueven nuestro proyecto**.
 
 ## Convergencia (todos coinciden)
 Villano **sistémico** (no un competidor) · mito de origen del fundador como arma · **léxico/UX writing = el primitivo de confianza** · "fans, no clientes" · category design **por negación** ("el banco que no es banco") · motor de crecimiento **orgánico** (boca a boca) apoyado en hiper‑empatía (WoW moments).

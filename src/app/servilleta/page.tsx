@@ -2290,7 +2290,15 @@ export default function ServilletaPage() {
           <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
             <div
               className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/salud-bio.jpg')", filter: 'grayscale(40%) contrast(110%) brightness(70%)' }}
+              /* ⏳ PENDIENTE: fotografía de banco — una taza, vapor, luz lateral cálida,
+                 mucho negro alrededor. Taza de CASA, no de barista (nada de latte art ni
+                 granos desparramados): el producto real se prepara en una cocina, y la foto
+                 de cafetería promete otra cosa. Es el único momento fotográfico del deck —
+                 todo lo demás es abstracción 3D — y ahí está su fuerza: la pantalla cambia
+                 de material justo cuando aparece lo único que uno se puede tomar.
+                 Se retiró salud-bio.jpg para que nadie la confunda con la definitiva. */
+              data-pending="1"
+              style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(197,160,89,0.05) 0px, rgba(197,160,89,0.05) 12px, transparent 12px, transparent 24px)', backgroundColor: 'var(--bg-dark)' }}
             />
             <div className="slide-4-layout">
               <div className="slide-4-bottom">
@@ -2457,7 +2465,7 @@ export default function ServilletaPage() {
                 />
                 <div className="cta-overlay">
                   <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
-                    CONSTRUCCI&Oacute;N DE INGRESOS RECURRENTES
+                    UN VIERNES QUE NO LE DEBE NADA A NADIE
                   </p>
 
                   <div className="cta-buttons">
@@ -2466,19 +2474,11 @@ export default function ServilletaPage() {
                       href="https://creatuactivo.com/paquetes"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-industrial"
+                      className="btn-industrial secondary"
                     >
                       ACTIVAR SU NEGOCIO →
                     </a>
 
-                    {/* CTA Secundario → boletín (OPCIÓN 2 del guion v5.1: puerta suave) */}
-                    <button
-                      type="button"
-                      className="btn-industrial secondary"
-                      onClick={() => setSubscribeOpen(true)}
-                    >
-                      SUSCRIBIRSE AL BOLET&Iacute;N →
-                    </button>
                   </div>
 
                 </div>

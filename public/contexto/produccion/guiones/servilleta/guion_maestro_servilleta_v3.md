@@ -1,5 +1,53 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.5
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.8
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.8 (31 jul 2026 — el cierre en clave David Vélez)
+
+Ejercicio pedido por el Director: *"si fuera David Vélez, ¿qué diría en el cierre?"*. Tres cosas que Nubank hizo y este cierre no hacía.
+
+**1. Cerrar sobre la vida que devuelve, no sobre la empresa.** Los testimonios de Nubank nunca dicen "somos el mayor banco digital"; dicen *"el tiempo que ahorro en trámites ahora lo uso en estar con mi familia"*, *"ahora puedo cuidar mis matas e ir a boxear"*. El cierre nuevo aterriza en **"un viernes en que entra algo que no le debe nada a nadie"** — la inversión exacta del villano del Slide 1, en concreto, sobre el día de pago que el deck ya estableció.
+
+**2. 🔴 Retirada "La única variable que falta en la ecuación es usted".** Era la frase con más punch del guion, y se saca a propósito. El marco de Vélez es libertador —el sistema era el carcelero y usted sale—; esa frase lo invierte: le dice a la persona que el sistema está completo y que la incompleta es ella. Además "ecuación" es el registro estadístico que apaga la emoción que la historia encendió. **La presión es lo que Vélez no usó nunca.**
+
+**3. El anticlímax honesto: "Y ya está. Eso es todo el negocio."** Reemplaza *"Hasta aquí, la lógica de los números es inequívoca. A partir de ahora, el panorama se reduce a tres opciones concretas"* (registro de consultor). Nubank construyó su marca sobre no tener letra menuda, y la forma de comunicarlo no es decirlo: es terminar de explicar y que se note que no falta nada. Resume en tres tiempos concretos: *un producto que las personas vuelven a pedir · una tecnología que atiende por usted · un porcentaje que cae los viernes*.
+
+**4. Las opciones dejan de ser un menú y pasan a ser una observación:** *"lo que he visto es que las personas hacen una de tres cosas"*. Primera persona (voz Vélez), sin presentar un catálogo de alternativas. Y **"OPCIÓN 1/2/3" → "LA PRIMERA / LA SEGUNDA / LA TERCERA"**: una matriz numerada suena a consultoría, así suena a alguien hablando. **"INICIAR LA ACTIVACIÓN" → "EMPEZAR HOY"** (era vocabulario nuestro, no del que escucha) y *"asume la propiedad de su negocio"* → **"hoy mismo el negocio queda a su nombre"**, que recoge el hallazgo ya documentado de que para el latino el patrimonio es concreto: la moto, el carro, algo a su nombre.
+
+⚠️ **Consecuencia doctrinal que supersede la nota de v6.7:** al retirarse *"Una empresa digital que le genera ingresos una y otra vez ya existe"*, **el guion hablado ya no contiene la expresión "empresa digital" en ninguna parte** (las dos menciones restantes viven en notas de producción, no en texto que se dice). El deck completo pasa a operar solo con el mecanismo. Es coherente con la regla de que las categorías se ganan y no se anuncian, pero es una decisión mayor: si en algún momento se quiere el bautizo, hay que reponerlo a conciencia.
+
+**5. El momento humano del Slide 2 pasa a ser condicional, no fijo** (decisión del Director). *"Y en su caso, esa persona soy yo"* solo es verdad **en vivo**, cuando el Arquitecto presenta; en el **video grabado** lo narra el CEO, que no es quien invitó, y la frase quedaba falsa. Ahora el guion lleva las dos variantes. La de video: *"Y en su caso, esa persona ya la conoce: es quien le compartió este video. Y detrás de ella hay un equipo completo."* Se descartó grabar un clip por Arquitecto: además del costo de producción, expone el nivel premium del material a tomas y audios de calidad desigual. **La personalización no necesita vivir dentro del video — ya vive alrededor:** la mini-landing del Arquitecto muestra su foto, su frase y su WhatsApp, y el enlace inyecta la atribución. El video solo tiene que apuntar hacia ese rostro, no reproducirlo.
+
+⏳ **Sigue pendiente de verificación de negocio:** *"esta misma semana empieza a producir"* (LA TERCERA).
+
+### Cambios de v6.7 (31 jul 2026 — Slides 3 y 4)
+
+**SLIDE 4 · el villano retirado seguía vivo aquí.** La OPCIÓN 1 decía *"el mismo modelo que le sigue tomando **sus mejores años y su salud**"* — la formulación que salió de WHY_01 y del Slide 1 el mismo día, sobreviviendo en el punto de mayor reactancia: el momento de decidir. Y el rótulo **"LA INACCIÓN"** no describía una alternativa, calificaba a quien la eligiera (la doctrina prohíbe denigrar la elección legítima de nadie). Ahora: **"DEJAR TODO COMO ESTÁ" — *"Es una opción legítima, y hoy para muchos es la que tiene sentido. Solo tenga presente una cosa: si nada cambia, el mes entrante la plata vuelve a llegar con dueño."*** Respeta la dignidad, y el cierre hace callback al villano del Slide 1 en vez de introducir uno nuevo.
+
+**SLIDE 4 · "empresa digital" de 4 usos a 1.** La apertura pasa a *"Su negocio genera ingresos en doce velocidades"*, y las Opciones 2 y 3 dicen "el negocio" / "su negocio". **El único uso que sobrevive es el último de todo el deck** — *"Una empresa digital que le genera ingresos una y otra vez ya existe"* — que es exactamente donde la regla nueva lo permite: el bautizo llega cuando la persona ya vio la película completa. ⚠️ Nota: la apertura canónica de Queswa para "cómo se gana" sigue diciendo "Su empresa digital genera ganancias en 12 velocidades" (system prompt); aquí se separa a propósito porque el orador ya construyó el mecanismo en vivo.
+
+**SLIDE 3 · fuera las viñetas-folleto.** *"Y aquí está lo que de verdad lo separa del resto. Dos cosas:"* + dos bullets era la construcción que la v6.4 ya había rechazado en el Slide 2 por romper el ritmo Puig. Ahora va en prosa conectada.
+
+**SLIDE 3 · test Beto sobre el bloque técnico.** *"Extracto exclusivo, 100% hidrosoluble, que el cuerpo aprovecha por completo"* → *"un extracto que **se disuelve por completo en el agua**, de modo que el cuerpo lo aprovecha todo — **no se queda nada en el fondo de la taza**"*. Misma autoridad, imagen concreta en vez de término químico. Se conservan intactos los datos verificados (2.000+ estudios, híbrido de 6 variedades, 200+ compuestos, Dr. Leow Soon Seng).
+
+**Retirado de mi propuesta previa de Slide 2:** el beat *"el café se acaba"* NO entra ahí — la recurrencia es el remate natural del Slide 3 (*"un hábito que no cambia genera un ingreso que jamás se detiene"*) y decirla dos veces le quita fuerza a la segunda.
+
+**Falsa alarma corregida:** "red de clientes" (Slide 1) vs "su organización" (Slide 4) no es inconsistencia — son alcances distintos: clientes en el Slide 1, la organización completa en el Slide 4. Se conservan ambos.
+
+⏳ **Pendiente de verificación de negocio (no de calibración):** *"su primera velocidad de ingresos se activa esta misma semana"* (Opción 3) es una promesa con fecha. Confirmar que el ciclo de liquidación lo garantiza siempre.
+
+### Cambios de v6.6 (31 jul 2026 — Slide 1: villano nuevo, conectores y la tercera pieza corregida)
+
+**1. El villano cambia: la plata llega ya repartida.** Salen del Slide 1 las dos formulaciones que retiramos el mismo día de `WHY_01` en el arsenal (v5.28): *"Entrega sus mejores años y su salud"* y *"la **consecuencia matemática** de un sistema diseñado para tomar esos años y su salud"*. La primera victimiza y roza retórica ideológica; la segunda es literalmente la frase que la investigación señaló por nombre — el dato pegado a la historia **resta** emoción en vez de sumarla (efecto de la víctima identificable, Small/Loewenstein/Slovic). Entra el trancón 1 del handoff, narrado: *"al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos"*. Y **"le pasa igual al que gana dos millones y al que gana veinte"** cierra de entrada la puerta al *"ese no es mi caso"* del que gana bien — el dolor no es que la plata sea poca, es que llega comprometida.
+
+**2. Conectores para el atril** (pedido del Director: *"me imagino frente al teleprompter y siento que faltan conectores"*). Seis bisagras nuevas, ninguna agrega concepto: *"Pero al día siguiente"* · *"Es un ciclo de"* · *"Y a ese desgaste, súmele"* · *"Ahora bien"* · *"Para eliminar esa fricción"* · *"Aquí es donde entra la aplicación"*.
+
+**3. El beat del "por qué ahora"** (importado de `WHY_01`): *"distribuir productos de consumo diario siempre ha sido un buen negocio, pero exigía algo que a casi nadie le gusta… nadie tiene la vida para dedicarse a eso todo el día"*. Va **antes** de nombrar la herramienta, para que el *"para eliminar esa fricción"* recoja el peso recién nombrado y deje servido el *Lo segundo*. Hace que el modelo se sienta inevitable en vez de ofrecido.
+
+**4. 🔴 La tercera pieza ya no es "usted" — son los pasos exactos.** Error de dos capas detectado por el Director: (a) lógico — si la app **entrega** tres cosas, las tres tienen que ser entregables, y usted no lo es; (b) doctrinal — el canon dice que **el Propietario no es una de las fuerzas: las dirige**, así que ponerlo como ítem de una lista de piezas lo degrada a componente justo donde construimos su estatus de dueño. Además **el deck ya mostraba en pantalla "Su método comprobado · Los pasos exactos"** con su propio b-roll (`metodo.mp4`): el guion se había desincronizado de lo que el prospecto está leyendo. Refuerzo de investigación: el BRIEF documenta la **aversión a construir** (*"quieren la certeza, sin el riesgo de levantar algo"*) — esa pieza es la que desarma esa barrera. Dos ganancias derivadas: el dinero deja de ser la cola de una viñeta y gana beat propio (*"¿Y su parte? La más simple de todas: compartir"* + porcentaje + viernes), y "usted" vuelve a ser quien dirige.
+
+**5. Menores:** *"la gente ya vive"* → *"las personas ya viven"* (registro vetado, ver [[feedback_evitar_gente_despectivo]]; se había colado en la reescritura de v6.5) · *"que carga el inventario"* → *"el inventario millonario"* · *"no se trata de renunciar a lo que hace hoy"* explicita el frame **en paralelo** antes de la promesa.
+
+⚠️ **Pendiente estructural (no es del guion, es del deck):** `src/app/servilleta/page.tsx` sigue en la estructura anterior — su Slide 1 son los clips *empresa-tradicional / empresa-digital / sonrisaslindas* con portada "CREE SU EMPRESA DIGITAL" y el subtítulo *"El sistema le toma sus mejores años sin darle seguridad"* (villano retirado), y su Slide 2 es "3 COSAS TIENEN QUE SER CIERTAS" (tríada retirada como puerta de entrada). Lo que este guion narra en el Slide 1 es lo que el deck muestra en el Slide 2, y *Compartir · Recibir · Multiplicar* no tiene slide montada. Decisión pendiente del Director: remapear el guion al deck (barato, los b-rolls `respaldo`/`queswa`/`metodo` ya corresponden) o actualizar el deck al guion (exige re-renders).
 
 ### Cambios de v6.5 (30 jul 2026 — LENGUAJE CONCRETO: rediseño de Slides 1 y 2)
 
@@ -188,25 +236,31 @@
 
 Empecemos por el verdadero problema.
 
-Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: **trabajar, pagar cuentas y repetir**. Quiero ser claro: esto no sucede por falta de capacidad o esfuerzo de su parte. Es sencillamente la **consecuencia matemática** de un sistema diseñado para **tomar esos años y su salud**, no para darle seguridad financiera.
+Usted trabaja el mes entero. Pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de **trabajar, pagar cuentas y repetir**. Y quiero ser claro: esto no pasa por falta de capacidad ni de esfuerzo suyo. Le pasa exactamente igual al que gana dos millones y al que gana veinte.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
-Ahora. Usted ya tiene una fuente de ingresos con la que sostiene su estilo de vida hoy. Pero en el fondo, sabe que la sostiene sobre variables que usted no controla: **un despido, un semestre malo de ventas, y todo queda en el aire**.
+Y a ese desgaste, súmele algo todavía más incómodo. Usted sostiene a los suyos con lo que produce hoy, y en el fondo sabe que eso se apoya en variables que no controla: **un despido, un semestre malo de ventas, y todo queda en el aire**.
 
-Nosotros vemos una oportunidad enorme para cambiar eso. Y la solución es más simple de lo que parece: **construir un segundo ingreso, en paralelo al que ya tiene — con el potencial de igualarlo o superarlo.**
+Nosotros vemos una oportunidad enorme para cambiar eso. Y la solución es más simple de lo que parece: no se trata de renunciar a lo que hace hoy, sino de **construir un segundo ingreso, en paralelo — con el potencial de igualarlo o superarlo.**
 
-Para eso desarrollamos una herramienta. **Una App llamada Queswa.**
+Ahora bien, distribuir productos de consumo diario siempre ha sido un buen negocio. Pero el modelo tradicional exigía algo que a casi nadie le gusta: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para dedicarse a eso todo el día.
+
+Para eliminar esa fricción desarrollamos una herramienta. **Una App llamada Queswa.**
 
 **[ TONO DE REVELACIÓN ]**
 
-¿Qué hace? Le entrega, desde el celular que tiene en la mano, las **tres cosas** que usted necesita para construir una red de distribución internacional.
+¿Qué hace exactamente? Le entrega, desde el celular que tiene en la mano, las **tres cosas** que hacen falta para construir una red de distribución internacional.
 
-**Lo primero: el producto y la fábrica.** Usted distribuye **café, bebidas y suplementos** que millones de personas ya consumen todos los días. Los fabrica una corporación con **más de 30 años y presencia en 70 países**, que carga el inventario, responde por lo legal y despacha en cada país.
+**Lo primero: el producto y la fábrica.** Usted distribuye **café, bebidas y suplementos** que millones de personas ya consumen todos los días. Los fabrica una corporación con **más de 30 años y presencia en 70 países**, que carga el inventario millonario, responde por lo legal y despacha en cada país.
 
-**Lo segundo: la conversación.** La aplicación se encarga de **explicar, atender y madurar** la decisión de cada persona interesada, directamente **por WhatsApp** — ahí donde la gente ya vive y se comunica todos los días.
+**Lo segundo: la conversación.** Aquí es donde entra la aplicación. Queswa se encarga de **explicar, atender y madurar** la decisión de cada persona interesada, directamente **por WhatsApp** — ahí donde las personas ya viven y se comunican todos los días.
 
-**Lo tercero: usted.** Su función es **compartir**. Y cada compra que fluye por su **red de clientes** se traduce en un porcentaje directo para usted, **liquidado en su cuenta bancaria cada viernes**. Cero costos fijos, cero empleados.
+**Y lo tercero: los pasos exactos.** Usted no tiene que inventar nada ni saber de tecnología: el camino ya está trazado, paso por paso.
+
+**[ PAUSA · 1s ]**
+
+¿Y su parte? La más simple de todas: **compartir**. Cada compra que fluye por su **red de clientes** se traduce en un porcentaje directo para usted, **liquidado en su cuenta bancaria cada viernes**. Cero costos fijos, cero empleados.
 
 **[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
 
@@ -235,7 +289,9 @@ Usted **comparte**. Un enlace, desde su celular, con las personas que decida. Es
 
 Cuando alguien ya tomó la decisión, **usted lo recibe de persona a persona**. Ese es el único momento donde hace falta un ser humano — y es el más valioso de todos. Porque la tecnología explica, resuelve y madura la decisión… pero la confianza de un apretón de manos, la calidez de que alguien lo esté esperando del otro lado, eso no lo da ninguna máquina.
 
-*(En vivo, el Arquitecto se presenta aquí: "y en su caso, esa persona soy yo".)*
+*(**EN VIVO** — el Arquitecto se presenta aquí: "y en su caso, esa persona soy yo". Es la versión más fuerte: el humano está en la sala.)*
+
+*(**EN VIDEO GRABADO** — lo narra el CEO, que no es quien invitó: "Y en su caso, esa persona ya la conoce: es quien le compartió este video. Y detrás de ella hay un equipo completo.")*
 
 **EL TERCERO · MULTIPLICAR** · *1 → 2 → 4.*
 
@@ -256,9 +312,7 @@ Toda empresa sólida necesita un producto que las personas compren una y otra ve
 
 Solo que el suyo lleva dentro **Ganoderma Lucidum** — el hongo más estudiado del planeta, con más de 2.000 estudios publicados.
 
-Y aquí está lo que de verdad lo separa del resto. Dos cosas:
-- Es un **híbrido único en el mundo** de las 6 variedades de Ganoderma de mayor valor.
-- Gano Excel lo entrega en un **extracto exclusivo, 100% hidrosoluble**, que el cuerpo aprovecha por completo.
+Y aquí está lo que de verdad lo separa del resto. No es cualquier Ganoderma: es un **híbrido único en el mundo**, hecho con las seis variedades de mayor valor. Y Gano Excel lo entrega en un extracto que **se disuelve por completo en el agua**, de modo que el cuerpo lo aprovecha todo — no se queda nada en el fondo de la taza.
 
 Detrás hay tres décadas de ciencia del Dr. Leow Soon Seng, pionero mundial en el cultivo de este hongo, y más de 200 compuestos bioactivos asociados a las defensas del cuerpo y al manejo del estrés. Por eso no hablamos de "Ganoderma" a secas. Hablamos del **Ganoderma Lucidum de Gano Excel.**
 
@@ -268,7 +322,7 @@ Detrás hay tres décadas de ciencia del Dr. Leow Soon Seng, pionero mundial en 
 
 # SLIDE 4 · LA MATEMÁTICA Y EL CIERRE
 
-Su empresa digital genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.
+Su negocio genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.
 
 **[ NOTA AL ORADOR ]** *Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales. El deck abre en RENTA VITALICIA — el ingreso recurrente es el valor principal; el inmediato es la segunda pestaña.*
 
@@ -280,22 +334,26 @@ Y por cada paquete empresarial que se activa dentro de su organización, usted r
 
 **[ PAUSA ]**
 
-Hasta aquí, la lógica de los números es inequívoca. A partir de ahora, el panorama se reduce a tres opciones concretas:
+Y ya está. Eso es todo el negocio: un producto que las personas vuelven a pedir, una tecnología que atiende por usted, y un porcentaje que cae los viernes.
 
-**OPCIÓN 1 — LA INACCIÓN**
-Dejar todo igual. Seguir sosteniendo, sobre sus propios hombros, el mismo modelo que le sigue tomando sus mejores años y su salud.
+De aquí, lo que he visto es que las personas hacen una de tres cosas.
 
-**OPCIÓN 2 — COMENZAR POR LOS PRODUCTOS**
-Aún no quiere pensar en la empresa, pero sí quiere el producto. Usted se registra como **Cliente Preferencial** y accede al precio de distribuidor: **un 25% menos** que el precio sugerido. Y si más adelante le nace tener su empresa digital, el paso está a un clic.
+**LA PRIMERA — DEJAR TODO COMO ESTÁ**
+Es una decisión legítima, y hoy para muchos es la que tiene sentido. Nada se rompe: todo sigue igual. **Trabajar, pagar cuentas y repetir.**
 
-**OPCIÓN 3 — INICIAR LA ACTIVACIÓN**
-El paso natural para quien ya lo tiene claro. Usted asume la propiedad de su empresa digital hoy, y su primera velocidad de ingresos se activa esta misma semana.
+**LA SEGUNDA — EMPEZAR POR EL PRODUCTO**
+Todavía no quiere pensar en el negocio, pero sí quiere el producto en su casa. Se registra como **Cliente Preferencial** y compra al mismo precio que un distribuidor: **un 25% menos** que el precio sugerido. Se lo toma, ve cómo le va, y si más adelante le nace tener su propio negocio, el paso está a un clic.
 
-**[ PAUSA · 2s · CAÍDA DE ENTONACIÓN · MIRADA FIJA · TONO DIRECTIVO ]**
+**LA TERCERA — EMPEZAR HOY**
+Para quien ya lo tiene claro. Hoy mismo el negocio queda **a su nombre**, y esta misma semana empieza a producir.
 
-Una empresa digital que le genera ingresos una y otra vez ya existe. CreaTuActivo.com ya existe.
+**[ PAUSA · 2s · CAÍDA DE ENTONACIÓN · MIRADA DIRECTA ]**
 
-La única variable que falta en la ecuación es usted.
+Al principio le dije que usted trabaja el mes entero, y que al día siguiente ese dinero ya tiene dueño.
+
+Esto no cambia eso de la noche a la mañana. Lo que hace es empezar a construirle una parte que sí sea suya: **un viernes en que entra algo que no le debe nada a nadie.**
+
+CreaTuActivo.com ya existe.
 
 ---
 
@@ -313,6 +371,6 @@ La única variable que falta en la ecuación es usted.
 - **Datos de producto verificados (Slide 3):** Ganoderma Lucidum · 2.000+ estudios · híbrido de 6 variedades (los 6 colores del Reishi) · extracto 100% hidrosoluble · Dr. Leow Soon Seng + 200 compuestos bioactivos. Confirmados con el Director (08 jun 2026).
 - **Tasa COP:** si se exponen cifras, usar la tasa fija Gano Excel **$1 USD = $4.500 COP** (no tasa de mercado). Este guión no expone cifras ni fórmulas de plan de compensación.
 - **Léxico "operar":** evitado (causa fricción — evoca cirugía; nadie es "operador"). Se conserva solo "El Respaldo Operativo" (nombre canónico del Pilar 1) y "operativo" como adjetivo.
-- **Ancla "matemática":** usada una sola vez por pieza (Slide 1: "consecuencia matemática"; Slide 4: solo en el título; el cuerpo usa "la lógica de los números").
+- **Ancla "matemática":** ya NO aparece en el Slide 1 (v6.6 — el dato junto a la historia resta emoción). Queda solo en el título del Slide 4; el cuerpo usa "la lógica de los números".
 - **Cierre (Slide 4):** directo a la decisión, sin la frase visionaria «futuro absurdo / casa sin internet» (retirada jun 2026 — competía con el momento de decisión tras las 3 opciones). La visión de marca (CreaTuActivo como norma del ingreso paralelo) vive en el reel Home + la VisionSection de la página.
 - ~~Pendiente~~ ✅ **Hecho (12 jun 2026):** léxico barrido en arsenales (inicial v5.9 · avanzado v12.2 · compensación v7.2 · reto v4.7) + system prompt v28.1 — todos ya en "empresa digital".

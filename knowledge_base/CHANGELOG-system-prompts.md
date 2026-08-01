@@ -6,6 +6,19 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v29.3 — Lenguaje concreto: se retira la tríada como puerta de entrada (31 jul 2026)
+
+**Origen:** dato de campo del Director tras dos meses de conversaciones 1-a-1 — *"nadie parece entender el concepto empresa digital, nadie me ha dicho sí wooow"*. Tres pasadas de investigación independientes (dos Gemini, una Claude Code) coincidieron en el diagnóstico: la categoría es abstracta y el prospecto rellena el vacío con pirámides, cripto o cursos — la misma causa por la que el propio modelo alucinaba infoproductos.
+
+**Qué cambia:**
+
+1. **Regla nueva de CUÁNDO se nombra "empresa digital"** (sección ARQUITECTURA): nunca en el primer contacto ni al responder *qué es esto* / *cómo funciona*; ahí se nombra el mecanismo con sustantivos que se pueden ver (distribución de café y suplementos · celular · cuenta bancaria cada viernes). El término es legítimo después, cuando la persona ya vio cómo funciona. Fundamento: las categorías se ganan, no se anuncian — Nubank nunca le pidió a un cliente entender "neobanco"; el término lo pusieron los analistas años después.
+2. **La arquitectura deja de ser la respuesta a "¿cómo funciona el negocio?"** (>50% de las primeras preguntas). Esa pregunta es sobre el dinero: primero de dónde sale la plata, después la recurrencia, y solo al final la arquitectura reducida a **dos fuerzas** (quien fabrica · quien atiende). El método pasa a EAM_01.
+3. **Retirada la tríada de primeros principios** (*"tres cosas tienen que ser ciertas"*) como apertura canónica — explicaba la estructura sin decir nunca de dónde sale el dinero. Sigue siendo canon interno y material válido para preguntas de arquitectura.
+4. Vector de cierre conversacional y celda de vocabulario Técnico-Clínico alineados con el nuevo WHY_02.
+
+**Sincroniza con** `arsenal_inicial` v5.28 (WHY_01 + WHY_02 + EMPRESA_DIGITAL_01) y `respuestas-maestras.ts`. Base: `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` + `docs/investigaciones/posicionamiento-categoria/`.
+
 ## v29.2 — Tríada de primeros principios sin pronombre ambiguo (3 jul 2026)
 
 Clave de primeros principios (TRES FUERZAS): *"alguien **la** fabrica · algo **la** atiende"* → **"alguien fabrica · una plataforma atiende a las personas"** (el pronombre "la" era gramaticalmente ambiguo — nadie "fabrica" una empresa; "una plataforma" es más concreta que "algo" y mapea limpio con Queswa). Un solo cambio; todo lo demás intacto. Sincroniza con `arsenal_inicial` v5.24 (WHY_02 verbatim_lock + `MASTER_WHY_02`), servilleta v5.8, home y reel home — pasada de claridad del 3 jul 2026.

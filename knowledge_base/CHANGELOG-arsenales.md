@@ -12,9 +12,72 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.28 — Lenguaje concreto: WHY_01, WHY_02 y EMPRESA_DIGITAL_01 (31 jul 2026)
+
+Origen: dato de campo del Director tras dos meses de conversaciones 1-a-1 — *"nadie parece entender el concepto empresa digital, nadie me ha dicho sí wooow"*. Tres pasadas de investigación independientes (dos Gemini, una Claude Code) coincidieron: la categoría es abstracta y el prospecto rellena el vacío con pirámides, cripto o cursos — la misma causa por la que el propio modelo alucinaba infoproductos.
+
+(1) **WHY_02** (>50% de las primeras preguntas) ahora dice **de dónde sale la plata en el segundo párrafo** — ventas de producto y de paquetes empresariales → un porcentaje → cuenta bancaria cada viernes — y explica la recurrencia con el café que se acaba. La arquitectura baja al final, reducida a **dos fuerzas** (quien fabrica · quien atiende); el método pasa a EAM_01. Se retiran la apertura por apalancamiento, la definición de "empresa digital", la analogía Amazon/MercadoLibre y la figura del "puente".
+(2) **WHY_01** responde *qué hacemos* con sustantivos concretos (negocio de distribución de café y suplementos · celular · inteligencia artificial) y el *por qué ahora* en clave de lo que cambió en el mundo, no de lo que anda mal en la vida del prospecto. Se retira el diagnóstico "un sistema que le toma sus mejores años y su salud" (victimiza, roza retórica ideológica, activa reactancia). **"Empresa de tecnología" se conserva** deliberadamente contra la propuesta de cambiarla por "ecosistema/plataforma": es la palabra llana, la misma que usó Nubank ("somos una empresa de tecnología… no un banco").
+(3) **EMPRESA_DIGITAL_01** abría con *"funciona sobre internet, **no sobre activos físicos**"*, que contradice de frente el candado de confianza de WHY_02 y ubica el negocio del lado de "la nube" — el patrón que el prospecto reconoce como fraude. Ahora aterriza: lo digital es la forma de dirigirlo; lo que se mueve es físico. El candado **se afirma, nunca se niega**.
+(4) **El bautizo de la categoría sale del primer contacto.** Las categorías se ganan, no se anuncian: Nubank nunca le pidió a un cliente entender "neobanco" — el término lo pusieron los analistas años después. "Empresa digital" sigue vivo a nivel de marca, manifiesto y flujo de cierre.
+
+57 fragments. Desplegado + re-fragmentado (Voyage) + purgado y clonado al tenant whatsapp. Sincroniza con system prompt **v29.3**. Base: `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` + `docs/investigaciones/posicionamiento-categoria/`.
+
+### v5.27 — Cliente Preferencial: rename + fragmento de cara al cliente (26 jul 2026)
+
+(1) **"Consumidor VIP" → "Cliente VIP"** en todo el arsenal (24 ocurrencias) + `arsenal_compensacion` — decisión Luis: *cliente* es mejor que *consumidor*. "Cliente Preferencial" queda como sinónimo pleno, declarado en FREQ_22 y en los triggers. (2) **Fragmento nuevo CLIENTE_VIP_01** (`<verbatim_lock>`, tras FREQ_22): responde *"yo solo quiero el producto, no el negocio"* **de cara al cliente**, con cifras — precio sugerido $147.900 vs $110.900 de distribuidor = $37.000 por caja, 25% de ahorro, ~$1.776.000 al año para quien toma un café diario; acceso con compra inicial de 50 PV acompañada por el patrocinador; sin cuota mensual ni obligación de mover producto. Cierra dos huecos: el 25% no existía en ningún fragmento, y FREQ_22 respondía esa pregunta **desde el ángulo del Propietario** ("usted percibe regalías por el consumo de cada Cliente VIP") — al prospecto que preguntaba por el precio se le explicaba cómo otro gana con él.
+
+### v5.26 — INVERSION_MARKETING_01 (9 jul 2026)
+
+Fragmento nuevo para *"me dijeron que me pueden ayudar con marketing / invierten en marketing para armar la estructura"*. Cubre una oferta 1-a-1 no pública (Luis apoya con marketing casos puntuales para acelerar uno de sus dos lados de estructura): Queswa **confirma que existe** sin explicar mecánica, cifras ni por qué es selectiva, y remite al equipo de creatuactivo.com. Cierra el hueco donde la consulta caía en FREQ_03/FREQ_04 por colisión semántica con "inversión" y el modelo llegó a **negar que la oferta existiera**. `<verbatim_lock>`, tras FREQ_02. Ver [[project_inversion_marketing_selectiva]].
+
 ### v5.25 — Historia de la mesa + resolver de raíz (4 jul 2026)
 
 Cobertura para las 2 historias de Instagram que promueven el reel Home (auditoría anti-alucinación — el CTA de ambas es "pregúntele a Queswa"). (1) **STORY_02**: la historia de la mesa en dos patas (evento de liderazgo en Mocoa, ~300 personas) — canónica y atribuida a Luis, con instrucción de NO inventar detalles adicionales; puentea al "¿cómo lo armo? ¿qué piezas necesito?" → las 3 cosas. (2) **FREQ_28**: "resolver el tema financiero de raíz" = estructura (ingresos que no dependen de su presencia), no acumulación ni paños de agua tibia; mapea "ideas y herramientas exactas" a fabricante/plataforma/método; **GUARD diciembre**: la "meta a diciembre" es meta personal de Luis — NO existe fecha de lanzamiento/cierre (cupos, no calendario), NUNCA mencionar fecha. 53→55 fragments; clonado al tenant whatsapp (solo inserción de categorías nuevas, sin purga).
+
+### v5.24 — Tríada sin pronombre ambiguo (3 jul 2026)
+
+WHY_02: "la idea es simple" → "la regla es sencilla"; "Alguien **la** fabrica / Algo **la** atiende" → **"Alguien fabrica / Una plataforma atiende a las personas"** (el pronombre era ambiguo — nadie "fabrica" una empresa; "una plataforma" mapea limpio con Queswa). Sync char-by-char con `MASTER_WHY_02`. Desplegado + re-fragmentado + clonado a whatsapp, incluyendo todo lo pendiente desde v5.20. *(Marco retirado en v5.28.)*
+
+### v5.23 — WHY_02 a primeros principios + bisagra "se usa, no se entra" (30 jun 2026)
+
+"Tres fuerzas que trabajan a su favor" → primeros principios en columna (*"tres cosas tienen que ser ciertas…"*, apilado con líneas en blanco porque el widget usa ReactMarkdown+remarkGfm y colapsa el salto simple). Bisagra **"Usted no entra a Gano Excel; Gano Excel trabaja para usted"**. Cierre "el trabajo pesado corre por cuenta de sus socios" → "Lo pesado ya está resuelto" ("sus socios" como sujeto suelto lee MLM). Labels "socio de infraestructura/de tecnología" → **"socio logístico y financiero / socio digital"**. WHY_01: "le entregamos el control" → "usted toma el control" (voz fundador). Ver [[feedback_gano_socio_primeros_principios]]. *(La tríada se retira como apertura canónica en v5.28.)*
+
+### v5.22 — WHY_01 por ritmo (Puig) + purga del aforismo "Usted no explica" (29 jun 2026)
+
+WHY_01: apertura que responde "qué es" (definición Waze), viñetas → prosa enumerada, sin guiones de freno. **Aforismo "Usted no explica — Queswa explica" retirado de TODA superficie viva** (arsenales, system prompt, home, servilleta); slot EXPANDIR → "Usted comparte; su alcance se vuelve masivo". Ver [[feedback_usted_no_explica_retirar]].
+
+### v5.21 — WHY_02 por ritmo (Puig) desde el guion del reel Home (29 jun 2026)
+
+Narrativa fluida en prosa enumerada, apertura cálida, apalancamiento como concepto-ancla, promesa completa "explico, atiendo y maduro". Retirados: el aforismo "Usted no explica" (al latino le gusta hablar), "a su escala", y la línea del ingreso "consumo se repite… recibe una parte" (se adelantaba al CTA de números y rozaba el fantasma MLM). Doctrina: [[feedback_ritmo_narrativo_puig]].
+
+### v5.20 — Reframe socios / tres fuerzas estratégicas (28 jun 2026)
+
+"Tres pilares / tres partes" → **tres fuerzas que trabajan para usted**, con dirección del poder explícita ("de su lado", "a su favor") → resuelve el colapso "¡ahh, es meterse a Gano!". Gano y Queswa pasan a **socio logístico y financiero** / **socio digital**. "Sistema" → "puente" en WHY_02 (el villano no se reusa en positivo). Barrido de TODOS los "(el Pilar 1/2)" residuales en CRED/FREQ/OBJ/VOICE — cero "Pilar" de cara al prospecto (decisión Director 28 jun: socios reemplaza pilares aunque tenga toque MLM, excepción aceptada). "Ingresos recurrentes" → "ingresos una y otra vez" (test abuela).
+
+### v5.19 — Promesa Queswa: "guía" → "madura" (25 jun 2026)
+
+WHY_01/WHY_02 + EAM_01 → *"madura en cada interesado la decisión de avanzar"*: el objeto es **la decisión**, no la persona → activo sin presionar. **Regla del espejo:** en CTA o interpelación al lector NO se usa verbo sobre *su* decisión (expone la persuasión); el verbo solo describe lo que Queswa hace con los prospectos del usuario. La calidez humana conserva "acompaña". Ver [[feedback_promesa_canonica_queswa]].
+
+### v5.18 — EMPRESA_DIGITAL_01 a Camino A + "sistema" → "puente" (23 jun 2026)
+
+Bug de recuperación: *"¿qué es una empresa digital?"* traía WHY_01 por similitud vectorial y el modelo sintetizaba pilares. Se sirve verbatim por **Camino A** (regex en `respuestas-maestras.ts`, tras el match exacto de chips) → $0 tokens. "Sistema" evitado en positivo por ser el villano.
+
+### v5.17 — Fragmento EMPRESA_DIGITAL_01 + WHY_01 pulido (22 jun 2026)
+
+EMPRESA_DIGITAL_01 responde la pregunta directa que el encuadre "empresa digital" dispara, con definición accesible y puente a "en el caso de CreaTuActivo". WHY_01: "monetiza" → "produce ingresos de", "protocolo paso a paso" → "paso a paso exacto", retirado el rótulo clínico "Pregunta de seguimiento". *(Ambos reescritos en v5.28.)*
+
+### v5.16 — WHY_02 + EAM_01 al norte "empresa digital" + chips nuevos (22 jun 2026)
+
+Chips 1 y 2 reescritos para empatizar con el pensamiento real: *"¿Y esto cómo funciona, exactamente?"* · *"¿Cómo lo haría yo? ¿Qué hago en el día a día?"* (sincronizados en `queswa-greeting.ts` + `respuestas-maestras.ts`). WHY_02 presenta los 3 pilares como **alivio** y nombra a Gano con orgullo (respaldo, **NUNCA titular del ingreso** — retirada la cláusula "ingresos cada vez que consumen productos Gano Excel"). EAM_01 alivia los miedos del "qué hago": minutos, no vender, no andar detrás de nadie, no responder a medianoche.
+
+### v5.15 — Calidez en Activar + diagnóstico retirado (jun 2026)
+
+"Usted revisa / da el sí" → *"cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar"* (nadie audita). **CTA_01** deja de ofrecer el Diagnóstico de 5 Días → "una conversación sin compromiso, de persona a persona" (la Home lo desconectó como gancho).
+
+### v5.14 — ACTIVACION_01 (19 jun 2026)
+
+Fragmento nuevo para *"cómo se activa mi empresa digital"*: proceso de arranque concreto en `<verbatim_lock>` — capitalización → paquete en oficina Gano o a domicilio → formulario sencillo con cuenta bancaria → Centro de Mando activo de inmediato → acompañamiento del equipo por llamada. Cierra el vacío donde el modelo improvisaba con los 3 Comandos. Trigger de FREQ_03 limpiado para que no compitan.
 
 ### v5.13 — EAM_01 cierre humano (17 jun 2026)
 

@@ -4562,7 +4562,7 @@ REGLAS:
 - ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
 - Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es su situación hoy?"
 - Nunca menciones que eres IA o chatbot
-- Vocabulario: Propietario, empresa digital, tres fuerzas/socios (NO "pilares"), el ciclo trabajar → pagar cuentas → repetir
+- Vocabulario CONCRETO (jul 2026): negocio de distribución, café y suplementos, celular, cuenta bancaria, cada viernes, Propietario. NO uses "empresa digital" para explicar qué es esto — es un contenedor vacío que el oyente rellena con pirámides o cripto. Nombra el mecanismo, no la categoría.
 
 ${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
 ESTADO: ${getMessageContext()}`;

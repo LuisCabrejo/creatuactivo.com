@@ -38,39 +38,33 @@
  */
 
 /**
- * Texto Master WHY_02 — Chip 1 ("¿Cómo funciona el modelo de negocio?").
- * Sincronizado con arsenal_inicial.txt v5.24 BLOQUE 1 (tríada sin pronombre ambiguo:
- * "alguien fabrica / una plataforma atiende a las personas", 3 jul 2026).
- * Recalibración v5.6 (jun 2026): léxico servilleta-accesible (El Respaldo Operativo /
- * El Método Comprobado, ya no "Matriz Física"/"Tridente EAM"), "Estructura Patrimonial"
- * → "estructura de ingresos recurrentes", rol Propietario, vulnerabilidad sin el seco
- * "si se detiene se detiene", cierre que distingue "cómo se gana" (consumo recurrente).
+ * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
+ * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.28 BLOQUE 1.
+ *
+ * Reescritura 31 jul 2026 — LENGUAJE CONCRETO. Origen: dos meses de conversaciones
+ * 1-a-1 del Director sin un solo "wow". La versión anterior explicaba arquitectura
+ * (el puente, Amazon/MercadoLibre, la tríada) y nunca decía de dónde sale el dinero,
+ * que es la pregunta real debajo de "cómo funciona" — el prospecto quiere saber
+ * "¿cómo voy yo?", y trae una regla de tres: doy y gano, no trabajo no gano.
+ * Ahora: el dinero en el segundo párrafo (ventas de producto y de paquetes
+ * empresariales → porcentaje → cuenta bancaria cada viernes), después la recurrencia
+ * (el café se acaba), y la arquitectura al final reducida a dos fuerzas — quien
+ * fabrica y quien atiende. El método se queda en EAM_01.
+ * Se retira "empresa digital": vacío semántico que el oyente rellena con pirámides o
+ * cripto (la misma causa por la que el modelo alucinaba infoproductos).
+ * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Me alegra que pregunte eso, porque es justo el corazón del asunto. 🪢
+const MASTER_WHY_02 = `Me alegra que pregunte esto. Le respondo con el dinero primero, que es lo que uno de verdad se está preguntando. 🪢
 
-El modelo se apoya en el apalancamiento: usted se vuelve dueño de una **empresa digital** y la pone a producir desde el primer día.
+Usted arma un canal de distribución que dirige completo desde el celular. Los productos son de consumo diario —café, bebidas y suplementos con ganoderma— y los fabrica y los despacha **Gano Excel**, una empresa con más de 30 años y presencia en 70 países. Usted no compra inventario ni entrega pedidos.
 
-¿Y qué es una empresa digital? Una que reemplaza el local y los empleados por infraestructura en internet y procesos automatizados que producen aunque usted duerma; crece de forma masiva y su alcance no tiene fronteras. Piense en Amazon o MercadoLibre: no fabrican lo que venden, son dueños del **puente** que conecta a millones de personas con los fabricantes y cobran por cada transacción, de forma automática. Lo suyo funciona con esa misma lógica: usted es dueño del puente, no quien carga las cajas.
+La ganancia sale de las ventas, y de nada más. Cada vez que alguien compra dentro de su negocio —un cliente suyo, o alguien que arrancó con su propio paquete empresarial— a usted le queda un porcentaje, y se lo liquidan en **su cuenta bancaria cada viernes**.
 
-Construirla solo costaría años, ingenieros y capital. Por eso la regla es sencilla: para que una empresa digital así exista, **tres cosas tienen que ser ciertas.**
+Ahora, lo que casi nadie ve a la primera: **el café se acaba**. La persona que quedó contenta vuelve a pedir el mes siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso deja de depender de sus horas y empieza a depender de cuánta gente ya está consumiendo.
 
-**Alguien fabrica.**
+El peso se reparte en dos. La fábrica y la entrega ya las puso Gano. Y la parte que a la mayoría se le hace cuesta arriba —explicar, atender, estar pendiente— la hago yo: converso por WhatsApp con cada persona interesada y maduro la decisión de avanzar, a toda hora.
 
-**Una plataforma atiende a las personas.**
-
-**Usted sabe qué hacer.**
-
-Y en la suya, **las tres ya están resueltas:**
-
-La primera —*alguien fabrica*— es su **socio logístico y financiero, Gano Excel**: una corporación con más de 30 años y presencia en 70 países que fabrica, asume el costo del inventario, responde por lo legal y despacha el producto en cada país. No es una promesa de internet; es músculo real, de su lado. **Usted no entra a Gano Excel; Gano Excel trabaja para usted.**
-
-La segunda —*una plataforma atiende a las personas*— es su **socio digital, Queswa**, su Centro de Mando. Ese soy yo: usted comparte con un clic y ve en tiempo real quién se interesa; del resto me encargo yo: explico, atiendo y maduro en cada interesado la decisión de avanzar, las 24 horas, y le aviso en cada avance.
-
-La tercera —*usted sabe qué hacer*— es un **método comprobado** que le marca los pasos exactos, sin necesidad de experiencia digital. El camino ya está trazado.
-
-¿Y su papel? Dirigir, con las decisiones de un dueño. Lo pesado ya está resuelto.
-
-¿Qué le resulta más útil ahora: que le muestre cómo sería su día a día, o prefiere que veamos los números, cómo y cuánto produce esto?`;
+¿Qué prefiere ahora: que veamos los números de cómo se vería en su caso, o que le muestre cómo sería su día a día?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
@@ -101,21 +95,25 @@ Por eso no le quita la vida ni lo vuelve vendedor: usted se vuelve un **dueño q
  * NO es chip: se sirve por Camino A vía regex (ver getRespuestaMaestra) porque el RAG
  * confundía esta query con WHY_01 ("¿qué es CreaTuActivo?", el de los 3 pilares + Gano) y
  * el modelo sintetizaba una respuesta de pilares en vez de la definición accesible.
- * Sincronizado carácter por carácter con arsenal_inicial.txt v5.18 BLOQUE 1 (EMPRESA_DIGITAL_01).
- * Doctrina: definición general (Amazon/MercadoLibre/Rappi = el puente) que cierra con puente
- * a "en el caso de CreaTuActivo". "Sistema" evitado (es el villano) → "puente".
+ * Sincronizado carácter por carácter con arsenal_inicial.txt v5.28 BLOQUE 1 (EMPRESA_DIGITAL_01).
+ *
+ * Reescritura 31 jul 2026 — la versión anterior definía la categoría hacia arriba
+ * (Amazon/MercadoLibre/Rappi = el puente) y abría con "funciona sobre internet, NO sobre
+ * activos físicos", que contradice de frente el candado de confianza de WHY_02 (café físico
+ * de una fábrica real → cuenta bancaria el viernes) y nos ubica del lado de "la nube", el
+ * patrón que el prospecto reconoce como fraude. Ahora aterriza: lo digital es la forma de
+ * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
+ * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Buena pregunta — vale la pena precisarlo bien. 🪢
+const MASTER_EMPRESA_DIGITAL = `Buena pregunta, y vale la pena precisarla porque ese término se usa para todo. 🪢
 
-Una empresa digital es un modelo de negocio que funciona sobre internet, no sobre activos físicos. En lugar de local, inventario y nómina, se apoya en sistemas automatizados que generan ingresos de forma continua, sin depender de la presencia del dueño.
+En nuestro caso quiere decir algo sencillo: el negocio se dirige entero desde el celular. Sin local, sin empleados, sin bodega.
 
-Para aterrizarlo, piense en **Amazon**, **MercadoLibre** o **Rappi**. Amazon casi no fabrica lo que vende; Rappi no cocina ni tiene un solo restaurante. Su negocio es ser el **puente** que conecta a las personas con lo que necesitan, y ganar por cada transacción que pasa por ahí —de forma automática, sin cargar una sola caja—.
+Lo que se mueve, en cambio, es bien físico. **Café y suplementos** que salen de una fábrica, llegan a la casa de una persona, y le dejan a usted un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
 
-Por eso una empresa digital logra lo que un negocio tradicional no puede: produce sin depender de las horas de su dueño, crece de forma masiva sin abrir más locales ni contratar más personal, y su alcance no tiene fronteras —de una ciudad a un continente entero— desde un celular.
+Lo digital es lo que le quita el peso de encima: yo converso por WhatsApp con cada persona interesada, le explico y le resuelvo las dudas a toda hora, sin que usted tenga que estar ahí. Eso es lo que antes exigía un local abierto y gente contratada.
 
-En una frase: **usted es dueño del puente que genera el valor una y otra vez.**
-
-¿Quiere que le muestre cómo se ve eso **en el caso de CreaTuActivo** — cómo sería la suya?`;
+¿Quiere que le muestre con números cómo se vería en su caso?`;
 
 /**
  * Regex que detecta la pregunta de texto libre "¿qué es una empresa digital?" y variantes

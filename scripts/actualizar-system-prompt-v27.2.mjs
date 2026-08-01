@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.2_triada_sin_pronombre';
+const VERSION_LABEL = 'v29.3_lenguaje_concreto';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

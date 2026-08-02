@@ -220,9 +220,10 @@ export default function HomePage() {
           ventas, una enfermedad. Todo el ingreso colgando de un solo hilo.
         </Body>
         <Body mt>
-          No se trata de renunciar a lo que hace hoy — lo que hace hoy sostiene su vida.
-          Se trata de ponerle una segunda fuente al lado: una que siga produciendo aunque
-          usted no esté presente.
+          No se trata de renunciar a lo que hace hoy, ni de cambiar de vida. Se trata de
+          ponerle un ingreso en paralelo a su actividad actual — como cuando actualiza su
+          celular: todo lo suyo sigue en su lugar, y su generación de ingresos pasa a otro
+          nivel.
         </Body>
       </Section>
 

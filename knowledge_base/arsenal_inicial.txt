@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v5.28** (31 jul 2026) — **Lenguaje concreto.** WHY_01, WHY_02 y EMPRESA_DIGITAL_01 reescritas tras dos meses de campo sin un solo "wow". WHY_02 dice **de dónde sale la plata en el segundo párrafo** (ventas de producto y de paquetes empresariales → un porcentaje → cuenta bancaria cada viernes) y baja la arquitectura al final, en dos fuerzas; WHY_01 responde *qué hacemos* con sustantivos concretos y el *por qué ahora* en clave de lo que cambió en el mundo; EMPRESA_DIGITAL_01 deja de decir "no sobre activos físicos" (contradecía el candado de confianza y nos ubicaba del lado de "la nube"). Retiradas: la tríada *"tres cosas tienen que ser ciertas"* como apertura canónica, la analogía Amazon/MercadoLibre, la figura del "puente" y el diagnóstico *"un sistema que le toma sus mejores años y su salud"*. 57 fragments · desplegado, re-fragmentado (Voyage) y clonado al tenant whatsapp · sincroniza con system prompt **v29.3**.
+**Versión actual: v5.29** (2 ago 2026) — **Barrido del villano viejo.** WHY_02: "cuánta gente ya está" → "cuántas personas ya están" (registro vetado, se coló el 31 jul); STORY_01: retirada la etiqueta "un sistema diseñado para la asfixia mensual" → villano narrado con el trancón 1 (la plata llega ya con dueño) + "a su nombre". Base v5.28 (31 jul 2026) — **Lenguaje concreto.** WHY_01, WHY_02 y EMPRESA_DIGITAL_01 reescritas tras dos meses de campo sin un solo "wow". WHY_02 dice **de dónde sale la plata en el segundo párrafo** (ventas de producto y de paquetes empresariales → un porcentaje → cuenta bancaria cada viernes) y baja la arquitectura al final, en dos fuerzas; WHY_01 responde *qué hacemos* con sustantivos concretos y el *por qué ahora* en clave de lo que cambió en el mundo; EMPRESA_DIGITAL_01 deja de decir "no sobre activos físicos" (contradecía el candado de confianza y nos ubicaba del lado de "la nube"). Retiradas: la tríada *"tres cosas tienen que ser ciertas"* como apertura canónica, la analogía Amazon/MercadoLibre, la figura del "puente" y el diagnóstico *"un sistema que le toma sus mejores años y su salud"*. 57 fragments · desplegado, re-fragmentado (Voyage) y clonado al tenant whatsapp · sincroniza con system prompt **v29.3**.
 
 **Previa: v5.27** (26 jul 2026) — Cliente Preferencial: rename "Consumidor VIP" → "Cliente VIP" + fragmento CLIENTE_VIP_01 de cara al cliente (25% de ahorro, 50 PV de acceso).
 
@@ -53,7 +53,7 @@ Usted arma un canal de distribución que dirige completo desde el celular. Los p
 
 La ganancia sale de las ventas, y de nada más. Cada vez que alguien compra dentro de su negocio —un cliente suyo, o alguien que arrancó con su propio paquete empresarial— a usted le queda un porcentaje, y se lo liquidan en **su cuenta bancaria cada viernes**.
 
-Ahora, lo que casi nadie ve a la primera: **el café se acaba**. La persona que quedó contenta vuelve a pedir el mes siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso deja de depender de sus horas y empieza a depender de cuánta gente ya está consumiendo.
+Ahora, lo que casi nadie ve a la primera: **el café se acaba**. La persona que quedó contenta vuelve a pedir el mes siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso deja de depender de sus horas y empieza a depender de cuántas personas ya están consumiendo.
 
 El peso se reparte en dos. La fábrica y la entrega ya las puso Gano. Y la parte que a la mayoría se le hace cuesta arriba —explicar, atender, estar pendiente— la hago yo: converso por WhatsApp con cada persona interesada y maduro la decisión de avanzar, a toda hora.
 
@@ -101,7 +101,7 @@ Luis Cabrejo es el fundador de CreaTuActivo y de Queswa, su plataforma de inteli
 
 Trabajó en el sector automotriz, donde aprendió lo que es que el sueldo llegue… y a los quince días ya no quede nada. Después construyó empresas en varios sectores, y entendió que **el éxito de hoy no garantiza el de mañana**: impuestos que cambian, proveedores, nómina, infraestructura — variables que uno no controla, y que terminan volviendo la vida un mismo ciclo: **trabajar, pagar cuentas y repetir.**
 
-Ahí cayó en cuenta de algo: el problema no era su esfuerzo. Era estar dentro de **un sistema diseñado para la asfixia mensual**, no para construir verdadera soberanía financiera.
+Ahí cayó en cuenta de algo: el problema no era su esfuerzo. Era el sistema en el que estaba parado: la plata llegaba y al día siguiente ya tenía dueño, y nada de eso dejaba algo construido a su nombre.
 
 Buscando la salida, se apalancó en un gigante —**Gano Excel**— y en un producto de consumo diario presente en todo el continente. Le funcionó: llegó a **Diamante en dos años y medio** y alcanzó lo que muchos buscan — independencia financiera y viajes por el mundo.
 

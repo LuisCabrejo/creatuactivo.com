@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.3_lenguaje_concreto';
+const VERSION_LABEL = 'v29.4_villano_narrado';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

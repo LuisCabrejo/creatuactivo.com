@@ -17,7 +17,7 @@
 
 ## Copy y arsenales
 
-- [ ] **Alinear el motor con el léxico nuevo** — el guion avanzó más rápido que Queswa. Villano viejo en la línea 168 del system prompt, `"cuánta gente"` en WHY_02 (en producción), y barrido pendiente en el resto de arsenales. Handoff completo: `docs/handoff/queswa/HANDOFF_LEXICO_MOTOR_AGO2026.md`.
+- [x] **Alinear el motor con el léxico nuevo** — hecho 2 ago 2026: system prompt **v29.4** (villano viejo fuera de "Permitido", trancón 1 + remate "dos millones y veinte" dentro, equivalentes a "Prohibido"), arsenal **v5.29** (WHY_02 "cuántas personas" + STORY_01 sin "asfixia mensual"), sync verificada en los 4 pares Camino A, desplegado + re-fragmentado + clonado a `whatsapp`. Barrido en los demás arsenales: limpio. Handoff: `docs/handoff/queswa/HANDOFF_LEXICO_MOTOR_AGO2026.md`.
 
 - [x] **Aplicar WHY_01 + WHY_02** (versiones aprobadas) a las 4 fuentes — hecho 31 jul 2026 (arsenal v5.28 + `respuestas-maestras.ts` + deploy/re-fragmentación + clonado a `whatsapp`). Incluyó EMPRESA_DIGITAL_01 y el system prompt v29.3.
 - [ ] **Migrar (o no) el léxico del flujo de cierre** en `route.ts` — la tabla de niveles, la confirmación de paquete y los pines de comisiones siguen diciendo "empresa digital". Se dejó a propósito: ahí la persona ya vio el mecanismo, que es donde la regla nueva sí permite nombrar la categoría. Decisión del Director.

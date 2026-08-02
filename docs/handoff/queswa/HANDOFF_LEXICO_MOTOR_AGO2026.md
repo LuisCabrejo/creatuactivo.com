@@ -1,5 +1,7 @@
 # Handoff — Alinear el motor de Queswa con el léxico nuevo (ago 2026)
 
+> ✅ **EJECUTADO — 2 ago 2026.** Los tres pendientes de §3 están cerrados y desplegados: system prompt **v29.4_villano_narrado** (verificado con `leer-system-prompt.mjs`), arsenal **v5.29** (re-fragmentado + clonado a `whatsapp`), sync de los 4 pares Camino A verificada (WHY_02 ahora 1354 chars). Detalle en los CHANGELOGs. El documento queda como registro de la doctrina.
+
 > **Para el agente que entra en frío.** El guion de la presentación avanzó más rápido que el motor. Este documento dice **qué quedó desalineado, dónde está, y qué NO se puede romper al arreglarlo**. Si solo lee las fuentes y no esto, va a re-proponer cosas ya descartadas.
 
 ---

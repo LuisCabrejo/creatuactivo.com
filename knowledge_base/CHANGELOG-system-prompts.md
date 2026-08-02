@@ -6,6 +6,18 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v29.4 — El villano viejo sale de la lista de permitidos (2 ago 2026)
+
+Cierre del pendiente §3.1 del `docs/handoff/queswa/HANDOFF_LEXICO_MOTOR_AGO2026.md`: la sección EL VILLANO todavía tenía como "el más universal" la formulación retirada el 31 jul de WHY_01, el Slide 1 y el cierre del guion — *"Un sistema diseñado para tomar sus mejores años y su salud, a cambio de casi nada"*. Queswa podía seguir diciendo lo que la presentación dejó de decir.
+
+**Qué cambia (solo la sección EL VILLANO):**
+
+1. **Permitido** ahora lidera con el trancón 1 narrado: *"Al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos"*. Se conservan "trabajar, pagar cuentas y repetir", los créditos, la bicicleta estática y "el patrimonio de otros".
+2. **Remate nuevo, marcado como no decorativo:** *"Esto no pasa por falta de capacidad ni de esfuerzo suyo. Le pasa exactamente igual al que gana dos millones y al que gana veinte."* — el dolor no es que la plata sea poca (hiere el orgullo → "ese no es mi caso"); es que llega ya comprometida.
+3. **Prohibido** suma la formulación retirada y sus equivalentes (incluida *"entrega lo mejor de sí y el sistema no le devuelve…"*, misma estructura de víctima): victimizan, rozan retórica ideológica y activan reactancia (*"usted sí es negativo"*, respuesta documentada en campo).
+
+**Sincroniza con** `arsenal_inicial` v5.29 (WHY_02 "cuántas personas" + STORY_01 sin "asfixia mensual") y guion servilleta v6.8.
+
 ## v29.3 — Lenguaje concreto: se retira la tríada como puerta de entrada (31 jul 2026)
 
 **Origen:** dato de campo del Director tras dos meses de conversaciones 1-a-1 — *"nadie parece entender el concepto empresa digital, nadie me ha dicho sí wooow"*. Tres pasadas de investigación independientes (dos Gemini, una Claude Code) coincidieron en el diagnóstico: la categoría es abstracta y el prospecto rellena el vacío con pirámides, cripto o cursos — la misma causa por la que el propio modelo alucinaba infoproductos.

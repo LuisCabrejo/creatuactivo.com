@@ -18,7 +18,7 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo · Luis Cabrejo',
-  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su empresa digital — usted solo dirige.',
+  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su negocio — usted solo dirige.',
   keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, centro de mando creatuactivo, queswa ia, inteligencia artificial creatuactivo',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
@@ -51,7 +51,7 @@ const jsonLd = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para Propietarios que dirigen y multiplican su empresa digital con el Método Comprobado.',
+      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para Propietarios que dirigen y multiplican su negocio con el Método Comprobado.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },
@@ -125,7 +125,7 @@ export default function TecnologiaPage() {
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
                   <strong>Queswa.app</strong> es el Centro de Mando con inteligencia artificial de
                   <strong>CreaTuActivo.com</strong>: el entorno desde donde cada Propietario dirige y
-                  multiplica su empresa digital. La inteligencia artificial asume el trabajo pesado
+                  multiplica su negocio. La inteligencia artificial asume el trabajo pesado
                   —explica, convierte y hace seguimiento las 24 horas—; usted solo dirige.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
@@ -235,7 +235,7 @@ export default function TecnologiaPage() {
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Convierte por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">No solo informa: guía a cada contacto hasta el sí. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo para avanzar. Ve su negocio moverse en tiempo real.</p>
+                  <p className="text-sm text-[#A3A3A3]">No solo informa: madura en cada contacto la decisión de avanzar. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo. Ve su negocio moverse en tiempo real.</p>
                 </div>
 
                 {/* Multiplica */}
@@ -244,7 +244,7 @@ export default function TecnologiaPage() {
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Multiplica por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe la misma empresa digital, lista para crecer sola. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
+                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe el mismo negocio, listo para crecer solo. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
                 </div>
               </div>
             </div>
@@ -376,7 +376,8 @@ export default function TecnologiaPage() {
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
                 Pregúntele a Queswa, con sus propios números, cómo esta tecnología
-                multiplica lo que hoy usted sostiene solo. Explica, atiende y guía, las 24 horas.
+                multiplica lo que hoy usted sostiene solo. Explica, atiende y madura en cada
+                interesado la decisión de avanzar, las 24 horas.
               </p>
 
               <QueswaCTAButton

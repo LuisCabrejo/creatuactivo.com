@@ -39,7 +39,7 @@ export default function ManifiestoDocument({
   // CTA → WhatsApp. Enviar el mensaje ES la declaración de acuerdo.
   const waNumber = (whatsapp || WHATSAPP_ORGANICO).replace(/\D/g, '')
   const saludo = architectName ? `Hola ${architectName.split(' ')[0]}, ` : 'Hola, '
-  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi empresa digital. ¿Cuál es el siguiente paso?`
+  const waText = `${saludo}leí el Manifiesto de los Fundadores y estoy de acuerdo. Quiero iniciar la activación de mi negocio digital. ¿Cuál es el siguiente paso?`
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
@@ -116,8 +116,9 @@ export default function ManifiestoDocument({
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
                   Un día lo vi con claridad: yo no estaba fallando. Estaba dentro de
-                  <span className="text-[#E5E5E5]"> un sistema diseñado para la asfixia mensual</span> —
-                  no para construir verdadera soberanía financiera.
+                  <span className="text-[#E5E5E5]"> un sistema donde la plata llegaba y al día siguiente
+                  ya tenía dueño</span> — un sistema hecho para pagar cuentas, no para construir
+                  soberanía financiera.
                 </p>
               </div>
             </div>
@@ -157,7 +158,7 @@ export default function ManifiestoDocument({
                 <p className="text-[#E5E5E5]">
                   De ese camino nació una filosofía. Y este documento la contiene. Lo que sigue no es
                   información para hojear: es el criterio que define quién está listo para dirigir su
-                  propia empresa digital. Si va a asumirlo, primero tiene que estar de acuerdo con esto.
+                  propio negocio digital. Si va a asumirlo, primero tiene que estar de acuerdo con esto.
                 </p>
               </div>
             </div>
@@ -232,10 +233,10 @@ export default function ManifiestoDocument({
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Cambiar horas de vida por dinero es la grieta más peligrosa en las finanzas de
-                  cualquier profesional. El tiempo no se estira: usted solo tiene las horas que tiene.
-                  Y si su ingreso depende de que esté presente, todo su modelo descansa sobre un
-                  <span className="text-[#E5E5E5]"> único punto frágil</span>.
+                  Un ingreso que depende de que usted esté presente es la grieta más peligrosa en las
+                  finanzas de cualquier profesional. El tiempo no se estira: usted solo tiene las horas
+                  que tiene. Y mientras todo lo que gana pase por esas horas, su modelo entero descansa
+                  sobre un <span className="text-[#E5E5E5]">único punto frágil</span>.
                 </p>
                 <p>
                   Un ingreso estable —un buen sueldo, las utilidades de un negocio propio— resuelve el
@@ -252,15 +253,15 @@ export default function ManifiestoDocument({
               </div>
             </div>
 
-            {/* §4 — Qué es una empresa digital */}
+            {/* §4 — Qué es un negocio digital */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es una empresa digital</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">04 · Qué es un negocio digital</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Una empresa que trabaja con usted, o sin usted.
+                Un negocio que trabaja con usted, o sin usted.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>
-                  Su empresa digital es lo que materializa esa estructura: produce ingreso
+                  Su negocio digital es lo que materializa esa estructura: produce ingreso
                   recurrente a partir del consumo real, y le pertenece. No vive de su esfuerzo diario.
                   Vive del consumo de productos que las personas ya realizan, todos los días, exista
                   usted o no. Mientras ese consumo ocurre, su estructura acumula volumen, y ese volumen
@@ -418,7 +419,7 @@ export default function ManifiestoDocument({
               <p className="text-[#A3A3A3] leading-relaxed">
                 Este documento es el criterio, no un folleto. Si lo leyó y se reconoce en él, el
                 siguiente paso no es pensarlo más — es decirlo. Confírmelo y comencemos la activación
-                de su empresa digital.
+                de su negocio digital.
               </p>
             </div>
             <a

@@ -305,8 +305,8 @@ export default function ManifiestoDocument({
                 <li className="p-6 bg-[#16181D] border-l-2 border-[#C5A059]">
                   <p className="text-[#C5A059] mb-2">El Método Comprobado</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Usted no improvisa el camino: lo deja en manos de un método ya probado —Expandir,
-                    Activar, Multiplicación— que erradica el ensayo y el error. Quien lo sigue no reinventa
+                    Usted no improvisa el camino: lo deja en manos de un método ya probado —Compartir,
+                    Recibir, Multiplicar— que erradica el ensayo y el error. Quien lo sigue no reinventa
                     nada; solo crece.
                   </p>
                 </li>

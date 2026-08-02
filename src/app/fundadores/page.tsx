@@ -436,7 +436,7 @@ export default function FundadoresPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">3. El Método (Mapa)</h3>
                         <p className="text-sm text-[#A3A3A3] mb-4 leading-relaxed">
-                            No improvisas. Sigues el Método Comprobado: Expandir (tráfico), Activar (cierre con IA) y Multiplicación (crecer con un clic).
+                            No improvisas. Sigues el Método Comprobado: Compartir (tráfico), Recibir (cierre con IA) y Multiplicar (crecer con un clic).
                         </p>
                         <p className="text-xs font-bold text-[#64748B] group-hover:text-[#E5C279] transition-colors uppercase">Sistema Probado</p>
                     </div>

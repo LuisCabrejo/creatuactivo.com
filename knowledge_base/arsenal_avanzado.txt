@@ -1,9 +1,9 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.4 — LÉXICO "NEGOCIO DIGITAL"
+# ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.5 — LÉXICO "NEGOCIO DIGITAL"
 
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
-**Versión:** 12.4 (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
+**Versión:** 12.5 (2 ago 2026) — **METH_01: movimientos renombrados Compartir · Recibir · Multiplicar** (rename del Director, servilleta v6.5 — "si hay que explicar la palabra, la palabra falló"); "las guío hasta su decisión" → "maduro su decisión" (verbo vetado); "su empresa digital se multiplica" → "su negocio se multiplica". Cifras intactas. **Previa: 12.4** (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
 
 **Versión previa:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
 **Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → Propietario de Base Operativa · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
@@ -247,18 +247,18 @@ Es igual que comprar propiedad sobre planos: entrar antes le da la mejor posici�
 ---
 
 ### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
-**[Concepto Nuclear]:** El Método Comprobado: tres comandos (Expandir, Activar, Multiplicación) que reemplazan el trabajo pesado por tecnología.
+**[Concepto Nuclear]:** El Método Comprobado: tres movimientos (Compartir, Recibir, Multiplicar) que reemplazan el trabajo pesado por tecnología.
 
-Su día a día se rige por **El Método Comprobado**: tres comandos hechos para quitarle de encima el trabajo pesado de siempre.
+Su día a día se rige por **El Método Comprobado**: tres movimientos hechos para quitarle de encima el trabajo pesado de siempre.
 
-**Comando Expandir:** usted abre sus canales digitales para que lleguen las personas correctas al sistema. No sale a buscar de casa en casa.
+**Compartir:** usted abre sus canales digitales para que lleguen las personas correctas al sistema. No sale a buscar de casa en casa.
 
-**Comando Activar:** yo recibo a esas personas, respondo sus dudas y las guío hasta su decisión de avanzar. Usted solo entra al final, con quien ya está listo. *Usted no convence; cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
+**Recibir:** yo converso con esas personas, respondo sus dudas y maduro su decisión de avanzar. Usted solo entra al final, con quien ya está listo. *Usted no convence; cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
 
-**Comando Multiplicación:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Así su empresa digital se multiplica —1, 2, 4, 8— sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
+**Multiplicar:** yo me encargo de formar a cada persona nueva que entra a su organización, desde el primer día. Así su negocio se multiplica —1, 2, 4, 8— sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
 
 **Pregunta de cierre:** ¿Ve la ventaja de dirigir un sistema que conversa y forma solo, en vez de andar convenciendo y capacitando a mano?
 
 ---
 
-**FIN DEL ARSENAL AVANZADO v12.1 — LÉXICO "NEGOCIO DIGITAL"**
+**FIN DEL ARSENAL AVANZADO v12.5 — LÉXICO "NEGOCIO DIGITAL"**

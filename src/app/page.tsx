@@ -529,19 +529,19 @@ function QueswaDiferenciadorSection() {
 }
 
 // ============================================================================
-// PILAR 3 · EL MÉTODO COMPROBADO — los 3 comandos (Expandir·Activar·Multiplicar)
+// PILAR 3 · EL MÉTODO COMPROBADO — los 3 movimientos (Compartir·Recibir·Multiplicar, rename jul 2026)
 // promovidos a su propio pilar (antes escondidos como "capacidades de Queswa")
 // ============================================================================
 
 function MetodoSection() {
   const pasos = [
     {
-      n: '01', paso: 'EXPANDIR', titulo: 'Llegar a las personas correctas',
+      n: '01', paso: 'COMPARTIR', titulo: 'Llegar a las personas correctas',
       desc: 'Usted abre los canales; explicar y presentar se lo deja a Queswa.',
       aforismo: 'Usted comparte; su alcance se vuelve masivo.',
     },
     {
-      n: '02', paso: 'ACTIVAR', titulo: 'Conversar y madurar la decisión',
+      n: '02', paso: 'RECIBIR', titulo: 'Recibir a quien ya decidió',
       desc: 'Queswa conversa con cada interesado, aporta claridad, resuelve dudas y madura su decisión de avanzar, las 24 horas.',
       aforismo: 'Usted recibe al interesado y estrecha su mano — la calidez que solo un humano puede dar.',
     },

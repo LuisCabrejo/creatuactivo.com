@@ -6,6 +6,15 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v29.5 — Compartir · Recibir · Multiplicar + léxico nuevo en el cierre (2 ago 2026)
+
+Dos decisiones del Director (2 ago 2026):
+
+1. **Método renombrado en el prompt** (Pilar 3 + aforismos): Comando Expandir · Activar · Multiplicación → **tres movimientos: Compartir · Recibir · Multiplicar**, con nota de que los nombres viejos no se usan. Propagación del rename de servilleta v6.5 — capa de texto completa (mismo commit: Home, Manifiesto, `/fundadores`, voice-command, arsenal_inicial header, arsenal_avanzado METH_01). Los reels quedan para el re-deploy conjunto con "3 pilares".
+2. **El flujo de cierre del backend abandona "empresa digital"** (decisión: en el momento más crítico la persona está comprando la solución a su falta de liquidez — un ingreso en paralelo sin dejar lo que hace; la categoría ahí puede confundir. El bautizo "empresa digital" se difiere a Academia/Maestría, post-compra). En `route.ts`: tabla Estado 2 ("activar su negocio"), doble oferta Estado 4 ("su negocio digital" — rama ya cubierta por el regex `_handoffYaEntregado`), pines GEN5 ("por cada persona que arranca con su paquete empresarial"), cierre del mix ("su negocio"). También el encabezado stale de `HAIKU_SYSTEM_PROMPT` ("Protocolo de Auditoría Técnica y Calificación Patrimonial" → identidad Queswa: claridad, nadie evalúa ni califica).
+
+**Sincroniza con** `arsenal_inicial` v5.30 y `arsenal_avanzado` v12.5.
+
 ## v29.4 — El villano viejo sale de la lista de permitidos (2 ago 2026)
 
 Cierre del pendiente §3.1 del `docs/handoff/queswa/HANDOFF_LEXICO_MOTOR_AGO2026.md`: la sección EL VILLANO todavía tenía como "el más universal" la formulación retirada el 31 jul de WHY_01, el Slide 1 y el cierre del guion — *"Un sistema diseñado para tomar sus mejores años y su salud, a cambio de casi nada"*. Queswa podía seguir diciendo lo que la presentación dejó de decir.

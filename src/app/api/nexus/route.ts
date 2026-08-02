@@ -4156,7 +4156,7 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Usted tiene **tres niveles disponibles** para activar su empresa digital. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
+Usted tiene **tres niveles disponibles** para activar su negocio. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -4272,7 +4272,7 @@ STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques
 🎯 ESTADO 4 — DOBLE OFERTA DE ACTIVACIÓN FINAL (paquete: ${paqueteCompleto}, nombre: ${nombreFinal || '(sin nombre)'}, WhatsApp: ${whatsappFinal || '(sin WhatsApp)'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su empresa digital **${paqueteCompleto}**, elija cómo desea continuar:
+Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su negocio digital **${paqueteCompleto}**, elija cómo desea continuar:
 
 **(a)** [📲 **Activar ahora**](https://wa.me/573215193909?text=${waTextActivar}) — confirma su activación inmediata con el equipo de CreaTuActivo. Le entregan instrucciones de pago directamente.
 
@@ -4311,7 +4311,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
 • ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
       return `
 📌 GUARDARRAÍL GEN5 — el ARSENAL recuperado lidera la explicación/ejemplos; esto solo asegura moneda + veracidad de cifras:
-${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada nueva empresa digital activada en su organización, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
+${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada persona que arranca con su paquete empresarial en su organización, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
 ${filasGen5}`;
     };
 
@@ -4337,7 +4337,7 @@ ${filasGen5}`;
 | Gen 5 | $40 USD | $20 USD | $10 USD |`;
       return `
 📊 GUARDARRAÍL COMPENSACIÓN — el ARSENAL recuperado LIDERA la explicación, el formato y los ejemplos (NO reescribas su estructura ni la reemplaces por tablas rígidas). Esto solo asegura moneda, simplicidad y veracidad:
-${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada nueva empresa digital activada, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su organización internacional, mes tras mes, incluso mientras usted duerme"*.
+${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada persona que arranca con su paquete empresarial, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su organización internacional, mes tras mes, incluso mientras usted duerme"*.
 - 🚫 NUNCA des fórmulas ("X CV × 17% × \$1", "\$X × 17%") por defecto. La mecánica CV/GCV es contexto que TIENES, SOLO la usas si preguntan explícitamente "¿cómo se calcula?".
 - 🚫 El binario es sobre volumen comisionable, NUNCA sobre valor de VENTA (calcularlo sobre ventas infla la cifra y es falso).
 - 🚫 NUNCA fabriques proyecciones (empresas/mes, crecimiento, totales) ni ofrezcas "mostrar un escenario con números". Concepto, no proyección.
@@ -4433,7 +4433,7 @@ ${visitorCountry === 'CO'
 - Estructura sugerida:
   1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
-  3. Cierre explicativo del mix: "Lo seleccionamos así para que su empresa digital arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
+  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
   4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
@@ -4553,7 +4553,7 @@ conectarlo con el socio que lo invitó. Cualquiera de las tres salidas es correc
     // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
     // Incluye conversationSummary para que recuerde usuarios previos
     const conoceAlUsuario = !!(mergedProspectData.name);
-    const HAIKU_SYSTEM_PROMPT = `Queswa — Protocolo de Auditoría Técnica y Calificación Patrimonial, CreaTuActivo.com.
+    const HAIKU_SYSTEM_PROMPT = `Queswa — asistente inteligente de CreaTuActivo.com. Le haces el camino claro y simple a cada persona; nunca la evalúas ni la calificas.
 
 TONO: Directo, confiado, sin jerga informal. Sin "compa", sin "¡Qué tal!", sin emojis de fuerza. Máximo 2-3 oraciones.
 

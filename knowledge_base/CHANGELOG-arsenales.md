@@ -12,6 +12,10 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.30 — Método renombrado en el encabezado (2 ago 2026)
+
+Línea Estrategia del doc padre: "(Comando Expandir · Activar · Multiplicación)" → **"(Compartir · Recibir · Multiplicar)"** — propagación del rename de servilleta v6.5. Solo doc padre (ningún fragmento contenía los nombres viejos; EAM_01 ya narraba los movimientos sin nombres). Padre re-desplegado + re-clonado al tenant whatsapp.
+
 ### v5.29 — Barrido del villano viejo (2 ago 2026)
 
 Cierre de los pendientes del `docs/handoff/queswa/HANDOFF_LEXICO_MOTOR_AGO2026.md` §3.2 y §3.3. (1) **WHY_02**: *"cuánta gente ya está consumiendo"* → **"cuántas personas ya están consumiendo"** (registro vetado, ver [[feedback_evitar_gente_despectivo]]; se coló en la redacción del 31 jul y llegó a producción). El `<verbatim_lock>` pasa de 1349 a 1354 chars, sincronizado carácter por carácter con `MASTER_WHY_02` en `respuestas-maestras.ts`. (2) **STORY_01**: retirada la etiqueta *"un sistema diseñado para la asfixia mensual, no para construir verdadera soberanía financiera"* — villano etiquetado + "asfixia mensual" no es universal + "soberanía financiera" fuera del lema. Ahora narrado con el trancón 1 (*"la plata llegaba y al día siguiente ya tenía dueño"*) y el ancla del patrimonio concreto (*"nada de eso dejaba algo construido a su nombre"*). (3) Barrido verificado en `arsenal_avanzado`, `arsenal_12_niveles`, `arsenal_compensacion` y `catalogo_productos`: sin más ocurrencias de "mejores años", "consecuencia matemática" o "asfixia" de cara al prospecto. Sincroniza con system prompt **v29.4**.
@@ -258,6 +262,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v12.5 — METH_01: Compartir · Recibir · Multiplicar (2 ago 2026)
+
+Propagación del rename del método (servilleta v6.5, decisión del Director: *"si hay que explicar la palabra, la palabra falló"* — Expandir → **Compartir** · Activar → **Recibir** · Multiplicar sin cambio, "Recibir" además desambigua "activar" que ya significa comprar el paquete). METH_01: "tres comandos" → "tres movimientos"; bajo el rótulo Recibir, Queswa dice "yo **converso** con esas personas" (no "yo recibo" — recibir es el movimiento del Propietario, el apretón de manos al final); *"las guío hasta su decisión"* → *"maduro su decisión"* (verbo vetado, [[feedback_promesa_canonica_queswa]]); *"su empresa digital se multiplica"* → *"su negocio se multiplica"*. Cifras intactas. Purga METH_01 + re-fragmentación. Sincroniza con system prompt **v29.5**, Home, Manifiesto, `/fundadores` y voice-command. *(v12.4 documentada en el header del .txt — no tuvo entrada aquí.)*
 
 ### v12.3 — "filtrar" desterrado + Maestría→Multiplicación (17 jun 2026)
 

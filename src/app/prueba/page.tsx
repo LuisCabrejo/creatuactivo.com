@@ -30,6 +30,8 @@
 import type { ReactNode } from 'react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
+import HomeManifestoVideo from '@/components/HomeManifestoVideo'
+import { HOME_MANIFESTO_VIDEO, HOME_MANIFESTO_POSTER } from '@/lib/reels'
 
 const GOLD = 'var(--color-brand)'
 const TITANIUM = 'var(--color-titanium)'
@@ -119,6 +121,14 @@ export default function PruebaPage() {
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
           <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
+
+          {/* Reel explainer 9:16 — mismo comportamiento que la Home actual (autoplay
+              muted + chip ACTIVAR SONIDO; al terminar se desvanece y abre Queswa).
+              ⏳ El asset es el explainer vigente (léxico pre-v6.8) — se reemplaza en
+              Blob cuando exista el video nuevo, sin tocar este código. */}
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '0 0 3.5rem' }}>
+            <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
+          </div>
 
           <h1
             style={{

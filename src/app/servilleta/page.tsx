@@ -15,12 +15,19 @@
  *
  * ⚠️ CABECERA DESACTUALIZADA DESDE v7.0 (jul 2026) — lo que sigue describe la
  *    estructura ANTERIOR de 4 slides y el léxico "empresa digital", ya retirado.
- *    ESTRUCTURA VIGENTE (5 slides, guion maestro v6.8):
- *      1 · EL PROBLEMA        "Trabajar, pagar cuentas y repetir"
- *      2 · LAS TRES COSAS     "Lo difícil ya está hecho"  (respaldo · queswa · metodo)
- *      3 · QUÉ HACE USTED     "Usted solo comparte"       (compartir · recibir · multiplicar) ⏳ b-rolls sin renderizar
- *      4 · EL PRODUCTO        "Un hábito que no cambia"   ⏳ pendiente foto de banco
- *      5 · LOS NÚMEROS        cierre en clave Vélez       ⏳ textos pendientes
+ *    ESTRUCTURA VIGENTE (4 slides — el Slide 3 se eliminó el 2 ago 2026):
+ *      1 · EL PROBLEMA        "Trabajar, pagar cuentas y repetir"  (el ciclo del dinero)
+ *      2 · LAS TRES COSAS     "Lo difícil ya está hecho"  (respaldo · queswa · metodo + colapso)
+ *      3 · EL PRODUCTO        "Un hábito que no cambia"   ⏳ pendiente foto de banco
+ *      4 · LOS NÚMEROS        cierre en clave Vélez       ⏳ textos pendientes
+ *
+ *    🔴 "QUÉ HACE USTED" ELIMINADO (decisión del Director). El clip de Queswa ya mostraba
+ *    los tres pasos, así que "su centro de mando → método comprobado → usted solo comparte"
+ *    decía lo mismo tres veces seguidas. Los tres movimientos viven ahora en la card del
+ *    método (Slide 2): cian "Método comprobado" + blanco "Compartir · Recibir · Multiplicar".
+ *    Quedaron sin uso compartir.mp4 / recibir.mp4 / multiplicar.mp4.
+ *    ⚠️ Las clases .slide-4-layout y .slide-4-bottom viven dentro de #slide-3 (el producto):
+ *    ya estaban corridas un número ANTES de esta eliminación. No es un bug de la renumeración.
  *    "empresa digital" ya NO aparece en pantalla en ninguna slide (solo en estos
  *    comentarios). Fuente de verdad del copy: guion_maestro_servilleta_v3.md v6.8.
  *    3 clips (1-3). Slide 1 = "CREE SU EMPRESA DIGITAL" · Slide 2 = "3 COSAS TIENEN
@@ -70,17 +77,44 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
 // regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
 // Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
-const LAST_CARD: Record<number, number> = { 1: 3, 2: 4, 3: 3 };
+// El BEAT DEL COLAPSO (Slide 2) ocupa 6 índices de card (4..9), uno por tiempo del
+// patrón Jobs. Al vivir dentro del mismo contador de cards hereda clic, swipe y
+// flechas sin tocar la navegación: el orador lo pasa a su ritmo, no hay reloj.
+const COLAPSO_FROM = 4;
+const COLAPSO_BEATS = 6;
+
+// Maqueta blanca sobre negro (2 ago 2026): las tres caras se generaron como un SET —
+// misma cámara, misma luz, mismo material y misma huella en el piso. Esa constancia es
+// lo que hace legible el giro; si se reemplaza una sola, hay que regenerar las tres.
+const COLAPSO_PIEZAS = [
+  { id: 'fabrica', corto: 'La fábrica', src: '/images/servilleta/colapso-fabrica.webp' },
+  { id: 'conversacion', corto: 'La conversación', src: '/images/servilleta/colapso-conversacion.webp' },
+  { id: 'metodo', corto: 'El método', src: '/images/servilleta/colapso-metodo-v2.webp' },
+] as const;
+
+// Un texto por beat. El beat 4 (el giro rápido) va MUDO a propósito: es el momento en
+// que la sala entiende sola, y ponerle rótulo lo explicaría antes de tiempo.
+const COLAPSO_TEXTO: Array<{ eyebrow: string; nombre: string }> = [
+  { eyebrow: 'Ya las vio', nombre: 'Las tres cosas' },
+  { eyebrow: 'Alguien fabrica', nombre: 'La fábrica' },
+  { eyebrow: 'Alguien atiende', nombre: 'La inteligencia' },
+  { eyebrow: 'Usted sabe qué hacer', nombre: 'El método' },
+  { eyebrow: '', nombre: '' },
+  { eyebrow: 'No son tres cosas', nombre: 'Ya vienen juntas' },
+];
+// Puntos que se PINTAN en el indicador (el colapso cuenta como uno solo).
+const CARD_DOTS: Record<number, number> = { 1: 3, 2: 4 };
+const LAST_CARD: Record<number, number> = { 1: 3, 2: 9 };
 // Tarjetas por slide. El Slide 2 tiene una más: el BEAT DEL COLAPSO (índice 4),
 // donde los tres socios se vuelven uno y entran al celular. Antes era global = 3.
-const MAX_CARD: Record<number, number> = { 1: 3, 2: 4, 3: 3 };
+const MAX_CARD: Record<number, number> = { 1: 3, 2: 9 };
 
 // Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
 const AMBIENT_VOLUME = 0.125;
 
 export default function ServilletaPage() {
-  const TOTAL_SLIDES = 5;
+  const TOTAL_SLIDES = 4;
   const [activeSlide, setActiveSlide] = useState(1);
   // Default 'binario' (INGRESO RECURRENTE): el valor principal de la oferta es el
   // ingreso por la red de consumo; el inmediato (GEN5) es la segunda pestaña.
@@ -217,8 +251,14 @@ export default function ServilletaPage() {
 
   // one-card-mode: contextos donde slides 1 y 2 (portada + 3 clips cada una)
   // muestran una card a la vez, compartiendo activeCardIndex (0 = portada, 1-3 = clips).
-  const oneCardMode = (activeSlide === 1 || activeSlide === 2 || activeSlide === 3) && (isFullscreen || isMobile);
+  const oneCardMode = (activeSlide === 1 || activeSlide === 2) && (isFullscreen || isMobile);
   const maxCardIndex = MAX_CARD[activeSlide] ?? 3;
+  // Beat activo del colapso (−1 = no estamos en él). Los 6 tiempos comparten un solo
+  // punto en el indicador, por eso el contador visible se calcula aparte.
+  const colapsoBeat =
+    activeSlide === 2 && activeCardIndex >= COLAPSO_FROM ? activeCardIndex - COLAPSO_FROM : -1;
+  const dotCount = CARD_DOTS[activeSlide] ?? maxCardIndex;
+  const dotIndex = Math.min(activeCardIndex, dotCount);
 
   // Navegación por teclado
   useEffect(() => {
@@ -535,8 +575,8 @@ export default function ServilletaPage() {
     }
     // Mobile: IntersectionObserver cuando el panel hace scroll-snap
     setCtaVisible(false);
-    const scrollRoot = document.querySelector('#slide-5');
-    const cta = document.querySelector('#slide-5 .cta-panel');
+    const scrollRoot = document.querySelector('#slide-4');
+    const cta = document.querySelector('#slide-4 .cta-panel');
     if (!cta || !scrollRoot) return;
     const observer = new IntersectionObserver(
       (entries) => { entries.forEach((e) => setCtaVisible(e.isIntersecting && e.intersectionRatio >= 0.4)); },
@@ -688,41 +728,88 @@ export default function ServilletaPage() {
            llega a él y no antes. */
         .colapso .colapso-escena {
           position: absolute; inset: 0; display: grid; place-items: center;
-          background: var(--bg-dark);
+          background: var(--bg-dark); perspective: 1200px;
         }
-        .colapso-pieza {
-          position: absolute; width: 32%; max-width: 200px; opacity: 0;
-          border-radius: 8px; will-change: transform, opacity;
+        .colapso .colapso-trio,
+        .colapso .colapso-objeto,
+        .colapso .colapso-nombre {
+          position: absolute; opacity: 0; pointer-events: none;
+          transition: opacity .45s ease;
         }
-        .colapso.card-active .colapso-pieza {
-          animation: colapsoPieza 3s cubic-bezier(.65,.02,.3,1) forwards;
+
+        /* --- Beat 0: los tres juntos, pequeños y nombrados --- */
+        .colapso .colapso-trio { display: flex; gap: clamp(14px, 5vw, 46px); align-items: flex-end; }
+        .colapso[data-beat="0"] .colapso-trio { opacity: 1; }
+        .colapso-mini { margin: 0; text-align: center; }
+        .colapso-mini img {
+          display: block; width: clamp(72px, 22vw, 148px); aspect-ratio: 1;
+          object-fit: cover; border-radius: 14px;
+          border: 1px solid rgba(197,160,89,0.28);
         }
-        .colapso .p1 { --dx: -78%; --dy: -46%; animation-delay: .15s; }
-        .colapso .p2 { --dx:   0%; --dy: -62%; animation-delay: .35s; }
-        .colapso .p3 { --dx:  78%; --dy: -46%; animation-delay: .55s; }
-        @keyframes colapsoPieza {
-          0%   { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1); }
-          22%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1); }
-          72%  { opacity: 1; transform: translate(0, 0) scale(.26); }
-          100% { opacity: 0; transform: translate(0, 0) scale(.18); }
+        .colapso-mini figcaption {
+          margin-top: 10px; font-family: var(--font-mono); font-size: 0.66rem;
+          letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan);
         }
-        .colapso-celular {
-          position: absolute; width: 122px; height: 238px; border-radius: 22px;
-          border: 2px solid rgba(197,160,89,0.30); opacity: 0;
+
+        /* --- Beats 1-4: UN objeto que gira y cambia de cara --- */
+        .colapso .colapso-objeto {
+          width: clamp(190px, 66vw, 400px); aspect-ratio: 1;
+          transform-style: preserve-3d; will-change: transform;
+          transition: opacity .45s ease, transform .62s cubic-bezier(.55,.06,.25,1);
         }
-        .colapso.card-active .colapso-celular {
-          animation: colapsoCelular 3s ease forwards; animation-delay: .9s;
+        .colapso[data-beat="1"] .colapso-objeto,
+        .colapso[data-beat="2"] .colapso-objeto,
+        .colapso[data-beat="3"] .colapso-objeto,
+        .colapso[data-beat="4"] .colapso-objeto { opacity: 1; }
+        .colapso[data-beat="1"] .colapso-objeto { transform: rotateY(0deg); }
+        .colapso[data-beat="2"] .colapso-objeto { transform: rotateY(180deg); }
+        .colapso[data-beat="3"] .colapso-objeto { transform: rotateY(360deg); }
+
+        .colapso-cara {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; border-radius: 20px; opacity: 0;
+          border: 1px solid rgba(197,160,89,0.35);
+          box-shadow: 0 0 60px rgba(197,160,89,0.18);
+          /* el cambio de cara cae a mitad del giro, cuando el objeto está de canto:
+             ahí el ojo no ve el corte y lee "es el mismo, mostrando otro lado". */
+          transition: opacity .18s linear .30s;
+          backface-visibility: hidden;
         }
-        @keyframes colapsoCelular {
-          0%   { opacity: 0; box-shadow: none; }
-          55%  { opacity: 1; box-shadow: none; }
-          100% { opacity: 1; border-color: rgba(197,160,89,0.75);
-                 box-shadow: 0 0 46px rgba(197,160,89,0.40), inset 0 0 34px rgba(197,160,89,0.14); }
+        .colapso[data-beat="1"] .cara-1,
+        .colapso[data-beat="2"] .cara-2,
+        .colapso[data-beat="3"] .cara-3 { opacity: 1; }
+        /* contra-rotación: la cara 2 vive en la espalda del objeto */
+        .colapso .cara-2 { transform: rotateY(180deg); }
+
+        /* Beat 4 · el ciclo rápido, mudo. Único punto con reloj propio, igual que Jobs
+           cuando juega con los tres antes de rematar. */
+        .colapso[data-beat="4"] .colapso-objeto {
+          animation: colapsoGiro 1.6s cubic-bezier(.5,0,.5,1) infinite;
         }
+        .colapso[data-beat="4"] .colapso-cara {
+          transition: none; animation: colapsoCara 1.6s steps(1, end) infinite;
+        }
+        .colapso[data-beat="4"] .cara-1 { animation-delay: 0s; }
+        .colapso[data-beat="4"] .cara-2 { animation-delay: .533s; }
+        .colapso[data-beat="4"] .cara-3 { animation-delay: 1.066s; }
+        @keyframes colapsoGiro { from { transform: rotateY(0deg); } to { transform: rotateY(1080deg); } }
+        @keyframes colapsoCara { 0%, 33.3% { opacity: 1; } 33.4%, 100% { opacity: 0; } }
+
+        /* --- Beat 5: el nombre. Sin imagen: el vacío alrededor es el efecto. --- */
+        .colapso .colapso-nombre {
+          font-family: var(--font-head); font-weight: 700;
+          font-size: clamp(2.2rem, 11vw, 5.4rem); letter-spacing: -0.01em;
+          color: var(--text-main); text-align: center; line-height: 1;
+          transform: scale(.94); transition: opacity .5s ease, transform .5s ease;
+        }
+        .colapso[data-beat="5"] .colapso-nombre { opacity: 1; transform: scale(1); }
+
         @media (prefers-reduced-motion: reduce) {
-          .colapso.card-active .colapso-pieza,
-          .colapso.card-active .colapso-celular { animation-duration: .01s; }
-          .colapso.card-active .colapso-celular { opacity: 1; }
+          .colapso .colapso-trio,
+          .colapso .colapso-objeto,
+          .colapso .colapso-cara,
+          .colapso .colapso-nombre { transition-duration: .01s; animation: none; }
+          .colapso[data-beat="4"] .cara-3 { opacity: 1; }
         }
         .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
         .deck-h1 { font-size: 4rem; }
@@ -762,7 +849,7 @@ export default function ServilletaPage() {
           flex: 1 1 auto;
           overflow: hidden;
         }
-        .kiosk #slide-5,
+        .kiosk #slide-4,
         .kiosk .slide-4-bottom { padding-bottom: 16px !important; }
 
         /* Modo Vertical: marco portrait 9:16 centrado en negro, tapa la nav */
@@ -1377,15 +1464,15 @@ export default function ServilletaPage() {
             border-radius: 0;
             gap: 30px !important;
           }
-          #slide-4 .slide-4-bottom {
+          #slide-3 .slide-4-bottom {
             gap: 40px !important;
             padding-bottom: 60px !important;
           }
-          #slide-4 .bio-text-panel .deck-p {
+          #slide-3 .bio-text-panel .deck-p {
             font-size: 1.05rem !important;
             line-height: 1.6 !important;
           }
-          #slide-4 .metric-label {
+          #slide-3 .metric-label {
             font-size: 0.85rem !important;
             font-weight: 600 !important;
             letter-spacing: 1.5px !important;
@@ -1395,7 +1482,7 @@ export default function ServilletaPage() {
           .bio-metrics-container { max-width: 100%; }
 
           /* ── Slide 4 mobile: scroll-snap vertical ── */
-          #slide-5 {
+          #slide-4 {
             overflow-y: scroll;
             scroll-snap-type: y proximity; /* proximity (no mandatory): mandatory atrapaba el scroll hacia arriba entre paneles */
             -webkit-overflow-scrolling: touch;
@@ -1653,15 +1740,15 @@ export default function ServilletaPage() {
 
           /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
           /* ── Slide 4 fullscreen mobile ── */
-          :fullscreen #slide-5 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
-          :fullscreen #slide-5 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-5 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
-          :fullscreen #slide-5 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
-          :fullscreen #slide-5 .bg-image-cta { height: 48% !important; }
+          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
+          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
+          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
+          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
+          :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
           /* flex-start (no center): en fullscreen la .mobile-nav se oculta, así que
              centrar empuja el 2º botón fuera de pantalla. Anclar arriba (justo bajo
              la imagen) replica la vista normal y garantiza ver ambos botones. */
-          :fullscreen #slide-5 .cta-overlay { top: 48% !important; justify-content: flex-start !important; padding: 32px 24px 40px !important; }
+          :fullscreen #slide-4 .cta-overlay { top: 48% !important; justify-content: flex-start !important; padding: 32px 24px 40px !important; }
           :fullscreen .cta-overlay h2 {
             font-size: 2rem !important;
             letter-spacing: 2px !important;
@@ -1679,7 +1766,7 @@ export default function ServilletaPage() {
           :fullscreen .mobile-nav { display: none !important; }
 
           /* SLIDE 3: mobile vertical fullscreen — evitar overflow */
-          :fullscreen #slide-4 { overflow-y: auto !important; }
+          :fullscreen #slide-3 { overflow-y: auto !important; }
           :fullscreen .slide-4-layout {
             align-items: flex-start !important;
             overflow-y: auto !important;
@@ -1886,9 +1973,8 @@ export default function ServilletaPage() {
             {[
               { id: 1, label: '01 EL PROBLEMA' },
               { id: 2, label: '02 LAS TRES COSAS' },
-              { id: 3, label: '03 QU\u00c9 HACE USTED' },
-              { id: 4, label: '04 EL PRODUCTO' },
-              { id: 5, label: '05 LOS N\u00daMEROS' },
+              { id: 3, label: '03 EL PRODUCTO' },
+              { id: 4, label: '04 LOS N\u00daMEROS' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -1920,9 +2006,8 @@ export default function ServilletaPage() {
             {[
               { id: 1, label: 'El Problema' },
               { id: 2, label: 'Las Tres Cosas' },
-              { id: 3, label: 'Qu\u00e9 Hace Usted' },
-              { id: 4, label: 'El Producto' },
-              { id: 5, label: 'Los N\u00fameros' },
+              { id: 3, label: 'El Producto' },
+              { id: 4, label: 'Los N\u00fameros' },
             ].map((s) => (
               <button
                 key={s.id}
@@ -2080,15 +2165,15 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex >= 1 && (
                 <div className="slide-2-header">
                   <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 0{maxCardIndex}
+                    0{dotIndex} / 0{dotCount}
                   </span>
                   <div className="card-dots">
-                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
+                    {Array.from({ length: dotCount }, (_, k) => k + 1).map((i) => (
                       <button
                         key={i}
-                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
+                        className={`card-dot ${dotIndex === i ? 'active' : ''}`}
                         onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Parte ${i} de 3`}
+                        aria-label={`Parte ${i} de ${dotCount}`}
                       />
                     ))}
                   </div>
@@ -2142,13 +2227,18 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
+              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width).
+                  Esta card ABSORBIÓ el antiguo Slide 3 "Qué hace usted" (eliminado 2 ago 2026,
+                  decisión del Director): el clip de Queswa ya mostraba los tres pasos, así que
+                  "su centro de mando → método comprobado → usted solo comparte" decía lo mismo
+                  tres veces seguidas. Los tres movimientos viven ahora aquí, sobre el mismo clip
+                  de los pasos exactos. Eyebrow = cian (ya lo era por CSS) · nombre = blanco. */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
                 <video className="card-bg" data-slide="2" data-card="3" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-metodo')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Los pasos exactos</h3>
+                  <span className="pillar-eyebrow">M&eacute;todo comprobado</span>
+                  <h3 className="pillar-name">Compartir &middot; Recibir &middot; Multiplicar</h3>
                 </div>
               </div>
 
@@ -2161,16 +2251,38 @@ export default function ServilletaPage() {
                   Sin render 3D: son los cuadros congelados de los tres clips que el
                   público acaba de ver, para que el vínculo sea reconocimiento y no
                   traducción. Animación en CSS puro (esta página no carga Framer). */}
-              <div className={`card-industrial full-width colapso ${activeCardIndex === 4 ? 'card-active' : ''}`}>
+              <div
+                className={`card-industrial full-width colapso ${colapsoBeat >= 0 ? 'card-active' : ''}`}
+                data-beat={colapsoBeat}
+              >
                 <div className="colapso-escena" aria-hidden="true">
-                  <div className="colapso-celular" />
-                  <img src="/images/servilleta/colapso-respaldo.webp" alt="" className="colapso-pieza p1" />
-                  <img src="/images/servilleta/colapso-queswa.webp" alt="" className="colapso-pieza p2" />
-                  <img src="/images/servilleta/colapso-metodo.webp" alt="" className="colapso-pieza p3" />
+                  {/* Beat 0 · los tres juntos, pequeños y nombrados (el establecimiento). */}
+                  <div className="colapso-trio">
+                    {COLAPSO_PIEZAS.map((p) => (
+                      <figure key={p.id} className="colapso-mini">
+                        <img src={p.src} alt="" />
+                        <figcaption>{p.corto}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+
+                  {/* Beats 1-4 · UN solo objeto que gira y cambia de cara. Que sea el
+                      mismo objeto girando —y no tres que entran y salen— es lo que
+                      siembra la idea antes de enunciarla. */}
+                  <div className="colapso-objeto">
+                    {COLAPSO_PIEZAS.map((p, i) => (
+                      <img key={p.id} src={p.src} alt="" className={`colapso-cara cara-${i + 1}`} />
+                    ))}
+                  </div>
+
+                  {/* Beat 5 · el remate es LA PALABRA, no otra imagen (patrón Jobs: tras
+                      jugar con los tres iconos no mostró un cuarto aparato — escribió
+                      "iPhone"). Aquí: Queswa.app. */}
+                  <div className="colapso-nombre">Queswa.app</div>
                 </div>
                 <div className="card-content">
-                  <span className="pillar-eyebrow">No son tres cosas</span>
-                  <h3 className="pillar-name">Ya vienen juntas</h3>
+                  <span className="pillar-eyebrow">{COLAPSO_TEXTO[Math.max(colapsoBeat, 0)]?.eyebrow}</span>
+                  <h3 className="pillar-name">{COLAPSO_TEXTO[Math.max(colapsoBeat, 0)]?.nombre}</h3>
                 </div>
               </div>
 
@@ -2179,107 +2291,7 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                   <button className="btn-next" onClick={() => showSlide(3)}>
-                    QUÉ HACE USTED →
-                  </button>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* ===== SLIDE 3 · QUÉ HACE USTED =====
-              Guion v6.8 · SLIDE 2. Responde la 2ª pregunta del avatar: "¿qué hago yo en
-              el día a día?". Tres movimientos — COMPARTIR (un clic) · RECIBIR (el apretón
-              de manos, único momento donde el humano es irremplazable) · MULTIPLICAR
-              (1→2→4, réplicas IDÉNTICAS: nunca pirámide ni cascada top-down, es lenguaje
-              MLM y está prohibido). El botón "PREGÚNTALE ALGO EN VIVO" NO se duplica aquí
-              — vive solo en la tarjeta Queswa del Slide 2.
-              ⏳ B-rolls pendientes de render: compartir.mp4 · recibir.mp4 · multiplicar.mp4
-              (comps Expandir3D / Activar3D / Maestria3D en scripts/dankoe-video/motion). */}
-          <section
-            id="slide-3"
-            className={`slide ${activeSlide === 3 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
-          >
-            <div className="grid-layout-slide-2">
-              {/* Header: en grid (preview) = H1+subtítulo como título de sección;
-                  en one-card (presentación) = solo contador + dots sobre los clips
-                  (el H1 vive en la portada índice 0) — pedido Director 2 jul 2026. */}
-              {!oneCardMode && (
-                <div className="slide-2-header">
-                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                    USTED SOLO COMPARTE
-                  </h2>
-                  <span className="slide-2-subtitle">
-                    Tres movimientos. El resto lo hace la tecnología.
-                  </span>
-                </div>
-              )}
-              {oneCardMode && activeCardIndex >= 1 && (
-                <div className="slide-2-header">
-                  <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 0{maxCardIndex}
-                  </span>
-                  <div className="card-dots">
-                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
-                      <button
-                        key={i}
-                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Parte ${i} de 3`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Portada (índice 0): H1 + subtítulo centrados, espejo de la portada del
-                  slide 1. Solo one-card (en grid el H1 vive en el header). */}
-              {oneCardMode && activeCardIndex === 0 && (
-                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
-                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    USTED SOLO COMPARTE
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Tres movimientos. El resto lo hace la tecnología.
-                  </p>
-                </div>
-              )}
-
-              {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-compartir')}>
-                <video className="card-bg" data-slide="3" data-card="1" src="/videos/servilleta/compartir.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s3-compartir')}
-                <div className="card-content">
-                  <span className="pillar-eyebrow">Un clic</span>
-                  <h3 className="pillar-name">Compartir</h3>
-                </div>
-              </div>
-
-              {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
-              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-recibir')}>
-                <video className="card-bg" data-slide="3" data-card="2" src="/videos/servilleta/recibir.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s3-recibir')}
-                <div className="card-content">
-                  <span className="pillar-eyebrow">El apret&oacute;n de manos</span>
-                  <h3 className="pillar-name">Recibir</h3>
-                </div>
-              </div>
-
-              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-multiplicar')}>
-                <video className="card-bg" data-slide="3" data-card="3" src="/videos/servilleta/multiplicar.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s3-multiplicar')}
-                <div className="card-content">
-                  <span className="pillar-eyebrow">1 &rarr; 2 &rarr; 4</span>
-                  <h3 className="pillar-name">Multiplicar</h3>
-                </div>
-              </div>
-
-              {/* CTA al fondo — solo en grid (preview). En presentación se avanza con
-                  click/swipe/flecha; el botón encogía el clip del método. */}
-              {!oneCardMode && (
-                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                  <button className="btn-next" onClick={() => showSlide(4)}>
-                    VER EL PRODUCTO →
+                    EL PRODUCTO →
                   </button>
                 </div>
               )}
@@ -2287,7 +2299,7 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 3: BIO-METRÍA (Panel único consolidado) ===== */}
-          <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
+          <section id="slide-3" className={`slide ${activeSlide === 3 ? 'active' : ''}`}>
             <div
               className="bg-image"
               /* ⏳ PENDIENTE: fotografía de banco — una taza, vapor, luz lateral cálida,
@@ -2362,7 +2374,7 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 4: SIMULACIÓN + DOBLE CTA ===== */}
-          <section id="slide-5" className={`slide ${activeSlide === 5 ? 'active' : ''}`}>
+          <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
             <div className="simulator-layout">
               {/* Panel del Simulador */}
               <div className="simulator-panel">

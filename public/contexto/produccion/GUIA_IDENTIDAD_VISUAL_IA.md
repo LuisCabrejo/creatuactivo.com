@@ -73,9 +73,22 @@ Gemini. No se necesita en este flujo.
 
 ## 4. Parámetros técnicos (lo que de verdad mueve la aguja)
 
-- **Formato 9:16 → fíjalo en el SELECTOR de la interfaz, no por texto.** El aspect ratio
-  cambia el encuadre y la cercanía del sujeto; por texto es poco confiable y causa
-  recortes. Mencionar "9:16" en el prompt solo refuerza.
+- **⚠️ El formato depende de la herramienta — no hay una sola regla** (corregido 2 ago 2026,
+  la versión anterior de esta guía decía "fíjalo siempre en el selector" y es falso para
+  imágenes):
+
+  | Herramienta | Imágenes | Video |
+  |---|---|---|
+  | **Gemini (app)** | ❌ **NO hay selector** → la proporción va **por texto** | ✅ selector |
+  | **Vertex** | ✅ selector de formato | ✅ selector |
+
+  Cuando toca por texto, **no basta con mencionarla dentro del bloque de ADN**: enterrada
+  en una viñeta se diluye y el modelo devuelve su default (16:9). Va **explícita, como
+  instrucción de salida, al PRINCIPIO y al FINAL del prompt** — que es donde el modelo
+  pesa más. Formulación que funciona: `Output a square 1:1 image.` / `Output a vertical
+  9:16 image.` repetida en las dos posiciones.
+- **El aspect ratio cambia el encuadre y la cercanía del sujeto**, no solo el recorte:
+  al cambiarlo, revisa que el motivo siga ocupando la misma proporción del cuadro.
 - **Nada de conteos exactos.** "El segundo anillo" / "cinco objetos" rompen el realismo
   y bailan entre intentos. Usa **zonas visuales**: "en el cuadrante superior izquierdo",
   "un grupo pequeño".
@@ -90,13 +103,20 @@ Gemini. No se necesita en este flujo.
 ## 5. Plantilla — prompt de IMAGEN (keyframe)
 
 ```
+Output a vertical 9:16 image.        ← primera línea, SIEMPRE (ver §4)
+
 [Bloque de ADN §1, o "Apply the locked CreaTuActivo visual identity" si ya se confirmó]
 
 Scene: [qué se ve — estructuras de línea blanca + el orbe dorado].
-Composition: vertical 9:16, [framing: completo / centrado / con margen], the orb in
+Composition: [framing: completo / centrado / con margen], the orb in
 [zona visual, no conteo].
 [Motivo específico — ver §7].
+
+Output a vertical 9:16 image.        ← última línea, SIEMPRE
 ```
+
+La proporción abre y cierra el prompt. En Gemini app (sin selector de imagen) es la
+única forma fiable; en Vertex es redundante pero no estorba.
 
 ---
 
@@ -397,6 +417,83 @@ dark background, premium, calm and rhythmic.
 > **Regla general que deja esto:** para "A le llega algo de B" sin trayectorias (que la IA dibuja mal) ni
 > fuegos, usa **sincronía**: B se enciende y A responde con un glint **en el mismo instante**. La
 > simultaneidad comunica la relación causa→efecto de forma más limpia y premium que una partícula viajera.
+
+---
+
+## 10. Estándar "Lujo Clínico Bimetálico" — reels COMPLETOS de 25s (faceless)
+
+> **Decisión de producción (jul 2026), respaldada por dos investigaciones independientes que
+> convergieron:** Gemini Deep Research (`Neuroaesthetics and Visual Strategy for AI-Generated
+> Short-Form Content.md`) + investigación externa propia (`INVESTIGACION_ESTILO_PRODUCCION_REEL_3D.md`).
+> Aplica a los **reels completos de ~25s, 100% IA, sin rostro**, para Estados de WhatsApp /
+> Historias de IG (prospección del equipo). **NO reemplaza** el ADN orbe+línea de §1 para los
+> cutaways de 2–3s dentro de videos con presentador (ahí la arcilla/línea sigue bien).
+
+### 10.1 El veredicto (por qué cambiamos)
+- **La arcilla mate no sostiene 25s como estilo único:** su superficie es **ópticamente inerte**
+  (sin destellos especulares → sin micro-novedad) y el córtex se habitúa entre el **seg 9–12** →
+  caída de retención. Además, semiótica de **"juguete/lindo"** = cuadrante SCM *alta calidez /
+  baja competencia* ("lástima/paternalismo").
+- **Nuestra barrera #1 es la desconfianza** (radar anti-pirámide, "de eso tan bueno no dan tanto").
+  En riesgo financiero, **la competencia** es el eje que concede confianza, no la calidez. →
+  Necesitamos **autoridad institucional**, no ternura.
+- **El metal/vidrio resuelve las dos cosas a la vez:** su reflectividad especular **provee el
+  pattern-interrupt por sí sola** (la luz itera sobre biseles y curvas al mover la cámara → 25s
+  sin fatiga y sin cortes epilépticos), y evoca bóveda bancaria / ingeniería aeroespacial /
+  hardware premium = **competencia**.
+- **Faceless es ventaja, no límite:** en nichos tech/educativo, el contenido sin rostro rinde
+  **+23% completación / +27% interacción en demos**. La abstracción "hard-surface" además esquiva
+  el "AI slop" y el valle inquietante (realismo conceptual: la IA renderiza mejor metal/vidrio que
+  orgánico/humano).
+
+### 10.2 El material (reemplaza línea-blanca por PBR en reels completos)
+- **Superficies:** titanio cepillado, bimetálico (oro + aluminio), **vidrio esmerilado** (frosted
+  glass), fibra de carbono. Renderizado físico (PBR) con **destellos especulares nítidos + oclusión
+  ambiental** (sombras de contacto — sin ellas el objeto "flota" y se ve chroma barato).
+- **Fondo:** carbón profundo `#0F1115`–`#1A1A1A`, aislamiento absoluto del objeto.
+- **Acento:** el **oro/champán `#C5A059`** sigue siendo el único calor y el hero (el orbe/núcleo).
+  Guía el eye-tracking hacia el foco y los subtítulos. La calidez del cuadrante "admiración"
+  (alta calidez + alta competencia) la damos con **oro + glow + movimiento orgánico lento + la voz
+  y el copy humano** — NUNCA con textura-juguete.
+- **Geometría minimalista** (misma sobriedad que teníamos): un objeto héroe, alto contraste, cero
+  saturación. La fluidez de procesamiento (simple + contrastado) = percepción de verdad/confianza.
+
+### 10.3 Prompt base Vertex/Veo (pegar y variar la escena)
+```
+Hyper-realistic macro-to-wide 3D shot, clean minimalist geometric infrastructure,
+brushed titanium and frosted glass materials, subtle anodized champagne-gold accents,
+deep carbon-fiber dark background (#0F1115), studio lighting with sharp specular
+highlights and ambient occlusion (contact shadows), quiet-luxury high-end fintech
+aesthetic, cinematic depth of field, slow stable camera reveal. No humans, no text,
+no organic textures, no neon.
+```
+- **Evitar (tells que delatan IA barata / estafa / fatiga):** manos/rostros/agua/vegetación
+  orgánica (talón de Aquiles de Veo → glitches); cromática neón/turquesa/magenta/rojo-alarma
+  (código clickbait/estafa); iluminación plana sin oclusión (objeto flotando); transiciones de
+  software (wipes/glitch/zoom-blur) — el pattern-interrupt viene del **corte limpio** o de la
+  **variación lumínica interna del modelo**.
+
+### 10.4 Arquitectura de un reel de 25s (~9 beats, interrupt cada 4–5s)
+Cambia **plano/objeto/escala/iluminación** cada 4–5s (no el estilo — el estilo es activo de marca
+y se mantiene idéntico en decenas de reels → heurística de familiaridad que ataja el escepticismo).
+Movimiento **lento y estable** (autoridad), un solo momento de energía, **microsilencios de 0.5s**
+antes de la resolución, y **bucle perfecto** (el frame 25 = el frame 0 → el usuario reconsume el
+inicio sin notarlo, retención >100%).
+
+| Seg | Fase | Acción visual | Función |
+|---|---|---|---|
+| 0–3 | Gancho / scroll-stop | objeto héroe único, vidrio+titanio, destello especular | frame más simple y contrastado; abre la brecha de info |
+| 4–8 | Tensión (interrupt 1) | corte a isométrico; red/estructura metálica, órbita lenta | retención |
+| 9–14 | Autoridad (interrupt 2) | cambia iluminación; piezas se ensamblan en un pilar sólido | inocular competencia (desactiva radar estafa) |
+| 15–21 | Resolución (interrupt 3) | núcleo latiendo luz fría-dorada; encaje mecánico perfecto | el sistema/IA |
+| 22–25 | CTA + loop (interrupt 4) | regreso EXACTO al frame 0 | micro-compromiso ("responde X") |
+
+### 10.5 Cómo se valida (A/B)
+Mismo guion, misma voz, mismos tiempos de corte; solo cambia el render: **(A) arcilla** vs.
+**(B) bimetálico**. Métrica: retención a 25s (dónde cae la gráfica) + **tasa de respuesta** al CTA.
+Segundo A/B abierto: **voz humana (equipo) vs. IA** en el CTA — la literatura no es unánime sobre
+el costo de confianza de la voz sintética; que el dato de DMs decida. Detalle → los dos informes
+citados arriba + `guiones/reels/reels_diarios-queswa/INVESTIGACION_EXTERNA_REELS_3D_HISTORIAS.md`.
 
 ---
 

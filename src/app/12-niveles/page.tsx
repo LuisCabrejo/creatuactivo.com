@@ -21,7 +21,7 @@
  *    data-card) — antes los clips de la slide abandonada seguían sonando ocultos
  *    (display:none no pausa un <video>) → audio acumulado. Grid desktop = todo en mute.
  *  - Slides 1 y 2 SIMÉTRICAS: cada una abre con SU portada (índice 0) y sigue con
- *    3 clips (1-3). Slide 1 = "CREE SU EMPRESA DIGITAL" · Slide 2 = "3 COSAS TIENEN
+ *    3 clips (1-3). Slide 1 = "CREE SU NEGOCIO DIGITAL" · Slide 2 = "3 COSAS TIENEN
  *    QUE SER CIERTAS" (H1 fuera de las diapositivas, solo en su portada).
  *  - Tap = pausa SOLO táctil; en desktop el click conserva el avance (capturarlo
  *    dejaba al presentador trabado en el clip 1) + botón ⏸/▶ de esquina por card.
@@ -1868,7 +1868,7 @@ export default function ServilletaPage() {
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 SU EMPRESA DIGITAL' },
+              { id: 1, label: '01 SU NEGOCIO DIGITAL' },
               { id: 2, label: '02 C\u00d3MO FUNCIONA' },
               { id: 3, label: '03 EL PRODUCTO' },
               { id: 4, label: '04 SIMULADOR' },
@@ -1901,7 +1901,7 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, label: 'Su Empresa Digital' },
+              { id: 1, label: 'Su Negocio Digital' },
               { id: 2, label: 'C\u00f3mo Funciona' },
               { id: 3, label: 'El Producto' },
               { id: 4, label: 'Simulador' },
@@ -1942,10 +1942,10 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div className="slide-2-header">
                   <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                    CREE SU EMPRESA DIGITAL
+                    CREE SU NEGOCIO DIGITAL
                   </h2>
                   <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                    Un negocio a su nombre, con un ingreso que no depende de su presencia.
                   </p>
                   <div style={{ textAlign: 'center', marginTop: 12 }}>
                     <button
@@ -1981,10 +1981,10 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex === 0 && (
                 <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
                   <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    CREE SU EMPRESA DIGITAL
+                    CREE SU NEGOCIO DIGITAL
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    El sistema le toma sus mejores a&ntilde;os sin darle seguridad. Su empresa digital la construye.
+                    Un negocio a su nombre, con un ingreso que no depende de su presencia.
                   </p>
                   <button
                     type="button"

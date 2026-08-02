@@ -28,7 +28,8 @@
 
 ## Web
 
-- [ ] **Revisar `/prueba`** (Home 2 construida desde principios, sin "empresa digital") — sin commitear, pendiente de revisión del Director.
+- [ ] **Revisar `/prueba`** (Home 2, lenguaje concreto **v2** — reescrita 2 ago 2026 sobre la doctrina del guion v6.8: hero = segundo ingreso en paralelo, villano con remate "dos millones y veinte", orden WHY_02 dinero-primero, Compartir·Recibir·Multiplicar, producto test-Beto, cierre Vélez "un viernes en que entra algo que no le debe nada a nadie"). Commiteada con `noindex` para revisión del Director en `creatuactivo.com/prueba`. Si se aprueba → decidir si reemplaza `src/app/page.tsx`.
+- [ ] **`/12-niveles` — re-fork pendiente.** El 2 ago se limpiaron los TEXTOS visibles (portada, nav, OG: fuera "empresa digital" y el villano retirado del subtítulo; pageContext alineado a "negocio digital"), pero la **estructura** sigue siendo el fork viejo de 4 slides pre-v6.8 (cards "puente"/Amazon + tríada "3 cosas ciertas" en slide 2). Decidir si se re-forkea desde el deck servilleta nuevo de 5 slides conservando el SLIDE 4 de los 12 niveles.
 - [ ] **`/sistema/productos` — checkout por WhatsApp del distribuidor.** Si el hook de "usted no le cobra a nadie" se propaga, esa página lo desmiente donde el prospecto lo puede comprobar. Revisar antes de propagar.
 - [ ] **Limpiar `public/sw.js`** — todavía lista `/mapa-de-salida` y `/reto-5-dias` en el bypass; sus redirects se retiraron (hoy 404).
 

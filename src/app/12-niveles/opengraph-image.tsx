@@ -59,7 +59,7 @@ export default async function Image() {
           }}
         >
           <span style={{ fontSize: 24, fontWeight: 800, color: '#0F1115', letterSpacing: '0.15em', display: 'flex' }}>
-            SU EMPRESA DIGITAL
+            SU NEGOCIO DIGITAL
           </span>
         </div>
 

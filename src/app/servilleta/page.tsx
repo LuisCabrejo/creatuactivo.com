@@ -2017,7 +2017,7 @@ export default function ServilletaPage() {
 
               {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
-                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/problema-llega.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/problema-llega.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-empresa-tradicional')}
                 <div className="card-content">
                   <h3 className="pillar-name">La plata llega</h3>
@@ -2026,7 +2026,7 @@ export default function ServilletaPage() {
 
               {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
-                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/problema-reparte.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/problema-reparte.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-empresa-digital')}
                 <div className="card-content">
                   <h3 className="pillar-name">Ya tiene due&ntilde;o</h3>
@@ -2035,7 +2035,7 @@ export default function ServilletaPage() {
 
               {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
-                <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/problema-repite.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/problema-repite.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-sonrisaslindas')}
                 <div className="card-content">
                   <h3 className="pillar-name">Y vuelve a empezar</h3>
@@ -2246,7 +2246,7 @@ export default function ServilletaPage() {
 
               {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-compartir')}>
-                <video className="card-bg" data-slide="3" data-card="1" src="/videos/servilleta/compartir.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="3" data-card="1" src="/videos/servilleta/compartir.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s3-compartir')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">Un clic</span>
@@ -2256,7 +2256,7 @@ export default function ServilletaPage() {
 
               {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-recibir')}>
-                <video className="card-bg" data-slide="3" data-card="2" src="/videos/servilleta/recibir.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="3" data-card="2" src="/videos/servilleta/recibir.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s3-recibir')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">El apret&oacute;n de manos</span>
@@ -2266,7 +2266,7 @@ export default function ServilletaPage() {
 
               {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width) */}
               <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's3-multiplicar')}>
-                <video className="card-bg" data-slide="3" data-card="3" src="/videos/servilleta/multiplicar.mp4" data-pending="1" muted loop playsInline preload="none" />
+                <video className="card-bg" data-slide="3" data-card="3" src="/videos/servilleta/multiplicar.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s3-multiplicar')}
                 <div className="card-content">
                   <span className="pillar-eyebrow">1 &rarr; 2 &rarr; 4</span>

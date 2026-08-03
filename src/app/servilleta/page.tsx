@@ -81,7 +81,7 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // patrón Jobs. Al vivir dentro del mismo contador de cards hereda clic, swipe y
 // flechas sin tocar la navegación: el orador lo pasa a su ritmo, no hay reloj.
 const COLAPSO_FROM = 4;
-const COLAPSO_BEATS = 6;
+const COLAPSO_BEATS = 5;
 
 // Maqueta blanca sobre negro (2 ago 2026): las tres caras se generaron como un SET —
 // misma cámara, misma luz, mismo material y misma huella en el piso. Esa constancia es
@@ -92,22 +92,21 @@ const COLAPSO_PIEZAS = [
   { id: 'metodo', corto: 'El método', src: '/images/servilleta/colapso-metodo-v2.webp' },
 ] as const;
 
-// Un texto por beat. El beat 4 (el giro rápido) va MUDO a propósito: es el momento en
-// que la sala entiende sola, y ponerle rótulo lo explicaría antes de tiempo.
+// Un texto por beat. El último cierra con la frase; el nombre grande lo pone
+// .colapso-nombre.
 const COLAPSO_TEXTO: Array<{ eyebrow: string; nombre: string }> = [
   { eyebrow: 'Ya las vio', nombre: 'Las tres cosas' },
   { eyebrow: 'Alguien fabrica', nombre: 'La fábrica' },
-  { eyebrow: 'Alguien atiende', nombre: 'La inteligencia' },
+  { eyebrow: 'Alguien atiende', nombre: 'La conversación' },
   { eyebrow: 'Usted sabe qué hacer', nombre: 'El método' },
-  { eyebrow: '', nombre: '' },
   { eyebrow: 'No son tres cosas', nombre: 'Ya vienen juntas' },
 ];
 // Puntos que se PINTAN en el indicador (el colapso cuenta como uno solo).
 const CARD_DOTS: Record<number, number> = { 1: 3, 2: 4 };
-const LAST_CARD: Record<number, number> = { 1: 3, 2: 9 };
+const LAST_CARD: Record<number, number> = { 1: 3, 2: 8 };
 // Tarjetas por slide. El Slide 2 tiene una más: el BEAT DEL COLAPSO (índice 4),
 // donde los tres socios se vuelven uno y entran al celular. Antes era global = 3.
-const MAX_CARD: Record<number, number> = { 1: 3, 2: 9 };
+const MAX_CARD: Record<number, number> = { 1: 3, 2: 8 };
 
 // Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
@@ -738,17 +737,30 @@ export default function ServilletaPage() {
         }
 
         /* --- Beat 0: los tres juntos, pequeños y nombrados --- */
-        .colapso .colapso-trio { display: flex; gap: clamp(14px, 5vw, 46px); align-items: flex-end; }
+        /* Mobile = columna: tres cuadrados en fila se apiñaban y ninguno tenía peso.
+           Desktop = fila, pero grandes. El beat 0 solo funciona si cada pieza se
+           reconoce; si hay que entrecerrar los ojos, el resto del colapso no cierra. */
+        .colapso .colapso-trio {
+          display: flex; flex-direction: column; align-items: center;
+          gap: clamp(12px, 3vh, 26px);
+        }
         .colapso[data-beat="0"] .colapso-trio { opacity: 1; }
-        .colapso-mini { margin: 0; text-align: center; }
+        .colapso-mini { margin: 0; text-align: center; display: flex; align-items: center; gap: 16px; }
         .colapso-mini img {
-          display: block; width: clamp(72px, 22vw, 148px); aspect-ratio: 1;
+          display: block; width: clamp(96px, 26vw, 190px); aspect-ratio: 1;
           object-fit: cover; border-radius: 14px;
           border: 1px solid rgba(197,160,89,0.28);
         }
         .colapso-mini figcaption {
-          margin-top: 10px; font-family: var(--font-mono); font-size: 0.66rem;
+          font-family: var(--font-mono); font-size: clamp(0.72rem, 3vw, 0.95rem);
           letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan);
+          text-align: left; white-space: nowrap;
+        }
+        /* Desktop: vuelve a fila, con el rótulo debajo y las piezas grandes. */
+        @media (min-width: 768px) {
+          .colapso .colapso-trio { flex-direction: row; align-items: flex-end; gap: clamp(24px, 4vw, 56px); }
+          .colapso-mini { flex-direction: column; gap: 14px; }
+          .colapso-mini figcaption { text-align: center; }
         }
 
         /* --- Beats 1-4: UN objeto que gira y cambia de cara --- */
@@ -759,11 +771,15 @@ export default function ServilletaPage() {
         }
         .colapso[data-beat="1"] .colapso-objeto,
         .colapso[data-beat="2"] .colapso-objeto,
-        .colapso[data-beat="3"] .colapso-objeto,
-        .colapso[data-beat="4"] .colapso-objeto { opacity: 1; }
+        .colapso[data-beat="3"] .colapso-objeto { opacity: 1; }
         .colapso[data-beat="1"] .colapso-objeto { transform: rotateY(0deg); }
         .colapso[data-beat="2"] .colapso-objeto { transform: rotateY(180deg); }
         .colapso[data-beat="3"] .colapso-objeto { transform: rotateY(360deg); }
+        /* Beat 4 · UN giro más y se resuelve en el nombre. Antes era un bucle infinito
+           y se leía como error: un loop sin destino no remata, solo repite. */
+        .colapso[data-beat="4"] .colapso-objeto {
+          opacity: 0; transform: rotateY(540deg) scale(.82);
+        }
 
         .colapso-cara {
           position: absolute; inset: 0; width: 100%; height: 100%;
@@ -781,19 +797,9 @@ export default function ServilletaPage() {
         /* contra-rotación: la cara 2 vive en la espalda del objeto */
         .colapso .cara-2 { transform: rotateY(180deg); }
 
-        /* Beat 4 · el ciclo rápido, mudo. Único punto con reloj propio, igual que Jobs
-           cuando juega con los tres antes de rematar. */
-        .colapso[data-beat="4"] .colapso-objeto {
-          animation: colapsoGiro 1.6s cubic-bezier(.5,0,.5,1) infinite;
-        }
-        .colapso[data-beat="4"] .colapso-cara {
-          transition: none; animation: colapsoCara 1.6s steps(1, end) infinite;
-        }
-        .colapso[data-beat="4"] .cara-1 { animation-delay: 0s; }
-        .colapso[data-beat="4"] .cara-2 { animation-delay: .533s; }
-        .colapso[data-beat="4"] .cara-3 { animation-delay: 1.066s; }
-        @keyframes colapsoGiro { from { transform: rotateY(0deg); } to { transform: rotateY(1080deg); } }
-        @keyframes colapsoCara { 0%, 33.3% { opacity: 1; } 33.4%, 100% { opacity: 0; } }
+        /* En el último giro la cara se desvanece con el objeto (sin retardo), para que
+           no reaparezca a mitad de la vuelta mientras el nombre entra. */
+        .colapso[data-beat="4"] .colapso-cara { transition: opacity .25s linear; }
 
         /* --- Beat 5: el nombre. Sin imagen: el vacío alrededor es el efecto. --- */
         .colapso .colapso-nombre {
@@ -802,14 +808,14 @@ export default function ServilletaPage() {
           color: var(--text-main); text-align: center; line-height: 1;
           transform: scale(.94); transition: opacity .5s ease, transform .5s ease;
         }
-        .colapso[data-beat="5"] .colapso-nombre { opacity: 1; transform: scale(1); }
+        .colapso[data-beat="4"] .colapso-nombre { opacity: 1; transform: scale(1); }
 
         @media (prefers-reduced-motion: reduce) {
           .colapso .colapso-trio,
           .colapso .colapso-objeto,
           .colapso .colapso-cara,
           .colapso .colapso-nombre { transition-duration: .01s; animation: none; }
-          .colapso[data-beat="4"] .cara-3 { opacity: 1; }
+          .colapso[data-beat="4"] .colapso-nombre { opacity: 1; }
         }
         .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
         .deck-h1 { font-size: 4rem; }

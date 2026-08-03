@@ -180,7 +180,12 @@ export default function RootLayout({
           "@type": "ContactPoint",
           "telephone": "+57-321-519-3909",
           "contactType": "customer service",
-          "areaServed": ["CO", "US", "MX", "BR", "PE", "EC"],
+          // Los 15 países operativos de CreaTuActivo (lista del Director, 2 ago 2026).
+          // NO confundir con los 70 países donde Gano Excel tiene presencia.
+          "areaServed": [
+            "CA", "US", "MX", "DO", "PR", "GT", "SV", "PA", "HN",
+            "CO", "BR", "PE", "EC", "BO", "CL"
+          ],
           "availableLanguage": ["Spanish", "Portuguese"]
         }
       },

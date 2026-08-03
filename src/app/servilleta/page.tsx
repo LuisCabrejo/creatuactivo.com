@@ -99,7 +99,7 @@ const METODO_FROM = 3;
 // audio (4.88) y del rastreo de posición del orbe cuadro a cuadro (4.96) dieron un
 // resultado que en vivo se ve pasado de largo, así que el reloj sobre la reproducción
 // es el juez, no el análisis del .mp4.
-const METODO_STOPS = [2.30, 4.26, 7.00];
+const METODO_STOPS = [2.10, 4.00, 7.00];
 // El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
 // exigir re-render, misma regla que los nombres de las cards.
 const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];

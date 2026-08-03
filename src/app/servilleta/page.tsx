@@ -885,6 +885,15 @@ export default function ServilletaPage() {
 
         /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
            del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
+        /* El único momento fotográfico del deck: conserva su color cálido en vez del
+           gris del filtro base — el cambio de material es el efecto. La máscara oscurece
+           el tercio inferior, que es donde va el bloque de texto. */
+        #slide-3 .bg-image {
+          filter: grayscale(18%) contrast(106%) brightness(72%);
+          -webkit-mask-image: linear-gradient(to bottom, black 42%, rgba(0,0,0,0.22) 100%);
+          mask-image: linear-gradient(to bottom, black 42%, rgba(0,0,0,0.22) 100%);
+        }
+
         #slide-1 .bg-image {
           filter: grayscale(70%) contrast(110%) brightness(55%);
           opacity: 0.75;
@@ -1580,8 +1589,11 @@ export default function ServilletaPage() {
           flex-direction: initial;
         }
         /* Padding amplio solo en desktop fullscreen — en mobile hereda el del @media */
+        /* En fullscreen el top-hud y la mobile-nav se ocultan, pero el padding seguía
+           reservando 70px arriba para una barra que ya no está — contra 30 abajo. El
+           bloque quedaba bajo, con más aire sobre el contador que bajo la tarjeta. */
         :fullscreen .one-card-mode .grid-layout-slide-2 {
-          padding: 70px 60px 30px;
+          padding: max(30px, env(safe-area-inset-top)) 60px 30px;
         }
         .one-card-mode .card-industrial:not(.card-active) {
           display: none !important;
@@ -2315,8 +2327,7 @@ export default function ServilletaPage() {
                  todo lo demás es abstracción 3D — y ahí está su fuerza: la pantalla cambia
                  de material justo cuando aparece lo único que uno se puede tomar.
                  Se retiró salud-bio.jpg para que nadie la confunda con la definitiva. */
-              data-pending="1"
-              style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(197,160,89,0.05) 0px, rgba(197,160,89,0.05) 12px, transparent 12px, transparent 24px)', backgroundColor: 'var(--bg-dark)' }}
+              style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)', backgroundColor: 'var(--bg-dark)' }}
             />
             <div className="slide-4-layout">
               <div className="slide-4-bottom">

@@ -889,9 +889,13 @@ export default function ServilletaPage() {
            gris del filtro base — el cambio de material es el efecto. La máscara oscurece
            el tercio inferior, que es donde va el bloque de texto. */
         #slide-3 .bg-image {
-          filter: grayscale(18%) contrast(106%) brightness(72%);
-          -webkit-mask-image: linear-gradient(to bottom, black 42%, rgba(0,0,0,0.22) 100%);
-          mask-image: linear-gradient(to bottom, black 42%, rgba(0,0,0,0.22) 100%);
+          filter: grayscale(18%) contrast(106%) brightness(78%);
+        }
+        /* El degradado del panel ya oscurece el pie; sumarle una máscara al fondo
+           borraba la taza. Aquí se abre para que la foto se vea a través. */
+        #slide-3 .slide-4-bottom {
+          background: linear-gradient(to top,
+            rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0) 100%);
         }
 
         #slide-1 .bg-image {

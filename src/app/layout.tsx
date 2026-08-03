@@ -173,9 +173,16 @@ export default function RootLayout({
           "https://linkedin.com/company/creatuactivo",
           "https://luiscabrejo.com"
         ],
-        // contactPoint retirado (2 ago 2026): publicaba un teléfono placeholder
-        // inventado (+57-300-1234567) como dato estructurado. Reponer solo con
-        // un número real cuando el Director lo defina.
+        // Número real del canal de tráfico orgánico = la WABA de Queswa
+        // (2 ago 2026, decisión del Director). Reemplaza el placeholder
+        // inventado +57-300-1234567 que estuvo publicado como dato estructurado.
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+57-321-519-3909",
+          "contactType": "customer service",
+          "areaServed": ["CO", "US", "MX", "PE", "EC"],
+          "availableLanguage": ["Spanish"]
+        }
       },
       {
         "@type": "SoftwareApplication",

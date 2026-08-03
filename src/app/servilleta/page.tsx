@@ -93,20 +93,24 @@ const METODO_FROM = 3;
 // TAMBIÉN el orbe ya se ve asentado en el punto (las dos señales encimadas).
 // Punto 1: el golpe de audio estalla en 2.158 y cae al piso de ambiente en 2.30 —
 // ahí mismo el orbe ya está quieto bajo su marcador. Coinciden, sin ajuste.
-// Punto 2: el audio termina en 4.88, pero el video desincroniza ahí — a los 4.88s el
-// haz de luz que baja del orbe todavía se está retrayendo (bug real, detectado con
-// fotogramas extraídos por ffmpeg a 0.1s: a 4.8-5.1 el haz y su eco en el piso siguen
-// visibles; recién a 5.2-5.3 el anillo queda limpio y quieto, y a partir de ~5.55 el
-// orbe ya empezó a crecer/moverse hacia el punto 3). 5.30 es el punto donde AMBAS
-// señales ya son ciertas: el audio lleva casi medio segundo en silencio y el orbe
-// lleva su anillo asentado, antes de que arranque el movimiento hacia el punto 3.
-// Punto 3: sin pausa (ver más abajo) — el rótulo aparece en 7.90 porque el pin ya
-// terminó de abrirse mucho antes (fotogramas idénticos de 6.0 a 8.0) y el sonido
-// sigue en camino hasta el final; no hay nada que esperar a que "asiente".
-// ⚠️ Medir a ojo NO funciona para el audio: se intentó por fotograma y por brillo bajo
-// el orbe, y cada método daba un número distinto — el audio es el juez para CUÁNDO
-// empezar a mirar, pero el fotograma es el juez para confirmar que ya llegó.
-const METODO_STOPS = [2.30, 5.30, 7.90];
+// Punto 2: el audio termina en 4.88. ⚠️ Intento fallido (3 ago 2026): se cambió a 5.30
+// juzgando "a ojo" que a 4.88 el anillo blanco alrededor del orbe seguía en movimiento
+// — error real: ese anillo está pegado al orbe desde ANTES de 4.4s (no es una señal de
+// llegada, viaja con él todo el trayecto), así que "verlo limpio" no prueba nada. La
+// forma correcta de medirlo es rastrear la posición real del orbe cuadro a cuadro
+// (script Python, umbral de color dorado + centroide): su eje Y decrece sin pausa
+// desde 2.30 hasta tocar mínimo en 4.958 (frame 119/24fps) — ahí el orbe deja de
+// alejarse de cámara y arranca de vuelta hacia el punto 3. Ese mínimo, no el anillo, es
+// la llegada real, y coincide con el audio casi exacto (4.88 vs 4.96 son 2 fotogramas).
+// 5.30 quedaba ya del otro lado del giro — el orbe regresando y creciendo, peor que 4.88.
+// Punto 3: sin pausa (ver más abajo) — el rótulo aparece en 7.90 porque el mismo rastreo
+// de posición confirma al orbe inmóvil (eje Y estable dentro del ruido) desde ~6.0s
+// hasta el final; no hay nada que esperar a que "asiente", ya llegó mucho antes.
+// ⚠️ Medir a ojo NO funciona, ni para el audio ni para el video: un elemento decorativo
+// (el anillo) puede estar presente todo el trayecto sin marcar nada. El único juez
+// fiable es la posición medida del orbe cuadro a cuadro, no cómo "se ve" un fotograma
+// suelto.
+const METODO_STOPS = [2.30, 4.96, 7.90];
 // El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
 // exigir re-render, misma regla que los nombres de las cards.
 const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];

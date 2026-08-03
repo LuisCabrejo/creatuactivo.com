@@ -89,13 +89,24 @@ const METODO_FROM = 3;
 // Segundos en que el orbe pisa cada punto. Medidos cuadro a cuadro sobre metodo.mp4
 // (8.0s @ 24fps). Si el clip se re-renderiza, hay que volver a medirlos.
 // Criterio del Director (3 ago 2026): la pausa cae donde TERMINA el sonido del punto,
-// no donde empieza. Medido con astats (ventana 0.02s) sobre el clip: el primer golpe
-// estalla en 2.158 y cae al piso de ambiente en 2.30; el segundo va de 4.805 a 4.852 y
-// termina en 4.88. La tercera se sostiene hasta 7.90 porque el pin sigue abriéndose
-// hasta el final del clip — ahí el sonido se oye en camino y está bien así.
-// ⚠️ Medir a ojo NO funciona: se intentó por fotograma y por brillo bajo el orbe, y
-// cada método daba un número distinto. El audio es el único juez fiable aquí.
-const METODO_STOPS = [2.30, 4.88, 7.90];
+// no donde empieza — pero el sonido por sí solo no basta: la pausa debe caer donde
+// TAMBIÉN el orbe ya se ve asentado en el punto (las dos señales encimadas).
+// Punto 1: el golpe de audio estalla en 2.158 y cae al piso de ambiente en 2.30 —
+// ahí mismo el orbe ya está quieto bajo su marcador. Coinciden, sin ajuste.
+// Punto 2: el audio termina en 4.88, pero el video desincroniza ahí — a los 4.88s el
+// haz de luz que baja del orbe todavía se está retrayendo (bug real, detectado con
+// fotogramas extraídos por ffmpeg a 0.1s: a 4.8-5.1 el haz y su eco en el piso siguen
+// visibles; recién a 5.2-5.3 el anillo queda limpio y quieto, y a partir de ~5.55 el
+// orbe ya empezó a crecer/moverse hacia el punto 3). 5.30 es el punto donde AMBAS
+// señales ya son ciertas: el audio lleva casi medio segundo en silencio y el orbe
+// lleva su anillo asentado, antes de que arranque el movimiento hacia el punto 3.
+// Punto 3: sin pausa (ver más abajo) — el rótulo aparece en 7.90 porque el pin ya
+// terminó de abrirse mucho antes (fotogramas idénticos de 6.0 a 8.0) y el sonido
+// sigue en camino hasta el final; no hay nada que esperar a que "asiente".
+// ⚠️ Medir a ojo NO funciona para el audio: se intentó por fotograma y por brillo bajo
+// el orbe, y cada método daba un número distinto — el audio es el juez para CUÁNDO
+// empezar a mirar, pero el fotograma es el juez para confirmar que ya llegó.
+const METODO_STOPS = [2.30, 5.30, 7.90];
 // El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
 // exigir re-render, misma regla que los nombres de las cards.
 const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];
@@ -582,11 +593,16 @@ export default function ServilletaPage() {
   // avanza con un clic, igual que en el resto del deck. Retroceder repite el tramo,
   // que es lo deseable en vivo (vuelve a mostrar el movimiento, no solo el resultado).
   //
-  // El ÚLTIMO paso NO tiene target de tiempo (pedido del Director 3 ago 2026: el pin
-  // ya está en su clímax visual y forzar una pausa ahí se sentía como un error) — se
-  // deja correr libre y se marca alcanzado con el evento nativo 'ended'. Por eso el
-  // <video> NO lleva `loop`: con loop, el navegador reiniciaría solo al llegar ahí,
-  // sin darnos aviso, y el clip nunca se quedaría quieto en el pin abierto.
+  // El ÚLTIMO paso NO pausa (pedido del Director 3 ago 2026: el pin ya está en su
+  // clímax visual y forzar una pausa ahí se sentía como un error) — se deja correr
+  // libre hasta el final real del archivo. El rótulo, sin embargo, SÍ se marca por
+  // currentTime como los pasos intermedios (METODO_STOPS[2] = 7.90), no con el evento
+  // 'ended': 'ended' solo dispara al tocar el final exacto (~8.0s) y el rótulo se
+  // sentía tardío. El pin ya terminó de abrirse mucho antes de 7.90 (fotogramas
+  // idénticos de 6.0s a 8.0s — verificado cuadro a cuadro), así que no hay pérdida
+  // visual por marcarlo antes del último instante. Por eso el <video> NO lleva `loop`:
+  // con loop, el navegador reiniciaría solo al llegar al final, sin darnos aviso, y el
+  // clip nunca se quedaría quieto en el pin abierto.
   //
   // El rótulo NO se muestra durante el trayecto: aparece cuando el orbe ya llegó.
   // ⚠️ NO usar un booleano aparte reseteado por efecto: metodoStop cambia YA en el
@@ -622,20 +638,18 @@ export default function ServilletaPage() {
       v.play().catch(() => {});
     });
 
-    if (metodoStop === METODO_LAST) {
-      // Último paso: sin target, se deja correr hasta el final real del archivo.
-      const onEnded = () => setMetodoReached(METODO_LAST);
-      v.addEventListener('ended', onEnded);
-      return () => v.removeEventListener('ended', onEnded);
-    }
-
-    // Pasos intermedios: vigilado cuadro a cuadro con requestAnimationFrame, NO con
-    // 'timeupdate' — ese evento avisa unas 4 veces por segundo, insuficiente para
-    // detener el clip a tiempo exacto.
+    // Vigilado cuadro a cuadro con requestAnimationFrame, NO con 'timeupdate' — ese
+    // evento avisa unas 4 veces por segundo, insuficiente para marcar el punto a
+    // tiempo exacto. El último paso NO pausa (se deja correr al final real), los
+    // intermedios sí.
     const target = METODO_STOPS[metodoStop];
     let raf = 0;
     const tick = () => {
-      if (v.currentTime >= target) { v.pause(); setMetodoReached(metodoStop); return; }
+      if (v.currentTime >= target) {
+        if (metodoStop !== METODO_LAST) v.pause();
+        setMetodoReached(metodoStop);
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);

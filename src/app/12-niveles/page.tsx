@@ -1375,13 +1375,42 @@ export default function ServilletaPage() {
             border-radius: 0;
             gap: 30px !important;
           }
+          /* Bloque ANCLADO ARRIBA (2 ago 2026): la foto vertical se ve completa en un
+             teléfono (1080×1935 sobre un viewport más estrecho ⇒ cover escala por alto
+             y no hay recorte vertical), así que la taza está fija en el tercio bajo del
+             encuadre. La única forma de que se vea es dejarle libre la mitad inferior:
+             todo el contenido sube y el degradado se invierte (oscuro arriba, tras el
+             texto; transparente abajo, sobre la taza). */
+          #slide-3 .slide-3-layout { justify-content: flex-start !important; }
           #slide-3 .slide-3-bottom {
-            gap: 40px !important;
-            padding-bottom: 60px !important;
+            gap: 20px !important;
+            padding-top: 16px !important;
+            padding-bottom: 26px !important;
+            background: linear-gradient(to bottom,
+              rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
           }
-          #slide-3 .bio-text-panel .deck-p {
-            font-size: 1.05rem !important;
-            line-height: 1.6 !important;
+          #slide-3 .bg-image {
+            filter: grayscale(0%) saturate(112%) contrast(104%) brightness(125%) !important;
+            background-position: center 70% !important;
+          }
+          #slide-3 .bio-metrics-panel {
+            background: rgba(15, 15, 15, 0.40) !important;
+            border-color: rgba(255,255,255,0.16) !important;
+          }
+          /* Fuera en móvil: el párrafo (queda solo el H1 — decisión del Director) y el
+             CTA "VER LOS NÚMEROS", porque aquí la slide se pasa deslizando. */
+          #slide-3 .bio-text-panel .deck-p { display: none !important; }
+          #slide-3 .bio-text-panel .catalog-trigger { display: none !important; }
+          #slide-3 .slide3-cta-wrap { display: none !important; }
+          #slide-3 .catalog-trigger--mobile { display: inline-block !important; }
+          #slide-3 .bio-metrics-container { gap: 12px !important; }
+          #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
+          /* Ficha compacta: cada píxel que no gasta el panel se lo gana la taza. */
+          #slide-3 .spec-row { padding: 7px 0 !important; }
+          #slide-3 .panel-footnote {
+            font-size: 0.72rem !important;
+            margin-top: 10px !important;
+            padding-top: 10px !important;
           }
           #slide-3 .metric-label {
             font-size: 0.85rem !important;
@@ -1794,6 +1823,8 @@ export default function ServilletaPage() {
           text-underline-offset: 5px;
           transition: color 0.25s ease, text-underline-offset 0.25s ease;
         }
+        /* La copia móvil del enlace no existe en escritorio (ver el comentario del JSX) */
+        .catalog-trigger--mobile { display: none; align-self: flex-start; margin-top: 4px; }
         .catalog-trigger:hover {
           color: var(--color-brand-hover, #D4AF37);
           text-underline-offset: 7px;
@@ -2226,8 +2257,23 @@ export default function ServilletaPage() {
                       Tres d&eacute;cadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero mundial en el cultivo de este hongo.
                     </p>
                   </div>
-                  {/* CTA debajo del panel de métricas — fluye con el contenido en todos los modos */}
-                  <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+
+                  {/* El MISMO enlace, en dos posiciones: en escritorio vive bajo el
+                      texto (izquierda); en móvil se retira de allí y aparece aquí,
+                      bajo la ficha (decisión del Director 2 ago 2026). Se duplica en
+                      el DOM y se alterna por CSS porque en móvil el bloque de texto y
+                      la ficha son padres distintos. */}
+                  <button
+                    type="button"
+                    className="catalog-trigger catalog-trigger--mobile"
+                    onClick={(e) => { e.stopPropagation(); setProductCatalogOpen(true); }}
+                  >
+                    Ver los productos →
+                  </button>
+
+                  {/* CTA debajo del panel de métricas. Oculto en móvil: allí la slide
+                      se pasa deslizando y el botón se comía el alto que necesita la taza. */}
+                  <div className="slide3-cta-wrap" style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                     <button className="btn-next" onClick={() => showSlide(4)}>
                       VER LOS N&Uacute;MEROS →
                     </button>

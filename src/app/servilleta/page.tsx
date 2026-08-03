@@ -900,7 +900,7 @@ export default function ServilletaPage() {
            background-size cover sobre 16:9 se amplía tanto que la taza se sale. La
            horizontal va en espejo para que la taza caiga a la derecha, lejos del
            bloque de texto (que en escritorio vive a la izquierda). */
-        @media (min-width: 900px) {
+        @media (min-width: 769px) {
           #slide-3 .bg-image {
             background-image: url(/images/servilleta/producto-cafe-wide.webp) !important;
           }
@@ -1540,6 +1540,14 @@ export default function ServilletaPage() {
           #slide-3 .slide-4-layout { justify-content: flex-start !important; }
           #slide-3 .slide-4-bottom {
             padding-top: 16px !important;
+            /* ⚠️ align-items: stretch OBLIGATORIO. El bloque hereda flex-end del
+               layout de escritorio (donde el eje cruzado es vertical y significa
+               "al pie"), pero en móvil la dirección es columna y ese mismo valor
+               pasa a significar "a la derecha": el panel de texto se encogía al
+               ancho de su línea más larga, se pegaba al borde derecho y el H1
+               ("QUE NO CAMBIA") salía de pantalla. Antes no se notaba porque el
+               párrafo, ya retirado, estiraba el panel a todo el ancho. */
+            align-items: stretch !important;
             background: linear-gradient(to bottom,
               rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
           }
@@ -1548,7 +1556,13 @@ export default function ServilletaPage() {
           #slide-3 .bio-text-panel .deck-p { display: none !important; }
           #slide-3 .bio-text-panel .catalog-trigger { display: none !important; }
           #slide-3 .slide3-cta-wrap { display: none !important; }
-          #slide-3 .catalog-trigger--mobile { display: inline-block !important; }
+          /* El enlace queda sobre la foto (ya no sobre el degradado): una sombra
+             sutil lo despega de la madera sin ponerle una placa encima. */
+          #slide-3 .catalog-trigger--mobile {
+            display: inline-block !important;
+            align-self: flex-start !important;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.9) !important;
+          }
           /* Ficha compacta: cada píxel que no gasta el panel se lo gana la taza. */
           #slide-3 .spec-row { padding: 7px 0 !important; }
           #slide-3 .panel-footnote {

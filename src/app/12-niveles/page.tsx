@@ -951,10 +951,17 @@ export default function ServilletaPage() {
           align-items: center;
           justify-content: center;
         }
-        @media (min-width: 900px) {
+        /* 769px = justo donde termina el layout móvil de este archivo (max-width: 768px) */
+        @media (min-width: 769px) {
           #slide-3 .slide-3-layout {
             justify-content: flex-start;
             padding-left: clamp(32px, 6vw, 220px);
+          }
+          /* En horizontal la foto vertical se recorta tanto que la taza sale de cuadro:
+             el mismo encuadre wide en espejo que usa /servilleta. El !important vence
+             al backgroundImage inline del JSX. */
+          #slide-3 .bg-image {
+            background-image: url(/images/servilleta/producto-cafe-wide.webp) !important;
           }
         }
 
@@ -1386,6 +1393,13 @@ export default function ServilletaPage() {
             gap: 20px !important;
             padding-top: 16px !important;
             padding-bottom: 26px !important;
+            /* ⚠️ align-items: stretch OBLIGATORIO. El bloque hereda flex-end del
+               layout de escritorio (donde el eje cruzado es vertical y significa
+               "al pie"), pero en móvil la dirección es columna y ese mismo valor
+               pasa a significar "a la derecha": el panel de texto se encogía al
+               ancho de su línea más larga, se pegaba al borde derecho y el H1
+               ("QUE NO CAMBIA") salía de pantalla. */
+            align-items: stretch !important;
             background: linear-gradient(to bottom,
               rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
           }
@@ -1402,7 +1416,12 @@ export default function ServilletaPage() {
           #slide-3 .bio-text-panel .deck-p { display: none !important; }
           #slide-3 .bio-text-panel .catalog-trigger { display: none !important; }
           #slide-3 .slide3-cta-wrap { display: none !important; }
-          #slide-3 .catalog-trigger--mobile { display: inline-block !important; }
+          /* El enlace queda sobre la foto: una sombra sutil lo despega de la madera. */
+          #slide-3 .catalog-trigger--mobile {
+            display: inline-block !important;
+            align-self: flex-start !important;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.9) !important;
+          }
           #slide-3 .bio-metrics-container { gap: 12px !important; }
           #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
           /* Ficha compacta: cada píxel que no gasta el panel se lo gana la taza. */

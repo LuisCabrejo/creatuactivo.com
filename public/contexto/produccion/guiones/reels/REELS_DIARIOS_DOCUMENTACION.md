@@ -333,9 +333,39 @@ Y eso es lo que estoy documentando. Cómo, utilizando la inteligencia artificial
 
 ---
 
+## Día 20 · Lunes 3 de agosto — "La lista al revés"
+*Retoma la serie tras 18 días sin reel doc (el Día 19 fue el 16 jul; en el intervalo se rehízo el léxico y se relanzó la Home). Abre la **semana "por entre las ramas"** (decisión del Director): su mercado lleva 13 años viéndolo "haciendo Gano Excel", así que cada publicación entra con la hipótesis previa de que viene a vender. Una semana de valor puro, sin pedir nada, es lo que desarma esa hipótesis antes de hablar de negocio.*
+*Ángulo: **historia propia**, no libro prestado. El bloqueo universal de quien quiere emprender —mirar el inventario de lo que le falta— resuelto con el giro real de Luis: hacer la lista al revés. Sin villano sistémico explícito; el villano aquí es interno y se desarma con calidez (registro "encender el corazón").*
+*⚠️ Decisiones de guion: (1) **NO se nombra Gano Excel** — la audiencia ya sabe qué hace él; nombrarlo convierte la historia en anuncio. (2) "Diamante" → "me llevó a lugares que no había ni soñado" (el rango no significa nada fuera del gremio; test Beto). (3) **"Desde el primer mes empecé a cobrar" + "no era plata que entraba y salía derecho a pagar cuentas, era plata mía"** es el par de frases que más trabaja: le habla a quien necesita dinero AHORA y es la versión en positivo del villano canónico (la plata llega ya con dueño). Si algo no se toca, es eso. (4) "Salud" se conserva porque aquí es un **activo que él tenía**, no la salud que el sistema le quita (uso opuesto al villano retirado el 31 jul). CTA: ninguna ("se los voy mostrando").*
+*Producción: pendiente de grabar. Beat que respira: pausa después de "Lo tenía todo".*
+
+Hubo un momento de mi vida en que yo tenía clarísimo todo lo que me faltaba.
+
+Ni siquiera tenía un teléfono inteligente. No tenía carro. Y sobre todo, no tenía una sola historia de éxito que mostrarle a nadie. Cada vez que pensaba en arrancar algo, la lista de lo que me faltaba me ganaba.
+
+Hasta que un día me puse a hacer esa lista al revés. La de lo que sí tenía.
+
+Tenía a Dios de mi lado. Tenía a mi esposa. Tenía unos hijos que creían en mí — y eso, cuando uno todavía no ha logrado nada, no es poca cosa. Y tenía salud.
+
+Ahí entendí algo que me cambió la perspectiva completa: yo no estaba empezando de cero. Lo tenía todo.
+
+Y toda esa hambre, que hasta ese día solo me servía para angustiarme, se me volvió una misión.
+
+En dos años y medio esa misión me llevó a lugares que no había ni soñado. Pero lo que de verdad quiero contarle no es el final. Es que desde el primer mes empecé a cobrar. Y no era plata que entraba y salía derecho a pagar cuentas. Era plata mía.
+
+Si hoy usted está mirando la lista de lo que le falta, hágala al revés. Va a encontrar más de lo que cree.
+
+Se los voy mostrando.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
-*Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `public/investigaciones/Investigación del Sistema Maestro de Naval.md`):*
+*Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `docs/investigaciones/resultados/Investigación del Sistema Maestro de Naval.md`):*
+
+**Semana "por entre las ramas" (ago 2026)** — estrategia del Director: días de valor puro (liderazgo, libros, habilidades) que amplían audiencia y desarman la hipótesis previa de "Luis publica = Luis vende", introduciendo el léxico y la IA de lado. El Día 20 abre la semana. Ángulos en cola para los días siguientes:
+- ⭐ *"Quién, no cómo"* (Dan Sullivan / Benjamin Hardy) — **guion escrito 2 ago, no grabado**: la meta dispara automáticamente "¿y cómo lo hago?", que es la pregunta que nos enseñaron desde el colegio y la que condena a cargar con todo ("su meta deja de ser del tamaño de su sueño y pasa a ser del tamaño de su agenda"); la pregunta que multiplica es "¿quién?", y hoy ese quién puede ser la tecnología. Derivados del mismo libro, uno por día: *la procrastinación no es pereza, es la señal de que usted es la persona equivocada para ese "cómo"* · *la habilidad única* · *liderazgo por visión: defina el resultado y apártese* · *las 4 libertades*. ⚠️ **Tensión a resolver antes de grabar:** STORY_02 (la mesa de Mocoa, canónica en el arsenal) celebra el "¿CÓMO lo hago?" como la pregunta correcta. Se reconcilia como progresión —el "cómo" saca de la parálisis, el "quién" multiplica—, pero hay que decirlo así o alguien del equipo nota la contradicción.
+- *Undercover Billionaire* (Glenn Stearns, Discovery 2019) — empezar de cero, 90 días, sin contactos ni dinero. Sirve para el bloqueo de "no tengo recursos". ⚠️ El desenlace se recuerda mal en internet: verificar la valoración final con fuentes antes de citarla. Prompt de investigación para Gemini redactado en sesión (2 ago) — pendiente de correr y de guardar en `docs/investigaciones/prompts/`.
 
 **Tanda "encender el corazón"** — tesis de Luis: en todo ser humano hay capacidades extraordinarias que quedan en *standby* por creencias que le instaló el entorno.
 - ⭐ *La moto* (la más fuerte y universal — ataca la autoeficacia): manejar una moto o un carro es **complejo** —espejos, direccionales, el tráfico, los peatones, el imprudente— y a nadie le enseñaron que sea solo para "inteligentes" o con dones; lo hace cualquiera (hasta quien maneja mulas, camiones, tractores). Entonces, ¿por qué creer que tener una empresa digital es solo para unos pocos? **Usted ya hace cosas más difíciles todos los días.**

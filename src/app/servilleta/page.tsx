@@ -1574,13 +1574,6 @@ export default function ServilletaPage() {
             align-self: flex-start !important;
             text-shadow: 0 1px 6px rgba(0,0,0,0.9) !important;
           }
-          /* Ficha compacta: cada píxel que no gasta el panel se lo gana la taza. */
-          #slide-3 .spec-row { padding: 7px 0 !important; }
-          #slide-3 .panel-footnote {
-            font-size: 0.72rem !important;
-            margin-top: 10px !important;
-            padding-top: 10px !important;
-          }
           #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
           #slide-3 .bio-metrics-panel {
             background: rgba(15, 15, 15, 0.40) !important;
@@ -1593,7 +1586,30 @@ export default function ServilletaPage() {
             background-position: center 70% !important;
             filter: grayscale(0%) saturate(112%) contrast(104%) brightness(125%) !important;
           }
-          #slide-3 .bio-metrics-container { gap: 12px !important; }
+          #slide-3 .bio-metrics-container { gap: 10px !important; }
+
+          /* ══ LA FOTO MANDA (medido sobre el asset, 1080×1935) ══
+             taza: 58%–79% del alto · vapor: 44%–58% · el 44% de arriba es
+             negro vacío. En el teléfono la foto se ve COMPLETA (no hay recorte
+             vertical), así que esas franjas son fijas: no se pueden mover con
+             background-position. Para que se vea la taza ENTERA —con su borde,
+             no solo la base— el contenido tiene que terminar antes del 58%, y
+             venía terminando en el 63%. De ahí que este bloque sea agresivo:
+             cada píxel que se le quita al texto es taza que aparece. */
+          #slide-3 .slide-4-bottom { padding-top: 10px !important; gap: 10px !important; }
+          #slide-3 .deck-h2 { margin-bottom: 6px !important; }
+          #slide-3 .technical-label { margin-bottom: 6px !important; }
+          #slide-3 .bio-metrics-panel { padding: 14px 16px !important; }
+          #slide-3 .bio-metrics-panel .panel-title {
+            margin-bottom: 10px !important;
+            padding-bottom: 6px !important;
+          }
+          #slide-3 .spec-row { padding: 6px 0 !important; }
+          /* La nota del Dr. Leow sale SOLO en móvil: es el bloque más alto de la
+             ficha y es justo lo que se interpone entre el texto y la taza. Sigue
+             viva en escritorio, y en vivo el orador la narra igual. Si se quiere
+             de vuelta, se cambia por el vapor. */
+          #slide-3 .panel-footnote { display: none !important; }
           #slide-3 .metric-label {
             font-size: 0.85rem !important;
             font-weight: 600 !important;

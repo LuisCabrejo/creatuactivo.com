@@ -536,14 +536,16 @@ export default function ServilletaPage() {
       const hidden = document.visibilityState === 'hidden';
       const vids = document.querySelectorAll<HTMLVideoElement>('video.card-bg');
       vids.forEach((v) => {
+        // Los clips por tramos (data-card-span > 1 — hoy solo el método) NO pasan por
+        // aquí en absoluto. Se intentó coordinar dos efectos sobre el mismo <video> con
+        // un guard, y la coordinación era fràgil: el video se pasaba de largo del punto
+        // donde debía detenerse (bug real, 3 ago 2026). Ahora ese video tiene UN SOLO
+        // dueño — el efecto dedicado más abajo — y este control central lo ignora.
+        if (v.dataset.cardSpan) return;
         const slide = Number(v.dataset.slide);
         const card = Number(v.dataset.card);
-        // Un clip puede abarcar VARIOS índices de card (el método ocupa 3: se detiene
-        // en cada punto del camino y espera el clic). data-card-span lo declara.
-        const span = Number(v.dataset.cardSpan) || 1;
         const inActiveSlide = slide === activeSlide;
-        const isActiveCard =
-          inActiveSlide && activeCardIndex >= card && activeCardIndex < card + span;
+        const isActiveCard = inActiveSlide && activeCardIndex === card;
         const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
         const audible = oneCardMode && isActiveCard && shouldPlay;
         v.muted = !audible;
@@ -551,15 +553,9 @@ export default function ServilletaPage() {
         // voz de quien presenta y los usuarios lo reportaron "muy duro" (jul 2026).
         // Se siente, no se impone. Calibrar aquí, no por clip.
         v.volume = AMBIENT_VOLUME;
-        // Un clip por tramos que ya está congelado en su punto NO se vuelve a lanzar:
-        // este efecto corre también al volver de otra pestaña o al cerrar un modal, y
-        // sin esta guarda el orbe se pasaba de largo del punto donde el orador lo dejó.
-        if (span > 1 && oneCardMode && isActiveCard && v.paused && v.currentTime > 0) return;
         if (shouldPlay) {
-          // La card activa en presentación arranca desde 0s (avance o retroceso). Los
-          // clips por tramos (span > 1) son la excepción: su posición la fija el efecto
-          // de paradas, o rebobinarían en cada clic y nunca avanzarían.
-          if (oneCardMode && isActiveCard && span === 1) { try { v.currentTime = 0; } catch { /* noop */ } }
+          // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
+          if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
           v.play().catch(() => {
             // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
             if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
@@ -575,38 +571,74 @@ export default function ServilletaPage() {
   }, [activeSlide, activeCardIndex, oneCardMode, videoModalOpen, verticalMode]);
 
   // ===== CLIP DEL MÉTODO: se detiene en cada punto y espera el clic =====
+  // Dueño ÚNICO de este <video> — el control central de media (arriba) lo ignora por
+  // completo (`data-card-span`). Se intentó que ambos efectos coordinaran sobre el
+  // mismo elemento con un guard, y la coordinación era fràgil: el clip se pasaba de
+  // largo del punto donde debía detenerse (bug real, 3 ago 2026). Un solo dueño,
+  // un solo lugar para razonar sobre qué hace este video en cada momento.
+  //
   // Al entrar a una parada, el clip reproduce DESDE la parada anterior y se congela al
   // llegar a la suya. Sin temporizador: el orador dispone del tiempo que necesite y
   // avanza con un clic, igual que en el resto del deck. Retroceder repite el tramo,
   // que es lo deseable en vivo (vuelve a mostrar el movimiento, no solo el resultado).
+  //
+  // El ÚLTIMO paso NO tiene target de tiempo (pedido del Director 3 ago 2026: el pin
+  // ya está en su clímax visual y forzar una pausa ahí se sentía como un error) — se
+  // deja correr libre y se marca alcanzado con el evento nativo 'ended'. Por eso el
+  // <video> NO lleva `loop`: con loop, el navegador reiniciaría solo al llegar ahí,
+  // sin darnos aviso, y el clip nunca se quedaría quieto en el pin abierto.
+  //
   // El rótulo NO se muestra durante el trayecto: aparece cuando el orbe ya llegó.
-  // Verlo desde el arranque delataba el paso antes de que la imagen lo mostrara.
-  const [metodoEnPunto, setMetodoEnPunto] = useState(false);
+  // ⚠️ NO usar un booleano aparte reseteado por efecto: metodoStop cambia YA en el
+  // render del clic, pero un useEffect corre DESPUÉS del paint — el navegador alcanza
+  // a pintar un fotograma con el texto nuevo y la marca 'visible' del punto anterior
+  // todavía puesta (flash de ~1 cuadro, bug real detectado 3 ago 2026). Se guarda en
+  // su lugar QUÉ STOP se alcanzó y se compara contra el actual: si metodoStop cambia,
+  // la comparación da false en el MISMO render, sin esperar ningún efecto.
+  const [metodoReached, setMetodoReached] = useState(-1);
+  const metodoEnPunto = metodoStop >= 0 && metodoReached === metodoStop;
+  const METODO_LAST = METODO_STOPS.length - 1;
 
   useEffect(() => {
-    if (metodoStop < 0) { setMetodoEnPunto(false); return; }
     const v = document.querySelector<HTMLVideoElement>('video[data-card-span]');
     if (!v) return;
-    const target = METODO_STOPS[metodoStop];
-    const desde = metodoStop === 0 ? 0 : METODO_STOPS[metodoStop - 1];
-    setMetodoEnPunto(false);
 
+    if (metodoStop < 0) {
+      // Se salió de la card: silencio y de vuelta al arranque para la próxima vez.
+      v.muted = true;
+      try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
+      return;
+    }
+
+    v.muted = false;
+    v.volume = AMBIENT_VOLUME;
+    const desde = metodoStop === 0 ? 0 : METODO_STOPS[metodoStop - 1];
     const seek = () => { try { v.currentTime = desde; } catch { /* noop */ } };
     // Si el clip aún no tiene metadatos, currentTime se ignora en silencio.
     if (v.readyState >= 1) seek(); else v.addEventListener('loadedmetadata', seek, { once: true });
+    v.play().catch(() => {
+      // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
+      v.muted = true;
+      v.play().catch(() => {});
+    });
 
-    // Se vigila cuadro a cuadro con requestAnimationFrame, NO con 'timeupdate': ese
-    // evento avisa unas 4 veces por segundo, así que el orbe se pasaba del punto y
-    // volvíamos atrás para corregir — se veía un retroceso cómico, como si el clip se
-    // hubiera acordado tarde. Aquí se detiene dentro del mismo fotograma y NO se
-    // reajusta el tiempo: el rebote era ese reajuste, no la pausa.
+    if (metodoStop === METODO_LAST) {
+      // Último paso: sin target, se deja correr hasta el final real del archivo.
+      const onEnded = () => setMetodoReached(METODO_LAST);
+      v.addEventListener('ended', onEnded);
+      return () => v.removeEventListener('ended', onEnded);
+    }
+
+    // Pasos intermedios: vigilado cuadro a cuadro con requestAnimationFrame, NO con
+    // 'timeupdate' — ese evento avisa unas 4 veces por segundo, insuficiente para
+    // detener el clip a tiempo exacto.
+    const target = METODO_STOPS[metodoStop];
     let raf = 0;
     const tick = () => {
-      if (v.currentTime >= target) { v.pause(); setMetodoEnPunto(true); return; }
+      if (v.currentTime >= target) { v.pause(); setMetodoReached(metodoStop); return; }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    v.play().catch(() => {});
     return () => cancelAnimationFrame(raf);
   }, [metodoStop]);
 
@@ -2501,9 +2533,12 @@ export default function ServilletaPage() {
                   if ((e.target as HTMLElement).closest('button, a')) return;
                 }}
               >
+                {/* SIN loop: el paso 3 deja correr el video hasta su final real y se
+                    queda en el último fotograma — con loop el navegador lo reiniciaría
+                    solo, sin avisar, justo cuando llega ahí. */}
                 <video
                   className="card-bg" data-slide="2" data-card={METODO_FROM} data-card-span={METODO_STOPS.length}
-                  src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="metadata"
+                  src="/videos/servilleta/metodo.mp4" muted playsInline preload="metadata"
                 />
                 {/* El paso va ARRIBA y grande: abajo, pequeño, se pierde contra el clip. */}
                 <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">

@@ -80,7 +80,27 @@ import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 // El BEAT DEL COLAPSO (Slide 2) ocupa 6 índices de card (4..9), uno por tiempo del
 // patrón Jobs. Al vivir dentro del mismo contador de cards hereda clic, swipe y
 // flechas sin tocar la navegación: el orador lo pasa a su ritmo, no hay reloj.
-const COLAPSO_FROM = 4;
+// El CLIP DEL MÉTODO (Slide 2) ocupa 3 índices (3..5): el video se detiene solo en cada
+// disco luminoso del camino y espera el clic. NO hay temporizador — una ventana de 2-3s
+// es una trampa para quien narra: si está a mitad de una frase, se le va. Los tres pasos
+// se explican aquí en vez de en una diapositiva propia (decisión del Director 3 ago 2026:
+// entre más simple, mejor; el clip ya cuenta el recorrido).
+const METODO_FROM = 3;
+// Segundos en que el orbe pisa cada punto. Medidos cuadro a cuadro sobre metodo.mp4
+// (8.0s @ 24fps). Si el clip se re-renderiza, hay que volver a medirlos.
+// Criterio del Director (3 ago 2026): la pausa cae donde TERMINA el sonido del punto,
+// no donde empieza. Medido con astats (ventana 0.02s) sobre el clip: el primer golpe
+// estalla en 2.158 y cae al piso de ambiente en 2.30; el segundo va de 4.805 a 4.852 y
+// termina en 4.88. La tercera se sostiene hasta 7.90 porque el pin sigue abriéndose
+// hasta el final del clip — ahí el sonido se oye en camino y está bien así.
+// ⚠️ Medir a ojo NO funciona: se intentó por fotograma y por brillo bajo el orbe, y
+// cada método daba un número distinto. El audio es el único juez fiable aquí.
+const METODO_STOPS = [2.30, 4.88, 7.90];
+// El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
+// exigir re-render, misma regla que los nombres de las cards.
+const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];
+
+const COLAPSO_FROM = METODO_FROM + METODO_STOPS.length;
 const COLAPSO_BEATS = 5;
 
 // Maqueta blanca sobre negro (2 ago 2026): las tres caras se generaron como un SET —
@@ -101,12 +121,17 @@ const COLAPSO_TEXTO: Array<{ eyebrow: string; nombre: string }> = [
   { eyebrow: 'Usted sabe qué hacer', nombre: 'El método' },
   { eyebrow: 'No son tres cosas', nombre: 'Ya vienen juntas' },
 ];
-// Puntos que se PINTAN en el indicador (el colapso cuenta como uno solo).
+// Puntos que se PINTAN en el indicador: el método y el colapso cuentan como UNO cada
+// uno, aunque por dentro ocupen varios índices. El público ve 4 partes, no 11 pasos.
 const CARD_DOTS: Record<number, number> = { 1: 3, 2: 4 };
-const LAST_CARD: Record<number, number> = { 1: 3, 2: 8 };
-// Tarjetas por slide. El Slide 2 tiene una más: el BEAT DEL COLAPSO (índice 4),
-// donde los tres socios se vuelven uno y entran al celular. Antes era global = 3.
-const MAX_CARD: Record<number, number> = { 1: 3, 2: 8 };
+const dotFor = (slide: number, idx: number) => {
+  if (slide !== 2) return idx;
+  if (idx < METODO_FROM) return idx;                 // 1 respaldo · 2 queswa
+  if (idx < COLAPSO_FROM) return METODO_FROM;        // 3..5 → el método
+  return METODO_FROM + 1;                            // 6..10 → el colapso
+};
+const LAST_CARD: Record<number, number> = { 1: 3, 2: COLAPSO_FROM + COLAPSO_BEATS - 1 };
+const MAX_CARD: Record<number, number> = { 1: 3, 2: COLAPSO_FROM + COLAPSO_BEATS - 1 };
 
 // Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
@@ -256,8 +281,13 @@ export default function ServilletaPage() {
   // punto en el indicador, por eso el contador visible se calcula aparte.
   const colapsoBeat =
     activeSlide === 2 && activeCardIndex >= COLAPSO_FROM ? activeCardIndex - COLAPSO_FROM : -1;
+  // Parada activa del clip del método (−1 = no estamos en él).
+  const metodoStop =
+    activeSlide === 2 && activeCardIndex >= METODO_FROM && activeCardIndex < COLAPSO_FROM
+      ? activeCardIndex - METODO_FROM
+      : -1;
   const dotCount = CARD_DOTS[activeSlide] ?? maxCardIndex;
-  const dotIndex = Math.min(activeCardIndex, dotCount);
+  const dotIndex = Math.min(dotFor(activeSlide, activeCardIndex), dotCount);
 
   // Navegación por teclado
   useEffect(() => {
@@ -508,8 +538,12 @@ export default function ServilletaPage() {
       vids.forEach((v) => {
         const slide = Number(v.dataset.slide);
         const card = Number(v.dataset.card);
+        // Un clip puede abarcar VARIOS índices de card (el método ocupa 3: se detiene
+        // en cada punto del camino y espera el clic). data-card-span lo declara.
+        const span = Number(v.dataset.cardSpan) || 1;
         const inActiveSlide = slide === activeSlide;
-        const isActiveCard = inActiveSlide && card === activeCardIndex;
+        const isActiveCard =
+          inActiveSlide && activeCardIndex >= card && activeCardIndex < card + span;
         const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
         const audible = oneCardMode && isActiveCard && shouldPlay;
         v.muted = !audible;
@@ -517,9 +551,15 @@ export default function ServilletaPage() {
         // voz de quien presenta y los usuarios lo reportaron "muy duro" (jul 2026).
         // Se siente, no se impone. Calibrar aquí, no por clip.
         v.volume = AMBIENT_VOLUME;
+        // Un clip por tramos que ya está congelado en su punto NO se vuelve a lanzar:
+        // este efecto corre también al volver de otra pestaña o al cerrar un modal, y
+        // sin esta guarda el orbe se pasaba de largo del punto donde el orador lo dejó.
+        if (span > 1 && oneCardMode && isActiveCard && v.paused && v.currentTime > 0) return;
         if (shouldPlay) {
-          // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
-          if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
+          // La card activa en presentación arranca desde 0s (avance o retroceso). Los
+          // clips por tramos (span > 1) son la excepción: su posición la fija el efecto
+          // de paradas, o rebobinarían en cada clic y nunca avanzarían.
+          if (oneCardMode && isActiveCard && span === 1) { try { v.currentTime = 0; } catch { /* noop */ } }
           v.play().catch(() => {
             // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
             if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
@@ -533,6 +573,42 @@ export default function ServilletaPage() {
     document.addEventListener('visibilitychange', apply);
     return () => document.removeEventListener('visibilitychange', apply);
   }, [activeSlide, activeCardIndex, oneCardMode, videoModalOpen, verticalMode]);
+
+  // ===== CLIP DEL MÉTODO: se detiene en cada punto y espera el clic =====
+  // Al entrar a una parada, el clip reproduce DESDE la parada anterior y se congela al
+  // llegar a la suya. Sin temporizador: el orador dispone del tiempo que necesite y
+  // avanza con un clic, igual que en el resto del deck. Retroceder repite el tramo,
+  // que es lo deseable en vivo (vuelve a mostrar el movimiento, no solo el resultado).
+  // El rótulo NO se muestra durante el trayecto: aparece cuando el orbe ya llegó.
+  // Verlo desde el arranque delataba el paso antes de que la imagen lo mostrara.
+  const [metodoEnPunto, setMetodoEnPunto] = useState(false);
+
+  useEffect(() => {
+    if (metodoStop < 0) { setMetodoEnPunto(false); return; }
+    const v = document.querySelector<HTMLVideoElement>('video[data-card-span]');
+    if (!v) return;
+    const target = METODO_STOPS[metodoStop];
+    const desde = metodoStop === 0 ? 0 : METODO_STOPS[metodoStop - 1];
+    setMetodoEnPunto(false);
+
+    const seek = () => { try { v.currentTime = desde; } catch { /* noop */ } };
+    // Si el clip aún no tiene metadatos, currentTime se ignora en silencio.
+    if (v.readyState >= 1) seek(); else v.addEventListener('loadedmetadata', seek, { once: true });
+
+    // Se vigila cuadro a cuadro con requestAnimationFrame, NO con 'timeupdate': ese
+    // evento avisa unas 4 veces por segundo, así que el orbe se pasaba del punto y
+    // volvíamos atrás para corregir — se veía un retroceso cómico, como si el clip se
+    // hubiera acordado tarde. Aquí se detiene dentro del mismo fotograma y NO se
+    // reajusta el tiempo: el rebote era ese reajuste, no la pausa.
+    let raf = 0;
+    const tick = () => {
+      if (v.currentTime >= target) { v.pause(); setMetodoEnPunto(true); return; }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    v.play().catch(() => {});
+    return () => cancelAnimationFrame(raf);
+  }, [metodoStop]);
 
   // NOTA auditoría: aquí vivía un IntersectionObserver que fijaba activeCardIndex por
   // scroll. Quedó muerto cuando one-card-mode pasó a ocultar las cards no activas con
@@ -725,6 +801,25 @@ export default function ServilletaPage() {
            desaparecen dentro del celular, que se enciende en dorado. Solo corre
            cuando la tarjeta está activa, para que el beat caiga cuando el orador
            llega a él y no antes. */
+        /* ===== CLIP DEL MÉTODO — el paso, arriba y grande ===== */
+        .metodo .metodo-paso {
+          position: absolute; top: 0; left: 0; right: 0; z-index: 4;
+          display: flex; flex-direction: column; align-items: center; gap: 6px;
+          padding: clamp(22px, 6vh, 54px) 20px 40px;
+          font-family: var(--font-head); font-weight: 700;
+          font-size: clamp(1.9rem, 8vw, 3.6rem); line-height: 1;
+          letter-spacing: -0.01em; color: var(--text-main); text-align: center;
+          background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 100%);
+          pointer-events: none;
+          opacity: 0; transform: translateY(-10px);
+          transition: opacity .35s ease, transform .35s ease;
+        }
+        .metodo .metodo-paso.visible { opacity: 1; transform: translateY(0); }
+        .metodo .metodo-orden {
+          font-family: var(--font-mono); font-weight: 600;
+          font-size: 0.72rem; letter-spacing: 0.22em; color: var(--cyan);
+        }
+
         .colapso .colapso-escena {
           position: absolute; inset: 0; display: grid; place-items: center;
           background: var(--bg-dark); perspective: 1200px;
@@ -2392,12 +2487,20 @@ export default function ServilletaPage() {
                   "su centro de mando → método comprobado → usted solo comparte" decía lo mismo
                   tres veces seguidas. Los tres movimientos viven ahora aquí, sobre el mismo clip
                   de los pasos exactos. Eyebrow = cian (ya lo era por CSS) · nombre = blanco. */}
-              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
-                <video className="card-bg" data-slide="2" data-card="3" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
+              <div className={`card-industrial full-width metodo ${metodoStop >= 0 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
+                <video
+                  className="card-bg" data-slide="2" data-card={METODO_FROM} data-card-span={METODO_STOPS.length}
+                  src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="metadata"
+                />
                 {clipCenterToggle('s2-metodo')}
+                {/* El paso va ARRIBA y grande: abajo, pequeño, se pierde contra el clip. */}
+                <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">
+                  <span className="metodo-orden">0{Math.max(metodoStop, 0) + 1}</span>
+                  {METODO_PASOS[Math.max(metodoStop, 0)]}
+                </div>
                 <div className="card-content">
                   <span className="pillar-eyebrow">M&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Compartir &middot; Recibir &middot; Multiplicar</h3>
+                  <h3 className="pillar-name">Tres pasos sencillos</h3>
                 </div>
               </div>
 

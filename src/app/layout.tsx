@@ -53,18 +53,18 @@ const baseUrl = 'https://creatuactivo.com';
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'CreaTuActivo | Sea dueño de su empresa digital',
+    default: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
     template: '%s | CreaTuActivo'
   },
-  description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+  description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
     'creatuactivo',
-    'empresa digital',
+    'negocio digital',
+    'ingreso en paralelo',
+    'segundo ingreso',
     'ingresos recurrentes',
-    'propietario empresa digital',
-    'apalancamiento estratégico',
     'queswa ia',
     'queswa app',
     'gano excel latinoamerica',
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     languages: {
       'es': baseUrl,
       'pt-BR': `${baseUrl}/paises/brasil`,
-      'en-US': `${baseUrl}/en`, // Preparado para futuro
+      // 'en-US' retirado (2 ago 2026): apuntaba a /en, que no existe (hreflang roto).
     },
   },
 
@@ -127,18 +127,18 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: 'website',
-    locale: 'es_ES',
-    alternateLocale: ['pt_BR', 'en_US'],
+    locale: 'es_CO',
+    alternateLocale: ['pt_BR'],
     url: baseUrl,
-    title: 'CreaTuActivo | Sea dueño de su empresa digital',
-    description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+    title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+    description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Sea dueño de su empresa digital',
-    description: 'Sea dueño de una empresa digital que trabaja por usted, en paralelo a lo que ya hace, y le genera ingresos una y otra vez. Hoy, gracias a la inteligencia artificial, cualquiera puede tenerla.',
+    title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+    description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
     creator: '@creatuactivo',
   },
 
@@ -173,13 +173,9 @@ export default function RootLayout({
           "https://linkedin.com/company/creatuactivo",
           "https://luiscabrejo.com"
         ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+57-300-1234567",
-          "contactType": "customer service",
-          "areaServed": ["US", "CO", "MX", "BR", "PE", "EC"],
-          "availableLanguage": ["Spanish", "English", "Portuguese"]
-        }
+        // contactPoint retirado (2 ago 2026): publicaba un teléfono placeholder
+        // inventado (+57-300-1234567) como dato estructurado. Reponer solo con
+        // un número real cuando el Director lo defina.
       },
       {
         "@type": "SoftwareApplication",
@@ -191,7 +187,7 @@ export default function RootLayout({
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": "Plataforma propietaria con motor de Inteligencia Artificial. Centro de Mando de los Arquitectos de Patrimonio del ecosistema CreaTuActivo. Conversa, acompaña y prepara contactos las 24 horas (queswa.app).",
+        "description": "Plataforma propietaria con motor de inteligencia artificial: el Centro de Mando desde donde cada Propietario dirige y multiplica su negocio en el ecosistema CreaTuActivo. Explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas (queswa.app).",
         "author": {
           "@id": `${baseUrl}/#organization`
         }
@@ -199,7 +195,7 @@ export default function RootLayout({
       {
         "@type": "Person",
         "name": "Luis Cabrejo",
-        "jobTitle": "Fundador & Mentor Empresarial",
+        "jobTitle": "Fundador de CreaTuActivo",
         "url": "https://luiscabrejo.com",
         "sameAs": [
           "https://www.linkedin.com/in/luiscabrejo/",

@@ -41,17 +41,26 @@ export const dynamic = 'force-static'
 export const metadata = {
   title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
   description:
-    'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La parte difícil —explicar, atender, responder— la hace una inteligencia artificial por WhatsApp. Y lo que produce se liquida en su cuenta bancaria cada viernes.',
+    'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
+  // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
+  // trata cada variante como URL distinta con contenido duplicado.
+  alternates: { canonical: 'https://creatuactivo.com' },
+  // Next hace merge SUPERFICIAL: este objeto reemplaza el openGraph del layout
+  // completo → siteName/type/locale se re-declaran aquí o se pierden.
   openGraph: {
+    type: 'website',
+    siteName: 'CreaTuActivo.com',
+    locale: 'es_CO',
+    url: 'https://creatuactivo.com',
     title: 'Un segundo ingreso, en paralelo al que ya tiene',
     description:
       'Café y productos de consumo diario, una fábrica con 30 años detrás, y una inteligencia artificial que explica y atiende por usted en WhatsApp. Se liquida en su cuenta bancaria cada viernes.',
-    url: 'https://creatuactivo.com',
   },
   twitter: {
+    card: 'summary_large_image',
     title: 'Un segundo ingreso, en paralelo al que ya tiene',
     description:
-      'Café y productos de consumo diario, una fábrica con 30 años detrás, y una inteligencia artificial que explica y atiende por usted en WhatsApp. Se liquida en su cuenta bancaria cada viernes.',
+      'Café y productos de consumo diario, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Se liquida cada viernes.',
   },
 }
 

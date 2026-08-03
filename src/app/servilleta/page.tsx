@@ -1208,14 +1208,19 @@ export default function ServilletaPage() {
           box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
+        /* Ritmo vertical del panel (recalibrado 2 ago 2026 al retirar los dos textos
+           en letra pequeña): el espacio liberado NO se deja como hueco al pie — se
+           reparte entre los elementos que quedan, que era la queja de origen
+           ("se ven un poco amontonados"). Neto: el panel sigue siendo ~65px más
+           bajo que antes, pero respira. */
         .simulator-panel h3 {
           font-family: var(--font-head);
           display: flex; align-items: center; justify-content: center; gap: 10px;
-          margin: 0 0 20px 0; font-size: 1.3rem; color: var(--text-main);
+          margin: 0 0 24px 0; font-size: 1.3rem; color: var(--text-main);
           text-align: center;
         }
 
-        .sim-tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 30px; }
+        .sim-tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 34px; }
         .sim-tab {
           flex: 1; background: transparent; border: none; border-bottom: 2px solid transparent; color: #666;
           padding: 15px; font-family: var(--font-mono); font-weight: bold; cursor: pointer;
@@ -1226,14 +1231,14 @@ export default function ServilletaPage() {
 
         .digital-display {
           font-family: var(--font-head); text-align: center;
-          font-size: 4rem; color: var(--text-main); margin: 20px 0;
+          font-size: 4rem; color: var(--text-main); margin: 28px 0;
         }
         .digital-display .currency { color: #666; font-size: 2rem; vertical-align: top; }
         .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
-        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 20px; font-size: 1.05rem; }
+        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 28px; font-size: 1.05rem; }
 
 
-        .pkg-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+        .pkg-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; }
         .pkg-btn {
           padding: 8px 16px; background: transparent; border: 1px solid #444;
           color: #666; font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
@@ -1248,7 +1253,7 @@ export default function ServilletaPage() {
         }
 
         .controls-container label {
-          display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; margin-bottom: 10px;
+          display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; margin-bottom: 14px;
         }
         .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
         input[type=range] { width: 100%; accent-color: var(--cyan); }
@@ -1332,17 +1337,10 @@ export default function ServilletaPage() {
           transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                       height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .insight-text {
-          font-size: 0.9rem;
-          color: #555;
-          margin-top: 10px;
-          text-align: center;
-          /* min-height igual a la altura del texto MÁS largo (gen5 = 3 líneas).
-             El insight-text de binario (2 líneas) se rellena con whitespace.
-             Esto elimina el "salto" al alternar entre INGRESO INMEDIATO ↔ RECURRENTE. */
-          min-height: 4.2em;
-          line-height: 1.5;
-        }
+        /* .insight-text ELIMINADO (2 ago 2026): los dos textos bajo el slider se
+           retiraron con el candado del encabezado. Su min-height de 4.2em existía
+           solo para que el panel no saltara al cambiar de pestaña; sin los textos,
+           el placeholder invisible del pkg-selector ya garantiza esa simetría. */
 
         .cta-panel {
           flex: 1; position: relative; height: 450px;
@@ -2545,10 +2543,11 @@ export default function ServilletaPage() {
               {/* Panel del Simulador */}
               <div className="simulator-panel">
                 <h3 style={{ textAlign: 'center' }}>SIMULADOR DE INGRESOS RECURRENTES</h3>
-                {/* El candado: las ganancias nacen solo de producto (dos tipos de compra) */}
-                <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--steel)', margin: '6px 0 14px' }}>
-                  Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales.
-                </p>
+                {/* Retirado (2 ago 2026, decisión del Director): el candado en letra
+                    pequeña ("toda ganancia nace de una compra de producto") apretaba
+                    el panel y competía con la cifra, que es lo único que debe mirarse
+                    aquí. El candado NO se pierde: lo dice el orador y vive en WHY_02
+                    del arsenal, que es donde el prospecto lo pregunta. */}
 
                 {/* Tabs del Simulador */}
                 <div className="sim-tabs">
@@ -2602,7 +2601,6 @@ export default function ServilletaPage() {
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                       className="sim-slider"
                     />
-                    <p className="insight-text">Ingreso inmediato por cada paquete empresarial que se activa en su negocio, liquidado cada viernes.</p>
                   </div>
                 )}
 
@@ -2610,9 +2608,11 @@ export default function ServilletaPage() {
                 {simMode === 'binario' && (
                   <div className="controls-container">
                     {/* Placeholder invisible: ocupa el mismo espacio que el
-                        pkg-selector de INGRESO INMEDIATO para que label, slider
-                        e insight-text queden EXACTAMENTE en la misma posición
-                        vertical al alternar entre tabs (sin saltos de layout). */}
+                        pkg-selector de INGRESO INMEDIATO para que el label y el
+                        slider queden EXACTAMENTE en la misma posición vertical al
+                        alternar entre tabs (sin saltos de layout). Con los textos
+                        bajo el slider ya retirados, ESTE es el único elemento que
+                        sostiene la simetría entre las dos pestañas: no quitarlo. */}
                     <div className="pkg-selector" aria-hidden="true" style={{ visibility: 'hidden' }}>
                       <button className="pkg-btn" tabIndex={-1}>·</button>
                     </div>
@@ -2630,7 +2630,6 @@ export default function ServilletaPage() {
                       className="sim-slider snowball-slider"
                       style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
                     />
-                    <p className="insight-text">Ingreso recurrente que crece con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
                   </div>
                 )}
               </div>

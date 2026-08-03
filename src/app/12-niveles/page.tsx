@@ -1411,6 +1411,16 @@ export default function ServilletaPage() {
             background: rgba(15, 15, 15, 0.40) !important;
             border-color: rgba(255,255,255,0.16) !important;
           }
+          /* Y el mismo seguro puesto sobre el hijo, que es lo que de verdad decide:
+             align-self gana sobre el align-items del padre venga de donde venga
+             (base, :fullscreen o .kiosk), y el width al 100% evita el shrink-to-fit
+             que dejaba el panel del ancho de su línea más larga. */
+          #slide-3 .bio-text-panel {
+            align-self: stretch !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            text-align: left !important;
+          }
           /* Fuera en móvil: el párrafo (queda solo el H1 — decisión del Director) y el
              CTA "VER LOS NÚMEROS", porque aquí la slide se pasa deslizando. */
           #slide-3 .bio-text-panel .deck-p { display: none !important; }

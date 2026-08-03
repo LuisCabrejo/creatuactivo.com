@@ -1551,6 +1551,17 @@ export default function ServilletaPage() {
             background: linear-gradient(to bottom,
               rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
           }
+          /* Y el mismo seguro puesto sobre el hijo, que es lo que de verdad decide:
+             align-self gana sobre el align-items del padre venga de donde venga
+             (base, :fullscreen o .kiosk), y el width al 100% evita el shrink-to-fit
+             que dejaba el panel del ancho de su línea más larga. Sin esto el H1
+             volvía a salirse por la derecha. */
+          #slide-3 .bio-text-panel {
+            align-self: stretch !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            text-align: left !important;
+          }
           /* Fuera en móvil: el párrafo (queda solo el H1 — decisión del Director) y el
              CTA "VER LOS NÚMEROS", porque aquí la slide se pasa deslizando. */
           #slide-3 .bio-text-panel .deck-p { display: none !important; }

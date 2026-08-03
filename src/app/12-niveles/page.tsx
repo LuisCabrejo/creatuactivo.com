@@ -951,12 +951,23 @@ export default function ServilletaPage() {
           align-items: center;
           justify-content: center;
         }
+        @media (min-width: 900px) {
+          #slide-3 .slide-3-layout {
+            justify-content: flex-start;
+            padding-left: clamp(32px, 6vw, 220px);
+          }
+        }
 
+        /* El bloque SÍ vive a la izquierda (2 ago 2026). Antes el layout centraba
+           y encima el bloque llevaba margin-left: 10%, así que en pantallas anchas
+           terminaba centro-derecha: dejaba un tercio muerto a la izquierda y se
+           montaba sobre la taza. La sangría fluida va en el layout (abajo, media
+           query de escritorio); aquí el margen queda en cero. */
         .slide-3-bottom {
           width: 100%;
           display: flex; gap: 30px; align-items: flex-end;
           padding: 40px 60px;
-          margin-left: 10%;
+          margin-left: 0;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
@@ -1522,11 +1533,12 @@ export default function ServilletaPage() {
         /* -- SLIDE 3: Center content vertically, scale up -- */
         :fullscreen .slide-3-layout {
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
+          padding-left: clamp(32px, 6vw, 220px);
         }
         :fullscreen .slide-3-bottom {
           padding: 40px 60px;
-          margin-left: 10%;
+          margin-left: 0;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
@@ -1670,6 +1682,10 @@ export default function ServilletaPage() {
             align-items: flex-start !important;
             overflow-y: auto !important;
             padding-top: 20px !important;
+            /* anula la sangría izquierda de escritorio: en vertical el bloque
+               ocupa todo el ancho y esa sangría lo dejaba descentrado */
+            padding-left: 0 !important;
+            justify-content: center !important;
           }
           :fullscreen .slide-3-bottom {
             flex-direction: column !important;

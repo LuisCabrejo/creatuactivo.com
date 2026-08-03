@@ -904,6 +904,18 @@ export default function ServilletaPage() {
           #slide-3 .bg-image {
             background-image: url(/images/servilleta/producto-cafe-wide.webp) !important;
           }
+          /* El bloque SÍ vive a la izquierda (2 ago 2026). Antes el layout centraba
+             y encima el bloque llevaba margin-left: 10%, así que en pantallas anchas
+             terminaba centro-derecha: dejaba un tercio muerto a la izquierda y se
+             montaba justo sobre la taza que la foto en espejo puso a la derecha.
+             Intención y CSS se contradecían. Ahora se ancla a la izquierda con una
+             sangría fluida que crece con la pantalla pero se detiene, para que en
+             ultrawide el bloque no se vaya al borde. */
+          #slide-3 .slide-4-layout {
+            justify-content: flex-start;
+            padding-left: clamp(32px, 6vw, 220px);
+          }
+          #slide-3 .slide-4-bottom { margin-left: 0; }
         }
         /* El degradado del panel ya oscurece el pie; sumarle una máscara al fondo
            borraba la taza. Aquí se abre para que la foto se vea a través. */
@@ -1115,11 +1127,14 @@ export default function ServilletaPage() {
           justify-content: center;
         }
 
+        /* margin-left en 0 (2 ago 2026): la sangría izquierda del bloque vive ahora
+           en el layout, en la media query de escritorio. Ver el comentario de
+           #slide-3 .slide-4-layout. */
         .slide-4-bottom {
           width: 100%;
           display: flex; gap: 30px; align-items: flex-end;
           padding: 40px 60px;
-          margin-left: 10%;
+          margin-left: 0;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
@@ -1687,11 +1702,12 @@ export default function ServilletaPage() {
         /* -- SLIDE 3: Center content vertically, scale up -- */
         :fullscreen .slide-4-layout {
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
+          padding-left: clamp(32px, 6vw, 220px);
         }
         :fullscreen .slide-4-bottom {
           padding: 40px 60px;
-          margin-left: 10%;
+          margin-left: 0;
           max-width: 900px;
           background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
           border-radius: 0;
@@ -1835,6 +1851,10 @@ export default function ServilletaPage() {
             align-items: flex-start !important;
             overflow-y: auto !important;
             padding-top: 20px !important;
+            /* anula la sangría izquierda de escritorio: en vertical el bloque
+               ocupa todo el ancho y esa sangría lo dejaba descentrado */
+            padding-left: 0 !important;
+            justify-content: center !important;
           }
           :fullscreen .slide-4-bottom {
             flex-direction: column !important;

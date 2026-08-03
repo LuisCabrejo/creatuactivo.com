@@ -99,7 +99,7 @@ const METODO_FROM = 3;
 // audio (4.88) y del rastreo de posición del orbe cuadro a cuadro (4.96) dieron un
 // resultado que en vivo se ve pasado de largo, así que el reloj sobre la reproducción
 // es el juez, no el análisis del .mp4.
-const METODO_STOPS = [2.20, 4.16, 7.00];
+const METODO_STOPS = [2.22, 4.14, 6.00];
 // El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
 // exigir re-render, misma regla que los nombres de las cards.
 const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];
@@ -2548,9 +2548,16 @@ export default function ServilletaPage() {
                   src="/videos/servilleta/metodo.mp4" muted playsInline preload="metadata"
                 />
                 {/* El paso va ARRIBA y grande: abajo, pequeño, se pierde contra el clip. */}
+                {/* El texto se lee de metodoReached (el paso que está EN PANTALLA), NO de
+                    metodoStop (el paso al que vamos). El rótulo se oculta con una transición
+                    de opacidad de .35s, así que al avanzar sigue visible mientras se apaga:
+                    si el texto saliera de metodoStop, cambiaría de golpe en el primer cuadro
+                    y se vería "Multiplicar" desvaneciéndose donde el público espera "Recibir"
+                    (bug reportado 3 ago 2026). Leyendo de metodoReached, el rótulo se apaga
+                    con SU propio texto y el cambio ocurre después, con la opacidad ya en 0. */}
                 <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">
-                  <span className="metodo-orden">0{Math.max(metodoStop, 0) + 1}</span>
-                  {METODO_PASOS[Math.max(metodoStop, 0)]}
+                  <span className="metodo-orden">0{Math.max(metodoReached, 0) + 1}</span>
+                  {METODO_PASOS[Math.max(metodoReached, 0)]}
                 </div>
                 <div className="card-content">
                   <span className="pillar-eyebrow">M&eacute;todo comprobado</span>

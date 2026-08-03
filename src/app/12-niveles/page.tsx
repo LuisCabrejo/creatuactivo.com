@@ -1403,9 +1403,16 @@ export default function ServilletaPage() {
             background: linear-gradient(to bottom,
               rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
           }
+          /* GRADACIÓN MÓVIL (2 ago 2026): la madera del asset vertical lee "vieja,
+             roída" en pantalla chica. Se apagan sus naranjas (saturate bajo), la
+             veta pasa a leerse como textura (contrast) y el borde inferior —la zona
+             más desgastada— se hunde en negro, de modo que la taza queda apoyada en
+             oscuridad. No se puede usar aquí el encuadre de piedra del asset
+             horizontal: su taza es demasiado ancha para el formato del teléfono. */
           #slide-3 .bg-image {
-            filter: grayscale(0%) saturate(112%) contrast(104%) brightness(125%) !important;
+            filter: saturate(55%) contrast(118%) brightness(118%) !important;
             background-position: center 70% !important;
+            box-shadow: inset 0 -150px 120px -60px rgba(0,0,0,0.92) !important;
           }
           #slide-3 .bio-metrics-panel {
             background: rgba(15, 15, 15, 0.40) !important;

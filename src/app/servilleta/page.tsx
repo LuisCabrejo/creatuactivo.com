@@ -1577,12 +1577,23 @@ export default function ServilletaPage() {
             background: rgba(15, 15, 15, 0.40) !important;
             border-color: rgba(255,255,255,0.16) !important;
           }
-          /* En teléfono el Y no hace nada (la foto entra completa); el 70% solo actúa
-             en tablets en vertical, donde sí hay recorte y sube la taza al cuadro.
-             Se aclara un punto más que en escritorio. */
+          /* GRADACIÓN MÓVIL (2 ago 2026): el asset vertical apoya la taza sobre una
+             tabla de madera rústica que en pantalla chica lee "vieja, roída" — muy
+             lejos del lujo silencioso que sí tiene la encimera de piedra del asset
+             horizontal. No se puede recortar el horizontal a vertical: allí la taza
+             mide 590px de ancho sobre 1072 de alto y un teléfono solo alcanza a
+             mostrar ~493px, así que quedaría cortada. Se corrige por gradación:
+             - saturate bajo → apaga los naranjas de la madera (son los que gritan
+               "rústico"); la taza, que es casi neutra, no se resiente.
+             - contrast alto → la veta lee como textura, no como rayón.
+             - el box-shadow inset hunde el borde inferior, que es la zona más
+               desgastada: la taza queda apoyada en oscuridad, no en una tabla.
+             El Y del background solo actúa en tablets verticales (en teléfono la
+             foto entra completa y no hay recorte vertical que mover). */
           #slide-3 .bg-image {
             background-position: center 70% !important;
-            filter: grayscale(0%) saturate(112%) contrast(104%) brightness(125%) !important;
+            filter: saturate(55%) contrast(118%) brightness(118%) !important;
+            box-shadow: inset 0 -150px 120px -60px rgba(0,0,0,0.92) !important;
           }
           #slide-3 .bio-metrics-container { gap: 10px !important; }
 

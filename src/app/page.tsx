@@ -142,23 +142,29 @@ export default function HomePage() {
     <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
-      {/* ═══ HERO — el upgrade que la persona sí calcula ═══ */}
+      {/* ═══ HERO — el upgrade que la persona sí calcula ═══
+          El nav es sticky (en flujo): el padding-top ES el gap visible nav→video.
+          30px arriba —medida heredada de la v13.7 y confirmada por el Director
+          (2 ago 2026)— para que en móvil el video se vea completo y bien ubicado
+          al abrir la página. El eyebrow va DEBAJO del video por lo mismo: encima
+          lo empujaba fuera de la primera pantalla. */}
       <section
         style={{
           background:
             'radial-gradient(ellipse at 50% 0%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
-          padding: '7rem 1.5rem 5rem',
+          padding: '30px 1.5rem 5rem',
         }}
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
-
-          {/* Reel explainer 9:16 — autoplay muted + chip ACTIVAR SONIDO; al terminar
-              se desvanece y abre Queswa. ⏳ Asset = explainer vigente (léxico
-              pre-v6.8) — se reemplaza en Blob con la misma URL, sin tocar código. */}
+          {/* Reel explainer 9:16 — ABRE la página. Autoplay muted + chip ACTIVAR
+              SONIDO; al terminar se desvanece y abre Queswa. ⏳ Asset = explainer
+              vigente (léxico pre-v6.8) — se reemplaza en Blob con la misma URL,
+              sin tocar código. */}
           <div style={{ display: 'flex', justifyContent: 'center', margin: '0 0 3.5rem' }}>
             <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
           </div>
+
+          <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
 
           <h1
             style={{

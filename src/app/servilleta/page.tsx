@@ -2487,12 +2487,24 @@ export default function ServilletaPage() {
                   "su centro de mando → método comprobado → usted solo comparte" decía lo mismo
                   tres veces seguidas. Los tres movimientos viven ahora aquí, sobre el mismo clip
                   de los pasos exactos. Eyebrow = cian (ya lo era por CSS) · nombre = blanco. */}
-              <div className={`card-industrial full-width metodo ${metodoStop >= 0 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-metodo')}>
+              <div
+                className={`card-industrial full-width metodo ${metodoStop >= 0 ? 'card-active' : ''}`}
+                onClick={(e) => {
+                  // Esta card NO usa el toggle pausa/play táctil del resto del deck: aquí
+                  // el video se pausa SOLO (llegó a un punto) y espera el clic para
+                  // AVANZAR — un tap que solo alternara play/pause reanudaría el clip sin
+                  // que nadie vigile el siguiente objetivo, y se pasa de largo (bug real,
+                  // detectado en pruebas 3 ago 2026). Se deja pasar el evento sin
+                  // stopPropagation: handleSlideClick (en el contenedor del deck) lo
+                  // recibe y avanza activeCardIndex igual que en cualquier otro punto
+                  // de la slide, en desktop y en táctil por igual.
+                  if ((e.target as HTMLElement).closest('button, a')) return;
+                }}
+              >
                 <video
                   className="card-bg" data-slide="2" data-card={METODO_FROM} data-card-span={METODO_STOPS.length}
                   src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="metadata"
                 />
-                {clipCenterToggle('s2-metodo')}
                 {/* El paso va ARRIBA y grande: abajo, pequeño, se pierde contra el clip. */}
                 <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">
                   <span className="metodo-orden">0{Math.max(metodoStop, 0) + 1}</span>

@@ -888,8 +888,13 @@ export default function ServilletaPage() {
         /* El único momento fotográfico del deck: conserva su color cálido en vez del
            gris del filtro base — el cambio de material es el efecto. La máscara oscurece
            el tercio inferior, que es donde va el bloque de texto. */
+        /* Calibrado 2 ago 2026 (pedido del Director: "que la imagen se vea más").
+           Antes: grayscale(18%) brightness(78%) — la taza quedaba enterrada justo
+           en el ÚNICO slide fotográfico. Ahora sin gris y por encima del 100%: es
+           una foto oscura de origen (mesa negra, luz lateral), así que subirla no
+           la lava; solo la deja existir. */
         #slide-3 .bg-image {
-          filter: grayscale(18%) contrast(106%) brightness(78%);
+          filter: grayscale(0%) saturate(112%) contrast(104%) brightness(115%);
         }
         /* Dos encuadres de la MISMA foto: la vertical no sirve en escritorio — con
            background-size cover sobre 16:9 se amplía tanto que la taza se sale. La
@@ -904,13 +909,14 @@ export default function ServilletaPage() {
            borraba la taza. Aquí se abre para que la foto se vea a través. */
         #slide-3 .slide-4-bottom {
           background: linear-gradient(to top,
-            rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0) 100%);
+            rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.34) 45%, rgba(0,0,0,0) 100%);
         }
-        /* La tarjeta de métricas era opaca y tapaba la foto entera. Translúcida en
-           todas las pantallas: la taza se lee a través. */
+        /* La tarjeta era opaca y tapaba la foto entera. Translúcida en todas las
+           pantallas: la taza se lee a través. El blur sostiene la legibilidad, así
+           que la opacidad puede bajar sin que el texto sufra. */
         #slide-3 .bio-metrics-panel {
-          background: rgba(15, 15, 15, 0.55);
-          border-color: rgba(255, 255, 255, 0.14);
+          background: rgba(15, 15, 15, 0.40);
+          border-color: rgba(255, 255, 255, 0.16);
         }
 
         #slide-1 .bg-image {
@@ -1152,24 +1158,27 @@ export default function ServilletaPage() {
           padding-bottom: 8px;
         }
 
-        .metric-row { margin-bottom: 14px; }
-        .metric-row:last-child { margin-bottom: 0; }
-        .metric-header-row {
+        /* Ficha técnica del producto. El gap + el flex-shrink del valor son
+           obligatorios: la maqueta anterior (space-between sin gap) colisionaba
+           rótulo y valor cuando el valor era largo ("RECUPERACIÓN62% - EN PROCESO"). */
+        .spec-row {
           display: flex; justify-content: space-between; align-items: baseline;
-          margin-bottom: 6px;
+          gap: 18px;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.07);
         }
+        .spec-row:last-of-type { border-bottom: 0; }
+        .spec-row .metric-value { flex-shrink: 0; }
+        .panel-footnote {
+          margin: 12px 0 0; padding-top: 12px;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          font-size: 0.78rem; line-height: 1.5; color: #9AA4AD;
+        }
+        .panel-footnote strong { color: var(--text-main); font-weight: 600; }
         .metric-label { font-size: 0.7rem; color: #888; letter-spacing: 1px; }
         .metric-value { font-family: var(--font-head); color: var(--cyan); font-size: 1.1rem; font-weight: 600; }
-        .metric-value.warning-text {
-          color: var(--orange);
-          font-size: 0.85rem;
-          letter-spacing: 0.5px;
-          font-family: var(--font-mono);
-          font-weight: 500;
-        }
-        .progress-bar { width: 100%; height: 8px; background: #333; }
-        .fill { height: 100%; background: var(--cyan); box-shadow: 0 0 4px var(--cyan); transition: width 1s ease; }
-        .fill.warning { background: var(--orange); box-shadow: 0 0 4px var(--orange); }
+        /* .progress-bar / .fill / .metric-value.warning-text ELIMINADOS (2 ago 2026)
+           junto con las cifras inventadas del panel. No reponer. */
 
         /* --- SLIDE 4: SIMULADOR --- */
         .simulator-layout {
@@ -1510,8 +1519,15 @@ export default function ServilletaPage() {
           #slide-3 .slide-4-layout { justify-content: center; }
           #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
           #slide-3 .bio-metrics-panel {
-            background: rgba(15, 15, 15, 0.55) !important;
-            border-color: rgba(255,255,255,0.14) !important;
+            background: rgba(15, 15, 15, 0.40) !important;
+            border-color: rgba(255,255,255,0.16) !important;
+          }
+          /* En vertical la taza vive en el tercio bajo del encuadre y quedaba fuera
+             de cuadro tras el panel: se sube la foto y se aclara un punto más que en
+             escritorio, donde el bloque de texto ocupa menos alto. */
+          #slide-3 .bg-image {
+            background-position: center 38% !important;
+            filter: grayscale(0%) saturate(112%) contrast(104%) brightness(125%) !important;
           }
           #slide-3 .bio-metrics-container { gap: 12px !important; }
           #slide-3 .bio-text-panel .deck-p {
@@ -1701,9 +1717,8 @@ export default function ServilletaPage() {
         :fullscreen .metric-label {
           font-size: 0.8rem;
         }
-        :fullscreen .progress-bar {
-          height: 10px;
-        }
+        :fullscreen .spec-row { padding: 13px 0; }
+        :fullscreen .panel-footnote { font-size: 0.9rem; }
 
         /* -- SLIDE 4: Simulator + massive CTA door -- */
         :fullscreen .simulator-layout {
@@ -1836,7 +1851,8 @@ export default function ServilletaPage() {
           :fullscreen .bio-metrics-panel { padding: 15px 18px !important; }
           :fullscreen .metric-value { font-size: 1rem !important; }
           :fullscreen .metric-label { font-size: 0.65rem !important; }
-          :fullscreen .progress-bar { height: 6px !important; }
+          :fullscreen .spec-row { padding: 8px 0 !important; }
+          :fullscreen .panel-footnote { font-size: 0.72rem !important; }
         }
 
         /* === LANDSCAPE MOBILE FULLSCREEN === */
@@ -1909,11 +1925,13 @@ export default function ServilletaPage() {
            del deck. Cierre: X arriba derecha, click backdrop, tecla Escape. */
 
         /* Trigger: link clickable estilo Lujo Clínico */
+        /* Enlace de acción → DORADO (2 ago 2026). En cian competía con el CTA
+           dorado del mismo slide; por el sistema bimetálico las acciones son oro. */
         .catalog-trigger {
           display: inline-block;
           background: transparent;
           border: none;
-          color: var(--cyan);
+          color: var(--orange);
           font-family: var(--font-mono);
           font-size: 0.85rem;
           letter-spacing: 0.05em;
@@ -1926,7 +1944,7 @@ export default function ServilletaPage() {
           transition: color 0.25s ease, text-underline-offset 0.25s ease;
         }
         .catalog-trigger:hover {
-          color: var(--orange);
+          color: var(--color-brand-hover, #D4AF37);
           text-underline-offset: 7px;
         }
 
@@ -2365,8 +2383,12 @@ export default function ServilletaPage() {
                 <div className="bio-text-panel">
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
+                  {/* El superlativo "más estudiado del planeta" es del guion v6.7 y se
+                      conserva, pero NUNCA suelto: va con su prueba (2.000+ estudios).
+                      El cierre vuelve a la imagen concreta del test Beto — decir solo
+                      "el cuerpo lo asimila" convertía una imagen en un claim técnico. */}
                   <p className="deck-p">
-                    El caf&eacute; de siempre — ahora con Ganoderma, el hongo m&aacute;s estudiado del planeta, en un extracto que el cuerpo asimila por completo.
+                    El caf&eacute; de siempre — ahora con Ganoderma Lucidum, el hongo m&aacute;s estudiado del planeta, con m&aacute;s de 2.000 estudios publicados. En un extracto que se disuelve por completo en el agua: no se queda nada en el fondo de la taza.
                   </p>
                   <button
                     type="button"
@@ -2379,36 +2401,33 @@ export default function ServilletaPage() {
 
                 <div className="bio-metrics-container">
                   <div className="bio-metrics-panel">
+                    {/* ⚠️ FICHA TÉCNICA — datos verificados con el Director (08 jun 2026),
+                        los mismos del guion v6.7. Reemplaza (2 ago 2026) las barras de
+                        VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%: eran cifras
+                        inventadas y, bajo el rótulo del principio activo y con barra de
+                        progreso, se leían como resultados clínicos medidos del producto
+                        → riesgo regulatorio (INVIMA/FDA) y contradicción directa con la
+                        regla que le exigimos a Queswa ("cada cifra viene del arsenal").
+                        NO reponer barras de progreso: una barra promete una medición;
+                        una ficha solo afirma lo que es cierto. */}
                     <div className="panel-title">
                       GANODERMA LUCIDUM
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">VITALIDAD</span>
-                        <span className="metric-value">94%</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill" style={{ width: '94%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">ESTUDIOS PUBLICADOS</span>
+                      <span className="metric-value">2.000+</span>
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">RESISTENCIA</span>
-                        <span className="metric-value">89%</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill" style={{ width: '89%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">VARIEDADES EN EL H&Iacute;BRIDO</span>
+                      <span className="metric-value">6</span>
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">RECUPERACI&Oacute;N</span>
-                        <span className="metric-value warning-text">62% - EN PROCESO</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill warning" style={{ width: '62%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">COMPUESTOS BIOACTIVOS</span>
+                      <span className="metric-value">200+</span>
                     </div>
+                    <p className="panel-footnote">
+                      Tres d&eacute;cadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero mundial en el cultivo de este hongo.
+                    </p>
                   </div>
                   {/* CTA debajo del panel de métricas — fluye con el contenido en todos los modos */}
                   <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>

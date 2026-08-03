@@ -995,24 +995,27 @@ export default function ServilletaPage() {
           padding-bottom: 8px;
         }
 
-        .metric-row { margin-bottom: 14px; }
-        .metric-row:last-child { margin-bottom: 0; }
-        .metric-header-row {
+        /* Ficha técnica del producto. El gap + el flex-shrink del valor son
+           obligatorios: la maqueta anterior (space-between sin gap) colisionaba
+           rótulo y valor cuando el valor era largo ("RECUPERACIÓN62% - EN PROCESO").
+           .progress-bar / .fill / .warning-text ELIMINADOS (2 ago 2026) junto con
+           las cifras inventadas. No reponer. */
+        .spec-row {
           display: flex; justify-content: space-between; align-items: baseline;
-          margin-bottom: 6px;
+          gap: 18px;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.07);
         }
+        .spec-row:last-of-type { border-bottom: 0; }
+        .spec-row .metric-value { flex-shrink: 0; }
+        .panel-footnote {
+          margin: 12px 0 0; padding-top: 12px;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          font-size: 0.78rem; line-height: 1.5; color: #9AA4AD;
+        }
+        .panel-footnote strong { color: var(--text-main); font-weight: 600; }
         .metric-label { font-size: 0.7rem; color: #888; letter-spacing: 1px; }
         .metric-value { font-family: var(--font-head); color: var(--cyan); font-size: 1.1rem; font-weight: 600; }
-        .metric-value.warning-text {
-          color: var(--orange);
-          font-size: 0.85rem;
-          letter-spacing: 0.5px;
-          font-family: var(--font-mono);
-          font-weight: 500;
-        }
-        .progress-bar { width: 100%; height: 8px; background: #333; }
-        .fill { height: 100%; background: var(--cyan); box-shadow: 0 0 4px var(--cyan); transition: width 1s ease; }
-        .fill.warning { background: var(--orange); box-shadow: 0 0 4px var(--orange); }
 
         /* --- SLIDE 4: SIMULADOR --- */
         .simulator-layout {
@@ -1549,9 +1552,8 @@ export default function ServilletaPage() {
         :fullscreen .metric-label {
           font-size: 0.8rem;
         }
-        :fullscreen .progress-bar {
-          height: 10px;
-        }
+        :fullscreen .spec-row { padding: 13px 0; }
+        :fullscreen .panel-footnote { font-size: 0.9rem; }
 
         /* -- SLIDE 4: Simulator + massive CTA door -- */
         :fullscreen .simulator-layout {
@@ -1684,7 +1686,8 @@ export default function ServilletaPage() {
           :fullscreen .bio-metrics-panel { padding: 15px 18px !important; }
           :fullscreen .metric-value { font-size: 1rem !important; }
           :fullscreen .metric-label { font-size: 0.65rem !important; }
-          :fullscreen .progress-bar { height: 6px !important; }
+          :fullscreen .spec-row { padding: 8px 0 !important; }
+          :fullscreen .panel-footnote { font-size: 0.72rem !important; }
         }
 
         /* === LANDSCAPE MOBILE FULLSCREEN === */
@@ -1757,11 +1760,13 @@ export default function ServilletaPage() {
            del deck. Cierre: X arriba derecha, click backdrop, tecla Escape. */
 
         /* Trigger: link clickable estilo Lujo Clínico */
+        /* Enlace de acción → DORADO (2 ago 2026). En cian competía con el CTA
+           dorado del mismo slide; por el sistema bimetálico las acciones son oro. */
         .catalog-trigger {
           display: inline-block;
           background: transparent;
           border: none;
-          color: var(--cyan);
+          color: var(--orange);
           font-family: var(--font-mono);
           font-size: 0.85rem;
           letter-spacing: 0.05em;
@@ -1774,7 +1779,7 @@ export default function ServilletaPage() {
           transition: color 0.25s ease, text-underline-offset 0.25s ease;
         }
         .catalog-trigger:hover {
-          color: var(--orange);
+          color: var(--color-brand-hover, #D4AF37);
           text-underline-offset: 7px;
         }
 
@@ -2148,17 +2153,24 @@ export default function ServilletaPage() {
 
           {/* ===== SLIDE 3: BIO-METRÍA (Panel único consolidado) ===== */}
           <section id="slide-3" className={`slide ${activeSlide === 3 ? 'active' : ''}`}>
+            {/* Alineado con /servilleta (2 ago 2026): salud-bio.jpg quedó retirada allá
+                y este fork seguía sirviéndola. Misma foto de café y mismo tratamiento —
+                sin gris y por encima del 100%, porque es el único momento fotográfico
+                del deck y antes quedaba enterrado. */}
             <div
               className="bg-image"
-              style={{ backgroundImage: "url('/images/servilleta/salud-bio.jpg')", filter: 'grayscale(40%) contrast(110%) brightness(70%)' }}
+              style={{ backgroundImage: "url('/images/servilleta/producto-cafe.webp')", filter: 'grayscale(0%) saturate(112%) contrast(104%) brightness(115%)' }}
             />
             <div className="slide-3-layout">
               <div className="slide-3-bottom">
                 <div className="bio-text-panel">
                   <div className="technical-label">EL PRODUCTO</div>
                   <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
+                  {/* El superlativo "más estudiado del planeta" es del guion v6.7 y se
+                      conserva, pero NUNCA suelto: va con su prueba (2.000+ estudios).
+                      El cierre vuelve a la imagen concreta del test Beto. */}
                   <p className="deck-p">
-                    El caf&eacute; de siempre — ahora con Ganoderma, el hongo m&aacute;s estudiado del planeta, en un extracto que el cuerpo asimila por completo.
+                    El caf&eacute; de siempre — ahora con Ganoderma Lucidum, el hongo m&aacute;s estudiado del planeta, con m&aacute;s de 2.000 estudios publicados. En un extracto que se disuelve por completo en el agua: no se queda nada en el fondo de la taza.
                   </p>
                   <button
                     type="button"
@@ -2171,36 +2183,32 @@ export default function ServilletaPage() {
 
                 <div className="bio-metrics-container">
                   <div className="bio-metrics-panel">
+                    {/* ⚠️ FICHA TÉCNICA — datos verificados con el Director (08 jun 2026),
+                        los mismos del guion v6.7. Reemplaza (2 ago 2026) las barras de
+                        VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%: eran cifras
+                        inventadas y, bajo el rótulo del principio activo y con barra de
+                        progreso, se leían como resultados clínicos medidos del producto
+                        → riesgo regulatorio (INVIMA/FDA) y contradicción directa con la
+                        regla que le exigimos a Queswa ("cada cifra viene del arsenal").
+                        NO reponer barras de progreso. */}
                     <div className="panel-title">
                       GANODERMA LUCIDUM
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">VITALIDAD</span>
-                        <span className="metric-value">94%</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill" style={{ width: '94%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">ESTUDIOS PUBLICADOS</span>
+                      <span className="metric-value">2.000+</span>
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">RESISTENCIA</span>
-                        <span className="metric-value">89%</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill" style={{ width: '89%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">VARIEDADES EN EL H&Iacute;BRIDO</span>
+                      <span className="metric-value">6</span>
                     </div>
-                    <div className="metric-row">
-                      <div className="metric-header-row">
-                        <span className="metric-label">RECUPERACI&Oacute;N</span>
-                        <span className="metric-value warning-text">62% - EN PROCESO</span>
-                      </div>
-                      <div className="progress-bar">
-                        <div className="fill warning" style={{ width: '62%' }} />
-                      </div>
+                    <div className="spec-row">
+                      <span className="metric-label">COMPUESTOS BIOACTIVOS</span>
+                      <span className="metric-value">200+</span>
                     </div>
+                    <p className="panel-footnote">
+                      Tres d&eacute;cadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero mundial en el cultivo de este hongo.
+                    </p>
                   </div>
                   {/* CTA debajo del panel de métricas — fluye con el contenido en todos los modos */}
                   <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>

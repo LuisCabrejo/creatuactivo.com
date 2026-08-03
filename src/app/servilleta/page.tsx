@@ -891,11 +891,26 @@ export default function ServilletaPage() {
         #slide-3 .bg-image {
           filter: grayscale(18%) contrast(106%) brightness(78%);
         }
+        /* Dos encuadres de la MISMA foto: la vertical no sirve en escritorio — con
+           background-size cover sobre 16:9 se amplía tanto que la taza se sale. La
+           horizontal va en espejo para que la taza caiga a la derecha, lejos del
+           bloque de texto (que en escritorio vive a la izquierda). */
+        @media (min-width: 900px) {
+          #slide-3 .bg-image {
+            background-image: url(/images/servilleta/producto-cafe-wide.webp) !important;
+          }
+        }
         /* El degradado del panel ya oscurece el pie; sumarle una máscara al fondo
            borraba la taza. Aquí se abre para que la foto se vea a través. */
         #slide-3 .slide-4-bottom {
           background: linear-gradient(to top,
-            rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0) 100%);
+            rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0) 100%);
+        }
+        /* La tarjeta de métricas era opaca y tapaba la foto entera. Translúcida en
+           todas las pantallas: la taza se lee a través. */
+        #slide-3 .bio-metrics-panel {
+          background: rgba(15, 15, 15, 0.55);
+          border-color: rgba(255, 255, 255, 0.14);
         }
 
         #slide-1 .bg-image {
@@ -1483,10 +1498,22 @@ export default function ServilletaPage() {
             border-radius: 0;
             gap: 30px !important;
           }
+          /* En mobile el bloque llenaba la pantalla —el H2 se cortaba arriba— y no
+             dejaba ver la foto. Se compacta y la tarjeta de métricas pasa a
+             translúcida: la taza se lee A TRAVÉS del panel en vez de pelear por un
+             espacio que no existe. Es la única slide fotográfica del deck; si el
+             contenido la tapa entera, la foto no aporta nada. */
           #slide-3 .slide-4-bottom {
-            gap: 40px !important;
-            padding-bottom: 60px !important;
+            gap: 20px !important;
+            padding-bottom: 26px !important;
           }
+          #slide-3 .slide-4-layout { justify-content: center; }
+          #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
+          #slide-3 .bio-metrics-panel {
+            background: rgba(15, 15, 15, 0.55) !important;
+            border-color: rgba(255,255,255,0.14) !important;
+          }
+          #slide-3 .bio-metrics-container { gap: 12px !important; }
           #slide-3 .bio-text-panel .deck-p {
             font-size: 1.05rem !important;
             line-height: 1.6 !important;

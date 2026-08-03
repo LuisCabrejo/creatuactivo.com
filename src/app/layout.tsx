@@ -180,8 +180,8 @@ export default function RootLayout({
           "@type": "ContactPoint",
           "telephone": "+57-321-519-3909",
           "contactType": "customer service",
-          "areaServed": ["CO", "US", "MX", "PE", "EC"],
-          "availableLanguage": ["Spanish"]
+          "areaServed": ["CO", "US", "MX", "BR", "PE", "EC"],
+          "availableLanguage": ["Spanish", "Portuguese"]
         }
       },
       {

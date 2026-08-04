@@ -55,7 +55,9 @@ Sin `+`, sin espacios, sin guiones — con cualquiera de esos se rompe en alguno
 > Hola {{1}}. Soy Queswa, el asistente de CreaTuActivo. Aquí está el acceso que pidió: puede ver de qué se trata y preguntarme lo que quiera, a la hora que sea.
 > `[ Ver el acceso ]` → `https://creatuactivo.com/{{1}}`
 
-**Reconocimiento de `ACCESO` en el webhook** ([`src/app/api/whatsapp/webhook/route.ts`](../../../src/app/api/whatsapp/webhook/route.ts)). En el **primer contacto**, si el mensaje contiene "acceso", la respuesta de Queswa se completa con el enlace + atribución del patrocinador. Compila limpio. ⏳ **Falta desplegar.**
+**Reconocimiento de `ACCESO` en el webhook** ([`src/app/api/whatsapp/webhook/route.ts`](../../../src/app/api/whatsapp/webhook/route.ts)). En el **primer contacto**, si el mensaje contiene "acceso", la respuesta de Queswa se completa con el enlace + atribución del patrocinador. ✅ **Desplegado a producción** — commit `61b4f59`, 4 ago 2026.
+
+⚠️ **Sin probar en vivo todavía.** La primera prueba real es escribir `ACCESO` al `+57 321 519 3909` desde un número que nunca haya escrito (la condición es `!existingProspect` — con un número ya registrado NO se dispara). Si hace falta repetir la prueba con el mismo teléfono, hay que borrar su fila de `prospects` (`fingerprint_id = 'wa_57XXXXXXXXXX'`).
 
 ## 4. Reglas del canal que hay que tener claras
 
@@ -95,6 +97,8 @@ Diferencias que hay que tener claras:
 **`/{slug}/queswa` no es un destino declarado.** `DESTINO_MAP` en [`src/app/[slug]/[destino]/page.tsx`](../../../src/app/[slug]/[destino]/page.tsx) no lo tiene, así que cae al fallback `redirect('/?ref=...')` y aterriza en la Home con atribución. Funciona por accidente. Decidir: declararlo formalmente o usar `?ref=` directo.
 
 **WHY_02 sin aplicar.** La versión acordada (registro de Gemini + hechos corregidos, dos fuerzas en vez de tres cosas) está redactada en la conversación pero **no se bajó a las 4 fuentes**. Ver §8 del handoff de hook.
+
+**`CLAUDE.md` tiene una reestructuración grande sin commitear**, hecha en otra sesión (adelgazamiento del archivo, extracción a `docs/SERVILLETA.md`, `ESTRATEGIA_CONTENIDO_Y_VOZ.md`, `VIDEO_Y_ANIMACIONES.md`). Se dejó **fuera** del commit `61b4f59` a propósito — no es trabajo de esta sesión. Las correcciones del estado del canal sí están escritas ahí y viajan cuando ese trabajo se commitee.
 
 **El resto** → [`docs/PENDIENTES.md`](../../PENDIENTES.md).
 

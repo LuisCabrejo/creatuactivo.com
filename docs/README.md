@@ -8,14 +8,27 @@ Documentación de trabajo **interna** (fuera de `public/`, así que **no se sirv
 
 ```
 docs/
+├── SERVILLETA.md   → arquitectura del deck /servilleta (y de su copia /12-niveles)
 ├── handoff/
 │   ├── reels/      → producción de reels y video (pipeline, post-producción, engagement, páginas)
 │   ├── queswa/     → chatbot Queswa: léxico, voz, técnico, integraciones (WABA, GanoCafé), bugs
-│   └── negocio/    → mensajes 1-a-1, sinergia estratégica
+│   └── negocio/    → estrategia de contenido y voz, mensajes 1-a-1, sinergia estratégica
 └── investigaciones/
     ├── prompts/     → PROMPT_INVESTIGACION_* (briefs para agentes de investigación)
     └── resultados/  → resultados de investigación (posicionamiento, léxico, tráfico, UX)
 ```
+
+## Extraídos de CLAUDE.md (4 ago 2026)
+
+CLAUDE.md se carga entero en cada sesión, así que lo que es **referencia** (se consulta) se movió aquí y allá quedó solo el **puntero + las reglas que rompen producción**:
+
+| Documento | Qué contiene |
+|---|---|
+| [SERVILLETA.md](SERVILLETA.md) | Deck de 4 slides: arquitectura mobile, b-rolls 3D, beat del colapso, comandos de re-render, reglas de iconos |
+| [handoff/reels/VIDEO_Y_ANIMACIONES.md](handoff/reels/VIDEO_Y_ANIMACIONES.md) | Flujo de video estándar, color grade DaVinci (Naval/Dan Koe), animaciones Canvas de `src/app/animaciones/` |
+| [handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md) | Two-Pronged (tráfico vs conversión), voz de Queswa en 3 niveles, mapa y estado de la migración léxica, doctrina del copy, historia del fundador |
+| [../scripts/dankoe-video/PIPELINE.md](../scripts/dankoe-video/PIPELINE.md) | Post-producción de reels (extraído jul 2026) + patrón "PROPIO" con keyword |
+| [../BRANDING.md](../BRANDING.md) | Design System completo + tablas de léxico aprobado/prohibido (§7) |
 
 ## Convenciones
 

@@ -12,14 +12,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Funnel Strategy**: Russell Brunson methodology - Squeeze Page → Bridge Page → Offer (see Section 5)
 
-> 🧭 **SI ERES NUEVO, LEE PRIMERO (en este orden):** (1) [Reglas Críticas (NO HACER)](#reglas-críticas-no-hacer) — lo que rompe producción · (2) [Queswa Vocabulary — Tabla Canónica](#queswa-vocabulary--tabla-canónica-unificada) — léxico aprobado/prohibido (⚠️ la tabla marca el canon viejo pero **la migración léxico accesible ya está en código; nunca "corrijas" copy accesible hacia el término viejo**) · (3) [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) — contexto de negocio. El **historial con fecha** de cada subsistema vive en sus CHANGELOGs/handoffs (enlazados en cada sección); aquí solo está el **estado vigente + las reglas**.
+> 🧭 **SI ERES NUEVO, LEE PRIMERO (en este orden):** (1) [Reglas Críticas (NO HACER)](#reglas-críticas-no-hacer) — lo que rompe producción · (2) [Léxico y voz](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy) — cómo se escribe aquí (⚠️ **la migración a léxico accesible ya está en código; nunca "corrijas" copy accesible hacia el término viejo**) · (3) [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) — contexto de negocio. El **historial con fecha** de cada subsistema vive en sus CHANGELOGs/handoffs (enlazados en cada sección); aquí solo está el **estado vigente + las reglas**.
+
+> 📚 **Este archivo se carga en cada sesión — manténgalo delgado.** Lo que es *referencia* vive en documentos hermanos y aquí solo queda el puntero: [BRANDING.md](BRANDING.md) (diseño + tablas de léxico) · [docs/SERVILLETA.md](docs/SERVILLETA.md) (deck) · [scripts/dankoe-video/PIPELINE.md](scripts/dankoe-video/PIPELINE.md) (post-producción de reels) · [docs/handoff/reels/VIDEO_Y_ANIMACIONES.md](docs/handoff/reels/VIDEO_Y_ANIMACIONES.md) · [docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md) (estrategia, voz, historia del fundador) · [docs/README.md](docs/README.md) (índice general). **Antes de agregar una sección larga aquí, pregúntese si es una regla que se aplica a diario o una referencia que se consulta.**
 
 ## Table of Contents
 
 1. [Quick Reference](#quick-reference)
 2. [Development Commands](#development-commands)
 3. [Reglas Críticas (NO HACER)](#reglas-críticas-no-hacer)
-4. [Performance & Architecture Decisions](#performance--estado-actual-abr-2026)
+4. [Performance — Estado Actual](#performance--estado-actual-abr-2026)
 5. [Critical Git Workflow](#critical-git-workflow)
 6. [Architecture Overview](#architecture-overview)
    - [NEXUS AI Chatbot](#1-nexus-ai-chatbot)
@@ -30,10 +32,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - [Servilleta Digital](#servilleta-digital---interactive-presentations)
 7. [Environment Variables](#environment-variables)
 8. [Common Development Patterns](#common-development-patterns)
-9. [Design System: Bimetallic v3.0](#design-system-bimetallic-v30)
+9. [Important Patterns & Constraints](#important-patterns--constraints) → [Design System](#design-system-bimetallic-v30)
 10. [Utility Scripts](#utility-scripts)
 11. [Deployment](#deployment)
 12. [Key Documentation Files](#key-documentation-files)
+13. [Léxico y voz](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy)
 
 ## Quick Reference
 
@@ -61,6 +64,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm install          # Install dependencies
 npm run dev          # Start dev server at http://localhost:3000
 npm run build        # Build for production (TypeScript errors ignored)
+npm run start        # Serve the production build (tras npm run build)
 npm run lint         # Run ESLint
 
 # Testing (via utility scripts - no test framework configured)
@@ -80,18 +84,18 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 - ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v27_2.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01 + regex EMPRESA_DIGITAL_01)
 - ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `<verbatim_lock>...</verbatim_lock>` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
 - ❌ **NO regresar** los marcadores XML `<verbatim_lock>` a corchetes planos `[VERBATIM_LOCK]`. La investigación Gemini (18 May 2026) confirmó que Claude Sonnet 4.6 reconoce XML tags como señales de activación de atención, mientras que los corchetes planos son texto inerte. Migración aplicada en v25.8/v26.8.
-- ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts`: `waLinkEntregado` (línea ~3636) y `nombreSolicitado` (línea ~3641) — si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado
+- ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts` — hoy son `_handoffYaEntregado` (`/WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|Su acceso oficial está aquí/i`) y `nombreSolicitado` (`grep -n "nombreSolicitado" src/app/api/nexus/route.ts`). Si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado. ⚠️ **No cite números de línea aquí** — `route.ts` tiene ~4.800 líneas y se corren en cada edición; use `grep -n` sobre el identificador
 - ❌ **NO re-introducir** la extracción de `package` desde `extractFromClaudeResponse()` (eliminado 22 May 2026, Fix G). Causaba contaminación silenciosa de `data.package` cada vez que Claude mencionaba el paquete en una respuesta informativa ("ESP-3 incluye 35 productos"). La captura debe venir **exclusivamente** del usuario con `packageMap` + guard de pregunta informativa.
 - ❌ **NO disparar Estado 4 sin validar nombre** — el FSM debe verificar con `extractNameFromHandoffReply()` que el usuario respondió con un nombre. Si responde con pregunta o pide pausar, mantener Estado 0 (responder libre) y conservar `package` en BD para el próximo intento. Bug crítico documentado QA 22 May 2026.
 - ❌ **NO eliminar `<verbatim_lock>` de PROD_OVERVIEW/BEB_01/LUV_01/SUP_01/PERS_01** en `catalogo_productos.txt`. Sin él, el modelo aluciona nombres simplificados ("Ganotea" en lugar de Oleaf Gano Rooibos, "Gano Cocoa" en lugar de Gano Schokolade, "Gano Supreme" inexistente) y omite categorías enteras (mencionando solo 2 de 4). Bug confirmado QA 22 May 2026, resuelto con v7.2.
-- ❌ **NO re-implementar Anthropic Prompt Caching** — ya está activo en `route.ts:4072-4090` con 3 bloques (system base + arsenal + session instructions). Logging activo en `route.ts:4110-4118` (`cache_read` vs `cache_creation`). Gemini lo propuso como "Fase 3" en investigación May 2026 sin saber que ya existe — verificado en Fase 0 (23 May 2026). Solo medir hit rate cuando llegue tráfico real.
+- ❌ **NO re-implementar Anthropic Prompt Caching** — ya está activo en `route.ts` con 3 bloques (system base + arsenal + session instructions); localícelo con `grep -n "cache_control" src/app/api/nexus/route.ts`. Logging `[CACHE HIT]`/`[CACHE MISS]` (`cache_read` vs `cache_creation`) unas 30 líneas más abajo. Gemini lo propuso como "Fase 3" en investigación May 2026 sin saber que ya existe — verificado en Fase 0 (23 May 2026). Solo medir hit rate cuando llegue tráfico real.
 - ❌ **NO agregar** lógica de consentimiento a route.ts o System Prompt de NEXUS (Cookie Banner in [src/components/CookieBanner.tsx](src/components/CookieBanner.tsx) handles all consent UX)
 - ❌ **NO guardar** PII en localStorage (solo fingerprint/session IDs)
 - ❌ **NO hacer commit** de `.env.local`, API keys o secretos
 - ❌ **NO agregar** `backdropFilter: blur()` en cards del homepage — elimina GPU compositing en paint inicial
 - ❌ **NO agregar** `priority` a imágenes decorativas del hero — usar `loading="lazy"` para que no compitan con LCP
 - ❌ **NO editar** archivos `*.tsx.bak` — son respaldos inactivos, no fuente viva
-- ❌ **NO declarar** un segundo `<h1>` en el cuerpo si la página ya usa `<IndustrialHeader>` — rompe SEO/a11y. Si necesitas un título visualmente prominente, usa `<h2>` con `font-serif`. Bug recurrente — ver [Typography Hierarchy](#typography-hierarchy-23-may-2026)
+- ❌ **NO declarar** un segundo `<h1>` en el cuerpo si la página ya usa `<IndustrialHeader>` — rompe SEO/a11y. Si necesitas un título visualmente prominente, usa `<h2>` con `font-serif`. Bug recurrente — ver [BRANDING.md §2, jerarquía de encabezados](BRANDING.md#jerarquía-de-encabezados-regla-unificada--23-may-2026)
 - ❌ **NO usar** `fontFamily` con fuentes que no estén cargadas en [src/app/layout.tsx](src/app/layout.tsx) — el navegador hará fallback genérico y el H1 se verá distinto al resto del sitio (caso histórico: Rajdhani en `/paquetes`)
 - ❌ **NO usar** `clip-path: polygon(...)` biselado en botones — viola la investigación de branding ("estética cyberpunk antitética a la construcción de patrimonio"). Border-radius del sistema es suficiente
 - ⚠️ `queswa.app` es un **repositorio separado** — su código no está en este repo. No buscar `dashboard-ai/route.ts` aquí
@@ -180,7 +184,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 - **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
 - En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
 
-**Respuesta canónica WHY_02** — fuente viva: `knowledge_base/arsenal_inicial.txt` BLOQUE 1 (`<verbatim_lock>`), sincronizado carácter por carácter con `MASTER_WHY_02` en `respuestas-maestras.ts`. Desde v5.21–v5.24 (jun–jul 2026) el frame de cara al prospecto es **primeros principios + socios**: *"para que una empresa digital así exista, tres cosas tienen que ser ciertas — **alguien fabrica** (su socio logístico y financiero, Gano Excel) · **una plataforma atiende a las personas** (su socio digital, Queswa) · **usted sabe qué hacer** (un método comprobado) — y en la suya las tres ya están resueltas"* + bisagra *"Usted no entra a Gano Excel; Gano Excel trabaja para usted"*. De cara al prospecto NUNCA "pilares" ni "capas" ni "Máquina Híbrida" (etiquetas internas); el rol del usuario es **Propietario** que dirige. El canon histórico de los Tres Pilares (Matriz Física / Queswa Centro de Mando / Metodología Automatizada) vive solo como arquitectura interna en arsenales profundos — ver [Queswa Vocabulary](#queswa-vocabulary--tabla-canónica-unificada) y memoria `feedback_socios_apalancamiento`.
+**Respuesta canónica WHY_02** — fuente viva: `knowledge_base/arsenal_inicial.txt` BLOQUE 1 (`<verbatim_lock>`), sincronizado carácter por carácter con `MASTER_WHY_02` en `respuestas-maestras.ts`. Desde v5.21–v5.24 (jun–jul 2026) el frame de cara al prospecto es **primeros principios + socios**: *"para que una empresa digital así exista, tres cosas tienen que ser ciertas — **alguien fabrica** (su socio logístico y financiero, Gano Excel) · **una plataforma atiende a las personas** (su socio digital, Queswa) · **usted sabe qué hacer** (un método comprobado) — y en la suya las tres ya están resueltas"* + bisagra *"Usted no entra a Gano Excel; Gano Excel trabaja para usted"*. De cara al prospecto NUNCA "pilares" ni "capas" ni "Máquina Híbrida" (etiquetas internas); el rol del usuario es **Propietario** que dirige. El canon histórico de los Tres Pilares (Matriz Física / Queswa Centro de Mando / Metodología Automatizada) vive solo como arquitectura interna en arsenales profundos — ver [Léxico y voz](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy) y memoria `feedback_socios_apalancamiento`.
 
 ### 1. NEXUS AI Chatbot
 
@@ -194,7 +198,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
-| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v1.2 | Activo Abr 2026 — modo desarrollo (pendiente verificación negocio Meta) |
+| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v3.0 | Activo — negocio **verificado** y WABA **APPROVED** (comprobado 4 ago 2026) |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
@@ -220,12 +224,19 @@ ganocafe.online/cafe-3en1/index.html
 
 **Handoff doc para agente widget**: `docs/handoff/queswa/HANDOFF-GANOCAFE-WIDGET.md`
 
-**Estado integración WABA WhatsApp** (pipeline activo, modo desarrollo · detalle → `docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`):
-- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Token permanente `WHATSAPP_SYSTEM_TOKEN`. Prompt `queswa_whatsapp` **v1.2**, tenant `whatsapp`. `src/lib/whatsapp-meta.ts` reemplaza SendPulse. CTWA (`referral` de ads Meta) → `device_info`.
-- ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (filtra por `category` ya presente y las salta). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si solo se re-clona sin purgar, los fragmentos quedan **stale**.
-- ⏳ Pendiente: Meta business verification (para salir de modo desarrollo), aprobación de `pre_afiliacion_nueva` (UTILITY, en revisión). Credenciales SendPulse ya retiradas (`sendpulse.ts` borrado jul 2026).
-- ⏳ **Estrategia Queswa-WhatsApp robusta (WIP, jul 2026):** en diseño cómo Queswa opera en WhatsApp para el **flujo de captación 1-a-1 del arquitecto** (mensaje directo al contacto → lo manda a la Home: video + Queswa → cierre en un **espacio en vivo o una llamada**). El **contexto del "plan de dos niveles"** será central ahí: **(1)** ingreso **inmediato** ~$1M COP/semana desde el arranque y **(2)** los **12 niveles / duplicación 2×2** → $103.194.000 acumulado. Son los **mismos dos simuladores del slide 4 de `/12-niveles`** y viven en `arsenal_12_niveles` v5.1 (usted, "Nuevos" vs "Total organización"). El **5º chip global** de la Home ("¿Cómo es el plan que se multiplica hasta los $103 millones?", 2º lugar) ya engancha ese contexto para quien llega cebado por el mensaje.
-- ⏸️ **STANDBY (parte de esa estrategia):** el "empujón" de Queswa hacia el **espacio en vivo / la llamada del arquitecto** (cierre suave hacia el humano) queda **diferido** hasta consolidar la estrategia WhatsApp. Hoy el único empuje al humano es el **warm handoff** (Estado 4 → oferta wa.me de conectar con quien compartió el enlace). ⚠️ Queswa **no conoce el horario** del espacio de cada arquitecto (vive en el mensaje del arquitecto, no en Queswa), por eso el empujón sería genérico ("hable con su arquitecto"), no "nos vemos a las 4".
+**Estado integración WABA WhatsApp** — ✅ canal **operativo**: negocio `verified`, cuenta `APPROVED`, número `CONNECTED` + `quality_rating: GREEN` (Graph API, 4 ago 2026).
+
+> 📄 **Estado detallado, historial de Meta y decisiones abiertas → [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md)** (el más reciente) · arquitectura del pipeline → [Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md](docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md). **No duplique aquí el estado de la cuenta de Meta** — cambia solo y se desincroniza.
+
+- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp` **v3.0** (fuente: `knowledge_base/system-prompt-queswa-whatsapp-v3.md`). CTWA (`referral` de ads Meta) → `device_info`.
+- ⚠️ **Tres números, no confundirlos**: `+57 321 519 3909` = el WABA (Queswa) · `+57 320 341 5438` = personal de Luis (el 1-a-1) · `+57 320 680 5737` = WhatsApp Business en su móvil, `WHATSAPP_ORGANICO_DEFAULT` (fallback de reels).
+
+**Reglas que rompen el canal si se ignoran:**
+- ⛔ **NO tocar el nombre visible mientras `name_status` esté en revisión** — cada guardado abre una solicitud nueva que pisa la anterior; así se perdió una aprobación previa de "Queswa". Meta permite 10 cambios cada 30 días.
+- ⛔ **NO ejecutar `request_code` / `verify_code`** sobre un número `CONNECTED` que funciona. `code_verification_status: EXPIRED` **no bloquea el envío** (medido el 4 ago con `hello_world` entregada); el error #131037 era un riesgo del manual, no algo activo.
+- ⚠️ **Ventana de 24 h**: si la persona escribe primero se responde en **texto libre**; iniciar conversación con quien nunca escribió **exige plantilla aprobada**, sin excepción.
+- ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (salta las que ya están). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si no, quedan **stale**.
+- 🟢 **El App Review de Meta NO hace falta para este caso de uso** (auditoría cerrada 26 jul 2026). Los permisos figuran "rechazados" y el canal opera igual: sobre activos propios basta el *Acceso estándar*. Solo se retoma si se decide que **cada socio conecte su propio número**. No re-someter sin eso.
 
 **Flujo WABA:**
 ```
@@ -242,18 +253,16 @@ WhatsApp (orgánico o CTWA anuncio)
 **Regla crítica WABA**: NO modificar `/api/nexus/route.ts`. El webhook es solo adaptador de canal. Toda lógica de IA vive en el motor existente.
 
 **Capa de canal + puente al Dashboard** (jul 2026):
-- **`src/lib/wa-channel.ts` es el ÚNICO lugar que habla con graph.facebook.com** y que conoce `WHATSAPP_SYSTEM_TOKEN`: `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. `whatsapp-meta.ts` (plantilla de captación) y el webhook delegan aquí — antes cada uno tenía su propia copia de la llamada a Meta. Si Meta cambia de versión de API, se toca este archivo y nada más.
-- **Puente server-to-server** para que el Dashboard opere el canal sin ver el token: `GET /api/wa/assets` (número emisor + plantillas) y `POST /api/wa/send` (`{to, type:'text'|'template', …}`), autenticados con header **`x-wa-bridge-secret`** = env `WA_BRIDGE_SECRET` (mismo valor en ambos proyectos de Vercel). ⚠️ A diferencia del `x-webhook-secret` de Supabase, **si la env no está definida el puente DENIEGA** (503) en vez de abrirse — envía WhatsApp en nombre de la marca.
-- **División de responsabilidad:** marketing = plano de datos (dueño del token, webhook, envío). Dashboard = plano de control (quién puede operar, UI humana, reporte a socios). La consola vive en `queswa.app/admin/wa-tester`. **No copiar el token al Dashboard** — cualquier superficie nueva consume el puente.
-- ✅ **Resuelto (27 jul 2026):** el disparador de la plantilla `acceso_mapa_salida` (que no existe en la WABA) se **eliminó** junto con el funnel Mapa de Salida / Diagnóstico de 5 Días (commits `ca6ff59` + `8256c82`), y `whatsapp-meta.ts` + `sendpulse.ts` se borraron (huérfanos). El envío de plantillas vive ahora **solo en `wa-channel.ts`**. La WABA tiene `hello_world` + `pre_afiliacion_nueva` (UTILITY — en Colombia ~US$0,0008/msg contra ~US$0,02 de marketing, sin el tope de ~2 plantillas de marketing por persona/día).
-- 🟢 **El App Review de Meta NO es necesario para este caso de uso** (auditoría cerrada 26 jul 2026). En la app `Queswa App CTA` (`1513851726973155`) los permisos `whatsapp_business_messaging` y `whatsapp_business_management` figuran como **"Revisión de la app rechazada"** — y el canal opera igual: leer plantillas, leer el número y enviar funcionan con el system user token. Motivo: el App Review otorga *Acceso avanzado*, requerido solo para que **otros negocios** concedan esos permisos (camino Tech Provider / Embedded Signup). Sobre activos propios basta el *Acceso estándar*, automático. **Solo hay que retomar la auditoría si se decide que cada socio conecte su propio número.** No re-someter sin eso.
-- ⚠️ **Estado del canal a 26 jul 2026: sin tráfico desde mayo** (analytics de la WABA: 3 mensajes en 180 días, todos de prueba en abril, 3/3 entregados). Además el `name_status` del número está **DECLINED** y `code_verification_status` **EXPIRED** → riesgo de bloqueo de envío/recepción con error **#131037**. Corregir en WhatsApp Manager → Números de teléfono antes de mover volumen.
+- **`src/lib/wa-channel.ts` es el ÚNICO lugar que habla con graph.facebook.com** y que conoce `WHATSAPP_SYSTEM_TOKEN`: `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. Si Meta cambia de versión de API, se toca este archivo y nada más.
+- **Puente server-to-server** para que el Dashboard opere el canal sin ver el token: `GET /api/wa/assets` + `POST /api/wa/send`, autenticados con header **`x-wa-bridge-secret`** = env `WA_BRIDGE_SECRET` (mismo valor en ambos proyectos de Vercel). ⚠️ **Si la env no está definida el puente DENIEGA** (503) en vez de abrirse.
+- **División de responsabilidad:** marketing = plano de datos (token, webhook, envío). Dashboard = plano de control (permisos, UI humana). La consola vive en `queswa.app/admin/wa-tester`. **No copiar el token al Dashboard** — cualquier superficie nueva consume el puente.
+- ⏳ **Estrategia Queswa-WhatsApp (WIP)**: captación 1-a-1 del arquitecto → Home (video + Queswa) → cierre en espacio en vivo o llamada. El "plan de dos niveles" (ingreso inmediato + duplicación 2×2 → $103.194.000) es el contexto central; vive en `arsenal_12_niveles` y en el slide 4 de `/12-niveles`.
+- ⏸️ **STANDBY**: el "empujón" de Queswa hacia el espacio en vivo del arquitecto queda diferido. Hoy el único empuje al humano es el **warm handoff** (Estado 4 → oferta wa.me). Queswa **no conoce el horario** de cada arquitecto, así que el empujón sería genérico.
 
 **Scripts WABA:**
-- `node scripts/actualizar-system-prompt-whatsapp-v1.mjs` — actualiza system prompt WhatsApp en Supabase
+- `node scripts/actualizar-system-prompt-whatsapp-v3.mjs` — actualiza system prompt WhatsApp en Supabase (`VERSION_LABEL = v3.0`). El `...-v1.mjs` sigue en `scripts/` pero es la versión vieja — **no** usarlo
 - `node scripts/clonar-arsenal-whatsapp.mjs` — clona fragmentos arsenal_inicial al tenant whatsapp
 
-**Handoff doc WABA completo**: `docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md`
 
 **Key Files**:
 - [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - Main API (v14.9, FSM architecture — backend como dictador absoluto Abr 2026)
@@ -284,9 +293,10 @@ WhatsApp (orgánico o CTWA anuncio)
 **Historial completo de cambios por arsenal** → [knowledge_base/CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md)
 
 2. **Clasificación de documentos — 3 capas + override**:
+   - **PASO -2 (CQR — anclaje de la consulta)**: [src/lib/query-rewrite.ts](src/lib/query-rewrite.ts) colapsa la conversación en una consulta autónoma **antes** de buscar. Sin ancla temática, un "sí", "panadero" o "y eso cómo sería" recupera ruido y el modelo rellena el vacío con su memoria de entrenamiento (donde "empresa digital" = infoproductos). ⚠️ **Hoy está limitado al tenant `whatsapp`** y se salta en precios / query simple / flujo de cierre — ver el bloque `consultaRecuperacion` en `route.ts`. Gate barato `necesitaReescritura()` (≤8 palabras o deíctico) evita pagar la llamada al modelo; **degrada con gracia** — si falla, se busca con el mensaje original
    - **PASO -1 (MenuExpansion)**: Opciones a/b/c/d del menú inicial se expanden a queries semánticas
    - **PASO 0 (Vector)**: Voyage AI embedding → similitud coseno → threshold 0.4 mínimo
-   - **PASO 0.5 (Override crítico)**: Previene falsos positivos vectoriales. Si el vector devuelve `arsenal_compensacion` pero la query es "cómo funciona el negocio" o variante → fuerza `arsenal_inicial`. Ver `route.ts` línea ~1817.
+   - **PASO 0.5 (Override crítico)**: Previene falsos positivos vectoriales. Si el vector devuelve `arsenal_compensacion` pero la query es "cómo funciona el negocio" o variante → fuerza `arsenal_inicial`. Está en el array `patrones_inicial` de `clasificarDocumentoHibrido()` (buscar el comentario `FIX 2026-05-19: WHY_02`).
    - **PASO 1 (Patrones)**: Fallback regex si vector no alcanza threshold
 
    **Falso positivo conocido (resuelto Mar 2026)**: `COMP_MODELO_01` tiene "¿Cómo funciona el negocio?" como trigger → el vector lo confundía con WHY_02. El override en PASO 0.5 lo corrige.
@@ -300,7 +310,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: v29.2 "triada_sin_pronombre"** (3 jul 2026, ~21K chars — verificar con `leer-system-prompt.mjs`, no asumir que local = Supabase). Reglas vigentes: **regla de moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD) · tríada sin pronombre ("alguien fabrica · una plataforma atiende a las personas"). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels:** el prompt sabe que la mayoría llega tras ver un reel; el saludo post-reel lo acompaña `getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts). Historial → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md).
+   - **Versión activa: `v29.5_compartir_recibir_multiplicar`** — es el `VERSION_LABEL` de [scripts/actualizar-system-prompt-v27.2.mjs](scripts/actualizar-system-prompt-v27.2.mjs), es decir lo último que se **intentó** desplegar. ⚠️ **Verificar siempre lo que corre en Supabase con `node scripts/leer-system-prompt.mjs`** — local ≠ DB. Las reglas de abajo se calibraron en v29.2 "triada_sin_pronombre" (3 jul 2026) y siguen vigentes salvo lo que el CHANGELOG diga. Reglas vigentes: **regla de moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD) · tríada sin pronombre ("alguien fabrica · una plataforma atiende a las personas"). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels:** el prompt sabe que la mayoría llega tras ver un reel; el saludo post-reel lo acompaña `getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts). Historial → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md).
    - ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — no se renombró pese a las versiones internas v28.x. Migración léxico "negocio/empresa digital" aplicada en v28.0–v28.1.
    - Versiones anteriores del archivo eliminadas — viven en git: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
    - Cached in-memory for 5 minutes
@@ -310,7 +320,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - **Bug parcialmente resuelto (22 May 2026):** PRECIOS Y CV/PV — `catalogo_productos` v7.2 ya está fragmentado (25 fragments + doc maestro). Las tablas canónicas (PROD_OVERVIEW, BEB_01, LUV_01, SUP_01, PERS_01) ahora tienen `<verbatim_lock>` que erradica alucinaciones de nombres ("Ganotea", "Gano Cocoa", "Gano Supreme") y omisión de la categoría Suplementos. **Bug pendiente parcial**: CV/PV todavía faltantes en respuestas individuales por producto. Ver `docs/handoff/queswa/HANDOFF-QUESWA-PRECIOS-CVPV.md`.
    - **Cotización por país (Fase 2, jun 2026)** — ver memoria [[project_cotizacion_moneda_local]]. **Problema:** Gano Excel tasa el USD a **$4,500 COP FIJO** (no de mercado). Un colombiano leía "ESP-3 = $1,000 USD" → convertía a TRM (~$3,500) → *"me sobrecobran el dólar a 4,500"*; peor, Queswa **derivaba** la pregunta a un humano. **Solución (2 partes):**
      1. **Fragmento `FREQ_27`** en `arsenal_inicial.txt` (desplegado + clonado al tenant `whatsapp`) — responde el reclamo con 3 palancas: no compras dólares sino productos / precio fijo del fabricante para 70 países (no margen de CreaTuActivo) / **simetría** (la misma tasa que pagas una vez la cobras en CADA comisión, por encima del mercado). Incluye instrucción "NUNCA derivar a un humano". ⚠️ El slot FREQ_24 ya estaba ocupado (Consumidor VIP, fuera de orden en el .txt) → quedó como **FREQ_27**.
-     2. **Detección de país + reorden de precios** en `route.ts`: `detectVisitorCountry()` (web = header `x-vercel-ip-country` de Vercel Edge; whatsapp = prefijo telefónico del `fingerprint`). `getPaquetesPricingPin(country)` + pin de composición ahora **país-aware**. **Regla:** precio de paquetes/productos → **moneda local** (CO=COP solo sin USD al lado; US=USD limpio; resto/desconocido=USD+COP con nota de oficina local). Comisiones/ingresos → **ambas monedas**. La IP es default, no verdad: para diáspora la moneda la define el **país de registro** (Queswa confirma, no asume — ver [Reglas de registro diáspora](#queswa-vocabulary--tabla-canónica-unificada) / memoria `project_diaspora_registro_real`).
+     2. **Detección de país + reorden de precios** en `route.ts`: `detectVisitorCountry()` (web = header `x-vercel-ip-country` de Vercel Edge; whatsapp = prefijo telefónico del `fingerprint`). `getPaquetesPricingPin(country)` + pin de composición ahora **país-aware**. **Regla:** precio de paquetes/productos → **moneda local** (CO=COP solo sin USD al lado; US=USD limpio; resto/desconocido=USD+COP con nota de oficina local). Comisiones/ingresos → **ambas monedas**. La IP es default, no verdad: para diáspora la moneda la define el **país de registro** (Queswa confirma, no asume — ver memoria `project_diaspora_registro_real` / memoria `project_diaspora_registro_real`).
      - ⏳ **Gap Fase 3:** no hay listas de precios oficiales de Gano por país (MXN, EUR…) ni precios de productos en USD → para no-CO/no-US se cotiza USD como referencia hasta conseguirlas.
 
 **Camino A — Backend Dictador para chip-triggers (May 2026)**:
@@ -555,6 +565,10 @@ Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails
 - `planes/` — 4 planes de suscripción. Sin Framer Motion ni `backdropFilter` (decisión de performance).
 - `12-niveles/` — Landing "Los 12 Niveles". **FORK del deck `/servilleta` (jul 2026, decisión Director).** La landing anterior (hero + "3 gigantes" + tabla financiera) se descartó por completo; respaldo en `src/app/12-niveles/page.tsx.bak`. Ahora `/12-niveles` es una **copia del deck servilleta** (`page.tsx` ≈ el de `/servilleta`: 4 slides, swipe, fullscreen, card-scrollers con b-rolls 3D, modales video/catálogo/boletín, modo vertical/kiosk) con **el SLIDE 4 modificado**: el simulador INMEDIATO/RECURRENTE se reemplazó por el **SIMULADOR DE 12 NIVELES** — proyección 2×2 sobre 12 niveles (`PROYECCION_12`, cifras del plan de compensación), 12 puntos marcados (`.nivel-dot`) + slider `nivel12Level`, con **COP dorado como valor primario y USD + nº de usuarios del nivel en texto pequeño**. Slug renombrado desde `/reto-12-niveles` (redirects 301 en `next.config.js` desde `/reto-12-niveles`, `/reto-12-dias` + sus `:ref`); `DESTINO_MAP` (`'reto'`) apunta al nuevo. `layout.tsx` (noindex) y `opengraph-image.tsx` (bimetálico "SU EMPRESA DIGITAL") son **propios del slug** — NO se copiaron de servilleta. El orbe Queswa se comporta como en servilleta vía el helper **`isDeck`** en [UnifiedQueswaOrb](src/components/UnifiedQueswaOrb.tsx) (oculto salvo el botón "PREGÚNTALE ALGO EN VIVO" del slide 2). ⚠️ **Es una COPIA de 2.3K líneas:** cualquier cambio al deck base `/servilleta` debe replicarse aquí a mano. El arsenal `arsenal_12_niveles` **se migró a usted (v5.0, 20 jul 2026)** + "red"→"organización" (conserva "Kit de Inicio"/cifras del plan; NIVELES_02 corregido a $103.194.000, NIVELES_04 sin formulario roto). Disparadores ampliados en route.ts (2×2/duplicación/103 millones/simulador) y **`pageContext: '12_niveles'`** (useNEXUSChat → `getPageContextInstructions()`) le da a Queswa contexto del deck. Ver [[project_reto_12niveles_no_migrar]] (revertido solo para el léxico de trato del arsenal + la página).
 - `activo-que-sobrevive-a-su-ausencia/` — Deck keynote de conferencia (SER PRO Internacional · Luis Cabrejo). noindex, herramienta interna de presentación en vivo (F = fullscreen, flechas/swipe).
+- `video-plan-servilleta/` — El plan en un video (9:16, ~6 min). **Layout espejo de `ReelPage`** (sin nav, video alto en pantalla) pero reutiliza `HomeManifestoVideo` — autoplay muted + "activar sonido" + transición a Queswa al terminar. Constantes `PLAN_SERVILLETA_VIDEO` / `PLAN_SERVILLETA_POSTER` en [src/lib/reels.ts](src/lib/reels.ts).
+- `prueba/` — Sandbox noindex de la Home ("Home 2", ejercicio de lenguaje concreto). Su contenido aprobado **ya se promovió** a la Home real v14.0 (ver callout 🏠🏠); sigue vivo como banco de pruebas A/B — no debe competir en buscadores.
+- `lexico/` — **Taller de Voz** (`'use client'`, noindex): rutina diaria de pronunciación para Luis, con frases sacadas de los guiones reales (servilleta + reels). Herramienta interna, no es parte del funnel ni del léxico de marca (para eso → [BRANDING.md §7](BRANDING.md)).
+- `privacidad/` · `terminos/` — Legales. Requisito de la verificación de negocio de Meta/WhatsApp — no borrar.
 - `offline/` — PWA fallback.
 
 **SEO Strategy** (Dic 2025):
@@ -572,97 +586,22 @@ Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails
 
 ### Servilleta Digital - Interactive Presentations
 
-Sales presentation tools for 1-on-1 conversations. **Desde 15 May 2026 usa el mismo sistema de diseño Lujo Silencioso del sitio principal** (no más "Industrial Realism" / paleta steel-orange). La servilleta hereda tokens semánticos via las variables locales `--bg-dark`, `--concrete`, `--steel`, `--orange` que ahora apuntan a tokens globales (`--color-bg-primary`, `--color-bg-elevated`, `--color-titanium-dark`, `--color-brand`).
+Deck de 4 slides para conversaciones 1-a-1. **Fuente viva completa → [docs/SERVILLETA.md](docs/SERVILLETA.md)** (arquitectura mobile, b-rolls 3D, beat del colapso, comandos de re-render, reglas de iconos).
 
-| Version | Route | Style |
+| Version | Route | Notas |
 |---------|-------|-------|
-| v6.7 (Main) | `/servilleta` | 4-slide deck; **slides 1 y 2 son card-scrollers con b-rolls 3D + portada** (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)); fullscreen (F key), keyboard nav, swipe |
-| v6.7 (Ref) | `/servilleta/[constructorId]` | Re-exports main page; constructorId read from URL path client-side for tracking |
+| v6.7 (Main) | `/servilleta` | 4 slides; 1 y 2 son card-scrollers con b-rolls 3D + portada. Fullscreen (F), keyboard nav, swipe |
+| v6.7 (Ref) | `/servilleta/[constructorId]` | Re-exporta la página principal; el `constructorId` se lee del path en cliente para tracking |
 
-**Controls**: Arrow keys/Space (avanzar), F (fullscreen), double-click fuera de clip (fullscreen), **swipe horizontal desde cualquier punto** (mobile), **tap sobre un clip = pausa/play solo en táctil** (en desktop el click avanza; pausa desktop = botón central al hover)
-**Typography**: `var(--font-sans)` Inter (headings) + `var(--font-mono)` Roboto Mono (data) — unificado con homepage
-**Color Palette**: Lujo Silencioso — hereda los tokens del [Design System](#design-system-bimetallic-v30) (Carbón + Dorado Champán + Titanio) + Cyan `#22D3EE` como único acento de data exclusivo de la servilleta
+Estructura (2 ago 2026): **01 EL PROBLEMA** · **02 LAS TRES COSAS** (+ beat del colapso) · **03 EL PRODUCTO** · **04 LOS NÚMEROS**. El slide "QUÉ HACE USTED" se eliminó el 2 ago 2026 (5 → 4 slides).
 
-#### Contenido y copy — fuente de verdad
-
-⚠️ **El copy verbatim de las 4 slides NO se duplica aquí** (se desincronizaba con cada recalibración). Fuentes vivas:
-- **Copy renderizado de las slides** (nav, H1/H2, CTAs, `getLifestyleTranslation`, etc.) → [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx) (deck v6.7).
-- **Narración / teleprompter aprobada** → [guion_maestro_servilleta_v3.md](public/contexto/produccion/guiones/servilleta/guion_maestro_servilleta_v3.md) + su variante `_TELEPROMPTER.md` (⚠️ nombre de archivo legacy `v3` — el contenido es **v5.8**, 3 jul 2026).
-
-Estructura de las 4 slides (**estado 2 ago 2026**): **01 EL PROBLEMA** (portada + 3 cards del *ciclo del dinero*: llega entera · se la reparten · vuelve a empezar — clips `problema-llega / problema-reparte / problema-repite`) · **02 LAS TRES COSAS** (primeros principios: Gano Excel, socio logístico y financiero · Queswa, socio digital · el Método — clips `respaldo / queswa / metodo`, **+ el beat del colapso**) · **03 EL PRODUCTO** · **04 LOS NÚMEROS** (simulador + CTA). Slides 1 y 2 son **card-scrollers simétricos**: cada una abre con SU portada (índice 0) y sigue con 3 clips (1-3); el nombre visible lo pone el `<h3>` HTML, **no el video** → un cambio de léxico NO requiere re-render. La card de Queswa (slide 2) tiene el botón inline que dispara `open-queswa` CustomEvent.
-
-> 🔴 **El slide "QUÉ HACE USTED" se eliminó el 2 ago 2026** (decisión del Director): el deck pasó de 5 a 4 slides. El clip de Queswa ya mostraba los tres pasos, así que *centro de mando → método comprobado → usted solo comparte* repetía el mismo contexto tres veces. Los tres movimientos se absorbieron en la **card del método** del Slide 2 (cian *Método comprobado* + blanco *Compartir · Recibir · Multiplicar*). Los clips `compartir/recibir/multiplicar.mp4` quedaron sin uso en el deck. ⚠️ Las clases CSS `.slide-4-layout` / `.slide-4-bottom` viven dentro de `#slide-3` (el producto) — ya estaban corridas un número **antes** de esta eliminación; no es un bug de la renumeración.
->
-> **BEAT DEL COLAPSO (Slide 2, cards 4..9) — patrón Jobs, sin reloj.** La versión vieja tiraba las tres piezas de las esquinas al centro en 3 s automáticos y el público no alcanzaba a leer nada. Ahora cada elemento tiene su momento **a solas y grande**, y el paso al siguiente es una **rotación del mismo objeto** (eso siembra "es la misma cosa" antes de decirlo); luego un ciclo rápido **mudo** y el remate en el celular con WhatsApp. **El orador pasa cada beat con clic/scroll** — vive como 6 índices de card, así hereda la navegación existente, y el indicador los cuenta como un solo punto (`CARD_DOTS`). ⏳ Pendientes los assets definitivos: 3 PNG cuadrados (fábrica · inteligencia · método) + celular con marca de WhatsApp; hoy usa fotogramas de los b-rolls como placeholder.
-
-⚠️ **Léxico**: el deck v6.2 ya está migrado al registro accesible. El copy "Abr 2026" que vivía aquí (PATRIMONIO PARALELO, Base Operativa, UNIDAD DE SUMINISTRO, "tecnología nutricional") es **léxico retirado** — no reintroducir (ver [Queswa Vocabulary](#queswa-vocabulary--tabla-canónica-unificada)).
-
-#### Arquitectura Mobile (Abr 2026 — no revertir)
-
-**Slides 1 y 2**: Grid de 3 tarjetas (`.card-industrial`). **Desde jun 2026 el fondo es un `<video>` 3D full-bleed** (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)), no una imagen split:
-- `.card-bg` aloja el `<video>` con **`object-fit: contain` + fondo carbón** → muestra el objeto 3D completo sin recorte (el letterbox es invisible: el clip ya es carbón `#0F1115`). **NO** revertir a `object-fit: cover` ni al split `height: 50%` (recortaba el 3D)
-- `.card-content`: overlay absoluto al pie con degradado — solo el **nombre** (slide 1) o nombre + botón Queswa (slide 2 card-1). Sin párrafos ni tachados (name-only)
-- Cards inactivas: `filter: brightness(0.45)` → activa: `brightness(1)`; borde activo/hover **dorado** (`var(--orange)`, no cyan)
-- `one-card-mode` generalizado de `#slide-2` a `.one-card-mode` (CSS) → aplica a slide 1 y 2; ambas comparten `activeCardIndex` (portada índice 0 + 3 clips índices 1-3, `maxCardIndex=3`)
-- ⚠️ **Navegación de card (v6.7 supersede el "bug del salto"):** el índice NO se resetea en ningún efecto — cada ruta lo fija explícitamente: avanzar/`showSlide` → 0 (portada) · **retroceder → `LAST_CARD` (última card de la slide destino)**. El IntersectionObserver de scroll fue **eliminado** (one-card oculta las cards no activas con `display:none` → nunca intersectaban; su mapeo por offset corrompería los índices actuales)
-
-**Slide 3**: `.slide-3-layout` es `flex-direction: column; justify-content: flex-end` en mobile — slide-3-bottom y CTA apilan verticalmente (NO flex-direction: row que hace flotar el CTA a la derecha).
-
-**Slide 4**: Scroll-snap vertical en mobile — dos snap items de `100vh`:
-1. `.simulator-panel` — calculadora (INGRESO INMEDIATO / INGRESO RECURRENTE)
-2. `.cta-panel` — imagen `boton-accion.jpg` (top 48%) + zona texto (bottom 52%)
-   - `.bg-image-cta`: `grayscale(100%) brightness(50%)` por defecto
-   - Desktop: imagen gris hasta hover (CSS `:hover` puro — NO setTimeout auto-reveal)
-   - Mobile: `ctaVisible` state + IntersectionObserver → `cta-revealed` → color al scroll-snap
-   - `#slide-4 { padding-top: 0 }` en fullscreen — elimina espacio negro vacío del HUD
-   - **Distribución del overlay:** imagen `48%` + overlay `top: 48%`. **Mobile normal** = `justify-content: center`; **fullscreen mobile** = `justify-content: flex-start` (la `.mobile-nav` se oculta y centrar empujaba el 2º botón fuera de pantalla). ❌ NO unificar ambos a `center`.
-   - **Swipe: exoneración SOLO en `<input>`:** `touchSwipeIgnore` ignora el swipe únicamente si el touch nace sobre un `input` (arrastrar el thumb de un slider es horizontal legítimo). ❌ NO añadir `.simulator-panel` ni tabs/botones a esa lista (bloquea el swipe-back del Slide 4). Guard de eje |dx|>|dy| evita que el scroll vertical del simulador cambie de slide. `handleSlideClick` SÍ conserva la lista amplia (click-to-advance dentro del simulador sería caos). Snap del Slide 4 = `proximity` (no `mandatory`) + `.simulator-panel` con `justify-content: flex-start`.
-   - Botón primario "ACTIVAR SU EMPRESA DIGITAL →": `width: 100%`, naranja dominante → `/paquetes`
-   - Botón secundario "SUSCRIBIRSE AL BOLETÍN →": outline, más angosto → abre `SubscribeModal` (newsletter; OPCIÓN 2 del guion v5.1). Antes empujaba al Diagnóstico de 5 Días → `/empresa-digital`, desconectado como gancho jun 2026
-
-#### B-rolls 3D en Slides 1 y 2 (jun 2026)
-
-Slides 1 (qué es una empresa digital) y 2 (primeros principios) usan **b-rolls 3D** como fondo de cada card, en vez de imágenes. Pensado para uso **en vivo en mobile**: cada b-roll muestra **solo el nombre** (Luis narra el resto). Diseño: el video llena la card (`object-fit: contain`, ver bloque Mobile arriba) y la gráfica debe **explicar sin texto**.
-
-**Assets servidos** (Vercel/Next desde `/public`, no Blob) en [public/videos/servilleta/](public/videos/servilleta/): el deck v6.7 usa 6 clips — `empresa-tradicional · empresa-digital · sonrisaslindas` (slide 1) + `respaldo · queswa · metodo` (slide 2), todos `.mp4`. Son los b-rolls IA (Veo/Vertex) del reel explainer de la Home, CON AUDIO (720×1280 CRF28 + AAC). Prompts/doctrina → `HANDOFF_BROLLS_HOME.md` + `GUIA_IDENTIDAD_VISUAL_IA.md` §9. Reproducción: `preload="none"` + **control central de media** (un solo efecto gobierna TODOS los videos por `data-slide`/`data-card`: la slide abandonada se pausa+rebobina+mutea; en one-card SOLO la card activa reproduce y suena desde 0s; en grid desktop los 3 reproducen EN MUTE).
-
-**UX de clips (v6.7 — no revertir):** tap sobre el clip = pausa/play **SOLO en táctil** (en desktop el click conserva el avance de presentación); **un solo control de pausa, el central** (⏸ al hover en desktop / ▶ persistente al pausar); **retroceso de slide aterriza en la ÚLTIMA card** de la slide destino (`LAST_CARD`, no la portada); **swipe horizontal navega desde CUALQUIER punto** (`touch-action: pan-y` en `.deck-container` + `onTouchMove`/`onTouchCancel`) con guard de eje |dx|>|dy|. Investigación: `public/contexto/produccion/INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md`.
-
-**Fuente histórica (comps Remotion)** → [scripts/dankoe-video/motion/src/](scripts/dankoe-video/motion/src/): las comps `Matriz3D/IAOnda3D/Checklist3D` (con guard `{(eyebrow||title||sub) && (...)}`) y `Expandir3D/Activar3D/Maestria3D` ya **NO alimentan el deck** (reemplazadas por los b-rolls IA) pero siguen sirviendo a los **reels** — no quitar el guard ni des-registrarlas de `Root.tsx`.
-
-**Semántica de cada gráfica — NO cambiar el mensaje** (calibrado con Luis jun 2026; la gráfica debe gritar el concepto sin texto):
-- **Expandir = distribución / alcance.** La orbe central (su celular) emite una **onda que se expande y enciende un campo de ~22 contactos** (espiral girasol) de adentro hacia afuera = "comparte con un clic → su alcance llega a muchos". ❌ NO debe **atraer** nodos hacia el centro (eso comunica lo contrario; fue el bug de la v1).
-- **Activar = conversión.** Un prospecto parte **rojo**, un anillo de progreso se llena **rojo→verde** mientras la orbe Queswa lo acompaña desde arriba, y cierra en **verde con ✓** (de acuerdo / listo). Colores de estado de marca (`#F43F5E`→`#10B981`).
-- **Multiplicación** (comp `Maestria3D` — nombre interno conservado; los b-rolls del deck son **name-only**, sin texto quemado, así que el rename de léxico no exige re-render)**.** Réplicas **idénticas** (mismo tamaño = iguales) que se duplican **1→2→4→8 de abajo hacia arriba**. ❌ NO usar pirámide ni cascada **top-down** ni nodos de distinto tamaño — es lenguaje MLM (downline) y está prohibido.
-
-**Re-render + deploy de un b-roll:**
-```bash
-cd scripts/dankoe-video/motion
-# comps de pilares: props de texto vacías para render limpio
-npx remotion render Matriz3D  out/deck-respaldo.mp4 --gl=angle --props='{"eyebrow":"","count":0,"unit":"","sub":""}'
-npx remotion render IAOnda3D  out/deck-queswa.mp4   --gl=angle --props='{"eyebrow":"","title":"","sub":""}'
-npx remotion render Checklist3D out/deck-metodo.mp4 --gl=angle --props='{"eyebrow":"","title":"","sub":"","steps":["PASO 01","PASO 02","PASO 03"]}'
-# comandos slide 2: defaultProps ya vienen vacíos
-npx remotion render Expandir3D out/deck-expandir.mp4 --gl=angle
-npx remotion render Activar3D  out/deck-activar.mp4  --gl=angle
-npx remotion render Maestria3D out/deck-maestria.mp4 --gl=angle
-# optimizar a /public (ej. expandir)
-ffmpeg -y -i out/deck-expandir.mp4 -vf scale=720:1280 -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 27 -preset slow -an -movflags +faststart ../../../public/videos/servilleta/expandir.mp4
-```
-⚠️ Render headless M1 requiere `--gl=angle`. Las comps Remotion en `motion/src` están **untracked** en git (igual que las de los reels — son herramientas de build); en producción solo se versionan los `.mp4` de `public/videos/servilleta/` + `page.tsx`.
-
-#### Reglas de iconos Material Symbols en Servilleta (NO revertir)
-
-**Problema conocido**: Los íconos Material Symbols Sharp cargan de forma asíncrona. Si un nombre de ícono aparece como string dentro de `<span className="material-symbols-sharp">nombre</span>`, renderiza como texto literal en inglés hasta que la fuente carga.
-
-**Solución aplicada**: Eliminar el span completo y usar texto Unicode `→` o dejar el elemento sin ícono. Íconos eliminados: `precision_manufacturing`, `calculate`, `cell_tower`, `memory`, `hub`, `rocket_launch`, `verified_user`, `biotech`, `bolt`, `autorenew`, `settings`, `eco`, `bar_chart`.
-
-**Íconos que SÍ funcionan** (cargados síncronos): `fullscreen`, `fullscreen_exit` (en botón fullscreen del nav — usan el font ya cargado en layout.tsx).
-
-**Queswa en Servilleta** (decisión Director 2 jul 2026 — la burbuja sobre los clips NO es la experiencia buscada):
-- El orbe flotante **nunca se muestra** en `/servilleta`. Gate en `UnifiedQueswaOrb`: `pathname === '/servilleta' && !visibleInServilleta && !isOpen → null` — el componente monta SOLO mientras el chat está abierto y desaparece al cerrarlo. La página **no despacha** `show-queswa-orb`
-- El chat abre únicamente desde el botón "PREGÚNTALE ALGO EN VIVO" (card Queswa de slide 2, dispara `open-queswa`)
-- El `body.style.overflow = 'auto'` se restaura temporalmente al abrir Queswa para que el teclado funcione
+**Lo que rompe producción si lo toca sin leer el doc:**
+- ❌ NO revertir `.card-bg` a `object-fit: cover` ni al split `height: 50%` — recorta el 3D
+- ❌ NO añadir `.simulator-panel`, tabs ni botones a `touchSwipeIgnore` — bloquea el swipe-back del Slide 4 (la exoneración es SOLO para `<input>`)
+- ❌ NO unificar el Slide 4 a `justify-content: center` en ambos modos — en fullscreen mobile empuja el 2º botón fuera de pantalla
+- ❌ NO reintroducir strings de Material Symbols en `<span>` — renderizan como texto en inglés hasta que carga la fuente
+- ❌ NO mostrar el orbe Queswa flotante en `/servilleta` — el chat abre solo desde "PREGÚNTALE ALGO EN VIVO" (slide 2)
+- ⚠️ El **copy verbatim NO se documenta** — vive en [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx); la narración en [guion_maestro_servilleta_v3.md](public/contexto/produccion/guiones/servilleta/guion_maestro_servilleta_v3.md) (nombre legacy `v3`, contenido v5.8)
 
 ## Environment Variables
 
@@ -712,7 +651,7 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
 
-**Audiencia objetivo + reglas lingüísticas** → ver tabla canónica unificada en sección [Queswa Vocabulary — Tabla Canónica](#queswa-vocabulary--tabla-canónica-unificada). Reglas clave:
+**Audiencia objetivo + reglas lingüísticas** → ver [Léxico y voz](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy). Reglas clave:
 - Audiencia mixta pan-americana (USA, México, Colombia) — vocabulario respetuoso pero accesible (test "abuela de 75 años"). El target original "CEOs/cirujanos" del Lujo Clínico se amplió en v5.2 (May 2026) tras el insight del Director Cabrejo: "el arquitecto no precipita el cierre, pero cuando llega los procesos son sencillos".
 - NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó.
 - Referencias geográficas pan-americanas — no Colombia-only.
@@ -802,53 +741,30 @@ import('dotenv').then(d => { d.config({path: '.env.local'}); return import('@sup
 
 **Atajo solo si el script genérico cubre tu caso**: `node scripts/fragmentar-arsenales-voyage.mjs` — si los fragments no existen, los crea. Si existen, los salta. Útil cuando se añaden respuestas NUEVAS sin modificar existentes.
 
-Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai-chatbot). Scripts de deploy por arsenal: `deploy-arsenal-inicial.mjs` · `deploy-arsenal-avanzado.mjs` · `deploy-arsenal-reto.mjs` · `deploy-arsenal-12-niveles.mjs` · `actualizar-catalogo-productos.mjs` · `deploy-arsenal-compensacion.mjs`. Luego `fragmentar-arsenales-voyage.mjs` (embeddings Voyage) y verificar con `audit-completo.mjs` (preferido — `verificar-arsenal-supabase.mjs` tiene bug PGRST116).
+Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai-chatbot). Scripts de deploy por arsenal: `deploy-arsenal-inicial.mjs` · `deploy-arsenal-avanzado.mjs` · `deploy-arsenal-12-niveles.mjs` · `deploy-arsenal-compensacion.mjs` · `deploy-arsenal-ganocafe.mjs` · `deploy-arsenal-marca-personal.mjs` · `actualizar-catalogo-productos.mjs`. Luego `fragmentar-arsenales-voyage.mjs` (embeddings Voyage) y verificar con `audit-completo.mjs` (preferido — `verificar-arsenal-supabase.mjs` tiene bug PGRST116).
 
 **Falsa alarma del audit — `desconocido: 40 fragmentos`**: `audit-completo.mjs` clasifica por `metadata.parent_arsenal`; cuando ese campo no está poblado etiqueta "desconocido" aunque la `category` esté bien. Los 40 son fragments reales de `arsenal_compensacion` + los **docs maestros padre** (`arsenal_inicial/ganocafe/reto/marca_personal`, `catalogo_productos`) + `catalogo_productos_PROD_OVERVIEW`. ⚠️ **NO ELIMINAR ninguno** — los docs maestros los necesita el fragmentador para parsear (`.eq('category', arsenalCategory)`). El warning es cosmético; se limpia poblando `metadata.parent_arsenal`.
 
 ### Working with Video Content
 
-#### Flujo estándar (video ya editado)
+**Flujo estándar, color grade DaVinci y animaciones Canvas → [docs/handoff/reels/VIDEO_Y_ANIMACIONES.md](docs/handoff/reels/VIDEO_Y_ANIMACIONES.md)**
 
 ```bash
-# 1. Optimize video (creates 720p, 1080p, 4K + poster)
-./scripts/optimize-video.sh /path/to/video.mp4
-
-# 2. Upload to Vercel Blob
-node scripts/upload-to-blob.mjs
-
-# 3. Add URLs to .env.local and Vercel Dashboard
+./scripts/optimize-video.sh /path/to/video.mp4   # 720p/1080p/4K + poster
+node scripts/upload-to-blob.mjs                  # → Vercel Blob (URLs a .env.local + Vercel)
 ```
-
-See [README_VIDEO_IMPLEMENTATION.md](README_VIDEO_IMPLEMENTATION.md) for details.
-
-#### Color Grade — Naval Ravikant / Dan Koe Style (DaVinci Resolve)
-
-Ver [HANDOFF-VIDEO-NAVAL-DAVINCI.md](docs/handoff/reels/HANDOFF-VIDEO-NAVAL-DAVINCI.md) para el flujo completo. Resumen: `python3 scripts/generate_lut.py` genera `naval_style.cube`, luego `python3 scripts/davinci_naval.py --input video.mp4 --name nombre` exporta 1080p + 720p + poster. DaVinci debe estar abierto antes de correr el script.
-
-### Canvas Animation Videos (src/app/animaciones/)
-
-Dan Koe-style vertical videos rendered in-browser via Canvas API + React. Used for social media content.
-
-- **Format**: 1080×1920 (9:16 vertical), 60fps, ~38 seconds
-- **Stack**: React + TypeScript + Canvas API + MediaRecorder (recording to WebM/MP4)
-- **Assets**: `public/campaign-assets/` — backgrounds, visual effects, sounds
-- **Exported videos**: `public/animaciones/` — rendered WebM/HTML exports (static, not source code)
-- **Static graphics**: `public/codigo/` — SVG assets and code visuals for animations
-- **Handoff doc**: [HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md](docs/handoff/reels/HANDOFF-DAN-KOE-STYLE-IMPLEMENTATION.md)
-- **Día 8 post-producción**: [HANDOFF-DIA8-POSTPRODUCCION.md](docs/handoff/reels/HANDOFF-DIA8-POSTPRODUCCION.md) — audio, SFX, subtítulos spec para `dia8-v2`
-
-Each `animaciones/diaX/` page renders and exports one video. Variants (e.g. `dia7-v3` through `dia7-v6`) are A/B iterations of the same day's script. Algunas animaciones usan nombre de concepto en vez de `diaX` (`acoplamiento/`, `depreciacion-biologica/`, `laberinto-infinito/`, `turbina-prisionero/`).
 
 ### Reel Post-Production Pipeline (`scripts/dankoe-video/`)
 
-**Documento completo → [scripts/dankoe-video/PIPELINE.md](scripts/dankoe-video/PIPELINE.md)** (extraído de CLAUDE.md jul 2026 — leerlo ANTES de ensamblar cualquier reel). Resumen operativo:
+**Documento completo → [scripts/dankoe-video/PIPELINE.md](scripts/dankoe-video/PIPELINE.md) — leerlo ANTES de ensamblar cualquier reel.** Contiene las recetas (reel de nicho, reflexivo de documentación, desenfoque de fondo, SFX puntuales, patrón "PROPIO" con keyword) y la limpieza de intermedios.
 
-- Acabado cinematográfico de reels en M1, todo por código: entrada = export CapCut ya graduado (**SIN música — pista en mute**, o el pipeline la entierra); salida = 1080×1920·24fps con subtítulos (forced alignment `ctc-forced-aligner` + Pillow PNG overlay — **NO libass**), motion graphics Remotion (`--gl=angle` en M1), SFX sintetizados (`motion/sfx.py` → `out/kit/`), música por actos (suspense→corporativa, el cambio cae exacto en el pivot narrativo leído del `*_stamps.json`) y mezcla **voz-anclada** a −14 LUFS (nunca loudnorm sobre toda la mezcla).
-- Variante b-roll 100% IA (clips Gemini/Veo + VO ElevenLabs) con logo-bug que tapa la marca ✦ de Gemini. ⚠️ Gotcha zsh: arrays desde 1 y variables de `filter_complex` se vacían en funciones — ffmpeg con filtros va inline.
-- Recetas completas en PIPELINE.md: reel de nicho (módulo solución compartido), reel reflexivo de documentación (talking-head + atmósfera grano/halation/viñeta), desenfoque de fondo tipo retrato (`seg_blur.py`, **--blur 10** validado), SFX puntuales, y `clean-pipeline.sh` para purgar intermedios (~9 GB recuperados).
-- Niveles de música calibrados por Luis — **al alza, nunca bajar**: nicho 0.80 (networkers 0.90) · reflexivos 1.00 en ambas camas.
-- **Reels de prospección con keyword (patrón "PROPIO", jul 2026)** → detalle en [INFORME_REEL_PROPIO_SOLUCIONES.md](public/contexto/produccion/INFORME_REEL_PROPIO_SOLUCIONES.md) (técnico) + [HANDOFF_REEL_PROPIO_DASHBOARD.md](docs/handoff/reels/HANDOFF_REEL_PROPIO_DASHBOARD.md) (negocio, para el agente del Dashboard — los socios disponen los reels desde queswa.app; el keyword = intención entrante). Reglas nuevas: (1) **REUSO primero** — un reel nuevo se arma casi 100% de clips 3D de archivo (`~/Downloads/clips-reel-home/`, `masters/`, `public/videos/servilleta/`); inventaría extrayendo un frame de cada clip y míralo, NO adivines por el nombre; genera solo lo que falte. (2) **Subtítulos desde el `stamps.json` LIMPIO** (VO pura) con `render_captions.py`, NO re‑alinear sobre la mezcla con música/SFX. (3) **CTA/textos por Pillow PNG + overlay** — el ffmpeg de esta máquina **no trae `drawtext`** (sin libfreetype). Keyword en dorado #C5A059, en **banda despejada, nunca sobre el visual 3D**; léxico **"ESCRIBA"** (usted, jamás "ESCRIBE"). (4) **Marca de agua canónica de TODOS los reels**: `scripts/dankoe-video/captions/work/_assets/watermark.png` → `scale=330:-1,colorchannelmixer=aa=0.22,overlay=W-w-38:H-h-46`, sobre el cuerpo (el outro trae su propio branding). (5) Bloques que caen deben ser **indestructibles** ("solid granite, keeps its shape, stay whole"); `debris`→`surface dust` o Veo los rompe.
+Lo que hay que saber antes de abrirlo:
+- Acabado cinematográfico en M1, **todo por código**. Entrada = export CapCut ya graduado (**SIN música — pista en mute**, o el pipeline la entierra); salida = 1080×1920·24fps, mezcla **voz-anclada** a −14 LUFS (nunca `loudnorm` sobre toda la mezcla)
+- Subtítulos por forced alignment (`ctc-forced-aligner`) + overlay de PNG con Pillow — **NO libass**. El ffmpeg de esta máquina **no trae `drawtext`** (sin libfreetype), así que todo texto quemado va por PNG
+- Motion graphics Remotion requieren **`--gl=angle`** en M1
+- **Niveles de música calibrados por Luis — al alza, nunca bajar**: nicho 0.80 (networkers 0.90) · reflexivos 1.00 en ambas camas. El cambio suspense→corporativa cae exacto en el pivot narrativo, leído del `*_stamps.json`
+- ⚠️ **Gotcha zsh**: los arrays van desde 1 y las variables de un `filter_complex` **se vacían dentro de una función de shell** → ffmpeg con filtros va explícito e inline
+
 
 ### Reels por Nicho (fase orgánica WhatsApp)
 
@@ -884,7 +800,7 @@ Los guiones (texto hablado) viven en `public/contexto/produccion/guiones/reels/`
 | `REELS_NICHOS_DOCUMENTACION.md` | **Nicho** | Aborda una **oportunidad de negocio directa** por nicho de audiencia. Es el copy de las páginas `/{slug}/{nicho}` (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)). | Páginas web `/{slug}/{nicho}` |
 | `REELS_SITIO_CREATUACTIVO.md` | **Sitio** | **Explainer**: responde a quien **ya llegó con la pregunta "¿de qué se trata?"**. Voz **neutra** (NO "soy Luis") — la home la alimentan todos los arquitectos con su `?ref`, debe ser reutilizable. Empieza con el reel de la **Home** (reemplaza el video viejo del plan servilleta en el hero). Armonizado con la Home (`/`). | Incrustado en el sitio (hero `page.tsx`, etc.) |
 
-**Léxico (los 3):** "negocio digital" a secas (la corona es de CreaTuActivo, no de Gano) · ingreso que no depende de su presencia · usted dirige, el sistema hace el trabajo. Ver [migración léxico accesible](#queswa-vocabulary--tabla-canónica-unificada).
+**Léxico (los 3):** "negocio digital" a secas (la corona es de CreaTuActivo, no de Gano) · ingreso que no depende de su presencia · usted dirige, el sistema hace el trabajo. Ver [migración léxico accesible](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy).
 
 **Reel HOME (desplegado — v2 del explainer, ~187s):** el explainer 9:16 vive en el hero de [src/app/page.tsx](src/app/page.tsx) vía [src/components/HomeManifestoVideo.tsx](src/components/HomeManifestoVideo.tsx) (reemplazó el `YouTubeFacade`/`SERVILLETA_YOUTUBE_ID`). Talking-head Luis + 10 b-rolls IA (Veo/Vertex; la coordinación luz/sonido que Veo no da fiable se compone por código sobre el máster — ver `HANDOFF_BROLLS_HOME.md`), subtítulos karaoke por forced alignment, música por actos montada en CapCut (pipeline: loudnorm −14 del mix), outro canónico. Asset en Blob (`home/home-manifesto.mp4`, misma URL) + poster `public/videos/home/poster.webp` — constantes `HOME_MANIFESTO_VIDEO`/`HOME_MANIFESTO_POSTER` en [src/lib/reels.ts](src/lib/reels.ts). **Comportamiento:** autoplay muted con chip "ACTIVAR SONIDO"; al terminar (`onEnded`) se desvanece en 1000ms y, si sigue ≥40% en viewport, dispara `open-queswa` + foco en `#queswa-chat-input`; si el usuario scrolleó lejos NO se secuestra el foco. **Master:** `scripts/dankoe-video/masters/reel-home.mp4` + stamps/guión/audio en `captions/work/home_*` (un ajuste = re-render parcial, no empezar de cero); base CapCut en `~/Downloads/clips-reel-home/reel-home-final/`.
 
@@ -996,94 +912,35 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `queswa-greeting.ts` - Saludo canónico de Queswa + chips `QUESWA_QUICK_REPLIES` (single source of truth — antes duplicado en 4 lugares). También exporta `QUESWA_PRODUCTS_QUICK_REPLIES` (3 chips de salud para `/sistema/productos` — Queswa asesor de salud y bienestar)
 - `reels.ts` - **Fuente de verdad de Reels por Nicho** (`REEL_NICHOS`, `REEL_ASSETS`, `REEL_COPY`). Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)
 - `wa-channel.ts` - **Capa única de canal WhatsApp** (Meta Cloud API): `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. Único lugar con `WHATSAPP_SYSTEM_TOKEN`. (`whatsapp-meta.ts` + `sendpulse.ts` borrados jul 2026)
+- `wa-bridge-auth.ts` - Auth del puente `/api/wa/*` que consume el Dashboard server-to-server (header `x-wa-bridge-secret`, `timingSafeEqual`). ⚠️ **Deniega si la env `WA_BRIDGE_SECRET` no está definida** — a diferencia del `x-webhook-secret` de Supabase; un endpoint que envía WhatsApp en nombre de la marca no puede quedar abierto por una env olvidada
+- `query-rewrite.ts` - **CQR (reescritura conversacional de la consulta)** — colapsa el hilo en una consulta autónoma antes del vector search. Ver [PASO -2](#1-nexus-ai-chatbot). Hoy activo **solo en tenant `whatsapp`**; nunca lanza (ante fallo devuelve el mensaje original)
+- `tts-normalize.ts` - `normalizarParaVoz()` — convierte símbolos y abreviaturas a palabras antes del TTS (sin esto el motor lee "$200 USD" como "dollar sign 200 U-S-D"). **Fuente única** compartida por `/api/voice-command` y `/api/nexus/tts`
 
-## Design System: Bimetallic v3.0
+### Design System: Bimetallic v3.0
 
-**Philosophy**: "Quiet Luxury meets Private Equity" - The site should look like a high-end investment firm, not a typical MLM.
+**Fuente única y completa → [BRANDING.md](BRANDING.md)** (paleta con todos los hex, tipografía, geometría, CTAs, efectos atmosféricos, léxico §7). Aquí solo lo que se aplica en cada decisión:
 
-### Color Hierarchy (Sistema Bimetálico)
+**Filosofía**: "Quiet Luxury meets Private Equity" — el sitio debe parecer una firma de inversión, no un MLM típico. Dorado = máx 10-20% del lienzo.
 
-| Category | Color | Hex | Usage |
-|----------|-------|-----|-------|
-| **Gold (EL PREMIO)** | Champagne | `#C5A059` | CTAs, money, achievements, key titles |
-| Gold Hover | | `#D4AF37` | Button hover states |
-| Gold Bronze | | `#B38B59` | Secondary gold text |
-| **Titanium (LA ESTRUCTURA)** | Primary | `#94A3B8` | Active icons, navigation |
-| Titanium Muted | | `#64748B` | Inactive icons, labels |
-| Titanium Dark | | `#475569` | Subtle lines, dividers |
-| **Backgrounds** | Carbon Deep | `#0F1115` | Main background |
-| Carbon Elevated | | `#15171C` | Alternate sections |
-| Obsidian | | `#1A1D23` | Cards, surfaces |
-| **Text** | White | `#FFFFFF` | Headlines |
-| Smoke | | `#E5E5E5` | Body text |
-| Muted | | `#A3A3A3` | Secondary text |
-| **Status** | Success | `#10B981` | Completed, growth |
-| Warning | | `#FBBF24` | Pending, in progress |
-| Alert | | `#F43F5E` | Errors, required action |
+| Rol | Token | Hex | Uso |
+|-----|-------|-----|-----|
+| **Oro (EL PREMIO)** | `--color-brand` | `#C5A059` | CTAs, dinero, logros, títulos clave (hover `#D4AF37`) |
+| **Titanio (LA ESTRUCTURA)** | `--color-titanium` | `#94A3B8` | Iconos activos, navegación (hover → oro) |
+| **Fondo** | `--color-bg-primary` | `#0F1115` | Carbón; alterna con `#15171C` elevado |
+| **Texto** | `--color-text-primary` | `#E5E5E5` | Cuerpo; `#FFFFFF` solo titulares |
+| Estado | | `#10B981` / `#FBBF24` / `#F43F5E` | Éxito / pendiente / alerta |
 
-### Icon Color Rules
+**Reglas que se rompen a diario:**
+- **Iconos**: arrancan titanio, hover → oro. Solo CTAs, cifras y logros nacen dorados (`ICON_COLORS` en [src/lib/branding.ts](src/lib/branding.ts))
+- **Bordes de card**: glass `rgba(255,255,255,0.1)` neutro; dorado `rgba(197,160,89,0.3)` **solo** en hover
+- **Nunca hex hardcodeado** — use los tokens (`var(--color-brand)`, no `#E5C279`; `var(--color-bg-surface)`, no `#18181b`)
+- **CTAs**: clases `.cta-primary` / `.cta-secondary` / `.cta-ghost` de [globals.css](src/app/globals.css). Nunca fondo sólido + texto invertido en un primario
+- **H1/H2**: Inter uppercase para institucional, Playfair natural para editorial y narrativo; eyebrows en `<p>`, nunca `<h2>`. Un solo `<h1>` por página, vía [IndustrialHeader](src/components/IndustrialHeader.tsx)
+- **Fuentes cargadas**: solo Playfair Display, Inter y Roboto Mono. Cualquier otra (Rajdhani, Oswald, Montserrat) hace fallback al sistema
+- **Tailwind**: paletas `titanium`/`carbon`/`champagne` + utilidades `shadow-spotlight`, `bg-spotlight-gold` en [tailwind.config.ts](tailwind.config.ts)
 
-```typescript
-// From src/lib/branding.ts - ICON_COLORS
-prize: '#C5A059'      // Trophy, coins, achievements → GOLD
-structure: '#94A3B8'  // Navigation, tools, menus → TITANIUM (hover → gold)
-success: '#10B981'    // Completed states → GREEN
-warning: '#FBBF24'    // Pending states → AMBER
-alert: '#F43F5E'      // Error states → RED
-trust: 'rgba(255, 255, 255, 0.6)'  // Trust markers on landing pages
-```
+**Implementación de referencia**: [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) — léala antes de crear una página nueva.
 
-### Atmospheric Effects
-
-**Spotlights** (for hero sections):
-- Titanium: `radial-gradient(ellipse at center, rgba(148, 163, 184, 0.08) 0%, transparent 70%)`
-- Gold (CTAs): `radial-gradient(ellipse at center, rgba(197, 160, 89, 0.06) 0%, transparent 70%)`
-
-**Glass Borders** (for cards):
-- Standard: `rgba(255, 255, 255, 0.1)` (neutral, not gold)
-- Hover: `rgba(197, 160, 89, 0.3)` (gold on interaction)
-
-**Section Gradients**:
-- Alternate between `#0F1115` and `#15171C` for visual depth
-
-### Reference Implementation
-
-See [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infraestructura` route) for a complete example of the Bimetallic system applied:
-- Icons start titanium, hover → gold
-- Card borders use glass (white 10% opacity)
-- Section dividers use titanium (not gold)
-- Only CTAs, numbers, and achievements use gold
-
-### Typography Hierarchy (23 May 2026)
-
-Regla unificada aplicada en Home, Manifiesto, Tecnología, Blog index, 3 artículos del blog, Paquetes y Sistema/Productos. Parámetros canónicos completos en [BRANDING.md](BRANDING.md) — sección "Tipografía".
-
-**H1 institucional** (páginas con título corto): `var(--font-sans)` Inter, `font-weight: 700`, `text-transform: uppercase`, `letter-spacing: 0.08em`, color `var(--color-brand)`. Ejemplos: "NUESTRA FILOSOFÍA", "TECNOLOGÍA QUE TRABAJA POR USTED", "CATÁLOGO BIO-INTELIGENTE", "CONSTRUCCIÓN DE ESTRUCTURA PATRIMONIAL".
-
-**H1 editorial** (artículos largos `/blog/*`): `var(--font-serif)` Playfair, `font-weight: 600`, natural case, `letter-spacing: -0.01em`. Aplicado vía `<IndustrialHeader variant="editorial" />`.
-
-**H2** — siempre `var(--font-serif)` Playfair natural case (títulos narrativos, citas de tesis: "La Trampa Estructural.", "La arquitectura estaba fracturada.").
-
-**Eyebrows uppercase** — `<p>` con `text-sm uppercase tracking-[0.15em]`. **NUNCA** usar `<h2>` para eyebrows pequeños (rompe estructura DOM).
-
-**Componente canónico**: [src/components/IndustrialHeader.tsx](src/components/IndustrialHeader.tsx) — acepta `variant: 'institutional' | 'editorial'` (default: institutional) y `title: ReactNode` (para preservar `<span>` con highlight dorado en artículos). Renderiza el único `<h1>` de la página.
-
-**Fuentes cargadas en `layout.tsx`** (next/font/google): Playfair Display, Inter, Roboto Mono. Cualquier otra fuente (Rajdhani, Oswald, Söhne, Financier, Montserrat) hace fallback al sistema → usar `var(--font-sans)`, `var(--font-serif)`, `var(--font-mono)`.
-
-**Tokens canónicos** (no hex hardcoded):
-- Texto primario → `var(--color-text-primary)` (no `#E5E5E5`)
-- Marca dorada → `var(--color-brand)` (no `#E5C279` ni `#C8A84B`)
-- Background card → `var(--color-bg-surface)` (no `#18181b` ni `#0d0d0d`)
-- Background elevado → `var(--color-bg-elevated)` (no `#15171C` literal)
-
-**CTAs** — usar clases canónicas `.cta-primary` / `.cta-secondary` / `.cta-ghost` de [src/app/globals.css](src/app/globals.css). Para sub-marcas con identidad propia (Clinical Luxury bioEmerald, WhatsApp), el patrón es: fondo con tinte 7-14% del color de acento + borde 1.5-2px + texto del color de acento. **Nunca** fondo sólido + texto invertido en botones primarios.
-
-### Tailwind Config
-
-Extended colors and utilities are defined in [tailwind.config.ts](tailwind.config.ts):
-- `titanium`, `carbon`, `champagne` color palettes
-- `shadow-spotlight`, `shadow-warm-spot` for atmospheric lighting
-- `bg-gradient-section`, `bg-spotlight-blue`, `bg-spotlight-gold` utilities
 
 **Email Templates** (in `src/emails/`):
 - `soap-opera/` - Soap Opera sequence (Dia1-5)
@@ -1132,6 +989,8 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/reto-5-dias/*` · `/mapa-de-salida/*` · `/auditoria-confirmada` · `/empresa-digital/*` · `/diagnostico` · `/confirmacion` | ✅ Eliminadas (jul 2026, `ca6ff59`) | Funnel muerto retirado — páginas + redirects borrados; URLs viejas del funnel → Home (301) |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
 | `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
+| `src/app/api/webhooks/` | Directorio **vacío** | Quedó de la purga del funnel (`ca6ff59`) — ya no contiene `route.ts`. Seguro de borrar |
+| `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy | El vigente es `...-whatsapp-v3.mjs` (`VERSION_LABEL = v3.0`) |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
 
 ## Insights Estratégicos
@@ -1143,6 +1002,12 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 ## Key Documentation Files
 
 > 📁 **`docs/` (jul 2026)** — handoffs de trabajo e investigaciones, **fuera de `public/`** (no se sirven en la web). Índice en [docs/README.md](docs/README.md). Estructura: `docs/handoff/{reels,queswa,negocio}/` + `docs/investigaciones/{prompts,resultados}/`. Los docs **núcleo** (este archivo, `README.md`, `BRANDING.md`, `POSICIONAMIENTO.md`, `EPIPHANY_BRIDGE_OFICIAL.md`, `MANIFIESTO_FUNDADORES.md`, `HANDOFF_CONTEXTO_COMPLETO.md`, `HANDOFF_QUESWA_TECNICO.md`) siguen en la raíz a propósito.
+
+**Extraídos de este archivo (4 ago 2026)** — se movieron para que CLAUDE.md no los cargue en cada sesión:
+- [docs/SERVILLETA.md](docs/SERVILLETA.md) - Deck `/servilleta` completo (aplica igual a su copia `/12-niveles`)
+- [docs/handoff/reels/VIDEO_Y_ANIMACIONES.md](docs/handoff/reels/VIDEO_Y_ANIMACIONES.md) - Video estándar, color grade DaVinci, animaciones Canvas
+- [docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md) - Estrategia de contenido, voz de Queswa (3 niveles), migración léxica, historia del fundador
+- [BRANDING.md](BRANDING.md) - Design System completo + léxico aprobado/prohibido (§7)
 
 **Architecture & Deploy**:
 - [DEPLOYMENT_DB_QUEUE.md](DEPLOYMENT_DB_QUEUE.md) - Queue system deployment
@@ -1194,9 +1059,9 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 **Location**: `scripts/` directory (~48 scripts). La mayoría requiere variables de `.env.local`; corre `ls scripts/` para la lista completa. Abajo solo los que llevan gotcha o no son auto-descriptivos.
 
-**NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — no asumir local=DB) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión de `VERSION_LABEL` (hoy **v29.2**, ~21K); ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`** — las versiones anteriores viven en git + `CHANGELOG-system-prompts.md`.
+**NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — no asumir local=DB) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión de `VERSION_LABEL` (hoy **v29.5_compartir_recibir_multiplicar**); ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`** — las versiones anteriores viven en git + `CHANGELOG-system-prompts.md`.
 
-**Knowledge Base**: `deploy-arsenal-{inicial,avanzado,reto,12-niveles,compensacion}.mjs` + `actualizar-catalogo-productos.mjs` (deploy por arsenal) · `verificar-arsenal-supabase.mjs` / `descargar-arsenales-supabase.mjs`.
+**Knowledge Base**: `deploy-arsenal-{inicial,avanzado,12-niveles,compensacion,ganocafe,marca-personal}.mjs` + `actualizar-catalogo-productos.mjs` (deploy por arsenal) — ⚠️ `deploy-arsenal-reto.mjs` **ya no existe** (se borró con el funnel del reto, jul 2026) · `verificar-arsenal-supabase.mjs` / `descargar-arsenales-supabase.mjs`.
 
 **Embeddings (Voyage)**: `fragmentar-arsenales-voyage.mjs` (crea fragments con embeddings; salta los existentes) · `audit-completo.mjs` (audit completo: cuenta fragments, detecta huérfanos y embeddings faltantes — preferido) · `purgar-fragmentos-duplicados.mjs` · `regenerar-embeddings-voyage.mjs`. ⚠️ `actualizar-fragmentos-modificados.mjs` tiene fragments HARDCODED — **NO** usar como genérico (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)).
 
@@ -1235,66 +1100,20 @@ Automatically extracts performance data from Google Search Console API.
 
 **Google Account**: luiscabrejo7@gmail.com (owner of GSC for creatuactivo.com)
 
-## Marketing Strategy & Research Prompts
+## Léxico y voz — lo que se aplica en cada línea de copy
 
-### Two-Pronged Content Strategy (Enero 2026)
+> 📖 **Estrategia de contenido, voz de Queswa (3 niveles), mapa completo de migración léxica e historia del fundador → [docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md)**
+> 📖 **Tablas completas de vocabulario aprobado/prohibido (~60 términos con su razón) → [BRANDING.md §7](BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido)**
 
-The marketing strategy separates **TRAFFIC** (content) from **CONVERSION** (funnels):
+**Regla de oro**: todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido.
 
-```
-[NAVAL RAVIKANT - TRÁFICO]        [RUSSELL BRUNSON - CONVERSIÓN]
-30 videos de valor puro      →    Reel por nicho + Queswa
-         ↓                               ↓
-"¿Cómo lo hago?"             →    Soap Opera Emails (5)
-         ↓                               ↓
-CTA sutil a CreaTuActivo     →    1-a-1 con el socio
-                                         ↓
-                                   Webinar (Perfect Webinar)
-                                         ↓
-                                   Oferta Fundador/Constructor
-```
+⚠️ **La migración a léxico accesible ya está en código.** Nunca "corrija" copy accesible hacia el término viejo. Los swaps que más se encuentran: `Matriz Física` → **Respaldo Operativo** · `Tridente EAM` → **Método Comprobado** · `Base Operativa` → **negocio digital** · `Arquitecto de Patrimonio` → **Propietario** · `escalar` → **multiplicar** · `Maestría` → **Multiplicación**. Atribución: "su negocio digital" SIN "de Gano Excel".
 
-### Research Prompts (for AI agents)
-
-**Location**: Root directory
-
-| Prompt File | Purpose | Entregables |
-|-------------|---------|-------------|
-| [PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md](docs/investigaciones/prompts/PROMPT_INVESTIGACION_NAVAL_CONTENIDO.md) | Content strategy (TRAFFIC) | 30 video scripts, hooks, tone guide |
-
-These prompts can be used with any AI research agent (Gemini, Manus, Claude, etc.)
-
-### Key Marketing Constraints
-
-Vocabulario completo (aprobado + prohibido) → ver tabla canónica en sección **[Queswa Vocabulary — Tabla Canónica Unificada](#queswa-vocabulary--tabla-canónica-unificada)** abajo.
-
-**Términos adicionales para positioning de tráfico orgánico** (TRAFFIC, no funnel de venta):
-- ✅ Arquitectura de Activos · Soberanía financiera · Cartera de activos · Distribución global
-- ✅ El plan por defecto (el villano universal cross-arsenal)
-
-### Queswa Voice — Híbrido Contextual de 3 Niveles (v5.4, 24 May 2026)
-
-Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cuando el agente habla con el usuario. **Regla unificada**:
-
-- **Nivel 1 — Aforismos canónicos** → **tercera persona** ("Queswa explica", "Queswa escala"). Son frases-marca; cambiarlas rompe su fuerza retórica. Ejemplos: *"Usted no explica — Queswa explica"*, *"Usted no enseña; Queswa escala. Usted crece"*.
-- **Nivel 2 — Sustantivos/componentes con nombre propio** → **tercera persona** ("Centro de Mando Queswa", "queswa.app", "Academia Queswa", "plataforma Queswa", "Pilar 2 (Queswa)" en referencias arquitectónicas). Son nombres propios del ecosistema.
-- **Nivel 3 — Acciones del agente AHORA en la conversación** → **primera persona** ("yo proceso", "yo asumo", "yo opero", "Me encargo"). El agente conversacional ES el avatar del ecosistema completo; al describir lo que hace ahora, habla como ente coherente.
-
-**Por qué importa**: cuando Queswa dice "Queswa filtra los perfiles" en chat directo, el usuario procesa dos identidades en paralelo (el "yo" implícito que escribe + el "Queswa" del que se habla) → fricción cognitiva. La regla híbrida elimina esa fricción donde más se siente sin perder los aforismos como marca verbal.
-
-**Casos límite**: Construcciones tipo "el Pilar 2 (Queswa) asume X" se PRESERVAN en tercera persona porque "Queswa" funciona como apostillo nombrando al Pilar dentro de la doctrina de los Tres Pilares. Cambiarlas a primera persona rompe la arquitectura canónica.
-
-### Queswa Vocabulary — Tabla Canónica Unificada
-
-> ⚠️ **MIGRACIÓN LÉXICO ACCESIBLE EN CURSO (Jun 2026) — leer antes de "corregir" textos.** El léxico premium/canónico se está reemplazando por léxico accesible (servilleta / Mario Alonso Puig). Mapa de reemplazo: `Estructura Patrimonial` → **estructura de ingresos recurrentes** · `La Matriz Física` → **El Respaldo Operativo** · `El Tridente EAM` → **El Método Comprobado** (subtítulo: "Comando Expandir · Activar · **Multiplicación**" — 3er comando renombrado desde "Maestría" jun 2026) · `Base Operativa` → **negocio digital** (a secas) · `Arquitecto de Patrimonio` → **Propietario (de su negocio digital)** · `Dirección Ejecutiva / gobernanza` → **dirige / dirección** · `Apalancamiento Asimétrico` → **Apalancamiento Estratégico** · `escalar` → **multiplicar**. ⚠️ **Swap "negocio digital" (jun 2026, `docs/handoff/queswa/HANDOFF_AGENTE_LEXICO_ARSENALES.md`) supersede el mapping previo: "Base Operativa" también se retira de cara al prospecto. Atribución: "su negocio digital" SIN "de Gano Excel" — la corona es de CreaTuActivo; Gano Excel se nombra solo como Respaldo Operativo (Pilar 1, el estudio detrás de cámaras).** Concepto nuclear de "¿qué es CreaTuActivo?" (modelo Waze, empatía primero): *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*.
->
-> **Estado (jun 2026):** ✅ migrado y **desplegado** en todas las superficies de cara al prospecto: **home completa** (`src/app/page.tsx` — Hero, Diagnóstico, Perfiles, Tres Caminos, Producto, Prueba de Estrés, Queswa, CTA + `CognitiveLoadComparator` + nueva `VisionSection` "futuro absurdo / la norma"), **manifiesto** (`src/components/ManifiestoDocument.tsx` — `/manifiesto` + `/{slug}/manifiesto`; §2 reescrita con la visión, "soberanía financiera" conservada como excepción temática del documento), **deck `/servilleta`** (`src/app/servilleta/page.tsx` v6.2) + guion maestro v5.0 + teleprompter, **chips** (`queswa-greeting.ts`), **Camino A** (`respuestas-maestras.ts`), **WHY_01/WHY_02/EAM_01** (`arsenal_inicial.txt`, local) y los **reels de la serie de documentación** (Día 1–6) + reel explainer de la Home. **NO revertir hacia los términos viejos.** ⏳ pendiente: FREQ_04/FREQ_04_PUENTE/PERFIL_01 + migración profunda (~200 hits en arsenales restantes + system prompt) + deploy de `arsenal_inicial` a Supabase. La tabla de abajo aún refleja el canon viejo en los términos migrados; al editar copy de cara al usuario, **siempre el léxico accesible**.
->
-> **Doctrina vigente del copy (el CÓMO, no solo el qué):** (1) **Villano NARRADO, nunca etiquetado** — método NuBank: detalles vividos que el lector reconoce (*"los créditos siempre le llevan la delantera"*, *"la bicicleta estática: le da y le da y no avanza"*, *"trabajar, pagar cuentas y repetir"*, *"un sistema diseñado para construir el patrimonio de otros"*), nunca una etiqueta abstracta (prohibido "PPO", "Plan por Defecto", "tiempo por dinero" en seco). "Trampa" sí, como recategorización, sin victimizar. (2) **Autopersuasión** — marcos moderados (*"meses"*, no "días"; sin cifras extremas tipo "en ceros"); escenarios que el lector completa, no afirmaciones. (3) **Test Beto** — si un profesional inteligente sin MBA no entiende la frase, está prohibida; densidad técnica ≠ autoridad, el lujo es la claridad. (4) **Concepto nuclear (modelo Waze):** *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*. Detalle: `docs/handoff/queswa/HANDOFF_RECALIBRACION_LEXICO_QUESWA.md` (Queswa/sitio) · `docs/handoff/reels/HANDOFF_AGENTE_MARKETING_REELS.md` (reels/redes, con la serie de documentación diaria).
-
-**Regla de oro**: Todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido. La **única fuente de verdad** de vocabulario aprobado/prohibido son las tablas completas en **[BRANDING.md §7](BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido)**; esta sección conserva la doctrina de migración + las prohibiciones de alta frecuencia.
-
-> 📖 **Las tablas COMPLETAS (Vocabulario APROBADO + PROHIBIDO, ~60 términos con razón de prohibición) viven en [BRANDING.md §7](BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido).** Consúltalas antes de calibrar copy. Abajo solo las prohibiciones que un agente encuentra a diario:
+**Cómo se escribe** (no solo qué se dice):
+1. **Villano NARRADO, nunca etiquetado** — detalles que el lector reconoce (*"la bicicleta estática: le da y le da y no avanza"*), jamás una etiqueta abstracta ("PPO", "Plan por Defecto", "tiempo por dinero" en seco)
+2. **Autopersuasión** — marcos moderados; escenarios que el lector completa, no afirmaciones
+3. **Test Beto** — si un profesional inteligente sin MBA no la entiende, la frase está prohibida. El lujo es la claridad
+4. **Concepto nuclear (modelo Waze)** — *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*
 
 **Prohibiciones de alta frecuencia** (el resto → BRANDING.md §7):
 - **filtrar / filtro / descartar** → conversar · madurar la decisión · reconocer quién está listo ([[feedback_filtrar_prohibido]])
@@ -1311,27 +1130,10 @@ Doctrina conversacional para resolver disonancia "¿acaso él no es Queswa?" cua
 - ⚠️ **Mostrar USD a visitante de Colombia** → **CO = SOLO COP** para TODO (precios Y comisiones, tasa fija $4,500); US = USD limpio; resto = USD (+COP). País-aware en `getPaquetesPricingPin`/`precioPaqueteLinea`/`getPinCifrasGEN5`/`getTablasComisiones`
 - **PII hardcodeada en arsenales** → nunca (seguridad)
 
+**Voz del agente (resumen de los 3 niveles)**: aforismos y nombres propios en **tercera** persona ("Queswa explica", "Centro de Mando Queswa"); lo que el agente hace AHORA en la conversación, en **primera** ("yo proceso", "me encargo"). Detalle y casos límite → el doc enlazado arriba.
+
 **Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): Tres Pilares (NUNCA "capas"/"Máquina Híbrida") · Tridente EAM = Expandir · Activar · Multiplicación · 90% automatizado · 70 países (Gano) · 15 países operativos (CreaTuActivo) · 15 cupos Fundadores.
 
 **Cierre v5.2 (May 2026) — frase canónica única**: cuando el prospecto pregunta cómo se inicia, Queswa entrega FREQ_03 (los 3 niveles ESP + pregunta de selección) en `<verbatim_lock>`. Sin entrevista BANT, sin "equipo de Dirección Estratégica", sin "Asignación de Capital". El FSM avanza a Estado 3 (nombre) → Estado 4 (warm handoff automático).
 
-## Luis Cabrejo's Real Story (Epiphany Bridge)
-
-**Master Document**: [EPIPHANY_BRIDGE_OFICIAL.md](EPIPHANY_BRIDGE_OFICIAL.md) - Use this for all storytelling.
-
-**Key Quote**: "La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra."
-
-| Duration | Use Case |
-|----------|----------|
-| 60 seconds | Reels, TikTok, Squeeze Page |
-| 3 minutes | 1-a-1 / presentación media |
-| 7 minutes | Webinar, Presentations |
-
-### Two Different Audiences
-
-| Audience | Villain | Page |
-|----------|---------|------|
-| **8,000 personal contacts** (friends, family, ex-Gano) | Plan por defecto | reel → Queswa → /fundadores |
-| **Traditional networkers** (know MLM) | "Haz una lista de 100" | (página `/socios` eliminada — commit `6110e9a`; audiencia sin landing dedicada actualmente) |
-
-**Content Style**: Naval Ravikant - philosophical, value-first, no direct selling. Reference: "The Almanack of Naval Ravikant".
+**Historia del fundador**: [EPIPHANY_BRIDGE_OFICIAL.md](EPIPHANY_BRIDGE_OFICIAL.md) es el documento maestro para todo storytelling (versiones de 60s / 3min / 7min). Frase clave: *"La soberanía financiera no se trata de lujos. Se trata de poder cumplir tu palabra."*

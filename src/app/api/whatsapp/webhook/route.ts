@@ -103,6 +103,14 @@ export async function POST(request: Request) {
 
     console.log(`📥 [WA Webhook] ${contactName} (${phoneNumber}): "${messageText}" ${isCTWA ? '[CTWA]' : ''}`);
 
+    // ─── Palabra clave de acceso ──────────────────────────────────────────────
+    // El socio le dice al contacto "escríbame ACCESO" (sticker de historia, bio,
+    // comentario, o el enlace wa.me?text=ACCESO). Esa persona ABRE la conversación
+    // → se abre la ventana de servicio de 24 h y podemos responder en texto libre,
+    // sin plantilla. Lo único que falta es entregarle el acceso: el saludo normal
+    // de Queswa no lleva enlace.
+    const pidioAcceso = /\bacceso\b/i.test(messageText);
+
     // ─── 1. Registrar prospect en Supabase ────────────────────────────────────
     const waFingerprint = `wa_${phoneNumber}`;
     const supabase = getSupabase();
@@ -275,6 +283,19 @@ export async function POST(request: Request) {
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
       return new Response('OK', { status: 200 });
+    }
+
+    // ─── 3.6 Entrega del acceso ───────────────────────────────────────────────
+    // Solo en el PRIMER contacto y solo si pidió acceso: quien ya viene
+    // conversando no necesita que le repitan el enlace en cada turno.
+    // El enlace lleva la atribución del socio; sin patrocinador va a la Home
+    // limpia y el prospecto lo trabaja el equipo (mismo criterio que la atribución).
+    if (pidioAcceso && !existingProspect) {
+      const enlace = patrocinador
+        ? `https://creatuactivo.com/?ref=${patrocinador.constructorId}`
+        : 'https://creatuactivo.com/';
+      queswaReply = `${queswaReply}\n\nAquí está su acceso: ${enlace}\n\nVéalo con calma y pregúnteme lo que quiera por aquí.`.trim();
+      console.log(`🔑 [WA Webhook] Acceso entregado a ${phoneNumber} → ${enlace}`);
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────

@@ -7,6 +7,25 @@
 
 - [ ] **Autorizar los conectores de claude.ai** — Gmail, Google Calendar, Google Drive, Vercel y Supabase aparecen sin autorizar. Claude Code no puede correr el login desde una sesión no interactiva. Se autorizan desde **configuración de conectores en claude.ai**. Hasta entonces esas capacidades no están disponibles en sesión (leer Drive, consultar Supabase directo, revisar deploys de Vercel).
 
+## Meta / WhatsApp (verificado por Graph API el 4 ago 2026)
+
+- [ ] **Nombre visible "Queswa" — `name_status: PENDING_REVIEW`, esperando a Meta.** El re-registro del 4 ago consolidó la solicitud: el número ya tiene `verified_name: Queswa` (antes mostraba `CreaTuActivo` en `DECLINED`) y `new_name_status: NONE`. ⛔ **No tocar el campo de nombre mientras la revisión siga abierta** — cada guardado abre una solicitud nueva que pisa la anterior; así se perdió una aprobación previa. Van 4 cambios de los 10 que Meta permite cada 30 días.
+- [ ] **`code_verification_status: EXPIRED`** — **no lo arregla el `register`** (se probó el 4 ago; el campo no se movió). Corresponde al flujo `request_code` / `verify_code`, que manda un SMS o llamada al `+57 321 519 3909` y exige que alguien reciba el código. ⚠️ No ejecutarlo a ciegas sobre un número `CONNECTED`. **Impacto real medido: ninguno hoy** — el envío funciona con el campo en `EXPIRED` (ver abajo).
+- [x] **Canal verificado de punta a punta** — 4 ago 2026: plantilla `hello_world` enviada al número interno, respuesta `message_status: accepted`. **El `EXPIRED` no está bloqueando el envío**; el error #131037 era un riesgo documentado, no un bloqueo activo.
+- [x] **PIN de verificación en dos pasos** — se perdió el anterior; se fijó uno nuevo por API (`POST /{PHONE_NUMBER_ID}` con `pin`) y quedó en `.env.local` como `WHATSAPP_TWO_STEP_PIN` (gitignored). Guardarlo también en gestor de contraseñas.
+- [x] **Verificación del negocio en Meta** — hecha. `business_verification_status: verified` · `account_review_status: APPROVED`. Ya no estamos en modo desarrollo.
+- [ ] ⚠️ **No hay plantilla para enviar el acceso a un prospecto.** Las dos aprobadas son `hello_world` (prueba) y `pre_afiliacion_nueva`, que es un **aviso al arquitecto** (*"X dejó lista su pre-afiliación… comuníquese pronto"*), no un mensaje al prospecto. Enviar el enlace de acceso desde el WABA a alguien que **no escribió primero** exige una plantilla nueva aprobada. Si la persona escribe primero, se abre la ventana de 24 h y el mensaje sale en texto libre, sin plantilla.
+- [ ] **Desplegar el reconocimiento de `ACCESO`** — implementado en `src/app/api/whatsapp/webhook/route.ts` (primer contacto + palabra "acceso" → la respuesta de Queswa se completa con el enlace y la atribución del patrocinador). Compila; falta push a producción.
+- [ ] **Plantilla `acceso_creatuactivo`** — creada 4 ago 2026, id `1034288436163506`, `PENDING`, UTILITY/es. Revisar si Meta la aprueba o la reclasifica a MARKETING. **No bloquea el flujo de captación** (la persona escribe primero → texto libre); sirve para retomar después de las 24 h.
+- [ ] **Declarar `/{slug}/queswa` en `DESTINO_MAP`** o dejar de usarlo — hoy cae al fallback y aterriza en la Home con `?ref`. Funciona, pero por accidente.
+- [ ] **App Review de Instagram** — `instagram_business_manage_messages` + `instagram_business_manage_comments` con **Acceso avanzado**, para el flujo "comente ACCESO y le llega el enlace". Requiere la integración construida antes de someter (Meta pide screencast del caso de uso funcionando). Ver el plan en el handoff del canal.
+
+**Chequeo rápido de estado:**
+```bash
+set -a; . ./.env.local; set +a
+curl -s "https://graph.facebook.com/v22.0/${WHATSAPP_PHONE_NUMBER_ID}?fields=verified_name,name_status,new_name_status,code_verification_status,quality_rating,status&access_token=${WHATSAPP_SYSTEM_TOKEN}"
+```
+
 ## Queswa — motor y guardrails
 
 - [ ] **Falsos positivos del guardrail de WhatsApp** (`detectarModeloInventado()` en `src/app/api/whatsapp/webhook/route.ts`):

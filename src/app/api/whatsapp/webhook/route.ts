@@ -17,6 +17,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { sendText } from '@/lib/wa-channel';
+import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -71,8 +72,28 @@ export async function POST(request: Request) {
     const message     = messages[0];
     const contact     = body.entry[0].changes[0].value.contacts?.[0];
     const phoneNumber = message.from as string;
-    const messageText = message.text?.body as string | undefined;
     const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
+
+    // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
+    // En LATAM el audio es la forma natural de explicar algo con matices; antes
+    // se leía solo `text.body` y una nota de voz caía en silencio absoluto.
+    let messageText = message.text?.body as string | undefined;
+    const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
+
+    if (!messageText && audioId) {
+      const transcrito = await transcribirNotaDeVoz(audioId);
+      if (transcrito) {
+        messageText = transcrito;
+        console.log(`🎙 [WA Webhook] Nota de voz de ${phoneNumber} transcrita`);
+      } else {
+        // No dejar a la persona hablando sola: se le dice qué pasó y se sigue.
+        await sendWhatsAppMessage(
+          phoneNumber,
+          'Perdón, no logré escuchar bien su nota de voz. ¿Me la escribe en un mensaje?',
+        );
+        return new Response('OK', { status: 200 });
+      }
+    }
 
     // ─── Detectar CTWA (Click-To-WhatsApp Ads) ────────────────────────────────
     // Meta incluye `referral` cuando el mensaje viene de un anuncio
@@ -96,20 +117,23 @@ export async function POST(request: Request) {
       console.log(`📢 [WA Webhook] CTWA detectado — ad: ${referral?.source_id}, headline: "${referral?.headline}"`);
     }
 
-    // Solo procesar mensajes de texto
+    // Sin texto y sin audio (imagen, sticker, ubicación) — no hay nada que procesar
     if (!messageText) {
       return new Response('OK', { status: 200 });
     }
 
     console.log(`📥 [WA Webhook] ${contactName} (${phoneNumber}): "${messageText}" ${isCTWA ? '[CTWA]' : ''}`);
 
-    // ─── Palabra clave de acceso ──────────────────────────────────────────────
-    // El socio le dice al contacto "escríbame ACCESO" (sticker de historia, bio,
-    // comentario, o el enlace wa.me?text=ACCESO). Esa persona ABRE la conversación
-    // → se abre la ventana de servicio de 24 h y podemos responder en texto libre,
-    // sin plantilla. Lo único que falta es entregarle el acceso: el saludo normal
-    // de Queswa no lleva enlace.
-    const pidioAcceso = /\bacceso\b/i.test(messageText);
+    // ─── Sobre la palabra "ACCESO" ────────────────────────────────────────────
+    // El socio le dice al contacto "escríbame ACCESO". El trabajo real de esa
+    // palabra es que la persona ABRA la conversación: eso abre la ventana de
+    // servicio de 24 h y habilita responder en texto libre, sin plantilla.
+    //
+    // Ya NO dispara ninguna entrega especial. El acceso ES la conversación: el
+    // saludo de Queswa entrega el valor y la charla sigue aquí. Antes se anexaba
+    // un enlace al sitio, lo que sacaba a la persona del único canal donde
+    // tenemos su teléfono y contradecía al propio system prompt, que posiciona a
+    // Queswa como el destino. Ver docs/handoff/negocio/ESTRATEGIA_CANAL_WHATSAPP.md.
 
     // ─── 1. Registrar prospect en Supabase ────────────────────────────────────
     const waFingerprint = `wa_${phoneNumber}`;
@@ -283,19 +307,6 @@ export async function POST(request: Request) {
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
       return new Response('OK', { status: 200 });
-    }
-
-    // ─── 3.6 Entrega del acceso ───────────────────────────────────────────────
-    // Solo en el PRIMER contacto y solo si pidió acceso: quien ya viene
-    // conversando no necesita que le repitan el enlace en cada turno.
-    // El enlace lleva la atribución del socio; sin patrocinador va a la Home
-    // limpia y el prospecto lo trabaja el equipo (mismo criterio que la atribución).
-    if (pidioAcceso && !existingProspect) {
-      const enlace = patrocinador
-        ? `https://creatuactivo.com/?ref=${patrocinador.constructorId}`
-        : 'https://creatuactivo.com/';
-      queswaReply = `${queswaReply}\n\nAquí está su acceso: ${enlace}\n\nVéalo con calma y pregúnteme lo que quiera por aquí.`.trim();
-      console.log(`🔑 [WA Webhook] Acceso entregado a ${phoneNumber} → ${enlace}`);
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────

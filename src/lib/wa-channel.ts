@@ -250,6 +250,64 @@ export async function listTemplates(): Promise<{ templates: WATemplate[]; error?
   }
 }
 
+// ─── Lectura: media entrante (notas de voz, imágenes) ─────────────────────────
+
+export interface WAMedia {
+  buffer: ArrayBuffer
+  mimeType: string
+}
+
+/**
+ * Descarga un archivo que el usuario envió por WhatsApp (nota de voz, imagen).
+ *
+ * Meta lo entrega en dos saltos: primero se pide el metadato del `media_id`, que
+ * responde una URL efímera; esa URL **también exige el token** — pedirla sin
+ * Authorization devuelve 401 aunque parezca un enlace público.
+ *
+ * En LATAM la nota de voz es la norma, no la excepción: sin esto, quien manda un
+ * audio no recibe absolutamente nada de vuelta.
+ */
+export async function downloadMedia(mediaId: string): Promise<{ media?: WAMedia; error?: string }> {
+  const creds = credentials();
+  if ('error' in creds) return { error: creds.error };
+
+  try {
+    const metaRes = await fetch(`${GRAPH}/${mediaId}`, {
+      headers: { Authorization: `Bearer ${creds.systemToken}` },
+    });
+    const metaData = await metaRes.json();
+
+    if (!metaRes.ok) {
+      const msg = metaError(metaRes.status, metaData);
+      console.error(`❌ [WA] downloadMedia (metadato) — ${msg}`);
+      return { error: msg };
+    }
+
+    const url = metaData?.url as string | undefined;
+    if (!url) return { error: '[WA] El metadato del media no trae URL' };
+
+    const fileRes = await fetch(url, {
+      headers: { Authorization: `Bearer ${creds.systemToken}` },
+    });
+
+    if (!fileRes.ok) {
+      const msg = `Meta API ${fileRes.status} al descargar el archivo`;
+      console.error(`❌ [WA] downloadMedia (archivo) — ${msg}`);
+      return { error: msg };
+    }
+
+    const buffer = await fileRes.arrayBuffer();
+    const mimeType = (metaData?.mime_type as string | undefined) || 'audio/ogg';
+    console.log(`✅ [WA] Media ${mediaId} descargado (${mimeType}, ${buffer.byteLength} bytes)`);
+    return { media: { buffer, mimeType } };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] downloadMedia error:', msg);
+    return { error: msg };
+  }
+}
+
 // ─── Lectura: identidad del número emisor ─────────────────────────────────────
 
 /**

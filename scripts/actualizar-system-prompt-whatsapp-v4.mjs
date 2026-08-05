@@ -19,8 +19,8 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v3.0';
-const ARCHIVO_PROMPT = 'system-prompt-queswa-whatsapp-v3.md';
+const VERSION_LABEL = 'v4.0';
+const ARCHIVO_PROMPT = 'system-prompt-queswa-whatsapp-v4.md';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const promptContent = readFileSync(join(__dirname, '../knowledge_base', ARCHIVO_PROMPT), 'utf-8');

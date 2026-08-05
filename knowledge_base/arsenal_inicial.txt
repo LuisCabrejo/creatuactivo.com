@@ -95,13 +95,13 @@ Lo digital es lo que le quita el peso de encima: yo converso por WhatsApp con ca
 ## 📖 **BLOQUE 2: HISTORIA DE ORIGEN (STORY) - 2 respuestas**
 
 ### **STORY_01: "¿Quién es Luis Cabrejo? / ¿Quién construyó CreaTuActivo.com? / ¿Quién es el CEO o fundador de CreaTuActivo y Queswa?"**
-**[Concepto Nuclear]:** La historia de Luis: vivió el sueldo que no alcanza y el negocio que esclaviza; llegó a Diamante en Gano Excel, pero su éxito no se replicaba en su equipo. Creó CreaTuActivo + Queswa para hacer el éxito replicable para todos.
+**[Concepto Nuclear]:** La historia de Luis: vivió el sueldo que no alcanza y el negocio que esclaviza; llegó a Diamante en Gano Excel, pero su éxito no se replicaba en su equipo. Creó CreaTuActivo + Queswa para hacer el éxito replicable para todos. ⚠️ **Cuente SOLO lo que está escrito abajo** (misma regla que STORY_02). La imagen que Luis usa para esa etapa es la **bicicleta estática**: le daba y le daba y financieramente seguía en el mismo lugar. Corregido el 4 ago 2026 por él mismo — una sesión anterior le había atribuido otra imagen que nunca ha contado. Cualquier detalle biográfico que no esté escrito aquí, no se dice.
 
 Luis Cabrejo es el fundador de CreaTuActivo y de Queswa, su plataforma de inteligencia artificial. Y no llega desde la teoría: lo vivió en carne propia.
 
 Trabajó en el sector automotriz, donde aprendió lo que es que el sueldo llegue… y a los quince días ya no quede nada. Después construyó empresas en varios sectores, y entendió que **el éxito de hoy no garantiza el de mañana**: impuestos que cambian, proveedores, nómina, infraestructura — variables que uno no controla, y que terminan volviendo la vida un mismo ciclo: **trabajar, pagar cuentas y repetir.**
 
-Ahí cayó en cuenta de algo: el problema no era su esfuerzo. Era el sistema en el que estaba parado: la plata llegaba y al día siguiente ya tenía dueño, y nada de eso dejaba algo construido a su nombre.
+Ahí cayó en cuenta de algo: el problema no era su esfuerzo. Era el sistema en el que estaba parado. Él lo describe así: **se sentía en una bicicleta estática** — le daba y le daba, y financieramente seguía en el mismo lugar.
 
 Buscando la salida, se apalancó en un gigante —**Gano Excel**— y en un producto de consumo diario presente en todo el continente. Le funcionó: llegó a **Diamante en dos años y medio** y alcanzó lo que muchos buscan — independencia financiera y viajes por el mundo.
 
@@ -110,6 +110,19 @@ Pero algo lo confrontó: **su éxito no se estaba reflejando en su equipo.** Y a
 Así nacieron **creatuactivo.com** y **Queswa** — para que cualquiera pueda construir lo que él construyó, con el sistema cargando el trabajo pesado.
 
 **Pregunta de seguimiento:** ¿En qué punto de ese camino se reconoce usted?
+
+---
+
+### **STORY_03: "No me alcanza / Estoy cansado / Trabajo mucho y no veo resultados / La plata no me rinde / Vivo endeudado / Siempre estoy en lo mismo / Necesito otra entrada"**
+**[Concepto Nuclear]:** El villano **narrado en segunda persona**, para cuando la persona ya se abrió y contó lo suyo. Dos piezas hacen el trabajo y ninguna se puede recortar: **"ese dinero ya tiene dueño"** es concreto y se reconoce sin explicación; y **"al que gana dos millones y al que gana más de veinte"** cierra la salida de emergencia — sin esa frase, quien gana bien se exime (*"ese no es mi caso"*) y se acabó la conversación. El "más de" es deliberado: incluye al que gana treinta, cuarenta o cincuenta. ⚠️ **NO abrir con esto.** Solo se usa cuando la persona ya habló de su situación; en frío es un diagnóstico entregado como veredicto a alguien de quien no sabemos nada. Distinto de STORY_01, que cuenta lo mismo en tercera persona y en pasado porque es la biografía de Luis, no la vida del prospecto.
+
+<verbatim_lock>
+Casi todos vivimos lo mismo: usted trabaja el mes entero, pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño — el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y repetir.
+
+Y no pasa por falta de capacidad ni de esfuerzo: le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le suena conocido?
 
 ---
 

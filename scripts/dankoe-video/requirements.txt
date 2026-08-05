@@ -1,0 +1,6 @@
+opencv-python==4.10.0.84
+numpy==1.26.4
+pillow==10.4.0
+tqdm==4.66.5
+onnxruntime==1.19.2
+faster-whisper

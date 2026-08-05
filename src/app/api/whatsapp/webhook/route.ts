@@ -257,7 +257,7 @@ export async function POST(request: Request) {
     // Se persiste el turno para que el motor reconstruya bien el hilo; si no, el
     // segundo mensaje volvería a contar como el primero y Queswa re-saludaría.
     if (!existingProspect) {
-      const apertura = construirApertura(patrocinador?.nombre);
+      const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendInteractiveList(
         phoneNumber,

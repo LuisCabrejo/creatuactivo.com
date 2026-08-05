@@ -153,27 +153,93 @@ const RESPUESTAS_BOTONES: Record<string, string> = {
 };
 
 /**
- * ⚠️ NO se usa el nombre de perfil para saludar. Conservado por si vuelve a
- * hacer falta en otro punto de la conversación.
+ * Nombres de pila frecuentes en Colombia y el mundo hispano.
  *
- * Razón (probado en campo, 4 ago 2026): el nombre de perfil de WhatsApp es la
- * MARCA cuando la cuenta es Business — un saludo salió "Hola, Crea." porque el
- * perfil era "Crea Tu Activo". Y los nichos del proyecto son justo quienes más
- * usan WhatsApp Business: empresarios e informales. Un barbero con su cuenta
- * como "Barbería El Sol" recibiría "Hola, Barbería."
+ * Es una LISTA BLANCA a propósito, no un detector de negocios. Un detector se
+ * equivoca hacia el lado caro ("Hola, Barbería"); una lista blanca se equivoca
+ * hacia el barato (no saluda por nombre a alguien con un nombre poco común, que
+ * es exactamente lo que hacíamos con todos hasta ahora).
  *
- * La asimetría decide: acertar suma una calidez pequeña; fallar produce un
- * tropiezo que grita "esto es un robot", que es exactamente la señal que destruye
- * la confianza en los primeros segundos. La personalización que sí pesa es el
- * NOMBRE DEL SOCIO, que viene de la base y es confiable. El nombre del prospecto
- * Queswa lo sabrá en dos o tres turnos, cuando él lo diga.
+ * Se compara sin tildes y en minúscula, así que basta una forma por nombre.
+ */
+const NOMBRES_DE_PILA = new Set([
+  // Masculinos
+  'juan','carlos','jose','luis','jorge','andres','diego','julian','camilo','santiago',
+  'sebastian','david','daniel','miguel','fernando','ricardo','oscar','alvaro','javier',
+  'alejandro','felipe','mauricio','german','hernan','ivan','jhon','john','wilson','edison',
+  'nelson','fabian','cristian','christian','brayan','brahyam','yeison','jefferson','duvan',
+  'edwin','anderson','alex','alexander','gustavo','hugo','ruben','raul','rafael','ramiro',
+  'pedro','pablo','manuel','marco','mario','martin','nestor','orlando','omar','rodrigo',
+  'sergio','victor','wilmar','yesid','arnulfo','efrain','elkin','freddy','gabriel','gerardo',
+  'gilberto','gonzalo','guillermo','hector','henry','jaime','jairo','jesus','joaquin',
+  'leonardo','libardo','marlon','nicolas','oswaldo','rigoberto','samuel','tomas','uriel',
+  'esteban','emilio','ernesto','eduardo','enrique','antonio','alberto','armando','arturo',
+  'benjamin','bernardo','cesar','ceferino','cristobal','damian','dario','edgar','eliecer',
+  'emmanuel','ferney','francisco','geovanny','giovanny','harold','ignacio','isaac','israel',
+  'jarrison','jhonatan','jonathan','julio','kevin','lorenzo','lucas','matias','mateo',
+  'maximiliano','norberto','octavio','pastor','ramon','reinaldo','roberto','rodolfo','rolando',
+  'salvador','saul','simon','teodoro','vicente','wilfredo','william','yohan',
+  // Femeninos
+  'maria','ana','luz','martha','marta','sandra','diana','claudia','paola','carolina',
+  'catalina','natalia','andrea','adriana','alejandra','angela','beatriz','blanca','carmen',
+  'cecilia','clara','consuelo','daniela','dora','elena','elizabeth','erika','esperanza',
+  'fabiola','flor','gloria','gladys','graciela','hilda','ingrid','irma','isabel','jenny',
+  'jessica','johana','johanna','juliana','karen','karina','laura','leidy','liliana','lina',
+  'lorena','lucia','luisa','magda','marcela','margarita','mariana','maribel','marisol',
+  'mercedes','michelle','milena','monica','myriam','miriam','nancy','nidia','nubia','olga',
+  'patricia','paula','pilar','rocio','rosa','rubiela','ruth','sara','silvia','sofia','sonia',
+  'stella','tatiana','teresa','valentina','vanessa','veronica','victoria','viviana','yolanda',
+  'yuliana','zulma','belcy','maryi','sidney','amparo','aura','cielo','edilma','eugenia',
+  'fanny','gina','ines','janeth','leonor','ligia','lucero','luzmila','melissa','nataly',
+  'nelly','norma','oliva','omaira','rosalba','sirley','sol','yamile','yaneth','yenny',
+]);
+
+/** Palabras que delatan un nombre comercial aunque empiece con un nombre de pila. */
+const RE_MARCA = /\b(sas|s\.a\.s|ltda|cia|sa|inc|corp|store|shop|boutique|barberia|barbería|salon|salón|spa|restaurante|panaderia|panadería|distribuidora|comercializadora|inversiones|servicios|soluciones|grupo|tienda|mercado|farmacia|drogueria|droguería|taller|motos|autos|viajes|seguros|inmobiliaria|constructora|transportes|logistica|logística|academia|instituto|gimnasio|gym|agencia|consultorio|clinica|clínica|veterinaria|ferreteria|ferretería|papeleria|papelería|variedades|creaciones|publicidad|marketing|oficial)\b/i;
+
+function sinTildes(s: string): string {
+  // Rango de diacríticos combinantes, escapado a propósito: escribirlo literal
+  // deja caracteres invisibles en el fuente y cualquier editor puede comérselos.
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+/**
+ * Nombre para saludar, o `null` si no hay certeza de que sea una persona.
+ *
+ * Por qué es tan conservador (probado en campo, 4 ago 2026): el nombre de perfil
+ * de WhatsApp es la MARCA cuando la cuenta es Business — un saludo salió "Hola,
+ * Crea." porque el perfil era "Crea Tu Activo". Y los nichos del proyecto son
+ * justo quienes más usan WhatsApp Business: empresarios e informales.
+ *
+ * Manda la asimetría: acertar suma una calidez pequeña; fallar produce un
+ * tropiezo que grita "esto es un robot", la señal que destruye la confianza en
+ * los primeros segundos. Ante la duda, no se saluda por nombre — nunca al revés.
+ *
+ * Devuelve solo el PRIMER nombre. En trato directo "Hola, Juan" es lo que diría
+ * una persona; "Hola, Juan Pérez" es lo que diría un banco. (Distinto del socio,
+ * a quien se nombra en tercera persona y ahí sí piden dos palabras.)
  */
 function nombreUtil(nombre?: string): string | null {
   if (!nombre) return null;
+
   const limpio = nombre.trim();
   if (!limpio || limpio.toLowerCase() === 'constructor') return null;
-  // Solo el primer nombre: "Hola, María Fernanda Restrepo" suena a formulario.
-  return limpio.split(/\s+/)[0];
+
+  // Dígitos, arrobas, urls o emoji → nombre comercial o alias, no una persona.
+  if (/[\d@/_|+·•]/.test(limpio)) return null;
+  if (/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(limpio)) return null;
+  if (RE_MARCA.test(limpio)) return null;
+
+  const partes = limpio.split(/\s+/).filter(Boolean);
+  // Más de cuatro palabras deja de parecer un nombre y empieza a parecer un letrero.
+  if (partes.length > 4) return null;
+
+  const primera = sinTildes(partes[0].toLowerCase());
+  if (!NOMBRES_DE_PILA.has(primera)) return null;
+
+  // Se devuelve con la grafía original (tildes incluidas), capitalizada.
+  const original = partes[0];
+  return original.charAt(0).toUpperCase() + original.slice(1).toLowerCase();
 }
 
 /**
@@ -201,13 +267,16 @@ function nombreSocioCorto(nombre?: string): string | undefined {
 /**
  * Cuerpo del mensaje de apertura.
  *
- * No recibe el nombre del prospecto a propósito — ver `nombreUtil()`.
- *
- * @param nombreSocio  Nombre del arquitecto que refirió; sin él se cae a la
- *                     marca, porque prometer un referidor que no existe es peor
- *                     que no nombrarlo.
+ * @param nombreSocio      Nombre del arquitecto que refirió; sin él se cae a la
+ *                         marca, porque prometer un referidor que no existe es
+ *                         peor que no nombrarlo.
+ * @param nombreProspecto  Nombre de perfil de WhatsApp. Se usa SOLO si supera el
+ *                         filtro de `nombreUtil()`; ante la duda se omite.
  */
-export function construirApertura(nombreSocio?: string): string {
+export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+
   // Se retiró "Me pidió que lo recibiera": además de sonar a relleno, ese "lo"
   // se refiere al PROSPECTO —no al socio— así que trataba en masculino a las
   // mujeres; y sobre todo no era cierto: nadie pidió recibir a esa persona en
@@ -218,7 +287,7 @@ export function construirApertura(nombreSocio?: string): string {
     : 'Soy Queswa, la inteligencia artificial de CreaTuActivo.';
 
   return [
-    'Hola. Un gusto saludarle. 🤝',
+    `${saludo} Un gusto saludarle. 🤝`,
     '',
     identidad,
     '',

@@ -116,7 +116,22 @@ export default async function DestinoRoute({
   // embebido en el texto pre-llenado, para que resolverPatrocinador() (webhook
   // WhatsApp) atribuya el prospecto al socio. Enlace limpio y confiable en vez
   // del wa.me con parámetros crudos que nadie se atreve a tocar.
+  //
+  // ⚠️ Se VALIDA el slug antes de redirigir. Sin la validación, un slug mal
+  // escrito o de alguien no registrado redirigía igual: el prospecto escribía,
+  // resolverPatrocinador() no encontraba a nadie, y entraba sin dueño — fuera del
+  // Radar del socio, sin aviso, y con la apertura cayendo al saludo genérico de
+  // marca en vez de nombrarlo. Todo eso sin un solo error visible. Con un socio
+  // era invisible; con diez es una fuga silenciosa de prospectos.
   if (destino === 'queswa' || destino === 'acceso') {
+    const { data: c } = await supabase
+      .from('constructor_slugs')
+      .select('constructor_id')
+      .eq('slug', slug)
+      .single()
+
+    if (!c) notFound()
+
     const texto = `Hola Queswa 👋 vengo del enlace de ${slug}`
     redirect(`https://wa.me/573215193909?text=${encodeURIComponent(texto)}`)
   }

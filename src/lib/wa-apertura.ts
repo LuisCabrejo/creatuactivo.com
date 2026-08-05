@@ -26,6 +26,11 @@
  *   la confianza casi sin reparación. Y aquí no es un costo: es el argumento —
  *   la persona no lee una promesa sobre la herramienta, la está usando.
  *
+ * • **Sin pronombre para el socio.** Decía "Él me pidió que lo recibiera", y de
+ *   los diez socios registrados la mayoría son mujeres — con ese texto la
+ *   apertura las trataba a todas en masculino. "Me pidió que lo recibiera"
+ *   funciona para cualquiera y no pierde nada. NO reintroducir el pronombre.
+ *
  * • **Sin pregunta abierta.** El villano NO va en la apertura: es un diagnóstico
  *   entregado como veredicto a alguien de quien no sabemos nada, y a quien no le
  *   aprieta el mes se exime en la línea tres. Se narra después, cuando la persona
@@ -76,6 +81,28 @@ function nombreUtil(nombre?: string): string | null {
 }
 
 /**
+ * Nombre del socio en su forma social, no legal.
+ *
+ * En la base los socios están con nombre completo de cédula — "Nidia Marleny
+ * Cabrejo Moncada", "Adriana Patricia Flores Salcedo". Presentarlo entero
+ * ("la inteligencia artificial que asiste a Nidia Marleny Cabrejo Moncada")
+ * suena a escritura pública y trabaja contra la calidez que sostiene toda la
+ * apertura.
+ *
+ * Se toman las dos primeras palabras. Es la regla robusta para Colombia: cae
+ * bien tanto en nombre + apellido ("Luis Cabrejo") como en nombre compuesto
+ * ("Carlos Alberto", "Nidia Marleny"), que es como esas personas se presentan.
+ * Intentar adivinar dónde empieza el apellido exige un diccionario de nombres y
+ * se equivoca justo en los casos ambiguos.
+ */
+function nombreSocioCorto(nombre?: string): string | undefined {
+  if (!nombre) return undefined;
+  const partes = nombre.trim().split(/\s+/).filter(Boolean);
+  if (partes.length === 0) return undefined;
+  return partes.slice(0, 2).join(' ');
+}
+
+/**
  * Cuerpo del mensaje de apertura.
  *
  * @param nombreProspecto  Nombre de perfil de WhatsApp; se omite si no es usable.
@@ -90,8 +117,9 @@ export function construirApertura(
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
 
-  const identidad = nombreSocio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${nombreSocio}. Él me pidió que lo recibiera. 🤝`
+  const socio = nombreSocioCorto(nombreSocio);
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Me pidió que lo recibiera. 🤝`
     : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. 🤝';
 
   return [

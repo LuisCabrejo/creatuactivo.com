@@ -181,7 +181,14 @@ export async function POST(request: Request) {
         .from('prospects')
         .insert({
           fingerprint_id: waFingerprint,
-          stage: 'awareness',
+          // ⚠️ 'awareness' NO existe: `prospects_stage_check` solo acepta
+          // 'expansion' y 'activar'. Con 'awareness' el INSERT fallaba con 23514
+          // y, como abajo solo se registra el error sin abortar, el prospecto
+          // recibía respuesta perfecta de Queswa y NUNCA quedaba en la base:
+          // sin atribución, fuera del Radar del socio y sin aviso a nadie.
+          // Silencioso desde que existe el webhook. Ver el commit que trae esta
+          // línea antes de "simplificar" el valor.
+          stage: 'expansion',
           source,
           ...(patrocinador && { constructor_id: patrocinador.userId }),
           device_info: {
@@ -202,7 +209,15 @@ export async function POST(request: Request) {
         });
 
       if (insertError) {
-        console.error('⚠️ [WA Webhook] Error insertando prospect:', insertError.message);
+        // Deliberadamente NO se aborta: la persona ya escribió y merece respuesta.
+        // Pero que el prospecto no quede registrado es una pérdida de negocio, no
+        // una advertencia menor — de ahí el nivel de ruido. Un fallo aquí significa
+        // que Queswa atiende impecable y el socio nunca se entera de que existió.
+        console.error(
+          `🚨 [WA Webhook] PROSPECTO PERDIDO — no se registró ${waFingerprint}: ` +
+          `${insertError.message} (code ${insertError.code}). ` +
+          `Queswa va a responder, pero este contacto NO queda atribuido a ningún socio.`,
+        );
       } else {
         console.log(`✅ [WA Webhook] Prospect registrado: ${waFingerprint} (${source})`);
       }

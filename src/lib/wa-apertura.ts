@@ -152,7 +152,22 @@ const RESPUESTAS_BOTONES: Record<string, string> = {
   ].join('\n'),
 };
 
-/** Nombres de perfil que no sirven para saludar (Meta rellena cuando no hay). */
+/**
+ * ⚠️ NO se usa el nombre de perfil para saludar. Conservado por si vuelve a
+ * hacer falta en otro punto de la conversación.
+ *
+ * Razón (probado en campo, 4 ago 2026): el nombre de perfil de WhatsApp es la
+ * MARCA cuando la cuenta es Business — un saludo salió "Hola, Crea." porque el
+ * perfil era "Crea Tu Activo". Y los nichos del proyecto son justo quienes más
+ * usan WhatsApp Business: empresarios e informales. Un barbero con su cuenta
+ * como "Barbería El Sol" recibiría "Hola, Barbería."
+ *
+ * La asimetría decide: acertar suma una calidez pequeña; fallar produce un
+ * tropiezo que grita "esto es un robot", que es exactamente la señal que destruye
+ * la confianza en los primeros segundos. La personalización que sí pesa es el
+ * NOMBRE DEL SOCIO, que viene de la base y es confiable. El nombre del prospecto
+ * Queswa lo sabrá en dos o tres turnos, cuando él lo diga.
+ */
 function nombreUtil(nombre?: string): string | null {
   if (!nombre) return null;
   const limpio = nombre.trim();
@@ -186,18 +201,13 @@ function nombreSocioCorto(nombre?: string): string | undefined {
 /**
  * Cuerpo del mensaje de apertura.
  *
- * @param nombreProspecto  Nombre de perfil de WhatsApp; se omite si no es usable.
- * @param nombreSocio      Nombre del arquitecto que refirió; sin él se cae a la
- *                         marca, porque prometer un referidor que no existe es peor
- *                         que no nombrarlo.
+ * No recibe el nombre del prospecto a propósito — ver `nombreUtil()`.
+ *
+ * @param nombreSocio  Nombre del arquitecto que refirió; sin él se cae a la
+ *                     marca, porque prometer un referidor que no existe es peor
+ *                     que no nombrarlo.
  */
-export function construirApertura(
-  nombreProspecto?: string,
-  nombreSocio?: string,
-): string {
-  const nombre = nombreUtil(nombreProspecto);
-  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
-
+export function construirApertura(nombreSocio?: string): string {
   // Se retiró "Me pidió que lo recibiera": además de sonar a relleno, ese "lo"
   // se refiere al PROSPECTO —no al socio— así que trataba en masculino a las
   // mujeres; y sobre todo no era cierto: nadie pidió recibir a esa persona en
@@ -208,7 +218,7 @@ export function construirApertura(
     : 'Soy Queswa, la inteligencia artificial de CreaTuActivo.';
 
   return [
-    `${saludo} Un gusto saludarle. 🤝`,
+    'Hola. Un gusto saludarle. 🤝',
     '',
     identidad,
     '',

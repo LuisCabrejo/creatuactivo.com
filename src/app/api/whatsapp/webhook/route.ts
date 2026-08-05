@@ -23,6 +23,7 @@ import {
   APERTURA_OPCIONES,
   APERTURA_BOTON,
   APERTURA_SECCION,
+  RESPUESTAS_BOTONES,
 } from '@/lib/wa-apertura';
 
 export const runtime = 'nodejs';
@@ -84,6 +85,7 @@ export async function POST(request: Request) {
     // En LATAM el audio es la forma natural de explicar algo con matices; antes
     // se leía solo `text.body` y una nota de voz caía en silencio absoluto.
     let messageText = message.text?.body as string | undefined;
+    let opcionElegida: string | undefined;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -96,6 +98,7 @@ export async function POST(request: Request) {
       const elegido = interactivo?.list_reply ?? interactivo?.button_reply;
       if (elegido?.title) {
         messageText = elegido.title;
+        opcionElegida = elegido.id;
         console.log(`👆 [WA Webhook] ${phoneNumber} eligió "${elegido.title}" (${elegido.id})`);
       }
     }
@@ -287,6 +290,33 @@ export async function POST(request: Request) {
       }
 
       console.log(`👋 [WA Webhook] Apertura entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
+      return new Response('OK', { status: 200 });
+    }
+
+    // ─── 1.6 Respuesta dictada a una opción de la apertura ────────────────────
+    // Las opciones son nodos determinísticos: se sabe de antemano qué pregunta
+    // hace la persona, así que el texto lo dicta el backend en vez de dejar que
+    // el modelo lo redacte cada vez. Al improvisar sobre "de dónde sale el
+    // dinero" escribió "cuando alguien en su organización compra su producto del
+    // mes" — autoconsumo mensual, la marca más delatora del multinivel, y encima
+    // falso porque Gano Excel liquida los viernes.
+    const dictada = opcionElegida ? RESPUESTAS_BOTONES[opcionElegida] : undefined;
+    if (dictada) {
+      await sendWhatsAppMessage(phoneNumber, dictada);
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).from('nexus_conversations').insert({
+          fingerprint_id: waFingerprint,
+          session_id: waFingerprint,
+          messages: [
+            { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
+            { role: 'assistant', content: dictada,     timestamp: new Date().toISOString() },
+          ],
+        });
+      } catch (err) {
+        console.error('⚠️ [WA Webhook] No se pudo persistir la respuesta dictada:', err);
+      }
+      console.log(`📌 [WA Webhook] Respuesta dictada para "${opcionElegida}" → ${phoneNumber}`);
       return new Response('OK', { status: 200 });
     }
 

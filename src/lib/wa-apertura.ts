@@ -61,15 +61,51 @@ export const APERTURA_OPCIONES: WAListRow[] = [
   },
   {
     id: 'apertura_sistema',
-    title: 'Cómo funciona el sistema',
-    description: 'Qué hace la tecnología por usted',
+    // "negocio", NO "sistema": es la formulación literal de cerca del 70% de las
+    // primeras preguntas reales, y el disparador canónico de WHY_02. Nadie
+    // pregunta "cómo funciona el sistema".
+    title: 'Cómo funciona el negocio',
+    description: 'El modelo completo, en concreto',
   },
   {
     id: 'apertura_rol',
+    // En PRIMERA persona a propósito: al tocar una opción, Meta la manda como
+    // MENSAJE DEL USUARIO. "Qué debe hacer usted" se leería como si el prospecto
+    // le preguntara a Queswa qué debe hacer Queswa — se invierte el sentido.
     title: 'Qué tendría que hacer yo',
     description: 'Su día a día real, sin adornos',
   },
 ];
+
+/**
+ * Respuestas dictadas para las opciones de la apertura.
+ *
+ * Por qué existen: en la primera prueba en vivo, el botón "De dónde sale el
+ * dinero" cayó en tierra de nadie — WHY_02 responde "cómo funciona el negocio" y
+ * FREQ_04 responde con tablas de comisiones, así que el modelo improvisó. Y al
+ * improvisar escribió *"cuando alguien en su organización compra su producto del
+ * mes"*: autoconsumo mensual obligatorio, la marca más delatora del multinivel.
+ * Nadie lo redactó; salió solo. Además era falso — Gano Excel liquida los viernes.
+ *
+ * Un nodo determinístico no se le deja al modelo. Mismo patrón que la apertura.
+ *
+ * ⚠️ Formato WhatsApp: negrita con *un* asterisco, no dos.
+ */
+export const RESPUESTAS_BOTONES: Record<string, string> = {
+  apertura_dinero: [
+    'Buena pregunta, y la más importante.',
+    '',
+    'El dinero sale de las ventas: café, bebidas y suplementos con ganoderma que fabrica y despacha *Gano Excel* —30 años, 70 países—. Usted arma un canal de distribución y lo dirige desde el celular: ni inventario, ni entregas.',
+    '',
+    'Se vende de dos formas, producto al detal y paquetes empresariales. De cada venta le queda un porcentaje, y se lo consignan *cada viernes*.',
+    '',
+    'Y *el café se acaba*: quien probó vuelve a pedir, y esa recompra ya no le cuesta trabajo.',
+    '',
+    'No es humo en la nube: es producto que llega a una dirección y plata que llega a un banco.',
+    '',
+    '¿Le muestro cómo se ve en números?',
+  ].join('\n'),
+};
 
 /** Nombres de perfil que no sirven para saludar (Meta rellena cuando no hay). */
 function nombreUtil(nombre?: string): string | null {
@@ -117,15 +153,29 @@ export function construirApertura(
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
 
+  // Se retiró "Me pidió que lo recibiera": además de sonar a relleno, ese "lo"
+  // se refiere al PROSPECTO —no al socio— así que trataba en masculino a las
+  // mujeres; y sobre todo no era cierto: nadie pidió recibir a esa persona en
+  // particular. La transferencia de confianza ya la produce nombrar al socio.
   const socio = nombreSocioCorto(nombreSocio);
   const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Me pidió que lo recibiera. 🤝`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. 🤝';
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}.`
+    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo.';
 
   return [
-    `${saludo} ${identidad}`,
+    `${saludo} Un gusto saludarle. 🤝`,
     '',
-    'Le explico cómo se construye un segundo ingreso, en paralelo a lo que usted ya hace, con el potencial de igualarlo o superarlo. Y de paso ve la herramienta funcionando: yo atiendo a quien pregunta, a la hora que sea.',
+    identidad,
+    '',
+    'Le explico cómo se construye un segundo ingreso, en paralelo a lo que usted ya hace, con el potencial de igualarlo o superarlo.',
+    '',
+    // La prueba social va aquí, en presente y verificable — 559 personas
+    // distintas han conversado con Queswa, así que "cientos" se queda corto.
+    // NO decir "a cada persona que usted invite": en el mensaje uno el prospecto
+    // todavía no aceptó nada, y sentarlo en la silla del dueño produce un
+    // "despacio". La autoeficacia —verse capaz de hacerlo— pertenece al botón
+    // "Qué tendría que hacer yo", donde es él quien la pide.
+    'Y de paso ve cómo trabajo: así es como ya atiendo a cientos de personas, las 24 horas.',
     '',
     '¿Por dónde prefiere empezar?',
   ].join('\n');

@@ -198,7 +198,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
-| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` v3.0 | Activo — negocio **verificado** y WABA **APPROVED** (comprobado 4 ago 2026) |
+| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` **v2.5 en Supabase** (el v3 local NO está desplegado) | Activo — negocio **verificado** y WABA **APPROVED** (comprobado 4 ago 2026) |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
@@ -228,7 +228,7 @@ ganocafe.online/cafe-3en1/index.html
 
 > 📄 **Estado detallado, historial de Meta y decisiones abiertas → [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md)** (el más reciente) · arquitectura del pipeline → [Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md](docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md). **No duplique aquí el estado de la cuenta de Meta** — cambia solo y se desincroniza.
 
-- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp` **v3.0** (fuente: `knowledge_base/system-prompt-queswa-whatsapp-v3.md`). CTWA (`referral` de ads Meta) → `device_info`.
+- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp` — ⚠️ **lo que CORRE en Supabase es v2.5** (5.805 chars, 31 jul 2026), verificado por consulta. El archivo `knowledge_base/system-prompt-queswa-whatsapp-v3.md` (8.269 chars) y el script `...-v3.mjs` existen pero **nunca se desplegaron**: `VERSION_LABEL` es lo que se pretende, no lo que corre. Comprobar siempre contra la BD. CTWA (`referral` de ads Meta) → `device_info`.
 - ⚠️ **Tres números, no confundirlos**: `+57 321 519 3909` = el WABA (Queswa) · `+57 320 341 5438` = personal de Luis (el 1-a-1) · `+57 320 680 5737` = WhatsApp Business en su móvil, `WHATSAPP_ORGANICO_DEFAULT` (fallback de reels).
 
 **Reglas que rompen el canal si se ignoran:**

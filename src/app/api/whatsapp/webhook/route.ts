@@ -25,6 +25,7 @@ import {
   APERTURA_SECCION,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
+import { gestionarCierre } from '@/lib/wa-radicacion';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -365,6 +366,50 @@ export async function POST(request: Request) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
     }
 
+    // ─── 2.5 Cierre: radicar la vinculación ───────────────────────────────────
+    // Nodo determinístico, como la apertura. El motor no puede atenderlo: su
+    // máquina de estados fue escrita para la web y remata ofreciendo dos enlaces
+    // wa.me al número del WABA — a alguien que está escribiendo desde adentro de
+    // esa misma conversación. Aquí se piden los cuatro datos que
+    // /api/pre-afiliacion exige y se deja el registro hecho.
+    const socio = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: yaRadicado } = await (supabase as any)
+      .from('pending_activations')
+      .select('id')
+      .eq('fingerprint_id', waFingerprint)
+      .maybeSingle();
+
+    const cierre = await gestionarCierre({
+      mensajeActual:  messageText,
+      historial,
+      whatsapp:       phoneNumber,
+      fingerprintId:  waFingerprint,
+      socio:          socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
+      constructorId:  socio?.constructorId,
+      yaRadicadoEnBD: !!yaRadicado,
+    });
+
+    if (cierre) {
+      await sendWhatsAppMessage(phoneNumber, cierre.texto);
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).from('nexus_conversations').insert({
+          fingerprint_id: waFingerprint,
+          session_id: waFingerprint,
+          messages: [
+            { role: 'user',      content: messageText,  timestamp: new Date().toISOString() },
+            { role: 'assistant', content: cierre.texto, timestamp: new Date().toISOString() },
+          ],
+        });
+      } catch (err) {
+        console.error('⚠️ [WA Webhook] No se pudo persistir el turno de cierre:', err);
+      }
+      console.log(`🎯 [WA Webhook] Cierre atendido para ${phoneNumber} (radicado: ${cierre.radicado})`);
+      return new Response('OK', { status: 200 });
+    }
+
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
     const pageContext = isCTWA
       ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
@@ -561,6 +606,42 @@ async function corregirTurnoEnvenenado(
     `⚠️ [WA Guardrail] No se pudo corregir el turno en BD de ${fingerprint} — el motor aún no lo había escrito. ` +
     'El modelo queda protegido igual (saneamiento al leer); sólo el registro humano queda con el texto bloqueado.',
   );
+}
+
+/**
+ * El socio de un prospecto que ya está en la base.
+ *
+ * `resolverPatrocinador()` solo lee el código del texto entrante, y ese código
+ * viaja únicamente en el primer mensaje. Cuando la persona vuelve tres días
+ * después a decir que quiere arrancar, el mensaje no trae nada — pero el
+ * prospecto ya quedó atribuido. Sin esto, el cierre nombraría "su socio" y la
+ * pre-afiliación se radicaría huérfana.
+ */
+async function resolverSocioDelProspecto(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorUserId: string | null | undefined,
+): Promise<Patrocinador | null> {
+  if (!constructorUserId) return null;
+
+  try {
+    const { data } = await supabase
+      .from('private_users')
+      .select('id, name, constructor_id, whatsapp')
+      .eq('id', constructorUserId)
+      .maybeSingle();
+
+    if (!data) return null;
+    return {
+      userId: data.id,
+      constructorId: data.constructor_id,
+      nombre: data.name,
+      whatsapp: data.whatsapp ?? undefined,
+    };
+  } catch (err) {
+    console.error('⚠️ [WA Webhook] Error resolviendo el socio del prospecto:', err);
+    return null;
+  }
 }
 
 async function resolverPatrocinador(

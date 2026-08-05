@@ -3637,10 +3637,24 @@ ${summaryParts.join('\n')}
     // El arsenal no se usa en esos estados — evita el round-trip innecesario a Voyage AI (~300ms)
     // ¿Suprimir RAG/Voyage este turno? Deriva del clasificador único de marcha + las
     // señales de continuación → imposible que se desincronice del FSM (causa de las grietas).
+    // ── EL CIERRE DE WHATSAPP NO VIVE AQUÍ ───────────────────────────────────
+    // Toda la máquina de estados de abajo (tabla ESP → nombre → WhatsApp → doble
+    // oferta) fue escrita para la web, y su último paso entrega dos enlaces wa.me
+    // al número del WABA. En el canal eso es un círculo: la persona está
+    // escribiendo desde adentro de esa conversación, con ese número, y le pedimos
+    // un teléfono que el canal ya nos dio.
+    //
+    // El cierre de WhatsApp lo dicta el webhook (`src/lib/wa-radicacion.ts`):
+    // pide los cuatro datos que /api/pre-afiliacion exige y deja el registro
+    // hecho. Aquí solo hay que apartarse — incluida la supresión de RAG, que sin
+    // texto dictado dejaría al modelo respondiendo precios de memoria.
+    const cierreLoManejaElCanal = tenantId === 'whatsapp';
+
     // Marchas 1 (tabla dictada) y 3 (registro) suprimen RAG. Marcha 2 (interés) lo MANTIENE.
     // En cierre escriturado solo se suprime si el usuario ESTÁ respondiendo lo pedido —
     // si interrumpe con una pregunta nueva, el RAG vuelve para responderla con fuentes.
     const isClosingFlowEarly = (() => {
+      if (cierreLoManejaElCanal) return false;                                          // WhatsApp: sin texto dictado, el RAG es la única fuente
       if (_handoffYaEntregado) return false;                                            // handoff hecho → flujo normal
       if (_whatsappSolicitado) return (_whatsappAhora || _whatsappValido) ? true : false;
       if (_nombreSolicitado3a || _botPidioNivelCombinadoEarly) return (_nombreAhora || _nombreValido) ? true : false;
@@ -4113,6 +4127,7 @@ ${getInitialGreeting()}
     };
 
     const getMicroPromptCierre = (): string => {
+      if (cierreLoManejaElCanal) return '';   // WhatsApp cierra por su propia vía (wa-radicacion.ts)
       // Estado 2: tabla ESP en modo informativo o cierre (sin Klaff Prize Frame agresivo)
       // Opción B (22 May 2026): eliminada la fricción coercitiva del Klaff Prize Frame.
       // Versión cálida del Director Académico (22 May 2026): cuando el usuario declara
@@ -4239,6 +4254,7 @@ STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques
     //
     // Ambos caminos son links a wa.me/573215193909 con texto pre-llenado distinto.
     const getCierreEstado4 = (): string => {
+      if (cierreLoManejaElCanal) return '';   // enviar un enlace wa.me a quien ya está en WhatsApp es un círculo
       if (closingState !== 4 || !mergedProspectData.package) return '';
       const paqueteCodigo = mergedProspectData.package;
 
@@ -4287,7 +4303,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
     // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
     // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
     // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
-    const arsenalParaCierre = (closingState === 2 || closingState === 3 || closingState === '3b' || closingState === 4)
+    const arsenalParaCierre = (!cierreLoManejaElCanal && (closingState === 2 || closingState === 3 || closingState === '3b' || closingState === 4))
       ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
       : arsenalContext;
 
@@ -4462,32 +4478,15 @@ ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — 
 ${(/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez|diferencia|compar|cu[aá]l (me |le )?(conviene|recomienda|elijo|sirve)|entre (ellos|los|las|esos|estos)|niveles?|valor(es)?|cu[aá]nto (cuesta|vale|sale)/i.test(latestUserMessage) || _botMostroPaquetes) ? getPaquetesPricingPin(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (tres fuerzas/socios, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
-${tenantId === 'whatsapp' ? `
-<instrucciones_absolutas_finales>
-Estas reglas están al final del contexto a propósito: son las últimas que lee y
-tienen prioridad sobre cualquier otra cosa, incluido lo que usted mismo haya
-respondido antes en esta conversación.
-
-1. MODELO DE NEGOCIO ÚNICO. CreaTuActivo es EXCLUSIVAMENTE distribución de
-   productos físicos de consumo (café, bebidas y suplementos con Ganoderma de
-   Gano Excel) apoyada en tecnología. El ingreso nace del consumo recurrente de
-   una organización de personas. NO existe ningún otro modelo.
-
-2. JAMÁS proponga que la persona monetice su oficio o su conocimiento. Está
-   prohibido sugerir: cursos, guías, e-books, infoproductos, plantillas,
-   consultoría, asesorías, servicios en línea, membresías, comunidades de pago,
-   "productos digitales", "crear contenido una vez y venderlo", o cualquier
-   variante de la economía de creadores. Nada de eso existe aquí y prometerlo
-   compromete legalmente a la empresa.
-
-3. El oficio de la persona sirve SOLO para ilustrar su situación actual (de qué
-   depende hoy su ingreso) y su credibilidad ante su círculo — NUNCA como aquello
-   que va a vender.
-
-4. Si no tiene información suficiente para responder algo, dígalo con naturalidad
-   y ofrezca conectar con el equipo humano. Nunca invente. Es preferible admitir
-   que no sabe a inventar una respuesta convincente.
-</instrucciones_absolutas_finales>` : ''}
+${/* El bloque <instrucciones_absolutas_finales> vivía aquí: cuatro reglas en
+     negativo ("JAMÁS", "está prohibido", "nunca invente") inyectadas en cada
+     turno de WhatsApp. Se retiró el 5 ago 2026 cuando el system prompt v4.2 pasó
+     esas mismas cuatro a forma afirmativa. Dejarlo era contarle al modelo, dos
+     veces por turno, exactamente lo que no debía escribir — y nombrar lo
+     prohibido lo hace más probable, no menos. El modelo de negocio y las tres
+     salidas ante el vacío ya están en <constraint_framework>; lo que de verdad
+     protege es el guardarraíl de salida del webhook, que revisa el texto ya
+     generado. NO reintroducir aquí. */ ''}
 ${tenantId === 'whatsapp' && recuperacionDebil ? `
 <contexto_insuficiente>
 La búsqueda en la base de conocimiento no devolvió material sólido para este

@@ -166,8 +166,13 @@ export async function extraerDatosRadicacion(
 
     const cedula = limpiar(crudo.cedula)?.replace(/\D/g, '') || null;
 
+    const nombre = limpiar(crudo.nombre);
+
     const datos: DatosRadicacion = {
-      nombre: limpiar(crudo.nombre),
+      // El campo pide el nombre como aparece en el documento, y con él se afilia
+      // ante Gano Excel. Un nombre de pila suelto radicaría un registro que el
+      // socio tendría que corregir a mano: es mejor un turno más de conversación.
+      nombre: nombre && nombre.trim().split(/\s+/).length >= 2 ? nombre : null,
       // Una cédula colombiana tiene entre 6 y 10 dígitos. Fuera de ese rango es
       // otra cosa (un teléfono, un año, un precio) y radicar con ella deja un
       // registro que hay que corregir a mano.

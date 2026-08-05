@@ -40,6 +40,7 @@
  */
 
 import type { WAListRow } from '@/lib/wa-channel';
+import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 
 /** Rótulo del botón que despliega la lista (máx. 20 caracteres). */
 export const APERTURA_BOTON = 'Ver opciones';
@@ -91,7 +92,51 @@ export const APERTURA_OPCIONES: WAListRow[] = [
  *
  * ⚠️ Formato WhatsApp: negrita con *un* asterisco, no dos.
  */
-export const RESPUESTAS_BOTONES: Record<string, string> = {
+/**
+ * Markdown de la web → formato de WhatsApp.
+ *
+ * Los textos canónicos viven en `respuestas-maestras.ts` escritos para la web,
+ * donde la negrita son dos asteriscos. WhatsApp usa uno solo: mandarlos sin
+ * convertir hace que se vean los asteriscos crudos en pantalla.
+ */
+function aFormatoWhatsApp(texto: string): string {
+  return texto.replace(/\*\*(.+?)\*\*/g, '*$1*');
+}
+
+/**
+ * Texto dictado para cada opción de la apertura, o `null` si esa opción no
+ * tiene uno y debe ir por el motor.
+ *
+ * Las opciones 2 y 3 NO se copian aquí: se leen de `respuestas-maestras.ts`,
+ * que a su vez está obligado a coincidir carácter por carácter con los bloques
+ * `<verbatim_lock>` de `arsenal_inicial.txt`. Duplicar el texto habría creado
+ * una tercera copia que se desincroniza sola; derivarlo mantiene una sola verdad
+ * y hace que una corrección en el arsenal llegue también a WhatsApp.
+ *
+ * ⚠️ Estas dos son largas para el canal (1.3–1.5 K caracteres, seis y ocho
+ * bloques) frente a la regla de "3–4 líneas por mensaje" del system prompt. Se
+ * conservan íntegras a propósito: son respuestas con candado verbatim y
+ * recortarlas sería reescribir doctrina. Si se quiere partirlas en varios
+ * mensajes, decidirlo explícitamente — no hacerlo por goteo.
+ */
+export function getRespuestaBoton(opcionId: string): string | null {
+  const dictada = RESPUESTAS_BOTONES[opcionId];
+  if (dictada) return dictada;
+
+  // Opciones que ya tienen respuesta canónica con candado verbatim.
+  const canonica: Record<string, string> = {
+    apertura_sistema: '¿Y esto cómo funciona, exactamente?',
+    apertura_rol:     '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
+  };
+
+  const chip = canonica[opcionId];
+  if (!chip) return null;
+
+  const maestra = getRespuestaMaestra(chip);
+  return maestra ? aFormatoWhatsApp(maestra) : null;
+}
+
+const RESPUESTAS_BOTONES: Record<string, string> = {
   apertura_dinero: [
     'Buena pregunta, y la más importante.',
     '',

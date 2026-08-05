@@ -23,7 +23,7 @@ import {
   APERTURA_OPCIONES,
   APERTURA_BOTON,
   APERTURA_SECCION,
-  RESPUESTAS_BOTONES,
+  getRespuestaBoton,
 } from '@/lib/wa-apertura';
 
 export const runtime = 'nodejs';
@@ -300,7 +300,7 @@ export async function POST(request: Request) {
     // dinero" escribió "cuando alguien en su organización compra su producto del
     // mes" — autoconsumo mensual, la marca más delatora del multinivel, y encima
     // falso porque Gano Excel liquida los viernes.
-    const dictada = opcionElegida ? RESPUESTAS_BOTONES[opcionElegida] : undefined;
+    const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
     if (dictada) {
       await sendWhatsAppMessage(phoneNumber, dictada);
       try {

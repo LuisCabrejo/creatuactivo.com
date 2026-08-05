@@ -130,6 +130,27 @@ Dos informes: [Estrategia Canales de Mensajería](../../investigaciones/posicion
 | **Latencia cero se lee como robot** (Teoría de Violación de Expectativas). | Se responde tan rápido como el modelo termine. | Considerar retardo tipográfico en respuestas que semánticamente exigen análisis. |
 | **WhatsApp Flows** permite renderizar micro-interfaces dentro del chat. | Se planeaba mandar al sitio para el simulador. | **Tensión real entre los dos informes**: el primero dice mandar al sitio con orbe de regreso; el segundo dice no externalizar y usar Flows. El segundo está mejor sustentado. Evaluar Flows para el simulador antes de dar por cerrada la ruta del sitio. |
 
+### 8.2.1. Estado de implementación (4 ago 2026)
+
+| Hallazgo | Estado |
+|---|---|
+| Retirar el enlace que sacaba al prospecto | ✅ Desplegado (`3ab8c8a`) |
+| Transcribir notas de voz entrantes | ✅ Desplegado (`3ab8c8a`) — `wa-audio.ts` + `downloadMedia()` |
+| Nombrar al socio + declarar IA + opciones cerradas | ✅ Desplegado — `wa-apertura.ts`, lista interactiva |
+| Retardo tipográfico ante latencia cero | ⏳ Pendiente |
+| WhatsApp Flows para el simulador | ⏳ Por evaluar |
+| Palabra clave en Instagram / Facebook / TikTok | ⏳ Proyecto aparte (§7.2) |
+
+**La apertura la dicta el backend, no el modelo** ([`src/lib/wa-apertura.ts`](../../../src/lib/wa-apertura.ts)), por dos razones propias del canal: nombra al socio que refirió —dato que solo resuelve el webhook— y va como lista interactiva, que el motor no sabe emitir porque devuelve texto. Es el mismo patrón de `getMicroPromptApertura()`: donde el nodo es determinístico, dicta el backend.
+
+⚠️ **No usar `getInitialGreeting()` de `queswa-greeting.ts` para WhatsApp** — ese saludo es compartido con la web, no conoce al socio y no declara la identidad de IA.
+
+**Por qué el villano no va en la apertura.** El borrador previo abría con *"el modelo de trabajar todo el mes para cederle el control de su dinero a los recibos y al banco ya no tiene sentido"*. Se retiró por dos razones, no por longitud: es un diagnóstico entregado como veredicto a alguien de quien no sabemos nada todavía, y a quien no le aprieta el mes se exime en la tercera línea. El villano se narra **después**, cuando la persona ya habló y se le puede calzar a su caso.
+
+**Límites de Meta que hay que contar al editar** (excederlos hace que Meta rechace el mensaje entero, no que lo recorte): título de opción **24**, descripción **72**, rótulo del botón **20**, cuerpo **1024**. Los tres títulos actuales miden 23, 24 y 24 — están al límite. Por eso se eligió lista y no botones de respuesta: esos admiten solo 20 y obligaban a mutilar las preguntas.
+
+⚠️ **Al tocar una opción, Meta no envía `text.body` sino `interactive.list_reply`.** El webhook ya lo lee. Es la misma clase de fallo que tenían las notas de voz: si no se lee, el toque produce silencio.
+
 ### 8.3. Restricciones de plataforma que hay que respetar
 
 - **La etiqueta `HUMAN_AGENT` es una trampa.** Extiende la ventana de Instagram a 7 días, pero Meta la reserva a soporte humano real; usarla para secuencias automatizadas termina en bloqueo de API.

@@ -127,6 +127,93 @@ export async function sendText(to: string, text: string): Promise<WAResult> {
   }
 }
 
+// ─── Envío: mensaje interactivo de lista ──────────────────────────────────────
+
+export interface WAListRow {
+  /** Se devuelve en `interactive.list_reply.id` cuando la persona elige. */
+  id: string
+  /** Máx. 24 caracteres — Meta rechaza el mensaje entero si se pasa. */
+  title: string
+  /** Máx. 72 caracteres. */
+  description?: string
+}
+
+/**
+ * Lista de opciones dentro del chat.
+ *
+ * Por qué lista y no botones: los botones de respuesta admiten 20 caracteres y
+ * las preguntas reales del prospecto no caben sin mutilarlas. La lista da 24 más
+ * una línea de descripción.
+ *
+ * Por qué opciones y no una pregunta abierta: una pregunta abierta en el primer
+ * mensaje carga cognitivamente y se lee como interrogatorio; el micro-compromiso
+ * de un toque sostiene la conversación.
+ *
+ * ⚠️ Cuando la persona elige, Meta NO envía `text.body` sino
+ * `interactive.list_reply`. Quien consuma el webhook tiene que leerlo o el toque
+ * no produce nada.
+ */
+export async function sendInteractiveList(
+  to: string,
+  bodyText: string,
+  buttonLabel: string,
+  rows: WAListRow[],
+  sectionTitle = 'Temas',
+): Promise<WAResult> {
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+
+  // Recortar a los límites de Meta en vez de que rechace el mensaje completo.
+  const filas = rows.slice(0, 10).map((r) => ({
+    id: r.id.slice(0, 200),
+    title: r.title.slice(0, 24),
+    ...(r.description && { description: r.description.slice(0, 72) }),
+  }));
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: normalizePhone(to),
+        type: 'interactive',
+        interactive: {
+          type: 'list',
+          body: { text: bodyText.slice(0, 1024) },
+          action: {
+            button: buttonLabel.slice(0, 20),
+            sections: [{ title: sectionTitle.slice(0, 24), rows: filas }],
+          },
+        },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendInteractiveList — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] Lista enviada a ${normalizePhone(to)} (${filas.length} opciones, msg: ${messageId})`);
+    return { ok: true, messageId };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendInteractiveList error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
 // ─── Envío: plantilla (whatsapp_business_messaging) ───────────────────────────
 
 /**

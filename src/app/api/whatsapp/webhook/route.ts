@@ -16,8 +16,14 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
-import { sendText } from '@/lib/wa-channel';
+import { sendText, sendInteractiveList } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
+import {
+  construirApertura,
+  APERTURA_OPCIONES,
+  APERTURA_BOTON,
+  APERTURA_SECCION,
+} from '@/lib/wa-apertura';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -79,6 +85,20 @@ export async function POST(request: Request) {
     // se leía solo `text.body` y una nota de voz caía en silencio absoluto.
     let messageText = message.text?.body as string | undefined;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
+
+    // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
+    // toque de la persona no produce absolutamente nada.
+    if (!messageText) {
+      const interactivo = message.interactive as {
+        list_reply?: { id?: string; title?: string };
+        button_reply?: { id?: string; title?: string };
+      } | undefined;
+      const elegido = interactivo?.list_reply ?? interactivo?.button_reply;
+      if (elegido?.title) {
+        messageText = elegido.title;
+        console.log(`👆 [WA Webhook] ${phoneNumber} eligió "${elegido.title}" (${elegido.id})`);
+      }
+    }
 
     if (!messageText && audioId) {
       const transcrito = await transcribirNotaDeVoz(audioId);
@@ -208,6 +228,51 @@ export async function POST(request: Request) {
           .update(patch)
           .eq('fingerprint_id', waFingerprint);
       }
+    }
+
+    // ─── 1.5 Apertura dictada (solo primer contacto) ──────────────────────────
+    // El primer mensaje NO lo genera el modelo: es copy calibrado, nombra al socio
+    // que refirió (dato que solo vive aquí) y va como lista interactiva, que el
+    // motor no sabe emitir porque devuelve texto. Mismo patrón que
+    // getMicroPromptApertura(): donde el nodo es determinístico, dicta el backend.
+    //
+    // Se persiste el turno para que el motor reconstruya bien el hilo; si no, el
+    // segundo mensaje volvería a contar como el primero y Queswa re-saludaría.
+    if (!existingProspect) {
+      const apertura = construirApertura(contactName, patrocinador?.nombre);
+
+      const enviado = await sendInteractiveList(
+        phoneNumber,
+        apertura,
+        APERTURA_BOTON,
+        APERTURA_OPCIONES,
+        APERTURA_SECCION,
+      );
+
+      // Si Meta rechaza el interactivo (formato, límites), no dejar a la persona
+      // sin respuesta: cae a texto plano con las mismas opciones enumeradas.
+      if (!enviado.ok) {
+        console.warn('⚠️ [WA Webhook] Lista rechazada — fallback a texto plano');
+        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
+      }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).from('nexus_conversations').insert({
+          fingerprint_id: waFingerprint,
+          session_id: waFingerprint,
+          messages: [
+            { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
+            { role: 'assistant', content: apertura,    timestamp: new Date().toISOString() },
+          ],
+        });
+      } catch (err) {
+        console.error('⚠️ [WA Webhook] No se pudo persistir la apertura:', err);
+      }
+
+      console.log(`👋 [WA Webhook] Apertura entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
+      return new Response('OK', { status: 200 });
     }
 
     // ─── 2. Reconstruir historial + llamar al motor Queswa ────────────────────

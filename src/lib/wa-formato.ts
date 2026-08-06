@@ -94,6 +94,14 @@ export function aFormatoWhatsApp(texto: string): string {
 
   return salida
     .join('\n')
+    // Bloques de código: WhatsApp los renderiza en monoespaciado, y eso solo
+    // ayuda si la alineación cabe. Un teléfono parte la línea alrededor de los 30
+    // caracteres, así que un bloque más ancho llega descuadrado y encima con
+    // aspecto de consola. Si cabe, se conserva; si no, se quitan las comillas.
+    .replace(/```(?:\w+)?\n([\s\S]*?)```/g, (_m, cuerpo: string) => {
+      const cabe = cuerpo.split('\n').every((l) => l.length <= 30);
+      return cabe ? '```\n' + cuerpo.replace(/\n$/, '') + '\n```' : cuerpo.trim();
+    })
     // Encabezados: WhatsApp no los tiene, y `### Algo` se lee como ruido.
     .replace(/^\s{0,3}#{1,6}\s*(.+?)\s*#*\s*$/gm, '*$1*')
     // Separadores horizontales: dejan una línea de guiones suelta en el chat.

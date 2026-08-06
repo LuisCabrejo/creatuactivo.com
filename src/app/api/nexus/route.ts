@@ -4317,6 +4317,57 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
       const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bgen[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
       if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage)) return '';
+
+      // ── WhatsApp: un solo ejemplo, dictado ────────────────────────────────
+      // En el canal, dejar que el modelo componga el ejemplo produjo un árbol de
+      // duplicación en arte ASCII: ilegible en un teléfono (30 columnas antes de
+      // partir la línea) y, peor, con la silueta de una pirámide — la forma que
+      // el prospecto reconoce como estafa antes de leer una cifra.
+      //
+      // Dos decisiones del Director (6 ago 2026), y ambas son de fondo:
+      //
+      // • **El ejemplo cuenta COMPRAS, nunca personas.** "5 paquetes ESP-3 en
+      //   cada generación", no "5 personas". El ingreso nace de que se venda
+      //   producto; contar cabezas es el marco que delata al multinivel y el que
+      //   hace que alguien no reenvíe esta conversación a un amigo.
+      //
+      // • **Un ejemplo comprensible vale más que el potencial completo.** Este
+      //   escenario deja fuera casi todo el plan a propósito. Quien entiende una
+      //   cifra la repite; quien recibe la tabla entera no entiende ninguna.
+      if (tenantId === 'whatsapp') {
+        const esCO = visitorCountry === 'CO';
+        const c = (cop: number, usd: number) =>
+          esCO ? `$${cop.toLocaleString('es-CO')}` : `$${usd.toLocaleString('en-US')}`;
+        const moneda = esCO ? 'COP' : 'USD';
+
+        return `
+📌 EJEMPLO GEN5 DICTADO — imprime este texto EXACTAMENTE, sin agregar filas, sin tablas, sin diagramas y sin arte ASCII. Es el único ejemplo de cifras que se entrega por este canal:
+
+Le pongo un ejemplo con números redondos.
+
+Usted arranca con el *ESP-3 Visionario*, y en su canal se compran *5 paquetes ESP-3* en cada una de las primeras cinco generaciones.
+
+*Generación 1* — 5 paquetes
+${c(675000, 150)} × 5 = *${c(3375000, 750)}*
+
+*Generación 2* — 5 paquetes
+${c(90000, 20)} × 5 = *${c(450000, 100)}*
+
+*Generación 3* — 5 paquetes
+${c(90000, 20)} × 5 = *${c(450000, 100)}*
+
+*Generación 4* — 5 paquetes
+${c(90000, 20)} × 5 = *${c(450000, 100)}*
+
+*Generación 5* — 5 paquetes
+${c(180000, 40)} × 5 = *${c(900000, 200)}*
+
+*Total: ${c(5625000, 1250)} ${moneda}*
+
+Y se liquida cada viernes, a medida que cada compra ocurre — no espera a que se complete nada.
+
+STOP. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
+      }
       // Cifras GEN5 país-aware. CO → COP (×$4.500). US/resto → USD. (Colombia = SOLO COP.)
       const filasGen5 = visitorCountry === 'CO'
         ? `• ESP-3 Visionario: Gen1=$675.000 | Gen2=$90.000 | Gen3=$90.000 | Gen4=$90.000 | Gen5=$180.000 COP

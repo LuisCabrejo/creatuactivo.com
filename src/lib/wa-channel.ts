@@ -153,6 +153,82 @@ export interface WAListRow {
  * `interactive.list_reply`. Quien consuma el webhook tiene que leerlo o el toque
  * no produce nada.
  */
+/**
+ * Envía un WhatsApp Flow como mensaje interactivo.
+ *
+ * El Flow debe estar PUBLICADO en el WABA (los borradores solo abren desde la
+ * vista previa del administrador). El id vive en una env — no en el código —
+ * porque un Flow publicado es inmutable: cada corrección crea un Flow nuevo con
+ * id nuevo, y eso debe poder apuntarse sin redeploy.
+ *
+ * ⚠️ Cuando la persona lo completa, Meta NO envía `text.body` sino
+ * `interactive.nfm_reply` con `response_json` (el payload del `complete`). Quien
+ * consuma el webhook tiene que leerlo o el toque final no produce nada.
+ */
+export async function sendFlow(
+  to: string,
+  flowId: string,
+  bodyText: string,
+  ctaLabel: string,
+  opciones: { headerText?: string; screen?: string } = {},
+): Promise<WAResult> {
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: normalizePhone(to),
+        type: 'interactive',
+        interactive: {
+          type: 'flow',
+          ...(opciones.headerText && { header: { type: 'text', text: opciones.headerText.slice(0, 60) } }),
+          body: { text: bodyText.slice(0, 1024) },
+          action: {
+            name: 'flow',
+            parameters: {
+              flow_message_version: '3',
+              // Token de correlación, no de seguridad: vuelve en el nfm_reply y
+              // permite saber qué envío originó la respuesta.
+              flow_token: `${normalizePhone(to)}_${Date.now()}`,
+              flow_id: flowId,
+              flow_cta: ctaLabel.slice(0, 30),
+              flow_action: 'navigate',
+              ...(opciones.screen && { flow_action_payload: { screen: opciones.screen } }),
+            },
+          },
+        },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendFlow — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] Flow ${flowId} enviado a ${normalizePhone(to)} (msg: ${messageId})`);
+    return { ok: true, messageId };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendFlow error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
 export async function sendInteractiveList(
   to: string,
   bodyText: string,

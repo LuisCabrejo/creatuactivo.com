@@ -16,7 +16,7 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
-import { sendText, sendInteractiveList } from '@/lib/wa-channel';
+import { sendText, sendInteractiveList, sendFlow } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -96,12 +96,28 @@ export async function POST(request: Request) {
       const interactivo = message.interactive as {
         list_reply?: { id?: string; title?: string };
         button_reply?: { id?: string; title?: string };
+        nfm_reply?: { response_json?: string };
       } | undefined;
       const elegido = interactivo?.list_reply ?? interactivo?.button_reply;
       if (elegido?.title) {
         messageText = elegido.title;
         opcionElegida = elegido.id;
         console.log(`👆 [WA Webhook] ${phoneNumber} eligió "${elegido.title}" (${elegido.id})`);
+      }
+
+      // Cierre de un Flow (el simulador): llega como nfm_reply con el payload del
+      // `complete`. Se traduce a lenguaje natural para que el motor y el historial
+      // lo entiendan como lo que es — la persona armó su propio escenario.
+      if (!messageText && interactivo?.nfm_reply?.response_json) {
+        try {
+          const r = JSON.parse(interactivo.nfm_reply.response_json) as { paquete?: string; cantidad?: string };
+          if (r.paquete && r.cantidad) {
+            messageText = `Acabo de usar el simulador: paquete ${r.paquete}, con ${r.cantidad} paquetes comprados en cada generación.`;
+            console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador (${r.paquete} × ${r.cantidad})`);
+          }
+        } catch {
+          console.warn('⚠️ [WA Webhook] nfm_reply ilegible — se ignora');
+        }
       }
     }
 
@@ -468,6 +484,29 @@ export async function POST(request: Request) {
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
     if (queswaReply) {
       await sendWhatsAppMessage(phoneNumber, queswaReply);
+
+      // Tras el ejemplo de cifras dictado, se ofrece el simulador (WhatsApp
+      // Flow): la persona arma su propio escenario moviendo paquete y cantidad.
+      // Una cifra que uno mismo produjo convence distinto a una que le entregan —
+      // y el "wow" de la herramienta es parte del argumento: está viendo lo que
+      // va a tener. El texto va primero porque el texto sí se reenvía; el Flow
+      // vive solo en esta conversación.
+      // Si la env no está (Flow aún no publicado) no pasa nada: el ejemplo de
+      // texto se basta solo.
+      const flowSimulador = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+      if (flowSimulador && queswaReply.includes('Le pongo un ejemplo con números redondos')) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si quiere, arme usted mismo su escenario: elija el paquete y cuántos se compran por generación, y vea el resultado al instante. Se cuenta por paquetes comprados, no por personas.',
+          'Abrir el simulador',
+        );
+        if (!enviado.ok) {
+          // El Flow es un extra, nunca un bloqueo: la conversación ya tiene el
+          // ejemplo completo en texto.
+          console.warn(`⚠️ [WA Webhook] Flow simulador no se pudo enviar: ${enviado.error}`);
+        }
+      }
     }
 
     return new Response('OK', { status: 200 });

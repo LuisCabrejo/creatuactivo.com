@@ -383,6 +383,40 @@ export async function POST(request: Request) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
     }
 
+    // ─── 2.4 Reenviar el simulador cuando lo pidan ────────────────────────────
+    // Un Flow completado queda sellado en WhatsApp: la tarjeta muestra el resumen
+    // y no vuelve a abrir. Quien está sopesando el proyecto quiere volver a los
+    // números — se le manda una tarjeta nueva, sin pasar por el motor.
+    const flowSimuladorId = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+    if (flowSimuladorId && /simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText)) {
+      const reenvio = await sendFlow(
+        phoneNumber,
+        flowSimuladorId,
+        'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.',
+        'Abrir el simulador',
+      );
+      if (reenvio.ok) {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await (supabase as any).from('nexus_conversations').insert({
+            fingerprint_id: waFingerprint,
+            session_id: waFingerprint,
+            messages: [
+              { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
+              { role: 'assistant', content: 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver. [Simulador reenviado]', timestamp: new Date().toISOString() },
+            ],
+          });
+        } catch (err) {
+          console.error('⚠️ [WA Webhook] No se pudo persistir el reenvío del simulador:', err);
+        }
+        console.log(`🧮 [WA Webhook] Simulador reenviado a ${phoneNumber}`);
+        return new Response('OK', { status: 200 });
+      }
+      // Si el reenvío falla, el turno sigue al motor: mejor una respuesta en
+      // texto que un silencio.
+      console.warn(`⚠️ [WA Webhook] Reenvío del simulador falló: ${reenvio.error}`);
+    }
+
     // ─── 2.5 Cierre: radicar la vinculación ───────────────────────────────────
     // Nodo determinístico, como la apertura. El motor no puede atenderlo: su
     // máquina de estados fue escrita para la web y remata ofreciendo dos enlaces

@@ -59,7 +59,10 @@ export const APERTURA_OPCIONES: WAListRow[] = [
   {
     id: 'apertura_dinero',
     title: 'De dónde sale el dinero',
-    description: 'De qué se distribuye y quién paga',
+    // Antes decía "De qué se distribuye y quién paga" — el Director lo leyó y no
+    // entendió qué quería decir (6 ago 2026). El subtítulo amplía el título, no
+    // lo repite ni lo enreda.
+    description: 'Qué se vende y cómo le pagan',
   },
   {
     id: 'apertura_sistema',

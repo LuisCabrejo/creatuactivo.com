@@ -48,9 +48,23 @@ function tablaABloques(filas: string[]): string {
 
   const [cabecera, ...cuerpo] = datos;
 
+  // Dos columnas = ficha, no matriz: "Precio: $272.500", línea por línea. El
+  // formato de bloques aquí producía "Detalle *Precio*" con la etiqueta genérica
+  // de la cabecera como título — ruido puro en el teléfono.
+  if (cabecera.length === 2) {
+    return cuerpo
+      .filter((fila) => fila[0] || fila[1])
+      .map((fila) => `• *${fila[0]}:* ${fila[1] ?? ''}`.trim())
+      .join('\n');
+  }
+
+  // La primera celda de la cabecera solo aporta si nombra algo ("Gen", "Mes");
+  // los rótulos genéricos de columna-guía se omiten del título del bloque.
+  const cabeceraGenerica = /^(detalle|campo|concepto|dato|item|ítem|descripci[oó]n)?$/i.test(cabecera[0] ?? '');
+
   return cuerpo
     .map((fila) => {
-      const titulo = [cabecera[0], fila[0]].filter(Boolean).join(' ').trim();
+      const titulo = (cabeceraGenerica ? fila[0] : [cabecera[0], fila[0]].filter(Boolean).join(' ')).trim();
       const resto = fila
         .slice(1)
         .map((valor, i) => {

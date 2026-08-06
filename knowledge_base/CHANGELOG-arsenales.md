@@ -12,6 +12,14 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.31 — EAM_01 en formato WhatsApp (6 ago 2026)
+
+Decisión del Director tras auditar la primera conversación real por el canal: **la mayor parte de la comunicación es por WhatsApp**, y el orbe del sitio se va a reemplazar por WhatsApp, así que **las respuestas se calibran para WhatsApp en todas partes**. La excepción es el Dashboard (`queswa.app`), donde sí se quieren respuestas largas porque es el espacio de formación de los empresarios — y no le afecta: tiene tenant propio (`dashboard`, con `arsenal_cierre` + `arsenal_manejo`) y no lee `arsenal_inicial`.
+
+**EAM_01**: de 1.350 a **818 caracteres**. Los tres movimientos pasan a nombrarse por el Tridente —**Comparte · Recibe · Multiplica**— en vez de "Usted comparte / Yo me encargo del resto / Usted pone lo humano". El tercero **no existía**: la respuesta describía dos movimientos del héroe y uno de Queswa, y la Multiplicación —el 3er Comando— quedaba fuera de la única respuesta que explica el día a día. Se retira además *"le llega la misma empresa digital"* (bautizo diferido a la Academia, ver [[feedback_bautizo_empresa_digital_diferido]]) → *"recibe lo mismo que usted tiene, ya montado"*. Sincronizado carácter por carácter con `MASTER_EAM_01`; fragmento purgado, re-embebido y re-clonado al tenant whatsapp.
+
+⚠️ El formato Markdown ya **no se instruye, se traduce**: `src/lib/wa-formato.ts` convierte tablas, `**` y viñetas en la capa de canal. Los arsenales pueden seguir escribiéndose en Markdown.
+
 ### v5.30 — Método renombrado en el encabezado (2 ago 2026)
 
 Línea Estrategia del doc padre: "(Comando Expandir · Activar · Multiplicación)" → **"(Compartir · Recibir · Multiplicar)"** — propagación del rename de servilleta v6.5. Solo doc padre (ningún fragmento contenía los nombres viejos; EAM_01 ya narraba los movimientos sin nombres). Padre re-desplegado + re-clonado al tenant whatsapp.

@@ -26,6 +26,7 @@ import {
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
 import { gestionarCierre } from '@/lib/wa-radicacion';
+import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -480,8 +481,25 @@ export async function POST(request: Request) {
 // ─── Utilidad: enviar mensaje de texto via WhatsApp Cloud API ─────────────────
 // La llamada a Meta vive en `wa-channel.ts` (capa de canal única); aquí solo se
 // respeta el contrato "no romper el webhook si el envío falla".
+//
+// Todo lo que sale pasa antes por `aFormatoWhatsApp()`: el motor y los arsenales
+// están escritos en Markdown, y en el canal eso llega como tubos, guiones y
+// asteriscos a la vista. Y lo que pase de una pantalla se parte en varios
+// mensajes — WhatsApp esconde el resto detrás de "Leer más", justo donde va la
+// pregunta que sostiene la conversación.
 async function sendWhatsAppMessage(to: string, text: string): Promise<void> {
-  await sendText(to, text);
+  const partes = partirParaWhatsApp(aFormatoWhatsApp(text));
+
+  for (let i = 0; i < partes.length; i++) {
+    await sendText(to, partes[i]);
+    // Meta no garantiza el orden de entrega de envíos simultáneos; una pausa
+    // corta evita que la segunda mitad aparezca antes que la primera.
+    if (i < partes.length - 1) await new Promise((r) => setTimeout(r, 600));
+  }
+
+  if (partes.length > 1) {
+    console.log(`✂️ [WA Webhook] Respuesta entregada en ${partes.length} mensajes`);
+  }
 }
 
 // ─── Atribución: ¿de qué socio viene este prospecto? ──────────────────────────

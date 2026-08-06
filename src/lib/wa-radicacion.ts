@@ -29,6 +29,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { sendTemplate } from '@/lib/wa-channel';
 
 let anthropicClient: Anthropic | null = null;
 function getAnthropicClient(): Anthropic {
@@ -114,7 +115,8 @@ Devuelve SOLO un objeto JSON, sin texto alrededor y sin bloque de código:
 Reglas:
 - Use null para cualquier dato que la persona no haya dado. Nunca lo deduzca ni lo invente.
 - "nombre": nombre completo de la persona (nombres y apellidos). Si solo dio el nombre de
-  pila, devuélvalo igual.
+  pila, devuélvalo igual. El primer mensaje suele traer el nombre del socio que la
+  refirió ("vengo del enlace de luis-cabrejo"): ese NO es su nombre.
 - "cedula": el número de identificación, solo dígitos. Un número de teléfono NO es la
   cédula: descarte los de 10 dígitos que empiezan por 3 y los que llevan prefijo +57.
 - "ciudad": la ciudad donde vive. Un país no es una ciudad.
@@ -201,35 +203,74 @@ const ETIQUETAS: Record<keyof DatosRadicacion, string> = {
   paquete: 'Cuál de los tres paquetes de inicio quiere',
 };
 
+/** La misma petición en prosa, para cuando falta un solo dato. */
+const EN_PROSA: Record<keyof DatosRadicacion, string> = {
+  nombre:  'su nombre completo, como aparece en el documento',
+  cedula:  'su número de identificación',
+  ciudad:  'la ciudad donde está',
+  paquete: 'cuál de los tres paquetes de inicio quiere',
+};
+
+const JUSTIFICACION_CIUDAD =
+  'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no hay, le llega a su dirección.';
+
+/** Cómo se le devuelve a la persona cada dato que ya entregó. */
+function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | null {
+  switch (clave) {
+    case 'nombre':  return datos.nombre;
+    case 'cedula':  return datos.cedula ? `Cédula ${datos.cedula}` : null;
+    case 'ciudad':  return datos.ciudad;
+    case 'paquete': return datos.paquete ? NOMBRE_PAQUETE[datos.paquete] || datos.paquete : null;
+  }
+}
+
 /**
- * Pide los datos que falten, en un solo mensaje.
+ * Pide lo que falte, en un solo mensaje, después de confirmar lo que ya llegó.
  *
  * Los cuatro van juntos por decisión explícita: quien ya decidió quiere que le
  * empaquen lo que va a llevar, no que lo pongan en fila. Partirlos en cuatro
  * turnos convierte un formulario en un interrogatorio.
  *
+ * Y casi nadie declara la intención a secas. Dice "quiero arrancar con el ESP-2",
+ * o manda los cuatro datos de una porque ya supone cuáles se los van a pedir.
+ * Volver a preguntar lo que acaba de entregar se lee como que no lo leímos — de
+ * ahí que primero se le devuelva lo capturado, que además le deja ver un dígito
+ * mal tecleado antes de que llegue al registro.
+ *
  * La ciudad se justifica en el mismo renglón. Es lo que convierte un dato que se
  * le saca a alguien en una pregunta de servicio — y de paso adelanta el respaldo:
  * hay una oficina física, con gente.
  */
-export function pedirDatos(faltantes: (keyof DatosRadicacion)[], socio?: string): string {
-  const esPrimeraVez = faltantes.length === 4;
-  const lista = faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n');
+export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
+  const claves = ['nombre', 'cedula', 'ciudad', 'paquete'] as const;
+  const faltantes = claves.filter((k) => !datos[k]);
+  const capturados = claves.map((k) => ecoDe(k, datos)).filter(Boolean) as string[];
 
-  const encabezado = esPrimeraVez
-    ? 'Con gusto. Le ayudo a dejarlo andando ahora mismo.\n\nPara radicar su vinculación necesito cuatro datos:'
-    : faltantes.length === 1
-      ? 'Voy bien. Me falta un dato para radicar:'
-      : 'Voy bien. Me faltan estos datos para radicar:';
+  const partes: string[] = [];
 
-  const partes = [encabezado, '', lista];
-
-  if (faltantes.includes('ciudad')) {
+  if (capturados.length === 0) {
     partes.push(
+      'Con gusto. Le ayudo a dejarlo andando ahora mismo.',
       '',
-      'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no hay, le llega a su dirección.',
+      'Para radicar su vinculación necesito cuatro datos:',
+      '',
+      faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'),
     );
+  } else {
+    partes.push('Perfecto. Ya tengo:', '', capturados.map((c) => `• ${c}`).join('\n'), '');
+
+    if (faltantes.length === 1) {
+      partes.push(`Me falta ${EN_PROSA[faltantes[0]]}.`);
+    } else {
+      partes.push(
+        `Me faltan ${faltantes.length === 2 ? 'dos' : 'tres'} datos:`,
+        '',
+        faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'),
+      );
+    }
   }
+
+  if (faltantes.includes('ciudad')) partes.push('', JUSTIFICACION_CIUDAD);
 
   partes.push(
     '',
@@ -316,6 +357,7 @@ export async function radicarPreAfiliacion(
     if (!res.ok) {
       const detalle = await res.text().catch(() => '');
       console.error(`❌ [Radicación] ${base} respondió ${res.status}: ${detalle.slice(0, 200)}`);
+      await avisarAlEquipo(datos, contexto.whatsapp);
       return false;
     }
 
@@ -323,7 +365,34 @@ export async function radicarPreAfiliacion(
     return true;
   } catch (err) {
     console.error('❌ [Radicación] No se pudo alcanzar el Dashboard:', err);
+    await avisarAlEquipo(datos, contexto.whatsapp);
     return false;
+  }
+}
+
+/**
+ * Red de seguridad: si el registro no se pudo escribir, el equipo se entera igual.
+ *
+ * Sin esto, `radicacionFallida()` le dice a la persona "se los estoy pasando al
+ * equipo" y no se le pasa a nadie — una promesa que el sistema no cumple, que es
+ * el peor desenlace posible en el momento más caliente del embudo.
+ *
+ * Ocurre de verdad: `pending_activations.invited_by` es NOT NULL, así que un
+ * prospecto sin socio —el que llega por un anuncio, o el que escribe sin el
+ * enlace de nadie— hace que el endpoint devuelva 500. Aquí el aviso sale igual.
+ */
+async function avisarAlEquipo(datos: DatosRadicacion, whatsapp: string): Promise<void> {
+  const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
+  try {
+    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', [
+      'equipo',
+      `${datos.nombre} (${whatsapp}) · CC ${datos.cedula}`,
+      datos.paquete || '—',
+      `${datos.ciudad} — NO SE PUDO RADICAR, registrar a mano`,
+    ]);
+    console.log(`📨 [Radicación] Aviso de respaldo al equipo: ${r.ok ? 'enviado' : r.error}`);
+  } catch (err) {
+    console.error('❌ [Radicación] Falló hasta el aviso de respaldo:', err);
   }
 }
 
@@ -366,16 +435,17 @@ export async function gestionarCierre(params: {
 
   console.log(`🎯 [Cierre WA] activo — ${botPidio ? 'respondiendo lo pedido' : 'volición declarada'}`);
 
-  // Al declarar la intención en frío no hay nada que extraer todavía: se ahorra
-  // la llamada y se piden los cuatro de una vez.
-  const datos = botPidio
-    ? await extraerDatosRadicacion(historial, mensajeActual)
-    : { nombre: null, cedula: null, ciudad: null, paquete: null };
+  // Se extrae SIEMPRE, también en el turno donde la persona declara la intención.
+  // Casi nadie dice "quiero arrancar" a secas: dice "quiero arrancar con el
+  // ESP-2", o "estoy listo, vivo en Bogotá", y en el comercio de GanoCafé mucha
+  // gente manda los cuatro datos de una porque ya supone cuáles se los van a
+  // pedir. Volver a pedir lo que acaban de entregar se lee como que no leímos.
+  const datos = await extraerDatosRadicacion(historial, mensajeActual);
 
   const faltantes = (['nombre', 'cedula', 'ciudad', 'paquete'] as const).filter((k) => !datos[k]);
 
   if (faltantes.length > 0) {
-    return { texto: pedirDatos([...faltantes], socio), radicado: false };
+    return { texto: pedirDatos(datos, socio), radicado: false };
   }
 
   const ok = await radicarPreAfiliacion(datos, {

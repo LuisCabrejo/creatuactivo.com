@@ -41,6 +41,7 @@
 
 import type { WAListRow } from '@/lib/wa-channel';
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
+import { aFormatoWhatsApp } from '@/lib/wa-formato';
 
 /** Rótulo del botón que despliega la lista (máx. 20 caracteres). */
 export const APERTURA_BOTON = 'Ver opciones';
@@ -99,9 +100,9 @@ export const APERTURA_OPCIONES: WAListRow[] = [
  * donde la negrita son dos asteriscos. WhatsApp usa uno solo: mandarlos sin
  * convertir hace que se vean los asteriscos crudos en pantalla.
  */
-function aFormatoWhatsApp(texto: string): string {
-  return texto.replace(/\*\*(.+?)\*\*/g, '*$1*');
-}
+// La traducción de formato vive en `wa-formato.ts`: aquí solo se aplica. La
+// versión local hacía únicamente `**` → `*`, y las respuestas maestras traen
+// también viñetas y separadores de Markdown que WhatsApp imprime literales.
 
 /**
  * Texto dictado para cada opción de la apertura, o `null` si esa opción no

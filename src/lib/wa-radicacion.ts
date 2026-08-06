@@ -52,15 +52,36 @@ const RE_VOLICION =
   /(quiero|deseo|quisiera|me gustar[ií]a|voy a|listo para)\s+(arrancar|iniciar|empezar|comenzar|activar|entrar|vincularme|inscribirme|registrarme|afiliarme|anotarme|participar)\b(?!\s+a\s+(entender|ver|conocer|saber|aprender|mirar))|arranquemos|empecemos|comencemos|inici[eé]mos|hag[aá]moslo|me decido|me apunto|me anoto|me lanzo|d[oó]nde\s+(pago|consigno|transfiero|deposito)|c[oó]mo\s+(pago|consigno|hago el pago)|quiero (el |ese |ese paquete|comprar)/i;
 
 /**
- * El bot ya pidió los cuatro datos — lo que llegue ahora es la respuesta.
+ * El bot ya pidió datos — lo que llegue ahora pertenece al cierre.
  *
- * Reconoce tanto el texto dictado de `pedirDatos()` como el del system prompt, que
- * es el camino de respaldo si el detector de volición no dispara. La última
- * alternativa es la red bajo la red: si el modelo parafraseó la petición entera,
- * pedir identificación y ciudad en el mismo mensaje solo ocurre aquí.
+ * Reconoce el bloque de los cuatro (dictado o parafraseado por el modelo, que es
+ * el camino de respaldo) y también las preguntas de un solo dato. La última
+ * alternativa es la red bajo la red: pedir identificación y ciudad en el mismo
+ * mensaje solo pasa aquí.
  */
 const RE_BOT_PIDIO_DATOS =
-  /para radicar su vinculaci[oó]n|necesito cuatro datos|me falta(n)? (un dato|estos datos)|Nombre completo, como aparece|(?=[\s\S]*n[uú]mero de identificaci[oó]n)(?=[\s\S]*ciudad)/i;
+  /para radicar su vinculaci[oó]n|necesito cuatro datos|me falta(n)? (un dato|estos datos)|nombre completo, como aparece|n[uú]mero de identificaci[oó]n|en qu[eé] ciudad est[aá]|cu[aá]l de los tres paquetes|(?=[\s\S]*n[uú]mero de identificaci[oó]n)(?=[\s\S]*ciudad)/i;
+
+/**
+ * Una pregunta a mitad del cierre no es un dato — es una duda, y merece respuesta.
+ *
+ * Sin esto, alguien que en medio de dar sus datos pregunta "¿cuánto vale el
+ * ESP-2?" recibe otra vez la misma petición, como si no lo hubieran oído. Se le
+ * devuelve el turno al motor, y el cierre retoma solo: `enCierre` mira los
+ * últimos turnos del bot, no únicamente el anterior.
+ */
+const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuando|cu[aá]ndo|d[oó]nde|qui[eé]n|hay |puedo|se puede|y si)\b/i;
+
+/** ¿El mensaje del bot estaba pidiendo justamente este dato? */
+function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolean {
+  const t = mensajeBot.toLowerCase();
+  switch (clave) {
+    case 'nombre':  return /nombre completo/.test(t);
+    case 'cedula':  return /n[uú]mero de identificaci[oó]n/.test(t);
+    case 'ciudad':  return /en qu[eé] ciudad/.test(t);
+    case 'paquete': return /cu[aá]l de los tres paquetes|con cu[aá]l de los tres/.test(t);
+  }
+}
 
 /** Ya se radicó en esta conversación — el cierre no se vuelve a abrir. */
 const RE_YA_RADICADO = /qued[oó] radicada|su vinculaci[oó]n qued[oó]|ya le avis[eé] a/i;
@@ -281,6 +302,54 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
 }
 
 /**
+ * Pide un solo dato, como lo pediría una persona.
+ *
+ * El bloque de los cuatro sale UNA vez: sirve para que la persona sepa de qué
+ * tamaño es el trámite y por qué se le pregunta la ciudad. De ahí en adelante se
+ * toma dato por dato, porque casi nadie responde un formulario de corrido —
+ * primero dice "ok, hagámoslo", y a esa señal un humano contesta pidiendo el
+ * nombre, no repitiendo la lista entera. Repetirla se lee como que la máquina no
+ * escuchó, que es justo lo que hace que alguien no quiera reenviarle esta
+ * conversación a un amigo.
+ */
+export function pedirUnDato(
+  clave: keyof DatosRadicacion,
+  opciones: { reintento?: boolean; socio?: string } = {},
+): string {
+  const { reintento } = opciones;
+
+  switch (clave) {
+    case 'nombre':
+      return reintento
+        ? 'Perdón, no lo capté bien. ¿Me confirma su nombre completo, con apellidos, como aparece en el documento?'
+        : 'Con gusto. Empecemos por su *nombre completo*, como aparece en su documento.';
+
+    case 'cedula':
+      return reintento
+        ? '¿Me repite el número de identificación? Solo los dígitos.'
+        : 'Gracias. ¿Cuál es su *número de identificación*?';
+
+    case 'ciudad':
+      return [
+        reintento ? '¿En qué ciudad está?' : 'Listo. ¿En qué ciudad está?',
+        '',
+        JUSTIFICACION_CIUDAD,
+      ].join('\n');
+
+    case 'paquete':
+      return [
+        reintento
+          ? '¿Con cuál de los tres se va?'
+          : 'Última cosa: ¿cuál de los tres paquetes de inicio quiere?',
+        '',
+        '• *ESP-1 Inicial* — 7 productos, para arrancar rápido',
+        '• *ESP-2 Empresarial* — 18 productos, crecimiento sostenido',
+        '• *ESP-3 Visionario* — 35 productos, máxima velocidad',
+      ].join('\n');
+  }
+}
+
+/**
  * Confirmación de que quedó radicado.
  *
  * Sin plazos ("en 24 horas") ni cifras: nada de eso lo sabe este código, y en
@@ -426,10 +495,14 @@ export async function gestionarCierre(params: {
   // resuelve con el socio, que es quien tiene la conversación viva.
   if (params.yaRadicadoEnBD) return null;
 
-  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+  const turnosBot = historial.filter((m) => m.role === 'assistant').map((m) => m.content);
+  const ultimoBot = turnosBot[turnosBot.length - 1] || '';
   if (RE_YA_RADICADO.test(ultimoBot)) return null;
 
-  const botPidio = RE_BOT_PIDIO_DATOS.test(ultimoBot);
+  // Se miran los últimos turnos del bot, no solo el anterior: si la persona
+  // interrumpió con una pregunta y el motor se la respondió, el cierre sigue
+  // abierto y debe retomar donde iba.
+  const botPidio = turnosBot.slice(-3).some((t) => RE_BOT_PIDIO_DATOS.test(t));
   const declara  = RE_VOLICION.test(mensajeActual);
   if (!botPidio && !declara) return null;
 
@@ -445,7 +518,25 @@ export async function gestionarCierre(params: {
   const faltantes = (['nombre', 'cedula', 'ciudad', 'paquete'] as const).filter((k) => !datos[k]);
 
   if (faltantes.length > 0) {
-    return { texto: pedirDatos(datos, socio), radicado: false };
+    // El bloque de los cuatro solo se entrega la primera vez, en el turno donde
+    // la persona declara que arranca. De ahí en adelante, uno por uno.
+    if (!botPidio) return { texto: pedirDatos(datos, socio), radicado: false };
+
+    // Una duda a mitad del trámite se responde; el cierre no la atropella.
+    if (RE_PREGUNTA.test(mensajeActual.trim())) {
+      console.log('❓ [Cierre WA] pregunta a mitad del cierre — le devuelvo el turno al motor');
+      return null;
+    }
+
+    const siguiente = faltantes[0];
+    // Si el turno anterior ya pedía justo este dato, la persona no lo dio o no se
+    // entendió: se pregunta de otra forma, no con la misma frase. El bloque de los
+    // cuatro no cuenta — los nombra todos, y tomarlo por un reintento hacía que el
+    // primer dato pedido de a uno saliera con un "¿me repite...?" fuera de lugar.
+    const esBloqueDeLosCuatro = /necesito cuatro datos/i.test(ultimoBot);
+    const reintento = !esBloqueDeLosCuatro && pidioEsteDato(ultimoBot, siguiente);
+
+    return { texto: pedirUnDato(siguiente, { reintento, socio }), radicado: false };
   }
 
   const ok = await radicarPreAfiliacion(datos, {

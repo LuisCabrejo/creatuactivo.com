@@ -120,8 +120,13 @@ export function aFormatoWhatsApp(texto: string): string {
  *
  * Nunca corta a mitad de párrafo ni de bloque de cifras: si un solo párrafo ya
  * excede el límite, sale entero.
+ *
+ * El umbral de 600 no es arbitrario: es el que la investigación de arquitectura
+ * de agentes en WhatsApp da como empírico para el colapso visual (§4.2). Y el
+ * control de longitud no se le confía al prompt — "sé breve" es de los adjetivos
+ * que peor se cumplen; la fragmentación tiene que ocurrir en el código.
  */
-export function partirParaWhatsApp(texto: string, limite = 900, maxPartes = 3): string[] {
+export function partirParaWhatsApp(texto: string, limite = 600, maxPartes = 3): string[] {
   const limpio = (texto || '').trim();
   if (!limpio) return [];
   if (limpio.length <= limite) return [limpio];

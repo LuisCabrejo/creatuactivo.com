@@ -86,6 +86,7 @@ export async function POST(request: Request) {
     // se leía solo `text.body` y una nota de voz caía en silencio absoluto.
     let messageText = message.text?.body as string | undefined;
     let opcionElegida: string | undefined;
+    let vieneDelSimulador = false;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -111,6 +112,7 @@ export async function POST(request: Request) {
           const r = JSON.parse(interactivo.nfm_reply.response_json) as { paquete?: string; cantidad?: string };
           if (r.paquete && r.cantidad) {
             messageText = `Acabo de usar el simulador: paquete ${r.paquete}, con ${r.cantidad} paquetes comprados en cada generación.`;
+            vieneDelSimulador = true;
             console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador (${r.paquete} × ${r.cantidad})`);
           }
         } catch {
@@ -380,7 +382,11 @@ export async function POST(request: Request) {
     // y no vuelve a abrir. Quien está sopesando el proyecto quiere volver a los
     // números — se le manda una tarjeta nueva, sin pasar por el motor.
     const flowSimuladorId = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
-    if (flowSimuladorId && /simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText)) {
+    // `!vieneDelSimulador` es indispensable: el texto que sintetizamos al cerrar
+    // el Flow contiene la palabra "simulador", así que sin este guard completar el
+    // simulador lo reenviaba en vez de responder al escenario que la persona armó.
+    if (flowSimuladorId && !vieneDelSimulador
+        && /simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText)) {
       const reenvio = await sendFlow(
         phoneNumber,
         flowSimuladorId,

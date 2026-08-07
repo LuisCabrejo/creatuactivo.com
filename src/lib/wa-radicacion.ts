@@ -72,6 +72,17 @@ const RE_BOT_PIDIO_DATOS =
  */
 const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuando|cu[aá]ndo|d[oó]nde|qui[eé]n|hay |puedo|se puede|y si)\b/i;
 
+/**
+ * Pedidos de información que NO llevan signo de interrogación.
+ *
+ * En la prueba del 7 ago, *"Explícame el bono binario"* cayó fuera de
+ * `RE_PREGUNTA` —es imperativo, no pregunta— y el cierre lo atropelló pidiendo
+ * la cédula dos veces seguidas. Alguien que quiere entender algo antes de
+ * entregar sus datos merece respuesta, no un formulario que insiste.
+ */
+const RE_PEDIDO_INFO =
+  /expl[ií]c|expl[ií]qu|cu[eé]nt[aeo]|mu[eé]stre?|mu[eé]str[ea]|d[ií]game|h[aá]bl[aeo]me|h[aá]blem|inf[oó]rme|quiero saber|no entiendo|me interesa saber|d[eé]jeme ver|antes de/i;
+
 /** ¿El mensaje del bot estaba pidiendo justamente este dato? */
 function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolean {
   const t = mensajeBot.toLowerCase();
@@ -527,9 +538,15 @@ export async function gestionarCierre(params: {
     // la persona declara que arranca. De ahí en adelante, uno por uno.
     if (!botPidio) return { texto: pedirDatos(datos, socio), radicado: false };
 
-    // Una duda a mitad del trámite se responde; el cierre no la atropella.
-    if (RE_PREGUNTA.test(mensajeActual.trim())) {
-      console.log('❓ [Cierre WA] pregunta a mitad del cierre — le devuelvo el turno al motor');
+    // Una duda a mitad del trámite se responde; el cierre no la atropella. Se
+    // considera digresión todo lo que no traiga datos nuevos y además parezca
+    // conversación: una pregunta, un pedido de información, o simplemente una
+    // frase larga — nadie entrega una cédula en ocho palabras.
+    const texto = mensajeActual.trim();
+    const esDigresion =
+      RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || texto.split(/\s+/).length > 6;
+    if (esDigresion) {
+      console.log(`❓ [Cierre WA] digresión ("${texto.slice(0, 40)}") — le devuelvo el turno al motor`);
       return null;
     }
 
@@ -538,8 +555,12 @@ export async function gestionarCierre(params: {
     // entendió: se pregunta de otra forma, no con la misma frase. El bloque de los
     // cuatro no cuenta — los nombra todos, y tomarlo por un reintento hacía que el
     // primer dato pedido de a uno saliera con un "¿me repite...?" fuera de lugar.
-    const esBloqueDeLosCuatro = /necesito cuatro datos/i.test(ultimoBot);
-    const reintento = !esBloqueDeLosCuatro && pidioEsteDato(ultimoBot, siguiente);
+    // Cuenta como reintento SOLO si el turno anterior pidió ese dato **a solas**.
+    // El bloque de `pedirDatos` los nombra todos, así que tomarlo por reintento
+    // hacía que el primer dato pedido de a uno saliera con "¿me repite…?" a alguien
+    // que nunca lo había dado — pasó en la prueba del 7 ago con la cédula.
+    const esBloqueDePedirDatos = /necesito cuatro datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:/i.test(ultimoBot);
+    const reintento = !esBloqueDePedirDatos && pidioEsteDato(ultimoBot, siguiente);
 
     return { texto: pedirUnDato(siguiente, { reintento, socio }), radicado: false };
   }

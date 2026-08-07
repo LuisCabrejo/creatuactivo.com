@@ -161,6 +161,22 @@ const RE_DE_DONDE_SALE_EL_DINERO =
   /de\s+d[oó]nde\s+(sale|salen|viene|vienen)\s+(el|la|los|las)?\s*(dinero|plata|platica|ingresos?|ganancias?)|qui[eé]n\s+(me\s+)?(paga|consigna)/i;
 
 /**
+ * Detecta la pregunta por el día a día escrita con palabras propias.
+ *
+ * Sin esto, *"qué debo hacer en el día a día"* no coincidía con el chip exacto,
+ * la búsqueda no traía EAM_01 con fuerza y el modelo improvisaba. El 7 ago
+ * improvisó que la persona debía *"acompañar a las personas nuevas, motivarlas y
+ * orientarlas"* — lo contrario exacto de la doctrina, que dice que de formar a
+ * los nuevos me encargo yo. Plantar trabajo que no existe es el error más caro
+ * que puede cometer esta respuesta.
+ *
+ * Deliberadamente estrecho: NO captura "qué debo hacer para empezar", que es una
+ * pregunta de proceso y le toca al cierre.
+ */
+const RE_DIA_A_DIA =
+  /d[ií]a\s+a\s+d[ií]a|cu[aá]l\s+(es|ser[ií]a)\s+mi\s+(rol|papel|trabajo|funci[oó]n)|qu[eé]\s+(tendr[ií]a|tengo)\s+que\s+hacer\s+yo|qu[eé]\s+har[ií]a\s+yo|en qu[eé]\s+consiste\s+mi/i;
+
+/**
  * Texto Master EMPRESA_DIGITAL_01 — query de texto libre "¿qué es una empresa digital?".
  * NO es chip: se sirve por Camino A vía regex (ver getRespuestaMaestra) porque el RAG
  * confundía esta query con WHY_01 ("¿qué es CreaTuActivo?", el de los 3 pilares + Gano) y
@@ -260,6 +276,9 @@ export function getRespuestaMaestra(userMessage: string): string | null {
   //    (Es el botón más tocado de la apertura de WhatsApp; sin esto solo se
   //    alcanzaba tocándolo, nunca escribiendo la pregunta.)
   if (RE_DE_DONDE_SALE_EL_DINERO.test(key)) return MASTER_DINERO_01;
+  // 5) "¿qué hago en el día a día?" → los tres movimientos, verbatim.
+  //    (Sin esto el modelo improvisaba y plantaba trabajo que no existe.)
+  if (RE_DIA_A_DIA.test(key)) return MASTER_EAM_01;
   return null;
 }
 

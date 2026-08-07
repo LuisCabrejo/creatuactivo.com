@@ -61,110 +61,23 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 
 ## MODELO DE INGRESOS (RESPUESTA CANONICA)
 
-### COMP_MODELO_01: "Como se gana en el negocio?" / "Como funciona el plan de compensacion?"
+### COMP_MODELO_01: "Como se gana en el negocio?" / "Como se gana?" / "Como funciona el plan de compensacion?"
 
-**[Concepto Nuclear]:** El plan tiene 12 formas de ganar, estructuradas para dar ingresos de corto, mediano y largo plazo. Para los ejemplos se explican SOLO 2: (GEN5) y (Binario), que permiten Capitalizacion Inmediata y Renta Vitalicia. NO decir "dos mecanismos", "doble velocidad" ni "las dos principales" — son ejemplos, no el total.
+**[Concepto Nuclear]:** La PRIMERA respuesta sobre las ganancias **no lleva cifras ni tablas** (doctrina 7 ago 2026). Se explica que todo sale del **movimiento de producto por su canal**, se nombran las dos formas, y se entrega SOLO la primera —el consumo recurrente, que es la que construye seguridad financiera—; la segunda queda ofrecida en la pregunta de cierre. Entregar las dos de una vez alarga la respuesta y obliga a explicar los dos centros de negocio antes de que exista el concepto. ⚠️ **Una sola pregunta al final, de una sola salida**: NO "¿cuál de las dos quiere primero?" — el lector retiene la última opción y responde "sí" pensando en la otra. ⚠️ **Vocabulario de la estructura**: clientes · clientes VIP · red de clientes · consumidores · distribuidores · red de distribuidores · socios de negocio. **PROHIBIDO** "personas", "gente que arranca con usted", "quienes inician el proyecto" — es lo que el prospecto teme del multinivel, y un canal de distribución se explica solo con distribuidores y clientes.
 
-Su empresa digital genera ingresos a traves de **12 formas distintas**, estructuradas para darle flujo de caja de corto, mediano y largo plazo. En este ejemplo, veremos dos de ellas — que permiten capitalizacion inmediata y renta vitalicia. Ambas corren en paralelo desde el dia uno.
+<verbatim_lock>
+Con gusto. Todo lo que gana sale de una sola cosa: el producto que se mueve por su canal. Eso ocurre de dos formas, y las dos corren al mismo tiempo: por el consumo que se repite, y por los paquetes empresariales que compran los nuevos distribuidores de su canal.
 
-**Velocidad 1 — Capitalizacion Inmediata (GEN5):**
-Cada vez que un Propietario activa una nueva empresa digital en su organizacion, usted cobra un bono directivo, hasta la 5a generacion. El pago se liquida el viernes, dos semanas despues de la activacion.
+Le empiezo por la primera, que es la que construye seguridad financiera. Sus clientes vuelven a pedir, y usted cobra sobre todo ese movimiento cada viernes.
 
-**Velocidad 2 — Renta Vitalicia (Binario):**
-Cada vez que alguien en su organizacion (en cualquiera de los 15 paises operativos de America) consume un producto, ese volumen se acumula en su estructura. Usted cobra un porcentaje sobre ese volumen cada semana, sin limite de profundidad ni fecha de vencimiento.
+Piénselo como una bola de nieve rodando montaña abajo: usted arranca con unos pocos socios, y cada uno de ellos arma su propia red de clientes y socios. La bola crece sola, y todo lo que se mueve ahí adentro le paga a usted.
 
-**Mecanica:** El GEN5 le inyecta flujo de caja por la expansion de las bases operativas. El Binario consolida sus ingresos pagandole regalias ininterrumpidas por el consumo organico que fluye por toda su organizacion.
+Ese ingreso ya no depende de que usted esté encima — y es dinero que no le debe al banco.
 
-**Nota:** Estas son dos de las 12 formas. Si desea ver los numeros especificos, consulte "Capitalizacion Inmediata" (GEN5) o "Renta Vitalicia" (Binario).
+¿Le explico también la segunda forma?
+</verbatim_lock>
 
----
-
-## ESTRUCTURAS ORGANIZACIONALES
-
-### COMP_ESTRUCTURA_01: "Que es el Patrocinio?" / "Quien es mi patrocinador?"
-
-**[Concepto Nuclear]:** El Patrocinio define QUIEN invito directamente a una persona al proyecto. Sobre el Patrocinio se paga el GEN5.
-
-El Patrocinio define quien invito directamente a alguien al proyecto. En una conversacion es comun preguntar: "¿quien es su patrocinador?" — esa es la persona que lo trajo.
-
-Su patrocinio comienza con los socios que Usted vincula personalmente, y crece cuando ellos invitan a otros.
-
-**Caracteristicas:**
-| Aspecto | Valor |
-|---------|-------|
-| Socios directos | SIN LIMITE |
-| Niveles de profundidad | SIN LIMITE |
-| Forma | Cualquier numero de posiciones por nivel |
-| Otro nombre tecnico | "Estructura Uninivel" |
-
-**Donde Aplica:**
-| Bono | Usa el Patrocinio? |
-|------|--------------------|
-| GEN5 | SI (hasta 5 generaciones) |
-| Binario | NO |
-
-**Insight:** Usted puede invitar a infinitas personas directas. Cada una abre una nueva linea que crece de forma independiente.
-
----
-
-### COMP_ESTRUCTURA_02: "Que es la Colocacion?" / "Donde queda ubicado un nuevo codigo?"
-
-**[Concepto Nuclear]:** La Colocacion define en que punto exacto de su estructura se ubica cada nuevo codigo. Organiza su estructura en dos lados; sobre ese volumen paga el Binario.
-
-La Colocacion define en que lugar exacto, dentro de su estructura, se ubica cada nuevo codigo — una nueva empresa digital o un nuevo Cliente VIP.
-
-**Patrocinio vs Colocacion** (se definen al registrar a alguien en Gano Excel):
-| Concepto | Que define |
-|----------|------------|
-| Patrocinio | QUIEN lo invito al proyecto |
-| Colocacion | DONDE queda ubicado dentro de su estructura |
-
-Ejemplo: en una estructura grande, al registrar un codigo Usted indica exactamente en que punto de su organizacion va a quedar.
-
-**Caracteristicas de la Colocacion:**
-| Aspecto | Valor |
-|---------|-------|
-| Posiciones debajo de cada posicion | MAXIMO 2 (dos lados) |
-| Profundidad | SIN LIMITE |
-| Sobre que paga | Volumen comisionable (GCV) de cada lado |
-
-**Insight:** El Patrocinio define QUIEN lo invito. La Colocacion define DONDE se ubica. El GEN5 paga por la compra de paquetes empresariales en sus empresas digitales; el Binario —una de las 12 formas de ganar— le paga por el volumen comisionable (GCV) acumulado.
-
----
-
-### COMP_CENTRO_01: "Que es el Centro de Negocio de Cobro?"
-
-**[Concepto Nuclear]:** Es el centro de negocios donde, en el consolidado, hay menos volumen comisionable (GCV).
-
-**Insight:** Piense en su Centro de Cobro como una balanza: el sistema pesa ambos lados y le paga sobre el mas liviano.
-
----
-
-### COMP_ACTIVO_01: "Que significa estar activo?"
-
-**[Concepto Nuclear]:** Activo = 50+ PV de compra personal en el ciclo. Sin esto, no cobra.
-
-"Estar activo" es el requisito minimo para recibir cualquier comision.
-
-**Niveles de Actividad:**
-| Su PV | Estado | Que Desbloquea |
-|-------|--------|----------------|
-| 0-49 PV | INACTIVO | Nada - no cobra |
-| 50-99 PV | ACTIVO | GEN5 + Binario (Gen 5 normal) |
-| 100+ PV | ACTIVO PREMIUM | GEN5 + Binario (Gen 5 DOBLE) |
-
-**Que pasa si pierde actividad:**
-| Situacion | Consecuencia |
-|-----------|--------------|
-| No compra 50 PV esta semana | No cobra esta semana |
-| Su CV acumulado | Se CONGELA (no se pierde) |
-| Siguiente semana con 50+ PV | Vuelve a cobrar, CV se descongela |
-
-**Insight:** 50 PV es su "cuota de mantenimiento". Sin ella, el sistema le pausa pero no le borra. Su CV sigue ahi esperandole.
-
----
-
-## BONO GEN5 (INICIO RAPIDO)
+**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, estructuradas para corto, mediano y largo plazo. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
 
 ### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5"
 

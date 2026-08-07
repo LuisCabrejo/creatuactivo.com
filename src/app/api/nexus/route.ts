@@ -1185,7 +1185,8 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
 async function searchArsenalFragments(
   userMessage: string,
   arsenalType: string,
-  maxResults: number = 5
+  maxResults: number = 5,
+  tenantId: string = 'creatuactivo_marketing'
 ): Promise<VectorSearchResult[]> {
   const voyageApiKey = process.env.VOYAGE_API_KEY;
 
@@ -1194,6 +1195,43 @@ async function searchArsenalFragments(
     return [];
   }
 
+  // ── CAMINO PRINCIPAL: la similitud se calcula en la base ──────────────────
+  // Antes se traían TODOS los fragmentos de TODOS los tenants y se comparaba en
+  // memoria: 339 fragmentos, 2,83 MB y 1,58 s en cada arranque en frío, de los
+  // cuales tres cuartas partes eran vectores que se usaban una vez y se tiraban.
+  // Y sin filtro de tenant, 156 categorías llegaban DUPLICADAS —la misma
+  // respuesta en creatuactivo_marketing y en whatsapp— compitiendo entre sí por
+  // los tres cupos del resultado. Con la función solo cruzan la red los
+  // ganadores. Ver supabase/migrations/20260807_match_fragments_512.sql.
+  //
+  // Si la función no existe todavía (migración sin aplicar) o falla, se cae al
+  // camino en memoria de abajo: la recuperación se degrada en latencia, nunca
+  // en disponibilidad.
+  try {
+    const embedding = await generateVoyageEmbedding(userMessage, voyageApiKey, 'query');
+    const { data, error } = await getSupabaseAdmin().rpc('match_fragments_512', {
+      query_embedding: embedding,
+      filter_tenant_id: tenantId,
+      category_prefix: `${arsenalType}_`,
+      match_threshold: 0.30,
+      match_count: maxResults,
+    });
+
+    if (!error && data) {
+      const results = (data as Array<{ category: string; title: string; content: string; similarity: number; metadata: Record<string, unknown> }>)
+        .map(r => ({ category: r.category, title: r.title, content: r.content, similarity: r.similarity, metadata: r.metadata }));
+      if (results.length > 0) {
+        console.log(`✅ [Fragments/RPC] ${results.length} fragmentos de ${arsenalType} (tenant ${tenantId}):`);
+        results.forEach((r, i) => console.log(`   ${i + 1}. ${r.category} (${r.similarity.toFixed(3)})`));
+      }
+      return results;
+    }
+    console.warn(`⚠️ [Fragments/RPC] no disponible (${error?.message ?? 'sin datos'}) — cayendo a búsqueda en memoria`);
+  } catch (err) {
+    console.warn('⚠️ [Fragments/RPC] excepción, cayendo a búsqueda en memoria:', err);
+  }
+
+  // ── RESPALDO: búsqueda en memoria (el camino histórico) ───────────────────
   try {
     const allFragments = await getArsenalFragments();
 
@@ -2171,7 +2209,7 @@ function analizarIntencionSemantica(userMessage: string): string[] {
 }
 
 // CORRECCIÓN: Búsqueda híbrida escalable en Arsenal MVP + Catálogo
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1) {
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing') {
   const cacheKey = `hibrido_${query.toLowerCase()}`;
 
   const cached = searchCache.get(cacheKey);
@@ -2331,7 +2369,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     console.log('🛒 Consulta fragmentada: CATÁLOGO DE PRODUCTOS');
 
     // Intentar primero con fragmentos Voyage AI (igual que arsenales)
-    const fragments = await searchArsenalFragments(userMessage, 'catalogo_productos', 5);
+    const fragments = await searchArsenalFragments(userMessage, 'catalogo_productos', 5, tenantId);
 
     if (fragments.length > 0) {
       const totalFragmentChars = fragments.reduce((sum, f) => sum + f.content.length, 0);
@@ -2465,7 +2503,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
     try {
       // PASO 1: Buscar fragmentos relevantes con vector search
-      const fragments = await searchArsenalFragments(userMessage, documentType, 5);
+      const fragments = await searchArsenalFragments(userMessage, documentType, 5, tenantId);
 
       if (fragments.length > 0) {
         // Calcular chars totales de fragmentos vs arsenal completo
@@ -2549,7 +2587,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // completo, y el modelo respondía sin fuentes — llegando a NEGAR que la oferta existiera.
   if (!documentType) {
     try {
-      const fallbackFragments = await searchArsenalFragments(userMessage, 'arsenal_inicial', 5);
+      const fallbackFragments = await searchArsenalFragments(userMessage, 'arsenal_inicial', 5, tenantId);
       if (fallbackFragments.length > 0) {
         console.log(`🛟 [Fallback fragmentos] arsenal_inicial: ${fallbackFragments.length} encontrados sin classification previa`);
         const totalFragmentChars = fallbackFragments.reduce((sum, f) => sum + f.content.length, 0);
@@ -3718,7 +3756,7 @@ ${summaryParts.join('\n')}
         // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
         // Siempre usar arsenal_ganocafe — ignora clasificación de creatuactivo
         console.log('🛒 [GanoCafe] Routing directo a arsenal_ganocafe');
-        const gcFragments = await searchArsenalFragments(latestUserMessage, 'arsenal_ganocafe', 5);
+        const gcFragments = await searchArsenalFragments(latestUserMessage, 'arsenal_ganocafe', 5, tenantId);
         if (gcFragments.length > 0) {
           const gcContent = gcFragments.map(f => f.content).join('\n\n---\n\n');
           console.log(`✅ [GanoCafe] ${gcFragments.length} fragmentos encontrados`);
@@ -3751,7 +3789,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {

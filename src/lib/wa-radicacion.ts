@@ -320,9 +320,14 @@ export function pedirUnDato(
 
   switch (clave) {
     case 'nombre':
+      // "Empecemos" y no "Con gusto": el mensaje anterior de este mismo flujo
+      // (`pedirDatos`) ya abrió con "Con gusto", y dos turnos seguidos con la
+      // misma fórmula de cortesía es lo que hace que suene a máquina. Los cinco
+      // acuses de este flujo son distintos a propósito — Con gusto · Perfecto ·
+      // Empecemos · Gracias · Listo.
       return reintento
         ? 'Perdón, no lo capté bien. ¿Me confirma su nombre completo, con apellidos, como aparece en el documento?'
-        : 'Con gusto. Empecemos por su *nombre completo*, como aparece en su documento.';
+        : 'Empecemos, entonces. ¿Cuál es su *nombre completo*, como aparece en su documento?';
 
     case 'cedula':
       return reintento

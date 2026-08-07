@@ -32,10 +32,13 @@ export const maxDuration = 30;
 // Lo que el prospecto recibe cuando el guardarraíl bloquea una respuesta. Es
 // también lo que queda en el historial y en la base: el modelo debe recordar lo
 // que la persona leyó, no lo que él generó.
+// Alineada con WHY_02/WHY_04 (7 ago 2026): el mecanismo es el producto que se
+// mueve por el canal — sin contar personas y sin "mes a mes" pegado al ingreso
+// (Gano liquida cada viernes; lo mensual es el consumo, no el pago).
 const RESPUESTA_CORRECTIVA =
-  'Permítame precisarlo bien: lo que hacemos es distribuir productos de consumo diario ' +
-  '—café, bebidas y suplementos— apoyados en tecnología, y usted construye una organización ' +
-  'de personas que los consume mes a mes.\n\n¿Quiere que le cuente cómo se vería eso en su caso?';
+  'Permítame precisarlo bien: usted dirige un canal de distribución de productos de consumo ' +
+  'diario —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
+  'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
 
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
 let supabaseClient: ReturnType<typeof createClient> | null = null;

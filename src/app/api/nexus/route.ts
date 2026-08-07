@@ -2188,11 +2188,11 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // para que la búsqueda vectorial recupere el fragmento canónico correcto.
   // Sin esta expansión, los chips con frases premium ("Quiero entender la lógica...")
   // no recuperan WHY_02 — el modelo improvisa y pierde el formato Markdown.
+  // Las claves sueltas 'a'..'d' del menú por letras se retiraron el 7 ago 2026:
+  // eran del saludo web viejo, y la de 'a' expandía al "reto de los 12 días" —
+  // un funnel ELIMINADO en julio. En WhatsApp la gente sí contesta con una letra
+  // suelta, y esa letra la mandaba a buscar doctrina de un producto muerto.
   const menuExpansion: Record<string, string> = {
-    'a': 'conocer el reto de los 12 días qué es el reto',
-    'b': 'cómo funciona el negocio explicar el sistema',
-    'c': 'qué productos distribuimos catálogo Gano Excel',
-    'd': 'inversión y ganancias cuánto cuesta empezar',
     ...QUESWA_QUICK_REPLIES_EXPANSION,
   };
 
@@ -3989,6 +3989,16 @@ El visitante está viendo el deck de "Los 12 Niveles": una presentación (negoci
     // paquete. La tabla se entrega con pregunta combinada (nombre + nivel) para minimizar
     // turnos. Cuando es false, la tabla es informativa (usuario solo preguntó por paquetes).
     const { closingState, modoCierre, marchaInteres } = (() => {
+      // WhatsApp: el cierre lo maneja el canal (wa-radicacion.ts). Sin este
+      // corto, la FSM seguía calculando estados que ya nadie atiende: el modelo
+      // recibía <estado_fsm>3</estado_fsm> sin instrucciones (los micro-prompts
+      // están apagados), y un Estado 4 fantasma podía disparar el warm handoff
+      // por email de la web — notificación duplicada con la plantilla de
+      // pre-afiliación que el canal ya envía. Se conserva solo marchaInteres,
+      // que alimenta el puente suave (no pedir datos antes de la decisión).
+      if (cierreLoManejaElCanal) {
+        return { closingState: 0 as const, modoCierre: false, marchaInteres: marchaCierre === 2 };
+      }
       // ── Ola 4 (25 May 2026): FSM refactor MAYOR ──────────────────────────────
       // Nuevo flujo de cierre humano (insight Director Cabrejo):
       //   Estado 3  → pedir nombre completo (sin link, sin doble oferta)
@@ -4114,6 +4124,11 @@ El visitante está viendo el deck de "Los 12 Niveles": una presentación (negoci
     // El saludo vive aquí — no en el System Prompt. Principio de segregación:
     // el backend controla todos los textos verbatim (apertura + cierre).
     const getMicroPromptApertura = (): string => {
+      // WhatsApp: la apertura la dicta el webhook (wa-apertura.ts), con el
+      // nombre del socio y botones. Si este saludo web llegara a dispararse
+      // (prospecto existente cuyo historial no se pudo leer), la persona
+      // recibiría el saludo del sitio — con chips que aquí no existen.
+      if (cierreLoManejaElCanal) return '';
       if (messageCount === 1) {
         return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

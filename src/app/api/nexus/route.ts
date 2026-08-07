@@ -4388,33 +4388,51 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
           esCO ? `$${cop.toLocaleString('es-CO')}` : `$${usd.toLocaleString('en-US')}`;
         const moneda = esCO ? 'COP' : 'USD';
 
+        // El ejemplo se calcula sobre el paquete que la persona nombró. Antes era
+        // ESP-3 fijo, y cuando alguien decía "ESP-2" el modelo anteponía "le
+        // muestro el ejemplo con el ESP-2" a cifras que eran de ESP-3 — dos
+        // paquetes distintos en el mismo mensaje, con cifras que no correspondían.
+        const paqueteDicho = /esp[\s-]?1|inicial/i.test(latestUserMessage) ? 'ESP-1'
+          : /esp[\s-]?2|empresarial/i.test(latestUserMessage) ? 'ESP-2'
+          : (mergedProspectData.package === 'ESP-1' || mergedProspectData.package === 'ESP-2')
+            ? mergedProspectData.package : 'ESP-3';
+        const TASAS_GEN5: Record<string, { etiqueta: string; cop: number[]; usd: number[] }> = {
+          'ESP-3': { etiqueta: 'ESP-3 Visionario',  cop: [675000, 90000, 90000, 90000, 180000], usd: [150, 20, 20, 20, 40] },
+          'ESP-2': { etiqueta: 'ESP-2 Empresarial', cop: [337500, 45000, 45000, 45000,  90000], usd: [75, 10, 10, 10, 20] },
+          'ESP-1': { etiqueta: 'ESP-1 Inicial',     cop: [112500, 22500, 22500, 22500,  45000], usd: [25,  5,  5,  5, 10] },
+        };
+        const T = TASAS_GEN5[paqueteDicho];
+        const g = (i: number) => c(T.cop[i], T.usd[i]);
+        const g5 = (i: number) => c(T.cop[i] * 5, T.usd[i] * 5);
+        const total = c(T.cop.reduce((a, v) => a + v * 5, 0), T.usd.reduce((a, v) => a + v * 5, 0));
+
         return `
 📌 EJEMPLO GEN5 DICTADO — imprime este texto EXACTAMENTE, sin agregar filas, sin tablas, sin diagramas y sin arte ASCII. Es el único ejemplo de cifras que se entrega por este canal:
 
 Le pongo un ejemplo con números redondos.
 
-Usted arranca con el *ESP-3 Visionario*, y en su canal se compran *5 paquetes ESP-3* en cada una de las primeras cinco generaciones.
+Usted arranca con el *${T.etiqueta}*, y en su canal se compran *5 paquetes ${paqueteDicho}* en cada una de las primeras cinco generaciones.
 
 *Generación 1* — 5 paquetes
-${c(675000, 150)} × 5 = *${c(3375000, 750)}*
+${g(0)} × 5 = *${g5(0)}*
 
 *Generación 2* — 5 paquetes
-${c(90000, 20)} × 5 = *${c(450000, 100)}*
+${g(1)} × 5 = *${g5(1)}*
 
 *Generación 3* — 5 paquetes
-${c(90000, 20)} × 5 = *${c(450000, 100)}*
+${g(2)} × 5 = *${g5(2)}*
 
 *Generación 4* — 5 paquetes
-${c(90000, 20)} × 5 = *${c(450000, 100)}*
+${g(3)} × 5 = *${g5(3)}*
 
 *Generación 5* — 5 paquetes
-${c(180000, 40)} × 5 = *${c(900000, 200)}*
+${g(4)} × 5 = *${g5(4)}*
 
-*Total: ${c(5625000, 1250)} ${moneda}*
+*Total: ${total} ${moneda}*
 
 Y se liquida cada viernes, a medida que cada compra ocurre — no espera a que se complete nada.
 
-STOP. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
+STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado propio. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
       }
       // Cifras GEN5 país-aware. CO → COP (×$4.500). US/resto → USD. (Colombia = SOLO COP.)
       const filasGen5 = visitorCountry === 'CO'

@@ -60,7 +60,7 @@ const RE_VOLICION =
  * mensaje solo pasa aquí.
  */
 const RE_BOT_PIDIO_DATOS =
-  /para radicar su vinculaci[oó]n|necesito cuatro datos|me falta(n)? (un dato|estos datos)|nombre completo, como aparece|n[uú]mero de identificaci[oó]n|en qu[eé] ciudad est[aá]|cu[aá]l de los tres paquetes|(?=[\s\S]*n[uú]mero de identificaci[oó]n)(?=[\s\S]*ciudad)/i;
+  /para radicar su vinculaci[oó]n|necesito cuatro datos|me falta(n)? (un dato|estos datos)|nombre completo, como aparece|n[uú]mero de identificaci[oó]n|en qu[eé] ciudad est[aá]|cu[aá]l de los tres paquetes de inicio|(?=[\s\S]*n[uú]mero de identificaci[oó]n)(?=[\s\S]*ciudad)/i;
 
 /**
  * Una pregunta a mitad del cierre no es un dato — es una duda, y merece respuesta.
@@ -90,7 +90,7 @@ function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolea
     case 'nombre':  return /nombre completo/.test(t);
     case 'cedula':  return /n[uú]mero de identificaci[oó]n/.test(t);
     case 'ciudad':  return /en qu[eé] ciudad/.test(t);
-    case 'paquete': return /cu[aá]l de los tres paquetes|con cu[aá]l de los tres/.test(t);
+    case 'paquete': return /cu[aá]l de los tres paquetes de inicio|con cu[aá]l de los tres se va/.test(t);
   }
 }
 

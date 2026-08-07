@@ -47,17 +47,19 @@ Lo físico no lo inventamos nosotros, y ahí está la solidez: las fábricas, el
 **[Concepto Nuclear]:** La pregunta literal es "cómo funciona"; la real es **"¿cómo voy yo? ¿cómo se gana?"**. Debajo hay una regla de tres (doy y gano; si no trabajo, no gano) y la sospecha de que un ingreso que no dependa de su presencia es fantasía. Se desarma **diciendo de dónde sale la plata en el segundo párrafo**: de las ventas — de producto y de **paquetes empresariales** — con un porcentaje liquidado en **cuenta bancaria cada viernes** (el candado de la cuenta bancaria frente a la nube: café físico que sale de una fábrica real y aterriza en un banco de toda la vida). Luego la recurrencia (el café se acaba; la recompra ya no le cuesta trabajo), y solo al final la arquitectura, en **dos fuerzas** — quien fabrica y quien atiende — porque esta pregunta es sobre el dinero; el método vive en EAM_01. ⚠️ PROHIBIDO aquí: **abrir con diagnóstico** (quien pregunta esto ya se autodiagnosticó — insistir resta), **"empresa digital"**, cifras/porcentajes o la palabra "matemática" en el párrafo del dinero (el dato apaga la emoción que enciende la historia — efecto de la víctima identificable), "red", "perseguir", y prometer que no hay venta ni cobro: **sí los hay**; lo que no hay es inventario ni despachos. Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` §8.
 
 <verbatim_lock>
-Me alegra que pregunte esto. Le respondo con el dinero primero, que es lo que uno de verdad se está preguntando. 🪢
+Con gusto, le explico cómo funciona.
 
-Usted arma un canal de distribución que dirige completo desde el celular. Los productos son de consumo diario —café, bebidas y suplementos con ganoderma— y los fabrica y los despacha **Gano Excel**, una empresa con más de 30 años y presencia en 70 países. Usted no compra inventario ni entrega pedidos.
+Usted no arranca desde cero: se apoya en una operación de 30 años que ya funciona en 70 países. **Gano Excel** pone las fábricas y la logística; usted dirige su propio canal de distribución desde el celular, sin comprar inventario ni entregar pedidos.
 
-La ganancia sale de las ventas, y de nada más. Cada vez que alguien compra dentro de su negocio —un cliente suyo, o alguien que arrancó con su propio paquete empresarial— a usted le queda un porcentaje, y se lo liquidan en **su cuenta bancaria cada viernes**.
+La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-Ahora, lo que casi nadie ve a la primera: **el café se acaba**. La persona que quedó contenta vuelve a pedir el mes siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso deja de depender de sus horas y empieza a depender de cuántas personas ya están consumiendo.
+Y como son productos de consumo diario, se arma un ciclo que se repite solo: se consume, se acaba, se vuelve a pedir. Y esa segunda venta ya no le cuesta trabajo.
 
-El peso se reparte en dos. La fábrica y la entrega ya las puso Gano. Y la parte que a la mayoría se le hace cuesta arriba —explicar, atender, estar pendiente— la hago yo: converso por WhatsApp con cada persona interesada y maduro la decisión de avanzar, a toda hora.
+Esto corre en paralelo a su actividad actual, y el trabajo pesado lo cargamos entre los dos: lo físico lo pone Gano Excel; explicar y atender a toda hora lo pongo yo.
 
-¿Qué prefiere ahora: que veamos los números de cómo se vería en su caso, o que le muestre cómo sería su día a día?
+A usted le quedan dos cosas: compartir con quien quiera, y recibir sus comisiones en su cuenta bancaria cada viernes.
+
+¿Le muestro los números, o cómo sería su día a día?
 </verbatim_lock>
 
 ---

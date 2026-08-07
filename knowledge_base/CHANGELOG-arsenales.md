@@ -12,6 +12,21 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.32 — WHY_02 como ecuación (6 ago 2026)
+
+Sesión Director + Gemini sobre el transcript real del canal. **De 1.353 a 921 caracteres**: dos mensajes en vez de tres, con la pregunta a la vista. Sincronizado carácter por carácter con `MASTER_WHY_02`; purgado, re-embebido y clonado al tenant whatsapp.
+
+Seis decisiones, en orden de importancia:
+
+1. **El mecanismo es un sustantivo, no una categoría.** *"El producto que se mueve por su canal"*, no *"las ventas"*. "Ventas" obliga al prospecto a imaginarse **a él vendiendo** justo en el párrafo donde está midiendo si esto es para él. No niega que haya venta (eso sería mentir); el desglose *"producto al detal o paquetes empresariales"* vive en la respuesta hermana del botón "De dónde sale el dinero" — repetirlo aquí interrumpe la ecuación.
+2. **La recompra es un ciclo con la cadencia del villano invertida.** *"Se consume, se acaba, se vuelve a pedir"* contra *"trabajar, pagar cuentas y repetir"* (STORY_03): tres tiempos, misma métrica, sentido contrario. Impersonal a propósito — el producto hace el ciclo, no la gente (ver [[feedback_ejemplos_compras_no_personas]]).
+3. **Dos regresiones retiradas de la misma oración:** *"deja de depender de sus horas"* (al latino trabajar no le duele — el villano es la dependencia, ver [[feedback_horas_no_son_el_villano]]) y *"cuántas personas ya están consumiendo"* (contaba cabezas).
+4. **El viernes se movió al cierre.** Arriba solo informaba; al final, después de "compartir", es la **recompensa de haber compartido**. La cuenta bancaria sigue siendo el candado anti-nube, ahora en el remate.
+5. **Sin meta-frase de apertura.** *"Le respondo con el dinero primero, que es lo que uno de verdad se está preguntando"* le avisaba al prospecto que le íbamos a manejar la conversación. El dinero sigue llegando en el segundo párrafo, sin anunciarlo. Abre con saludo: un texto que entra en frío se lee como manual.
+6. **Elevación por apalancamiento, no por adjetivos:** *"Usted no arranca desde cero: se apoya en una operación de 30 años que ya funciona en 70 países"*. Y el cierre cambia el vacío *"lo suyo es dirigir"* por **dos verbos contables** — el alivio viene de poder contar lo que queda por hacer.
+
+⚠️ Efecto colateral aceptado: la bienvenida humana (*"recibir al que ya dijo que sí"*) sale de WHY_02 y queda solo en EAM_01, que es donde vive el día a día.
+
 ### v5.31 — EAM_01 en formato WhatsApp (6 ago 2026)
 
 Decisión del Director tras auditar la primera conversación real por el canal: **la mayor parte de la comunicación es por WhatsApp**, y el orbe del sitio se va a reemplazar por WhatsApp, así que **las respuestas se calibran para WhatsApp en todas partes**. La excepción es el Dashboard (`queswa.app`), donde sí se quieren respuestas largas porque es el espacio de formación de los empresarios — y no le afecta: tiene tenant propio (`dashboard`, con `arsenal_cierre` + `arsenal_manejo`) y no lee `arsenal_inicial`.

@@ -41,7 +41,31 @@
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
  * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.28 BLOQUE 1.
  *
- * Reescritura 31 jul 2026 — LENGUAJE CONCRETO. Origen: dos meses de conversaciones
+ * Reescritura 6 ago 2026 — NARRATIVA DE ECUACIÓN (sesión Director + Gemini sobre el
+ * transcript real del canal). De 1.353 a 921 caracteres: sale en dos mensajes, no en
+ * tres, y la pregunta queda a la vista sin "leer más". Seis decisiones:
+ *   1. Sin meta-frase de apertura. "Le respondo con el dinero primero" le avisaba al
+ *      prospecto que le íbamos a manejar la conversación; el dinero sigue llegando en
+ *      el segundo párrafo, pero sin anunciarlo. Abre con saludo — un texto que entra
+ *      en frío se lee como manual.
+ *   2. El mecanismo es un SUSTANTIVO, no una categoría: "el producto que se mueve por
+ *      su canal", no "las ventas". "Ventas" obliga a imaginarse a uno mismo vendiendo.
+ *      El desglose (detal / paquetes empresariales) vive en la respuesta hermana del
+ *      botón "De dónde sale el dinero"; repetirlo aquí interrumpe la ecuación.
+ *   3. Dos puntos como signo igual: "sale de una sola cosa:" avisa que viene un
+ *      resultado, no una reflexión. (La palabra "matemática" sigue vetada en este
+ *      párrafo — el dato apaga la emoción donde se enciende la confianza.)
+ *   4. La recompra es un CICLO con la cadencia del villano invertida: "se consume, se
+ *      acaba, se vuelve a pedir" contra "trabajar, pagar cuentas y repetir". Tres
+ *      tiempos, impersonal — el producto hace el ciclo, no la gente (regla: contar
+ *      compras, nunca personas).
+ *   5. Fuera "deja de depender de sus horas": regresión: al latino trabajar no le duele;
+ *      el villano es la dependencia. Fuera también "cuántas personas ya están
+ *      consumiendo" — contaba cabezas.
+ *   6. El viernes se movió del párrafo del dinero al CIERRE: arriba solo informaba;
+ *      al final, después de "compartir", es la recompensa de haber compartido.
+ *
+ * Reescritura previa 31 jul 2026 — LENGUAJE CONCRETO. Origen: dos meses de conversaciones
  * 1-a-1 del Director sin un solo "wow". La versión anterior explicaba arquitectura
  * (el puente, Amazon/MercadoLibre, la tríada) y nunca decía de dónde sale el dinero,
  * que es la pregunta real debajo de "cómo funciona" — el prospecto quiere saber
@@ -54,17 +78,19 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Me alegra que pregunte esto. Le respondo con el dinero primero, que es lo que uno de verdad se está preguntando. 🪢
+const MASTER_WHY_02 = `Con gusto, le explico cómo funciona.
 
-Usted arma un canal de distribución que dirige completo desde el celular. Los productos son de consumo diario —café, bebidas y suplementos con ganoderma— y los fabrica y los despacha **Gano Excel**, una empresa con más de 30 años y presencia en 70 países. Usted no compra inventario ni entrega pedidos.
+Usted no arranca desde cero: se apoya en una operación de 30 años que ya funciona en 70 países. **Gano Excel** pone las fábricas y la logística; usted dirige su propio canal de distribución desde el celular, sin comprar inventario ni entregar pedidos.
 
-La ganancia sale de las ventas, y de nada más. Cada vez que alguien compra dentro de su negocio —un cliente suyo, o alguien que arrancó con su propio paquete empresarial— a usted le queda un porcentaje, y se lo liquidan en **su cuenta bancaria cada viernes**.
+La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-Ahora, lo que casi nadie ve a la primera: **el café se acaba**. La persona que quedó contenta vuelve a pedir el mes siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso deja de depender de sus horas y empieza a depender de cuántas personas ya están consumiendo.
+Y como son productos de consumo diario, se arma un ciclo que se repite solo: se consume, se acaba, se vuelve a pedir. Y esa segunda venta ya no le cuesta trabajo.
 
-El peso se reparte en dos. La fábrica y la entrega ya las puso Gano. Y la parte que a la mayoría se le hace cuesta arriba —explicar, atender, estar pendiente— la hago yo: converso por WhatsApp con cada persona interesada y maduro la decisión de avanzar, a toda hora.
+Esto corre en paralelo a su actividad actual, y el trabajo pesado lo cargamos entre los dos: lo físico lo pone Gano Excel; explicar y atender a toda hora lo pongo yo.
 
-¿Qué prefiere ahora: que veamos los números de cómo se vería en su caso, o que le muestre cómo sería su día a día?`;
+A usted le quedan dos cosas: compartir con quien quiera, y recibir sus comisiones en su cuenta bancaria cada viernes.
+
+¿Le muestro los números, o cómo sería su día a día?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

@@ -568,19 +568,23 @@ Tiene varias opciones para completar sus 50 PV mensuales — todas en productos 
 
 ## REGALIA DE EQUIPO (BONO BINARIO)
 
-### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario"
+### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario" / "Que es el ingreso recurrente?"
 
-**[Concepto Nuclear]:** Renta Vitalicia. Cobra por el volumen comisionable total de la organizacion, infinito en profundidad.
+**[Concepto Nuclear]:** La PRIMERA respuesta sobre el Binario **no lleva cifras ni tablas**. Doctrina del Director (7 ago 2026), sacada de cómo lo explica él en el 1-a-1: primero se pinta con palabras el concepto nuclear —*usted gana por todas las compras que se generan dentro de su red de clientes y socios*— y solo cuando la persona ya lo entendió se ofrece el ejemplo gráfico. Empezar por los números obliga a explicar los dos centros de negocio antes de que exista el concepto, y ahí se pierde. La imagen es la **bola de nieve** (la misma que el slide 4 de `/servilleta` ya implementa en el control del simulador). ⚠️ NO se mencionan los dos frentes ni el CV en esta respuesta — eso vive en COMP_BIN_11 y en las proyecciones. ⚠️ Vocabulario de empresa: **clientes** y **socios de negocio**; "red" solo acompañada ("red de clientes y socios"), nunca desnuda. La pregunta de cierre es la bisagra hacia COMP_BIN_10.
 
-El Binario es su activo real a largo plazo. El sistema suma todo el volumen comisionable de sus dos frentes (sin importar quien invito a quien) y le paga un porcentaje sobre el frente de menor volumen cada semana. El volumen comisionable es el valor base oficial asignado a cada producto por Gano Excel — distinto al precio de venta al público.
+<verbatim_lock>
+Claro que sí. El Bono Binario es el que le construye seguridad financiera.
 
-**Tasas de Comision:**
-- Tasa Base: **10%**
-- Tasa Fundador (ESP-3): **17%** (El estandar recomendado)
+Es un ingreso que le llega semana a semana, y sale de las compras que se van repitiendo dentro de su red de clientes y socios de negocio.
 
-**Mecanica:** Mientras el mercado demande la biotecnologia de bioactivacion por habito innegociable, el consumo fluye y el ecosistema liquida regalias recurrentes cada viernes, operando de forma automatica sin requerir su intervencion manual.
+Piénselo como una bola de nieve rodando montaña abajo: usted arranca con unos pocos socios, y cada uno de ellos arma su propia red de clientes y socios. La bola crece sola, y todo lo que se mueve ahí adentro le paga a usted.
 
-**Nota:** Si desea ver la proyeccion de crecimiento, pregunte "deme la proyeccion binario".
+Ese ingreso ya no depende de que usted esté encima — y es dinero que no le debe al banco.
+
+¿Le muestro un ejemplo con números?
+</verbatim_lock>
+
+**[Referencia interna — NO mostrar al prospecto]:** el sistema suma el volumen comisionable de sus dos frentes (sin importar quién invitó a quién) y liquida un porcentaje sobre el frente de menor volumen. Tasa base 10%; tasa Fundador ESP-3 17%. El volumen comisionable es el valor base oficial que Gano Excel asigna a cada producto, distinto del precio de venta al público. Se liquida cada viernes.
 
 ---
 
@@ -737,15 +741,17 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 
 **⚠️ QUESWA REGLA CRITICA:** Cuando ambos lados tienen el MISMO numero de personas activas, el Lado Menor = CV Total de UN lado (NO la mitad).
 
-**TABLA CANONICA - Proyeccion con Consumo Estandar (56 CV/persona, 17%):**
+**TABLA CANONICA - Proyeccion con Consumo Estandar (56 CV AL MES por cliente, 17%):**
 
-| Mes | Personas/Lado | CV Total/Lado | Lado Menor | Comision Semanal | Comision Mensual |
-|-----|---------------|---------------|------------|------------------|------------------|
-| 1 | 10 | 560 CV | 560 CV | $95 USD | $380 USD |
-| 3 | 25 | 1,400 CV | 1,400 CV | $238 USD | $952 USD |
-| 6 | 50 | 2,800 CV | 2,800 CV | $476 USD | $1,904 USD |
-| 12 | 100 | 5,600 CV | 5,600 CV | $952 USD | $3,808 USD |
-| 18 | 200 | 11,200 CV | 5,600 CV | $952 USD | $3,808 USD |
+| Mes | Clientes por frente | CV al mes por frente | Frente de cobro | Comision MENSUAL |
+|-----|---------------------|----------------------|-----------------|------------------|
+| 1 | 10 | 560 CV | 560 CV | $95 USD |
+| 3 | 25 | 1,400 CV | 1,400 CV | $238 USD |
+| 6 | 50 | 2,800 CV | 2,800 CV | $476 USD |
+| 12 | 100 | 5,600 CV | 5,600 CV | $952 USD |
+| 18 | 200 vs 100 | 11,200 CV | 5,600 CV | $952 USD |
+
+**⚠️ CORRECCION 7 ago 2026 — el periodo estaba mal.** Esta tabla rotulaba las cifras como comision SEMANAL y multiplicaba por 4 para la mensual, inflando la proyeccion al cuadruple. El consumo estandar de 56 CV es POR MES (4 cajas, una por semana), asi que 560 CV × 17% = $95 son de un MES completo. Confirmado por el Director. Las cifras no cambiaron: cambio el periodo al que corresponden.
 
 **Nota sobre Mes 18:** Ejemplo de equipos desbalanceados (200 vs 100). Lado Menor = 5,600 CV.
 
@@ -798,13 +804,13 @@ Gano Excel paga por centenas. Si tiene CV impar, el sobrante pasa al siguiente c
 
 ### COMP_BIN_10: "Ejemplo practico del Binario con consumo estandar"
 
-**[Concepto Nuclear]:** 10 parejas consumiendo = ~$95 USD/semana. 100 parejas = ~$950 USD/semana.
+**[Concepto Nuclear]:** 10 clientes por frente consumiendo = ~$95 USD AL MES. 100 clientes = ~$952 USD al mes. ⚠️ Este fragmento se entrega DESPUES de COMP_BIN_01 (el concepto sin cifras), nunca como primera respuesta.
 
-Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 = 56 CV).
+Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (14 CV × 4 = 56 CV al mes).
 
-**Proyeccion con Consumo Estandar (56 CV/persona, 17%):**
-| Personas/Lado | CV/Persona | Comision Semanal (USD) | Comision Semanal (COP) |
-|---------------|------------|------------------------|------------------------|
+**Proyeccion con Consumo Estandar (56 CV al mes por cliente, 17%):**
+| Clientes por frente | CV al mes c/u | Comision MENSUAL (USD) | Comision MENSUAL (COP) |
+|---------------------|---------------|------------------------|------------------------|
 | 10 | 56 CV | $95 USD | ~$428K COP |
 | 100 | 56 CV | $952 USD | ~$4.3M COP |
 | 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
@@ -812,12 +818,12 @@ Este ejemplo usa consumo estandar: 4 cajas de Ganocafe por persona (14 CV × 4 =
 **⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula al prospecto** (ej. "Personas × 56 CV × 17% × $1 USD" o variantes). Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas.
 
 **Lo que significa en la practica:**
-| Escenario | Semanal (USD) | Mensual (USD) |
+| Escenario | Mensual (USD) | Mensual (COP) |
 |-----------|---------------|---------------|
-| 10 personas/lado | $95 USD | $380 USD |
-| 100 personas/lado | $952 USD | $3,808 USD |
+| 10 clientes por frente | $95 USD | ~$428K COP |
+| 100 clientes por frente | $952 USD | ~$4.3M COP |
 
-**Insight:** Con solo 10 personas consumiendo en cada lado, ya genera ~$100 USD semanales. El poder del Binario es que paga sobre TODA su organización, sin limite de profundidad.
+**Insight:** Con solo 10 clientes consumiendo en cada frente, ya genera ~$95 USD al mes, y se le liquida cada viernes. El poder del Binario es que paga sobre TODA su organización, sin limite de profundidad.
 
 ---
 

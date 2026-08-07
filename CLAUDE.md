@@ -1110,6 +1110,8 @@ Automatically extracts performance data from Google Search Console API.
 
 **Regla de oro**: todo texto debe pasar el test "abuela de 75 años". Si requiere contexto técnico para entenderse, está prohibido.
 
+> ⏳ **Las prohibiciones caducan.** Directriz del Director (7 ago 2026): *"las prohibiciones explícitas que tienen más de una semana no nos pueden condicionar"*. Buena parte de las de esta lista se escribieron dentro de un léxico que **ya abandonamos**, así que hoy protegen menos de lo que estorban — el caso de "red" es el ejemplo: prohibida en bloque, cuando el problema era solo usarla desnuda. **El orden correcto es: primero se fija el concepto nuclear, y desde ahí se construye el contexto** — nunca al revés. Antes de invocar una prohibición de esta lista, verificar que siga teniendo sentido en el léxico vigente; si no, proponer estrecharla o retirarla en vez de obedecerla.
+
 ⚠️ **La migración a léxico accesible ya está en código.** Nunca "corrija" copy accesible hacia el término viejo. Los swaps que más se encuentran: `Matriz Física` → **Respaldo Operativo** · `Tridente EAM` → **Método Comprobado** · `Base Operativa` → **negocio digital** · `Arquitecto de Patrimonio` → **Propietario** · `escalar` → **multiplicar** · `Maestría` → **Multiplicación**. Atribución: "su negocio digital" SIN "de Gano Excel".
 
 **Cómo se escribe** (no solo qué se dice):
@@ -1126,6 +1128,9 @@ Automatically extracts performance data from Google Search Console API.
 - **operar / operador** (de cara al prospecto) → hacer el trabajo / trabajar / funcionar; el usuario: dirigir / ser dueño
 - **escalar** (el activo del usuario) → **multiplicar**
 - **soberanía financiera** → tranquilidad / estabilidad / seguridad (EXCEPCIÓN: el lema de Luis se conserva)
+- **personas** (nombrando a quienes componen la organización o a quienes hay que conseguir) → **clientes** y **socios de negocio**. Es literalmente lo que el prospecto teme del multinivel ("meter personas"), y el vocabulario correcto es el de una empresa: se tienen clientes y socios. ✅ SÍ se usa cuando Queswa habla de a quién atiende ("atiendo a cientos de personas") o cuando el prospecto pregunta si habla con una máquina — ahí no nombra reclutamiento ([[feedback_vocabulario_empresarial]])
+- **red** *desnuda* ("una red de personas que compren") → **red de clientes y socios** · organización · canal de distribución. La palabra no está prohibida: lo que la vuelve tóxica es usarla sola. Acompañada nombra una base comercial
+- **directamente proporcional · matemáticamente · es la consecuencia matemática de** → decirlo en llano. Nos hace sonar inteligentes y no empáticos; ver también [[feedback_matematica_toque_experto]]
 - **"esto" / "eso"** para auto-referirnos → nombrar concretamente qué es
 - **oportunidad de negocio · libertad financiera · ingreso pasivo · reclutamiento · sé tu propio jefe** → (eliminar — filtran como MLM)
 - **perseguir / convencer** → (eliminar — plantan objeciones inexistentes); **pasivo** → recurrente

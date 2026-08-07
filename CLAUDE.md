@@ -1114,6 +1114,8 @@ Automatically extracts performance data from Google Search Console API.
 
 ⚠️ **La migración a léxico accesible ya está en código.** Nunca "corrija" copy accesible hacia el término viejo. Los swaps que más se encuentran: `Matriz Física` → **Respaldo Operativo** · `Tridente EAM` → **Método Comprobado** · `Base Operativa` → **negocio digital** · `Arquitecto de Patrimonio` → **Propietario** · `escalar` → **multiplicar** · `Maestría` → **Multiplicación**. Atribución: "su negocio digital" SIN "de Gano Excel".
 
+> 📐 **Cómo se construye una frase para que fluya → [docs/handoff/negocio/NARRATIVA_Y_FLUIDEZ.md](docs/handoff/negocio/NARRATIVA_Y_FLUIDEZ.md)** (ago 2026). Regla madre: **abrir cada frase con lo que el lector ya tiene y terminar con lo nuevo**. Casi todas las fallas de narrativa de este proyecto son esa regla al revés. Incluye la lista de verificación de seis puntos y por qué la fluidez no es cosmética — un texto que hace tropezar **activa el escrutinio analítico**, que es lo último que uno quiere en un negocio al que le sospechan pirámide.
+
 **Cómo se escribe** (no solo qué se dice):
 1. **Villano NARRADO, nunca etiquetado** — detalles que el lector reconoce (*"la bicicleta estática: le da y le da y no avanza"*), jamás una etiqueta abstracta ("PPO", "Plan por Defecto", "tiempo por dinero" en seco)
 2. **Autopersuasión** — marcos moderados; escenarios que el lector completa, no afirmaciones

@@ -1,5 +1,25 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.8
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.9
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v6.9 (3 ago 2026 — Slide 1: el efecto "no son tres, es una" como puente, no como reveal)
+
+⚠️ **Alcance de este cambio: SOLO el guion de video.** El deck interactivo `/servilleta` (para presentaciones en grupo, en vivo) y el guion hablado (para los dos videos que se comparten con prospectos — uno de ~2 min, otro de ~6 min, la mayoría pide los dos) son **dos herramientas distintas con público distinto**, y dejan de perseguir sincronía 1:1. Queda sin resolver, a propósito: `Puente3D` (el b-roll que este guion narraba) nunca se construyó; el deck usa el ciclo del dinero (`problema-llega/reparte/repite`) como villano visual, y esa nota de producción se actualizó para reflejarlo — pero el Slide 2 del guion (compartir/recibir/multiplicar como diapositiva propia) **se deja intacto**, aunque esa diapositiva ya no existe en el deck (sus tres movimientos se absorbieron en la card del método, ver CLAUDE.md).
+
+**1. Se recupera el orden correcto de nombrar el fabricante.** El texto anterior abría con *"Usted distribuye café, bebidas y suplementos"* — hablaba de lo que el usuario hace, no de lo que se requiere. Aquí estamos enumerando **piezas necesarias**, no funciones del usuario (eso ya lo cubre el Slide 3). Ahora abre con *"Lo primero: quién fabrica"* y va directo al dato de confianza.
+
+**2. Gano Excel se nombra explícitamente — decisión consciente, no un descuido.** El proyecto tiene la regla de no nombrar a Gano Excel como **titular del ingreso** (dispara el fantasma MLM, ver [[feedback_gano_respaldo_no_titular]]). Aquí no lo es: aparece exactamente como el Respaldo Operativo — quien fabrica, no quien paga. El dinero se explica después, en el bloque del viernes, sin mencionar su nombre ahí. Es la aplicación correcta del principio, no una excepción.
+
+**3. Dato de confianza verificado por búsqueda web (3 ago 2026):** Gano Excel es, según su propia información corporativa, la única empresa del mundo que posee **instalaciones de producción propias** para Ganoderma Lucidum — no terceriza cultivo ni cosecha. Fuente: ganoexcel.com/language/Spanish/about-us.html. Se prefirió sobre una cifra suelta porque comunica control de calidad, no solo tamaño — y es un hecho, no un número que se pueda inflar u objetar.
+
+**4. 🔴 "Nuestra inteligencia artificial" reemplaza a "Queswa" en el segundo elemento — y el nombre desaparece también de la apertura** (antes: *"desarrollamos una herramienta. Una App llamada Queswa"*, ahora sin nombre). Ambos cambios sirven al mismo objetivo: si el nombre se dice antes, la revelación del puente llega sin sorpresa. Patrón "tráiler-luego-nombre" ya validado en el proyecto (ver v6.4), aplicado aquí a una escala más fina — dentro del propio Slide 1, no entre slides.
+
+**5. El cierre deja de ser un reveal al estilo Jobs y pasa a ser un puente.** Se evaluó y descartó explícitamente el remate seco *"no son tres dispositivos, es uno — lo llamamos iPhone"*: ese golpe funciona con una audiencia en vivo reaccionando en el momento (risas, contención de la sala); en un video que alguien ve solo, el mismo gesto se siente impostado, un video creyéndose más grande de lo que es. El puente dice la misma idea —tres piezas que normalmente vivirían separadas ahora trabajan integradas, y el usuario las dirige— en un registro conversacional, de alguien explicándole algo a otro.
+
+**6. Léxico: "cosas" → "piezas".** Autoría de Luis. "Piezas" dibuja imagen instantánea (mecanismo, rompecabezas) y además tiene eco cultural con la relojería de alta gama — el arquetipo de lujo silencioso: caro, pero que no lo grita. "Elementos" se descartó por frío/genérico; "componentes" e "insumos" por sonar a manual de ensamblaje o materia prima barata.
+
+**7. Conectores para el atril, otra vez** (mismo tipo de ajuste que ya pidió el Director en v6.6: *"me imagino frente al teleprompter y siento que faltan conectores"*). En el puente: *"Pero"* antes del contraste, el eco *"aquí... aquí encajan"* en vez de un "encajan" seco, *"Y"* antes de "usted las dirige", y la fusión de *"Queswa.app. Ahí, en el celular..."* en una sola frase con coma, para que se diga en una sola respiración.
+
+**8. Recortes.** Se retira *"cero costos fijos, cero empleados"* del bloque del dinero — su peso ya lo carga el puente (*"no depende de nadie más"*, *"no se improvisa"*), y repetirlo con otras palabras se sentía como insistir en algo ya dicho. Se retira el remate completo *"mapa de papel en la era del GPS... patrimonio real..."* — después de *"dirigir un negocio que funciona solo"* el punto ya está hecho; seguir alargaba donde el propio Director sintió que ya se podía pasar al Slide 2.
 
 ### Cambios de v6.8 (31 jul 2026 — el cierre en clave David Vélez)
 
@@ -232,7 +252,7 @@ Ejercicio pedido por el Director: *"si fuera David Vélez, ¿qué diría en el c
 
 # SLIDE 1 · EL PROBLEMA Y LA HERRAMIENTA
 
-*B-roll: `Puente3D` (ver NOTAS DE PRODUCCIÓN). Tradicional (local, arriendo, empleados, inventario — el peso) → se disuelve → el puente: dos cúmulos (fabricante ↔ personas) unidos por un nodo-puente dorado, una comisión viaja en cada conexión. **Cierre del slide: el puente entero se contrae dentro de un celular con WhatsApp abierto** (el momento de asombro: toda la infraestructura cabe en la app del bolsillo).*
+*B-roll: el ciclo del dinero (ver NOTAS DE PRODUCCIÓN — clips `problema-llega` / `problema-reparte` / `problema-repite`, ya montados en el deck `/servilleta`). La lámina dorada llega entera, tres formas oscuras se la reparten, vuelve a empezar. ⚠️ Reemplaza al `Puente3D` de versiones anteriores de esta nota, que nunca se construyó.*
 
 Empecemos por el verdadero problema.
 
@@ -246,29 +266,29 @@ Nosotros vemos una oportunidad enorme para cambiar eso. Y la solución es más s
 
 Ahora bien, distribuir productos de consumo diario siempre ha sido un buen negocio. Pero el modelo tradicional exigía algo que a casi nadie le gusta: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para dedicarse a eso todo el día.
 
-Para eliminar esa fricción desarrollamos una herramienta. **Una App llamada Queswa.**
+Para eliminar esa fricción, desarrollamos una herramienta.
 
 **[ TONO DE REVELACIÓN ]**
 
-¿Qué hace exactamente? Le entrega, desde el celular que tiene en la mano, las **tres cosas** que hacen falta para construir una red de distribución internacional.
+¿Qué hace exactamente? Le entrega las tres **piezas** que hacen falta para construir una red de distribución internacional.
 
-**Lo primero: el producto y la fábrica.** Usted distribuye **café, bebidas y suplementos** que millones de personas ya consumen todos los días. Los fabrica una corporación con **más de 30 años y presencia en 70 países**, que carga el inventario millonario, responde por lo legal y despacha en cada país.
+**Lo primero: quién fabrica.** Gano Excel. Una corporación con **más de 30 años** en el mercado, presencia en **70 países**, y la única en el mundo con instalaciones de producción propias — no depende de nadie más para lo que le entrega. El tipo de respaldo que no se improvisa, y que ya está ahí, trabajando para usted.
 
-**Lo segundo: la conversación.** Aquí es donde entra la aplicación. Queswa se encarga de **explicar, atender y madurar** la decisión de cada persona interesada, directamente **por WhatsApp** — ahí donde las personas ya viven y se comunican todos los días.
+**Lo segundo: la conversación.** Aquí es donde entra nuestra inteligencia artificial. Se encarga de **explicar, atender y madurar** la decisión de cada persona interesada, directamente **por WhatsApp** — ahí donde las personas ya viven y se comunican todos los días.
 
 **Y lo tercero: los pasos exactos.** Usted no tiene que inventar nada ni saber de tecnología: el camino ya está trazado, paso por paso.
 
+**[ PAUSA · 2s ]**
+
+Normalmente, estas tres piezas viven separadas — cada una la maneja alguien distinto, en un lugar distinto. Pero aquí no: aquí encajan, como piezas de precisión. Y usted las dirige todas desde una sola aplicación: **Queswa.app**, ahí mismo, en el celular que tiene en la mano.
+
 **[ PAUSA · 1s ]**
 
-¿Y su parte? La más simple de todas: **compartir**. Cada compra que fluye por su **red de clientes** se traduce en un porcentaje directo para usted, **liquidado en su cuenta bancaria cada viernes**. Cero costos fijos, cero empleados.
+¿Y su parte? La más simple de todas: **compartir**. Cada compra que fluye por su **red de clientes** se traduce en un porcentaje directo para usted, **liquidado en su cuenta bancaria cada viernes**.
 
-**[ PAUSA · 2s · TONO DE ASOMBRO CONTENIDO ]**
+**[ TONO RESOLUTIVO ]**
 
-Toda esa infraestructura —fábricas, inventarios millonarios, logística internacional— hoy **no ocupa un edificio**. Está empaquetada en una aplicación lista para encender, en el celular que tiene en la mano.
-
-**[ TONO RESOLUTIVO · LA NUEVA ERA ]**
-
-Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le da el poder de **dirigir** un negocio que funciona solo. Intentar asegurar su futuro con las reglas tradicionales es seguir usando un mapa de papel en la era del GPS. Estamos viviendo el momento en que la inteligencia artificial y la distribución inteligente convierten en **patrimonio real** lo que antes tomaba una vida entera construir.
+Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le da el poder de **dirigir** un negocio que funciona solo.
 
 ---
 

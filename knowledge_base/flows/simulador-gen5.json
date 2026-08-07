@@ -10,6 +10,52 @@
         "children": [
           {
             "type": "NavigationList",
+            "name": "tipo_ingreso",
+            "list-items": [
+              {
+                "id": "gen5",
+                "main-content": {
+                  "title": "Ingreso inmediato",
+                  "description": "Por cada paquete que se activa en su red"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "GEN_MENU"
+                  },
+                  "payload": {}
+                }
+              },
+              {
+                "id": "renta",
+                "main-content": {
+                  "title": "Renta recurrente",
+                  "description": "Por las compras de sus clientes, cada viernes"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "RENTA_MENU"
+                  },
+                  "payload": {}
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "GEN_MENU",
+      "title": "Ingreso inmediato",
+      "terminal": false,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
             "name": "paquetes",
             "list-items": [
               {
@@ -53,6 +99,79 @@
                   "next": {
                     "type": "screen",
                     "name": "RESULTADO_ESP_UNO"
+                  },
+                  "payload": {}
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "RENTA_MENU",
+      "title": "Renta recurrente",
+      "terminal": false,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
+            "name": "tarifas",
+            "list-items": [
+              {
+                "id": "DIEZ",
+                "main-content": {
+                  "title": "Kit de Inicio — 10%"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "RENTA_DIEZ"
+                  },
+                  "payload": {}
+                }
+              },
+              {
+                "id": "QUINCE",
+                "main-content": {
+                  "title": "ESP-1 Inicial — 15%"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "RENTA_QUINCE"
+                  },
+                  "payload": {}
+                }
+              },
+              {
+                "id": "DIECISEIS",
+                "main-content": {
+                  "title": "ESP-2 Empresarial — 16%"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "RENTA_DIECISEIS"
+                  },
+                  "payload": {}
+                }
+              },
+              {
+                "id": "DIECISIETE",
+                "main-content": {
+                  "title": "ESP-3 Visionario — 17%",
+                  "description": "La tarifa más alta del plan"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "RENTA_DIECISIETE"
                   },
                   "payload": {}
                 }
@@ -396,6 +515,402 @@
                   "payload": {
                     "paquete": "ESP-1",
                     "cantidad": "${form.cantidad}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "RENTA_DIEZ",
+      "title": "Kit de Inicio — 10%",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "renta",
+            "init-values": {
+              "clientes": "10"
+            },
+            "children": [
+              {
+                "type": "Dropdown",
+                "name": "clientes",
+                "label": "Clientes en cada centro de negocio",
+                "required": true,
+                "data-source": [
+                  {
+                    "id": "10",
+                    "title": "10 clientes"
+                  },
+                  {
+                    "id": "25",
+                    "title": "25 clientes"
+                  },
+                  {
+                    "id": "50",
+                    "title": "50 clientes"
+                  },
+                  {
+                    "id": "100",
+                    "title": "100 clientes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '10'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $252.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '25'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $630.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '50'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $1.260.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '100'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $2.520.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "TextCaption",
+                "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+              },
+              {
+                "type": "Footer",
+                "label": "Listo",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "tipo": "renta",
+                    "tarifa": "Kit de Inicio — 10%",
+                    "clientes": "${form.clientes}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "RENTA_QUINCE",
+      "title": "ESP-1 Inicial — 15%",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "renta",
+            "init-values": {
+              "clientes": "10"
+            },
+            "children": [
+              {
+                "type": "Dropdown",
+                "name": "clientes",
+                "label": "Clientes en cada centro de negocio",
+                "required": true,
+                "data-source": [
+                  {
+                    "id": "10",
+                    "title": "10 clientes"
+                  },
+                  {
+                    "id": "25",
+                    "title": "25 clientes"
+                  },
+                  {
+                    "id": "50",
+                    "title": "50 clientes"
+                  },
+                  {
+                    "id": "100",
+                    "title": "100 clientes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '10'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $378.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '25'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $945.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '50'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $1.890.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '100'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $3.780.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "TextCaption",
+                "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+              },
+              {
+                "type": "Footer",
+                "label": "Listo",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "tipo": "renta",
+                    "tarifa": "ESP-1 Inicial — 15%",
+                    "clientes": "${form.clientes}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "RENTA_DIECISEIS",
+      "title": "ESP-2 Empresarial — 16%",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "renta",
+            "init-values": {
+              "clientes": "10"
+            },
+            "children": [
+              {
+                "type": "Dropdown",
+                "name": "clientes",
+                "label": "Clientes en cada centro de negocio",
+                "required": true,
+                "data-source": [
+                  {
+                    "id": "10",
+                    "title": "10 clientes"
+                  },
+                  {
+                    "id": "25",
+                    "title": "25 clientes"
+                  },
+                  {
+                    "id": "50",
+                    "title": "50 clientes"
+                  },
+                  {
+                    "id": "100",
+                    "title": "100 clientes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '10'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $403.200 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '25'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $1.008.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '50'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $2.016.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '100'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $4.032.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "TextCaption",
+                "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+              },
+              {
+                "type": "Footer",
+                "label": "Listo",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "tipo": "renta",
+                    "tarifa": "ESP-2 Empresarial — 16%",
+                    "clientes": "${form.clientes}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "RENTA_DIECISIETE",
+      "title": "ESP-3 Visionario — 17%",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "renta",
+            "init-values": {
+              "clientes": "10"
+            },
+            "children": [
+              {
+                "type": "Dropdown",
+                "name": "clientes",
+                "label": "Clientes en cada centro de negocio",
+                "required": true,
+                "data-source": [
+                  {
+                    "id": "10",
+                    "title": "10 clientes"
+                  },
+                  {
+                    "id": "25",
+                    "title": "25 clientes"
+                  },
+                  {
+                    "id": "50",
+                    "title": "50 clientes"
+                  },
+                  {
+                    "id": "100",
+                    "title": "100 clientes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '10'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $428.400 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '25'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $1.071.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '50'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $2.142.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "If",
+                "condition": "${form.clientes} == '100'",
+                "then": [
+                  {
+                    "type": "TextHeading",
+                    "text": "≈ $4.284.000 COP al mes"
+                  }
+                ]
+              },
+              {
+                "type": "TextCaption",
+                "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+              },
+              {
+                "type": "Footer",
+                "label": "Listo",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "tipo": "renta",
+                    "tarifa": "ESP-3 Visionario — 17%",
+                    "clientes": "${form.clientes}"
                   }
                 }
               }

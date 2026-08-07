@@ -1,4 +1,4 @@
-# TALLER LÉXICO Y DE PRONUNCIACIÓN — Luis Cabrejo
+Daddy do do do# TALLER LÉXICO Y DE PRONUNCIACIÓN — Luis Cabrejo
 
 **Objetivo doble:** mejorar la pronunciación **mientras** interioriza los guiones de la servilleta y los reels.
 Cada frase de práctica está sacada de su propio material. Al terminar el mes, los guiones le saldrán de memoria… y bien dichos.

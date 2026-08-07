@@ -60,3 +60,11 @@ public/videos/home/*.mp4
 
 # Backups con PII — nunca commitear
 backups/
+
+# Pipeline de reels 3D (dankoe-video) — videos pesados locales, NO a git.
+# Masters de referencia, renders de inserts e intermedios. El CÓDIGO sí puede commitearse.
+scripts/dankoe-video/masters/*.mp4
+scripts/dankoe-video/**/out/*.mp4
+scripts/dankoe-video/**/out/*.mov
+scripts/dankoe-video/**/work/
+scripts/dankoe-video/**/node_modules/

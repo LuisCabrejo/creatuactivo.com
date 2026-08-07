@@ -4333,6 +4333,39 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bgen[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
       if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage)) return '';
 
+      // ── WhatsApp: ejemplo de RENTA (Binario) — dictado, en clientes ──────
+      // Sin este pin, el modelo compuso una proyección de $7.65M mensuales
+      // contando 500 personas por lado (6 ago) — inflada 4× por el error de
+      // período que se corrigió en COMP_BIN_08/10, y contada en cabezas. El
+      // ejemplo canónico cuenta CLIENTES y su consumo (una caja de Ganocafé a
+      // la semana), nunca personas ni cajas agregadas. Supuesto modesto por
+      // decisión del Director: 10 y 100, sin el escenario de 1.000.
+      // Solo cuando PIDEN el ejemplo. "¿Qué es el binario?" recibe primero el
+      // concepto (COMP_BIN_01, sin cifras) — doctrina del 7 ago: el ejemplo
+      // gráfico llega después de que el concepto existe, nunca antes.
+      const esRenta = /binario|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
+        && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage);
+      if (tenantId === 'whatsapp' && esRenta) {
+        const esCO2 = visitorCountry === 'CO';
+        const r = (cop: string, usd: string) => (esCO2 ? cop : usd);
+        return `
+📌 EJEMPLO RENTA (BINARIO) DICTADO — imprime este texto EXACTAMENTE, sin tablas, sin diagramas y sin agregar escenarios. Es el único ejemplo de renta que se entrega por este canal:
+
+Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana* — cuatro al mes.
+
+Su organización se ordena en *dos centros de negocio*, y recuerde que esa red no la construye usted solo: sus socios también van sumando sus propios clientes.
+
+*10 clientes en cada centro*
+≈ ${r('$428.000 COP', '$95 USD')} al mes
+
+*100 clientes en cada centro*
+≈ ${r('$4.300.000 COP', '$952 USD')} al mes
+
+Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera fin de mes: se le liquida *cada viernes*, a medida que las compras ocurren.
+
+STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin pregunta doble al final.`;
+      }
+
       // ── WhatsApp: un solo ejemplo, dictado ────────────────────────────────
       // En el canal, dejar que el modelo componga el ejemplo produjo un árbol de
       // duplicación en arte ASCII: ilegible en un teléfono (30 columnas antes de

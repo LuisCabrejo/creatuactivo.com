@@ -1,11 +1,14 @@
-GUIÓN MAESTRO SERVILLETA v6.8 · TELEPROMPTER
-Actualizado: 31 julio 2026
+GUIÓN MAESTRO SERVILLETA v6.9 · TELEPROMPTER
+Actualizado: 3 agosto 2026
 
 CÓMO SE LEE
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · «Usted» universal · sin exclamaciones.
 Cadencia controlada · pausas naturales en los puntos · mirada directa.
 Duración estimada: 6 – 7 minutos.
 Las líneas están partidas por RESPIRACIÓN, no por frase: cada corte es una toma de aire, no un punto.
+
+QUÉ CAMBIÓ EN v6.9 — Slide 1: «no son tres, es una», como puente, no como reveal
+Nombra primero a quien fabrica («Lo primero: quién fabrica. Gano Excel…») en vez de abrir con lo que usted distribuye. El nombre «Queswa» desaparece de la apertura y del segundo elemento («nuestra inteligencia artificial») para guardarlo como sorpresa: aparece recién en el puente nuevo, que reemplaza el cierre anterior («toda esa infraestructura… no ocupa un edificio») — «estas tres piezas viven separadas… aquí encajan, como piezas de precisión… Queswa.app». «Cosas» → «piezas» en todo el tramo. Salen «cero costos fijos, cero empleados» y el remate del mapa de papel/GPS/patrimonio real — el punto ya queda hecho antes. Nota: este ajuste es SOLO del guion de video: el deck interactivo `/servilleta` (para grupos, en vivo) ya no persigue sincronía con este guion — son dos herramientas con público distinto.
 
 QUÉ CAMBIÓ EN v6.8 — El cierre, en clave David Vélez
 Sale «la única variable que falta en la ecuación es usted»: esa frase le dice a la persona que el sistema está completo y que la incompleta es ella — Vélez cerraba al revés, y nunca con presión. El cierre ahora aterriza en la vida: «un viernes en que entra algo que no le debe nada a nadie», la inversión exacta del villano del Slide 1. Entra el anticlímax honesto («Y ya está. Eso es todo el negocio») en lugar del registro de consultor. Las opciones pasan de menú a observación («lo que he visto es que las personas hacen una de tres cosas») y de OPCIÓN 1/2/3 a LA PRIMERA/SEGUNDA/TERCERA. «Iniciar la activación» → «EMPEZAR HOY»; «asume la propiedad» → «el negocio queda a su nombre».
@@ -109,11 +112,9 @@ para dedicarse a eso todo el día.
 
 
 
-Para eliminar esa fricción
+Para eliminar esa fricción,
 
 desarrollamos una herramienta.
-
-Una App llamada Queswa.
 
 
 
@@ -121,35 +122,35 @@ Una App llamada Queswa.
 
 ¿Qué hace exactamente?
 
-Le entrega, desde el celular que tiene en la mano,
-
-las tres cosas que hacen falta
+Le entrega las tres piezas que hacen falta
 
 para construir una red de distribución internacional.
 
 
 
-Lo primero: el producto y la fábrica.
+Lo primero: quién fabrica.
 
-Usted distribuye café, bebidas y suplementos
+Gano Excel.
 
-que millones de personas ya consumen todos los días.
+Una corporación con más de 30 años en el mercado,
 
-Los fabrica una corporación con más de 30 años
+presencia en 70 países,
 
-y presencia en 70 países,
+y la única en el mundo con instalaciones de producción propias —
 
-que carga el inventario millonario, responde por lo legal
+no depende de nadie más para lo que le entrega.
 
-y despacha en cada país.
+El tipo de respaldo que no se improvisa,
+
+y que ya está ahí, trabajando para usted.
 
 
 
 Lo segundo: la conversación.
 
-Aquí es donde entra la aplicación.
+Aquí es donde entra nuestra inteligencia artificial.
 
-Queswa se encarga de explicar, atender
+Se encarga de explicar, atender
 
 y madurar la decisión de cada persona interesada,
 
@@ -171,6 +172,26 @@ el camino ya está trazado, paso por paso.
 
 
 
+[ PAUSA · 2 SEGUNDOS ]
+
+Normalmente, estas tres piezas viven separadas —
+
+cada una la maneja alguien distinto,
+
+en un lugar distinto.
+
+Pero aquí no:
+
+aquí encajan, como piezas de precisión.
+
+Y usted las dirige todas
+
+desde una sola aplicación: Queswa.app,
+
+ahí mismo, en el celular que tiene en la mano.
+
+
+
 [ PAUSA · 1 SEGUNDO ]
 
 ¿Y su parte?
@@ -183,43 +204,15 @@ se traduce en un porcentaje directo para usted,
 
 liquidado en su cuenta bancaria cada viernes.
 
-Cero costos fijos, cero empleados.
 
 
-
-[ PAUSA · 2 SEGUNDOS · TONO DE ASOMBRO CONTENIDO ]
-
-Toda esa infraestructura
-
-—fábricas, inventarios millonarios, logística internacional—
-
-hoy no ocupa un edificio.
-
-Está empaquetada en una aplicación lista para encender,
-
-en el celular que tiene en la mano.
-
-
-
-[ TONO RESOLUTIVO · LA NUEVA ERA ]
+[ TONO RESOLUTIVO ]
 
 Los primeros celulares solo servían para llamar.
 
 Hoy, ese mismo dispositivo
 
 le da el poder de dirigir un negocio que funciona solo.
-
-Intentar asegurar su futuro con las reglas tradicionales
-
-es seguir usando un mapa de papel en la era del GPS.
-
-Estamos viviendo el momento
-
-en que la inteligencia artificial y la distribución inteligente
-
-convierten en patrimonio real
-
-lo que antes tomaba una vida entera construir.
 
 
 

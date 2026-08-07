@@ -138,6 +138,72 @@ const pantallaResultado = (codigo) => ({
   },
 });
 
+// ── RENTA (Binario) — idea del Director (7 ago 2026): que la persona pueda
+// cobrar el mismo escenario al 10, 15, 16 o 17%. Las cuatro tarifas SON los
+// cuatro paquetes, así que el simulador enseña el plan sin explicarlo: mover la
+// tarifa es descubrir por qué existe el ESP-3.
+//
+// Unidades de la doctrina (7 ago): se cuentan CLIENTES por centro de negocio —
+// nunca "personas", nunca cajas agregadas. Consumo estándar: una caja de
+// Ganocafé a la semana por cliente = 56 CV AL MES. La cifra es MENSUAL (el
+// error de período 4× se corrigió en COMP_BIN_08/10); el pago es cada viernes.
+const TARIFAS = {
+  DIEZ:       { pct: 0.10, etiqueta: 'Kit de Inicio — 10%' },
+  QUINCE:     { pct: 0.15, etiqueta: 'ESP-1 Inicial — 15%' },
+  DIECISEIS:  { pct: 0.16, etiqueta: 'ESP-2 Empresarial — 16%' },
+  DIECISIETE: { pct: 0.17, etiqueta: 'ESP-3 Visionario — 17%' },
+};
+const CLIENTES = [10, 25, 50, 100];
+const CV_MES_POR_CLIENTE = 56;
+const TRM = 4500;
+
+const rentaMensualCOP = (clientes, pct) =>
+  Math.round(clientes * CV_MES_POR_CLIENTE * pct * TRM);
+
+const pantallaRenta = (idTarifa) => ({
+  id: `RENTA_${idTarifa}`,
+  title: TARIFAS[idTarifa].etiqueta,
+  terminal: true,
+  layout: {
+    type: 'SingleColumnLayout',
+    children: [
+      {
+        type: 'Form',
+        name: 'renta',
+        'init-values': { clientes: '10' },
+        children: [
+          {
+            type: 'Dropdown',
+            name: 'clientes',
+            label: 'Clientes en cada centro de negocio',
+            required: true,
+            'data-source': CLIENTES.map((n) => ({ id: String(n), title: `${n} clientes` })),
+          },
+          ...CLIENTES.map((n) => ({
+            type: 'If',
+            condition: `\${form.clientes} == '${n}'`,
+            then: [
+              { type: 'TextHeading', text: `≈ ${cop(rentaMensualCOP(n, TARIFAS[idTarifa].pct))} COP al mes` },
+            ],
+          })),
+          {
+            type: 'TextCaption',
+            text: 'Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes.',
+          },
+          {
+            type: 'Footer',
+            label: 'Listo',
+            'on-click-action': {
+              name: 'complete',
+              payload: { tipo: 'renta', tarifa: TARIFAS[idTarifa].etiqueta, clientes: '\${form.clientes}' },
+            },
+          },
+        ],
+      },
+    ],
+  },
+});
+
 const flow = {
   version: '6.3',
   screens: [
@@ -147,14 +213,39 @@ const flow = {
       terminal: false,
       layout: {
         type: 'SingleColumnLayout',
-        // Solo la lista: el validador exige que NavigationList esté solo en la
-        // pantalla (cualquier otro componente al lado la rechaza). El texto de
-        // introducción vive en la burbuja del mensaje que envía el Flow.
         children: [
-          // NavigationList en vez de radio + botón: tocar el paquete navega
-          // directo a su pantalla de resultado. Además de ahorrar un toque, es lo
-          // que Meta permite — solo cabe UN Footer por pantalla, incluso
-          // repartidos en ramas `If`, así que "un botón por paquete" no valida.
+          {
+            type: 'NavigationList',
+            name: 'tipo_ingreso',
+            'list-items': [
+              {
+                id: 'gen5',
+                'main-content': {
+                  title: 'Ingreso inmediato',
+                  description: 'Por cada paquete que se activa en su red',
+                },
+                'on-click-action': { name: 'navigate', next: { type: 'screen', name: 'GEN_MENU' }, payload: {} },
+              },
+              {
+                id: 'renta',
+                'main-content': {
+                  title: 'Renta recurrente',
+                  description: 'Por las compras de sus clientes, cada viernes',
+                },
+                'on-click-action': { name: 'navigate', next: { type: 'screen', name: 'RENTA_MENU' }, payload: {} },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'GEN_MENU',
+      title: 'Ingreso inmediato',
+      terminal: false,
+      layout: {
+        type: 'SingleColumnLayout',
+        children: [
           {
             type: 'NavigationList',
             name: 'paquetes',
@@ -174,7 +265,30 @@ const flow = {
         ],
       },
     },
+    {
+      id: 'RENTA_MENU',
+      title: 'Renta recurrente',
+      terminal: false,
+      layout: {
+        type: 'SingleColumnLayout',
+        children: [
+          {
+            type: 'NavigationList',
+            name: 'tarifas',
+            'list-items': Object.keys(TARIFAS).map((idT) => ({
+              id: idT,
+              'main-content': {
+                title: TARIFAS[idT].etiqueta,
+                description: idT === 'DIECISIETE' ? 'La tarifa más alta del plan' : undefined,
+              },
+              'on-click-action': { name: 'navigate', next: { type: 'screen', name: `RENTA_${idT}` }, payload: {} },
+            })).map((it) => { if (!it['main-content'].description) delete it['main-content'].description; return it; }),
+          },
+        ],
+      },
+    },
     ...Object.keys(TASAS).map(pantallaResultado),
+    ...Object.keys(TARIFAS).map(pantallaRenta),
   ],
 };
 

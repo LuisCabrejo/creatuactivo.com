@@ -23,7 +23,7 @@ import path from 'path';
 const API      = 'https://graph.facebook.com/v22.0';
 const WABA_ID  = process.env.WHATSAPP_WABA_ID;
 const TOKEN    = process.env.WHATSAPP_SYSTEM_TOKEN;
-const NOMBRE   = 'Simulador de comisiones';
+const NOMBRE   = 'Simulador de ingresos';
 const CATEGORIA = 'OTHER';   // el catálogo de Meta no tiene una categoría para simuladores
 const RUTA_JSON = path.join(process.cwd(), 'knowledge_base', 'flows', 'simulador-gen5.json');
 

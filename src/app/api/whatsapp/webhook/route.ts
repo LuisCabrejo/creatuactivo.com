@@ -112,8 +112,14 @@ export async function POST(request: Request) {
       // lo entiendan como lo que es — la persona armó su propio escenario.
       if (!messageText && interactivo?.nfm_reply?.response_json) {
         try {
-          const r = JSON.parse(interactivo.nfm_reply.response_json) as { paquete?: string; cantidad?: string };
-          if (r.paquete && r.cantidad) {
+          const r = JSON.parse(interactivo.nfm_reply.response_json) as {
+            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string;
+          };
+          if (r.tipo === 'renta' && r.tarifa && r.clientes) {
+            messageText = `Acabo de usar el simulador de renta: tarifa ${r.tarifa}, con ${r.clientes} clientes en cada centro de negocio.`;
+            vieneDelSimulador = true;
+            console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador de renta (${r.tarifa} × ${r.clientes})`);
+          } else if (r.paquete && r.cantidad) {
             messageText = `Acabo de usar el simulador: paquete ${r.paquete}, con ${r.cantidad} paquetes comprados en cada generación.`;
             vieneDelSimulador = true;
             console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador (${r.paquete} × ${r.cantidad})`);
@@ -395,6 +401,7 @@ export async function POST(request: Request) {
         flowSimuladorId,
         'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.',
         'Abrir el simulador',
+        { screen: 'INICIO' },
       );
       if (reenvio.ok) {
         try {
@@ -528,6 +535,9 @@ export async function POST(request: Request) {
       // vive solo en esta conversación.
       // Si la env no está (Flow aún no publicado) no pasa nada: el ejemplo de
       // texto se basta solo.
+      // El Flow es un extra, nunca un bloqueo: la conversación ya tiene el
+      // ejemplo completo en texto. Cada ejemplo dictado abre el simulador en SU
+      // pantalla — el de paquetes en el menú GEN5, el de renta en las tarifas.
       const flowSimulador = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
       if (flowSimulador && queswaReply.includes('Le pongo un ejemplo con números redondos')) {
         const enviado = await sendFlow(
@@ -535,12 +545,19 @@ export async function POST(request: Request) {
           flowSimulador,
           'Y si quiere, arme usted mismo su escenario: elija el paquete y cuántos se compran por generación, y vea el resultado al instante. Se cuenta por paquetes comprados, no por personas.',
           'Abrir el simulador',
+          { screen: 'GEN_MENU' },
         );
-        if (!enviado.ok) {
-          // El Flow es un extra, nunca un bloqueo: la conversación ya tiene el
-          // ejemplo completo en texto.
-          console.warn(`⚠️ [WA Webhook] Flow simulador no se pudo enviar: ${enviado.error}`);
-        }
+        if (!enviado.ok) console.warn(`⚠️ [WA Webhook] Flow simulador no se pudo enviar: ${enviado.error}`);
+      }
+      if (flowSimulador && queswaReply.includes('Le pongo el ejemplo con un supuesto modesto')) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si quiere, muévalo usted: elija la tarifa y vea cómo cambia la renta según los clientes de su red.',
+          'Abrir el simulador',
+          { screen: 'RENTA_MENU' },
+        );
+        if (!enviado.ok) console.warn(`⚠️ [WA Webhook] Flow renta no se pudo enviar: ${enviado.error}`);
       }
     }
 

@@ -90,7 +90,7 @@ Esto corre en paralelo a su actividad actual, y el trabajo pesado lo cargamos en
 
 A usted le quedan dos cosas: compartir con quien quiera, y recibir sus comisiones en su cuenta bancaria cada viernes.
 
-¿Le muestro los números, o cómo sería su día a día?`;
+¿Quiere ver los números?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").
@@ -112,7 +112,7 @@ Su papel es **dirigir**, no cargar con el trabajo pesado. En el día a día son 
 
 Un día normal son unos minutos para compartir y estar pendiente de mis avisos. Lo desgastante —explicar, atender, responder a medianoche— es mío.
 
-¿Le muestro **los productos**, o **los números**?`;
+¿Le muestro los productos que mueven todo esto?`;
 
 /**
  * Texto Master WHY_04 — "¿De dónde sale el dinero? / ¿Quién paga?".

@@ -1069,6 +1069,8 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 **Embeddings (Voyage)**: `fragmentar-arsenales-voyage.mjs` (crea fragments con embeddings; salta los existentes) · `audit-completo.mjs` (audit completo: cuenta fragments, detecta huérfanos y embeddings faltantes — preferido) · `purgar-fragmentos-duplicados.mjs` · `regenerar-embeddings-voyage.mjs`. ⚠️ `actualizar-fragmentos-modificados.mjs` tiene fragments HARDCODED — **NO** usar como genérico (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)).
 
+**SQL directo**: `sql.mjs` — ejecuta SQL contra Supabase desde la terminal (`node scripts/sql.mjs archivo.sql` · `-e "select …"` · `--dry`). Evita pegar migraciones a mano en el panel y permite **verificar el resultado en el mismo paso**. Usa `SUPABASE_ACCESS_TOKEN` (token personal, revocable en un clic desde el panel) — **no** la contraseña de la base. ⚠️ Ejecuta lo que se le pase, incluido `DROP`.
+
 **Database**: `verificar-esquema-completo.mjs` · `diagnostico-seguridad-supabase.sql` (chequea RLS) · `fix-rls-seguridad-supabase.sql` (habilita RLS + policies).
 
 **Testing**: `test-contador-cupos.mjs` (15 escenarios del contador) · `test-flow-reto-completo.mjs` (E2E funnel reto) · `validar-schema-funnel-leads.mjs` / `diagnostico-funnel-leads.mjs`.

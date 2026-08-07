@@ -115,6 +115,52 @@ Un día normal son unos minutos para compartir y estar pendiente de mis avisos. 
 ¿Le muestro **los productos**, o **los números**?`;
 
 /**
+ * Texto Master WHY_04 — "¿De dónde sale el dinero? / ¿Quién paga?".
+ * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt (WHY_04).
+ *
+ * Creado 7 ago 2026. Era el único texto dictado del canal SIN candado: vivía
+ * hardcodeado en `wa-apertura.ts` y solo se alcanzaba tocando el botón de la
+ * apertura — un botón que se muestra una vez, en el primer mensaje. Quien
+ * escribiera "¿de dónde sale la plata?" con sus palabras nunca lo veía; la
+ * búsqueda lo mandaba a WHY_02 o a un FREQ. Ahora tiene los dos caminos.
+ *
+ * DIVISIÓN DE TRABAJO CON WHY_02 (crítica — las dos son botones de apertura y
+ * antes se pisaban casi frase por frase): WHY_02 explica el MODELO —
+ * apalancamiento, la ecuación, el ciclo, el reparto del trabajo. Esta responde
+ * la TRANSACCIÓN: qué se vende, a quién, quién paga y cuándo llega. Por eso
+ * WHY_02 dice "el producto que se mueve por su canal" sin desglosar: el
+ * desglose (al detal / paquetes empresariales) vive aquí.
+ *
+ * ⚠️ Gano Excel aparece al final y como QUIEN CONSIGNA, no como la fuente. El
+ * dinero sale del producto que se vende por el canal del prospecto; invertir ese
+ * orden dispara el fantasma del multinivel ([[feedback_gano_respaldo_no_titular]]).
+ * ⚠️ NO reintroducir "No es humo en la nube": el candado de confianza se AFIRMA,
+ * nunca se niega — nombrar el elefante lo invoca. Lo reemplaza el ancla física
+ * del último párrafo (fábrica → dirección; empresa de 30 años → su banco).
+ */
+const MASTER_DINERO_01 = `Buena pregunta, y la más importante.
+
+El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos con ganoderma, de consumo diario.
+
+Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.
+
+Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que volver a hacer nada.
+
+Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada viernes**. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.
+
+¿Le muestro cómo se ve en números?`;
+
+/**
+ * Detecta la pregunta por el ORIGEN del dinero escrita con palabras propias.
+ *
+ * Deliberadamente NO captura "cómo se gana" a secas: esa es la pregunta por las
+ * cifras del plan y le corresponde a arsenal_compensacion. Aquí solo entran las
+ * formulaciones de procedencia ("de dónde sale/viene") y de pagador ("quién paga").
+ */
+const RE_DE_DONDE_SALE_EL_DINERO =
+  /de\s+d[oó]nde\s+(sale|salen|viene|vienen)\s+(el|la|los|las)?\s*(dinero|plata|platica|ingresos?|ganancias?)|qui[eé]n\s+(me\s+)?(paga|consigna)/i;
+
+/**
  * Texto Master EMPRESA_DIGITAL_01 — query de texto libre "¿qué es una empresa digital?".
  * NO es chip: se sirve por Camino A vía regex (ver getRespuestaMaestra) porque el RAG
  * confundía esta query con WHY_01 ("¿qué es CreaTuActivo?", el de los 3 pilares + Gano) y
@@ -210,6 +256,10 @@ export function getRespuestaMaestra(userMessage: string): string | null {
   // 3) Tema "invertir en marketing/publicidad" → confirmar + remitir verbatim.
   //    (El RAG no lo recupera con fiabilidad y el modelo llegó a negar que existiera.)
   if (RE_INVERSION_MARKETING.test(key)) return MASTER_INVERSION_MARKETING;
+  // 4) "¿De dónde sale el dinero? / ¿quién paga?" → la transacción, verbatim.
+  //    (Es el botón más tocado de la apertura de WhatsApp; sin esto solo se
+  //    alcanzaba tocándolo, nunca escribiendo la pregunta.)
+  if (RE_DE_DONDE_SALE_EL_DINERO.test(key)) return MASTER_DINERO_01;
   return null;
 }
 

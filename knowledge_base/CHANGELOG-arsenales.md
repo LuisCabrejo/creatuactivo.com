@@ -12,6 +12,20 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.33 — WHY_04: la respuesta del dinero tiene candado (7 ago 2026)
+
+**El problema:** la mejor explicación del dinero que teníamos vivía **hardcodeada en `wa-apertura.ts`** y solo se alcanzaba tocando el botón de la apertura — un botón que aparece una vez, en el primer mensaje. Quien escribiera *"¿de dónde sale la plata?"* con sus palabras nunca la veía: la búsqueda lo mandaba a WHY_02 o a un FREQ. Ahora es **WHY_04**, con los dos caminos (chip/regex → `MASTER_DINERO_01`, y vector search → fragmento con `<verbatim_lock>`).
+
+**Y el problema que destapó:** al reescribir WHY_02 (v5.32) las dos respuestas quedaron casi idénticas — *"usted arma un canal de distribución y lo dirige desde el celular: ni inventario, ni entregas"* contra *"usted dirige su propio canal de distribución desde el celular, sin comprar inventario ni entregar pedidos"*, más Gano/30 años/70 países, más el porcentaje, más el viernes, más el café que se acaba. Son los dos botones que más se tocan; quien toca los dos leía lo mismo dos veces.
+
+**División de trabajo, ahora explícita en ambos [Concepto Nuclear]:** WHY_02 explica el **modelo** (apalancamiento · ecuación · ciclo · reparto del trabajo). WHY_04 responde la **transacción** (qué se vende, a quién, quién paga, cuándo llega). Por eso WHY_02 dice "el producto que se mueve por su canal" sin desglosar: el desglose *al detal / paquetes empresariales* vive en WHY_04 — y ahí gana precisión, porque ahora dice **a quién** se le vende cada uno (a quien solo quiere consumirlo · a quien arranca su propio canal).
+
+Dos correcciones doctrinales en el texto:
+- **Gano Excel va al final y como quien CONSIGNA, no como la fuente.** El dinero sale del producto que se vende por el canal del prospecto; invertir ese orden dispara el fantasma del multinivel ([[feedback_gano_respaldo_no_titular]]).
+- **Fuera *"No es humo en la nube"***: violaba nuestra propia regla de que el candado de confianza **se afirma, nunca se niega** — nombrar el elefante lo invoca. Lo reemplaza el ancla física: *"Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco."*
+
+⚠️ La regex `RE_DE_DONDE_SALE_EL_DINERO` **no captura "cómo se gana" a secas** a propósito: esa es la pregunta por las cifras del plan y le corresponde a `arsenal_compensacion`.
+
 ### v5.32 — WHY_02 como ecuación (6 ago 2026)
 
 Sesión Director + Gemini sobre el transcript real del canal. **De 1.353 a 921 caracteres**: dos mensajes en vez de tres, con la pregunta a la vista. Sincronizado carácter por carácter con `MASTER_WHY_02`; purgado, re-embebido y clonado al tenant whatsapp.

@@ -16,13 +16,11 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
-import { sendText, sendInteractiveList, sendFlow } from '@/lib/wa-channel';
+import { sendText, sendReplyButtons, sendFlow } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
   APERTURA_OPCIONES,
-  APERTURA_BOTON,
-  APERTURA_SECCION,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
 import { gestionarCierre } from '@/lib/wa-radicacion';
@@ -277,18 +275,12 @@ export async function POST(request: Request) {
     if (!existingProspect) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
-      const enviado = await sendInteractiveList(
-        phoneNumber,
-        apertura,
-        APERTURA_BOTON,
-        APERTURA_OPCIONES,
-        APERTURA_SECCION,
-      );
+      const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
 
       // Si Meta rechaza el interactivo (formato, límites), no dejar a la persona
       // sin respuesta: cae a texto plano con las mismas opciones enumeradas.
       if (!enviado.ok) {
-        console.warn('⚠️ [WA Webhook] Lista rechazada — fallback a texto plano');
+        console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
         const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
       }

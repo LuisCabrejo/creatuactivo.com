@@ -10,7 +10,7 @@
  *
  *   1. La apertura nombra al SOCIO que refirió, y ese dato solo lo tiene el
  *      webhook (lo resuelve `resolverPatrocinador()` del texto de entrada).
- *   2. Va como mensaje interactivo de lista, que solo la capa de canal envía.
+ *   2. Va con botones interactivos, que solo la capa de canal sabe enviar.
  *
  * ⚠️ NO usar `getInitialGreeting()` de `queswa-greeting.ts` aquí: ese saludo es
  * compartido con la web y no conoce al socio ni declara la identidad de IA.
@@ -39,70 +39,34 @@
  * Ver docs/handoff/negocio/ESTRATEGIA_CANAL_WHATSAPP.md §8.
  */
 
-import type { WAListRow } from '@/lib/wa-channel';
+import type { WAButton } from '@/lib/wa-channel';
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 import { aFormatoWhatsApp } from '@/lib/wa-formato';
 
-/** Rótulo del botón que despliega la lista (máx. 20 caracteres). */
-export const APERTURA_BOTON = 'Ver opciones';
-
-export const APERTURA_SECCION = 'Por dónde empezar';
-
 /**
- * Las tres preguntas reales del prospecto, en su voz.
+ * Las tres preguntas reales del prospecto, en su voz, como botones VISIBLES.
  *
- * La tercera es la que más pesa: la objeción silenciosa casi nunca es "no
- * entiendo", es "yo no sería capaz". Los títulos están al límite de 24
- * caracteres de Meta — al editarlos, contarlos.
+ * Iban como lista interactiva y había que tocar "Ver opciones" para verlas. Con
+ * tres opciones eso esconde el menú: quien toca una no recuerda que existían las
+ * otras dos y sigue preguntando por su cuenta. Los botones de respuesta se ven
+ * sin desplegar nada — y Meta permite exactamente hasta tres.
+ *
+ * El orden es el de la conversación real (Director, 7 ago 2026): primero qué es
+ * esto, luego de dónde sale la plata, y al final —cuando ya hay contexto— la
+ * pregunta que de verdad decide, que es si yo sería capaz.
+ *
+ * ⚠️ **20 caracteres es el tope duro de Meta** para el título de un botón; si se
+ * pasa, rechaza el mensaje entero. "Cómo entra el dinero" está justo en 20.
+ * ⚠️ Los títulos van en PRIMERA persona a propósito: al tocar, Meta manda el
+ * título como MENSAJE DEL USUARIO. "Qué debe hacer usted" se leería como si el
+ * prospecto le preguntara a Queswa qué debe hacer Queswa.
  */
-export const APERTURA_OPCIONES: WAListRow[] = [
-  {
-    id: 'apertura_dinero',
-    title: 'De dónde sale el dinero',
-    // Antes decía "De qué se distribuye y quién paga" — el Director lo leyó y no
-    // entendió qué quería decir (6 ago 2026). El subtítulo amplía el título, no
-    // lo repite ni lo enreda.
-    description: 'Qué se vende y cómo le pagan',
-  },
-  {
-    id: 'apertura_sistema',
-    // "negocio", NO "sistema": es la formulación literal de cerca del 70% de las
-    // primeras preguntas reales, y el disparador canónico de WHY_02. Nadie
-    // pregunta "cómo funciona el sistema".
-    title: 'Cómo funciona el negocio',
-    description: 'El modelo completo, en concreto',
-  },
-  {
-    id: 'apertura_rol',
-    // En PRIMERA persona a propósito: al tocar una opción, Meta la manda como
-    // MENSAJE DEL USUARIO. "Qué debe hacer usted" se leería como si el prospecto
-    // le preguntara a Queswa qué debe hacer Queswa — se invierte el sentido.
-    title: 'Qué tendría que hacer yo',
-    description: 'Su día a día real, sin adornos',
-  },
+export const APERTURA_OPCIONES: WAButton[] = [
+  { id: 'apertura_sistema', title: 'Cómo funciona' },
+  { id: 'apertura_dinero',  title: 'Cómo entra el dinero' },
+  { id: 'apertura_rol',     title: 'Qué debo hacer yo' },
 ];
 
-/**
- * Respuestas dictadas para las opciones de la apertura.
- *
- * Por qué existen: en la primera prueba en vivo, el botón "De dónde sale el
- * dinero" cayó en tierra de nadie — WHY_02 responde "cómo funciona el negocio" y
- * FREQ_04 responde con tablas de comisiones, así que el modelo improvisó. Y al
- * improvisar escribió *"cuando alguien en su organización compra su producto del
- * mes"*: autoconsumo mensual obligatorio, la marca más delatora del multinivel.
- * Nadie lo redactó; salió solo. Además era falso — Gano Excel liquida los viernes.
- *
- * Un nodo determinístico no se le deja al modelo. Mismo patrón que la apertura.
- *
- * ⚠️ Formato WhatsApp: negrita con *un* asterisco, no dos.
- */
-/**
- * Markdown de la web → formato de WhatsApp.
- *
- * Los textos canónicos viven en `respuestas-maestras.ts` escritos para la web,
- * donde la negrita son dos asteriscos. WhatsApp usa uno solo: mandarlos sin
- * convertir hace que se vean los asteriscos crudos en pantalla.
- */
 // La traducción de formato vive en `wa-formato.ts`: aquí solo se aplica. La
 // versión local hacía únicamente `**` → `*`, y las respuestas maestras traen
 // también viñetas y separadores de Markdown que WhatsApp imprime literales.
@@ -124,12 +88,12 @@ export const APERTURA_OPCIONES: WAListRow[] = [
  * mensajes, decidirlo explícitamente — no hacerlo por goteo.
  */
 export function getRespuestaBoton(opcionId: string): string | null {
-  const dictada = RESPUESTAS_BOTONES[opcionId];
-  if (dictada) return dictada;
-
-  // Opciones que ya tienen respuesta canónica con candado verbatim.
+  // Las TRES tienen respuesta canónica con candado verbatim. La del dinero se
+  // sumó el 7 ago 2026: antes estaba hardcodeada aquí y era inalcanzable
+  // escribiendo — solo salía tocando un botón que aparece una vez.
   const canonica: Record<string, string> = {
     apertura_sistema: '¿Y esto cómo funciona, exactamente?',
+    apertura_dinero:  '¿de dónde sale el dinero?',
     apertura_rol:     '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
   };
 
@@ -139,22 +103,6 @@ export function getRespuestaBoton(opcionId: string): string | null {
   const maestra = getRespuestaMaestra(chip);
   return maestra ? aFormatoWhatsApp(maestra) : null;
 }
-
-const RESPUESTAS_BOTONES: Record<string, string> = {
-  apertura_dinero: [
-    'Buena pregunta, y la más importante.',
-    '',
-    'El dinero sale de las ventas: café, bebidas y suplementos con ganoderma que fabrica y despacha *Gano Excel* —30 años, 70 países—. Usted arma un canal de distribución y lo dirige desde el celular: ni inventario, ni entregas.',
-    '',
-    'Se vende de dos formas, producto al detal y paquetes empresariales. De cada venta le queda un porcentaje, y se lo consignan *cada viernes*.',
-    '',
-    'Y *el café se acaba*: quien probó vuelve a pedir, y esa recompra ya no le cuesta trabajo.',
-    '',
-    'No es humo en la nube: es producto que llega a una dirección y plata que llega a un banco.',
-    '',
-    '¿Le muestro cómo se ve en números?',
-  ].join('\n'),
-};
 
 /**
  * Nombres de pila frecuentes en Colombia y el mundo hispano.

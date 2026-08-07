@@ -153,6 +153,83 @@ export interface WAListRow {
  * `interactive.list_reply`. Quien consuma el webhook tiene que leerlo o el toque
  * no produce nada.
  */
+export interface WAButton {
+  id: string;
+  /** Máx. 20 caracteres — Meta rechaza el mensaje entero si se pasa. */
+  title: string;
+}
+
+/**
+ * Envía hasta tres botones de respuesta, **visibles sin desplegar**.
+ *
+ * Frente a `sendInteractiveList`: la lista esconde las opciones tras un botón
+ * que hay que tocar para abrirla. Con tres opciones eso cuesta un toque extra y,
+ * peor, deja el menú invisible — quien toca una opción no recuerda que había
+ * otras dos y sigue preguntando por su cuenta. Meta permite lista de 4 a 10
+ * opciones y botones hasta 3; con exactamente tres, los botones son el primitivo
+ * correcto.
+ *
+ * El precio es que los botones no llevan descripción y el título se recorta a 20
+ * caracteres (la lista daba 24 más 72 de descripción). Se paga con gusto: la
+ * descripción no sirve de nada si nadie despliega el menú.
+ *
+ * ⚠️ Al tocar, Meta manda `interactive.button_reply` — NO `text.body`. Quien
+ * consuma el webhook tiene que leerlo o el toque no produce nada.
+ */
+export async function sendReplyButtons(
+  to: string,
+  bodyText: string,
+  buttons: WAButton[],
+): Promise<WAResult> {
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+
+  const botones = buttons.slice(0, 3).map((b) => ({
+    type: 'reply',
+    reply: { id: b.id.slice(0, 256), title: b.title.slice(0, 20) },
+  }));
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: normalizePhone(to),
+        type: 'interactive',
+        interactive: {
+          type: 'button',
+          body: { text: bodyText.slice(0, 1024) },
+          action: { buttons: botones },
+        },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendReplyButtons — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] ${botones.length} botones enviados a ${normalizePhone(to)} (msg: ${messageId})`);
+    return { ok: true, messageId };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendReplyButtons error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
 /**
  * Envía un WhatsApp Flow como mensaje interactivo.
  *

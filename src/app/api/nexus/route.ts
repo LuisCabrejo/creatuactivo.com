@@ -4382,7 +4382,12 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
       // • **Un ejemplo comprensible vale más que el potencial completo.** Este
       //   escenario deja fuera casi todo el plan a propósito. Quien entiende una
       //   cifra la repite; quien recibe la tabla entera no entiende ninguna.
-      if (tenantId === 'whatsapp') {
+      // Solo si PIDIERON números. Antes bastaba con que el documento recuperado
+      // fuera de compensación, así que un "sí" a "¿quiere ver cómo se gana?"
+      // recuperaba compensación y el motor dictaba el ejemplo GEN5 completo —
+      // cifras antes del concepto, que es justo el orden que la doctrina prohíbe
+      // (7 ago 2026). Las primeras respuestas explican; los ejemplos se piden.
+      if (tenantId === 'whatsapp' && preguntaSobreCifras.test(latestUserMessage)) {
         const esCO = visitorCountry === 'CO';
         const c = (cop: number, usd: number) =>
           esCO ? `$${cop.toLocaleString('es-CO')}` : `$${usd.toLocaleString('en-US')}`;

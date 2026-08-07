@@ -41,7 +41,30 @@
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
  * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.28 BLOQUE 1.
  *
- * Reescritura 6 ago 2026 — NARRATIVA DE ECUACIÓN (sesión Director + Gemini sobre el
+ * Ajuste 7 ago 2026 — RESPONDER RÁPIDO Y REPARTIR CLARO. Cinco correcciones del
+ * Director sobre el transcript del mediodía:
+ *   • La introducción no respondía la pregunta: explicaba que no arranca de cero
+ *     antes de decir QUÉ es el modelo. Ahora la primera línea nombra la máquina
+ *     —un canal de distribución apoyado en un hábito que ya existe— y el resto
+ *     desarrolla. La pregunta se contesta en la primera oración.
+ *   • "El trabajo pesado lo cargamos entre los dos" se leía como Queswa + el
+ *     prospecto, o sea lo contrario de lo que dice. "Lo asumimos nosotros" deja
+ *     claro que el bloque somos Gano y Queswa, y que él queda afuera del trabajo.
+ *   • "Compartir con quien quiera" → "compartir ESTE MISMO acceso con quien
+ *     desee". "Este mismo" señala lo que la persona está usando en ese instante,
+ *     así que entiende sin que se lo digan que va a repartir exactamente lo que
+ *     le dieron a ella.
+ *   • El ciclo se refuerza como consecuencia natural ("se arma un ciclo natural…
+ *     ese consumo recurrente es el que estabiliza su flujo de caja") y sale
+ *     "esa segunda venta ya no le cuesta trabajo", que sobraba.
+ *   • "La persona consume" → "el cliente consume": quien consume es cliente.
+ *
+ * ⚠️ PENDIENTE conocido: el saludo de WhatsApp también dice "canal de
+ * distribución" y "en paralelo", así que quien toca el botón lee dos veces lo
+ * mismo en veinte segundos. La corrección propuesta —abrir con "Ese consumo ya
+ * existe", recogiendo la última palabra del saludo— está sin decidir.
+ *
+ * Reescritura previa 6 ago 2026 — NARRATIVA DE ECUACIÓN (sesión Director + Gemini sobre el
  * transcript real del canal). De 1.353 a 921 caracteres: sale en dos mensajes, no en
  * tres, y la pregunta queda a la vista sin "leer más". Seis decisiones:
  *   1. Sin meta-frase de apertura. "Le respondo con el dinero primero" le avisaba al
@@ -78,17 +101,17 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto, le explico cómo funciona.
+const MASTER_WHY_02 = `Con gusto. El modelo funciona creando un canal de distribución que se apoya en un hábito de consumo que las personas ya tienen.
 
-Usted no arranca desde cero: se apoya en una operación de 30 años que ya funciona en 70 países. **Gano Excel** pone las fábricas y la logística; usted dirige su propio canal de distribución desde el celular, sin comprar inventario ni entregar pedidos.
+Usted no arranca desde cero: la fábrica y la logística las pone **Gano Excel** — 30 años, 70 países. Usted dirige su canal desde el celular, sin comprar inventario ni entregar pedidos.
 
 La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-Y como son productos de consumo diario, se arma un ciclo que se repite solo: se consume, se acaba, se vuelve a pedir. Y esa segunda venta ya no le cuesta trabajo.
+Y como son productos de consumo diario, se arma un ciclo natural: el cliente consume, se le acaba y vuelve a pedir. Ese consumo recurrente es el que estabiliza su flujo de caja.
 
-Esto corre en paralelo a su actividad actual, y el trabajo pesado lo cargamos entre los dos: lo físico lo pone Gano Excel; explicar y atender a toda hora lo pongo yo.
+Esto corre en paralelo a su agenda. Para que sea viable, el trabajo pesado lo asumimos nosotros: la infraestructura física la pone Gano Excel; explicar y atender a toda hora lo pongo yo.
 
-A usted le quedan dos cosas: compartir con quien quiera, y recibir sus comisiones en su cuenta bancaria cada viernes.
+A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.
 
 ¿Quiere ver los números?`;
 

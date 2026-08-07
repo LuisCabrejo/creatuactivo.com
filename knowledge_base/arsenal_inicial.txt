@@ -47,17 +47,17 @@ Lo físico no lo inventamos nosotros, y ahí está la solidez: las fábricas, el
 **[Concepto Nuclear]:** La pregunta literal es "cómo funciona"; la real es **"¿cómo voy yo? ¿cómo se gana?"**. Debajo hay una regla de tres (doy y gano; si no trabajo, no gano) y la sospecha de que un ingreso que no dependa de su presencia es fantasía. Se desarma **diciendo de dónde sale la plata en el segundo párrafo**: de las ventas — de producto y de **paquetes empresariales** — con un porcentaje liquidado en **cuenta bancaria cada viernes** (el candado de la cuenta bancaria frente a la nube: café físico que sale de una fábrica real y aterriza en un banco de toda la vida). Luego la recurrencia (el café se acaba; la recompra ya no le cuesta trabajo), y solo al final la arquitectura, en **dos fuerzas** — quien fabrica y quien atiende — porque esta pregunta es sobre el dinero; el método vive en EAM_01. ⚠️ PROHIBIDO aquí: **abrir con diagnóstico** (quien pregunta esto ya se autodiagnosticó — insistir resta), **"empresa digital"**, cifras/porcentajes o la palabra "matemática" en el párrafo del dinero (el dato apaga la emoción que enciende la historia — efecto de la víctima identificable), "red", "perseguir", y prometer que no hay venta ni cobro: **sí los hay**; lo que no hay es inventario ni despachos. Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` §8.
 
 <verbatim_lock>
-Con gusto, le explico cómo funciona.
+Con gusto. El modelo funciona creando un canal de distribución que se apoya en un hábito de consumo que las personas ya tienen.
 
-Usted no arranca desde cero: se apoya en una operación de 30 años que ya funciona en 70 países. **Gano Excel** pone las fábricas y la logística; usted dirige su propio canal de distribución desde el celular, sin comprar inventario ni entregar pedidos.
+Usted no arranca desde cero: la fábrica y la logística las pone **Gano Excel** — 30 años, 70 países. Usted dirige su canal desde el celular, sin comprar inventario ni entregar pedidos.
 
 La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-Y como son productos de consumo diario, se arma un ciclo que se repite solo: se consume, se acaba, se vuelve a pedir. Y esa segunda venta ya no le cuesta trabajo.
+Y como son productos de consumo diario, se arma un ciclo natural: el cliente consume, se le acaba y vuelve a pedir. Ese consumo recurrente es el que estabiliza su flujo de caja.
 
-Esto corre en paralelo a su actividad actual, y el trabajo pesado lo cargamos entre los dos: lo físico lo pone Gano Excel; explicar y atender a toda hora lo pongo yo.
+Esto corre en paralelo a su agenda. Para que sea viable, el trabajo pesado lo asumimos nosotros: la infraestructura física la pone Gano Excel; explicar y atender a toda hora lo pongo yo.
 
-A usted le quedan dos cosas: compartir con quien quiera, y recibir sus comisiones en su cuenta bancaria cada viernes.
+A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.
 
 ¿Quiere ver los números?
 </verbatim_lock>

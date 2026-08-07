@@ -988,6 +988,7 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/api/nexus/consumer-cron` | Legacy | Fallback sin triggers — el flujo activo es DB trigger → `nexus-queue-processor` |
 | `nexus-consumer` (Edge Function) | Deprecated | Consumer Kafka — reemplazado por `nexus-queue-processor` |
 | `src/lib/sendpulse.ts` + `whatsapp-meta.ts` | ✅ Eliminados (jul 2026) | Reemplazados por `wa-channel.ts` (capa única de canal Meta Cloud API) |
+| RPC `match_documents` + columna `embedding` (1536) | Muerto — camino TS retirado 7 ago 2026 | El RPC compara contra `embedding` (512 rellenado a 1536) y las funciones que lo llamaban mandaban el vector sin rellenar: fallaban siempre. La búsqueda viva es **en memoria** sobre `embedding_512` (`getArsenalFragments` → `searchSimilarDocuments`). La función SQL y la columna siguen en la BD; el Dashboard conserva la misma copia muerta |
 | `src/components/nexus/NEXUSFloatingButton.tsx` | Conservado parcial | Reemplazado por `UnifiedQueswaOrb` en layout; aún se usa para eventos servilleta |
 | `/reto-5-dias/*` · `/mapa-de-salida/*` · `/auditoria-confirmada` · `/empresa-digital/*` · `/diagnostico` · `/confirmacion` | ✅ Eliminadas (jul 2026, `ca6ff59`) | Funnel muerto retirado — páginas + redirects borrados; URLs viejas del funnel → Home (301) |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |

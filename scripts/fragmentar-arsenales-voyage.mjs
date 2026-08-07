@@ -60,8 +60,17 @@ async function generateVoyageEmbedding(text) {
 }
 
 /**
- * Convierte embedding a formato pgvector — columna embedding (1536 con padding)
- * Mantener para compatibilidad con match_documents RPC (vector(1536))
+ * Convierte embedding a formato pgvector — columna `embedding` (512 rellenado a 1536).
+ *
+ * ⚠️ Esta columna NO la lee nadie. Existía para el RPC `match_documents`, cuyo
+ * único camino de código se retiró el 7 ago 2026 por estar muerto desde el
+ * origen: llamaba al RPC con el vector de 512 sin rellenar, contra una columna
+ * de 1536, así que siempre fallaba. La búsqueda viva es en memoria sobre
+ * `embedding_512`.
+ *
+ * Se sigue escribiendo por prudencia —cuesta storage y nada más— hasta decidir
+ * si se dropea la columna. Al hacerlo, borrar también esta función y el
+ * `embedding:` del insert de abajo.
  */
 function formatForPgvector1536(embedding) {
   const padded = [...embedding, ...new Array(1536 - embedding.length).fill(0)];

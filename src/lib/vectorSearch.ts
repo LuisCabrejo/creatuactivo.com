@@ -97,66 +97,30 @@ export interface VectorSearchResult {
 }
 
 // ============================================================================
-// BÚSQUEDA VECTORIAL VÍA SUPABASE RPC (match_documents)
-// Más eficiente que in-memory — pgvector hace la similitud coseno en DB
-// Requiere: columna embedding_512 vector(512) en nexus_documents
-// Sincronizado desde Dashboard 2026-03-09
+// CAMINO RPC (match_documents) — RETIRADO el 7 ago 2026
+//
+// Aquí vivían `matchDocumentsRPC()` y `voyageMatchDocuments()`. Nadie las
+// importaba, y no podían funcionar: llamaban al RPC con el vector Voyage de 512
+// dimensiones, mientras la función de Postgres compara contra la columna
+// `embedding` de 1536. Toda invocación devolvía
+// "different vector dimensions 1536 and 512".
+//
+// El desajuste NO es de matemática. La columna de 1536 guarda el MISMO vector de
+// 512 rellenado con 1.024 ceros (ver formatForPgvector1536 en
+// scripts/fragmentar-arsenales-voyage.mjs), y el coseno con ceros a ambos lados
+// da idéntico al de 512. Lo que faltaba era rellenar también la consulta — nadie
+// lo hacía, así que el camino estaba muerto desde el primer día.
+//
+// La búsqueda real del motor es EN MEMORIA: `getArsenalFragments()` en
+// api/nexus/route.ts lee `embedding_512` y compara con `searchSimilarDocuments()`
+// de este mismo archivo. Esa funciona y es la única viva.
+//
+// ⚠️ Si algún día se quiere pgvector de verdad (útil solo cuando el corpus no
+// quepa cómodo en memoria), lo correcto es crear una función nueva sobre
+// `embedding_512` — NO revivir esta, que arrastra la columna con relleno.
+// ⚠️ El repositorio del Dashboard tiene una copia idéntica de estas dos
+// funciones, igual de muerta.
 // ============================================================================
-
-export interface MatchDocumentsOptions {
-  matchThreshold?: number;
-  matchCount?: number;
-  filterCategory?: string;
-  tenantId?: string;  // Capa 4.1: aislamiento multi-tenant en búsqueda vectorial RPC
-}
-
-/**
- * Búsqueda vectorial nativa en Supabase usando pgvector + match_documents RPC.
- * Más eficiente que traer todos los documentos y comparar en memoria.
- */
-export async function matchDocumentsRPC(
-  queryEmbedding: number[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  supabaseClient: any,
-  options: MatchDocumentsOptions = {}
-): Promise<VectorSearchResult[]> {
-  const { matchThreshold = 0.3, matchCount = 5, filterCategory = null, tenantId = 'creatuactivo_marketing' } = options;
-
-  const { data, error } = await supabaseClient.rpc('match_documents', {
-    query_embedding: queryEmbedding,
-    match_threshold: matchThreshold,
-    match_count: matchCount,
-    filter_category: filterCategory,
-    filter_tenant_id: tenantId,
-  });
-
-  if (error) {
-    throw new Error(`match_documents RPC error: ${error.message}`);
-  }
-
-  return (data ?? []).map((row: { category: string; title: string; content: string; similarity: number; metadata?: Record<string, unknown> }) => ({
-    category: row.category,
-    title: row.title,
-    content: row.content,
-    similarity: row.similarity,
-    metadata: row.metadata,
-  }));
-}
-
-/**
- * Pipeline completo: Voyage AI embedding → pgvector match_documents RPC
- * Un solo call: genera embedding + busca en DB en 2 pasos, sin traer todos los docs.
- */
-export async function voyageMatchDocuments(
-  query: string,
-  voyageApiKey: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  supabaseClient: any,
-  options: MatchDocumentsOptions = {}
-): Promise<VectorSearchResult[]> {
-  const embedding = await generateVoyageEmbedding(query, voyageApiKey, 'query');
-  return matchDocumentsRPC(embedding, supabaseClient, options);
-}
 
 export interface DocumentWithEmbedding {
   category: string;

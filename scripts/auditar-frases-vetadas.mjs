@@ -122,7 +122,47 @@ for (const { re, motivo, desde } of VETADAS) {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────
+// El patrón general, que vale más que cualquier lista de palabras: una
+// cabecera que CITA la frase que rechaza se la está entregando al modelo.
+// La lista de arriba solo atrapa los casos ya conocidos; esto atrapa los que
+// todavía no sabemos que existen — y en una sola semana ocurrió cinco veces
+// (WHY_PROD_01, WHY_02, COMP_GEN5_01, el pin del Binario, WHY_03).
+//
+// La regla es simple y no admite excepción: **la instrucción se enuncia en
+// afirmativo.** Se dice dónde SÍ va el vocabulario, nunca cuál evitar.
+// ─────────────────────────────────────────────────────────────────────────
+// El marcador de rechazo tiene que llevar **intención de habla** (no decir, no
+// usar, prohibido…). Un simple "no" es demasiado común: casi todo [Concepto
+// Nuclear] contrasta con algo, y eso es copy legítimo, no un dictado.
+const RE_RECHAZO = /\b(PROHIBID[OA]|vetad[oa]s?|NO\s+(decir|usar|escribir|nombrar|mencionar|puede\s+\w+\s+ni\s+decir)|nunca\s+(decir|usar|diga|use)|evit(ar|e)|retirad[oa]s?|se retiró|versión anterior|decía)\b/i;
+// Solo comillas de verdad. Los asteriscos son negrita de markdown y aparecen en
+// cada cabecera para enfatizar — tomarlos por cita marca todo y no sirve.
+const RE_CITA = /["“][^"”\n]{4,80}["”]|«[^»\n]{4,80}»/;
+
+const dictados = [];
+for (const frag of fragmentos) {
+  const { cabecera } = partir(frag.content);
+  for (const frase of cabecera.split(/(?<=[.;])\s+/)) {
+    if (RE_RECHAZO.test(frase) && RE_CITA.test(frase)) {
+      dictados.push({ category: frag.category, frase: frase.trim().slice(0, 150) });
+      break;
+    }
+  }
+}
+
+if (dictados.length) {
+  console.log('\n🔴 CABECERAS QUE CITAN LO QUE RECHAZAN');
+  console.log('   La frase citada viaja al modelo dentro del fragmento: es un dictado, no una regla.');
+  for (const d of dictados) {
+    console.log(`\n   ${d.category}`);
+    if (detalle) console.log(`      «${d.frase}…»`);
+  }
+  if (!detalle) console.log('\n   (--detalle muestra la frase de cada una)');
+}
+
 console.log(`\n${'─'.repeat(60)}`);
+console.log(`${dictados.length} cabeceras citan lo que rechazan`);
 console.log(`${fragmentos.length} fragmentos revisados · ${totalCabecera} en cabecera · ${totalCuerpo} en cuerpo`);
 console.log('Correr con --detalle para ver cuáles.');
 console.log('Las cabeceras son las urgentes: la regla se enuncia en AFIRMATIVO.');

@@ -63,7 +63,10 @@ async function actualizarFragmento(fragmentId, nuevoContenido) {
     .from('nexus_documents')
     .update({
       content: nuevoContenido,
-      embedding: embedding,
+      // La columna `embedding` (vector 1536, el mismo de 512 rellenado con ceros)
+      // se dejó de escribir el 7 ago 2026 y se dropeó: existía solo para el RPC
+      // match_documents, muerto desde su origen. La búsqueda viva usa
+      // embedding_512 vía match_fragments_512.
       updated_at: new Date().toISOString()
     })
     .eq('category', fragmentId);

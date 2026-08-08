@@ -44,11 +44,6 @@ async function generateVoyageEmbedding(text) {
   return data.data[0].embedding;
 }
 
-function formatForPgvector1536(embedding) {
-  const padded = [...embedding, ...new Array(1536 - embedding.length).fill(0)];
-  return '[' + padded.join(',') + ']';
-}
-
 function formatForPgvector512(embedding) {
   return '[' + embedding.join(',') + ']';
 }
@@ -135,7 +130,6 @@ async function processArsenal(arsenalCategory) {
     try {
       const textForEmbedding = `${response.question}\n\n${response.content}`;
       const embedding = await generateVoyageEmbedding(textForEmbedding);
-      const embedding1536 = formatForPgvector1536(embedding);
       const embedding512  = formatForPgvector512(embedding);
 
       const { error: insertError } = await supabase
@@ -144,7 +138,10 @@ async function processArsenal(arsenalCategory) {
           category: fragmentCategory,
           title: response.question,
           content: response.fullSection,
-          embedding: embedding1536,
+      // La columna `embedding` (vector 1536, el mismo de 512 rellenado con ceros)
+      // se dejó de escribir el 7 ago 2026 y se dropeó: existía solo para el RPC
+      // match_documents, muerto desde su origen. La búsqueda viva usa
+      // embedding_512 vía match_fragments_512.
           embedding_512: embedding512,
           tenant_id: tenantId,
           metadata: {

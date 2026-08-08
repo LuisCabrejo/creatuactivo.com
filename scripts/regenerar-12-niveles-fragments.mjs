@@ -148,7 +148,10 @@ async function main() {
           category: fragmentCategory,
           title: response.question,
           content: response.fullSection,
-          embedding: formattedEmbedding,
+      // La columna `embedding` (vector 1536, el mismo de 512 rellenado con ceros)
+      // se dejó de escribir el 7 ago 2026 y se dropeó: existía solo para el RPC
+      // match_documents, muerto desde su origen. La búsqueda viva usa
+      // embedding_512 vía match_fragments_512.
           metadata: {
             response_id: response.id,
             parent_arsenal: 'arsenal_12_niveles',

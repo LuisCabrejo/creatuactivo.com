@@ -60,24 +60,6 @@ async function generateVoyageEmbedding(text) {
 }
 
 /**
- * Convierte embedding a formato pgvector — columna `embedding` (512 rellenado a 1536).
- *
- * ⚠️ Esta columna NO la lee nadie. Existía para el RPC `match_documents`, cuyo
- * único camino de código se retiró el 7 ago 2026 por estar muerto desde el
- * origen: llamaba al RPC con el vector de 512 sin rellenar, contra una columna
- * de 1536, así que siempre fallaba. La búsqueda viva es en memoria sobre
- * `embedding_512`.
- *
- * Se sigue escribiendo por prudencia —cuesta storage y nada más— hasta decidir
- * si se dropea la columna. Al hacerlo, borrar también esta función y el
- * `embedding:` del insert de abajo.
- */
-function formatForPgvector1536(embedding) {
-  const padded = [...embedding, ...new Array(1536 - embedding.length).fill(0)];
-  return '[' + padded.join(',') + ']';
-}
-
-/**
  * Convierte embedding a formato pgvector — columna embedding_512 (512-dim nativo)
  * Usado por getArsenalFragments() en nexus/route.ts
  */
@@ -231,11 +213,9 @@ async function processArsenal(arsenalCategory) {
       // Incluir pregunta en el texto para mejor matching semántico
       const textForEmbedding = `${response.question}\n\n${response.content}`;
       const embedding = await generateVoyageEmbedding(textForEmbedding);
-      const embedding1536 = formatForPgvector1536(embedding);  // columna embedding (compat.)
       const embedding512  = formatForPgvector512(embedding);   // columna embedding_512 (route.ts)
 
       // Insertar en Supabase
-      // - embedding:     vector(1536) — para match_documents RPC (backward compat.)
       // - embedding_512: vector(512)  — para getArsenalFragments() en nexus/route.ts
       // - tenant_id:     multi-tenant FASE C
       const tenantId = ARSENAL_TENANT_MAP[arsenalCategory] ?? 'creatuactivo_marketing';
@@ -245,7 +225,10 @@ async function processArsenal(arsenalCategory) {
           category: fragmentCategory,
           title: response.question,
           content: response.fullSection,
-          embedding: embedding1536,
+      // La columna `embedding` (vector 1536, el mismo de 512 rellenado con ceros)
+      // se dejó de escribir el 7 ago 2026 y se dropeó: existía solo para el RPC
+      // match_documents, muerto desde su origen. La búsqueda viva usa
+      // embedding_512 vía match_fragments_512.
           embedding_512: embedding512,
           tenant_id: tenantId,
           metadata: {

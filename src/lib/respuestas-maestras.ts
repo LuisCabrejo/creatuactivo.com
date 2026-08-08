@@ -234,13 +234,11 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Buena pregunta, y vale la pena precisarla porque ese término se usa para todo. 🪢
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Una empresa digital le da los beneficios de un negocio propio sin tener que montar la operación física.
 
-Digital es la forma de manejarlo, no lo que se vende. Usted maneja su negocio entero desde el celular: sin local, sin empleados, sin bodega.
+En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí usted es dueño de un canal de distribución, y todo eso lo asume **Gano Excel**: fabrica el café y los suplementos, y los despacha hasta la casa de su cliente.
 
-Lo que se vende, en cambio, es bien físico: **café y suplementos** que salen de una fábrica y llegan a la casa de su cliente. De cada compra a usted le queda un porcentaje, y se liquida en **su cuenta bancaria cada viernes**.
-
-Y lo digital es lo que le quita el peso: yo converso por WhatsApp con cada interesado, le explico y le resuelvo las dudas a toda hora. Eso es lo que antes exigía un local abierto y personal contratado.
+Y por eso se llama digital: el canal entero cabe en su celular. Yo atiendo a sus clientes a toda hora, y de cada compra a usted le queda un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
 
 ¿Quiere que le muestre con números cómo se vería en su caso?`;
 

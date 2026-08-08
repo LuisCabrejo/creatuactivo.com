@@ -40,6 +40,7 @@ const supabase = createClient(
  */
 const VETADAS = [
   { re: /consumo diario|h[áa]bitos de consumo/gi, motivo: 'estante de supermercado — el precio se compara contra un café corriente', desde: '8 ago 2026' },
+  { re: /ese mismo viernes/gi,                    motivo: 'FALSO: la comisión llega dos ciclos después (COMP_BIN_05)',            desde: '7 ago 2026' },
   { re: /meter (personas|gente)/gi,               motivo: 'el miedo literal al multinivel; se dice qué SÍ paga el plan',            desde: '7 ago 2026' },
   { re: /\bperseguir\b/gi,                        motivo: 'planta una objeción que el prospecto no trajo',                          desde: 'jun 2026' },
   { re: /\bfiltrar\b|\bfiltro\b/gi,               motivo: 'Queswa conversa y reconoce a quien está listo; no descarta',             desde: 'jun 2026' },
@@ -63,14 +64,30 @@ if (error) {
 
 const fragmentos = data.filter((d) => d.metadata?.is_fragment === true);
 
-// La cabecera es la primera línea del fragmento — ahí vive el [Concepto Nuclear],
-// que es texto para el modelo, no para el prospecto, y por eso el error pasa
-// desapercibido: nadie lo lee en una conversación.
+/**
+ * Un fragmento tiene TRES regiones y solo dos importan:
+ *
+ *   1. La línea `###` — los disparadores, escritos con las palabras del
+ *      PROSPECTO ("¿esto es por meter personas?"). Ahí la frase vetada es
+ *      legítima: es cómo la persona pregunta, no cómo nosotros respondemos.
+ *      Se descarta entera.
+ *   2. El `[Concepto Nuclear]` y las instrucciones internas — texto dirigido al
+ *      modelo. Nadie lo lee en una conversación, y por eso un error aquí
+ *      sobrevive años. Es la región crítica.
+ *   3. El cuerpo — lo que llega al prospecto.
+ */
 const partir = (contenido) => {
-  const salto = contenido.indexOf('\n');
-  return salto === -1
-    ? { cabecera: contenido, cuerpo: '' }
-    : { cabecera: contenido.slice(0, salto), cuerpo: contenido.slice(salto + 1) };
+  const bloques = contenido.split('\n\n');
+  const instrucciones = [];
+  const cuerpo = [];
+
+  for (const b of bloques) {
+    if (b.startsWith('###')) continue;                                  // disparadores
+    if (/^\s*(\*\*)?\[|^\s*⚠️\s*\*\*QUESWA|^\s*\*\*\[INSTRUCC/i.test(b)) instrucciones.push(b);
+    else cuerpo.push(b);
+  }
+
+  return { cabecera: instrucciones.join('\n\n'), cuerpo: cuerpo.join('\n\n') };
 };
 
 let totalCabecera = 0;

@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.5_compartir_recibir_multiplicar';
+const VERSION_LABEL = 'v29.6_compartir_recibir_cobrar';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

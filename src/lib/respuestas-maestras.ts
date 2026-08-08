@@ -146,15 +146,14 @@ A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y reci
  */
 const MASTER_EAM_01 = `Me gusta esa pregunta — es la que de verdad importa. 🪢
 
-Su papel es **dirigir**, no cargar con el trabajo pesado. En el día a día son tres movimientos:
+En el día a día son dos acciones:
 
-**Comparte.** Pasa un enlace desde su celular. No memoriza guiones ni explica nada: de eso me encargo yo.
+📲 **Compartir:** usted pasa un enlace a quien quiera.
+🤝 **Recibir:** usted saluda a quien llega con interés.
 
-**Recibe.** Yo converso con cada interesado y maduro su decisión de avanzar, las 24 horas. Cuando alguien ya decidió le aviso, y usted lo recibe de persona a persona — esa cercanía es lo único que una máquina no da.
+Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
 
-**Multiplica.** Quien entra con usted recibe lo mismo que usted tiene, ya montado. Y yo también le enseño: usted no vuelve a explicar de cero.
-
-Un día normal son unos minutos para compartir y estar pendiente de mis avisos. Lo desgastante —explicar, atender, responder a medianoche— es mío.
+Y como es así de sencillo, quien entra con usted hace exactamente lo mismo. Ahí están la multiplicación y el crecimiento de su negocio.
 
 ¿Le muestro los productos que mueven todo esto?`;
 

@@ -3579,7 +3579,7 @@ ${summaryParts.join('\n')}
     const _handoffYaEntregado = _botMsgsAll.some((m: any) => /Activar ahora.*Que el equipo me contacte|finalizar la activaci[oó]n de su (negocio|empresa) digital|Para finalizar la activaci[oó]n/i.test(m.content || ''));
     const _whatsappSolicitado = _botMsgsAll.some((m: any) => /cu[aá]l es su (n[uú]mero de )?WhatsApp|su WhatsApp para coordinar|n[uú]mero de WhatsApp para/i.test(m.content || ''));
     const _nombreSolicitado3a = _botMsgsAll.some((m: any) => /bajo qu[eé] nombre|registramos para el nivel|ind[ií]queme su nombre completo|para coordinarlo.*nombre/i.test(m.content || ''));
-    const _botPidioNivelCombinadoEarly = _botMsgsAll.some((m: any) => /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || ''));
+    const _botPidioNivelCombinadoEarly = _botMsgsAll.some((m: any) => /nivel que ha seleccionado|ind[ií]queme dos datos|cu[áa]l de los tres eligi[óo]/i.test(m.content || ''));
     const _nombreAhora = extractNameFromHandoffReply(latestUserMessage);
     const _nombreValido = !!(mergedProspectData.name && !_occupationCheck.test(mergedProspectData.name));
     const _whatsappAhora = extractWhatsAppFromMessage(latestUserMessage);
@@ -4100,7 +4100,7 @@ El visitante está viendo el deck de "Los 12 Niveles": una presentación (negoci
       // el nivel y quizá da el nombre: si dio nombre → 3b (pedir WhatsApp); si solo el
       // nivel → 3 (pedir nombre). Aquí elegir el nivel SÍ es cierre (ya declaró intención).
       const botPidioNivelCombinado = allBotMsgs.some((m: any) =>
-        /nivel que ha seleccionado|ind[ií]queme dos datos/i.test(m.content || '')
+        /nivel que ha seleccionado|ind[ií]queme dos datos|cu[áa]l de los tres eligi[óo]/i.test(m.content || '')
       );
       if (botPidioNivelCombinado && mergedProspectData.package) {
         // El usuario suele responder "Nombre + nivel" junto ("Federico Garcia esp3").
@@ -4193,23 +4193,18 @@ ${getInitialGreeting()}
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Usted tiene **tres niveles de inventario estratégico** para iniciar. Su capital se transfiere directamente a productos físicos — bebidas enriquecidas y suplementos Gano Excel:
+Son tres formas de empezar, y en las tres lo que paga se convierte en producto: café y suplementos Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
-> Máxima velocidad de capitalización.
 
 **ESP-2 — Empresarial** · ${precioPaqueteLinea('ESP-2', visitorCountry)}
 > 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
-> Crecimiento sostenido con buen balance de inventario y velocidad.
 
 **ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
-> Para iniciar rápido.
 
----
-
-Para coordinar su activación con el equipo de CreaTuActivo, indíqueme dos datos: **su nombre completo** y el **nivel que ha seleccionado** (ESP-1, ESP-2 o ESP-3).
+Para dejarlo andando necesito dos cosas: **su nombre completo** y **cuál de los tres eligió**.
 
 STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respuesta del usuario con nombre + nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -4224,23 +4219,18 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Usted tiene **tres niveles disponibles** para activar su negocio. Su capital se convierte en productos físicos — bebidas enriquecidas y suplementos Gano Excel.
+Son tres formas de empezar, y en las tres lo que paga se convierte en producto: café y suplementos Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
-> Máxima velocidad de capitalización.
 
 **ESP-2 — Empresarial** · ${precioPaqueteLinea('ESP-2', visitorCountry)}
 > 18 productos · Binario 16% por 4 meses · Bono GEN5 activo
-> Crecimiento sostenido con buen balance.
 
 **ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
-> Validación del flujo del sistema.
 
----
-
-¿Quiere que profundicemos en alguno, o que veamos cómo se proyectan las comisiones en cada nivel?
+¿Le muestro cómo se proyectan las comisiones en cada nivel?
 
 STOP. No expliques el onboarding. No pidas datos adicionales. NO asumas compra si menciona un paquete — puede estar explorando. Espera que pregunte más o declare que quiere iniciar.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -4615,8 +4605,8 @@ ${visitorCountry === 'CO'
 - Estructura sugerida:
   1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
-  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el portafolio que más velocidad de capitalización genera en la curva inicial."
-  4. Pregunta de seguimiento conversacional: "¿Continúa con la activación, o quiere que revisemos algún detalle?"
+  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el mix con el que su canal arranca completo desde el primer día."
+  4. Pregunta de seguimiento conversacional: "¿Seguimos con la activación?"
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
     };

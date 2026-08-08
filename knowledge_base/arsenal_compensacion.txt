@@ -79,20 +79,21 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 
 **[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, estructuradas para corto, mediano y largo plazo. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
 
-### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5"
+### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5" / "Como se gana rapido?" / "Cual es la forma rapida de ganar?"
 
-**[Concepto Nuclear]:** Liquidez Inmediata. La corporacion le liquida dividendos por la expansion de la infraestructura.
+**[Concepto Nuclear]:** La forma que paga RÁPIDO: comisión directa cada vez que se compra un paquete empresarial en el canal, hasta 5 niveles. Primera respuesta **sin cifras** (doctrina 7 ago 2026); el ejemplo se entrega cuando lo piden. ⚠️ **AUTOSUFICIENTE**: se llega aquí por dos caminos —tras COMP_MODELO_01 ("¿le explico también la segunda forma?") o en frío, preguntando cómo se gana rápido— así que NO puede apoyarse en la bola de nieve ni decir "esa segunda forma": serían referencias a algo que puede no haberse dicho. La otra forma se nombra en cinco palabras: si ya se explicó suena a eco, y si no, la presenta. ⚠️ **PROHIBIDO** decir que la comisión llega "ese mismo viernes" (llega dos viernes después — ver COMP_BIN_05) y **PROHIBIDO** negar que el volumen se acumule: el puntaje no cobrado SÍ se acumula, y es una ventaja del plan. ⚠️ Vocabulario: se cuentan **compras de paquetes**, nunca personas ni generaciones de gente ("nietos", "tataranietos").
 
-El GEN5 es un bono que recibe cada vez que un nuevo socio adquiere su paquete de inventario inicial, paga hasta 5 generaciones de profundidad.
+<verbatim_lock>
+Con gusto. Esta es la parte que paga rápido.
 
-**La Matematica (Si es Fundador ESP-3):**
-- Por sus directos (Hijos): **$150 USD**
-- Por los indirectos (Nietos a Tataranietos): **$20 USD**
-- En la 5ta generacion: **$40 USD** (Bono doble)
+Cada vez que se compra un paquete empresarial en su canal, a usted le entra una comisión directa — y cuenta hasta cinco niveles de profundidad. Es plata que le llega cada viernes.
 
-**Mecanica:** A diferencia de un negocio tradicional donde usted construye gratis y cobra anos despues, el ecosistema le liquida dividendos por cada empresa digital que activa hoy. Este bono inyecta liquidez en su flujo de caja esta misma semana ($600-$1,000 USD mensuales promedio) mientras su organizacion consolida el consumo recurrente.
+Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta le paga mientras construye, y la otra le paga por lo que ya construyó.
 
-**Nota:** Si desea ver la proyeccion numerica completa, pregunte "deme la proyeccion GEN5".
+¿Le muestro un ejemplo con números?
+</verbatim_lock>
+
+**[Referencia interna — NO mostrar al prospecto]:** tasas por paquete propio ESP-3 — directos $150 USD · generaciones 2 a 4 $20 USD · 5ª generación $40 USD (doble). Cifras completas y proyección en el pin dictado de route.ts (getPinCifrasGEN5) y en COMP_GEN5_07/08.
 
 ---
 
@@ -592,18 +593,17 @@ Despues de que expire su bonus promocional, tiene opciones:
 
 ---
 
-### COMP_BIN_05: "Cuando me pagan el Binario?"
+### COMP_BIN_05: "Cuando me pagan?" / "Cuando me pagan el Binario?" / "Lo de esta semana me lo pagan este viernes?" / "Como liquida Gano Excel?" / "Cada cuanto pagan?"
 
-**[Concepto Nuclear]:** Cada viernes, con 2 semanas de desfase. Igual que el GEN5.
+**[Concepto Nuclear]:** Cada viernes, con dos semanas de desfase. Se explica con el CICLO, no con los números de ciclo (893/894/895 no le dicen nada a nadie). Lo decisivo es el remate: el desfase es **solo al arrancar** — después el viernes llega todas las semanas. Sin esa última línea, el desfase suena a demora; con ella, se entiende que esto tiene un ritmo. Aplica igual al GEN5 y al Binario: se pagan el mismo día y aparecen en el mismo estado de cuenta. ⚠️ La pregunta de cierre **propone un paso concreto**: quien pregunta cuándo le pagan ya entendió cómo se gana y está mirando lo práctico.
 
-**Ciclo de Pago:**
-| Evento | Cuando |
-|--------|--------|
-| Su equipo genera CV | Ciclo 893 |
-| Se procesa | Ciclo 894 |
-| Recibe pago | Viernes Ciclo 895 |
+<verbatim_lock>
+Gano Excel liquida por semanas, y el ciclo tiene dos tiempos: la semana en que se hacen las compras es la que se factura, y la siguiente se cierra en firme — a veces falta un documento de alguien que acaba de entrar.
 
-**Insight:** Binario y GEN5 se pagan el mismo dia (viernes). Ambos aparecen en su estado de cuenta.
+Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ahí en adelante le entra todos los viernes, sin parar.
+
+¿Le cuento qué se necesita para arrancar?
+</verbatim_lock>
 
 ---
 

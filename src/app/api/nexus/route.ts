@@ -4425,7 +4425,13 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
       // recuperaba compensación y el motor dictaba el ejemplo GEN5 completo —
       // cifras antes del concepto, que es justo el orden que la doctrina prohíbe
       // (7 ago 2026). Las primeras respuestas explican; los ejemplos se piden.
-      if (tenantId === 'whatsapp' && preguntaSobreCifras.test(latestUserMessage)) {
+      // También cuando la respuesta anterior OFRECIÓ el ejemplo y la persona
+      // aceptó: nadie contesta "¿le muestro un ejemplo con números?" repitiendo
+      // la palabra números — contesta "sí". Sin esto, el pin exige un pedido
+      // explícito que la conversación acaba de volver innecesario.
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros/i.test(_ultimoBotMsg);
+      const _aceptaEjemplo = _ofrecioEjemplo && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií] por favor|as[ií] es)\b/i.test(latestUserMessage.trim());
+      if (tenantId === 'whatsapp' && (preguntaSobreCifras.test(latestUserMessage) || _aceptaEjemplo)) {
         const esCO = visitorCountry === 'CO';
         const c = (cop: number, usd: number) =>
           esCO ? `$${cop.toLocaleString('es-CO')}` : `$${usd.toLocaleString('en-US')}`;

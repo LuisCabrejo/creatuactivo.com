@@ -103,13 +103,15 @@
  */
 const MASTER_WHY_02 = `Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.
 
-Usted no arranca desde cero: la fábrica y la logística las pone **Gano Excel** — 30 años, 70 países. Usted dirige su canal desde el celular, sin comprar inventario ni entregar pedidos.
-
 La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-El cliente los prueba y nota la diferencia: son productos funcionales con Ganoderma, y el resultado se siente en su bienestar y en su energía del día a día. Cuando se le acaba, vuelve a pedir el mismo. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
+Y al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
 
-Esto corre en paralelo a su agenda. Para que sea viable, el trabajo pesado lo asumimos nosotros: la infraestructura física la pone Gano Excel; explicar y atender a toda hora lo pongo yo.
+Para que usted dirija sin cargar con la operación, el trabajo pesado lo asumimos nosotros:
+
+**Gano Excel** pone las fábricas, la investigación y la logística — 30 años, 70 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
+
+**Yo** explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.
 
 A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.
 

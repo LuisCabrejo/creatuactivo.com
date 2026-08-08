@@ -276,11 +276,16 @@ function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | n
 export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
   const claves = ['nombre', 'cedula', 'ciudad', 'paquete'] as const;
   const faltantes = claves.filter((k) => !datos[k]);
-  const capturados = claves.map((k) => ecoDe(k, datos)).filter(Boolean) as string[];
-
   const partes: string[] = [];
 
-  if (capturados.length === 0) {
+  // El nombre no se devuelve en una viñeta: se usa para saludar. Es el acuse de
+  // recibo más cálido que existe y sale gratis — ya lo tenemos.
+  const primerNombre = (datos.nombre || '').trim().split(/\s+/)[0] || '';
+  const saludo = primerNombre
+    ? `Perfecto, ${primerNombre[0].toUpperCase()}${primerNombre.slice(1)}.`
+    : 'Perfecto.';
+
+  if (faltantes.length === 4) {
     partes.push(
       'Con gusto. Le ayudo a dejarlo andando ahora mismo.',
       '',
@@ -289,16 +294,25 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
       faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'),
     );
   } else {
-    partes.push('Perfecto. Ya tengo:', '', capturados.map((c) => `• ${c}`).join('\n'), '');
+    // Lo ya capturado se confirma EN PROSA, no en lista. El inventario
+    // —"Ya tengo: • X • Y / Me faltan dos datos: • Z"— se lee como un
+    // formulario tachando casillas, y aparecía justo cuando la persona acababa
+    // de entregar sus datos: cuanto más daba, más frío se ponía Queswa.
+    // Se conserva el eco porque deja ver un dígito mal tecleado antes de que
+    // llegue al registro; lo que cambia es que suene a que se escuchó.
+    const eco = (['cedula', 'ciudad', 'paquete'] as const)
+      .map((k) => ecoDe(k, datos))
+      .filter(Boolean) as string[];
+
+    partes.push(eco.length > 0 ? `${saludo} Anoté ${enumerar(eco)}.` : saludo, '');
 
     if (faltantes.length === 1) {
-      partes.push(`Me falta ${EN_PROSA[faltantes[0]]}.`);
+      partes.push(`Me falta ${EN_PROSA[faltantes[0]]} y quedamos.`);
+    } else if (faltantes.length === 2) {
+      // Dos caben en una frase; tres ya piden lista para poder leerse.
+      partes.push(`Me faltan dos cosas: ${EN_PROSA[faltantes[0]]}, y ${EN_PROSA[faltantes[1]]}.`);
     } else {
-      partes.push(
-        `Me faltan ${faltantes.length === 2 ? 'dos' : 'tres'} datos:`,
-        '',
-        faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'),
-      );
+      partes.push('Me faltan tres datos:', '', faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'));
     }
   }
 
@@ -310,6 +324,12 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
   );
 
   return partes.join('\n');
+}
+
+/** "A", "A y B", "A, B y C" — para enumerar sin que suene a lista de mercado. */
+function enumerar(xs: string[]): string {
+  if (xs.length <= 1) return xs[0] ?? '';
+  return `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`;
 }
 
 /**

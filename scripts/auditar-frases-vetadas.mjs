@@ -135,7 +135,12 @@ for (const { re, motivo, desde } of VETADAS) {
 // El marcador de rechazo tiene que llevar **intención de habla** (no decir, no
 // usar, prohibido…). Un simple "no" es demasiado común: casi todo [Concepto
 // Nuclear] contrasta con algo, y eso es copy legítimo, no un dictado.
-const RE_RECHAZO = /\b(PROHIBID[OA]|vetad[oa]s?|NO\s+(decir|usar|escribir|nombrar|mencionar|puede\s+\w+\s+ni\s+decir)|nunca\s+(decir|usar|diga|use)|evit(ar|e)|retirad[oa]s?|se retiró|versión anterior|decía)\b/i;
+// "nunca" y "en vez de" van sueltos a propósito: el caso que se escapó no era
+// una prohibición, era la frase vieja puesta como EJEMPLO del villano —
+// *"el día que usted se detiene"*— dentro de una regla que la rechazaba. Da
+// igual cómo se enmarque: una frase entre comillas en la cabecera es copy que
+// el modelo puede usar. Solo se cita lo que sí queremos que diga.
+const RE_RECHAZO = /\b(PROHIBID[OA]|vetad[oa]s?|NO\s+(decir|usar|escribir|nombrar|mencionar|puede\s+\w+\s+ni\s+decir)|nunca|jamás|en vez de|ya no se|evit(ar|e)|retirad[oa]s?|se retiró|versión anterior|decía)\b/i;
 // Solo comillas de verdad. Los asteriscos son negrita de markdown y aparecen en
 // cada cabecera para enfatizar — tomarlos por cita marca todo y no sirve.
 const RE_CITA = /["“][^"”\n]{4,80}["”]|«[^»\n]{4,80}»/;

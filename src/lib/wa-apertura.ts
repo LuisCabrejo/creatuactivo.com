@@ -250,10 +250,29 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // consecuencia: no hay que defenderlo, se explica solo. Cuesta temperatura
     // (quien buscaba plata rápida no toca ningún botón) y eso es deseable.
     //
-    // Los tres golpes tras los dos puntos escalan —4 palabras, 4, 8— y cada uno
-    // responde una pregunta sin nombrarla: cuánto trabajo · de quién es · de
-    // dónde sale la plata. La recompensa va última.
-    'Le explico cómo se construye un canal de distribución, en paralelo a su actividad actual y con el potencial de igualar o superar sus ingresos: se arma una vez, usted es el dueño, y le paga cada vez que hay consumo.',
+    // CASCADA VERTICAL (Director + investigación, 8 ago 2026). Los tres golpes
+    // iban corridos en el párrafo; ahora se apilan, uno por línea. El texto en
+    // WhatsApp es interfaz, no literatura: el bloque denso produce ceguera por
+    // formato, y la pila obliga a detener el scroll y leer la ecuación paso a
+    // paso. Cada línea sigue respondiendo una pregunta sin nombrarla: cuánto
+    // trabajo · de quién es · de dónde sale la plata. La recompensa va última.
+    //
+    // • "ingresos actuales", no "ingresos": el ancla concreta es el sueldo que
+    //   la persona tiene HOY en su cuenta — sin "actuales" la comparación flota.
+    //   (Y "su actividad" perdió el "actual" para no repetirlo a tres palabras.)
+    // • Los pictogramas son funcionales, no decorativos: ⚙️ mecanismo · 🔑
+    //   propiedad · 🔄 ciclo. Se descartó 👑 (la corona es el emoji del estatus
+    //   prometido — el estante del multinivel); la llave dice lo mismo sin humo:
+    //   ser dueño es tener las llaves. Este mensaje dictado fija su propio
+    //   estándar de emojis; la regla "máximo un emoji" del prompt aplica a lo
+    //   que el MODELO redacta, no a esta apertura.
+    // • Negritas solo en los dos anclajes (*canal de distribución* · *ingresos
+    //   actuales*) — asterisco simple, que es la negrita nativa de WhatsApp.
+    'Le explico cómo se construye un *canal de distribución* en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
+    '',
+    '⚙️ Se arma una sola vez.',
+    '🔑 Usted es el dueño.',
+    '🔄 Le paga cada vez que hay consumo.',
     '',
     // La prueba social va aquí, en presente y verificable — 559 personas
     // distintas han conversado con Queswa, así que "cientos" se queda corto.
@@ -266,13 +285,16 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //   anterior abría con "Y de paso", que convertía la demostración en un
     //   truco mostrado al pasar en vez de la razón por la que el canal se puede
     //   armar una vez.
-    // • "cómo le PUEDO ayudar", nunca "le voy a ayudar". El futuro de indicativo
-    //   afirma un hecho, y para ser verdadero exige una relación que todavía no
-    //   existe: el lector lo procesa como un dato falso sobre su vida y se
-    //   resiste. El modal describe una capacidad mía, no un compromiso suyo.
+    // • "cómo le PODRÍA ayudar" (condicional desde el 8 ago; antes "puedo",
+    //   nunca "le voy a ayudar"). El futuro de indicativo afirma un hecho que
+    //   exige una relación que no existe; el condicional además le baja la
+    //   presión a la proactividad de la IA — describe una capacidad mía sin
+    //   comprometerlo a él. Y lo que sigue a los dos puntos baja a su propia
+    //   línea: el salto de línea es el que resalta la prueba social.
     // • "su PROPIO canal" hace eco con "usted es el dueño" del bloque anterior —
     //   es la palabra que separa esto de "vincularse a algo".
-    'Mientras conversamos, usted ya está viendo cómo le puedo ayudar: así es como asisto a cientos de personas a construir su propio canal, las 24 horas.',
+    'Mientras conversamos, usted ya está viendo cómo le podría ayudar:',
+    'Así es como asisto a cientos de personas a construir su propio canal, las 24 horas.',
     '',
     '¿Por dónde prefiere empezar?',
   ].join('\n');

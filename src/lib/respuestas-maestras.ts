@@ -146,15 +146,14 @@ A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y reci
  */
 const MASTER_EAM_01 = `Me gusta esa pregunta — es la que de verdad importa. 🪢
 
-Su día a día cabe en tres palabras:
+Su día a día se resume en dos acciones:
 
 📲 **Compartir:** usted pasa un enlace a quien quiera.
 🤝 **Recibir:** usted saluda a quien llega con interés.
-🏦 **Cobrar:** su comisión entra cada viernes.
 
-Entre compartir y recibir estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
+Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
 
-Y como es así de sencillo, quien entra con usted hace exactamente lo mismo. Ahí están la multiplicación y el crecimiento de su negocio.
+Y como es así de sencillo, quien entra con usted hace exactamente lo mismo. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
 
 ¿Le muestro los productos que mueven todo esto?`;
 

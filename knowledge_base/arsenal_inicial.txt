@@ -806,18 +806,18 @@ Y hay un costo del que pocos hablan: el de quedarse igual. Un Propietario no sol
 ## 🎙 **BLOQUE 7: RESPUESTAS FRONTALES — VITRINA PÚBLICA (VOICE) - 3 respuestas**
 *Optimizadas para audio ElevenLabs. Frases cortas, ritmo ejecutivo, silencio entre ideas.*
 
-### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café?"**
-**[Concepto Nuclear]:** No vendemos café. Su negocio gana de un hábito que el mercado repite todos los días.
+### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café? / ¿Qué productos son? / Muéstreme los productos"**
+**[Concepto Nuclear]:** Los productos vistos desde el NEGOCIO (qué distribuyo y por qué se sigue vendiendo), no desde la salud — el catálogo con precios y categorías es PROD_OVERVIEW. ⚠️ **El café se admite en la primera línea**: la versión anterior abría con *"No vendemos café"*, negando lo evidente ante alguien que pregunta justamente eso, y esquivar es lo que hace sospechar. Se admite y en la misma frase se cambia de estante. ⚠️ **NO decir "productos de canasta"**: los pone en el estante del supermercado y cuestan entre $73.900 y $1.026.000 — contradice el registro Clinical Luxury del catálogo. ⚠️ El sistema barista italiano de 15 bares (LUVOCO) hace el trabajo que ningún adjetivo puede: un adjetivo se discute, una máquina de un millón de pesos rompe sola la idea de "café de multinivel". ⚠️ Cifras verificadas contra `/sistema/productos`: "catálogo bio-inteligente" es el título de esa página y "más de 200 nutrientes que su cuerpo aprovecha fácilmente" está textual ahí — NO son invención. ⚠️ **AUTOSUFICIENTE**: se llega desde EAM_01 ("¿le muestro los productos?"), desde "¿qué es lo que venden?" y desde "¿es vender café?"; no puede apoyarse en nada dicho antes.
 
-Todo buen negocio necesita algo que el mercado compre todos los días.
+<verbatim_lock>
+Con gusto. El ancla es el café, pero en una categoría propia: un catálogo bio-inteligente de bebidas, suplementos y cuidado personal — y hasta un sistema barista italiano de 15 bares con cápsulas propias.
 
-Lo nuestro es eso: **bebidas y suplementos premium** que se vuelven parte del café de cada mañana.
+Todos llevan extracto propio de Ganoderma, y la diferencia está en la extracción: más de 200 nutrientes que el cuerpo aprovecha fácilmente, dentro de algo que su cliente ya toma todas las mañanas.
 
-No inventamos una necesidad nueva ni convencemos a nadie de cambiar su vida. Mejoramos un hábito que ya existe, con una **tecnología propia** desarrollada tras décadas de investigación.
+Ahí está la lógica del negocio: el producto se agota. El cliente que quedó contento vuelve a pedir el mes siguiente, y esa compra ya no le cuesta trabajo a usted.
 
-La lógica es simple: un hábito que no cambia genera un ingreso que no se detiene.
-
-**Pregunta de seguimiento:** ¿Ve la diferencia entre vender algo una vez, y ganar de algo que el mercado consume todos los días por su cuenta?
+¿Le muestro el catálogo completo con precios?
+</verbatim_lock>
 
 ---
 

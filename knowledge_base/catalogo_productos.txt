@@ -1,5 +1,6 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.1
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.3
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+**v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
 **v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
 
 **[Concepto Nuclear]:** Ganoderma Lucidum con tecnología de extracción propietaria. 30+ años de investigación. 200+ compuestos bioactivos. Biodisponibilidad 100%.
@@ -22,7 +23,7 @@ La lógica operativa es matemática: en lugar de educar a un cliente para que ad
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
 **[Concepto Nuclear]:** Retención Orgánica y Re-consumo Automático.
 
-La estabilidad del flujo de caja se fundamenta en la alta tasa de retención de la infraestructura (superior al 85%).
+La estabilidad del ingreso se fundamenta en la alta tasa de retención de la infraestructura (superior al 85%).
 
 Una vez que el sistema metabólico del usuario experimenta la diferencia biológica del Ganoderma lucidum frente al café convencional, la transición es definitiva. El re-consumo no depende de persuasión comercial ni de recordatorios; se ejecuta automáticamente como parte de la rutina diaria del usuario. Esto garantiza que el Director perciba regalías ininterrumpidas (Lifetime Value superior a 36 meses) por un esfuerzo de acoplamiento ejecutado una sola vez.
 
@@ -164,7 +165,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 
 ---
 
-**Total: 22 productos.** La lógica operativa no es vender productos individuales — es reasignar el consumo diario obligatorio del hogar hacia un activo con flujo de caja recurrente. El consumo en Cuidado Personal y Bebidas se ejecuta automáticamente sin persuasión comercial.
+**Total: 22 productos.** La lógica operativa no es vender productos individuales — es reasignar el consumo diario obligatorio del hogar hacia un activo con ingreso recurrente. El consumo en Cuidado Personal y Bebidas se ejecuta automáticamente sin persuasión comercial.
 </verbatim_lock>
 
 ---

@@ -12,6 +12,16 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.34 — Barrido pregunta única + bautizo empresarial (7 ago 2026)
+
+Barrido transversal aprobado por el Director (afectó también avanzado v12.6, compensación v7.4, 12-niveles v5.2, catálogo v7.3). Tres frentes:
+
+1. **Pregunta única (27 reescritas en total; 20 aquí).** Toda pregunta de cierre con dos salidas ("¿le muestro A, o B?") pasó a UNA — el lector retiene la última opción, responde "sí" pensando en la otra, y repreguntar convierte el avance en trámite. La pregunta ahora **propone la continuación natural de lo explicado**, no encuesta. Incluye 5 locks sin sync TS (WHY_01, ACTIVACION_01, FREQ_04, FREQ_04_PUENTE, CLIENTE_VIP_01). FREQ_15 además dejó de preguntar cuánto tiempo tiene (plantaba "esto es más trabajo" — [[feedback_nunca_preguntar_tiempo_disponible]]) → ofrece mostrar un día normal.
+2. **Bautizo empresarial** ([[feedback_vocabulario_empresarial]]): quienes componen la estructura → **clientes · socios** (FREQ_01/06/10/11/13/14/21, CRED_02/04, EAM_02, NET_01). Excepciones intactas: a quién atiende Queswa, consumo de mercado, villano narrado, disparadores con las palabras del prospecto.
+3. **Negaciones que invocaban el fantasma:** FREQ_11 ("¿cómo se genera el dinero?") decía *"La empresa no le paga por meter personas"* ante alguien que NO mencionó pirámides → ahora afirma: *"le paga por una sola cosa: el producto que se mueve"*. FREQ_13/FREQ_20 conservan su negación porque ahí el prospecto SÍ trajo la pregunta. FREQ_02 reescrita completa: "personas" → **interesados**, "la empresa digital ya está armada" → "el negocio ya está armado".
+
+**Del deploy:** se reparó el fragmentador (`'catalogo_productos'` llevaba tiempo pegado DENTRO de un comentario del array → el catálogo no se re-fragmentaba; y el regex no aceptaba `PROD_OVERVIEW`, que solo existía por un insert manual — ahora ambos son reproducibles). El padre de `arsenal_avanzado` tenía `is_fragment: true` en metadata (habría contaminado `match_fragments_512` con 20K chars) → corregido. Ambos tenants quedaron idénticos: 59+18+38+13+24 = 152 fragments.
+
 ### v5.33 — WHY_04: la respuesta del dinero tiene candado (7 ago 2026)
 
 **El problema:** la mejor explicación del dinero que teníamos vivía **hardcodeada en `wa-apertura.ts`** y solo se alcanzaba tocando el botón de la apertura — un botón que aparece una vez, en el primer mensaje. Quien escribiera *"¿de dónde sale la plata?"* con sus palabras nunca la veía: la búsqueda lo mandaba a WHY_02 o a un FREQ. Ahora es **WHY_04**, con los dos caminos (chip/regex → `MASTER_DINERO_01`, y vector search → fragmento con `<verbatim_lock>`).

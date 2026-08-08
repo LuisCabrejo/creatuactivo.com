@@ -85,7 +85,10 @@ function parseArsenalIntoResponses(content, arsenalName) {
   // - Sin asteriscos: ### ID:
   // - Con prefijo ADV_: ### ADV_OBJ_01: (arsenal_avanzado v6.0)
   // - Con alphanumeric: ### COMP_GEN5_01: (arsenal_compensacion v2.0)
-  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_\d+)/);
+  // El sufijo del ID casi siempre es numérico (_01), pero PROD_OVERVIEW no lo es —
+  // sin la alternativa OVERVIEW ese fragmento no se parsea y solo existía porque
+  // alguien lo insertó a mano (se perdió en la purga del 7 ago 2026).
+  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_(?:\d+|OVERVIEW))/);
 
   for (const rawSection of sections) {
     if (!rawSection.trim() || !rawSection.includes('###')) continue;
@@ -104,7 +107,7 @@ function parseArsenalIntoResponses(content, arsenalName) {
     // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion v1, arsenal_inicial)
     // Formato 2: ### ADV_OBJ_01: "Pregunta" (arsenal_avanzado v6.0)
     // Formato 3: ### COMP_GEN5_01: "Pregunta" (arsenal_compensacion v2.0)
-    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z0-9]+)*_\d+):?\s*"?([^"\n*]+)/);
+    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z0-9]+)*_(?:\d+|OVERVIEW)):?\s*"?([^"\n*]+)/);
     if (!headerMatch) continue;
 
     const responseId = headerMatch[1].trim();
@@ -269,7 +272,8 @@ async function main() {
     'arsenal_compensacion',    // 38 respuestas
     'arsenal_inicial',         // 34 respuestas
     'arsenal_avanzado',        // 14 respuestas (v6.0 JOBS/NAVAL)
-    'arsenal_12_niveles',      // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)    'catalogo_productos',      // 22 respuestas (v6.0 JOBS/NAVAL - Catálogo completo + ciencia)
+    'arsenal_12_niveles',      // 13 respuestas (v4.0 JOBS/NAVAL - Los 12 Niveles + Kit de Inicio)
+    'catalogo_productos',      // 22 respuestas (v6.0 JOBS/NAVAL - Catálogo completo + ciencia)
     // tenant: marca_personal (luiscabrejo.com)
     'arsenal_marca_personal',  // 11 respuestas (v1.0 - Marca Personal Luis Cabrejo)
     // tenant: ecommerce (ganocafe.online)

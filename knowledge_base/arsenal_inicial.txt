@@ -1,4 +1,4 @@
-# Arsenal Conversacional: Respuestas Fundamentales v5.28 — Lenguaje concreto (WHY_01 · WHY_02 · EMPRESA_DIGITAL_01)
+# Arsenal Conversacional: Respuestas Fundamentales v5.34 — Pregunta única + bautizo empresarial
 
 **Propósito:** Base de conocimiento maestra para Queswa — creatuactivo.com.
 **Categoría de Mercado:** Construcción de Ingresos Recurrentes.
@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v5.30** (2 ago 2026) — **Método renombrado en el encabezado** (Compartir · Recibir · Multiplicar, línea Estrategia). Previa **v5.29** (2 ago 2026) — **Barrido del villano viejo.** WHY_02: "cuánta gente ya está" → "cuántas personas ya están" (registro vetado, se coló el 31 jul); STORY_01: retirada la etiqueta "un sistema diseñado para la asfixia mensual" → villano narrado con el trancón 1 (la plata llega ya con dueño) + "a su nombre". Base v5.28 (31 jul 2026) — **Lenguaje concreto.** WHY_01, WHY_02 y EMPRESA_DIGITAL_01 reescritas tras dos meses de campo sin un solo "wow". WHY_02 dice **de dónde sale la plata en el segundo párrafo** (ventas de producto y de paquetes empresariales → un porcentaje → cuenta bancaria cada viernes) y baja la arquitectura al final, en dos fuerzas; WHY_01 responde *qué hacemos* con sustantivos concretos y el *por qué ahora* en clave de lo que cambió en el mundo; EMPRESA_DIGITAL_01 deja de decir "no sobre activos físicos" (contradecía el candado de confianza y nos ubicaba del lado de "la nube"). Retiradas: la tríada *"tres cosas tienen que ser ciertas"* como apertura canónica, la analogía Amazon/MercadoLibre, la figura del "puente" y el diagnóstico *"un sistema que le toma sus mejores años y su salud"*. 57 fragments · desplegado, re-fragmentado (Voyage) y clonado al tenant whatsapp · sincroniza con system prompt **v29.3**.
+**Versión actual: v5.34** (7 ago 2026) — **Barrido pregunta única + bautizo empresarial.** 20 preguntas de cierre pasan de dos salidas a UNA (doctrina 7 ago: el lector retiene la última opción y responde "sí" pensando en la otra; la pregunta propone la continuación natural, no encuesta). "Personas/gente" nombrando la estructura → **clientes · socios** (FREQ_01/06/10/11/13/14, FREQ_21, CRED_02/04, EAM_02, NET_01); quedan intactas las excepciones (a quién atiende Queswa, consumo de mercado, villano narrado). FREQ_15 deja de preguntar cuánto tiempo tiene (plantaba el frame "esto es más trabajo") → ofrece mostrar un día normal. Cifras intactas. Previa **v5.30** (2 ago 2026) — **Método renombrado en el encabezado** (Compartir · Recibir · Multiplicar, línea Estrategia). Previa **v5.29** (2 ago 2026) — **Barrido del villano viejo.** WHY_02: "cuánta gente ya está" → "cuántas personas ya están" (registro vetado, se coló el 31 jul); STORY_01: retirada la etiqueta "un sistema diseñado para la asfixia mensual" → villano narrado con el trancón 1 (la plata llega ya con dueño) + "a su nombre". Base v5.28 (31 jul 2026) — **Lenguaje concreto.** WHY_01, WHY_02 y EMPRESA_DIGITAL_01 reescritas tras dos meses de campo sin un solo "wow". WHY_02 dice **de dónde sale la plata en el segundo párrafo** (ventas de producto y de paquetes empresariales → un porcentaje → cuenta bancaria cada viernes) y baja la arquitectura al final, en dos fuerzas; WHY_01 responde *qué hacemos* con sustantivos concretos y el *por qué ahora* en clave de lo que cambió en el mundo; EMPRESA_DIGITAL_01 deja de decir "no sobre activos físicos" (contradecía el candado de confianza y nos ubicaba del lado de "la nube"). Retiradas: la tríada *"tres cosas tienen que ser ciertas"* como apertura canónica, la analogía Amazon/MercadoLibre, la figura del "puente" y el diagnóstico *"un sistema que le toma sus mejores años y su salud"*. 57 fragments · desplegado, re-fragmentado (Voyage) y clonado al tenant whatsapp · sincroniza con system prompt **v29.3**.
 
 **Previa: v5.27** (26 jul 2026) — Cliente Preferencial: rename "Consumidor VIP" → "Cliente VIP" + fragmento CLIENTE_VIP_01 de cara al cliente (25% de ahorro, 50 PV de acceso).
 
@@ -25,7 +25,7 @@
 ## 💎 **BLOQUE 1: PROPÓSITO Y MECÁNICA (WHY) - 4 respuestas**
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
-**[Concepto Nuclear]:** Quien pregunta "¿qué es CreaTuActivo?" está **midiendo legitimidad**, no pidiendo un diagnóstico de su vida. Se responde con la palabra llana —**empresa de tecnología**, la misma que usó Nubank ("somos una empresa de tecnología… no un banco")— y con sustantivos concretos: negocio de distribución de café y suplementos, celular, inteligencia artificial. El **por qué existimos** se cuenta en clave de lo que cambió en el mundo (el trabajo que hacía este negocio imposible para la mayoría desapareció), no de lo que anda mal en su vida. Gano pone lo físico; CreaTuActivo pone la tecnología, el método y el acompañamiento. ⚠️ PROHIBIDO aquí: **"empresa digital"** (contenedor vacío que el oyente rellena con pirámides, cripto o cursos — el bautizo de la categoría NO va en primer contacto: las categorías se ganan, no se anuncian), el diagnóstico agorero ("un sistema que le toma sus años y su salud"), "perseguir", "red", y la jerga de consultoría ("ecosistema", "infraestructura", "plataforma"). Cierra bifurcando hacia WHY_02 (cómo se gana) o al catálogo. Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` y `docs/investigaciones/posicionamiento-categoria/claude_one_liner_concreto.md`.
+**[Concepto Nuclear]:** Quien pregunta "¿qué es CreaTuActivo?" está **midiendo legitimidad**, no pidiendo un diagnóstico de su vida. Se responde con la palabra llana —**empresa de tecnología**, la misma que usó Nubank ("somos una empresa de tecnología… no un banco")— y con sustantivos concretos: negocio de distribución de café y suplementos, celular, inteligencia artificial. El **por qué existimos** se cuenta en clave de lo que cambió en el mundo (el trabajo que hacía este negocio imposible para la mayoría desapareció), no de lo que anda mal en su vida. Gano pone lo físico; CreaTuActivo pone la tecnología, el método y el acompañamiento. ⚠️ PROHIBIDO aquí: **"empresa digital"** (contenedor vacío que el oyente rellena con pirámides, cripto o cursos — el bautizo de la categoría NO va en primer contacto: las categorías se ganan, no se anuncian), el diagnóstico agorero ("un sistema que le toma sus años y su salud"), "perseguir", "red", y la jerga de consultoría ("ecosistema", "infraestructura", "plataforma"). Cierra con pregunta única hacia WHY_02 (cómo se gana). Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` y `docs/investigaciones/posicionamiento-categoria/claude_one_liner_concreto.md`.
 
 <verbatim_lock>
 Con gusto, se lo digo sin rodeos. 🪢
@@ -38,7 +38,7 @@ Eso fue lo que cambió, y es la razón por la que existimos. Yo soy **Queswa**, 
 
 Lo físico no lo inventamos nosotros, y ahí está la solidez: las fábricas, el inventario y los despachos los pone **Gano Excel**, una empresa con más de 30 años y presencia en 70 países. Nosotros ponemos la tecnología, el método y el acompañamiento.
 
-¿Le cuento cómo se gana, o prefiere ver primero qué productos son?
+¿Le cuento cómo se gana?
 </verbatim_lock>
 
 ---
@@ -173,7 +173,7 @@ En esos modelos usted termina con una **prisión disfrazada de innovación**: as
 
 Aquí es al revés: usted **deja ese riesgo en manos de Gano Excel.** Si hay un problema en la cadena de suministro internacional, lo absorbe la empresa —no usted—, y su empresa digital sigue intacta. Usted dirige; casi sin costo de operación.
 
-**Pregunta de seguimiento:** ¿Prefiere apalancarse en una operación ya montada en 70 países, o construirla usted desde cero?
+**Pregunta de seguimiento:** ¿Le muestro cómo se apalancaría usted en esa operación ya montada en 70 países?
 
 ---
 
@@ -186,9 +186,9 @@ Yo soy **Queswa** — sí, una inteligencia artificial. Soy el **Centro de Mando
 
 Mi trabajo es quitarle a usted lo pesado: atiendo a los interesados, les explico, maduro su decisión de avanzar y resuelvo dudas las **24 horas** — sin cansarme, sin descansos. Asumo cerca del **90% del trabajo** operativo.
 
-Así, a usted le queda solo lo importante: **dirigir.** Lleva personas a su empresa digital y toma las decisiones; del resto me encargo yo.
+Así, a usted le queda solo lo importante: **dirigir.** Conecta clientes y socios a su empresa digital y toma las decisiones; del resto me encargo yo.
 
-**Pregunta de seguimiento:** ¿Quiere que le muestre cómo hago ese trabajo por usted, o prefiere ver cómo se genera el ingreso?
+**Pregunta de seguimiento:** ¿Le muestro cómo se genera el ingreso?
 
 ---
 
@@ -205,18 +205,18 @@ Si es ejecutivo o dueño de una empresa consolidada, le permite construir una **
 
 ---
 
-### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos para conseguir personas?"**
-**[Concepto Nuclear]:** Tres caminos para llevar personas a su empresa digital — Conexión Directa, Asistida y Automatizada. El Propietario elige el camino; Queswa hace el trabajo de explicar y guiar.
+### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos?"**
+**[Concepto Nuclear]:** Tres caminos para que lleguen interesados a su negocio — Conexión Directa, Asistida y Automatizada. Usted elige el camino; Queswa conversa con cada interesado y madura su decisión de avanzar.
 
 Insistirles a conocidos o convencer a quien no está interesado es del modelo viejo. Aquí eso no existe.
 
-Usted solo dirige: la empresa digital ya está armada, y lo único que decide es **por cuál camino le llegan las personas.** Tiene tres:
+Usted solo dirige: el negocio ya está armado, y lo único que decide es **por cuál camino le llegan los interesados.** Tiene tres:
 
 **Conexión Directa.** Usted no le insiste a nadie; solo le comparte el acceso a quien ya ve con ganas y visión en su entorno, para que Queswa lo atienda y madure su decisión de avanzar.
 
 **Conexión Asistida.** Usted genera interés en redes y **deja en mis manos —Queswa— explicar y reconocer quién está listo** para avanzar.
 
-**Conexión Automatizada.** 100% digital: usted invierte en pauta y el sistema atrae personas las 24 horas, sin que usted tenga que estar.
+**Conexión Automatizada.** 100% digital: usted invierte en pauta y los interesados llegan las 24 horas, sin que usted tenga que estar.
 
 En los tres, la regla es la misma: usted abre el canal; Queswa conversa y madura la decisión de avanzar.
 
@@ -278,7 +278,7 @@ Excelente pregunta — y le va a gustar lo sencillo que es. Activar su empresa d
 
 Y esto define quiénes somos: **asumimos el éxito de cada Propietario como una responsabilidad nuestra.** Usted no compra un producto y se queda solo — entra a un sistema diseñado para que arranque bien.
 
-¿Le muestro las diferencias entre los tres niveles (ESP-1, ESP-2 y ESP-3), o prefiere ver primero cómo se generan los ingresos?
+¿Le muestro las diferencias entre los tres niveles?
 </verbatim_lock>
 
 ---
@@ -321,7 +321,7 @@ Funciona como un **peaje**: usted factura cada vez que el mercado consume, mient
 
 ---
 
-¿Desea profundizar en el ingreso inmediato o en la renta vitalicia?
+¿Profundizamos en la renta vitalicia?
 </verbatim_lock>
 
 ---
@@ -334,7 +334,7 @@ Existen 10 velocidades adicionales al GEN5 y al Binario. Están diseñadas para 
 
 Las recibe documentadas completas al activar su empresa digital — junto con el plan oficial de Gano Excel.
 
-¿Prefiere que profundicemos en cómo se genera el flujo con estas dos, o pasamos a revisar los niveles de activación?
+¿Pasamos a revisar los niveles de activación?
 </verbatim_lock>
 
 ---
@@ -360,7 +360,7 @@ Sí. Pero conviene aclarar qué incluye una empresa digital.
 Una empresa digital es la unidad básica con la que usted construye su ingreso. Cada empresa digital puede contener:
 
 - Otros **Propietarios de una empresa digital** que se incorporan para desarrollar su propia estructura dentro de su organización.
-- **Clientes VIP** — personas registradas para acceder al producto Gano Excel a precio de distribuidor, sin requisito de desarrollar una empresa digital propia.
+- **Clientes VIP** — quienes se registran para acceder al producto Gano Excel a precio de distribuidor, sin requisito de desarrollar una empresa digital propia.
 
 El sistema audita el volumen de producto consumido por **todos** los integrantes de cada empresa digital, sumando tanto el consumo recurrente de los Propietarios como el de los Clientes VIP. Su comisión refleja ese movimiento total de inventario.
 
@@ -405,7 +405,7 @@ Después de eso, usted compra cuando quiera y cuanto quiera. No hay obligación 
 
 Y si más adelante le nace hacer el negocio —normalmente pasa cuando sus conocidos empiezan a pedirle producto— su código se convierte en una empresa digital sin perder nada de lo andado.
 
-¿Le comparto los precios de los demás productos, o prefiere que le explique cómo se abre su código?
+¿Le comparto los precios del resto del catálogo?
 </verbatim_lock>
 
 ---
@@ -449,7 +449,7 @@ Y la buena noticia es que armarlo es más directo de lo que parece, porque las h
 
 Si le preguntan por diciembre: esa es la meta personal de Luis — ver a muchas personas caminando en esta dirección antes de terminar el año. No es una fecha de cierre ni de lanzamiento; el ingreso a la fase actual se define por cupos disponibles, no por calendario.
 
-**Pregunta de seguimiento:** ¿Empezamos por la pieza que más le intriga: el fabricante, la plataforma o el método?
+**Pregunta de seguimiento:** ¿Le muestro cómo se encienden esas tres piezas en su caso?
 
 ---
 
@@ -525,14 +525,14 @@ Un sueldo, por alto que sea —o un negocio que depende de que usted esté ahí 
 
 Una empresa digital no. Usted tiene la propiedad legal sobre el ingreso que genera. Si usted llegara a faltar, el consumo de su organización sigue su curso, y la empresa transfiere automáticamente esas ganancias a su familia, como cualquier otro bien que usted les deja.
 
-**Pregunta de seguimiento:** Piénselo un momento: hoy, si usted faltara, ¿su familia seguiría recibiendo el mismo ingreso el mes siguiente, o todo dependería de que usted esté activo?
+**Pregunta de seguimiento:** Piénselo un momento: hoy, si usted faltara, ¿su familia seguiría recibiendo el mismo ingreso el mes siguiente?
 
 ---
 
 ### **FREQ_06: "¿Qué significa ser Fundador y por qué solo 15 cupos?"**
-**[Concepto Nuclear]:** No es escasez de marketing. Es cuántas personas el equipo directivo puede acompañar de la mano en esta primera fase.
+**[Concepto Nuclear]:** No es escasez de marketing. Es cuántos socios el equipo directivo puede acompañar de la mano en esta primera fase.
 
-Limitar el primer grupo a 15 no es un truco para apurarlo. Es un límite real. En esta etapa, el equipo directivo acompaña personalmente —de la mano— a cada nuevo Propietario para que su empresa digital arranque bien. Y a un acompañamiento así de cercano solo le alcanza el tiempo para 15 personas a la vez.
+Limitar el primer grupo a 15 no es un truco para apurarlo. Es un límite real. En esta etapa, el equipo directivo acompaña personalmente —de la mano— a cada nuevo Propietario para que su empresa digital arranque bien. Y a un acompañamiento así de cercano solo le alcanza el tiempo para 15 socios a la vez.
 
 Entrar ahora, en esta ventana, le da una ventaja concreta:
 
@@ -563,7 +563,7 @@ Las personas ya toman café —es la segunda bebida más consumida del mundo—.
 
 Es rendimiento y salud dentro de algo que ya hace todos los días. Por eso el negocio es tan firme: a nadie hay que recordarle que se tome su café en la mañana.
 
-**Pregunta de seguimiento:** ¿Usted diría que el café es algo ocasional, o un hábito que millones de personas repiten sin falta cada mañana?
+**Pregunta de seguimiento:** ¿Usted diría que el café es un hábito que se repite sin falta cada mañana?
 
 ---
 
@@ -602,22 +602,22 @@ La diferencia está en quién carga con el peso.
 
 En un negocio tradicional, todo recae sobre usted: la nómina, el arriendo, los sistemas, la aduana, y encima los vaivenes de la economía. Si la cadena se rompe en algún punto, el golpe lo recibe su bolsillo. Directo.
 
-Aquí no. La parte pesada —fabricar, importar, almacenar, despachar a 70 países— usted la deja en manos de Gano Excel, una empresa real con décadas haciéndolo. Usted se queda con la parte liviana: dirigir hacia dónde va el flujo de personas y recibir ingreso por el consumo que se repite. Es como tener la concesión de una estación de servicio sin tener que construir la refinería ni manejar los camiones.
+Aquí no. La parte pesada —fabricar, importar, almacenar, despachar a 70 países— usted la deja en manos de Gano Excel, una empresa real con décadas haciéndolo. Usted se queda con la parte liviana: dirigir hacia dónde va el flujo de clientes y recibir ingreso por el consumo que se repite. Es como tener la concesión de una estación de servicio sin tener que construir la refinería ni manejar los camiones.
 
 **Pregunta de seguimiento:** Si pudiera quedarse con la parte que genera ingreso y soltar la parte pesada y riesgosa, ¿no es eso lo que siempre quiso de un negocio propio?
 
 ---
 
 ### **FREQ_11: "¿Cómo se genera el dinero exactamente?"**
-**[Concepto Nuclear]:** Usted gana por producto que se consume y se vuelve a comprar. No por meter gente.
+**[Concepto Nuclear]:** Usted gana por una sola cosa: producto que se consume y se vuelve a comprar.
 
-El dinero sale del producto que las personas consumen y vuelven a comprar. Punto.
+El dinero sale del producto que los clientes consumen y vuelven a comprar. Punto.
 
-La empresa no le paga por meter personas —esto es clave—. Su trabajo es dirigir un grupo de consumo. Cuando alguien de su organización empieza a tomar los productos en su día a día y los vuelve a pedir mes a mes, cada una de esas recompras queda registrada a su favor.
+La empresa le paga por una sola cosa: el producto que se mueve. Su trabajo es dirigir un grupo de consumo: cuando un cliente de su organización empieza a tomar los productos en su día a día y los vuelve a pedir mes a mes, cada una de esas recompras queda registrada a su favor.
 
-Usted conecta a la persona una vez, y la empresa le paga ganancias de forma continua por cada producto que esa persona siga consumiendo por costumbre. El esfuerzo lo hace una vez; el ingreso se repite.
+Usted conecta a un cliente una vez, y la empresa le paga ganancias de forma continua por cada producto que ese cliente siga consumiendo por costumbre. El esfuerzo lo hace una vez; el ingreso se repite.
 
-**Pregunta de seguimiento:** Hoy, ¿le pagan una sola vez por cada cosa que hace, o ya tiene ingresos que le siguen llegando por algo que hizo una vez?
+**Pregunta de seguimiento:** Hoy, ¿tiene algún ingreso que le siga llegando por algo que hizo una sola vez?
 
 ---
 
@@ -643,9 +643,9 @@ Pregunta válida, y la respuesta es clara.
 
 Una pirámide funciona así: el dinero entra solo porque entra gente nueva. No hay un producto real de por medio. El día que deja de entrar gente, todo se cae. Es cuestión de tiempo.
 
-Esto es lo contrario. Aquí hay un producto físico de verdad —café y suplementos que las personas toman y vuelven a comprar—, fabricado y distribuido por Gano Excel, una empresa regulada en 70 países. Toda ganancia sale de ese producto que se mueve, no de meter personas. Si mañana no entrara nadie nuevo nunca más, usted seguiría ganando por el consumo de las personas que ya están. Su ingreso está respaldado en producto, no en reclutamiento. Esa es toda la diferencia.
+Esto es lo contrario. Aquí hay un producto físico de verdad —café y suplementos que los clientes toman y vuelven a comprar—, fabricado y distribuido por Gano Excel, una empresa regulada en 70 países. Toda ganancia sale de ese producto que se mueve, no de meter personas. Si mañana no entrara nadie nuevo nunca más, usted seguiría ganando por el consumo de los clientes que ya están. Su ingreso está respaldado en producto, no en reclutamiento. Esa es toda la diferencia.
 
-**Pregunta de seguimiento:** ¿Le da más tranquilidad un ingreso que depende de un producto que las personas compran cada mes, o uno que solo se sostiene mientras siga entrando gente nueva?
+**Pregunta de seguimiento:** ¿Le da tranquilidad que el ingreso esté respaldado en producto que se compra cada mes?
 
 ---
 
@@ -654,7 +654,7 @@ Esto es lo contrario. Aquí hay un producto físico de verdad —café y supleme
 
 No se trata de elegir un "equipo". Se trata de con qué herramientas va a trabajar.
 
-Cualquiera puede darle acceso a Gano Excel (su socio logístico y financiero). Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar personas, presentar, explicar, dar seguimiento, formar a su grupo—.
+Cualquiera puede darle acceso a Gano Excel (su socio logístico y financiero). Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar, presentar, explicar, dar seguimiento, formar a su grupo—.
 
 Al activar su empresa digital en CreaTuActivo, usted recibe además a Queswa (su socio digital). Esa es la diferencia: Queswa carga con lo pesado —explicar y guiar a las personas, una y otra vez, las 24 horas—. Usted no recibe un catálogo; recibe un sistema completo que trabaja por usted.
 
@@ -671,7 +671,7 @@ La idea no es reemplazar lo que usted gana hoy. Es ir construyendo, en paralelo 
 
 Igual que una empresa no cierra para abrir una nueva línea, usted no pausa su profesión. Como Queswa (su socio digital) carga con el 90% del trabajo de explicar y guiar, lo que queda en sus manos son unos 60 a 90 minutos al día para tomar decisiones y dirigir su empresa digital.
 
-**Pregunta de seguimiento:** ¿Tiene una hora al día que pueda dedicarle a dirigir este segundo ingreso, o prefiere ver primero cómo encajaría en su agenda actual?
+**Pregunta de seguimiento:** ¿Le muestro cómo se vería un día normal dirigiendo este segundo ingreso?
 
 ---
 
@@ -682,7 +682,7 @@ La saturación es un problema real cuando vende algo de moda o de un solo uso �
 
 Lo nuestro es un hábito que se repite. El mercado se toma su café hoy… y mañana vuelve a querer otro. Y pasado mañana otra vez. Esa necesidad se renueva sola cada día, sin importar la economía ni cuántos empresas digitales haya activos. El continente toma cientos de millones de tazas al día, y nosotros apenas tocamos menos del 1% de ese mercado. La pregunta no es si se va a saturar; es cuánto alcanza usted a tomar antes de que llegue el siguiente.
 
-**Pregunta de seguimiento:** ¿Le parece más sólido un negocio sobre algo que las personas consumen todos los días por costumbre, o uno sobre una moda que tarde o temprano pasa?
+**Pregunta de seguimiento:** ¿Le parece sólido un negocio montado sobre un hábito que se renueva solo cada mañana?
 
 ---
 
@@ -721,7 +721,7 @@ A diferencia de un negocio físico, aquí no hay inventario que rematar, ni loca
 
 Puede dirigirlo desde cualquier ciudad del continente con la misma facilidad. Esto es clave para quien piensa en mudarse o en una segunda residencia: el negocio no se cae con la mudanza, se adapta.
 
-**Pregunta de seguimiento:** Si usted se mudara de país el año entrante, ¿su ingreso de hoy se iría con usted, o se quedaría atrás?
+**Pregunta de seguimiento:** Si usted se mudara de país el año entrante, ¿su ingreso de hoy se iría con usted?
 
 ---
 
@@ -745,7 +745,7 @@ Hay una forma simple de medir qué tan segura es una empresa: entre más tiempo 
 
 Gano Excel —su socio logístico y financiero, el Respaldo Operativo— lleva más de tres décadas operando en todo el mundo. Ha pasado por varias crisis económicas trabajando con capital propio y sin deudas, en más de 70 países. No estamos parados sobre una empresa nueva que puede desaparecer el otro año; estamos parados sobre una base que ya demostró que aguanta.
 
-**Pregunta de seguimiento:** ¿Preferiría apoyar su esfuerzo en una empresa nueva, que todavía tiene que demostrar que sobrevive, o en una que ya lo demostró por más de 30 años?
+**Pregunta de seguimiento:** ¿Le da tranquilidad construir sobre una empresa que ya demostró, por más de 30 años, que aguanta?
 
 ---
 
@@ -767,7 +767,7 @@ Si este sistema fue capaz de captar su interés y traerlo hasta acá como una pe
 
 La gran diferencia con otros modelos es esta: aquí su dinero no se va al aire.
 
-Cuando usted entra, su inversión no se gasta en promesas ni en una plataforma que solo existe en una pantalla. Se convierte en producto físico —las bebidas y suplementos Gano Excel—, respaldado por su socio logístico y financiero, con valor real y personas que de verdad lo consumen.
+Cuando usted entra, su inversión no se gasta en promesas ni en una plataforma que solo existe en una pantalla. Se convierte en producto físico —las bebidas y suplementos Gano Excel—, respaldado por su socio logístico y financiero, con valor real y clientes que de verdad lo consumen.
 
 Dicho simple: a cambio de su dinero, usted recibe producto que vale y que se vende. No es como esos esquemas donde usted pone plata y, si la cosa se cae, no le queda nada en la mano. Aquí siempre queda producto real.
 
@@ -830,7 +830,7 @@ Cuando alguien entra, Queswa (su socio digital) toma el control: presenta el mod
 
 Usted decide hacia dónde crecer, y Gano Excel (su socio logístico y financiero) le paga por el consumo de su empresa digital.
 
-**Pregunta de seguimiento:** Hoy, ¿le toca hacer todo a mano, o ya tiene algo que haga el trabajo pesado por usted?
+**Pregunta de seguimiento:** Hoy, ¿tiene algo que haga el trabajo pesado por usted?
 
 ---
 
@@ -875,15 +875,15 @@ Un día normal son unos minutos para compartir y estar pendiente de mis avisos. 
 
 Esto avanza en tres etapas:
 
-**Fase de cimentación (la de ahora):** estamos eligiendo y preparando a los 15 primeros empresas digitales. Buscamos personas con capacidad de dirigir, que reciban el acompañamiento inicial de la mano del equipo. La idea es que consoliden lo suyo mientras el público masivo todavía espera.
+**Fase de cimentación (la de ahora):** estamos eligiendo y preparando las 15 primeras empresas digitales. Buscamos socios con capacidad de dirigir, que reciban el acompañamiento inicial de la mano del equipo. La idea es que consoliden lo suyo mientras el público masivo todavía espera.
 
 **Fase de crecimiento:** acompañamiento cercano del equipo directivo para que esos 15 negocios activen sus primeras expansiones, justo antes de que llegue el grueso del mercado.
 
-**Fase de apertura pública:** cuando llegue la avalancha de personas, se va a apoyar en las organizaciones que ya estén montadas y con experiencia. Esta etapa llega una vez consolidada la base inicial.
+**Fase de apertura pública:** cuando llegue la avalancha del mercado masivo, se va a apoyar en las organizaciones que ya estén montadas y con experiencia. Esta etapa llega una vez consolidada la base inicial.
 
 La urgencia no es un truco de ventas ni una fecha en el calendario. Es simple: los cupos de esta primera fase son contados, y entrar ahora lo deja adelante, no atrás.
 
-**Pregunta de seguimiento:** ¿Prefiere entrar ahora, mientras hay acompañamiento directo y posición de ventaja, o esperar a ser uno más cuando ya esté todo lleno?
+**Pregunta de seguimiento:** ¿Le hace sentido entrar ahora, mientras hay acompañamiento directo y posición de ventaja?
 
 ---
 
@@ -988,7 +988,7 @@ El proceso para construir desde el exterior es estándar. Para activar su empres
 
 Con esos tres puntos, su empresa digital queda anclada a su país de registro y usted desarrolla su organización en los 15 países de América desde donde vive, dirigiendo todo desde Queswa.
 
-**Pregunta de seguimiento:** ¿Ya cuenta con esos tres elementos en su país de registro, o necesitaría coordinarlos con un familiar de confianza?
+**Pregunta de seguimiento:** ¿Ya cuenta con esos tres elementos en su país de registro?
 
 ---
 
@@ -1007,12 +1007,12 @@ Pero estamos en la era de la IA. Así como pasamos de los mapas de papel a Waze 
 Y esto es lo que lo hace posible:
 
 - **La conversión deja de ser a pulso.** Yo converso con cada interesado, aclaro sus dudas y maduro su decisión de avanzar, 24 horas — por usted y por toda su organización.
-- **La duplicación por fin se transfiere.** Yo formo a cada persona nueva desde el día uno, igual de bien para usted que para el último que entró. Su organización se multiplica —1, 2, 4, 8— sin depender del talento de cada quien.
+- **La duplicación por fin se transfiere.** Yo formo a cada socio nuevo desde el día uno, igual de bien para usted que para el último que entró. Su organización se multiplica —1, 2, 4, 8— sin depender del talento de cada quien.
 - **Sin lista de 100, sin reuniones presenciales, sin andar detrás de nadie.** Usted abre sus canales digitales y su alcance llega a todo el continente con un clic.
 
 En una frase: usted dirige; el sistema hace el trabajo que antes se hacía a pulso.
 
-**Pregunta de seguimiento:** ¿Quiere ver cómo se vería esto con su propia organización, o prefiere primero los números del plan?
+**Pregunta de seguimiento:** ¿Quiere ver cómo se vería esto con su propia organización?
 
 ---
 

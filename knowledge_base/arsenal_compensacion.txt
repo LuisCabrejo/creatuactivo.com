@@ -1,7 +1,7 @@
-# Arsenal de Compensacion: Infraestructura de Ingresos v7.1
+# Arsenal de Compensacion: Infraestructura de Ingresos v7.4
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
-**Version:** 7.2 (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
+**Version:** 7.4 (7 ago 2026) — **Bautizo empresarial en los ejemplos.** Las unidades de los ejemplos dejan de contar cabezas: "conecta 2 personas" → "2 socios" (COMP_GEN5_05, filas "Socio 1/2"); "62 personas" → "62 vinculaciones" (COMP_GEN5_08, + "se construye la red" → "la estructura"); "numero de personas activas" → "socios activos" (regla del Lado Menor); instrucción interna del Binario deja de citar la fórmula prohibida como ejemplo; VIP "para personas que quieren" → "para quien quiere". **"Flujo de caja" retirado** (decisión del Director 7 ago — revierte la conservación de v7.0): GEN5 "le da ingreso inmediato para crecer" · "la plata que financia la expansión". ⚠️ Cifras, %, CV/PV y tasas INTACTAS. Previa **7.3** (12 jul 2026) — composición ESP corregida + upgrades (COMP_PAQ_02/03/04/05). Previa **7.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
 
 **Version previa:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
 **Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos que PERMITEN capitalizacion inmediata y renta vitalicia — NO "dos mecanismos/principales"). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
@@ -155,23 +155,23 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 
 **[Concepto Nuclear]:** 2 socios directos ESP-3 = $300 USD en su estado de cuenta.
 
-Veamos que ocurre cuando conecta 2 personas que compran ESP-3:
+Veamos que ocurre cuando conecta 2 socios que compran ESP-3:
 
 **Ejemplo: Usted tiene ESP-3, conecta 2 ESP-3:**
 | Socio | Paquete | Gen 1 Bono | Total |
 |----------|---------|------------|-------|
-| Persona 1 | ESP-3 | $150 USD | $150 USD |
-| Persona 2 | ESP-3 | $150 USD | $150 USD |
+| Socio 1 | ESP-3 | $150 USD | $150 USD |
+| Socio 2 | ESP-3 | $150 USD | $150 USD |
 | **TOTAL** | | | **$300 USD** (~$1.35M COP) |
 
 **Comparativa si usted tuviese ESP-1:**
 | Socio | Genera | Su Techo | Cobra |
 |----------|--------|----------|--------|
-| Persona 1 | $150 USD | $25 USD | $25 USD |
-| Persona 2 | $150 USD | $25 USD | $25 USD |
+| Socio 1 | $150 USD | $25 USD | $25 USD |
+| Socio 2 | $150 USD | $25 USD | $25 USD |
 | **TOTAL** | | | **$50 USD** (~$225K COP) |
 
-**Insight:** Mismo esfuerzo directivo (2 personas). ESP-3 captura $300 USD. ESP-1 captura $50 USD. Diferencia: $250 USD.
+**Insight:** Mismo esfuerzo directivo (2 socios). ESP-3 captura $300 USD. ESP-1 captura $50 USD. Diferencia: $250 USD.
 
 ---
 
@@ -179,7 +179,7 @@ Veamos que ocurre cuando conecta 2 personas que compran ESP-3:
 
 **[Concepto Nuclear]:** Cobra mientras construye. Cada vinculacion = un pago.
 
-La Capitalizacion Inmediata funciona como su capital de construccion: cada empresa digital que activa se liquida de inmediato. No es Renta Vitalicia — es el flujo de caja que financia la expansion de su infraestructura.
+La Capitalizacion Inmediata funciona como su capital de construccion: cada empresa digital que activa se liquida de inmediato. No es Renta Vitalicia — es la plata que financia la expansion de su infraestructura.
 
 **Como funciona:**
 - Usted conecta 2 → cobra 2 bonos
@@ -199,9 +199,9 @@ La Capitalizacion Inmediata funciona como su capital de construccion: cada empre
 
 **Total al completar estructura: $2,140 USD** (~$9.6M COP)
 
-Este capital lo recibe A MEDIDA que se construye la red (cada viernes). No espera a tener 62 personas — cobra desde la primera vinculacion.
+Este capital lo recibe A MEDIDA que se construye la estructura (cada viernes). No espera a que las 62 vinculaciones esten completas — cobra desde la primera.
 
-**Comparativa por paquete (misma estructura de 62 personas):**
+**Comparativa por paquete (misma estructura de 62 vinculaciones):**
 | Su Paquete | Total GEN5 | Diferencia |
 |------------|------------|------------|
 | ESP-3 | $2,140 USD | - |
@@ -652,7 +652,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 - El sistema suma TODO el CV de cada lado
 - Se liquida el 17% sobre el lado de MENOR volumen
 
-**⚠️ QUESWA REGLA CRITICA:** Cuando ambos lados tienen el MISMO numero de personas activas, el Lado Menor = CV Total de UN lado (NO la mitad).
+**⚠️ QUESWA REGLA CRITICA:** Cuando ambos lados tienen el MISMO numero de socios activos, el Lado Menor = CV Total de UN lado (NO la mitad).
 
 **TABLA CANONICA - Proyeccion con Consumo Estandar (56 CV AL MES por cliente, 17%):**
 
@@ -683,7 +683,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 | GEN5 | Una vez por vinculacion | Unico |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
-**Insight:** El GEN5 le da flujo de caja para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
+**Insight:** El GEN5 le da ingreso inmediato para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
 
 ---
 
@@ -728,7 +728,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 | 100 | 56 CV | $952 USD | ~$4.3M COP |
 | 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula al prospecto** (ej. "Personas × 56 CV × 17% × $1 USD" o variantes). Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas.
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula de cálculo al prospecto.** Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas.
 
 **Lo que significa en la practica:**
 | Escenario | Mensual (USD) | Mensual (COP) |
@@ -951,7 +951,7 @@ El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener 
 - El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su empresa digital con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
-**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para personas que quieren acceder al producto sin compromiso de desarrollo de una empresa digital. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
+**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para quien quiere acceder al producto sin compromiso de desarrollo de una empresa digital. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
 
 ---
 

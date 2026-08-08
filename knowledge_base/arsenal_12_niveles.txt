@@ -1,9 +1,9 @@
-# Arsenal Conversacional: Los 12 Niveles v5.0 — LÉXICO ACCESIBLE (usted)
+# Arsenal Conversacional: Los 12 Niveles v5.2 — BAUTIZO EMPRESARIAL (socios)
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
-**Audiencia:** Sobre todo personas que están empezando (nuevas); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con personas nuevas y compartirles la visión.
+**Audiencia:** Sobre todo quienes están empezando (nuevos); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con socios nuevos y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.1 (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+**Versión:** 5.2 (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
 
 **Cambios v5.1 (21 jul 2026):**
 - **NIVELES_02:** la tabla ahora distingue **"Nuevos"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
@@ -25,7 +25,7 @@
 
 **[Concepto Nuclear]:** Su activo es su organización de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
 
-Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su organización de distribución en 90 días. Está pensada sobre todo para **personas que están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con personas nuevas y compartirles esta visión.
+Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su organización de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con socios nuevos y compartirles esta visión.
 
 **El concepto clave:** el activo es su organización, no los inventarios.
 
@@ -33,12 +33,12 @@ En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo cons
 
 **¿Por qué 12 niveles?**
 
-Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted invita personas, ellas invitan a otras, y el sistema se multiplica.
+Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted conecta socios, ellos conectan a otros, y el sistema se multiplica.
 
 **¿Cómo funciona?**
 
-- Usted invita personas a conocer el negocio
-- Cada persona que se vincula genera puntos (CV)
+- Usted invita a conocer el negocio
+- Cada socio que se vincula genera puntos (CV)
 - Los puntos de su organización generan ingreso recurrente semanal
 - El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso recurrente
 
@@ -76,7 +76,7 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 | 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
 | 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
 
-**Personas — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su organización hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 nuevos y su organización suma 30 personas en total. Al nivel 12 son **8.190 personas** en total.
+**Socios — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su organización hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 socios nuevos y su organización suma 30 en total. Al nivel 12 son **8.190 socios** en total.
 
 **Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
 
@@ -115,9 +115,9 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 - ❌ Porcentajes mayores al 10% - Máximo disponible es 10%
 
 **¿Para quién es ideal?**
-- Personas que quieren arrancar YA sin esperar
+- Quienes quieren arrancar YA sin esperar
 - Quienes buscan velocidad de ejecución
-- Personas que quieren probar el sistema con inversión accesible
+- Quienes quieren probar el sistema con inversión accesible
 
 **Análisis financiero:**
 
@@ -160,9 +160,9 @@ Lo que sí es crítico es que **arranque HOY**, porque:
 - Mientras más temprano empiece, más tiempo tiene para construir
 - La tecnología (Queswa) trabaja para usted 24/7
 
-**Recuerde:** Su rol es conectar personas al sistema.
+**Recuerde:** Su rol es conectar socios al sistema.
 
-**Pregunta de seguimiento:** ¿Ve la diferencia entre llevar personas al sistema y trabajar a mano una red de ventas?
+**Pregunta de seguimiento:** ¿Ve la diferencia entre conectar socios al sistema y trabajar a mano una red de ventas?
 
 ---
 
@@ -185,7 +185,7 @@ Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya est�
 
 **⚠️ Advertencia:** Si sabe que va a construir en serio, considere iniciar directamente con un Paquete Empresarial. El Kit lo limita al 10% y sin Ingreso Inmediato (GEN5), lo cual representa un costo de oportunidad en sus primeros meses más activos.
 
-**Pregunta de seguimiento:** ¿Prefiere esperar o arrancar hoy?
+**Pregunta de seguimiento:** ¿Arrancamos hoy?
 
 ---
 
@@ -199,11 +199,11 @@ Este es un temor común.
 
 **Por eso los expertos recomiendan:**
 
-No se limite a invitar solo 2 personas. Entre más personas invite USTED, más garantiza su propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que lo incentiva a trabajar en la profundidad de su línea con menos volumen.
+No se limite a conectar solo 2 socios. Entre más socios conecte USTED, más garantiza su propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que lo incentiva a trabajar en la profundidad de su línea con menos volumen.
 
-**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo e invitando más personas a su organización.
+**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más socios a su organización.
 
-**Pregunta de seguimiento:** ¿Cuántas personas tiene en su lista para invitar?
+**Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
 
 ---
 
@@ -223,7 +223,7 @@ Con $443,600 tiene todo lo que necesita para activarse y empezar a construir su 
 
 Si quiere más productos, porcentajes más altos y acceso al Ingreso Inmediato (GEN5), puede elegir un Paquete Empresarial (ESP-1, ESP-2 o ESP-3).
 
-**Pregunta de seguimiento:** ¿Prefiere arrancar con el mínimo o invertir más para mayor porcentaje y acceso a GEN5?
+**Pregunta de seguimiento:** ¿Le muestro la comparación completa de los cuatro paquetes?
 
 ---
 
@@ -317,7 +317,7 @@ La estabilidad del negocio a largo plazo no está en expandir infinitamente, sin
 
 **Cómo funciona el modelo:**
 
-El ingreso se genera por el **movimiento de producto** en su organización — consumo recurrente de personas que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
+El ingreso se genera por el **movimiento de producto** en su organización — consumo recurrente de clientes que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
 
 **Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
 

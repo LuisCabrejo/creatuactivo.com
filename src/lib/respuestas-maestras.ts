@@ -39,7 +39,26 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
- * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.28 BLOQUE 1.
+ * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.35 BLOQUE 1.
+ *
+ * Reescritura 8 ago 2026 — EL ESTANTE Y EL ORDEN. Dos cambios del Director:
+ *   • **Fuera el marco de consumo diario.** Abría con "se apoya en hábitos de
+ *     consumo" y remataba con "como son productos de consumo diario": el mismo
+ *     ancla dos veces, plantando la góndola del mercado antes de que la persona
+ *     vea un precio. Después compara la caja de $110.900 contra una libra de
+ *     café de $25.000 — y esa comparación la habíamos puesto nosotros. Ahora el
+ *     estante es **premium de bienestar**, que es donde el mercado YA tiene a
+ *     Gano Excel, y la recompra se explica por **resultado**, no por costumbre.
+ *     "Premium" no es un adjetivo que reclame: reconoce algo que el lector ya
+ *     cree, y por eso no abre discusión.
+ *   • **La viabilidad va agrupada y al final.** Gano Excel abría el párrafo 2 y
+ *     reaparecía en el 5, con el dinero metido en medio. Orden nuevo: tesis →
+ *     dinero → recurrencia → viabilidad → su rol → viernes. Gano y Queswa en
+ *     líneas propias: son los dos que cargan el peso, y verlos apilados
+ *     convierte la explicación en alivio. Salió "Esto corre en paralelo a su
+ *     agenda" — el saludo de WhatsApp ya lo dice.
+ * "No vuelve al producto genérico" se conserva a propósito: la negación no
+ * introduce el fantasma, lo CIERRA — "premium" ya había abierto el contraste.
  *
  * Ajuste 7 ago 2026 — RESPONDER RÁPIDO Y REPARTIR CLARO. Cinco correcciones del
  * Director sobre el transcript del mediodía:
@@ -165,7 +184,7 @@ Un día normal son unos minutos para compartir y estar pendiente de mis avisos. 
  */
 const MASTER_DINERO_01 = `Buena pregunta, y la más importante.
 
-El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos con ganoderma, de consumo diario.
+El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma.
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.
 

@@ -236,11 +236,11 @@ const RE_DIA_A_DIA =
  */
 const MASTER_EMPRESA_DIGITAL = `Buena pregunta, y vale la pena precisarla porque ese término se usa para todo. 🪢
 
-En nuestro caso quiere decir algo sencillo: el negocio se dirige entero desde el celular. Sin local, sin empleados, sin bodega.
+Digital es la forma de manejarlo, no lo que se vende. Usted maneja su negocio entero desde el celular: sin local, sin empleados, sin bodega.
 
-Lo que se mueve, en cambio, es bien físico. **Café y suplementos** que salen de una fábrica, llegan a la casa de una persona, y le dejan a usted un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
+Lo que se vende, en cambio, es bien físico: **café y suplementos** que salen de una fábrica y llegan a la casa de su cliente. De cada compra a usted le queda un porcentaje, y se liquida en **su cuenta bancaria cada viernes**.
 
-Lo digital es lo que le quita el peso de encima: yo converso por WhatsApp con cada persona interesada, le explico y le resuelvo las dudas a toda hora, sin que usted tenga que estar ahí. Eso es lo que antes exigía un local abierto y gente contratada.
+Y lo digital es lo que le quita el peso: yo converso por WhatsApp con cada interesado, le explico y le resuelvo las dudas a toda hora. Eso es lo que antes exigía un local abierto y personal contratado.
 
 ¿Quiere que le muestre con números cómo se vería en su caso?`;
 

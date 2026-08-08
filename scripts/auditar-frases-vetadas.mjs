@@ -77,7 +77,17 @@ const fragmentos = data.filter((d) => d.metadata?.is_fragment === true);
  *   3. El cuerpo — lo que llega al prospecto.
  */
 const partir = (contenido) => {
-  const bloques = contenido.split('\n\n');
+  // Se quita solo la primera LÍNEA del `###`, no su párrafo.
+  //
+  // ⚠️ Aquí estuvo ciego el detector hasta el 8 ago 2026: en estos arsenales el
+  // `[Concepto Nuclear]` va pegado al `###` con un solo salto de línea, así que
+  // partir por párrafos metía los dos en el mismo bloque y el bloque entero se
+  // descartaba por empezar con `###`. Resultado: reportaba "0 cabeceras" sin
+  // haber mirado casi ninguna. Es el mismo fallo silencioso que el detector
+  // existe para cazar — plausible por fuera, vacío por dentro.
+  const lineas = contenido.split('\n');
+  const sinDisparador = (lineas[0].trimStart().startsWith('###') ? lineas.slice(1) : lineas).join('\n');
+  const bloques = sinDisparador.split('\n\n');
   const instrucciones = [];
   const cuerpo = [];
 

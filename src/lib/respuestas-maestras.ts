@@ -101,13 +101,13 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. El modelo funciona creando un canal de distribución que se apoya en hábitos de consumo.
+const MASTER_WHY_02 = `Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.
 
 Usted no arranca desde cero: la fábrica y la logística las pone **Gano Excel** — 30 años, 70 países. Usted dirige su canal desde el celular, sin comprar inventario ni entregar pedidos.
 
 La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
 
-Y como son productos de consumo diario, se arma un ciclo natural: el cliente consume, se le acaba y vuelve a pedir. Ese consumo recurrente es el que estabiliza su flujo de ingresos.
+El cliente los prueba y nota la diferencia: son productos funcionales con Ganoderma, y el resultado se siente en su bienestar y en su energía del día a día. Cuando se le acaba, vuelve a pedir el mismo. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
 
 Esto corre en paralelo a su agenda. Para que sea viable, el trabajo pesado lo asumimos nosotros: la infraestructura física la pone Gano Excel; explicar y atender a toda hora lo pongo yo.
 

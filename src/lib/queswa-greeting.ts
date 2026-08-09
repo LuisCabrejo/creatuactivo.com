@@ -114,7 +114,7 @@ export const QUESWA_CTA_LABEL = 'Suscríbete';
  * Chip 1 → WHY_02 ("¿Cómo funciona el modelo de negocio?")
  * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Propietario, El Método Comprobado)
  * Chip 3 → WHY_PROD_01 + catalogo_productos (qué es y para qué sirve)
- * Chip 4 → FREQ_04 / FREQ_11 + arsenal_compensacion (cómo se gana)
+ * Chip 4 → WHY_04 / FREQ_04 + arsenal_compensacion (cómo se gana)
  *
  * El usuario ve el chip premium (vocabulario McKinsey).
  * El RAG recibe la query semántica óptima que recupera el fragmento con formato.

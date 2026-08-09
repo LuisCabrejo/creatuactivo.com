@@ -1067,6 +1067,19 @@ const VECTOR_DOCS_CACHE_TTL = 10 * 60 * 1000; // 10 minutos
 /**
  * Obtiene documentos con embeddings de Supabase (con cache)
  */
+/**
+ * ⚠️ MUERTA desde el 9 ago 2026 — sin llamadores.
+ *
+ * Cargaba los documentos PADRE para `clasificarDocumentoVectorial()`, que ahora
+ * clasifica sobre fragmentos (ver el comentario largo en esa función). Se
+ * conserva en vez de borrarse por la misma razón que el RPC `match_documents`:
+ * quien encuentre este camino más adelante necesita leer por qué se abandonó, o
+ * lo reconstruye. Tenía además `tenant_id` hardcodeado a `creatuactivo_marketing`.
+ *
+ * No re-enchufar sin resolver antes que el padre de `arsenal_inicial` no tiene
+ * `embedding_512` — y que aunque lo tuviera, 124K de texto en 512 dimensiones no
+ * discriminan.
+ */
 async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
   // Check cache
   if (vectorDocsCache.data && (Date.now() - vectorDocsCache.timestamp) < VECTOR_DOCS_CACHE_TTL) {
@@ -1281,7 +1294,78 @@ async function searchArsenalFragments(
  * @param userMessage - Mensaje del usuario
  * @returns Categoría del documento o null
  */
-async function clasificarDocumentoVectorial(userMessage: string): Promise<string | null> {
+/**
+ * Arsenales padre conocidos. El orden no importa: `arsenalPadre()` resuelve por
+ * prefijo MÁS LARGO, para que `arsenal_12_niveles_INV_01` no caiga en otro padre
+ * que comparta prefijo.
+ */
+const ARSENALES_PADRE = [
+  'arsenal_inicial',
+  'arsenal_avanzado',
+  'arsenal_compensacion',
+  'arsenal_12_niveles',
+  'catalogo_productos',
+  'arsenal_ganocafe',
+  'arsenal_marca_personal',
+] as const;
+
+/** Qué arsenales puede devolver la clasificación en cada tenant. */
+const ARSENALES_POR_TENANT: Record<string, readonly string[]> = {
+  creatuactivo_marketing: ['arsenal_inicial', 'arsenal_avanzado', 'arsenal_compensacion', 'arsenal_12_niveles', 'catalogo_productos'],
+  whatsapp:               ['arsenal_inicial', 'arsenal_avanzado', 'arsenal_compensacion', 'arsenal_12_niveles', 'catalogo_productos'],
+  ecommerce:              ['arsenal_ganocafe', 'catalogo_productos'],
+  marca_personal:         ['arsenal_marca_personal'],
+};
+
+/** `arsenal_inicial_FREQ_13` → `arsenal_inicial`. Devuelve null si no es fragmento. */
+function arsenalPadre(category: string): string | null {
+  const candidatos = ARSENALES_PADRE.filter(p => category.startsWith(p + '_'));
+  if (candidatos.length === 0) return null;
+  return candidatos.reduce((a, b) => (b.length > a.length ? b : a));
+}
+
+/**
+ * Clasificación vectorial — sobre FRAGMENTOS, no sobre documentos padre.
+ *
+ * ⚠️ POR QUÉ CAMBIÓ (9 ago 2026, tras la prueba de las 6 preguntas en el canal).
+ *
+ * Comparaba contra los documentos **padre** vía `getDocumentsWithEmbeddings()`, y
+ * eso tenía dos defectos, uno de diseño y uno de datos:
+ *
+ *  • De datos: el padre de `arsenal_inicial` es el ÚNICO de los cinco sin
+ *    `embedding_512` (124.017 chars contra 20K–54K del resto — el embedding
+ *    probablemente nunca se generó por tamaño). Cargaba 3 documentos, no 4, así
+ *    que esta función **no podía devolver `arsenal_inicial` para NINGUNA consulta**.
+ *  • De diseño: un documento de 124K colapsado en 512 dimensiones es un centroide
+ *    sin señal. Ni con embedding habría discriminado.
+ *
+ * Medido con Voyage sobre 27 consultas representativas de los cinco arsenales:
+ *
+ *   contra padres      →  5 aciertos ·  3 fallos · 19 null
+ *   contra fragmentos  → 24 aciertos ·  1 fallo  ·  2 null   ← top-1 @0.40
+ *
+ * `null` es el peor desenlace, no el neutro: el pipeline salta el bloque de
+ * fragmentos y el modelo responde de memoria (ver el FIX 2026-07-09 en
+ * `patrones_inicial`, que chocó con esta misma pared y la parchó con regex).
+ *
+ * ⚠️ TOP-1, NO VOTACIÓN. Se midieron las dos: votar entre los primeros 3 o 5
+ * EMPEORA (22 y 21 aciertos). El fragmento correcto gana limpio, pero sus vecinos
+ * suelen ser de otro arsenal y diluyen el voto. Top-1 es además el cambio mínimo.
+ *
+ * ⚠️ El umbral se mantiene en **0.40**, el mismo que regía antes. Bajarlo a 0.35
+ * sube a 25/1/1 en la batería, pero no se midió en amplitud y no vale la pena
+ * afinar sobre 27 muestras.
+ *
+ * Los patrones de `clasificarDocumentoHibrido()` siguen corriendo PRIMERO y ganan;
+ * esta función solo ve la cola que ellos no atrapan. Por eso el cambio no puede
+ * regresionar lo que ya funciona.
+ *
+ * Batería reproducible: `node scripts/benchmark-clasificador.mjs`
+ */
+async function clasificarDocumentoVectorial(
+  userMessage: string,
+  tenantId = 'creatuactivo_marketing',
+): Promise<string | null> {
   const voyageApiKey = process.env.VOYAGE_API_KEY;
 
   // Si no hay API key, skip búsqueda vectorial
@@ -1291,26 +1375,44 @@ async function clasificarDocumentoVectorial(userMessage: string): Promise<string
   }
 
   try {
-    const documents = await getDocumentsWithEmbeddings();
+    // Mismo corpus que usa la búsqueda real, y ya cacheado en memoria: clasificar
+    // y recuperar dejan de poder discrepar.
+    const fragments = await getArsenalFragments();
 
-    if (documents.length === 0) {
-      console.log('[VectorSearch] No documents with embeddings found');
+    if (fragments.length === 0) {
+      console.log('[VectorSearch] No fragments with embeddings found');
       return null;
     }
 
-    const results = await vectorSearch(userMessage, documents, voyageApiKey, {
-      threshold: 0.35, // Umbral más estricto para evitar falsos positivos
+    // Sin este filtro, una consulta de creatuactivo competiría contra los
+    // fragmentos de ganocafe y de marca personal, que viven en el mismo pool
+    // (getArsenalFragments no filtra por tenant a propósito).
+    const permitidos = ARSENALES_POR_TENANT[tenantId] ?? ARSENALES_POR_TENANT.creatuactivo_marketing;
+    const candidatos = fragments.filter(f => {
+      const padre = arsenalPadre(f.category);
+      return padre !== null && permitidos.includes(padre);
+    });
+
+    if (candidatos.length === 0) {
+      console.log(`[VectorSearch] Sin fragmentos para el tenant ${tenantId}`);
+      return null;
+    }
+
+    const results = await vectorSearch(userMessage, candidatos, voyageApiKey, {
+      threshold: 0.35,
       maxResults: 1,
       debug: false
     });
 
     if (results.length > 0) {
       const topResult = results[0];
-      console.log(`[VectorSearch] Match: ${topResult.category} (similarity: ${topResult.similarity.toFixed(3)})`);
+      const padre = arsenalPadre(topResult.category);
+
+      console.log(`[VectorSearch] Match: ${topResult.category} → ${padre} (similarity: ${topResult.similarity.toFixed(3)})`);
 
       // Solo retornar si la similitud es suficientemente alta
-      if (topResult.similarity >= 0.4) {
-        return topResult.category;
+      if (padre && topResult.similarity >= 0.4) {
+        return padre;
       } else {
         console.log(`[VectorSearch] Similarity too low (${topResult.similarity.toFixed(3)} < 0.4), using pattern fallback`);
       }
@@ -1508,8 +1610,22 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // COMP_PAQ_01 (precios), COMP_PAQ_02/03/04 (contenido) — todos en arsenal_compensacion
     /precio.*paquete/i,                // "precio de los paquetes"
     /paquete.*precio/i,                // "paquete empresarial precio"
-    /cu[aá]nto.*cuesta.*(paquete|esp|empezar|activar|entrar)/i,
+    // "empezar" salió de aquí el 9 ago 2026: mandaba "¿cuánto cuesta empezar?"
+    // a compensación, que dispara el pin de cifras GEN5 — y el prospecto recibía
+    // "Inversión $900.000 / Comisión Gen1 $112.500", un rendimiento pegado a un
+    // precio, que es una promesa de ingreso. La respuesta correcta es FREQ_03
+    // (arsenal_inicial), enrutada ahora por patrones_inicial.
+    /cu[aá]nto.*cuesta.*(paquete|esp|activar|entrar)/i,
     /cu[aá]nto.*vale.*(paquete|esp)/i,
+
+    // 🆕 FIX 2026-08-09: nomenclatura del plan. Estos términos vivían SOLO en
+    // `patrones_cierre`, que enruta a `arsenal_avanzado` — pero COMP_BIN_01 y
+    // COMP_PV_05 están en `arsenal_compensacion`. Se suman aquí (PRIORIDAD 3, que
+    // corre antes) en vez de sacarlos de allá: el diff es menor y el efecto es el
+    // mismo. Medido en `benchmark-clasificador.mjs`.
+    /\bbinario\b/i,                              // "¿qué es el binario?"
+    /qu[eé].*es.*\b(gcv|cv|pv)\b/i,              // "¿qué es el GCV?" / "¿qué es PV?"
+    /volumen.*(personal|comisional)/i,           // "volumen comisional"
     /paquetes.*disponibles/i,
     /cu[aá]les.*(?:son.*)?(?:los\s+)?paquetes/i,
     /qu[eé].*paquetes.*(?:hay|tienen|ofrecen)/i,
@@ -1554,13 +1670,14 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // Paquetes específicos de inversión
     /cuál.*inversión/i,
     /precio.*paquete/i,
-    /cuesta.*empezar/i,
+    // /cuesta.*empezar/i — retirado 9 ago 2026, misma razón que en
+    // patrones_compensacion: "¿cuánto cuesta empezar?" es FREQ_03, no SIST_11.
     /inversión.*inicial/i,
     /constructor.*inicial/i,
     /constructor.*empresarial/i,
     /constructor.*visionario/i,
     /paquete.*emprendedor/i,
-    /cuánto.*cuesta.*(empezar|constructor|paquete|inversión|activar)/i,
+    /cuánto.*cuesta.*(constructor|paquete|inversión|activar)/i,
 
     // Contexto de inversión para construcción
     /inversión.*para/i,
@@ -1887,6 +2004,39 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /invertir.*(marketing|publicidad|pauta)/i,   // "invertir en marketing/publicidad/pauta"
     /inversi[oó]n.*(marketing|publicidad)/i,     // "inversión en marketing"
     /invierten.*(marketing|publicidad)/i,        // "¿ustedes invierten en marketing?"
+
+    // 🆕 FIX 2026-08-09: las tres preguntas que fallaron en la prueba del canal.
+    //
+    // Mismo mecanismo que el FIX de julio de aquí arriba, y ya es la segunda vez:
+    // el clasificador vectorial NO PUEDE devolver `arsenal_inicial` porque su
+    // documento padre es el único de los cinco SIN `embedding_512` en la base
+    // (124.017 chars — el resto va de 20K a 54K). `getDocumentsWithEmbeddings()`
+    // carga 3 documentos, no 4. Mientras eso siga así, todo lo que deba llegar a
+    // este arsenal tiene que entrar por patrón; el vector no es una red de
+    // respaldo, es un camino cerrado.
+    //
+    // Medido con Voyage el 9 ago: a nivel de FRAGMENTO el correcto gana con
+    // holgura — FREQ_13 0.493 · FREQ_03 0.618 · FREQ_08 0.539, todos sobre el
+    // umbral de 0.4. A nivel de documento padre, los tres quedan bajo 0.4.
+    //
+    // ⚠️ `/es.*pirámide/i` salió de patrones_manejo el mismo día: esManejo VETA a
+    // esInicial en el retorno, así que sumarlo aquí sin quitarlo de allá no habría
+    // hecho nada.
+    /(es|son).*(pir[aá]mide|piramidal)/i,        // "¿esto es una pirámide?"
+    /esquema.*piramidal/i,                       // "¿es un esquema piramidal?"
+    /cu[aá]nto.*cuesta.*empezar/i,               // "¿cuánto cuesta empezar?" → FREQ_03
+    /cu[aá]nto.*(vale|sale).*empezar/i,          // variantes regionales
+    // FREQ_09 vs INV_04 (`arsenal_12_niveles`): las dos responden esto, y el
+    // vector las separa por 0.009 (0.599 vs 0.608). FREQ_09 es la canónica —
+    // trae los 50 PV y la moneda por país; INV_04 es para quien ya está adentro.
+    // Con esa distancia no se puede dejar al azar del coseno.
+    /comprar.*todos.*los.*meses/i,               // "¿tengo que comprar todos los meses?"
+    /compra.*m[ií]nima.*mensual/i,
+    /costos?.*mensual(es)?.*obligatorios?/i,
+    /capacitaci[oó]n/i,                          // "¿hay capacitación?" → FREQ_08
+    /formaci[oó]n/i,                             // "¿hay formación?"
+    /entrenamiento/i,                            // "¿dan entrenamiento?"
+    /me.*ense[nñ]an/i,                           // "¿me enseñan?"
     /ayudan.*con.*marketing/i,                   // "¿me ayudan con marketing?"
     /apoyan.*con.*marketing/i,                   // "¿apoyan con marketing?"
 
@@ -1910,21 +2060,35 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /comando.*expandir|comando.*activar|comando.*maestr/i, // referencias directas
   ];
 
-  const patrones_manejo = [
-    /esto.*mlm/i,
-    /es.*pirámide/i,
-    /necesito.*experiencia/i,
-    /no.*tengo.*tiempo/i,
-    /me.*da.*miedo/i,
-    /no.*sé.*vender/i,
-    /datos.*personales/i,
-    /puedo.*pausar/i,
-    /cómo.*pagos/i,
-    /funciona.*país/i,
-    /qué.*soporte/i,
-    /mucho.*trabajo/i,
-    /automatiza.*80/i
-  ];
+  /**
+   * ⚠️ RETIRADO — 9 ago 2026. Vaciado a propósito; no volver a llenarlo.
+   *
+   * Enrutaba a `arsenal_avanzado` porque los arsenales `manejo` y `cierre` se
+   * consolidaron ahí. Pero las RESPUESTAS de casi todo lo que atrapaba migraron
+   * a `arsenal_inicial`: verificado contra la base, 7 de sus 9 destinos vivían
+   * allá — OBJ_01 (*no tengo tiempo*), PERFIL_01 (*no sé vender*, *necesito
+   * experiencia*), FREQ_18 (*puedo pausar*), FREQ_17 (*cómo son los pagos*),
+   * FREQ_19 (*funciona en mi país*), FREQ_08 (*qué soporte tengo*), FREQ_13 y
+   * NET_01 (*esto es MLM*). Este array era un mapa de una casa que ya se mudó.
+   *
+   * Y hacía daño doble: además de enrutar mal, **`esManejo` VETA a `esInicial`**
+   * en el retorno de esta función, así que ninguna de esas preguntas podía llegar
+   * a `arsenal_inicial` ni aunque `patrones_inicial` también las reconociera.
+   *
+   * Medido con `node scripts/benchmark-clasificador.mjs` sobre 42 consultas:
+   *
+   *   con este array     → 30 aciertos · 12 mal · 0 null
+   *   sin este array     → 37 aciertos ·  5 mal · 0 null   ← se retiró
+   *   sin `cierre`       → 32 aciertos · 10 mal · 0 null
+   *   sin los dos        → 30 aciertos · 12 mal · 0 null
+   *
+   * (`patrones_cierre` SÍ hace trabajo útil y se conserva; quitarlo empeora.)
+   *
+   * Lo que caía aquí ahora lo resuelve la clasificación vectorial sobre
+   * fragmentos, que desde hoy sí funciona. Se deja el array vacío en vez de
+   * borrar el bloque para que quede el registro de por qué.
+   */
+  const patrones_manejo: RegExp[] = [];
 
   const patrones_cierre = [
     /cómo.*distribución/i,
@@ -2259,7 +2423,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // Solo si los patrones no resolvieron, usar Voyage AI
   if (!documentType) {
     try {
-      documentType = await clasificarDocumentoVectorial(expandedMessage);
+      documentType = await clasificarDocumentoVectorial(expandedMessage, tenantId);
       if (documentType) {
         console.log(`🧠 [VectorSearch] Clasificación vectorial: ${documentType}`);
       }

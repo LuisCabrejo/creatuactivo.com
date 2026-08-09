@@ -12,6 +12,39 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.68 — Candado en FREQ_13 y FREQ_08, y la causa real estaba en el enrutamiento (9 ago 2026)
+
+Salió de la prueba de las seis preguntas en el canal, la primera antes de subir el tráfico de 4 a 50–100 personas. **Pasaron 2 de 6.** El diagnóstico obligó a mirar el motor, no el copy.
+
+**Lo primero: la prueba se corrió sobre un número contaminado.** Entró por `wa_573203415438` —el número personal del Director—, que ya tenía 17 turnos desde el 8 ago. Dos consecuencias que invalidan parte de lo medido:
+
+- El nodo 1.5 del webhook solo dispara `if (!existingProspect)`, así que **`construirApertura()` nunca corrió** y el modelo improvisó el saludo. El recorrido real de un prospecto nuevo —apertura dictada + tres botones— quedó **sin probar**.
+- La respuesta 1 se leyó a las 20:41; el clon de v5.67 al tenant `whatsapp` entró a las 20:51. La cifra vieja de países que apareció ahí es un **falso negativo**: se corrigió sola diez minutos después.
+
+**La causa de las tres fallas reales no era el arsenal.** El clasificador de `route.ts` corre **antes** que Voyage y lo cortocircuita: el vector solo opina si ningún regex dispara. Medido con Voyage sobre el corpus del tenant `whatsapp`, el fragmento correcto gana con holgura en los tres casos — **FREQ_13 0.493 · FREQ_03 0.618 · FREQ_08 0.539**, todos sobre el umbral de 0.4. Nunca fueron candidatos:
+
+| Pregunta | Enrutaba a | Por qué |
+|---|---|---|
+| ¿Esto es una pirámide? | `arsenal_avanzado` | `/es.*pirámide/i` vivía en `patrones_manejo`, y **`esManejo` VETA a `esInicial`** en el retorno |
+| ¿Cuánto cuesta empezar? | `arsenal_compensacion` | `empezar` estaba dentro de tres regex de precio; disparaba el pin de cifras GEN5 |
+| ¿Hay capacitación? | `null` → vector | Sin regex; el vector tampoco pudo (ver abajo) |
+
+⚠️ **HALLAZGO MAYOR — el clasificador vectorial no puede devolver `arsenal_inicial`, para ninguna consulta.** `clasificarDocumentoVectorial()` compara contra los documentos **padre** vía `getDocumentsWithEmbeddings()`, y el padre de `arsenal_inicial` es **el único de los cinco sin `embedding_512`** en la base, en los dos tenants. Carga 3 documentos, no 4. Con 124.017 caracteres es también el más grande con diferencia (el resto va de 20K a 54K), que es la explicación probable de que el embedding nunca se generara. Consecuencia operativa: **todo lo que deba llegar al arsenal principal entra por patrón; el vector no es red de respaldo, es un camino cerrado.** El `FIX 2026-07-09` de `INVERSION_MARKETING_01` ya había chocado con la misma pared y la parchó con regex sin nombrar la causa.
+
+**La corrección de fondo se hizo el mismo día**, con el Director decidiendo postergar los contactos antes que salir con esto a medias. `clasificarDocumentoVectorial()` pasa a clasificar sobre **fragmentos** y a mapear el ganador a su arsenal padre por prefijo más largo, con alcance por tenant (`getArsenalFragments()` no filtra por tenant, así que sin eso una consulta de creatuactivo competía contra los fragmentos de ganocafe y marca personal). Se midieron **top-1 contra voto entre los primeros 3 y 5: votar EMPEORA** (24 aciertos contra 22 y 21) — el fragmento correcto gana limpio, pero sus vecinos suelen ser de otro arsenal y diluyen el voto. Umbral sin cambio en 0.40.
+
+**Y `patrones_manejo` quedó vacío a propósito.** Enrutaba a `arsenal_avanzado` por la consolidación de los arsenales `manejo` y `cierre`, pero 7 de sus 9 destinos viven hoy en `arsenal_inicial` (OBJ_01, PERFIL_01, FREQ_18, FREQ_17, FREQ_19, FREQ_08, FREQ_13/NET_01). Hacía daño doble: enrutaba mal **y** `esManejo` VETA a `esInicial` en el retorno, así que esas preguntas no podían llegar a inicial ni aunque `patrones_inicial` las reconociera. Medido: con el array 30/42, sin él 37/42. ⚠️ `patrones_cierre` **sí hace trabajo útil y se conserva** — quitarlo baja a 32/42; solo se le sumó a `patrones_compensacion` la nomenclatura del plan (*binario · GCV · CV · PV · volumen comisional*), que vivía solo allá y terminaba en avanzado cuando sus respuestas están en compensación.
+
+Marcador final, **42/42 en los dos tenants, 0 `null`**, con `node scripts/benchmark-clasificador.mjs`. Dos de las 42 no llevan expectativa porque el clasificador nunca las ve: el chip 1 lo intercepta Camino A y *"quiero iniciar"* lo intercepta `wa-radicacion`. Y una etiqueta se corrigió **a favor del motor**: *"¿puedo pausar?"* iba a `arsenal_avanzado` y yo lo daba por error, hasta ver que `ADV_TECH_01` se titula exactamente *"¿Puedo pausar mi negocio si me enfermo o viajo?"*.
+
+**Lo que sí se cambió, en `route.ts`:** `empezar` sale de `patrones_compensacion` y de las dos entradas de `patrones_paquetes`; `/es.*pirámide/i` sale de `patrones_manejo`; y `patrones_inicial` suma pirámide/esquema piramidal, cuánto cuesta empezar, y capacitación/formación/entrenamiento/me enseñan. Verificado con una simulación del orden de prioridades sobre los arrays reales del archivo: **6 de 6 enrutan a `arsenal_inicial`, 0 regresiones** en paquetes, GEN5, catálogo, 12 niveles y "cómo funciona el negocio".
+
+**En el arsenal:** FREQ_13 y FREQ_08 pasan a `<verbatim_lock>`. Las dos se entregaban parafraseadas y los hechos institucionales **largos** —el número de la ley, las nueve ciudades, el gremio, el nombre de la sección de formación— se normalizaban hacia formulaciones de manual que ningún arsenal contiene. Mismo comportamiento que el candado erradicó en `catalogo_productos` v7.2 con los nombres de producto. El texto no cambia una palabra; sale el rótulo *Pregunta de seguimiento* de FREQ_13, que dentro de un candado se imprimiría literal al prospecto. 1.865 → 1.869 y 2.106 → 2.139 caracteres (solo las etiquetas). El prompt `queswa_whatsapp` v4.7 ya trae la regla del candado, verificado antes de aplicarlo.
+
+**`CIERRE_03` y `CIERRE_04` retirados del tenant `whatsapp`** — texto de la FSM web con `wa.me/573206805737` incrustado y el rótulo *Equipo Directivo*, que el barrido de v5.59 no alcanzó. ⚠️ **Divergencia deliberada entre tenants: 56 fragmentos en `creatuactivo_marketing`, 54 en `whatsapp`.** No es un despliegue a medias — no re-clonar. ⚠️ **Y es insuficiente por sí sola:** `getArsenalFragments()` carga fragmentos **sin filtro de tenant** y filtra después por prefijo de `category`, así que la copia de `creatuactivo_marketing` sigue siendo candidata en una conversación de WhatsApp. Retirarlas de los dos tenants queda pendiente de decisión del Director.
+
+**Pendientes anotados:** `FREQ_04_PUENTE` está en el `.txt` y **nunca se indexó** (56 fragmentos para 57 respuestas) · el padre `arsenal_inicial` se titula *"Arsenal Inicial vunknown PEAJE"*, señal de que `deploy-arsenal-inicial.mjs` no parsea la versión · `getDocumentsWithEmbeddings()` tiene `tenant_id='creatuactivo_marketing'` **hardcodeado**.
+
 ### v5.34 — Barrido pregunta única + bautizo empresarial (7 ago 2026)
 
 Barrido transversal aprobado por el Director (afectó también avanzado v12.6, compensación v7.4, 12-niveles v5.2, catálogo v7.3). Tres frentes:

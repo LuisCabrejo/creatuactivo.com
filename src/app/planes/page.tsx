@@ -430,7 +430,7 @@ export default function PlanesTecnologicosPage() {
               {[
                 { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversa por usted', body: 'Queswa conversa con cada interesado y reconoce a quién está listo, antes de que usted invierta un minuto de atención.' },
                 { icon: <BarChart2 size={28} />, color: C.gold, title: 'Atrae y prepara', body: 'El sistema capta, educa y prepara prospectos 24/7, eliminando la búsqueda y el seguimiento manual.' },
-                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en 70 países a la vez, sin requerir su presencia física en ningún mercado.' },
+                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en más de 60 países a la vez, sin requerir su presencia física en ningún mercado.' },
                 { icon: <Layers size={28} />, color: C.bronze, title: 'Multiplica sin cuello de botella', body: 'La formación de cada persona nueva ocurre sola. Su tiempo deja de ser el límite de su organización.' },
               ].map((item, i) => (
                 <div key={i} style={{

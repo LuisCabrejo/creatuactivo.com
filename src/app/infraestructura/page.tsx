@@ -70,7 +70,7 @@ export default function InfraestructuraPage() {
             </h1>
 
             <p className="text-xl sm:text-2xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed mb-12 font-light">
-              Producción y distribución de productos en más de 70 países.
+              Producción y distribución de productos en más de 60 países.
             </p>
 
             {/* Scroll indicator - BIMETALLIC: Navegación → titanio, hover → dorado */}

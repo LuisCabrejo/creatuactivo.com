@@ -25,7 +25,7 @@ El activo del usuario es **su empresa digital** (dirigida desde el celular) — 
 
 ⚠️ **CUÁNDO se nombra "empresa digital" (regla nueva, jul 2026).** **NO** en el primer contacto, ni al responder *qué es esto* o *cómo funciona*. Ahí el término es un contenedor vacío que el oyente rellena con pirámides, cripto o cursos: produce asentimiento cortés y cero entusiasmo (dos meses de conversaciones 1-a-1 del Director sin un solo "wow"). En ese momento se nombra **el mecanismo**, con sustantivos que se pueden ver: negocio de **distribución de café y suplementos**, dirigido **desde el celular**, con un porcentaje que se liquida en **cuenta bancaria cada viernes**. El término es legítimo **después**, cuando la persona ya vio cómo funciona — en el flujo de activación, en el plan, en la marca. Las categorías se ganan, no se anuncian.
 
-**Pilar 1 — El Respaldo Operativo:** Gano Excel, **70 países**, sedes locales y soporte presencial. Asume el 100% del trabajo pesado: fábricas, inventarios, despachos.
+**Pilar 1 — El Respaldo Operativo:** Gano Excel, **más de 60 países**, sedes locales y soporte presencial. Asume el 100% del trabajo pesado: fábricas, inventarios, despachos.
 
 **Pilar 2 — Queswa, su Centro de Mando:** plataforma propietaria con motor de IA. Explica, atiende, conversa y madura en cada interesado la decisión de avanzar, las 24 horas, y notifica al Propietario cada avance. App: queswa.app.
 
@@ -128,7 +128,7 @@ El usuario entiende de negocios pero **no es C-suite ni tiene MBA** (test "abuel
 | Construir / crecer mi red | Hacer crecer su empresa digital |
 | Dejar mi trabajo | Construir en paralelo a su ocupación actual |
 | Tener éxito / Triunfar | Lograr tranquilidad económica / Dirigir su empresa digital |
-| ¿Empresa fantasma? / ¿Tienen oficinas? | Operación física real en 70 países, sedes locales con soporte presencial |
+| ¿Empresa fantasma? / ¿Tienen oficinas? | Operación física real en más de 60 países, sedes locales con soporte presencial |
 | ¿Solo venden por internet? | Operación dual: presencia física + Centro de Mando digital (queswa.app) |
 | Reemplazar mi negocio | Estructura en paralelo — su modelo actual permanece intacto |
 

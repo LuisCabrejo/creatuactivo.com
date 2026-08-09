@@ -213,7 +213,7 @@ export default function PruebaPage() {
         <Body>
           Los productos son de consumo diario —café, bebidas y suplementos con Ganoderma—
           y los fabrica y los despacha <strong style={{ color: 'var(--color-text-primary)' }}>
-          Gano Excel</strong>, una empresa con más de 30 años y presencia en 70 países.
+          Gano Excel</strong>, una empresa con más de 30 años y presencia en más de 60 países.
           Usted no compra inventario ni entrega pedidos.
         </Body>
         <Body mt>

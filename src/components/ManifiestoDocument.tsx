@@ -291,7 +291,7 @@ export default function ManifiestoDocument({
                   <p className="text-[#C5A059] mb-2">Su socio logístico y financiero — Gano Excel</p>
                   <p className="text-[#A3A3A3] leading-relaxed">
                     Usted deja el trabajo pesado —fábricas, inventarios, despachos, pasivos— en
-                    manos de Gano Excel, una empresa real con presencia en 70 países. El peso que
+                    manos de Gano Excel, una empresa real con presencia en más de 60 países. El peso que
                     hundiría a cualquier emprendedor, usted no lo carga.
                   </p>
                 </li>

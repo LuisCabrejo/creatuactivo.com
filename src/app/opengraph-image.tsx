@@ -144,7 +144,7 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            Presencia en 70 países
+            Presencia en más de 60 países
           </div>
         </div>
       </div>

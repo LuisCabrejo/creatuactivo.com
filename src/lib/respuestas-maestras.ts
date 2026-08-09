@@ -128,7 +128,7 @@ Y al ser productos funcionales con resultados reales para el bienestar y la vita
 
 Para que usted dirija sin cargar con la operación, el trabajo pesado lo asumimos nosotros:
 
-**Gano Excel** pone las fábricas, la investigación y la logística — 30 años, 70 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
+**Gano Excel** pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
 
 **Yo** explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.
 

@@ -7,7 +7,7 @@
  *  - Hero: imagen "Pacto Patrimonial" (apretón institucional) con tratamiento home
  *  - Cards: estilo Home (clip-path geométrico, paleta carbón/dorado/cyan)
  *  - Léxico: "bebidas enriquecidas y suplementos Gano Excel" (no "tecnología nutricional")
- *  - Léxico: "15 países de América" (Operación Continental) — no 70 países
+ *  - Léxico: "15 países de América" (Operación Continental) — no más de 60 países
  *  - Sin fondo hormigón, sin frase "Los datos técnicos están expuestos"
  *  - CTAs: "ACTIVAR ESP-X →" (más directos que "INICIAR CAPITALIZACIÓN")
  *  - "Decisión Directiva" reemplaza "Protocolo de Selección Directiva"

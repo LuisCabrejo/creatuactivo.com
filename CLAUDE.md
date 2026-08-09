@@ -235,46 +235,23 @@ ganocafe.online/cafe-3en1/index.html
 
 **Handoff doc para agente widget**: `docs/handoff/queswa/HANDOFF-GANOCAFE-WIDGET.md`
 
-**Estado integración WABA WhatsApp** — ✅ canal **operativo**: negocio `verified`, cuenta `APPROVED`, número `CONNECTED` + `quality_rating: GREEN` (Graph API, 4 ago 2026).
+**WhatsApp WABA** — canal operativo. 📄 **Estado de la cuenta de Meta, diagrama del flujo y decisiones en curso → [docs/handoff/queswa/WABA_REFERENCIA.md](docs/handoff/queswa/WABA_REFERENCIA.md)** y [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md). **No duplique aquí el estado de Meta** — cambia solo y se desincroniza.
 
-> 📄 **Estado detallado, historial de Meta y decisiones abiertas → [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md)** (el más reciente) · arquitectura del pipeline → [Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md](docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md). **No duplique aquí el estado de la cuenta de Meta** — cambia solo y se desincroniza.
+Webhook `/api/whatsapp/webhook` (Node, 30s) → adaptador de canal: extrae número, texto y `referral` de CTWA, inserta el prospecto (`fingerprint: wa_{phone}`), llama a `/api/nexus` con `x-tenant-id: whatsapp`, y responde por Graph API. Prompt `queswa_whatsapp`, fuente `knowledge_base/system-prompt-queswa-whatsapp-v4.md`.
 
-- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp`, fuente `knowledge_base/system-prompt-queswa-whatsapp-v4.md`. ⚠️ **`VERSION_LABEL` en el script es lo que se pretende desplegar, no lo que corre** — lo desplegado se consulta siempre contra la BD: `node scripts/sql.mjs -e "select name, version, length(prompt) from system_prompts"`. CTWA (`referral` de ads Meta) → `device_info`.
-- ⚠️ **Tres números, no confundirlos**: `+57 321 519 3909` = el WABA (Queswa) · `+57 320 341 5438` = personal de Luis (el 1-a-1) · `+57 320 680 5737` = WhatsApp Business en su móvil, `WHATSAPP_ORGANICO_DEFAULT` (fallback de reels).
+**Lo que rompe el canal si se ignora:**
 
-**Reglas que rompen el canal si se ignoran:**
-- ⛔ **NO tocar el nombre visible mientras `name_status` esté en revisión** — cada guardado abre una solicitud nueva que pisa la anterior; así se perdió una aprobación previa de "Queswa". Meta permite 10 cambios cada 30 días.
-- ⛔ **NO ejecutar `request_code` / `verify_code`** sobre un número `CONNECTED` que funciona. `code_verification_status: EXPIRED` **no bloquea el envío** (medido el 4 ago con `hello_world` entregada); el error #131037 era un riesgo del manual, no algo activo.
+- ⚠️ **Tres números, no confundirlos**: `+57 321 519 3909` = el WABA (Queswa) · `+57 320 341 5438` = el personal de Luis (el 1-a-1) · `+57 320 680 5737` = su WhatsApp Business, `WHATSAPP_ORGANICO_DEFAULT` (fallback de reels).
+- ⛔ **NO tocar el nombre visible mientras `name_status` esté en revisión** — cada guardado abre una solicitud que pisa la anterior; así se perdió una aprobación previa. Meta permite 10 cambios cada 30 días.
+- ⛔ **NO ejecutar `request_code` / `verify_code`** sobre un número `CONNECTED` que funciona. `code_verification_status: EXPIRED` **no bloquea el envío** (medido el 4 ago); el error #131037 era un riesgo del manual, no algo activo.
 - ⚠️ **Ventana de 24 h**: si la persona escribe primero se responde en **texto libre**; iniciar conversación con quien nunca escribió **exige plantilla aprobada**, sin excepción.
-- ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (salta las que ya están). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si no, quedan **stale**.
-- 🟢 **El App Review de Meta NO hace falta para este caso de uso** (auditoría cerrada 26 jul 2026). Los permisos figuran "rechazados" y el canal opera igual: sobre activos propios basta el *Acceso estándar*. Solo se retoma si se decide que **cada socio conecte su propio número**. No re-someter sin eso.
+- ⚠️ **`clonar-arsenal-whatsapp.mjs` NO actualiza lo existente** — solo inserta categorías nuevas. Para propagar fragmentos *modificados* hay que **purgar primero** en el tenant whatsapp; si no, quedan stale.
+- ⛔ **NO modificar `/api/nexus/route.ts` por WhatsApp.** El webhook es solo adaptador de canal; toda la lógica de IA vive en el motor.
+- ⛔ **La FSM de cierre del motor NO aplica a WhatsApp** (aislada 5 ago 2026): sus estados 2/3/4 fueron escritos para la web y su último paso entrega enlaces `wa.me` al propio WABA — a alguien que ya está escribiendo desde ahí. El guard es `cierreLoManejaElCanal` (`tenantId === 'whatsapp'`). El cierre del canal vive en [src/lib/wa-radicacion.ts](src/lib/wa-radicacion.ts) → `pending_activations`. **No reactivar la FSM web para este tenant.**
+- ⚠️ **`src/lib/wa-channel.ts` es el ÚNICO lugar que habla con graph.facebook.com** y que conoce `WHATSAPP_SYSTEM_TOKEN`. El Dashboard opera el canal por el puente `/api/wa/assets` + `/api/wa/send`, autenticado con `x-wa-bridge-secret`; **si la env no está definida el puente DENIEGA** (503) en vez de abrirse. No copiar el token al Dashboard.
+- 🟢 **El App Review de Meta NO hace falta para este caso de uso** (auditoría cerrada 26 jul 2026): sobre activos propios basta el *Acceso estándar*. Solo se retoma si se decide que cada socio conecte su propio número.
 
-**Flujo WABA:**
-```
-WhatsApp (orgánico o CTWA anuncio)
-  └─ POST https://creatuactivo.com/api/whatsapp/webhook
-       └─ extrae número, texto, referral CTWA
-       └─ INSERT en prospects (fingerprint: "wa_{phone}", source: whatsapp_inbound/ctwa)
-       └─ POST /api/nexus { x-tenant-id: whatsapp, fingerprint: wa_{phone} }
-            └─ system prompt queswa_whatsapp + arsenal_inicial RAG
-            └─ StreamingTextResponse consumida completa
-       └─ POST graph.facebook.com/v22.0/{PHONE_NUMBER_ID}/messages
-```
-
-**Regla crítica WABA**: NO modificar `/api/nexus/route.ts`. El webhook es solo adaptador de canal. Toda lógica de IA vive en el motor existente.
-
-⛔ **La FSM de cierre del motor NO aplica a WhatsApp** (aislada 5 ago 2026). Los estados 2/3/4 fueron escritos para la web y su último paso entrega **dos enlaces `wa.me` al número del WABA** — a alguien que escribe desde adentro de esa misma conversación. En `route.ts` el guard es `cierreLoManejaElCanal` (`tenantId === 'whatsapp'`): apaga `getMicroPromptCierre()`, `getCierreEstado4()`, la supresión de RAG de `isClosingFlowEarly` y la de `arsenalParaCierre` (sin texto dictado, el RAG es la única fuente de precios). El cierre del canal vive en [src/lib/wa-radicacion.ts](src/lib/wa-radicacion.ts) → `pending_activations`. **NO reactivar la FSM web para el tenant whatsapp.**
-
-**Capa de canal + puente al Dashboard** (jul 2026):
-- **`src/lib/wa-channel.ts` es el ÚNICO lugar que habla con graph.facebook.com** y que conoce `WHATSAPP_SYSTEM_TOKEN`: `sendText` · `sendTemplate` · `listTemplates` · `getPhoneAsset`. Si Meta cambia de versión de API, se toca este archivo y nada más.
-- **Puente server-to-server** para que el Dashboard opere el canal sin ver el token: `GET /api/wa/assets` + `POST /api/wa/send`, autenticados con header **`x-wa-bridge-secret`** = env `WA_BRIDGE_SECRET` (mismo valor en ambos proyectos de Vercel). ⚠️ **Si la env no está definida el puente DENIEGA** (503) en vez de abrirse.
-- **División de responsabilidad:** marketing = plano de datos (token, webhook, envío). Dashboard = plano de control (permisos, UI humana). La consola vive en `queswa.app/admin/wa-tester`. **No copiar el token al Dashboard** — cualquier superficie nueva consume el puente.
-- ⏳ **Estrategia Queswa-WhatsApp (WIP)**: captación 1-a-1 del arquitecto → Home (video + Queswa) → cierre en espacio en vivo o llamada. El "plan de dos niveles" (ingreso inmediato + duplicación 2×2 → $103.194.000) es el contexto central; vive en `arsenal_12_niveles` y en el slide 4 de `/12-niveles`.
-- ⏸️ **STANDBY**: el "empujón" de Queswa hacia el espacio en vivo del arquitecto queda diferido. Hoy el único empuje al humano es el **warm handoff** (Estado 4 → oferta wa.me). Queswa **no conoce el horario** de cada arquitecto, así que el empujón sería genérico.
-
-**Scripts WABA:**
-- `node scripts/actualizar-system-prompt-whatsapp-v4.mjs` — despliega el system prompt de WhatsApp (fuente: `knowledge_base/system-prompt-queswa-whatsapp-v4.md`). ⚠️ El `...-v1.mjs` sigue en `scripts/` y es la versión vieja; el `-v3.mjs` **ya no existe** — no busque ese nombre
-- `node scripts/clonar-arsenal-whatsapp.mjs` — clona fragmentos arsenal_inicial al tenant whatsapp
+**Scripts:** `actualizar-system-prompt-whatsapp-v4.mjs` (despliega el prompt) · `clonar-arsenal-whatsapp.mjs` (ver la advertencia de arriba).
 
 
 **Key Files**:
@@ -746,64 +723,21 @@ Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai
 
 **Falsa alarma del audit — `desconocido: 40 fragmentos`**: `audit-completo.mjs` clasifica por `metadata.parent_arsenal`; cuando ese campo no está poblado etiqueta "desconocido" aunque la `category` esté bien. Los 40 son fragments reales de `arsenal_compensacion` + los **docs maestros padre** (`arsenal_inicial/ganocafe/reto/marca_personal`, `catalogo_productos`) + `catalogo_productos_PROD_OVERVIEW`. ⚠️ **NO ELIMINAR ninguno** — los docs maestros los necesita el fragmentador para parsear (`.eq('category', arsenalCategory)`). El warning es cosmético; se limpia poblando `metadata.parent_arsenal`.
 
-### Working with Video Content
+### Video y Reels
 
-**Flujo estándar, color grade DaVinci y animaciones Canvas → [docs/handoff/reels/VIDEO_Y_ANIMACIONES.md](docs/handoff/reels/VIDEO_Y_ANIMACIONES.md)**
+> 📄 **Todo el detalle —inventario de los 6 nichos, componentes, posters, hosting, pipeline de actualización, taxonomía de guiones y el reel de la Home— vive en [docs/handoff/reels/REELS_Y_VIDEO.md](docs/handoff/reels/REELS_Y_VIDEO.md).** Post-producción → [scripts/dankoe-video/PIPELINE.md](scripts/dankoe-video/PIPELINE.md), que hay que leer **antes** de ensamblar cualquier reel.
 
-```bash
-./scripts/optimize-video.sh /path/to/video.mp4   # 720p/1080p/4K + poster
-node scripts/upload-to-blob.mjs                  # → Vercel Blob (URLs a .env.local + Vercel)
-```
+**Qué es:** 6 reels verticales por nicho (`corporativo · empleados · empresarios · diaspora · informales · networkers`) que cada socio comparte por WhatsApp. Viven en `creatuactivo.com/{slug}/{nicho}` con tracking de referido. Fuente de verdad: [src/lib/reels.ts](src/lib/reels.ts). **NO** se publica reel nativo en IG/TikTok en esta fase.
 
-### Reel Post-Production Pipeline (`scripts/dankoe-video/`)
+**Las cuatro reglas que rompen algo si se ignoran:**
 
-**Documento completo → [scripts/dankoe-video/PIPELINE.md](scripts/dankoe-video/PIPELINE.md) — leerlo ANTES de ensamblar cualquier reel.** Contiene las recetas (reel de nicho, reflexivo de documentación, desenfoque de fondo, SFX puntuales, patrón "PROPIO" con keyword) y la limpieza de intermedios.
+- ⚠️ **Los campos de engagement son un contrato cerrado con el Dashboard — no se renombran:** `reel_nicho`, `reel_pct`, `reel_completed`, `reel_time_s`, `queswa_opened`, `queswa_messages`, `visit_count`. Los reporta [ReelVideo.tsx](src/components/ReelVideo.tsx) a [`/api/track/engagement`](src/app/api/track/engagement/route.ts), que mergea **sin retroceder** (`Math.max` / OR lógico).
+- ⚠️ **Anti-spam (crítico):** cada escritura dispara un webhook → push al socio. **Máximo ~6 escrituras por sesión.** Solo milestones del reel (25/50/75/100), `queswa_opened` una vez, y `reel_time_s` + `visit_count` en el beacon de salida. Nunca en `timeupdate` ni en heartbeats.
+- ⚠️ **El WhatsApp del socio se lee de `private_users.whatsapp`**, NO de `constructor_slugs.whatsapp`. Bug histórico de "cero inicial" en esos números — el `.replace(/\D/g, '')` lo neutraliza. Fallback: el número orgánico.
+- ⚠️ **Tres tipos de guion, tres registros que no se mezclan** (`public/contexto/produccion/guiones/reels/`): **documentación** (build-in-public, primera persona, despierta curiosidad sin confrontar — su mercado ya cree que "hace Gano Excel" y un hook de negocio en cada reel lo quema) · **nicho** (oportunidad directa, es el copy de las páginas `/{slug}/{nicho}`) · **sitio** (explainer en voz **neutra**, nunca "soy Luis", porque la Home la alimentan todos los socios con su `?ref`).
 
-Lo que hay que saber antes de abrirlo:
-- Acabado cinematográfico en M1, **todo por código**. Entrada = export CapCut ya graduado (**SIN música — pista en mute**, o el pipeline la entierra); salida = 1080×1920·24fps, mezcla **voz-anclada** a −14 LUFS (nunca `loudnorm` sobre toda la mezcla)
-- Subtítulos por forced alignment (`ctc-forced-aligner`) + overlay de PNG con Pillow — **NO libass**. El ffmpeg de esta máquina **no trae `drawtext`** (sin libfreetype), así que todo texto quemado va por PNG
-- Motion graphics Remotion requieren **`--gl=angle`** en M1
-- **Niveles de música calibrados por Luis — al alza, nunca bajar**: nicho 0.80 (networkers 0.90) · reflexivos 1.00 en ambas camas. El cambio suspense→corporativa cae exacto en el pivot narrativo, leído del `*_stamps.json`
-- ⚠️ **Gotcha zsh**: los arrays van desde 1 y las variables de un `filter_complex` **se vacían dentro de una función de shell** → ffmpeg con filtros va explícito e inline
+**Léxico de los tres:** negocio digital a secas · ingreso que no depende de su presencia · usted decide, el sistema hace el trabajo.
 
-
-### Reels por Nicho (fase orgánica WhatsApp)
-
-6 reels verticales por nicho que cada **socio** comparte por WhatsApp a su mercado orgánico: **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales, con el bloque de solución compartido) + **1 especial `networkers`** (gremio del mercadeo en red que ya conoce a Luis y estuvo en Gano Excel — **estructura propia**, hook/diagnóstico/solución/CTA bespoke, NO usa el módulo compartido). Cada reel vive en `creatuactivo.com/{slug}/{nicho}` + tracking de referido. **NO** se publica reel nativo en IG/TikTok en esta fase.
-
-**Jerarquía de conversión en la página** (secuencial, no compite — investigación CTA May 2026: un solo CTA por momento convierte mejor):
-1. **Reel 9:16** alto en pantalla (ojos en el tercio superior; `padding-top` mínimo).
-2. **Copy del nicho** (título serif + cuerpo).
-3. **Queswa = vía rápida**: al terminar el reel **o** al hacer scroll dejándolo atrás, el `ReelVideo` muestra una burbuja sobre el orbe — copy *"Puedo auditar la viabilidad de su caso ahora mismo. ¿Comenzamos?"* (registro Modulación: autoridad clínica "auditar la viabilidad" + invitación accesible "¿Comenzamos?"; eco del reel, sin ancla de tiempo) → al tocarla dispara `open-queswa`. La burbuja se **oculta** a los 25 s, al volver al video (IntersectionObserver) y al abrir el chat (evento `queswa-opened` que emite el orbe).
-4. **Tarjeta YouTube** (presentación de 7 min) — vía reflexiva, facade nativo **full-bleed** (todo el ancho en móvil, cap 680px en desktop).
-5. **Los 3 CTA de cierre del reel**: `Hablar con Queswa` (evento `open-queswa`) + `Activar por WhatsApp` (verde, → WhatsApp del arquitecto; la activación NO pasa por Queswa: quien ya decidió no debe encontrar preguntas de cualificación) + `ShareButton` **"Compartir este diagnóstico"**. ⚠️ El CTA viejo "Diagnóstico de 5 Días" → `/empresa-digital` **se retiró** con el funnel (jul 2026); solo quedan estos 3 botones.
-
-- **Fuente de verdad**: [src/lib/reels.ts](src/lib/reels.ts) — `REEL_NICHOS` (`corporativo`, `empleados`, `empresarios`, `diaspora`, `informales`, `networkers`), `REEL_ASSETS` (solo `{ video }`, URLs Blob), `REEL_COPY` (título/cuerpo/audiencia, versión final aprobada por Luis), `SERVILLETA_YOUTUBE_ID`, `REEL_POSTER`/`REEL_POSTER_OG` (poster branded de fallback) y **`REEL_POSTER_OVERRIDE`** (poster por-nicho).
-- **Poster por-nicho (jun 2026)**: con los reels ya en 3D, cada nicho usa un **frame del propio reel** como portada (más nítido y representativo que el branded genérico). `REEL_POSTER_OVERRIDE[nicho] = { poster: '…-poster.webp', posterOg: '…-poster.jpg' }` — los 5 nichos tienen override. Se generan del master con `ffmpeg -ss 0.5 … scale=1080:1920` (jpg q2) + `sharp` a webp; ambos en `public/videos/reels/`, **commiteados** (servidos por Next, no por Blob). `ReelPage`/`generateMetadata` usan el override y caen a `REEL_POSTER`/`REEL_POSTER_OG` si un nicho no lo tiene. `metadataBase` resuelve la ruta relativa del OG a absoluta.
-- **Componentes** (construidos May 2026): [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) bifurca render-reel vs redirect; [src/components/ReelPage.tsx](src/components/ReelPage.tsx) (Server Component, estética Bimetálica); [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) ('use client' — video `preload="none"` + burbuja Queswa con auto-hide/scroll/chat); [src/components/YouTubeFacade.tsx](src/components/YouTubeFacade.tsx) ('use client' — miniatura `maxresdefault` + play, iframe carga al click). `generateMetadata` emite OG de video + `REEL_POSTER_OG` (`robots: noindex`). Botón WhatsApp usa clase `.cta-whatsapp` (verde) en globals.css.
-- **Orbe en reels**: [src/components/UnifiedQueswaOrb.tsx](src/components/UnifiedQueswaOrb.tsx) suprime su tooltip "Concierge" automático (~2s) cuando `isReelRoute` (pathname `/{slug}/{nicho}` con nicho ∈ `REEL_NICHOS`) — el reel controla su propia burbuja. ⚠️ El orbe es global; el cambio está aislado por ruta para no afectar el resto del sitio.
-- **Tracking de referido**: como el reel se renderiza inline (no redirige), `ReelPage` resuelve `constructor_id` del slug e inyecta un `<script>` inline (corre **antes** del `tracking.js` diferido) que setea `?ref={constructor_id}` vía `history.replaceState` + `localStorage.constructor_ref`. Atribución idéntica a aterrizar en `/?ref=id`. Funciona para cualquier arquitecto (slug dinámico), no solo `luis-cabrejo`.
-- **CTA WhatsApp del arquitecto**: el número vive en **`private_users.whatsapp`** (fuente de verdad — igual que `/api/constructor/[id]` y `/sistema/productos`), **NO** en `constructor_slugs.whatsapp`. El branch del reel lo resuelve por `constructor_id` con fallback al número orgánico `+573206805737`. ⚠️ Bug histórico "cero inicial" en esos números (ver `whatsapp-validator.ts` del repo Dashboard) — el `.replace(/\D/g, '')` lo neutraliza.
-- **Engagement tracking** (Reels Engagement Fase 1, Jun 2026): [src/components/ReelVideo.tsx](src/components/ReelVideo.tsx) instrumenta el comportamiento del prospecto y reporta a [`/api/track/engagement`](src/app/api/track/engagement/route.ts) (que mergea sin retroceder en `device_info` → webhook Supabase → push al arquitecto en queswa.app). **Contrato de datos cerrado con el Dashboard — NO renombrar los campos**: `reel_nicho`, `reel_pct` (máx % visto), `reel_completed` (✅ push "Vio el reel completo"), `reel_time_s` (segundos activos), `queswa_opened` (✅ push "Abrió Queswa"), `queswa_messages`, `visit_count` (✅ push "Volvió a visitar"). **Anti-spam (CRÍTICO)**: cada escritura dispara el webhook → mantener **≤ ~6 escrituras por sesión**. Reportar solo en milestones del reel (25/50/75/100), `queswa_opened` una vez, y `reel_time_s`+`visit_count` en el beacon de salida (`navigator.sendBeacon`). NO escribir en cada `timeupdate` ni en heartbeats. Handoff: [HANDOFF_REELS_ENGAGEMENT_FASE1.md](docs/handoff/reels/HANDOFF_REELS_ENGAGEMENT_FASE1.md).
-- **Estado**: **los 6 reels están en 3D y en producción**. Los **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales) usan inserts 3D de diagnóstico por nicho + módulo de solución compartido (pilares/CTA/outro), atmósfera, subtítulos, música 0.80 y SFX. El **6º, `networkers`**, tiene **estructura propia** (villano `Pulso3D`, inserts bespoke, suspense 0.90 en hook+diagnóstico) y su **música de solución la montó Luis en CapCut** (no el pipeline — deliberado). Masters en `scripts/dankoe-video/masters/{nicho}-3d.mp4` (gitignored); Blob `reels/{nicho}.mp4` (web CRF23). ⏳ Pendiente: "tres pilares"→"3 pilares" en el módulo compartido (re-deploy de los 5). Handoff: `docs/handoff/reels/HANDOFF_REELS_PAGINAS.md`.
-- **Hosting**: Vercel Blob (migrar a Bunny Stream solo si el egress lo justifica). Servilleta NO se auto-hospeda → YouTube. `public/videos/reels/` conserva el poster branded (`poster.webp`/`poster.jpg`), **los posters por-nicho (`{nicho}-poster.webp`/`.jpg`)** y los `.md` — los `.mp4` (crudos + `-web`) son locales/intermedios y se borran tras subir (gitignored, no se sirven; los masters 3D viven en `scripts/dankoe-video/masters/`, el base limpio en CapCut).
-- **Léxico del copy**: usted · Lujo Clínico · **negocio digital** (a secas), ingreso recurrente, 3 pilares. Prohibido: vehículo, red (MLM), patrimonio paralelo, capas, Máquina Híbrida, **Estructura Patrimonial / Base Operativa** (migrados a negocio digital — `REEL_COPY` en `reels.ts` ya migrado).
-- **Pipeline de actualización de video**: export CapCut a `public/videos/reels/{nicho}.mp4` (1080p·24fps·H.264·~20Mbps fuente) → `bash scripts/optimize-reels.sh` (→ `{nicho}-web.mp4`, CRF 23 + `+faststart`) → `node scripts/upload-reels-to-blob.mjs` (sube a `reels/{nicho}.mp4`, **mismas URLs** → no se toca `reels.ts`).
-- **Deploy de un reel 3D** (jun 2026): el reel se ensambla en `scripts/dankoe-video/` (ver [Reel Post-Production Pipeline](#reel-post-production-pipeline-scriptsdankoe-video)) → master a `masters/{nicho}-3d.mp4` → comprimir web (CRF23 + `maxrate 6M` + faststart) → subir a Blob `reels/{nicho}.mp4` (`@vercel/blob put`, `allowOverwrite:true`, **misma URL** → no se toca `REEL_ASSETS`) → generar poster del frame + `REEL_POSTER_OVERRIDE[nicho]` + commit del `.webp`/`.jpg`. El `optimize-reels.sh`/`upload-reels-to-blob.mjs` originales (flujo simple sin 3D) siguen existiendo pero el flujo vivo es el de arriba.
-
-### Guiones de Reels — Taxonomía (3 tipos)
-
-Los guiones (texto hablado) viven en `public/contexto/produccion/guiones/reels/`. **Tres archivos, tres propósitos distintos — NO mezclar el registro entre ellos:**
-
-| Archivo | Tipo | Propósito / registro | Conducto |
-|---------|------|---------------------|----------|
-| `REELS_DIARIOS_DOCUMENTACION.md` | **Documentación** (build-in-public) | **Despierta curiosidad, NO confronta.** Primera persona (Luis), registro Naval. Su mercado natural ya cree que "hace Gano Excel" — si cada reel fuera un hook de negocio incómodo, los quema (analogía: hablar de plata en todo cumpleaños). Documenta cómo, con IA, construye un ingreso recurrente. Orden cronológico (más antiguo arriba). | Historias orgánicas (IG/WhatsApp) + enlace `creatuactivo.com?ref=…` → la persona llega a la home |
-| `REELS_NICHOS_DOCUMENTACION.md` | **Nicho** | Aborda una **oportunidad de negocio directa** por nicho de audiencia. Es el copy de las páginas `/{slug}/{nicho}` (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)). | Páginas web `/{slug}/{nicho}` |
-| `REELS_SITIO_CREATUACTIVO.md` | **Sitio** | **Explainer**: responde a quien **ya llegó con la pregunta "¿de qué se trata?"**. Voz **neutra** (NO "soy Luis") — la home la alimentan todos los arquitectos con su `?ref`, debe ser reutilizable. Empieza con el reel de la **Home** (reemplaza el video viejo del plan servilleta en el hero). Armonizado con la Home (`/`). | Incrustado en el sitio (hero `page.tsx`, etc.) |
-
-**Léxico (los 3):** "negocio digital" a secas (la corona es de CreaTuActivo, no de Gano) · ingreso que no depende de su presencia · usted dirige, el sistema hace el trabajo. Ver [migración léxico accesible](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy).
-
-**Reel HOME (desplegado — v2 del explainer, ~187s):** el explainer 9:16 vive en el hero de [src/app/page.tsx](src/app/page.tsx) vía [src/components/HomeManifestoVideo.tsx](src/components/HomeManifestoVideo.tsx) (reemplazó el `YouTubeFacade`/`SERVILLETA_YOUTUBE_ID`). Talking-head Luis + 10 b-rolls IA (Veo/Vertex; la coordinación luz/sonido que Veo no da fiable se compone por código sobre el máster — ver `HANDOFF_BROLLS_HOME.md`), subtítulos karaoke por forced alignment, música por actos montada en CapCut (pipeline: loudnorm −14 del mix), outro canónico. Asset en Blob (`home/home-manifesto.mp4`, misma URL) + poster `public/videos/home/poster.webp` — constantes `HOME_MANIFESTO_VIDEO`/`HOME_MANIFESTO_POSTER` en [src/lib/reels.ts](src/lib/reels.ts). **Comportamiento:** autoplay muted con chip "ACTIVAR SONIDO"; al terminar (`onEnded`) se desvanece en 1000ms y, si sigue ≥40% en viewport, dispara `open-queswa` + foco en `#queswa-chat-input`; si el usuario scrolleó lejos NO se secuestra el foco. **Master:** `scripts/dankoe-video/masters/reel-home.mp4` + stamps/guión/audio en `captions/work/home_*` (un ajuste = re-render parcial, no empezar de cero); base CapCut en `~/Downloads/clips-reel-home/reel-home-final/`.
 
 ### Founder Spots Counter
 

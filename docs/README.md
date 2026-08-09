@@ -10,6 +10,8 @@ Documentación de trabajo **interna** (fuera de `public/`, así que **no se sirv
 docs/
 ├── SERVILLETA.md   → arquitectura del deck /servilleta (y de su copia /12-niveles)
 ├── PAGINAS_Y_FUNNEL.md → inventario de páginas, historia de la Home y del funnel eliminado
+├── handoff/reels/REELS_Y_VIDEO.md → inventario de los 6 nichos, componentes, hosting, guiones
+├── handoff/queswa/WABA_REFERENCIA.md → estado de la cuenta de Meta, flujo del webhook
 ├── handoff/
 │   ├── reels/      → producción de reels y video (pipeline, post-producción, engagement, páginas)
 │   ├── queswa/     → chatbot Queswa: léxico, voz, técnico, integraciones (WABA, GanoCafé), bugs
@@ -27,6 +29,8 @@ CLAUDE.md se carga entero en cada sesión, así que lo que es **referencia** (se
 |---|---|
 | [SERVILLETA.md](SERVILLETA.md) | Deck de 4 slides: arquitectura mobile, b-rolls 3D, beat del colapso, comandos de re-render, reglas de iconos |
 | [PAGINAS_Y_FUNNEL.md](PAGINAS_Y_FUNNEL.md) | Inventario página por página de `src/app/`, historia de la Home (v13.x → v14.0) y del funnel reto/mapa/diagnóstico eliminado. Extraído de CLAUDE.md el 8 ago 2026 — las trampas que cuestan horas se quedaron allá |
+| [handoff/reels/REELS_Y_VIDEO.md](handoff/reels/REELS_Y_VIDEO.md) | Reels por nicho: inventario, componentes, posters, hosting, pipeline de actualización, taxonomía de los tres guiones y el reel de la Home. Extraído de CLAUDE.md el 8 ago 2026 |
+| [handoff/queswa/WABA_REFERENCIA.md](handoff/queswa/WABA_REFERENCIA.md) | Estado de la cuenta de Meta, diagrama del flujo del webhook y decisiones en curso del canal. Extraído de CLAUDE.md el 8 ago 2026 — las reglas que tumban el canal se quedaron allá |
 | [handoff/reels/VIDEO_Y_ANIMACIONES.md](handoff/reels/VIDEO_Y_ANIMACIONES.md) | Flujo de video estándar, color grade DaVinci (Naval/Dan Koe), animaciones Canvas de `src/app/animaciones/` |
 | [handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md) | Two-Pronged (tráfico vs conversión), voz de Queswa en 3 niveles, mapa y estado de la migración léxica, doctrina del copy, historia del fundador |
 | [../scripts/dankoe-video/PIPELINE.md](../scripts/dankoe-video/PIPELINE.md) | Post-producción de reels (extraído jul 2026) + patrón "PROPIO" con keyword |

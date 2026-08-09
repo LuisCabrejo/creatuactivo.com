@@ -44,12 +44,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |------|---------|
 | Dev server | `npm run dev` |
 | Check active system prompt | `node scripts/leer-system-prompt.mjs` |
-| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` (despliega la versión indicada en `VERSION_LABEL` del script — el archivo conserva el nombre legacy `v27.2`; verificar lo activo con `leer-system-prompt.mjs`) |
+| Update creatuactivo.com prompt | `node scripts/actualizar-system-prompt-v27.2.mjs` (nombre legacy; verificar lo activo con `leer-system-prompt.mjs`) |
+| Update WhatsApp prompt | `node scripts/actualizar-system-prompt-whatsapp-v4.mjs` |
+| SQL directo contra Supabase | `node scripts/sql.mjs -e "select …"` |
+| Auditar cabeceras y frases vetadas | `node scripts/auditar-frases-vetadas.mjs --detalle` |
 | Re-fragmentar arsenal tras editar (genérico) | Patrón purgar + `node scripts/fragmentar-arsenales-voyage.mjs` (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)) |
 | Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
 | POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |
 | Update luiscabrejo.com prompt | `node scripts/actualizar-system-prompt-marca-personal-v1.mjs` |
-| Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` |
+| Update ganocafe.online prompt | `node scripts/actualizar-system-prompt-ganocafe-v1.3.mjs` (nombre legacy) |
 | Rebuild embeddings after arsenal change | `node scripts/fragmentar-arsenales-voyage.mjs` |
 | Deploy Supabase edge function | `npx supabase functions deploy nexus-queue-processor` |
 | NEXUS health check | `curl http://localhost:3000/api/nexus` |
@@ -82,6 +85,8 @@ npx supabase functions deploy nexus-queue-processor  # Deploy queue processor
 
 - ❌ **NO modificar** fallback system prompt en [src/app/api/nexus/route.ts](src/app/api/nexus/route.ts) - actualizar en Supabase
 - ❌ **NO agregar** textos de flujo o respuestas verbatim al System Prompt (`system-prompt-nexus-main-v27_2.md`) — el backend es el dictador absoluto. Todo texto que el modelo deba imprimir exacto va en `getMicroPromptApertura()`, `getMicroPromptCierre()`, `getCierreEstado4()` en `route.ts`, o en `src/lib/respuestas-maestras.ts` (Camino A para chip-triggers WHY_02/EAM_01 + regex EMPRESA_DIGITAL_01)
+- ❌ **NO escribir en una cabecera `[Concepto Nuclear]` la frase que esa misma cabecera prohíbe.** La cabecera **viaja dentro del fragmento** que la búsqueda vectorial le entrega al modelo — no es una nota para nosotros, es texto que él lee en cada consulta (~24% del corpus). Escribir *"no diga X"* es dictarle X. Ocurrió siete veces en una sola semana, y una llegó a producción: la cabecera de `COMP_GEN5_01` prohibía una frase falsa sobre el día de pago y el modelo la copió de ahí. **La regla se enuncia siempre en AFIRMATIVO** — se dice dónde SÍ va el vocabulario. Verificar con `node scripts/auditar-frases-vetadas.mjs --detalle`, que separa disparador (las palabras del prospecto, legítimas) de cabecera y de cuerpo
+- ❌ **NO desplegar copy sin haberlo propuesto antes en el chat** (acuerdo con el Director, 8 ago 2026). Se escribe la respuesta propuesta, él decide, y solo entonces se tocan archivos. Desplegar para después corregir dobla el trabajo y le cuesta tiempo y presupuesto
 - ❌ **NO editar** los textos verbatim de `src/lib/respuestas-maestras.ts` sin sincronizar los bloques `<verbatim_lock>...</verbatim_lock>` en `knowledge_base/arsenal_inicial.txt` (WHY_02 BLOQUE 1, EAM_01 BLOQUE 8). Son fuente dual — backend dictador + RAG fallback — y deben coincidir carácter por carácter
 - ❌ **NO regresar** los marcadores XML `<verbatim_lock>` a corchetes planos `[VERBATIM_LOCK]`. La investigación Gemini (18 May 2026) confirmó que Claude Sonnet 4.6 reconoce XML tags como señales de activación de atención, mientras que los corchetes planos son texto inerte. Migración aplicada en v25.8/v26.8.
 - ❌ **NO modificar** el texto de `getCierreEstado4()` sin actualizar los regex de detección en `route.ts` — hoy son `_handoffYaEntregado` (`/WhatsApp Directo de Activación|mesa directiva|sintetizado su evaluación|Su acceso oficial está aquí/i`) y `nombreSolicitado` (`grep -n "nombreSolicitado" src/app/api/nexus/route.ts`). Si el texto cambia y los regex no, el FSM genera handoffs duplicados o pierde estado. ⚠️ **No cite números de línea aquí** — `route.ts` tiene ~4.800 líneas y se corren en cada edición; use `grep -n` sobre el identificador
@@ -170,21 +175,27 @@ git push origin main
 
 ## Architecture Overview
 
-### Core System: El Tridente EAM
+### Core System: El Método Comprobado
 
-Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
-1. **EXPANSIÓN** - Generación de tráfico (reels por nicho + contenido) y distribución del ecosistema
-2. **ACTIVACIÓN** - Queswa AI conversa y reconoce a quien levantó la mano (NO "filtra" — ver léxico prohibido); constructor cierra con los listos
-3. **MULTIPLICACIÓN** - El 3er Comando (renombrado desde "Maestría" jun 2026, ver [[project_rename_maestria_multiplicacion]]). Multiplicar la empresa digital está a un clic en todo el continente — resuelve el cuello de botella de crecer que atasca a cualquier negocio tradicional. Queswa forma a cada persona nueva (la formación/Academia queda como medio, NO como gancho — "crecimiento personal" en la encuesta = inseguridad, no deseo real)
+**De cara al prospecto son DOS acciones, y la multiplicación es la consecuencia** (8 ago 2026):
 
-**Rol del héroe — DIRECCIÓN EJECUTIVA** (elevado en v19.6, Mar 2026):
-- La labor del constructor es **puramente gerencial**: suministra la "materia prima" (tráfico) al ecosistema
-- La tecnología hace la ejecución técnica; el constructor toma las decisiones de expansión
-- **Lenguaje aprobado**: "Director de Expansión", "Dirección Ejecutiva", "orquesta los comandos"
-- **Lenguaje prohibido**: "Tu Rol (El Director)" como tercer elemento plano — debe estar bajo METODOLOGÍA (Ejecución Exacta)
-- En toda respuesta que explique la Máquina Híbrida, el tercer elemento es METODOLOGÍA, no un rol de ejecución
+1. **Compartir** — usted pasa un enlace a quien quiera.
+2. **Recibir** — usted saluda a quien llega con interés.
 
-**Respuesta canónica WHY_02** — fuente viva: `knowledge_base/arsenal_inicial.txt` BLOQUE 1 (`<verbatim_lock>`), sincronizado carácter por carácter con `MASTER_WHY_02` en `respuestas-maestras.ts`. Desde v5.21–v5.24 (jun–jul 2026) el frame de cara al prospecto es **primeros principios + socios**: *"para que una empresa digital así exista, tres cosas tienen que ser ciertas — **alguien fabrica** (su socio logístico y financiero, Gano Excel) · **una plataforma atiende a las personas** (su socio digital, Queswa) · **usted sabe qué hacer** (un método comprobado) — y en la suya las tres ya están resueltas"* + bisagra *"Usted no entra a Gano Excel; Gano Excel trabaja para usted"*. De cara al prospecto NUNCA "pilares" ni "capas" ni "Máquina Híbrida" (etiquetas internas); el rol del usuario es **Propietario** que dirige. El canon histórico de los Tres Pilares (Matriz Física / Queswa Centro de Mando / Metodología Automatizada) vive solo como arquitectura interna en arsenales profundos — ver [Léxico y voz](#léxico-y-voz--lo-que-se-aplica-en-cada-línea-de-copy) y memoria `feedback_socios_apalancamiento`.
+De esa sencillez salen **la multiplicación del negocio y el aumento de la facturación**, porque quien entra hace exactamente lo mismo. La multiplicación se nombra como **resultado, nunca como un tercer paso**: como tarea suma peso, como consecuencia lo quita.
+
+⚠️ **Las dos acciones nunca van solas.** Entre una y otra va **quién hace el trabajo** — Queswa conversa, resuelve dudas y madura la decisión; Gano Excel fabrica y despacha. Sin eso, dos acciones tan simples se leen como una promesa sin causa, que es la forma exacta de una estafa y el primero de los tres desafíos del modelo.
+
+⚠️ **CUMPLIMIENTO — la consecuencia que se nombra es del NEGOCIO** (multiplicación, facturación), nunca un pago al usuario con día ni monto. Encadenar acciones simples a un pago fechado es una **promesa de ingreso**: Meta la sanciona en el canal —el WABA está atado a la cuenta de anuncios verificada— y en Colombia el Estatuto del Consumidor la vuelve **vinculante para la empresa**. Ver [[feedback_nunca_prometer_pago_fechado]].
+
+**Rol del usuario — es DUEÑO, y el rol no se nombra como cargo** (8 ago 2026):
+- La identidad correcta es la más ligera y más cierta: **usted es el dueño**. El canal es suyo y usted decide con quién lo comparte.
+- Palabras como *dirigir* o *Director* evocan hojas de cálculo y reuniones, y le piden al lector una identidad que todavía no se atribuye. Lo que él hace se dice con **decidir · conectar · ver crecer**.
+- La sensación que debe producir es la de abrir Uber o Nubank: dos toques. **El producto se eleva; la acción se trivializa** — ver [[feedback_tres_desafios_del_modelo]].
+- ⚠️ Los nombres históricos (Tridente EAM · Expandir/Activar/Multiplicación · Arquitecto de Patrimonio · Propietario de Base Operativa · Máquina Híbrida) viven solo como historia en los CHANGELOG. No se usan.
+
+
+**Respuestas canónicas** — la fuente viva es siempre `knowledge_base/arsenal_inicial.txt`, y **aquí no se transcribe ninguna**: se reescriben cada semana y una copia en este archivo envejece en días. Cinco llevan `<verbatim_lock>` sincronizado carácter por carácter con `src/lib/respuestas-maestras.ts` — **WHY_02 · WHY_04 (`MASTER_DINERO_01`) · EAM_01 · EMPRESA_DIGITAL_01 · INVERSION_MARKETING_01** (Camino A). Para ver una respuesta, léala del `.txt`; para saber por qué quedó así, el `[Concepto Nuclear]` de su cabecera y el [CHANGELOG](knowledge_base/CHANGELOG-arsenales.md).
 
 ### 1. NEXUS AI Chatbot
 
@@ -198,7 +209,7 @@ Metodología oficial v19.6 (Directriz Master v46 — reemplaza Framework IAA):
 | `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (en route.ts) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
-| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` **v2.5 en Supabase** (el v3 local NO está desplegado) | Activo — negocio **verificado** y WABA **APPROVED** (comprobado 4 ago 2026) |
+| **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` — consultar la versión viva (ver abajo) | Activo — negocio **verificado** y WABA **APPROVED** |
 
 **Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
 
@@ -228,7 +239,7 @@ ganocafe.online/cafe-3en1/index.html
 
 > 📄 **Estado detallado, historial de Meta y decisiones abiertas → [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md)** (el más reciente) · arquitectura del pipeline → [Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md](docs/handoff/queswa/Handoff_WABA_Queswa_WhatsApp_Estado_Abr2026.md). **No duplique aquí el estado de la cuenta de Meta** — cambia solo y se desincroniza.
 
-- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp` — ⚠️ **lo que CORRE en Supabase es v2.5** (5.805 chars, 31 jul 2026), verificado por consulta. El archivo `knowledge_base/system-prompt-queswa-whatsapp-v3.md` (8.269 chars) y el script `...-v3.mjs` existen pero **nunca se desplegaron**: `VERSION_LABEL` es lo que se pretende, no lo que corre. Comprobar siempre contra la BD. CTWA (`referral` de ads Meta) → `device_info`.
+- Webhook `/api/whatsapp/webhook` (Node, 30s). WABA `+573215193909` | Phone Number ID `1115546358301373` | WABA ID `1436663504253230` (`.env.local` + Vercel). Prompt `queswa_whatsapp`, fuente `knowledge_base/system-prompt-queswa-whatsapp-v4.md`. ⚠️ **`VERSION_LABEL` en el script es lo que se pretende desplegar, no lo que corre** — lo desplegado se consulta siempre contra la BD: `node scripts/sql.mjs -e "select name, version, length(prompt) from system_prompts"`. CTWA (`referral` de ads Meta) → `device_info`.
 - ⚠️ **Tres números, no confundirlos**: `+57 321 519 3909` = el WABA (Queswa) · `+57 320 341 5438` = personal de Luis (el 1-a-1) · `+57 320 680 5737` = WhatsApp Business en su móvil, `WHATSAPP_ORGANICO_DEFAULT` (fallback de reels).
 
 **Reglas que rompen el canal si se ignoran:**
@@ -262,7 +273,7 @@ WhatsApp (orgánico o CTWA anuncio)
 - ⏸️ **STANDBY**: el "empujón" de Queswa hacia el espacio en vivo del arquitecto queda diferido. Hoy el único empuje al humano es el **warm handoff** (Estado 4 → oferta wa.me). Queswa **no conoce el horario** de cada arquitecto, así que el empujón sería genérico.
 
 **Scripts WABA:**
-- `node scripts/actualizar-system-prompt-whatsapp-v3.mjs` — actualiza system prompt WhatsApp en Supabase (`VERSION_LABEL = v3.0`). El `...-v1.mjs` sigue en `scripts/` pero es la versión vieja — **no** usarlo
+- `node scripts/actualizar-system-prompt-whatsapp-v4.mjs` — despliega el system prompt de WhatsApp (fuente: `knowledge_base/system-prompt-queswa-whatsapp-v4.md`). ⚠️ El `...-v1.mjs` sigue en `scripts/` y es la versión vieja; el `-v3.mjs` **ya no existe** — no busque ese nombre
 - `node scripts/clonar-arsenal-whatsapp.mjs` — clona fragmentos arsenal_inicial al tenant whatsapp
 
 
@@ -281,16 +292,22 @@ WhatsApp (orgánico o CTWA anuncio)
 - [src/components/nexus/useSlidingViewport.ts](src/components/nexus/useSlidingViewport.ts) - Mobile viewport handling
 
 **How It Works**:
-1. **Fragmented Vector Search** (v14.9) — 8 arsenales con Voyage AI embeddings (95% token reduction, **179 fragments en Supabase**):
+1. **Fragmented Vector Search** (v14.9) — 7 arsenales fragmentados con embeddings Voyage AI (95% menos tokens de entrada).
 
-| Arsenal | Tenant | Versión actual | Contenido |
-|---------|--------|----------------|-----------|
-| `arsenal_inicial` | creatuactivo_marketing | **v5.25** (4 jul 2026) | Doctrina base: WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE, ACTIVACION, EMPRESA_DIGITAL, NET + DIASPORA. **55 fragments** (56 respuestas en el .txt — FREQ_04_PUENTE no se fragmenta; su contenido vive en el doc padre). WHY_02 / EAM_01 / EMPRESA_DIGITAL_01 llevan `<verbatim_lock>` sincronizado carácter por carácter con `respuestas-maestras.ts` (Camino A). ⚠️ **STORY_02** (mesa en dos patas — Mocoa, canónica, "NO inventar detalles") + **FREQ_28** con **GUARD diciembre**: meta personal de Luis, NUNCA fecha de lanzamiento (cupos, no calendario). ⏳ Pendiente: fugas "al sistema" en FREQ_02/FREQ_11. Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_inicial). |
-| `arsenal_avanzado` | creatuactivo_marketing | **v12.4** (25 jun 2026) | Objeciones complejas, sistema, valor, escalación (18 fragments). ⚠️ **Cifras del plan INTACTAS**. Villano = dependencia, no el trabajo (ver [[feedback_horas_no_son_el_villano]]). Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_avanzado). || `arsenal_compensacion` | creatuactivo_marketing | **v7.3** (12 jul 2026 — composición ESP corregida + upgrades) | Plan de compensación (**42 fragments**). COMP_PAQ_02/03/04 = composición ESP-1/2/3 actualizada (totales 7/18/35 sin cambio) + **COMP_PAQ_05** = tablas de upgrade (ESP-1→2/1→3/2→3, 11/28/17 productos). ⚠️ Los swaps léxicos (v7.x "negocio/empresa digital") son **SOLO de marca** — **cifras/%/GCV/PV/tasas/nombres del plan INTACTOS** (se conservan los "opera" de Gano Excel y "escala por volumen" de la tabla de rangos). **NO modificar vocabulario ni cifras restantes; término "PVP" prohibido.** Historial → [CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md#arsenal_compensacion). |
-| `arsenal_12_niveles` | creatuactivo_marketing | **v5.0** (20 jul 2026 — léxico accesible) | Los 12 Niveles (13 fragments: NIVELES 1-7 + INV 1-6). **Migrado a usted** + "red"→"organización" (conserva "Kit de Inicio" y cifras/PV/CV del plan). NIVELES_02 corregido ($103.194.000 exacto = 25.200×(2¹²−1)); NIVELES_04 sin formulario roto; NIVELES_01 audiencia (nuevos + empresario activo). Activa con "12 niveles"/"kit de inicio" **+ "2×2"/"duplicación"/"103 millones"/"simulador"** (v5.0). |
-| `catalogo_productos` | creatuactivo_marketing | **v7.2** (22 May 2026) | 22 productos + ciencia (Lujo Clínico). Fragmentado en 25 fragments + doc maestro. PROD_OVERVIEW + BEB_01/LUV_01/SUP_01/PERS_01 con `<verbatim_lock>` para evitar alucinaciones de nombres (Ganotea/Gano Cocoa/Gano Supreme) y omisión de categorías. Bug pendiente: CV/PV en respuestas individuales. |
-| `arsenal_marca_personal` | marca_personal | **v1.1** (Abr 2026) | Identidad/historia/metodología Luis Cabrejo (11 respuestas) — para luiscabrejo.com. |
-| `arsenal_ganocafe` | ecommerce | **v1.5** (Mar 2026) | Productos GanoCafe (16 respuestas) — para ganocafe.online. |
+> ⚠️ **Aquí NO se escriben números de versión ni conteos de fragmentos.** Cambian cada semana, nadie los actualiza al desplegar, y un dato viejo dentro del archivo que se carga en cada sesión tiene apariencia de autoridad. **Dónde está la verdad:** la versión de cada arsenal, en la cabecera de su `.txt`; lo que corre en Supabase, con `node scripts/sql.mjs -e "select tenant_id, count(*) from nexus_documents where (metadata->>'is_fragment')::boolean is true group by 1"`; los system prompts, con `node scripts/leer-system-prompt.mjs` o la misma consulta sobre `system_prompts`.
+
+| Arsenal | Tenant | Contenido |
+|---------|--------|-----------|
+| `arsenal_inicial` | creatuactivo_marketing + clon en `whatsapp` | Doctrina base: WHY, STORY, VS, PERFIL, FREQ, CRED, OBJ, VOICE, EAM, CIERRE, ACTIVACION, EMPRESA_DIGITAL, NET, DIASPORA. Cinco fragmentos son **doble fuente** con `respuestas-maestras.ts` (ver Camino A) |
+| `arsenal_avanzado` | creatuactivo_marketing + clon | Objeciones complejas, mecánica técnica, cierre y el Método. ⚠️ Cifras del plan INTACTAS |
+| `arsenal_compensacion` | creatuactivo_marketing + clon | Plan de compensación completo. ⚠️ **Cifras, %, GCV, PV/CV, tasas y nombres del plan NO se tocan** — los swaps léxicos son solo de marca. Término "PVP" prohibido |
+| `arsenal_12_niveles` | creatuactivo_marketing + clon | Los 12 Niveles + Kit de Inicio. Activa con "12 niveles" / "kit de inicio" / "2×2" / "duplicación" / "103 millones" / "simulador" |
+| `catalogo_productos` | creatuactivo_marketing + clon | 22 productos + ciencia (Lujo Clínico). PROD_OVERVIEW y las tablas por categoría llevan `<verbatim_lock>` — sin él el modelo alucina nombres y omite categorías |
+| `arsenal_marca_personal` | marca_personal | Identidad, historia y metodología de Luis Cabrejo — para luiscabrejo.com |
+| `arsenal_ganocafe` | ecommerce | Productos GanoCafe — para ganocafe.online |
+
+⚠️ **Los tenants `creatuactivo_marketing` y `whatsapp` deben tener exactamente los mismos fragmentos.** Todo despliegue termina clonando; si los conteos difieren, algo quedó a medias.
+
 
 **Historial completo de cambios por arsenal** → [knowledge_base/CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md)
 
@@ -312,7 +329,7 @@ WhatsApp (orgánico o CTWA anuncio)
    - Archetype classification
 
 4. **System Prompt** - Stored in Supabase `system_prompts` table (name: `nexus_main`)
-   - **Versión activa: `v29.5_compartir_recibir_multiplicar`** — es el `VERSION_LABEL` de [scripts/actualizar-system-prompt-v27.2.mjs](scripts/actualizar-system-prompt-v27.2.mjs), es decir lo último que se **intentó** desplegar. ⚠️ **Verificar siempre lo que corre en Supabase con `node scripts/leer-system-prompt.mjs`** — local ≠ DB. Las reglas de abajo se calibraron en v29.2 "triada_sin_pronombre" (3 jul 2026) y siguen vigentes salvo lo que el CHANGELOG diga. Reglas vigentes: **regla de moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD) · tríada sin pronombre ("alguien fabrica · una plataforma atiende a las personas"). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels:** el prompt sabe que la mayoría llega tras ver un reel; el saludo post-reel lo acompaña `getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts). Historial → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md).
+   - ⚠️ **Lo desplegado se consulta, no se recuerda:** `node scripts/leer-system-prompt.mjs`. El `VERSION_LABEL` del script es lo que se pretende desplegar; local ≠ DB. Historial y calibraciones → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md). Reglas vigentes: **moneda por país** (Colombia → solo COP · US → USD · resto/desconocido → USD). ⚠️ **Promesa canónica:** *"Queswa explica, atiende y **madura en cada interesado la decisión de avanzar**, las 24 horas"* (objeto = la decisión, NO la persona → activo sin presionar). **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión — ver [[feedback_promesa_canonica_queswa]]. La calidez humana (el equipo recibe de la mano al que ya decidió) conserva "acompaña". **Contexto reels:** el prompt sabe que la mayoría llega tras ver un reel; el saludo post-reel lo acompaña `getReelGreeting()` en [src/lib/queswa-greeting.ts](src/lib/queswa-greeting.ts). Historial → [CHANGELOG-system-prompts.md](knowledge_base/CHANGELOG-system-prompts.md).
    - ⚠️ **El archivo fuente conserva el nombre legacy `system-prompt-nexus-main-v27_2.md`** — no se renombró pese a las versiones internas v28.x. Migración léxico "negocio/empresa digital" aplicada en v28.0–v28.1.
    - Versiones anteriores del archivo eliminadas — viven en git: `git show <hash>:knowledge_base/system-prompt-nexus-main-vXX_Y.md`
    - Cached in-memory for 5 minutes
@@ -542,7 +559,7 @@ Tráfico SEO (Blog) → /blog/* → Home / /fundadores
 Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails) → Home / /fundadores
 ```
 
-> 🔤 **FUNNEL RETO/MAPA/DIAGNÓSTICO ELIMINADO (jul 2026 — commits `ca6ff59` + `8256c82`).** Meses de prueba con cero conversión (1 registro que no avanzó). Se retiraron **por completo**: páginas `/empresa-digital` (squeeze + dia-1..5), `/diagnostico`, `/confirmacion`; API `cron/reto-5-dias`, `api/diagnostico`, `webhooks/prospect-capture`, `test-reto-email`; correos `reto-5-dias/Dia1-5` + `Reto5DiasConfirmation` + `MapaDeSalidaConfirmation`; el arsenal `arsenal_reto` (routing fuera del motor; **purga de Supabase pendiente post-deploy** — `like 'arsenal_reto%'`); y las libs `sendpulse.ts` + `whatsapp-meta.ts`. **Funnel vigente: reel → Queswa → 1-a-1.** URLs viejas (`/empresa-digital`, `/negocio-digital`, `/auditoria-patrimonial` + subrutas) → **Home** (301). Ver [[project_home_reposicion_2026]] · [[project_lexico_negocio_digital]].
+> 🔤 **FUNNEL RETO/MAPA/DIAGNÓSTICO ELIMINADO (jul 2026 — commits `ca6ff59` + `8256c82`).** Meses de prueba con cero conversión (1 registro que no avanzó). Se retiraron **por completo**: páginas `/empresa-digital` (squeeze + dia-1..5), `/diagnostico`, `/confirmacion`; API `cron/reto-5-dias`, `api/diagnostico`, `webhooks/prospect-capture`, `test-reto-email`; correos `reto-5-dias/Dia1-5` + `Reto5DiasConfirmation` + `MapaDeSalidaConfirmation`; el arsenal `arsenal_reto` (routing fuera del motor; **purga de Supabase completada** — verificado 8 ago 2026, 0 filas); y las libs `sendpulse.ts` + `whatsapp-meta.ts`. **Funnel vigente: reel → Queswa → 1-a-1.** URLs viejas (`/empresa-digital`, `/negocio-digital`, `/auditoria-patrimonial` + subrutas) → **Home** (301). Ver [[project_home_reposicion_2026]] · [[project_lexico_negocio_digital]].
 
 > 🏠🏠 **HOME v14.0 "LENGUAJE CONCRETO" (2 ago 2026) — supersede el callout de jun 2026 de abajo.** La Home real (`src/app/page.tsx`) es ahora el contenido aprobado del ejercicio `/prueba`: **CERO "empresa digital"** (bautizo diferido a Academia/Maestría — ver memoria `feedback_bautizo_empresa_digital_diferido`), hero = reel explainer + *"Un segundo ingreso, en paralelo al que ya tiene — con el potencial de igualarlo o superarlo"*, villano narrado (trancón 1 + *"le pasa igual al que gana dos millones y al que gana veinte"*), orden WHY_02 (dinero → recurrencia → dos fuerzas), **Compartir · Recibir · Multiplicar**, producto test-Beto, dos puertas, anticlímax + cierre Vélez. Secciones retiradas de la v13.7: Diagnóstico, "¿Qué es una empresa digital?", Perfiles, `CognitiveLoadComparator`, `TridenteAphorisms` (con esto el aforismo "Usted no explica" salió de la Home), calculadora inline y `VisionSection`. Se conservan: `force-static`, footer con "Fundada por Luis Cabrejo" (requisito verificación WhatsApp/Meta), CTAs "Hablar con Queswa"/"Suscríbete". `/prueba` queda como sandbox (noindex). El párrafo de abajo describe la v13.x — **léelo solo como historia**.
 >
@@ -553,7 +570,7 @@ Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails
 - `calculadora/` — Calculadora de ingresos (indexada) → alimenta la secuencia soap-opera (cron `process-emails`).
 - ⛔ **Funnel eliminado (jul 2026, commits `ca6ff59`+`8256c82`):** `empresa-digital/` (squeeze + dia-1..5), `confirmacion/` (Bridge), `diagnostico/` (quiz de tráfico pagado), `reto-5-dias/` y `mapa-de-salida/` fueron **borradas** — meses de prueba, cero conversión. Todas las URLs viejas → **Home** (301). Funnel vigente: reel → Queswa → 1-a-1.
 - `paises/` — Páginas por destino con sub-ruta dinámica `[destino]/` (ej. `brasil/`).
-- `[slug]/` — **Mini-landing personal del Arquitecto de Patrimonio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
+- `[slug]/` — **Mini-landing personal del socio** (`creatuactivo.com/luis-cabrejo`). Micro-sitio personalizado con foto, frase y links del constructor. OG dinámico para WhatsApp. Lee de `constructor_slugs` (slug, display_name, foto_url, frase_personal, whatsapp) + `private_users` (affiliation_link, profile_photo_url). ❌ NO es para blog slugs — esos van bajo `/blog/`.
 - `[slug]/[destino]/` — **Bifurca** según el segundo segmento: si `[destino]` ∈ `REEL_NICHOS` **renderiza** la página de Reel (`<ReelPage>`); si `[destino] === 'manifiesto'` **renderiza** el Manifiesto de los Fundadores compartible con atribución (URL limpia `/{slug}/manifiesto` — el `ref` se inyecta a `localStorage`, sin `?ref`; OG image dedicado en `/manifiesto/opengraph-image`); si no, ejecuta el **redirect** con tracking. `DESTINO_MAP` en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx) resuelve destinos cortos (home, calculadora, productos, servilleta, `activacion`→`/paquetes`, presentacion, reto/12-niveles) a rutas reales con `?ref={constructorId}`. Los destinos del funnel eliminado (`auditoria`, `diagnostico`, `dia-1..5`) se retiraron (jul 2026). Los slugs de nicho y `manifiesto` no colisionan con `DESTINO_MAP`. Ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp).
   - ⚠️ **GOTCHA (cuesta horas): un destino que NO esté en `DESTINO_MAP` (ni en nichos/manifiesto) cae al fallback `redirect(/{slug})` = la mini-landing, SIN 404.** Síntoma típico: "el enlace `/{slug}/X` lleva a la mini-landing". Caso reciente (jul 2026): `activacion` apuntaba al squeeze muerto y se reapuntó a `/paquetes?ref`. Al sumar un enlace amigable nuevo en el Dashboard (`src/lib/arsenal.ts`), agregar SIEMPRE su destino aquí.
   - ⚠️ **OG por página estática:** la página destino (ej. `/calculadora`) debe declarar su **propio `openGraph.url`** en su `layout.tsx`/metadata. Si solo define `title`/`description` y NO `openGraph`, hereda el del root layout (`og:url = dominio raíz`) → al compartir en **Meta**, la publicación enlaza a la raíz aunque el enlace pegado sea correcto. Tras corregir, forzar re-scrape en el [Sharing Debugger](https://developers.facebook.com/tools/debug/) (Meta cachea el OG viejo).
@@ -646,9 +663,9 @@ Ver [.env.example](.env.example) para la lista completa con instrucciones de con
 - Lanzamiento público: **sin fecha dura** (decisión 31 May 2026). La fase de cimentación está **en curso** (selección de los 15); el despliegue público global llega **una vez consolidada la base fundacional**. La urgencia es la **banda directiva finita** (tiempo del núcleo para los 15), NO un calendario. ❌ No usar "1 de junio" ni ninguna fecha de lanzamiento en arsenales/Queswa.
 - Equipo base Fundadores inicial: **15 socios estratégicos / 15 cupos**
 - Porcentaje de automatización tecnológica: **90%** (la tecnología hace el 90% del trabajo pesado)
-- Tres Pilares canónicos (NO "Máquina Híbrida", NO "capas"): **Pilar 1 — La Matriz Física** (Gano Excel, 70 países, pasivos logísticos) · **Pilar 2 — Queswa, su Centro de Mando** (IA propietaria, queswa.app) · **Pilar 3 — La Metodología Automatizada** (El Tridente EAM: protocolo de ejecución estandarizado que erradica el ensayo y error) — recategorización aplicada en v26.5 (May 2026). ⚠️ **De cara al prospecto (jun 2026) usar léxico accesible:** Pilar 1 → **El Respaldo Operativo** · Pilar 3 → **El Método Comprobado**. Los nombres canónicos de arriba siguen vivos solo en arsenales profundos + system prompt aún sin migrar (ver Queswa Vocabulary).
+- **Las tres fuerzas, de cara al prospecto:** **Gano Excel** (fabrica, almacena y despacha — 30 años, 70 países) · **Queswa** (explica, atiende y madura la decisión, a toda hora) · **el Método Comprobado** (Compartir y Recibir, ver arriba). Se nombran así, en llano. Las etiquetas internas —Pilares, Matriz Física, Centro de Mando, Metodología Automatizada— sobreviven en arsenales profundos pero **no se usan con el prospecto**.
 - Activo del Arquitecto: **Base Operativa** — unidad replicable que se escala activando nuevas Bases Operativas
-- Rol del usuario: **Arquitecto de Patrimonio** — dirige los tres pilares, NO es uno de ellos. Labor puramente gerencial/directiva, no operativa. ⚠️ **De cara al prospecto (jun 2026): "Propietario de Base Operativa"** (léxico accesible; "Arquitecto" generaba barrera de autoeficacia — analogía Ray Kroc: vende la propiedad de un sistema que ya funciona).
+- Rol del usuario: **es el dueño de su canal**, y el rol **no se nombra como cargo** (8 ago 2026). Lo que hace se dice con verbos: **decidir · conectar · ver crecer**. Los títulos —Arquitecto de Patrimonio, Propietario de Base Operativa, Director— crean barrera de autoeficacia y evocan hojas de cálculo; la identidad más ligera y más cierta es *dueño*, que además es lo que compró.
 - Multiplicación (3er Comando, renombrado desde "Maestría" jun 2026): multiplicar la empresa digital está a un clic en todo el continente — resuelve el cuello de botella de crecer. La Academia/formación es el medio (Queswa forma a cada persona nueva), NO el gancho. Ver [[project_rename_maestria_multiplicacion]]
 - Gano Excel presencia global: **70 países** (oficial — no usar 60)
 - Sub-perfiles del Constructor: **Perfil-A** (ejecutivo/alto ingreso) · **Perfil-B** (negocio propio) · **Perfil-C** (independiente/freelance) — uso interno únicamente. Las etiquetas "Esposas de Oro", "Trampa Operativa", "Creador de Ingreso Lineal" están **eliminadas** — atacaban la identidad del prospecto. El villano es siempre el Plan por Defecto, nunca la actividad del héroe.
@@ -712,12 +729,25 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **Workflow** (Arquitectura Consolidada v3.0 - Feb 2026):
 
-**IMPORTANTE — Protocolo correcto de actualización de fragmentos:**
-1. Editar el `.txt` en `knowledge_base/`
-2. Deploy del documento fuente a Supabase: `node scripts/deploy-arsenal-<nombre>.mjs`
-3. **Purgar fragmentos obsoletos** por prefijo (NO basta con saltar este paso — el fragmentador lo detecta y skipea: `⏭️  arsenal_inicial_FREQ_03 ya existe, saltando…`)
-4. Re-ejecutar `fragmentar-arsenales-voyage.mjs` (regenera solo los purgados — los demás se saltan)
-5. Verificar con `node scripts/audit-completo.mjs`
+**RECETA DE DESPLIEGUE DE UN FRAGMENTO — los cinco pasos, siempre los cinco.** El fragmentador **salta** lo que ya existe, así que sin purgar no pasa nada y todo parece bien. Y sin clonar, la web queda actualizada y **WhatsApp no** — que es el canal donde está el tráfico.
+
+```bash
+# 1. editar el .txt   →   2. subir el documento padre
+node scripts/deploy-arsenal-inicial.mjs
+
+# 3. purgar el fragmento viejo (sin esto, el paso 4 lo salta en silencio)
+node scripts/sql.mjs -e "delete from nexus_documents where category='arsenal_inicial_XXX'"
+
+# 4. regenerar con embedding Voyage
+node scripts/fragmentar-arsenales-voyage.mjs
+
+# 5. clonar al tenant whatsapp — NUNCA se omite
+node scripts/sql.mjs -e "insert into nexus_documents (category, title, content, embedding_512, tenant_id, metadata)
+select category, title, content, embedding_512, 'whatsapp', metadata || '{\"cloned_from\":\"creatuactivo_marketing\"}'::jsonb
+from nexus_documents where tenant_id='creatuactivo_marketing' and category='arsenal_inicial_XXX'"
+```
+
+**Verificar con un `content like` sobre lo que entró Y sobre lo que debía salir, en los dos tenants** — comprobar solo lo nuevo deja pasar los residuos. Después `node scripts/auditar-frases-vetadas.mjs`. Si el fragmento es de **doble fuente**, sincronizar antes `src/lib/respuestas-maestras.ts` y confirmar longitudes idénticas.
 
 **Patrón validado para purgar (24 May 2026, v5.4 deploy):**
 
@@ -770,7 +800,7 @@ Lo que hay que saber antes de abrirlo:
 
 ### Reels por Nicho (fase orgánica WhatsApp)
 
-6 reels verticales por nicho que cada **Arquitecto de Patrimonio** comparte por WhatsApp a su mercado orgánico: **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales, con el bloque de solución compartido) + **1 especial `networkers`** (gremio del mercadeo en red que ya conoce a Luis y estuvo en Gano Excel — **estructura propia**, hook/diagnóstico/solución/CTA bespoke, NO usa el módulo compartido). Cada reel vive en `creatuactivo.com/{slug}/{nicho}` + tracking de referido. **NO** se publica reel nativo en IG/TikTok en esta fase.
+6 reels verticales por nicho que cada **socio** comparte por WhatsApp a su mercado orgánico: **5 de tráfico** (corporativo · empleados · empresarios · diaspora · informales, con el bloque de solución compartido) + **1 especial `networkers`** (gremio del mercadeo en red que ya conoce a Luis y estuvo en Gano Excel — **estructura propia**, hook/diagnóstico/solución/CTA bespoke, NO usa el módulo compartido). Cada reel vive en `creatuactivo.com/{slug}/{nicho}` + tracking de referido. **NO** se publica reel nativo en IG/TikTok en esta fase.
 
 **Jerarquía de conversión en la página** (secuencial, no compite — investigación CTA May 2026: un solo CTA por momento convierte mejor):
 1. **Reel 9:16** alto en pantalla (ojos en el tercio superior; `padding-top` mínimo).
@@ -994,7 +1024,7 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
 | `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
 | `src/app/api/webhooks/` | Directorio **vacío** | Quedó de la purga del funnel (`ca6ff59`) — ya no contiene `route.ts`. Seguro de borrar |
-| `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy | El vigente es `...-whatsapp-v3.mjs` (`VERSION_LABEL = v3.0`) |
+| `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy | El vigente es `...-whatsapp-v4.mjs`. El `-v3.mjs` ya no existe |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
 
 ## Insights Estratégicos
@@ -1063,11 +1093,13 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 **Location**: `scripts/` directory (~48 scripts). La mayoría requiere variables de `.env.local`; corre `ls scripts/` para la lista completa. Abajo solo los que llevan gotcha o no son auto-descriptivos.
 
-**NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — no asumir local=DB) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión de `VERSION_LABEL` (hoy **v29.5_compartir_recibir_multiplicar**); ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`** — las versiones anteriores viven en git + `CHANGELOG-system-prompts.md`.
+**NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — **no asumir local = DB**) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión indicada en su `VERSION_LABEL`; ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`**. Historial → `CHANGELOG-system-prompts.md`.
 
 **Knowledge Base**: `deploy-arsenal-{inicial,avanzado,12-niveles,compensacion,ganocafe,marca-personal}.mjs` + `actualizar-catalogo-productos.mjs` (deploy por arsenal) — ⚠️ `deploy-arsenal-reto.mjs` **ya no existe** (se borró con el funnel del reto, jul 2026) · `verificar-arsenal-supabase.mjs` / `descargar-arsenales-supabase.mjs`.
 
 **Embeddings (Voyage)**: `fragmentar-arsenales-voyage.mjs` (crea fragments con embeddings; salta los existentes) · `audit-completo.mjs` (audit completo: cuenta fragments, detecta huérfanos y embeddings faltantes — preferido) · `purgar-fragmentos-duplicados.mjs` · `regenerar-embeddings-voyage.mjs`. ⚠️ `actualizar-fragmentos-modificados.mjs` tiene fragments HARDCODED — **NO** usar como genérico (ver [Updating Queswa Knowledge](#updating-queswa-knowledge)).
+
+**Auditoría de copy**: `auditar-frases-vetadas.mjs` — recorre los fragmentos separando **disparador** (la línea `###`, con las palabras del prospecto: legítimas) de **cabecera** (`[Concepto Nuclear]`, texto que el modelo lee) y **cuerpo** (lo que lee el prospecto). Marca frases vetadas y, sobre todo, **cabeceras que citan lo que rechazan**. `--detalle` muestra cuáles. Estado sano: 0 cabeceras.
 
 **SQL directo**: `sql.mjs` — ejecuta SQL contra Supabase desde la terminal (`node scripts/sql.mjs archivo.sql` · `-e "select …"` · `--dry`). Evita pegar migraciones a mano en el panel y permite **verificar el resultado en el mismo paso**. Usa `SUPABASE_ACCESS_TOKEN` (token personal, revocable en un clic desde el panel) — **no** la contraseña de la base. ⚠️ Ejecuta lo que se le pase, incluido `DROP`.
 
@@ -1125,6 +1157,15 @@ Automatically extracts performance data from Google Search Console API.
 3. **Test Beto** — si un profesional inteligente sin MBA no la entiende, la frase está prohibida. El lujo es la claridad
 4. **Concepto nuclear (modelo Waze)** — *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*
 
+**Las cuatro reglas de la sesión del 8 ago 2026** — salieron de reescribir 18 respuestas seguidas con el Director, y son las que más se violan:
+
+- **No explicarle jazz a quien no sabe música.** Dar el contexto completo y el detalle exacto **confunde**: es información precisa que el lector no puede recibir. Una idea por párrafo; y cuando aparezca la tentación de agregar una precisión "para que quede completo", ese es exactamente el momento de no hacerlo. Donde más daño hace es en el plan de compensación ([[feedback_explicar_jazz]]).
+- **Listas de presencias, nunca de ausencias.** *"En un negocio tradicional usted paga arriendo, nómina, inventario y transporte"* cuesta una fracción de *"sin local, sin empleados, sin bodega"* — en la segunda el lector construye cada cosa para después tacharla.
+- **El producto se eleva; la acción se trivializa.** El registro sube tomando prestado el léxico de **las finanzas**, nunca el del gremio del mercadeo en red (analogía del cannabis: esa industria cambió su estigma con el léxico de la medicina). La prueba: ¿esa palabra la diría una banca privada, o solo alguien que lleva años en esta industria? ([[feedback_elevar_registro_desde_finanzas]])
+- **La nomenclatura del plan va literal.** *Binario 17%*, *Bono GEN5*, *GCV*, *PV/CV* **no se traducen** por accesibles que suenen: decir *"su comisión queda en 17%"* hace que el modelo y la persona calculen sobre la facturación cuando corre sobre el GCV. La accesibilidad manda en el **marco**; la precisión manda en la **cifra y su nombre** ([[feedback_nomenclatura_del_plan_literal]]).
+
+**Antes de reescribir cualquier respuesta, busque con quién colisiona.** En una sola sesión aparecieron cuatro fragmentos distintos respondiendo la misma pregunta con criterios opuestos — el prospecto recibía una cosa u otra según el azar del vector search. Comparar disparadores primero: `node scripts/sql.mjs -e "select category, title from nexus_documents where tenant_id='whatsapp' and category like 'arsenal_%'"`.
+
 **Prohibiciones de alta frecuencia** (el resto → BRANDING.md §7):
 - **filtrar / filtro / descartar** → conversar · madurar la decisión · reconocer quién está listo ([[feedback_filtrar_prohibido]])
 - **Maestría** (3er Comando) → **Multiplicación** ([[project_rename_maestria_multiplicacion]])
@@ -1148,7 +1189,7 @@ Automatically extracts performance data from Google Search Console API.
 
 **Voz del agente (resumen de los 3 niveles)**: aforismos y nombres propios en **tercera** persona ("Queswa explica", "Centro de Mando Queswa"); lo que el agente hace AHORA en la conversación, en **primera** ("yo proceso", "me encargo"). Detalle y casos límite → el doc enlazado arriba.
 
-**Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): Tres Pilares (NUNCA "capas"/"Máquina Híbrida") · Tridente EAM = Expandir · Activar · Multiplicación · 90% automatizado · 70 países (Gano) · 15 países operativos (CreaTuActivo) · 15 cupos Fundadores.
+**Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): el Método Comprobado = **Compartir · Recibir**, y la multiplicación es la consecuencia · 90% automatizado · 70 países (Gano) · 15 países operativos (CreaTuActivo) · 15 cupos Fundadores.
 
 **Cierre v5.2 (May 2026) — frase canónica única**: cuando el prospecto pregunta cómo se inicia, Queswa entrega FREQ_03 (los 3 niveles ESP + pregunta de selección) en `<verbatim_lock>`. Sin entrevista BANT, sin "equipo de Dirección Estratégica", sin "Asignación de Capital". El FSM avanza a Estado 3 (nombre) → Estado 4 (warm handoff automático).
 

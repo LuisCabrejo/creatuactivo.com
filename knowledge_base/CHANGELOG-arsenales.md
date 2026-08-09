@@ -12,6 +12,35 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_inicial
 
+### v5.69 — Dos eliminadas, dos corregidas, y una lección de despliegue (9 ago 2026)
+
+Auditoría de redundancia pedida por el Director antes de subir el tráfico. Se separó lo que **produce una respuesta mala** de lo que solo produce una respuesta **redundante**, y solo se tocó lo primero: la víspera de multiplicar el tráfico por 25 no es el momento de mover seis fragmentos que funcionan.
+
+**Antes de borrar se midió quién hereda la pregunta**, y la medición cambió el plan en dos de cuatro casos:
+
+| Candidata | Hereda | Decisión |
+|---|---|---|
+| `FREQ_19` | `DIASPORA_01` 0.572 / 0.471 | ✅ eliminada |
+| `CRED_03` | `ADV_OBJ_01` 0.496 · `FREQ_07` 0.481 | ✅ eliminada |
+| `CRED_02` | `EMPRESA_DIGITAL_01` 0.481 ⚠️ | ❌ **editada**, no eliminada — lo que heredaba explica qué es un negocio digital, no cuántos años lleva la empresa |
+| `FREQ_17` | `COMP_GEN5_01` 0.522 ⚠️ | ❌ **editada** — habría mandado *"¿cómo me pagan?"* a las tablas del plan en vez de al *cada viernes en su cuenta* |
+
+**`FREQ_19` no era redundancia, era contradicción.** Sobre qué pasa al mudarse de país decía que el negocio se actualiza al país nuevo; `DIASPORA_01` dice que **se ancla al país de registro**. La respuesta dependía del azar del vector, en la pregunta que un migrante sí verifica. Manda DIASPORA_01, que es la doctrina confirmada por el Director.
+
+**`CRED_03` se eliminó porque su premisa dejó de ser cierta.** Construía la prueba sobre cómo había llegado el prospecto — sin que nadie lo contactara. El tráfico de esta fase llega **porque un socio le escribe por WhatsApp**, así que la respuesta le afirmaba a la persona algo que ella sabe que no ocurrió, justo donde se pide confianza. La prueba que sí se sostiene —quienes construyeron la herramienta primero construyeron el negocio con ella— ya vivía en `CRED_01`.
+
+**Los disparadores se mudaron, y se verificó que llegaran:** DIASPORA_01 suma *qué pasa si me mudo de país · me voy a vivir a otro país · el negocio se va conmigo* (medido después: 0.572 y **0.537**, mejor que el 0.471 de antes de la mudanza); CRED_01 suma *¿esto realmente funciona? · ¿hay pruebas? · ¿esto sí sirve?*.
+
+**Las dos ediciones quirúrgicas.** `CRED_02` cambia una afirmación sobre la estructura financiera del fabricante —que no podemos sustentar si la piden, del mismo tipo que la retirada en v5.55— por lo verificable, y pierde la negación final que introducía el escenario que quería descartar; de paso el fabricante se nombra por su nombre. Su recuperación subió de competir a 0.481 a ganar con **0.593**. `FREQ_17` deja de enumerar monedas: listarlas le mostraba dólares a un colombiano, que es lo que dispara el reclamo de la tasa atendido por FREQ_27. Ahora gana su propia pregunta con **0.675**.
+
+⚠️ **LA LECCIÓN CARA — borrar en Supabase sin borrar en el `.txt` no sobrevive un despliegue.** `CIERRE_03` y `CIERRE_04` se habían borrado de la base ese mismo día; al re-fragmentar, **el fragmentador los recreó** desde el archivo fuente, con sus enlaces `wa.me` incluidos. Ahora el bloque completo salió del `.txt` y en su lugar queda una nota explicando por qué no debe volver: ese texto es de la máquina de estados de la **web**, el motor ya lo dicta desde `getCierreEstado4()`, y en WhatsApp entregar un `wa.me` a quien ya escribe desde WhatsApp es un círculo — ese cierre lo maneja `wa-radicacion.ts`.
+
+**Estado: 57 → 52 respuestas · 52 fragmentos por tenant, iguales · 0 hits del auditor · 0 fragmentos con `wa.me` · 42/42 en la batería del clasificador, en los dos tenants.**
+
+**Sobre las cabeceras —medido, y va contra la intuición.** El Director notó que se ven exageradas y preguntó si estorban. Son el **39% del corpus indexado**, y las respuestas más trabajadas son las que más cargan: WHY_03 tiene 2.001 caracteres de cabecera para 697 de respuesta (2,9×), WHY_02 2,1×, EAM_01 1,9×; las que nadie ha tocado van en 0,1×. Pero re-embeber los 54 fragmentos **sin** cabecera y volver a medir da: **mejora 0 · empeora 3 · igual 11**, con caídas de hasta 0.107 (*"¿cómo se inicia?"*, que baja del puesto 1 al 3) y 0.062 (*"¿es esto legal?"*). La cabecera trae el vocabulario que la pregunta del prospecto también usa, así que **hace al fragmento encontrable**. No se tocan. Si algún día pesan, lo que se recorta es la parte histórica, no la que describe el concepto.
+
+**Queda para la sesión con calma:** seis redundancias que no producen respuestas malas (`FREQ_23` contenida en FREQ_27 · `CRED_04` casi literal a OBJ_02 · `FREQ_15` que PERFIL_01 dice en su primera línea · `CTA_01` compitiendo con FREQ_03 · `FREQ_24` repartida en tres · `FREQ_04_PUENTE`, que además nunca se indexó), más los 19 cierres de la auditoría de preguntas finales.
+
 ### v5.68 — Candado en FREQ_13 y FREQ_08, y la causa real estaba en el enrutamiento (9 ago 2026)
 
 Salió de la prueba de las seis preguntas en el canal, la primera antes de subir el tráfico de 4 a 50–100 personas. **Pasaron 2 de 6.** El diagnóstico obligó a mirar el motor, no el copy.

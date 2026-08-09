@@ -2037,6 +2037,10 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /formaci[oó]n/i,                             // "¿hay formación?"
     /entrenamiento/i,                            // "¿dan entrenamiento?"
     /me.*ense[nñ]an/i,                           // "¿me enseñan?"
+    // "¿cómo me pagan las comisiones?" lo gana FREQ_17 solo, con 0.675. La forma
+    // suelta "¿cómo son los pagos?" se le va a compensación, que responde la
+    // mecánica del plan en vez del "dinero real, cada viernes, a su cuenta".
+    /c[oó]mo.*(son|funcionan).*(los\s+)?pagos/i, // "¿cómo son los pagos?" → FREQ_17
     /ayudan.*con.*marketing/i,                   // "¿me ayudan con marketing?"
     /apoyan.*con.*marketing/i,                   // "¿apoyan con marketing?"
 

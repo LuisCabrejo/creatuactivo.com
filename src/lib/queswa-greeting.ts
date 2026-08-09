@@ -129,7 +129,7 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
   '¿cuáles son los productos y para qué sirven?':
     'qué productos cuáles son para qué sirven beneficios catálogo Ganoderma Gano Excel',
   'quiero ver los números: ¿cómo y cuánto se gana?':
-    'cómo se gana cuánto se gana ingreso compensación capitalización inmediata renta vitalicia',
+    'cómo se gana cuánto se gana ingreso compensación capitalización inmediata ingreso recurrente',
   '¿cómo es el plan que se multiplica hasta los $103 millones?':
     'plan 12 niveles duplicación 2x2 cómo se multiplica 103 millones proyección ingreso recurrente kit de inicio',
 };

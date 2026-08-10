@@ -10,6 +10,39 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ---
 
+## arsenal_compensacion
+
+### v7.6 — La unidad del GEN5 es la generación (9 ago 2026)
+
+Lo detectó el Director revisando la prueba del canal: recordaba que el marco desarrollado con el agente anterior era otro. El conteo lo confirmó — **`COMP_GEN5_01` era el único fragmento GEN5 que contaba en niveles**:
+
+```
+COMP_GEN5_01     niveles: 3   generaciones: 2   ← el único
+COMP_GEN5_03     niveles: 0   generaciones: 2
+COMP_GEN5_04     niveles: 0   generaciones: 1
+COMP_GEN5_06     niveles: 0   generaciones: 2
+```
+
+Más el ejemplo dictado por `route.ts` (*"Generación 1 — 5 paquetes"*) y **la referencia interna del propio COMP_GEN5_01**, que ya decía *generaciones 2 a 4*. El fragmento se contradecía consigo mismo, y es el primero que se entrega sobre el bono: el que fija el marco antes de que lleguen las cifras. En la prueba del 9 ago el prospecto oyó las dos versiones en turnos consecutivos.
+
+⚠️ **No es una traducción a lenguaje llano — es lo contrario.** *Generación* es la nomenclatura del propio plan (GEN5 = cinco generaciones), así que el cambio **restaura** la regla de que la nomenclatura va literal. Y la generación es una unidad **horizontal**: dice quién vino después, no cuánto se baja. La imagen vertical es la del esquema que el prospecto teme, y esta respuesta suele llegar uno o dos turnos después de esa objeción.
+
+⚠️ **El Binario conserva su descriptor.** En `COMP_BIN_08` y `COMP_BIN_10`, *sin límite de profundidad* es el término propio de ese bono y no tiene equivalente en generaciones. Barrer por barrer habría sido el error opuesto. Verificado: 0 apariciones de *niveles de profundidad* en todo el corpus, y las del Binario intactas.
+
+**Trade-off medido, y la decisión.** La cabecera creció ~460 caracteres y eso mueve la recuperación en las dos direcciones:
+
+| Consulta | cabecera larga | recortada |
+|---|---|---|
+| *"¿Qué es el Bono GEN5?"* (disparador primario) | **0.621 · #1** | 0.505 · #4 |
+| *"explícame el Gen5"* | 0.616 · #1 | 0.592 · #1 |
+| *"¿cómo se gana rápido?"* | 0.429 · #9 | 0.499 · #3 |
+
+Se conserva la larga: optimiza el fragmento para su propia pregunta primaria. La que pierde la gana `COMP_MODELO_01`, que responde *cómo se gana* y **cierra puenteando al GEN5** — verificado en la conversación real del 9 ago, donde ese puente funcionó.
+
+Cifras, %, CV/PV y tasas INTACTAS.
+
+⚠️ **Anotado, sin tocar:** la REGLA DE ORO de la cabecera del arsenal todavía dice *"Binario=Renta Vitalicia"*. *Renta vitalicia* es promesa de perpetuidad — la regla del 8 ago es que la recompensa se nombra por su **repetición**, no por su duración. Es de cara interna, pero conviene resolverlo en la revisión de `arsenal_compensacion`.
+
 ## arsenal_inicial
 
 ### v5.69 — Dos eliminadas, dos corregidas, y una lección de despliegue (9 ago 2026)

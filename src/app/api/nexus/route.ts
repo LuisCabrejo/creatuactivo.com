@@ -4699,15 +4699,39 @@ ${filaGen5}`;
     // los datos verificados, el LLM solo los presenta. Fuente: arsenal_compensacion.txt
     // COMP_PAQ_02/03/04 (vigente desde 25 marzo 2026).
     const getPinComposicionPaquetes = (): string => {
-      // Disparar solo durante cierre (Estado 2/3/4) — fuera de cierre, el RAG ya tiene
-      // los fragments COMP_PAQ disponibles vía recuperación normal.
-      if (closingState !== 2 && closingState !== 3 && closingState !== 4) return '';
+      // ⚠️ FIX 2026-08-09 — este pin estaba MUERTO en WhatsApp.
+      //
+      // La guarda original era `closingState !== 2 && !== 3 && !== 4`, y en el
+      // canal `cierreLoManejaElCanal` fuerza `closingState: 0` siempre (aislamiento
+      // de la FSM web, 5 ago). Efecto lateral: la composición nunca se dictaba.
+      //
+      // Se vio en la prueba del 9 ago: a "esp3 qué trae" Queswa respondió que NO
+      // TENÍA el dato —teniéndolo aquí escrito y verificado— y derivó al socio,
+      // en el turno de alguien a punto de pagar $4,5 millones. El comentario
+      // original decía que fuera de cierre bastaba el RAG; se midió y el fragmento
+      // sí se recupera (COMP_PAQ_04 a 0.496), pero el modelo no lo usó.
+      const enCierreWeb = closingState === 2 || closingState === 3 || closingState === 4;
+      if (!enCierreWeb && !cierreLoManejaElCanal) return '';
 
       // ¿La query menciona composición / productos / qué incluye?
       const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
       if (!preguntaComposicion) return '';
 
-      const paqueteCodigo = mergedProspectData.package;
+      // ⚠️ El paquete se lee del MENSAJE, no solo de `prospectData`.
+      //
+      // Los embeddings no distinguen "esp2" de "esp3": medido el 9 ago, a la
+      // consulta "qué productos vienen en el esp3" el vector devuelve PRIMERO el
+      // fragmento del ESP-2 (0.596 contra 0.584). Entregar con seguridad la lista
+      // equivocada de un paquete de $4,5 millones es peor que no responder, y un
+      // dígito no se resuelve por similitud — se resuelve leyéndolo.
+      //
+      // El nombre comercial también cuenta: mucha gente dice "el Visionario".
+      const porCodigo  = latestUserMessage.match(/esp[\s-]?([123])\b/i);
+      const porNombre  = /visionario/i.test(latestUserMessage) ? '3'
+                       : /empresarial/i.test(latestUserMessage) ? '2'
+                       : /\binicial\b/i.test(latestUserMessage) ? '1' : null;
+      const digito     = porCodigo?.[1] ?? porNombre;
+      const paqueteCodigo = digito ? `ESP-${digito}` : mergedProspectData.package;
 
       // Datos verificados (arsenal_compensacion.txt COMP_PAQ_02/03/04, vigente 25 marzo 2026)
       const composiciones: Record<string, string> = {

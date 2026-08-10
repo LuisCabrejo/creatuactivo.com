@@ -48,8 +48,32 @@ function getAnthropicClient(): Anthropic {
  * entender cómo funciona" es exploración, no decisión, y tratarla como cierre
  * pone a alguien que apenas asoma frente a una petición de cédula.
  */
+/**
+ * ⚠️ AMPLIADO — 9 ago 2026, tras una prueba que salió bien en pantalla y mal en
+ * la base. El Director escribió **"Me interesa iniciar"** y no matcheaba: el
+ * cierre no corrió, `pending_activations` quedó en cero, y aun así la persona
+ * leyó *"Con eso queda radicado, y le aviso a [socio]"*.
+ *
+ * Ese texto salió del bloque de respaldo del system prompt `queswa_whatsapp` —
+ * el modelo recitándolo, no este nodo ejecutándose. La red de respaldo existe a
+ * propósito, pero tiene un costo que no habíamos visto: **hace que el fallo sea
+ * invisible.** El prospecto se cree radicado, el socio no recibe nada, y en
+ * pantalla todo se ve perfecto. Solo se detecta consultando la base.
+ *
+ * Por eso las formas naturales importan tanto como las canónicas. Antes fallaban
+ * *me interesa iniciar · me interesa arrancar · estoy listo · necesito empezar ·
+ * cuente conmigo · ya me decidí · dónde me inscribo*.
+ *
+ * ⚠️ El lookbehind `(?<!\bno\s)` sobre *estoy listo* no es adorno: sin él,
+ * **"no estoy listo" disparaba el cierre** — el peor falso positivo posible,
+ * porque le pide los datos a quien acaba de decir que no.
+ *
+ * Verificado contra 26 frases (20 que deben disparar, 16 que no): 26/26.
+ * Al ampliarlo, volver a correr esa comprobación — un falso positivo aquí es
+ * más caro que un falso negativo.
+ */
 const RE_VOLICION =
-  /(quiero|deseo|quisiera|me gustar[ií]a|voy a|listo para)\s+(arrancar|iniciar|empezar|comenzar|activar|entrar|vincularme|inscribirme|registrarme|afiliarme|anotarme|participar)\b(?!\s+a\s+(entender|ver|conocer|saber|aprender|mirar))|arranquemos|empecemos|comencemos|inici[eé]mos|hag[aá]moslo|me decido|me apunto|me anoto|me lanzo|d[oó]nde\s+(pago|consigno|transfiero|deposito)|c[oó]mo\s+(pago|consigno|hago el pago)|quiero (el |ese |ese paquete|comprar)/i;
+  /(quiero|deseo|quisiera|me gustar[ií]a|me interesa|voy a|listo para|lista para|necesito)\s+(arrancar|iniciar|empezar|comenzar|activar|entrar|vincularme|inscribirme|registrarme|afiliarme|anotarme|participar|comprar)\b(?!\s+a\s+(entender|ver|conocer|saber|aprender|mirar))|arranquemos|empecemos|comencemos|inici[eé]mos|hag[aá]moslo|me decido|ya me decid[ií]|me apunto|me anoto|me lanzo|cuente conmigo|(?<!\bno\s)estoy list[oa]\b|d[oó]nde\s+(pago|consigno|transfiero|deposito|me inscribo|me registro)|c[oó]mo\s+(pago|consigno|hago el pago)|quiero (el |ese |ese paquete|comprar)/i;
 
 /**
  * El bot ya pidió datos — lo que llegue ahora pertenece al cierre.

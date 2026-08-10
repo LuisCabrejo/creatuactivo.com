@@ -539,6 +539,20 @@ export async function POST(request: Request) {
       // ejemplo completo en texto. Cada ejemplo dictado abre el simulador en SU
       // pantalla — el de paquetes en el menú GEN5, el de renta en las tarifas.
       const flowSimulador = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+
+      // ⚠️ El silencio deja de ser silencioso (9 ago 2026). Si la env falta, el
+      // `if (flowSimulador && …)` no hacía NADA y no decía nada: el ejemplo de
+      // cifras salía sin su botón y por los logs no había forma de saberlo. Pasó
+      // en la prueba del Director — el Flow estaba PUBLISHED en Meta y con las
+      // pantallas correctas, así que la única explicación era la env sin definir
+      // en Vercel. Un extra opcional puede fallar callado; no puede fallar
+      // invisible.
+      const dictoEjemplo = queswaReply.includes('Le pongo un ejemplo con números redondos')
+        || queswaReply.includes('Le pongo el ejemplo con un supuesto modesto');
+      if (!flowSimulador && dictoEjemplo) {
+        console.warn('⚠️ [WA Webhook] Se dictó un ejemplo de cifras pero WHATSAPP_FLOW_SIMULADOR_ID no está definida — el simulador NO se ofreció. Definirla en Vercel.');
+      }
+
       if (flowSimulador && queswaReply.includes('Le pongo un ejemplo con números redondos')) {
         const enviado = await sendFlow(
           phoneNumber,
@@ -547,7 +561,8 @@ export async function POST(request: Request) {
           'Abrir el simulador',
           { screen: 'GEN_MENU' },
         );
-        if (!enviado.ok) console.warn(`⚠️ [WA Webhook] Flow simulador no se pudo enviar: ${enviado.error}`);
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador GEN5 ofrecido');
+        else console.warn(`⚠️ [WA Webhook] Flow simulador GEN5 no se pudo enviar: ${enviado.error}`);
       }
       if (flowSimulador && queswaReply.includes('Le pongo el ejemplo con un supuesto modesto')) {
         const enviado = await sendFlow(
@@ -557,7 +572,8 @@ export async function POST(request: Request) {
           'Abrir el simulador',
           { screen: 'RENTA_MENU' },
         );
-        if (!enviado.ok) console.warn(`⚠️ [WA Webhook] Flow renta no se pudo enviar: ${enviado.error}`);
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador BINARIO/renta ofrecido');
+        else console.warn(`⚠️ [WA Webhook] Flow simulador BINARIO no se pudo enviar: ${enviado.error}`);
       }
     }
 

@@ -1,5 +1,7 @@
 # Arsenal Conversacional: Los 12 Niveles v5.2 — BAUTIZO EMPRESARIAL (socios)
 
+**v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando (nuevos); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con socios nuevos y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
@@ -10,7 +12,7 @@
 
 **Cambios v5.0 (20 jul 2026):**
 - Migración de trato: **tú → usted** en las 13 respuestas (alinea con el deck /12-niveles y el resto del sitio). Ver [[project_reto_12niveles_no_migrar]] — revertido SOLO para el léxico de trato; concepto y nombres de producto se conservan.
-- "red de relaciones / tu red" → "su organización" (se conserva "canal de distribución"). Se retira la etiqueta inglesa "Asset-Light"; el concepto (el peso lo carga Gano) se explica en llano.
+- "red de relaciones / tu red" → "su canal" (se conserva "canal de distribución"). Se retira la etiqueta inglesa "Asset-Light"; el concepto (el peso lo carga Gano) se explica en llano.
 - **Corrección de cifras en NIVELES_02:** columna Acumulado — nivel 8: 6.426.000 · nivel 10: 25.779.600 · nivel 12: **103.194.000** (= $25.200 × (2¹²−1), coincide con el simulador de /12-niveles). Los valores previos (6.428.400 / 25.776.600 / 103.177.800) eran errores de suma.
 - **NIVELES_04 reescrita:** el deck /12-niveles ya no tiene formulario; la vinculación es por su patrocinador o WhatsApp del equipo. Se retira el enlace roto al formulario.
 - **NIVELES_01 audiencia:** primariamente para quienes inician; un empresario activo también puede desarrollarlo.
@@ -23,13 +25,13 @@
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 
-**[Concepto Nuclear]:** Su activo es su organización de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
+**[Concepto Nuclear]:** Su activo es su canal de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
 
-Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su organización de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con socios nuevos y compartirles esta visión.
+Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su canal de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con socios nuevos y compartirles esta visión.
 
-**El concepto clave:** el activo es su organización, no los inventarios.
+**El concepto clave:** el activo es su canal, no los inventarios.
 
-En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo construye lo que importa: su **organización de relaciones** y su **canal de distribución**. Gano Excel se encarga de los "activos pesados" (producción, logística, cumplimiento normativo).
+En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo construye lo que importa: su **canal de distribución** y las relaciones que lo sostienen. Gano Excel se encarga de los "activos pesados" (producción, logística, cumplimiento normativo).
 
 **¿Por qué 12 niveles?**
 
@@ -39,7 +41,7 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 - Usted invita a conocer el negocio
 - Cada socio que se vincula genera puntos (CV)
-- Los puntos de su organización generan ingreso recurrente semanal
+- Los puntos de su canal generan ingreso recurrente semanal
 - El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso recurrente
 
 **Contenido del Kit de Inicio ($443,600 COP):**
@@ -56,13 +58,13 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles?" / "¿Cuánto puedo ganar?" / "¿Cómo funciona el plan de ganancias?"**
 
-**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su organización.
+**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal.
 
 En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Equipo al 10%**.
 
 **¿Cómo funciona?**
 
-Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de su organización y le paga el 10% semanal.
+Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de su canal y le paga el 10% semanal.
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
@@ -76,7 +78,7 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 | 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
 | 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
 
-**Socios — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su organización hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 socios nuevos y su organización suma 30 en total. Al nivel 12 son **8.190 socios** en total.
+**Socios — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 socios nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 socios** en total.
 
 **Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
 
@@ -91,7 +93,7 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 
 **Se paga:** Semanalmente los viernes.
 
-**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de su organización. No son resultados garantizados.
+**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 
 **Pregunta de seguimiento:** ¿Le gustaría saber cuánto cuesta participar?
 
@@ -177,7 +179,7 @@ El Kit de Inicio existe para que usted tome su posición **HOY**, no cuando "ten
 **La estrategia paso a paso:**
 
 1. Arranca con el Kit de Inicio (baja fricción)
-2. Construye su organización y genera su primer ingreso recurrente
+2. Construye su canal y genera su primer ingreso recurrente
 3. Con ese ingreso recurrente, compra su Paquete Empresarial
 4. Accede al Ingreso Inmediato (GEN5) y porcentajes más altos
 
@@ -201,7 +203,7 @@ Este es un temor común.
 
 No se limite a conectar solo 2 socios. Entre más socios conecte USTED, más garantiza su propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que lo incentiva a trabajar en la profundidad de su línea con menos volumen.
 
-**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más socios a su organización.
+**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más socios a su canal.
 
 **Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
 
@@ -215,9 +217,9 @@ No se limite a conectar solo 2 socios. Entre más socios conecte USTED, más gar
 
 La inversión más accesible es el **Kit de Inicio: $443,600 COP** (4 cajas Gano Café 3en1).
 
-Con $443,600 tiene todo lo que necesita para activarse y empezar a construir su organización desde el primer día.
+Con $443,600 tiene todo lo que necesita para activarse y empezar a construir su canal desde el primer día.
 
-**60 PV / 56 CV** que se suman a su organización. Eso es lo que importa.
+**60 PV / 56 CV** que se suman a su canal. Eso es lo que importa.
 
 **⚠️ Tenga en cuenta:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%, sin Ingreso Inmediato (GEN5).
 
@@ -247,7 +249,7 @@ Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 - **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
 - **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
 
-**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más ganancias** por el mismo volumen. Si su organización mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
+**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más ganancias** por el mismo volumen. Si su canal mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
 
 Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 
@@ -262,7 +264,7 @@ Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 Todos los paquetes incluyen:
 
 **1. Acceso completo a la tecnología:**
-- Queswa (su socio digital que trabaja 24/7)
+- Queswa, que trabaja 24/7
 - CreaTuActivo.com (su plataforma personalizada)
 - Sistema de duplicación automatizado
 
@@ -303,21 +305,21 @@ Sí, la recompra mensual es lo que lo mantiene **activo** en el negocio y lo que
 
 **¿Por qué es importante?**
 
-Estar activo le permite cobrar las comisiones que genera su organización de clientes y distribuidores. Sin actividad, no fluye su ingreso recurrente.
+Estar activo le permite cobrar las comisiones que genera su canal de clientes y distribuidores. Sin actividad, no fluye su ingreso recurrente.
 
 **La mecánica de sostenibilidad:**
 
-La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que su organización existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
+La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que su canal existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
 
 **Lo que recibe con su recompra:**
 
 1. **Productos de calidad:** Café, suplementos y productos que benefician directamente su salud
 2. **Acceso a CreaTuActivo.com:** Su plataforma de construcción sigue activa
-3. **Comisiones activas:** Puede cobrar todo lo que genera su organización
+3. **Comisiones activas:** Puede cobrar todo lo que genera su canal
 
 **Cómo funciona el modelo:**
 
-El ingreso se genera por el **movimiento de producto** en su organización — consumo recurrente de clientes que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
+El ingreso se genera por el **movimiento de producto** en su canal — consumo recurrente de clientes que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
 
 **Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
 
@@ -341,10 +343,10 @@ Son Puntos de Volumen que equivalen a una compra de productos. No necesita compr
 
 • Recibe productos que consume o comparte
 • Mantiene su posición activa
-• Cobra las comisiones de su organización
+• Cobra las comisiones de su canal
 • Productos que benefician su salud y bienestar
 
-**El activo es su organización, en acción:**
+**El activo es su canal, en acción:**
 
 Su inversión inicial (paquete) le da la posición y los porcentajes. Su recompra mensual (50 PV) es su "costo operativo" - y lo recibe en productos reales, no es una cuota administrativa.
 
@@ -414,7 +416,7 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 **Importante sobre paquetes empresariales:**
 - La compra del paquete cuenta como su **compra personal del mes de activación**
 - A partir del **mes siguiente**, debe hacer su recompra mínima de 50 PV
-- Los puntos del paquete activan su posición y generan CV para su organización
+- Los puntos del paquete activan su posición y generan CV para su canal
 - No es necesario volver a comprar el paquete - es una única vez
 
 **Recuerde:** Mínimo 50 PV mensual para mantenerse activo. Puede elegir los productos que prefiera consumir o compartir.

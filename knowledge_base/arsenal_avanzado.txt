@@ -1,12 +1,14 @@
 # ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.8 — COMPARTIR · RECIBIR (la multiplicación es consecuencia)
 
+**v13.1 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
 **Versión:** 13.0 (8 ago 2026) — **ADV_VAL_04: la compra mínima en PV, sin moneda y sin supermercado.** Llevaba la misma cifra errada que FREQ_09 (*~$100 USD / $450.000 COP* para 50 PV, cuando son ~3,3 cajas ≈ $370.000) y el marco del hábito dicho con todas las letras: *toma parte de lo que destinaba al mercado de la casa*. Ahora **50 PV = tres o cuatro cajas**, la moneda la pone el pin por país, y sale la pregunta de cierre retórica (*¿conoce algún otro negocio internacional donde…?*). 711 → 339 caracteres. Sincronizado con `arsenal_inicial` v5.62. Previa **12.9** (8 ago 2026) — **El equipo se nombra siempre *equipo de creatuactivo.com*** (decisión del Director). Barrido de 7 usos en ADV_OBJ_03, ADV_ESC_01 y ADV_ESC_02, sincronizado con el mismo barrido en `arsenal_inicial` v5.59. Previa **12.8** (8 ago 2026) — **Dos acciones; la consecuencia es del negocio.** Corrección de cumplimiento: ligar las acciones a un pago fechado es una promesa de ingreso (Meta la sanciona; el Estatuto del Consumidor colombiano la vuelve vinculante). METH_01 queda con **Compartir · Recibir** y la multiplicación como consecuencia, que además es lo que lo diferencia de EAM_01 — aquí sí se explica el mecanismo. Previa (retirada) **12.7** — la tríada con el viernes. METH_01 reescrito. Doctrina de los tres desafíos del modelo (poco popular · parece difícil · parece de ganancia lejana): el del **plazo** era el menos atendido, y la respuesta del método explicaba lo que él hace sin decir cuándo cobra. **"Multiplicar" pasa de tercer movimiento a CONSECUENCIA** — como tarea suma peso, como resultado lo quita— y METH_01 conserva su razón de existir frente a EAM_01 porque aquí SÍ se explica el mecanismo de la multiplicación, cerrando hacia los números de la duplicación. Fuera *"el trabajo pesado de siempre"*, *"las personas correctas"*, *"no sale a buscar de casa en casa"* y *"andar convenciendo y capacitando"*. Previa: **12.6** (7 ago 2026) — **Barrido pregunta única + bautizo empresarial.** Las 5 preguntas de cierre con dos salidas pasan a UNA (ADV_OBJ_01/03, ADV_VAL_03, ADV_SIST_01, FUND_01); "1,000 personas compran" → "1,000 clientes" (ADV_VAL_02); "formamos a cada persona nueva" → "cada socio nuevo" (ADV_SIST_03, METH_01); "información de las personas… para su propia red" → "de los contactos… para su propia organización" (ADV_TECH_02); "4 millones de personas" → "de familias" (ADV_SIST_02); "avalancha de personas" → "del mercado masivo" (FUND_01). Cifras intactas. Previa: **12.5** (2 ago 2026) — **METH_01: movimientos renombrados Compartir · Recibir · Multiplicar** (rename del Director, servilleta v6.5 — "si hay que explicar la palabra, la palabra falló"); "las guío hasta su decisión" → "maduro su decisión" (verbo vetado); "su empresa digital se multiplica" → "su negocio se multiplica". Cifras intactas. **Previa: 12.4** (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
 
 **Versión previa:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
-**Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → Propietario de Base Operativa · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
+**Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → socio · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
 [Versión previa: 11.1 — Alineación SP v26.4: dirección estratégica + apalancamiento estratégico — fricción nivel 5 eliminada (10 May 2026)]
 
 ---
@@ -44,7 +46,7 @@ Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atad
 
 En internet, el 99% de la "escasez" es un truco barato. Aquí es real.
 
-La apertura al público llega una vez consolidada la base inicial. Por ahora, el equipo de creatuactivo.com trabaja de la mano con un grupo pequeño y seleccionado de Propietarios. La urgencia no es presión para que firme: es que el tiempo del equipo para acompañar de cerca a los primeros es lo más limitado que hay —no la tecnología.
+La apertura al público llega una vez consolidada la base inicial. Por ahora, el equipo de creatuactivo.com trabaja de la mano con un grupo pequeño y seleccionado de socios. La urgencia no es presión para que firme: es que el tiempo del equipo para acompañar de cerca a los primeros es lo más limitado que hay —no la tecnología.
 
 **Para que se entienda:** la plataforma podría recibir un millón de personas mañana mismo. Pero la capacidad del equipo para sentar bien los cimientos de cada uno es finita. Esos 15 cupos son ese límite.
 
@@ -59,7 +61,7 @@ La apertura al público llega una vez consolidada la base inicial. Por ahora, el
 
 Esa pregunta casi siempre nace de una idea heredada: la del negocio tradicional, donde si usted no está, no gana. Y aquí es justo al revés.
 
-Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su organización sigue su curso y usted sigue cobrando por él.
+Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su canal sigue su curso y usted sigue cobrando por él.
 
 ¿Qué necesita para mantenerlo activo y recibiendo? Una sola cosa: estar al día con su **compra personal mínima de 50 PV** al mes. Mientras eso esté, el negocio corre solo, esté usted donde esté, y todo lo que construyó queda intacto.
 
@@ -72,7 +74,7 @@ Este es un negocio que **no depende de que usted esté presente** —ese es, de 
 
 Su lista de contactos es lo más valioso que usted tiene en este negocio, y se maneja con seguridad y encriptación.
 
-No vivimos de vender publicidad ni datos; somos una firma privada. La información de los contactos que usted trae al sistema se usa solo para su propia organización, y nunca se comparte, ni se alquila, ni se vende a nadie. Yo funciono como una bóveda: usted tiene y controla la única llave.
+No vivimos de vender publicidad ni datos; somos una firma privada. La información de los contactos que usted trae al sistema se usa solo para su propio canal, y nunca se comparte, ni se alquila, ni se vende a nadie. Yo funciono como una bóveda: usted tiene y controla la única llave.
 
 **Pregunta de cierre:** ¿Es importante para usted que sus contactos sean 100% suyos y de nadie más?
 
@@ -87,7 +89,7 @@ El sistema está hecho para que nunca dependa de una sola cosa. Tiene tres respa
 
 **El respaldo de la empresa:** Gano Excel da soporte presencial, manejo del dinero y respuesta directa desde sus oficinas en cada país.
 
-**El respaldo humano:** el equipo de Propietarios entra de forma directa para resolver lo complejo —estrategia y crecimiento.
+**El respaldo humano:** el equipo de socios entra de forma directa para resolver lo complejo —estrategia y crecimiento.
 
 Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se queda solo.
 
@@ -100,12 +102,12 @@ Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se qued
 ### ADV_VAL_01: "Explícame el Ingreso Inmediato con números"
 **[Concepto Nuclear]:** El primer ingreso entra rápido: cada nueva empresa digital que usted activa le paga de inmediato.
 
-La primera velocidad del sistema le da ingreso de corto plazo por cada nueva empresa digital que se activa en su organización.
+La primera velocidad del sistema le da ingreso de corto plazo por cada nueva empresa digital que se activa en su canal.
 
 En el nivel ESP-3 (Visionario), las cuentas son así:
 
 - Por cada empresa digital de primera línea (Generación 1) que usted activa directamente, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
-- Por cada empresa digital que se activa en las generaciones 2 a 5 de su organización (a medida que crece), usted recibe **$20 USD / ~$90,000 COP por cada una**.
+- Por cada empresa digital que se activa en las generaciones 2 a 5 de su canal (a medida que crece), usted recibe **$20 USD / ~$90,000 COP por cada una**.
 
 **Pregunta de cierre:** ¿Le queda clara la forma en que entra este ingreso durante la etapa de arranque?
 
@@ -116,7 +118,7 @@ En el nivel ESP-3 (Visionario), las cuentas son así:
 
 La segunda velocidad es la meta de fondo: ingreso que ya no depende de que usted esté presente.
 
-Gano Excel mide el consumo internacional de toda su organización, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su organización en el continente, usted gana por todos ellos.
+Gano Excel mide el consumo internacional de todo su canal, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su canal en el continente, usted gana por todos ellos.
 
 Esto le deja crecer tranquilo: las comisiones las paga directamente Gano Excel, no CreaTuActivo. Usted funciona como un **peaje**: no fabrica los productos, no los empaca ni los transporta; solo es el dueño del camino por donde pasa, todos los días, ese consumo.
 
@@ -142,25 +144,25 @@ Arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo, per
 
 Su compromiso mensual es una compra personal de **50 PV** — en producto, unas tres o cuatro cajas.
 
-Eso no es una cuota de administración: es mercancía que le llega a la casa. Y es lo que le conserva el derecho a cobrar las comisiones que genere su organización ese mes.
+Eso no es una cuota de administración: es mercancía que le llega a la casa. Y es lo que le conserva el derecho a cobrar las comisiones que genere su canal ese mes.
 
 **Pregunta de cierre:** ¿Le muestro qué productos suman esos 50 PV?
 
 ---
 
-### **ADV_VAL_05:** "¿Existen otros incentivos además de las comisiones?" / "¿Hay viajes corporativos o reconocimientos?" / "¿Qué más ofrece Gano Excel a los Propietarios exitosos?"
+### **ADV_VAL_05:** "¿Existen otros incentivos además de las comisiones?" / "¿Hay viajes corporativos o reconocimientos?" / "¿Qué más ofrece Gano Excel a los socios exitosos?"
 
 **[Concepto Nuclear]:** Además de las comisiones, Gano Excel paga dos viajes internacionales al año, completos.
 
-Además de las comisiones por el consumo de su organización, Gano Excel hace dos eventos internacionales al año, pagados completamente por la empresa:
+Además de las comisiones por el consumo de su canal, Gano Excel hace dos eventos internacionales al año, pagados completamente por la empresa:
 
-**Evento del continente americano:** encuentro anual de Propietarios activos en los 15 países de América. Viaje, alojamiento y experiencia, cubiertos por Gano Excel.
+**Evento del continente americano:** encuentro anual de socios activos en los 15 países de América. Viaje, alojamiento y experiencia, cubiertos por Gano Excel.
 
 **Evento Asia-Europa:** encuentro anual con sede rotativa entre Asia y Europa. Le permite conectarse con la dirección global de la empresa y conocer las fábricas en Malasia. Viaje internacional cubierto por Gano Excel.
 
-Lo bueno es que usted los puede promover en su organización con total tranquilidad: no le cuestan nada, porque la empresa cubre el 100%. Son una forma de mantener motivada y unida a su organización, sin que usted ponga un solo peso.
+Lo bueno es que usted los puede promover entre sus socios con total tranquilidad: no le cuestan nada, porque la empresa cubre el 100%. Son una forma de mantener motivada y unida a su canal, sin que usted ponga un solo peso.
 
-**Pregunta de cierre:** ¿Le suma valor un sistema donde la empresa misma paga por mantener motivada y reconocida a su organización?
+**Pregunta de cierre:** ¿Le suma valor un sistema donde la empresa misma paga por mantener motivados y reconocidos a sus socios?
 
 ---
 
@@ -171,7 +173,7 @@ Lo bueno es que usted los puede promover en su organización con total tranquili
 
 La diferencia es de fondo. En un trabajo o negocio tradicional, su ingreso depende de que usted esté ahí: el día que para —por salud, por descanso, por lo que sea—, se frena. Y su techo está limitado a las horas que tiene en el día.
 
-Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, guiar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea Propietario de su empresa digital, un activo que sigue produciendo aunque usted no esté presente.
+Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, guiar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea socio de su empresa digital, un activo que sigue produciendo aunque usted no esté presente.
 
 **Pregunta de cierre:** ¿Quiere ver cómo se construye un ingreso que siga produciendo aunque usted descanse?
 
@@ -189,15 +191,15 @@ En esta etapa de cimentación lo importante no es buscar al consumidor final; es
 ---
 
 ### ADV_SIST_03: "¿Cómo funciona Queswa para mi equipo? ¿Yo tengo que enseñarles?"
-**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a su organización; usted dirige y acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
+**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted dirige y acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
 
 Le voy a hacer una pregunta que cambia la forma de ver esto: ¿se imagina a un director de orquesta enseñándole a cada músico, uno por uno, a tocar su instrumento? No lo haría. Cada músico ya llega formado; él solo dirige y los hace sonar juntos.
 
-Aquí ocurre lo mismo. Usted no tiene que sentarse a enseñarle a cada persona que entra a su organización —hacerlo lo agotaría y lo convertiría en esclavo de su propio negocio—. De esa parte nos encargamos la Academia y yo: formamos a cada socio nuevo desde el primer día, a toda hora, sin que usted tenga que repetir lo mismo una y otra vez.
+Aquí ocurre lo mismo. Usted no tiene que sentarse a enseñarle a cada persona que entra a su canal —hacerlo lo agotaría y lo convertiría en esclavo de su propio negocio—. De esa parte nos encargamos la Academia y yo: formamos a cada socio nuevo desde el primer día, a toda hora, sin que usted tenga que repetir lo mismo una y otra vez.
 
 ¿Y usted qué hace entonces? Lo más valioso, y lo único que ninguna máquina puede reemplazar: dirigir y acompañar a su equipo en lo humano. La carga técnica la llevamos nosotros.
 
-Por eso su organización no aprende de su agenda: aprende del sistema. Y un negocio que no depende de su presencia es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa multiplica. Usted crece.
+Por eso su canal no aprende de su agenda: aprende del sistema. Y un negocio que no depende de su presencia es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa multiplica. Usted crece.
 
 **Pregunta de cierre:** ¿Le hace sentido soltar la carga de capacitar, para dedicar su energía a dirigir y a crecer?
 
@@ -238,7 +240,7 @@ Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿
 
 La apertura al público llega una vez consolidada la base inicial. Por ahora se están validando 15 empresas digitales fundacionales: es una ventana de entrada anticipada.
 
-Es igual que comprar propiedad sobre planos: entrar antes le da la mejor posición y las mejores condiciones. Estos 15 Propietarios reciben el acompañamiento técnico para montar bien lo suyo, en un entorno controlado, antes de que llegue la avalancha del mercado masivo.
+Es igual que comprar propiedad sobre planos: entrar antes le da la mejor posición y las mejores condiciones. Estos 15 socios reciben el acompañamiento técnico para montar bien lo suyo, en un entorno controlado, antes de que llegue la avalancha del mercado masivo.
 
 **Pregunta de cierre:** ¿Quiere asegurar la ventaja de entrar en la cimentación?
 

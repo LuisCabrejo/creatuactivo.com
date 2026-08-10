@@ -1,10 +1,10 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
-**Version:** 7.7 (9 ago 2026) — **Cada vía se nombra por lo que la mueve.** Decisión del Director. El GEN5 se presentaba por su **velocidad** y el Binario por su **duración**, y las dos etiquetas eran incorrectas. La de velocidad, además, era **falsa**: la compra de un paquete empresarial es esporádica, así que lo único que se afirma es *cada vez que ocurre* — sin ritmo prometido y sin plazo. La de duración estaba vetada desde el 8 ago por ser promesa de perpetuidad. El vocabulario canónico pasa a **GEN5 = compra de paquetes empresariales · Binario = consumo recurrente**. ⚠️ **El daño que esto corrige es aguas arriba, y es de campo:** doce años de observación del fundador — *"aún las personas que llevan años siguen viendo más llamativo el GEN5 que el ingreso recurrente, y solo con esa idea le inyectan la pirámide a su prospecto"*. El encuadre deformaba primero la cabeza de quien explica el negocio. La prueba del canal del 9 ago lo documenta: el prospecto salió con una sola cifra en la cabeza, la del GEN5, y con dos frases nuestras diciéndole que esa es la rápida. ⚠️ **La función sí se conserva**, porque sin ella no se entiende para qué hay dos vías: el GEN5 es la plata que financia el crecimiento en la etapa temprana. Decir para qué sirve no es decir qué tan rápido llega. Se conserva también la distinción que ya estaba y no tiene adjetivo: *esta le paga mientras construye, y la otra le paga por lo que ya construyó*. ⚠️ **`colectivo = su canal`**, y cuando el colectivo hace algo humano se nombra a quién (*sus clientes*, *sus socios*): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido: `arsenal_inicial` ya decía *su canal* 16 veces mientras compensación y avanzado decían *su organización* 32 — al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ **Los disparadores conservan las palabras del prospecto** (*"¿cómo se gana rápido?"*): son su vocabulario, no el nuestro, y sin ellos la pregunta deja de encontrar respuesta. ⚠️ **Pendiente anotado:** el barrido de las 51 apariciones de *su organización* en tres arsenales, y la progresión *"1, 2, 4, 8"* de `arsenal_avanzado`, que es el mismo inyector de pirámide escrito por nosotros. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.6** (9 ago 2026) — **La unidad del GEN5 es la generación.** Detectado por el Director al revisar la prueba del canal: recordaba que el marco desarrollado era otro, y el conteo lo confirmó. `COMP_GEN5_01` era **el único** de los fragmentos GEN5 que contaba en niveles (3 usos), contra 7 usos de *generación* en COMP_GEN5_03/04/06, el ejemplo dictado por `route.ts` (*"Generación 1 — 5 paquetes"*) y la referencia interna del propio COMP_GEN5_01, que ya decía *generaciones 2 a 4*. El fragmento se contradecía consigo mismo, y es el primero que se entrega sobre el bono: el que fija el marco antes de que lleguen las cifras. En la prueba del 9 ago el prospecto oyó las dos versiones en turnos consecutivos. ⚠️ **No es una traducción a lenguaje llano, es lo contrario:** *generación* es la nomenclatura del propio plan —GEN5 son cinco generaciones—, así que el cambio **restaura** la regla de que la nomenclatura va literal. Y la generación es una unidad horizontal: describe quién vino después, no cuánto se baja. ⚠️ **El Binario conserva su descriptor**: en COMP_BIN_08 y COMP_BIN_10 *sin límite de profundidad* es el término propio de ese bono y no tiene equivalente en generaciones — barrer por barrer habría sido el error opuesto. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.5** (8 ago 2026) — **Registro elevado + la cabecera del GEN5 dejó de dictar el error.** COMP_MODELO_01 reescrito en registro de firma de inversión (*flujo de ganancias · percibe · liquida · el efecto bola de nieve como principio financiero*), y la bola de nieve pasa a estar hecha de **compras**, no de socios que reclutan socios — esa era la silueta de la pirámide dibujada por nosotros en la respuesta sobre el dinero. Retirada la repetición literal con WHY_02 ("todo lo que gana sale de una sola cosa…", que la persona acababa de leer 30 segundos antes). Pregunta de cierre con motivo — el motivo se retiró en v7.7. **COMP_GEN5_01: cabecera en afirmativo** — decía *PROHIBIDO decir "ese mismo viernes"* y el modelo copió la frase de ahí en la prueba en vivo del 8 ago; las cabeceras viajan dentro del fragmento recuperado, así que citar lo prohibido es dictarlo. Detectable desde ahora con `scripts/auditar-frases-vetadas.mjs`. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.4** (7 ago 2026) — **Bautizo empresarial en los ejemplos.** Las unidades de los ejemplos dejan de contar cabezas: "conecta 2 personas" → "2 socios" (COMP_GEN5_05, filas "Socio 1/2"); "62 personas" → "62 vinculaciones" (COMP_GEN5_08, + "se construye la red" → "la estructura"); "numero de personas activas" → "socios activos" (regla del Lado Menor); instrucción interna del Binario deja de citar la fórmula prohibida como ejemplo; VIP "para personas que quieren" → "para quien quiere". **"Flujo de caja" retirado** (decisión del Director 7 ago — revierte la conservación de v7.0): GEN5 "le da ingreso inmediato para crecer" · "la plata que financia la expansión". ⚠️ Cifras, %, CV/PV y tasas INTACTAS. Previa **7.3** (12 jul 2026) — composición ESP corregida + upgrades (COMP_PAQ_02/03/04/05). Previa **7.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
+**Version:** 7.8 (9 ago 2026) — **Barrido de vocabulario: el colectivo es *su canal*, el rol no es un cargo, y el fabricante se llama por su nombre.** Decisión del Director, en un solo pase sobre los cuatro arsenales. **(1)** *su organización* → **su canal** (67), y donde el colectivo hace algo humano se nombra a quién — *sus clientes*, *sus socios* (8): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido antes: `arsenal_inicial` ya decía *su canal* mientras compensación y avanzado decían *su organización*, así que al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ *Organización* no era un residuo: la eligió deliberadamente el barrido del 20 jul para reemplazar *red*. Esta es la tercera iteración sobre la misma palabra, y el modelo nuevo es más limpio porque elimina el término intermedio ambiguo. Se conservan los usos legítimos: *la organización dirigida por Luis Cabrejo* (es CreaTuActivo), *no es mala organización* (otro significado) y las notas de versión. **(2)** *Propietario* → **socio** (31): era el cargo retirado el 8 ago y sobrevivía en tres arsenales contradiciendo la decisión. **(3)** *su socio logístico y financiero* → **Gano Excel**, *su socio digital* → **Queswa** (12): el rótulo interno le confirma la duda a quien duda, criterio ya aplicado en v5.60 a FREQ_07. Y liberaba la palabra *socio*, que ahora significa una sola cosa — la gente del canal del usuario. **Retrieval medido antes y después: 21 de 23 consultas conservan el mismo fragmento ganador.** Los dos cambios son empates de milésimas: *«¿qué son los 12 niveles?»* pasa de la tabla a la definición (mejora) y *«¿el consumo de mi hogar cuenta?»* cruza por 0.001 — su pregunta principal sigue resolviendo a 0.620. De paso se destapó un hueco preexistente: `PERFIL_01` tenía *no sirvo para vender* pero no *no sé vender*; se sumó. 42/42 en la batería, en los dos tenants. Previa **7.7** **Cada vía se nombra por lo que la mueve.** Decisión del Director. El GEN5 se presentaba por su **velocidad** y el Binario por su **duración**, y las dos etiquetas eran incorrectas. La de velocidad, además, era **falsa**: la compra de un paquete empresarial es esporádica, así que lo único que se afirma es *cada vez que ocurre* — sin ritmo prometido y sin plazo. La de duración estaba vetada desde el 8 ago por ser promesa de perpetuidad. El vocabulario canónico pasa a **GEN5 = compra de paquetes empresariales · Binario = consumo recurrente**. ⚠️ **El daño que esto corrige es aguas arriba, y es de campo:** doce años de observación del fundador — *"aún las personas que llevan años siguen viendo más llamativo el GEN5 que el ingreso recurrente, y solo con esa idea le inyectan la pirámide a su prospecto"*. El encuadre deformaba primero la cabeza de quien explica el negocio. La prueba del canal del 9 ago lo documenta: el prospecto salió con una sola cifra en la cabeza, la del GEN5, y con dos frases nuestras diciéndole que esa es la rápida. ⚠️ **La función sí se conserva**, porque sin ella no se entiende para qué hay dos vías: el GEN5 es la plata que financia el crecimiento en la etapa temprana. Decir para qué sirve no es decir qué tan rápido llega. Se conserva también la distinción que ya estaba y no tiene adjetivo: *esta le paga mientras construye, y la otra le paga por lo que ya construyó*. ⚠️ **`colectivo = su canal`**, y cuando el colectivo hace algo humano se nombra a quién (*sus clientes*, *sus socios*): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido: `arsenal_inicial` ya decía *su canal* 16 veces mientras compensación y avanzado decían *su canal* 32 — al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ **Los disparadores conservan las palabras del prospecto** (*"¿cómo se gana rápido?"*): son su vocabulario, no el nuestro, y sin ellos la pregunta deja de encontrar respuesta. ⚠️ **Pendiente anotado:** el barrido de las 51 apariciones de *su canal* en tres arsenales, y la progresión *"1, 2, 4, 8"* de `arsenal_avanzado`, que es el mismo inyector de pirámide escrito por nosotros. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.6** (9 ago 2026) — **La unidad del GEN5 es la generación.** Detectado por el Director al revisar la prueba del canal: recordaba que el marco desarrollado era otro, y el conteo lo confirmó. `COMP_GEN5_01` era **el único** de los fragmentos GEN5 que contaba en niveles (3 usos), contra 7 usos de *generación* en COMP_GEN5_03/04/06, el ejemplo dictado por `route.ts` (*"Generación 1 — 5 paquetes"*) y la referencia interna del propio COMP_GEN5_01, que ya decía *generaciones 2 a 4*. El fragmento se contradecía consigo mismo, y es el primero que se entrega sobre el bono: el que fija el marco antes de que lleguen las cifras. En la prueba del 9 ago el prospecto oyó las dos versiones en turnos consecutivos. ⚠️ **No es una traducción a lenguaje llano, es lo contrario:** *generación* es la nomenclatura del propio plan —GEN5 son cinco generaciones—, así que el cambio **restaura** la regla de que la nomenclatura va literal. Y la generación es una unidad horizontal: describe quién vino después, no cuánto se baja. ⚠️ **El Binario conserva su descriptor**: en COMP_BIN_08 y COMP_BIN_10 *sin límite de profundidad* es el término propio de ese bono y no tiene equivalente en generaciones — barrer por barrer habría sido el error opuesto. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.5** (8 ago 2026) — **Registro elevado + la cabecera del GEN5 dejó de dictar el error.** COMP_MODELO_01 reescrito en registro de firma de inversión (*flujo de ganancias · percibe · liquida · el efecto bola de nieve como principio financiero*), y la bola de nieve pasa a estar hecha de **compras**, no de socios que reclutan socios — esa era la silueta de la pirámide dibujada por nosotros en la respuesta sobre el dinero. Retirada la repetición literal con WHY_02 ("todo lo que gana sale de una sola cosa…", que la persona acababa de leer 30 segundos antes). Pregunta de cierre con motivo — el motivo se retiró en v7.7. **COMP_GEN5_01: cabecera en afirmativo** — decía *PROHIBIDO decir "ese mismo viernes"* y el modelo copió la frase de ahí en la prueba en vivo del 8 ago; las cabeceras viajan dentro del fragmento recuperado, así que citar lo prohibido es dictarlo. Detectable desde ahora con `scripts/auditar-frases-vetadas.mjs`. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.4** (7 ago 2026) — **Bautizo empresarial en los ejemplos.** Las unidades de los ejemplos dejan de contar cabezas: "conecta 2 personas" → "2 socios" (COMP_GEN5_05, filas "Socio 1/2"); "62 personas" → "62 vinculaciones" (COMP_GEN5_08, + "se construye la red" → "la estructura"); "numero de personas activas" → "socios activos" (regla del Lado Menor); instrucción interna del Binario deja de citar la fórmula prohibida como ejemplo; VIP "para personas que quieren" → "para quien quiere". **"Flujo de caja" retirado** (decisión del Director 7 ago — revierte la conservación de v7.0): GEN5 "le da ingreso inmediato para crecer" · "la plata que financia la expansión". ⚠️ Cifras, %, CV/PV y tasas INTACTAS. Previa **7.3** (12 jul 2026) — composición ESP corregida + upgrades (COMP_PAQ_02/03/04/05). Previa **7.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
 
 **Version previa:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
-**Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → Propietario de Base Operativa, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos de las 12, NO "dos mecanismos/principales"; sus rotulos de entonces se retiraron en v7.7). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
+**Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → socio, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos de las 12, NO "dos mecanismos/principales"; sus rotulos de entonces se retiraron en v7.7). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
 **Version:** 6.4 (22 May 2026) — Distinción canónica 70 vs 15 países: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los 15 países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (más de 60 países = matriz física) con la capacidad operativa del Arquitecto (15 países América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
 **Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
 **REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: **GEN5 = compra de paquetes empresariales** · **Binario = consumo recurrente** · **colectivo = su canal**.
@@ -19,20 +19,20 @@
 
 **DISTINCIÓN INVIOLABLE — 70 vs 15 países:**
 
-- **Respaldo Operativo (Gano Excel — su socio logístico y financiero):** presencia corporativa en **más de 60 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "más de 60 países".
+- **Respaldo Operativo (Gano Excel — Gano Excel):** presencia corporativa en **más de 60 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "más de 60 países".
 
-- **Capacidad operativa del Propietario (su organización):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su organización**", "donde el Propietario opera", "expansión del Propietario", "volumen de consumo de su organización", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
+- **Capacidad operativa del socio (su canal):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su canal**", "donde el socio opera", "expansión del socio", "volumen de consumo de su canal", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
 
-- **Diáspora latina:** los Propietarios residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su organización en los 15 países, dirigiendo todo desde Queswa.
+- **Diáspora latina:** los socios residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su canal en los 15 países, dirigiendo todo desde Queswa.
 
 **REGLA AL CONSTRUIR PREGUNTAS DE CIERRE O VECTORES TÉCNICOS:**
 
-NUNCA digas "su organización en más de 60 países" — ese es vocabulario incorrecto y mezcla los conceptos.
+NUNCA digas "su canal en más de 60 países" — ese es vocabulario incorrecto y mezcla los conceptos.
 
 Frases canónicas válidas:
-- "su organización en los 15 países operativos de América"
+- "su canal en los 15 países operativos de América"
 - "una organización con capacidad operativa en 15 países"
-- "el volumen de consumo de su organización" (sin número específico si no se necesita)
+- "el volumen de consumo de su canal" (sin número específico si no se necesita)
 
 Frases canónicas válidas para Respaldo Operativo Gano Excel:
 - "Gano Excel opera en más de 60 países"
@@ -248,7 +248,7 @@ El GEN5 se paga semanalmente, no mensualmente.
 | Se procesa | Ciclo 894 |
 | Recibe el pago | Viernes Ciclo 895 (31 Ene) |
 
-**Insight:** No espera fin de mes. Cada activacion de capitalizacion en su organizacion se liquida el viernes de 2 semanas despues.
+**Insight:** No espera fin de mes. Cada activacion de capitalizacion en su canal se liquida el viernes de 2 semanas despues.
 
 ---
 
@@ -310,25 +310,25 @@ Puede hacer varias compras durante la semana.
 
 ### COMP_PV_04: "Que es CV (Volumen Comisional)?"
 
-**[Concepto Nuclear]:** CV de su compra personal NO va a su organizacion. Solo le activa.
+**[Concepto Nuclear]:** CV de su compra personal NO va a su canal. Solo le activa.
 
 CV son los puntos que se usan para calcular el Bono Binario.
 
 **Regla Critica:**
 | Fuente de CV | Va a su centro de cobro? |
 |--------------|--------------------------|
-| Compras de su organización | SI |
+| Compras de su canal | SI |
 | Su compra personal | NO* |
 
 *Excepcion: Si compra mas de 120 PV, el excedente SI va a su centro.
 
-**Insight:** Su compra personal sirve para activarle (50-100 PV), no para generar CV en su organización. El CV viene de su organización.
+**Insight:** Su compra personal sirve para activarle (50-100 PV), no para generar CV en su canal. El CV viene de su canal.
 
 ---
 
 ### COMP_PV_05: "Que es GCV (Volumen Comisional Grupal)?"
 
-**[Concepto Nuclear]:** GCV = Suma de TODO el CV de su organizacion. Es la productividad de su activo.
+**[Concepto Nuclear]:** GCV = Suma de TODO el CV de su canal. Es la productividad de su activo.
 
 **Como se Calcula:**
 | Fuente | Suma a su GCV? |
@@ -337,7 +337,7 @@ CV son los puntos que se usan para calcular el Bono Binario.
 | CV de su lado derecho | SI |
 | Su CV personal | NO |
 
-**Insight:** Mientras mas grande su organizacion, mayor su GCV. Es la base para comisiones y rangos.
+**Insight:** Mientras mas grande su canal, mayor su GCV. Es la base para comisiones y rangos.
 
 ---
 
@@ -384,7 +384,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **Regla practica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, segun categoria). Excepcion: Maquina LUVOCO da 0 PV y 0 CV — el negocio esta en las capsulas, no en la maquina.
 
-**Insight:** Cuando calcule su activacion personal, use PV. Cuando calcule ganancias del Binario, use CV de su organización.
+**Insight:** Cuando calcule su activacion personal, use PV. Cuando calcule ganancias del Binario, use CV de su canal.
 
 ---
 
@@ -440,7 +440,7 @@ Son dos metricas diferentes con propositos diferentes:
 
 **[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
 
-Esta regla es para Propietarios de una empresa digital que compran inventario grande.
+Esta regla es para socios que compran inventario grande.
 
 **Como Funciona:**
 | Su Compra | Activacion | Centro de Cobro |
@@ -457,7 +457,7 @@ Esta regla es para Propietarios de una empresa digital que compran inventario gr
 
 **[Concepto Nuclear]:** 50 PV mensuales = productos reales que consume o comparte, no cuotas administrativas. Múltiples combinaciones disponibles.
 
-Tiene varias opciones para completar sus 50 PV mensuales — todas en productos reales que consume o comparte con su organización:
+Tiene varias opciones para completar sus 50 PV mensuales — todas en productos reales que consume o comparte con su canal:
 
 **Opción 1 — Solo café (la más popular):**
 - 4 cajas de Gano Café 3 en 1 = 60 PV ✓
@@ -537,7 +537,7 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 
 Gano Excel liquida cada semana así:
 
-1. Suma el **Volumen Comisionable (CV)** de TODOS los productos consumidos por la organización (el CV es un valor asignado por Gano Excel a cada producto — distinto al precio de venta al público).
+1. Suma el **Volumen Comisionable (CV)** de TODOS los productos consumidos por el canal (el CV es un valor asignado por Gano Excel a cada producto — distinto al precio de venta al público).
 2. Calcula el **GCV (Group CV)** acumulado de su **Centro de Negocios de Cobro** (el centro con MENOR volumen acumulado entre los dos frentes).
 3. Aplica el porcentaje del paquete o rango activo — automáticamente el más alto disponible.
 
@@ -650,11 +650,11 @@ Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ah
 
 **[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su retiro semanal de por vida.
 
-El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limite de profundidad.
+El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin limite de profundidad.
 
 **Como funciona:**
 - Su equipo se divide en 2 lados (izquierdo y derecho)
-- Cada compra de su organización genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
+- Cada compra de su canal genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
 - El sistema suma TODO el CV de cada lado
 - Se liquida el 17% sobre el lado de MENOR volumen
 
@@ -689,7 +689,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su organización, sin limit
 | GEN5 | Una vez por vinculacion | Unico |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
-**Insight:** El GEN5 le da ingreso inmediato para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su organización esté activa.
+**Insight:** El GEN5 le da ingreso inmediato para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su canal esté activa.
 
 ---
 
@@ -742,7 +742,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 | 10 clientes por frente | $95 USD | ~$428K COP |
 | 100 clientes por frente | $952 USD | ~$4.3M COP |
 
-**Insight:** Con solo 10 clientes consumiendo en cada frente, ya genera ~$95 USD al mes, y se le liquida cada viernes. El poder del Binario es que paga sobre TODA su organización, sin limite de profundidad.
+**Insight:** Con solo 10 clientes consumiendo en cada frente, ya genera ~$95 USD al mes, y se le liquida cada viernes. El poder del Binario es que paga sobre TODA su canal, sin limite de profundidad.
 
 ---
 
@@ -937,7 +937,7 @@ El Auto Envio es un programa de lealtad.
 | Precio publico | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos Propietarios cuentan con Clientes VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su organización.
+**Insight:** Muchos socios cuentan con Clientes VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su canal.
 
 ---
 
@@ -953,11 +953,11 @@ Para activar su código y acceder al precio de distribuidor, el VIP realiza una 
 **Compras recurrentes:**
 El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
-**Diferencia funcional con el Propietario de una empresa digital:**
-- El Propietario adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su empresa digital con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+**Diferencia funcional con el socio:**
+- El socio adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su empresa digital con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
-**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para quien quiere acceder al producto sin compromiso de desarrollo de una empresa digital. Eventualmente, estos códigos pueden hacer upgrade a Propietario cuando el perfil madura.
+**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para quien quiere acceder al producto sin compromiso de desarrollo de una empresa digital. Eventualmente, estos códigos pueden hacer upgrade a socio cuando el perfil madura.
 
 ---
 
@@ -979,7 +979,7 @@ El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener 
 
 6. **Gen 5 Doble:** 100 PV aplica igual para ESP-1, ESP-2 y ESP-3.
 
-7. **CV Personal NO Suma:** Su compra solo le activa. El CV viene de su organización.
+7. **CV Personal NO Suma:** Su compra solo le activa. El CV viene de su canal.
 
 8. **Siempre el % MAS ALTO:** El sistema aplica automaticamente el mejor porcentaje.
 
@@ -999,7 +999,7 @@ El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener 
 | **Lado de Compensacion** | El lado de su binario con MENOS puntos. Este es sobre el que le pagan. |
 | **PV (Personal Volume)** | Puntos de sus compras personales. Sirven para ACTIVARLE (50-100 PV). |
 | **CV (Commissionable Volume)** | Puntos de las compras que se mueven por su canal. Son los que le PAGAN el Binario. |
-| **GCV (Group CV)** | Suma total de CV de toda su organizacion (ambos lados). |
+| **GCV (Group CV)** | Suma total de CV de toda su canal (ambos lados). |
 | **Ciclo Semanal** | Gano Excel corta los domingos y paga los viernes (2 semanas despues). |
 | **Rollover** | Los puntos no cobrados se ACUMULAN para la siguiente semana. Nunca se pierden. |
 | **Derrame (Spillover)** | Volumen que recibe de su linea ascendente. Ellos colocan en SU estructura. |

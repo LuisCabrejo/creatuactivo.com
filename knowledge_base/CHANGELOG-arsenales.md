@@ -71,6 +71,33 @@ Cifras, %, CV/PV y tasas INTACTAS.
 
 ⚠️ **Anotado, sin tocar:** la REGLA DE ORO de la cabecera del arsenal todavía dice *"Binario=Renta Vitalicia"*. *Renta vitalicia* es promesa de perpetuidad — la regla del 8 ago es que la recompensa se nombra por su **repetición**, no por su duración. Es de cara interna, pero conviene resolverlo en la revisión de `arsenal_compensacion`.
 
+## Barridos transversales
+
+### Vocabulario del colectivo, del rol y del fabricante (9 ago 2026)
+
+Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado` y `arsenal_12_niveles`, decidido junto tras la pregunta del Director: *"¿cómo vamos a llamar a nuestros dueños de canal?"*.
+
+**Los tres registros del rol quedaron así:** a él, en segunda persona, **sin título** — *usted es el dueño* (decisión del 8 ago; un cargo evoca hojas de cálculo y le pide una identidad que no se atribuye). A los suyos, en tercera, **socios** — ya era lo dominante con 81 usos, y convive con *clientes preferenciales* para quienes solo consumen. En el código, **constructor** (`constructor_id`, `constructor_slugs`), que **no se migra**: es una migración de base de datos sin beneficio de cara al prospecto.
+
+| Barrido | Instancias | A |
+|---|---|---|
+| *su organización* | 67 | **su canal** |
+| …donde el colectivo actúa | 8 | **se nombra a quién** (*sus clientes*, *sus socios*) |
+| *Propietario* | 31 | **socio** |
+| *su socio logístico/financiero/digital* | 12 | **Gano Excel** / **Queswa** |
+
+⚠️ **«Organización» no era un residuo.** La eligió deliberadamente el barrido del 20 jul para reemplazar *red*, conservando *canal de distribución* aparte. Esta es la tercera iteración sobre la misma palabra. El modelo nuevo es más limpio porque **elimina el término intermedio ambiguo**: el canal es la estructura y su volumen; cuando hacen falta las personas, se nombran.
+
+⚠️ **La colisión de «socio» se resolvió sola.** Medida antes del barrido: *socio* significaba Gano/Queswa en 9 fragmentos y la gente del canal en 1. Pero los 9 eran todos de fragmentos **sin revisar** — los revisados ya decían *Gano Excel* por su nombre desde v5.60, cuyo argumento se aplicó aquí: *un rótulo interno le confirma la duda a quien duda*.
+
+**Usos legítimos conservados:** *la organización dirigida por Luis Cabrejo* (es CreaTuActivo, la empresa) · *no es mala organización* en OBJ_01 (otro significado) · *extracto propietario de Ganoderma* · *"Total organización"* como rótulo de la tabla de `arsenal_12_niveles`, que está alineado con el simulador del deck y desincronizarlo rompería el funnel ([[project_reto_12niveles_no_migrar]]).
+
+**Medición.** Línea base capturada **antes** de purgar: **21 de 23 consultas conservan el mismo fragmento ganador**. Los dos cambios son empates de milésimas — *"¿qué son los 12 niveles?"* pasa de la tabla a la definición (mejora) y *"¿el consumo de mi hogar cuenta?"* cruza por 0.001, mientras la pregunta principal de ese fragmento sigue resolviendo a 0.620. Se decidió **no** empujar el embedding para ganar un empate de milésimas: eso es afinar contra la propia prueba, y FREQ_25 ya tiene reescritura pendiente por otras razones.
+
+**Hueco preexistente destapado:** `PERFIL_01` tenía el disparador *"yo no sirvo para vender"* pero no *"no sé vender"* — la mudanza de v5.65 cubrió una forma y no la otra. Se sumaron las dos variantes.
+
+**Estado: 0 apariciones de los tres términos en fragmentos · 145 por tenant, idénticos · 0 hits del auditor · 42/42 en la batería, en los dos tenants.**
+
 ## arsenal_inicial
 
 ### v5.69 — Dos eliminadas, dos corregidas, y una lección de despliegue (9 ago 2026)

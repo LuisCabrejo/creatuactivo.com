@@ -12,6 +12,34 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v7.7 — Cada vía se nombra por lo que la mueve (9 ago 2026)
+
+Decisión del Director, después de que la investigación encargada a Gemini devolviera pensamiento útil y copy inservible (ocho nombres tipo *Bono de Habilitación de Nodos Comerciales*, y las tres frases propuestas en tuteo). Lo que sí se rescató de ese informe: **el criterio del artículo 2 de la Ley 1700** —cuando el discurso se centra en intermediar personas en vez de productos, cruza la línea regulatoria— y la lógica de preparación del canal.
+
+**El problema era de hecho, no de tono.** El GEN5 se presentaba por su **velocidad** y el Binario por su **duración**, y las dos etiquetas estaban mal. La de velocidad además era **falsa**: la compra de un paquete empresarial es **esporádica**. Lo único que se puede afirmar es *cada vez que ocurre* — sin ritmo prometido y sin plazo. La de duración estaba vetada desde el 8 ago por ser promesa de perpetuidad.
+
+**El daño que esto corrige ocurre aguas arriba, y es dato de campo.** Doce años de observación del fundador:
+
+> *"Aún las personas que llevan años siguen viendo más llamativo el GEN5 que el ingreso recurrente. Es algo que daña. La gente piensa: rápido traigo a 5, que traen 5, que traen 5 — y solo con esa idea le inyecta la idea de la pirámide a su prospecto."*
+
+No se deforma la cabeza del prospecto: se deforma la de **quien explica el negocio**. La prueba del canal del 9 ago lo documenta — el prospecto salió con una sola cifra en la cabeza, la del GEN5, cero cifras del recurrente, y dos frases nuestras diciéndole que esa es la rápida.
+
+**Vocabulario canónico:** `GEN5 = compra de paquetes empresariales` · `Binario = consumo recurrente` · `colectivo = su canal`.
+
+⚠️ **La función se conserva**, porque sin ella no se entiende para qué hay dos vías: el GEN5 es la plata que financia el crecimiento temprano. **Decir para qué sirve no es decir qué tan rápido llega.** Se conserva también la distinción que ya existía y no tiene adjetivo: *esta le paga mientras construye, y la otra le paga por lo que ya construyó*.
+
+⚠️ **`colectivo = su canal`, y cuando el colectivo hace algo humano se nombra a quién** (*sus clientes*, *sus socios*). Un canal es un conducto y no consume — se vio al probar el reemplazo contra las frases reales: aguantaba en 6 de 7, y la que rompía era *"su organización sigue consumiendo"*. Y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Nombrar a quién sí puede, es más concreto, y **mete al consumidor dentro de la frase, que es donde la Ley 1700 quiere verlo**. Se descartó *red de consumo* (propuesta de Gemini como «la más segura jurídicamente») porque **describe mal la mitad del modelo**: el GEN5 no paga por consumo.
+
+⚠️ **Los disparadores conservan las palabras del prospecto** — *"¿cómo se gana rápido?"* sigue siendo trigger de COMP_GEN5_01. Son su vocabulario, no el nuestro; sin ellos la pregunta deja de encontrar respuesta. Es la distinción que ya aplica `auditar-frases-vetadas.mjs`.
+
+**Retrieval medido antes y después** (línea base capturada ANTES de purgar, corrigiendo el método que falló en v7.6): **7 de 9 consultas conservan el mismo ganador**. Los dos cambios no son regresiones — *"¿se gana por las compras de paquetes?"* pasó de COMP_GEN5_04 a **COMP_MODELO_01**, que es mejor porque explica las dos vías y abre por el recurrente; y *"¿cómo funciona el plan de compensación?"* cambió entre dos fragmentos **ambos bajo el umbral de 0.4**, hueco preexistente. Mejora principal: *"¿qué es el Bono GEN5?"* de 0.618 a **0.643**.
+
+**Alcance:** COMP_MODELO_01 (frase puente), COMP_GEN5_01 (apertura + cabecera), COMP_GEN5_08, COMP_PAQ_04, COMP_VIP_01 (cinco instancias, la peor: negaba *«No es Renta Vitalicia»*, que nombra el elefante para descartarlo), la REGLA DE ORO, y la pestaña visible de la servilleta (`INGRESO INMEDIATO` → `INGRESO POR PAQUETES`). ⚠️ **No se tocó el fallback de `route.ts`** — la regla del proyecto lo prohíbe y los dos prompts vivos en Supabase ya están limpios, verificado.
+
+**Estado: 0 apariciones del léxico retirado en fragmentos · 38 fragmentos por tenant, iguales · 0 hits del auditor · 42/42 en la batería.** Queda `dashboard/arsenal_cierre`, que es de queswa.app y repositorio aparte.
+
+**Pendientes anotados:** las **51 apariciones de *su organización*** en tres arsenales (barrido aparte, decidido hacerlo después de este para poder atribuir regresiones) · la progresión **«1, 2, 4, 8»** de `arsenal_avanzado`, que es el mismo inyector de pirámide escrito por nosotros · el bloque *LENGUAJE APROBADO* del fallback, que todavía lista *«estructura de ingresos recurrentes»*, jerga que los arsenales ya retiraron.
+
 ### v7.6 — La unidad del GEN5 es la generación (9 ago 2026)
 
 Lo detectó el Director revisando la prueba del canal: recordaba que el marco desarrollado con el agente anterior era otro. El conteo lo confirmó — **`COMP_GEN5_01` era el único fragmento GEN5 que contaba en niveles**:

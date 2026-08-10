@@ -2736,7 +2736,11 @@ export default function ServilletaPage() {
                     className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
                     onClick={() => setSimMode('gen5')}
                   >
-                    INGRESO INMEDIATO
+                    {/* "INGRESO INMEDIATO" hasta el 9 ago 2026. Se retiró el
+                        adjetivo de velocidad por decisión del Director: además de
+                        atraer por la razón equivocada, era falso — la compra de un
+                        paquete es esporádica. Cada vía se nombra por lo que la mueve. */}
+                    INGRESO POR PAQUETES
                   </button>
                 </div>
 

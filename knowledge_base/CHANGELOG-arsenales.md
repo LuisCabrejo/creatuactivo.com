@@ -100,6 +100,31 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.74 — FREQ_23 eliminada; FREQ_27 abre con el hecho, no con el reclamo (10 ago 2026)
+
+El motivo terminó siendo distinto del que parecía, y el recorrido vale la pena registrarlo porque es un caso de manual.
+
+**Primera lectura:** *"FREQ_27 ya contiene a FREQ_23, sobra"*. **Segunda:** *"no — son audiencias distintas: una pregunta neutro y la otra reclama, y responderle a la neutra con «tiene razón en que la TRM es más baja» le planta una objeción que no trajo"*. **La medición decidió, y contra las dos:**
+
+```
+NEUTRAS → FREQ_23    1 de 4
+   "¿cuánto vale el dólar para mis pagos?"  → FREQ_27 0.575   ← disparador literal de FREQ_23
+   "¿la tasa es de mercado?"                → FREQ_27 0.507   ← disparador literal de FREQ_23
+   "¿a cómo me pagan el dólar?"             → FREQ_27 0.615
+```
+
+La distinción que se estaba defendiendo **ya estaba colapsada en la práctica**: tres de cada cuatro formulaciones neutras llegaban a FREQ_27, incluidos dos disparadores propios de FREQ_23. Y con eso, **el defecto de plantar la objeción ya estaba ocurriendo** — eliminar FREQ_23 solo lo llevaba de 3 de 4 a 4 de 4.
+
+⚠️ **Por eso el arreglo real no era eliminar, era la apertura.** Ahora abre con el dato —*la tasa es fija: $4.500 COP por dólar, sin importar la TRM del día*— y el reencuadre viene después, sirviendo igual a quien reclama y a quien solo pregunta. **158 → 104 caracteres**, y desaparece la repetición de la cifra en dos párrafos seguidos.
+
+⚠️ **Lo que se pierde es una ganancia.** El ejemplo de FREQ_23 ilustraba *"$1.000 USD en comisiones semanales → $4.500.000 COP"*: una cifra de ingreso semanal sin condicionar, y encima mostrando USD a un colombiano — justo lo que dispara el reclamo que este fragmento atiende.
+
+**Resultado: 8 de 8 formulaciones llegan a FREQ_27, y las neutras SUBIERON** (0.575→0.584, 0.507→0.522, 0.615→0.630). Los reclamos bajan una pizca (0.659→0.643), lo esperable al retirar la frase que los reconocía, y siguen dominando.
+
+1.103 caracteres fuera · 52 → 51 respuestas · 144 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería.
+
+**Lección de método:** cuando dos fragmentos parecen redundantes, la pregunta útil no es *"¿dicen lo mismo?"* sino *"¿el vector los distingue?"*. Aquí la respuesta era que no, y eso cambió el diagnóstico completo.
+
 ### v5.73 — STORY_03 conserva "¿Le suena conocido?" (10 ago 2026)
 
 Revertida del barrido de cierres, por decisión del Director y con dos razones que apuntan al mismo lado.

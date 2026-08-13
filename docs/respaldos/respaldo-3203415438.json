@@ -1,0 +1,399 @@
+{
+  "pending_activations": [
+    {
+      "id": "77276007-a8ee-4487-b6d7-cbc9f57377d5",
+      "invited_by": "6b7cfe68-ad3a-41ae-9094-682f6c486791",
+      "name": "Jonatan Cabrejo",
+      "email": null,
+      "whatsapp": "573203415438",
+      "gano_excel_id": null,
+      "plan_type": "visionario",
+      "status": "pending",
+      "approved_by": null,
+      "approved_at": null,
+      "rejection_reason": null,
+      "created_at": "2026-08-10T00:43:49.212496+00:00",
+      "cedula": "1006774001",
+      "ciudad": "Villavicencio",
+      "source": "queswa",
+      "fingerprint_id": "wa_573203415438"
+    }
+  ],
+  "prospects": [
+    {
+      "id": "2d85f2c0-59f1-4199-9af9-80692f5b67de",
+      "constructor_id": "6b7cfe68-ad3a-41ae-9094-682f6c486791",
+      "fingerprint_id": "wa_573203415438",
+      "cookie_id": null,
+      "first_url": null,
+      "last_url": null,
+      "device_info": {
+        "name": "Luis Abner Cabrejo Parra",
+        "phone": "573203415438",
+        "channel": "whatsapp",
+        "invited_by": "luis-cabrejo-1288",
+        "message_count": 8,
+        "interest_level": 16,
+        "momento_optimo": "caliente",
+        "consent_granted": true,
+        "consent_timestamp": "2026-08-10T00:26:58.806Z",
+        "patrocinador_nombre": "Luis Cabrejo Parra"
+      },
+      "visits": 1,
+      "is_returning": false,
+      "stage": "expansion",
+      "created_at": "2026-08-10T00:05:31.188836+00:00",
+      "updated_at": "2026-08-10T00:48:20.905669+00:00",
+      "user_id": null,
+      "source": "whatsapp_inbound"
+    }
+  ],
+  "nexus_conversations": [
+    {
+      "id": "a51d00db-f703-4c39-80df-68b6565c95d3",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hola Queswa � vengo del enlace de luis-cabrejo",
+          "timestamp": "2026-08-10T00:05:32.852Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hola, Luis. Un gusto saludarle. 🤝\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo.\n\nLe explico cómo se construye un *canal de distribución* en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:\n\n⚙️ Se arma una sola vez.\n🔑 Usted es el dueño.\n🔄 Le paga cada vez que hay consumo.\n\nMientras conversamos, usted ya está viendo cómo le podría ayudar:\nAsí es como asisto a cientos de personas a construir su propio canal, las 24 horas.\n\n¿Por dónde prefiere empezar?",
+          "timestamp": "2026-08-10T00:05:32.852Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-10T00:05:33.204484+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "83e2a58c-be63-4b74-a8e4-0e744ffc53c4",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cómo funciona",
+          "timestamp": "2026-08-10T00:05:58.521Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.\n\nLa ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.\n\nY al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.\n\nPara que usted dirija sin cargar con la operación, el trabajo pesado lo asumimos nosotros:\n\n*Gano Excel* pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.\n\n*Yo* explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.\n\nA usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.\n\n¿Quiere ver cómo se gana?",
+          "timestamp": "2026-08-10T00:05:58.521Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-10T00:05:58.606626+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "f3b3b28f-e5dd-40b4-88f7-bd4bcb0676e5",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cómo entra el dinero",
+          "timestamp": "2026-08-10T00:07:27.544Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Buena pregunta, y la más importante.\n\nEl dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma.\n\nSe vende de dos formas: *al detal*, a quien solo quiere consumirlo, y en *paquetes empresariales*, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.\n\nY no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que volver a hacer nada.\n\nQuien le consigna es *Gano Excel*, y lo hace en *su cuenta bancaria cada viernes*. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.\n\n¿Le muestro cómo se ve en números?",
+          "timestamp": "2026-08-10T00:07:27.544Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-10T00:07:27.707613+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "4608cbe1-8f9a-429e-bdbd-39b97b6ad807",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "si",
+          "timestamp": "2026-08-10T00:08:21.532Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto, Luis. Su flujo de ganancias se alimenta de dos formas: el consumo recurrente, y la expansión empresarial — cuando nuevos socios compran su paquete y abren su propio canal.\n\nEmpecemos por la primera, que es la que construye su seguridad financiera: su red de clientes vuelve a pedir, y usted recibe una comisión sobre todo ese movimiento cada viernes.\n\nEs el efecto bola de nieve, un principio financiero conocido: usted empieza con las compras de sus primeros clientes, y cada distribuidor que abre su canal aporta el consumo de su propia red de clientes.\n\nEl volumen crece por impulso propio, y Gano Excel le liquida por cada transacción que ocurre dentro de su estructura.\n\nEs un ingreso que ya no exige que usted esté encima del negocio.\n\n¿Le explico la segunda forma, que es la que paga a mayor velocidad?",
+          "timestamp": "2026-08-10T00:08:21.532Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-10T00:08:11.885Z"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:08:21.532+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "056c0446-b696-4307-8fa7-9795a3608316",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "ok",
+          "timestamp": "2026-08-10T00:09:21.737Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. Esta es la parte que paga rápido.\n\nCada vez que se compra un paquete empresarial en su canal, a usted le entra una comisión directa — y cuenta hasta cinco niveles de profundidad. Es plata que le llega cada viernes.\n\nCorre en paralelo con la otra forma de ganar, la del consumo que se repite: esta le paga mientras construye, y la otra le paga por lo que ya construyó.\n\n¿Le muestro un ejemplo con números?",
+          "timestamp": "2026-08-10T00:09:21.737Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:09:21.737+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "36f84598-4a48-453c-9327-c79f09e79c59",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "si",
+          "timestamp": "2026-08-10T00:09:53.824Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Le pongo un ejemplo con números redondos.\n\nUsted arranca con el *ESP-3 Visionario*, y en su canal se compran *5 paquetes ESP-3* en cada una de las primeras cinco generaciones.\n\n*Generación 1* — 5 paquetes\n$675.000 × 5 = *$3.375.000*\n\n*Generación 2* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 3* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 4* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 5* — 5 paquetes\n$180.000 × 5 = *$900.000*\n\n*Total: $5.625.000 COP*\n\nY se liquida cada viernes, a medida que cada compra ocurre — no espera a que se complete nada.\n\n¿Quiere que le explique cómo se estructuran los paquetes para arrancar?",
+          "timestamp": "2026-08-10T00:09:53.824Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-10T00:09:47.465Z"
+        },
+        "search_method": "paquete_direct",
+        "documents_used": [
+          "/knowledge_base/arsenal_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:09:53.824+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "c21938bd-cd12-4280-a40e-705545f0b51b",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "ok",
+          "timestamp": "2026-08-10T00:10:42.745Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfecto. Hay tres paquetes de inicio, y cada uno define su posición desde el primer día:\n\n| Paquete | Inversión | Productos | % Binario | GEN5 |\n|---------|-----------|-----------|-----------|------|\n| ESP-1 Inicial | $900.000 COP | 7 | 15% (2 meses) | ✓ |\n| ESP-2 Empresarial | $2.250.000 COP | 18 | 16% (4 meses) | ✓ |\n| ESP-3 Visionario | $4.500.000 COP | 35 | 17% (6 meses) | ✓ |\n\nLos tres tienen acceso al bono GEN5 — ese que le mostré en el ejemplo. La diferencia está en el porcentaje de comisión binaria, cuántos meses dura ese porcentaje elevado, y el volumen de producto con el que arranca.\n\n¿Le cuento qué trae cada uno en detalle, o ya tiene en mente cuál le llama la atención?",
+          "timestamp": "2026-08-10T00:10:42.745Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio"
+        },
+        "search_method": "paquete_direct",
+        "documents_used": [
+          "/knowledge_base/arsenal_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:10:42.745+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "98ca873e-cfb7-41f5-a76e-00176f9b21fc",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "si",
+          "timestamp": "2026-08-10T00:27:04.874Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Luis Abner, me ayuda a precisar: ¿quiere que le cuente el detalle de los tres paquetes, o ya tiene uno en mente y quiere profundizar en ese?",
+          "timestamp": "2026-08-10T00:27:04.874Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-10T00:26:58.806Z"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_avanzado.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:27:04.874+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "2f8069a9-c975-4085-baed-9723a3b1aeca",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "esp3 qué trae",
+          "timestamp": "2026-08-10T00:27:29.250Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Entiendo. El detalle exacto de los productos que incluye el ESP-3 Visionario no lo tengo en este momento — y prefiero no inventarle una lista.\n\nLo que sí le puedo confirmar es que son 35 unidades de producto, arranca con el porcentaje de comisión binaria más alto (17% por 6 meses), y tiene acceso completo al bono GEN5.\n\nEl desglose exacto de qué productos componen ese paquete se lo confirma directamente el socio que lo invitó — él tiene esa información al día y puede mostrársela con los nombres y referencias correctas.\n\n¿Quiere que lo conectemos con él para que le resuelva eso y quede listo para arrancar?",
+          "timestamp": "2026-08-10T00:27:29.250Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 7,
+          "momento_optimo": "caliente"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_avanzado.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:27:29.25+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "4a10c1c8-2193-4ca3-b671-0734d2a443e3",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Qué debo hacer yo",
+          "timestamp": "2026-08-10T00:27:49.158Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Me gusta esa pregunta — es la que de verdad importa. 🪢\n\nSu día a día se resume en dos acciones:\n\n📲 *Compartir:* usted pasa un enlace a quien quiera.\n🤝 *Recibir:* usted saluda a quien llega con interés.\n\nEntre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.\n\nY como es así de sencillo, quien entra con usted hace exactamente lo mismo. De ahí salen la multiplicación de su negocio y el aumento de su facturación.\n\n¿Le muestro los productos que mueven todo esto?",
+          "timestamp": "2026-08-10T00:27:49.158Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-10T00:27:49.480096+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "5034f077-7106-4062-967f-95460821e40a",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Me interesa iniciar. Mi nombre es Jonathan Cabrejo para la ciudad de Villavicencio.",
+          "timestamp": "2026-08-10T00:28:45.937Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. Le ayudo a dejarlo andando ahora mismo.\n\nPara radicar su vinculación necesito cuatro datos:\n\n• Nombre completo, como aparece en su documento\n• Número de identificación\n• La ciudad donde está\n• Cuál de los tres paquetes de inicio quiere\n\nLa ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no hay, le llega a su dirección.\n\nCon eso queda radicado, y le aviso a Luis Abner para que le confirme y coordinen el pago.",
+          "timestamp": "2026-08-10T00:28:45.937Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 10,
+          "momento_optimo": "caliente"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_avanzado.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:28:45.937+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "c3b1bf81-88aa-446a-acbc-8053f1241f66",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Jonatan Cabrejo\n1.006.774.001\nVillavicencio\nEsp3",
+          "timestamp": "2026-08-10T00:43:52.222Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Listo, Jonatan. Su vinculación quedó radicada.\n\n*ESP-3 Visionario* · Villavicencio\n\nYa le avisé a Luis Cabrejo. Le confirma la aceptación y coordinan el pago directamente — ese paso lo cierra una persona, no yo.\n\nMientras tanto, si le queda alguna duda, aquí sigo.",
+          "timestamp": "2026-08-10T00:43:52.222Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-10T00:43:52.587152+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "bc6190ba-7a75-4d16-9da7-f927322e2faa",
+      "fingerprint_id": "wa_573203415438",
+      "session_id": "wa_573203415438",
+      "messages": [
+        {
+          "role": "user",
+          "content": "dame un ejemplo gráfico de ganancias en el bono bianrio",
+          "timestamp": "2026-08-10T00:48:30.746Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Claro que sí, Jonatan.\n\nLa segunda velocidad es la meta de fondo: ingreso que ya no depende de que usted esté presente.\n\nGano Excel mide el consumo internacional de toda su organización, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su organización en el continente, usted gana por todos ellos.\n\nEsto le deja crecer sin límite: las comisiones las paga directamente Gano Excel, no CreaTuActivo. Usted funciona como un **peaje**: no fabrica los productos, no los empaca ni los transporta; solo es el dueño del camino por donde pasa, todos los días, ese consumo.\n\n¿Ve la diferencia entre cobrar una sola vez por su tiempo, y recibir un ingreso que se repite por el consumo de toda una organización?",
+          "timestamp": "2026-08-10T00:48:30.746Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 16,
+          "momento_optimo": "caliente"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_avanzado.txt"
+        ]
+      },
+      "created_at": "2026-08-10T00:48:30.746+00:00",
+      "constructor_id": null
+    }
+  ]
+}

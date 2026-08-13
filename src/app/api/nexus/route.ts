@@ -2686,8 +2686,28 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         const totalFragmentChars = fragments.reduce((sum, f) => sum + f.content.length, 0);
         console.log(`✅ [Fragments] ${fragments.length} fragmentos encontrados (${totalFragmentChars} chars vs ~60K full arsenal)`);
 
-        // Combinar contenido de fragmentos relevantes
-        const combinedContent = fragments
+        // ── Si el que encabeza trae candado, va SOLO ────────────────────────
+        //
+        // El system prompt ya dice que un fragmento con candado es la respuesta
+        // completa y los demás son solo contexto. El modelo lo cumple cuando la
+        // ventaja es clara y deja de cumplirlo cuando no: en "¿cuánto cuesta
+        // empezar?" el candado de FREQ_03 (0.547) tenía a OBJ_02 —"Es mucho
+        // dinero"— a 0.017 de distancia, y entregó una mezcla de los dos. La
+        // misma consulta por "¿cómo se inicia?", con el segundo a 0.048, salió
+        // impecable.
+        //
+        // Pedirle que ignore un fragmento casi empatado es pedirle criterio. Se
+        // resuelve como todo lo verbatim en este motor: el backend decide y el
+        // modelo redacta. Si el primero trae candado, es el único que se le
+        // entrega — y no se pierde nada, porque de los demás tenía prohibido
+        // tomar tablas, cifras, párrafos y ejemplos.
+        const primeroConCandado = fragments[0]?.content.includes('<verbatim_lock>');
+        const fragmentosAEntregar = primeroConCandado ? [fragments[0]] : fragments;
+        if (primeroConCandado && fragments.length > 1) {
+          console.log(`🔒 [Candado] ${fragments[0].category} va solo — se descartan ${fragments.length - 1} fragmentos de contexto`);
+        }
+
+        const combinedContent = fragmentosAEntregar
           .map(f => f.content)
           .join('\n\n---\n\n');
 
@@ -2698,8 +2718,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           category: documentType,
           metadata: {
             is_fragment_result: true,
-            fragment_count: fragments.length,
-            fragment_categories: fragments.map(f => f.category),
+            fragment_count: fragmentosAEntregar.length,
+            fragment_categories: fragmentosAEntregar.map(f => f.category),
             total_chars: totalFragmentChars,
             // Confianza de la recuperación. Se propaga porque "encontré algo" y
             // "encontré algo pertinente" no son lo mismo: con el umbral en 0.30 casi

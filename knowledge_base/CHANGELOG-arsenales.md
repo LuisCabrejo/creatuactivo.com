@@ -100,6 +100,24 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.78 — CRED_04 deja de describir un fraude para negarlo (10 ago 2026)
+
+**Estaba construida sobre tres negaciones**, y la última era la grave:
+
+> *"**No** es como esos esquemas donde usted pone plata y, si la cosa se cae, **no** le queda nada en la mano."*
+
+Eso **le describe un fraude para negarlo, en la respuesta sobre si va a perder su dinero** — el elefante nombrado en el peor momento posible, contra la regla de que el candado de confianza se afirma. Ahora responde con **lo que queda en la mano** (cajas que se despachan a su dirección, que puede tocar, consumir y vender) y con **hechos verificables**: 30 años, INVIMA, más de 60 países — el mismo criterio que funciona en FREQ_13 y FREQ_07.
+
+**Cuerpo 611 → 457 caracteres. Retrieval al alza:** su pregunta principal sube de 0.629 a **0.668**, y *"¿qué respaldo tengo?"* —que se iba a STORY_01 con 0.435— ahora llega a CRED_04 con 0.457.
+
+⚠️ **CRED_04 y OBJ_02 quedan diferenciadas, no fusionadas.** Comparten el argumento del producto físico porque sirve a las dos objeciones, pero **CRED_04 responde riesgo** (qué recibe y quién responde) y **OBJ_02 responde cuánto** (el monto y las tres formas de empezar). El vector las distingue: *es mucho dinero* 0.508 y *está muy caro para mí* 0.496 van a OBJ_02.
+
+⚠️ **OBJ_02 pierde el marco del gasto doméstico.** Decía *"es plata que usted ya gastaba en consumo"* — misma familia que *"el café que ya iba a tomar"*, retirado el 8 ago y sacado de FREQ_09 en la v5.62. Había sobrevivido aquí. **Barrido verificado: 0 apariciones en todo el corpus.**
+
+⚠️ **Hueco anotado, sin línea base para atribuirlo:** *"no puedo pagarlo"* —disparador literal de OBJ_02— lo gana `COMP_BIN_05` con 0.478, que responde *"¿cuándo me pagan?"*. Alguien que dice que no le alcanza recibiría el ciclo de liquidación. Es confusión léxica alrededor de *pagar* y probablemente es previa, pero no se puede afirmar sin medición anterior.
+
+143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería.
+
 ### v5.77 — FREQ_15 deja de cobrar 60 a 90 minutos al día (10 ago 2026)
 
 El Director la daba por buena, y el argumento lo era: la analogía de *"igual que una empresa no cierra para abrir una nueva línea"* es de las mejores del arsenal —registro de negocios, eleva sin reclamar nada— y **se conserva íntegra**. Lo que estaba mal era otra cosa.

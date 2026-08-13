@@ -100,6 +100,24 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.76 — FREQ_24: las opciones son para tranquilizar, no para repartir trabajo (10 ago 2026)
+
+Dos correcciones del Director sobre la propuesta del agente, y la segunda es doctrina.
+
+⚠️ **NOSOTROS lo registramos, y va primero.** Tanto la versión anterior como la propuesta ofrecían que la otra persona llenara el formulario. **Trasladarle la fricción a quien acaba de decidir es lo contrario de todo lo que promete el modelo.** Las vías alternativas existen para dar seguridad, no para devolverle el trámite.
+
+⚠️ **La llamada se conserva a propósito.** El agente proponía retirar los teléfonos por no poder verificarlos y por ser de Colombia. El Director corrigió con un dato de campo: **para quien siente temor por lo tecnológico, poder hablar con una persona es lo que destraba la decisión** — no es un canal de segunda. Es el tipo de criterio que no se deduce del corpus.
+
+⚠️ **Y la audiencia no era la supuesta.** No solo alguien ya adentro: también **alguien decidiendo, que quiere saber qué opciones tiene**. Eso la convierte en pregunta de **seguridad**, no de trámite, y cambia el tono entero.
+
+Sale la diapositiva de tres bloques con viñetas; sale *Cliente VIP* del cuerpo (el canónico es **cliente preferencial** desde v5.53); el cierre pasa a los 50 PV. Las nueve ciudades salen de FREQ_13, donde están verificadas. **Cuerpo 1.006 → 655 caracteres.**
+
+**Disparadores: se sumaron dos, no cuatro.** Se probaron cuatro y la medición mostró dilución — el principal caía de 0.704 a 0.685 y una formulación dejaba de resolver. Recortados a *¿qué opciones tengo para registrarme?* y *no soy bueno con la tecnología, ¿cómo me registro?*, queda en **7 de 7**, con el principal en 0.686 y la formulación del temor tecnológico —la persona que el Director describió— pasando de no existir a **0.573**.
+
+⚠️ **Nota de método:** al medir esto el agente aplicó el umbral equivocado (0.4, que es el del **clasificador de arsenal**) cuando la búsqueda de fragmentos usa **0.30**. Los dos umbrales existen y no son intercambiables; confundirlos hace declarar rota una recuperación que funciona.
+
+143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería.
+
 ### v5.75 — CTA_01 eliminada, y las otras cinco redundancias resultaron falsas (10 ago 2026)
 
 Aplicando el criterio que quedó de la v5.74 —*la pregunta útil no es "¿dicen lo mismo?" sino "¿el vector los distingue?"*— se midieron las seis candidatas a eliminación. **La medición confirmó una.**

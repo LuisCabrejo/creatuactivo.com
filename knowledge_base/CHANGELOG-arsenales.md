@@ -114,6 +114,24 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 **Pendientes de este frente:** el cierre de `METH_01` sigue ofreciendo *"¿le muestro cómo se ve esa multiplicación en números?"*, que lleva a la aritmética que acabamos de retirar del cuerpo — falta decidir a dónde debe llevar. Y **el verbo *dirigir*, retirado el 8 ago, sobrevive 14 veces de cara al prospecto** (6 en inicial, 7 en avanzado, 1 en compensación): barrido aparte.
 
+### La multiplicación se cuenta en cajas, y la escala se hace visible (10 ago 2026)
+
+*(`arsenal_avanzado` v13.3 · pines dictados de `route.ts`)*
+
+**Aporte del Director que reencuadra el problema.** El agente había planteado que el ejemplo con números era peligroso por acercarse a la aritmética de la pirámide. La corrección:
+
+> *"No lo veo negativo. Las personas no ven el crecimiento potencial: cuando piensan en una red donde se mueven mil cajas a la semana, lo que piensan es que **él** debe moverlas. No tienen en cuenta que mil cajas pueden ser movidas por diez distribuidores donde cada uno tiene cien consumidores. El punto es que se vea que la multiplicación no está relacionada a personas sino al **movimiento de un producto**."*
+
+Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el segundo si está bien contado. `COMP_BIN_10` ya tenía los números —10 / 100 / **1.000** clientes con el marco de las cajas— pero **mostraba el destino sin mostrar quién mueve**, y el prospecto leía *"1.000 clientes"* como *"tengo que conseguir mil personas"*.
+
+⚠️ **El cierre de METH_01 era circular.** *"¿Le muestro cómo se ve esa multiplicación en números?"* recuperaba **el propio METH_01** (0.529): la persona decía que sí y recibía la misma respuesta. Ahora es **"¿Le muestro cuánto se mueve con cien clientes consumiendo?"**, que llega a `COMP_BIN_10` como #1 (0.558) — y planta *cien clientes* como un número normal, que es la capa invisible.
+
+⚠️ **La cuenta que destapa la escala entra en el ejemplo dictado de renta** (`route.ts`): *"esos clientes no los consigue usted solo. Son los de sus socios, sumados — diez distribuidores con diez clientes cada uno ya llegan a cien."* Antes solo decía, de pasada, que *"esa red no la construye usted solo"*: la semilla sin la aritmética.
+
+⚠️ **Y el barrido de vocabulario del 9 ago había quedado incompleto:** los pines dictados viven en `route.ts`, no en los arsenales. Quedaban tres *"su organización"* — y uno era **una instrucción que le ordenaba al modelo usar el término retirado** (*«léxico "negocio digital" / "su organización"»*). Corregidos, más dos *"por cada persona que arranca"* → **por cada paquete empresarial que se compra** (se cuentan compras, no personas), y una línea que decía *"mes tras mes, incluso mientras usted duerme"* — cadencia equivocada (Gano liquida los viernes) y la fórmula del ingreso pasivo mágico, que está vetada. Ahora: *"liquidado cada viernes"*.
+
+**Verificado en `route.ts`: 0 de cada uno.** 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 · sin errores tsc nuevos.
+
 ## arsenal_inicial
 
 ### v5.78 — CRED_04 deja de describir un fraude para negarlo (10 ago 2026)

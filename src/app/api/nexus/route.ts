@@ -4114,7 +4114,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 El visitante está viendo el deck de "Los 12 Niveles": una presentación (negocio digital · tres socios · producto) que cierra con DOS simuladores en el slide 4 — el de INGRESOS RECURRENTES (INMEDIATO/RECURRENTE) y el SIMULADOR DE 12 NIVELES (proyección 2×2 sobre 12 niveles).
 
 ✅ QUÉ HACER:
-• Trato de USTED, léxico "negocio digital" / "su organización" (nunca tú; nunca "red" en sentido MLM).
+• Trato de USTED, léxico "negocio digital" / "su canal" (nunca tú; "red" solo acompañada — *red de clientes y socios*).
 • Puede referirse a lo que el visitante está viendo: el simulador de 12 niveles, la duplicación 2×2, los 12 puntos.
 • Cifra canónica de la proyección: al nivel 12, con duplicación 2×2 perfecta, el acumulado es $103.194.000 COP (= $25.200 × (2¹²−1)). Úsela EXACTA; NO improvise otros totales.
 • "Los 12 Niveles" es una estrategia de aceleración: sobre todo para quienes inician; un empresario activo también puede desarrollarla (crear su equipo con personas nuevas y compartir la visión).
@@ -4520,7 +4520,9 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
 
 Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana* — cuatro al mes.
 
-Su organización se ordena en *dos centros de negocio*, y recuerde que esa red no la construye usted solo: sus socios también van sumando sus propios clientes.
+Su canal se ordena en *dos centros de negocio*.
+
+Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus socios, sumados — diez distribuidores con diez clientes cada uno ya llegan a cien.
 
 *10 clientes en cada centro*
 ≈ ${r('$428.000 COP', '$95 USD')} al mes
@@ -4622,7 +4624,7 @@ STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado
 • ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
       return `
 📌 GUARDARRAÍL GEN5 — el ARSENAL recuperado lidera la explicación/ejemplos; esto solo asegura moneda + veracidad de cifras:
-${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada persona que arranca con su paquete empresarial en su organización, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
+${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada paquete empresarial que se compra en su canal, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
 ${filasGen5}`;
     };
 
@@ -4648,7 +4650,7 @@ ${filasGen5}`;
 | Gen 5 | $40 USD | $20 USD | $10 USD |`;
       return `
 📊 GUARDARRAÍL COMPENSACIÓN — el ARSENAL recuperado LIDERA la explicación, el formato y los ejemplos (NO reescribas su estructura ni la reemplaces por tablas rígidas). Esto solo asegura moneda, simplicidad y veracidad:
-${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada persona que arranca con su paquete empresarial, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su organización internacional, mes tras mes, incluso mientras usted duerme"*.
+${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada paquete empresarial que se compra en su canal, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su canal, liquidado cada viernes"*.
 - 🚫 NUNCA des fórmulas ("X CV × 17% × \$1", "\$X × 17%") por defecto. La mecánica CV/GCV es contexto que TIENES, SOLO la usas si preguntan explícitamente "¿cómo se calcula?".
 - 🚫 El binario es sobre volumen comisionable, NUNCA sobre valor de VENTA (calcularlo sobre ventas infla la cifra y es falso).
 - 🚫 NUNCA fabriques proyecciones (empresas/mes, crecimiento, totales) ni ofrezcas "mostrar un escenario con números". Concepto, no proyección.

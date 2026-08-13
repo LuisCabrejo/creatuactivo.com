@@ -1,5 +1,7 @@
 # ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.8 — COMPARTIR · RECIBIR (la multiplicación es consecuencia)
 
+**v13.3 (10 ago 2026):** METH_01 deja de cerrar en círculo. *«¿Le muestro cómo se ve esa multiplicación en números?»* recuperaba **el propio METH_01** (0.529): la persona decía que sí y recibía la misma respuesta. Ahora cierra hacia **COMP_BIN_10** (0.558), donde la multiplicación se cuenta en **cajas y clientes**, no en gente — y donde *cien clientes* aparece como un número normal, que es la capa que el prospecto no ve: no los consigue él solo, son los de sus socios sumados. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+
 **v13.2 (10 ago 2026):** METH_01 pierde el inciso *1, 2, 4, 8* — la progresión geométrica en dígitos es el inyector de pirámide, y contaba socios en vez de compras. La frase queda completa sin él. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 **v13.1 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
@@ -259,7 +261,7 @@ Su día a día son **dos acciones**, las dos desde el celular:
 
 Y la multiplicación viene sola: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
 
-**Pregunta de cierre:** ¿Le muestro cómo se ve esa multiplicación en números?
+**Pregunta de cierre:** ¿Le muestro cuánto se mueve con cien clientes consumiendo?
 
 ---
 

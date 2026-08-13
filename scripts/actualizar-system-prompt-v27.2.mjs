@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.7_compartir_recibir_consecuencia_negocio';
+const VERSION_LABEL = 'v29.8_cierre_fuera_del_candado';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

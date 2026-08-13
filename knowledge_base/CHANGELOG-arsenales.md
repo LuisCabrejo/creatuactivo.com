@@ -100,6 +100,24 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.72 — La pregunta de cierre sale del candado (10 ago 2026)
+
+Inquietud del Director, y resultó estructural: *"cuando la pregunta de cierre es una que ya se resolvió antes, el usuario lo siente como un error nuestro"*.
+
+**Y con el candado puesto, el modelo no podía evitarlo aunque se diera cuenta** — la regla del `verbatim_lock` dice que manda sobre todo lo demás. Estaba en **13 de los 15 candados**, justo los de más tráfico. El caso demostrable: `WHY_01`, `WHY_02`, `FREQ_10` y `WHY_ROL_01` **ofrecían los cuatro lo mismo** (*cómo se gana*); quien recorriera dos recibía dos veces la misma oferta.
+
+⚠️ **El candado protege el argumento, no la pregunta.** El cuerpo sigue bloqueado carácter por carácter — es lo calibrado y lo que no admite paráfrasis. La pregunta queda afuera como **valor por defecto**, y los dos system prompts (`nexus_main` v29.8, `queswa_whatsapp` v4.8) instruyen reemplazarla cuando ofrezca algo ya entregado.
+
+⚠️ **Se le dio el mapa de destinos servibles**, para que "elegir el siguiente paso" sea escoger de una lista y no improvisar — que es exactamente como entró el trámite de sucesión inventado en FREQ_05: *de dónde sale la plata · los números del plan · el catálogo · qué hace usted en el día a día · las tres formas de empezar · cómo se comprueba la legalidad · qué trae cada paquete · cuánto ahorra un cliente preferencial*. Verificado que el último está servido con cifra exacta en CLIENTE_VIP_01.
+
+⚠️ **El contrato de doble fuente cambia de igualdad a PREFIJO.** `respuestas-maestras.ts` conserva el texto **completo con su pregunta**, porque Camino A lo sirve directo y ahí no hay adaptación posible; el candado del arsenal es ahora su prefijo exacto. Verificado en los cinco — **no hizo falta tocar el módulo TS**. La verificación pasa de *"longitudes idénticas"* a *"la constante empieza con el candado, y lo que sobra es la pregunta"*.
+
+**20 preguntas reescritas — 1.888 → 1.009 caracteres.** Diez pedían asentimiento sin proponer nada (*¿le da tranquilidad…?*, *¿le parece sólido…?*, *¿le hace sentido…?*); cinco prometían lo que ningún fragmento atiende (*cómo se ensambla en su caso*, *cómo se encienden esas tres piezas*); cuatro daban dos o tres salidas; y una —`FREQ_27`— ofrecía *una proyección de su ingreso recurrente*, que es promesa de ingreso. Todos los destinos verificados como contenido servido.
+
+⚠️ **LECCIÓN — el vocabulario genérico en el cierre diluye el fragmento.** Medido: 25 de 27 consultas conservan ganador, y los dos cambios son empates de 0.002. Pero la causa es instructiva: los reemplazos usaron palabras de alta frecuencia en todos los arsenales (*ingreso*, *canal*, *ciclo*), y eso **acerca el fragmento al centro del corpus en vez de anclarlo a su propio territorio**. `WHY_03` terminó tirando hacia compensación por culpa de su propia pregunta de cierre. Al escribir un cierre conviene preferir la palabra que solo tiene sentido en ESA respuesta.
+
+**Estado: 145 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería · prompts v29.8 y v4.8 desplegados con etiqueta nueva** (la anterior no cambiaba de número y el despliegue quedaba invisible en `leer-system-prompt.mjs`).
+
 ### v5.71 — FREQ_25 deja de afirmar algo incorrecto sobre el pago (10 ago 2026)
 
 Lo que parecía una limpieza de jerga resultó ser un **error de mecánica**. FREQ_25 decía que el consumo de la familia *"fluye como CV hacia su Centro de Negocios de Cobro"* — como si cayera automáticamente en el lado que paga. No es así: dónde queda ubicado cada código lo define la **Colocación**, y el centro que paga es el de **menor volumen acumulado**, que lo determina el ciclo. Afirmarle a alguien cómo le van a pagar, y que no sea cierto, cuesta más que cualquier palabra mal elegida — y estaba en una respuesta de dinero.

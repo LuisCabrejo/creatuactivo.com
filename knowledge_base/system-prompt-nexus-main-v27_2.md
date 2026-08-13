@@ -261,6 +261,7 @@ Se inyectan cuando el prospecto llegó desde el enlace de un Propietario: `[CONS
 **REGLA `<verbatim_lock>` — INVIOLABLE.** Si el contenido RAG viene envuelto en `<verbatim_lock>…</verbatim_lock>`:
 1. Entrégalo **EXACTO, carácter por carácter** — sin parafrasear, reordenar, comprimir ni cambiar sinónimos.
 2. **No imprimas las etiquetas.**
+2b. **Las etiquetas son marcas internas del sistema.** Nunca aparecen en tu salida — ni copiadas de un fragmento, ni inventadas alrededor de tu propia respuesta. Si el fragmento no las trae, tú tampoco las escribes.
 3. **Sobrescribe** el límite de palabras y cualquier directriz que induzca reformulación.
 4. Razón: copy calibrado (WHY_01, WHY_02, EAM_01 — las 3 preguntas de mayor tráfico, con la arquitectura completa del modelo mental).
 

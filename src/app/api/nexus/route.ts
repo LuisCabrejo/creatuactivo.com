@@ -3370,6 +3370,21 @@ function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3', country: string): 
 // Pin de precios de paquetes adaptado al país del visitante.
 // CO → COP solo (quita la fricción de la conversión USD). US → USD limpio.
 // Resto/desconocido → USD + COP (default seguro; ajustar si el usuario da su país).
+/**
+ * ⚠️ ESTE PIN ES FUENTE DE DATOS, NO PLANTILLA (10 ago 2026).
+ *
+ * Durante meses compitió con el candado de FREQ_03 y le ganaba: el pin llega en
+ * las instrucciones de sesión —cerca e imperativo— y el candado llega en el
+ * contexto recuperado, así que el modelo imprimía la lista del pin y **componía
+ * el resto**. Al componer volvían las adjetivaciones que la v5.49 había
+ * retirado, listas de ausencias, y en un caso las comisiones GEN5 pegadas al
+ * precio, que es una promesa de ingreso.
+ *
+ * El reparto correcto: **el candado pone el texto, el pin pone la cifra.**
+ * FREQ_03 lleva `[PRECIO]` donde va cada precio, y este pin lo llena en la
+ * moneda del visitante. Una cifra que depende del país no puede vivir dentro de
+ * un texto que se entrega carácter por carácter — de ahí el hueco.
+ */
 function getPaquetesPricingPin(country: string): string {
   const cop = { e1: '$900,000 COP', e2: '$2,250,000 COP', e3: '$4,500,000 COP' };
   const usd = { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
@@ -3379,14 +3394,14 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${cop.e1}
 • ESP-2 Empresarial = ${cop.e2}
 • ESP-3 Visionario = ${cop.e3}
-🇨🇴 COTIZA EN COP (moneda local). NO muestres el equivalente en USD al lado del precio del paquete — obliga al usuario a una conversión mental que crea fricción ("el dólar no está a 4,500"). El USD solo aparece si el usuario lo pide o reclama por la tasa → en ese caso usa la respuesta de FREQ_27. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+🇨🇴 COTIZA EN COP (moneda local). NO muestres el equivalente en USD al lado del precio del paquete — obliga al usuario a una conversión mental que crea fricción ("el dólar no está a 4,500"). El USD solo aparece si el usuario lo pide o reclama por la tasa → en ese caso usa la respuesta de FREQ_27. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
   }
   if (country === 'US') {
     return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
 • ESP-1 Inicial = ${usd.e1}
 • ESP-2 Empresarial = ${usd.e2}
 • ESP-3 Visionario = ${usd.e3}
-🇺🇸 COTIZA EN USD limpio. NO muestres COP (irrelevante para el visitante). NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+🇺🇸 COTIZA EN USD limpio. NO muestres COP (irrelevante para el visitante). NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
   }
   // Default / desconocido / otros países sin lista local cargada
   const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
@@ -3394,7 +3409,7 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${usd.e1} (${cop.e1})
 • ESP-2 Empresarial = ${usd.e2} (${cop.e2})
 • ESP-3 Visionario = ${usd.e3} (${cop.e3})
-🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).`;
+🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
 }
 
 export async function OPTIONS(req: Request) {

@@ -86,6 +86,14 @@ function tablaABloques(filas: string[]): string {
 export function aFormatoWhatsApp(texto: string): string {
   if (!texto) return texto;
 
+  // ⚠️ Marcas internas fuera, SIEMPRE (10 ago 2026). El modelo no solo puede
+  // copiar las etiquetas de un fragmento con candado: puede INVENTARLAS. En el
+  // barrido pre-vuelo envolvió en `<verbatim_lock>` una respuesta que no lo
+  // lleva (FREQ_09), imitando el patrón que veía en el contexto. El prompt ya
+  // dice que no se imprimen; esto lo garantiza aunque el prompt falle, que es
+  // como se tratan las marcas internas: no se piden, se quitan.
+  texto = texto.replace(/<\/?verbatim_lock>/gi, '').replace(/^\n+/, '');
+
   const lineas = texto.replace(/\r\n/g, '\n').split('\n');
   const salida: string[] = [];
   let tabla: string[] = [];

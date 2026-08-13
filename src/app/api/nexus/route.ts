@@ -3886,7 +3886,22 @@ ${summaryParts.join('\n')}
 
     // 🔍 Detectar si pide precios — declarado aquí para uso en bypass y sessionInstructions
     const lastUserMessageForPrices = latestUserMessage.toLowerCase();
-    const pideListaPreciosEarly = /^precios?$|lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa|cu[aá]nto.*cuesta|cu[aá]nto.*vale|cu[aá]nto.*son|cu[aá]nto.*cobran|qu[eé].*precio|precios.*cat[aá]logo|ver.*precios?|mostrar.*precios?/i.test(lastUserMessageForPrices);
+    /**
+     * ⚠️ "¿Cuánto cuesta empezar?" NO es un pedido de lista de precios (10 ago 2026).
+     *
+     * El patrón `cuánto.*cuesta` se llevaba esa pregunta a la rama del catálogo:
+     * FREQ_03 no llegaba nunca —así que su candado no podía entregarse— y encima
+     * se inyectaba «usa catálogo completo, ignora límites de concisión». De ahí
+     * salían las listas largas y compuestas, con nombres inventados («Paquete
+     * Inicial» en vez de ESP-1) y, mientras el veto de comisiones no existió,
+     * con rendimientos pegados al precio.
+     *
+     * La pregunta por el precio de ENTRAR se responde con las tres formas de
+     * empezar; la lista de precios es la de los 22 productos. `objetoDeNegocio`
+     * separa las dos por su objeto, no por el verbo.
+     */
+    const objetoDeNegocio = /empezar|empiezo|iniciar|inicio|arrancar|entrar|vincular|afiliar|paquete|negocio|inversi[oó]n/i.test(lastUserMessageForPrices);
+    const pideListaPreciosEarly = !objetoDeNegocio && /^precios?$|lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa|cu[aá]nto.*cuesta|cu[aá]nto.*vale|cu[aá]nto.*son|cu[aá]nto.*cobran|qu[eé].*precio|precios.*cat[aá]logo|ver.*precios?|mostrar.*precios?/i.test(lastUserMessageForPrices);
     console.log(`🚨 DETECCIÓN PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, msg="${lastUserMessageForPrices.substring(0, 50)}"`);
 
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas y fuera del flujo de cierre

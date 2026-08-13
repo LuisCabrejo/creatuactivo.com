@@ -100,6 +100,29 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.71 — FREQ_25 deja de afirmar algo incorrecto sobre el pago (10 ago 2026)
+
+Lo que parecía una limpieza de jerga resultó ser un **error de mecánica**. FREQ_25 decía que el consumo de la familia *"fluye como CV hacia su Centro de Negocios de Cobro"* — como si cayera automáticamente en el lado que paga. No es así: dónde queda ubicado cada código lo define la **Colocación**, y el centro que paga es el de **menor volumen acumulado**, que lo determina el ciclo. Afirmarle a alguien cómo le van a pagar, y que no sea cierto, cuesta más que cualquier palabra mal elegida — y estaba en una respuesta de dinero.
+
+⚠️ **El término se conserva donde sirve.** *Centro de Negocios de Cobro* no es jerga heredada: es **nuestro reemplazo de "pierna débil"**, y en `arsenal_compensacion` está definido y el lector ya tiene contexto. Verificado tras el cambio: sobrevive en COMP_BIN_08 y COMP_BIN_11, cero en primer contacto. Lo que no tenía sentido era usarlo donde alguien pregunta si el café de su esposa cuenta.
+
+Salen también *CV*, *volumen comisional*, *bajo su patrocinio*, y el marco del **gasto del hogar** —retirado el 8 ago— que seguía vivo aquí.
+
+**FREQ_26** pasa de lista con viñetas y rótulos en negrita —que convierten el chat en una diapositiva— a prosa de cuatro frases. Pierde los nombres legales completos de los fundadores, que en una respuesta operativa suenan a escritura pública.
+
+**Los dos cierres salen de la auditoría de los 19.** El de FREQ_25 pedía *"explorar cómo se planifica una expansión familiar como punto de anclaje inicial"* y ahora lleva a **FREQ_24** (cómo se inscribe un código); el de FREQ_26 preguntaba si le interesa *"ver cómo Queswa absorbe el 90%…"* y ahora lleva a **EAM_01**, con candado.
+
+**Medición — y cierra un pendiente del barrido anterior.** Los dos cambios de ganador son **mejoras**:
+
+| Consulta | Antes | Ahora |
+|---|---|---|
+| *"¿el consumo de mi hogar cuenta?"* | FREQ_09 · 0.502 | **FREQ_25 · 0.570** |
+| *"¿mi esposa puede comprar bajo mi código?"* | CLIENTE_VIP_01 · 0.496 | **FREQ_25 · 0.523** |
+
+La primera era el empate de 0.001 que dejamos sin tocar en el barrido de vocabulario, con el criterio de que empujar un embedding para ganarle a la propia prueba es afinar contra el examen. Se resolvió sola **al arreglar el fragmento**, que era el diagnóstico correcto.
+
+668 → 521 y 1.575 → 1.267 caracteres · 145 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería, en los dos tenants.
+
 ### v5.69 — Dos eliminadas, dos corregidas, y una lección de despliegue (9 ago 2026)
 
 Auditoría de redundancia pedida por el Director antes de subir el tráfico. Se separó lo que **produce una respuesta mala** de lo que solo produce una respuesta **redundante**, y solo se tocó lo primero: la víspera de multiplicar el tráfico por 25 no es el momento de mover seis fragmentos que funcionan.

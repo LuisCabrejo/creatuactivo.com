@@ -100,6 +100,18 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.77 — FREQ_15 deja de cobrar 60 a 90 minutos al día (10 ago 2026)
+
+El Director la daba por buena, y el argumento lo era: la analogía de *"igual que una empresa no cierra para abrir una nueva línea"* es de las mejores del arsenal —registro de negocios, eleva sin reclamar nada— y **se conserva íntegra**. Lo que estaba mal era otra cosa.
+
+⚠️ **Cuantificar tiempo diario planta el marco de *"esto es más trabajo"***. Es el mismo por el que la **v5.34 le quitó a este fragmento la pregunta** de cuánto tiempo tenía — pero el cuerpo siguió **afirmando** el costo: *"unos 60 a 90 minutos al día"*. Contradice además la doctrina del 8 ago (el día a día son **dos acciones**, con la ligereza de abrir una app), y era una cifra que nadie puede sostener si la piden. En su lugar va la respuesta real: **compartir y recibir**.
+
+⚠️ **Contradicción interna resuelta.** Decía *"un segundo ingreso"* tres veces mientras **WHY_03 afirma literalmente que esto NO es buscarse un segundo trabajo**. Quien recorriera las dos oía la negación y después su eco. Ahora dice *otro en paralelo* — y el término está en la lista de lo quemado por el multinivel: el ingreso en paralelo se vende como **actualizar**, no como conseguir otro empleo.
+
+Salen los dos *dirigir*, retirados el 8 ago, y *"El sistema le pide que NO suelte su ingreso actual"* se vuelve afirmativo: *"sin soltar lo que gana hoy"*.
+
+**Cuerpo 635 → 520 caracteres. Retrieval 4/4, sin dilución** — *"¿tengo que dejar mi trabajo?"* sube de 0.553 a **0.607**. La cabecera creció pero con vocabulario propio del fragmento, que es la diferencia con el caso de FREQ_24.
+
 ### v5.76 — FREQ_24: las opciones son para tranquilizar, no para repartir trabajo (10 ago 2026)
 
 Dos correcciones del Director sobre la propuesta del agente, y la segunda es doctrina.

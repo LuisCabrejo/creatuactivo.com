@@ -1,5 +1,7 @@
 # ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.8 — COMPARTIR · RECIBIR (la multiplicación es consecuencia)
 
+**v13.2 (10 ago 2026):** METH_01 pierde el inciso *1, 2, 4, 8* — la progresión geométrica en dígitos es el inyector de pirámide, y contaba socios en vez de compras. La frase queda completa sin él. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+
 **v13.1 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
@@ -255,7 +257,7 @@ Su día a día son **dos acciones**, las dos desde el celular:
 
 **Recibir:** yo converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar. Usted entra al final, con quien ya está listo. *Usted no convence; cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
 
-Y la multiplicación viene sola: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted —1, 2, 4, 8—. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
+Y la multiplicación viene sola: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
 
 **Pregunta de cierre:** ¿Le muestro cómo se ve esa multiplicación en números?
 

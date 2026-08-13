@@ -98,6 +98,22 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 **Estado: 0 apariciones de los tres términos en fragmentos · 145 por tenant, idénticos · 0 hits del auditor · 42/42 en la batería, en los dos tenants.**
 
+### Progresión geométrica retirada y concordancia corregida (10 ago 2026)
+
+*(transversal: `arsenal_inicial` v5.79 · `arsenal_compensacion` v7.9 · `arsenal_avanzado` v13.2)*
+
+⚠️ **El `1, 2, 4, 8` era el inyector de pirámide, escrito por nosotros.** Es exactamente lo que el Director describió el 9 ago —*"la gente piensa: rápido traigo a 5, que traen 5, que traen 5, y solo con esa idea le inyecta la pirámide a su prospecto"*— puesto en dígitos, y contando **socios**, no compras. Vivía en dos respuestas: `METH_01` de avanzado y `NET_01` de inicial.
+
+**Se retiró solo el inciso.** Las dos frases quedan completas y más fuertes sin él — *"hace exactamente lo mismo que usted"* y *"su canal se multiplica sin depender del talento de cada quien"* — porque el mecanismo se dice entero **sin dibujarlo**. La duplicación transferible sigue siendo el argumento; lo que sale es su representación numérica.
+
+⚠️ **Concordancia rota por el barrido del 9 ago.** Cambiar *organización* (femenino) por *canal* (masculino) dejó cuatro *"toda su canal"*. Error del agente. **Y una lección de despliegue:** corregir el `.txt` no basta — los fragmentos que no se purgan conservan el texto viejo en la base. La primera verificación dio 0 en el archivo y **6 en el corpus indexado**; hubo que purgar y regenerar `COMP_BIN_10`, `COMP_VIP_01` y `NET_02` aparte.
+
+⚠️ **Y la nota de versión de la v7.8 citaba la progresión literalmente**, lo que la devolvía al documento padre indexado — la misma trampa que la regla del proyecto advierte. Reescrita por criterio.
+
+**Estado: 0 apariciones de la progresión · 0 de concordancia rota · 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42.**
+
+**Pendientes de este frente:** el cierre de `METH_01` sigue ofreciendo *"¿le muestro cómo se ve esa multiplicación en números?"*, que lleva a la aritmética que acabamos de retirar del cuerpo — falta decidir a dónde debe llevar. Y **el verbo *dirigir*, retirado el 8 ago, sobrevive 14 veces de cara al prospecto** (6 en inicial, 7 en avanzado, 1 en compensación): barrido aparte.
+
 ## arsenal_inicial
 
 ### v5.78 — CRED_04 deja de describir un fraude para negarlo (10 ago 2026)

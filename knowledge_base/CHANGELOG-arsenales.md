@@ -100,6 +100,18 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.73 — STORY_03 conserva "¿Le suena conocido?" (10 ago 2026)
+
+Revertida del barrido de cierres, por decisión del Director y con dos razones que apuntan al mismo lado.
+
+**La de oficio:** STORY_03 es el villano narrado en segunda persona. *"¿Le suena conocido?"* **invita a la persona a contar lo suyo**, que es exactamente lo que uno quiere después de narrar el villano — y lo que un *"¿le muestro…?"* cierra. El criterio general del barrido (una pregunta que proponga un paso) **aquí se cumple de otra forma: el paso es que la persona hable.** Por eso este sí/no no encuesta, abre.
+
+**La medida:** el reemplazo le costaba su propio disparador. *"No me alcanza, siempre estoy en lo mismo"* pasaba a OBJ_01 por 0.002; al revertir vuelve a STORY_03 con **0.517**, y el fragmento pasa de tres a **cuatro de sus cinco disparadores** resolviendo bien.
+
+⚠️ **Anotado sin medir:** *"trabajo mucho y no veo resultados"*, disparador de STORY_03, lo gana OBJ_01 con 0.523. No hay línea base previa de esa frase, así que no se puede afirmar si es de ahora o preexistente.
+
+Es la única de las 20 que se revierte. 42/42 en la batería · 0 hits del auditor.
+
 ### v5.72 — La pregunta de cierre sale del candado (10 ago 2026)
 
 Inquietud del Director, y resultó estructural: *"cuando la pregunta de cierre es una que ya se resolvió antes, el usuario lo siente como un error nuestro"*.

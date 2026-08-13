@@ -1659,10 +1659,13 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(?:de|del)\s*(?:un\s*)?(?:paquete|nivel)\s*a\s*otro/i,
     /diferencia[^.]{0,20}\b(?:paquetes|esp[\s-]?[123]|niveles)/i,
     /qu[eé]\s*(?:productos\s*)?(?:me\s*)?(?:llega|dan|recibo|mandan|env[ií]an)\s*(?:si|cuando)\s*(?:subo|mejoro|paso|actualizo|cambio)/i,
-    // Inicio del negocio — "cómo se inicia", "cómo empiezo", "para empezar" → paquetes
-    /c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])/i,
-    /c[oó]mo\s+empe[zc][ao]r/i,
-    /para\s+(empezar|iniciar|arrancar|activar|entrar)\s*(al?\s+)?(negocio|sistema|plataforma|esto)?/i,
+    // ⚠️ "cómo se inicia" / "cómo empiezo" / "para empezar" NO viven aquí (10 ago
+    // 2026). Enrutaban a compensación la pregunta más común del prospecto, y de
+    // paso ponían esDocCompensacion en verdadero — que es la condición con la
+    // que los pines inyectan cifras de comisión. Así llegaron las comisiones
+    // pegadas al precio. Preguntar cómo se empieza es INFORMACIÓN: se responde
+    // con las tres formas de empezar (FREQ_03, arsenal_inicial), que es donde
+    // ahora viven esos disparadores.
   ];
 
   // NUEVA CLASIFICACIÓN: PAQUETES DE INVERSIÓN (CONSTRUCTORES)
@@ -1959,6 +1962,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 
   // Resto de clasificaciones originales - PATRONES ACTUALIZADOS
   const patrones_inicial = [
+    // Mudados desde patrones_compensacion (10 ago 2026): la puerta va donde vive
+    // la respuesta — FREQ_03 entrega las tres formas de empezar con su candado.
+    /c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])/i,
+    /c[oó]mo\s+empe[zc][ao]r/i,
+    /para\s+(empezar|iniciar|arrancar|activar|entrar)\s*(al?\s+)?(negocio|sistema|plataforma|esto)?/i,
     /qué es.*creatuactivo/i,
     /retorno.*activo/i,
     /es.*heredable/i,

@@ -100,6 +100,26 @@ Un solo pase sobre `arsenal_inicial`, `arsenal_compensacion`, `arsenal_avanzado`
 
 ## arsenal_inicial
 
+### v5.75 — CTA_01 eliminada, y las otras cinco redundancias resultaron falsas (10 ago 2026)
+
+Aplicando el criterio que quedó de la v5.74 —*la pregunta útil no es "¿dicen lo mismo?" sino "¿el vector los distingue?"*— se midieron las seis candidatas a eliminación. **La medición confirmó una.**
+
+| Candidato | Gana sus propios disparadores | Veredicto |
+|---|---|---|
+| `FREQ_24` | 3/4 — 0.702 · 0.608 · 0.497 | conservar |
+| `FREQ_15` | 3/3 — 0.587 · 0.475 · 0.553 | conservar |
+| `CRED_04` | 1/3, pero su pregunta literal con **0.629** | conservar |
+| `FREQ_17` | 2/3 — *"¿cómo me pagan las comisiones?"* con **0.656** | conservar |
+| `CTA_01` | **0/4** | **eliminada** |
+
+**CTA_01 no tenía territorio propio.** Sus cuatro disparadores llegaban ya a fragmentos que responden mejor: *me interesa, ¿cómo empiezo?* → **FREQ_03** (0.583, la canónica del *cómo se inicia*, con candado) · *¿qué hago ahora?* → EAM_01 · *quiero saber más* → STORY_01 · *¿cuál es el siguiente paso?* → ADV_ESC_02. **No hubo disparadores que mudar: ya estaban donde debían.** Competía con el nodo de cierre desviando a *"una conversación sin compromiso"* justo donde la persona pedía los niveles.
+
+⚠️ **Las otras cuatro salen de la lista de eliminación y pasan a la de *revisar contenido*, que es otra cosa.** Los dictámenes anteriores —hechos por parecido de contenido, sin medir— estaban equivocados: `PERFIL_01`, que se daba como duplicado de `FREQ_15`, **no aparece ni en el top 2** de ninguno de sus disparadores; `WHY_04`, dado como duplicado de `FREQ_17`, aparece segundo en una sola consulta. Lo que sí es real en `CRED_04` es que **comparte cuerpo** con `OBJ_02` —la misma frase del producto físico—, y eso se arregla diferenciando los textos, no borrando el fragmento.
+
+**De seis redundancias declaradas por lectura, la medición confirmó una.** Es el argumento más fuerte que ha producido este método hasta ahora.
+
+600 caracteres fuera · 51 → 50 respuestas · 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 en la batería.
+
 ### v5.74 — FREQ_23 eliminada; FREQ_27 abre con el hecho, no con el reclamo (10 ago 2026)
 
 El motivo terminó siendo distinto del que parecía, y el recorrido vale la pena registrarlo porque es un caso de manual.

@@ -4508,7 +4508,30 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
     // Cuando el usuario pregunta sobre ingreso inmediato / cuánto se gana / GEN5,
     // inyectamos las cifras exactas del plan de compensación directamente en Bloque 3.
     // Patrón: mismo que getCierreEstado3 — código controla los números, no el LLM.
+    /**
+     * VETO COMPARTIDO — una pregunta de PRECIO nunca recibe cifras de COMISIÓN.
+     *
+     * Pegar un rendimiento al lado de una inversión («$900.000 → $112.500 por
+     * cada uno que entre») es una promesa de ingreso: Meta la sanciona en el
+     * canal y el Estatuto del Consumidor colombiano la vuelve exigible a la
+     * empresa. Reapareció tres veces desde el 9 de agosto porque cada pin de
+     * cifras traía su propia condición de disparo y bastaba con que una fallara.
+     *
+     * Aquí la regla se enuncia una sola vez y manda sobre las tres: si el
+     * mensaje pregunta cuánto cuesta entrar y NO pregunta cuánto se gana, no
+     * entra ninguna cifra de comisión. La respuesta correcta a «¿cuánto cuesta
+     * empezar?» son los tres paquetes con su precio, y la pregunta de cierre ya
+     * ofrece los números a quien los quiera.
+     */
+    const preguntaSoloPorPrecio = (() => {
+      const m = latestUserMessage || '';
+      const pidePrecio = /cu[aá]nto\s+(cuesta|vale|sale)|qu[eé]\s+(precio|valor|inversi[oó]n)|precio\s+de\s+(los\s+)?paquete|cu[aá]nto\s+(hay\s+que|se\s+necesita|tengo\s+que)\s+(invertir|pagar|poner)/i.test(m);
+      const pideGanancia = /cu[aá]nto\s+(se\s+)?(gana|gano|paga|genera|cobra)|comisi[oó]n|ganancia|rendimiento|retorno|recupero|gen[\s.-]?5|binario|utilidad/i.test(m);
+      return pidePrecio && !pideGanancia;
+    })();
+
     const getPinCifrasGEN5 = (): string => {
+      if (preguntaSoloPorPrecio) return '';
       // Disparar si la query es sobre cifras/ganancias O si el doc recuperado es de compensación
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
@@ -4645,6 +4668,7 @@ ${filasGen5}`;
 
     // ── TABLA DE COMISIONES (investigación: tablas > párrafos para comprensión cognitiva)
     const getTablasComisiones = (): string => {
+      if (preguntaSoloPorPrecio) return '';
       // Disparar cuando: se pide ejemplo explícito, O el doc recuperado es de compensación GEN5/Binario
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');

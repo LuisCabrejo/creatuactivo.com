@@ -4652,9 +4652,14 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // "bianrio" —un dedo trocado— no matcheó, el pin no disparó y el modelo
       // compuso una proyección a 18 meses con "de por vida" e "ingreso
       // inmediato". Un error de tipeo no puede costar el candado (14 ago 2026).
+      // "dame un ejemplo gráfico de esta forma" no nombra ningún bono: el tema se
+      // hereda del turno anterior del bot, igual que en la aceptación (prueba
+      // 18:38 — el pin no disparó y el modelo compuso, con "activo" incluido).
+      const _pideEjemplo = /ejemplo|gr[aá]fic|proyecci[oó]n|detall|n[uú]mer|simul/i.test(latestUserMessage);
       const esRenta = (/b[ia]+n[a-z]?r[a-z]?i?o|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
         && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
-        || (_aceptaEjemplo && (_ofrecioRenta || !_nombraGen5));
+        || ((_aceptaEjemplo || _pideEjemplo) && !_nombraGen5 && _ofrecioRenta)
+        || (_aceptaEjemplo && !_nombraGen5);
       if (tenantId === 'whatsapp' && esRenta) {
         const esCO2 = visitorCountry === 'CO';
         const r = (cop: string, usd: string) => (esCO2 ? cop : usd);
@@ -4918,14 +4923,26 @@ ${visitorCountry === 'CO'
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
     };
 
-    const sessionInstructions = `
+        // Si el pin dicta un ejemplo, es la única fuente del turno: se retiran los
+    // fragmentos recuperados. Sin esto, el candado solitario (COMP_MODELO_01)
+    // le ganaba al ejemplo aceptado — el prompt ordena que el candado mande
+    // sobre todo, así que dos dictados a la vez son una contradicción servida
+    // (prueba 18:37: "sí" a "¿quiere ver cómo se gana?" entregó el concepto).
+    const _pinCifras = getPinCifrasGEN5();
+    const _pinDictaEjemplo = _pinCifras.includes('EJEMPLO RENTA') || _pinCifras.includes('imprime este texto EXACTAMENTE');
+    if (_pinDictaEjemplo && relevantDocuments.length) {
+      console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos del contexto`);
+      relevantDocuments = [];
+    }
+
+const sessionInstructions = `
 ${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}
-${getPinCifrasGEN5()}
+${_pinCifras}
 ${getTablasComisiones()}
 ${getPinComposicionPaquetes()}
 ${conversationSummary}<prospect_state>

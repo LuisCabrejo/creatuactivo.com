@@ -588,6 +588,18 @@ export async function POST(request: Request) {
       // pantalla (decisión del Director, 14 ago 2026: al explicar el GEN5 también
       // se ofrece la herramienta, no solo en el camino de renta).
       const _explicaGen5 = /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      const _explicaBinario = /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si quiere moverlo usted: elija la tarifa y la cantidad de clientes, y el resultado sale al instante.',
+          'Abrir el simulador',
+          { screen: 'RENTA_MENU' },
+        );
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador ofrecido junto a la explicación del binario');
+        else console.warn(`⚠️ [WA Webhook] Flow binario junto a la explicación no se pudo enviar: ${enviado.error}`);
+      }
       if (flowSimulador && _explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
         const enviado = await sendFlow(
           phoneNumber,

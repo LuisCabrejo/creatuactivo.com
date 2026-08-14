@@ -37,6 +37,8 @@ Para auditar la prueba: leer `nexus_conversations` por `fingerprint_id like 'wa_
 | **RE_VOLICION tolerante** (`wa-radicacion.ts`) | `inciar/empesar/comensar` disparan; «¿cómo se inicia?» y «no estoy listo» siguen sin disparar (11/11) | `72947ba` |
 | **Flow pegado a la oferta** (webhook) | Cuando la respuesta ofrece números y no dictó ejemplo, el simulador sale en ese momento (pantalla RENTA_MENU). Los ejemplos dictados conservan su propio envío | `9fce509` |
 | **Strip de `<verbatim_lock>`** (`wa-formato.ts`) | Las etiquetas se retiran por código en el canal — se le habían escapado al modelo en producción | `361fbf8` |
+| **Aceptación pelada busca con la OFERTA** | Un «sí» solo ya no va al CQR: la consulta es la última pregunta del bot, determinístico. Antes, un «sí» a «¿le muestro los productos?» recuperó COMPENSACIÓN y el modelo compuso productos alucinados con etiquetas de candado inventadas | `5c4669e` |
+| **`gn5` tolera el tipeo** (`ge?n[\s.-]?5`) | «ejemplo de gn5» compuso la pirámide de 3.125 personas con total en USD — cuarta baja por tipeo en dos pruebas | `5c4669e` |
 
 ## El Flow del simulador (por qué no abría)
 
@@ -51,7 +53,7 @@ Las descripciones de `NavigationList` admiten **máximo 20 caracteres**; las nue
 ## Pendientes, por orden
 
 1. **Resultado de la prueba del Director** — si falla un punto, esa es la tarea. No darle nada por cerrado sin verlo en la conversación real (leer la BD, no confiar en el resumen).
-2. **Decisión abierta del Director**: ¿guardarraíl de salida que detecte «de por vida» / «ingreso inmediato» en la respuesta antes de enviarla? Propuesto, no aprobado — tiene filo (FREQ_05/herencia usa durabilidad legítimamente).
+2. **Decisión abierta del Director**: ¿guardarraíl de salida que detecte «de por vida» / «ingreso inmediato» / tablas de personas por generación en la respuesta antes de enviarla? Propuesto, no aprobado — tiene filo (FREQ_05/herencia usa durabilidad legítimamente). **La evidencia ya es fuerte**: en la prueba de las 15:45, dos composiciones se colaron pese a las puertas — la tabla precio+comisión (turno 9, «la ganancia de comprar paquetes empresariales» no matchea ningún pin) y la pirámide de 3.125 personas (turno 10, cerrada con el fix de `gn5`). El turno 9 sigue abierto: no hay puerta para esa fórmula y el modelo compone con cifras de `arsenal_12_niveles` en USD.
 3. **Decisión abierta**: el simulador de renta ofrece la tarifa **«Kit de Inicio — 10%»**, pero los arsenales presentan tres formas de empezar sin el Kit. O se decide ofrecerlo (y FREQ_03 lo refleja) o se quita del Flow.
 4. **Los ~19 cierres pendientes** de la revisión respuesta por respuesta (ver handoff del arsenal).
 5. **Barrido de «dirigir»**: ~14 instancias de cara al prospecto en los arsenales (6 inicial, 7 avanzado, 1 compensación).

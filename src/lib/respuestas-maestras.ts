@@ -126,13 +126,13 @@ La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por ca
 
 Y al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
 
-Para que usted dirija sin cargar con la operación, el trabajo pesado lo asumimos nosotros:
+Del trabajo pesado nos encargamos nosotros:
 
 **Gano Excel** pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
 
 **Yo** explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.
 
-A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.
+A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y cobrar cada vez que su canal mueve producto.
 
 ¿Quiere ver cómo se gana?`;
 

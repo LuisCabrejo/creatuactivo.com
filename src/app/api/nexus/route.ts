@@ -4641,8 +4641,13 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // RENTA. El GEN5 solo se dicta cuando alguien lo nombra —gen5 o paquetes—
       // en su mensaje o en la oferta que aceptó. Doce años de campo: el GEN5
       // explicado primero siembra "se gana por traer gente".
+      // El tipo del ejemplo se decide con la OFERTA (la última pregunta del bot),
+      // nunca con el cuerpo del mensaje: WHY_04 menciona "paquetes empresariales"
+      // de pasada al explicar las dos formas de venta, y eso volteaba el default
+      // a GEN5 — el sesgo exacto que la regla debía impedir (prueba 16:36).
+      const _ofertaBot = (_ultimoBotMsg.match(/¿[^?]{5,160}\?/g) || []).pop() || '';
       const _nombraGen5 = /ge?n[\s.-]?5|paquete/i.test(latestUserMessage)
-        || (_aceptaEjemplo && /ge?n[\s.-]?5|paquete/i.test(_ultimoBotMsg));
+        || (_aceptaEjemplo && /ge?n[\s.-]?5|paquete|expansi[oó]n/i.test(_ofertaBot));
       // b[ia]+n[a-z]?r[a-z]?i?o y no "binario" literal: en la prueba del Director
       // "bianrio" —un dedo trocado— no matcheó, el pin no disparó y el modelo
       // compuso una proyección a 18 meses con "de por vida" e "ingreso

@@ -1512,6 +1512,14 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   // 🔥 CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN GENERAL (arsenal_compensacion)
   // Prioridad alta para capturar preguntas sobre el reto, inversión mínima y formas de ganar
   const patrones_compensacion = [
+    // "Bola de nieve" — el propio arsenal la introduce en COMP_MODELO_01 y
+    // COMP_BIN_01, así que la pregunta de seguimiento llega segura. El vector la
+    // resolvía bien sobre la consulta cruda, pero en el canal el CQR reescribe
+    // antes de clasificar y la mandó a arsenal_inicial, donde ningún fragmento la
+    // explica: el modelo compuso el crecimiento contando personas, que es la
+    // silueta que el prospecto reconoce como pirámide. Un concepto que nosotros
+    // nombramos tiene que tener su puerta puesta a mano (10 ago 2026).
+    /bola de nieve/i,
     // ===== RETO DE LOS 12 DÍAS =====
     /reto/i,                           // "reto", "el reto"
     /12.*días/i,                       // "12 días"

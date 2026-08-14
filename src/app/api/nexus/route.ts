@@ -4594,7 +4594,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // esta guarda salía antes de llegar a _aceptaEjemplo, declarado 60 líneas
       // más abajo. El modelo, sin pin, respondió pidiendo el paquete — rompiendo
       // la regla del prompt: al "sí" se entrega lo ofrecido, no otra pregunta.
-      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n/i.test(_ultimoBotMsg);
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana/i.test(_ultimoBotMsg);
       // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.
@@ -4614,14 +4614,22 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // Quien acepta con "sí" no repite el nombre del bono: el tipo de ejemplo se
       // hereda de la OFERTA. Sin esto, aceptar el ejemplo de renta entregaba el
       // de GEN5 — esRenta solo miraba el mensaje del usuario.
-      const _ofrecioRenta = /binario|regal[ií]a|renta|recurrente|clientes consumiendo|cien clientes/i.test(_ultimoBotMsg);
+      const _ofrecioRenta = /b[ia]+n[a-z]?r[a-z]?i?o|regal[ií]a|renta|recurrente|clientes consumiendo|cien clientes/i.test(_ultimoBotMsg);
+      // Prioridad del ingreso recurrente (Director, 14 ago 2026 — misma decisión
+      // que reordenó la servilleta): el camino común es aceptar "¿le muestro los
+      // números?" sin nombrar ningún bono, y ese camino entrega el ejemplo de
+      // RENTA. El GEN5 solo se dicta cuando alguien lo nombra —gen5 o paquetes—
+      // en su mensaje o en la oferta que aceptó. Doce años de campo: el GEN5
+      // explicado primero siembra "se gana por traer gente".
+      const _nombraGen5 = /gen[\s.-]?5|paquete/i.test(latestUserMessage)
+        || (_aceptaEjemplo && /gen[\s.-]?5|paquete/i.test(_ultimoBotMsg));
       // b[ia]+n[a-z]?r[a-z]?i?o y no "binario" literal: en la prueba del Director
       // "bianrio" —un dedo trocado— no matcheó, el pin no disparó y el modelo
       // compuso una proyección a 18 meses con "de por vida" e "ingreso
       // inmediato". Un error de tipeo no puede costar el candado (14 ago 2026).
       const esRenta = (/b[ia]+n[a-z]?r[a-z]?i?o|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
         && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
-        || (_aceptaEjemplo && _ofrecioRenta);
+        || (_aceptaEjemplo && (_ofrecioRenta || !_nombraGen5));
       if (tenantId === 'whatsapp' && esRenta) {
         const esCO2 = visitorCountry === 'CO';
         const r = (cop: string, usd: string) => (esCO2 ? cop : usd);

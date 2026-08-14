@@ -564,6 +564,26 @@ export async function POST(request: Request) {
         if (enviado.ok) console.log('🧮 [WA Webhook] Simulador GEN5 ofrecido');
         else console.warn(`⚠️ [WA Webhook] Flow simulador GEN5 no se pudo enviar: ${enviado.error}`);
       }
+      // ── El simulador viaja pegado a la OFERTA de números, no solo al ejemplo ──
+      // (Director, 14 ago 2026). Nadie escribe la frase exacta que dispara un
+      // pin: si la puerta al simulador exige tipeo, no existe. Cuando Queswa
+      // cierra ofreciendo números, el Flow sale de una vez — abriendo en las
+      // tarifas de renta, porque la prioridad la tiene el ingreso recurrente.
+      // Los ejemplos dictados conservan su propio envío (con su pantalla); este
+      // solo cubre el caso en que la oferta quedó en texto.
+      const _ofreceNumeros = /(le muestro|quiere ver|le enseño)[^?]{0,40}n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|quiere ver c[oó]mo se gana/i.test(queswaReply);
+      if (flowSimulador && _ofreceNumeros && !dictoEjemplo) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si prefiere verlo con sus propios números: elija la tarifa y la cantidad de clientes, y el resultado sale al instante.',
+          'Abrir el simulador',
+          { screen: 'RENTA_MENU' },
+        );
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador ofrecido junto a la oferta de números');
+        else console.warn(`⚠️ [WA Webhook] Flow junto a la oferta no se pudo enviar: ${enviado.error}`);
+      }
+
       if (flowSimulador && queswaReply.includes('Le pongo el ejemplo con un supuesto modesto')) {
         const enviado = await sendFlow(
           phoneNumber,

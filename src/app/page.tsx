@@ -22,8 +22,9 @@
  * - Voz neutra (la home la comparten todos los socios) · sin prometer que no hay
  *   venta ni cobro · "las personas", nunca "la gente".
  *
- * El reel del hero es el explainer vigente (léxico pre-v6.8): se reemplaza subiendo
- * el asset nuevo a Blob con la misma URL, sin tocar este código.
+ * El reel del hero se RETIRÓ (14 ago 2026): el asset era viejo y no hay video nuevo
+ * por ahora. Para restaurarlo: volver a importar HomeManifestoVideo + HOME_MANIFESTO_*
+ * de @/lib/reels y montarlo antes del Eyebrow del hero (ver git log de este archivo).
  *
  * Estructural que NO se toca: `dynamic = 'force-static'` (TTFB CDN edge) · Footer con
  * "Fundada por Luis Cabrejo" (requisito de verificación WhatsApp Business / Meta).
@@ -33,8 +34,6 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
-import HomeManifestoVideo from '@/components/HomeManifestoVideo'
-import { HOME_MANIFESTO_VIDEO, HOME_MANIFESTO_POSTER } from '@/lib/reels'
 
 export const dynamic = 'force-static'
 
@@ -143,27 +142,17 @@ export default function HomePage() {
       <StrategicNavigation />
 
       {/* ═══ HERO — el upgrade que la persona sí calcula ═══
-          El nav es sticky (en flujo): el padding-top ES el gap visible nav→video.
-          30px arriba —medida heredada de la v13.7 y confirmada por el Director
-          (2 ago 2026)— para que en móvil el video se vea completo y bien ubicado
-          al abrir la página. El eyebrow va DEBAJO del video por lo mismo: encima
-          lo empujaba fuera de la primera pantalla. */}
+          Sin video (retirado 14 ago 2026 — asset viejo, sin reemplazo por ahora):
+          la página abre con el eyebrow + H1. El padding-top sube de 30px (medida
+          del layout con video) a 72px para que el titular respire bajo el nav. */}
       <section
         style={{
           background:
             'radial-gradient(ellipse at 50% 0%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
-          padding: '30px 1.5rem 5rem',
+          padding: '72px 1.5rem 5rem',
         }}
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          {/* Reel explainer 9:16 — ABRE la página. Autoplay muted + chip ACTIVAR
-              SONIDO; al terminar se desvanece y abre Queswa. ⏳ Asset = explainer
-              vigente (léxico pre-v6.8) — se reemplaza en Blob con la misma URL,
-              sin tocar código. */}
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '0 0 3.5rem' }}>
-            <HomeManifestoVideo src={HOME_MANIFESTO_VIDEO} poster={HOME_MANIFESTO_POSTER} />
-          </div>
-
           <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
 
           <h1

@@ -1,6 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * /paquetes — Activación de su empresa digital v4.0
+ * /paquetes — Activación de su canal de distribución v4.1
+ * (14 ago 2026: "empresa digital" → "canal de distribución" — doctrina jul 2026 del
+ *  arsenal: la categoría se gana después, el activo se nombra por lo que es)
  *
  * Rediseño desde cero (16 May 2026) — estilo Home con léxico canónico v26.5:
  *  - H1: "ACTIVACIÓN DE SU EMPRESA DIGITAL" (antes "Base Operativa"; previo "Protocolo de Capitalización de Unidades de Suministro")
@@ -48,7 +50,7 @@ const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px
 const WA_BASE = 'https://wa.me/573215193909?text=';
 const waLink = (pkg: string) =>
   WA_BASE + encodeURIComponent(
-    `Hola, Queswa. Quiero activar mi empresa digital con el paquete ${pkg}. Mi nombre es `
+    `Hola, Queswa. Quiero activar mi canal de distribución con el paquete ${pkg}. Mi nombre es `
   );
 
 // ============================================================================
@@ -103,7 +105,7 @@ function Hero() {
           color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 14px rgba(0,0,0,0.95)',
         }}>
-          Activación de<br />su empresa digital
+          Activación de su<br />canal de distribución
         </h1>
 
         {/* Subtítulo */}
@@ -480,12 +482,12 @@ function Faq() {
             a="Su capital se convierte en inventario físico: bebidas enriquecidas y suplementos Gano Excel, productos de alta rotación. No hay cuota de membresía. La activación incluye el acceso al ecosistema CreaTuActivo y a la plataforma Queswa, con el Subsidio de Activación Tecnológica incluido: 1, 2 o 3 meses de plan tecnológico según su paquete."
           />
           <FaqItem
-            q="¿Cuál es el consumo mensual para mantenerla activa?"
-            a="Para mantener su empresa digital activa, se requiere una compra mensual de 50 PV — en producto, unas tres o cuatro cajas. No es una cuota de software: es producto que usted consume o comparte con sus clientes, manteniendo el flujo activo en su canal."
+            q="¿Cuál es el consumo mensual para mantenerlo activo?"
+            a="Para mantener su canal de distribución activo, se requiere una compra mensual de 50 PV — en producto, unas tres o cuatro cajas. No es una cuota de software: es producto que usted consume o comparte con sus clientes, y que mantiene el flujo en movimiento."
           />
           <FaqItem
             q="¿Puedo subir de nivel más adelante?"
-            a="Sí, en cualquier momento. Puede iniciar con ESP-1 para tomar ritmo y, a medida que su empresa digital produce, subir a ESP-2 o ESP-3 para acceder a niveles superiores de rentabilidad."
+            a="Sí, en cualquier momento. Puede iniciar con ESP-1 para tomar ritmo y, a medida que su canal de distribución produce, subir a ESP-2 o ESP-3 para acceder a niveles superiores de rentabilidad."
           />
           <FaqItem
             q="¿Hay costos ocultos o comisiones no declaradas?"
@@ -558,7 +560,7 @@ function Footer() {
         fontFamily: 'var(--font-mono)', color: C.muted,
         fontSize: '0.7rem', letterSpacing: '0.08em', marginBottom: '20px',
       }}>
-        Su empresa digital de ingresos recurrentes
+        Su canal de distribución · Ingresos recurrentes
       </p>
       <div style={{
         display: 'flex', justifyContent: 'center', gap: '32px',

@@ -31,7 +31,7 @@ const C = {
 
 const WA_PLANES = 'https://wa.me/573215193909?text=';
 const waLink = (plan: string) =>
-  WA_PLANES + encodeURIComponent(`Hola, Queswa. Quiero activar el ${plan} para mi empresa digital. Mi nombre es `);
+  WA_PLANES + encodeURIComponent(`Hola, Queswa. Quiero activar el ${plan} para mi canal de distribución. Mi nombre es `);
 
 // ============================================================================
 // PLAN CARD
@@ -278,7 +278,7 @@ export default function PlanesTecnologicosPage() {
             marginBottom: '1rem',
           }}>
             La tecnología que trabaja<br />
-            <span style={{ color: C.textMain }}>por su empresa digital.</span>
+            <span style={{ color: C.textMain }}>por su canal de distribución.</span>
           </h1>
           <div className="planes-hero-line" />
           <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
@@ -309,7 +309,7 @@ export default function PlanesTecnologicosPage() {
                   price="$25"
                   priceCOP="112.500"
                   priceLabel="USD / mes"
-                  profile="La tecnología Queswa para empezar. Para quien inicia su empresa digital."
+                  profile="La tecnología Queswa para empezar. Para quien inicia su canal de distribución."
                   metrics={[
                     { label: 'Prospectos', value: '200' },
                     { label: 'Conversaciones', value: '100/mes' },
@@ -339,7 +339,7 @@ export default function PlanesTecnologicosPage() {
                   price="$49"
                   priceCOP="220.500"
                   priceLabel="USD / mes"
-                  profile="El estándar para quien ya tiene su empresa digital activa y un canal en crecimiento."
+                  profile="El estándar para quien ya tiene su canal de distribución activo y en crecimiento."
                   metrics={[
                     { label: 'Prospectos', value: '500' },
                     { label: 'Conversaciones', value: '500/mes' },
@@ -370,7 +370,7 @@ export default function PlanesTecnologicosPage() {
                   price="$99"
                   priceCOP="445.500"
                   priceLabel="USD / mes"
-                  profile="Para quien multiplica su empresa digital en varios países a la vez."
+                  profile="Para quien multiplica su canal de distribución en varios países a la vez."
                   metrics={[
                     { label: 'Prospectos', value: 'Ilimitados' },
                     { label: 'Conversaciones', value: 'Ilimitadas' },
@@ -487,7 +487,7 @@ export default function PlanesTecnologicosPage() {
                 maxWidth: '520px',
                 margin: '0 auto 2.5rem',
               }}>
-                El primer paso es activar su empresa digital.
+                El primer paso es activar su canal de distribución.
                 El plan tecnológico se incluye con su paquete de productos.
               </p>
               <Link
@@ -529,7 +529,7 @@ VER LOS PAQUETES DE ACTIVACIÓN →
             <div style={{ textAlign: 'center' }}>
               <p style={{ fontWeight: 600, color: C.gold, fontFamily: 'var(--font-sans)', fontSize: '1.125rem' }}>CreaTuActivo</p>
               <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: 'var(--font-mono)', marginTop: '0.25rem' }}>
-                TECNOLOGÍA PARA SU EMPRESA DIGITAL
+                TECNOLOGÍA PARA SU CANAL DE DISTRIBUCIÓN
               </p>
             </div>
             <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: 'var(--font-mono)' }}>
